@@ -1,0 +1,57 @@
+var current = "";
+
+function displayWindow(elementID){
+	jQuery.noConflict();  
+	jQuery(document).ready(function(){
+		jQuery(elementID).show("normal");
+	});
+}
+
+function hideWindow(elementID){
+	jQuery.noConflict();  
+	jQuery(document).ready(function(){
+		jQuery(elementID).hide("normal");
+	});
+}
+
+function fadeIn(elementID){
+	jQuery.noConflict();  
+	jQuery(document).ready(function(){
+		jQuery(elementID).fadeIn("slow");
+	});
+}
+
+function fadeOut(elementID){
+	jQuery.noConflict();  
+	jQuery(document).ready(function(){
+		jQuery(elementID).fadeOut("slow");
+	});
+}
+
+function activeDock(elementID){
+	document.getElementById(elementID).style.display = "none";
+//	displayWindow("#" + elementID + "H");
+	document.getElementById(elementID + "H").style.display = "block";
+}
+
+function desactiveDock(elementID){
+	document.getElementById(elementID).style.display = "block";
+//	displayWindow("#" + elementID + "H");
+	document.getElementById(elementID + "H").style.display = "none";
+}
+
+function launchApplication(elementID, isMapApplication){
+	window.setTimeout("cleanView()", 1000);
+	fadeIn("#" + elementID + "Splash");
+	window.setTimeout("fadeOut('#" + elementID + "Splash')", 5000);
+	window.setTimeout("fadeIn('#" + elementID + "')",  5000);
+	if(isMapApplication){
+//		window.setTimeout("fadeIn('#map_canvas')",  5000);
+	}
+}
+
+function cleanView(){
+	document.getElementById("app1").style.display = "block";
+	document.getElementById("app1H").style.display = "none";
+	document.getElementById("warning").style.display = "none";
+}

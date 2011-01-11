@@ -1,0 +1,2 @@
+file 485626082459d83a74a83c6a8bf2e2146ea5762c chash=3614a2cfd5833227361ad0be2ee613cd0fe7f638 group=sys mode=0644 owner=nobody path=glassfish/modules/console-jruby-plugin-l10n.jar pkg.csize=20447 pkg.size=23580
+file c1315661b0b607c1a739a54eadaea2dca7209c3b chash=e69069cfb72683b0dd2801d2d047cce937c56674 group=sys mode=0644 owner=nobody path=glassfish/modules/console-jruby-plugin-help-l10n.jar pkg.csize=63099 pkg.size=76064

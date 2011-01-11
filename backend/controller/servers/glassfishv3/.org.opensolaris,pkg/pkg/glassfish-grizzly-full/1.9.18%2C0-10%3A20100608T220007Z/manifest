@@ -1,0 +1,12 @@
+set name=fmri value=pkg:/glassfish-grizzly-full@1.9.18,0-10:20100608T220007Z
+set name=info.classification value="Application Servers"
+set name=pkg.description value="Grizzly is an Java NIO framework for building scalable application. It also offers embeddable components supporting HTTP, Bayeux Protocol, Servlet (Partially) and Comet. For more information, see: https://grizzly.dev.java.net/.  GlassFish v3 is an application server created using modular, lightweight, extensible architecture built on OSGi.  It is the first implementation of Java EE 6 standard and is a great developer platform, starts fast, is easy to use and has extensions to support dynamic languages like jRuby."
+set name=pkg.summary value="More Grizzly NIO Framework"
+depend fmri=pkg:/glassfish-grizzly type=require
+license e0273c357c9684d857326451ceeda7917deff925 chash=05a415a9900bab29da1138c275aa69ffc85731f3 license="CDDL and GPL v2 with classpath exception" pkg.csize=11555 pkg.size=36115
+dir group=sys mode=0755 owner=root path=glassfish
+dir group=sys mode=0755 owner=root path=glassfish/modules
+file a7aeb622e17f2c13ac83bd5b395fcfddc136181b chash=1626b25e9d5dce67fa9fbdcbfee1c946a04b0c5e group=sys mode=0664 owner=root path=glassfish/modules/grizzly-comet.jar pkg.csize=24737 pkg.size=27787
+file d35d07eb693de64d4379693c16461860b975cf87 chash=49e58ee86dda51e3aac0ba4d5d3e35394d41365b group=sys mode=0664 owner=root path=glassfish/modules/grizzly-cometd.jar pkg.csize=58797 pkg.size=66722
+file adc7be9ece909249aa0c5ae6bdc2cb311e4b164c chash=45631ccff75ac758f709c782c467b49a3e8f5e05 group=sys mode=0664 owner=root path=glassfish/modules/grizzly-http-servlet.jar pkg.csize=39749 pkg.size=45418
+set name=publisher value=stable.glassfish.org

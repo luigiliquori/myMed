@@ -1,0 +1,14 @@
+set name=fmri value=pkg:/glassfish-nucleus-l10n@3.0.1,0-20.1:20100603T144241Z
+set name=info.classification value="Application Servers"
+set name=pkg.description value="Contains localization of core server infrastructure such as GlassFish kernel, etc. GlassFish v3 is an application server created using modular, lightweight, extensible architecture built on OSGi.  It is the first implementation of Java EE 6 standard and is a great developer platform, starts fast, is easy to use and has extensions to support dynamic languages like jRuby."
+set name=pkg.summary value="GlassFish Nucleus Localization"
+depend fmri=pkg:/glassfish-nucleus type=require
+license e0273c357c9684d857326451ceeda7917deff925 chash=05a415a9900bab29da1138c275aa69ffc85731f3 license="CDDL and GPL v2 with classpath exception" pkg.csize=11555 pkg.size=36115
+dir group=sys mode=0755 owner=nobody path=glassfish
+dir group=sys mode=0755 owner=nobody path=glassfish/modules
+file 82190471fae96cc833ba4b8bef3e7b1ddf922967 chash=ecd90620089dc14d51f03e79076cb5997729fbdc group=sys mode=0644 owner=nobody path=glassfish/modules/launcher-l10n.jar pkg.csize=20221 pkg.size=22572
+file a865267bf77d3afafb106c4ba2e0b9e02aa3413a chash=600179eb3767c59fb8752a5351eae3329704389c group=sys mode=0644 owner=nobody path=glassfish/modules/admin-cli-l10n.jar pkg.csize=169225 pkg.size=178264
+file a461ecf2bd726d7219c8c5f2fe75a8dbfd558f4a chash=f116e87eb92c0e9a643b848b8c20af55b5e9f2e3 group=sys mode=0644 owner=nobody path=glassfish/modules/config-api-l10n.jar pkg.csize=12114 pkg.size=14608
+file 831da1f73d0cd3eb920cda16f0fc156bb10f19b7 chash=22f5f7c2c229ce36d6a298ec5dd8982e10e79f1a group=sys mode=0644 owner=nobody path=glassfish/modules/kernel-l10n.jar pkg.csize=161755 pkg.size=169979
+dir group=sys mode=0755 owner=nobody path=bin
+set name=publisher value=stable.glassfish.org

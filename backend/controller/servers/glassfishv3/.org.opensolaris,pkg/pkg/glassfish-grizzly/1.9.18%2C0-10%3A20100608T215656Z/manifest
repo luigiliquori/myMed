@@ -1,0 +1,13 @@
+set name=fmri value=pkg:/glassfish-grizzly@1.9.18,0-10:20100608T215656Z
+set name=info.classification value="Application Servers"
+set name=pkg.description value="Grizzly is an Java NIO framework for building scalable application. It also offers embeddable components supporting HTTP, Bayeux Protocol, Servlet (Partially) and Comet. For more information, see: https://grizzly.dev.java.net/.  GlassFish v3 is an application server created using modular, lightweight, extensible architecture built on OSGi.  It is the first implementation of Java EE 6 standard and is a great developer platform, starts fast, is easy to use and has extensions to support dynamic languages like jRuby."
+set name=pkg.summary value="Grizzly NIO Framework"
+license e0273c357c9684d857326451ceeda7917deff925 chash=05a415a9900bab29da1138c275aa69ffc85731f3 license="CDDL and GPL v2 with classpath exception" pkg.csize=11555 pkg.size=36115
+dir group=sys mode=0755 owner=root path=glassfish
+dir group=sys mode=0755 owner=root path=glassfish/modules
+file aa0f35538ff953b78ce0b0d7f88c815831c1109e chash=0bc2124b90f5580b8446de07c2605e0231a36114 group=sys mode=0664 owner=root path=glassfish/modules/grizzly-framework.jar pkg.csize=207077 pkg.size=231445
+file e49cad23b033c04559f6d0b1d7f03bd2a255cfb8 chash=c8934766089b0fd7e5b1c81f541ba8763caf36cf group=sys mode=0664 owner=root path=glassfish/modules/grizzly-http.jar pkg.csize=141520 pkg.size=152109
+file 0abcfc99f4d4c47e33b3cc04fc8b6cb01a27c22d chash=a0722fb86772e87e1f1c5734aed35fdf54e7bb06 group=sys mode=0664 owner=root path=glassfish/modules/grizzly-portunif.jar pkg.csize=15676 pkg.size=18022
+file fa7d972bb1fb4d895c7bc272d04c4bae525811e9 chash=52b37d88c95613a833bac80bf367e1168b3e3ec2 group=sys mode=0664 owner=root path=glassfish/modules/grizzly-rcm.jar pkg.csize=7804 pkg.size=9014
+file 87f02cc5edc724b2e15e3ac44585bf04d1df72fd chash=9e4cf9b17148f5c1fa940aef7fda8348b44f87a5 group=sys mode=0664 owner=root path=glassfish/modules/grizzly-utils.jar pkg.csize=403016 pkg.size=437983
+set name=publisher value=stable.glassfish.org

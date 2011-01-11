@@ -1,0 +1,7 @@
+file 08b897d138a4ab3769d52e673efaa5e419080bb6 chash=fba8dcc7558d7594079f7418b0f1d68b368be5ee group=sys mode=0664 owner=root path=glassfish/modules/jettison.jar pkg.csize=59548 pkg.size=66157
+file 4cab1149c73ab284cf140455ff1303f69b4f609c chash=c110245faba6d651182c36b1700536ad7ff99738 group=sys mode=0664 owner=root path=glassfish/modules/jackson-core-asl.jar pkg.csize=87559 pkg.size=99211
+file e368c6f2f0ecab10dfb31053afc02a91357e26a6 chash=9c863a871195a5469a14c0335aa32ce6d2cbad85 group=sys mode=0664 owner=root path=glassfish/modules/mimepull.jar pkg.csize=34347 pkg.size=38732
+file 67ce6bf2435620071369a9f9928de447b200416a chash=4c81d02051db6219def207c4d3be3f70275f82cf group=sys mode=0664 owner=root path=glassfish/modules/jersey-multipart.jar pkg.csize=37863 pkg.size=43870
+file 4c15be06243670f533c93082f1ba62eacbfd6ba6 chash=cdbbbd681dfb2e74f7922e2bb1501b3d26769b20 group=sys mode=0664 owner=root path=glassfish/modules/jsr311-api.jar pkg.csize=39476 pkg.size=46009
+file f54323b4fad42de746e21586a621f0afe6fda91f chash=66b55b483b6d685082663b4245a37c377868cbdb group=sys mode=0664 owner=root path=glassfish/modules/jersey-gf-bundle.jar pkg.csize=988713 pkg.size=1138929
+file 17d17ee88046c532aac449da1b689a0bfae55d3c chash=3ce91a4a145372247cc10dfccbdb9f80e2367171 group=sys mode=0664 owner=root path=glassfish/modules/jersey-gf-statsproviders.jar pkg.csize=16032 pkg.size=20720

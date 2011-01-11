@@ -1,0 +1,3 @@
+file a7aeb622e17f2c13ac83bd5b395fcfddc136181b chash=1626b25e9d5dce67fa9fbdcbfee1c946a04b0c5e group=sys mode=0664 owner=root path=glassfish/modules/grizzly-comet.jar pkg.csize=24737 pkg.size=27787
+file d35d07eb693de64d4379693c16461860b975cf87 chash=49e58ee86dda51e3aac0ba4d5d3e35394d41365b group=sys mode=0664 owner=root path=glassfish/modules/grizzly-cometd.jar pkg.csize=58797 pkg.size=66722
+file adc7be9ece909249aa0c5ae6bdc2cb311e4b164c chash=45631ccff75ac758f709c782c467b49a3e8f5e05 group=sys mode=0664 owner=root path=glassfish/modules/grizzly-http-servlet.jar pkg.csize=39749 pkg.size=45418

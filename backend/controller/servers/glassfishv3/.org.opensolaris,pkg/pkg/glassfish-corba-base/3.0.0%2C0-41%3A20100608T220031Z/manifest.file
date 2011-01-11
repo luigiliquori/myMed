@@ -1,0 +1,2 @@
+file 0191279eff72fafb85c28012d953959920c8e3df chash=b94139739cb40ef4c482ec9951492cabbd9e9bbb group=sys mode=0664 owner=root path=glassfish/modules/glassfish-corba-omgapi.jar pkg.csize=254177 pkg.size=297635
+file f579f326f7ab76106a139adc2bb65c5d3ed31e80 chash=2449affa4a2c3dbf9f1b06ff208685679f99e44e group=sys mode=0664 owner=root path=glassfish/modules/glassfish-corba-orbgeneric.jar pkg.csize=118419 pkg.size=140677

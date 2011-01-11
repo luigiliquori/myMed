@@ -1,0 +1,5 @@
+file 877951307cb89164b3e1f4d7a7415e10690d9496 chash=e2effed73e98788b06aecac2844a711213e827d8 group=sys mode=0664 owner=root path=glassfish/modules/grizzly-jruby.jar pkg.csize=102132 pkg.size=109673
+file 917cb4a958b1f10478ac631b79bf709614990595 chash=d7b64072882d1a71d34a5d95d7581fdbd39c4dad group=sys mode=0664 owner=root path=glassfish/modules/console-jruby-plugin.jar pkg.csize=18852 pkg.size=21322
+file e70eee11ccc3d01b6e300f0e72f3fd240d480a9f chash=77119d835f381807c21f4d63856c78def51f191d group=sys mode=0664 owner=root path=glassfish/modules/console-jruby-plugin-help.jar pkg.csize=8487 pkg.size=10619
+file 9944a3bbd920e4360609f9240302650285d368ea chash=ca1eb2a95651d7e2eb2e00897abf745b486a3797 group=sys mode=0664 owner=root path=glassfish/modules/gf-jruby-connector.jar pkg.csize=22480 pkg.size=27694
+file edf4fb51dd7c87a5e0b7458178676127a51c558d chash=aa6586056ddd4538be76489613bf385119cc4735 group=sys mode=0664 owner=root path=glassfish/modules/grizzly-jruby-module.jar pkg.csize=43013 pkg.size=50049

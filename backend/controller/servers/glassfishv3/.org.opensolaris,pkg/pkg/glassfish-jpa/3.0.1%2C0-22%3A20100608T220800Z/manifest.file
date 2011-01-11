@@ -1,0 +1,9 @@
+file e9be96f64676419870549263e7528984d0456c1b chash=bde059555f46f9e89bacbc979b9617035159767f group=sys mode=0664 owner=root path=glassfish/modules/org.eclipse.persistence.antlr.jar pkg.csize=53349 pkg.size=66408
+file b2038a491a455fefc1e41c33e07993a672989825 chash=192caacb2f3e2b5b6c8c58bed200dd427fdd944c group=sys mode=0664 owner=root path=glassfish/modules/org.eclipse.persistence.asm.jar pkg.csize=199837 pkg.size=225967
+file 048b016f588081f2de3dd6d6b23ed1162bd6e42e chash=c77ababf3586b1262dd5d6ce71b64ca26e065b24 group=sys mode=0664 owner=root path=glassfish/modules/org.eclipse.persistence.core.jar pkg.csize=3696112 pkg.size=4005075
+file ad02a75c078e0e1c6d2b99cfb8c1f6484f5775cd chash=245b2e1c06b0870a68bb809ef8f037256feda35a group=sys mode=0664 owner=root path=glassfish/modules/org.eclipse.persistence.jpa.modelgen.jar pkg.csize=43343 pkg.size=46665
+file fc9e62e4a0ade50b612c2d7d432f77cfa69c0072 chash=72fe314ee40feca8a2a813b5779b7bc98444eb33 group=sys mode=0664 owner=root path=glassfish/modules/org.eclipse.persistence.jpa.jar pkg.csize=725050 pkg.size=790655
+file a5d7fdcb266a63bc3a1045fe4f1503660f647137 chash=06eb88e924f40d964d0c862e9a9f308d25c73a0a group=sys mode=0664 owner=root path=glassfish/modules/org.eclipse.persistence.oracle.jar pkg.csize=69912 pkg.size=79939
+file 8db77d8e74fefee56304a5683b8086276d34c36b chash=c6292f5f608b6a3a5d57ce1c20367933a1ba7480 group=sys mode=0664 owner=root path=glassfish/modules/glassfish-oracle-jdbc-driver-packages.jar pkg.csize=2460 pkg.size=3305
+file 42c3b0580176fc9c60873a4dffba681a092edab9 chash=bb6cc926670649f8bffab308937d3fa299695c19 group=sys mode=0664 owner=root path=glassfish/modules/jpa-connector.jar pkg.csize=29131 pkg.size=32430
+file eb4d21241c7c024de76301a3b650e54a47f77ac8 chash=696a8cf3059820d38bbb6f3cdaacd3cea0f45aa4 group=sys mode=0664 owner=root path=glassfish/modules/persistence-common.jar pkg.csize=21163 pkg.size=23699

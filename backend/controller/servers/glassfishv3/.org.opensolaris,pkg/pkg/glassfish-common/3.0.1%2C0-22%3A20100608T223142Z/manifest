@@ -1,0 +1,151 @@
+set name=fmri value=pkg:/glassfish-common@3.0.1,0-22:20100608T223142Z
+set name=info.classification value="Application Servers"
+set name=pkg.description value="GlassFish common utilities and components.  GlassFish v3 is an application server created using modular, lightweight, extensible architecture built on OSGi.  It is the first implementation of Java EE 6 standard and is a great developer platform, starts fast, is easy to use and has extensions to support dynamic languages like jRuby."
+set name=pkg.summary value="GlassFish Common Components"
+depend fmri=pkg:/glassfish-nucleus type=require
+depend fmri=pkg:/glassfish-corba-base type=require
+depend fmri=pkg:/glassfish-grizzly-full type=require
+license e0273c357c9684d857326451ceeda7917deff925 chash=05a415a9900bab29da1138c275aa69ffc85731f3 license="CDDL and GPL v2 with classpath exception" pkg.csize=11555 pkg.size=36115
+dir group=sys mode=0755 owner=root path=glassfish
+dir group=sys mode=0755 owner=root path=glassfish/modules
+dir group=sys mode=0755 owner=root path=glassfish/lib
+file c00c49ae9e83e5a3498fcd4e0c62371376532333 chash=04778680af9af0cfa082c7f36aa6d4706fb5f8bf group=sys mode=0664 owner=root path=glassfish/modules/transaction-internal-api.jar pkg.csize=10265 pkg.size=14195
+file 7f2a4fffb8df28978d27484e08c0dd5dfd0ec828 chash=184c7a7850d5c1b76912de61ac298b98cf66f00b group=sys mode=0664 owner=root path=glassfish/modules/stats77.jar pkg.csize=9304 pkg.size=14717
+file e2386d05a60d56cd8bcc116f534a258ba3739ef0 chash=39a9c6665d61b171731758d56fabc28e9810c899 group=sys mode=0664 owner=root path=glassfish/modules/server-mgmt.jar pkg.csize=113728 pkg.size=123333
+file f4643e4952b511f379a179a61a10ac5de18e289d chash=4f5a8e2094652bf848a390f1ad5b50fc154f29d5 group=sys mode=0664 owner=root path=glassfish/modules/security.jar pkg.csize=537050 pkg.size=593794
+file e96cc2639a4bf1ee53412cdf8546aca2ba8105a0 chash=7f6343e58a7cf1f2762e8e9c8d78cebb07786495 group=sys mode=0664 owner=root path=glassfish/modules/osgi-container.jar pkg.csize=10465 pkg.size=12960
+file 9cf02a28b030bd30c97f66dfb0ac3644eaad3430 chash=2383896ec611eccf8b40f6b4772a5618677cde8c group=sys mode=0664 owner=root path=glassfish/modules/orb-connector.jar pkg.csize=36945 pkg.size=43115
+file 8947e808e48a732a5d937c99198df0a6631de699 chash=0aacd868b3125c4f7817aea87d56914821ce298a group=sys mode=0664 owner=root path=glassfish/modules/monitoring-core.jar pkg.csize=130374 pkg.size=152542
+file 2439196e2bf537c53def15e72014b24e9ba32b34 chash=36549415f70412b79132ffacb7ea9b007c5ffa3c group=sys mode=0664 owner=root path=glassfish/modules/mail.jar pkg.csize=426317 pkg.size=456151
+file 2017697209febe6af5ee9d2330ab78cc68b66823 chash=c871abf461c45407e1b68d4a4261118c014bd0c8 group=sys mode=0664 owner=root path=glassfish/modules/ldapbp-repackaged.jar pkg.csize=46079 pkg.size=52331
+file 331cf1fff4115d723a8a3ead38bba5c94d7f0157 chash=48b6fc5bab830580ec9ff1978033391198e16da9 group=sys mode=0664 owner=root path=glassfish/modules/jmxremote_optional-repackaged.jar pkg.csize=218379 pkg.size=242155
+file 17f88e8007e53cb5f066649f8afadc5caedc4c26 chash=994de06284e5c1bace17ab3ae8a5196695849a95 group=sys mode=0664 owner=root path=glassfish/modules/jaxb-osgi.jar pkg.csize=4685060 pkg.size=5276022
+file 976956228f9ef9d10d8b14fe1fb1fd2001dd8fec chash=5a5669077b0310178320ef32312cd858b2e3d8b9 group=sys mode=0664 owner=root path=glassfish/modules/javax.transaction.jar pkg.csize=20427 pkg.size=23594
+file a506c8a1bc38efdd23d9b4f59a98206a0e6ec73b chash=08911891f45b4226a5ff0c43c6b415769c26db72 group=sys mode=0664 owner=root path=glassfish/modules/javax.security.jacc.jar pkg.csize=37897 pkg.size=40442
+file a68fe9c531323bfc644efab6caa5878711e878f2 chash=7e2c56608e64b7f84547596e0882b1c340aa01b4 group=sys mode=0664 owner=root path=glassfish/modules/javax.security.auth.message.jar pkg.csize=28661 pkg.size=35693
+file d6f328054e815efc765ee070dfad151bf7252ac8 chash=95d940289bcdc563082ae0d986ac0cc7c756904b group=sys mode=0664 owner=root path=glassfish/modules/javax.resource.jar pkg.csize=52380 pkg.size=65507
+file d34bb0a69cf41f0409269399bd9da78242f1169c chash=265a4f18bb2161fd1a6de83834896ccf5ba32ac4 group=sys mode=0664 owner=root path=glassfish/modules/javax.persistence.jar pkg.csize=107812 pkg.size=130613
+file bb42d5b6fb290341589b905cc0781a8dde031c00 chash=862874e4aa31e85d57de022ea15553f2a01bf6c4 group=sys mode=0664 owner=root path=glassfish/modules/javax.management.j2ee.jar pkg.csize=21699 pkg.size=27709
+file e504593abc1be4c09a82d5bcfc57206bc88ed636 chash=4739491374888967b9e537c9ed2ea3500c35c79e group=sys mode=0664 owner=root path=glassfish/modules/javax.enterprise.deploy.jar pkg.csize=29661 pkg.size=36552
+file 97fdbffa94313562083ffa52685d6bfe1cecdfc2 chash=9e5bd2fde5ddc62e8786603b5a59724d2686d2b1 group=sys mode=0664 owner=root path=glassfish/modules/javax.ejb.jar pkg.csize=50798 pkg.size=62123
+file 204f7b438626e9f04eecef336eae9b4a8c6bd77a chash=4e0f8b68d188223c0ff154e4b5bc0746673e4193 group=sys mode=0664 owner=root path=glassfish/modules/inmemory.jacc.provider.jar pkg.csize=21788 pkg.size=24934
+file 2967a592086caeb09d82cb29622e419859f087b5 chash=2c0b90d0ff815a51ba228eefd584ec1447bb8db0 group=sys mode=0664 owner=root path=glassfish/modules/grizzly-container.jar pkg.csize=10047 pkg.size=12277
+file e6fc2697aa67c154dfd5645466dfcae02b430913 chash=3850b71ffc28599bbd27c1941181dd06adca0cf1 group=sys mode=0664 owner=root path=glassfish/modules/glassfish-naming.jar pkg.csize=66596 pkg.size=75485
+file af4d4382c0f348c3a8c44ff4f340b6ea3b4f93dd chash=f9d945e8f7f3049b12b6d03acd3a657ec3fee7aa group=sys mode=0664 owner=root path=glassfish/modules/glassfish-mbeanserver.jar pkg.csize=27771 pkg.size=31718
+file 8b4289d0e4f8fdabb0048f6607be9782909e54b7 chash=9565701511819c7f5eb443a46ca0ba756ae78f62 group=sys mode=0664 owner=root path=glassfish/modules/ejb-internal-api.jar pkg.csize=7547 pkg.size=10161
+file 03cfc048cb30196a5bf63be4f57a608849badf5b chash=e2fc830b72c980ecd890fd866d5a368d201c2235 group=sys mode=0664 owner=root path=glassfish/modules/dol.jar pkg.csize=973666 pkg.size=1067394
+file 07f6fc4ec20972aaeaa670607dc19b0589905049 chash=117c94c9d0674188b689e469b42fffb8eda4fb6f group=sys mode=0664 owner=root path=glassfish/modules/deployment-javaee-core.jar pkg.csize=17474 pkg.size=19728
+file f8e68f0a5f54989869fd2d4729df2f8772c235ab chash=0242ad3e8e78c3815535f32c3bd101736a98cfb2 group=sys mode=0664 owner=root path=glassfish/modules/deployment-client.jar pkg.csize=76844 pkg.size=83485
+file 2022964d275f720af574d2ffa2a3c467daa4fa73 chash=c8ea0353064ef79721987134b718e90b86602c8b group=sys mode=0664 owner=root path=glassfish/modules/container-common.jar pkg.csize=141423 pkg.size=171919
+file 7ddf085ad1337850a85421840460242994290147 chash=82db803fe008219ce2063b66b8f28c9b0add0523 group=sys mode=0664 owner=root path=glassfish/modules/connectors-internal-api.jar pkg.csize=51771 pkg.size=59446
+file b370cff12ce23b69891ecb612953a0242c39a5f8 chash=2a0784ac4b1d52f15db042e2779cd84f3d7620ca group=sys mode=0664 owner=root path=glassfish/modules/cli-optional.jar pkg.csize=66884 pkg.size=72277
+file e7013ba42b3426feb937afbd22811a5feedb4cba chash=4ac3243f45ac203f0e14943a4650c9e949fd8810 group=sys mode=0664 owner=root path=glassfish/modules/cli-framework.jar pkg.csize=77987 pkg.size=85272
+file b0d3e789cc435af32e950de732236250d33fa06e chash=d8d433af0478b696865dc43b5c2f8a36206328d6 group=sys mode=0664 owner=root path=glassfish/modules/ant.jar pkg.csize=1186612 pkg.size=1286137
+file b01e8fc079caeb4da059716e452823c0c81b3342 chash=989818217b032fac68af11d822afb97e4ddf2ba1 group=sys mode=0664 owner=root path=glassfish/modules/appclient-server-core.jar pkg.csize=179444 pkg.size=198928
+file f382e1dfb37fc28dd15e02719f6081f3b531b977 chash=d236707c95d629e4935d75bad3dce335ceda05c1 group=sys mode=0664 owner=root path=glassfish/modules/appclient-connector.jar pkg.csize=4557 pkg.size=6184
+file a589695dde2431fec99ea953b59600bce62eb0f2 chash=3f81580fe86483c3cc7c1dfd5fa6e19aa2ddfa1e group=sys mode=0664 owner=root path=glassfish/modules/annotation-framework.jar pkg.csize=29617 pkg.size=34515
+file e2cd76f398303768127d55cf3e1b5abaad175676 chash=2cb150689a5afb587b0e5a1342567c0647554433 group=sys mode=0664 owner=root path=glassfish/modules/amx-j2ee.jar pkg.csize=14988 pkg.size=21923
+file 1582848c3934f2b4b64e9e31700c1b0bad56bcab chash=4c4ddb8a77200453c41886891a11798cd8ad8d8e group=sys mode=0664 owner=root path=glassfish/modules/amx-j2ee-impl.jar pkg.csize=45084 pkg.size=53162
+file 29920a04de2be76614cde8bbe317855a7797d14a chash=bee02c3db3202592bcd82eac42a803b3bb2a4045 group=sys mode=0664 owner=root path=glassfish/modules/amx-ext-impl.jar pkg.csize=36371 pkg.size=38980
+file 87500877b948ab287a011bc8de0e4120757b3f42 chash=60b174d71f68b11e03fbfe90350ea84297e091eb group=sys mode=0664 owner=root path=glassfish/modules/amx-core.jar pkg.csize=235331 pkg.size=262592
+file 6100cedccde3aa10ccde93270e7adde6ef1706a5 chash=fa6648679547eb770b8153b529b3063e266148b7 group=sys mode=0664 owner=root path=glassfish/modules/amx-core-impl.jar pkg.csize=71631 pkg.size=77481
+file 5acce8a384324b08d345524542ebebb6e7b17960 chash=74fcb7f8de2272db420e3fcc80b3b5c4432fef98 group=sys mode=0664 owner=root path=glassfish/modules/amx-config.jar pkg.csize=59365 pkg.size=83675
+file dbf258fd2839bdda6e03b84ec25a1df703861bd0 chash=a7b7ef6e86ced18e6acd42fd19ed15ba882beb00 group=sys mode=0664 owner=root path=glassfish/modules/amx-config-impl.jar pkg.csize=75296 pkg.size=81345
+file 6419148e399e4846fffa5878456ba7f7e6cadc28 chash=6c3bbf069be746e938f1377fdd2cd728e080d107 group=sys mode=0664 owner=root path=glassfish/modules/admin-util.jar pkg.csize=45439 pkg.size=51567
+file 4aef2c6964b9a34f49d971850da2339b7e96d80c chash=3af01344da1955bb966213cc61df43f9865c8384 group=sys mode=0664 owner=root path=glassfish/modules/admin-core.jar pkg.csize=3066 pkg.size=4177
+dir group=sys mode=0755 owner=root path=glassfish/modules/endorsed
+file bf5927e3ade8e2ba39f6f198e6134de6004eb5bb chash=9b281c4524faa065752c6257707aa4f045afc547 group=sys mode=0664 owner=root path=glassfish/modules/endorsed/jaxb-api-osgi.jar pkg.csize=91039 pkg.size=104194
+file 6bcc4c3dfa594873ce2a60d1c8d885d9d705787e chash=daba9e3d3431f0450149233db9ab6a6ce8d084d2 group=sys mode=0664 owner=root path=glassfish/modules/endorsed/javax.annotation.jar pkg.csize=19065 pkg.size=21704
+file 8379442fc3cdbe21bb2e62654640aaa8594e9a82 chash=524544443dcd9fdc17c87c96780dc70548c634b5 group=sys mode=0664 owner=root path=glassfish/lib/appserv-rt.jar pkg.csize=1964 pkg.size=2634
+file e7bfec848ba1381bcf06654824f800047427c9f5 chash=505cddd224a4e207dccfe5cd8b144b8b0df3a965 group=sys mode=0664 owner=root path=glassfish/lib/javaee.jar pkg.csize=2168 pkg.size=2808
+dir group=sys mode=0755 owner=root path=glassfish/lib/schemas
+dir group=sys mode=0755 owner=root path=glassfish/lib/dtds
+dir group=sys mode=0755 owner=root path=glassfish/lib/embedded
+file 8e910e6f6af503531f278f796b16ae56816a6e5e chash=c14687091a4427825ee62298c39447b00ce8595f group=sys mode=0664 owner=root path=glassfish/lib/schemas/xml.xsd pkg.csize=1067 pkg.size=2922
+file 76485f9f641f24840f14bf0bfd76c3bfae78dd18 chash=b4a58d93f4b60da1bc53824c5de4e0615a0680ff group=sys mode=0664 owner=root path=glassfish/lib/schemas/web-jsptaglibrary_2_1.xsd pkg.csize=6503 pkg.size=32204
+file 462d87f341efa70f0b68394d7d3a163f9d664581 chash=ebee1ea90e8ea5bd66f5f1a33d4961b2a5e3c6ac group=sys mode=0664 owner=root path=glassfish/lib/schemas/web-jsptaglibrary_2_0.xsd pkg.csize=5839 pkg.size=27609
+file f6f55305d06461e9d54b3a3f4560ffef20ae3fe6 chash=fe69e45eda88ec4001b6dd7fddcb12009adc3f0e group=sys mode=0664 owner=root path=glassfish/lib/schemas/web-fragment_3_0.xsd pkg.csize=2671 pkg.size=10151
+file 1b53a9da67804be44bc4af833fc81c03d5c69e0a chash=26a9f7ae012630d416c064ac557c8c6f725aa85f group=sys mode=0664 owner=root path=glassfish/lib/schemas/web-facesconfig_2_0.xsd pkg.csize=13665 pkg.size=112699
+file 9b52b2a014ac93977898011721df3ed823af4fa2 chash=ec46b8f6aef745c25f5bd19fc645fb11dfe6ca18 group=sys mode=0664 owner=root path=glassfish/lib/schemas/web-facesconfig_1_2.xsd pkg.csize=10529 pkg.size=85439
+file 002778a97984fcdf99b005bd6dca1b5647f803b8 chash=56e1079b9933f6e6802cdd0ee392a77316dc4035 group=sys mode=0664 owner=root path=glassfish/lib/schemas/web-facelettaglibrary_2_0.xsd pkg.csize=2955 pkg.size=17855
+file d712da4cf9701c21aa924bcb0adfccc4c44b110f chash=90eb6190f3d2779f56908e711f212ea5550f3d4c group=sys mode=0664 owner=root path=glassfish/lib/schemas/web-common_3_0.xsd pkg.csize=8099 pkg.size=51729
+file 502d876ac380cc80c67044044393ef3f2cb2396c chash=89772448f035f0a70b358e685d228d4ba60eac74 group=sys mode=0664 owner=root path=glassfish/lib/schemas/web-app_3_0.xsd pkg.csize=2674 pkg.size=10943
+file b2691c00b5a65b6460452e5fa71eb4aa136a37de chash=49d1b2feb6a90b9ac78d7813b0aa7ef4d49a2a79 group=sys mode=0664 owner=root path=glassfish/lib/schemas/web-app_2_5.xsd pkg.csize=7517 pkg.size=38549
+file 018c83300dd7ebc7c19c7bcb9d333a8fc1b495e2 chash=aa840710d8a257dc0aee2dbe892793ddca34978d group=sys mode=0664 owner=root path=glassfish/lib/schemas/web-app_2_4.xsd pkg.csize=7131 pkg.size=37061
+file 45f3a6d284470458d1b7738d62d1ee13af1e8621 chash=71b350182eda0ce2566517ac2a723ccfaa713cd0 group=sys mode=0664 owner=root path=glassfish/lib/schemas/persistence_2_0.xsd pkg.csize=2186 pkg.size=12672
+file 47640df2fc242f398edada7616aa7f91174354a3 chash=bcdbd60ccc17adabb3ab986a2821e8db789ef922 group=sys mode=0664 owner=root path=glassfish/lib/schemas/persistence_1_0.xsd pkg.csize=1517 pkg.size=8856
+file 8c4ff5795597c24d5c7c2ae3a08a1ff99daabb2e chash=48f49edc7598e2be6e4c73314141cfbb78daccd8 group=sys mode=0664 owner=root path=glassfish/lib/schemas/orm_2_0.xsd pkg.csize=6448 pkg.size=71377
+file 22e560f5ec31e7a82f0c00e5a3f1ad91d6039e20 chash=71e9a3f672a3c49880716e88a1816d42d2a86612 group=sys mode=0664 owner=root path=glassfish/lib/schemas/orm_1_0.xsd pkg.csize=5344 pkg.size=52445
+file 993483b7364cc194411965b6b339059f90946393 chash=da66402ea4c4c6dabe48b23f3e247ad291be5941 group=sys mode=0664 owner=root path=glassfish/lib/schemas/jsp_2_2.xsd pkg.csize=3607 pkg.size=13269
+file a138d7e990ddaaa2b36d37e091a7174b0dc5157f chash=f18d2ccac444717090355d7ba1e39d360ad93b89 group=sys mode=0664 owner=root path=glassfish/lib/schemas/jsp_2_1.xsd pkg.csize=3264 pkg.size=11484
+file a3939ff95bc0466f55645f9de318da41d12369c9 chash=55c1ffac2ffb88282aa258eebba8609b45a4a946 group=sys mode=0664 owner=root path=glassfish/lib/schemas/jsp_2_0.xsd pkg.csize=3013 pkg.size=10253
+file 63beded973fefa3a506a86f86626ac7594813b4c chash=6dba7fe03c6c9291bc1b244e5f600d8e70c6ff06 group=sys mode=0664 owner=root path=glassfish/lib/schemas/jax-rpc-ri-config.xsd pkg.csize=2459 pkg.size=16497
+file df12d78d2b0530f0bbefa1094fb28bb086f4c944 chash=4142b4ae656e85202e87f0bc2c72d75b12c8c097 group=sys mode=0664 owner=root path=glassfish/lib/schemas/javaee_web_services_client_1_3.xsd pkg.csize=5104 pkg.size=26834
+file f9fdf3a630b64a2ff9949746bee02c1b9d22ea9a chash=a6bee4894bd00aea2438327e60c31f3979339738 group=sys mode=0664 owner=root path=glassfish/lib/schemas/javaee_web_services_client_1_2.xsd pkg.csize=4185 pkg.size=18354
+file 8cd832fe033c93995a6f4a0aac8e48dee339b6c7 chash=337b47947e43bae1b375904ec7a5361cd5ab82c6 group=sys mode=0664 owner=root path=glassfish/lib/schemas/javaee_web_services_1_3.xsd pkg.csize=4126 pkg.size=20610
+file abf2b718dd41ba9f67a0c7b8cecdbaeb1a32cd93 chash=409fba38c9623f287a451d87e58d359b05623f1c group=sys mode=0664 owner=root path=glassfish/lib/schemas/javaee_web_services_1_2.xsd pkg.csize=4963 pkg.size=23140
+file 272525fa8525c67efc5d33538e582e84d7980a2d chash=5d1900ac1e3c8b1cfdd1b8f51f2186973c263a79 group=sys mode=0664 owner=root path=glassfish/lib/schemas/javaee_6.xsd pkg.csize=11513 pkg.size=80972
+file 8d2cb6c3f407736afc662ea678a9ee59526b87a0 chash=c1b0100902616c7e711c33d8220cb66c05f78be7 group=sys mode=0664 owner=root path=glassfish/lib/schemas/javaee_5.xsd pkg.csize=9805 pkg.size=63023
+file adaa03ac75401b12de2ab16b32942441d70623a8 chash=5d46e6bab008612df25f3289aa8373a74ea150c5 group=sys mode=0664 owner=root path=glassfish/lib/schemas/XMLSchema.dtd pkg.csize=4034 pkg.size=16078
+file 7cd830bd46cd9efa6c6da6912dc1110f5afd661c chash=09daa46ea02a1e83a9e8c7685949d37ccd3a6385 group=sys mode=0664 owner=root path=glassfish/lib/schemas/application-client_1_4.xsd pkg.csize=2444 pkg.size=8823
+file a3b0d4845829a18d508e5d227c5b06c6fa9ab788 chash=f1b259db23be8656220d0f4bd98396eb3c44adfa group=sys mode=0664 owner=root path=glassfish/lib/schemas/application-client_5.xsd pkg.csize=2744 pkg.size=10196
+file 45f6d908c673ca4d82a63d09bcff4e573894d2eb chash=3f9c421aceddb1ac52fbcdb70aedcfbdd1e37da6 group=sys mode=0664 owner=root path=glassfish/lib/schemas/application-client_6.xsd pkg.csize=3044 pkg.size=12488
+file 8da4d46a442fc751c6a4b70f1088423726eccb4c chash=bb2beba5dbe7bcfafc0094af6dd584013476340c group=sys mode=0664 owner=root path=glassfish/lib/schemas/application_1_4.xsd pkg.csize=2451 pkg.size=9059
+file a33fabad58a1b7fb0a5f1a70d94daec946405f20 chash=43e5633ef27cda419851cd176850dee44b541721 group=sys mode=0664 owner=root path=glassfish/lib/schemas/application_5.xsd pkg.csize=2610 pkg.size=9805
+file 378e486ef48cb7b3e606f0712fb20f2ec5564e0e chash=98277f6632bf190752ef36685b0f6e11f0a64936 group=sys mode=0664 owner=root path=glassfish/lib/schemas/application_6.xsd pkg.csize=3200 pkg.size=14451
+file f2993603be0fc1f5b875d20548db6a0a00dd1901 chash=88598c853300cd8a57074f35b644386b4666d2ad group=sys mode=0664 owner=root path=glassfish/lib/schemas/beans_1_0.xsd pkg.csize=1953 pkg.size=8752
+file 75cfb4052bf83381d070590d8bde123f934f7f82 chash=3c95f59699aea4bcffe36dc72f73c2afe80b8eb3 group=sys mode=0664 owner=root path=glassfish/lib/schemas/datatypes.dtd pkg.csize=1765 pkg.size=6360
+file 0ad5304f6153f873d0c812bb5fe280bbe9d38436 chash=cff48c199421d4a66ca93faf8dcfe669880068e7 group=sys mode=0664 owner=root path=glassfish/lib/schemas/ejb-jar_2_1.xsd pkg.csize=10412 pkg.size=68441
+file f0810615761e965ccfc2e9ac62f8589170ccf623 chash=60c983c341232495e8256c45b3a420b5648f8371 group=sys mode=0664 owner=root path=glassfish/lib/schemas/ejb-jar_3_0.xsd pkg.csize=13376 pkg.size=88281
+file 79d7b4db5040cf91483efcdd5d538c3063b148da chash=e34656948c12d75f0b97b283a2d7260855feff7e group=sys mode=0664 owner=root path=glassfish/lib/schemas/ejb-jar_3_1.xsd pkg.csize=16272 pkg.size=119009
+file 8ab1b73a9752781123d738b0d3c0b6b7600886cf chash=8dcf6cdd0ab317804d3fe76226dc830a5c446c44 group=sys mode=0664 owner=root path=glassfish/lib/schemas/j2ee_1_4.xsd pkg.csize=7464 pkg.size=45896
+file 45d0e1465a0806148a6ce5db91e5cd5594c6450d chash=2a66b2b2c6ad64a61ed24f5a19f71e928f3df624 group=sys mode=0664 owner=root path=glassfish/lib/schemas/j2ee_jaxrpc_mapping_1_1.xsd pkg.csize=4823 pkg.size=26698
+file 07bbd7ba46054008e4e7518a15cf59f5c67e5482 chash=10c362c8a5d0eec668bcafcf1b9142a9a597598e group=sys mode=0664 owner=root path=glassfish/lib/schemas/j2ee_web_services_1_1.xsd pkg.csize=3329 pkg.size=14686
+file 1d9688f3ace947088a76a0580e21e0a59d5fb88e chash=15f6644396c2b572695bb900389003b175eaf942 group=sys mode=0664 owner=root path=glassfish/lib/schemas/j2ee_web_services_client_1_1.xsd pkg.csize=2555 pkg.size=10402
+file ae9da11ad530dbf62b4dade07e273de81e6761bd chash=fd7fb392a46e051cc49c4f3400a8c25019a4302b group=sys mode=0664 owner=root path=glassfish/lib/dtds/sun-ejb-jar_2_0-0.dtd pkg.csize=3959 pkg.size=14112
+file c3a515b62fc43deaca9ed6321b5a52eaf0e313b9 chash=f659a7c0eccae0657e9b1ae6e1ea1f871e7613e3 group=sys mode=0664 owner=root path=glassfish/lib/dtds/sun-domain_1_3.dtd pkg.csize=36116 pkg.size=186023
+file 0f32ee82d98766d8805671a2bb18ef92c9bc554a chash=386b854deb0e42dd19c3fc6ff39e30ab3a9bcc9c group=sys mode=0664 owner=root path=glassfish/lib/dtds/sun-domain_1_2.dtd pkg.csize=34445 pkg.size=174641
+file 6e1254c8f109371b08d5a7f5b45d4d59f5e3712a chash=6a18135116d2515511bca61cc356cd61753003a5 group=sys mode=0664 owner=root path=glassfish/lib/dtds/sun-domain_1_1.dtd pkg.csize=27794 pkg.size=142757
+file 485fa597949813957d7b26668394719a22f08f62 chash=e8a9724a91cd94115dc20c5d0baf5bcc646bb992 group=sys mode=0664 owner=root path=glassfish/lib/dtds/sun-domain_1_0.dtd pkg.csize=24993 pkg.size=104353
+file 0c9a1bd6878106ade4943be2096b11465085965f chash=068b4f2bad7bda7de0177877cdcf7efe50523f55 group=sys mode=0664 owner=root path=glassfish/lib/dtds/sun-cmp-mapping_1_2.dtd pkg.csize=1467 pkg.size=4233
+file 2378cb58435dbb592cc9c71ca1ed2ccc6955751a chash=4d39d7e9f7ed958ebe2d2177cbe6337f36c3bc14 group=sys mode=0664 owner=root path=glassfish/lib/dtds/sun-cmp-mapping_1_1.dtd pkg.csize=1402 pkg.size=3980
+file 2a304c980be75d5f6d5a9e6fd5a29d7cb17a8256 chash=c7144abc48aa1c32a15c4510c92296c2c0e27fe1 group=sys mode=0664 owner=root path=glassfish/lib/dtds/sun-cmp-mapping_1_0.dtd pkg.csize=1405 pkg.size=4009
+file 747e38864e16c50bac4d06f111ea69d5f081d413 chash=9eacc9e39092a534009ad14623d274028f1b0416 group=sys mode=0664 owner=root path=glassfish/lib/dtds/sun-application_6_0-0.dtd pkg.csize=4692 pkg.size=16922
+file 4a8fa06de73e3e433f32bec549142a9920c220dd chash=c891941dd782deb29ce1dec6a3a4b7ccc427f8b5 group=sys mode=0664 owner=root path=glassfish/lib/dtds/sun-application_5_0-0.dtd pkg.csize=1030 pkg.size=2104
+file 9e52433964071582ed581fa095bc639477da0bd0 chash=feca2e4925763a552a9a0af73daa601947ad068d group=sys mode=0664 owner=root path=glassfish/lib/dtds/sun-application_1_4-0.dtd pkg.csize=909 pkg.size=1823
+file 8666dfb17ac312c19a6b585af7d1057ccc263933 chash=670408784e999996e3041063a246731666f6e8ef group=sys mode=0664 owner=root path=glassfish/lib/dtds/sun-application_1_3-0.dtd pkg.csize=647 pkg.size=1237
+file 0713116264a0ccdba8992714bf3faafa5ed491c8 chash=cb31297771d87975f31f1b26cf2dbe8b501c76bc group=sys mode=0664 owner=root path=glassfish/lib/dtds/sun-application-client_6_0-0.dtd pkg.csize=4569 pkg.size=17066
+file 3c89a1efc808bda06599259c2e30aa9f9f269c58 chash=e4ba9fed6fd6f918dbced24f5fa7a618c77671ac group=sys mode=0664 owner=root path=glassfish/lib/dtds/sun-application-client_5_0-0.dtd pkg.csize=4449 pkg.size=16637
+file 2e56a1e8978128ecf09b59f90077764a56ac6c35 chash=e2a1e0310c599d94fb1bf5fb035d1d7c26ba3fad group=sys mode=0664 owner=root path=glassfish/lib/dtds/sun-application-client_1_4-1.dtd pkg.csize=3815 pkg.size=14250
+file 7c7568d7f8fcbfd8e0de34d75987ae11c055431c chash=aaf104cbec1f17f79fb119c51b8d7e71f48c8388 group=sys mode=0664 owner=root path=glassfish/lib/dtds/sun-application-client_1_4-0.dtd pkg.csize=1770 pkg.size=5269
+file 7966ebff65ebf7b3692e243cdd10280bb32588dc chash=6573dd31a3cd524166e3bbb4472bcbbd9b307849 group=sys mode=0664 owner=root path=glassfish/lib/dtds/sun-application-client_1_3-0.dtd pkg.csize=538 pkg.size=1471
+file 9f6f92229092888648b18d006246de1146112213 chash=45bbc02ac300e85227c17073c5cf8378bbb0ae6c group=sys mode=0664 owner=root path=glassfish/lib/dtds/sun-application-client-container_1_2.dtd pkg.csize=3308 pkg.size=11426
+file 5eda4d7bd71ed02f22c9273c5d33c4cd15d24f66 chash=f3480d81c1570338e3419bbecd38b79190c9abce group=sys mode=0664 owner=root path=glassfish/lib/dtds/application-client_1_2.dtd pkg.csize=3563 pkg.size=11033
+file 8f18719241b3912933bcb660fe7167e02f4a0096 chash=1852e655f18faa427fabd8ffc93ee62f8ab2d20b group=sys mode=0664 owner=root path=glassfish/lib/dtds/application-client_1_3.dtd pkg.csize=4807 pkg.size=16178
+file 974aa132b82e326b35fe40f820092fd33a84ce38 chash=2659c2245fd78c4e490629187e556776c16ee0f1 group=sys mode=0664 owner=root path=glassfish/lib/dtds/application_1_2.dtd pkg.csize=2609 pkg.size=7302
+file 0eda27bd96f3b81d4d726027ec752af0a716c988 chash=a6fe437e1bed1fc413d78bee7ddfc807f88a315f group=sys mode=0664 owner=root path=glassfish/lib/dtds/application_1_3.dtd pkg.csize=3527 pkg.size=10048
+file 934cfa6197090508e7a38c584887996200cd9802 chash=99eb233d66eba321712c01cec2cef8b8e27cba73 group=sys mode=0664 owner=root path=glassfish/lib/dtds/ejb-jar_1_1.dtd pkg.csize=7232 pkg.size=28995
+file a08a041d6f4b881c7afde9523e057700e43f65f8 chash=b9d97e57f7c88b9676fb344ced537e19c240c983 group=sys mode=0664 owner=root path=glassfish/lib/dtds/ejb-jar_2_0.dtd pkg.csize=12141 pkg.size=53708
+file 52e575af1003bcd51e4ae2b8f10ac7f137f16dde chash=654092d390ee0262b6e2b73498c62d83bac59083 group=sys mode=0664 owner=root path=glassfish/lib/dtds/sun-application-client-container_1_0.dtd pkg.csize=1993 pkg.size=5798
+file e7408c1f8741eef2f05549015b670baefd0ce317 chash=5f864629ac060478c479dbe6ecf8db3bb9977278 group=sys mode=0664 owner=root path=glassfish/lib/dtds/sun-application-client-container_1_1.dtd pkg.csize=3277 pkg.size=11325
+file 2ace0c7118453dd1945283c249adbe31ce30d2c6 chash=1408a7bbfafa66e9559993efea6264c16e6f673d group=sys mode=0664 owner=root path=glassfish/lib/dtds/sun-ejb-jar_2_0-1.dtd pkg.csize=3964 pkg.size=14231
+file a506b2116cd531313c1222fd671191bdd26c3c15 chash=9fc2789d4e5a3d56c7395d2d94dfb5d01e5f3674 group=sys mode=0664 owner=root path=glassfish/lib/dtds/sun-ejb-jar_2_1-0.dtd pkg.csize=6658 pkg.size=24113
+file dccd9a95f6965c9f448e0f086978841d90fb0969 chash=53faa2038ccb684cde08e5bd2cf1f7956fddf4e1 group=sys mode=0664 owner=root path=glassfish/lib/dtds/sun-ejb-jar_2_1-1.dtd pkg.csize=9285 pkg.size=35742
+file 3ad15bf239105abbbb2999fe546b6cfd21adf43a chash=0f087bbe7a2735673de2ed2e188d68f0605210f3 group=sys mode=0664 owner=root path=glassfish/lib/dtds/sun-ejb-jar_3_0-0.dtd pkg.csize=9547 pkg.size=36767
+file 3fd0015a3a5eaf0e85b68ed5c4bbcbcb20d789f2 chash=78a94e24a1b5162febb7734b187e88f8fa7d9072 group=sys mode=0664 owner=root path=glassfish/lib/dtds/sun-ejb-jar_3_1-0.dtd pkg.csize=9538 pkg.size=36639
+file c383dd8de486bc9cf0841d9f038bd849f750bcd4 chash=4b62300f9e22fc070e5e9580a9d9a866c45e91fd group=sys mode=0664 owner=root path=glassfish/lib/dtds/sun-loadbalancer_1_0.dtd pkg.csize=1987 pkg.size=5957
+file 98e41f68376220dececdcbc2f11d66c7c836c233 chash=d4555d2291a7753b197bb3e8d6bb96166bbcd2a9 group=sys mode=0664 owner=root path=glassfish/lib/dtds/sun-loadbalancer_1_1.dtd pkg.csize=2137 pkg.size=7297
+file 59b4e040b4c1d7b42a9769cab5169f040e365de4 chash=1a94a4d46b28e0af0b75929e4add5223b6a759ae group=sys mode=0664 owner=root path=glassfish/lib/dtds/sun-server_1_0.dtd pkg.csize=15288 pkg.size=62098
+file 5cfea72335bda12b00fca3820557612c1a478be9 chash=ce9c9e77bf8a202d8fd5bfee2199bb5ebcf9f021 group=sys mode=0664 owner=root path=glassfish/lib/dtds/sun-web-app_2_3-0.dtd pkg.csize=2832 pkg.size=9788
+file af31a916c3498d1db36318163817a553ba038efa chash=71a60b30d6870fa5a70eda8e4a18156eb6b52c4c group=sys mode=0664 owner=root path=glassfish/lib/dtds/sun-web-app_2_3-1.dtd pkg.csize=2835 pkg.size=9793
+file 5916d8dc476bfe71ca41e0cbf429cae5ffa1e9bd chash=395b393bdaa680522a43a6324b26105532a68704 group=sys mode=0664 owner=root path=glassfish/lib/dtds/sun-web-app_2_4-0.dtd pkg.csize=5124 pkg.size=17717
+file 8cdb3aadeecd6da01b698fdf20abea7485bd8f5d chash=0a30abf043429264355124e0c82c6a43bf075d33 group=sys mode=0664 owner=root path=glassfish/lib/dtds/sun-web-app_2_4-1.dtd pkg.csize=7400 pkg.size=27978
+file 69e3a82af67c74b3204c54994aa73e774caa492d chash=1ae226b67b3a16fca36645be246fe6a07de1902f group=sys mode=0664 owner=root path=glassfish/lib/dtds/sun-web-app_2_5-0.dtd pkg.csize=8001 pkg.size=30223
+file a57857d2fd6f99b2bf35c6a35dbada844810f538 chash=31d5a0d64e7fdbcae294604e03f2c939cb389996 group=sys mode=0664 owner=root path=glassfish/lib/dtds/sun-web-app_3_0-0.dtd pkg.csize=8046 pkg.size=30401
+file d029756118865f5622dff198a1835615f3a38841 chash=865b273527daceec4eb2ec8865edf6f15e42f556 group=sys mode=0664 owner=root path=glassfish/lib/dtds/web-app_2_2.dtd pkg.csize=5415 pkg.size=18708
+file 2b730e005ee7279732191e8a54be4ec94629ab52 chash=bd4044fcd358ca03197a7acee84bd3ec076b7a35 group=sys mode=0664 owner=root path=glassfish/lib/dtds/web-app_2_3.dtd pkg.csize=8580 pkg.size=32726
+file eb0369d3658edefabc3bea2b4303025235c82e11 chash=508e0f1b64c92e6eca4094e851efe68a8c70e89b group=sys mode=0664 owner=root path=glassfish/lib/dtds/web-jsptaglibrary_1_1.dtd pkg.csize=3202 pkg.size=8124
+file c46a004a5dbdcab88fc5b14d0b01a2d50ca4e905 chash=a68da154926129b03f5a8d302b702089d065ae1d group=sys mode=0664 owner=root path=glassfish/lib/dtds/web-jsptaglibrary_1_2.dtd pkg.csize=3329 pkg.size=11623
+file 0475a4360a93d0d5d42533e14534362175ff60ff chash=52698dca6c75818cf51c2905b2cb0534e853de61 group=sys mode=0664 owner=root path=glassfish/lib/embedded/glassfish-embedded-shell.jar pkg.csize=2980 pkg.size=3711
+file 1d57e227462191ee95038fc9b08cf3f6ce3d56cf chash=64d89feedf4ff11dfa6faee7061e4dc09385f99d group=sys mode=0664 owner=root path=glassfish/lib/embedded/glassfish-embedded-static-shell.jar pkg.csize=5170 pkg.size=5927
+set name=publisher value=stable.glassfish.org

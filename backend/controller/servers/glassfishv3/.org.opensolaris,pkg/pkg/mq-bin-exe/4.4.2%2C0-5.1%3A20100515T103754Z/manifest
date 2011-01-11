@@ -1,0 +1,23 @@
+set name=fmri value=pkg:/mq-bin-exe@4.4.2,0-5.1:20100515T103754Z
+set name=pkg.maintainer_url value=http://mq.dev.java.net/
+set name=info.classification value=":Message-Oriented Middleware"
+set name=pkg.detailed_url value=http://mq.dev.java.net/about.html
+set name=pkg.summary value="Message Queue Executables"
+set name=pkg.upstream_url value=http://mq.dev.java.net/
+set name=pkg.description value="Message Queue Executables.  Message Queue (MQ) is an enterprise quality, production ready, scalable messaging server.  It provides a complete Java Message Service (JMS) implementation for message oriented system integration.  In addition, Message Queue provides the additional enterprise features that are necessary for enterprise deployments, large and small."
+set name=info.source_url value=http://mq.dev.java.net/downloads.html
+depend fmri=pkg:/mq-core@4.4.2 type=require
+license 3c16cf57fe508f7b2a505eb8d459e010a9b42a84 chash=bb47197a11b237b8f40b923ab9910800f056bc47 license=CDDLv1.0 pkg.csize=12533 pkg.size=37911
+dir group=sys mode=0755 owner=root path=mq
+dir group=sys mode=0755 owner=root path=mq/bin
+file 626436d0965d0f2ae9b5be6a38978e1e27a364bb chash=05dede5fe578c64db8ab831740cfea7a75157315 group=sys mode=0744 owner=root path=mq/bin/imqsvcadmin.exe pkg.csize=4368 pkg.size=24576
+file 984792c6ede54b58345b67873b817868b1eb88ff chash=65215d759345ce9184bf5eaa3369eb8b3198e573 group=sys mode=0744 owner=root path=mq/bin/imqbrokersvc.exe pkg.csize=10922 pkg.size=36864
+file 6a7fb665c1dea99e18076e7188bcc8664927a1d8 chash=350abafb1b118e1e8d63bceeb3970d63c52bfb17 group=sys mode=0744 owner=root path=mq/bin/imqdbmgr.exe pkg.csize=6061 pkg.size=24576
+file bbf4f226ae554b113f54ffbede82f5c27558b3cf chash=e8aad9140ba4679ecb37ed6e3db1c5942a46cf60 group=sys mode=0744 owner=root path=mq/bin/imqcmd.exe pkg.csize=5929 pkg.size=24576
+file 76a95a3e7b3663c10d692385f8ffe4a4ff2292d4 chash=0e38721db4f9ca2dd341b415d9258d32e0dbc6d7 group=sys mode=0744 owner=root path=mq/bin/imqusermgr.exe pkg.csize=5999 pkg.size=24576
+file c9e52e587fff6722ef8eb1101d4a4baba9987d68 chash=c510d5a64b19eb1160cf8c797cfb2526cbe3f035 group=sys mode=0744 owner=root path=mq/bin/imqadmin.exe pkg.csize=5957 pkg.size=24576
+file 7b860456f4429ab323d0f36bc9cf7670468a018a chash=95aad6e96c13b6619e69278efd13a947a6ac590e group=sys mode=0744 owner=root path=mq/bin/imqobjmgr.exe pkg.csize=5931 pkg.size=24576
+file 94f098b1ce92d6e50d2cb7905d2af41e2ba0c9d7 chash=74040e4c27ebe1027675bad53b327bf61fbe6764 group=sys mode=0744 owner=root path=mq/bin/imqkeytool.exe pkg.csize=6673 pkg.size=28672
+file a6c9aeda8ba04a58a494afb3438735e335ec11f2 chash=fccfb3237b03e40cec221ba8c67fc2f68ff922e6 group=sys mode=0744 owner=root path=mq/bin/imqbrokerd.exe pkg.csize=6136 pkg.size=28672
+file adaf80658d40ac3fe129ff6bed8f92f5774c3247 chash=523bc8f064b2b5fd5afb7394fe6e0b7152133474 group=sys mode=0744 owner=root path=mq/bin/imqbridgemgr.exe pkg.csize=5912 pkg.size=24576
+set name=publisher value=stable.glassfish.org
