@@ -1,10 +1,25 @@
 
 <!-- MYSTORE -->
-<table cellspacing="15" style="position: absolute; left: 210px; top:0px;">
-	<tr>
-		<td colspan="2"><a href="#" onclick="displayWindow('#warning')"><b>New applications</b></a> | <a href="#" onclick="displayWindow('#warning')">Top 10 applications</a> | <a href="#" onclick="displayWindow('#warning')">all applications</a></td>
-	</tr>
-	<tr>
-		<td colspan="2"><img alt="" src="img/app.png" onclick="displayWindow('#warning')"></td>
-	</tr>
-</table>
+<div id="mystore">
+	<table>
+	  <tr>
+	    <td>
+		    <a href="#" onclick="displayWindow('#warning')"><b>New applications</b></a> | 
+			<a href="#" onclick="displayWindow('#warning')">Top 10 applications</a> | 
+			<a href="#" onclick="displayWindow('#warning')">all applications</a></td>
+	    </td>
+	    <td>
+		    <form action="get">
+				<input type="text" style="width: 300px;">
+				<input type="submit" value="rechercher" disabled>
+			</form>
+	    </td>
+	  </tr>
+	</table>
+</div>
+
+<!-- MYSTORE CONTENT -->
+<div id="store"class="application" style="position:absolute; top:60px; left:230px; text-align: center; color: white; display: none;">
+	<img alt="" src="img/myStoreCS.png" width="700px;" height="500px;" />
+	<input type="button" value="Close" onclick="fadeOut('#store')" style="position: relative; top:-50px;">
+</div>

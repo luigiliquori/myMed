@@ -23,6 +23,10 @@
 	}
 
 	$cookie = get_facebook_cookie(FACEBOOK_APP_ID, FACEBOOK_SECRET);
+
+	if($_GET["try"] == 1){
+		 setcookie("try", 1);
+	}
 ?>
 
 <!-- MAIN -->
@@ -43,6 +47,10 @@
 	<script type="text/javascript" src="javascript/requestHTML.js"></script>
 	<script type="text/javascript" src="javascript/jquery/dist/jquery.js"></script>
 	
+	<!-- FACEBOOK APIs -->
+	<script src="http://connect.facebook.net/en_US/all.js"></script>
+	
+	
 	<!-- TITLE -->
 	<title>myMed</title>
 	
@@ -58,21 +66,22 @@
 	  	
 	  	<!-- CONTENT -->
 	  	<div id="content">
-	  		<?php if ($user) { ?>
+	  		<?php if ($user || $_COOKIE["try"] == "1" || $_GET["try"] == 1) { ?>
 	  		
 		  		<!-- USERINFO -->
 				<?php include('user.php'); ?>
 				
 				<!-- FIRENDS -->
 				<?php include('friends.php'); ?>
+				
+				<!-- DESKTOP -->
+				<?php include('desktop.php'); ?>
 			
 				<!-- DOCK -->
 				<?php include('dock.php'); ?>
 
 				<!-- MYMEDSTORE -->
 				<?php include('myMedStore.php'); ?>
-					
-				<hr style="position: absolute; width: 700px; left:230px; top:150px;"/>
 					
 				<!-- MYTRANSPORT -->
 				<?php include('myTransport.php'); ?>
@@ -98,7 +107,6 @@
    	
    	<!-- Init facebook APIs -->
    	<div id="fb-root"></div>
-	<script src="http://connect.facebook.net/en_US/all.js"></script>
 	<script>
 	      FB.init({appId: '<?= FACEBOOK_APP_ID ?>', status: true,
 	               cookie: true, xfbml: true});

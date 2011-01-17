@@ -4,6 +4,23 @@
 	<?php if ($cookie) { 
 		$user = json_decode(file_get_contents(
    			   'https://graph.facebook.com/me?access_token=' . $cookie['access_token']));
+	}  else if($_COOKIE["try"] == "1" || $_GET["try"] == 1) {
+		$user = json_decode('{
+		   "id": "",
+		   "name": "Visiteur",
+ 		  "first_name": "Un",
+ 		  "last_name": "Known",
+		   "link": "http://www.facebook.com/profile.php?id=007",
+		   "hometown": {
+ 		     "id": "",
+ 		     "name": null
+ 		  },
+ 		  "gender": "something",
+		   "timezone": 1,
+		   "locale": "somewhere",
+		   "verified": true,
+		   "updated_time": "now"
+		}');
 	} ?>
 	
 	<!-- MENU -->
@@ -18,7 +35,7 @@
 	     <td><span class="st_sharethis" displayText="ShareThis"  style="width: 200px;"></span></td>
 	     <?php if ($user) { ?>
 		     <td>
-		    	<div id="logout"><a href="." onclick="FB.logout();">Déconnexion</a></div>
+		   		<div id="logout"><a href="." onclick="FB.logout(); Delete_Cookie('try', '', ''); Delete_Cookie('fbs', '/', '');">Déconnexion</a></div>
 		     </td>
 	     <?php } ?>
 	  </tr>
@@ -32,11 +49,20 @@
 		  		<!-- Connection -->
 		  		<table style="font-size: 15px; text-align: center;">
 				  <tr>
-				    <th colspan="2" style="text-align: left;">Connectez-vous avec:</th>
+				    <td colspan="2" class="title" style="text-align: left;">Connectez-vous avec votre compte:</td>
+				    <td><img alt="" src="img/loginwith1" style="position: relative; top: 2px;"></td>
+				    <td><fb:login-button>facebook</fb:login-button></td>
+				    <td><img alt="" src="img/loginwith" style="position: relative; top: 2px;"></td>
+				    <td><img alt="" src="img/loginwith2" style="position: relative; top: 2px;"></td>
 				  </tr>
 				  <tr>
-				    <td><fb:login-button></fb:login-button></td>
-				    <td><img alt="" src="img/loginwith" style="position: relative; top: 5px;"></td>
+				    <td class="title">ou simplement</td>
+				    <td>
+						<form action="#" method="get">
+						    <input type="hidden" name="try" value="1" />
+						    <input type="submit" value="Faites un essais libre">
+					    </form>
+				    </td>
 				  </tr>
 				</table>
 		  <?php } ?>

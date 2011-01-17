@@ -3,7 +3,7 @@ var current = "";
 function displayWindow(elementID){
 	jQuery.noConflict();  
 	jQuery(document).ready(function(){
-		jQuery(elementID).show("normal");
+		jQuery(elementID).show("fast");
 	});
 }
 
@@ -51,7 +51,23 @@ function launchApplication(elementID, isMapApplication){
 }
 
 function cleanView(){
+	cleanMenu();
 	document.getElementById("app1").style.display = "block";
 	document.getElementById("app1H").style.display = "none";
+	document.getElementById("app2").style.display = "block";
+	document.getElementById("app2H").style.display = "none";
+	document.getElementById("app3").style.display = "block";
+	document.getElementById("app3H").style.display = "none";
 	document.getElementById("warning").style.display = "none";
+}
+
+function cleanMenu(){
+	document.getElementById("fichier").style.display = "none";
+	document.getElementById("edition").style.display = "none";
+	document.getElementById("aide").style.display = "none";
+}
+
+function changeMenu(elementID){
+	cleanMenu();
+	displayWindow("#" + elementID);
 }

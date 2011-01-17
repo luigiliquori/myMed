@@ -67,8 +67,7 @@ public class RequestHandler extends HttpServlet implements IRequestHandler{
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
-		PrintWriter out = response.getWriter();
-		
+
 		// clear results
 		this.result = "...";
 
@@ -132,7 +131,6 @@ public class RequestHandler extends HttpServlet implements IRequestHandler{
 				}
 			}
 			parameters.clear();
-			out.println(this.result);
 		} catch (InvalidRequestException e) {
 			e.printStackTrace();
 		} catch (UnavailableException e) {
@@ -146,7 +144,7 @@ public class RequestHandler extends HttpServlet implements IRequestHandler{
 		} finally {
 			// finish the transaction
 			tr.close();
-			out.close();
+			processRequest(request, response);
 		}
 	}
 
@@ -155,6 +153,13 @@ public class RequestHandler extends HttpServlet implements IRequestHandler{
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+	}
+
+	protected void processRequest(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		PrintWriter out = response.getWriter();
+		out.println(this.result);
+		out.close();
 	}
 
 }

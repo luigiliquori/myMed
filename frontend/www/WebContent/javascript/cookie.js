@@ -24,6 +24,14 @@ function getCookie(c_name)
 	return "";
 }
 
+function Delete_Cookie( name, path, domain ) {
+	if ( getCookie( name ) ) document.cookie = name + "=" +
+	( ( path ) ? ";path=" + path : "") +
+	( ( domain ) ? ";domain=" + domain : "" ) +
+	";expires=Thu, 01-Jan-1970 00:00:01 GMT";
+}
+
+
 function formatApp(){
 	for(i=1 ; i<=6 ; i++){
 		document.getElementById("app"+i).style.left = getCookie("app"+i+".x");

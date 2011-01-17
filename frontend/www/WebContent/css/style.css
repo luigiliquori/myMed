@@ -21,6 +21,22 @@ a:HOVER {
 	color: red;
 }
 
+#menu a{
+	color: white;
+	text-decoration:none;
+}
+
+#menu a:HOVER{
+	color: red;
+}
+
+.title {
+	color:#222c8a;
+	font-family:"Lucida Grande",Tahoma,Verdana,Arial,sans-serif;
+	font-weight: bold;
+	font-size:15px;
+}
+
 #header{
 	position:relative;
 	margin-top: 0px;
@@ -38,6 +54,24 @@ a:HOVER {
 	color: red;
 }
 
+#mystore{
+	position: absolute; 
+	left: 210px; 
+	top:0px;
+}
+
+#desktop {
+	position: absolute; 
+	left: 230px; 
+	top:40px;
+	width: 700px; 
+	height: 520px; 
+	background-image:url("../img/wallpaper.png");
+	border: thin #d2d2d2 solid;
+}
+
+#dock {
+}
 
 #content {
 	position: relative;
@@ -107,8 +141,8 @@ a:HOVER {
 }
 
 .appToolbar{
-	position: relative; 
-	top: 0px;
+	position: absolute; 
+	top: 443px;
 	background-color: #364049;
 }
 
