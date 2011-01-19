@@ -1,4 +1,3 @@
-
 <!-- DOCK BACKGROUND -->
 <div id="dock" style="position: absolute; left: 230px; top:600px; background-image: url('img/dock.png'); width: 700px; height: 70px;" ></div>
 

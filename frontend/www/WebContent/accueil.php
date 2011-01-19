@@ -1,10 +1,13 @@
 <div id="accueil"align="center" style="height: 530px;">
-	<br><br><br><br>
-	<div style="position: absolute; marign-top: 50px; margin-left: 50px;">
+
+	<!-- LEFT PART -->
+	<div style="position: absolute; top: 70px; margin-left: 50px;">
 		<div class="title">myMed se joint à votre réseau social préféré <br>pour ajouter de nouvelles fonctionnalités!</div><br>
 		<img alt="" src="img/NetworkView.png" width="380px;">
 	</div>
-	<div style="position: absolute; marign-top: 50px; margin-left: 500px;">
+	
+	<!-- RIGHT PART -->
+	<div style="position: absolute; top: 70px; margin-left: 500px;">
 	    <table>
 	    	  <tr>
 	    		<td colspan="2" style="text-align: left;"><div class="title">Vous n'êtes pas encore abonnés à un réseau social?<br>myMed en fourni un pour vous!</div><br></td>

@@ -1,28 +1,5 @@
 <div id="header">
 
-	<!-- FACEBOOK AUTHENTICATION -->
-	<?php if ($cookie) { 
-		$user = json_decode(file_get_contents(
-   			   'https://graph.facebook.com/me?access_token=' . $cookie['access_token']));
-	}  else if($_COOKIE["try"] == "1" || $_GET["try"] == 1) {
-		$user = json_decode('{
-		   "id": "",
-		   "name": "Visiteur",
- 		  "first_name": "Un",
- 		  "last_name": "Known",
-		   "link": "http://www.facebook.com/profile.php?id=007",
-		   "hometown": {
- 		     "id": "",
- 		     "name": null
- 		  },
- 		  "gender": "something",
-		   "timezone": 1,
-		   "locale": "somewhere",
-		   "verified": true,
-		   "updated_time": "now"
-		}');
-	} ?>
-	
 	<!-- MENU -->
  	<table>
 	  <tr>
@@ -32,7 +9,7 @@
 	     <td><a href="http://www-sop.inria.fr/teams/lognet/MYMED/index.php?static4/join">Contact</a></td>
 	     <td><a href="http://www.mymed.fr">Blog</a></td>
 	     <td style="width: 400px;"></td>
-	     <td><span class="st_sharethis" displayText="ShareThis"  style="width: 200px;"></span></td>
+	     <!-- <td><span class="st_sharethis" displayText="ShareThis"  style="width: 200px;"></span></td>  -->
 	     <?php if ($user) { ?>
 		     <td>
 		   		<div id="logout"><a href="." onclick="FB.logout(); Delete_Cookie('try', '', ''); Delete_Cookie('fbs', '/', '');">Déconnexion</a></div>
@@ -53,7 +30,9 @@
 				    <td><img alt="" src="img/loginwith1" style="position: relative; top: 2px;"></td>
 				    <td><fb:login-button>facebook</fb:login-button></td>
 				    <td><img alt="" src="img/loginwith" style="position: relative; top: 2px;"></td>
-				    <td><img alt="" src="img/loginwith2" style="position: relative; top: 2px;"></td>
+				    <td><a id="twitter" href="http://mymed2.sophia.inria.fr/mymed_v1.0_alpha/socialNetworkAPIs/twitter/redirect.php" style="position: relative; top: 2px;">
+				    	<img src="http://mymed2.sophia.inria.fr/mymed_v1.0_alpha/socialNetworkAPIs/twitter/twitteroauth/images/darker.png" alt="Sign in with Twitter"/>
+				    </a></td>
 				  </tr>
 				  <tr>
 				    <td class="title">ou simplement</td>

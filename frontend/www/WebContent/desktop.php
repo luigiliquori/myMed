@@ -39,7 +39,7 @@
 				<hr style="position:relative; left: -10px;">
 				<a href="#" onclick="displayWindow('#warning')">Tout séléctionner</a><br>
 				<hr style="position:relative; left: -10px;">
-				<a href="# onclick="displayWindow('#warning')"">Rechercher</a><br>
+				<a href="#" onclick="displayWindow('#warning')">Rechercher</a><br>
 			</div>
 		</div>
 		
@@ -54,18 +54,7 @@
 		</div>
 	</div>
 	
-	<!-- HOME -->
-	<div class="drag" style="position:absolute; top:50px; background-image: url('img/icon/home.png'); width: 100px; height: 100px;">
-		<div style="position: absolute; top:60px; text-align: center; width: 100%;">
-			<a href="http://www.facebook.com/profile.php?id=<?= $user->id ?>">myProfile</a>
-		</div>
-	</div>
-	
-	<!-- HOME -->
-	<div class="drag" style="position:absolute; top:150px; left:15px; background-image: url('img/icon/myTransport.png'); width: 80px; height: 100px;" ondblclick="launchApplication('myTransport', true);">
-		<div style="position: absolute; top:60px; text-align: center; width: 100%;">
-			<a href="#" onclick="launchApplication('myTransport', true);">myTransport</a>
-		</div>
-	</div>
+	<!-- DISPLAY ICONS ON THE DESKTOP -->
+	<?php include('desktopIcon.php'); ?>
 
 </div>

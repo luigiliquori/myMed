@@ -15,6 +15,13 @@
         <engine sniffer="web" />
       </module>
     </application>
+    <application context-root="/controller" location="${com.sun.aas.instanceRootURI}/applications/controller/" name="controller" object-type="user">
+      <property name="defaultAppName" value="controller" />
+      <module name="controller">
+        <engine sniffer="security" />
+        <engine sniffer="web" />
+      </module>
+    </application>
   </applications>
   <resources>
     <jdbc-resource pool-name="__TimerPool" jndi-name="jdbc/__TimerPool" object-type="system-admin" />
@@ -36,6 +43,7 @@
     <server name="server" config-ref="server-config">
       <application-ref ref="__admingui" virtual-servers="__asadmin" />
       <application-ref ref="services" virtual-servers="server" />
+      <application-ref ref="controller" virtual-servers="server" />
       <resource-ref ref="jdbc/__TimerPool" />
       <resource-ref ref="jdbc/__default" />
     </server>
