@@ -51,14 +51,15 @@ function launchApplication(elementID, isMapApplication){
 }
 
 function cleanView(){
-	cleanMenu();
+	//cleanMenu();
 	document.getElementById("app1").style.display = "block";
 	document.getElementById("app1H").style.display = "none";
-	document.getElementById("app2").style.display = "block";
-	document.getElementById("app2H").style.display = "none";
 	document.getElementById("app3").style.display = "block";
 	document.getElementById("app3H").style.display = "none";
+	document.getElementById("app7").style.display = "block";
+	document.getElementById("app7H").style.display = "none";
 	document.getElementById("warning").style.display = "none";
+	
 }
 
 function cleanMenu(){

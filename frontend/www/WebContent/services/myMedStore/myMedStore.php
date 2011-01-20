@@ -1,6 +1,6 @@
 
 <!-- MYSTORE -->
-<div id="mystore">
+<div id="mystore" style="position: absolute; left: 227px;">
 	<table>
 	  <tr>
 	    <td>
@@ -19,7 +19,7 @@
 </div>
 
 <!-- MYSTORE CONTENT -->
-<div id="store"class="application" style="position:absolute; top:60px; left:230px; text-align: center; color: white; display: none;">
+<div id="store"class="application" style="position:absolute; top:30px; left:230px; text-align: center; color: white; display: none;">
 	<img alt="" src="img/myStoreCS.png" width="700px;" height="500px;" />
 	<input type="button" value="Close" onclick="fadeOut('#store')" style="position: relative; top:-50px;">
 </div>

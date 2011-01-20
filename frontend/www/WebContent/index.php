@@ -48,9 +48,6 @@
 				<!-- DESKTOP -->
 				<?php include('desktop.php'); ?>
 			
-				<!-- DOCK -->
-				<?php include('dock.php'); ?>
-
 				<!-- SERVICES -->
 				<?php include('services.php'); ?>
 				

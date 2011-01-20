@@ -16,7 +16,7 @@
 ?>
 
 <!-- SPLASHSCREEN -->
-<div id="myTransportSplash" class="application" style="position:absolute; top:60px; left:230px; text-align: center; color: white; 	display: none;">
+<div id="myTransportSplash" class="application" style="position:absolute; top:30px; left:230px; text-align: center; color: white; 	display: none;">
 	<h1>myTransport v1.0</h1>
 	<div style="position: relative; text-align: left; left: 20px;">
 		myTransport is a multimodal transport service that you can share with your friends. <br /><br />
@@ -33,11 +33,11 @@
 </div>
 
 <!-- APPLICATION -->
-<div id="myTransport" class="application" style="position:absolute; top:60px; left:230px; text-align: left; display:<?= $running ? "block" : "none" ?>">
+<div id="myTransport" class="application" style="position:absolute; top:30px; left:230px; text-align: left; display:<?= $running ? "block" : "none" ?>">
 	
 	<!-- SEARCH -->
 	<div id="myTransportContainer1" class="appContainer" style="background-image: url('img/map.png');">
-		<div style="position: relative; width: 700px; height: 170px; <?= !$search ? "top: 300px;" : "" ?> background-color: #415b68; opacity:0.8; color: white;">
+		<div style="position: relative; width: 700px; height: 170px; <?= !$search ? "top: 340px;" : "" ?> background-color: #415b68; opacity:0.8; color: white;">
 			<form method="get" action="#">
 				<input name="code" type="hidden" value="search"/>
 				<table>
@@ -70,7 +70,7 @@
 			
 			<!-- RESULT -->
 			<?php if($search) { ?>
-				<div style="background-color: #415b68; opacity:0.8; color: white; height:278px; width: 700px; overflow: auto;">
+				<div style="background-color: #415b68; opacity:0.8; color: white; height:298px; width: 700px; overflow: auto;">
 						<img style="position: absolute;" alt="" src="http://graph.facebook.com/<?= $id ?>/picture?type=large">
 						<div style="position: relative; left:220px; width: 300px;">
 							<? $res = json_decode(file_get_contents(trim('https://graph.facebook.com/' . $id))); ?>
@@ -89,7 +89,7 @@
 	
 	<!-- PUBLISH -->
 	<div id="myTransportContainer2" class="appContainer" style="background-image: url('img/map.png'); display:none">
-		<div style="position: relative; width: 700px; height: 150px; top: 300px; background-color: #415b68; opacity:0.8; color: white;">
+		<div style="position: relative; width: 700px; height: 150px; top: 340px; background-color: #415b68; opacity:0.8; color: white;">
 			<form method="get" action="#">
 				<input name="code" type="hidden" value="publish"/>
 				<table>

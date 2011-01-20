@@ -23,4 +23,3 @@
   </tr>
 </table>
 
-<hr style="position: relative; width: 200px; margin-left:0px;"/>

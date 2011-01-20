@@ -64,14 +64,14 @@ a:HOVER {
 
 #footer {
 	position: relative;
-	top:140px;
+	top:110px;
 	width: 950px;
 }
 
 #desktop {
 	position: absolute; 
 	left: 230px; 
-	top:40px;
+	top:31px;
 	width: 700px; 
 	height: 520px; 
 	background-image:url("../img/wallpaper.png");
@@ -83,7 +83,7 @@ a:HOVER {
 
 #content {
 	position: relative;
-	top:140px;
+	top:110px;
 	padding:10px;
 	text-align: left;
 	width:930px;
@@ -123,8 +123,7 @@ a:HOVER {
 .application {
 	position:relative;
 	width: 700px;
-	height: 500px;
-	top:10px;
+	height: 520px;
 	border: thin black solid;
 	background-color: #364049;
 }
@@ -144,13 +143,13 @@ a:HOVER {
 
 .appContainer{
 	top:100px;
-	height:450px;
+	height:470px;
 	color: white;
 }
 
 .appToolbar{
 	position: absolute; 
-	top: 443px;
+	top: 463px;
 	background-color: #364049;
 }
 
