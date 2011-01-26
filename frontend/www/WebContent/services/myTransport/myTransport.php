@@ -2,13 +2,13 @@
 	$running = false;
 	if($_GET["code"] == "search"){
 		$key = $_GET["from1"] . $_GET["to1"] . $_GET["when11"] . $_GET["when12"] . $_GET["when13"];
-		$id = file_get_contents("http://mymed2.sophia.inria.fr:8080/controller/RequestHandler?act=5&key2=" . $key);
+		$id = file_get_contents(trim("http://mymed2.sophia.inria.fr:8080/mymed_backend/FirstRequestHandler?act=5&key2=" . $key));
 		$running = true;
 		$search = true;	
 	} else if($_GET["code"] == "publish"){
 		$key = $_GET["from2"] . $_GET["to2"] . $_GET["when21"] . $_GET["when22"] . $_GET["when23"];
 		$value = $user->id;
-		file_get_contents("http://mymed2.sophia.inria.fr:8080/controller/RequestHandler?act=4&key1=" . $key . "&value1=" . $value);
+		file_get_contents(trim("http://mymed2.sophia.inria.fr:8080/mymed_backend/FirstRequestHandler?act=4&key1=" . $key . "&value1=" . $value));
 		$running = true;
 	} else if ($_GET["code"] == "back") {
 		$running = true;
@@ -70,10 +70,10 @@
 			
 			<!-- RESULT -->
 			<?php if($search) { ?>
+				<? $res = json_decode(file_get_contents(trim('http://mymed2.sophia.inria.fr:8080/mymed_backend/RequestHandler?act=11&id=' . $id))); ?>
 				<div style="background-color: #415b68; opacity:0.8; color: white; height:298px; width: 700px; overflow: auto;">
-						<img style="position: absolute;" alt="" src="http://graph.facebook.com/<?= $id ?>/picture?type=large">
+						<img style="position: absolute;" alt="" src="<?= $res->profile_picture ?>">
 						<div style="position: relative; left:220px; width: 300px;">
-							<? $res = json_decode(file_get_contents(trim('https://graph.facebook.com/' . $id))); ?>
 							<?= $res->name ?><br />
 							<?= $res->gender ?><br />
 							<?= $res->locale ?><br />

@@ -34,7 +34,7 @@
 			  </tr>
 			  <tr>
 			    <td colspan="2" style="text-align: center;"><br><br>
-				    <input type="submit" value="Inscription" style="background-color: #9bffb3;" disabled>
+				    <input type="submit" value="Inscription" disabled>
 			    </td>
 			 </tr>
 			 <tr>

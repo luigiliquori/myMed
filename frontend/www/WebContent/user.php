@@ -1,6 +1,6 @@
 <!-- USER PICTURE PROFILE -->
 <div style="width: 200px; height: 300px; background-color: #edf2f4;">
-	<img width="200px" alt="profile picture" src="<?= $profile_picture_url ?>"><br />
+	<img width="200px" alt="profile picture" src="<?= $user->profile_picture ?>"><br />
 </div>
 
 <!-- USER INFOMATION -->
@@ -19,7 +19,7 @@
  </tr>
 <tr>
    <th>Profile from:</th>
-   <td> <?= $socialNetwork ?></td>
+   <td> <?= $user->social_network ?></td>
   </tr>
 </table>
 

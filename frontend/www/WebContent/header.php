@@ -12,15 +12,15 @@
 	     <!-- <td><span class="st_sharethis" displayText="ShareThis"  style="width: 200px;"></span></td>  -->
 	     <?php if ($user) { ?>
 		     <td>
-		   		<div id="logout"><a href="." onclick="FB.logout(); Delete_Cookie('try', '', ''); Delete_Cookie('fbs', '/', '');">Déconnexion</a></div>
-		     </td>
+		   		<div id="logout"><a href="index.php?logout=true" onclick="FB.logout(); Delete_Cookie('try', '', ''); Delete_Cookie('fbs', '/', '');">Déconnexion</a></div>
+		     </td> 
 	     <?php } ?>
 	  </tr>
 	</table>
 	
 	<!-- CONNECTION -->
 	<div style="position: relative; width: 900px; text-align: left; margin-top: 10px; font-size:30px;">
-		<?php if ($user) { ?>
+		<?php if ($user->name) { ?>
 		      	 myMed home page: <?= $user->name ?> 
 		  <?php } else { ?>
 		  		<!-- Connection -->
@@ -37,10 +37,7 @@
 				  <tr>
 				    <td class="title">ou simplement</td>
 				    <td>
-						<form action="#" method="get">
-						    <input type="hidden" name="try" value="1" />
-						    <input type="submit" value="Faites un essais libre">
-					    </form>
+						<a href="index.php?try=true"><img src="img/freeTour.png" /></a>
 				    </td>
 				  </tr>
 				</table>

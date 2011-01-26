@@ -1,5 +1,21 @@
-<?php session_start(); ?>
-<?php ini_set('display_errors', 0); ?>
+<!-- import Libraries -->
+<script src="http://connect.facebook.net/en_US/all.js"></script> <!-- FACEBOOK -->
+
+<!-- INITIALISATION -->
+<?php 
+	session_start();
+	if($debug) { 
+		ini_set('display_errors', 1); 
+	}
+	  
+	if($_GET["logout"]){
+		session_destroy();
+		$user="";
+		$friends="";
+		$_SESSION['logged'] = false;
+		?>
+		<script>window.location = "."</script>
+<?php } else { ?>
 
 <!-- 
 ******************************************************************
@@ -7,27 +23,17 @@
 ******************************************************************
  -->
 <?php
- 	if($_GET["try"] == 1){
+ 	if($_GET["try"]){
 		$_SESSION['user'] = json_decode('{
-		   "id": "",
-		   "name": "Visiteur",
- 		  "first_name": "Un",
- 		  "last_name": "Known",
-		   "link": "http://www.facebook.com/profile.php?id=007",
-		   "hometown": {
- 		     "id": "",
- 		     "name": null
- 		  },
+		  "id": "visiteur",
+		  "name": "Visiteur",
  		  "gender": "something",
-		   "timezone": 1,
-		   "locale": "somewhere",
-		   "verified": true,
-		   "updated_time": "now"
+		  "locale": "somewhere",
+		  "updated_time": "now",
+		  "profile": "http://www.facebook.com/profile.php?id=007",
+		  "profile_picture" : "http://graph.facebook.com//picture?type=large",
+		  "social_network" : "myMed"
 		}');
-		
-		$_SESSION['profile_picture_url'] = "http://graph.facebook.com//picture?type=large";
-
-		$_SESSION['socialNetwork'] = "myMed";
 	} 
 ?>
 
@@ -38,11 +44,9 @@
 ******************************************************************
  -->
 
-<!-- APIs -->
-<script src="http://connect.facebook.net/en_US/all.js"></script>
-
 <!-- FACEBOOK APPLICATION AUTHENTICATION-->
 <?php
+
 	define('FACEBOOK_APP_ID', '154730914571286');
 	define('FACEBOOK_SECRET', '06b728cd7b6527c7cc2af70b3581bbf3');
 
@@ -67,21 +71,28 @@
 
 <!-- FACEBOOK USER AUTHENTICATION -->
 <?php 
-	if ($cookie['access_token']) { 
-		$_SESSION['user'] = json_decode(file_get_contents(
+	if ($cookie['access_token'] && !$_SESSION['logged']) { 
+		$facebook_user = json_decode(file_get_contents(
    			   'https://graph.facebook.com/me?access_token=' . $cookie['access_token']));
-		
-		$_SESSION['profile_picture_url'] = "http://graph.facebook.com/" . $_SESSION['user']->id . "/picture?type=large"; 
+
+		$_SESSION['user'] = json_decode('{
+		  "id":  "facebook' . $facebook_user->id . '",
+		  "name": "' . $facebook_user->name . '",
+ 		  "gender": "' . $facebook_user->gender . '",
+		  "locale": "' . $facebook_user->locale . '",
+		  "updated_time": "' . $facebook_user->updated_time . '",
+		  "profile": "http://www.facebook.com/profile.php?id=' . $facebook_user->id . '",
+		  "profile_picture" : "http://graph.facebook.com/' . $facebook_user->id . '/picture?type=large",
+		  "social_network" : "facebook"
+		}');		
 
 		$_SESSION['friends'] = json_decode(file_get_contents(
    		   				 'https://graph.facebook.com/me/friends?access_token=' .
    		   				 $cookie['access_token']))->data;
-
-		$_SESSION['socialNetwork'] = "facebook";
+		
 	}
 ?>
 
-<!-- INIT -->
 <div id="fb-root"></div>
 <script>
       FB.init({appId: '<?= FACEBOOK_APP_ID ?>', status: true,
@@ -98,6 +109,8 @@
  -->
  
  <?php
+
+if (!$_SESSION['logged']){
  /**
  * @file
  * Take the user when they return from Twitter. Get access tokens.
@@ -141,25 +154,16 @@ if (200 == $connection->http_code) {
 	$content = $connection->get('account/verify_credentials');
 
 	$_SESSION['user'] = json_decode('{
-		   "id": "' . $content->id_str . '",
+		   "id": "twitter' . $content->id_str . '",
 		   "name":"' . $content->name . '",
- 		  "first_name": "Un",
- 		  "last_name": "Known",
-		   "link": "http://twitter.com/?id=' . $content->id_str . '",
-		   "hometown": {
- 		     "id": "",
- 		     "name": null
- 		  },
- 		  "gender": "something",
-		   "timezone": 1,
+ 		   "gender": "something",
 		   "locale": "'. $content->lang .'",
-		   "verified": true,
-		   "updated_time": "' . $content->created_at . '"
+		   "updated_time": "' . $content->created_at . '",
+		   "profile": "http://twitter.com/?id=' . $content->id_str . '",
+ 	       "profile_picture" : "' . ereg_replace("_normal", "", $content->profile_image_url) . '",
+		   "social_network" : "twitter"
 		}');
-		
-	$_SESSION['profile_picture_url'] = ereg_replace("_normal", "", $content->profile_image_url);
-
-	$_SESSION['socialNetwork'] = "twitter";
+}
 }
 ?>
 
@@ -169,16 +173,30 @@ if (200 == $connection->http_code) {
 ******************************************************************
  -->
  
+ 
 <!-- 
 ******************************************************************
 * MYMED
 ******************************************************************
  -->
  
- <!-- SETUP THE ENVIRONEMENT VARS -->
+ <!-- Store this information into the myMed network 
+<?php
+	file_get_contents($_SERVER['HTTP_HOST'] . ":8080/mymed_backend/RequestHandler?act=4&key1=" . $key . "&value1=" . $value);
+?> -->
+
+<?php } ?> <!-- END ELSE IF -->
+
 <?php
 	$user = $_SESSION['user'];
-	$profile_picture_url = $_SESSION['profile_picture_url'];
 	$friends = $_SESSION['friends'];
-	$socialNetwork = $_SESSION['socialNetwork'];
-?> 
+?>
+
+<!-- Store this information into the myMed network and mark session as "logged" -->
+<?php	if($user->name && !$_SESSION['logged']){
+		$encoded = json_encode($user);
+		$result_getcontents = file_get_contents(trim("http://" . $_SERVER['HTTP_HOST'] . ":8080/mymed_backend/RequestHandler?act=10&user=" . urlencode($encoded)));
+		$_SESSION['logged'] = true;
+	}
+?>
+

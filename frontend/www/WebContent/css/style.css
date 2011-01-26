@@ -182,3 +182,18 @@ a:HOVER {
 	background-color: #f1c8c8;
 	display: none;
 }
+
+#debug {
+	position: relative; 
+	top: -400px; 
+	width:600px; 
+	height:300px; 
+	padding: 10px;
+	background-color: black; 
+	color: #5fff2e; 
+	font-size:15px;
+	font-weight:bold;
+	opacity:0.8;
+	overflow: auto;
+	border: medium black solid; 
+}

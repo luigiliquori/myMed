@@ -1,3 +1,5 @@
+<?php $debug = 0 ?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -6,10 +8,6 @@
   <head>
   	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	
-  	<!-- SHARE THIS
-    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
-    <script type="text/javascript">stLight.options({publisher:'8bbeee4c-99fe-4920-85a2-4417288a1bde'});</script> -->
-  
   	<!-- JAVASCRIPT TOOLS AND LIBRARY -->
   	<script type="text/javascript" src="javascript/cookie.js"></script>
 	<script type="text/javascript" src="javascript/drag.js"></script>
@@ -37,7 +35,7 @@
 	  	
 	  	<!-- CONTENT -->
 	  	<div id="content">
-	  		<?php if ($user) { ?>
+	  		<?php if ($user->name) { ?>
 	  		
 		  		<!-- USERINFO -->
 				<?php include('user.php'); ?>
@@ -67,6 +65,12 @@
     	
     	<!-- FOOTER -->
 		<?php include('footer.php'); ?>
+		
+		<!-- DEBUG -->
+		<div id="debug" style="display: <?= $debug ? "block" : "none"; ?>">
+			<h3>Debug Console:</h3>
+			<?= $encoded ?><br /><br />
+		</div>
     	
     </div>
   </body>
