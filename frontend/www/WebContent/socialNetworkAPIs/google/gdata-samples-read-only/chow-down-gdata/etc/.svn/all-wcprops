@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/162/trunk/chow-down-gdata/etc
+END
+package.sh
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/162/trunk/chow-down-gdata/etc/package.sh
+END
+set_svn_properties.sh
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/162/trunk/chow-down-gdata/etc/set_svn_properties.sh
+END
+svn_ignores.txt
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/162/trunk/chow-down-gdata/etc/svn_ignores.txt
+END

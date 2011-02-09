@@ -29,7 +29,7 @@
 		</ul>
 	</div>
 	<img alt="" src="img/myTransportScreenShot.png" width="500">
-	<h1>myTransort is starting please wait...</h1>
+	<h1>myTransport is starting please wait...</h1>
 </div>
 
 <!-- APPLICATION -->
@@ -72,17 +72,35 @@
 			<?php if($search) { ?>
 				<? $res = json_decode(file_get_contents(trim('http://mymed2.sophia.inria.fr:8080/mymed_backend/RequestHandler?act=11&id=' . $id))); ?>
 				<div style="background-color: #415b68; opacity:0.8; color: white; height:298px; width: 700px; overflow: auto;">
-						<img style="position: absolute;" alt="" src="<?= $res->profile_picture ?>">
-						<div style="position: relative; left:220px; width: 300px;">
-							<?= $res->name ?><br />
-							<?= $res->gender ?><br />
-							<?= $res->locale ?><br />
-							<br />
-							<form action="">
-								<input name="code" type="hidden" value="back"/>
-								<input type="submit" value="back">
-							</form>
-						</div>
+						<table>
+						  <tr rowspan="4">
+						    <td><img width="200px" alt="profile picture" src="<?= $res->profile_picture ?>"></td>
+						    <td>
+							    <table>
+								  <tr>
+								  	<td></td>
+								    <td><?= $res->name ?></td>
+								  </tr>
+								  <tr>
+								  	<td></td>
+								    <td><?= $res->gender ?></td>
+								  </tr>
+								  <tr>
+								  	<td></td>
+								    <td><?= $res->locale ?></td>
+								  </tr>
+								  <tr>
+								  	<td></td>
+								    <td>
+									    <form action="">
+											<input name="code" type="hidden" value="back"/>
+											<input type="submit" value="back">
+										</form>
+									</td>
+								  </tr>
+								</table>
+						    </td>
+						</table>
 				</div>
 			<?php } ?> 
 	</div>

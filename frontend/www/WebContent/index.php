@@ -69,7 +69,10 @@
 		<!-- DEBUG -->
 		<div id="debug" style="display: <?= $debug ? "block" : "none"; ?>">
 			<h3>Debug Console:</h3>
-			<?= $encoded ?><br /><br />
+			<?= $_POST["login"] ?><br /><br />
+			<?= $_POST["email"] ?><br /><br />
+			<?= $_POST["password"] ?><br /><br />
+			<?= $isAuthenticated ?><br /><br />
 		</div>
     	
     </div>

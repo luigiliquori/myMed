@@ -1,0 +1,126 @@
+{% if restaurant %}
+<div id="restaurant-info-inner">
+<script type="text/javascript">
+
+var YouTubeFeedUrl = "http://gdata.youtube.com/feeds/api/videos?v=2&q=" + encodeURIComponent("{{restaurant.name}} {{restaurant.city}}") + "&alt=json-in-script&format=5&max-results=1&callback=?";
+$.getJSON(YouTubeFeedUrl,
+    function(data) {
+      if(data.feed && data.feed.entry && data.feed.entry[0]) {
+        var entry = data.feed.entry[0];
+        
+        var swfUrl = null;
+        for(var i in entry.media$group.media$content) {
+          if(entry.media$group.media$content[i].yt$format == '5') {
+            swfUrl = entry.media$group.media$content[i].url;
+          }
+        }
+        if(!swfUrl) {
+          return;
+        }
+        $("<div/>").attr("id", "ytplayer").appendTo("#youtube-video");
+        swfobject.embedSWF(swfUrl, "ytplayer", "425", "356", "8");
+        $("<strong>").text(entry.title.$t).appendTo("#youtube-video").wrap("<p></p>");
+        $("<div/>").attr("id", "video-metadata").text("uploaded by ").appendTo("#youtube-video");
+        var uploader = entry.author[0].name.$t;
+        $("<a/>").attr("target", "_blank").attr("href", "http://www.youtube.com/user/" + uploader).text(uploader).appendTo("#video-metadata");
+        $("<br/>").appendTo("#video-metadata");
+        $("<span/>").attr("class", "video-metadata-description").text(entry.media$group.media$description.$t).appendTo("#video-metadata");
+      }
+    }
+  );
+  
+var PicasaFeedUrl = "http://picasaweb.google.com/data/feed/api/all?v=2&q=" + encodeURIComponent("{{restaurant.name}} {{restaurant.city}}") + "&alt=json-in-script&kind=photo&max-results=10&thumbsize=32c&callback=?";
+$.getJSON(PicasaFeedUrl,
+    function(data) {
+      if(!(data.feed && data.feed.entry && data.feed.entry[0])) {
+        return;
+      }
+      $("#picasa-images").show();
+      $.each(data.feed.entry, function(i, item){
+        var altLink = "#";
+        for(var i in item.link) {
+          if(item.link[i].rel == 'alternate') {
+            altLink = item.link[i].href;
+          }
+        }
+        var title = "Untitled";
+        if(item.media$group.media$description.$t) {
+          title = item.media$group.media$description.$t;
+        }
+        title = title + " by " + item.author[0].name.$t;
+        $("<a/>").attr("href", altLink).attr("target", "_blank").append(
+          $("<img/>").attr("src", item.media$group.media$thumbnail[0].url).attr("class","picasa-image").attr("title", title)
+        ).appendTo("#restaurant-photos");
+        
+        $("#restaurant-photos > a").wrap("<li class='restaurant-photo'><div class='restaurant-photo-div'></div></li>");
+      });
+    }
+  );
+</script>
+<table class="restaurant-info-table">
+  <tr>
+    <td>
+      <div class="title">
+        <span class="restaurant-info-name">{{ restaurant.name }}</span><br />
+        {% if restaurant.url %}
+        <a href="{{ restaurant.url }}" target="_blank">{{ restaurant.url }} </a>
+        {% endif %}
+      </div>
+      <div class="address">
+        {{ restaurant.address }}, {{ restaurant.city }} {{ restaurant.state }}
+      </div>
+      {% ifnotequal restaurant.rating_average "-1" %}
+      <div class="restaurant-info-rating">
+        <img src="/static/images/{{ restaurant.rating_average }}stars.png" 
+             onload="ajax_api_restaurant_info('{{ restaurant.name }}');" />
+        <br />
+      {% endifnotequal %}
+      ({{ restaurant.rating_count }} reviews)
+      </div>
+    </td>
+    <td class="youtube">
+      <div id="youtube-video"/>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+    <div id="picasa-images" style="display:none">Images from Picasa:<br/>
+      <ul id="restaurant-photos">
+      </ul>
+    </div>    
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+    <div id="toggle-ajax-api-results">
+      <a id="ajax-results-toggle" href="javascript:void(0);"
+         onclick="toggle_ajax_api_data();">
+         Show Results from AJAX Search API</a>
+      <br class="clear">
+      <div class="close-td smallrounded">
+        <a id="searchresult-close" href="javascript:void(0);" 
+             onclick="close_restaurant_info();" class="smallrounded">Close</a>
+      </div>
+    </div>
+    </td>
+  </tr>
+  <tr class="ajax-search-results">
+    <td>AJAX Search API Results:<br />
+      <div id="searchcontrol"></div>
+    </td>
+    <td>
+      <div id="blog-search-results"></div>
+      <br class="clear">
+      <div class="close-td smallrounded">
+        <a id="searchresult-close" href="javascript:void(0);" onclick="close_restaurant_info();" class="smallrounded">Close</a>
+      </div>
+    </td>
+  </tr>
+</table>
+</div>
+{% else %}
+<p>No info found ...</p>
+<p class='closelink'>
+  <a id="searchresult-close" href="javascript:void(0);" onclick="close_restaurant_info();" class="smallrounded">Close</a></p>
+<br class="clear" />
+{% endif %}

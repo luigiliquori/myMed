@@ -18,29 +18,52 @@
 	  </tr>
 	</table>
 	
-	<!-- CONNECTION -->
 	<div style="position: relative; width: 900px; text-align: left; margin-top: 10px; font-size:30px;">
 		<?php if ($user->name) { ?>
 		      	 myMed home page: <?= $user->name ?> 
 		  <?php } else { ?>
 		  		<!-- Connection -->
-		  		<table style="font-size: 15px; text-align: center;">
+		  		<table id="connexion" style="font-size: 15px; text-align: left;">
 				  <tr>
-				    <td colspan="2" class="title" style="text-align: left;">Connectez-vous avec votre compte:</td>
-				    <td><img alt="" src="img/loginwith1" style="position: relative; top: 2px;"></td>
+				    <td class="title" style="text-align: left;">Connectez-vous avec votre compte:</td>
+				    <td>
+				    	<img alt="" src="img/loginwith1" style="position: relative; top: 2px;" onmouseover="document.body.style.cursor='pointer'" onmouseout="document.body.style.cursor='default'" onclick="showLoginView()">
+				    </td>
+				    <td>
+				    	<img src="socialNetworkAPIs/twitter/twitteroauth/images/lighter.png" alt="Sign in with Twitter" onclick="window.location='socialNetworkAPIs/twitter/redirect.php'" onmouseover="document.body.style.cursor='pointer'" onmouseout="document.body.style.cursor='default'" style="position: relative; top: 2px;"/>
+				      
+				    </td>
 				    <td><fb:login-button>facebook</fb:login-button></td>
 				    <td><img alt="" src="img/loginwith" style="position: relative; top: 2px;"></td>
-				    <td><a id="twitter" href="http://mymed2.sophia.inria.fr/mymed_v1.0_alpha/socialNetworkAPIs/twitter/redirect.php" style="position: relative; top: 2px;">
-				    	<img src="http://mymed2.sophia.inria.fr/mymed_v1.0_alpha/socialNetworkAPIs/twitter/twitteroauth/images/darker.png" alt="Sign in with Twitter"/>
-				    </a></td>
 				  </tr>
 				  <tr>
-				    <td class="title">ou simplement</td>
-				    <td>
-						<a href="index.php?try=true"><img src="img/freeTour.png" /></a>
+				    <td class="title">Ou simplement en tant que:</td>
+				    <td colspan="4">
+						<img src="img/freeTour2.png" onclick="window.location='index.php?try=true'" onmouseover="document.body.style.cursor='pointer'" onmouseout="document.body.style.cursor='default'" style="position: relative; top: 2px;"/>
 				    </td>
 				  </tr>
 				</table>
+				
+				<!-- login box -->
+				<form action="" method="post" name="loginForm">
+					<input type="hidden" name="login" value="true">
+					<table id="login" style="text-align: left; display:none;">
+					  <tr>
+					    <td class="title" style="font-size: 11px;">
+					    	eMail<br>
+					   		<input type="text" name="email"/>
+					    </td>
+					    <td class="title" style="font-size: 11px;">
+					    	Mot de passe<br>
+					    	<input type="password" name="password"/><br>
+					    </td>
+					    <td>
+					    	<img src="img/connexion" style="position: relative; top: 6px;" onclick="document.loginForm.submit()" onmouseover="document.body.style.cursor='pointer'" onmouseout="document.body.style.cursor='default'">
+					    	<img alt="" src="img/annuler" style="position: relative; top: 6px;" onmouseover="document.body.style.cursor='pointer'" onmouseout="document.body.style.cursor='default'" onclick="hideLoginView()">
+					    </td>
+					  </tr>
+					</table>
+				</form>
 		  <?php } ?>
 	</div>
 </div>

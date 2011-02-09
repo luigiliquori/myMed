@@ -35,5 +35,6 @@
 	<classpathentry kind="lib" path="/local/mymed/backend/WebContent/WEB-INF/lib/gson-1.6-sources.jar"/>
 	<classpathentry kind="lib" path="/local/mymed/backend/WebContent/WEB-INF/lib/gson-1.6-javadoc.jar"/>
 	<classpathentry kind="lib" path="/local/mymed/backend/WebContent/WEB-INF/lib/gson-1.6.jar"/>
+	<classpathentry kind="lib" path="/local/mymed/backend/WebContent/WEB-INF/lib/jSynapse.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

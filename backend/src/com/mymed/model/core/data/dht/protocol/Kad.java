@@ -2,6 +2,8 @@ package com.mymed.model.core.data.dht.protocol;
 
 import com.mymed.model.core.data.dht.AbstractDHT;
 
+import edu.lognet.experiments.current.node.kademlia.KadNode;
+
 /**
  * 
  * @author lvanni
@@ -9,14 +11,34 @@ import com.mymed.model.core.data.dht.AbstractDHT;
  */
 public class Kad extends AbstractDHT{
 
+	/** The Chord instance */
+	private static Kad singleton;
+	
+	/** ChordNode from jSynapse edu.lognet.experiments.current.ChordNode */
+	private KadNode node;
+
 	/**
-	 * Default Constructor
+	 * Private Constructor to create a singleton
 	 * @param address
 	 * @param port
 	 */
-	public Kad(String address, int port) {
+	private Kad(String address, int port) {
 		super(address, port);
-		// TODO Auto-generated constructor stub
+		// use the jSynapse Chord implementation
+		this.node = new KadNode(address, port);
+		// TODO Join to an existing network using the tracker
+	}
+	
+	/**
+	 * Chord getter
+	 * @return
+	 * 		The only one instance of Chord
+	 */
+	public static Kad getInstance(String address, int port) {
+		if (null == singleton) {
+			singleton = new Kad(address, port);
+		}
+		return singleton;
 	}
 	
 	/* --------------------------------------------------------- */
@@ -24,13 +46,12 @@ public class Kad extends AbstractDHT{
 	/* --------------------------------------------------------- */
 	@Override
 	public void put(String key, String value) {
-		// TODO Auto-generated method stub
+		node.put(key, value);
 	}
 
 	@Override
 	public String get(String key) {
-		// TODO Auto-generated method stub
-		return null;
+		return node.get(key);
 	}
 
 }

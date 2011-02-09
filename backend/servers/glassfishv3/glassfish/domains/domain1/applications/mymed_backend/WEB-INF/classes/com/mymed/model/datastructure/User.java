@@ -2,10 +2,14 @@ package com.mymed.model.datastructure;
 
 /**
  * Represent an myMed user
+ * 
  * @author lvanni
  */
 public class User {
-	
+
+	/* --------------------------------------------------------- */
+	/*                      Attributes                           */
+	/* --------------------------------------------------------- */
 	/** User data structure */
 	private String id;
 	private String name;
@@ -15,12 +19,70 @@ public class User {
 	private String profile;
 	private String profile_picture;
 	private String social_network;
-	
+	// for mymed users
+	private String email;
+	private String password;
+
+	/* --------------------------------------------------------- */
+	/*                      Constructors                         */
+	/* --------------------------------------------------------- */
 	/**
 	 * no-args constructor
 	 */
-	public User() {}
+	public User() { }
+
+	/**
+	 * Main Constructor
+	 * @param id
+	 * @param name
+	 * @param gender
+	 * @param locale
+	 * @param updated_time
+	 * @param profile
+	 * @param profile_picture
+	 * @param social_network
+	 * @param email
+	 * @param password
+	 */
+	public User(String id, String name, String gender, String locale,
+			String updated_time, String profile, String profile_picture,
+			String social_network, String email, String password) {
+		this.id = id;
+		this.name = name;
+		this.gender = gender;
+		this.locale = locale;
+		this.updated_time = updated_time;
+		this.profile = profile;
+		this.profile_picture = profile_picture;
+		this.social_network = social_network;
+		this.email = email;
+		this.password = password;
+	}
 	
+	/**
+	 * Main Constructor
+	 * @param id
+	 * @param name
+	 * @param gender
+	 * @param locale
+	 * @param updated_time
+	 * @param profile
+	 * @param profile_picture
+	 * @param social_network
+	 * @param email
+	 * @param password
+	 */
+	public User(String id, String name, String gender, String locale,
+			String updated_time, String profile, String profile_picture,
+			String social_network) {
+		this(id, name, gender, locale, updated_time, profile, profile_picture, social_network, profile_picture, social_network);
+		this.email = "";
+		this.password = "";
+	}
+
+	/* --------------------------------------------------------- */
+	/*                      Override methods                     */
+	/* --------------------------------------------------------- */
 	@Override
 	public String toString() {
 		String value = "User:";
@@ -32,11 +94,15 @@ public class User {
 		value += "\tprofile: " + profile + "\n";
 		value += "\tprofile_picture: " + profile_picture + "\n";
 		value += "\tsocial_network: " + social_network + "\n";
+		if (social_network.equals("myMed") && !id.equals("visiteur")) {
+			value += "\temail: " + email + "\n";
+			value += "\tpassword: " + password + "\n";
+		}
 		return value;
 	}
-	
+
 	/* --------------------------------------------------------- */
-	/*                  GETTER AND SETTER                        */
+	/* GETTER AND SETTER */
 	/* --------------------------------------------------------- */
 	public String getId() {
 		return id;
@@ -100,6 +166,22 @@ public class User {
 
 	public void setSocial_network(String socialNetwork) {
 		this.social_network = socialNetwork;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }

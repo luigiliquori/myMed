@@ -20,12 +20,42 @@ import com.mymed.model.datastructure.User;
  * @author lvanni
  *
  */
-public class RequestHandler extends HttpServlet implements IRequestHandler{
+public class RequestHandler extends HttpServlet {
+	/* --------------------------------------------------------- */
+	/*                      Attributes                           */
+	/* --------------------------------------------------------- */
 	private static final long serialVersionUID = 1L;
 
+	/** Google library to handle jSon request */
 	private Gson gson;
+	
+	/** WPF1 - INRIA - Overlay Networks and Pub/Sub Paradigm */
 	private ServiceManager serviceManager;
 	
+	/** Requests code */ 
+	protected Map<String, RequestCode> requestCodeMap = new HashMap<String, RequestCode>();
+	private enum RequestCode {
+		CONNECT  ("0"),
+		SETKEYSPACE ("1"),
+		SETCOLUMNFAMILY ("2"),
+		SETKEYUSERID ("3"),
+		INSERTKEY ("4"),
+		GETKEY ("5"),
+		
+		SETPROFILE ("10"),
+		GETPROFILE ("11"),
+		LOGIN ("12");
+		
+		public final String code;
+		
+		RequestCode(String code){
+			this.code = code;
+		}
+	}
+	
+	/* --------------------------------------------------------- */
+	/*                      Constructors                         */
+	/* --------------------------------------------------------- */
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -35,18 +65,21 @@ public class RequestHandler extends HttpServlet implements IRequestHandler{
 		 * see http://code.google.com/p/google-gson/
 		 */
 		this.gson = new Gson();
+		
+		// initialise the CodeMapping
 		this.serviceManager = new ServiceManager();
+		for(RequestCode r : RequestCode.values()){
+			requestCodeMap.put(r.code, r);
+		}
 	}
-
+	
+	/* --------------------------------------------------------- */
+	/*                      private methods       		         */
+	/* --------------------------------------------------------- */
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @return the parameters of an HttpServletRequest
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/** Init response */
-		response.setContentType("text/html;charset=UTF-8");
-		String result = "NULL"; // the feedBack for a bad request on the frontend is NULL
-
-		/** Get the request parameters */
+	private Map<String, String> getParameters(HttpServletRequest request){
 		Map<String, String> parameters = new HashMap<String, String>();
 		Enumeration<String> paramNames = request.getParameterNames();
 		while (paramNames.hasMoreElements()) {
@@ -56,21 +89,73 @@ public class RequestHandler extends HttpServlet implements IRequestHandler{
 				parameters.put(paramName, paramValues[0]);
 			}
 		}
+		return parameters;
+	}
 
+	/* --------------------------------------------------------- */
+	/*                      extends HttpServlet                  */
+	/* --------------------------------------------------------- */
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/** Init response */
+		response.setContentType("text/html;charset=UTF-8");
+		String result = "NULL"; // the feedBack for a bad request on the frontend is NULL
+
+		/** Get the parameters */
+		Map<String, String> parameters = getParameters(request);
+		
 		/** handle the request */
 		if (parameters.containsKey("act")){
-			int chx = Integer.parseInt(parameters.get("act"));
-			switch(chx){
+			RequestCode code = requestCodeMap.get(parameters.get("act"));
+			
+			switch(code){
 			case SETPROFILE : // SET AN USER PROFILE INTO THE BACKBONE
 				User user = gson.fromJson(parameters.get("user"), User.class);
-				System.out.println("\n***New user registration received!\n" + user);
+				System.out.println("\nreceived:\n" + user);
 				serviceManager.setProfile(user);
 				break;
 			case GETPROFILE : // GET AN USER PROFILE FROM THE BACKBONE
 				String id = parameters.get("id");
 				user = serviceManager.getProfile(id);
-				System.out.println("\n***User profile found!\n" + user);
 				result = gson.toJson(user);
+				break;
+			case LOGIN : // MYMED AUTHENTICATION
+				String email = parameters.get("email"); // email == id for mymed users
+				String password = parameters.get("password");
+				System.out.println("\nemail=" + email + "\npass=" + password + "\n");
+				user = serviceManager.getProfile(email);
+				System.out.println(user);
+				result = user.getPassword().equals(password) ? gson.toJson(user) : "false";
+				break;
+			default : break;
+			}
+		}
+		
+		/** send the response */
+		PrintWriter out = response.getWriter();
+		out.println(result);
+		out.close();
+	}
+	
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		/** Init response */
+		response.setContentType("text/html;charset=UTF-8");
+		String result = "NULL"; // the feedBack for a bad request on the frontend is NULL
+
+		/** Get the parameters */
+		Map<String, String> parameters = getParameters(request);
+
+		/** handle the request */
+		if (parameters.containsKey("act")){
+			RequestCode code = requestCodeMap.get(parameters.get("act"));
+			
+			switch(code){
 			default : break;
 			}
 		}

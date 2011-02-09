@@ -2,21 +2,43 @@ package com.mymed.model.core.data.dht.protocol;
 
 import com.mymed.model.core.data.dht.AbstractDHT;
 
+import edu.lognet.experiments.current.node.chord.ChordNode;
+
 /**
  * 
  * @author lvanni
  *
  */
 public class Chord extends AbstractDHT {
+	
+	/** The Chord instance */
+	private static Chord singleton;
+	
+	/** ChordNode from jSynapse edu.lognet.experiments.current.ChordNode */
+	private ChordNode node;
 
 	/**
-	 * Default Constructor
+	 * Private Constructor to create a singleton
 	 * @param address
 	 * @param port
 	 */
-	public Chord(String address, int port) {
+	private Chord(String address, int port) {
 		super(address, port);
-		// TODO Auto-generated constructor stub
+		// use the jSynapse Chord implementation
+		this.node = new ChordNode(address, port);
+		// TODO Join to an existing network using the tracker
+	}
+	
+	/**
+	 * Chord getter
+	 * @return
+	 * 		The only one instance of Chord
+	 */
+	public static Chord getInstance(String address, int port) {
+		if (null == singleton) {
+			singleton = new Chord(address, port);
+		}
+		return singleton;
 	}
 	
 	/* --------------------------------------------------------- */
@@ -24,13 +46,12 @@ public class Chord extends AbstractDHT {
 	/* --------------------------------------------------------- */
 	@Override
 	public void put(String key, String value) {
-		// TODO Auto-generated method stub
+		node.put(key, value);
 	}
 
 	@Override
 	public String get(String key) {
-		// TODO Auto-generated method stub
-		return null;
+		return node.get(key);
 	}
 
 }

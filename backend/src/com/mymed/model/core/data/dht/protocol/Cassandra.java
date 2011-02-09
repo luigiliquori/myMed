@@ -18,7 +18,6 @@ import org.apache.thrift.transport.TTransport;
 import org.apache.thrift.transport.TTransportException;
 
 import com.mymed.model.core.data.dht.AbstractDHT;
-import com.mymed.model.datastructure.User;
 
 /**
  * 
@@ -26,7 +25,52 @@ import com.mymed.model.datastructure.User;
  *
  */
 public class Cassandra extends AbstractDHT {
+	/* CASSANDRA STRUCTURE:
 
+	  Keyspace
+	  -----------------------------------------------------
+	  | columnFamily					  				  |
+	  | ----------------------------------- 			  |
+	  | | 			| columnName -> value | 			  |
+	  | |	key		| columnName -> value | 			  |
+	  | |			| columnName -> value | 			  |
+	  | |-----------|---------------------|				  |
+	  | | 			| columnName -> value |				  |
+	  | |	key		| columnName -> value |				  |
+	  | |			| columnName -> value |				  | 
+	  | -----------------------------------				  |
+	  |								  	 			      |
+	  | SuperColumnFamily				  				  |
+	  | ------------------------------------------------- |
+	  | | 			| columnFamily					    | |
+	  |	|           | --------------------------------- | |
+	  | |			| |			| columnName -> value | | |
+	  | |			| |   key	| columnName -> value | | |
+	  | |			| |			| columnName -> value | | |
+	  | |			| |---------|---------------------| | |
+	  | |			| |			| columnName -> value | | |
+	  | |			| |	  key	| columnName -> value | | |
+	  | |			| |			| columnName -> value | | |
+	  | |			| --------------------------------- | |
+	  | | superKey	| columnFamily					    | |
+	  |	|           | --------------------------------- | |
+	  | |			| |			| columnName -> value | | |
+	  | |			| |   key	| columnName -> value | | |
+	  | |			| |			| columnName -> value | | |
+	  | |			| |---------|---------------------| | |
+	  | |			| |			| columnName -> value | | |
+	  | |			| |	  key	| columnName -> value | | |
+	  | |			| |			| columnName -> value | | |
+	  | |			| --------------------------------- | |
+	  | ------------------------------------------------- |
+	  -----------------------------------------------------
+
+	 */
+
+
+	/* --------------------------------------------------------- */
+	/*                      Attributes                           */
+	/* --------------------------------------------------------- */
 	/** The Cassandra instance */
 	private static Cassandra singleton;
 
@@ -34,15 +78,16 @@ public class Cassandra extends AbstractDHT {
 	private TTransport tr;
 	private TProtocol proto;
 	private Client client;
-	private String keyspace;
 
+	/* --------------------------------------------------------- */
+	/*                      Constructors                         */
+	/* --------------------------------------------------------- */
 	/**
 	 * Private Constructor to create a singleton
 	 */
 	private Cassandra() {
 		super("138.96.242.2", 4201);
 
-		this.keyspace = "Mymed";
 		this.tr = new TSocket(address, port);
 		this.proto = new TBinaryProtocol(tr);
 		this.client = new Client(proto);
@@ -60,60 +105,25 @@ public class Cassandra extends AbstractDHT {
 		return singleton;
 	}
 
+	/* --------------------------------------------------------- */
+	/*                      Public methods                       */
+	/* --------------------------------------------------------- */
 	/**
-	 * Return an user profile from the backbone
-	 * @param user
+	 * @param keyspace
+	 * @param columnFamily
+	 * @param key
+	 * @param columnName
+	 * @param level
+	 * @return
 	 */
-	public User getProfile(String id){
-		User user = new User();
+	public byte[] getSimpleColumn(String keyspace, String columnFamily, String key, byte[] columnName, ConsistencyLevel level){
 		try {
 			tr.open();
-			String columnFamily = "Users";
 			ColumnPath colPathName = new ColumnPath(columnFamily);
-			// USER ID
-			colPathName.setColumn("id".getBytes("UTF8"));
-			Column col = client.get(keyspace, id, colPathName,
-					ConsistencyLevel.QUORUM).getColumn();
-			user.setId(new String(col.value, "UTF8"));
-			// USER NAME
-			colPathName.setColumn("name".getBytes("UTF8"));
-			col = client.get(keyspace, id, colPathName,
-					ConsistencyLevel.QUORUM).getColumn();
-			user.setName(new String(col.value, "UTF8"));
-			// USER GENDER
-			colPathName.setColumn("gender".getBytes("UTF8"));
-			col = client.get(keyspace, id, colPathName,
-					ConsistencyLevel.QUORUM).getColumn();
-			user.setGender(new String(col.value, "UTF8"));
-			// USER LOCALE
-			colPathName.setColumn("locale".getBytes("UTF8"));
-			col = client.get(keyspace, id, colPathName,
-					ConsistencyLevel.QUORUM).getColumn();
-			user.setLocale(new String(col.value, "UTF8"));
-			// USER UPTIME
-			colPathName.setColumn("updated_time".getBytes("UTF8"));
-			col = client.get(keyspace, id, colPathName,
-					ConsistencyLevel.QUORUM).getColumn();
-			user.setUpdated_time(new String(col.value, "UTF8"));
-			// USER PROFILE
-			colPathName.setColumn("profile".getBytes("UTF8"));
-			col = client.get(keyspace, id, colPathName,
-					ConsistencyLevel.QUORUM).getColumn();
-			user.setProfile(new String(col.value, "UTF8"));
-			// USER PROFILE_PICTURE
-			colPathName.setColumn("profile_picture".getBytes("UTF8"));
-			col = client.get(keyspace, id, colPathName,
-					ConsistencyLevel.QUORUM).getColumn();
-			user.setProfile_picture(new String(col.value, "UTF8"));
-			// USER SOCIAL_NETWORK
-			colPathName.setColumn("social_network".getBytes("UTF8"));
-			col = client.get(keyspace, id, colPathName,
-					ConsistencyLevel.QUORUM).getColumn();
-			user.setSocial_network(new String(col.value, "UTF8"));
+			colPathName.setColumn(columnName);
+			Column col = client.get(keyspace, key, colPathName, level).getColumn();
+			return col.value;
 		} catch (TTransportException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvalidRequestException e) {
@@ -134,56 +144,26 @@ public class Cassandra extends AbstractDHT {
 		} finally {
 			tr.close();
 		}
-		return user;
+		return null;
 	}
 
 	/**
-	 * Register a new user in the backbone
-	 * @param user
+	 * @param keyspace
+	 * @param columnFamily
+	 * @param key
+	 * @param columnName
+	 * @param value
+	 * @param level
 	 */
-	public void setProfile(User user){
+	public void setSimpleColumn(String keyspace, String columnFamily, String key, byte[] columnName, byte[] value, ConsistencyLevel level){
 		try {
 			tr.open();
-			String columnFamily = "Users";
-			ColumnPath colPathName = new ColumnPath(columnFamily);
 			long timestamp = System.currentTimeMillis();
-			// USER ID
-			colPathName.setColumn("id".getBytes("UTF8"));
-			client.insert(keyspace, user.getId(), colPathName, user.getId().getBytes("UTF8"), timestamp,
-					ConsistencyLevel.QUORUM);
-			// USER NAME
-			colPathName.setColumn("name".getBytes("UTF8"));
-			client.insert(keyspace, user.getId(), colPathName, user.getName().getBytes("UTF8"), timestamp,
-					ConsistencyLevel.QUORUM);
-			// USER GENDER
-			colPathName.setColumn("gender".getBytes("UTF8"));
-			client.insert(keyspace, user.getId(), colPathName, user.getGender().getBytes("UTF8"), timestamp,
-					ConsistencyLevel.QUORUM);
-			// USER LOCALE
-			colPathName.setColumn("locale".getBytes("UTF8"));
-			client.insert(keyspace, user.getId(), colPathName, user.getLocale().getBytes("UTF8"), timestamp,
-					ConsistencyLevel.QUORUM);
-			// USER UPTIME
-			colPathName.setColumn("updated_time".getBytes("UTF8"));
-			client.insert(keyspace, user.getId(), colPathName, user.getUpdated_time().getBytes("UTF8"), timestamp,
-					ConsistencyLevel.QUORUM);
-			// USER PROFILE
-			colPathName.setColumn("profile".getBytes("UTF8"));
-			client.insert(keyspace, user.getId(), colPathName, user.getProfile().getBytes("UTF8"), timestamp,
-					ConsistencyLevel.QUORUM);
-			// USER PROFILE_PICTURE
-			colPathName.setColumn("profile_picture".getBytes("UTF8"));
-			client.insert(keyspace, user.getId(), colPathName, user.getProfile_picture().getBytes("UTF8"), timestamp,
-					ConsistencyLevel.QUORUM);
-			// USER SOCIAL_NETWORK
-			colPathName.setColumn("social_network".getBytes("UTF8"));
-			client.insert(keyspace, user.getId(), colPathName, user.getSocial_network().getBytes("UTF8"), timestamp,
-					ConsistencyLevel.QUORUM);
-
+			ColumnPath colPathName = new ColumnPath(columnFamily);
+			colPathName.setColumn(columnName);
+			client.insert(keyspace, key, colPathName, value, timestamp,
+					level);
 		} catch (TTransportException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvalidRequestException e) {
@@ -204,16 +184,59 @@ public class Cassandra extends AbstractDHT {
 	}
 
 	/* --------------------------------------------------------- */
-	/*                    DHT OPERATIONS                         */
+	/*                    COMMON DHT OPERATIONS                  */
 	/* --------------------------------------------------------- */
 	@Override
 	public void put(String key, String value) {
-		// TODO Auto-generated method stub
+		try {
+			tr.open();
+			String columnFamily = "Standard1";
+			ColumnPath colPathName = new ColumnPath(columnFamily);
+			long timestamp = System.currentTimeMillis();
+			colPathName.setColumn(key.getBytes("UTF8"));
+			client.insert("Keyspace1", "1", colPathName, value.getBytes("UTF8"), timestamp,
+					ConsistencyLevel.ANY);
+		} catch (InvalidRequestException e) {
+			e.printStackTrace();
+		} catch (UnavailableException e) {
+			e.printStackTrace();
+		} catch (TimedOutException e) {
+			e.printStackTrace();
+		} catch (TException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} finally {
+			tr.close();
+		}
 	}
 
 	@Override
 	public String get(String key) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			tr.open();
+			String columnFamily = "Standard1";
+			ColumnPath colPathName = new ColumnPath(columnFamily);
+			colPathName.setColumn(key.getBytes("UTF8"));
+			Column col = client.get("Keyspace1", "1", colPathName,
+					ConsistencyLevel.ANY).getColumn();
+			return new String(col.value, "UTF8");
+		} catch (InvalidRequestException e) {
+			e.printStackTrace();
+		} catch (UnavailableException e) {
+			e.printStackTrace();
+		} catch (TimedOutException e) {
+			e.printStackTrace();
+		} catch (TException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (NotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			tr.close();
+		}
+		return "";
 	}
 }

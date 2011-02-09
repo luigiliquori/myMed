@@ -1,4 +1,3 @@
-
 function submitForm(request) {
 	if (request == "search") {
 		request = "http://mymed2.sophia.inria.fr:8080/services/RequestHandler?act=5&key2="

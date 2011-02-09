@@ -32,11 +32,45 @@
 		  "updated_time": "now",
 		  "profile": "http://www.facebook.com/profile.php?id=007",
 		  "profile_picture" : "http://graph.facebook.com//picture?type=large",
-		  "social_network" : "myMed"
+		  "social_network" : "unknown"
 		}');
 	} 
 ?>
 
+<!-- 
+******************************************************************
+* MYMED
+******************************************************************
+ -->
+ 
+ <!-- Inscription -->
+<?php
+	$time = date('l jS \of F Y h:i:s A');
+ 	if($_POST["inscription"]){
+		$_SESSION['user'] = json_decode('{
+		  "id": "' . $_POST["email"] . '",
+		  "name": "' . $_POST["prenom"] . ' ' . $_POST["nom"] . '",
+ 		  "gender": "' . $_POST["gender"] . '",
+		  "locale": "Francais",
+		  "updated_time": "' . $time . '",
+		  "profile": "?profile=' . $_POST["prenom"] . $_POST["nom"] . '",
+		  "profile_picture" : "http://graph.facebook.com//picture?type=large",
+		  "social_network" : "myMed",
+		  "email" : "' . $_POST["email"] . '",
+		  "password" : "' . $_POST["password"] . '"
+		}');
+	} 
+?>
+
+ <!-- Login -->
+ <?php
+ if($_POST["login"]){
+ 	$isAuthenticated = file_get_contents(trim("http://" . $_SERVER['HTTP_HOST'] . ":8080/mymed_backend/RequestHandler?act=12&email=" . $_POST["email"] . "&password=" . $_POST["password"]));
+ 	if($isAuthenticated){
+ 		$_SESSION['user'] = json_decode($isAuthenticated);
+ 	}
+ }
+?>
 
 <!-- 
 ******************************************************************
@@ -173,12 +207,6 @@ if (200 == $connection->http_code) {
 ******************************************************************
  -->
  
- 
-<!-- 
-******************************************************************
-* MYMED
-******************************************************************
- -->
  
  <!-- Store this information into the myMed network 
 <?php

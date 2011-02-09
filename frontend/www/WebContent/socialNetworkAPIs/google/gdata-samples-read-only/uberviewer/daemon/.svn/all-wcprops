@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/!svn/ver/181/trunk/uberviewer/daemon
+END
+.classpath
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/181/trunk/uberviewer/daemon/.classpath
+END
+supfetcher.jar
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/181/trunk/uberviewer/daemon/supfetcher.jar
+END
+.project
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/181/trunk/uberviewer/daemon/.project
+END
+log.properties.template
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/181/trunk/uberviewer/daemon/log.properties.template
+END
+config.properties.template
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/181/trunk/uberviewer/daemon/config.properties.template
+END
+schema.sql
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/181/trunk/uberviewer/daemon/schema.sql
+END

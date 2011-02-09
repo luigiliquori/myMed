@@ -4,6 +4,7 @@ package com.mymed.controller.core.services.requesthandler;
  * Describe the header of all the request coming from the frontend
  * @author lvanni
  */
+@Deprecated
 public interface IRequestHandler {
 	
 	/** Cassandra debug operations*/

@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/162/trunk/chow-down-gdata/src/opensocial
+END
+mock_http.py
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/162/trunk/chow-down-gdata/src/opensocial/mock_http.py
+END
+test_data.py
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/162/trunk/chow-down-gdata/src/opensocial/test_data.py
+END
+request.py
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/162/trunk/chow-down-gdata/src/opensocial/request.py
+END
+data.py
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/162/trunk/chow-down-gdata/src/opensocial/data.py
+END
+errors.py
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/162/trunk/chow-down-gdata/src/opensocial/errors.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/162/trunk/chow-down-gdata/src/opensocial/__init__.py
+END
+http.py
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/162/trunk/chow-down-gdata/src/opensocial/http.py
+END

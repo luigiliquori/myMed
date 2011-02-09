@@ -1,9 +1,9 @@
 <div id="footer">
 
 	<div style="position:relative; text-align: left; top:10px;">
-	 	<a href="#">Francais</a> |
-	 	<a href="#">English</a> | 
-	 	<a href="#">Italiano</a>
+	 	<a href="#"><b>Francais</b></a> |
+	 	<a href="#" style="color: gray;">English</a> | 
+	 	<a href="#" style="color: gray;">Italiano</a>
  	</div>
  	
  	<div style="position:relative; top:20px; height: 1px; background-color: #b0c0e1;"></div>

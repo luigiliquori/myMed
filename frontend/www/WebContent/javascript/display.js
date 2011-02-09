@@ -72,3 +72,13 @@ function changeMenu(elementID){
 	cleanMenu();
 	displayWindow("#" + elementID);
 }
+
+function showLoginView(){
+	document.getElementById("connexion").style.display = "none";
+	fadeIn("#login");
+}
+
+function hideLoginView(){
+	document.getElementById("login").style.display = "none";
+	fadeIn("#connexion");
+}
