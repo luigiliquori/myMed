@@ -16883,3 +16883,2208 @@ User:	id: visiteur
 
 [#|2011-02-09T18:59:54.434+0100|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=26;_ThreadName=Thread-1;|[AutoDeploy] Successfully autodeployed : /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war.|#]
 
+[#|2011-02-10T09:57:55.522+0100|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+received:
+User:	id: facebook841889478
+	name: Maurizio Martorana
+	gender: male
+	locale: fr_FR
+	updated_time: 2011-01-24T13:44:35+0000
+	profile: http://www.facebook.com/profile.php?id=841889478
+	profile_picture: http://graph.facebook.com/841889478/picture?type=large
+	social_network: facebook
+|#]
+
+[#|2011-02-10T09:59:22.744+0100|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|InvalidRequestException(why:Key may not be empty)
+	at org.apache.cassandra.thrift.Cassandra$get_result.read(Cassandra.java:3710)
+	at org.apache.cassandra.thrift.Cassandra$Client.recv_get(Cassandra.java:349)
+	at org.apache.cassandra.thrift.Cassandra$Client.get(Cassandra.java:324)
+	at com.mymed.model.core.data.dht.protocol.Cassandra.getSimpleColumn(Cassandra.java:124)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T09:59:22.745+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=24;_ThreadName=http-thread-pool-8080-(1);|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T09:59:22.745+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=24;_ThreadName=http-thread-pool-8080-(1);|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T09:59:22.745+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=24;_ThreadName=Thread-1;|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T09:59:48.310+0100|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|InvalidRequestException(why:Key may not be empty)
+	at org.apache.cassandra.thrift.Cassandra$get_result.read(Cassandra.java:3710)
+	at org.apache.cassandra.thrift.Cassandra$Client.recv_get(Cassandra.java:349)
+	at org.apache.cassandra.thrift.Cassandra$Client.get(Cassandra.java:324)
+	at com.mymed.model.core.data.dht.protocol.Cassandra.getSimpleColumn(Cassandra.java:124)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T09:59:48.311+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=27;_ThreadName=http-thread-pool-8080-(2);|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T09:59:48.311+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=27;_ThreadName=http-thread-pool-8080-(2);|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T09:59:48.311+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=27;_ThreadName=Thread-1;|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T09:59:52.581+0100|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|InvalidRequestException(why:Key may not be empty)
+	at org.apache.cassandra.thrift.Cassandra$get_result.read(Cassandra.java:3710)
+	at org.apache.cassandra.thrift.Cassandra$Client.recv_get(Cassandra.java:349)
+	at org.apache.cassandra.thrift.Cassandra$Client.get(Cassandra.java:324)
+	at com.mymed.model.core.data.dht.protocol.Cassandra.getSimpleColumn(Cassandra.java:124)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T09:59:52.582+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=27;_ThreadName=http-thread-pool-8080-(2);|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T09:59:52.582+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=27;_ThreadName=http-thread-pool-8080-(2);|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T09:59:52.582+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=27;_ThreadName=Thread-1;|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T09:59:59.789+0100|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|InvalidRequestException(why:Key may not be empty)
+	at org.apache.cassandra.thrift.Cassandra$get_result.read(Cassandra.java:3710)
+	at org.apache.cassandra.thrift.Cassandra$Client.recv_get(Cassandra.java:349)
+	at org.apache.cassandra.thrift.Cassandra$Client.get(Cassandra.java:324)
+	at com.mymed.model.core.data.dht.protocol.Cassandra.getSimpleColumn(Cassandra.java:124)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T09:59:59.790+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=27;_ThreadName=http-thread-pool-8080-(2);|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T09:59:59.790+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=27;_ThreadName=http-thread-pool-8080-(2);|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T09:59:59.790+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=27;_ThreadName=Thread-1;|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:00:23.150+0100|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|InvalidRequestException(why:Key may not be empty)
+	at org.apache.cassandra.thrift.Cassandra$get_result.read(Cassandra.java:3710)
+	at org.apache.cassandra.thrift.Cassandra$Client.recv_get(Cassandra.java:349)
+	at org.apache.cassandra.thrift.Cassandra$Client.get(Cassandra.java:324)
+	at com.mymed.model.core.data.dht.protocol.Cassandra.getSimpleColumn(Cassandra.java:124)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:00:23.150+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=27;_ThreadName=http-thread-pool-8080-(2);|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:00:23.150+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=27;_ThreadName=http-thread-pool-8080-(2);|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:00:23.150+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=27;_ThreadName=Thread-1;|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:00:27.117+0100|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|InvalidRequestException(why:Key may not be empty)
+	at org.apache.cassandra.thrift.Cassandra$get_result.read(Cassandra.java:3710)
+	at org.apache.cassandra.thrift.Cassandra$Client.recv_get(Cassandra.java:349)
+	at org.apache.cassandra.thrift.Cassandra$Client.get(Cassandra.java:324)
+	at com.mymed.model.core.data.dht.protocol.Cassandra.getSimpleColumn(Cassandra.java:124)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:00:27.118+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=27;_ThreadName=http-thread-pool-8080-(2);|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:00:27.118+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=27;_ThreadName=http-thread-pool-8080-(2);|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:00:27.118+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=27;_ThreadName=Thread-1;|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:00:43.901+0100|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|InvalidRequestException(why:Key may not be empty)
+	at org.apache.cassandra.thrift.Cassandra$get_result.read(Cassandra.java:3710)
+	at org.apache.cassandra.thrift.Cassandra$Client.recv_get(Cassandra.java:349)
+	at org.apache.cassandra.thrift.Cassandra$Client.get(Cassandra.java:324)
+	at com.mymed.model.core.data.dht.protocol.Cassandra.getSimpleColumn(Cassandra.java:124)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:00:43.902+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=27;_ThreadName=http-thread-pool-8080-(2);|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:00:43.902+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=27;_ThreadName=http-thread-pool-8080-(2);|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:00:43.902+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=27;_ThreadName=Thread-1;|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:00:49.706+0100|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|InvalidRequestException(why:Key may not be empty)
+	at org.apache.cassandra.thrift.Cassandra$get_result.read(Cassandra.java:3710)
+	at org.apache.cassandra.thrift.Cassandra$Client.recv_get(Cassandra.java:349)
+	at org.apache.cassandra.thrift.Cassandra$Client.get(Cassandra.java:324)
+	at com.mymed.model.core.data.dht.protocol.Cassandra.getSimpleColumn(Cassandra.java:124)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:00:49.707+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=27;_ThreadName=http-thread-pool-8080-(2);|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:00:49.707+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=27;_ThreadName=http-thread-pool-8080-(2);|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:00:49.707+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=27;_ThreadName=Thread-1;|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:16:21.218+0100|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|InvalidRequestException(why:Key may not be empty)
+	at org.apache.cassandra.thrift.Cassandra$get_result.read(Cassandra.java:3710)
+	at org.apache.cassandra.thrift.Cassandra$Client.recv_get(Cassandra.java:349)
+	at org.apache.cassandra.thrift.Cassandra$Client.get(Cassandra.java:324)
+	at com.mymed.model.core.data.dht.protocol.Cassandra.getSimpleColumn(Cassandra.java:124)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:16:21.219+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=27;_ThreadName=http-thread-pool-8080-(2);|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:16:21.219+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=27;_ThreadName=http-thread-pool-8080-(2);|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:16:21.219+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=27;_ThreadName=Thread-1;|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:16:28.127+0100|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|InvalidRequestException(why:Key may not be empty)
+	at org.apache.cassandra.thrift.Cassandra$get_result.read(Cassandra.java:3710)
+	at org.apache.cassandra.thrift.Cassandra$Client.recv_get(Cassandra.java:349)
+	at org.apache.cassandra.thrift.Cassandra$Client.get(Cassandra.java:324)
+	at com.mymed.model.core.data.dht.protocol.Cassandra.getSimpleColumn(Cassandra.java:124)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:16:28.128+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=27;_ThreadName=http-thread-pool-8080-(2);|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:16:28.128+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=27;_ThreadName=http-thread-pool-8080-(2);|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:16:28.128+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=27;_ThreadName=Thread-1;|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:16:31.019+0100|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+received:
+User:	id: facebook841889478
+	name: Maurizio Martorana
+	gender: male
+	locale: fr_FR
+	updated_time: 2011-01-24T13:44:35+0000
+	profile: http://www.facebook.com/profile.php?id=841889478
+	profile_picture: http://graph.facebook.com/841889478/picture?type=large
+	social_network: facebook
+|#]
+
+[#|2011-02-10T10:16:35.150+0100|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+received:
+User:	id: facebook841889478
+	name: Maurizio Martorana
+	gender: male
+	locale: fr_FR
+	updated_time: 2011-01-24T13:44:35+0000
+	profile: http://www.facebook.com/profile.php?id=841889478
+	profile_picture: http://graph.facebook.com/841889478/picture?type=large
+	social_network: facebook
+|#]
+
+[#|2011-02-10T10:16:38.329+0100|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+received:
+User:	id: facebook841889478
+	name: Maurizio Martorana
+	gender: male
+	locale: fr_FR
+	updated_time: 2011-01-24T13:44:35+0000
+	profile: http://www.facebook.com/profile.php?id=841889478
+	profile_picture: http://graph.facebook.com/841889478/picture?type=large
+	social_network: facebook
+|#]
+
+[#|2011-02-10T10:16:42.114+0100|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+received:
+User:	id: facebook841889478
+	name: Maurizio Martorana
+	gender: male
+	locale: fr_FR
+	updated_time: 2011-01-24T13:44:35+0000
+	profile: http://www.facebook.com/profile.php?id=841889478
+	profile_picture: http://graph.facebook.com/841889478/picture?type=large
+	social_network: facebook
+|#]
+
+[#|2011-02-10T10:16:44.626+0100|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+received:
+User:	id: facebook841889478
+	name: Maurizio Martorana
+	gender: male
+	locale: fr_FR
+	updated_time: 2011-01-24T13:44:35+0000
+	profile: http://www.facebook.com/profile.php?id=841889478
+	profile_picture: http://graph.facebook.com/841889478/picture?type=large
+	social_network: facebook
+|#]
+
+[#|2011-02-10T10:16:48.554+0100|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+received:
+User:	id: facebook841889478
+	name: Maurizio Martorana
+	gender: male
+	locale: fr_FR
+	updated_time: 2011-01-24T13:44:35+0000
+	profile: http://www.facebook.com/profile.php?id=841889478
+	profile_picture: http://graph.facebook.com/841889478/picture?type=large
+	social_network: facebook
+|#]
+
+[#|2011-02-10T10:17:52.572+0100|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+received:
+User:	id: facebook1345155085
+	name: Luigi Liquori
+	gender: male
+	locale: it_IT
+	updated_time: 2009-08-05T00:40:34+0000
+	profile: http://www.facebook.com/profile.php?id=1345155085
+	profile_picture: http://graph.facebook.com/1345155085/picture?type=large
+	social_network: facebook
+|#]
+
+[#|2011-02-10T10:24:42.346+0100|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|InvalidRequestException(why:Consistency level any may not be applied to read operations)
+	at org.apache.cassandra.thrift.Cassandra$get_result.read(Cassandra.java:3710)
+	at org.apache.cassandra.thrift.Cassandra$Client.recv_get(Cassandra.java:349)
+	at org.apache.cassandra.thrift.Cassandra$Client.get(Cassandra.java:324)
+	at com.mymed.model.core.data.dht.protocol.Cassandra.getSimpleColumn(Cassandra.java:124)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:24:42.346+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=24;_ThreadName=http-thread-pool-8080-(1);|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:24:42.346+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=24;_ThreadName=http-thread-pool-8080-(1);|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:24:42.346+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=24;_ThreadName=Thread-1;|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:24:43.357+0100|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|InvalidRequestException(why:Consistency level any may not be applied to read operations)
+	at org.apache.cassandra.thrift.Cassandra$get_result.read(Cassandra.java:3710)
+	at org.apache.cassandra.thrift.Cassandra$Client.recv_get(Cassandra.java:349)
+	at org.apache.cassandra.thrift.Cassandra$Client.get(Cassandra.java:324)
+	at com.mymed.model.core.data.dht.protocol.Cassandra.getSimpleColumn(Cassandra.java:124)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:24:43.357+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=24;_ThreadName=http-thread-pool-8080-(1);|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:24:43.357+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=24;_ThreadName=Thread-1;|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:24:43.357+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=24;_ThreadName=http-thread-pool-8080-(1);|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:26:07.912+0100|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+received:
+User:	id: facebook1345155085
+	name: Luigi Liquori
+	gender: male
+	locale: it_IT
+	updated_time: 2009-08-05T00:40:34+0000
+	profile: http://www.facebook.com/profile.php?id=1345155085
+	profile_picture: http://graph.facebook.com/1345155085/picture?type=large
+	social_network: facebook
+|#]
+
+[#|2011-02-10T10:26:11.414+0100|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+received:
+User:	id: facebook1345155085
+	name: Luigi Liquori
+	gender: male
+	locale: it_IT
+	updated_time: 2009-08-05T00:40:34+0000
+	profile: http://www.facebook.com/profile.php?id=1345155085
+	profile_picture: http://graph.facebook.com/1345155085/picture?type=large
+	social_network: facebook
+|#]
+
+[#|2011-02-10T10:26:49.648+0100|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+received:
+User:	id: twitter239857978
+	name: laurent vanni
+	gender: something
+	locale: fr
+	updated_time: Tue Jan 18 15:58:21 +0000 2011
+	profile: http://twitter.com/?id=239857978
+	profile_picture: http://a2.twimg.com/profile_images/1220048632/moiCV.png
+	social_network: twitter
+|#]
+
+[#|2011-02-10T10:27:10.112+0100|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|InvalidRequestException(why:Consistency level any may not be applied to read operations)
+	at org.apache.cassandra.thrift.Cassandra$get_result.read(Cassandra.java:3710)
+	at org.apache.cassandra.thrift.Cassandra$Client.recv_get(Cassandra.java:349)
+	at org.apache.cassandra.thrift.Cassandra$Client.get(Cassandra.java:324)
+	at com.mymed.model.core.data.dht.protocol.Cassandra.getSimpleColumn(Cassandra.java:124)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:27:10.113+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=24;_ThreadName=http-thread-pool-8080-(1);|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:27:10.113+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=24;_ThreadName=http-thread-pool-8080-(1);|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:27:10.113+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=24;_ThreadName=Thread-1;|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:27:10.358+0100|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|InvalidRequestException(why:Consistency level any may not be applied to read operations)
+	at org.apache.cassandra.thrift.Cassandra$get_result.read(Cassandra.java:3710)
+	at org.apache.cassandra.thrift.Cassandra$Client.recv_get(Cassandra.java:349)
+	at org.apache.cassandra.thrift.Cassandra$Client.get(Cassandra.java:324)
+	at com.mymed.model.core.data.dht.protocol.Cassandra.getSimpleColumn(Cassandra.java:124)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:27:10.359+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=24;_ThreadName=http-thread-pool-8080-(1);|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:27:10.359+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=24;_ThreadName=http-thread-pool-8080-(1);|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:27:10.359+0100|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=24;_ThreadName=Thread-1;|StandardWrapperValve[RequestHandler]: PWC1406: Servlet.service() for servlet RequestHandler threw exception
+java.lang.NullPointerException
+	at java.lang.String.<init>(String.java:523)
+	at com.mymed.model.core.wrapper.Wrapper.getProfile(Wrapper.java:34)
+	at com.mymed.controller.core.services.ServiceManager.getProfile(ServiceManager.java:46)
+	at com.mymed.controller.core.services.requesthandler.RequestHandler.doGet(RequestHandler.java:121)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-02-10T10:34:56.670+0100|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+received:
+User:	id: twitter239857978
+	name: laurent vanni
+	gender: something
+	locale: fr
+	updated_time: Tue Jan 18 15:58:21 +0000 2011
+	profile: http://twitter.com/?id=239857978
+	profile_picture: http://a2.twimg.com/profile_images/1220048632/moiCV.png
+	social_network: twitter
+|#]
+
+[#|2011-02-10T10:36:28.388+0100|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+received:
+User:	id: visiteur
+	name: Visiteur
+	gender: something
+	locale: somewhere
+	updated_time: now
+	profile: http://www.facebook.com/profile.php?id=007
+	profile_picture: http://graph.facebook.com//picture?type=large
+	social_network: unknown
+|#]
+
+[#|2011-02-10T10:40:19.561+0100|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+received:
+User:	id: visiteur
+	name: Visiteur
+	gender: something
+	locale: somewhere
+	updated_time: now
+	profile: http://www.facebook.com/profile.php?id=007
+	profile_picture: http://graph.facebook.com//picture?type=large
+	social_network: unknown
+|#]
+
+[#|2011-02-10T12:25:20.624+0100|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=26;_ThreadName=Thread-1;|[AutoDeploy] Selecting file /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war for autodeployment.|#]
+
+[#|2011-02-10T12:25:22.188+0100|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=26;_ThreadName=AutoDeployer;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-02-10T12:25:22.188+0100|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=26;_ThreadName=AutoDeployer;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-02-10T12:25:22.188+0100|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=26;_ThreadName=Thread-1;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-02-10T12:25:22.194+0100|INFO|glassfish3.0.1|javax.enterprise.system.tools.admin.org.glassfish.deployment.admin|_ThreadID=26;_ThreadName=Thread-1;|mymed_backend was successfully deployed in 1 564 milliseconds.|#]
+
+[#|2011-02-10T12:25:22.195+0100|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=26;_ThreadName=Thread-1;|[AutoDeploy] Successfully autodeployed : /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war.|#]
+
+[#|2011-02-10T12:25:33.777+0100|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+received:
+User:	id: visiteur
+	name: Visiteur
+	gender: something
+	locale: somewhere
+	updated_time: now
+	profile: http://www.facebook.com/profile.php?id=007
+	profile_picture: http://graph.facebook.com//picture?type=large
+	social_network: unknown
+|#]
+
+[#|2011-02-10T12:26:13.611+0100|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+received:
+User:	id: visiteur
+	name: Visiteur
+	gender: something
+	locale: somewhere
+	updated_time: now
+	profile: http://www.facebook.com/profile.php?id=007
+	profile_picture: http://graph.facebook.com//picture?type=large
+	social_network: unknown
+|#]
+
+[#|2011-02-10T12:26:23.507+0100|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+email=laurent.vanni@inria.fr
+pass=1234
+|#]
+
+[#|2011-02-10T12:26:23.516+0100|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|User:	id: laurent.vanni@inria.fr
+	name: laurent vanni
+	gender: Homme
+	locale: Francais
+	updated_time: Wednesday 2nd of February 2011 06:42:06 PM
+	profile: ?profile=laurentvanni
+	profile_picture: http://graph.facebook.com//picture?type=large
+	social_network: myMed
+	email: laurent.vanni@inria.fr
+	password: 1234
+|#]
+
+[#|2011-02-10T12:26:24.253+0100|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+received:
+User:	id: laurent.vanni@inria.fr
+	name: laurent vanni
+	gender: Homme
+	locale: Francais
+	updated_time: Wednesday 2nd of February 2011 06:42:06 PM
+	profile: ?profile=laurentvanni
+	profile_picture: http://graph.facebook.com//picture?type=large
+	social_network: myMed
+	email: laurent.vanni@inria.fr
+	password: 1234
+|#]
+
+[#|2011-02-10T12:26:54.357+0100|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+received:
+User:	id: laurent.vanni@inria.fr
+	name: laurent vanni
+	gender: Homme
+	locale: Francais
+	updated_time: Wednesday 2nd of February 2011 06:42:06 PM
+	profile: ?profile=laurentvanni
+	profile_picture: http://graph.facebook.com//picture?type=large
+	social_network: myMed
+	email: laurent.vanni@inria.fr
+	password: 1234
+|#]
+
+[#|2011-02-10T12:27:07.412+0100|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+received:
+User:	id: facebook1421481661
+	name: Laurent Vanni
+	gender: male
+	locale: fr_FR
+	updated_time: 2010-08-13T10:36:53+0000
+	profile: http://www.facebook.com/profile.php?id=1421481661
+	profile_picture: http://graph.facebook.com/1421481661/picture?type=large
+	social_network: facebook
+|#]
+
+[#|2011-02-10T12:27:28.016+0100|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+received:
+User:	id: facebook1421481661
+	name: Laurent Vanni
+	gender: male
+	locale: fr_FR
+	updated_time: 2010-08-13T10:36:53+0000
+	profile: http://www.facebook.com/profile.php?id=1421481661
+	profile_picture: http://graph.facebook.com/1421481661/picture?type=large
+	social_network: facebook
+|#]
+
