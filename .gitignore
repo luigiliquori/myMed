@@ -1,7 +1,7 @@
 *.class
 *~
 backend/servers/glassfishv3/*
-frontend/www/WebContent/socialNetworkAPIs/twitter/twitteroauth
-backend/servers/glassfishv3/glassfish/domains/domain1/logs/server.log
-backend/servers/glassfishv3/glassfish/domains/domain1/generated/policy/mymed_backend/mymed_backend/granted.policy
+twitteroauth
+*.log
+
 

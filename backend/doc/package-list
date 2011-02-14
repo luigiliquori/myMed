@@ -1,0 +1,8 @@
+com.mymed.controller.core.services
+com.mymed.controller.core.services.engine.reputation
+com.mymed.controller.core.services.requesthandler
+com.mymed.controller.core.services.tests
+com.mymed.model.core.data.dht
+com.mymed.model.core.data.dht.protocol
+com.mymed.model.core.wrapper
+com.mymed.model.datastructure
