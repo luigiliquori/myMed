@@ -151,7 +151,7 @@ if (!$_SESSION['logged']){
  * Verify credentials and redirect to based on response from Twitter.
  */
 
-require_once('twitter/twitteroauth/twitteroauth/twitteroauth.php');
+require_once('twitter/lib/twitteroauth/twitteroauth/twitteroauth.php');
 require_once('twitter/config.php');
 
 /* If the oauth_token is old redirect to the connect page. */

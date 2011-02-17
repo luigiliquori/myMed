@@ -30,7 +30,7 @@
 				    	<img alt="" src="img/loginwith1" style="position: relative; top: 2px;" onmouseover="document.body.style.cursor='pointer'" onmouseout="document.body.style.cursor='default'" onclick="showLoginView()">
 				    </td>
 				    <td>
-				    	<img src="socialNetworkAPIs/twitter/twitteroauth/images/lighter.png" alt="Sign in with Twitter" onclick="window.location='socialNetworkAPIs/twitter/redirect.php'" onmouseover="document.body.style.cursor='pointer'" onmouseout="document.body.style.cursor='default'" style="position: relative; top: 2px;"/>
+				    	<img src="socialNetworkAPIs/twitter/lib/twitteroauth/images/lighter.png" alt="Sign in with Twitter" onclick="window.location='socialNetworkAPIs/twitter/redirect.php'" onmouseover="document.body.style.cursor='pointer'" onmouseout="document.body.style.cursor='default'" style="position: relative; top: 2px;"/>
 				      
 				    </td>
 				    <td><fb:login-button>facebook</fb:login-button></td>

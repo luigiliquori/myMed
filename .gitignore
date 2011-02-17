@@ -1,7 +1,6 @@
 *.class
 *~
 backend/servers/glassfishv3/*
-twitteroauth
 *.log
 
 

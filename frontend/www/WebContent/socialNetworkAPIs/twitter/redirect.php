@@ -2,7 +2,7 @@
 
 /* Start session and load library. */
 session_start();
-require_once('twitteroauth/twitteroauth/twitteroauth.php');
+require_once('lib/twitteroauth/twitteroauth/twitteroauth.php');
 require_once('config.php');
 
 /* Build TwitterOAuth object with client credentials. */
