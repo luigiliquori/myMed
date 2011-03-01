@@ -2,5 +2,6 @@
 *~
 backend/servers/glassfishv3/*
 *.log
-
+.project
+.settings
 
