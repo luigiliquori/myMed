@@ -5,24 +5,29 @@ import java.io.UnsupportedEncodingException;
 import org.apache.cassandra.thrift.ConsistencyLevel;
 
 import com.mymed.model.core.data.dht.DHTFactory;
+import com.mymed.model.core.data.dht.IDHT;
 import com.mymed.model.core.data.dht.IDHT.Type;
 import com.mymed.model.core.data.dht.protocol.Cassandra;
 import com.mymed.model.datastructure.User;
 
 /**
- * This class represent the DAO pattern
- * 
  * @author lvanni
  * 
+ * This class represent the DAO pattern:
+ * Access to data varies depending on the source of the data. 
+ * Access to persistent storage, such as to a database, varies greatly depending on the type of storage
+ * 
+ * Use a Data Access Object (DAO) to abstract and encapsulate all access to the data source. 
+ * The DAO manages the connection with the data source to obtain and store data.
  */
 public class Wrapper {
 	
 	/** Default ConsistencyLevel */
 	public static ConsistencyLevel consistencyOnWrite = ConsistencyLevel.ANY;
 	public static ConsistencyLevel consistencyOnRead = ConsistencyLevel.ONE;
-
+	
 	/* --------------------------------------------------------- */
-	/* User Profile Management */
+	/* 					User Profile Management					 */
 	/* --------------------------------------------------------- */
 	/**
 	 * @see com.mymed.model.core.data.dht.protocol.Cassandra#getProfile(id)
@@ -138,5 +143,36 @@ public class Wrapper {
 			e.printStackTrace();
 		}
 	}
+	
+	/* --------------------------------------------------------- */
+	/*               Reputation System Management                */
+	/* --------------------------------------------------------- */
+	
+	// TBD with UNITO
+	
+	
+	/* --------------------------------------------------------- */
+	/* 					Common DHT operations					 */
+	/* --------------------------------------------------------- */
+	/**
+	 * Common put operation
+	 * @param key
+	 * @param value
+	 * @param DHTType	The type of DHT used for the operation
+	 */
+	public void put(String key, String value, Type DHTType) {
+		IDHT node = DHTFactory.createDHT(DHTType);
+		node.put(key, value);
+	}
 
+	/**
+	 * Common get operation
+	 * @param key
+	 * @param DHTType	The type of DHT used for the operation
+	 */
+	public String get(String key, Type DHTType) {
+		IDHT node = DHTFactory.createDHT(DHTType);
+		return node.get(key);
+	}
+	
 }
