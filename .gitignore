@@ -1,12 +1,12 @@
 *.log
 
 *.class
-*.jar
-*.war
 *~
 
 .project
 .settings
 .classpath
+
+.DS_Store
 
 backend/servers/glassfishv3/*
