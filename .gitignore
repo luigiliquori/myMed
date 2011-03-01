@@ -1,7 +1,12 @@
-*.class
-*~
-backend/servers/glassfishv3/*
 *.log
+
+*.class
+*.jar
+*.war
+*~
+
 .project
 .settings
 .classpath
+
+backend/servers/glassfishv3/*
