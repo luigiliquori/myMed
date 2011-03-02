@@ -1,8 +1,7 @@
 package com.mymed.model.datastructure;
 
 /**
- * Represent an myMed user
- * 
+ * This class represent an user profile
  * @author lvanni
  */
 public class User {
@@ -19,7 +18,7 @@ public class User {
 	private String profile;
 	private String profile_picture;
 	private String social_network;
-	// for mymed users
+	// for mymed profile
 	private String email;
 	private String password;
 
@@ -32,7 +31,7 @@ public class User {
 	public User() { }
 
 	/**
-	 * Main Constructor
+	 * Constructor for a mymed profile
 	 * @param id
 	 * @param name
 	 * @param gender
@@ -60,7 +59,7 @@ public class User {
 	}
 	
 	/**
-	 * Main Constructor
+	 * Constructor for a no-mymed profile
 	 * @param id
 	 * @param name
 	 * @param gender
@@ -69,8 +68,6 @@ public class User {
 	 * @param profile
 	 * @param profile_picture
 	 * @param social_network
-	 * @param email
-	 * @param password
 	 */
 	public User(String id, String name, String gender, String locale,
 			String updated_time, String profile, String profile_picture,
@@ -102,7 +99,7 @@ public class User {
 	}
 
 	/* --------------------------------------------------------- */
-	/* GETTER AND SETTER */
+	/* 						GETTER AND SETTER 					 */
 	/* --------------------------------------------------------- */
 	public String getId() {
 		return id;

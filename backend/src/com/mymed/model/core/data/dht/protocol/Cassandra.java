@@ -115,36 +115,20 @@ public class Cassandra extends AbstractDHT {
 	 * @param columnName
 	 * @param level
 	 * @return
+	 * @throws TException 
+	 * @throws TimedOutException 
+	 * @throws UnavailableException 
+	 * @throws NotFoundException 
+	 * @throws InvalidRequestException 
 	 */
-	public byte[] getSimpleColumn(String keyspace, String columnFamily, String key, byte[] columnName, ConsistencyLevel level){
-		try {
-			tr.open();
-			ColumnPath colPathName = new ColumnPath(columnFamily);
-			colPathName.setColumn(columnName);
-			Column col = client.get(keyspace, key, colPathName, level).getColumn();
-			return col.value;
-		} catch (TTransportException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidRequestException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UnavailableException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (TimedOutException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (TException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			tr.close();
-		}
-		return null;
+	public byte[] getSimpleColumn(String keyspace, String columnFamily, String key, byte[] columnName, ConsistencyLevel level) 
+	throws InvalidRequestException, NotFoundException, UnavailableException, TimedOutException, TException{
+		tr.open();
+		ColumnPath colPathName = new ColumnPath(columnFamily);
+		colPathName.setColumn(columnName);
+		Column col = client.get(keyspace, key, colPathName, level).getColumn();
+		tr.close();
+		return col.value;
 	}
 
 	/**
@@ -154,33 +138,19 @@ public class Cassandra extends AbstractDHT {
 	 * @param columnName
 	 * @param value
 	 * @param level
+	 * @throws TException 
+	 * @throws TimedOutException 
+	 * @throws UnavailableException 
+	 * @throws InvalidRequestException 
 	 */
-	public void setSimpleColumn(String keyspace, String columnFamily, String key, byte[] columnName, byte[] value, ConsistencyLevel level){
-		try {
-			tr.open();
-			long timestamp = System.currentTimeMillis();
-			ColumnPath colPathName = new ColumnPath(columnFamily);
-			colPathName.setColumn(columnName);
-			client.insert(keyspace, key, colPathName, value, timestamp,
-					level);
-		} catch (TTransportException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidRequestException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UnavailableException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (TimedOutException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (TException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			tr.close();
-		}
+	public void setSimpleColumn(String keyspace, String columnFamily, String key, byte[] columnName, byte[] value, ConsistencyLevel level) 
+	throws InvalidRequestException, UnavailableException, TimedOutException, TException {
+		tr.open();
+		long timestamp = System.currentTimeMillis();
+		ColumnPath colPathName = new ColumnPath(columnFamily);
+		colPathName.setColumn(columnName);
+		client.insert(keyspace, key, colPathName, value, timestamp, level);
+		tr.close();
 	}
 
 	/* --------------------------------------------------------- */

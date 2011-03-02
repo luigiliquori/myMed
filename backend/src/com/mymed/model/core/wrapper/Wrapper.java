@@ -1,8 +1,14 @@
 package com.mymed.model.core.wrapper;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Map;
 
 import org.apache.cassandra.thrift.ConsistencyLevel;
+import org.apache.cassandra.thrift.InvalidRequestException;
+import org.apache.cassandra.thrift.NotFoundException;
+import org.apache.cassandra.thrift.TimedOutException;
+import org.apache.cassandra.thrift.UnavailableException;
+import org.apache.thrift.TException;
 
 import com.mymed.model.core.data.dht.DHTFactory;
 import com.mymed.model.core.data.dht.IDHT;
@@ -32,6 +38,7 @@ public class Wrapper {
 	/**
 	 * @see com.mymed.model.core.data.dht.protocol.Cassandra#getProfile(id)
 	 */
+	@Deprecated
 	public User getProfile(String id) {
 		Cassandra node = (Cassandra) DHTFactory.createDHT(Type.CASSANDRA);
 
@@ -80,7 +87,7 @@ public class Wrapper {
 				return new User(id, name, gender, locale, updated_time, profile,
 						profile_picture, social_network);
 			}
-		} catch (UnsupportedEncodingException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -90,6 +97,7 @@ public class Wrapper {
 	/**
 	 * @see com.mymed.model.core.data.dht.protocol.Cassandra#setProfile(User)
 	 */
+	@Deprecated
 	public void setProfile(User user) {
 		Cassandra node = (Cassandra) DHTFactory.createDHT(Type.CASSANDRA);
 		try {
@@ -138,17 +146,81 @@ public class Wrapper {
 						"password".getBytes("UTF8"), user.getPassword().getBytes(
 						"UTF8"), consistencyOnWrite);
 			}
-		} catch (UnsupportedEncodingException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
 	/* --------------------------------------------------------- */
-	/*               Reputation System Management                */
+	/*             			 public methods        		         */
 	/* --------------------------------------------------------- */
+	/**
+	 * Insert a new entry in the database
+	 * @param tableName
+	 * 		the name of the Table/ColumnFamily
+	 * @param primaryKey
+	 * 		the ID of the entry
+	 * @param args
+	 * 		All columnName and the their value
+	 * @return true if the entry is correctly stored, false otherwise
+	 */
+	public boolean insertInto(String tableName, String primaryKey, Map<String, byte[]> args) {
+		// The main database is managed by Cassandra
+		Cassandra node = (Cassandra) DHTFactory.createDHT(Type.CASSANDRA);
 	
-	// TBD with UNITO
+		// keyspace is similare to the database name
+		String keysapce = "Mymed";
+		// columnFamily is similare to the table name
+		String columnFamily = tableName;
+		
+		// Store into Cassandra the new entry
+		for(String columnName : args.keySet()){
+			try {
+				node.setSimpleColumn(keysapce, columnFamily, primaryKey,
+						columnName.getBytes("UTF8"), args.get(columnName), consistencyOnWrite);
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+				return false;
+			} catch (InvalidRequestException e) {
+				e.printStackTrace();
+				return false;
+			} catch (UnavailableException e) {
+				e.printStackTrace();
+				return false;
+			} catch (TimedOutException e) {
+				e.printStackTrace();
+				return false;
+			} catch (TException e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Get the value of an entry column
+	 * @param tableName
+	 * 		the name of the Table/ColumnFamily
+	 * @param primaryKey
+	 * 		the ID of the entry
+	 * @param columnName
+	 * 		the name of the column
+	 * @return the value of the column
+	 */
+	public byte[] selectColumn(String tableName, String primaryKey, String columnName) 
+	throws UnsupportedEncodingException, InvalidRequestException, NotFoundException, UnavailableException, TimedOutException, TException {
+		// The main database is managed by Cassandra
+		Cassandra node = (Cassandra) DHTFactory.createDHT(Type.CASSANDRA);
+	
+		// keyspace is similare to the database name
+		String keysapce = "Mymed";
+		// columnFamily is similare to the table name
+		String columnFamily = tableName;
+		
+		return node.getSimpleColumn(keysapce, tableName, primaryKey, columnName.getBytes("UTF8"), consistencyOnRead);
+	}
 	
 	
 	/* --------------------------------------------------------- */

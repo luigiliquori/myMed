@@ -1,11 +1,11 @@
 K 25
 svn:wc:ra_dav:version-url
 V 69
-/svn/!svn/ver/193/trunk/sites/java/UploadApp/bin/com/google/uploadapp
+/svn/!svn/ver/193/trunk/sites/java/UploadApp/src/com/google/uploadapp
 END
-UploadApp.class
+UploadApp.java
 K 25
 svn:wc:ra_dav:version-url
-V 85
-/svn/!svn/ver/193/trunk/sites/java/UploadApp/bin/com/google/uploadapp/UploadApp.class
+V 84
+/svn/!svn/ver/193/trunk/sites/java/UploadApp/src/com/google/uploadapp/UploadApp.java
 END

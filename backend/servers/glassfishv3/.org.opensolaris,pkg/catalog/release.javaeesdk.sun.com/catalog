@@ -12,6 +12,7 @@ V pkg glassfish-web-l10n 3.0.1,0-20.1:20100603T144310Z
 V pkg glassfish-full-incorporation 3.0.1,0-22:20100608T223155Z
 V pkg glassfish-jms 3.0.1,0-22:20100608T221623Z
 V pkg sdk-branding-full 3.0.1,0-22:20100609T220454Z
+V pkg sdk-branding-full 3.0.1,0-22:20101214T201106Z
 V pkg sdk-branding-full 3.0.1,0-22:20100728T201540Z
 V pkg sdk-branding-full 3.0.1,0-22:20101005T233936Z
 V pkg metro 2.0.1,0-0:20100608T222421Z
@@ -23,6 +24,7 @@ V pkg glassfish-jms-l10n 3.0.1,0-20.1:20100603T144306Z
 V pkg glassfish-cmp 3.0.1,0-22:20100608T221827Z
 V pkg mq-core 4.4.2,0-5.1:20100515T073310Z
 V pkg sdk-branding-web 3.0.1,0-22:20101005T233746Z
+V pkg sdk-branding-web 3.0.1,0-22:20101214T200908Z
 V pkg sdk-branding-web 3.0.1,0-22:20100609T220446Z
 V pkg sdk-branding-web 3.0.1,0-22:20100728T201531Z
 V pkg glassfish-upgrade-l10n 3.0.1,0-20.1:20100603T144320Z
@@ -49,6 +51,7 @@ V pkg glassfish-grizzly 1.9.18,0-10:20100608T215656Z
 V pkg glassfish-gui-l10n 3.0.1,0-20.1:20100603T144236Z
 V pkg glassfish-bundled-jdk 1.6.0.21,0-6.1:20100727T230215Z
 V pkg glassfish-bundled-jdk 1.6.0.22,0-4.1:20100930T203635Z
+V pkg glassfish-bundled-jdk 1.6.0.23,0-5.1:20101210T223145Z
 V pkg glassfish-bundled-jdk 1.6.0.20,0-2.2:20100604T000136Z
 V pkg mq-docs 4.4.2,0-5.1:20100515T073332Z
 V pkg glassfish-verifier 3.0.1,0-22:20100608T222458Z
