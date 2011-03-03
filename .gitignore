@@ -9,4 +9,8 @@
 
 .DS_Store
 
+bundle.lastmodified
+revision.location
+bundle.jar
+
 backend/servers/glassfishv3/*

@@ -15,7 +15,6 @@ import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
-import org.apache.thrift.transport.TTransportException;
 
 import com.mymed.model.core.data.dht.AbstractDHT;
 
@@ -123,6 +122,7 @@ public class Cassandra extends AbstractDHT {
 	 */
 	public byte[] getSimpleColumn(String keyspace, String columnFamily, String key, byte[] columnName, ConsistencyLevel level) 
 	throws InvalidRequestException, NotFoundException, UnavailableException, TimedOutException, TException{
+		
 		tr.open();
 		ColumnPath colPathName = new ColumnPath(columnFamily);
 		colPathName.setColumn(columnName);

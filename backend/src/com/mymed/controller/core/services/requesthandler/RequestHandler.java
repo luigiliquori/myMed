@@ -124,9 +124,7 @@ public class RequestHandler extends HttpServlet {
 			case LOGIN : // MYMED AUTHENTICATION
 				String email = parameters.get("email"); // email == id for mymed users
 				String password = parameters.get("password");
-				System.out.println("\nemail=" + email + "\npass=" + password + "\n");
 				user = serviceManager.getProfile(email);
-				System.out.println(user);
 				result = user.getPassword().equals(password) ? gson.toJson(user) : "false";
 				break;
 			default : break;
@@ -144,25 +142,6 @@ public class RequestHandler extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		/** Init response */
-		response.setContentType("text/html;charset=UTF-8");
-		String result = "NULL"; // the feedBack for a bad request on the frontend is NULL
-
-		/** Get the parameters */
-		Map<String, String> parameters = getParameters(request);
-
-		/** handle the request */
-		if (parameters.containsKey("act")){
-			RequestCode code = requestCodeMap.get(parameters.get("act"));
-			
-			switch(code){
-			default : break;
-			}
-		}
-		
-		/** send the response */
-		PrintWriter out = response.getWriter();
-		out.println(result);
-		out.close();
+		// TODO 
 	}
 }

@@ -21,7 +21,7 @@ public class User {
 	// for mymed profile
 	private String email;
 	private String password;
-
+	
 	/* --------------------------------------------------------- */
 	/*                      Constructors                         */
 	/* --------------------------------------------------------- */
