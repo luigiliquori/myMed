@@ -125,7 +125,7 @@ a:HOVER {
 	width: 700px;
 	height: 520px;
 	border: thin black solid;
-	background-color: #364049;
+	background-color: #415b68;;
 }
 
 #bottom {
@@ -143,7 +143,6 @@ a:HOVER {
 
 .appContainer{
 	top:100px;
-	height:470px;
 	color: white;
 }
 

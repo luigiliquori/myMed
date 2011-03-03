@@ -9,11 +9,17 @@
   	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	
   	<!-- JAVASCRIPT TOOLS AND LIBRARY -->
+  	<script type="text/javascript" src="javascript/jquery/dist/jquery.js"></script>
   	<script type="text/javascript" src="javascript/cookie.js"></script>
 	<script type="text/javascript" src="javascript/drag.js"></script>
 	<script type="text/javascript" src="javascript/display.js"></script>
 	<script type="text/javascript" src="javascript/requestHTML.js"></script>
-	<script type="text/javascript" src="javascript/jquery/dist/jquery.js"></script>
+	<!-- INCLUDE GOOGLE MAP -->
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+	<script type="text/javascript" src="javascript/map.js"></script>
+	<!-- INCLUDE CALENDAR -->
+	<link type="text/css" rel="stylesheet" href="css/dhtmlgoodies_calendar.css?random=20051112" media="screen"></LINK>
+	<script type="text/javascript" src="javascript/dhtmlgoodies_calendar.js?random=20060118"></script>
 	
 	<!-- TITLE -->
 	<title>myMed</title>

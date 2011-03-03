@@ -45,9 +45,9 @@ function launchApplication(elementID, isMapApplication){
 	fadeIn("#" + elementID + "Splash");
 	window.setTimeout("fadeOut('#" + elementID + "Splash')", 5000);
 	window.setTimeout("fadeIn('#" + elementID + "')",  5000);
-	if(isMapApplication){
-//		window.setTimeout("fadeIn('#map_canvas')",  5000);
-	}
+//	if(isMapApplication){
+	window.setTimeout("launchGeolocation()",  6000);
+//	}
 }
 
 function cleanView(){

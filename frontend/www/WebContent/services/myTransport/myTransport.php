@@ -1,14 +1,14 @@
 <?php 
 	$running = false;
 	if($_GET["code"] == "search"){
-		$key = $_GET["from1"] . $_GET["to1"] . $_GET["when11"] . $_GET["when12"] . $_GET["when13"];
-		$id = file_get_contents(trim("http://mymed2.sophia.inria.fr:8080/mymed_backend/FirstRequestHandler?act=5&key2=" . $key));
+		$key = $_GET["from"] . $_GET["to"] . $_GET["theDate"];
+		$id = file_get_contents(trim("http://mymed2.sophia.inria.fr:8080/mymed_backend/FirstRequestHandler?act=5&key2=" . urlencode($key)));
 		$running = true;
 		$search = true;	
 	} else if($_GET["code"] == "publish"){
-		$key = $_GET["from2"] . $_GET["to2"] . $_GET["when21"] . $_GET["when22"] . $_GET["when23"];
+		$key = $_GET["from"] . $_GET["to"] . $_GET["theDate"];
 		$value = $user->id;
-		file_get_contents(trim("http://mymed2.sophia.inria.fr:8080/mymed_backend/FirstRequestHandler?act=4&key1=" . $key . "&value1=" . $value));
+		file_get_contents(trim("http://mymed2.sophia.inria.fr:8080/mymed_backend/FirstRequestHandler?act=4&key1=" . urlencode($key) . "&value1=" . urlencode($value)));
 		$running = true;
 	} else if ($_GET["code"] == "back") {
 		$running = true;
@@ -34,44 +34,55 @@
 
 <!-- APPLICATION -->
 <div id="myTransport" class="application" style="position:absolute; top:30px; left:230px; text-align: left; display:<?= $running ? "block" : "none" ?>">
-	
+
+	<!-- Setup the current date -->
+   	<script type="text/javascript">
+		var currentTime = new Date()
+		var month = currentTime.getMonth() + 1
+		month = month < 10 ? "0" + month : month
+		var day = currentTime.getDate()
+		day = day < 10 ? "0" + day : day
+		var year = currentTime.getFullYear()
+	</script>
+
 	<!-- SEARCH -->
-	<div id="myTransportContainer1" class="appContainer" style="background-image: url('img/map.png');">
-		<div style="position: relative; width: 700px; height: 170px; <?= !$search ? "top: 340px;" : "" ?> background-color: #415b68; opacity:0.8; color: white;">
-			<form method="get" action="#">
+	<div id="myTransportContainer1" class="appContainer" >
+		<div style="position: relative; width: 700px; height: 90px; background-color: #415b68; color: white;">
+			<form id="searchTrip" method="get" action="#">
 				<input name="code" type="hidden" value="search"/>
+				<h2>Trouvez votre covoiturage</h2>
 				<table>
-				 <tr>
-				    <th>*When : </th>
+				  <tr>
+				    <th>Ville de départ :</th><th>Ville d'arrivée :</th><th>Date :</th>
+				  </tr>
+				  <tr>
+				    <td><input name="from" type="text" /></td>
+				    <td><input name="to" type="text" /></td>
 				    <td>
-				    	<input name="when11" type="text" value="jj" size="2" MAXLENGTH="2"/>/
-				    	<input name="when12" type="text" value="mm" size="2" MAXLENGTH="2"/>/
-				    	<input name="when13" type="text" value="aaaa" size="4" MAXLENGTH="4"/>
+				    	<input id="theDate1" type="text" value="2011/03/09 12:55" readonly name="theDate"><input type="button" value="?" onclick="displayCalendar(document.getElementById('searchTrip').theDate,'yyyy/mm/dd hh:ii',this,true)">
+				    	<script type="text/javascript">
+							document.getElementById("theDate1").value = year + "/" + month + "/" + day + " 12:55";
+						</script>
 				    </td>
-				  </tr>
-				  <tr>
-				    <th>*From : </th>
-				    <td><input name="from1" type="text" /></td>
-				  </tr>
-				  <tr>
-				    <th>*To : </th>
-				    <td><input name="to1" type="text" /></td>
-				  </tr>
-				  <tr>
-				    <th><input type="submit" value="Search" /></th>
+				    <th><input type="submit" value="Rechercher" /></th>
 				  </tr>
 				</table>
 			</form>
-			<?php if($search) { ?>
-				<hr />
-				<h1>Results :</h1>
-			<?php } ?>
 			</div>
 			
 			<!-- RESULT -->
 			<?php if($search) { ?>
 				<? $res = json_decode(file_get_contents(trim('http://mymed2.sophia.inria.fr:8080/mymed_backend/RequestHandler?act=11&id=' . $id))); ?>
-				<div style="background-color: #415b68; opacity:0.8; color: white; height:298px; width: 700px; overflow: auto;">
+				<hr />
+				<form action="">
+				 	<div><span style="font-size: 18px;">Results :</span>
+					 	<span style="position: relative; left: 500px;">
+							<input name="code" type="hidden" value="back"/>
+							<input type="submit" value="afficher la carte">
+						</span>
+					</div>
+				</form>
+				<div style="background-color: #415b68; color: white; height:360px; width: 700px; overflow: auto;">
 						<table>
 						  <tr rowspan="4">
 						    <td><img width="200px" alt="profile picture" src="<?= $res->profile_picture ?>"></td>
@@ -79,24 +90,13 @@
 							    <table>
 								  <tr>
 								  	<td></td>
-								    <td><?= $res->name ?></td>
-								  </tr>
-								  <tr>
-								  	<td></td>
-								    <td><?= $res->gender ?></td>
-								  </tr>
-								  <tr>
-								  	<td></td>
-								    <td><?= $res->locale ?></td>
-								  </tr>
-								  <tr>
-								  	<td></td>
 								    <td>
-									    <form action="">
-											<input name="code" type="hidden" value="back"/>
-											<input type="submit" value="back">
-										</form>
-									</td>
+									    <h1><?= $res->name ?></h1>
+									    <ul>
+										  <li><?= $res->gender ?></li>
+										  <li><?= $res->locale ?></li>
+										</ul>
+								   	</td>
 								  </tr>
 								</table>
 						    </td>
@@ -106,69 +106,61 @@
 	</div>
 	
 	<!-- PUBLISH -->
-	<div id="myTransportContainer2" class="appContainer" style="background-image: url('img/map.png'); display:none">
-		<div style="position: relative; width: 700px; height: 150px; top: 340px; background-color: #415b68; opacity:0.8; color: white;">
-			<form method="get" action="#">
+	<div id="myTransportContainer2" class="appContainer" style="display:none">
+		<div style="position: relative; width: 700px; height: 90px; background-color: #415b68; color: white;">
+			<form id="publishTrip" method="get" action="#">
 				<input name="code" type="hidden" value="publish"/>
+				<h2>Enregistrez votre covoiturage</h2>
 				<table>
-				    <tr>
-                      <th>*When : </th>
-                      <td>
-                      	<input name="when21" type="text" value="jj" size="2" MAXLENGTH="2"/>/
-				    	<input name="when22" type="text" value="mm" size="2" MAXLENGTH="2"/>/
-				    	<input name="when23" type="text" value="aaaa" size="4" MAXLENGTH="4"/>
-				   	 </td>
-				   	 <td rowspan="3">
-				   		 <textarea name="description" style="width:300px; height: 75px;">Short description of the trip: (number of seats, departure time, phone number, email, ...)</textarea>
-				   	 </td>
-                    </tr>
-                    <tr>
-                      <th>*From : </th>
-                      <td><input name="from2" type="text" /></td>
-                    </tr>
-                    <tr>
-                      <th>*To : </th>
-                      <td><input name="to2" type="text" /></td>
-                    </tr>
-                    <tr>
-                      <th><input type="submit" value="Publish" /></th>
-                    </tr>
+				  <tr>
+				    <th>Ville de départ :</th><th>Ville d'arrivée :</th><th>Date :</th>
+				  </tr>
+				  <tr>
+				    <td><input name="from" type="text" /></td>
+				    <td><input name="to" type="text" /></td>
+				    <td>
+				    	<input id="theDate2" type="text" value="2011/03/09 12:55" readonly name="theDate"><input type="button" value="?" onclick="displayCalendar(document.getElementById('publishTrip').theDate,'yyyy/mm/dd hh:ii',this,true)">
+				    </td>
+				    <th><input type="submit" value="Publiez" /></th>
+				  </tr>
 				</table>
 			</form>
 		</div>
 	</div>
 	
-	<!-- ??? -->
-	<div id="myTransportContainer3" class="appContainer" style="display: none;">
-		<br />
-		Not yet implemented...
-	</div>
+	<!-- GEOMAP -->
+	<article>
+		<span id="status"></span>
+	</article>
+	<?php if($running && $_GET["code"] != "search") { ?>
+		<script type="text/javascript">launchGeolocation();</script>
+	<?php } else { ?>
+		<form action="">
+		 	<div><span style="font-size: 18px;">Results :</span>
+			 	<span style="position: relative; left: 500px;">
+					<input name="code" type="hidden" value="back"/>
+					<input type="submit" value="afficher la carte">
+				</span>
+			</div>
+		</form>
+	<?php } ?>
 	
 	<div class="appToolbar">
 		<table>
 		  <tr>
 		    <td>
 			    <img id="search" alt="" src="img/searchH.png" onclick="
-				displayWindow('#myTransportContainer1'); 
-				hideWindow('#myTransportContainer2'); 
-				hideWindow('#myTransportContainer3');
+			    document.getElementById('myTransportContainer2').style.display = 'none';
+				fadeIn('#myTransportContainer1'); 
 				updateToolbar(document.getElementById('search'));"/>
 			</td>
 			<td>
 				<img id="save" alt="" src="img/save.png" onclick="
-				hideWindow('#myTransportContainer1'); 
-				displayWindow('#myTransportContainer2'); 
-				hideWindow('#myTransportContainer3');
+					 document.getElementById('myTransportContainer1').style.display = 'none';
+				fadeIn('#myTransportContainer2'); 
 				updateToolbar(document.getElementById('save'));"/>
 			</td>
-			<td>
-				<img id="trip" alt="" src="img/trip.png" onclick="
-				hideWindow('#myTransportContainer1'); 
-				hideWindow('#myTransportContainer2'); 
-				displayWindow('#myTransportContainer3');
-				updateToolbar(document.getElementById('trip'));"/>
-			</td>
-			<td style="width: 300px;"></td>
+			<td style="width: 400px;"></td>
 			<td>
 				<form method="get" action="#">
 					<input type="submit" style="background-image: url('img/close.png'); width: 100px; height: 48px;" value=" " onclick="location.reload();">
@@ -180,7 +172,6 @@
 			function updateToolbar(elm){
 				document.getElementById('search').src = 'img/search.png';
 				document.getElementById('save').src = 'img/save.png';
-				document.getElementById('trip').src = 'img/trip.png';
 				elm.src = 'img/'+elm.id+'H.png';
 			}
 		</script>
