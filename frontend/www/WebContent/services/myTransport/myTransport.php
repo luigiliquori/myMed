@@ -2,13 +2,13 @@
 	$running = false;
 	if($_GET["code"] == "search"){
 		$key = $_GET["from"] . $_GET["to"] . $_GET["theDate"];
-		$id = file_get_contents(trim("http://mymed2.sophia.inria.fr:8080/mymed_backend/FirstRequestHandler?act=5&key2=" . urlencode($key)));
+		$id = file_get_contents(trim("http://" . $_SERVER['HTTP_HOST'] . ":8080/mymed_backend/FirstRequestHandler?act=5&key2=" . urlencode($key)));
 		$running = true;
 		$search = true;	
 	} else if($_GET["code"] == "publish"){
 		$key = $_GET["from"] . $_GET["to"] . $_GET["theDate"];
 		$value = $user->id;
-		file_get_contents(trim("http://mymed2.sophia.inria.fr:8080/mymed_backend/FirstRequestHandler?act=4&key1=" . urlencode($key) . "&value1=" . urlencode($value)));
+		file_get_contents(trim("http://" . $_SERVER['HTTP_HOST'] . ":8080/mymed_backend/FirstRequestHandler?act=4&key1=" . urlencode($key) . "&value1=" . urlencode($value)));
 		$running = true;
 	} else if ($_GET["code"] == "back") {
 		$running = true;
@@ -120,6 +120,9 @@
 				    <td><input name="to" type="text" /></td>
 				    <td>
 				    	<input id="theDate2" type="text" value="2011/03/09 12:55" readonly name="theDate"><input type="button" value="?" onclick="displayCalendar(document.getElementById('publishTrip').theDate,'yyyy/mm/dd hh:ii',this,true)">
+				    	<script type="text/javascript">
+							document.getElementById("theDate2").value = year + "/" + month + "/" + day + " 12:55";
+						</script>
 				    </td>
 				    <th><input type="submit" value="Publiez" /></th>
 				  </tr>

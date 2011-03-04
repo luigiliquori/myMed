@@ -85,13 +85,14 @@ public class ServiceManager {
 	 */
 	public User getProfile(String id) {
 		Map<String, String> args = new HashMap<String, String>();
-		String value;
+		byte[] value;
 		Field[] fields = User.class.getDeclaredFields();
 		try {
 			for (Field field : fields) {
-				value = new String(wrapper.selectColumn("Users", id, field
-						.getName()), "UTF8");
-				args.put(field.getName(), value);
+				value = wrapper.selectColumn("Users", id, field.getName());
+				if(value != null){
+					args.put(field.getName(), new String(value, "UTF8"));
+				}
 			}
 			if (args.get("social_network").equals("myMed")) {
 				return new User(args.get("id"), args.get("name"), args

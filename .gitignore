@@ -9,7 +9,7 @@
 
 .DS_Store
 
-bundle.lastmodified
+*.lastmodified
 revision.location
 bundle.jar
 

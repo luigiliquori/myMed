@@ -1,5 +1,7 @@
 package com.mymed.model.core.data.dht;
 
+import java.net.UnknownHostException;
+
 import com.mymed.model.core.data.dht.protocol.Cassandra;
 
 /**
@@ -15,15 +17,16 @@ public class DHTFactory {
 	 * 		Class of the node
 	 * @return IDHT 
 	 * 		No-sql database node
+	 * @throws UnknownHostException 
 	 */
-	public static IDHT createDHT(IDHT.Type type){
+	public static IDHT createDHT(IDHT.Type type) {
 		switch (type) {
 		case CASSANDRA:
 			return Cassandra.getInstance();
 		case CHORD:
 		case KAD:
 		default:
-			return null;
+			return Cassandra.getInstance();
 		}
 	}
 }

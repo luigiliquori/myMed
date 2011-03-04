@@ -1,6 +1,8 @@
 package com.mymed.model.core.data.dht.protocol;
 
 import java.io.UnsupportedEncodingException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import org.apache.cassandra.thrift.Column;
 import org.apache.cassandra.thrift.ColumnPath;
@@ -15,11 +17,13 @@ import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
+import org.apache.thrift.transport.TTransportException;
 
 import com.mymed.model.core.data.dht.AbstractDHT;
 
 /**
- * 
+ * this Class represent a Client Connected to
+ * the local Cassandra node
  * @author lvanni
  *
  */
@@ -83,10 +87,11 @@ public class Cassandra extends AbstractDHT {
 	/* --------------------------------------------------------- */
 	/**
 	 * Private Constructor to create a singleton
+	 * @throws UnknownHostException 
+	 * @throws UnknownHostException 
 	 */
-	private Cassandra() {
-		super("138.96.242.2", 4201);
-
+	private Cassandra() throws UnknownHostException {
+		super(InetAddress.getLocalHost().getHostAddress(), 4201);
 		this.tr = new TSocket(address, port);
 		this.proto = new TBinaryProtocol(tr);
 		this.client = new Client(proto);
@@ -96,10 +101,15 @@ public class Cassandra extends AbstractDHT {
 	 * Cassandra getter
 	 * @return
 	 * 		The only one instance of Cassandra
+	 * @throws UnknownHostException 
 	 */
 	public static Cassandra getInstance() {
 		if (null == singleton) {
-			singleton = new Cassandra();
+			try {
+				singleton = new Cassandra();
+			} catch (UnknownHostException e) {
+				e.printStackTrace();
+			}
 		}
 		return singleton;
 	}
@@ -120,15 +130,35 @@ public class Cassandra extends AbstractDHT {
 	 * @throws NotFoundException 
 	 * @throws InvalidRequestException 
 	 */
-	public byte[] getSimpleColumn(String keyspace, String columnFamily, String key, byte[] columnName, ConsistencyLevel level) 
-	throws InvalidRequestException, NotFoundException, UnavailableException, TimedOutException, TException{
-		
-		tr.open();
-		ColumnPath colPathName = new ColumnPath(columnFamily);
-		colPathName.setColumn(columnName);
-		Column col = client.get(keyspace, key, colPathName, level).getColumn();
-		tr.close();
-		return col.value;
+	public byte[] getSimpleColumn(String keyspace, String columnFamily, String key, byte[] columnName, ConsistencyLevel level) {
+		try {
+			tr.open();
+			ColumnPath colPathName = new ColumnPath(columnFamily);
+			colPathName.setColumn(columnName);
+			Column col = client.get(keyspace, key, colPathName, level).getColumn();
+			return col.value;
+		} catch (TTransportException e) {
+			e.printStackTrace();
+		} catch (InvalidRequestException e) {
+			e.printStackTrace();
+		} catch (NotFoundException e) {
+			System.out.println("\nKEY:" +
+					"\n\tkeysapce = " + keyspace +
+					"\n\tcolumnFamily = " + columnFamily + 
+					"\n\tkey = " + key + 
+					"\n\tcolumnName = " + new String(columnName) + 
+					"\n---> NOT FOUND!\n");
+
+		} catch (UnavailableException e) {
+			e.printStackTrace();
+		} catch (TimedOutException e) {
+			e.printStackTrace();
+		} catch (TException e) {
+			e.printStackTrace();
+		} finally {
+			tr.close();
+		}
+		return null;
 	}
 
 	/**
@@ -143,14 +173,26 @@ public class Cassandra extends AbstractDHT {
 	 * @throws UnavailableException 
 	 * @throws InvalidRequestException 
 	 */
-	public void setSimpleColumn(String keyspace, String columnFamily, String key, byte[] columnName, byte[] value, ConsistencyLevel level) 
-	throws InvalidRequestException, UnavailableException, TimedOutException, TException {
-		tr.open();
-		long timestamp = System.currentTimeMillis();
-		ColumnPath colPathName = new ColumnPath(columnFamily);
-		colPathName.setColumn(columnName);
-		client.insert(keyspace, key, colPathName, value, timestamp, level);
-		tr.close();
+	public void setSimpleColumn(String keyspace, String columnFamily, String key, byte[] columnName, byte[] value, ConsistencyLevel level) {
+		try {
+			tr.open();
+			long timestamp = System.currentTimeMillis();
+			ColumnPath colPathName = new ColumnPath(columnFamily);
+			colPathName.setColumn(columnName);
+			client.insert(keyspace, key, colPathName, value, timestamp, level);
+		} catch (TTransportException e) {
+			e.printStackTrace();
+		} catch (InvalidRequestException e) {
+			e.printStackTrace();
+		} catch (UnavailableException e) {
+			e.printStackTrace();
+		} catch (TimedOutException e) {
+			e.printStackTrace();
+		} catch (TException e) {
+			e.printStackTrace();
+		} finally {
+			tr.close();
+		}
 	}
 
 	/* --------------------------------------------------------- */
