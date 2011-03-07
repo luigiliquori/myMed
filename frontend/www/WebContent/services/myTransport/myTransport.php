@@ -56,8 +56,8 @@
 				    <th>Ville de départ :</th><th>Ville d'arrivée :</th><th>Date :</th>
 				  </tr>
 				  <tr>
-				    <td><input name="from" type="text" /></td>
-				    <td><input name="to" type="text" /></td>
+				    <td><input id="from1" name="from" type="text" /></td>
+				    <td><input id="to1" name="to" type="text" /></td>
 				    <td>
 				    	<input id="theDate1" type="text" value="2011/03/09 12:55" readonly name="theDate"><input type="button" value="?" onclick="displayCalendar(document.getElementById('searchTrip').theDate,'yyyy/mm/dd hh:ii',this,true)">
 				    	<script type="text/javascript">
@@ -116,8 +116,8 @@
 				    <th>Ville de départ :</th><th>Ville d'arrivée :</th><th>Date :</th>
 				  </tr>
 				  <tr>
-				    <td><input name="from" type="text" /></td>
-				    <td><input name="to" type="text" /></td>
+				    <td><input id="from2" name="from" type="text" /></td>
+				    <td><input id="to2" name="to" type="text" /></td>
 				    <td>
 				    	<input id="theDate2" type="text" value="2011/03/09 12:55" readonly name="theDate"><input type="button" value="?" onclick="displayCalendar(document.getElementById('publishTrip').theDate,'yyyy/mm/dd hh:ii',this,true)">
 				    	<script type="text/javascript">
@@ -131,10 +131,9 @@
 		</div>
 	</div>
 	
-	<!-- GEOMAP -->
-	<article>
-		<span id="status"></span>
-	</article>
+	<!-- Google map -->
+	<?php include('services/myTransport/geomod/map.php'); ?>
+	
 	<?php if($running && $_GET["code"] != "search") { ?>
 		<script type="text/javascript">launchGeolocation();</script>
 	<?php } else { ?>
@@ -148,6 +147,7 @@
 		</form>
 	<?php } ?>
 	
+	<!-- Application footer -->
 	<div class="appToolbar">
 		<table>
 		  <tr>

@@ -9,7 +9,7 @@
   	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	
   	<!-- JAVASCRIPT TOOLS AND LIBRARY -->
-  	<script type="text/javascript" src="javascript/jquery/dist/jquery.js"></script>
+  	<script type="text/javascript" src="services/myTransport/geomod/jquery-1.3.2.min.js"></script>
   	<script type="text/javascript" src="javascript/cookie.js"></script>
 	<script type="text/javascript" src="javascript/drag.js"></script>
 	<script type="text/javascript" src="javascript/display.js"></script>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xml:lang="fr">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<title>TouraineVerte.com : jQuery geo_Autocomplete Plugin</title>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> 
+<script type="text/javascript" src="http://jqueryjs.googlecode.com/files/jquery-1.3.2.min.js"></script> 
+<script type="text/javascript" src="http://geo-autocomplete.googlecode.com/svn/trunk/lib/jquery.autocomplete_geomod.js"></script> 
+<script type="text/javascript" src="http://geo-autocomplete.googlecode.com/svn/trunk/geo_autocomplete.js"></script> 
+<link rel="stylesheet" type="text/css" href="http://geo-autocomplete.googlecode.com/svn/trunk/lib/jquery.autocomplete.css" /> 
+<script type="text/javascript"> 
+$().ready(function() {
+	var latlng = new google.maps.LatLng(47.249713,0.291116);
+	var optionsCarte = {
+		zoom: 8,
+		center: latlng,
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	};
+    var maCarte = new google.maps.Map(document.getElementById("EmplacementDeMaCarte"), optionsCarte);
+ 
+	/* Toutes les options d'autocompétion JQuery sont documentées ici : http://docs.jquery.com/Plugins/Autocomplete */
+	/* Options supplémentatires pour geo_autocomplete : */
+	/* mapkey : 'ABQIAAAATndsWAV5Q2y7pRRi-22W_hTxw9fvAnrsiYejTsRxd4b0cj9HKxSNCXUxAANaoACDzXWznNLVPto_jX' - La clé API est indispensable pour obtenir les mini-cartes : http://code.google.com/apis/maps/signup.html */
+	/* mapwidth : 100 */
+	/* mapheight : 100 */
+	/* maptype : 'terrain' - Voir pour modifier le type de mini-carte : http://code.google.com/apis/maps/documentation/staticmaps/#MapTypes */
+	/* mapsensor : true or false */
+	$('#location').geo_autocomplete(new google.maps.Geocoder, {
+		mapkey: 'Inserez_Votre_Clef_API_Ici', 
+		selectFirst: false,
+		minChars: 3,
+		cacheLength: 50,
+		width: 300,
+		scroll: true,
+		scrollHeight: 330
+	}).result(function(_event, _data) {
+		if (_data) maCarte.fitBounds(_data.geometry.viewport);
+	});
+ 
+});
+</script> 
+<style> 
+.ac_results li img {
+	float: left;
+	margin-right: 5px;
+}
+.cadre{
+	
+	margin:1em 0;
+	padding:1em 0;
+	height:auto;
+	border:1px solid #513a0b;
+	text-align:center;
+	background-color:#e7e3d7;
+}
+</style> 
+</head> 
+<body> 
+<div class="cadre">Saisissez une adresse, le nom d'une ville, d'un département , d'une région, d'un pays ou d'un contient dans le champ ci-dessous.<br /> Automatiquement, <em>une liste de suggestion va apparaître sous forme de mini-cartes</em>.<br />Cliquez sur celle correspondant à votre choix.</div>
+<div><input type="text" id="location" style="width:100%" /></div> 
+<br/> 
+<div id="EmplacementDeMaCarte" style="width:100%;height:350px;"></div>
+</body> 
+</html> 

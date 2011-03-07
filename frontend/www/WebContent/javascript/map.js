@@ -40,10 +40,10 @@ function error(msg) {
   // console.log(arguments);
 }
 
-function launchGeolocation(){
-	if (navigator.geolocation) {
-	  navigator.geolocation.getCurrentPosition(success, error);
-	} else {
-	  error('not supported');
-	}
-}
+//function launchGeolocation(){
+//	if (navigator.geolocation) {
+//	  navigator.geolocation.getCurrentPosition(success, error);
+//	} else {
+//	  error('not supported');
+//	}
+//}
