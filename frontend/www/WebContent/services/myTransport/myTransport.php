@@ -132,7 +132,11 @@
 	</div>
 	
 	<!-- Google map -->
-	<?php include('services/myTransport/geomod/map.php'); ?>
+	<div id="mapcanvas" style="width: 700px; height: 360px;"></div>
+	<script type="text/javascript" src="services/myTransport/javascript/jquery.autocomplete_geomod.js"></script>
+	<script type="text/javascript" src="services/myTransport/javascript/geo_autocomplete.js"></script>
+	<script type="text/javascript" src="services/myTransport/javascript/map.js"></script>
+	<link rel="stylesheet" type="text/css" href="services/myTransport/css/jquery.autocomplete.css" />
 	
 	<?php if($running && $_GET["code"] != "search") { ?>
 		<script type="text/javascript">launchGeolocation();</script>

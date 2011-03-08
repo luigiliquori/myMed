@@ -1,11 +1,5 @@
-<script type="text/javascript" src="services/myTransport/geomod/jquery.autocomplete_geomod.js"></script>
-<script type="text/javascript" src="services/myTransport/geomod/geo_autocomplete.js"></script>
-
-<link rel="stylesheet" type="text/css" href="services/myTransport/geomod/jquery.autocomplete.css" />
-
 <div id="mapcanvas" style="width: 700px; height: 360px;"></div>
 
-<script type="text/javascript">
 	function success(position) {
 		var latlng = new google.maps.LatLng(position.coords.latitude,
 				position.coords.longitude);
@@ -91,5 +85,4 @@
 			error('not supported');
 		}
 	}
-</script>
 
