@@ -2,13 +2,13 @@
 	$running = false;
 	if($_GET["code"] == "search"){
 		$key = $_GET["from"] . $_GET["to"] . $_GET["theDate"];
-		$id = file_get_contents(trim("http://" . $_SERVER['HTTP_HOST'] . ":8080/mymed_backend/FirstRequestHandler?act=5&key2=" . urlencode($key)));
+		$id = file_get_contents(trim("http://" . $_SERVER['HTTP_HOST'] . ":8080/mymed_backend/RequestHandler?act=21&key=" . urlencode($key)));
 		$running = true;
 		$search = true;	
 	} else if($_GET["code"] == "publish"){
 		$key = $_GET["from"] . $_GET["to"] . $_GET["theDate"];
 		$value = $user->id;
-		file_get_contents(trim("http://" . $_SERVER['HTTP_HOST'] . ":8080/mymed_backend/FirstRequestHandler?act=4&key1=" . urlencode($key) . "&value1=" . urlencode($value)));
+		file_get_contents(trim("http://" . $_SERVER['HTTP_HOST'] . ":8080/mymed_backend/RequestHandler?act=20&key=" . urlencode($key) . "&value=" . urlencode($value)));
 		$running = true;
 	} else if ($_GET["code"] == "back") {
 		$running = true;

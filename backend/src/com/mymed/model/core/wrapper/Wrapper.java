@@ -102,6 +102,24 @@ public class Wrapper {
 	/* --------------------------------------------------------- */
 	/**
 	 * Common put operation
+	 * The DHT type is by default Cassandra 
+	 * @param key
+	 * @param value
+	 */
+	public void put(String key, String value) {
+		put(key, value, Type.CASSANDRA);
+	}
+	
+	/**
+	 * Common get operation
+	 * The DHT type is by default Cassandra 
+	 * @param key
+	 */
+	public String get(String key) {
+		return get(key, Type.CASSANDRA);
+	}
+	/**
+	 * Common put operation
 	 * 
 	 * @param key
 	 * @param value

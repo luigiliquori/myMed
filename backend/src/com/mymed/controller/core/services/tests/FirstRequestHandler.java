@@ -51,7 +51,7 @@ public class FirstRequestHandler extends HttpServlet implements IRequestHandler{
 		super();
 
 		/** Default value */
-		this.address = "138.96.242.2";
+		this.address = "138.96.242.21";
 		this.port = 4201;
 		this.keyspace = "Keyspace1";
 		this.columnFamily = "Standard1";

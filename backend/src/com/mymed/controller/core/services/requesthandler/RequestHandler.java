@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.mymed.controller.core.services.ServiceManager;
+import com.mymed.model.core.wrapper.Wrapper;
 import com.mymed.model.datastructure.User;
 
 /**
@@ -35,6 +36,7 @@ public class RequestHandler extends HttpServlet {
 	/** Requests code */ 
 	protected Map<String, RequestCode> requestCodeMap = new HashMap<String, RequestCode>();
 	private enum RequestCode {
+		// low level API
 		CONNECT  ("0"),
 		SETKEYSPACE ("1"),
 		SETCOLUMNFAMILY ("2"),
@@ -42,9 +44,14 @@ public class RequestHandler extends HttpServlet {
 		INSERTKEY ("4"),
 		GETKEY ("5"),
 		
-		SETPROFILE ("10"),
-		GETPROFILE ("11"),
-		LOGIN ("12");
+		// hight level API
+		SETPROFILE ("10"), 	// SET AN USER PROFILE INTO THE BACKBONE
+		GETPROFILE ("11"), 	// GET AN USER PROFILE FROM THE BACKBONE
+		LOGIN ("12"),		// MYMED AUTHENTICATION
+		
+		// DHTs API
+		PUT ("20"),
+		GET ("21");
 		
 		public final String code;
 		
@@ -111,21 +118,33 @@ public class RequestHandler extends HttpServlet {
 			RequestCode code = requestCodeMap.get(parameters.get("act"));
 			
 			switch(code){
-			case SETPROFILE : // SET AN USER PROFILE INTO THE BACKBONE
+			case SETPROFILE : 
 				User user = gson.fromJson(parameters.get("user"), User.class);
 				System.out.println("\nreceived:\n" + user);
 				serviceManager.setProfile(user);
 				break;
-			case GETPROFILE : // GET AN USER PROFILE FROM THE BACKBONE
+			case GETPROFILE : 
 				String id = parameters.get("id");
 				user = serviceManager.getProfile(id);
 				result = gson.toJson(user);
 				break;
-			case LOGIN : // MYMED AUTHENTICATION
+			case LOGIN : 
 				String email = parameters.get("email"); // email == id for mymed users
 				String password = parameters.get("password");
 				user = serviceManager.getProfile(email);
 				result = user.getPassword().equals(password) ? gson.toJson(user) : "false";
+				break;
+			case PUT : 
+				String key = parameters.get("key");
+				String value = parameters.get("value");
+				System.out.println("key to publish: " + key);
+				System.out.println("value to publish: " + value);
+				new Wrapper().put(key, value);
+				break;
+			case GET : 
+				key = parameters.get("key"); 
+				System.out.println("key to search: " + key);
+				result = new Wrapper().get(key);
 				break;
 			default : break;
 			}

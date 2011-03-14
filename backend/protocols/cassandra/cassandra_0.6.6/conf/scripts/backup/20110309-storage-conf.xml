@@ -118,7 +118,92 @@
       -->
 
 <Keyspaces>
-  
+
+   <!-- DEFAULT KEYSPACE (example) -->
+   <Keyspace Name="Keyspace1">
+      <ColumnFamily Name="Standard1" CompareWith="BytesType"
+                    KeysCached="1000"
+                    RowsCached="100"
+                    RowCacheSavePeriodInSeconds="0"
+                    KeyCacheSavePeriodInSeconds="3600"/>
+      <ColumnFamily Name="Standard2" 
+                    CompareWith="UTF8Type"
+                    KeysCached="100%"/>
+      <ColumnFamily Name="StandardByUUID1" CompareWith="TimeUUIDType" />
+      <ColumnFamily Name="Super1"
+                    ColumnType="Super"
+                    CompareWith="BytesType"
+                    CompareSubcolumnsWith="BytesType" />
+      <ColumnFamily Name="Super2"
+                    ColumnType="Super"
+                    CompareWith="UTF8Type"
+                    CompareSubcolumnsWith="UTF8Type"
+                    RowsCached="10000"
+                    KeysCached="50%"
+                    Comment="A column family with supercolumns, whose column and subcolumn names are UTF8 strings"/>
+
+      <!--
+       ~ Strategy: The class that extends AbstractReplicationStrategy 
+       ~ determines how replicas are placed around the token ring.
+       ~ Out of the box, Cassandra provides
+       ~ org.apache.cassandra.locator.RackUnawareStrategy and
+       ~ org.apache.cassandra.locator.RackAwareStrategy (place one replica in
+       ~ a different datacenter, and the others on different racks in the same
+       ~ one.)
+      -->
+      <ReplicaPlacementStrategy>org.apache.cassandra.locator.RackUnawareStrategy</ReplicaPlacementStrategy>
+
+      <!-- Number of replicas of the data -->
+      <ReplicationFactor>1</ReplicationFactor>
+
+      <!--
+       ~ EndPointSnitch: Setting this to the class that implements
+       ~ AbstractEndpointSnitch, which lets Cassandra know enough
+       ~ about your network topology to route requests efficiently.
+       ~ Out of the box, Cassandra provides org.apache.cassandra.locator.EndPointSnitch,
+       ~ and PropertyFileEndPointSnitch is available in contrib/.
+      -->
+      <EndPointSnitch>org.apache.cassandra.locator.EndPointSnitch</EndPointSnitch>      
+   </Keyspace>
+
+   <!-- TESTING KEYSPACE -->
+   <Keyspace Name="Testing">
+      <!-- COLUMN -->
+      <ColumnFamily Name="Users" CompareWith="BytesType"
+                    KeysCached="1000"
+                    RowsCached="100"
+                    RowCacheSavePeriodInSeconds="0"
+                    KeyCacheSavePeriodInSeconds="3600"/>
+      <ColumnFamily Name="Networking" CompareWith="BytesType"
+                    KeysCached="1000"
+                    RowsCached="100"
+                    RowCacheSavePeriodInSeconds="0"
+                    KeyCacheSavePeriodInSeconds="3600"/>
+      <ColumnFamily Name="Trips" CompareWith="BytesType"
+                    KeysCached="1000"
+                    RowsCached="100"
+                    RowCacheSavePeriodInSeconds="0"
+                    KeyCacheSavePeriodInSeconds="3600"/>
+      <ColumnFamily Name="Services" CompareWith="BytesType"
+                    KeysCached="1000"
+                    RowsCached="100"
+                    RowCacheSavePeriodInSeconds="0"
+                    KeyCacheSavePeriodInSeconds="3600"/>
+      <!-- SUPERCOLUMN -->
+      <ColumnFamily Name="myTransport"
+                    ColumnType="Super"
+                    CompareWith="BytesType"
+                    CompareSubcolumnsWith="BytesType" />
+      <ColumnFamily Name="Reputation"
+                    ColumnType="Super"
+                    CompareWith="BytesType"
+                    CompareSubcolumnsWith="BytesType" />
+
+      <ReplicaPlacementStrategy>org.apache.cassandra.locator.RackUnawareStrategy</ReplicaPlacementStrategy>
+      <ReplicationFactor>10</ReplicationFactor>
+      <EndPointSnitch>org.apache.cassandra.locator.EndPointSnitch</EndPointSnitch>
+   </Keyspace>
+
    <!-- MAIN KEYSPACE -->
    <Keyspace Name="Mymed">
       <!-- COLUMN -->
@@ -229,9 +314,9 @@
 	<!-- INRIA: F102 -->
         <Seed>138.96.242.3</Seed>
         <Seed>138.96.242.4</Seed>
-	<!-- UNS -->
-        <Seed>134.59.12.39</Seed>
-	<Seed>134.59.74.51</Seed>
+        <Seed>138.96.242.5</Seed>
+	<!-- UNS
+        <Seed>138.96.242.6</Seed> -->
 	<!-- INRIA: F102 -->
         <Seed>138.96.242.7</Seed>
 	<!-- INRIA: F101 -->

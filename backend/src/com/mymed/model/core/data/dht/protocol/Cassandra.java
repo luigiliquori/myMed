@@ -20,6 +20,7 @@ import org.apache.thrift.transport.TTransport;
 import org.apache.thrift.transport.TTransportException;
 
 import com.mymed.model.core.data.dht.AbstractDHT;
+import com.mymed.model.core.wrapper.Wrapper;
 
 /**
  * this Class represent a Client Connected to
@@ -202,12 +203,12 @@ public class Cassandra extends AbstractDHT {
 	public void put(String key, String value) {
 		try {
 			tr.open();
-			String columnFamily = "Standard1";
+			String columnFamily = "Trips";
 			ColumnPath colPathName = new ColumnPath(columnFamily);
 			long timestamp = System.currentTimeMillis();
 			colPathName.setColumn(key.getBytes("UTF8"));
-			client.insert("Keyspace1", "1", colPathName, value.getBytes("UTF8"), timestamp,
-					ConsistencyLevel.ANY);
+			client.insert("Mymed", key, colPathName, value.getBytes("UTF8"), timestamp,
+					Wrapper.consistencyOnWrite);
 		} catch (InvalidRequestException e) {
 			e.printStackTrace();
 		} catch (UnavailableException e) {
@@ -227,11 +228,11 @@ public class Cassandra extends AbstractDHT {
 	public String get(String key) {
 		try {
 			tr.open();
-			String columnFamily = "Standard1";
+			String columnFamily = "Trips";
 			ColumnPath colPathName = new ColumnPath(columnFamily);
 			colPathName.setColumn(key.getBytes("UTF8"));
-			Column col = client.get("Keyspace1", "1", colPathName,
-					ConsistencyLevel.ANY).getColumn();
+			Column col = client.get("Mymed", key, colPathName,
+					Wrapper.consistencyOnRead).getColumn();
 			return new String(col.value, "UTF8");
 		} catch (InvalidRequestException e) {
 			e.printStackTrace();
