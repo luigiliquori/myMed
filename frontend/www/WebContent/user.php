@@ -1,6 +1,6 @@
 <!-- USER PICTURE PROFILE -->
 <div style="width: 200px; height: 300px; background-color: #edf2f4;">
-	<img width="200px" alt="profile picture" src="<?= $user->profile_picture ?>"><br />
+	<img width="200px" alt="profile picture" src="<?= $user->profile_picture ?>" /><br />
 </div>
 
 <!-- USER INFOMATION -->

@@ -28,7 +28,7 @@
 		  <li> Use the mymed reputation system to find the best way for you </li>
 		</ul>
 	</div>
-	<img alt="" src="img/myTransportScreenShot.png" width="500">
+	<img alt="" src="img/myTransportScreenShot.png" width="500" />
 	<h1>myTransport is starting please wait...</h1>
 </div>
 
@@ -37,12 +37,14 @@
 
 	<!-- Setup the current date -->
    	<script type="text/javascript">
+   	//<![CDATA[
 		var currentTime = new Date()
 		var month = currentTime.getMonth() + 1
 		month = month < 10 ? "0" + month : month
 		var day = currentTime.getDate()
 		day = day < 10 ? "0" + day : day
 		var year = currentTime.getFullYear()
+	//]]>
 	</script>
 
 	<!-- SEARCH -->
@@ -59,7 +61,7 @@
 				    <td><input id="from1" name="from" type="text" /></td>
 				    <td><input id="to1" name="to" type="text" /></td>
 				    <td>
-				    	<input id="theDate1" type="text" value="2011/03/09 12:55" readonly name="theDate"><input type="button" value="?" onclick="displayCalendar(document.getElementById('searchTrip').theDate,'yyyy/mm/dd hh:ii',this,true)">
+				    	<input id="theDate1" type="text" value="2011/03/09 12:55" readonly="readonly" name="theDate" /><input type="button" value="?" onclick="displayCalendar(document.getElementById('searchTrip').theDate,'yyyy/mm/dd hh:ii',this,true)" />
 				    	<script type="text/javascript">
 							document.getElementById("theDate1").value = year + "/" + month + "/" + day + " 12:55";
 						</script>
@@ -77,15 +79,15 @@
 				<form action="">
 				 	<div><span style="font-size: 18px;">Results :</span>
 					 	<span style="position: relative; left: 500px;">
-							<input name="code" type="hidden" value="back"/>
-							<input type="submit" value="afficher la carte">
+							<input name="code" type="hidden" value="back" />
+							<input type="submit" value="afficher la carte" />
 						</span>
 					</div>
 				</form>
 				<div style="background-color: #415b68; color: white; height:360px; width: 700px; overflow: auto;">
 						<table>
 						  <tr rowspan="4">
-						    <td><img width="200px" alt="profile picture" src="<?= $res->profile_picture ?>"></td>
+						    <td><img width="200px" alt="profile picture" src="<?= $res->profile_picture ?>" /></td>
 						    <td>
 							    <table>
 								  <tr>
@@ -100,6 +102,7 @@
 								  </tr>
 								</table>
 						    </td>
+						  </tr>
 						</table>
 				</div>
 			<?php } ?> 
@@ -119,7 +122,7 @@
 				    <td><input id="from2" name="from" type="text" /></td>
 				    <td><input id="to2" name="to" type="text" /></td>
 				    <td>
-				    	<input id="theDate2" type="text" value="2011/03/09 12:55" readonly name="theDate"><input type="button" value="?" onclick="displayCalendar(document.getElementById('publishTrip').theDate,'yyyy/mm/dd hh:ii',this,true)">
+				    	<input id="theDate2" type="text" value="2011/03/09 12:55" readonly="readonly" name="theDate" /><input type="button" value="?" onclick="displayCalendar(document.getElementById('publishTrip').theDate,'yyyy/mm/dd hh:ii',this,true)" />
 				    	<script type="text/javascript">
 							document.getElementById("theDate2").value = year + "/" + month + "/" + day + " 12:55";
 						</script>
@@ -144,8 +147,8 @@
 		<form action="">
 		 	<div><span style="font-size: 18px;">Results :</span>
 			 	<span style="position: relative; left: 500px;">
-					<input name="code" type="hidden" value="back"/>
-					<input type="submit" value="afficher la carte">
+					<input name="code" type="hidden" value="back" />
+					<input type="submit" value="afficher la carte" />
 				</span>
 			</div>
 		</form>
@@ -159,18 +162,18 @@
 			    <img id="search" alt="" src="img/searchH.png" onclick="
 			    document.getElementById('myTransportContainer2').style.display = 'none';
 				fadeIn('#myTransportContainer1'); 
-				updateToolbar(document.getElementById('search'));"/>
+				updateToolbar(document.getElementById('search'));" />
 			</td>
 			<td>
 				<img id="save" alt="" src="img/save.png" onclick="
 					 document.getElementById('myTransportContainer1').style.display = 'none';
 				fadeIn('#myTransportContainer2'); 
-				updateToolbar(document.getElementById('save'));"/>
+				updateToolbar(document.getElementById('save'));" />
 			</td>
 			<td style="width: 400px;"></td>
 			<td>
 				<form method="get" action="#">
-					<input type="submit" style="background-image: url('img/close.png'); width: 100px; height: 48px;" value=" " onclick="location.reload();">
+					<input type="submit" style="background-image: url('img/close.png'); width: 100px; height: 48px;" value=" " onclick="location.reload();" />
 				</form>
 			</td>
 		  </tr>

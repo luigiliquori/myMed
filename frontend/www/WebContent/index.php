@@ -1,5 +1,5 @@
 <?php $debug = 0 ?>
-
+<?php //header("Content-Type:application/xhtml+xml") ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -18,14 +18,14 @@
 	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 	<script type="text/javascript" src="javascript/map.js"></script>
 	<!-- INCLUDE CALENDAR -->
-	<link type="text/css" rel="stylesheet" href="css/dhtmlgoodies_calendar.css?random=20051112" media="screen"></LINK>
+	<link type="text/css" rel="stylesheet" href="css/dhtmlgoodies_calendar.css?random=20051112" media="screen" />
 	<script type="text/javascript" src="javascript/dhtmlgoodies_calendar.js?random=20060118"></script>
 	
 	<!-- TITLE -->
 	<title>myMed</title>
 	
 	<!-- STYLESHEET -->
-  	<link rel="stylesheet" href="css/style.css"> 
+  	<link rel="stylesheet" href="css/style.css" />
   </head>
       
   <body onclick="cleanView();">
