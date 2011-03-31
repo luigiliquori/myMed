@@ -39,5 +39,14 @@
     <servlet-name>RequestHandler</servlet-name>
     <url-pattern>/RequestHandler</url-pattern>
   </servlet-mapping>
-
+  <servlet>
+    <description></description>
+    <display-name>SDKRequestHandler</display-name>
+    <servlet-name>SDKRequestHandler</servlet-name>
+    <servlet-class>com.mymed.controller.core.services.tests.SDKRequestHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SDKRequestHandler</servlet-name>
+    <url-pattern>/SDKRequestHandler</url-pattern>
+  </servlet-mapping>
 </web-app>

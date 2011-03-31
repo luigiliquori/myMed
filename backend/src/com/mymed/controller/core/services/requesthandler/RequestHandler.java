@@ -2,7 +2,6 @@ package com.mymed.controller.core.services.requesthandler;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,7 +20,7 @@ import com.mymed.model.datastructure.User;
  * @author lvanni
  *
  */
-public class RequestHandler extends HttpServlet {
+public class RequestHandler extends AbstractRequestHandler {
 	/* --------------------------------------------------------- */
 	/*                      Attributes                           */
 	/* --------------------------------------------------------- */
@@ -33,8 +32,10 @@ public class RequestHandler extends HttpServlet {
 	/** WPF1 - INRIA - Overlay Networks and Pub/Sub Paradigm */
 	private ServiceManager serviceManager;
 	
-	/** Requests code */ 
+	/** Request code Map*/ 
 	protected Map<String, RequestCode> requestCodeMap = new HashMap<String, RequestCode>();
+	
+	/** Request codes*/ 
 	private enum RequestCode {
 		// low level API
 		CONNECT  ("0"),
@@ -73,30 +74,11 @@ public class RequestHandler extends HttpServlet {
 		 */
 		this.gson = new Gson();
 		
-		// initialise the CodeMapping
+		// initialize the CodeMapping
 		this.serviceManager = new ServiceManager();
 		for(RequestCode r : RequestCode.values()){
 			requestCodeMap.put(r.code, r);
 		}
-	}
-	
-	/* --------------------------------------------------------- */
-	/*                      private methods       		         */
-	/* --------------------------------------------------------- */
-	/**
-	 * @return the parameters of an HttpServletRequest
-	 */
-	private Map<String, String> getParameters(HttpServletRequest request){
-		Map<String, String> parameters = new HashMap<String, String>();
-		Enumeration<String> paramNames = request.getParameterNames();
-		while (paramNames.hasMoreElements()) {
-			String paramName = (String) paramNames.nextElement();
-			String[] paramValues = request.getParameterValues(paramName);
-			if (paramValues.length >= 1) { // all the params should be atomic
-				parameters.put(paramName, paramValues[0]);
-			}
-		}
-		return parameters;
 	}
 
 	/* --------------------------------------------------------- */
@@ -154,13 +136,5 @@ public class RequestHandler extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.println(result);
 		out.close();
-	}
-	
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO 
 	}
 }

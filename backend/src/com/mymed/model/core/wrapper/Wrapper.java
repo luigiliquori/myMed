@@ -3,7 +3,6 @@ package com.mymed.model.core.wrapper;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
-import org.apache.cassandra.thrift.ConsistencyLevel;
 import org.apache.cassandra.thrift.InvalidRequestException;
 import org.apache.cassandra.thrift.NotFoundException;
 import org.apache.cassandra.thrift.TimedOutException;
@@ -26,11 +25,7 @@ import com.mymed.model.core.data.dht.protocol.Cassandra;
  *         to the data source. The DAO manages the connection with the data
  *         source to obtain and store data.
  */
-public class Wrapper {
-
-	/** Default ConsistencyLevel */
-	public static ConsistencyLevel consistencyOnWrite = ConsistencyLevel.ANY;
-	public static ConsistencyLevel consistencyOnRead = ConsistencyLevel.ONE;
+public class Wrapper implements IWrapper{
 
 	/* --------------------------------------------------------- */
 	/* public methods */
@@ -50,12 +45,10 @@ public class Wrapper {
 			Map<String, byte[]> args) {
 		// The main database is managed by Cassandra
 		Cassandra node = (Cassandra) DHTFactory.createDHT(Type.CASSANDRA);
-
-		// keyspace is similare to the database name
+		// keyspace is similar to the database name
 		String keyspace = "Mymed";
-		// columnFamily is similare to the table name
+		// columnFamily is similar to the table name
 		String columnFamily = tableName;
-
 		// Store into Cassandra the new entry
 		try {
 			for (String columnName : args.keySet()) {
@@ -87,14 +80,37 @@ public class Wrapper {
 			TimedOutException, TException {
 		// The main database is managed by Cassandra
 		Cassandra node = (Cassandra) DHTFactory.createDHT(Type.CASSANDRA);
-
-		// keyspace is similare to the database name
+		// keyspace is similar to the database name
 		String keyspace = "Mymed";
-		// columnFamily is similare to the table name
+		// columnFamily is similar to the table name
 		String columnFamily = tableName;
 		
 		return node.getSimpleColumn(keyspace, columnFamily, primaryKey,
 				columnName.getBytes("UTF8"), consistencyOnRead);
+	}
+	
+	/**
+	 * Get the value of a column family
+	 * 
+	 * @param tableName
+	 *            the name of the Table/ColumnFamily
+	 * @param primaryKey
+	 *            the ID of the entry
+	 * @param columnName
+	 *            the name of the column
+	 * @return the value of the column
+	 */
+	public Map<byte[], byte[]> selectAll(String tableName, String primaryKey) throws UnsupportedEncodingException,
+			InvalidRequestException, NotFoundException, UnavailableException,
+			TimedOutException, TException {
+		// The main database is managed by Cassandra
+		Cassandra node = (Cassandra) DHTFactory.createDHT(Type.CASSANDRA);
+		// keyspace is similar to the database name
+		String keyspace = "Mymed";
+		// columnFamily is similar to the table name
+		String columnFamily = tableName;
+		
+		return node.getSlice(keyspace, columnFamily, primaryKey, consistencyOnRead);
 	}
 
 	/* --------------------------------------------------------- */
@@ -118,6 +134,7 @@ public class Wrapper {
 	public String get(String key) {
 		return get(key, Type.CASSANDRA);
 	}
+	
 	/**
 	 * Common put operation
 	 * 
