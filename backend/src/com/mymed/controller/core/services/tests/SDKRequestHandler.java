@@ -376,10 +376,10 @@ public class SDKRequestHandler extends AbstractRequestHandler implements IReques
 			HttpServletResponse response, Map<String, String> parameters)
 	throws ServletException, IOException {
 		try {
-			tr.open();
 			// Retrieve the application responsible for the request
 			List<ColumnOrSuperColumn> application = getApplication(parameters.get("id"));
 
+			tr.open();
 			// Reconstruct the API
 			List<Map<String, String>> keyList = null;
 			List<Map<String, String>> valueList = null;
