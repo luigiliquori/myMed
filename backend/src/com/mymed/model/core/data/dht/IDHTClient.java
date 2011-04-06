@@ -4,13 +4,12 @@ package com.mymed.model.core.data.dht;
  * Represent what a DhT must do
  * @author lvanni
  */
-public interface IDHT {
-	
+public interface IDHTClient {
 	/**
 	 * Different type of DHT
 	 */
-	public enum Type {
-	    CASSANDRA, CHORD, KAD
+	public enum ClientType {
+	    CASSANDRA, CHORD, KAD, SYNAPSE
 	}
 
 	/**

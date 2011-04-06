@@ -14,7 +14,9 @@ import org.apache.thrift.TException;
 import com.mymed.controller.core.services.engine.reputation.IReputation;
 import com.mymed.controller.core.services.engine.reputation.IReputationSystem;
 import com.mymed.controller.core.services.engine.reputation.ReputationSystem;
+import com.mymed.model.core.data.dht.IDHTClient.ClientType;
 import com.mymed.model.core.wrapper.Wrapper;
+import com.mymed.model.core.wrapper.exception.WrapperException;
 import com.mymed.model.datastructure.Transaction;
 import com.mymed.model.datastructure.User;
 
@@ -41,7 +43,7 @@ public class ServiceManager {
 	 * default constructor
 	 */
 	public ServiceManager() {
-		this.wrapper = new Wrapper();
+		this.wrapper = new Wrapper(ClientType.CASSANDRA);
 		this.reputation = new ReputationSystem();
 	}
 
@@ -68,12 +70,14 @@ public class ServiceManager {
 				args.put("email", user.getEmail().getBytes("UTF8"));
 				args.put("password", user.getPassword().getBytes("UTF8"));
 			}
-			if(wrapper.insertInto("Users", user.getId(), args)) { // The error need to be handled
+			if(wrapper.insertInto("Users", "id", args)) { // The error need to be handled
 				System.out.println("user successfully insered!");
 			} else {
 				System.out.println("insert failed...");
 			}
 		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (WrapperException e) {
 			e.printStackTrace();
 		}
 	}
@@ -117,6 +121,8 @@ public class ServiceManager {
 		} catch (TimedOutException e) {
 			e.printStackTrace();
 		} catch (TException e) {
+			e.printStackTrace();
+		} catch (WrapperException e) {
 			e.printStackTrace();
 		}
 		return null;

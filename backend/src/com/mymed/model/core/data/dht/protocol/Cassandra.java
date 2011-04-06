@@ -26,7 +26,7 @@ import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
 import org.apache.thrift.transport.TTransportException;
 
-import com.mymed.model.core.data.dht.AbstractDHT;
+import com.mymed.model.core.data.dht.IDHTClient;
 import com.mymed.model.core.wrapper.Wrapper;
 
 /**
@@ -35,7 +35,7 @@ import com.mymed.model.core.wrapper.Wrapper;
  * @author lvanni
  *
  */
-public class Cassandra extends AbstractDHT {
+public class Cassandra implements IDHTClient {
 	/* CASSANDRA STRUCTURE:
 
 	  Keyspace
@@ -99,8 +99,7 @@ public class Cassandra extends AbstractDHT {
 	 * @throws UnknownHostException 
 	 */
 	private Cassandra() throws UnknownHostException {
-		super(InetAddress.getLocalHost().getHostAddress(), 4201);
-		this.tr = new TSocket(address, port);
+		this.tr = new TSocket(InetAddress.getLocalHost().getHostAddress(), 4201);
 		this.proto = new TBinaryProtocol(tr);
 		this.client = new Client(proto);
 	}

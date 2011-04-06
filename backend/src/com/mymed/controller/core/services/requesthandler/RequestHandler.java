@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.mymed.controller.core.services.ServiceManager;
+import com.mymed.model.core.data.dht.IDHTClient.ClientType;
 import com.mymed.model.core.wrapper.Wrapper;
 import com.mymed.model.datastructure.User;
 
@@ -121,12 +122,12 @@ public class RequestHandler extends AbstractRequestHandler {
 				String value = parameters.get("value");
 				System.out.println("key to publish: " + key);
 				System.out.println("value to publish: " + value);
-				new Wrapper().put(key, value);
+				new Wrapper(ClientType.CASSANDRA).put(key, value);
 				break;
 			case GET : 
 				key = parameters.get("key"); 
 				System.out.println("key to search: " + key);
-				result = new Wrapper().get(key);
+				result = new Wrapper(ClientType.CASSANDRA).get(key);
 				break;
 			default : break;
 			}

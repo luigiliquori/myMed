@@ -10,7 +10,8 @@ import org.apache.cassandra.thrift.TimedOutException;
 import org.apache.cassandra.thrift.UnavailableException;
 import org.apache.thrift.TException;
 
-import com.mymed.model.core.data.dht.IDHT.Type;
+import com.mymed.model.core.data.dht.IDHTClient.ClientType;
+import com.mymed.model.core.wrapper.exception.WrapperException;
 
 /**
  * @author lvanni
@@ -41,7 +42,7 @@ public interface IWrapper {
 	 * @return true if the entry is correctly stored, false otherwise
 	 */
 	public boolean insertInto(String tableName, String primaryKey,
-			Map<String, byte[]> args);
+			Map<String, byte[]> args) throws WrapperException;
 	
 	/**
 	 * Get the value of an entry column
@@ -57,7 +58,7 @@ public interface IWrapper {
 	public byte[] selectColumn(String tableName, String primaryKey,
 			String columnName) throws UnsupportedEncodingException,
 			InvalidRequestException, NotFoundException, UnavailableException,
-			TimedOutException, TException;
+			TimedOutException, TException, WrapperException;
 	
 	/**
 	 * Get the value of a column family
@@ -72,7 +73,7 @@ public interface IWrapper {
 	 */
 	public Map<byte[], byte[]> selectAll(String tableName, String primaryKey) throws UnsupportedEncodingException,
 			InvalidRequestException, NotFoundException, UnavailableException,
-			TimedOutException, TException;
+			TimedOutException, TException, WrapperException;
 	
 	/**
 	 * Common put operation
@@ -82,7 +83,7 @@ public interface IWrapper {
 	 * @param DHTType
 	 *            The type of DHT used for the operation
 	 */
-	public void put(String key, String value, Type DHTType);
+	public void put(String key, String value);
 	
 	/**
 	 * Common get operation
@@ -91,6 +92,6 @@ public interface IWrapper {
 	 * @param DHTType
 	 *            The type of DHT used for the operation
 	 */
-	public String get(String key, Type DHTType);
+	public String get(String key);
 
 }
