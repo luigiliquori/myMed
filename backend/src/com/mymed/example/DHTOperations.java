@@ -24,10 +24,8 @@ import com.mymed.model.core.wrapper.exception.WrapperException;
 public class DHTOperations {
 
 	public static void main(String args[]){
-		/* --------------------------------------------------------- */
-		/* NON PERSISTENT OPERATIONS */
-		/* --------------------------------------------------------- */
 		
+		// CHORD ------------------------------------------------------
 		// Simple Example with a wrapper based on chord protocol.
 		// the wrapper will create and start a new node
 		// this node is a singleton, there is only one instance by jvm
@@ -39,6 +37,7 @@ public class DHTOperations {
 		System.out.println("id = " + chordWrapper.get("id"));
 		System.out.println("name = " + chordWrapper.get("name"));
 	
+		// KAD -------------------------------------------------------
 		// the same with a wrapper based on kad protocol
 		IWrapper kadWrapper = new Wrapper(ClientType.KAD);
 		// PUT Operation
@@ -48,10 +47,7 @@ public class DHTOperations {
 		System.out.println("\nid = " + kadWrapper.get("id"));
 		System.out.println("name = " + kadWrapper.get("name"));
 		
-		/* --------------------------------------------------------- */
-		/* PERSISTENT OPERATIONS */
-		/* --------------------------------------------------------- */
-
+		// CASSANDRA -------------------------------------------------
 		// of course Cassandra provide the same operation
 		// Cassandra is the default choice of the wrapper
 		IWrapper cassandraWrapper = new Wrapper(); // == new Wrapper(ClientType.CASSANDRA)
@@ -89,41 +85,6 @@ public class DHTOperations {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (TException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		// ERROR:
-		// The wrapper provide a set of operations but only put/get are available 
-		// with simple DHT protocol like Chord or Kad
-		// example:
-		try {
-			chordWrapper.insertInto("Users", "id", arguments);
-		} catch (WrapperException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			kadWrapper.selectAll("Users", "91011");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidRequestException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UnavailableException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (TimedOutException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (TException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (WrapperException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

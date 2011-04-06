@@ -11,9 +11,9 @@ import org.apache.cassandra.thrift.TimedOutException;
 import org.apache.cassandra.thrift.UnavailableException;
 import org.apache.thrift.TException;
 
-import com.mymed.controller.core.services.engine.reputation.IReputation;
-import com.mymed.controller.core.services.engine.reputation.IReputationSystem;
-import com.mymed.controller.core.services.engine.reputation.ReputationSystem;
+import com.mymed.controller.core.services.reputation.IReputation;
+import com.mymed.controller.core.services.reputation.IReputationSystem;
+import com.mymed.controller.core.services.reputation.ReputationSystem;
 import com.mymed.model.core.data.dht.IDHTClient.ClientType;
 import com.mymed.model.core.wrapper.Wrapper;
 import com.mymed.model.core.wrapper.exception.WrapperException;
@@ -133,7 +133,7 @@ public class ServiceManager {
 	/* --------------------------------------------------------- */
 	// TBD with UNITO
 	/**
-	 * @see com.mymed.controller.core.services.engine.reputation.ReputationSystem#getReputation(User,
+	 * @see com.mymed.controller.core.services.reputation.ReputationSystem#getReputation(User,
 	 *      String)
 	 * @param user
 	 * @param serviceID
@@ -143,7 +143,7 @@ public class ServiceManager {
 	}
 
 	/**
-	 * @see com.mymed.controller.core.services.engine.reputation.ReputationSystem#notifyTransaction(Transaction)
+	 * @see com.mymed.controller.core.services.reputation.ReputationSystem#notifyTransaction(Transaction)
 	 * @param transaction
 	 */
 	public void notifyTransaction(Transaction transaction) {

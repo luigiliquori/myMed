@@ -1,4 +1,4 @@
-package com.mymed.controller.core.services.engine.reputation;
+package com.mymed.controller.core.services.reputation;
 
 import com.mymed.model.datastructure.Transaction;
 import com.mymed.model.datastructure.User;

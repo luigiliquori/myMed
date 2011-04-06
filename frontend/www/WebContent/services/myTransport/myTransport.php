@@ -2,13 +2,13 @@
 	$running = false;
 	if($_GET["code"] == "search"){
 		$key = $_GET["from"] . $_GET["to"] . $_GET["theDate"];
-		$id = file_get_contents(trim("http://" . $_SERVER['HTTP_HOST'] . ":8080/mymed_backend/RequestHandler?act=21&key=" . urlencode($key)));
+		$id = file_get_contents(trim("http://" . $_SERVER['HTTP_HOST'] . ":8080/mymed_backend/DHTRequestHandler?act=1&key=" . urlencode($key)));
 		$running = true;
 		$search = true;	
 	} else if($_GET["code"] == "publish"){
 		$key = $_GET["from"] . $_GET["to"] . $_GET["theDate"];
 		$value = $user->id;
-		file_get_contents(trim("http://" . $_SERVER['HTTP_HOST'] . ":8080/mymed_backend/RequestHandler?act=20&key=" . urlencode($key) . "&value=" . urlencode($value)));
+		file_get_contents(trim("http://" . $_SERVER['HTTP_HOST'] . ":8080/mymed_backend/DHTRequestHandler?act=0&key=" . urlencode($key) . "&value=" . urlencode($value)));
 		$running = true;
 	} else if ($_GET["code"] == "back") {
 		$running = true;
@@ -72,7 +72,7 @@
 			
 			<!-- RESULT -->
 			<?php if($search) { ?>
-				<? $res = json_decode(file_get_contents(trim('http://mymed2.sophia.inria.fr:8080/mymed_backend/RequestHandler?act=11&id=' . $id))); ?>
+				<? $res = json_decode(file_get_contents(trim('http://mymed2.sophia.inria.fr:8080/mymed_backend/UsersRequestHandler?act=1&id=' . $id))); ?>
 				<hr />
 				<form action="">
 				 	<div><span style="font-size: 18px;">Results :</span>
