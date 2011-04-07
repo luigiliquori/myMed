@@ -1,4 +1,4 @@
-package com.mymed.controller.core.services.requesthandler;
+package com.mymed.controller.core.services.tests;
 
 /**
  * Describe the header of all the request coming from the frontend
@@ -20,4 +20,9 @@ public interface IRequestHandler {
 	/** get user profile*/
 	static int GETPROFILE = 11;
 	
+	// SDK APIs Tests
+	static int REGISTER = 20;
+	static int GETAPPLIST = 21;
+	static int GETAPPLIACTION = 22;
+	static int PUBLISH = 23;
 }

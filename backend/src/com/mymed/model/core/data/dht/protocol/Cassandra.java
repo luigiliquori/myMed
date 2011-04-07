@@ -3,12 +3,19 @@ package com.mymed.model.core.data.dht.protocol;
 import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.cassandra.thrift.Column;
+import org.apache.cassandra.thrift.ColumnOrSuperColumn;
+import org.apache.cassandra.thrift.ColumnParent;
 import org.apache.cassandra.thrift.ColumnPath;
 import org.apache.cassandra.thrift.ConsistencyLevel;
 import org.apache.cassandra.thrift.InvalidRequestException;
 import org.apache.cassandra.thrift.NotFoundException;
+import org.apache.cassandra.thrift.SlicePredicate;
+import org.apache.cassandra.thrift.SliceRange;
 import org.apache.cassandra.thrift.TimedOutException;
 import org.apache.cassandra.thrift.UnavailableException;
 import org.apache.cassandra.thrift.Cassandra.Client;
@@ -19,7 +26,7 @@ import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
 import org.apache.thrift.transport.TTransportException;
 
-import com.mymed.model.core.data.dht.AbstractDHT;
+import com.mymed.model.core.data.dht.IDHTClient;
 import com.mymed.model.core.wrapper.Wrapper;
 
 /**
@@ -28,7 +35,7 @@ import com.mymed.model.core.wrapper.Wrapper;
  * @author lvanni
  *
  */
-public class Cassandra extends AbstractDHT {
+public class Cassandra implements IDHTClient {
 	/* CASSANDRA STRUCTURE:
 
 	  Keyspace
@@ -92,8 +99,7 @@ public class Cassandra extends AbstractDHT {
 	 * @throws UnknownHostException 
 	 */
 	private Cassandra() throws UnknownHostException {
-		super(InetAddress.getLocalHost().getHostAddress(), 4201);
-		this.tr = new TSocket(address, port);
+		this.tr = new TSocket(InetAddress.getLocalHost().getHostAddress(), 4201);
 		this.proto = new TBinaryProtocol(tr);
 		this.client = new Client(proto);
 	}
@@ -148,7 +154,7 @@ public class Cassandra extends AbstractDHT {
 					"\n\tcolumnFamily = " + columnFamily + 
 					"\n\tkey = " + key + 
 					"\n\tcolumnName = " + new String(columnName) + 
-					"\n---> NOT FOUND!\n");
+			"\n---> NOT FOUND!\n");
 
 		} catch (UnavailableException e) {
 			e.printStackTrace();
@@ -194,6 +200,51 @@ public class Cassandra extends AbstractDHT {
 		} finally {
 			tr.close();
 		}
+	}
+
+	/**
+	 * 
+	 * @param keyspace
+	 * @param columnFamily
+	 * @param key
+	 * @param columnName
+	 * @param level
+	 * @return
+	 */
+	public Map<byte[], byte[]> getSlice(String keyspace, String columnFamily, String key, ConsistencyLevel level) {
+		Map<byte[], byte[]> slice = new HashMap<byte[], byte[]>();
+		try {
+			tr.open();
+			// read entire row
+			SlicePredicate predicate = new SlicePredicate();
+			SliceRange sliceRange = new SliceRange();
+			sliceRange.setStart(new byte[0]);
+			sliceRange.setFinish(new byte[0]);
+			predicate.setSlice_range(sliceRange);
+
+			ColumnParent parent = new ColumnParent(columnFamily);
+			List<ColumnOrSuperColumn> results = client.get_slice(keyspace,
+					key, parent, predicate, ConsistencyLevel.ONE);
+			for (ColumnOrSuperColumn res : results) {
+				Column column = res.column;
+				slice.put(column.name, column.value);
+			}
+		} catch (TException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidRequestException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TimedOutException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			tr.close();
+		}
+		return slice;
 	}
 
 	/* --------------------------------------------------------- */

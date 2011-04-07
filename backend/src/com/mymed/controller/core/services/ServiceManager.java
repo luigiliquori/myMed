@@ -11,10 +11,12 @@ import org.apache.cassandra.thrift.TimedOutException;
 import org.apache.cassandra.thrift.UnavailableException;
 import org.apache.thrift.TException;
 
-import com.mymed.controller.core.services.engine.reputation.IReputation;
-import com.mymed.controller.core.services.engine.reputation.IReputationSystem;
-import com.mymed.controller.core.services.engine.reputation.ReputationSystem;
+import com.mymed.controller.core.services.reputation.IReputation;
+import com.mymed.controller.core.services.reputation.IReputationSystem;
+import com.mymed.controller.core.services.reputation.ReputationSystem;
+import com.mymed.model.core.data.dht.IDHTClient.ClientType;
 import com.mymed.model.core.wrapper.Wrapper;
+import com.mymed.model.core.wrapper.exception.WrapperException;
 import com.mymed.model.datastructure.Transaction;
 import com.mymed.model.datastructure.User;
 
@@ -41,7 +43,7 @@ public class ServiceManager {
 	 * default constructor
 	 */
 	public ServiceManager() {
-		this.wrapper = new Wrapper();
+		this.wrapper = new Wrapper(ClientType.CASSANDRA);
 		this.reputation = new ReputationSystem();
 	}
 
@@ -68,12 +70,14 @@ public class ServiceManager {
 				args.put("email", user.getEmail().getBytes("UTF8"));
 				args.put("password", user.getPassword().getBytes("UTF8"));
 			}
-			if(wrapper.insertInto("Users", user.getId(), args)) { // The error need to be handled
+			if(wrapper.insertInto("Users", "id", args)) { // The error need to be handled
 				System.out.println("user successfully insered!");
 			} else {
 				System.out.println("insert failed...");
 			}
 		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (WrapperException e) {
 			e.printStackTrace();
 		}
 	}
@@ -118,6 +122,8 @@ public class ServiceManager {
 			e.printStackTrace();
 		} catch (TException e) {
 			e.printStackTrace();
+		} catch (WrapperException e) {
+			e.printStackTrace();
 		}
 		return null;
 	}
@@ -127,7 +133,7 @@ public class ServiceManager {
 	/* --------------------------------------------------------- */
 	// TBD with UNITO
 	/**
-	 * @see com.mymed.controller.core.services.engine.reputation.ReputationSystem#getReputation(User,
+	 * @see com.mymed.controller.core.services.reputation.ReputationSystem#getReputation(User,
 	 *      String)
 	 * @param user
 	 * @param serviceID
@@ -137,7 +143,7 @@ public class ServiceManager {
 	}
 
 	/**
-	 * @see com.mymed.controller.core.services.engine.reputation.ReputationSystem#notifyTransaction(Transaction)
+	 * @see com.mymed.controller.core.services.reputation.ReputationSystem#notifyTransaction(Transaction)
 	 * @param transaction
 	 */
 	public void notifyTransaction(Transaction transaction) {

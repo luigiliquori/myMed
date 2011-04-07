@@ -81,7 +81,7 @@ public class ChordNode extends AbstractChord {
 	}
 
 	/**
-	 * @see core.protocols.p2p.IDHT#put(String, String)
+	 * @see core.protocols.p2p.IDHTClient#put(String, String)
 	 */
 	public void put(String key, String value) {
 		int hKey;
@@ -106,7 +106,7 @@ public class ChordNode extends AbstractChord {
 	}
 
 	/**
-	 * @see core.protocols.p2p.IDHT#get(String)
+	 * @see core.protocols.p2p.IDHTClient#get(String)
 	 */
 	public String get(String key) {
 		int hKey;
@@ -200,14 +200,14 @@ public class ChordNode extends AbstractChord {
 	}
 
 	/**
-	 * @see core.protocols.p2p.IDHT#getTransport()
+	 * @see core.protocols.p2p.IDHTClient#getTransport()
 	 */
 	public ITransport getTransport() {
 		return transport;
 	}
 
 	/**
-	 * @see core.protocols.p2p.IDHT#getIdentifier()
+	 * @see core.protocols.p2p.IDHTClient#getIdentifier()
 	 */
 	public String getIdentifier() {
 		return overlayIntifier;
