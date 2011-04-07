@@ -134,6 +134,7 @@ V pkg glassfish-ejb-l10n 3.0.1,0-20.1:20100603T144246Z
 V pkg glassfish-ejb-l10n 3.1,0-41.1:20110213T154345Z
 V pkg javaee-tutorial 6.0.1,1-11:20110215T090632Z
 V pkg javaee-tutorial 6.0.5,1-1:20100617T195119Z
+V pkg javaee-tutorial 6.0.6,1-1:20110226T003748Z
 V pkg javaee-tutorial 6.0.1,1-10:20100609T220650Z
 V pkg glassfish-gui 3.1,0-43:20110215T071924Z
 V pkg glassfish-gui 3.0.1,0-22:20100608T221423Z
