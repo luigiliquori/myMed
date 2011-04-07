@@ -3,9 +3,9 @@
 		<div style="position:absolute; width: 702px; left:-1px; height: 30px; background-image:url('img/toolbar.png'); border: thin #d2d2d2; solid; ">
 			<table>
 			  <tr>
-			    <td><img alt="" src="img/menu/fichier.png" height="15px" onmouseover="changeMenu('fichier')"></td>
-			    <td><img alt="" src="img/menu/edition.png" height="15px" onmouseover="changeMenu('edition')"></td>
-			    <td><img alt="" src="img/menu/aide.png" height="15px" onmouseover="changeMenu('aide')"></td>
+			    <td><img alt="" src="img/menu/fichier.png" height="15px" onmouseover="changeMenu('fichier')" /></td>
+			    <td><img alt="" src="img/menu/edition.png" height="15px" onmouseover="changeMenu('edition')" /></td>
+			    <td><img alt="" src="img/menu/aide.png" height="15px" onmouseover="changeMenu('aide')" /></td>
 			  </tr>
 			</table>
 		</div>
@@ -30,13 +30,13 @@
 			<div style="position: relative; left:10px;">
 				<a href="#" onclick="displayWindow('#warning')">Annuler</a><br>
 				<a href="#" onclick="displayWindow('#warning')">Rétablir</a><br>
-				<hr style="position:relative; left: -10px;">
+				<hr style="position:relative; left: -10px;" />
 				<a href="#" onclick="displayWindow('#warning')">Couper</a><br>
 				<a href="#" onclick="displayWindow('#warning')">Couper</a><br>
 				<a href="#" onclick="displayWindow('#warning')">Coller</a><br>
-				<hr style="position:relative; left: -10px;">
+				<hr style="position:relative; left: -10px;" />
 				<a href="#" onclick="displayWindow('#warning')">Tout séléctionner</a><br>
-				<hr style="position:relative; left: -10px;">
+				<hr style="position:relative; left: -10px;" />
 				<a href="#" onclick="displayWindow('#warning')">Rechercher</a><br>
 			</div>
 		</div>
@@ -46,7 +46,7 @@
 			<div style="position: relative; left:10px;">
 				<a href="#" onclick="displayWindow('#warning')">Aide myMed</a><br>
 				<a href="#" onclick="displayWindow('#warning')">A propos</a><br>
-				<hr style="position:relative; left: -10px;">
+				<hr style="position:relative; left: -10px;" />
 				<a href="#" onclick="displayWindow('#warning')">Contact</a><br>
 			</div>
 		</div>

@@ -8,7 +8,7 @@
 		<div id="app1" style="background-image: url('img/icon/myHome.png'); width: 80px; height: 100px; text-align: center;" onmouseover="activeDock('app1')" >
 			<span style="position:relative; top:60px;">myProfile</span>
 		</div>
-		<a href="<?= $user->profile ?>" id="app1H" style="position: relative; background-image: url('img/icon/myHomeH.png'); width: 80px; height: 100px; left: 0px; top:-20px; display: none; text-align: center;"" onmouseout="desactiveDock('app1')">
+		<a href="<?= $user->profile ?>" id="app1H" style="position: relative; background-image: url('img/icon/myHomeH.png'); width: 80px; height: 100px; left: 0px; top:-20px; display: none; text-align: center;" onmouseout="desactiveDock('app1')">
 			<span style="position:relative; top:80px;">myProfile</span>
 		</a>
 	</td>

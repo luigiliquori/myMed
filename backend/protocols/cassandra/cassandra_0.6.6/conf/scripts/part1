@@ -277,10 +277,10 @@
    ~ disk.  Keep the data disks and the CommitLog disks separate for best
    ~ performance
   -->
-  <SavedCachesDirectory>/local/var/lib/cassandra/saved_caches</SavedCachesDirectory>
-  <CommitLogDirectory>/local/var/lib/cassandra/commitlog</CommitLogDirectory>
+  <SavedCachesDirectory>/var/lib/cassandra/saved_caches</SavedCachesDirectory>
+  <CommitLogDirectory>/var/log/cassandra/commitlog</CommitLogDirectory>
   <DataFileDirectories>
-      <DataFileDirectory>/local/var/lib/cassandra/data</DataFileDirectory>
+      <DataFileDirectory>/var/lib/cassandra/data</DataFileDirectory>
   </DataFileDirectories>
 
 
@@ -290,21 +290,7 @@
    ~ the ring. You must change this if you are running multiple nodes!
   -->
   <Seeds>
-        <Seed>138.96.242.11</Seed>
-        <Seed>138.96.242.12</Seed>
-	<Seed>138.96.242.13</Seed>
-	<Seed>138.96.242.14</Seed>
-	<Seed>138.96.242.15</Seed>
-	<Seed>138.96.242.16</Seed>
-	<Seed>138.96.242.17</Seed>
-	<Seed>138.96.242.18</Seed>
-	<Seed>138.96.242.19</Seed>
-	<Seed>138.96.242.20</Seed>
-	<Seed>138.96.242.21</Seed>
-	<Seed>138.96.242.22</Seed>
-	<Seed>138.96.242.23</Seed>
-	<Seed>138.96.242.24</Seed>
-	<Seed>138.96.242.25</Seed>
+        <Seed>127.0.0.1</Seed>
   </Seeds>
 
 

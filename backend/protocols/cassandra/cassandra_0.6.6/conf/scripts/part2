@@ -9,7 +9,7 @@
    ~ (hostname, name resolution, etc), and the Right Thing is to use the
    ~ address associated with the hostname (it might not be).
   -->
-  <ListenAddress>YOUR IP ADDRESS</ListenAddress>
+  <ListenAddress>127.0.0.1</ListenAddress>
   <!-- internal communications port -->
   <StoragePort>4200</StoragePort>
 
@@ -21,7 +21,7 @@
    ~ Leaving this blank has the same effect it does for ListenAddress,
    ~ (i.e. it will be based on the configured hostname of the node).
   -->
-  <ThriftAddress>YOUR IP ADDRESS</ThriftAddress>
+  <ThriftAddress>127.0.0.1</ThriftAddress>
   <!-- Thrift RPC port (the port clients connect to). -->
   <ThriftPort>4201</ThriftPort>
   <!-- 
