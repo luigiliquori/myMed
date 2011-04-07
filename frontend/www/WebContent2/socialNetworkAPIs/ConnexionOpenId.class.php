@@ -17,7 +17,7 @@ class ConnexionOpenId extends Connexion
 	protected $social_network = 'OpenId';
 	public function __construct()
 	{
-		$this->consumer = new Auth_OpenID_Consumer(new Auth_OpenID_FileStore(dirname(__FILE__).'/oid_store'));	// directory has to be created or has right to creat
+		$this->consumer = new Auth_OpenID_Consumer(new Auth_OpenID_FileStore('/tmp/oid_store'));
 		static::tryConnect();
 	}
 	/**
