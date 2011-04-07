@@ -37,7 +37,7 @@ public abstract class AbstractRequestHandler extends HttpServlet {
 		this.gson = new Gson();
 		this.serviceManager = new ServiceManager();
 	}
-
+	
 	/* --------------------------------------------------------- */
 	/*                      protected methods       	         */
 	/* --------------------------------------------------------- */
@@ -105,8 +105,7 @@ public abstract class AbstractRequestHandler extends HttpServlet {
 
 	public void setServiceManager(ServiceManager serviceManager) {
 		this.serviceManager = serviceManager;
-	}
-	
+	}	
 	public String getResponse() {
 		return response;
 	}

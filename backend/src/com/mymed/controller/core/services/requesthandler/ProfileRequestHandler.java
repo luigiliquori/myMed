@@ -14,7 +14,7 @@ import com.mymed.model.datastructure.User;
 /**
  * Servlet implementation class UsersRequestHandler
  */
-public class UsersRequestHandler extends AbstractRequestHandler {
+public class ProfileRequestHandler extends AbstractRequestHandler {
 	/* --------------------------------------------------------- */
 	/*                      Attributes                           */
 	/* --------------------------------------------------------- */
@@ -48,7 +48,7 @@ public class UsersRequestHandler extends AbstractRequestHandler {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UsersRequestHandler() {
+    public ProfileRequestHandler() {
         super();
         // initialize the CodeMapping
 		for(RequestCode r : RequestCode.values()){
@@ -75,18 +75,18 @@ public class UsersRequestHandler extends AbstractRequestHandler {
 			case CREATE : 
 				User user = getGson().fromJson(parameters.get("user"), User.class);
 				System.out.println("\nreceived:\n" + user);
-				getServiceManager().setProfile(user);
+				getServiceManager().setUserProfile(user);
 				setResponse("profile enregistred");
 				break;
 			case READ : 
 				String id = parameters.get("id");
-				user = getServiceManager().getProfile(id);
+				user = getServiceManager().getUserProfile(id);
 				setResponse(getGson().toJson(user));
 				break;
 			case LOGIN : 
 				String email = parameters.get("email"); // email == id for mymed users
 				String password = parameters.get("password");
-				user = getServiceManager().getProfile(email);
+				user = getServiceManager().getUserProfile(email);
 				String resp = user.getPassword().equals(password) ? getGson().toJson(user) : "false";
 				setResponse(resp);
 				break;

@@ -72,7 +72,7 @@
 			
 			<!-- RESULT -->
 			<?php if($search) { ?>
-				<? $res = json_decode(file_get_contents(trim('http://mymed2.sophia.inria.fr:8080/mymed_backend/UsersRequestHandler?act=1&id=' . $id))); ?>
+				<? $res = json_decode(file_get_contents(trim('http://mymed2.sophia.inria.fr:8080/mymed_backend/ProfileRequestHandler?act=1&id=' . $id))); ?>
 				<hr />
 				<form action="">
 				 	<div><span style="font-size: 18px;">Results :</span>

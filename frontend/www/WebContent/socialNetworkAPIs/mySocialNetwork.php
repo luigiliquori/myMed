@@ -65,7 +65,7 @@
  <!-- Login -->
  <?php
  if($_POST["login"]){
- 	$isAuthenticated = file_get_contents(trim("http://" . $_SERVER['HTTP_HOST'] . ":8080/mymed_backend/UsersRequestHandler?act=4&email=" . $_POST["email"] . "&password=" . $_POST["password"]));
+ 	$isAuthenticated = file_get_contents(trim("http://" . $_SERVER['HTTP_HOST'] . ":8080/mymed_backend/ProfileRequestHandler?act=4&email=" . $_POST["email"] . "&password=" . $_POST["password"]));
  	if($isAuthenticated){
  		$_SESSION['user'] = json_decode($isAuthenticated);
  	}
@@ -223,7 +223,7 @@ if (200 == $connection->http_code) {
 <!-- Store this information into the myMed network and mark session as "logged" -->
 <?php	if($user->name && !$_SESSION['logged']){
 		$encoded = json_encode($user);
-		$result_getcontents = file_get_contents(trim("http://" . $_SERVER['HTTP_HOST'] . ":8080/mymed_backend/UsersRequestHandler?act=0&user=" . urlencode($encoded)));
+		$result_getcontents = file_get_contents(trim("http://" . $_SERVER['HTTP_HOST'] . ":8080/mymed_backend/ProfileRequestHandler?act=0&user=" . urlencode($encoded)));
 		$_SESSION['logged'] = true;
 	}
 ?>

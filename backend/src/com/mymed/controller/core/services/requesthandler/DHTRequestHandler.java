@@ -9,9 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mymed.model.core.data.dht.IDHTClient.ClientType;
-import com.mymed.model.core.wrapper.Wrapper;
-
 /**
  * Handle all the request from the frontend
  * @author lvanni
@@ -72,13 +69,13 @@ public class DHTRequestHandler extends AbstractRequestHandler {
 				String value = parameters.get("value");
 				System.out.println("key to publish: " + key);
 				System.out.println("value to publish: " + value);
-				new Wrapper(ClientType.CASSANDRA).put(key, value);
+				getServiceManager().put(key, value);
 				setResponse("key published");
 				break;
 			case GET : 
 				key = parameters.get("key"); 
 				System.out.println("key to search: " + key);
-				setResponse(new Wrapper(ClientType.CASSANDRA).get(key));
+				setResponse(getServiceManager().get(key));
 				break;
 			default : break;
 			}

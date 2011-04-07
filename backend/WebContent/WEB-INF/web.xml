@@ -51,13 +51,13 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>UsersRequestHandler</display-name>
-    <servlet-name>UsersRequestHandler</servlet-name>
-    <servlet-class>com.mymed.controller.core.services.requesthandler.UsersRequestHandler</servlet-class>
+    <display-name>ProfileRequestHandler</display-name>
+    <servlet-name>ProfileRequestHandler</servlet-name>
+    <servlet-class>com.mymed.controller.core.services.requesthandler.ProfileRequestHandler</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>UsersRequestHandler</servlet-name>
-    <url-pattern>/UsersRequestHandler</url-pattern>
+    <servlet-name>ProfileRequestHandler</servlet-name>
+    <url-pattern>/ProfileRequestHandler</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
