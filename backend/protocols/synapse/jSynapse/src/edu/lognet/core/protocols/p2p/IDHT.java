@@ -1,5 +1,6 @@
 package edu.lognet.core.protocols.p2p;
 
+import edu.lognet.core.protocols.p2p.exception.NodeException;
 import edu.lognet.core.protocols.transport.IRequestHandler;
 import edu.lognet.core.protocols.transport.ITransport;
 
@@ -56,7 +57,7 @@ public interface IDHT extends IRequestHandler {
 	 * @param host
 	 * @param port
 	 */
-	public void join(String host, int port);
+	public void join(String host, int port) throws NodeException;
 
 	/**
 	 * "Fairplay" kill of the node

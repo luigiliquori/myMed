@@ -6,6 +6,7 @@ import java.util.Date;
 import edu.lognet.core.protocols.p2p.Node;
 import edu.lognet.core.protocols.p2p.chord.AbstractChord;
 import edu.lognet.core.protocols.p2p.chord.IChord;
+import edu.lognet.core.protocols.p2p.exception.NodeException;
 import edu.lognet.core.protocols.transport.ITransport;
 import edu.lognet.core.protocols.transport.socket.request.RequestHandler;
 import edu.lognet.core.protocols.transport.socket.server.SocketImpl;
@@ -73,9 +74,10 @@ public class ChordNode extends AbstractChord {
 	}
 
 	/**
+	 * @throws NodeException 
 	 * @see core.protocols.p2p.chord.AbstractChord#join(String, int)
 	 */
-	public void join(String host, int port) {
+	public void join(String host, int port) throws NodeException {
 		Node chord = new Node(host, keyToH(host + port), port);
 		join(chord);
 	}

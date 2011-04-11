@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import edu.lognet.core.protocols.p2p.IDHT;
 import edu.lognet.core.protocols.p2p.Node;
 import edu.lognet.core.protocols.p2p.chord.AbstractChord;
+import edu.lognet.core.protocols.p2p.exception.NodeException;
 import edu.lognet.core.tools.InfoConsole;
 import edu.lognet.experiments.current.node.chord.ChordNode;
 import edu.lognet.experiments.current.node.kademlia.KadNode;
@@ -83,7 +84,12 @@ public class Create {
 				+ overlay.getThisNode() + "," + overlay.getTransport().getPort(), tracker);
 		if (!trackerResponse.equals("unreachable") && !trackerResponse.equals("null")) {
 			Node n = new Node(trackerResponse);
-			overlay.join(n.getIp(), n.getPort());
+			try {
+				overlay.join(n.getIp(), n.getPort());
+			} catch (NodeException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else {
 			System.out.println("Warning: node launched in standalone mode\n");
 		}

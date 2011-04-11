@@ -40,7 +40,6 @@ public class Config {
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			Document doc = db.parse(file);
 			doc.getDocumentElement().normalize();
-			System.out.println("Start the configuration from : " + file.getName());
 			NodeList backend = doc.getElementsByTagName("backend");
 			NodeList config = backend.item(0).getChildNodes();
 

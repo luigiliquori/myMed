@@ -11,6 +11,7 @@ import edu.lognet.core.protocols.p2p.IDHT;
 import edu.lognet.core.protocols.p2p.Node;
 import edu.lognet.core.protocols.p2p.chord.AbstractChord;
 import edu.lognet.core.protocols.p2p.chord.IChord;
+import edu.lognet.core.protocols.p2p.exception.NodeException;
 import edu.lognet.core.protocols.transport.ITransport;
 import edu.lognet.core.protocols.transport.socket.request.RequestHandler;
 import edu.lognet.core.protocols.transport.socket.server.SocketImpl;
@@ -80,7 +81,11 @@ public abstract class AbstractSynapse extends AbstractChord implements ISynapse 
 	 */
 	public void join(String host, int port) {
 		Node chord = new Node(host, h.SHA1ToInt(host + port + identifier), port);
-		join(chord); // chord join
+		try {
+			join(chord);
+		} catch (NodeException e) {
+			e.printStackTrace();
+		} // chord join
 	}
 
 	/**
