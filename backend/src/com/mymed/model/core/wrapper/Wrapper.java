@@ -1,5 +1,6 @@
 package com.mymed.model.core.wrapper;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
@@ -9,9 +10,10 @@ import org.apache.cassandra.thrift.TimedOutException;
 import org.apache.cassandra.thrift.UnavailableException;
 import org.apache.thrift.TException;
 
-import com.mymed.model.core.data.dht.DHTClientFactory;
-import com.mymed.model.core.data.dht.IDHTClient;
-import com.mymed.model.core.data.dht.IDHTClient.ClientType;
+import com.mymed.model.core.data.dht.configuration.Config;
+import com.mymed.model.core.data.dht.factory.DHTClientFactory;
+import com.mymed.model.core.data.dht.factory.IDHTClient;
+import com.mymed.model.core.data.dht.factory.IDHTClient.ClientType;
 import com.mymed.model.core.data.dht.protocol.Cassandra;
 import com.mymed.model.core.wrapper.exception.WrapperException;
 
@@ -33,16 +35,58 @@ public class Wrapper implements IWrapper {
 	/* --------------------------------------------------------- */
 	/** The type of client used by the wrapper */
 	private ClientType type;
+	
+	/** DHTClient */
+	private IDHTClient client;
 
 	/* --------------------------------------------------------- */
 	/* Constructors */
 	/* --------------------------------------------------------- */
+	/**
+	 * Default Constructor:
+	 * will create a wrapper on top of Cassandra 
+	 * and use the default config.xml in rootpath/conf
+	 */
 	public Wrapper() {
-		this(ClientType.CASSANDRA);
+		this(ClientType.CASSANDRA, new Config(new File("./conf/config.xml")));
 	}
 	
+	/**
+	 * will create a wrapper on top of Cassandra 
+	 * And use the specific configuration file for the 
+	 * transport layer
+	 * @param conf
+	 * 		The configuration of the transport layer
+	 */
+	public Wrapper(Config conf) {
+		this(ClientType.CASSANDRA, conf);
+	}
+	
+	/**
+	 * will create a wrapper on top of the
+	 * ClientType 
+	 * And use the default config.xml in rootpath/conf
+	 * @param type
+	 * 		Type of DHTClient used
+	 */
 	public Wrapper(ClientType type) {
+		this(type, new Config(new File("./conf/config.xml")));
+	}
+	
+	/**
+	 * /**
+	 * will create a wrapper on top of the
+	 * ClientType 
+	 * And use the specific configuration file for the 
+	 * transport layer
+	 * @param type
+	 * 		Type of DHTClient used
+	 * @param conf
+	 * 		The configuration of the transport layer
+	 */
+	public Wrapper(ClientType type, Config conf) {
 		this.type = type;
+		this.client = DHTClientFactory.createDHTClient(type, conf);
 	}
 
 	/* --------------------------------------------------------- */
@@ -67,7 +111,7 @@ public class Wrapper implements IWrapper {
 					"insertInto is not yet supported by the DHT type: " + type);
 		} else {
 			// The main database is managed by Cassandra
-			Cassandra node = (Cassandra) DHTClientFactory.createDHTClient(type);
+			Cassandra node = (Cassandra) this.client;
 			// keyspace is similar to the database name
 			String keyspace = "Mymed";
 			// columnFamily is similar to the table name
@@ -84,38 +128,6 @@ public class Wrapper implements IWrapper {
 				e.printStackTrace();
 			}
 			return false;
-		}
-	}
-
-	/**
-	 * Get the value of an entry column
-	 * 
-	 * @param tableName
-	 *            the name of the Table/ColumnFamily
-	 * @param primaryKey
-	 *            the ID of the entry
-	 * @param columnName
-	 *            the name of the column
-	 * @return the value of the column
-	 * @throws WrapperException
-	 */
-	public byte[] selectColumn(String tableName, String primaryKey,
-			String columnName) throws UnsupportedEncodingException,
-			InvalidRequestException, NotFoundException, UnavailableException,
-			TimedOutException, TException, WrapperException {
-		if (!type.equals(ClientType.CASSANDRA)) {
-			throw new WrapperException(
-					"selectColumn is not yet supported by the DHT type: " + type);
-		} else {
-			// The main database is managed by Cassandra
-			Cassandra node = (Cassandra) DHTClientFactory.createDHTClient(type);
-			// keyspace is similar to the database name
-			String keyspace = "Mymed";
-			// columnFamily is similar to the table name
-			String columnFamily = tableName;
-
-			return node.getSimpleColumn(keyspace, columnFamily, primaryKey,
-					columnName.getBytes("UTF8"), consistencyOnRead);
 		}
 	}
 
@@ -140,7 +152,7 @@ public class Wrapper implements IWrapper {
 					"selectAll is not yet supported by the DHT type: " + type);
 		} else {
 			// The main database is managed by Cassandra
-			Cassandra node = (Cassandra) DHTClientFactory.createDHTClient(type);
+			Cassandra node = (Cassandra) this.client;
 			// keyspace is similar to the database name
 			String keyspace = "Mymed";
 			// columnFamily is similar to the table name
@@ -150,7 +162,97 @@ public class Wrapper implements IWrapper {
 					consistencyOnRead);
 		}
 	}
+	
+	/**
+	 * Update the value of a Simple Column
+	 * @param tableName
+	 *            the name of the Table/ColumnFamily
+	 * @param primaryKey
+	 *            the ID of the entry
+	 * @param columnName
+	 *            the name of the column
+	 * @param value
+	 * 			  the value updated
+	 * @return
+	 * 				true is the value is updated, false otherwise
+	 * @throws WrapperException
+	 * @throws UnsupportedEncodingException
+	 */
+	public boolean updateColumn(String tableName, String primaryKey,
+			String columnName, byte[] value) throws WrapperException, UnsupportedEncodingException {
+		if (!type.equals(ClientType.CASSANDRA)) {
+			throw new WrapperException(
+					"selectAll is not yet supported by the DHT type: " + type);
+		} else {
+			// The main database is managed by Cassandra
+			Cassandra node = (Cassandra) this.client;
+			// keyspace is similar to the database name
+			String keyspace = "Mymed";
+			// columnFamily is similar to the table name
+			String columnFamily = tableName;
+			
+			node.setSimpleColumn(keyspace, columnFamily, primaryKey, columnName.getBytes("UTF8"), value, consistencyOnWrite);
+			return true; // TO FIX: return false if something wrong happen
+		}
+	}
+	
+	/**
+	 * Get the value of an entry column
+	 * 
+	 * @param tableName
+	 *            the name of the Table/ColumnFamily
+	 * @param primaryKey
+	 *            the ID of the entry
+	 * @param columnName
+	 *            the name of the column
+	 * @return the value of the column
+	 * @throws WrapperException
+	 */
+	public byte[] selectColumn(String tableName, String primaryKey,
+			String columnName) throws UnsupportedEncodingException,
+			InvalidRequestException, NotFoundException, UnavailableException,
+			TimedOutException, TException, WrapperException {
+		if (!type.equals(ClientType.CASSANDRA)) {
+			throw new WrapperException(
+					"selectColumn is not yet supported by the DHT type: " + type);
+		} else {
+			// The main database is managed by Cassandra
+			Cassandra node = (Cassandra) this.client;
+			// keyspace is similar to the database name
+			String keyspace = "Mymed";
+			// columnFamily is similar to the table name
+			String columnFamily = tableName;
 
+			return node.getSimpleColumn(keyspace, columnFamily, primaryKey,
+					columnName.getBytes("UTF8"), consistencyOnRead);
+		}
+	}
+
+	/**
+	 * Remove a specific column defined by the columnName
+	 * @param keyspace
+	 * @param columnFamily
+	 * @param key
+	 * @param columnName
+	 * @throws WrapperException 
+	 * @throws UnsupportedEncodingException 
+	 */
+	public void removeColumn(String tableName, String key, String columnName) throws WrapperException, UnsupportedEncodingException {
+		if (!type.equals(ClientType.CASSANDRA)) {
+			throw new WrapperException(
+					"selectColumn is not yet supported by the DHT type: " + type);
+		} else {
+			// The main database is managed by Cassandra
+			Cassandra node = (Cassandra) this.client;
+			// keyspace is similar to the database name
+			String keyspace = "Mymed";
+			// columnFamily is similar to the table name
+			String columnFamily = tableName;
+			node.removeColumn(keyspace, columnFamily, keyspace, columnName.getBytes("UTF8"), consistencyOnWrite);
+		}
+
+	}
+	
 	/* --------------------------------------------------------- */
 	/* Common DHT operations */
 	/* --------------------------------------------------------- */
@@ -160,9 +262,8 @@ public class Wrapper implements IWrapper {
 	 * @param key
 	 * @param value
 	 */
-	public void put(String key, String value) {
-		IDHTClient node = DHTClientFactory.createDHTClient(type);
-		node.put(key, value);
+	public void put(String key, byte[] value) {
+		this.client.put(key, value);
 	}
 
 	/**
@@ -170,9 +271,8 @@ public class Wrapper implements IWrapper {
 	 * 
 	 * @param key
 	 */
-	public String get(String key) {
-		IDHTClient node = DHTClientFactory.createDHTClient(type);
-		return node.get(key);
+	public byte[] get(String key) {
+		return this.client.getValue(key);
 	}
 
 }

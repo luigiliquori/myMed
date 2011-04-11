@@ -10,7 +10,6 @@ import org.apache.cassandra.thrift.TimedOutException;
 import org.apache.cassandra.thrift.UnavailableException;
 import org.apache.thrift.TException;
 
-import com.mymed.model.core.data.dht.IDHTClient.ClientType;
 import com.mymed.model.core.wrapper.exception.WrapperException;
 
 /**
@@ -27,7 +26,8 @@ import com.mymed.model.core.wrapper.exception.WrapperException;
 public interface IWrapper {
 	
 	/** Default ConsistencyLevel */
-	public static ConsistencyLevel consistencyOnWrite = ConsistencyLevel.ANY;
+//	public static ConsistencyLevel consistencyOnWrite = ConsistencyLevel.ANY;
+	public static ConsistencyLevel consistencyOnWrite = ConsistencyLevel.ONE;
 	public static ConsistencyLevel consistencyOnRead = ConsistencyLevel.ONE;
 	
 	/**
@@ -61,6 +61,24 @@ public interface IWrapper {
 			TimedOutException, TException, WrapperException;
 	
 	/**
+	 * Update the value of a Simple Column
+	 * @param tableName
+	 *            the name of the Table/ColumnFamily
+	 * @param primaryKey
+	 *            the ID of the entry
+	 * @param columnName
+	 *            the name of the column
+	 * @param value
+	 * 			  the value updated
+	 * @return
+	 * 				true is the value is updated, false otherwise
+	 * @throws WrapperException
+	 * @throws UnsupportedEncodingException
+	 */
+	public boolean updateColumn(String tableName, String primaryKey,
+			String columnName, byte[] value) throws WrapperException, UnsupportedEncodingException;
+	
+	/**
 	 * Get the value of a column family
 	 * 
 	 * @param tableName
@@ -76,6 +94,16 @@ public interface IWrapper {
 			TimedOutException, TException, WrapperException;
 	
 	/**
+	 * Remove a specific column defined by the columnName
+	 * @param keyspace
+	 * @param columnFamily
+	 * @param key
+	 * @param columnName
+	 * @throws WrapperException 
+	 */
+	public void removeColumn(String tableName, String key, String columnName) throws WrapperException, UnsupportedEncodingException;
+	
+	/**
 	 * Common put operation
 	 * 
 	 * @param key
@@ -83,7 +111,7 @@ public interface IWrapper {
 	 * @param DHTType
 	 *            The type of DHT used for the operation
 	 */
-	public void put(String key, String value);
+	public void put(String key, byte[] value);
 	
 	/**
 	 * Common get operation
@@ -92,6 +120,6 @@ public interface IWrapper {
 	 * @param DHTType
 	 *            The type of DHT used for the operation
 	 */
-	public String get(String key);
+	public byte[] get(String key);
 
 }

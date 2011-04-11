@@ -11,7 +11,7 @@ import org.apache.cassandra.thrift.TimedOutException;
 import org.apache.cassandra.thrift.UnavailableException;
 import org.apache.thrift.TException;
 
-import com.mymed.model.core.data.dht.IDHTClient.ClientType;
+import com.mymed.model.core.data.dht.factory.IDHTClient.ClientType;
 import com.mymed.model.core.wrapper.Wrapper;
 import com.mymed.model.core.wrapper.exception.WrapperException;
 import com.mymed.model.datastructure.User;

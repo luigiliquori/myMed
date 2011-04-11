@@ -1,76 +1,65 @@
 package com.mymed.controller.core.services;
 
-import com.mymed.controller.core.services.engine.reputation.IReputation;
-import com.mymed.controller.core.services.engine.reputation.IReputationSystem;
-import com.mymed.controller.core.services.engine.reputation.ReputationSystem;
-import com.mymed.model.core.wrapper.Wrapper;
-import com.mymed.model.datastructure.Transaction;
+import com.mymed.controller.core.services.pubsub.DHTManager;
+import com.mymed.controller.core.services.pubsub.IDHTManager;
+import com.mymed.controller.core.services.pubsub.IProfileManager;
+import com.mymed.controller.core.services.pubsub.ProfileManager;
+import com.mymed.controller.core.services.reputation.IReputationSystem;
+import com.mymed.controller.core.services.reputation.ReputationSystem;
+import com.mymed.model.core.data.dht.IDHTClient.ClientType;
 import com.mymed.model.datastructure.User;
 
 /**
  * Manage all the request from the RequestHandler
  * @author lvanni
- *
+ * 
  */
 public class ServiceManager {
-	
+
 	/* --------------------------------------------------------- */
-	/*                      Attributes                           */
+	/* Attributes */
 	/* --------------------------------------------------------- */
-	/** DAO pattern */
-	private Wrapper wrapper;
+	/** ProfileManager */
+	private IProfileManager profileManager;
+
+	/** DHTManager */
+	private IDHTManager dhtManager;
 	
 	/** WPF3 - UNITO - Reputation Systems and Security */
 	private IReputationSystem reputation;
-	
-	
+
 	/* --------------------------------------------------------- */
-	/*                      Constructors                         */
+	/* Constructors */
 	/* --------------------------------------------------------- */
-	/**
-	 * no-args constructor
-	 */
-	public ServiceManager() {
-		this.wrapper = new Wrapper();
+	public ServiceManager(ClientType type) {
+		this.dhtManager = new DHTManager();
+		this.profileManager = new ProfileManager();
 		this.reputation = new ReputationSystem();
 	}
 	
-	/* --------------------------------------------------------- */
-	/*                   User Profile Management                 */
-	/* --------------------------------------------------------- */
-	/**
-	 * @see com.mymed.model.core.wrapper.Wrapper#getProfile(id)
-	 * @param user
-	 */
-	public User getProfile(String id){
-		return wrapper.getProfile(id);
-	}
-	
-	/**
-	 * @see com.mymed.model.core.wrapper.Wrapper#setProfile(User)
-	 * @param user
-	 */
-	public void setProfile(User user) {
-		wrapper.setProfile(user);
+	public ServiceManager() {
+		this(ClientType.CASSANDRA);
 	}
 	
 	/* --------------------------------------------------------- */
-	/*               Reputation System Management                */
+	/* Users Profile Management  */
 	/* --------------------------------------------------------- */
-	/**
-	 * @see com.mymed.controller.core.services.engine.reputation.ReputationSystem#getReputation(User, String)
-	 * @param user
-	 * @param serviceID
-	 */
-	public IReputation getReputation(User user, String serviceID){
-		return reputation.getReputation(user, serviceID);
+	public User getUserProfile(String id) {
+		return this.profileManager.read(id);
 	}
 	
-	/**
-	 * @see com.mymed.controller.core.services.engine.reputation.ReputationSystem#notifyTransaction(Transaction)
-	 * @param transaction
-	 */
-	public void notifyTransaction(Transaction transaction){
-		reputation.notifyTransaction(transaction);
+	public void setUserProfile(User user) {
+		this.profileManager.create(user);
+	}
+	
+	/* --------------------------------------------------------- */
+	/* Simple DHT Operations  */
+	/* --------------------------------------------------------- */
+	public void put(String key, String value) {
+		dhtManager.put(key, value);
+	}
+	
+	public String get(String key){
+		return dhtManager.get(key);
 	}
 }

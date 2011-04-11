@@ -2,8 +2,6 @@ package com.mymed.controller.core.services.tests;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -26,16 +24,16 @@ import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
 
-import com.mymed.controller.core.services.requesthandler.IRequestHandler;
+import com.mymed.controller.core.services.requesthandler.AbstractRequestHandler;
 
 /**
  * 
  * @author lvanni
  *
  */
-public class DebugConsole extends HttpServlet implements IRequestHandler{
+public class DebugConsole extends AbstractRequestHandler implements IRequestHandler{
 	private static final long serialVersionUID = 1L;
-    
+
 	private TTransport tr;
 	private TProtocol proto;
 	private Client client;
@@ -45,15 +43,15 @@ public class DebugConsole extends HttpServlet implements IRequestHandler{
 	private String result;
 	private String address;
 	private int port;
-	
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DebugConsole() {
-        super();
-        // TODO Auto-generated constructor stub
-        
-        // Default value
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public DebugConsole() {
+		super();
+		// TODO Auto-generated constructor stub
+
+		// Default value
 		this.address = "138.96.242.2";
 		this.port = 4201;
 		this.keyspace = "Keyspace1";
@@ -64,7 +62,7 @@ public class DebugConsole extends HttpServlet implements IRequestHandler{
 		this.proto = new TBinaryProtocol(tr);
 		this.client = new Cassandra.Client(proto);
 		this.result = "";
-    }
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -73,29 +71,10 @@ public class DebugConsole extends HttpServlet implements IRequestHandler{
 		// clear results
 		this.result = "";
 
-		// Get the parameters
-		Map<String, String> parameters = new HashMap<String, String>();
-		Enumeration<String> paramNames = request.getParameterNames();
-		try {
-			while (paramNames.hasMoreElements()) {
-				String paramName = (String) paramNames.nextElement();
-				String[] paramValues = request.getParameterValues(paramName);
-				String paramValue = "";
-				if (paramValues.length == 1) {
-					paramValue = paramValues[0];
-					if (paramValue.length() == 0) {
-						parameters.put(paramName, "no value");
-					} else {
-						parameters.put(paramName, paramValue);
-					}
-				} else {
-					for (int i = 0; i < paramValues.length; i++) {
-						paramValue += paramValues[i] + ",";
-					}
-					parameters.put(paramName, paramValue);
-				}
-			}
+		/** Get the parameters */
+		Map<String, String> parameters = getParameters(request);
 
+		try {
 			// Cassandra actions
 			tr.open();
 			ColumnPath colPathName = new ColumnPath(columnFamily);
@@ -105,7 +84,10 @@ public class DebugConsole extends HttpServlet implements IRequestHandler{
 				case CONNECT :
 					this.address = parameters.get("address");
 					this.port = Integer.parseInt(parameters.get("port"));
+					tr.close();
 					this.tr = new TSocket(address, port);
+					this.proto = new TBinaryProtocol(tr);
+					this.client = new Cassandra.Client(proto);
 					break;
 				case SETKEYSPACE :
 					this.keyspace = parameters.get("keyspace");
@@ -119,6 +101,12 @@ public class DebugConsole extends HttpServlet implements IRequestHandler{
 				case INSERTKEY :
 					long timestamp = System.currentTimeMillis();
 					colPathName.setColumn(parameters.get("key1").getBytes("UTF8"));
+					System.out.println("\ninsert:" +
+									"\t- keyspace = " + keyspace + "\n" +
+									"\t- key = " + keyUserID + "\n" +
+									"\t- columnFamily = " + columnFamily + "\n" +
+									"\t- name = " + parameters.get("key1") + "\n" +
+									"\t- value = " + parameters.get("value1") + "\n");
 					client.insert(keyspace, keyUserID, colPathName, parameters.get(
 					"value1").getBytes("UTF8"), timestamp,
 					ConsistencyLevel.ONE);

@@ -12,7 +12,7 @@ class ConnexionFacebook extends Connexion
 	{
 		$this->facebook = new Facebook(Array(
 				'appId'		=> '154730914571286',
-				'secret'	=> '753d127017728eeabf6c190903e8046b'));
+				'secret'	=> 'bd5ca70e04413c97791d5f410894cca5'));
 		$cookie = $this->facebook->getSession();
 	trace($cookie);
 		if ($cookie['access_token'] && !isset($_SESSION['user']))
