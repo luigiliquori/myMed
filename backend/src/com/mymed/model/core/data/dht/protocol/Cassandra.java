@@ -35,7 +35,7 @@ import com.mymed.model.core.wrapper.Wrapper;
  * @author lvanni
  *
  */
-public class Cassandra implements IDHTClient {
+public class Cassandra extends AbstractDHTClient implements IDHTClient {
 	/* CASSANDRA STRUCTURE:
 
 	  Keyspace
@@ -123,11 +123,18 @@ public class Cassandra implements IDHTClient {
 		return singleton;
 	}
 
-	
+
+	/**
+	 * 
+	 * @param address
+	 * @param port
+	 */
 	public void setup(String address, int port){
-		this.tr = new TSocket(address, port);
-		this.proto = new TBinaryProtocol(tr);
-		this.client = new Client(proto);
+		if(address != null && port != 0){ // TO FIX the configuration file is not managed by glassfish
+			this.tr = new TSocket(address, port);
+			this.proto = new TBinaryProtocol(tr);
+			this.client = new Client(proto);
+		}
 	}
 
 	/* --------------------------------------------------------- */
@@ -270,7 +277,7 @@ public class Cassandra implements IDHTClient {
 			tr.open();
 			long timestamp = System.currentTimeMillis();
 			ColumnPath colPathName = new ColumnPath(columnFamily);
-//			colPathName.setColumn(columnName);
+			//			colPathName.setColumn(columnName);
 			client.remove(keyspace, key, colPathName, timestamp, level);
 		} catch (TTransportException e) {
 			e.printStackTrace();

@@ -1,7 +1,6 @@
 package com.mymed.model.core.data.dht.protocol;
 
 import java.io.UnsupportedEncodingException;
-import java.net.UnknownHostException;
 
 import com.mymed.model.core.data.dht.factory.IDHTClient;
 
@@ -12,7 +11,7 @@ import edu.lognet.experiments.current.node.chord.ChordNode;
  * @author lvanni
  *
  */
-public class Chord implements IDHTClient {
+public class Chord extends AbstractDHTClient implements IDHTClient {
 	
 	/** The Chord instance */
 	private static Chord singleton;

@@ -73,7 +73,7 @@ public class WrapperUsualOperations {
 
 			// Cassandra is DHT based, the wrapper provide the usual DHT operations:
 			// PUT Operation
-			wrapper.put("id", "12345".getBytes("UTF8")); 				// key="id", value="12345"
+			wrapper.put("id", "12345".getBytes("UTF8")); 			 // key="id", value="12345"
 			wrapper.put("name", "Miss Cassandra".getBytes("UTF8"));  // key="name", value="Miss Cassandra"
 
 			// Get Operation
