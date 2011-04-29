@@ -18,9 +18,12 @@ import org.xml.sax.SAXException;
  */
 public class Config {
 
+	/* --------------------------------------------------------- */
+	/* Attributes */
+	/* --------------------------------------------------------- */
 	/** Cassandra */
 	private String cassandraListenAddress;
-	private int ThriftPort;
+	private int thriftPort;
 
 	/** Synapse */
 	private String chordListenAddress;
@@ -28,6 +31,25 @@ public class Config {
 	private String kadListenAddress;
 	private int kadStoragePort;
 
+	/* --------------------------------------------------------- */
+	/* Constructors */
+	/* --------------------------------------------------------- */
+	/**
+	 * Register a new Configuration for the backend Node
+	 * @param chordListenAddress
+	 * @param chordStoragePort
+	 * @param kadListenAddress
+	 * @param kadStoragePort
+	 */
+	public Config(String cassandraListenAddress, int thriftPort, String chordListenAddress, int chordStoragePort, String kadListenAddress, int kadStoragePort){
+		this.cassandraListenAddress = cassandraListenAddress;
+		this.thriftPort = thriftPort;
+		this.chordListenAddress = chordListenAddress;
+		this.chordStoragePort = chordStoragePort;
+		this.kadListenAddress = kadListenAddress;
+		this.kadStoragePort = kadStoragePort;
+	}
+	
 
 	/**
 	 * Register a new Configuration for the backend Node
@@ -54,7 +76,7 @@ public class Config {
 								if(info.getNodeName().equals("ListenAddress")){
 									this.cassandraListenAddress = info.getFirstChild().getTextContent();
 								} else if (info.getNodeName().equals("ThriftPort")){
-									this.ThriftPort = Integer.parseInt(info.getFirstChild().getTextContent());
+									this.thriftPort = Integer.parseInt(info.getFirstChild().getTextContent());
 								}
 							}
 						}
@@ -104,7 +126,7 @@ public class Config {
 	public String toString() {
 		String str = "Cassandra:\n" +
 		"\t ListenAddress = " + this.cassandraListenAddress + "\n" + 
-		"\t ThriftPort = " + this.ThriftPort + "\n" +
+		"\t ThriftPort = " + this.thriftPort + "\n" +
 		"Synapse:\n"  +
 		"\t. Chord:\n" + 
 		"\t\t ListenAddress = " + this.chordListenAddress + "\n" +
@@ -127,11 +149,11 @@ public class Config {
 	}
 
 	public int getThriftPort() {
-		return ThriftPort;
+		return thriftPort;
 	}
 
 	public void setThriftPort(int thriftPort) {
-		ThriftPort = thriftPort;
+		thriftPort = thriftPort;
 	}
 
 	public String getChordListenAddress() {

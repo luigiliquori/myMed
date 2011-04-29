@@ -2,6 +2,8 @@ package com.mymed.model.core.wrapper;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.cassandra.thrift.InvalidRequestException;
@@ -141,6 +143,12 @@ public class Wrapper implements IWrapper {
 	 * @param columnName
 	 *            the name of the column
 	 * @return the value of the column
+	 * @throws UnsupportedEncodingException
+	 * @throws InvalidRequestException
+	 * @throws NotFoundException
+	 * @throws UnavailableException
+	 * @throws TimedOutException
+	 * @throws TException
 	 * @throws WrapperException
 	 */
 	public Map<byte[], byte[]> selectAll(String tableName, String primaryKey)
@@ -158,8 +166,49 @@ public class Wrapper implements IWrapper {
 			// columnFamily is similar to the table name
 			String columnFamily = tableName;
 
-			return node.getSlice(keyspace, columnFamily, primaryKey,
+			return node.getEntireRow(keyspace, columnFamily, primaryKey,
 					consistencyOnRead);
+		}
+	}
+	
+	/**
+	 * Get the values of a range of columns
+	 * 
+	 * @param tableName
+	 *            the name of the Table/ColumnFamily
+	 * @param primaryKey
+	 *            the ID of the entry
+	 * @param columnNames
+	 *            the name of the columns to return the values
+	 * @return the value of the columns
+	 * @throws UnsupportedEncodingException
+	 * @throws InvalidRequestException
+	 * @throws NotFoundException
+	 * @throws UnavailableException
+	 * @throws TimedOutException
+	 * @throws TException
+	 * @throws WrapperException
+	 */
+	public Map<byte[], byte[]> selectRange(String tableName, String primaryKey,
+			List<String> columnNames) throws UnsupportedEncodingException,
+			InvalidRequestException, NotFoundException, UnavailableException,
+			TimedOutException, TException, WrapperException {
+		if (!type.equals(ClientType.CASSANDRA)) {
+			throw new WrapperException(
+					"selectAll is not yet supported by the DHT type: " + type);
+		} else {
+			// The main database is managed by Cassandra
+			Cassandra node = (Cassandra) this.client;
+			// keyspace is similar to the database name
+			String keyspace = "Mymed";
+			// columnFamily is similar to the table name
+			String columnFamily = tableName;
+			// Convert the List<String> into List<byte[]>
+			List<byte[]> columnNamesToByte = new ArrayList<byte[]>();
+			for(String columnName : columnNames){
+				columnNamesToByte.add(columnName.getBytes("UTF8"));
+			}
+			return node.getRangeColumn(keyspace, columnFamily, primaryKey, columnNamesToByte, consistencyOnRead);
 		}
 	}
 	

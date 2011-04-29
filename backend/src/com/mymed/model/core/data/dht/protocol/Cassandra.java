@@ -125,7 +125,7 @@ public class Cassandra extends AbstractDHTClient implements IDHTClient {
 
 
 	/**
-	 * 
+	 * Setup the configuration of the client
 	 * @param address
 	 * @param port
 	 */
@@ -226,8 +226,9 @@ public class Cassandra extends AbstractDHTClient implements IDHTClient {
 	 * @param columnName
 	 * @param level
 	 * @return
+	 * 		An entire row of a columnFamily, defined by the key
 	 */
-	public Map<byte[], byte[]> getSlice(String keyspace, String columnFamily, String key, ConsistencyLevel level) {
+	public Map<byte[], byte[]> getEntireRow(String keyspace, String columnFamily, String key, ConsistencyLevel level) {
 		Map<byte[], byte[]> slice = new HashMap<byte[], byte[]>();
 		try {
 			tr.open();
@@ -237,6 +238,49 @@ public class Cassandra extends AbstractDHTClient implements IDHTClient {
 			sliceRange.setStart(new byte[0]);
 			sliceRange.setFinish(new byte[0]);
 			predicate.setSlice_range(sliceRange);
+
+			ColumnParent parent = new ColumnParent(columnFamily);
+			List<ColumnOrSuperColumn> results = client.get_slice(keyspace,
+					key, parent, predicate, ConsistencyLevel.ONE);
+			for (ColumnOrSuperColumn res : results) {
+				Column column = res.column;
+				slice.put(column.name, column.value);
+			}
+		} catch (TException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidRequestException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TimedOutException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			tr.close();
+		}
+		return slice;
+	}
+	
+	/**
+	 * 
+	 * @param keyspace
+	 * @param columnFamily
+	 * @param key
+	 * @param columnNames
+	 * @param level
+	 * @return
+	 * 		A range of column define by the columnNames
+	 */
+	public Map<byte[], byte[]> getRangeColumn(String keyspace, String columnFamily, String key, List<byte[]> columnNames,ConsistencyLevel level) {
+		Map<byte[], byte[]> slice = new HashMap<byte[], byte[]>();
+		try {
+			tr.open();
+			// read entire row
+			SlicePredicate predicate = new SlicePredicate();
+			predicate.setColumn_names(columnNames);
 
 			ColumnParent parent = new ColumnParent(columnFamily);
 			List<ColumnOrSuperColumn> results = client.get_slice(keyspace,

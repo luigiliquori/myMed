@@ -134,25 +134,7 @@
 		</div>
 	</div>
 	
-	<!-- Google map -->
-	<div id="mapcanvas" style="width: 700px; height: 360px;"></div>
-	<script type="text/javascript" src="services/myTransport/javascript/jquery.autocomplete_geomod.js"></script>
-	<script type="text/javascript" src="services/myTransport/javascript/geo_autocomplete.js"></script>
-	<script type="text/javascript" src="services/myTransport/javascript/map.js"></script>
-	<link rel="stylesheet" type="text/css" href="services/myTransport/css/jquery.autocomplete.css" />
 	
-	<?php if($running && $_GET["code"] != "search") { ?>
-		<script type="text/javascript">launchGeolocation();</script>
-	<?php } else { ?>
-		<form action="">
-		 	<div><span style="font-size: 18px;">Results :</span>
-			 	<span style="position: relative; left: 500px;">
-					<input name="code" type="hidden" value="back" />
-					<input type="submit" value="afficher la carte" />
-				</span>
-			</div>
-		</form>
-	<?php } ?>
 	
 	<!-- Application footer -->
 	<div class="appToolbar">
