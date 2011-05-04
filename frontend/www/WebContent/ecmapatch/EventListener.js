@@ -9,9 +9,9 @@
 function addEventListenerToElement(/*HTMLElement*/ target, /*string*/ type, /*Function*/ listener)
 {
 	if(!target.listeners)
-		target.listeners = Array();
+		target.listeners = new Array();
 	if(!target.listeners[type])
-		target.listeners[type] = Array();
+		target.listeners[type] = new Array();
 	function eventListener(/*Event*/ evt)
 	{
 		evt = evt?evt:window.event;

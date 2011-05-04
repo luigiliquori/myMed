@@ -54,7 +54,6 @@ class TemplateManager extends GlobalConnexion
 	 */
 	public /*void*/ function selectTemplate(/*string*/ $name)
 	{
-		
 		$this->template = $name;
 	}
 	/**
