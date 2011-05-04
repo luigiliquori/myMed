@@ -1,0 +1,100 @@
+body {
+	color: #333333;
+	font-family: "Lucida Grande", Tahoma, Verdana, Arial, sans-serif;
+	font-size: 11px;
+}
+
+a {
+	color: #0036c8;
+	text-decoration: none;
+}
+
+a:LINK {
+	color: #0036c8;
+}
+
+a:VISITED {
+	color: #0036c8;
+}
+
+a:HOVER {
+	color: red;
+}
+
+#header {
+
+}
+
+#content{
+	padding:10px;	
+}
+
+#rechercher {
+	position:relative;
+	top: 40px;
+}
+
+.tab {
+	position: relative;
+	height: 23px; 
+	text-align:center;	
+}
+
+.tab a {
+	color: black;
+}
+
+.appBig {
+	position: relative;
+	width: 435px;
+	height: 296px;
+	background-image: url("../img/app/appBig.png");
+}
+
+.appSmall {
+	position: relative;
+	width: 437px;
+	height: 210px;
+	background-image: url("../img/app/appSmall.png");
+}
+
+#footer {
+	position: absolute;
+	top:800px;
+	width: 98%;
+}
+
+.appTitle {
+	position:relative;
+	top:10px;
+	left:10px;
+	width:50px;
+	font-size: 15px; 
+	font-weight: bold;
+}
+
+.appContentBig {
+	position:relative;
+	top:14px;
+	left:7px;
+	width: 413px;
+	height: 248px;
+	overflow: auto;
+}
+
+.appContentSmall {
+	position:relative;
+	top:14px;
+	left:7px;
+	width: 413px;
+	height: 161px;
+	overflow: auto;
+}
+
+.appToolbar {
+	background-color: #364049;
+}
+
+#myTransport {
+	text-align: left;
+}
