@@ -31,13 +31,42 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>RequestHandler</display-name>
-    <servlet-name>RequestHandler</servlet-name>
-    <servlet-class>com.mymed.controller.core.services.requesthandler.RequestHandler</servlet-class>
+    <display-name>DHTRequestHandler</display-name>
+    <servlet-name>DHTRequestHandler</servlet-name>
+    <servlet-class>com.mymed.controller.core.services.requesthandler.DHTRequestHandler</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>RequestHandler</servlet-name>
-    <url-pattern>/RequestHandler</url-pattern>
+    <servlet-name>DHTRequestHandler</servlet-name>
+    <url-pattern>/DHTRequestHandler</url-pattern>
   </servlet-mapping>
-
+  <servlet>
+    <description></description>
+    <display-name>SDKRequestHandler</display-name>
+    <servlet-name>SDKRequestHandler</servlet-name>
+    <servlet-class>com.mymed.controller.core.services.tests.SDKRequestHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SDKRequestHandler</servlet-name>
+    <url-pattern>/SDKRequestHandler</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ProfileRequestHandler</display-name>
+    <servlet-name>ProfileRequestHandler</servlet-name>
+    <servlet-class>com.mymed.controller.core.services.requesthandler.ProfileRequestHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProfileRequestHandler</servlet-name>
+    <url-pattern>/ProfileRequestHandler</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CassandraRequestHandler</display-name>
+    <servlet-name>CassandraRequestHandler</servlet-name>
+    <servlet-class>com.mymed.controller.core.services.requesthandler.CassandraRequestHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CassandraRequestHandler</servlet-name>
+    <url-pattern>/CassandraRequestHandler</url-pattern>
+  </servlet-mapping>
 </web-app>

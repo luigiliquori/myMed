@@ -6,7 +6,7 @@ import com.mymed.controller.core.services.pubsub.IProfileManager;
 import com.mymed.controller.core.services.pubsub.ProfileManager;
 import com.mymed.controller.core.services.reputation.IReputationSystem;
 import com.mymed.controller.core.services.reputation.ReputationSystem;
-import com.mymed.model.core.data.dht.IDHTClient.ClientType;
+import com.mymed.model.core.data.dht.factory.IDHTClient.ClientType;
 import com.mymed.model.datastructure.User;
 
 /**

@@ -26,7 +26,7 @@ import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
 import org.apache.thrift.transport.TTransportException;
 
-import com.mymed.model.core.data.dht.IDHTClient;
+import com.mymed.model.core.data.dht.factory.IDHTClient;
 import com.mymed.model.core.wrapper.Wrapper;
 
 /**
@@ -35,7 +35,7 @@ import com.mymed.model.core.wrapper.Wrapper;
  * @author lvanni
  *
  */
-public class Cassandra implements IDHTClient {
+public class Cassandra extends AbstractDHTClient implements IDHTClient {
 	/* CASSANDRA STRUCTURE:
 
 	  Keyspace
@@ -98,27 +98,43 @@ public class Cassandra implements IDHTClient {
 	 * @throws UnknownHostException 
 	 * @throws UnknownHostException 
 	 */
-	private Cassandra() throws UnknownHostException {
-		this.tr = new TSocket(InetAddress.getLocalHost().getHostAddress(), 4201);
-		this.proto = new TBinaryProtocol(tr);
-		this.client = new Client(proto);
+	private Cassandra() { 
+		try { // By default it will try to connect on the localhost node if it exist
+			this.tr = new TSocket(InetAddress.getLocalHost().getHostAddress(), 4201);
+			this.proto = new TBinaryProtocol(tr);
+			this.client = new Client(proto);
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
 	 * Cassandra getter
 	 * @return
 	 * 		The only one instance of Cassandra
-	 * @throws UnknownHostException 
 	 */
 	public static Cassandra getInstance() {
-		if (null == singleton) {
-			try {
-				singleton = new Cassandra();
-			} catch (UnknownHostException e) {
-				e.printStackTrace();
+		if (singleton == null) {
+			synchronized (Cassandra.class) {
+				if (singleton == null) 
+					singleton = new Cassandra();
 			}
 		}
 		return singleton;
+	}
+
+
+	/**
+	 * Setup the configuration of the client
+	 * @param address
+	 * @param port
+	 */
+	public void setup(String address, int port){
+		if(address != null && port != 0){ // TO FIX the configuration file is not managed by glassfish
+			this.tr = new TSocket(address, port);
+			this.proto = new TBinaryProtocol(tr);
+			this.client = new Client(proto);
+		}
 	}
 
 	/* --------------------------------------------------------- */
@@ -210,8 +226,9 @@ public class Cassandra implements IDHTClient {
 	 * @param columnName
 	 * @param level
 	 * @return
+	 * 		An entire row of a columnFamily, defined by the key
 	 */
-	public Map<byte[], byte[]> getSlice(String keyspace, String columnFamily, String key, ConsistencyLevel level) {
+	public Map<byte[], byte[]> getEntireRow(String keyspace, String columnFamily, String key, ConsistencyLevel level) {
 		Map<byte[], byte[]> slice = new HashMap<byte[], byte[]>();
 		try {
 			tr.open();
@@ -246,19 +263,91 @@ public class Cassandra implements IDHTClient {
 		}
 		return slice;
 	}
+	
+	/**
+	 * 
+	 * @param keyspace
+	 * @param columnFamily
+	 * @param key
+	 * @param columnNames
+	 * @param level
+	 * @return
+	 * 		A range of column define by the columnNames
+	 */
+	public Map<byte[], byte[]> getRangeColumn(String keyspace, String columnFamily, String key, List<byte[]> columnNames,ConsistencyLevel level) {
+		Map<byte[], byte[]> slice = new HashMap<byte[], byte[]>();
+		try {
+			tr.open();
+			SlicePredicate predicate = new SlicePredicate();
+			predicate.setColumn_names(columnNames);
+			ColumnParent parent = new ColumnParent(columnFamily);
+			List<ColumnOrSuperColumn> results = client.get_slice(keyspace,
+					key, parent, predicate, ConsistencyLevel.ONE);
+			for (ColumnOrSuperColumn res : results) {
+				Column column = res.column;
+				slice.put(column.name, column.value);
+			}
+		} catch (TException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidRequestException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TimedOutException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			tr.close();
+		}
+		return slice;
+	}
+
+
+	/**
+	 * Remove a specific column defined by the columnName
+	 * @param keyspace
+	 * @param columnFamily
+	 * @param key
+	 * @param columnName
+	 * @param level
+	 */
+	public void removeColumn(String keyspace, String columnFamily, String key, byte[] columnName, ConsistencyLevel level) {
+		try {
+			tr.open();
+			long timestamp = System.currentTimeMillis();
+			ColumnPath colPathName = new ColumnPath(columnFamily);
+			//			colPathName.setColumn(columnName);
+			client.remove(keyspace, key, colPathName, timestamp, level);
+		} catch (TTransportException e) {
+			e.printStackTrace();
+		} catch (InvalidRequestException e) {
+			e.printStackTrace();
+		} catch (UnavailableException e) {
+			e.printStackTrace();
+		} catch (TimedOutException e) {
+			e.printStackTrace();
+		} catch (TException e) {
+			e.printStackTrace();
+		} finally {
+			tr.close();
+		}
+	}
 
 	/* --------------------------------------------------------- */
 	/*                    COMMON DHT OPERATIONS                  */
 	/* --------------------------------------------------------- */
 	@Override
-	public void put(String key, String value) {
+	public void put(String key, byte[] value) {
 		try {
 			tr.open();
 			String columnFamily = "Trips";
 			ColumnPath colPathName = new ColumnPath(columnFamily);
 			long timestamp = System.currentTimeMillis();
 			colPathName.setColumn(key.getBytes("UTF8"));
-			client.insert("Mymed", key, colPathName, value.getBytes("UTF8"), timestamp,
+			client.insert("Mymed", key, colPathName, value, timestamp,
 					Wrapper.consistencyOnWrite);
 		} catch (InvalidRequestException e) {
 			e.printStackTrace();
@@ -276,7 +365,7 @@ public class Cassandra implements IDHTClient {
 	}
 
 	@Override
-	public String get(String key) {
+	public byte[] getValue(String key) {
 		try {
 			tr.open();
 			String columnFamily = "Trips";
@@ -284,7 +373,7 @@ public class Cassandra implements IDHTClient {
 			colPathName.setColumn(key.getBytes("UTF8"));
 			Column col = client.get("Mymed", key, colPathName,
 					Wrapper.consistencyOnRead).getColumn();
-			return new String(col.value, "UTF8");
+			return col.value;
 		} catch (InvalidRequestException e) {
 			e.printStackTrace();
 		} catch (UnavailableException e) {
@@ -301,6 +390,6 @@ public class Cassandra implements IDHTClient {
 		} finally {
 			tr.close();
 		}
-		return "";
+		return null;
 	}
 }

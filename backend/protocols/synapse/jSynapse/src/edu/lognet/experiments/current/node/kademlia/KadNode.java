@@ -11,6 +11,7 @@ import org.planx.xmlstore.routing.RoutingException;
 
 import edu.lognet.core.protocols.p2p.IDHT;
 import edu.lognet.core.protocols.p2p.Node;
+import edu.lognet.core.protocols.p2p.exception.NodeException;
 import edu.lognet.core.protocols.transport.ITransport;
 import edu.lognet.core.protocols.transport.socket.request.RequestHandler;
 import edu.lognet.core.protocols.transport.socket.server.SocketImpl;
@@ -27,12 +28,12 @@ public class KadNode implements IDHT{
 
 	/** Hash function */
 	protected HashFunction h;
-	
+
 	/**
 	 * Default constructor without parameters
 	 */
 	protected KadNode() {}
-	
+
 	/**
 	 * Constructor without overlayIntifier (it is auto-generate)
 	 * 
@@ -61,7 +62,7 @@ public class KadNode implements IDHT{
 
 	public void put(String key, String value) {
 		Identifier id = new Identifier(BigInteger.valueOf(keyToH(key)));
-//		System.out.println("put(" + keyToH(key) + ", " + value + ")");
+		//		System.out.println("put(" + keyToH(key) + ", " + value + ")");
 		try {
 			kad.put(id, value);
 		} catch (RoutingException e) {
@@ -84,13 +85,11 @@ public class KadNode implements IDHT{
 		} return "err";
 	}
 
-	public void join(String host, int port) {
+	public void join(String host, int port) throws NodeException {
 		try {
 			kad.connect(new InetSocketAddress(host, port));
-		} catch (RoutingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			throw new NodeException("Kad: Fail to join: " + host + ":" + port);
 		}
 	}
 
@@ -115,7 +114,7 @@ public class KadNode implements IDHT{
 	}
 
 	public String handleRequest(String code) {
-//		System.out.println("request handled: " + code);
+		//		System.out.println("request handled: " + code);
 		String[] args = code.split(",");
 		String result = "";
 		if (args[0].equals(getIdentifier())) {
@@ -135,7 +134,7 @@ public class KadNode implements IDHT{
 		}
 		return result;
 	}
-	
+
 	public void setKad(Kademlia kad) {
 		this.kad = kad;
 	}

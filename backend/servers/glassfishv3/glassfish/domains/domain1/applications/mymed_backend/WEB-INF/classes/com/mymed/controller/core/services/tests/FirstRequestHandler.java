@@ -3,7 +3,6 @@ package com.mymed.controller.core.services.tests;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -26,14 +25,15 @@ import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
 
-import com.mymed.controller.core.services.requesthandler.IRequestHandler;
+import com.mymed.controller.core.services.requesthandler.AbstractRequestHandler;
+
 
 /**
  * Servlet implementation class FirstRequestHandler
  */
-public class FirstRequestHandler extends HttpServlet implements IRequestHandler{
-	private static final long serialVersionUID = 1L;
+public class FirstRequestHandler extends AbstractRequestHandler implements IRequestHandler{
 
+	private static final long serialVersionUID = 1L;
 	private TTransport tr;
 	private TProtocol proto;
 	private Client client;
@@ -51,7 +51,7 @@ public class FirstRequestHandler extends HttpServlet implements IRequestHandler{
 		super();
 
 		/** Default value */
-		this.address = "138.96.242.2";
+		this.address = "138.96.242.21";
 		this.port = 4201;
 		this.keyspace = "Keyspace1";
 		this.columnFamily = "Standard1";
@@ -73,30 +73,11 @@ public class FirstRequestHandler extends HttpServlet implements IRequestHandler{
 		this.result = "NULL";
 
 		/** Get the parameters */
-		Map<String, String> parameters = new HashMap<String, String>();
 		Enumeration<String> paramNames = request.getParameterNames();
-		
+		/** Get the parameters */
+		Map<String, String> parameters = getParameters(request);
 		
 		try {
-			while (paramNames.hasMoreElements()) {
-				String paramName = (String) paramNames.nextElement();
-				String[] paramValues = request.getParameterValues(paramName);
-				String paramValue = "";
-				if (paramValues.length == 1) {
-					paramValue = paramValues[0];
-					if (paramValue.length() == 0) {
-						parameters.put(paramName, "no value");
-					} else {
-						parameters.put(paramName, paramValue);
-					}
-				} else {
-					for (int i = 0; i < paramValues.length; i++) {
-						paramValue += paramValues[i] + ",";
-					}
-					parameters.put(paramName, paramValue);
-				}
-			}
-
 			tr.open();
 			ColumnPath colPathName = new ColumnPath(columnFamily);
 			if (parameters.containsKey("act")){
