@@ -4,7 +4,7 @@
 		<button class="close" title="delete"><span>x</span></button>
 		<button class="maximize" title="maximize"><span>+</span></button>
 		<button class="minimize" title="minimize"><span>-</span></button>
-		<button class="options"><span>options</span></button>
+		<button class="options" onclick="this.focus();"><span>options</span></button>
 		<div class="menu">
 			<ul>
 				<li><button>Partager ce service</button></li>

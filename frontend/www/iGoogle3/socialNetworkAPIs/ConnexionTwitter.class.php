@@ -1,6 +1,8 @@
 <?php
-require_once dirname(__FILE__).'/twitter/lib/twitteroauth/twitteroauth/twitteroauth.php';
-require_once dirname(__FILE__).'/twitter/config.php';
+require_once dirname(__FILE__).'/twitter/twitteroauth.php';
+define('CONSUMER_KEY', 'HgsnlIpCJ7RqHhCFELkTvw');
+define('CONSUMER_SECRET', 'P7Gkj9AfeNEIHXrj0PMTiNHM3lJbHEqkuXwuWtGzU');
+define('OAUTH_CALLBACK', 'http://'.$_SERVER['HTTP_HOST'].ROOTPATH);
 /**
  * A class to define a twitter login to myMed
  * TWITTER NEED PHP5-CURL PACKAGE
@@ -12,18 +14,29 @@ class ConnexionTwitter extends Connexion
 	{
 		if(isset($_GET['connexion'])&&$_GET['connexion']=='twitter') // si l'utilisateur a cliqué sur le bouton twitter
 			$this->redirect();
-		elseif($twitter_user = $this->connect())
+		elseif(!USER_CONNECTED && $connection = $this->connect())
 		{
+			$twitter_user	= $connection->get('account/verify_credentials');
+			$img = str_replace("_normal", "", $twitter_user->profile_image_url);
+			if(@file_get_contents($img, false, stream_context_create(array('http'=>array('method'=>"HEAD"))))===false)
+				$img = str_replace("_normal", "_bigger", $twitter_user->profile_image_url);
 			$_SESSION['user'] = array(
 					'id'				=> $twitter_user->id_str,
 					'name'				=> $twitter_user->name,
-					'gender'			=> 'something',
+					'gender'			=> null,
 					'locale'			=> $twitter_user->lang,
 					'updated_time'		=> $twitter_user->created_at,
 					'profile'			=> 'http://twitter.com/?id='.$twitter_user->id,
-					'profile_picture'	=> str_replace("_normal", "", $twitter_user->profile_image_url),
+					'profile_picture'	=> $img,
 					'social_network'	=> 'twitter');
-			
+			$_SESSION['friends'] = $connection->get('http://api.twitter.com/statuses/friends.json');
+			$length	= count($_SESSION['friends']);
+			for($i=0 ; $i<$length ; $i++)
+			{
+				$_SESSION['friends'][$i]	= (array)$_SESSION['friends'][$i];
+				$_SESSION['friends'][$i]['profileUrl']	= 'https://twitter.com/'.$_SESSION['friends'][$i]['screen_name'];
+				$_SESSION['friends'][$i]['displayName']	= $_SESSION['friends'][$i]['screen_name'];
+			}
 			if(isset($_GET['oauth_token'])||isset($_GET['oauth_verifier']))
 			{
 				$encoded = json_encode($_SESSION['user']);
@@ -61,7 +74,7 @@ class ConnexionTwitter extends Connexion
 		else
 			die('Impossible de se connecter à twitter ... Merci de renouveler votre demande plus tard.');
 	}
-	private /*void*/ function connect()
+	private /*TwitterOAuth*/ function connect()
 	{
 		if(
 				!empty($_SESSION['access_token']) 
@@ -78,7 +91,7 @@ class ConnexionTwitter extends Connexion
 					$_SESSION['access_token']['oauth_token_secret']);
  
 			/* On récupère les informations sur le compte twitter du visiteur */
-			return $connection->get('account/verify_credentials');
+			return $connection;
 		}
 		elseif(
 				isset($_REQUEST['oauth_token'], $_SESSION['oauth_token'])
@@ -100,7 +113,7 @@ class ConnexionTwitter extends Connexion
 					unset($_SESSION['oauth_token_secret']);
  
 			if (200 == $connection->http_code)
-				return $connection->get('account/verify_credentials');
+				return $connection;
 		}
 		return null;
 	}
@@ -118,12 +131,7 @@ class ConnexionTwitter extends Connexion
 	public /*void*/ function button()
 	{
 ?>
-		<form method="get" action="">
-			<div>
-				<input type="hidden" name="connexion" value="twitter" />
-				<button type="submit" class="twitter"><span>Twitter</span></button>
-			</div>
-		</form>
+		<a href="?connexion=twitter" class="twitter"><span>Twitter</span></a>
 <?php
 	}
 }

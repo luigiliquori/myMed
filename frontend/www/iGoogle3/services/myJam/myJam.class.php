@@ -25,7 +25,7 @@ class myJam extends ContentObject
     		position:relative;
 		}
 		</style>
-		<script type="text/javascript" src="javascript/map.js"></script>
+		<script type="text/javascript" src="services/myJam/map.js"></script>
 <?php
 	}
 	/**

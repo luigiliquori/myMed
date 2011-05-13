@@ -396,11 +396,12 @@ jQuery.extend({
 				jQuery( document ).triggerHandler( "ready" );
 			}
 		}
+		return undefined;
 	},
 	
 	bindReady: function() {
 		if ( readyBound ) {
-			return;
+			return undefined;
 		}
 
 		readyBound = true;
@@ -440,6 +441,7 @@ jQuery.extend({
 				doScrollCheck();
 			}
 		}
+		return undefined;
 	},
 
 	// See test/unit/core.js for details concerning isFunction.
@@ -507,6 +509,7 @@ jQuery.extend({
 		} else {
 			jQuery.error( "Invalid JSON: " + data );
 		}
+		return undefined;
 	},
 
 	noop: function() {},
@@ -979,7 +982,7 @@ jQuery.extend({
 
 	data: function( elem, name, data ) {
 		if ( elem.nodeName && jQuery.noData[elem.nodeName.toLowerCase()] ) {
-			return;
+			return undefined;
 		}
 
 		elem = elem == window ?
@@ -1017,7 +1020,7 @@ jQuery.extend({
 			thisCache[ name ] = data;
 		}
 
-		return typeof name === "string" ? thisCache[ name ] : thisCache;
+		return typeof name === "string" ? (thisCache.hasOwnProperty(name)?thisCache[ name ]:undefined) : thisCache;
 	},
 
 	removeData: function( elem, name ) {
@@ -1101,7 +1104,7 @@ jQuery.fn.extend({
 jQuery.extend({
 	queue: function( elem, type, data ) {
 		if ( !elem ) {
-			return;
+			return undefined;
 		}
 
 		type = (type || "fx") + "queue";
@@ -1851,6 +1854,7 @@ jQuery.event = {
 				this.triggered = false;
 			}
 		}
+		return undefined;
 	},
 
 	handle: function( event ) {
@@ -2039,6 +2043,7 @@ jQuery.Event = function( src ) {
 
 	// Mark it as fixed
 	this[ expando ] = true;
+	return undefined;
 };
 
 function returnFalse() {
@@ -2152,6 +2157,7 @@ jQuery.event.special.submit = {
 				if ( (type === "submit" || type === "image") && jQuery( elem ).closest("form").length ) {
 					return trigger( "submit", this, arguments );
 				}
+				return undefined;
 			});
 	 
 			jQuery.event.add(this, "keypress.specialSubmit." + fn.guid, function( e ) {
@@ -2160,11 +2166,13 @@ jQuery.event.special.submit = {
 				if ( (type === "text" || type === "password") && jQuery( elem ).closest("form").length && e.keyCode === 13 ) {
 					return trigger( "submit", this, arguments );
 				}
+				return undefined;
 			});
 
 		} else {
 			return false;
 		}
+		return undefined;
 	},
 
 	remove: function( namespaces, fn ) {
@@ -2204,7 +2212,7 @@ function testChange( e ) {
 		var elem = e.target, data, val;
 
 		if ( !formElems.test( elem.nodeName ) || elem.readOnly ) {
-			return;
+			return undefined;
 		}
 
 		data = jQuery.data( elem, "_change_data" );
@@ -2216,13 +2224,14 @@ function testChange( e ) {
 		}
 		
 		if ( data === undefined || val === data ) {
-			return;
+			return undefined;
 		}
 
 		if ( data != null || val ) {
 			e.type = "change";
 			return jQuery.event.trigger( e, arguments[1], elem );
 		}
+		return undefined;
 }
 
 jQuery.event.special.change = {
@@ -2235,6 +2244,7 @@ jQuery.event.special.change = {
 			if ( type === "radio" || type === "checkbox" || elem.nodeName.toLowerCase() === "select" ) {
 				return testChange.call( this, e );
 			}
+			return undefined;
 		},
 
 		// Change has to be called before submit
@@ -2247,6 +2257,7 @@ jQuery.event.special.change = {
 				type === "select-multiple" ) {
 				return testChange.call( this, e );
 			}
+			return undefined;
 		},
 
 		// Beforeactivate happens also before the previous element is blurred
@@ -2361,6 +2372,7 @@ jQuery.fn.extend({
 			jQuery.event.trigger( event, data, this[0] );
 			return event.result;
 		}
+		return undefined;
 	},
 
 	toggle: function( fn ) {
@@ -2430,7 +2442,7 @@ function liveHandler( event ) {
 
 	// Make sure we avoid non-left-click bubbling in Firefox (#3861)
 	if ( event.button && event.type === "click" ) {
-		return;
+		return undefined;
 	}
 
 	for ( j in live ) {
@@ -2900,6 +2912,7 @@ var Expr = Sizzle.selectors = {
 				var m = context.getElementById(match[1]);
 				return m ? [m] : [];
 			}
+			return undefined;
 		},
 		NAME: function(match, context){
 			if ( typeof context.getElementsByName !== "undefined" ) {
@@ -2913,6 +2926,7 @@ var Expr = Sizzle.selectors = {
 
 				return ret.length === 0 ? null : ret;
 			}
+			return undefined;
 		},
 		TAG: function(match, context){
 			return context.getElementsByTagName(match[1]);
@@ -3095,7 +3109,7 @@ var Expr = Sizzle.selectors = {
 			} else if ( name === "not" ) {
 				var not = match[3];
 
-				for ( var i = 0, l = not.length; i < l; i++ ) {
+				for ( i = 0, l = not.length; i < l; i++ ) {
 					if ( not[i] === elem ) {
 						return false;
 					}
@@ -3105,6 +3119,7 @@ var Expr = Sizzle.selectors = {
 			} else {
 				Sizzle.error( "Syntax error, unrecognized expression: " + name );
 			}
+			return undefined;
 		},
 		CHILD: function(elem, match){
 			var type = match[1], node = elem;
@@ -3154,6 +3169,7 @@ var Expr = Sizzle.selectors = {
 						return ( diff % first === 0 && diff / first >= 0 );
 					}
 			}
+			return undefined;
 		},
 		ID: function(elem, match){
 			return elem.nodeType === 1 && elem.getAttribute("id") === match;
@@ -3202,6 +3218,7 @@ var Expr = Sizzle.selectors = {
 			if ( filter ) {
 				return filter( elem, i, match, array );
 			}
+			return undefined;
 		}
 	}
 };
@@ -3348,6 +3365,7 @@ function getText( elems ) {
 				var m = context.getElementById(match[1]);
 				return m ? m.id === match[1] || typeof m.getAttributeNode !== "undefined" && m.getAttributeNode("id").nodeValue === match[1] ? [m] : undefined : [];
 			}
+			return undefined;
 		};
 
 		Expr.filter.ID = function(elem, match){
@@ -3458,6 +3476,7 @@ if ( document.querySelectorAll ) {
 		if ( typeof context.getElementsByClassName !== "undefined" && !isXML ) {
 			return context.getElementsByClassName(match[1]);
 		}
+		return undefined;
 	};
 
 	div = null; // release memory in IE
@@ -3646,6 +3665,7 @@ jQuery.fn.extend({
 					return true;
 				}
 			}
+			return undefined;
 		});
 	},
 
@@ -3987,6 +4007,7 @@ jQuery.fn.extend({
 			set.push.apply( set, this.toArray() );
 			return this.pushStack( set, "before", arguments );
 		}
+		return undefined;
 	},
 
 	after: function() {
@@ -3999,6 +4020,7 @@ jQuery.fn.extend({
 			set.push.apply( set, jQuery(arguments[0]).toArray() );
 			return set;
 		}
+		return undefined;
 	},
 
 	clone: function( events ) {
@@ -4169,6 +4191,7 @@ jQuery.fn.extend({
 				elem.appendChild(elem.ownerDocument.createElement("tbody"))) :
 				elem;
 		}
+		return undefined;
 	}
 });
 
@@ -4410,6 +4433,7 @@ jQuery.fn.css = function( name, value ) {
 		}
 
 		jQuery.style( elem, name, value );
+		return undefined;
 	});
 };
 
@@ -4795,6 +4819,7 @@ jQuery.extend({
 				try {
 					return new window.ActiveXObject("Microsoft.XMLHTTP");
 				} catch(e) {}
+				return undefined;
 			},
 		accepts: {
 			xml: "application/xml, text/xml",
@@ -4940,7 +4965,7 @@ jQuery.extend({
 		var xhr = s.xhr();
 
 		if ( !xhr ) {
-			return;
+			return undefined;
 		}
 
 		// Open the socket
@@ -5275,6 +5300,7 @@ jQuery.extend({
 			value = jQuery.isFunction(value) ? value() : value;
 			s[ s.length ] = encodeURIComponent(key) + "=" + encodeURIComponent(value);
 		}
+		return undefined;
 	}
 });
 var elemdisplay = {},
@@ -5528,7 +5554,7 @@ jQuery.extend({
 		// Queueing
 		opt.old = opt.complete;
 		opt.complete = function() {
-			if ( opt.queue !== false ) {
+			if ( !opt.hasOwnProperty("queue") || opt.queue !== false ) {
 				jQuery(this).dequeue();
 			}
 			if ( jQuery.isFunction( opt.old ) ) {

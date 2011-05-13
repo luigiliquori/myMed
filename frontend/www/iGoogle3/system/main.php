@@ -14,31 +14,42 @@ require_once dirname(__FILE__).'/Debug.class.php';
 require_once dirname(__FILE__).'/TemplateManager.class.php';
 require_once dirname(__FILE__).'/ContentObject.class.php';
 
-if(isset($_POST["logout"])) //@todo warning was a $_GET var
-{
-	session_destroy();
-	header('Location:'.$_SERVER["REQUEST_URI"]);
-	exit;
-}
+header("Content-Script-Type:text/javascript");
 if(!isset($_SESSION['user']))
-	$_POST["connexion_guest"] = '';
-if(!isset($_GET['service']))
-	$templateManager = new TemplateManager();
-else
+{//*
+	$_POST["connexion"] = 'guest';/*/
+	$_SESSION['user'] = array(
+			'id'				=> 'visiteur',
+			'name'				=> null,
+			'gender'			=> null,
+			'locale'			=> null,
+			'updated_time'		=> null,
+			'profile'			=> null,
+			'profile_picture'	=> null,
+			'social_network'	=> null);
+	$encoded = json_encode($_SESSION['user']);
+	file_get_contents(trim(BACKEND_URL."ProfileRequestHandler?act=0&user=" . urlencode($encoded)));//*/
+}
+define('USER_CONNECTED', $_SESSION['user']['social_network'] != 'Guest' );
+$templateManager = new TemplateManager(null, isset($_GET['ajax'])?'serviceajax':'home');
+if(isset($_GET['service']))
 {
 	$serviceFile = dirname(__FILE__).'/../services/'.$_GET['service'].'/'.$_GET['service'].'.class.php';
 	if(is_file($serviceFile))
 	{
 		require_once($serviceFile);
-		$templateManager = new TemplateManager(new $_GET['service'](), "serviceajax");
+		$templateManager->setContent(new $_GET['service']());
 	}
 	else
-	{/*
-		require_once(dirname(__FILE__).'/../services/dynamic/Dynamic.class.php');
-		$templateManager = new TemplateManager(new Dynamic(), "home");//*/
-		header("Status: 404 Not Found", false, 404);
-		die('<div xmlns="http://www.w3.org/1999/xhtml">Service Not Found !</div>');
+	{
+		require_once dirname(__FILE__).'/ServiceNotFound.class.php';
+		$templateManager->setContent(new ServiceNotFound());
 	}
+}
+else
+{
+	require_once dirname(__FILE__).'/Desktop.class.php';
+	$templateManager->setContent(new Desktop());
 }
 $templateManager->callTemplate();
 ?>

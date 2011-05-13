@@ -18,6 +18,12 @@ abstract class GlobalConnexion extends Connexion
 		$this->connexions[] = new ConnexionGoogle;
 		$this->connexions[] = new ConnexionTwitter;
 		$this->connexions[] = new ConnexionOpenId;
+		if(isset($_POST["logout"]))
+		{
+			session_destroy();
+			header('Location:'.$_SERVER["REQUEST_URI"]);
+			exit;
+		}
 	}
 	/**
 	 * Print content's tags to be put inside <head> tag

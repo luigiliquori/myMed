@@ -19,7 +19,7 @@ class iGoogleManager
 				return Array(	Array("myProfile"	, 0),
 								Array("myJam"		, 1),
 								Array("myTransport"	, 2),
-								Array("myFriend"	, 0),
+								Array("myFriends"	, 0),
 								Array("myTranslator", 1),
 								Array("myJob"		, 2));
 			case 'Pratique':

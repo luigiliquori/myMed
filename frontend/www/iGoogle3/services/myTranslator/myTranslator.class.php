@@ -18,7 +18,21 @@ class myTranslator extends ContentObject
     		width:100%;
     		height:100%;
     		overflow:auto;
-    		background-image: url('style/img/traduction.jpg');
+    		background-image: url('services/myTranslator/background.jpg');
+    		background-size			: 100% auto;
+    		-moz-background-size	: 100% auto;
+    		-o-background-size		: 100% auto;
+    		-khtml-background-size	: 100% auto;
+		}
+		#myTranslator form {
+			margin-top	: 2em;
+			padding	: 1ex;
+		}
+		#myTranslator form div {
+			margin	: 2ex 1ex;
+		}
+		#myTranslator form div input {
+			width	: 100%;
 		}
 		</style>
 <?php
@@ -33,22 +47,24 @@ class myTranslator extends ContentObject
 	public /*void*/ function contentGet()
 	{
 		?>
-				<div style="position: relative; top:10px; left:10px; width: 400px">
-					<br /><br />
-					<input type="text" name="textATraduire" value="Saisissez le text à traduire ici." style="width: 380px;" /><br /><br />
-					<select name="langueOrigin">
-							<option value="Francais" selected="selected">Francais</option>
-							<option value="Anglais">Anglais</option>
-							<option value="Italien">Italien</option>
-					</select>
-					&gt;&gt;
-					<select name="langueTraduite">
-							<option value="Italien" selected="selected">Italien</option>
-							<option value="Francais">Francais</option>
-							<option value="Anglais">Anglais</option>
-					</select>
-					<input type="submit" value="Traduire" />
-				</div>
+				<form method="get" action="#">
+					<div><input type="text" name="word" placeholder="Saisissez le text à traduire ici." /></div>
+					<div>
+						<select name="langueOrigin">
+								<option value="Francais" selected="selected">Francais</option>
+								<option value="Anglais">Anglais</option>
+								<option value="Italien">Italien</option>
+						</select>
+						&gt;&gt;
+						<select name="langueTraduite">
+								<option value="Italien" selected="selected">Italien</option>
+								<option value="Francais">Francais</option>
+								<option value="Anglais">Anglais</option>
+						</select>
+						<button type="submit">Traduire</button>
+					</div>
+				</form>
+				<script type="text/javascript">$("[placeholder]").textPlaceholder();</script>
 		<?php
 	}
 	/**

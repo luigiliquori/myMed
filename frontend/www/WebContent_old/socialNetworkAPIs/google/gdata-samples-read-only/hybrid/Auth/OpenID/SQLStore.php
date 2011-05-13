@@ -26,18 +26,18 @@ $__Auth_OpenID_PEAR_AVAILABLE = @include_once 'DB.php';
 /**
  * @access private
  */
-require_once 'Auth/OpenID/Interface.php';
-require_once 'Auth/OpenID/Nonce.php';
+require_once dirname(__FILE__).'/../OpenID/Interface.php';
+require_once dirname(__FILE__).'/../OpenID/Nonce.php';
 
 /**
  * @access private
  */
-require_once 'Auth/OpenID.php';
+require_once dirname(__FILE__).'/../OpenID.php';
 
 /**
  * @access private
  */
-require_once 'Auth/OpenID/Nonce.php';
+require_once dirname(__FILE__).'/../OpenID/Nonce.php';
 
 /**
  * This is the parent class for the SQL stores, which contains the

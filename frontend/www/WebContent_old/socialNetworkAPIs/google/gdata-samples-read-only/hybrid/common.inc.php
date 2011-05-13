@@ -20,10 +20,10 @@
 require_once('OAuth.php');
 
 // OpenID libraries - http://www.openidenabled.com/php-openid/
-require_once 'Auth/OpenID/Consumer.php';
-require_once 'Auth/OpenID/FileStore.php';
-require_once 'Auth/OpenID/SReg.php';
-require_once 'Auth/OpenID/PAPE.php';
+require_once dirname(__FILE__).'/../OpenID/Consumer.php';
+require_once dirname(__FILE__).'/../OpenID/FileStore.php';
+require_once dirname(__FILE__).'/../OpenID/SReg.php';
+require_once dirname(__FILE__).'/../OpenID/PAPE.php';
 
 // Google's accepted signature methods
 $hmac_method = new OAuthSignatureMethod_HMAC_SHA1();

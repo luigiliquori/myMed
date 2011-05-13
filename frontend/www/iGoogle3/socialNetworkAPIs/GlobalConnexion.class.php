@@ -13,11 +13,17 @@ abstract class GlobalConnexion extends Connexion
 	public function __construct()
 	{
 		$this->guestConnexion = new ConnexionGuest;
-		$this->connexions[] = new ConnexionMyMed;
 		$this->connexions[] = new ConnexionFacebook;
 		$this->connexions[] = new ConnexionGoogle;
-		$this->connexions[] = new ConnexionTwitter;
+		$this->connexions[] = new ConnexionMyMed;
 		$this->connexions[] = new ConnexionOpenId;
+		$this->connexions[] = new ConnexionTwitter;
+		if(isset($_POST["logout"]))
+		{
+			session_destroy();
+			header('Location:'.$_SERVER["REQUEST_URI"]);
+			exit;
+		}
 	}
 	/**
 	 * Print content's tags to be put inside <head> tag

@@ -1,10 +1,12 @@
+if(!window.hasOwnProperty)
+	window.hasOwnProperty = Object.hasOwnProperty;
 /**
  * @function createCrossXMLHttpRequest
  * permet d'avoir une classe XMLHttpRequest construite suivant l'implémentation
  */
 var createCrossXMLHttpRequest = function()
 {
-	if (window.ActiveXObject)
+	if (window.hasOwnProperty("ActiveXObject"))
 	{
 		try
 		{
@@ -15,7 +17,7 @@ var createCrossXMLHttpRequest = function()
 			return new ActiveXObject("Microsoft.XMLHTTP");
 		}
 	}
-	else if (window.XMLHttpRequest)
+	else if (window.hasOwnProperty("XMLHttpRequest"))
 		return new XMLHttpRequest();
 	else
 		alert("Votre navigateur ne supporte pas l'objet XMLHTTPRequest...");

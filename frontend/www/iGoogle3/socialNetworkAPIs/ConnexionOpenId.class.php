@@ -1,8 +1,8 @@
 <?php
 require_once dirname(__FILE__).'/Connexion.class.php';
-@require_once 'Auth/OpenID/Consumer.php';	//installed with ubuntu in /etc/share/php
-@require_once 'Auth/OpenID/FileStore.php';	//installed with ubuntu in /etc/share/php
-@require_once "Auth/OpenID/SReg.php";		//installed with ubuntu in /etc/share/php
+require_once dirname(__FILE__).'/Auth/OpenID/Consumer.php';
+require_once dirname(__FILE__).'/Auth/OpenID/FileStore.php';
+require_once dirname(__FILE__).'/Auth/OpenID/SReg.php';
 define('OPENID_KEY_ID', 0);
 define('OPENID_KEY_FULLNAME', 1);
 define('OPENID_KEY_GENDER', 2);
@@ -25,19 +25,19 @@ class ConnexionOpenId extends Connexion
 	 */
 	protected /*void*/ function tryConnect()
 	{
-		if(isset($_POST["connexion_openid"], $_POST["uri"]))
-			$this->redirectProvider($_POST["uri"]);
+		if(isset($_REQUEST['connexion'], $_REQUEST['uri'])&&$_REQUEST['connexion']=='openid')
+			$this->redirectProvider($_REQUEST['uri']);
 		elseif(isset($_GET['janrain_nonce']))
 		{
 			$data	= $this->connect();
 			$_SESSION['user'] = array(
 					'id'				=> self::getField($data, OPENID_KEY_ID),
-					'name'				=> self::getField($data, OPENID_KEY_FULLNAME, 'Unknown'),
-					'gender'			=> self::getField($data, OPENID_KEY_GENDER, 'something'),
-					'locale'			=> self::getField($data, OPENID_KEY_LANGUAGE, 'somewhere'),
-					'updated_time'		=> 'now',
+					'name'				=> self::getField($data, OPENID_KEY_FULLNAME),
+					'gender'			=> self::getField($data, OPENID_KEY_GENDER),
+					'locale'			=> self::getField($data, OPENID_KEY_LANGUAGE),
+					'updated_time'		=> null,
 					'profile'			=> self::getField($data, OPENID_KEY_ID),
-					'profile_picture'	=> 'http://graph.facebook.com//picture?type=large',
+					'profile_picture'	=> null,
 					'social_network'	=> $this->social_network);
 			//var_dump($data);var_dump($_SESSION);exit;
 			$this->redirectAfterConnection();
@@ -89,14 +89,11 @@ class ConnexionOpenId extends Connexion
 		return $default;
 	}
 	/**
-	 * Redirect to login on provider
-	 * @param $loginuri	URI entered by user to login on OpenId
+	 * Function called to OpenId extensions
+	 * @param $auth variable initialized by $this->consumer->begin()
 	 */
-	protected /*void*/ function redirectProvider($loginuri)
+	protected /*void*/ function initExtensions(/*Auth_OpenID_AuthRequest*/ $auth)
 	{
-		$auth = $this->consumer->begin($loginuri);
-		if(!$auth)
-			die('URI invalide !');
 		$auth->addExtension(Auth_OpenID_SRegRequest::build(
 				/*required*/array('fullname'), 
 				/*optional*/array('gender', 'language'))); // fonctionne sur myOpenId mais pas google
@@ -108,8 +105,21 @@ class ConnexionOpenId extends Connexion
 		$auth->addExtensionArg('http://openid.net/srv/ax/1.0', 'type.lastname', 'http://axschema.org/namePerson/last');
 		$auth->addExtensionArg('http://openid.net/srv/ax/1.0', 'type.language', 'http://axschema.org/pref/language');
 		$auth->addExtensionArg('http://openid.net/srv/ax/1.0', 'type.gender', 'http://axschema.org/person/gender');
+	}
+	/**
+	 * Redirect to login on provider
+	 * @param $loginuri	URI entered by user to login on OpenId
+	 */
+	protected /*void*/ function redirectProvider($loginuri)
+	{
+		$auth = $this->consumer->begin($loginuri);
+		if(!$auth)
+			die('URI invalide !');
+		static::initExtensions($auth);
 	    
-		$callbackUrl = 'http://'.$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
+		unset($_GET['connexion']);
+		unset($_GET['uri']);
+		$callbackUrl = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'].'?'.http_build_query($_GET);
 		if($auth->shouldSendRedirect())
 		{
 			$redirect = $auth->redirectURL('http://'.$_SERVER["HTTP_HOST"], $callbackUrl);
@@ -164,7 +174,7 @@ class ConnexionOpenId extends Connexion
 ?>
 		<form method="post" action="">
 			<div class="hidden">
-				<input type="hidden" name="connexion_openid" />
+				<input type="hidden" name="connexion" value="openid" />
 			</div>
 			<div title="Entrez l'URI de votre OpenId">
 				<label for="uri">URI&nbsp;:</label>
@@ -176,9 +186,12 @@ class ConnexionOpenId extends Connexion
 					size="24" 
 					maxsize="255" />
 			</div>
-			<div>
+			<div class="submitRow">
 				<div></div>
-				<button>Valider</button>
+				<div>
+					<a class="cancel" href="<?=ROOTPATH?>">Annuler</a>
+					<button type="submit">Connecter</button>
+				</div>
 			</div>
 		</form>
 <?php
@@ -186,12 +199,7 @@ class ConnexionOpenId extends Connexion
 		else
 		{
 ?>
-		<form method="get" action="">
-			<div>
-				<input type="hidden" name="connexion" value="openid" />
-				<button type="submit" class="openid"><span>OpenId</span></button>
-			</div>
-		</form>
+		<a href="?connexion=openid" class="openid"><span>OpenId</span></a>
 <?php
 		}
 	}

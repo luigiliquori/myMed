@@ -29,7 +29,20 @@ function newMyWindow(/*String*/ title/*=""*/, /*MyDesktop*/ desktop/*=new MyDesk
 	};
 	othis.setTitle = function(/*String*/ val)
 	{
-		othis.getElementsByClassName("title")[0].textContent = val;
+		var titleElem = othis.getElementsByClassName("title")[0];
+		if(titleElem.lastChild)
+			titleElem = titleElem.lastChild;
+		titleElem.textContent = val;
+	};
+	othis.setIcon = function(/*String*/ url)
+	{
+		var titleElem = othis.getElementsByClassName("title")[0];
+		var img	= document.createElement("img");
+		img.setAttribute("src", url);
+		if(titleElem.firstChild)
+			titleElem.insertBefore(img, titleElem.firstChild);
+		else
+			titleElem.appendChild(img);
 	};
 	othis.setContent = function(/*HTMLElement|String*/ val)
 	{
@@ -41,7 +54,7 @@ function newMyWindow(/*String*/ title/*=""*/, /*MyDesktop*/ desktop/*=new MyDesk
 			othis.getElementsByClassName("content")[0].appendChild(val);
 		}
 	};
-	othis.setDesktop = function(/*MyDEsktop*/ val)
+	othis.setDesktop = function(/*MyDesktop*/ val)
 	{
 		desktop	= val;
 	};
@@ -83,6 +96,7 @@ function newMyWindow(/*String*/ title/*=""*/, /*MyDesktop*/ desktop/*=new MyDesk
 				padding.bottom	= content.parentNode.clientHeight-content.offsetHeight-content.offsetTop;
 				padding.right	= content.parentNode.clientWidth-content.offsetWidth-content.offsetLeft;
 				desktop.getHTMLElement().className	+= " childmaximized"
+				othis.className			+= " maximized";
 				othis.style.position	= "fixed";
 				othis.style.width		= "100%";
 				othis.style.height		= "100%";
@@ -100,6 +114,7 @@ function newMyWindow(/*String*/ title/*=""*/, /*MyDesktop*/ desktop/*=new MyDesk
 			else
 			{
 				desktop.getHTMLElement().className	= desktop.getHTMLElement().className.replace(/ childmaximized/, "");
+				othis.className			= othis.className.replace(/ maximized/g, "");
 				othis.style.position	= "";
 				othis.style.width		= "";
 				othis.style.height		= "";

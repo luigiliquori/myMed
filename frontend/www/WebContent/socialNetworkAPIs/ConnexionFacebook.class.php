@@ -12,12 +12,12 @@ class ConnexionFacebook extends Connexion
 	{
 		$this->facebook = new Facebook(Array(
 				'appId'		=> '154730914571286',
-				'secret'	=> '753d127017728eeabf6c190903e8046b'));
+				'secret'	=> 'a29bd2d27e8beb0b34da460fcf7b5522'));
 		$cookie = $this->facebook->getSession();
-	trace($cookie);
-		if ($cookie['access_token'] && !isset($_SESSION['user']))
+		if ($cookie['access_token'] && !USER_CONNECTED)
 		{
 			$facebook_user = json_decode(file_get_contents('https://graph.facebook.com/me?access_token=' . $cookie['access_token']));
+	trace($facebook_user);
 		
 			$_SESSION['user'] = array(
 					'id'				=> $facebook_user->id,
@@ -28,7 +28,14 @@ class ConnexionFacebook extends Connexion
 					'profile'			=> 'http://www.facebook.com/profile.php?id='.$facebook_user->id,
 					'profile_picture'	=> 'http://graph.facebook.com/'.$facebook_user->id.'/picture?type=large',
 					'social_network'	=> 'facebook');
-			$_SESSION['friends'] = json_decode(file_get_contents('https://graph.facebook.com/me/friends?access_token='.$cookie['access_token']))->data;
+			$_SESSION['friends'] = json_decode(file_get_contents('https://graph.facebook.com/me/friends?access_token='.$cookie['access_token']), true);
+			$_SESSION['friends']	= $_SESSION['friends']['data'];
+			$length	= count($_SESSION['friends']);
+			for($i=0 ; $i<$length ; $i++)
+			{
+				$_SESSION['friends'][$i]['profileUrl']	= 'http://www.facebook.com/#!/profile.php?id='.$_SESSION['friends'][$i]['id'];
+				$_SESSION['friends'][$i]['displayName']	= $_SESSION['friends'][$i]['name'];
+			}
 			$encoded = json_encode($_SESSION['user']);
 			file_get_contents(trim(BACKEND_URL."ProfileRequestHandler?act=0&user=" . urlencode($encoded)));
 			header('Location:'.$_SERVER["SCRIPT_NAME"]);
@@ -41,9 +48,8 @@ class ConnexionFacebook extends Connexion
 	{
 		$url = $this->facebook->getLoginUrl();
 ?>
-		<form method="get" action="<?php echo htmlspecialchars($url);?>" onsubmit="open('<?php echo htmlspecialchars($url);?>','facebookconnexion',''); return false;">
+		<form method="post" action="<?php echo htmlspecialchars($url);?>">
 			<div>
-				<input type="hidden" name="connexion" value="facebook" />
 				<button type="submit" class="facebook"><span>Facebook</span></button>
 			</div>
 		</form>

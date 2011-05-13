@@ -8,17 +8,17 @@ class ConnexionGuest extends Connexion
 {
 	public function __construct()
 	{
-		if(isset($_POST["connexion_guest"])) //@todo warning was a $_GET['try'] var (see button())
+		if(isset($_POST["connexion"])&&$_POST["connexion"]=='guest')
 		{
 			$_SESSION['user'] = array(
-					'id'				=> 'visiteur',
-					'name'				=> 'Visiteur',
-					'gender'			=> 'something',
-					'locale'			=> 'somewhere',
-					'updated_time'		=> 'now',
-					'profile'			=> 'http://www.facebook.com/profile.php?id=007',
-					'profile_picture'	=> 'http://graph.facebook.com//picture?type=large',
-					'social_network'	=> 'unknown');
+					'id'				=> 'guest',
+					'name'				=> null,
+					'gender'			=> null,
+					'locale'			=> substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, strcspn($_SERVER['HTTP_ACCEPT_LANGUAGE'], ',;')),
+					'updated_time'		=> null,
+					'profile'			=> null,
+					'profile_picture'	=> null,
+					'social_network'	=> 'Guest');
 			$encoded = json_encode($_SESSION['user']);
 			file_get_contents(trim(BACKEND_URL."ProfileRequestHandler?act=0&user=" . urlencode($encoded)));
 			header('Location:'.$_SERVER["REQUEST_URI"]);
@@ -31,12 +31,7 @@ class ConnexionGuest extends Connexion
 	public /*void*/ function button()
 	{
 ?>
-		<form method="post" action="">
-			<div>
-				<input type="hidden" name="connexion_guest" />
-				<button type="submit" class="guest"><span>Visiteur</span></button>
-			</div>
-		</form>
+		<a href="?connexion=guest" class="guest"><span>Visiteur</span></a>
 <?php
 	}
 }

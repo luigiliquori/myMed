@@ -13,6 +13,8 @@
 		<!-- define styles of type of elements (ex:h1, p, p.myclass...)-->
 		<link rel="stylesheet" href="style/desktop/design.css" />
 		<!-- define design of website -->
+		<script src="jquery/dist/jquery.js"></script>
+		<script type="text/javascript" src="javascript/jquery.textPlaceholder.js"></script>
   </head>
   <body>
   	<!-- FORMAT -->
@@ -45,26 +47,26 @@
 		  		<!-- USERINFO -->
 			<!-- USER PICTURE PROFILE -->
 			<div style="width: 200px; height: 300px; background-color: #edf2f4;">
-				<img width="200px" alt="profile picture" src="<?= $_SESSION['user']['profile_picture'] ?>" />
+					<img width="200px" alt="profile picture" src="<?= $_SESSION['user']['profile_picture']?$_SESSION['user']['profile_picture']:'http://graph.facebook.com//picture?type=large' ?>" /><br />
 			</div>
 			
 			<!-- USER INFOMATION -->
 			<table>
 				<tr>
 					<th>Name:</th>
-					<td> <?= $_SESSION['user']['name'] ?></td>
-				</tr>
-				<tr>
-					<th>Gender:</th>
-					<td> <?= $_SESSION['user']['gender'] ?></td>
-				</tr>
-				<tr>
-					<th>Langage:</th>
-					<td> <?= $_SESSION['user']['locale'] ?></td>
-				</tr>
-				<tr>
-					<th>Profile from:</th>
-					<td> <?= $_SESSION['user']['social_network'] ?></td>
+					  <td> <?= $_SESSION['user']['name']?$_SESSION['user']['name']:'Unknown' ?></td>
+					</tr>
+					<tr>
+					  <th>Gender:</th>
+					  <td> <?= $_SESSION['user']['gender']?$_SESSION['user']['gender']:'Unknown' ?></td>
+					</tr>
+					<tr>
+					  <th>Langage:</th>
+					  <td> <?= $_SESSION['user']['locale']?$_SESSION['user']['locale']:'Unknown' ?></td>
+					 </tr>
+					<tr>
+					   <th>Profile from:</th>
+					   <td> <?= $_SESSION['user']['social_network']?$_SESSION['user']['social_network']:'Unknown' ?></td>
 				</tr>
 			</table>
 
@@ -74,16 +76,35 @@
 				<div style="background-color: #415b68; color: white; width: 200px; font-size: 15px; font-weight: bold;">my Friends</div>
 				<div style="position:relative; height: 150px; width: 200px; overflow: auto; background-color: #edf2f4; top:0px;">
 					<?php 
-					if(isset($_SESSION['friends'])&&$_SESSION['friends'])
-						foreach($_SESSION['friends'] as $value)
-							echo'
-					<a style="display:block;" href=http://www.facebook.com/#!/profile.php?id='.$value->id.'">'.$value->name.'</a>';?>
+					if(isset($_SESSION['friends'])&&count($_SESSION['friends'])>0)
+					{
+						usort($_SESSION['friends'], function($f1, $f2)
+						{
+							return strcasecmp($f1['displayName'], $f2['displayName']);
+						});
+						echo '
+							<ul>';
+						foreach ($_SESSION['friends'] as $value)
+							if(isset($value['profileUrl']))
+								echo '
+								<li><a href="'.htmlspecialchars($value['profileUrl']).'">'.htmlspecialchars($value['displayName']).'</a></li>';
+							else
+								echo '
+								<li>'.htmlspecialchars($value['displayName']).'</li>';
+						echo '
+							</ul>';
+					}?>
 
 				</div>
 				
 				<!-- DESKTOP -->
+				<?php if(isset($_GET['service']) && $_GET['service']!='Desktop'):?>
+				<a href="?" style="left: 230px;position: absolute;top: 12px;">&lt;&lt; Retourner au bureau</a>
+				<?php endif;?>
 				<div id="desktop">
-					<?php $this->content();?>
+					<div<?=isset($_GET['service'])?' id="'.$_GET['service'].'"':''?>>
+						<?php $this->content();?>
+					</div>
 				</div>
 			
 				<!-- SERVICES -->
@@ -98,22 +119,22 @@
 				<a href="#" style="color: gray;">English</a> | 
 				<a href="#" style="color: gray;">Italiano</a>
 			</div>
-			<div style="position:relative; top:20px; height: 1px; background-color: #b0c0e1;"></div>
+			<!--div style="position:relative; top:20px; height: 1px; background-color: #b0c0e1;"></div>
 			<div style="position:relative; top:35px;">"Ensemble par-delà les frontières"</div>
-			<!-- LOGOs  -->
 			<table style="position:relative; top:40px;">
 				<tr>
-					<td style="padding: 5px;"><img alt="" src="img/logos/alcotra" style="width: 100px;" /></td>
-					<td style="padding: 5px;"><img alt="" src="img/logos/europe" style="width: 50px;" /></td>
-					<td style="padding: 5px;"><img alt="" src="img/logos/cg06" style="width: 100px;" /></td>
-					<td style="padding: 5px;"><img alt="" src="img/logos/regione" style="width: 100px;" /></td>
-					<td style="padding: 5px;"><img alt="" src="img/logos/PACA" style="width: 100px;" /></td>
-					<td style="padding: 5px;"><img alt="" src="img/logos/pref" style="width: 70px;" /></td>
-					<td style="padding: 5px;"><img alt="" src="img/logos/inria" style="width: 100px;" /></td>
+					<td style="padding: 5px;"><img alt="" src="style/img/logos/alcotra" style="width: 100px;" /></td>
+					<td style="padding: 5px;"><img alt="" src="style/img/logos/europe" style="width: 50px;" /></td>
+					<td style="padding: 5px;"><img alt="" src="style/img/logos/cg06" style="width: 100px;" /></td>
+					<td style="padding: 5px;"><img alt="" src="style/img/logos/regione" style="width: 100px;" /></td>
+					<td style="padding: 5px;"><img alt="" src="style/img/logos/PACA" style="width: 100px;" /></td>
+					<td style="padding: 5px;"><img alt="" src="style/img/logos/pref" style="width: 70px;" /></td>
+					<td style="padding: 5px;"><img alt="" src="style/img/logos/inria" style="width: 100px;" /></td>
 				</tr>
-			</table>
+			</table-->
 		</div>
 		<?php $this->scriptTags();?>
+		<script type="text/javascript">$("[placeholder]").textPlaceholder();</script>
 		<?php if(defined('DEBUG')&&DEBUG){?>
 		<div id="debug">
 			<?php printTraces();?>

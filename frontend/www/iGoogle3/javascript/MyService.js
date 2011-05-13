@@ -3,6 +3,7 @@ function MyService(/*string*/ _name, /*MyDesktop*/ _desktop/*=new MyDesktop()*/,
 	_column = _column||0;
 	var _xhr = createCrossXMLHttpRequest();
 	var _window;
+	var _url	= "?ajax&service="+_name;
 	/*MyWindow*/	this.getWindow		= function()					{return _window;};
 	/*void*/		this.setWindow		= function(/*MyWindow*/ val)	{_window = val;};
 	var headLoadListener = function()
@@ -10,19 +11,21 @@ function MyService(/*string*/ _name, /*MyDesktop*/ _desktop/*=new MyDesktop()*/,
 		if (_xhr.readyState == 4 && (_xhr.status == 200 || _xhr.status == 0))
 		{
 			loadHead();
-			if(_xhr.addEventListener)
-				_xhr.removeEventListener("readystatechange", headLoadListener, false);
+			//if(_xhr.removeEventListener)
+			//	removeEventListenerToElement(_xhr, "readystatechange", headLoadListener);
+			//else
+				delete _xhr.onreadystatechange;
 			requestBody();
 		}
 	};
 	var requestHead	= function()
 	{
-		_xhr.open("GET"," ?service="+_name+"&headload", true);
-		_xhr.send(null);
-		if(_xhr.addEventListener)
-			_xhr.addEventListener("readystatechange", headLoadListener, false);
-		else
+		_xhr.open("GET",_url+"&headload", true);
+		//if(_xhr.addEventListener)
+		//	addEventListenerToElement(_xhr, "readystatechange", headLoadListener);
+		//else
 			_xhr.onreadystatechange = headLoadListener;
+		_xhr.send(null);
 	};
 	var loadHead	= function()
 	{
@@ -46,18 +49,20 @@ function MyService(/*string*/ _name, /*MyDesktop*/ _desktop/*=new MyDesktop()*/,
 		if (_xhr.readyState == 4 && (_xhr.status == 200 || _xhr.status == 0))
 		{
 			loadBody();
-			if(_xhr.addEventListener)
-				_xhr.removeEventListener("readystatechange", headLoadListener, false);
+			//if(_xhr.removeEventListener)
+			//	removeEventListenerToElement(_xhr, "readystatechange", headLoadListener);
+			//else
+			delete _xhr.onreadystatechange;
 		}
 	};
 	var requestBody	= function()
 	{
-		_xhr.open("GET","?service="+_name, true);
-		_xhr.send(null);
-		if(_xhr.addEventListener)
-			_xhr.addEventListener("readystatechange", bodyLoadListener, false);
-		else
+		_xhr.open("GET",_url, true);
+		//if(_xhr.addEventListener)
+		//	addEventListenerToElement(_xhr, "readystatechange", bodyLoadListener);
+		//else
 			_xhr.onreadystatechange = bodyLoadListener;
+		_xhr.send(null);
 	};
 	var loadBody	= function()
 	{
@@ -82,29 +87,32 @@ function MyService(/*string*/ _name, /*MyDesktop*/ _desktop/*=new MyDesktop()*/,
 		}
 		
 		_window.setContent(content);
-		/*
+		//*
 		//exécuter les javacripts
 		var scripts	= content.getElementsByTagName("script");
 		for(var i=0 ; i<scripts.length ; i++)
 		{
-			include(scripts[i].src);
+			if(scripts[i].src)
+				include(scripts[i].src);
+			else
+				eval(scripts[i].innerHTML);
 			scripts[i].parentNode.removeChild(scripts[i]);i--;
 		}//*/
 	}
-	var loadService	= function(name)
+	var loadService	= function(url)
 	{
-		_name = name;
+		_url = url;
 		requestHead();
 	};
 	var linkAction = function(evt)
 	{
 		var url	= evt.currentTarget.getAttribute("href");
-		if( (url !== "#") && (url.match(/^[a-z]+:\/\//) !== 0) )// si URL interne
+		if( (url !== "#") && !url.match(/^[a-z]+:\/\//) )// si URL interne
 		{
 			if(url.match(/^[^?]*\?service=/) !== 0) // si la variable service existe
-				loadService(url.replace(/^[^?]*\?service=/,""));
+				loadService(url.replace(/^[^?]*/,""));
 			else
-				loadService(url.replace(/^([^?]*\?)?/,_name + "&"));
+				loadService("?ajax&service="+url.replace(/^([^?]*\?)?/,_name + "&"));
 				
 			evt.preventDefault();
 		}
@@ -118,16 +126,17 @@ function MyService(/*string*/ _name, /*MyDesktop*/ _desktop/*=new MyDesktop()*/,
 			url = url.replace(/^[^?]*\?service=/,"");
 			var data = new FormSerializer(form).serialize();
 			if(form.method.toUpperCase() == "POST")
-				alert("@todo faire l'envoir pour les formulaire en POST\n"+data);
+				alert("@todo faire l'envoit pour les formulaire en POST\n"+data);
 			else
-				loadService(_name+"&"+data);
+				loadService("?ajax&service="+_name+"&"+data);
 			evt.preventDefault();
 		}
 	};
     (function /*_constructor*/()
 	{
 		_window	= newMyWindow(_name, _desktop, _column);
-    	loadService(_name);
+		_window.setIcon("services/"+_name+"/icon.png");
+    	loadService("?ajax&service="+_name);
 	})();
 	_desktop.addWindow(this.getWindow());
 }

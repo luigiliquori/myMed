@@ -62,7 +62,7 @@ function FormSerializer(/* FormHTMLElement */form)
 		for( var i=0 ; i<form.elements.length ; i++)
 		{
 			var value = this.getValue(form.elements[i]);
-			if(value !== null)
+			if(value !== null&&form.elements[i].name)
 			{
 				if(strSerialize !== "")
 					strSerialize += "&";

@@ -29,7 +29,8 @@ body>div {
 	border-bottom	: solid 1px #B6C5FF;
 	position		: relative;
 	margin			: 1.4ex;
-	text-align	: left;
+	text-align		: left;
+	padding-left	: 32px;
 }
 #header h1 {
 	font-size	: inherit;
@@ -47,32 +48,20 @@ body>div {
 	display		: inline;
 	list-style	: none;
 }
+/******* Connexion ****/
 #header div.connexion {
 	position	: absolute;
 	top			: 0;
 	right		: 0;
-}
-#header div.connexion div {
-	display		: none;
-	position	: absolute;
-	right		: 0;
 	text-align	: right;
 	z-index		: 1;
 }
-#header div.connexion:hover div {
-	display	: block;
-}
-#header div.connexion div div {
-	display	: block;
-	position	: inherit;
-}
-#header div.connexion form ,
-#header div.connexion form div ,
-#header div.connexion:hover form div {
+#header div.connexion form.logout ,
+#header div.connexion form.logout div {
 	display		: inline;
 	position	: static;
 }
-#header div.connexion form div input {
+#header div.connexion form.logout div input {
 	display		: inline;
 	border		: none 0;
 	padding		: 0;
@@ -82,8 +71,47 @@ body>div {
 	color		: #0036C8;
 	cursor		: pointer;
 }
-#header div.connexion form div input:hover {
+#header div.connexion form.logout div input:hover {
 	color		: red;
+}
+#header div.connexion div.connexionList {
+	background-color	: #DEE5E4;
+	border				: 1px solid #BDCCC9;
+	text-align			: left;
+	display				: none;
+}
+#header div.connexion.form div.connexionList ,
+#header div.connexion:hover div.connexionList {
+	display				: block;
+}
+#header div.connexion div.connexionList>a {
+	display		: block;
+	line-height			: 24px;
+	height				: 24px;
+	padding-left		: 24px;
+	padding-right		: 2px;
+	background-repeat	: no-repeat;
+	background-position	: 1px center;
+}
+#header div.connexion div.connexionList>a:hover {
+	background-color	: #BDCCC9;
+}
+#header div.connexion div a.facebook {	background-image	: url("../img/icon/facebook.png");}
+#header div.connexion div a.google {	background-image	: url("../img/icon/google_c.png");}
+#header div.connexion div a.mymed {		background-image	: url("../img/icon/mymed_c.png");}
+#header div.connexion div a.openid {	background-image	: url("../img/icon/openid_c.png");}
+#header div.connexion div a.twitter {	background-image	: url("../img/icon/twitter_c.png");}
+#header div.connexion div form {
+	display		: table;
+}
+#header div.connexion div form>* {
+	display		: table-row;
+}
+#header div.connexion div form>*>* {
+	display		: table-cell;
+}
+#header div.connexion div form .submitRow {
+	text-align	: right;
 }
 
 /******* SEARCH *******/
@@ -97,7 +125,20 @@ body>div {
 	padding-left		: 116px;
 	padding-top			: 2.4em;
 	margin-top			: 1em;
+	position	: relative;
 	text-align	: left;
+}
+#search a.homeLink {
+	display		: block;
+	position	: absolute;
+	height		: 70px;
+	width		: 116px;
+	left		: 0;
+	top			: 50%;
+	margin-top	: -35px;
+}
+#search a.homeLink span {
+	display		: none;
 }
 #search ul {
 	list-style	: none;
@@ -264,6 +305,14 @@ div.desktop div.window div.titlebar {
 	font-family: Arial, sans-serif;
 	padding:0 1ex;
 }
+div.desktop div.window div.titlebar img {
+	height			: 1.3em;
+	width			: 1.3em;
+	margin-left		: -0.5ex;
+	margin-right	: 0.5ex;
+	margin-top		: -0.5ex;
+	vertical-align	: middle;
+}
 div.desktop div.window div.titlebar .title {
 	display:inline-block;
 	margin:0.5ex 0;
@@ -340,7 +389,8 @@ div.desktop div.window div.titlebar div.menu ul hr {
 	margin:0.5ex 1ex;
 }
 div.desktop div.window div.titlebar div.menu:hover ,
-div.desktop div.window div.titlebar button.options:focus + div.menu {
+div.desktop div.window div.titlebar button.options:focus + div.menu ,
+div.desktop div.window div.titlebar button.options.focus + div.menu {
 	display:block;
 }
 div.desktop div.window div.content {

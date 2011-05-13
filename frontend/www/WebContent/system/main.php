@@ -14,17 +14,12 @@ require_once dirname(__FILE__).'/Debug.class.php';
 require_once dirname(__FILE__).'/TemplateManager.class.php';
 require_once dirname(__FILE__).'/ContentObject.class.php';
 
-if(isset($_POST["logout"])) //@todo warning was a $_GET var
-{
-	session_destroy();
-	header('Location:'.$_SERVER["REQUEST_URI"]);
-	exit;
-}
-if(isset($_SESSION['user']))
+define('USER_CONNECTED', isset($_SESSION['user']) );
+if(USER_CONNECTED)
 {
 	if(!isset($_GET['service']))
 		$_GET['service'] = 'Desktop';
-	$serviceFile = dirname(__FILE__).'/../services/'.strtolower($_GET['service']).'/'.$_GET['service'].'.class.php';
+	$serviceFile = dirname(__FILE__).'/../services/'.$_GET['service'].'/'.$_GET['service'].'.class.php';
 	if(is_file($serviceFile))
 	{
 		require_once($serviceFile);
@@ -32,7 +27,7 @@ if(isset($_SESSION['user']))
 	}
 	else
 	{
-		require_once(dirname(__FILE__).'/../services/dynamic/Dynamic.class.php');
+		require_once(dirname(__FILE__).'/../services/Dynamic/Dynamic.class.php');
 		$templateManager = new TemplateManager(new Dynamic(), "home");
 	}
 }

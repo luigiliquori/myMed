@@ -12,21 +12,26 @@ class myTransport extends ContentObject
 	public /*void*/ function headTags()
 	{
 		?>
-		<link rel="stylesheet" type="text/css" href="style/jquery.autocomplete.css" />
+		<link rel="stylesheet" type="text/css" href="services/myTransport/jquery.autocomplete.css" />
 		<style>
 		#myTransport {
 			min-height: 248px;
     		width:100%;
     		height:100%;
     		overflow:auto;
-    		background-image: url('style/img/carpooling.jpg');
+    		background-image: url('services/myTransport/background.jpg');
+    		background-repeat		: no-repeat;
+    		background-size			: 100% auto;
+    		-moz-background-size	: 100% auto;
+    		-o-background-size		: 100% auto;
+    		-khtml-background-size	: 100% auto;
 		}
 		#myTransport th {
 			text-align	: inherit;
 		}
 		</style>
-		<script type="text/javascript" src="javascript/jquery.autocomplete_geomod.js"></script>
-		<script type="text/javascript" src="javascript/geo_autocomplete.js"></script>
+		<script type="text/javascript" src="services/myTransport/jquery.autocomplete_geomod.js"></script>
+		<script type="text/javascript" src="services/myTransport/geo_autocomplete.js"></script>
 <?php
 	}
 	/**

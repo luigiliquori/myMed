@@ -1,7 +1,7 @@
 <?php
 class Debug
 {
-	private static $colored = false;// false for PHP > 5.3 (already colored)
+	private static $colored = false;// false if html_errors = On on php.ini
 	public static $directOutput = false;
 	private static $buffer = '';
 	/*a colored var_dump*/
@@ -22,7 +22,7 @@ class Debug
 		//$tampon = preg_replace('#"(.*)(((<span[^<>]*>)|(</span>))(.*))*"#isU','"$1$6"',$tampon);
 		$tampon = preg_replace_callback('#"(([^"]|\\\\")*)"#isU','Debug::var_dump_helper_replaceInerQuotes',$tampon); 
 		$tampon = preg_replace('#"(.*)"#isU','<span style="color:#808080;">$0</span>',$tampon);
-		return '<pre style="background-color:#FFFFFF;border:solid 1px #C0C0C0;overflow:auto;text-align:left;"><code>'.$tampon.'</code></pre>';
+		return '<pre style="background-color:#FFFFFF;border:solid 1px #C0C0C0;overflow:auto;text-align:left;font-weight:normal;color:#000;font-size:11px;"><code>'.$tampon.'</code></pre>';
 	}
 	private /*void*/ static function var_dump_helper_replaceInerQuotes($masque)
 	{
