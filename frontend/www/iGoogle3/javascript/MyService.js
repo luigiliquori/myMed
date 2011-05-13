@@ -14,7 +14,7 @@ function MyService(/*string*/ _name, /*MyDesktop*/ _desktop/*=new MyDesktop()*/,
 			//if(_xhr.removeEventListener)
 			//	removeEventListenerToElement(_xhr, "readystatechange", headLoadListener);
 			//else
-				delete _xhr.onreadystatechange;
+				_xhr.onreadystatechange = function(){};
 			requestBody();
 		}
 	};
@@ -52,7 +52,7 @@ function MyService(/*string*/ _name, /*MyDesktop*/ _desktop/*=new MyDesktop()*/,
 			//if(_xhr.removeEventListener)
 			//	removeEventListenerToElement(_xhr, "readystatechange", headLoadListener);
 			//else
-			delete _xhr.onreadystatechange;
+				_xhr.onreadystatechange = function(){};
 		}
 	};
 	var requestBody	= function()
