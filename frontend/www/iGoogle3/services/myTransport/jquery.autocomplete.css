@@ -35,7 +35,7 @@
 }
 
 .ac_loading {
-	background: white url('img/loading.gif') right center no-repeat;
+	background: white url('../../style/img/loading.gif') right center no-repeat;
 }
 
 .ac_odd {
