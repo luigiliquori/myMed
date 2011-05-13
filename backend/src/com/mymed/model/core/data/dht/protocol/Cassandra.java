@@ -278,10 +278,8 @@ public class Cassandra extends AbstractDHTClient implements IDHTClient {
 		Map<byte[], byte[]> slice = new HashMap<byte[], byte[]>();
 		try {
 			tr.open();
-			// read entire row
 			SlicePredicate predicate = new SlicePredicate();
 			predicate.setColumn_names(columnNames);
-
 			ColumnParent parent = new ColumnParent(columnFamily);
 			List<ColumnOrSuperColumn> results = client.get_slice(keyspace,
 					key, parent, predicate, ConsistencyLevel.ONE);

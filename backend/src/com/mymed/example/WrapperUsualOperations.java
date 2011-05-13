@@ -1,7 +1,9 @@
 package com.mymed.example;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.cassandra.thrift.InvalidRequestException;
@@ -129,6 +131,28 @@ public class WrapperUsualOperations {
 			//				System.out.println("\t" + new String(values.get(s)));
 			//			}
 			//			System.out.println();
+			
+			Map<String, byte[]> arguments2 = new HashMap<String, byte[]>();
+			List<String> columnNames = new ArrayList<String>();
+			arguments2.put("id", "rangetest".getBytes("UTF8"));
+			for(int i=0; i<10 ; i++){
+				arguments2.put("test" + i, ("value" + i).getBytes("UTF8"));
+				columnNames.add("test" + i);
+			}
+
+			// Call the "insertInto(tableName, primaryKey, args)" method:
+			//		. you have to specify the primary key like in sql
+			if(!wrapper.insertInto("Users", "id", arguments2)){
+				System.err.println("Users not insered!");
+				System.exit(1);
+			}
+			// To retrieve all the values just call: selectAll(tableName, primaryKey)
+			System.out.println("3) selectRange:");
+			Map<byte[], byte[]> values2 = wrapper.selectRange("Users", "rangetest", columnNames); 
+			for(byte[] s : values2.keySet()){
+				System.out.println("\t" + new String(values2.get(s)));
+			}
+			System.out.println();
 
 		} catch (UnsupportedEncodingException e1) {
 			e1.printStackTrace();
