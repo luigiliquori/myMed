@@ -6,6 +6,7 @@
 	
 	<!-- TITLE -->
 	<title>myMed&gt;<?php $this->getTitle();?></title>
+	<script src="jquery/dist/jquery.js"></script>
 	<?php $this->headTags();?>
 	
 	<!-- STYLESHEET -->
@@ -13,7 +14,6 @@
 		<!-- define styles of type of elements (ex:h1, p, p.myclass...)-->
 		<link rel="stylesheet" href="style/desktop/design.css" />
 		<!-- define design of website -->
-		<script src="jquery/dist/jquery.js"></script>
 		<script type="text/javascript" src="javascript/jquery.textPlaceholder.js"></script>
   </head>
   <body>
