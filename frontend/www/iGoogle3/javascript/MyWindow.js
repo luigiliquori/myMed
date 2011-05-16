@@ -167,7 +167,10 @@ function newMyWindow(/*String*/ title/*=""*/, /*MyDesktop*/ desktop/*=new MyDesk
 			othis.style.zIndex	= "1";
 			othis.style.margin	= "0";
 			addEventListenerToElement(desktop.getHTMLElement(), "mousemove", drag);
-			addEventListenerToElement(window, "mouseup", drop);
+			if(ie_version&&ie_version<9)
+				addEventListenerToElement(document, "mouseup", drop);
+			else
+				addEventListenerToElement(window, "mouseup", drop);
 			evt.preventDefault();
 		}
 	};
@@ -188,8 +191,8 @@ function newMyWindow(/*String*/ title/*=""*/, /*MyDesktop*/ desktop/*=new MyDesk
 	};
 	var drag = function(/*Event*/ evt)
 	{
-		var x	= (evt.offsetX||evt.layerX)+calcOffsetLeftFromDesktop(evt.target);
-		var y	= (evt.offsetY||evt.layerY)+calcOffsetTopFromDesktop(evt.target);
+		var x	= (evt.layerX||evt.offsetX)+calcOffsetLeftFromDesktop(evt.target);
+		var y	= (evt.layerY||evt.offsetY)+calcOffsetTopFromDesktop(evt.target);//*
 		var column = desktop.getColumnByPixelOffset(x);
 		var elem = getElementInColumn(column, y);
 		if(elem)
@@ -197,7 +200,7 @@ function newMyWindow(/*String*/ title/*=""*/, /*MyDesktop*/ desktop/*=new MyDesk
 		else
 			column.appendChild(shadowDiv);
 		othis.style.left	= (x-mouseOffset.x)+"px";
-		othis.style.top		= (y-mouseOffset.y)+"px";
+		othis.style.top		= (y-mouseOffset.y)+"px";//*/
 		evt.preventDefault();
 	};
 	var drop = function(/*Event*/ evt)
@@ -211,7 +214,10 @@ function newMyWindow(/*String*/ title/*=""*/, /*MyDesktop*/ desktop/*=new MyDesk
 		shadowDiv.parentNode.insertBefore(othis, shadowDiv);
 		shadowDiv.parentNode.removeChild(shadowDiv);
 		removeEventListenerToElement(desktop.getHTMLElement(), "mousemove", drag);
-		removeEventListenerToElement(window, "mouseup", drop);
+		if(ie_version&&ie_version<9)
+			removeEventListenerToElement(document, "mouseup", drop);
+		else
+			removeEventListenerToElement(window, "mouseup", drop);
 	};
 	var calcOffsetTopFromDesktop = function(/*HTMLElement*/ element)
 	{
@@ -239,10 +245,11 @@ function newMyWindow(/*String*/ title/*=""*/, /*MyDesktop*/ desktop/*=new MyDesk
 			othis.getElementsByClassName = patchGEBCN.getElementsByClassName;
 		if(title)
 			othis.setTitle(title);
-		shadowDiv.className	= "windowshadow";
+		shadowDiv.className	= "windowshadow";/*
+		addEventListenerToElement(othis.getElementsByClassName("titlebar")[0], "click", drag);/*/
 		addEventListenerToElement(othis.getElementsByClassName("titlebar")[0], "mousedown", startdrag);
 		addEventListenerToElement(othis.getElementsByClassName("minimize")[0], "click", othis.toogleMinimize);
-		addEventListenerToElement(othis.getElementsByClassName("maximize")[0], "click", othis.toogleMaximize);
+		addEventListenerToElement(othis.getElementsByClassName("maximize")[0], "click", othis.toogleMaximize);//*/
 		addEventListenerToElement(othis.getElementsByClassName("close")[0], "click", othis.close);
 		var buttons	= othis.getElementsByClassName("titlebar")[0].getElementsByTagName("button");
 		for(var i=0 ; i<buttons.length ; i++)

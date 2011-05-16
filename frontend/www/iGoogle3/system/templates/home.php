@@ -28,6 +28,9 @@ if(defined('MIMETYPE_XHTML')&&MIMETYPE_XHTML)
 		<script type="text/javascript" src="javascript/jquery.textPlaceholder.js"></script>
 		<script type="text/javascript" src="javascript/display.js"></script>
 		
+		<!--[if IE]>
+		<script type="text/javascript">ie_version=parseFloat(navigator.appVersion.split("MSIE")[1]);</script>
+		<![endif]-->
 	</head>
 	<body>
 		<div id="header">
