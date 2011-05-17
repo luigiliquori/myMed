@@ -144,12 +144,19 @@ function newMyWindow(/*String*/ title/*=""*/, /*MyDesktop*/ desktop/*=new MyDesk
 		othis.parentNode.removeChild(othis);
 		othis = null;
 	}
+	var isIELessThan = function(/*double*/ requireVersion)
+	{
+		if(typeof(ie_version) != "undefined")
+			if(ie_version < requireVersion)
+				return true;
+		return false;
+	}
 	// window drag and drop
 	var mouseOffset = null;
 	var startdrag = function(/*Event*/ evt)
 	{
 		var EVENT_MOUSE_LEFT = 0; // standard W3C (dont IE9)
-		if(window.event&&(/MSIE (\d+)/.test(navigator.userAgent))&&(new Number(RegExp.$1)<9)) 	// standard IE (aussi accepté par IE9)
+		if(window.event&&isIELessThan(9)) 	// standard IE (aussi accepté par IE9)
 			var EVENT_MOUSE_LEFT = 1;
 		if(evt.button == EVENT_MOUSE_LEFT && desktop)
 		{
@@ -167,7 +174,7 @@ function newMyWindow(/*String*/ title/*=""*/, /*MyDesktop*/ desktop/*=new MyDesk
 			othis.style.zIndex	= "1";
 			othis.style.margin	= "0";
 			addEventListenerToElement(desktop.getHTMLElement(), "mousemove", drag);
-			if(ie_version&&ie_version<9)
+			if(isIELessThan(9))
 				addEventListenerToElement(document, "mouseup", drop);
 			else
 				addEventListenerToElement(window, "mouseup", drop);
@@ -214,7 +221,7 @@ function newMyWindow(/*String*/ title/*=""*/, /*MyDesktop*/ desktop/*=new MyDesk
 		shadowDiv.parentNode.insertBefore(othis, shadowDiv);
 		shadowDiv.parentNode.removeChild(shadowDiv);
 		removeEventListenerToElement(desktop.getHTMLElement(), "mousemove", drag);
-		if(ie_version&&ie_version<9)
+		if(isIELessThan(9))
 			removeEventListenerToElement(document, "mouseup", drop);
 		else
 			removeEventListenerToElement(window, "mouseup", drop);

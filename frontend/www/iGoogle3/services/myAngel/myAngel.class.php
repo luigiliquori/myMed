@@ -1,5 +1,5 @@
 <?php
-class myBigApp extends ContentObject
+class myAngel extends ContentObject
 {
 	/**
 	 * Method to define the title of the page
@@ -13,18 +13,28 @@ class myBigApp extends ContentObject
 	{
 		?>
 		<style>
-		#myBigApp {
+		#myAngel ,#myAngel * {
 			min-height: 248px;
     		width:100%;
     		height:100%;
-		}/*
-		#myBigApp button {
-			height:100%;
-			width:100%;
-			background-color:red;
-			border-radius:1em;
-			border: solid 1px  #800	background-image:-moz-linear-gradient(top,#f00, #c00);
-		}*/
+		}
+		#myAngel button {
+			border					: 0 none;
+			background-image		: url("services/myAngel/button.png");
+			background-position		: center;
+			background-repeat		: no-repeat;
+			background-color		: #000000;
+			background-size			: auto 100%;
+			-moz-background-size	: auto 100%;
+			-o-background-size		: auto 100%;
+			-khtml-background-size	: auto 100%;
+		}
+		#myAngel button:hover {
+			background-image		: url("services/myAngel/button_hover.png");
+		}
+		#myAngel button span {
+			display	: none;
+		}
 		</style>
 <?php
 	}
@@ -37,9 +47,13 @@ class myBigApp extends ContentObject
 	 */
 	public /*void*/ function contentGet()
 	{
-		/*?>
-		<button>Alert</button>
-		<?php*/
+		?>
+		<form method="post" action="#" onsubmit="return false;">
+			<div>
+				<button type="submit"><span>Alert</span></button>
+			</div>
+		</form>
+		<?php
 	}
 	/**
 	 * Called page called with POST method, Can't print anything

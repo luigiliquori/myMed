@@ -1,7 +1,7 @@
 <?php 
-require_once dirname(__FILE__).'/config.php';
-set_magic_quotes_runtime(false);// ne pas utiliser les magic_quotes
 ob_start("ob_gzhandler");		// compression des pages
+@set_magic_quotes_runtime(false);// ne pas utiliser les magic_quotes
+require_once dirname(__FILE__).'/config.php';
 ini_set('session.use_trans_sid', 0);
 ini_set('session.cookie_path', ROOTPATH);
 if(defined('DEBUG')&&DEBUG)

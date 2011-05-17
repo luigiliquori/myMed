@@ -36,7 +36,6 @@ class Application
 					<p>'.$this->description.'</p>
 					<div class="grade">
 						<div class="cursor" style="width:'.($this->grade*100/5).'%">
-							<var>'.$this->grade.'&#160;/&#160;5</var>
 						</div>
 						<span class="text">Notez&#160;:</span>
 						<ul>
@@ -76,6 +75,7 @@ class Application
 								</a>
 							</li>
 						</ul>
+						<var>'.$this->grade.'&#160;/&#160;5</var>
 					</div>';
 	}
 }
