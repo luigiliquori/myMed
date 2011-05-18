@@ -1,27 +1,29 @@
 <?php
-require '../config.php';
-require 'ProfileRequest.class.php';/*
-$profileRequest = new ProfileRequest();
-$profileRequest->create(new Profile);//*/
+require_once dirname(__FILE__).'/../config.php';
+require_once dirname(__FILE__).'/ProfileRequest.class.php';
+require_once dirname(__FILE__).'/LoginRequest.class.php';//*
+$request = new LoginRequest();
+echo $request->read("https://www.google.com/accounts/o8/id?id=AItOawnfWXPUnLKvaa5VRSoseoqAGKMB7tGASw0", "Google");//*/
 $json = '
 {
-	"id" : "https://www.google.com/accounts/o8/id?id=AItOawnfWXPUnLKvaa5VRSoseoqAGKMB7tGASw0",
-	"social_network" : "Google",
+	"mymedID" : "Googlehttps://www.google.com/accounts/o8/id?id=AItOawnfWXPUnLKvaa5VRSoseoqAGKMB7tGASw0",
+	"socialNetworkID" : "https://www.google.com/accounts/o8/id?id=AItOawnfWXPUnLKvaa5VRSoseoqAGKMB7tGASw0",
+	"socialNetworkName" : "Google",
 	"name" : "Bastien BLANCHARD",
-	"first_name" : "Bastien",
-	"last_name" : "BLANCHARD",
+	"firstName" : "Bastien",
+	"lastName" : "BLANCHARD",
 	"link" : "https://www.google.com/accounts/o8/id?id=AItOawnfWXPUnLKvaa5VRSoseoqAGKMB7tGASw0",
 	"birthday" : "1988-08-13",
 	"hometown" : "Saint Paul de Vence",
 	"gender" : "M",
-	"buddy_list" : null,
-	"subscribtion_list" : null,
+	"buddyList" : null,
+	"subscribtionList" : null,
 	"reputation" : null,
 	"session" : null,
-	"transaction_list" : null,
+	"transactionList" : null,
 	"email" : null,
 	"possword" : null,
-	"profile_picture" : "http://www.google.com/ig/c/photos/private/AIbEiAIAAABECMCusuKX8-3ShAEiC3ZjYXJkX3Bob3RvKihmZTQxNTQyOWY4Mjk5ZTZlODljODc4ZDhlZTcwM2M0OGUwZDRjNjQxMAGC2lYmoQXC3tho_CBP6qrCdOU_yQ"
+	"profilePicture" : "http://www.google.com/ig/c/photos/private/AIbEiAIAAABECMCusuKX8-3ShAEiC3ZjYXJkX3Bob3RvKihmZTQxNTQyOWY4Mjk5ZTZlODljODc4ZDhlZTcwM2M0OGUwZDRjNjQxMAGC2lYmoQXC3tho_CBP6qrCdOU_yQ"
 }';
 var_dump(json_decode($json));
 switch(json_last_error())
