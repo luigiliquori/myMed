@@ -19,7 +19,7 @@ class BackendRequestException extends Exception
 	public /*string*/ function httpCodeTranslate()
 	{
     	switch($this->code)
-    	{
+    	{// src : http://fr.wikipedia.org/wiki/Liste_des_codes_HTTP
 			case 100	: return 'Continue';
 			case 101	: return 'Switching Protocols';
 			case 102	: return 'Processing';
@@ -107,7 +107,7 @@ class BackendRequest
 	
 	public /*void*/ function addArgument(/*string*/ $name, /*string*/ $value)
 	{
-		$this->arguments[$name]	= $value;
+		$this->arguments["$name"]	= "$value";
 	}
 	
 	public /*void*/ function removeArgument(/*string*/ $name)
@@ -136,29 +136,32 @@ class BackendRequest
 		if($curl === false)
 			trigger_error('Unable to init CURL : ', E_USER_ERROR);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		$httpHeader = Array('Accept: text/plain,application/json');
 		$this->arguments['code']	= $this->method;
 		switch($this->method)
 		{
 			case BackendRequest_CREATE:
 			case BackendRequest_UPDATE:
 			{
+				$httpHeader[] = 'Content-Type:application/x-www-form-urlencoded';
+				curl_setopt($curl, CURLOPT_HTTPHEADER, $httpHeader);
 				curl_setopt($curl, CURLOPT_URL, BACKEND_URL.$this->ressource);
 				curl_setopt($curl, CURLOPT_POST, true);
-				curl_setopt($curl, CURLOPT_POSTFIELDS, $this->arguments);
+				curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($this->arguments));
 			}break;
 			case BackendRequest_READ:
 			case BackendRequest_DELETE:
 			{
+				curl_setopt($curl, CURLOPT_HTTPHEADER, $httpHeader);
 				curl_setopt($curl, CURLOPT_URL, BACKEND_URL.$this->ressource.'?'.http_build_query($this->arguments));
+				//curl_setopt($curl, CURLOPT_URL, BACKEND_URL.$this->ressource.'?toto=tata');
 			}break;
 			default:
 				curl_close($curl);
 				trigger_error('BackendRequest method '.$this->method.' not suported', E_USER_ERROR);
 		}
-		//*
-		$data 	= curl_exec($curl);/*/$data = '';//*/
-		//var_dump(curl_getinfo($curl));
-		
+		$data 	= curl_exec($curl);
+	var_dump($data);	
 		if($data === false)
 			$excurl = new CUrlException(curl_error($curl), curl_errno($curl));
 		$httpCode	= curl_getinfo($curl, CURLINFO_HTTP_CODE);
