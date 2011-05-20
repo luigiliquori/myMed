@@ -3,6 +3,10 @@ function FormSerializer(/* FormHTMLElement */form)
 	// object from Prototype Library
 	var Serializers =
 	{
+		button : function(element)
+		{
+			return null;
+		},
 		input : function(element)
 		{
 			switch(element.type.toLowerCase()){

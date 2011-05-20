@@ -1,5 +1,6 @@
 <?php
 require_once dirname(__FILE__).'/Connexion.class.php';
+require_once dirname(__FILE__).'/../system/backend/ProfileRequest.class.php';
 /**
  * A class to define an anonymous login
  * @author blanchard
@@ -10,17 +11,8 @@ class ConnexionGuest extends Connexion
 	{
 		if(isset($_POST["connexion"])&&$_POST["connexion"]=='guest')
 		{
-			$_SESSION['user'] = array(
-					'id'				=> 'guest',
-					'name'				=> null,
-					'gender'			=> null,
-					'locale'			=> substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, strcspn($_SERVER['HTTP_ACCEPT_LANGUAGE'], ',;')),
-					'updated_time'		=> null,
-					'profile'			=> null,
-					'profile_picture'	=> null,
-					'social_network'	=> 'Guest');
-			$encoded = json_encode($_SESSION['user']);
-			file_get_contents(trim(BACKEND_URL."ProfileRequestHandler?act=0&user=" . urlencode($encoded)));
+			$request = new ProfileRequest;
+			$_SESSION['user'] = $request->read('visiteur');
 			header('Location:'.$_SERVER["REQUEST_URI"]);
 			exit;
 		}

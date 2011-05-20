@@ -52,7 +52,7 @@ class Desktop extends ContentObject
 			'myJam'			=> Array('x'=>15,	'y'=>100),
 			'myTranslator'	=> Array('x'=>15,	'y'=>180),
 			'myJob'			=> Array('x'=>15,	'y'=>260),
-			'myKayak'		=> Array('x'=>107,	'y'=>20),
+			'myAngel'		=> Array('x'=>107,	'y'=>20),
 			'myMontagne'	=> Array('x'=>107,	'y'=>100)/**/);
 		
 		//DISPLAY MENU
