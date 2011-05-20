@@ -1,5 +1,6 @@
 package com.mymed.model.core.wrapper.exception;
 
+
 /**
  * 
  * @author lvanni

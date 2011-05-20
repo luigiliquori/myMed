@@ -2,6 +2,8 @@ package com.mymed.model.core.data.dht.configuration;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -117,8 +119,21 @@ public class Config {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// If the config xml file is not found, the configuration
+			// will be defined with the default values
+			String host = "127.0.0.1";
+			try {
+				host = InetAddress.getLocalHost().getHostAddress();
+			} catch (UnknownHostException e1) {
+				e1.printStackTrace();
+			}
+			this.cassandraListenAddress = host;
+			this.thriftPort = 4201;
+			this.chordListenAddress = host;
+			this.chordStoragePort = 0;
+			this.kadListenAddress = host;
+			this.kadStoragePort = 0;
+			System.out.println("\nWRARNING: no config xml file found!");
 		}
 	}
 	
@@ -153,7 +168,7 @@ public class Config {
 	}
 
 	public void setThriftPort(int thriftPort) {
-		thriftPort = thriftPort;
+		this.thriftPort = thriftPort;
 	}
 
 	public String getChordListenAddress() {

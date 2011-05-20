@@ -1,20 +1,12 @@
 package com.mymed.example;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.cassandra.thrift.InvalidRequestException;
-import org.apache.cassandra.thrift.NotFoundException;
-import org.apache.cassandra.thrift.TimedOutException;
-import org.apache.cassandra.thrift.UnavailableException;
-import org.apache.thrift.TException;
-
 import com.mymed.model.core.wrapper.IWrapper;
 import com.mymed.model.core.wrapper.Wrapper;
-import com.mymed.model.core.wrapper.exception.WrapperException;
 
 /**
  * This class is an example of the common put/get DHT operation
@@ -154,26 +146,8 @@ public class WrapperUsualOperations {
 			}
 			System.out.println();
 
-		} catch (UnsupportedEncodingException e1) {
-			e1.printStackTrace();
-		} catch (WrapperException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-		} catch (InvalidRequestException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UnavailableException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (TimedOutException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (TException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		} 
 	}
 }

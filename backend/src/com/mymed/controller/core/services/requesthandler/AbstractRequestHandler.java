@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.mymed.controller.core.services.ServiceManager;
+import com.mymed.controller.core.services.requesthandler.exception.InternalBackEndException;
 
 public abstract class AbstractRequestHandler extends HttpServlet {
 
@@ -23,28 +23,45 @@ public abstract class AbstractRequestHandler extends HttpServlet {
 
 	/** Google library to handle jSon request */
 	private Gson gson;
-	
-	/** WPF1 - INRIA - Overlay Networks and Pub/Sub Paradigm */
-	private ServiceManager serviceManager;
-	
+
 	/** The response/feedback printed */
-	private String response = "null";
-	
+	private String responseText = null;
+
+	/** Request code Map*/ 
+	protected Map<String, RequestCode> requestCodeMap = new HashMap<String, RequestCode>();
+
+	/** Request codes*/ 
+	protected enum RequestCode {
+		// C.R.U.D 
+		CREATE ("0"), 	
+		READ ("1"), 
+		UPDATE ("2"),
+		DELETE ("3");
+
+		public final String code;
+
+		RequestCode(String code){
+			this.code = code;
+		}
+	}
+
 	/* --------------------------------------------------------- */
 	/*                      Constructors                         */
 	/* --------------------------------------------------------- */
 	protected AbstractRequestHandler(){
 		this.gson = new Gson();
-		this.serviceManager = new ServiceManager();
+		for(RequestCode r : RequestCode.values()){
+			requestCodeMap.put(r.code, r);
+		}
 	}
-	
+
 	/* --------------------------------------------------------- */
 	/*                      protected methods       	         */
 	/* --------------------------------------------------------- */
 	/**
 	 * @return the parameters of an HttpServletRequest
 	 */
-	protected Map<String, String> getParameters(HttpServletRequest request){
+	protected Map<String, String> getParameters(HttpServletRequest request) throws InternalBackEndException{
 		Map<String, String> parameters = new HashMap<String, String>();
 		Enumeration<String> paramNames = request.getParameterNames();
 		while (paramNames.hasMoreElements()) {
@@ -53,10 +70,14 @@ public abstract class AbstractRequestHandler extends HttpServlet {
 			if (paramValues.length >= 1) { // all the params should be atomic
 				parameters.put(paramName, paramValues[0]);
 			}
+			System.out.println(paramName + " : " +  paramValues[0]);
+		}
+		if (!parameters.containsKey("code")){
+			throw new InternalBackEndException("code argument is missing!");
 		}
 		return parameters;
 	}
-	
+
 	/**
 	 * Print the feedback to the frontend
 	 * @param response
@@ -64,19 +85,21 @@ public abstract class AbstractRequestHandler extends HttpServlet {
 	 */
 	protected void printResponse(HttpServletResponse response) throws IOException {
 		/** Init response */
-		response.setContentType("text/html;charset=UTF-8");
-		/** send the response */
-		PrintWriter out = response.getWriter();
-		out.println(this.response);
-		out.close();
-		this.response = "null";
+		if(responseText != null) {
+			response.setContentType("text/plain;charset=UTF-8");
+			/** send the response */
+			PrintWriter out = response.getWriter();
+			System.out.println("\nResponse sent:\n\t" + this.responseText);
+			out.println(this.responseText);
+			out.close();
+			this.responseText = null;
+		}
 	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("\nGET request received :\n" + request.getQueryString());
 		printResponse(response);
 	}
 
@@ -84,7 +107,6 @@ public abstract class AbstractRequestHandler extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("\nPOST request received :\n" + request.getQueryString());
 		printResponse(response);
 	}
 
@@ -98,19 +120,12 @@ public abstract class AbstractRequestHandler extends HttpServlet {
 	public void setGson(Gson gson) {
 		this.gson = gson;
 	}
-	
-	public ServiceManager getServiceManager() {
-		return serviceManager;
+
+	public String getResponseText() {
+		return responseText;
 	}
 
-	public void setServiceManager(ServiceManager serviceManager) {
-		this.serviceManager = serviceManager;
-	}	
-	public String getResponse() {
-		return response;
-	}
-
-	public void setResponse(String response) {
-		this.response = response;
+	public void setResponseText(String responseText) {
+		this.responseText = responseText;
 	}
 }

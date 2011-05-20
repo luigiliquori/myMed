@@ -11,6 +11,8 @@ import org.apache.cassandra.thrift.TimedOutException;
 import org.apache.cassandra.thrift.UnavailableException;
 import org.apache.thrift.TException;
 
+import com.mymed.controller.core.services.requesthandler.exception.IOBackEndException;
+import com.mymed.controller.core.services.requesthandler.exception.InternalBackEndException;
 import com.mymed.model.core.wrapper.exception.WrapperException;
 
 /**
@@ -42,7 +44,7 @@ public interface IWrapper {
 	 * @return true if the entry is correctly stored, false otherwise
 	 */
 	public boolean insertInto(String tableName, String primaryKey,
-			Map<String, byte[]> args) throws WrapperException;
+			Map<String, byte[]> args) throws WrapperException, IOBackEndException, InternalBackEndException;
 
 	/**
 	 * Get the value of an entry column
@@ -56,9 +58,7 @@ public interface IWrapper {
 	 * @return the value of the column
 	 */
 	public byte[] selectColumn(String tableName, String primaryKey,
-			String columnName) throws UnsupportedEncodingException,
-			InvalidRequestException, NotFoundException, UnavailableException,
-			TimedOutException, TException, WrapperException;
+			String columnName) throws  WrapperException, IOBackEndException, InternalBackEndException;
 
 	/**
 	 * Update the value of a Simple Column
@@ -71,13 +71,10 @@ public interface IWrapper {
 	 *            the name of the column
 	 * @param value
 	 *            the value updated
-	 * @return true is the value is updated, false otherwise
 	 * @throws WrapperException
-	 * @throws UnsupportedEncodingException
 	 */
-	public boolean updateColumn(String tableName, String primaryKey,
-			String columnName, byte[] value) throws WrapperException,
-			UnsupportedEncodingException;
+	public void updateColumn(String tableName, String primaryKey,
+			String columnName, byte[] value) throws WrapperException, IOBackEndException, InternalBackEndException;
 
 	/**
 	 * Get the value of a column family
@@ -89,18 +86,10 @@ public interface IWrapper {
 	 * @param columnName
 	 *            the name of the column
 	 * @return the value of the column
-	 * @throws UnsupportedEncodingException
-	 * @throws InvalidRequestException
-	 * @throws NotFoundException
-	 * @throws UnavailableException
-	 * @throws TimedOutException
-	 * @throws TException
 	 * @throws WrapperException
 	 */
 	public Map<byte[], byte[]> selectAll(String tableName, String primaryKey)
-			throws UnsupportedEncodingException, InvalidRequestException,
-			NotFoundException, UnavailableException, TimedOutException,
-			TException, WrapperException;
+			throws WrapperException, IOBackEndException, InternalBackEndException;
 
 	/**
 	 * Get the values of a range of columns
@@ -112,18 +101,10 @@ public interface IWrapper {
 	 * @param columnNames
 	 *            the name of the columns to return the values
 	 * @return the value of the columns
-	 * @throws UnsupportedEncodingException
-	 * @throws InvalidRequestException
-	 * @throws NotFoundException
-	 * @throws UnavailableException
-	 * @throws TimedOutException
-	 * @throws TException
 	 * @throws WrapperException
 	 */
 	public Map<byte[], byte[]> selectRange(String tableName, String primaryKey,
-			List<String> columnNames) throws UnsupportedEncodingException,
-			InvalidRequestException, NotFoundException, UnavailableException,
-			TimedOutException, TException, WrapperException;
+			List<String> columnNames) throws  WrapperException, IOBackEndException, InternalBackEndException;
 
 	/**
 	 * Remove a specific column defined by the columnName
@@ -135,7 +116,7 @@ public interface IWrapper {
 	 * @throws WrapperException
 	 */
 	public void removeColumn(String tableName, String key, String columnName)
-			throws WrapperException, UnsupportedEncodingException;
+			throws WrapperException, IOBackEndException, InternalBackEndException;
 
 	/**
 	 * Common put operation
@@ -145,7 +126,7 @@ public interface IWrapper {
 	 * @param DHTType
 	 *            The type of DHT used for the operation
 	 */
-	public void put(String key, byte[] value);
+	public void put(String key, byte[] value) throws  IOBackEndException, InternalBackEndException;
 
 	/**
 	 * Common get operation
@@ -154,6 +135,6 @@ public interface IWrapper {
 	 * @param DHTType
 	 *            The type of DHT used for the operation
 	 */
-	public byte[] get(String key);
+	public byte[] get(String key) throws  IOBackEndException, InternalBackEndException;
 
 }

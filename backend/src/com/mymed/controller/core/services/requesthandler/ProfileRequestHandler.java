@@ -1,7 +1,6 @@
 package com.mymed.controller.core.services.requesthandler;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -9,91 +8,137 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mymed.model.datastructure.User;
+import com.google.gson.JsonSyntaxException;
+import com.mymed.controller.core.services.manager.pubsub.ProfileManager;
+import com.mymed.controller.core.services.requesthandler.exception.IOBackEndException;
+import com.mymed.controller.core.services.requesthandler.exception.InternalBackEndException;
+import com.mymed.model.data.MUserBean;
 
 /**
  * Servlet implementation class UsersRequestHandler
  */
 public class ProfileRequestHandler extends AbstractRequestHandler {
 	/* --------------------------------------------------------- */
-	/*                      Attributes                           */
+	/* Attributes */
 	/* --------------------------------------------------------- */
 	private static final long serialVersionUID = 1L;
 
-	/** Request code Map*/ 
-	private Map<String, RequestCode> requestCodeMap = new HashMap<String, RequestCode>();
-	
-	/** Request codes*/ 
-	private enum RequestCode {
-		// C.R.U.D Users
-		CREATE ("0"), 	// SET AN USER PROFILE INTO THE BACKBONE
-		READ ("1"), 	// GET AN USER PROFILE FROM THE BACKBONE
-		UPDATE ("2"),
-		DELETE ("3"),
-		
-		// MYMED AUTHENTICATION
-		LOGIN ("4"),
-		LOGOUT ("5");
-
-		public final String code;
-		
-		RequestCode(String code){
-			this.code = code;
-		}
-	}
-    
-	/* --------------------------------------------------------- */
-	/*                      Constructors                         */
-	/* --------------------------------------------------------- */
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ProfileRequestHandler() {
-        super();
-        // initialize the CodeMapping
-		for(RequestCode r : RequestCode.values()){
-			requestCodeMap.put(r.code, r);
-		}
-    }
+	private ProfileManager profileManager;
 
 	/* --------------------------------------------------------- */
-	/*                      extends HttpServlet                  */
+	/* Constructors */
 	/* --------------------------------------------------------- */
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @throws ServletException 
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		/** Get the parameters */
-		Map<String, String> parameters = getParameters(request);
-		
-		/** handle the request */
-		if (parameters.containsKey("act")){
-			RequestCode code = requestCodeMap.get(parameters.get("act"));
-			
-			switch(code){
-			case CREATE : 
-				User user = getGson().fromJson(parameters.get("user"), User.class);
-				System.out.println("\nreceived:\n" + user);
-				getServiceManager().setUserProfile(user);
-				setResponse("profile enregistred");
-				break;
-			case READ : 
-				String id = parameters.get("id");
-				user = getServiceManager().getUserProfile(id);
-				setResponse(getGson().toJson(user));
-				break;
-			case LOGIN : 
-				String email = parameters.get("email"); // email == id for mymed users
-				String password = parameters.get("password");
-				user = getServiceManager().getUserProfile(email);
-				String resp = user.getPassword().equals(password) ? getGson().toJson(user) : "false";
-				setResponse(resp);
-				break;
-			default : break;
-			}
+	public ProfileRequestHandler() throws ServletException {
+		super();
+		try {
+			this.profileManager = new ProfileManager();
+		} catch (InternalBackEndException e) {
+			throw new ServletException("ProfileManager is not accessible because: " + e.getMessage());
 		}
-		
-		super.doGet(request, response);
+	}
+
+	/* --------------------------------------------------------- */
+	/* extends HttpServlet */
+	/* --------------------------------------------------------- */
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		try {
+			/** Get the parameters */
+			Map<String, String> parameters = getParameters(request);
+
+			/** handle the request */
+			RequestCode code = requestCodeMap.get(parameters.get("code"));
+
+			String id;
+			if((id = parameters.get("id"))== null){
+				throw new ServletException("missing id argument!"); 
+			}
+			switch (code) {
+			case READ:
+				MUserBean userBean = profileManager.read(id);
+				setResponseText(getGson().toJson(userBean));
+				break;
+			case DELETE:
+				profileManager.delete(id);
+				System.out.println("\nINFO: User " + id
+						+ " deleted!");
+				break;
+			default:
+				throw new ServletException("ProfileRequestHandler.doGet(" + code + ") not exist!");
+			}
+			super.doGet(request, response);
+		} catch (InternalBackEndException e) {
+			e.printStackTrace();
+			throw new ServletException(e.getMessage());
+		} catch (IOBackEndException e) {
+			e.printStackTrace();
+			throw new IOException(e.getMessage());
+		}
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		try {
+			/** Get the parameters */
+			Map<String, String> parameters = getParameters(request);
+
+			/** handle the request */
+			RequestCode code = requestCodeMap.get(parameters.get("code"));
+
+			String user;
+			if((user = parameters.get("user"))== null){
+				throw new ServletException("missing user argument!"); 
+			}
+			switch (code) {
+			case CREATE:
+				MUserBean userBean = null;
+				try {
+					userBean = getGson().fromJson(user,
+							MUserBean.class);
+				} catch (JsonSyntaxException e) {
+					e.printStackTrace();
+					throw new ServletException("user jSon format is not valid");
+				}
+				System.out.println("\nINFO: trying to create a new user:\n" + userBean);
+				userBean = profileManager.create(userBean);
+				System.out.println("\nINFO: User created!");
+				
+				setResponseText(getGson().toJson(userBean));
+				break;
+			case UPDATE:
+				try {
+					userBean = getGson().fromJson(user,
+							MUserBean.class);
+				} catch (JsonSyntaxException e) {
+					e.printStackTrace();
+					throw new ServletException("jSon format is not valid");
+				}
+				System.out.println("\nINFO: trying to update user:\n" + userBean);
+				profileManager.update(userBean);
+				System.out.println("\nINFO: User updated!");
+				break;
+			default:
+				throw new ServletException("ProfileRequestHandler.doPost(" + code + ") not exist!");
+			}
+			super.doPost(request, response);
+		} catch (InternalBackEndException e) {
+			e.printStackTrace();
+			throw new ServletException(e.getMessage());
+		} catch (IOBackEndException e) {
+			e.printStackTrace();
+			throw new IOException(e.getMessage());
+		}
 	}
 }

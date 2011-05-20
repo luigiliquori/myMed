@@ -41,8 +41,7 @@ public class WrapperDHTOperations {
 			DHTClientFactory.destroyDHTClient(ClientType.CHORD);
 			DHTClientFactory.destroyDHTClient(ClientType.KAD);
 			
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		System.exit(0);

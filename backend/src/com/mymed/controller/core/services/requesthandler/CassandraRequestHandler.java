@@ -1,13 +1,14 @@
 package com.mymed.controller.core.services.requesthandler;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.mymed.controller.core.services.requesthandler.exception.InternalBackEndException;
 
 /**
  * Servlet implementation class CassandraRequestHandler
@@ -18,38 +19,15 @@ public class CassandraRequestHandler extends AbstractRequestHandler {
 	/* --------------------------------------------------------- */
 	private static final long serialVersionUID = 1L;
 
-	/** Request code Map*/ 
-	private Map<String, RequestCode> requestCodeMap = new HashMap<String, RequestCode>();
-	
-	/** Request codes*/ 
-	private enum RequestCode {
-		CONNECT  ("0"),
-		SETKEYSPACE ("1"),
-		SETCOLUMNFAMILY ("2"),
-		SETKEYUSERID ("3"),
-		INSERTKEY ("4"),
-		GETKEY ("5");
-
-		public final String code;
-		
-		RequestCode(String code){
-			this.code = code;
-		}
-	}
-    
 	/* --------------------------------------------------------- */
 	/*                      Constructors                         */
 	/* --------------------------------------------------------- */
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CassandraRequestHandler() {
-        super();
-        // initialize the CodeMapping
-		for(RequestCode r : RequestCode.values()){
-			requestCodeMap.put(r.code, r);
-		}
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public CassandraRequestHandler() {
+		super();
+	}
 
 	/* --------------------------------------------------------- */
 	/*                      extends HttpServlet                  */
@@ -59,18 +37,22 @@ public class CassandraRequestHandler extends AbstractRequestHandler {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		/** Get the parameters */
-		Map<String, String> parameters = getParameters(request);
-		
-		/** handle the request */
-		if (parameters.containsKey("act")){
-			RequestCode code = requestCodeMap.get(parameters.get("act"));
-			
-			switch(code){ // TODO 
-			default : break;
-			}
+		Map<String, String> parameters;
+		try {
+			parameters = getParameters(request);
+		} catch (InternalBackEndException e) {
+			e.printStackTrace();
+			throw new ServletException(e.getMessage());
 		}
-		
+
+		/** handle the request */
+		RequestCode code = requestCodeMap.get(parameters.get("code"));
+
+		switch(code){ // TODO 
+		default : break;
+		}
+
 		super.doGet(request, response);
 	}
-	
+
 }

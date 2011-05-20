@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import com.mymed.controller.core.services.requesthandler.exception.InternalBackEndException;
 import com.mymed.model.core.data.dht.configuration.Config;
 import com.mymed.model.core.data.dht.factory.DHTClientFactory;
 import com.mymed.model.core.data.dht.factory.IDHTClient.ClientType;
@@ -29,8 +30,9 @@ public class AbstractClient {
 
 	/**
 	 * Launch the Client
+	 * @throws InternalBackEndException 
 	 */
-	public void launchClient(Config conf) {
+	public void launchClient(Config conf) throws InternalBackEndException {
 		IWrapper wrapper = new Wrapper(type, conf);
 
 		BufferedReader input = new BufferedReader(new InputStreamReader(
