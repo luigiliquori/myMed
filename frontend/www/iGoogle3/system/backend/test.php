@@ -29,5 +29,7 @@ $profile = new Profile($json);
 var_dump($profile);
 var_dump($request->create($profile));
 var_dump($request->read($profile->mymedID));
-var_dump($request->read('g'));
+var_dump($request->read('visiteur'));
+$profile->mymedID = 'wx';
+var_dump($request->read($profile->mymedID));
 ?>

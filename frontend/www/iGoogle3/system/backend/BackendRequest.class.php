@@ -93,7 +93,9 @@ class BackendRequestException extends Exception
 		return $this->httpContent;
 	}
 }
+
 class CUrlException extends Exception{}
+
 class BackendRequest
 {
 	private /*string*/					$ressource;

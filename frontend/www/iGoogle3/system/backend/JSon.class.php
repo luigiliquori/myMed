@@ -2,13 +2,6 @@
 abstract class JSon
 {
 	/**
-	 * Array of ignored properties for initialisation
-	 * properties are added as key of array
-	 * ex :
-	 * protected static $ingnoredProperties = array('mymedID'=>true);
-	 */
-	protected static /*array*/ $ingnoredProperties = Array();
-	/**
 	 * Construit un objet non initialisé
 	 * __construct();
 	 * Construit l'objet à partir de __set_state(array)
@@ -29,23 +22,21 @@ abstract class JSon
 		}
 	}
 	
-	private function construct(array $array)
+	protected function construct(array $array)
 	{
-		$Profile = new ReflectionObject ($this);
-		$props	= $Profile->getProperties(ReflectionProperty::IS_PUBLIC|ReflectionProperty::IS_PROTECTED|ReflectionProperty::IS_PRIVATE);
-		foreach($props as $prop)
-		{
-			if( (!isset(static::$ingnoredProperties[$prop->getName()])) && (!$prop->isStatic()) )
-			{
-				$prop->setAccessible(true);
-				$prop->setValue($this, @$array[$prop->getName()]);
-			}
-		}
+		foreach($array as $key=>$value)
+			$this->$key	= $value;
 	}
 	
 	public static function __set_state(array $array)
 	{
 		return new Profile($array);
+	}
+	
+	public function __set($name, $value)
+	{
+		trigger_error('attribut '.$name.' didn\'t exists', E_USER_WARNING);
+		$this->$name = $value;
 	}
 	
 	public /*string*/ function __toString()

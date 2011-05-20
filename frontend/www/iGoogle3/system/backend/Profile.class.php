@@ -18,7 +18,7 @@ class Profile extends JSon
 	public /*int*/		$session			= null;
 	public /*int*/		$transactionList	= null;
 	public /*string*/	$email				= null;
-	public /*string*/	$possword			= null;
+	public /*string*/	$password			= null;
 	public /*string*/	$profilePicture		= null;
 }
 ?>
