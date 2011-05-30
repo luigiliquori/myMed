@@ -19,12 +19,12 @@ class myTransport extends ContentObject
     		width:100%;
     		height:100%;
     		overflow:auto;
-    		background-image: url('services/myTransport/background.jpg');
+    		background-image: url('services/myTransport/background.png');
     		background-repeat		: no-repeat;
-    		background-size			: 100% auto;
-    		-moz-background-size	: 100% auto;
-    		-o-background-size		: 100% auto;
-    		-khtml-background-size	: 100% auto;
+    		background-size			: 100% 100%;
+    		-moz-background-size	: 100% 100%;
+    		-o-background-size		: 100% 100%;
+    		-khtml-background-size	: 100% 100%;
 		}
 		#myTransport th {
 			text-align	: inherit;

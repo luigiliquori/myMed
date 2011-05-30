@@ -11,6 +11,15 @@ class ConnexionFacebook extends Connexion
 	private /*string*/ $secret = '08c119027aa665033fdb82fe3d1c56a1';
 	public function __construct()
 	{
+		if(isset($_GET["code"], $_GET['state'])&&$_GET["code"]!='')
+		{
+			if($_GET['state'] != $_SESSION['state'])
+				trigger_error('The state does not match. You may be a victim of CSRF.', E_USER_ERROR);
+			$params = null;
+			parse_str(
+					file_get_contents(''), 
+					$params);
+		}
 			$_SESSION['user'] = array(
 					'id'				=> $facebook_user->id,
 					'name'				=> $facebook_user->name,
@@ -50,7 +59,10 @@ class ConnexionFacebook extends Connexion
 	{
 		if(!isset($_SESSION['facebook_state']))
 			$_SESSION['facebook_state'] = md5(uniqid(rand(), TRUE)); //CSRF protection
-		$url = 'https://www.facebook.com/dialog/oauth?client_id='.$app_id.'&redirect_uri='.urlencode($my_url).'&state='.$_SESSION['facebook_state'];
+		$url = 'https://www.facebook.com/dialog/oauth'
+					.'?client_id='.$this->app_id
+					.'&redirect_uri='.urlencode('http://'.$_SERVER["HTTP_HOST"].$_SERVER['REQUEST_URI'])
+					.'&state='.$_SESSION['facebook_state'];
 ?>
 		<a href="<?php echo htmlspecialchars($url);?>" class="facebook"><span>Facebook</span></a>
 <?php

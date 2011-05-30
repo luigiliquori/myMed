@@ -20,15 +20,16 @@ class ConnexionTwitter extends Connexion
 			$img = str_replace("_normal", "", $twitter_user->profile_image_url);
 			if(@file_get_contents($img, false, stream_context_create(array('http'=>array('method'=>"HEAD"))))===false)
 				$img = str_replace("_normal", "_bigger", $twitter_user->profile_image_url);
-			$_SESSION['user'] = array(
-					'id'				=> $twitter_user->id_str,
-					'name'				=> $twitter_user->name,
-					'gender'			=> null,
-					'locale'			=> $twitter_user->lang,
-					'updated_time'		=> $twitter_user->created_at,
-					'profile'			=> 'http://twitter.com/?id='.$twitter_user->id,
-					'profile_picture'	=> $img,
-					'social_network'	=> 'twitter');
+			//var_dump($twitter_user);exit;
+			$data	= $this->connect();
+			$_SESSION['user'] = new Profile;
+			$_SESSION['user']->mymedID			= 'twitter'.$twitter_user->id_str;
+			$_SESSION['user']->socialNetworkID	= $twitter_user->id_str;
+			$_SESSION['user']->socialNetworkName= 'twitter';
+			$_SESSION['user']->name				= $twitter_user->name;
+			$_SESSION['user']->link				= $twitter_user->url;
+			$_SESSION['user']->link				= 'http://fr.twitter.com/'.$twitter_user->screen_name;
+			$_SESSION['user']->profilePicture	= $img;
 			$_SESSION['friends'] = $connection->get('http://api.twitter.com/statuses/friends.json');
 			$length	= count($_SESSION['friends']);
 			for($i=0 ; $i<$length ; $i++)
@@ -37,20 +38,13 @@ class ConnexionTwitter extends Connexion
 				$_SESSION['friends'][$i]['profileUrl']	= 'https://twitter.com/'.$_SESSION['friends'][$i]['screen_name'];
 				$_SESSION['friends'][$i]['displayName']	= $_SESSION['friends'][$i]['screen_name'];
 			}
-			if(isset($_GET['oauth_token'])||isset($_GET['oauth_verifier']))
-			{
-				$encoded = json_encode($_SESSION['user']);
-				file_get_contents(trim(BACKEND_URL."ProfileRequestHandler?act=0&user=" . urlencode($encoded)));
-				// rediriger en nettoyant les variales GET
-				unset($_GET['oauth_token']);
-				unset($_GET['oauth_verifier']);
-				$query_string	= http_build_query($_GET);
-				if($query_string != "")
-					$query_string = '?'.$query_string;
-				header('Location:'.$_SERVER["SCRIPT_NAME"].$query_string);
-				exit;
-			}
+			$this->redirectAfterConnection();
 		}
+	}
+	protected /*void*/ function cleanGetVars()
+	{
+		unset($_GET['oauth_token']);
+		unset($_GET['oauth_verifier']);
 	}
 	private /*void*/ function redirect()
 	{

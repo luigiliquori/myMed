@@ -1,21 +1,31 @@
-
-#menu a{
-	color: white;
-	text-decoration:none;
+html ,body {
+	margin	: 0;
+	padding	: 0;
+	height	: 100%;
 }
-
-#menu a:HOVER{
-	color: red;
+#header {
+	height			: 37px;
+	background-color: #415B68;
 }
-
-
-#header{
-	position:absolute;
-	top: 0px;
-	left:0px;
-	width:100%;
-	height:205px;
-	background-image: url("../img/header.png");
+#header ul, #header form {
+	float		: right;
+	line-height	: 37px;
+}
+#header ul {
+	display		: block;
+	float		: left;
+	list-style	: none;
+	margin		: 0;
+	padding		: 0;
+	padding-left: 193px;;
+	background-image	: url("../img/title_h30_c4.png");
+	background-repeat	: no-repeat;
+	background-position	: left center;
+}
+#header ul li {
+	display	: inline;
+	margin	: 0;
+	padding	: 0;
 }
 form#logout input ,
 #header a{
@@ -27,18 +37,124 @@ form#logout input:hover ,
 #header a:hover{
 	color: red;
 }
-
-#mystore{
-	position: absolute; 
-	left: 210px; 
-	top:0px;
+div.innerContent {
+	width	: 930px;
+	margin	: auto;
 }
-
+#titles {
+	background-color	: #edf2f4;
+	border-bottom		: 1px solid #c6d4db;
+	height		: 167px;
+	overflow	: hidden;
+	position	: absolute;
+	width		: 100%;
+}
+#content {
+	margin		: auto;
+	margin-top	: 73px;
+	padding		: 10px;
+	width		: 930px;
+	background-color: white;
+	border		: 1px #d2d2d2 solid;
+	height		: 545px;
+	position	: relative;
+	z-index		: 1;
+}
+#languages ul {
+	display		: block;
+	list-style	: none;
+	margin		: 1em 0;
+	padding		: 0;
+}
+#languages ul li {
+	display			: inline;
+	margin			: 0;
+	padding			: 0;
+	border-right	: solid 1px #000;
+	padding-right	: 0.5ex;
+	font-weight		: bold;
+	color			: #051893;
+}
+#languages ul li:last-child {
+	border-right	: none 0;
+}
+#languages ul li a {
+	font-weight	: normal;
+	/*color	: gray;/*not unable*/
+}
 #footer {
-	position: relative;
-	top:110px;
-	width: 950px;
+	text-align	: center;
+	margin		: auto;
+	width		: 930px;
+	border-top	: solid 1px #B0C0E1;
 }
+#footer img {
+	vertical-align	: middle;
+}
+
+
+#connexion>div {
+	margin:1ex;
+}
+#connexion div form ,#connexion div div {
+	display:inline;
+	vertical-align: middle;
+}
+#content #description_myMed {
+	float		: left;
+	width		: 380px;/*34.545em;*/
+	margin-left	: 50px;
+	margin-right: 80px;
+	text-align	: center;
+}
+#content #description_myMed ,
+#content #inscription {
+	margin-top	: 60px;
+}
+#content #description_myMed img {
+	width	: 100%;
+}
+#content #inscription {
+	overflow	: hidden;
+}
+#content #inscription form {
+	text-align	: center;
+}
+#content #inscription form>div {
+	display		: table;
+	width		: 100%;
+	text-align	: left;
+}
+#content #inscription form>div>div {
+	display	: table-row;
+}
+#content #inscription form>div>div>* {
+	display	: table-cell;
+	margin:0.2ex;
+}
+#content #inscription form button {
+	margin	: 2em;
+	background-image	: url("../img/inscription.png");
+	height	: 24px;
+	width	: 80px;
+	border	: 0;
+	cursor	: pointer;
+}
+#content #inscription form button span {
+	display	: none;
+}
+#content #inscription #bloglink {
+	border-top	: groove 2px #eee;
+	text-align	: center;
+}
+#content #inscription #bloglink img {
+	display	: block;
+	margin	: auto;
+}
+
+
+
+
 
 #desktop {
 	position: absolute;
@@ -50,75 +166,12 @@ form#logout input:hover ,
 	background-image:url("../img/wallpaper.png");
 	border: thin #d2d2d2 solid;
 }
-
 #dock {
 }
 
-#content {
-	position: relative;
-	top:110px;
-	padding:10px;
-	text-align: left;
-	width:930px;
-	background-color: white;
-	border:thin #d2d2d2 solid;	
-}
-
-#top {
-	position:relative;
-	text-align: center;
-	top:0px;
-	width: 100%;
-	height: 110px;
-	background-image: url("../img/top.png");
-}
-
-#container {
-	position:relative;
-	text-align: left;
-	top:1px;
-	width: 470px;
-	height: 310px;
-	border: thin black solid;
-	padding:5px;
-	background-image: url("../img/breil.png");
-}
-
-#subcontainer {
-	position:relative;
-	top: -5px;
-	left: -5px;
-	width: 480px;
-	height: 320px;
-	overflow: auto;
-}
-
-#bottom {
-	position:relative;
-	text-align: left;
-	width: 470px;
-	height: 42px;
-	padding:5px;
-	border: thin black solid;
-	background-color: #364049;
-	color: white;
-	font-size: 11px;
-	font-style: italic;
-}
 
 
-#bottom {
-	position:relative;
-	text-align: left;
-	width: 470px;
-	height: 42px;
-	padding:5px;
-	border: thin black solid;
-	background-color: #364049;
-	color: white;
-	font-size: 11px;
-	font-style: italic;
-}
+
 
 #warning {
 	position:absolute; 
@@ -128,10 +181,9 @@ form#logout input:hover ,
 	text-align: center;
 	background-color: #f1c8c8;
 }
-
 #debug {
 	position: relative; 
-	top: 50px; 
+	top: -90px; 
 	width:600px; 
 	height:300px; 
 	padding: 10px;
@@ -142,14 +194,4 @@ form#logout input:hover ,
 	opacity:0.8;
 	overflow: auto;
 	border: medium black solid; 
-}
-#inscriptionForm div.table>*>* {
-	margin:0.2ex;
-}
-#connexion>div {
-	margin:1ex;
-}
-#connexion div form ,#connexion div div {
-	display:inline;
-	vertical-align: middle;
 }

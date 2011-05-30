@@ -18,6 +18,11 @@ class TemplateManager extends GlobalConnexion
 		if($this->content!==null)
 			echo $this->content->getTitle();
 	}
+	private /*void*/ function getServiceName()
+	{
+		if($this->content!==null)
+			echo get_class($this->content);
+	}
 	/**
 	 * Print content's tags to be put inside <head> tag
 	 */

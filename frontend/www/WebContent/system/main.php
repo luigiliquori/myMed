@@ -8,6 +8,7 @@ if(defined('DEBUG')&&DEBUG)
 	ini_set('display_errors', 1);
 ELSE
 	ini_set('display_errors', 0);
+session_name('myMedSession_main');
 session_start();
 
 require_once dirname(__FILE__).'/Debug.class.php';
@@ -32,6 +33,6 @@ if(USER_CONNECTED)
 	}
 }
 else
-	$templateManager = new TemplateManager(null, "connect");
+	$templateManager = new TemplateManager(null, "home");
 $templateManager->callTemplate();
 ?>

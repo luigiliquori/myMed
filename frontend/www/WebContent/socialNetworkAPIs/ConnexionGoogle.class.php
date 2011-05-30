@@ -11,8 +11,11 @@ class ConnexionGoogle extends ConnexionOpenId
 	private	$oAuthConsumer;
 	public function __construct()
 	{
-		$this->oAuthConsumer	= new OAuthConsumer($_SERVER['HTTP_HOST'], 'LCQZrwojk1KdSf1ARurdjIr8');
-		parent::__construct();
+		if(isset($_REQUEST['connexionProvider'])&&$_REQUEST['connexionProvider']=='Google')
+		{
+			$this->oAuthConsumer	= new OAuthConsumer($_SERVER['HTTP_HOST'], 'LCQZrwojk1KdSf1ARurdjIr8');
+			parent::__construct();
+		}
 	}
 	/**
 	 * Try to connect on mymed with openid.
@@ -139,9 +142,10 @@ class ConnexionGoogle extends ConnexionOpenId
 	public /*void*/ function button()
 	{
 ?>
-	<form method="post" action="">
+	<form method="post" action="?connexionProvider=Google">
 		<div>
 			<input type="hidden" name="connexion" value="openid" />
+			<input type="hidden" name="connexionProvider" value="Google" />
 			<input type="hidden" name="uri" value="https://www.google.com/accounts/o8/id" />
 			<button type="submit" class="google"><span>Google</span></button>
 		</div>

@@ -11,8 +11,7 @@ class ConnexionGuest extends Connexion
 	{
 		if(isset($_POST["connexion"])&&$_POST["connexion"]=='guest')
 		{
-			$request = new ProfileRequest;
-			$_SESSION['user'] = $request->read('visiteur');
+			$_SESSION['user'] = new Profile;
 			header('Location:'.$_SERVER["REQUEST_URI"]);
 			exit;
 		}
