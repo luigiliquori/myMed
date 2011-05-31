@@ -13,7 +13,7 @@ class TemplateManager extends GlobalConnexion
 	/**
 	 * Print the title of the page
 	 */
-	private /*void*/ function getTitle()
+	private /*string*/ function getTitle()
 	{
 		if($this->content!==null)
 			echo $this->content->getTitle();
@@ -30,11 +30,11 @@ class TemplateManager extends GlobalConnexion
 	/**
 	 * Print content's tags to be put at the end of the xHtml document. Usefull fo JavaScript Initilizations
 	 */
-	public /*void*/ function scriptTags()
+	public /*string*/ function scriptTags()
 	{
 		parent::scriptTags();
 		if($this->content!==null)
-			$this->content->scriptTags();
+			return $this->content->scriptTags();
 	}
 	/**
 	 * Print the main content of the page
@@ -47,6 +47,10 @@ class TemplateManager extends GlobalConnexion
 	public /*void*/ function setContent(ContentObject $content)
 	{
 		$this->content = $content;
+	}
+	public /*void*/ function isContent()
+	{
+		return $this->content !== null;
 	}
 	/**
 	 * Methode to select template for the current page

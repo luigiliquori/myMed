@@ -3,10 +3,12 @@ require_once dirname(__FILE__).'/Connexion.class.php';
 require_once dirname(__FILE__).'/Auth/OpenID/Consumer.php';
 require_once dirname(__FILE__).'/Auth/OpenID/FileStore.php';
 require_once dirname(__FILE__).'/Auth/OpenID/SReg.php';
+require_once dirname(__FILE__).'/../system/backend/ProfileRequest.class.php';
 define('OPENID_KEY_ID', 0);
 define('OPENID_KEY_FULLNAME', 1);
 define('OPENID_KEY_GENDER', 2);
 define('OPENID_KEY_LANGUAGE', 3);
+define('OPENID_KEY_DATEOFBIRTH', 4);
 /**
  * A class to define a OpenId login
  * @author blanchard
@@ -17,8 +19,13 @@ class ConnexionOpenId extends Connexion
 	protected $social_network = 'OpenId';
 	public function __construct()
 	{
-		$this->consumer = new Auth_OpenID_Consumer(new Auth_OpenID_FileStore('/tmp/oid_store'));
-		static::tryConnect();
+		if(!isset($_REQUEST['connexionProvider'])
+			||$_REQUEST['connexionProvider']=='OpenId'
+			||$this->social_network!='OpenId')
+		{
+			$this->consumer = new Auth_OpenID_Consumer(new Auth_OpenID_FileStore('/tmp/oid_store'));
+			static::tryConnect();
+		}
 	}
 	/**
 	 * Try to connect on mymed with openid.
@@ -30,15 +37,14 @@ class ConnexionOpenId extends Connexion
 		elseif(isset($_GET['janrain_nonce']))
 		{
 			$data	= $this->connect();
-			$_SESSION['user'] = array(
-					'id'				=> self::getField($data, OPENID_KEY_ID),
-					'name'				=> self::getField($data, OPENID_KEY_FULLNAME),
-					'gender'			=> self::getField($data, OPENID_KEY_GENDER),
-					'locale'			=> self::getField($data, OPENID_KEY_LANGUAGE),
-					'updated_time'		=> null,
-					'profile'			=> self::getField($data, OPENID_KEY_ID),
-					'profile_picture'	=> null,
-					'social_network'	=> $this->social_network);
+			$_SESSION['user'] = new Profile;
+			$_SESSION['user']->mymedID			= $this->social_network.self::getField($data, OPENID_KEY_ID);
+			$_SESSION['user']->socialNetworkID	= self::getField($data, OPENID_KEY_ID);
+			$_SESSION['user']->socialNetworkName= $this->social_network;
+			$_SESSION['user']->name				= self::getField($data, OPENID_KEY_FULLNAME);
+			$_SESSION['user']->gender			= self::getField($data, OPENID_KEY_GENDER);
+			$_SESSION['user']->link				= self::getField($data, OPENID_KEY_ID);
+			$_SESSION['user']->birthday			= self::getField($data, OPENID_KEY_DATEOFBIRTH);
 			//var_dump($data);var_dump($_SESSION);exit;
 			$this->redirectAfterConnection();
 		}
@@ -85,6 +91,13 @@ class ConnexionOpenId extends Connexion
 				elseif(isset($data['ax']['value.language']))
 					return $data['ax']['value.language'];
 			}break;
+			case OPENID_KEY_DATEOFBIRTH:
+			{
+				if(isset($data['sreg']['dob']))
+					return $data['sreg']['dob'];
+				elseif(isset($data['ax']['value.dob']))
+					return $data['ax']['value.dob'];
+			}break;
 		}
 		return $default;
 	}
@@ -96,15 +109,16 @@ class ConnexionOpenId extends Connexion
 	{
 		$auth->addExtension(Auth_OpenID_SRegRequest::build(
 				/*required*/array('fullname'), 
-				/*optional*/array('gender', 'language'))); // fonctionne sur myOpenId mais pas google
+				/*optional*/array('gender', 'language', 'dob'))); // fonctionne sur myOpenId mais pas google
 		// fonctionne sur google mais pas myOpenId
 		$auth->addExtensionArg('http://openid.net/srv/ax/1.0', 'mode', 'fetch_request');
-		$auth->addExtensionArg('http://openid.net/srv/ax/1.0', 'required', 'firstname,lastname,language,gender');
+		$auth->addExtensionArg('http://openid.net/srv/ax/1.0', 'required', 'firstname,lastname,language,gender,dob');
 //		$auth->addExtensionArg('http://openid.net/srv/ax/1.0', 'type.email', 'http://schema.openid.net/contact/email');
 		$auth->addExtensionArg('http://openid.net/srv/ax/1.0', 'type.firstname', 'http://axschema.org/namePerson/first');
 		$auth->addExtensionArg('http://openid.net/srv/ax/1.0', 'type.lastname', 'http://axschema.org/namePerson/last');
 		$auth->addExtensionArg('http://openid.net/srv/ax/1.0', 'type.language', 'http://axschema.org/pref/language');
 		$auth->addExtensionArg('http://openid.net/srv/ax/1.0', 'type.gender', 'http://axschema.org/person/gender');
+		$auth->addExtensionArg('http://openid.net/srv/ax/1.0', 'type.dob', 'http://axschema.org/birthDate');
 	}
 	/**
 	 * Redirect to login on provider
@@ -146,23 +160,14 @@ class ConnexionOpenId extends Connexion
 				'sreg'	=> Auth_OpenID_SRegResponse::fromSuccessResponse($response)->contents(),
 				'ax'	=> $response->extensionResponse('http://openid.net/srv/ax/1.0', false));
 	}
-	/**
-	 * Permet de rediriger vers la page visitée avant la connexion
-	 * Redirect to the page visited before login
-	 */
-	protected /*void*/ function redirectAfterConnection()
+	
+	protected /*void*/ function cleanGetVars()
 	{
-		$encoded = json_encode($_SESSION['user']);
-		file_get_contents(trim(BACKEND_URL."ProfileRequestHandler?act=0&user=" . urlencode($encoded)));
+		unset($_GET['connexionProvider']);
 		unset($_GET['janrain_nonce']);
 		foreach($_GET as $key=>$value)
 			if(strrpos($key, 'openid')===0)
 				unset($_GET[$key]);
-		$query_string	= http_build_query($_GET);
-		if($query_string != "")
-			$query_string = '?'.$query_string;
-		header('Location:'.$_SERVER["SCRIPT_NAME"].$query_string);
-		exit;
 	}
 	/**
 	 * Print the connexion's button

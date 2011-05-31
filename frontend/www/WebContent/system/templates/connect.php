@@ -5,13 +5,13 @@
 		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 		
 		<!-- TITLE -->
-		<title>myMed&gt;<?php $this->getTitle();?></title>
+		<title>myMed<?php if($this->getTitle())echo '&gt;'.$this->getTitle();?></title>
 		<?php $this->headTags();?>
 		
 		<!-- STYLESHEET -->
 		<link rel="stylesheet" href="style/desktop/style.css" />
 		<!-- define styles of type of elements (ex:h1, p, p.myclass...)-->
-		<link rel="stylesheet" href="style/desktop/design.css" />
+		<link rel="stylesheet" href="style/desktop/design.bak.css" />
 		<!-- define design of website -->
 	</head>
 	<body>

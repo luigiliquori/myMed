@@ -11,8 +11,11 @@ class ConnexionGoogle extends ConnexionOpenId
 	private	$oAuthConsumer;
 	public function __construct()
 	{
-		$this->oAuthConsumer	= new OAuthConsumer($_SERVER['HTTP_HOST'], 'LCQZrwojk1KdSf1ARurdjIr8');
-		parent::__construct();
+		if(isset($_REQUEST['connexionProvider'])&&$_REQUEST['connexionProvider']=='Google')
+		{
+			$this->oAuthConsumer	= new OAuthConsumer($_SERVER['HTTP_HOST'], 'LCQZrwojk1KdSf1ARurdjIr8');
+			parent::__construct();
+		}
 	}
 	/**
 	 * Try to connect on mymed with openid.
@@ -24,15 +27,13 @@ class ConnexionGoogle extends ConnexionOpenId
 		elseif(isset($_GET['janrain_nonce']))
 		{
 			$data	= $this->connect();
-			$_SESSION['user'] = array(
-					'id'				=> self::getField($data, OPENID_KEY_ID),
-					'name'				=> self::getField($data, OPENID_KEY_FULLNAME),
-					'gender'			=> self::getField($data, OPENID_KEY_GENDER),
-					'locale'			=> self::getField($data, OPENID_KEY_LANGUAGE),
-					'updated_time'		=> null,
-					'profile'			=> self::getField($data, OPENID_KEY_ID),
-					'profile_picture'	=> null,
-					'social_network'	=> $this->social_network);
+			$_SESSION['user'] = new Profile;
+			$_SESSION['user']->mymedID			= $this->social_network.self::getField($data, OPENID_KEY_ID);
+			$_SESSION['user']->socialNetworkID	= self::getField($data, OPENID_KEY_ID);
+			$_SESSION['user']->socialNetworkName= $this->social_network;
+			$_SESSION['user']->name				= self::getField($data, OPENID_KEY_FULLNAME);
+			$_SESSION['user']->gender			= self::getField($data, OPENID_KEY_GENDER);
+			$_SESSION['user']->birthday			= self::getField($data, OPENID_KEY_DATEOFBIRTH);
 			if(isset($_REQUEST['openid_ext2_request_token']))
 			{
 				$accessToken	= $this->getAccessToken($_REQUEST['openid_ext2_request_token']);
@@ -40,7 +41,10 @@ class ConnexionGoogle extends ConnexionOpenId
 				$friends	= json_decode($this->oauthRequest($accessToken, 'http://www-opensocial.googleusercontent.com/api/people/@me/@all?format=json&count=1000'), true);//@todo if friends > 1000
 				$_SESSION['friends']	= $friends['entry'];
 				$self		= json_decode($this->oauthRequest($accessToken, 'http://www-opensocial.googleusercontent.com/api/people/@me/@self?format=json'), true);
-				$_SESSION['user']['profile_picture']	= $self['entry']['thumbnailUrl'];
+				$_SESSION['user']->profilePicture	= $self['entry']['thumbnailUrl'];
+				$_SESSION['user']->link				= $self['entry']['profileUrl'];
+				$_SESSION['user']->firstName		= $self['entry']['givenName'];
+				$_SESSION['user']->lastName			= $self['entry']['familyName'];
 			}
 			else
 				trigger_error('DNS not register on Google', E_USER_NOTICE);
@@ -139,7 +143,7 @@ class ConnexionGoogle extends ConnexionOpenId
 	public /*void*/ function button()
 	{
 ?>
-		<a href="?connexion=openid&uri=https://www.google.com/accounts/o8/id" class="google"><span>Google</span></a>
+		<a href="?connexion=openid&amp;connexionProvider=Google&amp;uri=https://www.google.com/accounts/o8/id" class="google"><span>Google</span></a>
 <?php
 	}
 }

@@ -43,7 +43,7 @@ if(defined('MIMETYPE_XHTML')&&MIMETYPE_XHTML)
 			</ul>
 			<div class="connexion<?=isset($_GET['connexion'])?' form':''?>">
 <?php if(USER_CONNECTED):
-	echo $_SESSION['user']['name']?> |
+	echo $_SESSION['user']->name?> |
 					<form method="post" action="" class="logout">
 						<div><input type="submit" name="logout" value="Déconnexion" /></div>
 					</form>
@@ -80,7 +80,7 @@ if(defined('MIMETYPE_XHTML')&&MIMETYPE_XHTML)
 	  		</form>
 	    </div>
 	    <div id="content">
-	    	<div<?=isset($_GET['service'])?' id="'.$_GET['service'].'"':''?>>
+	    	<div id="<?php $this->getServiceName()?>">
 <?php			$this->content();?>
 	    	</div>
 		</div>

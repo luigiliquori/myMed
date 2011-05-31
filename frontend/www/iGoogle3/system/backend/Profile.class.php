@@ -20,5 +20,21 @@ class Profile extends JSon
 	public /*string*/	$email				= null;
 	public /*string*/	$password			= null;
 	public /*string*/	$profilePicture		= null;
+	public /*bool*/ function equals(Profile $profile)
+	{
+		return $this->mymedID			=== $profile->mymedID
+			&& $this->socialNetworkID	=== $profile->socialNetworkID
+			&& $this->socialNetworkName	=== $profile->socialNetworkName
+			&& $this->name				=== $profile->name
+			&& $this->firstName			=== $profile->firstName
+			&& $this->lastName			=== $profile->lastName
+			&& $this->link				=== $profile->link
+			&& $this->birthday			=== $profile->birthday
+			&& $this->hometown			=== $profile->hometown
+			&& $this->gender			=== $profile->gender
+			&& $this->email				=== $profile->email
+			&& $this->password			=== $profile->password
+			&& $this->profilePicture	=== $profile->profilePicture;
+	}
 }
 ?>

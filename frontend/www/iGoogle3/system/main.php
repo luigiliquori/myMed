@@ -10,6 +10,7 @@ ELSE
 	ini_set('display_errors', 0);
 // class d'un objet présent en session => doit être définie avant l'initialisation des session
 require_once dirname(__FILE__).'/backend/Profile.class.php';
+session_name('myMedSession_'.(defined('SESSIONNAME')?SESSIONNAME:'main'));
 session_start();
 
 require_once dirname(__FILE__).'/Debug.class.php';
@@ -17,24 +18,23 @@ require_once dirname(__FILE__).'/TemplateManager.class.php';
 require_once dirname(__FILE__).'/ContentObject.class.php';
 
 header("Content-Script-Type:text/javascript");
-if(!isset($_SESSION['user']))
-{//*
-	$_POST["connexion"] = 'guest';/*/
-	$_SESSION['user'] = array(
-			'id'				=> 'visiteur',
-			'name'				=> null,
-			'gender'			=> null,
-			'locale'			=> null,
-			'updated_time'		=> null,
-			'profile'			=> null,
-			'profile_picture'	=> null,
-			'social_network'	=> null);
-	$encoded = json_encode($_SESSION['user']);
-	file_get_contents(trim(BACKEND_URL."ProfileRequestHandler?act=0&user=" . urlencode($encoded)));//*/
+
+if(session_name()==='myMedSession_main')
+{
+	if(!isset($_SESSION['user']))
+		$_POST["connexion"] = 'guest';
+	define('USER_CONNECTED', $_SESSION['user']->socialNetworkName!==null );
 }
-define('USER_CONNECTED', $_SESSION['user']->socialNetworkName != '' );
+else
+	define('USER_CONNECTED', isset($_SESSION['user']));
 $templateManager = new TemplateManager(null, isset($_GET['ajax'])?'serviceajax':'home');
-if(isset($_GET['service']))
+if(defined('CONTENTOBJECT'))
+{
+	require_once CONTENTOBJECT.'.class.php';
+	$contentClass = basename(CONTENTOBJECT);
+	$templateManager->setContent(new $contentClass());
+}
+else if(isset($_GET['service']))
 {
 	$serviceFile = dirname(__FILE__).'/../services/'.$_GET['service'].'/'.$_GET['service'].'.class.php';
 	if(is_file($serviceFile))

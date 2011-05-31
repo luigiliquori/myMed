@@ -1,7 +1,7 @@
 
 	<!-- PUBLISH -->
 	<div id="myTransportContainer2" class="appContainer">
-		<div style="position: relative; width: 100%; height: 90px; background-color: #415b68; color: white;">
+		<div style="height: 90px;">
 			<form id="publishTrip" method="post" action="#">
 				<input name="code" type="hidden" value="publish"/>
 				<h2>Enregistrez votre covoiturage</h2>

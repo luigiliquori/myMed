@@ -1,22 +1,20 @@
 <?php
-require_once dirname(__FILE__).'/Connexion.class.php';
+require_once dirname(__FILE__).'/ConnexionOpenId.class.php';
 /**
  * A class to define a myMed login
  * @author blanchard
  */
-class ConnexionMyMed extends Connexion
+class ConnexionMyMed extends ConnexionOpenId
 {
+	protected $social_network = 'myMed';
 	public function __construct()
 	{
-		if(isset($_POST["connexion_mymed"], $_POST["email"], $_POST["password"]))
+		if(!isset($_REQUEST['connexionProvider'])
+			||$_REQUEST['connexionProvider']=='myMed'
+			||$this->social_network!='myMed')
 		{
-			$isAuthenticated = file_get_contents(trim(BACKEND_URL."RequestHandler?act=12&email=" . $_POST["email"] . "&password=" . $_POST["password"]));
-			if($isAuthenticated)
-				$_SESSION['user'] = json_decode($isAuthenticated, true);
-			$encoded = json_encode($_SESSION['user']);
-			file_get_contents(trim(BACKEND_URL."ProfileRequestHandler?act=0&user=" . urlencode($encoded)));
-			header('Location:'.$_SERVER["REQUEST_URI"]);
-			exit;
+			$this->consumer = new Auth_OpenID_Consumer(new Auth_OpenID_FileStore('/tmp/oid_store'));
+			static::tryConnect();
 		}
 	}
 	/**
@@ -25,9 +23,11 @@ class ConnexionMyMed extends Connexion
 	public /*void*/ function button()
 	{
 ?>
-		<form method="get" action="">
+		<form method="post" action="?connexionProvider=myMed">
 			<div>
-				<input type="hidden" name="connexion" value="mymed" />
+				<input type="hidden" name="connexion" value="openid" />
+				<input type="hidden" name="connexionProvider" value="myMed" />
+				<input type="hidden" name="uri" value="http://<?=$_SERVER["HTTP_HOST"].ROOTPATH?>openid.php" />
 				<button type="submit" class="mymed"><span>MyMed</span></button>
 			</div>
 		</form>

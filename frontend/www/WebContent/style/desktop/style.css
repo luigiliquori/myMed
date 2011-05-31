@@ -23,10 +23,10 @@ a:HOVER {
 	color: red;
 }
 .title {
-	color:#222c8a;
-	font-family:"Lucida Grande",Tahoma,Verdana,Arial,sans-serif;
-	font-weight: bold;
-	font-size:15px;
+	font-size: 136.4%;
+	color: #222C8A;
+    font-family: "Lucida Grande",Tahoma,Verdana,Arial,sans-serif;
+    font-weight: bold;
 }
 .application {
 	position:relative;

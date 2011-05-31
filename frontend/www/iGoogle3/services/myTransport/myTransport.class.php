@@ -1,6 +1,13 @@
 <?php
+require_once dirname(__FILE__).'/../../system/backend/DHTRequest.class.php';
+require_once dirname(__FILE__).'/../../system/backend/ProfileRequest.class.php';
 class myTransport extends ContentObject
 {
+	private /*DHTRequest*/ $request;
+	public function __construct()
+	{
+		$this->request	= new DHTRequest;
+	}
 	/**
 	 * Method to define the title of the page
 	 * @return string	Content Title
@@ -19,12 +26,12 @@ class myTransport extends ContentObject
     		width:100%;
     		height:100%;
     		overflow:auto;
-    		background-image: url('services/myTransport/background.jpg');
+    		background-image: url('services/myTransport/background.png');
     		background-repeat		: no-repeat;
-    		background-size			: 100% auto;
-    		-moz-background-size	: 100% auto;
-    		-o-background-size		: 100% auto;
-    		-khtml-background-size	: 100% auto;
+    		background-size			: 100% 100%;
+    		-moz-background-size	: 100% 100%;
+    		-o-background-size		: 100% 100%;
+    		-khtml-background-size	: 100% 100%;
 		}
 		#myTransport th {
 			text-align	: inherit;
@@ -50,23 +57,38 @@ class myTransport extends ContentObject
 		$running = false;
 		if( isset($_GET["code"])&&($_GET["code"] == "search") ){
 			$key = $_GET["from"] . $_GET["to"] . $_GET["theDate"];
-			$id = file_get_contents(trim(BACKEND_URL.'DHTRequestHandler?act=1&key=' . urlencode($key)));
+			try
+			{
+				$profileRequest	= new ProfileRequest;
+				$res	= $profileRequest->read($this->request->read($key));
+			}
+			catch(BackendRequestException $ex)
+			{
+				if($ex->getCode() == 404)
+					$res = null;
+				else
+					throw $ex;
+			}
 		} else if( isset($_GET["code"])&&($_GET["code"] == "publish") ){
 			$key = $_GET["from"] . $_GET["to"] . $_GET["theDate"];
-			$value = $_SESSION['user']['id'];
-			file_get_contents(trim(BACKEND_URL.'DHTRequestHandler?act=0&key=' . urlencode($key) . '&value=' . urlencode($value)));
+			$value = $_SESSION['user']->mymedID;
+			$this->request->create($key, $value);
 		} 
 		?>
 		
 		<!-- APPLICATION -->
 		<div id="myTransport">
 			
-			<?php if(!isset($_GET["code"])) { ?>
+<?php if(!isset($_GET["code"])): ?>
 			
 			<!-- menu -->
 			<br />
 				<a href="#" onclick="document.getElementById('myTransportSub').style.display = 'none'; fadeIn('#myTransportPub')">Rechercher</a> | 
+<?php 	if($_SESSION['user']->mymedID!==null):?>
 				<a href="#" onclick="document.getElementById('myTransportPub').style.display = 'none'; fadeIn('#myTransportSub')">Publier</a>
+<?php 	else:?>
+				Publier
+<?php 	endif?>
 			<br /><hr />
 			
 			<!-- Subscribe -->
@@ -114,22 +136,22 @@ class myTransport extends ContentObject
 				</form>
 			</div>
 			
-			<?php } else { ?>
+<?php else : ?>
 			
 			<!-- Result -->
 			<div id="myTransportRes">
-				<?php if($_GET["code"] == "search") { ?>
-					<? $res = json_decode(file_get_contents(trim(BACKEND_URL.'ProfileRequestHandler?act=1&id=' . $id))); ?>
+<?php 	if($_GET["code"] == "search"): ?>
 					<form action="">
 					 	<div><span style="font-size: 18px;">Results :</span>
-						 	<span style="position: relative; left: 280px;">
+						 	<span style="position: relative; float: right;">
 								<input type="submit" value="back" />
 							</span>
 						</div>
 					</form>
+<?php 		if($res!=null):?>
 					<table>
 					  <tr rowspan="4">
-					    <td><img width="200px" alt="profile picture" src="<?= $res->profile_picture ?>" /></td>
+					    <td><img width="200px" alt="profile picture" src="<?= $res->profilePicture ?>" /></td>
 					    <td>
 						    <table>
 							  <tr>
@@ -137,8 +159,8 @@ class myTransport extends ContentObject
 							    <td>
 								    <h1><?= $res->name ?></h1>
 								    <ul>
-									  <li><?= $res->gender ?></li>
-									  <li><?= $res->locale ?></li>
+										<li><?= $res->gender=='F'?'Femme':'Homme' ?></li>
+										<li><?= $res->birthday ?></li>
 									</ul>
 							   	</td>
 							  </tr>
@@ -146,17 +168,20 @@ class myTransport extends ContentObject
 					    </td>
 					  </tr>
 					</table>
-				<?php } else { ?>
+<?php 		else: ?>
+				Introuvable
+<?php 		endif?>
+<?php 	else: ?>
 						<form action="">
 					 	<div><span style="font-size: 18px;">Trip published!</span>
-						 	<span style="position: relative; left: 220px;">
+						 	<span style="position: relative; float: right;">
 								<input type="submit" value="back" />
 							</span>
 						</div>
 						</form>
-				<?php } ?>
+<?php 	endif?>
 			</div>
-			<?php } ?>
+<?php endif?>
 		</div>
 <?php
 	}

@@ -1,7 +1,7 @@
 	
 	<!-- SEARCH -->
 	<div id="myTransportContainer1" class="appContainer" >
-		<div style="position: relative; width: 100%; height: 90px; background-color: #415b68; color: white;">
+		<div style="height: 90px;">
 			<form id="searchTrip" method="get" action="">
 				<input name="service" value="myTransport" type="hidden" />
 				<input name="search" type="hidden" />
@@ -23,21 +23,24 @@
 			</div>
 			
 			<!-- RESULT -->
-			<?php if(@$search) { ?>
-				<div style="background-color: #415b68; color: white; height:360px; width: 100%; overflow: auto;">
-					<? $res = json_decode(file_get_contents(trim(BACKEND_URL.'ProfileRequestHandler?act=1&id='.urlencode($id)))); ?>
-					<div>
-						<img style="margin-left:10px;width:200px;float:left;" alt="profile picture" src="<?= $res->profile_picture ?>" />
-						<div style="margin-left:220px;">
-						    <h1><?= $res->name ?></h1>
-						    <ul>
-								<li><?= $res->gender ?></li>
-								<li><?= $res->locale ?></li>
-							</ul>
-						</div>
+<?php if(isset($found)) : ?>
+			<div style="background-color: #415b68; color: white; height:360px; width: 100%; overflow: auto;">
+				<div>
+<?php 	if($found):?>
+					<img style="margin-left:10px;width:200px;float:left;" alt="profile picture" src="<?= $res->profilePicture ?>" />
+					<div style="margin-left:220px;">
+					    <h1><?= $res->name ?></h1>
+					    <ul>
+							<li><?= $res->gender=='F'?'Femme':'Homme' ?></li>
+							<li><?= $res->birthday ?></li>
+						</ul>
 					</div>
-					<div style="clear:both;padding:10px;"><a href="?service=myTransport" style="color:#8080ff;text-decoration:underline;">&lt; Retour</a></div>
+<?php 	else:?>
+					Introuvable
+<?php 	endif?> 
 				</div>
-			<?php } ?> 
+				<div style="clear:both;padding:10px;"><a href="?service=myTransport" style="color:#8080ff;text-decoration:underline;">&lt; Retour</a></div>
+			</div>
+<?php endif?> 
 	</div>
 	

@@ -399,6 +399,12 @@ div.desktop div.window div.content {
 	overflow:auto;
 	position:relative;
 }
+div.desktop div.window div.content ,div.desktop div.window div.content div.service {
+	border-radius		: 0 0 1ex 1ex;/**/
+	-moz-border-radius	: 0 0 1ex 1ex;
+	-khtml-border-radius: 0 0 1ex 1ex;
+	-o-border-radius	: 0 0 1ex 1ex;
+}
 div.desktop div.windowshadow {
 	background-color:rgb(192, 192, 192);
 	background-color:rgba(192, 192, 192, 0.5);

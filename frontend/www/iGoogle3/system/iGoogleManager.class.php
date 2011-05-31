@@ -17,7 +17,7 @@ class iGoogleManager
 		{
 			case 'Outils':
 				return Array(	Array("myProfile"	, 0),
-								//Array("myJam"		, 1),
+								Array("myJam"		, 1),
 								Array("myTransport"	, 2),
 								Array("myFriends"	, 0),
 								Array("myTranslator", 1),

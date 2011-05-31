@@ -52,7 +52,7 @@ define('Auth_OpenID_NO_DEFAULT', 'NO DEFAULT ALLOWED');
 
 // Limit, in bytes, of identity provider and return_to URLs, including
 // response payload.  See OpenID 1.1 specification, Appendix D.
-define('Auth_OpenID_OPENID1_URL_LIMIT', 2047);
+define('Auth_OpenID_OPENID1_URL_LIMIT', 255);
 
 // All OpenID protocol fields.  Used to check namespace aliases.
 global $Auth_OpenID_OPENID_PROTOCOL_FIELDS;
