@@ -2,6 +2,7 @@
 <%@ page isErrorPage="true" import="java.io.PrintWriter" %>
 
 <%
+	out.println("<h3>Unhandled Exception!</h4>");
 	out.println(exception.getMessage());
 %>
 

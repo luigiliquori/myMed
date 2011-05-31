@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.mymed.controller.core.services.requesthandler.exception.IMymedException;
 import com.mymed.controller.core.services.requesthandler.exception.InternalBackEndException;
 
 public abstract class AbstractRequestHandler extends HttpServlet {
@@ -77,25 +78,55 @@ public abstract class AbstractRequestHandler extends HttpServlet {
 		}
 		return parameters;
 	}
+	
+	/**
+	 * Handle an "internal" server error, and send a feedback to the frontend
+	 * @param message
+	 * @param response
+	 */
+	protected void handleInternalError(IMymedException e, HttpServletResponse response){
+		response.setStatus(500);
+		this.responseText = e.getJsonException();
+		printResponse(response);
+	}
+	
+	/**
+	 * Handle an "not found" server error, and send a feedback to the frontend
+	 * @param message
+	 * @param response
+	 */
+	protected void handleNotFoundError(IMymedException e, HttpServletResponse response){
+		response.setStatus(404);
+		this.responseText = e.getJsonException();
+		printResponse(response);
+	}
 
 	/**
 	 * Print the feedback to the frontend
 	 * @param response
 	 * @throws IOException
 	 */
-	protected void printResponse(HttpServletResponse response) throws IOException {
+	protected void printResponse(HttpServletResponse response) {
 		/** Init response */
 		if(responseText != null) {
 			response.setContentType("text/plain;charset=UTF-8");
 			/** send the response */
-			PrintWriter out = response.getWriter();
-			System.out.println("\nResponse sent:\n\t" + this.responseText);
-			out.println(this.responseText);
-			out.close();
-			this.responseText = null;
+			PrintWriter out;
+			try {
+				out = response.getWriter();
+				System.out.println("\nResponse sent:\n\t" + this.responseText);
+				out.print(this.responseText);
+				out.close();
+				this.responseText = null;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
+	/* --------------------------------------------------------- */
+	/*                      extends HttpServlet                  */
+	/* --------------------------------------------------------- */
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */

@@ -59,16 +59,6 @@
     <servlet-name>ProfileRequestHandler</servlet-name>
     <url-pattern>/ProfileRequestHandler</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>CassandraRequestHandler</display-name>
-    <servlet-name>CassandraRequestHandler</servlet-name>
-    <servlet-class>com.mymed.controller.core.services.requesthandler.CassandraRequestHandler</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>CassandraRequestHandler</servlet-name>
-    <url-pattern>/CassandraRequestHandler</url-pattern>
-  </servlet-mapping>
   
    <error-page>
     <exception-type>java.lang.Exception</exception-type>

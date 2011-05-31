@@ -59,17 +59,7 @@ public class Cassandra extends AbstractDHTClient implements IDHTClient {
 	  |	|           | --------------------------------- | |
 	  | |			| |			| columnName -> value | | |
 	  | |			| |   key	| columnName -> value | | |
-	  | |			| |			| columnName -> value | | |
-	  | |			| |---------|---------------------| | |
-	  | |			| |			| columnName -> value | | |
-	  | |			| |	  key	| columnName -> value | | |
-	  | |			| |			| columnName -> value | | |
-	  | |			| --------------------------------- | |
-	  | | superKey	| columnFamily					    | |
-	  |	|           | --------------------------------- | |
-	  | |			| |			| columnName -> value | | |
-	  | |			| |   key	| columnName -> value | | |
-	  | |			| |			| columnName -> value | | |
+	  | | superKey	| |			| columnName -> value | | |
 	  | |			| |---------|---------------------| | |
 	  | |			| |			| columnName -> value | | |
 	  | |			| |	  key	| columnName -> value | | |
@@ -307,7 +297,6 @@ public class Cassandra extends AbstractDHTClient implements IDHTClient {
 
 	/**
 	 * Remove a specific column defined by the columnName
-	 * 
 	 * @param keyspace
 	 * @param columnFamily
 	 * @param key
@@ -373,11 +362,11 @@ public class Cassandra extends AbstractDHTClient implements IDHTClient {
 	/* --------------------------------------------------------- */
 	/* COMMON DHT OPERATIONS */
 	/* --------------------------------------------------------- */
-	@Override
+	// THE COLUMNFAMILY TRIPS IS ONLY USED FOR TESTING
 	public void put(String key, byte[] value) throws InternalBackEndException {
 		try {
 			tr.open();
-			String columnFamily = "Trips";
+			String columnFamily = "Trips"; // TODO MOVE TO THE NEW DATA STRUCTURE
 			ColumnPath colPathName = new ColumnPath(columnFamily);
 			long timestamp = System.currentTimeMillis();
 			colPathName.setColumn(key.getBytes("UTF8"));
@@ -400,12 +389,12 @@ public class Cassandra extends AbstractDHTClient implements IDHTClient {
 		}
 	}
 
-	@Override
+	// THE COLUMNFAMILY TRIPS IS ONLY USED FOR TESTING
 	public byte[] getValue(String key) throws InternalBackEndException,
 			IOBackEndException {
 		try {
 			tr.open();
-			String columnFamily = "Trips";
+			String columnFamily = "Trips"; // TODO MOVE TO THE NEW DATA STRUCTURE
 			ColumnPath colPathName = new ColumnPath(columnFamily);
 			colPathName.setColumn(key.getBytes("UTF8"));
 			Column col = client.get("Mymed", key, colPathName,

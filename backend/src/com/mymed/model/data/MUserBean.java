@@ -18,24 +18,24 @@ public class MUserBean extends AbsctractMBean{
 	/* Attributes */
 	/* --------------------------------------------------------- */
 	/** User data structure */
-	private String mymedID = "";			// Unique Identifier of the user in myMed
-	private String socialNetworkID = "";			// ID of the user in the social network
-	private String socialNetworkName = "";		// Name of the social network used by the user
-	private String name = "";
-	private String firstName = "";
-	private String lastName = "";
-	private String link = "";						// the profile manager url
-	private String birthday = "";
-	private String hometown = "";
-	private String gender = "";
-	private String profilePicture = "";
-	private String buddyList = "";	
-	private String subscribtionList = "";
-	private String reputation = "";
-	private String session = "";
-	private String transactionList = "";
-	private String email = "";
-	private String password = "";
+	private String mymedID = null;			// Unique Identifier of the user in myMed
+	private String socialNetworkID = null;			// ID of the user in the social network
+	private String socialNetworkName = null;		// Name of the social network used by the user
+	private String name = null;
+	private String firstName = null;
+	private String lastName = null;
+	private String link = null;						// the profile manager url
+	private String birthday = null;
+	private String hometown = null;
+	private String gender = null;
+	private String profilePicture = null;
+	private String buddyList = null;	
+	private String subscribtionList = null;
+	private String reputation = null;
+	private String session = null;
+	private String transactionList = null;
+	private String email = null;
+	private String password = null;
 
 	/* --------------------------------------------------------- */
 	/* Constructors */

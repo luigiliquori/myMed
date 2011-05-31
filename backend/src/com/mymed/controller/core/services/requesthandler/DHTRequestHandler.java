@@ -53,30 +53,33 @@ public class DHTRequestHandler extends AbstractRequestHandler {
 			/** Get the parameters */
 			Map<String, String> parameters = getParameters(request);
 
-			/** handle the request */
+			/** Get the method code */
 			RequestCode code = requestCodeMap.get(parameters.get("code"));
-			if(code == null){
-				throw new ServletException("unknown code: " + parameters.get("code"));
-			}
 			
+			/** handle the request */
 			String key;
 			switch(code){
 			case READ :   // GET
 				if((key = parameters.get("key")) == null){
-					throw new ServletException("missing key argument!"); 
+					handleInternalError(new InternalBackEndException("missing key argument!"), response);
+					return;
 				}
-				setResponseText(dhtManager.get(key));
+				try {
+					setResponseText(dhtManager.get(key));
+				} catch (IOBackEndException e) {
+					handleNotFoundError(new IOBackEndException(key + " not found!"), response);
+					return;
+				}
 				break;
 			default : 
-				throw new ServletException("DHTRequestHandler.doGet(" + code + ") not exist!");
+				handleInternalError(new InternalBackEndException("DHTRequestHandler.doGet(" + code + ") not exist!"), response);
+				return;
 			}
 			super.doGet(request, response);
 		} catch (InternalBackEndException e) {
 			e.printStackTrace();
-			throw new ServletException(e.getMessage());
-		} catch (IOBackEndException e) {
-			e.printStackTrace();
-			throw new IOException(e.getMessage());
+			handleInternalError(e, response);
+			return;
 		}
 	}
 	
@@ -90,35 +93,39 @@ public class DHTRequestHandler extends AbstractRequestHandler {
 			/** Get the parameters */
 			Map<String, String> parameters = getParameters(request);
 
-			/** handle the request */
+			/** Get the method code */
 			RequestCode code = requestCodeMap.get(parameters.get("code"));
-			if(code == null){
-				throw new ServletException("unknown code: " + parameters.get("code"));
-			}
 			
+			/** handle the request */
 			String key, value;
 			switch(code){
 			case CREATE : // PUT
 				if((key = parameters.get("key")) == null){
-					throw new ServletException("missing key argument!"); 
+					handleInternalError(new InternalBackEndException("missing key argument!"), response);
+					return;
 				} else if((value = parameters.get("value")) == null){
-					throw new ServletException("missing value argument!"); 
+					handleInternalError(new InternalBackEndException("missing value argument!"), response);
+					return;
 				}
 				System.out.println("key to publish: " + key);
 				System.out.println("value to publish: " + value);
-				dhtManager.put(key, value);
-				setResponseText("key published");
+				try {
+					dhtManager.put(key, value);
+					setResponseText("key published");
+				} catch (IOBackEndException e) {
+					handleNotFoundError(new IOBackEndException(key + " not published: " + e.getMessage()), response);
+					return;
+				}
 				break;
 			default : 
-				throw new ServletException("DHTRequestHandler.doGet(" + code + ") not exist!");
+				handleInternalError(new InternalBackEndException("DHTRequestHandler.doGet(" + code + ") not exist!"), response);
+				return;
 			}
 			super.doGet(request, response);
 		} catch (InternalBackEndException e) {
 			e.printStackTrace();
-			throw new ServletException(e.getMessage());
-		} catch (IOBackEndException e) {
-			e.printStackTrace();
-			throw new IOException(e.getMessage());
+			handleInternalError(e, response);
+			return;
 		}
 	}
 }

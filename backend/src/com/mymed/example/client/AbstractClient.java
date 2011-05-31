@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import com.mymed.controller.core.services.requesthandler.exception.IOBackEndException;
 import com.mymed.controller.core.services.requesthandler.exception.InternalBackEndException;
 import com.mymed.model.core.data.dht.configuration.Config;
 import com.mymed.model.core.data.dht.factory.DHTClientFactory;
@@ -79,6 +80,9 @@ public class AbstractClient {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOBackEndException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

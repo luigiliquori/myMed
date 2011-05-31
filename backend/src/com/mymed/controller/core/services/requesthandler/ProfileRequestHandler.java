@@ -54,17 +54,25 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
 			/** Get the parameters */
 			Map<String, String> parameters = getParameters(request);
 
-			/** handle the request */
+			/** Get the method code */
 			RequestCode code = requestCodeMap.get(parameters.get("code"));
 
+			/** handle the request */
 			String id;
 			if((id = parameters.get("id"))== null){
-				throw new ServletException("missing id argument!"); 
+				handleInternalError(new InternalBackEndException("missing id argument!"), response);
+				return;
 			}
 			switch (code) {
 			case READ:
-				MUserBean userBean = profileManager.read(id);
-				setResponseText(getGson().toJson(userBean));
+				MUserBean userBean;
+				try {
+					userBean = profileManager.read(id);
+					setResponseText(getGson().toJson(userBean));
+				} catch (IOBackEndException e) {
+					handleNotFoundError(e, response);
+					return;
+				}
 				break;
 			case DELETE:
 				profileManager.delete(id);
@@ -72,15 +80,14 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
 						+ " deleted!");
 				break;
 			default:
-				throw new ServletException("ProfileRequestHandler.doGet(" + code + ") not exist!");
+				handleInternalError(new InternalBackEndException("ProfileRequestHandler.doGet(" + code + ") not exist!"), response);
+				return;
 			}
 			super.doGet(request, response);
 		} catch (InternalBackEndException e) {
 			e.printStackTrace();
-			throw new ServletException(e.getMessage());
-		} catch (IOBackEndException e) {
-			e.printStackTrace();
-			throw new IOException(e.getMessage());
+			handleInternalError(e, response);
+			return;
 		}
 	}
 
@@ -94,12 +101,14 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
 			/** Get the parameters */
 			Map<String, String> parameters = getParameters(request);
 
-			/** handle the request */
+			/** Get the method code */
 			RequestCode code = requestCodeMap.get(parameters.get("code"));
 
+			/** handle the request */
 			String user;
 			if((user = parameters.get("user"))== null){
-				throw new ServletException("missing user argument!"); 
+				handleInternalError(new InternalBackEndException("missing user argument!"), response);
+				return;
 			}
 			switch (code) {
 			case CREATE:
@@ -108,13 +117,12 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
 					userBean = getGson().fromJson(user,
 							MUserBean.class);
 				} catch (JsonSyntaxException e) {
-					e.printStackTrace();
-					throw new ServletException("user jSon format is not valid");
+					handleInternalError(new InternalBackEndException("user jSon format is not valid"), response);
+					return;
 				}
 				System.out.println("\nINFO: trying to create a new user:\n" + userBean);
 				userBean = profileManager.create(userBean);
 				System.out.println("\nINFO: User created!");
-				
 				setResponseText(getGson().toJson(userBean));
 				break;
 			case UPDATE:
@@ -122,23 +130,22 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
 					userBean = getGson().fromJson(user,
 							MUserBean.class);
 				} catch (JsonSyntaxException e) {
-					e.printStackTrace();
-					throw new ServletException("jSon format is not valid");
+					handleInternalError(new InternalBackEndException("user jSon format is not valid"), response);
+					return;
 				}
 				System.out.println("\nINFO: trying to update user:\n" + userBean);
 				profileManager.update(userBean);
 				System.out.println("\nINFO: User updated!");
 				break;
 			default:
-				throw new ServletException("ProfileRequestHandler.doPost(" + code + ") not exist!");
+				handleInternalError(new InternalBackEndException("ProfileRequestHandler.doPost(" + code + ") not exist!"), response);
+				return;
 			}
 			super.doPost(request, response);
 		} catch (InternalBackEndException e) {
 			e.printStackTrace();
-			throw new ServletException(e.getMessage());
-		} catch (IOBackEndException e) {
-			e.printStackTrace();
-			throw new IOException(e.getMessage());
+			handleInternalError(e, response);
+			return;
 		}
 	}
 }
