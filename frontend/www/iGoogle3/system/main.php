@@ -22,7 +22,6 @@ header("Content-Script-Type:text/javascript");
 if(session_name()==='myMedSession_main')
 {
 	if(!isset($_SESSION['user']))
-	{
 		$_POST["connexion"] = 'guest';
 	define('USER_CONNECTED', $_SESSION['user']->socialNetworkName!==null );
 }
