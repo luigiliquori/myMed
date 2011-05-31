@@ -8,7 +8,9 @@ if(defined('DEBUG')&&DEBUG)
 	ini_set('display_errors', 1);
 ELSE
 	ini_set('display_errors', 0);
-session_name('myMedSession_main');
+// class d'un objet présent en session => doit être définie avant l'initialisation des session
+require_once dirname(__FILE__).'/backend/Profile.class.php';
+session_name('myMedSession_'.(defined('SESSIONNAME')?SESSIONNAME:'main'));
 session_start();
 
 require_once dirname(__FILE__).'/Debug.class.php';
@@ -16,7 +18,14 @@ require_once dirname(__FILE__).'/TemplateManager.class.php';
 require_once dirname(__FILE__).'/ContentObject.class.php';
 
 define('USER_CONNECTED', isset($_SESSION['user']) );
-if(USER_CONNECTED)
+$templateManager = new TemplateManager();
+if(defined('CONTENTOBJECT'))
+{
+	require_once CONTENTOBJECT.'.class.php';
+	$contentClass = basename(CONTENTOBJECT);
+	$templateManager->setContent(new $contentClass());
+}
+else if(USER_CONNECTED)
 {
 	if(!isset($_GET['service']))
 		$_GET['service'] = 'Desktop';
@@ -24,15 +33,13 @@ if(USER_CONNECTED)
 	if(is_file($serviceFile))
 	{
 		require_once($serviceFile);
-		$templateManager = new TemplateManager(new $_GET['service'](), "home");
+		$templateManager->setContent(new $_GET['service']());
 	}
 	else
 	{
 		require_once(dirname(__FILE__).'/../services/Dynamic/Dynamic.class.php');
-		$templateManager = new TemplateManager(new Dynamic(), "home");
+		$templateManager->setContent(new Dynamic());
 	}
 }
-else
-	$templateManager = new TemplateManager(null, "home");
 $templateManager->callTemplate();
 ?>

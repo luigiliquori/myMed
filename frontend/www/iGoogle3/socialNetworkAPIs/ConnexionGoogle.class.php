@@ -143,7 +143,7 @@ class ConnexionGoogle extends ConnexionOpenId
 	public /*void*/ function button()
 	{
 ?>
-		<a href="?connexion=openid&connexionProvider=Google&uri=https://www.google.com/accounts/o8/id" class="google"><span>Google</span></a>
+		<a href="?connexion=openid&amp;connexionProvider=Google&amp;uri=https://www.google.com/accounts/o8/id" class="google"><span>Google</span></a>
 <?php
 	}
 }

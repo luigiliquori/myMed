@@ -40,29 +40,42 @@
 			</div>
 		</div>
 		<div id="content">
-<?php if($this->isContent()):?>
+<?php if($this->isContent()&&(!defined('CONTENTOBJECT')||CONTENTOBJECT!=='OpenIdProvider/OpenIdProvider')):?>
 			<!-- USERINFO -->
 			<!-- USER PICTURE PROFILE -->
 			<div style="width: 200px; height: 300px; background-color: #edf2f4;">
-				<img width="200px" alt="profile picture" src="<?= $_SESSION['user']['profile_picture']?$_SESSION['user']['profile_picture']:'http://graph.facebook.com//picture?type=large' ?>" /><br />
+				<img width="200px" alt="profile picture" src="<?= $_SESSION['user']->profilePicture?$_SESSION['user']->profilePicture:'http://graph.facebook.com//picture?type=large' ?>" /><br />
 			</div>
 			<!-- USER INFOMATION -->
 			<table>
 				<tr>
-					<th>Name:</th>
-					<td> <?= $_SESSION['user']['name']?$_SESSION['user']['name']:'Unknown' ?></td>
+					<th align="left">Nom&#160;:</th>
+					<td><?= $_SESSION['user']->name?$_SESSION['user']->name:'Unknown' ?></td>
 				</tr>
 				<tr>
-					<th>Gender:</th>
-					<td> <?= $_SESSION['user']['gender']?$_SESSION['user']['gender']:'Unknown' ?></td>
+					<th align="left">Sexe&#160;:</th>
+					<td><?= $_SESSION['user']->gender?$_SESSION['user']->gender=='F'?'Femme':'Homme':'Unknown'?></td>
+				</tr>
+				<!--tr>
+					<th align="left">Date de naissance&#160;:</th>
+					<td><?= $_SESSION['user']->birthday?$_SESSION['user']->birthday:'Unknown' ?></td>
+				</tr-->
+				<tr>
+					<th align="left">Ville&#160;:</th>
+					<td><?= $_SESSION['user']->hometown?$_SESSION['user']->hometown:'Unknown' ?></td>
 				</tr>
 				<tr>
-					<th>Langage:</th>
-					<td> <?= $_SESSION['user']['locale']?$_SESSION['user']['locale']:'Unknown' ?></td>
-				</tr>
-				<tr>
-					<th>Profile from:</th>
-					<td> <?= $_SESSION['user']['social_network']?$_SESSION['user']['social_network']:'Unknown' ?></td>
+					<th align="left">Profile&#160;:</th>
+					<td>
+					   <?php
+					   	if($_SESSION['user']->link)
+					   		echo '
+					   		<a href="'.$_SESSION['user']->link.'">'.$_SESSION['user']->socialNetworkName.'</a>';
+					   	else
+					   		echo '
+					   		'.$_SESSION['user']->socialNetworkName;
+					   ?>
+					</td>
 				</tr>
 			</table>
 			
@@ -92,13 +105,17 @@
 			</div>
 				
 			<!-- DESKTOP -->
-<?php if(isset($_GET['service']) && $_GET['service']!='Desktop'):?>
+<?php 	if(isset($_GET['service']) && $_GET['service']!='Desktop'):?>
 			<a href="?" style="left: 230px;position: absolute;top: 12px;">&lt;&lt; Retourner au bureau</a>
-<?php endif;?>
+<?php 	endif;?>
 			<div id="desktop">
 				<div<?=isset($_GET['service'])?' id="'.$_GET['service'].'"':''?>>
 					<?php $this->content();?>
 				</div>
+			</div>
+<?php elseif(defined('CONTENTOBJECT')&&CONTENTOBJECT==='OpenIdProvider/OpenIdProvider'):?>
+			<div id="OpenIdProvider">
+				<?php $this->content();?>
 			</div>
 <?php else:?>
 			<div id="description_myMed">

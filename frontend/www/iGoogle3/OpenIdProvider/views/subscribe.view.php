@@ -12,9 +12,6 @@
 							<label for="password2">Retapez le Mot de Passe&nbsp;:</label>
 							<input id="password2" name="password2" type="password" />
 						</div>
-						<div>
-							<button type="submit" name="cancel"><span>Annuler</span></button>
-							<button type="submit"><span>Connecter</span></button>
-						</div>
 					</div>
+					<button type="submit"><span>S'inscrire</span></button>
 				</form>

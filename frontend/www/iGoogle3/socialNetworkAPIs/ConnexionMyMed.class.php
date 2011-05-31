@@ -23,7 +23,7 @@ class ConnexionMyMed extends ConnexionOpenId
 	public /*void*/ function button()
 	{
 ?>
-		<a href="?connexion=openid&connexionProvider=myMed&uri=http://<?=$_SERVER["HTTP_HOST"].ROOTPATH?>openid.php" class="mymed"><span>MyMed</span></a>
+		<a href="?connexion=openid&amp;connexionProvider=myMed&amp;uri=http://<?=$_SERVER["HTTP_HOST"].ROOTPATH?>openid.php" class="mymed"><span>MyMed</span></a>
 <?php
 	}
 }

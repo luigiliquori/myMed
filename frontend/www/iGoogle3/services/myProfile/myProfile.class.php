@@ -69,7 +69,7 @@ class myProfile extends ContentObject
 					</div>
 					<div>
 						<span class="title">Sexe&#160;:</span>
-						<span><?= $_SESSION['user']->gender?$_SESSION['user']->gender=='F'?'Woman':'Man':'Unknown' ?></span>
+						<span><?= $_SESSION['user']->gender?$_SESSION['user']->gender=='F'?'Femme':'Homme':'Unknown' ?></span>
 					</div>
 					<div>
 						<span class="title">Date de naissance&#160;:</span>

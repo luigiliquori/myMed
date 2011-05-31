@@ -7,7 +7,7 @@ class Desktop extends ContentObject
 	 */
 	public /*string*/ function getTitle()
 	{
-		return 'myMed\'s home page: '.$_SESSION['user']['name'];
+		return 'myMed\'s home page: '.$_SESSION['user']->name;
 	}
 	/**
 	 * Print content's tags to be put inside <head> tag
@@ -82,7 +82,7 @@ class Desktop extends ContentObject
 		//DOCK
 ?>
 			<div id="dock">
-				<a href="<?= $_SESSION['user']['profile'] ?>" class="icon myProfile">
+				<a href="<?= $_SESSION['user']->link ?>" class="icon myProfile">
 					<img src="services/Desktop/img/myHome.png" alt="MyProfile" />
 					<span>myProfile</span>
 				</a>

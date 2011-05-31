@@ -22,20 +22,8 @@ header("Content-Script-Type:text/javascript");
 if(session_name()==='myMedSession_main')
 {
 	if(!isset($_SESSION['user']))
-	{//*
-		$_POST["connexion"] = 'guest';/*/
-		$_SESSION['user'] = array(
-				'id'				=> 'visiteur',
-				'name'				=> null,
-				'gender'			=> null,
-				'locale'			=> null,
-				'updated_time'		=> null,
-				'profile'			=> null,
-				'profile_picture'	=> null,
-				'social_network'	=> null);
-		$encoded = json_encode($_SESSION['user']);
-		file_get_contents(trim(BACKEND_URL."ProfileRequestHandler?act=0&user=" . urlencode($encoded)));//*/
-	}
+	{
+		$_POST["connexion"] = 'guest';
 	define('USER_CONNECTED', $_SESSION['user']->socialNetworkName!==null );
 }
 else

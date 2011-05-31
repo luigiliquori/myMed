@@ -10,17 +10,7 @@ class ConnexionGuest extends Connexion
 	{
 		if(isset($_POST["connexion"])&&$_POST["connexion"]=='guest')
 		{
-			$_SESSION['user'] = array(
-					'id'				=> 'guest',
-					'name'				=> null,
-					'gender'			=> null,
-					'locale'			=> substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, strcspn($_SERVER['HTTP_ACCEPT_LANGUAGE'], ',;')),
-					'updated_time'		=> null,
-					'profile'			=> null,
-					'profile_picture'	=> null,
-					'social_network'	=> 'Guest');
-			$encoded = json_encode($_SESSION['user']);
-			file_get_contents(trim(BACKEND_URL."ProfileRequestHandler?act=0&user=" . urlencode($encoded)));
+			$_SESSION['user'] = new Profile;
 			header('Location:'.$_SERVER["REQUEST_URI"]);
 			exit;
 		}

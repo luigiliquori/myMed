@@ -1,6 +1,13 @@
 <?php
+require_once dirname(__FILE__).'/../../system/backend/DHTRequest.class.php';
+require_once dirname(__FILE__).'/../../system/backend/ProfileRequest.class.php';
 class myTransport extends ContentObject
 {
+	private /*DHTRequest*/ $request;
+	public function __construct()
+	{
+		$this->request	= new DHTRequest;
+	}
 	/**
 	 * Method to define the title of the page
 	 * @return string	Content Title
@@ -18,7 +25,27 @@ class myTransport extends ContentObject
 		//but http://maps.google.com/maps/api/js?sensor=false&callback=launchGeolocation
 ?>
 		<link rel="stylesheet" href="services/myTransport/css/jquery.autocomplete.css" />
-		<style type="text/css">#myTransport{height: 100%;}</style>
+		<style type="text/css">
+		#myTransport{height: 100%;}
+		#myTransport div.error ,
+		#myTransport div.notice {
+			position	: absolute;
+			width		: 100%;
+			text-align	: center;
+		}
+		#myTransport div.notice span ,
+		#myTransport div.error span {
+			padding	: 0.5ex;
+			border	: 1px solid #D2D2D2;
+			display	: inline-block;
+		}
+		#myTransport div.notice span {
+			background-color	: #EDF2F4;
+		}
+		#myTransport div.error span {
+			background-color	: #ff0000;
+		}
+		</style>
 		<script src="services/myTransport/javascript/map.js"></script>
 		<script src="services/myTransport/javascript/geo_autocomplete.js"></script>
 		<script src="services/myTransport/javascript/jquery.autocomplete_geomod.js"></script>
@@ -52,9 +79,20 @@ class myTransport extends ContentObject
 		if(isset($_GET["search"]))
 		{
 			$key = $_GET["from"] . $_GET["to"] . $_GET["theDate"];
-			$id = trim(file_get_contents(trim(BACKEND_URL."DHTRequestHandler?act=1&key=" . urlencode($key))));
-			if($id)
-				$search = true;
+			try
+			{
+				$id	= $this->request->read($key);
+				$profileRequest	= new ProfileRequest;
+				$res	= $profileRequest->read($id);
+				$found = true;
+			}
+			catch(BackendRequestException $ex)
+			{
+				if($ex->getCode() == 404)
+					$found = false;
+				else
+					throw $ex;
+			}
 		}
 		require dirname(__FILE__).'/find.html.php';
 	}
@@ -62,12 +100,12 @@ class myTransport extends ContentObject
 	{
 		if(isset($_SESSION['MyTransport_notice']))
 		{
-			echo '<div class="notice">'.$_SESSION['MyTransport_notice'].'</div>';
+			echo '<div class="notice"><span>'.$_SESSION['MyTransport_notice'].'</span></div>';
 			unset($_SESSION['MyTransport_notice']);
 		}
 		if(isset($_SESSION['MyTransport_error']))
 		{
-			echo '<div class="error">'.$_SESSION['MyTransport_error'].'</div>';
+			echo '<div class="error"><span>'.$_SESSION['MyTransport_error'].'</span></div>';
 			unset($_SESSION['MyTransport_error']);
 		}
 		require dirname(__FILE__).'/publish.html.php';
@@ -77,11 +115,16 @@ class myTransport extends ContentObject
 		if(isset($_GET['publish']))
 		{
 			$key = $_POST["from"] . $_POST["to"] . $_POST["theDate"];
-			$value = $_SESSION['user']['id'];
-			if(file_get_contents(trim(BACKEND_URL."DHTRequestHandler?act=0&key=" . urlencode($key) . "&value=" . urlencode($value)))!==false)
+			$value = $_SESSION['user']->mymedID;
+			try
+			{
+				$this->request->create($key, $value);
 				$_SESSION['MyTransport_notice'] = 'Votre trajet a bien été enregistré';
-			else
-				$_SESSION['MyTransport_error'] = 'Votre trajet n\'a pas été enregistré';
+			}
+			catch(BackendRequestException $ex)
+			{
+				$_SESSION['MyTransport_error'] = 'Votre trajet n\'a pas été enregistré :<br />'.$ex->getCode().': '.$ex->getMessage();
+			}
 		}
 	}
 }
