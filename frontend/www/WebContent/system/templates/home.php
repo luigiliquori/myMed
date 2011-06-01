@@ -4,7 +4,7 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 		<title>myMed<?php if($this->isContent())echo '&gt;';$this->getTitle();?></title>
-		<script src="jquery/dist/jquery.js"></script>
+		<script src="<?=ROOTPATH?>jquery/dist/jquery.js"></script>
 <?php $this->headTags();?>
 		<!-- define styles of type of elements (ex:h1, p, p.myclass...)-->
 		<link rel="stylesheet" href="style/desktop/style.css" />
