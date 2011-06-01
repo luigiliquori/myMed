@@ -1,17 +1,34 @@
-#OpenIdProvider form {
+#OpenIdProvider {
 	text-align	: center;
 }
+#OpenIdProvider form {
+	text-align	: center;
+	display		: inline;
+	display		: inline-block;
+}
+#OpenIdProvider form fieldset ,
 #OpenIdProvider form>div {
 	display		: table;
 	text-align	: left;
-	margin		: auto;
 }
-#OpenIdProvider form>div>* {
+#OpenIdProvider form fieldset>div ,
+#OpenIdProvider form>div>div {
 	display	: table-row;
 }
-#OpenIdProvider form>div>*>* {
+#OpenIdProvider form fieldset>div>* ,
+#OpenIdProvider form>div>div>* {
 	display	: table-cell;
 	margin	: 0.25ex 0.5ex;
+}
+#OpenIdProvider form div.buttons  {
+	display		: block;/*
+	text-align	: center;
+	direction	: rtl;*/
+}
+#OpenIdProvider form div.buttons button {/*
+	display	: inline;
+	display	: inline-block;*/
+	float	: right;
 }
 #search {
 	display	: none !important;
@@ -22,4 +39,11 @@
 }
 #header div.connexion form div {
 	display	: block;
+}
+#profile {
+	text-align	: left;
+	padding		: 1em;
+}
+#OpenIdProvider .error {
+	color	: red;
 }
