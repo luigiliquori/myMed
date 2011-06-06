@@ -2,6 +2,7 @@ package edu.lognet.core.protocols.p2p.chord;
 
 import edu.lognet.core.protocols.p2p.IDHT;
 import edu.lognet.core.protocols.p2p.Node;
+import edu.lognet.core.protocols.p2p.exception.NodeException;
 
 /**
  * This interface represent a node in the jChord protocol
@@ -42,7 +43,7 @@ public interface IChord extends IDHT {
 	 * @param chord
 	 *            , An entry of the network to join
 	 */
-	public void join(Node chord);
+	public void join(Node chord) throws NodeException;
 
 	/**
 	 * Call the stabilization algorithm
@@ -62,8 +63,9 @@ public interface IChord extends IDHT {
 	 * 
 	 * @param host
 	 * @param port
+	 * @throws NodeException 
 	 */
-	public void join(String host, int port);
+	public void join(String host, int port) throws NodeException;
 
 	/**
 	 * "Fairplay" kill of the node

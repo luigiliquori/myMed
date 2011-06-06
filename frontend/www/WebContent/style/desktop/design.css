@@ -1,0 +1,197 @@
+html ,body {
+	margin	: 0;
+	padding	: 0;
+	height	: 100%;
+}
+#header {
+	height			: 37px;
+	background-color: #415B68;
+}
+#header ul, #header form {
+	float		: right;
+	line-height	: 37px;
+}
+#header ul {
+	display		: block;
+	float		: left;
+	list-style	: none;
+	margin		: 0;
+	padding		: 0;
+	padding-left: 193px;;
+	background-image	: url("../img/title_h30_c4.png");
+	background-repeat	: no-repeat;
+	background-position	: left center;
+}
+#header ul li {
+	display	: inline;
+	margin	: 0;
+	padding	: 0;
+}
+form#logout input ,
+#header a{
+	color: white;
+	text-decoration:none;
+}
+
+form#logout input:hover ,
+#header a:hover{
+	color: red;
+}
+div.innerContent {
+	width	: 930px;
+	margin	: auto;
+}
+#titles {
+	background-color	: #edf2f4;
+	border-bottom		: 1px solid #c6d4db;
+	height		: 167px;
+	overflow	: hidden;
+	position	: absolute;
+	width		: 100%;
+}
+#content {
+	margin		: auto;
+	margin-top	: 73px;
+	padding		: 10px;
+	width		: 930px;
+	background-color: white;
+	border		: 1px #d2d2d2 solid;
+	height		: 545px;
+	position	: relative;
+	z-index		: 1;
+}
+#languages ul {
+	display		: block;
+	list-style	: none;
+	margin		: 1em 0;
+	padding		: 0;
+}
+#languages ul li {
+	display			: inline;
+	margin			: 0;
+	padding			: 0;
+	border-right	: solid 1px #000;
+	padding-right	: 0.5ex;
+	font-weight		: bold;
+	color			: #051893;
+}
+#languages ul li:last-child {
+	border-right	: none 0;
+}
+#languages ul li a {
+	font-weight	: normal;
+	/*color	: gray;/*not unable*/
+}
+#footer {
+	text-align	: center;
+	margin		: auto;
+	width		: 930px;
+	border-top	: solid 1px #B0C0E1;
+}
+#footer img {
+	vertical-align	: middle;
+}
+
+
+#connexion>div {
+	margin:1ex;
+}
+#connexion div form ,#connexion div div {
+	display:inline;
+	vertical-align: middle;
+}
+#content #description_myMed {
+	float		: left;
+	width		: 380px;/*34.545em;*/
+	margin-left	: 50px;
+	margin-right: 80px;
+	text-align	: center;
+}
+#content #description_myMed ,
+#content #inscription {
+	margin-top	: 60px;
+}
+#content #description_myMed img {
+	width	: 100%;
+}
+#content #inscription {
+	overflow	: hidden;
+}
+#content #inscription form {
+	text-align	: center;
+}
+#content #inscription form>div {
+	display		: table;
+	width		: 100%;
+	text-align	: left;
+}
+#content #inscription form>div>div {
+	display	: table-row;
+}
+#content #inscription form>div>div>* {
+	display	: table-cell;
+	margin:0.2ex;
+}
+#content #inscription form button {
+	margin	: 2em;
+	background-image	: url("../img/inscription.png");
+	height	: 24px;
+	width	: 80px;
+	border	: 0;
+	cursor	: pointer;
+}
+#content #inscription form button span {
+	display	: none;
+}
+#content #inscription #bloglink {
+	border-top	: groove 2px #eee;
+	text-align	: center;
+}
+#content #inscription #bloglink img {
+	display	: block;
+	margin	: auto;
+}
+
+
+
+
+
+#desktop {
+	position: absolute;
+	overflow:auto;
+	left: 230px; 
+	top:31px;
+	width: 700px; 
+	height: 520px; 
+	background-image:url("../img/wallpaper.png");
+	border: thin #d2d2d2 solid;
+}
+#dock {
+}
+
+
+
+
+
+#warning {
+	position:absolute; 
+	top: 200px; 
+	width: 698px;
+	border: thin black solid;
+	text-align: center;
+	background-color: #f1c8c8;
+}
+#debug {
+	position: relative; 
+	top: -90px; 
+	width:600px; 
+	height:300px; 
+	padding: 10px;
+	background-color: black; 
+	color: #5fff2e; 
+	font-size:15px;
+	font-weight:bold;
+	opacity:0.8;
+	overflow: auto;
+	border: medium black solid; 
+}

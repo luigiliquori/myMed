@@ -11,6 +11,7 @@ import edu.lognet.core.protocols.p2p.IDHT;
 import edu.lognet.core.protocols.p2p.Node;
 import edu.lognet.core.protocols.p2p.chord.AbstractChord;
 import edu.lognet.core.protocols.p2p.chord.IChord;
+import edu.lognet.core.protocols.p2p.exception.NodeException;
 import edu.lognet.core.protocols.transport.ITransport;
 import edu.lognet.core.protocols.transport.socket.request.RequestHandler;
 import edu.lognet.core.protocols.transport.socket.server.SocketImpl;
@@ -80,7 +81,11 @@ public abstract class AbstractSynapse extends AbstractChord implements ISynapse 
 	 */
 	public void join(String host, int port) {
 		Node chord = new Node(host, h.SHA1ToInt(host + port + identifier), port);
-		join(chord); // chord join
+		try {
+			join(chord);
+		} catch (NodeException e) {
+			e.printStackTrace();
+		} // chord join
 	}
 
 	/**
@@ -94,7 +99,7 @@ public abstract class AbstractSynapse extends AbstractChord implements ISynapse 
 	}
 
 	/**
-	 * @see core.protocols.p2p.IDHT#put(String, String)
+	 * @see IDHTClient.protocols.p2p.IDHT#put(String, String)
 	 */
 	@Deprecated
 	/* multiPut */
@@ -112,7 +117,7 @@ public abstract class AbstractSynapse extends AbstractChord implements ISynapse 
 	}
 
 	/**
-	 * @see core.protocols.p2p.IDHT#get(String)
+	 * @see IDHTClient.protocols.p2p.IDHT#get(String)
 	 */
 	public String get(String key) {
 		// INIT CACHE TABLE
@@ -133,7 +138,7 @@ public abstract class AbstractSynapse extends AbstractChord implements ISynapse 
 	/**
 	 * Bypass the initialization of the cache table
 	 * 
-	 * @see core.protocols.p2p.IDHT#get(String)
+	 * @see IDHTClient.protocols.p2p.IDHT#get(String)
 	 * @param key
 	 * @param overlayIntifier
 	 *            the overlay where the request come from
@@ -404,14 +409,14 @@ public abstract class AbstractSynapse extends AbstractChord implements ISynapse 
 	}
 
 	/**
-	 * @see core.protocols.p2p.IDHT#getIdentifier()
+	 * @see IDHTClient.protocols.p2p.IDHT#getIdentifier()
 	 */
 	public String getIdentifier() {
 		return identifier;
 	}
 
 	/**
-	 * @see core.protocols.p2p.IDHT#getTransport()
+	 * @see IDHTClient.protocols.p2p.IDHT#getTransport()
 	 */
 	public ITransport getTransport() {
 		return transport;

@@ -1,5 +1,3 @@
-<div id="mapcanvas" style="width: 700px; height: 360px;"></div>
-
 	function success(position) {
 		var latlng = new google.maps.LatLng(position.coords.latitude,
 				position.coords.longitude);
@@ -73,7 +71,9 @@
 	}
 
 	function error(msg) {
-		var s = document.querySelector('#status');
+		if(console)
+			console.error("Error"+msg);
+		var s = document.querySelector('#debug');
 		s.innerHTML = typeof msg == 'string' ? msg : "failed";
 		s.className = 'fail';
 	}

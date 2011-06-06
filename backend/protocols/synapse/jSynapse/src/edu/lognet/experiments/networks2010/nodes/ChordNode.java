@@ -14,6 +14,7 @@ import java.util.Date;
 import edu.lognet.core.protocols.p2p.Node;
 import edu.lognet.core.protocols.p2p.chord.AbstractChord;
 import edu.lognet.core.protocols.p2p.chord.IChord;
+import edu.lognet.core.protocols.p2p.exception.NodeException;
 import edu.lognet.core.protocols.transport.ITransport;
 import edu.lognet.core.protocols.transport.socket.SimpleSocketImpl;
 import edu.lognet.core.tools.HashFunction;
@@ -73,7 +74,11 @@ public class ChordNode extends AbstractChord implements Runnable{
 //		this.h = new HashFunction(overlayIntifier);
 //		int id = h.SHA1ToInt(getThisNode().getIp()+getThisNode().getPort()+time);
 //		initialise(getThisNode().getIp(), id, getThisNode().getPort());
-		join(chord);
+		try {
+			join(chord);
+		} catch (NodeException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void put(String key, String value){

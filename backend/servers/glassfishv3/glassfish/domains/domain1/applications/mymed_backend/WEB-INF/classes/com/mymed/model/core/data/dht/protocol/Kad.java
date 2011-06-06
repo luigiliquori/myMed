@@ -1,6 +1,8 @@
 package com.mymed.model.core.data.dht.protocol;
 
-import com.mymed.model.core.data.dht.AbstractDHT;
+import java.io.UnsupportedEncodingException;
+
+import com.mymed.model.core.data.dht.factory.IDHTClient;
 
 import edu.lognet.experiments.current.node.kademlia.KadNode;
 
@@ -9,49 +11,74 @@ import edu.lognet.experiments.current.node.kademlia.KadNode;
  * @author lvanni
  *
  */
-public class Kad extends AbstractDHT{
+public class Kad extends AbstractDHTClient implements IDHTClient{
 
 	/** The Chord instance */
 	private static Kad singleton;
 	
-	/** ChordNode from jSynapse edu.lognet.experiments.current.ChordNode */
 	private KadNode node;
-
+	
 	/**
 	 * Private Constructor to create a singleton
-	 * @param address
-	 * @param port
 	 */
-	private Kad(String address, int port) {
-		super(address, port);
-		// use the jSynapse Chord implementation
-		this.node = new KadNode(address, port);
-		// TODO Join to an existing network using the tracker
-	}
+	private Kad() { }
 	
 	/**
 	 * Chord getter
 	 * @return
 	 * 		The only one instance of Chord
 	 */
-	public static Kad getInstance(String address, int port) {
-		if (null == singleton) {
-			singleton = new Kad(address, port);
+	public static Kad getInstance() {
+		if (singleton == null) {
+			synchronized (Kad.class) {
+				if (singleton == null) 
+					singleton = new Kad();
+			}
 		}
 		return singleton;
 	}
 	
-	/* --------------------------------------------------------- */
-	/*                    DHT OPERATIONS                         */
-	/* --------------------------------------------------------- */
-	@Override
-	public void put(String key, String value) {
-		node.put(key, value);
+	/**
+	 * Setup and start the node
+	 * @param host
+	 * @param port
+	 */
+	public void setup(String ip, int port){
+		this.node = new KadNode(ip, port);
+	}
+	
+	/**
+	 * Default DHT put operation
+	 * @param key
+	 * @param value
+	 */
+	public void put(String key, byte[] value){
+		try {
+			node.put(key, new String(value, "UTF8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Default DHT get operation
+	 * @param key
+	 */
+	public byte[] getValue(String key){
+		try {
+			return (node.get(key)).getBytes("UTF8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public KadNode getNode() {
+		return node;
 	}
 
-	@Override
-	public String get(String key) {
-		return node.get(key);
+	public void setNode(KadNode node) {
+		this.node = node;
 	}
-
 }

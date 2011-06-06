@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import edu.lognet.core.protocols.p2p.Node;
+import edu.lognet.core.protocols.p2p.exception.NodeException;
 import edu.lognet.core.tools.Range;
 
 /**
@@ -90,16 +91,17 @@ public abstract class AbstractChord implements IChord {
 	}
 
 	/**
+	 * @throws NodeException 
 	 * @see core.protocols.p2p.chord.IChord#join(Node)
 	 */
-	public void join(Node chord) {
+	public void join(Node chord) throws NodeException {
 		String succ = sendRequest(FINDSUCC + "," + thisNode.getId(), chord);
 		if(!succ.equals("unreachable")){
 //			predecessor = null;
 			successor = new Node(succ);
 			sendRequest(JOIN + "," + thisNode, successor);
 		} else {
-			System.out.println("Fail to join: " + chord.getIp() + ":" + chord.getPort());
+			throw new NodeException("Chord: Fail to join: " + chord.getIp() + ":" + chord.getPort());
 		}
 	}
 

@@ -1,178 +1,401 @@
 package com.mymed.model.core.wrapper;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
-import org.apache.cassandra.thrift.ConsistencyLevel;
-
-import com.mymed.model.core.data.dht.DHTFactory;
-import com.mymed.model.core.data.dht.IDHT;
-import com.mymed.model.core.data.dht.IDHT.Type;
+import com.mymed.controller.core.services.requesthandler.exception.IOBackEndException;
+import com.mymed.controller.core.services.requesthandler.exception.InternalBackEndException;
+import com.mymed.model.core.data.dht.configuration.Config;
+import com.mymed.model.core.data.dht.factory.DHTClientFactory;
+import com.mymed.model.core.data.dht.factory.IDHTClient;
+import com.mymed.model.core.data.dht.factory.IDHTClient.ClientType;
 import com.mymed.model.core.data.dht.protocol.Cassandra;
-import com.mymed.model.datastructure.User;
+import com.mymed.model.core.wrapper.exception.WrapperException;
 
 /**
  * @author lvanni
  * 
- * This class represent the DAO pattern:
- * Access to data varies depending on the source of the data. 
- * Access to persistent storage, such as to a database, varies greatly depending on the type of storage
+ *         This class represent the DAO pattern: Access to data varies depending
+ *         on the source of the data. Access to persistent storage, such as to a
+ *         database, varies greatly depending on the type of storage
  * 
- * Use a Data Access Object (DAO) to abstract and encapsulate all access to the data source. 
- * The DAO manages the connection with the data source to obtain and store data.
+ *         Use a Data Access Object (DAO) to abstract and encapsulate all access
+ *         to the data source. The DAO manages the connection with the data
+ *         source to obtain and store data.
  */
-public class Wrapper {
-	
-	/** Default ConsistencyLevel */
-	public static ConsistencyLevel consistencyOnWrite = ConsistencyLevel.ANY;
-	public static ConsistencyLevel consistencyOnRead = ConsistencyLevel.ONE;
-	
+public class Wrapper implements IWrapper {
+
 	/* --------------------------------------------------------- */
-	/* 					User Profile Management					 */
+	/* Attributes */
+	/* --------------------------------------------------------- */
+	/** The type of client used by the wrapper */
+	private ClientType type;
+
+	/** DHTClient */
+	private IDHTClient client;
+
+	/* --------------------------------------------------------- */
+	/* Constructors */
 	/* --------------------------------------------------------- */
 	/**
-	 * @see com.mymed.model.core.data.dht.protocol.Cassandra#getProfile(id)
+	 * Default Constructor: will create a wrapper on top of Cassandra
+	 * 
+	 * @throws IOBackEndException
+	 * @throws InternalBackEndException
 	 */
-	public User getProfile(String id) {
-		Cassandra node = (Cassandra) DHTFactory.createDHT(Type.CASSANDRA);
-
-		String columnFamily = "Users";
-		try {
-			// USER NAME
-			String name = new String(node.getSimpleColumn("Mymed",
-					columnFamily, id, "name".getBytes("UTF8"),
-					consistencyOnRead), "UTF8");
-			// USER GENDER
-			String gender = new String(node.getSimpleColumn("Mymed",
-					columnFamily, id, "gender".getBytes("UTF8"),
-					consistencyOnRead), "UTF8");
-			// USER LOCALE
-			String locale = new String(node.getSimpleColumn("Mymed",
-					columnFamily, id, "locale".getBytes("UTF8"),
-					consistencyOnRead), "UTF8");
-			// USER UPTIME
-			String updated_time = new String(node.getSimpleColumn("Mymed",
-					columnFamily, id, "updated_time".getBytes("UTF8"),
-					consistencyOnRead), "UTF8");
-			// USER PROFILE
-			String profile = new String(node.getSimpleColumn("Mymed",
-					columnFamily, id, "profile".getBytes("UTF8"),
-					consistencyOnRead), "UTF8");
-			// USER PROFILE_PICTURE
-			String profile_picture = new String(node.getSimpleColumn("Mymed",
-					columnFamily, id, "profile_picture".getBytes("UTF8"),
-					consistencyOnRead), "UTF8");
-			// USER SOCIAL_NETWORK
-			String social_network = new String(node.getSimpleColumn("Mymed",
-					columnFamily, id, "social_network".getBytes("UTF8"),
-					consistencyOnRead), "UTF8");
-			if(social_network.equals("myMed")){
-				// USER EMAIL
-				String email = new String(node.getSimpleColumn("Mymed",
-						columnFamily, id, "email".getBytes("UTF8"),
-						consistencyOnRead), "UTF8");
-				// USER PASSWORD
-				String password = new String(node.getSimpleColumn("Mymed",
-						columnFamily, id, "password".getBytes("UTF8"),
-						consistencyOnRead), "UTF8");
-				return new User(id, name, gender, locale, updated_time, profile,
-						profile_picture, social_network, email, password);
-			} else {
-				return new User(id, name, gender, locale, updated_time, profile,
-						profile_picture, social_network);
-			}
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return new User();
+	public Wrapper() throws InternalBackEndException {
+		this(ClientType.CASSANDRA, new Config(new File("./conf/config.xml")));
 	}
 
 	/**
-	 * @see com.mymed.model.core.data.dht.protocol.Cassandra#setProfile(User)
+	 * will create a wrapper on top of Cassandra And use the specific
+	 * configuration file for the transport layer
+	 * 
+	 * @param conf
+	 *            The configuration of the transport layer
+	 * @throws IOBackEndException
+	 * @throws InternalBackEndException
 	 */
-	public void setProfile(User user) {
-		Cassandra node = (Cassandra) DHTFactory.createDHT(Type.CASSANDRA);
-		try {
-			String columnFamily = "Users";
-			// USER ID
-			node.setSimpleColumn("Mymed", columnFamily, user.getId(), "id"
-					.getBytes("UTF8"), user.getId().getBytes("UTF8"),
-					consistencyOnWrite);
-			// USER NAME
-			node.setSimpleColumn("Mymed", columnFamily, user.getId(), "name"
-					.getBytes("UTF8"), user.getName().getBytes("UTF8"),
-					consistencyOnWrite);
-			// USER GENDER
-			node.setSimpleColumn("Mymed", columnFamily, user.getId(), "gender"
-					.getBytes("UTF8"), user.getGender().getBytes("UTF8"),
-					consistencyOnWrite);
-			// USER LOCALE
-			node.setSimpleColumn("Mymed", columnFamily, user.getId(), "locale"
-					.getBytes("UTF8"), user.getLocale().getBytes("UTF8"),
-					consistencyOnWrite);
-			// USER UPTIME
-			node.setSimpleColumn("Mymed", columnFamily, user.getId(),
-					"updated_time".getBytes("UTF8"), user.getUpdated_time()
-					.getBytes("UTF8"), consistencyOnWrite);
-			// USER PROFILE
-			node.setSimpleColumn("Mymed", columnFamily, user.getId(), "profile"
-					.getBytes("UTF8"), user.getProfile().getBytes("UTF8"),
-					consistencyOnWrite);
-			// USER PROFILE_PICTURE
-
-			node.setSimpleColumn("Mymed", columnFamily, user.getId(),
-					"profile_picture".getBytes("UTF8"), user
-					.getProfile_picture().getBytes("UTF8"),
-					consistencyOnWrite);
-			// USER SOCIAL_NETWORK
-			node.setSimpleColumn("Mymed", columnFamily, user.getId(),
-					"social_network".getBytes("UTF8"), user.getSocial_network()
-					.getBytes("UTF8"), consistencyOnWrite);
-			if(user.getSocial_network().equals("myMed")){
-				// USER EMAIL
-				node.setSimpleColumn("Mymed", columnFamily, user.getId(), "email"
-						.getBytes("UTF8"), user.getEmail().getBytes("UTF8"),
-						consistencyOnWrite);
-				// USER PASSWORD
-				node.setSimpleColumn("Mymed", columnFamily, user.getId(),
-						"password".getBytes("UTF8"), user.getPassword().getBytes(
-						"UTF8"), consistencyOnWrite);
-			}
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public Wrapper(Config conf) throws InternalBackEndException {
+		this(ClientType.CASSANDRA, conf);
 	}
-	
+
+	/**
+	 * will create a wrapper on top of the ClientType And use the default
+	 * config.xml in rootpath/conf
+	 * 
+	 * @param type
+	 *            Type of DHTClient used
+	 * @throws IOBackEndException
+	 * @throws InternalBackEndException
+	 */
+	public Wrapper(ClientType type) throws InternalBackEndException {
+		this(type, new Config(new File("./conf/config.xml")));
+	}
+
+	/**
+	 * /** will create a wrapper on top of the ClientType And use the specific
+	 * configuration file for the transport layer
+	 * 
+	 * @param type
+	 *            Type of DHTClient used
+	 * @param conf
+	 *            The configuration of the transport layer
+	 * @throws IOBackEndException
+	 * @throws InternalBackEndException
+	 */
+	public Wrapper(ClientType type, Config conf)
+			throws InternalBackEndException {
+		this.type = type;
+		this.client = DHTClientFactory.createDHTClient(type, conf);
+	}
+
 	/* --------------------------------------------------------- */
-	/*               Reputation System Management                */
-	/* --------------------------------------------------------- */
-	
-	// TBD with UNITO
-	
-	
-	/* --------------------------------------------------------- */
-	/* 					Common DHT operations					 */
+	/* public methods */
 	/* --------------------------------------------------------- */
 	/**
-	 * Common put operation
+	 * Insert a new entry in the database
+	 * 
+	 * @param tableName
+	 *            the name of the Table/ColumnFamily
+	 * @param primaryKey
+	 *            the ID of the entry
+	 * @param args
+	 *            All columnName and the their value
+	 * @return true if the entry is correctly stored, false otherwise
+	 * @throws WrapperException
+	 * @throws InternalBackEndException
+	 */
+	public boolean insertInto(String tableName, String primaryKey,
+			Map<String, byte[]> args) throws WrapperException,
+			InternalBackEndException {
+		if (!type.equals(ClientType.CASSANDRA)) {
+			throw new WrapperException(
+					"insertInto is not yet supported by the DHT type: " + type);
+		} else {
+			// The main database is managed by Cassandra
+			Cassandra node = (Cassandra) this.client;
+			// keyspace is similar to the database name
+			String keyspace = "Mymed";
+			// columnFamily is similar to the table name
+			String columnFamily = tableName;
+			// Store into Cassandra the new entry
+			try {
+				for (String columnName : args.keySet()) {
+					node.setSimpleColumn(keyspace, columnFamily, new String(
+							args.get(primaryKey), "UTF8"), columnName
+							.getBytes("UTF8"), args.get(columnName),
+							consistencyOnWrite);
+				}
+				return true;
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+				throw new WrapperException(
+						"UnsupportedEncodingException with\n"
+								+ "\t- columnFamily = " + columnFamily + "\n"
+								+ "\t- primaryKey = " + primaryKey + "\n");
+			}
+		}
+	}
+
+	/**
+	 * Get the value of a column family
+	 * 
+	 * @param tableName
+	 *            the name of the Table/ColumnFamily
+	 * @param primaryKey
+	 *            the ID of the entry
+	 * @param columnName
+	 *            the name of the column
+	 * @return the value of the column
+	 * @throws InternalBackEndException
+	 * @throws IOBackEndException
+	 */
+	public Map<byte[], byte[]> selectAll(String tableName, String primaryKey)
+			throws WrapperException, InternalBackEndException,
+			IOBackEndException {
+		if (!type.equals(ClientType.CASSANDRA)) {
+			throw new WrapperException(
+					"selectAll is not yet supported by the DHT type: " + type);
+		} else {
+			// The main database is managed by Cassandra
+			Cassandra node = (Cassandra) this.client;
+			// keyspace is similar to the database name
+			String keyspace = "Mymed";
+			// columnFamily is similar to the table name
+			String columnFamily = tableName;
+
+			return node.getEntireRow(keyspace, columnFamily, primaryKey,
+					consistencyOnRead);
+		}
+	}
+
+	/**
+	 * Get the values of a range of columns
+	 * 
+	 * @param tableName
+	 *            the name of the Table/ColumnFamily
+	 * @param primaryKey
+	 *            the ID of the entry
+	 * @param columnNames
+	 *            the name of the columns to return the values
+	 * @return the value of the columns
+	 * @throws InternalBackEndException
+	 */
+	public Map<byte[], byte[]> selectRange(String tableName, String primaryKey,
+			List<String> columnNames) throws WrapperException,
+			InternalBackEndException {
+		if (!type.equals(ClientType.CASSANDRA)) {
+			throw new WrapperException(
+					"selectAll is not yet supported by the DHT type: " + type);
+		} else {
+			// The main database is managed by Cassandra
+			Cassandra node = (Cassandra) this.client;
+			// keyspace is similar to the database name
+			String keyspace = "Mymed";
+			// columnFamily is similar to the table name
+			String columnFamily = tableName;
+			// Convert the List<String> into List<byte[]>
+			List<byte[]> columnNamesToByte = new ArrayList<byte[]>();
+			for (String columnName : columnNames) {
+				try {
+					columnNamesToByte.add(columnName.getBytes("UTF8"));
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+					throw new WrapperException(
+							"UnsupportedEncodingException with\n"
+									+ "\t- columnFamily = " + columnFamily
+									+ "\n" + "\t- primaryKey = " + primaryKey
+									+ "\n" + "\t- columnFamily = " + columnName
+									+ "\n");
+				}
+			}
+			return node.getRangeColumn(keyspace, columnFamily, primaryKey,
+					columnNamesToByte, consistencyOnRead);
+		}
+	}
+
+	/**
+	 * Update the value of a Simple Column
+	 * 
+	 * @param tableName
+	 *            the name of the Table/ColumnFamily
+	 * @param primaryKey
+	 *            the ID of the entry
+	 * @param columnName
+	 *            the name of the column
+	 * @param value
+	 *            the value updated
+	 * @return true is the value is updated, false otherwise
+	 * @throws WrapperException
+	 * @throws InternalBackEndException
+	 */
+	public void updateColumn(String tableName, String primaryKey,
+			String columnName, byte[] value) throws WrapperException,
+			InternalBackEndException {
+		if (!type.equals(ClientType.CASSANDRA)) {
+			throw new WrapperException(
+					"selectAll is not yet supported by the DHT type: " + type);
+		} else {
+			// The main database is managed by Cassandra
+			Cassandra node = (Cassandra) this.client;
+			// keyspace is similar to the database name
+			String keyspace = "Mymed";
+			// columnFamily is similar to the table name
+			String columnFamily = tableName;
+
+			try {
+				node.setSimpleColumn(keyspace, columnFamily, primaryKey,
+						columnName.getBytes("UTF8"), value, consistencyOnWrite);
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+				throw new WrapperException(
+						"UnsupportedEncodingException with\n"
+								+ "\t- columnFamily = " + columnFamily + "\n"
+								+ "\t- primaryKey = " + primaryKey + "\n"
+								+ "\t- columnFamily = " + columnName + "\n");
+			}
+		}
+	}
+
+	/**
+	 * Get the value of an entry column
+	 * 
+	 * @param tableName
+	 *            the name of the Table/ColumnFamily
+	 * @param primaryKey
+	 *            the ID of the entry
+	 * @param columnName
+	 *            the name of the column
+	 * @return the value of the column
+	 * @throws WrapperException
+	 * @throws IOBackEndException
+	 * @throws InternalBackEndException
+	 */
+	public byte[] selectColumn(String tableName, String primaryKey,
+			String columnName) throws WrapperException,
+			InternalBackEndException, IOBackEndException {
+		if (!type.equals(ClientType.CASSANDRA)) {
+			throw new WrapperException(
+					"selectColumn is not yet supported by the DHT type: "
+							+ type);
+		} else {
+			// The main database is managed by Cassandra
+			Cassandra node = (Cassandra) this.client;
+			// keyspace is similar to the database name
+			String keyspace = "Mymed";
+			// columnFamily is similar to the table name
+			String columnFamily = tableName;
+
+			try {
+				return node.getSimpleColumn(keyspace, columnFamily, primaryKey,
+						columnName.getBytes("UTF8"), consistencyOnRead);
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+				throw new WrapperException(
+						"UnsupportedEncodingException with\n"
+								+ "\t- columnFamily = " + columnFamily + "\n"
+								+ "\t- primaryKey = " + primaryKey + "\n"
+								+ "\t- columnFamily = " + columnName + "\n");
+			}
+		}
+	}
+
+	/**
+	 * Remove a specific column defined by the columnName
+	 * 
+	 * @param keyspace
+	 * @param columnFamily
+	 * @param key
+	 * @param columnName
+	 * @throws WrapperException
+	 * @throws InternalBackEndException
+	 * @throws UnsupportedEncodingException
+	 */
+	public void removeColumn(String tableName, String key, String columnName)
+			throws WrapperException, InternalBackEndException {
+		if (!type.equals(ClientType.CASSANDRA)) {
+			throw new WrapperException(
+					"selectColumn is not yet supported by the DHT type: "
+							+ type);
+		} else {
+			// The main database is managed by Cassandra
+			Cassandra node = (Cassandra) this.client;
+			// keyspace is similar to the database name
+			String keyspace = "Mymed";
+			// columnFamily is similar to the table name
+			String columnFamily = tableName;
+			try {
+				node.removeColumn(keyspace, columnFamily, keyspace, columnName
+						.getBytes("UTF8"), consistencyOnWrite);
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+				throw new WrapperException(
+						"removeColumn failed because of a UnsupportedEncodingException");
+			}
+		}
+
+	}
+
+	/**
+	 * Remove an entry in the columnFamily
+	 * 
+	 * @param keyspace
+	 * @param columnFamily
+	 * @param key
+	 * @throws WrapperException
+	 * @throws InternalBackEndException
+	 * @throws UnsupportedEncodingException
+	 */
+	public void removeAll(String tableName, String key)
+			throws WrapperException, InternalBackEndException {
+		if (!type.equals(ClientType.CASSANDRA)) {
+			throw new WrapperException(
+					"selectColumn is not yet supported by the DHT type: "
+							+ type);
+		} else {
+			// The main database is managed by Cassandra
+			Cassandra node = (Cassandra) this.client;
+			// keyspace is similar to the database name
+			String keyspace = "Mymed";
+			// columnFamily is similar to the table name
+			String columnFamily = tableName;
+			node
+					.removeAll(keyspace, columnFamily, keyspace,
+							consistencyOnWrite);
+		}
+
+	}
+
+	/* --------------------------------------------------------- */
+	/* Common DHT operations */
+	/* --------------------------------------------------------- */
+	/**
+	 * Common put operation The DHT type is by default Cassandra
+	 * 
 	 * @param key
 	 * @param value
-	 * @param DHTType	The type of DHT used for the operation
+	 * @throws InternalBackEndException
+	 * @throws IOBackEndException
 	 */
-	public void put(String key, String value, Type DHTType) {
-		IDHT node = DHTFactory.createDHT(DHTType);
-		node.put(key, value);
+	public void put(String key, byte[] value) throws IOBackEndException,
+			InternalBackEndException {
+		this.client.put(key, value);
 	}
 
 	/**
-	 * Common get operation
+	 * Common get operation The DHT type is by default Cassandra
+	 * 
 	 * @param key
-	 * @param DHTType	The type of DHT used for the operation
+	 * @throws InternalBackEndException
+	 * @throws IOBackEndException
 	 */
-	public String get(String key, Type DHTType) {
-		IDHT node = DHTFactory.createDHT(DHTType);
-		return node.get(key);
+	public byte[] get(String key) throws IOBackEndException,
+			InternalBackEndException {
+		return this.client.getValue(key);
 	}
-	
+
 }
