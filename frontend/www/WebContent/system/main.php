@@ -16,6 +16,7 @@ session_start();
 require_once dirname(__FILE__).'/Debug.class.php';
 require_once dirname(__FILE__).'/TemplateManager.class.php';
 require_once dirname(__FILE__).'/ContentObject.class.php';
+require_once dirname(__FILE__).'/library.php';
 
 define('USER_CONNECTED', isset($_SESSION['user']) );
 $templateManager = new TemplateManager();

@@ -61,24 +61,28 @@ div.table>* {
 div.table>*>* {
 	display:table-cell;
 }
-button.mymed ,button.twitter ,button.guest ,button.google ,button.openid {
-	border:none 0;
-	width:80px;
-	height:24px;
-	cursor:pointer;
+a.mymed ,a.twitter ,a.guest ,a.google ,a.openid {
+	display	: inline;
+	display	: inline-block;
+	border	: none 0;
+	width	: 80px;
+	height	: 24px;
+	cursor	: pointer;
 }
-button.mymed:hover ,button.twitter:hover ,button.guest:hover ,button.google:hover ,button.openid:hover {
+a.mymed:hover ,a.twitter:hover ,a.guest:hover ,a.google:hover ,a.openid:hover {
 }
-button.mymed span ,button.twitter span ,button.guest span ,button.google span  ,button.openid span {
+a.mymed span ,a.twitter span ,a.guest span ,a.google span  ,a.openid span {
 	visibility:hidden;;
 }
-button.mymed {
+a.mymed {
 	background-image:url("../img/loginwith_mymed.png");
 }
-button.twitter {
+a.twitter {
 	background-image:url("../img/loginwith_twitter.png");
 }
-button.facebook {
+a.facebook {
+	display	: inline;
+	display	: inline-block;
 	border:solid 1px #29447e;
 	background:url("http://static.ak.fbcdn.net/rsrc.php/v1/zL/r/FGFbc80dUKj.png") no-repeat scroll 0 0 #29447E;
 	background-position:-1px -189px;
@@ -86,30 +90,42 @@ button.facebook {
 	cursor:pointer;
 	padding:0;
 	padding-left:21px;
-	height:22px;
+	height:20px;
 	
 	color:#FFFFFF;
 	font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
 	font-weight:bold;
 	font-size:11px;
 }
-button.facebook::-moz-focus-inner { 
+a.facebook::-moz-focus-inner { 
     border: 0;
     padding: 0;
 }
-button.facebook span {
+a.facebook span {
 	border-top:1px solid #879ac0;
 	display:block;
 	height:100%;
 	line-height:20px;
 	padding:0 6px;
 }
-button.guest {
+a.guest {
 	background-image:url("../img/loginasguest");
 }
-button.google {
+a.google {
 	background-image:url("../img/loginwith_google3.png");
 }
-button.openid {
+a.openid {
 	background-image:url("../img/loginwith_openid.png");
+}
+div.error {
+	position	: absolute;
+	top			: 0;
+	text-align	: center;
+	width		: 100%;
+	z-index		: 9999;
+}
+div.error a {
+	background-color	: red;
+	color				: black;
+	padding				: 0.5ex;
 }

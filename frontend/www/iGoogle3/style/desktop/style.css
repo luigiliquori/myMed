@@ -55,55 +55,15 @@ a:HOVER {
 .appToolbar {
 	background-color: #364049;
 }
-button.mymed ,button.twitter ,button.guest ,button.google ,button.openid {
-	border:none 0;
-	width:80px;
-	height:24px;
-	cursor:pointer;
+div.error {
+	position	: absolute;
+	top			: 0;
+	text-align	: center;
+	width		: 100%;
+	z-index		: 9999;
 }
-button.mymed:hover ,button.twitter:hover ,button.guest:hover ,button.google:hover ,button.openid:hover {
-}
-button.mymed span ,button.twitter span ,button.guest span ,button.google span  ,button.openid span {
-	visibility:hidden;;
-}
-button.mymed {
-	background-image:url("../img/loginwith_mymed.png");
-}
-button.twitter {
-	background-image:url("../img/loginwith_twitter.png");
-}
-button.facebook {
-	border:solid 1px #29447e;
-	background:url("http://static.ak.fbcdn.net/rsrc.php/v1/zL/r/FGFbc80dUKj.png") no-repeat scroll 0 0 #29447E;
-	background-position:-1px -189px;
-	background-color:#637bad;
-	cursor:pointer;
-	padding:0;
-	padding-left:21px;
-	height:22px;
-	
-	color:#FFFFFF;
-	font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
-	font-weight:bold;
-	font-size:11px;
-}
-button.facebook::-moz-focus-inner { 
-    border: 0;
-    padding: 0;
-}
-button.facebook span {
-	border-top:1px solid #879ac0;
-	display:block;
-	height:100%;
-	line-height:20px;
-	padding:0 6px;
-}
-button.guest {
-	background-image:url("../img/loginasguest");
-}
-button.google {
-	background-image:url("../img/loginwith_google3.png");
-}
-button.openid {
-	background-image:url("../img/loginwith_openid.png");
+div.error a {
+	background-color	: red;
+	color				: black;
+	padding				: 0.5ex;
 }

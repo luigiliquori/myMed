@@ -128,7 +128,7 @@ class ConnexionOpenId extends Connexion
 	{
 		$auth = $this->consumer->begin($loginuri);
 		if(!$auth)
-			die('URI invalide !');
+			sendError('URI invalide !', true);
 		static::initExtensions($auth);
 	    
 		unset($_GET['connexion']);
@@ -154,7 +154,7 @@ class ConnexionOpenId extends Connexion
 	{
 		$response = $this->consumer->complete('http://'.$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]);
 		if($response->status !== Auth_OpenID_SUCCESS)
-			die('La connexion a échouée');
+			sendError('La connexion a échouée', true);
 		return Array(
 				'id'	=> $response->getDisplayIdentifier(),
 				'sreg'	=> Auth_OpenID_SRegResponse::fromSuccessResponse($response)->contents(),
@@ -177,28 +177,28 @@ class ConnexionOpenId extends Connexion
 		if(isset($_GET['connexion'])&&$_GET['connexion']=='openid')
 		{
 ?>
-		<form method="post" action="">
-			<div class="hidden">
-				<input type="hidden" name="connexion" value="openid" />
-			</div>
-			<div title="Entrez l'URI de votre OpenId">
-				<label for="uri">URI&nbsp;:</label>
-				<input 
+		<form method="post" action="" class="openid"><!--
+			--><div class="hidden"><!--
+				--><input type="hidden" name="connexion" value="openid" /><!--
+			--></div><!--
+			--><div title="Entrez l'URI de votre OpenId"><!--
+				--><label for="uri">URI&nbsp;:</label><!--
+				--><input 
 					type="text" 
 					name="uri" 
 					id="uri" 
 					placeholder="Entrez l'URI de votre OpenId" 
 					size="24" 
-					maxsize="255" />
-			</div>
-			<div class="submitRow">
-				<div></div>
-				<div>
-					<a class="cancel" href="<?=ROOTPATH?>">Annuler</a>
-					<button type="submit">Connecter</button>
-				</div>
-			</div>
-		</form>
+					maxsize="255" /><!--
+			--></div><!--
+			--><div class="submitRow"><!--
+				--><div></div><!--
+				--><div><!--
+					--><a class="cancel" href="<?=ROOTPATH?>">Annuler</a><!--
+					--><button type="submit">Connecter</button><!--
+				--></div><!--
+			--></div><!--
+		--></form>
 <?php
 		}
 		else

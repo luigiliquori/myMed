@@ -13,7 +13,7 @@ abstract class GlobalConnexion extends Connexion
 	public function __construct()
 	{
 		$this->guestConnexion = new ConnexionGuest;
-		//$this->connexions[] = new ConnexionFacebook;
+		$this->connexions[] = new ConnexionFacebook;
 		$this->connexions[] = new ConnexionGoogle;
 		$this->connexions[] = new ConnexionMyMed;
 		$this->connexions[] = new ConnexionOpenId;

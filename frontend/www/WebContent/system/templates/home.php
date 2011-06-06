@@ -13,6 +13,7 @@
 		<script type="text/javascript" src="javascript/jquery.textPlaceholder.js"></script>
 	</head>
 	<body>
+		<?php printError();?>
 		<div id="header">
 			<div class="innerContent">
 				<ul>

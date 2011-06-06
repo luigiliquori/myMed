@@ -35,6 +35,6 @@
 <?php endif?>
 			<div class="buttons">
 				<button type="submit"><span>Connecter</span></button>
-				<button type="submit" name="cancel" formnovalidate="formnovalidate"><span>Annuler</span></button>
+				<button type="submit" name="cancel" formnovalidate="formnovalidate">Annuler</button><!-- span forbidden in button : formnovalidate's bug in webkit 534.24 -->
 			</div>
 		</form>

@@ -66,7 +66,7 @@ class ConnexionTwitter extends Connexion
 			exit;
 		}
 		else
-			die('Impossible de se connecter à twitter ... Merci de renouveler votre demande plus tard.');
+			sendError('Impossible de se connecter à twitter... Merci de renouveler votre demande plus tard.', true);
 	}
 	private /*TwitterOAuth*/ function connect()
 	{

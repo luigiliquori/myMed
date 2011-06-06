@@ -43,8 +43,8 @@ class ConnexionGoogle extends ConnexionOpenId
 				$self		= json_decode($this->oauthRequest($accessToken, 'http://www-opensocial.googleusercontent.com/api/people/@me/@self?format=json'), true);
 				$_SESSION['user']->profilePicture	= $self['entry']['thumbnailUrl'];
 				$_SESSION['user']->link				= $self['entry']['profileUrl'];
-				$_SESSION['user']->firstName		= $self['entry']['givenName'];
-				$_SESSION['user']->lastName			= $self['entry']['familyName'];
+				$_SESSION['user']->firstName		= $self['entry']['name']['givenName'];
+				$_SESSION['user']->lastName			= $self['entry']['name']['familyName'];
 			}
 			else
 				trigger_error('DNS not register on Google', E_USER_NOTICE);

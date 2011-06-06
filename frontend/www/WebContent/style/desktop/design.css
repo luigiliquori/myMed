@@ -96,9 +96,16 @@ div.innerContent {
 #connexion>div {
 	margin:1ex;
 }
-#connexion div form ,#connexion div div {
-	display:inline;
-	vertical-align: middle;
+#connexion div form ,#connexion div div ,#connexion div a ,#connexion div form * {
+	display			: inline;
+	display			: inline-block;
+	vertical-align	: middle;
+}
+#connexion div form {
+	
+}
+#connexion div form a {
+	display	: none;
 }
 #content #description_myMed {
 	float		: left;

@@ -16,6 +16,7 @@ session_start();
 require_once dirname(__FILE__).'/Debug.class.php';
 require_once dirname(__FILE__).'/TemplateManager.class.php';
 require_once dirname(__FILE__).'/ContentObject.class.php';
+require_once dirname(__FILE__).'/library.php';
 
 header("Content-Script-Type:text/javascript");
 

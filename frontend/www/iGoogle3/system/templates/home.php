@@ -33,6 +33,7 @@ if(defined('MIMETYPE_XHTML')&&MIMETYPE_XHTML)
 		<![endif]-->
 	</head>
 	<body>
+		<?php printError();?>
 		<div id="header">
 			<h1>myMed v1.0 alpha</h1>
 			<ul class="menu">
