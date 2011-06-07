@@ -4,6 +4,8 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.cassandra.thrift.ColumnPath;
+
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.StorageManager;
@@ -23,25 +25,21 @@ import edu.lognet.core.protocols.p2p.exception.NodeException;
  * 
  */
 public class DHTWrapperFactory implements IDHTWrapperFactory {
-	// If the client is not a Freerider, (^Cassandra)
-	// the running node must join
-	// an existing dht network before use it
+
+	/*
+	 * If the client is not a Freerider, (^Cassandra) the running node must join
+	 * an existing dht network before use it
+	 */
 	private static void connectNode(IDHT node, String networkID)
 			throws InternalBackEndException {
 		try {
-			// Cassandra is use as a tracker
-			CassandraWrapper cassandraCli = CassandraWrapper.getInstance();
-			// cassandraCli.setSimpleColumn("Mymed", "Services", "tracker",
-			// "address", value, level)
-			byte[] trackerData;
+			StorageManager storageManager = new StorageManager();
+			byte[] trackerData = storageManager.selectColumn("Services",
+					"tracker", networkID);
 
-			trackerData = cassandraCli.getSimpleColumn("Mymed", "Services",
-					"tracker", networkID.getBytes("UTF8"),
-					StorageManager.consistencyOnRead);
 			String addressList = "";
 			if (trackerData != null) {
 				addressList = new String(trackerData, "UTF8");
-
 				String[] address = addressList.split(",");
 				List<String> addressDown = new ArrayList<String>();
 				for (String a : address) {
@@ -74,11 +72,9 @@ public class DHTWrapperFactory implements IDHTWrapperFactory {
 			}
 
 			// update the tracker
-			cassandraCli.setSimpleColumn("Mymed", "Services", "tracker",
-					networkID.getBytes("UTF8"), (addressList
-							+ node.getThisNode().getIp() + ":" + node
-							.getThisNode().getPort()).getBytes("UTF8"),
-					StorageManager.consistencyOnWrite);
+			storageManager.insertColumn("Services", "tracker", networkID,
+					(addressList + node.getThisNode().getIp() + ":" + node
+							.getThisNode().getPort()).getBytes("UTF8"));
 
 			System.out.println("Node started!");
 		} catch (Exception e) {
@@ -89,11 +85,10 @@ public class DHTWrapperFactory implements IDHTWrapperFactory {
 	private static void disconnectNode(IDHT node, String networkID)
 			throws InternalBackEndException {
 		try {
-			// Cassandra is use as a tracker
-			CassandraWrapper cassandraCli = CassandraWrapper.getInstance();
-			byte[] trackerData = cassandraCli.getSimpleColumn("Mymed",
-					"Services", "tracker", networkID.getBytes("UTF8"),
-					StorageManager.consistencyOnRead);
+			StorageManager storageManager = new StorageManager();
+			byte[] trackerData = storageManager.selectColumn("Services",
+					"tracker", networkID);
+
 			String addressList = "";
 			if (trackerData != null) {
 				addressList = new String(trackerData, "UTF8");
@@ -111,9 +106,8 @@ public class DHTWrapperFactory implements IDHTWrapperFactory {
 				}
 
 				// update the tracker
-				cassandraCli.setSimpleColumn("Mymed", "Services", "tracker",
-						networkID.getBytes("UTF8"), addressList
-								.getBytes("UTF8"), StorageManager.consistencyOnWrite);
+				storageManager.insertColumn("Services", "tracker", networkID,
+						addressList.getBytes("UTF8"));
 			}
 		} catch (Exception e) {
 			throw new InternalBackEndException(e.getMessage());

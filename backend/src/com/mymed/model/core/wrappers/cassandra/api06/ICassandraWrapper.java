@@ -5,8 +5,11 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.cassandra.thrift.ColumnOrSuperColumn;
+import org.apache.cassandra.thrift.ColumnParent;
+import org.apache.cassandra.thrift.ColumnPath;
 import org.apache.cassandra.thrift.ConsistencyLevel;
 import org.apache.cassandra.thrift.KeySlice;
+import org.apache.cassandra.thrift.SlicePredicate;
 import org.apache.cassandra.thrift.TokenRange;
 
 import com.mymed.controller.core.exception.IOBackEndException;
@@ -15,8 +18,9 @@ import com.sun.xml.rpc.processor.modeler.j2ee.xml.string;
 
 /**
  * CassandraWrapper API - for Cassandra 0.6
+ * 
  * @author lvanni
- *
+ * 
  */
 public interface ICassandraWrapper {
 
@@ -43,8 +47,9 @@ public interface ICassandraWrapper {
 	 * @param consistency_level
 	 * @return
 	 */
-	ColumnOrSuperColumn get(String keyspace, String key, String column_path,
-			ConsistencyLevel consistency_level) throws InternalBackEndException, IOBackEndException;
+	ColumnOrSuperColumn get(String keyspace, String key,
+			ColumnPath colPathName, ConsistencyLevel consistencyLevel)
+			throws InternalBackEndException, IOBackEndException;
 
 	/**
 	 * Get the group of columns contained by column_parent (either a
@@ -59,8 +64,8 @@ public interface ICassandraWrapper {
 	 * @return
 	 */
 	List<ColumnOrSuperColumn> get_slice(String keyspace, String key,
-			String column_parent, String predicate,
-			ConsistencyLevel consistency_level);
+			ColumnParent columnParent, SlicePredicate predicate,
+			ConsistencyLevel consistencyLevel)  throws InternalBackEndException, IOBackEndException;
 
 	/**
 	 * Retrieves slices for column_parent and predicate on each of the given
@@ -124,8 +129,9 @@ public interface ICassandraWrapper {
 	 * @param timestamp
 	 * @param consistency_level
 	 */
-	void insert(String keyspace, String key, String column_path, String value,
-			String timestamp, ConsistencyLevel consistency_level);
+	void insert(String keyspace, String key, ColumnPath columnPath,
+			byte[] value, long timestamp, ConsistencyLevel consistencyLevel)
+			throws InternalBackEndException;
 
 	/**
 	 * xecutes the specified mutations on the keyspace. mutation_map is a
@@ -158,8 +164,8 @@ public interface ICassandraWrapper {
 	 * @param timestamp
 	 * @param consistency_level
 	 */
-	void remove(String keyspace, String key, String column_path,
-			String timestamp, ConsistencyLevel consistency_level);
+	void remove(String keyspace, String key, ColumnPath columnPath,
+			long timestamp, ConsistencyLevel consistencyLevel) throws InternalBackEndException;
 
 	/**
 	 * Gets a list of all the keyspaces configured for the cluster.

@@ -13,7 +13,7 @@
     <description></description>
     <display-name>DebugConsole</display-name>
     <servlet-name>DebugConsole</servlet-name>
-    <servlet-class>com.mymed.controller.core.services.requesthandler.tests.DebugConsole</servlet-class>
+    <servlet-class>com.mymed.controller.core.requesthandler.tests.DebugConsole</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>DebugConsole</servlet-name>
@@ -23,7 +23,7 @@
     <description></description>
     <display-name>FirstRequestHandler</display-name>
     <servlet-name>FirstRequestHandler</servlet-name>
-    <servlet-class>com.mymed.controller.core.services.requesthandler.tests.FirstRequestHandler</servlet-class>
+    <servlet-class>com.mymed.controller.core.requesthandler.tests.FirstRequestHandler</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>FirstRequestHandler</servlet-name>
@@ -33,7 +33,7 @@
     <description></description>
     <display-name>DHTRequestHandler</display-name>
     <servlet-name>DHTRequestHandler</servlet-name>
-    <servlet-class>com.mymed.controller.core.services.requesthandler.DHTRequestHandler</servlet-class>
+    <servlet-class>com.mymed.controller.core.requesthandler.DHTRequestHandler</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>DHTRequestHandler</servlet-name>
@@ -43,7 +43,7 @@
     <description></description>
     <display-name>SDKRequestHandler</display-name>
     <servlet-name>SDKRequestHandler</servlet-name>
-    <servlet-class>com.mymed.controller.core.services.requesthandler.tests.SDKRequestHandler</servlet-class>
+    <servlet-class>com.mymed.controller.core.requesthandler.tests.SDKRequestHandler</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>SDKRequestHandler</servlet-name>
@@ -53,7 +53,7 @@
     <description></description>
     <display-name>ProfileRequestHandler</display-name>
     <servlet-name>ProfileRequestHandler</servlet-name>
-    <servlet-class>com.mymed.controller.core.services.requesthandler.ProfileRequestHandler</servlet-class>
+    <servlet-class>com.mymed.controller.core.requesthandler.ProfileRequestHandler</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ProfileRequestHandler</servlet-name>
@@ -67,7 +67,7 @@
     <description></description>
     <display-name>AuthenticationRequestHandler</display-name>
     <servlet-name>AuthenticationRequestHandler</servlet-name>
-    <servlet-class>com.mymed.controller.core.services.requesthandler.AuthenticationRequestHandler</servlet-class>
+    <servlet-class>com.mymed.controller.core.requesthandler.AuthenticationRequestHandler</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>AuthenticationRequestHandler</servlet-name>
@@ -77,7 +77,7 @@
     <description></description>
     <display-name>SessionRequestHandler</display-name>
     <servlet-name>SessionRequestHandler</servlet-name>
-    <servlet-class>com.mymed.controller.core.services.requesthandler.SessionRequestHandler</servlet-class>
+    <servlet-class>com.mymed.controller.core.requesthandler.SessionRequestHandler</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>SessionRequestHandler</servlet-name>

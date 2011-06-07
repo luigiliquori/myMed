@@ -45,7 +45,7 @@ public class ProfileManager implements IProfileManager {
 	 */
 	public MUserBean create(MUserBean user) throws InternalBackEndException {
 		try {
-			storageManager.insertInto("Users", "mymedID", user.getAttributeToMap());
+			storageManager.insertSlice("Users", "mymedID", user.getAttributeToMap());
 			// TODO update the user values!
 			return user;
 		} catch (ServiceManagerException e) {

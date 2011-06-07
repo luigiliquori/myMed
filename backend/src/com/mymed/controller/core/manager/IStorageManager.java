@@ -37,7 +37,7 @@ public interface IStorageManager {
 	 *            All columnName and the their value
 	 * @return true if the entry is correctly stored, false otherwise
 	 */
-	public boolean insertInto(String tableName, String primaryKey,
+	public boolean insertSlice(String tableName, String primaryKey,
 			Map<String, byte[]> args) throws ServiceManagerException, IOBackEndException, InternalBackEndException;
 
 	/**
@@ -67,7 +67,7 @@ public interface IStorageManager {
 	 *            the value updated
 	 * @throws ServiceManagerException
 	 */
-	public void updateColumn(String tableName, String primaryKey,
+	public void insertColumn(String tableName, String primaryKey,
 			String columnName, byte[] value) throws ServiceManagerException, IOBackEndException, InternalBackEndException;
 
 	/**

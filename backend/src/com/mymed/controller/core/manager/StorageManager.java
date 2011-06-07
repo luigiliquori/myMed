@@ -3,8 +3,17 @@ package com.mymed.controller.core.manager;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.cassandra.thrift.Column;
+import org.apache.cassandra.thrift.ColumnOrSuperColumn;
+import org.apache.cassandra.thrift.ColumnParent;
+import org.apache.cassandra.thrift.ColumnPath;
+import org.apache.cassandra.thrift.ConsistencyLevel;
+import org.apache.cassandra.thrift.SlicePredicate;
+import org.apache.cassandra.thrift.SliceRange;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
@@ -41,25 +50,28 @@ public class StorageManager implements IStorageManager {
 	/* Constructors */
 	/* --------------------------------------------------------- */
 	/**
-	 * Default Constructor: will create a ServiceManger on top of a Cassandra Wrapper
+	 * Default Constructor: will create a ServiceManger on top of a Cassandra
+	 * Wrapper
 	 * 
 	 * @throws IOBackEndException
 	 * @throws InternalBackEndException
 	 */
 	public StorageManager() throws InternalBackEndException {
-		this(WrapperType.CASSANDRA, new WrapperConfiguration(new File("./conf/config.xml")));
+		this(WrapperType.CASSANDRA, new WrapperConfiguration(new File(
+				"./conf/config.xml")));
 	}
 
 	/**
-	 * will create a ServiceManger on top of a Cassandra Wrapper And use the specific
-	 * configuration file for the transport layer
+	 * will create a ServiceManger on top of a Cassandra Wrapper And use the
+	 * specific configuration file for the transport layer
 	 * 
 	 * @param conf
 	 *            The configuration of the transport layer
 	 * @throws IOBackEndException
 	 * @throws InternalBackEndException
 	 */
-	public StorageManager(WrapperConfiguration conf) throws InternalBackEndException {
+	public StorageManager(WrapperConfiguration conf)
+			throws InternalBackEndException {
 		this(WrapperType.CASSANDRA, conf);
 	}
 
@@ -77,8 +89,8 @@ public class StorageManager implements IStorageManager {
 	}
 
 	/**
-	 * /** will create a ServiceManger on top of the WrapperType And use the specific
-	 * configuration file for the transport layer
+	 * /** will create a ServiceManger on top of the WrapperType And use the
+	 * specific configuration file for the transport layer
 	 * 
 	 * @param type
 	 *            Type of DHTClient used
@@ -97,46 +109,41 @@ public class StorageManager implements IStorageManager {
 	/* public methods */
 	/* --------------------------------------------------------- */
 	/**
-	 * Insert a new entry in the database
+	 * Get the value of an entry column
 	 * 
 	 * @param tableName
 	 *            the name of the Table/ColumnFamily
 	 * @param primaryKey
 	 *            the ID of the entry
-	 * @param args
-	 *            All columnName and the their value
-	 * @return true if the entry is correctly stored, false otherwise
+	 * @param columnName
+	 *            the name of the column
+	 * @return the value of the column
 	 * @throws ServiceManagerException
+	 * @throws IOBackEndException
 	 * @throws InternalBackEndException
 	 */
-	public boolean insertInto(String tableName, String primaryKey,
-			Map<String, byte[]> args) throws ServiceManagerException,
-			InternalBackEndException {
+	public byte[] selectColumn(String tableName, String primaryKey,
+			String columnName) throws ServiceManagerException,
+			InternalBackEndException, IOBackEndException {
 		if (!type.equals(WrapperType.CASSANDRA)) {
 			throw new ServiceManagerException(
-					"insertInto is not yet supported by the DHT type: " + type);
+					"selectColumn is not yet supported by the DHT type: "
+							+ type);
 		} else {
-			// The main database is managed by Cassandra
-			CassandraWrapper node = (CassandraWrapper) this.wrapper;
-			// keyspace is similar to the database name
-			String keyspace = "Mymed";
-			// columnFamily is similar to the table name
-			String columnFamily = tableName;
-			// Store into Cassandra the new entry
 			try {
-				for (String columnName : args.keySet()) {
-					node.setSimpleColumn(keyspace, columnFamily, new String(
-							args.get(primaryKey), "UTF8"), columnName
-							.getBytes("UTF8"), args.get(columnName),
-							consistencyOnWrite);
-				}
-				return true;
+				CassandraWrapper cassandraWrapper = (CassandraWrapper) this.wrapper;
+				ColumnPath colPathName = new ColumnPath(tableName);
+				colPathName.setColumn(columnName.getBytes("UTF8"));
+				return cassandraWrapper.get("Mymed", primaryKey, colPathName,
+						StorageManager.consistencyOnRead).getColumn()
+						.getValue();
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 				throw new ServiceManagerException(
 						"UnsupportedEncodingException with\n"
-								+ "\t- columnFamily = " + columnFamily + "\n"
-								+ "\t- primaryKey = " + primaryKey + "\n");
+								+ "\t- columnFamily = " + tableName + "\n"
+								+ "\t- primaryKey = " + primaryKey + "\n"
+								+ "\t- columnName = " + columnName + "\n");
 			}
 		}
 	}
@@ -161,15 +168,14 @@ public class StorageManager implements IStorageManager {
 			throw new ServiceManagerException(
 					"selectAll is not yet supported by the DHT type: " + type);
 		} else {
-			// The main database is managed by Cassandra
-			CassandraWrapper node = (CassandraWrapper) this.wrapper;
-			// keyspace is similar to the database name
-			String keyspace = "Mymed";
-			// columnFamily is similar to the table name
-			String columnFamily = tableName;
+			// read entire row
+			SlicePredicate predicate = new SlicePredicate();
+			SliceRange sliceRange = new SliceRange();
+			sliceRange.setStart(new byte[0]);
+			sliceRange.setFinish(new byte[0]);
+			predicate.setSlice_range(sliceRange);
 
-			return node.getEntireRow(keyspace, columnFamily, primaryKey,
-					consistencyOnRead);
+			return selectByPredicate(tableName, primaryKey, predicate);
 		}
 	}
 
@@ -184,21 +190,15 @@ public class StorageManager implements IStorageManager {
 	 *            the name of the columns to return the values
 	 * @return the value of the columns
 	 * @throws InternalBackEndException
+	 * @throws IOBackEndException
 	 */
 	public Map<byte[], byte[]> selectRange(String tableName, String primaryKey,
 			List<String> columnNames) throws ServiceManagerException,
-			InternalBackEndException {
+			InternalBackEndException, IOBackEndException {
 		if (!type.equals(WrapperType.CASSANDRA)) {
 			throw new ServiceManagerException(
 					"selectAll is not yet supported by the DHT type: " + type);
 		} else {
-			// The main database is managed by Cassandra
-			CassandraWrapper node = (CassandraWrapper) this.wrapper;
-			// keyspace is similar to the database name
-			String keyspace = "Mymed";
-			// columnFamily is similar to the table name
-			String columnFamily = tableName;
-			// Convert the List<String> into List<byte[]>
 			List<byte[]> columnNamesToByte = new ArrayList<byte[]>();
 			for (String columnName : columnNames) {
 				try {
@@ -206,16 +206,39 @@ public class StorageManager implements IStorageManager {
 				} catch (UnsupportedEncodingException e) {
 					e.printStackTrace();
 					throw new ServiceManagerException(
-							"UnsupportedEncodingException with\n"
-									+ "\t- columnFamily = " + columnFamily
-									+ "\n" + "\t- primaryKey = " + primaryKey
-									+ "\n" + "\t- columnFamily = " + columnName
+							"UnsupportedEncodingException with"
+									+ "\n\t- columnFamily = " + tableName
+									+ "\n\t- primaryKey = " + primaryKey
+									+ "\n\t- columnFamily = " + columnName
 									+ "\n");
 				}
 			}
-			return node.getRangeColumn(keyspace, columnFamily, primaryKey,
-					columnNamesToByte, consistencyOnRead);
+			SlicePredicate predicate = new SlicePredicate();
+			predicate.setColumn_names(columnNamesToByte);
+			return selectByPredicate(tableName, primaryKey, predicate);
 		}
+	}
+
+	/*
+	 * Used by selectAll and selectRange
+	 */
+	private Map<byte[], byte[]> selectByPredicate(String columnFamily,
+			String primaryKey, SlicePredicate predicate)
+			throws InternalBackEndException, IOBackEndException {
+		CassandraWrapper cassandraWrapper = (CassandraWrapper) this.wrapper;
+		String keyspace = "Mymed";
+
+		ColumnParent parent = new ColumnParent(columnFamily);
+		List<ColumnOrSuperColumn> results = cassandraWrapper.get_slice(
+				keyspace, primaryKey, parent, predicate, consistencyOnRead);
+
+		Map<byte[], byte[]> slice = new HashMap<byte[], byte[]>();
+		for (ColumnOrSuperColumn res : results) {
+			Column column = res.column;
+			slice.put(column.name, column.value);
+		}
+
+		return slice;
 	}
 
 	/**
@@ -233,74 +256,56 @@ public class StorageManager implements IStorageManager {
 	 * @throws ServiceManagerException
 	 * @throws InternalBackEndException
 	 */
-	public void updateColumn(String tableName, String primaryKey,
+	public void insertColumn(String tableName, String primaryKey,
 			String columnName, byte[] value) throws ServiceManagerException,
 			InternalBackEndException {
 		if (!type.equals(WrapperType.CASSANDRA)) {
 			throw new ServiceManagerException(
 					"selectAll is not yet supported by the DHT type: " + type);
 		} else {
-			// The main database is managed by Cassandra
-			CassandraWrapper node = (CassandraWrapper) this.wrapper;
-			// keyspace is similar to the database name
-			String keyspace = "Mymed";
-			// columnFamily is similar to the table name
-			String columnFamily = tableName;
-
 			try {
-				node.setSimpleColumn(keyspace, columnFamily, primaryKey,
-						columnName.getBytes("UTF8"), value, consistencyOnWrite);
+				CassandraWrapper cassandraWrapper = (CassandraWrapper) this.wrapper;
+				ColumnPath colPathName = new ColumnPath(tableName);
+				colPathName.setColumn(columnName.getBytes("UTF8"));
+				long timestamp = System.currentTimeMillis();
+				cassandraWrapper.insert("Mymed", primaryKey, colPathName,
+						value, timestamp, consistencyOnWrite);
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 				throw new ServiceManagerException(
 						"UnsupportedEncodingException with\n"
-								+ "\t- columnFamily = " + columnFamily + "\n"
+								+ "\t- columnFamily = " + tableName + "\n"
 								+ "\t- primaryKey = " + primaryKey + "\n"
-								+ "\t- columnFamily = " + columnName + "\n");
+								+ "\t- columnName = " + columnName + "\n");
 			}
 		}
 	}
 
 	/**
-	 * Get the value of an entry column
+	 * Insert a new entry in the database
 	 * 
 	 * @param tableName
 	 *            the name of the Table/ColumnFamily
 	 * @param primaryKey
 	 *            the ID of the entry
-	 * @param columnName
-	 *            the name of the column
-	 * @return the value of the column
+	 * @param args
+	 *            All columnName and the their value
+	 * @return true if the entry is correctly stored, false otherwise
 	 * @throws ServiceManagerException
-	 * @throws IOBackEndException
 	 * @throws InternalBackEndException
 	 */
-	public byte[] selectColumn(String tableName, String primaryKey,
-			String columnName) throws ServiceManagerException,
-			InternalBackEndException, IOBackEndException {
+	public boolean insertSlice(String tableName, String primaryKey,
+			Map<String, byte[]> args) throws ServiceManagerException,
+			InternalBackEndException {
 		if (!type.equals(WrapperType.CASSANDRA)) {
 			throw new ServiceManagerException(
-					"selectColumn is not yet supported by the DHT type: "
-							+ type);
+					"insertInto is not yet supported by the DHT type: " + type);
 		} else {
-			// The main database is managed by Cassandra
-			CassandraWrapper node = (CassandraWrapper) this.wrapper;
-			// keyspace is similar to the database name
-			String keyspace = "Mymed";
-			// columnFamily is similar to the table name
-			String columnFamily = tableName;
-
-			try {
-				return node.getSimpleColumn(keyspace, columnFamily, primaryKey,
-						columnName.getBytes("UTF8"), consistencyOnRead);
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-				throw new ServiceManagerException(
-						"UnsupportedEncodingException with\n"
-								+ "\t- columnFamily = " + columnFamily + "\n"
-								+ "\t- primaryKey = " + primaryKey + "\n"
-								+ "\t- columnFamily = " + columnName + "\n");
+			for (String columnName : args.keySet()) {
+				this.insertColumn(tableName, primaryKey, columnName, args
+						.get(columnName));
 			}
+			return true;
 		}
 	}
 
@@ -322,15 +327,15 @@ public class StorageManager implements IStorageManager {
 					"selectColumn is not yet supported by the DHT type: "
 							+ type);
 		} else {
-			// The main database is managed by Cassandra
-			CassandraWrapper node = (CassandraWrapper) this.wrapper;
-			// keyspace is similar to the database name
+			CassandraWrapper cassandraWrapper = (CassandraWrapper) this.wrapper;
 			String keyspace = "Mymed";
-			// columnFamily is similar to the table name
 			String columnFamily = tableName;
 			try {
-				node.removeColumn(keyspace, columnFamily, keyspace, columnName
-						.getBytes("UTF8"), consistencyOnWrite);
+				long timestamp = System.currentTimeMillis();
+				ColumnPath columnPath = new ColumnPath(columnFamily);
+				columnPath.setColumn(columnName.getBytes("UTF8"));
+				cassandraWrapper.remove(keyspace, key, columnPath, timestamp,
+						consistencyOnWrite);
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 				throw new ServiceManagerException(
@@ -357,15 +362,13 @@ public class StorageManager implements IStorageManager {
 					"selectColumn is not yet supported by the DHT type: "
 							+ type);
 		} else {
-			// The main database is managed by Cassandra
-			CassandraWrapper node = (CassandraWrapper) this.wrapper;
-			// keyspace is similar to the database name
+			CassandraWrapper cassandraWrapper = (CassandraWrapper) this.wrapper;
 			String keyspace = "Mymed";
-			// columnFamily is similar to the table name
 			String columnFamily = tableName;
-			node
-					.removeAll(keyspace, columnFamily, keyspace,
-							consistencyOnWrite);
+			long timestamp = System.currentTimeMillis();
+			ColumnPath columnPath = new ColumnPath(columnFamily);
+			cassandraWrapper.remove(keyspace, key, columnPath, timestamp,
+					consistencyOnWrite);
 		}
 
 	}

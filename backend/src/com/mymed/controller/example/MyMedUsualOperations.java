@@ -15,7 +15,7 @@ import com.mymed.model.core.configuration.WrapperConfiguration;
  * @author lvanni
  *
  */
-public class WrapperUsualOperations {
+public class MyMedUsualOperations {
 
 	/* CASSANDRA STRUCTURE:
 
@@ -67,17 +67,17 @@ public class WrapperUsualOperations {
 			// see WrapperDHTOperations
 			WrapperConfiguration config = new WrapperConfiguration(new File("/local/mymed/backend/conf/config.xml"));
 			
-			IStorageManager wrapper = new StorageManager(config); // == new Wrapper(ClientType.CASSANDRA)
+			IStorageManager storageManager = new StorageManager(config); // == new Wrapper(ClientType.CASSANDRA)
 
 			// Cassandra is DHT based, the wrapper provide the usual DHT operations:
 			// PUT Operation
-			wrapper.put("id", "12345".getBytes("UTF8")); 			 // key="id", value="12345"
-			wrapper.put("name", "Miss Cassandra".getBytes("UTF8"));  // key="name", value="Miss Cassandra"
+			storageManager.put("id", "12345".getBytes("UTF8")); 			 // key="id", value="12345"
+			storageManager.put("name", "Miss Cassandra".getBytes("UTF8"));  // key="name", value="Miss Cassandra"
 
 			// Get Operation
 			System.out.println("1) PUT/GET:");
-			System.out.println("\tid = " + new String(wrapper.get("id"), "UTF8"));
-			System.out.println("\tname = " + new String(wrapper.get("name"), "UTF8"));
+			System.out.println("\tid = " + new String(storageManager.get("id"), "UTF8"));
+			System.out.println("\tname = " + new String(storageManager.get("name"), "UTF8"));
 			System.out.println();
 
 			// Cassandra provide more flexibility with the specific data structure:
@@ -92,28 +92,28 @@ public class WrapperUsualOperations {
 
 			// Call the "insertInto(tableName, primaryKey, args)" method:
 			//		. you have to specify the primary key like in sql
-			if(!wrapper.insertInto("Users", "id", arguments)){
+			if(!storageManager.insertSlice("Users", "id", arguments)){
 				System.err.println("Users not insered!");
 				System.exit(1);
 			}
 
 			// Then to retrieve a the value of a simple column you can call:
 			System.out.println("2) selectColum:");
-			System.out.println("\t" + new String(wrapper.selectColumn("Users", "12345", "name")));
+			System.out.println("\t" + new String(storageManager.selectColumn("Users", "12345", "name")));
 			System.out.println();
 
 			// To retrieve all the values just call: selectAll(tableName, primaryKey)
 			System.out.println("3) selectAll:");
-			Map<byte[], byte[]> values = wrapper.selectAll("Users", "12345");
+			Map<byte[], byte[]> values = storageManager.selectAll("Users", "12345");
 			for(byte[] s : values.keySet()){
 				System.out.println("\t" + new String(values.get(s)));
 			}
 			System.out.println();
 
 			// To update the value of a specific column 
-			wrapper.updateColumn("Users", "12345", "name", "Mrs Robinson".getBytes("UTF8"));
+			storageManager.insertColumn("Users", "12345", "name", "Mrs Robinson".getBytes("UTF8"));
 			System.out.println("4) update Value:");
-			values = wrapper.selectAll("Users", "12345");
+			values = storageManager.selectAll("Users", "12345");
 			for(byte[] s : values.keySet()){
 				System.out.println("\t" + new String(values.get(s)));
 			}
@@ -138,13 +138,13 @@ public class WrapperUsualOperations {
 
 			// Call the "insertInto(tableName, primaryKey, args)" method:
 			//		. you have to specify the primary key like in sql
-			if(!wrapper.insertInto("Users", "id", arguments2)){
+			if(!storageManager.insertSlice("Users", "id", arguments2)){
 				System.err.println("Users not insered!");
 				System.exit(1);
 			}
 			// To retrieve all the values just call: selectAll(tableName, primaryKey)
 			System.out.println("3) selectRange:");
-			Map<byte[], byte[]> values2 = wrapper.selectRange("Users", "rangetest", columnNames); 
+			Map<byte[], byte[]> values2 = storageManager.selectRange("Users", "rangetest", columnNames); 
 			for(byte[] s : values2.keySet()){
 				System.out.println("\t" + new String(values2.get(s)));
 			}

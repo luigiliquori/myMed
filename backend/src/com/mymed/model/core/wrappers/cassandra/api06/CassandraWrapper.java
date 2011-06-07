@@ -3,7 +3,6 @@ package com.mymed.model.core.wrappers.cassandra.api06;
 import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -17,7 +16,6 @@ import org.apache.cassandra.thrift.InvalidRequestException;
 import org.apache.cassandra.thrift.KeySlice;
 import org.apache.cassandra.thrift.NotFoundException;
 import org.apache.cassandra.thrift.SlicePredicate;
-import org.apache.cassandra.thrift.SliceRange;
 import org.apache.cassandra.thrift.TimedOutException;
 import org.apache.cassandra.thrift.TokenRange;
 import org.apache.cassandra.thrift.UnavailableException;
@@ -106,11 +104,10 @@ public class CassandraWrapper extends AbstractDHTWrapper implements
 		}
 	}
 
-	// THE COLUMNFAMILY TRIPS IS ONLY USED FOR TESTING
 	public void put(String key, byte[] value) throws InternalBackEndException {
 		try {
 			tr.open();
-			String columnFamily = "Trips"; // TODO MOVE TO THE NEW DATA
+			String columnFamily = "Services"; // TODO MOVE TO THE NEW DATA
 			// STRUCTURE
 			ColumnPath colPathName = new ColumnPath(columnFamily);
 			long timestamp = System.currentTimeMillis();
@@ -134,12 +131,11 @@ public class CassandraWrapper extends AbstractDHTWrapper implements
 		}
 	}
 
-	// THE COLUMNFAMILY TRIPS IS ONLY USED FOR TESTING
 	public byte[] getValue(String key) throws InternalBackEndException,
 			IOBackEndException {
 		try {
 			tr.open();
-			String columnFamily = "Trips"; // TODO MOVE TO THE NEW DATA
+			String columnFamily = "Services"; // TODO MOVE TO THE NEW DATA
 			// STRUCTURE
 			ColumnPath colPathName = new ColumnPath(columnFamily);
 			colPathName.setColumn(key.getBytes("UTF8"));
@@ -168,6 +164,97 @@ public class CassandraWrapper extends AbstractDHTWrapper implements
 	/* --------------------------------------------------------- */
 	/* IMPLEMENTS api06.ICassandraWrapper */
 	/* --------------------------------------------------------- */
+	/**
+	 * @see ICassandraWrapper#get(String keyspace, String key, String
+	 *      columnPath, ConsistencyLevel consistencyLevel)
+	 */
+	@Override
+	public ColumnOrSuperColumn get(String keyspace, String key,
+			ColumnPath colPathName, ConsistencyLevel consistencyLevel)
+			throws InternalBackEndException, IOBackEndException {
+		try {
+			tr.open();
+			ColumnOrSuperColumn col = client.get(keyspace, key, colPathName,
+					consistencyLevel);
+			return col;
+		} catch (TTransportException e) {
+			throw new InternalBackEndException(e.getMessage());
+		} catch (InvalidRequestException e) {
+			throw new InternalBackEndException(e.getMessage());
+		} catch (UnavailableException e) {
+			throw new InternalBackEndException(e.getMessage());
+		} catch (TimedOutException e) {
+			throw new InternalBackEndException(e.getMessage());
+		} catch (TException e) {
+			throw new InternalBackEndException(e.getMessage());
+		} catch (NotFoundException e) {
+			throw new IOBackEndException(e.getMessage());
+		} finally {
+			tr.close();
+		}
+	}
+	
+	/**
+	 * @see ICassandraWrapper#get_slice(String keyspace, String key, String
+	 *      columnParent, String predicate, ConsistencyLevel consistencyLevel)
+	 */
+	@Override
+	public List<ColumnOrSuperColumn> get_slice(String keyspace, String key,
+			ColumnParent columnParent, SlicePredicate predicate,
+			ConsistencyLevel consistencyLevel) 	throws InternalBackEndException, IOBackEndException {
+				try {
+					tr.open();
+					List<ColumnOrSuperColumn> slice = client.get_slice(keyspace, key,
+							columnParent, predicate, consistencyLevel);
+					if (slice.isEmpty()) { // IF NOT FOUND!
+						throw new IOBackEndException("keyspace: " + keyspace
+								+ ", columnFamily: " + columnParent.getColumn_family() + ", key: " + key
+								+ " - NOT FOUND!");
+					}
+					return slice;
+				} catch (TTransportException e) {
+					throw new InternalBackEndException(e.getMessage());
+				} catch (InvalidRequestException e) {
+					throw new InternalBackEndException(e.getMessage());
+				} catch (UnavailableException e) {
+					throw new InternalBackEndException(e.getMessage());
+				} catch (TimedOutException e) {
+					throw new InternalBackEndException(e.getMessage());
+				} catch (TException e) {
+					throw new InternalBackEndException(e.getMessage());
+				} finally {
+					tr.close();
+				}
+	}
+
+	/**
+	 * @see ICassandraWrapper#insert(String keyspace, String key, String
+	 *      columnPath, String value, String timestamp, ConsistencyLevel
+	 *      consistencyLevel)
+	 */
+	@Override
+	public void insert(String keyspace, String key, ColumnPath columnPath,
+			byte[] value, long timestamp, ConsistencyLevel consistencyLevel)
+			throws InternalBackEndException {
+		try {
+			tr.open();
+			client.insert(keyspace, key, columnPath, value, timestamp,
+					consistencyLevel);
+		} catch (TTransportException e) {
+			throw new InternalBackEndException(e.getMessage());
+		} catch (InvalidRequestException e) {
+			throw new InternalBackEndException(e.getMessage());
+		} catch (UnavailableException e) {
+			throw new InternalBackEndException(e.getMessage());
+		} catch (TimedOutException e) {
+			throw new InternalBackEndException(e.getMessage());
+		} catch (TException e) {
+			throw new InternalBackEndException(e.getMessage());
+		} finally {
+			tr.close();
+		}
+	}
+
 	/**
 	 * @see ICassandraWrapper#batch_mutate(String, String, ConsistencyLevel)
 	 */
@@ -224,17 +311,6 @@ public class CassandraWrapper extends AbstractDHTWrapper implements
 	}
 
 	/**
-	 * @see ICassandraWrapper#get(String keyspace, String key, String
-	 *      columnPath, ConsistencyLevel consistencyLevel)
-	 */
-	@Override
-	public ColumnOrSuperColumn get(String keyspace, String key,
-			String columnPath, ConsistencyLevel consistencyLevel) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
 	 * @see ICassandraWrapper#get_count(String keyspace, String key, String
 	 *      columnParent, ConsistencyLevel consistencyLevel)
 	 */
@@ -258,29 +334,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements
 		return null;
 	}
 
-	/**
-	 * @see ICassandraWrapper#get_slice(String keyspace, String key, String
-	 *      columnParent, String predicate, ConsistencyLevel consistencyLevel)
-	 */
-	@Override
-	public List<ColumnOrSuperColumn> get_slice(String keyspace, String key,
-			String columnParent, String predicate,
-			ConsistencyLevel consistencyLevel) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	/**
-	 * @see ICassandraWrapper#insert(String keyspace, String key, String
-	 *      columnPath, String value, String timestamp, ConsistencyLevel
-	 *      consistencyLevel)
-	 */
-	@Override
-	public void insert(String keyspace, String key, String columnPath,
-			String value, String timestamp, ConsistencyLevel consistencyLevel) {
-		// TODO Auto-generated method stub
-
-	}
 
 	/**
 	 * @see ICassandraWrapper#login(String keyspace, String authRequest)
@@ -305,74 +359,16 @@ public class CassandraWrapper extends AbstractDHTWrapper implements
 	}
 
 	/**
+	 * @throws InternalBackEndException 
 	 * @see ICassandraWrapper#remove(String keyspace, String key, String
 	 *      columnPath, String timestamp, ConsistencyLevel consistencyLevel)
 	 */
 	@Override
-	public void remove(String keyspace, String key, String columnPath,
-			String timestamp, ConsistencyLevel consistencyLevel) {
-		// TODO Auto-generated method stub
-
-	}
-
-	/* --------------------------------------------------------- */
-	/* Public methods */
-	/* --------------------------------------------------------- */
-	/**
-	 * @param keyspace
-	 * @param columnFamily
-	 * @param key
-	 * @param columnName
-	 * @param level
-	 * @return
-	 * @throws InternalBackEndException
-	 * @throws IOBackEndException
-	 */
-	public byte[] getSimpleColumn(String keyspace, String columnFamily,
-			String key, byte[] columnName, ConsistencyLevel level)
-			throws InternalBackEndException, IOBackEndException {
+	public void remove(String keyspace, String key, ColumnPath columnPath,
+			long timestamp, ConsistencyLevel consistencyLevel) throws InternalBackEndException {
 		try {
 			tr.open();
-			ColumnPath colPathName = new ColumnPath(columnFamily);
-			colPathName.setColumn(columnName);
-			Column col = client.get(keyspace, key, colPathName, level)
-					.getColumn();
-			return col.value;
-		} catch (TTransportException e) {
-			throw new InternalBackEndException(e.getMessage());
-		} catch (InvalidRequestException e) {
-			throw new InternalBackEndException(e.getMessage());
-		} catch (UnavailableException e) {
-			throw new InternalBackEndException(e.getMessage());
-		} catch (TimedOutException e) {
-			throw new InternalBackEndException(e.getMessage());
-		} catch (TException e) {
-			throw new InternalBackEndException(e.getMessage());
-		} catch (NotFoundException e) {
-			throw new IOBackEndException(e.getMessage());
-		} finally {
-			tr.close();
-		}
-	}
-
-	/**
-	 * @param keyspace
-	 * @param columnFamily
-	 * @param key
-	 * @param columnName
-	 * @param value
-	 * @param level
-	 * @throws InternalBackEndException
-	 */
-	public void setSimpleColumn(String keyspace, String columnFamily,
-			String key, byte[] columnName, byte[] value, ConsistencyLevel level)
-			throws InternalBackEndException {
-		try {
-			tr.open();
-			long timestamp = System.currentTimeMillis();
-			ColumnPath colPathName = new ColumnPath(columnFamily);
-			colPathName.setColumn(columnName);
-			client.insert(keyspace, key, colPathName, value, timestamp, level);
+			client.remove(keyspace, key, columnPath, timestamp, consistencyLevel);
 		} catch (TTransportException e) {
 			throw new InternalBackEndException(e.getMessage());
 		} catch (InvalidRequestException e) {
@@ -387,163 +383,4 @@ public class CassandraWrapper extends AbstractDHTWrapper implements
 			tr.close();
 		}
 	}
-
-	/**
-	 * 
-	 * @param keyspace
-	 * @param columnFamily
-	 * @param key
-	 * @param columnName
-	 * @param level
-	 * @return An entire row of a columnFamily, defined by the key
-	 * @throws InternalBackEndException
-	 * @throws IOBackEndException
-	 */
-	public Map<byte[], byte[]> getEntireRow(String keyspace,
-			String columnFamily, String key, ConsistencyLevel level)
-			throws InternalBackEndException, IOBackEndException {
-		Map<byte[], byte[]> slice = new HashMap<byte[], byte[]>();
-		try {
-			tr.open();
-			// read entire row
-			SlicePredicate predicate = new SlicePredicate();
-			SliceRange sliceRange = new SliceRange();
-			sliceRange.setStart(new byte[0]);
-			sliceRange.setFinish(new byte[0]);
-			predicate.setSlice_range(sliceRange);
-
-			ColumnParent parent = new ColumnParent(columnFamily);
-			List<ColumnOrSuperColumn> results = client.get_slice(keyspace, key,
-					parent, predicate, ConsistencyLevel.ONE);
-			for (ColumnOrSuperColumn res : results) {
-				Column column = res.column;
-				slice.put(column.name, column.value);
-			}
-			if (slice.isEmpty()) { // IF NOT FOUND!
-				throw new IOBackEndException("keyspace: " + keyspace
-						+ ", columnFamily: " + columnFamily + ", key: " + key
-						+ " - NOT FOUND!");
-			}
-			return slice;
-		} catch (TTransportException e) {
-			throw new InternalBackEndException(e.getMessage());
-		} catch (InvalidRequestException e) {
-			throw new InternalBackEndException(e.getMessage());
-		} catch (UnavailableException e) {
-			throw new InternalBackEndException(e.getMessage());
-		} catch (TimedOutException e) {
-			throw new InternalBackEndException(e.getMessage());
-		} catch (TException e) {
-			throw new InternalBackEndException(e.getMessage());
-		} finally {
-			tr.close();
-		}
-	}
-
-	/**
-	 * 
-	 * @param keyspace
-	 * @param columnFamily
-	 * @param key
-	 * @param columnNames
-	 * @param level
-	 * @return A range of column define by the columnNames
-	 * @throws InternalBackEndException
-	 */
-	public Map<byte[], byte[]> getRangeColumn(String keyspace,
-			String columnFamily, String key, List<byte[]> columnNames,
-			ConsistencyLevel level) throws InternalBackEndException {
-		Map<byte[], byte[]> slice = new HashMap<byte[], byte[]>();
-		try {
-			tr.open();
-			SlicePredicate predicate = new SlicePredicate();
-			predicate.setColumn_names(columnNames);
-			ColumnParent parent = new ColumnParent(columnFamily);
-			List<ColumnOrSuperColumn> results = client.get_slice(keyspace, key,
-					parent, predicate, ConsistencyLevel.ONE);
-			for (ColumnOrSuperColumn res : results) {
-				Column column = res.column;
-				slice.put(column.name, column.value);
-			}
-			return slice;
-		} catch (TTransportException e) {
-			throw new InternalBackEndException(e.getMessage());
-		} catch (InvalidRequestException e) {
-			throw new InternalBackEndException(e.getMessage());
-		} catch (UnavailableException e) {
-			throw new InternalBackEndException(e.getMessage());
-		} catch (TimedOutException e) {
-			throw new InternalBackEndException(e.getMessage());
-		} catch (TException e) {
-			throw new InternalBackEndException(e.getMessage());
-		} finally {
-			tr.close();
-		}
-	}
-
-	/**
-	 * Remove a specific column defined by the columnName
-	 * 
-	 * @param keyspace
-	 * @param columnFamily
-	 * @param key
-	 * @param columnName
-	 * @param level
-	 * @throws InternalBackEndException
-	 */
-	public void removeColumn(String keyspace, String columnFamily, String key,
-			byte[] columnName, ConsistencyLevel level)
-			throws InternalBackEndException {
-		try {
-			tr.open();
-			long timestamp = System.currentTimeMillis();
-			ColumnPath colPathName = new ColumnPath(columnFamily);
-			colPathName.setColumn(columnName);
-			client.remove(keyspace, key, colPathName, timestamp, level);
-		} catch (TTransportException e) {
-			throw new InternalBackEndException(e.getMessage());
-		} catch (InvalidRequestException e) {
-			throw new InternalBackEndException(e.getMessage());
-		} catch (UnavailableException e) {
-			throw new InternalBackEndException(e.getMessage());
-		} catch (TimedOutException e) {
-			throw new InternalBackEndException(e.getMessage());
-		} catch (TException e) {
-			throw new InternalBackEndException(e.getMessage());
-		} finally {
-			tr.close();
-		}
-	}
-
-	/**
-	 * Remove an entry in the columnFamily
-	 * 
-	 * @param keyspace
-	 * @param columnFamily
-	 * @param key
-	 * @param level
-	 * @throws InternalBackEndException
-	 */
-	public void removeAll(String keyspace, String columnFamily, String key,
-			ConsistencyLevel level) throws InternalBackEndException {
-		try {
-			tr.open();
-			long timestamp = System.currentTimeMillis();
-			ColumnPath colPathName = new ColumnPath(columnFamily);
-			client.remove(keyspace, key, colPathName, timestamp, level);
-		} catch (TTransportException e) {
-			throw new InternalBackEndException(e.getMessage());
-		} catch (InvalidRequestException e) {
-			throw new InternalBackEndException(e.getMessage());
-		} catch (UnavailableException e) {
-			throw new InternalBackEndException(e.getMessage());
-		} catch (TimedOutException e) {
-			throw new InternalBackEndException(e.getMessage());
-		} catch (TException e) {
-			throw new InternalBackEndException(e.getMessage());
-		} finally {
-			tr.close();
-		}
-	}
-
 }

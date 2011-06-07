@@ -7,7 +7,7 @@ import com.mymed.controller.core.manager.StorageManager;
 import com.mymed.model.core.factory.DHTWrapperFactory;
 import com.mymed.model.core.factory.IDHTWrapperFactory.WrapperType;
 
-public class WrapperDHTOperations {
+public class MyMedDHTOperations {
 
 	public static void main(String args[]){
 		// The is multi-protocols and provide clients for Chord and Kad

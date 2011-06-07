@@ -34,7 +34,7 @@ public class AbstractClient {
 	 * @throws InternalBackEndException 
 	 */
 	public void launchClient(WrapperConfiguration conf) throws InternalBackEndException {
-		IStorageManager wrapper = new StorageManager(type, conf);
+		IStorageManager storageManager = new StorageManager(type, conf);
 
 		BufferedReader input = new BufferedReader(new InputStreamReader(
 				System.in));
@@ -50,20 +50,20 @@ public class AbstractClient {
 				String key;
 				switch (chx) {
 				case 0:
-					System.out.println("\n" + wrapper + "\n");
+					System.out.println("\n" + storageManager + "\n");
 					break;
 				case 1:
 					System.out.print("\nkey = ");
 					key = input.readLine();
 					System.out.print("value = ");
 					String value = input.readLine();
-					wrapper.put(key, value.getBytes("UTF8"));
+					storageManager.put(key, value.getBytes("UTF8"));
 					break;
 				case 2:
 					System.out.print("\nkey = ");
 					key = input.readLine();
 					String found;
-					found = new String(wrapper.get(key), "UTF8");
+					found = new String(storageManager.get(key), "UTF8");
 					System.out.println("found: " + found);
 					break;
 				case 3:
