@@ -59,10 +59,28 @@
     <servlet-name>ProfileRequestHandler</servlet-name>
     <url-pattern>/ProfileRequestHandler</url-pattern>
   </servlet-mapping>
-  
-   <error-page>
+  <error-page>
     <exception-type>java.lang.Exception</exception-type>
     <location>/error.jsp</location>
   </error-page>
-  
+  <servlet>
+    <description></description>
+    <display-name>AuthenticationRequestHandler</display-name>
+    <servlet-name>AuthenticationRequestHandler</servlet-name>
+    <servlet-class>com.mymed.controller.core.services.requesthandler.AuthenticationRequestHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AuthenticationRequestHandler</servlet-name>
+    <url-pattern>/AuthenticationRequestHandler</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SessionRequestHandler</display-name>
+    <servlet-name>SessionRequestHandler</servlet-name>
+    <servlet-class>com.mymed.controller.core.services.requesthandler.SessionRequestHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SessionRequestHandler</servlet-name>
+    <url-pattern>/SessionRequestHandler</url-pattern>
+  </servlet-mapping>
 </web-app>

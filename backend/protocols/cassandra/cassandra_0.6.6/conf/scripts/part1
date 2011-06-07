@@ -118,39 +118,57 @@
       -->
 
 <Keyspaces>
-  
-   <!-- MAIN KEYSPACE -->
-   <Keyspace Name="Mymed">
-      <!-- COLUMN -->
+   
+	<Keyspace Name="Mymed">
+      <!-- USER MANAGMENT -->
       <ColumnFamily Name="Users" CompareWith="UTF8Type"
                     KeysCached="1000"
                     RowsCached="100"
                     RowCacheSavePeriodInSeconds="0"
                     KeyCacheSavePeriodInSeconds="3600"/>
-      <ColumnFamily Name="Networking" CompareWith="UTF8Type"
+      <ColumnFamily Name="UserGroup"
+                    ColumnType="Super"
+                    CompareWith="UTF8Type"
+                    CompareSubcolumnsWith="UTF8Type" />
+      <ColumnFamily Name="Session" CompareWith="UTF8Type"
                     KeysCached="1000"
                     RowsCached="100"
                     RowCacheSavePeriodInSeconds="0"
                     KeyCacheSavePeriodInSeconds="3600"/>
-      <ColumnFamily Name="Trips" CompareWith="BytesType"
+      <ColumnFamily Name="Authentication" CompareWith="UTF8Type"
                     KeysCached="1000"
                     RowsCached="100"
                     RowCacheSavePeriodInSeconds="0"
                     KeyCacheSavePeriodInSeconds="3600"/>
+
+	  <!-- SERVICE MANAGMENT -->
       <ColumnFamily Name="Services" CompareWith="UTF8Type"
                     KeysCached="1000"
                     RowsCached="100"
                     RowCacheSavePeriodInSeconds="0"
                     KeyCacheSavePeriodInSeconds="3600"/>
-      <!-- SUPERCOLUMN -->
       <ColumnFamily Name="myTransport"
                     ColumnType="Super"
                     CompareWith="UTF8Type"
                     CompareSubcolumnsWith="UTF8Type" />
+      <ColumnFamily Name="Trips" CompareWith="BytesType"
+                    KeysCached="1000"
+                    RowsCached="100"
+                    RowCacheSavePeriodInSeconds="0"
+                    KeyCacheSavePeriodInSeconds="3600"/>
+
+	  <!-- REPUTATION MANAGMENT -->
       <ColumnFamily Name="Reputation"
                     ColumnType="Super"
                     CompareWith="UTF8Type"
                     CompareSubcolumnsWith="UTF8Type" />
+
+      <!-- DHT MANAGMENT -->
+      <ColumnFamily Name="DHT" CompareWith="UTF8Type"
+                    KeysCached="1000"
+                    RowsCached="100"
+                    RowCacheSavePeriodInSeconds="0"
+                    KeyCacheSavePeriodInSeconds="3600"/>
 
       <ReplicaPlacementStrategy>org.apache.cassandra.locator.RackUnawareStrategy</ReplicaPlacementStrategy>
       <ReplicationFactor>10</ReplicationFactor>

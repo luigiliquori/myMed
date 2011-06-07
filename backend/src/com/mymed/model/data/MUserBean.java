@@ -5,14 +5,14 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.mymed.controller.core.services.requesthandler.exception.InternalBackEndException;
+import com.mymed.controller.core.exception.InternalBackEndException;
 
 /**
  * This class represent an user profile
  * 
  * @author lvanni
  */
-public class MUserBean extends AbsctractMBean{
+public class MUserBean extends AbstractMBean{
 
 	/* --------------------------------------------------------- */
 	/* Attributes */
@@ -51,7 +51,7 @@ public class MUserBean extends AbsctractMBean{
 	/* --------------------------------------------------------- */
 	/**
 	 * @throws InternalBackEndException 
-	 * @see com.mymed.model.data.AbsctractMBean#getAttributeToMap()
+	 * @see com.mymed.model.data.AbstractMBean#getAttributeToMap()
 	 */
 	public Map<String, byte[]> getAttributeToMap() throws InternalBackEndException {
 		Map<String, byte[]> args = new HashMap<String, byte[]>();

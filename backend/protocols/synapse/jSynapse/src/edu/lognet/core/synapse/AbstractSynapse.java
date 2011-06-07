@@ -99,7 +99,7 @@ public abstract class AbstractSynapse extends AbstractChord implements ISynapse 
 	}
 
 	/**
-	 * @see IDHTClient.protocols.p2p.IDHT#put(String, String)
+	 * @see IDHTWrapperFactory.protocols.p2p.IDHT#put(String, String)
 	 */
 	@Deprecated
 	/* multiPut */
@@ -117,7 +117,7 @@ public abstract class AbstractSynapse extends AbstractChord implements ISynapse 
 	}
 
 	/**
-	 * @see IDHTClient.protocols.p2p.IDHT#get(String)
+	 * @see IDHTWrapperFactory.protocols.p2p.IDHT#get(String)
 	 */
 	public String get(String key) {
 		// INIT CACHE TABLE
@@ -138,7 +138,7 @@ public abstract class AbstractSynapse extends AbstractChord implements ISynapse 
 	/**
 	 * Bypass the initialization of the cache table
 	 * 
-	 * @see IDHTClient.protocols.p2p.IDHT#get(String)
+	 * @see IDHTWrapperFactory.protocols.p2p.IDHT#get(String)
 	 * @param key
 	 * @param overlayIntifier
 	 *            the overlay where the request come from
@@ -409,14 +409,14 @@ public abstract class AbstractSynapse extends AbstractChord implements ISynapse 
 	}
 
 	/**
-	 * @see IDHTClient.protocols.p2p.IDHT#getIdentifier()
+	 * @see IDHTWrapperFactory.protocols.p2p.IDHT#getIdentifier()
 	 */
 	public String getIdentifier() {
 		return identifier;
 	}
 
 	/**
-	 * @see IDHTClient.protocols.p2p.IDHT#getTransport()
+	 * @see IDHTWrapperFactory.protocols.p2p.IDHT#getTransport()
 	 */
 	public ITransport getTransport() {
 		return transport;

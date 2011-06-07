@@ -118,39 +118,57 @@
       -->
 
 <Keyspaces>
-  
-   <!-- MAIN KEYSPACE -->
-   <Keyspace Name="Mymed">
-      <!-- COLUMN -->
-      <ColumnFamily Name="Users" CompareWith="BytesType"
+   
+	<Keyspace Name="Mymed">
+      <!-- USER MANAGMENT -->
+      <ColumnFamily Name="Users" CompareWith="UTF8Type"
                     KeysCached="1000"
                     RowsCached="100"
                     RowCacheSavePeriodInSeconds="0"
                     KeyCacheSavePeriodInSeconds="3600"/>
-      <ColumnFamily Name="Networking" CompareWith="BytesType"
+      <ColumnFamily Name="UserGroup"
+                    ColumnType="Super"
+                    CompareWith="UTF8Type"
+                    CompareSubcolumnsWith="UTF8Type" />
+      <ColumnFamily Name="Session" CompareWith="UTF8Type"
                     KeysCached="1000"
                     RowsCached="100"
                     RowCacheSavePeriodInSeconds="0"
                     KeyCacheSavePeriodInSeconds="3600"/>
+      <ColumnFamily Name="Authentication" CompareWith="UTF8Type"
+                    KeysCached="1000"
+                    RowsCached="100"
+                    RowCacheSavePeriodInSeconds="0"
+                    KeyCacheSavePeriodInSeconds="3600"/>
+
+	  <!-- SERVICE MANAGMENT -->
+      <ColumnFamily Name="Services" CompareWith="UTF8Type"
+                    KeysCached="1000"
+                    RowsCached="100"
+                    RowCacheSavePeriodInSeconds="0"
+                    KeyCacheSavePeriodInSeconds="3600"/>
+      <ColumnFamily Name="myTransport"
+                    ColumnType="Super"
+                    CompareWith="UTF8Type"
+                    CompareSubcolumnsWith="UTF8Type" />
       <ColumnFamily Name="Trips" CompareWith="BytesType"
                     KeysCached="1000"
                     RowsCached="100"
                     RowCacheSavePeriodInSeconds="0"
                     KeyCacheSavePeriodInSeconds="3600"/>
-      <ColumnFamily Name="Services" CompareWith="BytesType"
+
+	  <!-- REPUTATION MANAGMENT -->
+      <ColumnFamily Name="Reputation"
+                    ColumnType="Super"
+                    CompareWith="UTF8Type"
+                    CompareSubcolumnsWith="UTF8Type" />
+
+      <!-- DHT MANAGMENT -->
+      <ColumnFamily Name="DHT" CompareWith="UTF8Type"
                     KeysCached="1000"
                     RowsCached="100"
                     RowCacheSavePeriodInSeconds="0"
                     KeyCacheSavePeriodInSeconds="3600"/>
-      <!-- SUPERCOLUMN -->
-      <ColumnFamily Name="myTransport"
-                    ColumnType="Super"
-                    CompareWith="BytesType"
-                    CompareSubcolumnsWith="BytesType" />
-      <ColumnFamily Name="Reputation"
-                    ColumnType="Super"
-                    CompareWith="BytesType"
-                    CompareSubcolumnsWith="BytesType" />
 
       <ReplicaPlacementStrategy>org.apache.cassandra.locator.RackUnawareStrategy</ReplicaPlacementStrategy>
       <ReplicationFactor>10</ReplicationFactor>
@@ -158,9 +176,6 @@
    </Keyspace>
 
 </Keyspaces>
-
-
-
 
   <!--
    ~ Authenticator: any IAuthenticator may be used, including your own as long
@@ -210,7 +225,7 @@
    ~ performance
   -->
   <SavedCachesDirectory>/local/var/lib/cassandra/saved_caches</SavedCachesDirectory>
-  <CommitLogDirectory>/local/var/lib/cassandra/commitlog</CommitLogDirectory>
+  <CommitLogDirectory>/local/var/log/cassandra/commitlog</CommitLogDirectory>
   <DataFileDirectories>
       <DataFileDirectory>/local/var/lib/cassandra/data</DataFileDirectory>
   </DataFileDirectories>
