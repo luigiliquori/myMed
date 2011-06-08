@@ -1,28 +1,31 @@
 <?php
 require_once dirname(__FILE__).'/AbstractBackendRequest.class.php';
-require_once dirname(__FILE__).'/Profile.class.php';
+require_once dirname(__FILE__).'/Session.class.php';
 class SessionRequest extends AbstractBackendRequest
 {
-	public /*Profile|false*/ function create(/*string*/ $login, /*string*/ $password) /*throws BackendRequestException, CUrlException*/
+	public /*???*/ function create(/*string*/ $id, /*string*/ $ip) /*throws BackendRequestException, CUrlException*/
 	{
 		parent::create();
-		$this->addArgument('user', $user);
-		$this->addArgument('pass', sha1($password));
-		$json	= $this->send();
-		if($json == false)
-			return false;
-		return new Profile($json);
+		$this->addArgument('id', $id);
+		$this->addArgument('pass', $ip);
+		$this->send();
 	}
-	public /*Profile|false*/ function read(/*string*/ $id) /*throws BackendRequestException, CUrlException*/
+	public /*Session*/ function read(/*string*/ $id) /*throws BackendRequestException, CUrlException*/
 	{
 		parent::read();
 		$this->addArgument('id', $id);
 		$json	= $this->send();
-		if($json == false)
-			return false;
-		return new Profile($json);
+		return new Session($json);
 	}
-	public /*void*/ function delete(/*string*/ $id) /*throws BackendRequestException, CUrlException*/
+	public /*Session*/ function update(/*string*/ $id, /*string*/ $ip) /*throws BackendRequestException, CUrlException*/
+	{
+		parent::create();
+		$this->addArgument('id', $id);
+		$this->addArgument('pass', $ip);
+		$json	= $this->send();
+		return new Session($json);
+	}
+	public /*???*/ function delete(/*string*/ $id) /*throws BackendRequestException, CUrlException*/
 	{
 		parent::delete();
 		$this->addArgument('id', $id);

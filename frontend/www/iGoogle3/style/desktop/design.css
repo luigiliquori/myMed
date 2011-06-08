@@ -3,6 +3,7 @@ html ,body {
 	height		: 100%;
 	text-align	: center;
 	overflow	: auto;
+	position	: relative;
 }
 body>div {
 	text-align	: left;

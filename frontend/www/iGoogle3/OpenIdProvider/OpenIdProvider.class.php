@@ -12,13 +12,17 @@ define('PAGE_USERXRDS', 	'userXrds');
 class OpenIdProvider extends ContentObject
 {
 	private /*string*/ $httpScriptPath;
+	private /*string*/ $httpsScriptPath;
+	private /*string*/ $scriptPath;
 	private /*string*/ $server;
 	private /*string*/ $user	= null;
 	private /*string*/ $path	= null;
 	public function __construct()
 	{
-		$this->httpScriptPath	= 'http://'.$_SERVER['SERVER_NAME'].//*
-												$_SERVER['SCRIPT_NAME'];//*/preg_replace('#\.php$#', '', $_SERVER['SCRIPT_NAME']);
+		$this->scriptPath	= //*
+						$_SERVER['SCRIPT_NAME'];//*/preg_replace('#\.php$#', '', $_SERVER['SCRIPT_NAME']);
+		$this->httpScriptPath	= 'http://'.$_SERVER['SERVER_NAME'].$this->scriptPath;
+		$this->httpsScriptPath	= 'https://'.$_SERVER['SERVER_NAME'].$this->scriptPath;
 		$this->server			= new Auth_OpenID_Server(
 						new Auth_OpenID_FileStore('/tmp/oidprovider_store'), 
 						$this->httpScriptPath);
@@ -71,14 +75,32 @@ class OpenIdProvider extends ContentObject
 			if($request == null)
 				// if no request, it's an user => redirect to subscribe's page
 				//$this->path = Array('', PAGE_SUBSCRIBE);//$this->internRedirect(PAGE_SUBSCRIBE);
-				$this->internRedirect(PAGE_SUBSCRIBE);
+				die('<!DOCTYPE html>'."\n"
+				.'<html xmlns="http://www.w3.org/1999/xhtml">'."\n"
+				.'	<head>'."\n"
+				.'		<title>OpenId myMed</title>'."\n"
+				.'		<meta http-equiv="refresh" content="0; url='.$this->httpsScriptPath.'/'.PAGE_SUBSCRIBE.'" />'."\n"
+				.'	</head>'."\n"
+				.'	<body>'."\n"
+				.'		<a href="'.$this->httpsScriptPath.'/'.PAGE_SUBSCRIBE.'">S\'inscrire</a>'."\n"
+				.'	</body>'."\n"
+				.'</html>');// redirection HTML => les robot openid ne son pas redirigé
+				//$this->internRedirect(PAGE_SUBSCRIBE);
 			else
 				$this->firstServerRequest($request);
 		}
 	}
 	private /*void*/ function internRedirect(/*PAGE_*/ $page=null)
 	{
-		header('Location:'.$this->httpScriptPath.($page?'/'.$page:''));
+		switch($page)
+		{
+			case PAGE_SUBSCRIBE:
+			case PAGE_TRUST:
+					$basePath = $this->httpsScriptPath;break;
+			default: 
+					$basePath = $this->httpScriptPath;break;
+		}
+		header('Location:'.$basePath.($page?'/'.$page:''));
 		exit;
 	}
 	private /*void*/ function firstServerRequest(/*retour de server->decodeRequest()*/ $request)
@@ -160,7 +182,7 @@ class OpenIdProvider extends ContentObject
 	public /*void*/ function headTags()
 	{
 		echo '
-		<base href="'.$this->httpScriptPath.'" />
+		<base href="'.$this->scriptPath.'" />
 		<link rel="stylesheet" href="OpenIdProvider/style.css" />';
 		switch($this->path[1])
 		{

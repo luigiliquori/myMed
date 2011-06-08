@@ -9,10 +9,10 @@ class ConnexionGuest extends Connexion
 {
 	public function __construct()
 	{
-		if(isset($_POST["connexion"])&&$_POST["connexion"]=='guest')
+		if(isset($_GET["connexion"])&&$_GET["connexion"]=='guest')
 		{
 			$_SESSION['user'] = new Profile;
-			header('Location:'.$_SERVER["REQUEST_URI"]);
+			header('Location:'.$_SERVER['PHP_SELF']);
 			exit;
 		}
 	}

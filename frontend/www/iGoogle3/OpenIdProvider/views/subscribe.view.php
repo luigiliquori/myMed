@@ -1,7 +1,7 @@
 <?php 
 $date = date('Y-m-d', time()-3600*24*365*30);
 ?>
-				<form action="<?=$this->httpScriptPath.'/'.PAGE_SUBSCRIBE?>" method="post">
+				<form action="" method="post">
 					<div>
 						<div>
 							<label for="login">Nom d'utilisateur&nbsp;:</label>

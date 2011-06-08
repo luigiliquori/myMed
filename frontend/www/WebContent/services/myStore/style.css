@@ -82,10 +82,10 @@
 	position	: absolute;
 	bottom		: -1.5em;
 	right		: -1em;
-}
-#myStore div.grade span.text {
-	display		: none;
-}
+}/*
+#myStore ul li p:empty {
+	display: 	none;
+}*/
 #myStore div.grade ul {
 	position	: absolute;
 	top			: 0;

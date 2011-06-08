@@ -11,6 +11,17 @@
 		<!-- define design of website -->
 		<link rel="stylesheet" href="style/desktop/design.css" />
 		<script type="text/javascript" src="javascript/jquery.textPlaceholder.js"></script>
+		<script type="text/javascript" src="http://cdn.jquerytools.org/1.2.5/form/jquery.tools.min.js"></script>
+		<script type="text/javascript">
+		//<![CDATA[
+		$.tools.dateinput.localize("fr", {
+			months:        'janvier,février,mars,avril,mai,juin,juillet,août,septembre,octobre,novembre,décembre',
+			shortMonths:   'jan,fév,mar,avr,mai,jun,jul,aoû,sep,oct,nov,déc',
+			days:          'dimanche,lundi,mardi,mercredi,jeudi,vendredi,samedi',
+			shortDays:     'dim,lun,mar,mer,jeu,ven,sam'
+		});
+		//]]>
+		</script>
 	</head>
 	<body>
 		<?php printError();?>
@@ -176,7 +187,10 @@ pour ajouter de nouvelles fonctionnalités&nbsp;!</h2>
 			</div>
 		</div>
 <?php $this->scriptTags();?>
-		<script type="text/javascript">$("[placeholder]").textPlaceholder();</script>
+		<script type="text/javascript">
+		$("[placeholder]").textPlaceholder();
+		$(":date").dateinput({lang:'fr', format:'yyyy-mm-dd', firstDay:1/*, selectors:true*/});
+		</script>
 <?php if(defined('DEBUG')&&DEBUG):?>
 		<div id="debug">
 <?php printTraces();?>

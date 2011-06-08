@@ -19,11 +19,10 @@ require_once dirname(__FILE__).'/ContentObject.class.php';
 require_once dirname(__FILE__).'/library.php';
 
 header("Content-Script-Type:text/javascript");
-
 if(session_name()==='myMedSession_main')
 {
 	if(!isset($_SESSION['user']))
-		$_POST["connexion"] = 'guest';
+		$_GET["connexion"] = 'guest';
 	define('USER_CONNECTED', $_SESSION['user']->socialNetworkName!==null );
 }
 else

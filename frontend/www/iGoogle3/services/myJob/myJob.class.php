@@ -76,6 +76,7 @@ class myJob extends ContentObject
 						<button type="submit">Rechercher</button>
 					</div>
 				</form>
+				<script type="text/javascript">$("[placeholder]").textPlaceholder();</script>
 <?php
 	}
 	/**

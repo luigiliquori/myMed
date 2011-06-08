@@ -133,16 +133,16 @@ class ConnexionOpenId extends Connexion
 	    
 		unset($_GET['connexion']);
 		unset($_GET['uri']);
-		$callbackUrl = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'].'?'.http_build_query($_GET);
+		$callbackUrl = 'https://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'].'?'.http_build_query($_GET);
 		if($auth->shouldSendRedirect())
 		{
-			$redirect = $auth->redirectURL('http://'.$_SERVER["HTTP_HOST"], $callbackUrl);
+			$redirect = $auth->redirectURL('https://'.$_SERVER["HTTP_HOST"], $callbackUrl);
 			header('Location: '.$redirect);
 			echo '<a href="'.$redirect.'">'.$redirect.'</a>';
 		}
 		else
 		{
-			echo $auth->htmlMarkup('http://'.$_SERVER["HTTP_HOST"], $callbackUrl);
+			echo $auth->htmlMarkup('https://'.$_SERVER["HTTP_HOST"], $callbackUrl);
 		}
 		exit;
 	}
@@ -152,7 +152,7 @@ class ConnexionOpenId extends Connexion
 	 */
 	protected /*Array*/ function connect()
 	{
-		$response = $this->consumer->complete('http://'.$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]);
+		$response = $this->consumer->complete('https://'.$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]);
 		if($response->status !== Auth_OpenID_SUCCESS)
 			sendError('La connexion a échouée', true);
 		return Array(

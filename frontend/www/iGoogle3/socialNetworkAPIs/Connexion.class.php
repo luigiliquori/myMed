@@ -25,27 +25,35 @@ abstract class Connexion
 	 */
 	protected /*void*/ function redirectAfterConnection()
 	{
-		$request = new ProfileRequest;
 		try
 		{
-			$user = $request->read($_SESSION['user']->mymedID);
-			if(!$user->equals($_SESSION['user']))
-				$request->update($_SESSION['user']);
-			///@todo opdate local Session var
-		}
-		catch(BackendRequestException $ex)
-		{
-			if($ex->getCode() != 404)
-				throw $ex;
-			$_SESSION['user'] = $request->create($_SESSION['user']);
-		}
+			$request = new ProfileRequest;
+			try
+			{
+				$user = $request->read($_SESSION['user']->mymedID);
+				if(!$user->equals($_SESSION['user']))
+					$request->update($_SESSION['user']);
+				$_SESSION['user']	= $request->read($_SESSION['user']->mymedID);
+			}
+			catch(BackendRequestException $ex)
+			{
+				if($ex->getCode() != 404)
+					throw $ex;
+				$_SESSION['user'] = $request->create($_SESSION['user']);
+			}
 		
-		static::cleanGetVars();
-		$query_string	= http_build_query($_GET);
-		if($query_string != "")
-			$query_string = '?'.$query_string;
-		header('Location:'.$_SERVER["SCRIPT_NAME"].$query_string);
-		exit;
+			static::cleanGetVars();
+			$query_string	= http_build_query($_GET);
+			if($query_string != "")
+				$query_string = '?'.$query_string;
+			header('Location:http://'.$_SERVER["HTTP_HOST"].$_SERVER["SCRIPT_NAME"].$query_string);
+			exit;
+		}
+		catch(Exception $ex)
+		{
+			unset($_SESSION['user']);
+			throw $ex;
+		}
 	}
 }
 ?>

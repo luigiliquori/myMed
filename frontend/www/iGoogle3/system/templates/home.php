@@ -27,7 +27,17 @@ if(defined('MIMETYPE_XHTML')&&MIMETYPE_XHTML)
 		<script type="text/javascript" src="javascript/jquery/dist/jquery.js"></script>
 		<script type="text/javascript" src="javascript/jquery.textPlaceholder.js"></script>
 		<script type="text/javascript" src="javascript/display.js"></script>
-		
+		<script type="text/javascript" src="http://cdn.jquerytools.org/1.2.5/form/jquery.tools.min.js"></script>
+		<script type="text/javascript">
+		//<![CDATA[
+		$.tools.dateinput.localize("fr", {
+			months:        'janvier,février,mars,avril,mai,juin,juillet,août,septembre,octobre,novembre,décembre',
+			shortMonths:   'jan,fév,mar,avr,mai,jun,jul,aoû,sep,oct,nov,déc',
+			days:          'dimanche,lundi,mardi,mercredi,jeudi,vendredi,samedi',
+			shortDays:     'dim,lun,mar,mer,jeu,ven,sam'
+		});
+		//]]>
+		</script>
 		<!--[if IE]>
 		<script type="text/javascript">ie_version=parseFloat(navigator.appVersion.split("MSIE")[1]);</script>
 		<![endif]-->
@@ -94,8 +104,11 @@ if(defined('MIMETYPE_XHTML')&&MIMETYPE_XHTML)
 		 	<div class="slogan">"Ensemble par-delà les frontières"</div>
 		</div>
 <?php	$this->scriptTags();?>
-		<script type="text/javascript">new zoom.Zoom(69);</script>
-		<script type="text/javascript">$("[placeholder]").textPlaceholder();</script>
+		<script type="text/javascript">
+		new zoom.Zoom(69);
+		$("[placeholder]").textPlaceholder();
+		$(":date").dateinput({lang:'fr', format:'yyyy-mm-dd', firstDay:1/*, selectors:true*/});
+		</script>
 <?php if(defined('DEBUG')&&DEBUG):?>
 		<div id="debug">
 			<?php printTraces();?>
