@@ -17,7 +17,6 @@ import org.apache.cassandra.thrift.TokenRange;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.sun.xml.rpc.processor.modeler.j2ee.xml.string;
 
 /**
  * CassandraWrapper API - for Cassandra 0.6
