@@ -4,11 +4,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.cassandra.thrift.AuthenticationRequest;
 import org.apache.cassandra.thrift.ColumnOrSuperColumn;
 import org.apache.cassandra.thrift.ColumnParent;
 import org.apache.cassandra.thrift.ColumnPath;
 import org.apache.cassandra.thrift.ConsistencyLevel;
+import org.apache.cassandra.thrift.KeyRange;
 import org.apache.cassandra.thrift.KeySlice;
+import org.apache.cassandra.thrift.Mutation;
 import org.apache.cassandra.thrift.SlicePredicate;
 import org.apache.cassandra.thrift.TokenRange;
 
@@ -34,7 +37,7 @@ public interface ICassandraWrapper {
 	 * @param keyspace
 	 * @param auth_request
 	 */
-	void login(String keyspace, String auth_request);
+	void login(String keyspace, AuthenticationRequest authRequest) throws InternalBackEndException ;
 
 	/**
 	 * Get the Column or SuperColumn at the given column_path. If no value is
@@ -80,9 +83,9 @@ public interface ICassandraWrapper {
 	 * @param consistency_level
 	 * @return
 	 */
-	Map<string, List<ColumnOrSuperColumn>> multiget_slice(String keyspace,
-			String keys, String column_parent, String predicate,
-			ConsistencyLevel consistency_level);
+	Map<String, List<ColumnOrSuperColumn>> multiget_slice(
+			String keyspace, List<String> keys, ColumnParent columnParent,
+			SlicePredicate predicate, ConsistencyLevel consistencyLevel) throws InternalBackEndException;
 
 	/**
 	 * Counts the columns present in column_parent. The method is not O(1). It
@@ -96,8 +99,8 @@ public interface ICassandraWrapper {
 	 * @param consistency_level
 	 * @return
 	 */
-	int get_count(String keyspace, String key, String column_parent,
-			ConsistencyLevel consistency_level);
+	int get_count(String keyspace, String key, ColumnParent columnParent,
+			ConsistencyLevel consistency_level) throws InternalBackEndException;
 
 	/**
 	 * Returns a list of slices for the keys within the specified KeyRange.
@@ -112,8 +115,9 @@ public interface ICassandraWrapper {
 	 * @param consistency_level
 	 * @return
 	 */
-	List<KeySlice> get_range_slices(String keyspace, String column_parent,
-			String predicate, String range, ConsistencyLevel consistency_level);
+	List<KeySlice> get_range_slices(String keyspace,
+			ColumnParent columnParent, SlicePredicate predicate, KeyRange range,
+			ConsistencyLevel consistencyLevel)  throws InternalBackEndException;
 
 	/**
 	 * Insert a Column consisting of (column_path.column, value, timestamp) at
@@ -146,8 +150,8 @@ public interface ICassandraWrapper {
 	 * @param mutation_map
 	 * @param consistency_level
 	 */
-	void batch_mutate(String keyspace, String mutation_map,
-			ConsistencyLevel consistency_level);
+	void batch_mutate(String keyspace, Map<String, Map<String, List<Mutation>>> mutation_map,
+			ConsistencyLevel consistency_level) throws InternalBackEndException;
 
 	/**
 	 * Remove data from the row specified by key at the granularity specified by
@@ -168,25 +172,33 @@ public interface ICassandraWrapper {
 			long timestamp, ConsistencyLevel consistencyLevel) throws InternalBackEndException;
 
 	/**
+	 * Gets information about the specified keyspace.
+	 * 
+	 * @param keyspace
+	 * @return
+	 */
+	Map<String, Map<String, String>> describe_keyspace(String keyspace) throws InternalBackEndException, IOBackEndException;
+	
+	/**
 	 * Gets a list of all the keyspaces configured for the cluster.
 	 * 
 	 * @return
 	 */
-	Set<string> describe_keyspaces();
+	Set<String> describe_keyspaces() throws InternalBackEndException;
 
 	/**
 	 * Gets the name of the cluster.
 	 * 
 	 * @return
 	 */
-	String describe_cluster_name();
+	String describe_cluster_name() throws InternalBackEndException;
 
 	/**
 	 * Gets the CassandraWrapper API version.
 	 * 
 	 * @return
 	 */
-	String describe_version();
+	String describe_version() throws InternalBackEndException;
 
 	/**
 	 * Gets the token ring; a map of ranges to host addresses. Represented as a
@@ -199,13 +211,5 @@ public interface ICassandraWrapper {
 	 * @param keyspace
 	 * @return
 	 */
-	List<TokenRange> describe_ring(String keyspace);
-
-	/**
-	 * Gets information about the specified keyspace.
-	 * 
-	 * @param keyspace
-	 * @return
-	 */
-	Map<string, Map<string, string>> describe_keyspace(String keyspace);
+	List<TokenRange> describe_ring(String keyspace) throws InternalBackEndException;
 }

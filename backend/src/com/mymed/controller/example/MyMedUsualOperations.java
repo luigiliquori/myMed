@@ -17,48 +17,6 @@ import com.mymed.model.core.configuration.WrapperConfiguration;
  */
 public class MyMedUsualOperations {
 
-	/* CASSANDRA STRUCTURE:
-
-	  Keyspace
-	  -----------------------------------------------------
-	  | columnFamily					  				  |
-	  | ----------------------------------- 			  |
-	  | | 			| columnName -> value | 			  |
-	  | |	key		| columnName -> value | 			  |
-	  | |			| columnName -> value | 			  |
-	  | |-----------|---------------------|				  |
-	  | | 			| columnName -> value |				  |
-	  | |	key		| columnName -> value |				  |
-	  | |			| columnName -> value |				  | 
-	  | -----------------------------------				  |
-	  |								  	 			      |
-	  | SuperColumnFamily				  				  |
-	  | ------------------------------------------------- |
-	  | | 			| columnFamily					    | |
-	  |	|           | --------------------------------- | |
-	  | |			| |			| columnName -> value | | |
-	  | |			| |   key	| columnName -> value | | |
-	  | |			| |			| columnName -> value | | |
-	  | |			| |---------|---------------------| | |
-	  | |			| |			| columnName -> value | | |
-	  | |			| |	  key	| columnName -> value | | |
-	  | |			| |			| columnName -> value | | |
-	  | |			| --------------------------------- | |
-	  | | superKey	| columnFamily					    | |
-	  |	|           | --------------------------------- | |
-	  | |			| |			| columnName -> value | | |
-	  | |			| |   key	| columnName -> value | | |
-	  | |			| |			| columnName -> value | | |
-	  | |			| |---------|---------------------| | |
-	  | |			| |			| columnName -> value | | |
-	  | |			| |	  key	| columnName -> value | | |
-	  | |			| |			| columnName -> value | | |
-	  | |			| --------------------------------- | |
-	  | ------------------------------------------------- |
-	  -----------------------------------------------------
-
-	 */
-
 	public static void main(String args[]){
 
 		try {
