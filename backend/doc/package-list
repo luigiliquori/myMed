@@ -1,9 +1,11 @@
 com.mymed.controller.core.exception
 com.mymed.controller.core.manager
 com.mymed.controller.core.manager.authentication
+com.mymed.controller.core.manager.buddy
 com.mymed.controller.core.manager.dht
 com.mymed.controller.core.manager.profile
 com.mymed.controller.core.manager.reputation
+com.mymed.controller.core.manager.session
 com.mymed.controller.core.requesthandler
 com.mymed.controller.core.requesthandler.tests
 com.mymed.controller.example

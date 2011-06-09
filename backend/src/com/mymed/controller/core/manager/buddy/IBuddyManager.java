@@ -7,15 +7,27 @@ import com.mymed.controller.core.exception.InternalBackEndException;
 
 public interface IBuddyManager {
 
-	// read the list
-	/*
-	 * buddyList = [{ "name" : String, "mymedID" : "ID"}]
+	/**
+	 * read the list
+	 * @param mymedID
+	 * @return
+	 * @throws InternalBackEndException
 	 */
 	public List<Map<String, String>> read(String mymedID) throws InternalBackEndException;
 	
-	// add new buddy
+	/**
+	 * add new buddy
+	 * @param mymedID
+	 * @param buddyID
+	 * @throws InternalBackEndException
+	 */
 	public void update(String mymedID, String buddyID) throws InternalBackEndException;
 	
-	// remove a buddy from the buddyList
+	/**
+	 * remove a buddy from the buddyList
+	 * @param mymedID
+	 * @param buddyID
+	 * @throws InternalBackEndException
+	 */
 	public void delete(String mymedID, String buddyID) throws InternalBackEndException;
 }
