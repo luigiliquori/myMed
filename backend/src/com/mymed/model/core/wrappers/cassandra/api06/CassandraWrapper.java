@@ -49,10 +49,6 @@ public class CassandraWrapper extends AbstractDHTWrapper implements
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
-	/** The Cassandra instance */
-	private static CassandraWrapper singleton;
-
-	/** Cassandra node attributes */
 	private TTransport tr;
 	private TProtocol proto;
 	private Client client;
@@ -63,7 +59,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements
 	/**
 	 * Private Constructor to create a singleton
 	 */
-	private CassandraWrapper() {
+	public CassandraWrapper() {
 		try { // By default it will try to connect on the localhost node if it
 			// exist
 			this.tr = new TSocket(InetAddress.getLocalHost().getHostAddress(),
@@ -73,21 +69,6 @@ public class CassandraWrapper extends AbstractDHTWrapper implements
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
-	}
-
-	/**
-	 * Cassandra getter
-	 * 
-	 * @return The only one instance of Cassandra
-	 */
-	public static CassandraWrapper getInstance() {
-		if (singleton == null) {
-			synchronized (CassandraWrapper.class) {
-				if (singleton == null)
-					singleton = new CassandraWrapper();
-			}
-		}
-		return singleton;
 	}
 
 	/* --------------------------------------------------------- */
@@ -100,7 +81,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements
 	 * @param port
 	 */
 	public void setup(String address, int port) {
-		if (address != null && port != 0) { // TO FIX the configuration file is
+		if (address != null && port != 0) {
 			// not managed by glassfish
 			this.tr = new TSocket(address, port);
 			this.proto = new TBinaryProtocol(tr);

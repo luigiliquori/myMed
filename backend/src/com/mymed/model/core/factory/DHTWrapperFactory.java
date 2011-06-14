@@ -4,8 +4,6 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.cassandra.thrift.ColumnPath;
-
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.StorageManager;
@@ -131,7 +129,7 @@ public class DHTWrapperFactory implements IDHTWrapperFactory {
 			WrapperConfiguration conf) throws InternalBackEndException {
 		switch (type) {
 		case CASSANDRA:
-			CassandraWrapper cassandraCli = CassandraWrapper.getInstance();
+			CassandraWrapper cassandraCli = new CassandraWrapper();
 			cassandraCli.setup(conf.getCassandraListenAddress(), conf
 					.getThriftPort());
 			return cassandraCli;
@@ -147,10 +145,7 @@ public class DHTWrapperFactory implements IDHTWrapperFactory {
 			connectNode(kadCli.getNode(), "kad");
 			return kadCli;
 		default:
-			cassandraCli = CassandraWrapper.getInstance();
-			cassandraCli.setup(conf.getCassandraListenAddress(), conf
-					.getThriftPort());
-			return cassandraCli;
+			throw new InternalBackEndException("Wrapper type unknown: " + type);
 		}
 	}
 
@@ -168,7 +163,6 @@ public class DHTWrapperFactory implements IDHTWrapperFactory {
 		case CHORD:
 			ChordWrapper chordCli = ChordWrapper.getInstance();
 			disconnectNode(chordCli.getNode(), "chord");
-
 			chordCli.getNode().kill();
 			break;
 		case KAD:
@@ -177,7 +171,7 @@ public class DHTWrapperFactory implements IDHTWrapperFactory {
 			kadCli.getNode().kill();
 			break;
 		default:
-			break;
+			throw new InternalBackEndException("Wrapper type unknown: " + type);
 		}
 	}
 }
