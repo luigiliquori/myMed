@@ -34,7 +34,7 @@ public interface ICassandraWrapper {
 	/**
 	 * The port number to use for interacting with Cassandra
 	 */
-	int PORT_NUMBER = 4021;
+	int PORT_NUMBER = 9160;
 
 	/**
 	 * Authenticates with the cluster for operations on the specified keyspace
@@ -102,7 +102,7 @@ public interface ICassandraWrapper {
 	 * @return the slices for the given keys
 	 * @throws InternalBackEndException
 	 */
-	Map<String, List<ColumnOrSuperColumn>> multiget_slice(List<String> keys, ColumnParent parent,
+	Map<ByteBuffer, List<ColumnOrSuperColumn>> multiget_slice(List<String> keys, ColumnParent parent,
 	        SlicePredicate predicate, ConsistencyLevel level) throws InternalBackEndException;
 
 	/**

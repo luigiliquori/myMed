@@ -32,8 +32,8 @@ import org.apache.cassandra.thrift.UnavailableException;
 import org.apache.thrift.TException;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
+import org.apache.thrift.transport.TFramedTransport;
 import org.apache.thrift.transport.TSocket;
-import org.apache.thrift.transport.TTransport;
 import org.apache.thrift.transport.TTransportException;
 
 import com.mymed.controller.core.exception.IOBackEndException;
@@ -52,14 +52,19 @@ import com.mymed.model.core.wrappers.AbstractDHTWrapper;
 public final class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWrapper {
 	private static CassandraWrapper instance = new CassandraWrapper();
 
-	private TTransport thriftTransport;
-	private TProtocol thriftProtocol;
-	private Client cassandraClient;
+	private transient TFramedTransport thriftTransport;
+	private transient TSocket socket;
+	private transient TProtocol thriftProtocol;
+	private transient Client cassandraClient;
 
 	private CassandraWrapper() {
+
+		super();
+
 		// By default it will try to connect on the localhost node if it exist
 		try {
-			thriftTransport = new TSocket(InetAddress.getLocalHost().getHostAddress(), PORT_NUMBER);
+			socket = new TSocket(InetAddress.getLocalHost().getHostAddress(), PORT_NUMBER);
+			thriftTransport = new TFramedTransport(socket);
 			thriftProtocol = new TBinaryProtocol(thriftTransport);
 			cassandraClient = new Client(thriftProtocol);
 		} catch (final UnknownHostException e) {
@@ -90,6 +95,7 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 			thriftTransport.open();
 			cassandraClient.set_keyspace(keySpace);
 		} catch (final TTransportException ex) {
+			ex.printStackTrace();
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex.getMessage());
@@ -109,10 +115,12 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 
 		try {
 			thriftTransport.open();
+			// TODO we need the Keyspace to be set to work here
 			result = cassandraClient.get(keyToBuffer, path, level);
 		} catch (final TTransportException ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final InvalidRequestException ex) {
+			ex.printStackTrace();
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final UnavailableException ex) {
 			throw new InternalBackEndException(ex.getMessage());
@@ -121,6 +129,8 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 		} catch (final TException ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final NotFoundException ex) {
+			ex.printStackTrace();
+			System.err.println(ex.getMessage());
 			throw new IOBackEndException(ex.getMessage());
 		} finally {
 			thriftTransport.close();
@@ -157,15 +167,16 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 	}
 
 	@Override
-	public Map<String, List<ColumnOrSuperColumn>> multiget_slice(final List<String> keys, final ColumnParent parent,
-	        final SlicePredicate predicate, final ConsistencyLevel level) throws InternalBackEndException {
+	public Map<ByteBuffer, List<ColumnOrSuperColumn>> multiget_slice(final List<String> keys,
+	        final ColumnParent parent, final SlicePredicate predicate, final ConsistencyLevel level)
+	        throws InternalBackEndException {
 
 		final List<ByteBuffer> keysToBuffer = StringConverter.stringToByteBuffer(keys);
-		final Map<String, List<ColumnOrSuperColumn>> result = null;
+		Map<ByteBuffer, List<ColumnOrSuperColumn>> result = null;
 
 		try {
 			thriftTransport.open();
-			cassandraClient.multiget_slice(keysToBuffer, parent, predicate, level);
+			result = cassandraClient.multiget_slice(keysToBuffer, parent, predicate, level);
 		} catch (final TTransportException ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final InvalidRequestException ex) {
@@ -215,7 +226,7 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 	        final SlicePredicate predicate, final ConsistencyLevel level) throws InternalBackEndException {
 
 		final List<ByteBuffer> keysToBuffer = StringConverter.stringToByteBuffer(keys);
-		Map<ByteBuffer, Integer> result = new HashMap<ByteBuffer, Integer>(keys.size());
+		Map<ByteBuffer, Integer> result = null;
 
 		try {
 			thriftTransport.open();
@@ -297,10 +308,13 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 
 		try {
 			thriftTransport.open();
+			cassandraClient.set_keyspace("TestKeyspace");
 			cassandraClient.insert(keyToBuffer, parent, column, level);
 		} catch (final TTransportException ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final InvalidRequestException ex) {
+			ex.printStackTrace();
+			System.err.println(ex.getWhy());
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final UnavailableException ex) {
 			throw new InternalBackEndException(ex.getMessage());
@@ -312,7 +326,6 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 			thriftTransport.close();
 		}
 	}
-
 	@Override
 	public void batch_mutate(final Map<String, Map<String, List<Mutation>>> mutationMap, final ConsistencyLevel level)
 	        throws InternalBackEndException {
@@ -541,7 +554,7 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 		} catch (final TTransportException ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final InvalidRequestException ex) {
-			throw new InternalBackEndException(ex.getMessage());
+			throw new InternalBackEndException(ex.getWhy());
 		} catch (final TException ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		} finally {
@@ -583,6 +596,7 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 		} catch (final TTransportException ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final InvalidRequestException ex) {
+			ex.printStackTrace();
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final TException ex) {
 			throw new InternalBackEndException(ex.getMessage());
@@ -603,7 +617,7 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 		} catch (final TTransportException ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final InvalidRequestException ex) {
-			throw new InternalBackEndException(ex.getMessage());
+			throw new InternalBackEndException(ex.getWhy());
 		} catch (final TException ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		} finally {
@@ -620,10 +634,12 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 
 		try {
 			thriftTransport.open();
+			// TODO we need the keyspace to be set to work here
 			newSchemaId = cassandraClient.system_update_column_family(columnFamily);
 		} catch (final TTransportException ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final InvalidRequestException ex) {
+			ex.printStackTrace();
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final TException ex) {
 			throw new InternalBackEndException(ex.getMessage());
@@ -633,7 +649,6 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 
 		return newSchemaId;
 	}
-
 	@Override
 	public String system_update_keyspace(final KsDef keySpace) throws InternalBackEndException {
 
@@ -665,7 +680,8 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 	public void setup(final String address, final int port) {
 		// TODO the configuration file is not managed by glassfish
 		if (address != null && port != 0) {
-			thriftTransport = new TSocket(address, port);
+			socket = new TSocket(address, port);
+			thriftTransport = new TFramedTransport(socket);
 			thriftProtocol = new TBinaryProtocol(thriftTransport);
 			cassandraClient = new Client(thriftProtocol);
 		}
@@ -705,6 +721,9 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 		}
 
 	}
+
+	// TODO we need to redefine this function: we need to pass everything that
+	// is needed
 	@Override
 	public byte[] getValue(final String key) throws IOBackEndException, InternalBackEndException {
 
@@ -720,6 +739,7 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 
 			final ByteBuffer keyToBuffer = StringConverter.stringToByteBuffer(key);
 
+			// TODO we need the Keyspace to be set to work here
 			final Column col = cassandraClient.get(keyToBuffer, colPathName, IStorageManager.consistencyOnRead)
 			        .getColumn();
 
