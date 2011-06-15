@@ -21,6 +21,21 @@ public final class StringConverter {
 	private static final Charset CHARSET = Charset.forName("UTF-8");
 
 	/**
+	 * The size of a long in bytes
+	 */
+	private static final int LONG_SIZE = Long.SIZE / 8;
+
+	/**
+	 * The size of an int in bytes
+	 */
+	private static final int INT_SIZE = Integer.SIZE / 8;
+
+	/**
+	 * The size of a byte in bytes
+	 */
+	private static final int BYTE_SIZE = Byte.SIZE / 8;
+
+	/**
 	 * Private constructor to avoid warnings since class is all static, or we
 	 * should implement a singleton
 	 */
@@ -103,7 +118,170 @@ public final class StringConverter {
 		return returnString;
 	}
 
+	/**
+	 * Convert an integer value into a {@link ByteBuffer}
+	 * 
+	 * @param value
+	 *            the integer to convert
+	 * @return the ByteBuffer value
+	 */
+	public static ByteBuffer intToByteBuffer(final int value) {
+
+		final ByteBuffer buffer = ByteBuffer.allocate(INT_SIZE);
+
+		buffer.clear();
+		buffer.putInt(value);
+		buffer.compact();
+
+		return buffer;
+	}
+
+	/**
+	 * Convert an integer value into a {@link ByteBuffer}
+	 * 
+	 * @param value
+	 *            the integer to convert
+	 * @return the ByteBuffer value
+	 */
+	public static ByteBuffer intToByteBuffer(final Integer value) {
+		return intToByteBuffer(value.intValue());
+	}
+
+	/**
+	 * Convert a {@link ByteBuffer} into an integer
+	 * <p>
+	 * No assumptions are made on the value stored in the ByteBuffer, it has to
+	 * be an integer
+	 * 
+	 * @param buffer
+	 *            the ByteBuffer that holds the integer value
+	 * @return the integer value
+	 */
+	public static int byteBufferToInt(final ByteBuffer buffer) {
+
+		buffer.compact();
+		buffer.clear();
+
+		return buffer.getInt();
+	}
+
+	/**
+	 * Convert a long value into a {@link ByteBuffer}
+	 * 
+	 * @param value
+	 *            the long to convert
+	 * @return the ByteBuffer value
+	 */
+	public static ByteBuffer longToByteBuffer(final long value) {
+
+		final ByteBuffer buffer = ByteBuffer.allocate(LONG_SIZE);
+
+		buffer.clear();
+		buffer.putLong(value);
+		buffer.compact();
+
+		return buffer;
+	}
+
+	/**
+	 * Convert a long value into a {@link ByteBuffer}
+	 * 
+	 * @param value
+	 *            the long to convert
+	 * @return the ByteBuffer value
+	 */
+	public static ByteBuffer longToByteBuffer(final Long value) {
+		return longToByteBuffer(value.longValue());
+	}
+
+	/**
+	 * Convert a {@link ByteBuffer} into an long
+	 * <p>
+	 * No assumptions are made on the value stored in the ByteBuffer, it has to
+	 * be a long
+	 * 
+	 * @param buffer
+	 *            the ByteBuffer that holds the long value
+	 * @return the long value
+	 */
+	public static long byteBufferToLong(final ByteBuffer buffer) {
+
+		buffer.compact();
+		buffer.clear();
+
+		return buffer.getLong();
+	}
+
+	/**
+	 * Convert a byte value into a {@link ByteBuffer}
+	 * 
+	 * @param value
+	 *            the byte value to convert
+	 * @return the ByteBuffer value
+	 */
+	public static ByteBuffer byteToByteBuffer(final byte value) {
+
+		final ByteBuffer buffer = ByteBuffer.allocate(BYTE_SIZE);
+
+		buffer.clear();
+		buffer.put(value);
+		buffer.compact();
+
+		return buffer;
+	}
+
+	/**
+	 * Convert a byte value into a {@link ByteBuffer}
+	 * 
+	 * @param value
+	 *            the byte value to convert
+	 * @return the ByteBuffer value
+	 */
+	public static ByteBuffer byteToByteBuffer(final Byte value) {
+		return byteToByteBuffer(value.byteValue());
+	}
+
+	/**
+	 * Convert a {@link ByteBuffer} into a byte
+	 * <p>
+	 * No assumptions are made on the value stored in the ByteBuffer, it has to
+	 * be a byte
+	 * 
+	 * @param buffer
+	 *            the ByteBuffer that holds the byte value
+	 * @return the byte value
+	 */
+	public static byte byteBufferToByte(final ByteBuffer buffer) {
+
+		buffer.compact();
+		buffer.clear();
+
+		return buffer.get();
+	}
+
 	public static void main(final String[] args) throws IOException {
+
+		final ArrayList<Integer> intList = new ArrayList<Integer>();
+		intList.add(Integer.MAX_VALUE);
+		intList.add(Integer.MIN_VALUE);
+		intList.add(Integer.valueOf(123458));
+
+		for (final Integer integer : intList) {
+			final ByteBuffer buf = StringConverter.intToByteBuffer(integer);
+			final int conv = StringConverter.byteBufferToInt(buf);
+			System.err.println(conv);
+		}
+
+		final ArrayList<Long> longList = new ArrayList<Long>();
+		longList.add(Long.MAX_VALUE);
+		longList.add(Long.MIN_VALUE);
+		longList.add(Long.valueOf(12354687));
+
+		for (final Long i : longList) {
+			final ByteBuffer b = StringConverter.longToByteBuffer(i);
+			final long c = StringConverter.byteBufferToLong(b);
+			System.err.println(c);
+		}
 
 		final ArrayList<String> list = new ArrayList<String>();
 		final File file = new File("/home/mcasagr/special-chars.txt");
@@ -118,7 +296,8 @@ public final class StringConverter {
 			line = reader.readLine();
 		}
 
-		list.add(null);
+		// Add a null string to test
+		// list.add(null);
 
 		try {
 			for (final String str : list) {

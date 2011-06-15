@@ -249,7 +249,6 @@ public interface ICassandraWrapper {
 	List<KsDef> describe_keyspaces() throws InternalBackEndException;
 
 	/**
-	 * 
 	 * @return the name of the partitioner for the cluster
 	 * @throws InternalBackEndException
 	 */
@@ -257,8 +256,8 @@ public interface ICassandraWrapper {
 
 	/**
 	 * Get the token ring; a map of ranges to host addresses. Represented as a
-	 * set of {@link TokenRange} instead of a map from range to list of
-	 * endpoints
+	 * set of {@link TokenRange} instead of a map from range to list of end
+	 * points
 	 * 
 	 * @param keySpace
 	 * @return
@@ -267,14 +266,12 @@ public interface ICassandraWrapper {
 	List<TokenRange> describe_ring(String keySpace) throws InternalBackEndException;
 
 	/**
-	 * 
 	 * @return the name of the snitch used for the cluster
 	 * @throws InternalBackEndException
 	 */
 	String describe_snitch() throws InternalBackEndException;
 
 	/**
-	 * 
 	 * @return the Thrift API version
 	 * @throws InternalBackEndException
 	 */

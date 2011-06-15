@@ -5,6 +5,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -49,31 +50,45 @@ import com.mymed.model.core.wrappers.AbstractDHTWrapper;
  * @author Milo Casagrande
  * 
  */
-public final class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWrapper {
-	private static CassandraWrapper instance = new CassandraWrapper();
+public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWrapper {
 
 	private transient TFramedTransport thriftTransport;
 	private transient TSocket socket;
 	private transient TProtocol thriftProtocol;
 	private transient Client cassandraClient;
 
-	private CassandraWrapper() {
+	/**
+	 * Empty constructor to create a normal Cassandra client, with address the
+	 * machine address, and port the default port
+	 * 
+	 * @throws UnknownHostException
+	 * @throws InternalBackEndException
+	 */
+	public CassandraWrapper() throws UnknownHostException, InternalBackEndException {
+		this(InetAddress.getLocalHost().getHostAddress(), PORT_NUMBER);
+	}
+
+	/**
+	 * Create the Cassandra client
+	 * 
+	 * @param address
+	 *            the address to use for the connection
+	 * @param port
+	 *            the port to use for the connection
+	 * @throws InternalBackEndException
+	 */
+	public CassandraWrapper(final String address, final int port) throws InternalBackEndException {
 
 		super();
 
-		// By default it will try to connect on the localhost node if it exist
-		try {
-			socket = new TSocket(InetAddress.getLocalHost().getHostAddress(), PORT_NUMBER);
+		if (address == null && (port == 0 || port < 0)) {
+			throw new InternalBackEndException("Address or port must be a valid value.");
+		} else {
+			socket = new TSocket(address, port);
 			thriftTransport = new TFramedTransport(socket);
 			thriftProtocol = new TBinaryProtocol(thriftTransport);
 			cassandraClient = new Client(thriftProtocol);
-		} catch (final UnknownHostException e) {
-			e.printStackTrace();
 		}
-	}
-
-	public static CassandraWrapper getInstance() {
-		return instance;
 	}
 
 	@Override
@@ -92,17 +107,11 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 	@Override
 	public void set_keyspace(final String keySpace) throws InternalBackEndException {
 		try {
-			thriftTransport.open();
 			cassandraClient.set_keyspace(keySpace);
-		} catch (final TTransportException ex) {
-			ex.printStackTrace();
-			throw new InternalBackEndException(ex.getMessage());
 		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final TException ex) {
 			throw new InternalBackEndException(ex.getMessage());
-		} finally {
-			thriftTransport.close();
 		}
 	}
 
@@ -114,13 +123,8 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 		ColumnOrSuperColumn result = null;
 
 		try {
-			thriftTransport.open();
-			// TODO we need the Keyspace to be set to work here
 			result = cassandraClient.get(keyToBuffer, path, level);
-		} catch (final TTransportException ex) {
-			throw new InternalBackEndException(ex.getMessage());
 		} catch (final InvalidRequestException ex) {
-			ex.printStackTrace();
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final UnavailableException ex) {
 			throw new InternalBackEndException(ex.getMessage());
@@ -129,11 +133,7 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 		} catch (final TException ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final NotFoundException ex) {
-			ex.printStackTrace();
-			System.err.println(ex.getMessage());
 			throw new IOBackEndException(ex.getMessage());
-		} finally {
-			thriftTransport.close();
 		}
 
 		return result;
@@ -147,10 +147,7 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 		List<ColumnOrSuperColumn> result = null;
 
 		try {
-			thriftTransport.open();
 			result = cassandraClient.get_slice(keyToBuffer, parent, predicate, level);
-		} catch (final TTransportException ex) {
-			throw new InternalBackEndException(ex.getMessage());
 		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final UnavailableException ex) {
@@ -159,8 +156,6 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final TException ex) {
 			throw new InternalBackEndException(ex.getMessage());
-		} finally {
-			thriftTransport.close();
 		}
 
 		return result;
@@ -175,10 +170,7 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 		Map<ByteBuffer, List<ColumnOrSuperColumn>> result = null;
 
 		try {
-			thriftTransport.open();
 			result = cassandraClient.multiget_slice(keysToBuffer, parent, predicate, level);
-		} catch (final TTransportException ex) {
-			throw new InternalBackEndException(ex.getMessage());
 		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final UnavailableException ex) {
@@ -187,8 +179,6 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final TException ex) {
 			throw new InternalBackEndException(ex.getMessage());
-		} finally {
-			thriftTransport.close();
 		}
 
 		return result;
@@ -202,10 +192,7 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 		int result = -1;
 
 		try {
-			thriftTransport.open();
 			result = cassandraClient.get_count(keyToBuffer, parent, predicate, level);
-		} catch (final TTransportException ex) {
-			throw new InternalBackEndException(ex.getMessage());
 		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final UnavailableException ex) {
@@ -214,8 +201,6 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final TException ex) {
 			throw new InternalBackEndException(ex.getMessage());
-		} finally {
-			thriftTransport.close();
 		}
 
 		return result;
@@ -229,10 +214,7 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 		Map<ByteBuffer, Integer> result = null;
 
 		try {
-			thriftTransport.open();
 			result = cassandraClient.multiget_count(keysToBuffer, parent, predicate, level);
-		} catch (final TTransportException ex) {
-			throw new InternalBackEndException(ex.getMessage());
 		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final UnavailableException ex) {
@@ -241,8 +223,6 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final TException ex) {
 			throw new InternalBackEndException(ex.getMessage());
-		} finally {
-			thriftTransport.close();
 		}
 
 		return result;
@@ -255,10 +235,7 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 		List<KeySlice> result = null;
 
 		try {
-			thriftTransport.open();
 			result = cassandraClient.get_range_slices(parent, predicate, range, level);
-		} catch (final TTransportException ex) {
-			throw new InternalBackEndException(ex.getMessage());
 		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final UnavailableException ex) {
@@ -267,8 +244,6 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final TException ex) {
 			throw new InternalBackEndException(ex.getMessage());
-		} finally {
-			thriftTransport.close();
 		}
 
 		return result;
@@ -281,10 +256,7 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 		List<KeySlice> result = null;
 
 		try {
-			thriftTransport.open();
 			result = cassandraClient.get_indexed_slices(parent, clause, predicate, level);
-		} catch (final TTransportException ex) {
-			throw new InternalBackEndException(ex.getMessage());
 		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final UnavailableException ex) {
@@ -293,8 +265,6 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final TException ex) {
 			throw new InternalBackEndException(ex.getMessage());
-		} finally {
-			thriftTransport.close();
 		}
 
 		return result;
@@ -307,25 +277,20 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 		final ByteBuffer keyToBuffer = StringConverter.stringToByteBuffer(key);
 
 		try {
-			thriftTransport.open();
-			cassandraClient.set_keyspace("TestKeyspace");
 			cassandraClient.insert(keyToBuffer, parent, column, level);
 		} catch (final TTransportException ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final InvalidRequestException ex) {
-			ex.printStackTrace();
-			System.err.println(ex.getWhy());
-			throw new InternalBackEndException(ex.getMessage());
+			throw new InternalBackEndException(ex.getWhy());
 		} catch (final UnavailableException ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final TimedOutException ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final TException ex) {
 			throw new InternalBackEndException(ex.getMessage());
-		} finally {
-			thriftTransport.close();
 		}
 	}
+
 	@Override
 	public void batch_mutate(final Map<String, Map<String, List<Mutation>>> mutationMap, final ConsistencyLevel level)
 	        throws InternalBackEndException {
@@ -345,10 +310,7 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 		}
 
 		try {
-			thriftTransport.open();
 			cassandraClient.batch_mutate(newMap, level);
-		} catch (final TTransportException ex) {
-			throw new InternalBackEndException(ex.getMessage());
 		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final UnavailableException ex) {
@@ -357,10 +319,9 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final TException ex) {
 			throw new InternalBackEndException(ex.getMessage());
-		} finally {
-			thriftTransport.close();
 		}
 	}
+
 	@Override
 	public void remove(final String key, final ColumnPath path, final long timeStamp, final ConsistencyLevel level)
 	        throws InternalBackEndException {
@@ -368,10 +329,7 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 		final ByteBuffer keyToBuffer = StringConverter.stringToByteBuffer(key);
 
 		try {
-			thriftTransport.open();
 			cassandraClient.remove(keyToBuffer, path, timeStamp, level);
-		} catch (final TTransportException ex) {
-			throw new InternalBackEndException(ex.getMessage());
 		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final UnavailableException ex) {
@@ -380,26 +338,20 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final TException ex) {
 			throw new InternalBackEndException(ex.getMessage());
-		} finally {
-			thriftTransport.close();
 		}
 	}
 
 	@Override
 	public void truncate(final String columnFamily) throws InternalBackEndException {
+
 		try {
-			thriftTransport.open();
 			cassandraClient.truncate(columnFamily);
-		} catch (final TTransportException ex) {
-			throw new InternalBackEndException(ex.getMessage());
 		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final UnavailableException ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final TException ex) {
 			throw new InternalBackEndException(ex.getMessage());
-		} finally {
-			thriftTransport.close();
 		}
 	}
 
@@ -408,14 +360,9 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 		String result = null;
 
 		try {
-			thriftTransport.open();
 			result = cassandraClient.describe_cluster_name();
-		} catch (final TTransportException ex) {
-			throw new InternalBackEndException(ex.getMessage());
 		} catch (final TException ex) {
 			throw new InternalBackEndException(ex.getMessage());
-		} finally {
-			thriftTransport.close();
 		}
 
 		return result;
@@ -427,18 +374,13 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 		KsDef keySpaceDef = null;
 
 		try {
-			thriftTransport.open();
 			keySpaceDef = cassandraClient.describe_keyspace(keySpace);
-		} catch (final TTransportException ex) {
-			throw new InternalBackEndException(ex.getMessage());
 		} catch (final NotFoundException ex) {
 			throw new IOBackEndException(ex.getMessage());
 		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final TException ex) {
 			throw new InternalBackEndException(ex.getMessage());
-		} finally {
-			thriftTransport.close();
 		}
 
 		return keySpaceDef;
@@ -450,16 +392,11 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 		List<KsDef> keySpaceList = null;
 
 		try {
-			thriftTransport.open();
 			keySpaceList = cassandraClient.describe_keyspaces();
-		} catch (final TTransportException ex) {
-			throw new InternalBackEndException(ex.getMessage());
 		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final TException ex) {
 			throw new InternalBackEndException(ex.getMessage());
-		} finally {
-			thriftTransport.close();
 		}
 
 		return keySpaceList;
@@ -471,14 +408,9 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 		String partitioner = null;
 
 		try {
-			thriftTransport.open();
 			partitioner = cassandraClient.describe_partitioner();
-		} catch (final TTransportException ex) {
-			throw new InternalBackEndException(ex.getMessage());
 		} catch (final TException ex) {
 			throw new InternalBackEndException(ex.getMessage());
-		} finally {
-			thriftTransport.close();
 		}
 
 		return partitioner;
@@ -490,16 +422,11 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 		List<TokenRange> ring = null;
 
 		try {
-			thriftTransport.open();
 			ring = cassandraClient.describe_ring(keySpace);
-		} catch (final TTransportException ex) {
-			throw new InternalBackEndException(ex.getMessage());
 		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final TException ex) {
 			throw new InternalBackEndException(ex.getMessage());
-		} finally {
-			thriftTransport.close();
 		}
 
 		return ring;
@@ -511,14 +438,9 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 		String snitch = null;
 
 		try {
-			thriftTransport.open();
 			snitch = cassandraClient.describe_snitch();
-		} catch (final TTransportException ex) {
-			throw new InternalBackEndException(ex.getMessage());
 		} catch (final TException ex) {
 			throw new InternalBackEndException(ex.getMessage());
-		} finally {
-			thriftTransport.close();
 		}
 
 		return snitch;
@@ -530,14 +452,9 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 		String version = null;
 
 		try {
-			thriftTransport.open();
 			version = cassandraClient.describe_version();
-		} catch (final TTransportException ex) {
-			throw new InternalBackEndException(ex.getMessage());
 		} catch (final TException ex) {
 			throw new InternalBackEndException(ex.getMessage());
-		} finally {
-			thriftTransport.close();
 		}
 
 		return version;
@@ -549,16 +466,11 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 		String schemaId = null;
 
 		try {
-			thriftTransport.open();
 			schemaId = cassandraClient.system_add_column_family(cfDef);
-		} catch (final TTransportException ex) {
-			throw new InternalBackEndException(ex.getMessage());
 		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex.getWhy());
 		} catch (final TException ex) {
 			throw new InternalBackEndException(ex.getMessage());
-		} finally {
-			thriftTransport.close();
 		}
 
 		return schemaId;
@@ -570,16 +482,11 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 		String schemaId = null;
 
 		try {
-			thriftTransport.open();
 			schemaId = cassandraClient.system_drop_column_family(columnFamily);
-		} catch (final TTransportException ex) {
-			throw new InternalBackEndException(ex.getMessage());
 		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final TException ex) {
 			throw new InternalBackEndException(ex.getMessage());
-		} finally {
-			thriftTransport.close();
 		}
 
 		return schemaId;
@@ -591,17 +498,11 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 		String schemaId = null;
 
 		try {
-			thriftTransport.open();
 			schemaId = cassandraClient.system_add_keyspace(ksDef);
-		} catch (final TTransportException ex) {
-			throw new InternalBackEndException(ex.getMessage());
 		} catch (final InvalidRequestException ex) {
-			ex.printStackTrace();
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final TException ex) {
 			throw new InternalBackEndException(ex.getMessage());
-		} finally {
-			thriftTransport.close();
 		}
 
 		return schemaId;
@@ -612,16 +513,11 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 		String schemaId = null;
 
 		try {
-			thriftTransport.open();
 			schemaId = cassandraClient.system_drop_keyspace(keySpace);
-		} catch (final TTransportException ex) {
-			throw new InternalBackEndException(ex.getMessage());
 		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex.getWhy());
 		} catch (final TException ex) {
 			throw new InternalBackEndException(ex.getMessage());
-		} finally {
-			thriftTransport.close();
 		}
 
 		return schemaId;
@@ -633,18 +529,11 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 		String newSchemaId = null;
 
 		try {
-			thriftTransport.open();
-			// TODO we need the keyspace to be set to work here
 			newSchemaId = cassandraClient.system_update_column_family(columnFamily);
-		} catch (final TTransportException ex) {
-			throw new InternalBackEndException(ex.getMessage());
 		} catch (final InvalidRequestException ex) {
-			ex.printStackTrace();
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final TException ex) {
 			throw new InternalBackEndException(ex.getMessage());
-		} finally {
-			thriftTransport.close();
 		}
 
 		return newSchemaId;
@@ -655,16 +544,11 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 		String newSchemaId = null;
 
 		try {
-			thriftTransport.open();
 			newSchemaId = cassandraClient.system_update_keyspace(keySpace);
-		} catch (final TTransportException ex) {
-			throw new InternalBackEndException(ex.getMessage());
 		} catch (final InvalidRequestException ex) {
-			throw new InternalBackEndException(ex.getMessage());
+			throw new InternalBackEndException(ex.getWhy());
 		} catch (final TException ex) {
 			throw new InternalBackEndException(ex.getMessage());
-		} finally {
-			thriftTransport.close();
 		}
 
 		return newSchemaId;
@@ -687,6 +571,8 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 		}
 	}
 
+	// TODO the insert method has changed from version 0.6! Need to fix
+	// it!
 	@Override
 	public void put(final String key, final byte[] value) throws IOBackEndException, InternalBackEndException {
 		try {
@@ -702,24 +588,21 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 			column.setTimestamp(timestamp);
 			column.setValue(value);
 
-			thriftTransport.open();
-
-			// TODO the insert method has changed from version 0.6! Need to fix
-			// it!
-
 			// final ByteBuffer keyToBuffer =
 			// StringConverter.stringToByteBuffer(key);
 
 			// cassandraClient.insert(key, colPathName, value, timestamp,
 			// IStorageManager.consistencyOnWrite);
-		} catch (final TTransportException ex) {
-			throw new InternalBackEndException(ex.getMessage());
 		} catch (final UnsupportedEncodingException ex) {
 			throw new InternalBackEndException(ex.getMessage());
-		} finally {
-			thriftTransport.close();
 		}
+	}
 
+	// TODO this should be the new signature
+	public void put(final String key, final ColumnParent parent, final Column column, final ConsistencyLevel level)
+	        throws InternalBackEndException {
+
+		insert(key, parent, column, level);
 	}
 
 	// TODO we need to redefine this function: we need to pass everything that
@@ -727,7 +610,7 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 	@Override
 	public byte[] getValue(final String key) throws IOBackEndException, InternalBackEndException {
 
-		byte[] returnValue = null;
+		byte[] returnValue = new byte[0];
 
 		try {
 			// TODO MOVE TO THE NEW DATA STRUCTURE
@@ -735,17 +618,12 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 			final ColumnPath colPathName = new ColumnPath(columnFamily);
 			colPathName.setColumn(key.getBytes("UTF8"));
 
-			thriftTransport.open();
-
 			final ByteBuffer keyToBuffer = StringConverter.stringToByteBuffer(key);
 
-			// TODO we need the Keyspace to be set to work here
 			final Column col = cassandraClient.get(keyToBuffer, colPathName, IStorageManager.consistencyOnRead)
 			        .getColumn();
 
 			returnValue = col.value.array();
-		} catch (final TTransportException ex) {
-			throw new InternalBackEndException(ex.getMessage());
 		} catch (final UnsupportedEncodingException ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final InvalidRequestException ex) {
@@ -758,10 +636,72 @@ public final class CassandraWrapper extends AbstractDHTWrapper implements ICassa
 			throw new InternalBackEndException(ex.getMessage());
 		} catch (final TException ex) {
 			throw new InternalBackEndException(ex.getMessage());
-		} finally {
-			thriftTransport.close();
 		}
 
 		return returnValue;
+	}
+
+	// TODO this should be the new signature
+	// Should we rename it to a simple 'get' like we have 'put'?
+	public byte[] getValue(final String key, final ColumnPath path, final ConsistencyLevel level)
+	        throws IOBackEndException, InternalBackEndException {
+
+		final Column col = get(key, path, level).getColumn();
+		return col.value.array();
+	}
+
+	/**
+	 * Open the connection to Cassandra
+	 * 
+	 * @throws InternalBackEndException
+	 */
+	public void open() throws InternalBackEndException {
+
+		try {
+			if (!thriftTransport.isOpen()) {
+				thriftTransport.open();
+			}
+		} catch (final TTransportException ex) {
+			throw new InternalBackEndException(ex.getMessage());
+		}
+	}
+
+	/**
+	 * Close the connection to Cassandra
+	 */
+	public void close() {
+
+		if (thriftTransport.isOpen()) {
+			thriftTransport.close();
+		}
+	}
+
+	/**
+	 * Retrieve the specified column family id in the given keyspace
+	 * 
+	 * @param keySpaceName
+	 *            the keyspace where the column family is located
+	 * @param columnFamilyName
+	 *            the column family to search
+	 * @return the id of the column family
+	 * @throws InternalBackEndException
+	 * @throws IOBackEndException
+	 */
+	public int get_cf_id(final String keySpaceName, final String columnFamilyName) throws InternalBackEndException,
+	        IOBackEndException {
+
+		int cfId = 0;
+		final Iterator<CfDef> iter = describe_keyspace(keySpaceName).getCf_defsIterator();
+
+		while (iter.hasNext()) {
+			final CfDef def = iter.next();
+
+			if (columnFamilyName.equals(def.getName())) {
+				cfId = def.getId();
+				break;
+			}
+		}
+
+		return cfId;
 	}
 }
