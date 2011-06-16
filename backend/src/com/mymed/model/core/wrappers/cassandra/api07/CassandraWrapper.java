@@ -119,7 +119,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 	public ColumnOrSuperColumn get(final String key, final ColumnPath path, final ConsistencyLevel level)
 	        throws IOBackEndException, InternalBackEndException {
 
-		final ByteBuffer keyToBuffer = StringConverter.stringToByteBuffer(key);
+		final ByteBuffer keyToBuffer = MConverter.stringToByteBuffer(key);
 		ColumnOrSuperColumn result = null;
 
 		try {
@@ -143,7 +143,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 	public List<ColumnOrSuperColumn> get_slice(final String key, final ColumnParent parent,
 	        final SlicePredicate predicate, final ConsistencyLevel level) throws InternalBackEndException {
 
-		final ByteBuffer keyToBuffer = StringConverter.stringToByteBuffer(key);
+		final ByteBuffer keyToBuffer = MConverter.stringToByteBuffer(key);
 		List<ColumnOrSuperColumn> result = null;
 
 		try {
@@ -166,7 +166,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 	        final ColumnParent parent, final SlicePredicate predicate, final ConsistencyLevel level)
 	        throws InternalBackEndException {
 
-		final List<ByteBuffer> keysToBuffer = StringConverter.stringToByteBuffer(keys);
+		final List<ByteBuffer> keysToBuffer = MConverter.stringToByteBuffer(keys);
 		Map<ByteBuffer, List<ColumnOrSuperColumn>> result = null;
 
 		try {
@@ -188,7 +188,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 	public int get_count(final String key, final ColumnParent parent, final SlicePredicate predicate,
 	        final ConsistencyLevel level) throws InternalBackEndException {
 
-		final ByteBuffer keyToBuffer = StringConverter.stringToByteBuffer(key);
+		final ByteBuffer keyToBuffer = MConverter.stringToByteBuffer(key);
 		int result = -1;
 
 		try {
@@ -210,7 +210,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 	public Map<ByteBuffer, Integer> multiget_count(final List<String> keys, final ColumnParent parent,
 	        final SlicePredicate predicate, final ConsistencyLevel level) throws InternalBackEndException {
 
-		final List<ByteBuffer> keysToBuffer = StringConverter.stringToByteBuffer(keys);
+		final List<ByteBuffer> keysToBuffer = MConverter.stringToByteBuffer(keys);
 		Map<ByteBuffer, Integer> result = null;
 
 		try {
@@ -274,7 +274,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 	public void insert(final String key, final ColumnParent parent, final Column column, final ConsistencyLevel level)
 	        throws InternalBackEndException {
 
-		final ByteBuffer keyToBuffer = StringConverter.stringToByteBuffer(key);
+		final ByteBuffer keyToBuffer = MConverter.stringToByteBuffer(key);
 
 		try {
 			cassandraClient.insert(keyToBuffer, parent, column, level);
@@ -302,7 +302,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 		Map<String, List<Mutation>> value = null;
 
 		for (final String key : mutationMap.keySet()) {
-			keyToBuffer = StringConverter.stringToByteBuffer(key);
+			keyToBuffer = MConverter.stringToByteBuffer(key);
 			value = mutationMap.get(key);
 
 			newMap.put(keyToBuffer, value);
@@ -326,7 +326,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 	public void remove(final String key, final ColumnPath path, final long timeStamp, final ConsistencyLevel level)
 	        throws InternalBackEndException {
 
-		final ByteBuffer keyToBuffer = StringConverter.stringToByteBuffer(key);
+		final ByteBuffer keyToBuffer = MConverter.stringToByteBuffer(key);
 
 		try {
 			cassandraClient.remove(keyToBuffer, path, timeStamp, level);
@@ -618,7 +618,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 			final ColumnPath colPathName = new ColumnPath(columnFamily);
 			colPathName.setColumn(key.getBytes("UTF8"));
 
-			final ByteBuffer keyToBuffer = StringConverter.stringToByteBuffer(key);
+			final ByteBuffer keyToBuffer = MConverter.stringToByteBuffer(key);
 
 			final Column col = cassandraClient.get(keyToBuffer, colPathName, IStorageManager.consistencyOnRead)
 			        .getColumn();

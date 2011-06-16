@@ -1,9 +1,5 @@
 package com.mymed.model.core.wrappers.cassandra.api07;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.CharacterCodingException;
@@ -257,58 +253,5 @@ public final class MConverter {
 		buffer.clear();
 
 		return buffer.get();
-	}
-
-	public static void main(final String[] args) throws IOException {
-
-		final ArrayList<Integer> intList = new ArrayList<Integer>();
-		intList.add(Integer.MAX_VALUE);
-		intList.add(Integer.MIN_VALUE);
-		intList.add(Integer.valueOf(123458));
-
-		for (final Integer integer : intList) {
-			final ByteBuffer buf = MConverter.intToByteBuffer(integer);
-			final int conv = MConverter.byteBufferToInt(buf);
-			System.err.println(conv);
-		}
-
-		final ArrayList<Long> longList = new ArrayList<Long>();
-		longList.add(Long.MAX_VALUE);
-		longList.add(Long.MIN_VALUE);
-		longList.add(Long.valueOf(12354687));
-
-		for (final Long i : longList) {
-			final ByteBuffer b = MConverter.longToByteBuffer(i);
-			final long c = MConverter.byteBufferToLong(b);
-			System.err.println(c);
-		}
-
-		final ArrayList<String> list = new ArrayList<String>();
-		final File file = new File("/home/mcasagr/special-chars.txt");
-		final FileReader fileReader = new FileReader(file);
-
-		final BufferedReader reader = new BufferedReader(fileReader);
-
-		String line = reader.readLine();
-
-		while (line != null) {
-			list.add(line);
-			line = reader.readLine();
-		}
-
-		// Add a null string to test
-		// list.add(null);
-
-		try {
-			for (final String str : list) {
-				final ByteBuffer bBuffer = MConverter.stringToByteBuffer(str);
-				final String result = MConverter.byteBufferToString(bBuffer);
-
-				System.err.println(bBuffer.toString());
-				System.err.println(result);
-			}
-		} catch (final Exception ex) {
-			ex.printStackTrace();
-		}
 	}
 }

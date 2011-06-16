@@ -303,6 +303,7 @@ public interface ICassandraWrapper {
 	 * families for it.
 	 * 
 	 * @param ksDef
+	 *            the keyspace definition
 	 * @return the new schema version ID
 	 * @throws InternalBackEndException
 	 */
