@@ -80,12 +80,8 @@ public class MyMedCassandra07 {
 			System.out.println("\tPartitioner   : " + wrapper.describe_partitioner());
 			System.out.println("\n");
 
-			System.out.println("Keyspaces information:");
 			for (final KsDef def : wrapper.describe_keyspaces()) {
-				System.out.println("\tName              : " + def.name);
-				System.out.println("\tReplication Factor: " + def.replication_factor);
-				System.out.println("\tStrategy Class    : " + def.strategy_class);
-				System.out.println("\n");
+				describeKeyspace(def);
 			}
 
 			/*
@@ -112,12 +108,7 @@ public class MyMedCassandra07 {
 			System.out.println("New schema ID: " + newSchemaId + "\n");
 
 			final KsDef def = wrapper.describe_keyspace(TEST_KEYSPACE);
-
-			System.out.println(TEST_KEYSPACE + " information:");
-			System.out.println("\tName              : " + def.name);
-			System.out.println("\tReplication Factor: " + def.replication_factor);
-			System.out.println("\tStrategy Class    : " + def.strategy_class);
-			System.out.println("\n");
+			describeKeyspace(def);
 
 			final ColumnParent parent = new ColumnParent(TEST_COLUMN_FAM);
 
@@ -217,21 +208,14 @@ public class MyMedCassandra07 {
 			KsDef newDef = new KsDef(TEST_KEYSPACE, "LocalStrategy", 1, famDef);
 
 			final KsDef oldDef = wrapper.describe_keyspace(TEST_KEYSPACE);
-			System.out.println("OLD " + TEST_KEYSPACE + " information:");
-			System.out.println("\tName              : " + oldDef.name);
-			System.out.println("\tReplication Factor: " + oldDef.replication_factor);
-			System.out.println("\tStrategy Class    : " + oldDef.strategy_class);
-			System.out.println("\n");
+			describeKeyspace(oldDef);
 
 			wrapper.system_update_keyspace(newDef);
-			System.err.println("Keyspace definition updated.");
+			System.err.println("Keyspace definition updated.\n");
 
+			newDef.clear();
 			newDef = wrapper.describe_keyspace(TEST_KEYSPACE);
-			System.out.println("NEW " + TEST_KEYSPACE + " information:");
-			System.out.println("\tName              : " + newDef.name);
-			System.out.println("\tReplication Factor: " + newDef.replication_factor);
-			System.out.println("\tStrategy Class    : " + newDef.strategy_class);
-			System.out.println("\n");
+			describeKeyspace(newDef);
 
 			final SlicePredicate predicate = new SlicePredicate();
 
@@ -292,5 +276,44 @@ public class MyMedCassandra07 {
 			// Here we finally (no pun intended) close the connection
 			wrapper.close();
 		}
+	}
+	private static void describeKeyspace(final KsDef definition) throws InternalBackEndException {
+
+		System.out.println("Keyspace " + definition.getName() + " information:");
+		System.out.println("\tName              : " + definition.getName());
+		System.out.println("\tReplication Factor: " + definition.getReplication_factor());
+		System.out.println("\tStrategy Class    : " + definition.getStrategy_class());
+
+		if (definition.getStrategy_optionsSize() > 0) {
+			final Map<String, String> options = definition.getStrategy_options();
+			if (options != null) {
+				for (final String key : options.keySet()) {
+					System.err.println("\tStrategy options: ");
+					System.err.println("\t" + key);
+					System.err.println("\t" + options.get(key));
+				}
+			}
+		}
+
+		final Iterator<CfDef> iter = definition.getCf_defsIterator();
+		while (iter.hasNext()) {
+			final CfDef cfDef = iter.next();
+			System.err.println("\tColumn name       : " + cfDef.getName());
+			System.out.println("\tKey chace size    : " + cfDef.getKey_cache_size());
+			System.out.println("\tMetadata size     : " + cfDef.getColumn_metadataSize());
+			System.out.println("\tComparator type   : " + cfDef.getComparator_type());
+			System.out.println("\tValidation class  : " + cfDef.getDefault_validation_class());
+			System.out.println("\tColumn type       : " + cfDef.getColumn_type());
+			final List<ColumnDef> colDefList = cfDef.getColumn_metadata();
+			for (final ColumnDef colDef : colDefList) {
+				final ByteBuffer buf = ByteBuffer.wrap(colDef.getName());
+				System.out.println("\tColumn def. name  : " + StringConverter.byteBufferToString(buf));
+				System.out.println("\tIndex name        : " + colDef.getIndex_name());
+				System.out.println("\tValidation class  : " + colDef.getValidation_class());
+				System.out.println("\tIndex type        : " + colDef.getIndex_type());
+			}
+		}
+
+		System.out.println("\n");
 	}
 }
