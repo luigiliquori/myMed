@@ -26,7 +26,7 @@ import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.model.core.configuration.WrapperConfiguration;
 import com.mymed.model.core.wrappers.cassandra.api07.CassandraWrapper;
-import com.mymed.model.core.wrappers.cassandra.api07.StringConverter;
+import com.mymed.model.core.wrappers.cassandra.api07.MConverter;
 
 public class MyMedCassandra07 {
 
@@ -90,7 +90,7 @@ public class MyMedCassandra07 {
 			 */
 			final CfDef cfDef = new CfDef(TEST_KEYSPACE, TEST_COLUMN_FAM);
 
-			final ByteBuffer columnName = StringConverter.stringToByteBuffer(COL1_NAME);
+			final ByteBuffer columnName = MConverter.stringToByteBuffer(COL1_NAME);
 			final ColumnDef columnDef = new ColumnDef(columnName, "UTF8Type");
 
 			final List<ColumnDef> cDefList = new ArrayList<ColumnDef>();
@@ -112,8 +112,8 @@ public class MyMedCassandra07 {
 
 			final ColumnParent parent = new ColumnParent(TEST_COLUMN_FAM);
 
-			final ByteBuffer full_name = StringConverter.stringToByteBuffer(COL1_NAME);
-			final ByteBuffer birth_date = StringConverter.stringToByteBuffer(COL2_NAME);
+			final ByteBuffer full_name = MConverter.stringToByteBuffer(COL1_NAME);
+			final ByteBuffer birth_date = MConverter.stringToByteBuffer(COL2_NAME);
 
 			// Set the workspace we want to work on
 			System.err.println("Setting the workspace to work on...");
@@ -126,7 +126,7 @@ public class MyMedCassandra07 {
 				final String key = namesIter.next().getKey();
 				final String value = names.get(key);
 
-				final Column column = new Column(full_name, StringConverter.stringToByteBuffer(value),
+				final Column column = new Column(full_name, MConverter.stringToByteBuffer(value),
 				        System.currentTimeMillis());
 
 				wrapper.insert(key, parent, column, ConsistencyLevel.ONE);
@@ -140,17 +140,17 @@ public class MyMedCassandra07 {
 			final Column c = result.getColumn();
 			StringBuffer strBuf = new StringBuffer(200);
 			strBuf.append("\tName: ");
-			strBuf.append(StringConverter.byteBufferToString(c.name));
+			strBuf.append(MConverter.byteBufferToString(c.name));
 			strBuf.append('\n');
 			strBuf.append("\tValue: ");
-			strBuf.append(StringConverter.byteBufferToString(c.value));
+			strBuf.append(MConverter.byteBufferToString(c.value));
 			System.out.println(strBuf.toString());
 
 			/*
 			 * We add a new column definition for the already defined column
 			 * family
 			 */
-			final ByteBuffer columnName2 = StringConverter.stringToByteBuffer(COL2_NAME);
+			final ByteBuffer columnName2 = MConverter.stringToByteBuffer(COL2_NAME);
 			final ColumnDef columnDef2 = new ColumnDef(columnName2, "LongType");
 			columnDef2.setIndex_type(IndexType.KEYS);
 
@@ -176,7 +176,7 @@ public class MyMedCassandra07 {
 				final String key = yearsIter.next().getKey();
 				final Long value = years.get(key);
 
-				final Column column = new Column(birth_date, StringConverter.longToByteBuffer(value),
+				final Column column = new Column(birth_date, MConverter.longToByteBuffer(value),
 				        System.currentTimeMillis());
 
 				wrapper.insert(key, parent, column, ConsistencyLevel.ONE);
@@ -190,10 +190,10 @@ public class MyMedCassandra07 {
 			final Column c2 = result2.getColumn();
 			strBuf = new StringBuffer(200);
 			strBuf.append("\tName: ");
-			strBuf.append(StringConverter.byteBufferToString(c2.name));
+			strBuf.append(MConverter.byteBufferToString(c2.name));
 			strBuf.append('\n');
 			strBuf.append("\tValue: ");
-			strBuf.append(StringConverter.byteBufferToLong(c2.value));
+			strBuf.append(MConverter.byteBufferToLong(c2.value));
 			System.out.println(strBuf.toString());
 
 			System.err.println("Updating Keyspace definition...");
@@ -307,7 +307,7 @@ public class MyMedCassandra07 {
 			final List<ColumnDef> colDefList = cfDef.getColumn_metadata();
 			for (final ColumnDef colDef : colDefList) {
 				final ByteBuffer buf = ByteBuffer.wrap(colDef.getName());
-				System.out.println("\tColumn def. name  : " + StringConverter.byteBufferToString(buf));
+				System.out.println("\tColumn def. name  : " + MConverter.byteBufferToString(buf));
 				System.out.println("\tIndex name        : " + colDef.getIndex_name());
 				System.out.println("\tValidation class  : " + colDef.getValidation_class());
 				System.out.println("\tIndex type        : " + colDef.getIndex_type());
