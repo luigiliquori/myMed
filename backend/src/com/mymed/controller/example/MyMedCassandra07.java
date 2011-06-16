@@ -141,8 +141,7 @@ public class MyMedCassandra07 {
 			StringBuffer strBuf = new StringBuffer(200);
 			strBuf.append("\tName: ");
 			strBuf.append(MConverter.byteBufferToString(c.name));
-			strBuf.append('\n');
-			strBuf.append("\tValue: ");
+			strBuf.append("\n\tValue: ");
 			strBuf.append(MConverter.byteBufferToString(c.value));
 			System.out.println(strBuf.toString());
 
@@ -187,13 +186,12 @@ public class MyMedCassandra07 {
 
 			System.err.println("Retrieving new values for 'minnie'...");
 			final ColumnOrSuperColumn result2 = wrapper.get("minnie", path2, ConsistencyLevel.ONE);
-			final Column c2 = result2.getColumn();
+			final Column col = result2.getColumn();
 			strBuf = new StringBuffer(200);
 			strBuf.append("\tName: ");
-			strBuf.append(MConverter.byteBufferToString(c2.name));
-			strBuf.append('\n');
-			strBuf.append("\tValue: ");
-			strBuf.append(MConverter.byteBufferToLong(c2.value));
+			strBuf.append(MConverter.byteBufferToString(col.name));
+			strBuf.append("\n\tValue: ");
+			strBuf.append(MConverter.byteBufferToLong(col.value));
 			System.out.println(strBuf.toString());
 
 			System.err.println("Updating Keyspace definition...");
