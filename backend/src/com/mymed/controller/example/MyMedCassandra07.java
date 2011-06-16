@@ -20,6 +20,7 @@ import org.apache.cassandra.thrift.IndexType;
 import org.apache.cassandra.thrift.KsDef;
 import org.apache.cassandra.thrift.SlicePredicate;
 import org.apache.cassandra.thrift.SliceRange;
+import org.apache.cassandra.thrift.TokenRange;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
@@ -264,6 +265,19 @@ public class MyMedCassandra07 {
 			        ConsistencyLevel.ONE);
 
 			System.out.println("Slice retrieved. Number of columns retrieved: " + slice2.size());
+
+			System.err.println("Getting ring description...");
+			final List<TokenRange> range = wrapper.describe_ring(TEST_KEYSPACE);
+			System.out.println("Ring description: ");
+			for (final TokenRange token : range) {
+				System.out.println("\tStart token: " + token.start_token);
+				System.out.println("\tEnd token  : " + token.end_token);
+
+				final List<String> endPoints = token.getEndpoints();
+				for (final String point : endPoints) {
+					System.out.println("\t\tPoint      : " + point);
+				}
+			}
 
 			// method to remove the defined keyspace
 			System.out.println("Deleting keyspace " + TEST_KEYSPACE + "...");
