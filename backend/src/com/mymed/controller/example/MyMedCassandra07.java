@@ -275,6 +275,7 @@ public class MyMedCassandra07 {
 			wrapper.close();
 		}
 	}
+
 	private static void describeKeyspace(final KsDef definition) throws InternalBackEndException {
 
 		System.out.println("Keyspace " + definition.getName() + " information:");

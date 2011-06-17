@@ -9,9 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.cassandra.thrift.AuthenticationException;
 import org.apache.cassandra.thrift.AuthenticationRequest;
-import org.apache.cassandra.thrift.AuthorizationException;
 import org.apache.cassandra.thrift.Cassandra.Client;
 import org.apache.cassandra.thrift.CfDef;
 import org.apache.cassandra.thrift.Column;
@@ -95,11 +93,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 	public void login(final AuthenticationRequest authRequest) throws InternalBackEndException {
 		try {
 			cassandraClient.login(authRequest);
-		} catch (final TException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final AuthenticationException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final AuthorizationException ex) {
+		} catch (final Exception ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		}
 	}
@@ -108,10 +102,8 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 	public void set_keyspace(final String keySpace) throws InternalBackEndException {
 		try {
 			cassandraClient.set_keyspace(keySpace);
-		} catch (final InvalidRequestException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final TException ex) {
-			throw new InternalBackEndException(ex.getMessage());
+		} catch (final Exception e) {
+			throw new InternalBackEndException(e.getMessage());
 		}
 	}
 
@@ -124,16 +116,10 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 
 		try {
 			result = cassandraClient.get(keyToBuffer, path, level);
-		} catch (final InvalidRequestException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final UnavailableException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final TimedOutException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final TException ex) {
-			throw new InternalBackEndException(ex.getMessage());
 		} catch (final NotFoundException ex) {
 			throw new IOBackEndException(ex.getMessage());
+		} catch (final Exception ex) {
+			throw new InternalBackEndException(ex.getMessage());
 		}
 
 		return result;
@@ -148,13 +134,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 
 		try {
 			result = cassandraClient.get_slice(keyToBuffer, parent, predicate, level);
-		} catch (final InvalidRequestException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final UnavailableException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final TimedOutException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final TException ex) {
+		} catch (final Exception ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		}
 
@@ -171,13 +151,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 
 		try {
 			result = cassandraClient.multiget_slice(keysToBuffer, parent, predicate, level);
-		} catch (final InvalidRequestException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final UnavailableException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final TimedOutException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final TException ex) {
+		} catch (final Exception ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		}
 
@@ -193,13 +167,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 
 		try {
 			result = cassandraClient.get_count(keyToBuffer, parent, predicate, level);
-		} catch (final InvalidRequestException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final UnavailableException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final TimedOutException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final TException ex) {
+		} catch (final Exception ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		}
 
@@ -215,13 +183,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 
 		try {
 			result = cassandraClient.multiget_count(keysToBuffer, parent, predicate, level);
-		} catch (final InvalidRequestException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final UnavailableException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final TimedOutException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final TException ex) {
+		} catch (final Exception ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		}
 
@@ -236,13 +198,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 
 		try {
 			result = cassandraClient.get_range_slices(parent, predicate, range, level);
-		} catch (final InvalidRequestException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final UnavailableException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final TimedOutException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final TException ex) {
+		} catch (final Exception ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		}
 
@@ -257,13 +213,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 
 		try {
 			result = cassandraClient.get_indexed_slices(parent, clause, predicate, level);
-		} catch (final InvalidRequestException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final UnavailableException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final TimedOutException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final TException ex) {
+		} catch (final Exception ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		}
 
@@ -278,15 +228,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 
 		try {
 			cassandraClient.insert(keyToBuffer, parent, column, level);
-		} catch (final TTransportException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final InvalidRequestException ex) {
-			throw new InternalBackEndException(ex.getWhy());
-		} catch (final UnavailableException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final TimedOutException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final TException ex) {
+		} catch (final Exception ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		}
 	}
@@ -311,17 +253,10 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 
 		try {
 			cassandraClient.batch_mutate(newMap, level);
-		} catch (final InvalidRequestException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final UnavailableException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final TimedOutException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final TException ex) {
+		} catch (final Exception ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		}
 	}
-
 	@Override
 	public void remove(final String key, final ColumnPath path, final long timeStamp, final ConsistencyLevel level)
 	        throws InternalBackEndException {
@@ -330,13 +265,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 
 		try {
 			cassandraClient.remove(keyToBuffer, path, timeStamp, level);
-		} catch (final InvalidRequestException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final UnavailableException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final TimedOutException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final TException ex) {
+		} catch (final Exception ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		}
 	}
@@ -346,11 +275,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 
 		try {
 			cassandraClient.truncate(columnFamily);
-		} catch (final InvalidRequestException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final UnavailableException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final TException ex) {
+		} catch (final Exception ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		}
 	}
@@ -361,7 +286,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 
 		try {
 			result = cassandraClient.describe_cluster_name();
-		} catch (final TException ex) {
+		} catch (final Exception ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		}
 
@@ -377,9 +302,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 			keySpaceDef = cassandraClient.describe_keyspace(keySpace);
 		} catch (final NotFoundException ex) {
 			throw new IOBackEndException(ex.getMessage());
-		} catch (final InvalidRequestException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final TException ex) {
+		} catch (final Exception ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		}
 
@@ -393,9 +316,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 
 		try {
 			keySpaceList = cassandraClient.describe_keyspaces();
-		} catch (final InvalidRequestException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final TException ex) {
+		} catch (final Exception ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		}
 
@@ -409,7 +330,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 
 		try {
 			partitioner = cassandraClient.describe_partitioner();
-		} catch (final TException ex) {
+		} catch (final Exception ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		}
 
@@ -423,9 +344,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 
 		try {
 			ring = cassandraClient.describe_ring(keySpace);
-		} catch (final InvalidRequestException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final TException ex) {
+		} catch (final Exception ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		}
 
@@ -439,7 +358,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 
 		try {
 			snitch = cassandraClient.describe_snitch();
-		} catch (final TException ex) {
+		} catch (final Exception ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		}
 
@@ -453,7 +372,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 
 		try {
 			version = cassandraClient.describe_version();
-		} catch (final TException ex) {
+		} catch (final Exception ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		}
 
@@ -467,9 +386,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 
 		try {
 			schemaId = cassandraClient.system_add_column_family(cfDef);
-		} catch (final InvalidRequestException ex) {
-			throw new InternalBackEndException(ex.getWhy());
-		} catch (final TException ex) {
+		} catch (final Exception ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		}
 
@@ -483,9 +400,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 
 		try {
 			schemaId = cassandraClient.system_drop_column_family(columnFamily);
-		} catch (final InvalidRequestException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final TException ex) {
+		} catch (final Exception ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		}
 
@@ -499,9 +414,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 
 		try {
 			schemaId = cassandraClient.system_add_keyspace(ksDef);
-		} catch (final InvalidRequestException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final TException ex) {
+		} catch (final Exception ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		}
 
@@ -514,9 +427,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 
 		try {
 			schemaId = cassandraClient.system_drop_keyspace(keySpace);
-		} catch (final InvalidRequestException ex) {
-			throw new InternalBackEndException(ex.getWhy());
-		} catch (final TException ex) {
+		} catch (final Exception ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		}
 
@@ -530,9 +441,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 
 		try {
 			newSchemaId = cassandraClient.system_update_column_family(columnFamily);
-		} catch (final InvalidRequestException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final TException ex) {
+		} catch (final Exception ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		}
 
@@ -545,9 +454,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 
 		try {
 			newSchemaId = cassandraClient.system_update_keyspace(keySpace);
-		} catch (final InvalidRequestException ex) {
-			throw new InternalBackEndException(ex.getWhy());
-		} catch (final TException ex) {
+		} catch (final Exception ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		}
 
@@ -656,7 +563,6 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 	 * @throws InternalBackEndException
 	 */
 	public void open() throws InternalBackEndException {
-
 		try {
 			if (!thriftTransport.isOpen()) {
 				thriftTransport.open();
@@ -670,7 +576,6 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 	 * Close the connection to Cassandra
 	 */
 	public void close() {
-
 		if (thriftTransport.isOpen()) {
 			thriftTransport.close();
 		}
