@@ -1,6 +1,8 @@
 package com.mymed.model.data;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
@@ -41,11 +43,43 @@ public abstract class AbstractMBean {
 	 * @throws IllegalAccessException
 	 * @throws UnsupportedEncodingException
 	 */
-	public abstract Map<String, byte[]> getAttributeToMap() throws InternalBackEndException;
+	public Map<String, byte[]> getAttributeToMap() throws InternalBackEndException {
+		Map<String, byte[]> args = new HashMap<String, byte[]>();
+		for (Field f : this.getClass().getDeclaredFields()) {
+			try {
+				if (f.get(this) instanceof String){
+					args.put(f.getName(), ((String) f.get(this)).getBytes("UTF8"));
+				}
+			} catch (UnsupportedEncodingException e) {
+				throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
+			} catch (IllegalArgumentException e) {
+				throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
+			} catch (IllegalAccessException e) {
+				throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
+			}
+		}
+		return args;
+	}
 	
 	/**
 	 * override toString to have an human readable format
 	 */
 	@Override
-	public abstract String toString();
+	public String toString() {
+		String value = "";
+		for (Field f : this.getClass().getDeclaredFields()) {
+			try {
+				if (f.get(this) instanceof String){
+					value += "\t" + f.getName() + " : " + (String) f.get(this) + "\n";
+				} else {
+					value += "\t" + f.getName() + " : " + f.get(this) + "\n";
+				}
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		}
+		return value;
+	}
 }

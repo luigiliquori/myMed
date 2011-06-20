@@ -11,8 +11,10 @@ import java.util.Map.Entry;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.exception.ServiceManagerException;
+import com.mymed.controller.core.manager.AbstractManager;
 import com.mymed.controller.core.manager.StorageManager;
 import com.mymed.model.core.factory.IDHTWrapperFactory.WrapperType;
+import com.mymed.model.data.MAuthenticationBean;
 import com.mymed.model.data.MUserBean;
 
 /**
@@ -21,7 +23,7 @@ import com.mymed.model.data.MUserBean;
  * @author lvanni
  * 
  */
-public class ProfileManager implements IProfileManager {
+public class ProfileManager extends AbstractManager implements IProfileManager {
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
@@ -45,7 +47,8 @@ public class ProfileManager implements IProfileManager {
 	 */
 	public MUserBean create(MUserBean user) throws InternalBackEndException {
 		try {
-			storageManager.insertSlice("Users", "mymedID", user.getAttributeToMap());
+			storageManager.insertSlice("Users", "mymedID", user
+					.getAttributeToMap());
 			// TODO update the user values!
 			return user;
 		} catch (ServiceManagerException e) {
@@ -75,54 +78,7 @@ public class ProfileManager implements IProfileManager {
 							+ e.getMessage());
 		}
 
-		// Introspection:
-		try {
-			for (Entry<byte[], byte[]> arg : args.entrySet()) {
-				try {
-					Field f = user.getClass().getDeclaredField(
-							new String(arg.getKey(), "UTF8"));
-					String setterName = "set";
-					setterName += f.getName().substring(0, 1).toUpperCase()
-							+ f.getName().substring(1);
-					Method m = user.getClass().getMethod(setterName,
-							String.class);
-					Object[] argument = new Object[1];
-					argument[0] = new String(arg.getValue(), "UTF8");
-					System.out.println("\nINFO: invoke:" + m.getName() + ", "
-							+ argument[0]);
-					m.invoke(user, argument);
-				} catch (NoSuchFieldException e) {
-					System.out.println("\nWARNING: "
-							+ new String(arg.getKey(), "UTF8")
-							+ " is not an MUserBean Field");
-				}
-			}
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-			throw new InternalBackEndException(
-					"Introspection failed with a UnsupportedEncodingException");
-		} catch (SecurityException e) {
-			e.printStackTrace();
-			throw new InternalBackEndException(
-					"Introspection failed with a SecurityException");
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-			throw new InternalBackEndException(
-					"Introspection failed with a IllegalArgumentException");
-		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-			throw new InternalBackEndException(
-					"Introspection failed with a NoSuchMethodException");
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new InternalBackEndException(
-					"Introspection failed with a IllegalAccessException");
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
-			throw new InternalBackEndException(
-					"Introspection failed with a InvocationTargetException");
-		}
-		return user;
+		return (MUserBean) introspection(user, args);
 	}
 
 	/**

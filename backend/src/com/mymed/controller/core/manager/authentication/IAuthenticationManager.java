@@ -1,5 +1,6 @@
 package com.mymed.controller.core.manager.authentication;
 
+import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.model.data.MAuthenticationBean;
 import com.mymed.model.data.MUserBean;
@@ -22,7 +23,7 @@ public interface IAuthenticationManager {
 	 * @return
 	 * @throws InternalBackEndException
 	 */
-	public MUserBean read(String login, String password) throws InternalBackEndException;
+	public MUserBean read(String login, String password) throws InternalBackEndException, IOBackEndException;
 	
 	/**
 	 * update myMed user profile : Authentication Table (password)

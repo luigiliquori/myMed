@@ -1,18 +1,12 @@
 package com.mymed.model.data;
 
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.Map;
-
-import com.mymed.controller.core.exception.InternalBackEndException;
 
 /**
  * This class represent an user profile
  * 
  * @author lvanni
  */
-public class MUserBean extends AbstractMBean{
+public class MUserBean extends AbstractMBean {
 
 	/* --------------------------------------------------------- */
 	/* Attributes */
@@ -40,56 +34,16 @@ public class MUserBean extends AbstractMBean{
 	/* --------------------------------------------------------- */
 	/* Constructors */
 	/* --------------------------------------------------------- */
-	/**
-	 * no-args constructor
-	 */
 	public MUserBean() {
-	}
-
-	/* --------------------------------------------------------- */
-	/* public methods */
-	/* --------------------------------------------------------- */
-	/**
-	 * @throws InternalBackEndException 
-	 * @see com.mymed.model.data.AbstractMBean#getAttributeToMap()
-	 */
-	public Map<String, byte[]> getAttributeToMap() throws InternalBackEndException {
-		Map<String, byte[]> args = new HashMap<String, byte[]>();
-		for (Field f : this.getClass().getDeclaredFields()) {
-			try {
-				if (f.get(this) instanceof String){
-					args.put(f.getName(), ((String) f.get(this)).getBytes("UTF8"));
-				}
-			} catch (UnsupportedEncodingException e) {
-				throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
-			} catch (IllegalArgumentException e) {
-				throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
-			} catch (IllegalAccessException e) {
-				throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
-			}
-		}
-		return args;
+		// TODO Auto-generated constructor stub
 	}
 
 	/* --------------------------------------------------------- */
 	/* Override methods */
 	/* --------------------------------------------------------- */
+	@Override
 	public String toString() {
-		String value = "User:\n";
-		for (Field f : this.getClass().getDeclaredFields()) {
-			try {
-				if (f.get(this) instanceof String){
-					value += "\t" + f.getName() + " : " + (String) f.get(this) + "\n";
-				} else {
-					value += "\t" + f.getName() + " : " + f.get(this) + "\n";
-				}
-			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			}
-		}
-		return value;
+		return "user:\n" + super.toString();
 	}
 
 	/* --------------------------------------------------------- */
