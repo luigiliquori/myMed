@@ -9,6 +9,13 @@ import java.util.List;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
 
+/**
+ * Convenience class to convert to and from {@link ByteBuffer} for the most used
+ * data types.
+ * 
+ * @author Milo Casagrande
+ * 
+ */
 public final class MConverter {
 
 	/**
