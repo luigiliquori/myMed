@@ -1,7 +1,11 @@
 package com.mymed.model.data;
 
-public class MSessionBean {
+public class MSessionBean extends AbstractMBean {
 	
+	/* --------------------------------------------------------- */
+	/* Attributes */
+	/* --------------------------------------------------------- */
+	private String sessionID;
 	private String mymedID;
 	private String currentApplications;
 	private long timestamp;
@@ -9,6 +13,31 @@ public class MSessionBean {
 	private String ip;
 	private int port;
 	
+	/* --------------------------------------------------------- */
+	/* Constructors */
+	/* --------------------------------------------------------- */
+	public MSessionBean() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	/* --------------------------------------------------------- */
+	/* Override methods */
+	/* --------------------------------------------------------- */
+	@Override
+	public String toString() {
+		return "session:\n" + super.toString();
+	}
+
+	/* --------------------------------------------------------- */
+	/* GETTER AND SETTER */
+	/* --------------------------------------------------------- */
+	public String getSessionID() {
+		return sessionID;
+	}
+
+	public void setSessionID(String sessionID) {
+		this.sessionID = sessionID;
+	}
 	
 	public String getMymedID() {
 		return mymedID;

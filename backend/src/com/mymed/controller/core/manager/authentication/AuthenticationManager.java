@@ -16,15 +16,10 @@ import com.mymed.model.data.MUserBean;
 public class AuthenticationManager extends AbstractManager implements
 		IAuthenticationManager {
 	/* --------------------------------------------------------- */
-	/* Attributes */
-	/* --------------------------------------------------------- */
-	private StorageManager storageManager;
-
-	/* --------------------------------------------------------- */
 	/* Constructors */
 	/* --------------------------------------------------------- */
 	public AuthenticationManager() throws InternalBackEndException {
-		this.storageManager = new StorageManager(WrapperType.CASSANDRA);
+		super(new StorageManager(WrapperType.CASSANDRA));
 	}
 
 	/* --------------------------------------------------------- */

@@ -22,14 +22,11 @@ public class MUserBean extends AbstractMBean {
 	private String birthday = null;
 	private String hometown = null;
 	private String gender = null;
-	private String profilePicture = null;
-	private String buddyList = null;	
-	private String subscribtionList = null;
-	private String reputation = null;
-	private String session = null;
-	private String transactionList = null;
 	private String email = null;
-	private String password = null;
+	private String profilePicture = null;
+	private String buddyListID = null;	
+	private String subscribtionListID = null;
+	private String sessionID = null;
 
 	/* --------------------------------------------------------- */
 	/* Constructors */
@@ -137,44 +134,28 @@ public class MUserBean extends AbstractMBean {
 		this.profilePicture = profilePicture;
 	}
 
-	public String getBuddyList() {
-		return buddyList;
+	public String getBuddyListID() {
+		return buddyListID;
 	}
 
-	public void setBuddyList(String buddyList) {
-		this.buddyList = buddyList;
+	public void setBuddyListID(String buddyList) {
+		this.buddyListID = buddyList;
 	}
 
-	public String getSubscribtionList() {
-		return subscribtionList;
+	public String getSubscribtionListID() {
+		return subscribtionListID;
 	}
 
-	public void setSubscribtionList(String subscribtionList) {
-		this.subscribtionList = subscribtionList;
+	public void setSubscribtionListID(String subscribtionList) {
+		this.subscribtionListID = subscribtionList;
 	}
 
-	public String getReputation() {
-		return reputation;
+	public String getSessionID() {
+		return sessionID;
 	}
 
-	public void setReputation(String reputation) {
-		this.reputation = reputation;
-	}
-
-	public String getSession() {
-		return session;
-	}
-
-	public void setSession(String session) {
-		this.session = session;
-	}
-
-	public String getTransactionList() {
-		return transactionList;
-	}
-
-	public void setTransactionList(String transactionList) {
-		this.transactionList = transactionList;
+	public void setSessionID(String session) {
+		this.sessionID = session;
 	}
 
 	public String getEmail() {
@@ -183,13 +164,5 @@ public class MUserBean extends AbstractMBean {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 }

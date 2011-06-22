@@ -1,12 +1,7 @@
 package com.mymed.controller.core.manager.profile;
 
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
@@ -14,7 +9,6 @@ import com.mymed.controller.core.exception.ServiceManagerException;
 import com.mymed.controller.core.manager.AbstractManager;
 import com.mymed.controller.core.manager.StorageManager;
 import com.mymed.model.core.factory.IDHTWrapperFactory.WrapperType;
-import com.mymed.model.data.MAuthenticationBean;
 import com.mymed.model.data.MUserBean;
 
 /**
@@ -25,15 +19,10 @@ import com.mymed.model.data.MUserBean;
  */
 public class ProfileManager extends AbstractManager implements IProfileManager {
 	/* --------------------------------------------------------- */
-	/* Attributes */
-	/* --------------------------------------------------------- */
-	private StorageManager storageManager;
-
-	/* --------------------------------------------------------- */
 	/* Constructors */
 	/* --------------------------------------------------------- */
 	public ProfileManager() throws InternalBackEndException {
-		this.storageManager = new StorageManager(WrapperType.CASSANDRA);
+		super(new StorageManager(WrapperType.CASSANDRA));
 	}
 
 	/* --------------------------------------------------------- */

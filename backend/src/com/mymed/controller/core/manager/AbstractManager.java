@@ -16,7 +16,21 @@ import com.mymed.model.data.AbstractMBean;
  * 
  */
 public abstract class AbstractManager {
-
+	/* --------------------------------------------------------- */
+	/* Attributes */
+	/* --------------------------------------------------------- */
+	protected StorageManager storageManager;
+	
+	/* --------------------------------------------------------- */
+	/* Constructor */
+	/* --------------------------------------------------------- */
+	public AbstractManager(StorageManager storageManager) {
+		this.storageManager = storageManager;
+	}
+	
+	/* --------------------------------------------------------- */
+	/* public method */
+	/* --------------------------------------------------------- */
 	/**
 	 * Introspection
 	 * @param mbean
@@ -74,4 +88,6 @@ public abstract class AbstractManager {
 		}
 		return mbean;
 	}
+	
+	
 }
