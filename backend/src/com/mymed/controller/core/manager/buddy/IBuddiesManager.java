@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
 
-public interface IBuddyManager {
+public interface IBuddiesManager {
 
 	/**
 	 * read the list
