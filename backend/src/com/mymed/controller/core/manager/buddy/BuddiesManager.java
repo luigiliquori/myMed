@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
 
-public class BuddyManager implements IBuddyManager {
+public class BuddiesManager implements IBuddiesManager {
 
 	@Override
 	public void delete(String mymedID, String buddyID)

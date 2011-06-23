@@ -23,7 +23,7 @@ public class MyMedUsualOperations {
 			// Cassandra protocol is the default choice of the wrapper
 			// But the wrapper can be use with Chord and Kad also:
 			// see WrapperDHTOperations
-			WrapperConfiguration config = new WrapperConfiguration(new File("/local/mymed/backend/conf/config.xml"));
+			WrapperConfiguration config = new WrapperConfiguration(new File("/Users/lvanni/Documents/workspace/mymed/backend/conf/config.xml"));
 			
 			IStorageManager storageManager = new StorageManager(config); // == new Wrapper(ClientType.CASSANDRA)
 
