@@ -302,6 +302,10 @@ public class StorageManager implements IStorageManager {
 					"insertInto is not yet supported by the DHT type: " + type);
 		} else {
 			for (String columnName : args.keySet()) {
+				System.out.println("primaryKey: " + primaryKey);
+				System.out.print("\n\tcolumn: " + columnName);
+				System.out.print("\n\tvalue: " + args
+						.get(columnName));
 				this.insertColumn(tableName, primaryKey, columnName, args
 						.get(columnName));
 			}

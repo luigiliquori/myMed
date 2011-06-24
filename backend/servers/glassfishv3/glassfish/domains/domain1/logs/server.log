@@ -9363,3 +9363,2377 @@ INFO: User created!|#]
 Response sent:
 {"mymedID":"Live IDbcb43c345e062fd0","socialNetworkID":"bcb43c345e062fd0","socialNetworkName":"Live ID","name":"bastien blanchard","firstName":"bastien","lastName":"blanchard","link":"http://cid-bcb43c345e062fd0.profile.live.com/","birthday":"1988-08-13","hometown":"Saint Paul de Vence","gender":"male"}|#]
 
+24 juin 2011 12:36:06 com.sun.enterprise.admin.launcher.GFLauncherLogger info
+INFO: JVM invocation command line:
+/usr/lib/jvm/java-6-openjdk/bin/java
+-cp
+/local/mymed/backend/servers/glassfishv3/glassfish/modules/glassfish.jar
+-XX:+UnlockDiagnosticVMOptions
+-XX:MaxPermSize=192m
+-XX:NewRatio=2
+-XX:+LogVMOutput
+-XX:LogFile=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/logs/jvm.log
+-Xmx512m
+-client
+-javaagent:/local/mymed/backend/servers/glassfishv3/glassfish/lib/monitor/btrace-agent.jar=unsafe=true,noServer=true
+-Dosgi.shell.telnet.maxconn=1
+-Djdbc.drivers=org.apache.derby.jdbc.ClientDriver
+-Dfelix.fileinstall.dir=/local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart/
+-Djavax.net.ssl.keyStore=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/keystore.jks
+-Dosgi.shell.telnet.port=6666
+-Djava.security.policy=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/server.policy
+-Dfelix.fileinstall.poll=5000
+-Dcom.sun.aas.instanceRoot=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1
+-Dcom.sun.enterprise.config.config_environment_factory_class=com.sun.enterprise.config.serverbeans.AppserverConfigEnvironmentFactory
+-Dosgi.shell.telnet.ip=127.0.0.1
+-Djava.endorsed.dirs=/local/mymed/backend/servers/glassfishv3/glassfish/modules/endorsed:/local/mymed/backend/servers/glassfishv3/glassfish/lib/endorsed
+-Dcom.sun.aas.installRoot=/local/mymed/backend/servers/glassfishv3/glassfish
+-Djava.ext.dirs=/usr/lib/jvm/java-6-openjdk/lib/ext:/usr/lib/jvm/java-6-openjdk/jre/lib/ext:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/lib/ext
+-Dfelix.fileinstall.bundles.new.start=true
+-Djavax.net.ssl.trustStore=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/cacerts.jks
+-Dcom.sun.enterprise.security.httpsOutboundKeyAlias=s1as
+-Djava.security.auth.login.config=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/login.conf
+-DANTLR_USE_DIRECT_CLASS_LOADING=true
+-Dfelix.fileinstall.debug=1
+-Dorg.glassfish.web.rfc2109_cookie_names_enforced=false
+-Djava.library.path=/local/mymed/backend/servers/glassfishv3/glassfish/lib:/usr/lib/jvm/java-6-openjdk/jre/lib/i386/server:/usr/lib/jvm/java-6-openjdk/jre/lib/i386:/usr/lib/jvm/java-6-openjdk/lib/i386:/usr/java/packages/lib/i386:/usr/lib/jni:/lib:/usr/lib
+com.sun.enterprise.glassfish.bootstrap.ASMain
+-domainname
+domain1
+-asadmin-args
+start-domain,,,-v
+-instancename
+server
+-verbose
+true
+-debug
+false
+-asadmin-classpath
+/local/mymed/backend/servers/glassfishv3/glassfish/modules/admin-cli.jar
+-asadmin-classname
+com.sun.enterprise.admin.cli.AsadminMain
+-upgrade
+false
+-domaindir
+/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1
+-read-stdin
+true
+24 juin 2011 12:36:07 com.sun.enterprise.admin.launcher.GFLauncherLogger info
+INFO: Successfully launched in 7 msec.
+[#|2011-06-24T12:36:18.660+0200|INFO|null|null|_ThreadID=11;_ThreadName=Thread-1;|Running GlassFish Version: GlassFish Server Open Source Edition 3.0.1 (build 22)|#]
+
+[#|2011-06-24T12:36:19.211+0200|INFO|glassfish3.0.1|com.sun.grizzly.config.GrizzlyServiceListener|_ThreadID=11;_ThreadName=Thread-1;|Perform lazy SSL initialization for the listener 'http-listener-2'|#]
+
+[#|2011-06-24T12:36:19.251+0200|INFO|glassfish3.0.1|com.sun.grizzly.config.GrizzlyServiceListener|_ThreadID=13;_ThreadName=Thread-1;|Starting Grizzly Framework 1.9.18-o - Fri Jun 24 12:36:19 CEST 2011|#]
+
+[#|2011-06-24T12:36:19.251+0200|INFO|glassfish3.0.1|com.sun.grizzly.config.GrizzlyServiceListener|_ThreadID=12;_ThreadName=Thread-1;|Starting Grizzly Framework 1.9.18-o - Fri Jun 24 12:36:19 CEST 2011|#]
+
+[#|2011-06-24T12:36:19.286+0200|INFO|glassfish3.0.1|null|_ThreadID=11;_ThreadName=Thread-1;|The Admin Console is already installed, but not yet loaded.|#]
+
+[#|2011-06-24T12:36:19.299+0200|INFO|glassfish3.0.1|null|_ThreadID=15;_ThreadName=Thread-1;|Grizzly Framework 1.9.18-o started in: 76ms listening on port 4848|#]
+
+[#|2011-06-24T12:36:19.299+0200|INFO|glassfish3.0.1|null|_ThreadID=17;_ThreadName=Thread-1;|Grizzly Framework 1.9.18-o started in: 108ms listening on port 8080|#]
+
+[#|2011-06-24T12:36:19.299+0200|INFO|glassfish3.0.1|null|_ThreadID=14;_ThreadName=Thread-1;|Grizzly Framework 1.9.18-o started in: 83ms listening on port 8181|#]
+
+[#|2011-06-24T12:36:19.299+0200|INFO|glassfish3.0.1|null|_ThreadID=16;_ThreadName=Thread-1;|Grizzly Framework 1.9.18-o started in: 64ms listening on port 7676|#]
+
+[#|2011-06-24T12:36:19.299+0200|INFO|glassfish3.0.1|null|_ThreadID=18;_ThreadName=Thread-1;|Grizzly Framework 1.9.18-o started in: 70ms listening on port 3700|#]
+
+[#|2011-06-24T12:36:19.801+0200|INFO|glassfish3.0.1|javax.enterprise.resource.jta.com.sun.enterprise.transaction|_ThreadID=11;_ThreadName=Thread-1;|Using com.sun.enterprise.transaction.jts.JavaEETransactionManagerJTSDelegate as the delegate|#]
+
+[#|2011-06-24T12:36:20.549+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security|_ThreadID=11;_ThreadName=Thread-1;|SEC1002: Security Manager is OFF.|#]
+
+[#|2011-06-24T12:36:20.804+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security|_ThreadID=11;_ThreadName=Thread-1;|Security startup service called|#]
+
+[#|2011-06-24T12:36:20.808+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security|_ThreadID=11;_ThreadName=Thread-1;|SEC1143: Loading policy provider com.sun.enterprise.security.provider.PolicyWrapper.|#]
+
+[#|2011-06-24T12:36:21.001+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security.auth.realm|_ThreadID=11;_ThreadName=Thread-1;|Realm admin-realm of classtype com.sun.enterprise.security.auth.realm.file.FileRealm successfully created.|#]
+
+[#|2011-06-24T12:36:21.017+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security.auth.realm|_ThreadID=11;_ThreadName=Thread-1;|Realm file of classtype com.sun.enterprise.security.auth.realm.file.FileRealm successfully created.|#]
+
+[#|2011-06-24T12:36:21.019+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security.auth.realm|_ThreadID=11;_ThreadName=Thread-1;|Realm certificate of classtype com.sun.enterprise.security.auth.realm.certificate.CertificateRealm successfully created.|#]
+
+[#|2011-06-24T12:36:21.025+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security|_ThreadID=11;_ThreadName=Thread-1;|Security service(s) started successfully....|#]
+
+[#|2011-06-24T12:36:21.630+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-1;|Created HTTP listener http-listener-1 on port 8080|#]
+
+[#|2011-06-24T12:36:21.633+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-1;|Created HTTP listener http-listener-2 on port 8181|#]
+
+[#|2011-06-24T12:36:21.635+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-1;|Created HTTP listener admin-listener on port 4848|#]
+
+[#|2011-06-24T12:36:21.650+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Created virtual server server|#]
+
+[#|2011-06-24T12:36:21.650+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-1;|Created virtual server server|#]
+
+[#|2011-06-24T12:36:21.652+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Created virtual server __asadmin|#]
+
+[#|2011-06-24T12:36:21.652+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Created virtual server __asadmin|#]
+
+[#|2011-06-24T12:36:21.652+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-1;|Created virtual server __asadmin|#]
+
+[#|2011-06-24T12:36:22.172+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Virtual server server loaded system default web module|#]
+
+[#|2011-06-24T12:36:22.172+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-1;|Virtual server server loaded system default web module|#]
+
+[#|2011-06-24T12:36:22.172+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Virtual server server loaded system default web module|#]
+
+[#|2011-06-24T12:36:24.835+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application services at /services|#]
+
+[#|2011-06-24T12:36:24.835+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application services at /services|#]
+
+[#|2011-06-24T12:36:24.835+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-1;|Loading application services at /services|#]
+
+[#|2011-06-24T12:36:24.835+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=11;_ThreadName=Thread-1;|Loading services Application done is 5284 ms|#]
+
+[#|2011-06-24T12:36:26.300+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application controller at /controller|#]
+
+[#|2011-06-24T12:36:26.300+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-1;|Loading application controller at /controller|#]
+
+[#|2011-06-24T12:36:26.300+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application controller at /controller|#]
+
+[#|2011-06-24T12:36:26.303+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=11;_ThreadName=Thread-1;|Loading controller Application done is 1465 ms|#]
+
+[#|2011-06-24T12:36:27.883+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application mymed_v1.0_alpha_backend at /mymed_v1.0_alpha_backend|#]
+
+[#|2011-06-24T12:36:27.883+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application mymed_v1.0_alpha_backend at /mymed_v1.0_alpha_backend|#]
+
+[#|2011-06-24T12:36:27.883+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-1;|Loading application mymed_v1.0_alpha_backend at /mymed_v1.0_alpha_backend|#]
+
+[#|2011-06-24T12:36:27.883+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=11;_ThreadName=Thread-1;|Loading mymed_v1.0_alpha_backend Application done is 1579 ms|#]
+
+[#|2011-06-24T12:36:29.547+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-06-24T12:36:29.547+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-06-24T12:36:29.547+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-1;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-06-24T12:36:29.547+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=11;_ThreadName=Thread-1;|Loading mymed_backend Application done is 1663 ms|#]
+
+[#|2011-06-24T12:36:29.557+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=11;_ThreadName=Thread-1;|GlassFish Server Open Source Edition 3.0.1 (22) startup time : Felix(11303ms) startup services(10984ms) total(22287ms)|#]
+
+[#|2011-06-24T12:36:29.579+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.admin.org.glassfish.server|_ThreadID=19;_ThreadName=Thread-1;|Binding RMI port to *:8686|#]
+
+[#|2011-06-24T12:36:29.751+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.admin.org.glassfish.server|_ThreadID=19;_ThreadName=Thread-1;|JMXStartupService: Started JMXConnector, JMXService URL = service:jmx:rmi://mymed2.sophia.inria.fr:8686/jndi/rmi://mymed2.sophia.inria.fr:8686/jmxrmi|#]
+
+[#|2011-06-24T12:36:29.993+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=20;_ThreadName=Thread-1;|[Thread[GlassFish Kernel Main Thread,5,main]] started|#]
+
+[#|2011-06-24T12:36:30.080+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=21;_ThreadName=Thread-1;|{felix.fileinstall.poll (ms) = 5000, felix.fileinstall.dir = /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/bundles, felix.fileinstall.debug = 1, felix.fileinstall.bundles.new.start = true, felix.fileinstall.tmpdir = /tmp/fileinstall-8944765856288054012, felix.fileinstall.filter = null}|#]
+
+[#|2011-06-24T12:36:30.090+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=22;_ThreadName=Thread-1;|{felix.fileinstall.poll (ms) = 5000, felix.fileinstall.dir = /local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart, felix.fileinstall.debug = 1, felix.fileinstall.bundles.new.start = true, felix.fileinstall.tmpdir = /tmp/fileinstall-5770487513767851198, felix.fileinstall.filter = null}|#]
+
+[#|2011-06-24T12:36:30.131+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=22;_ThreadName=Thread-1;|Started bundle: file:/local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart/osgi-web-container.jar|#]
+
+[#|2011-06-24T12:36:30.142+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=22;_ThreadName=Thread-1;|Started bundle: file:/local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart/org.apache.felix.scr.jar|#]
+
+[#|2011-06-24T12:36:35.156+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=22;_ThreadName=Thread-1;|Updating configuration from org.apache.felix.fileinstall-autodeploy-bundles.cfg|#]
+
+[#|2011-06-24T12:36:35.161+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=22;_ThreadName=Thread-1;|Installed /local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart/org.apache.felix.fileinstall-autodeploy-bundles.cfg|#]
+
+[#|2011-06-24T12:36:35.164+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-1;|{felix.fileinstall.poll (ms) = 5000, felix.fileinstall.dir = /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/bundles, felix.fileinstall.debug = 1, felix.fileinstall.bundles.new.start = true, felix.fileinstall.tmpdir = /tmp/fileinstall--1085095681728160936, felix.fileinstall.filter = null}|#]
+
+[#|2011-06-24T12:37:25.913+0200|INFO|glassfish3.0.1|null|_ThreadID=24;_ThreadName=Thread-1;|Total number of available updates : 59|#]
+
+[#|2011-06-24T12:37:25.913+0200|INFO|glassfish3.0.1|null|_ThreadID=24;_ThreadName=Thread-1;|Number of available updates since Tue Jun 21 10:11:02 CEST 2011 : 0|#]
+
+[#|2011-06-24T12:38:15.970+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|[AutoDeploy] Selecting file /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war for autodeployment.|#]
+
+[#|2011-06-24T12:38:16.023+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:38:16.024+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:38:16.026+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:38:16.026+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:38:16.026+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:38:16.027+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:38:16.111+0200|INFO|glassfish3.0.1|org.hibernate.validator.util.Version|_ThreadID=25;_ThreadName=Thread-1;|Hibernate Validator bean-validator-3.0-JBoss-4.0.2|#]
+
+[#|2011-06-24T12:38:16.116+0200|INFO|glassfish3.0.1|org.hibernate.validator.engine.resolver.DefaultTraversableResolver|_ThreadID=25;_ThreadName=Thread-1;|Instantiated an instance of org.hibernate.validator.engine.resolver.JPATraversableResolver.|#]
+
+[#|2011-06-24T12:38:16.289+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:38:16.289+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:38:16.297+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=25;_ThreadName=Thread-1;|Module type not recognized|#]
+
+[#|2011-06-24T12:38:16.297+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=25;_ThreadName=Thread-1;|Il n’y a aucun récipient capable de gérer cette application com.sun.enterprise.deploy.shared.FileArchive@1b912ed|#]
+
+[#|2011-06-24T12:38:16.299+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|[AutoDeploy] Autodeploy failed : /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war.|#]
+
+[#|2011-06-24T12:38:19.968+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|[AutoDeploy] Selecting file /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war for autodeployment.|#]
+
+[#|2011-06-24T12:38:21.752+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=Thread-1;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-06-24T12:38:21.752+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=AutoDeployer;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-06-24T12:38:21.752+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=AutoDeployer;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-06-24T12:38:21.769+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.admin.org.glassfish.deployment.admin|_ThreadID=25;_ThreadName=Thread-1;|mymed_backend was successfully deployed in 1 796 milliseconds.|#]
+
+[#|2011-06-24T12:38:21.774+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|[AutoDeploy] Successfully autodeployed : /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war.|#]
+
+[#|2011-06-24T12:39:16.226+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+WRARNING: no config xml file found!|#]
+
+[#|2011-06-24T12:39:16.377+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|id : twitter239857978|#]
+
+[#|2011-06-24T12:39:16.377+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-06-24T12:39:16.462+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+Response sent:
+{
+"error": {
+"type": "IOBackEndException",
+"message": "keyspace: Mymed, columnFamily: User, key: twitter239857978 - NOT FOUND!"
+}
+}|#]
+
+[#|2011-06-24T12:39:16.469+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|id : twitter239857978|#]
+
+[#|2011-06-24T12:39:16.469+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 0|#]
+
+[#|2011-06-24T12:39:16.469+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|user : {"mymedID":"twitter239857978","socialNetworkID":"239857978","socialNetworkName":"twitter","name":"laurent vanni","firstName":null,"lastName":null,"link":"http:\/\/www-sop.inria.fr\/members\/Laurent.Vanni\/","birthday":null,"hometown":null,"gender":null,"buddyList":null,"subscribtionList":null,"reputation":null,"session":null,"transactionList":null,"email":null,"password":null,"profilePicture":"http:\/\/a1.twimg.com\/profile_images\/1220048632\/moiCV.png"}|#]
+
+[#|2011-06-24T12:39:16.502+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|java.lang.IllegalAccessException: Class com.mymed.model.data.AbstractMBean can not access a member of class com.mymed.model.data.MUserBean with modifiers "private"
+	at sun.reflect.Reflection.ensureMemberAccess(Reflection.java:95)
+	at java.lang.reflect.Field.doSecurityCheck(Field.java:978)
+	at java.lang.reflect.Field.getFieldAccessor(Field.java:914)
+	at java.lang.reflect.Field.get(Field.java:376)
+	at com.mymed.model.data.AbstractMBean.toString(AbstractMBean.java:72)
+	at com.mymed.model.data.MUserBean.toString(MUserBean.java:43)
+	at java.lang.String.valueOf(String.java:2838)
+	at java.lang.StringBuilder.append(StringBuilder.java:132)
+	at com.mymed.controller.core.requesthandler.ProfileRequestHandler.doPost(ProfileRequestHandler.java:123)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:754)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-06-24T12:39:16.503+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|java.lang.IllegalAccessException: Class com.mymed.model.data.AbstractMBean can not access a member of class com.mymed.model.data.MUserBean with modifiers "private"
+	at sun.reflect.Reflection.ensureMemberAccess(Reflection.java:95)
+	at java.lang.reflect.Field.doSecurityCheck(Field.java:978)
+	at java.lang.reflect.Field.getFieldAccessor(Field.java:914)
+	at java.lang.reflect.Field.get(Field.java:376)
+	at com.mymed.model.data.AbstractMBean.toString(AbstractMBean.java:72)
+	at com.mymed.model.data.MUserBean.toString(MUserBean.java:43)
+	at java.lang.String.valueOf(String.java:2838)
+	at java.lang.StringBuilder.append(StringBuilder.java:132)
+	at com.mymed.controller.core.requesthandler.ProfileRequestHandler.doPost(ProfileRequestHandler.java:123)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:754)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-06-24T12:39:16.504+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|java.lang.IllegalAccessException: Class com.mymed.model.data.AbstractMBean can not access a member of class com.mymed.model.data.MUserBean with modifiers "private"
+	at sun.reflect.Reflection.ensureMemberAccess(Reflection.java:95)
+	at java.lang.reflect.Field.doSecurityCheck(Field.java:978)
+	at java.lang.reflect.Field.getFieldAccessor(Field.java:914)
+	at java.lang.reflect.Field.get(Field.java:376)
+	at com.mymed.model.data.AbstractMBean.toString(AbstractMBean.java:72)
+	at com.mymed.model.data.MUserBean.toString(MUserBean.java:43)
+	at java.lang.String.valueOf(String.java:2838)
+	at java.lang.StringBuilder.append(StringBuilder.java:132)
+	at com.mymed.controller.core.requesthandler.ProfileRequestHandler.doPost(ProfileRequestHandler.java:123)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:754)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-06-24T12:39:16.504+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|java.lang.IllegalAccessException: Class com.mymed.model.data.AbstractMBean can not access a member of class com.mymed.model.data.MUserBean with modifiers "private"
+	at sun.reflect.Reflection.ensureMemberAccess(Reflection.java:95)
+	at java.lang.reflect.Field.doSecurityCheck(Field.java:978)
+	at java.lang.reflect.Field.getFieldAccessor(Field.java:914)
+	at java.lang.reflect.Field.get(Field.java:376)
+	at com.mymed.model.data.AbstractMBean.toString(AbstractMBean.java:72)
+	at com.mymed.model.data.MUserBean.toString(MUserBean.java:43)
+	at java.lang.String.valueOf(String.java:2838)
+	at java.lang.StringBuilder.append(StringBuilder.java:132)
+	at com.mymed.controller.core.requesthandler.ProfileRequestHandler.doPost(ProfileRequestHandler.java:123)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:754)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-06-24T12:39:16.505+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|java.lang.IllegalAccessException: Class com.mymed.model.data.AbstractMBean can not access a member of class com.mymed.model.data.MUserBean with modifiers "private"
+	at sun.reflect.Reflection.ensureMemberAccess(Reflection.java:95)
+	at java.lang.reflect.Field.doSecurityCheck(Field.java:978)
+	at java.lang.reflect.Field.getFieldAccessor(Field.java:914)
+	at java.lang.reflect.Field.get(Field.java:376)
+	at com.mymed.model.data.AbstractMBean.toString(AbstractMBean.java:72)
+	at com.mymed.model.data.MUserBean.toString(MUserBean.java:43)
+	at java.lang.String.valueOf(String.java:2838)
+	at java.lang.StringBuilder.append(StringBuilder.java:132)
+	at com.mymed.controller.core.requesthandler.ProfileRequestHandler.doPost(ProfileRequestHandler.java:123)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:754)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-06-24T12:39:16.505+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|java.lang.IllegalAccessException: Class com.mymed.model.data.AbstractMBean can not access a member of class com.mymed.model.data.MUserBean with modifiers "private"
+	at sun.reflect.Reflection.ensureMemberAccess(Reflection.java:95)
+	at java.lang.reflect.Field.doSecurityCheck(Field.java:978)
+	at java.lang.reflect.Field.getFieldAccessor(Field.java:914)
+	at java.lang.reflect.Field.get(Field.java:376)
+	at com.mymed.model.data.AbstractMBean.toString(AbstractMBean.java:72)
+	at com.mymed.model.data.MUserBean.toString(MUserBean.java:43)
+	at java.lang.String.valueOf(String.java:2838)
+	at java.lang.StringBuilder.append(StringBuilder.java:132)
+	at com.mymed.controller.core.requesthandler.ProfileRequestHandler.doPost(ProfileRequestHandler.java:123)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:754)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-06-24T12:39:16.506+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|java.lang.IllegalAccessException: Class com.mymed.model.data.AbstractMBean can not access a member of class com.mymed.model.data.MUserBean with modifiers "private"
+	at sun.reflect.Reflection.ensureMemberAccess(Reflection.java:95)
+	at java.lang.reflect.Field.doSecurityCheck(Field.java:978)
+	at java.lang.reflect.Field.getFieldAccessor(Field.java:914)
+	at java.lang.reflect.Field.get(Field.java:376)
+	at com.mymed.model.data.AbstractMBean.toString(AbstractMBean.java:72)
+	at com.mymed.model.data.MUserBean.toString(MUserBean.java:43)
+	at java.lang.String.valueOf(String.java:2838)
+	at java.lang.StringBuilder.append(StringBuilder.java:132)
+	at com.mymed.controller.core.requesthandler.ProfileRequestHandler.doPost(ProfileRequestHandler.java:123)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:754)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-06-24T12:39:16.506+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|java.lang.IllegalAccessException: Class com.mymed.model.data.AbstractMBean can not access a member of class com.mymed.model.data.MUserBean with modifiers "private"
+	at sun.reflect.Reflection.ensureMemberAccess(Reflection.java:95)
+	at java.lang.reflect.Field.doSecurityCheck(Field.java:978)
+	at java.lang.reflect.Field.getFieldAccessor(Field.java:914)
+	at java.lang.reflect.Field.get(Field.java:376)
+	at com.mymed.model.data.AbstractMBean.toString(AbstractMBean.java:72)
+	at com.mymed.model.data.MUserBean.toString(MUserBean.java:43)
+	at java.lang.String.valueOf(String.java:2838)
+	at java.lang.StringBuilder.append(StringBuilder.java:132)
+	at com.mymed.controller.core.requesthandler.ProfileRequestHandler.doPost(ProfileRequestHandler.java:123)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:754)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-06-24T12:39:16.507+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|java.lang.IllegalAccessException: Class com.mymed.model.data.AbstractMBean can not access a member of class com.mymed.model.data.MUserBean with modifiers "private"
+	at sun.reflect.Reflection.ensureMemberAccess(Reflection.java:95)
+	at java.lang.reflect.Field.doSecurityCheck(Field.java:978)
+	at java.lang.reflect.Field.getFieldAccessor(Field.java:914)
+	at java.lang.reflect.Field.get(Field.java:376)
+	at com.mymed.model.data.AbstractMBean.toString(AbstractMBean.java:72)
+	at com.mymed.model.data.MUserBean.toString(MUserBean.java:43)
+	at java.lang.String.valueOf(String.java:2838)
+	at java.lang.StringBuilder.append(StringBuilder.java:132)
+	at com.mymed.controller.core.requesthandler.ProfileRequestHandler.doPost(ProfileRequestHandler.java:123)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:754)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-06-24T12:39:16.508+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|java.lang.IllegalAccessException: Class com.mymed.model.data.AbstractMBean can not access a member of class com.mymed.model.data.MUserBean with modifiers "private"
+	at sun.reflect.Reflection.ensureMemberAccess(Reflection.java:95)
+	at java.lang.reflect.Field.doSecurityCheck(Field.java:978)
+	at java.lang.reflect.Field.getFieldAccessor(Field.java:914)
+	at java.lang.reflect.Field.get(Field.java:376)
+	at com.mymed.model.data.AbstractMBean.toString(AbstractMBean.java:72)
+	at com.mymed.model.data.MUserBean.toString(MUserBean.java:43)
+	at java.lang.String.valueOf(String.java:2838)
+	at java.lang.StringBuilder.append(StringBuilder.java:132)
+	at com.mymed.controller.core.requesthandler.ProfileRequestHandler.doPost(ProfileRequestHandler.java:123)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:754)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-06-24T12:39:16.508+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|java.lang.IllegalAccessException: Class com.mymed.model.data.AbstractMBean can not access a member of class com.mymed.model.data.MUserBean with modifiers "private"
+	at sun.reflect.Reflection.ensureMemberAccess(Reflection.java:95)
+	at java.lang.reflect.Field.doSecurityCheck(Field.java:978)
+	at java.lang.reflect.Field.getFieldAccessor(Field.java:914)
+	at java.lang.reflect.Field.get(Field.java:376)
+	at com.mymed.model.data.AbstractMBean.toString(AbstractMBean.java:72)
+	at com.mymed.model.data.MUserBean.toString(MUserBean.java:43)
+	at java.lang.String.valueOf(String.java:2838)
+	at java.lang.StringBuilder.append(StringBuilder.java:132)
+	at com.mymed.controller.core.requesthandler.ProfileRequestHandler.doPost(ProfileRequestHandler.java:123)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:754)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-06-24T12:39:16.509+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|java.lang.IllegalAccessException: Class com.mymed.model.data.AbstractMBean can not access a member of class com.mymed.model.data.MUserBean with modifiers "private"
+	at sun.reflect.Reflection.ensureMemberAccess(Reflection.java:95)
+	at java.lang.reflect.Field.doSecurityCheck(Field.java:978)
+	at java.lang.reflect.Field.getFieldAccessor(Field.java:914)
+	at java.lang.reflect.Field.get(Field.java:376)
+	at com.mymed.model.data.AbstractMBean.toString(AbstractMBean.java:72)
+	at com.mymed.model.data.MUserBean.toString(MUserBean.java:43)
+	at java.lang.String.valueOf(String.java:2838)
+	at java.lang.StringBuilder.append(StringBuilder.java:132)
+	at com.mymed.controller.core.requesthandler.ProfileRequestHandler.doPost(ProfileRequestHandler.java:123)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:754)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-06-24T12:39:16.509+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|java.lang.IllegalAccessException: Class com.mymed.model.data.AbstractMBean can not access a member of class com.mymed.model.data.MUserBean with modifiers "private"
+	at sun.reflect.Reflection.ensureMemberAccess(Reflection.java:95)
+	at java.lang.reflect.Field.doSecurityCheck(Field.java:978)
+	at java.lang.reflect.Field.getFieldAccessor(Field.java:914)
+	at java.lang.reflect.Field.get(Field.java:376)
+	at com.mymed.model.data.AbstractMBean.toString(AbstractMBean.java:72)
+	at com.mymed.model.data.MUserBean.toString(MUserBean.java:43)
+	at java.lang.String.valueOf(String.java:2838)
+	at java.lang.StringBuilder.append(StringBuilder.java:132)
+	at com.mymed.controller.core.requesthandler.ProfileRequestHandler.doPost(ProfileRequestHandler.java:123)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:754)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-06-24T12:39:16.510+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|java.lang.IllegalAccessException: Class com.mymed.model.data.AbstractMBean can not access a member of class com.mymed.model.data.MUserBean with modifiers "private"
+	at sun.reflect.Reflection.ensureMemberAccess(Reflection.java:95)
+	at java.lang.reflect.Field.doSecurityCheck(Field.java:978)
+	at java.lang.reflect.Field.getFieldAccessor(Field.java:914)
+	at java.lang.reflect.Field.get(Field.java:376)
+	at com.mymed.model.data.AbstractMBean.toString(AbstractMBean.java:72)
+	at com.mymed.model.data.MUserBean.toString(MUserBean.java:43)
+	at java.lang.String.valueOf(String.java:2838)
+	at java.lang.StringBuilder.append(StringBuilder.java:132)
+	at com.mymed.controller.core.requesthandler.ProfileRequestHandler.doPost(ProfileRequestHandler.java:123)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:754)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-06-24T12:39:16.510+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|java.lang.IllegalAccessException: Class com.mymed.model.data.AbstractMBean can not access a member of class com.mymed.model.data.MUserBean with modifiers "private"
+	at sun.reflect.Reflection.ensureMemberAccess(Reflection.java:95)
+	at java.lang.reflect.Field.doSecurityCheck(Field.java:978)
+	at java.lang.reflect.Field.getFieldAccessor(Field.java:914)
+	at java.lang.reflect.Field.get(Field.java:376)
+	at com.mymed.model.data.AbstractMBean.toString(AbstractMBean.java:72)
+	at com.mymed.model.data.MUserBean.toString(MUserBean.java:43)
+	at java.lang.String.valueOf(String.java:2838)
+	at java.lang.StringBuilder.append(StringBuilder.java:132)
+	at com.mymed.controller.core.requesthandler.ProfileRequestHandler.doPost(ProfileRequestHandler.java:123)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:754)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-06-24T12:39:16.511+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+INFO: trying to create a new user:
+user:
+|#]
+
+[#|2011-06-24T12:39:16.511+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|com.mymed.controller.core.exception.InternalBackEndException: getAttribueToMap failed!: Introspection error
+	at com.mymed.model.data.AbstractMBean.getAttributeToMap(AbstractMBean.java:58)
+	at com.mymed.controller.core.manager.profile.ProfileManager.create(ProfileManager.java:40)
+	at com.mymed.controller.core.requesthandler.ProfileRequestHandler.doPost(ProfileRequestHandler.java:124)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:754)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-06-24T12:39:16.511+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+Response sent:
+{
+"error": {
+"type": "InternalBackEndException",
+"message": "getAttribueToMap failed!: Introspection error"
+}
+}|#]
+
+[#|2011-06-24T12:41:25.990+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|[AutoDeploy] Selecting file /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war for autodeployment.|#]
+
+[#|2011-06-24T12:41:25.995+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:41:25.995+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:41:25.995+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:41:25.995+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:41:25.996+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:41:25.996+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:41:26.143+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:41:26.143+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:41:26.144+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=25;_ThreadName=Thread-1;|Module type not recognized|#]
+
+[#|2011-06-24T12:41:26.144+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=25;_ThreadName=Thread-1;|Il n’y a aucun récipient capable de gérer cette application com.sun.enterprise.deploy.shared.FileArchive@ee662|#]
+
+[#|2011-06-24T12:41:26.145+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|[AutoDeploy] Autodeploy failed : /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war.|#]
+
+[#|2011-06-24T12:41:29.991+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|[AutoDeploy] Selecting file /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war for autodeployment.|#]
+
+[#|2011-06-24T12:41:31.786+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=AutoDeployer;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-06-24T12:41:31.786+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=AutoDeployer;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-06-24T12:41:31.786+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=Thread-1;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-06-24T12:41:31.794+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.admin.org.glassfish.deployment.admin|_ThreadID=25;_ThreadName=Thread-1;|mymed_backend was successfully deployed in 1 799 milliseconds.|#]
+
+[#|2011-06-24T12:41:31.795+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|[AutoDeploy] Successfully autodeployed : /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war.|#]
+
+[#|2011-06-24T12:41:33.832+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+WRARNING: no config xml file found!|#]
+
+[#|2011-06-24T12:41:33.959+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|id : twitter239857978|#]
+
+[#|2011-06-24T12:41:33.959+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-06-24T12:41:33.989+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+Response sent:
+{
+"error": {
+"type": "IOBackEndException",
+"message": "keyspace: Mymed, columnFamily: User, key: twitter239857978 - NOT FOUND!"
+}
+}|#]
+
+[#|2011-06-24T12:41:33.991+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|id : twitter239857978|#]
+
+[#|2011-06-24T12:41:33.991+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 0|#]
+
+[#|2011-06-24T12:41:33.991+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|user : {"mymedID":"twitter239857978","socialNetworkID":"239857978","socialNetworkName":"twitter","name":"laurent vanni","firstName":null,"lastName":null,"link":"http:\/\/www-sop.inria.fr\/members\/Laurent.Vanni\/","birthday":null,"hometown":null,"gender":null,"buddyList":null,"subscribtionList":null,"reputation":null,"session":null,"transactionList":null,"email":null,"password":null,"profilePicture":"http:\/\/a1.twimg.com\/profile_images\/1220048632\/moiCV.png"}|#]
+
+[#|2011-06-24T12:41:34.036+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+INFO: trying to create a new user:
+user:
+|#]
+
+[#|2011-06-24T12:41:34.036+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|com.mymed.controller.core.exception.InternalBackEndException: getAttribueToMap failed!: Introspection error
+	at com.mymed.model.data.AbstractMBean.getAttributeToMap(AbstractMBean.java:58)
+	at com.mymed.controller.core.manager.profile.ProfileManager.create(ProfileManager.java:40)
+	at com.mymed.controller.core.requesthandler.ProfileRequestHandler.doPost(ProfileRequestHandler.java:124)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:754)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-06-24T12:41:34.037+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+Response sent:
+{
+"error": {
+"type": "InternalBackEndException",
+"message": "getAttribueToMap failed!: Introspection error"
+}
+}|#]
+
+[#|2011-06-24T12:41:45.819+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|id : twitter239857978|#]
+
+[#|2011-06-24T12:41:45.819+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-06-24T12:41:45.823+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+Response sent:
+{
+"error": {
+"type": "IOBackEndException",
+"message": "keyspace: Mymed, columnFamily: User, key: twitter239857978 - NOT FOUND!"
+}
+}|#]
+
+[#|2011-06-24T12:41:45.825+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|id : twitter239857978|#]
+
+[#|2011-06-24T12:41:45.825+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 0|#]
+
+[#|2011-06-24T12:41:45.825+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|user : {"mymedID":"twitter239857978","socialNetworkID":"239857978","socialNetworkName":"twitter","name":"laurent vanni","firstName":null,"lastName":null,"link":"http:\/\/www-sop.inria.fr\/members\/Laurent.Vanni\/","birthday":null,"hometown":null,"gender":null,"buddyList":null,"subscribtionList":null,"reputation":null,"session":null,"transactionList":null,"email":null,"password":null,"profilePicture":"http:\/\/a1.twimg.com\/profile_images\/1220048632\/moiCV.png"}|#]
+
+[#|2011-06-24T12:41:45.826+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+INFO: trying to create a new user:
+user:
+|#]
+
+[#|2011-06-24T12:41:45.826+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|com.mymed.controller.core.exception.InternalBackEndException: getAttribueToMap failed!: Introspection error
+	at com.mymed.model.data.AbstractMBean.getAttributeToMap(AbstractMBean.java:58)
+	at com.mymed.controller.core.manager.profile.ProfileManager.create(ProfileManager.java:40)
+	at com.mymed.controller.core.requesthandler.ProfileRequestHandler.doPost(ProfileRequestHandler.java:124)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:754)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-06-24T12:41:45.827+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+Response sent:
+{
+"error": {
+"type": "InternalBackEndException",
+"message": "getAttribueToMap failed!: Introspection error"
+}
+}|#]
+
+[#|2011-06-24T12:41:48.700+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|id : twitter239857978|#]
+
+[#|2011-06-24T12:41:48.700+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-06-24T12:41:48.703+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+Response sent:
+{
+"error": {
+"type": "IOBackEndException",
+"message": "keyspace: Mymed, columnFamily: User, key: twitter239857978 - NOT FOUND!"
+}
+}|#]
+
+[#|2011-06-24T12:41:48.705+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|id : twitter239857978|#]
+
+[#|2011-06-24T12:41:48.706+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 0|#]
+
+[#|2011-06-24T12:41:48.706+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|user : {"mymedID":"twitter239857978","socialNetworkID":"239857978","socialNetworkName":"twitter","name":"laurent vanni","firstName":null,"lastName":null,"link":"http:\/\/www-sop.inria.fr\/members\/Laurent.Vanni\/","birthday":null,"hometown":null,"gender":null,"buddyList":null,"subscribtionList":null,"reputation":null,"session":null,"transactionList":null,"email":null,"password":null,"profilePicture":"http:\/\/a1.twimg.com\/profile_images\/1220048632\/moiCV.png"}|#]
+
+[#|2011-06-24T12:41:48.707+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+INFO: trying to create a new user:
+user:
+|#]
+
+[#|2011-06-24T12:41:48.707+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|com.mymed.controller.core.exception.InternalBackEndException: getAttribueToMap failed!: Introspection error
+	at com.mymed.model.data.AbstractMBean.getAttributeToMap(AbstractMBean.java:58)
+	at com.mymed.controller.core.manager.profile.ProfileManager.create(ProfileManager.java:40)
+	at com.mymed.controller.core.requesthandler.ProfileRequestHandler.doPost(ProfileRequestHandler.java:124)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:754)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-06-24T12:41:48.708+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+Response sent:
+{
+"error": {
+"type": "InternalBackEndException",
+"message": "getAttribueToMap failed!: Introspection error"
+}
+}|#]
+
+[#|2011-06-24T12:43:11.996+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|[AutoDeploy] Selecting file /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war for autodeployment.|#]
+
+[#|2011-06-24T12:43:12.001+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:43:12.001+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:43:12.002+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:43:12.002+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:43:12.002+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:43:12.002+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:43:12.096+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:43:12.096+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:43:12.102+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=25;_ThreadName=Thread-1;|Module type not recognized|#]
+
+[#|2011-06-24T12:43:12.102+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=25;_ThreadName=Thread-1;|Il n’y a aucun récipient capable de gérer cette application com.sun.enterprise.deploy.shared.FileArchive@8c6ea1|#]
+
+[#|2011-06-24T12:43:12.103+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|[AutoDeploy] Autodeploy failed : /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war.|#]
+
+[#|2011-06-24T12:43:15.998+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|[AutoDeploy] Selecting file /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war for autodeployment.|#]
+
+[#|2011-06-24T12:43:17.717+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=AutoDeployer;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-06-24T12:43:17.717+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=Thread-1;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-06-24T12:43:17.717+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=AutoDeployer;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-06-24T12:43:17.723+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.admin.org.glassfish.deployment.admin|_ThreadID=25;_ThreadName=Thread-1;|mymed_backend was successfully deployed in 1 721 milliseconds.|#]
+
+[#|2011-06-24T12:43:17.723+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|[AutoDeploy] Successfully autodeployed : /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war.|#]
+
+[#|2011-06-24T12:43:23.417+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+WRARNING: no config xml file found!|#]
+
+[#|2011-06-24T12:43:23.532+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|id : twitter239857978|#]
+
+[#|2011-06-24T12:43:23.532+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-06-24T12:43:23.566+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+Response sent:
+{
+"error": {
+"type": "IOBackEndException",
+"message": "keyspace: Mymed, columnFamily: User, key: twitter239857978 - NOT FOUND!"
+}
+}|#]
+
+[#|2011-06-24T12:43:23.568+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|id : twitter239857978|#]
+
+[#|2011-06-24T12:43:23.568+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|code : 0|#]
+
+[#|2011-06-24T12:43:23.568+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|user : {"mymedID":"twitter239857978","socialNetworkID":"239857978","socialNetworkName":"twitter","name":"laurent vanni","firstName":null,"lastName":null,"link":"http:\/\/www-sop.inria.fr\/members\/Laurent.Vanni\/","birthday":null,"hometown":null,"gender":null,"buddyList":null,"subscribtionList":null,"reputation":null,"session":null,"transactionList":null,"email":null,"password":null,"profilePicture":"http:\/\/a1.twimg.com\/profile_images\/1220048632\/moiCV.png"}|#]
+
+[#|2011-06-24T12:43:23.596+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+INFO: trying to create a new user:
+user:
+|#]
+
+[#|2011-06-24T12:43:23.672+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+INFO: User created!|#]
+
+[#|2011-06-24T12:43:23.688+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+Response sent:
+{"mymedID":"twitter239857978","socialNetworkID":"239857978","socialNetworkName":"twitter","name":"laurent vanni","link":"http://www-sop.inria.fr/members/Laurent.Vanni/","profilePicture":"http://a1.twimg.com/profile_images/1220048632/moiCV.png"}|#]
+
+[#|2011-06-24T12:43:40.866+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+WRARNING: no config xml file found!|#]
+
+[#|2011-06-24T12:43:40.867+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|key : NiceTurin2011-06-24|#]
+
+[#|2011-06-24T12:43:40.867+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|value : twitter239857978|#]
+
+[#|2011-06-24T12:43:40.867+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 0|#]
+
+[#|2011-06-24T12:43:40.867+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|key to publish: NiceTurin2011-06-24|#]
+
+[#|2011-06-24T12:43:40.867+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|value to publish: twitter239857978|#]
+
+[#|2011-06-24T12:43:40.867+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+INFO: put value = twitter239857978|#]
+
+[#|2011-06-24T12:43:40.872+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+Response sent:
+key published|#]
+
+[#|2011-06-24T12:43:52.277+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|key : NiceTurin2011-06-24|#]
+
+[#|2011-06-24T12:43:52.277+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-06-24T12:43:52.336+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+INFO: get value = twitter239857978|#]
+
+[#|2011-06-24T12:43:52.336+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+Response sent:
+twitter239857978|#]
+
+[#|2011-06-24T12:43:52.337+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|id : twitter239857978|#]
+
+[#|2011-06-24T12:43:52.338+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-06-24T12:43:52.340+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+Response sent:
+{
+"error": {
+"type": "IOBackEndException",
+"message": "keyspace: Mymed, columnFamily: User, key: twitter239857978 - NOT FOUND!"
+}
+}|#]
+
+[#|2011-06-24T12:44:42.349+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|id : twitter239857978|#]
+
+[#|2011-06-24T12:44:42.350+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-06-24T12:44:42.353+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+Response sent:
+{
+"error": {
+"type": "IOBackEndException",
+"message": "keyspace: Mymed, columnFamily: User, key: twitter239857978 - NOT FOUND!"
+}
+}|#]
+
+[#|2011-06-24T12:44:42.355+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|id : twitter239857978|#]
+
+[#|2011-06-24T12:44:42.355+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|code : 0|#]
+
+[#|2011-06-24T12:44:42.355+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|user : {"mymedID":"twitter239857978","socialNetworkID":"239857978","socialNetworkName":"twitter","name":"laurent vanni","firstName":null,"lastName":null,"link":"http:\/\/www-sop.inria.fr\/members\/Laurent.Vanni\/","birthday":null,"hometown":null,"gender":null,"buddyList":null,"subscribtionList":null,"reputation":null,"session":null,"transactionList":null,"email":null,"password":null,"profilePicture":"http:\/\/a1.twimg.com\/profile_images\/1220048632\/moiCV.png"}|#]
+
+[#|2011-06-24T12:44:42.356+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+INFO: trying to create a new user:
+user:
+|#]
+
+[#|2011-06-24T12:44:42.376+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+INFO: User created!|#]
+
+[#|2011-06-24T12:44:42.377+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+Response sent:
+{"mymedID":"twitter239857978","socialNetworkID":"239857978","socialNetworkName":"twitter","name":"laurent vanni","link":"http://www-sop.inria.fr/members/Laurent.Vanni/","profilePicture":"http://a1.twimg.com/profile_images/1220048632/moiCV.png"}|#]
+
+[#|2011-06-24T12:44:57.572+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|key : NiceTurin2011-06-24|#]
+
+[#|2011-06-24T12:44:57.572+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-06-24T12:44:57.575+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+INFO: get value = twitter239857978|#]
+
+[#|2011-06-24T12:44:57.575+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+Response sent:
+twitter239857978|#]
+
+[#|2011-06-24T12:44:57.577+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|id : twitter239857978|#]
+
+[#|2011-06-24T12:44:57.577+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-06-24T12:44:57.580+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+Response sent:
+{
+"error": {
+"type": "IOBackEndException",
+"message": "keyspace: Mymed, columnFamily: User, key: twitter239857978 - NOT FOUND!"
+}
+}|#]
+
+[#|2011-06-24T12:45:30.158+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|id : Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T12:45:30.158+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-06-24T12:45:30.163+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+Response sent:
+{
+"error": {
+"type": "IOBackEndException",
+"message": "keyspace: Mymed, columnFamily: User, key: Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs - NOT FOUND!"
+}
+}|#]
+
+[#|2011-06-24T12:45:30.165+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|id : Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T12:45:30.165+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|code : 0|#]
+
+[#|2011-06-24T12:45:30.165+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|user : {"mymedID":"Googlehttps:\/\/www.google.com\/accounts\/o8\/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs","socialNetworkID":"https:\/\/www.google.com\/accounts\/o8\/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs","socialNetworkName":"Google","name":"Laurent Vanni","firstName":"Laurent","lastName":"Vanni","link":"https:\/\/profiles.google.com\/109161788078202618521","birthday":null,"hometown":null,"gender":null,"buddyList":null,"subscribtionList":null,"reputation":null,"session":null,"transactionList":null,"email":null,"password":null,"profilePicture":null}|#]
+
+[#|2011-06-24T12:45:30.166+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+INFO: trying to create a new user:
+user:
+|#]
+
+[#|2011-06-24T12:45:30.190+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+INFO: User created!|#]
+
+[#|2011-06-24T12:45:30.192+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+Response sent:
+{"mymedID":"Googlehttps://www.google.com/accounts/o8/id?id\u003dAItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs","socialNetworkID":"https://www.google.com/accounts/o8/id?id\u003dAItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs","socialNetworkName":"Google","name":"Laurent Vanni","firstName":"Laurent","lastName":"Vanni","link":"https://profiles.google.com/109161788078202618521"}|#]
+
+[#|2011-06-24T12:45:45.630+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|key : NiceTurin2011-06-24|#]
+
+[#|2011-06-24T12:45:45.630+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|value : Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T12:45:45.630+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 0|#]
+
+[#|2011-06-24T12:45:45.630+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|key to publish: NiceTurin2011-06-24|#]
+
+[#|2011-06-24T12:45:45.630+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|value to publish: Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T12:45:45.630+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+INFO: put value = Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T12:45:45.634+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+Response sent:
+key published|#]
+
+[#|2011-06-24T12:45:57.097+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|key : NiceTurin2011-06-24|#]
+
+[#|2011-06-24T12:45:57.097+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-06-24T12:45:57.101+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+INFO: get value = Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T12:45:57.101+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+Response sent:
+Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T12:45:57.103+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|id : Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T12:45:57.103+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-06-24T12:45:57.107+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+Response sent:
+{
+"error": {
+"type": "IOBackEndException",
+"message": "keyspace: Mymed, columnFamily: User, key: Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs - NOT FOUND!"
+}
+}|#]
+
+[#|2011-06-24T12:47:47.203+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|act : 1|#]
+
+[#|2011-06-24T12:47:47.203+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|keyspace : Mymed|#]
+
+[#|2011-06-24T12:47:50.570+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|act : 2|#]
+
+[#|2011-06-24T12:47:50.570+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|columnFamily : User|#]
+
+[#|2011-06-24T12:48:08.951+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|act : 3|#]
+
+[#|2011-06-24T12:48:08.951+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|keyUserID : Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T12:48:14.371+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|act : 5|#]
+
+[#|2011-06-24T12:48:14.371+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|key2 : name|#]
+
+[#|2011-06-24T12:48:14.378+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|NotFoundException()
+	at org.apache.cassandra.thrift.Cassandra$get_result.read(Cassandra.java:3718)
+	at org.apache.cassandra.thrift.Cassandra$Client.recv_get(Cassandra.java:349)
+	at org.apache.cassandra.thrift.Cassandra$Client.get(Cassandra.java:324)
+	at com.mymed.controller.core.requesthandler.tests.DebugConsole.doGet(DebugConsole.java:135)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-06-24T12:49:48.024+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|[AutoDeploy] Selecting file /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war for autodeployment.|#]
+
+[#|2011-06-24T12:49:48.028+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:49:48.028+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:49:48.028+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:49:48.029+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:49:48.029+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:49:48.029+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:49:48.122+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:49:48.122+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:49:48.123+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=25;_ThreadName=Thread-1;|Module type not recognized|#]
+
+[#|2011-06-24T12:49:48.123+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=25;_ThreadName=Thread-1;|Il n’y a aucun récipient capable de gérer cette application com.sun.enterprise.deploy.shared.FileArchive@ff5d3f|#]
+
+[#|2011-06-24T12:49:48.124+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|[AutoDeploy] Autodeploy failed : /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war.|#]
+
+[#|2011-06-24T12:49:52.025+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|[AutoDeploy] Selecting file /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war for autodeployment.|#]
+
+[#|2011-06-24T12:49:53.724+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=AutoDeployer;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-06-24T12:49:53.724+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=AutoDeployer;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-06-24T12:49:53.724+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=Thread-1;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-06-24T12:49:53.730+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.admin.org.glassfish.deployment.admin|_ThreadID=25;_ThreadName=Thread-1;|mymed_backend was successfully deployed in 1 701 milliseconds.|#]
+
+[#|2011-06-24T12:49:53.730+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|[AutoDeploy] Successfully autodeployed : /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war.|#]
+
+[#|2011-06-24T12:50:08.563+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+WRARNING: no config xml file found!|#]
+
+[#|2011-06-24T12:50:08.822+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|id : Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T12:50:08.822+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-06-24T12:50:08.852+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+Response sent:
+{
+"error": {
+"type": "IOBackEndException",
+"message": "keyspace: Mymed, columnFamily: User, key: Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs - NOT FOUND!"
+}
+}|#]
+
+[#|2011-06-24T12:50:08.854+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|id : Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T12:50:08.854+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|code : 0|#]
+
+[#|2011-06-24T12:50:08.855+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|user : {"mymedID":"Googlehttps:\/\/www.google.com\/accounts\/o8\/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs","socialNetworkID":"https:\/\/www.google.com\/accounts\/o8\/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs","socialNetworkName":"Google","name":"Laurent Vanni","firstName":"Laurent","lastName":"Vanni","link":"https:\/\/profiles.google.com\/109161788078202618521","birthday":null,"hometown":null,"gender":null,"buddyList":null,"subscribtionList":null,"reputation":null,"session":null,"transactionList":null,"email":null,"password":null,"profilePicture":null}|#]
+
+[#|2011-06-24T12:50:08.885+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+INFO: trying to create a new user:
+	mymedID : Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs
+	socialNetworkID : https://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs
+	socialNetworkName : Google
+	name : Laurent Vanni
+	firstName : Laurent
+	lastName : Vanni
+	link : https://profiles.google.com/109161788078202618521
+	birthday : null
+	hometown : null
+	gender : null
+	email : null
+	profilePicture : null
+	buddyListID : null
+	subscribtionListID : null
+	sessionID : null
+|#]
+
+[#|2011-06-24T12:50:08.910+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+INFO: User created!|#]
+
+[#|2011-06-24T12:50:08.918+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+Response sent:
+{"mymedID":"Googlehttps://www.google.com/accounts/o8/id?id\u003dAItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs","socialNetworkID":"https://www.google.com/accounts/o8/id?id\u003dAItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs","socialNetworkName":"Google","name":"Laurent Vanni","firstName":"Laurent","lastName":"Vanni","link":"https://profiles.google.com/109161788078202618521"}|#]
+
+[#|2011-06-24T12:50:08.943+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+WRARNING: no config xml file found!|#]
+
+[#|2011-06-24T12:50:08.943+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|key : NiceTurin2011-06-24|#]
+
+[#|2011-06-24T12:50:08.944+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-06-24T12:50:08.963+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+INFO: get value = Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T12:50:08.963+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+Response sent:
+Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T12:50:08.965+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|id : Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T12:50:08.965+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-06-24T12:50:08.966+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+Response sent:
+{
+"error": {
+"type": "IOBackEndException",
+"message": "keyspace: Mymed, columnFamily: User, key: Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs - NOT FOUND!"
+}
+}|#]
+
+[#|2011-06-24T12:50:41.477+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|act : 5|#]
+
+[#|2011-06-24T12:50:41.477+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|key2 : name|#]
+
+[#|2011-06-24T12:50:41.484+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|InvalidRequestException(why:Keyspace Keyspace1 does not exist in this schema.)
+	at org.apache.cassandra.thrift.Cassandra$get_result.read(Cassandra.java:3710)
+	at org.apache.cassandra.thrift.Cassandra$Client.recv_get(Cassandra.java:349)
+	at org.apache.cassandra.thrift.Cassandra$Client.get(Cassandra.java:324)
+	at com.mymed.controller.core.requesthandler.tests.DebugConsole.doGet(DebugConsole.java:135)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-06-24T12:50:54.201+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|act : 1|#]
+
+[#|2011-06-24T12:50:54.202+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|keyspace : Mymed|#]
+
+[#|2011-06-24T12:50:57.615+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|act : 2|#]
+
+[#|2011-06-24T12:50:57.615+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|columnFamily : User|#]
+
+[#|2011-06-24T12:51:05.598+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|act : 3|#]
+
+[#|2011-06-24T12:51:05.598+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|keyUserID : Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T12:51:09.155+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|act : 5|#]
+
+[#|2011-06-24T12:51:09.155+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|key2 : name|#]
+
+[#|2011-06-24T12:51:09.162+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|NotFoundException()
+	at org.apache.cassandra.thrift.Cassandra$get_result.read(Cassandra.java:3718)
+	at org.apache.cassandra.thrift.Cassandra$Client.recv_get(Cassandra.java:349)
+	at org.apache.cassandra.thrift.Cassandra$Client.get(Cassandra.java:324)
+	at com.mymed.controller.core.requesthandler.tests.DebugConsole.doGet(DebugConsole.java:135)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-06-24T12:54:11.426+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|id : Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T12:54:11.426+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-06-24T12:54:11.428+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+Response sent:
+{
+"error": {
+"type": "IOBackEndException",
+"message": "keyspace: Mymed, columnFamily: User, key: Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs - NOT FOUND!"
+}
+}|#]
+
+[#|2011-06-24T12:54:11.430+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|id : Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T12:54:11.430+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|code : 0|#]
+
+[#|2011-06-24T12:54:11.430+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|user : {"mymedID":"Googlehttps:\/\/www.google.com\/accounts\/o8\/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs","socialNetworkID":"https:\/\/www.google.com\/accounts\/o8\/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs","socialNetworkName":"Google","name":"Laurent Vanni","firstName":"Laurent","lastName":"Vanni","link":"https:\/\/profiles.google.com\/109161788078202618521","birthday":null,"hometown":null,"gender":null,"buddyList":null,"subscribtionList":null,"reputation":null,"session":null,"transactionList":null,"email":null,"password":null,"profilePicture":null}|#]
+
+[#|2011-06-24T12:54:11.432+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+INFO: trying to create a new user:
+	mymedID : Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs
+	socialNetworkID : https://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs
+	socialNetworkName : Google
+	name : Laurent Vanni
+	firstName : Laurent
+	lastName : Vanni
+	link : https://profiles.google.com/109161788078202618521
+	birthday : null
+	hometown : null
+	gender : null
+	email : null
+	profilePicture : null
+	buddyListID : null
+	subscribtionListID : null
+	sessionID : null
+|#]
+
+[#|2011-06-24T12:54:11.451+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+INFO: User created!|#]
+
+[#|2011-06-24T12:54:11.452+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+Response sent:
+{"mymedID":"Googlehttps://www.google.com/accounts/o8/id?id\u003dAItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs","socialNetworkID":"https://www.google.com/accounts/o8/id?id\u003dAItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs","socialNetworkName":"Google","name":"Laurent Vanni","firstName":"Laurent","lastName":"Vanni","link":"https://profiles.google.com/109161788078202618521"}|#]
+
+[#|2011-06-24T12:54:40.954+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|act : 5|#]
+
+[#|2011-06-24T12:54:40.954+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|key2 : name|#]
+
+[#|2011-06-24T12:54:40.957+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|NotFoundException()
+	at org.apache.cassandra.thrift.Cassandra$get_result.read(Cassandra.java:3718)
+	at org.apache.cassandra.thrift.Cassandra$Client.recv_get(Cassandra.java:349)
+	at org.apache.cassandra.thrift.Cassandra$Client.get(Cassandra.java:324)
+	at com.mymed.controller.core.requesthandler.tests.DebugConsole.doGet(DebugConsole.java:135)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-06-24T12:55:06.488+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|act : 2|#]
+
+[#|2011-06-24T12:55:06.488+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|columnFamily : Users|#]
+
+[#|2011-06-24T12:55:10.407+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|act : 5|#]
+
+[#|2011-06-24T12:55:10.407+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|key2 : name|#]
+
+[#|2011-06-24T12:55:10.409+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|InvalidRequestException(why:unconfigured columnfamily Users)
+	at org.apache.cassandra.thrift.Cassandra$get_result.read(Cassandra.java:3710)
+	at org.apache.cassandra.thrift.Cassandra$Client.recv_get(Cassandra.java:349)
+	at org.apache.cassandra.thrift.Cassandra$Client.get(Cassandra.java:324)
+	at com.mymed.controller.core.requesthandler.tests.DebugConsole.doGet(DebugConsole.java:135)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-06-24T12:55:18.591+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|act : 2|#]
+
+[#|2011-06-24T12:55:18.591+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|columnFamily : User|#]
+
+[#|2011-06-24T12:55:22.345+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|act : 5|#]
+
+[#|2011-06-24T12:55:22.345+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|key2 : name|#]
+
+[#|2011-06-24T12:55:22.347+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|NotFoundException()
+	at org.apache.cassandra.thrift.Cassandra$get_result.read(Cassandra.java:3718)
+	at org.apache.cassandra.thrift.Cassandra$Client.recv_get(Cassandra.java:349)
+	at org.apache.cassandra.thrift.Cassandra$Client.get(Cassandra.java:324)
+	at com.mymed.controller.core.requesthandler.tests.DebugConsole.doGet(DebugConsole.java:135)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-06-24T12:59:24.067+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|[AutoDeploy] Selecting file /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war for autodeployment.|#]
+
+[#|2011-06-24T12:59:24.071+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:59:24.071+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:59:24.071+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:59:24.071+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:59:24.072+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:59:24.072+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T12:59:25.821+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=AutoDeployer;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-06-24T12:59:25.821+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=Thread-1;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-06-24T12:59:25.821+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=AutoDeployer;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-06-24T12:59:25.826+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.admin.org.glassfish.deployment.admin|_ThreadID=25;_ThreadName=Thread-1;|mymed_backend was successfully deployed in 1 755 milliseconds.|#]
+
+[#|2011-06-24T12:59:25.826+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|[AutoDeploy] Successfully autodeployed : /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war.|#]
+
+[#|2011-06-24T12:59:51.103+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+WRARNING: no config xml file found!|#]
+
+[#|2011-06-24T12:59:51.224+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|id : Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T12:59:51.224+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-06-24T12:59:51.252+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+Response sent:
+{
+"error": {
+"type": "IOBackEndException",
+"message": "keyspace: Mymed, columnFamily: User, key: Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs - NOT FOUND!"
+}
+}|#]
+
+[#|2011-06-24T12:59:51.254+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|id : Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T12:59:51.254+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|code : 0|#]
+
+[#|2011-06-24T12:59:51.254+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|user : {"mymedID":"Googlehttps:\/\/www.google.com\/accounts\/o8\/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs","socialNetworkID":"https:\/\/www.google.com\/accounts\/o8\/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs","socialNetworkName":"Google","name":"Laurent Vanni","firstName":"Laurent","lastName":"Vanni","link":"https:\/\/profiles.google.com\/109161788078202618521","birthday":null,"hometown":null,"gender":null,"buddyList":null,"subscribtionList":null,"reputation":null,"session":null,"transactionList":null,"email":null,"password":null,"profilePicture":null}|#]
+
+[#|2011-06-24T12:59:51.284+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+INFO: trying to create a new user:
+	mymedID : Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs
+	socialNetworkID : https://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs
+	socialNetworkName : Google
+	name : Laurent Vanni
+	firstName : Laurent
+	lastName : Vanni
+	link : https://profiles.google.com/109161788078202618521
+	birthday : null
+	hometown : null
+	gender : null
+	email : null
+	profilePicture : null
+	buddyListID : null
+	subscribtionListID : null
+	sessionID : null
+|#]
+
+[#|2011-06-24T12:59:51.284+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|primaryKey: mymedID|#]
+
+[#|2011-06-24T12:59:51.284+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	column: lastName|#]
+
+[#|2011-06-24T12:59:51.284+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	value: [B@1cb150a|#]
+
+[#|2011-06-24T12:59:51.296+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|primaryKey: mymedID|#]
+
+[#|2011-06-24T12:59:51.296+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	column: socialNetworkID|#]
+
+[#|2011-06-24T12:59:51.296+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	value: [B@65e186|#]
+
+[#|2011-06-24T12:59:51.298+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|primaryKey: mymedID|#]
+
+[#|2011-06-24T12:59:51.299+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	column: link|#]
+
+[#|2011-06-24T12:59:51.299+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	value: [B@b931f4|#]
+
+[#|2011-06-24T12:59:51.300+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|primaryKey: mymedID|#]
+
+[#|2011-06-24T12:59:51.300+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	column: name|#]
+
+[#|2011-06-24T12:59:51.300+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	value: [B@7e95d3|#]
+
+[#|2011-06-24T12:59:51.302+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|primaryKey: mymedID|#]
+
+[#|2011-06-24T12:59:51.302+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	column: socialNetworkName|#]
+
+[#|2011-06-24T12:59:51.302+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	value: [B@9e7d08|#]
+
+[#|2011-06-24T12:59:51.303+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|primaryKey: mymedID|#]
+
+[#|2011-06-24T12:59:51.303+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	column: firstName|#]
+
+[#|2011-06-24T12:59:51.303+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	value: [B@122c8bf|#]
+
+[#|2011-06-24T12:59:51.305+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|primaryKey: mymedID|#]
+
+[#|2011-06-24T12:59:51.305+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	column: mymedID|#]
+
+[#|2011-06-24T12:59:51.306+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	value: [B@a9b0b4|#]
+
+[#|2011-06-24T12:59:51.307+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+INFO: User created!|#]
+
+[#|2011-06-24T12:59:51.319+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+Response sent:
+{"mymedID":"Googlehttps://www.google.com/accounts/o8/id?id\u003dAItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs","socialNetworkID":"https://www.google.com/accounts/o8/id?id\u003dAItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs","socialNetworkName":"Google","name":"Laurent Vanni","firstName":"Laurent","lastName":"Vanni","link":"https://profiles.google.com/109161788078202618521"}|#]
+
+[#|2011-06-24T13:00:30.463+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|act : 5|#]
+
+[#|2011-06-24T13:00:30.464+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|key2 : name|#]
+
+[#|2011-06-24T13:00:30.476+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|InvalidRequestException(why:Keyspace Keyspace1 does not exist in this schema.)
+	at org.apache.cassandra.thrift.Cassandra$get_result.read(Cassandra.java:3710)
+	at org.apache.cassandra.thrift.Cassandra$Client.recv_get(Cassandra.java:349)
+	at org.apache.cassandra.thrift.Cassandra$Client.get(Cassandra.java:324)
+	at com.mymed.controller.core.requesthandler.tests.DebugConsole.doGet(DebugConsole.java:135)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-06-24T13:00:35.264+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|act : 1|#]
+
+[#|2011-06-24T13:00:35.264+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|keyspace : Mymed|#]
+
+[#|2011-06-24T13:00:38.623+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|act : 2|#]
+
+[#|2011-06-24T13:00:38.623+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|columnFamily : User|#]
+
+[#|2011-06-24T13:00:47.987+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|act : 3|#]
+
+[#|2011-06-24T13:00:47.987+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|keyUserID : mymedID|#]
+
+[#|2011-06-24T13:00:52.410+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|act : 5|#]
+
+[#|2011-06-24T13:00:52.410+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|key2 : name|#]
+
+[#|2011-06-24T13:05:24.092+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|[AutoDeploy] Selecting file /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war for autodeployment.|#]
+
+[#|2011-06-24T13:05:24.096+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T13:05:24.096+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T13:05:24.096+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T13:05:24.096+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T13:05:24.097+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T13:05:24.097+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T13:05:24.184+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T13:05:24.184+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-06-24T13:05:24.185+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=25;_ThreadName=Thread-1;|Module type not recognized|#]
+
+[#|2011-06-24T13:05:24.186+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=25;_ThreadName=Thread-1;|Il n’y a aucun récipient capable de gérer cette application com.sun.enterprise.deploy.shared.FileArchive@1031b6d|#]
+
+[#|2011-06-24T13:05:24.186+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|[AutoDeploy] Autodeploy failed : /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war.|#]
+
+[#|2011-06-24T13:05:28.093+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|[AutoDeploy] Selecting file /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war for autodeployment.|#]
+
+[#|2011-06-24T13:05:29.811+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=AutoDeployer;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-06-24T13:05:29.811+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=AutoDeployer;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-06-24T13:05:29.811+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=Thread-1;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-06-24T13:05:29.816+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.admin.org.glassfish.deployment.admin|_ThreadID=25;_ThreadName=Thread-1;|mymed_backend was successfully deployed in 1 720 milliseconds.|#]
+
+[#|2011-06-24T13:05:29.816+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-1;|[AutoDeploy] Successfully autodeployed : /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war.|#]
+
+[#|2011-06-24T13:05:47.519+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+WRARNING: no config xml file found!|#]
+
+[#|2011-06-24T13:05:47.639+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|id : Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T13:05:47.640+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-06-24T13:05:47.668+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+Response sent:
+{
+"error": {
+"type": "IOBackEndException",
+"message": "keyspace: Mymed, columnFamily: User, key: Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs - NOT FOUND!"
+}
+}|#]
+
+[#|2011-06-24T13:05:47.670+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|id : Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T13:05:47.670+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|code : 0|#]
+
+[#|2011-06-24T13:05:47.670+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|user : {"mymedID":"Googlehttps:\/\/www.google.com\/accounts\/o8\/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs","socialNetworkID":"https:\/\/www.google.com\/accounts\/o8\/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs","socialNetworkName":"Google","name":"Laurent Vanni","firstName":"Laurent","lastName":"Vanni","link":"https:\/\/profiles.google.com\/109161788078202618521","birthday":null,"hometown":null,"gender":null,"buddyList":null,"subscribtionList":null,"reputation":null,"session":null,"transactionList":null,"email":null,"password":null,"profilePicture":null}|#]
+
+[#|2011-06-24T13:05:47.699+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+INFO: trying to create a new user:
+	mymedID : Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs
+	socialNetworkID : https://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs
+	socialNetworkName : Google
+	name : Laurent Vanni
+	firstName : Laurent
+	lastName : Vanni
+	link : https://profiles.google.com/109161788078202618521
+	birthday : null
+	hometown : null
+	gender : null
+	email : null
+	profilePicture : null
+	buddyListID : null
+	subscribtionListID : null
+	sessionID : null
+|#]
+
+[#|2011-06-24T13:05:47.700+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|primaryKey: Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T13:05:47.700+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	column: lastName|#]
+
+[#|2011-06-24T13:05:47.700+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	value: [B@86bfb2|#]
+
+[#|2011-06-24T13:05:47.718+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|primaryKey: Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T13:05:47.718+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	column: socialNetworkID|#]
+
+[#|2011-06-24T13:05:47.718+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	value: [B@ee2ed1|#]
+
+[#|2011-06-24T13:05:47.720+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|primaryKey: Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T13:05:47.721+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	column: link|#]
+
+[#|2011-06-24T13:05:47.721+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	value: [B@143c3d2|#]
+
+[#|2011-06-24T13:05:47.722+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|primaryKey: Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T13:05:47.722+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	column: name|#]
+
+[#|2011-06-24T13:05:47.722+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	value: [B@1ed4d2a|#]
+
+[#|2011-06-24T13:05:47.724+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|primaryKey: Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T13:05:47.724+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	column: socialNetworkName|#]
+
+[#|2011-06-24T13:05:47.724+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	value: [B@650163|#]
+
+[#|2011-06-24T13:05:47.726+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|primaryKey: Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T13:05:47.726+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	column: firstName|#]
+
+[#|2011-06-24T13:05:47.726+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	value: [B@13e0bcf|#]
+
+[#|2011-06-24T13:05:47.728+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|primaryKey: Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T13:05:47.728+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	column: mymedID|#]
+
+[#|2011-06-24T13:05:47.728+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	value: [B@795e57|#]
+
+[#|2011-06-24T13:05:47.732+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+INFO: User created!|#]
+
+[#|2011-06-24T13:05:47.741+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+Response sent:
+{"mymedID":"Googlehttps://www.google.com/accounts/o8/id?id\u003dAItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs","socialNetworkID":"https://www.google.com/accounts/o8/id?id\u003dAItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs","socialNetworkName":"Google","name":"Laurent Vanni","firstName":"Laurent","lastName":"Vanni","link":"https://profiles.google.com/109161788078202618521"}|#]
+
+[#|2011-06-24T13:05:49.686+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|id : Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T13:05:49.686+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-06-24T13:05:49.695+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+INFO: invoke:setFirstName, Laurent|#]
+
+[#|2011-06-24T13:05:49.695+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+INFO: invoke:setLink, https://profiles.google.com/109161788078202618521|#]
+
+[#|2011-06-24T13:05:49.695+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+INFO: invoke:setName, Laurent Vanni|#]
+
+[#|2011-06-24T13:05:49.695+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+INFO: invoke:setMymedID, Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T13:05:49.695+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+INFO: invoke:setLastName, Vanni|#]
+
+[#|2011-06-24T13:05:49.696+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+INFO: invoke:setSocialNetworkName, Google|#]
+
+[#|2011-06-24T13:05:49.696+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+INFO: invoke:setSocialNetworkID, https://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T13:05:49.696+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+Response sent:
+{"mymedID":"Googlehttps://www.google.com/accounts/o8/id?id\u003dAItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs","socialNetworkID":"https://www.google.com/accounts/o8/id?id\u003dAItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs","socialNetworkName":"Google","name":"Laurent Vanni","firstName":"Laurent","lastName":"Vanni","link":"https://profiles.google.com/109161788078202618521"}|#]
+
+[#|2011-06-24T13:05:49.698+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|id : Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T13:05:49.698+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-06-24T13:05:49.699+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+INFO: invoke:setFirstName, Laurent|#]
+
+[#|2011-06-24T13:05:49.699+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+INFO: invoke:setMymedID, Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T13:05:49.699+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+INFO: invoke:setLink, https://profiles.google.com/109161788078202618521|#]
+
+[#|2011-06-24T13:05:49.699+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+INFO: invoke:setName, Laurent Vanni|#]
+
+[#|2011-06-24T13:05:49.699+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+INFO: invoke:setSocialNetworkName, Google|#]
+
+[#|2011-06-24T13:05:49.699+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+INFO: invoke:setSocialNetworkID, https://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T13:05:49.699+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+INFO: invoke:setLastName, Vanni|#]
+
+[#|2011-06-24T13:05:49.700+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+Response sent:
+{"mymedID":"Googlehttps://www.google.com/accounts/o8/id?id\u003dAItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs","socialNetworkID":"https://www.google.com/accounts/o8/id?id\u003dAItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs","socialNetworkName":"Google","name":"Laurent Vanni","firstName":"Laurent","lastName":"Vanni","link":"https://profiles.google.com/109161788078202618521"}|#]
+
+[#|2011-06-24T13:05:54.232+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|id : Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T13:05:54.232+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-06-24T13:05:54.234+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+INFO: invoke:setFirstName, Laurent|#]
+
+[#|2011-06-24T13:05:54.234+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+INFO: invoke:setSocialNetworkID, https://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T13:05:54.234+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+INFO: invoke:setMymedID, Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T13:05:54.234+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+INFO: invoke:setLastName, Vanni|#]
+
+[#|2011-06-24T13:05:54.234+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+INFO: invoke:setSocialNetworkName, Google|#]
+
+[#|2011-06-24T13:05:54.234+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+INFO: invoke:setLink, https://profiles.google.com/109161788078202618521|#]
+
+[#|2011-06-24T13:05:54.235+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+INFO: invoke:setName, Laurent Vanni|#]
+
+[#|2011-06-24T13:05:54.235+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+Response sent:
+{"mymedID":"Googlehttps://www.google.com/accounts/o8/id?id\u003dAItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs","socialNetworkID":"https://www.google.com/accounts/o8/id?id\u003dAItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs","socialNetworkName":"Google","name":"Laurent Vanni","firstName":"Laurent","lastName":"Vanni","link":"https://profiles.google.com/109161788078202618521"}|#]
+
+[#|2011-06-24T13:05:54.237+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|id : Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T13:05:54.237+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-06-24T13:05:54.239+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+INFO: invoke:setFirstName, Laurent|#]
+
+[#|2011-06-24T13:05:54.239+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+INFO: invoke:setMymedID, Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T13:05:54.239+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+INFO: invoke:setLink, https://profiles.google.com/109161788078202618521|#]
+
+[#|2011-06-24T13:05:54.239+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+INFO: invoke:setSocialNetworkName, Google|#]
+
+[#|2011-06-24T13:05:54.239+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+INFO: invoke:setName, Laurent Vanni|#]
+
+[#|2011-06-24T13:05:54.239+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+INFO: invoke:setSocialNetworkID, https://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T13:05:54.240+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+INFO: invoke:setLastName, Vanni|#]
+
+[#|2011-06-24T13:05:54.240+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+Response sent:
+{"mymedID":"Googlehttps://www.google.com/accounts/o8/id?id\u003dAItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs","socialNetworkID":"https://www.google.com/accounts/o8/id?id\u003dAItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs","socialNetworkName":"Google","name":"Laurent Vanni","firstName":"Laurent","lastName":"Vanni","link":"https://profiles.google.com/109161788078202618521"}|#]
+
+[#|2011-06-24T13:06:06.185+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|id : myMedhttp://mymed21.sophia.inria.fr/mymed/WebContent/openid/idpage/test|#]
+
+[#|2011-06-24T13:06:06.185+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-06-24T13:06:06.188+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+Response sent:
+{
+"error": {
+"type": "IOBackEndException",
+"message": "keyspace: Mymed, columnFamily: User, key: myMedhttp://mymed21.sophia.inria.fr/mymed/WebContent/openid/idpage/test - NOT FOUND!"
+}
+}|#]
+
+[#|2011-06-24T13:06:06.190+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|id : myMedhttp://mymed21.sophia.inria.fr/mymed/WebContent/openid/idpage/test|#]
+
+[#|2011-06-24T13:06:06.191+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|code : 0|#]
+
+[#|2011-06-24T13:06:06.191+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|user : {"mymedID":"myMedhttp:\/\/mymed21.sophia.inria.fr\/mymed\/WebContent\/openid\/idpage\/test","socialNetworkID":"http:\/\/mymed21.sophia.inria.fr\/mymed\/WebContent\/openid\/idpage\/test","socialNetworkName":"myMed","name":"Firstname LASTNAME","firstName":null,"lastName":null,"link":"http:\/\/mymed21.sophia.inria.fr\/mymed\/WebContent\/openid\/idpage\/test","birthday":"2011-05-26","hometown":null,"gender":"M","buddyList":null,"subscribtionList":null,"reputation":null,"session":null,"transactionList":null,"email":null,"password":null,"profilePicture":null}|#]
+
+[#|2011-06-24T13:06:06.192+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+INFO: trying to create a new user:
+	mymedID : myMedhttp://mymed21.sophia.inria.fr/mymed/WebContent/openid/idpage/test
+	socialNetworkID : http://mymed21.sophia.inria.fr/mymed/WebContent/openid/idpage/test
+	socialNetworkName : myMed
+	name : Firstname LASTNAME
+	firstName : null
+	lastName : null
+	link : http://mymed21.sophia.inria.fr/mymed/WebContent/openid/idpage/test
+	birthday : 2011-05-26
+	hometown : null
+	gender : M
+	email : null
+	profilePicture : null
+	buddyListID : null
+	subscribtionListID : null
+	sessionID : null
+|#]
+
+[#|2011-06-24T13:06:06.192+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|primaryKey: myMedhttp://mymed21.sophia.inria.fr/mymed/WebContent/openid/idpage/test|#]
+
+[#|2011-06-24T13:06:06.192+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	column: birthday|#]
+
+[#|2011-06-24T13:06:06.192+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	value: [B@69af37|#]
+
+[#|2011-06-24T13:06:06.194+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|primaryKey: myMedhttp://mymed21.sophia.inria.fr/mymed/WebContent/openid/idpage/test|#]
+
+[#|2011-06-24T13:06:06.194+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	column: socialNetworkID|#]
+
+[#|2011-06-24T13:06:06.194+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	value: [B@6e7f96|#]
+
+[#|2011-06-24T13:06:06.197+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|primaryKey: myMedhttp://mymed21.sophia.inria.fr/mymed/WebContent/openid/idpage/test|#]
+
+[#|2011-06-24T13:06:06.197+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	column: link|#]
+
+[#|2011-06-24T13:06:06.197+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	value: [B@7a74fa|#]
+
+[#|2011-06-24T13:06:06.200+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|primaryKey: myMedhttp://mymed21.sophia.inria.fr/mymed/WebContent/openid/idpage/test|#]
+
+[#|2011-06-24T13:06:06.200+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	column: name|#]
+
+[#|2011-06-24T13:06:06.200+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	value: [B@195c954|#]
+
+[#|2011-06-24T13:06:06.202+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|primaryKey: myMedhttp://mymed21.sophia.inria.fr/mymed/WebContent/openid/idpage/test|#]
+
+[#|2011-06-24T13:06:06.202+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	column: gender|#]
+
+[#|2011-06-24T13:06:06.202+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	value: [B@177a75e|#]
+
+[#|2011-06-24T13:06:06.205+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|primaryKey: myMedhttp://mymed21.sophia.inria.fr/mymed/WebContent/openid/idpage/test|#]
+
+[#|2011-06-24T13:06:06.205+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	column: socialNetworkName|#]
+
+[#|2011-06-24T13:06:06.205+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	value: [B@8d133a|#]
+
+[#|2011-06-24T13:06:06.207+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|primaryKey: myMedhttp://mymed21.sophia.inria.fr/mymed/WebContent/openid/idpage/test|#]
+
+[#|2011-06-24T13:06:06.207+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	column: mymedID|#]
+
+[#|2011-06-24T13:06:06.207+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+	value: [B@1e95aa9|#]
+
+[#|2011-06-24T13:06:06.209+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+INFO: User created!|#]
+
+[#|2011-06-24T13:06:06.210+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+Response sent:
+{"mymedID":"myMedhttp://mymed21.sophia.inria.fr/mymed/WebContent/openid/idpage/test","socialNetworkID":"http://mymed21.sophia.inria.fr/mymed/WebContent/openid/idpage/test","socialNetworkName":"myMed","name":"Firstname LASTNAME","link":"http://mymed21.sophia.inria.fr/mymed/WebContent/openid/idpage/test","birthday":"2011-05-26","gender":"M"}|#]
+
+[#|2011-06-24T13:06:09.463+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+WRARNING: no config xml file found!|#]
+
+[#|2011-06-24T13:06:09.463+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|key : NiceTurin2011-06-24|#]
+
+[#|2011-06-24T13:06:09.463+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|value : Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T13:06:09.463+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|code : 0|#]
+
+[#|2011-06-24T13:06:09.464+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|key to publish: NiceTurin2011-06-24|#]
+
+[#|2011-06-24T13:06:09.464+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|value to publish: Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T13:06:09.464+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+INFO: put value = Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T13:06:09.467+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+Response sent:
+key published|#]
+
+[#|2011-06-24T13:06:16.287+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|key : NiceTurin2011-06-24|#]
+
+[#|2011-06-24T13:06:16.287+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-06-24T13:06:16.302+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+INFO: get value = Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T13:06:16.302+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+Response sent:
+Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T13:06:16.304+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|id : Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T13:06:16.304+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-06-24T13:06:16.306+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+INFO: invoke:setName, Laurent Vanni|#]
+
+[#|2011-06-24T13:06:16.306+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+INFO: invoke:setFirstName, Laurent|#]
+
+[#|2011-06-24T13:06:16.306+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+INFO: invoke:setSocialNetworkID, https://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T13:06:16.306+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+INFO: invoke:setSocialNetworkName, Google|#]
+
+[#|2011-06-24T13:06:16.306+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+INFO: invoke:setMymedID, Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T13:06:16.306+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+INFO: invoke:setLink, https://profiles.google.com/109161788078202618521|#]
+
+[#|2011-06-24T13:06:16.307+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+INFO: invoke:setLastName, Vanni|#]
+
+[#|2011-06-24T13:06:16.307+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-1;|
+Response sent:
+{"mymedID":"Googlehttps://www.google.com/accounts/o8/id?id\u003dAItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs","socialNetworkID":"https://www.google.com/accounts/o8/id?id\u003dAItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs","socialNetworkName":"Google","name":"Laurent Vanni","firstName":"Laurent","lastName":"Vanni","link":"https://profiles.google.com/109161788078202618521"}|#]
+
+[#|2011-06-24T13:06:16.347+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|key : NiceTurin2011-06-24|#]
+
+[#|2011-06-24T13:06:16.347+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-06-24T13:06:16.349+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+INFO: get value = Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T13:06:16.349+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-1;|
+Response sent:
+Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T13:06:16.350+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|id : Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T13:06:16.350+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-06-24T13:06:16.352+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+INFO: invoke:setLastName, Vanni|#]
+
+[#|2011-06-24T13:06:16.352+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+INFO: invoke:setName, Laurent Vanni|#]
+
+[#|2011-06-24T13:06:16.352+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+INFO: invoke:setFirstName, Laurent|#]
+
+[#|2011-06-24T13:06:16.352+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+INFO: invoke:setLink, https://profiles.google.com/109161788078202618521|#]
+
+[#|2011-06-24T13:06:16.352+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+INFO: invoke:setMymedID, Googlehttps://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T13:06:16.352+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+INFO: invoke:setSocialNetworkID, https://www.google.com/accounts/o8/id?id=AItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs|#]
+
+[#|2011-06-24T13:06:16.352+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+INFO: invoke:setSocialNetworkName, Google|#]
+
+[#|2011-06-24T13:06:16.353+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+Response sent:
+{"mymedID":"Googlehttps://www.google.com/accounts/o8/id?id\u003dAItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs","socialNetworkID":"https://www.google.com/accounts/o8/id?id\u003dAItOawmG4LHAuLXaAvMNYYWf-SUpTpKJjoBDxCs","socialNetworkName":"Google","name":"Laurent Vanni","firstName":"Laurent","lastName":"Vanni","link":"https://profiles.google.com/109161788078202618521"}|#]
+

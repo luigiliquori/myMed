@@ -1,5 +1,6 @@
 package com.mymed.controller.core.manager.profile;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,14 +37,16 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 	 */
 	public MUserBean create(MUserBean user) throws InternalBackEndException {
 		try {
-			storageManager.insertSlice("Users", "mymedID", user
-					.getAttributeToMap());
+			Map<String, byte[]> args = user.getAttributeToMap();
+			storageManager.insertSlice("User", new String(args.get("mymedID"), "UTF8"), args);
 			// TODO update the user values!
 			return user;
 		} catch (ServiceManagerException e) {
 			throw new InternalBackEndException(
 					"create failed because of a WrapperException: "
 							+ e.getMessage());
+		} catch (UnsupportedEncodingException e) {
+			throw new InternalBackEndException(e.getMessage());
 		}
 	}
 
@@ -59,7 +62,7 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 		Map<byte[], byte[]> args = new HashMap<byte[], byte[]>();
 		MUserBean user = new MUserBean();
 		try {
-			args = storageManager.selectAll("Users", id);
+			args = storageManager.selectAll("User", id);
 		} catch (ServiceManagerException e) {
 			e.printStackTrace();
 			throw new InternalBackEndException(

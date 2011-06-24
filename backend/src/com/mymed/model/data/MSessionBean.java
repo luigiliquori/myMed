@@ -1,5 +1,12 @@
 package com.mymed.model.data;
 
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.mymed.controller.core.exception.InternalBackEndException;
+
 public class MSessionBean extends AbstractMBean {
 	
 	/* --------------------------------------------------------- */
@@ -28,6 +35,31 @@ public class MSessionBean extends AbstractMBean {
 		return "session:\n" + super.toString();
 	}
 
+	/**
+	 * @return 
+	 * 		all the fields in a hashMap format for the myMed wrapper
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 * @throws UnsupportedEncodingException
+	 */
+	public Map<String, byte[]> getAttributeToMap() throws InternalBackEndException {
+		Map<String, byte[]> args = new HashMap<String, byte[]>();
+		for (Field f : this.getClass().getDeclaredFields()) {
+			try {
+				if (f.get(this) instanceof String){
+					args.put(f.getName(), ((String) f.get(this)).getBytes("UTF8"));
+				}
+			} catch (UnsupportedEncodingException e) {
+				throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
+			} catch (IllegalArgumentException e) {
+				throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
+			} catch (IllegalAccessException e) {
+				throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
+			}
+		}
+		return args;
+	}
+	
 	/* --------------------------------------------------------- */
 	/* GETTER AND SETTER */
 	/* --------------------------------------------------------- */
