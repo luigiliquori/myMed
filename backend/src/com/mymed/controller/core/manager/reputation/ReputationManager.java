@@ -27,14 +27,14 @@ public class ReputationManager extends AbstractManager implements
 	/* --------------------------------------------------------- */
 
 	@Override
-	public MReputationBean read(String publisherID, String subscriberID,
-			String serviceID) throws InternalBackEndException,
+	public MReputationBean read(String producerID, String consumerID,
+			String applicationID) throws InternalBackEndException,
 			IOBackEndException {
 		MReputationBean reputationBean = new MReputationBean();
 		Map<byte[], byte[]> args = new HashMap<byte[], byte[]>();
 		try {
-			args = storageManager.selectAll("Reputation", publisherID
-					+ serviceID);
+			args = storageManager.selectAll("Reputation", producerID
+					+ applicationID);
 		} catch (ServiceManagerException e) {
 			e.printStackTrace();
 			throw new InternalBackEndException(
@@ -55,7 +55,7 @@ public class ReputationManager extends AbstractManager implements
 		buffer.compact();
 		try {
 			storageManager.insertColumn("Reputation", interaction
-					.getPublisherID()
+					.getProducerID()
 					+ interaction.getApplicationID(), "value", buffer.array());
 		} catch (ServiceManagerException e) {
 			e.printStackTrace();
