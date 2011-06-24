@@ -8,7 +8,6 @@ import com.mymed.controller.core.manager.IStorageManager;
 import com.mymed.controller.core.manager.StorageManager;
 import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.reputation.InteractionManager;
-import com.mymed.controller.core.manager.reputation.InteractionsManager;
 import com.mymed.controller.core.manager.reputation.ReputationManager;
 import com.mymed.model.core.configuration.WrapperConfiguration;
 import com.mymed.model.core.wrappers.cassandra.api07.MConverter;
@@ -40,7 +39,7 @@ public class ReputationTest {
 
 			final IStorageManager storageManager = new StorageManager(config);
 
-			final ProfileManager profileManager = new ProfileManager();
+			final ProfileManager profileManager = new ProfileManager(storageManager);
 			profileManager.create(producer1);
 			profileManager.create(consumer1);
 
@@ -72,8 +71,8 @@ public class ReputationTest {
 			System.err.println("\nCreating the interaction...");
 			intManager.create(intBean);
 
-			final InteractionsManager interactionListManager = new InteractionsManager();
-			interactionListManager.update(intBean);
+//			final InteractionListManager interactionListManager = new InteractionListManager();
+//			interactionListManager.update(intBean);
 
 			System.err.println("Setting new reputation value...");
 			repManager.update(intBean, 0.6);

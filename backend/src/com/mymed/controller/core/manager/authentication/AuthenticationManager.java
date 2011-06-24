@@ -19,18 +19,23 @@ public class AuthenticationManager extends AbstractManager implements
 	/* Constructors */
 	/* --------------------------------------------------------- */
 	public AuthenticationManager() throws InternalBackEndException {
-		super(new StorageManager(WrapperType.CASSANDRA));
+		this(new StorageManager(WrapperType.CASSANDRA));
+	}
+	
+	public AuthenticationManager(StorageManager storageManager) throws InternalBackEndException {
+		super(storageManager);
 	}
 
 	/* --------------------------------------------------------- */
 	/* implements AuthenticationManager */
 	/* --------------------------------------------------------- */
 	/**
+	 * @throws IOBackEndException 
 	 * @see IAuthenticationManager#create(MUserBean, MAuthenticationBean)
 	 */
 	@Override
 	public MUserBean create(MUserBean user, MAuthenticationBean authentication)
-			throws InternalBackEndException {
+			throws InternalBackEndException, IOBackEndException {
 		// create the user profile
 		ProfileManager profileManager = new ProfileManager();
 		profileManager.create(user);

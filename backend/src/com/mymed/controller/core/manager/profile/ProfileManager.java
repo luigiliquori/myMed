@@ -8,6 +8,7 @@ import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.exception.ServiceManagerException;
 import com.mymed.controller.core.manager.AbstractManager;
+import com.mymed.controller.core.manager.IStorageManager;
 import com.mymed.controller.core.manager.StorageManager;
 import com.mymed.model.core.factory.IDHTWrapperFactory.WrapperType;
 import com.mymed.model.data.MUserBean;
@@ -23,7 +24,11 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 	/* Constructors */
 	/* --------------------------------------------------------- */
 	public ProfileManager() throws InternalBackEndException {
-		super(new StorageManager(WrapperType.CASSANDRA));
+		this(new StorageManager(WrapperType.CASSANDRA));
+	}
+	
+	public ProfileManager(IStorageManager storageManager) throws InternalBackEndException {
+		super(storageManager);
 	}
 
 	/* --------------------------------------------------------- */
@@ -34,8 +39,9 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 	 * 
 	 * @param user
 	 *            the user to insert into the database
+	 * @throws IOBackEndException 
 	 */
-	public MUserBean create(MUserBean user) throws InternalBackEndException {
+	public MUserBean create(MUserBean user) throws InternalBackEndException, IOBackEndException {
 		try {
 			Map<String, byte[]> args = user.getAttributeToMap();
 			storageManager.insertSlice("User", new String(args.get("mymedID"), "UTF8"), args);
@@ -74,9 +80,10 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 	}
 
 	/**
+	 * @throws IOBackEndException 
 	 * @see IProfileManager#update(MUserBean)
 	 */
-	public void update(MUserBean user) throws InternalBackEndException {
+	public void update(MUserBean user) throws InternalBackEndException, IOBackEndException {
 		create(user);
 		// TODO Implement the update method witch use the wrapper updateColumn
 		// method

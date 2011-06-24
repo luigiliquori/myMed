@@ -19,12 +19,12 @@ public abstract class AbstractManager {
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
-	protected StorageManager storageManager;
+	protected IStorageManager storageManager;
 	
 	/* --------------------------------------------------------- */
 	/* Constructor */
 	/* --------------------------------------------------------- */
-	public AbstractManager(StorageManager storageManager) {
+	public AbstractManager(IStorageManager storageManager) {
 		this.storageManager = storageManager;
 	}
 	

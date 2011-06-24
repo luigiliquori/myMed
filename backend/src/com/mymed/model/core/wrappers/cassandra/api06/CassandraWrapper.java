@@ -81,6 +81,8 @@ public class CassandraWrapper extends AbstractDHTWrapper implements
 	 * @param port
 	 */
 	public void setup(String address, int port) {
+		System.out.println("*****address: " + address);
+		System.out.println("*****port: " + port);
 		if (address != null && port != 0) {
 			// not managed by glassfish
 			this.tr = new TSocket(address, port);

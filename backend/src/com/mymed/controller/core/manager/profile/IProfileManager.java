@@ -19,7 +19,7 @@ public interface IProfileManager {
 	 *            the user to insert into the database
 	 * @return true if the user if the user is created, false otherwise
 	 */
-	public MUserBean create(MUserBean user) throws InternalBackEndException;
+	public MUserBean create(MUserBean user) throws InternalBackEndException, IOBackEndException;
 
 	/**
 	 * @param id
@@ -34,7 +34,7 @@ public interface IProfileManager {
 	 * @param user
 	 *            The profile updated to store
 	 */
-	public void update(MUserBean user) throws InternalBackEndException;
+	public void update(MUserBean user) throws InternalBackEndException, IOBackEndException;
 
 	/**
 	 * Delete an existing user
@@ -42,5 +42,5 @@ public interface IProfileManager {
 	 * @param user
 	 *            The user to delete
 	 */
-	public void delete(String key) throws InternalBackEndException;
+	public void delete(String mymedID) throws InternalBackEndException;
 }

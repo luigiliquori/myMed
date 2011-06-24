@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.controller.core.manager.AbstractManager;
 import com.mymed.controller.core.manager.StorageManager;
 import com.mymed.model.core.factory.IDHTWrapperFactory.WrapperType;
 
@@ -12,7 +13,7 @@ import com.mymed.model.core.factory.IDHTWrapperFactory.WrapperType;
  * @author lvanni
  *
  */
-public class DHTManager implements IDHTManager {
+public class DHTManager extends AbstractManager implements IDHTManager {
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
@@ -23,12 +24,12 @@ public class DHTManager implements IDHTManager {
 	/* --------------------------------------------------------- */
 	/* Constructors */
 	/* --------------------------------------------------------- */
-	public DHTManager(WrapperType type) throws InternalBackEndException {
-		this.storageManager = new StorageManager(type);
+	public DHTManager() throws InternalBackEndException {
+		this(new StorageManager(WrapperType.CASSANDRA));
 	}
 	
-	public DHTManager() throws InternalBackEndException {
-		this(WrapperType.CASSANDRA);
+	public DHTManager(StorageManager storageManager) throws InternalBackEndException {
+		super(storageManager);
 	}
 	
 

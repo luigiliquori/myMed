@@ -18,14 +18,17 @@ public class ReputationManager extends AbstractManager implements IReputationMan
 	/* Constructors */
 	/* --------------------------------------------------------- */
 	public ReputationManager() throws InternalBackEndException {
-		super(new StorageManager(WrapperType.CASSANDRA));
+		this(new StorageManager(WrapperType.CASSANDRA));
+	}
+	
+	public ReputationManager(StorageManager storageManager) throws InternalBackEndException {
+		super(storageManager);
 	}
 
 	/* --------------------------------------------------------- */
 	/* implements ReputationManager */
 	/* --------------------------------------------------------- */
 
-	// TODO the consumerID is not used, refactor the args to use "user_id"
 	@Override
 	public MReputationBean read(final String producerID, final String consumerID, final String applicationID)
 	        throws InternalBackEndException, IOBackEndException {

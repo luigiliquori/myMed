@@ -18,7 +18,11 @@ public class InteractionManager extends AbstractManager implements
 	/* Constructors */
 	/* --------------------------------------------------------- */
 	public InteractionManager() throws InternalBackEndException {
-		super(new StorageManager(WrapperType.CASSANDRA));
+		this(new StorageManager(WrapperType.CASSANDRA));
+	}
+	
+	public InteractionManager(StorageManager storageManager) throws InternalBackEndException {
+		super(storageManager);
 	}
 
 	@Override

@@ -40,7 +40,7 @@ public class MyMedUsualOperations {
 
 			// Cassandra provide more flexibility with the specific data structure:
 			// The wrapper provide the methods to manage this data structure:
-			// Example: to store an user into the colomnFamily "Users"
+			// Example: to store an user into the colomnFamily "User"
 			// Define a Map with all the columnName/Value you need
 			//		. the columnName is a String
 			//		. the value is a byte[]
@@ -50,37 +50,37 @@ public class MyMedUsualOperations {
 
 			// Call the "insertInto(tableName, primaryKey, args)" method:
 			//		. you have to specify the primary key like in sql
-			if(!storageManager.insertSlice("Users", "id", arguments)){
-				System.err.println("Users not insered!");
+			if(!storageManager.insertSlice("User", "12345", arguments)){
+				System.err.println("User not insered!");
 				System.exit(1);
 			}
 
 			// Then to retrieve a the value of a simple column you can call:
 			System.out.println("2) selectColum:");
-			System.out.println("\t" + new String(storageManager.selectColumn("Users", "12345", "name")));
+			System.out.println("\t" + new String(storageManager.selectColumn("User", "12345", "name")));
 			System.out.println();
 
 			// To retrieve all the values just call: selectAll(tableName, primaryKey)
 			System.out.println("3) selectAll:");
-			Map<byte[], byte[]> values = storageManager.selectAll("Users", "12345");
+			Map<byte[], byte[]> values = storageManager.selectAll("User", "12345");
 			for(byte[] s : values.keySet()){
 				System.out.println("\t" + new String(values.get(s)));
 			}
 			System.out.println();
 
 			// To update the value of a specific column 
-			storageManager.insertColumn("Users", "12345", "name", "Mrs Robinson".getBytes("UTF8"));
+			storageManager.insertColumn("User", "12345", "name", "Mrs Robinson".getBytes("UTF8"));
 			System.out.println("4) update Value:");
-			values = storageManager.selectAll("Users", "12345");
+			values = storageManager.selectAll("User", "12345");
 			for(byte[] s : values.keySet()){
 				System.out.println("\t" + new String(values.get(s)));
 			}
 			System.out.println();
 
 			// To remove a specific column
-			//			wrapper.removeColumn("Users", "12345", "name");
+			//			wrapper.removeColumn("User", "12345", "name");
 			//			System.out.println("5) remove column:");
-			//			values = wrapper.selectAll("Users", "12345");
+			//			values = wrapper.selectAll("User", "12345");
 			//			for(byte[] s : values.keySet()){
 			//				System.out.println("\t" + new String(values.get(s)));
 			//			}
@@ -96,13 +96,13 @@ public class MyMedUsualOperations {
 
 			// Call the "insertInto(tableName, primaryKey, args)" method:
 			//		. you have to specify the primary key like in sql
-			if(!storageManager.insertSlice("Users", "id", arguments2)){
-				System.err.println("Users not insered!");
+			if(!storageManager.insertSlice("User", "rangetest", arguments2)){
+				System.err.println("User not insered!");
 				System.exit(1);
 			}
 			// To retrieve all the values just call: selectAll(tableName, primaryKey)
 			System.out.println("3) selectRange:");
-			Map<byte[], byte[]> values2 = storageManager.selectRange("Users", "rangetest", columnNames); 
+			Map<byte[], byte[]> values2 = storageManager.selectRange("User", "rangetest", columnNames); 
 			for(byte[] s : values2.keySet()){
 				System.out.println("\t" + new String(values2.get(s)));
 			}

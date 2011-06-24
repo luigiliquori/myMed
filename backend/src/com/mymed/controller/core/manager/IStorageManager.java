@@ -1,5 +1,6 @@
 package com.mymed.controller.core.manager;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
@@ -71,6 +72,27 @@ public interface IStorageManager {
 			String columnName, byte[] value) throws ServiceManagerException, IOBackEndException, InternalBackEndException;
 
 	/**
+	 * Update the value of a Super Column
+	 * 
+	 * @param tableName
+	 *            the name of the Table/ColumnFamily
+	 * @param key
+	 *            the ID of the entry
+	 * @param superColumn
+	 *            the ID of the superColumn
+	 * @param columnName
+	 *            the name of the column
+	 * @param value
+	 *            the value updated
+	 * @return true is the value is updated, false otherwise
+	 * @throws ServiceManagerException
+	 * @throws InternalBackEndException
+	 */
+	public void insertSuperColumn(String tableName, String key, String superKey,
+			String columnName, byte[] value) throws ServiceManagerException,
+			InternalBackEndException;
+	
+	/**
 	 * Get the value of a column family
 	 * 
 	 * @param tableName
@@ -112,6 +134,19 @@ public interface IStorageManager {
 	public void removeColumn(String tableName, String key, String columnName)
 			throws ServiceManagerException, IOBackEndException, InternalBackEndException;
 
+	/**
+	 * Remove an entry in the columnFamily
+	 * 
+	 * @param keyspace
+	 * @param columnFamily
+	 * @param key
+	 * @throws ServiceManagerException
+	 * @throws InternalBackEndException
+	 * @throws UnsupportedEncodingException
+	 */
+	public void removeAll(String tableName, String key)
+			throws ServiceManagerException, InternalBackEndException;
+	
 	/**
 	 * Common put operation
 	 * 

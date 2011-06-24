@@ -18,7 +18,11 @@ public class SessionManager extends AbstractManager implements ISessionManager {
 	/* Constructors */
 	/* --------------------------------------------------------- */
 	public SessionManager() throws InternalBackEndException {
-		super(new StorageManager(WrapperType.CASSANDRA));
+		this(new StorageManager(WrapperType.CASSANDRA));
+	}
+	
+	public SessionManager(StorageManager storageManager) throws InternalBackEndException {
+		super(storageManager);
 	}
 
 	/* --------------------------------------------------------- */

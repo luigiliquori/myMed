@@ -11,7 +11,6 @@ import org.apache.cassandra.thrift.Column;
 import org.apache.cassandra.thrift.ColumnOrSuperColumn;
 import org.apache.cassandra.thrift.ColumnParent;
 import org.apache.cassandra.thrift.ColumnPath;
-import org.apache.cassandra.thrift.ConsistencyLevel;
 import org.apache.cassandra.thrift.SlicePredicate;
 import org.apache.cassandra.thrift.SliceRange;
 
@@ -113,7 +112,7 @@ public class StorageManager implements IStorageManager {
 	 * 
 	 * @param tableName
 	 *            the name of the Table/ColumnFamily
-	 * @param primaryKey
+	 * @param key
 	 *            the ID of the entry
 	 * @param columnName
 	 *            the name of the column
@@ -122,7 +121,7 @@ public class StorageManager implements IStorageManager {
 	 * @throws IOBackEndException
 	 * @throws InternalBackEndException
 	 */
-	public byte[] selectColumn(String tableName, String primaryKey,
+	public byte[] selectColumn(String tableName, String key,
 			String columnName) throws ServiceManagerException,
 			InternalBackEndException, IOBackEndException {
 		if (!type.equals(WrapperType.CASSANDRA)) {
@@ -134,7 +133,7 @@ public class StorageManager implements IStorageManager {
 				CassandraWrapper cassandraWrapper = (CassandraWrapper) this.wrapper;
 				ColumnPath colPathName = new ColumnPath(tableName);
 				colPathName.setColumn(columnName.getBytes("UTF8"));
-				return cassandraWrapper.get("Mymed", primaryKey, colPathName,
+				return cassandraWrapper.get("Mymed", key, colPathName,
 						StorageManager.consistencyOnRead).getColumn()
 						.getValue();
 			} catch (UnsupportedEncodingException e) {
@@ -142,7 +141,7 @@ public class StorageManager implements IStorageManager {
 				throw new ServiceManagerException(
 						"UnsupportedEncodingException with\n"
 								+ "\t- columnFamily = " + tableName + "\n"
-								+ "\t- primaryKey = " + primaryKey + "\n"
+								+ "\t- key = " + key + "\n"
 								+ "\t- columnName = " + columnName + "\n");
 			}
 		}
@@ -153,7 +152,7 @@ public class StorageManager implements IStorageManager {
 	 * 
 	 * @param tableName
 	 *            the name of the Table/ColumnFamily
-	 * @param primaryKey
+	 * @param key
 	 *            the ID of the entry
 	 * @param columnName
 	 *            the name of the column
@@ -161,7 +160,7 @@ public class StorageManager implements IStorageManager {
 	 * @throws InternalBackEndException
 	 * @throws IOBackEndException
 	 */
-	public Map<byte[], byte[]> selectAll(String tableName, String primaryKey)
+	public Map<byte[], byte[]> selectAll(String tableName, String key)
 			throws ServiceManagerException, InternalBackEndException,
 			IOBackEndException {
 		if (!type.equals(WrapperType.CASSANDRA)) {
@@ -175,7 +174,7 @@ public class StorageManager implements IStorageManager {
 			sliceRange.setFinish(new byte[0]);
 			predicate.setSlice_range(sliceRange);
 
-			return selectByPredicate(tableName, primaryKey, predicate);
+			return selectByPredicate(tableName, key, predicate);
 		}
 	}
 
@@ -184,7 +183,7 @@ public class StorageManager implements IStorageManager {
 	 * 
 	 * @param tableName
 	 *            the name of the Table/ColumnFamily
-	 * @param primaryKey
+	 * @param key
 	 *            the ID of the entry
 	 * @param columnNames
 	 *            the name of the columns to return the values
@@ -192,7 +191,7 @@ public class StorageManager implements IStorageManager {
 	 * @throws InternalBackEndException
 	 * @throws IOBackEndException
 	 */
-	public Map<byte[], byte[]> selectRange(String tableName, String primaryKey,
+	public Map<byte[], byte[]> selectRange(String tableName, String key,
 			List<String> columnNames) throws ServiceManagerException,
 			InternalBackEndException, IOBackEndException {
 		if (!type.equals(WrapperType.CASSANDRA)) {
@@ -208,14 +207,14 @@ public class StorageManager implements IStorageManager {
 					throw new ServiceManagerException(
 							"UnsupportedEncodingException with"
 									+ "\n\t- columnFamily = " + tableName
-									+ "\n\t- primaryKey = " + primaryKey
+									+ "\n\t- key = " + key
 									+ "\n\t- columnFamily = " + columnName
 									+ "\n");
 				}
 			}
 			SlicePredicate predicate = new SlicePredicate();
 			predicate.setColumn_names(columnNamesToByte);
-			return selectByPredicate(tableName, primaryKey, predicate);
+			return selectByPredicate(tableName, key, predicate);
 		}
 	}
 
@@ -223,14 +222,14 @@ public class StorageManager implements IStorageManager {
 	 * Used by selectAll and selectRange
 	 */
 	private Map<byte[], byte[]> selectByPredicate(String columnFamily,
-			String primaryKey, SlicePredicate predicate)
+			String key, SlicePredicate predicate)
 			throws InternalBackEndException, IOBackEndException {
 		CassandraWrapper cassandraWrapper = (CassandraWrapper) this.wrapper;
 		String keyspace = "Mymed";
 
 		ColumnParent parent = new ColumnParent(columnFamily);
 		List<ColumnOrSuperColumn> results = cassandraWrapper.get_slice(
-				keyspace, primaryKey, parent, predicate, consistencyOnRead);
+				keyspace, key, parent, predicate, consistencyOnRead);
 
 		Map<byte[], byte[]> slice = new HashMap<byte[], byte[]>();
 		for (ColumnOrSuperColumn res : results) {
@@ -240,13 +239,13 @@ public class StorageManager implements IStorageManager {
 
 		return slice;
 	}
-
+	
 	/**
 	 * Update the value of a Simple Column
 	 * 
 	 * @param tableName
 	 *            the name of the Table/ColumnFamily
-	 * @param primaryKey
+	 * @param key
 	 *            the ID of the entry
 	 * @param columnName
 	 *            the name of the column
@@ -256,7 +255,7 @@ public class StorageManager implements IStorageManager {
 	 * @throws ServiceManagerException
 	 * @throws InternalBackEndException
 	 */
-	public void insertColumn(String tableName, String primaryKey,
+	public void insertColumn(String tableName, String key,
 			String columnName, byte[] value) throws ServiceManagerException,
 			InternalBackEndException {
 		if (!type.equals(WrapperType.CASSANDRA)) {
@@ -268,14 +267,58 @@ public class StorageManager implements IStorageManager {
 				ColumnPath colPathName = new ColumnPath(tableName);
 				colPathName.setColumn(columnName.getBytes("UTF8"));
 				long timestamp = System.currentTimeMillis();
-				cassandraWrapper.insert("Mymed", primaryKey, colPathName,
+				cassandraWrapper.insert("Mymed", key, colPathName,
 						value, timestamp, consistencyOnWrite);
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 				throw new ServiceManagerException(
 						"UnsupportedEncodingException with\n"
 								+ "\t- columnFamily = " + tableName + "\n"
-								+ "\t- primaryKey = " + primaryKey + "\n"
+								+ "\t- key = " + key + "\n"
+								+ "\t- columnName = " + columnName + "\n");
+			}
+		}
+	}
+	
+	/**
+	 * Update the value of a Super Column
+	 * 
+	 * @param tableName
+	 *            the name of the Table/ColumnFamily
+	 * @param key
+	 *            the ID of the entry
+	 * @param superColumn
+	 *            the ID of the superColumn
+	 * @param columnName
+	 *            the name of the column
+	 * @param value
+	 *            the value updated
+	 * @return true is the value is updated, false otherwise
+	 * @throws ServiceManagerException
+	 * @throws InternalBackEndException
+	 */
+	public void insertSuperColumn(String tableName, String key, String superKey,
+			String columnName, byte[] value) throws ServiceManagerException,
+			InternalBackEndException {
+		if (!type.equals(WrapperType.CASSANDRA)) {
+			throw new ServiceManagerException(
+					"selectAll is not yet supported by the DHT type: " + type);
+		} else {
+			try {
+				CassandraWrapper cassandraWrapper = (CassandraWrapper) this.wrapper;
+				ColumnPath colPathName = new ColumnPath(tableName);
+				// SUPER COLUMN
+				colPathName.setSuper_column(superKey.getBytes("UTF8"));
+				colPathName.setColumn(columnName.getBytes("UTF8"));
+				long timestamp = System.currentTimeMillis();
+				cassandraWrapper.insert("Mymed", key, colPathName,
+						value, timestamp, consistencyOnWrite);
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+				throw new ServiceManagerException(
+						"UnsupportedEncodingException with\n"
+								+ "\t- columnFamily = " + tableName + "\n"
+								+ "\t- key = " + key + "\n"
 								+ "\t- columnName = " + columnName + "\n");
 			}
 		}
@@ -286,7 +329,7 @@ public class StorageManager implements IStorageManager {
 	 * 
 	 * @param tableName
 	 *            the name of the Table/ColumnFamily
-	 * @param primaryKey
+	 * @param key
 	 *            the ID of the entry
 	 * @param args
 	 *            All columnName and the their value
@@ -294,7 +337,8 @@ public class StorageManager implements IStorageManager {
 	 * @throws ServiceManagerException
 	 * @throws InternalBackEndException
 	 */
-	public boolean insertSlice(String tableName, String primaryKey,
+	// TODO FIX this method!!!!
+	public boolean insertSlice(String tableName, String key,
 			Map<String, byte[]> args) throws ServiceManagerException,
 			InternalBackEndException {
 		if (!type.equals(WrapperType.CASSANDRA)) {
@@ -302,11 +346,7 @@ public class StorageManager implements IStorageManager {
 					"insertInto is not yet supported by the DHT type: " + type);
 		} else {
 			for (String columnName : args.keySet()) {
-				System.out.println("primaryKey: " + primaryKey);
-				System.out.print("\n\tcolumn: " + columnName);
-				System.out.print("\n\tvalue: " + args
-						.get(columnName));
-				this.insertColumn(tableName, primaryKey, columnName, args
+				this.insertColumn(tableName, key, columnName, args
 						.get(columnName));
 			}
 			return true;

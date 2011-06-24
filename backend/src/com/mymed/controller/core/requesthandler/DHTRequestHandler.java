@@ -36,7 +36,7 @@ public class DHTRequestHandler extends AbstractRequestHandler {
 	public DHTRequestHandler() throws ServletException {
 		super();
 		try {
-			this.dhtManager = new DHTManager(WrapperType.CASSANDRA);
+			this.dhtManager = new DHTManager();
 		} catch (InternalBackEndException e) {
 			throw new ServletException("DHTManager is not accessible because: " + e.getMessage());
 		}
