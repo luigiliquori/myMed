@@ -5,7 +5,6 @@ body {
 	font-size:11px;
 	background-color: white;
 }
-
 a {
 	color: #051893;
 	text-decoration: none;
@@ -61,7 +60,56 @@ div.table>* {
 div.table>*>* {
 	display:table-cell;
 }
-a.mymed ,a.twitter ,a.guest ,a.google ,a.openid {
+form.openid {
+	height: 24px;
+}
+form.openid * {
+	vertical-align	: middle;
+}
+form.openid label {
+	background-image	: url("../img/login/oid_label.png");
+	width: 25px;
+	height: 24px;
+}
+form.openid button span ,
+form.openid label span {
+	display	: none;
+}
+form.openid input {
+	height: 22px;
+	width: 238px;
+	border: none 0;
+	border-top		: solid 1px #777777;
+	border-bottom	: solid 1px #777777;
+	margin: 0;
+	padding	: 0 0.9ex;
+}
+form.openid button {
+	background-image	: url("../img/login/oid_button.png");
+	padding	: 0;
+	border	: 0 none;
+	width	: 57px;
+	height	: 24px;
+	cursor	: pointer;
+}
+form.openid button::-moz-focus-inner {
+	padding	: 0;
+	border	: 0 none;
+}
+a.mymed ,
+a.twitter ,
+a.guest ,
+a.google ,
+a.openid ,
+a.aol ,
+a.myopenid ,
+a.orange ,
+a.steam ,
+a.verisign ,
+a.wordpress ,
+a.yahoo ,
+a.liveid ,
+a.facebook /**/ {
 	display	: inline;
 	display	: inline-block;
 	border	: none 0;
@@ -69,17 +117,36 @@ a.mymed ,a.twitter ,a.guest ,a.google ,a.openid {
 	height	: 24px;
 	cursor	: pointer;
 }
-a.mymed:hover ,a.twitter:hover ,a.guest:hover ,a.google:hover ,a.openid:hover {
-}
-a.mymed span ,a.twitter span ,a.guest span ,a.google span  ,a.openid span {
+a.mymed span ,
+a.twitter span ,
+a.guest span ,
+a.google span  ,
+a.openid span ,
+a.aol span ,
+a.myopenid span ,
+a.orange span ,
+a.steam span ,
+a.verisign span ,
+a.wordpress span ,
+a.yahoo span,
+a.liveid span,
+a.facebook span /**/ {
 	visibility:hidden;;
 }
-a.mymed {
-	background-image:url("../img/loginwith_mymed.png");
-}
-a.twitter {
-	background-image:url("../img/loginwith_twitter.png");
-}
+a.mymed 	{	background-image:url("../img/login/mymed.png");}
+a.twitter 	{	background-image:url("../img/login/twitter.png");}
+a.guest 	{	background-image:url("../img/login/guest");}
+a.google 	{	background-image:url("../img/login/google4.png");}
+a.openid 	{	background-image:url("../img/login/openid.png");}
+a.aol 		{	background-image:url("../img/login/aol.png");}
+a.myopenid 	{	background-image:url("../img/login/myopenid.png");}
+a.orange 	{	background-image:url("../img/login/orange.png");}
+a.steam 	{	background-image:url("../img/login/steam.png");}
+a.verisign 	{	background-image:url("../img/login/verisign.png");}
+a.wordpress {	background-image:url("../img/login/wordpress.png");}
+a.yahoo 	{	background-image:url("../img/login/yahoo.png");}
+a.liveid 	{	background-image:url("../img/login/liveid.png");}
+a.facebook 	{	background-image:url("../img/login/facebook.png");}/*
 a.facebook {
 	display	: inline;
 	display	: inline-block;
@@ -107,16 +174,7 @@ a.facebook span {
 	height:100%;
 	line-height:20px;
 	padding:0 6px;
-}
-a.guest {
-	background-image:url("../img/loginasguest");
-}
-a.google {
-	background-image:url("../img/loginwith_google3.png");
-}
-a.openid {
-	background-image:url("../img/loginwith_openid.png");
-}
+}/**/
 div.error {
 	position	: absolute;
 	top			: 0;

@@ -45,7 +45,7 @@
 <?php else:?>
 				<!-- Connection -->
 		  		<div id="connexion" class="title">
-		  			<div>Connectez-vous avec votre compte&nbsp;: <?php $this->button();?></div>
+		  			<div>Connectez-vous avec votre compte&nbsp;: <div class="buttonList"><div class="main"><?php $this->mainButtons();?></div><div class="minor"><?php $this->minorButtons();?></div></div></div>
 		  			<div>Ou simplement en tant que&nbsp;: <?php $this->guestButton();?></div>
 		  		</div>
 <?php endif;?>

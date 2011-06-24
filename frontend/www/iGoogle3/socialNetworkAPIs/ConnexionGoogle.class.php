@@ -1,17 +1,17 @@
 <?php
-require_once dirname(__FILE__).'/ConnexionOpenId.class.php';
+require_once dirname(__FILE__).'/ConnexionAutoOpenId.class.php';
 require_once dirname(__FILE__).'/Auth/OAuth.php';
 /**
  * A class to define a OpenId login
  * @author blanchard
  */
-class ConnexionGoogle extends ConnexionOpenId
+class ConnexionGoogle extends ConnexionAutoOpenId
 {
 	protected $social_network = 'Google';
 	private	$oAuthConsumer;
 	public function __construct()
 	{
-		if(isset($_REQUEST['connexionProvider'])&&$_REQUEST['connexionProvider']=='Google')
+		if(isset($_REQUEST['connexionProvider'])&&$_REQUEST['connexionProvider']==$this->social_network)
 		{
 			$this->oAuthConsumer	= new OAuthConsumer($_SERVER['HTTP_HOST'], 'LCQZrwojk1KdSf1ARurdjIr8');
 			parent::__construct();
@@ -22,8 +22,8 @@ class ConnexionGoogle extends ConnexionOpenId
 	 */
 	protected /*void*/ function tryConnect()
 	{
-		if(isset($_REQUEST['connexion'], $_REQUEST['uri'])&&$_REQUEST['connexion']=='openid')
-			$this->redirectProvider($_REQUEST['uri']);
+		if(isset($_REQUEST['connexion'], $_REQUEST['oidUri'])&&$_REQUEST['connexion']=='openid')
+			$this->redirectProvider($_REQUEST['oidUri']);
 		elseif(isset($_GET['janrain_nonce']))
 		{
 			$data	= $this->connect();
@@ -138,13 +138,11 @@ class ConnexionGoogle extends ConnexionOpenId
 		$auth->addExtensionArg('http://specs.openid.net/extensions/oauth/1.0', 'scope', 'https://www.google.com/m8/feeds/ http://www-opensocial.googleusercontent.com/api/people/');
 	}
 	/**
-	 * Print the connexion's button
+	 * Récupère l'URL à appeler par OpenId pour la connexion
 	 */
-	public /*void*/ function button()
+	public /*string*/ function getProviderUrl()
 	{
-?>
-		<a href="?connexion=openid&amp;connexionProvider=Google&amp;uri=https://www.google.com/accounts/o8/id" class="google"><span>Google</span></a>
-<?php
+		return 'https://www.google.com/accounts/o8/id';
 	}
 }
 ?>

@@ -9,7 +9,7 @@
 {
 	$_SESSION['error']	= $msg;
 	if($removeGetVar)
-		header('Location:'.$_SERVER['PHP_SELF']);
+		header('Location:'.preg_replace('#\\?.*$#', '', $_SERVER['REQUEST_URI']));
 	else
 		header('Location:'.$_SERVER['REQUEST_URI']);
 	exit;

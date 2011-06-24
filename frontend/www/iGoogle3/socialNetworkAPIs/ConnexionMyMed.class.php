@@ -1,28 +1,18 @@
 <?php
-require_once dirname(__FILE__).'/ConnexionOpenId.class.php';
+require_once dirname(__FILE__).'/ConnexionAutoOpenId.class.php';
 /**
  * A class to define a myMed login
  * @author blanchard
  */
-class ConnexionMyMed extends ConnexionOpenId
+class ConnexionMyMed extends ConnexionAutoOpenId
 {
 	protected $social_network = 'myMed';
-	public function __construct()
-	{
-		if(isset($_REQUEST['connexionProvider'])&&$_REQUEST['connexionProvider']=='myMed')
-		{
-			$this->consumer = new Auth_OpenID_Consumer(new Auth_OpenID_FileStore('/tmp/oid_store'));
-			static::tryConnect();
-		}
-	}
 	/**
-	 * Print the connexion's button
+	 * Récupère l'URL à appeler par OpenId pour la connexion
 	 */
-	public /*void*/ function button()
+	public /*string*/ function getProviderUrl()
 	{
-?>
-		<a href="?connexion=openid&amp;connexionProvider=myMed&amp;uri=http://<?=$_SERVER["HTTP_HOST"].ROOTPATH?>openid" class="mymed"><span>MyMed</span></a>
-<?php
+		return 'http://'.$_SERVER["HTTP_HOST"].ROOTPATH.'openid';
 	}
 }
 ?>

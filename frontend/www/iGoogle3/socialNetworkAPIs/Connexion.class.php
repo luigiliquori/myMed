@@ -46,7 +46,7 @@ abstract class Connexion
 			$query_string	= http_build_query($_GET);
 			if($query_string != "")
 				$query_string = '?'.$query_string;
-			header('Location:http://'.$_SERVER["HTTP_HOST"].$_SERVER["SCRIPT_NAME"].$query_string);
+			header('Location:http://'.$_SERVER['HTTP_HOST'].preg_replace('#\\?.*$#', '', $_SERVER['REQUEST_URI']).$query_string);
 			exit;
 		}
 		catch(Exception $ex)

@@ -9,6 +9,7 @@ define('OPENID_KEY_FULLNAME', 1);
 define('OPENID_KEY_GENDER', 2);
 define('OPENID_KEY_LANGUAGE', 3);
 define('OPENID_KEY_DATEOFBIRTH', 4);
+define('OPENID_KEY_URLAVATAR', 5);
 /**
  * A class to define a OpenId login
  * @author blanchard
@@ -32,8 +33,8 @@ class ConnexionOpenId extends Connexion
 	 */
 	protected /*void*/ function tryConnect()
 	{
-		if(isset($_REQUEST['connexion'], $_REQUEST['uri'])&&$_REQUEST['connexion']=='openid')
-			$this->redirectProvider($_REQUEST['uri']);
+		if(isset($_REQUEST['connexion'], $_REQUEST['oidUri'])&&$_REQUEST['connexion']=='openid')
+			$this->redirectProvider($_REQUEST['oidUri']);
 		elseif(isset($_GET['janrain_nonce']))
 		{
 			$data	= $this->connect();
@@ -45,6 +46,7 @@ class ConnexionOpenId extends Connexion
 			$_SESSION['user']->gender			= self::getField($data, OPENID_KEY_GENDER);
 			$_SESSION['user']->link				= self::getField($data, OPENID_KEY_ID);
 			$_SESSION['user']->birthday			= self::getField($data, OPENID_KEY_DATEOFBIRTH);
+			$_SESSION['user']->profilePicture	= self::getField($data, OPENID_KEY_URLAVATAR);
 			//var_dump($data);var_dump($_SESSION);exit;
 			$this->redirectAfterConnection();
 		}
@@ -61,6 +63,8 @@ class ConnexionOpenId extends Connexion
 			{
 				if(isset($data['sreg']['fullname']))
 					return $data['sreg']['fullname'];
+				else if(isset($data['ax']['value.fullname']))
+					return $data['ax']['value.fullname'];
 				else
 				{
 					$return = @$data['ax']['value.firstname'];
@@ -79,9 +83,9 @@ class ConnexionOpenId extends Connexion
 				elseif(isset($data['ax']['value.gender']))
 					$return = $data['ax']['value.gender'];
 				if(strcasecmp($return,'M')===0)
-					return 'homme';
+					return 'M';
 				elseif(strcasecmp($return,'F')===0)
-					return 'femme';
+					return 'F';
 					
 			}break;
 			case OPENID_KEY_LANGUAGE:
@@ -98,6 +102,11 @@ class ConnexionOpenId extends Connexion
 				elseif(isset($data['ax']['value.dob']))
 					return $data['ax']['value.dob'];
 			}break;
+			case OPENID_KEY_URLAVATAR:
+			{
+				if(isset($data['ax']['value.image']))
+					return $data['ax']['value.image'];
+			}break;
 		}
 		return $default;
 	}
@@ -109,16 +118,18 @@ class ConnexionOpenId extends Connexion
 	{
 		$auth->addExtension(Auth_OpenID_SRegRequest::build(
 				/*required*/array('fullname'), 
-				/*optional*/array('gender', 'language', 'dob'))); // fonctionne sur myOpenId mais pas google
+				/*optional*/array('gender', 'dob'))); // fonctionne sur myOpenId mais pas google
 		// fonctionne sur google mais pas myOpenId
 		$auth->addExtensionArg('http://openid.net/srv/ax/1.0', 'mode', 'fetch_request');
-		$auth->addExtensionArg('http://openid.net/srv/ax/1.0', 'required', 'firstname,lastname,language,gender,dob');
+		$auth->addExtensionArg('http://openid.net/srv/ax/1.0', 'required', 'fullname,firstname,lastname,gender,dob,image');
 //		$auth->addExtensionArg('http://openid.net/srv/ax/1.0', 'type.email', 'http://schema.openid.net/contact/email');
+		$auth->addExtensionArg('http://openid.net/srv/ax/1.0', 'type.fullname', 'http://axschema.org/namePerson');
 		$auth->addExtensionArg('http://openid.net/srv/ax/1.0', 'type.firstname', 'http://axschema.org/namePerson/first');
 		$auth->addExtensionArg('http://openid.net/srv/ax/1.0', 'type.lastname', 'http://axschema.org/namePerson/last');
-		$auth->addExtensionArg('http://openid.net/srv/ax/1.0', 'type.language', 'http://axschema.org/pref/language');
+//		$auth->addExtensionArg('http://openid.net/srv/ax/1.0', 'type.language', 'http://axschema.org/pref/language');
 		$auth->addExtensionArg('http://openid.net/srv/ax/1.0', 'type.gender', 'http://axschema.org/person/gender');
 		$auth->addExtensionArg('http://openid.net/srv/ax/1.0', 'type.dob', 'http://axschema.org/birthDate');
+		$auth->addExtensionArg('http://openid.net/srv/ax/1.0', 'type.image', 'http://axschema.org/media/image/default');
 	}
 	/**
 	 * Redirect to login on provider
@@ -132,8 +143,8 @@ class ConnexionOpenId extends Connexion
 		static::initExtensions($auth);
 	    
 		unset($_GET['connexion']);
-		unset($_GET['uri']);
-		$callbackUrl = 'https://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'].'?'.http_build_query($_GET);
+		unset($_GET['oidUri']);
+		$callbackUrl = 'https://'.$_SERVER['HTTP_HOST'].preg_replace('#\\?.*$#', '', $_SERVER['REQUEST_URI']).'?'.http_build_query($_GET);
 		if($auth->shouldSendRedirect())
 		{
 			$redirect = $auth->redirectURL('https://'.$_SERVER["HTTP_HOST"], $callbackUrl);
@@ -174,19 +185,18 @@ class ConnexionOpenId extends Connexion
 	 */
 	public /*void*/ function button()
 	{
-		if(isset($_GET['connexion'])&&$_GET['connexion']=='openid')
-		{
-?>
-		<form method="post" action="" class="openid"><!--
+		//if(isset($_GET['connexion'])&&$_GET['connexion']=='openid')
+		//{
+?><form method="post" action="" class="openid"><!--
 			--><div class="hidden"><!--
 				--><input type="hidden" name="connexion" value="openid" /><!--
 			--></div><!--
 			--><div title="Entrez l'URI de votre OpenId"><!--
-				--><label for="uri">URI&nbsp;:</label><!--
+				--><label for="oidUri"><span>URI&#160;:</span></label><!--
 				--><input 
 					type="text" 
-					name="uri" 
-					id="uri" 
+					name="oidUri" 
+					id="oidUri" 
 					placeholder="Entrez l'URI de votre OpenId" 
 					size="24" 
 					maxsize="255" /><!--
@@ -194,19 +204,16 @@ class ConnexionOpenId extends Connexion
 			--><div class="submitRow"><!--
 				--><div></div><!--
 				--><div><!--
-					--><a class="cancel" href="<?=ROOTPATH?>">Annuler</a><!--
-					--><button type="submit">Connecter</button><!--
+					<a class="cancel" href="<?=ROOTPATH?>">Annuler</a>
+					--><button type="submit"><span>Connecter</span></button><!--
 				--></div><!--
 			--></div><!--
-		--></form>
-<?php
-		}
-		else
-		{
-?>
-		<a href="?connexion=openid" class="openid"><span>OpenId</span></a>
-<?php
-		}
+		--></form><?php
+		//}
+		//else
+		//{
+//><a href="?connexion=openid" class="openid"><span>OpenId</span></a><?php
+		//}
 	}
 }
 ?>

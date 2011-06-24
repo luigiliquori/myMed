@@ -21,9 +21,7 @@ class ConnexionGuest extends Connexion
 	 */
 	public /*void*/ function button()
 	{
-?>
-		<a href="?connexion=guest" class="guest"><span>Visiteur</span></a>
-<?php
+?><a href="?connexion=guest" class="guest"><span>Visiteur</span></a><?php
 	}
 }
 ?>

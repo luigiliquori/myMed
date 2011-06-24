@@ -47,9 +47,7 @@ class ConnexionFacebook extends Connexion
 	public /*void*/ function button()
 	{
 		$url = $this->facebook->getLoginUrl();
-?>
-		<a href="<?php echo htmlspecialchars($url);?>" class="facebook"><span>Facebook</span></a>
-<?php
+?><a href="<?php echo htmlspecialchars($url);?>" class="facebook"><span>Facebook</span></a><?php
 	}
 }
 ?>
