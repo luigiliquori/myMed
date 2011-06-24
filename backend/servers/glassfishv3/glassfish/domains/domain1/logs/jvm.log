@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<hotspot_log version='160 1' process='2400' time_ms='1308562739184'>
+<hotspot_log version='160 1' process='2659' time_ms='1308911767038'>
 <vm_version>
 <name>
 OpenJDK Client VM
@@ -58,61 +58,65 @@ sun.java.launcher=SUN_STANDARD
 </properties>
 </vm_arguments>
 <tty>
-<writer thread='-2020607120'/>
-<dependency_failed type='leaf_type' ctxk='java/io/ByteArrayOutputStream' witness='com/sun/common/util/logging/LoggingOutputStream' stamp='16,052'/>
-<dependency_failed type='leaf_type' ctxk='java/io/ObjectOutputStream' witness='com/sun/enterprise/naming/util/OSGiObjectInputOutputStreamFactoryImpl$OSGiObjectOutputStream' stamp='16,196'/>
-<dependency_failed type='leaf_type' ctxk='org/jvnet/hk2/component/MultiMap' witness='org/glassfish/api/admin/ParameterMap' stamp='16,885'/>
-<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/enterprise/config/serverbeans/Applications$Duck$1' stamp='17,261'/>
-<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/enterprise/config/serverbeans/Applications$Duck$1' stamp='17,261'/>
-<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/enterprise/config/serverbeans/Applications$Duck$1' stamp='17,261'/>
-<dependency_failed type='no_finalizable_subclasses' ctxk='java/io/FilterInputStream' witness='com/sun/enterprise/loader/ASURLClassLoader$SentinelInputStream' stamp='18,017'/>
-<dependency_failed type='unique_concrete_method' x='java/lang/SecurityManager checkPackageAccess (Ljava/lang/String;)V' witness='com/sun/enterprise/security/J2EESecurityManager' stamp='18,642'/>
-<dependency_failed type='unique_concrete_method' x='java/lang/SecurityManager checkPropertyAccess (Ljava/lang/String;)V' witness='com/sun/enterprise/security/J2EESecurityManager' stamp='18,642'/>
-<dependency_failed type='unique_concrete_method' x='java/lang/SecurityManager checkPropertyAccess (Ljava/lang/String;)V' witness='com/sun/enterprise/security/J2EESecurityManager' stamp='18,642'/>
-<dependency_failed type='unique_concrete_method' x='java/util/Vector add (Ljava/lang/Object;)Z' witness='com/sun/enterprise/deployment/OrderedSet' stamp='19,135'/>
-<dependency_failed type='unique_concrete_method' x='java/io/ObjectOutputStream replaceObject (Ljava/lang/Object;)Ljava/lang/Object;' witness='com/sun/enterprise/container/common/spi/util/JavaEEObjectOutputStream' stamp='19,476'/>
-<dependency_failed type='unique_concrete_method' x='java/lang/ThreadLocal get ()Ljava/lang/Object;' witness='org/glassfish/web/admin/monitor/HttpServiceStatsProvider$1' stamp='19,485'/>
-<dependency_failed type='unique_concrete_method' x='java/lang/ThreadLocal get ()Ljava/lang/Object;' witness='org/glassfish/web/admin/monitor/HttpServiceStatsProvider$1' stamp='19,485'/>
-<dependency_failed type='unique_concrete_method' x='java/lang/ThreadLocal get ()Ljava/lang/Object;' witness='org/glassfish/web/admin/monitor/HttpServiceStatsProvider$1' stamp='19,485'/>
-<dependency_failed type='unique_concrete_method' x='java/lang/ThreadLocal get ()Ljava/lang/Object;' witness='org/glassfish/web/admin/monitor/HttpServiceStatsProvider$1' stamp='19,485'/>
-<dependency_failed type='unique_concrete_method' x='java/lang/ThreadLocal get ()Ljava/lang/Object;' witness='org/glassfish/web/admin/monitor/HttpServiceStatsProvider$1' stamp='19,485'/>
-<dependency_failed type='unique_concrete_method' x='java/lang/ThreadLocal get ()Ljava/lang/Object;' witness='org/glassfish/web/admin/monitor/HttpServiceStatsProvider$1' stamp='19,485'/>
-<dependency_failed type='unique_concrete_method' x='java/lang/ThreadLocal get ()Ljava/lang/Object;' witness='org/glassfish/web/admin/monitor/HttpServiceStatsProvider$1' stamp='19,485'/>
-<dependency_failed type='unique_concrete_method' x='java/lang/ThreadLocal get ()Ljava/lang/Object;' witness='org/glassfish/web/admin/monitor/HttpServiceStatsProvider$1' stamp='19,485'/>
-<dependency_failed type='leaf_type' ctxk='java/util/logging/Level' witness='com/sun/enterprise/util/logging/IASLevel' stamp='19,571'/>
-<dependency_failed type='unique_concrete_method' ctxk='org/apache/felix/moduleloader/IWire' x='org/apache/felix/framework/searchpolicy/R4Wire getCapability ()Lorg/apache/felix/moduleloader/ICapability;' witness='org/apache/felix/moduleloader/IWire' stamp='20,459'/>
-<dependency_failed type='unique_concrete_method' ctxk='org/apache/felix/moduleloader/IWire' x='org/apache/felix/framework/searchpolicy/R4Wire hasPackage (Ljava/lang/String;)Z' witness='org/apache/felix/moduleloader/IWire' stamp='20,459'/>
-<dependency_failed type='unique_concrete_method' ctxk='org/apache/felix/moduleloader/IWire' x='org/apache/felix/framework/searchpolicy/R4Wire getCapability ()Lorg/apache/felix/moduleloader/ICapability;' witness='org/apache/felix/moduleloader/IWire' stamp='20,459'/>
-<dependency_failed type='unique_concrete_method' ctxk='org/apache/felix/moduleloader/IWire' x='org/apache/felix/framework/searchpolicy/R4Wire getCapability ()Lorg/apache/felix/moduleloader/ICapability;' witness='org/apache/felix/moduleloader/IWire' stamp='20,459'/>
-<dependency_failed type='unique_concrete_method' ctxk='org/apache/felix/moduleloader/IWire' x='org/apache/felix/framework/searchpolicy/R4Wire getClass (Ljava/lang/String;)Ljava/lang/Class;' witness='org/apache/felix/moduleloader/IWire' stamp='20,459'/>
-<dependency_failed type='unique_concrete_method' ctxk='org/apache/felix/moduleloader/IWire' x='org/apache/felix/framework/searchpolicy/R4Wire getRequirement ()Lorg/apache/felix/moduleloader/IRequirement;' witness='org/apache/felix/moduleloader/IWire' stamp='20,459'/>
-<dependency_failed type='unique_concrete_method' x='java/util/ArrayList add (Ljava/lang/Object;)Z' witness='javax/management/AttributeList' stamp='20,679'/>
-<dependency_failed type='unique_concrete_method' x='java/util/ArrayList set (ILjava/lang/Object;)Ljava/lang/Object;' witness='javax/management/AttributeList' stamp='20,679'/>
-<dependency_failed type='unique_concrete_method' ctxk='org/w3c/dom/Node' x='com/sun/org/apache/xerces/internal/dom/NodeImpl appendChild (Lorg/w3c/dom/Node;)Lorg/w3c/dom/Node;' witness='org/w3c/dom/Node' stamp='21,510'/>
-<dependency_failed type='unique_concrete_method' ctxk='org/w3c/dom/NamedNodeMap' x='com/sun/org/apache/xerces/internal/dom/NamedNodeMapImpl getLength ()I' witness='org/w3c/dom/NamedNodeMap' stamp='21,565'/>
-<dependency_failed type='leaf_type' ctxk='com/sun/org/apache/xerces/internal/xni/QName' witness='com/sun/org/apache/xerces/internal/impl/dv/xs/QNameDV$XQName' stamp='21,733'/>
-<writer thread='-2035868816'/>
-<dependency_failed type='leaf_type' ctxk='java/io/FileInputStream' witness='java/net/SocketInputStream' stamp='31,569'/>
-<dependency_failed type='unique_concrete_method' x='java/io/FileInputStream close ()V' witness='java/net/SocketInputStream' stamp='31,569'/>
-<dependency_failed type='leaf_type' ctxk='java/io/FileInputStream' witness='java/net/SocketInputStream' stamp='31,569'/>
-<writer thread='-2025464976'/>
-<dependency_failed type='unique_concrete_method' ctxk='sun/nio/ch/SelChImpl' x='sun/nio/ch/ServerSocketChannelImpl translateAndSetReadyOps (ILsun/nio/ch/SelectionKeyImpl;)Z' witness='sun/nio/ch/SelChImpl' stamp='4327,212'/>
-<dependency_failed type='unique_concrete_method' ctxk='sun/nio/ch/SelChImpl' x='sun/nio/ch/ServerSocketChannelImpl getFDVal ()I' witness='sun/nio/ch/SelChImpl' stamp='4327,212'/>
-<writer thread='-2037195920'/>
-<dependency_failed type='unique_concrete_method' x='java/io/BufferedReader close ()V' witness='org/apache/catalina/connector/CoyoteReader' stamp='4327,251'/>
-<dependency_failed type='unique_concrete_method' x='java/io/BufferedReader close ()V' witness='org/apache/catalina/connector/CoyoteReader' stamp='4327,251'/>
-<dependency_failed type='unique_concrete_method' x='java/io/Reader read ([C)I' witness='org/apache/catalina/connector/CoyoteReader' stamp='4327,252'/>
-<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='4327,256'/>
-<dependency_failed type='unique_concrete_method' x='java/util/HashMap remove (Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='4327,256'/>
-<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='4327,256'/>
-<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='4327,256'/>
-<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='4327,256'/>
-<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='4327,256'/>
-<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='4327,256'/>
-<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='4327,256'/>
-<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='4327,256'/>
-<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='4327,256'/>
-<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='4327,256'/>
-<dependency_failed type='unique_concrete_method' x='java/util/HashMap remove (Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='4327,256'/>
-<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='4327,256'/>
-<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catal
+<writer thread='-2018112656'/>
+<dependency_failed type='leaf_type' ctxk='java/io/ByteArrayOutputStream' witness='com/sun/common/util/logging/LoggingOutputStream' stamp='11,565'/>
+<dependency_failed type='leaf_type' ctxk='java/io/ObjectOutputStream' witness='com/sun/enterprise/naming/util/OSGiObjectInputOutputStreamFactoryImpl$OSGiObjectOutputStream' stamp='11,688'/>
+<dependency_failed type='leaf_type' ctxk='org/jvnet/hk2/component/MultiMap' witness='org/glassfish/api/admin/ParameterMap' stamp='12,218'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/enterprise/config/serverbeans/Applications$Duck$1' stamp='12,504'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/enterprise/config/serverbeans/Applications$Duck$1' stamp='12,504'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/enterprise/config/serverbeans/Applications$Duck$1' stamp='12,504'/>
+<dependency_failed type='unique_concrete_method' x='java/lang/SecurityManager checkPackageAccess (Ljava/lang/String;)V' witness='com/sun/enterprise/security/J2EESecurityManager' stamp='13,508'/>
+<dependency_failed type='unique_concrete_method' x='java/lang/SecurityManager checkPropertyAccess (Ljava/lang/String;)V' witness='com/sun/enterprise/security/J2EESecurityManager' stamp='13,508'/>
+<dependency_failed type='unique_concrete_method' x='java/lang/SecurityManager checkPropertyAccess (Ljava/lang/String;)V' witness='com/sun/enterprise/security/J2EESecurityManager' stamp='13,508'/>
+<dependency_failed type='unique_concrete_method' x='java/util/Vector add (Ljava/lang/Object;)Z' witness='com/sun/enterprise/deployment/OrderedSet' stamp='14,034'/>
+<dependency_failed type='unique_concrete_method' x='java/io/ObjectOutputStream replaceObject (Ljava/lang/Object;)Ljava/lang/Object;' witness='com/sun/enterprise/container/common/spi/util/JavaEEObjectOutputStream' stamp='14,478'/>
+<dependency_failed type='unique_concrete_method' x='java/lang/ThreadLocal get ()Ljava/lang/Object;' witness='org/glassfish/web/admin/monitor/HttpServiceStatsProvider$1' stamp='14,488'/>
+<dependency_failed type='unique_concrete_method' x='java/lang/ThreadLocal get ()Ljava/lang/Object;' witness='org/glassfish/web/admin/monitor/HttpServiceStatsProvider$1' stamp='14,488'/>
+<dependency_failed type='unique_concrete_method' x='java/lang/ThreadLocal get ()Ljava/lang/Object;' witness='org/glassfish/web/admin/monitor/HttpServiceStatsProvider$1' stamp='14,488'/>
+<dependency_failed type='unique_concrete_method' x='java/lang/ThreadLocal get ()Ljava/lang/Object;' witness='org/glassfish/web/admin/monitor/HttpServiceStatsProvider$1' stamp='14,488'/>
+<dependency_failed type='unique_concrete_method' x='java/lang/ThreadLocal get ()Ljava/lang/Object;' witness='org/glassfish/web/admin/monitor/HttpServiceStatsProvider$1' stamp='14,488'/>
+<dependency_failed type='unique_concrete_method' x='java/lang/ThreadLocal get ()Ljava/lang/Object;' witness='org/glassfish/web/admin/monitor/HttpServiceStatsProvider$1' stamp='14,488'/>
+<dependency_failed type='unique_concrete_method' x='java/lang/ThreadLocal get ()Ljava/lang/Object;' witness='org/glassfish/web/admin/monitor/HttpServiceStatsProvider$1' stamp='14,488'/>
+<dependency_failed type='unique_concrete_method' x='java/lang/ThreadLocal get ()Ljava/lang/Object;' witness='org/glassfish/web/admin/monitor/HttpServiceStatsProvider$1' stamp='14,488'/>
+<dependency_failed type='leaf_type' ctxk='java/util/logging/Level' witness='com/sun/enterprise/util/logging/IASLevel' stamp='14,566'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/apache/felix/moduleloader/IWire' x='org/apache/felix/framework/searchpolicy/R4Wire getCapability ()Lorg/apache/felix/moduleloader/ICapability;' witness='org/apache/felix/moduleloader/IWire' stamp='15,299'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/apache/felix/moduleloader/IWire' x='org/apache/felix/framework/searchpolicy/R4Wire hasPackage (Ljava/lang/String;)Z' witness='org/apache/felix/moduleloader/IWire' stamp='15,299'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/apache/felix/moduleloader/IWire' x='org/apache/felix/framework/searchpolicy/R4Wire getCapability ()Lorg/apache/felix/moduleloader/ICapability;' witness='org/apache/felix/moduleloader/IWire' stamp='15,299'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/apache/felix/moduleloader/IWire' x='org/apache/felix/framework/searchpolicy/R4Wire getCapability ()Lorg/apache/felix/moduleloader/ICapability;' witness='org/apache/felix/moduleloader/IWire' stamp='15,299'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/apache/felix/moduleloader/IWire' x='org/apache/felix/framework/searchpolicy/R4Wire getClass (Ljava/lang/String;)Ljava/lang/Class;' witness='org/apache/felix/moduleloader/IWire' stamp='15,299'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/apache/felix/moduleloader/IWire' x='org/apache/felix/framework/searchpolicy/R4Wire getRequirement ()Lorg/apache/felix/moduleloader/IRequirement;' witness='org/apache/felix/moduleloader/IWire' stamp='15,299'/>
+<dependency_failed type='unique_concrete_method' x='java/util/ArrayList add (Ljava/lang/Object;)Z' witness='javax/management/AttributeList' stamp='15,505'/>
+<dependency_failed type='unique_concrete_method' x='java/util/ArrayList set (ILjava/lang/Object;)Ljava/lang/Object;' witness='javax/management/AttributeList' stamp='15,505'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/w3c/dom/Node' x='com/sun/org/apache/xerces/internal/dom/NodeImpl appendChild (Lorg/w3c/dom/Node;)Lorg/w3c/dom/Node;' witness='org/w3c/dom/Node' stamp='16,066'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/w3c/dom/NamedNodeMap' x='com/sun/org/apache/xerces/internal/dom/NamedNodeMapImpl getLength ()I' witness='org/w3c/dom/NamedNodeMap' stamp='16,086'/>
+<dependency_failed type='leaf_type' ctxk='com/sun/org/apache/xerces/internal/xni/QName' witness='com/sun/org/apache/xerces/internal/impl/dv/xs/QNameDV$XQName' stamp='16,153'/>
+<writer thread='-2038396048'/>
+<dependency_failed type='leaf_type' ctxk='java/io/FileInputStream' witness='java/net/SocketInputStream' stamp='22,670'/>
+<dependency_failed type='unique_concrete_method' x='java/io/FileInputStream close ()V' witness='java/net/SocketInputStream' stamp='22,670'/>
+<dependency_failed type='leaf_type' ctxk='java/io/FileInputStream' witness='java/net/SocketInputStream' stamp='22,670'/>
+<writer thread='-2037068944'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='sun/net/www/http/KeepAliveCache' stamp='22,903'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='sun/net/www/http/KeepAliveCache' stamp='22,903'/>
+<dependency_failed type='leaf_type' ctxk='java/util/Stack' witness='sun/net/www/http/ClientVector' stamp='23,776'/>
+<dependency_failed type='leaf_type' ctxk='java/util/Stack' witness='sun/net/www/http/ClientVector' stamp='23,776'/>
+<dependency_failed type='leaf_type' ctxk='java/util/Stack' witness='sun/net/www/http/ClientVector' stamp='23,776'/>
+<dependency_failed type='leaf_type' ctxk='java/util/Stack' witness='sun/net/www/http/ClientVector' stamp='23,776'/>
+<dependency_failed type='leaf_type' ctxk='java/util/Stack' witness='sun/net/www/http/ClientVector' stamp='23,776'/>
+<dependency_failed type='leaf_type' ctxk='java/util/Stack' witness='sun/net/www/http/ClientVector' stamp='23,776'/>
+<writer thread='-2039723152'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/objectweb/asm/ClassVisitor' x='org/glassfish/deployment/common/NodeInfo visit (IILjava/lang/String;Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;)V' witness='org/objectweb/asm/ClassVisitor' stamp='129,254'/>
+<writer thread='-2049250448'/>
+<dependency_failed type='unique_concrete_method' x='java/io/BufferedReader close ()V' witness='org/apache/catalina/connector/CoyoteReader' stamp='188,785'/>
+<dependency_failed type='unique_concrete_method' x='java/io/BufferedReader close ()V' witness='org/apache/catalina/connector/CoyoteReader' stamp='188,785'/>
+<dependency_failed type='unique_concrete_method' x='java/io/BufferedReader close ()V' witness='org/apache/catalina/connector/CoyoteReader' stamp='188,785'/>
+<dependency_failed type='unique_concrete_method' x='java/io/Reader read ([C)I' witness='org/apache/catalina/connector/CoyoteReader' stamp='188,786'/>
+<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='188,790'/>
+<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='188,790'/>
+<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='188,790'/>
+<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='188,790'/>
+<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='188,790'/>
+<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='188,790'/>
+<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='188,790'/>
+<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='188,790'/>
+<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='188,790'/>
+<dependency_failed type='unique_concrete_method' x='java/util/HashMap r
