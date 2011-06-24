@@ -29,6 +29,11 @@ public final class MConverter {
 	private static final int LONG_SIZE = Long.SIZE / 8;
 
 	/**
+	 * The size of a double in bytes
+	 */
+	private static final int DOUBLE_SIZE = Double.SIZE / 8;
+
+	/**
 	 * The size of an int in bytes
 	 */
 	private static final int INT_SIZE = Integer.SIZE / 8;
@@ -260,5 +265,52 @@ public final class MConverter {
 		buffer.clear();
 
 		return buffer.get();
+	}
+
+	/**
+	 * Convert a double value into a {@link ByteBuffer}
+	 * 
+	 * @param value
+	 *            the double to convert
+	 * @return the ByteBuffer value
+	 */
+	public static ByteBuffer doubleToByteBuffer(final long value) {
+
+		final ByteBuffer buffer = ByteBuffer.allocate(DOUBLE_SIZE);
+
+		buffer.clear();
+		buffer.putDouble(value);
+		buffer.compact();
+
+		return buffer;
+	}
+
+	/**
+	 * Convert a double value into a {@link ByteBuffer}
+	 * 
+	 * @param value
+	 *            the double to convert
+	 * @return the ByteBuffer value
+	 */
+	public static ByteBuffer doubleToByteBuffer(final Double value) {
+		return doubleToByteBuffer(value.doubleValue());
+	}
+
+	/**
+	 * Convert a {@link ByteBuffer} into an double
+	 * <p>
+	 * No assumptions are made on the value stored in the ByteBuffer, it has to
+	 * be a double
+	 * 
+	 * @param buffer
+	 *            the ByteBuffer that holds the double value
+	 * @return the long value
+	 */
+	public static double byteBufferToDouble(final ByteBuffer buffer) {
+
+		buffer.compact();
+		buffer.clear();
+
+		return buffer.getDouble();
 	}
 }
