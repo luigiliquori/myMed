@@ -274,7 +274,7 @@ public final class MConverter {
 	 *            the double to convert
 	 * @return the ByteBuffer value
 	 */
-	public static ByteBuffer doubleToByteBuffer(final long value) {
+	public static ByteBuffer doubleToByteBuffer(final double value) {
 
 		final ByteBuffer buffer = ByteBuffer.allocate(DOUBLE_SIZE);
 
