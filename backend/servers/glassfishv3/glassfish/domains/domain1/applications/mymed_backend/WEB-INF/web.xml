@@ -13,7 +13,7 @@
     <description></description>
     <display-name>DebugConsole</display-name>
     <servlet-name>DebugConsole</servlet-name>
-    <servlet-class>com.mymed.controller.core.services.tests.DebugConsole</servlet-class>
+    <servlet-class>com.mymed.controller.core.requesthandler.tests.DebugConsole</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>DebugConsole</servlet-name>
@@ -23,7 +23,7 @@
     <description></description>
     <display-name>FirstRequestHandler</display-name>
     <servlet-name>FirstRequestHandler</servlet-name>
-    <servlet-class>com.mymed.controller.core.services.tests.FirstRequestHandler</servlet-class>
+    <servlet-class>com.mymed.controller.core.requesthandler.tests.FirstRequestHandler</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>FirstRequestHandler</servlet-name>
@@ -33,7 +33,7 @@
     <description></description>
     <display-name>DHTRequestHandler</display-name>
     <servlet-name>DHTRequestHandler</servlet-name>
-    <servlet-class>com.mymed.controller.core.services.requesthandler.DHTRequestHandler</servlet-class>
+    <servlet-class>com.mymed.controller.core.requesthandler.DHTRequestHandler</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>DHTRequestHandler</servlet-name>
@@ -43,7 +43,7 @@
     <description></description>
     <display-name>SDKRequestHandler</display-name>
     <servlet-name>SDKRequestHandler</servlet-name>
-    <servlet-class>com.mymed.controller.core.services.tests.SDKRequestHandler</servlet-class>
+    <servlet-class>com.mymed.controller.core.requesthandler.tests.SDKRequestHandler</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>SDKRequestHandler</servlet-name>
@@ -53,20 +53,34 @@
     <description></description>
     <display-name>ProfileRequestHandler</display-name>
     <servlet-name>ProfileRequestHandler</servlet-name>
-    <servlet-class>com.mymed.controller.core.services.requesthandler.ProfileRequestHandler</servlet-class>
+    <servlet-class>com.mymed.controller.core.requesthandler.ProfileRequestHandler</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ProfileRequestHandler</servlet-name>
     <url-pattern>/ProfileRequestHandler</url-pattern>
   </servlet-mapping>
+  <error-page>
+    <exception-type>java.lang.Exception</exception-type>
+    <location>/error.jsp</location>
+  </error-page>
   <servlet>
     <description></description>
-    <display-name>CassandraRequestHandler</display-name>
-    <servlet-name>CassandraRequestHandler</servlet-name>
-    <servlet-class>com.mymed.controller.core.services.requesthandler.CassandraRequestHandler</servlet-class>
+    <display-name>AuthenticationRequestHandler</display-name>
+    <servlet-name>AuthenticationRequestHandler</servlet-name>
+    <servlet-class>com.mymed.controller.core.requesthandler.AuthenticationRequestHandler</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>CassandraRequestHandler</servlet-name>
-    <url-pattern>/CassandraRequestHandler</url-pattern>
+    <servlet-name>AuthenticationRequestHandler</servlet-name>
+    <url-pattern>/AuthenticationRequestHandler</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SessionRequestHandler</display-name>
+    <servlet-name>SessionRequestHandler</servlet-name>
+    <servlet-class>com.mymed.controller.core.requesthandler.SessionRequestHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SessionRequestHandler</servlet-name>
+    <url-pattern>/SessionRequestHandler</url-pattern>
   </servlet-mapping>
 </web-app>

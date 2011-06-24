@@ -22,16 +22,16 @@
         <engine sniffer="web" />
       </module>
     </application>
-    <application context-root="/mymed_backend" location="${com.sun.aas.instanceRootURI}/applications/mymed_backend/" name="mymed_backend" object-type="user">
-      <property name="defaultAppName" value="mymed_backend" />
-      <module name="mymed_backend">
+    <application context-root="/mymed_v1.0_alpha_backend" location="${com.sun.aas.instanceRootURI}/applications/mymed_v1.0_alpha_backend/" name="mymed_v1.0_alpha_backend" object-type="user">
+      <property name="defaultAppName" value="mymed_v1.0_alpha_backend" />
+      <module name="mymed_v1.0_alpha_backend">
         <engine sniffer="security" />
         <engine sniffer="web" />
       </module>
     </application>
-    <application context-root="/mymed_v1.0_alpha_backend" location="${com.sun.aas.instanceRootURI}/applications/mymed_v1.0_alpha_backend/" name="mymed_v1.0_alpha_backend" object-type="user">
-      <property name="defaultAppName" value="mymed_v1.0_alpha_backend" />
-      <module name="mymed_v1.0_alpha_backend">
+    <application context-root="/mymed_backend" location="${com.sun.aas.instanceRootURI}/applications/mymed_backend/" name="mymed_backend" object-type="user">
+      <property name="defaultAppName" value="mymed_backend" />
+      <module name="mymed_backend">
         <engine sniffer="security" />
         <engine sniffer="web" />
       </module>
@@ -58,8 +58,8 @@
       <application-ref ref="__admingui" virtual-servers="__asadmin" />
       <application-ref ref="services" virtual-servers="server" />
       <application-ref ref="controller" virtual-servers="server" />
-      <application-ref ref="mymed_backend" virtual-servers="server" />
       <application-ref ref="mymed_v1.0_alpha_backend" virtual-servers="server" />
+      <application-ref ref="mymed_backend" virtual-servers="server" />
       <resource-ref ref="jdbc/__TimerPool" />
       <resource-ref ref="jdbc/__default" />
     </server>
