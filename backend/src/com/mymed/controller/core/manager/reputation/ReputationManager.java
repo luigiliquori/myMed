@@ -9,9 +9,9 @@ import com.mymed.controller.core.exception.ServiceManagerException;
 import com.mymed.controller.core.manager.AbstractManager;
 import com.mymed.controller.core.manager.StorageManager;
 import com.mymed.model.core.factory.IDHTWrapperFactory.WrapperType;
-import com.mymed.model.core.wrappers.cassandra.api07.MConverter;
 import com.mymed.model.data.MInteractionBean;
 import com.mymed.model.data.MReputationBean;
+import com.mymed.utils.MConverter;
 
 public class ReputationManager extends AbstractManager implements IReputationManager {
 	/* --------------------------------------------------------- */

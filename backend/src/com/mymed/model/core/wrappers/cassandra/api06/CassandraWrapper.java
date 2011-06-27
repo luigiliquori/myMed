@@ -10,6 +10,7 @@ import java.util.Set;
 import org.apache.cassandra.thrift.AuthenticationException;
 import org.apache.cassandra.thrift.AuthenticationRequest;
 import org.apache.cassandra.thrift.AuthorizationException;
+import org.apache.cassandra.thrift.Cassandra.Client;
 import org.apache.cassandra.thrift.Column;
 import org.apache.cassandra.thrift.ColumnOrSuperColumn;
 import org.apache.cassandra.thrift.ColumnParent;
@@ -24,7 +25,6 @@ import org.apache.cassandra.thrift.SlicePredicate;
 import org.apache.cassandra.thrift.TimedOutException;
 import org.apache.cassandra.thrift.TokenRange;
 import org.apache.cassandra.thrift.UnavailableException;
-import org.apache.cassandra.thrift.Cassandra.Client;
 import org.apache.thrift.TException;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
@@ -34,7 +34,7 @@ import org.apache.thrift.transport.TTransportException;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.controller.core.manager.StorageManager;
+import com.mymed.controller.core.manager.IStorageManager;
 import com.mymed.model.core.wrappers.AbstractDHTWrapper;
 
 /**
@@ -44,8 +44,7 @@ import com.mymed.model.core.wrappers.AbstractDHTWrapper;
  * 
  */
 @Deprecated
-public class CassandraWrapper extends AbstractDHTWrapper implements
-		ICassandraWrapper {
+public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWrapper {
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
@@ -61,12 +60,11 @@ public class CassandraWrapper extends AbstractDHTWrapper implements
 	 */
 	public CassandraWrapper() {
 		try { // By default it will try to connect on the localhost node if it
-			// exist
-			this.tr = new TSocket(InetAddress.getLocalHost().getHostAddress(),
-					4201);
-			this.proto = new TBinaryProtocol(tr);
-			this.client = new Client(proto);
-		} catch (UnknownHostException e) {
+			  // exist
+			tr = new TSocket(InetAddress.getLocalHost().getHostAddress(), 4201);
+			proto = new TBinaryProtocol(tr);
+			client = new Client(proto);
+		} catch (final UnknownHostException e) {
 			e.printStackTrace();
 		}
 	}
@@ -80,68 +78,68 @@ public class CassandraWrapper extends AbstractDHTWrapper implements
 	 * @param address
 	 * @param port
 	 */
-	public void setup(String address, int port) {
+	@Override
+	public void setup(final String address, final int port) {
 		System.out.println("*****address: " + address);
 		System.out.println("*****port: " + port);
 		if (address != null && port != 0) {
 			// not managed by glassfish
-			this.tr = new TSocket(address, port);
-			this.proto = new TBinaryProtocol(tr);
-			this.client = new Client(proto);
+			tr = new TSocket(address, port);
+			proto = new TBinaryProtocol(tr);
+			client = new Client(proto);
 		}
 	}
 
-	public void put(String key, byte[] value) throws InternalBackEndException {
+	@Override
+	public void put(final String key, final byte[] value) throws InternalBackEndException {
 		try {
 			tr.open();
-			String columnFamily = "Services"; // TODO MOVE TO THE NEW DATA
+			final String columnFamily = "Services"; // TODO MOVE TO THE NEW DATA
 			// STRUCTURE
-			ColumnPath colPathName = new ColumnPath(columnFamily);
-			long timestamp = System.currentTimeMillis();
+			final ColumnPath colPathName = new ColumnPath(columnFamily);
+			final long timestamp = System.currentTimeMillis();
 			colPathName.setColumn(key.getBytes("UTF8"));
-			client.insert("Mymed", key, colPathName, value, timestamp,
-					StorageManager.consistencyOnWrite);
-		} catch (UnsupportedEncodingException e) {
+			client.insert("Mymed", key, colPathName, value, timestamp, IStorageManager.consistencyOnWrite);
+		} catch (final UnsupportedEncodingException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (TTransportException e) {
+		} catch (final TTransportException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (InvalidRequestException e) {
+		} catch (final InvalidRequestException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (UnavailableException e) {
+		} catch (final UnavailableException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (TimedOutException e) {
+		} catch (final TimedOutException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (TException e) {
+		} catch (final TException e) {
 			throw new InternalBackEndException(e.getMessage());
 		} finally {
 			tr.close();
 		}
 	}
 
-	public byte[] getValue(String key) throws InternalBackEndException,
-			IOBackEndException {
+	@Override
+	public byte[] getValue(final String key) throws InternalBackEndException, IOBackEndException {
 		try {
 			tr.open();
-			String columnFamily = "Services"; // TODO MOVE TO THE NEW DATA
+			final String columnFamily = "Services"; // TODO MOVE TO THE NEW DATA
 			// STRUCTURE
-			ColumnPath colPathName = new ColumnPath(columnFamily);
+			final ColumnPath colPathName = new ColumnPath(columnFamily);
 			colPathName.setColumn(key.getBytes("UTF8"));
-			Column col = client.get("Mymed", key, colPathName,
-					StorageManager.consistencyOnRead).getColumn();
+			final Column col = client.get("Mymed", key, colPathName, IStorageManager.consistencyOnRead).getColumn();
 			return col.value;
-		} catch (UnsupportedEncodingException e) {
+		} catch (final UnsupportedEncodingException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (TTransportException e) {
+		} catch (final TTransportException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (InvalidRequestException e) {
+		} catch (final InvalidRequestException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (UnavailableException e) {
+		} catch (final UnavailableException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (TimedOutException e) {
+		} catch (final TimedOutException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (TException e) {
+		} catch (final TException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (NotFoundException e) {
+		} catch (final NotFoundException e) {
 			throw new IOBackEndException(e.getMessage());
 		} finally {
 			tr.close();
@@ -156,62 +154,59 @@ public class CassandraWrapper extends AbstractDHTWrapper implements
 	 *      columnPath, ConsistencyLevel consistencyLevel)
 	 */
 	@Override
-	public ColumnOrSuperColumn get(String keyspace, String key,
-			ColumnPath colPathName, ConsistencyLevel consistencyLevel)
-			throws InternalBackEndException, IOBackEndException {
+	public ColumnOrSuperColumn get(final String keyspace, final String key, final ColumnPath colPathName,
+	        final ConsistencyLevel consistencyLevel) throws InternalBackEndException, IOBackEndException {
 		try {
 			tr.open();
-			ColumnOrSuperColumn col = client.get(keyspace, key, colPathName,
-					consistencyLevel);
+			final ColumnOrSuperColumn col = client.get(keyspace, key, colPathName, consistencyLevel);
 			return col;
-		} catch (TTransportException e) {
+		} catch (final TTransportException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (InvalidRequestException e) {
+		} catch (final InvalidRequestException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (UnavailableException e) {
+		} catch (final UnavailableException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (TimedOutException e) {
+		} catch (final TimedOutException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (TException e) {
+		} catch (final TException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (NotFoundException e) {
+		} catch (final NotFoundException e) {
 			throw new IOBackEndException(e.getMessage());
 		} finally {
 			tr.close();
 		}
 	}
-	
+
 	/**
 	 * @see ICassandraWrapper#get_slice(String keyspace, String key, String
 	 *      columnParent, String predicate, ConsistencyLevel consistencyLevel)
 	 */
 	@Override
-	public List<ColumnOrSuperColumn> get_slice(String keyspace, String key,
-			ColumnParent columnParent, SlicePredicate predicate,
-			ConsistencyLevel consistencyLevel) 	throws InternalBackEndException, IOBackEndException {
-				try {
-					tr.open();
-					List<ColumnOrSuperColumn> slice = client.get_slice(keyspace, key,
-							columnParent, predicate, consistencyLevel);
-					if (slice.isEmpty()) { // IF NOT FOUND!
-						throw new IOBackEndException("keyspace: " + keyspace
-								+ ", columnFamily: " + columnParent.getColumn_family() + ", key: " + key
-								+ " - NOT FOUND!");
-					}
-					return slice;
-				} catch (TTransportException e) {
-					throw new InternalBackEndException(e.getMessage());
-				} catch (InvalidRequestException e) {
-					throw new InternalBackEndException(e.getMessage());
-				} catch (UnavailableException e) {
-					throw new InternalBackEndException(e.getMessage());
-				} catch (TimedOutException e) {
-					throw new InternalBackEndException(e.getMessage());
-				} catch (TException e) {
-					throw new InternalBackEndException(e.getMessage());
-				} finally {
-					tr.close();
-				}
+	public List<ColumnOrSuperColumn> get_slice(final String keyspace, final String key,
+	        final ColumnParent columnParent, final SlicePredicate predicate, final ConsistencyLevel consistencyLevel)
+	        throws InternalBackEndException, IOBackEndException {
+		try {
+			tr.open();
+			final List<ColumnOrSuperColumn> slice = client.get_slice(keyspace, key, columnParent, predicate,
+			        consistencyLevel);
+			if (slice.isEmpty()) { // IF NOT FOUND!
+				throw new IOBackEndException("keyspace: " + keyspace + ", columnFamily: "
+				        + columnParent.getColumn_family() + ", key: " + key + " - NOT FOUND!");
+			}
+			return slice;
+		} catch (final TTransportException e) {
+			throw new InternalBackEndException(e.getMessage());
+		} catch (final InvalidRequestException e) {
+			throw new InternalBackEndException(e.getMessage());
+		} catch (final UnavailableException e) {
+			throw new InternalBackEndException(e.getMessage());
+		} catch (final TimedOutException e) {
+			throw new InternalBackEndException(e.getMessage());
+		} catch (final TException e) {
+			throw new InternalBackEndException(e.getMessage());
+		} finally {
+			tr.close();
+		}
 	}
 
 	/**
@@ -220,22 +215,20 @@ public class CassandraWrapper extends AbstractDHTWrapper implements
 	 *      consistencyLevel)
 	 */
 	@Override
-	public void insert(String keyspace, String key, ColumnPath columnPath,
-			byte[] value, long timestamp, ConsistencyLevel consistencyLevel)
-			throws InternalBackEndException {
+	public void insert(final String keyspace, final String key, final ColumnPath columnPath, final byte[] value,
+	        final long timestamp, final ConsistencyLevel consistencyLevel) throws InternalBackEndException {
 		try {
 			tr.open();
-			client.insert(keyspace, key, columnPath, value, timestamp,
-					consistencyLevel);
-		} catch (TTransportException e) {
+			client.insert(keyspace, key, columnPath, value, timestamp, consistencyLevel);
+		} catch (final TTransportException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (InvalidRequestException e) {
+		} catch (final InvalidRequestException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (UnavailableException e) {
+		} catch (final UnavailableException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (TimedOutException e) {
+		} catch (final TimedOutException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (TException e) {
+		} catch (final TException e) {
 			throw new InternalBackEndException(e.getMessage());
 		} finally {
 			tr.close();
@@ -246,24 +239,24 @@ public class CassandraWrapper extends AbstractDHTWrapper implements
 	 * @see ICassandraWrapper#batch_mutate(String, String, ConsistencyLevel)
 	 */
 	@Override
-	public void batch_mutate(String keyspace, Map<String, Map<String, List<Mutation>>> mutationMap,
-			ConsistencyLevel consistencyLevel) throws InternalBackEndException {
-			try {
-				tr.open();
-				client.batch_mutate(keyspace, mutationMap, consistencyLevel);
-			} catch (TTransportException e) {
-				throw new InternalBackEndException(e.getMessage());
-			} catch (InvalidRequestException e) {
-				throw new InternalBackEndException(e.getMessage());
-			} catch (UnavailableException e) {
-				throw new InternalBackEndException(e.getMessage());
-			} catch (TimedOutException e) {
-				throw new InternalBackEndException(e.getMessage());
-			} catch (TException e) {
-				throw new InternalBackEndException(e.getMessage());
-			} finally {
-				tr.close();
-			}
+	public void batch_mutate(final String keyspace, final Map<String, Map<String, List<Mutation>>> mutationMap,
+	        final ConsistencyLevel consistencyLevel) throws InternalBackEndException {
+		try {
+			tr.open();
+			client.batch_mutate(keyspace, mutationMap, consistencyLevel);
+		} catch (final TTransportException e) {
+			throw new InternalBackEndException(e.getMessage());
+		} catch (final InvalidRequestException e) {
+			throw new InternalBackEndException(e.getMessage());
+		} catch (final UnavailableException e) {
+			throw new InternalBackEndException(e.getMessage());
+		} catch (final TimedOutException e) {
+			throw new InternalBackEndException(e.getMessage());
+		} catch (final TException e) {
+			throw new InternalBackEndException(e.getMessage());
+		} finally {
+			tr.close();
+		}
 	}
 
 	/**
@@ -271,29 +264,30 @@ public class CassandraWrapper extends AbstractDHTWrapper implements
 	 */
 	@Override
 	public String describe_cluster_name() throws InternalBackEndException {
-			try {
-				tr.open();
-				return client.describe_cluster_name();
-			} catch (TTransportException e) {
-				throw new InternalBackEndException(e.getMessage());
-			} catch (TException e) {
-				throw new InternalBackEndException(e.getMessage());
-			} finally {
-				tr.close();
-			}
+		try {
+			tr.open();
+			return client.describe_cluster_name();
+		} catch (final TTransportException e) {
+			throw new InternalBackEndException(e.getMessage());
+		} catch (final TException e) {
+			throw new InternalBackEndException(e.getMessage());
+		} finally {
+			tr.close();
+		}
 	}
 
 	/**
 	 * @see ICassandraWrapper#describe_keyspace(String)
 	 */
 	@Override
-	public Map<String, Map<String, String>> describe_keyspace(String keyspace) throws InternalBackEndException, IOBackEndException {
+	public Map<String, Map<String, String>> describe_keyspace(final String keyspace) throws InternalBackEndException,
+	        IOBackEndException {
 		try {
 			tr.open();
 			return client.describe_keyspace(keyspace);
-		} catch (NotFoundException e) {
+		} catch (final NotFoundException e) {
 			throw new IOBackEndException(e.getMessage());
-		} catch (TException e) {
+		} catch (final TException e) {
 			throw new InternalBackEndException(e.getMessage());
 		} finally {
 			tr.close();
@@ -308,7 +302,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements
 		try {
 			tr.open();
 			return client.describe_keyspaces();
-		} catch (TException e) {
+		} catch (final TException e) {
 			throw new InternalBackEndException(e.getMessage());
 		} finally {
 			tr.close();
@@ -319,13 +313,13 @@ public class CassandraWrapper extends AbstractDHTWrapper implements
 	 * @see ICassandraWrapper#describe_ring(String keyspace)
 	 */
 	@Override
-	public List<TokenRange> describe_ring(String keyspace) throws InternalBackEndException {
+	public List<TokenRange> describe_ring(final String keyspace) throws InternalBackEndException {
 		try {
 			tr.open();
 			return client.describe_ring(keyspace);
-		} catch (TException e) {
+		} catch (final TException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (InvalidRequestException e) {
+		} catch (final InvalidRequestException e) {
 			throw new InternalBackEndException(e.getMessage());
 		} finally {
 			tr.close();
@@ -340,7 +334,7 @@ public class CassandraWrapper extends AbstractDHTWrapper implements
 		try {
 			tr.open();
 			return client.describe_version();
-		} catch (TException e) {
+		} catch (final TException e) {
 			throw new InternalBackEndException(e.getMessage());
 		} finally {
 			tr.close();
@@ -352,18 +346,18 @@ public class CassandraWrapper extends AbstractDHTWrapper implements
 	 *      columnParent, ConsistencyLevel consistencyLevel)
 	 */
 	@Override
-	public int get_count(String keyspace, String key, ColumnParent columnParent,
-			ConsistencyLevel consistencyLevel) throws InternalBackEndException {
+	public int get_count(final String keyspace, final String key, final ColumnParent columnParent,
+	        final ConsistencyLevel consistencyLevel) throws InternalBackEndException {
 		try {
 			tr.open();
 			return client.get_count(keyspace, key, columnParent, consistencyLevel);
-		} catch (TException e) {
+		} catch (final TException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (InvalidRequestException e) {
+		} catch (final InvalidRequestException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (UnavailableException e) {
+		} catch (final UnavailableException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (TimedOutException e) {
+		} catch (final TimedOutException e) {
 			throw new InternalBackEndException(e.getMessage());
 		} finally {
 			tr.close();
@@ -376,40 +370,38 @@ public class CassandraWrapper extends AbstractDHTWrapper implements
 	 *      consistencyLevel)
 	 */
 	@Override
-	public List<KeySlice> get_range_slices(String keyspace,
-			ColumnParent columnParent, SlicePredicate predicate, KeyRange range,
-			ConsistencyLevel consistencyLevel) throws InternalBackEndException {
+	public List<KeySlice> get_range_slices(final String keyspace, final ColumnParent columnParent,
+	        final SlicePredicate predicate, final KeyRange range, final ConsistencyLevel consistencyLevel)
+	        throws InternalBackEndException {
 		try {
 			tr.open();
 			return client.get_range_slices(keyspace, columnParent, predicate, range, consistencyLevel);
-		} catch (TException e) {
+		} catch (final TException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (InvalidRequestException e) {
+		} catch (final InvalidRequestException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (UnavailableException e) {
+		} catch (final UnavailableException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (TimedOutException e) {
+		} catch (final TimedOutException e) {
 			throw new InternalBackEndException(e.getMessage());
 		} finally {
 			tr.close();
 		}
 	}
 
-
-
 	/**
 	 * @see ICassandraWrapper#login(String keyspace, String authRequest)
 	 */
 	@Override
-	public void login(String keyspace, AuthenticationRequest authRequest) throws InternalBackEndException {
+	public void login(final String keyspace, final AuthenticationRequest authRequest) throws InternalBackEndException {
 		try {
 			tr.open();
 			client.login(keyspace, authRequest);
-		} catch (TException e) {
+		} catch (final TException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (AuthenticationException e) {
+		} catch (final AuthenticationException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (AuthorizationException e) {
+		} catch (final AuthorizationException e) {
 			throw new InternalBackEndException(e.getMessage());
 		} finally {
 			tr.close();
@@ -422,19 +414,19 @@ public class CassandraWrapper extends AbstractDHTWrapper implements
 	 *      consistencyLevel)
 	 */
 	@Override
-	public Map<String, List<ColumnOrSuperColumn>> multiget_slice(
-			String keyspace, List<String> keys, ColumnParent columnParent,
-			SlicePredicate predicate, ConsistencyLevel consistencyLevel) throws InternalBackEndException {
+	public Map<String, List<ColumnOrSuperColumn>> multiget_slice(final String keyspace, final List<String> keys,
+	        final ColumnParent columnParent, final SlicePredicate predicate, final ConsistencyLevel consistencyLevel)
+	        throws InternalBackEndException {
 		try {
 			tr.open();
 			return client.multiget_slice(keyspace, keys, columnParent, predicate, consistencyLevel);
-		} catch (TException e) {
+		} catch (final TException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (InvalidRequestException e) {
+		} catch (final InvalidRequestException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (UnavailableException e) {
+		} catch (final UnavailableException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (TimedOutException e) {
+		} catch (final TimedOutException e) {
 			throw new InternalBackEndException(e.getMessage());
 		} finally {
 			tr.close();
@@ -442,25 +434,25 @@ public class CassandraWrapper extends AbstractDHTWrapper implements
 	}
 
 	/**
-	 * @throws InternalBackEndException 
+	 * @throws InternalBackEndException
 	 * @see ICassandraWrapper#remove(String keyspace, String key, String
 	 *      columnPath, String timestamp, ConsistencyLevel consistencyLevel)
 	 */
 	@Override
-	public void remove(String keyspace, String key, ColumnPath columnPath,
-			long timestamp, ConsistencyLevel consistencyLevel) throws InternalBackEndException {
+	public void remove(final String keyspace, final String key, final ColumnPath columnPath, final long timestamp,
+	        final ConsistencyLevel consistencyLevel) throws InternalBackEndException {
 		try {
 			tr.open();
 			client.remove(keyspace, key, columnPath, timestamp, consistencyLevel);
-		} catch (TTransportException e) {
+		} catch (final TTransportException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (InvalidRequestException e) {
+		} catch (final InvalidRequestException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (UnavailableException e) {
+		} catch (final UnavailableException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (TimedOutException e) {
+		} catch (final TimedOutException e) {
 			throw new InternalBackEndException(e.getMessage());
-		} catch (TException e) {
+		} catch (final TException e) {
 			throw new InternalBackEndException(e.getMessage());
 		} finally {
 			tr.close();

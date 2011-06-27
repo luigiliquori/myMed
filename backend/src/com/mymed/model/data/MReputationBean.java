@@ -9,7 +9,7 @@ public class MReputationBean extends AbstractMBean {
 		return value;
 	}
 
-	public void setValue(double value) {
+	public void setValue(final double value) {
 		this.value = value;
 	}
 
@@ -17,7 +17,7 @@ public class MReputationBean extends AbstractMBean {
 		return nbRaters;
 	}
 
-	public void setNbRaters(int nbRaters) {
+	public void setNbRaters(final int nbRaters) {
 		this.nbRaters = nbRaters;
 	}
 

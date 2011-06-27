@@ -1,6 +1,5 @@
 package com.mymed.model.core.wrappers.cassandra.api07;
 
-import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
@@ -18,17 +17,13 @@ import org.apache.cassandra.thrift.ColumnParent;
 import org.apache.cassandra.thrift.ColumnPath;
 import org.apache.cassandra.thrift.ConsistencyLevel;
 import org.apache.cassandra.thrift.IndexClause;
-import org.apache.cassandra.thrift.InvalidRequestException;
 import org.apache.cassandra.thrift.KeyRange;
 import org.apache.cassandra.thrift.KeySlice;
 import org.apache.cassandra.thrift.KsDef;
 import org.apache.cassandra.thrift.Mutation;
 import org.apache.cassandra.thrift.NotFoundException;
 import org.apache.cassandra.thrift.SlicePredicate;
-import org.apache.cassandra.thrift.TimedOutException;
 import org.apache.cassandra.thrift.TokenRange;
-import org.apache.cassandra.thrift.UnavailableException;
-import org.apache.thrift.TException;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TFramedTransport;
@@ -37,8 +32,7 @@ import org.apache.thrift.transport.TTransportException;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.controller.core.manager.IStorageManager;
-import com.mymed.model.core.wrappers.AbstractDHTWrapper;
+import com.mymed.utils.MConverter;
 
 /**
  * Wrapper for the Cassandra API v0.7.<br />
@@ -48,7 +42,7 @@ import com.mymed.model.core.wrappers.AbstractDHTWrapper;
  * @author Milo Casagrande
  * 
  */
-public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWrapper {
+public class CassandraWrapper implements ICassandraWrapper {
 
 	private transient TFramedTransport thriftTransport;
 	private transient TSocket socket;
@@ -459,102 +453,6 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 		}
 
 		return newSchemaId;
-	}
-
-	/**
-	 * Setup the configuration of the client
-	 * 
-	 * @param address
-	 * @param port
-	 */
-	@Override
-	public void setup(final String address, final int port) {
-		// TODO the configuration file is not managed by glassfish
-		if (address != null && port != 0) {
-			socket = new TSocket(address, port);
-			thriftTransport = new TFramedTransport(socket);
-			thriftProtocol = new TBinaryProtocol(thriftTransport);
-			cassandraClient = new Client(thriftProtocol);
-		}
-	}
-
-	// TODO the insert method has changed from version 0.6! Need to fix
-	// it!
-	@Override
-	public void put(final String key, final byte[] value) throws IOBackEndException, InternalBackEndException {
-		try {
-			// TODO MOVE TO THE NEW DATA STRUCTURE
-			final String columnFamily = "Services";
-
-			final ColumnPath colPathName = new ColumnPath(columnFamily);
-			colPathName.setColumn(key.getBytes("UTF8"));
-
-			final long timestamp = System.currentTimeMillis();
-
-			final Column column = new Column();
-			column.setTimestamp(timestamp);
-			column.setValue(value);
-
-			// final ByteBuffer keyToBuffer =
-			// StringConverter.stringToByteBuffer(key);
-
-			// cassandraClient.insert(key, colPathName, value, timestamp,
-			// IStorageManager.consistencyOnWrite);
-		} catch (final UnsupportedEncodingException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		}
-	}
-
-	// TODO this should be the new signature
-	public void put(final String key, final ColumnParent parent, final Column column, final ConsistencyLevel level)
-	        throws InternalBackEndException {
-
-		insert(key, parent, column, level);
-	}
-
-	// TODO we need to redefine this function: we need to pass everything that
-	// is needed
-	@Override
-	public byte[] getValue(final String key) throws IOBackEndException, InternalBackEndException {
-
-		byte[] returnValue = new byte[0];
-
-		try {
-			// TODO MOVE TO THE NEW DATA STRUCTURE
-			final String columnFamily = "Services";
-			final ColumnPath colPathName = new ColumnPath(columnFamily);
-			colPathName.setColumn(key.getBytes("UTF8"));
-
-			final ByteBuffer keyToBuffer = MConverter.stringToByteBuffer(key);
-
-			final Column col = cassandraClient.get(keyToBuffer, colPathName, IStorageManager.consistencyOnRead)
-			        .getColumn();
-
-			returnValue = col.value.array();
-		} catch (final UnsupportedEncodingException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final InvalidRequestException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final NotFoundException ex) {
-			throw new IOBackEndException(ex.getMessage());
-		} catch (final UnavailableException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final TimedOutException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		} catch (final TException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		}
-
-		return returnValue;
-	}
-
-	// TODO this should be the new signature
-	// Should we rename it to a simple 'get' like we have 'put'?
-	public byte[] getValue(final String key, final ColumnPath path, final ConsistencyLevel level)
-	        throws IOBackEndException, InternalBackEndException {
-
-		final Column col = get(key, path, level).getColumn();
-		return col.value.array();
 	}
 
 	/**

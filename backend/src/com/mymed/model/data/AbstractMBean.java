@@ -10,11 +10,10 @@ import com.mymed.controller.core.exception.InternalBackEndException;
 /**
  * myMed java Beans:
  * 
- * The required conventions are as follows: 
+ * The required conventions are as follows:
  * 
- * -The class must have a public
- * default constructor (no-argument). This allows easy instantiation within
- * editing and activation frameworks.
+ * -The class must have a public default constructor (no-argument). This allows
+ * easy instantiation within editing and activation frameworks.
  * 
  * - The class properties must be accessible using get, set, is (used for
  * boolean properties instead of get) and other methods (so-called accessor
@@ -37,46 +36,54 @@ import com.mymed.controller.core.exception.InternalBackEndException;
 public abstract class AbstractMBean {
 
 	/**
-	 * @return 
-	 * 		all the fields in a hashMap format for the myMed wrapper
+	 * @return all the fields in a hashMap format for the myMed wrapper
 	 * @throws IllegalArgumentException
 	 * @throws IllegalAccessException
 	 * @throws UnsupportedEncodingException
 	 */
 	public Map<String, byte[]> getAttributeToMap() throws InternalBackEndException {
-		Map<String, byte[]> args = new HashMap<String, byte[]>();
-		for (Field f : this.getClass().getDeclaredFields()) {
+		final Map<String, byte[]> args = new HashMap<String, byte[]>();
+		for (final Field field : this.getClass().getDeclaredFields()) {
+
+			// Set the field as accessible: it is not really secure in this case
+			// TODO maybe we should invoke the get methods and retrieve the
+			// values in that way
+			field.setAccessible(true);
+
 			try {
-				if (f.get(this) instanceof String){
-					args.put(f.getName(), ((String) f.get(this)).getBytes("UTF8"));
+				if (field.get(this) instanceof String) {
+					args.put(field.getName(), ((String) field.get(this)).getBytes("UTF8"));
 				}
-			} catch (UnsupportedEncodingException e) {
+			} catch (final UnsupportedEncodingException e) {
 				throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
-			} catch (IllegalArgumentException e) {
+			} catch (final IllegalArgumentException e) {
 				throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
-			} catch (IllegalAccessException e) {
+			} catch (final IllegalAccessException e) {
+				e.printStackTrace();
 				throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
 			}
 		}
 		return args;
 	}
-	
 	/**
 	 * override toString to have an human readable format
 	 */
 	@Override
 	public String toString() {
 		String value = "";
-		for (Field f : this.getClass().getDeclaredFields()) {
+		for (final Field field : this.getClass().getDeclaredFields()) {
+
+			field.setAccessible(true);
+
 			try {
-				if (f.get(this) instanceof String){
-					value += "\t" + f.getName() + " : " + (String) f.get(this) + "\n";
+				if (field.get(this) instanceof String) {
+					value += "\t" + field.getName() + " : " + (String) field.get(this) + "\n";
 				} else {
-					value += "\t" + f.getName() + " : " + f.get(this) + "\n";
+					value += "\t" + field.getName() + " : " + field.get(this) + "\n";
 				}
-			} catch (IllegalArgumentException e) {
+			} catch (final IllegalArgumentException e) {
 				e.printStackTrace();
-			} catch (IllegalAccessException e) {
+			} catch (final IllegalAccessException e) {
 				e.printStackTrace();
 			}
 		}

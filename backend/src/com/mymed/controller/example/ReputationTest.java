@@ -10,10 +10,10 @@ import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.reputation.InteractionManager;
 import com.mymed.controller.core.manager.reputation.ReputationManager;
 import com.mymed.model.core.configuration.WrapperConfiguration;
-import com.mymed.model.core.wrappers.cassandra.api07.MConverter;
 import com.mymed.model.data.MInteractionBean;
 import com.mymed.model.data.MReputationBean;
 import com.mymed.model.data.MUserBean;
+import com.mymed.utils.MConverter;
 
 public class ReputationTest {
 
@@ -33,9 +33,9 @@ public class ReputationTest {
 	private static String applicationID = "myMountain";
 
 	public static void main(final String[] args) {
+
 		try {
-			final WrapperConfiguration config = new WrapperConfiguration(new File(
-			        "/Users/lvanni/Documents/workspace/mymed/backend/conf/config.xml"));
+			final WrapperConfiguration config = new WrapperConfiguration(new File("backend/conf/config.xml"));
 
 			final IStorageManager storageManager = new StorageManager(config);
 
@@ -71,8 +71,9 @@ public class ReputationTest {
 			System.err.println("\nCreating the interaction...");
 			intManager.create(intBean);
 
-//			final InteractionListManager interactionListManager = new InteractionListManager();
-//			interactionListManager.update(intBean);
+			// final InteractionListManager interactionListManager = new
+			// InteractionListManager();
+			// interactionListManager.update(intBean);
 
 			System.err.println("Setting new reputation value...");
 			repManager.update(intBean, 0.6);

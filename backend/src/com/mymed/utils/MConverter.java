@@ -1,4 +1,4 @@
-package com.mymed.model.core.wrappers.cassandra.api07;
+package com.mymed.utils;
 
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
@@ -165,7 +165,7 @@ public final class MConverter {
 	 *            the ByteBuffer that holds the integer value
 	 * @return the integer value
 	 */
-	public static int byteBufferToInt(final ByteBuffer buffer) {
+	public static int byteBufferToInteger(final ByteBuffer buffer) {
 
 		buffer.compact();
 		buffer.clear();
