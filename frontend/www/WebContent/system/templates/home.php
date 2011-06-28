@@ -4,15 +4,27 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 		<title>myMed<?php if($this->isContent())echo '&gt;';$this->getTitle();?></title>
-		<script src="jquery/dist/jquery.js"></script>
+		<script src="<?=ROOTPATH?>jquery/dist/jquery.js"></script>
 <?php $this->headTags();?>
 		<!-- define styles of type of elements (ex:h1, p, p.myclass...)-->
 		<link rel="stylesheet" href="style/desktop/style.css" />
 		<!-- define design of website -->
 		<link rel="stylesheet" href="style/desktop/design.css" />
 		<script type="text/javascript" src="javascript/jquery.textPlaceholder.js"></script>
+		<script type="text/javascript" src="http://cdn.jquerytools.org/1.2.5/form/jquery.tools.min.js"></script>
+		<script type="text/javascript">
+		//<![CDATA[
+		$.tools.dateinput.localize("fr", {
+			months:        'janvier,février,mars,avril,mai,juin,juillet,août,septembre,octobre,novembre,décembre',
+			shortMonths:   'jan,fév,mar,avr,mai,jun,jul,aoû,sep,oct,nov,déc',
+			days:          'dimanche,lundi,mardi,mercredi,jeudi,vendredi,samedi',
+			shortDays:     'dim,lun,mar,mer,jeu,ven,sam'
+		});
+		//]]>
+		</script>
 	</head>
 	<body>
+		<?php printError();?>
 		<div id="header">
 			<div class="innerContent">
 				<ul>
@@ -33,7 +45,7 @@
 <?php else:?>
 				<!-- Connection -->
 		  		<div id="connexion" class="title">
-		  			<div>Connectez-vous avec votre compte&nbsp;: <?php $this->button();?></div>
+		  			<div>Connectez-vous avec votre compte&nbsp;: <div class="buttonList"><div class="main"><?php $this->mainButtons();?></div><div class="minor"><?php $this->minorButtons();?></div></div></div>
 		  			<div>Ou simplement en tant que&nbsp;: <?php $this->guestButton();?></div>
 		  		</div>
 <?php endif;?>
@@ -175,7 +187,10 @@ pour ajouter de nouvelles fonctionnalités&nbsp;!</h2>
 			</div>
 		</div>
 <?php $this->scriptTags();?>
-		<script type="text/javascript">$("[placeholder]").textPlaceholder();</script>
+		<script type="text/javascript">
+		$("[placeholder]").textPlaceholder();
+		$(":date").dateinput({lang:'fr', format:'yyyy-mm-dd', firstDay:1/*, selectors:true*/});
+		</script>
 <?php if(defined('DEBUG')&&DEBUG):?>
 		<div id="debug">
 <?php printTraces();?>

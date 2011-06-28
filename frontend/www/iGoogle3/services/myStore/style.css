@@ -10,7 +10,7 @@
 	margin		: 0;
 	padding		: 0;
 	text-align	: center;
-	
+	/*
 	column-width		: 30em;
 	-moz-column-width	: 30em;
 	-o-column-width		: 30em;
@@ -27,14 +27,14 @@
 	-khtml-column-rule	: solid 1px #000;*/
 }
 #myStore>ul>li {
-    display			: inline-block;	/*permet de simuler break-inside:avoid*/
-    width			: 30em;
+	display			: inline-block;	/*permet de simuler break-inside:avoid*/
+	width			: 30em;
 	margin			: 0;
 	margin-bottom	: 2em;
-	padding			: 0;
-	text-align		: left;/*
+	padding			: 0;/*
 	border-bottom	: 1px solid;*/
-	text-align		: justify;
+	/*text-align		: left;/*/
+	text-align		: justify;/**/
 	padding			: 1ex;
 	border			: solid 1px #ccc;
 	box-shadow			: 1ex 1ex 1ex rgba(0, 0, 0, 0.5);
@@ -45,16 +45,19 @@
 	-moz-border-radius	: 1ex;
 	-o-border-radius	: 1ex;
 	-khtml-border-radius: 1ex;
+	
+	margin			: 0 2em 2em 0;
+	vertical-align	: top;
 }
 #myStore>ul>li>img {
-    width	: 48px;
-    height	: 48px;
-    float	: left;
-    margin	: 0.9ex;
-}
+	width	: 48px;
+	height	: 48px;
+	float	: left;
+	margin	: 0.9ex;
+}/*
 #myStore ul li p:empty {
-    display: none;
-}
+	display: none;
+}*/
 #myStore div.grade {
 	position			: relative;
 	clear				: left;

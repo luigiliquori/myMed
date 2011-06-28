@@ -183,6 +183,7 @@ class myTransport extends ContentObject
 			</div>
 <?php endif?>
 		</div>
+		<script type="text/javascript">$(":date").dateinput({lang:'fr', format:'yyyy-mm-dd', firstDay:1/*, selectors:true*/});</script>
 <?php
 	}
 	/**

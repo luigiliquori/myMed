@@ -3,6 +3,7 @@ html ,body {
 	height		: 100%;
 	text-align	: center;
 	overflow	: auto;
+	position	: relative;
 }
 body>div {
 	text-align	: left;
@@ -84,16 +85,23 @@ body>div {
 #header div.connexion:hover div.connexionList {
 	display				: block;
 }
-#header div.connexion div.connexionList>a {
+#header div.connexion div.connexionList ul ,
+#header div.connexion div.connexionList ul li {
+	margin	: 0;
+	padding	: 0;
+	display	: block;
+	list-style: none;
+}
+#header div.connexion div.connexionList>ul>li>a {
 	display		: block;
 	line-height			: 24px;
 	height				: 24px;
-	padding-left		: 24px;
+	padding-left		: 26px;
 	padding-right		: 2px;
 	background-repeat	: no-repeat;
 	background-position	: 1px center;
 }
-#header div.connexion div.connexionList>a:hover {
+#header div.connexion div.connexionList>ul>li>a:hover {
 	background-color	: #BDCCC9;
 }
 #header div.connexion div a.facebook {	background-image	: url("../img/icon/facebook.png");}
@@ -101,6 +109,21 @@ body>div {
 #header div.connexion div a.mymed {		background-image	: url("../img/icon/mymed_c.png");}
 #header div.connexion div a.openid {	background-image	: url("../img/icon/openid_c.png");}
 #header div.connexion div a.twitter {	background-image	: url("../img/icon/twitter_c.png");}
+#header div.connexion div a.yahoo {		background-image	: url("../img/icon/yahoo.png");}
+#header div.connexion div a.aol {		background-image	: url("../img/icon/aol.png");}
+#header div.connexion div a.myopenid {	background-image	: url("../img/icon/myopenid_c.png");}
+#header div.connexion div a.orange {	background-image	: url("../img/icon/orange.png");}
+#header div.connexion div a.steam {		background-image	: url("../img/icon/steam_c.png");}
+#header div.connexion div a.verisign {	background-image	: url("../img/icon/verisign_c.png");}
+#header div.connexion div a.wordpress {	background-image	: url("../img/icon/wordpress_c.png");}
+#header div.connexion div a.liveid {	background-image	: url("../img/icon/liveid.png");}
+
+#header div.connexion div a.facebook ,
+#header div.connexion div a.google ,
+#header div.connexion div a.mymed ,
+#header div.connexion div a.openid ,
+#header div.connexion div a.twitter ,
+#header div.connexion div a.yahoo {		/*font-style	: italic;*/}
 #header div.connexion div form {
 	display		: table;
 }

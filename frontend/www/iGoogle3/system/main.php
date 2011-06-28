@@ -16,13 +16,17 @@ session_start();
 require_once dirname(__FILE__).'/Debug.class.php';
 require_once dirname(__FILE__).'/TemplateManager.class.php';
 require_once dirname(__FILE__).'/ContentObject.class.php';
+require_once dirname(__FILE__).'/library.php';
 
-header("Content-Script-Type:text/javascript");
+//header('Server: mymed'.substr($_SERVER['SERVER_ADDR'], 11));	// impossible à changer (voir la fichier de config d'apache et elever la version d'apache
+// remove PHP's header for more security
+header('X-Powered-By: ');
 
+header('Content-Script-Type:text/javascript');
 if(session_name()==='myMedSession_main')
 {
 	if(!isset($_SESSION['user']))
-		$_POST["connexion"] = 'guest';
+		$_GET["connexion"] = 'guest';
 	define('USER_CONNECTED', $_SESSION['user']->socialNetworkName!==null );
 }
 else
