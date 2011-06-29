@@ -1,6 +1,10 @@
 package com.mymed.model.data;
 
-
+/**
+ * 
+ * @author lvanni
+ *
+ */
 public class MAuthenticationBean extends AbstractMBean {
 
 	/* --------------------------------------------------------- */

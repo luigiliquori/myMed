@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.controller.core.manager.StorageManager;
+import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.core.configuration.WrapperConfiguration;
 import com.mymed.model.core.wrappers.AbstractDHTWrapper;
 import com.mymed.model.core.wrappers.cassandra.api06.CassandraWrapper;

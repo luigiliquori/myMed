@@ -2,8 +2,8 @@ package com.mymed.controller.example;
 
 import java.io.UnsupportedEncodingException;
 
-import com.mymed.controller.core.manager.IStorageManager;
-import com.mymed.controller.core.manager.StorageManager;
+import com.mymed.controller.core.manager.storage.IStorageManager;
+import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.core.factory.DHTWrapperFactory;
 import com.mymed.model.core.factory.IDHTWrapperFactory.WrapperType;
 

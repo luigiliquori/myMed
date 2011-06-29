@@ -34,7 +34,7 @@ import org.apache.thrift.transport.TTransportException;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.controller.core.manager.IStorageManager;
+import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.model.core.wrappers.AbstractDHTWrapper;
 
 /**
@@ -80,8 +80,6 @@ public class CassandraWrapper extends AbstractDHTWrapper implements ICassandraWr
 	 */
 	@Override
 	public void setup(final String address, final int port) {
-		System.out.println("*****address: " + address);
-		System.out.println("*****port: " + port);
 		if (address != null && port != 0) {
 			// not managed by glassfish
 			tr = new TSocket(address, port);

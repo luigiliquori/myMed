@@ -1,4 +1,4 @@
-package com.mymed.controller.core.manager;
+package com.mymed.controller.core.manager.storage;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -34,7 +34,7 @@ import com.mymed.model.core.wrappers.cassandra.api06.CassandraWrapper;
  *         to the data source. The DAO manages the connection with the data
  *         source to obtain and store data.
  */
-public class StorageManager implements IStorageManager {
+public class StorageManager06 implements IStorageManager {
 
 	/* --------------------------------------------------------- */
 	/* Attributes */
@@ -55,7 +55,7 @@ public class StorageManager implements IStorageManager {
 	 * @throws IOBackEndException
 	 * @throws InternalBackEndException
 	 */
-	public StorageManager() throws InternalBackEndException {
+	public StorageManager06() throws InternalBackEndException {
 		this(WrapperType.CASSANDRA, new WrapperConfiguration(new File(
 				"./conf/config.xml")));
 	}
@@ -69,7 +69,7 @@ public class StorageManager implements IStorageManager {
 	 * @throws IOBackEndException
 	 * @throws InternalBackEndException
 	 */
-	public StorageManager(WrapperConfiguration conf)
+	public StorageManager06(WrapperConfiguration conf)
 			throws InternalBackEndException {
 		this(WrapperType.CASSANDRA, conf);
 	}
@@ -83,7 +83,7 @@ public class StorageManager implements IStorageManager {
 	 * @throws IOBackEndException
 	 * @throws InternalBackEndException
 	 */
-	public StorageManager(WrapperType type) throws InternalBackEndException {
+	public StorageManager06(WrapperType type) throws InternalBackEndException {
 		this(type, new WrapperConfiguration(new File("./conf/config.xml")));
 	}
 
@@ -98,7 +98,7 @@ public class StorageManager implements IStorageManager {
 	 * @throws IOBackEndException
 	 * @throws InternalBackEndException
 	 */
-	public StorageManager(WrapperType type, WrapperConfiguration conf)
+	public StorageManager06(WrapperType type, WrapperConfiguration conf)
 			throws InternalBackEndException {
 		this.type = type;
 		this.wrapper = DHTWrapperFactory.createDHTWrapper(type, conf);
@@ -134,7 +134,7 @@ public class StorageManager implements IStorageManager {
 				ColumnPath colPathName = new ColumnPath(tableName);
 				colPathName.setColumn(columnName.getBytes("UTF8"));
 				return cassandraWrapper.get("Mymed", key, colPathName,
-						StorageManager.consistencyOnRead).getColumn()
+						StorageManager06.consistencyOnRead).getColumn()
 						.getValue();
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();

@@ -1,4 +1,4 @@
-package com.mymed.controller.core.manager;
+package com.mymed.controller.core.manager.storage;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
@@ -38,7 +38,7 @@ public interface IStorageManager {
 	 *            All columnName and the their value
 	 * @return true if the entry is correctly stored, false otherwise
 	 */
-	public boolean insertSlice(String tableName, String primaryKey,
+	public void insertSlice(String tableName, String primaryKey,
 			Map<String, byte[]> args) throws ServiceManagerException, IOBackEndException, InternalBackEndException;
 
 	/**
@@ -88,7 +88,7 @@ public interface IStorageManager {
 	 * @throws ServiceManagerException
 	 * @throws InternalBackEndException
 	 */
-	public void insertSuperColumn(String tableName, String key, String superKey,
+	public void insertSuperColumn(String tableName, String key, String superColumn,
 			String columnName, byte[] value) throws ServiceManagerException,
 			InternalBackEndException;
 	
