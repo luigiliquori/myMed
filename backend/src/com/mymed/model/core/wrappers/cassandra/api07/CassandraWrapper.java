@@ -70,9 +70,6 @@ public class CassandraWrapper implements ICassandraWrapper {
 	 * @throws InternalBackEndException
 	 */
 	public CassandraWrapper(final String address, final int port) throws InternalBackEndException {
-
-		super();
-
 		if (address == null && (port == 0 || port < 0)) {
 			throw new InternalBackEndException("Address or port must be a valid value.");
 		} else {
