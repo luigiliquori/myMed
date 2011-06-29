@@ -14,9 +14,9 @@ session_name('myMedSession_'.(defined('SESSIONNAME')?SESSIONNAME:'main'));
 session_start();
 
 require_once dirname(__FILE__).'/Debug.class.php';
+require_once dirname(__FILE__).'/library.php';
 require_once dirname(__FILE__).'/TemplateManager.class.php';
 require_once dirname(__FILE__).'/ContentObject.class.php';
-require_once dirname(__FILE__).'/library.php';
 
 //header('Server: mymed'.substr($_SERVER['SERVER_ADDR'], 11));	// impossible à changer (voir la fichier de config d'apache et elever la version d'apache
 // remove PHP's header for more security

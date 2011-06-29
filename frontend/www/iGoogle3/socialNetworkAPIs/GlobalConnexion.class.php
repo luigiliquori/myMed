@@ -14,6 +14,7 @@ require_once dirname(__FILE__).'/ConnexionVeriSign.class.php';
 require_once dirname(__FILE__).'/ConnexionSteam.class.php';
 require_once dirname(__FILE__).'/ConnexionAol.class.php';
 require_once dirname(__FILE__).'/ConnexionLiveId.class.php';
+require_once dirname(__FILE__).'/ConnexionMySpace.class.php';
 abstract class GlobalConnexion extends Connexion
 {
 	private /*array<Connexion>*/ $connexions = array();
@@ -29,6 +30,7 @@ abstract class GlobalConnexion extends Connexion
 		$this->connexions[] = $this->minorConnexions[]	= new ConnexionLiveId;
 		$this->connexions[] = $this->mainConnexions[]	= new ConnexionMyMed;
 		$this->connexions[] = $this->minorConnexions[]	= new ConnexionMyOpenId;
+		$this->connexions[] = $this->minorConnexions[]	= new ConnexionMySpace;
 		$this->connexions[] = $this->minorConnexions[]	= new ConnexionOpenId;
 		$this->connexions[] = $this->minorConnexions[]	= new ConnexionOrange;
 		$this->connexions[] = $this->minorConnexions[]	= new ConnexionSteam;

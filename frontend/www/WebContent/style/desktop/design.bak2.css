@@ -57,12 +57,8 @@ div.innerContent {
 	background-color: white;
 	border		: 1px #d2d2d2 solid;
 	height		: 545px;
-	line-height	: 545px;
 	position	: relative;
 	z-index		: 1;
-}
-#content>* {
-	line-height: normal;
 }
 #languages ul {
 	display		: block;
@@ -154,14 +150,13 @@ div.innerContent {
 #content #description_myMed {
 	float		: left;
 	width		: 380px;/*34.545em;*/
-	margin		: 0 50px;
+	margin-left	: 50px;
+	margin-right: 80px;
 	text-align	: center;
 }
 #content #description_myMed ,
 #content #inscription {
-	display: inline-block;
-	vertical-align: middle;
-	line-height: normal;
+	margin-top	: 60px;
 }
 #content #description_myMed img {
 	width	: 100%;

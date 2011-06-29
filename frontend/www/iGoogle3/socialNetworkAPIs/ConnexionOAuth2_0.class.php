@@ -1,7 +1,7 @@
 <?php
 require_once dirname(__FILE__).'/Connexion.class.php';
 /**
- * A class to define a OAuth login
+ * A class to define a OAuth 2.0 login
  * @author blanchard
  */
 abstract class ConnexionOAuth2_0 extends Connexion
