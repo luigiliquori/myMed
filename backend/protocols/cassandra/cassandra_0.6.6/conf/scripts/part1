@@ -118,39 +118,71 @@
       -->
 
 <Keyspaces>
-  
-   <!-- MAIN KEYSPACE -->
-   <Keyspace Name="Mymed">
-      <!-- COLUMN -->
-      <ColumnFamily Name="Users" CompareWith="UTF8Type"
+   
+	<Keyspace Name="Mymed">
+      <!-- USER MANAGMENT -->
+      <ColumnFamily Name="User" CompareWith="UTF8Type"
                     KeysCached="1000"
                     RowsCached="100"
                     RowCacheSavePeriodInSeconds="0"
                     KeyCacheSavePeriodInSeconds="3600"/>
-      <ColumnFamily Name="Networking" CompareWith="UTF8Type"
+      <ColumnFamily Name="UserGroup"
+                    ColumnType="Super"
+                    CompareWith="UTF8Type"
+                    CompareSubcolumnsWith="UTF8Type" />
+      <ColumnFamily Name="Session" CompareWith="UTF8Type"
                     KeysCached="1000"
                     RowsCached="100"
                     RowCacheSavePeriodInSeconds="0"
                     KeyCacheSavePeriodInSeconds="3600"/>
-      <ColumnFamily Name="Trips" CompareWith="BytesType"
+      <ColumnFamily Name="Authentication" CompareWith="UTF8Type"
                     KeysCached="1000"
                     RowsCached="100"
                     RowCacheSavePeriodInSeconds="0"
                     KeyCacheSavePeriodInSeconds="3600"/>
+
+	  <!-- REPUTATION MANAGMENT -->
+      <ColumnFamily Name="Reputation" CompareWith="UTF8Type"
+                    KeysCached="1000"
+                    RowsCached="100"
+                    RowCacheSavePeriodInSeconds="0"
+                    KeyCacheSavePeriodInSeconds="3600"/>
+      <ColumnFamily Name="Interaction" CompareWith="UTF8Type"
+                    KeysCached="1000"
+                    RowsCached="100"
+                    RowCacheSavePeriodInSeconds="0"
+                    KeyCacheSavePeriodInSeconds="3600"/>
+      <ColumnFamily Name="InteractionList"
+                    ColumnType="Super"
+                    CompareWith="UTF8Type"
+                    CompareSubcolumnsWith="UTF8Type" />
+      <ColumnFamily Name="RaterList"
+                    ColumnType="Super"
+                    CompareWith="UTF8Type"
+                    CompareSubcolumnsWith="UTF8Type" />
+					
+	  <!-- SERVICE MANAGMENT -->
       <ColumnFamily Name="Services" CompareWith="UTF8Type"
                     KeysCached="1000"
                     RowsCached="100"
                     RowCacheSavePeriodInSeconds="0"
                     KeyCacheSavePeriodInSeconds="3600"/>
-      <!-- SUPERCOLUMN -->
       <ColumnFamily Name="myTransport"
                     ColumnType="Super"
                     CompareWith="UTF8Type"
                     CompareSubcolumnsWith="UTF8Type" />
-      <ColumnFamily Name="Reputation"
-                    ColumnType="Super"
-                    CompareWith="UTF8Type"
-                    CompareSubcolumnsWith="UTF8Type" />
+      <ColumnFamily Name="Trips" CompareWith="BytesType"
+                    KeysCached="1000"
+                    RowsCached="100"
+                    RowCacheSavePeriodInSeconds="0"
+                    KeyCacheSavePeriodInSeconds="3600"/>
+
+      <!-- DHT MANAGMENT -->
+      <ColumnFamily Name="DHT" CompareWith="UTF8Type"
+                    KeysCached="1000"
+                    RowsCached="100"
+                    RowCacheSavePeriodInSeconds="0"
+                    KeyCacheSavePeriodInSeconds="3600"/>
 
       <ReplicaPlacementStrategy>org.apache.cassandra.locator.RackUnawareStrategy</ReplicaPlacementStrategy>
       <ReplicationFactor>10</ReplicationFactor>
@@ -223,16 +255,19 @@
   	<Seed>138.96.242.1</Seed>
 	<!-- INRIA: F107 -->
         <Seed>138.96.242.2</Seed>
+		<Seed>138.96.242.8</Seed>
 	<!-- INRIA: F102 -->
         <Seed>138.96.242.3</Seed>
         <Seed>138.96.242.4</Seed>
-	<!-- UNS -->
+	<!-- Univ. Nice: Valrose - Salon de Musique -->
         <Seed>134.59.12.39</Seed>
-	<Seed>134.59.74.51</Seed>
+	<!-- Univ. Nice: St-Jean d'Angely - Mr Gasperini -->
+		<Seed>134.59.74.51</Seed>
+	<!-- Univ. Nice: Valrose - Mme Bertone -->		
+		<Seed>134.59.12.45</Seed>
 	<!-- INRIA: F102 -->
         <Seed>138.96.242.7</Seed>
 	<!-- INRIA: F101 -->
-        <Seed>138.96.242.8</Seed>
         <Seed>138.96.242.9</Seed>
         <Seed>138.96.242.10</Seed>
   </Seeds>

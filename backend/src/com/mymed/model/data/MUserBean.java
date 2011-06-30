@@ -5,14 +5,15 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.mymed.controller.core.services.requesthandler.exception.InternalBackEndException;
+import com.mymed.controller.core.exception.InternalBackEndException;
+
 
 /**
  * This class represent an user profile
  * 
  * @author lvanni
  */
-public class MUserBean extends AbsctractMBean{
+public class MUserBean extends AbstractMBean {
 
 	/* --------------------------------------------------------- */
 	/* Attributes */
@@ -28,30 +29,50 @@ public class MUserBean extends AbsctractMBean{
 	private String birthday = null;
 	private String hometown = null;
 	private String gender = null;
-	private String profilePicture = null;
-	private String buddyList = null;	
-	private String subscribtionList = null;
-	private String reputation = null;
-	private String session = null;
-	private String transactionList = null;
 	private String email = null;
-	private String password = null;
+	private String profilePicture = null;
+	private String buddyListID = null;	
+	private String subscribtionListID = null;
+	private String sessionID = null;
 
 	/* --------------------------------------------------------- */
 	/* Constructors */
 	/* --------------------------------------------------------- */
-	/**
-	 * no-args constructor
-	 */
 	public MUserBean() {
+		// TODO Auto-generated constructor stub
 	}
 
 	/* --------------------------------------------------------- */
-	/* public methods */
+	/* Override methods */
 	/* --------------------------------------------------------- */
 	/**
-	 * @throws InternalBackEndException 
-	 * @see com.mymed.model.data.AbsctractMBean#getAttributeToMap()
+	 * override toString to have an human readable format
+	 */
+	@Override
+	public String toString() {
+		String value = "";
+		for (Field f : this.getClass().getDeclaredFields()) {
+			try {
+				if (f.get(this) instanceof String){
+					value += "\t" + f.getName() + " : " + (String) f.get(this) + "\n";
+				} else {
+					value += "\t" + f.getName() + " : " + f.get(this) + "\n";
+				}
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		}
+		return value;
+	}
+	
+	/**
+	 * @return 
+	 * 		all the fields in a hashMap format for the myMed wrapper
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 * @throws UnsupportedEncodingException
 	 */
 	public Map<String, byte[]> getAttributeToMap() throws InternalBackEndException {
 		Map<String, byte[]> args = new HashMap<String, byte[]>();
@@ -69,27 +90,6 @@ public class MUserBean extends AbsctractMBean{
 			}
 		}
 		return args;
-	}
-
-	/* --------------------------------------------------------- */
-	/* Override methods */
-	/* --------------------------------------------------------- */
-	public String toString() {
-		String value = "User:\n";
-		for (Field f : this.getClass().getDeclaredFields()) {
-			try {
-				if (f.get(this) instanceof String){
-					value += "\t" + f.getName() + " : " + (String) f.get(this) + "\n";
-				} else {
-					value += "\t" + f.getName() + " : " + f.get(this) + "\n";
-				}
-			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			}
-		}
-		return value;
 	}
 
 	/* --------------------------------------------------------- */
@@ -183,44 +183,28 @@ public class MUserBean extends AbsctractMBean{
 		this.profilePicture = profilePicture;
 	}
 
-	public String getBuddyList() {
-		return buddyList;
+	public String getBuddyListID() {
+		return buddyListID;
 	}
 
-	public void setBuddyList(String buddyList) {
-		this.buddyList = buddyList;
+	public void setBuddyListID(String buddyList) {
+		this.buddyListID = buddyList;
 	}
 
-	public String getSubscribtionList() {
-		return subscribtionList;
+	public String getSubscribtionListID() {
+		return subscribtionListID;
 	}
 
-	public void setSubscribtionList(String subscribtionList) {
-		this.subscribtionList = subscribtionList;
+	public void setSubscribtionListID(String subscribtionList) {
+		this.subscribtionListID = subscribtionList;
 	}
 
-	public String getReputation() {
-		return reputation;
+	public String getSessionID() {
+		return sessionID;
 	}
 
-	public void setReputation(String reputation) {
-		this.reputation = reputation;
-	}
-
-	public String getSession() {
-		return session;
-	}
-
-	public void setSession(String session) {
-		this.session = session;
-	}
-
-	public String getTransactionList() {
-		return transactionList;
-	}
-
-	public void setTransactionList(String transactionList) {
-		this.transactionList = transactionList;
+	public void setSessionID(String session) {
+		this.sessionID = session;
 	}
 
 	public String getEmail() {
@@ -229,13 +213,5 @@ public class MUserBean extends AbsctractMBean{
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 }

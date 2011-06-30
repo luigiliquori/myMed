@@ -3,6 +3,8 @@ require_once dirname(__FILE__).'/../config.php';
 require_once dirname(__FILE__).'/ProfileRequest.class.php';
 require_once dirname(__FILE__).'/SessionRequest.class.php';//*
 $request = new ProfileRequest();
+//echo 'delete http://mymed21.sophia.inria.fr/mymed/iGoogle3/openid/idpage/test<br>';
+//$request->delete('myMedhttp://mymed21.sophia.inria.fr/mymed/iGoogle3/openid/idpage/test');
 //echo $request->read("https://www.google.com/accounts/o8/id?id=AItOawnfWXPUnLKvaa5VRSoseoqAGKMB7tGASw0", "Google");//*/
 $json = '
 {

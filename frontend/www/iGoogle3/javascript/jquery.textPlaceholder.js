@@ -1,6 +1,7 @@
 /**
  * http://plugins.jquery.com/project/text_placeholder
- * @version 2.0
+ * @version 2.0.2011.06.07
+ * corrected by Bastien BLANCHARD (bug on firefox 3.6 : always use getAttribute)
  */
 jQuery.fn.textPlaceholder = function () {
 
@@ -29,8 +30,6 @@ jQuery.fn.textPlaceholder = function () {
 			if (this.value === '') {
 				input.addClass('text-placeholder');
 				this.value = placeholder;
-			} else {
-				input.removeClass('text-placeholder');
 			}
 		});
 
@@ -43,3 +42,4 @@ jQuery.fn.textPlaceholder = function () {
 	});
 
 };
+

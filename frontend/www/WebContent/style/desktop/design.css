@@ -94,11 +94,58 @@ div.innerContent {
 
 
 #connexion>div {
-	margin:1ex;
+	margin:1ex 1ex 0 0;
 }
-#connexion div form ,#connexion div div {
-	display:inline;
-	vertical-align: middle;
+#connexion div form ,#connexion div div ,#connexion div a ,#connexion div form * {
+	display			: inline;
+	display			: inline-block;
+	vertical-align	: middle;
+}
+#connexion div form ,#connexion div a {
+	margin	: 0.3ex;
+}
+#connexion div form {
+	
+}
+#connexion div form a {
+	display	: none;
+}
+#connexion div.buttonList ul ,
+#connexion div.buttonList ul li {
+	margin	: 0;
+	padding	: 0;
+	display	: inline;
+	list-style: none;
+}
+#connexion div.buttonList {
+	position: relative;
+}
+#connexion div.buttonList div.main:after {
+	content	: "...";
+}
+#connexion div.buttonList:hover div.main:after {
+	content	: "";
+}
+#connexion div.buttonList div.minor {
+	display		: none;
+	position	: absolute;
+	width		: 100%;
+	left		: -0.3ex;
+	margin-left	: -1px;/*bordure gauche à enlever*/
+	top			: 24px;
+	margin-top	: 0.3ex;
+	padding		: 0.3ex;
+	background-color	: #EDF2F4;
+	border		: 1px solid #C6D4DB;
+	border-top	: 0 none;
+	z-index		: 2;
+}
+#connexion div.buttonList:hover div.minor {
+	display	: block;
+}
+#connexion div form.openid label span ,
+#connexion div form.openid button span {
+	display:none;
 }
 #content #description_myMed {
 	float		: left;

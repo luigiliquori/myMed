@@ -1,0 +1,201 @@
+# Cassandra YAML generated from previous config
+# Configuration wiki: http://wiki.apache.org/cassandra/StorageConfiguration
+authenticator: org.apache.cassandra.auth.AllowAllAuthenticator
+auto_bootstrap: false
+binary_memtable_throughput_in_mb: 256
+cluster_name: myMed cluster
+column_index_size_in_kb: 64
+commitlog_directory: /local/var/log/cassandra/commitlog
+commitlog_rotation_threshold_in_mb: 128
+commitlog_sync: periodic
+commitlog_sync_period_in_ms: 10000
+compaction_preheat_key_cache: true
+compaction_thread_priority: 1
+concurrent_reads: 8
+concurrent_writes: 32
+data_file_directories:
+- /local/var/lib/cassandra/data
+disk_access_mode: auto
+dynamic_snitch: false
+dynamic_snitch_badness_threshold: 0.0
+dynamic_snitch_reset_interval_in_ms: 600000
+dynamic_snitch_update_interval_in_ms: 100
+endpoint_snitch: org.apache.cassandra.locator.RackInferringSnitch
+flush_largest_memtables_at: 1.0
+hinted_handoff_enabled: true
+hinted_handoff_throttle_delay_in_ms: 0
+in_memory_compaction_limit_in_mb: 256
+incremental_backups: false
+index_interval: 128
+keyspaces:
+- column_families:
+  - column_metadata: []
+    column_type: Standard
+    compare_with: UTF8Type
+    gc_grace_seconds: 864000
+    key_cache_save_period_in_seconds: 3600
+    keys_cached: 1000.0
+    max_compaction_threshold: 32
+    memtable_flush_after_mins: 60
+    memtable_operations_in_millions: 0.3
+    memtable_throughput_in_mb: 64
+    min_compaction_threshold: 4
+    name: Users
+    read_repair_chance: 1.0
+    row_cache_save_period_in_seconds: 0
+    rows_cached: 100.0
+  - column_metadata: []
+    column_type: Super
+    compare_subcolumns_with: UTF8Type
+    compare_with: UTF8Type
+    gc_grace_seconds: 864000
+    key_cache_save_period_in_seconds: 14400
+    keys_cached: 200000.0
+    max_compaction_threshold: 32
+    memtable_flush_after_mins: 60
+    memtable_operations_in_millions: 0.3
+    memtable_throughput_in_mb: 64
+    min_compaction_threshold: 4
+    name: UserGroup
+    read_repair_chance: 1.0
+    row_cache_save_period_in_seconds: 0
+    rows_cached: 0.0
+  - column_metadata: []
+    column_type: Standard
+    compare_with: UTF8Type
+    gc_grace_seconds: 864000
+    key_cache_save_period_in_seconds: 3600
+    keys_cached: 1000.0
+    max_compaction_threshold: 32
+    memtable_flush_after_mins: 60
+    memtable_operations_in_millions: 0.3
+    memtable_throughput_in_mb: 64
+    min_compaction_threshold: 4
+    name: Session
+    read_repair_chance: 1.0
+    row_cache_save_period_in_seconds: 0
+    rows_cached: 100.0
+  - column_metadata: []
+    column_type: Standard
+    compare_with: UTF8Type
+    gc_grace_seconds: 864000
+    key_cache_save_period_in_seconds: 3600
+    keys_cached: 1000.0
+    max_compaction_threshold: 32
+    memtable_flush_after_mins: 60
+    memtable_operations_in_millions: 0.3
+    memtable_throughput_in_mb: 64
+    min_compaction_threshold: 4
+    name: Authentication
+    read_repair_chance: 1.0
+    row_cache_save_period_in_seconds: 0
+    rows_cached: 100.0
+  - column_metadata: []
+    column_type: Standard
+    compare_with: UTF8Type
+    gc_grace_seconds: 864000
+    key_cache_save_period_in_seconds: 3600
+    keys_cached: 1000.0
+    max_compaction_threshold: 32
+    memtable_flush_after_mins: 60
+    memtable_operations_in_millions: 0.3
+    memtable_throughput_in_mb: 64
+    min_compaction_threshold: 4
+    name: Services
+    read_repair_chance: 1.0
+    row_cache_save_period_in_seconds: 0
+    rows_cached: 100.0
+  - column_metadata: []
+    column_type: Super
+    compare_subcolumns_with: UTF8Type
+    compare_with: UTF8Type
+    gc_grace_seconds: 864000
+    key_cache_save_period_in_seconds: 14400
+    keys_cached: 200000.0
+    max_compaction_threshold: 32
+    memtable_flush_after_mins: 60
+    memtable_operations_in_millions: 0.3
+    memtable_throughput_in_mb: 64
+    min_compaction_threshold: 4
+    name: myTransport
+    read_repair_chance: 1.0
+    row_cache_save_period_in_seconds: 0
+    rows_cached: 0.0
+  - column_metadata: []
+    column_type: Standard
+    compare_with: BytesType
+    gc_grace_seconds: 864000
+    key_cache_save_period_in_seconds: 3600
+    keys_cached: 1000.0
+    max_compaction_threshold: 32
+    memtable_flush_after_mins: 60
+    memtable_operations_in_millions: 0.3
+    memtable_throughput_in_mb: 64
+    min_compaction_threshold: 4
+    name: Trips
+    read_repair_chance: 1.0
+    row_cache_save_period_in_seconds: 0
+    rows_cached: 100.0
+  - column_metadata: []
+    column_type: Super
+    compare_subcolumns_with: UTF8Type
+    compare_with: UTF8Type
+    gc_grace_seconds: 864000
+    key_cache_save_period_in_seconds: 14400
+    keys_cached: 200000.0
+    max_compaction_threshold: 32
+    memtable_flush_after_mins: 60
+    memtable_operations_in_millions: 0.3
+    memtable_throughput_in_mb: 64
+    min_compaction_threshold: 4
+    name: Reputation
+    read_repair_chance: 1.0
+    row_cache_save_period_in_seconds: 0
+    rows_cached: 0.0
+  - column_metadata: []
+    column_type: Standard
+    compare_with: UTF8Type
+    gc_grace_seconds: 864000
+    key_cache_save_period_in_seconds: 3600
+    keys_cached: 1000.0
+    max_compaction_threshold: 32
+    memtable_flush_after_mins: 60
+    memtable_operations_in_millions: 0.3
+    memtable_throughput_in_mb: 64
+    min_compaction_threshold: 4
+    name: DHT
+    read_repair_chance: 1.0
+    row_cache_save_period_in_seconds: 0
+    rows_cached: 100.0
+  name: Mymed
+  replica_placement_strategy: org.apache.cassandra.locator.RackUnawareStrategy
+  replication_factor: 10
+listen_address: 138.96.242.22
+max_hint_window_in_ms: 2147483647
+memtable_flush_queue_size: 4
+partitioner: org.apache.cassandra.dht.RandomPartitioner
+phi_convict_threshold: 8
+reduce_cache_capacity_to: 0.6
+reduce_cache_sizes_at: 1.0
+rpc_keepalive: true
+rpc_max_threads: 2147483647
+rpc_min_threads: 16
+rpc_port: 9160
+rpc_timeout_in_ms: 10000
+saved_caches_directory: /local/var/lib/cassandra/saved_caches
+seeds:
+- 138.96.242.1
+- 138.96.242.2
+- 138.96.242.3
+- 138.96.242.4
+- 134.59.12.39
+- 134.59.74.51
+- 138.96.242.7
+- 138.96.242.8
+- 138.96.242.9
+- 138.96.242.10
+sliced_buffer_size_in_kb: 64
+snapshot_before_compaction: false
+storage_port: 4200
+thrift_framed_transport_size_in_mb: 15
+thrift_max_message_length_in_mb: 16

@@ -36,5 +36,21 @@ class Profile extends JSon
 			&& $this->password			=== $profile->password
 			&& $this->profilePicture	=== $profile->profilePicture;
 	}
+	public /*bool*/ function equalsOrNull(Profile $profile)
+	{
+		return $this->mymedID			=== $profile->mymedID
+			&& $this->socialNetworkID	=== $profile->socialNetworkID
+			&& $this->socialNetworkName	=== $profile->socialNetworkName
+			&& ($this->name				=== $profile->name		||$profile->profilePicture	=== null)
+			&& ($this->firstName		=== $profile->firstName	||$profile->profilePicture	=== null)
+			&& ($this->lastName			=== $profile->lastName	||$profile->profilePicture	=== null)
+			&& ($this->link				=== $profile->link		||$profile->profilePicture	=== null)
+			&& ($this->birthday			=== $profile->birthday	||$profile->profilePicture	=== null)
+			&& ($this->hometown			=== $profile->hometown	||$profile->profilePicture	=== null)
+			&& ($this->gender			=== $profile->gender	||$profile->profilePicture	=== null)
+			&& ($this->email			=== $profile->email		||$profile->profilePicture	=== null)
+			&& $this->password			=== $profile->password
+			&& ($this->profilePicture	=== $profile->profilePicture	||$profile->profilePicture	=== null);
+	}
 }
 ?>
