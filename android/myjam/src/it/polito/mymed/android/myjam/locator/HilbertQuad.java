@@ -16,75 +16,87 @@ public class HilbertQuad {
 	private QuadType typeQuad;
 	
 	public static class SubQuad {
-		public int i;
+		public short pos;
 		public QuadType type;
 		
-		public SubQuad(int i,QuadType type){
-			this.i = i;
+		public SubQuad(short pos,QuadType type){
+			this.pos = pos;
 			this.type = type;
 		}
 	}
-	
-	protected enum Quad{First,Second,Third,Fourth}
+	/*		Quadrants
+	 * 		-------------------------
+	 * 		|			|			|
+ 	 *		|	  2		|	  3		| 	 		
+	 *		|	Fourth	|	Third	|
+	 * 		-------------------------
+	 * 		|			|			|
+ 	 *		|	  0		|	  1		| 	 		
+	 *		|	First	|	Second	|
+	 * 		-------------------------
+	 */
+	protected static enum Quad{First,Second,Third,Fourth}
 	public static Map<QuadType, Map<Quad, SubQuad>> tableEnc =
 	    new EnumMap<QuadType, Map<Quad, SubQuad>>(QuadType.class);
 	static {
 			Map<Quad, SubQuad> map = new EnumMap<Quad, SubQuad>(Quad.class);
-			map.put(Quad.First, new SubQuad(0,QuadType.D));
-			map.put(Quad.Second, new SubQuad(3,QuadType.C));
-			map.put(Quad.Third, new SubQuad(1,QuadType.A));
-			map.put(Quad.Fourth, new SubQuad(2,QuadType.A));
+			map.put(Quad.First, new SubQuad((short) 0,QuadType.D));
+			map.put(Quad.Second, new SubQuad((short) 3,QuadType.C));
+			map.put(Quad.Third, new SubQuad((short) 1,QuadType.A));
+			map.put(Quad.Fourth, new SubQuad((short) 2,QuadType.A));
 	        tableEnc.put(QuadType.A, map);
 	        map = new EnumMap<Quad, SubQuad>(Quad.class);
-			map.put(Quad.First, new SubQuad(0,QuadType.A));
-			map.put(Quad.Second, new SubQuad(1,QuadType.D));
-			map.put(Quad.Third, new SubQuad(3,QuadType.U));
-			map.put(Quad.Fourth, new SubQuad(2,QuadType.D));
+			map.put(Quad.First, new SubQuad((short) 0,QuadType.A));
+			map.put(Quad.Second, new SubQuad((short) 1,QuadType.D));
+			map.put(Quad.Third, new SubQuad((short) 3,QuadType.U));
+			map.put(Quad.Fourth, new SubQuad((short) 2,QuadType.D));
 	        tableEnc.put(QuadType.D, map);
 	        map = new EnumMap<Quad, SubQuad>(Quad.class);
-			map.put(Quad.First, new SubQuad(2,QuadType.U));
-			map.put(Quad.Second, new SubQuad(1,QuadType.U));
-			map.put(Quad.Third, new SubQuad(3,QuadType.D));
-			map.put(Quad.Fourth, new SubQuad(0,QuadType.C));
+			map.put(Quad.First, new SubQuad((short) 2,QuadType.U));
+			map.put(Quad.Second, new SubQuad((short) 1,QuadType.U));
+			map.put(Quad.Third, new SubQuad((short) 3,QuadType.D));
+			map.put(Quad.Fourth, new SubQuad((short) 0,QuadType.C));
 			tableEnc.put(QuadType.U, map);
 			map = new EnumMap<Quad, SubQuad>(Quad.class);
-			map.put(Quad.First, new SubQuad(2,QuadType.C));
-			map.put(Quad.Second, new SubQuad(3,QuadType.A));
-			map.put(Quad.Third, new SubQuad(1,QuadType.C));
-			map.put(Quad.Fourth, new SubQuad(0,QuadType.U));
+			map.put(Quad.First, new SubQuad((short) 2,QuadType.C));
+			map.put(Quad.Second, new SubQuad((short) 3,QuadType.A));
+			map.put(Quad.Third, new SubQuad((short) 1,QuadType.C));
+			map.put(Quad.Fourth, new SubQuad((short) 0,QuadType.U));
 			tableEnc.put(QuadType.C, map);
 	}
-	public static Map<QuadType, Map<Integer, SubQuad>> tableDec =
-	    new EnumMap<QuadType, Map<Integer, SubQuad>>(QuadType.class);
+	public static Map<QuadType, Map<Short, SubQuad>> tableDec =
+	    new EnumMap<QuadType, Map<Short, SubQuad>>(QuadType.class);
 	static {
-			Map<Integer, SubQuad> mapDec = new HashMap<Integer, SubQuad>();
-			mapDec.put(0, new SubQuad(Quad.First.ordinal(),QuadType.D));
-			mapDec.put(3, new SubQuad(Quad.Second.ordinal(),QuadType.C));
-			mapDec.put(1, new SubQuad(Quad.Third.ordinal(),QuadType.A));
-			mapDec.put(2, new SubQuad(Quad.Fourth.ordinal(),QuadType.A));
+			Map<Short, SubQuad> mapDec = new HashMap<Short, SubQuad>();
+			mapDec.put((short) 0, new SubQuad((short) Quad.First.ordinal(),QuadType.D));
+			mapDec.put((short) 3, new SubQuad((short) Quad.Second.ordinal(),QuadType.C));
+			mapDec.put((short) 1, new SubQuad((short) Quad.Third.ordinal(),QuadType.A));
+			mapDec.put((short) 2, new SubQuad((short) Quad.Fourth.ordinal(),QuadType.A));
 	        tableDec.put(QuadType.A, mapDec);
-	        mapDec = new HashMap<Integer, SubQuad>();
-			mapDec.put(0, new SubQuad(Quad.First.ordinal(),QuadType.A));
-			mapDec.put(1, new SubQuad(Quad.Second.ordinal(),QuadType.D));
-			mapDec.put(3, new SubQuad(Quad.Third.ordinal(),QuadType.U));
-			mapDec.put(2, new SubQuad(Quad.Fourth.ordinal(),QuadType.D));
+	        mapDec = new HashMap<Short, SubQuad>();
+			mapDec.put((short) 0, new SubQuad((short) Quad.First.ordinal(),QuadType.A));
+			mapDec.put((short) 1, new SubQuad((short) Quad.Second.ordinal(),QuadType.D));
+			mapDec.put((short) 3, new SubQuad((short) Quad.Third.ordinal(),QuadType.U));
+			mapDec.put((short) 2, new SubQuad((short) Quad.Fourth.ordinal(),QuadType.D));
 	        tableDec.put(QuadType.D, mapDec);
-	        mapDec = new HashMap<Integer, SubQuad>();
-			mapDec.put(2, new SubQuad(Quad.First.ordinal(),QuadType.U));
-			mapDec.put(1, new SubQuad(Quad.Second.ordinal(),QuadType.U));
-			mapDec.put(3, new SubQuad(Quad.Third.ordinal(),QuadType.D));
-			mapDec.put(0, new SubQuad(Quad.Fourth.ordinal(),QuadType.C));
+	        mapDec = new HashMap<Short, SubQuad>();
+			mapDec.put((short) 2, new SubQuad((short) Quad.First.ordinal(),QuadType.U));
+			mapDec.put((short) 1, new SubQuad((short) Quad.Second.ordinal(),QuadType.U));
+			mapDec.put((short) 3, new SubQuad((short) Quad.Third.ordinal(),QuadType.D));
+			mapDec.put((short) 0, new SubQuad((short) Quad.Fourth.ordinal(),QuadType.C));
 			tableDec.put(QuadType.U, mapDec);
-			mapDec = new HashMap<Integer, SubQuad>();
-			mapDec.put(2, new SubQuad(Quad.First.ordinal(),QuadType.C));
-			mapDec.put(3, new SubQuad(Quad.Second.ordinal(),QuadType.A));
-			mapDec.put(1, new SubQuad(Quad.Third.ordinal(),QuadType.C));
-			mapDec.put(0, new SubQuad(Quad.Fourth.ordinal(),QuadType.U));
+			mapDec = new HashMap<Short, SubQuad>();
+			mapDec.put((short) 2, new SubQuad((short) Quad.First.ordinal(),QuadType.C));
+			mapDec.put((short) 3, new SubQuad((short) Quad.Second.ordinal(),QuadType.A));
+			mapDec.put((short) 1, new SubQuad((short) Quad.Third.ordinal(),QuadType.C));
+			mapDec.put((short) 0, new SubQuad((short) Quad.Fourth.ordinal(),QuadType.U));
 			tableDec.put(QuadType.C, mapDec);
 	}
 
-	protected static double[] longitudeRange = new double[]{-180,180};
-	protected static double[] latitudeRange = new double[]{-80,80};
+	protected static double[] latitudeRange = new double[]{Math.toDegrees(GeoLocation.MIN_LAT),
+		Math.toDegrees(GeoLocation.MAX_LAT)};
+	protected static double[] longitudeRange = new double[]{Math.toDegrees(GeoLocation.MIN_LON),
+		Math.toDegrees(GeoLocation.MAX_LON)};
 	public static int numBits=45;
 	public static short maxLevel=23;
 	
@@ -111,13 +123,63 @@ public class HilbertQuad {
 		getQuad((short) 0,loc.getLatitude(),loc.getLongitude(),quad,level);		
 		return quad;
 	}
+	
+	static public HilbertQuad decode(long key){
+		double lonMid;
+		double latMid;
+		short tabDecKey;
+		
+		if (key<0 || key>(long) (Math.pow(2, numBits)-1))
+			throw new IllegalArgumentException("key is out of bound");
+		long bitMask = (long) Math.pow(2, numBits-1);
+		HilbertQuad quad= new HilbertQuad(key,maxLevel,latitudeRange[0],longitudeRange[0],
+				latitudeRange[1],longitudeRange[1],QuadType.A);
+		//The first bit chooses the initial longitude range. Either (-180,0) or (0,180) 
+		lonMid = (quad.getCeilLon()+quad.getFloorLon())/2;
+		if ((bitMask & key)==bitMask)
+			quad.floorLon = lonMid;
+		else
+			quad.ceilLon = lonMid;
+		for(int ind=0;ind<maxLevel-1;ind++){
+			lonMid = (quad.getCeilLon()+quad.getFloorLon())/2;
+			latMid = (quad.getCeilLat()+quad.getFloorLat())/2;
+			tabDecKey=0;
+			bitMask >>>= 1;
+			if ((bitMask & key)==bitMask)
+				tabDecKey+=2;
+			bitMask >>>= 1;
+			if ((bitMask & key)==bitMask)
+				tabDecKey++;
+			SubQuad currSubQuad =  tableDec.get(quad.getTypeQuad()).get(tabDecKey);
+			quad.setTypeQuad(currSubQuad.type);
+			switch (currSubQuad.pos){
+			case (0): //First quadrant
+				quad.ceilLon=lonMid;
+				quad.ceilLat=latMid;
+				break; 
+			case (1): //Second quadrant
+				quad.floorLon=lonMid;
+				quad.ceilLat=latMid;
+				break;
+			case (2): //Second quadrant
+				quad.ceilLon=lonMid;
+				quad.floorLat=latMid;
+				break; 
+			case (3): //Second quadrant
+				quad.floorLon=lonMid;
+				quad.floorLat=latMid;
+				break; 
+			}
+		}
+		return quad;
+	}
 	/*
 	 * Returns the quad of level @param i that contains the point @param lat, @param lon.
 	 */
 	//TODO Make it iterative may be better.
 	private static void getQuad(short i, double lat, double lon, HilbertQuad quad,
 			int level) {
-		int quadPos=0;
+		short quadPos=0;
 		double lonMid,latMid;
 		
 		if (i<level){
@@ -144,7 +206,7 @@ public class HilbertQuad {
 				}else
 					quad.setCeilLat(latMid);
 				SubQuad s = tableEnc.get(quad.getTypeQuad()).get(Quad.values()[quadPos]);
-				quad.setIndex(quad.getIndex()+s.i);
+				quad.setIndex(quad.getIndex()+s.pos);
 				quad.setTypeQuad(s.type);	
 			}
 			quad.setLevel((short) (i+1));
@@ -159,7 +221,7 @@ public class HilbertQuad {
 	 * 	2 is the top-left sub-quad
 	 * 	3 is the top-right sub-quad
 	 */
-	public HilbertQuad getQuad(int pos,boolean down){ 
+	public HilbertQuad getQuad(short pos,boolean down){ 
 		//TODO Implement the code for down == false, if necessary.
 		double floorLat,floorLon,ceilLat,ceilLon;
 		HilbertQuad hq;
@@ -191,16 +253,20 @@ public class HilbertQuad {
 						floorLon = lonMid;
 						ceilLon = this.getCeilLon();
 				break;
+				//I would not happen...
 				default: throw new IllegalArgumentException("Wrong position (not in the range (0..3))");
 			}
 			SubQuad s = tableEnc.get(this.getTypeQuad()).get(Quad.values()[pos]);
-			hq = new HilbertQuad((this.getIndex()<<2)+s.i,(short) (this.getLevel()+1),floorLat,floorLon,ceilLat,ceilLon,s.type);
+			hq = new HilbertQuad((this.getIndex()<<2)+s.pos,(short) (this.getLevel()+1),floorLat,floorLon,ceilLat,ceilLon,s.type);
 		}else{
 			hq=null;
 		}
 		return hq;
 	}
-		
+	/**
+	 * Returns the keys range associated to this HilbertQuad.	
+	 * @return
+	 */
 	public long[] getKeysRange(){
 		long[] keysInt=new long[2];
 		
@@ -211,13 +277,6 @@ public class HilbertQuad {
 		keysInt[1] = keysInt[0] + (long)(Math.pow(2, remBits)-1);
 		return keysInt;
 	}
-/*
- * Returns a unique identifier of the quad.
- */
-	public String getKey(){
-		return String.valueOf(this.getLevel())+" "+String.valueOf(this.getIndex());
-	}
-	
 	
 	public long getIndex() {
 		return index;
@@ -261,22 +320,40 @@ public class HilbertQuad {
 	public double getHeigth(){
 		GeoLocation bottomLeftCorner,topLeftCorner;
 		
-		bottomLeftCorner = new GeoLocation(this.floorLat,this.floorLon,"blc");
-		topLeftCorner = new GeoLocation(this.ceilLat,this.floorLon,"tlc");
+		try {
+			bottomLeftCorner = new GeoLocation(this.floorLat,this.floorLon,"blc");
+			topLeftCorner = new GeoLocation(this.ceilLat,this.floorLon,"tlc");
+		} catch (GeoLocationOutOfBoundException e) {
+			// Never happens.
+			android.util.Log.e("HilbertQuad", e.getMessage());
+			return 0d;
+		}
 		return bottomLeftCorner.distanceGCTo(topLeftCorner);
 	}
 	public double getTopWidth(){
 		GeoLocation topRightCorner,topLeftCorner;
 		
-		topRightCorner = new GeoLocation(this.ceilLat,this.ceilLon,"trc");
-		topLeftCorner = new GeoLocation(this.ceilLat,this.floorLon,"tlc");
+		try{
+			topRightCorner = new GeoLocation(this.ceilLat,this.ceilLon,"trc");
+			topLeftCorner = new GeoLocation(this.ceilLat,this.floorLon,"tlc");
+		} catch (GeoLocationOutOfBoundException e) {
+			// Never happens.
+			android.util.Log.e("HilbertQuad", e.getMessage());
+			return 0d;
+		}
 		return topRightCorner.distanceGCTo(topLeftCorner);
 	}
 	public double getBottomWidth(){
 		GeoLocation bottomRightCorner,bottomLeftCorner;
 		
-		bottomRightCorner = new GeoLocation(this.floorLat,this.ceilLon,"brc");
-		bottomLeftCorner = new GeoLocation(this.floorLat,this.floorLon,"blc");
+		try{
+			bottomRightCorner = new GeoLocation(this.floorLat,this.ceilLon,"brc");
+			bottomLeftCorner = new GeoLocation(this.floorLat,this.floorLon,"blc");			
+		} catch (GeoLocationOutOfBoundException e) {
+			// Never happens.
+			android.util.Log.e("HilbertQuad", e.getMessage());
+			return 0d;
+		}
 		return bottomRightCorner.distanceGCTo(bottomLeftCorner);		
 	}	
 	

@@ -20,7 +20,8 @@ public class KeysFinder {
 	private enum Position{internal,intersects,external};
 	private static int maxDiameter=100000;
 	private static int maxNumRanges=6;
-	private static short maxDepth=20;
+	private static short maxDepth=8;
+	private static short areaMaskLength=15;
 	
 	/**
 	 * Initialize the keys finder creating the covering set.
@@ -38,11 +39,37 @@ public class KeysFinder {
 	 * @param ranges List of ranges of keys, must be empty.
 	 * @param quads List of HilbertQuad of the covering set.
 	 */
-	public int getKeysRanges(GeoLocation loc,int diameter,List<long[]> ranges){		
+	public List<long[]> getKeysRanges(GeoLocation loc,int diameter){		
 	//List<HilbertQuad> boundList = getBound(loc,range);
+		List<long[]> ranges = new ArrayList<long[]>(maxNumRanges);
 		getBound(loc,diameter);
-	return expandQuads(ranges);
-}
+		expandQuads(ranges);
+	return ranges;
+	}
+	
+	/**
+	 * Given a position index, returns the related areaId, used as key in the database
+	 * @param index The index of the position.
+	 * @return
+	 */
+	public static long getAreaId(long index){
+		long mask;
+		int zeroBits;
+		/*
+		 * The mask composed by areaMaskLength '1', and the remaining bits (numBits-areaMaskLength) '0' 
+		 * is created.
+		 */
+		zeroBits=HilbertQuad.numBits - areaMaskLength;
+		mask =((long) Math.pow(2,(double) areaMaskLength)-1);
+		android.util.Log.d("KeysFinder", "Area mask = "+String.valueOf(Long.bitCount(mask)));
+		mask = mask << zeroBits;
+		android.util.Log.d("KeysFinder", "Area mask = "+Long.toBinaryString(mask)+" "
+				+String.valueOf(Long.toBinaryString(mask).length()));//TODO remove, only for debug.
+		/*
+		 * index AND mask is returned.
+		 */
+		return ((index & mask)>>>zeroBits);
+	}
 	
 	public Set<HilbertQuad> getCoveringSet(){
 		return this.coveringSet;
@@ -52,7 +79,7 @@ public class KeysFinder {
 	 * Returns up to four HilbertQuad, that cover the range specified starting from the point loc. It also sets the attributes minLat, 
 	 * minLon, maxLat, maxLon, used by the method expandQuad.
 	 */ 	
-	public int getBound(GeoLocation loc,int diameter){
+	public int getBound(GeoLocation loc,int diameter){//TODO set to private.
 		int level;
 		int numQuads=0;
 		
@@ -174,10 +201,10 @@ private int expandQuads(List<long[]> ranges){
 		boolean prevIns = !start;
 		short addedRanges = 0;
 		short numRanges =(short) (extremes.size() / 2);
-		for (int i=0;i<4;i++){
+		for (short i=0;i<4;i++){
 			//The sub-quads are visited ordered by key range.
 			SubQuad s =HilbertQuad.tableDec.get(hq.getTypeQuad()).get(i);
-			subHq = hq.getQuad(s.i,true);
+			subHq = hq.getQuad(s.pos,true);
 			Position subQuadPosition = checkPosition(subHq);
 			long[] subRange = subHq.getKeysRange();
 			//If the sub-quad is not external to the bounding box is inserted in the list.

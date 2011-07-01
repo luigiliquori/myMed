@@ -1,9 +1,10 @@
 package it.polito.mymed.android.myjam;
 
+import it.polito.mymed.android.myjam.controller.CassandraCall;
 import it.polito.mymed.android.myjam.locator.*;
 
+
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -24,7 +25,7 @@ public class MyjamActivity extends MapActivity {
 	List<Overlay> mapOverlays;
 	Drawable drawable;
 	GmapsItemizedOverlay itemizedoverlay;
-	KeysFinder hc;
+	KeysFinder kf;
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,20 +38,32 @@ public class MyjamActivity extends MapActivity {
         itemizedoverlay = new GmapsItemizedOverlay(drawable);  
         GeoLocation loc;
         try{
-            loc = new GeoLocation(45.55,7.70,"");	
+            loc = new GeoLocation(45.15,7.70,"");	
         }catch(Exception e){
         	android.util.Log.e("MyJamLocator", e.toString());
-        	loc = new GeoLocation(44.00,7.00,""); //45.15,7.70,""
+        	loc=null;
         }
         GeoPoint point = GeoPointsFactory.getGeoPoint(loc);
-        hc = new KeysFinder();
+        kf = new KeysFinder();
+        /*
+         * Insert a fake report.
+         */
         HilbertQuad hq = HilbertQuad.encode(loc, HilbertQuad.maxLevel);
-        HilbertQuad hq1 = HilbertQuad.encode(loc, 22);
-        android.util.Log.d("MyJamLocator", "Index hq (decimal) = "+Long.toString(hq.getIndex()));
-        android.util.Log.d("MyJamLocator", "Index hq (binary) = "+Long.toBinaryString(hq.getIndex()));
-        android.util.Log.d("MyJamLocator", "Index hq1 (decimal) = "+Long.toString(hq1.getKeysRange()[0])+" "+
-        		Long.toString(hq1.getKeysRange()[1]));
-        android.util.Log.d("MyJamLocator", "Code hq1(binary) = "+Long.toBinaryString(hq1.getKeysRange()[0])+" "+
+        long key = KeysFinder.getAreaId(hq.getIndex());
+        long sColumnName = hq.getIndex();
+        android.util.Log.d("MyJamActivity", "key = "+Long.toString(key));
+        android.util.Log.d("MyJamActivity", "sColumnName = "+Long.toString(sColumnName));
+        CassandraCall locationCall = new CassandraCall();
+        locationCall.put(String.valueOf(key), new Long(sColumnName), 
+        		"proofPointerToReport", "Jam");
+        
+        
+        HilbertQuad hq1 = HilbertQuad.decode(hq.getIndex());
+        android.util.Log.d("MyJamActivity", "Index hq (decimal) = "+Long.toString(hq.getIndex()));
+        android.util.Log.d("MyJamActivity", "Index hq (binary) = "+Long.toBinaryString(hq.getIndex()));
+        android.util.Log.d("MyJamActivity", "Decoded hq lat - lon = "+String.valueOf((hq1.getCeilLat()+hq1.getFloorLat())/2)+" - "+
+        		String.valueOf((hq1.getCeilLon()+hq1.getFloorLon())/2));
+        android.util.Log.d("MyJamActivity", "Code hq1(binary) = "+Long.toBinaryString(hq1.getKeysRange()[0])+" "+
         		Long.toBinaryString(hq1.getKeysRange()[1]));
         double bw = hq.getBottomWidth();
         double tw = hq.getTopWidth();
@@ -73,10 +86,10 @@ public class MyjamActivity extends MapActivity {
 //            				(double)(circle[i].getLongitudeE6()*1.0/1E6),""))));
 //        }
         
-        List<long[]> ranges=new LinkedList<long[]>();
+        List<long[]> ranges;
 		Set<HilbertQuad> quadsSet;
         long startnow = android.os.SystemClock.uptimeMillis();
-        int numRanges = hc.getKeysRanges(loc, 100000,ranges);
+        ranges = kf.getKeysRanges(loc, 100000);
         //quadsList = hc.getBound(loc, 100000,quadsList);
         long endnow = android.os.SystemClock.uptimeMillis();
         android.util.Log.i("MyJamLocator", "Excution time: "+(endnow-startnow)+" ms");
@@ -84,9 +97,16 @@ public class MyjamActivity extends MapActivity {
 //        List<HilbertQuad> fineList = hc.expandQuad(boundList,new LinkedList<HilbertQuad>(),
 //        		boundList.get(0).getLevel(),-1,true,boundList.get(0).getLevel()+3,false);
         //List<HilbertQuad> fineList = hc.expandQuads(boundList);
-        quadsSet = hc.getCoveringSet();
+        quadsSet = kf.getCoveringSet();
+        Iterator<long[]> rangesIt = ranges.iterator();
+        while (rangesIt.hasNext()){
+        	long[] range = rangesIt.next();
+        	long startArea=KeysFinder.getAreaId(range[0]);
+        	long endArea=KeysFinder.getAreaId(range[1]);
+            android.util.Log.d("MyJamLocator", String.valueOf(startArea));
+            android.util.Log.d("MyJamLocator", String.valueOf(endArea));
+        }
         android.util.Log.d("MyJamLocator", String.valueOf(KeysFinder.getNumKeys(quadsSet)));
-        android.util.Log.d("MyJamLocator", String.valueOf(numRanges));
         android.util.Log.d("MyJamLocator", String.valueOf(quadsSet.size()));
         Iterator<long[]> it = ranges.iterator();
         while (it.hasNext()){
