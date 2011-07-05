@@ -1,6 +1,6 @@
 package com.mymed.tests;
 
-import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.util.Calendar;
@@ -127,6 +127,6 @@ public class ProfileManagerTest {
 	@Test
 	public void testSelectAll() throws InternalBackEndException, IOBackEndException {
 		final MUserBean userRead = profileManager.read(KEY);
-		assertSame("User beans are not the same\n", userRead, testUser);
+		assertEquals("User beans are not the same\n", userRead, testUser);
 	}
 }
