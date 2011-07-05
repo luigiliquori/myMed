@@ -77,6 +77,13 @@ public enum ClassType {
 		return inferTypeGeneric(classType.getCanonicalName());
 	}
 
+	/**
+	 * Infer the class type of the given, unknown, class
+	 * 
+	 * @param type
+	 *            the type to infer its {@link Class}
+	 * @return the ClassType enumeration type
+	 */
 	public static ClassType inferType(final Type type) {
 		return inferTypeGeneric(type.toString());
 	}
@@ -102,6 +109,15 @@ public enum ClassType {
 		return classType;
 	}
 
+	/**
+	 * Create an abject of the specified ClassType type
+	 * 
+	 * @param classType
+	 *            the type of the object to create
+	 * @param arg
+	 *            the byte array with the value of the object to create
+	 * @return a new object
+	 */
 	public static Object objectFromClassType(final ClassType classType, final byte[] arg) {
 
 		Object returnObject = null;
