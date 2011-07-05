@@ -23,15 +23,16 @@ import com.mymed.model.core.wrappers.cassandra.api07.CassandraWrapper;
 import com.mymed.utils.MConverter;
 
 /**
+ * This class represent the DAO pattern: Access to data varies depending on the
+ * source of the data. Access to persistent storage, such as to a database,
+ * varies greatly depending on the type of storage
+ * 
+ * Use a Data Access Object (DAO) to abstract and encapsulate all access to the
+ * data source. The DAO manages the connection with the data source to obtain
+ * and store data.
+ * 
  * @author lvanni
  * 
- *         This class represent the DAO pattern: Access to data varies depending
- *         on the source of the data. Access to persistent storage, such as to a
- *         database, varies greatly depending on the type of storage
- * 
- *         Use a Data Access Object (DAO) to abstract and encapsulate all access
- *         to the data source. The DAO manages the connection with the data
- *         source to obtain and store data.
  */
 public class StorageManager implements IStorageManager {
 
@@ -44,7 +45,7 @@ public class StorageManager implements IStorageManager {
 	public static String CONFIG_PATH = "/local/mymed/backend/conf/config.xml";
 
 	/** wrapper */
-	private CassandraWrapper wrapper;
+	private final CassandraWrapper wrapper;
 
 	/* --------------------------------------------------------- */
 	/* Constructors */
@@ -71,10 +72,8 @@ public class StorageManager implements IStorageManager {
 	 * @throws IOBackEndException
 	 * @throws InternalBackEndException
 	 */
-	public StorageManager(WrapperConfiguration conf)
-			throws InternalBackEndException {
-		this.wrapper = new CassandraWrapper(conf.getCassandraListenAddress(),
-				conf.getThriftPort());
+	public StorageManager(final WrapperConfiguration conf) throws InternalBackEndException {
+		wrapper = new CassandraWrapper(conf.getCassandraListenAddress(), conf.getThriftPort());
 	}
 
 	/* --------------------------------------------------------- */
@@ -94,22 +93,18 @@ public class StorageManager implements IStorageManager {
 	 * @throws IOBackEndException
 	 * @throws InternalBackEndException
 	 */
-	public byte[] selectColumn(String tableName, String key, String columnName)
-			throws InternalBackEndException, IOBackEndException {
+	@Override
+	public byte[] selectColumn(final String tableName, final String key, final String columnName)
+	        throws InternalBackEndException, IOBackEndException {
 		try {
 			wrapper.open();
-			ColumnPath colPathName = new ColumnPath(tableName);
+			final ColumnPath colPathName = new ColumnPath(tableName);
 			colPathName.setColumn(columnName.getBytes("UTF8"));
-			return wrapper
-					.get(key, colPathName, StorageManager.consistencyOnRead)
-					.getColumn().getValue();
-		} catch (UnsupportedEncodingException e) {
+			return wrapper.get(key, colPathName, IStorageManager.consistencyOnRead).getColumn().getValue();
+		} catch (final UnsupportedEncodingException e) {
 			e.printStackTrace();
-			throw new InternalBackEndException(
-					"UnsupportedEncodingException with\n"
-							+ "\t- columnFamily = " + tableName + "\n"
-							+ "\t- key = " + key + "\n" + "\t- columnName = "
-							+ columnName + "\n");
+			throw new InternalBackEndException("UnsupportedEncodingException with\n" + "\t- columnFamily = "
+			        + tableName + "\n" + "\t- key = " + key + "\n" + "\t- columnName = " + columnName + "\n");
 		} finally {
 			wrapper.close();
 		}
@@ -128,17 +123,16 @@ public class StorageManager implements IStorageManager {
 	 * @throws InternalBackEndException
 	 * @throws IOBackEndException
 	 */
-	public Map<byte[], byte[]> selectAll(String tableName, String key)
-			throws InternalBackEndException, IOBackEndException {
+	@Override
+	public Map<byte[], byte[]> selectAll(final String tableName, final String key) throws InternalBackEndException,
+	        IOBackEndException {
 
-		wrapper.open();
 		// read entire row
-		SlicePredicate predicate = new SlicePredicate();
-		SliceRange sliceRange = new SliceRange();
+		final SlicePredicate predicate = new SlicePredicate();
+		final SliceRange sliceRange = new SliceRange();
 		sliceRange.setStart(new byte[0]);
 		sliceRange.setFinish(new byte[0]);
 		predicate.setSlice_range(sliceRange);
-		wrapper.close();
 
 		return selectByPredicate(tableName, key, predicate);
 	}
@@ -156,38 +150,45 @@ public class StorageManager implements IStorageManager {
 	 * @throws InternalBackEndException
 	 * @throws IOBackEndException
 	 */
-	public Map<byte[], byte[]> selectRange(String tableName, String key,
-			List<String> columnNames) throws ServiceManagerException,
-			InternalBackEndException, IOBackEndException {
-		wrapper.open();
-		List<ByteBuffer> columnNamesToByte = new ArrayList<ByteBuffer>();
-		for (String columnName : columnNames) {
+	@Override
+	public Map<byte[], byte[]> selectRange(final String tableName, final String key, final List<String> columnNames)
+	        throws ServiceManagerException, InternalBackEndException, IOBackEndException {
+
+		final List<ByteBuffer> columnNamesToByte = new ArrayList<ByteBuffer>();
+		for (final String columnName : columnNames) {
 			columnNamesToByte.add(MConverter.stringToByteBuffer(columnName));
 		}
-		SlicePredicate predicate = new SlicePredicate();
+
+		final SlicePredicate predicate = new SlicePredicate();
 		predicate.setColumn_names(columnNamesToByte);
-		wrapper.close();
+
 		return selectByPredicate(tableName, key, predicate);
 	}
 
 	/*
 	 * Used by selectAll and selectRange
 	 */
-	private Map<byte[], byte[]> selectByPredicate(String columnFamily,
-			String key, SlicePredicate predicate)
-			throws InternalBackEndException, IOBackEndException {
-		wrapper.open();
-		ColumnParent parent = new ColumnParent(columnFamily);
-		List<ColumnOrSuperColumn> results = wrapper.get_slice(key, parent,
-				predicate, consistencyOnRead);
+	private Map<byte[], byte[]> selectByPredicate(final String columnFamily, final String key,
+	        final SlicePredicate predicate) throws InternalBackEndException, IOBackEndException {
 
-		Map<byte[], byte[]> slice = new HashMap<byte[], byte[]>();
-		for (ColumnOrSuperColumn res : results) {
-			Column column = res.column;
-			slice.put(column.name.array(), column.value.array());
+		try {
+			wrapper.open();
+
+			final ColumnParent parent = new ColumnParent(columnFamily);
+			final List<ColumnOrSuperColumn> results = wrapper.get_slice(key, parent, predicate, consistencyOnRead);
+
+			final Map<byte[], byte[]> slice = new HashMap<byte[], byte[]>(results.size());
+
+			for (final ColumnOrSuperColumn res : results) {
+				final Column col = res.getColumn();
+
+				slice.put(col.getName(), col.getValue());
+			}
+
+			return slice;
+		} finally {
+			wrapper.close();
 		}
-		wrapper.close();
-		return slice;
 	}
 
 	/**
@@ -205,17 +206,21 @@ public class StorageManager implements IStorageManager {
 	 * @throws ServiceManagerException
 	 * @throws InternalBackEndException
 	 */
-	public void insertColumn(String tableName, String key, String columnName,
-			byte[] value) throws InternalBackEndException {
-		wrapper.open();
-		long timestamp = System.currentTimeMillis();
-		ColumnParent parent = new ColumnParent(tableName);
-		ByteBuffer buffer = ByteBuffer.wrap(value);
-		Column column = new Column(MConverter.stringToByteBuffer(columnName),
-				buffer, timestamp);
+	@Override
+	public void insertColumn(final String tableName, final String key, final String columnName, final byte[] value)
+	        throws InternalBackEndException {
 
-		wrapper.insert(key, parent, column, consistencyOnWrite);
-		wrapper.close();
+		try {
+			final long timestamp = System.currentTimeMillis();
+			final ColumnParent parent = new ColumnParent(tableName);
+			final ByteBuffer buffer = ByteBuffer.wrap(value);
+			final Column column = new Column(MConverter.stringToByteBuffer(columnName), buffer, timestamp);
+
+			wrapper.open();
+			wrapper.insert(key, parent, column, consistencyOnWrite);
+		} finally {
+			wrapper.close();
+		}
 	}
 
 	/**
@@ -237,19 +242,22 @@ public class StorageManager implements IStorageManager {
 	 * 
 	 * 
 	 */
-	public void insertSuperColumn(String tableName, String key,
-			String superColumn, String columnName, byte[] value)
-			throws ServiceManagerException, InternalBackEndException {
-		wrapper.open();
-		long timestamp = System.currentTimeMillis();
-		ColumnParent parent = new ColumnParent(tableName);
-		parent.setSuper_column(MConverter.stringToByteBuffer(superColumn));
-		ByteBuffer buffer = ByteBuffer.wrap(value);
-		Column column = new Column(MConverter.stringToByteBuffer(columnName),
-				buffer, timestamp);
+	@Override
+	public void insertSuperColumn(final String tableName, final String key, final String superColumn,
+	        final String columnName, final byte[] value) throws ServiceManagerException, InternalBackEndException {
 
-		wrapper.insert(key, parent, column, consistencyOnWrite);
-		wrapper.close();
+		try {
+			final long timestamp = System.currentTimeMillis();
+			final ColumnParent parent = new ColumnParent(tableName);
+			parent.setSuper_column(MConverter.stringToByteBuffer(superColumn));
+			final ByteBuffer buffer = ByteBuffer.wrap(value);
+			final Column column = new Column(MConverter.stringToByteBuffer(columnName), buffer, timestamp);
+
+			wrapper.open();
+			wrapper.insert(key, parent, column, consistencyOnWrite);
+		} finally {
+			wrapper.close();
+		}
 	}
 
 	/**
@@ -266,11 +274,11 @@ public class StorageManager implements IStorageManager {
 	 * @throws InternalBackEndException
 	 */
 	// TODO FIX this method!!!!
-	public void insertSlice(String tableName, String key,
-			Map<String, byte[]> args) throws ServiceManagerException,
-			InternalBackEndException {
-		for (String columnName : args.keySet()) {
-			this.insertColumn(tableName, key, columnName, args.get(columnName));
+	@Override
+	public void insertSlice(final String tableName, final String key, final Map<String, byte[]> args)
+	        throws ServiceManagerException, InternalBackEndException {
+		for (final String columnName : args.keySet()) {
+			insertColumn(tableName, key, columnName, args.get(columnName));
 		}
 	}
 
@@ -285,19 +293,20 @@ public class StorageManager implements IStorageManager {
 	 * @throws InternalBackEndException
 	 * @throws UnsupportedEncodingException
 	 */
-	public void removeColumn(String tableName, String key, String columnName)
-			throws InternalBackEndException {
-		wrapper.open();
-		String columnFamily = tableName;
+	@Override
+	public void removeColumn(final String tableName, final String key, final String columnName)
+	        throws InternalBackEndException {
 		try {
-			long timestamp = System.currentTimeMillis();
-			ColumnPath columnPath = new ColumnPath(columnFamily);
+			final String columnFamily = tableName;
+			final long timestamp = System.currentTimeMillis();
+			final ColumnPath columnPath = new ColumnPath(columnFamily);
 			columnPath.setColumn(columnName.getBytes("UTF8"));
+
+			wrapper.open();
 			wrapper.remove(key, columnPath, timestamp, consistencyOnWrite);
-		} catch (UnsupportedEncodingException e) {
+		} catch (final UnsupportedEncodingException e) {
 			e.printStackTrace();
-			throw new InternalBackEndException(
-					"removeColumn failed because of a UnsupportedEncodingException");
+			throw new InternalBackEndException("removeColumn failed because of a UnsupportedEncodingException");
 		} finally {
 			wrapper.close();
 		}
@@ -313,14 +322,20 @@ public class StorageManager implements IStorageManager {
 	 * @throws InternalBackEndException
 	 * @throws UnsupportedEncodingException
 	 */
-	public void removeAll(String tableName, String key)
-			throws ServiceManagerException, InternalBackEndException {
-		wrapper.open();
-		String columnFamily = tableName;
-		long timestamp = System.currentTimeMillis();
-		ColumnPath columnPath = new ColumnPath(columnFamily);
-		wrapper.remove(key, columnPath, timestamp, consistencyOnWrite);
-		wrapper.close();
+	@Override
+	public void removeAll(final String tableName, final String key) throws ServiceManagerException,
+	        InternalBackEndException {
+
+		try {
+			final String columnFamily = tableName;
+			final long timestamp = System.currentTimeMillis();
+			final ColumnPath columnPath = new ColumnPath(columnFamily);
+
+			wrapper.open();
+			wrapper.remove(key, columnPath, timestamp, consistencyOnWrite);
+		} finally {
+			wrapper.close();
+		}
 	}
 
 	/* --------------------------------------------------------- */
@@ -334,9 +349,9 @@ public class StorageManager implements IStorageManager {
 	 * @throws InternalBackEndException
 	 * @throws IOBackEndException
 	 */
-	public void put(String key, byte[] value) throws IOBackEndException,
-			InternalBackEndException {
-		this.insertColumn("Services", key, key, value);
+	@Override
+	public void put(final String key, final byte[] value) throws IOBackEndException, InternalBackEndException {
+		insertColumn("Services", key, key, value);
 	}
 
 	/**
@@ -346,9 +361,8 @@ public class StorageManager implements IStorageManager {
 	 * @throws InternalBackEndException
 	 * @throws IOBackEndException
 	 */
-	public byte[] get(String key) throws IOBackEndException,
-			InternalBackEndException {
-		return this.selectColumn("Services", key, key);
+	@Override
+	public byte[] get(final String key) throws IOBackEndException, InternalBackEndException {
+		return selectColumn("Services", key, key);
 	}
-
 }

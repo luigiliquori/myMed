@@ -33,11 +33,6 @@ import com.mymed.controller.core.exception.InternalBackEndException;
  */
 public interface ICassandraWrapper {
 	/**
-	 * The port number to use for interacting with Cassandra
-	 */
-	int PORT_NUMBER = 9160;
-
-	/**
 	 * Authenticates with the cluster for operations on the specified keyspace
 	 * using the specified {@link AuthenticationRequest} credentials
 	 * 
