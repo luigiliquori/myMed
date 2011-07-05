@@ -14,13 +14,6 @@ import com.mymed.controller.core.manager.storage.StorageManager;
  */
 public class DHTManager extends AbstractManager implements IDHTManager {
 	/* --------------------------------------------------------- */
-	/* Attributes */
-	/* --------------------------------------------------------- */
-	/** DAO pattern */
-	private StorageManager storageManager;
-	
-	
-	/* --------------------------------------------------------- */
 	/* Constructors */
 	/* --------------------------------------------------------- */
 	public DHTManager() throws InternalBackEndException {

@@ -30,7 +30,7 @@ import com.mymed.utils.MConverter;
  */
 public class StorageManagerTest {
 
-	private static final String CONF_FILE = "/local/mymed/backend/conf/config-new.xml";
+	private static final String CONF_FILE = "/local/mymed/backend/conf/config.xml";
 	private static final String NAME = "username";
 	private static final String FIRST_NAME = "First Name";
 	private static final String LAST_NAME = "Last Name";

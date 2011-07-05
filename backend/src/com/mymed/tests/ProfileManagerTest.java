@@ -26,7 +26,7 @@ import com.mymed.model.data.MUserBean;
  */
 public class ProfileManagerTest {
 
-	private static final String CONF_FILE = "/local/mymed/backend/conf/config-new.xml";
+	private static final String CONF_FILE = "/local/mymed/backend/conf/config.xml";
 	private static final String TABLE_NAME = "User";
 	private static final String KEY = "test1";
 	private static final String LOGIN = "usertest1";
