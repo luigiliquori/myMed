@@ -18,16 +18,17 @@ import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.core.configuration.WrapperConfiguration;
 import com.mymed.model.data.MUserBean;
 
+/**
+ * Test class for the {@link ProfileManager}.
+ * 
+ * @author Milo Casagrande
+ * 
+ */
 public class ProfileManagerTest {
 
 	private static final String CONF_FILE = "/local/mymed/backend/conf/config-new.xml";
-
 	private static final String TABLE_NAME = "User";
-
 	private static final String KEY = "test1";
-
-	// TODO we need to update the MUserBean with the new defined fileds.
-
 	private static final String LOGIN = "usertest1";
 	private static final String EMAIL = "testUser@example.net";
 	private static final String NAME = "username";
@@ -45,7 +46,6 @@ public class ProfileManagerTest {
 	private static final Calendar CAL_INSTANCE = Calendar.getInstance();
 
 	private static String date;
-
 	private static MUserBean testUser;
 
 	static {
@@ -56,12 +56,20 @@ public class ProfileManagerTest {
 	private ProfileManager profileManager;
 	private StorageManager storageManager;
 
+	/**
+	 * Set up the {@link ProfileManager} connection
+	 * 
+	 * @throws InternalBackEndException
+	 */
 	@Before
 	public void setUp() throws InternalBackEndException {
 		storageManager = new StorageManager(new WrapperConfiguration(new File(CONF_FILE)));
 		profileManager = new ProfileManager(storageManager);
 	}
 
+	/**
+	 * Method used only once to set up the static objects
+	 */
 	@BeforeClass
 	public static void setUpOnce() {
 		testUser = new MUserBean();
@@ -96,11 +104,26 @@ public class ProfileManagerTest {
 		manager.removeAll(TABLE_NAME, KEY);
 	}
 
+	/**
+	 * Perform a insert user with the create {@link MUserBean}.
+	 * <p>
+	 * The expected behavior is the normal execution of the program
+	 * 
+	 * @throws InternalBackEndException
+	 * @throws IOBackEndException
+	 */
 	@Test
 	public void testInsertUser() throws InternalBackEndException, IOBackEndException {
 		profileManager.create(testUser);
 	}
 
+	/**
+	 * Perform a select of the newly inserted user and compare it with the local
+	 * {@link MUserBean} used to create the user.
+	 * 
+	 * @throws InternalBackEndException
+	 * @throws IOBackEndException
+	 */
 	@Test
 	public void testSelectAll() throws InternalBackEndException, IOBackEndException {
 		final MUserBean userRead = profileManager.read(KEY);
