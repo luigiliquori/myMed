@@ -82,11 +82,18 @@ public enum ClassType {
 	}
 
 	private static ClassType inferTypeGeneric(final String className) {
+		String localClassName = className;
+
+		if (className.contains("class")) {
+			localClassName = className.split(" ")[1];
+		}
+
 		ClassType classType = null;
 
 		for (final ClassType type : EnumSet.range(ClassType.BYTE, ClassType.STRING)) {
-			if (className.equals(type.getObjectClass().getCanonicalName())
-			        || className.equals(type.getPrimitiveType().getSimpleName())) {
+
+			if (localClassName.equals(type.getObjectClass().getCanonicalName())
+			        || localClassName.equals(type.getPrimitiveType().getSimpleName())) {
 				classType = type;
 				break;
 			}
@@ -109,11 +116,13 @@ public enum ClassType {
 
 			returnObject = cons.newInstance(initArg);
 		} catch (final Exception ex) {
+			// TODO logger!
 			ex.printStackTrace();
 		}
 
 		return returnObject;
 	}
+
 	@Override
 	public String toString() {
 		final StringBuilder stringBuilder = new StringBuilder(45);
