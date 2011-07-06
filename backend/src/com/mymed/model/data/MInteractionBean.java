@@ -1,14 +1,40 @@
 package com.mymed.model.data;
 
+/**
+ * 
+ * @author lvanni
+ *
+ */
 public class MInteractionBean extends AbstractMBean {
 
+	/* --------------------------------------------------------- */
+	/* Attributes */
+	/* --------------------------------------------------------- */
 	private String interactionID;
 	private String applicationID;
 	private String producerID;
 	private String consumerID;
 	private long end;
 	private int snooze;
+	
+	/* --------------------------------------------------------- */
+	/* Constructors */
+	/* --------------------------------------------------------- */
+	public MInteractionBean() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	/* --------------------------------------------------------- */
+	/* Override methods */
+	/* --------------------------------------------------------- */
+	@Override
+	public String toString() {
+		return "Interaction:\n" + super.toString();
+	}
 
+	/* --------------------------------------------------------- */
+	/* GETTER AND SETTER */
+	/* --------------------------------------------------------- */
 	public String getInteractionID() {
 		return interactionID;
 	}

@@ -23,8 +23,8 @@ import org.apache.cassandra.thrift.KsDef;
 import org.apache.cassandra.thrift.Mutation;
 import org.apache.cassandra.thrift.NotFoundException;
 import org.apache.cassandra.thrift.SlicePredicate;
+import org.apache.cassandra.thrift.TBinaryProtocol;
 import org.apache.cassandra.thrift.TokenRange;
-import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TFramedTransport;
 import org.apache.thrift.transport.TSocket;
@@ -32,6 +32,7 @@ import org.apache.thrift.transport.TTransportException;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.model.core.wrappers.cassandra.IWrapper;
 import com.mymed.utils.MConverter;
 
 /**
@@ -42,7 +43,7 @@ import com.mymed.utils.MConverter;
  * @author Milo Casagrande
  * 
  */
-public class CassandraWrapper implements ICassandraWrapper {
+public class CassandraWrapper implements ICassandraWrapper, IWrapper {
 
 	private transient TFramedTransport thriftTransport;
 	private transient TSocket socket;
@@ -70,9 +71,6 @@ public class CassandraWrapper implements ICassandraWrapper {
 	 * @throws InternalBackEndException
 	 */
 	public CassandraWrapper(final String address, final int port) throws InternalBackEndException {
-
-		super();
-
 		if (address == null && (port == 0 || port < 0)) {
 			throw new InternalBackEndException("Address or port must be a valid value.");
 		} else {
@@ -226,7 +224,6 @@ public class CassandraWrapper implements ICassandraWrapper {
 			throw new InternalBackEndException(ex.getMessage());
 		}
 	}
-
 	@Override
 	public void batch_mutate(final Map<String, Map<String, List<Mutation>>> mutationMap, final ConsistencyLevel level)
 	        throws InternalBackEndException {
@@ -464,6 +461,8 @@ public class CassandraWrapper implements ICassandraWrapper {
 		try {
 			if (!thriftTransport.isOpen()) {
 				thriftTransport.open();
+				// We set the keyspace here
+				set_keyspace(KEYSPACE);
 			}
 		} catch (final TTransportException ex) {
 			throw new InternalBackEndException(ex.getMessage());

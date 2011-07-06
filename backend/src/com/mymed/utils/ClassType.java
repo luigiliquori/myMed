@@ -77,16 +77,30 @@ public enum ClassType {
 		return inferTypeGeneric(classType.getCanonicalName());
 	}
 
+	/**
+	 * Infer the class type of the given, unknown, class
+	 * 
+	 * @param type
+	 *            the type to infer its {@link Class}
+	 * @return the ClassType enumeration type
+	 */
 	public static ClassType inferType(final Type type) {
 		return inferTypeGeneric(type.toString());
 	}
 
 	private static ClassType inferTypeGeneric(final String className) {
+		String localClassName = className;
+
+		if (className.contains("class")) {
+			localClassName = className.split(" ")[1];
+		}
+
 		ClassType classType = null;
 
 		for (final ClassType type : EnumSet.range(ClassType.BYTE, ClassType.STRING)) {
-			if (className.equals(type.getObjectClass().getCanonicalName())
-			        || className.equals(type.getPrimitiveType().getSimpleName())) {
+
+			if (localClassName.equals(type.getObjectClass().getCanonicalName())
+			        || localClassName.equals(type.getPrimitiveType().getSimpleName())) {
 				classType = type;
 				break;
 			}
@@ -95,6 +109,15 @@ public enum ClassType {
 		return classType;
 	}
 
+	/**
+	 * Create an abject of the specified ClassType type
+	 * 
+	 * @param classType
+	 *            the type of the object to create
+	 * @param arg
+	 *            the byte array with the value of the object to create
+	 * @return a new object
+	 */
 	public static Object objectFromClassType(final ClassType classType, final byte[] arg) {
 
 		Object returnObject = null;
@@ -109,11 +132,13 @@ public enum ClassType {
 
 			returnObject = cons.newInstance(initArg);
 		} catch (final Exception ex) {
+			// TODO logger!
 			ex.printStackTrace();
 		}
 
 		return returnObject;
 	}
+
 	@Override
 	public String toString() {
 		final StringBuilder stringBuilder = new StringBuilder(45);

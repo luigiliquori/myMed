@@ -38,12 +38,15 @@ public class WrapperConfiguration {
 	/* --------------------------------------------------------- */
 	/**
 	 * Register a new Configuration for the backend Node
+	 * 
 	 * @param chordListenAddress
 	 * @param chordStoragePort
 	 * @param kadListenAddress
 	 * @param kadStoragePort
 	 */
-	public WrapperConfiguration(String cassandraListenAddress, int thriftPort, String chordListenAddress, int chordStoragePort, String kadListenAddress, int kadStoragePort){
+	public WrapperConfiguration(String cassandraListenAddress, int thriftPort,
+			String chordListenAddress, int chordStoragePort,
+			String kadListenAddress, int kadStoragePort) {
 		this.cassandraListenAddress = cassandraListenAddress;
 		this.thriftPort = thriftPort;
 		this.chordListenAddress = chordListenAddress;
@@ -51,12 +54,12 @@ public class WrapperConfiguration {
 		this.kadListenAddress = kadListenAddress;
 		this.kadStoragePort = kadStoragePort;
 	}
-	
 
 	/**
 	 * Register a new Configuration for the backend Node
+	 * 
 	 * @param file
-	 * 			THe xml configuration file
+	 *            THe xml configuration file
 	 */
 	public WrapperConfiguration(File file) {
 		try {
@@ -71,18 +74,21 @@ public class WrapperConfiguration {
 				Node fstNode = config.item(i);
 				if (fstNode.getNodeType() == Node.ELEMENT_NODE) {
 					NodeList cassandraInfo = config.item(i).getChildNodes();
-					if(config.item(i).getNodeName().equals("cassandra")){
+					if (config.item(i).getNodeName().equals("cassandra")) {
 						for (int c = 0; c < cassandraInfo.getLength(); c++) {
 							Node info = cassandraInfo.item(c);
 							if (info.getNodeType() == Node.ELEMENT_NODE) {
-								if(info.getNodeName().equals("ListenAddress")){
-									this.cassandraListenAddress = info.getFirstChild().getTextContent();
-								} else if (info.getNodeName().equals("ThriftPort")){
-									this.thriftPort = Integer.parseInt(info.getFirstChild().getTextContent());
+								if (info.getNodeName().equals("ListenAddress")) {
+									this.cassandraListenAddress = info
+											.getFirstChild().getTextContent();
+								} else if (info.getNodeName().equals(
+										"ThriftPort")) {
+									this.thriftPort = Integer.parseInt(info
+											.getFirstChild().getTextContent());
 								}
 							}
 						}
-					} else if (config.item(i).getNodeName().equals("synapse")){
+					} else if (config.item(i).getNodeName().equals("synapse")) {
 						NodeList dhts = config.item(i).getChildNodes();
 						for (int s = 0; s < dhts.getLength(); s++) {
 							Node node = dhts.item(s);
@@ -93,17 +99,23 @@ public class WrapperConfiguration {
 								for (int j = 0; j < cassandraInfo.getLength(); j++) {
 									Node info = dhtInfo.item(j);
 									if (info.getNodeType() == Node.ELEMENT_NODE) {
-										if(info.getNodeName().equals("ListenAddress")){
-											address = info.getFirstChild().getTextContent();
-										} else if (info.getNodeName().equals("StoragePort")){
-											port = Integer.parseInt(info.getFirstChild().getTextContent());
+										if (info.getNodeName().equals(
+												"ListenAddress")) {
+											address = info.getFirstChild()
+													.getTextContent();
+										} else if (info.getNodeName().equals(
+												"StoragePort")) {
+											port = Integer.parseInt(info
+													.getFirstChild()
+													.getTextContent());
 										}
 									}
 								}
-								if(dhts.item(s).getNodeName().equals("chord")){
+								if (dhts.item(s).getNodeName().equals("chord")) {
 									this.chordListenAddress = address;
 									this.chordStoragePort = port;
-								} else if(dhts.item(s).getNodeName().equals("kad")){
+								} else if (dhts.item(s).getNodeName().equals(
+										"kad")) {
 									this.kadListenAddress = address;
 									this.kadStoragePort = port;
 								}
@@ -136,24 +148,22 @@ public class WrapperConfiguration {
 			System.out.println("\nWRARNING: no config xml file found!");
 		}
 	}
-	
+
 	@Override
 	public String toString() {
-		String str = "Cassandra:\n" +
-		"\t ListenAddress = " + this.cassandraListenAddress + "\n" + 
-		"\t ThriftPort = " + this.thriftPort + "\n" +
-		"Synapse:\n"  +
-		"\t. Chord:\n" + 
-		"\t\t ListenAddress = " + this.chordListenAddress + "\n" +
-		"\t\t StoragePort = " + this.chordStoragePort + "\n" + 
-		"\t. Kad:\n" + 
-		"\t\t ListenAddress = " + this.kadListenAddress + "\n" +
-		"\t\t StoragePort = " + this.kadStoragePort + "\n";
+		String str = "Cassandra:\n" + "\t ListenAddress = "
+				+ this.cassandraListenAddress + "\n" + "\t ThriftPort = "
+				+ this.thriftPort + "\n" + "Synapse:\n" + "\t. Chord:\n"
+				+ "\t\t ListenAddress = " + this.chordListenAddress + "\n"
+				+ "\t\t StoragePort = " + this.chordStoragePort + "\n"
+				+ "\t. Kad:\n" + "\t\t ListenAddress = "
+				+ this.kadListenAddress + "\n" + "\t\t StoragePort = "
+				+ this.kadStoragePort + "\n";
 		return str;
 	}
 
 	/* --------------------------------------------------------- */
-	/*                      GETTER&SETTER                        */
+	/* GETTER&SETTER */
 	/* --------------------------------------------------------- */
 	public String getCassandraListenAddress() {
 		return cassandraListenAddress;
@@ -204,11 +214,11 @@ public class WrapperConfiguration {
 	}
 
 	/* --------------------------------------------------------- */
-	/*                      Test		                         */
+	/* Test */
 	/* --------------------------------------------------------- */
-	public static void main(String args[]){
-		WrapperConfiguration conf = new WrapperConfiguration(new File("./conf/config.xml"));
+	public static void main(String args[]) {
+		WrapperConfiguration conf = new WrapperConfiguration(new File(
+				"./conf/config.xml"));
 		System.out.println(conf);
 	}
 }
-

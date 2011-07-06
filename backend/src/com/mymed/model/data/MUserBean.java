@@ -1,105 +1,49 @@
 package com.mymed.model.data;
 
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.Map;
-
-import com.mymed.controller.core.exception.InternalBackEndException;
-
-
 /**
  * This class represent an user profile
  * 
  * @author lvanni
  */
-public class MUserBean extends AbstractMBean {
+public final class MUserBean extends AbstractMBean {
 
-	/* --------------------------------------------------------- */
-	/* Attributes */
-	/* --------------------------------------------------------- */
-	/** User data structure */
-	private String mymedID = null;			// Unique Identifier of the user in myMed
-	private String socialNetworkID = null;			// ID of the user in the social network
-	private String socialNetworkName = null;		// Name of the social network used by the user
+	// Unique Identifier of the user in myMed
+	private String mymedID = null;
+	// ID of the user in the social network
+	private String socialNetworkID = null;
+	// Name of the social network used by the user
+	private String socialNetworkName = null;
+	private String email = null;
 	private String name = null;
 	private String firstName = null;
 	private String lastName = null;
-	private String link = null;						// the profile manager url
+	private String link = null;
 	private String birthday = null;
 	private String hometown = null;
 	private String gender = null;
-	private String email = null;
-	private String profilePicture = null;
-	private String buddyListID = null;	
+	private String lastConnection = null;
+	private String buddyListID = null;
 	private String subscribtionListID = null;
+	private String reputationID = null;
 	private String sessionID = null;
+	private String interactionListID = null;
 
-	/* --------------------------------------------------------- */
-	/* Constructors */
-	/* --------------------------------------------------------- */
+	private String profilePicture = null;
+
 	public MUserBean() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
 
-	/* --------------------------------------------------------- */
-	/* Override methods */
-	/* --------------------------------------------------------- */
-	/**
-	 * override toString to have an human readable format
-	 */
 	@Override
 	public String toString() {
-		String value = "";
-		for (Field f : this.getClass().getDeclaredFields()) {
-			try {
-				if (f.get(this) instanceof String){
-					value += "\t" + f.getName() + " : " + (String) f.get(this) + "\n";
-				} else {
-					value += "\t" + f.getName() + " : " + f.get(this) + "\n";
-				}
-			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			}
-		}
-		return value;
-	}
-	
-	/**
-	 * @return 
-	 * 		all the fields in a hashMap format for the myMed wrapper
-	 * @throws IllegalArgumentException
-	 * @throws IllegalAccessException
-	 * @throws UnsupportedEncodingException
-	 */
-	public Map<String, byte[]> getAttributeToMap() throws InternalBackEndException {
-		Map<String, byte[]> args = new HashMap<String, byte[]>();
-		for (Field f : this.getClass().getDeclaredFields()) {
-			try {
-				if (f.get(this) instanceof String){
-					args.put(f.getName(), ((String) f.get(this)).getBytes("UTF8"));
-				}
-			} catch (UnsupportedEncodingException e) {
-				throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
-			} catch (IllegalArgumentException e) {
-				throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
-			} catch (IllegalAccessException e) {
-				throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
-			}
-		}
-		return args;
+		return "User:\n" + super.toString();
 	}
 
-	/* --------------------------------------------------------- */
-	/* GETTER AND SETTER */
-	/* --------------------------------------------------------- */
 	public String getMymedID() {
 		return mymedID;
 	}
 
-	public void setMymedID(String mymedID) {
+	public void setMymedID(final String mymedID) {
 		this.mymedID = mymedID;
 	}
 
@@ -107,7 +51,7 @@ public class MUserBean extends AbstractMBean {
 		return socialNetworkID;
 	}
 
-	public void setSocialNetworkID(String socialNetworkID) {
+	public void setSocialNetworkID(final String socialNetworkID) {
 		this.socialNetworkID = socialNetworkID;
 	}
 
@@ -115,7 +59,7 @@ public class MUserBean extends AbstractMBean {
 		return socialNetworkName;
 	}
 
-	public void setSocialNetworkName(String socialNetworkName) {
+	public void setSocialNetworkName(final String socialNetworkName) {
 		this.socialNetworkName = socialNetworkName;
 	}
 
@@ -123,7 +67,7 @@ public class MUserBean extends AbstractMBean {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
@@ -131,7 +75,7 @@ public class MUserBean extends AbstractMBean {
 		return firstName;
 	}
 
-	public void setFirstName(String firstName) {
+	public void setFirstName(final String firstName) {
 		this.firstName = firstName;
 	}
 
@@ -139,7 +83,7 @@ public class MUserBean extends AbstractMBean {
 		return lastName;
 	}
 
-	public void setLastName(String lastName) {
+	public void setLastName(final String lastName) {
 		this.lastName = lastName;
 	}
 
@@ -147,7 +91,7 @@ public class MUserBean extends AbstractMBean {
 		return link;
 	}
 
-	public void setLink(String link) {
+	public void setLink(final String link) {
 		this.link = link;
 	}
 
@@ -155,7 +99,7 @@ public class MUserBean extends AbstractMBean {
 		return birthday;
 	}
 
-	public void setBirthday(String birthday) {
+	public void setBirthday(final String birthday) {
 		this.birthday = birthday;
 	}
 
@@ -163,7 +107,7 @@ public class MUserBean extends AbstractMBean {
 		return hometown;
 	}
 
-	public void setHometown(String hometown) {
+	public void setHometown(final String hometown) {
 		this.hometown = hometown;
 	}
 
@@ -171,7 +115,7 @@ public class MUserBean extends AbstractMBean {
 		return gender;
 	}
 
-	public void setGender(String gender) {
+	public void setGender(final String gender) {
 		this.gender = gender;
 	}
 
@@ -179,7 +123,7 @@ public class MUserBean extends AbstractMBean {
 		return profilePicture;
 	}
 
-	public void setProfilePicture(String profilePicture) {
+	public void setProfilePicture(final String profilePicture) {
 		this.profilePicture = profilePicture;
 	}
 
@@ -187,31 +131,102 @@ public class MUserBean extends AbstractMBean {
 		return buddyListID;
 	}
 
-	public void setBuddyListID(String buddyList) {
-		this.buddyListID = buddyList;
+	public void setBuddyListID(final String buddyList) {
+		buddyListID = buddyList;
 	}
 
 	public String getSubscribtionListID() {
 		return subscribtionListID;
 	}
 
-	public void setSubscribtionListID(String subscribtionList) {
-		this.subscribtionListID = subscribtionList;
+	public void setSubscribtionListID(final String subscribtionList) {
+		subscribtionListID = subscribtionList;
 	}
 
 	public String getSessionID() {
 		return sessionID;
 	}
 
-	public void setSessionID(String session) {
-		this.sessionID = session;
+	public void setSessionID(final String session) {
+		sessionID = session;
 	}
 
 	public String getEmail() {
 		return email;
 	}
 
-	public void setEmail(String email) {
+	public void setEmail(final String email) {
 		this.email = email;
+	}
+
+	/**
+	 * @return the lastConnection
+	 */
+	public String getLastConnection() {
+		return lastConnection;
+	}
+
+	/**
+	 * @param lastConnection
+	 *            the lastConnection to set
+	 */
+	public void setLastConnection(final String lastConnection) {
+		this.lastConnection = lastConnection;
+	}
+
+	/**
+	 * @return the reputationID
+	 */
+	public String getReputationID() {
+		return reputationID;
+	}
+
+	/**
+	 * @param reputationID
+	 *            the reputationID to set
+	 */
+	public void setReputationID(final String reputationID) {
+		this.reputationID = reputationID;
+	}
+
+	/**
+	 * @return the interactionListID
+	 */
+	public String getInteractionListID() {
+		return interactionListID;
+	}
+
+	/**
+	 * @param interactionListID
+	 *            the interactionListID to set
+	 */
+	public void setInteractionListID(final String interactionListID) {
+		this.interactionListID = interactionListID;
+	}
+
+	@Override
+	public boolean equals(final Object object) {
+
+		boolean returnValue = true;
+
+		if (!(object instanceof MUserBean)) {
+			returnValue = false;
+		} else {
+			final MUserBean comparable = (MUserBean) object;
+
+			/*
+			 * We compare only a subsets of the field to check that two
+			 * MUserBean objects are the same
+			 */
+			returnValue &= getBirthday().equals(comparable.getBirthday());
+			returnValue &= getEmail().equals(comparable.getEmail());
+			returnValue &= getFirstName().equals(comparable.getFirstName());
+			returnValue &= getGender().equals(comparable.getGender());
+			returnValue &= getLastName().equals(comparable.getLastName());
+			returnValue &= getMymedID().equals(comparable.getMymedID());
+			returnValue &= getName().equals(comparable.getName());
+		}
+
+		return returnValue;
 	}
 }

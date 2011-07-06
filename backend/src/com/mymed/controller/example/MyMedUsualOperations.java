@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.mymed.controller.core.manager.IStorageManager;
-import com.mymed.controller.core.manager.StorageManager;
+import com.mymed.controller.core.manager.storage.IStorageManager;
+import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.core.configuration.WrapperConfiguration;
 
 /**

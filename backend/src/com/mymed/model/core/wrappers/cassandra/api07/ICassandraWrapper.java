@@ -4,6 +4,8 @@ import java.nio.ByteBuffer;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.cassandra.avro.ColumnDef;
+import org.apache.cassandra.avro.SuperColumn;
 import org.apache.cassandra.db.ColumnFamily;
 import org.apache.cassandra.thrift.AuthenticationRequest;
 import org.apache.cassandra.thrift.CfDef;
@@ -18,7 +20,6 @@ import org.apache.cassandra.thrift.KeySlice;
 import org.apache.cassandra.thrift.KsDef;
 import org.apache.cassandra.thrift.Mutation;
 import org.apache.cassandra.thrift.SlicePredicate;
-import org.apache.cassandra.thrift.SuperColumn;
 import org.apache.cassandra.thrift.TokenRange;
 
 import com.mymed.controller.core.exception.IOBackEndException;
@@ -31,11 +32,6 @@ import com.mymed.controller.core.exception.InternalBackEndException;
  * 
  */
 public interface ICassandraWrapper {
-	/**
-	 * The port number to use for interacting with Cassandra
-	 */
-	int PORT_NUMBER = 9160;
-
 	/**
 	 * Authenticates with the cluster for operations on the specified keyspace
 	 * using the specified {@link AuthenticationRequest} credentials

@@ -7,8 +7,7 @@ import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.exception.ServiceManagerException;
 import com.mymed.controller.core.manager.AbstractManager;
-import com.mymed.controller.core.manager.StorageManager;
-import com.mymed.model.core.factory.IDHTWrapperFactory.WrapperType;
+import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.data.MInteractionBean;
 import com.mymed.model.data.MReputationBean;
 import com.mymed.utils.MConverter;
@@ -18,7 +17,7 @@ public class ReputationManager extends AbstractManager implements IReputationMan
 	/* Constructors */
 	/* --------------------------------------------------------- */
 	public ReputationManager() throws InternalBackEndException {
-		this(new StorageManager(WrapperType.CASSANDRA));
+		this(new StorageManager());
 	}
 	
 	public ReputationManager(StorageManager storageManager) throws InternalBackEndException {

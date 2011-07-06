@@ -4,11 +4,11 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.mymed.controller.core.manager.IStorageManager;
-import com.mymed.controller.core.manager.StorageManager;
 import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.reputation.InteractionManager;
 import com.mymed.controller.core.manager.reputation.ReputationManager;
+import com.mymed.controller.core.manager.storage.IStorageManager;
+import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.core.configuration.WrapperConfiguration;
 import com.mymed.model.data.MInteractionBean;
 import com.mymed.model.data.MReputationBean;
@@ -35,7 +35,7 @@ public class ReputationTest {
 	public static void main(final String[] args) {
 
 		try {
-			final WrapperConfiguration config = new WrapperConfiguration(new File("backend/conf/config.xml"));
+			final WrapperConfiguration config = new WrapperConfiguration(new File("/local/mymed/backend/conf/config.xml"));
 
 			final IStorageManager storageManager = new StorageManager(config);
 

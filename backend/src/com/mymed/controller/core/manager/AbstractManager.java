@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.model.data.AbstractMBean;
 import com.mymed.utils.ClassType;
 
@@ -60,7 +61,6 @@ public abstract class AbstractManager {
 
 					final Object argument = ClassType.objectFromClassType(classType, arg.getValue());
 
-					System.out.println("\nINFO: invoke:" + method.getName() + ", " + argument);
 					method.invoke(mbean, argument);
 				} catch (final NoSuchFieldException e) {
 					System.out.println("\nWARNING: " + new String(arg.getKey(), "UTF8") + " is not an MUserBean Field");
