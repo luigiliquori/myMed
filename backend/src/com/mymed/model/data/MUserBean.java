@@ -7,12 +7,13 @@ package com.mymed.model.data;
  */
 public final class MUserBean extends AbstractMBean {
 
-	// Unique Identifier of the user in myMed
-	private String mymedID = null;
-	// ID of the user in the social network
-	private String socialNetworkID = null;
-	// Name of the social network used by the user
-	private String socialNetworkName = null;
+	/* --------------------------------------------------------- */
+	/* Attributes */
+	/* --------------------------------------------------------- */
+	/** USER_ID */
+	private String id = null;
+	/** AUTHENTICATION_ID */
+	private String login = null;
 	private String email = null;
 	private String name = null;
 	private String firstName = null;
@@ -22,188 +23,29 @@ public final class MUserBean extends AbstractMBean {
 	private String hometown = null;
 	private String gender = null;
 	private long lastConnection;
-	private String buddyListID = null;
-	private String subscribtionListID = null;
-	private String reputationID = null;
-	private String sessionID = null;
-	private String interactionListID = null;
+	/** USER_LIST_ID */
+	private String buddyList = null;
+	/** APPLICATION_LIST_ID */
+	private String subscribtionList = null;
+	/** REPUTATION_ID */
+	private String reputation = null;
+	/** SESSION_ID || null */
+	private String session = null;
+	/** INTERACTION_LIST_ID */
+	private String interactionList = null;
+	private String socialNetworkID = null;
+	private String socialNetworkName = null;
 
-	private String profilePicture = null;
-
+	/* --------------------------------------------------------- */
+	/* Constructors */
+	/* --------------------------------------------------------- */
 	public MUserBean() {
-		super();
+		// TODO Auto-generated constructor stub
 	}
-
-	@Override
-	public String toString() {
-		return "User:\n" + super.toString();
-	}
-
-	public String getMymedID() {
-		return mymedID;
-	}
-
-	public void setMymedID(final String mymedID) {
-		this.mymedID = mymedID;
-	}
-
-	public String getSocialNetworkID() {
-		return socialNetworkID;
-	}
-
-	public void setSocialNetworkID(final String socialNetworkID) {
-		this.socialNetworkID = socialNetworkID;
-	}
-
-	public String getSocialNetworkName() {
-		return socialNetworkName;
-	}
-
-	public void setSocialNetworkName(final String socialNetworkName) {
-		this.socialNetworkName = socialNetworkName;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(final String name) {
-		this.name = name;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(final String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(final String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getLink() {
-		return link;
-	}
-
-	public void setLink(final String link) {
-		this.link = link;
-	}
-
-	public long getBirthday() {
-		return birthday;
-	}
-
-	public void setBirthday(final long birthday) {
-		this.birthday = birthday;
-	}
-
-	public String getHometown() {
-		return hometown;
-	}
-
-	public void setHometown(final String hometown) {
-		this.hometown = hometown;
-	}
-
-	public String getGender() {
-		return gender;
-	}
-
-	public void setGender(final String gender) {
-		this.gender = gender;
-	}
-
-	public String getProfilePicture() {
-		return profilePicture;
-	}
-
-	public void setProfilePicture(final String profilePicture) {
-		this.profilePicture = profilePicture;
-	}
-
-	public String getBuddyListID() {
-		return buddyListID;
-	}
-
-	public void setBuddyListID(final String buddyList) {
-		buddyListID = buddyList;
-	}
-
-	public String getSubscribtionListID() {
-		return subscribtionListID;
-	}
-
-	public void setSubscribtionListID(final String subscribtionList) {
-		subscribtionListID = subscribtionList;
-	}
-
-	public String getSessionID() {
-		return sessionID;
-	}
-
-	public void setSessionID(final String session) {
-		sessionID = session;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(final String email) {
-		this.email = email;
-	}
-
-	/**
-	 * @return the lastConnection
-	 */
-	public long getLastConnection() {
-		return lastConnection;
-	}
-
-	/**
-	 * @param lastConnection
-	 *            the lastConnection to set
-	 */
-	public void setLastConnection(final long lastConnection) {
-		this.lastConnection = lastConnection;
-	}
-
-	/**
-	 * @return the reputationID
-	 */
-	public String getReputationID() {
-		return reputationID;
-	}
-
-	/**
-	 * @param reputationID
-	 *            the reputationID to set
-	 */
-	public void setReputationID(final String reputationID) {
-		this.reputationID = reputationID;
-	}
-
-	/**
-	 * @return the interactionListID
-	 */
-	public String getInteractionListID() {
-		return interactionListID;
-	}
-
-	/**
-	 * @param interactionListID
-	 *            the interactionListID to set
-	 */
-	public void setInteractionListID(final String interactionListID) {
-		this.interactionListID = interactionListID;
-	}
-
+	
+	/* --------------------------------------------------------- */
+	/* Override methods */
+	/* --------------------------------------------------------- */
 	@Override
 	public boolean equals(final Object object) {
 
@@ -223,10 +65,163 @@ public final class MUserBean extends AbstractMBean {
 			returnValue &= getFirstName().equals(comparable.getFirstName());
 			returnValue &= getGender().equals(comparable.getGender());
 			returnValue &= getLastName().equals(comparable.getLastName());
-			returnValue &= getMymedID().equals(comparable.getMymedID());
+			returnValue &= getId().equals(comparable.getId());
 			returnValue &= getName().equals(comparable.getName());
 		}
 
 		return returnValue;
+	}
+
+
+	/* --------------------------------------------------------- */
+	/* GETTER AND SETTER */
+	/* --------------------------------------------------------- */
+	@Override
+	public String toString() {
+		return "User:\n" + super.toString();
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
+	}
+
+	public long getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(long birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getHometown() {
+		return hometown;
+	}
+
+	public void setHometown(String hometown) {
+		this.hometown = hometown;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public long getLastConnection() {
+		return lastConnection;
+	}
+
+	public void setLastConnection(long lastConnection) {
+		this.lastConnection = lastConnection;
+	}
+
+	public String getBuddyList() {
+		return buddyList;
+	}
+
+	public void setBuddyList(String buddyList) {
+		this.buddyList = buddyList;
+	}
+
+	public String getSubscribtionList() {
+		return subscribtionList;
+	}
+
+	public void setSubscribtionList(String subscribtionList) {
+		this.subscribtionList = subscribtionList;
+	}
+
+	public String getReputation() {
+		return reputation;
+	}
+
+	public void setReputation(String reputation) {
+		this.reputation = reputation;
+	}
+
+	public String getSession() {
+		return session;
+	}
+
+	public void setSession(String session) {
+		this.session = session;
+	}
+
+	public String getInteractionList() {
+		return interactionList;
+	}
+
+	public void setInteractionList(String interactionList) {
+		this.interactionList = interactionList;
+	}
+
+	public String getSocialNetworkID() {
+		return socialNetworkID;
+	}
+
+	public void setSocialNetworkID(String socialNetworkID) {
+		this.socialNetworkID = socialNetworkID;
+	}
+
+	public String getSocialNetworkName() {
+		return socialNetworkName;
+	}
+
+	public void setSocialNetworkName(String socialNetworkName) {
+		this.socialNetworkName = socialNetworkName;
 	}
 }

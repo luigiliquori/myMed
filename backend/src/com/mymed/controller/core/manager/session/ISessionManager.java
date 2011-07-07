@@ -9,19 +9,19 @@ public interface ISessionManager {
 
 	/**
 	 * login
-	 * @param mymedID
+	 * @param userID
 	 * @param ip
 	 * @throws InternalBackEndException
 	 */
-	public void create(String mymedID, String ip) throws InternalBackEndException, IOBackEndException;
+	public void create(String userID, String ip) throws InternalBackEndException, IOBackEndException;
 	
 	/**
 	 * 
-	 * @param mymedID
+	 * @param userID
 	 * @return
 	 * @throws InternalBackEndException
 	 */
-	public MSessionBean read(String mymedID) throws InternalBackEndException, IOBackEndException;
+	public MSessionBean read(String userID) throws InternalBackEndException, IOBackEndException;
 	
 	/**
 	 * 
@@ -33,8 +33,8 @@ public interface ISessionManager {
 	
 	/**
 	 * logout
-	 * @param mymedID
+	 * @param userID
 	 * @throws InternalBackEndException
 	 */
-	public void delete(String mymedID)  throws InternalBackEndException, ServiceManagerException;
+	public void delete(String userID)  throws InternalBackEndException, ServiceManagerException;
 }

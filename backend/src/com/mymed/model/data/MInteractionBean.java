@@ -10,12 +10,20 @@ public class MInteractionBean extends AbstractMBean {
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
-	private String interactionID;
-	private String applicationID;
-	private String producerID;
-	private String consumerID;
+	/** INTERACTION_ID */
+	private String id;
+	/** APPLICATION_ID */
+	private String application;
+	/** USER_ID */
+	private String producer;
+	/** USER_ID */
+	private String consumer;
+	private long start;
 	private long end;
+	private double feedback;
 	private int snooze;
+	/** INTERACTION_LIST_ID */
+	private String complexInteraction;
 	
 	/* --------------------------------------------------------- */
 	/* Constructors */
@@ -35,40 +43,75 @@ public class MInteractionBean extends AbstractMBean {
 	/* --------------------------------------------------------- */
 	/* GETTER AND SETTER */
 	/* --------------------------------------------------------- */
-	public String getInteractionID() {
-		return interactionID;
+	public String getId() {
+		return id;
 	}
-	public void setInteractionID(final String interactionID) {
-		this.interactionID = interactionID;
+
+	public void setId(String id) {
+		this.id = id;
 	}
-	public String getApplicationID() {
-		return applicationID;
+
+	public String getApplication() {
+		return application;
 	}
-	public void setApplicationID(final String applicationID) {
-		this.applicationID = applicationID;
+
+	public void setApplication(String application) {
+		this.application = application;
 	}
-	public String getProducerID() {
-		return producerID;
+
+	public String getProducer() {
+		return producer;
 	}
-	public void setProducerID(final String producerID) {
-		this.producerID = producerID;
+
+	public void setProducer(String producer) {
+		this.producer = producer;
 	}
-	public String getConsumerID() {
-		return consumerID;
+
+	public String getConsumer() {
+		return consumer;
 	}
-	public void setConsumerID(final String consumerID) {
-		this.consumerID = consumerID;
+
+	public void setConsumer(String consumer) {
+		this.consumer = consumer;
 	}
+
+	public long getStart() {
+		return start;
+	}
+
+	public void setStart(long start) {
+		this.start = start;
+	}
+
 	public long getEnd() {
 		return end;
 	}
-	public void setEnd(final long end) {
+
+	public void setEnd(long end) {
 		this.end = end;
 	}
+
+	public double getFeedback() {
+		return feedback;
+	}
+
+	public void setFeedback(double feedback) {
+		this.feedback = feedback;
+	}
+
 	public int getSnooze() {
 		return snooze;
 	}
-	public void setSnooze(final int snooze) {
+
+	public void setSnooze(int snooze) {
 		this.snooze = snooze;
+	}
+
+	public String getComplexInteraction() {
+		return complexInteraction;
+	}
+
+	public void setComplexInteraction(String complexInteraction) {
+		this.complexInteraction = complexInteraction;
 	}
 }

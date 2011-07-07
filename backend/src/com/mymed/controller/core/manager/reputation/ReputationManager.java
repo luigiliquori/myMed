@@ -49,7 +49,7 @@ public class ReputationManager extends AbstractManager implements IReputationMan
 		// THE REPUTATION VALUE IS THE LAST GIVEN FEEDBACK
 
 		try {
-			storageManager.insertColumn("Reputation", interaction.getProducerID() + interaction.getApplicationID(),
+			storageManager.insertColumn("Reputation", interaction.getProducer() + interaction.getApplication(),
 			        "value", MConverter.doubleToByteBuffer(feedback).array());
 		} catch (final ServiceManagerException e) {
 			e.printStackTrace();

@@ -6,10 +6,13 @@ public class MSessionBean extends AbstractMBean {
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
-	private String sessionID;
-	private String mymedID;
+	/** SESSION_ID */
+	private String id;
+	/** USER_ID */
+	private String user;
+	/** APPLICATION_LIST_ID */
 	private String currentApplications;
-	private long timestamp;
+	private long timeout;
 	private boolean isP2P;
 	private String ip;
 	private int port;
@@ -32,31 +35,34 @@ public class MSessionBean extends AbstractMBean {
 	/* --------------------------------------------------------- */
 	/* GETTER AND SETTER */
 	/* --------------------------------------------------------- */
-	public String getSessionID() {
-		return sessionID;
+	public String getId() {
+		return id;
 	}
 
-	public void setSessionID(String sessionID) {
-		this.sessionID = sessionID;
+	public void setId(String id) {
+		this.id = id;
 	}
-	
-	public String getMymedID() {
-		return mymedID;
+
+	public String getUser() {
+		return user;
 	}
-	public void setMymedID(String mymedID) {
-		this.mymedID = mymedID;
+
+	public void setUser(String user) {
+		this.user = user;
 	}
+
 	public String getCurrentApplications() {
 		return currentApplications;
 	}
+	
 	public void setCurrentApplications(String currentApplications) {
 		this.currentApplications = currentApplications;
 	}
-	public long getTimestamp() {
-		return timestamp;
+	public long getTimeout() {
+		return timeout;
 	}
-	public void setTimestamp(long timestamp) {
-		this.timestamp = timestamp;
+	public void setTimeout(long timestamp) {
+		this.timeout = timestamp;
 	}
 	public boolean isP2P() {
 		return isP2P;
