@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.utils.ClassType;
 
 /**
  * myMed java Beans:
@@ -51,20 +52,17 @@ public abstract class AbstractMBean {
 			field.setAccessible(true);
 
 			try {
-				if (field.get(this) instanceof String) {
-					args.put(field.getName(), ((String) field.get(this)).getBytes("UTF8"));
-				}
-			} catch (final UnsupportedEncodingException e) {
-				throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
-			} catch (final IllegalArgumentException e) {
-				throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
-			} catch (final IllegalAccessException e) {
-				e.printStackTrace();
+				final ClassType type = ClassType.inferTpye(field.getType());
+
+				args.put(field.getName(), ClassType.classTypeToByteArray(type, field.get(this)));
+			} catch (final Exception e) {
 				throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
 			}
 		}
+
 		return args;
 	}
+
 	/**
 	 * override toString to have an human readable format
 	 */
@@ -73,6 +71,7 @@ public abstract class AbstractMBean {
 		String value = "";
 		for (final Field field : this.getClass().getDeclaredFields()) {
 
+			// TODO fix here, not really secure
 			field.setAccessible(true);
 
 			try {
