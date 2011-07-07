@@ -26,6 +26,7 @@ import org.apache.cassandra.thrift.UnavailableException;
 import org.apache.thrift.TException;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
+import org.apache.thrift.transport.TFramedTransport;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
 
@@ -41,14 +42,17 @@ import com.mymed.utils.MConverter;
 public class DebugConsole extends AbstractRequestHandler implements
 		IRequestHandler {
 	private static final long serialVersionUID = 1L;
+	
+	private transient TFramedTransport thriftTransport;
+	private transient TSocket socket;
+	private transient TProtocol thriftProtocol;
+	private transient Client cassandraClient;
 
-	private TTransport tr;
-	private TProtocol proto;
-	private Client client;
-	private String keyspace = "Keyspace1";
-	private String columnFamily = "Standard1";
-	private String keyUserID = "1";
+	private String keyspace;
+	private String columnFamily;
+	private String keyUserID;
 	private String result;
+	
 	private String address;
 	private int port;
 
@@ -62,13 +66,14 @@ public class DebugConsole extends AbstractRequestHandler implements
 		// Default value
 		this.address = "138.96.242.2";
 		this.port = 4201;
-		this.keyspace = "Keyspace1";
-		this.columnFamily = "Standard1";
-		this.keyUserID = "1";
+		this.keyspace = "Mymed";
+		this.columnFamily = "User";
+		this.keyUserID = "User_ID_1";
 
-		this.tr = new TSocket(address, port);
-		this.proto = new TBinaryProtocol(tr);
-		this.client = new Cassandra.Client(proto);
+		this.socket = new TSocket(address, port);
+		this.thriftTransport = new TFramedTransport(socket);
+		this.thriftProtocol = new TBinaryProtocol(thriftTransport);
+		this.cassandraClient = new Client(thriftProtocol);
 		this.result = "";
 	}
 
@@ -102,7 +107,8 @@ public class DebugConsole extends AbstractRequestHandler implements
 
 		try {
 			// Cassandra actions
-			tr.open();
+			thriftTransport.open();
+			cassandraClient.set_keyspace(keyspace);
 			ColumnParent parent = new ColumnParent(columnFamily);
 			if (parameters.containsKey("act")) {
 				int chx = Integer.parseInt(parameters.get("act"));
@@ -110,13 +116,15 @@ public class DebugConsole extends AbstractRequestHandler implements
 				case CONNECT:
 					this.address = parameters.get("address");
 					this.port = Integer.parseInt(parameters.get("port"));
-					tr.close();
-					this.tr = new TSocket(address, port);
-					this.proto = new TBinaryProtocol(tr);
-					this.client = new Cassandra.Client(proto);
+					thriftTransport.close();
+					this.socket = new TSocket(address, port);
+					this.thriftTransport = new TFramedTransport(socket);
+					this.thriftProtocol = new TBinaryProtocol(thriftTransport);
+					this.cassandraClient = new Client(thriftProtocol);
 					break;
 				case SETKEYSPACE:
 					this.keyspace = parameters.get("keyspace");
+					cassandraClient.set_keyspace(keyspace);
 					break;
 				case SETCOLUMNFAMILY:
 					this.columnFamily = parameters.get("columnFamily");
@@ -126,7 +134,7 @@ public class DebugConsole extends AbstractRequestHandler implements
 					break;
 				case INSERTKEY:
 					long timestamp = System.currentTimeMillis();
-					final Column column = new Column(
+					Column column = new Column(
 							MConverter.stringToByteBuffer(parameters
 									.get("key1")),
 							MConverter.stringToByteBuffer(parameters
@@ -136,7 +144,7 @@ public class DebugConsole extends AbstractRequestHandler implements
 							+ "\t- columnFamily = " + columnFamily + "\n"
 							+ "\t- name = " + parameters.get("key1") + "\n"
 							+ "\t- value = " + parameters.get("value1") + "\n");
-					client.insert(MConverter.stringToByteBuffer(keyUserID),
+					cassandraClient.insert(MConverter.stringToByteBuffer(keyUserID),
 							parent, column, ConsistencyLevel.ONE);
 					this.result = "value insered!";
 					break;
@@ -146,7 +154,7 @@ public class DebugConsole extends AbstractRequestHandler implements
 					ColumnOrSuperColumn result = null;
 					final ColumnPath path = new ColumnPath(columnFamily);
 					path.setColumn(parameters.get("key2").getBytes("UTF8"));
-					result = client
+					result = cassandraClient
 							.get(keyToBuffer, path, ConsistencyLevel.ONE);
 					this.result = new String(result.getColumn().getValue(),
 							"UTF8");
@@ -172,7 +180,7 @@ public class DebugConsole extends AbstractRequestHandler implements
 		} finally {
 			// finish the transaction
 			parameters.clear();
-			tr.close();
+			thriftTransport.close();
 			processRequest(request, response);
 		}
 	}
@@ -236,7 +244,7 @@ public class DebugConsole extends AbstractRequestHandler implements
 					+ SETKEYSPACE
 					+ "' />"
 					+ "<input type='submit' value='setKeyspace'/> ("
-					+ "<input name='keyspace' type='text' value='Keyspace1' />)"
+					+ "<input name='keyspace' type='text' value='Mymed' />)"
 					+ "</form>"
 					// SETCOLUMNFAMILY
 					+ "<form>"
@@ -244,15 +252,15 @@ public class DebugConsole extends AbstractRequestHandler implements
 					+ SETCOLUMNFAMILY
 					+ "' />"
 					+ "<input type='submit' value='setColumnFamily' /> ("
-					+ "<input name='columnFamily' type='text' value='columnFamily' />)"
+					+ "<input name='columnFamily' type='text' value='User' />)"
 					+ "</form>"
 					// SETKEYUSERID
 					+ "<form>"
 					+ "<input type='hidden' name='act' value='"
 					+ SETKEYUSERID
 					+ "' />"
-					+ "<input type='submit' value='setKeyUserID' /> ("
-					+ "<input name='keyUserID' type='text' value='1' />)"
+					+ "<input type='submit' value='setKey' /> ("
+					+ "<input name='keyUserID' type='text' value='User_ID_1' />)"
 					+ "</form>"
 					// INSERTKEY
 					+ "<form>"
