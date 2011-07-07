@@ -19,8 +19,8 @@ public class ReputationManager extends AbstractManager implements IReputationMan
 	public ReputationManager() throws InternalBackEndException {
 		this(new StorageManager());
 	}
-	
-	public ReputationManager(StorageManager storageManager) throws InternalBackEndException {
+
+	public ReputationManager(final StorageManager storageManager) throws InternalBackEndException {
 		super(storageManager);
 	}
 
@@ -53,7 +53,7 @@ public class ReputationManager extends AbstractManager implements IReputationMan
 			        "value", MConverter.doubleToByteBuffer(feedback).array());
 		} catch (final ServiceManagerException e) {
 			e.printStackTrace();
-			throw new InternalBackEndException("read failed because of a WrapperException: " + e.getMessage());
+			throw new InternalBackEndException("update failed because of a WrapperException: " + e.getMessage());
 		}
 	}
 }
