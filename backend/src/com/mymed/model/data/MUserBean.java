@@ -18,10 +18,10 @@ public final class MUserBean extends AbstractMBean {
 	private String firstName = null;
 	private String lastName = null;
 	private String link = null;
-	private String birthday = null;
+	private long birthday;
 	private String hometown = null;
 	private String gender = null;
-	private String lastConnection = null;
+	private long lastConnection;
 	private String buddyListID = null;
 	private String subscribtionListID = null;
 	private String reputationID = null;
@@ -95,11 +95,11 @@ public final class MUserBean extends AbstractMBean {
 		this.link = link;
 	}
 
-	public String getBirthday() {
+	public long getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(final String birthday) {
+	public void setBirthday(final long birthday) {
 		this.birthday = birthday;
 	}
 
@@ -162,7 +162,7 @@ public final class MUserBean extends AbstractMBean {
 	/**
 	 * @return the lastConnection
 	 */
-	public String getLastConnection() {
+	public long getLastConnection() {
 		return lastConnection;
 	}
 
@@ -170,7 +170,7 @@ public final class MUserBean extends AbstractMBean {
 	 * @param lastConnection
 	 *            the lastConnection to set
 	 */
-	public void setLastConnection(final String lastConnection) {
+	public void setLastConnection(final long lastConnection) {
 		this.lastConnection = lastConnection;
 	}
 
@@ -218,7 +218,7 @@ public final class MUserBean extends AbstractMBean {
 			 * We compare only a subsets of the field to check that two
 			 * MUserBean objects are the same
 			 */
-			returnValue &= getBirthday().equals(comparable.getBirthday());
+			returnValue &= getBirthday() == comparable.getBirthday();
 			returnValue &= getEmail().equals(comparable.getEmail());
 			returnValue &= getFirstName().equals(comparable.getFirstName());
 			returnValue &= getGender().equals(comparable.getGender());

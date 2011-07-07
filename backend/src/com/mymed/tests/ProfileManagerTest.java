@@ -45,12 +45,12 @@ public class ProfileManagerTest {
 
 	private static final Calendar CAL_INSTANCE = Calendar.getInstance();
 
-	private static String date;
+	private static long date;
 	private static MUserBean testUser;
 
 	static {
 		CAL_INSTANCE.set(1971, 1, 1);
-		date = String.valueOf(CAL_INSTANCE.getTimeInMillis());
+		date = CAL_INSTANCE.getTimeInMillis();
 	}
 
 	private ProfileManager profileManager;
@@ -105,7 +105,7 @@ public class ProfileManagerTest {
 	}
 
 	/**
-	 * Perform a insert user with the create {@link MUserBean}.
+	 * Perform a insert user with the created {@link MUserBean}.
 	 * <p>
 	 * The expected behavior is the normal execution of the program
 	 * 
@@ -127,6 +127,6 @@ public class ProfileManagerTest {
 	@Test
 	public void testSelectAll() throws InternalBackEndException, IOBackEndException {
 		final MUserBean userRead = profileManager.read(KEY);
-		assertEquals("User beans are not the same\n", userRead, testUser);
+		assertEquals("User beans are not the same\n", testUser, userRead);
 	}
 }

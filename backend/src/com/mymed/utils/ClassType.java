@@ -27,6 +27,9 @@ public enum ClassType {
 	LONG(Long.class, long.class),
 	STRING(String.class, String.class);
 
+	private static final String TO_BYTE_BUFFER = "ToByteBuffer";
+	private static final String BYTE_BUFFER_TO = "byteBufferTo";
+
 	private final Class<?> objectClass;
 	private final Class<?> primitiveType;
 
@@ -119,13 +122,12 @@ public enum ClassType {
 	 * @return a new object
 	 */
 	public static Object objectFromClassType(final ClassType classType, final byte[] arg) {
-
 		Object returnObject = null;
 
 		try {
 			final Constructor<?> cons = classType.getObjectClass().getDeclaredConstructor(classType.getPrimitiveType());
 
-			final String methodName = "byteBufferTo" + classType.getObjectClass().getSimpleName();
+			final String methodName = BYTE_BUFFER_TO + classType.getObjectClass().getSimpleName();
 			final Method method = MConverter.class.getMethod(methodName, ByteBuffer.class);
 
 			final Object initArg = method.invoke(null, ByteBuffer.wrap(arg));
@@ -137,6 +139,30 @@ public enum ClassType {
 		}
 
 		return returnObject;
+	}
+
+	/**
+	 * Convert an object of the specified ClassType into a byte array
+	 * 
+	 * @param classType
+	 *            the ClassType with the type of the object
+	 * @param object
+	 *            the object to convert
+	 * @return the byte array that represents the object
+	 */
+	public static byte[] classTypeToByteArray(final ClassType classType, final Object object) {
+		final String methodName = classType.getPrimitiveType().getSimpleName().toLowerCase() + TO_BYTE_BUFFER;
+		ByteBuffer returnBuffer = null;
+
+		try {
+			final Method method = MConverter.class.getMethod(methodName, classType.getPrimitiveType());
+			returnBuffer = (ByteBuffer) method.invoke(null, object);
+		} catch (final Exception ex) {
+			// TODO logger
+			ex.printStackTrace();
+		}
+
+		return returnBuffer.array();
 	}
 
 	@Override
