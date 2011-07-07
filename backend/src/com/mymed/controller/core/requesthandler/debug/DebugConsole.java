@@ -1,7 +1,8 @@
-package com.mymed.controller.core.requesthandler.tests;
+package com.mymed.controller.core.requesthandler.debug;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.ByteBuffer;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,14 +13,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.cassandra.thrift.Cassandra;
+import org.apache.cassandra.thrift.Cassandra.Client;
 import org.apache.cassandra.thrift.Column;
+import org.apache.cassandra.thrift.ColumnOrSuperColumn;
+import org.apache.cassandra.thrift.ColumnParent;
 import org.apache.cassandra.thrift.ColumnPath;
 import org.apache.cassandra.thrift.ConsistencyLevel;
 import org.apache.cassandra.thrift.InvalidRequestException;
 import org.apache.cassandra.thrift.NotFoundException;
 import org.apache.cassandra.thrift.TimedOutException;
 import org.apache.cassandra.thrift.UnavailableException;
-import org.apache.cassandra.thrift.Cassandra.Client;
 import org.apache.thrift.TException;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
@@ -28,13 +31,15 @@ import org.apache.thrift.transport.TTransport;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.requesthandler.AbstractRequestHandler;
+import com.mymed.utils.MConverter;
 
 /**
  * 
  * @author lvanni
- *
+ * 
  */
-public class DebugConsole extends AbstractRequestHandler implements IRequestHandler{
+public class DebugConsole extends AbstractRequestHandler implements
+		IRequestHandler {
 	private static final long serialVersionUID = 1L;
 
 	private TTransport tr;
@@ -66,7 +71,7 @@ public class DebugConsole extends AbstractRequestHandler implements IRequestHand
 		this.client = new Cassandra.Client(proto);
 		this.result = "";
 	}
-	
+
 	protected Map<String, String> getParameters(HttpServletRequest request) {
 		Map<String, String> parameters = new HashMap<String, String>();
 		Enumeration<String> paramNames = request.getParameterNames();
@@ -76,30 +81,33 @@ public class DebugConsole extends AbstractRequestHandler implements IRequestHand
 			if (paramValues.length >= 1) { // all the params should be atomic
 				parameters.put(paramName, paramValues[0]);
 			}
-			System.out.println(paramName + " : " +  paramValues[0]);
+			System.out.println(paramName + " : " + paramValues[0]);
 		}
 		return parameters;
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// clear results
 		this.result = "";
 
 		/** Get the parameters */
-		Map<String, String> parameters = null;;
+		Map<String, String> parameters = null;
+		;
 		parameters = getParameters(request);
 
 		try {
 			// Cassandra actions
 			tr.open();
-			ColumnPath colPathName = new ColumnPath(columnFamily);
-			if (parameters.containsKey("act")){
+			ColumnParent parent = new ColumnParent(columnFamily);
+			if (parameters.containsKey("act")) {
 				int chx = Integer.parseInt(parameters.get("act"));
-				switch(chx){
-				case CONNECT :
+				switch (chx) {
+				case CONNECT:
 					this.address = parameters.get("address");
 					this.port = Integer.parseInt(parameters.get("port"));
 					tr.close();
@@ -107,36 +115,44 @@ public class DebugConsole extends AbstractRequestHandler implements IRequestHand
 					this.proto = new TBinaryProtocol(tr);
 					this.client = new Cassandra.Client(proto);
 					break;
-				case SETKEYSPACE :
+				case SETKEYSPACE:
 					this.keyspace = parameters.get("keyspace");
 					break;
-				case SETCOLUMNFAMILY :
+				case SETCOLUMNFAMILY:
 					this.columnFamily = parameters.get("columnFamily");
 					break;
-				case SETKEYUSERID :
+				case SETKEYUSERID:
 					this.keyUserID = parameters.get("keyUserID");
 					break;
-				case INSERTKEY :
+				case INSERTKEY:
 					long timestamp = System.currentTimeMillis();
-					colPathName.setColumn(parameters.get("key1").getBytes("UTF8"));
-					System.out.println("\ninsert:" +
-									"\t- keyspace = " + keyspace + "\n" +
-									"\t- key = " + keyUserID + "\n" +
-									"\t- columnFamily = " + columnFamily + "\n" +
-									"\t- name = " + parameters.get("key1") + "\n" +
-									"\t- value = " + parameters.get("value1") + "\n");
-					client.insert(keyspace, keyUserID, colPathName, parameters.get(
-					"value1").getBytes("UTF8"), timestamp,
-					ConsistencyLevel.ONE);
+					final Column column = new Column(
+							MConverter.stringToByteBuffer(parameters
+									.get("key1")),
+							MConverter.stringToByteBuffer(parameters
+									.get("value1")), timestamp);
+					System.out.println("\ninsert:" + "\t- keyspace = "
+							+ keyspace + "\n" + "\t- key = " + keyUserID + "\n"
+							+ "\t- columnFamily = " + columnFamily + "\n"
+							+ "\t- name = " + parameters.get("key1") + "\n"
+							+ "\t- value = " + parameters.get("value1") + "\n");
+					client.insert(MConverter.stringToByteBuffer(keyUserID),
+							parent, column, ConsistencyLevel.ONE);
 					this.result = "value insered!";
 					break;
-				case GETKEY :
-					colPathName.setColumn(parameters.get("key2").getBytes("UTF8"));
-					Column col = client.get(keyspace, keyUserID, colPathName,
-							ConsistencyLevel.ONE).getColumn();
-					this.result = new String(col.value, "UTF8");
+				case GETKEY:
+					final ByteBuffer keyToBuffer = MConverter
+							.stringToByteBuffer(keyUserID);
+					ColumnOrSuperColumn result = null;
+					final ColumnPath path = new ColumnPath(columnFamily);
+					path.setColumn(parameters.get("key2").getBytes("UTF8"));
+					result = client
+							.get(keyToBuffer, path, ConsistencyLevel.ONE);
+					this.result = new String(result.getColumn().getValue(),
+							"UTF8");
 					break;
-				default : break;
+				default:
+					break;
 				}
 			}
 
@@ -149,6 +165,9 @@ public class DebugConsole extends AbstractRequestHandler implements IRequestHand
 		} catch (TException e) {
 			e.printStackTrace();
 		} catch (NotFoundException e) {
+			e.printStackTrace();
+		} catch (InternalBackEndException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			// finish the transaction
@@ -183,57 +202,76 @@ public class DebugConsole extends AbstractRequestHandler implements IRequestHand
 			out.println("<title>Cassandra Test</title>");
 			out.println("</head>");
 			out.println("<body style='width:500px;'>");
-			out
-			.println("<h1>myMed: Cassandra tests</h1>"
-					+ "<hr />"
+			out.println("<h1>myMed: Cassandra tests</h1>" + "<hr />"
 					// STATUS
 					+ "<b>Status:</b><br />"
-					+ "<span style='color: green;'>connected</span> on: " + this.address + ":" + this.port + "<br />"
-					+ "keyspace: " + this.keyspace + "<br />"
-					+ "columnFamily: " + this.columnFamily + "<br />"
-					+ "keyUserID: " + this.keyUserID + "<br />"
+					+ "<span style='color: green;'>connected</span> on: "
+					+ this.address
+					+ ":"
+					+ this.port
+					+ "<br />"
+					+ "keyspace: "
+					+ this.keyspace
+					+ "<br />"
+					+ "columnFamily: "
+					+ this.columnFamily
+					+ "<br />"
+					+ "keyUserID: "
+					+ this.keyUserID
+					+ "<br />"
 					+ "<hr />"
 					// CONNECT
 					+ "<b>Console:</b><br />"
 					+ "<form>"
-					+ "<input type='hidden' name='act' value='" + CONNECT + "' />"
-					+	   "<input type='submit' value='Connect' /> ("
+					+ "<input type='hidden' name='act' value='"
+					+ CONNECT
+					+ "' />"
+					+ "<input type='submit' value='Connect' /> ("
 					+ "<input name='address' type='text' value='138.96.242.2' />, "
 					+ "<input name='port' type='text' value='4201'/> )"
 					+ "</form>"
 					// SETKEYSPACE
 					+ "<form>"
-					+ "<input type='hidden' name='act' value='" + SETKEYSPACE + "' />"
-					+	   "<input type='submit' value='setKeyspace'/> ("
+					+ "<input type='hidden' name='act' value='"
+					+ SETKEYSPACE
+					+ "' />"
+					+ "<input type='submit' value='setKeyspace'/> ("
 					+ "<input name='keyspace' type='text' value='Keyspace1' />)"
 					+ "</form>"
 					// SETCOLUMNFAMILY
 					+ "<form>"
-					+ "<input type='hidden' name='act' value='" + SETCOLUMNFAMILY + "' />"
-					+	   "<input type='submit' value='setColumnFamily' /> ("
+					+ "<input type='hidden' name='act' value='"
+					+ SETCOLUMNFAMILY
+					+ "' />"
+					+ "<input type='submit' value='setColumnFamily' /> ("
 					+ "<input name='columnFamily' type='text' value='columnFamily' />)"
 					+ "</form>"
 					// SETKEYUSERID
 					+ "<form>"
-					+ "<input type='hidden' name='act' value='" + SETKEYUSERID + "' />"
-					+	   "<input type='submit' value='setKeyUserID' /> ("
+					+ "<input type='hidden' name='act' value='"
+					+ SETKEYUSERID
+					+ "' />"
+					+ "<input type='submit' value='setKeyUserID' /> ("
 					+ "<input name='keyUserID' type='text' value='1' />)"
 					+ "</form>"
 					// INSERTKEY
 					+ "<form>"
-					+ "<input type='hidden' name='act' value='" + INSERTKEY + "' />"
-					+	   "<input type='submit' value='Insert' /> ("
+					+ "<input type='hidden' name='act' value='"
+					+ INSERTKEY
+					+ "' />"
+					+ "<input type='submit' value='Insert' /> ("
 					+ "<input name='key1' type='text' value='columnName' />, "
 					+ "<input name='value1' type='text' value='value'/> )"
 					+ "</form>"
 					// GETKEY
 					+ "<form>"
-					+ "<input type='hidden' name='act' value='" + GETKEY + "' />"
-					+	   "<input type='submit' value='Get' /> ("
+					+ "<input type='hidden' name='act' value='"
+					+ GETKEY
+					+ "' />"
+					+ "<input type='submit' value='Get' /> ("
 					+ "<input name='key2' type='text' value='columnName' /> )"
 					+ "</form>");
-			out
-			.println("<div style='position:relative; width:500px; height:200px; border:thin black solid; overflow:auto;'>");
+			out.println("<div style='position:relative; width:500px; height:200px; border:thin black solid; overflow:auto;'>");
 			out.println(result);
 			out.println("</div>");
 			out.println("</body>");

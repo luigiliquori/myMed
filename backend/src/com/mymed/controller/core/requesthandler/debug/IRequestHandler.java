@@ -1,4 +1,4 @@
-package com.mymed.controller.core.requesthandler.tests;
+package com.mymed.controller.core.requesthandler.debug;
 
 /**
  * Describe the header of all the request coming from the frontend
