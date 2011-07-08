@@ -17,7 +17,7 @@ import com.mymed.utils.ClassType;
  * @author lvanni
  * 
  */
-public abstract class AbstractManager {
+public abstract class AbstractManager extends ManagerValues {
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
