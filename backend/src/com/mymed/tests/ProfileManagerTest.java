@@ -1,16 +1,15 @@
 package com.mymed.tests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.io.File;
-import java.util.Calendar;
 
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.exception.ServiceManagerException;
 import com.mymed.controller.core.manager.profile.ProfileManager;
@@ -24,34 +23,10 @@ import com.mymed.model.data.MUserBean;
  * @author Milo Casagrande
  * 
  */
-public class ProfileManagerTest {
-
-	private static final String CONF_FILE = "/local/mymed/backend/conf/config.xml";
-	private static final String TABLE_NAME = "User";
-	private static final String KEY = "test1";
-	private static final String LOGIN = "usertest1";
-	private static final String EMAIL = "testUser@example.net";
-	private static final String NAME = "username";
-	private static final String FIRST_NAME = "First Name";
-	private static final String LAST_NAME = "Last Name";
-	private static final String LINK = "http://www.example.net";
-	private static final String HOMETOWN = "123456789.123454";
-	private static final String GENDER = "female";
-	private static final String BUDDY_LST_ID = "buddylist1";
-	private static final String SUBSCRIPTION_LST_ID = "subscription1";
-	private static final String REPUTATION_ID = "reputation1";
-	private static final String SESSION_ID = "session1";
-	private static final String INTERACTION_LST_ID = "interaction1";
-
-	private static final Calendar CAL_INSTANCE = Calendar.getInstance();
+public class ProfileManagerTest implements IManagerTest {
 
 	private static long date;
 	private static MUserBean testUser;
-
-	static {
-		CAL_INSTANCE.set(1971, 1, 1);
-		date = CAL_INSTANCE.getTimeInMillis();
-	}
 
 	private ProfileManager profileManager;
 	private StorageManager storageManager;
@@ -72,6 +47,9 @@ public class ProfileManagerTest {
 	 */
 	@BeforeClass
 	public static void setUpOnce() {
+		CAL_INSTANCE.set(1971, 1, 1);
+		date = CAL_INSTANCE.getTimeInMillis();
+
 		testUser = new MUserBean();
 
 		testUser.setBirthday(date);
@@ -108,25 +86,27 @@ public class ProfileManagerTest {
 	 * Perform a insert user with the created {@link MUserBean}.
 	 * <p>
 	 * The expected behavior is the normal execution of the program
-	 * 
-	 * @throws InternalBackEndException
-	 * @throws IOBackEndException
 	 */
 	@Test
-	public void testInsertUser() throws InternalBackEndException, IOBackEndException {
-		profileManager.create(testUser);
+	public void testInsertUser() {
+		try {
+			profileManager.create(testUser);
+		} catch (final Exception ex) {
+			fail(ex.getMessage());
+		}
 	}
 
 	/**
 	 * Perform a select of the newly inserted user and compare it with the local
 	 * {@link MUserBean} used to create the user.
-	 * 
-	 * @throws InternalBackEndException
-	 * @throws IOBackEndException
 	 */
 	@Test
-	public void testSelectAll() throws InternalBackEndException, IOBackEndException {
-		final MUserBean userRead = profileManager.read(KEY);
-		assertEquals("User beans are not the same\n", testUser, userRead);
+	public void testSelectAll() {
+		try {
+			final MUserBean userRead = profileManager.read(KEY);
+			assertEquals("User beans are not the same\n", testUser, userRead);
+		} catch (final Exception ex) {
+			fail(ex.getMessage());
+		}
 	}
 }
