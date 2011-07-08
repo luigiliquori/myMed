@@ -30,7 +30,7 @@ import com.mymed.utils.MConverter;
  * @author Milo Casagrande
  * 
  */
-public class StorageManagerTest implements IManagerTest {
+public class StorageManagerTest extends TestValues {
 
 	private static final int INSERTS = 4;
 

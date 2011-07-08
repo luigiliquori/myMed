@@ -23,7 +23,7 @@ import com.mymed.model.data.MUserBean;
  * @author Milo Casagrande
  * 
  */
-public class ProfileManagerTest implements IManagerTest {
+public class ProfileManagerTest extends TestValues {
 
 	private static long date;
 	private static MUserBean testUser;
