@@ -9,7 +9,7 @@ import java.util.Calendar;
  * @author Milo Casagrande
  */
 public interface IManagerTest {
-	String CONF_FILE = "/local/mymed/backend/conf/config-new.xml";
+	String CONF_FILE = "/local/mymed/backend/conf/config.xml";
 	String NAME = "username";
 	String FIRST_NAME = "First Name";
 	String LAST_NAME = "Last Name";
