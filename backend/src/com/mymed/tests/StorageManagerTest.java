@@ -1,11 +1,12 @@
 package com.mymed.tests;
 
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import java.util.Map;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.mymed.controller.core.exception.IOBackEndException;
@@ -28,43 +30,30 @@ import com.mymed.utils.MConverter;
  * @author Milo Casagrande
  * 
  */
-public class StorageManagerTest {
+public class StorageManagerTest implements IManagerTest {
 
-	private static final String CONF_FILE = "/local/mymed/backend/conf/config.xml";
-	private static final String NAME = "username";
-	private static final String FIRST_NAME = "First Name";
-	private static final String LAST_NAME = "Last Name";
-	private static final String TABLE_NAME = "User";
-	private static final String WRONG_TABLE_NAME = "Users";
-	private static final String KEY = "key1";
-	private static final String WRONG_KEY = "1key";
-	private static final String COLUMN_NAME = "name";
-	private static final String COLUMN_FIRSTNAME = "firstName";
-	private static final String COLUMN_LASTNAME = "lastName";
-	private static final String COLUMN_BIRTHDATE = "birthday";
-	private static final String WRONG_COLUMN_NAME = "name1";
 	private static final int INSERTS = 4;
-	private static final Calendar CAL_INSTANCE = Calendar.getInstance();
 
 	private static byte[] name;
 	private static byte[] firstName;
 	private static byte[] lastName;
 	private static byte[] birthDate;
 
-	static {
+	private StorageManager storageManager;
+
+	@BeforeClass
+	public static void setUpOnce() {
 		try {
 			name = MConverter.stringToByteBuffer(NAME).array();
 			firstName = MConverter.stringToByteBuffer(FIRST_NAME).array();
 			lastName = MConverter.stringToByteBuffer(LAST_NAME).array();
-
-			CAL_INSTANCE.set(1971, 1, 1);
-			birthDate = MConverter.longToByteBuffer(CAL_INSTANCE.getTimeInMillis()).array();
 		} catch (final InternalBackEndException ex) {
-			ex.printStackTrace();
+			fail(ex.getMessage());
 		}
-	}
 
-	private StorageManager storageManager;
+		CAL_INSTANCE.set(1971, 1, 1);
+		birthDate = MConverter.longToByteBuffer(CAL_INSTANCE.getTimeInMillis()).array();
+	}
 
 	@Before
 	public void setUp() throws InternalBackEndException {
@@ -104,75 +93,77 @@ public class StorageManagerTest {
 	 * Insert a new key with some values into the table 'User'.
 	 * <p>
 	 * The expected result is the normal execution of the program
-	 * 
-	 * @throws InternalBackEndException
 	 */
 	@Test
-	public void testInsertColumn() throws InternalBackEndException {
-		storageManager.insertColumn(TABLE_NAME, KEY, COLUMN_NAME, name);
-		storageManager.insertColumn(TABLE_NAME, KEY, COLUMN_FIRSTNAME, firstName);
-		storageManager.insertColumn(TABLE_NAME, KEY, COLUMN_LASTNAME, lastName);
-		storageManager.insertColumn(TABLE_NAME, KEY, COLUMN_BIRTHDATE, birthDate);
+	public void testInsertColumn() {
+		try {
+			storageManager.insertColumn(TABLE_NAME, KEY, COLUMN_NAME, name);
+			storageManager.insertColumn(TABLE_NAME, KEY, COLUMN_FIRSTNAME, firstName);
+			storageManager.insertColumn(TABLE_NAME, KEY, COLUMN_LASTNAME, lastName);
+			storageManager.insertColumn(TABLE_NAME, KEY, COLUMN_BIRTHDATE, birthDate);
+		} catch (final InternalBackEndException ex) {
+			fail(ex.getMessage());
+		}
 	}
 
 	/**
 	 * Remove all columns with the specified key
-	 * 
-	 * @throws ServiceManagerException
-	 * @throws InternalBackEndException
-	 * @throws IOBackEndException
 	 */
 	@Test
-	public void testRemoveAll() throws ServiceManagerException, InternalBackEndException, IOBackEndException {
-		storageManager.removeAll(TABLE_NAME, KEY);
-
-		final Map<byte[], byte[]> column = storageManager.selectAll(TABLE_NAME, KEY);
-		assertTrue("The number of columns after a removeAll is not 0", column.size() == 0);
+	public void testRemoveAll() {
+		try {
+			storageManager.removeAll(TABLE_NAME, KEY);
+			final Map<byte[], byte[]> column = storageManager.selectAll(TABLE_NAME, KEY);
+			assertTrue("The number of columns after a removeAll is not 0", column.isEmpty());
+		} catch (final Exception ex) {
+			fail(ex.getMessage());
+		}
 	}
 
 	/**
-	 * 
-	 * @throws ServiceManagerException
-	 * @throws InternalBackEndException
-	 * @throws IOBackEndException
+	 * Perform an insert slice operation.
+	 * <p>
+	 * The expected behavior is the normal execution of the program
 	 */
 	@Test
-	public void testInsertSlice() throws ServiceManagerException, InternalBackEndException, IOBackEndException {
-
-		final Map<String, byte[]> args = new HashMap<String, byte[]>();
-		args.put(COLUMN_NAME, name);
-		args.put(COLUMN_FIRSTNAME, firstName);
-		args.put(COLUMN_LASTNAME, lastName);
-		args.put(COLUMN_BIRTHDATE, birthDate);
-
-		storageManager.insertSlice(TABLE_NAME, KEY, args);
+	public void testInsertSlice() {
+		try {
+			final Map<String, byte[]> args = new HashMap<String, byte[]>();
+			args.put(COLUMN_NAME, name);
+			args.put(COLUMN_FIRSTNAME, firstName);
+			args.put(COLUMN_LASTNAME, lastName);
+			args.put(COLUMN_BIRTHDATE, birthDate);
+			storageManager.insertSlice(TABLE_NAME, KEY, args);
+		} catch (final Exception ex) {
+			fail(ex.getMessage());
+		}
 	}
 
 	/**
 	 * Perform a selection of the values just inserted in the table 'User'.
 	 * <p>
 	 * The expected result is that the retrieved values equal the inserted ones
-	 * 
-	 * @throws IOBackEndException
-	 * @throws InternalBackEndException
 	 */
 	@Test
-	public void testSelectColumn() throws IOBackEndException, InternalBackEndException {
+	public void testSelectColumn() {
+		try {
+			byte[] returnValue = storageManager.selectColumn(TABLE_NAME, KEY, COLUMN_NAME);
+			assertArrayEquals("The returned byte array (name) is not equal to the inserted one", name, returnValue);
 
-		byte[] returnValue = storageManager.selectColumn(TABLE_NAME, KEY, COLUMN_NAME);
-		assertTrue("The returned byte array (name) is not equal to the inserted one", Arrays.equals(returnValue, name));
+			returnValue = storageManager.selectColumn(TABLE_NAME, KEY, COLUMN_FIRSTNAME);
+			assertArrayEquals("The returned byte array (firstname) is not equal to the inserted one", firstName,
+			        returnValue);
 
-		returnValue = storageManager.selectColumn(TABLE_NAME, KEY, COLUMN_FIRSTNAME);
-		assertTrue("The returned byte array (firstname) is not equal to the inserted one",
-		        Arrays.equals(returnValue, firstName));
+			returnValue = storageManager.selectColumn(TABLE_NAME, KEY, COLUMN_LASTNAME);
+			assertArrayEquals("The returned byte array (lastname) is not equal to the inserted one", lastName,
+			        returnValue);
 
-		returnValue = storageManager.selectColumn(TABLE_NAME, KEY, COLUMN_LASTNAME);
-		assertTrue("The returned byte array (lastname) is not equal to the inserted one",
-		        Arrays.equals(returnValue, lastName));
-
-		returnValue = storageManager.selectColumn(TABLE_NAME, KEY, COLUMN_BIRTHDATE);
-		assertTrue("The returned byte array (birthdate) is not equal to the inserted one",
-		        Arrays.equals(returnValue, birthDate));
+			returnValue = storageManager.selectColumn(TABLE_NAME, KEY, COLUMN_BIRTHDATE);
+			assertArrayEquals("The returned byte array (birthdate) is not equal to the inserted one", birthDate,
+			        returnValue);
+		} catch (final Exception ex) {
+			fail(ex.getMessage());
+		}
 	}
 
 	/**
@@ -218,65 +209,67 @@ public class StorageManagerTest {
 	/**
 	 * Perform a {@code selectAll} and check that the number of retrieved values
 	 * equals to the number of insertions
-	 * 
-	 * @throws InternalBackEndException
-	 * @throws IOBackEndException
 	 */
 	@Test
-	public void testSelectAll() throws InternalBackEndException, IOBackEndException {
-		final Map<byte[], byte[]> columns = storageManager.selectAll(TABLE_NAME, KEY);
-		assertTrue("The number of retrived columns is not equal to the inserted one", columns.size() == INSERTS);
+	public void testSelectAll() {
+		try {
+			final Map<byte[], byte[]> columns = storageManager.selectAll(TABLE_NAME, KEY);
+			assertSame("The number of retrived columns is not equal to the inserted one", INSERTS, columns.size());
+		} catch (final Exception ex) {
+			fail(ex.getMessage());
+		}
 	}
 
 	/**
 	 * Perform a {@code selectRange} and check that the number of retrieved
 	 * values equals to the one of the selected columns (in this case 2)
-	 * 
-	 * @throws ServiceManagerException
-	 * @throws InternalBackEndException
-	 * @throws IOBackEndException
 	 */
 	@Test
-	public void testSelectRange() throws ServiceManagerException, InternalBackEndException, IOBackEndException {
-		final List<String> columnNames = new ArrayList<String>(2);
-		columnNames.add(COLUMN_NAME);
-		columnNames.add(COLUMN_BIRTHDATE);
+	public void testSelectRange() {
+		try {
+			final List<String> columnNames = new ArrayList<String>(2);
+			columnNames.add(COLUMN_NAME);
+			columnNames.add(COLUMN_BIRTHDATE);
 
-		final Map<byte[], byte[]> column = storageManager.selectRange(TABLE_NAME, KEY, columnNames);
-		assertTrue("The number of retrieved columns is wrong", column.size() == 2);
+			final Map<byte[], byte[]> column = storageManager.selectRange(TABLE_NAME, KEY, columnNames);
+			assertSame("The number of retrieved columns is wrong", 2, column.size());
+		} catch (final Exception ex) {
+			fail(ex.getMessage());
+		}
 	}
 
 	/**
 	 * Perform a {@code selectRange} and check that the number of retrieved
 	 * values equals to the one of the selected columns: in this case 1 since we
 	 * ask for a column name that does not exists
-	 * 
-	 * @throws ServiceManagerException
-	 * @throws InternalBackEndException
-	 * @throws IOBackEndException
 	 */
 	@Test
-	public void testSelectRangeWrong() throws ServiceManagerException, InternalBackEndException, IOBackEndException {
-		final List<String> columnNames = new ArrayList<String>(2);
-		columnNames.add(COLUMN_NAME);
-		columnNames.add(WRONG_COLUMN_NAME);
+	public void testSelectRangeWrong() {
+		try {
+			final List<String> columnNames = new ArrayList<String>(2);
+			columnNames.add(COLUMN_NAME);
+			columnNames.add(WRONG_COLUMN_NAME);
 
-		final Map<byte[], byte[]> column = storageManager.selectRange(TABLE_NAME, KEY, columnNames);
-		assertTrue("The number of retrieved columns is wrong", column.size() == 1);
+			final Map<byte[], byte[]> column = storageManager.selectRange(TABLE_NAME, KEY, columnNames);
+			assertSame("The number of retrieved columns is wrong", 1, column.size());
+		} catch (final Exception ex) {
+			fail(ex.getMessage());
+		}
 	}
 
 	/**
 	 * Remove a column and check that the total columns is equals to the old
 	 * number - 1
-	 * 
-	 * @throws InternalBackEndException
-	 * @throws IOBackEndException
 	 */
 	@Test
-	public void testRemoveColumn() throws InternalBackEndException, IOBackEndException {
-		storageManager.removeColumn(TABLE_NAME, KEY, COLUMN_NAME);
+	public void testRemoveColumn() {
+		try {
+			storageManager.removeColumn(TABLE_NAME, KEY, COLUMN_NAME);
 
-		final Map<byte[], byte[]> column = storageManager.selectAll(TABLE_NAME, KEY);
-		assertTrue("The number of columns after removing one is not correct", column.size() == INSERTS - 1);
+			final Map<byte[], byte[]> column = storageManager.selectAll(TABLE_NAME, KEY);
+			assertSame("The number of columns after removing one is not correct", INSERTS - 1, column.size());
+		} catch (final Exception ex) {
+			fail(ex.getMessage());
+		}
 	}
 }
