@@ -7,95 +7,24 @@ package com.mymed.model.data;
  */
 public class MInteractionBean extends AbstractMBean {
 
-	private String interactionID;
-	private String applicationID;
-	private String producerID;
-	private String consumerID;
-	// The interaction list ID
-	private String complexInteractionID;
-	private double feedback = 0;
+	/** INTERACTION_ID */
+	private String id;
+	/** APPLICATION_ID */
+	private String application;
+	/** USER_ID */
+	private String producer;
+	/** USER_ID */
+	private String consumer;
 	private long start;
 	private long end;
-	private int snooze = 0;
+	private double feedback;
+	private int snooze;
+	/** INTERACTION_LIST_ID */
+	private String complexInteraction;
 
 	@Override
 	public String toString() {
 		return "Interaction:\n" + super.toString();
-	}
-
-	/**
-	 * @return the interactionID
-	 */
-	public String getInteractionID() {
-		return interactionID;
-	}
-
-	/**
-	 * @param interactionID
-	 *            the interactionID to set
-	 */
-	public void setInteractionID(final String interactionID) {
-		this.interactionID = interactionID;
-	}
-
-	/**
-	 * @return the applicationID
-	 */
-	public String getApplicationID() {
-		return applicationID;
-	}
-
-	/**
-	 * @param applicationID
-	 *            the applicationID to set
-	 */
-	public void setApplicationID(final String applicationID) {
-		this.applicationID = applicationID;
-	}
-
-	/**
-	 * @return the producerID
-	 */
-	public String getProducerID() {
-		return producerID;
-	}
-
-	/**
-	 * @param producerID
-	 *            the producerID to set
-	 */
-	public void setProducerID(final String producerID) {
-		this.producerID = producerID;
-	}
-
-	/**
-	 * @return the consumerID
-	 */
-	public String getConsumerID() {
-		return consumerID;
-	}
-
-	/**
-	 * @param consumerID
-	 *            the consumerID to set
-	 */
-	public void setConsumerID(final String consumerID) {
-		this.consumerID = consumerID;
-	}
-
-	/**
-	 * @return the complexInteractionID
-	 */
-	public String getComplexInteractionID() {
-		return complexInteractionID;
-	}
-
-	/**
-	 * @param complexInteractionID
-	 *            the complexInteractionID to set
-	 */
-	public void setComplexInteractionID(final String complexInteractionID) {
-		this.complexInteractionID = complexInteractionID;
 	}
 
 	/**
@@ -128,6 +57,38 @@ public class MInteractionBean extends AbstractMBean {
 		this.start = start;
 	}
 
+	public String getId() {
+		return id;
+	}
+
+	public void setId(final String id) {
+		this.id = id;
+	}
+
+	public String getApplication() {
+		return application;
+	}
+
+	public void setApplication(final String application) {
+		this.application = application;
+	}
+
+	public String getProducer() {
+		return producer;
+	}
+
+	public void setProducer(final String producer) {
+		this.producer = producer;
+	}
+
+	public String getConsumer() {
+		return consumer;
+	}
+
+	public void setConsumer(final String consumer) {
+		this.consumer = consumer;
+	}
+
 	/**
 	 * @return the end
 	 */
@@ -156,5 +117,20 @@ public class MInteractionBean extends AbstractMBean {
 	 */
 	public void setSnooze(final int snooze) {
 		this.snooze = snooze;
+	}
+
+	/**
+	 * @return the complexInteraction
+	 */
+	public String getComplexInteraction() {
+		return complexInteraction;
+	}
+
+	/**
+	 * @param complexInteraction
+	 *            the complexInteraction to set
+	 */
+	public void setComplexInteraction(final String complexInteraction) {
+		this.complexInteraction = complexInteraction;
 	}
 }

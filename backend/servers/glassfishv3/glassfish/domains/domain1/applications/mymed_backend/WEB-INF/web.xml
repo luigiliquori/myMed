@@ -13,7 +13,7 @@
     <description></description>
     <display-name>DebugConsole</display-name>
     <servlet-name>DebugConsole</servlet-name>
-    <servlet-class>com.mymed.controller.core.requesthandler.tests.DebugConsole</servlet-class>
+    <servlet-class>com.mymed.controller.core.requesthandler.debug.DebugConsole</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>DebugConsole</servlet-name>
@@ -43,7 +43,7 @@
     <description></description>
     <display-name>SDKRequestHandler</display-name>
     <servlet-name>SDKRequestHandler</servlet-name>
-    <servlet-class>com.mymed.controller.core.requesthandler.tests.SDKRequestHandler</servlet-class>
+    <servlet-class>com.mymed.controller.core.requesthandler.SDKRequestHandler</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>SDKRequestHandler</servlet-name>

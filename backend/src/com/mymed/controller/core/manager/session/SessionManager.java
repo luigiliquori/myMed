@@ -31,13 +31,13 @@ public class SessionManager extends AbstractManager implements ISessionManager {
 	 * @throws IOBackEndException 
 	 * @see ISessionManager#create(String, String)
 	 */
-	public void create(String mymedID, String ip) throws InternalBackEndException, IOBackEndException {
+	public void create(String userID, String ip) throws InternalBackEndException, IOBackEndException {
 		MSessionBean sessionBean = new MSessionBean();
 		sessionBean.setIp(ip);
-		sessionBean.setMymedID(mymedID);
+		sessionBean.setUser(userID);
 		sessionBean.setCurrentApplications("");
 		sessionBean.setP2P(false);
-		sessionBean.setTimestamp(System.currentTimeMillis());
+		sessionBean.setTimeout(System.currentTimeMillis());
 		create(sessionBean);
 	}
 	
@@ -49,13 +49,13 @@ public class SessionManager extends AbstractManager implements ISessionManager {
 			throws InternalBackEndException, IOBackEndException {
 		try {
 			// CREATION DE L'ID DE SESSION 
-			sessionBean.setSessionID(sessionBean.getMymedID() + "_SESSION");
+			sessionBean.setId(sessionBean.getUser() + "_SESSION");
 			storageManager.insertSlice("Session", "sessionID", sessionBean
 					.getAttributeToMap());
 			// LINK AVEC L'USER
 			ProfileManager profileManager =  new ProfileManager();
-			MUserBean user = profileManager.read(sessionBean.getMymedID());
-			user.setSessionID(sessionBean.getSessionID());
+			MUserBean user = profileManager.read(sessionBean.getUser());
+			user.setSession(sessionBean.getId());
 			profileManager.update(user);
 		} catch (ServiceManagerException e) {
 			throw new InternalBackEndException(
@@ -68,13 +68,13 @@ public class SessionManager extends AbstractManager implements ISessionManager {
 	 * @throws IOBackEndException 
 	 * @see ISessionManager#read(String)
 	 */
-	public MSessionBean read(String mymedID) throws InternalBackEndException, IOBackEndException {
+	public MSessionBean read(String userID) throws InternalBackEndException, IOBackEndException {
 		ProfileManager profileManager =  new ProfileManager();
-		MUserBean user = profileManager.read(mymedID);
+		MUserBean user = profileManager.read(userID);
 		Map<byte[], byte[]> args = new HashMap<byte[], byte[]>();
 		MSessionBean session = new MSessionBean();
 		try {
-			args = storageManager.selectAll("Session", user.getSessionID());
+			args = storageManager.selectAll("Session", user.getSession());
 		} catch (ServiceManagerException e) {
 			e.printStackTrace();
 			throw new InternalBackEndException(
@@ -98,9 +98,8 @@ public class SessionManager extends AbstractManager implements ISessionManager {
 	 * @throws ServiceManagerException 
 	 * @see ISessionManager#delete(String)
 	 */
-	public void delete(String mymedID) throws InternalBackEndException, ServiceManagerException {
-		// CREATION DE L'ID DE SESSION 
-		storageManager.removeAll("Session", mymedID + "_SESSION");
+	public void delete(String userID) throws InternalBackEndException {
+		storageManager.removeAll("Session", userID + "_SESSION");
 	}
 
 }

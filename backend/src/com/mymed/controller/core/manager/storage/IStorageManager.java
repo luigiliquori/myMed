@@ -145,7 +145,7 @@ public interface IStorageManager {
 	 * @throws UnsupportedEncodingException
 	 */
 	public void removeAll(String tableName, String key)
-			throws ServiceManagerException, InternalBackEndException;
+			throws InternalBackEndException;
 	
 	/**
 	 * Common put operation

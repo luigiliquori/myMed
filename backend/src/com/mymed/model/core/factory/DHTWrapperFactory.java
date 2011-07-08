@@ -9,7 +9,6 @@ import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.core.configuration.WrapperConfiguration;
 import com.mymed.model.core.wrappers.AbstractDHTWrapper;
-import com.mymed.model.core.wrappers.cassandra.api06.CassandraWrapper;
 import com.mymed.model.core.wrappers.chord.ChordWrapper;
 import com.mymed.model.core.wrappers.kad.KadWrapper;
 
@@ -92,7 +91,6 @@ public class DHTWrapperFactory implements IDHTWrapperFactory {
 				addressList = new String(trackerData, "UTF8");
 
 				String[] address = addressList.split(",");
-				List<String> addressDown = new ArrayList<String>();
 				// Construct the new list
 				addressList = "";
 				for (String a : address) {
@@ -128,11 +126,6 @@ public class DHTWrapperFactory implements IDHTWrapperFactory {
 	public static AbstractDHTWrapper createDHTWrapper(WrapperType type,
 			WrapperConfiguration conf) throws InternalBackEndException {
 		switch (type) {
-		case CASSANDRA:
-			CassandraWrapper cassandraCli = new CassandraWrapper();
-			cassandraCli.setup(conf.getCassandraListenAddress(), conf
-					.getThriftPort());
-			return cassandraCli;
 		case CHORD:
 			ChordWrapper chordCli = ChordWrapper.getInstance();
 			chordCli.setup(conf.getChordListenAddress(), conf

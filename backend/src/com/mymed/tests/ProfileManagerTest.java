@@ -54,20 +54,20 @@ public class ProfileManagerTest implements IManagerTest {
 
 		testUser.setBirthday(date);
 		testUser.setSocialNetworkID(NAME);
-		testUser.setBuddyListID(BUDDY_LST_ID);
+		testUser.setBuddyList(BUDDY_LST_ID);
 		testUser.setEmail(EMAIL);
 		testUser.setFirstName(FIRST_NAME);
 		testUser.setGender(GENDER);
 		testUser.setHometown(HOMETOWN);
 		testUser.setLastName(LAST_NAME);
 		testUser.setLink(LINK);
-		testUser.setMymedID(KEY);
+		testUser.setId(KEY);
 		testUser.setName(LOGIN);
-		testUser.setSessionID(SESSION_ID);
-		testUser.setInteractionListID(INTERACTION_LST_ID);
+		testUser.setSession(SESSION_ID);
+		testUser.setInteractionList(INTERACTION_LST_ID);
 		testUser.setLastConnection(date);
-		testUser.setReputationID(REPUTATION_ID);
-		testUser.setSubscribtionListID(SUBSCRIPTION_LST_ID);
+		testUser.setReputation(REPUTATION_ID);
+		testUser.setSubscribtionList(SUBSCRIPTION_LST_ID);
 	}
 
 	/**
