@@ -12,7 +12,7 @@ import com.google.gson.JsonSyntaxException;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.session.SessionManager;
-import com.mymed.model.data.MSessionBean;
+import com.mymed.model.data.session.MSessionBean;
 
 /**
  * Servlet implementation class SessionRequestHandler

@@ -8,7 +8,7 @@ import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.exception.ServiceManagerException;
 import com.mymed.controller.core.manager.AbstractManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
-import com.mymed.model.data.MInteractionBean;
+import com.mymed.model.data.reputation.MInteractionBean;
 
 public class InteractionManager extends AbstractManager implements
 		IInteractionManager {

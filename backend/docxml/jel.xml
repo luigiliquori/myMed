@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jel>
+	<admin creation="Fri Jul 08 16:06:28 CEST 2011" xsdversion="1.0.0" version="1.0.0" />
+	<jelclass final="true" superclass="AbstractMBean" visibility="public" package="com.mymed.model.data.user" superclassfulltype="AbstractMBean" fulltype="com.mymed.model.data.user.MUserBean" type="MUserBean">
+		<comment>
+			<description>This class represent an user profile</description>
+			<attribute name="@author">
+				<description>lvanni</description>
+			</attribute>
+		</comment>
+		<fields>
+			<field visibility="private" name="id" fulltype="java.lang.String" type="String">
+				<comment>
+					<description>USER_ID</description>
+				</comment>
+			</field>
+			<field visibility="private" name="login" fulltype="java.lang.String" type="String">
+				<comment>
+					<description>AUTHENTICATION_ID</description>
+				</comment>
+			</field>
+			<field visibility="private" name="email" fulltype="java.lang.String" type="String" />
+			<field visibility="private" name="name" fulltype="java.lang.String" type="String" />
+			<field visibility="private" name="firstName" fulltype="java.lang.String" type="String" />
+			<field visibility="private" name="lastName" fulltype="java.lang.String" type="String" />
+			<field visibility="private" name="link" fulltype="java.lang.String" type="String" />
+			<field visibility="private" name="birthday" fulltype="long" type="long" />
+			<field visibility="private" name="hometown" fulltype="java.lang.String" type="String" />
+			<field visibility="private" name="gender" fulltype="java.lang.String" type="String" />
+			<field visibility="private" name="lastConnection" fulltype="long" type="long" />
+			<field visibility="private" name="buddyList" fulltype="java.lang.String" type="String">
+				<comment>
+					<description>USER_LIST_ID</description>
+				</comment>
+			</field>
+			<field visibility="private" name="subscribtionList" fulltype="java.lang.String" type="String">
+				<comment>
+					<description>APPLICATION_LIST_ID</description>
+				</comment>
+			</field>
+			<field visibility="private" name="reputation" fulltype="java.lang.String" type="String">
+				<comment>
+					<description>REPUTATION_ID</description>
+				</comment>
+			</field>
+			<field visibility="private" name="session" fulltype="java.lang.String" type="String">
+				<comment>
+					<description>SESSION_ID || null</description>
+				</comment>
+			</field>
+			<field visibility="private" name="interactionList" fulltype="java.lang.String" type="String">
+				<comment>
+					<description>INTERACTION_LIST_ID</description>
+				</comment>
+			</field>
+			<field visibility="private" name="socialNetworkID" fulltype="java.lang.String" type="String" />
+			<field visibility="private" name="socialNetworkName" fulltype="java.lang.String" type="String" />
+		</fields>
+		<methods>
+			<constructor visibility="public" name="MUserBean" />
+			<method visibility="public" name="equals" fulltype="boolean" type="boolean">
+				<params>
+					<param name="object" fulltype="java.lang.Object" type="Object" />
+				</params>
+			</method>
+			<method visibility="public" name="toString" fulltype="java.lang.String" type="String" />
+			<method visibility="public" name="getId" fulltype="java.lang.String" type="String" />
+			<method visibility="public" name="setId" fulltype="void" type="void">
+				<params>
+					<param name="id" fulltype="java.lang.String" type="String" />
+				</params>
+			</method>
+			<method visibility="public" name="getLogin" fulltype="java.lang.String" type="String" />
+			<method visibility="public" name="setLogin" fulltype="void" type="void">
+				<params>
+					<param name="login" fulltype="java.lang.String" type="String" />
+				</params>
+			</method>
+			<method visibility="public" name="getEmail" fulltype="java.lang.String" type="String" />
+			<method visibility="public" name="setEmail" fulltype="void" type="void">
+				<params>
+					<param name="email" fulltype="java.lang.String" type="String" />
+				</params>
+			</method>
+			<method visibility="public" name="getName" fulltype="java.lang.String" type="String" />
+			<method visibility="public" name="setName" fulltype="void" type="void">
+				<params>
+					<param name="name" fulltype="java.lang.String" type="String" />
+				</params>
+			</method>
+			<method visibility="public" name="getFirstName" fulltype="java.lang.String" type="String" />
+			<method visibility="public" name="setFirstName" fulltype="void" type="void">
+				<params>
+					<param name="firstName" fulltype="java.lang.String" type="String" />
+				</params>
+			</method>
+			<method visibility="public" name="getLastName" fulltype="java.lang.String" type="String" />
+			<method visibility="public" name="setLastName" fulltype="void" type="void">
+				<params>
+					<param name="lastName" fulltype="java.lang.String" type="String" />
+				</params>
+			</method>
+			<method visibility="public" name="getLink" fulltype="java.lang.String" type="String" />
+			<method visibility="public" name="setLink" fulltype="void" type="void">
+				<params>
+					<param name="link" fulltype="java.lang.String" type="String" />
+				</params>
+			</method>
+			<method visibility="public" name="getBirthday" fulltype="long" type="long" />
+			<method visibility="public" name="setBirthday" fulltype="void" type="void">
+				<params>
+					<param name="birthday" fulltype="long" type="long" />
+				</params>
+			</method>
+			<method visibility="public" name="getHometown" fulltype="java.lang.String" type="String" />
+			<method visibility="public" name="setHometown" fulltype="void" type="void">
+				<params>
+					<param name="hometown" fulltype="java.lang.String" type="String" />
+				</params>
+			</method>
+			<method visibility="public" name="getGender" fulltype="java.lang.String" type="String" />
+			<method visibility="public" name="setGender" fulltype="void" type="void">
+				<params>
+					<param name="gender" fulltype="java.lang.String" type="String" />
+				</params>
+			</method>
+			<method visibility="public" name="getLastConnection" fulltype="long" type="long" />
+			<method visibility="public" name="setLastConnection" fulltype="void" type="void">
+				<params>
+					<param name="lastConnection" fulltype="long" type="long" />
+				</params>
+			</method>
+			<method visibility="public" name="getBuddyList" fulltype="java.lang.String" type="String" />
+			<method visibility="public" name="setBuddyList" fulltype="void" type="void">
+				<params>
+					<param name="buddyList" fulltype="java.lang.String" type="String" />
+				</params>
+			</method>
+			<method visibility="public" name="getSubscribtionList" fulltype="java.lang.String" type="String" />
+			<method visibility="public" name="setSubscribtionList" fulltype="void" type="void">
+				<params>
+					<param name="subscribtionList" fulltype="java.lang.String" type="String" />
+				</params>
+			</method>
+			<method visibility="public" name="getReputation" fulltype="java.lang.String" type="String" />
+			<method visibility="public" name="setReputation" fulltype="void" type="void">
+				<params>
+					<param name="reputation" fulltype="java.lang.String" type="String" />
+				</params>
+			</method>
+			<method visibility="public" name="getSession" fulltype="java.lang.String" type="String" />
+			<method visibility="public" name="setSession" fulltype="void" type="void">
+				<params>
+					<param name="session" fulltype="java.lang.String" type="String" />
+				</params>
+			</method>
+			<method visibility="public" name="getInteractionList" fulltype="java.lang.String" type="String" />
+			<method visibility="public" name="setInteractionList" fulltype="void" type="void">
+				<params>
+					<param name="interactionList" fulltype="java.lang.String" type="String" />
+				</params>
+			</method>
+			<method visibility="public" name="getSocialNetworkID" fulltype="java.lang.String" type="String" />
+			<method visibility="public" name="setSocialNetworkID" fulltype="void" type="void">
+				<params>
+					<param name="socialNetworkID" fulltype="java.lang.String" type="String" />
+				</params>
+			</method>
+			<method visibility="public" name="getSocialNetworkName" fulltype="java.lang.String" type="String" />
+			<method visibility="public" name="setSocialNetworkName" fulltype="void" type="void">
+				<params>
+					<param name="socialNetworkName" fulltype="java.lang.String" type="String" />
+				</params>
+			</method>
+		</methods>
+	</jelclass>
+</jel>

@@ -16,7 +16,7 @@ import com.mymed.controller.core.exception.ServiceManagerException;
 import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.core.configuration.WrapperConfiguration;
-import com.mymed.model.data.MUserBean;
+import com.mymed.model.data.user.MUserBean;
 
 /**
  * Test class for the {@link ProfileManager}.
