@@ -7,49 +7,55 @@
  *
 */
 
-/* Create the 'mymed' keyspace 
+/* Create the 'mymed' keyspace
  *
  * The 'RackUnawareStrategy' has been renamed into 'SimpleStrategy' from v0.7.
  * Also, the 'RackAwareStrategy' should have been renamed into 'NetworkTopologyStrategy'.
  *
  */
-create keyspace Mymed with replication_factor = 1 and placement_strategy = 'org.apache.cassandra.locator.SimpleStrategy';
+create keyspace Mymed with replication_factor = 10 and placement_strategy = 'org.apache.cassandra.locator.SimpleStrategy';
 
 /* Switch to the 'mymed' keyspace */
 use Mymed;
 
-/* 
- * Create the column families 
+/*
+ * Create the column families
  * Normal columns are:
+ *  Application
+ *  ApplicationView
+ *  Authentication
+ *  Ontology
+ *  OntologyType
  *  User
  *  Session
- *  Authentication
- *  Services
- *  Trips
- *  DHT
  *  Interaction
  *  Reputation
  *
 */
+create column family Application with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+create column family ApplicationView with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+create column family Authentication with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+create column family Ontology with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+create column family OntologyType with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 create column family User with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 create column family Session with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
-create column family Authentication with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
-create column family Services with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
-create column family Trips with column_type = 'Standard' and comparator = 'BytesType' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
-create column family DHT with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 create column family Interaction with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 create column family Reputation with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 
 /*
  * Create the super columns
  * Super columns are:
- *  UserGroup
- *  myTransport
+ *  ApplicationController
+ *  ApplicationList
+ *  ApplicationModel
+ *  UserList
  *  InteractionList
  *  RaterList
  *
 */
-create column family UserGroup with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
-create column family myTransport with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
+create column family ApplicationController with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
+create column family ApplicationList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
+create column family ApplicationModel with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
+create column family UserList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family InteractionList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family RaterList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
