@@ -34,7 +34,7 @@ public class AbstractClient {
 	 * @throws InternalBackEndException 
 	 */
 	public void launchClient(WrapperConfiguration conf) throws InternalBackEndException {
-		IStorageManager storageManager = new StorageManager(type, conf);
+		IStorageManager storageManager = new StorageManager();
 
 		BufferedReader input = new BufferedReader(new InputStreamReader(
 				System.in));

@@ -20,8 +20,9 @@ public class AuthenticationManager extends AbstractManager implements
 	public AuthenticationManager() throws InternalBackEndException {
 		this(new StorageManager());
 	}
-	
-	public AuthenticationManager(StorageManager storageManager) throws InternalBackEndException {
+
+	public AuthenticationManager(StorageManager storageManager)
+			throws InternalBackEndException {
 		super(storageManager);
 	}
 
@@ -29,7 +30,7 @@ public class AuthenticationManager extends AbstractManager implements
 	/* implements AuthenticationManager */
 	/* --------------------------------------------------------- */
 	/**
-	 * @throws IOBackEndException 
+	 * @throws IOBackEndException
 	 * @see IAuthenticationManager#create(MUserBean, MAuthenticationBean)
 	 */
 	@Override
@@ -68,9 +69,10 @@ public class AuthenticationManager extends AbstractManager implements
 		}
 		authentication = (MAuthenticationBean) introspection(authentication,
 				args);
-		if(authentication.getPassword().equals(password)){
-		return new ProfileManager().read(authentication.getMymedID());
+		if (authentication.getPassword().equals(password)) {
+			return new ProfileManager().read(authentication.getUser());
 		} else {
+			// AUTHENTICATION FAILED
 			throw new IOBackEndException("Wrong password");
 		}
 	}

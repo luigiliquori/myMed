@@ -51,21 +51,24 @@ public final class MConverter {
 	};
 
 	/**
-	 * Convert a string into a {@link ByteBuffer}
+	 * Convert a string into a {@link ByteBuffer}. If the {@link String} object
+	 * passed is null, it is treated as an empty string
 	 * 
 	 * @param string
 	 *            the string to convert
 	 * @return the string converted into a {@link ByteBuffer}
 	 * @throws InternalBackEndException
-	 *             if the string is null, or when a wrong encoding is used
+	 *             when a wrong encoding is used
 	 */
 	public static ByteBuffer stringToByteBuffer(final String string) throws InternalBackEndException {
 
+		String localString = string;
+
 		if (string == null) {
-			throw new InternalBackEndException("You need to provide a non-null value");
+			localString = "";
 		}
 
-		final CharBuffer charBuffer = CharBuffer.wrap(string);
+		final CharBuffer charBuffer = CharBuffer.wrap(localString.trim());
 		ByteBuffer returnBuffer = null;
 
 		try {
@@ -115,15 +118,18 @@ public final class MConverter {
 		}
 
 		String returnString = null;
+		CharBuffer charBuf = null;
 
 		try {
-			final CharBuffer charBuf = CHARSET.newDecoder().decode(buffer);
+			charBuf = CHARSET.newDecoder().decode(buffer);
 			returnString = charBuf.toString();
 		} catch (final CharacterCodingException ex) {
 			throw new InternalBackEndException("Wrong encoding used in the message");
 		}
 
-		return returnString;
+		// Clean up the empty spaces, looks like in the conversion from
+		// ByteBuffer to String some spaces might slip in
+		return returnString.trim();
 	}
 
 	/**

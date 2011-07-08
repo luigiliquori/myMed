@@ -45,12 +45,12 @@ public class ProfileManagerTest {
 
 	private static final Calendar CAL_INSTANCE = Calendar.getInstance();
 
-	private static String date;
+	private static long date;
 	private static MUserBean testUser;
 
 	static {
 		CAL_INSTANCE.set(1971, 1, 1);
-		date = String.valueOf(CAL_INSTANCE.getTimeInMillis());
+		date = CAL_INSTANCE.getTimeInMillis();
 	}
 
 	private ProfileManager profileManager;
@@ -76,20 +76,20 @@ public class ProfileManagerTest {
 
 		testUser.setBirthday(date);
 		testUser.setSocialNetworkID(NAME);
-		testUser.setBuddyListID(BUDDY_LST_ID);
+		testUser.setBuddyList(BUDDY_LST_ID);
 		testUser.setEmail(EMAIL);
 		testUser.setFirstName(FIRST_NAME);
 		testUser.setGender(GENDER);
 		testUser.setHometown(HOMETOWN);
 		testUser.setLastName(LAST_NAME);
 		testUser.setLink(LINK);
-		testUser.setMymedID(KEY);
+		testUser.setId(KEY);
 		testUser.setName(LOGIN);
-		testUser.setSessionID(SESSION_ID);
-		testUser.setInteractionListID(INTERACTION_LST_ID);
+		testUser.setSession(SESSION_ID);
+		testUser.setInteractionList(INTERACTION_LST_ID);
 		testUser.setLastConnection(date);
-		testUser.setReputationID(REPUTATION_ID);
-		testUser.setSubscribtionListID(SUBSCRIPTION_LST_ID);
+		testUser.setReputation(REPUTATION_ID);
+		testUser.setSubscribtionList(SUBSCRIPTION_LST_ID);
 	}
 
 	/**
@@ -105,7 +105,7 @@ public class ProfileManagerTest {
 	}
 
 	/**
-	 * Perform a insert user with the create {@link MUserBean}.
+	 * Perform a insert user with the created {@link MUserBean}.
 	 * <p>
 	 * The expected behavior is the normal execution of the program
 	 * 
@@ -127,6 +127,6 @@ public class ProfileManagerTest {
 	@Test
 	public void testSelectAll() throws InternalBackEndException, IOBackEndException {
 		final MUserBean userRead = profileManager.read(KEY);
-		assertEquals("User beans are not the same\n", userRead, testUser);
+		assertEquals("User beans are not the same\n", testUser, userRead);
 	}
 }

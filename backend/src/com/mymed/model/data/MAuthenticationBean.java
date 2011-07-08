@@ -10,8 +10,11 @@ public class MAuthenticationBean extends AbstractMBean {
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
-	private String mymedID;
+	/** AUTHENTICATION_ID */
 	private String login;
+	/** USER_ID */
+	private String user;
+	/** sha256(string) */
 	private String password;
 	
 	/* --------------------------------------------------------- */
@@ -32,14 +35,6 @@ public class MAuthenticationBean extends AbstractMBean {
 	/* --------------------------------------------------------- */
 	/* GETTER AND SETTER */
 	/* --------------------------------------------------------- */
-	public String getMymedID() {
-		return mymedID;
-	}
-
-	public void setMymedID(String mymedID) {
-		this.mymedID = mymedID;
-	}
-	
 	public String getLogin() {
 		return login;
 	}
@@ -48,6 +43,14 @@ public class MAuthenticationBean extends AbstractMBean {
 		this.login = login;
 	}
 	
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
+
 	public String getPassword() {
 		return password;
 	}

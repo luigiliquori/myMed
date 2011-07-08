@@ -42,5 +42,5 @@ public interface IProfileManager {
 	 * @param user
 	 *            The user to delete
 	 */
-	public void delete(String mymedID) throws InternalBackEndException;
+	public void delete(String id) throws InternalBackEndException;
 }

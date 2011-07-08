@@ -23,11 +23,11 @@ public class ReputationTest {
 	static {
 		consumer1 = new MUserBean();
 		consumer1.setName("goofy");
-		consumer1.setMymedID("cons1");
+		consumer1.setId("cons1");
 
 		producer1 = new MUserBean();
 		producer1.setName("paperone");
-		producer1.setMymedID("prod1");
+		producer1.setId("prod1");
 	}
 
 	private static String applicationID = "myMountain";
@@ -49,9 +49,9 @@ public class ReputationTest {
 			arguments.put("value", MConverter.doubleToByteBuffer(0.5).array());
 			arguments.put("nbRaters", MConverter.intToByteBuffer(1).array());
 
-			storageManager.insertSlice("Reputation", producer1.getMymedID() + applicationID, arguments);
+			storageManager.insertSlice("Reputation", producer1.getId() + applicationID, arguments);
 
-			MReputationBean repBean = repManager.read(producer1.getMymedID(), consumer1.getMymedID(), applicationID);
+			MReputationBean repBean = repManager.read(producer1.getId(), consumer1.getId(), applicationID);
 
 			System.out.println("Reputation of " + producer1.getName() + " is: " + repBean.getValue());
 
@@ -59,10 +59,10 @@ public class ReputationTest {
 			// IDEA: implement a reset method in the bean that clears all the
 			// fields? So that we can reuse the same object
 			final MInteractionBean intBean = new MInteractionBean();
-			intBean.setApplicationID(applicationID);
-			intBean.setConsumerID(consumer1.getMymedID());
-			intBean.setProducerID(producer1.getMymedID());
-			intBean.setInteractionID("int1");
+			intBean.setApplication(applicationID);
+			intBean.setConsumer(consumer1.getId());
+			intBean.setProducer(producer1.getId());
+			intBean.setId("int1");
 
 			final long end = System.currentTimeMillis() + 1000000;
 
@@ -78,7 +78,7 @@ public class ReputationTest {
 			System.err.println("Setting new reputation value...");
 			repManager.update(intBean, 0.6);
 
-			repBean = repManager.read(producer1.getMymedID(), consumer1.getMymedID(), applicationID);
+			repBean = repManager.read(producer1.getId(), consumer1.getId(), applicationID);
 			System.out.println("\nThe new reputation of " + producer1.getName() + " is: " + repBean.getValue());
 		} catch (final Exception ex) {
 			ex.printStackTrace();

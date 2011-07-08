@@ -29,7 +29,7 @@ public class InteractionManager extends AbstractManager implements
 			throws InternalBackEndException, IOBackEndException {
 		try {
 			storageManager.insertSlice("Interaction", interaction
-					.getInteractionID(), interaction.getAttributeToMap());
+					.getId(), interaction.getAttributeToMap());
 		} catch (ServiceManagerException e) {
 			throw new InternalBackEndException(
 					"create failed because of a WrapperException: "
@@ -63,14 +63,7 @@ public class InteractionManager extends AbstractManager implements
 	@Override
 	public void delete(String interactionID) throws InternalBackEndException,
 			ServiceManagerException {
-		try {
 			storageManager.removeAll("Interaction", interactionID);
-		} catch (ServiceManagerException e) {
-			e.printStackTrace();
-			throw new InternalBackEndException(
-					"delete failed because of a WrapperException: "
-							+ e.getMessage());
-		}
 	}
 
 }
