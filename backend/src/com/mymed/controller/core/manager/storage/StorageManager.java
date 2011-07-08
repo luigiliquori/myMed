@@ -99,6 +99,7 @@ public class StorageManager implements IStorageManager {
 	public byte[] selectColumn(final String tableName, final String key,
 			final String columnName) throws InternalBackEndException,
 			IOBackEndException {
+		
 		try {
 			wrapper.open();
 			final ColumnPath colPathName = new ColumnPath(tableName);

@@ -2,7 +2,7 @@ package com.mymed.controller.core.manager.profile;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.model.data.MUserBean;
+import com.mymed.model.data.user.MUserBean;
 
 /**
  * Manage the profile of an user

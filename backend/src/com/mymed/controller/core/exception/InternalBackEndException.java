@@ -17,10 +17,20 @@ public class InternalBackEndException extends Exception implements
 	 * 
 	 * @param message
 	 */
+	public InternalBackEndException(Exception ex) {
+		super(ex);
+		this.message = ex.toString();
+	}
+	
+	/**
+	 * 
+	 * @param message
+	 */
 	public InternalBackEndException(String message) {
 		super(message);
 		this.message = message;
 	}
+	
 	
 	/**
 	 * see {@link IMymedException#getJsonException()}

@@ -66,24 +66,8 @@ public abstract class AbstractManager extends ManagerValues {
 					System.out.println("\nWARNING: " + new String(arg.getKey(), "UTF8") + " is not an MUserBean Field");
 				}
 			}
-		} catch (final UnsupportedEncodingException e) {
-			e.printStackTrace();
-			throw new InternalBackEndException("Introspection failed with a UnsupportedEncodingException");
-		} catch (final SecurityException e) {
-			e.printStackTrace();
-			throw new InternalBackEndException("Introspection failed with a SecurityException");
-		} catch (final IllegalArgumentException e) {
-			e.printStackTrace();
-			throw new InternalBackEndException("Introspection failed with a IllegalArgumentException");
-		} catch (final NoSuchMethodException e) {
-			e.printStackTrace();
-			throw new InternalBackEndException("Introspection failed with a NoSuchMethodException");
-		} catch (final IllegalAccessException e) {
-			e.printStackTrace();
-			throw new InternalBackEndException("Introspection failed with a IllegalAccessException");
-		} catch (final InvocationTargetException e) {
-			e.printStackTrace();
-			throw new InternalBackEndException("Introspection failed with a InvocationTargetException");
+		} catch (final Exception ex) {
+			throw new InternalBackEndException(ex);
 		}
 		return mbean;
 	}

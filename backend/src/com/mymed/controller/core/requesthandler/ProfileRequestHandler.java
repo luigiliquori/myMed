@@ -12,7 +12,7 @@ import com.google.gson.JsonSyntaxException;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.profile.ProfileManager;
-import com.mymed.model.data.MUserBean;
+import com.mymed.model.data.user.MUserBean;
 
 /**
  * Servlet implementation class UsersRequestHandler

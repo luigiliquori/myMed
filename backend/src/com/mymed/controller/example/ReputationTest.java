@@ -10,9 +10,9 @@ import com.mymed.controller.core.manager.reputation.ReputationManager;
 import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.core.configuration.WrapperConfiguration;
-import com.mymed.model.data.MInteractionBean;
-import com.mymed.model.data.MReputationBean;
-import com.mymed.model.data.MUserBean;
+import com.mymed.model.data.reputation.MInteractionBean;
+import com.mymed.model.data.reputation.MReputationBean;
+import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.MConverter;
 
 public class ReputationTest {
