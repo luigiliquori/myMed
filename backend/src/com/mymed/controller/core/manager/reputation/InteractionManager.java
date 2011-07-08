@@ -10,60 +10,46 @@ import com.mymed.controller.core.manager.AbstractManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.data.MInteractionBean;
 
-public class InteractionManager extends AbstractManager implements
-		IInteractionManager {
+public class InteractionManager extends AbstractManager implements IInteractionManager {
 
-	/* --------------------------------------------------------- */
-	/* Constructors */
-	/* --------------------------------------------------------- */
 	public InteractionManager() throws InternalBackEndException {
 		this(new StorageManager());
 	}
-	
-	public InteractionManager(StorageManager storageManager) throws InternalBackEndException {
+
+	public InteractionManager(final StorageManager storageManager) throws InternalBackEndException {
 		super(storageManager);
 	}
 
 	@Override
-	public void create(MInteractionBean interaction)
-			throws InternalBackEndException, IOBackEndException {
+	public void create(final MInteractionBean interaction) throws InternalBackEndException, IOBackEndException {
 		try {
-			storageManager.insertSlice("Interaction", interaction
-					.getId(), interaction.getAttributeToMap());
-		} catch (ServiceManagerException e) {
-			throw new InternalBackEndException(
-					"create failed because of a WrapperException: "
-							+ e.getMessage());
+			storageManager.insertSlice(CF_INTERACTION, interaction.getId(), interaction.getAttributeToMap());
+		} catch (final ServiceManagerException e) {
+			throw new InternalBackEndException("create failed because of a WrapperException: " + e.getMessage());
 		}
 	}
 
 	@Override
-	public MInteractionBean read(String interactionID)
-			throws InternalBackEndException, IOBackEndException {
+	public MInteractionBean read(final String interactionID) throws InternalBackEndException, IOBackEndException {
 		Map<byte[], byte[]> args = new HashMap<byte[], byte[]>();
-		MInteractionBean interaction = new MInteractionBean();
+		final MInteractionBean interaction = new MInteractionBean();
 		try {
-			args = storageManager.selectAll("Interaction", interactionID);
-		} catch (ServiceManagerException e) {
+			args = storageManager.selectAll(CF_INTERACTION, interactionID);
+		} catch (final ServiceManagerException e) {
 			e.printStackTrace();
-			throw new InternalBackEndException(
-					"read failed because of a WrapperException: "
-							+ e.getMessage());
+			throw new InternalBackEndException("read failed because of a WrapperException: " + e.getMessage());
 		}
 
 		return (MInteractionBean) introspection(interaction, args);
 	}
 
 	@Override
-	public void update(MInteractionBean interaction)
-			throws InternalBackEndException, IOBackEndException {
+	public void update(final MInteractionBean interaction) throws InternalBackEndException, IOBackEndException {
 		create(interaction);
 	}
 
 	@Override
-	public void delete(String interactionID) throws InternalBackEndException,
-			ServiceManagerException {
-			storageManager.removeAll("Interaction", interactionID);
+	public void delete(final String interactionID) throws InternalBackEndException, ServiceManagerException {
+		storageManager.removeAll(CF_INTERACTION, interactionID);
 	}
-
 }

@@ -39,7 +39,7 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 	public MUserBean create(final MUserBean user) throws InternalBackEndException, IOBackEndException {
 		try {
 			final Map<String, byte[]> args = user.getAttributeToMap();
-			storageManager.insertSlice("User", new String(args.get("id"), "UTF8"), args);
+			storageManager.insertSlice(CF_USER, new String(args.get("id"), "UTF8"), args);
 			return user;
 		} catch (final ServiceManagerException e) {
 			throw new InternalBackEndException("create failed because of a WrapperException: " + e.getMessage());
@@ -60,7 +60,7 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 		Map<byte[], byte[]> args = new HashMap<byte[], byte[]>();
 		final MUserBean user = new MUserBean();
 		try {
-			args = storageManager.selectAll("User", id);
+			args = storageManager.selectAll(CF_USER, id);
 		} catch (final ServiceManagerException e) {
 			e.printStackTrace();
 			throw new InternalBackEndException("read failed because of a WrapperException: " + e.getMessage());
@@ -86,7 +86,6 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 	 */
 	@Override
 	public void delete(final String id) throws InternalBackEndException {
-		storageManager.removeAll("User", id);
+		storageManager.removeAll(CF_USER, id);
 	}
-
 }
