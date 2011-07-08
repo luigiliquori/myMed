@@ -1,6 +1,6 @@
 package it.polito.mymed.android.myjam;
 
-import it.polito.mymed.android.myjam.controller.CassandraCall;
+import it.polito.mymed.android.myjam.controller.MyJamRestCall;
 import it.polito.mymed.android.myjam.locator.*;
 
 
@@ -53,11 +53,11 @@ public class MyjamActivity extends MapActivity {
         long sColumnName = hq.getIndex();
         android.util.Log.d("MyJamActivity", "key = "+Long.toString(key));
         android.util.Log.d("MyJamActivity", "sColumnName = "+Long.toString(sColumnName));
-        CassandraCall locationCall = new CassandraCall();
-        locationCall.put(String.valueOf(key), new Long(sColumnName), 
-        		"proofPointerToReport", "Jam");
-        
-        
+        MyJamRestCall locationCall = new MyJamRestCall();
+        String result = locationCall.insert();
+        if (result != null)
+        	android.util.Log.d("MyJamActivity", "Result = "+result);
+                
         HilbertQuad hq1 = HilbertQuad.decode(hq.getIndex());
         android.util.Log.d("MyJamActivity", "Index hq (decimal) = "+Long.toString(hq.getIndex()));
         android.util.Log.d("MyJamActivity", "Index hq (binary) = "+Long.toBinaryString(hq.getIndex()));
