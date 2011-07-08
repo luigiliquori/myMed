@@ -12,42 +12,32 @@ import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.data.MAuthenticationBean;
 import com.mymed.model.data.MUserBean;
 
-public class AuthenticationManager extends AbstractManager implements
-		IAuthenticationManager {
-	/* --------------------------------------------------------- */
-	/* Constructors */
-	/* --------------------------------------------------------- */
+public class AuthenticationManager extends AbstractManager implements IAuthenticationManager {
+
 	public AuthenticationManager() throws InternalBackEndException {
 		this(new StorageManager());
 	}
 
-	public AuthenticationManager(StorageManager storageManager)
-			throws InternalBackEndException {
+	public AuthenticationManager(final StorageManager storageManager) throws InternalBackEndException {
 		super(storageManager);
 	}
 
-	/* --------------------------------------------------------- */
-	/* implements AuthenticationManager */
-	/* --------------------------------------------------------- */
 	/**
 	 * @throws IOBackEndException
 	 * @see IAuthenticationManager#create(MUserBean, MAuthenticationBean)
 	 */
 	@Override
-	public MUserBean create(MUserBean user, MAuthenticationBean authentication)
-			throws InternalBackEndException, IOBackEndException {
-		// create the user profile
-		ProfileManager profileManager = new ProfileManager();
+	public MUserBean create(final MUserBean user, final MAuthenticationBean authentication)
+	        throws InternalBackEndException, IOBackEndException {
+
+		final ProfileManager profileManager = new ProfileManager();
 		profileManager.create(user);
-		// add the authentication informations
+
 		try {
-			storageManager.insertSlice("Authentication", "login",
-					authentication.getAttributeToMap());
+			storageManager.insertSlice(CF_AUTHENTICATION, "login", authentication.getAttributeToMap());
 			return user;
-		} catch (ServiceManagerException e) {
-			throw new InternalBackEndException(
-					"create failed because of a WrapperException: "
-							+ e.getMessage());
+		} catch (final ServiceManagerException e) {
+			throw new InternalBackEndException("create failed because of a WrapperException: " + e.getMessage());
 		}
 	}
 
@@ -55,24 +45,24 @@ public class AuthenticationManager extends AbstractManager implements
 	 * @see IAuthenticationManager#read(String, String)
 	 */
 	@Override
-	public MUserBean read(String login, String password)
-			throws InternalBackEndException, IOBackEndException {
+	public MUserBean read(final String login, final String password) throws InternalBackEndException,
+	        IOBackEndException {
+
 		Map<byte[], byte[]> args = new HashMap<byte[], byte[]>();
 		MAuthenticationBean authentication = new MAuthenticationBean();
+
 		try {
-			args = storageManager.selectAll("Authentication", login);
-		} catch (ServiceManagerException e) {
+			args = storageManager.selectAll(CF_AUTHENTICATION, login);
+		} catch (final ServiceManagerException e) {
 			e.printStackTrace();
-			throw new InternalBackEndException(
-					"read failed because of a WrapperException: "
-							+ e.getMessage());
+			throw new InternalBackEndException("read failed because of a WrapperException: " + e.getMessage());
 		}
-		authentication = (MAuthenticationBean) introspection(authentication,
-				args);
+
+		authentication = (MAuthenticationBean) introspection(authentication, args);
+
 		if (authentication.getPassword().equals(password)) {
 			return new ProfileManager().read(authentication.getUser());
 		} else {
-			// AUTHENTICATION FAILED
 			throw new IOBackEndException("Wrong password");
 		}
 	}
@@ -81,8 +71,7 @@ public class AuthenticationManager extends AbstractManager implements
 	 * @see IAuthenticationManager#update(MAuthenticationBean)
 	 */
 	@Override
-	public void update(MAuthenticationBean authentication)
-			throws InternalBackEndException {
+	public void update(final MAuthenticationBean authentication) throws InternalBackEndException {
 		// TODO Implement the update method witch use the wrapper updateColumn
 		// method
 	}
