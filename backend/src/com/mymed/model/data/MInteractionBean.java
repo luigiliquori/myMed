@@ -57,34 +57,62 @@ public class MInteractionBean extends AbstractMBean {
 		this.start = start;
 	}
 
+	/**
+	 * @return the id
+	 */
 	public String getId() {
 		return id;
 	}
 
+	/**
+	 * @param id
+	 *            the id to set
+	 */
 	public void setId(final String id) {
 		this.id = id;
 	}
 
+	/**
+	 * @return the application
+	 */
 	public String getApplication() {
 		return application;
 	}
 
+	/**
+	 * @param application
+	 *            the application to set
+	 */
 	public void setApplication(final String application) {
 		this.application = application;
 	}
 
+	/**
+	 * @return the produces
+	 */
 	public String getProducer() {
 		return producer;
 	}
 
+	/**
+	 * @param producer
+	 *            the producer to set
+	 */
 	public void setProducer(final String producer) {
 		this.producer = producer;
 	}
 
+	/**
+	 * @return the consumer
+	 */
 	public String getConsumer() {
 		return consumer;
 	}
 
+	/**
+	 * @param consumer
+	 *            the consumer to set
+	 */
 	public void setConsumer(final String consumer) {
 		this.consumer = consumer;
 	}
