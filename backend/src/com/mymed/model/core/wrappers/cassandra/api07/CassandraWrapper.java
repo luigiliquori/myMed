@@ -239,7 +239,6 @@ public class CassandraWrapper implements ICassandraWrapper, IWrapper {
 			value = mutationMap.get(key);
 
 			newMap.put(keyToBuffer, value);
-			value.clear();
 		}
 
 		try {

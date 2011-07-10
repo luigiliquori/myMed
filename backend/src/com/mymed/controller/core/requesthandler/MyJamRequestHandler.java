@@ -58,8 +58,8 @@ public class MyJamRequestHandler extends AbstractRequestHandler {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
+			
 			Map<String,String> params = getParameters(request);
-
 			MyJamRequestCode code = reqCodeMap.get(params.get("code"));
 			if (code==null)
 				throw new InternalBackEndException("null code");

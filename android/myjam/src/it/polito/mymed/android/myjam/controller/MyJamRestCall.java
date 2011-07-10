@@ -14,7 +14,10 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import com.google.gson.Gson;
+import com.mymed.android.myjam.type.AbstractReport.PermanenceType;
 import com.mymed.android.myjam.type.AbstractReport.ReportType;
+import com.mymed.android.myjam.type.AbstractReport.TrafficFlowType;
+import com.mymed.android.myjam.type.AbstractReport.TransitType;
 import com.mymed.android.myjam.type.NewReport;
 import com.mymed.android.myjam.type.Position;
 
@@ -54,8 +57,13 @@ public class MyJamRestCall {
 			report.setComment("CiaoMundo");
 			report.setReportType(ReportType.CAR_CRASH);
 			Position pos = new Position();
-			pos.setLatitude(90);
+			pos.setLatitude((int) (44.0*1E6));
+			pos.setLongitude((int) (7.01*1E6));
 			pos.validate();
+			report.setPos(pos);
+			report.setPermanence(PermanenceType.SHORT);
+			report.setTrafficFlowType(TrafficFlowType.BLOCKED);
+			report.setTransitType(TransitType.COMPROMIZED);
 			String jSonReport = gson.toJson(report);
 			Log.i("REQUEST : ", "" + request.getURI());
 			request.setEntity(new StringEntity(jSonReport,"UTF8"));
