@@ -10,7 +10,7 @@ import com.mymed.controller.core.exception.ServiceManagerException;
 import com.mymed.controller.core.manager.AbstractManager;
 import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
-import com.mymed.model.data.MUserBean;
+import com.mymed.model.data.user.MUserBean;
 
 /**
  * Manage an user profile
@@ -46,7 +46,7 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 			throws InternalBackEndException, IOBackEndException {
 		try {
 			final Map<String, byte[]> args = user.getAttributeToMap();
-			storageManager.insertSlice("User", new String(args.get("mymedID"),
+			storageManager.insertSlice("User", new String(args.get("id"),
 					"UTF8"), args);
 			// TODO update the user values!
 			return user;

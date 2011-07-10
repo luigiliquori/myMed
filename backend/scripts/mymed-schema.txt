@@ -28,6 +28,7 @@ use Mymed;
  *  Trips
  *  DHT
  *  Interaction
+ *  Reputation
  *
 */
 create column family User with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
@@ -37,19 +38,18 @@ create column family Services with column_type = 'Standard' and comparator = 'UT
 create column family Trips with column_type = 'Standard' and comparator = 'BytesType' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 create column family DHT with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 create column family Interaction with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+create column family Reputation with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 
 /*
  * Create the super columns
  * Super columns are:
  *  UserGroup
  *  myTransport
- *  Reputation
  *  InteractionList
  *  RaterList
  *
 */
 create column family UserGroup with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family myTransport with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
-create column family Reputation with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family InteractionList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family RaterList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';

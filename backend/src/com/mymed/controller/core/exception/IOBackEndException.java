@@ -16,6 +16,16 @@ public class IOBackEndException extends Exception implements IMymedException {
 	 * 
 	 * @param message
 	 */
+	public IOBackEndException(Exception ex) {
+		super(ex);
+		this.message = ex.toString();
+	}
+	
+	
+	/**
+	 * 
+	 * @param message
+	 */
 	public IOBackEndException(String message) {
 		super(message);
 		this.message = message;

@@ -3,7 +3,7 @@ package com.mymed.controller.core.manager.session;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.exception.ServiceManagerException;
-import com.mymed.model.data.MSessionBean;
+import com.mymed.model.data.session.MSessionBean;
 
 public interface ISessionManager {
 

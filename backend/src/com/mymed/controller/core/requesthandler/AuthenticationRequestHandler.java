@@ -13,8 +13,8 @@ import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.authentication.AuthenticationManager;
 import com.mymed.controller.core.manager.authentication.IAuthenticationManager;
-import com.mymed.model.data.MAuthenticationBean;
-import com.mymed.model.data.MUserBean;
+import com.mymed.model.data.session.MAuthenticationBean;
+import com.mymed.model.data.user.MUserBean;
 
 /**
  * Servlet implementation class AuthenticationRequestHandler

@@ -9,8 +9,8 @@ import com.mymed.controller.core.exception.ServiceManagerException;
 import com.mymed.controller.core.manager.AbstractManager;
 import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
-import com.mymed.model.data.MAuthenticationBean;
-import com.mymed.model.data.MUserBean;
+import com.mymed.model.data.session.MAuthenticationBean;
+import com.mymed.model.data.user.MUserBean;
 
 public class AuthenticationManager extends AbstractManager implements
 		IAuthenticationManager {
