@@ -8,6 +8,7 @@ import java.nio.BufferOverflowException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -20,7 +21,10 @@ import com.google.gson.JsonSyntaxException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.storage.MyJamStorageManager;
 import com.mymed.myjam.type.IMyJamType;
-import com.mymed.myjam.type.NewReport;
+import com.mymed.myjam.type.MNewReportBean;
+import com.mymed.myjam.type.MReportBean;
+import com.mymed.myjam.type.ReportId;
+import com.mymed.myjam.type.MReportInfoBean;
 import com.mymed.myjam.type.WrongFormatException;
 /**
  * 
@@ -67,16 +71,33 @@ public class MyJamRequestHandler extends AbstractRequestHandler {
 			case GET_REPORT:
 				break;
 			case GET_REPORTS:
+				// Latitude and longitude in micro-degrees
+				int latitude = Integer.parseInt(params.get("latitude"));
+				int longitude = Integer.parseInt(params.get("longitude"));
+				// Diameter in m.
+				int diameter = Integer.parseInt(params.get("diameter"));
+				List<MReportBean> resultList = storageManager.getReports((double) (latitude/1E6), (double) (longitude/1E6), diameter);
+				String resToJson = this.getGson().toJson(resultList);
+				setResponseText(resToJson);
 				break;
 			case GET_REPORT_INFO:
+				ReportId reportId = ReportId.parseString(params.get("reportid"));
+				MReportInfoBean reportInfo = storageManager.getReportInfo(reportId);
 				break;
 			default:
 				throw new InternalBackEndException("Wrong code");
 			}
+			super.doGet(request, response);
 		} catch (InternalBackEndException e) {
 			// TODO Auto-generated catch block
 			handleInternalError(e, response);
-		}		
+		} catch (NullPointerException e) {
+			handleInternalError(new InternalBackEndException("Missing parameter. "), response);
+		} catch (NumberFormatException e){
+			handleInternalError(new InternalBackEndException("Wrong parameter. "), response);
+		} catch (WrongFormatException e){
+			handleInternalError(new InternalBackEndException("Wrong report Id. "), response);
+		}
 	}
 
 	/**
@@ -94,7 +115,7 @@ public class MyJamRequestHandler extends AbstractRequestHandler {
 					content = convertStreamToString(request.getInputStream(),length);
 				else
 					content = convertStreamToString(request.getInputStream());
-				NewReport report = this.getGson().fromJson(content, NewReport.class);
+				MNewReportBean report = this.getGson().fromJson(content, MNewReportBean.class);
 				validate(report);
 				storageManager.insertReport(report);
 				break;

@@ -1,6 +1,6 @@
-package it.polito.mymed.android.myjam;
+package com.mymed.android.myjam;
 
-import it.polito.mymed.android.myjam.controller.MyJamRestCall;
+import com.mymed.android.myjam.R;
 import it.polito.mymed.android.myjam.locator.*;
 
 
@@ -14,6 +14,7 @@ import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
+import com.mymed.android.myjam.controller.MyJamRestCall;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -54,9 +55,8 @@ public class MyjamActivity extends MapActivity {
         android.util.Log.d("MyJamActivity", "key = "+Long.toString(key));
         android.util.Log.d("MyJamActivity", "sColumnName = "+Long.toString(sColumnName));
         MyJamRestCall locationCall = new MyJamRestCall();
-        String result = locationCall.insert();
-        if (result != null)
-        	android.util.Log.d("MyJamActivity", "Result = "+result);
+        locationCall.insert();
+
                 
         HilbertQuad hq1 = HilbertQuad.decode(hq.getIndex());
         android.util.Log.d("MyJamActivity", "Index hq (decimal) = "+Long.toString(hq.getIndex()));
@@ -73,10 +73,10 @@ public class MyjamActivity extends MapActivity {
         android.util.Log.d("MyJamLocator", String.valueOf(h));
         
         
-        GeoLocation[] bBox = loc.boundingCoordinates(50000);
+        GeoLocation[] bBox = loc.boundingCoordinates(5000);
         GeoPoint[] boundingBox = GeoPointsFactory.boxToGeoPoints(bBox[0].getLatitude(),
         		bBox[0].getLongitude(), bBox[1].getLatitude(), bBox[1].getLongitude());
-        GeoPoint[] circle = GeoPointsFactory.getCircle(loc,50000);
+        GeoPoint[] circle = GeoPointsFactory.getCircle(loc,5000);
 //        for (int i = 0;i<360;i++){
 //            android.util.Log.d("MyJamLocator","Circle distance "+ String.valueOf(i) +" (geoid) :"+String.valueOf(
 //            		loc.distanceTo(new GeoLocation((double) (circle[i].getLatitudeE6()*1.0/1E6),
@@ -89,7 +89,7 @@ public class MyjamActivity extends MapActivity {
         List<long[]> ranges;
 		Set<HilbertQuad> quadsSet;
         long startnow = android.os.SystemClock.uptimeMillis();
-        ranges = kf.getKeysRanges(loc, 100000);
+        ranges = kf.getKeysRanges(loc, 10000);
         //quadsList = hc.getBound(loc, 100000,quadsList);
         long endnow = android.os.SystemClock.uptimeMillis();
         android.util.Log.i("MyJamLocator", "Excution time: "+(endnow-startnow)+" ms");

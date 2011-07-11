@@ -1,9 +1,18 @@
-package it.polito.mymed.android.myjam.controller;
+package com.mymed.android.myjam.controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.BufferOverflowException;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
@@ -14,12 +23,13 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import com.google.gson.Gson;
-import com.mymed.android.myjam.type.AbstractReport.PermanenceType;
-import com.mymed.android.myjam.type.AbstractReport.ReportType;
-import com.mymed.android.myjam.type.AbstractReport.TrafficFlowType;
-import com.mymed.android.myjam.type.AbstractReport.TransitType;
-import com.mymed.android.myjam.type.NewReport;
-import com.mymed.android.myjam.type.Position;
+import com.mymed.android.myjam.type.MNewReportBean;
+import com.mymed.android.myjam.type.MyJamTypes.PermanenceType;
+import com.mymed.android.myjam.type.MyJamTypes.ReportType;
+import com.mymed.android.myjam.type.MyJamTypes.TrafficFlowType;
+import com.mymed.android.myjam.type.MyJamTypes.TransitType;
+
+
 
 import android.util.Log;
 /**
@@ -27,10 +37,11 @@ import android.util.Log;
  * @author iacopo
  *
  */
-public class MyJamRestCall {
+public class MyJamRestCall{
 	// Use the existing servlet running on LocalMyMed
-	String URL = "http://iacoporozzo.dyndns-server.com/backend/MyJamRequestHandler";  
-	Gson gson;
+	private String URL = "http://iacoporozzo.dyndns-server.com/backend/MyJamRequestHandler";  
+	private Gson gson;
+	private static Charset CHARSET = Charset.forName("UTF8");
 	public MyJamRestCall(){
 		gson = new Gson();
 	}
@@ -45,7 +56,7 @@ public class MyJamRestCall {
 	 * @param ttl	The Column time to live before expiration (seconds).
 	 * @return		
 	 */
-	public String insert(){
+	public void insert(){
 		HttpClient httpclient = new DefaultHttpClient();
 		try {
 			String q="?code=3";
@@ -53,22 +64,22 @@ public class MyJamRestCall {
 			Log.i("HOST : ", uri.getHost());
 			Log.i("PORT : ", "" + uri.getPort());
 			HttpPost request = new HttpPost(uri); 
-			NewReport report = new NewReport();
+			MNewReportBean report = new MNewReportBean();
 			report.setComment("CiaoMundo");
 			report.setReportType(ReportType.CAR_CRASH);
-			Position pos = new Position();
-			pos.setLatitude((int) (44.0*1E6));
-			pos.setLongitude((int) (7.01*1E6));
-			pos.validate();
-			report.setPos(pos);
+			report.setLatitude((int) (44.0*1E6));
+			report.setLongitude((int) (7.01*1E6));
 			report.setPermanence(PermanenceType.SHORT);
 			report.setTrafficFlowType(TrafficFlowType.BLOCKED);
 			report.setTransitType(TransitType.COMPROMIZED);
 			String jSonReport = gson.toJson(report);
-			Log.i("REQUEST : ", "" + request.getURI());
+			Log.i("REQUEST : ", ""+request.getURI());
 			request.setEntity(new StringEntity(jSonReport,"UTF8"));
-			httpclient.execute(request);
-			return request.getRequestLine().toString() + "\n\n---> Sent!"; 
+			HttpResponse response = httpclient.execute(request);
+			String msg;
+			HttpEntity entity = response.getEntity();
+			msg = convertStreamToString(entity.getContent(),entity.getContentLength());
+			Log.i("RESPONSE : ",msg);
 		} catch (ClientProtocolException e) {  
 			e.printStackTrace();  
 		} catch (IOException e) {  
@@ -80,7 +91,6 @@ public class MyJamRestCall {
 		} finally {
 			httpclient.getConnectionManager().shutdown();
 		}
-		return "error";
 	}
 
 	/**
@@ -145,5 +155,51 @@ public class MyJamRestCall {
 	 */
 	public String Cget(String cf,String key,String name){
 		return this.Cget(cf, key, null, name);
+	}
+	
+	/**
+	 * Given an InputStream reads the bytes as UTF8 chars and return a 
+	 * String.
+	 * @param is Input stream.
+	 * @param length Length of the stream in bytes.
+	 * @return The string
+	 * @throws InternalBackEndException Format is not correct or the length less then the real wrong.
+	 */
+	private static String convertStreamToString(InputStream is,long length) throws Exception {
+		String streamString;
+		if (length>Integer.MAX_VALUE)
+			throw new Exception("Wrong Content");
+		int byteLength = (int) length;
+		try {			
+			if (byteLength>0){
+				ByteBuffer byteBuff = ByteBuffer.allocate(byteLength);
+				int currByte;
+				while ((currByte=is.read()) != -1) {
+					byteBuff.put((byte) currByte);
+				}
+				byteBuff.compact();
+				final CharBuffer charBuf = CHARSET.newDecoder().decode(byteBuff);
+				streamString = charBuf.toString();
+				return streamString;	
+			}else{
+				BufferedReader buffRead = new BufferedReader(new InputStreamReader(is,Charset.forName("UTF-8")));
+				StringBuilder sb = new StringBuilder();
+				String line;
+				while ((line = buffRead.readLine()) != null) {
+					sb.append(line + "\n");
+				}
+				return sb.toString();
+			}
+		} catch (IOException e) {
+			throw new Exception("Wrong content");
+		} catch (BufferOverflowException e){
+			throw new Exception("Wrong length");
+		}finally {
+			try {
+				is.close();             
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

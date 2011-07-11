@@ -1,4 +1,4 @@
-package it.polito.mymed.android.myjam;
+package com.mymed.android.myjam;
 
 import android.location.Location;
 import com.google.android.maps.GeoPoint;

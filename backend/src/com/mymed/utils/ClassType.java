@@ -25,7 +25,8 @@ public enum ClassType {
 	FLOAT(Float.class, float.class),
 	INT(Integer.class, int.class),
 	LONG(Long.class, long.class),
-	STRING(String.class, String.class);
+	STRING(String.class, String.class),
+	SHORT(Short.class, short.class);
 
 	private static final String TO_BYTE_BUFFER = "ToByteBuffer";
 	private static final String BYTE_BUFFER_TO = "byteBufferTo";

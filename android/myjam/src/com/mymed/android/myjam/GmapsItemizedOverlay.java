@@ -1,4 +1,4 @@
-package it.polito.mymed.android.myjam;
+package com.mymed.android.myjam;
 
 import java.util.ArrayList;
 import java.util.Iterator;
