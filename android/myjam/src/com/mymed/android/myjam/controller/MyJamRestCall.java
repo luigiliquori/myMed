@@ -23,8 +23,7 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import com.google.gson.Gson;
-import com.mymed.android.myjam.type.MNewReportBean;
-import com.mymed.android.myjam.type.MyJamTypes.PermanenceType;
+import com.mymed.android.myjam.type.MReportBean;
 import com.mymed.android.myjam.type.MyJamTypes.ReportType;
 import com.mymed.android.myjam.type.MyJamTypes.TrafficFlowType;
 import com.mymed.android.myjam.type.MyJamTypes.TransitType;
@@ -59,19 +58,19 @@ public class MyJamRestCall{
 	public void insert(){
 		HttpClient httpclient = new DefaultHttpClient();
 		try {
-			String q="?code=3";
+			int latitude = (int) (44.0*1E6);
+			int longitude = (int) (7.01*1E6);
+			String q="?code=3&latitude="+String.valueOf(latitude)
+			+"&longitude="+String.valueOf(longitude);
 			URI uri = new URI(URL+q);
 			Log.i("HOST : ", uri.getHost());
 			Log.i("PORT : ", "" + uri.getPort());
 			HttpPost request = new HttpPost(uri); 
-			MNewReportBean report = new MNewReportBean();
+			MReportBean report = new MReportBean();
 			report.setComment("CiaoMundo");
-			report.setReportType(ReportType.CAR_CRASH);
-			report.setLatitude((int) (44.0*1E6));
-			report.setLongitude((int) (7.01*1E6));
-			report.setPermanence(PermanenceType.SHORT);
-			report.setTrafficFlowType(TrafficFlowType.BLOCKED);
-			report.setTransitType(TransitType.COMPROMIZED);
+			report.setReportType(ReportType.CAR_CRASH.name());
+			report.setTrafficFlowType(TrafficFlowType.BLOCKED.name());
+			report.setTransitType(TransitType.COMPROMIZED.name());
 			String jSonReport = gson.toJson(report);
 			Log.i("REQUEST : ", ""+request.getURI());
 			request.setEntity(new StringEntity(jSonReport,"UTF8"));

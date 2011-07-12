@@ -26,12 +26,12 @@ import com.mymed.model.core.wrappers.cassandra.api07.CassandraWrapper;
 import com.mymed.myjam.locator.GeoLocationOutOfBoundException;
 import com.mymed.myjam.locator.Location;
 import com.mymed.myjam.locator.Locator;
-import com.mymed.myjam.type.MyJamTypes.ReportType;
-import com.mymed.myjam.type.MNewReportBean;
 import com.mymed.myjam.type.MReportBean;
+import com.mymed.myjam.type.MShortReportBean;
 import com.mymed.myjam.type.ReportId;
-import com.mymed.myjam.type.MReportInfoBean;
 import com.mymed.myjam.type.WrongFormatException;
+import com.mymed.myjam.type.MyJamTypes.ReportType;
+
 import com.mymed.utils.MConverter;
 /**
  * Storage manager created ad hoc for myJam application.
@@ -98,7 +98,7 @@ public class MyJamStorageManager {
 	 * @param report
 	 * @throws InternalBackEndException
 	 */
-	public void insertReport(MNewReportBean report) throws InternalBackEndException{
+	public void insertReport(MReportBean report,int latitude,int longitude) throws InternalBackEndException{
 		try {
 			Map<String,Map<String,List<Mutation>>> reportInsertionMap = new HashMap<String,Map<String,List<Mutation>>>();
 			boolean insert = false;
@@ -106,12 +106,12 @@ public class MyJamStorageManager {
 			/**
 			 * Data preparation
 			 */
-			Map<String,String> reportValuesMap = report.getMapAttributes();
-			//Map<String,byte[]> reportValuesMap = report.getAttributeToMap();
+			Map<String, byte[]> reportValuesMap = report.getAttributeToMap();
 
-			long locId = Locator.getLocationId((double) (report.getLatitude()/1E6),
-					(double) (report.getLongitude()/1E6));
+			long locId = Locator.getLocationId((double) (latitude/1E6),
+					(double) (longitude/1E6));
 			String areaId = String.valueOf(Locator.getAreaId(locId));
+			report.setUserName(userName);
 			/** The convention is to use microseconds since 1 Jenuary 1970*/
 			long timestamp = (long) (System.currentTimeMillis()*1E3);									
 			ReportId reportId = new ReportId(timestamp,userId);
@@ -122,7 +122,7 @@ public class MyJamStorageManager {
 			/** Check if the position is already occupied.*/
 			ColumnPath columnPath = new ColumnPath("Location");
 			columnPath.setSuper_column(MConverter.longToByteBuffer(locId));
-			columnPath.setColumn(MConverter.stringToByteBuffer(report.getReportType().name()));
+			columnPath.setColumn(MConverter.stringToByteBuffer(report.getReportType()));
 			try {
 				//TODO Define the consistency level to use on this operation.
 				wrapper.get(areaId, columnPath, consistencyOnRead);
@@ -141,10 +141,10 @@ public class MyJamStorageManager {
 			locMutationList.add(locMutation);
 			SuperColumn locationSC = new SuperColumn();
 			Column locCol = new Column(
-					MConverter.stringToByteBuffer(report.getReportType().name()),
+					MConverter.stringToByteBuffer(report.getReportType()),
 					reportId.ReportIdAsByteBuffer(),
 					timestamp);
-			locCol.setTtl(report.getPermanence().getDuration());
+			locCol.setTtl(ReportType.valueOf(report.getTransitType()).permTime);
 			locationSC.setName(MConverter.longToByteBuffer(locId));
 			locationSC.addToColumns(locCol);
 			locMutation.setColumn_or_supercolumn(
@@ -158,12 +158,6 @@ public class MyJamStorageManager {
 			Map<String,List<Mutation>> reportMap = new HashMap<String,List<Mutation>>();
 			List<Mutation> reportMutationList = new ArrayList<Mutation>(5);
 			reportMap.put("Report",reportMutationList);
-			Mutation userMutation = new Mutation();
-			userMutation.setColumn_or_supercolumn(new ColumnOrSuperColumn().setColumn(
-					new Column(MConverter.stringToByteBuffer("user"),
-							MConverter.stringToByteBuffer(userName),
-							timestamp)));
-			reportMutationList.add(userMutation);
 			//TODO Integrate with getAttibuteToMap (AbstractMBean)
 			Iterator<String> iterator = reportValuesMap.keySet().iterator();
 			while (iterator.hasNext()){
@@ -171,7 +165,7 @@ public class MyJamStorageManager {
 				Mutation mutation = new Mutation();
 				mutation.setColumn_or_supercolumn(new ColumnOrSuperColumn().setColumn(
 						new Column(MConverter.stringToByteBuffer(key),
-								MConverter.stringToByteBuffer(reportValuesMap.get(key)),
+								ByteBuffer.wrap(reportValuesMap.get(key)),
 								timestamp)));
 				reportMutationList.add(mutation);
 			}
@@ -215,8 +209,8 @@ public class MyJamStorageManager {
 	 * @return
 	 * @throws InternalBackEndException
 	 */
-	public List<MReportBean> getReports(double latitude,double longitude,int diameter) throws InternalBackEndException{
-		List<MReportBean> resultReports = new LinkedList<MReportBean>();
+	public List<MShortReportBean> getReports(double latitude,double longitude,int diameter) throws InternalBackEndException{
+		List<MShortReportBean> resultReports = new LinkedList<MShortReportBean>();
 		try{
 			/**
 			 * Data structures preparation
@@ -262,9 +256,9 @@ public class MyJamStorageManager {
 					Iterator<Column> sColIterator = tempSc.getColumnsIterator();
 					while (sColIterator.hasNext()){
 						Column currCol = sColIterator.next();
-						MReportBean reportBean = new MReportBean();
-						reportBean.setReportType(ReportType.valueOf(MConverter.byteBufferToString(
-								ByteBuffer.wrap(currCol.getName()))));
+						MShortReportBean reportBean = new MShortReportBean();
+						reportBean.setReportType(MConverter.byteBufferToString(
+								ByteBuffer.wrap(currCol.getName())));
 						ReportId repId = ReportId.parseByteBuffer(ByteBuffer.wrap(currCol.getValue()));
 						reportBean.setReportId(repId.toString());
 						reportBean.setLatitude((int) (reportLoc.getLatitude()*1E6));
@@ -287,27 +281,27 @@ public class MyJamStorageManager {
 		}
 	}
 
-	public MReportInfoBean getReportInfo(ReportId reportId) throws InternalBackEndException{
-		byte[] emptyByteArray = new byte[0];
-		MReportInfoBean resultReportInfo = new MReportInfoBean();
-		
-		SliceRange sr = new SliceRange();
-		sr.setStart(emptyByteArray);
-		sr.setFinish(emptyByteArray);
-		sr.setCount(5);
-		try{
-			wrapper.open();
-			wrapper.set_keyspace(KEYSPACE);
-			List<ColumnOrSuperColumn> listCoS = wrapper.get_slice(reportId.toString(), new ColumnParent().setColumn_family("Report"),
-					new SlicePredicate().setSlice_range(sr), consistencyOnRead);
-			//resultReportInfo.getClass().
-			return resultReportInfo;
-		}catch(InternalBackEndException e){
-			throw new InternalBackEndException("Wrong parameter: "+e.getMessage());
-		}finally{
-			wrapper.close();
-		}
-	}
+//	public ReportInfo getReportInfo(ReportId reportId) throws InternalBackEndException{
+//		byte[] emptyByteArray = new byte[0];
+//		ReportInfo resultReportInfo = new ReportInfo();
+//		
+//		SliceRange sr = new SliceRange();
+//		sr.setStart(emptyByteArray);
+//		sr.setFinish(emptyByteArray);
+//		sr.setCount(5);
+//		try{
+//			wrapper.open();
+//			wrapper.set_keyspace(KEYSPACE);
+//			List<ColumnOrSuperColumn> listCoS = wrapper.get_slice(reportId.toString(), new ColumnParent().setColumn_family("Report"),
+//					new SlicePredicate().setSlice_range(sr), consistencyOnRead);
+//			//resultReportInfo.getClass().
+//			return resultReportInfo;
+//		}catch(InternalBackEndException e){
+//			throw new InternalBackEndException("Wrong parameter: "+e.getMessage());
+//		}finally{
+//			wrapper.close();
+//		}
+//	}
 
 
 }

@@ -21,10 +21,10 @@ import com.google.gson.JsonSyntaxException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.storage.MyJamStorageManager;
 import com.mymed.myjam.type.IMyJamType;
-import com.mymed.myjam.type.MNewReportBean;
 import com.mymed.myjam.type.MReportBean;
+import com.mymed.myjam.type.MShortReportBean;
 import com.mymed.myjam.type.ReportId;
-import com.mymed.myjam.type.MReportInfoBean;
+import com.mymed.myjam.type.ReportInfo;
 import com.mymed.myjam.type.WrongFormatException;
 /**
  * 
@@ -76,13 +76,13 @@ public class MyJamRequestHandler extends AbstractRequestHandler {
 				int longitude = Integer.parseInt(params.get("longitude"));
 				// Diameter in m.
 				int diameter = Integer.parseInt(params.get("diameter"));
-				List<MReportBean> resultList = storageManager.getReports((double) (latitude/1E6), (double) (longitude/1E6), diameter);
+				List<MShortReportBean> resultList = storageManager.getReports((double) (latitude/1E6), (double) (longitude/1E6), diameter);
 				String resToJson = this.getGson().toJson(resultList);
 				setResponseText(resToJson);
 				break;
 			case GET_REPORT_INFO:
 				ReportId reportId = ReportId.parseString(params.get("reportid"));
-				MReportInfoBean reportInfo = storageManager.getReportInfo(reportId);
+				//ReportInfo reportInfo = storageManager.getReportInfo(reportId);
 				break;
 			default:
 				throw new InternalBackEndException("Wrong code");
@@ -109,15 +109,12 @@ public class MyJamRequestHandler extends AbstractRequestHandler {
 			MyJamRequestCode code = reqCodeMap.get(params.get("code"));
 			switch (code){
 			case INSERT_REPORT:
-				String content;
-				int length;
-				if ((length=request.getContentLength())!=-1)
-					content = convertStreamToString(request.getInputStream(),length);
-				else
-					content = convertStreamToString(request.getInputStream());
-				MNewReportBean report = this.getGson().fromJson(content, MNewReportBean.class);
+				int latitude = Integer.parseInt(params.get("latitude"));
+				int longitude = Integer.parseInt(params.get("longitude"));
+				String content = convertStreamToString(request.getInputStream(),request.getContentLength());
+				MReportBean report = this.getGson().fromJson(content, MReportBean.class);
 				validate(report);
-				storageManager.insertReport(report);
+				storageManager.insertReport(report,latitude,longitude);
 				break;
 			case INSERT_UPDATE:
 				break;
@@ -127,6 +124,8 @@ public class MyJamRequestHandler extends AbstractRequestHandler {
 		} catch (InternalBackEndException e) {
 			// TODO Auto-generated catch block
 			handleInternalError(e, response);
+		} catch (NumberFormatException e) {
+			handleInternalError(new InternalBackEndException("Error on parameters."), response);
 		} catch (JsonSyntaxException e) {
 			handleInternalError(new InternalBackEndException("Error parsing Json string."), response);
 		}
@@ -153,7 +152,7 @@ public class MyJamRequestHandler extends AbstractRequestHandler {
 	}
 
 	/**
-	 * Given an InputStream of fixed length reads the bytes as UTF8 chars and return a 
+	 * Given an InputStream reads the bytes as UTF8 chars and return a 
 	 * String.
 	 * @param is Input stream.
 	 * @param length Length of the stream in bytes.
@@ -161,49 +160,29 @@ public class MyJamRequestHandler extends AbstractRequestHandler {
 	 * @throws InternalBackEndException Format is not correct or the length less then the real wrong.
 	 */
 	private static String convertStreamToString(InputStream is,int length) throws InternalBackEndException {
-		ByteBuffer byteBuff = ByteBuffer.allocate(length);
-		int currByte;
 		try {
-			while ((currByte=is.read()) != -1) {
-				byteBuff.put((byte) currByte);
+			if (length>0){
+				ByteBuffer byteBuff = ByteBuffer.allocate(length);
+				int currByte;
+				while ((currByte=is.read()) != -1) {
+					byteBuff.put((byte) currByte);
+				}
+				byteBuff.compact();
+				return com.mymed.utils.MConverter.byteBufferToString(byteBuff);
+			}else{
+				BufferedReader buffRead = new BufferedReader(new InputStreamReader(is,Charset.forName("UTF-8")));
+				StringBuilder sb = new StringBuilder();
+				String line;
+				while ((line = buffRead.readLine()) != null) {
+					sb.append(line + "\n");
+				}
+				return sb.toString();
 			}
-			byteBuff.compact();
-			return com.mymed.utils.MConverter.byteBufferToString(byteBuff);
 		} catch (IOException e) {
 			throw new InternalBackEndException("Wrong content");
 		} catch (BufferOverflowException e){
 			throw new InternalBackEndException("Wrong length");
 		}finally {
-			try {
-				is.close();             
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	/**
-	 * Given an InputStream of length reads the bytes as UTF8 chars and return a 
-	 * String.
-	 * @param is
-	 * @param length
-	 * @return
-	 * @throws InternalBackEndException
-	 */
-	private static String convertStreamToString(InputStream is) throws InternalBackEndException {
-		/*
-		 * 
-		 */
-		BufferedReader buffRead = new BufferedReader(new InputStreamReader(is,Charset.forName("UTF-8")));
-		StringBuilder sb = new StringBuilder();
-		String line;
-		try {
-			while ((line = buffRead.readLine()) != null) {
-				sb.append(line + "\n");
-			}
-			return sb.toString();
-		} catch (IOException e) {
-			throw new InternalBackEndException("Wrong content");
-		} finally {
 			try {
 				is.close();             
 			} catch (IOException e) {
