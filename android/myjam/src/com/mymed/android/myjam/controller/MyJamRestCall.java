@@ -68,9 +68,8 @@ public class MyJamRestCall{
 			HttpPost request = new HttpPost(uri); 
 			MReportBean report = new MReportBean();
 			report.setComment("CiaoMundo");
-			report.setReportType(ReportType.CAR_CRASH.name());
+			report.setReportType(ReportType.JAM.name());
 			report.setTrafficFlowType(TrafficFlowType.BLOCKED.name());
-			report.setTransitType(TransitType.COMPROMIZED.name());
 			String jSonReport = gson.toJson(report);
 			Log.i("REQUEST : ", ""+request.getURI());
 			request.setEntity(new StringEntity(jSonReport,"UTF8"));

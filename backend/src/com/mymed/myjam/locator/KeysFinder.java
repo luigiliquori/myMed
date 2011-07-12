@@ -1,6 +1,5 @@
-package it.polito.mymed.android.myjam.locator;
+package com.mymed.myjam.locator;
 
-import it.polito.mymed.android.myjam.locator.HilbertQuad.SubQuad;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,21 +11,23 @@ import java.util.HashSet;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import com.mymed.myjam.locator.HilbertQuad.SubQuad;
+
 
 public class KeysFinder {
 	private double minLat,minLon,maxLat,maxLon; 	//Degrees
 	private Set<HilbertQuad> coveringSet = null;
-	
+
 	private enum Position{internal,intersects,external};
 	private static int maxDiameter=100000;
 	private static int maxNumRanges=6;
-	private static short maxDepth=8;
+	private static short maxDepth=10;
 	private static short areaMaskLength=15;
-	
+
 	/**
 	 * Initialize the keys finder creating the covering set.
 	 */
-	public KeysFinder(){
+	protected KeysFinder(){
 		coveringSet=new HashSet<HilbertQuad>();
 	}
 	/**
@@ -39,61 +40,60 @@ public class KeysFinder {
 	 * @param ranges List of ranges of keys, must be empty.
 	 * @param quads List of HilbertQuad of the covering set.
 	 */
-	public List<long[]> getKeysRanges(GeoLocation loc,int diameter){		
-	//List<HilbertQuad> boundList = getBound(loc,range);
+	protected List<long[]> getKeysRanges(Location loc,int diameter){		
+		//List<HilbertQuad> boundList = getBound(loc,range);
 		List<long[]> ranges = new ArrayList<long[]>(maxNumRanges);
 		getBound(loc,diameter);
 		expandQuads(ranges);
-	return ranges;
+		return ranges;
 	}
-	
+
 	/**
 	 * Given a position index, returns the related areaId, used as key in the database
 	 * @param index The index of the position.
 	 * @return
 	 */
-	public static long getAreaId(long index){
+	protected static long getAreaId(long index) throws IllegalArgumentException{
 		long mask;
 		int zeroBits;
+		if (index<0 || index>(long) (Math.pow(2, HilbertQuad.numBits)-1))
+			throw new IllegalArgumentException("key is out of bound");
 		/*
 		 * The mask composed by areaMaskLength '1', and the remaining bits (numBits-areaMaskLength) '0' 
 		 * is created.
 		 */
 		zeroBits=HilbertQuad.numBits - areaMaskLength;
 		mask =((long) Math.pow(2,(double) areaMaskLength)-1);
-		android.util.Log.d("KeysFinder", "Area mask = "+String.valueOf(Long.bitCount(mask)));
 		mask = mask << zeroBits;
-		android.util.Log.d("KeysFinder", "Area mask = "+Long.toBinaryString(mask)+" "
-				+String.valueOf(Long.toBinaryString(mask).length()));//TODO remove, only for debug.
 		/*
 		 * index AND mask is returned.
 		 */
 		return ((index & mask)>>>zeroBits);
 	}
-	
-	public Set<HilbertQuad> getCoveringSet(){
+
+	protected Set<HilbertQuad> getCoveringSet(){
 		return this.coveringSet;
 	}
-	
+
 	/*
 	 * Returns up to four HilbertQuad, that cover the range specified starting from the point loc. It also sets the attributes minLat, 
 	 * minLon, maxLat, maxLon, used by the method expandQuad.
 	 */ 	
-	public int getBound(GeoLocation loc,int diameter){//TODO set to private.
+	private int getBound(Location loc,int diameter){//TODO set to private.
 		int level;
 		int numQuads=0;
-		
-		if (diameter>maxDiameter)
-			throw new IllegalArgumentException("Range exeeds maximum range");
+
+		if (diameter<1 || diameter>maxDiameter)
+			throw new IllegalArgumentException("Diameter "+String.valueOf(diameter)+" out of bound");
 		//Evaluate the level of coding necessary to obtain a quad that possibly contains the area determined by range. 
 		//Set the coordinates of the bounding box.
-		GeoLocation[] corners = loc.boundingCoordinates(diameter/2);
+		Location[] corners = loc.boundingCoordinates(diameter/2);
 		minLat=corners[0].getLatitude();
 		minLon=corners[0].getLongitude();
 		maxLat=corners[1].getLatitude();
 		maxLon=corners[1].getLongitude();
 		level = getLevel();
-		corners = GeoLocation.getCorners(corners[0],corners[1]);
+		corners = Location.getCorners(corners[0],corners[1]);
 		coveringSet.clear();
 		for (int i=0;i<4;i++){
 			HilbertQuad hq = HilbertQuad.encode(corners[i],level);
@@ -102,88 +102,88 @@ public class KeysFinder {
 		}
 		return numQuads;
 	}
-	
+
 	/*
 	 * Expands the HilbertQuads in boundList that cover the search area until no HilbertQuad is further expandable, 
 	 * the max depth is reached or the max.  
 	 */
-private int expandQuads(List<long[]> ranges){
-	int level=-1;
-	boolean expanded=true;
+	private int expandQuads(List<long[]> ranges){
+		int level=-1;
+		boolean expanded=true;
 
 
-	/*
-	 * INITIALIZATION
-	 * The list endRanges, that contains the HilbertQuad located at the end of a range of keys is populated.
-	 * The list expandable that contains the HilbertQuad that can be further expanded is populated
-	 */
-	List<Long> rangesExtremes = new ArrayList<Long>(maxNumRanges*2);
-	OrderedHqList expandable = new OrderedHqList();
-	HilbertQuad oldHq = null;
-	/*
-	 * coveringSet is inserted in a TreeSet, ordered by keys, so that it can be iterated to initialize ranges 
-	 * Extremes.
-	 */
-	SortedSet<HilbertQuad> tmpCovSet = new TreeSet<HilbertQuad>(new HqComparator());
-	tmpCovSet.addAll(coveringSet);
-	Iterator<HilbertQuad> covSetIterator = tmpCovSet.iterator();
-	rangesExtremes.add(tmpCovSet.first().getKeysRange()[0]);
-	while (covSetIterator.hasNext()){
-		HilbertQuad hq = covSetIterator.next();
-		level = hq.getLevel();
-		long index = hq.getIndex();
-		if (oldHq!=null && index!=oldHq.getIndex()+1){
-			rangesExtremes.add(hq.getKeysRange()[0]);
-			rangesExtremes.add(oldHq.getKeysRange()[1]);
-		}	
-		oldHq = hq;
-		//Metric of the current HilbertQuad is evaluated.
-		short metric = getMetric(hq);
-		//short metric = getMetric1(hq);
-		expandable.addOrdered(new HqWrapper(metric,hq));
-	}
-	rangesExtremes.add(oldHq.getKeysRange()[1]);		
-	/*
-	 * EXPANSION
-	 * The algorithm are expanded in the order of the expandable list, if this doesn't exceed the max. number of ranges.
-	 */
-	short depth = 0;
-	List<HilbertQuad> nextExpandable = null;
-	while(expanded && level<HilbertQuad.maxLevel && depth<maxDepth){
-		expanded=false;
-		//After the first iteration in which nextExpandable is null, expandable list is populated.
-		if (nextExpandable==null){
-			nextExpandable = new LinkedList<HilbertQuad>();
-		}else{
-			Iterator<HilbertQuad> expIt = nextExpandable.iterator();
-			while (expIt.hasNext()){
-				HilbertQuad currHq = expIt.next();
-				short metric = getMetric(currHq);
-				//short metric = getMetric1(currHq);
-				expandable.addOrdered(new HqWrapper(metric,currHq));
+		/*
+		 * INITIALIZATION
+		 * The list endRanges, that contains the HilbertQuad located at the end of a range of keys is populated.
+		 * The list expandable that contains the HilbertQuad that can be further expanded is populated
+		 */
+		List<Long> rangesExtremes = new ArrayList<Long>(maxNumRanges*2);
+		OrderedHqList expandable = new OrderedHqList();
+		HilbertQuad oldHq = null;
+		/*
+		 * coveringSet is inserted in a TreeSet, ordered by keys, so that it can be iterated to initialize ranges 
+		 * Extremes.
+		 */
+		SortedSet<HilbertQuad> tmpCovSet = new TreeSet<HilbertQuad>(new HqComparator());
+		tmpCovSet.addAll(coveringSet);
+		Iterator<HilbertQuad> covSetIterator = tmpCovSet.iterator();
+		rangesExtremes.add(tmpCovSet.first().getKeysRange()[0]);
+		while (covSetIterator.hasNext()){
+			HilbertQuad hq = covSetIterator.next();
+			level = hq.getLevel();
+			long index = hq.getIndex();
+			if (oldHq!=null && index!=oldHq.getIndex()+1){
+				rangesExtremes.add(hq.getKeysRange()[0]);
+				rangesExtremes.add(oldHq.getKeysRange()[1]);
+			}	
+			oldHq = hq;
+			//Metric of the current HilbertQuad is evaluated.
+			short metric = getMetric(hq);
+			//short metric = getMetric1(hq);
+			expandable.addOrdered(new HqWrapper(metric,hq));
+		}
+		rangesExtremes.add(oldHq.getKeysRange()[1]);		
+		/*
+		 * EXPANSION
+		 * The algorithm are expanded in the order of the expandable list, if this doesn't exceed the max. number of ranges.
+		 */
+		short depth = 0;
+		List<HilbertQuad> nextExpandable = null;
+		while(expanded && level<HilbertQuad.maxLevel && depth<maxDepth){
+			expanded=false;
+			//After the first iteration in which nextExpandable is null, expandable list is populated.
+			if (nextExpandable==null){
+				nextExpandable = new LinkedList<HilbertQuad>();
+			}else{
+				Iterator<HilbertQuad> expIt = nextExpandable.iterator();
+				while (expIt.hasNext()){
+					HilbertQuad currHq = expIt.next();
+					short metric = getMetric(currHq);
+					//short metric = getMetric1(currHq);
+					expandable.addOrdered(new HqWrapper(metric,currHq));
+				}
+				nextExpandable.clear();
 			}
-			nextExpandable.clear();
-		}
-		Iterator<HqWrapper> expIterator = expandable.iterator();
-		while (expIterator.hasNext()){
-			HqWrapper indexQuad = expIterator.next();
-			HilbertQuad hq = indexQuad.getQuad();
-			int addedSubQuads = expandQuad(hq,rangesExtremes,nextExpandable);
-			if (addedSubQuads!=-1)
-				expanded = true;
-		}
-		level++;
-		depth++;
-		expandable.clear();
+			Iterator<HqWrapper> expIterator = expandable.iterator();
+			while (expIterator.hasNext()){
+				HqWrapper indexQuad = expIterator.next();
+				HilbertQuad hq = indexQuad.getQuad();
+				int addedSubQuads = expandQuad(hq,rangesExtremes,nextExpandable);
+				if (addedSubQuads!=-1)
+					expanded = true;
+			}
+			level++;
+			depth++;
+			expandable.clear();
+		}	
+		return getNumRanges(ranges,rangesExtremes);		
 	}	
-	return getNumRanges(ranges,rangesExtremes);		
-}	
 	/*
 	 * When returns -1 means that the quad cannot be expanded, because it would exceed the maxNumRanges. 
 	 */
 	private int expandQuad(HilbertQuad hq,List<Long> extremes,List<HilbertQuad> nextExpandable){
 		boolean start=false,
-				end=false;
+		end=false;
 		int counter=0;
 		HilbertQuad subHq;
 		//Discovers by looking endRanges list, if the current HilbertQuad is the first or the last of a certain range 
@@ -248,17 +248,17 @@ private int expandQuads(List<long[]> ranges){
 		coveringSet.addAll(insertedList);
 		return counter;
 	}
-	
+
 	/*
 	 * Returns the level on depth to use to get the boundary.
 	 */
 	private short getLevel(){
 		short level = 1;
 		double	deltaLat = (HilbertQuad.latitudeRange[1]-HilbertQuad.latitudeRange[0]), 
-				deltaLon = (HilbertQuad.longitudeRange[1]-HilbertQuad.longitudeRange[0])/2,
-				deltaLatBound = this.maxLat - this.minLat,
-				deltaLonBound;
-			
+		deltaLon = (HilbertQuad.longitudeRange[1]-HilbertQuad.longitudeRange[0])/2,
+		deltaLatBound = this.maxLat - this.minLat,
+		deltaLonBound;
+
 		if (this.minLon<=this.maxLon)
 			deltaLonBound = this.maxLon - this.minLon;	
 		else
@@ -277,7 +277,7 @@ private int expandQuads(List<long[]> ranges){
 		}
 		return level;
 	}
-	
+
 	/*
 	 * Returns a metric between 0 and 1000 indicating how much of the area of the HilbertQuad hq lies 
 	 * on the bounding box region.  
@@ -285,7 +285,7 @@ private int expandQuads(List<long[]> ranges){
 	 */
 	private short getMetric(HilbertQuad hq){
 		double deltaLon,deltaLat;
-		
+
 		if (hq!=null){
 			if((hq.getFloorLon()<=this.minLon && hq.getCeilLon()>this.minLon) || 
 					(hq.getFloorLon()<this.minLon && hq.getCeilLon()>=this.minLon))
@@ -303,22 +303,22 @@ private int expandQuads(List<long[]> ranges){
 				deltaLat = this.maxLat-hq.getFloorLat();
 			else
 				deltaLat = hq.getCeilLat()-hq.getFloorLat();
-			
+
 			double maxArea = (hq.getCeilLon()-hq.getFloorLon()) * (hq.getCeilLat() - hq.getFloorLat());
 			short metric =  (short) Math.round(((deltaLon * deltaLat)/maxArea)*1000);
 			return metric;	
-			
+
 		}else{
 			throw new IllegalArgumentException("null argument.");
 		}
 	}
-		
+
 	/*
 	 * Returns the total number of keys, belonging to the list of HilbertQuad hilbQuadlist.
 	 */
 	public static long getNumKeys(Set<HilbertQuad> covSet){
 		long num=0;
-		
+
 		if (covSet!=null){
 			Iterator<HilbertQuad> it = covSet.iterator();
 			while (it.hasNext()){
@@ -330,7 +330,7 @@ private int expandQuads(List<long[]> ranges){
 			throw new IllegalArgumentException("null argument.");
 		}
 	}
-	
+
 	/*
 	 * Returns the number of ranges of keys inside the ordered list of HilbertQuad hilbQuadList, and put
 	 * them inside the list ranges.
@@ -338,7 +338,7 @@ private int expandQuads(List<long[]> ranges){
 	private static short getNumRanges(List<long[]> ranges,List<Long> extremes){
 		short 	numRanges=0;
 		long[]	currentRange=null;
-		
+
 		try{
 			Collections.sort(extremes);
 			Iterator<Long> itExt = extremes.iterator();
@@ -354,7 +354,7 @@ private int expandQuads(List<long[]> ranges){
 			throw new IllegalArgumentException("null argument.");
 		}
 	}
-	
+
 	/*
 	 * Return the position of the HilbertQuad @param hq with respect to the bounding box.
 	 * Position may be: external, internal or intersects. Position is referred to the HilbertQuad with respect
@@ -364,8 +364,8 @@ private int expandQuads(List<long[]> ranges){
 	 */
 	private Position checkPosition(HilbertQuad hq){
 		double 	offset 	 = 0.0,
-				offsetHqLon = 0.0;
-		
+		offsetHqLon = 0.0;
+
 		if (minLon>maxLon){// across 180 degrees meridian (the difference between minLon and maxLon must be < 180)
 			offset = 360.0;
 			if (hq.getCeilLon()<0)
@@ -377,7 +377,7 @@ private int expandQuads(List<long[]> ranges){
 		if ((hq.getCeilLat()<minLat || hq.getFloorLat()>maxLat) || 
 				(hq.getFloorLon()+offsetHqLon>maxLon+offset || hq.getCeilLon()+offsetHqLon<minLon))
 			return Position.external;
-		
+
 		return Position.intersects;
 	}	
 }

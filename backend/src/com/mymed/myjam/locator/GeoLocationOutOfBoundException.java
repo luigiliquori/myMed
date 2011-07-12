@@ -1,4 +1,4 @@
-package it.polito.mymed.android.myjam.locator;
+package com.mymed.myjam.locator;
 
 public class GeoLocationOutOfBoundException extends Exception{
 

@@ -1,4 +1,4 @@
-package it.polito.mymed.android.myjam.locator;
+package com.mymed.myjam.locator;
 
 
 import java.util.EnumMap;
@@ -15,11 +15,11 @@ public class HilbertQuad {
 	private double ceilLon;
 	private QuadType typeQuad;
 	
-	public static class SubQuad {
+	protected static class SubQuad {
 		public short pos;
 		public QuadType type;
 		
-		public SubQuad(short pos,QuadType type){
+		protected SubQuad(short pos,QuadType type){
 			this.pos = pos;
 			this.type = type;
 		}
@@ -64,7 +64,7 @@ public class HilbertQuad {
 			map.put(Quad.Fourth, new SubQuad((short) 0,QuadType.U));
 			tableEnc.put(QuadType.C, map);
 	}
-	public static Map<QuadType, Map<Short, SubQuad>> tableDec =
+	protected static Map<QuadType, Map<Short, SubQuad>> tableDec =
 	    new EnumMap<QuadType, Map<Short, SubQuad>>(QuadType.class);
 	static {
 			Map<Short, SubQuad> mapDec = new HashMap<Short, SubQuad>();
@@ -93,14 +93,14 @@ public class HilbertQuad {
 			tableDec.put(QuadType.C, mapDec);
 	}
 
-	protected static double[] latitudeRange = new double[]{Math.toDegrees(GeoLocation.MIN_LAT),
-		Math.toDegrees(GeoLocation.MAX_LAT)};
-	protected static double[] longitudeRange = new double[]{Math.toDegrees(GeoLocation.MIN_LON),
-		Math.toDegrees(GeoLocation.MAX_LON)};
+	protected static double[] latitudeRange = new double[]{Math.toDegrees(Location.MIN_LAT),
+		Math.toDegrees(Location.MAX_LAT)};
+	protected static double[] longitudeRange = new double[]{Math.toDegrees(Location.MIN_LON),
+		Math.toDegrees(Location.MAX_LON)};
 	public static int numBits=45;
 	public static short maxLevel=23;
 	
-	public HilbertQuad(long index,short level,double fLat,double fLon,double cLat,double cLon,
+	protected HilbertQuad(long index,short level,double fLat,double fLon,double cLat,double cLon,
 			QuadType typeQuad){
 		this.index = index;
 		this.level=level;
@@ -111,11 +111,16 @@ public class HilbertQuad {
 		this.typeQuad = typeQuad;
 	}
 	
-	public void setIndex(long index) {
+	protected void setIndex(long index) {
 		this.index = index;
 	}
-	
-	static public HilbertQuad encode(GeoLocation loc,int level){
+	/**
+	 * Returns the HilbertQuad that contains the location.
+	 * @param loc Location
+	 * @param level	Level of the HilbertQuad
+	 * @return
+	 */
+	static protected HilbertQuad encode(Location loc,int level) throws IllegalArgumentException{
 		if (level > maxLevel)
 			throw new IllegalArgumentException("level exceeds the maximum level.");
 		HilbertQuad quad= new HilbertQuad(0L,(short) 0,latitudeRange[0],longitudeRange[0],
@@ -124,7 +129,7 @@ public class HilbertQuad {
 		return quad;
 	}
 	
-	static public HilbertQuad decode(long key){
+	static protected HilbertQuad decode(long key) throws IllegalArgumentException{
 		double lonMid;
 		double latMid;
 		short tabDecKey;
@@ -221,7 +226,7 @@ public class HilbertQuad {
 	 * 	2 is the top-left sub-quad
 	 * 	3 is the top-right sub-quad
 	 */
-	public HilbertQuad getQuad(short pos,boolean down){ 
+	protected HilbertQuad getQuad(short pos,boolean down){ 
 		//TODO Implement the code for down == false, if necessary.
 		double floorLat,floorLon,ceilLat,ceilLon;
 		HilbertQuad hq;
@@ -267,7 +272,7 @@ public class HilbertQuad {
 	 * Returns the keys range associated to this HilbertQuad.	
 	 * @return
 	 */
-	public long[] getKeysRange(){
+	protected long[] getKeysRange(){
 		long[] keysInt=new long[2];
 		
 		int remBits = (this.getLevel()-1) * 2;
@@ -278,80 +283,81 @@ public class HilbertQuad {
 		return keysInt;
 	}
 	
-	public long getIndex() {
+	protected long getIndex() {
 		return index;
 	}
-	public void setLevel(short level) {
+	protected void setLevel(short level) {
 		this.level = level;
 	}
-	public short getLevel() {
+	protected short getLevel() {
 		return level;
 	}
-	public void setTypeQuad(QuadType typeQuad) {
+	protected void setTypeQuad(QuadType typeQuad) {
 		this.typeQuad = typeQuad;
 	}
-	public QuadType getTypeQuad() {
+	protected QuadType getTypeQuad() {
 		return typeQuad;
 	}
-	public void setFloorLat(double floorLat) {
+	protected void setFloorLat(double floorLat) {
 		this.floorLat = floorLat;
 	}
-	public double getFloorLat() {
+	protected double getFloorLat() {
 		return floorLat;
 	}
-	public void setCeilLat(double ceilLat) {
+	protected void setCeilLat(double ceilLat) {
 		this.ceilLat = ceilLat;
 	}
-	public double getCeilLat() {
+	protected double getCeilLat() {
 		return ceilLat;
 	}
-	public void setFloorLon(double floorLon) {
+	protected void setFloorLon(double floorLon) {
 		this.floorLon = floorLon;
 	}
-	public double getFloorLon() {
+	protected double getFloorLon() {
 		return floorLon;
 	}
-	public void setCeilLon(double ceilLon) {
+	protected void setCeilLon(double ceilLon) {
 		this.ceilLon = ceilLon;
 	}
-	public double getCeilLon() {
+	protected double getCeilLon() {
 		return ceilLon;
 	}	
-	public double getHeigth(){
-		GeoLocation bottomLeftCorner,topLeftCorner;
+	protected double getHeigth(){
+		Location bottomLeftCorner,topLeftCorner;
 		
 		try {
-			bottomLeftCorner = new GeoLocation(this.floorLat,this.floorLon,"blc");
-			topLeftCorner = new GeoLocation(this.ceilLat,this.floorLon,"tlc");
+			bottomLeftCorner = new Location(this.floorLat,this.floorLon);
+			topLeftCorner = new Location(this.ceilLat,this.floorLon);
 		} catch (GeoLocationOutOfBoundException e) {
 			// Never happens.
-			android.util.Log.e("HilbertQuad", e.getMessage());
+			e.printStackTrace();
 			return 0d;
 		}
 		return bottomLeftCorner.distanceGCTo(topLeftCorner);
 	}
-	public double getTopWidth(){
-		GeoLocation topRightCorner,topLeftCorner;
+	protected double getTopWidth(){
+		Location topRightCorner,topLeftCorner;
 		
 		try{
-			topRightCorner = new GeoLocation(this.ceilLat,this.ceilLon,"trc");
-			topLeftCorner = new GeoLocation(this.ceilLat,this.floorLon,"tlc");
+			topRightCorner = new Location(this.ceilLat,this.ceilLon);
+			topLeftCorner = new Location(this.ceilLat,this.floorLon);
 		} catch (GeoLocationOutOfBoundException e) {
 			// Never happens.
-			android.util.Log.e("HilbertQuad", e.getMessage());
+			e.printStackTrace();
 			return 0d;
 		}
 		return topRightCorner.distanceGCTo(topLeftCorner);
 	}
-	public double getBottomWidth(){
-		GeoLocation bottomRightCorner,bottomLeftCorner;
+	protected double getBottomWidth(){
+		Location bottomRightCorner,bottomLeftCorner;
 		
 		try{
-			bottomRightCorner = new GeoLocation(this.floorLat,this.ceilLon,"brc");
-			bottomLeftCorner = new GeoLocation(this.floorLat,this.floorLon,"blc");			
+			bottomRightCorner = new Location(this.floorLat,this.ceilLon);
+			bottomLeftCorner = new Location(this.floorLat,this.floorLon);			
 		} catch (GeoLocationOutOfBoundException e) {
 			// Never happens.
-			android.util.Log.e("HilbertQuad", e.getMessage());
+			e.printStackTrace();
+			//android.util.Log.e("HilbertQuad", e.getMessage());
 			return 0d;
 		}
 		return bottomRightCorner.distanceGCTo(bottomLeftCorner);		

@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.JsonSyntaxException;
 import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.controller.core.manager.myjam.MyJamManager;
 import com.mymed.controller.core.manager.storage.MyJamStorageManager;
 import com.mymed.myjam.type.IMyJamType;
 import com.mymed.myjam.type.MReportBean;
@@ -35,7 +36,7 @@ import com.mymed.myjam.type.WrongFormatException;
 public class MyJamRequestHandler extends AbstractRequestHandler {
 	private static final long serialVersionUID = 1L;
 	/**StorageManager*/
-	MyJamStorageManager storageManager;
+	MyJamManager myJamManager;
 	/** Request code Map*/ 
 	protected Map<String, MyJamRequestCode> reqCodeMap = new HashMap<String, MyJamRequestCode>();
 
@@ -48,7 +49,7 @@ public class MyJamRequestHandler extends AbstractRequestHandler {
     public MyJamRequestHandler() throws ServletException {
     	super();
     	try {
-			storageManager=new MyJamStorageManager();
+			myJamManager = new MyJamManager(new MyJamStorageManager());
 		} catch (InternalBackEndException e) {
 			throw new ServletException("DHTManager is not accessible because: " + e.getMessage());
 		}
@@ -76,13 +77,15 @@ public class MyJamRequestHandler extends AbstractRequestHandler {
 				int longitude = Integer.parseInt(params.get("longitude"));
 				// Diameter in m.
 				int diameter = Integer.parseInt(params.get("diameter"));
-				List<MShortReportBean> resultList = storageManager.getReports((double) (latitude/1E6), (double) (longitude/1E6), diameter);
+				List<MShortReportBean> resultList = myJamManager.getReports((double) (latitude/1E6), (double) (longitude/1E6), diameter);
 				String resToJson = this.getGson().toJson(resultList);
 				setResponseText(resToJson);
 				break;
-			case GET_REPORT_INFO:
+			case GET_REPORT_DETAILS:
 				ReportId reportId = ReportId.parseString(params.get("reportid"));
-				//ReportInfo reportInfo = storageManager.getReportInfo(reportId);
+				List<ReportInfo> reportInfo = myJamManager.getReportDetails(reportId);
+				String resDetToJson = this.getGson().toJson(reportInfo);
+				setResponseText(resDetToJson);
 				break;
 			default:
 				throw new InternalBackEndException("Wrong code");
@@ -114,7 +117,7 @@ public class MyJamRequestHandler extends AbstractRequestHandler {
 				String content = convertStreamToString(request.getInputStream(),request.getContentLength());
 				MReportBean report = this.getGson().fromJson(content, MReportBean.class);
 				validate(report);
-				storageManager.insertReport(report,latitude,longitude);
+				myJamManager.insertReport(report,latitude,longitude);
 				break;
 			case INSERT_UPDATE:
 				break;
@@ -139,7 +142,7 @@ public class MyJamRequestHandler extends AbstractRequestHandler {
 	protected enum MyJamRequestCode { 
 		GET_REPORT ("0"), 	
 		GET_REPORTS ("1"),
-		GET_REPORT_INFO ("2"),
+		GET_REPORT_DETAILS ("2"),
 		INSERT_REPORT ("3"),
 		INSERT_UPDATE ("4"),
 		INSERT_FEEDBACK ("5");

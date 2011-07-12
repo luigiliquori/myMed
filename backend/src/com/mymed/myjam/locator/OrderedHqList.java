@@ -1,4 +1,4 @@
-package it.polito.mymed.android.myjam.locator;
+package com.mymed.myjam.locator;
 
 import java.util.LinkedList;
 import java.util.ListIterator;

@@ -1,13 +1,11 @@
-package it.polito.mymed.android.myjam.locator;
-import android.location.Location;
+package com.mymed.myjam.locator;
 
-public class GeoLocation extends Location{
+public class Location {
 	public static double earthRadius = 6371.01d*1E3;
 
-	public GeoLocation(Double latitude,Double longitude,String provider) throws GeoLocationOutOfBoundException {
-		super(provider);
-		this.setLatitude(latitude);
-		this.setLongitude(longitude);
+	public Location(Double latitude,Double longitude) throws GeoLocationOutOfBoundException {
+		//this.setLatitude(latitude);
+		//this.setLongitude(longitude);
 		this.radLat = Math.toRadians(latitude);
 		this.radLon = Math.toRadians(longitude);
 		this.checkBounds();
@@ -31,10 +29,9 @@ public class GeoLocation extends Location{
 	 * @param longitude the longitude, in degrees.
 	 * @throws GeoLocationOutOfBoundException 
 	 */
-	public static GeoLocation fromDegrees(double latitude, double longitude, String provider) throws GeoLocationOutOfBoundException {
-		GeoLocation result = new GeoLocation(latitude,longitude,provider);
-		result.radLat = Math.toRadians(latitude);
-		result.radLon = Math.toRadians(longitude);
+	public static Location fromDegrees(double latitude, double longitude, String provider) throws GeoLocationOutOfBoundException {
+		Location result = new Location(latitude,longitude);
+		result.checkBounds();
 		return result;
 	}
 
@@ -43,8 +40,8 @@ public class GeoLocation extends Location{
 	 * @param longitude the longitude, in radians.
 	 * @throws GeoLocationOutOfBoundException 
 	 */
-	public static GeoLocation fromRadians(double latitude, double longitude, String provider) throws GeoLocationOutOfBoundException {
-		GeoLocation result = new GeoLocation(Math.toDegrees(latitude),Math.toDegrees(longitude),provider);
+	public static Location fromRadians(double latitude, double longitude, String provider) throws GeoLocationOutOfBoundException {
+		Location result = new Location(Math.toDegrees(latitude),Math.toDegrees(longitude));
 		result.checkBounds();
 		return result;
 	}
@@ -61,6 +58,20 @@ public class GeoLocation extends Location{
 	 */
 	public double getLatitudeInRadians() {
 		return radLat;
+	}
+
+	/**
+	 * @return the longitude, in radians.
+	 */
+	public double getLongitude() {
+		return Math.toDegrees(radLon);
+	}
+	
+	/**
+	 * @return the latitude, in radians.
+	 */
+	public double getLatitude() {
+		return Math.toDegrees(radLat);
 	}
 
 	/**
@@ -84,7 +95,7 @@ public class GeoLocation extends Location{
 	 * 6371.01 kilometers.
 	 * @return the distance, measured in meters
 	 */
-	public double distanceGCTo(GeoLocation location) {
+	public double distanceGCTo(Location location) {
 		return Math.acos(Math.sin(radLat) * Math.sin(location.radLat) +
 				Math.cos(radLat) * Math.cos(location.radLat) *
 				Math.cos(radLon - location.radLon)) * earthRadius;
@@ -96,7 +107,7 @@ public class GeoLocation extends Location{
 	 * @return The bottom-left and the top-right corner of the bounding box.
 	 * @throws GeoLocationOutOfBoundException 
 	 */
-	public GeoLocation[] boundingCoordinates(double distance) {
+	public Location[] boundingCoordinates(double distance) {
 
 		if (distance < 0d)
 			throw new IllegalArgumentException("Distance cannot be negative: "+String.valueOf(distance));
@@ -124,11 +135,11 @@ public class GeoLocation extends Location{
 			minLat = Math.max(minLat, MIN_LAT);		
 		}
 		try {
-			return new GeoLocation[]{fromRadians(minLat,minLon,""),
+			return new Location[]{fromRadians(minLat,minLon,""),
 					fromRadians(maxLat,maxLon,"")};
 		} catch (GeoLocationOutOfBoundException e) {
 			//Never happen because maxLat is limited.
-			android.util.Log.e("GeoLocation", e.getMessage());
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -140,25 +151,25 @@ public class GeoLocation extends Location{
 	 * @return the four corners of the bounding box given the  bottom-left and the top-right corner
 	 * @throws GeoLocationOutOfBoundException 
 	 */
-	public static GeoLocation[] getCorners(GeoLocation leftBottomCorner,
-			GeoLocation rightBottomCorner){
-		GeoLocation corner1,corner2,corner3,corner4;
+	protected static Location[] getCorners(Location leftBottomCorner,
+			Location rightBottomCorner){
+		Location corner1,corner2,corner3,corner4;
 		try {
-			corner1 = new GeoLocation(leftBottomCorner.getLatitude(),
-					leftBottomCorner.getLongitude(),"");
-			corner2 = new GeoLocation(leftBottomCorner.getLatitude(),
-					rightBottomCorner.getLongitude(),"");
-			corner3 = new GeoLocation(rightBottomCorner.getLatitude(),
-					rightBottomCorner.getLongitude(),"");
-			corner4 = new GeoLocation(rightBottomCorner.getLatitude(),
-					leftBottomCorner.getLongitude(),"");
-			return new GeoLocation[]{corner1,corner2,corner3,corner4};
+			corner1 = new Location(leftBottomCorner.getLatitude(),
+					leftBottomCorner.getLongitude());
+			corner2 = new Location(leftBottomCorner.getLatitude(),
+					rightBottomCorner.getLongitude());
+			corner3 = new Location(rightBottomCorner.getLatitude(),
+					rightBottomCorner.getLongitude());
+			corner4 = new Location(rightBottomCorner.getLatitude(),
+					leftBottomCorner.getLongitude());
+			return new Location[]{corner1,corner2,corner3,corner4};
 		} catch (GeoLocationOutOfBoundException e) {
 			/*
 			 *  Never happens, because the leftBottomCorner and the rightBottomCorner are inside the
 			 *  limits.
 			 */
-			android.util.Log.e("GeoLocation", e.getMessage());
+			e.printStackTrace();
 			return null;
 		}
 

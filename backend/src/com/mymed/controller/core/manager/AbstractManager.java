@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.controller.core.manager.storage.IMyJamStorageManager;
 import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.model.data.AbstractMBean;
 import com.mymed.utils.ClassType;
@@ -22,12 +23,17 @@ public abstract class AbstractManager {
 	/* Attributes */
 	/* --------------------------------------------------------- */
 	protected IStorageManager storageManager;
+	protected IMyJamStorageManager myJamStorageManager;
 
 	/* --------------------------------------------------------- */
 	/* Constructor */
 	/* --------------------------------------------------------- */
 	public AbstractManager(final IStorageManager storageManager) {
 		this.storageManager = storageManager;
+	}
+	
+	public AbstractManager(final IMyJamStorageManager storageManager) {
+		this.myJamStorageManager = storageManager;
 	}
 
 	/* --------------------------------------------------------- */

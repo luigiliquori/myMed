@@ -1,6 +1,7 @@
 package com.mymed.controller.core.manager.storage;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +14,6 @@ import org.apache.cassandra.thrift.Column;
 import org.apache.cassandra.thrift.ColumnOrSuperColumn;
 import org.apache.cassandra.thrift.ColumnParent;
 import org.apache.cassandra.thrift.ColumnPath;
-import org.apache.cassandra.thrift.ConsistencyLevel;
 import org.apache.cassandra.thrift.Mutation;
 import org.apache.cassandra.thrift.SlicePredicate;
 import org.apache.cassandra.thrift.SliceRange;
@@ -21,24 +21,16 @@ import org.apache.cassandra.thrift.SuperColumn;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.controller.core.exception.ServiceManagerException;
 import com.mymed.model.core.configuration.WrapperConfiguration;
 import com.mymed.model.core.wrappers.cassandra.api07.CassandraWrapper;
-import com.mymed.myjam.locator.GeoLocationOutOfBoundException;
-import com.mymed.myjam.locator.Location;
-import com.mymed.myjam.locator.Locator;
-import com.mymed.myjam.type.MReportBean;
-import com.mymed.myjam.type.MShortReportBean;
-import com.mymed.myjam.type.ReportId;
-import com.mymed.myjam.type.WrongFormatException;
-import com.mymed.myjam.type.MyJamTypes.ReportType;
-
 import com.mymed.utils.MConverter;
 /**
  * Storage manager created ad hoc for myJam application.
  * @author iacopo
  *
  */
-public class MyJamStorageManager {
+public class MyJamStorageManager implements IMyJamStorageManager{
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
@@ -49,16 +41,7 @@ public class MyJamStorageManager {
 	
 	public static String KEYSPACE ="myJamKeyspace";
 
-	public static ConsistencyLevel consistencyOnWrite = ConsistencyLevel.ONE;
-	public static ConsistencyLevel consistencyOnRead = ConsistencyLevel.ONE;
-
 	private final CassandraWrapper wrapper;
-
-	/**
-	 * TODO This class must be aware of the username and the userId.
-	 */
-	private final String userId = "iacopoId";
-	private final String userName = "iacopo"; 
 
 	/* --------------------------------------------------------- */
 	/* Constructors */
@@ -89,219 +72,352 @@ public class MyJamStorageManager {
 		wrapper = new CassandraWrapper(conf.getCassandraListenAddress(), conf.getThriftPort());
 	}
 
-	/* --------------------------------------------------------- */
-	/* public methods */
-	/* --------------------------------------------------------- */
-
-	/**
-	 * Insert a new report on the DB
-	 * @param report
-	 * @throws InternalBackEndException
-	 */
-	public void insertReport(MReportBean report,int latitude,int longitude) throws InternalBackEndException{
-		try {
-			Map<String,Map<String,List<Mutation>>> reportInsertionMap = new HashMap<String,Map<String,List<Mutation>>>();
-			boolean insert = false;
-
-			/**
-			 * Data preparation
-			 */
-			Map<String, byte[]> reportValuesMap = report.getAttributeToMap();
-
-			long locId = Locator.getLocationId((double) (latitude/1E6),
-					(double) (longitude/1E6));
-			String areaId = String.valueOf(Locator.getAreaId(locId));
-			report.setUserName(userName);
-			/** The convention is to use microseconds since 1 Jenuary 1970*/
-			long timestamp = (long) (System.currentTimeMillis()*1E3);									
-			ReportId reportId = new ReportId(timestamp,userId);
-			/** Transport Opening*/
+	@Override
+	public void insertSlice(String tableName, String primaryKey,
+			Map<String, byte[]> args) throws ServiceManagerException,
+			IOBackEndException, InternalBackEndException {
+		Map<String,Map<String,List<Mutation>>> mutationMap = new HashMap<String,Map<String,List<Mutation>>>();
+		/** The convention is to use microseconds since 1 Jenuary 1970*/
+		long timestamp = (long) (System.currentTimeMillis()*1E3);	
+		try{
 			wrapper.open();
 			wrapper.set_keyspace(KEYSPACE);
-
-			/** Check if the position is already occupied.*/
-			ColumnPath columnPath = new ColumnPath("Location");
-			columnPath.setSuper_column(MConverter.longToByteBuffer(locId));
-			columnPath.setColumn(MConverter.stringToByteBuffer(report.getReportType()));
-			try {
-				//TODO Define the consistency level to use on this operation.
-				wrapper.get(areaId, columnPath, consistencyOnRead);
-			} catch (IOBackEndException e) {
-				insert = true;
-			}
-			if (!insert)
-				throw new InternalBackEndException("Position occupied.");
-			/**
-			 * SuperColumn insertion in CF Location 
-			 **/
-			Map<String,List<Mutation>> locationMap = new HashMap<String,List<Mutation>>();
-			List<Mutation> locMutationList = new ArrayList<Mutation>(1);
-			locationMap.put("Location",locMutationList);
-			Mutation locMutation = new Mutation();
-			locMutationList.add(locMutation);
-			SuperColumn locationSC = new SuperColumn();
-			Column locCol = new Column(
-					MConverter.stringToByteBuffer(report.getReportType()),
-					reportId.ReportIdAsByteBuffer(),
-					timestamp);
-			locCol.setTtl(ReportType.valueOf(report.getTransitType()).permTime);
-			locationSC.setName(MConverter.longToByteBuffer(locId));
-			locationSC.addToColumns(locCol);
-			locMutation.setColumn_or_supercolumn(
-					new ColumnOrSuperColumn().setSuper_column(locationSC));
-			//Insertion in the map
-			reportInsertionMap.put(areaId, locationMap);
-
-			/**
-			 * Columns insertion in CF Report 
-			 **/
-			Map<String,List<Mutation>> reportMap = new HashMap<String,List<Mutation>>();
-			List<Mutation> reportMutationList = new ArrayList<Mutation>(5);
-			reportMap.put("Report",reportMutationList);
-			//TODO Integrate with getAttibuteToMap (AbstractMBean)
-			Iterator<String> iterator = reportValuesMap.keySet().iterator();
+			Map<String,List<Mutation>> tableMap = new HashMap<String,List<Mutation>>();
+			List<Mutation> sliceMutationList = new ArrayList<Mutation>(5);
+			tableMap.put(tableName,sliceMutationList);
+			Iterator<String> iterator = args.keySet().iterator();
 			while (iterator.hasNext()){
 				String key = iterator.next();
 				Mutation mutation = new Mutation();
 				mutation.setColumn_or_supercolumn(new ColumnOrSuperColumn().setColumn(
 						new Column(MConverter.stringToByteBuffer(key),
-								ByteBuffer.wrap(reportValuesMap.get(key)),
+								ByteBuffer.wrap(args.get(key)),
 								timestamp)));
-				reportMutationList.add(mutation);
+				sliceMutationList.add(mutation);
 			}
 			//Insertion in the map
-			reportInsertionMap.put(reportId.toString(), reportMap);
-
-			/**
-			 * Columns insertion in CF UserReport 
-			 **/
-			Map<String,List<Mutation>> urMap = new HashMap<String,List<Mutation>>();
-			List<Mutation> urMutationList = new ArrayList<Mutation>(1);
-			urMap.put("UserReport",urMutationList);
-			Mutation urMutation = new Mutation();
-			urMutation.setColumn_or_supercolumn(new ColumnOrSuperColumn().setColumn(
-					new Column(reportId.ReportIdAsByteBuffer(),
-							MConverter.stringToByteBuffer(" "),
-							timestamp)));
-			urMutationList.add(urMutation);
-			//Insertion in the map
-			reportInsertionMap.put(userId, urMap);		
-
-			//Cassandra call
-			wrapper.batch_mutate(reportInsertionMap, consistencyOnWrite);
-		} catch (InternalBackEndException e) {
-			throw new InternalBackEndException("Wrong parameter: "+e.getMessage());
-		} catch (GeoLocationOutOfBoundException e){
-			throw new InternalBackEndException(e.getMessage());
-		} catch (IllegalArgumentException e){
-			throw new InternalBackEndException("Wrong parameter: "+e.getMessage());
-		} finally {
+			mutationMap.put(primaryKey, tableMap); 
+			wrapper.batch_mutate(mutationMap, consistencyOnWrite);
+		}catch(InternalBackEndException e){
+			throw new InternalBackEndException(" InsertSlice failed. ");
+		}finally{
 			wrapper.close();
 		}
 	}
 
-	/**
-	 * Returns a list of reports, located in the circular area defined by latitude,
-	 * longitude and radius.
-	 * @param latitude
-	 * @param longitude
-	 * @param diameter
-	 * @return
-	 * @throws InternalBackEndException
-	 */
-	public List<MShortReportBean> getReports(double latitude,double longitude,int diameter) throws InternalBackEndException{
-		List<MShortReportBean> resultReports = new LinkedList<MShortReportBean>();
-		try{
-			/**
-			 * Data structures preparation
-			 */
-			List<ColumnOrSuperColumn> reports = new LinkedList<ColumnOrSuperColumn>();
-			List<long[]> covId = Locator.getCoveringLocationId(latitude, longitude, diameter);
-			List<String> areaIds = new LinkedList<String>();
-			Iterator<long[]> covIdIterator = covId.iterator();
-			/**
-			 * Cassandra calls
-			 */
+	@Override
+	public byte[] selectColumn(String tableName, String primaryKey,
+			String columnName) throws ServiceManagerException,
+			IOBackEndException, InternalBackEndException {
+		try {
 			wrapper.open();
 			wrapper.set_keyspace(KEYSPACE);
-			while(covIdIterator.hasNext()){
-				long[] range = covIdIterator.next();
-				long startAreaId = Locator.getAreaId(range[0]);
-				long endAreaId = Locator.getAreaId(range[1]);
-				for (long ind=startAreaId;ind<=endAreaId;ind++){
-					areaIds.add(String.valueOf(ind));
-				}
-				SliceRange locRange = new SliceRange();
-				SlicePredicate locPred = new SlicePredicate().setSlice_range(locRange);
-				locRange.start = MConverter.longToByteBuffer(range[0]);
-				locRange.finish = MConverter.longToByteBuffer(range[1]);
-				Map<ByteBuffer,List<ColumnOrSuperColumn>> mapRep = wrapper.multiget_slice(areaIds, new ColumnParent("Location"), locPred, consistencyOnRead);
-				Iterator<ByteBuffer> mapRepoIterator = mapRep.keySet().iterator();
-				while(mapRepoIterator.hasNext()){
-					ByteBuffer locByteBuff = mapRepoIterator.next();
-					reports.addAll(mapRep.get(locByteBuff));
-				}			
-				areaIds.clear();
-			}
-			/**
-			 * Data processing
-			 */
-			Iterator<ColumnOrSuperColumn> reportIterator = reports.iterator();
-			while (reportIterator.hasNext()){
-				SuperColumn tempSc = reportIterator.next().getSuper_column();
-				long posId = MConverter.byteBufferToLong(ByteBuffer.wrap(tempSc.getName()));
-				Location reportLoc = Locator.getLocationFromId(posId);
-				double distance = reportLoc.distanceGCTo(new Location(latitude,longitude));
-				if (distance <= diameter){
-					Iterator<Column> sColIterator = tempSc.getColumnsIterator();
-					while (sColIterator.hasNext()){
-						Column currCol = sColIterator.next();
-						MShortReportBean reportBean = new MShortReportBean();
-						reportBean.setReportType(MConverter.byteBufferToString(
-								ByteBuffer.wrap(currCol.getName())));
-						ReportId repId = ReportId.parseByteBuffer(ByteBuffer.wrap(currCol.getValue()));
-						reportBean.setReportId(repId.toString());
-						reportBean.setLatitude((int) (reportLoc.getLatitude()*1E6));
-						reportBean.setLongitude((int) (reportLoc.getLongitude()*1E6));
-						resultReports.add(reportBean);
-					}
-				}
-			}			
-			return resultReports;
-		} catch (InternalBackEndException e) {
-			throw new InternalBackEndException("Wrong parameter: "+e.getMessage());
-		} catch (GeoLocationOutOfBoundException e){
-			throw new InternalBackEndException(e.getMessage());
-		} catch (IllegalArgumentException e){
-			throw new InternalBackEndException("Wrong parameter: "+e.getMessage());
-		} catch (WrongFormatException e){
-			throw new InternalBackEndException("Wrong report Id: "+e.getMessage());
+			final ColumnPath colPathName = new ColumnPath(tableName);
+			colPathName.setColumn(columnName.getBytes("UTF8"));
+			return wrapper
+					.get(primaryKey, colPathName, IStorageManager.consistencyOnRead)
+					.getColumn().getValue();
+		} catch (final UnsupportedEncodingException e) {
+			e.printStackTrace();
+			throw new InternalBackEndException(
+					"UnsupportedEncodingException with\n"
+							+ "\t- columnFamily = " + tableName + "\n"
+							+ "\t- key = " + primaryKey + "\n" + "\t- columnName = "
+							+ columnName + "\n");
 		} finally {
 			wrapper.close();
 		}
 	}
+	
+	/**
+	 * Return null if the column is not present.
+	 * @param tableName
+	 * @param primaryKey
+	 * @param superColumn
+	 * @param column
+	 * @return
+	 * @throws ServiceManagerException
+	 * @throws IOBackEndException
+	 * @throws InternalBackEndException
+	 */
+	public byte[] selectColumnInSuperColumn(String tableName, String primaryKey,
+			byte[] superColumn, byte[] column) throws ServiceManagerException,
+			IOBackEndException, InternalBackEndException {
+		byte[] columnValue;
+		try {
+										
+		/** Transport Opening*/
+		wrapper.open();
+		wrapper.set_keyspace(KEYSPACE);
 
-//	public ReportInfo getReportInfo(ReportId reportId) throws InternalBackEndException{
-//		byte[] emptyByteArray = new byte[0];
-//		ReportInfo resultReportInfo = new ReportInfo();
-//		
-//		SliceRange sr = new SliceRange();
-//		sr.setStart(emptyByteArray);
-//		sr.setFinish(emptyByteArray);
-//		sr.setCount(5);
-//		try{
-//			wrapper.open();
-//			wrapper.set_keyspace(KEYSPACE);
-//			List<ColumnOrSuperColumn> listCoS = wrapper.get_slice(reportId.toString(), new ColumnParent().setColumn_family("Report"),
-//					new SlicePredicate().setSlice_range(sr), consistencyOnRead);
-//			//resultReportInfo.getClass().
-//			return resultReportInfo;
-//		}catch(InternalBackEndException e){
-//			throw new InternalBackEndException("Wrong parameter: "+e.getMessage());
-//		}finally{
-//			wrapper.close();
-//		}
-//	}
+		/** Check if the position is already occupied.*/
+		ColumnPath columnPath = new ColumnPath(tableName);
+		columnPath.setSuper_column(superColumn);
+		columnPath.setColumn(column);
+		
+			//TODO Define the consistency level to use on this operation.
+		columnValue = wrapper.get(primaryKey, columnPath, consistencyOnRead).getColumn().getValue();
+		} catch (IOBackEndException e) {
+			return null;
+		}catch (InternalBackEndException e){
+			throw new InternalBackEndException("selectColumnInSuperColumn failed.");
+		}
+		return columnValue;
+	}
+
+	@Override
+	public void insertColumn(String tableName, String primaryKey,
+			String columnName, byte[] value) throws ServiceManagerException,
+			IOBackEndException, InternalBackEndException {
+		
+		insertColumn(tableName, primaryKey, MConverter.stringToByteBuffer(columnName).array(),value);
+	}
+	
+	public void insertColumn(String tableName, String primaryKey,
+			byte[] columnName, byte[] value) throws ServiceManagerException,
+			IOBackEndException, InternalBackEndException {
+		
+		try {
+			final long timestamp = System.currentTimeMillis();
+			final ColumnParent parent = new ColumnParent(tableName);
+			final ByteBuffer bufferValue = ByteBuffer.wrap(value);
+			final ByteBuffer bufferName = ByteBuffer.wrap(columnName);
+			final Column column = new Column(
+					bufferName, bufferValue,
+					timestamp);
+
+			wrapper.open();
+			wrapper.set_keyspace(KEYSPACE);//TODO
+			wrapper.insert(primaryKey, parent, column, consistencyOnWrite);
+		} finally {
+			wrapper.close();
+		}
+		
+	}
+	
+	@Override
+	public void insertSuperColumn(String tableName, String key,
+			String superColumn, String columnName, byte[] value)
+			throws ServiceManagerException, InternalBackEndException {
+		
+		try {
+			final long timestamp = (long) (System.currentTimeMillis()*1E3);
+			final ColumnParent parent = new ColumnParent(tableName);
+			parent.setSuper_column(MConverter.stringToByteBuffer(superColumn));
+			final ByteBuffer buffer = ByteBuffer.wrap(value);
+			final Column column = new Column(
+					MConverter.stringToByteBuffer(columnName), buffer,
+					timestamp);
+
+			wrapper.open();
+			wrapper.set_keyspace(KEYSPACE);//TODO
+			wrapper.insert(key, parent, column, consistencyOnWrite);
+		} finally {
+			wrapper.close();
+		}		
+	}
+	
+	public void insertExpiringSuperColumn(String tableName, String key,
+			byte[] superColumn, byte[] columnName, byte[] value,int expiringTime)
+			throws ServiceManagerException, InternalBackEndException {
+		
+		try {
+			final long timestamp = (long) (System.currentTimeMillis()*1E3);
+			final ColumnParent parent = new ColumnParent(tableName);
+			parent.setSuper_column(superColumn);
+			final ByteBuffer bufferValue = ByteBuffer.wrap(value);
+			final ByteBuffer bufferName = ByteBuffer.wrap(columnName);
+			Column column = new Column(
+				bufferName, bufferValue,
+				timestamp);
+			column.setTtl(expiringTime);
+
+			wrapper.open();
+			wrapper.set_keyspace(KEYSPACE);//TODO 
+			wrapper.insert(key, parent, column, consistencyOnWrite);
+		} finally {
+			wrapper.close();
+		}		
+	}
 
 
+	@Override
+	public Map<byte[], byte[]> selectAll(String tableName, String primaryKey)
+			throws ServiceManagerException, IOBackEndException,
+			InternalBackEndException {
+		// read entire row
+		final SlicePredicate predicate = new SlicePredicate();
+		final SliceRange sliceRange = new SliceRange();
+		sliceRange.setStart(new byte[0]);
+		sliceRange.setFinish(new byte[0]);
+		predicate.setSlice_range(sliceRange);
+
+		return selectByPredicate(tableName, primaryKey, predicate);
+	}
+
+	@Override
+	public Map<byte[], byte[]> selectRange(String tableName, String primaryKey,
+			List<String> columnNames) throws ServiceManagerException,
+			IOBackEndException, InternalBackEndException {
+		
+		final List<ByteBuffer> columnNamesToByte = new ArrayList<ByteBuffer>();
+		for (final String columnName : columnNames) {
+			columnNamesToByte.add(MConverter.stringToByteBuffer(columnName));
+		}
+
+		final SlicePredicate predicate = new SlicePredicate();
+		predicate.setColumn_names(columnNamesToByte);
+
+		return selectByPredicate(tableName, primaryKey, predicate);		
+	}
+	
+	/**
+	 * Selects a range of columns, specifying the extremes.
+	 */
+	public Map<byte[], byte[]> selectRange(String tableName, String primaryKey,
+			byte[] startColumn, byte[] stopColumn) throws ServiceManagerException,
+			IOBackEndException, InternalBackEndException {
+
+		final SliceRange range = new SliceRange();
+		range.setStart(startColumn);
+		range.setFinish(stopColumn);
+
+		return selectByPredicate(tableName, primaryKey, new SlicePredicate().setSlice_range(range));		
+	}
+	/**
+	 * Gets the first n columns of the given CF row.
+	 * @param tableName		ColumnFamily.
+	 * @param primaryKey	Key of the row.
+	 * @param n				Number of returned columns (at most.)
+	 * @return
+	 */
+	public Map<byte[], byte[]> getFirstN(String tableName, String primaryKey,
+			Integer n) throws ServiceManagerException,
+			IOBackEndException, InternalBackEndException {
+
+				final SliceRange range = new SliceRange();
+				range.setStart(new byte[0]);
+				range.setFinish(new byte[0]);
+				range.setCount(n);
+
+				return selectByPredicate(tableName, primaryKey, new SlicePredicate().setSlice_range(range));	
+		
+	}
+	
+	/**
+	 * Used in myJam to perform geographical range queries.
+	 * @param tableName
+	 * @param primaryKey
+	 * @param startColumn
+	 * @param stopColumn
+	 * @return
+	 * @throws ServiceManagerException
+	 * @throws IOBackEndException
+	 * @throws InternalBackEndException
+	 */
+	public Map<byte[],Map<byte[], byte[]>> selectSCRange(String tableName, List<String> primaryKeys,
+			byte[] startColumn, byte[] stopColumn) throws ServiceManagerException,
+			IOBackEndException, InternalBackEndException {
+
+		final SliceRange range = new SliceRange();
+		range.setStart(startColumn);
+		range.setFinish(stopColumn);
+
+		return selectSCByPredicate(tableName, primaryKeys, new SlicePredicate().setSlice_range(range));		
+	}
+
+	@Override
+	public void removeColumn(String tableName, String key, String columnName)
+			throws ServiceManagerException, IOBackEndException,
+			InternalBackEndException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeAll(String tableName, String key)
+			throws InternalBackEndException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void put(String key, byte[] value) throws IOBackEndException,
+			InternalBackEndException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public byte[] get(String key) throws IOBackEndException,
+			InternalBackEndException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/*
+	 * Used by selectAll and selectRange
+	 */
+	private Map<byte[], byte[]> selectByPredicate(final String columnFamily,
+			final String key, final SlicePredicate predicate)
+			throws InternalBackEndException, IOBackEndException {
+
+		try {
+			wrapper.open();
+			wrapper.set_keyspace(KEYSPACE);
+
+			final ColumnParent parent = new ColumnParent(columnFamily);
+			final List<ColumnOrSuperColumn> results = wrapper.get_slice(key,
+					parent, predicate, consistencyOnRead);
+
+			final Map<byte[], byte[]> slice = new HashMap<byte[], byte[]>(
+					results.size());
+
+			for (final ColumnOrSuperColumn res : results) {
+				final Column col = res.getColumn();
+
+				slice.put(col.getName(), col.getValue());
+			}
+
+			return slice;
+		} finally {
+			wrapper.close();
+		}
+	}
+	
+	/*
+	 * Used by selectAll and selectRange
+	 */
+	private Map<byte[],Map<byte[], byte[]>> selectSCByPredicate(final String columnFamily,
+			final List<String> keys, final SlicePredicate predicate)
+			throws InternalBackEndException, IOBackEndException {
+
+		try {
+			wrapper.open();
+			wrapper.set_keyspace(KEYSPACE);
+
+			final ColumnParent parent = new ColumnParent(columnFamily);
+			final Map<ByteBuffer,List<ColumnOrSuperColumn>> results = wrapper.multiget_slice(keys,
+					parent, predicate, consistencyOnRead);
+			List<ColumnOrSuperColumn> listResults = new LinkedList<ColumnOrSuperColumn>();
+			for (final ByteBuffer key : results.keySet()){
+				listResults.addAll(results.get(key));
+			}
+			final Map<byte[],Map<byte[], byte[]>> slice = new HashMap<byte[], Map<byte[],byte[]>>(
+					listResults.size());
+
+			for (final ColumnOrSuperColumn res : listResults) {
+				final SuperColumn col = res.getSuper_column();
+				Map<byte[],byte[]> colMap = new HashMap<byte[],byte[]>();
+				for (Column resCol :col.columns){
+					colMap.put(resCol.getName(), resCol.getValue());
+				}
+				slice.put(col.getName(), colMap);
+			}
+
+			return slice;
+		} finally {
+			wrapper.close();
+		}
+	}
 }
