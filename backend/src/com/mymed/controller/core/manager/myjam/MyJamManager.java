@@ -64,7 +64,7 @@ public class MyJamManager extends AbstractManager{
 			
 			/** Check if the position is already occupied.*/
 			try{
-				myJamStorageManager.selectColumnInSuperColumn("Location", areaId, 
+				myJamStorageManager.selectColumn("Location", areaId, 
 						MConverter.longToByteBuffer(locId).array(), 
 						MConverter.stringToByteBuffer(report.getReportType()).array());
 				throw new InternalBackEndException("Position occupied.");
@@ -73,14 +73,14 @@ public class MyJamManager extends AbstractManager{
 			/**
 			 * SuperColumn insertion in CF Location 
 			 **/
-			myJamStorageManager.insertExpiringSuperColumn("Location", areaId, MConverter.longToByteBuffer(locId).array(), 
+			myJamStorageManager.insertExpiringColumn("Location", areaId, MConverter.longToByteBuffer(locId).array(), 
 					MConverter.stringToByteBuffer(report.getReportType()).array(),
 					reportId.ReportIdAsByteBuffer().array(),
 					timestamp, ReportType.valueOf(report.getReportType()).permTime);
 			/**
 			 * Column insertion in CF ActiveReport 
 			 **/
-			myJamStorageManager.insertExpiringColumn("ActiveReport", userId, reportId.ReportIdAsByteBuffer().array(), 
+			myJamStorageManager.insertExpiringColumn("ActiveReport", userId,null, reportId.ReportIdAsByteBuffer().array(), 
 					new byte[0], //The value field is not used.
 					timestamp, ReportType.valueOf(report.getReportType()).permTime);
 			/**
@@ -336,7 +336,7 @@ public class MyJamManager extends AbstractManager{
 		/**
 		 * Check if the report is expired or not.
 		 */
-		myJamStorageManager.selectColumnInSuperColumn("Location", areaId, 
+		myJamStorageManager.selectColumn("Location", areaId, 
 				MConverter.longToByteBuffer(locationId).array(), 
 				MConverter.stringToByteBuffer(reportDetails.getReportType()).array());
 		/**

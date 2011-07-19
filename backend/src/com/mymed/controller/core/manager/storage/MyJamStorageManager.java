@@ -6,6 +6,7 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -37,9 +38,9 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 	/**
 	 * The Default path of the wrapper config file
 	 */
-	public static String CONFIG_PATH = "/home/iacopo/workspace/mymed/backend/conf/myJamConfig.xml";
-	
-	public static String KEYSPACE ="myJamKeyspace";
+	public final static String CONFIG_PATH = "/home/iacopo/workspace/mymed/backend/conf/myJamConfig.xml";	
+	public final static String KEYSPACE ="myJamKeyspace";
+	public final static int maxNumColumns=1000; 
 
 	private final CassandraWrapper wrapper;
 
@@ -110,13 +111,7 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 			String columnName) throws ServiceManagerException,
 			IOBackEndException, InternalBackEndException {
 		try {
-			wrapper.open();
-			wrapper.set_keyspace(KEYSPACE);
-			final ColumnPath colPathName = new ColumnPath(tableName);
-			colPathName.setColumn(columnName.getBytes("UTF8"));
-			return wrapper
-					.get(primaryKey, colPathName, IStorageManager.consistencyOnRead)
-					.getColumn().getValue();
+			return this.selectColumn(tableName, primaryKey, null, columnName.getBytes("UTF8"));
 		} catch (final UnsupportedEncodingException e) {
 			e.printStackTrace();
 			throw new InternalBackEndException(
@@ -130,7 +125,7 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 	}
 	
 	/**
-	 * Selects a column in a SCFamily.
+	 * Selects a column in a CF.
 	 * @param tableName
 	 * @param primaryKey
 	 * @param superColumn
@@ -140,10 +135,9 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 	 * @throws IOBackEndException
 	 * @throws InternalBackEndException
 	 */
-	public byte[] selectColumnInSuperColumn(String tableName, String primaryKey,
+	public byte[] selectColumn(String tableName, String primaryKey,
 			byte[] superColumn, byte[] column) throws ServiceManagerException,
 			IOBackEndException, InternalBackEndException {
-		byte[] columnValue;
 		try {
 										
 		/** Transport Opening*/
@@ -151,17 +145,18 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 		wrapper.set_keyspace(KEYSPACE);
 
 		/** Check if the position is already occupied.*/
-		ColumnPath columnPath = new ColumnPath(tableName);
-		columnPath.setSuper_column(superColumn);
+		final ColumnPath columnPath = new ColumnPath(tableName);
+		if (superColumn != null)
+			columnPath.setSuper_column(superColumn);
 		columnPath.setColumn(column);
 		
 			//TODO Define the consistency level to use on this operation.
-		Column res = wrapper.get(primaryKey, columnPath, consistencyOnRead).getColumn();
-		columnValue = res.getValue();
+		return wrapper.get(primaryKey, columnPath, consistencyOnRead)
+							.getColumn()
+							.getValue();
 		}catch (InternalBackEndException e){
-			throw new InternalBackEndException("selectColumnInSuperColumn failed.");
+			throw new InternalBackEndException("selectColumn failed.");
 		}
-		return columnValue;
 	}
 	
 	/**
@@ -193,7 +188,7 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 		
 			//TODO Define the consistency level to use on this operation.
 		Column res = wrapper.get(primaryKey, columnPath, consistencyOnRead).getColumn();
-		//TODO Find a better way to pass all the arguments.
+		//TODO Maybe there's a better way to pass all the arguments.
 		expCol.setValue(res.getValue());
 		expCol.setTimestamp(res.getTimestamp());
 		expCol.setTimeToLive(res.getTtl());
@@ -208,57 +203,59 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 	public void insertColumn(String tableName, String primaryKey,
 			String columnName, byte[] value) throws ServiceManagerException,
 			IOBackEndException, InternalBackEndException {
-		
-		insertColumn(tableName, primaryKey, MConverter.stringToByteBuffer(columnName).array(),value);
+		try{
+			insertColumn(tableName, primaryKey, columnName.getBytes("UTF8"),value);
+		} catch (final UnsupportedEncodingException e) {
+			e.printStackTrace();
+			throw new InternalBackEndException(
+					"UnsupportedEncodingException with\n"
+							+ "\t- columnFamily = " + tableName + "\n"
+							+ "\t- key = " + primaryKey + "\n" + "\t- columnName = "
+							+ columnName + "\n");
+		}		
 	}
 	
 	public void insertColumn(String tableName, String primaryKey,
 			byte[] columnName, byte[] value) throws ServiceManagerException,
 			IOBackEndException, InternalBackEndException {
 		
-			final long timestamp = (long) (System.currentTimeMillis()*1E3);
-			insertExpiringColumn(tableName,primaryKey,columnName,value,timestamp,0);
+		final long timestamp = (long) (System.currentTimeMillis()*1E3);
+		insertExpiringColumn(tableName,primaryKey,columnName,value,timestamp,0);
 	}
 	
 	public void insertExpiringColumn(String tableName, String primaryKey,
 			byte[] columnName, byte[] value, long timestamp, int expiringTime) throws ServiceManagerException,
 			IOBackEndException, InternalBackEndException {
-		
-		try {
-			final ColumnParent parent = new ColumnParent(tableName);
-			final ByteBuffer bufferValue = ByteBuffer.wrap(value);
-			final ByteBuffer bufferName = ByteBuffer.wrap(columnName);
-			final Column column = new Column(
-					bufferName, bufferValue,
-					timestamp);
-			if (expiringTime>0)
-				column.setTtl(expiringTime);
-
-			wrapper.open();
-			wrapper.set_keyspace(KEYSPACE);//TODO
-			wrapper.insert(primaryKey, parent, column, consistencyOnWrite);
-		} finally {
-			wrapper.close();
-		}
-		
+			
+		insertExpiringColumn(tableName,primaryKey,null,columnName,value,timestamp,expiringTime);
 	}
 	
 	@Override
-	public void insertSuperColumn(String tableName, String key,
+	public void insertSuperColumn(String tableName, String primaryKey,
 			String superColumn, String columnName, byte[] value)
 			throws ServiceManagerException, InternalBackEndException {
 		
 		final long timestamp = (long) (System.currentTimeMillis()*1E3);
-		insertExpiringSuperColumn(tableName,key,superColumn.getBytes(),columnName.getBytes(),value,timestamp,0);		
+		try{
+			insertExpiringColumn(tableName,primaryKey,superColumn.getBytes(),columnName.getBytes("UTF8"),value,timestamp,0);
+		} catch (final UnsupportedEncodingException e) {
+			e.printStackTrace();
+			throw new InternalBackEndException(
+					"UnsupportedEncodingException with\n"
+							+ "\t- columnFamily = " + tableName + "\n"
+							+ "\t- key = " + primaryKey + "\n" + "\t- columnName = "
+							+ columnName + "\n");	
+		}
 	}
 	
-	public void insertExpiringSuperColumn(String tableName, String key,
+	public void insertExpiringColumn(String tableName, String key,
 			byte[] superColumn, byte[] columnName, byte[] value,long timestamp,int expiringTime)
 			throws ServiceManagerException, InternalBackEndException {
 		
 		try {
 			final ColumnParent parent = new ColumnParent(tableName);
-			parent.setSuper_column(superColumn);
+			if (superColumn!=null)
+				parent.setSuper_column(superColumn);
 			final ByteBuffer bufferValue = ByteBuffer.wrap(value);
 			final ByteBuffer bufferName = ByteBuffer.wrap(columnName);
 			Column column = new Column(
@@ -285,6 +282,8 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 		final SliceRange sliceRange = new SliceRange();
 		sliceRange.setStart(new byte[0]);
 		sliceRange.setFinish(new byte[0]);
+		sliceRange.setReversed(true);
+		sliceRange.setCount(maxNumColumns);
 		predicate.setSlice_range(sliceRange);
 
 		return selectByPredicate(tableName, primaryKey, predicate);
@@ -298,6 +297,8 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 		final SliceRange sliceRange = new SliceRange();
 		sliceRange.setStart(new byte[0]);
 		sliceRange.setFinish(new byte[0]);
+		sliceRange.setReversed(true);
+		sliceRange.setCount(maxNumColumns);
 		predicate.setSlice_range(sliceRange);
 		
 		return selectByPredicate(tableName, primaryKeys, predicate);
@@ -436,20 +437,6 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 			wrapper.close();
 		}
 	}
-
-	@Override
-	public void put(String key, byte[] value) throws IOBackEndException,
-			InternalBackEndException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public byte[] get(String key) throws IOBackEndException,
-			InternalBackEndException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	/*
 	 * Used by selectAll and selectRange
@@ -466,9 +453,15 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 			final List<ColumnOrSuperColumn> results = wrapper.get_slice(key,
 					parent, predicate, consistencyOnRead);
 
-			final Map<byte[], byte[]> slice = new HashMap<byte[], byte[]>(
+//			final Map<byte[], byte[]> slice = new HashMap<byte[], byte[]>(
+//					results.size());
+			/**
+			 * I need to mantain the results ordered.
+			 */
+			final Map<byte[], byte[]> slice = new LinkedHashMap<byte[], byte[]>(
 					results.size());
-
+			
+			
 			for (final ColumnOrSuperColumn res : results) {
 				final Column col = res.getColumn();
 
@@ -496,8 +489,9 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 			final Map<ByteBuffer,List<ColumnOrSuperColumn>> results = wrapper.multiget_slice(keys,
 					parent, predicate, consistencyOnRead);
 
-			final Map<String,Map<byte[], byte[]>> slice = new HashMap<String, Map<byte[],byte[]>>(
-					results.size());
+			final Map<String,Map<byte[], byte[]>> slice = new HashMap<String, Map<byte[],byte[]>>
+					(results.size());
+
 
 			for (final ByteBuffer key : results.keySet()) {
 				final List<ColumnOrSuperColumn> columns = results.get(key);
@@ -550,6 +544,20 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 		} finally {
 			wrapper.close();
 		}
+	}
+	
+	@Override
+	public void put(String key, byte[] value) throws IOBackEndException,
+			InternalBackEndException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public byte[] get(String key) throws IOBackEndException,
+			InternalBackEndException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	public class ExpColumnBean{
