@@ -19,9 +19,10 @@ public abstract class MyJamTypes{
 		 * the enum name words must be separated by
 		 * the char "_".
 		 */
-		String getString(){
-			String tmp = this.getString();
-			tmp.replace("_", " ");
+		@Override
+		public String toString(){
+			String tmp = this.name();
+			tmp=tmp.replace("_", " ");
 			return tmp.toLowerCase();
 		}
 	}
@@ -40,9 +41,10 @@ public abstract class MyJamTypes{
 		 * the enum name words must be separated by
 		 * the char "_".
 		 */
-		String getString(){
-			String tmp = this.getString();
-			tmp.replace("_", " ");
+		@Override
+		public String toString(){
+			String tmp = this.name();
+			tmp=tmp.replace("_", " ");
 			return tmp.toLowerCase();
 		}
 	}
@@ -66,9 +68,10 @@ public abstract class MyJamTypes{
 		 * the enum name words must be separated by
 		 * the char "_".
 		 */
-		String getString(){
-			String tmp = this.getString();
-			tmp.replace("_", " ");
+		@Override
+		public String toString(){
+			String tmp = this.name();
+			tmp=tmp.replace("_", " ");
 			return tmp.toLowerCase();
 		}
 	}

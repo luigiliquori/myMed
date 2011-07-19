@@ -19,7 +19,7 @@ public class KeysFinder {
 	private Set<HilbertQuad> coveringSet = null;
 
 	private enum Position{internal,intersects,external};
-	private static int maxDiameter=100000;
+	private static int maxRadius=50000;
 	private static int maxNumRanges=6;
 	private static short maxDepth=10;
 	private static short areaMaskLength=15;
@@ -31,19 +31,19 @@ public class KeysFinder {
 		coveringSet=new HashSet<HilbertQuad>();
 	}
 	/**
-	 * Returns the number of key ranges that cover the bounding box of the circular area with diameter range
+	 * Returns the number of key ranges that cover the bounding box of the circular area with radius range
 	 * expressed in meter,the value can be less or equal of maxNumRanges. The ranges are put in the list ranges, 
 	 * the total list of covering HilbertQuad is put in the list quads.
 	 * @returns Returns the number of key ranges that cover the bounding box.
 	 * @param loc Center of the search area.
-	 * @param diameter Diameter of the search area
+	 * @param radius Radius of the search area
 	 * @param ranges List of ranges of keys, must be empty.
 	 * @param quads List of HilbertQuad of the covering set.
 	 */
-	protected List<long[]> getKeysRanges(Location loc,int diameter){		
+	protected List<long[]> getKeysRanges(Location loc,int radius){		
 		//List<HilbertQuad> boundList = getBound(loc,range);
 		List<long[]> ranges = new ArrayList<long[]>(maxNumRanges);
-		getBound(loc,diameter);
+		getBound(loc,radius);
 		expandQuads(ranges);
 		return ranges;
 	}
@@ -79,15 +79,15 @@ public class KeysFinder {
 	 * Returns up to four HilbertQuad, that cover the range specified starting from the point loc. It also sets the attributes minLat, 
 	 * minLon, maxLat, maxLon, used by the method expandQuad.
 	 */ 	
-	private int getBound(Location loc,int diameter){//TODO set to private.
+	private int getBound(Location loc,int radius){//TODO set to private.
 		int level;
 		int numQuads=0;
 
-		if (diameter<1 || diameter>maxDiameter)
-			throw new IllegalArgumentException("Diameter "+String.valueOf(diameter)+" out of bound");
+		if (radius<10 || radius>maxRadius)
+			throw new IllegalArgumentException("Radius "+String.valueOf(radius)+" out of bound");
 		//Evaluate the level of coding necessary to obtain a quad that possibly contains the area determined by range. 
 		//Set the coordinates of the bounding box.
-		Location[] corners = loc.boundingCoordinates(diameter/2);
+		Location[] corners = loc.boundingCoordinates(radius);
 		minLat=corners[0].getLatitude();
 		minLon=corners[0].getLongitude();
 		maxLat=corners[1].getLatitude();

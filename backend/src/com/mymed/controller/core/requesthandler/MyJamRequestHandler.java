@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.nio.BufferOverflowException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,14 +19,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.JsonSyntaxException;
+import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.myjam.MyJamManager;
 import com.mymed.controller.core.manager.storage.MyJamStorageManager;
 import com.mymed.myjam.type.IMyJamType;
 import com.mymed.myjam.type.MReportBean;
 import com.mymed.myjam.type.MShortReportBean;
+import com.mymed.myjam.type.MFeedBackBean;
 import com.mymed.myjam.type.ReportId;
-import com.mymed.myjam.type.ReportInfo;
 import com.mymed.myjam.type.WrongFormatException;
 /**
  * 
@@ -35,6 +37,7 @@ import com.mymed.myjam.type.WrongFormatException;
 @WebServlet("/MyJamHandler")
 public class MyJamRequestHandler extends AbstractRequestHandler {
 	private static final long serialVersionUID = 1L;
+	private static final int maxNumUpdates = 10;
 	/**StorageManager*/
 	MyJamManager myJamManager;
 	/** Request code Map*/ 
@@ -43,63 +46,97 @@ public class MyJamRequestHandler extends AbstractRequestHandler {
 	public void destroy() {} // do nothing
 
 	/**
-     * @throws ServletException 
+	 * @throws ServletException 
 	 * @see HttpServlet#HttpServlet()
-     */
-    public MyJamRequestHandler() throws ServletException {
-    	super();
-    	try {
+	 */
+	public MyJamRequestHandler() throws ServletException {
+		super();
+		try {
 			myJamManager = new MyJamManager(new MyJamStorageManager());
 		} catch (InternalBackEndException e) {
 			throw new ServletException("DHTManager is not accessible because: " + e.getMessage());
 		}
-    	for(MyJamRequestCode r : MyJamRequestCode.values()){
+		for(MyJamRequestCode r : MyJamRequestCode.values()){
 			reqCodeMap.put(r.code, r);
 		}
-    }
+	}
 
 	/**
+	 * @throws IOException 
+	 * @throws IOBackEndException 
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			
+		ReportId reportId;
+		String resToJson;
+		try {			
 			Map<String,String> params = getParameters(request);
 			MyJamRequestCode code = reqCodeMap.get(params.get("code"));
 			if (code==null)
 				throw new InternalBackEndException("null code");
 			switch (code){
-			case GET_REPORT:
-				break;
-			case GET_REPORTS:
+			case SEARCH_REPORTS:
 				// Latitude and longitude in micro-degrees
 				int latitude = Integer.parseInt(params.get("latitude"));
 				int longitude = Integer.parseInt(params.get("longitude"));
 				// Diameter in m.
-				int diameter = Integer.parseInt(params.get("diameter"));
-				List<MShortReportBean> resultList = myJamManager.getReports((double) (latitude/1E6), (double) (longitude/1E6), diameter);
-				String resToJson = this.getGson().toJson(resultList);
+				int radius = Integer.parseInt(params.get("radius"));
+				List<MShortReportBean> resultList = myJamManager.getReports((double) (latitude/1E6), (double) (longitude/1E6), radius);
+				resToJson = this.getGson().toJson(resultList);
 				setResponseText(resToJson);
 				break;
-			case GET_REPORT_DETAILS:
-				ReportId reportId = ReportId.parseString(params.get("reportid"));
-				List<ReportInfo> reportInfo = myJamManager.getReportDetails(reportId);
-				String resDetToJson = this.getGson().toJson(reportInfo);
-				setResponseText(resDetToJson);
+			case GET_REPORT:
+				reportId = ReportId.parseString(params.get("id"));
+				MReportBean reportInfo = myJamManager.getReport(reportId.toString());
+				resToJson = this.getGson().toJson(reportInfo);
+				setResponseText(resToJson);
+				break;
+			case GET_AVAILABLE_UPDATES:
+				reportId = ReportId.parseString(params.get("id"));
+				List<String> updateIdList = myJamManager.getUpdateId(reportId.toString());
+				resToJson = this.getGson().toJson(updateIdList);
+				setResponseText(resToJson);
+				break;
+			case GET_UPDATES:
+				Map<String,String[]> paramArrays = getParameterArrays(request);
+				String[] ids = paramArrays.get("id");
+				List<String> updateIds = new ArrayList<String>(ids.length);
+				if (ids.length>maxNumUpdates)
+					throw new InternalBackEndException(" Malformed request. ");
+				for (String updateId: ids){
+					updateIds.add(ReportId.parseString(updateId).toString());
+				}
+				List<MReportBean> updates = myJamManager.getUpdates(updateIds);
+				resToJson = this.getGson().toJson(updates);
+				setResponseText(resToJson);
+				break;
+			case GET_FEEDBACKS:
+				reportId = ReportId.parseString(params.get("id"));
+				List<MFeedBackBean> feedbackList = myJamManager.getFeedbacks(reportId.toString());
+				resToJson = this.getGson().toJson(feedbackList);
+				setResponseText(resToJson);
+				break;
+			case GET_ACTIVE_REPORTS:
+				String userId = params.get("userId");
+				List<String> activeRepId = myJamManager.getActiveReport(userId);
+				resToJson = this.getGson().toJson(activeRepId);
+				setResponseText(resToJson);
 				break;
 			default:
 				throw new InternalBackEndException("Wrong code");
 			}
 			super.doGet(request, response);
 		} catch (InternalBackEndException e) {
-			// TODO Auto-generated catch block
+			// TODO Check
 			handleInternalError(e, response);
 		} catch (NullPointerException e) {
 			handleInternalError(new InternalBackEndException("Missing parameter. "), response);
-		} catch (NumberFormatException e){
+		}catch (NumberFormatException e){
 			handleInternalError(new InternalBackEndException("Wrong parameter. "), response);
 		} catch (WrongFormatException e){
-			handleInternalError(new InternalBackEndException("Wrong report Id. "), response);
+			handleInternalError(new InternalBackEndException("Wrong search type. "), response);
+		} catch (IOBackEndException e) {
+			handleNotFoundError(e, response);
 		}
 	}
 
@@ -107,6 +144,8 @@ public class MyJamRequestHandler extends AbstractRequestHandler {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ReportId reportId;
+		String content;
 		try {
 			Map<String,String> params = getParameters(request);
 			MyJamRequestCode code = reqCodeMap.get(params.get("code"));
@@ -114,96 +153,143 @@ public class MyJamRequestHandler extends AbstractRequestHandler {
 			case INSERT_REPORT:
 				int latitude = Integer.parseInt(params.get("latitude"));
 				int longitude = Integer.parseInt(params.get("longitude"));
-				String content = convertStreamToString(request.getInputStream(),request.getContentLength());
+				content = convertStreamToString(request.getInputStream(),request.getContentLength());
 				MReportBean report = this.getGson().fromJson(content, MReportBean.class);
 				validate(report);
-				myJamManager.insertReport(report,latitude,longitude);
+				String res = myJamManager.insertReport(report,latitude,longitude);
+				String resToJson = this.getGson().toJson(res);
+				setResponseText(resToJson);
 				break;
 			case INSERT_UPDATE:
+				reportId = ReportId.parseString(params.get("id"));
+				content = convertStreamToString(request.getInputStream(),request.getContentLength());
+				MReportBean update = this.getGson().fromJson(content, MReportBean.class);
+				validate(update);
+				myJamManager.insertUpdate(reportId.toString(), update);
 				break;
 			case INSERT_FEEDBACK:
+				reportId = ReportId.parseString(params.get("id"));
+				content = convertStreamToString(request.getInputStream(),request.getContentLength());
+				MFeedBackBean feedback =  this.getGson().fromJson(content, MFeedBackBean.class);
+				validate(feedback);
+				myJamManager.insertFeedback(reportId.toString(), feedback);
 				break;
 			}
+			super.doPost(request, response);
 		} catch (InternalBackEndException e) {
-			// TODO Auto-generated catch block
+			// TODO Check
 			handleInternalError(e, response);
-		} catch (NumberFormatException e) {
-			handleInternalError(new InternalBackEndException("Error on parameters."), response);
-		} catch (JsonSyntaxException e) {
-			handleInternalError(new InternalBackEndException("Error parsing Json string."), response);
+		} catch (IOBackEndException e) {
+			handleNotFoundError(e, response);
+		}catch (NullPointerException e) {
+			handleInternalError(new InternalBackEndException("Missing parameter. "), response);
+		} catch (NumberFormatException e){
+			handleInternalError(new InternalBackEndException("Wrong parameter. "), response);
+		} catch (WrongFormatException e){
+			handleInternalError(new InternalBackEndException("Wrong report Id. "), response);
+		} catch (JsonSyntaxException e){
+			handleInternalError(new InternalBackEndException("Error parsing content. "), response);
 		}
 	}
-	
+
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ReportId reportId;
 		
-	}
-	
-	/** Request Code*/
-	protected enum MyJamRequestCode { 
-		GET_REPORT ("0"), 	
-		GET_REPORTS ("1"),
-		GET_REPORT_DETAILS ("2"),
-		INSERT_REPORT ("3"),
-		INSERT_UPDATE ("4"),
-		INSERT_FEEDBACK ("5");
-		//TODO Eventually add DELETE_REPORT and DELETE_UPDATE
-		public final String code;
-
-		MyJamRequestCode(String code){
-			this.code = code;
-		}
-	}
-
-	/**
-	 * Given an InputStream reads the bytes as UTF8 chars and return a 
-	 * String.
-	 * @param is Input stream.
-	 * @param length Length of the stream in bytes.
-	 * @return The string
-	 * @throws InternalBackEndException Format is not correct or the length less then the real wrong.
-	 */
-	private static String convertStreamToString(InputStream is,int length) throws InternalBackEndException {
-		try {
-			if (length>0){
-				ByteBuffer byteBuff = ByteBuffer.allocate(length);
-				int currByte;
-				while ((currByte=is.read()) != -1) {
-					byteBuff.put((byte) currByte);
-				}
-				byteBuff.compact();
-				return com.mymed.utils.MConverter.byteBufferToString(byteBuff);
-			}else{
-				BufferedReader buffRead = new BufferedReader(new InputStreamReader(is,Charset.forName("UTF-8")));
-				StringBuilder sb = new StringBuilder();
-				String line;
-				while ((line = buffRead.readLine()) != null) {
-					sb.append(line + "\n");
-				}
-				return sb.toString();
-			}
-		} catch (IOException e) {
-			throw new InternalBackEndException("Wrong content");
-		} catch (BufferOverflowException e){
-			throw new InternalBackEndException("Wrong length");
-		}finally {
-			try {
-				is.close();             
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	
-	/**
-	 * Validate a NewReport.
-	 * @param arg0
-	 * @throws InternalBackEndException
-	 */
-	private static void validate(IMyJamType arg0) throws InternalBackEndException {
 		try{
-			arg0.validate();
-		}catch(WrongFormatException e){
-			throw new InternalBackEndException("Wrong request: "+e.getMessage());
+			Map<String,String> params = getParameters(request);
+			MyJamRequestCode code = reqCodeMap.get(params.get("code"));
+			switch (code){
+			case DELETE_REPORT:
+				reportId = ReportId.parseString(params.get("id"));
+				myJamManager.deleteReport(reportId);
+				break;
+			}
+			super.doDelete(request, response);
+		} catch (InternalBackEndException e) {
+			// TODO Check
+			handleInternalError(e, response);
+		}catch (NullPointerException e) {
+			handleInternalError(new InternalBackEndException("Missing parameter. "), response);
+		} catch (NumberFormatException e){
+			handleInternalError(new InternalBackEndException("Wrong parameter. "), response);
+		} catch (JsonSyntaxException e){
+			handleInternalError(new InternalBackEndException("Error parsing content. "), response);
+		} catch (WrongFormatException e) {
+			handleInternalError(new InternalBackEndException("Wrong report id. "), response);
 		}
 	}
+
+/** Request Code*/
+protected enum MyJamRequestCode { 
+	SEARCH_REPORTS ("0"),
+	GET_REPORT ("1"), 	
+	GET_AVAILABLE_UPDATES ("2"),
+	GET_UPDATES ("3"),
+	GET_FEEDBACKS("4"),
+	GET_ACTIVE_REPORTS("5"),	
+	GET_USER_REPORT_UPDATE("6"),	//TODO To implement
+	INSERT_REPORT ("7"),
+	INSERT_UPDATE ("8"),
+	INSERT_FEEDBACK ("9"),
+	DELETE_REPORT("10");
+	//TODO Eventually add DELETE_REPORT
+	public final String code;
+
+	MyJamRequestCode(String code){
+		this.code = code;
+	}
+}
+
+/**
+ * Given an InputStream reads the bytes as UTF8 chars and return a 
+ * String.
+ * @param is Input stream.
+ * @param length Length of the stream in bytes.
+ * @return The string
+ * @throws InternalBackEndException Format is not correct or the length less then the real wrong.
+ */
+private static String convertStreamToString(InputStream is,int length) throws InternalBackEndException {
+	try {
+		if (length>0){
+			ByteBuffer byteBuff = ByteBuffer.allocate(length);
+			int currByte;
+			while ((currByte=is.read()) != -1) {
+				byteBuff.put((byte) currByte);
+			}
+			byteBuff.compact();
+			return com.mymed.utils.MConverter.byteBufferToString(byteBuff);
+		}else{
+			BufferedReader buffRead = new BufferedReader(new InputStreamReader(is,Charset.forName("UTF-8")));
+			StringBuilder sb = new StringBuilder();
+			String line;
+			while ((line = buffRead.readLine()) != null) {
+				sb.append(line + "\n");
+			}
+			return sb.toString();
+		}
+	} catch (IOException e) {
+		throw new InternalBackEndException("Wrong content");
+	} catch (BufferOverflowException e){
+		throw new InternalBackEndException("Wrong length");
+	}finally {
+		try {
+			is.close();             
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+}
+
+/**
+ * Validate a NewReport.
+ * @param arg0
+ * @throws InternalBackEndException
+ */
+private static void validate(IMyJamType arg0) throws InternalBackEndException {
+	try{
+		arg0.validate();
+	}catch(WrongFormatException e){
+		throw new InternalBackEndException("Wrong request: "+e.getMessage());
+	}
+}
 }

@@ -37,6 +37,20 @@ public class ReportId {
 	public String toString(){
 		return userId+separationChar+String.valueOf(timestamp);		
 	}
+	
+	@Override
+	public boolean equals(Object o){
+		ReportId obj = null;
+		try{
+			obj = (ReportId) o;
+			if (obj.getTimestamp() == this.getTimestamp() && obj.getUserId().equals(this.getUserId()))
+				return true;
+			else
+				return false;	
+		}catch(Exception e){
+			return false;
+		}
+	}
 	/**
 	 * Return a ByteBuffer representation of the ReportId
 	 * @return 

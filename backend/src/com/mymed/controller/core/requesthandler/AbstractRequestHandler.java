@@ -68,13 +68,27 @@ public abstract class AbstractRequestHandler extends HttpServlet {
 		while (paramNames.hasMoreElements()) {
 			String paramName = (String) paramNames.nextElement();
 			String[] paramValues = request.getParameterValues(paramName);
-			if (paramValues.length >= 1) { // all the params should be atomic
+			if (paramValues.length == 1) { // all the params should be atomic
 				parameters.put(paramName, paramValues[0]);
+				System.out.println(paramName + " : " +  paramValues[0]);
 			}
-			System.out.println(paramName + " : " +  paramValues[0]);
 		}
 		if (!parameters.containsKey("code")){
 			throw new InternalBackEndException("code argument is missing!");
+		}
+		return parameters;
+	}
+	
+	protected Map<String, String[]> getParameterArrays(HttpServletRequest request) throws InternalBackEndException{
+		Map<String, String[]> parameters = new HashMap<String, String[]>();
+		Enumeration<String> paramNames = request.getParameterNames();
+		while (paramNames.hasMoreElements()) {
+			String paramName = (String) paramNames.nextElement();
+			String[] paramValues = request.getParameterValues(paramName);
+			if (paramValues.length >= 1) { // all the params should be atomic
+				parameters.put(paramName, paramValues);
+				System.out.println(paramName + " : " +  paramValues.toString());
+			}
 		}
 		return parameters;
 	}
@@ -138,6 +152,13 @@ public abstract class AbstractRequestHandler extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		printResponse(response);
+	}
+	
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		printResponse(response);
 	}
 

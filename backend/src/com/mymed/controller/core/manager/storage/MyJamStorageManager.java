@@ -130,7 +130,7 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 	}
 	
 	/**
-	 * Return null if the column is not present.
+	 * Selects a column in a SCFamily.
 	 * @param tableName
 	 * @param primaryKey
 	 * @param superColumn
@@ -156,13 +156,52 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 		columnPath.setColumn(column);
 		
 			//TODO Define the consistency level to use on this operation.
-		columnValue = wrapper.get(primaryKey, columnPath, consistencyOnRead).getColumn().getValue();
-		} catch (IOBackEndException e) {
-			return null;
+		Column res = wrapper.get(primaryKey, columnPath, consistencyOnRead).getColumn();
+		columnValue = res.getValue();
 		}catch (InternalBackEndException e){
 			throw new InternalBackEndException("selectColumnInSuperColumn failed.");
 		}
 		return columnValue;
+	}
+	
+	/**
+	 * Returns the expiring column, with the timestamp and the TTL.
+	 * @param tableName	Name of the CF.
+	 * @param primaryKey The row key.
+	 * @param superColumn The SuperColumn name, can be put safely to null if is a CF, but is compulsory if is a SuperCF.
+	 * @param column The Column name.
+	 * @return
+	 * @throws ServiceManagerException
+	 * @throws IOBackEndException The column is not present.
+	 * @throws InternalBackEndException
+	 */
+	public ExpColumnBean selectExpiringColumn(String tableName, String primaryKey,
+			byte[] superColumn, byte[] column) throws ServiceManagerException,
+			IOBackEndException, InternalBackEndException {
+		ExpColumnBean expCol = new ExpColumnBean();
+		try {
+										
+		/** Transport Opening*/
+		wrapper.open();
+		wrapper.set_keyspace(KEYSPACE);
+
+		/** Set up parameters.*/
+		ColumnPath columnPath = new ColumnPath(tableName);
+		if (superColumn!=null)
+			columnPath.setSuper_column(superColumn);
+		columnPath.setColumn(column);
+		
+			//TODO Define the consistency level to use on this operation.
+		Column res = wrapper.get(primaryKey, columnPath, consistencyOnRead).getColumn();
+		//TODO Find a better way to pass all the arguments.
+		expCol.setValue(res.getValue());
+		expCol.setTimestamp(res.getTimestamp());
+		expCol.setTimeToLive(res.getTtl());
+				
+		}catch (InternalBackEndException e){
+			throw new InternalBackEndException("selectColumnInSuperColumn failed.");
+		}
+		return expCol;
 	}
 
 	@Override
@@ -177,14 +216,23 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 			byte[] columnName, byte[] value) throws ServiceManagerException,
 			IOBackEndException, InternalBackEndException {
 		
+			final long timestamp = (long) (System.currentTimeMillis()*1E3);
+			insertExpiringColumn(tableName,primaryKey,columnName,value,timestamp,0);
+	}
+	
+	public void insertExpiringColumn(String tableName, String primaryKey,
+			byte[] columnName, byte[] value, long timestamp, int expiringTime) throws ServiceManagerException,
+			IOBackEndException, InternalBackEndException {
+		
 		try {
-			final long timestamp = System.currentTimeMillis();
 			final ColumnParent parent = new ColumnParent(tableName);
 			final ByteBuffer bufferValue = ByteBuffer.wrap(value);
 			final ByteBuffer bufferName = ByteBuffer.wrap(columnName);
 			final Column column = new Column(
 					bufferName, bufferValue,
 					timestamp);
+			if (expiringTime>0)
+				column.setTtl(expiringTime);
 
 			wrapper.open();
 			wrapper.set_keyspace(KEYSPACE);//TODO
@@ -200,29 +248,15 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 			String superColumn, String columnName, byte[] value)
 			throws ServiceManagerException, InternalBackEndException {
 		
-		try {
-			final long timestamp = (long) (System.currentTimeMillis()*1E3);
-			final ColumnParent parent = new ColumnParent(tableName);
-			parent.setSuper_column(MConverter.stringToByteBuffer(superColumn));
-			final ByteBuffer buffer = ByteBuffer.wrap(value);
-			final Column column = new Column(
-					MConverter.stringToByteBuffer(columnName), buffer,
-					timestamp);
-
-			wrapper.open();
-			wrapper.set_keyspace(KEYSPACE);//TODO
-			wrapper.insert(key, parent, column, consistencyOnWrite);
-		} finally {
-			wrapper.close();
-		}		
+		final long timestamp = (long) (System.currentTimeMillis()*1E3);
+		insertExpiringSuperColumn(tableName,key,superColumn.getBytes(),columnName.getBytes(),value,timestamp,0);		
 	}
 	
 	public void insertExpiringSuperColumn(String tableName, String key,
-			byte[] superColumn, byte[] columnName, byte[] value,int expiringTime)
+			byte[] superColumn, byte[] columnName, byte[] value,long timestamp,int expiringTime)
 			throws ServiceManagerException, InternalBackEndException {
 		
 		try {
-			final long timestamp = (long) (System.currentTimeMillis()*1E3);
 			final ColumnParent parent = new ColumnParent(tableName);
 			parent.setSuper_column(superColumn);
 			final ByteBuffer bufferValue = ByteBuffer.wrap(value);
@@ -230,7 +264,8 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 			Column column = new Column(
 				bufferName, bufferValue,
 				timestamp);
-			column.setTtl(expiringTime);
+			if (expiringTime>0)
+				column.setTtl(expiringTime);
 
 			wrapper.open();
 			wrapper.set_keyspace(KEYSPACE);//TODO 
@@ -254,6 +289,19 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 
 		return selectByPredicate(tableName, primaryKey, predicate);
 	}
+	
+	public Map<String,Map<byte[], byte[]>> selectAll(String tableName, List<String> primaryKeys)
+			throws ServiceManagerException, IOBackEndException,
+			InternalBackEndException {
+		// read entire row
+		final SlicePredicate predicate = new SlicePredicate();
+		final SliceRange sliceRange = new SliceRange();
+		sliceRange.setStart(new byte[0]);
+		sliceRange.setFinish(new byte[0]);
+		predicate.setSlice_range(sliceRange);
+		
+		return selectByPredicate(tableName, primaryKeys, predicate);
+	}
 
 	@Override
 	public Map<byte[], byte[]> selectRange(String tableName, String primaryKey,
@@ -275,12 +323,13 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 	 * Selects a range of columns, specifying the extremes.
 	 */
 	public Map<byte[], byte[]> selectRange(String tableName, String primaryKey,
-			byte[] startColumn, byte[] stopColumn) throws ServiceManagerException,
+			byte[] startColumn, byte[] stopColumn,int maxNum) throws ServiceManagerException,
 			IOBackEndException, InternalBackEndException {
 
 		final SliceRange range = new SliceRange();
 		range.setStart(startColumn);
 		range.setFinish(stopColumn);
+		range.setCount(maxNum);
 
 		return selectByPredicate(tableName, primaryKey, new SlicePredicate().setSlice_range(range));		
 	}
@@ -316,29 +365,76 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 	 * @throws InternalBackEndException
 	 */
 	public Map<byte[],Map<byte[], byte[]>> selectSCRange(String tableName, List<String> primaryKeys,
-			byte[] startColumn, byte[] stopColumn) throws ServiceManagerException,
+			byte[] startColumn, byte[] stopColumn,int num) throws ServiceManagerException,
 			IOBackEndException, InternalBackEndException {
 
 		final SliceRange range = new SliceRange();
 		range.setStart(startColumn);
 		range.setFinish(stopColumn);
+		range.setCount(num);	//TODO Maybe better split and perform several queries.
 
 		return selectSCByPredicate(tableName, primaryKeys, new SlicePredicate().setSlice_range(range));		
 	}
 
+	/**
+	 * Remove a specific column defined by the columnName
+	 * 
+	 * @param keyspace
+	 * @param columnFamily
+	 * @param key
+	 * @param columnName
+	 * @throws ServiceManagerException
+	 * @throws InternalBackEndException
+	 * @throws UnsupportedEncodingException
+	 */
 	@Override
-	public void removeColumn(String tableName, String key, String columnName)
-			throws ServiceManagerException, IOBackEndException,
-			InternalBackEndException {
-		// TODO Auto-generated method stub
-		
+	public void removeColumn(final String tableName, final String key,
+			final String columnName) throws InternalBackEndException {
+		this.removeColumn(tableName, key, null,columnName.getBytes());
 	}
 
 	@Override
-	public void removeAll(String tableName, String key)
+	public void removeAll(final String tableName, final String key)
 			throws InternalBackEndException {
-		// TODO Auto-generated method stub
-		
+		final String columnFamily = tableName;
+		final long timestamp = System.currentTimeMillis();
+		final ColumnPath columnPath = new ColumnPath(columnFamily);
+
+		wrapper.open();
+		wrapper.set_keyspace(KEYSPACE);//TODO 
+		wrapper.remove(key, columnPath, timestamp, consistencyOnWrite);
+		wrapper.close();
+	}
+	
+	/**
+	 * Remove a specific column defined by the columnName
+	 * 
+	 * @param keyspace
+	 * @param columnFamily
+	 * @param key
+	 * @param columnName
+	 * @throws ServiceManagerException
+	 * @throws InternalBackEndException
+	 * @throws UnsupportedEncodingException
+	 */
+	@Override
+	public void removeColumn(String tableName, String primaryKey,
+			byte[] superColumn, byte[] column) throws InternalBackEndException {
+		try {
+			final String columnFamily = tableName;
+			final long timestamp = (long) (System.currentTimeMillis()*1E3);
+			final ColumnPath columnPath = new ColumnPath(columnFamily);
+			if (superColumn!=null)
+				columnPath.setSuper_column(superColumn);
+			if (column!=null)
+				columnPath.setColumn(column);
+
+			wrapper.open();
+			wrapper.set_keyspace(KEYSPACE);//TODO
+			wrapper.remove(primaryKey, columnPath, timestamp, consistencyOnWrite);
+		} finally {
+			wrapper.close();
+		}
 	}
 
 	@Override
@@ -388,6 +484,41 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 	/*
 	 * Used by selectAll and selectRange
 	 */
+	private Map<String,Map<byte[], byte[]>> selectByPredicate(final String columnFamily,
+			final List<String> keys, final SlicePredicate predicate)
+			throws InternalBackEndException, IOBackEndException {
+
+		try {
+			wrapper.open();
+			wrapper.set_keyspace(KEYSPACE);
+
+			final ColumnParent parent = new ColumnParent(columnFamily);
+			final Map<ByteBuffer,List<ColumnOrSuperColumn>> results = wrapper.multiget_slice(keys,
+					parent, predicate, consistencyOnRead);
+
+			final Map<String,Map<byte[], byte[]>> slice = new HashMap<String, Map<byte[],byte[]>>(
+					results.size());
+
+			for (final ByteBuffer key : results.keySet()) {
+				final List<ColumnOrSuperColumn> columns = results.get(key);
+				if (!columns.isEmpty()){
+					Map<byte[],byte[]> colMap = new HashMap<byte[],byte[]>();
+					for (ColumnOrSuperColumn resCol :columns){
+						colMap.put(resCol.getColumn().getName(), resCol.getColumn().getValue());
+					}
+					slice.put(MConverter.byteBufferToString(key), colMap);
+				}
+			}
+
+			return slice;
+		} finally {
+			wrapper.close();
+		}
+	}
+	
+	/*
+	 * Used by selectAll and selectRange
+	 */
 	private Map<byte[],Map<byte[], byte[]>> selectSCByPredicate(final String columnFamily,
 			final List<String> keys, final SlicePredicate predicate)
 			throws InternalBackEndException, IOBackEndException {
@@ -419,5 +550,30 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 		} finally {
 			wrapper.close();
 		}
+	}
+	
+	public class ExpColumnBean{
+		private byte[] value;
+		private long timestamp;
+		private int timeToLive;
+		public void setValue(byte[] value) {
+			this.value = value;
+		}
+		public byte[] getValue() {
+			return value;
+		}
+		public void setTimestamp(long timestamp) {
+			this.timestamp = timestamp;
+		}
+		public long getTimestamp() {
+			return timestamp;
+		}
+		public void setTimeToLive(int timeToLive) {
+			this.timeToLive = timeToLive;
+		}
+		public int getTimeToLive() {
+			return timeToLive;
+		}
+
 	}
 }

@@ -1,12 +1,13 @@
 package com.mymed.myjam.type;
 
 
-/**TODO
- * 
+/**
+ * Contains the feedback for the reports.
  * @author iacopo
  *
  */
 public class MFeedBackBean implements IMyJamType{
+private final static  int maxGrade = 10;
 private String userId = null;
 private Integer grade = null;
 
@@ -24,7 +25,10 @@ public String getUserId() {
 }
 @Override
 public void validate() throws WrongFormatException {
-	// TODO Auto-generated method stub
-	
+	if (grade==null)
+		throw new WrongFormatException(" Grade not set. ");
+	if (grade<0 || grade>maxGrade)
+		throw new WrongFormatException(" Grade out of bound. ");
 }
+
 }

@@ -31,20 +31,20 @@ public class Locator {
 	
 	/**
 	 * Returns a list of location Id ranges, that cover the area defined by latitude 
-	 * longitude and diameter.
+	 * longitude and radius.
 	 * @param latitude Latitude of the center of the covered area. (degrees)
 	 * @param longitude Longitude of the center of the covered area. (degrees)
-	 * @param diameter Diameter of the covered area (km)
+	 * @param radius Diameter of the covered area (km)
 	 * @return
 	 * @throws GeoLocationOutOfBoundException Center of the area is out of bounds.
 	 * @throws IllegalArgumentException The radius exceeds the maximum size.
 	 */
-	public static List<long[]> getCoveringLocationId(double latitude,double longitude,int diameter) throws GeoLocationOutOfBoundException,
+	public static List<long[]> getCoveringLocationId(double latitude,double longitude,int radius) throws GeoLocationOutOfBoundException,
 			IllegalArgumentException{
 		
 		Location loc= new Location(latitude,longitude);
 		KeysFinder kf = new KeysFinder();		
-		return kf.getKeysRanges(loc, diameter);		
+		return kf.getKeysRanges(loc, radius);		
 	}
 	
 	/**

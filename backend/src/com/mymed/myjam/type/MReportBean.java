@@ -13,16 +13,18 @@ import com.mymed.utils.ClassType;
 
 
 /**
- * 
+ * Contains the details of the report
  * @author iacopo
  *
  */
 public class MReportBean extends AbstractMBean implements IMyJamType{
 	private String userName;
+	private String userId;
 	private String reportType;
 	private String transitType;
 	private String trafficFlowType;
 	private String comment;
+	private Long locationId;
 	
 	public MReportBean(){}
 	
@@ -33,6 +35,14 @@ public class MReportBean extends AbstractMBean implements IMyJamType{
 
 	public String getUserName() {
 		return userName;
+	}
+	
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getUserId() {
+		return userId;
 	}
 	
 	public void setReportType(String reportType) {
@@ -65,6 +75,14 @@ public class MReportBean extends AbstractMBean implements IMyJamType{
 
 	public String getComment() {
 		return comment;
+	}
+	
+	public void setLocationId(long locationId) {
+		this.locationId = locationId;
+	}
+
+	public Long getLocationId() {
+		return locationId;
 	}
 	
 	/** Validator */
@@ -110,7 +128,9 @@ public class MReportBean extends AbstractMBean implements IMyJamType{
 			
 		}catch(NullPointerException e){
 			throw new WrongFormatException("Missing attribute");
-		}		
+		}catch(IllegalArgumentException e){
+			throw new WrongFormatException("Wrong attribute");
+		}
 	}
 	
 	@Override
