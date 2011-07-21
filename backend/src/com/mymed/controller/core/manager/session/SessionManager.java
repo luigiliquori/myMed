@@ -46,14 +46,15 @@ public class SessionManager extends AbstractManager implements ISessionManager {
 	public void create(final MSessionBean sessionBean) throws InternalBackEndException, IOBackEndException {
 		try {
 			sessionBean.setId(sessionBean.getUser() + SESSION_SUFFIX);
-			storageManager.insertSlice(CF_SESSION, "id", sessionBean.getAttributeToMap());
+			storageManager.insertSlice(CF_SESSION, sessionBean.getId(), sessionBean.getAttributeToMap());
 
-			final ProfileManager profileManager = new ProfileManager();
+			final ProfileManager profileManager = new ProfileManager(storageManager);
 			final MUserBean user = profileManager.read(sessionBean.getUser());
 
 			user.setSession(sessionBean.getId());
 			profileManager.update(user);
 		} catch (final ServiceManagerException e) {
+			e.printStackTrace();
 			throw new InternalBackEndException("create failed because of a WrapperException: " + e.getMessage());
 		}
 	}
@@ -64,10 +65,12 @@ public class SessionManager extends AbstractManager implements ISessionManager {
 	 */
 	@Override
 	public MSessionBean read(final String userID) throws InternalBackEndException, IOBackEndException {
-		final ProfileManager profileManager = new ProfileManager();
+		final ProfileManager profileManager = new ProfileManager(storageManager);
 		final MUserBean user = profileManager.read(userID);
+
 		Map<byte[], byte[]> args = new HashMap<byte[], byte[]>();
 		final MSessionBean session = new MSessionBean();
+
 		try {
 			args = storageManager.selectAll(CF_SESSION, user.getSession());
 		} catch (final ServiceManagerException e) {
