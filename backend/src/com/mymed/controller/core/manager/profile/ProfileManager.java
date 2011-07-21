@@ -76,9 +76,6 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 	@Override
 	public void update(final MUserBean user) throws InternalBackEndException, IOBackEndException {
 		create(user);
-
-		// TODO Implement the update method witch use the wrapper updateColumn
-		// method
 	}
 
 	/**
