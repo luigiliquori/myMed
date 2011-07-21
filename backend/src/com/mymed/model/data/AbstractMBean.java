@@ -5,6 +5,8 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
+import javassist.Modifier;
+
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.utils.ClassType;
 
@@ -36,6 +38,9 @@ import com.mymed.utils.ClassType;
  */
 public abstract class AbstractMBean {
 
+	private static final int PRIV_FIN = Modifier.PRIVATE + Modifier.FINAL;
+	private static final int PRIV_STAT_FIN = Modifier.PRIVATE + Modifier.STATIC + Modifier.FINAL;
+
 	/**
 	 * @return all the fields in a hashMap format for the myMed wrapper
 	 * @throws IllegalArgumentException
@@ -51,10 +56,19 @@ public abstract class AbstractMBean {
 			// values in that way
 			field.setAccessible(true);
 
+			/*
+			 * We check the value of the modifiers of the field: if the field is
+			 * private and final, or private static and final, we skip it.
+			 */
+			final int modifiers = field.getModifiers();
+			if (modifiers == PRIV_FIN || modifiers == PRIV_STAT_FIN) {
+				continue;
+			}
+
 			try {
 				final ClassType type = ClassType.inferTpye(field.getType());
 
-				args.put(field.getName(), ClassType.classTypeToByteArray(type, field.get(this)));
+				args.put(field.getName(), ClassType.objectToByteArray(type, field.get(this)));
 			} catch (final Exception e) {
 				throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
 			}
