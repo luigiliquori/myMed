@@ -8,6 +8,10 @@ import com.mymed.model.data.AbstractMBean;
  * @author lvanni
  */
 public final class MUserBean extends AbstractMBean {
+	/**
+	 * Used for the hash code
+	 */
+	private static final int PRIME = 31;
 
 	/** USER_ID */
 	private String id = null;
@@ -35,6 +39,48 @@ public final class MUserBean extends AbstractMBean {
 	private String socialNetworkID = null;
 	private String socialNetworkName = null;
 
+	/**
+	 * Copy constructor.
+	 * <p>
+	 * Provide a clone of the passed MUserBean
+	 * 
+	 * @param toClone
+	 *            the user bean to clone
+	 */
+	protected MUserBean(final MUserBean toClone) {
+		id = toClone.getId();
+		login = toClone.getLogin();
+		email = toClone.getEmail();
+		name = toClone.getName();
+		firstName = toClone.getFirstName();
+		lastName = toClone.getLastName();
+		link = toClone.getLink();
+		birthday = toClone.getBirthday();
+		hometown = toClone.getHometown();
+		gender = toClone.getGender();
+		lastConnection = toClone.getLastConnection();
+		buddyList = toClone.getBuddyList();
+		subscribtionList = toClone.getSubscribtionList();
+		reputation = toClone.getReputation();
+		session = toClone.getSession();
+		interactionList = toClone.getInteractionList();
+		socialNetworkID = toClone.getSocialNetworkID();
+		socialNetworkName = toClone.getSocialNetworkName();
+	}
+
+	@Override
+	public MUserBean clone() {
+		final MUserBean userBean = new MUserBean(this);
+		return userBean;
+	}
+
+	/**
+	 * Create a new empty MUserBean
+	 */
+	public MUserBean() {
+		// Empty constructor, needed because of the copy constructor
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -43,9 +89,11 @@ public final class MUserBean extends AbstractMBean {
 	@Override
 	public boolean equals(final Object object) {
 
-		boolean returnValue = true;
+		boolean equal = false;
 
-		if (object instanceof MUserBean) {
+		if (this == object) {
+			equal = true;
+		} else if (object instanceof MUserBean) {
 			final MUserBean comparable = (MUserBean) object;
 
 			/*
@@ -53,18 +101,41 @@ public final class MUserBean extends AbstractMBean {
 			 * MUserBean objects are the same. These should be values that are
 			 * set for sure, and not null.
 			 */
-			returnValue &= getEmail().equals(comparable.getEmail());
-			returnValue &= getFirstName().equals(comparable.getFirstName());
-			returnValue &= getLastName().equals(comparable.getLastName());
-			returnValue &= getId().equals(comparable.getId());
-			returnValue &= getName().equals(comparable.getName());
-		} else {
-			returnValue = false;
+			equal = true;
+
+			if (email == null && comparable.getEmail() != null) {
+				equal &= false;
+			} else {
+				equal &= email.equals(comparable.getEmail());
+			}
+
+			if (firstName == null && comparable.getFirstName() != null) {
+				equal &= false;
+			} else {
+				equal &= firstName.equals(comparable.getFirstName());
+			}
+
+			if (lastName == null && comparable.getLastName() != null) {
+				equal &= false;
+			} else {
+				equal &= lastName.equals(comparable.getLastName());
+			}
+
+			if (id == null && comparable.getId() != null) {
+				equal &= false;
+			} else {
+				equal &= id.equals(comparable.getId());
+			}
+
+			if (name == null && comparable.getName() != null) {
+				equal &= false;
+			} else {
+				equal &= name.equals(comparable.getName());
+			}
 		}
 
-		return returnValue;
+		return equal;
 	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -72,16 +143,13 @@ public final class MUserBean extends AbstractMBean {
 	 */
 	@Override
 	public int hashCode() {
-		final int prime = 31;
 		int result = 1;
 
-		result = prime * result + (int) (birthday ^ birthday >>> 32);
-		result = prime * result + (email == null ? 0 : email.hashCode());
-		result = prime * result + (firstName == null ? 0 : firstName.hashCode());
-		result = prime * result + (gender == null ? 0 : gender.hashCode());
-		result = prime * result + (id == null ? 0 : id.hashCode());
-		result = prime * result + (lastName == null ? 0 : lastName.hashCode());
-		result = prime * result + (name == null ? 0 : name.hashCode());
+		result = PRIME * result + (email == null ? 0 : email.hashCode());
+		result = PRIME * result + (firstName == null ? 0 : firstName.hashCode());
+		result = PRIME * result + (lastName == null ? 0 : lastName.hashCode());
+		result = PRIME * result + (id == null ? 0 : id.hashCode());
+		result = PRIME * result + (name == null ? 0 : name.hashCode());
 
 		return result;
 	}
