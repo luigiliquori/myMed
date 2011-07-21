@@ -221,9 +221,12 @@ public class CassandraWrapper implements ICassandraWrapper, IWrapper {
 		try {
 			cassandraClient.insert(keyToBuffer, parent, column, level);
 		} catch (final Exception ex) {
+			// TODO logger
+			ex.printStackTrace();
 			throw new InternalBackEndException(ex);
 		}
 	}
+
 	@Override
 	public void batch_mutate(final Map<String, Map<String, List<Mutation>>> mutationMap, final ConsistencyLevel level)
 	        throws InternalBackEndException {
@@ -239,7 +242,6 @@ public class CassandraWrapper implements ICassandraWrapper, IWrapper {
 			value = mutationMap.get(key);
 
 			newMap.put(keyToBuffer, value);
-			value.clear();
 		}
 
 		try {
@@ -248,6 +250,7 @@ public class CassandraWrapper implements ICassandraWrapper, IWrapper {
 			throw new InternalBackEndException(ex);
 		}
 	}
+
 	@Override
 	public void remove(final String key, final ColumnPath path, final long timeStamp, final ConsistencyLevel level)
 	        throws InternalBackEndException {
