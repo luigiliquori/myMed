@@ -310,6 +310,7 @@ public class StorageManager implements IStorageManager {
 			wrapper.close();
 		}
 	}
+
 	/**
 	 * Remove a specific column defined by the columnName
 	 * 
