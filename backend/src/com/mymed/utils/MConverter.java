@@ -340,9 +340,19 @@ public final class MConverter {
 			buffer = ByteBuffer.wrap(falseBuffer);
 		}
 
+		buffer.clear();
+		buffer.compact();
+
 		return buffer;
 	}
 
+	/**
+	 * Convert a boolean value contained in a ByteBuffer into a boolean
+	 * 
+	 * @param buffer
+	 *            the buffer with the boolean value
+	 * @return the boolean value
+	 */
 	public static boolean byteBufferToBoolean(final ByteBuffer buffer) {
 
 		boolean returnValue = false;
@@ -350,7 +360,7 @@ public final class MConverter {
 		byte[] booleanBuffer = new byte[4];
 		booleanBuffer = buffer.array();
 
-		if (trueBuffer.equals(booleanBuffer)) {
+		if (booleanBuffer[3] == 1) {
 			returnValue = true;
 		}
 
