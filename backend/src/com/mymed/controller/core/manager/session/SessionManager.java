@@ -45,7 +45,10 @@ public class SessionManager extends AbstractManager implements ISessionManager {
 	 */
 	public void create(final MSessionBean sessionBean) throws InternalBackEndException, IOBackEndException {
 		try {
-			sessionBean.setId(sessionBean.getUser() + SESSION_SUFFIX);
+			if (sessionBean.getId() == null) {
+				sessionBean.setId(sessionBean.getUser() + SESSION_SUFFIX);
+			}
+
 			storageManager.insertSlice(CF_SESSION, sessionBean.getId(), sessionBean.getAttributeToMap());
 
 			final ProfileManager profileManager = new ProfileManager(storageManager);
