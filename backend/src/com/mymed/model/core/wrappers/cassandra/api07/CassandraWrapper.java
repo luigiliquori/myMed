@@ -221,8 +221,6 @@ public class CassandraWrapper implements ICassandraWrapper, IWrapper {
 		try {
 			cassandraClient.insert(keyToBuffer, parent, column, level);
 		} catch (final Exception ex) {
-			// TODO logger
-			ex.printStackTrace();
 			throw new InternalBackEndException(ex);
 		}
 	}
