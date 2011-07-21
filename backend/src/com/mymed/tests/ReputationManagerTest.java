@@ -20,8 +20,8 @@ import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.reputation.ReputationManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.core.configuration.WrapperConfiguration;
-import com.mymed.model.data.MInteractionBean;
-import com.mymed.model.data.MReputationBean;
+import com.mymed.model.data.reputation.MInteractionBean;
+import com.mymed.model.data.reputation.MReputationBean;
 
 /**
  * Test class for the {@link ReputationManager}
