@@ -43,6 +43,9 @@ public final class MConverter {
 	 */
 	private static final int BYTE_SIZE = Byte.SIZE / 8;
 
+	private static final byte[] trueBuffer = new byte[] {0, 0, 0, 1};
+	private static final byte[] falseBuffer = new byte[] {0, 0, 0, 0};
+
 	/**
 	 * Private constructor to avoid warnings since class is all static, or we
 	 * should implement a singleton
@@ -318,5 +321,39 @@ public final class MConverter {
 		buffer.clear();
 
 		return buffer.getDouble();
+	}
+
+	/**
+	 * Convert a boolean value into a fictitious {@link ByteBuffer}
+	 * 
+	 * @param value
+	 *            the boolean to convert
+	 * @return a {@link ByteBuffer} representation of the boolean value
+	 */
+	public static ByteBuffer booleanToByteBuffer(final boolean value) {
+
+		ByteBuffer buffer = ByteBuffer.allocate(INT_SIZE);
+
+		if (value) {
+			buffer = ByteBuffer.wrap(trueBuffer);
+		} else {
+			buffer = ByteBuffer.wrap(falseBuffer);
+		}
+
+		return buffer;
+	}
+
+	public static boolean byteBufferToBoolean(final ByteBuffer buffer) {
+
+		boolean returnValue = false;
+
+		byte[] booleanBuffer = new byte[4];
+		booleanBuffer = buffer.array();
+
+		if (trueBuffer.equals(booleanBuffer)) {
+			returnValue = true;
+		}
+
+		return returnValue;
 	}
 }
