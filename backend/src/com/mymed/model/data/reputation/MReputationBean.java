@@ -10,6 +10,11 @@ import com.mymed.model.data.AbstractMBean;
 public final class MReputationBean extends AbstractMBean {
 
 	/**
+	 * Used for the hash code
+	 */
+	private static final int PRIME = 31;
+
+	/**
 	 * The value of the reputation
 	 */
 	private double value;
@@ -62,18 +67,19 @@ public final class MReputationBean extends AbstractMBean {
 	@Override
 	public boolean equals(final Object object) {
 
-		boolean returnValue = true;
+		boolean equal = false;
 
-		if (object instanceof MReputationBean) {
+		if (this == object) {
+			equal = true;
+		} else if (object instanceof MReputationBean) {
 			final MReputationBean comparable = (MReputationBean) object;
 
-			returnValue &= getValue() == comparable.getValue();
-			returnValue &= getNbRaters() == comparable.getNbRaters();
-		} else {
-			returnValue = false;
+			equal = true;
+			equal &= getValue() == comparable.getValue();
+			equal &= getNbRaters() == comparable.getNbRaters();
 		}
 
-		return returnValue;
+		return equal;
 	}
 
 	/*
@@ -83,13 +89,12 @@ public final class MReputationBean extends AbstractMBean {
 	 */
 	@Override
 	public int hashCode() {
-		final int prime = 31;
 		int result = 1;
 
-		result = prime * result + nbRaters;
+		result = PRIME * result + nbRaters;
 		long temp;
 		temp = Double.doubleToLongBits(value);
-		result = prime * result + (int) (temp ^ temp >>> 32);
+		result = PRIME * result + (int) (temp ^ temp >>> 32);
 
 		return result;
 	}
