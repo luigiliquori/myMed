@@ -154,10 +154,20 @@ public class MSessionBean extends AbstractMBean {
 	 */
 	@Override
 	public boolean equals(final Object object) {
-		boolean equal = true;
 
-		if (object instanceof MSessionBean) {
+		boolean equal = false;
+
+		if (this == object) {
+			equal = true;
+		} else if (object instanceof MSessionBean) {
 			final MSessionBean comparable = (MSessionBean) object;
+
+			/*
+			 * We compare only a subsets of the field to check that two
+			 * MUserBean objects are the same. These should be values that are
+			 * set for sure, and not null.
+			 */
+			equal = true;
 
 			if (id == null && comparable.id != null) {
 				equal &= false;
@@ -179,8 +189,6 @@ public class MSessionBean extends AbstractMBean {
 			} else {
 				equal &= user.equals(comparable.user);
 			}
-		} else {
-			equal = false;
 		}
 
 		return equal;
