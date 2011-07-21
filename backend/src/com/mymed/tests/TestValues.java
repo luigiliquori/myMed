@@ -37,6 +37,9 @@ public class TestValues {
 	protected static final String APPLICATION_ID = "application1";
 	protected static final String PRODUCER_ID = "producerKey";
 	protected static final String CONSUMER_ID = "consumerKey";
+	protected static final String USER_ID = "userKey";
+
+	protected static final String IP = "138.126.23.2";
 
 	protected static final Calendar CAL_INSTANCE = Calendar.getInstance();
 }
