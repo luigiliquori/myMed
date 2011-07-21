@@ -2,12 +2,12 @@ package com.mymed.model.data.session;
 
 import com.mymed.model.data.AbstractMBean;
 
-
 public class MSessionBean extends AbstractMBean {
-	
-	/* --------------------------------------------------------- */
-	/* Attributes */
-	/* --------------------------------------------------------- */
+	/**
+	 * Used for the calculation of the hash code
+	 */
+	private static final int PRIME = 31;
+
 	/** SESSION_ID */
 	private String id;
 	/** USER_ID */
@@ -18,71 +18,171 @@ public class MSessionBean extends AbstractMBean {
 	private boolean isP2P;
 	private String ip;
 	private int port;
-	
-	/* --------------------------------------------------------- */
-	/* Constructors */
-	/* --------------------------------------------------------- */
-	public MSessionBean() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	/* --------------------------------------------------------- */
-	/* Override methods */
-	/* --------------------------------------------------------- */
+
 	@Override
 	public String toString() {
 		return "Session:\n" + super.toString();
 	}
-	
-	/* --------------------------------------------------------- */
-	/* GETTER AND SETTER */
-	/* --------------------------------------------------------- */
+
+	/**
+	 * @return the id of the session
+	 */
 	public String getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	/**
+	 * Set the id of the session
+	 * 
+	 * @param id
+	 */
+	public void setId(final String id) {
 		this.id = id;
 	}
 
+	/**
+	 * @return the user associated with the session
+	 */
 	public String getUser() {
 		return user;
 	}
 
-	public void setUser(String user) {
+	/**
+	 * Set the user to associate with this session
+	 * 
+	 * @param user
+	 */
+	public void setUser(final String user) {
 		this.user = user;
 	}
 
+	/**
+	 * @return the ID of the applications list associated with this session
+	 */
 	public String getCurrentApplications() {
 		return currentApplications;
 	}
-	
-	public void setCurrentApplications(String currentApplications) {
+
+	/**
+	 * Set the ID of the applications list to associate with this session
+	 * 
+	 * @param currentApplications
+	 */
+	public void setCurrentApplications(final String currentApplications) {
 		this.currentApplications = currentApplications;
 	}
+
 	public long getTimeout() {
 		return timeout;
 	}
-	public void setTimeout(long timestamp) {
-		this.timeout = timestamp;
+
+	public void setTimeout(final long timestamp) {
+		timeout = timestamp;
 	}
+
+	/**
+	 * @return true if the session is on a P2P protocol
+	 */
 	public boolean isP2P() {
 		return isP2P;
 	}
-	public void setP2P(boolean isP2P) {
+
+	/**
+	 * Set whatever the session is on a P2P protocol
+	 * 
+	 * @param isP2P
+	 */
+	public void setP2P(final boolean isP2P) {
 		this.isP2P = isP2P;
 	}
+
+	/**
+	 * @return the IP bound to this session
+	 */
 	public String getIp() {
 		return ip;
 	}
-	public void setIp(String ip) {
+
+	/**
+	 * Set the IP of this session
+	 * 
+	 * @param ip
+	 */
+	public void setIp(final String ip) {
 		this.ip = ip;
 	}
+
+	/**
+	 * @return the port of the session
+	 */
 	public int getPort() {
 		return port;
 	}
-	public void setPort(int port) {
+
+	/**
+	 * Set the port of the session
+	 * 
+	 * @param port
+	 */
+	public void setPort(final int port) {
 		this.port = port;
 	}
-	
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		// final int PRIME = 31;
+		int result = 1;
+
+		result = PRIME * result + (id == null ? 0 : id.hashCode());
+		result = PRIME * result + (ip == null ? 0 : ip.hashCode());
+		result = PRIME * result + (isP2P ? 1231 : 1237);
+		result = PRIME * result + port;
+		result = PRIME * result + (user == null ? 0 : user.hashCode());
+
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(final Object object) {
+		boolean equal = true;
+
+		if (object instanceof MSessionBean) {
+			final MSessionBean comparable = (MSessionBean) object;
+
+			if (id == null && comparable.id != null) {
+				equal &= false;
+			} else {
+				equal &= id.equals(comparable.id);
+			}
+
+			if (ip == null && comparable.ip != null) {
+				equal &= false;
+			} else {
+				equal &= ip.equals(comparable.ip);
+			}
+
+			equal &= isP2P == comparable.isP2P;
+			equal &= port == comparable.port;
+
+			if (user == null && comparable.user != null) {
+				equal &= false;
+			} else {
+				equal &= user.equals(comparable.user);
+			}
+		} else {
+			equal = false;
+		}
+
+		return equal;
+	}
 }
