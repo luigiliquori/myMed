@@ -60,8 +60,7 @@ public abstract class AbstractManager extends ManagerValues {
 
 					method.invoke(mbean, argument);
 				} catch (final NoSuchFieldException e) {
-					System.out
-					        .println("\nWARNING: " + new String(arg.getKey(), "UTF8") + " is not PRIV_FIN bean field");
+					System.out.println("\nWARNING: " + new String(arg.getKey(), "UTF8") + " is not a bean field");
 				}
 			}
 		} catch (final Exception ex) {
