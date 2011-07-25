@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jel>
+	<admin creation="Mon Jul 25 17:34:51 CEST 2011" xsdversion="1.0.0" version="1.0.0" />
+	<jelclass superclass="AbstractMBean" visibility="public" package="com.mymed.model.data.session" superclassfulltype="AbstractMBean" fulltype="com.mymed.model.data.session.MSessionBean" type="MSessionBean">
+		<fields>
+			<field final="true" static="true" const="31" visibility="private" name="PRIME" constexpr="31" fulltype="int" type="int">
+				<comment>
+					<description>Used for the calculation of the hash code</description>
+				</comment>
+			</field>
+			<field visibility="private" name="id" fulltype="java.lang.String" type="String">
+				<comment>
+					<description>SESSION_ID</description>
+				</comment>
+			</field>
+			<field visibility="private" name="user" fulltype="java.lang.String" type="String">
+				<comment>
+					<description>USER_ID</description>
+				</comment>
+			</field>
+			<field visibility="private" name="currentApplications" fulltype="java.lang.String" type="String">
+				<comment>
+					<description>APPLICATION_LIST_ID</description>
+				</comment>
+			</field>
+			<field visibility="private" name="timeout" fulltype="long" type="long" />
+			<field visibility="private" name="isP2P" fulltype="boolean" type="boolean" />
+			<field visibility="private" name="ip" fulltype="java.lang.String" type="String" />
+			<field visibility="private" name="port" fulltype="int" type="int" />
+		</fields>
+		<methods>
+			<constructor visibility="public" name="MSessionBean" />
+			<method visibility="public" name="toString" fulltype="java.lang.String" type="String" />
+			<method visibility="public" name="getId" returncomment="the id of the session" fulltype="java.lang.String" type="String">
+				<comment>
+					<attribute name="@return">
+						<description>the id of the session</description>
+					</attribute>
+				</comment>
+			</method>
+			<method visibility="public" name="setId" fulltype="void" type="void">
+				<comment>
+					<description>Set the id of the session</description>
+					<attribute name="@param">
+						<description>id</description>
+					</attribute>
+				</comment>
+				<params>
+					<param name="id" comment="" fulltype="java.lang.String" type="String" />
+				</params>
+			</method>
+			<method visibility="public" name="getUser" returncomment="the user associated with the session" fulltype="java.lang.String" type="String">
+				<comment>
+					<attribute name="@return">
+						<description>the user associated with the session</description>
+					</attribute>
+				</comment>
+			</method>
+			<method visibility="public" name="setUser" fulltype="void" type="void">
+				<comment>
+					<description>Set the user to associate with this session</description>
+					<attribute name="@param">
+						<description>user</description>
+					</attribute>
+				</comment>
+				<params>
+					<param name="user" comment="" fulltype="java.lang.String" type="String" />
+				</params>
+			</method>
+			<method visibility="public" name="getCurrentApplications" returncomment="the ID of the applications list associated with this session" fulltype="java.lang.String" type="String">
+				<comment>
+					<attribute name="@return">
+						<description>the ID of the applications list associated with this session</description>
+					</attribute>
+				</comment>
+			</method>
+			<method visibility="public" name="setCurrentApplications" fulltype="void" type="void">
+				<comment>
+					<description>Set the ID of the applications list to associate with this session</description>
+					<attribute name="@param">
+						<description>currentApplications</description>
+					</attribute>
+				</comment>
+				<params>
+					<param name="currentApplications" comment="" fulltype="java.lang.String" type="String" />
+				</params>
+			</method>
+			<method visibility="public" name="getTimeout" fulltype="long" type="long" />
+			<method visibility="public" name="setTimeout" fulltype="void" type="void">
+				<params>
+					<param name="timestamp" fulltype="long" type="long" />
+				</params>
+			</method>
+			<method visibility="public" name="isP2P" returncomment="true if the session is on a P2P protocol" fulltype="boolean" type="boolean">
+				<comment>
+					<attribute name="@return">
+						<description>true if the session is on a P2P protocol</description>
+					</attribute>
+				</comment>
+			</method>
+			<method visibility="public" name="setP2P" fulltype="void" type="void">
+				<comment>
+					<description>Set whatever the session is on a P2P protocol</description>
+					<attribute name="@param">
+						<description>isP2P</description>
+					</attribute>
+				</comment>
+				<params>
+					<param name="isP2P" comment="" fulltype="boolean" type="boolean" />
+				</params>
+			</method>
+			<method visibility="public" name="getIp" returncomment="the IP bound to this session" fulltype="java.lang.String" type="String">
+				<comment>
+					<attribute name="@return">
+						<description>the IP bound to this session</description>
+					</attribute>
+				</comment>
+			</method>
+			<method visibility="public" name="setIp" fulltype="void" type="void">
+				<comment>
+					<description>Set the IP of this session</description>
+					<attribute name="@param">
+						<description>ip</description>
+					</attribute>
+				</comment>
+				<params>
+					<param name="ip" comment="" fulltype="java.lang.String" type="String" />
+				</params>
+			</method>
+			<method visibility="public" name="getPort" returncomment="the port of the session" fulltype="int" type="int">
+				<comment>
+					<attribute name="@return">
+						<description>the port of the session</description>
+					</attribute>
+				</comment>
+			</method>
+			<method visibility="public" name="setPort" fulltype="void" type="void">
+				<comment>
+					<description>Set the port of the session</description>
+					<attribute name="@param">
+						<description>port</description>
+					</attribute>
+				</comment>
+				<params>
+					<param name="port" comment="" fulltype="int" type="int" />
+				</params>
+			</method>
+			<method visibility="public" name="hashCode" fulltype="int" type="int" />
+			<method visibility="public" name="equals" fulltype="boolean" type="boolean">
+				<params>
+					<param name="object" fulltype="java.lang.Object" type="Object" />
+				</params>
+			</method>
+		</methods>
+	</jelclass>
+</jel>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<!-- Toby Patke - Sept 15, 2005 -->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://xml.jeldoclet.com" targetNamespace="http://xml.jeldoclet.com" elementFormDefault="qualified">
+	<xs:element name="jel">
+		<xs:complexType>
+			<xs:choice maxOccurs="2">
+				<xs:element name="admin" type="Admin"/>
+				<xs:sequence maxOccurs="unbounded">
+					<xs:element name="jelclass" type="JelClass"/>
+				</xs:sequence>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+  
+<!-- thz -->
+	<xs:complexType name="Admin">
+<!-- created with jeldoclet: program version -->
+		<xs:attribute name="version" type="xs:string" use="required"/>
+<!-- xsd version: this must be the same as JELDoclet.java - xsdversion -->
+		<xs:attribute name="xsdversion" type="xs:string" use="required" fixed="1.0.0"/>
+<!-- created -->
+		<xs:attribute name="creation" type="xs:string" use="required"/>
+	</xs:complexType>
+<!-- /thz -->
+
+	<xs:complexType name="JelClass">
+		<xs:choice maxOccurs="4">
+			<xs:element name="implements" type="Implements" minOccurs="0"/>
+			<xs:element name="fields" type="Fields" minOccurs="0"/>
+			<xs:element name="methods" type="Methods" minOccurs="0"/>
+			<xs:element name="comment" type="Comment" minOccurs="0"/>
+		</xs:choice>
+		<xs:attribute name="fulltype" type="xs:string" use="required"/>
+		<xs:attribute name="type" type="xs:string" use="required"/>
+		<xs:attribute name="package" type="xs:string" use="required"/>
+		<xs:attribute name="visibility" type="xs:string" use="required"/>
+		<xs:attribute name="abstract" type="xs:boolean" use="optional"/>
+		<xs:attribute name="serializable" type="xs:boolean" use="optional"/>
+		<xs:attribute name="interface" type="xs:boolean" use="optional"/>
+		<xs:attribute name="superclass" type="xs:string" use="optional"/>
+		<xs:attribute name="superclassfulltype" type="xs:string" use="optional"/>
+	</xs:complexType>
+  
+	<xs:complexType name="Fields">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="field" type="Field"/>
+		</xs:choice>
+	</xs:complexType>
+  
+	<xs:complexType name="Field">
+		<xs:choice minOccurs="0">
+			<xs:element name="comment" type="Comment"/>
+		</xs:choice>
+		<xs:attribute name="visibility" type="xs:string" use="required"/>
+		<xs:attribute name="fulltype" type="xs:string" use="required"/>
+		<xs:attribute name="type" type="xs:string" use="required"/>
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="const" type="xs:string" use="optional"/>
+		<xs:attribute name="constexpr" type="xs:string" use="optional"/>
+		<xs:attribute name="static" type="xs:boolean" use="optional"/>
+		<xs:attribute name="final" type="xs:boolean" use="optional"/>
+		<xs:attribute name="transient" type="xs:boolean" use="optional"/>
+		<xs:attribute name="volatile" type="xs:boolean" use="optional"/>
+	</xs:complexType>
+  
+	<xs:complexType name="Methods">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="constructor" type="Constructor"/>
+			<xs:element name="method" type="Method"/>
+		</xs:choice>
+	</xs:complexType>
+  
+	<xs:complexType name="Method">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="comment" type="Comment" minOccurs="0"/>
+			<xs:element name="exceptions" type="Exceptions" minOccurs="0"/>
+			<xs:element name="params" type="Params"/>
+		</xs:choice>
+		<xs:attribute name="visibility" type="xs:string" use="required"/>
+		<xs:attribute name="fulltype" type="xs:string" use="required"/>
+		<xs:attribute name="type" type="xs:string" use="required"/>
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="abstract" type="xs:boolean" use="optional"/>
+		<xs:attribute name="returncomment" type="xs:string" use="optional"/>
+		<xs:attribute name="interface" type="xs:boolean" use="optional"/>
+		<xs:attribute name="static" type="xs:boolean" use="optional"/>
+		<xs:attribute name="final" type="xs:boolean" use="optional"/>
+		<xs:attribute name="synchronized" type="xs:boolean" use="optional"/>
+		<xs:attribute name="synthetic" type="xs:boolean" use="optional"/>
+	</xs:complexType>
+  
+	<xs:complexType name="Constructor">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="comment" type="Comment" minOccurs="0"/>
+			<xs:element name="exceptions" type="Exceptions" minOccurs="0"/>
+			<xs:element name="params" type="Params"/>
+		</xs:choice>
+		<xs:attribute name="visibility" type="xs:string" use="required"/>
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="interface" type="xs:boolean" use="optional"/>
+		<xs:attribute name="static" type="xs:boolean" use="optional"/>
+		<xs:attribute name="final" type="xs:boolean" use="optional"/>
+		<xs:attribute name="synchronized" type="xs:boolean" use="optional"/>
+		<xs:attribute name="synthetic" type="xs:boolean" use="optional"/>
+	</xs:complexType>
+  
+	<xs:complexType name="Params">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="param" type="Param"/>
+		</xs:choice>
+	</xs:complexType>
+  
+	<xs:complexType name="Param">
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="fulltype" type="xs:string" use="required"/>
+		<xs:attribute name="type" type="xs:string" use="required"/>
+		<xs:attribute name="comment" type="xs:string" use="optional"/>
+	</xs:complexType>
+  
+	<xs:complexType name="Comment">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="description" type="xs:string" minOccurs="0"/>
+			<xs:element name="attribute" type="CommentParam"/>
+		</xs:choice>
+	</xs:complexType>
+  
+	<xs:complexType name="CommentParam">
+		<xs:choice minOccurs="0">
+			<xs:element name="description" type="xs:string"/>
+		</xs:choice>
+		<xs:attribute name="name" type="xs:string" use="required"/>
+	</xs:complexType>
+  
+	<xs:complexType name="Exceptions">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+<!-- thz -->
+			<xs:element name="exception" type="Exception"/>
+<!-- /thz -->
+		</xs:choice>
+	</xs:complexType>
+  
+	<xs:complexType name="Exception">
+		<xs:sequence/>
+		<xs:attribute name="fulltype" type="xs:string" use="required"/>
+		<xs:attribute name="type" type="xs:string" use="required"/>
+<!-- thz -->
+		<xs:attribute name="comment" type="xs:string" use="optional"/>
+<!-- /thz -->
+	</xs:complexType>
+  
+	<xs:complexType name="Implements">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="interface" type="Type"/>
+		</xs:choice>
+	</xs:complexType>
+  
+	<xs:complexType name="Type">
+		<xs:sequence/>
+		<xs:attribute name="fulltype" type="xs:string" use="required"/>
+		<xs:attribute name="type" type="xs:string" use="required"/>
+	</xs:complexType>
+</xs:schema>
