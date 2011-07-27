@@ -1,6 +1,4 @@
-package com.mymed.myjam.type;
-
-import com.mymed.model.data.AbstractMBean;
+package com.mymed.android.myjam.type;
 
 /**
  * Class used to exchange located reports, without details. 

@@ -1,11 +1,10 @@
-package com.mymed.myjam.type;
+package com.mymed.android.myjam.type;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.model.data.AbstractMBean;
+import com.mymed.android.myjam.exception.InternalClientException;
 import com.mymed.utils.ClassType;
 
 
@@ -92,7 +91,7 @@ public class MReportBean extends AbstractMBean{
 	}	
 	
 	@Override
-	public Map<String, byte[]> getAttributeToMap() throws InternalBackEndException {
+	public Map<String, byte[]> getAttributeToMap() throws InternalClientException {
 		final Map<String, byte[]> args = new HashMap<String, byte[]>();
 		byte[] returnValueByteArray = null;
 		
@@ -110,7 +109,7 @@ public class MReportBean extends AbstractMBean{
 						args.put(attName, returnValueByteArray);
 					}
 				}catch(Exception e){
-					throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
+					throw new InternalClientException("getAttribueToMap failed!: Introspection error");
 				}
 			}
 		}

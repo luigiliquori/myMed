@@ -11,12 +11,17 @@ import java.nio.charset.Charset;
  * @author iacopo
  *
  */
-public class ReportId {
+public class MyJamId {
+	public final static char REPORT_ID = 'r';
+	public final static char UPDATE_ID = 'u';
+	public final static char FEEDBACK_ID = 'f';
 	private long timestamp;
 	private String userId;
+	private char type;
 	
 	private static Charset CHARSET = Charset.forName("UTF8");
 	private static short LONG_BYTESIZE = 8;
+	private static short CHAR_BYTESIZE = 2;
 	private static char separationChar = '.';
 	
 	/**
@@ -25,7 +30,8 @@ public class ReportId {
 	 * @param userId
 	 * @throws IllegalArgumentException
 	 */
-	public ReportId(long timestamp,String userId) throws IllegalArgumentException{
+	public MyJamId(char type,long timestamp,String userId) throws IllegalArgumentException{
+		this.type = type;
 		this.timestamp = timestamp;  //Removed check
 		this.userId = userId;
 	}
@@ -35,21 +41,7 @@ public class ReportId {
 	 */
 	@Override
 	public String toString(){
-		return userId+separationChar+String.valueOf(timestamp);		
-	}
-	
-	@Override
-	public boolean equals(Object o){
-		ReportId obj = null;
-		try{
-			obj = (ReportId) o;
-			if (obj.getTimestamp() == this.getTimestamp() && obj.getUserId().equals(this.getUserId()))
-				return true;
-			else
-				return false;	
-		}catch(Exception e){
-			return false;
-		}
+		return type+userId+separationChar+String.valueOf(timestamp);		
 	}
 	/**
 	 * Return a ByteBuffer representation of the ReportId
@@ -59,9 +51,11 @@ public class ReportId {
 		byte[] userIdBB = userId.getBytes(CHARSET);
 		int size = userIdBB.length;
 		size += LONG_BYTESIZE;
+		size += CHAR_BYTESIZE;
 		
 		ByteBuffer reportIdBB = ByteBuffer.allocate(size);
 		reportIdBB.clear();
+		reportIdBB.putChar(type);
 		reportIdBB.putLong(timestamp);
 		reportIdBB.put(userIdBB);
 		reportIdBB.compact();
@@ -72,20 +66,21 @@ public class ReportId {
 	 * Parse the ByteBuffer argument and returns a ReportId object
 	 * @return ReportIdObject
 	 */
-	public static ReportId parseByteBuffer(ByteBuffer arg0) throws WrongFormatException{
+	public static MyJamId parseByteBuffer(ByteBuffer arg0) throws WrongFormatException{
 		try{
 			ByteBuffer tmp = arg0.slice();
+			char type = tmp.getChar();
 			long timestamp = tmp.getLong();
 			final CharBuffer charBuf = CHARSET.newDecoder().decode(tmp);
 			String userId = charBuf.toString();
-			return new ReportId(checkTimestamp(timestamp),
+			return new MyJamId(checkType(type),checkTimestamp(timestamp),
 					checkUserId(userId));
 		}catch(CharacterCodingException e){
 			throw new WrongFormatException("ReportId: Character decoding error.");	
 		}catch(BufferUnderflowException e){
 			throw new WrongFormatException("ReportId: BufferUnderflow.");
 		}catch(Exception e){
-			throw new WrongFormatException("ReportId: Pursing error occurred. "+e.getLocalizedMessage());
+			throw new WrongFormatException("ReportId: Parsing error occurred. "+e.getLocalizedMessage());
 		}
 	}
 	
@@ -93,12 +88,13 @@ public class ReportId {
 	 * Parse the ByteBuffer argument and returns a ReportId object
 	 * @return ReportIdObject
 	 */
-	public static ReportId parseString(String arg0) throws WrongFormatException{
+	public static MyJamId parseString(String arg0) throws WrongFormatException{
 		try{
+			char type = arg0.charAt(0);
 			int sepIndex = arg0.indexOf(separationChar);
-			String userId = arg0.substring(0,sepIndex);
+			String userId = arg0.substring(1,sepIndex);
 			long timestamp = Long.parseLong(arg0.substring(sepIndex+1, arg0.length()));
-			return new ReportId(checkTimestamp(timestamp),
+			return new MyJamId(checkType(type),checkTimestamp(timestamp),
 					checkUserId(userId));
 		}catch(NumberFormatException e){
 			throw new WrongFormatException("ReportId: Parsing error.");	
@@ -120,6 +116,10 @@ public class ReportId {
 		return timestamp;
 	}
 	
+	public char getType(){
+		return type;
+	}
+	
 	/**
 	 * Checks if the timestamp is valid.
 	 * @param timestamp
@@ -137,8 +137,19 @@ public class ReportId {
 	 */
 	private static String checkUserId(String userId) throws WrongFormatException{
 		if (userId==null || userId.length()<=0)
-			throw new WrongFormatException("UserId malformed");
+			throw new WrongFormatException("UserId malformed.");
 		return userId;
+	}
+	
+	private static char checkType(char type)  throws WrongFormatException {
+		switch (type){
+			case REPORT_ID:
+			case UPDATE_ID:
+			case FEEDBACK_ID:
+				return type;
+			default:
+				throw new WrongFormatException("Wrong type.");
+		}
 	}
 
 }

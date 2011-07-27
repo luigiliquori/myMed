@@ -121,7 +121,7 @@ public interface IMyJamStorageManager extends IStorageManager  {
 	  * @throws InternalBackEndException
 	  */
 	public Map<byte[],Map<byte[], byte[]>> selectSCRange(String tableName, List<String> primaryKeys,
-			byte[] startColumn, byte[] stopColumn, int maxNum) throws ServiceManagerException,
+			byte[] startColumn, byte[] stopColumn) throws ServiceManagerException,
 			IOBackEndException, InternalBackEndException; 
 	
 	/**
@@ -134,9 +134,22 @@ public interface IMyJamStorageManager extends IStorageManager  {
 	 * @throws IOBackEndException
 	 * @throws InternalBackEndException
 	 */
-	public Map<byte[], byte[]> getFirstN(String tableName, String primaryKey,
+	public Map<byte[], byte[]> getLastN(String tableName, String primaryKey,
 			Integer n) throws ServiceManagerException,
 			IOBackEndException, InternalBackEndException;
+	
+	/**
+	 * Counts the number of colums of a given row or SuperColumn.
+	 * @param tableName 	Name of the CF.
+	 * @param primaryKey	Row key.
+	 * @param superColumn	Number of columns ().
+	 * @return
+	 * @throws ServiceManagerException
+	 * @throws IOBackEndException
+	 * @throws InternalBackEndException
+	 */
+	public int countColumns(String tableName, String primaryKey,byte[] superColumn) throws ServiceManagerException,
+			IOBackEndException, InternalBackEndException;		
 
 	/**
 	 * Removes the specified column (if present) from the CF.

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/relativeLayout1" 
+android:layout_height="?android:attr/listPreferredItemHeight" 
+android:layout_width="fill_parent" 
+android:layout_alignParentTop="true" 
+android:layout_alignParentLeft="true">
+	<TextView android:id="@+id/textViewType"
+	android:text="Type:" 
+	android:layout_height="wrap_content"
+	android:layout_width="wrap_content"
+	android:textAppearance="?android:attr/textAppearanceSmall"
+	android:layout_alignParentLeft="true"
+	android:paddingLeft="5dip"
+    android:singleLine="true">
+	</TextView>
+	<TextView android:id="@+id/textType"
+	android:text="Type"
+    android:layout_height="wrap_content" 
+    android:layout_width="match_parent" 
+    android:textAppearance="?android:attr/textAppearanceLarge"
+    android:layout_toRightOf="@+id/textViewType"
+    android:gravity="center_vertical"
+    android:paddingLeft="5dip"
+    android:singleLine="true">
+	</TextView>
+	<TextView android:id="@+id/textViewLatitude"
+	android:text="Latitude:" 
+	android:layout_height="wrap_content"
+	android:layout_width="wrap_content"
+	android:textAppearance="?android:attr/textAppearanceSmall"
+	android:layout_alignParentLeft="true"
+	android:layout_below="@+id/textType"
+	android:paddingLeft="5dip"
+    android:singleLine="true">
+	</TextView>
+	<TextView android:id="@+id/textLatitude"
+	android:text="lat"
+    android:layout_height="wrap_content" 
+    android:layout_width="wrap_content" 
+    android:textAppearance="?android:attr/textAppearanceLarge"
+    android:layout_toRightOf="@+id/textViewLatitude"
+    android:layout_alignTop="@+id/textViewLatitude"
+    android:paddingLeft="5dip"
+    android:singleLine="true">
+	</TextView>	
+	<TextView android:id="@+id/textViewLongitude"
+	android:text="Longitude:" 
+	android:layout_height="wrap_content"
+	android:layout_width="wrap_content"
+	android:textAppearance="?android:attr/textAppearanceSmall"
+	android:layout_toLeftOf="@+id/textLongitude"
+	android:layout_alignTop="@+id/textViewLatitude"
+	android:paddingLeft="5dip"
+    android:singleLine="true">
+	</TextView>
+	<TextView android:id="@+id/textLongitude"
+	android:text="lon"
+    android:layout_height="wrap_content" 
+    android:layout_width="wrap_content" 
+    android:textAppearance="?android:attr/textAppearanceLarge"
+    android:layout_alignParentRight="true"
+    android:layout_alignTop="@+id/textViewLatitude"
+    android:paddingRight="5dip"
+    android:singleLine="true">
+	</TextView>	
+</RelativeLayout>

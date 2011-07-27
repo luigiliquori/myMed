@@ -40,7 +40,7 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 	 */
 	public final static String CONFIG_PATH = "/home/iacopo/workspace/mymed/backend/conf/myJamConfig.xml";	
 	public final static String KEYSPACE ="myJamKeyspace";
-	public final static int maxNumColumns=1000; 
+	public final static int maxNumColumns=10000; 
 
 	private final CassandraWrapper wrapper;
 
@@ -341,13 +341,14 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 	 * @param n				Number of returned columns (at most.)
 	 * @return
 	 */
-	public Map<byte[], byte[]> getFirstN(String tableName, String primaryKey,
+	public Map<byte[], byte[]> getLastN(String tableName, String primaryKey,
 			Integer n) throws ServiceManagerException,
 			IOBackEndException, InternalBackEndException {
 
 				final SliceRange range = new SliceRange();
 				range.setStart(new byte[0]);
 				range.setFinish(new byte[0]);
+				range.setReversed(true);
 				range.setCount(n);
 
 				return selectByPredicate(tableName, primaryKey, new SlicePredicate().setSlice_range(range));	
@@ -366,15 +367,39 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 	 * @throws InternalBackEndException
 	 */
 	public Map<byte[],Map<byte[], byte[]>> selectSCRange(String tableName, List<String> primaryKeys,
-			byte[] startColumn, byte[] stopColumn,int num) throws ServiceManagerException,
+			byte[] startColumn, byte[] stopColumn) throws ServiceManagerException,
 			IOBackEndException, InternalBackEndException {
 
 		final SliceRange range = new SliceRange();
 		range.setStart(startColumn);
 		range.setFinish(stopColumn);
-		range.setCount(num);	//TODO Maybe better split and perform several queries.
+		range.setCount(maxNumColumns);	//TODO Maybe better split and perform several queries.
 
 		return selectSCByPredicate(tableName, primaryKeys, new SlicePredicate().setSlice_range(range));		
+	}
+	
+	@Override
+	public int countColumns(String tableName, String primaryKey,
+			byte[] superColumn) throws ServiceManagerException,
+			IOBackEndException, InternalBackEndException {
+		
+		try {
+			final ColumnParent parent = new ColumnParent(tableName);
+			if (superColumn!=null)
+				parent.setSuper_column(superColumn);
+			final SlicePredicate predicate = new SlicePredicate();
+			final SliceRange sliceRange = new SliceRange();
+			sliceRange.setStart(new byte[0]);
+			sliceRange.setFinish(new byte[0]);
+			sliceRange.setCount(maxNumColumns);
+			predicate.setSlice_range(sliceRange);
+
+			wrapper.open();
+			wrapper.set_keyspace(KEYSPACE);//TODO 
+			return wrapper.get_count(primaryKey, parent, predicate, consistencyOnRead);
+		} finally {
+			wrapper.close();
+		}	
 	}
 
 	/**

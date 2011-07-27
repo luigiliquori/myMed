@@ -1,7 +1,4 @@
-package com.mymed.myjam.type;
-
-import com.mymed.model.data.AbstractMBean;
-
+package com.mymed.android.myjam.type;
 
 /**
  * Contains the feedback for the reports.

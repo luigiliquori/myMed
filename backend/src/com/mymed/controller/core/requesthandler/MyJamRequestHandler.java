@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 import java.nio.BufferOverflowException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,11 +22,11 @@ import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.myjam.MyJamManager;
 import com.mymed.controller.core.manager.storage.MyJamStorageManager;
-import com.mymed.myjam.type.IMyJamType;
+import com.mymed.myjam.type.MyJamTypeValidator;
 import com.mymed.myjam.type.MReportBean;
 import com.mymed.myjam.type.MShortReportBean;
 import com.mymed.myjam.type.MFeedBackBean;
-import com.mymed.myjam.type.ReportId;
+import com.mymed.myjam.type.MyJamId;
 import com.mymed.myjam.type.WrongFormatException;
 /**
  * 
@@ -37,7 +36,6 @@ import com.mymed.myjam.type.WrongFormatException;
 @WebServlet("/MyJamHandler")
 public class MyJamRequestHandler extends AbstractRequestHandler {
 	private static final long serialVersionUID = 1L;
-	private static final int maxNumUpdates = 10;
 	/**StorageManager*/
 	MyJamManager myJamManager;
 	/** Request code Map*/ 
@@ -67,7 +65,7 @@ public class MyJamRequestHandler extends AbstractRequestHandler {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ReportId reportId;
+		MyJamId reportId;
 		String resToJson;
 		try {			
 			Map<String,String> params = getParameters(request);
@@ -81,37 +79,31 @@ public class MyJamRequestHandler extends AbstractRequestHandler {
 				int longitude = Integer.parseInt(params.get("longitude"));
 				// Diameter in m.
 				int radius = Integer.parseInt(params.get("radius"));
-				List<MShortReportBean> resultList = myJamManager.getReports((double) (latitude/1E6), (double) (longitude/1E6), radius);
+				List<MShortReportBean> resultList = myJamManager.searchReports((double) (latitude/1E6), (double) (longitude/1E6), radius);
 				resToJson = this.getGson().toJson(resultList);
 				setResponseText(resToJson);
 				break;
 			case GET_REPORT:
-				reportId = ReportId.parseString(params.get("id"));
+				reportId = MyJamId.parseString(params.get("id"));	//This conversion is done only to check the syntax of the id.
 				MReportBean reportInfo = myJamManager.getReport(reportId.toString());
 				resToJson = this.getGson().toJson(reportInfo);
 				setResponseText(resToJson);
 				break;
-			case GET_AVAILABLE_UPDATES:
-				reportId = ReportId.parseString(params.get("id"));
-				List<String> updateIdList = myJamManager.getUpdateId(reportId.toString());
+			case GET_NUMBER_UPDATES:
+				reportId = MyJamId.parseString(params.get("id"));
+				int updateIdList = myJamManager.getNumUpdates(reportId.toString());
 				resToJson = this.getGson().toJson(updateIdList);
 				setResponseText(resToJson);
 				break;
 			case GET_UPDATES:
-				Map<String,String[]> paramArrays = getParameterArrays(request);
-				String[] ids = paramArrays.get("id");
-				List<String> updateIds = new ArrayList<String>(ids.length);
-				if (ids.length>maxNumUpdates)
-					throw new InternalBackEndException(" Malformed request. ");
-				for (String updateId: ids){
-					updateIds.add(ReportId.parseString(updateId).toString());
-				}
-				List<MReportBean> updates = myJamManager.getUpdates(updateIds);
+				reportId = MyJamId.parseString(params.get("id"));
+				int numUpdates = Integer.parseInt(params.get("num"));
+				List<MReportBean> updates = myJamManager.getUpdates(reportId.toString(),numUpdates);
 				resToJson = this.getGson().toJson(updates);
 				setResponseText(resToJson);
 				break;
 			case GET_FEEDBACKS:
-				reportId = ReportId.parseString(params.get("id"));
+				reportId = MyJamId.parseString(params.get("id"));
 				List<MFeedBackBean> feedbackList = myJamManager.getFeedbacks(reportId.toString());
 				resToJson = this.getGson().toJson(feedbackList);
 				setResponseText(resToJson);
@@ -144,7 +136,7 @@ public class MyJamRequestHandler extends AbstractRequestHandler {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ReportId reportId;
+		MyJamId reportId;
 		String content;
 		try {
 			Map<String,String> params = getParameters(request);
@@ -155,23 +147,23 @@ public class MyJamRequestHandler extends AbstractRequestHandler {
 				int longitude = Integer.parseInt(params.get("longitude"));
 				content = convertStreamToString(request.getInputStream(),request.getContentLength());
 				MReportBean report = this.getGson().fromJson(content, MReportBean.class);
-				validate(report);
+				MyJamTypeValidator.validate(report);
 				String res = myJamManager.insertReport(report,latitude,longitude);
 				String resToJson = this.getGson().toJson(res);
 				setResponseText(resToJson);
 				break;
 			case INSERT_UPDATE:
-				reportId = ReportId.parseString(params.get("id"));
+				reportId = MyJamId.parseString(params.get("id"));
 				content = convertStreamToString(request.getInputStream(),request.getContentLength());
 				MReportBean update = this.getGson().fromJson(content, MReportBean.class);
-				validate(update);
+				MyJamTypeValidator.validate(update);
 				myJamManager.insertUpdate(reportId.toString(), update);
 				break;
 			case INSERT_FEEDBACK:
-				reportId = ReportId.parseString(params.get("id"));
+				reportId = MyJamId.parseString(params.get("id"));
 				content = convertStreamToString(request.getInputStream(),request.getContentLength());
 				MFeedBackBean feedback =  this.getGson().fromJson(content, MFeedBackBean.class);
-				validate(feedback);
+				MyJamTypeValidator.validate(feedback);
 				myJamManager.insertFeedback(reportId.toString(), feedback);
 				break;
 			}
@@ -193,14 +185,14 @@ public class MyJamRequestHandler extends AbstractRequestHandler {
 	}
 
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ReportId reportId;
+		MyJamId reportId;
 		
 		try{
 			Map<String,String> params = getParameters(request);
 			MyJamRequestCode code = reqCodeMap.get(params.get("code"));
 			switch (code){
 			case DELETE_REPORT:
-				reportId = ReportId.parseString(params.get("id"));
+				reportId = MyJamId.parseString(params.get("id"));
 				myJamManager.deleteReport(reportId);
 				break;
 			}
@@ -223,7 +215,7 @@ public class MyJamRequestHandler extends AbstractRequestHandler {
 protected enum MyJamRequestCode { 
 	SEARCH_REPORTS ("0"),
 	GET_REPORT ("1"), 	
-	GET_AVAILABLE_UPDATES ("2"),
+	GET_NUMBER_UPDATES ("2"),
 	GET_UPDATES ("3"),
 	GET_FEEDBACKS("4"),
 	GET_ACTIVE_REPORTS("5"),	
@@ -280,16 +272,4 @@ private static String convertStreamToString(InputStream is,int length) throws In
 	}
 }
 
-/**
- * Validate a NewReport.
- * @param arg0
- * @throws InternalBackEndException
- */
-private static void validate(IMyJamType arg0) throws InternalBackEndException {
-	try{
-		arg0.validate();
-	}catch(WrongFormatException e){
-		throw new InternalBackEndException("Wrong request: "+e.getMessage());
-	}
-}
 }
