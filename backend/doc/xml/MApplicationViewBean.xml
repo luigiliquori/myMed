@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jel>
+	<admin creation="Mon Jul 25 17:34:54 CEST 2011" xsdversion="1.0.0" version="1.0.0" />
+	<jelclass final="true" superclass="AbstractMBean" visibility="public" package="com.mymed.model.data.application" superclassfulltype="AbstractMBean" fulltype="com.mymed.model.data.application.MApplicationViewBean" type="MApplicationViewBean">
+		<comment>
+			<description>This class represent an user profile</description>
+			<attribute name="@author">
+				<description>lvanni</description>
+			</attribute>
+		</comment>
+		<fields>
+			<field visibility="private" name="name" fulltype="java.lang.String" type="String" />
+			<field visibility="private" name="category" fulltype="java.lang.String" type="String">
+				<comment>
+					<description>ID_CATEGORY</description>
+				</comment>
+			</field>
+			<field visibility="private" name="dateOfCreation" fulltype="long" type="long" />
+			<field visibility="private" name="description" fulltype="java.lang.String" type="String" />
+			<field visibility="private" name="icon" fulltype="java.lang.String" type="String" />
+			<field visibility="private" name="background" fulltype="java.lang.String" type="String" />
+			<field visibility="private" name="publisherList" fulltype="java.lang.String" type="String">
+				<comment>
+					<description>USER_LIST_ID</description>
+				</comment>
+			</field>
+			<field visibility="private" name="subscriberList" fulltype="java.lang.String" type="String">
+				<comment>
+					<description>USER_LIST_ID</description>
+				</comment>
+			</field>
+			<field visibility="private" name="administrator" fulltype="java.lang.String" type="String">
+				<comment>
+					<description>USER_ID</description>
+				</comment>
+			</field>
+			<field visibility="private" name="ontologies" fulltype="java.lang.String" type="String">
+				<comment>
+					<description>ONTOLOGY_LIST_ID</description>
+				</comment>
+			</field>
+			<field visibility="private" name="model" fulltype="java.lang.String" type="String">
+				<comment>
+					<description>APPLICATION_MODEL_ID</description>
+				</comment>
+			</field>
+			<field visibility="private" name="controller" fulltype="java.lang.String" type="String">
+				<comment>
+					<description>APPLICATION_CONTROLLER_ID</description>
+				</comment>
+			</field>
+		</fields>
+		<methods>
+			<constructor visibility="public" name="MApplicationViewBean" />
+			<method visibility="public" name="equals" fulltype="boolean" type="boolean">
+				<params>
+					<param name="object" fulltype="java.lang.Object" type="Object" />
+				</params>
+			</method>
+			<method visibility="public" name="getName" fulltype="java.lang.String" type="String" />
+			<method visibility="public" name="setName" fulltype="void" type="void">
+				<params>
+					<param name="name" fulltype="java.lang.String" type="String" />
+				</params>
+			</method>
+			<method visibility="public" name="getCategory" fulltype="java.lang.String" type="String" />
+			<method visibility="public" name="setCategory" fulltype="void" type="void">
+				<params>
+					<param name="category" fulltype="java.lang.String" type="String" />
+				</params>
+			</method>
+			<method visibility="public" name="getDateOfCreation" fulltype="long" type="long" />
+			<method visibility="public" name="setDateOfCreation" fulltype="void" type="void">
+				<params>
+					<param name="dateOfCreation" fulltype="long" type="long" />
+				</params>
+			</method>
+			<method visibility="public" name="getDescription" fulltype="java.lang.String" type="String" />
+			<method visibility="public" name="setDescription" fulltype="void" type="void">
+				<params>
+					<param name="description" fulltype="java.lang.String" type="String" />
+				</params>
+			</method>
+			<method visibility="public" name="getIcon" fulltype="java.lang.String" type="String" />
+			<method visibility="public" name="setIcon" fulltype="void" type="void">
+				<params>
+					<param name="icon" fulltype="java.lang.String" type="String" />
+				</params>
+			</method>
+			<method visibility="public" name="getBackground" fulltype="java.lang.String" type="String" />
+			<method visibility="public" name="setBackground" fulltype="void" type="void">
+				<params>
+					<param name="background" fulltype="java.lang.String" type="String" />
+				</params>
+			</method>
+			<method visibility="public" name="getPublisherList" fulltype="java.lang.String" type="String" />
+			<method visibility="public" name="setPublisherList" fulltype="void" type="void">
+				<params>
+					<param name="publisherList" fulltype="java.lang.String" type="String" />
+				</params>
+			</method>
+			<method visibility="public" name="getSubscriberList" fulltype="java.lang.String" type="String" />
+			<method visibility="public" name="setSubscriberList" fulltype="void" type="void">
+				<params>
+					<param name="subscriberList" fulltype="java.lang.String" type="String" />
+				</params>
+			</method>
+			<method visibility="public" name="getAdministrator" fulltype="java.lang.String" type="String" />
+			<method visibility="public" name="setAdministrator" fulltype="void" type="void">
+				<params>
+					<param name="administrator" fulltype="java.lang.String" type="String" />
+				</params>
+			</method>
+			<method visibility="public" name="getOntologies" fulltype="java.lang.String" type="String" />
+			<method visibility="public" name="setOntologies" fulltype="void" type="void">
+				<params>
+					<param name="ontologies" fulltype="java.lang.String" type="String" />
+				</params>
+			</method>
+			<method visibility="public" name="getModel" fulltype="java.lang.String" type="String" />
+			<method visibility="public" name="setModel" fulltype="void" type="void">
+				<params>
+					<param name="model" fulltype="java.lang.String" type="String" />
+				</params>
+			</method>
+			<method visibility="public" name="getController" fulltype="java.lang.String" type="String" />
+			<method visibility="public" name="setController" fulltype="void" type="void">
+				<params>
+					<param name="controller" fulltype="java.lang.String" type="String" />
+				</params>
+			</method>
+		</methods>
+	</jelclass>
+</jel>

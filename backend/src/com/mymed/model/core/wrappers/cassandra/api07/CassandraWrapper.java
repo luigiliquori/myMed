@@ -224,6 +224,7 @@ public class CassandraWrapper implements ICassandraWrapper, IWrapper {
 			throw new InternalBackEndException(ex);
 		}
 	}
+
 	@Override
 	public void batch_mutate(final Map<String, Map<String, List<Mutation>>> mutationMap, final ConsistencyLevel level)
 	        throws InternalBackEndException {
@@ -247,6 +248,7 @@ public class CassandraWrapper implements ICassandraWrapper, IWrapper {
 			throw new InternalBackEndException(ex);
 		}
 	}
+
 	@Override
 	public void remove(final String key, final ColumnPath path, final long timeStamp, final ConsistencyLevel level)
 	        throws InternalBackEndException {

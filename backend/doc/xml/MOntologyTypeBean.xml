@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jel>
+	<admin creation="Mon Jul 25 17:34:55 CEST 2011" xsdversion="1.0.0" version="1.0.0" />
+	<jelclass final="true" superclass="AbstractMBean" visibility="public" package="com.mymed.model.data.application" superclassfulltype="AbstractMBean" fulltype="com.mymed.model.data.application.MOntologyTypeBean" type="MOntologyTypeBean">
+		<comment>
+			<description>This class represent an user profile</description>
+			<attribute name="@author">
+				<description>lvanni</description>
+			</attribute>
+		</comment>
+		<methods>
+			<constructor visibility="public" name="MOntologyTypeBean" />
+			<method visibility="public" name="equals" fulltype="boolean" type="boolean">
+				<params>
+					<param name="object" fulltype="java.lang.Object" type="Object" />
+				</params>
+			</method>
+		</methods>
+	</jelclass>
+</jel>

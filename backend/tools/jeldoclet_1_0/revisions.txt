@@ -1,0 +1,32 @@
+JELdoclet 
+
+Authors: 
+Jack D. Herrington <jack_d_herrington@codegeneration.net>
+Toby Patke <toby_patke _?_ hotmail.com>
+Thomas Zwolsky <tom (at) zwolsky.net>
+
+revision history
+
+Dec 16, 2005 - updated by T.Zwolsky:
+- friendly project takeover
+- Version 1.0 (Jack Herrington: "I'd say bump it to 1.0. It's stable.")
+- versioning in program and xsd
+- added admin stuff in xsd
+- created JDeveloper (10.1.2.0.0 - Java 1.4.2) and Netbeans (4.1 - Java 1.5.0_3) projects
+- tested with Java 1.5 (Netbeans project)
+
+Dec 8/9th, 2005 - updated by T.Zwolsky:
+- added cmdline parameter -outputEncoding
+- bugfix: implements/interface node(s) were created but not inserted into class node
+- added exception comment (both here and in the xsd as optional element)
+- added cmdline parameter -filename
+- added output directory check
+- added some comments to readme
+- added test target in build.xml
+- added nested class in test classes (test/MyInterClass.java)
+- added xsl transformation jel2html.xsl
+
+Sep 14th, 2005 - Updated by TP to allow multiple file output.
+- Added support for exceptions.
+- Added support for a few missing method modifiers (final, etc).
+- Added support for xml namespaces.

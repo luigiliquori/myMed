@@ -13,9 +13,7 @@ import com.mymed.model.data.reputation.MReputationBean;
 import com.mymed.utils.MConverter;
 
 public class ReputationManager extends AbstractManager implements IReputationManager {
-	/* --------------------------------------------------------- */
-	/* Constructors */
-	/* --------------------------------------------------------- */
+
 	public ReputationManager() throws InternalBackEndException {
 		this(new StorageManager());
 	}
@@ -24,17 +22,13 @@ public class ReputationManager extends AbstractManager implements IReputationMan
 		super(storageManager);
 	}
 
-	/* --------------------------------------------------------- */
-	/* implements ReputationManager */
-	/* --------------------------------------------------------- */
-
 	@Override
 	public MReputationBean read(final String producerID, final String consumerID, final String applicationID)
 	        throws InternalBackEndException, IOBackEndException {
 		final MReputationBean reputationBean = new MReputationBean();
 		Map<byte[], byte[]> args = new HashMap<byte[], byte[]>();
 		try {
-			args = storageManager.selectAll("Reputation", producerID + applicationID);
+			args = storageManager.selectAll(CF_REPUTATION, producerID + applicationID);
 		} catch (final ServiceManagerException e) {
 			e.printStackTrace();
 			throw new InternalBackEndException("read failed because of a WrapperException: " + e.getMessage());
@@ -49,7 +43,7 @@ public class ReputationManager extends AbstractManager implements IReputationMan
 		// THE REPUTATION VALUE IS THE LAST GIVEN FEEDBACK
 
 		try {
-			storageManager.insertColumn("Reputation", interaction.getProducer() + interaction.getApplication(),
+			storageManager.insertColumn(CF_REPUTATION, interaction.getProducer() + interaction.getApplication(),
 			        "value", MConverter.doubleToByteBuffer(feedback).array());
 		} catch (final ServiceManagerException e) {
 			e.printStackTrace();

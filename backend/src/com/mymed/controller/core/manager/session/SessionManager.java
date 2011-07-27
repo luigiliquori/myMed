@@ -13,26 +13,24 @@ import com.mymed.model.data.session.MSessionBean;
 import com.mymed.model.data.user.MUserBean;
 
 public class SessionManager extends AbstractManager implements ISessionManager {
-	/* --------------------------------------------------------- */
-	/* Constructors */
-	/* --------------------------------------------------------- */
+
+	private static final String SESSION_SUFFIX = "_SESSION";
+
 	public SessionManager() throws InternalBackEndException {
 		this(new StorageManager());
 	}
-	
-	public SessionManager(StorageManager storageManager) throws InternalBackEndException {
+
+	public SessionManager(final StorageManager storageManager) throws InternalBackEndException {
 		super(storageManager);
 	}
 
-	/* --------------------------------------------------------- */
-	/* implements IProfileManagement */
-	/* --------------------------------------------------------- */
 	/**
-	 * @throws IOBackEndException 
+	 * @throws IOBackEndException
 	 * @see ISessionManager#create(String, String)
 	 */
-	public void create(String userID, String ip) throws InternalBackEndException, IOBackEndException {
-		MSessionBean sessionBean = new MSessionBean();
+	@Override
+	public void create(final String userID, final String ip) throws InternalBackEndException, IOBackEndException {
+		final MSessionBean sessionBean = new MSessionBean();
 		sessionBean.setIp(ip);
 		sessionBean.setUser(userID);
 		sessionBean.setCurrentApplications("");
@@ -40,66 +38,67 @@ public class SessionManager extends AbstractManager implements ISessionManager {
 		sessionBean.setTimeout(System.currentTimeMillis());
 		create(sessionBean);
 	}
-	
+
 	/**
-	 * @throws IOBackEndException 
+	 * @throws IOBackEndException
 	 * @see ISessionManager#create(String, String)
 	 */
-	public void create(MSessionBean sessionBean)
-			throws InternalBackEndException, IOBackEndException {
+	public void create(final MSessionBean sessionBean) throws InternalBackEndException, IOBackEndException {
 		try {
-			// CREATION DE L'ID DE SESSION 
-			sessionBean.setId(sessionBean.getUser() + "_SESSION");
-			storageManager.insertSlice("Session", "sessionID", sessionBean
-					.getAttributeToMap());
-			// LINK AVEC L'USER
-			ProfileManager profileManager =  new ProfileManager();
-			MUserBean user = profileManager.read(sessionBean.getUser());
+			if (sessionBean.getId() == null) {
+				sessionBean.setId(sessionBean.getUser() + SESSION_SUFFIX);
+			}
+
+			storageManager.insertSlice(CF_SESSION, sessionBean.getId(), sessionBean.getAttributeToMap());
+
+			final ProfileManager profileManager = new ProfileManager(storageManager);
+			final MUserBean user = profileManager.read(sessionBean.getUser());
+
 			user.setSession(sessionBean.getId());
 			profileManager.update(user);
-		} catch (ServiceManagerException e) {
-			throw new InternalBackEndException(
-					"create failed because of a WrapperException: "
-							+ e.getMessage());
+		} catch (final ServiceManagerException e) {
+			e.printStackTrace();
+			throw new InternalBackEndException("create failed because of a WrapperException: " + e.getMessage());
 		}
 	}
 
 	/**
-	 * @throws IOBackEndException 
+	 * @throws IOBackEndException
 	 * @see ISessionManager#read(String)
 	 */
-	public MSessionBean read(String userID) throws InternalBackEndException, IOBackEndException {
-		ProfileManager profileManager =  new ProfileManager();
-		MUserBean user = profileManager.read(userID);
+	@Override
+	public MSessionBean read(final String userID) throws InternalBackEndException, IOBackEndException {
+		final ProfileManager profileManager = new ProfileManager(storageManager);
+		final MUserBean user = profileManager.read(userID);
+
 		Map<byte[], byte[]> args = new HashMap<byte[], byte[]>();
-		MSessionBean session = new MSessionBean();
+		final MSessionBean session = new MSessionBean();
+
 		try {
-			args = storageManager.selectAll("Session", user.getSession());
-		} catch (ServiceManagerException e) {
+			args = storageManager.selectAll(CF_SESSION, user.getSession());
+		} catch (final ServiceManagerException e) {
 			e.printStackTrace();
-			throw new InternalBackEndException(
-					"read failed because of a WrapperException: "
-							+ e.getMessage());
+			throw new InternalBackEndException("read failed because of a WrapperException: " + e.getMessage());
 		}
 
 		return (MSessionBean) introspection(session, args);
 	}
 
 	/**
-	 * @throws IOBackEndException 
+	 * @throws IOBackEndException
 	 * @see ISessionManager#update(MSessionBean)
 	 */
-	public void update(MSessionBean session)
-			throws InternalBackEndException, IOBackEndException {
+	@Override
+	public void update(final MSessionBean session) throws InternalBackEndException, IOBackEndException {
 		create(session);
 	}
-	
+
 	/**
-	 * @throws ServiceManagerException 
+	 * @throws ServiceManagerException
 	 * @see ISessionManager#delete(String)
 	 */
-	public void delete(String userID) throws InternalBackEndException {
-		storageManager.removeAll("Session", userID + "_SESSION");
+	@Override
+	public void delete(final String userID) throws InternalBackEndException {
+		storageManager.removeAll(CF_SESSION, userID + SESSION_SUFFIX);
 	}
-
 }
