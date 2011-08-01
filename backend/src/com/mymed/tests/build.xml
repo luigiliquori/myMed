@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+Ant build file to run JUnit tests for mymed class
+
+Milo Casagrande <milo.casagrande@inria.fr>, 2011
+-->
 <project name="mymed" default="test" basedir=".">
 
 	<property name="build.dir"           location="build" />
@@ -12,6 +17,7 @@
 	<property name="synapse.dir"         location="../../../../protocols/synapse/jSynapse/src" />
 	<property name="src.dir"             location="${controller.dir}:${model.dir}:${utils.dir}" />
 
+ <!-- Fix the classpath to add the necessary resources -->
 	<path id="mymed.classpath">
 		<pathelement path="${java.class.path}"/>
 	  <pathelement location="${lib.dir}/mymed.jar"/>
@@ -65,10 +71,8 @@
 		</junit>
 	</target>
 
-	<target name="frontend" description="Create the frontend JAR">
-	</target>
-
-	<target name="cleanbuild">
+	<!-- Clean the JARs that we have small new JARs -->
+	<target name="cleanbuild" description="Clean the build dir from the included JARs">
 		<delete includeemptydirs="true" failonerror="false">
 		  <fileset dir="${build.dir}" includes="**/*"/>
 		</delete>
