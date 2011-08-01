@@ -24,7 +24,7 @@ import com.mymed.controller.core.exception.ServiceManagerException;
 public interface IStorageManager {
 
 	/** Default ConsistencyLevel */
-	public static ConsistencyLevel consistencyOnWrite = ConsistencyLevel.ONE;
+	public static ConsistencyLevel consistencyOnWrite = ConsistencyLevel.ANY;
 	public static ConsistencyLevel consistencyOnRead = ConsistencyLevel.ONE;
 
 	/**

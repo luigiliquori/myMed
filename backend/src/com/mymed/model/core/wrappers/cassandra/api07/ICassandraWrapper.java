@@ -82,7 +82,7 @@ public interface ICassandraWrapper {
 	 * @throws InternalBackEndException
 	 */
 	List<ColumnOrSuperColumn> get_slice(String key, ColumnParent parent, SlicePredicate predicate,
-	        ConsistencyLevel level) throws InternalBackEndException;
+	        ConsistencyLevel level) throws InternalBackEndException, IOBackEndException;
 
 	/**
 	 * Retrieve slices for column parent and predicate on each of the given keys

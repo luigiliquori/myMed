@@ -114,6 +114,7 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
 			case CREATE:
 				MUserBean userBean = null;
 				try {
+					System.out.println("USER:\n\n" + user);
 					userBean = getGson().fromJson(user,
 							MUserBean.class);
 				} catch (JsonSyntaxException e) {

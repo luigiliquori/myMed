@@ -25,6 +25,7 @@ import org.apache.cassandra.thrift.NotFoundException;
 import org.apache.cassandra.thrift.SlicePredicate;
 import org.apache.cassandra.thrift.TBinaryProtocol;
 import org.apache.cassandra.thrift.TokenRange;
+import org.apache.cassandra.thrift.UnavailableException;
 import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TFramedTransport;
 import org.apache.thrift.transport.TSocket;
@@ -119,16 +120,18 @@ public class CassandraWrapper implements ICassandraWrapper, IWrapper {
 
 	@Override
 	public List<ColumnOrSuperColumn> get_slice(final String key, final ColumnParent parent,
-	        final SlicePredicate predicate, final ConsistencyLevel level) throws InternalBackEndException {
+	        final SlicePredicate predicate, final ConsistencyLevel level) throws InternalBackEndException, IOBackEndException {
 
 		final ByteBuffer keyToBuffer = MConverter.stringToByteBuffer(key);
 		List<ColumnOrSuperColumn> result = null;
 
-		try {
-			result = cassandraClient.get_slice(keyToBuffer, parent, predicate, level);
-		} catch (final Exception ex) {
-			throw new InternalBackEndException(ex);
-		}
+			try {
+				result = cassandraClient.get_slice(keyToBuffer, parent, predicate, level);
+			} catch (final UnavailableException ex) {
+				throw new IOBackEndException(ex);
+			} catch (final Exception ex) {
+				throw new InternalBackEndException(ex);
+			}
 
 		return result;
 	}
@@ -243,9 +246,10 @@ public class CassandraWrapper implements ICassandraWrapper, IWrapper {
 		}
 
 		try {
+			System.out.println("LEVEL == " + level);
 			cassandraClient.batch_mutate(newMap, level);
 		} catch (final Exception ex) {
-			throw new InternalBackEndException(ex);
+			ex.printStackTrace();
 		}
 	}
 
