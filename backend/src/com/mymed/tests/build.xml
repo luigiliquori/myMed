@@ -42,7 +42,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 	</target>
 
 	<!-- Compile mymed -->
-	<target name="compile" depends="synapse" description="Compile the necessary files">
+	<target name="compile" depends="synapse,cleanbuild" description="Compile the necessary files">
 		<javac srcdir="${src.dir}" destdir="${build.dir}" debug="on">
 			<exclude name="InteractionManagerTest.java"/>
 			<classpath refid="mymed.classpath"/>
@@ -71,7 +71,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 	</target>
 
 	<!-- Clean the JARs so that we have small new JARs for the compile -->
-	<target name="cleanbuild" description="Clean the build dir from the included JARs">
+	<target name="cleanbuild" description="Clean the build dir from other directories">
 		<delete includeemptydirs="true" failonerror="false">
 		  <fileset dir="${build.dir}" includes="**/*"/>
 		</delete>
