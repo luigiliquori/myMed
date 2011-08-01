@@ -305,7 +305,7 @@ public class StorageManager implements IStorageManager {
 			wrapper.open();
 			wrapper.batch_mutate(mutationMap, consistencyOnWrite);
 		} catch (final InternalBackEndException e) {
-			throw new InternalBackEndException(" InsertSlice failed.");
+			throw new InternalBackEndException("InsertSlice failed.");
 		} finally {
 			wrapper.close();
 		}
