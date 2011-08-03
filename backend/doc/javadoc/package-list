@@ -1,5 +1,6 @@
 com.mymed.controller.core.exception
 com.mymed.controller.core.manager
+com.mymed.controller.core.manager.application
 com.mymed.controller.core.manager.authentication
 com.mymed.controller.core.manager.buddy
 com.mymed.controller.core.manager.dht
@@ -19,6 +20,10 @@ com.mymed.model.core.wrappers.cassandra.api07
 com.mymed.model.core.wrappers.chord
 com.mymed.model.core.wrappers.kad
 com.mymed.model.data
+com.mymed.model.data.application
+com.mymed.model.data.reputation
+com.mymed.model.data.session
+com.mymed.model.data.user
 com.mymed.tests
 com.mymed.utils
 edu.lognet.core.protocols.p2p

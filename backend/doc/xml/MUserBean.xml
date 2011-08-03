@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jel>
-	<admin creation="Mon Jul 25 17:34:50 CEST 2011" xsdversion="1.0.0" version="1.0.0" />
+	<admin creation="Mon Aug 01 15:57:11 CEST 2011" xsdversion="1.0.0" version="1.0.0" />
 	<jelclass final="true" superclass="AbstractMBean" visibility="public" package="com.mymed.model.data.user" superclassfulltype="AbstractMBean" fulltype="com.mymed.model.data.user.MUserBean" type="MUserBean">
 		<comment>
 			<description>This class represent an user profile</description>
@@ -33,6 +33,7 @@
 			<field visibility="private" name="hometown" fulltype="java.lang.String" type="String" />
 			<field visibility="private" name="gender" fulltype="java.lang.String" type="String" />
 			<field visibility="private" name="lastConnection" fulltype="long" type="long" />
+			<field visibility="private" name="profilePicture" fulltype="java.lang.String" type="String" />
 			<field visibility="private" name="buddyList" fulltype="java.lang.String" type="String">
 				<comment>
 					<description>USER_LIST_ID</description>
@@ -285,6 +286,23 @@
 				</comment>
 				<params>
 					<param name="lastConnection" comment="the lastConnection to set" fulltype="long" type="long" />
+				</params>
+			</method>
+			<method visibility="public" name="getProfilePicture" returncomment="the profile picture" fulltype="java.lang.String" type="String">
+				<comment>
+					<attribute name="@return">
+						<description>the profile picture</description>
+					</attribute>
+				</comment>
+			</method>
+			<method visibility="public" name="setProfilePicture" fulltype="void" type="void">
+				<comment>
+					<attribute name="@param">
+						<description>profilePicture</description>
+					</attribute>
+				</comment>
+				<params>
+					<param name="profilePicture" comment="" fulltype="java.lang.String" type="String" />
 				</params>
 			</method>
 			<method visibility="public" name="getBuddyList" returncomment="the buddyList" fulltype="java.lang.String" type="String">

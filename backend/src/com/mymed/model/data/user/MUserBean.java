@@ -8,6 +8,10 @@ import com.mymed.model.data.AbstractMBean;
  * @author lvanni
  */
 public final class MUserBean extends AbstractMBean {
+
+	/* --------------------------------------------------------- */
+	/* Attributes */
+	/* --------------------------------------------------------- */
 	/**
 	 * Used for the hash code
 	 */
@@ -26,6 +30,7 @@ public final class MUserBean extends AbstractMBean {
 	private String hometown = null;
 	private String gender = null;
 	private long lastConnection;
+	private String profilePicture = null;
 	/** USER_LIST_ID */
 	private String buddyList = null;
 	/** APPLICATION_LIST_ID */
@@ -39,6 +44,9 @@ public final class MUserBean extends AbstractMBean {
 	private String socialNetworkID = null;
 	private String socialNetworkName = null;
 
+	/* --------------------------------------------------------- */
+	/* Constructors */
+	/* --------------------------------------------------------- */
 	/**
 	 * Copy constructor.
 	 * <p>
@@ -81,9 +89,10 @@ public final class MUserBean extends AbstractMBean {
 		// Empty constructor, needed because of the copy constructor
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* --------------------------------------------------------- */
+	/* Override methods */
+	/* --------------------------------------------------------- */
+	/**
 	 * @see java.lang.Object#equals()
 	 */
 	@Override
@@ -136,9 +145,8 @@ public final class MUserBean extends AbstractMBean {
 
 		return equal;
 	}
-	/*
-	 * (non-Javadoc)
-	 * 
+
+	/**
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -146,7 +154,8 @@ public final class MUserBean extends AbstractMBean {
 		int result = 1;
 
 		result = PRIME * result + (email == null ? 0 : email.hashCode());
-		result = PRIME * result + (firstName == null ? 0 : firstName.hashCode());
+		result = PRIME * result
+				+ (firstName == null ? 0 : firstName.hashCode());
 		result = PRIME * result + (lastName == null ? 0 : lastName.hashCode());
 		result = PRIME * result + (id == null ? 0 : id.hashCode());
 		result = PRIME * result + (name == null ? 0 : name.hashCode());
@@ -159,6 +168,9 @@ public final class MUserBean extends AbstractMBean {
 		return "User:\n" + super.toString();
 	}
 
+	/* --------------------------------------------------------- */
+	/* GETTER AND SETTER */
+	/* --------------------------------------------------------- */
 	/**
 	 * @return the id
 	 */
@@ -322,6 +334,22 @@ public final class MUserBean extends AbstractMBean {
 	 */
 	public void setLastConnection(final long lastConnection) {
 		this.lastConnection = lastConnection;
+	}
+
+	/**
+	 * 
+	 * @return the profile picture
+	 */
+	public String getProfilePicture() {
+		return profilePicture;
+	}
+
+	/**
+	 * 
+	 * @param profilePicture
+	 */
+	public void setProfilePicture(String profilePicture) {
+		this.profilePicture = profilePicture;
 	}
 
 	/**
