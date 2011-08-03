@@ -2469,3 +2469,127 @@ WARNING: mymedID is not a bean field|#]
 Response sent:
 {"id":"twitter269755840","login":"","email":"","name":"Bastien BLANCHARD","firstName":"","lastName":"","link":"http://blanchar.vndv.com/bastien/CV.html","birthday":0,"hometown":"","gender":"","lastConnection":0,"profilePicture":"http://a3.twimg.com/sticky/default_profile_images/default_profile_4.png","buddyList":"","subscribtionList":"","reputation":"","session":"","interactionList":"","socialNetworkID":"269755840","socialNetworkName":"twitter"}|#]
 
+[#|2011-08-03T16:50:00.406+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|id : twitter269755840|#]
+
+[#|2011-08-03T16:50:00.406+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-08-03T16:50:00.412+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+WARNING: mymedID is not a bean field|#]
+
+[#|2011-08-03T16:50:00.413+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+Response sent:
+{"id":"twitter269755840","login":"","email":"","name":"Bastien BLANCHARD","firstName":"","lastName":"","link":"http://blanchar.vndv.com/bastien/CV.html","birthday":0,"hometown":"","gender":"","lastConnection":0,"profilePicture":"http://a3.twimg.com/sticky/default_profile_images/default_profile_4.png","buddyList":"","subscribtionList":"","reputation":"","session":"","interactionList":"","socialNetworkID":"269755840","socialNetworkName":"twitter"}|#]
+
+[#|2011-08-03T16:50:00.415+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|id : twitter269755840|#]
+
+[#|2011-08-03T16:50:00.415+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|code : 2|#]
+
+[#|2011-08-03T16:50:00.415+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|user : {"PRIME":null,"id":"twitter269755840","login":null,"email":null,"name":"Bastien BLANCHARD","firstName":null,"lastName":null,"link":"http:\/\/blanchar.vndv.com\/bastien\/CV.html","birthday":null,"hometown":null,"gender":null,"lastConnection":null,"profilePicture":"http:\/\/a3.twimg.com\/sticky\/default_profile_images\/default_profile_4.png","buddyList":null,"subscribtionList":null,"reputation":null,"session":null,"interactionList":null,"socialNetworkID":"269755840","socialNetworkName":"twitter"}|#]
+
+[#|2011-08-03T16:50:00.416+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+INFO: trying to update user:
+User:
+	PRIME : 31
+	id : twitter269755840
+	login : null
+	email : null
+	name : Bastien BLANCHARD
+	firstName : null
+	lastName : null
+	link : http://blanchar.vndv.com/bastien/CV.html
+	birthday : 0
+	hometown : null
+	gender : null
+	lastConnection : 0
+	profilePicture : http://a3.twimg.com/sticky/default_profile_images/default_profile_4.png
+	buddyList : null
+	subscribtionList : null
+	reputation : null
+	session : null
+	interactionList : null
+	socialNetworkID : 269755840
+	socialNetworkName : twitter
+|#]
+
+[#|2011-08-03T16:50:00.416+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+INFO: with:
+{"PRIME":null,"id":"twitter269755840","login":null,"email":null,"name":"Bastien BLANCHARD","firstName":null,"lastName":null,"link":"http:\/\/blanchar.vndv.com\/bastien\/CV.html","birthday":null,"hometown":null,"gender":null,"lastConnection":null,"profilePicture":"http:\/\/a3.twimg.com\/sticky\/default_profile_images\/default_profile_4.png","buddyList":null,"subscribtionList":null,"reputation":null,"session":null,"interactionList":null,"socialNetworkID":"269755840","socialNetworkName":"twitter"}|#]
+
+[#|2011-08-03T16:50:00.419+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+INFO: User updated!|#]
+
+[#|2011-08-03T16:50:00.421+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|id : twitter269755840|#]
+
+[#|2011-08-03T16:50:00.421+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-08-03T16:50:00.421+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|user : {"PRIME":null,"id":"twitter269755840","login":null,"email":null,"name":"Bastien BLANCHARD","firstName":null,"lastName":null,"link":"http:\/\/blanchar.vndv.com\/bastien\/CV.html","birthday":null,"hometown":null,"gender":null,"lastConnection":null,"profilePicture":"http:\/\/a3.twimg.com\/sticky\/default_profile_images\/default_profile_4.png","buddyList":null,"subscribtionList":null,"reputation":null,"session":null,"interactionList":null,"socialNetworkID":"269755840","socialNetworkName":"twitter"}|#]
+
+[#|2011-08-03T16:50:00.426+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+WARNING: mymedID is not a bean field|#]
+
+[#|2011-08-03T16:50:00.427+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+Response sent:
+{"id":"twitter269755840","login":"","email":"","name":"Bastien BLANCHARD","firstName":"","lastName":"","link":"http://blanchar.vndv.com/bastien/CV.html","birthday":0,"hometown":"","gender":"","lastConnection":0,"profilePicture":"http://a3.twimg.com/sticky/default_profile_images/default_profile_4.png","buddyList":"","subscribtionList":"","reputation":"","session":"","interactionList":"","socialNetworkID":"269755840","socialNetworkName":"twitter"}|#]
+
+[#|2011-08-03T16:53:18.233+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|id : twitter269755840|#]
+
+[#|2011-08-03T16:53:18.233+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-08-03T16:53:18.236+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+WARNING: mymedID is not a bean field|#]
+
+[#|2011-08-03T16:53:18.238+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+Response sent:
+{"id":"twitter269755840","login":"","email":"","name":"Bastien BLANCHARD","firstName":"","lastName":"","link":"http://blanchar.vndv.com/bastien/CV.html","birthday":0,"hometown":"","gender":"","lastConnection":0,"profilePicture":"http://a3.twimg.com/sticky/default_profile_images/default_profile_4.png","buddyList":"","subscribtionList":"","reputation":"","session":"","interactionList":"","socialNetworkID":"269755840","socialNetworkName":"twitter"}|#]
+
+[#|2011-08-03T16:53:18.240+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|id : twitter269755840|#]
+
+[#|2011-08-03T16:53:18.240+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|code : 2|#]
+
+[#|2011-08-03T16:53:18.240+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|user : {"PRIME":null,"id":"twitter269755840","login":null,"email":null,"name":"Bastien BLANCHARD","firstName":null,"lastName":null,"link":"http:\/\/blanchar.vndv.com\/bastien\/CV.html","birthday":null,"hometown":null,"gender":null,"lastConnection":null,"profilePicture":"http:\/\/a3.twimg.com\/sticky\/default_profile_images\/default_profile_4.png","buddyList":null,"subscribtionList":null,"reputation":null,"session":null,"interactionList":null,"socialNetworkID":"269755840","socialNetworkName":"twitter"}|#]
+
+[#|2011-08-03T16:53:18.241+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+INFO: trying to update user:
+User:
+	PRIME : 31
+	id : twitter269755840
+	login : null
+	email : null
+	name : Bastien BLANCHARD
+	firstName : null
+	lastName : null
+	link : http://blanchar.vndv.com/bastien/CV.html
+	birthday : 0
+	hometown : null
+	gender : null
+	lastConnection : 0
+	profilePicture : http://a3.twimg.com/sticky/default_profile_images/default_profile_4.png
+	buddyList : null
+	subscribtionList : null
+	reputation : null
+	session : null
+	interactionList : null
+	socialNetworkID : 269755840
+	socialNetworkName : twitter
+|#]
+
+[#|2011-08-03T16:53:18.241+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+INFO: with:
+{"PRIME":null,"id":"twitter269755840","login":null,"email":null,"name":"Bastien BLANCHARD","firstName":null,"lastName":null,"link":"http:\/\/blanchar.vndv.com\/bastien\/CV.html","birthday":null,"hometown":null,"gender":null,"lastConnection":null,"profilePicture":"http:\/\/a3.twimg.com\/sticky\/default_profile_images\/default_profile_4.png","buddyList":null,"subscribtionList":null,"reputation":null,"session":null,"interactionList":null,"socialNetworkID":"269755840","socialNetworkName":"twitter"}|#]
+
+[#|2011-08-03T16:53:18.245+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+INFO: User updated!|#]
+
+[#|2011-08-03T16:53:18.246+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|id : twitter269755840|#]
+
+[#|2011-08-03T16:53:18.246+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-08-03T16:53:18.246+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|user : {"PRIME":null,"id":"twitter269755840","login":null,"email":null,"name":"Bastien BLANCHARD","firstName":null,"lastName":null,"link":"http:\/\/blanchar.vndv.com\/bastien\/CV.html","birthday":null,"hometown":null,"gender":null,"lastConnection":null,"profilePicture":"http:\/\/a3.twimg.com\/sticky\/default_profile_images\/default_profile_4.png","buddyList":null,"subscribtionList":null,"reputation":null,"session":null,"interactionList":null,"socialNetworkID":"269755840","socialNetworkName":"twitter"}|#]
+
+[#|2011-08-03T16:53:18.249+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+WARNING: mymedID is not a bean field|#]
+
+[#|2011-08-03T16:53:18.250+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+Response sent:
+{"id":"twitter269755840","login":"","email":"","name":"Bastien BLANCHARD","firstName":"","lastName":"","link":"http://blanchar.vndv.com/bastien/CV.html","birthday":0,"hometown":"","gender":"","lastConnection":0,"profilePicture":"http://a3.twimg.com/sticky/default_profile_images/default_profile_4.png","buddyList":"","subscribtionList":"","reputation":"","session":"","interactionList":"","socialNetworkID":"269755840","socialNetworkName":"twitter"}|#]
+

@@ -2,10 +2,9 @@ package com.mymed.model.data;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
-
-import javassist.Modifier;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.utils.ClassType;
