@@ -1,7 +1,7 @@
 <?php
 header("Content-Type:application/xml");
-require_once dirname(__FILE__).'/ContentObject.class.php';
-require_once dirname(__FILE__).'/mytransport/MyTransport.class.php';
+require_once __DIR__.'/ContentObject.class.php';
+require_once __DIR__.'/mytransport/MyTransport.class.php';
 $content = new MyTransport;
 if($_SERVER['REQUEST_METHOD'] == 'POST')
 	$content->contentPost();

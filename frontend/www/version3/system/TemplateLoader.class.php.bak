@@ -1,0 +1,38 @@
+<?php
+require_once __DIR__.'/ContainerObject.class.php';
+/**
+ * A class to load sub-templates
+ */
+class TemplateLoader extends ContainerObject
+{
+	private /*string*/ $name;
+	public function __construct(/*string*/ $name, IContentObject $content=null)
+	{
+		$this->name	= $name;
+		$this->content = $content;
+	}
+	protected /*string*/ function getName()
+	{
+		return $this->name;
+	}
+	public /*void*/ function contentGet()
+	{
+		//$this->content->contentGet();
+		require __DIR__.'/templates/'.$this->name.'.body.php';
+	}
+	public /*void*/ function contentPost()
+	{
+		$this->content->contentPost();
+	}
+	public /*void*/ function headTags()
+	{
+		if(is_file(__DIR__.'/templates/'.$this->name.'.head.php'))
+			require __DIR__.'/templates/'.$this->name.'.head.php';
+	}
+	public /*void*/ function scriptTags()
+	{
+		if(is_file(__DIR__.'/templates/'.$this->name.'.script.php'))
+			require __DIR__.'/templates/'.$this->name.'.script.php';
+	}
+}
+?>

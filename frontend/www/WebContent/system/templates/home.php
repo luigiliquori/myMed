@@ -131,11 +131,11 @@
 			</div>
 <?php else:?>
 			<div id="description_myMed">
-				<img alt="méta réseau social" src="style/img/entonnoire.png" />
-				<img alt="nuage de services" src="style/img/services_cloud.png" />
+				<!--img alt="méta réseau social" src="style/img/entonnoire.png" />
+				<img alt="nuage de services" src="style/img/services_cloud.png" /-->
 				<h2 class="title">myMed se joint à votre réseau social préféré 
 pour ajouter de nouvelles fonctionnalités&nbsp;!</h2>
-				<!--img alt="Réseau P2P" src="style/img/NetworkView.png" /-->
+				<img alt="Réseau P2P" src="style/img/NetworkView.png" />
 			</div>
 			<div id="inscription">
 				<h2 class="title">

@@ -152,7 +152,6 @@ div.innerContent {
 	display:none;
 }
 #content #description_myMed {
-	float		: left;
 	width		: 380px;/*34.545em;*/
 	margin		: 0 50px;
 	text-align	: center;

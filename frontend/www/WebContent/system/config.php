@@ -1,5 +1,18 @@
 <?php
 define('ROOTPATH', '/mymed/WebContent/');
-//define('BACKEND_URL', 'http://'.$_SERVER['HTTP_HOST'].':8080/mymed_backend/');
 define('BACKEND_URL', 'http://mymed2.sophia.inria.fr:8080/mymed_backend/');
+
+//Social Networks Keys
+define('ConnexionTwitter_KEY', 'HgsnlIpCJ7RqHhCFELkTvw');
+define('ConnexionTwitter_SECRET', 'P7Gkj9AfeNEIHXrj0PMTiNHM3lJbHEqkuXwuWtGzU');
+define('ConnexionMySpace_KEY', 'ca09cf41d3c047ecbed4eeac8b6f14c7');
+define('ConnexionMySpace_SECRET', 'b9e2b88eb7aa4b878f913db25c1bb3f60bcbf3cdb99c47fb99e5aed9d5919eb5');
+define('ConnexionLiveId_KEY', '000000004405611F');
+define('ConnexionLiveId_SECRET', 'Akxh3kwLGjkyKpjpfBShzk9wrDAjme94');
+//define('ConnexionLinkedIn_KEY', '');
+//define('ConnexionLinkedIn_SECRET', '');
+define('ConnexionGoogle_KEY', $_SERVER['HTTP_HOST']);//unused
+define('ConnexionGoogle_SECRET', 'LCQZrwojk1KdSf1ARurdjIr8');
+define('ConnexionFacebook_KEY', '154730914571286');
+define('ConnexionFacebook_SECRET', 'a29bd2d27e8beb0b34da460fcf7b5522');
 ?>

@@ -1,5 +1,5 @@
 <?php
-require_once dirname(__FILE__).'/Application.class.php';
+require_once __DIR__.'/Application.class.php';
 $Apps	= Array();
 $Apps['all']			= Array();
 $Apps['news']			= Array();

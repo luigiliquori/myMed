@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="application.default.xsl"?>
+<!DOCTYPE tabpanel[
+	<!ELEMENT tabpanel (desktop+)>
+	<!ELEMENT desktop (column+)>
+	<!ELEMENT column (application*)>
+	<!ELEMENT application EMPTY>
+	<!ATTLIST desktop
+		name	CDATA	#REQUIRED>
+	<!ATTLIST column
+		width	CDATA	#REQUIRED>
+	<!ATTLIST application
+		name	CDATA	#REQUIRED>
+]>
+<tabpanel>
+	<desktop name="Transport">
+		<column width="66%">
+			<application name="myJam"/>
+		</column>
+		<column width="34%">
+			<application name="myTransport"/>
+		</column>
+	</desktop>
+	<desktop name="Autres">
+		<column width="33%">
+			<application name="myTranslator"/>
+			<application name="myEbooks"/>
+		</column>
+		<column width="33%">
+			<application name="myMuseum"/>
+		</column>
+		<column width="34%">
+			<application name="myMenu"/>
+			<application name="myLocalProducer"/>
+		</column>
+	</desktop>
+	<desktop name="Divertissement">
+		<column width="33%">
+			<application name="myWebGames"/>
+		</column>
+		<column width="33%">
+			<application name="mySki"/>
+		</column>
+		<column width="34%">
+			<application name="myTrails"/>
+		</column>
+	</desktop>
+</tabpanel>

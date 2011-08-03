@@ -1,0 +1,4 @@
+<Files *>
+ForceType application/x-httpd-php
+</Files>
+DirectoryIndex index.php index.html home

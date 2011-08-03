@@ -1,5 +1,4 @@
 <?php
-// @todo warning $_SESSION['user'] is now an Array
 /**
  * A class to define a type of login to myMed
  * @author blanchard
@@ -7,7 +6,7 @@
 abstract class Connexion
 {
 	/**
-	 * Print content's tags to be put inside <head> tag
+	 * Print content's tags to be put inside \<head\> tag
 	 */
 	public /*void*/ function headTags(){}
 	/**
@@ -30,10 +29,14 @@ abstract class Connexion
 			$request = new ProfileRequest;
 			try
 			{
-				$user = $request->read($_SESSION['user']->mymedID);
+				$user = $request->read($_SESSION['user']->id);
 				if(!$user->equals($_SESSION['user']))
-					$request->update($_SESSION['user']);
-				$_SESSION['user']	= $request->read($_SESSION['user']->mymedID);
+				{
+					$request->update($_SESSION['user']);echo 'update done';
+					$_SESSION['user']	= $request->read($_SESSION['user']->id);var_dump($_SESSION['user']);exit;
+				}
+				else
+					$_SESSION['user']	= $user;
 			}
 			catch(BackendRequestException $ex)
 			{

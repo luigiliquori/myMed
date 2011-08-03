@@ -1,5 +1,5 @@
 <?php
-require_once dirname(__FILE__).'/../socialNetworkAPIs/GlobalConnexion.class.php';
+require_once __DIR__.'/../socialNetworkAPIs/GlobalConnexion.class.php';
 class TemplateManager extends GlobalConnexion
 {
 	private /*ContentObject*/ $content;
@@ -71,7 +71,7 @@ class TemplateManager extends GlobalConnexion
 		if($name!==null)
 			$this->selectTemplate($name);
 		if($_SERVER["REQUEST_METHOD"] == 'GET')
-			require(dirname(__FILE__).'/templates/'.$this->template.'.php');
+			require(__DIR__.'/templates/'.$this->template.'.php');
 		else
 		{
 			if( ($_SERVER["REQUEST_METHOD"] == 'POST')&&($this->content!==null) )
