@@ -53,7 +53,7 @@ public class MyMedCassandra07 {
 
 	public static void main(final String[] args) throws InternalBackEndException {
 
-		final WrapperConfiguration conf = new WrapperConfiguration(new File("/local/mymed/backend/conf/config-new.xml"));
+		final WrapperConfiguration conf = new WrapperConfiguration(new File("/home/piccolo/GITLocal/mymed/backend/conf/config.xml"));
 
 		final String listenAddress = conf.getCassandraListenAddress();
 		final int thriftPort = conf.getThriftPort();

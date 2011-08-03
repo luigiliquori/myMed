@@ -6,10 +6,10 @@
 	
 		<!-- Cloud Info -->
 		<cassandra>
-			<ListenAddress>mymed2.sophia.inria.fr</ListenAddress>
+			<ListenAddress>127.0.0.1</ListenAddress>
 			<!-- See ../protocols/cassandra/cassandra_0.6.6/conf/storage-conf.xml -->
 			<StoragePort>4200</StoragePort>
-			<ThriftAddress>mymed2.sophia.inria.fr</ThriftAddress>
+			<ThriftAddress>127.0.0.1</ThriftAddress>
 			<ThriftPort>4201</ThriftPort>
 		</cassandra>
 		
