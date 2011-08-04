@@ -33,7 +33,7 @@ abstract class Connexion
 				if(!$user->equals($_SESSION['user']))
 				{
 					$request->update($_SESSION['user']);echo 'update done';
-					$_SESSION['user']	= $request->read($_SESSION['user']->id);var_dump($_SESSION['user']);exit;
+					$_SESSION['user']	= $request->read($_SESSION['user']->id);
 				}
 				else
 					$_SESSION['user']	= $user;
