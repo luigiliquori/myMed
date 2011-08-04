@@ -1,8 +1,8 @@
 <?php
-require_once dirname(__FILE__).'/../system/ContentObject.class.php';
-require_once dirname(__FILE__).'/openiddata.tmp.php';
-require_once dirname(__FILE__).'/../socialNetworkAPIs/Auth/OpenID.php';
-require_once dirname(__FILE__).'/../socialNetworkAPIs/Auth/OpenID/Server.php';
+require_once __DIR__.'/../system/ContentObject.class.php';
+require_once __DIR__.'/openiddata.tmp.php';
+require_once __DIR__.'/../socialNetworkAPIs/Auth/OpenID.php';
+require_once __DIR__.'/../socialNetworkAPIs/Auth/OpenID/Server.php';
 define('PAGE_LOGOUT', 		'logout');
 define('PAGE_SUBSCRIBE', 	'subscribe');
 define('PAGE_TRUST', 		'trust');
@@ -218,7 +218,7 @@ class OpenIdProvider extends ContentObject
 					echo '<p class="error">'.$_SESSION['OpenIdProvider_error'].'</p>';
 					unset ($_SESSION['OpenIdProvider_error']);
 				}
-				require dirname(__FILE__).'/views/subscribe.view.php';
+				require __DIR__.'/views/subscribe.view.php';
 			}break;
 			case PAGE_TRUST	:
 			{
@@ -240,12 +240,12 @@ class OpenIdProvider extends ContentObject
 				$showReqOptFields = $request->message->getArg('http://specs.openid.net/auth/2.0', 'realm') !== 'http://'.$_SERVER['SERVER_NAME'];
 				$reqFields	= array_map('trim', explode(',', $request->message->getArg('http://openid.net/extensions/sreg/1.1', 'required')));
 				$optFields	= array_map('trim', explode(',', $request->message->getArg('http://openid.net/extensions/sreg/1.1', 'optional')));
-				require dirname(__FILE__).'/views/login.view.php';
+				require __DIR__.'/views/login.view.php';
 			}break;
 			case PAGE_IDPAGE	:
 			{
 				$profile	= $this->user;
-				require dirname(__FILE__).'/views/profile.view.php';
+				require __DIR__.'/views/profile.view.php';
 			}break;
 		}
 	}

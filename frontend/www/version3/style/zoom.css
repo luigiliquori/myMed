@@ -1,0 +1,29 @@
+form.zoom {
+	position:fixed;
+	z-index:9999;
+	top:0;
+	left:0;
+	height:32px;
+	padding-left:32px;
+	background-image:url("img/zoom.png");
+	background-repeat:no-repeat;
+	background-position:top left;
+}
+form.zoom:hover {
+	background-color:#ffffff;
+}
+form.zoom * {
+	font-size: medium;
+}
+form.zoom div {
+	display:none;
+}
+form.zoom:hover div {
+	display:block;
+}
+form.zoom label {
+	display:none;
+}
+form.zoom input ,form.zoom button {
+	vertical-align:middle;
+}

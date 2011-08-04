@@ -44,7 +44,7 @@ class MyTransport extends ContentObject
 		{
 			$this->find();
 		}
-		require dirname(__FILE__).'/footer.html.php';
+		require __DIR__.'/footer.html.php';
 		echo '</div>';
 	}
 	private /*void*/ function find()
@@ -56,7 +56,7 @@ class MyTransport extends ContentObject
 			if($id)
 				$search = true;
 		}
-		require dirname(__FILE__).'/find.html.php';
+		require __DIR__.'/find.html.php';
 	}
 	private /*void*/ function publish()
 	{
@@ -70,7 +70,7 @@ class MyTransport extends ContentObject
 			echo '<div class="error">'.$_SESSION['MyTransport_error'].'</div>';
 			unset($_SESSION['MyTransport_error']);
 		}
-		require dirname(__FILE__).'/publish.html.php';
+		require __DIR__.'/publish.html.php';
 	}
 	public /*void*/ function contentPost()
 	{

@@ -1,7 +1,7 @@
 <?php 
 ob_start("ob_gzhandler");		// compression des pages
 @set_magic_quotes_runtime(false);// ne pas utiliser les magic_quotes
-require_once dirname(__FILE__).'/config.php';
+require_once __DIR__.'/config.php';
 ini_set('session.use_trans_sid', 0);
 ini_set('session.cookie_path', ROOTPATH);
 if(defined('DEBUG')&&DEBUG)
@@ -9,7 +9,7 @@ if(defined('DEBUG')&&DEBUG)
 ELSE
 	ini_set('display_errors', 0);
 // class d'un objet présent en session => doit être définie avant l'initialisation des session
-require_once dirname(__FILE__).'/backend/Profile.class.php';
+require_once __DIR__.'/backend/model/Profile.class.php';
 session_name('myMedSession_'.(defined('SESSIONNAME')?SESSIONNAME:'main'));
 session_start();
 
@@ -17,10 +17,10 @@ session_start();
 // remove PHP's header for more security
 header('X-Powered-By: ');
 
-require_once dirname(__FILE__).'/Debug.class.php';
-require_once dirname(__FILE__).'/TemplateManager.class.php';
-require_once dirname(__FILE__).'/ContentObject.class.php';
-require_once dirname(__FILE__).'/library.php';
+require_once __DIR__.'/Debug.class.php';
+require_once __DIR__.'/TemplateManager.class.php';
+require_once __DIR__.'/ContentObject.class.php';
+require_once __DIR__.'/library.php';
 define('USER_CONNECTED', isset($_SESSION['user']) );
 $templateManager = new TemplateManager();
 if(defined('CONTENTOBJECT'))
@@ -33,7 +33,7 @@ else if(USER_CONNECTED)
 {
 	if(!isset($_GET['service']))
 		$_GET['service'] = 'Desktop';
-	$serviceFile = dirname(__FILE__).'/../services/'.$_GET['service'].'/'.$_GET['service'].'.class.php';
+	$serviceFile = __DIR__.'/../services/'.$_GET['service'].'/'.$_GET['service'].'.class.php';
 	if(is_file($serviceFile))
 	{
 		require_once($serviceFile);
@@ -41,7 +41,7 @@ else if(USER_CONNECTED)
 	}
 	else
 	{
-		require_once(dirname(__FILE__).'/../services/Dynamic/Dynamic.class.php');
+		require_once(__DIR__.'/../services/Dynamic/Dynamic.class.php');
 		$templateManager->setContent(new Dynamic());
 	}
 }

@@ -1,0 +1,94 @@
+.transition-duration (@arg) {
+	/*filter transition does'nt work like CSS3 transitions*/
+}
+.transition-property (@arg) {
+	/*filter transition does'nt work like CSS3 transitions*/
+}
+.behavior {
+	//behavior	: url(style/ie-css3.htc);
+	//behavior	: url(style/PIE.htc);
+}
+.box-shadow (@arg) {
+	/*see filter "Shadow" on msdn (need a border or a background)*/
+	.behavior;
+}
+.box-shadow (@arg1, @arg2) {
+	/*see filter "Shadow" on msdn (need a border or a background)*/
+	.behavior;
+}
+.box-sizing (@arg) {
+	box-sizing				: @arg;
+}
+.text-shadow (@xOffset, @yOffset, @blurRadius, @color) {
+	/*see filter "Shadow" on msdn (need no border and no background)*//*
+	@msFilter	: `"progid:DXImageTransform.Microsoft.DropShadow(OffX=@{xOffset}, OffY=@{yOffset}, Color=@{color})"`;
+	filter: @msFilter;*/
+}
+.-ms8-filter(@arg) {
+	filter	: @arg;
+}
+.-ms-filter(@arg) {
+	filter	: @arg;
+}
+.border-radius (@arg) {
+	/*find on google an htc*/
+	border-radius	: @arg;
+	.behavior;
+}
+.background-size (@arg:100% 100%) {
+	/*don't exist on IE<9*/
+}
+.background-color-rgba(@r, @g, @b, @a) {
+	@ier:`(function(s){return (s.length<2)?"0"+s:s})(parseInt('@{r}').toString(16))`;
+	@ieg:`(function(s){return (s.length<2)?"0"+s:s})(parseInt('@{g}').toString(16))`;
+	@ieb:`(function(s){return (s.length<2)?"0"+s:s})(parseInt('@{b}').toString(16))`;
+	@iea:`(function(s){return (s.length<2)?"0"+s:s})(parseInt('@{a}'*255).toString(16))`;
+	@rgba:"#@{iea}@{ier}@{ieg}@{ieb}";
+	filter				: ~"progid:DXImageTransform.Microsoft.gradient( startColorstr="@rgba~", endColorstr="@rgba~",GradientType=0 )";
+}
+.background-color-rgba(@r, @g, @b, @a, @ieHover) {
+	.background-color-rgba(@r, @g, @b, @a);
+	background-image	: url("data:image/gif;base64,");
+}
+.simpleverticalgradient (@colorstart, @colorstop) {
+	@iecolorstart:`'@{colorstart}'.replace(/\s*rgba\s*\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-1]\.[0-9]+)\s*\)\s*/, function(str, r, g, b, a){
+		r	= (function(s){return (s.length<2)?"0"+s:s})(parseInt(r).toString(16));
+		g	= (function(s){return (s.length<2)?"0"+s:s})(parseInt(g).toString(16));
+		b	= (function(s){return (s.length<2)?"0"+s:s})(parseInt(b).toString(16));
+		a	= (function(s){return (s.length<2)?"0"+s:s})(parseInt(a*255).toString(16));
+		return "#"+a+r+g+b;
+	})`;
+	@iecolorstop:`'@{colorstop}'.replace(/\s*rgba\s*\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-1]\.[0-9]+)\s*\)\s*/, function(str, r, g, b, a){
+		r	= (function(s){return (s.length<2)?"0"+s:s})(parseInt(r).toString(16));
+		g	= (function(s){return (s.length<2)?"0"+s:s})(parseInt(g).toString(16));
+		b	= (function(s){return (s.length<2)?"0"+s:s})(parseInt(b).toString(16));
+		a	= (function(s){return (s.length<2)?"0"+s:s})(parseInt(a*255).toString(16));
+		return "#"+a+r+g+b;
+	})`;
+	filter				: ~"progid:DXImageTransform.Microsoft.gradient( startColorstr="@iecolorstart~", endColorstr="@iecolorstop~",GradientType=0 )";
+}
+.simpleverticalgradient (@colorstart, @colorstop, @image) {
+	background-image	: @image;
+	.simpleverticalgradient (@colorstart, @colorstop);
+}
+.simplehorizontalgradient (@colorstart, @colorstop) {
+	@iecolorstart:`'@{colorstart}'.replace(/\s*rgba\s*\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-1]\.[0-9]+)\s*\)\s*/, function(str, r, g, b, a){
+		r	= (function(s){return (s.length<2)?"0"+s:s})(parseInt(r).toString(16));
+		g	= (function(s){return (s.length<2)?"0"+s:s})(parseInt(g).toString(16));
+		b	= (function(s){return (s.length<2)?"0"+s:s})(parseInt(b).toString(16));
+		a	= (function(s){return (s.length<2)?"0"+s:s})(parseInt(a*255).toString(16));
+		return "#"+a+r+g+b;
+	})`;
+	@iecolorstop:`'@{colorstop}'.replace(/\s*rgba\s*\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-1]\.[0-9]+)\s*\)\s*/, function(str, r, g, b, a){
+		r	= (function(s){return (s.length<2)?"0"+s:s})(parseInt(r).toString(16));
+		g	= (function(s){return (s.length<2)?"0"+s:s})(parseInt(g).toString(16));
+		b	= (function(s){return (s.length<2)?"0"+s:s})(parseInt(b).toString(16));
+		a	= (function(s){return (s.length<2)?"0"+s:s})(parseInt(a*255).toString(16));
+		return "#"+a+r+g+b;
+	})`;
+	filter				: ~"progid:DXImageTransform.Microsoft.gradient( startColorstr="@iecolorstart~", endColorstr="@iecolorstop~",GradientType=1 )";
+}
+.simplehorizontalgradient (@colorstart, @colorstop, @image) {
+	background-image	: @image;
+	.simplehorizontalgradient (@colorstart, @colorstop);
+}

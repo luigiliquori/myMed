@@ -1,19 +1,20 @@
 <?php
-require_once dirname(__FILE__).'/Connexion.class.php';
-require_once dirname(__FILE__).'/ConnexionGuest.class.php';
-require_once dirname(__FILE__).'/ConnexionMyMed.class.php';
-require_once dirname(__FILE__).'/ConnexionFacebook.class.php';
-require_once dirname(__FILE__).'/ConnexionTwitter.class.php';
-require_once dirname(__FILE__).'/ConnexionOpenId.class.php';
-require_once dirname(__FILE__).'/ConnexionGoogle.class.php';
-require_once dirname(__FILE__).'/ConnexionYahoo.class.php';
-require_once dirname(__FILE__).'/ConnexionOrange.class.php';
-require_once dirname(__FILE__).'/ConnexionMyOpenId.class.php';
-require_once dirname(__FILE__).'/ConnexionWordPress.class.php';
-require_once dirname(__FILE__).'/ConnexionVeriSign.class.php';
-require_once dirname(__FILE__).'/ConnexionSteam.class.php';
-require_once dirname(__FILE__).'/ConnexionAol.class.php';
-require_once dirname(__FILE__).'/ConnexionLiveId.class.php';
+require_once __DIR__.'/Connexion.class.php';
+require_once __DIR__.'/ConnexionGuest.class.php';
+require_once __DIR__.'/ConnexionMyMed.class.php';
+require_once __DIR__.'/ConnexionFacebook.class.php';
+require_once __DIR__.'/ConnexionTwitter.class.php';
+require_once __DIR__.'/ConnexionOpenId.class.php';
+require_once __DIR__.'/ConnexionGoogle.class.php';
+require_once __DIR__.'/ConnexionYahoo.class.php';
+require_once __DIR__.'/ConnexionOrange.class.php';
+require_once __DIR__.'/ConnexionMyOpenId.class.php';
+require_once __DIR__.'/ConnexionWordPress.class.php';
+require_once __DIR__.'/ConnexionVeriSign.class.php';
+require_once __DIR__.'/ConnexionSteam.class.php';
+require_once __DIR__.'/ConnexionAol.class.php';
+require_once __DIR__.'/ConnexionLiveId.class.php';
+require_once __DIR__.'/ConnexionMySpace.class.php';
 abstract class GlobalConnexion extends Connexion
 {
 	private /*array<Connexion>*/ $connexions = array();
@@ -29,6 +30,7 @@ abstract class GlobalConnexion extends Connexion
 		$this->connexions[] = $this->minorConnexions[]	= new ConnexionLiveId;
 		$this->connexions[] = $this->mainConnexions[]	= new ConnexionMyMed;
 		$this->connexions[] = $this->minorConnexions[]	= new ConnexionMyOpenId;
+		$this->connexions[] = $this->minorConnexions[]	= new ConnexionMySpace;
 		$this->connexions[] = $this->minorConnexions[]	= new ConnexionOpenId;
 		$this->connexions[] = $this->minorConnexions[]	= new ConnexionOrange;
 		$this->connexions[] = $this->minorConnexions[]	= new ConnexionSteam;

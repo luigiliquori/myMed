@@ -24,7 +24,7 @@ class myStore extends ContentObject
 	 */
 	public /*void*/ function contentGet()
 	{
-		require_once dirname(__FILE__).'/data.php';
+		require_once __DIR__.'/data.php';
 		$cat	= isset($_GET['cat'])&&isset($Apps[$_GET['cat']])?$_GET['cat']:'all';
 		if($cat != 'all')
 			echo '

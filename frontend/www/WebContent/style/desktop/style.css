@@ -109,6 +109,7 @@ a.verisign ,
 a.wordpress ,
 a.yahoo ,
 a.liveid ,
+a.myspace ,
 a.facebook /**/ {
 	display	: inline;
 	display	: inline-block;
@@ -130,6 +131,7 @@ a.verisign span ,
 a.wordpress span ,
 a.yahoo span,
 a.liveid span,
+a.myspace span,
 a.facebook span /**/ {
 	visibility:hidden;;
 }
@@ -146,6 +148,7 @@ a.verisign 	{	background-image:url("../img/login/verisign.png");}
 a.wordpress {	background-image:url("../img/login/wordpress.png");}
 a.yahoo 	{	background-image:url("../img/login/yahoo.png");}
 a.liveid 	{	background-image:url("../img/login/liveid.png");}
+a.myspace 	{	background-image:url("../img/login/myspace.png");}
 a.facebook 	{	background-image:url("../img/login/facebook.png");}/*
 a.facebook {
 	display	: inline;
