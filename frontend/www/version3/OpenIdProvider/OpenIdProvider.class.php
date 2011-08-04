@@ -100,8 +100,7 @@ class OpenIdProvider extends ContentObject
 			default: 
 					$basePath = $this->httpScriptPath;break;
 		}
-		header('Location:'.$basePath.($page?'/'.$page:''));
-		exit;
+		httpRedirect($basePath.($page?'/'.$page:''));
 	}
 	private /*void*/ function firstServerRequest(/*retour de server->decodeRequest()*/ $request)
 	{
@@ -268,8 +267,7 @@ class OpenIdProvider extends ContentObject
 				if(isset($_POST['cancel']))
 				{
 					unset($_SESSION['request']);
-					header('Location:'.$request->getCancelURL());
-					exit;
+					httpRedirect($request->getCancelURL());
 				}
 				$urlID	= $request->identity;
 				if($request->idSelect())

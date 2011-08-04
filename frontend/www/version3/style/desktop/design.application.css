@@ -561,6 +561,7 @@ div.desktop div.glassPane {
 	top: 0;
 	width: 100%;
 	display: none;
+	z-index: 1;
 	/*background-image	: url("data:image/gif;base64,");/**/
 
 }

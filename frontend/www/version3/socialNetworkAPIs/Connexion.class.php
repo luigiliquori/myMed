@@ -30,9 +30,13 @@ abstract class Connexion
 			try
 			{
 				$user = $request->read($_SESSION['user']->id);
+				trace($_SESSION['user'], '$_SESSION[\'user\']', __FILE__, __LINE__);
+				trace($user, '$request->read($_SESSION[\'user\']->id)', __FILE__, __LINE__);
+				trace($user->equals($_SESSION['user']), '$user->equals($_SESSION[\'user\'])', __FILE__, __LINE__);
 				if(!$user->equals($_SESSION['user']))
 				{
-					$request->update($_SESSION['user']);echo 'update done';
+					$request->update($_SESSION['user']);
+					trace('user update done');
 					$_SESSION['user']	= $request->read($_SESSION['user']->id);
 				}
 				else
@@ -43,14 +47,16 @@ abstract class Connexion
 				if($ex->getCode() != 404)
 					throw $ex;
 				$_SESSION['user'] = $request->create($_SESSION['user']);
+				trace('user creation done');
 			}
+			trace($_SESSION['user'], '$_SESSION[\'user\']', __FILE__, __LINE__);
 		
 			static::cleanGetVars();
 			$query_string	= http_build_query($_GET);
 			if($query_string != "")
 				$query_string = '?'.$query_string;
-			header('Location:http://'.$_SERVER['HTTP_HOST'].preg_replace('#\\?.*$#', '', $_SERVER['REQUEST_URI']).$query_string);
-			exit;
+			
+			httpRedirect('http://'.$_SERVER['HTTP_HOST'].preg_replace('#\\?.*$#', '', $_SERVER['REQUEST_URI']).$query_string);
 		}
 		catch(Exception $ex)
 		{

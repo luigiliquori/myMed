@@ -46,8 +46,7 @@ class GlobalConnexion extends Connexion
 		if(isset($_POST["logout"]))
 		{
 			session_destroy();
-			header('Location:'.$_SERVER["REQUEST_URI"]);
-			exit;
+			httpRedirect($_SERVER["REQUEST_URI"]);
 		}
 	}
 	/**

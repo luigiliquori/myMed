@@ -76,8 +76,7 @@ abstract class ConnexionOAuth1_0 extends Connexion
 			$this->getRequestToken($callbackUrl);
 			$redirection	= OAuthRequest::from_request('GET', static::getAuthorizeUrl(), Array('oauth_token'=>$this->requestToken->key, 'oauth_callback'=>$callbackUrl));
 			$redirection->sign_request(new OAuthSignatureMethod_HMAC_SHA1(), static::getOAuthConsumer(), $this->requestToken);
-			header('Location: '.$redirection->to_url());
-			exit;
+			httpRedirect($redirection->to_url());
 		}
 		catch(Exception $ex)
 		{

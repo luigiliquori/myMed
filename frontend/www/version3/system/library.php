@@ -1,4 +1,21 @@
 <?php
+/**
+ * Redirect user on another page. Using it instead of header() can help debug
+ * call header('Location:') then exit
+ * if DEBUG=true, print linl with url the print traces
+ */
+/*void*/ function httpRedirect(/*string*/ $newUrl)
+{
+	if(defined('DEBUG')&&DEBUG)
+	{
+		echo '<p><a href="'.$newUrl.'">Redirection HTTP</a> (blocked for DEBUG, call ?debug=0 toremove it)</p>';
+		echo '<h1>Traces</h1>';
+		printTraces();
+	}
+	else
+		header('Location:'.$newUrl);
+	exit;
+}
 class CUrlException extends Exception{}
 class HttpException extends Exception
 {
@@ -100,10 +117,9 @@ class HttpException extends Exception
 {
 	$_SESSION['error']	= $msg;
 	if($removeGetVar)
-		header('Location:'.preg_replace('#\\?.*$#', '', $_SERVER['REQUEST_URI']));
+		httpRedirect(preg_replace('#\\?.*$#', '', $_SERVER['REQUEST_URI']));
 	else
-		header('Location:'.$_SERVER['REQUEST_URI']);
-	exit;
+		httpRedirect($_SERVER['REQUEST_URI']);
 }
 /**
  * print error send with sendError() inside a \<div class="error"\> tag

@@ -102,8 +102,7 @@ class MainTemplate
 		{
 			if( ($_SERVER["REQUEST_METHOD"] == 'POST')&&($this->content!==null) )
 				$this->content->contentPost();
-			header('Location:'.$_SERVER["REQUEST_URI"]);
-			exit;
+			httpRedirect($_SERVER["REQUEST_URI"]);
 		}
 	}
 }

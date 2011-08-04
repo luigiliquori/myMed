@@ -59,13 +59,12 @@ abstract class ConnexionOAuth2_0 extends Connexion
 		if($query_string != "")
 			$query_string = '?'.$query_string;
 		
-		header('Location: '.static::getProviderAuthorizeUrl().
+		httpRedirect(static::getProviderAuthorizeUrl().
 				'?client_id='.static::getOAuthConsumerId().
 				'&scope='.$str_scope.
 				'&response_type=code'.
 				'&state='.urlencode(static::getSocialNetwork().$query_string).
 				'&redirect_uri='.urlencode($this->getCallBackUrl()));
-		exit;
 	}
 	private /*string*/ function getCallBackUrl()
 	{
