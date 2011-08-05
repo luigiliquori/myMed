@@ -148,7 +148,7 @@ class ConnexionOpenId extends Connexion
 		if($auth->shouldSendRedirect())
 		{
 			$redirect = $auth->redirectURL('https://'.$_SERVER["HTTP_HOST"], $callbackUrl);
-			httpRedirect('Location: '.$redirect);
+			httpRedirect($redirect);
 		}
 		else
 		{

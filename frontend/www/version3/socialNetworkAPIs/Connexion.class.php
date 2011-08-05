@@ -61,6 +61,8 @@ abstract class Connexion
 		catch(Exception $ex)
 		{
 			unset($_SESSION['user']);
+			if(defined('DEBUG')&&DEBUG)
+				printTraces();
 			throw $ex;
 		}
 	}
