@@ -1,15 +1,18 @@
 <?php
-require_once __DIR__.'/../system/ContentObject.class.php';
+require_once __DIR__.'/../ContentObject.class.php';
 require_once __DIR__.'/openiddata.tmp.php';
-require_once __DIR__.'/../socialNetworkAPIs/Auth/OpenID.php';
-require_once __DIR__.'/../socialNetworkAPIs/Auth/OpenID/Server.php';
+require_once __DIR__.'/../../socialNetworkAPIs/Auth/OpenID.php';
+require_once __DIR__.'/../../socialNetworkAPIs/Auth/OpenID/Server.php';
 define('PAGE_LOGOUT', 		'logout');
 define('PAGE_SUBSCRIBE', 	'subscribe');
 define('PAGE_TRUST', 		'trust');
 define('PAGE_IDPAGE', 		'idpage');
 define('PAGE_IDPXRDS', 		'idpXrds');
 define('PAGE_USERXRDS', 	'userXrds');
-class OpenIdProvider extends ContentObject
+/**
+ * A class to define template for /openid
+ */
+class TemplateOpenid extends ContentObject
 {
 	private /*string*/ $httpScriptPath;
 	private /*string*/ $httpsScriptPath;
@@ -29,7 +32,7 @@ class OpenIdProvider extends ContentObject
 		if(isset($_SERVER['PATH_INFO']))
 			$this->path			= explode('/', $_SERVER['PATH_INFO']);
 		
-	
+		
 		switch(@$this->path[1])
 		{
 			case PAGE_IDPXRDS	:	
@@ -40,13 +43,13 @@ class OpenIdProvider extends ContentObject
 		if(isset($this->path[1]))
 		{
 			switch($this->path[1])
-			{
+			{/*
 				case PAGE_LOGOUT	:
 				{
 					unset($_SESSION['request']);
-					authCancel(null);
+					===DELETE SESSION===
 					$this->internRedirect(PAGE_SUBSCRIBE);
-				}break;
+				}break;//*/
 				case PAGE_TRUST	:
 				{
 					if(!isset($_SESSION['request']))
@@ -66,7 +69,7 @@ class OpenIdProvider extends ContentObject
 				case PAGE_SUBSCRIBE	:	break;
 				case PAGE_IDPXRDS	:	$this->getIdpXrds();	exit;
 				case PAGE_USERXRDS	:	$this->getIUserXrds();	exit;
-				default:				header("Status: 404 Not Found", false, 404);exit;
+				default:				header("Status: 404 Not Found", false, 404);die('<html><head><title>404 Not Found</title></head><body><h1>404 Not Found</h1><p>Your request ressource that never exists or that has been remved&nbsp;!</p><a href="'.ROOTPATH.'">Home</a></body></html>');
 			}
 		}
 		else
@@ -173,7 +176,7 @@ class OpenIdProvider extends ContentObject
 	 */
 	public /*string*/ function getTitle()
 	{
-		return 'Connexion à myMed';
+		return 'Authentification OpenId';
 	}
 	/**
 	 * Print content's tags to be put inside \<head\> tag
@@ -216,7 +219,7 @@ class OpenIdProvider extends ContentObject
 					echo '<p class="error">'.$_SESSION['OpenIdProvider_error'].'</p>';
 					unset ($_SESSION['OpenIdProvider_error']);
 				}
-				require __DIR__.'/views/subscribe.view.php';
+				require __DIR__.'/openid-views/subscribe.view.php';
 			}break;
 			case PAGE_TRUST	:
 			{
@@ -238,12 +241,12 @@ class OpenIdProvider extends ContentObject
 				$showReqOptFields = $request->message->getArg('http://specs.openid.net/auth/2.0', 'realm') !== 'http://'.$_SERVER['SERVER_NAME'];
 				$reqFields	= array_map('trim', explode(',', $request->message->getArg('http://openid.net/extensions/sreg/1.1', 'required')));
 				$optFields	= array_map('trim', explode(',', $request->message->getArg('http://openid.net/extensions/sreg/1.1', 'optional')));
-				require __DIR__.'/views/login.view.php';
+				require __DIR__.'/openid-views/login.view.php';
 			}break;
 			case PAGE_IDPAGE	:
 			{
 				$profile	= $this->user;
-				require __DIR__.'/views/profile.view.php';
+				require __DIR__.'/openid-views/profile.view.php';
 			}break;
 		}
 	}

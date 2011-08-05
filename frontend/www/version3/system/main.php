@@ -89,7 +89,7 @@ function main()
 		$contentClass = basename(CONTENTOBJECT);
 		$template->setContent(new $contentClass());
 	}
-	else if(isset($PATH_INFO[1])&&$PATH_INFO[1])
+	else if($template instanceof IContainerObject&&isset($PATH_INFO[1])&&$PATH_INFO[1])
 	{
 		$serviceFile = __DIR__.'/../services/'.$PATH_INFO[1].'/'.$PATH_INFO[1].'.class.php';
 		if(is_file($serviceFile))

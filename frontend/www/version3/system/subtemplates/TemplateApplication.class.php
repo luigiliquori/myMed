@@ -3,7 +3,7 @@ require_once __DIR__.'/../ContainerTemplate.class.php';
 require_once __DIR__.'/../ServiceNotFound.class.php';
 require_once __DIR__.'/../backend/CookieRequest.class.php';
 /**
- * A class to define template for /home
+ * A class to define template for /application
  */
 class TemplateApplication extends ContainerTemplate
 {
