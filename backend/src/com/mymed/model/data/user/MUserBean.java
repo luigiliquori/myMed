@@ -26,7 +26,7 @@ public final class MUserBean extends AbstractMBean {
 	private String firstName = null;
 	private String lastName = null;
 	private String link = null;
-	private long birthday;
+	private String birthday;
 	private String hometown = null;
 	private String gender = null;
 	private long lastConnection;
@@ -279,7 +279,7 @@ public final class MUserBean extends AbstractMBean {
 	/**
 	 * @return the birthday
 	 */
-	public long getBirthday() {
+	public String getBirthday() {
 		return birthday;
 	}
 
@@ -287,7 +287,7 @@ public final class MUserBean extends AbstractMBean {
 	 * @param birthday
 	 *            the birthday to set
 	 */
-	public void setBirthday(final long birthday) {
+	public void setBirthday(final String birthday) {
 		this.birthday = birthday;
 	}
 

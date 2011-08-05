@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jel>
-	<admin creation="Mon Aug 01 15:57:11 CEST 2011" xsdversion="1.0.0" version="1.0.0" />
+	<admin creation="Fri Aug 05 11:55:53 CEST 2011" xsdversion="1.0.0" version="1.0.0" />
 	<jelclass final="true" superclass="AbstractMBean" visibility="public" package="com.mymed.model.data.user" superclassfulltype="AbstractMBean" fulltype="com.mymed.model.data.user.MUserBean" type="MUserBean">
 		<comment>
 			<description>This class represent an user profile</description>
@@ -29,7 +29,7 @@
 			<field visibility="private" name="firstName" fulltype="java.lang.String" type="String" />
 			<field visibility="private" name="lastName" fulltype="java.lang.String" type="String" />
 			<field visibility="private" name="link" fulltype="java.lang.String" type="String" />
-			<field visibility="private" name="birthday" fulltype="long" type="long" />
+			<field visibility="private" name="birthday" fulltype="java.lang.String" type="String" />
 			<field visibility="private" name="hometown" fulltype="java.lang.String" type="String" />
 			<field visibility="private" name="gender" fulltype="java.lang.String" type="String" />
 			<field visibility="private" name="lastConnection" fulltype="long" type="long" />
@@ -84,11 +84,22 @@
 			</constructor>
 			<method visibility="public" name="clone" fulltype="com.mymed.model.data.user.MUserBean" type="MUserBean" />
 			<method visibility="public" name="equals" fulltype="boolean" type="boolean">
+				<comment>
+					<attribute name="@see">
+						<description>java.lang.Object#equals()</description>
+					</attribute>
+				</comment>
 				<params>
 					<param name="object" fulltype="java.lang.Object" type="Object" />
 				</params>
 			</method>
-			<method visibility="public" name="hashCode" fulltype="int" type="int" />
+			<method visibility="public" name="hashCode" fulltype="int" type="int">
+				<comment>
+					<attribute name="@see">
+						<description>java.lang.Object#hashCode()</description>
+					</attribute>
+				</comment>
+			</method>
 			<method visibility="public" name="toString" fulltype="java.lang.String" type="String" />
 			<method visibility="public" name="getId" returncomment="the id" fulltype="java.lang.String" type="String">
 				<comment>
@@ -216,7 +227,7 @@
 					<param name="link" comment="the link to set" fulltype="java.lang.String" type="String" />
 				</params>
 			</method>
-			<method visibility="public" name="getBirthday" returncomment="the birthday" fulltype="long" type="long">
+			<method visibility="public" name="getBirthday" returncomment="the birthday" fulltype="java.lang.String" type="String">
 				<comment>
 					<attribute name="@return">
 						<description>the birthday</description>
@@ -231,7 +242,7 @@
 					</attribute>
 				</comment>
 				<params>
-					<param name="birthday" comment="the birthday to set" fulltype="long" type="long" />
+					<param name="birthday" comment="the birthday to set" fulltype="java.lang.String" type="String" />
 				</params>
 			</method>
 			<method visibility="public" name="getHometown" returncomment="the hometown" fulltype="java.lang.String" type="String">

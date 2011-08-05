@@ -46,7 +46,7 @@ public class GeneralTest extends TestValues {
 	@BeforeClass
 	public static void setUpOnce() {
 		CAL_INSTANCE.set(1971, 1, 1);
-		final long date = CAL_INSTANCE.getTimeInMillis();
+		final String date = "1971-01-01";
 		birthDate = MConverter.longToByteBuffer(CAL_INSTANCE.getTimeInMillis()).array();
 
 		sessionBean = new MSessionBean();
@@ -70,7 +70,7 @@ public class GeneralTest extends TestValues {
 		userBean.setName(LOGIN);
 		userBean.setSession(SESSION_ID);
 		userBean.setInteractionList(INTERACTION_LST_ID);
-		userBean.setLastConnection(date);
+		userBean.setLastConnection(CAL_INSTANCE.getTimeInMillis());
 		userBean.setReputation(REPUTATION_ID);
 		userBean.setSubscribtionList(SUBSCRIPTION_LST_ID);
 
