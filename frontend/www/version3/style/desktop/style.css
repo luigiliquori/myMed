@@ -5,7 +5,7 @@ html, body {
 	height: 100%;
 	overflow: auto;
 	position: relative;
-	font-size: 90%;
+	font-size: 92%;
 }
 div.body {
 	border-radius: 0 0 0.5ex 0.5ex;
@@ -18,6 +18,7 @@ div.body {
 	overflow: hidden;
 	background-color: white;
 	height: 100%;
+	font-family: serif, "OpenSymbol";
 }
 /***** TITLES (<hx>) *****/
 h1,
@@ -26,7 +27,7 @@ h3,
 h4,
 h5,
 h6 {
-	font-family: sans-serif;
+	font-family: sans-serif, "OpenSymbol";
 	color: #203068;
 	text-shadow: 0.1px 0.1px 0.5px #cccccc;
 	/*//*/
@@ -110,7 +111,7 @@ input[type=reset],
 button {
 	cursor: pointer;
 	border: solid 1px #337099;
-	font-family: sans-serif;
+	font-family: sans-serif, "OpenSymbol";
 	font-size: 85%;
 	font-style: italic;
 	font-weight: bold;
@@ -165,13 +166,13 @@ button {
 	-o-transition-property: text-shadow;
 	/*//*/
 	-khtml-transition-property: text-shadow;
-	box-shadow: 0.3ex 0.3ex 0.3ex #cccccc inset;
+	box-shadow: 0.4ex 0.4ex 0.4ex #cccccc inset;
 	/*//*/
-	-moz-box-shadow: 0.3ex 0.3ex 0.3ex #cccccc inset;
+	-moz-box-shadow: 0.4ex 0.4ex 0.4ex #cccccc inset;
 	/*//*/
-	-o-box-shadow: 0.3ex 0.3ex 0.3ex #cccccc inset;
+	-o-box-shadow: 0.4ex 0.4ex 0.4ex #cccccc inset;
 	/*//*/
-	-khtml-box-shadow: 0.3ex 0.3ex 0.3ex #cccccc inset;
+	-khtml-box-shadow: 0.4ex 0.4ex 0.4ex #cccccc inset;
 }
 input[type=button]::-moz-focus-inner,
 input[type=submit]::-moz-focus-inner,
@@ -225,13 +226,13 @@ button:active {
 	/* W3C */
 
 	color: #eee;
-	box-shadow: 0 0 0 transparent, 0.3ex 0.3ex 0.3ex #0066cc inset;
+	box-shadow: 0 0 0 transparent, 0.4ex 0.4ex 0.4ex #0066cc inset;
 	/*//*/
-	-moz-box-shadow: 0 0 0 transparent, 0.3ex 0.3ex 0.3ex #0066cc inset;
+	-moz-box-shadow: 0 0 0 transparent, 0.4ex 0.4ex 0.4ex #0066cc inset;
 	/*//*/
-	-o-box-shadow: 0 0 0 transparent, 0.3ex 0.3ex 0.3ex #0066cc inset;
+	-o-box-shadow: 0 0 0 transparent, 0.4ex 0.4ex 0.4ex #0066cc inset;
 	/*//*/
-	-khtml-box-shadow: 0 0 0 transparent, 0.3ex 0.3ex 0.3ex #0066cc inset;
+	-khtml-box-shadow: 0 0 0 transparent, 0.4ex 0.4ex 0.4ex #0066cc inset;
 }
 /***** SPACIAL *****/
 span.vertiAligner {

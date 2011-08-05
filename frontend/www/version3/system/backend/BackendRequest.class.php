@@ -73,7 +73,15 @@ class BackendRequest
 				trigger_error('BackendRequest method '.$this->method.' not suported', E_USER_ERROR);
 		}
 		$data 	= curl_exec($curl);
-	//var_dump($data);	
+		
+		if(defined('DEBUG')&&DEBUG)
+		{
+			if(json_decode($data))
+				trace(json_decode($data), 'json_decode($data)', __FILE__, __LINE__);
+			else
+				trace($data, '$data', __FILE__, __LINE__);
+		}
+		
 		if($data === false)
 			$excurl = new CUrlException(curl_error($curl), curl_errno($curl));
 		$httpCode	= curl_getinfo($curl, CURLINFO_HTTP_CODE);

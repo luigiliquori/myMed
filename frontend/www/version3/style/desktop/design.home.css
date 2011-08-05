@@ -364,42 +364,8 @@
 	background-repeat: no-repeat;
 	content: " ";
 }
-@font-face {
-	font-family: "DejaVu Sans";
-	font-style: normal;
-	font-weight: normal;
-	src: url('../fonts/DejaVuSans.eot');
-	src: local("DejaVu Sans"), url('../fonts/DejaVuSans.ttf'), url('../fonts/DejaVuSans.eot');
-}
-@font-face {
-	font-family: "DejaVu Sans";
-	font-style: normal;
-	font-weight: bold;
-	src: url('../fonts/DejaVuSans-Bold.eot');
-	src: local("DejaVu Sans Bold"), url('../fonts/DejaVuSans-Bold.ttf'), url('../fonts/DejaVuSans-Bold.eot');
-}
-@font-face {
-	font-family: "DejaVu Sans";
-	font-style: italic;
-	font-weight: bold;
-	src: url('../fonts/DejaVuSans-BoldOblique.eot');
-	src: local("DejaVu Sans BoldOblique"), url('../fonts/DejaVuSans-BoldOblique.ttf'), url('../fonts/DejaVuSans-BoldOblique.eot');
-}
-@font-face {
-	font-family: "DejaVu Sans";
-	font-style: italic;
-	font-weight: normal;
-	src: url('../fonts/DejaVuSans-Oblique.eot');
-	src: local("DejaVu Sans Oblique"), url('../fonts/DejaVuSans-Oblique.ttf'), url('../fonts/DejaVuSans-Oblique.eot');
-}
-@font-face {
-	font-family: "Times";
-	font-style: normal;
-	font-weight: bold;
-	src: local("Times Bold"), local("Free Serif Bold"), url('../fonts/FreeSerifBold.ttf'), url('../fonts/FreeSerifBold.eot');
-}
 #content #login_subscribe div.login ul li a span {
-	font-family: "DejaVu Sans";
+	font-family: "DejaVu Sans", "OpenSymbol";
 	color: #fff;
 	display: block;
 	overflow: hidden;
@@ -1294,7 +1260,7 @@
 #content #login_subscribe div.login ul li a.myopenid span,
 #content #login_subscribe div.login ul li a.verisign span,
 #content #login_subscribe div.login ul li a.aol span {
-	font-family: "Arial", sans-serif;
+	font-family: "Arial", sans-serif, "OpenSymbol";
 	font-style: italic;
 	color: black;
 }
@@ -1305,7 +1271,7 @@
 	font-style: italic;
 }
 #content #login_subscribe div.login ul li a.wordpress span {
-	font-family: "Times";
+	font-family: "Times", "OpenSymbol";
 	color: black;
 	font-variant: small-caps;
 	font-size: 10px;

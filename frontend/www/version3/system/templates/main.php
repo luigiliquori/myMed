@@ -9,11 +9,13 @@ if(defined('MIMETYPE_XHTML')&&MIMETYPE_XHTML)
 		<title>myMed<?php for($i=0 ; $this->getTitle($i, ' > ') ; $i++)?></title>
 		<!--bloquer le style pour les vieux IE-->
 		<!--[if gt IE 7]><!-->
+		<!-- load fonts-->
+		<link rel="stylesheet" href="<?=ROOTPATH?>style/desktop/font.css" />
 		<!-- define styles of type of elements (ex:h1, p, p.myclass...)-->
 		<link rel="stylesheet" href="<?=ROOTPATH?>style/desktop/style.css" />
 		<!-- define design of website -->
-		<link rel="stylesheet" href="<?=ROOTPATH?>style/desktop/design.css" media="(min-width: 654px) and (min-height: 480px)" />
-		<link rel="stylesheet" href="<?=ROOTPATH?>style/desktop/design-animation.css" media="(min-width: 654px) and (min-height: 480px)" />
+		<link rel="stylesheet" href="<?=ROOTPATH?>style/desktop/design.css" media="(min-width: 684px) and (min-height: 480px)" />
+		<link rel="stylesheet" href="<?=ROOTPATH?>style/desktop/design-animation.css" media="(min-width: 684px) and (min-height: 480px)" />
 		<!-- ><![endif]!-->
 		<!--[if IE 8]>
 		<link rel="stylesheet" href="<?=ROOTPATH?>style/desktop/design.css" media="screen" />

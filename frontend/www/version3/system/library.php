@@ -2,13 +2,13 @@
 /**
  * Redirect user on another page. Using it instead of header() can help debug
  * call header('Location:') then exit
- * if DEBUG=true, print linl with url the print traces
+ * if DEBUG=true, print link with url the print traces
  */
 /*void*/ function httpRedirect(/*string*/ $newUrl)
 {
 	if(defined('DEBUG')&&DEBUG)
 	{
-		echo '<p><a href="'.$newUrl.'">Redirection HTTP</a> (blocked for DEBUG, call ?debug=0 toremove it)</p>';
+		echo '<p><a href="'.$newUrl.'">Redirection HTTP</a> (blocked for DEBUG, call ?debug=0 to remove it)</p>';
 		echo '<h1>Traces</h1>';
 		printTraces();
 	}

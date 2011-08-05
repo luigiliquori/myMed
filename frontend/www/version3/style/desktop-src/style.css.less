@@ -6,17 +6,18 @@ html ,body {
 	height		: 100%;
 	overflow	: auto;
 	position	: relative;
-	font-size	: 90%;
+	font-size	: 92%;
 }
 div.body {
 	.border-radius( 0 0 0.5ex 0.5ex);
 	overflow	: hidden;
 	background-color	: white;
 	height		: 100%;
+	font-family	: serif, "OpenSymbol";
 }
 /***** TITLES (<hx>) *****/
 h1 ,h2 ,h3 , h4 ,h5 ,h6 {
-	font-family	: sans-serif;
+	font-family	: sans-serif, "OpenSymbol";
 	color		: #203068;
 	.text-shadow	(0.1px, 0.1px, 0.5px, #ccc);
 	//.-ms-filter	(~"progid:DXImageTransform.Microsoft.DropShadow(OffX=1, OffY=1, Color=#cccccc)");
@@ -54,7 +55,7 @@ input[type=reset] ,
 button {
 	cursor		: pointer;
 	border		: solid 1px #337099;
-	font-family	: sans-serif;
+	font-family	: sans-serif, "OpenSymbol";
 	font-size	: 85%;
 	font-style	: italic;
 	font-weight	: bold;
@@ -65,7 +66,7 @@ button {
 	.border-radius			(0.5ex);
 	.transition-duration	(0.5s);
 	.transition-property	(text-shadow);
-	.box-shadow	( 0.3ex 0.3ex 0.3ex #ccc inset);
+	.box-shadow	( 0.4ex 0.4ex 0.4ex #ccc inset);
 }
 input[type=button]::-moz-focus-inner ,
 input[type=submit]::-moz-focus-inner ,
@@ -86,7 +87,7 @@ input[type=reset]:active ,
 button:active {
 	.simpleverticalgradient	(#3c85b5, #7db1d3);
 	color	: #eee;
-	.box-shadow	( 0 0 0 transparent, 0.3ex 0.3ex 0.3ex #06c inset);
+	.box-shadow	( 0 0 0 transparent, 0.4ex 0.4ex 0.4ex #06c inset);
 }
 
 /***** SPACIAL *****/

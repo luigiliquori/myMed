@@ -53,6 +53,12 @@
 	left: 8%;
 	right: 8%;
 }
+@media (max-width: 813px) {
+	#tabList {
+		left: 0;
+		right: 0;
+	}
+}
 /*
 #tabList:before {
 	content	: "";
@@ -86,12 +92,6 @@
 	/*find on google an htc*/
 
 	border-radius: 2ex 2ex 0 0;
-}
-@media (max-width: 777px) {
-	#header div.innerContent {
-		left: 0;
-		right: 0;
-	}
 }
 #tabList hr {
 	background-color: #0e2835;
@@ -129,7 +129,7 @@
 }
 #tabList li a {
 	display: block;
-	font-family: sans-serif;
+	font-family: sans-serif, "OpenSymbol";
 	text-decoration: none;
 	height: 100%;
 	padding: 0 2ex;
@@ -227,8 +227,7 @@ div.desktop.childmaximized div.window {
 }
 div.desktop div.window div.titlebar {
 	height: 2em;
-	font-family: Arial, sans-serif;
-	padding: 0 0.5ex 0 1ex;
+	font-family: Arial, sans-serif, "OpenSymbol";
 }
 div.desktop div.window div.titlebar img {
 	height: 1.3em;
@@ -238,15 +237,16 @@ div.desktop div.window div.titlebar img {
 	margin-top: -0.5ex;
 	vertical-align: middle;
 }
-div.desktop div.window div.titlebar .title {
-	display: inline-block;
+div.desktop div.window div.titlebar div.title {
 	line-height: 1.53846em;
 	/* 2em*100%/130% */
 
+	height: 100%;
 	font-weight: bold;
 	font-size: 130%;
 	cursor: default;
 	color: #eee;
+	padding: 0 0.769230769ex;
 	/*see filter "Shadow" on msdn (need no border and no background)*/
 	/*
 	@msFilter	: `"progid:DXImageTransform.Microsoft.DropShadow(OffX=@{xOffset}, OffY=@{yOffset}, Color=@{color})"`;
@@ -254,9 +254,27 @@ div.desktop div.window div.titlebar .title {
 
 	background-repeat: no-repeat;
 	background-position: left center;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	-moz-text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+	-khtml-text-overflow: ellipsis;
+	margin-right: 14ex;
+	/* depend on number of button displayed */
+
+}
+/* Affect margin-right of div.title *
+div.desktop div.window div.titlebar button.close ,
+div.desktop div.window div.titlebar button.minimize {
+	display:none;
+}/**/
+div.desktop div.window div.titlebar div.titleButtons {
+	position: absolute;
+	right: 0.5ex;
+	top: 0;
 }
 div.desktop div.window div.titlebar button {
-	float: right;
 	border: 0;
 	background: none transparent;
 	cursor: pointer;
@@ -279,16 +297,31 @@ div.desktop div.window div.titlebar button.options {
 	color: #CCCCCC;
 	padding: 0 0.5ex;
 }
-/**/
-div.desktop div.window div.titlebar button.close, div.desktop div.window div.titlebar button.minimize {
+div.desktop div.window div.titlebar button:before {
+	font-style: normal;
+}
+div.desktop div.window div.titlebar button.maximize:before {
+	content: "";
+}
+div.desktop div.window div.titlebar button.minimize:before {
+	content: "";
+}
+div.desktop div.window div.titlebar button.close:before {
+	content: "x";
+	padding: 0 0.4ex;
+}
+div.desktop.childmaximized div.window.maximized div.titlebar button.maximize:before {
+	content: "";
+}
+div.desktop div.window div.titlebar button.close span, div.desktop div.window div.titlebar button.minimize span, div.desktop div.window div.titlebar button.maximize span {
 	display: none;
 }
-/**/
 div.desktop div.window div.titlebar div.menu {
 	display: none;
 	position: absolute;
 	z-index: 1;
 	right: 0;
+	width: 20ex;
 }
 div.desktop div.window div.titlebar div.menu ul {
 	margin: 0;
@@ -365,11 +398,13 @@ body.javascript div.desktop div.window .leftResizer, body.javascript div.desktop
 	top: 0;
 }
 body.javascript div.desktop div.window .leftResizer {
-	cursor: w-resize;
+	/*cursor	: w-resize;*/
+
 	left: 0;
 }
 body.javascript div.desktop div.window .rightResizer {
-	cursor: e-resize;
+	/*cursor	: e-resize;*/
+
 	right: 0;
 }
 div.desktop.childmaximized div.window.maximized {

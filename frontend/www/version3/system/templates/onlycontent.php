@@ -9,6 +9,8 @@ if(defined('MIMETYPE_XHTML')&&MIMETYPE_XHTML)
 		<title>myMed<?php for($i=0 ; $this->getTitle($i, ' > ') ; $i++)?></title>
 		<!--bloquer le style pour les vieux IE-->
 		<!--[if gt IE 7]><!-->
+		<!-- load fonts-->
+		<link rel="stylesheet" href="<?=ROOTPATH?>style/desktop/font.css" />
 		<!-- define styles of type of elements (ex:h1, p, p.myclass...)-->
 		<link rel="stylesheet" href="<?=ROOTPATH?>style/desktop/style.css" />
 		<!-- ><![endif]!-->

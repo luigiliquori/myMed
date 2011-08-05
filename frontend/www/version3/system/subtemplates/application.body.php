@@ -22,21 +22,23 @@
 <?php 	foreach($column['appList'] as $app):?>
 						<div class="window">
 							<div class="titlebar">
-								<span class="title"><?=$app?></span>
-								<button class="close" title="delete" onclick="this.parentNode.parentNode.close()"><span>x</span></button>
-								<button class="maximize" title="maximize" onclick="this.parentNode.parentNode.toogleMaximize()"><span>+</span></button>
-								<button class="minimize" title="minimize" onclick="this.parentNode.parentNode.toogleMinimize()"><span>-</span></button>
-								<button class="options" onclick="this.focus();"><span>options</span></button>
-								<div class="menu">
-									<ul>
-										<li><button>Partager ce service</button></li>
-										<li><button>Signaler ce service</button></li>
-										<li><hr /></li>
-										<li><button onclick="this.parentNode.parentNode.parentNode.parentNode.parentNode.toogleMinimize()">Réduire ce service</button></li>
-										<li><button onclick="this.parentNode.parentNode.parentNode.parentNode.parentNode.toogleMaximize()">Agrandir ce service</button></li>
-										<li><button onclick="this.parentNode.parentNode.parentNode.parentNode.parentNode.close()">Supprimer ce service</button></li>
-									</ul>
-								</div>
+								<div class="title"><span><?=$app?></span></div>
+								<div class="titleButtons"><!--
+									--><button class="options" onclick="this.focus();"><span>options</span></button><!--
+									--><div class="menu">
+										<ul>
+											<li><button>Partager ce service</button></li>
+											<li><button>Signaler ce service</button></li>
+											<li><hr /></li>
+											<li><button onclick="this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.toogleMinimize()">Réduire ce service</button></li>
+											<li><button onclick="this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.toogleMaximize()">Agrandir ce service</button></li>
+											<li><button onclick="this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.close()">Supprimer ce service</button></li>
+										</ul>
+									</div><!--
+									--><button class="minimize" title="minimize" onclick="this.parentNode.parentNode.parentNode.toogleMinimize()"><span>-</span></button><!--
+									--><button class="maximize" title="maximize" onclick="this.parentNode.parentNode.parentNode.toogleMaximize()"><span>+</span></button><!--
+									--><button class="close" title="delete" onclick="this.parentNode.parentNode.parentNode.close()"><span>x</span></button><!--
+								--></div>
 							</div>
 							<div class="content">
 								<!--[if IE 8]>
