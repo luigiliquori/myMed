@@ -1,5 +1,7 @@
 <?php 
-$date = date('Y-m-d', time()-3600*24*365*30);
+$defaultOld	= 30;
+$minOld		= 6;
+$date = date('Y-m-d', time()-3600*24*365*$defaultOld);
 ?>
 				<form action="" method="post">
 					<div>
@@ -25,7 +27,8 @@ $date = date('Y-m-d', time()-3600*24*365*30);
 						</div>
 						<div>
 							<label for="dob">Date de Naissance&nbsp;:</label>
-							<input id="dob" name="dob" value="<?=$date?>" placeholder="<?=$date?>" type="date" />
+							<input id="dob" name="dob" value="<?=$date?>" placeholder="<?=$date?>" type="date" min="1880-01-01" max="<?=date('Y-m-d', time()-3600*24*365*$minOld)?>" />
+							<script type="text/javascript">$("#dob").dateinput({selectors:true, yearRange:[-131, -<?=$minOld-1?>]});</script>
 						</div>
 					</div>
 					<button type="submit"><span>S'inscrire</span></button>

@@ -20,16 +20,8 @@ if(defined('MIMETYPE_XHTML')&&MIMETYPE_XHTML)
 		<!-- JQuery HTML5 compatibility-->
 		<script type="text/javascript" src="<?=ROOTPATH?>javascript/jquery.textPlaceholder.js"></script>
 		<script type="text/javascript" src="<?=ROOTPATH?>javascript/jquery.form.min.js"></script>
-		<script type="text/javascript">
-		//<![CDATA[
-		$.tools.dateinput.localize("fr", {
-			months:        'janvier,février,mars,avril,mai,juin,juillet,août,septembre,octobre,novembre,décembre',
-			shortMonths:   'jan,fév,mar,avr,mai,jun,jul,aoû,sep,oct,nov,déc',
-			days:          'dimanche,lundi,mardi,mercredi,jeudi,vendredi,samedi',
-			shortDays:     'dim,lun,mar,mer,jeu,ven,sam'
-		});
-		//]]>
-		</script>
+		<script type="text/javascript" src="<?=ROOTPATH?>javascript/jquery.form.fr.js"></script>
+		<script type="text/javascript" src="<?=ROOTPATH?>javascript/jquery.form.config.js"></script>
 		
 		<!-- JS IE's version'-->
 		<!--[if IE]>
@@ -48,7 +40,7 @@ if(defined('MIMETYPE_XHTML')&&MIMETYPE_XHTML)
 			<!-- JQuery HTML5 compatibility's initialization'-->
 			<script type="text/javascript">
 			$("[placeholder]").textPlaceholder();
-			$(":date").dateinput({lang:'fr', format:'yyyy-mm-dd', firstDay:1/*, selectors:true*/});
+			$(":date").dateinput();
 			</script>
 		
 			<!-- DEBUG -->
