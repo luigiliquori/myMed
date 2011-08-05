@@ -12,12 +12,13 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 	<property name="model.dir"           location="../model" />
 	<property name="utils.dir"           location="../utils" />
 	<property name="libs.dir"            location="../../../../lib" />
+	<property name="junit.dir"           location="/usr/share/junit" />
 	<property name="cassandra.dir"       location="../../../../protocols/cassandra/cassandra" />
 	<property name="synapse.dir"         location="../../../../protocols/synapse/jSynapse/src" />
 	<property name="src.dir"             location="${controller.dir}:${model.dir}:${utils.dir}" />
 
  <!-- Fix the classpath to add the necessary resources -->
-	<path id="mymed.classpath">
+	<path id="mymed.classpath" description="Classpath to be used for running the tests">
 		<pathelement path="${java.class.path}"/>
 	  <pathelement location="${lib.dir}/mymed.jar"/>
 	  <pathelement location="${lib.dir}/jSynapse.jar"/>
@@ -25,7 +26,14 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 	  <pathelement location="."/>
 		<fileset dir="${libs.dir}" includes="*.jar" />
 		<fileset dir="${cassandra.dir}/lib" includes="*.jar"/>
+		<!-- This is necessary for JUnit to work under Jenkins -->
+		<fileset dir="${junit.dir}">
+			<include name="**/junit.jar"/>
+		</fileset>
 	</path>
+
+	<!-- Used if we want to print the classpath in case we need to debug -->
+	<pathconvert description="Pretty print the classpath" property="echo.path.compile" refid="mymed.classpath" pathsep="${line.separator}|  |--" />
 
 	<!-- Create the directories structure -->
 	<target name="init" depends="clean" description="Initialize the necessary directories">
@@ -65,8 +73,8 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 		<junit printsummary="yes" haltonfailure="no" showoutput="yes">
 			<classpath refid="mymed.classpath"/>
 			<test name="com.mymed.tests.MyMedTestSuite"/>
-			<batchtest fork="yes"/>
-			<formatter type="plain"/>
+			<formatter type="xml"/>
+			<batchtest fork="true"/>
 		</junit>
 	</target>
 
