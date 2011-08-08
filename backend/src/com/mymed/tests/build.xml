@@ -12,7 +12,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 	<property name="model.dir"           location="../model" />
 	<property name="utils.dir"           location="../utils" />
 	<property name="libs.dir"            location="../../../../lib" />
-	<property name="junit.dir"           location="/usr/share/junit" />
+	<property name="junit.dir"           location="/usr/share/java" />
 	<property name="cassandra.dir"       location="../../../../protocols/cassandra/cassandra" />
 	<property name="synapse.dir"         location="../../../../protocols/synapse/jSynapse/src" />
 	<property name="src.dir"             location="${controller.dir}:${model.dir}:${utils.dir}" />
