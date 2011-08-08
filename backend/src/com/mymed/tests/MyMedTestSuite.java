@@ -5,8 +5,8 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ProfileManagerTest.class, ReputationManagerTest.class, SessionManagerTest.class,
-        StorageManagerTest.class})
+@SuiteClasses({StorageManagerTest.class, ProfileManagerTest.class, ReputationManagerTest.class,
+        SessionManagerTest.class, InteractionManagerTest.class})
 public class MyMedTestSuite {
 
 }
