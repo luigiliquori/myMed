@@ -10,6 +10,7 @@ import org.junit.BeforeClass;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.profile.ProfileManager;
+import com.mymed.controller.core.manager.reputation.InteractionManager;
 import com.mymed.controller.core.manager.reputation.ReputationManager;
 import com.mymed.controller.core.manager.session.SessionManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
@@ -23,9 +24,9 @@ import com.mymed.utils.MConverter;
  * Simple class used to initialize all the values needed by the tests.
  * <p>
  * It is just needed to extend this class to have all the necessary values.
- * 
+ *
  * @author Milo Casagrande
- * 
+ *
  */
 public class GeneralTest extends TestValues {
 
@@ -33,6 +34,7 @@ public class GeneralTest extends TestValues {
 	protected StorageManager storageManager;
 	protected ProfileManager profileManager;
 	protected ReputationManager reputationManager;
+	protected InteractionManager interactionManager;
 
 	protected static MSessionBean sessionBean;
 	protected static MUserBean userBean;
@@ -104,6 +106,7 @@ public class GeneralTest extends TestValues {
 		sessionManager = new SessionManager(storageManager);
 		profileManager = new ProfileManager(storageManager);
 		reputationManager = new ReputationManager(storageManager);
+		interactionManager = new InteractionManager(storageManager);
 	}
 
 	@After
@@ -112,5 +115,6 @@ public class GeneralTest extends TestValues {
 		storageManager = null;
 		profileManager = null;
 		reputationManager = null;
+		interactionManager = null;
 	}
 }
