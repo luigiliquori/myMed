@@ -169,25 +169,25 @@ public class MSessionBean extends AbstractMBean {
 			 */
 			equal = true;
 
-			if (id == null && comparable.id != null) {
+			if (id == null && comparable.getId() != null) {
 				equal &= false;
 			} else {
-				equal &= id.equals(comparable.id);
+				equal &= id.equals(comparable.getId());
 			}
 
-			if (ip == null && comparable.ip != null) {
+			if (ip == null && comparable.getIp() != null) {
 				equal &= false;
 			} else {
-				equal &= ip.equals(comparable.ip);
+				equal &= ip.equals(comparable.getIp());
 			}
 
-			equal &= isP2P == comparable.isP2P;
-			equal &= port == comparable.port;
+			equal &= isP2P == comparable.isP2P();
+			equal &= port == comparable.getPort();
 
-			if (user == null && comparable.user != null) {
+			if (user == null && comparable.getUser() != null) {
 				equal &= false;
 			} else {
-				equal &= user.equals(comparable.user);
+				equal &= user.equals(comparable.getUser());
 			}
 		}
 
