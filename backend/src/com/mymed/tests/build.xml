@@ -52,7 +52,6 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 	<!-- Compile mymed -->
 	<target name="compile" depends="synapse,cleanbuild" description="Compile the necessary files">
 		<javac srcdir="${src.dir}" destdir="${build.dir}" debug="on">
-			<exclude name="InteractionManagerTest.java"/>
 			<classpath refid="mymed.classpath"/>
 		</javac>
 		<jar destfile="${lib.dir}/mymed.jar" basedir="${build.dir}" duplicate="preserve" index="true"/>
@@ -62,7 +61,6 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 	<target name="compiletest" depends="compile,cleanbuild" description="Compile the test classes">
 		<javac srcdir="${tests.dir}" destdir="${build.dir}" debug="on">
 			<classpath refid="mymed.classpath"/>
-			<exclude name="InteractionManagerTest*"/>
 			<include name="*.java"/>
 		</javac>
 		<jar destfile="${lib.dir}/mymedtest.jar" basedir="${build.dir}" duplicate="preserve" index="true"/>
