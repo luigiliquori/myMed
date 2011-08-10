@@ -37,6 +37,9 @@
 	display	: table-cell;
 	margin:0.2ex;
 }
+#content #login_subscribe div.subscribe form>div>div>script {
+	display	: none;
+}
 #content #login_subscribe div.subscribe form label:after {
 	content	: "\A0:"
 }
@@ -149,8 +152,13 @@
 	ul li form.openid {
 		height	: 22px;
 		border	: solid 1px @oidBorderColor;
+		padding	: 0;
 		.border-radius	(0.7ex);
 		.simpleverticalgradient(@oidGradientColor1, @oidGradientColor2);
+	}
+	ul li form.openid:before {
+		content : "";
+		display	: none;
 	}
 	ul li form.openid * {
 		vertical-align	: top;
@@ -214,6 +222,7 @@
 		text-decoration	: none;
 		.border-radius	(0.7ex);
 		position: relative;
+		overflow:hidden;
 	}
 	ul li a:hover {
 		.text-shadow	(0, 0, 1px, #FFFFFF);
@@ -233,7 +242,7 @@
 		.box-shadow	( 0.3ex 0.3ex 0.3ex #444 inset);
 	}
 	ul li a:before {
-		display	: block;
+		display	: inline-block;
 		width	: 22px;
 		height	: 22px;
 		float	: left;
@@ -245,12 +254,13 @@
 	ul li a span 	{
 		font-family	: "DejaVu Sans", "OpenSymbol";
 		color: #fff;
-		display		: block;
+		display		: inline-block;
 		overflow	: hidden;
 		text-align	: center;
 		line-height	: 22px;
 		font-size	: 12px;
 		border-left	: solid 1px;
+		width		: 54px;
 	}
 	@facebookBorderColor	: #465d8f;
 	@facebookGradientColor1	: #5d76ae;

@@ -49,11 +49,11 @@ if(defined('MIMETYPE_XHTML')&&MIMETYPE_XHTML)
 						<p>Ensemble par-delà les frontières</p>
 					</a>
 					<nav>
-						<ul>
-							<li class="desktop"><a href="<?=ROOTPATH?>application"><span>Bureau</span></a></li>
-							<li class="profil"><a href="<?=ROOTPATH?>profile"><span>Profile</span></a></li>
-							<li class="blog"><a href="http://www.mymed.fr"><span>Blog</span></a></li>
-						</ul>
+						<ul><!--
+							--><li class="desktop"><a href="<?=ROOTPATH?>application"><span>myApps</span></a></li><!--
+							--><li class="store"><a href="<?=ROOTPATH?>application/myStore"><span>myStore</span></a></li><!--
+							--><li class="profil"><a href="<?=ROOTPATH?>openid/idpage"><span>myProfile</span></a></li><!--
+						--></ul>
 					</nav>
 					<div class="tools">
 						<span class="vertiAligner"></span>
@@ -101,6 +101,7 @@ if(defined('MIMETYPE_XHTML')&&MIMETYPE_XHTML)
 			<div class="innerContent">
 				<nav>
 					<ul>
+						<li><a href="http://www.mymed.fr">Blog</a></li>
 						<li><a href="<?=ROOTPATH?>doxygen/">Développeurs</a></li>
 						<li><a href="javascript:alert('Non disponible')">Conditions d'utilisation</a></li>
 						<li><a href="javascript:alert('Non disponible')">Aide</a></li>

@@ -41,6 +41,9 @@ input {
 	padding		: 0.4ex;
 	width		: 12em;
 }
+input[required] ,select[required] {
+	background	: url("../img/asterisk.gif") no-repeat top right;
+}
 input:focus ,select:focus {
 	border		: solid 1px #06c;
 	.box-shadow	( 0 0 0 transparent, 0.3ex 0.3ex 0.3ex #06c inset);
@@ -48,6 +51,30 @@ input:focus ,select:focus {
 input:invalid ,select:invalid {
 	border		: solid 1px #600;
 	.box-shadow	( 0.3ex 0.3ex 0.3ex #c00 inset);
+}
+form {
+	padding-top	: 1.5em;
+}
+form:before {
+	content			: "Required Field";
+	background		: url("../img/asterisk.gif") no-repeat top left;
+	padding-left	: 6px;
+	float			: right;
+}
+form:lang(fr):before {
+	content	: "Champs Obligatoires";
+}
+form:lang(it):before {
+	content	: "Obbligatori Campi";
+}
+form:lang(de):before {
+	content	: "Pflichtfeld";
+}
+form:lang(es):before {
+	content	: "Campos Obligatorios";
+}
+input[type=hidden] {
+	display	: none !important;
 }
 input[type=button] ,
 input[type=submit] ,

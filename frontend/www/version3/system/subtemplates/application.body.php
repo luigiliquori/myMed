@@ -65,8 +65,9 @@
 				//<![CDATA[
 				(function(){
 					var desktops	= document.getElementById('desktops');
-					for(var i=0 ; i<desktops.children.length-1 ; i++)
-						initDesktop(desktops.children[i]);
+					for(var i=0 ; i<desktops.childNodes.length-1 ; i++)
+						if(desktops.childNodes[i].nodeName.toLowerCase() == "div")
+							initDesktop(desktops.childNodes[i]);
 					if(!desktops.getElementsByClassName)
 						desktops.getElementsByClassName	= patchGEBCN.getElementsByClassName;
 					var windowsList	= desktops.getElementsByClassName("window");

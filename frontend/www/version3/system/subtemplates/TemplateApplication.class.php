@@ -40,7 +40,11 @@ class TemplateApplication extends ContainerTemplate
 	public /*void*/ function contentGet()
 	{
 		if($this->content)
+		{
+			echo '<div id="'.$this->getTitle().'">';
 			$this->content->contentGet();
+			echo '</div>';
+		}
 		else
 		{
 			$tabList	= $this->tabList;

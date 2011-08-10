@@ -185,7 +185,7 @@ class ConnexionOpenId extends Connexion
 	 */
 	public /*void*/ function button()
 	{
-?><form method="post" action="" class="openid"><!--
+?><form method="post" action="<?=$_SERVER['REQUEST_URI']?>" class="openid"><!--
 			--><div class="hidden"><!--
 				--><input type="hidden" name="connexion" value="openid" /><!--
 			--></div><!--
@@ -197,7 +197,7 @@ class ConnexionOpenId extends Connexion
 					id="oidUri<?=$this->buttonDisplayedNumber?>" 
 					placeholder="Entrez votre URI OpenId" 
 					size="24" 
-					maxsize="255" /><!--
+					maxlength="255" /><!--
 			--></div><!--
 			--><div class="submitRow"><!--
 				--><div></div><!--

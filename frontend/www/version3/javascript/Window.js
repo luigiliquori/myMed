@@ -118,15 +118,19 @@ function initWindow(/*DivHTMLElement*/ othis)
 	};
 	var getElementInColumn = function(/*HTMLElement*/ column, /*int*/ y)
 	{
-		var length = column.children.length;
+		var length = column.childNodes.length;
 		for(var i=0 ; i<length ; i++)
 		{
-			if(
-					(column.children[i]!=othis)
-					&&((y-column.children[i].offsetTop) < column.children[i].offsetHeight/2)
-				)
+			var element = column.childNodes[i];
+			if(element.nodeType	== element.ELEMENT_NODE)
 			{
-				return column.children[i];
+				if(
+						(element!=othis)
+						&&((y-element.offsetTop) < element.offsetHeight/2)
+					)
+				{
+					return element;
+				}
 			}
 		}
 		return null;

@@ -1,4 +1,4 @@
-if(!$.tools.dateinput.localize.languages)$.tools.dateinput.localize.languages = new Array();console.log($.tools.dateinput.conf);
+if(!$.tools.dateinput.localize.languages)$.tools.dateinput.localize.languages = new Array();
 $.tools.dateinput.localize.languages["en"]	= true;
 $.tools.dateinput.conf.lang	= $.tools.dateinput.localize.languages[document.documentElement.lang]?document.documentElement.lang:"en";
 $.tools.dateinput.conf.format	= 'yyyy-mm-dd';

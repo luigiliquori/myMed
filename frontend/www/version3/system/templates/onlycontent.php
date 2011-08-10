@@ -31,7 +31,7 @@ if(defined('MIMETYPE_XHTML')&&MIMETYPE_XHTML)
 	</head>
 	<body style="background:none transparent;overflow:hidden;">
 		<script type="text/javascript">document.body.className = "javascript";</script>
-		<div id="<?php $this->getTitle();?>" class="body" style="overflow:auto;">
+		<div id="content" class="body" style="overflow:auto;">
 <?php 
 			printError();
 			$this->content();

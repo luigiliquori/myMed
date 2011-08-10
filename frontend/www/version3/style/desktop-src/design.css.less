@@ -78,6 +78,7 @@ html ,body {
 }
 #header ul li.desktop a 	{background-image: url("../img/icon/desktop.png");}
 #header ul li.profil a 	{background-image: url("../img/icon/profil.png");}
+#header ul li.store a 	{background-image: url("../img/icon/store32.png");}
 #header ul li.blog a 	{background-image: url("../img/icon/blog.png");}
 #header #language button ,
 #header #language select ,
@@ -173,6 +174,10 @@ html ,body {
 #header #language button:focus::-moz-focus-inner ,
 #header #logout button:focus::-moz-focus-inner {
 	border-color: #eee;
+}
+#header form:before {
+	content : "";
+	display	: none;
 }
 /******* Connexion ****/
 #header #logout ,
