@@ -208,7 +208,6 @@ public class MInteractionBean extends AbstractMBean {
 	 */
 	@Override
 	public int hashCode() {
-
 		int result = 1;
 		result = PRIME * result + (application == null ? 0 : application.hashCode());
 		result = PRIME * result + (complexInteraction == null ? 0 : complexInteraction.hashCode());

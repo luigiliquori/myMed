@@ -44,8 +44,10 @@ public class InteractionManagerTest extends GeneralTest {
 	@Test
 	public void testUpdateInteraction() {
 		try {
-			final MInteractionBean newInteraction = interactionBean.clone();
-			newInteraction.setFeedback(4);
+			final MInteractionBean newInteractionBean = interactionBean.clone();
+			newInteractionBean.setFeedback(4);
+
+			interactionManager.update(newInteractionBean);
 
 			final MInteractionBean readValue = interactionManager.read(INTERACTION_ID);
 			assertFalse("The interaction beans are the same.", interactionBean.equals(readValue));
