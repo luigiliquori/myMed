@@ -1,4 +1,4 @@
-package com.mymed.tests;
+package com.mymed.tests.unit;
 
 import java.util.Calendar;
 

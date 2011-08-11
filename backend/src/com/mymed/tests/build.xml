@@ -8,7 +8,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 	<property name="build.dir"           location="build"/>
 	<property name="lib.dir"             location="lib" />
 	<property name="results.dir"         location="results"/>
-	<property name="tests.dir"           location="."/>
+	<property name="tests.dir"           location="unit"/>
 	<property name="controller.dir"      location="../controller"/>
 	<property name="model.dir"           location="../model"/>
 	<property name="utils.dir"           location="../utils"/>
@@ -65,7 +65,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 	<target name="compiletest" depends="compile,cleanbuild" description="Compile the test classes">
 		<javac srcdir="${tests.dir}" destdir="${build.dir}" debug="on">
 			<classpath refid="mymed.classpath"/>
-			<include name="*.java"/>
+			<include name="**/*.java"/>
 		</javac>
 		<jar destfile="${lib.dir}/mymedtest.jar" basedir="${build.dir}" duplicate="preserve" index="true"/>
 	</target>
