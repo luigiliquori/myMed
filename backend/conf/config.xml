@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!-- Configuration of the data storage layer of myMed -->
+<!-- Change the x.x.x.x field to the IP address of the actual machine  -->
 <node>
 	<backend>
-	
 		<!-- Cloud Info -->
 		<cassandra>
-			<ListenAddress>mymed2.sophia.inria.fr</ListenAddress>
-			<!-- See ../protocols/cassandra/cassandra_0.6.6/conf/storage-conf.xml -->
+			<ListenAddress>x.x.x.x</ListenAddress>
+			<!-- See the Cassandra configuration file at ../protocols/cassandra/cassandra/conf/cassandra.yaml -->
 			<StoragePort>4200</StoragePort>
-			<ThriftAddress>mymed2.sophia.inria.fr</ThriftAddress>
+			<ThriftAddress>x.x.x.x</ThriftAddress>
 			<ThriftPort>4201</ThriftPort>
 		</cassandra>
-		
 		<!-- P2P Info -->
-		<synapse address="mymed2.sophia.inria.fr" port="0">
+		<synapse address="x.x.x.x" port="0">
 			<chord>
-				<ListenAddress>mymed2.sophia.inria.fr</ListenAddress>
-				<StoragePort>0</StoragePort><!-- 0 means random free port number -->
+				<ListenAddress>x.x.x.x</ListenAddress>
+				<!-- 0 means random free port number -->
+				<StoragePort>0</StoragePort>
 			</chord>
 			<kad>
-				<ListenAddress>mymed2.sophia.inria.fr</ListenAddress>
-				<StoragePort>0</StoragePort><!-- 0 means random free port number -->
+				<ListenAddress>x.x.x.x</ListenAddress>
+				<!-- 0 means random free port number -->
+				<StoragePort>0</StoragePort>
 			</kad>
 		</synapse>
-		
 	</backend>
 </node>
