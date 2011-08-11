@@ -67,7 +67,7 @@ public class MInteractionBean extends AbstractMBean {
 	}
 
 	/**
-	 * @return the feedback
+	 * @return the feedback associated with this interaction
 	 */
 	public double getFeedback() {
 		return feedback;
@@ -75,14 +75,14 @@ public class MInteractionBean extends AbstractMBean {
 
 	/**
 	 * @param feedback
-	 *            the feedback to set
+	 *            the feedback to set for this interaction
 	 */
 	public void setFeedback(final double feedback) {
 		this.feedback = feedback;
 	}
 
 	/**
-	 * @return the start
+	 * @return the start date of the interaction
 	 */
 	public long getStart() {
 		return start;
@@ -90,14 +90,14 @@ public class MInteractionBean extends AbstractMBean {
 
 	/**
 	 * @param start
-	 *            the start to set
+	 *            the start date of the interaction
 	 */
 	public void setStart(final long start) {
 		this.start = start;
 	}
 
 	/**
-	 * @return the id
+	 * @return the id that identifies the interaction
 	 */
 	public String getId() {
 		return id;
@@ -105,14 +105,14 @@ public class MInteractionBean extends AbstractMBean {
 
 	/**
 	 * @param id
-	 *            the id to set
+	 *            the id to set for this interaction
 	 */
 	public void setId(final String id) {
 		this.id = id;
 	}
 
 	/**
-	 * @return the application
+	 * @return the application used for the interaction
 	 */
 	public String getApplication() {
 		return application;
@@ -120,14 +120,14 @@ public class MInteractionBean extends AbstractMBean {
 
 	/**
 	 * @param application
-	 *            the application to set
+	 *            the application used for the interaction
 	 */
 	public void setApplication(final String application) {
 		this.application = application;
 	}
 
 	/**
-	 * @return the produces
+	 * @return the producer who provided the interaction
 	 */
 	public String getProducer() {
 		return producer;
@@ -135,14 +135,14 @@ public class MInteractionBean extends AbstractMBean {
 
 	/**
 	 * @param producer
-	 *            the producer to set
+	 *            the producer who provides the interaction
 	 */
 	public void setProducer(final String producer) {
 		this.producer = producer;
 	}
 
 	/**
-	 * @return the consumer
+	 * @return the consumer who used the interaction
 	 */
 	public String getConsumer() {
 		return consumer;
@@ -150,14 +150,14 @@ public class MInteractionBean extends AbstractMBean {
 
 	/**
 	 * @param consumer
-	 *            the consumer to set
+	 *            the consumer who uses the interaction
 	 */
 	public void setConsumer(final String consumer) {
 		this.consumer = consumer;
 	}
 
 	/**
-	 * @return the end
+	 * @return the end date of the interaction
 	 */
 	public long getEnd() {
 		return end;
@@ -165,14 +165,14 @@ public class MInteractionBean extends AbstractMBean {
 
 	/**
 	 * @param end
-	 *            the end to set
+	 *            the end date of the interaction
 	 */
 	public void setEnd(final long end) {
 		this.end = end;
 	}
 
 	/**
-	 * @return the snooze
+	 * @return the reminder of the interaction
 	 */
 	public int getSnooze() {
 		return snooze;
@@ -180,7 +180,7 @@ public class MInteractionBean extends AbstractMBean {
 
 	/**
 	 * @param snooze
-	 *            the snooze to set
+	 *            the reminder for the interaction
 	 */
 	public void setSnooze(final int snooze) {
 		this.snooze = snooze;
