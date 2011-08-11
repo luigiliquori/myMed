@@ -1,0 +1,39 @@
+/**
+ * @author Bastien BLANCHARD
+ */
+(function($)
+{
+	jQuery.fn.mobilePopup = function (mainwindow)
+	{
+		var popupStack	= new Array(mainwindow);
+		return this.each(function()
+		{
+			this.open	= function()
+			{
+				if(popupStack[popupStack.length-1] == this)
+					return;
+				$(this).addClass('mobile_open');
+				function waitForClose()
+				{
+					$(popupStack[popupStack.length-1]).removeClass('mobile_open');
+					popupStack.push(this);
+					$(this).unbind("transitionend", waitForClose);
+					$(this).unbind("webkitTransitionEnd", waitForClose);
+					$(this).unbind("OTransitionEnd", waitForClose);
+				}
+				$(this).bind("transitionend", waitForClose);
+				$(this).bind("webkitTransitionEnd", waitForClose);
+				$(this).bind("OTransitionEnd", waitForClose);
+			};
+			this.close	= function()
+			{
+				if(!$.inArray(this, popupStack))
+					return;
+				var elem=popupStack.pop();
+				$(elem).removeClass('mobile_open');
+				while(elem!=this){elem=popupStack.pop()};
+				$(popupStack[popupStack.length-1]).addClass('mobile_open');
+			};
+		});
+	}
+})(jQuery);

@@ -1,6 +1,8 @@
 <?php
 ini_set('xdebug.var_display_max_depth', 5);
 //define('MIMETYPE_XHTML', true&&isset($_SERVER["HTTP_ACCEPT"])&&stristr($_SERVER["HTTP_ACCEPT"],"application/xhtml+xml"));
+define('MOBILESWITCH_HEIGHT', 1);
+define('MOBILESWITCH_WIDTH', 722);
 define('ROOTPATH', '/mymed/version3/');
 define('BACKEND_URL', 'http://mymed2.sophia.inria.fr:8080/mymed_backend/');
 

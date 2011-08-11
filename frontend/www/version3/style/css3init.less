@@ -1,6 +1,6 @@
 .transition-duration (@arg) {
 	/*//*/transition-duration			: @arg;
-	-moz-transition-duration	: @arg;
+	-moz-transition-duration		: @arg;
 	/*//*/-o-transition-duration		: @arg;
 	/*//*/-khtml-transition-duration	: @arg;
 }
@@ -9,6 +9,26 @@
 	-moz-transition-property	: @arg;
 	/*//*/-o-transition-property		: @arg;
 	/*//*/-khtml-transition-property	: @arg;
+}
+.transition-timing-function (@arg) {
+	/*//*/transition-timing-function			: @arg;
+	-moz-transition-timing-function	: @arg;
+	/*//*/-o-transition-timing-function		: @arg;
+	/*//*/-khtml-transition-timing-function	: @arg;
+}
+.transform-origin (@arg) {
+	-khtml-transform-origin: @arg;
+	-webkit-transform-origin: @arg;
+	-moz-transform-origin: @arg;
+	-o-transform-origin: @arg;
+	transform-origin: @arg;
+}
+.transform (@arg) {
+	-khtml-transform: @arg;
+	-webkit-transform: @arg;
+	-moz-transform: @arg;
+	-o-transform: @arg;
+	transform: @arg;
 }
 .box-shadow (@arg) {
 	box-shadow			: @arg;
