@@ -1,5 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name">Myjam</string>
-    <string name="menu_insert">Menu Insert</string>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- ============================ -->
+    <!--  	General  strings  	  -->
+    <!-- ============================ -->    
+    <string name="app_name">myJam</string>
+    <string name="location_available">Location available</string>
+    <string name="location_unavailable">Location no more available</string>
+    <!-- ============================ -->
+    <!--  	SearchReport  strings  	  -->
+    <!-- ============================ -->
+    <string name="toast_call_error">Call error: <xliff:g id="error">%1$s</xliff:g></string>
+    <string name="searching_reports">Searching reports...</string>
+    <string name="search_finished">Search finished</string>
+    <string name="frac_number_separator">.</string>
+    <string name="type_string_separator">_</string>
+    <string name="date_format">dd-MM-yyyy HH:mm</string>
+    <!-- ============================ -->
+    <!--  	ReportDetails  strings    -->
+    <!-- ============================ -->
+    <string name="receiving_obj">Receiving <xliff:g id="error">%1$s</xliff:g> ...</string>
+    <string name="reception_finished">Reception finished</string>
+    <string name="report_type">Report Type:</string>
+    <string name="report_comment">Comment:</string>
+    
+    <!-- ============================ -->
+    <!--  	MyPreferences  strings    -->
+    <!-- ============================ -->
+    <string name="search_preferences">Search Preferences</string>
+    <string name="title_radius_preference">Set search radius</string>
+    <string name="summary_radius_preference">Radius of the search in km.</string>
+    <string name="dialog_title_search_preference">Select the radius of the search.</string>     
 </resources>

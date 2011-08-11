@@ -104,7 +104,7 @@ public class MReportBean extends AbstractMBean{
 					Object returnValue= method.invoke(this,(Object[]) null);
 					if (returnValue != null){
 						returnType=ClassType.inferTpye(method.getReturnType());
-						returnValueByteArray = ClassType.classTypeToByteArray(returnType,returnValue);
+						returnValueByteArray = ClassType.objectToByteArray(returnType,returnValue);
 						String attName = methodName.replaceFirst("get", "");
 						attName = attName.substring(0,1).toLowerCase()+attName.substring(1);
 						args.put(attName, returnValueByteArray);

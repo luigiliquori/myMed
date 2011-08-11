@@ -1,5 +1,8 @@
 package com.mymed.android.myjam.controller;
 
+
+
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,7 +34,6 @@ import com.mymed.android.myjam.exception.IOBackEndException;
 import com.mymed.android.myjam.exception.InternalBackEndException;
 import com.mymed.android.myjam.exception.InternalClientException;
 
-
 import android.util.Log;
 /**
  * 
@@ -40,17 +42,16 @@ import android.util.Log;
  */
 public class RestCall{
 	private final static String CHARSET_NAME = "UTF8";
-	private final static Charset CHARSET = Charset.forName(CHARSET_NAME);
-	// Uses the servlet running on LocalMyMed
-	
+	private final static Charset CHARSET = Charset.forName(CHARSET_NAME); 
 	
 	/** Http Method*/
-	protected enum HttpMethod {
+	protected enum httpMethod {
 		GET,
 		POST,
 		PUT,
-		DELETE;
-	}
+		DELETE;}
+	
+	public RestCall(){};
 	
 	/**
 	 * Executes the HTTP method.
@@ -62,7 +63,7 @@ public class RestCall{
 	 * @throws IOBackEndException
 	 * @throws InternalClientException
 	 */
-	protected String httpRequest(String uriString,HttpMethod method,String JSonObj)  throws InternalBackEndException, IOBackEndException, InternalClientException{
+	protected String httpRequest(String uriString,httpMethod method,String JSonObj)  throws InternalBackEndException, IOBackEndException, InternalClientException{
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpUriRequest request; 
 		try{
@@ -120,6 +121,12 @@ public class RestCall{
 			throw new InternalClientException("Communication error.");
 		} catch (IOException e) {
 			throw new InternalClientException("Communication error.");
+		} catch (IOBackEndException e) {
+			throw new InternalClientException(e.getMessage());
+		} catch (InternalBackEndException e) {
+			throw new InternalClientException(e.getMessage());
+		} catch (InternalClientException e) {
+			throw new InternalClientException(e.getMessage());
 		} catch (Exception e) {
 			throw new InternalClientException("Unknown error.");
 		}finally {

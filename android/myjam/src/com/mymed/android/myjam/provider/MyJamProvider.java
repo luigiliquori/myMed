@@ -1,14 +1,19 @@
 package com.mymed.android.myjam.provider;
 
+import java.util.ArrayList;
+
 import com.mymed.android.myjam.provider.MyJamContract.Feedback;
-import com.mymed.android.myjam.provider.MyJamContract.LocatedReport;
+import com.mymed.android.myjam.provider.MyJamContract.ReportsSearch;
 import com.mymed.android.myjam.provider.MyJamContract.Report;
 import com.mymed.android.myjam.provider.MyJamContract.Update;
 
 import android.content.ContentProvider;
+import android.content.ContentProviderOperation;
+import android.content.ContentProviderResult;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.OperationApplicationException;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -26,10 +31,13 @@ public class MyJamProvider extends ContentProvider{
     private static final String DATABASE_NAME = "my_jam.db";
     private static final int DATABASE_VERSION = 1;
     interface Tables{
-        final String LOCATED_REPORTS_TABLE_NAME = "located_reports";
+        final String REPORTS_SEARCH_TABLE_NAME = "reports_search";
         final String REPORTS_TABLE_NAME = "reports";
         final String UPDATES_TABLE_NAME = "updates";
         final String FEEDBACKS_TABLE_NAME = "feedbacks";
+        
+        final String SEARCH_JOIN_REPORTS = "reports_search "
+                + "INNER JOIN reports ON reports_search.report_id=reports.report_id ";
     }
     
     /** {@code REFERENCES} clauses. */
@@ -37,15 +45,22 @@ public class MyJamProvider extends ContentProvider{
         String REPORT_ID = "REFERENCES " + Tables.REPORTS_TABLE_NAME + "(" + Report.REPORT_ID + ")";
     }
     
-    private static final int LOCATED_REPORTS = 1;
-    private static final int REPORTS = 2;
-    private static final int UPDATES = 3;
-    private static final int FEEDBACKS = 4;
-
-    private static final int LOCATED_REPORT_ID = 5;    
-    private static final int REPORT_ID = 6;
-    private static final int UPDATE_ID = 7;
-    private static final int FEEDBACK_ID = 8;
+    /** {@code REFERENCES} clauses. */
+    private interface Triggers {
+        String REPORTS_SEARCH_DELETE  = "reports_search_delete";;
+    }
+    
+    private static final int REPORTS_SEARCH = 1;
+    private static final int REPORT_SEARCH_ID = 2;
+    
+    private static final int REPORTS = 3;
+    private static final int REPORT_ID = 4;
+    
+    private static final int UPDATES = 5;
+    private static final int REPORT_ID_UPDATES = 6;
+    
+    private static final int FEEDBACKS = 7;   
+    private static final int REPORT_ID_FEEDBACKS = 8;
     
     
 
@@ -59,15 +74,15 @@ public class MyJamProvider extends ContentProvider{
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            db.execSQL("CREATE TABLE " + Tables.LOCATED_REPORTS_TABLE_NAME + " ("
+            db.execSQL("CREATE TABLE " + Tables.REPORTS_SEARCH_TABLE_NAME + " ("
             		+ BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + LocatedReport.REPORT_TYPE + " TEXT NOT NULL,"
-                    + LocatedReport.REPORT_ID + " TEXT " + References.REPORT_ID + ","
-                    + LocatedReport.LATITUDE + " INTEGER NOT NULL,"
-                    + LocatedReport.LONGITUDE + " INTEGER NOT NULL,"
-                    + LocatedReport.DISTANCE + " INTEGER,"
-                    + LocatedReport.DATE + " INTEGER,"
-                    + "UNIQUE (" + LocatedReport.REPORT_ID + ") ON CONFLICT REPLACE)");
+                    + ReportsSearch.REPORT_TYPE + " TEXT NOT NULL,"
+                    + ReportsSearch.REPORT_ID + " TEXT " + References.REPORT_ID + ","
+                    + ReportsSearch.LATITUDE + " INTEGER NOT NULL,"
+                    + ReportsSearch.LONGITUDE + " INTEGER NOT NULL,"
+                    + ReportsSearch.DISTANCE + " INTEGER,"
+                    + ReportsSearch.DATE + " INTEGER,"
+                    + "UNIQUE (" + ReportsSearch.REPORT_ID + ") ON CONFLICT REPLACE)");
             
             db.execSQL("CREATE TABLE " + Tables.REPORTS_TABLE_NAME + " ("
             		+ BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -78,13 +93,12 @@ public class MyJamProvider extends ContentProvider{
                     + Report.TRAFFIC_FLOW + " TEXT,"
                     + Report.TRANSIT_TYPE + " TEXT,"
                     + Report.COMMENT + " TEXT,"
-                    + Report.DATE + " INTEGER,"
                     + "UNIQUE (" + Report.REPORT_ID + ") ON CONFLICT REPLACE)");
             
             db.execSQL("CREATE TABLE " + Tables.UPDATES_TABLE_NAME + " ("
             		+ BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             		+ Update.UPDATE_ID + " TEXT NOT NULL,"
-            		+ Update.REPORT_ID + " TEXT " + References.REPORT_ID + ","
+            		+ Update.REPORT_ID + " TEXT " + References.REPORT_ID + "ON DELETE CASCADE,"
                     + Update.USER_ID + " TEXT NOT NULL,"
                     + Update.USER_NAME + " TEXT NOT NULL,"
                     + Update.TRAFFIC_FLOW + " TEXT,"
@@ -96,11 +110,17 @@ public class MyJamProvider extends ContentProvider{
             db.execSQL("CREATE TABLE " + Tables.FEEDBACKS_TABLE_NAME + " ("
             		+ BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             		+ Feedback.FEEDBACK_ID + " TEXT NOT NULL,"
-            		+ Feedback.REPORT_ID + " TEXT " + References.REPORT_ID + ","
+            		+ Feedback.REPORT_ID + " TEXT " + References.REPORT_ID + " ON DELETE CASCADE,"
                     + Feedback.GRADE + " INTEGER NOT NULL,"
                     + Feedback.USER_ID + " TEXT NOT NULL,"
                     + Feedback.DATE + " INTEGER"
-                    + ");");            
+                    + ");");  
+            
+            //Creates a trigger that clean the data when is no more accessible.
+            db.execSQL("CREATE TRIGGER " + Triggers.REPORTS_SEARCH_DELETE + " AFTER DELETE ON "
+                    + Tables.REPORTS_SEARCH_TABLE_NAME + " BEGIN DELETE FROM " + Tables.REPORTS_TABLE_NAME + " "
+                    //+ " WHERE " + Qualified.SESSIONS_SEARCH_SESSION_ID + "=old." + Sessions.SESSION_ID//
+                    + ";" + " END;");
         }
 
         @Override
@@ -128,9 +148,9 @@ public class MyJamProvider extends ContentProvider{
         
 		int match = sUriMatcher.match(uri);
         switch (match){
-        case LOCATED_REPORTS:
-        	tableName = Tables.LOCATED_REPORTS_TABLE_NAME;
-        	contentUri = LocatedReport.CONTENT_URI;
+        case REPORTS_SEARCH:
+        	tableName = Tables.REPORTS_SEARCH_TABLE_NAME;
+        	contentUri = ReportsSearch.CONTENT_URI;
         	break;
         default:
             throw new IllegalArgumentException("Unknown URI " + uri);
@@ -159,10 +179,15 @@ public class MyJamProvider extends ContentProvider{
         Uri contentUri;
     	// Validate the requested uri
         switch (sUriMatcher.match(uri)) {
-        case LOCATED_REPORTS:
-        	tableName = Tables.LOCATED_REPORTS_TABLE_NAME;
-        	nullColumnHack = LocatedReport.REPORT_ID;
-        	contentUri = LocatedReport.CONTENT_URI;
+        case REPORTS_SEARCH:
+        	tableName = Tables.REPORTS_SEARCH_TABLE_NAME;
+        	nullColumnHack = ReportsSearch.REPORT_ID;
+        	contentUri = ReportsSearch.CONTENT_URI;
+        	break;
+        case REPORTS:
+        	tableName = Tables.REPORTS_TABLE_NAME;
+        	nullColumnHack = Report.REPORT_ID;
+        	contentUri = Report.CONTENT_URI;
         	break;
         default:
             throw new IllegalArgumentException("Unknown URI " + uri);
@@ -194,10 +219,10 @@ public class MyJamProvider extends ContentProvider{
         int cont = 0;
     	// Validate the requested uri
         switch (sUriMatcher.match(uri)) {
-        case LOCATED_REPORTS:
-        	tableName = Tables.LOCATED_REPORTS_TABLE_NAME;
-        	nullColumnHack = LocatedReport.REPORT_ID;
-        	contentUri = LocatedReport.CONTENT_URI;
+        case REPORTS_SEARCH:
+        	tableName = Tables.REPORTS_SEARCH_TABLE_NAME;
+        	nullColumnHack = ReportsSearch.REPORT_ID;
+        	contentUri = ReportsSearch.CONTENT_URI;
         	break;
         default:
             throw new IllegalArgumentException("Unknown URI " + uri);
@@ -227,8 +252,17 @@ public class MyJamProvider extends ContentProvider{
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 		int match = sUriMatcher.match(uri);
         switch (match){
-        case LOCATED_REPORTS:
-        	qb.setTables(Tables.LOCATED_REPORTS_TABLE_NAME);
+        case REPORTS_SEARCH:
+        	qb.setTables(Tables.REPORTS_SEARCH_TABLE_NAME);
+        	break;
+        case REPORT_SEARCH_ID:
+        	qb.setTables(Tables.REPORTS_SEARCH_TABLE_NAME);
+        	qb.appendWhere(ReportsSearch._ID + "=" + uri.getPathSegments().get(1));
+        	break;
+        case REPORT_ID:
+        	final String reportId = Report.getReportId(uri);
+        	qb.setTables(Tables.SEARCH_JOIN_REPORTS);
+        	qb.appendWhere(Report.QUALIFIER+Report.REPORT_ID + "=\"" + reportId+"\"");
         	break;
         default:
             throw new IllegalArgumentException("Unknown URI " + uri);
@@ -242,6 +276,29 @@ public class MyJamProvider extends ContentProvider{
         c.setNotificationUri(getContext().getContentResolver(), uri);
         return c;
 	}
+	
+    /**
+     * Apply the given set of {@link ContentProviderOperation}, executing inside
+     * a {@link SQLiteDatabase} transaction. All changes will be rolled back if
+     * any single one fails.
+     */
+    @Override
+    public ContentProviderResult[] applyBatch(ArrayList<ContentProviderOperation> operations)
+            throws OperationApplicationException {
+        final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        db.beginTransaction();
+        try {
+            final int numOperations = operations.size();
+            final ContentProviderResult[] results = new ContentProviderResult[numOperations];
+            for (int i = 0; i < numOperations; i++) {
+                results[i] = operations.get(i).apply(this, results, i);
+            }
+            db.setTransactionSuccessful();
+            return results;
+        } finally {
+            db.endTransaction();
+        }
+    }
 
 	@Override
 	public int update(Uri uri, ContentValues values, String selection,
@@ -252,14 +309,14 @@ public class MyJamProvider extends ContentProvider{
 	
     static {
         sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, Tables.LOCATED_REPORTS_TABLE_NAME, LOCATED_REPORTS);
-        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, Tables.LOCATED_REPORTS_TABLE_NAME+"/#", LOCATED_REPORT_ID);
+        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, Tables.REPORTS_SEARCH_TABLE_NAME, REPORTS_SEARCH);
+        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, Tables.REPORTS_SEARCH_TABLE_NAME+"/#", REPORT_SEARCH_ID);
         sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, Tables.REPORTS_TABLE_NAME, REPORTS);
-        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, Tables.REPORTS_TABLE_NAME+"/#", REPORT_ID);
+        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, Tables.REPORTS_TABLE_NAME+"/*", REPORT_ID);
         sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, Tables.UPDATES_TABLE_NAME, UPDATES);
-        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, Tables.UPDATES_TABLE_NAME+"/#", UPDATE_ID);
+        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, Tables.UPDATES_TABLE_NAME+"/*", REPORT_ID_UPDATES);
         sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, Tables.FEEDBACKS_TABLE_NAME, FEEDBACKS);
-        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, Tables.FEEDBACKS_TABLE_NAME+"/#", FEEDBACK_ID);
+        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, Tables.FEEDBACKS_TABLE_NAME+"/*", REPORT_ID_FEEDBACKS);
     }
 
 }

@@ -1,4 +1,4 @@
-package com.mymed.android.myjam;
+package com.mymed.android.myjam.ui;
 
 import java.util.ArrayList;
 import java.util.Iterator;

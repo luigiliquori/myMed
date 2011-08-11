@@ -1,5 +1,7 @@
 package com.mymed.android.myjam.provider;
 
+import com.mymed.android.myjam.provider.MyJamProvider.Tables;
+
 import android.net.Uri;
 import android.provider.BaseColumns;
 
@@ -13,7 +15,7 @@ public final class MyJamContract {
 	// This class cannot be instantiated
     private MyJamContract() {}    
     
-    interface LocatedReportColumns {
+    interface ReportsSearchColumns {
     	/** Unique id identifying the report. (Required)*/
     	String REPORT_ID = "report_id";
         /** Unique id identifying the location. (Required)*/
@@ -43,8 +45,6 @@ public final class MyJamContract {
     	String TRANSIT_TYPE = "transit_type";
     	/** Comment. */
     	String COMMENT = "comment";
-    	/** Insertion date. */
-        String DATE = "date";
     }
     
     interface UpdateColumns {
@@ -83,14 +83,14 @@ public final class MyJamContract {
 
     private static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 
-    private static final String PATH_LOCATED_REPORTS = "located_reports";
+    private static final String PATH_LOCATED_REPORTS = "reports_search";
     private static final String PATH_REPORTS = "reports";
     private static final String PATH_UPDATES = "updates";
     private static final String PATH_FEEDBACKS = "feedbacks";
     
-    public static final class LocatedReport implements BaseColumns,LocatedReportColumns {
+    public static final class ReportsSearch implements BaseColumns,ReportsSearchColumns {
         // This class cannot be instantiated
-        private LocatedReport() {}
+        private ReportsSearch() {}
 
         /**
          * The content:// style URL for this table
@@ -108,9 +108,14 @@ public final class MyJamContract {
         public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.myjam.locatedreport";
 
         /**
+         * The prefix to use when a qualified name is required.
+         */
+        public static final String QUALIFIER = Tables.REPORTS_SEARCH_TABLE_NAME + ".";
+        
+        /**
          * The default sort order for this table
          */
-        public static final String DEFAULT_SORT_ORDER = "distance DESC";
+        public static final String DEFAULT_SORT_ORDER = "distance";
     }
     
     public static final class Report implements BaseColumns,ReportColumns {
@@ -136,6 +141,20 @@ public final class MyJamContract {
          * The default sort order for this table
          */
         public static final String DEFAULT_SORT_ORDER = "date DESC";
+        
+        /**
+         * The prefix to use when a qualified name is required.
+         */
+        public static final String QUALIFIER = Tables.REPORTS_TABLE_NAME + ".";
+        
+        /**
+         * Returns the reportId given the URI.
+         * @param uri
+         * @return
+         */
+        public static String getReportId(Uri uri) {
+            return uri.getPathSegments().get(1);
+        }
     }
     
     public static final class Update implements BaseColumns,UpdateColumns {
@@ -186,6 +205,7 @@ public final class MyJamContract {
          * The default sort order for this table
          */
         public static final String DEFAULT_SORT_ORDER = "date DESC";
+        
     }
 	
     

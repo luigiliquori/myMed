@@ -24,7 +24,7 @@ import com.mymed.controller.core.manager.myjam.MyJamManager;
 import com.mymed.controller.core.manager.storage.MyJamStorageManager;
 import com.mymed.myjam.type.MyJamTypeValidator;
 import com.mymed.myjam.type.MReportBean;
-import com.mymed.myjam.type.MShortReportBean;
+import com.mymed.myjam.type.MSearchReportBean;
 import com.mymed.myjam.type.MFeedBackBean;
 import com.mymed.myjam.type.MyJamId;
 import com.mymed.myjam.type.WrongFormatException;
@@ -79,7 +79,7 @@ public class MyJamRequestHandler extends AbstractRequestHandler {
 				int longitude = Integer.parseInt(params.get("longitude"));
 				// Diameter in m.
 				int radius = Integer.parseInt(params.get("radius"));
-				List<MShortReportBean> resultList = myJamManager.searchReports((double) (latitude/1E6), (double) (longitude/1E6), radius);
+				List<MSearchReportBean> resultList = myJamManager.searchReports((double) (latitude/1E6), (double) (longitude/1E6), radius);
 				resToJson = this.getGson().toJson(resultList);
 				setResponseText(resToJson);
 				break;

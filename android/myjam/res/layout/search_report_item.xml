@@ -1,31 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 android:id="@+id/relativeLayout1" 
-android:layout_height="?android:attr/listPreferredItemHeight" 
+android:layout_height="wrap_content" 
 android:layout_width="fill_parent" 
 android:layout_alignParentTop="true" 
 android:layout_alignParentLeft="true">
+	<TextView android:id="@+id/textDateType"
+	android:text="Insertion date:" 
+    android:layout_height="wrap_content" 
+    android:layout_width="wrap_content"  
+	android:textAppearance="?android:attr/textAppearanceSmall"
+	android:layout_alignParentLeft="true"
+	android:paddingLeft="5dip"
+    android:singleLine="true">
+	</TextView>	
+	<TextView android:id="@+id/textDate"
+	android:text="Date" 
+    android:layout_height="wrap_content" 
+    android:layout_width="wrap_content"  
+	android:textAppearance="?android:attr/textAppearanceLarge"
+	android:layout_alignParentRight="true"
+    android:layout_alignTop="@+id/textDateType"
+	android:paddingLeft="5dip"
+	android:paddingRight="5dip"
+    android:singleLine="true">
+	</TextView>	
 	<TextView android:id="@+id/textViewType"
 	android:text="Type:" 
 	android:layout_height="wrap_content"
 	android:layout_width="wrap_content"
 	android:textAppearance="?android:attr/textAppearanceSmall"
 	android:layout_alignParentLeft="true"
+	android:layout_below="@+id/textDate"
 	android:paddingLeft="5dip"
     android:singleLine="true">
 	</TextView>
 	<TextView android:id="@+id/textType"
 	android:text="Type"
     android:layout_height="wrap_content" 
-    android:layout_width="match_parent" 
+    android:layout_width="wrap_content" 
     android:textAppearance="?android:attr/textAppearanceLarge"
-    android:layout_toRightOf="@+id/textViewType"
+    android:layout_alignParentRight="true"
+    android:layout_alignTop="@+id/textViewType"
     android:gravity="center_vertical"
     android:paddingLeft="5dip"
+    android:paddingRight="5dip"
     android:singleLine="true">
 	</TextView>
-	<TextView android:id="@+id/textViewLatitude"
-	android:text="Latitude:" 
+	<TextView android:id="@+id/textViewDistance"
+	android:text="Distance:" 
 	android:layout_height="wrap_content"
 	android:layout_width="wrap_content"
 	android:textAppearance="?android:attr/textAppearanceSmall"
@@ -34,34 +57,16 @@ android:layout_alignParentLeft="true">
 	android:paddingLeft="5dip"
     android:singleLine="true">
 	</TextView>
-	<TextView android:id="@+id/textLatitude"
-	android:text="lat"
-    android:layout_height="wrap_content" 
-    android:layout_width="wrap_content" 
-    android:textAppearance="?android:attr/textAppearanceLarge"
-    android:layout_toRightOf="@+id/textViewLatitude"
-    android:layout_alignTop="@+id/textViewLatitude"
-    android:paddingLeft="5dip"
-    android:singleLine="true">
-	</TextView>	
-	<TextView android:id="@+id/textViewLongitude"
-	android:text="Longitude:" 
-	android:layout_height="wrap_content"
-	android:layout_width="wrap_content"
-	android:textAppearance="?android:attr/textAppearanceSmall"
-	android:layout_toLeftOf="@+id/textLongitude"
-	android:layout_alignTop="@+id/textViewLatitude"
-	android:paddingLeft="5dip"
-    android:singleLine="true">
-	</TextView>
-	<TextView android:id="@+id/textLongitude"
-	android:text="lon"
+	<TextView android:id="@+id/textDistance"
+	android:text="distance"
     android:layout_height="wrap_content" 
     android:layout_width="wrap_content" 
     android:textAppearance="?android:attr/textAppearanceLarge"
     android:layout_alignParentRight="true"
-    android:layout_alignTop="@+id/textViewLatitude"
+    android:layout_alignTop="@+id/textViewDistance"
+    android:paddingLeft="5dip"
     android:paddingRight="5dip"
     android:singleLine="true">
 	</TextView>	
+
 </RelativeLayout>

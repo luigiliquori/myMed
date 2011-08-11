@@ -7,13 +7,15 @@ import com.mymed.model.data.AbstractMBean;
  * @author iacopo
  *
  */
-public class MShortReportBean extends AbstractMBean{
+public class MSearchReportBean extends AbstractMBean{
 	private String reportId;
 	private Integer latitude;
 	private Integer longitude;
 	private String reportType;
+	private Integer distance;
+	private Long date;
 	
-public MShortReportBean(){};
+public MSearchReportBean(){};
 
 /**Getter and Setter*/
 public void setReportId(String reportId) {
@@ -40,12 +42,28 @@ public Integer getLongitude() {
 	return longitude;
 }
 
+public Integer getDistance() {
+	return distance;
+}
+
+public void setDistance(Integer distance) {
+	this.distance = distance;
+}
+
 public void setReportType(String reportType) {
 	this.reportType = reportType;
 }
 
 public String getReportType() {
 	return reportType;
+}
+
+public long getDate() {
+	return date;
+}
+
+public void setDate(Long date) {
+	this.date = date;
 }
 
 }

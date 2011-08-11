@@ -27,11 +27,11 @@ import com.mymed.model.core.configuration.WrapperConfiguration;
 import com.mymed.model.core.wrappers.cassandra.api07.CassandraWrapper;
 import com.mymed.utils.MConverter;
 /**
- * Storage manager created ad hoc for myJam application.
+ * Storage manager created ad-hoc for myJam application.
  * @author iacopo
  *
  */
-public class MyJamStorageManager implements IMyJamStorageManager{
+public class MyJamStorageManager extends StorageManager implements IMyJamStorageManager{
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
@@ -39,7 +39,6 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 	 * The Default path of the wrapper config file
 	 */
 	public final static String CONFIG_PATH = "/home/iacopo/workspace/mymed/backend/conf/myJamConfig.xml";	
-	public final static String KEYSPACE ="myJamKeyspace";
 	public final static int maxNumColumns=10000; 
 
 	private final CassandraWrapper wrapper;
@@ -82,7 +81,6 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 		long timestamp = (long) (System.currentTimeMillis()*1E3);	
 		try{
 			wrapper.open();
-			wrapper.set_keyspace(KEYSPACE);
 			Map<String,List<Mutation>> tableMap = new HashMap<String,List<Mutation>>();
 			List<Mutation> sliceMutationList = new ArrayList<Mutation>(5);
 			tableMap.put(tableName,sliceMutationList);
@@ -105,24 +103,6 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 			wrapper.close();
 		}
 	}
-
-	@Override
-	public byte[] selectColumn(String tableName, String primaryKey,
-			String columnName) throws ServiceManagerException,
-			IOBackEndException, InternalBackEndException {
-		try {
-			return this.selectColumn(tableName, primaryKey, null, columnName.getBytes("UTF8"));
-		} catch (final UnsupportedEncodingException e) {
-			e.printStackTrace();
-			throw new InternalBackEndException(
-					"UnsupportedEncodingException with\n"
-							+ "\t- columnFamily = " + tableName + "\n"
-							+ "\t- key = " + primaryKey + "\n" + "\t- columnName = "
-							+ columnName + "\n");
-		} finally {
-			wrapper.close();
-		}
-	}
 	
 	/**
 	 * Selects a column in a CF.
@@ -142,7 +122,6 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 										
 		/** Transport Opening*/
 		wrapper.open();
-		wrapper.set_keyspace(KEYSPACE);
 
 		/** Check if the position is already occupied.*/
 		final ColumnPath columnPath = new ColumnPath(tableName);
@@ -178,7 +157,6 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 										
 		/** Transport Opening*/
 		wrapper.open();
-		wrapper.set_keyspace(KEYSPACE);
 
 		/** Set up parameters.*/
 		ColumnPath columnPath = new ColumnPath(tableName);
@@ -201,8 +179,7 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 
 	@Override
 	public void insertColumn(String tableName, String primaryKey,
-			String columnName, byte[] value) throws ServiceManagerException,
-			IOBackEndException, InternalBackEndException {
+			String columnName, byte[] value) throws InternalBackEndException {
 		try{
 			insertColumn(tableName, primaryKey, columnName.getBytes("UTF8"),value);
 		} catch (final UnsupportedEncodingException e) {
@@ -216,16 +193,14 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 	}
 	
 	public void insertColumn(String tableName, String primaryKey,
-			byte[] columnName, byte[] value) throws ServiceManagerException,
-			IOBackEndException, InternalBackEndException {
+			byte[] columnName, byte[] value) throws InternalBackEndException {
 		
 		final long timestamp = (long) (System.currentTimeMillis()*1E3);
 		insertExpiringColumn(tableName,primaryKey,columnName,value,timestamp,0);
 	}
 	
 	public void insertExpiringColumn(String tableName, String primaryKey,
-			byte[] columnName, byte[] value, long timestamp, int expiringTime) throws ServiceManagerException,
-			IOBackEndException, InternalBackEndException {
+			byte[] columnName, byte[] value, long timestamp, int expiringTime) throws InternalBackEndException {
 			
 		insertExpiringColumn(tableName,primaryKey,null,columnName,value,timestamp,expiringTime);
 	}
@@ -233,7 +208,7 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 	@Override
 	public void insertSuperColumn(String tableName, String primaryKey,
 			String superColumn, String columnName, byte[] value)
-			throws ServiceManagerException, InternalBackEndException {
+			throws InternalBackEndException {
 		
 		final long timestamp = (long) (System.currentTimeMillis()*1E3);
 		try{
@@ -250,7 +225,7 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 	
 	public void insertExpiringColumn(String tableName, String key,
 			byte[] superColumn, byte[] columnName, byte[] value,long timestamp,int expiringTime)
-			throws ServiceManagerException, InternalBackEndException {
+			throws  InternalBackEndException {
 		
 		try {
 			final ColumnParent parent = new ColumnParent(tableName);
@@ -265,7 +240,6 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 				column.setTtl(expiringTime);
 
 			wrapper.open();
-			wrapper.set_keyspace(KEYSPACE);//TODO 
 			wrapper.insert(key, parent, column, consistencyOnWrite);
 		} finally {
 			wrapper.close();
@@ -275,7 +249,7 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 
 	@Override
 	public Map<byte[], byte[]> selectAll(String tableName, String primaryKey)
-			throws ServiceManagerException, IOBackEndException,
+			throws IOBackEndException,
 			InternalBackEndException {
 		// read entire row
 		final SlicePredicate predicate = new SlicePredicate();
@@ -395,7 +369,6 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 			predicate.setSlice_range(sliceRange);
 
 			wrapper.open();
-			wrapper.set_keyspace(KEYSPACE);//TODO 
 			return wrapper.get_count(primaryKey, parent, predicate, consistencyOnRead);
 		} finally {
 			wrapper.close();
@@ -427,7 +400,6 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 		final ColumnPath columnPath = new ColumnPath(columnFamily);
 
 		wrapper.open();
-		wrapper.set_keyspace(KEYSPACE);//TODO 
 		wrapper.remove(key, columnPath, timestamp, consistencyOnWrite);
 		wrapper.close();
 	}
@@ -456,7 +428,6 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 				columnPath.setColumn(column);
 
 			wrapper.open();
-			wrapper.set_keyspace(KEYSPACE);//TODO
 			wrapper.remove(primaryKey, columnPath, timestamp, consistencyOnWrite);
 		} finally {
 			wrapper.close();
@@ -472,7 +443,6 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 
 		try {
 			wrapper.open();
-			wrapper.set_keyspace(KEYSPACE);
 
 			final ColumnParent parent = new ColumnParent(columnFamily);
 			final List<ColumnOrSuperColumn> results = wrapper.get_slice(key,
@@ -508,7 +478,6 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 
 		try {
 			wrapper.open();
-			wrapper.set_keyspace(KEYSPACE);
 
 			final ColumnParent parent = new ColumnParent(columnFamily);
 			final Map<ByteBuffer,List<ColumnOrSuperColumn>> results = wrapper.multiget_slice(keys,
@@ -544,7 +513,6 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 
 		try {
 			wrapper.open();
-			wrapper.set_keyspace(KEYSPACE);
 
 			final ColumnParent parent = new ColumnParent(columnFamily);
 			final Map<ByteBuffer,List<ColumnOrSuperColumn>> results = wrapper.multiget_slice(keys,
@@ -569,20 +537,6 @@ public class MyJamStorageManager implements IMyJamStorageManager{
 		} finally {
 			wrapper.close();
 		}
-	}
-	
-	@Override
-	public void put(String key, byte[] value) throws IOBackEndException,
-			InternalBackEndException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public byte[] get(String key) throws IOBackEndException,
-			InternalBackEndException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 	public class ExpColumnBean{

@@ -29,10 +29,12 @@ public abstract class AbstractManager extends ManagerValues {
 	public AbstractManager(final IStorageManager storageManager) {
 		this.storageManager = storageManager;
 	}
-	
+		
 	public AbstractManager(final IMyJamStorageManager storageManager) {
-		this.myJamStorageManager = storageManager;
+ 			this.myJamStorageManager = storageManager;
 	}
+	
+
 
 	/**
 	 * Introspection

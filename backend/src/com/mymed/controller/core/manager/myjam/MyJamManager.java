@@ -18,12 +18,17 @@ import com.mymed.myjam.locator.Location;
 import com.mymed.myjam.locator.Locator;
 import com.mymed.myjam.type.MFeedBackBean;
 import com.mymed.myjam.type.MReportBean;
-import com.mymed.myjam.type.MShortReportBean;
+import com.mymed.myjam.type.MSearchReportBean;
 import com.mymed.myjam.type.MyJamId;
 import com.mymed.myjam.type.WrongFormatException;
 import com.mymed.myjam.type.MyJamTypes.ReportType;
 import com.mymed.utils.MConverter;
 
+/**
+ * Controls the insertion and the retrieving of data to/from the database.
+ * @author iacopo
+ *
+ */
 public class MyJamManager extends AbstractManager{
 	/**
 	 * TODO This class must be aware of the userName and the userId.
@@ -33,7 +38,6 @@ public class MyJamManager extends AbstractManager{
 
 	public MyJamManager(MyJamStorageManager storageManager) {
 		super(storageManager);
-		// TODO Auto-generated constructor stub
 	}
 	
 	/* --------------------------------------------------------- */
@@ -63,7 +67,7 @@ public class MyJamManager extends AbstractManager{
 			report.setLocationId(locId);
 			report.setTimestamp(timestamp);
 			
-/** No more used because I inverted value and name */
+/** No more used because I inverted value and name, the id now is the column name and the report type the value. */
 //			/** Check if the position is already occupied.*/
 //			try{
 //				myJamStorageManager.selectColumn("Location", areaId, 
@@ -116,8 +120,8 @@ public class MyJamManager extends AbstractManager{
 	 * @return
 	 * @throws InternalBackEndException
 	 */
-	public List<MShortReportBean> searchReports(double latitude,double longitude,int radius) throws InternalBackEndException,IOBackEndException{
-		List<MShortReportBean> resultReports = new LinkedList<MShortReportBean>();
+	public List<MSearchReportBean> searchReports(double latitude,double longitude,int radius) throws InternalBackEndException,IOBackEndException{
+		List<MSearchReportBean> resultReports = new LinkedList<MSearchReportBean>();
 		try{
 			/**
 			 * Data structures preparation
@@ -151,13 +155,16 @@ public class MyJamManager extends AbstractManager{
 				/** Distance check */
 				if (distance <= radius){
 					for (byte[] colName : reports.get(scName).keySet()){
-						MShortReportBean reportBean = new MShortReportBean();
+						MSearchReportBean reportBean = new MSearchReportBean();
 						MyJamId repId = MyJamId.parseByteBuffer(ByteBuffer.wrap(colName));
 						reportBean.setReportType(MConverter.byteBufferToString(
 								ByteBuffer.wrap(reports.get(scName).get(colName))));
 						reportBean.setReportId(repId.toString());
 						reportBean.setLatitude((int) (reportLoc.getLatitude()*1E6));
 						reportBean.setLongitude((int) (reportLoc.getLongitude()*1E6));
+						reportBean.setDistance((int) distance);
+						/**The timestamp is set with the convention used in Java (milliseconds from 1 January 1970)*/
+						reportBean.setDate((repId.getTimestamp()/1000));
 						resultReports.add(reportBean);
 					}
 				}

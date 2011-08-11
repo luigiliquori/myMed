@@ -1,4 +1,4 @@
-package com.mymed.android.myjam;
+package com.mymed.android.myjam.ui;
 
 import android.location.Location;
 import com.google.android.maps.GeoPoint;

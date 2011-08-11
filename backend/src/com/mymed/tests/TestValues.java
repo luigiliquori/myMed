@@ -8,7 +8,7 @@ import java.util.Calendar;
  * @author Milo Casagrande
  */
 public class TestValues {
-	protected static final String CONF_FILE = "/local/mymed/backend/conf/config-new.xml";
+	protected static final String CONF_FILE = "/home/iacopo/workspace/mymed/backend/conf/myJamConfig.xml";
 	protected static final String NAME = "username";
 	protected static final String FIRST_NAME = "John";
 	protected static final String LAST_NAME = "Carter";

@@ -41,7 +41,7 @@ public class StorageManager implements IStorageManager {
 	/**
 	 * The Default path of the wrapper config file
 	 */
-	public static final String CONFIG_PATH = "/local/mymed/backend/conf/config.xml";
+	public static final String CONFIG_PATH = "/home/iacopo/workspace/mymed/backend/conf/myJamConfig.xml";
 
 	/** wrapper */
 	private final CassandraWrapper wrapper;

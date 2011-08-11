@@ -9,7 +9,7 @@
 			<ListenAddress>localhost</ListenAddress>
 			<!-- See ../protocols/cassandra/cassandra_0.6.6/conf/storage-conf.xml -->
 			<StoragePort>7000</StoragePort>
-			<ThriftAddress>mymed2.sophia.inria.fr</ThriftAddress>
+			<ThriftAddress>localhost</ThriftAddress>
 			<ThriftPort>9160</ThriftPort>
 		</cassandra>
 		

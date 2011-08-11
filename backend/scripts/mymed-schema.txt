@@ -13,7 +13,7 @@
  * Also, the 'RackAwareStrategy' should have been renamed into 'NetworkTopologyStrategy'.
  *
  */
-create keyspace Mymed with replication_factor = 10 and placement_strategy = 'org.apache.cassandra.locator.SimpleStrategy';
+create keyspace Mymed with replication_factor = 1 and placement_strategy = 'org.apache.cassandra.locator.SimpleStrategy';
 
 /* Switch to the 'mymed' keyspace */
 use Mymed;
@@ -59,3 +59,34 @@ create column family ApplicationModel with column_type = 'Super' and comparator 
 create column family UserList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family InteractionList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family RaterList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
+
+/* Column families for myJam application */
+
+create column family Location
+	with column_type = Super
+    and comparator = LongType
+    and comment = 'A column family with supercolumns, whose column names are Longs (8 bytes)';
+
+create column family Report
+	with column_metadata = [{column_name: user, validation_class:UTF8Type},
+							{column_name: type, validation_class:UTF8Type},
+							{column_name: transit, validation_class:UTF8Type},
+							{column_name: traffic_flow, validation_class:UTF8Type},
+							{column_name: comment, validation_class:UTF8Type}]
+	and comment = 'A column family to store the details of the reports and the updates.';
+
+create column family ActiveReport
+	with comparator = 'com.mymed.myjam.type.MyJamIdType'
+	and comment = 'A column family used as an index to bind users and their active reports (not yet expired or permanents).';
+
+create column family ReportUpdate
+    with comparator = 'com.mymed.myjam.type.MyJamIdType'
+	and comment = 'A column family used as an index, to bind a report with its updates.';
+
+create column family Feedback
+	with comparator = UTF8Type
+	and comment = 'A column family used to store the feedbacks associated to the reports or the updates.';
+
+create column family UserReport
+	with comparator = 'com.mymed.myjam.type.MyJamIdType'
+	and comment = 'A column family used as an index to bind users with reports and updates.';

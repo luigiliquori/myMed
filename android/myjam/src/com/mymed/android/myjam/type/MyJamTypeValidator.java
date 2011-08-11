@@ -19,7 +19,7 @@ public class MyJamTypeValidator {
 			throw new WrongFormatException(" Grade out of bound. ");
 	}
 	
-	public void validate(MShortReportBean mShorteportBean) throws WrongFormatException {
+	public void validate(MSearchReportBean mShorteportBean) throws WrongFormatException {
 		if (ReportType.valueOf(mShorteportBean.getReportType())==null)
 			throw new WrongFormatException(" Wrong report type. ");
 		if (MyJamId.parseString(mShorteportBean.getReportId()).getType()!=MyJamId.REPORT_ID)
