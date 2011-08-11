@@ -1,5 +1,6 @@
 package com.mymed.controller.core.manager.authentication;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,6 +13,13 @@ import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.data.session.MAuthenticationBean;
 import com.mymed.model.data.user.MUserBean;
 
+/**
+ * The manager for the authentication bean
+ * 
+ * @author lvanni
+ * @author Milo Casagrande
+ * 
+ */
 public class AuthenticationManager extends AbstractManager implements IAuthenticationManager {
 
 	public AuthenticationManager() throws InternalBackEndException {
@@ -34,11 +42,15 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
 		profileManager.create(user);
 
 		try {
-			storageManager.insertSlice(CF_AUTHENTICATION, "login", authentication.getAttributeToMap());
-			return user;
-		} catch (final ServiceManagerException e) {
-			throw new InternalBackEndException("create failed because of a WrapperException: " + e.getMessage());
+			final Map<String, byte[]> authMap = authentication.getAttributeToMap();
+			storageManager.insertSlice(CF_AUTHENTICATION, new String(authMap.get("login"), "UTF8"), authMap);
+		} catch (final ServiceManagerException ex) {
+			throw new InternalBackEndException("create failed because of a WrapperException: " + ex.getMessage());
+		} catch (final UnsupportedEncodingException ex) {
+			throw new InternalBackEndException(ex.getMessage());
 		}
+
+		return user;
 	}
 
 	/**
@@ -54,6 +66,7 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
 		try {
 			args = storageManager.selectAll(CF_AUTHENTICATION, login);
 		} catch (final ServiceManagerException e) {
+			// TODO use logger
 			e.printStackTrace();
 			throw new InternalBackEndException("read failed because of a WrapperException: " + e.getMessage());
 		}
@@ -75,5 +88,4 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
 		// TODO Implement the update method witch use the wrapper updateColumn
 		// method
 	}
-
 }
