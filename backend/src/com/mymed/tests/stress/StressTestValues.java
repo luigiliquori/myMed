@@ -36,6 +36,11 @@ public class StressTestValues {
 
 	protected static final String AUTH_ID = "usr_auth_id_%d";
 
+	/**
+	 * Random instance to keep around.
+	 */
+	protected static final SecureRandom random = new SecureRandom();
+
 	private static final String FEMALE = "female";
 	private static final String MALE = "male";
 
@@ -48,11 +53,6 @@ public class StressTestValues {
 	 * 2999-12-31 23:59
 	 */
 	private static final long END_DATE = 32503676380082L;
-
-	/**
-	 * Random instance to keep around.
-	 */
-	private static final SecureRandom random = new SecureRandom();
 
 	/**
 	 * Create a random date between January 1 1899, and December 31 3000.
@@ -72,9 +72,9 @@ public class StressTestValues {
 	 * @return a random chosen user gender
 	 */
 	protected static String getRandomGender() {
-		final int rand = random.nextInt(2);
+		final boolean rand = random.nextBoolean();
 
-		if (rand == 0) {
+		if (rand) {
 			return FEMALE;
 		} else {
 			return MALE;
