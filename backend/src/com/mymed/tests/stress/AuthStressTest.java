@@ -1,13 +1,22 @@
 package com.mymed.tests.stress;
 
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.mymed.model.data.session.MAuthenticationBean;
 
+/**
+ * Create all the necessary authentication beans in order to set up the
+ * Cassandra stress test
+ * 
+ * @author Milo Casagrande
+ * 
+ */
 public class AuthStressTest extends StressTestValues {
 
-	private final List<MAuthenticationBean> authList = new ArrayList<MAuthenticationBean>(NUMBER_OF_ELEMENTS);
+	private final List<MAuthenticationBean> authList = Collections
+	        .synchronizedList(new LinkedList<MAuthenticationBean>());
 
 	public AuthStressTest() {
 		MAuthenticationBean authBean;
@@ -23,6 +32,8 @@ public class AuthStressTest extends StressTestValues {
 			} catch (final Exception ex) {
 				ex.printStackTrace();
 			}
+
+			authList.add(authBean);
 		}
 	}
 
