@@ -74,7 +74,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 	<target name="test" depends="compiletest" description="Run all the JUnit tests">
 		<junit printsummary="yes" haltonfailure="no" showoutput="yes">
 			<classpath refid="mymed.classpath"/>
-			<test name="com.mymed.tests.MyMedTestSuite"/>
+			<test name="com.mymed.tests.unit.MyMedTestSuite"/>
 			<formatter type="xml"/>
 			<batchtest fork="true"/>
 		</junit>
