@@ -1,6 +1,7 @@
 package com.mymed.tests.stress;
 
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.mymed.model.data.user.MUserBean;
@@ -14,26 +15,27 @@ import com.mymed.model.data.user.MUserBean;
  */
 public class UserStressTest extends StressTestValues {
 
-	private final List<MUserBean> userList = new ArrayList<MUserBean>(NUMBER_OF_ELEMENTS);
+	private final List<MUserBean> userList = Collections.synchronizedList(new LinkedList<MUserBean>());
 
 	public UserStressTest() {
-		MUserBean bean;
+		MUserBean userBean;
 
 		for (int i = 0; i < NUMBER_OF_ELEMENTS; i++) {
-			bean = new MUserBean();
-			bean.setBirthday(getRandomDate());
-			bean.setBuddyList(String.format(USR_LIST_ID, i));
-			bean.setEmail(String.format(EMAIL, i));
-			bean.setFirstName(String.format(FIRST_NAME, i));
-			bean.setGender(getRandomGender());
-			bean.setId(String.format(USR_ID, i));
-			bean.setLastConnection(System.currentTimeMillis());
-			bean.setLogin(String.format(LOGIN, i));
-			bean.setName(String.format(NAME, i));
-			bean.setSession(String.format(SESSION, i));
+			userBean = new MUserBean();
+			userBean.setBirthday(getRandomDate());
+			userBean.setBuddyList(String.format(USR_LIST_ID, i));
+			userBean.setEmail(String.format(EMAIL, i));
+			userBean.setFirstName(String.format(FIRST_NAME, i));
+			userBean.setGender(getRandomGender());
+			userBean.setId(String.format(USR_ID, i));
+			userBean.setLastConnection(System.currentTimeMillis());
+			userBean.setLogin(String.format(LOGIN, i));
+			userBean.setName(String.format(NAME, i));
+			userBean.setSession(String.format(SESSION, i));
+
+			userList.add(userBean);
 		}
 	}
-
 	/**
 	 * @return the userList
 	 */
