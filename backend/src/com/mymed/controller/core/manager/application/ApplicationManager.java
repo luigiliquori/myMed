@@ -32,9 +32,6 @@ public class ApplicationManager extends AbstractManager implements
 		super(storageManager);
 	}
 
-	/* --------------------------------------------------------- */
-	/* implements IProfileManagement */
-	/* --------------------------------------------------------- */
 	/**
 	 * Setup a new user profile into the database
 	 * 
@@ -47,7 +44,7 @@ public class ApplicationManager extends AbstractManager implements
 			throws InternalBackEndException, IOBackEndException {
 		try {
 			final Map<String, byte[]> args = user.getAttributeToMap();
-			storageManager.insertSlice("User", new String(args.get("id"),
+			storageManager.insertSlice(CF_USER, new String(args.get("id"),
 					"UTF8"), args);
 			// TODO update the user values!
 			return user;
@@ -69,6 +66,7 @@ public class ApplicationManager extends AbstractManager implements
 		Map<byte[], byte[]> args = new HashMap<byte[], byte[]>();
 		final MUserBean user = new MUserBean();
 		args = storageManager.selectAll("User", id);
+		args = storageManager.selectAll(CF_USER, id);
 
 		return (MUserBean) introspection(user, args);
 	}
@@ -90,7 +88,7 @@ public class ApplicationManager extends AbstractManager implements
 	 */
 	@Override
 	public void delete(final String id) throws InternalBackEndException {
-		storageManager.removeAll("User", id);
+		storageManager.removeAll(CF_USER, id);
 	}
 
 }

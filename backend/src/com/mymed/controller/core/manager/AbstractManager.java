@@ -12,8 +12,12 @@ import com.mymed.model.data.AbstractMBean;
 import com.mymed.utils.ClassType;
 
 /**
+ * Abstract manager the all the managers should extend.
+ * <p>
+ * This manager provides the basic operation to recreate a bean object.
  * 
  * @author lvanni
+ * @author Milo Casagrande
  * 
  */
 public abstract class AbstractManager extends ManagerValues {
@@ -59,6 +63,7 @@ public abstract class AbstractManager extends ManagerValues {
 
 					method.invoke(mbean, argument);
 				} catch (final NoSuchFieldException e) {
+					// TODO use logger
 					System.out.println("\nWARNING: " + new String(arg.getKey(), "UTF8") + " is not a bean field");
 				}
 			}
@@ -95,10 +100,8 @@ public abstract class AbstractManager extends ManagerValues {
 		 * setter method will be based on the field name, but without the 'is'
 		 * prefix.
 		 */
-		if (classType.equals(ClassType.BOOL)) {
-			if (fieldName.startsWith("is")) {
-				subName = fieldName.substring(2, fieldName.length());
-			}
+		if (classType.equals(ClassType.BOOL) && fieldName.startsWith("is")) {
+			subName = fieldName.substring(2, fieldName.length());
 		}
 
 		setterName.append(subName.substring(0, 1).toUpperCase());

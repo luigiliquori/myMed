@@ -1,5 +1,6 @@
 package com.mymed.controller.core.manager.authentication;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,9 +12,19 @@ import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.data.session.MAuthenticationBean;
 import com.mymed.model.data.user.MUserBean;
 
+/**
+ * The manager for the authentication bean
+ * 
+ * @author lvanni
+ * @author Milo Casagrande
+ * 
+ */
 public class AuthenticationManager extends AbstractManager implements
 		IAuthenticationManager {
 
+	/* --------------------------------------------------------- */
+	/* Constructors */
+	/* --------------------------------------------------------- */
 	public AuthenticationManager() throws InternalBackEndException {
 		this(new StorageManager());
 	}
@@ -37,6 +48,15 @@ public class AuthenticationManager extends AbstractManager implements
 
 		storageManager.insertSlice(CF_AUTHENTICATION, "login",
 				authentication.getAttributeToMap());
+		try {
+			final Map<String, byte[]> authMap = authentication
+					.getAttributeToMap();
+			storageManager.insertSlice(CF_AUTHENTICATION,
+					new String(authMap.get("login"), "UTF8"), authMap);
+		} catch (final UnsupportedEncodingException ex) {
+			throw new InternalBackEndException(ex.getMessage());
+		}
+
 		return user;
 	}
 
@@ -52,8 +72,8 @@ public class AuthenticationManager extends AbstractManager implements
 
 		args = storageManager.selectAll(CF_AUTHENTICATION, login);
 
-		authentication = (MAuthenticationBean) introspection(authentication,
-				args);
+		authentication = (MAuthenticationBean) introspection(authentication, args);
+		args = storageManager.selectAll(CF_AUTHENTICATION, login);
 
 		System.out.println(authentication);
 
@@ -73,5 +93,4 @@ public class AuthenticationManager extends AbstractManager implements
 		// TODO Implement the update method witch use the wrapper updateColumn
 		// method
 	}
-
 }

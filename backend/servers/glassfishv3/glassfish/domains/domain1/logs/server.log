@@ -7333,3 +7333,15 @@ Response sent:
 }
 }|#]
 
+[#|2011-08-16T16:12:44.384+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=27;_ThreadName=Thread-1;|[AutoDeploy] Selecting file /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war for autodeployment.|#]
+
+[#|2011-08-16T16:12:46.207+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=27;_ThreadName=AutoDeployer;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-08-16T16:12:46.207+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=27;_ThreadName=AutoDeployer;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-08-16T16:12:46.207+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=27;_ThreadName=Thread-1;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-08-16T16:12:46.213+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.admin.org.glassfish.deployment.admin|_ThreadID=27;_ThreadName=Thread-1;|mymed_backend was successfully deployed in 1 823 milliseconds.|#]
+
+[#|2011-08-16T16:12:46.214+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=27;_ThreadName=Thread-1;|[AutoDeploy] Successfully autodeployed : /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war.|#]
+
