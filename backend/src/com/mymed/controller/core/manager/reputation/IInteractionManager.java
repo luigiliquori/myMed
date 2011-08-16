@@ -2,7 +2,6 @@ package com.mymed.controller.core.manager.reputation;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.controller.core.exception.ServiceManagerException;
 import com.mymed.model.data.reputation.MInteractionBean;
 
 public interface IInteractionManager {
@@ -38,5 +37,5 @@ public interface IInteractionManager {
 	 * @throws InternalBackEndException
 	 * @throws ServiceManagerException
 	 */
-	public void delete(String interactionID)  throws InternalBackEndException, ServiceManagerException;
+	public void delete(String interactionID)  throws InternalBackEndException;
 }

@@ -13,11 +13,11 @@ public class MAuthenticationBean extends AbstractMBean {
 	/* Attributes */
 	/* --------------------------------------------------------- */
 	/** AUTHENTICATION_ID */
-	private String login;
+	private String login = "";
 	/** USER_ID */
-	private String user;
+	private String user = "";
 	/** sha256(string) */
-	private String password;
+	private String password = "";
 	
 	/* --------------------------------------------------------- */
 	/* Constructors */

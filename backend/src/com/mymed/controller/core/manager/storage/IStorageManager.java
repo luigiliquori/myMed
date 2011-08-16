@@ -8,7 +8,6 @@ import org.apache.cassandra.thrift.ConsistencyLevel;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.controller.core.exception.ServiceManagerException;
 
 /**
  * @author lvanni
@@ -39,7 +38,8 @@ public interface IStorageManager {
 	 * @return true if the entry is correctly stored, false otherwise
 	 */
 	public void insertSlice(String tableName, String primaryKey,
-			Map<String, byte[]> args) throws ServiceManagerException, IOBackEndException, InternalBackEndException;
+			Map<String, byte[]> args) throws IOBackEndException,
+			InternalBackEndException;
 
 	/**
 	 * Get the value of an entry column
@@ -53,7 +53,8 @@ public interface IStorageManager {
 	 * @return the value of the column
 	 */
 	public byte[] selectColumn(String tableName, String primaryKey,
-			String columnName) throws  ServiceManagerException, IOBackEndException, InternalBackEndException;
+			String columnName) throws IOBackEndException,
+			InternalBackEndException;
 
 	/**
 	 * Update the value of a Simple Column
@@ -69,7 +70,8 @@ public interface IStorageManager {
 	 * @throws ServiceManagerException
 	 */
 	public void insertColumn(String tableName, String primaryKey,
-			String columnName, byte[] value) throws ServiceManagerException, IOBackEndException, InternalBackEndException;
+			String columnName, byte[] value) throws IOBackEndException,
+			InternalBackEndException;
 
 	/**
 	 * Update the value of a Super Column
@@ -88,10 +90,10 @@ public interface IStorageManager {
 	 * @throws ServiceManagerException
 	 * @throws InternalBackEndException
 	 */
-	public void insertSuperColumn(String tableName, String key, String superColumn,
-			String columnName, byte[] value) throws ServiceManagerException,
-			InternalBackEndException;
-	
+	public void insertSuperColumn(String tableName, String key,
+			String superColumn, String columnName, byte[] value)
+			throws InternalBackEndException;
+
 	/**
 	 * Get the value of a column family
 	 * 
@@ -105,7 +107,7 @@ public interface IStorageManager {
 	 * @throws ServiceManagerException
 	 */
 	public Map<byte[], byte[]> selectAll(String tableName, String primaryKey)
-			throws ServiceManagerException, IOBackEndException, InternalBackEndException;
+			throws IOBackEndException, InternalBackEndException;
 
 	/**
 	 * Get the values of a range of columns
@@ -120,7 +122,8 @@ public interface IStorageManager {
 	 * @throws ServiceManagerException
 	 */
 	public Map<byte[], byte[]> selectRange(String tableName, String primaryKey,
-			List<String> columnNames) throws  ServiceManagerException, IOBackEndException, InternalBackEndException;
+			List<String> columnNames) throws IOBackEndException,
+			InternalBackEndException;
 
 	/**
 	 * Remove a specific column defined by the columnName
@@ -132,7 +135,7 @@ public interface IStorageManager {
 	 * @throws ServiceManagerException
 	 */
 	public void removeColumn(String tableName, String key, String columnName)
-			throws ServiceManagerException, IOBackEndException, InternalBackEndException;
+			throws IOBackEndException, InternalBackEndException;
 
 	/**
 	 * Remove an entry in the columnFamily
@@ -146,7 +149,7 @@ public interface IStorageManager {
 	 */
 	public void removeAll(String tableName, String key)
 			throws InternalBackEndException;
-	
+
 	/**
 	 * Common put operation
 	 * 
@@ -155,7 +158,8 @@ public interface IStorageManager {
 	 * @param DHTType
 	 *            The type of DHT used for the operation
 	 */
-	public void put(String key, byte[] value) throws  IOBackEndException, InternalBackEndException;
+	public void put(String key, byte[] value) throws IOBackEndException,
+			InternalBackEndException;
 
 	/**
 	 * Common get operation
@@ -164,6 +168,7 @@ public interface IStorageManager {
 	 * @param DHTType
 	 *            The type of DHT used for the operation
 	 */
-	public byte[] get(String key) throws  IOBackEndException, InternalBackEndException;
+	public byte[] get(String key) throws IOBackEndException,
+			InternalBackEndException;
 
 }

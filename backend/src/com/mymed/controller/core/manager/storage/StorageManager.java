@@ -19,7 +19,6 @@ import org.apache.cassandra.thrift.SliceRange;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.controller.core.exception.ServiceManagerException;
 import com.mymed.model.core.configuration.WrapperConfiguration;
 import com.mymed.model.core.wrappers.cassandra.api07.CassandraWrapper;
 import com.mymed.utils.MConverter;
@@ -157,8 +156,7 @@ public class StorageManager implements IStorageManager {
 	@Override
 	public Map<byte[], byte[]> selectRange(final String tableName,
 			final String key, final List<String> columnNames)
-			throws ServiceManagerException, InternalBackEndException,
-			IOBackEndException {
+			throws InternalBackEndException, IOBackEndException {
 
 		final List<ByteBuffer> columnNamesToByte = new ArrayList<ByteBuffer>();
 		for (final String columnName : columnNames) {
@@ -269,8 +267,7 @@ public class StorageManager implements IStorageManager {
 	@Override
 	public void insertSuperColumn(final String tableName, final String key,
 			final String superColumn, final String columnName,
-			final byte[] value) throws ServiceManagerException,
-			InternalBackEndException {
+			final byte[] value) throws InternalBackEndException {
 
 		try {
 			final long timestamp = System.currentTimeMillis();
@@ -302,8 +299,8 @@ public class StorageManager implements IStorageManager {
 	 */
 	@Override
 	public void insertSlice(final String tableName, final String primaryKey,
-			final Map<String, byte[]> args) throws ServiceManagerException,
-			IOBackEndException, InternalBackEndException {
+			final Map<String, byte[]> args) throws IOBackEndException,
+			InternalBackEndException {
 
 		final Map<String, Map<String, List<Mutation>>> mutationMap = new HashMap<String, Map<String, List<Mutation>>>();
 		final long timestamp = System.currentTimeMillis();
@@ -351,7 +348,7 @@ public class StorageManager implements IStorageManager {
 	@Override
 	public void removeColumn(final String tableName, final String key,
 			final String columnName) throws InternalBackEndException {
-		
+
 		try {
 			final String columnFamily = tableName;
 			final long timestamp = System.currentTimeMillis();
@@ -382,7 +379,7 @@ public class StorageManager implements IStorageManager {
 	@Override
 	public void removeAll(final String tableName, final String key)
 			throws InternalBackEndException {
-		
+
 		final String columnFamily = tableName;
 		final long timestamp = System.currentTimeMillis();
 		final ColumnPath columnPath = new ColumnPath(columnFamily);

@@ -65,7 +65,7 @@
  <!-- Login -->
  <?php
  if($_POST["login"]){
- 	$isAuthenticated = file_get_contents(trim("http://" . $_SERVER['HTTP_HOST'] . ":8080/mymed_backend/ProfileRequestHandler?act=4&email=" . $_POST["email"] . "&password=" . $_POST["password"]));
+ 	$isAuthenticated = file_get_contents(trim("http://" . $_SERVER['HTTP_HOST'] . ":8080/mymed_backend/AuthenticationRequestHandler?act=4&email=" . $_POST["email"] . "&password=" . $_POST["password"]));
  	if($isAuthenticated){
  		$_SESSION['user'] = json_decode($isAuthenticated);
  	}
