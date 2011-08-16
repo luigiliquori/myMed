@@ -1,9 +1,12 @@
 package com.mymed.tests.stress;
 
-import java.util.Collections;
+import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.mymed.controller.core.manager.session.SessionManager;
+import com.mymed.controller.core.manager.storage.StorageManager;
+import com.mymed.model.core.configuration.WrapperConfiguration;
 import com.mymed.model.data.session.MSessionBean;
 
 /**
@@ -13,9 +16,12 @@ import com.mymed.model.data.session.MSessionBean;
  * @author Milo Casagrande
  * 
  */
-public class SessionStressTest extends StressTestValues {
+public class SessionStressTest extends StressTestValues implements Runnable {
 
-	private final List<MSessionBean> sessionList = Collections.synchronizedList(new LinkedList<MSessionBean>());
+	private final List<MSessionBean> sessionList = new LinkedList<MSessionBean>();
+
+	private StorageManager storageManager;
+	protected SessionManager sessionManager;
 
 	public SessionStressTest() {
 		MSessionBean sessionBean;
@@ -34,10 +40,33 @@ public class SessionStressTest extends StressTestValues {
 		}
 	}
 
+	public void setUp() {
+		try {
+			storageManager = new StorageManager(new WrapperConfiguration(new File(CONF_FILE)));
+			sessionManager = new SessionManager(storageManager);
+		} catch (final Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
 	/**
 	 * @return the sessionList
 	 */
 	public List<MSessionBean> getSessionList() {
 		return sessionList;
+	}
+
+	@Override
+	public void run() {
+		while (!sessionList.isEmpty()) {
+			synchronized (sessionList) {
+				try {
+					final MSessionBean session = ((LinkedList<MSessionBean>) sessionList).pop();
+					sessionManager.create(session);
+				} catch (final Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
 	}
 }
