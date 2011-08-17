@@ -26,6 +26,13 @@ function MobileFixedElements()
 	{
 		window.removeEventListener("scroll", updateScroll, false);
 		document.removeEventListener("scroll", updateScroll, false);
+		for(var i=0 ; i<fixedElementsList.length ; i++)
+		{
+			fixedElementsList[i].style.webkitTransform	= "";
+			fixedElementsList[i].style.OTransform		= "";
+			fixedElementsList[i].style.MozTransform		= "";
+			fixedElementsList[i].style.transform		= "";
+		}
 	};
 	var updateMode		= function()
 	{

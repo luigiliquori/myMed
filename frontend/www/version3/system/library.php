@@ -20,12 +20,12 @@ class CUrlException extends Exception{}
 class HttpException extends Exception
 {
 	private /*string*/	$httpContent;
-	public function __construct(/*int*/ $code, /*string*/ $httpContent='')
+	public function __construct(/*int*/ $code, /*string*/ $httpContent='', Exception $previous = NULL)
 	{
-		parent::__construct(null, $code, null);
+		parent::__construct(null, $code, $previous);
 		$len = strlen($httpContent);
 		if(8<$len && $len<128)
-			$this->message	= $httpContent;
+			$this->message	= htmlspecialchars($httpContent);
 		else
 			$this->message	= $this->httpCodeTranslate();
 	}

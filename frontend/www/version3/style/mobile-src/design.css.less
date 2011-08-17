@@ -1,6 +1,9 @@
 @import "../css3init.less";
+#footer #navigation .list ,
+#footer #partnerList div.list ,
 #header #login div.list ,
-#header {
+#header ,
+#footer {
 	background-color: #415B68;
 	font-family		: sans-serif;
 }
@@ -58,6 +61,36 @@
 	margin-left: 32px;
 	text-decoration: underline;
 }
+@media (orientation: landscape) {
+	html {margin-left	: 32px;}
+	body {margin-left	: 0.9ex;}
+	#header nav ul {
+		width	: auto;
+		top		: 0;
+		left	: -32px;
+		margin-left	: -0.9ex;
+	}
+	#header nav ul li {
+		display: block;
+	}
+	#header nav ul li a {
+		background-position	: center 0.5ex;
+		padding	: 0.5ex;
+		width	: 32px;
+		height	: auto;
+	}
+	#header nav ul li a span {
+		display: block;
+		.transform			(rotate(90deg));
+		.transform-origin	(left top);
+		margin-top	: 32px;
+		height		: 4em;
+		padding-left: 0.5ex;
+	}
+	#header nav ul li.profil a span {
+		height: 4.5em;
+	}
+}
 #header ul li.desktop a {
 	background-image: url("../img/icon/desktop.png");
 }
@@ -70,11 +103,18 @@
 #header ul li.blog a {
 	background-image: url("../img/icon/blog.png");
 }
-
+#header div.tools button {
+	display: inline;
+	height: auto;
+	margin: 0;
+	width: auto;
+}
 #header #login a ,
 #header ul li a {
 	color	: #fff;
 }
+#footer #navigation span.label:hover ,
+#footer #partnerList span.label:hover ,
 #header #login span.label:hover, 
 #header #logout button:hover, 
 #header #logout button:focus, 
@@ -88,16 +128,30 @@
 	color: #FFFFFF;
 	.text-shadow(0, 0, 1px, #FFFFFF);
 }
+#footer ,
+#footer #navigation ,
+#footer #partnerList ,
 #header #login ,
 #header #language ,
 #header #language div ,
 #header div.tools {
 	height	: 3em;
 }
+#header div.tools form {
+	background-image	: none;
+	background-color	: transparent;
+	border	: 0 none;
+	margin	: 0;
+	padding	: 0;
+	.border-radius(0);
+	.box-shadow	(0 0 0 transparent, 0 0 0 transparent inset);
+}
 #header div.tools form:before {
 	display	: none;
 	content	: "";
 }
+#footer #navigation ,
+#footer #partnerList ,
 #header #login ,
 #header #language {
 	padding	: 0 1em;
@@ -107,10 +161,6 @@
 }
 #header #language div * {
 	vertical-align	: middle;
-}
-#header #language select {
-	background-color: transparent;
-	color: #FFFFFF;
 }
 #header #language button {
 	background-color	: transparent;
@@ -128,15 +178,21 @@
 }
 #header #language select {
 	background-color	: transparent;
+	color: #FFFFFF;
 	border		: dotted 1px;
 	font-size	: inherit !important;
-	.box-shadow	( 0 0 0 transparent inset);
+	height		: auto;
+	display		: inline;
+	width		: auto;
+	.box-shadow	(0 0 0 transparent, 0 0 0 transparent inset);
 	.border-radius			( 0);
 }
 #header #login {
 	float		: right;
 	color		: #fff;
 }
+#footer #navigation .label ,
+#footer #partnerList .label ,
 #header #login .label {
 	display	: inline-block;
 	height	: 100%;
@@ -145,7 +201,10 @@
 	text-decoration	: none;
 	cursor		: pointer;
 }
+#footer #navigation .list ,
+#footer #partnerList div.list ,
 #header #login div.list {
+	display		: block;
 	position	: absolute;
 	left		: 0;
 	top			: 0;
@@ -155,10 +214,20 @@
 	padding-bottom	: 69px;
 	min-height	: 100%;
 }
+@media (orientation: landscape) {
+	#footer #partnerList div.list ul ,
+	#header #login div.list {
+		padding-bottom	: 1em;
+	}
+}
+#footer #navigation .list ul ,
+#footer #partnerList div.list ul ,
 #header #login div.list ul {
 	margin	: 0;
 	padding	: 0;
 }
+#footer #navigation .list ul li ,
+#footer #partnerList div.list ul li ,
 #header #login div.list ul li {
 	margin	: 0;
 	padding	: 0;
@@ -171,24 +240,46 @@
 	display	: none;
 }
 #header #login div.list ul li form input ,
+#header #login div.list ul li form button {
+	width				: 100%;
+}
+#footer #navigation .list ul li a ,
+#footer #navigation .list ul:before ,
+#footer #partnerList div.list ul li a ,
+#footer #partnerList div.list ul:before ,
+#header #login div.list ul li form input ,
 #header #login div.list ul li form button ,
 #header #login div.list ul li a ,
 #header #login div.list ul:before {
 	background-color	: #415B68;
 	background-repeat	: repeat;
+	border-top	: 0 none;
 	border-bottom		: 1px solid #202c34;
 	border-left			: 1px solid #fff;
 	border-right		: 1px solid #fff;
+	background-position : 8px center;
+	line-height			: 3em;
+	height				: 3em;
+	padding				: 0;
+	display				: block;
+}
+#header #login div.list ul li form input ,
+#header #login div.list ul li form button ,
+#header #login div.list ul li a ,
+#header #login div.list ul:before {
+	padding-left		: 40px;
 	background-repeat	: no-repeat;
 	background-repeat	: no-repeat, repeat;
-	background-position : 8px center;
-	padding-left		: 40px;
 }
+#footer #navigation .list ul li a:hover ,
+#footer #partnerList div.list ul li a:hover ,
 #header #login div.list ul li form input:hover ,
 #header #login div.list ul li form button:hover ,
 #header #login div.list ul li a:hover {
 	background-color: #546C77;
 }
+#footer #navigation .list a ,
+#footer #partnerList div.list a ,
 #header #login div ul li form input ,
 #header #login div ul li form button ,
 #header #login div a {
@@ -196,24 +287,17 @@
 }
 #header #login div.list ul li form input ,
 #header #login div.list ul li form button {
-	display		: block;
-	border-top	: 0 none;
-	border-bottom		: 1px solid #202c34;
-	border-left			: 1px solid #fff;
-	border-right		: 1px solid #fff;
-	width		: 100%;
 	font-size	: inherit;
-	line-height	: 3em;
-	height		: 3em;
 	padding		: 0 0 0 40px;
 	.box-sizing(border-box);
 	.border-radius(0);
 	.box-shadow(0 0 0 transparent);
 }
+#footer #navigation .list ul:before ,
+#footer #partnerList div.list ul:before ,
 #header #login div.list ul:before {
 	.border-radius(1em 1em 0 0);
 	border-top		: 1px solid #fff;
-	content			: "Login on myMed";
 	display			: block;
 	text-align		: center;
 	color			: #000;
@@ -224,6 +308,9 @@
 	background-color: #EDF2F4;
 	background-repeat	: repeat;
 	padding-left	: 0;
+}
+#header #login div.list ul:before {
+	content	: "Login on myMed";
 }
 #header #login div.list ul:lang(fr):before {
 	content	: "Connexion à myMed";
@@ -237,6 +324,8 @@
 #header #login div.list ul:lang(es):before {
 	content	: "Login en myMed";
 }
+#footer #navigation .list ul li:last-child a ,
+#footer #partnerList div.list ul li:last-child a ,
 #header #login div.list ul li:last-child form button ,
 #header #login div.list ul li:last-child a {
 	.border-radius(0 0 1em 1em);
@@ -257,6 +346,8 @@
 #header #login div.list ul li a span {
 	margin	: 0;
 }
+#footer #navigation .list div.mobile_popup_close ,
+#footer #partnerList div.list div.mobile_popup_close ,
 #header #login div.list div.mobile_popup_close {
 	position	: absolute;
 	top			: 1.75em;
@@ -290,8 +381,68 @@
 	overflow	: visible;
 }*/
 #titlesContentContainer {
-	display	: none;
+	display		: none;
+	width		: 100%;
+	overflow	: hidden;
 }
 #titlesContentContainer.mobile_open {
 	display	: block;
+}
+#titles {
+	background-color: #EDF2F4;
+	border-bottom	: 1px solid #C6D4DB;
+	overflow		: auto;
+}
+#titles h1 {
+	.text-shadow	(0, 0, 0.5ex, #205B98);
+	text-transform	: capitalize;
+	text-align	: center;
+}
+#footer {
+	color: #FFFFFF;
+	display			: block;
+	padding-bottom	: 1ex;
+	margin-bottom	: 32px;
+}
+@media (orientation: landscape) {
+	#footer {
+		padding-bottom	: 0;
+		margin-bottom	: 0;
+	}
+}
+#footer #partnerList {
+	float	: left;
+}
+#footer #navigation {
+	float	: right;
+}
+#footer #partnerList div.list ul:before {
+	content	: "Funders";
+}
+#footer #partnerList div.list ul:lang(fr):before {
+	content	: "Financeurs";
+}
+#footer #partnerList div.list ul:lang(it):before {
+	content	: "Finanziatori";
+}
+#footer #partnerList div.list ul:lang(de):before {
+	content	: "Förderer";
+}
+#footer #partnerList div.list ul:lang(es):before {
+	content	: "Financiadores";
+}
+#footer #partnerList div.list ul li a img {
+	vertical-align	: middle;
+	margin			: 0 1ex;
+	border			: 0 none;
+}
+#footer #navigation .list ul li a {
+	color		: #fff;
+	padding-left: 1em;
+}
+#footer #navigation .list ul:before {
+	content	: "Navigation";
+}
+#footer #navigation span.label:before {
+	content	: "Navigation";
 }

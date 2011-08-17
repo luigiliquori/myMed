@@ -46,7 +46,7 @@ require_once __DIR__.'/../socialNetworkAPIs/GlobalConnexion.class.php';
 // define PATH_INFO contante
 $PATH_INFO		= explode('/', isset($_SERVER['PATH_INFO'])?$_SERVER['PATH_INFO']:null);
 $PATH_INFO[0]	= basename($_SERVER['SCRIPT_NAME']);
-trace($PATH_INFO,'$PATH_INFO', __FILE__, __LINE__);
+//trace($PATH_INFO,'$PATH_INFO', __FILE__, __LINE__);
 
 //BEGIN
 function main()
@@ -65,7 +65,7 @@ function main()
 		$_SESSION['user'] = new Profile;
 		$_SESSION['user']->socialNetworkName	= null;
 	}
-	trace($_SESSION['user'],'$_SESSION[\'user\']', __FILE__, __LINE__);
+	//trace($_SESSION['user'],'$_SESSION[\'user\']', __FILE__, __LINE__);
 	define('USER_CONNECTED', $_SESSION['user']->socialNetworkName!==null );
 	
 	// Load Template

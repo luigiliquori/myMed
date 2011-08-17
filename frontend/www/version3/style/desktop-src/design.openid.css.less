@@ -1,31 +1,38 @@
-#OpenIdProvider {
+#content {
 	text-align	: center;
 }
-#OpenIdProvider form {
+#content form {
 	text-align	: center;
 	display		: inline;
 	display		: inline-block;
 }
-#OpenIdProvider form fieldset ,
-#OpenIdProvider form>div {
+#content form fieldset ,
+#content form>div {
 	display		: table;
 	text-align	: left;
 }
-#OpenIdProvider form fieldset>div ,
-#OpenIdProvider form>div>div {
+#content form fieldset>div ,
+#content form>div>div {
 	display	: table-row;
 }
-#OpenIdProvider form fieldset>div>* ,
-#OpenIdProvider form>div>div>* {
+#content form fieldset>div>* ,
+#content form>div>div>* {
 	display	: table-cell;
 	margin	: 0.25ex 0.5ex;
 }
-#OpenIdProvider form div.buttons  {
+#content form fieldset>div>script ,
+#content form>div>div>script {
+	display	: none;
+}
+#content form label:after {
+	content: " :";
+}
+#content form div.buttons  {
 	display		: block;/*
 	text-align	: center;
 	direction	: rtl;*/
 }
-#OpenIdProvider form div.buttons button {/*
+#content form div.buttons button {/*
 	display	: inline;
 	display	: inline-block;*/
 	float	: right;
@@ -44,6 +51,6 @@
 	text-align	: left;
 	padding		: 1em;
 }
-#OpenIdProvider .error {
+#content .error {
 	color	: red;
 }

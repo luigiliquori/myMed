@@ -4,7 +4,16 @@ define('BackendRequest_CREATE'		, 0);
 define('BackendRequest_READ'		, 1);
 define('BackendRequest_UPDATE'		, 2);
 define('BackendRequest_DELETE'		, 3);
-class BackendRequestException extends HttpException{}
+class BackendRequestException extends HttpException
+{
+	public function __construct(/*int*/ $code, /*string*/ $httpContent='')
+	{
+		$json = json_decode($httpContent);
+		if($json)
+			parent::__construct($code, $json->error->type.' : '.$json->error->message, new Exception($json->error->message));
+		else
+			parent::__construct($code, $httpContent, null);
+	}}
 
 class BackendRequest
 {
@@ -87,7 +96,7 @@ class BackendRequest
 		$httpCode	= curl_getinfo($curl, CURLINFO_HTTP_CODE);
 		//var_dump(curl_getinfo($curl));
 		if( !(200<=$httpCode && $httpCode<300) )
-			$exhttp = new BackendRequestException($httpCode, htmlspecialchars($data));
+			$exhttp = new BackendRequestException($httpCode, $data);
 		
 		curl_close($curl);
 		

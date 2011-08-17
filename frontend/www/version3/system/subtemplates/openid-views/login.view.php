@@ -8,12 +8,12 @@
 		<form action="" method="post">
 			<div>
 				<div>
-					<label for="login">Login&nbsp;:</label>
+					<label for="login">Login</label>
 					<input id="login" name="login"<?=$loginattribut ?> required="required" />
 				</div>
 				<div>
-					<label for="password">Mot de Passe&nbsp;:</label>
-					<input id="password" name="password" type="password" />
+					<label for="password">Mot de Passe</label>
+					<input id="password" name="password" type="password" required="required" />
 				</div>
 			</div>
 <?php if($showReqOptFields||true/**/):?>
@@ -21,13 +21,13 @@
 					<legend>Données envoyées</legend>
 <?php 	foreach($reqFields as $field):?>
 					<div>
-						<label for="<?=$field?>"><?=$field?>&nbsp;:</label>
+						<label for="<?=$field?>"><?=$field?></label>
 						<input id="<?=$field?>" name="<?=$field?>" type="checkbox" checked="checked" disabled="disabled" />
 					</div>
 <?php 	endforeach?>
 <?php 	foreach($optFields as $field):?>
 					<div>
-						<label for="<?=$field?>"><?=$field?>&nbsp;:</label>
+						<label for="<?=$field?>"><?=$field?></label>
 						<input id="<?=$field?>" name="<?=$field?>" type="checkbox" checked="checked" />
 					</div>
 <?php 	endforeach?>

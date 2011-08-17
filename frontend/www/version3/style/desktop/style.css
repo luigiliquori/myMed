@@ -66,13 +66,13 @@ h6 {
 input, select {
 	border: solid 1px #666;
 	background-color: #fff;
-	box-shadow: 0.3ex 0.3ex 0.3ex #cccccc inset;
+	box-shadow: 0.3ex 0.3ex 0.3ex rgba(0, 0, 0, 0.25) inset;
 	/*//*/
-	-moz-box-shadow: 0.3ex 0.3ex 0.3ex #cccccc inset;
+	-moz-box-shadow: 0.3ex 0.3ex 0.3ex rgba(0, 0, 0, 0.25) inset;
 	/*//*/
-	-o-box-shadow: 0.3ex 0.3ex 0.3ex #cccccc inset;
+	-o-box-shadow: 0.3ex 0.3ex 0.3ex rgba(0, 0, 0, 0.25) inset;
 	/*//*/
-	-khtml-box-shadow: 0.3ex 0.3ex 0.3ex #cccccc inset;
+	-khtml-box-shadow: 0.3ex 0.3ex 0.3ex rgba(0, 0, 0, 0.25) inset;
 	border-radius: 0.5ex;
 	/*//*/
 	-moz-border-radius: 0.5ex;
@@ -86,7 +86,9 @@ input {
 	width: 12em;
 }
 input[required], select[required] {
-	background: url("../img/asterisk.gif") no-repeat top right;
+	background-image: url("../img/asterisk.gif");
+	background-repeat: no-repeat;
+	background-position: top right;
 }
 input:focus, select:focus {
 	border: solid 1px #06c;
@@ -110,12 +112,15 @@ input:invalid, select:invalid {
 }
 form {
 	padding-top: 1.5em;
+	position: relative;
 }
 form:before {
 	content: "Required Field";
 	background: url("../img/asterisk.gif") no-repeat top left;
-	padding-left: 6px;
-	float: right;
+	padding-left: 8px;
+	position: absolute;
+	right: 0;
+	top: 0;
 }
 form:lang(fr):before {
 	content: "Champs Obligatoires";

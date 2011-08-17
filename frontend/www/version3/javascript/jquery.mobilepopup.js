@@ -19,11 +19,14 @@
 					popupStack.push(this);
 					$(this).unbind("transitionend", waitForClose);
 					$(this).unbind("webkitTransitionEnd", waitForClose);
-					$(this).unbind("OTransitionEnd", waitForClose);
+					$(this).unbind("oTransitionEnd", waitForClose);
+					$(this).unbind("transitionEnd", waitForClose);
 				}
 				$(this).bind("transitionend", waitForClose);
 				$(this).bind("webkitTransitionEnd", waitForClose);
-				$(this).bind("OTransitionEnd", waitForClose);
+				$(this).bind("oTransitionEnd", waitForClose);
+				$(this).bind("transitionEnd", waitForClose);
+				window.scrollTo(0, 1);
 			};
 			this.close	= function()
 			{
@@ -33,6 +36,7 @@
 				$(elem).removeClass('mobile_open');
 				while(elem!=this){elem=popupStack.pop()};
 				$(popupStack[popupStack.length-1]).addClass('mobile_open');
+				window.scrollTo(0, 1);
 			};
 		});
 	}

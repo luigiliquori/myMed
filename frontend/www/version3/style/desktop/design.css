@@ -11,7 +11,7 @@ html, body {
 	position: relative;
 	margin: 0 8%;
 }
-@media (max-width: 	813px) {
+@media (max-width: 	875px) {
 	#header div.innerContent {
 		margin: 0;
 	}
@@ -392,7 +392,7 @@ html, body {
 	-khtml-text-shadow: 0 0 0.5ex #205b98;
 	text-transform: capitalize;
 }
-@media (max-width: 813px) {
+@media (max-width: 875px) {
 	#titles div.innerContent {
 		margin: 0;
 	}
@@ -405,7 +405,10 @@ html, body {
 	position: absolute;
 	right: 8%;
 }
-@media (max-width: 813px) {
+#footer div.innerContent {
+	height: 100%;
+}
+@media (max-width: 875px) {
 	#footer {
 		left: 0;
 		right: 0;
@@ -428,18 +431,56 @@ html, body {
 #footer nav {
 	float: right;
 }
-#footer details {
-	/*
-	position: absolute;
-	bottom: 0;
-	min-height: 100%;*/
-
+#footer div#partnerList {
+	float: left;
+	height: 100%;
+	padding: 0 1ex;
 }
-#footer details ul {
+#footer div#partnerList span:after {
+	content: " ▲";
+	font-size: 80%;
+	vertical-align: top;
+}
+#footer div#partnerList ul {
 	display: none;
+	position: absolute;
+	bottom: 100%;
+	left: 0;
+	background-color: #F8F8F8;
+	border-radius: 1em 1em 0 0;
+	/*//*/
+	-moz-border-radius: 1em 1em 0 0;
+	/*//*/
+	-o-border-radius: 1em 1em 0 0;
+	/*//*/
+	-khtml-border-radius: 1em 1em 0 0;
+	border-top: 1px solid #D2D2D2;
+	border-left: 1px solid #D2D2D2;
+	border-right: 1px solid #D2D2D2;
 }
-#footer details:hover ul {
+@media (max-width: 875px) {
+	#footer div#partnerList ul {
+		border-left: 0 none;
+	}
+}
+#footer div#partnerList:hover ul, #footer div#partnerList ul li, #footer div#partnerList ul li a img {
 	display: block;
+}
+#footer div#partnerList ul li a {
+	display: block;
+	padding: 0.5ex 1ex;
+}
+#footer div#partnerList ul li a:first-child {
+	border-radius: 1em 1em 0 0;
+	/*//*/
+	-moz-border-radius: 1em 1em 0 0;
+	/*//*/
+	-o-border-radius: 1em 1em 0 0;
+	/*//*/
+	-khtml-border-radius: 1em 1em 0 0;
+}
+#footer div#partnerList ul li a:hover {
+	background-color: #eee;
 }
 /******* CONTENT ******/
 #content {
@@ -452,7 +493,7 @@ html, body {
 	bottom: 4%;
 	overflow: auto;
 }
-@media (max-width: 813px) {
+@media (max-width: 875px) {
 	#content {
 		left: 0;
 		right: 0;

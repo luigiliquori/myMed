@@ -1,8 +1,10 @@
 <?php
 require_once __DIR__.'/../ContentObject.class.php';
-require_once __DIR__.'/openiddata.tmp.php';
+//require_once __DIR__.'/openiddata.tmp.php';
 require_once __DIR__.'/../../socialNetworkAPIs/Auth/OpenID.php';
 require_once __DIR__.'/../../socialNetworkAPIs/Auth/OpenID/Server.php';
+require_once __DIR__.'/../backend/model/Authentication.class.php';
+require_once __DIR__.'/../backend/AuthenticationRequest.class.php';
 define('PAGE_LOGOUT', 		'logout');
 define('PAGE_SUBSCRIBE', 	'subscribe');
 define('PAGE_TRUST', 		'trust');
@@ -184,7 +186,7 @@ class TemplateOpenid extends ContentObject
 	public /*void*/ function headTags()
 	{
 		echo '
-		<link rel="stylesheet" href="'.ROOTPATH.'style/OpenIdProvider/style.css" />';
+		<link rel="stylesheet" href="'.ROOTPATH.'style/desktop/design.openid.css" />';
 		switch($this->path[1])
 		{
 			case PAGE_SUBSCRIBE	:
@@ -257,12 +259,82 @@ class TemplateOpenid extends ContentObject
 	 */
 	public /*void*/ function contentPost()
 	{
-	
 		switch($this->path[1])
 		{
 			case PAGE_SUBSCRIBE	:
 			{
-				$_SESSION['OpenIdProvider_error'] = 'Les inscriptions sont désactivés';
+				$regex_birthYear	= '\d\d\d\d';
+				$regex_birthMonth	= '((0[0-9])|(1[0-2]))';
+				$regex_birthDay		= '(([0-2][0-9])|(3[01]))';
+				
+				array_walk($_POST, function(&$value){$value=trim($value);});
+				$post	= filter_var_array($_POST, Array(
+					'login'		=> 0,
+					'password'	=> 0,
+					'password2'	=> 0,
+					'lastName'	=> 0,
+					'firstName'	=> 0,
+					'email'		=> FILTER_VALIDATE_EMAIL,
+					'gender'	=> array(
+						'filter' => FILTER_VALIDATE_REGEXP, 
+						'options' => array('regexp' => '#(^M|F$)|(^$)#')
+					),
+					'city'		=> FILTER_NULL_ON_FAILURE,
+					'dob'		=> array(
+						'filter' => FILTER_VALIDATE_REGEXP, 
+						'options' => array('regexp' => "#(^$regex_birthYear-$regex_birthMonth-$regex_birthDay$)|(^$)#")
+					)
+				));
+				$errors	= '';
+				if(!$post['login'])		$errors.= '"Nom d\'utilisateur" invalide, ';
+				if(!$post['password'])	$errors.= '"Mot de Passe" invalide, ';
+				if(strlen($post['password'])<8)	$errors.= '"Mot de Passe" trop court, ';
+				if($post['password']!=$post['password2'])$errors.= 'Les champs de mot de passe sont différent, ';
+				if(!$post['lastName'])	$errors.= '"Nom" invalide, ';
+				if(!$post['firstName'])	$errors.= '"Prénom" invalide, ';
+				if(!$post['email'])		$errors.= '"Courriel" invalide, ';
+				if($post['gender'] === false)		$errors.= '"Sexe" invalide, ';
+				if($post['dob'] === false)		$errors.= '"Date de Naissance" invalide, ';
+				$post['gender']	= $post['gender']?$post['gender']:null;
+				$post['city']	= $post['city']?$post['city']:null;
+				$post['dob']	= $post['dob']?$post['dob']:null;
+				if($post['dob'])
+				{
+					$dob	= date_parse($post['dob']);
+					if(!$dob || ($dob['year']<1880)||($dob['year']>(idate('Y')-6)))	$errors.= '"Date de Naissance" invalide, ';
+				}
+				trace($post,'$post', __FILE__, __LINE__);
+				if($errors)
+					$_SESSION['OpenIdProvider_error'] = $errors;
+				else
+				{
+					$profile	= new Profile();
+					$profile->socialNetworkID	= 'http://'.$_SERVER['SERVER_NAME'].ROOTPATH.'openid/'.PAGE_IDPAGE.'/'.$post['login'];
+					$profile->socialNetworkName	= 'myMed';
+					$profile->id	= $profile->socialNetworkName.$profile->socialNetworkID;
+					$profile->login	= $post['login'];
+					$profile->email	= $post['email'];
+					$profile->name	= $post['firstName'].' '.$post['lastName'];
+					$profile->firstName	= $post['firstName'];
+					$profile->lastName	= $post['lastName'];
+					$profile->birthday	= $post['dob'];
+					$profile->hometown	= $post['city'];
+					$profile->gender	= $post['gender'];
+					$authentication	= new Authentication();
+					$authentication->login	= $post['login'];
+					$authentication->user	= $profile->id;
+					$authentication->password	= hash('sha512', $post['password']);
+					
+					$request	= new AuthenticationRequest();
+					$request->create($authentication, $profile);
+					
+					/*********************TODO!*************************/
+					
+					
+					
+					
+					$_SESSION['OpenIdProvider_error'] = 'Les inscriptions sont désactivés';
+				}
 			}break;
 			case PAGE_TRUST	:
 			{
@@ -286,13 +358,21 @@ class TemplateOpenid extends ContentObject
 						$urlID = $this->httpScriptPath.'/'.PAGE_IDPAGE.'/'.$_POST['login'];
 					}
 				}
-				$profile	= getUserByLogin(basename($urlID));
-				if($profile== null || $profile->password !== $_POST['password'])
+				$authenticationRequest	= new AuthenticationRequest();
+				$profileRequest				= new ProfileRequest();
+				try
 				{
+					$authentication			= $authenticationRequest->read(basename($urlID), @$_POST['password']);
+				}
+				catch(BackendRequestException $ex)
+				{
+					if($ex->getCode() != 404)
+						throw $ex;
 					$_SESSION['OpenIdProvider_error']	= 'Mauvais Identifiant / Mot de Passe';
 					$this->internRedirect(PAGE_TRUST);
-					exit;
 				}
+				$profile	= $profileRequest->read($authentication->user);
+				
 				$response = $request->answer(true, null, $urlID);
 				// @todo gérer les choix de l'utilisateur
 				$reqFields	= array_map('trim', explode(',', $request->message->getArg('http://openid.net/extensions/sreg/1.1', 'required')));
