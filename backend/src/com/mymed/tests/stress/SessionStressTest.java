@@ -16,57 +16,60 @@ import com.mymed.model.data.session.MSessionBean;
  * @author Milo Casagrande
  * 
  */
-public class SessionStressTest extends StressTestValues implements Runnable {
+public class SessionStressTest extends StressTestValues {
+	/*
+	 * A static counter needed to verify how many session beans are created
+	 */
+	private static int counter = 0;
 
 	private final List<MSessionBean> sessionList = new LinkedList<MSessionBean>();
-
-	private StorageManager storageManager;
-	protected SessionManager sessionManager;
+	private SessionManager sessionManager;
 
 	public SessionStressTest() {
-		MSessionBean sessionBean;
+		super();
 
-		for (int i = 0; i < NUMBER_OF_ELEMENTS; i++) {
-			sessionBean = new MSessionBean();
-
-			sessionBean.setId(String.format(SESSION, i));
-			sessionBean.setIp(String.format(IP_ADDRESS, i));
-			sessionBean.setP2P(random.nextBoolean());
-			sessionBean.setPort(random.nextInt(65000));
-			sessionBean.setTimeout(System.currentTimeMillis());
-			sessionBean.setUser(String.format(USR_ID, i));
-
-			sessionList.add(sessionBean);
-		}
-	}
-
-	public void setUp() {
 		try {
-			storageManager = new StorageManager(new WrapperConfiguration(new File(CONF_FILE)));
-			sessionManager = new SessionManager(storageManager);
+			sessionManager = new SessionManager(new StorageManager(new WrapperConfiguration(new File(CONF_FILE))));
 		} catch (final Exception ex) {
 			ex.printStackTrace();
 		}
 	}
 
-	/**
-	 * @return the sessionList
-	 */
-	public List<MSessionBean> getSessionList() {
-		return sessionList;
+	public MSessionBean createSessionBean() {
+		MSessionBean sessionBean = null;
+
+		if (!(counter >= NUMBER_OF_ELEMENTS)) {
+			System.err.println("Creating: " + counter);
+			sessionBean = new MSessionBean();
+
+			sessionBean.setIp(IP_ADDRESS);
+			sessionBean.setP2P(random.nextBoolean());
+			sessionBean.setPort(random.nextInt(65000));
+			sessionBean.setTimeout(System.currentTimeMillis());
+			sessionBean.setUser(String.format(USR_ID, counter));
+			sessionBean.setCurrentApplications(String.format(APP_LIST_ID, counter));
+
+			sessionList.add(sessionBean);
+		}
+
+		counter++;
+
+		return sessionBean;
 	}
 
-	@Override
-	public void run() {
-		while (!sessionList.isEmpty()) {
-			synchronized (sessionList) {
-				try {
-					final MSessionBean session = ((LinkedList<MSessionBean>) sessionList).pop();
-					sessionManager.create(session);
-				} catch (final Exception ex) {
-					ex.printStackTrace();
-				}
-			}
+	public void createSession(final MSessionBean sessionBean) {
+		try {
+			sessionManager.create(sessionBean);
+		} catch (final Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public void removeSession(final MSessionBean sessionBean) {
+		try {
+			sessionManager.delete(sessionBean.getUser());
+		} catch (final Exception ex) {
+			ex.printStackTrace();
 		}
 	}
 }
