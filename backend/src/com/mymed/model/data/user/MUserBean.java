@@ -48,6 +48,13 @@ public final class MUserBean extends AbstractMBean {
 	/* Constructors */
 	/* --------------------------------------------------------- */
 	/**
+	 * Create a new empty MUserBean
+	 */
+	public MUserBean() {
+		// Empty constructor, needed because of the copy constructor
+	}
+	
+	/**
 	 * Copy constructor.
 	 * <p>
 	 * Provide a clone of the passed MUserBean
@@ -81,12 +88,15 @@ public final class MUserBean extends AbstractMBean {
 		final MUserBean userBean = new MUserBean(this);
 		return userBean;
 	}
-
-	/**
-	 * Create a new empty MUserBean
-	 */
-	public MUserBean() {
-		// Empty constructor, needed because of the copy constructor
+	
+	@Override
+	public void update(AbstractMBean mBean) {
+		if(mBean instanceof MUserBean) {
+			MUserBean newValue = (MUserBean) mBean;
+			if(newValue.getFirstName() != null && !newValue.getFirstName().equals("")) {
+				setFirstName(newValue.getFirstName());
+			}
+		}
 	}
 
 	/* --------------------------------------------------------- */

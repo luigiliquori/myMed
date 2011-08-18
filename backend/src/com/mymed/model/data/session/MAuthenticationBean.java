@@ -34,7 +34,16 @@ public class MAuthenticationBean extends AbstractMBean {
 	public String toString() {
 		return "Autentication:\n" + super.toString();
 	}
+	
+	@Override
+	public void update(AbstractMBean mBean) {
+		// TODO Auto-generated method stub
+		
+	}
 
+	/* --------------------------------------------------------- */
+	/* GETTER AND SETTER */
+	/* --------------------------------------------------------- */
 	/**
 	 * @return the AUTHENTICATION_ID
 	 */

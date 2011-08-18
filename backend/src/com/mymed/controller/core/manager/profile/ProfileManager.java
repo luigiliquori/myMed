@@ -72,7 +72,7 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 	@Override
 	public void update(final MUserBean user) throws InternalBackEndException,
 			IOBackEndException {
-		create(user);
+		
 	}
 
 	/**

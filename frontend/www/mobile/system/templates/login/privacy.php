@@ -65,7 +65,7 @@
 				<ul>
 					<li><a href="#login">Login</a></li>
 					<li><a href="#privacy" class="ui-btn-active">Privacy</a></li>
-					<li><a href="b.html">About us</a></li>
+					<li><a href="http://www.mymed.fr">About us</a></li>
 				</ul>
 			</div><!-- /navbar -->
 		</div><!-- /footer -->

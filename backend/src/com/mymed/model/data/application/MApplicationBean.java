@@ -9,7 +9,24 @@ import com.mymed.model.data.AbstractMBean;
  * @author Milo Casagrande
  */
 public final class MApplicationBean extends AbstractMBean {
+	
 
+	@Override
+	public boolean equals(final Object object) {
+		final boolean returnValue = true;
+		// TODO
+		return returnValue;
+	}
+	
+	@Override
+	public void update(AbstractMBean mBean) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/* --------------------------------------------------------- */
+	/* GETTER AND SETTER */
+	/* --------------------------------------------------------- */
 	/**
 	 * The APPLICATION_MODEL_ID
 	 */
@@ -70,11 +87,5 @@ public final class MApplicationBean extends AbstractMBean {
 		this.controller = controller;
 	}
 
-	@Override
-	public boolean equals(final Object object) {
-		final boolean returnValue = true;
-		// TODO
-		return returnValue;
-	}
 
 }

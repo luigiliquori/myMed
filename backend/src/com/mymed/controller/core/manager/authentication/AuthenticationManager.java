@@ -46,18 +46,24 @@ public class AuthenticationManager extends AbstractManager implements
 		final ProfileManager profileManager = new ProfileManager();
 		profileManager.create(user);
 
-		storageManager.insertSlice(CF_AUTHENTICATION, "login",
-				authentication.getAttributeToMap());
 		try {
-			final Map<String, byte[]> authMap = authentication
-					.getAttributeToMap();
-			storageManager.insertSlice(CF_AUTHENTICATION,
-					new String(authMap.get("login"), "UTF8"), authMap);
-		} catch (final UnsupportedEncodingException ex) {
-			throw new InternalBackEndException(ex.getMessage());
+			read(authentication.getLogin(), authentication.getPassword());
+		} catch (IOBackEndException e) { 
+			if(e.getStatus() == 404) { // only if the user does not exist
+				storageManager.insertSlice(CF_AUTHENTICATION, "login",
+						authentication.getAttributeToMap());
+				try {
+					final Map<String, byte[]> authMap = authentication
+							.getAttributeToMap();
+					storageManager.insertSlice(CF_AUTHENTICATION,
+							new String(authMap.get("login"), "UTF8"), authMap);
+				} catch (final UnsupportedEncodingException ex) {
+					throw new InternalBackEndException(ex.getMessage());
+				}
+				return user;
+			}
 		}
-
-		return user;
+		throw new IOBackEndException("The login already exist!", 409);
 	}
 
 	/**
@@ -71,17 +77,17 @@ public class AuthenticationManager extends AbstractManager implements
 		MAuthenticationBean authentication = new MAuthenticationBean();
 
 		args = storageManager.selectAll(CF_AUTHENTICATION, login);
-
-		authentication = (MAuthenticationBean) introspection(authentication, args);
-		args = storageManager.selectAll(CF_AUTHENTICATION, login);
+		authentication = (MAuthenticationBean) introspection(authentication,
+				args);
 
 		System.out.println(authentication);
 
-		if (authentication.getPassword().equals(password)) {
-			return new ProfileManager().read(authentication.getUser());
-		} else {
-			throw new IOBackEndException("Wrong password");
+		if (authentication.getLogin().equals("")) {
+			throw new IOBackEndException("the login does not exist!", 404);
+		} else if (!authentication.getPassword().equals(password)) {
+			throw new IOBackEndException("Wrong password", 403);
 		}
+		return new ProfileManager().read(authentication.getUser());
 	}
 
 	/**

@@ -101,4 +101,6 @@ public abstract class AbstractMBean {
 		}
 		return value;
 	}
+	
+	public abstract void update(AbstractMBean mBean);
 }

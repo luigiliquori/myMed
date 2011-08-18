@@ -38,6 +38,12 @@ public final class MApplicationViewBean extends AbstractMBean {
 		// TODO
 		return returnValue;
 	}
+	
+	@Override
+	public void update(AbstractMBean mBean) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	/* --------------------------------------------------------- */
 	/* GETTER AND SETTER */
