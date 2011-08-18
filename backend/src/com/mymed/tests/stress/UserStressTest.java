@@ -16,7 +16,7 @@ import com.mymed.model.data.user.MUserBean;
  */
 public class UserStressTest extends StressTestValues {
 	/*
-	 * A static counter needed to verify how many user bean are created
+	 * A static counter needed to verify how many user beans are created
 	 */
 	private static int counter = 0;
 
@@ -68,7 +68,7 @@ public class UserStressTest extends StressTestValues {
 	}
 
 	/**
-	 * Create the user in the dabatase
+	 * Create the user in the database
 	 * 
 	 * @param user
 	 *            the user bean to use
