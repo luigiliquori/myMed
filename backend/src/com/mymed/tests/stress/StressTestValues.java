@@ -19,13 +19,14 @@ public class StressTestValues {
 	/**
 	 * The number of elements we want to insert
 	 */
-	protected static final int NUMBER_OF_ELEMENTS = 100;
+	protected static final int NUMBER_OF_ELEMENTS = 10000;
 	protected static final Calendar CAL_INSTANCE = Calendar.getInstance();
 	protected static final String CONF_FILE = "conf/config.xml";
 
 	protected static final String USR_LIST_ID = "usr_list_id_%d";
 	protected static final String SUB_LIST_ID = "sub_list_id_%d";
 	protected static final String FIRST_NAME = "first_name_%d";
+	protected static final String LAST_NAME = "last_name_%d";
 	protected static final String EMAIL = "first_name_%s@example.org";
 	protected static final String USR_ID = "usr_id_%d";
 	protected static final String LOGIN = "usr_login_%d";
@@ -60,7 +61,7 @@ public class StressTestValues {
 	 * @return the random date
 	 */
 	protected static String getRandomDate() {
-		final long randDate = START_DATE + (long) (Math.random() * (END_DATE - START_DATE + 1));
+		final long randDate = START_DATE + (long) (random.nextDouble() * (END_DATE - START_DATE + 1));
 
 		final Date date = new Date(randDate);
 		final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
