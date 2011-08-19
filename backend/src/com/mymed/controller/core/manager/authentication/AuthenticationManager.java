@@ -20,9 +20,6 @@ import com.mymed.model.data.user.MUserBean;
  */
 public class AuthenticationManager extends AbstractManager implements IAuthenticationManager {
 
-	/* --------------------------------------------------------- */
-	/* Constructors */
-	/* --------------------------------------------------------- */
 	public AuthenticationManager() throws InternalBackEndException {
 		this(new StorageManager());
 	}
@@ -39,10 +36,9 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
 	public MUserBean create(final MUserBean user, final MAuthenticationBean authentication)
 	        throws InternalBackEndException, IOBackEndException {
 
-		final ProfileManager profileManager = new ProfileManager();
+		final ProfileManager profileManager = new ProfileManager(storageManager);
 		profileManager.create(user);
 
-		storageManager.insertSlice(CF_AUTHENTICATION, "login", authentication.getAttributeToMap());
 		try {
 			final Map<String, byte[]> authMap = authentication.getAttributeToMap();
 			storageManager.insertSlice(CF_AUTHENTICATION, new String(authMap.get("login"), "UTF8"), authMap);
@@ -59,7 +55,6 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
 	@Override
 	public MUserBean read(final String login, final String password) throws InternalBackEndException,
 	        IOBackEndException {
-
 		final Map<byte[], byte[]> args = storageManager.selectAll(CF_AUTHENTICATION, login);
 		MAuthenticationBean authentication = new MAuthenticationBean();
 
