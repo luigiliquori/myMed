@@ -19,7 +19,7 @@ public class StressTestValues {
 	/**
 	 * The number of elements we want to insert
 	 */
-	protected static final int NUMBER_OF_ELEMENTS = 10000;
+	protected static final int NUMBER_OF_ELEMENTS = 100000;
 	protected static final Calendar CAL_INSTANCE = Calendar.getInstance();
 	protected static final String CONF_FILE = "conf/config.xml";
 
@@ -32,8 +32,9 @@ public class StressTestValues {
 	protected static final String LOGIN = "usr_login_%d";
 	protected static final String NAME = "usr_name_%d";
 	protected static final String SESSION = "usr_session_%d";
+	protected static final String APP_LIST_ID = "app_list_id_%d";
 
-	protected static final String IP_ADDRESS = "127.0.0.%d";
+	protected static final String IP_ADDRESS = "127.0.0.1";
 
 	protected static final String AUTH_ID = "usr_auth_id_%d";
 
@@ -89,20 +90,24 @@ public class StressTestValues {
 	 * @throws NoSuchAlgorithmException
 	 * @throws UnsupportedEncodingException
 	 */
-	protected static String getRandomPwd() throws NoSuchAlgorithmException, UnsupportedEncodingException {
-		final String randString = new BigInteger(130, random).toString(32);
-
-		final MessageDigest md = MessageDigest.getInstance("SHA-256");
-
-		md.update(randString.getBytes("UTF-8"));
-		final byte[] mdbytes = md.digest();
-
+	protected static String getRandomPwd() {
 		final StringBuffer hex = new StringBuffer(100);
-		for (final byte b : mdbytes) {
-			hex.append(Integer.toHexString(0xFF & b));
-		}
 
-		hex.trimToSize();
+		try {
+			final String randString = new BigInteger(130, random).toString(32);
+			final MessageDigest md = MessageDigest.getInstance("SHA-256");
+
+			md.update(randString.getBytes("UTF-8"));
+			final byte[] mdbytes = md.digest();
+
+			for (final byte b : mdbytes) {
+				hex.append(Integer.toHexString(0xFF & b));
+			}
+
+			hex.trimToSize();
+		} catch (final Exception ex) {
+			ex.printStackTrace();
+		}
 
 		return hex.toString();
 	}
