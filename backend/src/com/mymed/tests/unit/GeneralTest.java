@@ -24,9 +24,9 @@ import com.mymed.utils.MConverter;
  * Simple class used to initialize all the values needed by the tests.
  * <p>
  * It is just needed to extend this class to have all the necessary values.
- * 
+ *
  * @author Milo Casagrande
- * 
+ *
  */
 public class GeneralTest extends TestValues {
 
@@ -36,8 +36,8 @@ public class GeneralTest extends TestValues {
 	protected ReputationManager reputationManager;
 	protected InteractionManager interactionManager;
 
-	static MSessionBean sessionBean;
-	private static MUserBean userBean;
+	protected static MSessionBean sessionBean;
+	protected static MUserBean userBean;
 	protected static MInteractionBean interactionBean;
 
 	protected static byte[] name;
@@ -116,9 +116,5 @@ public class GeneralTest extends TestValues {
 		profileManager = null;
 		reputationManager = null;
 		interactionManager = null;
-	}
-
-	public static MUserBean getUserBean() {
-		return userBean;
 	}
 }

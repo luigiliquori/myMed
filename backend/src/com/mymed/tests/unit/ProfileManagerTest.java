@@ -29,7 +29,7 @@ public class ProfileManagerTest extends GeneralTest {
 	@Test
 	public void testInsertUser() {
 		try {
-			profileManager.create(getUserBean());
+			profileManager.create(userBean);
 		} catch (final Exception ex) {
 			fail(ex.getMessage());
 		}
@@ -43,7 +43,7 @@ public class ProfileManagerTest extends GeneralTest {
 	public void testReadUser() {
 		try {
 			final MUserBean userRead = profileManager.read(USER_ID);
-			assertEquals("The user beans are not the same\n", getUserBean(), userRead);
+			assertEquals("The user beans are not the same\n", userBean, userRead);
 		} catch (final Exception ex) {
 			fail(ex.getMessage());
 		}
@@ -56,7 +56,7 @@ public class ProfileManagerTest extends GeneralTest {
 	@Test
 	public void testUpdateUser() {
 		try {
-			final MUserBean newUserBean = getUserBean().clone();
+			final MUserBean newUserBean = userBean.clone();
 			newUserBean.setEmail(EMAIL_2);
 			newUserBean.setFirstName(FIRST_NAME_2);
 			newUserBean.setLastName(LAST_NAME_2);
@@ -65,7 +65,7 @@ public class ProfileManagerTest extends GeneralTest {
 			profileManager.update(newUserBean);
 			final MUserBean readUser = profileManager.read(USER_ID);
 
-			assertFalse("The user beans are the same", getUserBean().equals(readUser));
+			assertFalse("The user beans are the same", userBean.equals(readUser));
 		} catch (final Exception ex) {
 			fail(ex.getMessage());
 		}

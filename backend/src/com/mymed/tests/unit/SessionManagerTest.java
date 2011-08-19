@@ -20,7 +20,7 @@ public class SessionManagerTest extends GeneralTest {
 	@Test
 	public void testCreateSession() {
 		try {
-			profileManager.create(getUserBean());
+			profileManager.create(userBean);
 			sessionManager.create(USER_ID, IP);
 		} catch (final Exception ex) {
 			fail(ex.getMessage());
