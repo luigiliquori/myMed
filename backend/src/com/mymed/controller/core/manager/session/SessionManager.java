@@ -1,6 +1,5 @@
 package com.mymed.controller.core.manager.session;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import com.mymed.controller.core.exception.IOBackEndException;
@@ -11,6 +10,13 @@ import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.data.session.MSessionBean;
 import com.mymed.model.data.user.MUserBean;
 
+/**
+ * Manage the session of a user
+ * 
+ * @author lvanni
+ * @author Milo Casagrande
+ * 
+ */
 public class SessionManager extends AbstractManager implements ISessionManager {
 
 	private static final String SESSION_SUFFIX = "_SESSION";
@@ -19,8 +25,7 @@ public class SessionManager extends AbstractManager implements ISessionManager {
 		this(new StorageManager());
 	}
 
-	public SessionManager(final StorageManager storageManager)
-			throws InternalBackEndException {
+	public SessionManager(final StorageManager storageManager) throws InternalBackEndException {
 		super(storageManager);
 	}
 
@@ -29,8 +34,7 @@ public class SessionManager extends AbstractManager implements ISessionManager {
 	 * @see ISessionManager#create(String, String)
 	 */
 	@Override
-	public void create(final String userID, final String ip)
-			throws InternalBackEndException, IOBackEndException {
+	public void create(final String userID, final String ip) throws InternalBackEndException, IOBackEndException {
 		final MSessionBean sessionBean = new MSessionBean();
 		sessionBean.setIp(ip);
 		sessionBean.setUser(userID);
@@ -44,14 +48,12 @@ public class SessionManager extends AbstractManager implements ISessionManager {
 	 * @throws IOBackEndException
 	 * @see ISessionManager#create(String, String)
 	 */
-	public void create(final MSessionBean sessionBean)
-			throws InternalBackEndException, IOBackEndException {
+	public void create(final MSessionBean sessionBean) throws InternalBackEndException, IOBackEndException {
 		if (sessionBean.getId() == null) {
 			sessionBean.setId(sessionBean.getUser() + SESSION_SUFFIX);
 		}
 
-		storageManager.insertSlice(CF_SESSION, sessionBean.getId(),
-				sessionBean.getAttributeToMap());
+		storageManager.insertSlice(CF_SESSION, sessionBean.getId(), sessionBean.getAttributeToMap());
 
 		final ProfileManager profileManager = new ProfileManager(storageManager);
 		final MUserBean user = profileManager.read(sessionBean.getUser());
@@ -65,15 +67,11 @@ public class SessionManager extends AbstractManager implements ISessionManager {
 	 * @see ISessionManager#read(String)
 	 */
 	@Override
-	public MSessionBean read(final String userID)
-			throws InternalBackEndException, IOBackEndException {
+	public MSessionBean read(final String userID) throws InternalBackEndException, IOBackEndException {
 		final ProfileManager profileManager = new ProfileManager(storageManager);
 		final MUserBean user = profileManager.read(userID);
-
-		Map<byte[], byte[]> args = new HashMap<byte[], byte[]>();
 		final MSessionBean session = new MSessionBean();
-
-		args = storageManager.selectAll(CF_SESSION, user.getSession());
+		final Map<byte[], byte[]> args = storageManager.selectAll(CF_SESSION, user.getSession());
 
 		return (MSessionBean) introspection(session, args);
 	}
@@ -83,8 +81,7 @@ public class SessionManager extends AbstractManager implements ISessionManager {
 	 * @see ISessionManager#update(MSessionBean)
 	 */
 	@Override
-	public void update(final MSessionBean session)
-			throws InternalBackEndException, IOBackEndException {
+	public void update(final MSessionBean session) throws InternalBackEndException, IOBackEndException {
 		create(session);
 	}
 
