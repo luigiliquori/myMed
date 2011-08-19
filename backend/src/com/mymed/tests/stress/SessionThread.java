@@ -4,14 +4,19 @@ import java.util.LinkedList;
 
 import com.mymed.model.data.session.MSessionBean;
 
-public class SessionThread extends Thread {
-
+public class SessionThread extends Thread implements NumberOfElements {
 	private final LinkedList<MSessionBean> sessionList = new LinkedList<MSessionBean>();
-	private final SessionStressTest sessionTest = new SessionStressTest();
+	private final SessionTest sessionTest;
 	private final Thread addSession;
 	private final Thread removeSession;
+	private final boolean remove;
 
-	private boolean remove = true;
+	/**
+	 * Create the new session thread
+	 */
+	public SessionThread() {
+		this(true, NUMBER_OF_ELEMENTS);
+	}
 
 	/**
 	 * Create the new session thread, but do not perform the remove thread, only
@@ -19,17 +24,14 @@ public class SessionThread extends Thread {
 	 * 
 	 * @param remove
 	 *            if to perform the remove thread or not
+	 * @param maxElements
+	 *            the maximum number of elements to create
 	 */
-	public SessionThread(final boolean remove) {
-		this();
-		this.remove = remove;
-	}
-
-	/**
-	 * Create the new session thread
-	 */
-	public SessionThread() {
+	public SessionThread(final boolean remove, final int maxElements) {
 		super();
+		this.remove = remove;
+
+		sessionTest = new SessionTest(maxElements);
 
 		addSession = new Thread("addSession") {
 			@Override
@@ -46,7 +48,13 @@ public class SessionThread extends Thread {
 							}
 
 							sessionList.add(sessionBean);
-							sessionTest.createSession(sessionBean);
+
+							try {
+								sessionTest.createSession(sessionBean);
+							} catch (final Exception ex) {
+								ex.printStackTrace();
+								interrupt();
+							}
 
 							// To execute only if we do not perform the remove
 							// thread
@@ -83,7 +91,13 @@ public class SessionThread extends Thread {
 						while (!sessionList.isEmpty()) {
 							final MSessionBean sessionBean = sessionList.pop();
 
-							sessionTest.removeSession(sessionBean);
+							try {
+								sessionTest.removeSession(sessionBean);
+							} catch (final Exception ex) {
+								ex.printStackTrace();
+								interrupt();
+							}
+
 							sessionList.notifyAll();
 							sessionList.wait();
 						}

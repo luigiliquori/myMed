@@ -1,69 +1,37 @@
 package com.mymed.tests.stress;
 
-import java.io.File;
-
-import com.mymed.controller.core.manager.session.SessionManager;
-import com.mymed.controller.core.manager.storage.StorageManager;
-import com.mymed.model.core.configuration.WrapperConfiguration;
-import com.mymed.model.data.session.MSessionBean;
-
 /**
- * Create all the necessary session beans in order to set up the Cassandra
- * stress test.
+ * Perform the stress test on the session table. This test uses only a maximum
+ * of two threads: one to create and insert the elements in the database, the
+ * other to delete the entry from the database.
+ * <p>
+ * This class accepts no parameters, or two parameters on the command line. If
+ * only one parameter, or more than two parameters are passed, it will be
+ * treated as no parameters at all are passed.
+ * <p>
+ * If two parameters are passed, the first one controls whatever to run also the
+ * deletion thread, the second one controls the number of elements that will be
+ * created:
+ * <ol>
+ * <li><code>args0</code>: must be a boolean value, <code>true</code> or
+ * <code>false</code></li>
+ * <li><code>args1</code>: must be a positive integer more than 0
+ * </ol>
  * 
  * @author Milo Casagrande
  * 
  */
-public class SessionStressTest extends StressTestValues {
-	/*
-	 * A static counter needed to verify how many session beans are created
-	 */
-	private static int counter = 0;
-	private SessionManager sessionManager;
+public class SessionStressTest {
 
-	public SessionStressTest() {
-		super();
+	public static void main(final String[] args) {
+		SessionThread sessionThread;
 
-		try {
-			sessionManager = new SessionManager(new StorageManager(new WrapperConfiguration(new File(CONF_FILE))));
-		} catch (final Exception ex) {
-			ex.printStackTrace();
-		}
-	}
-
-	public MSessionBean createSessionBean() {
-		MSessionBean sessionBean = null;
-
-		if (!(counter >= NUMBER_OF_ELEMENTS)) {
-			System.err.println("Creating: " + counter);
-			sessionBean = new MSessionBean();
-
-			sessionBean.setIp(IP_ADDRESS);
-			sessionBean.setP2P(random.nextBoolean());
-			sessionBean.setPort(random.nextInt(65000));
-			sessionBean.setTimeout(System.currentTimeMillis());
-			sessionBean.setUser(String.format(USR_ID, counter));
-			sessionBean.setCurrentApplications(String.format(APP_LIST_ID, counter));
+		if (args.length != 0 && args[0] != null) {
+			sessionThread = new SessionThread(Boolean.valueOf(args[0]), Math.abs(Integer.parseInt(args[1])));
+		} else {
+			sessionThread = new SessionThread();
 		}
 
-		counter++;
-
-		return sessionBean;
-	}
-
-	public void createSession(final MSessionBean sessionBean) {
-		try {
-			sessionManager.create(sessionBean);
-		} catch (final Exception ex) {
-			ex.printStackTrace();
-		}
-	}
-
-	public void removeSession(final MSessionBean sessionBean) {
-		try {
-			sessionManager.delete(sessionBean.getUser());
-		} catch (final Exception ex) {
-			ex.printStackTrace();
-		}
+		sessionThread.start();
 	}
 }
