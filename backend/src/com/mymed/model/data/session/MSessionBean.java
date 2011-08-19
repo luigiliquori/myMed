@@ -41,14 +41,14 @@ public class MSessionBean extends AbstractMBean {
 	}
 
 	/**
-	 * @return the user associated with the session
+	 * @return the ID of the user associated with the session
 	 */
 	public String getUser() {
 		return user;
 	}
 
 	/**
-	 * Set the user to associate with this session
+	 * Set the ID of the user to associate with this session
 	 * 
 	 * @param user
 	 */
