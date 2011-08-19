@@ -1,9 +1,9 @@
 package com.mymed.tests.stress;
 
 /**
- * Perform the stress test on the user table. This test uses only a maximum of
- * two threads: one to create and insert the elements in the database, the other
- * to delete the entry from the database.
+ * Perform the stress test on the session $ user tables. This test uses only a
+ * maximum of two threads: one to create and insert the elements in the
+ * database, the other to delete the entry from the database.
  * <p>
  * This class accepts no parameters, or two parameters on the command line. If
  * only one parameter, or more than two parameters are passed, it will be
@@ -21,16 +21,23 @@ package com.mymed.tests.stress;
  * @author Milo Casagrande
  * 
  */
-public class UserStressTest {
+public class UserSessionStressTest {
 	public static void main(final String[] args) {
+		final SessionThread sessionThread;
 		final UserThread userThread;
 
-		if (args.length == 2) {
-			userThread = new UserThread(Boolean.parseBoolean(args[0]), Math.abs(Integer.parseInt(args[1])));
+		if (args.length != 0 && args[0] != null) {
+			final boolean remove = Boolean.valueOf(args[0]);
+			final int maxElements = Math.abs(Integer.parseInt(args[1]));
+
+			sessionThread = new SessionThread(remove, maxElements);
+			userThread = new UserThread(remove, maxElements);
 		} else {
+			sessionThread = new SessionThread();
 			userThread = new UserThread();
 		}
 
 		userThread.start();
+		sessionThread.start();
 	}
 }

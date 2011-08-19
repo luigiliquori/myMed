@@ -4,12 +4,19 @@ import java.util.LinkedList;
 
 import com.mymed.model.data.user.MUserBean;
 
-public class UserThread extends Thread {
+public class UserThread extends Thread implements NumberOfElements {
 	private final LinkedList<MUserBean> usersList = new LinkedList<MUserBean>();
-	private final UserStressTest userTest = new UserStressTest();
+	private final UserTest userTest;
 	private final Thread addUser;
 	private final Thread removeUser;
-	private boolean remove = true;
+	private final boolean remove;
+
+	/**
+	 * Create the new user thread
+	 */
+	public UserThread() {
+		this(true, NUMBER_OF_ELEMENTS);
+	}
 
 	/**
 	 * Create the new user thread, but do not perform the remove thread, only
@@ -17,17 +24,14 @@ public class UserThread extends Thread {
 	 * 
 	 * @param remove
 	 *            if to perform the remove thread or not
+	 * @param maxElements
+	 *            the maximum number of elements to create
 	 */
-	public UserThread(final boolean remove) {
-		this();
-		this.remove = remove;
-	}
-
-	/**
-	 * Create the new user thread
-	 */
-	public UserThread() {
+	public UserThread(final boolean remove, final int maxElements) {
 		super();
+		this.remove = remove;
+
+		userTest = new UserTest(maxElements);
 
 		addUser = new Thread("addUser") {
 			@Override
@@ -44,7 +48,13 @@ public class UserThread extends Thread {
 							}
 
 							usersList.add(user);
-							userTest.createUser(user);
+
+							try {
+								userTest.createUser(user);
+							} catch (final Exception ex) {
+								ex.printStackTrace();
+								interrupt();
+							}
 
 							// To execute only if we do not perform the remove
 							// thread
@@ -81,7 +91,13 @@ public class UserThread extends Thread {
 						while (!usersList.isEmpty()) {
 							final MUserBean user = usersList.pop();
 
-							userTest.removeUser(user);
+							try {
+								userTest.removeUser(user);
+							} catch (final Exception ex) {
+								ex.printStackTrace();
+								interrupt();
+							}
+
 							usersList.notifyAll();
 							usersList.wait();
 						}
@@ -94,7 +110,6 @@ public class UserThread extends Thread {
 			}
 		};
 	}
-
 	@Override
 	public void run() {
 		addUser.start();
