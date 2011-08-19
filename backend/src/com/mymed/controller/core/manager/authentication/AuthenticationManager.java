@@ -1,7 +1,6 @@
 package com.mymed.controller.core.manager.authentication;
 
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
 import java.util.Map;
 
 import com.mymed.controller.core.exception.IOBackEndException;
@@ -19,8 +18,7 @@ import com.mymed.model.data.user.MUserBean;
  * @author Milo Casagrande
  * 
  */
-public class AuthenticationManager extends AbstractManager implements
-		IAuthenticationManager {
+public class AuthenticationManager extends AbstractManager implements IAuthenticationManager {
 
 	/* --------------------------------------------------------- */
 	/* Constructors */
@@ -29,8 +27,7 @@ public class AuthenticationManager extends AbstractManager implements
 		this(new StorageManager());
 	}
 
-	public AuthenticationManager(final StorageManager storageManager)
-			throws InternalBackEndException {
+	public AuthenticationManager(final StorageManager storageManager) throws InternalBackEndException {
 		super(storageManager);
 	}
 
@@ -39,20 +36,16 @@ public class AuthenticationManager extends AbstractManager implements
 	 * @see IAuthenticationManager#create(MUserBean, MAuthenticationBean)
 	 */
 	@Override
-	public MUserBean create(final MUserBean user,
-			final MAuthenticationBean authentication)
-			throws InternalBackEndException, IOBackEndException {
+	public MUserBean create(final MUserBean user, final MAuthenticationBean authentication)
+	        throws InternalBackEndException, IOBackEndException {
 
 		final ProfileManager profileManager = new ProfileManager();
 		profileManager.create(user);
 
-		storageManager.insertSlice(CF_AUTHENTICATION, "login",
-				authentication.getAttributeToMap());
+		storageManager.insertSlice(CF_AUTHENTICATION, "login", authentication.getAttributeToMap());
 		try {
-			final Map<String, byte[]> authMap = authentication
-					.getAttributeToMap();
-			storageManager.insertSlice(CF_AUTHENTICATION,
-					new String(authMap.get("login"), "UTF8"), authMap);
+			final Map<String, byte[]> authMap = authentication.getAttributeToMap();
+			storageManager.insertSlice(CF_AUTHENTICATION, new String(authMap.get("login"), "UTF8"), authMap);
 		} catch (final UnsupportedEncodingException ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		}
@@ -64,16 +57,13 @@ public class AuthenticationManager extends AbstractManager implements
 	 * @see IAuthenticationManager#read(String, String)
 	 */
 	@Override
-	public MUserBean read(final String login, final String password)
-			throws InternalBackEndException, IOBackEndException {
+	public MUserBean read(final String login, final String password) throws InternalBackEndException,
+	        IOBackEndException {
 
-		Map<byte[], byte[]> args = new HashMap<byte[], byte[]>();
+		final Map<byte[], byte[]> args = storageManager.selectAll(CF_AUTHENTICATION, login);
 		MAuthenticationBean authentication = new MAuthenticationBean();
 
-		args = storageManager.selectAll(CF_AUTHENTICATION, login);
-
 		authentication = (MAuthenticationBean) introspection(authentication, args);
-		args = storageManager.selectAll(CF_AUTHENTICATION, login);
 
 		System.out.println(authentication);
 
@@ -88,8 +78,7 @@ public class AuthenticationManager extends AbstractManager implements
 	 * @see IAuthenticationManager#update(MAuthenticationBean)
 	 */
 	@Override
-	public void update(final MAuthenticationBean authentication)
-			throws InternalBackEndException {
+	public void update(final MAuthenticationBean authentication) throws InternalBackEndException {
 		// TODO Implement the update method witch use the wrapper updateColumn
 		// method
 	}
