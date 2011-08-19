@@ -1,8 +1,6 @@
 package com.mymed.tests.stress;
 
 import java.io.File;
-import java.util.LinkedList;
-import java.util.List;
 
 import com.mymed.controller.core.manager.session.SessionManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
@@ -21,8 +19,6 @@ public class SessionStressTest extends StressTestValues {
 	 * A static counter needed to verify how many session beans are created
 	 */
 	private static int counter = 0;
-
-	private final List<MSessionBean> sessionList = new LinkedList<MSessionBean>();
 	private SessionManager sessionManager;
 
 	public SessionStressTest() {
@@ -48,8 +44,6 @@ public class SessionStressTest extends StressTestValues {
 			sessionBean.setTimeout(System.currentTimeMillis());
 			sessionBean.setUser(String.format(USR_ID, counter));
 			sessionBean.setCurrentApplications(String.format(APP_LIST_ID, counter));
-
-			sessionList.add(sessionBean);
 		}
 
 		counter++;
