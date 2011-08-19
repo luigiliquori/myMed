@@ -1,7 +1,6 @@
 package com.mymed.controller.core.manager.profile;
 
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
 import java.util.Map;
 
 import com.mymed.controller.core.exception.IOBackEndException;
@@ -23,8 +22,7 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 		this(new StorageManager());
 	}
 
-	public ProfileManager(final IStorageManager storageManager)
-			throws InternalBackEndException {
+	public ProfileManager(final IStorageManager storageManager) throws InternalBackEndException {
 		super(storageManager);
 	}
 
@@ -36,12 +34,10 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 	 * @throws IOBackEndException
 	 */
 	@Override
-	public MUserBean create(final MUserBean user)
-			throws InternalBackEndException, IOBackEndException {
+	public MUserBean create(final MUserBean user) throws InternalBackEndException, IOBackEndException {
 		try {
 			final Map<String, byte[]> args = user.getAttributeToMap();
-			storageManager.insertSlice(CF_USER, new String(args.get("id"),
-					"UTF8"), args);
+			storageManager.insertSlice(CF_USER, new String(args.get("id"), "UTF8"), args);
 			return user;
 		} catch (final UnsupportedEncodingException e) {
 			throw new InternalBackEndException(e.getMessage());
@@ -56,22 +52,18 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 	 * @throws IOBackEndException
 	 */
 	@Override
-	public MUserBean read(final String id) throws InternalBackEndException,
-			IOBackEndException {
-		Map<byte[], byte[]> args = new HashMap<byte[], byte[]>();
+	public MUserBean read(final String id) throws InternalBackEndException, IOBackEndException {
 		final MUserBean user = new MUserBean();
-		args = storageManager.selectAll(CF_USER, id);
+		final Map<byte[], byte[]> args = storageManager.selectAll(CF_USER, id);
 
 		return (MUserBean) introspection(user, args);
 	}
-
 	/**
 	 * @throws IOBackEndException
 	 * @see IProfileManager#update(MUserBean)
 	 */
 	@Override
-	public void update(final MUserBean user) throws InternalBackEndException,
-			IOBackEndException {
+	public void update(final MUserBean user) throws InternalBackEndException, IOBackEndException {
 		create(user);
 	}
 
