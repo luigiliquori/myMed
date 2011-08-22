@@ -69,11 +69,11 @@ public class AuthenticationTest extends StressTestValues {
 		return beanArray;
 	}
 
-	public void createAuthentication(final MUserBean userBean, final MAuthenticationBean authBean) {
+	public void createAuthentication(final MUserBean userBean, final MAuthenticationBean authBean) throws Exception {
 		try {
 			authManager.create(userBean, authBean);
 		} catch (final Exception ex) {
-			ex.printStackTrace();
+			throw new Exception(ex);
 		}
 	}
 }

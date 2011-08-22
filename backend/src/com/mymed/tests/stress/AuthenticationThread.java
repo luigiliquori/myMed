@@ -32,7 +32,14 @@ public class AuthenticationThread extends Thread {
 					final MAuthenticationBean authBean = (MAuthenticationBean) beanArray[0];
 					final MUserBean userBean = (MUserBean) beanArray[1];
 
-					authTest.createAuthentication(userBean, authBean);
+					try {
+						authTest.createAuthentication(userBean, authBean);
+					} catch (final Exception ex) {
+						ex.printStackTrace();
+						interrupt();
+						break;
+					}
+
 					authList.pop();
 				}
 			}
