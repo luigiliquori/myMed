@@ -4,6 +4,13 @@ import java.util.LinkedList;
 
 import com.mymed.model.data.user.MUserBean;
 
+/**
+ * This is the class that implements the threads that are executed and the
+ * simple sync logic for the User test
+ * 
+ * @author Milo Casagrande
+ * 
+ */
 public class UserThread extends Thread implements NumberOfElements {
 	private final LinkedList<MUserBean> usersList = new LinkedList<MUserBean>();
 	private final UserTest userTest;
@@ -44,6 +51,7 @@ public class UserThread extends Thread implements NumberOfElements {
 							final MUserBean user = userTest.createUserBean();
 
 							if (user == null) {
+								interrupt();
 								break;
 							}
 
