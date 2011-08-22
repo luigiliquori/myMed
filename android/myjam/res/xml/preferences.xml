@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android">
+                
+    <PreferenceCategory
+            android:title="@string/search_preferences">               
+        <ListPreference
+                android:key="radius_preference"
+                android:title="@string/title_radius_preference"
+                android:summary="@string/summary_radius_preference"
+                android:entries="@array/radius_list_preference"
+                android:entryValues="@array/radiusvalues_list_preference"
+                android:dialogTitle="@string/dialog_title_search_preference"
+                android:defaultValue="10000"/>
+    </PreferenceCategory>
+</PreferenceScreen>

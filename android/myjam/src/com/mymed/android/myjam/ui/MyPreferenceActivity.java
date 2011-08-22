@@ -5,7 +5,7 @@ import com.mymed.android.myjam.R;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 
-public class MyPreferenceActitvity extends PreferenceActivity{
+public class MyPreferenceActivity extends PreferenceActivity{
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {

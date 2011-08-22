@@ -34,7 +34,7 @@ import com.mymed.myjam.type.WrongFormatException;
  *
  */
 @WebServlet("/MyJamHandler")
-public class MyJamRequestHandler extends AbstractRequestHandler {
+public class MyJamRequestHandler extends AbstractRequestHandler implements IMyJamCallAttributes {
 	private static final long serialVersionUID = 1L;
 	/**StorageManager*/
 	MyJamManager myJamManager;
@@ -75,41 +75,41 @@ public class MyJamRequestHandler extends AbstractRequestHandler {
 			switch (code){
 			case SEARCH_REPORTS:
 				// Latitude and longitude in micro-degrees
-				int latitude = Integer.parseInt(params.get("latitude"));
-				int longitude = Integer.parseInt(params.get("longitude"));
+				int latitude = Integer.parseInt(params.get(LATITUDE));
+				int longitude = Integer.parseInt(params.get(LONGITUDE));
 				// Diameter in m.
-				int radius = Integer.parseInt(params.get("radius"));
+				int radius = Integer.parseInt(params.get(RADIUS));
 				List<MSearchReportBean> resultList = myJamManager.searchReports((double) (latitude/1E6), (double) (longitude/1E6), radius);
 				resToJson = this.getGson().toJson(resultList);
 				setResponseText(resToJson);
 				break;
 			case GET_REPORT:
-				reportId = MyJamId.parseString(params.get("id"));	//This conversion is done only to check the syntax of the id.
+				reportId = MyJamId.parseString(params.get(ID));	//This conversion is done only to check the syntax of the id.
 				MReportBean reportInfo = myJamManager.getReport(reportId.toString());
 				resToJson = this.getGson().toJson(reportInfo);
 				setResponseText(resToJson);
 				break;
 			case GET_NUMBER_UPDATES:
-				reportId = MyJamId.parseString(params.get("id"));
+				reportId = MyJamId.parseString(params.get(ID));
 				int updateIdList = myJamManager.getNumUpdates(reportId.toString());
 				resToJson = this.getGson().toJson(updateIdList);
 				setResponseText(resToJson);
 				break;
 			case GET_UPDATES:
-				reportId = MyJamId.parseString(params.get("id"));
-				int numUpdates = Integer.parseInt(params.get("num"));
+				reportId = MyJamId.parseString(params.get(ID));
+				int numUpdates = Integer.parseInt(params.get(NUM));
 				List<MReportBean> updates = myJamManager.getUpdates(reportId.toString(),numUpdates);
 				resToJson = this.getGson().toJson(updates);
 				setResponseText(resToJson);
 				break;
 			case GET_FEEDBACKS:
-				reportId = MyJamId.parseString(params.get("id"));
+				reportId = MyJamId.parseString(params.get(ID));
 				List<MFeedBackBean> feedbackList = myJamManager.getFeedbacks(reportId.toString());
 				resToJson = this.getGson().toJson(feedbackList);
 				setResponseText(resToJson);
 				break;
 			case GET_ACTIVE_REPORTS:
-				String userId = params.get("userId");
+				String userId = params.get(USER_ID);
 				List<String> activeRepId = myJamManager.getActiveReport(userId);
 				resToJson = this.getGson().toJson(activeRepId);
 				setResponseText(resToJson);
@@ -122,11 +122,11 @@ public class MyJamRequestHandler extends AbstractRequestHandler {
 			// TODO Check
 			handleInternalError(e, response);
 		} catch (NullPointerException e) {
-			handleInternalError(new InternalBackEndException("Missing parameter. "), response);
+			handleInternalError(new InternalBackEndException("Missing parameter: "+e.getMessage()==null?"":e.getMessage()), response);
 		}catch (NumberFormatException e){
-			handleInternalError(new InternalBackEndException("Wrong parameter. "), response);
+			handleInternalError(new InternalBackEndException("Wrong parameter: "+e.getMessage()==null?"":e.getMessage()), response);
 		} catch (WrongFormatException e){
-			handleInternalError(new InternalBackEndException("Wrong search type. "), response);
+			handleInternalError(new InternalBackEndException("Wrong search type: "+e.getMessage()==null?"":e.getMessage()), response);
 		} catch (IOBackEndException e) {
 			handleNotFoundError(e, response);
 		}
@@ -138,33 +138,39 @@ public class MyJamRequestHandler extends AbstractRequestHandler {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		MyJamId reportId;
 		String content;
+		String res,resToJson;
 		try {
 			Map<String,String> params = getParameters(request);
 			MyJamRequestCode code = reqCodeMap.get(params.get("code"));
 			switch (code){
 			case INSERT_REPORT:
-				int latitude = Integer.parseInt(params.get("latitude"));
-				int longitude = Integer.parseInt(params.get("longitude"));
+				int latitude = Integer.parseInt(params.get(LATITUDE));
+				int longitude = Integer.parseInt(params.get(LONGITUDE));
 				content = convertStreamToString(request.getInputStream(),request.getContentLength());
 				MReportBean report = this.getGson().fromJson(content, MReportBean.class);
 				MyJamTypeValidator.validate(report);
-				String res = myJamManager.insertReport(report,latitude,longitude);
-				String resToJson = this.getGson().toJson(res);
+				res = myJamManager.insertReport(report,latitude,longitude);
+				resToJson = this.getGson().toJson(res);
 				setResponseText(resToJson);
 				break;
 			case INSERT_UPDATE:
-				reportId = MyJamId.parseString(params.get("id"));
+				reportId = MyJamId.parseString(params.get(ID));
 				content = convertStreamToString(request.getInputStream(),request.getContentLength());
 				MReportBean update = this.getGson().fromJson(content, MReportBean.class);
 				MyJamTypeValidator.validate(update);
-				myJamManager.insertUpdate(reportId.toString(), update);
+				res = myJamManager.insertUpdate(reportId.toString(), update);
+				resToJson = this.getGson().toJson(res);
+				setResponseText(resToJson);
 				break;
 			case INSERT_FEEDBACK:
-				reportId = MyJamId.parseString(params.get("id"));
+				reportId = MyJamId.parseString(params.get(ID));
+				String updateId = params.get(UPDATE_ID);
+				if (updateId!=null)
+					MyJamId.parseString(updateId);
 				content = convertStreamToString(request.getInputStream(),request.getContentLength());
 				MFeedBackBean feedback =  this.getGson().fromJson(content, MFeedBackBean.class);
 				MyJamTypeValidator.validate(feedback);
-				myJamManager.insertFeedback(reportId.toString(), feedback);
+				myJamManager.insertFeedback(reportId.toString(),updateId, feedback);
 				break;
 			}
 			super.doPost(request, response);
@@ -174,13 +180,13 @@ public class MyJamRequestHandler extends AbstractRequestHandler {
 		} catch (IOBackEndException e) {
 			handleNotFoundError(e, response);
 		}catch (NullPointerException e) {
-			handleInternalError(new InternalBackEndException("Missing parameter. "), response);
+			handleInternalError(new InternalBackEndException("Missing parameter: "+e.getMessage()==null?"":e.getMessage()), response);
 		} catch (NumberFormatException e){
-			handleInternalError(new InternalBackEndException("Wrong parameter. "), response);
+			handleInternalError(new InternalBackEndException("Wrong parameter: "+e.getMessage()==null?"":e.getMessage()), response);
 		} catch (WrongFormatException e){
-			handleInternalError(new InternalBackEndException("Wrong report Id. "), response);
+			handleInternalError(new InternalBackEndException("Wrong format: "+e.getMessage()==null?"":e.getMessage()), response);
 		} catch (JsonSyntaxException e){
-			handleInternalError(new InternalBackEndException("Error parsing content. "), response);
+			handleInternalError(new InternalBackEndException("Error parsing content: "+e.getMessage()==null?"":e.getMessage()), response);
 		}
 	}
 
@@ -201,13 +207,13 @@ public class MyJamRequestHandler extends AbstractRequestHandler {
 			// TODO Check
 			handleInternalError(e, response);
 		}catch (NullPointerException e) {
-			handleInternalError(new InternalBackEndException("Missing parameter. "), response);
+			handleInternalError(new InternalBackEndException("Missing parameter: "+e.getMessage()==null?"":e.getMessage()), response);
 		} catch (NumberFormatException e){
-			handleInternalError(new InternalBackEndException("Wrong parameter. "), response);
+			handleInternalError(new InternalBackEndException("Wrong parameter: "+e.getMessage()==null?"":e.getMessage()), response);
 		} catch (JsonSyntaxException e){
-			handleInternalError(new InternalBackEndException("Error parsing content. "), response);
+			handleInternalError(new InternalBackEndException("Error parsing content: "+e.getMessage()==null?"":e.getMessage()), response);
 		} catch (WrongFormatException e) {
-			handleInternalError(new InternalBackEndException("Wrong report id. "), response);
+			handleInternalError(new InternalBackEndException("Wrong report id: "+e.getMessage()==null?"":e.getMessage()), response);
 		}
 	}
 

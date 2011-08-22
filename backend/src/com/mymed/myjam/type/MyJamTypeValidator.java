@@ -48,7 +48,7 @@ public class MyJamTypeValidator {
 					if (trafficFlow == null || 
 							transit == null)
 						throw new WrongFormatException(" Wrong attributes. ");
-					if (transit == TransitType.COMPROMIZED && trafficFlow != TrafficFlowType.BLOCKED)
+					if (transit == TransitType.COMPROMISED && trafficFlow != TrafficFlowType.BLOCKED)
 						throw new WrongFormatException(" Wrong attributes. ");
 					break;
 				case JAM:
@@ -57,7 +57,7 @@ public class MyJamTypeValidator {
 						throw new WrongFormatException(" Wrong attributes. ");
 					break;
 				case MOBILE_SPEED_CAM:
-				case FIX_SPEED_CAM:
+				case FIXED_SPEED_CAM:
 					if (trafficFlow != null ||
 							transit != null)
 						throw new WrongFormatException(" Wrong attributes. ");

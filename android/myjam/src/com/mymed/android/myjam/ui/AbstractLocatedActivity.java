@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.mymed.android.myjam.R;
 import com.mymed.android.myjam.service.LocationService;
 import com.mymed.android.myjam.service.LocationService.LocalBinder;
 
@@ -45,7 +44,6 @@ public abstract class AbstractLocatedActivity extends Activity{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
 	}
 	
     @Override

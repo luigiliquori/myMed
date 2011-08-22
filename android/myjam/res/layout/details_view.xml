@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+  	<TextView 	
+  		android:id="@+id/textViewReport"
+  		style="?android:attr/listSeparatorTextViewStyle"
+  		android:layout_height="wrap_content" 						 
+  		android:textAppearance="?android:attr/textAppearanceLarge" 
+  		android:text="Report" 
+  		android:layout_width="match_parent">
+  	</TextView>
+  	<ScrollView android:id="@+id/scrollViewReport" android:layout_height="0px" android:layout_width="match_parent" android:layout_weight="1">
+  		<LinearLayout android:id="@+id/linearLayoutReport" android:layout_width="match_parent" android:layout_height="match_parent"></LinearLayout>
+  	</ScrollView>
+  	<TextView 
+  		android:id="@+id/textViewUpdates"
+  		style="?android:attr/listSeparatorTextViewStyle"
+  		android:layout_height="wrap_content"  
+  		android:textAppearance="?android:attr/textAppearanceLarge" 
+  		android:text="Updates" 
+  		android:layout_width="match_parent">
+  	</TextView>
+    <ScrollView android:id="@+id/scrollViewUpdate" android:layout_height="0px" android:layout_width="match_parent" android:layout_weight="1">
+        <LinearLayout android:id="@+id/linearLayoutUpdate" android:layout_width="match_parent" android:layout_height="match_parent">
+        </LinearLayout>
+    </ScrollView>
+    <LinearLayout  android:id="@+id/linearLayout1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_weight="0">
+       	<ImageButton	android:id="@+id/imageButtonPrevious"
+        				android:layout_weight="1"
+        				android:layout_width="0px"
+        				android:layout_height="40dp"  
+        				android:src="@drawable/ic_menu_back">
+        </ImageButton>
+        <ImageButton	android:id="@+id/imageButtonNext"
+        				android:layout_weight="1"
+        				android:layout_width="0px" 
+        				android:layout_height="40dp"  
+        				android:src="@drawable/ic_menu_forward">
+        </ImageButton>
+    </LinearLayout>   
+    <TextView 
+    	android:id="@+id/textViewIndex"
+    	android:layout_height="wrap_content"  
+    	android:layout_gravity="center_horizontal" 
+    	android:textAppearance="?android:attr/textAppearanceMedium" 
+    	android:text="0/0" android:layout_width="wrap_content">
+    </TextView>
+</LinearLayout>

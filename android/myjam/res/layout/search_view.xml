@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView 	
+    	android:id="@+id/textView1" 
+    	android:text="@string/last_search_label"
+    	android:textAppearance="?android:attr/textAppearanceMedium" 
+    	android:layout_height="wrap_content" 
+    	android:layout_width="wrap_content" >
+    </TextView>
+    <TextView 	
+    	android:id="@+id/textViewSearchDate" 
+    	android:text=" - "
+    	android:textAppearance="?android:attr/textAppearanceMedium"
+    	android:layout_height="wrap_content" 
+    	android:layout_width="wrap_content" >
+    </TextView>
+<TextView 	
+    	android:id="@+id/textViewResults"
+    	style="?android:attr/listSeparatorTextViewStyle" 
+    	android:text="@string/search_results_label"
+    	android:textAppearance="?android:attr/textAppearanceMedium"
+    	android:layout_height="wrap_content" 
+    	android:layout_width="match_parent" >
+    </TextView>   
+    <ListView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" 
+        android:id="@+id/SearchList">
+    </ListView>
+    <Button 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content"
+        android:hint="@string/search_button_hint"
+        android:layout_gravity="center_horizontal"
+        android:text="Search reports" 
+        android:id="@+id/SearchButton"></Button>
+</LinearLayout>

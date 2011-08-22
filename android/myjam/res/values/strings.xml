@@ -6,6 +6,10 @@
     <string name="app_name">myJam</string>
     <string name="location_available">Location available</string>
     <string name="location_unavailable">Location no more available</string>
+    <string name="date_format">dd-MM-yyyy HH:mm</string>
+    <string name="report_string">Report</string>
+    <string name="update_string">Update</string>
+    <string name="feedback_string">Feedback</string>
     <!-- ============================ -->
     <!--  	SearchReport  strings  	  -->
     <!-- ============================ -->
@@ -14,15 +18,42 @@
     <string name="search_finished">Search finished</string>
     <string name="frac_number_separator">.</string>
     <string name="type_string_separator">_</string>
-    <string name="date_format">dd-MM-yyyy HH:mm</string>
+    
+    <string name="last_search_label">Last search:</string>
+    <string name="search_results_label">Search results:</string>
+    <string name="search_button_hint">Wait for the location to be available.</string>
+    
+    <string name="loc_not_available_dialog_message">You cannot insert a new report, because your location is not available at the moment.</string>
+    <string name="no_location">No location available.</string>
+    <!-- ============================ -->
+    <!--  	    Insert  strings       -->
+    <!-- ============================ -->
+        <string name="report_type_choose">Choose a report type</string>
+    <string name="report_type_label">Report type</string>
+    <string name="transit_choose">Choose a transit status</string>
+    <string name="transit_label">Transit status</string>
+    <string name="traffic_flow_choose">Choose a traffic flow status</string>
+    <string name="traffic_flow_label">Traffic flow status</string>
+    <string name="comment_label">Comment</string>
+    <string name="insert_button_label">Insert report</string>
+    
+    <string name="insert_success"><xliff:g id="type">%1$s</xliff:g> successfully posted.</string>
     <!-- ============================ -->
     <!--  	ReportDetails  strings    -->
     <!-- ============================ -->
     <string name="receiving_obj">Receiving <xliff:g id="error">%1$s</xliff:g> ...</string>
     <string name="reception_finished">Reception finished</string>
+    <string name="post_date">Posted on:</string>
+    <string name="post_by">Posted by:</string>
     <string name="report_type">Report Type:</string>
+    <string name="traffic_flow_type">Traffic Flow:</string>
+    <string name="transit_type">Transit:</string>
     <string name="report_comment">Comment:</string>
-    
+    <string name="cursor_position"><xliff:g id="pos">%1$s</xliff:g>/<xliff:g id="index">%2$s</xliff:g></string>
+    <plurals name="num_feedbacks">
+        <item quantity="one">One feedback.</item>
+        <item quantity="other">%d feedbacks.</item>
+    </plurals>
     <!-- ============================ -->
     <!--  	MyPreferences  strings    -->
     <!-- ============================ -->

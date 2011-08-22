@@ -68,5 +68,4 @@ android:layout_alignParentLeft="true">
     android:paddingRight="5dip"
     android:singleLine="true">
 	</TextView>	
-
 </RelativeLayout>

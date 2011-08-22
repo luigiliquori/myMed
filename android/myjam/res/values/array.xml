@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+        <!-- Used in SearchActivity preferences -->
+    <string-array name="radius_list_preference">
+        <item>5 Km</item>
+        <item>10 Km</item>
+        <item>25 Km</item>
+        <item>50 Km</item>  
+    </string-array>
+
+    <!-- Used in SearchActivity preferences -->
+    <string-array name="radiusvalues_list_preference">
+        <item>5000</item>
+        <item>10000</item>
+        <item>25000</item>
+        <item>50000</item>  
+    </string-array>
+    
+    <!-- Used in ReportDetailsActivity to format the ProgressDialog text -->
+    <string-array name="type_obj">
+        <item>search</item>
+        <item>report</item>
+        <item>updates</item>
+        <item>report feedbacks</item>
+        <item>update feedbacks</item>    
+    </string-array>
+    
+    <!-- Used in InsertActivity preferences -->
+    <string-array name="report_type_list">
+        <item>Jam</item>
+        <item>Car crash</item>
+        <item>Work in progress</item>
+        <item>Fixed speed cam</item>
+        <item>Mobile speed cam</item>
+    </string-array>
+
+    <string-array name="report_typevalues_list">
+        <item>JAM</item>
+        <item>CAR_CRASH</item>
+        <item>WORK_IN_PROGRESS</item>
+        <item>FIXED_SPEED_CAM</item>
+        <item>MOBILE_SPEED_CAM</item>
+    </string-array>
+    
+    <string-array name="traffic_flow_list">
+        <item>Normal</item>
+        <item>Slow</item>
+        <item>Very slow</item>
+        <item>Blocked</item>
+    </string-array>
+
+    <string-array name="traffic_flowvalues_list">
+        <item>NORMAL</item>
+        <item>SLOW</item>
+        <item>VERY_SLOW</item>
+        <item>BLOCKED</item>
+    </string-array>
+    
+	<string-array name="transit_list">
+        <item>Normal</item>
+        <item>Partially compromised</item>
+        <item>Compromised</item>
+    </string-array>
+
+    <string-array name="transit_listvalues">
+        <item>NORMAL</item>
+        <item>PARTIALLY_COMROMISED</item>
+        <item>COMPROMISED</item>
+    </string-array>
+       
+</resources>

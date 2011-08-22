@@ -58,14 +58,17 @@ public class MyJamManager extends AbstractManager{
 			long locId = Locator.getLocationId((double) (latitude/1E6),
 					(double) (longitude/1E6));
 			String areaId = String.valueOf(Locator.getAreaId(locId));
-			/** The convention is to use microseconds since 1 Jenuary 1970*/
-			long timestamp = (long) (System.currentTimeMillis()*1E3);									
+			/** The convention is to use milliseconds since 1 Jenuary 1970*/
+			long timestamp = System.currentTimeMillis();									
 			MyJamId reportId = new MyJamId(MyJamId.REPORT_ID,timestamp,userId);
 			
+			report.setId(reportId.toString());
 			report.setUserName(userName);
 			report.setUserId(userId);
 			report.setLocationId(locId);
 			report.setTimestamp(timestamp);
+			/** In cassandra is used the convention of microseconds since 1 Jenuary 1970*/
+			timestamp = (long) (timestamp*1E3);
 			
 /** No more used because I inverted value and name, the id now is the column name and the report type the value. */
 //			/** Check if the position is already occupied.*/
@@ -164,7 +167,7 @@ public class MyJamManager extends AbstractManager{
 						reportBean.setLongitude((int) (reportLoc.getLongitude()*1E6));
 						reportBean.setDistance((int) distance);
 						/**The timestamp is set with the convention used in Java (milliseconds from 1 January 1970)*/
-						reportBean.setDate((repId.getTimestamp()/1000));
+						reportBean.setDate((repId.getTimestamp()));
 						resultReports.add(reportBean);
 					}
 				}
@@ -292,7 +295,7 @@ public class MyJamManager extends AbstractManager{
 		}
 	}
 	
-	public void insertUpdate(String reportId,MReportBean update) throws InternalBackEndException, IOBackEndException{
+	public String insertUpdate(String reportId,MReportBean update) throws InternalBackEndException, IOBackEndException{
 		try{
 		/**
 		 * Data preparation
@@ -305,16 +308,18 @@ public class MyJamManager extends AbstractManager{
 			throw new InternalBackEndException("Report and update types don't match.");
 		long locationId = reportDetails.getLocationId();
 		String areaId = String.valueOf(Locator.getAreaId(locationId));
-		/** The convention is to use microseconds since 1 Jenuary 1970*/
-		long timestamp = (long) (System.currentTimeMillis()*1E3);									
+		/** The convention is to use milliseconds since 1 Jenuary 1970*/
+		long timestamp = System.currentTimeMillis();									
 		MyJamId updateId = new MyJamId(MyJamId.UPDATE_ID,timestamp,userId);
 		
+		update.setId(updateId.toString());
 		update.setUserId(userId);
 		update.setUserName(userName);
 		update.setTimestamp(timestamp);
 		
 		/**
 		 * Check if the report is expired or not.
+		 * If it is expired an exception is thrown.
 		 */
 		ExpColumnBean expCol = myJamStorageManager.selectExpiringColumn("Location", areaId, 
 				MConverter.longToByteBuffer(locationId).array(), 
@@ -337,6 +342,7 @@ public class MyJamManager extends AbstractManager{
 		 * Update expiration time.
 		 */
 		//TODO To update the expiration time is sufficient to reinsert the column in CF Location, changing the TTL.
+		return updateId.toString();
 		}catch(InternalBackEndException e){
 			throw new InternalBackEndException("Wrong parameter: "+e.getMessage());
 		} catch (ServiceManagerException e) {
@@ -346,8 +352,9 @@ public class MyJamManager extends AbstractManager{
 		}
 	}
 	
-	public void insertFeedback(String reportId,MFeedBackBean feedback) throws InternalBackEndException, IOBackEndException{
+	public void insertFeedback(String reportId, String updateId, MFeedBackBean feedback) throws InternalBackEndException, IOBackEndException{
 		try{
+		
 		/**
 		 * Data preparation
 		 */
@@ -359,6 +366,7 @@ public class MyJamManager extends AbstractManager{
 		String areaId = String.valueOf(Locator.getAreaId(locationId));								
 		/**
 		 * Check if the report is expired or not.
+		 * If it is expired an exception is thrown.
 		 */
 		myJamStorageManager.selectExpiringColumn("Location", areaId, 
 				MConverter.longToByteBuffer(locationId).array(), 
@@ -367,8 +375,8 @@ public class MyJamManager extends AbstractManager{
 		 * Report is not expired.
 		 * Columns insertion in CF Report 
 		 **/
-		//TODO Check if the current user has already inserted a feedback.
-		myJamStorageManager.insertColumn("Feedback", reportId, MConverter.stringToByteBuffer(userId).array(), 
+		//TODO Check if the user yet inserted a feedback. Check the userId
+		myJamStorageManager.insertColumn("Feedback", updateId==null?reportId:updateId, MConverter.stringToByteBuffer(feedback.getUserId()).array(), 
 				MConverter.intToByteBuffer(feedback.getGrade()).array());
 		
 		}catch(InternalBackEndException e){

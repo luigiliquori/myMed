@@ -9,8 +9,8 @@ public abstract class MyJamTypes{
 	/** TransitType*/ 
 	public enum TransitType { 
 		NORMAL, 	
-		PARTIALLY_COMROMIZED, 
-		COMPROMIZED;
+		PARTIALLY_COMROMISED, 
+		COMPROMISED;
 
 		TransitType(){
 		}
@@ -54,7 +54,7 @@ public abstract class MyJamTypes{
 		JAM (1), 	
 		CAR_CRASH (2), 
 		WORK_IN_PROGRESS (12),
-		FIX_SPEED_CAM (0),//In Cassandra fix TTL to 0 is equivalent to don't fix it.
+		FIXED_SPEED_CAM (0),//In Cassandra fix TTL to 0 is equivalent to don't fix it.
 		MOBILE_SPEED_CAM (8);
 
 		public final int permTime;

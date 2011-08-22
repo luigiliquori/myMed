@@ -1,5 +1,6 @@
 package com.mymed.android.myjam.type;
 
+import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +14,14 @@ import com.mymed.utils.ClassType;
  * @author iacopo
  *
  */
-public class MReportBean extends AbstractMBean{
+public class MReportBean extends AbstractMBean implements Serializable{
+	/**
+	 * Identifier used for serialization purposes.
+	 */
+	private static final long serialVersionUID = -7725479086699369838L;
+
+	
+	private String id;
 	private String userName;
 	private String userId;
 	private String reportType;
@@ -26,6 +34,14 @@ public class MReportBean extends AbstractMBean{
 	public MReportBean(){}
 	
 	/**Getter and Setter*/
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+	
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
