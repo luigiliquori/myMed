@@ -54,6 +54,7 @@ public class UserThread extends Thread implements NumberOfElements {
 							} catch (final Exception ex) {
 								ex.printStackTrace();
 								interrupt();
+								break;
 							}
 
 							// To execute only if we do not perform the remove
@@ -96,6 +97,7 @@ public class UserThread extends Thread implements NumberOfElements {
 							} catch (final Exception ex) {
 								ex.printStackTrace();
 								interrupt();
+								break;
 							}
 
 							usersList.notifyAll();
