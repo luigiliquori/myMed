@@ -6,16 +6,29 @@ import com.mymed.model.data.AbstractMBean;
 import com.mymed.model.data.session.MAuthenticationBean;
 import com.mymed.model.data.user.MUserBean;
 
-public class AuthenticationThread extends Thread {
+/**
+ * This is the class that implements the thread that is executed for the
+ * Authentication test. Here we have only one thread since there is no method to
+ * remove an authentication entry form the database
+ * 
+ * @author Milo Casagrande
+ * 
+ */
+public class AuthenticationThread extends Thread implements NumberOfElements {
 
 	private final LinkedList<AbstractMBean[]> authList = new LinkedList<AbstractMBean[]>();
-	private final AuthenticationTest authTest = new AuthenticationTest();
 	private final Thread createAuthentication;
 
 	public AuthenticationThread() {
+		this(NUMBER_OF_ELEMENTS);
+	}
+
+	public AuthenticationThread(final int maxElements) {
 		super();
 
-		createAuthentication = new Thread() {
+		final AuthenticationTest authTest = new AuthenticationTest(maxElements);
+
+		createAuthentication = new Thread("createAuthentication") {
 			@Override
 			public void run() {
 				System.err.println("Starting the create authentication thread...");
@@ -24,6 +37,7 @@ public class AuthenticationThread extends Thread {
 					final AbstractMBean[] beanArray = authTest.createAuthenticationBean();
 
 					if (beanArray == null) {
+						interrupt();
 						break;
 					}
 

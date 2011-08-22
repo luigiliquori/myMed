@@ -18,17 +18,14 @@ import com.mymed.model.data.user.MUserBean;
  */
 public class AuthenticationTest extends StressTestValues {
 
+	// The maximum number of elements to create
+	private final int maxElements;
 	private static int counter = 0;
-	private AuthenticationManager authManager;
 
-	public AuthenticationTest() {
+	public AuthenticationTest(final int maxElements) {
 		super();
 
-		try {
-			authManager = new AuthenticationManager(new StorageManager(new WrapperConfiguration(new File(CONF_FILE))));
-		} catch (final Exception ex) {
-			ex.printStackTrace();
-		}
+		this.maxElements = maxElements;
 	}
 
 	public AbstractMBean[] createAuthenticationBean() {
@@ -37,7 +34,7 @@ public class AuthenticationTest extends StressTestValues {
 		MAuthenticationBean authBean = null;
 		MUserBean userBean = null;
 
-		if (counter < NUMBER_OF_ELEMENTS) {
+		if (counter < maxElements) {
 			beanArray = new AbstractMBean[2];
 			authBean = new MAuthenticationBean();
 
@@ -70,7 +67,10 @@ public class AuthenticationTest extends StressTestValues {
 	}
 
 	public void createAuthentication(final MUserBean userBean, final MAuthenticationBean authBean) throws Exception {
+
 		try {
+			final AuthenticationManager authManager = new AuthenticationManager(new StorageManager(
+			        new WrapperConfiguration(new File(CONF_FILE))));
 			authManager.create(userBean, authBean);
 		} catch (final Exception ex) {
 			throw new Exception(ex);
