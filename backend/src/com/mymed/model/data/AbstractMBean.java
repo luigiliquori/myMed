@@ -81,7 +81,8 @@ public abstract class AbstractMBean {
 	 */
 	@Override
 	public String toString() {
-		String value = "";
+		final StringBuffer value = new StringBuffer(200);
+
 		for (final Field field : this.getClass().getDeclaredFields()) {
 
 			// TODO fix here, not really secure
@@ -89,9 +90,17 @@ public abstract class AbstractMBean {
 
 			try {
 				if (field.get(this) instanceof String) {
-					value += "\t" + field.getName() + " : " + (String) field.get(this) + "\n";
+					value.append('\t');
+					value.append(field.getName());
+					value.append(" : ");
+					value.append((String) field.get(this));
+					value.append('\n');
 				} else {
-					value += "\t" + field.getName() + " : " + field.get(this) + "\n";
+					value.append('\t');
+					value.append(field.getName());
+					value.append(" : ");
+					value.append(field.get(this));
+					value.append('\n');
 				}
 			} catch (final IllegalArgumentException e) {
 				e.printStackTrace();
@@ -99,6 +108,9 @@ public abstract class AbstractMBean {
 				e.printStackTrace();
 			}
 		}
-		return value;
+
+		value.trimToSize();
+
+		return value.toString();
 	}
 }
