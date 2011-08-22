@@ -1,9 +1,9 @@
 package com.mymed.tests.stress;
 
 /**
- * Perform the stress test on the session $ user tables. This test uses only a
- * maximum of two threads: one to create and insert the elements in the
- * database, the other to delete the entry from the database.
+ * Perform the stress test on the session & user tables. This test uses only a
+ * maximum of four threads: two to create and insert the elements in the
+ * database, the other to delete the entry from the database, for each tables.
  * <p>
  * This class accepts no parameters, or two parameters on the command line. If
  * only one parameter, or more than two parameters are passed, it will be

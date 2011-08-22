@@ -4,6 +4,13 @@ import java.util.LinkedList;
 
 import com.mymed.model.data.session.MSessionBean;
 
+/**
+ * This is the class that implements the threads that are executed and the
+ * simple sync logic for the Session test
+ * 
+ * @author Milo Casagrande
+ * 
+ */
 public class SessionThread extends Thread implements NumberOfElements {
 	private final LinkedList<MSessionBean> sessionList = new LinkedList<MSessionBean>();
 	private final SessionTest sessionTest;
