@@ -17,6 +17,9 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 	<property name="cassandra.dir"       location="../../../../protocols/cassandra/cassandra"/>
 	<property name="synapse.dir"         location="../../../../protocols/synapse/jSynapse/src"/>
 	<property name="src.dir"             location="${controller.dir}:${model.dir}:${utils.dir}"/>
+	<property name="jsynapse.jar"        value="jSynapse.jar"/>
+	<property name="mymed.jar"           value="mymed.jar"/>
+	<property name="mymedtest.jar"       value="mymedtest.jar"/>
 
  <!-- Fix the classpath to add the necessary resources -->
 	<path id="mymed.classpath" description="Classpath to be used for running the tests">
@@ -50,7 +53,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 		<javac srcdir="${synapse.dir}" destdir="${build.dir}" debug="on">
 			<classpath refid="mymed.classpath"/>
 		</javac>
-		<jar destfile="${lib.dir}/jSynapse.jar" basedir="${build.dir}" duplicate="preserve" index="true" />
+		<jar destfile="${lib.dir}/${jsynapse.jar}" basedir="${build.dir}" duplicate="preserve" index="true" />
 	</target>
 
 	<!-- Compile mymed -->
@@ -58,7 +61,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 		<javac srcdir="${src.dir}" destdir="${build.dir}" debug="on">
 			<classpath refid="mymed.classpath"/>
 		</javac>
-		<jar destfile="${lib.dir}/mymed.jar" basedir="${build.dir}" duplicate="preserve" index="true"/>
+		<jar destfile="${lib.dir}/${mymed.jar}" basedir="${build.dir}" duplicate="preserve" index="true"/>
 	</target>
 
 	<!-- Compile the tests -->
@@ -67,7 +70,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 			<classpath refid="mymed.classpath"/>
 			<include name="**/*.java"/>
 		</javac>
-		<jar destfile="${lib.dir}/mymedtest.jar" basedir="${build.dir}" duplicate="preserve" index="true"/>
+		<jar destfile="${lib.dir}/${mymedtest.jar}" basedir="${build.dir}" duplicate="preserve" index="true"/>
 	</target>
 
 	<!-- Run the tests -->
