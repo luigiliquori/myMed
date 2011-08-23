@@ -6,7 +6,7 @@
 	</div>
 </div><!--
 --><div id="login_subscribe">
-	<div class="login" onclick="$('#login div.list')[0].open();return false;">
+	<div class="login" onclick="$('#login div.list')[0].open();">
 		<h2>Connectez-vous avec votre réseau social préféré&#160;:</h2>
 		<div class="buttonList">
 			<div class="main">

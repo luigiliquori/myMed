@@ -68,6 +68,18 @@ function main()
 	//trace($_SESSION['user'],'$_SESSION[\'user\']', __FILE__, __LINE__);
 	define('USER_CONNECTED', $_SESSION['user']->socialNetworkName!==null );
 	
+	//redirect to onlycontent template if referer is from an onlycontent template
+	if(isset($_SERVER['HTTP_REFERER']) && ($_SERVER['REQUEST_METHOD']=='GET') && !isset($_GET['template']))
+	{
+		$refererGet	= Array();
+		parse_str(parse_url($_SERVER['HTTP_REFERER'], PHP_URL_QUERY), $refererGet);
+		if(isset($refererGet['template']) && $refererGet['template']==='onlycontent')
+		{
+			$_GET['template']	='onlycontent';
+			httpRedirect($_SERVER['PHP_SELF'].'?'.http_build_query($_GET));
+		}
+	}
+	
 	// Load Template
 	$subtemplateName	= 'Template'.ucfirst(basename($_SERVER['SCRIPT_NAME']));
 	require_once __DIR__.'/subtemplates/'.$subtemplateName.'.class.php';
@@ -104,8 +116,29 @@ function main()
 			$template->setContent(new ServiceNotFound());
 		}
 	}
-	
+	$noSpaceCompression	= /**true;/*/defined('NOSPACECOMPRESSION')?NOSPACECOMPRESSION:false;//*/
+	if(!$noSpaceCompression)
+		ob_start();
 	// Exec
 	$mainTemplate->callTemplate();
+	if(!$noSpaceCompression)
+	{
+		$buffer = ob_get_contents();
+		ob_end_clean();
+		$patterns = Array(
+			'#/<!\[CDATA\[([^\]]|(\][^\]])|(\]\][^>]))*\]\]>#s', 
+			'#([\\n\\r][	 ]*)?<!--([^-]|(-[^-])|(--[^>]))*-->#s',
+			'#[	 ]+#s',
+			'#([\\n\\r][	 ]*)+#s');
+		$replacment = Array(
+			'$0', 
+			'',
+			' ',
+			"\n");
+		echo preg_replace($patterns, $replacment, $buffer);
+		//echo preg_replace('#//<!\[CDATA\[#', '//<![CDATA['."\n", 
+		//		preg_replace('#<!--([^-]|(-[^-])|(--[^>]))*-->#s', '',
+		//			preg_replace('#\\s+#s', ' ', $buffer)));
+	}
 }
 ?>

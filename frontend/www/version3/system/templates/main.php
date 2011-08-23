@@ -1,51 +1,52 @@
 <?php 
 if(defined('MIMETYPE_XHTML')&&MIMETYPE_XHTML)
 	header("Content-Type:application/xhtml+xml; charset=utf-8");
+else
+	header("Content-Type:text/html; charset=utf-8");
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
 	<head>
 		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-		<meta name="viewport" content="width=device-width, height=device-height" />
+		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0" />
 		<link rel="apple-touch-icon" href="<?=ROOTPATH?>apple-touch-icon.png" />
 		<link rel="apple-touch-icon-precomposed" href="<?=ROOTPATH?>apple-touch-icon-precomposed.png" />
 		<!--[if !IE]><--><link rel="icon" type="image/x-icon" href="<?=ROOTPATH?>favicon.ico" /><!--><![endif]-->
 		<!--[if IE]><link rel="shortcut icon" type="image/x-icon" href="<?=ROOTPATH?>favicon.ico" /><![endif]-->
 		<title>myMed<?php for($i=0 ; $this->getTitle($i, ' > ') ; $i++)?></title>
+		<script type="text/vbscript">
+		Const ROOTPATH = "<?=ROOTPATH?>"
+		</script>
+		<script type="text/javascript">
+		if (typeof ROOTPATH == 'undefined')
+			const ROOTPATH = "<?=ROOTPATH?>";
+		</script>
 		<script type="text/javascript">
 		//<![CDATA[
-			window.isMobileDesign	= function(){ return window.innerWidth<<?=MOBILESWITCH_WIDTH?>;}
+			window.isMobileDesign	= function(){ return window.innerWidth<<?=MOBILESWITCH_WIDTH?>;};
+			window.isMaxWidthMobileDesign	= function(){ return window.screen.width<<?=MOBILESWITCH_WIDTH?>;};
 		//]]>
 		</script>
 		<!--bloquer le style pour les vieux IE-->
 		<!--[if gt IE 7]><!-->
 		<!-- load fonts-->
-		<link rel="stylesheet" href="<?=ROOTPATH?>style/desktop/font.css" />
+		<link rel="stylesheet" href="<?=ROOTPATH?>style/desktop/font.min.css" media="all"/>
 		<!-- define styles of type of elements (ex:h1, p, p.myclass...)-->
-		<link rel="stylesheet" href="<?=ROOTPATH?>style/desktop/style.css" />
-		<link rel="stylesheet" href="<?=ROOTPATH?>style/mobile/style.css" media="(max-width: <?=MOBILESWITCH_WIDTH-1?>px)" />
+		<link rel="stylesheet" href="<?=ROOTPATH?>style/desktop/style.min.css" media="all"/>
+		<link rel="stylesheet" href="<?=ROOTPATH?>style/mobile/style.min.css" media="only screen and (max-width: <?=MOBILESWITCH_WIDTH-1?>px)" />
 		<!-- define design of website -->
-		<link rel="stylesheet" href="<?=ROOTPATH?>style/desktop/design.css" media="(min-width: <?=MOBILESWITCH_WIDTH?>px)" />
-		<link rel="stylesheet" href="<?=ROOTPATH?>style/mobile/design.css" media="(max-width: <?=MOBILESWITCH_WIDTH-1?>px)" />
-		<link rel="stylesheet" href="<?=ROOTPATH?>style/desktop/design-animation.css" media="(min-width: <?=MOBILESWITCH_WIDTH?>px)" />
+		<link rel="stylesheet" href="<?=ROOTPATH?>style/desktop/design.min.css" media="only screen and (min-width: <?=MOBILESWITCH_WIDTH?>px)" />
+		<link rel="stylesheet" href="<?=ROOTPATH?>style/mobile/design.min.css" media="only screen and (max-width: <?=MOBILESWITCH_WIDTH-1?>px)" />
+		<link rel="stylesheet" href="<?=ROOTPATH?>style/desktop/design-animation.min.css" media="only screen and (min-width: <?=MOBILESWITCH_WIDTH?>px)" />
 		<!-- ><![endif]!-->
 		<!--[if IE 8]>
-		<link rel="stylesheet" href="<?=ROOTPATH?>style/desktop/design.css" media="screen" />
-		<link rel="stylesheet" href="<?=ROOTPATH?>style/desktop/design-animation.css" media="screen" />
+		<link rel="stylesheet" href="<?=ROOTPATH?>style/desktop/design.min.css" media="screen" />
+		<link rel="stylesheet" href="<?=ROOTPATH?>style/desktop/design-animation.min.css" media="screen" />
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script> 
 		<![endif]-->
 		
-		<!--JQuery CORE -->
-		<script type="text/javascript" src="<?=ROOTPATH?>javascript/jquery/dist/jquery.js"></script>
-		<!-- JQuery HTML5 compatibility-->
-		<script type="text/javascript" src="<?=ROOTPATH?>javascript/jquery.textPlaceholder.js"></script>
-		<script type="text/javascript" src="<?=ROOTPATH?>javascript/jquery.form.min.js"></script>
-		<script type="text/javascript" src="<?=ROOTPATH?>javascript/jquery.form.fr.js"></script>
-		<script type="text/javascript" src="<?=ROOTPATH?>javascript/jquery.form.config.js"></script>
-		
-		<!--Mobile's JS-->
-		<script type="text/javascript" src="<?=ROOTPATH?>javascript/MobileFixedElements.js"></script>
-		<script type="text/javascript" src="<?=ROOTPATH?>javascript/jquery.mobilepopup.js"></script>
+		<!--JQuery CORE -->																  <!-- JQuery HTML5 compatibility-->												   <!--Mobile's JS-->
+		<script type="text/javascript" src="<?=ROOTPATH?>javascript/loader.js.php?f=jquery/dist/jquery,jquery.textPlaceholder,jquery.form,jquery.form.fr,jquery.form.config,MobileFixedElements,jquery.mobilepopup"></script>
 		
 		<!-- JS IE's version'-->
 		<!--[if IE]>
@@ -54,7 +55,7 @@ if(defined('MIMETYPE_XHTML')&&MIMETYPE_XHTML)
 		
 <?php 	$this->headTags();?>
 	</head>
-	<body>
+	<body class="noscript">
 		<script type="text/javascript">document.body.className = "javascript";</script>
 <?php 	printError();?>
 		<header>
@@ -68,7 +69,7 @@ if(defined('MIMETYPE_XHTML')&&MIMETYPE_XHTML)
 						<ul><!--
 							--><li class="desktop"><a href="<?=ROOTPATH?>application"><span>myApps</span></a></li><!--
 							--><li class="store"><a href="<?=ROOTPATH?>application/myStore"><span>myStore</span></a></li><!--
-							--><li class="profil"><a href="<?=ROOTPATH?>openid/idpage"><span>myProfile</span></a></li><!--
+							--><li class="profil"><a href="<?=ROOTPATH?>profil"><span>myProfile</span></a></li><!--
 						--></ul>
 					</nav>
 					<div class="tools">
@@ -126,8 +127,8 @@ if(defined('MIMETYPE_XHTML')&&MIMETYPE_XHTML)
 						<ul>
 							<li><a href="http://www.mymed.fr">Blog</a></li>
 							<li><a href="<?=ROOTPATH?>doxygen/">Développeurs</a></li>
-							<li><a href="javascript:alert('Non disponible')">Conditions d'utilisation</a></li>
-							<li><a href="javascript:alert('Non disponible')">Aide</a></li>
+							<li><a href="#" onclick="alert('Non disponible');return false;">Conditions d'utilisation</a></li>
+							<li><a href="#" onclick="alert('Non disponible');return false;">Aide</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -154,7 +155,7 @@ if(defined('MIMETYPE_XHTML')&&MIMETYPE_XHTML)
 		<script type="text/javascript">
 		//<![CDATA[
 		$("[placeholder]").textPlaceholder();
-		//$(":date").dateinput();
+		$(":date").dateinput();
 		$(".mobile_popup").mobilePopup($("#titlesContentContainer")[0]);
 		//window.mobileFixedElements.addElement(document.getElementById("login").getElementsByTagName("div")[0]);
 		window.scrollTo(0, 1);

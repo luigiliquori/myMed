@@ -1,7 +1,7 @@
 <?php 
 /**
  * @param Profile $profile	profile to print
- */
+ *///var_dump($profile);
 ?>
 				<div id="profile">
 					<h2><?=$profile->gender=='M'?'M.':'Mme.'?> <?=$profile->firstName?> <?=$profile->lastName?></h2>

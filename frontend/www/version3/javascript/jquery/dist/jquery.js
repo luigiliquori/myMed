@@ -1928,7 +1928,7 @@ jQuery.event = {
 		}
 
 		// check if target is a textnode (safari)
-		if ( event.target.nodeType === 3 ) {
+		if ( typeof(event.target.nodeType)!="undefined" && event.target.nodeType==3 ) {
 			event.target = event.target.parentNode;
 		}
 

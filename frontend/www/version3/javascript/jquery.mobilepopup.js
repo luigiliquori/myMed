@@ -13,10 +13,10 @@
 				if(popupStack[popupStack.length-1] == this)
 					return;
 				$(this).addClass('mobile_open');
+				popupStack.push(this);
 				function waitForClose()
 				{
-					$(popupStack[popupStack.length-1]).removeClass('mobile_open');
-					popupStack.push(this);
+					$(popupStack[popupStack.length-2]).removeClass('mobile_open');
 					$(this).unbind("transitionend", waitForClose);
 					$(this).unbind("webkitTransitionEnd", waitForClose);
 					$(this).unbind("oTransitionEnd", waitForClose);

@@ -1,51 +1,10 @@
-/******* SEARCH *******/
-#search {
-	min-height: 70px;
-	display: inline;
-	display: inline-block;
-	background-image: url("../img/logo-mymed_114x70.png");
-	background-position: left center;
-	background-repeat: no-repeat;
-	padding-left: 116px;
-	padding-top: 2.4em;
-	margin-top: 1em;
-	position: relative;
-	text-align: left;
-}
-#search a.homeLink {
-	display: block;
-	position: absolute;
-	height: 70px;
-	width: 116px;
-	left: 0;
-	top: 50%;
-	margin-top: -35px;
-}
-#search a.homeLink span {
-	display: none;
-}
-#search ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	padding-left: 0.1ex;
-}
-#search ul li {
-	display: inline;
-	border-left: solid 1px;
-	padding-left: 0.5ex;
-}
-#search ul li.all {
-	font-weight: bold;
-	border-left: none 0;
-}
-#search form input.query {
-	width: 23em;
-}
 /******** Tabs ********/
+#content {
+	padding-top: 2ex;
+}
 #tabList {
 	position: fixed;
-	margin-top: -2em;
+	margin-top: -6ex;
 	overflow: hidden;
 	overflow-y: visible;
 	height: 3em;
@@ -53,7 +12,7 @@
 	left: 8%;
 	right: 8%;
 }
-@media (max-width: 813px) {
+@media (max-width: 875px) {
 	#tabList {
 		left: 0;
 		right: 0;
@@ -120,13 +79,13 @@
 	-o-background-size: 100% 2.6em;
 	/*//*/
 	-khtml-background-size: 100% 2.6em;
-	border-radius: 2ex 2ex 0 0;
+	border-radius: 1ex 1ex 0 0;
 	/*//*/
-	-moz-border-radius: 2ex 2ex 0 0;
+	-moz-border-radius: 1ex 1ex 0 0;
 	/*//*/
-	-o-border-radius: 2ex 2ex 0 0;
+	-o-border-radius: 1ex 1ex 0 0;
 	/*//*/
-	-khtml-border-radius: 2ex 2ex 0 0;
+	-khtml-border-radius: 1ex 1ex 0 0;
 }
 #tabList hr {
 	background-color: #0e2835;
@@ -160,7 +119,7 @@
 	height: 2.5em;
 	position: relative;
 }
-#tabList li {
+#tabList ul li {
 	display: table-cell;
 	border: solid 1px #859fac;
 	border-top-color: #fff;
@@ -171,6 +130,7 @@
 	-o-border-radius: 1ex 1ex 0 0;
 	/*//*/
 	-khtml-border-radius: 1ex 1ex 0 0;
+	width: auto;
 }
 #tabList li a {
 	display: block;
@@ -278,14 +238,10 @@
 }
 /****** Desktops ******/
 #desktops {
-	bottom: 0;
-	left: 0;
 	margin-top: -1px;
-	right: 0;
-	top: 2ex;
+	height: 100%;
 	overflow: auto;
-	position: absolute;
-	background-image: url("http://mymed21.sophia.inria.fr/mymed/iGoogle/wallpaper.jpg");
+	background-image: url("../img/wallpapers/wallpaper.jpg");
 	background-size: 100% auto;
 	/*//*/
 	-moz-background-size: 100% auto;
@@ -312,7 +268,7 @@ div.desktop div.column {
 	height: 100%;
 	min-height: 1px;
 }
-div.desktop div.window, div.desktop div.window div.titlebar div.menu {
+body.javascript div.desktop div.window, body.javascript div.desktop div.window div.titlebar div.menu {
 	background-color: #0080ff;
 	background-color: rgba(0, 128, 255, 0.5);
 	border: solid 1px #ffffff;
@@ -330,7 +286,7 @@ div.desktop div.window, div.desktop div.window div.titlebar div.menu {
 	/*//*/
 	-khtml-background-size: 50ex 50ex;
 }
-div.desktop div.window {
+body.javascript div.desktop div.window {
 	padding: 0;
 	margin: 1em;
 	border-radius: 1ex;
@@ -352,22 +308,26 @@ div.desktop div.window {
 	height: 200px;
 	min-height: 3em;
 }
-div.desktop.childmaximized div.window {
+body.javascript div.desktop.childmaximized div.window {
 	display: none;
 }
-div.desktop div.window div.titlebar {
+body.javascript div.desktop div.window div.titlebar {
 	height: 2em;
 	font-family: Arial, sans-serif, "OpenSymbol";
 }
-div.desktop div.window div.titlebar img {
-	height: 1.3em;
-	width: 1.3em;
-	margin-left: -0.5ex;
-	margin-right: 0.5ex;
-	margin-top: -0.5ex;
+body.javascript div.desktop div.window div.titlebar img {
+	height: 2.2ex;
+	width: 2.2ex;
+	margin-right: 0.1ex;
+	margin-top: -0.4ex;
 	vertical-align: middle;
 }
-div.desktop div.window div.titlebar div.title {
+body.javascript div.desktop div.window div.titlebar div.title a {
+	color: inherit;
+	text-decoration: inherit;
+	cursor: inherit;
+}
+body.javascript div.desktop div.window div.titlebar div.title {
 	line-height: 1.53846em;
 	/* 2em*100%/130% */
 
@@ -376,7 +336,7 @@ div.desktop div.window div.titlebar div.title {
 	font-size: 130%;
 	cursor: default;
 	color: #eee;
-	padding: 0 0.769230769ex;
+	padding: 0 0.769230769ex 0 0.369230769ex;
 	text-shadow: 0 0 1ex #ffffff;
 	/*//*/
 	-moz-text-shadow: 0 0 1ex #ffffff;
@@ -397,75 +357,75 @@ div.desktop div.window div.titlebar div.title {
 
 }
 /* Affect margin-right of div.title *
-div.desktop div.window div.titlebar button.close ,
-div.desktop div.window div.titlebar button.minimize {
+body.javascript div.desktop div.window div.titlebar button.close ,
+body.javascript div.desktop div.window div.titlebar button.minimize {
 	display:none;
 }/**/
-div.desktop div.window div.titlebar div.titleButtons {
+body.javascript div.desktop div.window div.titlebar div.titleButtons {
 	position: absolute;
 	right: 0.5ex;
 	top: 0;
 }
-div.desktop div.window div.titlebar button {
+body.javascript div.desktop div.window div.titlebar button {
 	border: 0;
 	background: none transparent;
 	cursor: pointer;
 	padding: 0;
 }
-div.desktop div.window div.titlebar button::-moz-focus-inner {
+body.javascript div.desktop div.window div.titlebar button::-moz-focus-inner {
 	border: 0 none;
 	padding: 0;
 }
-div.desktop div.window div.titlebar button.options:after {
+body.javascript div.desktop div.window div.titlebar button.options:after {
 	content: " ▼";
 	font-size: 80%;
 }
-div.desktop div.window div.titlebar button.close,
-div.desktop div.window div.titlebar button.minimize,
-div.desktop div.window div.titlebar button.maximize,
-div.desktop div.window div.titlebar button.options {
+body.javascript div.desktop div.window div.titlebar button.close,
+body.javascript div.desktop div.window div.titlebar button.minimize,
+body.javascript div.desktop div.window div.titlebar button.maximize,
+body.javascript div.desktop div.window div.titlebar button.options {
 	margin-top: 0.3em;
 	margin-left: 0.1em;
 	color: #CCCCCC;
 	padding: 0 0.5ex;
 }
-div.desktop div.window div.titlebar button:before {
+body.javascript div.desktop div.window div.titlebar button:before {
 	font-style: normal;
 }
-div.desktop div.window div.titlebar button.maximize:before {
+body.javascript div.desktop div.window div.titlebar button.maximize:before {
 	content: "";
 }
-div.desktop div.window div.titlebar button.minimize:before {
+body.javascript div.desktop div.window div.titlebar button.minimize:before {
 	content: "";
 }
-div.desktop div.window div.titlebar button.close:before {
+body.javascript div.desktop div.window div.titlebar button.close:before {
 	content: "x";
 	padding: 0 0.4ex;
 }
-div.desktop.childmaximized div.window.maximized div.titlebar button.maximize:before {
+body.javascript div.desktop.childmaximized div.window.maximized div.titlebar button.maximize:before {
 	content: "";
 }
-div.desktop div.window div.titlebar button.close span, div.desktop div.window div.titlebar button.minimize span, div.desktop div.window div.titlebar button.maximize span {
+body.javascript div.desktop div.window div.titlebar button.close span, body.javascript div.desktop div.window div.titlebar button.minimize span, body.javascript div.desktop div.window div.titlebar button.maximize span {
 	display: none;
 }
-div.desktop div.window div.titlebar div.menu {
+body.javascript div.desktop div.window div.titlebar div.menu {
 	display: none;
 	position: absolute;
 	z-index: 1;
 	right: 0;
 	width: 20ex;
 }
-div.desktop div.window div.titlebar div.menu ul {
+body.javascript div.desktop div.window div.titlebar div.menu ul {
 	margin: 0;
 	padding: 0;
 }
-div.desktop div.window div.titlebar div.menu ul li {
+body.javascript div.desktop div.window div.titlebar div.menu ul li {
 	display: block;
 	list-style: none;
 	margin: 0;
 	padding: 0;
 }
-div.desktop div.window div.titlebar div.menu ul button {
+body.javascript div.desktop div.window div.titlebar div.menu ul button {
 	float: none;
 	display: block;
 	text-align: left;
@@ -500,17 +460,17 @@ div.desktop div.window div.titlebar div.menu ul button {
 	/*//*/
 	-khtml-transition-property: none;
 }
-div.desktop div.window div.titlebar div.menu ul button:hover {
+body.javascript div.desktop div.window div.titlebar div.menu ul button:hover {
 	background-color: #0080ff;
 	background-color: rgba(0, 128, 255, 0.5);
 }
-div.desktop div.window div.titlebar div.menu ul hr {
+body.javascript div.desktop div.window div.titlebar div.menu ul hr {
 	margin: 0.5ex 1ex;
 }
-div.desktop div.window div.titlebar div.menu:hover, div.desktop div.window div.titlebar button.options:focus + div.menu, div.desktop div.window div.titlebar button.options.focus + div.menu {
+body.javascript div.desktop div.window div.titlebar div.menu:hover, body.javascript div.desktop div.window div.titlebar button.options:focus + div.menu, body.javascript div.desktop div.window div.titlebar button.options.focus + div.menu {
 	display: block;
 }
-div.desktop div.window .content {
+body.javascript div.desktop div.window .content {
 	display: block;
 	border: solid 1px #c0c0c0;
 	overflow: auto;
@@ -527,7 +487,7 @@ div.desktop div.window .content {
 	/*//*/
 	-khtml-border-radius: 0 0 0.75ex 0.75ex;
 }
-div.desktop div.window .content iframe {
+body.javascript div.desktop div.window .content iframe {
 	border: none 0;
 	width: 100%;
 	height: 100%;
@@ -567,7 +527,7 @@ body.javascript div.desktop div.window .rightResizer {
 
 	right: 0;
 }
-div.desktop.childmaximized div.window.maximized {
+body.javascript div.desktop.childmaximized div.window.maximized {
 	display: block;
 	position: absolute;
 	width: 100%;
@@ -584,12 +544,12 @@ div.desktop.childmaximized div.window.maximized {
 	/*//*/
 	-khtml-box-sizing: border-box;
 }
-div.desktop div.windowshadow {
+body.javascript div.desktop div.windowshadow {
 	background-color: #c0c0c0;
 	background-color: rgba(192, 192, 192, 0.5);
 	margin: 1em;
 }
-div.desktop div.glassPane {
+body.javascript div.desktop div.glassPane {
 	height: 100%;
 	left: 0;
 	position: absolute;
@@ -599,4 +559,25 @@ div.desktop div.glassPane {
 	z-index: 1;
 	/*background-image	: url("data:image/gif;base64,");/**/
 
+}
+body.noscript #desktops div.window div.title a {
+	display: block;
+	float: left;
+	text-align: center;
+	width: 64px;
+	height: 64px;
+	overflow: hidden;
+	font-family: sans-serif;
+	font-size: 10px;
+	color: #000;
+	text-decoration: none;
+	margin: 16px;
+	text-overflow: ellipsis;
+	-moz-text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+	-khtml-text-overflow: ellipsis;
+}
+body.noscript #desktops div.window div.title a img {
+	display: block;
+	margin: auto;
 }

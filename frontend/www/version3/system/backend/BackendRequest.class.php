@@ -94,7 +94,7 @@ class BackendRequest
 		if($data === false)
 			$excurl = new CUrlException(curl_error($curl), curl_errno($curl));
 		$httpCode	= curl_getinfo($curl, CURLINFO_HTTP_CODE);
-		//var_dump(curl_getinfo($curl));
+		trace(curl_getinfo($curl));
 		if( !(200<=$httpCode && $httpCode<300) )
 			$exhttp = new BackendRequestException($httpCode, $data);
 		

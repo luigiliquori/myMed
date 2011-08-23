@@ -1,27 +1,37 @@
 <?php 
 if(defined('MIMETYPE_XHTML')&&MIMETYPE_XHTML)
 	header("Content-Type:application/xhtml+xml; charset=utf-8");
+else
+	header("Content-Type:text/html; charset=utf-8");
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr" style="background:none transparent">
 	<head>
 		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 		<title>myMed<?php for($i=0 ; $this->getTitle($i, ' > ') ; $i++)?></title>
+		<script type="text/vbscript">
+		Const ROOTPATH = "<?=ROOTPATH?>"
+		</script>
+		<script type="text/javascript">
+		if (typeof ROOTPATH == 'undefined')
+			const ROOTPATH = "<?=ROOTPATH?>";
+		</script>
+		<script type="text/javascript">
+		//<![CDATA[
+			window.isMobileDesign	= function(){ return window.innerWidth<<?=MOBILESWITCH_WIDTH?>;};
+			window.isMaxWidthMobileDesign	= function(){ return window.screen.width<<?=MOBILESWITCH_WIDTH?>;};
+		//]]>
+		</script>
 		<!--bloquer le style pour les vieux IE-->
 		<!--[if gt IE 7]><!-->
 		<!-- load fonts-->
-		<link rel="stylesheet" href="<?=ROOTPATH?>style/desktop/font.css" />
+		<link rel="stylesheet" href="<?=ROOTPATH?>style/desktop/font.min.css" />
 		<!-- define styles of type of elements (ex:h1, p, p.myclass...)-->
-		<link rel="stylesheet" href="<?=ROOTPATH?>style/desktop/style.css" />
+		<link rel="stylesheet" href="<?=ROOTPATH?>style/desktop/style.min.css" />
 		<!-- ><![endif]!-->
 		
-		<!--JQuery CORE -->
-		<script type="text/javascript" src="<?=ROOTPATH?>javascript/jquery/dist/jquery.js"></script>
-		<!-- JQuery HTML5 compatibility-->
-		<script type="text/javascript" src="<?=ROOTPATH?>javascript/jquery.textPlaceholder.js"></script>
-		<script type="text/javascript" src="<?=ROOTPATH?>javascript/jquery.form.min.js"></script>
-		<script type="text/javascript" src="<?=ROOTPATH?>javascript/jquery.form.fr.js"></script>
-		<script type="text/javascript" src="<?=ROOTPATH?>javascript/jquery.form.config.js"></script>
+		<!--JQuery CORE -->																  <!-- JQuery HTML5 compatibility-->
+		<script type="text/javascript" src="<?=ROOTPATH?>javascript/loader.js.php?f=jquery/dist/jquery,jquery.textPlaceholder,jquery.form,jquery.form.fr,jquery.form.config"></script>
 		
 		<!-- JS IE's version'-->
 		<!--[if IE]>
@@ -29,7 +39,7 @@ if(defined('MIMETYPE_XHTML')&&MIMETYPE_XHTML)
 		<![endif]-->
 <?php 	$this->headTags();?>
 	</head>
-	<body style="background:none transparent;overflow:hidden;">
+	<body style="background:none transparent;overflow:hidden;" class="noscript">
 		<script type="text/javascript">document.body.className = "javascript";</script>
 		<div id="content" class="body" style="overflow:auto;">
 <?php 
@@ -46,7 +56,6 @@ if(defined('MIMETYPE_XHTML')&&MIMETYPE_XHTML)
 			<!-- DEBUG -->
 <?php 	if(defined('DEBUG')&&DEBUG):?>
 			<div id="debug">
-				<a href="?debug=0" class="close">close</a>
 				<?php printTraces();?>
 			</div>
 <?php 	endif;?>

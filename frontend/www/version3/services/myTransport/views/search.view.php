@@ -15,11 +15,10 @@
 			<input id="theDate" name="theDate" type="date" value="<?php echo date('Y-m-d');?>" />
 		</div>
 	</div>
-<?=isset($_GET['template'])?'<input type="hidden" name="template" value="'.$_GET['template'].'" />':''?>
 	<button type="submit">Rechercher</button>
 </form>
 <?php else:?>
-<a href="<?=ROOTPATH.'application/'.$serviceName?><?=isset($_GET['template'])?'?template='.$_GET['template']:''?>" class="button">Retour</a>
+<a href="<?=ROOTPATH.'application/'.$serviceName?>" class="button">Retour</a>
 <h2>Résultats :</h2>
 <?php 	if($res==null):?>
 <p>Trajet introuvable</p>

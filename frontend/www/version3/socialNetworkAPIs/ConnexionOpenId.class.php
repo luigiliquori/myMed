@@ -163,6 +163,7 @@ class ConnexionOpenId extends Connexion
 	protected /*Array*/ function connect()
 	{
 		$response = $this->consumer->complete('https://'.$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]);
+		trace($response, '$response', __FILE__, __LINE__);
 		if($response->status !== Auth_OpenID_SUCCESS)
 			sendError('La connexion a échouée', true);
 		return Array(

@@ -73,8 +73,9 @@ class myTransport extends ContentObject
 	 */
 	public /*void*/ function contentPost()
 	{
+		global $PATH_INFO;
 		if(isset($PATH_INFO[2])&&($PATH_INFO[2] === "publish")){
-			$key = $_GET["from"] . $_GET["to"] . $_GET["theDate"];
+			$key = $_POST["from"] . $_POST["to"] . $_POST["theDate"];
 			$value = $_SESSION['user']->id;
 			$this->request->create($key, $value);
 			$_SESSION['myTransport_publish_info']	= '<p>Trajet publié !</p>';

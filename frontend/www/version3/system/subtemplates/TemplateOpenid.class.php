@@ -5,6 +5,7 @@ require_once __DIR__.'/../../socialNetworkAPIs/Auth/OpenID.php';
 require_once __DIR__.'/../../socialNetworkAPIs/Auth/OpenID/Server.php';
 require_once __DIR__.'/../backend/model/Authentication.class.php';
 require_once __DIR__.'/../backend/AuthenticationRequest.class.php';
+require_once __DIR__.'/../backend/ProfileRequest.class.php';
 define('PAGE_LOGOUT', 		'logout');
 define('PAGE_SUBSCRIBE', 	'subscribe');
 define('PAGE_TRUST', 		'trust');
@@ -59,14 +60,20 @@ class TemplateOpenid extends ContentObject
 				}break;
 				case PAGE_IDPAGE	:
 				{
-					$this->user	= getUserByLogin(@$this->path[2]);
-					if($this->user===null)
+					$request	= new ProfileRequest();
+					try
 					{
+						$this->user	= $request->read('myMed'.$this->httpScriptPath.'/'.PAGE_IDPAGE.'/'.@$this->path[2]);
+					}
+					catch(BackendRequestException $ex)
+					{
+						if($ex->getCode() != 404)
+							throw $ex;
+						
 						header("Status: 404 Not Found", false, 404);
 						exit;
 					}
-					else
-						header('X-XRDS-Location: '.$this->httpScriptPath.'/'.PAGE_USERXRDS.'/'.$this->user);
+					header('X-XRDS-Location: '.$this->httpScriptPath.'/'.PAGE_USERXRDS.'/'.$this->user);
 				}break;
 				case PAGE_SUBSCRIBE	:	break;
 				case PAGE_IDPXRDS	:	$this->getIdpXrds();	exit;
@@ -186,7 +193,7 @@ class TemplateOpenid extends ContentObject
 	public /*void*/ function headTags()
 	{
 		echo '
-		<link rel="stylesheet" href="'.ROOTPATH.'style/desktop/design.openid.css" />';
+		<link rel="stylesheet" href="'.ROOTPATH.'style/desktop/design.openid.min.css" />';
 		switch($this->path[1])
 		{
 			case PAGE_SUBSCRIBE	:
@@ -359,10 +366,9 @@ class TemplateOpenid extends ContentObject
 					}
 				}
 				$authenticationRequest	= new AuthenticationRequest();
-				$profileRequest				= new ProfileRequest();
 				try
 				{
-					$authentication			= $authenticationRequest->read(basename($urlID), @$_POST['password']);
+					$profile			= $authenticationRequest->read(basename($urlID), @$_POST['password']);
 				}
 				catch(BackendRequestException $ex)
 				{
@@ -371,7 +377,6 @@ class TemplateOpenid extends ContentObject
 					$_SESSION['OpenIdProvider_error']	= 'Mauvais Identifiant / Mot de Passe';
 					$this->internRedirect(PAGE_TRUST);
 				}
-				$profile	= $profileRequest->read($authentication->user);
 				
 				$response = $request->answer(true, null, $urlID);
 				// @todo gérer les choix de l'utilisateur

@@ -350,6 +350,7 @@ html ,body {
 	border-top		: 1px solid #D2D2D2;
 	border-left		: 1px solid #D2D2D2;
 	border-right	: 1px solid #D2D2D2;
+	padding-bottom	: 1.5em;/*prevent bug on firefox (url of link displayed at bottom left over the menu's bottom make an mouseout event)*/
 }
 @media (max-width: 875px) {
 	#footer div#partnerList ul {
@@ -364,8 +365,10 @@ html ,body {
 #footer div#partnerList ul li a {
 	display	: block;
 	padding	: 0.5ex 1ex;
+	.transition-duration (1s);
+	.transition-property (background-color);
 }
-#footer div#partnerList ul li a:first-child {
+#footer div#partnerList ul li:first-child a {
 	.border-radius	( 1em 1em 0 0);
 }
 #footer div#partnerList ul li a:hover {
@@ -405,6 +408,7 @@ html ,body {
 	border: medium black solid; 
 	font-family:monospace, "OpenSymbol";
 	resize	: both;
+	z-index	: 999999;
 }
 #debug a.close {
 	color	: #fff;
