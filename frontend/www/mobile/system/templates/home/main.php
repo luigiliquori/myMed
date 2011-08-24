@@ -12,23 +12,43 @@
 		
 		<script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.0b2/jquery.mobile-1.0b2.min.js"></script>
+
+		<?php require_once dirname(__FILE__).'/Favorite.class.php'; ?>
+		<?php require_once dirname(__FILE__).'/Category.class.php'; ?>			
+		<?php require_once dirname(__FILE__).'/Top10.class.php'; ?>
+		<?php require_once dirname(__FILE__).'/Profile.class.php'; ?>
 		
-		<?php require_once dirname(__FILE__).'/MenuHandler.class.php'; ?>
-		<?php require_once dirname(__FILE__).'/UpdateProfileHandler.class.php'; ?>
+		<?php require_once dirname(__FILE__).'/handler/MenuHandler.class.php'; ?>
 		<?php 
 			$menuHandler = new MenuHandler();
 			$menuHandler->handleRequest();
-			$updateProfileHandler = new UpdateProfileHandler();
-			$updateProfileHandler->handleRequest();
 		?>
 	</head> 
 
-	<body> 
+	<body>
+	
+		<!-- Disconnect the user -->
+		<form action="#" method="get" name="disconnectForm" id="disconnectForm">
+			<input type="hidden" name="disconnect" value="1" />
+		</form>
+	
 		<!-- HOME -->
-		<?php include('home.php') ?>
+		<?php 
+			$favorite = new Favorite();
+			$favorite->printTemplate();
+			
+			$category = new Category();
+			$category->printTemplate();
+			
+			$top10 = new Top10();
+			$top10->printTemplate();
+		?>
 		
 		<!-- PROFILE -->
-		<?php include('myProfile.php') ?>
+		<?php 
+			$profile = new Profile();
+			$profile->printTemplate();
+		?>
 		
 		<script type="text/javascript">
 			function scroller(){

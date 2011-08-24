@@ -74,6 +74,7 @@ public final class MUserBean extends AbstractMBean {
 		hometown = toClone.getHometown();
 		gender = toClone.getGender();
 		lastConnection = toClone.getLastConnection();
+		profilePicture = toClone.getProfilePicture();
 		buddyList = toClone.getBuddyList();
 		subscribtionList = toClone.getSubscribtionList();
 		reputation = toClone.getReputation();
@@ -93,9 +94,16 @@ public final class MUserBean extends AbstractMBean {
 	public void update(AbstractMBean mBean) {
 		if(mBean instanceof MUserBean) {
 			MUserBean newValue = (MUserBean) mBean;
-			if(newValue.getFirstName() != null && !newValue.getFirstName().equals("")) {
-				setFirstName(newValue.getFirstName());
-			}
+			login = newValue.getLogin() != null ? newValue.getLogin() : login;
+			email = newValue.getEmail() != null ? newValue.getEmail() : email;
+			name = newValue.getName() != null ? newValue.getName() : name;
+			firstName = newValue.getFirstName() != null ? newValue.getFirstName() : firstName;
+			lastName = newValue.getLastName() != null ? newValue.getLastName() : lastName;
+			link = newValue.getLink() != null ? newValue.getLink() : link;
+			birthday = newValue.getBirthday() != null ? newValue.getBirthday() : birthday;
+			hometown = newValue.getHometown() != null ? newValue.getHometown() : hometown;
+			gender = newValue.getGender() != null ? newValue.getGender() : gender;
+			profilePicture = newValue.getProfilePicture() != null ? newValue.getProfilePicture() : profilePicture;
 		}
 	}
 

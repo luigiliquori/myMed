@@ -5,7 +5,7 @@
 	</div>
 
 	<!-- CONTENT -->
-	<div id="content" data-role="content" id="one" data-theme="b">
+	<div data-role="content" id="one" data-theme="b">
 		<form action="#" method="post" name="inscriptionForm" id="inscriptionForm">
 			<input type="hidden" name="inscription" value="1" />
 			<span>Prénom : </span><input type="text" name="prenom" /><br />

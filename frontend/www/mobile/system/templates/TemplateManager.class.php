@@ -1,10 +1,8 @@
 <?php
 class TemplateManager {
-	private /*ContentObject*/ $content;
 	private /*string*/ $template;
 	
-	public function __construct(AbstractContent $content=null, /*string*/ $template="accueil") {
-		$this->content	= $content;
+	public function __construct(/*string*/ $template="accueil") {
 		$this->template	= $template;
 	}
 

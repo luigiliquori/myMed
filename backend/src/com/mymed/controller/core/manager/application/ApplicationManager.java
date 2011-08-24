@@ -1,13 +1,8 @@
 package com.mymed.controller.core.manager.application;
 
-import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.AbstractManager;
-import com.mymed.controller.core.manager.profile.IProfileManager;
 import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.data.user.MUserBean;
@@ -19,7 +14,8 @@ import com.mymed.model.data.user.MUserBean;
  * 
  */
 public class ApplicationManager extends AbstractManager implements
-		IProfileManager {
+		IApplicationManager {
+	
 	/* --------------------------------------------------------- */
 	/* Constructors */
 	/* --------------------------------------------------------- */
@@ -32,63 +28,33 @@ public class ApplicationManager extends AbstractManager implements
 		super(storageManager);
 	}
 
-	/**
-	 * Setup a new user profile into the database
-	 * 
-	 * @param user
-	 *            the user to insert into the database
-	 * @throws IOBackEndException
-	 */
 	@Override
-	public MUserBean create(final MUserBean user)
-			throws InternalBackEndException, IOBackEndException {
-		try {
-			final Map<String, byte[]> args = user.getAttributeToMap();
-			storageManager.insertSlice(CF_USER, new String(args.get("id"),
-					"UTF8"), args);
-			// TODO update the user values!
-			return user;
-		} catch (final UnsupportedEncodingException e) {
-			throw new InternalBackEndException(e.getMessage());
-		}
-	}
-
-	/**
-	 * @param id
-	 *            the id of the user
-	 * @return the User corresponding to the id
-	 * @throws InternalBackEndException
-	 * @throws IOBackEndException
-	 */
-	@Override
-	public MUserBean read(final String id) throws InternalBackEndException,
+	public void create(MUserBean user) throws InternalBackEndException,
 			IOBackEndException {
-		Map<byte[], byte[]> args = new HashMap<byte[], byte[]>();
-		final MUserBean user = new MUserBean();
-		args = storageManager.selectAll("User", id);
-		args = storageManager.selectAll(CF_USER, id);
-
-		return (MUserBean) introspection(user, args);
+		// TODO Auto-generated method stub
+		
 	}
 
-	/**
-	 * @throws IOBackEndException
-	 * @see IProfileManager#update(MUserBean)
-	 */
 	@Override
-	public void update(final MUserBean user) throws InternalBackEndException,
+	public MUserBean read(String id) throws InternalBackEndException,
 			IOBackEndException {
-		create(user);
-		// TODO Implement the update method witch use the wrapper updateColumn
-		// method
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	/**
-	 * @see IProfileManager#delete(MUserBean)
-	 */
 	@Override
-	public void delete(final String id) throws InternalBackEndException {
-		storageManager.removeAll(CF_USER, id);
+	public void update(MUserBean user) throws InternalBackEndException,
+			IOBackEndException {
+		// TODO Auto-generated method stub
+		
 	}
+
+	@Override
+	public void delete(String id) throws InternalBackEndException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 
 }

@@ -138,8 +138,13 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 					handleError(new InternalBackEndException("authentication jSon format is not valid"), response);
 					return;
 				}
+				String id;
+				if((id = parameters.get("id"))== null){
+					handleError(new InternalBackEndException("missing user argument!"), response);
+					return;
+				}
 				System.out.println("\nINFO: trying to update authentication:\n" + authenticationBean);
-				authenticationManager.update(authenticationBean);
+				authenticationManager.update(id, authenticationBean);
 				System.out.println("\nINFO: authentication updated!");
 				break;
 			default:

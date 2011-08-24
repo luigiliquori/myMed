@@ -91,12 +91,24 @@ public class AuthenticationManager extends AbstractManager implements
 	}
 
 	/**
+	 * @throws IOBackEndException 
 	 * @see IAuthenticationManager#update(MAuthenticationBean)
 	 */
 	@Override
-	public void update(final MAuthenticationBean authentication)
-			throws InternalBackEndException {
-		// TODO Implement the update method witch use the wrapper updateColumn
-		// method
+	public void update(final String id, final MAuthenticationBean authentication)
+			throws InternalBackEndException, IOBackEndException {
+		// Remove the old Authentication (the login/key can be changed)
+		storageManager.removeAll(CF_AUTHENTICATION, id);
+		// Insert the new Authentication
+		storageManager.insertSlice(CF_AUTHENTICATION, "login",
+				authentication.getAttributeToMap());
+		try {
+			final Map<String, byte[]> authMap = authentication
+					.getAttributeToMap();
+			storageManager.insertSlice(CF_AUTHENTICATION,
+					new String(authMap.get("login"), "UTF8"), authMap);
+		} catch (final UnsupportedEncodingException ex) {
+			throw new InternalBackEndException(ex.getMessage());
+		}
 	}
 }

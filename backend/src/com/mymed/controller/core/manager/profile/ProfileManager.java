@@ -61,7 +61,9 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 		Map<byte[], byte[]> args = new HashMap<byte[], byte[]>();
 		final MUserBean user = new MUserBean();
 		args = storageManager.selectAll(CF_USER, id);
-
+		if(args.isEmpty()){
+			throw new IOBackEndException("profile does not exist!", 404);
+		}
 		return (MUserBean) introspection(user, args);
 	}
 
@@ -70,9 +72,13 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 	 * @see IProfileManager#update(MUserBean)
 	 */
 	@Override
-	public void update(final MUserBean user) throws InternalBackEndException,
+	public MUserBean update(final MUserBean user) throws InternalBackEndException,
 			IOBackEndException {
-		
+		final MUserBean userToUpdate = read(user.getId());
+		userToUpdate.update(user);
+		// TODO Implement the update method witch use the wrapper updateColumn method
+		create(userToUpdate); // create(user) will replace the current values of the user...
+		return userToUpdate;
 	}
 
 	/**

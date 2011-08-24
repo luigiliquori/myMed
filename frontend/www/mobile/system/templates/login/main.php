@@ -12,28 +12,31 @@
 		
 		<script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.0b2/jquery.mobile-1.0b2.min.js"></script>
-
-		<?php require_once dirname(__FILE__).'/../../request/Request.class.php'; ?>
-		<?php require_once dirname(__FILE__).'/LoginHandler.class.php'; ?>
-		<?php require_once 'system/beans/MUserBean.class.php'; ?>
-		<?php require_once 'system/beans/MAuthenticationBean.class.php'; ?>
 		
-		<?php 
-			$loginHandler = new LoginHandler();
-			$loginHandler->handleRequest();
-		?>
+		<?php require_once dirname(__FILE__).'/Login.class.php'; ?>			
+		<?php require_once dirname(__FILE__).'/Privacy.class.php'; ?>
+		<?php require_once dirname(__FILE__).'/Aboutus.class.php'; ?>
 		
 	</head> 
 
 	<body> 
 		<!-- LOGIN -->
-		<?php include('login.php') ?>
+		<?php 
+		$login = new Login();
+		$login->printTemplate();
+		?>
 		
-		<!-- INSCRIPTION -->
-		<?php include('inscription.php') ?>
+		<!-- PRIVACY -->
+		<?php 
+		$privacy = new Privacy();
+		$privacy->printTemplate();
+		?>
 		
-		<!-- INSCRIPTION -->
-		<?php include('privacy.php') ?>
+		<!-- ABOUT US -->
+		<?php 
+		$aboutus = new Aboutus();
+		$aboutus->printTemplate();
+		?>
 		
 		<script type="text/javascript">
 			function scroller(){

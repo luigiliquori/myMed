@@ -34,7 +34,7 @@ public interface IProfileManager {
 	 * @param user
 	 *            The profile updated to store
 	 */
-	public void update(MUserBean user) throws InternalBackEndException, IOBackEndException;
+	public MUserBean update(MUserBean user) throws InternalBackEndException, IOBackEndException;
 
 	/**
 	 * Delete an existing user

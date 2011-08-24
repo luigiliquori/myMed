@@ -7,14 +7,17 @@
 	
 	require_once dirname(__FILE__).'/config.php';
 	require_once dirname(__FILE__).'/templates/TemplateManager.class.php';
-	require_once dirname(__FILE__).'/../contents/AbstractContent.class.php';
 	
 	session_start();
 
 	$templateManager = new TemplateManager();
 	define('USER_CONNECTED', isset($_SESSION['user']) || isset($_GET['user']));
 	if (USER_CONNECTED) {
-		$templateManager->selectTemplate('home');
+		if(isset($_GET['application']) && $_GET['application'] != "0"){
+			$templateManager->selectTemplate('application/'.$_GET['application']);
+		} else {
+			$templateManager->selectTemplate('home');
+		}
 	} else {
 		$templateManager->selectTemplate('login');
 	}

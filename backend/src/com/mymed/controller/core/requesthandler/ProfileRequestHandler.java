@@ -135,7 +135,8 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
 					return;
 				}
 				System.out.println("\nINFO: trying to update user:\n" + userBean);
-				profileManager.update(userBean);
+				userBean = profileManager.update(userBean);
+				setResponseText(getGson().toJson(userBean));
 				System.out.println("\nINFO: User updated!");
 				break;
 			default:
