@@ -1,5 +1,10 @@
 package com.mymed.tests.unit;
 
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.Calendar;
 
 /**
@@ -45,4 +50,38 @@ public class TestValues {
 	protected static final String IP = "138.126.23.2";
 
 	protected static final Calendar CAL_INSTANCE = Calendar.getInstance();
+
+	/**
+	 * Random instance to keep around.
+	 */
+	private static final SecureRandom random = new SecureRandom();
+
+	/**
+	 * Get the string representation of a random casual generated password
+	 * 
+	 * @return the SHA-256 in hex format of a random string
+	 * @throws NoSuchAlgorithmException
+	 * @throws UnsupportedEncodingException
+	 */
+	protected static String getRandomPwd() {
+		final StringBuffer hex = new StringBuffer(100);
+
+		try {
+			final String randString = new BigInteger(130, random).toString(32);
+			final MessageDigest md = MessageDigest.getInstance("SHA-256");
+
+			md.update(randString.getBytes("UTF-8"));
+			final byte[] mdbytes = md.digest();
+
+			for (final byte b : mdbytes) {
+				hex.append(Integer.toHexString(0xFF & b));
+			}
+
+			hex.trimToSize();
+		} catch (final Exception ex) {
+			ex.printStackTrace();
+		}
+
+		return hex.toString();
+	}
 }

@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.controller.core.manager.authentication.AuthenticationManager;
 import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.reputation.InteractionManager;
 import com.mymed.controller.core.manager.reputation.ReputationManager;
@@ -16,6 +17,7 @@ import com.mymed.controller.core.manager.session.SessionManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.core.configuration.WrapperConfiguration;
 import com.mymed.model.data.reputation.MInteractionBean;
+import com.mymed.model.data.session.MAuthenticationBean;
 import com.mymed.model.data.session.MSessionBean;
 import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.MConverter;
@@ -35,11 +37,13 @@ public class GeneralTest extends TestValues {
 	protected ProfileManager profileManager;
 	protected ReputationManager reputationManager;
 	protected InteractionManager interactionManager;
+	protected AuthenticationManager authenticationManager;
 
 	// Use default package access level
 	static MSessionBean sessionBean;
 	static MUserBean userBean;
 	static MInteractionBean interactionBean;
+	static MAuthenticationBean authenticationBean;
 
 	// Use default package access level
 	static byte[] name;
@@ -100,6 +104,10 @@ public class GeneralTest extends TestValues {
 		interactionBean.setConsumer(CONSUMER_ID);
 		interactionBean.setSnooze(0);
 		interactionBean.setComplexInteraction(INTERACTION_LST_ID);
+
+		authenticationBean.setLogin(LOGIN);
+		authenticationBean.setPassword(getRandomPwd());
+		authenticationBean.setUser(USER_ID);
 	}
 
 	@Before
@@ -109,6 +117,7 @@ public class GeneralTest extends TestValues {
 		profileManager = new ProfileManager(storageManager);
 		reputationManager = new ReputationManager(storageManager);
 		interactionManager = new InteractionManager(storageManager);
+		authenticationManager = new AuthenticationManager(storageManager);
 	}
 
 	@After
@@ -118,5 +127,6 @@ public class GeneralTest extends TestValues {
 		profileManager = null;
 		reputationManager = null;
 		interactionManager = null;
+		authenticationManager = null;
 	}
 }
