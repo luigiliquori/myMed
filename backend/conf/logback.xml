@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true" scan="true" scanPeriod="5 minutes">
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="info.file" class="ch.qos.logback.core.FileAppender">
+    <file>/local/var/log/mymed/mymed-backend-info.log</file>
+    <encoder>
+      <pattern>%date %level [%thread] [%file:%line] %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="debug.file" class="ch.qos.logback.core.FileAppender">
+    <file>/local/var/log/mymed/mymed-backend-debug.log</file>
+    <encoder>
+      <pattern>%date %level [%thread] [%file:%line] %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <!-- Logger for 'info' level, to turn off the logger set its level to 'off' -->
+  <logger name="mymed.info.logger" level="info">
+    <appender-ref ref="info.file"/>
+  </logger>
+
+  <!-- Logger for 'debug' level, to turn off the logger set its level to 'off' -->
+  <logger name="mymed.debug.logger" level="debug">
+    <appender-ref ref="debug.file"/>
+  </logger>
+
+  <!--
+    The default logger, set to 'info' and to print to the stdout.
+    To turn it off, set its level to 'off'
+  -->
+  <root level="info">
+    <appender-ref ref="stdout" />
+  </root>
+</configuration>
