@@ -21,8 +21,7 @@ class Publish extends MyTransport {
 	 * Default constructor
 	 */
 	public function __construct() {
-		parent::__construct("myTransport");
-		$this->title = "myTransport: Publish";
+		parent::__construct("Publier");
 	}
 	
 	/* --------------------------------------------------------- */
@@ -33,8 +32,18 @@ class Publish extends MyTransport {
 	 */
 	public /*String*/ function getContent() { ?>
 		<!-- CONTENT -->
-		<div class="content" data-role="content">
-
+		<div class="content">
+			<form  action="#" method="get" name="publishForm" id="publishForm">
+				<input type="hidden" name="application" value="myTransport" />
+				<input type="hidden" name="publish" value="1" />
+				Date :
+				<input type="date" name="date" value="<?php echo date('Y-m-d');?>"  data-inline="true"/><br /><br />
+				Ville de départ :
+				<input type="text" name="start" value=""  data-inline="true"/><br />
+				Ville d'arrivée :
+				<input type="text" name="end" value=""  data-inline="true"/><br />
+				<a href="#" data-role="button"onclick="document.publishForm.submit()">Publier</a>
+			</form>
 		</div>
 	<?php }
 	

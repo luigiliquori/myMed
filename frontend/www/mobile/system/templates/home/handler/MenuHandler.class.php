@@ -27,11 +27,20 @@ class MenuHandler implements IRequestHandler {
 	/* --------------------------------------------------------- */
 	/* Public methods */
 	/* --------------------------------------------------------- */
-	public /*String*/ function handleRequest() { 
+	public /*void*/ function handleRequest() { 
 		if(isset($_GET['disconnect'])) {
-			session_destroy();
-			header("Refresh:0;url=".$_SERVER['PHP_SELF']);
-			return;
+			// DELETE BACKEND SESSION
+			$request = new Request("SessionRequestHandler", DELETE);
+			$request->addArgument("userID", $_SESSION['user']->id);
+			$response = $request->send();
+			$check = json_decode($response);
+			if($check->error != null) {
+				$this->error = $check->error->message;
+			} else {
+				// DELETE FRONTEND SESSION
+				session_destroy();
+				header("Refresh:0;url=".$_SERVER['PHP_SELF']);
+			}
 		}
 	}
 	

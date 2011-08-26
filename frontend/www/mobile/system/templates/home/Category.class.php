@@ -33,7 +33,7 @@ class Category extends AbstractHome {
 			<?php if ($handle = opendir('system/templates/application')) {
 				    while (false !== ($file = readdir($handle))) {
 				    	if($file != "." && $file != ".." && $file != ".DS_Store"){ ?>
-				    		<li><img alt="<?= $file ?>" src="system/templates/application/<?= $file ?>/iconSMALL.png" ><a href="?application=<?= $file ?>" class="myIcon" rel="external"><?= $file ?></a></li>
+				    		<li><img alt="<?= $file ?>" src="system/templates/application/<?= $file ?>/icon.png" ><a href="?application=<?= $file ?>" class="myIcon" rel="external"><?= $file ?></a></li>
 				    	<?php } ?>
 				    <?php } ?>
 			<?php } ?>

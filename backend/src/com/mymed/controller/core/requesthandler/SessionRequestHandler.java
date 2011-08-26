@@ -74,8 +74,8 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 				break;
 			case DELETE:
 				sessionManager.delete(userID);
-				System.out.println("\nINFO: User " + userID
-						+ " deleted!");
+				System.out.println("\nINFO: Session " + userID
+						+ " deleted! -> LOGOUT");
 				break;
 			default:
 				handleError(new InternalBackEndException("SessionRequestHandler.doGet(" + code + ") not exist!"), response);
@@ -104,6 +104,8 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 			switch (code) {
 			case CREATE:
 				sessionManager.create(parameters.get("userID"), parameters.get("ip"));
+				System.out.println("\nINFO: Session " + parameters.get("userID")
+						+ " created! -> LOGIN");
 				break;
 			case UPDATE:
 				MSessionBean sessionBean;

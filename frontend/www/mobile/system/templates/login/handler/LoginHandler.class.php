@@ -75,6 +75,7 @@ class LoginHandler implements IRequestHandler {
 				return;
 			}
 			
+			// AUTHENTICATION
 			$request = new Request("AuthenticationRequestHandler", READ);
 			$request->addArgument("login", $_POST["login"]);
 			$request->addArgument("password", hash('sha512', $_POST["password"]));
@@ -85,9 +86,20 @@ class LoginHandler implements IRequestHandler {
 				$this->error = $check->error->message;
 				return;
 			} else if($check->firstName != null) {
-				$_SESSION['user'] = $check;
-				header("Refresh:0;url=".$_SERVER['PHP_SELF']);
-				return;
+				$user = $check;
+				// AUTHENTENTICATION OK: CREATE A SESSION
+				$request = new Request("SessionRequestHandler", CREATE);
+				$request->addArgument("userID", $user->id);
+				$response = $request->send();
+				$check = json_decode($response);
+				if($check->error != null) {
+					$this->error = $check->error->message;
+					return;
+				} else {
+					$_SESSION['user'] = $user;
+					header("Refresh:0;url=".$_SERVER['PHP_SELF']);
+					return;
+				}
 			}
 		}
 	}

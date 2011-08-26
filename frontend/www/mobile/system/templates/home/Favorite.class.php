@@ -28,13 +28,32 @@ class Favorite extends AbstractHome {
 	public /*String*/ function getContent() { ?>
 		<!-- CONTENT -->
 		<div class="content"> 
-		<?php if ($handle = opendir('system/templates/application')) {
-			    while (false !== ($file = readdir($handle))) {
-			    	if($file != "." && $file != ".." && $file != ".DS_Store"){ ?>
-			    		<a href="?application=<?= $file ?>" class="myIcon" rel="external"><img alt="<?= $file ?>" src="system/templates/application/<?= $file ?>/icon.png" ></a>
-			    	<?php } ?>
-			    <?php } ?>
-		<?php } ?>
+			<div class="ui-grid-b">
+				<?php if ($handle = opendir('system/templates/application')) {
+						$column = "a";
+					    while (false !== ($file = readdir($handle))) {
+					    	if($file != "." && $file != ".." && $file != ".DS_Store"){ ?>
+						    	<div class="ui-block-<?= $column ?>">
+							    	<a href="?application=<?= $file ?>" class="myIcon" rel="external"><img alt="<?= $file ?>" src="system/templates/application/<?= $file ?>/icon.png" >
+							    	</a>
+							    	<br>
+							    	<span style="font-size: 9pt; font-weight: bold;">
+							    		<?= $file ?>
+							    	</span>
+						    	</div>
+						    	<?php 
+						    	if($column == "a") {
+						    		$column = "b";
+						    	} else if($column == "b") {
+						    		$column = "c";
+						    	} else if($column == "c") {
+						    		$column = "a";
+						    		echo '</div><br /><div class="ui-grid-b">';
+						    	}
+					    	} 
+					    } 
+				} ?>
+			</div>
 		</div>
 	<?php }
 }
