@@ -5,8 +5,10 @@ import org.slf4j.LoggerFactory;
 import ch.qos.logback.classic.Logger;
 
 /**
- * Simple class to hold generic string that can be used with all the managers.
- * We hold the names of the columns families and of the super columns
+ * Simple class to hold generic strings that can be used with all the managers.
+ * We hold the names of the columns families and of the super columns.
+ * <p>
+ * It contains also the log facilities for all the managers.
  * 
  * @author Milo Casagrande
  * 
