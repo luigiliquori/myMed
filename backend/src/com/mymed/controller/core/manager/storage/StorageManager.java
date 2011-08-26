@@ -16,9 +16,13 @@ import org.apache.cassandra.thrift.ColumnPath;
 import org.apache.cassandra.thrift.Mutation;
 import org.apache.cassandra.thrift.SlicePredicate;
 import org.apache.cassandra.thrift.SliceRange;
+import org.slf4j.LoggerFactory;
+
+import ch.qos.logback.classic.LoggerContext;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.controller.core.manager.ManagerValues;
 import com.mymed.model.core.configuration.WrapperConfiguration;
 import com.mymed.model.core.wrappers.cassandra.api07.CassandraWrapper;
 import com.mymed.utils.MConverter;
@@ -35,7 +39,7 @@ import com.mymed.utils.MConverter;
  * @author lvanni
  * 
  */
-public class StorageManager implements IStorageManager {
+public class StorageManager extends ManagerValues implements IStorageManager {
 
 	/**
 	 * The Default path of the wrapper config file
@@ -67,12 +71,13 @@ public class StorageManager implements IStorageManager {
 	 * @throws IOBackEndException
 	 * @throws InternalBackEndException
 	 */
-	public StorageManager(final WrapperConfiguration conf)
-			throws InternalBackEndException {
-		wrapper = new CassandraWrapper(conf.getCassandraListenAddress(),
-				conf.getThriftPort());
-	}
+	public StorageManager(final WrapperConfiguration conf) throws InternalBackEndException {
+		wrapper = new CassandraWrapper(conf.getCassandraListenAddress(), conf.getThriftPort());
 
+		// TODO remove after first successful test
+		final LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
+		INFO_LOGGER.info(lc.toString());;
+	}
 	/**
 	 * Get the value of an entry column
 	 * 
@@ -88,25 +93,19 @@ public class StorageManager implements IStorageManager {
 	 * @throws InternalBackEndException
 	 */
 	@Override
-	public byte[] selectColumn(final String tableName, final String key,
-			final String columnName) throws InternalBackEndException,
-			IOBackEndException {
+	public byte[] selectColumn(final String tableName, final String key, final String columnName)
+	        throws InternalBackEndException, IOBackEndException {
 
 		try {
 			final ColumnPath colPathName = new ColumnPath(tableName);
 			colPathName.setColumn(columnName.getBytes("UTF8"));
 
 			wrapper.open();
-			return wrapper
-					.get(key, colPathName, IStorageManager.consistencyOnRead)
-					.getColumn().getValue();
+			return wrapper.get(key, colPathName, IStorageManager.consistencyOnRead).getColumn().getValue();
 		} catch (final UnsupportedEncodingException e) {
 			e.printStackTrace();
-			throw new InternalBackEndException(
-					"UnsupportedEncodingException with\n"
-							+ "\t- columnFamily = " + tableName + "\n"
-							+ "\t- key = " + key + "\n" + "\t- columnName = "
-							+ columnName + "\n");
+			throw new InternalBackEndException("UnsupportedEncodingException with\n" + "\t- columnFamily = "
+			        + tableName + "\n" + "\t- key = " + key + "\n" + "\t- columnName = " + columnName + "\n");
 		} finally {
 			wrapper.close();
 		}
@@ -126,9 +125,8 @@ public class StorageManager implements IStorageManager {
 	 * @throws IOBackEndException
 	 */
 	@Override
-	public Map<byte[], byte[]> selectAll(final String tableName,
-			final String key) throws InternalBackEndException,
-			IOBackEndException {
+	public Map<byte[], byte[]> selectAll(final String tableName, final String key) throws InternalBackEndException,
+	        IOBackEndException {
 
 		// read entire row
 		final SlicePredicate predicate = new SlicePredicate();
@@ -154,9 +152,8 @@ public class StorageManager implements IStorageManager {
 	 * @throws IOBackEndException
 	 */
 	@Override
-	public Map<byte[], byte[]> selectRange(final String tableName,
-			final String key, final List<String> columnNames)
-			throws InternalBackEndException, IOBackEndException {
+	public Map<byte[], byte[]> selectRange(final String tableName, final String key, final List<String> columnNames)
+	        throws InternalBackEndException, IOBackEndException {
 
 		final List<ByteBuffer> columnNamesToByte = new ArrayList<ByteBuffer>();
 		for (final String columnName : columnNames) {
@@ -172,16 +169,13 @@ public class StorageManager implements IStorageManager {
 	/**
 	 * Used by selectAll and selectRange
 	 */
-	private Map<byte[], byte[]> selectByPredicate(final String columnFamily,
-			final String key, final SlicePredicate predicate)
-			throws InternalBackEndException, IOBackEndException {
+	private Map<byte[], byte[]> selectByPredicate(final String columnFamily, final String key,
+	        final SlicePredicate predicate) throws InternalBackEndException, IOBackEndException {
 
 		final ColumnParent parent = new ColumnParent(columnFamily);
-		final List<ColumnOrSuperColumn> results = getSlice(key, parent,
-				predicate);
+		final List<ColumnOrSuperColumn> results = getSlice(key, parent, predicate);
 
-		final Map<byte[], byte[]> slice = new HashMap<byte[], byte[]>(
-				results.size());
+		final Map<byte[], byte[]> slice = new HashMap<byte[], byte[]>(results.size());
 
 		for (final ColumnOrSuperColumn res : results) {
 			final Column col = res.getColumn();
@@ -198,9 +192,8 @@ public class StorageManager implements IStorageManager {
 	 * @throws InternalBackEndException
 	 * @throws IOBackEndException
 	 */
-	private List<ColumnOrSuperColumn> getSlice(final String key,
-			final ColumnParent parent, final SlicePredicate predicate)
-			throws InternalBackEndException, IOBackEndException {
+	private List<ColumnOrSuperColumn> getSlice(final String key, final ColumnParent parent,
+	        final SlicePredicate predicate) throws InternalBackEndException, IOBackEndException {
 
 		try {
 			wrapper.open();
@@ -226,17 +219,14 @@ public class StorageManager implements IStorageManager {
 	 * @throws InternalBackEndException
 	 */
 	@Override
-	public void insertColumn(final String tableName, final String key,
-			final String columnName, final byte[] value)
-			throws InternalBackEndException {
+	public void insertColumn(final String tableName, final String key, final String columnName, final byte[] value)
+	        throws InternalBackEndException {
 
 		try {
 			final long timestamp = System.currentTimeMillis();
 			final ColumnParent parent = new ColumnParent(tableName);
 			final ByteBuffer buffer = ByteBuffer.wrap(value);
-			final Column column = new Column(
-					MConverter.stringToByteBuffer(columnName), buffer,
-					timestamp);
+			final Column column = new Column(MConverter.stringToByteBuffer(columnName), buffer, timestamp);
 
 			wrapper.open();
 			wrapper.insert(key, parent, column, consistencyOnWrite);
@@ -265,18 +255,15 @@ public class StorageManager implements IStorageManager {
 	 * 
 	 */
 	@Override
-	public void insertSuperColumn(final String tableName, final String key,
-			final String superColumn, final String columnName,
-			final byte[] value) throws InternalBackEndException {
+	public void insertSuperColumn(final String tableName, final String key, final String superColumn,
+	        final String columnName, final byte[] value) throws InternalBackEndException {
 
 		try {
 			final long timestamp = System.currentTimeMillis();
 			final ColumnParent parent = new ColumnParent(tableName);
 			parent.setSuper_column(MConverter.stringToByteBuffer(superColumn));
 			final ByteBuffer buffer = ByteBuffer.wrap(value);
-			final Column column = new Column(
-					MConverter.stringToByteBuffer(columnName), buffer,
-					timestamp);
+			final Column column = new Column(MConverter.stringToByteBuffer(columnName), buffer, timestamp);
 
 			wrapper.open();
 			wrapper.insert(key, parent, column, consistencyOnWrite);
@@ -298,9 +285,8 @@ public class StorageManager implements IStorageManager {
 	 * @throws InternalBackEndException
 	 */
 	@Override
-	public void insertSlice(final String tableName, final String primaryKey,
-			final Map<String, byte[]> args) throws IOBackEndException,
-			InternalBackEndException {
+	public void insertSlice(final String tableName, final String primaryKey, final Map<String, byte[]> args)
+	        throws IOBackEndException, InternalBackEndException {
 
 		final Map<String, Map<String, List<Mutation>>> mutationMap = new HashMap<String, Map<String, List<Mutation>>>();
 		final long timestamp = System.currentTimeMillis();
@@ -314,10 +300,8 @@ public class StorageManager implements IStorageManager {
 			while (iterator.hasNext()) {
 				final String key = iterator.next();
 				final Mutation mutation = new Mutation();
-				mutation.setColumn_or_supercolumn(new ColumnOrSuperColumn()
-						.setColumn(new Column(MConverter
-								.stringToByteBuffer(key), ByteBuffer.wrap(args
-								.get(key)), timestamp)));
+				mutation.setColumn_or_supercolumn(new ColumnOrSuperColumn().setColumn(new Column(MConverter
+				        .stringToByteBuffer(key), ByteBuffer.wrap(args.get(key)), timestamp)));
 
 				sliceMutationList.add(mutation);
 			}
@@ -328,6 +312,9 @@ public class StorageManager implements IStorageManager {
 			wrapper.open();
 			wrapper.batch_mutate(mutationMap, consistencyOnWrite);
 		} catch (final InternalBackEndException e) {
+			// TODO remove
+			// TODO we need a logger
+			e.printStackTrace();
 			throw new InternalBackEndException("InsertSlice failed.");
 		} finally {
 			wrapper.close();
@@ -346,8 +333,8 @@ public class StorageManager implements IStorageManager {
 	 * @throws UnsupportedEncodingException
 	 */
 	@Override
-	public void removeColumn(final String tableName, final String key,
-			final String columnName) throws InternalBackEndException {
+	public void removeColumn(final String tableName, final String key, final String columnName)
+	        throws InternalBackEndException {
 
 		try {
 			final String columnFamily = tableName;
@@ -359,8 +346,7 @@ public class StorageManager implements IStorageManager {
 			wrapper.remove(key, columnPath, timestamp, consistencyOnWrite);
 		} catch (final UnsupportedEncodingException e) {
 			e.printStackTrace();
-			throw new InternalBackEndException(
-					"removeColumn failed because of a UnsupportedEncodingException");
+			throw new InternalBackEndException("removeColumn failed because of a UnsupportedEncodingException");
 		} finally {
 			wrapper.close();
 		}
@@ -377,8 +363,7 @@ public class StorageManager implements IStorageManager {
 	 * @throws UnsupportedEncodingException
 	 */
 	@Override
-	public void removeAll(final String tableName, final String key)
-			throws InternalBackEndException {
+	public void removeAll(final String tableName, final String key) throws InternalBackEndException {
 
 		final String columnFamily = tableName;
 		final long timestamp = System.currentTimeMillis();
@@ -401,8 +386,7 @@ public class StorageManager implements IStorageManager {
 	 * @throws IOBackEndException
 	 */
 	@Override
-	public void put(final String key, final byte[] value)
-			throws IOBackEndException, InternalBackEndException {
+	public void put(final String key, final byte[] value) throws IOBackEndException, InternalBackEndException {
 		insertColumn("Services", key, key, value);
 	}
 
@@ -414,8 +398,7 @@ public class StorageManager implements IStorageManager {
 	 * @throws IOBackEndException
 	 */
 	@Override
-	public byte[] get(final String key) throws IOBackEndException,
-			InternalBackEndException {
+	public byte[] get(final String key) throws IOBackEndException, InternalBackEndException {
 		return selectColumn("Services", key, key);
 	}
 }
