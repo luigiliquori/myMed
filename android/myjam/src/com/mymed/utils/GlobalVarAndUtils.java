@@ -14,11 +14,26 @@ import com.mymed.android.myjam.R;
  * @author iacopo
  *
  */
-public class GlobalStateAndUtils {
+public class GlobalVarAndUtils {
 	private static String TAG = "GlobalState";
-	private static GlobalStateAndUtils mInstance;
+	private static GlobalVarAndUtils mInstance;
+	
+	/** The report types */
+	public static final int JAM = 0x0;
+	public static final int CAR_CRASH = 0x1;
+	public static final int WORK_IN_PROGRESS = 0x2;
+	public static final int FIXED_SPEED_CAM = 0x3;
+	public static final int MOBILE_SPEED_CAM = 0x4;
+	/** Code for the user position 
+	 * Must not overlap the report types, used to show results in map. */
+	public static final int USER_POSITION = 0x10;
+	/** Max value for a feedback */
+	public static final int MAX_RATING = 10;
+	/** Max distance between the user and a report for the insertion of an update or a feeback.*/
+	public static final int MAX_INSERTION_DISTANCE = 1000;
+	
 	/** Singleton, cannot be instantiated. */
-    private GlobalStateAndUtils(Context context){
+    private GlobalVarAndUtils(Context context){
 
     	mContext = context.getApplicationContext();
     	//Initialize string variables.
@@ -28,10 +43,10 @@ public class GlobalStateAndUtils {
     	  
     }  
     
-    public synchronized static GlobalStateAndUtils getInstance(Context context)  
+    public synchronized static GlobalVarAndUtils getInstance(Context context)  
     {  
     	if (mInstance == null){
-    		mInstance = new GlobalStateAndUtils(context);
+    		mInstance = new GlobalVarAndUtils(context);
     	}
         return mInstance;  
     }  
@@ -93,5 +108,20 @@ public class GlobalStateAndUtils {
     		Log.d(TAG,"Error in formatDate formatting : " + arg0 + " with :"+dateFormat);
     		throw new IllegalArgumentException("Error in formatDate formatting : " + arg0 + " with :"+dateFormat);
     	}
+    }
+    
+    /**
+     * Returns the index of the String {@link arg0} in the StringArray {@link arg1} if present,
+     * or {@value -1} if not present.
+     * @param arg0	String array.
+     * @param arg1	String searched. 
+     * @return
+     */
+    public int getStringArrayValueIndex(String[] arg0,String arg1){
+    	for (int i=0;i<arg0.length;i++){
+    		if (arg0[i].equals(arg1))
+    			return i;
+    	}
+    	return -1;
     }
 }

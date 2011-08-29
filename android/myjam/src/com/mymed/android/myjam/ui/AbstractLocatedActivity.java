@@ -44,6 +44,7 @@ public abstract class AbstractLocatedActivity extends Activity{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 	}
 	
     @Override

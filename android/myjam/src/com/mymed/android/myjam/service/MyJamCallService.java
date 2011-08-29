@@ -65,6 +65,9 @@ public class MyJamCallService extends IntentService{
     	int GET_UPDATE_FEEDBACKS = 0x4;
     	
     	int INSERT_REPORT = 0x5;
+    	int INSERT_UPDATE = 0x6;
+    	int INSERT_REPORT_FEEDBACK = 0x7;
+    	int INSERT_UPDATE_FEEDBACK = 0x8;
     }
 	
 	
@@ -109,6 +112,15 @@ public class MyJamCallService extends IntentService{
         		MReportBean report = (MReportBean) intent.getSerializableExtra(EXTRA_OBJECT);
         		onHandleInsertReport(contBundle,report);
         		break;
+        	case (RequestCode.INSERT_UPDATE):
+        		MReportBean update = (MReportBean) intent.getSerializableExtra(EXTRA_OBJECT);
+        		onHandleInsertUpdate(contBundle,update);
+        		break;
+        	case (RequestCode.INSERT_REPORT_FEEDBACK):
+        	case (RequestCode.INSERT_UPDATE_FEEDBACK):
+        		MFeedBackBean feedback = (MFeedBackBean) intent.getSerializableExtra(EXTRA_OBJECT);
+        		onHandleInsertFeedback(contBundle,reqCode,feedback);
+        		break;
         	default:
         		break;
         	}
@@ -130,11 +142,26 @@ public class MyJamCallService extends IntentService{
     			bundle.getInt(IMyJamCallAttributes.RADIUS));
 			batch = new ArrayList<ContentProviderOperation> ((2*listSearchRep.size())+3);
 			int searchId = bundle.getInt(IMyJamCallAttributes.SEARCH_ID);
+			/** 
+			 * If it's a {@link NEW_SEARCH} the following operations are done:
+			 * -The search results with flag OLD_SEARCH are deleted.
+			 * -The search results with flag NEW_SEARCH are marked as old (OLD_SEARCH).
+			 * -The new search results are inserted, with flag NEW_SEARCH.
+			 * -The reports that are no more pointed by entries in SearchResults table and that doesn't belong to
+			 * the current user are deleted.   
+			 **/
 			if (searchId == Search.NEW_SEARCH){
 				batch.add(ContentProviderOperation.newDelete(SearchResult.CONTENT_URI).withSelection(SearchResult.SEARCH_ID_SELECTION,
 						new String[]{String.valueOf(Search.OLD_SEARCH)}).build());
 				batch.add(ContentProviderOperation.newUpdate(SearchResult.CONTENT_URI).withSelection(SearchResult.SEARCH_ID_SELECTION,
 						new String[]{String.valueOf(Search.NEW_SEARCH)}).withValue(SearchResult.SEARCH_ID, Search.OLD_SEARCH).build());
+				/** 
+				 * If it's a {@link INSERT_SEARCH} the following operations are done:
+				 * -The search results with flag INSERT_SEARCH are deleted.
+				 * -The new search results are inserted, with flag INSERT_SEARCH.
+				 * -The reports that are no more pointed by entries in SearchResults table and that doesn't belong to
+				 * the current user are deleted.   
+				 **/
 			}else if(searchId == Search.INSERT_SEARCH){
 				batch.add(ContentProviderOperation.newDelete(SearchResult.CONTENT_URI).withSelection(SearchResult.SEARCH_ID_SELECTION,
 						new String[]{String.valueOf(Search.INSERT_SEARCH)}).build());
@@ -143,6 +170,9 @@ public class MyJamCallService extends IntentService{
 			ContentValues currVal = new ContentValues();
 			currVal.put(Search.SEARCH_ID, searchId);
 			currVal.put(Search.DATE, System.currentTimeMillis());
+			currVal.put(Search.LATITUDE, bundle.getInt(IMyJamCallAttributes.LATITUDE));
+			currVal.put(Search.LONGITUDE, bundle.getInt(IMyJamCallAttributes.LONGITUDE));
+			currVal.put(Search.RADIUS, bundle.getInt(IMyJamCallAttributes.RADIUS));
 			batch.add(ContentProviderOperation.newInsert(Search.CONTENT_URI).withValues(currVal).build());
 			for (MSearchReportBean currShortRep:listSearchRep){
 				currVal = new ContentValues();
@@ -167,7 +197,7 @@ public class MyJamCallService extends IntentService{
 	private void onHandleGetReport(Bundle bundle) 
 			throws InternalBackEndException, IOBackEndException, InternalClientException {
 		
-		String reportId = bundle.getString(IMyJamCallAttributes.ID);
+		String reportId = bundle.getString(IMyJamCallAttributes.REPORT_ID);
 		/** If the report is present on the database the rest call is not performed. */
 		Uri uri = Report.CONTENT_URI;
 		MReportBean report = myJamRestCall.getReport(reportId);
@@ -186,14 +216,14 @@ public class MyJamCallService extends IntentService{
 	
 	private void onHandleGetUpdates(Bundle contBundle) 
 			throws InternalBackEndException, IOBackEndException, InternalClientException, RemoteException, OperationApplicationException {
-		final String reportId = contBundle.getString(IMyJamCallAttributes.ID);
-		final int numUpdates = myJamRestCall.getNumberUpdates(contBundle.getString(IMyJamCallAttributes.ID));
+		final String reportId = contBundle.getString(IMyJamCallAttributes.REPORT_ID);
+		final int numUpdates = myJamRestCall.getNumberUpdates(contBundle.getString(IMyJamCallAttributes.REPORT_ID));
 		final ArrayList<ContentProviderOperation> batch;
 		final int numNewUpdates = numUpdates - contBundle.getInt(IMyJamCallAttributes.NUM)<0? 0:(numUpdates - contBundle.getInt(IMyJamCallAttributes.NUM));
 		List<MReportBean> listUpdates = myJamRestCall.getUpdates(reportId, numNewUpdates);
 		batch = new ArrayList<ContentProviderOperation> (listUpdates.size());
 		ContentValues currVal = new ContentValues();
-	for (MReportBean currUpdate:listUpdates){
+		for (MReportBean currUpdate:listUpdates){
 			currVal = new ContentValues();
 			currVal.put(Update.UPDATE_ID, currUpdate.getId());
 			currVal.put(Update.REPORT_ID, reportId);
@@ -214,7 +244,7 @@ public class MyJamCallService extends IntentService{
 	private void onHandleGetFeedbacks(Bundle bundle,int reqCode) 
 			throws InternalBackEndException, IOBackEndException, InternalClientException, RemoteException, OperationApplicationException {
 		final ArrayList<ContentProviderOperation> batch;
-		final String reportOrUpdateId = bundle.getString(IMyJamCallAttributes.ID);
+		final String reportOrUpdateId = bundle.getString(IMyJamCallAttributes.REPORT_ID);
 		
 		List<MFeedBackBean> listFeedBacks = myJamRestCall.getFeedBacks(reportOrUpdateId);
 		batch = new ArrayList<ContentProviderOperation> (listFeedBacks.size());
@@ -255,4 +285,39 @@ public class MyJamCallService extends IntentService{
 		currVal.put(Report.FLAG_COMPLETE, true);
 		resolver.insert(Report.CONTENT_URI, currVal);
 	}
+
+
+	private void onHandleInsertUpdate(Bundle bundle,MReportBean update)
+		throws InternalBackEndException, IOBackEndException, InternalClientException, RemoteException, OperationApplicationException {
+		String reportId = bundle.getString(IMyJamCallAttributes.REPORT_ID);
+		String updateId = myJamRestCall.insertUpdate(reportId,update);
+		//TODO Use user_name and user_id in my_reports (to add after log-in is done).
+		ContentValues currVal = new ContentValues();
+		currVal.put(Update.UPDATE_ID, updateId);
+		currVal.put(Update.REPORT_ID, reportId);
+		currVal.put(Update.USER_ID, "iacopoId");
+		currVal.put(Update.USER_NAME, "iacopo");
+		currVal.put(Update.DATE, System.currentTimeMillis());
+		currVal.put(Update.TRANSIT_TYPE, update.getTransitType());
+		currVal.put(Update.TRAFFIC_FLOW, update.getTrafficFlowType());
+		currVal.put(Update.COMMENT, update.getComment());
+		resolver.insert(Update.CONTENT_URI, currVal);
+	}
+	
+	private void onHandleInsertFeedback(Bundle bundle, int reqCode, MFeedBackBean feedback)
+			throws InternalBackEndException, IOBackEndException, InternalClientException, RemoteException, OperationApplicationException {
+			String reportId = bundle.getString(IMyJamCallAttributes.REPORT_ID);
+			String updateId = bundle.getString(IMyJamCallAttributes.UPDATE_ID);
+			feedback.setUserId("iacopoId"); //TODO Fix this.
+			myJamRestCall.insertFeedBack(reportId, updateId, feedback);
+			//TODO Use user_name and user_id in my_reports (to add after log-in is done).
+			ContentValues currVal = new ContentValues();
+			currVal.put(Feedback.USER_ID, "iacopoId"); //TODO fix this
+			currVal.put(reqCode==RequestCode.INSERT_REPORT_FEEDBACK?Feedback.REPORT_ID:Feedback.UPDATE_ID, 
+					reqCode==RequestCode.INSERT_REPORT_FEEDBACK?reportId:updateId);
+			currVal.put(Feedback.GRADE, feedback.getGrade());
+			resolver.insert(Feedback.CONTENT_URI, currVal);
+		}
+	
+	
 }

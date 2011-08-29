@@ -82,7 +82,7 @@ public class MyJamCallManager extends RestCall implements IMyJamCallAttributes{
 	 */
 	public MReportBean getReport(String id) throws InternalBackEndException, IOBackEndException, InternalClientException{
 		String q=QUERY+MyJamRequestCode.GET_REPORT;
-		q=appendAttribute(q,ID,id);
+		q=appendAttribute(q,REPORT_ID,id);
 		String response = httpRequest(MY_JAM_HANDLER_URL+q,httpMethod.GET,null);
 		try{
 			return this.gson.fromJson(response, MReportBean.class);
@@ -100,7 +100,7 @@ public class MyJamCallManager extends RestCall implements IMyJamCallAttributes{
 	 */
 	public int getNumberUpdates(String id) throws InternalBackEndException, IOBackEndException, InternalClientException{
 		String q=QUERY+MyJamRequestCode.GET_NUMBER_UPDATES;
-		q=appendAttribute(q,ID,id);
+		q=appendAttribute(q,REPORT_ID,id);
 		String response = httpRequest(MY_JAM_HANDLER_URL+q,httpMethod.GET,null);
 		try{
 			return this.gson.fromJson(response, int.class);
@@ -119,7 +119,7 @@ public class MyJamCallManager extends RestCall implements IMyJamCallAttributes{
 	 */
 	public List<MReportBean> getUpdates(String id,int numUpdates) throws InternalBackEndException, IOBackEndException, InternalClientException{
 		String q=QUERY+MyJamRequestCode.GET_UPDATES;
-		q=appendAttribute(q,ID,id);
+		q=appendAttribute(q,REPORT_ID,id);
 		q=appendAttribute(q,NUM,String.valueOf(numUpdates));
 		String response = httpRequest(MY_JAM_HANDLER_URL+q,httpMethod.GET,null);
 		Type reportListType = new TypeToken<List<MReportBean>>(){}.getType();
@@ -141,7 +141,7 @@ public class MyJamCallManager extends RestCall implements IMyJamCallAttributes{
 	 */
 	public List<MFeedBackBean> getFeedBacks(String id) throws InternalBackEndException, IOBackEndException, InternalClientException{
 		String q=QUERY+MyJamRequestCode.GET_FEEDBACKS;
-		q=appendAttribute(q,ID,id);
+		q=appendAttribute(q,REPORT_ID,id);
 		String response = httpRequest(MY_JAM_HANDLER_URL+q,httpMethod.GET,null);
 		Type feedListType = new TypeToken<List<MFeedBackBean>>(){}.getType();
 		try{
@@ -205,24 +205,31 @@ public class MyJamCallManager extends RestCall implements IMyJamCallAttributes{
 	 * @throws InternalBackEndException
 	 * @throws IOBackEndException
 	 * @throws InternalClientException
+	 * @return The updateId
 	 */
-	public void insertUpdate(String id,MReportBean update) throws InternalBackEndException, IOBackEndException, InternalClientException{
+	public String insertUpdate(String id,MReportBean update) throws InternalBackEndException, IOBackEndException, InternalClientException{
 		String q=QUERY+MyJamRequestCode.INSERT_UPDATE;
-		q=appendAttribute(q,ID,id);
+		q=appendAttribute(q,REPORT_ID,id);
 		String jSonReport = gson.toJson(update);
-		System.out.println(httpRequest(MY_JAM_HANDLER_URL+q,httpMethod.POST,jSonReport));
+		String response = httpRequest(MY_JAM_HANDLER_URL+q,httpMethod.POST,jSonReport);
+		System.out.println(response);
+		try{
+			return this.gson.fromJson(response, String.class);
+		}catch(JsonSyntaxException e){
+			throw new InternalBackEndException("Wrong response format.");
+		}	
 	}
 	/**
 	 * Inserts a new feedBack
-	 * @param id
-	 * @param update
+	 * @param reportId Must be included, so that the system can chek if its expired or not.
+	 * @param updateId
 	 * @throws InternalBackEndException
 	 * @throws IOBackEndException
 	 * @throws InternalClientException
 	 */
-	public void insertFeedBack(String id,String updateId,MFeedBackBean update) throws InternalBackEndException, IOBackEndException, InternalClientException{
+	public void insertFeedBack(String reportId,String updateId,MFeedBackBean update) throws InternalBackEndException, IOBackEndException, InternalClientException{
 		String q=QUERY+MyJamRequestCode.INSERT_FEEDBACK;
-		q=appendAttribute(q,ID,id);
+		q=appendAttribute(q,REPORT_ID,reportId);
 		if (updateId!=null)
 			q=appendAttribute(q,UPDATE_ID,updateId);
 		String jSonFeedBack = gson.toJson(update);
@@ -231,7 +238,7 @@ public class MyJamCallManager extends RestCall implements IMyJamCallAttributes{
 	
 	public void deleteReport(String id) throws InternalBackEndException, IOBackEndException, InternalClientException{
 		String q=QUERY+MyJamRequestCode.DELETE_REPORT;
-		q=appendAttribute(q,ID,id);
+		q=appendAttribute(q,REPORT_ID,id);
 		System.out.println(httpRequest(MY_JAM_HANDLER_URL+q,httpMethod.DELETE,null));
 	}
 	

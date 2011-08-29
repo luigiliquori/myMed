@@ -15,6 +15,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -38,7 +40,7 @@ import com.mymed.android.myjam.provider.MyJamContract.SearchResult;
 import com.mymed.android.myjam.service.MyJamCallService;
 import com.mymed.android.myjam.service.MyJamCallService.RequestCode;
 
-import com.mymed.utils.GlobalStateAndUtils;
+import com.mymed.utils.GlobalVarAndUtils;
 import com.mymed.utils.MyResultReceiver;
 
 /**
@@ -51,9 +53,11 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 	
 	/** String used to access the set radius preference */
 	private static final String RADIUS_PREFERENCE = "radius_preference";
+	/** String used to access the filter preference */
+	private static final String FILTER_PREFERENCE = "type_filter_preference";
 	private ListView mList;
 	
-	/** Dialog */
+	/** Dialogs */
 	static final int DIALOG_NO_LOCATION_ID = 0;
 	
 	MyResultReceiver mResultReceiver;
@@ -64,11 +68,14 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 			Report.QUALIFIER+Report._ID + " AS _id",		//0
 			Report.QUALIFIER+Report.REPORT_ID,				//1
 			Report.QUALIFIER+Report.REPORT_TYPE,			//2
-			Report.QUALIFIER+Report.LATITUDE,				//3
-			Report.QUALIFIER+Report.LONGITUDE,				//4
-			Report.QUALIFIER+Report.DATE,					//5
-			SearchResult.QUALIFIER+SearchResult.DISTANCE,	//6
-		};	
+			Report.QUALIFIER+Report.DATE,					//3
+			SearchResult.QUALIFIER+SearchResult.DISTANCE,	//4
+		};
+		
+		int REPORT_ID = 1;
+		int REPORT_TYPE = 2;
+		int DATE = 3;
+		int DISTANCE = 4;
 	}
 	
 	private interface SearchQuery{
@@ -79,7 +86,7 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 	}
 	
 	/** Stores the informations contained in the intent that starts the activity. */
-	private String mSearchId;
+	private int mSearchId;
 	
 	private ProgressDialog mDialog;
 	private SearchListAdapter mAdapter;
@@ -92,8 +99,28 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.search_view);
 		
-		/** Sets the handle for the action click on the list items. */
-		mList = (ListView) findViewById(R.id.SearchList);		
+		mSettings = PreferenceManager.getDefaultSharedPreferences(this);
+		// If no data was given in the intent (because we were started
+		// as a MAIN activity), then use our default content provider.
+		Intent intent = getIntent();
+		Uri uri = intent.getData();
+		if (uri == null) {
+			uri = SearchReports.buildSearchUri(String.valueOf(Search.NEW_SEARCH));
+			intent.setData(uri);
+			mSearchId = Search.NEW_SEARCH;
+		}else{
+			try{
+				mSearchId = Integer.parseInt(SearchReports.getSearchId(uri));
+			}catch(NumberFormatException nfe){
+				Log.e(TAG, "Wrong search id. ");
+				finish();
+			}
+		}
+		
+		mList = (ListView) findViewById(R.id.SearchList);	
+		/** Enable the context menu. */
+		registerForContextMenu(mList);
+		/** Sets the handler for the action click on the list items. */
 		mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 		    public void onItemClick(AdapterView<?> l, View v, int position, long id){
@@ -108,50 +135,39 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 		});
 		mLastUpdateTextView = (TextView) findViewById(R.id.textViewSearchDate);
 		setDefaultKeyMode(DEFAULT_KEYS_SHORTCUT);
-		mSettings = PreferenceManager.getDefaultSharedPreferences(this);
 		mResultReceiver = MyResultReceiver.getInstance();
 		mSearchButton = (Button) findViewById(R.id.SearchButton);
-		mSearchButton.setEnabled(false);
-		
-		mSearchButton.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				/*
-				* 	The service is started, if it's not, and a search report is performed.
-				*/
-				try{
-					Location currLoc = mService.getCurrentLocation();					
-					int lat = (int) (currLoc.getLatitude()*1E6);
-					int lon = (int) (currLoc.getLongitude()*1E6);
-					int radius = Integer.parseInt(mSettings.getString(RADIUS_PREFERENCE,"10000"));
-					requestSearch(lat,lon,radius,Search.NEW_SEARCH);
-				} catch (Exception e){
-					Toast.makeText(SearchActivity.this, "Wrong parameters.",Toast.LENGTH_LONG).show();
+		if (mSearchId == Search.NEW_SEARCH){
+			mSearchButton.setEnabled(false);
+			
+			mSearchButton.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					/*
+					* 	The service is started, if it's not, and a search report is performed.
+					*/
+					try{
+						Location currLoc = mService.getCurrentLocation();					
+						int lat = (int) (currLoc.getLatitude()*1E6);
+						int lon = (int) (currLoc.getLongitude()*1E6);
+						int radius = Integer.parseInt(mSettings.getString(RADIUS_PREFERENCE,"10000"));
+						requestSearch(lat,lon,radius,Search.NEW_SEARCH);
+					} catch (Exception e){
+						Toast.makeText(SearchActivity.this, "Wrong parameters.",Toast.LENGTH_LONG).show();
+					}
 				}
-			}
-		});
-		
-		// If no data was given in the intent (because we were started
-		// as a MAIN activity), then use our default content provider.
-		Intent intent = getIntent();
-		if (intent.getData() == null) {
-			Uri uri = SearchReports.buildSearchUri(String.valueOf(Search.NEW_SEARCH));
-			intent.setData(uri);
+			});
+		}else if(mSearchId == Search.INSERT_SEARCH){
+			mSearchButton.setEnabled(false);
+			mSearchButton.setVisibility(View.GONE);
 		}
-
+		
 		// Perform a managed query. The Activity will handle closing and requerying the cursor
 		// when needed.
-		Uri uri = getIntent().getData();
-		mSearchId = SearchReports.getSearchId(uri);
-		Cursor searchCursor = managedQuery(Search.buildSearchUri(mSearchId),SearchQuery.PROJECTION, 
+		//Query to get the date of the last search.
+		Cursor searchCursor = managedQuery(Search.buildSearchUri(String.valueOf(mSearchId)),SearchQuery.PROJECTION, 
 				null, null, null);
 		if (searchCursor!= null && searchCursor.moveToFirst())
 			refreshDate(searchCursor);
-		
-		Cursor cursor = managedQuery(uri, SearchReportsQuery.PROJECTION, null, null,
-				SearchReports.DEFAULT_SORT_ORDER);
-		// Used to map notes entries from the database to views
-		mAdapter = new SearchListAdapter(this,cursor,true);
-		mList.setAdapter(mAdapter);
 	} 
 	
 	/**
@@ -174,6 +190,15 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
         Log.d(TAG,"Intent sent: "+intent.toString());
         startService(intent);
 	}
+	
+	/**
+	 * Enable and disable the search button, if the activity is on {@link SEARCH mode}
+	 * @param enabled If {@value true} enable the button, if {@link false} disable it.
+	 */
+	private void handleSearchButton(boolean enabled){
+		if (mSearchId == Search.NEW_SEARCH)
+			mSearchButton.setEnabled(enabled);
+	}
 
 	/**
 	 * Called when another component comes in front of this activity.
@@ -192,14 +217,22 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 	@Override 
 	protected void onResume() {
 		super.onResume();
-		mResultReceiver.setReceiver(this);
+		String filter =  mSettings.getString(FILTER_PREFERENCE,"NONE");
 		Uri uri = getIntent().getData();
+		Cursor cursor = managedQuery(uri, SearchReportsQuery.PROJECTION, 
+				filter.equals("NONE")?null:SearchReports.selectByType(1), //If some filter is selected, the selection is applied.
+						filter.equals("NONE")?null:new String[]{filter},
+								SearchReports.DEFAULT_SORT_ORDER);
+		// Used to map notes entries from the database to views
+		mAdapter = new SearchListAdapter(this,cursor,true);
+		mList.setAdapter(mAdapter);
+		mResultReceiver.setReceiver(this);
 		getContentResolver().registerContentObserver(
 				uri,false, mSearchChangesObserver);
 		//TODO Enable or disable search button.
 		if (this.mService!=null){
 			if (mService.ismLocAvailable())
-				mSearchButton.setEnabled(true);			
+				handleSearchButton(true);
 		}
 		updateRefreshStatus(mResultReceiver.ismSyncing());
 	}
@@ -207,12 +240,10 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
     private ContentObserver mSearchChangesObserver = new ContentObserver(new Handler()) {
         @Override
         public void onChange(boolean selfChange) {
-            if (mSearchId != null) {
-            	/** A synchronous query is launched. */
-            	Cursor cursor = managedQuery(Search.buildSearchUri(mSearchId),SearchQuery.PROJECTION, 
-        				null, null, null);
-        		refreshDate(cursor);
-            }
+            /** A synchronous query is launched. */
+            Cursor cursor = managedQuery(Search.buildSearchUri(String.valueOf(mSearchId)),SearchQuery.PROJECTION, 
+        			null, null, null);
+        	refreshDate(cursor);
         }
     };
     
@@ -222,7 +253,7 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
      */
     private void refreshDate(Cursor cursor){
     	if (cursor!= null && cursor.moveToFirst())
-			mLastUpdateTextView.setText(GlobalStateAndUtils.getInstance(this)
+			mLastUpdateTextView.setText(GlobalVarAndUtils.getInstance(this)
 					.formatDate(cursor.getLong(0)));
     }
 	
@@ -230,7 +261,7 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 	@Override
 	protected void onLocServiceConnected() {
 		if (!this.mService.ismLocAvailable())
-			this.mSearchButton.setEnabled(false);
+			handleSearchButton(false);
 	}
 
 	@Override
@@ -239,7 +270,7 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 	@Override
 	/** If the location is available the search button is enabled. */
 	protected void onLocationAvailable() {
-		mSearchButton.setEnabled(true);
+		handleSearchButton(true);
 		Toast.makeText(SearchActivity.this, 
 				getResources().getString(R.string.location_available), Toast.LENGTH_LONG).show();
 	}
@@ -247,7 +278,7 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 	@Override
 	/** If the location is no more available the search button is disabled. */
 	protected void onLocationNoMoreAvailable() {
-		mSearchButton.setEnabled(false);
+		handleSearchButton(false);
 		Toast.makeText(SearchActivity.this, 
 				getResources().getString(R.string.location_unavailable), Toast.LENGTH_LONG).show();
 	}
@@ -262,7 +293,42 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.search_menu, menu);		
 		return true;
-	}	
+	}
+	
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View view, ContextMenuInfo menuInfo) {
+    	super.onCreateContextMenu(menu, view, menuInfo);
+
+        // Inflate context menu from XML
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.search_context_menu, menu);
+    }
+    
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info;
+        try {
+             info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        } catch (ClassCastException e) {
+            Log.e(TAG, "bad menuInfo", e);
+            return false;
+        }
+
+        switch (item.getItemId()) {
+            case R.id.view_on_map: {
+                // Shows the currently selected item on map.
+		    	final Cursor cursor = (Cursor)mAdapter.getItem(info.position);
+		        final String reportId = cursor.getString(SearchReportsQuery.REPORT_ID);
+
+		        Intent intent = new Intent(SearchActivity.this,ShowOnMapActivity.class);
+		        Uri uri = Report.buildReportIdUri(reportId);
+		        intent.setData(uri);   	
+		        startActivity(intent);
+                return true;
+            }
+        }
+        return false;
+    }
 	
 	/**
 	 * Makes appear and disappear the progress dialog.
@@ -287,8 +353,8 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
     		AlertDialog.Builder builder = new AlertDialog.Builder(this);
     		builder.setMessage(getResources().getString(R.string.loc_not_available_dialog_message))
     			.setCancelable(false)       	
-    			.setTitle("Info")
-    			.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+    			.setTitle(getResources().getString(R.string.dialog_title))
+    			.setPositiveButton(getResources().getString(R.string.positive_button_label), new DialogInterface.OnClickListener() {
     				public void onClick(DialogInterface dialog, int id) {
     					dialog.cancel();
     				}
@@ -307,6 +373,7 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
         case R.id.insert_report:
         	if (this.mService.ismLocAvailable()){
         		Intent intent = new Intent(this,InsertActivity.class);
+        		intent.putExtra(InsertActivity.EXTRA_INSERT_TYPE, InsertActivity.REPORT);
         		Location currLoc = mService.getCurrentLocation();					
 				int lat = (int) (currLoc.getLatitude()*1E6);
 				int lon = (int) (currLoc.getLongitude()*1E6);
@@ -321,6 +388,13 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
         	}
         	break;
         case R.id.view_on_map:
+    		Intent intent = new Intent(this,ShowOnMapActivity.class);
+    		Uri uri = getIntent().getData();
+    		String filter =  mSettings.getString(FILTER_PREFERENCE,"NONE");
+    		if (mSearchId == Search.NEW_SEARCH && !filter.equals("NONE"))
+    			uri = SearchReports.buildSearchUri(String.valueOf(mSearchId), filter);
+    		intent.setData(uri);
+    		startActivity(intent);
         	break;
         case R.id.preferences:        	
         	startActivity(new Intent(this,MyPreferenceActivity.class));
@@ -348,7 +422,7 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 			mSyncing = false;
 			String errMsg = resultData.getString(Intent.EXTRA_TEXT);
 			final String errorText = String.format(this.getResources().getString(R.string.toast_call_error, errMsg));
-			Toast.makeText(this, errorText, Toast.LENGTH_LONG).show();
+			Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
 			break;
 		}
 
@@ -364,13 +438,13 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
     private static class SearchListAdapter extends CursorAdapter {
 
 		private final LayoutInflater mInflater;		
-		private final GlobalStateAndUtils mUtils;
+		private final GlobalVarAndUtils mUtils;
 		
         public SearchListAdapter(Context context, Cursor c, boolean autoRequery) {
 			super(context, c, autoRequery);
 			mInflater = LayoutInflater.from(context);
 			/** Create a GlobalStateAndUtils instance. */
-			mUtils = GlobalStateAndUtils.getInstance(context);
+			mUtils = GlobalVarAndUtils.getInstance(context);
 		}
 
 		@Override
@@ -378,9 +452,9 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 			TextView typeTextView = (TextView)view.findViewById(R.id.textType);
 			TextView distanceTextView = (TextView)view.findViewById(R.id.textDistance);
 			TextView dateTextView = (TextView)view.findViewById(R.id.textDate);
-			String type = cursor.getString(2);
-			int distance = cursor.getInt(6);
-			long date = cursor.getLong(5);
+			String type = cursor.getString(SearchReportsQuery.REPORT_TYPE);
+			int distance = cursor.getInt(SearchReportsQuery.DISTANCE);
+			long date = cursor.getLong(SearchReportsQuery.DATE);
 			typeTextView.setText(mUtils.formatType(type));
 			distanceTextView.setText(mUtils.formatDistance(distance));
 			dateTextView.setText(mUtils.formatDate(date));

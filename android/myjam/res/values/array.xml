@@ -16,6 +16,24 @@
         <item>50000</item>  
     </string-array>
     
+    <string-array name="filter_list_preference">
+        <item>Jam</item>
+        <item>Car crash</item>
+        <item>Work in progress</item>
+        <item>Fixed speed cam</item>
+        <item>Mobile speed cam</item>
+        <item>None</item>
+    </string-array>
+    
+   <string-array name="filtervalues_list_preference">
+        <item>JAM</item>
+        <item>CAR_CRASH</item>
+        <item>WORK_IN_PROGRESS</item>
+        <item>FIXED_SPEED_CAM</item>
+        <item>MOBILE_SPEED_CAM</item>
+        <item>NONE</item>
+    </string-array>
+    
     <!-- Used in ReportDetailsActivity to format the ProgressDialog text -->
     <string-array name="type_obj">
         <item>search</item>

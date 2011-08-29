@@ -12,5 +12,13 @@
                 android:entryValues="@array/radiusvalues_list_preference"
                 android:dialogTitle="@string/dialog_title_search_preference"
                 android:defaultValue="10000"/>
+    	<ListPreference
+                android:key="type_filter_preference"
+                android:title="@string/title_type_filter_preference"
+                android:summary="@string/summary_type_filter_preference"
+                android:entries="@array/filter_list_preference"
+                android:entryValues="@array/filtervalues_list_preference"
+                android:dialogTitle="@string/dialog_title_type_filter_preference"
+                android:defaultValue="NONE"/>
     </PreferenceCategory>
 </PreferenceScreen>

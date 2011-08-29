@@ -29,6 +29,11 @@ import android.net.Uri;
 import android.provider.BaseColumns;
 import android.util.Log;
 
+/**
+ * Content provider used by myJam application.
+ * @author iacopo
+ *
+ */
 public class MyJamProvider extends ContentProvider{
 	
     private static final String TAG = "MyJamProvider";
@@ -47,6 +52,8 @@ public class MyJamProvider extends ContentProvider{
         
         final String SEARCH_JOIN_REPORTS = "search_results "
                 + "INNER JOIN reports ON search_results.report_id=reports.report_id ";
+        final String UPDATE_JOIN_REPORT = "updates "
+                + "INNER JOIN reports ON updates.report_id=reports.report_id ";
     }
     
     /** {@code REFERENCES} clauses. */
@@ -55,7 +62,7 @@ public class MyJamProvider extends ContentProvider{
         String UPDATE_ID = "REFERENCES " + Tables.UPDATE_TABLE_NAME + "(" + Update.UPDATE_ID + ")";
     }
     
-    /** {@code REFERENCES} clauses. */
+    /** {@code INDEXES} clauses. */
     private interface Indexes {
     	String SEARCH_RESULT_SEARCH_ID_INDEX = "CREATE INDEX search_result_search_id_index ON "+ Tables.SEARCH_RESULT_TABLE_NAME + "(" + SearchResult.SEARCH_ID + ")";
         String REPORTS_INDEX = "CREATE INDEX reports_index ON "+ Tables.REPORT_TABLE_NAME + "(" + Report.REPORT_ID + ")";
@@ -64,33 +71,34 @@ public class MyJamProvider extends ContentProvider{
         String FEEDBACKS_REPORT_ID_INDEX = "CREATE INDEX feedbacks_report_id_index ON "+ Tables.FEEDBACK_TABLE_NAME + "(" + Feedback.REPORT_ID + ")";
         String FEEDBACKS_UPDATE_ID_INDEX = "CREATE INDEX feedbacks_update_id_index ON "+ Tables.FEEDBACK_TABLE_NAME + "(" + Feedback.UPDATE_ID + ")";
     }
+    /** Id of the URI's */
+    private static final int MY_USERS = 1;
     
-    private static final int MY_USERS = 18;
+    private static final int SEARCH = 2;
+    private static final int SEARCH_SEARCH_ID = 3;
     
-    private static final int SEARCH = 0;
-    private static final int SEARCH_SEARCH_ID = 17;
+    private static final int SEARCH_RESULT = 4;
+    private static final int SEARCH_ID_SEARCH_RESULT = 5;
     
-    private static final int SEARCH_RESULT = 1;
-    private static final int SEARCH_ID_SEARCH_RESULT = 2;
+    private static final int SEARCH_REPORTS_SEARCH_ID = 6;
+    private static final int SEARCH_REPORTS_SEARCH_ID_REPORT_TYPE = 7;
     
-    private static final int SEARCH_REPORTS_SEARCH_ID = 3;
-    private static final int SEARCH_REPORTS_SEARCH_ID_REPORT_TYPE = 4;
+    private static final int REPORT = 8;
+    private static final int REPORT_ID = 9;
     
-    private static final int REPORT = 5;
-    private static final int REPORT_ID = 6;
+    private static final int UPDATE = 10;
+    private static final int UPDATE_ID = 11;
+    private static final int REPORT_ID_UPDATE = 12;
     
-    private static final int UPDATE = 7;
-    private static final int REPORT_ID_UPDATE = 8;
+    private static final int FEEDBACK = 13;   
+    private static final int REPORT_ID_FEEDBACK = 14;
+    private static final int UPDATE_ID_FEEDBACK = 15;
     
-    private static final int FEEDBACK = 9;   
-    private static final int REPORT_ID_FEEDBACK = 10;
-    private static final int UPDATE_ID_FEEDBACK = 11;
-    
-    private static final int UPDATE_REQUEST = 12;
-    private static final int REPORT_ID_UPDATE_REQUEST = 13;
-    private static final int FEEDBACK_REQUEST = 14;
-    private static final int REPORT_ID_FEEDBACK_REQUEST = 15;
-    private static final int UPDATE_ID_FEEDBACK_REQUEST = 16;
+    private static final int UPDATE_REQUEST = 16;
+    private static final int REPORT_ID_UPDATE_REQUEST = 17;
+    private static final int FEEDBACK_REQUEST = 18;
+    private static final int REPORT_ID_FEEDBACK_REQUEST = 19;
+    private static final int UPDATE_ID_FEEDBACK_REQUEST = 20;
     
 
     private static final UriMatcher sUriMatcher;
@@ -116,6 +124,9 @@ public class MyJamProvider extends ContentProvider{
             		+ BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + Search.SEARCH_ID + " INTEGER NOT NULL,"
                     + Search.DATE + " INTEGER,"
+                    + Search.LATITUDE + " INTEGER,"
+                    + Search.LONGITUDE + " INTEGER,"
+                    + Search.RADIUS + " INTEGER,"
                     + "UNIQUE (" + Search.SEARCH_ID + ") ON CONFLICT REPLACE)");
             
             db.execSQL("CREATE TABLE " + Tables.SEARCH_RESULT_TABLE_NAME + " ("
@@ -349,8 +360,13 @@ public class MyJamProvider extends ContentProvider{
         	qb.setTables(Tables.REPORT_TABLE_NAME);
         	qb.appendWhere(Report.REPORT_ID + "=\"" + id+"\"");
         	break;
+        case UPDATE_ID:
+        	id = Update.getUpdateId(uri);
+        	qb.setTables(Tables.UPDATE_JOIN_REPORT);
+        	qb.appendWhere(Update.QUALIFIER+Update.UPDATE_ID + "=\"" + id+"\"");
+        	break;
         case REPORT_ID_UPDATE:
-        	id = Report.getReportId(uri);
+        	id = Update.getReportId(uri);
         	qb.setTables(Tables.UPDATE_TABLE_NAME);
         	qb.appendWhere(Update.REPORT_ID + "=\"" + id+"\"");
         	break;
@@ -449,7 +465,7 @@ public class MyJamProvider extends ContentProvider{
 	
     static {
         sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "my_users", MY_USERS);
+        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "my_users", MY_USERS);       
         sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "search", SEARCH);
         sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "search/*", SEARCH_SEARCH_ID);
         sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "search_result", SEARCH_RESULT);
@@ -459,7 +475,8 @@ public class MyJamProvider extends ContentProvider{
         sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "report", REPORT);
         sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "report/*", REPORT_ID);
         sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "update", UPDATE);
-        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "update/*", REPORT_ID_UPDATE);
+        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "update/r_id/*", REPORT_ID_UPDATE);
+        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "update/*", UPDATE_ID);
         sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "update_request", UPDATE_REQUEST);
         sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "update_request/*", REPORT_ID_UPDATE_REQUEST);
         sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "feedback", FEEDBACK);

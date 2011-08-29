@@ -10,6 +10,8 @@
     <string name="report_string">Report</string>
     <string name="update_string">Update</string>
     <string name="feedback_string">Feedback</string>
+    <string name="dialog_title">MyJam Info</string>
+    <string name="positive_button_label">Ok</string>
     <!-- ============================ -->
     <!--  	SearchReport  strings  	  -->
     <!-- ============================ -->
@@ -28,20 +30,32 @@
     <!-- ============================ -->
     <!--  	    Insert  strings       -->
     <!-- ============================ -->
-        <string name="report_type_choose">Choose a report type</string>
+    <string name="report_type_choose">Choose a report type</string>
     <string name="report_type_label">Report type</string>
     <string name="transit_choose">Choose a transit status</string>
     <string name="transit_label">Transit status</string>
     <string name="traffic_flow_choose">Choose a traffic flow status</string>
     <string name="traffic_flow_label">Traffic flow status</string>
     <string name="comment_label">Comment</string>
-    <string name="insert_button_label">Insert report</string>
+    <string name="vote_label">Vote:</string>
+    
+    <string name="insert_report_button_label">Insert report</string>
+    <string name="insert_update_button_label">Insert update</string>
+    <string name="vote_report_button_label">Vote report</string>
+    <string name="vote_update_button_label">Vote update</string>    
     
     <string name="insert_success"><xliff:g id="type">%1$s</xliff:g> successfully posted.</string>
+    <string name="near_reports_found">Reports of type <xliff:g id="type">%1$s</xliff:g> found in a range of <xliff:g id="type">%2$s</xliff:g> meters.\n
+    Do you want to see them or continue the insertion?</string>
+    <string name="button_continue_label">Continue</string>
+    <string name="button_see_label">See them</string>
+    
+    <string name="insert_start">Inserting the report...</string>
+    <string name="search_start">Searching reports...</string>
     <!-- ============================ -->
     <!--  	ReportDetails  strings    -->
     <!-- ============================ -->
-    <string name="receiving_obj">Receiving <xliff:g id="error">%1$s</xliff:g> ...</string>
+    <string name="sync">Synchronizing <xliff:g id="error">%1$s</xliff:g></string>
     <string name="reception_finished">Reception finished</string>
     <string name="post_date">Posted on:</string>
     <string name="post_by">Posted by:</string>
@@ -51,14 +65,28 @@
     <string name="report_comment">Comment:</string>
     <string name="cursor_position"><xliff:g id="pos">%1$s</xliff:g>/<xliff:g id="index">%2$s</xliff:g></string>
     <plurals name="num_feedbacks">
-        <item quantity="one">One feedback.</item>
-        <item quantity="other">%d feedbacks.</item>
+    	<item quantity="zero">No votes present.</item>
+        <item quantity="one">One vote.</item>
+        <item quantity="other">%d votes.</item>
     </plurals>
+    
+    <string name="dialog_report_unavailable_text">Cannot proceed.\n Report data unavailable.</string>
+    <string name="dialog_location_unavailable_text">Cannot proceed.\n User location unavailable.</string>
+    <string name="dialog_not_in_range_text">Cannot proceed.\n You are too far from the report location.</string>
+    
+    <!-- ============================ -->
+    <!--  LocationServices  strings   -->
+    <!-- ============================ -->
+    <string name="notification_loc_available_title">User location</string>
+    <string name="notification_loc_available_text">User location available.</string>
     <!-- ============================ -->
     <!--  	MyPreferences  strings    -->
     <!-- ============================ -->
     <string name="search_preferences">Search Preferences</string>
     <string name="title_radius_preference">Set search radius</string>
     <string name="summary_radius_preference">Radius of the search in km.</string>
-    <string name="dialog_title_search_preference">Select the radius of the search.</string>     
+    <string name="dialog_title_search_preference">Select the radius of the search.</string>
+    <string name="title_type_filter_preference">Choose the filter type.</string>
+    <string name="summary_type_filter_preference">Type of filter.</string>
+    <string name="dialog_title_type_filter_preference">Select the filter you want to apply.</string>       
 </resources>

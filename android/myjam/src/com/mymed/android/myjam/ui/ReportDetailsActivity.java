@@ -1,6 +1,7 @@
 package com.mymed.android.myjam.ui;
 
 
+import com.google.android.maps.GeoPoint;
 import com.mymed.android.myjam.R;
 import com.mymed.android.myjam.provider.MyJamContract.Feedback;
 import com.mymed.android.myjam.provider.MyJamContract.FeedbacksRequest;
@@ -14,9 +15,12 @@ import com.mymed.android.myjam.service.MyJamCallService;
 import com.mymed.android.myjam.service.MyJamCallService.RequestCode;
 import com.mymed.android.myjam.controller.IMyJamCallAttributes;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
@@ -26,6 +30,9 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -33,12 +40,13 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mymed.utils.GlobalStateAndUtils;
+import com.mymed.utils.GeoUtils;
+import com.mymed.utils.GlobalVarAndUtils;
 import com.mymed.utils.NotifyingAsyncQueryHandler;
 import com.mymed.utils.MyResultReceiver;
 
 /**
- * This activity has the following tasks:
+ * This activity does the following:
  * - Shows the details of the report chosen on the {@link SearchActivity}.
  * - Shows the updates related to the report.
  * @author iacopo
@@ -54,9 +62,11 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 	private static final int FIVE_MINUTES = 300000;
 	private static final int TWO_MINUTES = 120000;
 	
-	private static final int MAX_RATING = 10;
+	private static final int DIALOG_REPORT_UNAVAILABLE_ID = 0x0;
+	private static final int DIALOG_LOC_UNAVAILABLE_ID = 0x1;
+	private static final int DIALOG_NOT_IN_RANGE_ID = 0x2;
 	
-	private GlobalStateAndUtils mUtils;
+	private GlobalVarAndUtils mUtils;
     private Handler mMessageQueueHandler = new Handler();
 	
     
@@ -69,7 +79,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 	private ProgressDialog mDialog;
 	private ImageButton mNextButton;
 	private ImageButton mPreviousButton;
-	private TextView 	mUpdateCursorIndexTextView,
+	private TextView 	mUpdateIndexTextView,
 						mReportFeedbacksTextView,
 						mUpdateFeedbacksTextView;
 	private RatingBar 	mReportRatingBar,
@@ -90,7 +100,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.details_view);
 		
-		mUtils = GlobalStateAndUtils.getInstance(getApplicationContext());
+		mUtils = GlobalVarAndUtils.getInstance(getApplicationContext());
 		mResultReceiver = MyResultReceiver.getInstance();
 		mHandler = new NotifyingAsyncQueryHandler(ReportDetailsActivity.this
 				.getContentResolver(), this);
@@ -106,7 +116,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 		mNextButton.setOnClickListener(this);
 		mPreviousButton = (ImageButton) findViewById(R.id.imageButtonPrevious);
 		mPreviousButton.setOnClickListener(this);
-		mUpdateCursorIndexTextView = (TextView) findViewById(R.id.textViewIndex);
+		mUpdateIndexTextView = (TextView) findViewById(R.id.textViewIndex);
 		LayoutInflater mInflater = getLayoutInflater();
 		mReportRatingBar  = (RatingBar) mInflater.inflate(R.layout.rating_bar_indicator_item, 
 				(LinearLayout) findViewById(R.id.linearLayoutReport), false);
@@ -144,19 +154,15 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
         /** Deactivates the cursors. */
         if (mReportCursor!=null){
         	mReportCursor.close();
-        	mReportCursor = null;
         }
         if (mUpdatesCursor!=null){
         	mUpdatesCursor.close();
-        	mUpdatesCursor = null;
         }
         if (mReportFeedbacksCursor!=null){
         	mReportFeedbacksCursor.close();
-        	mReportFeedbacksCursor = null;
         }
         if (mUpdateFeedbacksCursor!=null){
         	mUpdateFeedbacksCursor.close();
-        	mUpdateFeedbacksCursor = null;
         }
 	}
 	
@@ -166,7 +172,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 		mResultReceiver.setReceiver(this);
 		mHandler.setQueryListener(this);
 		/** This query is not asynchronous because before retrieving the updates, we want to know how many Updates are presents in the db*/
-		mUpdatesCursor = getContentResolver().query(Uri.withAppendedPath(Update.CONTENT_URI, mReportId)
+		mUpdatesCursor = getContentResolver().query(Update.buildReportIdUri(mReportId)
 				, UpdateQuery.PROJECTION,null , null, Update.DEFAULT_SORT_ORDER);
 		if (mUpdatesCursor!=null){
 			if (mUpdatesCursor.moveToFirst())
@@ -189,7 +195,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 		mReportRatingBar.setEnabled(false);
 		mUpdateRatingBar.setEnabled(false);
 		
-		//TODO check if is necessary.updateRefreshStatus(mResultReceiver.ismSyncing());
+		updateRefreshStatus(mResultReceiver.ismSyncing(),null);
 	}
 	
 	@Override
@@ -232,8 +238,6 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
         	    if (mUpdateId!=null){
         	    	requestFeedbacks(UPDATE,mUpdateId);
         	    }
-                if (cursor != null)
-                	cursor = null;
         	}else{
         		Log.d(TAG, "Updates cursor not initialized.");
         	}
@@ -244,17 +248,23 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
         }
     };
     
+    /**
+     * Sends an intent to {@link MyJamCallService} to receive a report.
+     */
     private void requestReport(){
 		Intent intent = new Intent(ReportDetailsActivity.this, MyJamCallService.class);
         intent.putExtra(MyJamCallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
         intent.putExtra(MyJamCallService.EXTRA_REQUEST_CODE, RequestCode.GET_REPORT);
         Bundle bundle = new Bundle();
-        bundle.putString(IMyJamCallAttributes.ID, mReportId);
+        bundle.putString(IMyJamCallAttributes.REPORT_ID, mReportId);
         intent.putExtra(MyJamCallService.EXTRA_ATTRIBUTES, bundle);			
         Log.d(TAG,"Intent sent: "+intent.toString());
         startService(intent);
     }
     
+    /**
+     * Sends an intent to {@link MyJamCallService} requesting updates.
+     */
     private void requestUpdate(){
     	if (mUpdatesCursor!=null){
         	int numUpdates = mUpdatesCursor.getCount();
@@ -262,7 +272,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
     	    intent.putExtra(MyJamCallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
     	    intent.putExtra(MyJamCallService.EXTRA_REQUEST_CODE, RequestCode.GET_UPDATES);
     	    Bundle bundle = new Bundle();
-    	    bundle.putString(IMyJamCallAttributes.ID, mReportId);
+    	    bundle.putString(IMyJamCallAttributes.REPORT_ID, mReportId);
     	    bundle.putInt(IMyJamCallAttributes.NUM, numUpdates);
     	    intent.putExtra(MyJamCallService.EXTRA_ATTRIBUTES, bundle);			
     	    Log.d(TAG,"Intent sent: "+intent.toString());
@@ -270,6 +280,11 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
     	}
     }
     
+    /**
+     * Sends an intent requesting feedbacks related to the current report or update.
+     * @param code	To specify if the feedbacks are related to {@value REPORT} or {@value UPDATE}
+     * @param reportOrUpdateId
+     */
     private void requestFeedbacks(int code,String reportOrUpdateId){
     	ContentResolver contentResolver = getContentResolver();
     	
@@ -292,23 +307,24 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
             intent.putExtra(MyJamCallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
             intent.putExtra(MyJamCallService.EXTRA_REQUEST_CODE, code==REPORT?RequestCode.GET_REPORT_FEEDBACKS:RequestCode.GET_UPDATE_FEEDBACKS);
             Bundle bundle = new Bundle();
-            bundle.putString(IMyJamCallAttributes.ID, reportOrUpdateId);
+            bundle.putString(IMyJamCallAttributes.REPORT_ID, reportOrUpdateId);
             intent.putExtra(MyJamCallService.EXTRA_ATTRIBUTES, bundle);			
             Log.d(TAG,"Intent sent: "+intent.toString());
             startService(intent);
-    	} else {
-    		if (code==REPORT){
-    			mReportFeedbacksCursor = getContentResolver().query(Feedback.buildReportIdUri(mReportId),
-    					ReportFeedbacksQuery.PROJECTION,null, null,null);
-    		}
-    		else{
-    			mUpdateFeedbacksCursor = getContentResolver().query(Feedback.buildUpdateIdUri(mUpdateId),
-    					UpdateFeedbacksQuery.PROJECTION,null, null,null);
-    		}
-    		refreshRating(code);
     	}
-        if (cursor != null)
-        	cursor = null;
+    	if (code==REPORT){
+    		if (mReportFeedbacksCursor != null)
+    			mReportFeedbacksCursor.close();
+    		mReportFeedbacksCursor = getContentResolver().query(Feedback.buildReportIdUri(mReportId),
+    				ReportFeedbacksQuery.PROJECTION,null, null,null);
+    	}
+    	else{
+    		if (mUpdateFeedbacksCursor != null)
+    			mUpdateFeedbacksCursor.close();
+    		mUpdateFeedbacksCursor = getContentResolver().query(Feedback.buildUpdateIdUri(mUpdateId),
+    				UpdateFeedbacksQuery.PROJECTION,null, null,null);
+    	}
+    	refreshRating(code);
     }
     
     private ContentObserver mUpdatesChangesObserver = new ContentObserver(new Handler()) {
@@ -350,8 +366,8 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 		int reqCode = resultData.getInt(MyJamCallService.EXTRA_REQUEST_CODE);
 		switch (resultCode){
 			case MyJamCallService.STATUS_RUNNING:
-				searchText = String.format(getResources().getString(R.string.receiving_obj, types[reqCode]));
-				Toast.makeText(this, searchText, Toast.LENGTH_SHORT).show();
+				searchText = String.format(getResources().getString(R.string.sync, types[reqCode]));
+				//Toast.makeText(this, searchText, Toast.LENGTH_SHORT).show();
 				Log.d(TAG,searchText);
 				mSyncing = true;
 				break;
@@ -388,7 +404,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
             		getContentResolver().insert(FeedbacksRequest.CONTENT_URI, currVal);
 				}
 				if  (resultCode == MyJamCallService.STATUS_FINISHED){
-					Toast.makeText(this, getResources().getString(R.string.reception_finished),Toast.LENGTH_LONG).show();
+					//Toast.makeText(this, getResources().getString(R.string.reception_finished),Toast.LENGTH_LONG).show();
 					/** Once is received the report never changes, then is not used a content observer, but the query is triggered here.  */
 					if (reqCode == RequestCode.GET_REPORT)
 						mHandler.startQuery(ReportQuery._TOKEN, Report.buildReportIdUri(mReportId), ReportQuery.PROJECTION);
@@ -406,6 +422,8 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 	 */
     private void updateRefreshStatus(boolean refreshing,String message) {
         if (refreshing){
+        	if (message==null)
+        		message = String.format(getResources().getString(R.string.sync, ""));
         	mDialog = ProgressDialog.show(this, "", 
 					message, true);
         }else{
@@ -465,6 +483,10 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 		}
 	}
 	
+	/**
+	 * Method called when Update query completes.
+	 * @param cursor Cursor pointing the results of the query.
+	 */
 	private void onUpdateQueryComplete(Cursor cursor) {
 		if (mUpdatesCursor!=null)
 			mUpdatesCursor.close();
@@ -479,14 +501,23 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 		}
 	}
 	
+	/**
+	 * Method called when query on report feedbacks complete.
+	 * @param cursor Cursor pointing the results of the query.
+	 */
     private void onReportFeedbacksQueryComplete(Cursor cursor) {
     	if (mReportFeedbacksCursor != null)
 			mReportFeedbacksCursor.close();
+    	mReportFeedbacksCursor = cursor;
 		if (mReportFeedbacksCursor!=null){
 			refreshRating(REPORT);
 		}
 	}
     
+	/**
+	 * Method called when query on update feedbacks complete.
+	 * @param cursor Cursor pointing the results of the query.
+	 */
     private void onUpdateFeedbacksQueryComplete(Cursor cursor) {
 		if (mUpdateFeedbacksCursor != null)
 			mUpdateFeedbacksCursor.close();
@@ -496,6 +527,9 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 		}
 	}
 	
+    /**
+     * Refresh the status of the buttons to scroll updates.
+     */
 	private void refreshButtons(){
 		mPreviousButton.setEnabled(true);
 		mNextButton.setEnabled(true);
@@ -506,10 +540,14 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 		int numUpdates = mUpdatesCursor.getCount();
 		final String index = String.format(this.getResources().getString(R.string.cursor_position, 
 				numUpdates>0?mUpdatesCursor.getPosition() + 1:0 , numUpdates));
-		mUpdateCursorIndexTextView.setText(index);
+		mUpdateIndexTextView.setText(index);
 		
 	}
 	
+	/**
+	 * Refreshes the rating bar and the text view specifying the number of feedbacks.
+	 * @param code
+	 */
 	private void refreshRating(int code){
 		float sum = 0;
 		final RatingBar ratingBar = code==REPORT?mReportRatingBar:mUpdateRatingBar;
@@ -525,11 +563,12 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 				cursor.moveToNext();
 			}
 			ratingBar.setEnabled(true);
-			ratingBar.setRating(sum/numFeedbacks*ratingBar.getMax()/MAX_RATING); //TODO fix this.
+			ratingBar.setRating(sum/numFeedbacks*ratingBar.getMax()/GlobalVarAndUtils.MAX_RATING); //TODO fix this.
 			textView.setText(this.getResources().getQuantityString(R.plurals.num_feedbacks, numFeedbacks, numFeedbacks));
 		} else {
 			ratingBar.setRating(0);
 			ratingBar.setEnabled(false);
+			textView.setText(this.getResources().getQuantityString(R.plurals.num_feedbacks, 0, 0));
 		}
 	}
 	
@@ -550,7 +589,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 		LinearLayout reportLinearLayout = code==REPORT?
 				(LinearLayout) findViewById(R.id.linearLayoutReport):(LinearLayout) findViewById(R.id.linearLayoutUpdate);
 		Cursor cursor = code==REPORT?mReportCursor:mUpdatesCursor;		
-		reportLinearLayout.setOrientation(1);
+		reportLinearLayout.setOrientation(LinearLayout.VERTICAL);
 		if (cursor!=null && !cursor.isBeforeFirst() && !cursor.isAfterLast()){
 			reportLinearLayout.removeAllViews();			
 			/** Shows the post date. */
@@ -612,7 +651,122 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 		}
 	}
 	
+	@Override
+	/**
+	 * Inflate the menu,from the XML description.
+	 */
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
 
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.insert_menu, menu);		
+		return true;
+	}	
+	
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+		Intent intent;
+		switch (item.getItemId()) {
+        case R.id.insert_update:
+        	if (mReportId != null && checkInsert()){
+            	intent = new Intent(this,InsertActivity.class);
+            	intent.putExtra(InsertActivity.EXTRA_INSERT_TYPE, InsertActivity.UPDATE);
+            	intent.setData(Report.buildReportIdUri(mReportId));
+            	startActivity(intent);
+        	}else{
+        		Log.e(TAG, "mReportId not set");
+        	}
+        	break;
+        case R.id.insert_report_feedback:
+        	if (mReportId != null && checkInsert()){
+               	intent = new Intent(this,InsertActivity.class);
+            	intent.putExtra(InsertActivity.EXTRA_INSERT_TYPE, InsertActivity.REPORT_FEEDBACK);
+            	intent.setData(Report.buildReportIdUri(mReportId));
+            	startActivity(intent);
+        	}else{
+        		Log.e(TAG, "mReportId not set");
+        	}
+        	break;
+        case R.id.insert_update_feedback:
+        	if (mUpdateId != null && checkInsert()){
+        		intent = new Intent(this,InsertActivity.class);
+            	intent.putExtra(InsertActivity.EXTRA_INSERT_TYPE, InsertActivity.UPDATE_FEEDBACK);
+            	intent.setData(Update.buildUpdateIdUri(mUpdateId));
+            	startActivity(intent);
+        	}else{
+        		Log.d(TAG, "No updates available.");
+        	}
+        	break;
+        case R.id.view_on_map:
+        	if (mReportId != null){
+		        intent = new Intent(ReportDetailsActivity.this,ShowOnMapActivity.class);
+		        Uri uri = Report.buildReportIdUri(mReportId);
+		        intent.setData(uri);   	
+		        startActivity(intent);
+                return true;
+        	}else{
+        		Log.e(TAG, "mReportId not set");
+        	}
+        	break;
+        }
+        return false;
+    }
+	
+	/**
+	 * Checks if a new update or feedback can be inserted with the following rules:
+	 * - The data of the report must be available (in particular the location).
+	 * - The current user location must be available.
+	 * - The report must be within {@link MAX_INSERTION_DISTANCE} 
+	 * @return
+	 */
+	private boolean checkInsert(){
+		if (mReportCursor==null || !mReportCursor.moveToFirst()){
+			showDialog(DIALOG_REPORT_UNAVAILABLE_ID);
+			return false;
+		}
+		if (!mService.ismLocAvailable()){
+			showDialog(DIALOG_LOC_UNAVAILABLE_ID);
+			return false;
+		}
+		double dist = GeoUtils.getGCDistance(GeoUtils.toGeoPoint(mService.getCurrentLocation()),
+				new GeoPoint(mReportCursor.getInt(ReportQuery.LATITUDE),mReportCursor.getInt(ReportQuery.LONGITUDE)));
+		if (dist > GlobalVarAndUtils.MAX_INSERTION_DISTANCE){
+			showDialog(DIALOG_NOT_IN_RANGE_ID);
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * Creates the dialog to display.
+	 */
+	@Override
+    protected Dialog onCreateDialog(int id) {
+        Dialog dialog;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        switch(id) {
+        case DIALOG_REPORT_UNAVAILABLE_ID:
+    		builder.setMessage(getResources().getString(R.string.dialog_report_unavailable_text));
+            break;
+        case DIALOG_LOC_UNAVAILABLE_ID:
+    		builder.setMessage(getResources().getString(R.string.dialog_location_unavailable_text));
+            break;
+        case DIALOG_NOT_IN_RANGE_ID:
+        	builder.setMessage(getResources().getString(R.string.dialog_not_in_range_text));
+        	break;
+        default:
+            dialog = null;
+        }
+		builder.setCancelable(false)       	
+		.setTitle(getResources().getString(R.string.dialog_title))
+		.setPositiveButton(getResources().getString(R.string.positive_button_label), new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				dialog.cancel();
+			}
+		});
+		dialog = builder.create();
+        return dialog;
+    }
 
 	/**
      * Parameters used to perform the report query.
@@ -626,10 +780,10 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
                 Report.TRANSIT_TYPE,
                 Report.COMMENT,
                 Report.USER_NAME,
-                Report.LATITUDE,
-                Report.LONGITUDE,
                 Report.DATE,
-                Report.FLAG_COMPLETE
+                Report.FLAG_COMPLETE,
+                Report.LATITUDE,
+                Report.LONGITUDE
         };
         
         int REPORT_TYPE = 0;
@@ -637,10 +791,10 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
         int TRANSIT_TYPE = 2;
         int COMMENT = 3;
         int USER_NAME = 4;
-        int LATITUDE = 5;
-        int LONGITUDE = 6;
-        int DATE = 7;
-        int FLAG_COMPLETE = 8;
+        int DATE = 5;
+        int FLAG_COMPLETE = 6;
+        int LATITUDE = 7;
+        int LONGITUDE = 8;
     }
 
     /**
@@ -651,23 +805,19 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 
         String[] PROJECTION = {
                 Update.UPDATE_ID,
-                Update.REPORT_ID,
                 Update.TRAFFIC_FLOW,
                 Update.TRANSIT_TYPE,
                 Update.COMMENT,
                 Update.USER_NAME,
-                Update.USER_ID,
                 Update.DATE
         };
 
         int UPDATE_ID = 0;
-        int REPORT_ID = 1;
-        int TRAFFIC_FLOW = 2;
-        int TRANSIT_TYPE = 3;
-        int COMMENT = 4;
-        int USER_NAME = 5;
-        int USER_ID = 6;
-        int DATE = 7;
+        int TRAFFIC_FLOW = 1;
+        int TRANSIT_TYPE = 2;
+        int COMMENT = 3;
+        int USER_NAME = 4;
+        int DATE = 5;
     }
 
     /**

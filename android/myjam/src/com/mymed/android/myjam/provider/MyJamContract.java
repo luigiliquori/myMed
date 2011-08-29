@@ -27,6 +27,12 @@ public final class MyJamContract {
     	String SEARCH_ID = "search_id";
         /** Search date. */
         String DATE = "date";
+        /** Latitude of the search central point.*/
+        String LATITUDE = "latitude";
+        /** Longitude of the search central point.*/
+        String LONGITUDE = "longitude";
+        /** Radius of the search.*/
+        String RADIUS = "radius";
     }
     
     interface SearchResultColumns {
@@ -163,7 +169,7 @@ public final class MyJamContract {
         public static final String DEFAULT_SORT_ORDER = "distance";
         
         public static Uri buildSearchUri(String searchId) {
-            return CONTENT_URI.buildUpon().appendPath(searchId).build();
+            return CONTENT_URI.buildUpon().appendPath(String.valueOf(searchId)).build();
         }
         
         /**
@@ -196,9 +202,10 @@ public final class MyJamContract {
         public static final String DEFAULT_SORT_ORDER = "distance";
         
         /**
-         * Selection used to perform query, to know if the data can be refreshed.
+         * Selection used to perform query where a specific search_id is required.
          */
         public static final String SEARCH_ID_SELECTION = SEARCH_ID +"= ?";
+        
     }
     
     public static final class SearchReports implements BaseColumns {
@@ -211,11 +218,11 @@ public final class MyJamContract {
         public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_SEARCH_REPORTS).build();
         
         public static Uri buildSearchUri(String searchId) {
-            return CONTENT_URI.buildUpon().appendPath(searchId).build();
+            return CONTENT_URI.buildUpon().appendPath(String.valueOf(searchId)).build();
         }
         
         public static Uri buildSearchUri(String searchId,String reportType) {
-            return CONTENT_URI.buildUpon().appendPath(searchId).appendPath(reportType).build();
+            return CONTENT_URI.buildUpon().appendPath(String.valueOf(searchId)).appendPath(reportType).build();
         }
         
         public static String getSearchId(Uri uri) {
@@ -228,6 +235,14 @@ public final class MyJamContract {
         
         public static boolean isReportType(Uri uri) {
         	return (uri.getPathSegments().size()>2);
+        }
+        
+        public static String selectByType(int numTypes){
+        	String selection = Report.QUALIFIER + Report.REPORT_TYPE + "=? ";
+        	for (int i=1;i<numTypes;i++){
+        		selection+=" AND " + Report.QUALIFIER + Report.REPORT_TYPE + "=? ";
+        	}
+        	return selection;
         }
         
         /**
@@ -297,11 +312,20 @@ public final class MyJamContract {
         public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_UPDATES).build();
         
         /**
-         * Build the uri to access specific updates.
+         * Build the uri to access specific feedbacks.
          * @param reportId 
          * @return The uri.
          */
         public static Uri buildReportIdUri(String reportId) {
+            return CONTENT_URI.buildUpon().appendPath(PATH_REPORT_ID).appendPath(reportId).build();
+        }
+        
+        /**
+         * Build the uri to access specific updates.
+         * @param reportId 
+         * @return The uri.
+         */
+        public static Uri buildUpdateIdUri(String reportId) {
             return CONTENT_URI.buildUpon().appendPath(reportId).build();
         }
         
@@ -314,6 +338,19 @@ public final class MyJamContract {
          * The prefix to use when a qualified name is required.
          */
         public static final String QUALIFIER = Tables.UPDATE_TABLE_NAME + ".";
+        
+        /**
+         * Returns the reportId given the URI.
+         * @param uri
+         * @return
+         */
+        public static String getUpdateId(Uri uri) {
+            return uri.getPathSegments().get(1);
+        }
+        
+        public static String getReportId(Uri uri) {
+            return uri.getPathSegments().get(2);
+        } 
     }
     
     public static final class UpdatesRequest implements BaseColumns,RequestColumns {
@@ -360,7 +397,7 @@ public final class MyJamContract {
         public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_FEEDBACK).build();
         
         /**
-         * Build the uri to access specific updates.
+         * Build the uri to access specific feedbacks.
          * @param reportId 
          * @return The uri.
          */
