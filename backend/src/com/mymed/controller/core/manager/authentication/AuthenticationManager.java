@@ -43,12 +43,12 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
 			final Map<String, byte[]> authMap = authentication.getAttributeToMap();
 			storageManager.insertSlice(CF_AUTHENTICATION, new String(authMap.get("login"), "UTF8"), authMap);
 		} catch (final UnsupportedEncodingException ex) {
+			DEBUG_LOGGER.debug(ex.getMessage(), ex.getCause());
 			throw new InternalBackEndException(ex.getMessage());
 		}
 
 		return user;
 	}
-
 	/**
 	 * @see IAuthenticationManager#read(String, String)
 	 */
@@ -59,8 +59,6 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
 		MAuthenticationBean authentication = new MAuthenticationBean();
 
 		authentication = (MAuthenticationBean) introspection(authentication, args);
-
-		System.out.println(authentication);
 
 		if (authentication.getPassword().equals(password)) {
 			return new ProfileManager().read(authentication.getUser());
