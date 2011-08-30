@@ -135,7 +135,6 @@ public class MSessionBean extends AbstractMBean {
 	 */
 	@Override
 	public int hashCode() {
-		// final int PRIME = 31;
 		int result = 1;
 
 		result = PRIME * result + (id == null ? 0 : id.hashCode());
