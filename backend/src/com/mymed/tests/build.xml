@@ -9,6 +9,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 	<property name="lib.dir"             location="lib" />
 	<property name="results.dir"         location="results"/>
 	<property name="tests.dir"           location="unit"/>
+	<property name="conf.dir"            location="../../../../conf"/>
 	<property name="controller.dir"      location="../controller"/>
 	<property name="model.dir"           location="../model"/>
 	<property name="utils.dir"           location="../utils"/>
@@ -24,12 +25,23 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
  <!-- Fix the classpath to add the necessary resources -->
 	<path id="mymed.classpath" description="Classpath to be used for running the tests">
 		<pathelement path="${java.class.path}"/>
+		<pathelement location="${conf.dir}"/>
 	  <pathelement location="${lib.dir}/mymed.jar"/>
 	  <pathelement location="${lib.dir}/jSynapse.jar"/>
 	  <pathelement location="${lib.dir}/mymedtest.jar"/>
 	  <pathelement location="."/>
-		<fileset dir="${libs.dir}" includes="*.jar" />
-		<fileset dir="${cassandra.dir}/lib" includes="*.jar"/>
+		<fileset dir="${libs.dir}">
+			<include name="*.jar"/>
+			<include name="**/*.jar"/>
+		</fileset>
+		<fileset dir="${cassandra.dir}/lib">
+			<include name="*.jar"/>
+			<include name="**/*.jar"/>
+			<!-- We exclude this JAR here otherwise SLF4J will throw a warning, nothing blocking, but
+			not good to see. For more info see: http://www.slf4j.org/codes.html#multiple_bindings
+			Cassandra has sl4j binding in its classpath, that's why it complains -->
+			<exclude name="slf4j-log4j12-1.6.1.jar"/>
+		</fileset>
 		<!-- This is necessary for JUnit to work under Jenkins -->
 		<!-- Looks like it is necessary to specify the path to the needed JARs -->
 		<fileset dir="${java.dir}">
@@ -95,5 +107,6 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 	<target name="clean" description="Remove the directories used for the build">
 	  <delete dir="${build.dir}" />
 		<delete dir="${lib.dir}" />
+		<delete dir="${results.dir}" />
 	</target>
 </project>
