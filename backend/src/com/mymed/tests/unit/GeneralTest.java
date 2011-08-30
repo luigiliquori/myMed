@@ -105,6 +105,7 @@ public class GeneralTest extends TestValues {
 		interactionBean.setSnooze(0);
 		interactionBean.setComplexInteraction(INTERACTION_LST_ID);
 
+		authenticationBean = new MAuthenticationBean();
 		authenticationBean.setLogin(LOGIN);
 		authenticationBean.setPassword(getRandomPwd());
 		authenticationBean.setUser(USER_ID);
