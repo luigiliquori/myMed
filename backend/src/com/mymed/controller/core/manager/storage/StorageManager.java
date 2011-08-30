@@ -16,9 +16,6 @@ import org.apache.cassandra.thrift.ColumnPath;
 import org.apache.cassandra.thrift.Mutation;
 import org.apache.cassandra.thrift.SlicePredicate;
 import org.apache.cassandra.thrift.SliceRange;
-import org.slf4j.LoggerFactory;
-
-import ch.qos.logback.classic.LoggerContext;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
@@ -73,11 +70,8 @@ public class StorageManager extends ManagerValues implements IStorageManager {
 	 */
 	public StorageManager(final WrapperConfiguration conf) throws InternalBackEndException {
 		wrapper = new CassandraWrapper(conf.getCassandraListenAddress(), conf.getThriftPort());
-
-		// TODO remove after first successful test
-		final LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
-		INFO_LOGGER.info(lc.toString());;
 	}
+
 	/**
 	 * Get the value of an entry column
 	 * 
@@ -103,7 +97,6 @@ public class StorageManager extends ManagerValues implements IStorageManager {
 			wrapper.open();
 			return wrapper.get(key, colPathName, IStorageManager.consistencyOnRead).getColumn().getValue();
 		} catch (final UnsupportedEncodingException e) {
-			e.printStackTrace();
 			throw new InternalBackEndException("UnsupportedEncodingException with\n" + "\t- columnFamily = "
 			        + tableName + "\n" + "\t- key = " + key + "\n" + "\t- columnName = " + columnName + "\n");
 		} finally {
@@ -312,9 +305,6 @@ public class StorageManager extends ManagerValues implements IStorageManager {
 			wrapper.open();
 			wrapper.batch_mutate(mutationMap, consistencyOnWrite);
 		} catch (final InternalBackEndException e) {
-			// TODO remove
-			// TODO we need a logger
-			e.printStackTrace();
 			throw new InternalBackEndException("InsertSlice failed.");
 		} finally {
 			wrapper.close();
@@ -345,7 +335,7 @@ public class StorageManager extends ManagerValues implements IStorageManager {
 			wrapper.open();
 			wrapper.remove(key, columnPath, timestamp, consistencyOnWrite);
 		} catch (final UnsupportedEncodingException e) {
-			e.printStackTrace();
+			DEBUG_LOGGER.debug(e.getMessage(), e.getCause());
 			throw new InternalBackEndException("removeColumn failed because of a UnsupportedEncodingException");
 		} finally {
 			wrapper.close();
