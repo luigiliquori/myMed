@@ -58,6 +58,7 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 
 		return (MUserBean) introspection(user, args);
 	}
+
 	/**
 	 * @throws IOBackEndException
 	 * @see IProfileManager#update(MUserBean)
