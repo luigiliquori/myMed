@@ -7,6 +7,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 -->
 <project name="mymed-stress-test" default="compile" basedir=".">
 	<property name="build.dir"           location="build"/>
+	<property name="conf.dir"            location="../../../../conf"/>
   <property name="tests.dir"           location="stress"/>
 	<property name="lib.dir"             location="lib" />
   <property name="controller.dir"      location="../controller"/>
@@ -23,12 +24,23 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 	<path id="mymed.classpath" description="Classpath to be used for running the tests">
 	  <pathelement path="${java.class.path}"/>
 	  <pathelement location="."/>
+		<pathelement location="${conf.dir}"/>
     <pathelement location="${lib.dir}/mymed.jar"/>
     <pathelement location="${lib.dir}/jSynapse.jar"/>
     <pathelement location="${lib.dir}/mymedtest.jar"/>
     <pathelement location="${lib.dir}/stresstest.jar"/>
-	  <fileset dir="${libs.dir}" includes="*.jar" />
-    <fileset dir="${cassandra.dir}/lib" includes="*.jar"/>
+	  <fileset dir="${libs.dir}">
+	    <include name="*.jar"/>
+	    <include name="**/*.jar"/>
+	  </fileset>
+    <fileset dir="${cassandra.dir}/lib">
+      <include name="*.jar"/>
+      <include name="**/*.jar"/>
+      <!-- We exclude this JAR here otherwise SLF4J will throw a warning, nothing blocking, but
+      not good to see. For more info see: http://www.slf4j.org/codes.html#multiple_bindings
+      Cassandra has sl4j binding in its classpath, that's why it complains -->
+      <!-- <exclude name="slf4j-log4j12-1.6.1.jar"/> -->
+    </fileset>
 	</path>
 
   <!-- Used if we want to pretty print the classpath in case we need to debug -->
