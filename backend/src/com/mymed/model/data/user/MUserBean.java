@@ -56,6 +56,8 @@ public final class MUserBean extends AbstractMBean {
 	 *            the user bean to clone
 	 */
 	protected MUserBean(final MUserBean toClone) {
+		super();
+
 		id = toClone.getId();
 		login = toClone.getLogin();
 		email = toClone.getEmail();
@@ -87,6 +89,7 @@ public final class MUserBean extends AbstractMBean {
 	 */
 	public MUserBean() {
 		// Empty constructor, needed because of the copy constructor
+		super();
 	}
 
 	/* --------------------------------------------------------- */
@@ -154,8 +157,7 @@ public final class MUserBean extends AbstractMBean {
 		int result = 1;
 
 		result = PRIME * result + (email == null ? 0 : email.hashCode());
-		result = PRIME * result
-				+ (firstName == null ? 0 : firstName.hashCode());
+		result = PRIME * result + (firstName == null ? 0 : firstName.hashCode());
 		result = PRIME * result + (lastName == null ? 0 : lastName.hashCode());
 		result = PRIME * result + (id == null ? 0 : id.hashCode());
 		result = PRIME * result + (name == null ? 0 : name.hashCode());
@@ -348,7 +350,7 @@ public final class MUserBean extends AbstractMBean {
 	 * 
 	 * @param profilePicture
 	 */
-	public void setProfilePicture(String profilePicture) {
+	public void setProfilePicture(final String profilePicture) {
 		this.profilePicture = profilePicture;
 	}
 
