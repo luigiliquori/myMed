@@ -39,7 +39,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
       <!-- We exclude this JAR here otherwise SLF4J will throw a warning, nothing blocking, but
       not good to see. For more info see: http://www.slf4j.org/codes.html#multiple_bindings
       Cassandra has sl4j binding in its classpath, that's why it complains -->
-      <!-- <exclude name="slf4j-log4j12-1.6.1.jar"/> -->
+      <exclude name="slf4j-log4j12-1.6.1.jar"/>
     </fileset>
 	</path>
 
