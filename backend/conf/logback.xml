@@ -24,6 +24,7 @@
     </encoder>
   </appender>
 
+  <!-- The appender for the info logger  -->
   <appender name="info.file" class="ch.qos.logback.core.FileAppender">
     <file>/local/var/log/mymed/mymed-backend-info.log</file>
     <encoder>
@@ -31,6 +32,7 @@
     </encoder>
   </appender>
 
+  <!-- The appender for the debug logger  -->
   <appender name="debug.file" class="ch.qos.logback.core.FileAppender">
     <file>/local/var/log/mymed/mymed-backend-debug.log</file>
     <encoder>
@@ -39,20 +41,20 @@
   </appender>
 
   <!-- Logger for 'info' level, to turn off the logger set its level to 'off' -->
+  <!-- To turn it on set it to 'info' -->
   <logger name="mymed.info.logger" level="info">
     <appender-ref ref="info.file"/>
   </logger>
 
   <!-- Logger for 'debug' level, to turn off the logger set its level to 'off' -->
+  <!-- To turn it on set it to 'debug' -->
   <logger name="mymed.debug.logger" level="debug">
     <appender-ref ref="debug.file"/>
   </logger>
 
-  <!--
-    The default logger, default is to be set to 'info' and to print to the stdout.
-    To turn it off, set its level to 'off'
-  -->
-  <root level="info">
+  <!-- The default logger, default is to be set to 'info' and to print to the stdout. -->
+  <!--  To turn it off, set its level to 'off' -->
+  <root level="off">
     <appender-ref ref="stdout" />
   </root>
 </configuration>
