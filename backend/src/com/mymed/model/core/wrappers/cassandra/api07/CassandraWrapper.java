@@ -8,7 +8,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.cassandra.thrift.AuthenticationException;
 import org.apache.cassandra.thrift.AuthenticationRequest;
+import org.apache.cassandra.thrift.AuthorizationException;
 import org.apache.cassandra.thrift.Cassandra.Client;
 import org.apache.cassandra.thrift.CfDef;
 import org.apache.cassandra.thrift.Column;
@@ -17,6 +19,7 @@ import org.apache.cassandra.thrift.ColumnParent;
 import org.apache.cassandra.thrift.ColumnPath;
 import org.apache.cassandra.thrift.ConsistencyLevel;
 import org.apache.cassandra.thrift.IndexClause;
+import org.apache.cassandra.thrift.InvalidRequestException;
 import org.apache.cassandra.thrift.KeyRange;
 import org.apache.cassandra.thrift.KeySlice;
 import org.apache.cassandra.thrift.KsDef;
@@ -24,7 +27,10 @@ import org.apache.cassandra.thrift.Mutation;
 import org.apache.cassandra.thrift.NotFoundException;
 import org.apache.cassandra.thrift.SlicePredicate;
 import org.apache.cassandra.thrift.TBinaryProtocol;
+import org.apache.cassandra.thrift.TimedOutException;
 import org.apache.cassandra.thrift.TokenRange;
+import org.apache.cassandra.thrift.UnavailableException;
+import org.apache.thrift.TException;
 import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TFramedTransport;
 import org.apache.thrift.transport.TSocket;
@@ -34,7 +40,6 @@ import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.model.core.wrappers.cassandra.IWrapper;
 import com.mymed.utils.MConverter;
-import com.mymed.utils.MyMedLogger;
 
 /**
  * Wrapper for the Cassandra API v0.7.<br />
@@ -44,7 +49,7 @@ import com.mymed.utils.MyMedLogger;
  * @author Milo Casagrande
  * 
  */
-public class CassandraWrapper extends MyMedLogger implements ICassandraWrapper, IWrapper {
+public class CassandraWrapper implements ICassandraWrapper, IWrapper {
 
 	private TFramedTransport thriftTransport;
 	private TSocket socket;
@@ -86,8 +91,11 @@ public class CassandraWrapper extends MyMedLogger implements ICassandraWrapper, 
 	public void login(final AuthenticationRequest authRequest) throws InternalBackEndException {
 		try {
 			cassandraClient.login(authRequest);
-		} catch (final Exception ex) {
-			DEBUG_LOGGER.debug(ex.getMessage(), ex.getCause());
+		} catch (final AuthenticationException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final AuthorizationException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
 			throw new InternalBackEndException(ex);
 		}
 	}
@@ -96,8 +104,9 @@ public class CassandraWrapper extends MyMedLogger implements ICassandraWrapper, 
 	public void set_keyspace(final String keySpace) throws InternalBackEndException {
 		try {
 			cassandraClient.set_keyspace(keySpace);
-		} catch (final Exception ex) {
-			DEBUG_LOGGER.debug(ex.getMessage(), ex.getCause());
+		} catch (final InvalidRequestException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
 			throw new InternalBackEndException(ex);
 		}
 	}
@@ -112,10 +121,14 @@ public class CassandraWrapper extends MyMedLogger implements ICassandraWrapper, 
 		try {
 			result = cassandraClient.get(keyToBuffer, path, level);
 		} catch (final NotFoundException ex) {
-			DEBUG_LOGGER.debug(ex.getMessage(), ex.getCause());
 			throw new IOBackEndException(ex);
-		} catch (final Exception ex) {
-			DEBUG_LOGGER.debug(ex.getMessage(), ex.getCause());
+		} catch (final InvalidRequestException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final UnavailableException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TimedOutException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
 			throw new InternalBackEndException(ex);
 		}
 
@@ -131,8 +144,13 @@ public class CassandraWrapper extends MyMedLogger implements ICassandraWrapper, 
 
 		try {
 			result = cassandraClient.get_slice(keyToBuffer, parent, predicate, level);
-		} catch (final Exception ex) {
-			DEBUG_LOGGER.debug(ex.getMessage(), ex.getCause());
+		} catch (final InvalidRequestException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final UnavailableException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TimedOutException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
 			throw new InternalBackEndException(ex);
 		}
 
@@ -149,8 +167,13 @@ public class CassandraWrapper extends MyMedLogger implements ICassandraWrapper, 
 
 		try {
 			result = cassandraClient.multiget_slice(keysToBuffer, parent, predicate, level);
-		} catch (final Exception ex) {
-			DEBUG_LOGGER.debug(ex.getMessage(), ex.getCause());
+		} catch (final InvalidRequestException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final UnavailableException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TimedOutException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
 			throw new InternalBackEndException(ex);
 		}
 
@@ -166,8 +189,13 @@ public class CassandraWrapper extends MyMedLogger implements ICassandraWrapper, 
 
 		try {
 			result = cassandraClient.get_count(keyToBuffer, parent, predicate, level);
-		} catch (final Exception ex) {
-			DEBUG_LOGGER.debug(ex.getMessage(), ex.getCause());
+		} catch (final InvalidRequestException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final UnavailableException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TimedOutException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
 			throw new InternalBackEndException(ex);
 		}
 
@@ -183,8 +211,13 @@ public class CassandraWrapper extends MyMedLogger implements ICassandraWrapper, 
 
 		try {
 			result = cassandraClient.multiget_count(keysToBuffer, parent, predicate, level);
-		} catch (final Exception ex) {
-			DEBUG_LOGGER.debug(ex.getMessage(), ex.getCause());
+		} catch (final InvalidRequestException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final UnavailableException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TimedOutException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
 			throw new InternalBackEndException(ex);
 		}
 
@@ -199,8 +232,13 @@ public class CassandraWrapper extends MyMedLogger implements ICassandraWrapper, 
 
 		try {
 			result = cassandraClient.get_range_slices(parent, predicate, range, level);
-		} catch (final Exception ex) {
-			DEBUG_LOGGER.debug(ex.getMessage(), ex.getCause());
+		} catch (final InvalidRequestException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final UnavailableException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TimedOutException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
 			throw new InternalBackEndException(ex);
 		}
 
@@ -215,8 +253,13 @@ public class CassandraWrapper extends MyMedLogger implements ICassandraWrapper, 
 
 		try {
 			result = cassandraClient.get_indexed_slices(parent, clause, predicate, level);
-		} catch (final Exception ex) {
-			DEBUG_LOGGER.debug(ex.getMessage(), ex.getCause());
+		} catch (final InvalidRequestException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final UnavailableException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TimedOutException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
 			throw new InternalBackEndException(ex);
 		}
 
@@ -231,8 +274,13 @@ public class CassandraWrapper extends MyMedLogger implements ICassandraWrapper, 
 
 		try {
 			cassandraClient.insert(keyToBuffer, parent, column, level);
-		} catch (final Exception ex) {
-			DEBUG_LOGGER.debug(ex.getMessage(), ex.getCause());
+		} catch (final InvalidRequestException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final UnavailableException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TimedOutException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
 			throw new InternalBackEndException(ex);
 		}
 	}
@@ -256,8 +304,13 @@ public class CassandraWrapper extends MyMedLogger implements ICassandraWrapper, 
 
 		try {
 			cassandraClient.batch_mutate(newMap, level);
-		} catch (final Exception ex) {
-			DEBUG_LOGGER.debug(ex.getMessage(), ex.getCause());
+		} catch (final InvalidRequestException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final UnavailableException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TimedOutException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
 			throw new InternalBackEndException(ex);
 		}
 	}
@@ -270,19 +323,26 @@ public class CassandraWrapper extends MyMedLogger implements ICassandraWrapper, 
 
 		try {
 			cassandraClient.remove(keyToBuffer, path, timeStamp, level);
-		} catch (final Exception ex) {
-			DEBUG_LOGGER.debug(ex.getMessage(), ex.getCause());
+		} catch (final InvalidRequestException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final UnavailableException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TimedOutException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
 			throw new InternalBackEndException(ex);
 		}
 	}
 
 	@Override
 	public void truncate(final String columnFamily) throws InternalBackEndException {
-
 		try {
 			cassandraClient.truncate(columnFamily);
-		} catch (final Exception ex) {
-			DEBUG_LOGGER.debug(ex.getMessage(), ex.getCause());
+		} catch (final InvalidRequestException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final UnavailableException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
 			throw new InternalBackEndException(ex);
 		}
 	}
@@ -293,8 +353,7 @@ public class CassandraWrapper extends MyMedLogger implements ICassandraWrapper, 
 
 		try {
 			result = cassandraClient.describe_cluster_name();
-		} catch (final Exception ex) {
-			DEBUG_LOGGER.debug(ex.getMessage(), ex.getCause());
+		} catch (final TException ex) {
 			throw new InternalBackEndException(ex);
 		}
 
@@ -309,10 +368,10 @@ public class CassandraWrapper extends MyMedLogger implements ICassandraWrapper, 
 		try {
 			keySpaceDef = cassandraClient.describe_keyspace(keySpace);
 		} catch (final NotFoundException ex) {
-			DEBUG_LOGGER.debug(ex.getMessage(), ex.getCause());
 			throw new IOBackEndException(ex);
-		} catch (final Exception ex) {
-			DEBUG_LOGGER.debug(ex.getMessage(), ex.getCause());
+		} catch (final InvalidRequestException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
 			throw new InternalBackEndException(ex);
 		}
 
@@ -326,8 +385,9 @@ public class CassandraWrapper extends MyMedLogger implements ICassandraWrapper, 
 
 		try {
 			keySpaceList = cassandraClient.describe_keyspaces();
-		} catch (final Exception ex) {
-			DEBUG_LOGGER.debug(ex.getMessage(), ex.getCause());
+		} catch (final InvalidRequestException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
 			throw new InternalBackEndException(ex);
 		}
 
@@ -341,8 +401,7 @@ public class CassandraWrapper extends MyMedLogger implements ICassandraWrapper, 
 
 		try {
 			partitioner = cassandraClient.describe_partitioner();
-		} catch (final Exception ex) {
-			DEBUG_LOGGER.debug(ex.getMessage(), ex.getCause());
+		} catch (final TException ex) {
 			throw new InternalBackEndException(ex);
 		}
 
@@ -356,8 +415,9 @@ public class CassandraWrapper extends MyMedLogger implements ICassandraWrapper, 
 
 		try {
 			ring = cassandraClient.describe_ring(keySpace);
-		} catch (final Exception ex) {
-			DEBUG_LOGGER.debug(ex.getMessage(), ex.getCause());
+		} catch (final InvalidRequestException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
 			throw new InternalBackEndException(ex);
 		}
 
@@ -371,8 +431,7 @@ public class CassandraWrapper extends MyMedLogger implements ICassandraWrapper, 
 
 		try {
 			snitch = cassandraClient.describe_snitch();
-		} catch (final Exception ex) {
-			DEBUG_LOGGER.debug(ex.getMessage(), ex.getCause());
+		} catch (final TException ex) {
 			throw new InternalBackEndException(ex);
 		}
 
@@ -386,8 +445,7 @@ public class CassandraWrapper extends MyMedLogger implements ICassandraWrapper, 
 
 		try {
 			version = cassandraClient.describe_version();
-		} catch (final Exception ex) {
-			DEBUG_LOGGER.debug(ex.getMessage(), ex.getCause());
+		} catch (final TException ex) {
 			throw new InternalBackEndException(ex);
 		}
 
@@ -401,8 +459,9 @@ public class CassandraWrapper extends MyMedLogger implements ICassandraWrapper, 
 
 		try {
 			schemaId = cassandraClient.system_add_column_family(cfDef);
-		} catch (final Exception ex) {
-			DEBUG_LOGGER.debug(ex.getMessage(), ex.getCause());
+		} catch (final InvalidRequestException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
 			throw new InternalBackEndException(ex);
 		}
 
@@ -416,8 +475,9 @@ public class CassandraWrapper extends MyMedLogger implements ICassandraWrapper, 
 
 		try {
 			schemaId = cassandraClient.system_drop_column_family(columnFamily);
-		} catch (final Exception ex) {
-			DEBUG_LOGGER.debug(ex.getMessage(), ex.getCause());
+		} catch (final InvalidRequestException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
 			throw new InternalBackEndException(ex);
 		}
 
@@ -431,8 +491,9 @@ public class CassandraWrapper extends MyMedLogger implements ICassandraWrapper, 
 
 		try {
 			schemaId = cassandraClient.system_add_keyspace(ksDef);
-		} catch (final Exception ex) {
-			DEBUG_LOGGER.debug(ex.getMessage(), ex.getCause());
+		} catch (final InvalidRequestException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
 			throw new InternalBackEndException(ex);
 		}
 
@@ -446,8 +507,9 @@ public class CassandraWrapper extends MyMedLogger implements ICassandraWrapper, 
 
 		try {
 			schemaId = cassandraClient.system_drop_keyspace(keySpace);
-		} catch (final Exception ex) {
-			DEBUG_LOGGER.debug(ex.getMessage(), ex.getCause());
+		} catch (final InvalidRequestException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
 			throw new InternalBackEndException(ex);
 		}
 
@@ -461,8 +523,9 @@ public class CassandraWrapper extends MyMedLogger implements ICassandraWrapper, 
 
 		try {
 			newSchemaId = cassandraClient.system_update_column_family(columnFamily);
-		} catch (final Exception ex) {
-			DEBUG_LOGGER.debug(ex.getMessage(), ex.getCause());
+		} catch (final InvalidRequestException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
 			throw new InternalBackEndException(ex);
 		}
 
@@ -476,8 +539,9 @@ public class CassandraWrapper extends MyMedLogger implements ICassandraWrapper, 
 
 		try {
 			newSchemaId = cassandraClient.system_update_keyspace(keySpace);
-		} catch (final Exception ex) {
-			DEBUG_LOGGER.debug(ex.getMessage(), ex.getCause());
+		} catch (final InvalidRequestException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
 			throw new InternalBackEndException(ex);
 		}
 
@@ -490,15 +554,16 @@ public class CassandraWrapper extends MyMedLogger implements ICassandraWrapper, 
 	 * @throws InternalBackEndException
 	 */
 	public void open() throws InternalBackEndException {
-		try {
-			if (!thriftTransport.isOpen()) {
+		if (!thriftTransport.isOpen()) {
+
+			try {
 				thriftTransport.open();
-				// We set the keyspace here
-				set_keyspace(KEYSPACE);
+			} catch (final TTransportException ex) {
+				throw new InternalBackEndException(ex);
 			}
-		} catch (final TTransportException ex) {
-			DEBUG_LOGGER.debug(ex.getMessage(), ex.getCause());
-			throw new InternalBackEndException(ex);
+
+			// We set the keyspace here
+			set_keyspace(KEYSPACE);
 		}
 	}
 
