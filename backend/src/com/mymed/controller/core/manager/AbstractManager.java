@@ -63,8 +63,7 @@ public abstract class AbstractManager extends ManagerValues {
 
 					method.invoke(mbean, argument);
 				} catch (final NoSuchFieldException e) {
-					// TODO use logger
-					System.out.println("\nWARNING: " + new String(arg.getKey(), "UTF8") + " is not a bean field");
+					INFO_LOGGER.info("WARNING: {} is not a bean field", new String(arg.getKey(), "UTF8"));
 				}
 			}
 		} catch (final Exception ex) {
