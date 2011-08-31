@@ -53,6 +53,7 @@ public class SessionManager extends AbstractManager implements ISessionManager {
 			sessionBean.setId(sessionBean.getUser() + SESSION_SUFFIX);
 		}
 
+		INFO_LOGGER.info("Creating new session with ID {} for user {}", sessionBean.getId(), sessionBean.getUser());
 		storageManager.insertSlice(CF_SESSION, sessionBean.getId(), sessionBean.getAttributeToMap());
 
 		final ProfileManager profileManager = new ProfileManager(storageManager);
@@ -68,6 +69,9 @@ public class SessionManager extends AbstractManager implements ISessionManager {
 	 */
 	@Override
 	public MSessionBean read(final String userID) throws InternalBackEndException, IOBackEndException {
+
+		INFO_LOGGER.info("Reading session for user with ID: {}", userID);
+
 		final ProfileManager profileManager = new ProfileManager(storageManager);
 		final MUserBean user = profileManager.read(userID);
 		final MSessionBean session = new MSessionBean();
@@ -91,6 +95,8 @@ public class SessionManager extends AbstractManager implements ISessionManager {
 	 */
 	@Override
 	public void delete(final String userID) throws InternalBackEndException {
+		INFO_LOGGER.info("Deleting session for user with ID: {}", userID);
+
 		storageManager.removeAll(CF_SESSION, userID + SESSION_SUFFIX);
 	}
 }
