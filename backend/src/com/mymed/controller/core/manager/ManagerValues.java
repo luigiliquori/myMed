@@ -1,6 +1,5 @@
 package com.mymed.controller.core.manager;
 
-import com.mymed.utils.MyMedLogger;
 
 /**
  * Simple class to hold generic strings that can be used with all the managers.
@@ -11,7 +10,7 @@ import com.mymed.utils.MyMedLogger;
  * @author Milo Casagrande
  * 
  */
-public class ManagerValues extends MyMedLogger {
+public class ManagerValues {
 	// Column families
 	/**
 	 * The 'Application' column family
