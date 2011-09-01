@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.utils.ClassType;
+import com.mymed.utils.MyMedLogger;
 
 /**
  * myMed java Beans:
@@ -69,6 +70,7 @@ public abstract class AbstractMBean {
 
 				args.put(field.getName(), ClassType.objectToByteArray(type, field.get(this)));
 			} catch (final Exception e) {
+				MyMedLogger.getDebugLog().debug("Introspection failed", e.getCause());
 				throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
 			}
 		}
@@ -103,9 +105,9 @@ public abstract class AbstractMBean {
 					value.append('\n');
 				}
 			} catch (final IllegalArgumentException e) {
-				e.printStackTrace();
+				MyMedLogger.getDebugLog().debug("Arguments are not valid", e.getCause());
 			} catch (final IllegalAccessException e) {
-				e.printStackTrace();
+				MyMedLogger.getDebugLog().debug("Impossibile to access the field '{}'", field.getName(), e.getCause());
 			}
 		}
 
