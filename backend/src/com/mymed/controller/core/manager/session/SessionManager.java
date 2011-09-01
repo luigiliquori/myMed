@@ -9,6 +9,7 @@ import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.data.session.MSessionBean;
 import com.mymed.model.data.user.MUserBean;
+import com.mymed.utils.MyMedLogger;
 
 /**
  * Manage the session of a user
@@ -53,7 +54,8 @@ public class SessionManager extends AbstractManager implements ISessionManager {
 			sessionBean.setId(sessionBean.getUser() + SESSION_SUFFIX);
 		}
 
-		INFO_LOGGER.info("Creating new session with ID {} for user {}", sessionBean.getId(), sessionBean.getUser());
+		MyMedLogger.getLog().info("Creating new session with ID {} for user {}", sessionBean.getId(),
+		        sessionBean.getUser());
 		storageManager.insertSlice(CF_SESSION, sessionBean.getId(), sessionBean.getAttributeToMap());
 
 		final ProfileManager profileManager = new ProfileManager(storageManager);
@@ -70,7 +72,7 @@ public class SessionManager extends AbstractManager implements ISessionManager {
 	@Override
 	public MSessionBean read(final String userID) throws InternalBackEndException, IOBackEndException {
 
-		INFO_LOGGER.info("Reading session for user with ID: {}", userID);
+		MyMedLogger.getLog().info("Reading session for user with ID: {}", userID);
 
 		final ProfileManager profileManager = new ProfileManager(storageManager);
 		final MUserBean user = profileManager.read(userID);
@@ -95,7 +97,7 @@ public class SessionManager extends AbstractManager implements ISessionManager {
 	 */
 	@Override
 	public void delete(final String userID) throws InternalBackEndException {
-		INFO_LOGGER.info("Deleting session for user with ID: {}", userID);
+		MyMedLogger.getLog().info("Deleting session for user with ID: {}", userID);
 
 		storageManager.removeAll(CF_SESSION, userID + SESSION_SUFFIX);
 	}
