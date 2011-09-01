@@ -137,8 +137,9 @@ public enum ClassType {
 
 			returnObject = cons.newInstance(initArg);
 		} catch (final Exception ex) {
-			// TODO logger!
-			ex.printStackTrace();
+			MyMedLogger.getLog().info("Problem creating an object of type '{}'", classType.getPrimitiveType());
+			MyMedLogger.getDebugLog().debug("Problem creating an object of type '{}'", classType.getPrimitiveType(),
+			        ex.getCause());
 		}
 
 		return returnObject;
@@ -161,8 +162,10 @@ public enum ClassType {
 			final Method method = MConverter.class.getMethod(methodName, classType.getPrimitiveType());
 			returnBuffer = (ByteBuffer) method.invoke(null, object);
 		} catch (final Exception ex) {
-			// TODO logger
-			ex.printStackTrace();
+			MyMedLogger.getLog().info("Problem converting an object of class '{}' to a byte array",
+			        classType.getPrimitiveType());
+			MyMedLogger.getDebugLog().debug("Problem converting to byte array from '{}'", classType.getPrimitiveType(),
+			        ex.getCause());
 		}
 
 		return returnBuffer.array();
