@@ -83,7 +83,6 @@ public class StorageManager extends ManagerValues implements IStorageManager {
 	 * @param columnName
 	 *            the name of the column
 	 * @return the value of the column
-	 * @throws ServiceManagerException
 	 * @throws IOBackEndException
 	 * @throws InternalBackEndException
 	 */
@@ -305,7 +304,7 @@ public class StorageManager extends ManagerValues implements IStorageManager {
 	 *            the ID of the entry
 	 * @param args
 	 *            All columnName and the their value
-	 * @throws ServiceManagerException
+	 * @throws IOBackEndException
 	 * @throws InternalBackEndException
 	 */
 	@Override
@@ -355,7 +354,6 @@ public class StorageManager extends ManagerValues implements IStorageManager {
 	 * @param key
 	 * @param columnName
 	 * @throws InternalBackEndException
-	 * @throws UnsupportedEncodingException
 	 */
 	@Override
 	public void removeColumn(final String tableName, final String key, final String columnName)
@@ -384,7 +382,6 @@ public class StorageManager extends ManagerValues implements IStorageManager {
 	 * @param columnFamily
 	 * @param key
 	 * @throws InternalBackEndException
-	 * @throws UnsupportedEncodingException
 	 */
 	@Override
 	public void removeAll(final String tableName, final String key) throws InternalBackEndException {
