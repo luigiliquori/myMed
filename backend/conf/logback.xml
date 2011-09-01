@@ -29,7 +29,7 @@
   <!-- The appender for the info logger  -->
   <!-- We accept only info level logging statement, all the others are denied -->
   <!-- It also has a rolling policy: daily and gzipped files -->
-  <appender name="info.file" class="ch.qos.logback.core.RollingFileAppender">
+  <appender name="info.file" class="ch.qos.logback.core.rolling.RollingFileAppender">
     <filter class="ch.qos.logback.classic.filter.LevelFilter">
       <level>info</level>
       <onMatch>accept</onMatch>
