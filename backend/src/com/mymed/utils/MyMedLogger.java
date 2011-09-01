@@ -11,7 +11,7 @@ import ch.qos.logback.classic.Logger;
  * @author Milo Casagrande
  * 
  */
-public class MyMedLogger {
+public final class MyMedLogger {
 	/**
 	 * The name of the default info logger as defined in the file logback.xml
 	 */
@@ -25,10 +25,44 @@ public class MyMedLogger {
 	/**
 	 * The default info logger to be used throughout all the managers
 	 */
-	protected static final Logger INFO_LOGGER = (Logger) LoggerFactory.getLogger(INFO_LOG_NAME);
+	private static final Logger INFO_LOGGER = (Logger) LoggerFactory.getLogger(INFO_LOG_NAME);
 
 	/**
 	 * The default debug logger to be used throughout all the managers
 	 */
-	protected static final Logger DEBUG_LOGGER = (Logger) LoggerFactory.getLogger(DEBUG_LOG_NAME);
+	private static final Logger DEBUG_LOGGER = (Logger) LoggerFactory.getLogger(DEBUG_LOG_NAME);
+
+	/*
+	 * Private constructor since all methods are static, or we have to provide a
+	 * singleton
+	 */
+	private MyMedLogger() {
+	}
+
+	/**
+	 * Get the default mymed logger, in this case an 'info' level logger
+	 * 
+	 * @return the default logger
+	 */
+	public static Logger getLog() {
+		return INFO_LOGGER;
+	}
+
+	/**
+	 * Get the 'info' level logger of mymed
+	 * 
+	 * @return the info level logger
+	 */
+	public static Logger getInfoLog() {
+		return INFO_LOGGER;
+	}
+
+	/**
+	 * Get the 'debug' level logger of mymed
+	 * 
+	 * @return the debug level logger
+	 */
+	public static Logger getDebugLog() {
+		return DEBUG_LOGGER;
+	}
 }
