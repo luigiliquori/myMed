@@ -58,7 +58,7 @@ class LoginHandler implements IRequestHandler {
 			
 			// Check if there's not error
 			$check = json_decode($response);
-			if($check->error != null) {
+			if(isset($check->error)) {
 				$this->error = $check->error->message;
 				return;
 			} else {
@@ -82,7 +82,7 @@ class LoginHandler implements IRequestHandler {
 			$response = $request->send();
 			// Check if there's not error
 			$check = json_decode($response);
-			if($check->error != null) {
+			if(isset($check->error)) {
 				$this->error = $check->error->message;
 				return;
 			} else if($check->firstName != null) {
@@ -92,7 +92,7 @@ class LoginHandler implements IRequestHandler {
 				$request->addArgument("userID", $user->id);
 				$response = $request->send();
 				$check = json_decode($response);
-				if($check->error != null) {
+				if(isset($check->error)) {
 					$this->error = $check->error->message;
 					return;
 				} else {

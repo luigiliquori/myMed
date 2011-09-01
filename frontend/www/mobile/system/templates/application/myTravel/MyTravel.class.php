@@ -45,7 +45,7 @@ class MyTravel extends AbstractTemplate {
 		<!-- CONTENT -->
 		<div class="content" >
 			<center>
-				<script src="http://www.gmodules.com/ig/ifr?url=http://www.erwinmayer.com/labs/gadget_illicotravel/comparateurvoyage.xml&amp;up_titre=&amp;up_departure=&amp;up_arrival=&amp;up_mytheme=orange&amp;up_myformat=250x250&amp;synd=open&amp;w=250&amp;h=250&amp;title=&amp;border=%23ffffff%7C3px%2C1px+solid+%23999999&amp;output=js"></script>			
+				<script src="http://www.gmodules.com/ig/ifr?url=http://www.erwinmayer.com/labs/gadget_illicotravel/comparateurvoyage.xml&amp;up_titre=Comparateur%20de%20voyages%20avec%20Comparavel.com&amp;up_departure=nice&amp;up_arrival=turin&amp;up_mytheme=orange&amp;up_myformat=471x254&amp;synd=open&amp;w=475&amp;h=300&amp;title=&amp;border=%23ffffff%7C3px%2C1px+solid+%23999999&amp;output=js"></script>			
 			</center>
 		</div>
 	<?php }

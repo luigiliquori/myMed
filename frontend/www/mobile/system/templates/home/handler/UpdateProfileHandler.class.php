@@ -59,7 +59,7 @@ class UpdateProfileHandler implements IRequestHandler {
 			$response = $request->send();
 			// Check if there's not error
 			$check1 = json_decode($response);
-			if($check1->error != null) {
+			if(isset($check1->error)) {
 				$this->error = $check1->error->message;
 				return;
 			}
@@ -75,7 +75,7 @@ class UpdateProfileHandler implements IRequestHandler {
 			$response = $request->send();
 			//Check if there's not error
 			$check2 = json_decode($response);
-			if($check2->error != null) {
+			if(isset($check2->error)) {
 				$this->error = $check2->error->message;
 				return;
 			}

@@ -34,7 +34,7 @@ class MenuHandler implements IRequestHandler {
 			$request->addArgument("userID", $_SESSION['user']->id);
 			$response = $request->send();
 			$check = json_decode($response);
-			if($check->error != null) {
+			if(isset($check->error)) {
 				$this->error = $check->error->message;
 			} else {
 				// DELETE FRONTEND SESSION
