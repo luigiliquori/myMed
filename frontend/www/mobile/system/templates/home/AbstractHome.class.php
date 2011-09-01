@@ -56,7 +56,6 @@ abstract class AbstractHome extends AbstractTemplate {
 				<ul>
 				<li><a href="#favorite" data-transition="slide" data-back="true" <?= $this->activeFooter == "home" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>Home</a></li>
 				<li><a href="#profile" data-transition="slide" <?= $this->activeFooter == "profile" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>Profile</a></li>
-				<li><a href="#login"onclick="document.disconnectForm.submit()">Deconnexion</a></li>
 				</ul>
 			</div>
 		</div>

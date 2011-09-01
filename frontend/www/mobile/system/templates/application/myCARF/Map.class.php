@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__).'/MyTransport.class.php';
+require_once dirname(__FILE__).'/MyCARF.class.php';
 
 /**
  * 
@@ -8,7 +8,7 @@ require_once dirname(__FILE__).'/MyTransport.class.php';
  * @author lvanni
  *
  */
-class Map extends MyTransport {
+class Map extends MyCARF {
 	
 	/* --------------------------------------------------------- */
 	/* Attributes */

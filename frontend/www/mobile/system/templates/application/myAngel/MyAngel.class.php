@@ -28,5 +28,30 @@ class MyAngel extends AbstractTemplate {
 	/* --------------------------------------------------------- */
 	/* public methods */
 	/* --------------------------------------------------------- */
+	/**
+	* Get the HEADER for jQuery Mobile
+	*/
+	public /*String*/ function getHeader() { ?>
+		<div data-role="header">
+			<a href="?application=0" rel="external" data-role="button" data-theme="r">Fermer</a>
+			<h1><?= $this->title ?></h1>
+		</div>
+	<?php }
+	
+	/**
+	 * Get the CONTENT for jQuery Mobile
+	 */
+	public /*String*/ function getContent() { ?>
+		<div class="content">
+			<br><br>
+			<img alt="button" src="system/templates/application/myAngel/button.png" onclick="alert('ALERT SENT!');">
+		</div>
+	<?php }
+	
+	/**
+	 * Get the HEADER for jQuery Mobile
+	 */
+	public /*String*/ function getFooter() {
+	}
 }
 ?>

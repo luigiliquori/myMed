@@ -82,6 +82,7 @@ class Profile extends AbstractHome {
 			    ?>
 			    <br /><br />
 			    <a href="#inscription" data-role="button" data-rel="dialog">mise à jour</a>
+			    <a href="#login"onclick="document.disconnectForm.submit()" data-role="button" data-theme="r">Deconnexion</a>
 			</div>
 		</div>
 	<?php }

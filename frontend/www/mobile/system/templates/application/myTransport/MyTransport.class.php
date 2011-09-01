@@ -25,7 +25,7 @@ abstract class MyTransport extends AbstractTemplate {
 	 * Default constructor
 	 */
 	public function __construct(/*String*/ $id) {
-		parent::__construct($id, $id);
+		parent::__construct($id, "myTransport");
 		$this->activeFooter = $id;
 		$this->handler = new MyTransportHandler();
 		$this->handler->handleRequest();
@@ -46,6 +46,7 @@ abstract class MyTransport extends AbstractTemplate {
 			</div>
 		<?php } else { ?>
 			<div data-role="header" data-theme="b">
+				<a href="?application=0" rel="external" data-role="button" data-theme="r">Fermer</a>
 				<h1><?= $this->title ?></h1>
 			</div>
 		<?php }?>
@@ -62,7 +63,6 @@ abstract class MyTransport extends AbstractTemplate {
 				<li><a href="#Carte" <?= $this->activeFooter == "Carte" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>Carte</a></li>
 				<li><a href="#Publier" data-back="true" <?= $this->activeFooter == "Publier" ? 'class="ui-btn-active ui-state-persist"' : ''; ?> >Publier</a></li>
 				<li><a href="#Rechercher" <?= $this->activeFooter == "Rechercher" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>Rechercher</a></li>
-				<li><a href="?application=0" rel="external">Fermer</a></li>
 				</ul>
 			</div>
 		</div>

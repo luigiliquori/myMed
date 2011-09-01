@@ -42,6 +42,7 @@
 		<script type="text/javascript" src="http://code.jquery.com/mobile/1.0a4/jquery.mobile-1.0a4.min.js"></script>
 		<script type="text/javascript" src="jquery-ui-map/ui/jquery.ui.map.js"></script>
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a4/jquery.mobile-1.0a4.min.css" />
+		<link rel="stylesheet" href="css/style.css" />
 		
 	</head> 
 
@@ -76,7 +77,9 @@
 		<!-- SEARCH -->
 		<div id="search" data-role="page">
 
+			<!-- HEADER -->
 			<div data-role="header" data-theme="b">
+				<a href="?application=0" rel="external" data-role="button" data-theme="r">Fermer</a>
 				<h1>myItineraire</h1>
 			</div>
 
@@ -101,7 +104,6 @@
 					<ul>
 					<li><a href="#search" data-back="true" class="ui-btn-active ui-state-persist" >Rechercher</a></li>
 					<li><a href="#itineraire">Itinéraire</a></li>
-					<li><a href="http://<?= $_SERVER['HTTP_HOST'] ?>/mobile/?application=0" rel="external">Close</a></li>
 					</ul>
 				</div>
 			</div>
@@ -122,16 +124,15 @@
 				</div>
 			</div>
 			
-			<!-- FOOTER_PERSITENT-->
+			<!-- FOOTER_PERSITENT
 			<div data-role="footer" data-position="fixed" data-theme="b">
 				<div data-role="navbar">
 					<ul>
 					<li><a href="#search" data-back="true">Rechercher</a></li>
 					<li><a href="#itineraire" class="ui-btn-active ui-state-persist" >Itinéraire</a></li>
-					<li><a href="http://<?= $_SERVER['HTTP_HOST'] ?>/mobile/?application=0" rel="external">Close</a></li>
 					</ul>
 				</div>
-			</div>
+			</div> -->
 			
 		</div>
 		

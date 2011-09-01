@@ -32,9 +32,9 @@ class MySudoku extends AbstractTemplate {
 	* Get the HEADER for jQuery Mobile
 	*/
 	public /*String*/ function getHeader() { ?>
-		<!-- HEADER -->
-		<div data-role="header" data-theme="b">
-		<h1><?= $this->title ?></h1>
+		<div data-role="header">
+			<a href="?application=0" rel="external" data-role="button" data-theme="r">Fermer</a>
+			<h1><?= $this->title ?></h1>
 		</div>
 	<?php }
 	
@@ -53,16 +53,7 @@ class MySudoku extends AbstractTemplate {
 	/**
 	* Get the FOOTER for jQuery Mobile
 	*/
-	public /*String*/ function getFooter() { ?>
-		<!-- FOOTER_PERSITENT-->
-		<div data-role="footer" data-position="fixed" data-theme="b">
-			<div data-role="navbar">
-				<ul>
-				<li><a href="?application=0" rel="external">Close</a></li>
-				</ul>
-			</div>
-		</div>
-	<?php }
+	public /*String*/ function getFooter() { }
 	
 	/**
 	* Print the Template
