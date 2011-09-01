@@ -2,9 +2,11 @@ package com.mymed.tests.stress;
 
 import java.util.LinkedList;
 
+import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.model.data.AbstractMBean;
 import com.mymed.model.data.session.MAuthenticationBean;
 import com.mymed.model.data.user.MUserBean;
+import com.mymed.utils.MyMedLogger;
 
 /**
  * This is the class that implements the thread that is executed for the
@@ -31,7 +33,7 @@ public class AuthenticationThread extends Thread implements NumberOfElements {
 		createAuthentication = new Thread("createAuthentication") {
 			@Override
 			public void run() {
-				System.err.println("Starting the create authentication thread...");
+				MyMedLogger.getLog().info("Starting thread '{}'", getName());
 
 				while (authList.isEmpty()) {
 					final AbstractMBean[] beanArray = authTest.createAuthenticationBean();
@@ -48,14 +50,16 @@ public class AuthenticationThread extends Thread implements NumberOfElements {
 
 					try {
 						authTest.createAuthentication(userBean, authBean);
-					} catch (final Exception ex) {
-						ex.printStackTrace();
+					} catch (final InternalBackEndException ex) {
 						interrupt();
+						MyMedLogger.getLog().info("Thread '{}' interrupted", getName());
 						break;
 					}
 
 					authList.pop();
 				}
+
+				MyMedLogger.getLog().info("Thread '{}' completed", getName());
 			}
 		};
 	}

@@ -2,6 +2,8 @@ package com.mymed.tests.stress;
 
 import java.io.File;
 
+import com.mymed.controller.core.exception.IOBackEndException;
+import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.authentication.AuthenticationManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.core.configuration.WrapperConfiguration;
@@ -66,14 +68,14 @@ public class AuthenticationTest extends StressTestValues {
 		return beanArray;
 	}
 
-	public void createAuthentication(final MUserBean userBean, final MAuthenticationBean authBean) throws Exception {
-
+	public void createAuthentication(final MUserBean userBean, final MAuthenticationBean authBean)
+	        throws InternalBackEndException {
 		try {
 			final AuthenticationManager authManager = new AuthenticationManager(new StorageManager(
 			        new WrapperConfiguration(new File(CONF_FILE))));
 			authManager.create(userBean, authBean);
-		} catch (final Exception ex) {
-			throw new Exception(ex);
+		} catch (final IOBackEndException ex) {
+			throw new InternalBackEndException(ex);
 		}
 	}
 }
