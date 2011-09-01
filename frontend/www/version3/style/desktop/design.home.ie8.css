@@ -1,3 +1,6 @@
+#content h2 {
+	font-size: 110%;
+}
 #content #description_myMed {
 	padding: 0 3% 0 4%;
 	width: 43%;
@@ -34,21 +37,14 @@
 	display: table-cell;
 	margin: 0.2ex;
 }
+#content #login_subscribe div.subscribe form > div > div > script {
+	display: none;
+}
 #content #login_subscribe div.subscribe form label:after {
 	content: "\A0:";
 }
 #content #login_subscribe div.subscribe form button {
-	margin: 2em;
-	/*
-	background-image	: url("../img/inscription.png");
-	height	: 24px;
-	width	: 80px;
-	border	: 0;
-	cursor	: pointer;
-}
-#content #login_subscribe div.subscribe form button span {
-	display	: none;*/
-
+	margin: 1em;
 }
 #content #login_subscribe div.login div.buttonList ul, #content #login_subscribe div.login div.buttonList ul li {
 	margin: 0;
@@ -148,10 +144,15 @@
 #content #login_subscribe div.login ul li form.openid {
 	height: 22px;
 	border: solid 1px #777777;
+	padding: 0;
 	/*find on google an htc*/
 
 	border-radius: 0.7ex;
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr= "#959595" , endColorstr= "#848484" ,GradientType=0 );
+}
+#content #login_subscribe div.login ul li form.openid:before {
+	content: "";
+	display: none;
 }
 #content #login_subscribe div.login ul li form.openid * {
 	vertical-align: top;
@@ -221,6 +222,7 @@
 
 	border-radius: 0.7ex;
 	position: relative;
+	overflow: hidden;
 }
 #content #login_subscribe div.login ul li a:hover {
 	/*see filter "Shadow" on msdn (need no border and no background)*/
@@ -235,6 +237,9 @@
 	/*find on google an htc*/
 
 	border-radius: 0.7ex;
+	border: solid 1px transparent;
+	/*for webkit on Windows/Linux make box-shadow in the border-radius*/
+
 	content: "";
 	width: 80px;
 	height: 24px;
@@ -248,7 +253,7 @@
 
 }
 #content #login_subscribe div.login ul li a:before {
-	display: block;
+	display: inline-block;
 	width: 22px;
 	height: 22px;
 	float: left;
@@ -257,49 +262,16 @@
 	background-repeat: no-repeat;
 	content: " ";
 }
-@font-face {
-	font-family: "DejaVu Sans";
-	font-style: normal;
-	font-weight: normal;
-	src: url('../fonts/DejaVuSans.eot');
-	src: local("DejaVu Sans"), url('../fonts/DejaVuSans.ttf'), url('../fonts/DejaVuSans.eot');
-}
-@font-face {
-	font-family: "DejaVu Sans";
-	font-style: normal;
-	font-weight: bold;
-	src: url('../fonts/DejaVuSans-Bold.eot');
-	src: local("DejaVu Sans Bold"), url('../fonts/DejaVuSans-Bold.ttf'), url('../fonts/DejaVuSans-Bold.eot');
-}
-@font-face {
-	font-family: "DejaVu Sans";
-	font-style: italic;
-	font-weight: bold;
-	src: url('../fonts/DejaVuSans-BoldOblique.eot');
-	src: local("DejaVu Sans BoldOblique"), url('../fonts/DejaVuSans-BoldOblique.ttf'), url('../fonts/DejaVuSans-BoldOblique.eot');
-}
-@font-face {
-	font-family: "DejaVu Sans";
-	font-style: italic;
-	font-weight: normal;
-	src: url('../fonts/DejaVuSans-Oblique.eot');
-	src: local("DejaVu Sans Oblique"), url('../fonts/DejaVuSans-Oblique.ttf'), url('../fonts/DejaVuSans-Oblique.eot');
-}
-@font-face {
-	font-family: "Times";
-	font-style: normal;
-	font-weight: bold;
-	src: local("Times Bold"), local("Free Serif Bold"), url('../fonts/FreeSerifBold.ttf'), url('../fonts/FreeSerifBold.eot');
-}
 #content #login_subscribe div.login ul li a span {
-	font-family: "DejaVu Sans";
+	font-family: "DejaVu Sans", "OpenSymbol";
 	color: #fff;
-	display: block;
+	display: inline-block;
 	overflow: hidden;
 	text-align: center;
 	line-height: 22px;
 	font-size: 12px;
 	border-left: solid 1px;
+	width: 54px;
 }
 #content #login_subscribe div.login ul li a.facebook {
 	color: #465d8f;
@@ -507,7 +479,7 @@
 #content #login_subscribe div.login ul li a.myopenid span,
 #content #login_subscribe div.login ul li a.verisign span,
 #content #login_subscribe div.login ul li a.aol span {
-	font-family: "Arial", sans-serif;
+	font-family: "Arial", sans-serif, "OpenSymbol";
 	font-style: italic;
 	color: black;
 }
@@ -518,7 +490,7 @@
 	font-style: italic;
 }
 #content #login_subscribe div.login ul li a.wordpress span {
-	font-family: "Times";
+	font-family: "Times", "OpenSymbol";
 	color: black;
 	font-variant: small-caps;
 	font-size: 10px;
@@ -529,4 +501,7 @@
 }
 #content #login_subscribe div.login ul li a.myspace span {
 	text-transform: lowercase;
+}
+#content #login_subscribe div.login ul li a span {
+	width: 53px;
 }

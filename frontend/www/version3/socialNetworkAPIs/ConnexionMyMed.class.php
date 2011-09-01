@@ -9,6 +9,8 @@ class ConnexionMyMed extends ConnexionAutoOpenId
 	protected $social_network = 'myMed';
 	/**
 	 * Récupère l'URL à appeler par OpenId pour la connexion
+	 * Get provider's URL to be used by OpenID Authentification
+	 * @return string	Provider's URL
 	 */
 	public /*string*/ function getProviderUrl()
 	{

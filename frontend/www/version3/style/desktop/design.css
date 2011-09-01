@@ -4,19 +4,19 @@ html, body {
 /******* HEADER *******/
 #header {
 	background-color: #415B68;
-	font-family: "arial", sans-serif;
+	font-family: "arial", sans-serif, "OpenSymbol";
 	vertical-align: middle;
 }
 #header div.innerContent {
 	position: relative;
 	margin: 0 8%;
 }
-@media (max-width: 777px) {
+@media (max-width: 	875px) {
 	#header div.innerContent {
 		margin: 0;
 	}
 }
-#mainTitleLink {
+#header #mainTitleLink {
 	display: inline-block;
 	text-decoration: none;
 	color: inherit;
@@ -50,7 +50,7 @@ html, body {
 }
 #header p {
 	margin: 0;
-	width: 16ex;
+	width: 17ex;
 }
 #header p,
 #header h1,
@@ -91,13 +91,16 @@ html, body {
 #header ul li.profil a {
 	background-image: url("../img/icon/profil.png");
 }
+#header ul li.store a {
+	background-image: url("../img/icon/store32.png");
+}
 #header ul li.blog a {
 	background-image: url("../img/icon/blog.png");
 }
-#language button,
-#language select,
+#header #language button,
+#header #language select,
 #header,
-#logout button,
+#header #logout button,
 #header div.tools a,
 #header ul li a {
 	color: #eee;
@@ -107,7 +110,7 @@ html, body {
 #header select:hover,
 #header div.tools a:hover,
 #header ul li a:hover,
-#logout button:focus,
+#header #logout button:focus,
 #header select:focus,
 #header div.tools a:focus,
 #header ul li a:focus {
@@ -126,13 +129,13 @@ html, body {
 #header #login button:active {
 	color: #eee;
 }
-#login:hover {
+#header #login:hover {
 	color: #ffffff;
 	background-color: #546c77;
 	/*rgba(255,255,255,0.1)*/
 
 }
-#login:hover span.label {
+#header #login:hover span.label {
 	text-shadow: 0 0 1px #ffffff;
 	/*//*/
 	-moz-text-shadow: 0 0 1px #ffffff;
@@ -150,7 +153,7 @@ html, body {
 	/*//*/
 	-khtml-text-shadow: 0 0 0 #ffffff;
 }
-#logout button:active, #header div.tools a:active, #header ul li a:active {
+#header #logout button:active, #header div.tools a:active, #header ul li a:active {
 	color: #ff0000;
 }
 #header div.tools {
@@ -159,12 +162,12 @@ html, body {
 	top: 0;
 	height: 100%;
 }
-#login, #header div.tools form {
+#header #login, #header div.tools form {
 	display: inline-block;
 	vertical-align: middle;
 	padding: 0 1ex;
 }
-#language button {
+#header #language button {
 	background-color: transparent;
 	background-image: none;
 	border: dotted 1px;
@@ -193,7 +196,7 @@ html, body {
 	/*//*/
 	-khtml-box-shadow: 0 0 0 transparent, 0 0 0 transparent inset;
 }
-#language select {
+#header #language select {
 	background-color: transparent;
 	border: dotted 1px;
 	font-size: inherit !important;
@@ -216,7 +219,7 @@ html, body {
 	border-left: solid 1px #EDF2F4;
 	padding: 0;
 }
-#logout button {
+#header #logout button {
 	background-color: transparent;
 	background-image: none;
 	border: 0 none;
@@ -242,22 +245,26 @@ html, body {
 	-khtml-box-shadow: 0 0 0 transparent, 0 0 0 transparent inset;
 	padding: 0 1ex;
 }
-#language button:focus::-moz-focus-inner, #logout button:focus::-moz-focus-inner {
+#header #language button:focus::-moz-focus-inner, #header #logout button:focus::-moz-focus-inner {
 	border-color: #eee;
 }
+#header form:before {
+	content: "";
+	display: none;
+}
 /******* Connexion ****/
-#logout, #logout *, #login {
+#header #logout, #header #logout *, #header #login {
 	height: 100%;
 }
-#login {
+#header #login {
 	position: relative;
 	border-left: solid 1px #EDF2F4;
 }
-#login span.label:after {
+#header #login span.label:after {
 	content: " ▼";
 	font-size: 80%;
 }
-#login a.label {
+#header #login a.label {
 	font-size: 80%;
 	position: absolute;
 	top: 66%;
@@ -267,7 +274,7 @@ html, body {
 	left: 50%;
 	margin-left: -5.5ex;
 }
-#login div.list {
+#header #login div.list {
 	position: absolute;
 	background-color: #415B68;
 	border: 1px solid #BDCCC9;
@@ -276,16 +283,16 @@ html, body {
 	top: 100%;
 	z-index: 9999;
 }
-#login.form div.list, #login:hover div.list {
+#header #login.form div.list, #header #login:hover div.list {
 	display: block;
 }
-#login div.list ul, #login div.list ul li {
+#header #login div.list ul, #header #login div.list ul li {
 	margin: 0;
 	padding: 0;
 	display: table;
 	list-style: none;
 }
-#login div.list ul li {
+#header #login div.list ul li {
 	display: table-row;
 }
 #header #login div.list ul li a {
@@ -297,72 +304,72 @@ html, body {
 	background-repeat: no-repeat;
 	background-position: 1px center;
 }
-#login div.list ul li a span {
+#header #login div.list ul li a span {
 	margin: 0;
 }
-#login div a.facebook {
+#header #login div a.facebook {
 	background-image: url("../img/icon/facebook.png");
 }
-#login div a.google {
+#header #login div a.google {
 	background-image: url("../img/icon/google_c.png");
 }
-#login div a.mymed {
+#header #login div a.mymed {
 	background-image: url("../img/icon/mymed_c.png");
 }
-#login div a.openid {
+#header #login div a.openid {
 	background-image: url("../img/icon/openid_c.png");
 }
-#login div a.twitter {
+#header #login div a.twitter {
 	background-image: url("../img/icon/twitter_c.png");
 }
-#login div a.yahoo {
+#header #login div a.yahoo {
 	background-image: url("../img/icon/yahoo.png");
 }
-#login div a.aol {
+#header #login div a.aol {
 	background-image: url("../img/icon/aol.png");
 }
-#login div a.myopenid {
+#header #login div a.myopenid {
 	background-image: url("../img/icon/myopenid_c.png");
 }
-#login div a.orange {
+#header #login div a.orange {
 	background-image: url("../img/icon/orange.png");
 }
-#login div a.steam {
+#header #login div a.steam {
 	background-image: url("../img/icon/steam_c.png");
 }
-#login div a.verisign {
+#header #login div a.verisign {
 	background-image: url("../img/icon/verisign_c.png");
 }
-#login div a.wordpress {
+#header #login div a.wordpress {
 	background-image: url("../img/icon/wordpress_c.png");
 }
-#login div a.liveid {
+#header #login div a.liveid {
 	background-image: url("../img/icon/liveid.png");
 }
-#login div a.myspace {
+#header #login div a.myspace {
 	background-image: url("../img/icon/myspace_c.png");
 }
-#login div form.openid label {
+#header #login div form.openid label {
 	background-image: url("../img/icon/openid_c.png");
 	height: 22px;
 	width: 22px;
 }
-#login div form.openid label span {
+#header #login div form.openid label span {
 	display: none;
 }
 #header #login div form {
 	white-space: nowrap;
 	padding: 0 0.5ex 0 0;
 }
-#login div form > * {
+#header #login div form > * {
 	display: inline-block;
 	vertical-align: middle;
 }
-#login div form > * > * {
+#header #login div form > * > * {
 	display: inline-block;
 	vertical-align: middle;
 }
-#login div form .submitRow {
+#header #login div form .submitRow {
 	text-align: right;
 }
 /******* TITLES *******/
@@ -385,7 +392,7 @@ html, body {
 	-khtml-text-shadow: 0 0 0.5ex #205b98;
 	text-transform: capitalize;
 }
-@media (max-width: 777px) {
+@media (max-width: 875px) {
 	#titles div.innerContent {
 		margin: 0;
 	}
@@ -398,7 +405,10 @@ html, body {
 	position: absolute;
 	right: 8%;
 }
-@media (max-width: 777px) {
+#footer div.innerContent {
+	height: 100%;
+}
+@media (max-width: 875px) {
 	#footer {
 		left: 0;
 		right: 0;
@@ -412,27 +422,82 @@ html, body {
 	display: inline;
 	list-style: none;
 }
-#footer nav ul li:before {
+#navigation ul li:before {
 	content: " - ";
 }
-#footer nav ul li:first-child:before {
+#navigation ul li:first-child:before {
 	content: "";
 }
-#footer nav {
+#navigation {
 	float: right;
 }
-#footer details {
-	/*
+#footer div#partnerList {
+	float: left;
+	height: 100%;
+	padding: 0 1ex;
+}
+#footer div#partnerList span:after {
+	content: " ▲";
+	font-size: 80%;
+	vertical-align: top;
+}
+#footer div#partnerList ul {
+	display: none;
 	position: absolute;
-	bottom: 0;
-	min-height: 100%;*/
+	bottom: 100%;
+	left: 0;
+	background-color: #F8F8F8;
+	border-radius: 1em 1em 0 0;
+	/*//*/
+	-moz-border-radius: 1em 1em 0 0;
+	/*//*/
+	-o-border-radius: 1em 1em 0 0;
+	/*//*/
+	-khtml-border-radius: 1em 1em 0 0;
+	border-top: 1px solid #D2D2D2;
+	border-left: 1px solid #D2D2D2;
+	border-right: 1px solid #D2D2D2;
+	padding-bottom: 1.5em;
+	/*prevent bug on firefox (url of link displayed at bottom left over the menu's bottom make an mouseout event)*/
 
 }
-#footer details ul {
-	display: none;
+@media (max-width: 875px) {
+	#footer div#partnerList ul {
+		border-left: 0 none;
+	}
 }
-#footer details:hover ul {
+#footer div#partnerList:hover ul, #footer div#partnerList ul li, #footer div#partnerList ul li a img {
 	display: block;
+}
+#footer div#partnerList ul li a {
+	display: block;
+	padding: 0.5ex 1ex;
+	/*//*/
+	transition-duration: 1s;
+	-moz-transition-duration: 1s;
+	/*//*/
+	-o-transition-duration: 1s;
+	/*//*/
+	-khtml-transition-duration: 1s;
+	/*//*/
+	transition-property: background-color;
+	-moz-transition-property: background-color;
+	/*//*/
+	-o-transition-property: background-color;
+	/*//*/
+	-khtml-transition-property: background-color;
+}
+#footer div#partnerList ul li:first-child a {
+	border-radius: 1em 1em 0 0;
+	/*//*/
+	-moz-border-radius: 1em 1em 0 0;
+	/*//*/
+	-o-border-radius: 1em 1em 0 0;
+	/*//*/
+	-khtml-border-radius: 1em 1em 0 0;
+}
+#footer div#partnerList ul li a:hover {
+	background-color: #eee;
 }
 /******* CONTENT ******/
 #content {
@@ -445,7 +510,7 @@ html, body {
 	bottom: 4%;
 	overflow: auto;
 }
-@media (max-width: 777px) {
+@media (max-width: 875px) {
 	#content {
 		left: 0;
 		right: 0;
@@ -456,17 +521,18 @@ html, body {
 /******** DEBUG *******/
 #debug {
 	position: absolute;
-	top: 100%;
-	margin-top: -480px;
-	width: 640px;
-	height: 480px;
+	top: 0;
+	width: 20px;
+	height: 20px;
 	background-color: black;
 	color: #c0c0c0;
 	font-size: 15px;
 	opacity: 0.8;
 	overflow: auto;
 	border: medium black solid;
-	font-family: monospace;
+	font-family: monospace, "OpenSymbol";
+	resize: both;
+	z-index: 999999;
 }
 #debug a.close {
 	color: #fff;

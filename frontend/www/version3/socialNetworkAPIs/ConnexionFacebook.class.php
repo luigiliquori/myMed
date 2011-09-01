@@ -37,7 +37,7 @@ class ConnexionFacebook extends Connexion
 			}
 			$encoded = json_encode($_SESSION['user']);
 			file_get_contents(trim(BACKEND_URL."ProfileRequestHandler?act=0&user=" . urlencode($encoded)));
-			header('Location:'.$_SERVER["SCRIPT_NAME"]);
+			httpRedirect($_SERVER["SCRIPT_NAME"]);
 		}
 	}
 	/**

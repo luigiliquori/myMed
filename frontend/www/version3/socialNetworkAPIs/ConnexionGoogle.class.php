@@ -2,7 +2,7 @@
 require_once __DIR__.'/ConnexionAutoOpenId.class.php';
 require_once __DIR__.'/Auth/OAuth.php';
 /**
- * A class to define a OpenId login
+ * A class to define a Google login
  * @author blanchard
  */
 class ConnexionGoogle extends ConnexionAutoOpenId
@@ -51,13 +51,24 @@ class ConnexionGoogle extends ConnexionAutoOpenId
 			$this->redirectAfterConnection();
 		}
 	}
-	private /*string*/ function oauthRequest(/*OAuthToken*/ $accessToken, /*string*/ $url)
+	/**
+	 * Send an OAuth 1.0 Request
+	 * @param OAuthToken $accessToken	OAuth 1.0 access token
+	 * @param string $url	URL of request (with http://)
+	 * @return string	result of request
+	 */
+	private /*string*/ function oauthRequest(OAuthToken $accessToken, /*string*/ $url)
 	{
 		$req = OAuthRequest::from_consumer_and_token($this->oAuthConsumer, $accessToken, 'GET', $url, NULL);
 		$req->sign_request(new OAuthSignatureMethod_HMAC_SHA1(), $this->oAuthConsumer, $accessToken);
 		return $this->send_signed_request($req->get_normalized_http_method(), $url, $req->to_header(), NULL, false);
 	}
-	private /*OAuthToken*/ function getAccessToken($request_token)
+	/**
+	 * Get OAuth 1.0 Access token from OAuth 1.0 request token
+	 * @param string $request_token	OAuth 1.0 request token geted from OpenId answer
+	 * @return OAuthToken	OAuth 1.0 Access token to be used in oauthRequest()
+	 */
+	private /*OAuthToken*/ function getAccessToken(/*string*/ $request_token)
 	{
 		$token			= new OAuthToken($request_token, NULL);
 		$token_endpoint	= 'https://www.google.com/accounts/OAuthGetAccessToken';
@@ -120,10 +131,10 @@ class ConnexionGoogle extends ConnexionAutoOpenId
 		return $response;
 	}
 	/**
-	 * Function called to OpenId extensions
-	 * @param $auth variable initialized by $this->consumer->begin()
+	 * Function called to choose OpenId extensions
+	 * @param Auth_OpenID_AuthRequest $auth	variable initialized by $this->consumer->begin()
 	 */
-	protected /*void*/ function initExtensions(/*Auth_OpenID_AuthRequest*/ $auth)
+	protected /*void*/ function initExtensions(Auth_OpenID_AuthRequest $auth)
 	{
 		// fonctionne sur google mais pas myOpenId
 		$auth->addExtensionArg('http://openid.net/srv/ax/1.0', 'mode', 'fetch_request');
@@ -142,6 +153,8 @@ class ConnexionGoogle extends ConnexionAutoOpenId
 	}
 	/**
 	 * Récupère l'URL à appeler par OpenId pour la connexion
+	 * Get provider's URL to be used by OpenID Authentification
+	 * @return string	Provider's URL
 	 */
 	public /*string*/ function getProviderUrl()
 	{

@@ -5,6 +5,7 @@
 class Debug
 {
 	private static $colored = false;// false if html_errors = On on php.ini
+	/** true if trace directly print and don't wait for printTraces()*/
 	public static $directOutput = false;
 	private static $buffer = '';
 	/*a colored var_dump*/
@@ -33,6 +34,13 @@ class Debug
 		//$tampon= preg_replace('#\$(\w)+#is','<span style=\'font-weight:bold;\'>$0</span>',$tampon);
 		return $tampon;
 	}
+	/**
+	 * trace a varible in the debug console
+	 * @param mixed $var	variable to trace
+	 * @param string $name	variable's name
+	 * @param string $file	must be equals to __FILE__
+	 * @param string $line	must be equals to __LINE__
+	 */
 	public /*void*/ static function trace(/*mixed*/ $var, /*string*/ $name=null, /*string*/ $file=null, /*int*/ $line=null)
 	{
 		if(defined('DEBUG')&&DEBUG)
@@ -50,16 +58,29 @@ class Debug
 				self::$buffer .= $localBuffer.self::var_dump($var);
 		}
 	}
+	/**
+	 * Print trace submited by trace()
+	 */
 	public /*void*/ static function printTraces()
 	{
 		if(defined('DEBUG')&&DEBUG)
 			echo self::$buffer;
 	}
 }
+/**
+ * trace a variable in the debug console
+ * @param mixed $var	variable to trace
+ * @param string $name	variable's name
+ * @param string $file	must be equals to __FILE__
+ * @param string $line	must be equals to __LINE__
+ */
 /*void*/ function trace(/*mixed*/ $var, /*string*/ $name=null, /*string*/ $file=null, /*int*/ $line=null)
 {
 	Debug::trace($var, $name, $file, $line);
 }
+/**
+ * Print trace submited by trace()
+ */
 /*void*/ function printTraces()
 {
 	Debug::printTraces();

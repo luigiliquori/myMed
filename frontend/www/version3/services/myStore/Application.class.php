@@ -31,7 +31,7 @@ class Application
 	public /*string*/ function __toString()
 	{
 		return '
-					<img src="services/'.$this->name.'/icon.png" alt="" />
+					<img src="'.ROOTPATH.'services/'.$this->name.'/icon.png" alt="" />
 					<h3><a href="#">'.$this->name.'</a></h3>
 					<p>'.$this->description.'</p>
 					<div class="grade">

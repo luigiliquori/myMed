@@ -9,6 +9,7 @@ abstract class ConnexionOAuth1_0 extends Connexion
 {
 	private		/*OAuthToken*/		$accessToken;
 	private		/*OAuthToken*/		$requestToken;
+	/**string	: scope var of OAuth protocol, define API's permissions*/
 	protected	/*string*/			$scope	= null;
 	public function __construct()
 	{
@@ -28,6 +29,9 @@ abstract class ConnexionOAuth1_0 extends Connexion
 			}
 		}
 	}
+	/**
+	 * Function called by redirectAfterConnection() to remove GET variables from URL of redirection
+	 */
 	protected /*void*/ function cleanGetVars()
 	{
 		unset($_GET['oauth_token']);
@@ -35,6 +39,10 @@ abstract class ConnexionOAuth1_0 extends Connexion
 		unset($_GET['state']);
 		unset($_SESSION['accessToken']);// access token not use after
 	}
+	/**
+	 * Get OAuth 1.0 request token
+	 * @param string $callbackUrl	URL called by provider after user authentification
+	 */
 	private /*void*/ function getRequestToken(/*string*/ $callbackUrl)// throws CUrlException, HttpException
 	{
 		$params = Array('oauth_callback' => $callbackUrl);
@@ -46,6 +54,10 @@ abstract class ConnexionOAuth1_0 extends Connexion
 		$_SESSION['requestToken']['secret']	= $token['oauth_token_secret'];
 		$this->requestToken	= new OAuthToken($token['oauth_token'], $token['oauth_token_secret']);
 	}
+	/**
+	 * Get OAuth 1.0 Access token from OAuth 1.0 verifier variable and save it in an class's attribut
+	 * @param string $verifier	verifier from callback URL
+	 */
 	private /*void*/ function getAccessToken(/*string*/ $verifier)// throws CUrlException, HttpException
 	{
 		$response	= $this->httpSignedGet(static::getAccessTokenUrl(), array(), Array('oauth_verifier'=>$verifier));
@@ -55,6 +67,10 @@ abstract class ConnexionOAuth1_0 extends Connexion
 		$_SESSION['accessToken']['secret']	= $token['oauth_token_secret'];
 		$this->accessToken	= new OAuthToken($token['oauth_token'], $token['oauth_token_secret']);
 	}
+	/**
+	 * Create Callback URL from current URL
+	 * @return string	callback url
+	 */
 	private /*string*/ function getCallBackUrl()
 	{
 		//return 'http://'.$_SERVER["HTTP_HOST"].ROOTPATH.'?state='.urlencode(static::getSocialNetworkName());
@@ -68,6 +84,9 @@ abstract class ConnexionOAuth1_0 extends Connexion
 			$query_string = '?'.$query_string;
 		return 'http://'.$_SERVER['HTTP_HOST'].preg_replace('#\\?.*$#', '', $_SERVER['REQUEST_URI']).$query_string;
 	}
+	/**
+	 * Redirect to provider for user authentication
+	 */
 	private /*void*/ function redirect()
 	{
 		try
@@ -76,8 +95,7 @@ abstract class ConnexionOAuth1_0 extends Connexion
 			$this->getRequestToken($callbackUrl);
 			$redirection	= OAuthRequest::from_request('GET', static::getAuthorizeUrl(), Array('oauth_token'=>$this->requestToken->key, 'oauth_callback'=>$callbackUrl));
 			$redirection->sign_request(new OAuthSignatureMethod_HMAC_SHA1(), static::getOAuthConsumer(), $this->requestToken);
-			header('Location: '.$redirection->to_url());
-			exit;
+			httpRedirect($redirection->to_url());
 		}
 		catch(Exception $ex)
 		{
@@ -87,6 +105,10 @@ abstract class ConnexionOAuth1_0 extends Connexion
 				sendError('Impossible de se connecter à '.static::getSocialNetworkName().'... Merci de renouveler votre demande plus tard.', true);
 		}
 	}
+	/**
+	 * After callback, test if user is authenticated and initialize $accessTocken
+	 * @return bool	true if user is authenticated
+	 */
 	private /*bool*/ function connect()
 	{
 		if(isset($this->accessToken))
@@ -99,6 +121,13 @@ abstract class ConnexionOAuth1_0 extends Connexion
 		else
 			return false;
 	}
+	/**
+	 * Create a Signed URL to be sent to provider selecting the correct token (accessToken, requestToken, none)
+	 * @param string $url	the base of URL (without ?getvars)
+	 * @param array $getParams	the URL parameters
+	 * @param array $authParam	the other authentication parameters ('oauth_verifier') used to build the signature
+	 * @return string	the URL build
+	 */
 	protected /*string*/ function httpSignedGet(/*string*/ $url, array $getParams = Array(), array $authParam=Array())
 	{
 		if(isset($this->accessToken))
@@ -177,11 +206,34 @@ abstract class ConnexionOAuth1_0 extends Connexion
 			$query_string = '&'.$query_string;
 ?><a href="?connexion=<?=urlencode(static::getSocialNetworkName())?><?=htmlspecialchars($query_string)?>" class="<?=preg_replace('#[^a-z0-9]#','',strtolower(static::getSocialNetworkName()))?>"><span><?= static::getSocialNetworkName()?></span></a><?php
 	}
+	/**
+	 * Get social network name
+	 * @return string	social network name
+	 */
 	protected abstract /*string*/ function getSocialNetworkName();
+	/**
+	 * Get the OAuthConsumer for the instance
+	 * @return OAuthConsumer	an OAuthConsumer object
+	 */
 	protected abstract /*OAuthConsumer*/ function getOAuthConsumer();
+	/**
+	 * get The URL where request_token must be requested
+	 * @return string	the request_token's URL
+	 */
 	protected abstract /*string*/ function getRequestTokenUrl();
+	/**
+	 * get The URL where access_token must be requested
+	 * @return string	the access_token's URL
+	 */
 	protected abstract /*string*/ function getAccessTokenUrl();
+	/**
+	 * get The URL where the user is redirected for authentication
+	 * @return string	autorize's URL
+	 */
 	protected abstract /*string*/ function getAuthorizeUrl();
+	/**
+	 * Instantiate Profile object after authentification
+	 */
 	protected abstract /*void*/ function createProfileAndFriendsInstances();
 }
 ?>

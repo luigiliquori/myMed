@@ -1,0 +1,111 @@
+@import "../css3init.less";
+body ,html {
+	overflow:visible;
+}
+h1 {font-size: 130%;	margin: 0.5em 0;}
+h2 {font-size: 120%;	margin: 0.6em 0;}
+h3 {font-size: 110%;	margin: 0.7em 0;}
+h4 {font-size: 100%;	margin: 0.8em 0;}
+h5 {font-size: 80%;		margin: 1.0em 0;}
+h6 {font-size: 70%;		margin: 1.2em 0;}
+.mobile_popup {
+	.transition-duration(350ms);
+	.transition-property(all);
+	.transition-timing-function(ease-in-out);
+	.transform-origin(50% 50%);
+	-o-transform-origin: 0 50%;/* using 50% 50% add an horizontal scroll bar on opera*/
+	.transform(scale(0));
+	opacity		: 0;
+}
+.mobile_popup.mobile_open {
+	.transform(scale(1));
+	opacity: 1;
+}
+ div.mobile_popup_close {
+	border		: 0.3ex solid;
+	color		: #222;
+	font-weight	: bold;
+	height		: 1.5em;
+	text-align	: center;
+	width		: 1.5em;
+	font-family	: sans-serif;
+	cursor		: pointer;
+	.box-sizing		(border-box;
+	.border-radius	(0.75em);
+	.box-shadow		(2px 2px 2px rgba(0,0,0,0.5), 2px 2px 2px rgba(0,0,0,0.5) inset);
+	.text-shadow	(2px, 2px, 2px, rgba(0,0,0,0.5));
+}
+.mobile_popup_close:hover {
+	color: #444;
+	.box-shadow		(1px 1px 1px rgba(0,0,0,0.5), 1px 1px 1px rgba(0,0,0,0.5) inset);
+	.text-shadow	(1px, 1px, 1px, rgba(0,0,0,0.5));
+}
+div.mobile_popup_close:before {
+	content	: "X";
+}
+.mobile_submenu {/*
+	.transition-duration(350ms);
+	.transition-property(all);
+	.transition-timing-function(ease-in-out);
+	.transform-origin(50% 50%);*/
+	//.transform(scale(0));
+	display	: none;
+}
+.mobile_popup.mobile_open {
+	//.transform(scale(1));
+	display	: block;
+}
+form {
+	border	: 1px solid #C6D4DB;
+	margin	: 1.5em 1ex 1ex;
+	padding	: 1em;
+	.border-radius(1em);
+	.simpleverticalgradient(#EDF2F4, #415B68);
+	.box-shadow	(0.3ex 0.3ex 0.3ex rgba(0, 0, 0, 0.75));
+}
+label {
+	margin-top	: 1ex;
+	display		: block;
+}
+label:after {
+	content	: " :"
+}
+input ,select {
+	color		:#fff;
+	background-color	: rgb(47,63,70);
+	background-color	: rgba(47,63,70,0.5);
+	border		: solid 1px #000;
+	height		: 2em;
+	width		: 90%;
+	display		: block;
+	margin		: auto;
+	.box-shadow	(0.3ex 0.3ex 0.3ex rgba(0, 0, 0, 0.75) inset);
+	apparence			: textfield;
+	-moz-apparence		: textfield;
+	-o-apparence		: textfield;
+	-khtml-apparence	: textfield;
+	-webkit-apparence	: textfield;
+}
+select {
+	height		: 2.5em;
+	padding		: 0;
+}
+input:focus ,select:focus {
+	border		: solid 1px #004890;
+	.box-shadow	( 0 0 0 transparent, 0.3ex 0.3ex 0.3ex #004890 inset);
+}
+input:invalid ,select:invalid {
+	border		: solid 1px #480000;
+	color		: red;
+	.box-shadow	( 0.3ex 0.3ex 0.3ex #900 inset);
+}
+input[type=button] ,
+input[type=submit] ,
+input[type=reset] ,
+button {
+	width		: 90%;
+	display		: block;
+	margin		: auto;
+	margin-top	: 1em;
+	height		: 3em;
+}
