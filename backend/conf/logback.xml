@@ -32,8 +32,8 @@
   <appender name="info.file" class="ch.qos.logback.core.rolling.RollingFileAppender">
     <filter class="ch.qos.logback.classic.filter.LevelFilter">
       <level>info</level>
-      <onMatch>accept</onMatch>
-      <onMismatch>deny</onMismatch>
+      <onMatch>ACCEPT</onMatch>
+      <onMismatch>DENY</onMismatch>
     </filter>
     <file>${LOG_DIR}/mymed-backend-info.log</file>
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -44,7 +44,7 @@
     </encoder>
   </appender>
 
-  <!-- The appender for the debug logger  -->
+  <!-- The appender for the debug logger -->
   <appender name="debug.file" class="ch.qos.logback.core.FileAppender">
     <file>${LOG_DIR}/mymed-backend-debug.log</file>
     <encoder>
