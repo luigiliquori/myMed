@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__.'/ConnexionOAuth1_0.class.php';
 /**
- * A class to define a Myspace login
+ * A class to define a LinkedIn login
  * @author blanchard
  */
 class ConnexionLinkedIn extends ConnexionOAuth1_0

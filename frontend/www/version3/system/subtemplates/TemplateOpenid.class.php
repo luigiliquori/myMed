@@ -20,9 +20,9 @@ class TemplateOpenid extends ContentObject
 	private /*string*/ $httpScriptPath;
 	private /*string*/ $httpsScriptPath;
 	private /*string*/ $scriptPath;
-	private /*string*/ $server;
+	private /*Auth_OpenID_Server*/ $server;
 	private /*string*/ $user	= null;
-	private /*string*/ $path	= null;
+	private /*array*/ $path	= null;
 	public function __construct()
 	{
 		$this->scriptPath	= //*
@@ -102,6 +102,9 @@ class TemplateOpenid extends ContentObject
 				$this->firstServerRequest($request);
 		}
 	}
+	/**
+	 * @param PAGE_ $page	one of PAGE_'s constante
+	 */
 	private /*void*/ function internRedirect(/*PAGE_*/ $page=null)
 	{
 		switch($page)
@@ -114,7 +117,7 @@ class TemplateOpenid extends ContentObject
 		}
 		httpRedirect($basePath.($page?'/'.$page:''));
 	}
-	private /*void*/ function firstServerRequest(/*retour de server->decodeRequest()*/ $request)
+	private /*void*/ function firstServerRequest(Auth_OpenID_Request $request)
 	{
 		$_SESSION['request'] = serialize($request);
 		if($request->mode=='checkid_immediate'||$request->mode=='checkid_setup')

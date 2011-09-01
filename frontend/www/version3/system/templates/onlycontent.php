@@ -50,7 +50,8 @@ else
 			<!-- JQuery HTML5 compatibility's initialization'-->
 			<script type="text/javascript">
 			$("[placeholder]").textPlaceholder();
-			$(":date").dateinput();
+			if(!jQuery.browser.opera&&jQuery.browser['version']>9.5)
+				$(":date").dateinput();
 			</script>
 		
 			<!-- DEBUG -->

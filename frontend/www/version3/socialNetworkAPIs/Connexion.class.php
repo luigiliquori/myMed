@@ -17,9 +17,12 @@ abstract class Connexion
 	 * Print the connexion's button
 	 */
 	public abstract /*void*/ function button();
+	/**
+	 * Function called by redirectAfterConnection() to remove GET variables from URL of redirection
+	 */
 	protected /*void*/ function cleanGetVars(){}
 	/**
-	 * Permet de rediriger vers la page visitée avant la connexion
+	 * Permet de rediriger vers la page visitée avant la connexion\n
 	 * Redirect to the page visited before login
 	 */
 	protected /*void*/ function redirectAfterConnection()

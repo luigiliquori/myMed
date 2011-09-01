@@ -1,9 +1,14 @@
 <?php
 ini_set('xdebug.var_display_max_depth', 5);
-//define('MIMETYPE_XHTML', true&&isset($_SERVER["HTTP_ACCEPT"])&&stristr($_SERVER["HTTP_ACCEPT"],"application/xhtml+xml"));
+/** true if you want to send page wind XHTML mimetype */
+define('MIMETYPE_XHTML', false&&isset($_SERVER["HTTP_ACCEPT"])&&stristr($_SERVER["HTTP_ACCEPT"],"application/xhtml+xml"));
+/** define minimum height of desktop design */
 define('MOBILESWITCH_HEIGHT', 1);
+/** define minimum width of desktop design */
 define('MOBILESWITCH_WIDTH', 737);
+/** define the path in URL to access to the website, must begin with '/' and ended with '/' */
 define('ROOTPATH', '/mymed/version3/');
+/** define the backend's URL'*/
 define('BACKEND_URL', 'http://mymed2.sophia.inria.fr:8080/mymed_backend/');
 
 //Social Networks Keys

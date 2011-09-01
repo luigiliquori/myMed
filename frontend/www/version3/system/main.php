@@ -116,7 +116,7 @@ function main()
 			$template->setContent(new ServiceNotFound());
 		}
 	}
-	$noSpaceCompression	= /**true;/*/defined('NOSPACECOMPRESSION')?NOSPACECOMPRESSION:false;//*/
+	$noSpaceCompression	= /**true;/*/defined('NOSPACECOMPRESSION')?NOSPACECOMPRESSION:(strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE 8.0')!==false);//*/
 	if(!$noSpaceCompression)
 		ob_start();
 	// Exec

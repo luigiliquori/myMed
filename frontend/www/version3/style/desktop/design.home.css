@@ -339,6 +339,9 @@
 	-o-border-radius: 0.7ex;
 	/*//*/
 	-khtml-border-radius: 0.7ex;
+	border: solid 1px transparent;
+	/*for webkit on Windows/Linux make box-shadow in the border-radius*/
+
 	content: "";
 	width: 80px;
 	height: 24px;

@@ -422,13 +422,13 @@ html, body {
 	display: inline;
 	list-style: none;
 }
-#footer nav ul li:before {
+#navigation ul li:before {
 	content: " - ";
 }
-#footer nav ul li:first-child:before {
+#navigation ul li:first-child:before {
 	content: "";
 }
-#footer nav {
+#navigation {
 	float: right;
 }
 #footer div#partnerList {

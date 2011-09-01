@@ -9,6 +9,10 @@ class MainTemplate
 	private /*IContentObject*/ $content;
 	private /*string*/ $template;
 	private /*GlobalConnexion*/ $connexions;
+	/**
+	 * @param IContentObject $content
+	 * @param string $template
+	 */
 	public function __construct(IContentObject $content=null, /*string*/ $template="main")
 	{
 		$this->content		= $content;
@@ -21,7 +25,7 @@ class MainTemplate
 	 * 				container's title of degree n-x where n is the number of 
 	 * 				containers. $deep=null print the content's title.
 	 * @param string $prefix string to print before title if title not empty
-	 * @return false if no title selected
+	 * @return bool false if no title selected
 	 */
 	private /*bool*/ function getTitle(/*int*/ $deep=null, /*string*/ $prefix='')
 	{
@@ -67,14 +71,14 @@ class MainTemplate
 	}
 	/**
 	 * set page's content
-	 * @param $content	content to print
+	 * @param IContentObject $content	content to print
 	 */
 	public /*void*/ function setContent(IContentObject $content)
 	{
 		$this->content = $content;
 	}
 	/**
-	 * @return true if content not null
+	 * @return bool true if content not null
 	 */
 	public /*bool*/ function isContent()
 	{

@@ -57,7 +57,10 @@ $date = date('Y-m-d', time()-3600*24*365*$defaultOld);
 					<div>
 						<label for="subscribe_dob">Date de Naissance</label>
 						<input id="subscribe_dob" name="dob" placeholder="<?=$date?>" type="date" min="1880-01-01" max="<?=date('Y-m-d', time()-3600*24*365*$minOld)?>" />
-						<script type="text/javascript">$("#subscribe_dob").dateinput({selectors:true, yearRange:[-131, -<?=$minOld-1?>]});</script>
+						<script type="text/javascript">
+							if(!jQuery.browser.opera&&jQuery.browser['version']>9.5)
+								$("#subscribe_dob").dateinput({selectors:true, yearRange:[-131, -<?=$minOld-1?>]});
+						</script>
 					</div>
 				</div>
 				<button type="submit"><span>S'inscrire</span></button>

@@ -16,13 +16,13 @@ define('OPENID_KEY_URLAVATAR', 5);
  */
 class ConnexionOpenId extends Connexion
 {
-	protected $consumer;
-	protected $social_network = 'OpenId';
+	/** Auth_OpenID_Consumer	: OpenId consumer object. Must be instantiate in constructor if $_REQUEST['connexionProvider']==$this->social_network, automatic in ConnexionAutoOpenId**/
+	protected /*Auth_OpenID_Consumer*/	$consumer;
+	/** string	: social network name (must be redefined for each social network based on OpenId) */
+	protected /*string*/	$social_network = 'OpenId';
 	public function __construct()
 	{
-		if(!isset($_REQUEST['connexionProvider'])
-			||$_REQUEST['connexionProvider']=='OpenId'
-			||$this->social_network!='OpenId')
+		if(!isset($_REQUEST['connexionProvider'])||$_REQUEST['connexionProvider']=='OpenId')
 		{
 			$this->consumer = new Auth_OpenID_Consumer(new Auth_OpenID_FileStore('/tmp/oid_store'));
 			static::tryConnect();
@@ -51,7 +51,14 @@ class ConnexionOpenId extends Connexion
 			$this->redirectAfterConnection();
 		}
 	}
-	protected static /*string*/ function getField(/*Array(form connect())*/ $data, /*KEY*/ $key, /*string*/ $default=null)
+	/**
+	 * Read a field from the OpenId answer
+	 * @param array $data	array to read getted from connect()
+	 * @param OPENID_KEY $key	key of array to read one of OPENID_KEY_* constant
+	 * @param string $default	default value if the field does't exsits
+	 * @return string	the field's value or $default if not exists
+	 */
+	protected static /*string*/ function getField(array $data, /*OPENID_KEY*/ $key, /*string*/ $default=null)
 	{
 		switch($key)
 		{
@@ -111,10 +118,10 @@ class ConnexionOpenId extends Connexion
 		return $default;
 	}
 	/**
-	 * Function called to OpenId extensions
-	 * @param $auth variable initialized by $this->consumer->begin()
+	 * Function called to choose OpenId extensions
+	 * @param Auth_OpenID_AuthRequest $auth	variable initialized by $this->consumer->begin()
 	 */
-	protected /*void*/ function initExtensions(/*Auth_OpenID_AuthRequest*/ $auth)
+	protected /*void*/ function initExtensions(Auth_OpenID_AuthRequest $auth)
 	{
 		$auth->addExtension(Auth_OpenID_SRegRequest::build(
 				/*required*/array('fullname'), 
@@ -133,9 +140,9 @@ class ConnexionOpenId extends Connexion
 	}
 	/**
 	 * Redirect to login on provider
-	 * @param $loginuri	URI entered by user to login on OpenId
+	 * @param string $loginuri	URI entered by user to login on OpenId
 	 */
-	protected /*void*/ function redirectProvider($loginuri)
+	protected /*void*/ function redirectProvider(/*string*/ $loginuri)
 	{
 		$auth = $this->consumer->begin($loginuri);
 		if(!$auth)
@@ -158,9 +165,9 @@ class ConnexionOpenId extends Connexion
 	}
 	/**
 	 * Called after connection on provider (isset($_GET['janrain_nonce']))
-	 * @return an Array of 3 keys : 'id' (string) for user identifier 'sreg' (Array) for simple OpenId and 'ax' (Array) for advanced openid
+	 * @return array	an Array of 3 keys : 'id' (string) for user identifier 'sreg' (Array) for simple OpenId and 'ax' (Array) for advanced openid
 	 */
-	protected /*Array*/ function connect()
+	protected /*array*/ function connect()
 	{
 		$response = $this->consumer->complete('https://'.$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]);
 		trace($response, '$response', __FILE__, __LINE__);
@@ -171,7 +178,9 @@ class ConnexionOpenId extends Connexion
 				'sreg'	=> Auth_OpenID_SRegResponse::fromSuccessResponse($response)->contents(),
 				'ax'	=> $response->extensionResponse('http://openid.net/srv/ax/1.0', false));
 	}
-	
+	/**
+	 * Function called by redirectAfterConnection() to remove GET variables from URL of redirection
+	 */
 	protected /*void*/ function cleanGetVars()
 	{
 		unset($_GET['connexionProvider']);

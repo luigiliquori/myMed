@@ -118,32 +118,34 @@ else
 <?php			$this->content();?>
 			</div>
 		</div>
-		<footer id="footer">
-			<div class="innerContent">
-				<div id="navigation">
-					<span class="label" onclick="$('#navigation nav.list')[0].open()"></span>
-					<nav class="list mobile_popup">
-						<div class="mobile_popup_close" onclick="this.parentNode.close()"></div>
-						<ul>
-							<li><a href="http://www.mymed.fr">Blog</a></li>
-							<li><a href="<?=ROOTPATH?>doxygen/">Développeurs</a></li>
-							<li><a href="#" onclick="alert('Non disponible');return false;">Conditions d'utilisation</a></li>
-							<li><a href="#" onclick="alert('Non disponible');return false;">Aide</a></li>
-						</ul>
-					</nav>
-				</div>
-				<div id="partnerList">
-					<span class="label" onclick="$('#partnerList div.list')[0].open()">Liste des financeurs</span>
-					<div class="list mobile_popup">
-						<div class="mobile_popup_close" onclick="this.parentNode.close()"></div>
-						<ul>
-							<li><a href="http://www.cg06.fr" title="Conseil Général de Alpes Maritimes"><img src="<?=ROOTPATH?>style/img/financeurs/cg06.png" alt="Conseil Général de Alpes Maritimes" /></a></li>
-							<li><a href="http://www.interreg-alcotra.org" title="Union Européenne"><img src="<?=ROOTPATH?>style/img/financeurs/europe.png" alt="Union Européenne" /></a></li>
-							<li><a href="http://www.inria.fr" title="Institut National de Recherche en Informatique et Automatique"><img src="<?=ROOTPATH?>style/img/financeurs/inria.png" alt="INRIA" /></a></li>
-							<li><a href="http://www.regionpaca.fr" title="Provence Alpes Côte d'Azur"><img src="<?=ROOTPATH?>style/img/financeurs/PACA.png" alt="PACA" /></a></li>
-							<li><a href="http://www.alpes-maritimes.pref.gouv.fr" title="Préfecture des Alpes Maritimes"><img src="<?=ROOTPATH?>style/img/financeurs/pref.png" alt="Préfecture des Alpes Maritimes" /></a></li>
-							<li><a href="http://www.regione.piemonte.it" title="Région Piemontaise"><img src="<?=ROOTPATH?>style/img/financeurs/regione.png" alt="Regione Piemonte" /></a></li>
-						</ul>
+		<footer>
+			<div id="footer">
+				<div class="innerContent">
+					<div id="navigation">
+						<span class="label" onclick="$('#navigation nav.list')[0].open()"></span>
+						<nav class="list mobile_popup">
+							<div class="mobile_popup_close" onclick="this.parentNode.close()"></div>
+							<ul>
+								<li><a href="http://www.mymed.fr">Blog</a></li>
+								<li><a href="<?=ROOTPATH?>doxygen/">Développeurs</a></li>
+								<li><a href="#" onclick="alert('Non disponible');return false;">Conditions d'utilisation</a></li>
+								<li><a href="#" onclick="alert('Non disponible');return false;">Aide</a></li>
+							</ul>
+						</nav>
+					</div>
+					<div id="partnerList">
+						<span class="label" onclick="$('#partnerList div.list')[0].open()">Liste des financeurs</span>
+						<div class="list mobile_popup">
+							<div class="mobile_popup_close" onclick="this.parentNode.close()"></div>
+							<ul>
+								<li><a href="http://www.cg06.fr" title="Conseil Général de Alpes Maritimes"><img src="<?=ROOTPATH?>style/img/financeurs/cg06.png" alt="Conseil Général de Alpes Maritimes" /></a></li>
+								<li><a href="http://www.interreg-alcotra.org" title="Union Européenne"><img src="<?=ROOTPATH?>style/img/financeurs/europe.png" alt="Union Européenne" /></a></li>
+								<li><a href="http://www.inria.fr" title="Institut National de Recherche en Informatique et Automatique"><img src="<?=ROOTPATH?>style/img/financeurs/inria.png" alt="INRIA" /></a></li>
+								<li><a href="http://www.regionpaca.fr" title="Provence Alpes Côte d'Azur"><img src="<?=ROOTPATH?>style/img/financeurs/PACA.png" alt="PACA" /></a></li>
+								<li><a href="http://www.alpes-maritimes.pref.gouv.fr" title="Préfecture des Alpes Maritimes"><img src="<?=ROOTPATH?>style/img/financeurs/pref.png" alt="Préfecture des Alpes Maritimes" /></a></li>
+								<li><a href="http://www.regione.piemonte.it" title="Région Piemontaise"><img src="<?=ROOTPATH?>style/img/financeurs/regione.png" alt="Regione Piemonte" /></a></li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -155,7 +157,8 @@ else
 		<script type="text/javascript">
 		//<![CDATA[
 		$("[placeholder]").textPlaceholder();
-		$(":date").dateinput();
+		if(!jQuery.browser.opera&&jQuery.browser['version']>9.5)
+			$(":date").dateinput();
 		$(".mobile_popup").mobilePopup($("#titlesContentContainer")[0]);
 		//window.mobileFixedElements.addElement(document.getElementById("login").getElementsByTagName("div")[0]);
 		window.scrollTo(0, 1);

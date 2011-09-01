@@ -20,6 +20,9 @@ div.body {
 	height: 100%;
 	font-family: serif, "OpenSymbol";
 }
+a img {
+	border: 0 none;
+}
 /***** TITLES (<hx>) *****/
 h1,
 h2,

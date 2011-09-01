@@ -3,6 +3,7 @@
  * Redirect user on another page. Using it instead of header() can help debug
  * call header('Location:') then exit
  * if DEBUG=true, print link with url the print traces
+ * @param string $newUrl	the redirection URL
  */
 /*void*/ function httpRedirect(/*string*/ $newUrl)
 {
@@ -16,7 +17,13 @@
 		header('Location:'.$newUrl);
 	exit;
 }
+/**
+ * An exception sent when curl fail
+ */
 class CUrlException extends Exception{}
+/**
+ * An exception sent when an HTTP request return error
+ */
 class HttpException extends Exception
 {
 	private /*string*/	$httpContent;
@@ -27,10 +34,13 @@ class HttpException extends Exception
 		if(8<$len && $len<128)
 			$this->message	= htmlspecialchars($httpContent);
 		else
-			$this->message	= $this->httpCodeTranslate();
+			$this->message	= static::httpCodeTranslate();
 	}
-	
-	public /*string*/ function httpCodeTranslate()
+	/**
+	 * Convert HTTP code to texte
+	 * @return string	the texte of HTTP code
+	 */
+	public static /*string*/ function httpCodeTranslate()
 	{
 		switch($this->code)
 		{// src : http://fr.wikipedia.org/wiki/Liste_des_codes_HTTP
@@ -110,8 +120,8 @@ class HttpException extends Exception
 /**
  * send an error message tu the final user usiing session then redirect to the 
  * current page in GET method
- * @param $msg	message to send
- * @param $removeGetVar	if true remove all var after '?'
+ * @param string $msg	message to send
+ * @param bool $removeGetVar	if true remove all var after '?'
  */
 /*void*/ function sendError(/*string*/ $msg, /*bool*/ $removeGetVar=false)
 {
