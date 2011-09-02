@@ -19,7 +19,7 @@ public class StressTestValues {
 	/**
 	 * The number of elements we want to insert
 	 */
-	protected static final int NUMBER_OF_ELEMENTS = 100000;
+	public static final int NUMBER_OF_ELEMENTS = 10000;
 	protected static final Calendar CAL_INSTANCE = Calendar.getInstance();
 	protected static final String CONF_FILE = "conf/config.xml";
 

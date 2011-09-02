@@ -11,7 +11,7 @@ import com.mymed.model.data.user.MUserBean;
  * @author Milo Casagrande
  * 
  */
-public class UserThread extends Thread implements NumberOfElements {
+public class UserThread extends Thread {
 	private final LinkedList<MUserBean> usersList = new LinkedList<MUserBean>();
 	private final UserTest userTest;
 	private final Thread addUser;
@@ -22,7 +22,7 @@ public class UserThread extends Thread implements NumberOfElements {
 	 * Create the new user thread
 	 */
 	public UserThread() {
-		this(true, NUMBER_OF_ELEMENTS);
+		this(true, StressTestValues.NUMBER_OF_ELEMENTS);
 	}
 
 	/**

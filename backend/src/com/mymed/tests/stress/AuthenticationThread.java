@@ -16,13 +16,13 @@ import com.mymed.utils.MyMedLogger;
  * @author Milo Casagrande
  * 
  */
-public class AuthenticationThread extends Thread implements NumberOfElements {
+public class AuthenticationThread extends Thread {
 
 	private final LinkedList<AbstractMBean[]> authList = new LinkedList<AbstractMBean[]>();
 	private final Thread createAuthentication;
 
 	public AuthenticationThread() {
-		this(NUMBER_OF_ELEMENTS);
+		this(StressTestValues.NUMBER_OF_ELEMENTS);
 	}
 
 	public AuthenticationThread(final int maxElements) {

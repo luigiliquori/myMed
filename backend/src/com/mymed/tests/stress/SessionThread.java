@@ -13,7 +13,7 @@ import com.mymed.utils.MyMedLogger;
  * @author Milo Casagrande
  * 
  */
-public class SessionThread extends Thread implements NumberOfElements {
+public class SessionThread extends Thread {
 	private final LinkedList<MSessionBean> sessionList = new LinkedList<MSessionBean>();
 	private final SessionTest sessionTest;
 	private final Thread addSession;
@@ -24,7 +24,7 @@ public class SessionThread extends Thread implements NumberOfElements {
 	 * Create the new session thread
 	 */
 	public SessionThread() {
-		this(true, NUMBER_OF_ELEMENTS);
+		this(true, StressTestValues.NUMBER_OF_ELEMENTS);
 	}
 
 	/**
