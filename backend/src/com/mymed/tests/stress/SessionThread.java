@@ -2,7 +2,9 @@ package com.mymed.tests.stress;
 
 import java.util.LinkedList;
 
+import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.model.data.session.MSessionBean;
+import com.mymed.utils.MyMedLogger;
 
 /**
  * This is the class that implements the threads that are executed and the
@@ -43,7 +45,7 @@ public class SessionThread extends Thread implements NumberOfElements {
 		addSession = new Thread("addSession") {
 			@Override
 			public void run() {
-				System.err.println("Starting the add session thread...");
+				MyMedLogger.getLog().info("Starting thread '{}'", getName());
 
 				synchronized (sessionList) {
 					try {
@@ -58,9 +60,9 @@ public class SessionThread extends Thread implements NumberOfElements {
 
 							try {
 								sessionTest.createSession(sessionBean);
-							} catch (final Exception ex) {
-								ex.printStackTrace();
+							} catch (final InternalBackEndException ex) {
 								interrupt();
+								MyMedLogger.getLog().info("Thread '{}' interrupted", getName());
 								break;
 							}
 
@@ -79,7 +81,7 @@ public class SessionThread extends Thread implements NumberOfElements {
 
 						sessionList.notifyAll();
 					} catch (final Exception ex) {
-						ex.printStackTrace();
+						MyMedLogger.getDebugLog().debug("Error in thread '{}'", getName(), ex.getCause());
 					}
 				}
 			}
@@ -88,7 +90,7 @@ public class SessionThread extends Thread implements NumberOfElements {
 		removeSession = new Thread() {
 			@Override
 			public void run() {
-				System.err.println("Starting the remove session thread...");
+				MyMedLogger.getLog().info("Starting thread '{}'", getName());
 
 				synchronized (sessionList) {
 					try {
@@ -102,8 +104,8 @@ public class SessionThread extends Thread implements NumberOfElements {
 							try {
 								sessionTest.removeSession(sessionBean);
 							} catch (final Exception ex) {
-								ex.printStackTrace();
 								interrupt();
+								MyMedLogger.getLog().info("Thread '{}' interrupted", getName());
 								break;
 							}
 
@@ -113,7 +115,7 @@ public class SessionThread extends Thread implements NumberOfElements {
 
 						sessionList.notifyAll();
 					} catch (final Exception ex) {
-						ex.printStackTrace();
+						MyMedLogger.getDebugLog().debug("Error in thread '{}'", getName(), ex.getCause());
 					}
 				}
 			}

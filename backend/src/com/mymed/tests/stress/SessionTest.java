@@ -2,6 +2,8 @@ package com.mymed.tests.stress;
 
 import java.io.File;
 
+import com.mymed.controller.core.exception.IOBackEndException;
+import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.session.SessionManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.core.configuration.WrapperConfiguration;
@@ -47,23 +49,19 @@ public class SessionTest extends StressTestValues {
 		return sessionBean;
 	}
 
-	public void createSession(final MSessionBean sessionBean) throws Exception {
+	public void createSession(final MSessionBean sessionBean) throws InternalBackEndException {
+		final SessionManager sessionManager = new SessionManager(new StorageManager(new WrapperConfiguration(new File(
+		        CONF_FILE))));
 		try {
-			final SessionManager sessionManager = new SessionManager(new StorageManager(new WrapperConfiguration(
-			        new File(CONF_FILE))));
 			sessionManager.create(sessionBean);
-		} catch (final Exception ex) {
-			throw new Exception(ex);
+		} catch (final IOBackEndException ex) {
+			throw new InternalBackEndException(ex);
 		}
 	}
 
-	public void removeSession(final MSessionBean sessionBean) throws Exception {
-		try {
-			final SessionManager sessionManager = new SessionManager(new StorageManager(new WrapperConfiguration(
-			        new File(CONF_FILE))));
-			sessionManager.delete(sessionBean.getUser());
-		} catch (final Exception ex) {
-			throw new Exception(ex);
-		}
+	public void removeSession(final MSessionBean sessionBean) throws InternalBackEndException {
+		final SessionManager sessionManager = new SessionManager(new StorageManager(new WrapperConfiguration(new File(
+		        CONF_FILE))));
+		sessionManager.delete(sessionBean.getUser());
 	}
 }
