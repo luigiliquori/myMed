@@ -39,12 +39,7 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
 		final ProfileManager profileManager = new ProfileManager(storageManager);
 		profileManager.create(user);
 
-		try {
-			final Map<String, byte[]> authMap = authentication.getAttributeToMap();
-			storageManager.insertSlice(CF_AUTHENTICATION, new String(authMap.get("login"), "UTF8"), authMap);
-		} catch (final UnsupportedEncodingException ex) {
-			throw new InternalBackEndException(ex.getMessage());
-		}
+		insertColumn(authentication);
 
 		return user;
 	}
@@ -72,7 +67,21 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
 	 */
 	@Override
 	public void update(final MAuthenticationBean authentication) throws InternalBackEndException {
-		// TODO Implement the update method witch use the wrapper updateColumn
-		// method
+		insertColumn(authentication);
+	}
+
+	/**
+	 * Internally used to perform the real insertion into the database
+	 * 
+	 * @param authentication
+	 * @throws InternalBackEndException
+	 */
+	private void insertColumn(final MAuthenticationBean authentication) throws InternalBackEndException {
+		try {
+			final Map<String, byte[]> authMap = authentication.getAttributeToMap();
+			storageManager.insertSlice(CF_AUTHENTICATION, new String(authMap.get("login"), "UTF8"), authMap);
+		} catch (final UnsupportedEncodingException ex) {
+			throw new InternalBackEndException(ex.getMessage());
+		}
 	}
 }
