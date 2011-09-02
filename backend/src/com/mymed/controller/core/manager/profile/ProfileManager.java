@@ -9,6 +9,7 @@ import com.mymed.controller.core.manager.AbstractManager;
 import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.data.user.MUserBean;
+import com.mymed.utils.MyMedLogger;
 
 /**
  * Manage an user profile
@@ -17,6 +18,8 @@ import com.mymed.model.data.user.MUserBean;
  * 
  */
 public class ProfileManager extends AbstractManager implements IProfileManager {
+
+	private static final String ENCODING = "UTF8";
 
 	public ProfileManager() throws InternalBackEndException {
 		this(new StorageManager());
@@ -37,9 +40,12 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 	public MUserBean create(final MUserBean user) throws InternalBackEndException, IOBackEndException {
 		try {
 			final Map<String, byte[]> args = user.getAttributeToMap();
-			storageManager.insertSlice(CF_USER, new String(args.get("id"), "UTF8"), args);
+			storageManager.insertSlice(CF_USER, new String(args.get("id"), ENCODING), args);
 			return user;
 		} catch (final UnsupportedEncodingException e) {
+			MyMedLogger.getLog().info("Error in string conversion using {} encoding", ENCODING);
+			MyMedLogger.getDebugLog().debug("Error in string conversion using {} encoding", ENCODING, e.getCause());
+
 			throw new InternalBackEndException(e.getMessage());
 		}
 	}
@@ -65,6 +71,7 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 	 */
 	@Override
 	public void update(final MUserBean user) throws InternalBackEndException, IOBackEndException {
+		MyMedLogger.getLog().info("Updating user with ID '{}'", user.getId());
 		create(user);
 	}
 

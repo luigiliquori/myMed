@@ -105,6 +105,7 @@ public abstract class AbstractMBean {
 					value.append('\n');
 				}
 			} catch (final IllegalArgumentException e) {
+				// We should never get here!
 				MyMedLogger.getDebugLog().debug("Arguments are not valid", e.getCause());
 			} catch (final IllegalAccessException e) {
 				MyMedLogger.getDebugLog().debug("Impossibile to access the field '{}'", field.getName(), e.getCause());
