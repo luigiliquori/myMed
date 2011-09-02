@@ -2,6 +2,8 @@ package com.mymed.tests.stress;
 
 import java.io.File;
 
+import com.mymed.controller.core.exception.IOBackEndException;
+import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.core.configuration.WrapperConfiguration;
@@ -74,15 +76,15 @@ public class UserTest extends StressTestValues {
 	 * 
 	 * @param user
 	 *            the user bean to use
-	 * @throws Exception
+	 * @throws InternalBackEndException
 	 */
-	public void createUser(final MUserBean user) throws Exception {
+	public void createUser(final MUserBean user) throws InternalBackEndException {
+		final ProfileManager profileManager = new ProfileManager(new StorageManager(new WrapperConfiguration(new File(
+		        CONF_FILE))));
 		try {
-			final ProfileManager profileManager = new ProfileManager(new StorageManager(new WrapperConfiguration(
-			        new File(CONF_FILE))));
 			profileManager.create(user);
-		} catch (final Exception ex) {
-			throw new Exception(ex);
+		} catch (final IOBackEndException ex) {
+			throw new InternalBackEndException(ex);
 		}
 	}
 
@@ -91,15 +93,11 @@ public class UserTest extends StressTestValues {
 	 * 
 	 * @param user
 	 *            the user bean to use
-	 * @throws Exception
+	 * @throws InternalBackEndException
 	 */
-	public void removeUser(final MUserBean user) throws Exception {
-		try {
-			final ProfileManager profileManager = new ProfileManager(new StorageManager(new WrapperConfiguration(
-			        new File(CONF_FILE))));
-			profileManager.delete(user.getId());
-		} catch (final Exception ex) {
-			throw new Exception(ex);
-		}
+	public void removeUser(final MUserBean user) throws InternalBackEndException {
+		final ProfileManager profileManager = new ProfileManager(new StorageManager(new WrapperConfiguration(new File(
+		        CONF_FILE))));
+		profileManager.delete(user.getId());
 	}
 }

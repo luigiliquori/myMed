@@ -2,7 +2,9 @@ package com.mymed.tests.stress;
 
 import java.util.LinkedList;
 
+import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.model.data.user.MUserBean;
+import com.mymed.utils.MyMedLogger;
 
 /**
  * This is the class that implements the threads that are executed and the
@@ -43,7 +45,7 @@ public class UserThread extends Thread {
 		addUser = new Thread("addUser") {
 			@Override
 			public void run() {
-				System.err.println("Starting the add user thread...");
+				MyMedLogger.getLog().info("Starting thread '{}'", getName());
 
 				synchronized (usersList) {
 					try {
@@ -59,9 +61,9 @@ public class UserThread extends Thread {
 
 							try {
 								userTest.createUser(user);
-							} catch (final Exception ex) {
-								ex.printStackTrace();
+							} catch (final InternalBackEndException ex) {
 								interrupt();
+								MyMedLogger.getLog().info("Thread '{}' interrupted", getName());
 								break;
 							}
 
@@ -80,7 +82,7 @@ public class UserThread extends Thread {
 
 						usersList.notifyAll();
 					} catch (final Exception ex) {
-						ex.printStackTrace();
+						MyMedLogger.getLog().info("Error in thread '{}'", getName(), ex.getCause());
 					}
 				}
 			}
@@ -89,7 +91,7 @@ public class UserThread extends Thread {
 		removeUser = new Thread("removeUser") {
 			@Override
 			public void run() {
-				System.err.println("Starting remove user thread...");
+				MyMedLogger.getLog().info("Starting thread '{}'", getName());
 
 				synchronized (usersList) {
 					try {
@@ -102,9 +104,9 @@ public class UserThread extends Thread {
 
 							try {
 								userTest.removeUser(user);
-							} catch (final Exception ex) {
-								ex.printStackTrace();
+							} catch (final InternalBackEndException ex) {
 								interrupt();
+								MyMedLogger.getLog().info("Thread '{}' interrupted", getName());
 								break;
 							}
 
@@ -114,7 +116,7 @@ public class UserThread extends Thread {
 
 						usersList.notifyAll();
 					} catch (final Exception ex) {
-						ex.printStackTrace();
+						MyMedLogger.getLog().info("Error in thread '{}'", getName(), ex.getCause());
 					}
 				}
 			}
