@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.cassandra.thrift.Column;
 import org.apache.cassandra.thrift.ColumnOrSuperColumn;
@@ -318,12 +319,13 @@ public class StorageManager extends ManagerValues implements IStorageManager {
 			final List<Mutation> sliceMutationList = new ArrayList<Mutation>(5);
 			tableMap.put(tableName, sliceMutationList);
 
-			final Iterator<String> iterator = args.keySet().iterator();
+			final Iterator<Entry<String, byte[]>> iterator = args.entrySet().iterator();
 			while (iterator.hasNext()) {
-				final String key = iterator.next();
+				final Entry<String, byte[]> entry = iterator.next();
+
 				final Mutation mutation = new Mutation();
 				mutation.setColumn_or_supercolumn(new ColumnOrSuperColumn().setColumn(new Column(MConverter
-				        .stringToByteBuffer(key), ByteBuffer.wrap(args.get(key)), timestamp)));
+				        .stringToByteBuffer(entry.getKey()), ByteBuffer.wrap(entry.getValue()), timestamp)));
 
 				sliceMutationList.add(mutation);
 			}
