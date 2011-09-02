@@ -37,8 +37,8 @@ public interface IStorageManager {
 	 *            All columnName and the their value
 	 * @return true if the entry is correctly stored, false otherwise
 	 */
-	public void insertSlice(String tableName, String primaryKey, Map<String, byte[]> args) throws IOBackEndException,
-	        InternalBackEndException;
+	public void insertSlice(String tableName, String primaryKey, Map<String, byte[]> args)
+	        throws InternalBackEndException;
 
 	/**
 	 * Get the value of an entry column
@@ -67,7 +67,7 @@ public interface IStorageManager {
 	 *            the value updated
 	 */
 	public void insertColumn(String tableName, String primaryKey, String columnName, byte[] value)
-	        throws IOBackEndException, InternalBackEndException;
+	        throws InternalBackEndException;
 
 	/**
 	 * Update the value of a Super Column

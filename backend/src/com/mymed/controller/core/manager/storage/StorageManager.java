@@ -304,12 +304,11 @@ public class StorageManager extends ManagerValues implements IStorageManager {
 	 *            the ID of the entry
 	 * @param args
 	 *            All columnName and the their value
-	 * @throws IOBackEndException
 	 * @throws InternalBackEndException
 	 */
 	@Override
 	public void insertSlice(final String tableName, final String primaryKey, final Map<String, byte[]> args)
-	        throws IOBackEndException, InternalBackEndException {
+	        throws InternalBackEndException {
 
 		final Map<String, Map<String, List<Mutation>>> mutationMap = new HashMap<String, Map<String, List<Mutation>>>();
 		final long timestamp = System.currentTimeMillis();
