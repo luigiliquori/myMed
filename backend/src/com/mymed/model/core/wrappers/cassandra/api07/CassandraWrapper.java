@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.cassandra.thrift.AuthenticationException;
 import org.apache.cassandra.thrift.AuthenticationRequest;
@@ -295,9 +296,11 @@ public class CassandraWrapper implements ICassandraWrapper, IWrapper {
 		ByteBuffer keyToBuffer = null;
 		Map<String, List<Mutation>> value = null;
 
-		for (final String key : mutationMap.keySet()) {
-			keyToBuffer = MConverter.stringToByteBuffer(key);
-			value = mutationMap.get(key);
+		final Iterator<Entry<String, Map<String, List<Mutation>>>> iterator = mutationMap.entrySet().iterator();
+		while (iterator.hasNext()) {
+			final Entry<String, Map<String, List<Mutation>>> entry = iterator.next();
+			keyToBuffer = MConverter.stringToByteBuffer(entry.getKey());
+			value = entry.getValue();
 
 			newMap.put(keyToBuffer, value);
 		}
