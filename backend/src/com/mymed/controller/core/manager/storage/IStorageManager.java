@@ -23,8 +23,8 @@ import com.mymed.controller.core.exception.InternalBackEndException;
 public interface IStorageManager {
 
 	/** Default ConsistencyLevel */
-	public static ConsistencyLevel consistencyOnWrite = ConsistencyLevel.ONE;
-	public static ConsistencyLevel consistencyOnRead = ConsistencyLevel.ONE;
+	ConsistencyLevel consistencyOnWrite = ConsistencyLevel.ONE;
+	ConsistencyLevel consistencyOnRead = ConsistencyLevel.ONE;
 
 	/**
 	 * Insert a new entry in the database
@@ -37,8 +37,7 @@ public interface IStorageManager {
 	 *            All columnName and the their value
 	 * @return true if the entry is correctly stored, false otherwise
 	 */
-	public void insertSlice(String tableName, String primaryKey, Map<String, byte[]> args)
-	        throws InternalBackEndException;
+	void insertSlice(String tableName, String primaryKey, Map<String, byte[]> args) throws InternalBackEndException;
 
 	/**
 	 * Get the value of an entry column
@@ -51,7 +50,7 @@ public interface IStorageManager {
 	 *            the name of the column
 	 * @return the value of the column
 	 */
-	public byte[] selectColumn(String tableName, String primaryKey, String columnName) throws IOBackEndException,
+	byte[] selectColumn(String tableName, String primaryKey, String columnName) throws IOBackEndException,
 	        InternalBackEndException;
 
 	/**
@@ -66,7 +65,7 @@ public interface IStorageManager {
 	 * @param value
 	 *            the value updated
 	 */
-	public void insertColumn(String tableName, String primaryKey, String columnName, byte[] value)
+	void insertColumn(String tableName, String primaryKey, String columnName, byte[] value)
 	        throws InternalBackEndException;
 
 	/**
@@ -85,7 +84,7 @@ public interface IStorageManager {
 	 * @return true is the value is updated, false otherwise
 	 * @throws InternalBackEndException
 	 */
-	public void insertSuperColumn(String tableName, String key, String superColumn, String columnName, byte[] value)
+	void insertSuperColumn(String tableName, String key, String superColumn, String columnName, byte[] value)
 	        throws InternalBackEndException;
 
 	/**
@@ -99,7 +98,7 @@ public interface IStorageManager {
 	 *            the name of the column
 	 * @return the value of the column
 	 */
-	public Map<byte[], byte[]> selectAll(String tableName, String primaryKey) throws IOBackEndException,
+	Map<byte[], byte[]> selectAll(String tableName, String primaryKey) throws IOBackEndException,
 	        InternalBackEndException;
 
 	/**
@@ -113,7 +112,7 @@ public interface IStorageManager {
 	 *            the name of the columns to return the values
 	 * @return the value of the columns
 	 */
-	public Map<byte[], byte[]> selectRange(String tableName, String primaryKey, List<String> columnNames)
+	Map<byte[], byte[]> selectRange(String tableName, String primaryKey, List<String> columnNames)
 	        throws IOBackEndException, InternalBackEndException;
 
 	/**
@@ -124,7 +123,7 @@ public interface IStorageManager {
 	 * @param key
 	 * @param columnName
 	 */
-	public void removeColumn(String tableName, String key, String columnName) throws IOBackEndException,
+	void removeColumn(String tableName, String key, String columnName) throws IOBackEndException,
 	        InternalBackEndException;
 
 	/**
@@ -136,7 +135,7 @@ public interface IStorageManager {
 	 * @throws InternalBackEndException
 	 * @throws UnsupportedEncodingException
 	 */
-	public void removeAll(String tableName, String key) throws InternalBackEndException;
+	void removeAll(String tableName, String key) throws InternalBackEndException;
 
 	/**
 	 * Common put operation
@@ -146,7 +145,7 @@ public interface IStorageManager {
 	 * @param DHTType
 	 *            The type of DHT used for the operation
 	 */
-	public void put(String key, byte[] value) throws IOBackEndException, InternalBackEndException;
+	void put(String key, byte[] value) throws IOBackEndException, InternalBackEndException;
 
 	/**
 	 * Common get operation
@@ -155,6 +154,5 @@ public interface IStorageManager {
 	 * @param DHTType
 	 *            The type of DHT used for the operation
 	 */
-	public byte[] get(String key) throws IOBackEndException, InternalBackEndException;
-
+	byte[] get(String key) throws IOBackEndException, InternalBackEndException;
 }
