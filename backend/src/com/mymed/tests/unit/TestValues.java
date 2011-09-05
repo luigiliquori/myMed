@@ -70,7 +70,8 @@ public class TestValues {
 
 		try {
 			final String randString = new BigInteger(130, random).toString(32);
-			final MessageDigest md = MessageDigest.getInstance("SHA-256");
+			MessageDigest md;
+			md = MessageDigest.getInstance("SHA-256");
 
 			md.update(randString.getBytes("UTF-8"));
 			final byte[] mdbytes = md.digest();
@@ -80,7 +81,9 @@ public class TestValues {
 			}
 
 			hex.trimToSize();
-		} catch (final Exception ex) {
+		} catch (final NoSuchAlgorithmException ex) {
+			MyMedLogger.getDebugLog().debug("Random password generator failed", ex.getCause());
+		} catch (final UnsupportedEncodingException ex) {
 			MyMedLogger.getDebugLog().debug("Random password generator failed", ex.getCause());
 		}
 
