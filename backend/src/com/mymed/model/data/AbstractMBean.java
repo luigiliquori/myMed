@@ -67,10 +67,12 @@ public abstract class AbstractMBean {
 
 			try {
 				final ClassType type = ClassType.inferTpye(field.getType());
-
 				args.put(field.getName(), ClassType.objectToByteArray(type, field.get(this)));
-			} catch (final Exception e) {
-				MyMedLogger.getDebugLog().debug("Introspection failed", e.getCause());
+			} catch (final IllegalArgumentException ex) {
+				MyMedLogger.getDebugLog().debug("Introspection failed", ex.getCause());
+				throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
+			} catch (final IllegalAccessException ex) {
+				MyMedLogger.getDebugLog().debug("Introspection failed", ex.getCause());
 				throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
 			}
 		}
