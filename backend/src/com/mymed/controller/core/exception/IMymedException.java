@@ -13,6 +13,5 @@ public interface IMymedException {
 	 * 
 	 * @return the exception message converted
 	 */
-	public String getJsonException();
-
+	String getJsonException();
 }
