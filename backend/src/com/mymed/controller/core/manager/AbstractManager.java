@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -129,7 +130,7 @@ public abstract class AbstractManager extends ManagerValues {
 			MyMedLogger.getDebugLog().debug("Field is a boolean field with sub-name: {}", subName);
 		}
 
-		setterName.append(subName.substring(0, 1).toUpperCase());
+		setterName.append(subName.substring(0, 1).toUpperCase(Locale.US));
 		setterName.append(subName.substring(1));
 
 		setterName.trimToSize();
