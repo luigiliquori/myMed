@@ -95,38 +95,36 @@ public class MAuthenticationBean extends AbstractMBean {
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
-	public boolean equals(final Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (!(obj instanceof MAuthenticationBean)) {
-			return false;
-		}
-		final MAuthenticationBean other = (MAuthenticationBean) obj;
-		if (login == null) {
-			if (other.login != null) {
-				return false;
+	public boolean equals(final Object object) {
+
+		boolean equal = false;
+
+		if (this == object) {
+			equal = true;
+		} else if (object instanceof MAuthenticationBean) {
+			final MAuthenticationBean comparable = (MAuthenticationBean) object;
+
+			equal = true;
+
+			if (login == null && comparable.getLogin() != null) {
+				equal &= false;
+			} else {
+				equal &= login.equals(comparable.getLogin());
 			}
-		} else if (!login.equals(other.login)) {
-			return false;
-		}
-		if (password == null) {
-			if (other.password != null) {
-				return false;
+
+			if (password == null && comparable.getPassword() != null) {
+				equal &= false;
+			} else {
+				equal &= password.equals(comparable.getPassword());
 			}
-		} else if (!password.equals(other.password)) {
-			return false;
-		}
-		if (user == null) {
-			if (other.user != null) {
-				return false;
+
+			if (user == null && comparable.getUser() != null) {
+				equal &= false;
+			} else {
+				equal &= user.equals(comparable.getUser());
 			}
-		} else if (!user.equals(other.user)) {
-			return false;
 		}
-		return true;
+
+		return equal;
 	}
 }
