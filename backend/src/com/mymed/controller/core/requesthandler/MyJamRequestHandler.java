@@ -138,7 +138,8 @@ public class MyJamRequestHandler extends AbstractRequestHandler implements IMyJa
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		MyJamId reportId;
 		String content;
-		String res,resToJson;
+		String resToJson;
+		MReportBean res;
 		try {
 			Map<String,String> params = getParameters(request);
 			MyJamRequestCode code = reqCodeMap.get(params.get("code"));

@@ -105,7 +105,6 @@ public class CassandraWrapper implements ICassandraWrapper, IWrapper {
 
 		final ByteBuffer keyToBuffer = MConverter.stringToByteBuffer(key);
 		ColumnOrSuperColumn result = null;
-
 		try {
 			result = cassandraClient.get(keyToBuffer, path, level);
 		} catch (final NotFoundException ex) {

@@ -25,15 +25,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mymed.android.myjam.R;
-import com.mymed.android.myjam.controller.IMyJamCallAttributes;
+import com.mymed.android.myjam.controller.ICallAttributes;
 import com.mymed.android.myjam.provider.MyJamContract.Report;
 import com.mymed.android.myjam.provider.MyJamContract.Search;
 import com.mymed.android.myjam.provider.MyJamContract.SearchReports;
 import com.mymed.android.myjam.provider.MyJamContract.Update;
 import com.mymed.android.myjam.service.MyJamCallService;
 import com.mymed.android.myjam.service.MyJamCallService.RequestCode;
-import com.mymed.android.myjam.type.MFeedBackBean;
-import com.mymed.android.myjam.type.MReportBean;
+import com.mymed.model.data.myjam.MFeedBackBean;
+import com.mymed.model.data.myjam.MReportBean;
 import com.mymed.utils.GlobalVarAndUtils;
 import com.mymed.utils.MyResultReceiver;
 /**
@@ -151,7 +151,7 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 				finish();
 			}
 			mBundle = new Bundle();
-			mBundle.putString(IMyJamCallAttributes.REPORT_ID, Report.getReportId(uri));
+			mBundle.putString(ICallAttributes.REPORT_ID, Report.getReportId(uri));
 			mReportTypeId = GlobalVarAndUtils.getInstance(this).getStringArrayValueIndex(mReportTypesVal,
 					cursor.getString(ReportQuery.REPORT_TYPE));
 			if (mReportTypeId > 0){
@@ -174,7 +174,7 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 				finish();
 			}
 			mBundle = new Bundle();
-			mBundle.putString(IMyJamCallAttributes.REPORT_ID, Report.getReportId(uri));
+			mBundle.putString(ICallAttributes.REPORT_ID, Report.getReportId(uri));
 			mReportTypeId = GlobalVarAndUtils.getInstance(this).getStringArrayValueIndex(mReportTypesVal,
 					cursor.getString(ReportQuery.REPORT_TYPE));
 			if (mReportTypeId > 0){
@@ -197,11 +197,11 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 				finish();
 			}
 			mBundle = new Bundle();
-			mBundle.putString(IMyJamCallAttributes.REPORT_ID, cursor.getString(UpdateQuery.REPORT_ID));
-			mBundle.putString(IMyJamCallAttributes.UPDATE_ID, cursor.getString(UpdateQuery.UPDATE_ID));
+			mBundle.putString(ICallAttributes.REPORT_ID, cursor.getString(UpdateQuery.REPORT_ID));
+			mBundle.putString(ICallAttributes.UPDATE_ID, cursor.getString(UpdateQuery.UPDATE_ID));
 			mReportTypeId = GlobalVarAndUtils.getInstance(this).getStringArrayValueIndex(mReportTypesVal,
 					cursor.getString(UpdateQuery.REPORT_TYPE));
-			if (mReportTypeId > 0){
+			if (mReportTypeId >= 0){
 				createFeedbackLayout(UPDATE_FEEDBACK,mReportTypeId);
 			}else{
 				//Could never happen.
@@ -270,6 +270,7 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 				public void onClick(View v) {
 					try{					
 						MReportBean reportOrUpdate = new MReportBean();
+						reportOrUpdate.setUserId(GlobalVarAndUtils.getInstance(getApplicationContext()).getUserId());
 						reportOrUpdate.setReportType(mReportTypesVal[reportType]);
 						if (mTrafficFlowSpinner!=null)
 							reportOrUpdate.setTrafficFlowType(getResources().getTextArray(
@@ -314,6 +315,7 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 			public void onClick(View v) {
 				try{					
 					MFeedBackBean feedback = new MFeedBackBean();
+					feedback.setUserId(GlobalVarAndUtils.getInstance(getApplicationContext()).getUserId());
 					feedback.setGrade((int) ((mRatingBar.getRating() / mRatingBar.getMax()) * GlobalVarAndUtils.MAX_RATING)); //TODO fix this
 
 					if (insertionType == REPORT_FEEDBACK)
@@ -378,8 +380,8 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 					/** Dispatches a request to get the reports in a range  {@link INSERT_SEARCH_RANGE} around the position
 					 *  where the report wants to be inserted.
 					 * */
-					int lat = mBundle.getInt(IMyJamCallAttributes.LATITUDE);
-					int lon = mBundle.getInt(IMyJamCallAttributes.LONGITUDE);
+					int lat = mBundle.getInt(ICallAttributes.LATITUDE);
+					int lon = mBundle.getInt(ICallAttributes.LONGITUDE);
 					int radius = INSERT_SEARCH_RANGE;
 					requestSearch(lat,lon,radius,Search.INSERT_SEARCH);
 					createReportOrUpdateLayout(REPORT,mReportTypeId);
@@ -477,10 +479,10 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 		intent.putExtra(MyJamCallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
 		intent.putExtra(MyJamCallService.EXTRA_REQUEST_CODE, RequestCode.SEARCH_REPORTS);
 		Bundle bundle = new Bundle();
-		bundle.putInt(IMyJamCallAttributes.LATITUDE, lat);
-		bundle.putInt(IMyJamCallAttributes.LONGITUDE, lon);
-		bundle.putInt(IMyJamCallAttributes.RADIUS, radius);
-		bundle.putInt(IMyJamCallAttributes.SEARCH_ID, searchId);
+		bundle.putInt(ICallAttributes.LATITUDE, lat);
+		bundle.putInt(ICallAttributes.LONGITUDE, lon);
+		bundle.putInt(ICallAttributes.RADIUS, radius);
+		bundle.putInt(ICallAttributes.SEARCH_ID, searchId);
 		intent.putExtra(MyJamCallService.EXTRA_ATTRIBUTES, bundle);
 		Log.d(TAG,"Intent sent: "+intent.toString());
 		startService(intent);
@@ -514,8 +516,8 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 		//*
 		case MyJamCallService.STATUS_RUNNING:
 			mSyncing = true;
-			message = (reqCode == RequestCode.INSERT_REPORT || reqCode == RequestCode.INSERT_UPDATE)?getResources().getString(R.string.insert_start):
-				getResources().getString(R.string.search_start);
+			message = (reqCode == RequestCode.SEARCH_REPORTS)?getResources().getString(R.string.search_start):
+				getResources().getString(R.string.insert_start);
 			break;
 		case MyJamCallService.STATUS_ERROR:
 			mSyncing = false;

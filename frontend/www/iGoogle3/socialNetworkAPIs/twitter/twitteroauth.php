@@ -7,7 +7,7 @@
  */
 
 /* Load OAuth lib. You can find it at http://oauth.net */
-require_once dirname(__FILE__).'/../Auth/OAuth.php';
+require_once __DIR__.'/../Auth/OAuth.php';
 
 /**
  * Twitter OAuth class
@@ -18,7 +18,7 @@ class TwitterOAuth {
   /* Contains the last API call. */
   public $url;
   /* Set up the API root URL. */
-  public $host = "https://api.twitter.com/1/";
+  public $host = "http://api.twitter.com/1/";
   /* Set timeout default. */
   public $timeout = 30;
   /* Set connect timeout. */
@@ -42,10 +42,10 @@ class TwitterOAuth {
   /**
    * Set API URLS
    */
-  function accessTokenURL()  { return 'https://api.twitter.com/oauth/access_token'; }
-  function authenticateURL() { return 'https://twitter.com/oauth/authenticate'; }
-  function authorizeURL()    { return 'https://twitter.com/oauth/authorize'; }
-  function requestTokenURL() { return 'https://api.twitter.com/oauth/request_token'; }
+  function accessTokenURL()  { return 'http://api.twitter.com/oauth/access_token'; }
+  function authenticateURL() { return 'http://twitter.com/oauth/authenticate'; }
+  function authorizeURL()    { return 'http://twitter.com/oauth/authorize'; }
+  function requestTokenURL() { return 'http://api.twitter.com/oauth/request_token'; }
 
   /**
    * Debug helpers

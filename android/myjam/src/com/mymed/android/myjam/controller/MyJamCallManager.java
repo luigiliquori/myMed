@@ -9,11 +9,16 @@ import com.google.gson.reflect.TypeToken;
 import com.mymed.android.myjam.exception.IOBackEndException;
 import com.mymed.android.myjam.exception.InternalBackEndException;
 import com.mymed.android.myjam.exception.InternalClientException;
-import com.mymed.android.myjam.type.MFeedBackBean;
-import com.mymed.android.myjam.type.MReportBean;
-import com.mymed.android.myjam.type.MSearchReportBean;
+import com.mymed.model.data.myjam.MFeedBackBean;
+import com.mymed.model.data.myjam.MReportBean;
+import com.mymed.model.data.myjam.MSearchReportBean;
 
-public class MyJamCallManager extends RestCall implements IMyJamCallAttributes{
+/**
+ * Singleton class used to perform REST calls, according to MyJam API.
+ * @author iacopo
+ *
+ */
+public class MyJamCallManager extends HTTPCall implements ICallAttributes{
 	private static MyJamCallManager instance;
 	private static final String QUERY ="?code=";
 	private static final String MY_JAM_HANDLER_URL = "http://iacoporozzo.dyndns-server.com/backend/MyJamRequestHandler";
@@ -23,6 +28,7 @@ public class MyJamCallManager extends RestCall implements IMyJamCallAttributes{
 		gson = new Gson();
 	};
 	
+	// Singleton
 	public static MyJamCallManager getInstance(){
 		if (instance == null)
 			instance = new MyJamCallManager();
@@ -44,9 +50,6 @@ public class MyJamCallManager extends RestCall implements IMyJamCallAttributes{
 		public static final int DELETE_REPORT = 10;
 		//TODO Eventually add DELETE_REPORT and DELETE_UPDATE
 	}
-	
-	private static final String AND = "&";
-	private static final String EQUAL = "=";
 	
 	/**
 	 * Searches the reports in the specified area.
@@ -185,15 +188,16 @@ public class MyJamCallManager extends RestCall implements IMyJamCallAttributes{
 	 * @throws IOBackEndException 
 	 * @throws InternalBackEndException 
 	 */
-	public String insertReport(int latitude,int longitude,MReportBean report) throws InternalBackEndException, IOBackEndException, InternalClientException{
+	public MReportBean insertReport(int latitude,int longitude,MReportBean report) throws InternalBackEndException, IOBackEndException, InternalClientException{
 		String q=QUERY+MyJamRequestCode.INSERT_REPORT;
 		q=appendAttribute(q,LATITUDE,String.valueOf(latitude));
 		q=appendAttribute(q,LONGITUDE,String.valueOf(longitude));
 		String jSonReport = gson.toJson(report);
 		String response =httpRequest(MY_JAM_HANDLER_URL+q,httpMethod.POST,jSonReport);
 		System.out.println(response);
+		Type mReportBeanType = new TypeToken<MReportBean>(){}.getType();
 		try{
-			return this.gson.fromJson(response, String.class);
+			return this.gson.fromJson(response, mReportBeanType);
 		}catch(JsonSyntaxException e){
 			throw new InternalBackEndException("Wrong response format.");
 		}		
@@ -207,14 +211,15 @@ public class MyJamCallManager extends RestCall implements IMyJamCallAttributes{
 	 * @throws InternalClientException
 	 * @return The updateId
 	 */
-	public String insertUpdate(String id,MReportBean update) throws InternalBackEndException, IOBackEndException, InternalClientException{
+	public MReportBean insertUpdate(String id,MReportBean update) throws InternalBackEndException, IOBackEndException, InternalClientException{
 		String q=QUERY+MyJamRequestCode.INSERT_UPDATE;
 		q=appendAttribute(q,REPORT_ID,id);
 		String jSonReport = gson.toJson(update);
 		String response = httpRequest(MY_JAM_HANDLER_URL+q,httpMethod.POST,jSonReport);
 		System.out.println(response);
+		Type mReportBeanType = new TypeToken<MReportBean>(){}.getType();
 		try{
-			return this.gson.fromJson(response, String.class);
+			return this.gson.fromJson(response, mReportBeanType);
 		}catch(JsonSyntaxException e){
 			throw new InternalBackEndException("Wrong response format.");
 		}	
@@ -240,16 +245,5 @@ public class MyJamCallManager extends RestCall implements IMyJamCallAttributes{
 		String q=QUERY+MyJamRequestCode.DELETE_REPORT;
 		q=appendAttribute(q,REPORT_ID,id);
 		System.out.println(httpRequest(MY_JAM_HANDLER_URL+q,httpMethod.DELETE,null));
-	}
-	
-	/**
-	 * Append an attribute to the given URL.
-	 * @param url 	URL
-	 * @param name	Name of the attribute.
-	 * @param value	Value of the attribute.
-	 * @return
-	 */
-	private String appendAttribute(String url,String name,String value){
-		return url+=AND+name+EQUAL+value;
 	}
 }

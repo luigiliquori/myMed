@@ -293,7 +293,7 @@ public class ShowOnMapActivity extends MapActivity {
 	    {
 			sURIMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "search_reports/*", SEARCH);
 			sURIMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "search_reports/*/*", SEARCH);
-	    	sURIMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "report/*", REPORT);
+	    	sURIMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "reports/*", REPORT);
 	    }
 	
 

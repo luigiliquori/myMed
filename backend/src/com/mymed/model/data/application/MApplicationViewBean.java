@@ -9,42 +9,32 @@ import com.mymed.model.data.AbstractMBean;
  */
 public final class MApplicationViewBean extends AbstractMBean {
 
-	/* --------------------------------------------------------- */
-	/* Attributes */
-	/* --------------------------------------------------------- */
-	private String  name;
+	private String name;
 	/** ID_CATEGORY */
-	private String 	category;
-	private long	dateOfCreation;
-	private String	description;
-	private String	icon;
-	private String	background;
+	private String category;
+	private long dateOfCreation;
+	private String description;
+	private String icon;
+	private String background;
 	/** USER_LIST_ID */
-	private String	publisherList;
+	private String publisherList;
 	/** USER_LIST_ID */
-	private String	subscriberList;
+	private String subscriberList;
 	/** USER_ID */
-	private String	administrator;
+	private String administrator;
 	/** ONTOLOGY_LIST_ID */
-	private String	ontologies;
+	private String ontologies;
 	/** APPLICATION_MODEL_ID */
-	private String	model;
+	private String model;
 	/** APPLICATION_CONTROLLER_ID */
-	private String	controller;
+	private String controller;
 
-	/* --------------------------------------------------------- */
-	/* Constructors */
-	/* --------------------------------------------------------- */
-	public MApplicationViewBean() {
-		// TODO Auto-generated constructor stub
-	}
-	
 	/* --------------------------------------------------------- */
 	/* Override methods */
 	/* --------------------------------------------------------- */
 	@Override
 	public boolean equals(final Object object) {
-		boolean returnValue = true;
+		final boolean returnValue = true;
 		// TODO
 		return returnValue;
 	}
@@ -56,7 +46,7 @@ public final class MApplicationViewBean extends AbstractMBean {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
@@ -64,7 +54,7 @@ public final class MApplicationViewBean extends AbstractMBean {
 		return category;
 	}
 
-	public void setCategory(String category) {
+	public void setCategory(final String category) {
 		this.category = category;
 	}
 
@@ -72,7 +62,7 @@ public final class MApplicationViewBean extends AbstractMBean {
 		return dateOfCreation;
 	}
 
-	public void setDateOfCreation(long dateOfCreation) {
+	public void setDateOfCreation(final long dateOfCreation) {
 		this.dateOfCreation = dateOfCreation;
 	}
 
@@ -80,7 +70,7 @@ public final class MApplicationViewBean extends AbstractMBean {
 		return description;
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(final String description) {
 		this.description = description;
 	}
 
@@ -88,7 +78,7 @@ public final class MApplicationViewBean extends AbstractMBean {
 		return icon;
 	}
 
-	public void setIcon(String icon) {
+	public void setIcon(final String icon) {
 		this.icon = icon;
 	}
 
@@ -96,7 +86,7 @@ public final class MApplicationViewBean extends AbstractMBean {
 		return background;
 	}
 
-	public void setBackground(String background) {
+	public void setBackground(final String background) {
 		this.background = background;
 	}
 
@@ -104,7 +94,7 @@ public final class MApplicationViewBean extends AbstractMBean {
 		return publisherList;
 	}
 
-	public void setPublisherList(String publisherList) {
+	public void setPublisherList(final String publisherList) {
 		this.publisherList = publisherList;
 	}
 
@@ -112,7 +102,7 @@ public final class MApplicationViewBean extends AbstractMBean {
 		return subscriberList;
 	}
 
-	public void setSubscriberList(String subscriberList) {
+	public void setSubscriberList(final String subscriberList) {
 		this.subscriberList = subscriberList;
 	}
 
@@ -120,7 +110,7 @@ public final class MApplicationViewBean extends AbstractMBean {
 		return administrator;
 	}
 
-	public void setAdministrator(String administrator) {
+	public void setAdministrator(final String administrator) {
 		this.administrator = administrator;
 	}
 
@@ -128,7 +118,7 @@ public final class MApplicationViewBean extends AbstractMBean {
 		return ontologies;
 	}
 
-	public void setOntologies(String ontologies) {
+	public void setOntologies(final String ontologies) {
 		this.ontologies = ontologies;
 	}
 
@@ -136,7 +126,7 @@ public final class MApplicationViewBean extends AbstractMBean {
 		return model;
 	}
 
-	public void setModel(String model) {
+	public void setModel(final String model) {
 		this.model = model;
 	}
 
@@ -144,7 +134,7 @@ public final class MApplicationViewBean extends AbstractMBean {
 		return controller;
 	}
 
-	public void setController(String controller) {
+	public void setController(final String controller) {
 		this.controller = controller;
 	}
 }

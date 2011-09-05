@@ -67,7 +67,7 @@ class Desktop extends ContentObject
 						.'style="'
 							.'top:'.$position['y'].'px;'
 							.'left:'.$position['x'].'px;';
-				if(is_file(dirname(__FILE__).'/../'.$name.'/icon.png'))
+				if(is_file(__DIR__.'/../'.$name.'/icon.png'))
 					echo
 							'background-image: url(\'services/'.$name.'/icon.png\');">';
 				else

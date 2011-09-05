@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.controller.core.exception.ServiceManagerException;
 import com.mymed.controller.core.manager.storage.MyJamStorageManager.ExpColumnBean;
 /**
  * 
@@ -25,8 +24,7 @@ public interface IMyJamStorageManager extends IStorageManager  {
 	 * @throws InternalBackEndException
 	 */
 	public byte[] selectColumn(String tableName, String primaryKey,
-			byte[] superColumn, byte[] column) throws ServiceManagerException,
-			IOBackEndException, InternalBackEndException ;
+			byte[] superColumn, byte[] column) throws IOBackEndException, InternalBackEndException ;
 	
 	/**
 	 * Equals to the preceding, but apart from the name-value pair returns also the timestamp and the TTL.
@@ -41,8 +39,7 @@ public interface IMyJamStorageManager extends IStorageManager  {
 	 * @throws InternalBackEndException
 	 */
 	public ExpColumnBean selectExpiringColumn(String tableName, String primaryKey,
-			byte[] superColumn, byte[] column) throws ServiceManagerException,
-			IOBackEndException, InternalBackEndException;
+			byte[] superColumn, byte[] column) throws IOBackEndException, InternalBackEndException;
 	
 	/**
 	 * Is more general then the method insertColumn of IStorageManager, the name of the column
@@ -57,8 +54,7 @@ public interface IMyJamStorageManager extends IStorageManager  {
 	 * @throws InternalBackEndException
 	 */
 	public void insertColumn(String tableName, String primaryKey,
-			byte[] columnName, byte[] value) throws ServiceManagerException,
-			IOBackEndException, InternalBackEndException;
+			byte[] columnName, byte[] value) throws IOBackEndException, InternalBackEndException;
 	
 	
 	/**
@@ -78,7 +74,7 @@ public interface IMyJamStorageManager extends IStorageManager  {
 	 */
 	public void insertExpiringColumn(String tableName, String key,
 			byte[] superColumn, byte[] columnName, byte[] value,long timestamp,int expiringTime)
-			throws ServiceManagerException, InternalBackEndException;
+			throws InternalBackEndException;
 	
 	/**
 	 * Returns a map of name-value pairs corresponding to a certain range of columns.
@@ -93,8 +89,7 @@ public interface IMyJamStorageManager extends IStorageManager  {
 	 * @throws InternalBackEndException
 	 */
 	public Map<byte[], byte[]> selectRange(String tableName, String primaryKey,
-			byte[] startColumn, byte[] stopColumn,int maxNum) throws ServiceManagerException,
-			IOBackEndException, InternalBackEndException;
+			byte[] startColumn, byte[] stopColumn,int maxNum) throws IOBackEndException, InternalBackEndException;
 	/**
 	 * Select all on a list of rows.
 	 * @param tableName		Name of the CF.
@@ -105,7 +100,7 @@ public interface IMyJamStorageManager extends IStorageManager  {
 	 * @throws InternalBackEndException
 	 */
 	 public Map<String,Map<byte[], byte[]>> selectAll(String tableName, List<String> primaryKeys)
-			throws ServiceManagerException, IOBackEndException,
+			throws IOBackEndException,
 			InternalBackEndException;
 	
 	 /**
@@ -121,8 +116,7 @@ public interface IMyJamStorageManager extends IStorageManager  {
 	  * @throws InternalBackEndException
 	  */
 	public Map<byte[],Map<byte[], byte[]>> selectSCRange(String tableName, List<String> primaryKeys,
-			byte[] startColumn, byte[] stopColumn) throws ServiceManagerException,
-			IOBackEndException, InternalBackEndException; 
+			byte[] startColumn, byte[] stopColumn) throws IOBackEndException, InternalBackEndException; 
 	
 	/**
 	 * Returns the first n columns of a given CF.
@@ -135,8 +129,7 @@ public interface IMyJamStorageManager extends IStorageManager  {
 	 * @throws InternalBackEndException
 	 */
 	public Map<byte[], byte[]> getLastN(String tableName, String primaryKey,
-			Integer n) throws ServiceManagerException,
-			IOBackEndException, InternalBackEndException;
+			Integer n) throws IOBackEndException, InternalBackEndException;
 	
 	/**
 	 * Counts the number of colums of a given row or SuperColumn.
@@ -148,7 +141,7 @@ public interface IMyJamStorageManager extends IStorageManager  {
 	 * @throws IOBackEndException
 	 * @throws InternalBackEndException
 	 */
-	public int countColumns(String tableName, String primaryKey,byte[] superColumn) throws ServiceManagerException,
+	public int countColumns(String tableName, String primaryKey,byte[] superColumn) throws 
 			IOBackEndException, InternalBackEndException;		
 
 	/**

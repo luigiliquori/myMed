@@ -32,7 +32,7 @@ import android.widget.Toast;
 
 
 import com.mymed.android.myjam.R;
-import com.mymed.android.myjam.controller.IMyJamCallAttributes;
+import com.mymed.android.myjam.controller.ICallAttributes;
 import com.mymed.android.myjam.provider.MyJamContract.Report;
 import com.mymed.android.myjam.provider.MyJamContract.Search;
 import com.mymed.android.myjam.provider.MyJamContract.SearchReports;
@@ -182,10 +182,10 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
         intent.putExtra(MyJamCallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
         intent.putExtra(MyJamCallService.EXTRA_REQUEST_CODE, RequestCode.SEARCH_REPORTS);
         Bundle bundle = new Bundle();
-        bundle.putInt(IMyJamCallAttributes.LATITUDE, lat);
-        bundle.putInt(IMyJamCallAttributes.LONGITUDE, lon);
-        bundle.putInt(IMyJamCallAttributes.RADIUS, radius);
-        bundle.putInt(IMyJamCallAttributes.SEARCH_ID, searchId);
+        bundle.putInt(ICallAttributes.LATITUDE, lat);
+        bundle.putInt(ICallAttributes.LONGITUDE, lon);
+        bundle.putInt(ICallAttributes.RADIUS, radius);
+        bundle.putInt(ICallAttributes.SEARCH_ID, searchId);
         intent.putExtra(MyJamCallService.EXTRA_ATTRIBUTES, bundle);
         Log.d(TAG,"Intent sent: "+intent.toString());
         startService(intent);
@@ -338,7 +338,7 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
     private void updateRefreshStatus(boolean refreshing) {
         if (refreshing){
         	mDialog = ProgressDialog.show(SearchActivity.this, "", 
-					getResources().getString(R.string.searching_reports), true);
+					getResources().getString(R.string.searching_reports_msg), true);
         }else{
 			if (mDialog != null)
 				mDialog.dismiss();
@@ -378,8 +378,8 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 				int lat = (int) (currLoc.getLatitude()*1E6);
 				int lon = (int) (currLoc.getLongitude()*1E6);
 		        Bundle bundle = new Bundle();
-		        bundle.putInt(IMyJamCallAttributes.LATITUDE, lat);
-		        bundle.putInt(IMyJamCallAttributes.LONGITUDE, lon);
+		        bundle.putInt(ICallAttributes.LATITUDE, lat);
+		        bundle.putInt(ICallAttributes.LONGITUDE, lon);
 		        intent.putExtra(MyJamCallService.EXTRA_ATTRIBUTES, bundle);
         		startActivity(intent);
         	}

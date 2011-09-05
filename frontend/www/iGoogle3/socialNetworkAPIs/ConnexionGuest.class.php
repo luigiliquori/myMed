@@ -1,6 +1,6 @@
 <?php
-require_once dirname(__FILE__).'/Connexion.class.php';
-require_once dirname(__FILE__).'/../system/backend/ProfileRequest.class.php';
+require_once __DIR__.'/Connexion.class.php';
+require_once __DIR__.'/../system/backend/ProfileRequest.class.php';
 /**
  * A class to define an anonymous login
  * @author blanchard

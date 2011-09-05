@@ -1,6 +1,6 @@
 <?php
-require_once dirname(__FILE__).'/../../system/backend/DHTRequest.class.php';
-require_once dirname(__FILE__).'/../../system/backend/ProfileRequest.class.php';
+require_once __DIR__.'/../../system/backend/DHTRequest.class.php';
+require_once __DIR__.'/../../system/backend/ProfileRequest.class.php';
 class myTransport extends ContentObject
 {
 	private /*DHTRequest*/ $request;
@@ -71,7 +71,7 @@ class myTransport extends ContentObject
 		{
 			$this->find();
 		}
-		require dirname(__FILE__).'/footer.html.php';
+		require __DIR__.'/footer.html.php';
 		echo '</div>';
 	}
 	private /*void*/ function find()
@@ -94,7 +94,7 @@ class myTransport extends ContentObject
 					throw $ex;
 			}
 		}
-		require dirname(__FILE__).'/find.html.php';
+		require __DIR__.'/find.html.php';
 	}
 	private /*void*/ function publish()
 	{
@@ -108,14 +108,14 @@ class myTransport extends ContentObject
 			echo '<div class="error"><span>'.$_SESSION['MyTransport_error'].'</span></div>';
 			unset($_SESSION['MyTransport_error']);
 		}
-		require dirname(__FILE__).'/publish.html.php';
+		require __DIR__.'/publish.html.php';
 	}
 	public /*void*/ function contentPost()
 	{
 		if(isset($_GET['publish']))
 		{
 			$key = $_POST["from"] . $_POST["to"] . $_POST["theDate"];
-			$value = $_SESSION['user']->mymedID;
+			$value = $_SESSION['user']->id;
 			try
 			{
 				$this->request->create($key, $value);

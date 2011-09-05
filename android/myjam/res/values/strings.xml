@@ -13,10 +13,20 @@
     <string name="dialog_title">MyJam Info</string>
     <string name="positive_button_label">Ok</string>
     <!-- ============================ -->
+    <!--  	LoginActivity strings  	  -->
+    <!-- ============================ -->
+    <string name="login_text_view_label">Login :</string>
+    <string name="password_text_view_label">Password :</string>
+    <string name="login_button_label">Log In</string>
+    <string name="logout_button_label">Log Out</string>
+    <string name="logging_in_msg">Logging in...</string>
+    <string name="logged_in_msg">Logged in.</string>
+    <string name="logged_out_msg">Logged out.</string>
+    <!-- ============================ -->
     <!--  	SearchReport  strings  	  -->
     <!-- ============================ -->
     <string name="toast_call_error">Call error: <xliff:g id="error">%1$s</xliff:g></string>
-    <string name="searching_reports">Searching reports...</string>
+    <string name="searching_reports_msg">Searching reports...</string>
     <string name="search_finished">Search finished</string>
     <string name="frac_number_separator">.</string>
     <string name="type_string_separator">_</string>
@@ -55,7 +65,7 @@
     <!-- ============================ -->
     <!--  	ReportDetails  strings    -->
     <!-- ============================ -->
-    <string name="sync">Synchronizing <xliff:g id="error">%1$s</xliff:g></string>
+    <string name="sync_msg">Synchronizing <xliff:g id="error">%1$s</xliff:g></string>
     <string name="reception_finished">Reception finished</string>
     <string name="post_date">Posted on:</string>
     <string name="post_by">Posted by:</string>

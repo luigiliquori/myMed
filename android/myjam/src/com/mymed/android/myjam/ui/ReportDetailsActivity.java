@@ -13,7 +13,7 @@ import com.mymed.android.myjam.provider.MyJamContract.Update;
 
 import com.mymed.android.myjam.service.MyJamCallService;
 import com.mymed.android.myjam.service.MyJamCallService.RequestCode;
-import com.mymed.android.myjam.controller.IMyJamCallAttributes;
+import com.mymed.android.myjam.controller.ICallAttributes;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -126,20 +126,6 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 				(LinearLayout) findViewById(R.id.linearLayoutReport), false);
 		mUpdateFeedbacksTextView = (TextView) mInflater.inflate(R.layout.feedbacks_text_view_item, 
 				(LinearLayout) findViewById(R.id.linearLayoutReport), false);;
-		/** Starts the report query. */
-		Cursor cursor = getContentResolver().query(reportUri, ReportQuery.PROJECTION, null, null, null);
-		startManagingCursor(cursor);
-		/** If the pointed report is not present in the db then is requested. */
-		if (!cursor.moveToFirst()){
-			// Never happens. I hope
-		}else{
-			if (cursor.getInt(ReportQuery.FLAG_COMPLETE)==0){		
-				requestReport();
-			}else{
-				mReportCursor = cursor;
-				refreshReportOrUpdateView(REPORT);
-			}
-		}
 	}
 	
 	@Override
@@ -171,6 +157,15 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 		super.onResume();
 		mResultReceiver.setReceiver(this);
 		mHandler.setQueryListener(this);
+		/** Starts the report query. */
+		mReportCursor = getContentResolver().query(getIntent().getData(), ReportQuery.PROJECTION, null, null, null);
+		/** If the pointed report is not present in the db then is requested. */
+		if (mReportCursor.moveToFirst()){
+			if (mReportCursor.getInt(ReportQuery.FLAG_COMPLETE)==0)	
+				requestReport();
+			else
+				refreshReportOrUpdateView(REPORT);
+		}
 		/** This query is not asynchronous because before retrieving the updates, we want to know how many Updates are presents in the db*/
 		mUpdatesCursor = getContentResolver().query(Update.buildReportIdUri(mReportId)
 				, UpdateQuery.PROJECTION,null , null, Update.DEFAULT_SORT_ORDER);
@@ -256,7 +251,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
         intent.putExtra(MyJamCallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
         intent.putExtra(MyJamCallService.EXTRA_REQUEST_CODE, RequestCode.GET_REPORT);
         Bundle bundle = new Bundle();
-        bundle.putString(IMyJamCallAttributes.REPORT_ID, mReportId);
+        bundle.putString(ICallAttributes.REPORT_ID, mReportId);
         intent.putExtra(MyJamCallService.EXTRA_ATTRIBUTES, bundle);			
         Log.d(TAG,"Intent sent: "+intent.toString());
         startService(intent);
@@ -272,8 +267,8 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
     	    intent.putExtra(MyJamCallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
     	    intent.putExtra(MyJamCallService.EXTRA_REQUEST_CODE, RequestCode.GET_UPDATES);
     	    Bundle bundle = new Bundle();
-    	    bundle.putString(IMyJamCallAttributes.REPORT_ID, mReportId);
-    	    bundle.putInt(IMyJamCallAttributes.NUM, numUpdates);
+    	    bundle.putString(ICallAttributes.REPORT_ID, mReportId);
+    	    bundle.putInt(ICallAttributes.NUM, numUpdates);
     	    intent.putExtra(MyJamCallService.EXTRA_ATTRIBUTES, bundle);			
     	    Log.d(TAG,"Intent sent: "+intent.toString());
     	    startService(intent);
@@ -307,7 +302,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
             intent.putExtra(MyJamCallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
             intent.putExtra(MyJamCallService.EXTRA_REQUEST_CODE, code==REPORT?RequestCode.GET_REPORT_FEEDBACKS:RequestCode.GET_UPDATE_FEEDBACKS);
             Bundle bundle = new Bundle();
-            bundle.putString(IMyJamCallAttributes.REPORT_ID, reportOrUpdateId);
+            bundle.putString(ICallAttributes.REPORT_ID, reportOrUpdateId);
             intent.putExtra(MyJamCallService.EXTRA_ATTRIBUTES, bundle);			
             Log.d(TAG,"Intent sent: "+intent.toString());
             startService(intent);
@@ -366,7 +361,11 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 		int reqCode = resultData.getInt(MyJamCallService.EXTRA_REQUEST_CODE);
 		switch (resultCode){
 			case MyJamCallService.STATUS_RUNNING:
-				searchText = String.format(getResources().getString(R.string.sync, types[reqCode]));
+				/*
+				 * The Strings on the array "types" are on the same order of the request code corresponding request codes, 
+				 * index 0 corresponds to RequestCode.SEARCH_REPORTS.
+				 */
+				searchText = String.format(getResources().getString(R.string.sync_msg, types[reqCode-RequestCode.SEARCH_REPORTS]));
 				//Toast.makeText(this, searchText, Toast.LENGTH_SHORT).show();
 				Log.d(TAG,searchText);
 				mSyncing = true;
@@ -423,7 +422,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
     private void updateRefreshStatus(boolean refreshing,String message) {
         if (refreshing){
         	if (message==null)
-        		message = String.format(getResources().getString(R.string.sync, ""));
+        		message = String.format(getResources().getString(R.string.sync_msg, ""));
         	mDialog = ProgressDialog.show(this, "", 
 					message, true);
         }else{
@@ -720,7 +719,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 	 * @return
 	 */
 	private boolean checkInsert(){
-		if (mReportCursor==null || !mReportCursor.moveToFirst()){
+		if (mReportCursor==null || !mReportCursor.moveToFirst() || mReportCursor.isClosed()){
 			showDialog(DIALOG_REPORT_UNAVAILABLE_ID);
 			return false;
 		}

@@ -4,13 +4,14 @@ import java.util.ArrayList;
 
 import com.mymed.android.myjam.provider.MyJamContract.Feedback;
 import com.mymed.android.myjam.provider.MyJamContract.FeedbacksRequest;
-import com.mymed.android.myjam.provider.MyJamContract.MyUsers;
+import com.mymed.android.myjam.provider.MyJamContract.Login;
 import com.mymed.android.myjam.provider.MyJamContract.Report;
 import com.mymed.android.myjam.provider.MyJamContract.Search;
 import com.mymed.android.myjam.provider.MyJamContract.SearchReports;
 import com.mymed.android.myjam.provider.MyJamContract.SearchResult;
 import com.mymed.android.myjam.provider.MyJamContract.Update;
 import com.mymed.android.myjam.provider.MyJamContract.UpdatesRequest;
+import com.mymed.android.myjam.provider.MyJamContract.User;
 
 import android.content.ContentProvider;
 import android.content.ContentProviderOperation;
@@ -41,64 +42,72 @@ public class MyJamProvider extends ContentProvider{
     private static final String DATABASE_NAME = "my_jam.db";
     private static final int DATABASE_VERSION = 1;
     interface Tables{
-        final String MY_USERS_TABLE_NAME = "my_users";
+    	final String LOGIN_TABLE_NAME = "login";
+        final String USERS_TABLE_NAME = "users";
 		final String SEARCH_TABLE_NAME = "search";
 		final String SEARCH_RESULT_TABLE_NAME = "search_results";
-		final String REPORT_TABLE_NAME = "reports";
-		final String UPDATE_TABLE_NAME = "updates";
+		final String REPORTS_TABLE_NAME = "reports";
+		final String UPDATES_TABLE_NAME = "updates";
         final String UPDATE_REQUEST_TABLE_NAME = "updates_request";
-        final String FEEDBACK_TABLE_NAME = "feedbacks";
+        final String FEEDBACKS_TABLE_NAME = "feedbacks";
         final String FEEDBACK_REQUEST_TABLE_NAME = "feedbacks_request";      
         
+        final String LOGIN_JOIN_USER = "login "
+                + "INNER JOIN users ON users.user_id=login.user_id ";
         final String SEARCH_JOIN_REPORTS = "search_results "
                 + "INNER JOIN reports ON search_results.report_id=reports.report_id ";
         final String UPDATE_JOIN_REPORT = "updates "
                 + "INNER JOIN reports ON updates.report_id=reports.report_id ";
+        
     }
     
     /** {@code REFERENCES} clauses. */
     private interface References {
-    	String REPORT_ID = "REFERENCES " + Tables.REPORT_TABLE_NAME + "(" + Report.REPORT_ID + ")";
-        String UPDATE_ID = "REFERENCES " + Tables.UPDATE_TABLE_NAME + "(" + Update.UPDATE_ID + ")";
+    	String REPORT_ID = "REFERENCES " + Tables.REPORTS_TABLE_NAME + "(" + Report.REPORT_ID + ")";
+        String UPDATE_ID = "REFERENCES " + Tables.UPDATES_TABLE_NAME + "(" + Update.UPDATE_ID + ")";
+        //TODO String LOGIN_ID = "REFERENCES " + Tables.USERS_TABLE_NAME + "(" + Login.LOGIN_ID + ")";
     }
     
     /** {@code INDEXES} clauses. */
     private interface Indexes {
     	String SEARCH_RESULT_SEARCH_ID_INDEX = "CREATE INDEX search_result_search_id_index ON "+ Tables.SEARCH_RESULT_TABLE_NAME + "(" + SearchResult.SEARCH_ID + ")";
-        String REPORTS_INDEX = "CREATE INDEX reports_index ON "+ Tables.REPORT_TABLE_NAME + "(" + Report.REPORT_ID + ")";
-        String REPORTS_USER_ID_INDEX = "CREATE INDEX reports_user_id_index ON "+ Tables.REPORT_TABLE_NAME + "(" + Report.USER_ID + ")";
-        String UPDATES_REPORT_ID_INDEX = "CREATE INDEX updates_report_id_index ON "+ Tables.UPDATE_TABLE_NAME + "(" + Update.REPORT_ID + ")";
-        String FEEDBACKS_REPORT_ID_INDEX = "CREATE INDEX feedbacks_report_id_index ON "+ Tables.FEEDBACK_TABLE_NAME + "(" + Feedback.REPORT_ID + ")";
-        String FEEDBACKS_UPDATE_ID_INDEX = "CREATE INDEX feedbacks_update_id_index ON "+ Tables.FEEDBACK_TABLE_NAME + "(" + Feedback.UPDATE_ID + ")";
+        String REPORTS_INDEX = "CREATE INDEX reports_index ON "+ Tables.REPORTS_TABLE_NAME + "(" + Report.REPORT_ID + ")";
+        String REPORTS_USER_ID_INDEX = "CREATE INDEX reports_user_id_index ON "+ Tables.REPORTS_TABLE_NAME + "(" + Report.USER_ID + ")";
+        String UPDATES_REPORT_ID_INDEX = "CREATE INDEX updates_report_id_index ON "+ Tables.UPDATES_TABLE_NAME + "(" + Update.REPORT_ID + ")";
+        String FEEDBACKS_REPORT_ID_INDEX = "CREATE INDEX feedbacks_report_id_index ON "+ Tables.FEEDBACKS_TABLE_NAME + "(" + Feedback.REPORT_ID + ")";
+        String FEEDBACKS_UPDATE_ID_INDEX = "CREATE INDEX feedbacks_update_id_index ON "+ Tables.FEEDBACKS_TABLE_NAME + "(" + Feedback.UPDATE_ID + ")";
     }
     /** Id of the URI's */
-    private static final int MY_USERS = 1;
+    private static final int USER = 1;
+    private static final int USER_ID = 2;
     
-    private static final int SEARCH = 2;
-    private static final int SEARCH_SEARCH_ID = 3;
+    private static final int LOGIN = 3;
     
-    private static final int SEARCH_RESULT = 4;
-    private static final int SEARCH_ID_SEARCH_RESULT = 5;
+    private static final int SEARCH = 4;
+    private static final int SEARCH_SEARCH_ID = 5;
     
-    private static final int SEARCH_REPORTS_SEARCH_ID = 6;
-    private static final int SEARCH_REPORTS_SEARCH_ID_REPORT_TYPE = 7;
+    private static final int SEARCH_RESULT = 6;
+    private static final int SEARCH_ID_SEARCH_RESULT = 7;
     
-    private static final int REPORT = 8;
-    private static final int REPORT_ID = 9;
+    private static final int SEARCH_REPORTS_SEARCH_ID = 8;
+    private static final int SEARCH_REPORTS_SEARCH_ID_REPORT_TYPE = 9;
     
-    private static final int UPDATE = 10;
-    private static final int UPDATE_ID = 11;
-    private static final int REPORT_ID_UPDATE = 12;
+    private static final int REPORT = 10;
+    private static final int REPORT_ID = 11;
     
-    private static final int FEEDBACK = 13;   
-    private static final int REPORT_ID_FEEDBACK = 14;
-    private static final int UPDATE_ID_FEEDBACK = 15;
+    private static final int UPDATE = 12;
+    private static final int UPDATE_ID = 13;
+    private static final int REPORT_ID_UPDATE = 14;
     
-    private static final int UPDATE_REQUEST = 16;
-    private static final int REPORT_ID_UPDATE_REQUEST = 17;
-    private static final int FEEDBACK_REQUEST = 18;
-    private static final int REPORT_ID_FEEDBACK_REQUEST = 19;
-    private static final int UPDATE_ID_FEEDBACK_REQUEST = 20;
+    private static final int FEEDBACK = 15;   
+    private static final int REPORT_ID_FEEDBACK = 16;
+    private static final int UPDATE_ID_FEEDBACK = 17;
+    
+    private static final int UPDATE_REQUEST = 18;
+    private static final int REPORT_ID_UPDATE_REQUEST = 19;
+    private static final int FEEDBACK_REQUEST = 20;
+    private static final int REPORT_ID_FEEDBACK_REQUEST = 21;
+    private static final int UPDATE_ID_FEEDBACK_REQUEST = 22;
     
 
     private static final UriMatcher sUriMatcher;
@@ -113,12 +122,27 @@ public class MyJamProvider extends ContentProvider{
         public void onCreate(SQLiteDatabase db) {
         	// Enable foreign key constraints
             db.execSQL("PRAGMA foreign_keys=ON;");
-            
-            db.execSQL("CREATE TABLE " + Tables.MY_USERS_TABLE_NAME + " ("
+
+            db.execSQL("CREATE TABLE " + Tables.LOGIN_TABLE_NAME + " ("
             		+ BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + MyUsers.USER_ID + " TEXT NOT NULL,"
-                    + MyUsers.USER_NAME + " TEXT,"
-                    + "UNIQUE (" + MyUsers.USER_ID + ") ON CONFLICT REPLACE)");
+                    + Login.LOGIN_ID + " TEXT NOT NULL,"
+                    + Login.USER_ID + " TEXT NOT NULL,"
+                    + Login.PASSWORD + " TEXT NOT NULL,"
+                    + Login.DATE + " INTEGER,"
+                    + Login.LOGGED + " INTEGER,"
+                    + "UNIQUE (" + User.USER_ID + ") ON CONFLICT REPLACE)");
+            
+            db.execSQL("CREATE TABLE " + Tables.USERS_TABLE_NAME + " ("
+            		+ BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + User.USER_ID + " TEXT NOT NULL ,"
+                    + Login.LOGIN_ID + " TEXT NOT NULL,"
+                    + User.USER_NAME + " TEXT,"
+                    + User.E_MAIL + " TEXT,"
+                    + User.FIRST_NAME + " TEXT,"
+                    + User.LAST_NAME + " TEXT,"
+                    + User.GENDER + " TEXT,"
+                    + User.REPUTATION + "TEXT,"
+                    + "UNIQUE (" + User.USER_ID + ") ON CONFLICT REPLACE)");
             
             db.execSQL("CREATE TABLE " + Tables.SEARCH_TABLE_NAME + " ("
             		+ BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -138,7 +162,7 @@ public class MyJamProvider extends ContentProvider{
             
             db.execSQL(Indexes.SEARCH_RESULT_SEARCH_ID_INDEX);
             
-            db.execSQL("CREATE TABLE " + Tables.REPORT_TABLE_NAME + " ("
+            db.execSQL("CREATE TABLE " + Tables.REPORTS_TABLE_NAME + " ("
             		+ BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + Report.REPORT_ID + " TEXT NOT NULL," 
                     + Report.USER_ID + " TEXT,"
@@ -156,7 +180,7 @@ public class MyJamProvider extends ContentProvider{
             db.execSQL(Indexes.REPORTS_INDEX);
             db.execSQL(Indexes.REPORTS_USER_ID_INDEX);
             
-            db.execSQL("CREATE TABLE " + Tables.UPDATE_TABLE_NAME + " ("
+            db.execSQL("CREATE TABLE " + Tables.UPDATES_TABLE_NAME + " ("
             		+ BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             		+ Update.UPDATE_ID + " TEXT NOT NULL,"
             		+ Update.REPORT_ID + " TEXT " + References.REPORT_ID + " ON DELETE CASCADE,"
@@ -177,7 +201,7 @@ public class MyJamProvider extends ContentProvider{
                     + UpdatesRequest.UPDATING + " INTEGER NOT NULL,"
                     + "UNIQUE (" + UpdatesRequest.REPORT_ID + ") ON CONFLICT REPLACE)");
             
-            db.execSQL("CREATE TABLE " + Tables.FEEDBACK_TABLE_NAME + " ("
+            db.execSQL("CREATE TABLE " + Tables.FEEDBACKS_TABLE_NAME + " ("
             		+ BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             		+ Feedback.REPORT_ID + " TEXT " + References.REPORT_ID + " ON DELETE CASCADE,"
             		+ Feedback.UPDATE_ID + " TEXT " + References.UPDATE_ID + " ON DELETE CASCADE,"
@@ -236,12 +260,16 @@ public class MyJamProvider extends ContentProvider{
         
 		int match = sUriMatcher.match(uri);
         switch (match){
+        case LOGIN:
+        	tableName = Tables.LOGIN_TABLE_NAME;
+        	contentUri = Login.CONTENT_URI;
+        	break;
         case SEARCH_RESULT:
         	tableName = Tables.SEARCH_RESULT_TABLE_NAME;
         	contentUri = SearchResult.CONTENT_URI;
         	break;
         case REPORT:
-        	tableName = Tables.REPORT_TABLE_NAME;
+        	tableName = Tables.REPORTS_TABLE_NAME;
         	contentUri = Report.CONTENT_URI;
         	break;
         default:
@@ -271,10 +299,15 @@ public class MyJamProvider extends ContentProvider{
         Uri contentUri;
     	// Validate the requested uri
         switch (sUriMatcher.match(uri)) {
-        case MY_USERS:
-        	tableName = Tables.MY_USERS_TABLE_NAME;
-        	nullColumnHack = MyUsers.USER_ID;
-        	contentUri = MyUsers.CONTENT_URI;
+        case LOGIN:
+        	tableName = Tables.LOGIN_TABLE_NAME;
+        	nullColumnHack = Login.LOGIN_ID;
+        	contentUri = Login.CONTENT_URI;
+        	break;
+        case USER:
+        	tableName = Tables.USERS_TABLE_NAME;
+        	nullColumnHack = User.USER_ID;
+        	contentUri = User.CONTENT_URI;
         	break;
         case SEARCH:
         	tableName = Tables.SEARCH_TABLE_NAME;
@@ -287,12 +320,12 @@ public class MyJamProvider extends ContentProvider{
         	contentUri = SearchResult.CONTENT_URI;
         	break;
         case REPORT:
-        	tableName = Tables.REPORT_TABLE_NAME;
+        	tableName = Tables.REPORTS_TABLE_NAME;
         	nullColumnHack = Report.REPORT_ID;
         	contentUri = Report.CONTENT_URI;
         	break;
         case UPDATE:
-        	tableName = Tables.UPDATE_TABLE_NAME;
+        	tableName = Tables.UPDATES_TABLE_NAME;
         	nullColumnHack = Update.UPDATE_ID;
         	contentUri = Update.CONTENT_URI;
         	break;
@@ -302,7 +335,7 @@ public class MyJamProvider extends ContentProvider{
         	contentUri = UpdatesRequest.CONTENT_URI;
         	break;
         case FEEDBACK:
-        	tableName = Tables.FEEDBACK_TABLE_NAME;
+        	tableName = Tables.FEEDBACKS_TABLE_NAME;
         	nullColumnHack = Feedback._ID;
         	contentUri = Feedback.CONTENT_URI;
         	break;
@@ -341,6 +374,14 @@ public class MyJamProvider extends ContentProvider{
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 		int match = sUriMatcher.match(uri);
         switch (match){
+        case LOGIN:
+        	qb.setTables(Tables.LOGIN_JOIN_USER);
+        	break;
+        case USER_ID:
+        	id = User.getUserId(uri);
+        	qb.setTables(Tables.USERS_TABLE_NAME);
+        	qb.appendWhere("user_id =\"" + id+"\"");
+        	break;
         case SEARCH_SEARCH_ID:
         	id = SearchReports.getSearchId(uri);
         	qb.setTables(Tables.SEARCH_TABLE_NAME);
@@ -357,7 +398,7 @@ public class MyJamProvider extends ContentProvider{
         	break;
         case REPORT_ID:
         	id = Report.getReportId(uri);
-        	qb.setTables(Tables.REPORT_TABLE_NAME);
+        	qb.setTables(Tables.REPORTS_TABLE_NAME);
         	qb.appendWhere(Report.REPORT_ID + "=\"" + id+"\"");
         	break;
         case UPDATE_ID:
@@ -367,7 +408,7 @@ public class MyJamProvider extends ContentProvider{
         	break;
         case REPORT_ID_UPDATE:
         	id = Update.getReportId(uri);
-        	qb.setTables(Tables.UPDATE_TABLE_NAME);
+        	qb.setTables(Tables.UPDATES_TABLE_NAME);
         	qb.appendWhere(Update.REPORT_ID + "=\"" + id+"\"");
         	break;
         case REPORT_ID_UPDATE_REQUEST:
@@ -377,12 +418,12 @@ public class MyJamProvider extends ContentProvider{
         	break;	
         case REPORT_ID_FEEDBACK:
         	id = Feedback.getId(uri);
-        	qb.setTables(Tables.FEEDBACK_TABLE_NAME);
+        	qb.setTables(Tables.FEEDBACKS_TABLE_NAME);
         	qb.appendWhere(Feedback.REPORT_ID + "=\"" + id+"\"");
         	break;
         case UPDATE_ID_FEEDBACK:
         	id = Feedback.getId(uri);
-        	qb.setTables(Tables.FEEDBACK_TABLE_NAME);
+        	qb.setTables(Tables.FEEDBACKS_TABLE_NAME);
         	qb.appendWhere(Feedback.UPDATE_ID + "=\"" + id+"\"");
         	break;
         case REPORT_ID_FEEDBACK_REQUEST:
@@ -408,6 +449,43 @@ public class MyJamProvider extends ContentProvider{
         return c;
 	}
 	
+	@Override
+	public int update(Uri uri, ContentValues values, String selection,
+			String[] selectionArgs) {
+        Log.d(TAG, "update(uri=" + uri + ", values=" + values.toString() + ")");
+        String tableName;
+        Uri contentUri;
+        
+		int match = sUriMatcher.match(uri);
+        switch (match){
+        case LOGIN:
+        	tableName = Tables.LOGIN_TABLE_NAME;
+        	contentUri = Login.CONTENT_URI;
+        	break;
+        case SEARCH_RESULT:
+        	tableName = Tables.SEARCH_RESULT_TABLE_NAME;
+        	contentUri = SearchResult.CONTENT_URI;
+        	break;
+        case REPORT:
+        	tableName = Tables.REPORTS_TABLE_NAME;
+        	contentUri = Report.CONTENT_URI;
+        	break;
+        default:
+            throw new IllegalArgumentException("Unknown URI " + uri);
+        }
+        
+        // Get the database and run the query
+        SQLiteDatabase db = mOpenHelper.getReadableDatabase();
+        int num = db.update(tableName, values, selection, selectionArgs);
+
+        // Tell the cursor what uri to watch, so it knows when its source data changes
+        getContext().getContentResolver().notifyChange(contentUri, null);
+
+		return num;
+
+	}
+	
+	
     /**
      * Apply the given set of {@link ContentProviderOperation}, executing inside
      * a {@link SQLiteDatabase} transaction. All changes will be rolled back if
@@ -431,60 +509,30 @@ public class MyJamProvider extends ContentProvider{
         }
     }
 
-	@Override
-	public int update(Uri uri, ContentValues values, String selection,
-			String[] selectionArgs) {
-        Log.d(TAG, "update(uri=" + uri + ", values=" + values.toString() + ")");
-        String tableName;
-        Uri contentUri;
-        
-		int match = sUriMatcher.match(uri);
-        switch (match){
-        case SEARCH_RESULT:
-        	tableName = Tables.SEARCH_RESULT_TABLE_NAME;
-        	contentUri = SearchResult.CONTENT_URI;
-        	break;
-        case REPORT:
-        	tableName = Tables.REPORT_TABLE_NAME;
-        	contentUri = Report.CONTENT_URI;
-        	break;
-        default:
-            throw new IllegalArgumentException("Unknown URI " + uri);
-        }
-        
-        // Get the database and run the query
-        SQLiteDatabase db = mOpenHelper.getReadableDatabase();
-        int num = db.update(tableName, values, selection, selectionArgs);
-
-        // Tell the cursor what uri to watch, so it knows when its source data changes
-        getContext().getContentResolver().notifyChange(contentUri, null);
-
-		return num;
-
-	}
-	
     static {
         sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "my_users", MY_USERS);       
+        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "login", LOGIN);
+        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "users", USER);
+        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "users/*", USER_ID);
         sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "search", SEARCH);
         sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "search/*", SEARCH_SEARCH_ID);
         sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "search_result", SEARCH_RESULT);
         sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "search_result/*", SEARCH_ID_SEARCH_RESULT);
         sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "search_reports/*", SEARCH_REPORTS_SEARCH_ID);
         sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "search_reports/*/*", SEARCH_REPORTS_SEARCH_ID_REPORT_TYPE);
-        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "report", REPORT);
-        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "report/*", REPORT_ID);
-        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "update", UPDATE);
-        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "update/r_id/*", REPORT_ID_UPDATE);
-        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "update/*", UPDATE_ID);
-        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "update_request", UPDATE_REQUEST);
-        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "update_request/*", REPORT_ID_UPDATE_REQUEST);
-        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "feedback", FEEDBACK);
-        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "feedback/r_id/*", REPORT_ID_FEEDBACK);
-        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "feedback/u_id/*", UPDATE_ID_FEEDBACK);
-        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "feedback_request", FEEDBACK_REQUEST);
-        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "feedback_request/r_id/*", REPORT_ID_FEEDBACK_REQUEST);
-        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "feedback_request/u_id/*", UPDATE_ID_FEEDBACK_REQUEST);
+        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "reports", REPORT);
+        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "reports/*", REPORT_ID);
+        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "updates", UPDATE);
+        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "updates/r_id/*", REPORT_ID_UPDATE);
+        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "updates/*", UPDATE_ID);
+        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "updates_request", UPDATE_REQUEST);
+        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "updates_request/*", REPORT_ID_UPDATE_REQUEST);
+        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "feedbacks", FEEDBACK);
+        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "feedbacks/r_id/*", REPORT_ID_FEEDBACK);
+        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "feedbacks/u_id/*", UPDATE_ID_FEEDBACK);
+        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "feedbacks_request", FEEDBACK_REQUEST);
+        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "feedbacks_request/r_id/*", REPORT_ID_FEEDBACK_REQUEST);
+        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "feedbacks_request/u_id/*", UPDATE_ID_FEEDBACK_REQUEST);
     }
 
 }

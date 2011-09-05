@@ -1,6 +1,6 @@
 <?php
-require_once dirname(__FILE__).'/../../system/backend/DHTRequest.class.php';
-require_once dirname(__FILE__).'/../../system/backend/ProfileRequest.class.php';
+require_once __DIR__.'/../../system/backend/DHTRequest.class.php';
+require_once __DIR__.'/../../system/backend/ProfileRequest.class.php';
 class myTransport extends ContentObject
 {
 	private /*DHTRequest*/ $request;
@@ -71,7 +71,7 @@ class myTransport extends ContentObject
 			}
 		} else if( isset($_GET["code"])&&($_GET["code"] == "publish") ){
 			$key = $_GET["from"] . $_GET["to"] . $_GET["theDate"];
-			$value = $_SESSION['user']->mymedID;
+			$value = $_SESSION['user']->id;
 			$this->request->create($key, $value);
 		} 
 		?>
@@ -84,7 +84,7 @@ class myTransport extends ContentObject
 			<!-- menu -->
 			<br />
 				<a href="#" onclick="document.getElementById('myTransportSub').style.display = 'none'; fadeIn('#myTransportPub')">Rechercher</a> | 
-<?php 	if($_SESSION['user']->mymedID!==null):?>
+<?php 	if($_SESSION['user']->id!==null):?>
 				<a href="#" onclick="document.getElementById('myTransportPub').style.display = 'none'; fadeIn('#myTransportSub')">Publier</a>
 <?php 	else:?>
 				Publier

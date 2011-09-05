@@ -6,7 +6,6 @@ import java.util.Map;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.controller.core.exception.ServiceManagerException;
 import com.mymed.controller.core.manager.AbstractManager;
 import com.mymed.controller.core.manager.profile.IProfileManager;
 import com.mymed.controller.core.manager.storage.IStorageManager;
@@ -19,7 +18,8 @@ import com.mymed.model.data.user.MUserBean;
  * @author lvanni
  * 
  */
-public class ApplicationManager extends AbstractManager implements IProfileManager {
+public class ApplicationManager extends AbstractManager implements
+		IProfileManager {
 	/* --------------------------------------------------------- */
 	/* Constructors */
 	/* --------------------------------------------------------- */
@@ -32,9 +32,6 @@ public class ApplicationManager extends AbstractManager implements IProfileManag
 		super(storageManager);
 	}
 
-	/* --------------------------------------------------------- */
-	/* implements IProfileManagement */
-	/* --------------------------------------------------------- */
 	/**
 	 * Setup a new user profile into the database
 	 * 
@@ -47,14 +44,10 @@ public class ApplicationManager extends AbstractManager implements IProfileManag
 			throws InternalBackEndException, IOBackEndException {
 		try {
 			final Map<String, byte[]> args = user.getAttributeToMap();
-			storageManager.insertSlice("User", new String(args.get("id"),
+			storageManager.insertSlice(CF_USER, new String(args.get("id"),
 					"UTF8"), args);
 			// TODO update the user values!
 			return user;
-		} catch (final ServiceManagerException e) {
-			throw new InternalBackEndException(
-					"create failed because of a WrapperException: "
-							+ e.getMessage());
 		} catch (final UnsupportedEncodingException e) {
 			throw new InternalBackEndException(e.getMessage());
 		}
@@ -72,14 +65,8 @@ public class ApplicationManager extends AbstractManager implements IProfileManag
 			IOBackEndException {
 		Map<byte[], byte[]> args = new HashMap<byte[], byte[]>();
 		final MUserBean user = new MUserBean();
-		try {
-			args = storageManager.selectAll("User", id);
-		} catch (final ServiceManagerException e) {
-			e.printStackTrace();
-			throw new InternalBackEndException(
-					"read failed because of a WrapperException: "
-							+ e.getMessage());
-		}
+		args = storageManager.selectAll("User", id);
+		args = storageManager.selectAll(CF_USER, id);
 
 		return (MUserBean) introspection(user, args);
 	}
@@ -101,7 +88,7 @@ public class ApplicationManager extends AbstractManager implements IProfileManag
 	 */
 	@Override
 	public void delete(final String id) throws InternalBackEndException {
-		storageManager.removeAll("User", id);
+		storageManager.removeAll(CF_USER, id);
 	}
 
 }

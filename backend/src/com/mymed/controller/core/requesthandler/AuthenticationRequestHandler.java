@@ -99,14 +99,14 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 			/** handle the request */
 			String authentication;
 			if((authentication = parameters.get("authentication"))== null){
-				handleInternalError(new InternalBackEndException("missing argument!"), response);
+				handleInternalError(new InternalBackEndException("missing authentication argument!"), response);
 				return;
 			}
 			switch (code) {
 			case CREATE:
 				String user;
 				if((user = parameters.get("user"))== null){
-					handleInternalError(new InternalBackEndException("missing argument!"), response);
+					handleInternalError(new InternalBackEndException("missing user argument!"), response);
 					return;
 				}
 				MUserBean userBean = null;

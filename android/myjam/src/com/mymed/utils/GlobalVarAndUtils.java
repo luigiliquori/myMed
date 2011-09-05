@@ -31,6 +31,11 @@ public class GlobalVarAndUtils {
 	public static final int MAX_RATING = 10;
 	/** Max distance between the user and a report for the insertion of an update or a feeback.*/
 	public static final int MAX_INSERTION_DISTANCE = 1000;
+	/**
+	 * LogIn attributes.
+	 */
+	private boolean logged;
+	private String userId;
 	
 	/** Singleton, cannot be instantiated. */
     private GlobalVarAndUtils(Context context){
@@ -124,4 +129,24 @@ public class GlobalVarAndUtils {
     	}
     	return -1;
     }
+
+    /*
+     * GETTERS AND SETTERS FOR LOGIN ATTRIBUTES 
+     */
+    
+	public boolean isLogged() {
+		return logged;
+	}
+
+	public void setLogged(boolean logged) {
+		this.logged = logged;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 }

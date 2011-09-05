@@ -9,10 +9,12 @@ import java.util.Map;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.controller.core.exception.ServiceManagerException;
 import com.mymed.controller.core.manager.AbstractManager;
+import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.storage.MyJamStorageManager;
+import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.controller.core.manager.storage.MyJamStorageManager.ExpColumnBean;
+import com.mymed.model.data.user.MUserBean;
 import com.mymed.myjam.locator.GeoLocationOutOfBoundException;
 import com.mymed.myjam.locator.Location;
 import com.mymed.myjam.locator.Locator;
@@ -33,8 +35,8 @@ public class MyJamManager extends AbstractManager{
 	/**
 	 * TODO This class must be aware of the userName and the userId.
 	 */
-	private final String userId = "iacopoId";
-	private final String userName = "iacopo"; 
+	//private final String userId = "iacopoId";
+	//private final String userName = "iacopo"; 
 
 	public MyJamManager(MyJamStorageManager storageManager) {
 		super(storageManager);
@@ -50,7 +52,7 @@ public class MyJamManager extends AbstractManager{
 	 * @throws InternalBackEndException
 	 * @throws IOBackEndException 
 	 */
-	public String insertReport(MReportBean report,int latitude,int longitude) throws InternalBackEndException, IOBackEndException{
+	public MReportBean insertReport(MReportBean report,int latitude,int longitude) throws InternalBackEndException, IOBackEndException{
 		try {
 			/**
 			 * Data preparation
@@ -58,13 +60,16 @@ public class MyJamManager extends AbstractManager{
 			long locId = Locator.getLocationId((double) (latitude/1E6),
 					(double) (longitude/1E6));
 			String areaId = String.valueOf(Locator.getAreaId(locId));
+			/** The user profile is received ProfileManager */
+			final ProfileManager profileManager = new ProfileManager(new StorageManager());
+			MUserBean userProfile = profileManager.read(report.getUserId()); //TODO Not secure. The server trust the user identity.  
 			/** The convention is to use milliseconds since 1 Jenuary 1970*/
-			long timestamp = System.currentTimeMillis();									
-			MyJamId reportId = new MyJamId(MyJamId.REPORT_ID,timestamp,userId);
+			long timestamp = System.currentTimeMillis();				
+			MyJamId reportId = new MyJamId(MyJamId.REPORT_ID,timestamp,userProfile.getLogin());
 			
 			report.setId(reportId.toString());
-			report.setUserName(userName);
-			report.setUserId(userId);
+			report.setUserName(userProfile.getName());
+			report.setUserId(userProfile.getId());
 			report.setLocationId(locId);
 			report.setTimestamp(timestamp);
 			/** In cassandra is used the convention of microseconds since 1 Jenuary 1970*/
@@ -89,7 +94,7 @@ public class MyJamManager extends AbstractManager{
 			/**
 			 * Column insertion in CF ActiveReport 
 			 **/
-			myJamStorageManager.insertExpiringColumn("ActiveReport", userId, null, reportId.ReportIdAsByteBuffer().array(), 
+			myJamStorageManager.insertExpiringColumn("ActiveReport", userProfile.getId(), null, reportId.ReportIdAsByteBuffer().array(), 
 					new byte[0], //The value field is not used.
 					timestamp, ReportType.valueOf(report.getReportType()).permTime);
 			/**
@@ -99,8 +104,8 @@ public class MyJamManager extends AbstractManager{
 			/**
 			 * Columns insertion in CF UserReport 
 			 **/
-			myJamStorageManager.insertColumn("UserReport", userId, reportId.ReportIdAsByteBuffer().array(), new byte[0]);
-			return reportId.toString();
+			myJamStorageManager.insertColumn("UserReport", userProfile.getId(), reportId.ReportIdAsByteBuffer().array(), new byte[0]);
+			return report;
 		} catch (InternalBackEndException e) {
 			throw new InternalBackEndException("Wrong parameter: "+e.getMessage());
 		} catch (GeoLocationOutOfBoundException e){
@@ -109,8 +114,6 @@ public class MyJamManager extends AbstractManager{
 			throw new InternalBackEndException("Wrong parameter: "+e.getMessage());
 		} catch (IOBackEndException e){
 			throw new IOBackEndException(e.getMessage());
-		} catch (ServiceManagerException e) {
-			throw new InternalBackEndException(e.getMessage());
 		}
 	}
 
@@ -183,8 +186,6 @@ public class MyJamManager extends AbstractManager{
 			throw new InternalBackEndException("Wrong report Id: "+e.getMessage());
 		} catch (IOBackEndException e){
 			throw new IOBackEndException(e.getMessage());
-		} catch (ServiceManagerException e) {
-			throw new InternalBackEndException(e.getMessage());
 		}
 	}
 	
@@ -206,8 +207,6 @@ public class MyJamManager extends AbstractManager{
 			throw new InternalBackEndException("Wrong parameter: "+e.getMessage());
 		} catch (IOBackEndException e){
 			throw new InternalBackEndException(e.getMessage());
-		} catch (ServiceManagerException e) {
-			throw new InternalBackEndException(e.getMessage());
 		}
 	}
 	
@@ -219,8 +218,6 @@ public class MyJamManager extends AbstractManager{
 				activeReports.add(MyJamId.parseByteBuffer(ByteBuffer.wrap(key)).toString());
 			}
 			return activeReports;
-		} catch (ServiceManagerException e) {
-			throw new InternalBackEndException(e.getMessage());
 		} catch (WrongFormatException e) {
 			throw new InternalBackEndException(e.getMessage());
 		}
@@ -233,8 +230,6 @@ public class MyJamManager extends AbstractManager{
 		}catch(InternalBackEndException e){
 			throw new InternalBackEndException("Wrong parameter: "+e.getMessage());
 		} catch (IOBackEndException e){
-			throw new InternalBackEndException(e.getMessage());
-		} catch (ServiceManagerException e) {
 			throw new InternalBackEndException(e.getMessage());
 		}
 	}
@@ -270,8 +265,6 @@ public class MyJamManager extends AbstractManager{
 				throw new InternalBackEndException("Wrong parameter: "+e.getMessage());
 		} catch (IOBackEndException e){
 				throw new InternalBackEndException(e.getMessage());
-		} catch (ServiceManagerException e) {
-				throw new InternalBackEndException(e.getMessage());
 		} catch (WrongFormatException e) {
 			throw new InternalBackEndException(e.getMessage());
 		}
@@ -290,12 +283,10 @@ public class MyJamManager extends AbstractManager{
 			return feedBacksList;
 		}catch(InternalBackEndException e){
 				throw new InternalBackEndException("Wrong parameter: "+e.getMessage());
-		} catch (ServiceManagerException e) {
-				throw new InternalBackEndException(e.getMessage());
 		}
 	}
 	
-	public String insertUpdate(String reportId,MReportBean update) throws InternalBackEndException, IOBackEndException{
+	public MReportBean insertUpdate(String reportId,MReportBean update) throws InternalBackEndException, IOBackEndException{
 		try{
 		/**
 		 * Data preparation
@@ -308,13 +299,16 @@ public class MyJamManager extends AbstractManager{
 			throw new InternalBackEndException("Report and update types don't match.");
 		long locationId = reportDetails.getLocationId();
 		String areaId = String.valueOf(Locator.getAreaId(locationId));
+		/** The user profile is received ProfileManager */
+		final ProfileManager profileManager = new ProfileManager(new StorageManager());
+		MUserBean userProfile = profileManager.read(update.getUserId()); //TODO Not secure. The server trust the user identity.
 		/** The convention is to use milliseconds since 1 Jenuary 1970*/
 		long timestamp = System.currentTimeMillis();									
-		MyJamId updateId = new MyJamId(MyJamId.UPDATE_ID,timestamp,userId);
+		MyJamId updateId = new MyJamId(MyJamId.UPDATE_ID,timestamp,userProfile.getLogin());
 		
 		update.setId(updateId.toString());
-		update.setUserId(userId);
-		update.setUserName(userName);
+		update.setUserId(userProfile.getId());
+		update.setUserName(userProfile.getName());
 		update.setTimestamp(timestamp);
 		
 		/**
@@ -337,16 +331,14 @@ public class MyJamManager extends AbstractManager{
 		/**
 		 * Column insertion in the CF UserReport
 		 */
-		myJamStorageManager.insertColumn("UserReport", userId, updateId.ReportIdAsByteBuffer().array(), new byte[0]);
+		myJamStorageManager.insertColumn("UserReport", userProfile.getId(), updateId.ReportIdAsByteBuffer().array(), new byte[0]);
 		/**
 		 * Update expiration time.
 		 */
 		//TODO To update the expiration time is sufficient to reinsert the column in CF Location, changing the TTL.
-		return updateId.toString();
-		}catch(InternalBackEndException e){
+		return update;
+		} catch(InternalBackEndException e){
 			throw new InternalBackEndException("Wrong parameter: "+e.getMessage());
-		} catch (ServiceManagerException e) {
-			throw new InternalBackEndException(e.getMessage());
 		} catch (WrongFormatException e) {
 			throw new InternalBackEndException("Wrong parameter: "+e.getMessage());
 		}
@@ -379,10 +371,8 @@ public class MyJamManager extends AbstractManager{
 		myJamStorageManager.insertColumn("Feedback", updateId==null?reportId:updateId, MConverter.stringToByteBuffer(feedback.getUserId()).array(), 
 				MConverter.intToByteBuffer(feedback.getGrade()).array());
 		
-		}catch(InternalBackEndException e){
+		} catch(InternalBackEndException e){
 			throw new InternalBackEndException("Wrong parameter: "+e.getMessage());
-		} catch (ServiceManagerException e) {
-			throw new InternalBackEndException(e.getMessage());
 		} catch (WrongFormatException e) {
 			throw new InternalBackEndException("Wrong parameter: "+e.getMessage());
 		}
@@ -396,7 +386,7 @@ public class MyJamManager extends AbstractManager{
 			/**
 			 * Removes the column by ActiveReport CF, if present.
 			 */
-			myJamStorageManager.removeColumn("ActiveReport", userId, null,
+			myJamStorageManager.removeColumn("ActiveReport", report.getUserId(), null,
 				reportId.ReportIdAsByteBuffer().array());
 			/**
 			 * Removes the column by ActiveReport CF, if present.

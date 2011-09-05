@@ -14,12 +14,37 @@ public final class MyJamContract {
 	
 	// This class cannot be instantiated
     private MyJamContract() {}    
-    
-    interface MyUsersColumns {
-        /** Id of the user. (Required)*/
+
+    interface LoginColumns {
+    	/** Id of the user. (Required) */
     	String USER_ID = "user_id";
-        /** Name of the user*/
+    	/** Id of the user. (Required) */
+    	String LOGIN_ID = "login";			//Corresponds to AUTHENTICATION_ID in User CF.
+    	/** Password of the user. (Required) */
+    	String PASSWORD = "password";
+        /** Login date */
+    	String DATE = "date";
+    	/** Login date */
+    	String LOGGED = "logged";
+    }
+    
+    interface UserColumns {	
+        /** Id of the user. (Required) */
+    	String USER_ID = "user_id";			//Corresponds to AUTHENTICATION_ID in User CF.
+    	/** Id of the user. (Required) */
+    	String LOGIN_ID = "login";			//Corresponds to AUTHENTICATION_ID in User CF.
+        /** Name of the user */
     	String USER_NAME = "user_name";
+    	/** e-mail of the user */
+    	String E_MAIL = "e_mail";
+    	/** First name of the user */
+    	String FIRST_NAME = "first_name";
+    	/** First name of the user */
+    	String LAST_NAME = "last_name";
+    	/** Gender of the user */
+    	String GENDER = "gender"; 
+    	/** Gender of the user */
+    	String REPUTATION = "reputation";
     }
     
     interface SearchColumns {
@@ -116,32 +141,51 @@ public final class MyJamContract {
 
     private static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
     
-    private static final String PATH_MY_USERS = "my_users";
+    private static final String PATH_LOGIN = "login";
+    private static final String PATH_USERS = "users";
     private static final String PATH_SEARCH = "search";
     private static final String PATH_SEARCH_RESULT = "search_result";
     private static final String PATH_SEARCH_REPORTS = "search_reports";
-    private static final String PATH_REPORTS = "report";
-    private static final String PATH_UPDATES = "update";
-    private static final String PATH_UPDATE_REQUEST = "update_request";
-    private static final String PATH_FEEDBACK = "feedback";
-    private static final String PATH_FEEDBACK_REQUEST = "feedback_request";    
+    private static final String PATH_REPORTS = "reports";
+    private static final String PATH_UPDATES = "updates";
+    private static final String PATH_UPDATE_REQUEST = "updates_request";
+    private static final String PATH_FEEDBACK = "feedbacks";
+    private static final String PATH_FEEDBACK_REQUEST = "feedbacks_request";    
     private static final String PATH_REPORT_ID = "r_id";
     private static final String PATH_UPDATE_ID = "u_id";
     
-
-    public static final class MyUsers implements BaseColumns,MyUsersColumns {
+    public static final class Login implements BaseColumns,LoginColumns {
         // This class cannot be instantiated
-        private MyUsers() {}
+        private Login() {}
 
         /**
          * The content:// style URL for this table
          */
-        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_MY_USERS).build();
+        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_LOGIN).build();
 
         /**
          * The prefix to use when a qualified name is required.
          */
-        public static final String QUALIFIER = Tables.MY_USERS_TABLE_NAME + ".";
+        public static final String QUALIFIER = Tables.LOGIN_TABLE_NAME + ".";        
+    }
+
+    public static final class User implements BaseColumns,UserColumns {
+        // This class cannot be instantiated
+        private User() {}
+
+        /**
+         * The content:// style URL for this table
+         */
+        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_USERS).build();
+
+        public static String getUserId(Uri uri) {
+            return uri.getPathSegments().get(1);
+        }
+        
+        /**
+         * The prefix to use when a qualified name is required.
+         */
+        public static final String QUALIFIER = Tables.USERS_TABLE_NAME + ".";
         
         /**
          * The default sort order for this table
@@ -190,6 +234,7 @@ public final class MyJamContract {
          * The content:// style URL for this table
          */
         public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_SEARCH_RESULT).build();
+        
 
         /**
          * The prefix to use when a qualified name is required.
@@ -278,7 +323,7 @@ public final class MyJamContract {
         /**
          * The prefix to use when a qualified name is required.
          */
-        public static final String QUALIFIER = Tables.REPORT_TABLE_NAME + ".";
+        public static final String QUALIFIER = Tables.REPORTS_TABLE_NAME + ".";
                
         /**
          * Selection used to update a report.
@@ -289,8 +334,8 @@ public final class MyJamContract {
          * Selection used to update a report.
          */
         public static final String STALE_ENTRIES_SELECTION = REPORT_ID +" NOT IN (SELECT "+ SearchResult.REPORT_ID + 
-        		" FROM "+ Tables.SEARCH_RESULT_TABLE_NAME +") AND "+ USER_ID+ " NOT IN (SELECT "+ MyUsers.USER_ID + 
-                		" FROM "+ Tables.MY_USERS_TABLE_NAME +")";
+        		" FROM "+ Tables.SEARCH_RESULT_TABLE_NAME +") AND "+ USER_ID+ " NOT IN (SELECT "+ Login.USER_ID + 
+                		" FROM "+ Tables.LOGIN_TABLE_NAME +")";
         
         /**
          * Returns the reportId given the URI.
@@ -337,7 +382,7 @@ public final class MyJamContract {
         /**
          * The prefix to use when a qualified name is required.
          */
-        public static final String QUALIFIER = Tables.UPDATE_TABLE_NAME + ".";
+        public static final String QUALIFIER = Tables.UPDATES_TABLE_NAME + ".";
         
         /**
          * Returns the reportId given the URI.
@@ -417,7 +462,7 @@ public final class MyJamContract {
         /**
          * The prefix to use when a qualified name is required.
          */
-        public static final String QUALIFIER = Tables.FEEDBACK_TABLE_NAME + ".";
+        public static final String QUALIFIER = Tables.FEEDBACKS_TABLE_NAME + ".";
         
         public static String getId(Uri uri) {
             return uri.getPathSegments().get(2);

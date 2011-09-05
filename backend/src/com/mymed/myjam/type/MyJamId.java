@@ -1,5 +1,6 @@
 package com.mymed.myjam.type;
 
+import java.io.UnsupportedEncodingException;
 import java.nio.BufferUnderflowException;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
@@ -19,10 +20,11 @@ public class MyJamId {
 	private String userId;
 	private char type;
 	
-	private static Charset CHARSET = Charset.forName("UTF8");
+	private static String CHARSET_NAME = "UTF8";
+	private static Charset CHARSET = Charset.forName(CHARSET_NAME);
 	private static short LONG_BYTESIZE = 8;
 	private static short CHAR_BYTESIZE = 2;
-	private static char separationChar = '.';
+	private static char SEPARATOR_CHAR = '_';
 	
 	/**
 	 * Public constructor.
@@ -41,11 +43,12 @@ public class MyJamId {
 	 */
 	@Override
 	public String toString(){
-		return type+userId+separationChar+String.valueOf(timestamp);		
+		return type+userId+SEPARATOR_CHAR+String.valueOf(timestamp);		
 	}
 	/**
 	 * Return a ByteBuffer representation of the ReportId
 	 * @return 
+	 * @throws UnsupportedEncodingException 
 	 */
 	public ByteBuffer ReportIdAsByteBuffer(){
 		byte[] userIdBB = userId.getBytes(CHARSET);
@@ -91,7 +94,7 @@ public class MyJamId {
 	public static MyJamId parseString(String arg0) throws WrongFormatException{
 		try{
 			char type = arg0.charAt(0);
-			int sepIndex = arg0.indexOf(separationChar);
+			int sepIndex = arg0.lastIndexOf(SEPARATOR_CHAR);
 			String userId = arg0.substring(1,sepIndex);
 			long timestamp = Long.parseLong(arg0.substring(sepIndex+1, arg0.length()));
 			return new MyJamId(checkType(type),checkTimestamp(timestamp),

@@ -48,6 +48,8 @@ create column family Reputation with column_type = 'Standard' and comparator = '
  *  ApplicationController
  *  ApplicationList
  *  ApplicationModel
+ *  DataList
+ *  OntologyList
  *  UserList
  *  InteractionList
  *  RaterList
@@ -56,6 +58,8 @@ create column family Reputation with column_type = 'Standard' and comparator = '
 create column family ApplicationController with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family ApplicationList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family ApplicationModel with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
+create column family DataList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
+create column family OntologyList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family UserList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family InteractionList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family RaterList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';

@@ -1,0 +1,4 @@
+<?php
+require('system/main.php');
+main();
+?>

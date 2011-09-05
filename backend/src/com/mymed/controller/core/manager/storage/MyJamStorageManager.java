@@ -22,7 +22,6 @@ import org.apache.cassandra.thrift.SuperColumn;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.controller.core.exception.ServiceManagerException;
 import com.mymed.model.core.configuration.WrapperConfiguration;
 import com.mymed.model.core.wrappers.cassandra.api07.CassandraWrapper;
 import com.mymed.utils.MConverter;
@@ -74,8 +73,7 @@ public class MyJamStorageManager extends StorageManager implements IMyJamStorage
 
 	@Override
 	public void insertSlice(String tableName, String primaryKey,
-			Map<String, byte[]> args) throws ServiceManagerException,
-			IOBackEndException, InternalBackEndException {
+			Map<String, byte[]> args) throws IOBackEndException, InternalBackEndException {
 		Map<String,Map<String,List<Mutation>>> mutationMap = new HashMap<String,Map<String,List<Mutation>>>();
 		/** The convention is to use microseconds since 1 Jenuary 1970*/
 		long timestamp = (long) (System.currentTimeMillis()*1E3);	
@@ -116,8 +114,7 @@ public class MyJamStorageManager extends StorageManager implements IMyJamStorage
 	 * @throws InternalBackEndException
 	 */
 	public byte[] selectColumn(String tableName, String primaryKey,
-			byte[] superColumn, byte[] column) throws ServiceManagerException,
-			IOBackEndException, InternalBackEndException {
+			byte[] superColumn, byte[] column) throws IOBackEndException, InternalBackEndException {
 		try {
 										
 		/** Transport Opening*/
@@ -150,8 +147,7 @@ public class MyJamStorageManager extends StorageManager implements IMyJamStorage
 	 * @throws InternalBackEndException
 	 */
 	public ExpColumnBean selectExpiringColumn(String tableName, String primaryKey,
-			byte[] superColumn, byte[] column) throws ServiceManagerException,
-			IOBackEndException, InternalBackEndException {
+			byte[] superColumn, byte[] column) throws IOBackEndException, InternalBackEndException {
 		ExpColumnBean expCol = new ExpColumnBean();
 		try {
 										
@@ -263,9 +259,9 @@ public class MyJamStorageManager extends StorageManager implements IMyJamStorage
 		return selectByPredicate(tableName, primaryKey, predicate);
 	}
 	
+	@Override
 	public Map<String,Map<byte[], byte[]>> selectAll(String tableName, List<String> primaryKeys)
-			throws ServiceManagerException, IOBackEndException,
-			InternalBackEndException {
+			throws IOBackEndException,InternalBackEndException {
 		// read entire row
 		final SlicePredicate predicate = new SlicePredicate();
 		final SliceRange sliceRange = new SliceRange();
@@ -280,8 +276,7 @@ public class MyJamStorageManager extends StorageManager implements IMyJamStorage
 
 	@Override
 	public Map<byte[], byte[]> selectRange(String tableName, String primaryKey,
-			List<String> columnNames) throws ServiceManagerException,
-			IOBackEndException, InternalBackEndException {
+			List<String> columnNames) throws IOBackEndException, InternalBackEndException {
 		
 		final List<ByteBuffer> columnNamesToByte = new ArrayList<ByteBuffer>();
 		for (final String columnName : columnNames) {
@@ -298,8 +293,7 @@ public class MyJamStorageManager extends StorageManager implements IMyJamStorage
 	 * Selects a range of columns, specifying the extremes.
 	 */
 	public Map<byte[], byte[]> selectRange(String tableName, String primaryKey,
-			byte[] startColumn, byte[] stopColumn,int maxNum) throws ServiceManagerException,
-			IOBackEndException, InternalBackEndException {
+			byte[] startColumn, byte[] stopColumn,int maxNum) throws IOBackEndException, InternalBackEndException {
 
 		final SliceRange range = new SliceRange();
 		range.setStart(startColumn);
@@ -316,8 +310,7 @@ public class MyJamStorageManager extends StorageManager implements IMyJamStorage
 	 * @return
 	 */
 	public Map<byte[], byte[]> getLastN(String tableName, String primaryKey,
-			Integer n) throws ServiceManagerException,
-			IOBackEndException, InternalBackEndException {
+			Integer n) throws IOBackEndException, InternalBackEndException {
 
 				final SliceRange range = new SliceRange();
 				range.setStart(new byte[0]);
@@ -341,8 +334,7 @@ public class MyJamStorageManager extends StorageManager implements IMyJamStorage
 	 * @throws InternalBackEndException
 	 */
 	public Map<byte[],Map<byte[], byte[]>> selectSCRange(String tableName, List<String> primaryKeys,
-			byte[] startColumn, byte[] stopColumn) throws ServiceManagerException,
-			IOBackEndException, InternalBackEndException {
+			byte[] startColumn, byte[] stopColumn) throws IOBackEndException, InternalBackEndException {
 
 		final SliceRange range = new SliceRange();
 		range.setStart(startColumn);
@@ -354,8 +346,7 @@ public class MyJamStorageManager extends StorageManager implements IMyJamStorage
 	
 	@Override
 	public int countColumns(String tableName, String primaryKey,
-			byte[] superColumn) throws ServiceManagerException,
-			IOBackEndException, InternalBackEndException {
+			byte[] superColumn) throws IOBackEndException, InternalBackEndException {
 		
 		try {
 			final ColumnParent parent = new ColumnParent(tableName);

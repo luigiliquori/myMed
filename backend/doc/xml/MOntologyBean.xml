@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jel>
-	<admin creation="Mon Jul 25 17:34:54 CEST 2011" xsdversion="1.0.0" version="1.0.0" />
+	<admin creation="Fri Aug 05 11:55:57 CEST 2011" xsdversion="1.0.0" version="1.0.0" />
 	<jelclass final="true" superclass="AbstractMBean" visibility="public" package="com.mymed.model.data.application" superclassfulltype="AbstractMBean" fulltype="com.mymed.model.data.application.MOntologyBean" type="MOntologyBean">
 		<comment>
 			<description>This class represent an user profile</description>

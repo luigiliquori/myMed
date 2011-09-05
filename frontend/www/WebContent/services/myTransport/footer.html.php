@@ -14,7 +14,7 @@
 		  <tr>
 		    <td>
 				<a href="?service=myTransport">
-<?php if(isset($_GET['publish'])&&$_SESSION['user']->mymedID!==null):?>
+<?php if(isset($_GET['publish'])&&$_SESSION['user']->id!==null):?>
 					<img alt="search" src="services/myTransport/img/search.png" style="border:0 none" />
 <?php else:?>
 					<img alt="search" src="services/myTransport/img/searchH.png" style="border:0 none" />
@@ -22,7 +22,7 @@
 				</a>
 			</td>
 			<td>
-<?php if($_SESSION['user']->mymedID!==null):?>
+<?php if($_SESSION['user']->id!==null):?>
 				<a href="?service=myTransport&amp;publish=">
 					
 <?php 	if(isset($_GET['publish'])):?>

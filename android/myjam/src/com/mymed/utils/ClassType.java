@@ -94,6 +94,9 @@ public enum ClassType {
 	private static ClassType inferTypeGeneric(final String className) {
 		String localClassName = className;
 
+		/*
+		 * The class name can come in the form of 'class java.lang.Class'
+		 */
 		if (className.contains("class")) {
 			localClassName = className.split(" ")[1];
 		}
@@ -150,7 +153,7 @@ public enum ClassType {
 	 *            the object to convert
 	 * @return the byte array that represents the object
 	 */
-	public static byte[] classTypeToByteArray(final ClassType classType, final Object object) {
+	public static byte[] objectToByteArray(final ClassType classType, final Object object) {
 		final String methodName = classType.getPrimitiveType().getSimpleName().toLowerCase() + TO_BYTE_BUFFER;
 		ByteBuffer returnBuffer = null;
 
