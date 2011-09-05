@@ -60,8 +60,7 @@ public class MInteractionBean extends AbstractMBean {
 
 	@Override
 	public MInteractionBean clone() {
-		final MInteractionBean interactionBean = new MInteractionBean(this);
-		return interactionBean;
+		return new MInteractionBean(this);
 	}
 
 	@Override
