@@ -56,7 +56,8 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
 		authentication = (MAuthenticationBean) introspection(authentication, args);
 
 		if (authentication.getPassword().equals(password)) {
-			return new ProfileManager().read(authentication.getUser());
+			final ProfileManager profileManager = new ProfileManager(storageManager);
+			return profileManager.read(authentication.getUser());
 		} else {
 			throw new IOBackEndException("Wrong password");
 		}
