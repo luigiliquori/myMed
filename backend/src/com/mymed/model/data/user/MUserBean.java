@@ -80,8 +80,7 @@ public final class MUserBean extends AbstractMBean {
 
 	@Override
 	public MUserBean clone() {
-		final MUserBean userBean = new MUserBean(this);
-		return userBean;
+		return new MUserBean(this);
 	}
 
 	/**
