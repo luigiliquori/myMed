@@ -1,6 +1,7 @@
 package com.mymed.tests.stress;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.model.data.user.MUserBean;
@@ -14,7 +15,7 @@ import com.mymed.utils.MyMedLogger;
  * 
  */
 public class UserThread extends Thread {
-	private final LinkedList<MUserBean> usersList = new LinkedList<MUserBean>();
+	private final List<MUserBean> usersList = new LinkedList<MUserBean>();
 	private final UserTest userTest;
 	private final Thread addUser;
 	private final Thread removeUser;
@@ -70,7 +71,7 @@ public class UserThread extends Thread {
 							// To execute only if we do not perform the remove
 							// thread
 							if (!remove) {
-								usersList.pop();
+								((LinkedList<MUserBean>) usersList).pop();
 							}
 
 							usersList.notifyAll();
@@ -100,7 +101,7 @@ public class UserThread extends Thread {
 						}
 
 						while (!usersList.isEmpty()) {
-							final MUserBean user = usersList.pop();
+							final MUserBean user = ((LinkedList<MUserBean>) usersList).pop();
 
 							try {
 								userTest.removeUser(user);

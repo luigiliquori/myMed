@@ -1,6 +1,7 @@
 package com.mymed.tests.stress;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.model.data.AbstractMBean;
@@ -18,7 +19,7 @@ import com.mymed.utils.MyMedLogger;
  */
 public class AuthenticationThread extends Thread {
 
-	private final LinkedList<AbstractMBean[]> authList = new LinkedList<AbstractMBean[]>();
+	private final List<AbstractMBean[]> authList = new LinkedList<AbstractMBean[]>();
 	private final Thread createAuthentication;
 
 	public AuthenticationThread() {
@@ -56,7 +57,7 @@ public class AuthenticationThread extends Thread {
 						break;
 					}
 
-					authList.pop();
+					((LinkedList<AbstractMBean[]>) authList).pop();
 				}
 
 				MyMedLogger.getLog().info("Thread '{}' completed", getName());

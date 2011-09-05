@@ -1,6 +1,7 @@
 package com.mymed.tests.stress;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.model.data.session.MSessionBean;
@@ -14,7 +15,7 @@ import com.mymed.utils.MyMedLogger;
  * 
  */
 public class SessionThread extends Thread {
-	private final LinkedList<MSessionBean> sessionList = new LinkedList<MSessionBean>();
+	private final List<MSessionBean> sessionList = new LinkedList<MSessionBean>();
 	private final SessionTest sessionTest;
 	private final Thread addSession;
 	private final Thread removeSession;
@@ -69,7 +70,7 @@ public class SessionThread extends Thread {
 							// To execute only if we do not perform the remove
 							// thread
 							if (!remove) {
-								sessionList.pop();
+								((LinkedList<MSessionBean>) sessionList).pop();
 							}
 
 							sessionList.notifyAll();
@@ -99,7 +100,7 @@ public class SessionThread extends Thread {
 						}
 
 						while (!sessionList.isEmpty()) {
-							final MSessionBean sessionBean = sessionList.pop();
+							final MSessionBean sessionBean = ((LinkedList<MSessionBean>) sessionList).pop();
 
 							try {
 								sessionTest.removeSession(sessionBean);
