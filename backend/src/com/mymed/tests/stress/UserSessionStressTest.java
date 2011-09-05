@@ -23,18 +23,18 @@ package com.mymed.tests.stress;
  */
 public class UserSessionStressTest {
 	public static void main(final String[] args) {
-		final SessionThread sessionThread;
-		final UserThread userThread;
+		SessionThread sessionThread;
+		UserThread userThread;
 
-		if (args.length != 0 && args[0] != null) {
+		if (args.length == 0) {
+			sessionThread = new SessionThread();
+			userThread = new UserThread();
+		} else {
 			final boolean remove = Boolean.valueOf(args[0]);
 			final int maxElements = Math.abs(Integer.parseInt(args[1]));
 
 			sessionThread = new SessionThread(remove, maxElements);
 			userThread = new UserThread(remove, maxElements);
-		} else {
-			sessionThread = new SessionThread();
-			userThread = new UserThread();
 		}
 
 		userThread.start();

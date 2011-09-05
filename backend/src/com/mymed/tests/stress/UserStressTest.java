@@ -23,7 +23,7 @@ package com.mymed.tests.stress;
  */
 public class UserStressTest {
 	public static void main(final String[] args) {
-		final UserThread userThread;
+		UserThread userThread;
 
 		if (args.length == 2) {
 			userThread = new UserThread(Boolean.parseBoolean(args[0]), Math.abs(Integer.parseInt(args[1])));

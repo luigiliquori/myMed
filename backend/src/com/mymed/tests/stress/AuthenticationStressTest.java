@@ -21,7 +21,7 @@ import com.mymed.controller.core.manager.authentication.AuthenticationManager;
  */
 public class AuthenticationStressTest {
 	public static void main(final String[] args) {
-		final AuthenticationThread authenticationThread;
+		AuthenticationThread authenticationThread;
 
 		if (args.length == 1) {
 			authenticationThread = new AuthenticationThread(Math.abs(Integer.parseInt(args[0])));

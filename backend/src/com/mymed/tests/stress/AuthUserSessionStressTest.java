@@ -23,21 +23,21 @@ package com.mymed.tests.stress;
  */
 public class AuthUserSessionStressTest {
 	public static void main(final String[] args) {
-		final UserThread userThread;
-		final SessionThread sessionThread;
-		final AuthenticationThread authenticationThread;
+		UserThread userThread;
+		SessionThread sessionThread;
+		AuthenticationThread authenticationThread;
 
-		if (args.length != 0 && args[0] != null) {
+		if (args.length == 0) {
+			userThread = new UserThread();
+			sessionThread = new SessionThread();
+			authenticationThread = new AuthenticationThread();
+		} else {
 			final boolean remove = Boolean.valueOf(args[0]);
 			final int maxElements = Math.abs(Integer.parseInt(args[1]));
 
 			sessionThread = new SessionThread(remove, maxElements);
 			userThread = new UserThread(remove, maxElements);
 			authenticationThread = new AuthenticationThread(maxElements);
-		} else {
-			userThread = new UserThread();
-			sessionThread = new SessionThread();
-			authenticationThread = new AuthenticationThread();
 		}
 
 		userThread.start();

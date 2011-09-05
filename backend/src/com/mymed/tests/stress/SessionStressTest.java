@@ -26,10 +26,10 @@ public class SessionStressTest {
 	public static void main(final String[] args) {
 		SessionThread sessionThread;
 
-		if (args.length != 0 && args[0] != null) {
-			sessionThread = new SessionThread(Boolean.valueOf(args[0]), Math.abs(Integer.parseInt(args[1])));
-		} else {
+		if (args.length == 0) {
 			sessionThread = new SessionThread();
+		} else {
+			sessionThread = new SessionThread(Boolean.valueOf(args[0]), Math.abs(Integer.parseInt(args[1])));
 		}
 
 		sessionThread.start();
