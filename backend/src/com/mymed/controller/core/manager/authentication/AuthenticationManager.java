@@ -51,9 +51,7 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
 	public MUserBean read(final String login, final String password) throws InternalBackEndException,
 	        IOBackEndException {
 		final Map<byte[], byte[]> args = storageManager.selectAll(CF_AUTHENTICATION, login);
-		MAuthenticationBean authentication = new MAuthenticationBean();
-
-		authentication = (MAuthenticationBean) introspection(authentication, args);
+		final MAuthenticationBean authentication = (MAuthenticationBean) introspection(new MAuthenticationBean(), args);
 
 		if (authentication.getPassword().equals(password)) {
 			final ProfileManager profileManager = new ProfileManager(storageManager);
