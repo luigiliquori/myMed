@@ -8,7 +8,7 @@ import java.util.Map;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.utils.ClassType;
-import com.mymed.utils.MyMedLogger;
+import com.mymed.utils.MLogger;
 
 /**
  * myMed java Beans:
@@ -69,10 +69,10 @@ public abstract class AbstractMBean {
 				final ClassType type = ClassType.inferTpye(field.getType());
 				args.put(field.getName(), ClassType.objectToByteArray(type, field.get(this)));
 			} catch (final IllegalArgumentException ex) {
-				MyMedLogger.getDebugLog().debug("Introspection failed", ex.getCause());
+				MLogger.getDebugLog().debug("Introspection failed", ex.getCause());
 				throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
 			} catch (final IllegalAccessException ex) {
-				MyMedLogger.getDebugLog().debug("Introspection failed", ex.getCause());
+				MLogger.getDebugLog().debug("Introspection failed", ex.getCause());
 				throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
 			}
 		}
@@ -108,9 +108,9 @@ public abstract class AbstractMBean {
 				}
 			} catch (final IllegalArgumentException e) {
 				// We should never get here!
-				MyMedLogger.getDebugLog().debug("Arguments are not valid", e.getCause());
+				MLogger.getDebugLog().debug("Arguments are not valid", e.getCause());
 			} catch (final IllegalAccessException e) {
-				MyMedLogger.getDebugLog().debug("Impossibile to access the field '{}'", field.getName(), e.getCause());
+				MLogger.getDebugLog().debug("Impossibile to access the field '{}'", field.getName(), e.getCause());
 			}
 		}
 

@@ -14,7 +14,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.mymed.utils.MyMedLogger;
+import com.mymed.utils.MLogger;
 
 /**
  * 
@@ -118,21 +118,21 @@ public class WrapperConfiguration {
 				}
 			}
 		} catch (final ParserConfigurationException e) {
-			MyMedLogger.getLog().info("Error parsing configuration file");
-			MyMedLogger.getDebugLog().debug("Error parsing configuration file", e.getCause());
+			MLogger.getLog().info("Error parsing configuration file");
+			MLogger.getDebugLog().debug("Error parsing configuration file", e.getCause());
 		} catch (final SAXException e) {
-			MyMedLogger.getLog().info("Error parsing configuration file");
-			MyMedLogger.getDebugLog().debug("Error parsing configuration file", e.getCause());
+			MLogger.getLog().info("Error parsing configuration file");
+			MLogger.getDebugLog().debug("Error parsing configuration file", e.getCause());
 		} catch (final IOException e) {
-			MyMedLogger.getLog().info("Config file '{}' not found", file.getAbsolutePath());
+			MLogger.getLog().info("Config file '{}' not found", file.getAbsolutePath());
 			// If the config xml file is not found, the configuration
 			// will be defined with the default values
 			String host = "127.0.0.1";
 			try {
 				host = InetAddress.getLocalHost().getHostAddress();
 			} catch (final UnknownHostException e1) {
-				MyMedLogger.getLog().info("Impossible to find the local host.");
-				MyMedLogger.getDebugLog().debug("Impossible to find the local host", e1.getCause());
+				MLogger.getLog().info("Impossible to find the local host.");
+				MLogger.getDebugLog().debug("Impossible to find the local host", e1.getCause());
 			}
 
 			cassandraListenAddress = host;
@@ -142,7 +142,7 @@ public class WrapperConfiguration {
 			kadListenAddress = host;
 			kadStoragePort = 0;
 
-			MyMedLogger.getLog().info("WARNING: no XML config file found!");
+			MLogger.getLog().info("WARNING: no XML config file found!");
 		}
 	}
 

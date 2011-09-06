@@ -13,7 +13,7 @@ import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.model.data.AbstractMBean;
 import com.mymed.utils.ClassType;
-import com.mymed.utils.MyMedLogger;
+import com.mymed.utils.MLogger;
 
 /**
  * Abstract manager the all the managers should extend.
@@ -69,12 +69,12 @@ public abstract class AbstractManager extends ManagerValues {
 				method.invoke(mbean, argument);
 			} catch (final NoSuchFieldException e) {
 				try {
-					MyMedLogger.getLog().info("WARNING: {} is not a bean field", new String(arg.getKey(), ENCODING));
+					MLogger.getLog().info("WARNING: {} is not a bean field", new String(arg.getKey(), ENCODING));
 				} catch (final UnsupportedEncodingException ex) {
 					// If we ever get here, there is something seriously wrong.
 					// This should never happen.
-					MyMedLogger.getLog().info("Error in encoding string using {} encoding", ENCODING);
-					MyMedLogger.getDebugLog().debug("Error in eoncoding string", ex.getCause());
+					MLogger.getLog().info("Error in encoding string using {} encoding", ENCODING);
+					MLogger.getDebugLog().debug("Error in eoncoding string", ex.getCause());
 				}
 			} catch (final SecurityException ex) {
 				throw new InternalBackEndException(ex);
@@ -89,8 +89,8 @@ public abstract class AbstractManager extends ManagerValues {
 			} catch (final UnsupportedEncodingException ex) {
 				// If we ever get here, there is something seriously wrong.
 				// This should never happen.
-				MyMedLogger.getLog().info("Error in encoding string using {} encoding", ENCODING);
-				MyMedLogger.getDebugLog().debug("Error in encoding string", ex.getCause());
+				MLogger.getLog().info("Error in encoding string using {} encoding", ENCODING);
+				MLogger.getDebugLog().debug("Error in encoding string", ex.getCause());
 			}
 		}
 
@@ -117,7 +117,7 @@ public abstract class AbstractManager extends ManagerValues {
 		setterName.append("set");
 		String subName = fieldName;
 
-		MyMedLogger.getDebugLog().debug("Creating setter name with filed name: {}", fieldName);
+		MLogger.getDebugLog().debug("Creating setter name with filed name: {}", fieldName);
 
 		/*
 		 * Check that the boolean field we are on does start with 'is'. This
@@ -127,7 +127,7 @@ public abstract class AbstractManager extends ManagerValues {
 		 */
 		if (classType.equals(ClassType.BOOL) && fieldName.startsWith("is")) {
 			subName = fieldName.substring(2, fieldName.length());
-			MyMedLogger.getDebugLog().debug("Field is a boolean field with sub-name: {}", subName);
+			MLogger.getDebugLog().debug("Field is a boolean field with sub-name: {}", subName);
 		}
 
 		setterName.append(subName.substring(0, 1).toUpperCase(Locale.US));
@@ -135,7 +135,7 @@ public abstract class AbstractManager extends ManagerValues {
 
 		setterName.trimToSize();
 
-		MyMedLogger.getDebugLog().debug("Setter name created as: {}", setterName.toString());
+		MLogger.getDebugLog().debug("Setter name created as: {}", setterName.toString());
 
 		return setterName.toString();
 	}

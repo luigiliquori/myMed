@@ -11,7 +11,7 @@ import ch.qos.logback.classic.Logger;
  * @author Milo Casagrande
  * 
  */
-public final class MyMedLogger {
+public final class MLogger {
 	/**
 	 * The name of the default info logger as defined in the file logback.xml
 	 */
@@ -36,7 +36,7 @@ public final class MyMedLogger {
 	 * Private constructor since all methods are static, or we have to provide a
 	 * singleton
 	 */
-	private MyMedLogger() {
+	private MLogger() {
 	}
 
 	/**

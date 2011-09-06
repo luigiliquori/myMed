@@ -7,7 +7,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Calendar;
 
-import com.mymed.utils.MyMedLogger;
+import com.mymed.utils.MLogger;
 
 /**
  * Simple class to hold static string values valid for all the tests
@@ -82,9 +82,9 @@ public class TestValues {
 
 			hex.trimToSize();
 		} catch (final NoSuchAlgorithmException ex) {
-			MyMedLogger.getDebugLog().debug("Random password generator failed", ex.getCause());
+			MLogger.getDebugLog().debug("Random password generator failed", ex.getCause());
 		} catch (final UnsupportedEncodingException ex) {
-			MyMedLogger.getDebugLog().debug("Random password generator failed", ex.getCause());
+			MLogger.getDebugLog().debug("Random password generator failed", ex.getCause());
 		}
 
 		return hex.toString();

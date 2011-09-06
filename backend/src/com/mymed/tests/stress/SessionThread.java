@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.model.data.session.MSessionBean;
-import com.mymed.utils.MyMedLogger;
+import com.mymed.utils.MLogger;
 
 /**
  * This is the class that implements the threads that are executed and the
@@ -46,7 +46,7 @@ public class SessionThread extends Thread {
 		addSession = new Thread("addSession") {
 			@Override
 			public void run() {
-				MyMedLogger.getLog().info("Starting thread '{}'", getName());
+				MLogger.getLog().info("Starting thread '{}'", getName());
 
 				synchronized (sessionList) {
 					try {
@@ -63,7 +63,7 @@ public class SessionThread extends Thread {
 								sessionTest.createSession(sessionBean);
 							} catch (final InternalBackEndException ex) {
 								interrupt();
-								MyMedLogger.getLog().info("Thread '{}' interrupted", getName());
+								MLogger.getLog().info("Thread '{}' interrupted", getName());
 								break;
 							}
 
@@ -82,7 +82,7 @@ public class SessionThread extends Thread {
 
 						sessionList.notifyAll();
 					} catch (final Exception ex) {
-						MyMedLogger.getDebugLog().debug("Error in thread '{}'", getName(), ex.getCause());
+						MLogger.getDebugLog().debug("Error in thread '{}'", getName(), ex.getCause());
 					}
 				}
 			}
@@ -91,7 +91,7 @@ public class SessionThread extends Thread {
 		removeSession = new Thread() {
 			@Override
 			public void run() {
-				MyMedLogger.getLog().info("Starting thread '{}'", getName());
+				MLogger.getLog().info("Starting thread '{}'", getName());
 
 				synchronized (sessionList) {
 					try {
@@ -106,7 +106,7 @@ public class SessionThread extends Thread {
 								sessionTest.removeSession(sessionBean);
 							} catch (final Exception ex) {
 								interrupt();
-								MyMedLogger.getLog().info("Thread '{}' interrupted", getName());
+								MLogger.getLog().info("Thread '{}' interrupted", getName());
 								break;
 							}
 
@@ -116,7 +116,7 @@ public class SessionThread extends Thread {
 
 						sessionList.notifyAll();
 					} catch (final Exception ex) {
-						MyMedLogger.getDebugLog().debug("Error in thread '{}'", getName(), ex.getCause());
+						MLogger.getDebugLog().debug("Error in thread '{}'", getName(), ex.getCause());
 					}
 				}
 			}

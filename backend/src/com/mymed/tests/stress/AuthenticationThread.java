@@ -7,7 +7,7 @@ import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.model.data.AbstractMBean;
 import com.mymed.model.data.session.MAuthenticationBean;
 import com.mymed.model.data.user.MUserBean;
-import com.mymed.utils.MyMedLogger;
+import com.mymed.utils.MLogger;
 
 /**
  * This is the class that implements the thread that is executed for the
@@ -34,7 +34,7 @@ public class AuthenticationThread extends Thread {
 		createAuthentication = new Thread("createAuthentication") {
 			@Override
 			public void run() {
-				MyMedLogger.getLog().info("Starting thread '{}'", getName());
+				MLogger.getLog().info("Starting thread '{}'", getName());
 
 				while (authList.isEmpty()) {
 					final AbstractMBean[] beanArray = authTest.createAuthenticationBean();
@@ -53,14 +53,14 @@ public class AuthenticationThread extends Thread {
 						authTest.createAuthentication(userBean, authBean);
 					} catch (final InternalBackEndException ex) {
 						interrupt();
-						MyMedLogger.getLog().info("Thread '{}' interrupted", getName());
+						MLogger.getLog().info("Thread '{}' interrupted", getName());
 						break;
 					}
 
 					((LinkedList<AbstractMBean[]>) authList).pop();
 				}
 
-				MyMedLogger.getLog().info("Thread '{}' completed", getName());
+				MLogger.getLog().info("Thread '{}' completed", getName());
 			}
 		};
 	}

@@ -9,7 +9,7 @@ import com.mymed.controller.core.manager.AbstractManager;
 import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.data.user.MUserBean;
-import com.mymed.utils.MyMedLogger;
+import com.mymed.utils.MLogger;
 
 /**
  * Manage an user profile
@@ -43,8 +43,8 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 			storageManager.insertSlice(CF_USER, new String(args.get("id"), ENCODING), args);
 			return user;
 		} catch (final UnsupportedEncodingException e) {
-			MyMedLogger.getLog().info("Error in string conversion using {} encoding", ENCODING);
-			MyMedLogger.getDebugLog().debug("Error in string conversion using {} encoding", ENCODING, e.getCause());
+			MLogger.getLog().info("Error in string conversion using {} encoding", ENCODING);
+			MLogger.getDebugLog().debug("Error in string conversion using {} encoding", ENCODING, e.getCause());
 
 			throw new InternalBackEndException(e.getMessage());
 		}
@@ -71,7 +71,7 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 	 */
 	@Override
 	public void update(final MUserBean user) throws InternalBackEndException, IOBackEndException {
-		MyMedLogger.getLog().info("Updating user with ID '{}'", user.getId());
+		MLogger.getLog().info("Updating user with ID '{}'", user.getId());
 		create(user);
 	}
 
