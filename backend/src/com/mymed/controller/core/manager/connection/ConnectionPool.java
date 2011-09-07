@@ -3,6 +3,7 @@ package com.mymed.controller.core.manager.connection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * 
@@ -12,26 +13,25 @@ import java.util.List;
 public class ConnectionPool {
 
 	private static final ConnectionPool INSTANCE = new ConnectionPool();
+	private static final int INTIAL_CAP = 100;
 
-	private final List<Connection> availableConnections = Collections.synchronizedList(new ArrayList<Connection>());
-	private final List<Connection> usedConnections = Collections.synchronizedList(new ArrayList<Connection>());
+	private final List<IConnection> availableConnections;
+	private final List<IConnection> usedConnections;
+	private final ConcurrentLinkedQueue<IConnection> availableQueue;
+	private final ConcurrentLinkedQueue<IConnection> usedQueue;
 
 	private ConnectionPool() {
+		availableQueue = new ConcurrentLinkedQueue<IConnection>();
+		usedQueue = new ConcurrentLinkedQueue<IConnection>();
+		availableConnections = Collections.synchronizedList(new ArrayList<IConnection>(INTIAL_CAP));
+		usedConnections = Collections.synchronizedList(new ArrayList<IConnection>(INTIAL_CAP));
 	}
 
 	public ConnectionPool getInstance() {
 		return INSTANCE;
 	}
 
-	public ConnectionPool(final String address, final int port) throws Exception {
-		availableConnections.add(getConnection(address, port));
-	}
-
-	private Connection getConnection(final String address, final int port) throws Exception {
-		return new Connection(address, port);
-	}
-
-	public void checkOut() {
+	public void checkOut(final String ip, final int port) {
 	}
 
 	/**
@@ -47,14 +47,14 @@ public class ConnectionPool {
 		synchronized (usedConnections) {
 			final int index = usedConnections.indexOf(connection);
 
-			final Connection con;
+			final IConnection con;
 
 			if (index >= 0) {
 				con = usedConnections.get(index);
-				con.setUsed(false);
+				((Connection) con).setUsed(false);
 
 				synchronized (availableConnections) {
-					((ArrayList<Connection>) availableConnections).remove(con);
+					((ArrayList<IConnection>) availableConnections).remove(con);
 				}
 			}
 

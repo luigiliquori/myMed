@@ -6,12 +6,15 @@ import org.apache.thrift.transport.TFramedTransport;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransportException;
 
+import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.utils.MLogger;
+
 /**
  * 
  * @author Milo Casagrande
  * 
  */
-public class Connection {
+public class Connection implements IConnection {
 
 	// Used for the hash code
 	private static final int PRIME = 31;
@@ -19,8 +22,6 @@ public class Connection {
 	// The default port to use if nothing is passed as arguments
 	private static final int DEFAULT_PORT = 9160;
 
-	// If the connection is open or not
-	private boolean isOpen = false;
 	// If this connection is in use or not
 	private boolean isUsed = false;
 
@@ -79,17 +80,9 @@ public class Connection {
 	 * 
 	 * @return true if is open, false otherwise
 	 */
+	@Override
 	public boolean isOpen() {
-		return isOpen;
-	}
-
-	/**
-	 * Set whether the connection is open or not
-	 * 
-	 * @param isOpen
-	 */
-	public void setOpen(final boolean isOpen) {
-		this.isOpen = isOpen;
+		return thriftTransport.isOpen();
 	}
 
 	/**
@@ -110,17 +103,22 @@ public class Connection {
 		this.isUsed = isUsed;
 	}
 
-	public void open() throws TTransportException {
-		if (!thriftTransport.isOpen()) {
-			thriftTransport.open();
-			setOpen(true);
+	@Override
+	public void open() throws InternalBackEndException {
+		try {
+			if (!thriftTransport.isOpen()) {
+				thriftTransport.open();
+			}
+		} catch (final TTransportException ex) {
+			MLogger.getDebugLog().debug("Error opening connection", ex.getCause());
+			throw new InternalBackEndException("Error opening the connection");
 		}
 	}
 
+	@Override
 	public void close() {
 		if (thriftTransport.isOpen()) {
 			thriftTransport.close();
-			setOpen(false);
 		}
 	}
 
