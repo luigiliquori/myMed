@@ -1,7 +1,7 @@
 <?php
 
 require_once 'system/templates/login/AbstractLogin.class.php';
-require_once dirname(__FILE__).'/handler/LoginHandler.class.php';
+require_once dirname(__FILE__).'/handler/InscriptionHandler.class.php';
 
 /**
  * 
@@ -11,6 +11,11 @@ require_once dirname(__FILE__).'/handler/LoginHandler.class.php';
  */
 class Login extends AbstractLogin {
 	/* --------------------------------------------------------- */
+	/* Attributes */
+	/* --------------------------------------------------------- */
+	private /*InscriptionHandler*/ $handler;
+	
+	/* --------------------------------------------------------- */
 	/* Constructors */
 	/* --------------------------------------------------------- */
 	/**
@@ -18,6 +23,8 @@ class Login extends AbstractLogin {
 	 */
 	public function __construct() {
 		parent::__construct("login");
+		$this->handler = new InscriptionHandler();
+		$this->handler->handleRequest();
 	}
 	
 	/* --------------------------------------------------------- */
@@ -32,33 +39,38 @@ class Login extends AbstractLogin {
 	 * Get the CONTENT for jQuery Mobile
 	 */
 	public /*String*/ function getContent() {
-		$loginHandler = new LoginHandler();
-		$loginHandler->handleRequest();
 		?>
 		<!-- CONTENT -->
 		<div class="content">
 			<!-- LOGO -->
-			<br /><br />
+			<br />
 			<img alt="mymed" src="img/logo-mymed.png" width="200px;">
 			<br />
+			<br />
+			<!-- <a href="#socialNetwork" data-role="button" data-rel="dialog">Connexion Via Réseau Social</a> -->
 			
 			<!-- NOTIFICATION -->
-			<?php if($loginHandler->getError()) { ?>
+			<?php if($this->handler->getError()) { ?>
 				<div style="color: red;">
-					<?= $loginHandler->getError(); ?>
+					<?= $this->handler->getError(); ?>
 				</div>
-			<?php } else if($loginHandler->getSuccess()) { ?>
+			<?php } else if(isset($_SESSION['error'])) { ?>
+				<div style="color: red;">
+					<?= $_SESSION['error']; ?>
+					<?php $_SESSION['error'] = null; ?>
+				</div>
+			<?php } else if($this->handler->getSuccess()) { ?>
 				<div style="color: #12ff00;">
-					<?= $loginHandler->getSuccess(); ?>
+					<?= $this->handler->getSuccess(); ?>
 				</div>
 			<?php } ?>
-			
+
 			<br />
 			<form action="#" method="post" name="singinForm" id="singinForm">
 				<input type="hidden" name="singin" value="1" />
-			    <span>eMail:</span>
+			    <span>eMail:</span><br />
 			    <input type="text" name="login" id="login" value="" /><br />
-			    <span>Password:</span>
+			    <span>Password:</span><br />
 			    <input type="password" name="password" id="password" value="" />
 				<br />
 				<a href="#home" data-role="button" data-inline="true" onclick="document.singinForm.submit()">Connexion</a>
@@ -73,6 +85,7 @@ class Login extends AbstractLogin {
 	public /*String*/ function printTemplate() {
 		parent::printTemplate();
 		include('inscription.php');
+		include('socialNetwork.php');
 	}
 }
 ?>

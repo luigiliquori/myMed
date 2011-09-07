@@ -82,10 +82,15 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 	}
 
 	/**
+	 * @throws IOBackEndException 
 	 * @see IProfileManager#delete(MUserBean)
 	 */
 	@Override
-	public void delete(final String id) throws InternalBackEndException {
+	public void delete(final String id) throws InternalBackEndException, IOBackEndException {
+		MUserBean user = read(id);
 		storageManager.removeAll(CF_USER, id);
+		if(user.getSocialNetworkID().equals("MYMED")){
+			storageManager.removeAll(CF_AUTHENTICATION, user.getLogin());
+		}
 	}
 }

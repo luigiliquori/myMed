@@ -113,6 +113,8 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 				try {
 					userBean = getGson().fromJson(user,
 							MUserBean.class);
+					userBean.setSocialNetworkID("MYMED");
+					userBean.setSocialNetworkName("myMed");
 				} catch (JsonSyntaxException e) {
 					handleError(new InternalBackEndException("user jSon format is not valid"), response);
 					return;

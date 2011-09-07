@@ -4,7 +4,7 @@
 <?php require_once 'system/beans/MAuthenticationBean.class.php'; ?>
 
 <?php 
-class LoginHandler implements IRequestHandler {
+class InscriptionHandler implements IRequestHandler {
 	
 	private /*string*/ $error;
 	private /*string*/ $success;
@@ -65,43 +65,7 @@ class LoginHandler implements IRequestHandler {
 				$this->success = "INFO: The profile has been successfully created!";
 				return;
 			}
-		} else if(isset($_POST['singin'])) { // TRY TO LOGIN
-			// Preconditions
-			if($_POST['login'] == ""){
-				$this->error = "FAIL: eMail cannot be empty!";
-				return;
-			} else if($_POST['password'] == ""){
-				$this->error = "FAIL: password cannot be empty!";
-				return;
-			}
-			
-			// AUTHENTICATION
-			$request = new Request("AuthenticationRequestHandler", READ);
-			$request->addArgument("login", $_POST["login"]);
-			$request->addArgument("password", hash('sha512', $_POST["password"]));
-			$response = $request->send();
-			// Check if there's not error
-			$check = json_decode($response);
-			if(isset($check->error)) {
-				$this->error = $check->error->message;
-				return;
-			} else if($check->firstName != null) {
-				$user = $check;
-				// AUTHENTENTICATION OK: CREATE A SESSION
-				$request = new Request("SessionRequestHandler", CREATE);
-				$request->addArgument("userID", $user->id);
-				$response = $request->send();
-				$check = json_decode($response);
-				if(isset($check->error)) {
-					$this->error = $check->error->message;
-					return;
-				} else {
-					$_SESSION['user'] = $user;
-					header("Refresh:0;url=".$_SERVER['PHP_SELF']);
-					return;
-				}
-			}
-		}
+		} 
 	}
 	
 	public /*String*/ function getError(){

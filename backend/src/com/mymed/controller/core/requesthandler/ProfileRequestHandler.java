@@ -88,6 +88,9 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
 			e.printStackTrace();
 			handleError(e, response);
 			return;
+		} catch (IOBackEndException e) {
+			e.printStackTrace();
+			handleError(e, response);
 		}
 	}
 

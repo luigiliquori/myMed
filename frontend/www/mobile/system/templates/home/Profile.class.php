@@ -60,6 +60,10 @@ class Profile extends AbstractHome {
 				<?php } else { ?>
 					<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="180" height="150">
 				<?php } ?>
+				 <?php if($_SESSION['user']->email == 'lvanni@inria.fr') { ?>
+				   <br>
+			 	   <a href="?admin" rel="external" data-role="button" data-inline="true" data-theme="a">Admin</a>
+			    <?php } ?>
 				<br><br>
 				Prenom: <?= $_SESSION['user']->firstName ?><br />
 				Nom: <?= $_SESSION['user']->lastName ?><br />
@@ -82,7 +86,7 @@ class Profile extends AbstractHome {
 			    ?>
 			    <br /><br />
 			    <a href="#inscription" data-role="button" data-rel="dialog">mise à jour</a>
-			    <a href="#login"onclick="document.disconnectForm.submit()" data-role="button" data-theme="r">Deconnexion</a>
+			    <a href="#login" onclick="document.disconnectForm.submit()" data-role="button" data-theme="r">Deconnexion</a>
 			</div>
 		</div>
 	<?php }
