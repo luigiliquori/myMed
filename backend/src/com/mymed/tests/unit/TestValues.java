@@ -56,12 +56,12 @@ public class TestValues {
 	/**
 	 * Random instance to keep around.
 	 */
-	private static final SecureRandom random = new SecureRandom();
+	private static final SecureRandom RANDOM = new SecureRandom();
 
 	/**
-	 * Get the string representation of a random casual generated password
+	 * Get the string representation of a RANDOM casual generated password
 	 * 
-	 * @return the SHA-256 in hex format of a random string
+	 * @return the SHA-256 in hex format of a RANDOM string
 	 * @throws NoSuchAlgorithmException
 	 * @throws UnsupportedEncodingException
 	 */
@@ -69,12 +69,11 @@ public class TestValues {
 		final StringBuffer hex = new StringBuffer(100);
 
 		try {
-			final String randString = new BigInteger(130, random).toString(32);
-			MessageDigest md;
-			md = MessageDigest.getInstance("SHA-256");
+			final String randString = new BigInteger(130, RANDOM).toString(32);
+			final MessageDigest digest = MessageDigest.getInstance("SHA-256");
 
-			md.update(randString.getBytes("UTF-8"));
-			final byte[] mdbytes = md.digest();
+			digest.update(randString.getBytes("UTF-8"));
+			final byte[] mdbytes = digest.digest();
 
 			for (final byte b : mdbytes) {
 				hex.append(Integer.toHexString(0xFF & b));
