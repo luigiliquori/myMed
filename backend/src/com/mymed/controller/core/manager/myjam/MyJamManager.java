@@ -341,6 +341,8 @@ public class MyJamManager extends AbstractManager{
 			throw new InternalBackEndException("Wrong parameter: "+e.getMessage());
 		} catch (WrongFormatException e) {
 			throw new InternalBackEndException("Wrong parameter: "+e.getMessage());
+		} catch (IOBackEndException e) {
+			throw new IOBackEndException("The report is expired, you cannot insert an update.");
 		}
 	}
 	
@@ -375,6 +377,8 @@ public class MyJamManager extends AbstractManager{
 			throw new InternalBackEndException("Wrong parameter: "+e.getMessage());
 		} catch (WrongFormatException e) {
 			throw new InternalBackEndException("Wrong parameter: "+e.getMessage());
+		}  catch (IOBackEndException e) { //TODO Check the possible causes of IOException.
+			throw new IOBackEndException("The report is expired, you cannot insert a feedback.");
 		}
 	}
 	
@@ -396,7 +400,7 @@ public class MyJamManager extends AbstractManager{
 				reportId.ReportIdAsByteBuffer().array());
 		}catch(InternalBackEndException e){
 			throw new InternalBackEndException("Wrong parameter: "+e.getMessage());
-		}
+		} 
 	}
 
 }

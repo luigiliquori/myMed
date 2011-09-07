@@ -34,7 +34,7 @@ import com.mymed.android.myjam.service.MyJamCallService;
 import com.mymed.android.myjam.service.MyJamCallService.RequestCode;
 import com.mymed.model.data.myjam.MFeedBackBean;
 import com.mymed.model.data.myjam.MReportBean;
-import com.mymed.utils.GlobalVarAndUtils;
+import com.mymed.utils.GlobalStateAndUtils;
 import com.mymed.utils.MyResultReceiver;
 /**
  * Activity that permits to insert reports or updates.
@@ -152,7 +152,7 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 			}
 			mBundle = new Bundle();
 			mBundle.putString(ICallAttributes.REPORT_ID, Report.getReportId(uri));
-			mReportTypeId = GlobalVarAndUtils.getInstance(this).getStringArrayValueIndex(mReportTypesVal,
+			mReportTypeId = GlobalStateAndUtils.getInstance(this).getStringArrayValueIndex(mReportTypesVal,
 					cursor.getString(ReportQuery.REPORT_TYPE));
 			if (mReportTypeId > 0){
 				createReportOrUpdateLayout(UPDATE,mReportTypeId);
@@ -175,7 +175,7 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 			}
 			mBundle = new Bundle();
 			mBundle.putString(ICallAttributes.REPORT_ID, Report.getReportId(uri));
-			mReportTypeId = GlobalVarAndUtils.getInstance(this).getStringArrayValueIndex(mReportTypesVal,
+			mReportTypeId = GlobalStateAndUtils.getInstance(this).getStringArrayValueIndex(mReportTypesVal,
 					cursor.getString(ReportQuery.REPORT_TYPE));
 			if (mReportTypeId > 0){
 				createFeedbackLayout(REPORT_FEEDBACK,mReportTypeId);
@@ -199,7 +199,7 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 			mBundle = new Bundle();
 			mBundle.putString(ICallAttributes.REPORT_ID, cursor.getString(UpdateQuery.REPORT_ID));
 			mBundle.putString(ICallAttributes.UPDATE_ID, cursor.getString(UpdateQuery.UPDATE_ID));
-			mReportTypeId = GlobalVarAndUtils.getInstance(this).getStringArrayValueIndex(mReportTypesVal,
+			mReportTypeId = GlobalStateAndUtils.getInstance(this).getStringArrayValueIndex(mReportTypesVal,
 					cursor.getString(UpdateQuery.REPORT_TYPE));
 			if (mReportTypeId >= 0){
 				createFeedbackLayout(UPDATE_FEEDBACK,mReportTypeId);
@@ -243,15 +243,15 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 		insertLinearLayout.addView(mInsertTypeTextView);
 
 		switch (reportType){
-		case GlobalVarAndUtils.CAR_CRASH:
-		case GlobalVarAndUtils.WORK_IN_PROGRESS:
+		case GlobalStateAndUtils.CAR_CRASH:
+		case GlobalStateAndUtils.WORK_IN_PROGRESS:
 			mTransitSpinner = addSpinnerView(mInflater,insertLinearLayout,R.array.transit_list,
 					R.string.transit_label,R.string.transit_choose);
-		case  GlobalVarAndUtils.JAM:
+		case  GlobalStateAndUtils.JAM:
 			mTrafficFlowSpinner = addSpinnerView(mInflater,insertLinearLayout,R.array.traffic_flow_list,
 					R.string.traffic_flow_label,R.string.traffic_flow_choose);
-		case  GlobalVarAndUtils.FIXED_SPEED_CAM:
-		case  GlobalVarAndUtils.MOBILE_SPEED_CAM:
+		case  GlobalStateAndUtils.FIXED_SPEED_CAM:
+		case  GlobalStateAndUtils.MOBILE_SPEED_CAM:
 			TextView commentLabelTextView = new TextView(this);
 			commentLabelTextView.setText(getResources().getString(R.string.comment_label));
 			insertLinearLayout.addView(commentLabelTextView);
@@ -270,7 +270,7 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 				public void onClick(View v) {
 					try{					
 						MReportBean reportOrUpdate = new MReportBean();
-						reportOrUpdate.setUserId(GlobalVarAndUtils.getInstance(getApplicationContext()).getUserId());
+						reportOrUpdate.setUserId(GlobalStateAndUtils.getInstance(getApplicationContext()).getUserId());
 						reportOrUpdate.setReportType(mReportTypesVal[reportType]);
 						if (mTrafficFlowSpinner!=null)
 							reportOrUpdate.setTrafficFlowType(getResources().getTextArray(
@@ -315,8 +315,8 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 			public void onClick(View v) {
 				try{					
 					MFeedBackBean feedback = new MFeedBackBean();
-					feedback.setUserId(GlobalVarAndUtils.getInstance(getApplicationContext()).getUserId());
-					feedback.setGrade((int) ((mRatingBar.getRating() / mRatingBar.getMax()) * GlobalVarAndUtils.MAX_RATING)); //TODO fix this
+					feedback.setUserId(GlobalStateAndUtils.getInstance(getApplicationContext()).getUserId());
+					feedback.setGrade((int) ((mRatingBar.getRating() / mRatingBar.getMax()) * GlobalStateAndUtils.MAX_RATING)); //TODO fix this
 
 					if (insertionType == REPORT_FEEDBACK)
 						requestInsertReportFeedback(mBundle,feedback);
@@ -372,8 +372,9 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 		switch(id) {
 		case DIALOG_CHOOSE_REPORT_TYPE_ID:
 			final CharSequence[] items = mReportTypes;
-			builder.setTitle(getResources().getString(R.string.report_type_choose));
-			builder.setItems(items, new DialogInterface.OnClickListener() {
+			builder.setTitle(R.string.report_type_choose)
+				   .setIcon(R.drawable.myjam_icon)
+				   .setItems(items, new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int item) {
 					/** Save in a global variable the chosen report type. */
 					mReportTypeId = item;				
@@ -386,8 +387,8 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 					requestSearch(lat,lon,radius,Search.INSERT_SEARCH);
 					createReportOrUpdateLayout(REPORT,mReportTypeId);
 				}
-			});
-			builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+			})
+			.setOnCancelListener(new DialogInterface.OnCancelListener() {
 				
 				@Override
 				public void onCancel(DialogInterface dialog) {
@@ -401,7 +402,9 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 			final String typeValue = mReportTypesVal[mReportTypeId];
 			final String dialogText = String.format(getResources().getString(R.string.near_reports_found, 
 					type, String.valueOf(INSERT_SEARCH_RANGE)));
-			builder.setMessage(dialogText)
+			builder.setTitle(R.string.dialog_title)
+			.setIcon(R.drawable.myjam_icon)
+			.setMessage(dialogText)
 			.setCancelable(false)
 			.setPositiveButton(getResources().getString(R.string.button_see_label), new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int id) {

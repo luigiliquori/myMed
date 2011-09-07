@@ -29,7 +29,7 @@ import com.mymed.android.myjam.provider.MyJamContract.SearchReports;
 import com.mymed.android.myjam.service.LocationService;
 import com.mymed.android.myjam.service.LocationService.LocalBinder;
 import com.mymed.utils.GeoUtils;
-import com.mymed.utils.GlobalVarAndUtils;
+import com.mymed.utils.GlobalStateAndUtils;
 
 /**
  * Shows the reports position on map. 
@@ -97,7 +97,7 @@ public class ShowOnMapActivity extends MapActivity {
         	if (mBound && mService.ismLocAvailable()){
         		Location loc = mService.getCurrentLocation();
         		GeoPoint userPos = GeoUtils.toGeoPoint(loc);
-        		mItemizedOverlay.addOverlay(userPos, GlobalVarAndUtils.USER_POSITION, null);
+        		mItemizedOverlay.addOverlay(userPos, GlobalStateAndUtils.USER_POSITION, null);
         		mMapView.getOverlays().clear();
         		mMapView.getOverlays().add(mItemizedOverlay);
         		mMapView.invalidate();
@@ -172,7 +172,7 @@ public class ShowOnMapActivity extends MapActivity {
 	 */
 	private GeoPoint addOverlays(Cursor cursor){
 		GeoPoint position=null;
-		GlobalVarAndUtils utilsInstance = GlobalVarAndUtils.getInstance(getApplicationContext());
+		GlobalStateAndUtils utilsInstance = GlobalStateAndUtils.getInstance(getApplicationContext());
 		String[] reportTypeVal = getResources().getStringArray(R.array.report_typevalues_list);
 		
 		if (cursor!=null && cursor.moveToFirst()){

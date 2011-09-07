@@ -27,7 +27,11 @@
         <LinearLayout android:id="@+id/linearLayoutUpdate" android:layout_width="match_parent" android:layout_height="match_parent">
         </LinearLayout>
     </ScrollView>
-    <LinearLayout  android:id="@+id/linearLayout1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_weight="0">
+    <LinearLayout  
+    	android:id="@+id/linearLayout1" 
+    	android:layout_width="match_parent" 
+    	android:layout_height="wrap_content" 
+    	android:orientation="horizontal">
        	<ImageButton	android:id="@+id/imageButtonPrevious"
         				android:layout_weight="1"
         				android:layout_width="0px"

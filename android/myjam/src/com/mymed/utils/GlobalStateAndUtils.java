@@ -14,9 +14,9 @@ import com.mymed.android.myjam.R;
  * @author iacopo
  *
  */
-public class GlobalVarAndUtils {
+public class GlobalStateAndUtils {
 	private static String TAG = "GlobalState";
-	private static GlobalVarAndUtils mInstance;
+	private static GlobalStateAndUtils mInstance;
 	
 	/** The report types */
 	public static final int JAM = 0x0;
@@ -36,9 +36,12 @@ public class GlobalVarAndUtils {
 	 */
 	private boolean logged;
 	private String userId;
+	private String login;
+	private String password;
+	private String userName;
 	
 	/** Singleton, cannot be instantiated. */
-    private GlobalVarAndUtils(Context context){
+    private GlobalStateAndUtils(Context context){
 
     	mContext = context.getApplicationContext();
     	//Initialize string variables.
@@ -48,10 +51,10 @@ public class GlobalVarAndUtils {
     	  
     }  
     
-    public synchronized static GlobalVarAndUtils getInstance(Context context)  
+    public synchronized static GlobalStateAndUtils getInstance(Context context)  
     {  
     	if (mInstance == null){
-    		mInstance = new GlobalVarAndUtils(context);
+    		mInstance = new GlobalStateAndUtils(context);
     	}
         return mInstance;  
     }  
@@ -148,5 +151,29 @@ public class GlobalVarAndUtils {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 }

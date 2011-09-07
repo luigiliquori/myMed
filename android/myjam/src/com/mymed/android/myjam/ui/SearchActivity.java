@@ -40,7 +40,7 @@ import com.mymed.android.myjam.provider.MyJamContract.SearchResult;
 import com.mymed.android.myjam.service.MyJamCallService;
 import com.mymed.android.myjam.service.MyJamCallService.RequestCode;
 
-import com.mymed.utils.GlobalVarAndUtils;
+import com.mymed.utils.GlobalStateAndUtils;
 import com.mymed.utils.MyResultReceiver;
 
 /**
@@ -253,7 +253,7 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
      */
     private void refreshDate(Cursor cursor){
     	if (cursor!= null && cursor.moveToFirst())
-			mLastUpdateTextView.setText(GlobalVarAndUtils.getInstance(this)
+			mLastUpdateTextView.setText(GlobalStateAndUtils.getInstance(this)
 					.formatDate(cursor.getLong(0)));
     }
 	
@@ -353,8 +353,9 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
     		AlertDialog.Builder builder = new AlertDialog.Builder(this);
     		builder.setMessage(getResources().getString(R.string.loc_not_available_dialog_message))
     			.setCancelable(false)       	
-    			.setTitle(getResources().getString(R.string.dialog_title))
-    			.setPositiveButton(getResources().getString(R.string.positive_button_label), new DialogInterface.OnClickListener() {
+    			.setTitle(R.string.dialog_title)
+    			.setIcon(R.drawable.myjam_icon)
+    			.setPositiveButton(R.string.positive_button_label, new DialogInterface.OnClickListener() {
     				public void onClick(DialogInterface dialog, int id) {
     					dialog.cancel();
     				}
@@ -438,13 +439,13 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
     private static class SearchListAdapter extends CursorAdapter {
 
 		private final LayoutInflater mInflater;		
-		private final GlobalVarAndUtils mUtils;
+		private final GlobalStateAndUtils mUtils;
 		
         public SearchListAdapter(Context context, Cursor c, boolean autoRequery) {
 			super(context, c, autoRequery);
 			mInflater = LayoutInflater.from(context);
 			/** Create a GlobalStateAndUtils instance. */
-			mUtils = GlobalVarAndUtils.getInstance(context);
+			mUtils = GlobalStateAndUtils.getInstance(context);
 		}
 
 		@Override

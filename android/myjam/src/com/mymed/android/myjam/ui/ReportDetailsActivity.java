@@ -41,7 +41,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mymed.utils.GeoUtils;
-import com.mymed.utils.GlobalVarAndUtils;
+import com.mymed.utils.GlobalStateAndUtils;
 import com.mymed.utils.NotifyingAsyncQueryHandler;
 import com.mymed.utils.MyResultReceiver;
 
@@ -59,14 +59,14 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 	private static final int REPORT = 0x0;
 	private static final int UPDATE = 0x1;
 	
-	private static final int FIVE_MINUTES = 300000;
 	private static final int TWO_MINUTES = 120000;
+	private static final int ONE_MINUTE = 60000;
 	
 	private static final int DIALOG_REPORT_UNAVAILABLE_ID = 0x0;
 	private static final int DIALOG_LOC_UNAVAILABLE_ID = 0x1;
 	private static final int DIALOG_NOT_IN_RANGE_ID = 0x2;
 	
-	private GlobalVarAndUtils mUtils;
+	private GlobalStateAndUtils mUtils;
     private Handler mMessageQueueHandler = new Handler();
 	
     
@@ -100,7 +100,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.details_view);
 		
-		mUtils = GlobalVarAndUtils.getInstance(getApplicationContext());
+		mUtils = GlobalStateAndUtils.getInstance(getApplicationContext());
 		mResultReceiver = MyResultReceiver.getInstance();
 		mHandler = new NotifyingAsyncQueryHandler(ReportDetailsActivity.this
 				.getContentResolver(), this);
@@ -238,7 +238,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
         	}
     	    requestFeedbacks(REPORT,mReportId);
             // The runnable starts again after 5 minutes
-            long nextFiveMinutes = SystemClock.uptimeMillis() + FIVE_MINUTES; //TODO Use a setting. 
+            long nextFiveMinutes = SystemClock.uptimeMillis() + TWO_MINUTES; //TODO Use a setting. 
             mMessageQueueHandler.postAtTime(mRefreshRunnable, nextFiveMinutes);
         }
     };
@@ -283,7 +283,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
     private void requestFeedbacks(int code,String reportOrUpdateId){
     	ContentResolver contentResolver = getContentResolver();
     	
-    	String[] args = new String[] {String.valueOf(System.currentTimeMillis()-TWO_MINUTES)};
+    	String[] args = new String[] {String.valueOf(System.currentTimeMillis()-ONE_MINUTE)};
     	Cursor cursor  = contentResolver.query( 
     			code==REPORT?FeedbacksRequest.buildReportIdUri(reportOrUpdateId):
     				FeedbacksRequest.buildUpdateIdUri(reportOrUpdateId)
@@ -327,7 +327,8 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
         public void onChange(boolean selfChange) {
             if (mHandler != null) {
             	/** An asynchronous query is launched. */
-            	mHandler.startQuery(UpdateQuery._TOKEN, Update.buildReportIdUri(mReportId), UpdateQuery.PROJECTION);
+            	mHandler.startQuery(UpdateQuery._TOKEN, null, Update.buildReportIdUri(mReportId), 
+            			UpdateQuery.PROJECTION, null, null, Update.DEFAULT_SORT_ORDER);
             }
         }
     };
@@ -562,7 +563,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 				cursor.moveToNext();
 			}
 			ratingBar.setEnabled(true);
-			ratingBar.setRating(sum/numFeedbacks*ratingBar.getMax()/GlobalVarAndUtils.MAX_RATING); //TODO fix this.
+			ratingBar.setRating(sum/numFeedbacks*ratingBar.getMax()/GlobalStateAndUtils.MAX_RATING); //TODO fix this.
 			textView.setText(this.getResources().getQuantityString(R.plurals.num_feedbacks, numFeedbacks, numFeedbacks));
 		} else {
 			ratingBar.setRating(0);
@@ -729,7 +730,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 		}
 		double dist = GeoUtils.getGCDistance(GeoUtils.toGeoPoint(mService.getCurrentLocation()),
 				new GeoPoint(mReportCursor.getInt(ReportQuery.LATITUDE),mReportCursor.getInt(ReportQuery.LONGITUDE)));
-		if (dist > GlobalVarAndUtils.MAX_INSERTION_DISTANCE){
+		if (dist > GlobalStateAndUtils.MAX_INSERTION_DISTANCE){
 			showDialog(DIALOG_NOT_IN_RANGE_ID);
 			return false;
 		}
@@ -741,30 +742,29 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 	 */
 	@Override
     protected Dialog onCreateDialog(int id) {
-        Dialog dialog;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        switch(id) {
-        case DIALOG_REPORT_UNAVAILABLE_ID:
-    		builder.setMessage(getResources().getString(R.string.dialog_report_unavailable_text));
-            break;
-        case DIALOG_LOC_UNAVAILABLE_ID:
-    		builder.setMessage(getResources().getString(R.string.dialog_location_unavailable_text));
-            break;
-        case DIALOG_NOT_IN_RANGE_ID:
-        	builder.setMessage(getResources().getString(R.string.dialog_not_in_range_text));
-        	break;
-        default:
-            dialog = null;
-        }
-		builder.setCancelable(false)       	
-		.setTitle(getResources().getString(R.string.dialog_title))
+        builder.setCancelable(false)       	
+		.setTitle(R.string.dialog_title)
+		.setIcon(R.drawable.myjam_icon)
 		.setPositiveButton(getResources().getString(R.string.positive_button_label), new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
 				dialog.cancel();
 			}
 		});
-		dialog = builder.create();
-        return dialog;
+        switch(id) {
+        case DIALOG_REPORT_UNAVAILABLE_ID:
+    		builder.setMessage(R.string.dialog_report_unavailable_text);
+            break;
+        case DIALOG_LOC_UNAVAILABLE_ID:
+    		builder.setMessage(R.string.dialog_location_unavailable_text);
+            break;
+        case DIALOG_NOT_IN_RANGE_ID:
+        	builder.setMessage(R.string.dialog_not_in_range_text);
+        	break;
+        default:
+            return null;
+        }
+        return builder.create();
     }
 
 	/**

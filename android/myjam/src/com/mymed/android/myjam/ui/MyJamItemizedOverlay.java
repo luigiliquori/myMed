@@ -20,7 +20,7 @@ import com.google.android.maps.OverlayItem;
 import com.google.android.maps.Projection;
 import com.mymed.android.myjam.R;
 import com.mymed.android.myjam.provider.MyJamContract.Report;
-import com.mymed.utils.GlobalVarAndUtils;
+import com.mymed.utils.GlobalStateAndUtils;
 
 public class MyJamItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 	private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
@@ -65,32 +65,32 @@ public class MyJamItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 	public void addOverlay(GeoPoint position,int typeId,String id) {
 		OverlayItem overlayItem;
 		switch (typeId){
-			case GlobalVarAndUtils.JAM:
+			case GlobalStateAndUtils.JAM:
 				overlayItem = new OverlayItem(position,"",id);
 				boundCenterBottom(mJamMarker);
 				overlayItem.setMarker(mJamMarker);
 				break;
-			case GlobalVarAndUtils.CAR_CRASH:
+			case GlobalStateAndUtils.CAR_CRASH:
 				overlayItem = new OverlayItem(position,"",id);
 				boundCenterBottom(mCarCrashMarker);
 				overlayItem.setMarker(mCarCrashMarker);
 				break;
-			case GlobalVarAndUtils.WORK_IN_PROGRESS:
+			case GlobalStateAndUtils.WORK_IN_PROGRESS:
 				overlayItem = new OverlayItem(position,"",id);
 				boundCenterBottom(mWorkInProgressMarker);
 				overlayItem.setMarker(mWorkInProgressMarker);
 				break;
-			case GlobalVarAndUtils.FIXED_SPEED_CAM:
+			case GlobalStateAndUtils.FIXED_SPEED_CAM:
 				overlayItem = new OverlayItem(position,"",id);
 				boundCenterBottom(mFixedSpeedCamMarker);
 				overlayItem.setMarker(mFixedSpeedCamMarker);
 				break;
-			case GlobalVarAndUtils.MOBILE_SPEED_CAM:
+			case GlobalStateAndUtils.MOBILE_SPEED_CAM:
 				overlayItem = new OverlayItem(position,"",id);
 				boundCenterBottom(mMobileSpeedCamMarker);
 				overlayItem.setMarker(mMobileSpeedCamMarker);
 				break;
-			case GlobalVarAndUtils.USER_POSITION:
+			case GlobalStateAndUtils.USER_POSITION:
 				overlayItem = new OverlayItem(position,"User location","Current user location.");
 				boundCenterBottom(mCurrentPositionMarker);
 				overlayItem.setMarker(mCurrentPositionMarker);

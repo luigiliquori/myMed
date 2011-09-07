@@ -10,18 +10,24 @@
     <string name="report_string">Report</string>
     <string name="update_string">Update</string>
     <string name="feedback_string">Feedback</string>
-    <string name="dialog_title">MyJam Info</string>
+    <string name="dialog_title">myJam Info</string>
     <string name="positive_button_label">Ok</string>
     <!-- ============================ -->
     <!--  	LoginActivity strings  	  -->
     <!-- ============================ -->
     <string name="login_text_view_label">Login :</string>
     <string name="password_text_view_label">Password :</string>
+    <string name="logged_text_view_label">%s is logged</string>
     <string name="login_button_label">Log In</string>
+    <string name="home_button_label">Home</string>
     <string name="logout_button_label">Log Out</string>
     <string name="logging_in_msg">Logging in...</string>
+    <string name="logging_out_msg">Logging out...</string>
     <string name="logged_in_msg">Logged in.</string>
     <string name="logged_out_msg">Logged out.</string>
+    <string name="empty_login_msg">Login cannot be empty.</string>
+    <string name="empty_pwd_msg">Password cannot be empty.</string>
+    <string name="sign_in_link">click here to sign in</string>
     <!-- ============================ -->
     <!--  	SearchReport  strings  	  -->
     <!-- ============================ -->
