@@ -94,8 +94,9 @@ public class UserTest extends StressTestValues {
 	 * @param user
 	 *            the user bean to use
 	 * @throws InternalBackEndException
+	 * @throws IOBackEndException
 	 */
-	public void removeUser(final MUserBean user) throws InternalBackEndException {
+	public void removeUser(final MUserBean user) throws InternalBackEndException, IOBackEndException {
 		final ProfileManager profileManager = new ProfileManager(new StorageManager(new WrapperConfiguration(new File(
 		        CONF_FILE))));
 		profileManager.delete(user.getId());
