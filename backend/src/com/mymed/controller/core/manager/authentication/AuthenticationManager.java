@@ -1,7 +1,6 @@
 package com.mymed.controller.core.manager.authentication;
 
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
 import java.util.Map;
 
 import com.mymed.controller.core.exception.IOBackEndException;
@@ -45,12 +44,14 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
 		} catch (final IOBackEndException e) {
 			if (e.getStatus() == 404) { // only if the user does not exist
 				storageManager.insertSlice(CF_AUTHENTICATION, "login", authentication.getAttributeToMap());
+
 				try {
 					final Map<String, byte[]> authMap = authentication.getAttributeToMap();
 					storageManager.insertSlice(CF_AUTHENTICATION, new String(authMap.get("login"), "UTF8"), authMap);
 				} catch (final UnsupportedEncodingException ex) {
 					throw new InternalBackEndException(ex.getMessage());
 				}
+
 				return user;
 			}
 		}
@@ -65,13 +66,8 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
 	public MUserBean read(final String login, final String password) throws InternalBackEndException,
 	        IOBackEndException {
 
-		Map<byte[], byte[]> args = new HashMap<byte[], byte[]>();
-		MAuthenticationBean authentication = new MAuthenticationBean();
-
-		args = storageManager.selectAll(CF_AUTHENTICATION, login);
-		authentication = (MAuthenticationBean) introspection(authentication, args);
-
-		System.out.println(authentication);
+		final Map<byte[], byte[]> args = storageManager.selectAll(CF_AUTHENTICATION, login);
+		final MAuthenticationBean authentication = (MAuthenticationBean) introspection(new MAuthenticationBean(), args);
 
 		if (authentication.getLogin().equals("")) {
 			throw new IOBackEndException("the login does not exist!", 404);
@@ -93,6 +89,7 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
 		storageManager.removeAll(CF_AUTHENTICATION, id);
 		// Insert the new Authentication
 		storageManager.insertSlice(CF_AUTHENTICATION, "login", authentication.getAttributeToMap());
+
 		try {
 			final Map<String, byte[]> authMap = authentication.getAttributeToMap();
 			storageManager.insertSlice(CF_AUTHENTICATION, new String(authMap.get("login"), "UTF8"), authMap);

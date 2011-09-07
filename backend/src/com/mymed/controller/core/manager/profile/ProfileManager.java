@@ -41,6 +41,7 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 		try {
 			final Map<String, byte[]> args = user.getAttributeToMap();
 			storageManager.insertSlice(CF_USER, new String(args.get("id"), ENCODING), args);
+
 			return user;
 		} catch (final UnsupportedEncodingException e) {
 			MLogger.getLog().info("Error in string conversion using {} encoding", ENCODING);
@@ -63,6 +64,7 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 		final Map<byte[], byte[]> args = storageManager.selectAll(CF_USER, id);
 
 		if (args.isEmpty()) {
+			MLogger.getLog().info("User with ID '{}' does not exists", id);
 			throw new IOBackEndException("profile does not exist!", 404);
 		}
 
@@ -80,8 +82,9 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 		userToUpdate.update(user);
 		// TODO Implement the update method witch use the wrapper updateColumn
 		// method
-		create(userToUpdate); // create(user) will replace the current values of
-		                      // the user...
+
+		// create(user) will replace the current values of the user...
+		create(userToUpdate);
 	}
 
 	/**
@@ -92,6 +95,7 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 	public void delete(final String id) throws InternalBackEndException, IOBackEndException {
 		final MUserBean user = read(id);
 		storageManager.removeAll(CF_USER, id);
+
 		if (user.getSocialNetworkID().equals("MYMED")) {
 			storageManager.removeAll(CF_AUTHENTICATION, user.getLogin());
 		}
