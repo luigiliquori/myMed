@@ -62,6 +62,10 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 		final MUserBean user = new MUserBean();
 		final Map<byte[], byte[]> args = storageManager.selectAll(CF_USER, id);
 
+		if (args.isEmpty()) {
+			throw new IOBackEndException("profile does not exist!", 404);
+		}
+
 		return (MUserBean) introspection(user, args);
 	}
 
@@ -72,14 +76,24 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 	@Override
 	public void update(final MUserBean user) throws InternalBackEndException, IOBackEndException {
 		MLogger.getLog().info("Updating user with ID '{}'", user.getId());
-		create(user);
+		final MUserBean userToUpdate = read(user.getId());
+		userToUpdate.update(user);
+		// TODO Implement the update method witch use the wrapper updateColumn
+		// method
+		create(userToUpdate); // create(user) will replace the current values of
+		                      // the user...
 	}
 
 	/**
+	 * @throws IOBackEndException
 	 * @see IProfileManager#delete(MUserBean)
 	 */
 	@Override
-	public void delete(final String id) throws InternalBackEndException {
+	public void delete(final String id) throws InternalBackEndException, IOBackEndException {
+		final MUserBean user = read(id);
 		storageManager.removeAll(CF_USER, id);
+		if (user.getSocialNetworkID().equals("MYMED")) {
+			storageManager.removeAll(CF_AUTHENTICATION, user.getLogin());
+		}
 	}
 }

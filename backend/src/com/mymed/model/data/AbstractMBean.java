@@ -118,4 +118,6 @@ public abstract class AbstractMBean {
 
 		return value.toString();
 	}
+	
+	public abstract void update(AbstractMBean mBean);
 }

@@ -79,21 +79,21 @@ class myProfile extends ContentObject
 						<span><?= $_SESSION['user']->hometown?$_SESSION['user']->hometown:'Unknown' ?></span>
 					</div>
 					<div>
-					   <span class="title">Profile&#160;:</span>
-					   <span>
-					   <?php
-					   	if($_SESSION['user']->link)
-					   		echo '
-					   		<a href="'.$_SESSION['user']->link.'">'.$_SESSION['user']->socialNetworkName.'</a>';
-					   	else
-					   		echo '
-					   		'.$_SESSION['user']->socialNetworkName;
-					   ?>
+						<span class="title">Profile&#160;:</span>
+						<span>
+						<?php
+						if($_SESSION['user']->link)
+							echo '
+							<a href="'.$_SESSION['user']->link.'">'.$_SESSION['user']->socialNetworkName.'</a>';
+						else
+							echo '
+							'.$_SESSION['user']->socialNetworkName;
+						?>
 
-					   </span>
+						</span>
 					</div>
 					<div>
-					   <button type="button">modifier le profile</button>
+						<button type="button">modifier le profile</button>
 					</div>
 				</div>
 		<?php

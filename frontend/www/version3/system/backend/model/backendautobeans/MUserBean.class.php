@@ -24,7 +24,7 @@ abstract class MUserBean extends JSon
 	public /*String*/	$firstName;
 	public /*String*/	$lastName;
 	public /*String*/	$link;
-	public /*long*/	$birthday;
+	public /*String*/	$birthday;
 	public /*String*/	$hometown;
 	public /*String*/	$gender;
 	public /*long*/	$lastConnection;

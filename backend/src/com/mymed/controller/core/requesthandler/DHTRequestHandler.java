@@ -64,25 +64,25 @@ public class DHTRequestHandler extends AbstractRequestHandler {
 			switch (code) {
 				case READ : // GET
 					if ((key = parameters.get("key")) == null) {
-						handleInternalError(new InternalBackEndException("missing key argument!"), response);
+						handleError(new InternalBackEndException("missing key argument!"), response);
 						return;
 					}
 					try {
 						setResponseText(dhtManager.get(key));
 					} catch (final IOBackEndException e) {
-						handleNotFoundError(new IOBackEndException(key + " not found!"), response);
+						handleError(new IOBackEndException(key + " not found!", 404), response);
 						return;
 					}
 					break;
 				default :
-					handleInternalError(
+					handleError(
 					        new InternalBackEndException("DHTRequestHandler.doGet(" + code + ") not exist!"), response);
 					return;
 			}
 			super.doGet(request, response);
 		} catch (final InternalBackEndException e) {
 			e.printStackTrace();
-			handleInternalError(e, response);
+			handleError(e, response);
 			return;
 		}
 	}
@@ -106,10 +106,10 @@ public class DHTRequestHandler extends AbstractRequestHandler {
 			switch (code) {
 				case CREATE : // PUT
 					if ((key = parameters.get("key")) == null) {
-						handleInternalError(new InternalBackEndException("missing key argument!"), response);
+						handleError(new InternalBackEndException("missing key argument!"), response);
 						return;
 					} else if ((value = parameters.get("value")) == null) {
-						handleInternalError(new InternalBackEndException("missing value argument!"), response);
+						handleError(new InternalBackEndException("missing value argument!"), response);
 						return;
 					}
 					System.out.println("key to publish: " + key);
@@ -118,19 +118,19 @@ public class DHTRequestHandler extends AbstractRequestHandler {
 						dhtManager.put(key, value);
 						setResponseText("key published");
 					} catch (final IOBackEndException e) {
-						handleNotFoundError(new IOBackEndException(key + " not published: " + e.getMessage()), response);
+						handleError(new IOBackEndException(key + " not published: " + e.getMessage(), 400), response);
 						return;
 					}
 					break;
 				default :
-					handleInternalError(
+					handleError(
 					        new InternalBackEndException("DHTRequestHandler.doGet(" + code + ") not exist!"), response);
 					return;
 			}
 			super.doGet(request, response);
 		} catch (final InternalBackEndException e) {
 			e.printStackTrace();
-			handleInternalError(e, response);
+			handleError(e, response);
 			return;
 		}
 	}

@@ -7,6 +7,10 @@ require_once __DIR__.'/IContainerObject.class.php';
 abstract class ContainerObject extends ContentObject implements IContainerObject
 {
 	protected $content;
+	/**
+	 * Get container's' name (default : className)
+	 * @return string Container's name'
+	 */
 	protected /*string*/ function getName()
 	{
 		return get_class($this);
@@ -16,7 +20,7 @@ abstract class ContainerObject extends ContentObject implements IContainerObject
 	 * @param int $deep if content is in a container $deep=x give the parent's 
 	 * 				container's title of degree n-x where n is the number of 
 	 * 				containers. $deep=null give the content's title.
-	 * @return the title or null if no title selected
+	 * @return string	the title or null if no title selected
 	 */
 	public /*string*/ function getTitle(/*int*/ $deep=null)
 	{
@@ -37,7 +41,7 @@ abstract class ContainerObject extends ContentObject implements IContainerObject
 	}
 	/**
 	 * set container's' content
-	 * @param $content	new content
+	 * @param IContentObject $content	new content
 	 */
 	public /*void*/ function setContent(IContentObject $content)
 	{

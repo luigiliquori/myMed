@@ -59,7 +59,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 			/** handle the request */
 			String login, password;
 			if((login = parameters.get("login"))== null || (password = parameters.get("password"))== null){
-				handleInternalError(new InternalBackEndException("missing argument!"), response);
+				handleError(new InternalBackEndException("missing argument!"), response);
 				return;
 			}
 			switch (code) {
@@ -69,18 +69,18 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 					userBean = authenticationManager.read(login, password);
 					setResponseText(getGson().toJson(userBean));
 				} catch (IOBackEndException e) {
-					handleNotFoundError(e, response);
+					handleError(e, response);
 					return;
 				}
 				break;
 			default:
-				handleInternalError(new InternalBackEndException("ProfileRequestHandler.doGet(" + code + ") not exist!"), response);
+				handleError(new InternalBackEndException("ProfileRequestHandler.doGet(" + code + ") not exist!"), response);
 				return;
 			}
 			super.doGet(request, response);
 		} catch (InternalBackEndException e) {
 			e.printStackTrace();
-			handleInternalError(e, response);
+			handleError(e, response);
 			return;
 		}
 	}
@@ -99,22 +99,24 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 			/** handle the request */
 			String authentication;
 			if((authentication = parameters.get("authentication"))== null){
-				handleInternalError(new InternalBackEndException("missing authentication argument!"), response);
+				handleError(new InternalBackEndException("missing authentication argument!"), response);
 				return;
 			}
 			switch (code) {
 			case CREATE:
 				String user;
 				if((user = parameters.get("user"))== null){
-					handleInternalError(new InternalBackEndException("missing user argument!"), response);
+					handleError(new InternalBackEndException("missing user argument!"), response);
 					return;
 				}
 				MUserBean userBean = null;
 				try {
 					userBean = getGson().fromJson(user,
 							MUserBean.class);
+					userBean.setSocialNetworkID("MYMED");
+					userBean.setSocialNetworkName("myMed");
 				} catch (JsonSyntaxException e) {
-					handleInternalError(new InternalBackEndException("user jSon format is not valid"), response);
+					handleError(new InternalBackEndException("user jSon format is not valid"), response);
 					return;
 				}
 				MAuthenticationBean authenticationBean = null;
@@ -122,7 +124,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 					authenticationBean = getGson().fromJson(authentication,
 							MAuthenticationBean.class);
 				} catch (JsonSyntaxException e) {
-					handleInternalError(new InternalBackEndException("authentication jSon format is not valid"), response);
+					handleError(new InternalBackEndException("authentication jSon format is not valid"), response);
 					return;
 				}
 				System.out.println("\nINFO: trying to create a new user:\n" + userBean);
@@ -135,25 +137,30 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 					authenticationBean = getGson().fromJson(authentication,
 							MAuthenticationBean.class);
 				} catch (JsonSyntaxException e) {
-					handleInternalError(new InternalBackEndException("authentication jSon format is not valid"), response);
+					handleError(new InternalBackEndException("authentication jSon format is not valid"), response);
+					return;
+				}
+				String id;
+				if((id = parameters.get("id"))== null){
+					handleError(new InternalBackEndException("missing user argument!"), response);
 					return;
 				}
 				System.out.println("\nINFO: trying to update authentication:\n" + authenticationBean);
-				authenticationManager.update(authenticationBean);
+				authenticationManager.update(id, authenticationBean);
 				System.out.println("\nINFO: authentication updated!");
 				break;
 			default:
-				handleInternalError(new InternalBackEndException("ProfileRequestHandler.doPost(" + code + ") not exist!"), response);
+				handleError(new InternalBackEndException("ProfileRequestHandler.doPost(" + code + ") not exist!"), response);
 				return;
 			}
 			super.doPost(request, response);
 		} catch (InternalBackEndException e) {
 			e.printStackTrace();
-			handleInternalError(e, response);
+			handleError(e, response);
 			return;
 		} catch (IOBackEndException e) {
 			e.printStackTrace();
-			handleNotFoundError(e, response);
+			handleError(e, response);
 		}
 	}
 

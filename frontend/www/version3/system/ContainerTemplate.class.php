@@ -6,11 +6,19 @@ require_once __DIR__.'/ContainerObject.class.php';
 abstract class ContainerTemplate extends ContainerObject
 {
 	protected /*string*/ $name;
+	/**
+	 * @param string $name	Container's title (default : className without begin string "Template")
+	 * @param IContentObject $content	content
+	 */
 	public function __construct(/*string*/ $name=null, IContentObject $content=null)
 	{
 		$this->name	= ($name!==null)?$name:strtolower(preg_replace('#^Template#', '', get_class($this)));
 		$this->content = $content;
 	}
+	/**
+	 * Get container's' name (default : className)
+	 * @return string Container's name'
+	 */
 	protected /*string*/ function getName()
 	{
 		return $this->name;

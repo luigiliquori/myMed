@@ -58,7 +58,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 			/** handle the request */
 			String userID;
 			if((userID = parameters.get("userID"))== null){
-				handleInternalError(new InternalBackEndException("missing id argument!"), response);
+				handleError(new InternalBackEndException("missing id argument!"), response);
 				return;
 			}
 			switch (code) {
@@ -68,23 +68,23 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 					sessionBean = sessionManager.read(userID);
 					setResponseText(getGson().toJson(sessionBean));
 				} catch (IOBackEndException e) {
-					handleNotFoundError(e, response);
+					handleError(e, response);
 					return;
 				}
 				break;
 			case DELETE:
 				sessionManager.delete(userID);
-				System.out.println("\nINFO: User " + userID
-						+ " deleted!");
+				System.out.println("\nINFO: Session " + userID
+						+ " deleted! -> LOGOUT");
 				break;
 			default:
-				handleInternalError(new InternalBackEndException("SessionRequestHandler.doGet(" + code + ") not exist!"), response);
+				handleError(new InternalBackEndException("SessionRequestHandler.doGet(" + code + ") not exist!"), response);
 				return;
 			}
 			super.doGet(request, response);
 		} catch (InternalBackEndException e) {
 			e.printStackTrace();
-			handleInternalError(e, response);
+			handleError(e, response);
 			return;
 		}
 	}
@@ -104,6 +104,8 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 			switch (code) {
 			case CREATE:
 				sessionManager.create(parameters.get("userID"), parameters.get("ip"));
+				System.out.println("\nINFO: Session " + parameters.get("userID")
+						+ " created! -> LOGIN");
 				break;
 			case UPDATE:
 				MSessionBean sessionBean;
@@ -111,23 +113,23 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 					sessionBean = getGson().fromJson(parameters.get("session"),
 							MSessionBean.class);
 				} catch (JsonSyntaxException e) {
-					handleInternalError(new InternalBackEndException("user jSon format is not valid"), response);
+					handleError(new InternalBackEndException("user jSon format is not valid"), response);
 					return;
 				}
 				sessionManager.update(sessionBean);
 				break;
 			default:
-				handleInternalError(new InternalBackEndException("ProfileRequestHandler.doPost(" + code + ") not exist!"), response);
+				handleError(new InternalBackEndException("ProfileRequestHandler.doPost(" + code + ") not exist!"), response);
 				return;
 			}
 			super.doPost(request, response);
 		} catch (InternalBackEndException e) {
 			e.printStackTrace();
-			handleInternalError(e, response);
+			handleError(e, response);
 			return;
 		} catch (IOBackEndException e) {
 			e.printStackTrace();
-			handleNotFoundError(e, response);
+			handleError(e, response);
 		}
 	}
 

@@ -1,5 +1,41 @@
 function initWindow(/*DivHTMLElement*/ othis)
 {
+	var app	= othis.id.replace(/^window_/,"");
+	othis.innerHTML	= '\n'+
+		'<div class="titlebar">\n'+
+		'	<div class="title"><a href="application/'+app+'"><img src="'+ROOTPATH+'services/'+app+'/icon.png" alt="" />'+app+'</a></div>\n'+
+		'	<div class="titleButtons"><!--\n'+
+		'		--><button class="options" onclick="this.focus();"><span>options</span></button><!--\n'+
+		'		--><div class="menu">\n'+
+		'			<ul>\n'+
+		'				<li><button>Partager ce service</button></li>\n'+
+		'				<li><button>Signaler ce service</button></li>\n'+
+		'				<li><hr /></li>\n'+
+		'				<li><button onclick="this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.toogleMinimize()">Réduire ce service</button></li>\n'+
+		'				<li><button onclick="this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.toogleMaximize()">Agrandir ce service</button></li>\n'+
+		'				<li><button onclick="this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.close()">Supprimer ce service</button></li>\n'+
+		'			</ul>\n'+
+		'		</div><!--\n'+
+		'		--><button class="minimize" title="minimize" onclick="this.parentNode.parentNode.parentNode.toogleMinimize()"><span>-</span></button><!--\n'+
+		'		--><button class="maximize" title="maximize" onclick="this.parentNode.parentNode.parentNode.toogleMaximize()"><span>+</span></button><!--\n'+
+		'		--><button class="close" title="delete" onclick="this.parentNode.parentNode.parentNode.close()"><span>x</span></button><!--\n'+
+		'	--></div>\n'+
+		'</div>\n'+
+		'<div class="content">\n'+
+		'	<!--[if IE 8]>\n'+
+		'	<iframe allowtransparency="true" frameBorder="0" src="application/'+app+'?template=onlycontent" id="'+app+'">\n'+
+		'		<a href="application/'+app+'">Démarrer l\'application</a>\n'+
+		'	</iframe>\n'+
+		'	<![endif]-->\n'+
+		'	<!--[if gt IE 8]><!-->\n'+
+		'	<iframe src="application/'+app+'?template=onlycontent" id="'+app+'">\n'+
+		'		<a href="application/'+app+'">Démarrer l\'application</a>\n'+
+		'	</iframe>\n'+
+		'	<!--><![endif]-->\n'+
+		'</div>\n'+
+		'<div class="rightResizer"></div>\n'+
+		'<div class="leftResizer"></div>\n'+
+		'<div class="bottomResizer"></div>';
 	var desktop			= othis.parentNode.parentNode;
 	var shadowDiv		= document.createElement("div");
 	var bottomResizer	= othis.getElementsByClassName("bottomResizer");bottomResizer = bottomResizer[bottomResizer.length-1];
@@ -82,7 +118,7 @@ function initWindow(/*DivHTMLElement*/ othis)
 		var EVENT_MOUSE_LEFT = 0; // standard W3C (dont IE9)
 		if(window.event&&isIELessThan(9)) 	// standard IE (aussi accepté par IE9)
 			var EVENT_MOUSE_LEFT = 1;
-		if(evt.button == EVENT_MOUSE_LEFT)
+		if(evt.button == EVENT_MOUSE_LEFT && !window.isMobileDesign())
 		{
 			addEventListenerToElement(othis.getElementsByClassName("titlebar")[0], "mousemove", startdrag);
 			addEventListenerToElement(othis.getElementsByClassName("titlebar")[0], "mouseup", function(){
@@ -118,15 +154,19 @@ function initWindow(/*DivHTMLElement*/ othis)
 	};
 	var getElementInColumn = function(/*HTMLElement*/ column, /*int*/ y)
 	{
-		var length = column.children.length;
+		var length = column.childNodes.length;
 		for(var i=0 ; i<length ; i++)
 		{
-			if(
-					(column.children[i]!=othis)
-					&&((y-column.children[i].offsetTop) < column.children[i].offsetHeight/2)
-				)
+			var element = column.childNodes[i];
+			if(element.nodeType	== element.ELEMENT_NODE)
 			{
-				return column.children[i];
+				if(
+						(element!=othis)
+						&&((y-element.offsetTop) < element.offsetHeight/2)
+					)
+				{
+					return element;
+				}
 			}
 		}
 		return null;

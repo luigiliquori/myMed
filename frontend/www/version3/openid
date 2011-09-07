@@ -1,5 +1,4 @@
 <?php
-define('CONTENTOBJECT', 'OpenIdProvider/OpenIdProvider');
 define('SESSIONNAME', 'openid');
 require('system/main.php');
 main();

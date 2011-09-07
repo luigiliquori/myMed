@@ -4,7 +4,16 @@ define('BackendRequest_CREATE'		, 0);
 define('BackendRequest_READ'		, 1);
 define('BackendRequest_UPDATE'		, 2);
 define('BackendRequest_DELETE'		, 3);
-class BackendRequestException extends HttpException{}
+class BackendRequestException extends HttpException
+{
+	public function __construct(/*int*/ $code, /*string*/ $httpContent='')
+	{
+		$json = json_decode($httpContent);
+		if($json)
+			parent::__construct($code, $json->error->type.' : '.$json->error->message, new Exception($json->error->message));
+		else
+			parent::__construct($code, $httpContent, null);
+	}}
 
 class BackendRequest
 {
@@ -73,13 +82,21 @@ class BackendRequest
 				trigger_error('BackendRequest method '.$this->method.' not suported', E_USER_ERROR);
 		}
 		$data 	= curl_exec($curl);
-	//var_dump($data);	
+		
+		if(defined('DEBUG')&&DEBUG)
+		{
+			if(json_decode($data))
+				trace(json_decode($data), 'json_decode($data)', __FILE__, __LINE__);
+			else
+				trace($data, '$data', __FILE__, __LINE__);
+		}
+		
 		if($data === false)
 			$excurl = new CUrlException(curl_error($curl), curl_errno($curl));
 		$httpCode	= curl_getinfo($curl, CURLINFO_HTTP_CODE);
-		//var_dump(curl_getinfo($curl));
+		trace(curl_getinfo($curl));
 		if( !(200<=$httpCode && $httpCode<300) )
-			$exhttp = new BackendRequestException($httpCode, htmlspecialchars($data));
+			$exhttp = new BackendRequestException($httpCode, $data);
 		
 		curl_close($curl);
 		

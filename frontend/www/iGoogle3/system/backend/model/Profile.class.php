@@ -2,6 +2,7 @@
 require_once __DIR__.'/backendautobeans/MUserBean.class.php';
 class Profile extends MUserBean
 {
+	public /*string*/ $password;
 	public /*bool*/ function equals(Profile $profile)
 	{
 		return $this->id				=== $profile->id
