@@ -76,7 +76,7 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 	 * @see IProfileManager#update(MUserBean)
 	 */
 	@Override
-	public void update(final MUserBean user) throws InternalBackEndException, IOBackEndException {
+	public MUserBean update(final MUserBean user) throws InternalBackEndException, IOBackEndException {
 		MLogger.getLog().info("Updating user with ID '{}'", user.getId());
 		final MUserBean userToUpdate = read(user.getId());
 		userToUpdate.update(user);
@@ -85,6 +85,7 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 
 		// create(user) will replace the current values of the user...
 		create(userToUpdate);
+		return userToUpdate;
 	}
 
 	/**
