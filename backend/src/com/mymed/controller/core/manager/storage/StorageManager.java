@@ -16,6 +16,7 @@ import org.apache.cassandra.thrift.ColumnPath;
 import org.apache.cassandra.thrift.Mutation;
 import org.apache.cassandra.thrift.SlicePredicate;
 import org.apache.cassandra.thrift.SliceRange;
+import org.apache.cassandra.thrift.SuperColumn;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
@@ -139,6 +140,50 @@ public class StorageManager implements IStorageManager {
 
 		return selectByPredicate(tableName, key, predicate);
 	}
+	
+	/**
+	 * Get the value of a column family
+	 * 
+	 * @param tableName
+	 *            the name of the Table/ColumnFamily
+	 * @param key
+	 *            the ID of the entry
+	 * @param columnName
+	 *            the name of the column
+	 * @return the value of the column
+	 * @throws InternalBackEndException
+	 * @throws IOBackEndException
+	 */
+	@Override
+	public List<Map<byte[], byte[]>> selectList(final String tableName,
+			final String key) throws InternalBackEndException,
+			IOBackEndException {
+
+		// read entire row
+		final SlicePredicate predicate = new SlicePredicate();
+		final SliceRange sliceRange = new SliceRange();
+		sliceRange.setStart(new byte[0]);
+		sliceRange.setFinish(new byte[0]);
+		predicate.setSlice_range(sliceRange);
+
+		final ColumnParent parent = new ColumnParent(tableName);
+		final List<ColumnOrSuperColumn> results = getSlice(key, parent,
+				predicate);
+		
+		final List<Map<byte[], byte[]>> sliceList = new ArrayList<Map<byte[],byte[]>>();
+
+		for (final ColumnOrSuperColumn res : results) {
+			if(res.isSetSuper_column()){
+				Map<byte[], byte[]> slice = new HashMap<byte[], byte[]>();
+				for(Column column : res.getSuper_column().getColumns()){
+					slice.put(column.getName(), column.getValue());
+				}
+				sliceList.add(slice);
+			}
+		}
+
+		return sliceList;
+	}
 
 	/**
 	 * Get the values of a range of columns
@@ -191,7 +236,7 @@ public class StorageManager implements IStorageManager {
 
 		return slice;
 	}
-
+	
 	/**
 	 * Retrieve the slice.
 	 * 
@@ -201,7 +246,6 @@ public class StorageManager implements IStorageManager {
 	private List<ColumnOrSuperColumn> getSlice(final String key,
 			final ColumnParent parent, final SlicePredicate predicate)
 			throws InternalBackEndException, IOBackEndException {
-
 		try {
 			wrapper.open();
 			return wrapper.get_slice(key, parent, predicate, consistencyOnRead);
@@ -329,6 +373,59 @@ public class StorageManager implements IStorageManager {
 			wrapper.batch_mutate(mutationMap, consistencyOnWrite);
 		} catch (final InternalBackEndException e) {
 			throw new InternalBackEndException("InsertSlice failed.");
+		} finally {
+			wrapper.close();
+		}
+	}
+	
+	/**
+	 * Insert a new entry in the database
+	 * 
+	 * @param superTableName
+	 *            the name of the Table/SuperColumnFamily
+	 * @param key
+	 *            the ID of the entry
+	 * @param superKey
+	 *            the ID of the entry in the SuperColumnFamily
+	 * @param args
+	 *            All columnName and the their value
+	 * @throws ServiceManagerException
+	 * @throws InternalBackEndException
+	 */
+	@Override
+	public void insertSuperSlice(final String superTableName, final String key, final String superKey, 
+			final Map<String, byte[]> args) throws IOBackEndException,
+			InternalBackEndException {
+
+		final Map<String, Map<String, List<Mutation>>> mutationMap = new HashMap<String, Map<String, List<Mutation>>>();
+		final long timestamp = System.currentTimeMillis();
+
+		try {
+			final Map<String, List<Mutation>> tableMap = new HashMap<String, List<Mutation>>();
+			final List<Mutation> sliceMutationList = new ArrayList<Mutation>(5);
+			tableMap.put(superTableName, sliceMutationList);
+
+			final Iterator<String> iterator = args.keySet().iterator();
+			List<Column> columns = new ArrayList<Column>();
+			while (iterator.hasNext()) {
+				final String columnName = iterator.next();
+				columns.add(new Column(MConverter
+						.stringToByteBuffer(columnName), ByteBuffer.wrap(args
+						.get(columnName)), timestamp));
+			}
+			final Mutation mutation = new Mutation();
+			SuperColumn superColumn = new SuperColumn(MConverter
+						.stringToByteBuffer(superKey), columns);
+			mutation.setColumn_or_supercolumn(new ColumnOrSuperColumn().setSuper_column(superColumn));
+			sliceMutationList.add(mutation);
+			
+			// Insertion in the map
+			mutationMap.put(key, tableMap);
+
+			wrapper.open();
+			wrapper.batch_mutate(mutationMap, consistencyOnWrite);
+		} catch (final InternalBackEndException e) {
+			throw new InternalBackEndException(e);
 		} finally {
 			wrapper.close();
 		}

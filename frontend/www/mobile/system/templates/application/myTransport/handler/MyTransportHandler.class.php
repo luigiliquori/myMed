@@ -1,6 +1,7 @@
 <?php 
 require_once 'system/request/Request.class.php';
 require_once 'system/request/IRequestHandler.php';
+require_once 'system/beans/MDataBean.class.php';
 
 /**
  * 
@@ -29,9 +30,16 @@ class MyTransportHandler implements IRequestHandler {
 	/* --------------------------------------------------------- */
 	public /*void*/ function handleRequest() { 
 		if(isset($_GET['publish'])) {
-			$request = new Request("DHTRequestHandler", CREATE);
-			$request->addArgument("key", $_GET['start'].$_GET['end'].$_GET['date']);
-			$request->addArgument("value", $_SESSION['user']->id);
+			$request = new Request("PubSubRequestHandler", CREATE);
+			$request->addArgument("application", "myTransport");
+			$request->addArgument("predicate", $_GET['start'].$_GET['end'].$_GET['date']);
+			$request->addArgument("user", json_encode($_SESSION['user']));
+			// construct the data
+			$comment = new Data("Commentaires", urlencode($_GET['comment']), TEXT);
+			$type = new Data("Type de véhicule", $_GET['type'], ENUM);
+			$data = array($comment, $type);
+			$request->addArgument("data", json_encode($data));
+			
 			$response = $request->send();
 			$check = json_decode($response);
 			if($check->error != null) {
@@ -40,8 +48,21 @@ class MyTransportHandler implements IRequestHandler {
 				$this->success = "Request sent!";
 			}
 		} else if(isset($_GET['subscribe'])) {
-			$request = new Request("DHTRequestHandler", READ);
-			$request->addArgument("key", $_GET['start'].$_GET['end'].$_GET['date']);
+			$request = new Request("PubSubRequestHandler", READ);
+			$request->addArgument("application", "myTransport");
+			$request->addArgument("predicate", $_GET['start'].$_GET['end'].$_GET['date']);
+			$response = $request->send();
+			$check = json_decode($response);
+			if($check->error != null) {
+				$this->error = $check->error->message;
+			} else {
+				$this->success = $response;
+			}
+		} else if(isset($_GET['getDetails'])) {
+			$request = new Request("PubSubRequestHandler", READ);
+			$request->addArgument("application", "myTransport");
+			$request->addArgument("predicate", $_GET['predicate']);
+			$request->addArgument("user", $_GET['user']);
 			$response = $request->send();
 			$check = json_decode($response);
 			if($check->error != null) {

@@ -5,17 +5,29 @@ define('READ'		, 1);
 define('UPDATE'		, 2);
 define('DELETE'		, 3);
 
+/**
+ *
+ */
 class Request {
 	
+	/* --------------------------------------------------------- */
+	/* Attributes */
+	/* --------------------------------------------------------- */
 	private /*string*/					$ressource;
 	private /*BackendRequest_*/			$method;
 	private /*Array<string,string>*/	$arguments	= Array();
 	
+	/* --------------------------------------------------------- */
+	/* Constructors */
+	/* --------------------------------------------------------- */
 	public function __construct(/*string*/ $ressource, /*BackendRequest_*/ $method=READ) {
 		$this->ressource	= $ressource;
 		$this->method	= $method;
 	}
 
+	/* --------------------------------------------------------- */
+	/* public methods */
+	/* --------------------------------------------------------- */
 	public /*void*/ function addArgument(/*string*/ $name, /*string*/ $value) {
 		$this->arguments["$name"]	= "$value";
 	}

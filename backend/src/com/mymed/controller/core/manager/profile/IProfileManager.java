@@ -17,7 +17,7 @@ public interface IProfileManager {
 	 * 
 	 * @param user
 	 *            the user to insert into the database
-	 * @return true if the user if the user is created, false otherwise
+	 * @return the profile of the user
 	 */
 	public MUserBean create(MUserBean user) throws InternalBackEndException, IOBackEndException;
 

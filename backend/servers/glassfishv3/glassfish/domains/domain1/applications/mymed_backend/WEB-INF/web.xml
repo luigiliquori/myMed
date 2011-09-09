@@ -83,4 +83,14 @@
     <servlet-name>SessionRequestHandler</servlet-name>
     <url-pattern>/SessionRequestHandler</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PubSubRequestHandler</display-name>
+    <servlet-name>PubSubRequestHandler</servlet-name>
+    <servlet-class>com.mymed.controller.core.requesthandler.PubSubRequestHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PubSubRequestHandler</servlet-name>
+    <url-pattern>/PubSubRequestHandler</url-pattern>
+  </servlet-mapping>
 </web-app>
