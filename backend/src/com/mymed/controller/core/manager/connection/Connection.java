@@ -1,6 +1,7 @@
 package com.mymed.controller.core.manager.connection;
 
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import org.apache.thrift.transport.TFramedTransport;
 import org.apache.thrift.transport.TSocket;
@@ -10,6 +11,7 @@ import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.utils.MLogger;
 
 /**
+ * Class that represents a connection to a Cassandra instance in mymed
  * 
  * @author Milo Casagrande
  * 
@@ -22,18 +24,14 @@ public class Connection implements IConnection {
 	// The default port to use if nothing is passed as arguments
 	private static final int DEFAULT_PORT = 9160;
 
-	// If this connection is in use or not
-	private boolean isUsed = false;
-
-	private final String address;
-	private final int port;
+	private String address = null;
+	private int port = 0;
 
 	private final TSocket socket;
-
 	private final TFramedTransport thriftTransport;
 
-	public Connection() throws Exception {
-		this(InetAddress.getLocalHost().getHostAddress(), DEFAULT_PORT);
+	public Connection() {
+		this(null, 0);
 	}
 
 	/**
@@ -45,64 +43,59 @@ public class Connection implements IConnection {
 	 *            the port to use with this connection
 	 * @throws Exception
 	 */
-	public Connection(final String address, final int port) throws Exception {
+	public Connection(final String address, final int port) {
 		if (address == null && (port == 0 || port < 0)) {
-			throw new Exception("Address or port must be a valid value.");
+			try {
+				this.address = InetAddress.getLocalHost().getHostAddress();
+				this.port = DEFAULT_PORT;
+			} catch (final UnknownHostException ex) {
+				MLogger.getDebugLog().debug("Error recovering local host address", ex.getCause());
+			}
 		} else {
-			socket = new TSocket(address, port);
-			thriftTransport = new TFramedTransport(socket);
+			this.address = address;
+			this.port = port;
 		}
 
-		this.address = address;
-		this.port = port;
-
+		socket = new TSocket(this.address, this.port);
+		thriftTransport = new TFramedTransport(socket);
 	}
-	/**
-	 * Get the address to use for the connection
+
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @return the IP address associated with the connection
+	 * @see
+	 * com.mymed.controller.core.manager.connection.IConnection#getAddress()
 	 */
+	@Override
 	public String getAddress() {
 		return address;
 	}
 
-	/**
-	 * Get the port to use with the connection
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @return the port associated with the connection
+	 * @see com.mymed.controller.core.manager.connection.IConnection#getPort()
 	 */
+	@Override
 	public int getPort() {
 		return port;
 	}
 
-	/**
-	 * Check if the connection is open or not
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @return true if is open, false otherwise
+	 * @see com.mymed.controller.core.manager.connection.IConnection#isOpen()
 	 */
 	@Override
 	public boolean isOpen() {
 		return thriftTransport.isOpen();
 	}
 
-	/**
-	 * Check if the connection is in use or not
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @return true if in use, false otherwise
+	 * @see com.mymed.controller.core.manager.connection.IConnection#open()
 	 */
-	public boolean isUsed() {
-		return isUsed;
-	}
-
-	/**
-	 * Set whether the connection is in use or not
-	 * 
-	 * @param isUsed
-	 */
-	public void setUsed(final boolean isUsed) {
-		this.isUsed = isUsed;
-	}
-
 	@Override
 	public void open() throws InternalBackEndException {
 		try {
@@ -115,6 +108,11 @@ public class Connection implements IConnection {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.mymed.controller.core.manager.connection.IConnection#close()
+	 */
 	@Override
 	public void close() {
 		if (thriftTransport.isOpen()) {
@@ -148,8 +146,8 @@ public class Connection implements IConnection {
 
 		if (this == object) {
 			equal = true;
-		} else if (object instanceof Connection) {
-			final Connection comparable = (Connection) object;
+		} else if (object instanceof IConnection) {
+			final IConnection comparable = (Connection) object;
 			equal = true;
 
 			if (address == null && comparable.getAddress() != null) {

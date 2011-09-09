@@ -3,76 +3,180 @@ package com.mymed.controller.core.manager.connection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.utils.MLogger;
 
 /**
+ * Implementation of a connection pool
  * 
  * @author Milo Casagrande
  * 
  */
-public class ConnectionPool {
+public class ConnectionPool implements IConnectionPool {
 
-	private static final ConnectionPool INSTANCE = new ConnectionPool();
-	private static final int INTIAL_CAP = 100;
+	/**
+	 * The default capacity of the pool
+	 */
+	private static final int DEFAULT_CAP = 100;
 
-	private final List<IConnection> availableConnections;
-	private final List<IConnection> usedConnections;
-	private final ConcurrentLinkedQueue<IConnection> availableQueue;
-	private final ConcurrentLinkedQueue<IConnection> usedQueue;
+	/**
+	 * The maximum capacity of the pool
+	 */
+	private int capacity = 0;
 
-	private ConnectionPool() {
-		availableQueue = new ConcurrentLinkedQueue<IConnection>();
-		usedQueue = new ConcurrentLinkedQueue<IConnection>();
-		availableConnections = Collections.synchronizedList(new ArrayList<IConnection>(INTIAL_CAP));
-		usedConnections = Collections.synchronizedList(new ArrayList<IConnection>(INTIAL_CAP));
-	}
+	/**
+	 * Atomic value used for concurrency access to the number of connection
+	 * created
+	 */
+	private final AtomicInteger checkedOut = new AtomicInteger(0);
 
-	public ConnectionPool getInstance() {
-		return INSTANCE;
-	}
+	/**
+	 * The address for the connection
+	 */
+	private final String address;
 
-	public void checkOut(final String ip, final int port) {
+	/**
+	 * The port of the connection
+	 */
+	private final int port;
+
+	/**
+	 * The real pool, implemented as a list
+	 */
+	private final List<IConnection> available;
+
+	/**
+	 * Object used to sync operations
+	 */
+	private final Object SYNC = new Object();
+
+	/**
+	 * Create a new connection pool with a maximum capacity of 100.
+	 * 
+	 * @param address
+	 *            the address where to connect to
+	 * @param port
+	 *            the port to use for the connection
+	 */
+	public ConnectionPool(final String address, final int port) {
+		this(address, port, DEFAULT_CAP);
 	}
 
 	/**
-	 * Return a connection to the pool
+	 * Create a new connection pool with initial capacity defined by
+	 * {@code capacity}. If {@code capacity} is zero, the pool is limit-less.
 	 * 
-	 * @param connection
-	 *            the connection to return
+	 * @param address
+	 *            the address where to connect to
+	 * @param port
+	 *            the port to use for the connection
+	 * @param capacity
+	 *            the maximum capacity of the pool
 	 */
-	public void checkIn(final Connection connection) {
+	public ConnectionPool(final String address, final int port, final int capacity) {
+		available = Collections.synchronizedList(new ArrayList<IConnection>(capacity));
 
-		usedConnections.remove(connection);
-
-		synchronized (usedConnections) {
-			final int index = usedConnections.indexOf(connection);
-
-			final IConnection con;
-
-			if (index >= 0) {
-				con = usedConnections.get(index);
-				((Connection) con).setUsed(false);
-
-				synchronized (availableConnections) {
-					((ArrayList<IConnection>) availableConnections).remove(con);
-				}
-			}
-
-			usedConnections.notifyAll();
-			availableConnections.notifyAll();
-		}
-
+		this.capacity = capacity;
+		this.address = address;
+		this.port = port;
 	}
 
-	public static void main(final String[] args) {
-		for (int i = 0; i < 100; i++) {
-			try {
-				final Connection con = new Connection("127.0.0.1", 9160);
-				System.err.println(con.hashCode());
-			} catch (final Exception ex) {
-				// TODO Auto-generated catch block
-				ex.printStackTrace();
+	/**
+	 * Create a new connection and open it
+	 * 
+	 * @return the opened connection or null if there are errors opening the
+	 *         connection
+	 */
+	private IConnection newConnection() {
+		IConnection con = null;
+
+		try {
+			con = new Connection(address, port);
+			con.open();
+		} catch (final InternalBackEndException ex) {
+			// If we cannot open the connection, we return null
+			con = null;
+			MLogger.getLog().info(ex.getMessage());
+		}
+
+		return con;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.mymed.controller.core.manager.connection.IConnectionPool#checkOut()
+	 */
+	@Override
+	public IConnection checkOut() {
+
+		IConnection con = null;
+
+		synchronized (SYNC) {
+			if (getSize() > 0) {
+				con = available.remove(0);
+
+				if (!con.isOpen()) {
+					// If we had a closed or null connection we try again
+					MLogger.getLog().info("Got a closed connection. Retrying...");
+					con = checkOut();
+				}
+			} else if (capacity == 0 || checkedOut.get() < capacity) {
+				con = newConnection();
+			}
+
+			if (con != null) {
+				checkedOut.incrementAndGet();
+			}
+
+			SYNC.notifyAll();
+		}
+
+		return con;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.mymed.controller.core.manager.connection.IConnectionPool#checkIn(
+	 * com.mymed.controller.core.manager.connection.IConnection)
+	 */
+	@Override
+	public void checkIn(final IConnection connection) {
+		if (connection != null) {
+			synchronized (SYNC) {
+				available.add(connection);
+				checkedOut.decrementAndGet();
+
+				SYNC.notifyAll();
 			}
 		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.mymed.controller.core.manager.connection.IConnectionPool#getSize()
+	 */
+	@Override
+	public int getSize() {
+		return available.size();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.mymed.controller.core.manager.connection.IConnectionPool#getCapacity
+	 * ()
+	 */
+	@Override
+	public int getCapacity() {
+		return capacity;
 	}
 }
