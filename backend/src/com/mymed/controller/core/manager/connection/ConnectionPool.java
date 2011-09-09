@@ -22,7 +22,7 @@ public class ConnectionPool implements IConnectionPool {
 	private static final int DEFAULT_CAP = 100;
 
 	/**
-	 * The maximum capacity of the pool
+	 * The maximum capacity of the pool, when set to zero it means limit-less
 	 */
 	private int capacity = 0;
 
@@ -137,7 +137,6 @@ public class ConnectionPool implements IConnectionPool {
 
 		return con;
 	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -147,8 +146,8 @@ public class ConnectionPool implements IConnectionPool {
 	 */
 	@Override
 	public void checkIn(final IConnection connection) {
-		if (connection != null) {
-			synchronized (SYNC) {
+		synchronized (SYNC) {
+			if (connection != null) {
 				available.add(connection);
 				checkedOut.decrementAndGet();
 

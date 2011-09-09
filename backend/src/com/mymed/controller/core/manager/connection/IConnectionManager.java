@@ -44,6 +44,8 @@ public interface IConnectionManager {
 
 	/**
 	 * Release all the connection in the pool
+	 * <p>
+	 * NOT IMPLEMENTED YET
 	 */
 	void release();
 
