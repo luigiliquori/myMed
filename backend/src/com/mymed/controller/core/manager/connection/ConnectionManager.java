@@ -23,20 +23,16 @@ import java.util.Map;
  */
 public final class ConnectionManager implements IConnectionManager {
 
-	/**
-	 * The singleton instance
-	 */
+	// The singleton instance
 	private static final ConnectionManager INSTANCE = new ConnectionManager();
 
-	/**
+	/*
 	 * This is where we store all the pools. Each key is the "name" of the pool
 	 * that is composed from the address and the port of the connection.
 	 */
 	private final Map<String, IConnectionPool> pools;
 
-	/**
-	 * Private constructor to initialize all the stuff.
-	 */
+	// Private constructor to initialize all the stuff.
 	private ConnectionManager() {
 		pools = new HashMap<String, IConnectionPool>();
 	}

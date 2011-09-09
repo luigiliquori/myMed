@@ -24,12 +24,18 @@ public class Connection implements IConnection {
 	// The default port to use if nothing is passed as arguments
 	private static final int DEFAULT_PORT = 9160;
 
+	// The port and the address associated with this connection
 	private String address = null;
 	private int port = 0;
 
+	// Socket and transport used for the connection
 	private final TSocket socket;
 	private final TFramedTransport thriftTransport;
 
+	/**
+	 * Create a new connection using as address the localhost address and the
+	 * default value for the port (9160).
+	 */
 	public Connection() {
 		this(null, 0);
 	}
