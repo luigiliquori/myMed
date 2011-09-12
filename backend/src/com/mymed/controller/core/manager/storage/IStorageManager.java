@@ -9,15 +9,16 @@ import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 
 /**
+ * 
+ * This class represent the DAO pattern: Access to data varies depending on the
+ * source of the data. Access to persistent storage, such as to a database,
+ * varies greatly depending on the type of storage
+ * 
+ * Use a Data Access Object (DAO) to abstract and encapsulate all access to the
+ * data source. The DAO manages the connection with the data source to obtain
+ * and store data.
+ * 
  * @author lvanni
- * 
- *         This class represent the DAO pattern: Access to data varies depending
- *         on the source of the data. Access to persistent storage, such as to a
- *         database, varies greatly depending on the type of storage
- * 
- *         Use a Data Access Object (DAO) to abstract and encapsulate all access
- *         to the data source. The DAO manages the connection with the data
- *         source to obtain and store data.
  */
 public interface IStorageManager {
 

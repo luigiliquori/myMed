@@ -39,20 +39,18 @@ import com.mymed.utils.MLogger;
  * 
  */
 public class StorageManager extends ManagerValues implements IStorageManager {
-
-	/**
+	/*
 	 * The Default path of the wrapper config file
 	 */
 	public static final String CONFIG_PATH = "/local/mymed/backend/conf/config.xml";
 
-	/** wrapper */
+	// The wrapper
 	private final CassandraWrapper wrapper;
 
 	/**
 	 * Default Constructor: will create a ServiceManger on top of a Cassandra
 	 * Wrapper
 	 * 
-	 * @throws IOBackEndException
 	 * @throws InternalBackEndException
 	 */
 	public StorageManager() throws InternalBackEndException {
@@ -67,7 +65,6 @@ public class StorageManager extends ManagerValues implements IStorageManager {
 	 *            Type of DHTClient used
 	 * @param conf
 	 *            The configuration of the transport layer
-	 * @throws IOBackEndException
 	 * @throws InternalBackEndException
 	 */
 	public StorageManager(final WrapperConfiguration conf) throws InternalBackEndException {
