@@ -97,7 +97,7 @@ public class ConnectionPool implements IConnectionPool {
 			con.open();
 		} catch (final InternalBackEndException ex) {
 			// If we cannot open the connection, we return null
-			con = null;
+			con = null; // NOPMD
 			MLogger.getLog().info(ex.getMessage());
 		}
 
@@ -112,7 +112,6 @@ public class ConnectionPool implements IConnectionPool {
 	 */
 	@Override
 	public IConnection checkOut() {
-
 		IConnection con = null;
 
 		synchronized (SYNC) {
