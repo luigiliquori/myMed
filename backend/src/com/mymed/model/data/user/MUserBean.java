@@ -96,16 +96,16 @@ public final class MUserBean extends AbstractMBean {
 	public void update(final AbstractMBean mBean) {
 		if (mBean instanceof MUserBean) {
 			final MUserBean newValue = (MUserBean) mBean;
-			login = newValue.getLogin() != null ? newValue.getLogin() : login;
-			email = newValue.getEmail() != null ? newValue.getEmail() : email;
-			name = newValue.getName() != null ? newValue.getName() : name;
-			firstName = newValue.getFirstName() != null ? newValue.getFirstName() : firstName;
-			lastName = newValue.getLastName() != null ? newValue.getLastName() : lastName;
-			link = newValue.getLink() != null ? newValue.getLink() : link;
-			birthday = newValue.getBirthday() != null ? newValue.getBirthday() : birthday;
-			hometown = newValue.getHometown() != null ? newValue.getHometown() : hometown;
-			gender = newValue.getGender() != null ? newValue.getGender() : gender;
-			profilePicture = newValue.getProfilePicture() != null ? newValue.getProfilePicture() : profilePicture;
+			login = newValue.getLogin() == null ? login : newValue.getLogin();
+			email = newValue.getEmail() == null ? email : newValue.getEmail();
+			name = newValue.getName() == null ? name : newValue.getName();
+			firstName = newValue.getFirstName() == null ? firstName : newValue.getFirstName();
+			lastName = newValue.getLastName() == null ? lastName : newValue.getLastName();
+			link = newValue.getLink() == null ? link : newValue.getLink();
+			birthday = newValue.getBirthday() == null ? birthday : newValue.getBirthday();
+			hometown = newValue.getHometown() == null ? hometown : newValue.getHometown();
+			gender = newValue.getGender() == null ? gender : newValue.getGender();
+			profilePicture = newValue.getProfilePicture() == null ? profilePicture : newValue.getProfilePicture();
 		}
 	}
 
