@@ -66,8 +66,6 @@ public class TestValues {
 	 * Get the string representation of a RANDOM casual generated password
 	 * 
 	 * @return the SHA-256 in hex format of a RANDOM string
-	 * @throws NoSuchAlgorithmException
-	 * @throws UnsupportedEncodingException
 	 */
 	protected static String getRandomPwd() {
 		final StringBuffer hex = new StringBuffer(100);
