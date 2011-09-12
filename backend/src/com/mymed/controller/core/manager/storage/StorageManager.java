@@ -71,6 +71,7 @@ public class StorageManager extends ManagerValues implements IStorageManager {
 	 * @throws InternalBackEndException
 	 */
 	public StorageManager(final WrapperConfiguration conf) throws InternalBackEndException {
+		super();
 		wrapper = new CassandraWrapper(conf.getCassandraListenAddress(), conf.getThriftPort());
 	}
 
@@ -198,8 +199,7 @@ public class StorageManager extends ManagerValues implements IStorageManager {
 	private List<ColumnOrSuperColumn> getSlice(final String key, final ColumnParent parent,
 	        final SlicePredicate predicate) throws InternalBackEndException, IOBackEndException {
 
-		MLogger.getLog().info("Selecting slice from column family '{}' with key '{}'", parent.getColumn_family(),
-		        key);
+		MLogger.getLog().info("Selecting slice from column family '{}' with key '{}'", parent.getColumn_family(), key);
 
 		List<ColumnOrSuperColumn> slice = null;
 

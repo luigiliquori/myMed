@@ -1,6 +1,5 @@
 package com.mymed.controller.core.manager.storage;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
@@ -133,7 +132,6 @@ public interface IStorageManager {
 	 * @param columnFamily
 	 * @param key
 	 * @throws InternalBackEndException
-	 * @throws UnsupportedEncodingException
 	 */
 	void removeAll(String tableName, String key) throws InternalBackEndException;
 
