@@ -225,6 +225,6 @@ public class WrapperConfiguration {
 	/* --------------------------------------------------------- */
 	public static void main(final String args[]) {
 		final WrapperConfiguration conf = new WrapperConfiguration(new File("./conf/config.xml"));
-		System.out.println(conf);
+		MLogger.getLog().info(conf.toString());
 	}
 }
