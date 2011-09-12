@@ -1,6 +1,7 @@
 package com.mymed.utils;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.nio.ByteBuffer;
@@ -134,15 +135,30 @@ public enum ClassType {
 			final Method method = MConverter.class.getMethod(methodName, ByteBuffer.class);
 
 			final Object initArg = method.invoke(null, ByteBuffer.wrap(arg));
-
 			returnObject = cons.newInstance(initArg);
-		} catch (final Exception ex) {
-			MLogger.getLog().info("Problem creating an object of type '{}'", classType.getPrimitiveType());
-			MLogger.getDebugLog().debug("Problem creating an object of type '{}'", classType.getPrimitiveType(),
-			        ex.getCause());
+		} catch (final IllegalArgumentException ex) {
+			logErrorCreatingObj(ex.getCause(), classType.getPrimitiveType());
+		} catch (final InstantiationException ex) {
+			logErrorCreatingObj(ex.getCause(), classType.getPrimitiveType());
+		} catch (final IllegalAccessException ex) {
+			logErrorCreatingObj(ex.getCause(), classType.getPrimitiveType());
+		} catch (final InvocationTargetException ex) {
+			logErrorCreatingObj(ex.getCause(), classType.getPrimitiveType());
+		} catch (final SecurityException ex) {
+			logErrorCreatingObj(ex.getCause(), classType.getPrimitiveType());
+		} catch (final NoSuchMethodException ex) {
+			logErrorCreatingObj(ex.getCause(), classType.getPrimitiveType());
 		}
 
 		return returnObject;
+	}
+
+	/*
+	 * Internal log function to record the error
+	 */
+	private static void logErrorCreatingObj(final Throwable cause, final Class<?> type) {
+		MLogger.getLog().info("Problem creating an object of type '{}'", type);
+		MLogger.getDebugLog().debug("Problem creating an object of type '{}'", type, cause);
 	}
 
 	/**
@@ -158,17 +174,31 @@ public enum ClassType {
 		final String methodName = classType.getPrimitiveType().getSimpleName().toLowerCase() + TO_BYTE_BUFFER;
 		ByteBuffer returnBuffer = null;
 
+		// try {
 		try {
 			final Method method = MConverter.class.getMethod(methodName, classType.getPrimitiveType());
 			returnBuffer = (ByteBuffer) method.invoke(null, object);
-		} catch (final Exception ex) {
-			MLogger.getLog().info("Problem converting an object of class '{}' to a byte array",
-			        classType.getPrimitiveType());
-			MLogger.getDebugLog().debug("Problem converting to byte array from '{}'", classType.getPrimitiveType(),
-			        ex.getCause());
+		} catch (final IllegalArgumentException ex) {
+			logErrorConvertingObj(ex.getCause(), classType.getPrimitiveType());
+		} catch (final IllegalAccessException ex) {
+			logErrorConvertingObj(ex.getCause(), classType.getPrimitiveType());
+		} catch (final InvocationTargetException ex) {
+			logErrorConvertingObj(ex.getCause(), classType.getPrimitiveType());
+		} catch (final SecurityException ex) {
+			logErrorConvertingObj(ex.getCause(), classType.getPrimitiveType());
+		} catch (final NoSuchMethodException ex) {
+			logErrorConvertingObj(ex.getCause(), classType.getPrimitiveType());
 		}
 
 		return returnBuffer.array();
+	}
+
+	/*
+	 * Internal log function to record the error
+	 */
+	private static void logErrorConvertingObj(final Throwable cause, final Class<?> type) {
+		MLogger.getLog().info("Problem converting an object of class '{}' to a byte array", type);
+		MLogger.getDebugLog().debug("Problem converting to byte array from '{}'", type, cause);
 	}
 
 	@Override
