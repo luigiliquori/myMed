@@ -1,18 +1,20 @@
 <?php
 
-/* OntologyID */
+/* OntologyID (predicate) */
 define('KEYWORD'	, 0);
 define('GPS'		, 1);
 define('ENUM'		, 2);
-define('TEXT'		, 3);
-define('PICTURE'	, 4);
-define('VIDEO'		, 5);
-define('AUDIO'		, 6);
+define('DATE'		, 3);
+/* OntologyID (others) */
+define('TEXT'		, 4);
+define('PICTURE'	, 5);
+define('VIDEO'		, 6);
+define('AUDIO'		, 7);
 
 /**
- *
+ * Represente a Data in the myMed model
  */
-class Data {
+class MDataBean {
 	
 	/* --------------------------------------------------------- */
 	/* Attributes */

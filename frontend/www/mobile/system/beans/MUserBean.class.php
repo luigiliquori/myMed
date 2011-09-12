@@ -17,10 +17,10 @@ class MUserBean {
 	public /*String*/	$firstName;
 	public /*String*/	$lastName;
 	public /*String*/	$link;
-	public /*long*/	$birthday;
+	public /*long*/		$birthday;
 	public /*String*/	$hometown;
 	public /*String*/	$gender;
-	public /*long*/	$lastConnection;
+	public /*long*/		$lastConnection;
 	public /*String*/	$profilePicture;
 	/**
 	 * USER_LIST_ID

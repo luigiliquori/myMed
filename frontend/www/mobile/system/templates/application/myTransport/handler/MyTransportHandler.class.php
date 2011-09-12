@@ -1,6 +1,6 @@
 <?php 
 require_once 'system/request/Request.class.php';
-require_once 'system/request/IRequestHandler.php';
+require_once 'system/handler/IRequestHandler.php';
 require_once 'system/beans/MDataBean.class.php';
 
 /**
@@ -35,8 +35,8 @@ class MyTransportHandler implements IRequestHandler {
 			$request->addArgument("predicate", $_GET['start'].$_GET['end'].$_GET['date']);
 			$request->addArgument("user", json_encode($_SESSION['user']));
 			// construct the data
-			$comment = new Data("Commentaires", urlencode($_GET['comment']), TEXT);
-			$type = new Data("Type de véhicule", $_GET['type'], ENUM);
+			$comment = new MDataBean("Commentaires", urlencode($_GET['comment']), TEXT);
+			$type = new MDataBean("Type de véhicule", $_GET['type'], ENUM);
 			$data = array($comment, $type);
 			$request->addArgument("data", json_encode($data));
 			

@@ -15,34 +15,28 @@
 		<!-- MAP -->
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 		<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
-		<script src="system/templates/application/myTemplate/javascript/map.js"></script>
 		<link rel="stylesheet" href="system/templates/application/myTemplate/css/style.css" />
 		
-		<?php require_once dirname(__FILE__).'/Publish.class.php'; ?>
-		<?php require_once dirname(__FILE__).'/Find.class.php'; ?>
-		<?php require_once dirname(__FILE__).'/Result.class.php'; ?>
-		<?php require_once dirname(__FILE__).'/Details.class.php'; ?>
+		<?php require_once dirname(__FILE__).'/PublishView.class.php'; ?>
+		<?php require_once dirname(__FILE__).'/SubscribeView.class.php'; ?>
+		<?php require_once dirname(__FILE__).'/FindView.class.php'; ?>
 		<?php require_once dirname(__FILE__).'/handler/MyTemplateHandler.class.php'; ?>
+		
 		<?php $handler = new MyTemplateHandler(); ?>
 		<?php $handler->handleRequest(); ?>
 		
 	</head>
 	
-	<body onload="initialize()">
+	<body>
 		<?php 
-
-			if($handler->getError() == null && $handler->getSuccess() == null) {		
-				$publish = new Publish();
-				$publish->printTemplate();
-				$find = new Find();
-				$find->printTemplate();
-			} else if(isset($_GET['publish']) || isset($_GET['subscribe'])) {
-				$result = new Result($handler);
-				$result->printTemplate();
-			} else if(isset($_GET['getDetails'])) {
-				$details = new Details($handler);
-				$details->printTemplate();
-			}
+			$publish = new PublishView();
+			$publish->printTemplate();
+			
+			$subscribe = new SubscribeView();
+			$subscribe->printTemplate();
+			
+			$find = new FindView();
+			$find->printTemplate();
 		?>
 	</body>
 </html> 

@@ -38,7 +38,7 @@ abstract class MyTemplate extends AbstractTemplate {
 	public /*String*/ function getHeader() { ?>
 		<!-- HEADER -->
 		<div data-role="header" data-theme="b">
-			<a href="?application=0" rel="external" data-role="button" data-theme="r">Fermer</a>
+			<a href="?application=0" rel="external" data-role="button" data-theme="r">Close</a>
 			<h1><?= $this->title ?></h1>
 		</div>
 	<?php }
@@ -51,8 +51,9 @@ abstract class MyTemplate extends AbstractTemplate {
 		<div data-role="footer" data-position="fixed" data-theme="b">
 			<div data-role="navbar">
 				<ul>
-				<li><a href="#Publier" data-back="true" <?= $this->activeFooter == "Publier" ? 'class="ui-btn-active ui-state-persist"' : ''; ?> >Publier</a></li>
-				<li><a href="#Rechercher" <?= $this->activeFooter == "Rechercher" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>Rechercher</a></li>
+				<li><a href="#Publish" data-back="true" <?= $this->activeFooter == "Publish" ? 'class="ui-btn-active ui-state-persist"' : ''; ?> >Publish</a></li>
+				<li><a href="#Subscribe" <?= $this->activeFooter == "Subscribe" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>Subscribe</a></li>
+				<li><a href="#Find" <?= $this->activeFooter == "Find" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>Find</a></li>
 				</ul>
 			</div>
 		</div>
