@@ -39,7 +39,6 @@ import org.apache.thrift.transport.TTransportException;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.model.core.wrappers.cassandra.IWrapper;
 import com.mymed.utils.MConverter;
 
 /**
@@ -50,7 +49,17 @@ import com.mymed.utils.MConverter;
  * @author Milo Casagrande
  * 
  */
-public class CassandraWrapper implements ICassandraWrapper, IWrapper {
+public class CassandraWrapper implements ICassandraWrapper {
+
+	/*
+	 * The port number to use for interacting with Cassandra
+	 */
+	private static final int PORT_NUMBER = 9160;
+
+	/*
+	 * The name of the default keyspace we use for Cassandra
+	 */
+	private static final String KEYSPACE = "Mymed";
 
 	private TFramedTransport thriftTransport;
 	private TSocket socket;
