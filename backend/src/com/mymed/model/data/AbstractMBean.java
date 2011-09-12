@@ -1,6 +1,5 @@
 package com.mymed.model.data;
 
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
@@ -43,9 +42,7 @@ public abstract class AbstractMBean {
 
 	/**
 	 * @return all the fields in a hashMap format for the myMed wrapper
-	 * @throws IllegalArgumentException
-	 * @throws IllegalAccessException
-	 * @throws UnsupportedEncodingException
+	 * @throws InternalBackEndException
 	 */
 	public Map<String, byte[]> getAttributeToMap() throws InternalBackEndException {
 		final Map<String, byte[]> args = new HashMap<String, byte[]>();
@@ -80,8 +77,10 @@ public abstract class AbstractMBean {
 		return args;
 	}
 
-	/**
-	 * override toString to have an human readable format
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
@@ -118,6 +117,12 @@ public abstract class AbstractMBean {
 
 		return value.toString();
 	}
-	
+
+	/**
+	 * Updated the bean with new values
+	 * 
+	 * @param mBean
+	 *            the bean to update
+	 */
 	public abstract void update(AbstractMBean mBean);
 }
