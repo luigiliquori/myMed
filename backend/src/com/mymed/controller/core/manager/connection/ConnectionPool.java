@@ -16,38 +16,38 @@ import com.mymed.utils.MLogger;
  */
 public class ConnectionPool implements IConnectionPool {
 
-	/**
+	/*
 	 * The default capacity of the pool
 	 */
 	private static final int DEFAULT_CAP = 100;
 
-	/**
+	/*
 	 * The maximum capacity of the pool, when set to zero it means limit-less
 	 */
-	private int capacity = 0;
+	private final int capacity;
 
-	/**
+	/*
 	 * Atomic value used for concurrency access to the number of connection
 	 * created
 	 */
 	private final AtomicInteger checkedOut = new AtomicInteger(0);
 
-	/**
+	/*
 	 * The address for the connection
 	 */
 	private final String address;
 
-	/**
+	/*
 	 * The port of the connection
 	 */
 	private final int port;
 
-	/**
+	/*
 	 * The real pool, implemented as a list
 	 */
 	private final List<IConnection> available;
 
-	/**
+	/*
 	 * Object used to sync operations
 	 */
 	private final Object SYNC = new Object();
