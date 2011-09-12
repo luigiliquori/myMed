@@ -6484,3 +6484,487 @@ Response sent:
 Response sent:
 {"id":"MYMED_lvanni@inria.fr","login":"lvanni@inria.fr","email":"lvanni@inria.fr","name":"Laurent Vanni","firstName":"Laurent","lastName":"Vanni","link":"","birthday":"19/04/84","hometown":"","gender":"","lastConnection":0,"profilePicture":"https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/211579_1421481661_5566025_n.jpg","buddyList":"","subscribtionList":"","reputation":"","session":"","interactionList":"","socialNetworkID":"MYMED","socialNetworkName":"myMed"}|#]
 
+[#|2011-09-09T15:57:00.094+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|authentication : {"login":"milo.casagrande@inria.fr","user":"MYMED_milo.casagrande@inria.fr","password":"b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86"}|#]
+
+[#|2011-09-09T15:57:00.094+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|user : {"PRIME":null,"id":"MYMED_milo.casagrande@inria.fr","login":"milo.casagrande@inria.fr","email":"milo.casagrande@inria.fr","name":"milo casagrande","firstName":"milo","lastName":"casagrande","link":null,"birthday":"","hometown":null,"gender":null,"lastConnection":null,"profilePicture":"","buddyList":null,"subscribtionList":null,"reputation":null,"session":null,"interactionList":null,"socialNetworkID":null,"socialNetworkName":null}|#]
+
+[#|2011-09-09T15:57:00.094+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 0|#]
+
+[#|2011-09-09T15:57:00.096+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+INFO: trying to create a new user:
+User:
+	PRIME : 31
+	id : MYMED_milo.casagrande@inria.fr
+	login : milo.casagrande@inria.fr
+	email : milo.casagrande@inria.fr
+	name : milo casagrande
+	firstName : milo
+	lastName : casagrande
+	link : null
+	birthday : 
+	hometown : null
+	gender : null
+	lastConnection : 0
+	profilePicture : 
+	buddyList : null
+	subscribtionList : null
+	reputation : null
+	session : null
+	interactionList : null
+	socialNetworkID : MYMED
+	socialNetworkName : myMed
+|#]
+
+[#|2011-09-09T15:57:00.106+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|Autentication:
+	login : 
+	user : 
+	password : 
+|#]
+
+[#|2011-09-09T15:57:00.111+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+INFO: User created!|#]
+
+[#|2011-09-09T15:57:00.111+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+Response sent:
+{"id":"MYMED_milo.casagrande@inria.fr","login":"milo.casagrande@inria.fr","email":"milo.casagrande@inria.fr","name":"milo casagrande","firstName":"milo","lastName":"casagrande","birthday":"","lastConnection":0,"profilePicture":"","socialNetworkID":"MYMED","socialNetworkName":"myMed"}|#]
+
+[#|2011-09-09T15:57:16.722+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|login : milo.casagrande@inria.fr|#]
+
+[#|2011-09-09T15:57:16.723+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|password : b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86|#]
+
+[#|2011-09-09T15:57:16.723+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-09-09T15:57:16.724+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|Autentication:
+	login : milo.casagrande@inria.fr
+	user : MYMED_milo.casagrande@inria.fr
+	password : b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86
+|#]
+
+[#|2011-09-09T15:57:16.731+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+Response sent:
+{"id":"MYMED_milo.casagrande@inria.fr","login":"milo.casagrande@inria.fr","email":"milo.casagrande@inria.fr","name":"milo casagrande","firstName":"milo","lastName":"casagrande","link":"","birthday":"","hometown":"","gender":"","lastConnection":0,"profilePicture":"","buddyList":"","subscribtionList":"","reputation":"","session":"","interactionList":"","socialNetworkID":"MYMED","socialNetworkName":"myMed"}|#]
+
+[#|2011-09-09T15:57:16.732+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|userID : MYMED_milo.casagrande@inria.fr|#]
+
+[#|2011-09-09T15:57:16.732+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 0|#]
+
+[#|2011-09-09T15:57:16.747+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+INFO: Session MYMED_milo.casagrande@inria.fr created! -> LOGIN|#]
+
+[#|2011-09-09T16:08:25.559+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|login : hola@hola.com|#]
+
+[#|2011-09-09T16:08:25.559+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|password : e83e8535d6f689493e5819bd60aa3e5fdcba940e6d111ab6fb5c34f24f86496bf3726e2bf4ec59d6d2f5a2aeb1e4f103283e7d64e4f49c03b4c4725cb361e773|#]
+
+[#|2011-09-09T16:08:25.559+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-09-09T16:08:25.562+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|Autentication:
+	login : hola@hola.com
+	user : MYMED_hola@hola.com
+	password : e83e8535d6f689493e5819bd60aa3e5fdcba940e6d111ab6fb5c34f24f86496bf3726e2bf4ec59d6d2f5a2aeb1e4f103283e7d64e4f49c03b4c4725cb361e773
+|#]
+
+[#|2011-09-09T16:08:25.574+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+Response sent:
+{"id":"MYMED_hola@hola.com","login":"hola@hola.com","email":"hola@hola.com","name":"Nicolas Goles","firstName":"Nicolas","lastName":"Goles","link":"","birthday":"Ehlo","hometown":"","gender":"","lastConnection":0,"profilePicture":"","buddyList":"","subscribtionList":"","reputation":"","session":"","interactionList":"","socialNetworkID":"","socialNetworkName":""}|#]
+
+[#|2011-09-09T16:08:25.576+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|userID : MYMED_hola@hola.com|#]
+
+[#|2011-09-09T16:08:25.576+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 0|#]
+
+[#|2011-09-09T16:08:25.590+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+INFO: Session MYMED_hola@hola.com created! -> LOGIN|#]
+
+[#|2011-09-09T16:09:25.456+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|application : myTemplate|#]
+
+[#|2011-09-09T16:09:25.456+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|predicate : Iron MaidenBeast of the Beast2011-09-09|#]
+
+[#|2011-09-09T16:09:25.457+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|user : {"id":"MYMED_hola@hola.com","login":"hola@hola.com","email":"hola@hola.com","name":"Nicolas Goles","firstName":"Nicolas","lastName":"Goles","link":"","birthday":"Ehlo","hometown":"","gender":"","lastConnection":0,"profilePicture":"","buddyList":"","subscribtionList":"","reputation":"","session":"","interactionList":"","socialNetworkID":"","socialNetworkName":""}|#]
+
+[#|2011-09-09T16:09:25.457+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|data : [{"key":"Value2","value":"Can+I+play+with+Madness","ontologyID":3},{"key":"Value1","value":"Option1","ontologyID":2}]|#]
+
+[#|2011-09-09T16:09:25.457+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 0|#]
+
+[#|2011-09-09T16:09:25.467+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+Response sent:
+predicate published|#]
+
+[#|2011-09-09T16:09:39.549+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|application : myTemplate|#]
+
+[#|2011-09-09T16:09:39.550+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|predicate : Iron MaidenBeast of the Beast2011-09-09|#]
+
+[#|2011-09-09T16:09:39.550+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-09-09T16:09:39.553+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+Response sent:
+[{"predicate":"Iron MaidenBeast of the Beast2011-09-09","name":"Nicolas Goles","user":"MYMED_hola@hola.com"}]|#]
+
+[#|2011-09-09T16:09:39.554+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|id : MYMED_hola@hola.com|#]
+
+[#|2011-09-09T16:09:39.554+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-09-09T16:09:39.558+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+Response sent:
+{"id":"MYMED_hola@hola.com","login":"hola@hola.com","email":"hola@hola.com","name":"Nicolas Goles","firstName":"Nicolas","lastName":"Goles","link":"","birthday":"Ehlo","hometown":"","gender":"","lastConnection":0,"profilePicture":"","buddyList":"","subscribtionList":"","reputation":"","session":"","interactionList":"","socialNetworkID":"","socialNetworkName":""}|#]
+
+[#|2011-09-09T16:09:41.445+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|application : myTemplate|#]
+
+[#|2011-09-09T16:09:41.445+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|predicate : Iron MaidenBeast of the Beast2011-09-09|#]
+
+[#|2011-09-09T16:09:41.445+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|user : MYMED_hola@hola.com|#]
+
+[#|2011-09-09T16:09:41.445+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-09-09T16:09:41.449+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+Response sent:
+[{"value":"Option1","ontology":"2","key":"Value1"},{"value":"Can+I+play+with+Madness","ontology":"3","key":"Value2"}]|#]
+
+[#|2011-09-09T16:09:41.450+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|id : MYMED_hola@hola.com|#]
+
+[#|2011-09-09T16:09:41.450+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-09-09T16:09:41.453+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+Response sent:
+{"id":"MYMED_hola@hola.com","login":"hola@hola.com","email":"hola@hola.com","name":"Nicolas Goles","firstName":"Nicolas","lastName":"Goles","link":"","birthday":"Ehlo","hometown":"","gender":"","lastConnection":0,"profilePicture":"","buddyList":"","subscribtionList":"","reputation":"","session":"","interactionList":"","socialNetworkID":"","socialNetworkName":""}|#]
+
+[#|2011-09-09T23:20:54.723+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|login : lvanni@gmail.com|#]
+
+[#|2011-09-09T23:20:54.724+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|password : 3ace0cc89d92395bb110f76213fd7ab7ee5145988adf2c98b76ca8e140ffa47d4b8d5cda1e0ab2c76a992a55baa54280113a46af279e97859a75a3ff988a6f55|#]
+
+[#|2011-09-09T23:20:54.724+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-09-09T23:20:54.728+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|Autentication:
+	login : 
+	user : 
+	password : 
+|#]
+
+[#|2011-09-09T23:20:54.728+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+Response sent:
+{
+"error": {
+"type": "IOBackEndException",
+"status":  "404",
+"message": "the login does not exist!"
+}
+}|#]
+
+[#|2011-09-09T23:21:34.760+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|login : lvanni@inria.fr|#]
+
+[#|2011-09-09T23:21:34.760+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|password : 3ace0cc89d92395bb110f76213fd7ab7ee5145988adf2c98b76ca8e140ffa47d4b8d5cda1e0ab2c76a992a55baa54280113a46af279e97859a75a3ff988a6f55|#]
+
+[#|2011-09-09T23:21:34.760+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-09-09T23:21:34.764+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|Autentication:
+	login : lvanni@inria.fr
+	user : MYMED_lvanni@inria.fr
+	password : 3ace0cc89d92395bb110f76213fd7ab7ee5145988adf2c98b76ca8e140ffa47d4b8d5cda1e0ab2c76a992a55baa54280113a46af279e97859a75a3ff988a6f55
+|#]
+
+[#|2011-09-09T23:21:34.772+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+Response sent:
+{"id":"MYMED_lvanni@inria.fr","login":"lvanni@inria.fr","email":"lvanni@inria.fr","name":"Laurent Vanni","firstName":"Laurent","lastName":"Vanni","link":"","birthday":"19/04/84","hometown":"","gender":"","lastConnection":0,"profilePicture":"https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/211579_1421481661_5566025_n.jpg","buddyList":"","subscribtionList":"","reputation":"","session":"","interactionList":"","socialNetworkID":"MYMED","socialNetworkName":"myMed"}|#]
+
+[#|2011-09-09T23:21:34.773+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|userID : MYMED_lvanni@inria.fr|#]
+
+[#|2011-09-09T23:21:34.773+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 0|#]
+
+[#|2011-09-09T23:21:34.788+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+INFO: Session MYMED_lvanni@inria.fr created! -> LOGIN|#]
+
+[#|2011-09-09T23:21:34.791+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|userID : MYMED_lvanni@inria.fr|#]
+
+[#|2011-09-09T23:21:34.791+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 3|#]
+
+[#|2011-09-09T23:21:34.802+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+INFO: Session MYMED_lvanni@inria.fr deleted! -> LOGOUT|#]
+
+[#|2011-09-09T23:22:06.644+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|login : lvanni@inria.fr|#]
+
+[#|2011-09-09T23:22:06.644+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|password : 3ace0cc89d92395bb110f76213fd7ab7ee5145988adf2c98b76ca8e140ffa47d4b8d5cda1e0ab2c76a992a55baa54280113a46af279e97859a75a3ff988a6f55|#]
+
+[#|2011-09-09T23:22:06.644+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-09-09T23:22:06.647+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|Autentication:
+	login : lvanni@inria.fr
+	user : MYMED_lvanni@inria.fr
+	password : 3ace0cc89d92395bb110f76213fd7ab7ee5145988adf2c98b76ca8e140ffa47d4b8d5cda1e0ab2c76a992a55baa54280113a46af279e97859a75a3ff988a6f55
+|#]
+
+[#|2011-09-09T23:22:06.652+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+Response sent:
+{"id":"MYMED_lvanni@inria.fr","login":"lvanni@inria.fr","email":"lvanni@inria.fr","name":"Laurent Vanni","firstName":"Laurent","lastName":"Vanni","link":"","birthday":"19/04/84","hometown":"","gender":"","lastConnection":0,"profilePicture":"https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/211579_1421481661_5566025_n.jpg","buddyList":"","subscribtionList":"","reputation":"","session":"","interactionList":"","socialNetworkID":"MYMED","socialNetworkName":"myMed"}|#]
+
+[#|2011-09-09T23:22:06.654+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|userID : MYMED_lvanni@inria.fr|#]
+
+[#|2011-09-09T23:22:06.654+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 0|#]
+
+[#|2011-09-09T23:22:06.663+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+INFO: Session MYMED_lvanni@inria.fr created! -> LOGIN|#]
+
+[#|2011-09-09T23:23:02.682+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|application : myTemplate|#]
+
+[#|2011-09-09T23:23:02.682+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|predicate : TestBreil2011-09-09|#]
+
+[#|2011-09-09T23:23:02.682+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|user : {"id":"MYMED_lvanni@inria.fr","login":"lvanni@inria.fr","email":"lvanni@inria.fr","name":"Laurent Vanni","firstName":"Laurent","lastName":"Vanni","link":"","birthday":"19\/04\/84","hometown":"","gender":"","lastConnection":0,"profilePicture":"https:\/\/fbcdn-profile-a.akamaihd.net\/hprofile-ak-snc4\/211579_1421481661_5566025_n.jpg","buddyList":"","subscribtionList":"","reputation":"","session":"","interactionList":"","socialNetworkID":"MYMED","socialNetworkName":"myMed"}|#]
+
+[#|2011-09-09T23:23:02.682+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|data : [{"key":"Value2","value":"Salut","ontologyID":3},{"key":"Value1","value":"Option2","ontologyID":2}]|#]
+
+[#|2011-09-09T23:23:02.682+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 0|#]
+
+[#|2011-09-09T23:23:02.693+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+Response sent:
+predicate published|#]
+
+[#|2011-09-09T23:23:23.525+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|application : myTemplate|#]
+
+[#|2011-09-09T23:23:23.526+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|predicate : TestBreil2011-09-09|#]
+
+[#|2011-09-09T23:23:23.526+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-09-09T23:23:23.529+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+Response sent:
+[{"predicate":"TestBreil2011-09-09","name":"Laurent Vanni","user":"MYMED_lvanni@inria.fr"}]|#]
+
+[#|2011-09-09T23:23:23.530+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|id : MYMED_lvanni@inria.fr|#]
+
+[#|2011-09-09T23:23:23.530+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-09-09T23:23:23.534+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+Response sent:
+{"id":"MYMED_lvanni@inria.fr","login":"lvanni@inria.fr","email":"lvanni@inria.fr","name":"Laurent Vanni","firstName":"Laurent","lastName":"Vanni","link":"","birthday":"19/04/84","hometown":"","gender":"","lastConnection":0,"profilePicture":"https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/211579_1421481661_5566025_n.jpg","buddyList":"","subscribtionList":"","reputation":"","session":"","interactionList":"","socialNetworkID":"MYMED","socialNetworkName":"myMed"}|#]
+
+[#|2011-09-09T23:23:29.429+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|application : myTemplate|#]
+
+[#|2011-09-09T23:23:29.429+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|predicate : TestBreil2011-09-09|#]
+
+[#|2011-09-09T23:23:29.429+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|user : MYMED_lvanni@inria.fr|#]
+
+[#|2011-09-09T23:23:29.429+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-09-09T23:23:29.433+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+Response sent:
+[{"value":"Option2","ontology":"2","key":"Value1"},{"value":"Salut","ontology":"3","key":"Value2"}]|#]
+
+[#|2011-09-09T23:23:29.434+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|id : MYMED_lvanni@inria.fr|#]
+
+[#|2011-09-09T23:23:29.434+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-09-09T23:23:29.437+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+Response sent:
+{"id":"MYMED_lvanni@inria.fr","login":"lvanni@inria.fr","email":"lvanni@inria.fr","name":"Laurent Vanni","firstName":"Laurent","lastName":"Vanni","link":"","birthday":"19/04/84","hometown":"","gender":"","lastConnection":0,"profilePicture":"https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/211579_1421481661_5566025_n.jpg","buddyList":"","subscribtionList":"","reputation":"","session":"","interactionList":"","socialNetworkID":"MYMED","socialNetworkName":"myMed"}|#]
+
+[#|2011-09-12T00:52:56.817+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|login : lvanni@inria.fr|#]
+
+[#|2011-09-12T00:52:56.817+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|password : 3ace0cc89d92395bb110f76213fd7ab7ee5145988adf2c98b76ca8e140ffa47d4b8d5cda1e0ab2c76a992a55baa54280113a46af279e97859a75a3ff988a6f55|#]
+
+[#|2011-09-12T00:52:56.817+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-09-12T00:52:56.820+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|Autentication:
+	login : lvanni@inria.fr
+	user : MYMED_lvanni@inria.fr
+	password : 3ace0cc89d92395bb110f76213fd7ab7ee5145988adf2c98b76ca8e140ffa47d4b8d5cda1e0ab2c76a992a55baa54280113a46af279e97859a75a3ff988a6f55
+|#]
+
+[#|2011-09-12T00:52:56.826+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+Response sent:
+{"id":"MYMED_lvanni@inria.fr","login":"lvanni@inria.fr","email":"lvanni@inria.fr","name":"Laurent Vanni","firstName":"Laurent","lastName":"Vanni","link":"","birthday":"19/04/84","hometown":"","gender":"","lastConnection":0,"profilePicture":"https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/211579_1421481661_5566025_n.jpg","buddyList":"","subscribtionList":"","reputation":"","session":"","interactionList":"","socialNetworkID":"MYMED","socialNetworkName":"myMed"}|#]
+
+[#|2011-09-12T00:52:56.827+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|userID : MYMED_lvanni@inria.fr|#]
+
+[#|2011-09-12T00:52:56.828+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|code : 0|#]
+
+[#|2011-09-12T00:52:56.839+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+INFO: Session MYMED_lvanni@inria.fr created! -> LOGIN|#]
+
+[#|2011-09-12T00:54:23.209+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|application : myTemplate|#]
+
+[#|2011-09-12T00:54:23.209+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|predicate : testyop2011-09-12|#]
+
+[#|2011-09-12T00:54:23.209+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|user : {"id":"MYMED_lvanni@inria.fr","login":"lvanni@inria.fr","email":"lvanni@inria.fr","name":"Laurent Vanni","firstName":"Laurent","lastName":"Vanni","link":"","birthday":"19\/04\/84","hometown":"","gender":"","lastConnection":0,"profilePicture":"https:\/\/fbcdn-profile-a.akamaihd.net\/hprofile-ak-snc4\/211579_1421481661_5566025_n.jpg","buddyList":"","subscribtionList":"","reputation":"","session":"","interactionList":"","socialNetworkID":"MYMED","socialNetworkName":"myMed"}|#]
+
+[#|2011-09-12T00:54:23.210+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|data : [{"key":"Value2","value":"Salut","ontologyID":3},{"key":"Value1","value":"Option2","ontologyID":2}]|#]
+
+[#|2011-09-12T00:54:23.210+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|code : 0|#]
+
+[#|2011-09-12T00:54:23.220+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+Response sent:
+predicate published|#]
+
+[#|2011-09-12T00:54:43.826+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|application : myTemplate|#]
+
+[#|2011-09-12T00:54:43.826+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|predicate : testyop2011-09-12|#]
+
+[#|2011-09-12T00:54:43.826+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-09-12T00:54:43.829+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+Response sent:
+[{"predicate":"testyop2011-09-12","name":"Laurent Vanni","user":"MYMED_lvanni@inria.fr"}]|#]
+
+[#|2011-09-12T00:54:43.831+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|id : MYMED_lvanni@inria.fr|#]
+
+[#|2011-09-12T00:54:43.831+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-09-12T00:54:43.834+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+Response sent:
+{"id":"MYMED_lvanni@inria.fr","login":"lvanni@inria.fr","email":"lvanni@inria.fr","name":"Laurent Vanni","firstName":"Laurent","lastName":"Vanni","link":"","birthday":"19/04/84","hometown":"","gender":"","lastConnection":0,"profilePicture":"https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/211579_1421481661_5566025_n.jpg","buddyList":"","subscribtionList":"","reputation":"","session":"","interactionList":"","socialNetworkID":"MYMED","socialNetworkName":"myMed"}|#]
+
+[#|2011-09-12T00:54:47.495+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|application : myTemplate|#]
+
+[#|2011-09-12T00:54:47.496+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|predicate : testyop2011-09-12|#]
+
+[#|2011-09-12T00:54:47.496+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|user : MYMED_lvanni@inria.fr|#]
+
+[#|2011-09-12T00:54:47.496+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-09-12T00:54:47.500+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+Response sent:
+[{"value":"Option2","ontology":"2","key":"Value1"},{"value":"Salut","ontology":"3","key":"Value2"}]|#]
+
+[#|2011-09-12T00:54:47.501+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|id : MYMED_lvanni@inria.fr|#]
+
+[#|2011-09-12T00:54:47.501+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-09-12T00:54:47.505+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+Response sent:
+{"id":"MYMED_lvanni@inria.fr","login":"lvanni@inria.fr","email":"lvanni@inria.fr","name":"Laurent Vanni","firstName":"Laurent","lastName":"Vanni","link":"","birthday":"19/04/84","hometown":"","gender":"","lastConnection":0,"profilePicture":"https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/211579_1421481661_5566025_n.jpg","buddyList":"","subscribtionList":"","reputation":"","session":"","interactionList":"","socialNetworkID":"MYMED","socialNetworkName":"myMed"}|#]
+
+[#|2011-09-12T00:54:59.125+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|application : myTemplate|#]
+
+[#|2011-09-12T00:54:59.125+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|predicate : testyop2011-09-12|#]
+
+[#|2011-09-12T00:54:59.125+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|user : MYMED_lvanni@inria.fr|#]
+
+[#|2011-09-12T00:54:59.125+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-09-12T00:54:59.129+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+Response sent:
+[{"value":"Option2","ontology":"2","key":"Value1"},{"value":"Salut","ontology":"3","key":"Value2"}]|#]
+
+[#|2011-09-12T00:54:59.130+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|id : MYMED_lvanni@inria.fr|#]
+
+[#|2011-09-12T00:54:59.130+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-09-12T00:54:59.134+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+Response sent:
+{"id":"MYMED_lvanni@inria.fr","login":"lvanni@inria.fr","email":"lvanni@inria.fr","name":"Laurent Vanni","firstName":"Laurent","lastName":"Vanni","link":"","birthday":"19/04/84","hometown":"","gender":"","lastConnection":0,"profilePicture":"https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/211579_1421481661_5566025_n.jpg","buddyList":"","subscribtionList":"","reputation":"","session":"","interactionList":"","socialNetworkID":"MYMED","socialNetworkName":"myMed"}|#]
+
+[#|2011-09-12T10:38:12.781+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|login : lvanni|#]
+
+[#|2011-09-12T10:38:12.781+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|password : 0df08dd177144a998b265770fb4dc8bad00748126c56f037651c2c0d44be9298c39491f7bb1656bb6319f572203f45bbf95e22a8373b64a97c7e13aa6136e04a|#]
+
+[#|2011-09-12T10:38:12.781+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-09-12T10:38:12.786+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|Autentication:
+	login : 
+	user : 
+	password : 
+|#]
+
+[#|2011-09-12T10:38:12.786+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+Response sent:
+{
+"error": {
+"type": "IOBackEndException",
+"status":  "404",
+"message": "the login does not exist!"
+}
+}|#]
+
+[#|2011-09-12T10:38:21.704+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|login : lvanni@inria.fr|#]
+
+[#|2011-09-12T10:38:21.704+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|password : 0df08dd177144a998b265770fb4dc8bad00748126c56f037651c2c0d44be9298c39491f7bb1656bb6319f572203f45bbf95e22a8373b64a97c7e13aa6136e04a|#]
+
+[#|2011-09-12T10:38:21.704+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-09-12T10:38:21.707+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|Autentication:
+	login : lvanni@inria.fr
+	user : MYMED_lvanni@inria.fr
+	password : 3ace0cc89d92395bb110f76213fd7ab7ee5145988adf2c98b76ca8e140ffa47d4b8d5cda1e0ab2c76a992a55baa54280113a46af279e97859a75a3ff988a6f55
+|#]
+
+[#|2011-09-12T10:38:21.707+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+Response sent:
+{
+"error": {
+"type": "IOBackEndException",
+"status":  "403",
+"message": "Wrong password"
+}
+}|#]
+
+[#|2011-09-12T10:38:30.628+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|login : lvanni@inria.fr|#]
+
+[#|2011-09-12T10:38:30.628+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|password : 3ace0cc89d92395bb110f76213fd7ab7ee5145988adf2c98b76ca8e140ffa47d4b8d5cda1e0ab2c76a992a55baa54280113a46af279e97859a75a3ff988a6f55|#]
+
+[#|2011-09-12T10:38:30.628+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-09-12T10:38:30.631+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|Autentication:
+	login : lvanni@inria.fr
+	user : MYMED_lvanni@inria.fr
+	password : 3ace0cc89d92395bb110f76213fd7ab7ee5145988adf2c98b76ca8e140ffa47d4b8d5cda1e0ab2c76a992a55baa54280113a46af279e97859a75a3ff988a6f55
+|#]
+
+[#|2011-09-12T10:38:30.638+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+Response sent:
+{"id":"MYMED_lvanni@inria.fr","login":"lvanni@inria.fr","email":"lvanni@inria.fr","name":"Laurent Vanni","firstName":"Laurent","lastName":"Vanni","link":"","birthday":"19/04/84","hometown":"","gender":"","lastConnection":0,"profilePicture":"https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/211579_1421481661_5566025_n.jpg","buddyList":"","subscribtionList":"","reputation":"","session":"","interactionList":"","socialNetworkID":"MYMED","socialNetworkName":"myMed"}|#]
+
+[#|2011-09-12T10:38:30.639+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|userID : MYMED_lvanni@inria.fr|#]
+
+[#|2011-09-12T10:38:30.639+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|code : 0|#]
+
+[#|2011-09-12T10:38:30.650+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+INFO: Session MYMED_lvanni@inria.fr created! -> LOGIN|#]
+
+[#|2011-09-12T10:40:31.342+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|userID : MYMED_lvanni@inria.fr|#]
+
+[#|2011-09-12T10:40:31.342+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|code : 3|#]
+
+[#|2011-09-12T10:40:31.344+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+INFO: Session MYMED_lvanni@inria.fr deleted! -> LOGOUT|#]
+
+[#|2011-09-12T10:41:49.415+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|login : lvanni@inria.fr|#]
+
+[#|2011-09-12T10:41:49.416+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|password : 3ace0cc89d92395bb110f76213fd7ab7ee5145988adf2c98b76ca8e140ffa47d4b8d5cda1e0ab2c76a992a55baa54280113a46af279e97859a75a3ff988a6f55|#]
+
+[#|2011-09-12T10:41:49.416+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-09-12T10:41:49.419+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|Autentication:
+	login : lvanni@inria.fr
+	user : MYMED_lvanni@inria.fr
+	password : 3ace0cc89d92395bb110f76213fd7ab7ee5145988adf2c98b76ca8e140ffa47d4b8d5cda1e0ab2c76a992a55baa54280113a46af279e97859a75a3ff988a6f55
+|#]
+
+[#|2011-09-12T10:41:49.422+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+Response sent:
+{"id":"MYMED_lvanni@inria.fr","login":"lvanni@inria.fr","email":"lvanni@inria.fr","name":"Laurent Vanni","firstName":"Laurent","lastName":"Vanni","link":"","birthday":"19/04/84","hometown":"","gender":"","lastConnection":0,"profilePicture":"https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/211579_1421481661_5566025_n.jpg","buddyList":"","subscribtionList":"","reputation":"","session":"","interactionList":"","socialNetworkID":"MYMED","socialNetworkName":"myMed"}|#]
+
+[#|2011-09-12T10:41:49.423+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|userID : MYMED_lvanni@inria.fr|#]
+
+[#|2011-09-12T10:41:49.423+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|code : 0|#]
+
+[#|2011-09-12T10:41:49.432+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+INFO: Session MYMED_lvanni@inria.fr created! -> LOGIN|#]
+
+[#|2011-09-12T10:41:49.511+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|login : lvanni@inria.fr|#]
+
+[#|2011-09-12T10:41:49.512+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|password : 3ace0cc89d92395bb110f76213fd7ab7ee5145988adf2c98b76ca8e140ffa47d4b8d5cda1e0ab2c76a992a55baa54280113a46af279e97859a75a3ff988a6f55|#]
+
+[#|2011-09-12T10:41:49.512+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-09-12T10:41:49.515+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|Autentication:
+	login : lvanni@inria.fr
+	user : MYMED_lvanni@inria.fr
+	password : 3ace0cc89d92395bb110f76213fd7ab7ee5145988adf2c98b76ca8e140ffa47d4b8d5cda1e0ab2c76a992a55baa54280113a46af279e97859a75a3ff988a6f55
+|#]
+
+[#|2011-09-12T10:41:49.519+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|
+Response sent:
+{"id":"MYMED_lvanni@inria.fr","login":"lvanni@inria.fr","email":"lvanni@inria.fr","name":"Laurent Vanni","firstName":"Laurent","lastName":"Vanni","link":"","birthday":"19/04/84","hometown":"","gender":"","lastConnection":0,"profilePicture":"https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/211579_1421481661_5566025_n.jpg","buddyList":"","subscribtionList":"","reputation":"","session":"","interactionList":"","socialNetworkID":"MYMED","socialNetworkName":"myMed"}|#]
+
+[#|2011-09-12T10:41:49.520+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|userID : MYMED_lvanni@inria.fr|#]
+
+[#|2011-09-12T10:41:49.520+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|code : 0|#]
+
+[#|2011-09-12T10:41:49.526+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-1;|
+INFO: Session MYMED_lvanni@inria.fr created! -> LOGIN|#]
+
