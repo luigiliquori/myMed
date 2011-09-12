@@ -20,6 +20,9 @@ import com.mymed.model.data.user.MUserBean;
  */
 public class AuthenticationManager extends AbstractManager implements IAuthenticationManager {
 
+	private static final String LOGIN_COLUMN = "login";
+	private static final String ENCODING = "UTF8";
+
 	public AuthenticationManager() throws InternalBackEndException {
 		this(new StorageManager());
 	}
@@ -43,11 +46,12 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
 			read(authentication.getLogin(), authentication.getPassword());
 		} catch (final IOBackEndException e) {
 			if (e.getStatus() == 404) { // only if the user does not exist
-				storageManager.insertSlice(CF_AUTHENTICATION, "login", authentication.getAttributeToMap());
+				storageManager.insertSlice(CF_AUTHENTICATION, LOGIN_COLUMN, authentication.getAttributeToMap());
 
 				try {
 					final Map<String, byte[]> authMap = authentication.getAttributeToMap();
-					storageManager.insertSlice(CF_AUTHENTICATION, new String(authMap.get("login"), "UTF8"), authMap);
+					storageManager.insertSlice(CF_AUTHENTICATION, new String(authMap.get(LOGIN_COLUMN), ENCODING),
+					        authMap);
 				} catch (final UnsupportedEncodingException ex) {
 					throw new InternalBackEndException(ex.getMessage());
 				}
@@ -88,11 +92,11 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
 		// Remove the old Authentication (the login/key can be changed)
 		storageManager.removeAll(CF_AUTHENTICATION, id);
 		// Insert the new Authentication
-		storageManager.insertSlice(CF_AUTHENTICATION, "login", authentication.getAttributeToMap());
+		storageManager.insertSlice(CF_AUTHENTICATION, LOGIN_COLUMN, authentication.getAttributeToMap());
 
 		try {
 			final Map<String, byte[]> authMap = authentication.getAttributeToMap();
-			storageManager.insertSlice(CF_AUTHENTICATION, new String(authMap.get("login"), "UTF8"), authMap);
+			storageManager.insertSlice(CF_AUTHENTICATION, new String(authMap.get(LOGIN_COLUMN), ENCODING), authMap);
 		} catch (final UnsupportedEncodingException ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		}
