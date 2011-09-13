@@ -13,9 +13,8 @@ import com.mymed.model.data.user.MUserBean;
  * @author lvanni
  * 
  */
-public class ApplicationManager extends AbstractManager implements
-		IApplicationManager {
-	
+public class ApplicationManager extends AbstractManager implements IApplicationManager {
+
 	/* --------------------------------------------------------- */
 	/* Constructors */
 	/* --------------------------------------------------------- */
@@ -23,38 +22,28 @@ public class ApplicationManager extends AbstractManager implements
 		this(new StorageManager());
 	}
 
-	public ApplicationManager(final IStorageManager storageManager)
-			throws InternalBackEndException {
+	public ApplicationManager(final IStorageManager storageManager) throws InternalBackEndException {
 		super(storageManager);
 	}
 
 	@Override
-	public void create(MUserBean user) throws InternalBackEndException,
-			IOBackEndException {
+	public void create(final MUserBean user) throws InternalBackEndException, IOBackEndException {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
-	public MUserBean read(String id) throws InternalBackEndException,
-			IOBackEndException {
+	public MUserBean read(final String id) throws InternalBackEndException, IOBackEndException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void update(MUserBean user) throws InternalBackEndException,
-			IOBackEndException {
+	public void update(final MUserBean user) throws InternalBackEndException, IOBackEndException {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
-	public void delete(String id) throws InternalBackEndException {
+	public void delete(final String id) throws InternalBackEndException {
 		// TODO Auto-generated method stub
-		
 	}
-
-	
-
 }

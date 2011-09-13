@@ -1,6 +1,5 @@
 package com.mymed.controller.core.manager.storage;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
@@ -10,21 +9,22 @@ import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 
 /**
+ * 
+ * This class represent the DAO pattern: Access to data varies depending on the
+ * source of the data. Access to persistent storage, such as to a database,
+ * varies greatly depending on the type of storage
+ * 
+ * Use a Data Access Object (DAO) to abstract and encapsulate all access to the
+ * data source. The DAO manages the connection with the data source to obtain
+ * and store data.
+ * 
  * @author lvanni
- * 
- *         This class represent the DAO pattern: Access to data varies depending
- *         on the source of the data. Access to persistent storage, such as to a
- *         database, varies greatly depending on the type of storage
- * 
- *         Use a Data Access Object (DAO) to abstract and encapsulate all access
- *         to the data source. The DAO manages the connection with the data
- *         source to obtain and store data.
  */
 public interface IStorageManager {
 
 	/** Default ConsistencyLevel */
-	public static ConsistencyLevel consistencyOnWrite = ConsistencyLevel.ONE;
-	public static ConsistencyLevel consistencyOnRead = ConsistencyLevel.ONE;
+	ConsistencyLevel consistencyOnWrite = ConsistencyLevel.ONE;
+	ConsistencyLevel consistencyOnRead = ConsistencyLevel.ONE;
 
 	/**
 	 * Insert a new entry in the database
@@ -70,9 +70,8 @@ public interface IStorageManager {
 	 *            the name of the column
 	 * @return the value of the column
 	 */
-	public byte[] selectColumn(String tableName, String primaryKey,
-			String columnName) throws IOBackEndException,
-			InternalBackEndException;
+	byte[] selectColumn(String tableName, String primaryKey, String columnName) throws IOBackEndException,
+	        InternalBackEndException;
 
 	/**
 	 * Update the value of a Simple Column
@@ -85,11 +84,9 @@ public interface IStorageManager {
 	 *            the name of the column
 	 * @param value
 	 *            the value updated
-	 * @throws ServiceManagerException
 	 */
-	public void insertColumn(String tableName, String primaryKey,
-			String columnName, byte[] value) throws IOBackEndException,
-			InternalBackEndException;
+	void insertColumn(String tableName, String primaryKey, String columnName, byte[] value)
+	        throws InternalBackEndException;
 
 	/**
 	 * Update the value of a Super Column
@@ -105,12 +102,10 @@ public interface IStorageManager {
 	 * @param value
 	 *            the value updated
 	 * @return true is the value is updated, false otherwise
-	 * @throws ServiceManagerException
 	 * @throws InternalBackEndException
 	 */
-	public void insertSuperColumn(String tableName, String key,
-			String superColumn, String columnName, byte[] value)
-			throws InternalBackEndException;
+	void insertSuperColumn(String tableName, String key, String superColumn, String columnName, byte[] value)
+	        throws InternalBackEndException;
 
 	/**
 	 * Get the value of a Column family
@@ -122,7 +117,6 @@ public interface IStorageManager {
 	 * @param columnName
 	 *            the name of the column
 	 * @return the value of the column
-	 * @throws ServiceManagerException
 	 */
 	public Map<byte[], byte[]> selectAll(String tableName, String primaryKey)
 			throws IOBackEndException, InternalBackEndException;
@@ -150,11 +144,9 @@ public interface IStorageManager {
 	 * @param columnNames
 	 *            the name of the columns to return the values
 	 * @return the value of the columns
-	 * @throws ServiceManagerException
 	 */
-	public Map<byte[], byte[]> selectRange(String tableName, String primaryKey,
-			List<String> columnNames) throws IOBackEndException,
-			InternalBackEndException;
+	Map<byte[], byte[]> selectRange(String tableName, String primaryKey, List<String> columnNames)
+	        throws IOBackEndException, InternalBackEndException;
 
 	/**
 	 * Remove a specific column defined by the columnName
@@ -163,10 +155,9 @@ public interface IStorageManager {
 	 * @param columnFamily
 	 * @param key
 	 * @param columnName
-	 * @throws ServiceManagerException
 	 */
-	public void removeColumn(String tableName, String key, String columnName)
-			throws IOBackEndException, InternalBackEndException;
+	void removeColumn(String tableName, String key, String columnName) throws IOBackEndException,
+	        InternalBackEndException;
 
 	/**
 	 * Remove an entry in the columnFamily
@@ -174,12 +165,9 @@ public interface IStorageManager {
 	 * @param keyspace
 	 * @param columnFamily
 	 * @param key
-	 * @throws ServiceManagerException
 	 * @throws InternalBackEndException
-	 * @throws UnsupportedEncodingException
 	 */
-	public void removeAll(String tableName, String key)
-			throws InternalBackEndException;
+	void removeAll(String tableName, String key) throws InternalBackEndException;
 
 	/**
 	 * Common put operation
@@ -189,8 +177,7 @@ public interface IStorageManager {
 	 * @param DHTType
 	 *            The type of DHT used for the operation
 	 */
-	public void put(String key, byte[] value) throws IOBackEndException,
-			InternalBackEndException;
+	void put(String key, byte[] value) throws IOBackEndException, InternalBackEndException;
 
 	/**
 	 * Common get operation
@@ -199,7 +186,5 @@ public interface IStorageManager {
 	 * @param DHTType
 	 *            The type of DHT used for the operation
 	 */
-	public byte[] get(String key) throws IOBackEndException,
-			InternalBackEndException;
-
+	byte[] get(String key) throws IOBackEndException, InternalBackEndException;
 }

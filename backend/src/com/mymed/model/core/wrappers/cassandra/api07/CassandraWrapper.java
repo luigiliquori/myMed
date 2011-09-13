@@ -7,8 +7,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
+import org.apache.cassandra.thrift.AuthenticationException;
 import org.apache.cassandra.thrift.AuthenticationRequest;
+import org.apache.cassandra.thrift.AuthorizationException;
 import org.apache.cassandra.thrift.Cassandra.Client;
 import org.apache.cassandra.thrift.CfDef;
 import org.apache.cassandra.thrift.Column;
@@ -17,23 +20,24 @@ import org.apache.cassandra.thrift.ColumnParent;
 import org.apache.cassandra.thrift.ColumnPath;
 import org.apache.cassandra.thrift.ConsistencyLevel;
 import org.apache.cassandra.thrift.IndexClause;
+import org.apache.cassandra.thrift.InvalidRequestException;
 import org.apache.cassandra.thrift.KeyRange;
 import org.apache.cassandra.thrift.KeySlice;
 import org.apache.cassandra.thrift.KsDef;
 import org.apache.cassandra.thrift.Mutation;
 import org.apache.cassandra.thrift.NotFoundException;
 import org.apache.cassandra.thrift.SlicePredicate;
-import org.apache.cassandra.thrift.TBinaryProtocol;
+import org.apache.cassandra.thrift.TimedOutException;
 import org.apache.cassandra.thrift.TokenRange;
-import org.apache.thrift.protocol.TProtocol;
-import org.apache.thrift.transport.TFramedTransport;
-import org.apache.thrift.transport.TSocket;
-import org.apache.thrift.transport.TTransportException;
+import org.apache.cassandra.thrift.UnavailableException;
+import org.apache.thrift.TException;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.model.core.wrappers.cassandra.IWrapper;
+import com.mymed.controller.core.manager.connection.Connection;
+import com.mymed.controller.core.manager.connection.ConnectionManager;
 import com.mymed.utils.MConverter;
+import com.mymed.utils.MLogger;
 
 /**
  * Wrapper for the Cassandra API v0.7.<br />
@@ -43,12 +47,32 @@ import com.mymed.utils.MConverter;
  * @author Milo Casagrande
  * 
  */
-public class CassandraWrapper implements ICassandraWrapper, IWrapper {
+public class CassandraWrapper implements ICassandraWrapper {
+	/*
+	 * The port number to use for interacting with Cassandra
+	 */
+	private static final int PORT_NUMBER = 9160;
 
-	private transient TFramedTransport thriftTransport;
-	private transient TSocket socket;
-	private transient TProtocol thriftProtocol;
-	private transient Client cassandraClient;
+	/*
+	 * The name of the default keyspace we use for Cassandra
+	 */
+	private static final String KEYSPACE = "Mymed";
+
+	/*
+	 * The connection manager that provides the connection to Cassandra
+	 */
+	private static final ConnectionManager manager = ConnectionManager.getInstance();
+
+	/*
+	 * The connection instance
+	 */
+	private Connection connection;
+
+	/*
+	 * Address and port tu ose for establishing a connection
+	 */
+	private final String address;
+	private final int port;
 
 	/**
 	 * Empty constructor to create a normal Cassandra client, with address the
@@ -71,31 +95,58 @@ public class CassandraWrapper implements ICassandraWrapper, IWrapper {
 	 * @throws InternalBackEndException
 	 */
 	public CassandraWrapper(final String address, final int port) throws InternalBackEndException {
-		if (address == null && (port == 0 || port < 0)) {
-			throw new InternalBackEndException("Address or port must be a valid value.");
-		} else {
-			socket = new TSocket(address, port);
-			thriftTransport = new TFramedTransport(socket);
-			thriftProtocol = new TBinaryProtocol(thriftTransport);
-			cassandraClient = new Client(thriftProtocol);
+		this.address = address;
+		this.port = port;
+	}
+
+	/**
+	 * Retrieve a connection from the pool and return the Cassandra client
+	 * 
+	 * @return the Cassandra client of the connection
+	 * @throws InternalBackEndException
+	 */
+	private Client getClient() throws InternalBackEndException {
+		connection = (Connection) manager.checkOut(address, port);
+
+		try {
+			MLogger.getLog().info("Setting keyspace to '{}'", KEYSPACE);
+			connection.getClient().set_keyspace(KEYSPACE);
+		} catch (final InvalidRequestException ex) {
+			MLogger.getDebugLog().debug("Error setting the keyspace '{}'", KEYSPACE, ex.getCause());
+			throw new InternalBackEndException("Error setting the keyspace");
+		} catch (final TException ex) {
+			MLogger.getDebugLog().debug("Error setting the keyspace '{}'", KEYSPACE, ex.getCause());
+			throw new InternalBackEndException("Error setting the keyspace");
 		}
+
+		return connection.getClient();
 	}
 
 	@Override
 	public void login(final AuthenticationRequest authRequest) throws InternalBackEndException {
 		try {
-			cassandraClient.login(authRequest);
-		} catch (final Exception ex) {
+			getClient().login(authRequest);
+		} catch (final AuthenticationException ex) {
 			throw new InternalBackEndException(ex);
+		} catch (final AuthorizationException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
+			throw new InternalBackEndException(ex);
+		} finally {
+			manager.checkIn(connection);
 		}
 	}
 
 	@Override
 	public void set_keyspace(final String keySpace) throws InternalBackEndException {
 		try {
-			cassandraClient.set_keyspace(keySpace);
-		} catch (final Exception e) {
-			throw new InternalBackEndException(e);
+			getClient().set_keyspace(keySpace);
+		} catch (final InvalidRequestException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
+			throw new InternalBackEndException(ex);
+		} finally {
+			manager.checkIn(connection);
 		}
 	}
 
@@ -105,12 +156,21 @@ public class CassandraWrapper implements ICassandraWrapper, IWrapper {
 
 		final ByteBuffer keyToBuffer = MConverter.stringToByteBuffer(key);
 		ColumnOrSuperColumn result = null;
+
 		try {
-			result = cassandraClient.get(keyToBuffer, path, level);
+			result = getClient().get(keyToBuffer, path, level);
 		} catch (final NotFoundException ex) {
 			throw new IOBackEndException(ex);
-		} catch (final Exception ex) {
+		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex);
+		} catch (final UnavailableException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TimedOutException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
+			throw new InternalBackEndException(ex);
+		} finally {
+			manager.checkIn(connection);
 		}
 
 		return result;
@@ -124,10 +184,17 @@ public class CassandraWrapper implements ICassandraWrapper, IWrapper {
 		List<ColumnOrSuperColumn> result = null;
 
 		try {
-			result = cassandraClient.get_slice(keyToBuffer, parent, predicate, level);
-		} catch (final Exception ex) {
-			ex.printStackTrace();
+			result = getClient().get_slice(keyToBuffer, parent, predicate, level);
+		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex);
+		} catch (final UnavailableException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TimedOutException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
+			throw new InternalBackEndException(ex);
+		} finally {
+			manager.checkIn(connection);
 		}
 
 		return result;
@@ -142,9 +209,17 @@ public class CassandraWrapper implements ICassandraWrapper, IWrapper {
 		Map<ByteBuffer, List<ColumnOrSuperColumn>> result = null;
 
 		try {
-			result = cassandraClient.multiget_slice(keysToBuffer, parent, predicate, level);
-		} catch (final Exception ex) {
+			result = getClient().multiget_slice(keysToBuffer, parent, predicate, level);
+		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex);
+		} catch (final UnavailableException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TimedOutException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
+			throw new InternalBackEndException(ex);
+		} finally {
+			manager.checkIn(connection);
 		}
 
 		return result;
@@ -158,9 +233,17 @@ public class CassandraWrapper implements ICassandraWrapper, IWrapper {
 		int result = -1;
 
 		try {
-			result = cassandraClient.get_count(keyToBuffer, parent, predicate, level);
-		} catch (final Exception ex) {
+			result = getClient().get_count(keyToBuffer, parent, predicate, level);
+		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex);
+		} catch (final UnavailableException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TimedOutException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
+			throw new InternalBackEndException(ex);
+		} finally {
+			manager.checkIn(connection);
 		}
 
 		return result;
@@ -174,9 +257,17 @@ public class CassandraWrapper implements ICassandraWrapper, IWrapper {
 		Map<ByteBuffer, Integer> result = null;
 
 		try {
-			result = cassandraClient.multiget_count(keysToBuffer, parent, predicate, level);
-		} catch (final Exception ex) {
+			result = getClient().multiget_count(keysToBuffer, parent, predicate, level);
+		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex);
+		} catch (final UnavailableException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TimedOutException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
+			throw new InternalBackEndException(ex);
+		} finally {
+			manager.checkIn(connection);
 		}
 
 		return result;
@@ -189,9 +280,17 @@ public class CassandraWrapper implements ICassandraWrapper, IWrapper {
 		List<KeySlice> result = null;
 
 		try {
-			result = cassandraClient.get_range_slices(parent, predicate, range, level);
-		} catch (final Exception ex) {
+			result = getClient().get_range_slices(parent, predicate, range, level);
+		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex);
+		} catch (final UnavailableException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TimedOutException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
+			throw new InternalBackEndException(ex);
+		} finally {
+			manager.checkIn(connection);
 		}
 
 		return result;
@@ -204,9 +303,17 @@ public class CassandraWrapper implements ICassandraWrapper, IWrapper {
 		List<KeySlice> result = null;
 
 		try {
-			result = cassandraClient.get_indexed_slices(parent, clause, predicate, level);
-		} catch (final Exception ex) {
+			result = getClient().get_indexed_slices(parent, clause, predicate, level);
+		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex);
+		} catch (final UnavailableException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TimedOutException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
+			throw new InternalBackEndException(ex);
+		} finally {
+			manager.checkIn(connection);
 		}
 
 		return result;
@@ -219,9 +326,17 @@ public class CassandraWrapper implements ICassandraWrapper, IWrapper {
 		final ByteBuffer keyToBuffer = MConverter.stringToByteBuffer(key);
 
 		try {
-			cassandraClient.insert(keyToBuffer, parent, column, level);
-		} catch (final Exception ex) {
+			getClient().insert(keyToBuffer, parent, column, level);
+		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex);
+		} catch (final UnavailableException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TimedOutException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
+			throw new InternalBackEndException(ex);
+		} finally {
+			manager.checkIn(connection);
 		}
 	}
 
@@ -235,17 +350,27 @@ public class CassandraWrapper implements ICassandraWrapper, IWrapper {
 		ByteBuffer keyToBuffer = null;
 		Map<String, List<Mutation>> value = null;
 
-		for (final String key : mutationMap.keySet()) {
-			keyToBuffer = MConverter.stringToByteBuffer(key);
-			value = mutationMap.get(key);
+		final Iterator<Entry<String, Map<String, List<Mutation>>>> iterator = mutationMap.entrySet().iterator();
+		while (iterator.hasNext()) {
+			final Entry<String, Map<String, List<Mutation>>> entry = iterator.next();
+			keyToBuffer = MConverter.stringToByteBuffer(entry.getKey());
+			value = entry.getValue();
 
 			newMap.put(keyToBuffer, value);
 		}
 
 		try {
-			cassandraClient.batch_mutate(newMap, level);
-		} catch (final Exception ex) {
+			getClient().batch_mutate(newMap, level);
+		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex);
+		} catch (final UnavailableException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TimedOutException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
+			throw new InternalBackEndException(ex);
+		} finally {
+			manager.checkIn(connection);
 		}
 	}
 
@@ -256,19 +381,32 @@ public class CassandraWrapper implements ICassandraWrapper, IWrapper {
 		final ByteBuffer keyToBuffer = MConverter.stringToByteBuffer(key);
 
 		try {
-			cassandraClient.remove(keyToBuffer, path, timeStamp, level);
-		} catch (final Exception ex) {
+			getClient().remove(keyToBuffer, path, timeStamp, level);
+		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex);
+		} catch (final UnavailableException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TimedOutException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
+			throw new InternalBackEndException(ex);
+		} finally {
+			manager.checkIn(connection);
 		}
 	}
 
 	@Override
 	public void truncate(final String columnFamily) throws InternalBackEndException {
-
 		try {
-			cassandraClient.truncate(columnFamily);
-		} catch (final Exception ex) {
+			getClient().truncate(columnFamily);
+		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex);
+		} catch (final UnavailableException ex) {
+			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
+			throw new InternalBackEndException(ex);
+		} finally {
+			manager.checkIn(connection);
 		}
 	}
 
@@ -277,9 +415,11 @@ public class CassandraWrapper implements ICassandraWrapper, IWrapper {
 		String result = null;
 
 		try {
-			result = cassandraClient.describe_cluster_name();
-		} catch (final Exception ex) {
+			result = getClient().describe_cluster_name();
+		} catch (final TException ex) {
 			throw new InternalBackEndException(ex);
+		} finally {
+			manager.checkIn(connection);
 		}
 
 		return result;
@@ -291,11 +431,15 @@ public class CassandraWrapper implements ICassandraWrapper, IWrapper {
 		KsDef keySpaceDef = null;
 
 		try {
-			keySpaceDef = cassandraClient.describe_keyspace(keySpace);
+			keySpaceDef = getClient().describe_keyspace(keySpace);
 		} catch (final NotFoundException ex) {
 			throw new IOBackEndException(ex);
-		} catch (final Exception ex) {
+		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
+			throw new InternalBackEndException(ex);
+		} finally {
+			manager.checkIn(connection);
 		}
 
 		return keySpaceDef;
@@ -307,9 +451,13 @@ public class CassandraWrapper implements ICassandraWrapper, IWrapper {
 		List<KsDef> keySpaceList = null;
 
 		try {
-			keySpaceList = cassandraClient.describe_keyspaces();
-		} catch (final Exception ex) {
+			keySpaceList = getClient().describe_keyspaces();
+		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
+			throw new InternalBackEndException(ex);
+		} finally {
+			manager.checkIn(connection);
 		}
 
 		return keySpaceList;
@@ -321,9 +469,11 @@ public class CassandraWrapper implements ICassandraWrapper, IWrapper {
 		String partitioner = null;
 
 		try {
-			partitioner = cassandraClient.describe_partitioner();
-		} catch (final Exception ex) {
+			partitioner = getClient().describe_partitioner();
+		} catch (final TException ex) {
 			throw new InternalBackEndException(ex);
+		} finally {
+			manager.checkIn(connection);
 		}
 
 		return partitioner;
@@ -335,9 +485,13 @@ public class CassandraWrapper implements ICassandraWrapper, IWrapper {
 		List<TokenRange> ring = null;
 
 		try {
-			ring = cassandraClient.describe_ring(keySpace);
-		} catch (final Exception ex) {
+			ring = getClient().describe_ring(keySpace);
+		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
+			throw new InternalBackEndException(ex);
+		} finally {
+			manager.checkIn(connection);
 		}
 
 		return ring;
@@ -349,9 +503,11 @@ public class CassandraWrapper implements ICassandraWrapper, IWrapper {
 		String snitch = null;
 
 		try {
-			snitch = cassandraClient.describe_snitch();
-		} catch (final Exception ex) {
+			snitch = getClient().describe_snitch();
+		} catch (final TException ex) {
 			throw new InternalBackEndException(ex);
+		} finally {
+			manager.checkIn(connection);
 		}
 
 		return snitch;
@@ -363,9 +519,11 @@ public class CassandraWrapper implements ICassandraWrapper, IWrapper {
 		String version = null;
 
 		try {
-			version = cassandraClient.describe_version();
-		} catch (final Exception ex) {
+			version = getClient().describe_version();
+		} catch (final TException ex) {
 			throw new InternalBackEndException(ex);
+		} finally {
+			manager.checkIn(connection);
 		}
 
 		return version;
@@ -377,9 +535,13 @@ public class CassandraWrapper implements ICassandraWrapper, IWrapper {
 		String schemaId = null;
 
 		try {
-			schemaId = cassandraClient.system_add_column_family(cfDef);
-		} catch (final Exception ex) {
+			schemaId = getClient().system_add_column_family(cfDef);
+		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
+			throw new InternalBackEndException(ex);
+		} finally {
+			manager.checkIn(connection);
 		}
 
 		return schemaId;
@@ -391,9 +553,13 @@ public class CassandraWrapper implements ICassandraWrapper, IWrapper {
 		String schemaId = null;
 
 		try {
-			schemaId = cassandraClient.system_drop_column_family(columnFamily);
-		} catch (final Exception ex) {
+			schemaId = getClient().system_drop_column_family(columnFamily);
+		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
+			throw new InternalBackEndException(ex);
+		} finally {
+			manager.checkIn(connection);
 		}
 
 		return schemaId;
@@ -405,22 +571,31 @@ public class CassandraWrapper implements ICassandraWrapper, IWrapper {
 		String schemaId = null;
 
 		try {
-			schemaId = cassandraClient.system_add_keyspace(ksDef);
-		} catch (final Exception ex) {
+			schemaId = getClient().system_add_keyspace(ksDef);
+		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
+			throw new InternalBackEndException(ex);
+		} finally {
+			manager.checkIn(connection);
 		}
 
 		return schemaId;
 	}
+
 	@Override
 	public String system_drop_keyspace(final String keySpace) throws InternalBackEndException {
 
 		String schemaId = null;
 
 		try {
-			schemaId = cassandraClient.system_drop_keyspace(keySpace);
-		} catch (final Exception ex) {
+			schemaId = getClient().system_drop_keyspace(keySpace);
+		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
+			throw new InternalBackEndException(ex);
+		} finally {
+			manager.checkIn(connection);
 		}
 
 		return schemaId;
@@ -432,51 +607,34 @@ public class CassandraWrapper implements ICassandraWrapper, IWrapper {
 		String newSchemaId = null;
 
 		try {
-			newSchemaId = cassandraClient.system_update_column_family(columnFamily);
-		} catch (final Exception ex) {
+			newSchemaId = getClient().system_update_column_family(columnFamily);
+		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
+			throw new InternalBackEndException(ex);
+		} finally {
+			manager.checkIn(connection);
 		}
 
 		return newSchemaId;
 	}
+
 	@Override
 	public String system_update_keyspace(final KsDef keySpace) throws InternalBackEndException {
 
 		String newSchemaId = null;
 
 		try {
-			newSchemaId = cassandraClient.system_update_keyspace(keySpace);
-		} catch (final Exception ex) {
+			newSchemaId = getClient().system_update_keyspace(keySpace);
+		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex);
+		} catch (final TException ex) {
+			throw new InternalBackEndException(ex);
+		} finally {
+			manager.checkIn(connection);
 		}
 
 		return newSchemaId;
-	}
-
-	/**
-	 * Open the connection to Cassandra
-	 * 
-	 * @throws InternalBackEndException
-	 */
-	public void open() throws InternalBackEndException {
-		try {
-			if (!thriftTransport.isOpen()) {
-				thriftTransport.open();
-				// We set the keyspace here
-				set_keyspace(KEYSPACE);
-			}
-		} catch (final TTransportException ex) {
-			throw new InternalBackEndException(ex);
-		}
-	}
-
-	/**
-	 * Close the connection to Cassandra
-	 */
-	public void close() {
-		if (thriftTransport.isOpen()) {
-			thriftTransport.close();
-		}
 	}
 
 	/**

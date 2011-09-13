@@ -11126,3 +11126,415 @@ predicate subscribed|#]
 Response sent:
 predicate published|#]
 
+13 sept. 2011 17:55:55 com.sun.enterprise.admin.launcher.GFLauncherLogger info
+INFO: JVM invocation command line:
+/usr/lib/jvm/java-6-openjdk/bin/java
+-cp
+/local/mymed/backend/servers/glassfishv3/glassfish/modules/glassfish.jar
+-XX:+UnlockDiagnosticVMOptions
+-XX:MaxPermSize=192m
+-XX:NewRatio=2
+-XX:+LogVMOutput
+-XX:LogFile=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/logs/jvm.log
+-Xmx512m
+-client
+-javaagent:/local/mymed/backend/servers/glassfishv3/glassfish/lib/monitor/btrace-agent.jar=unsafe=true,noServer=true
+-Dosgi.shell.telnet.maxconn=1
+-Djdbc.drivers=org.apache.derby.jdbc.ClientDriver
+-Dfelix.fileinstall.dir=/local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart/
+-Djavax.net.ssl.keyStore=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/keystore.jks
+-Dosgi.shell.telnet.port=6666
+-Djava.security.policy=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/server.policy
+-Dfelix.fileinstall.poll=5000
+-Dcom.sun.aas.instanceRoot=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1
+-Dcom.sun.enterprise.config.config_environment_factory_class=com.sun.enterprise.config.serverbeans.AppserverConfigEnvironmentFactory
+-Dosgi.shell.telnet.ip=127.0.0.1
+-Djava.endorsed.dirs=/local/mymed/backend/servers/glassfishv3/glassfish/modules/endorsed:/local/mymed/backend/servers/glassfishv3/glassfish/lib/endorsed
+-Dcom.sun.aas.installRoot=/local/mymed/backend/servers/glassfishv3/glassfish
+-Djava.ext.dirs=/usr/lib/jvm/java-6-openjdk/lib/ext:/usr/lib/jvm/java-6-openjdk/jre/lib/ext:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/lib/ext
+-Dfelix.fileinstall.bundles.new.start=true
+-Djavax.net.ssl.trustStore=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/cacerts.jks
+-Dcom.sun.enterprise.security.httpsOutboundKeyAlias=s1as
+-Djava.security.auth.login.config=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/login.conf
+-DANTLR_USE_DIRECT_CLASS_LOADING=true
+-Dfelix.fileinstall.debug=1
+-Dorg.glassfish.web.rfc2109_cookie_names_enforced=false
+-Djava.library.path=/local/mymed/backend/servers/glassfishv3/glassfish/lib:/usr/lib/jvm/java-6-openjdk/jre/lib/i386/server:/usr/lib/jvm/java-6-openjdk/jre/lib/i386:/usr/lib/jvm/java-6-openjdk/lib/i386:/usr/java/packages/lib/i386:/usr/lib/jni:/lib:/usr/lib
+com.sun.enterprise.glassfish.bootstrap.ASMain
+-domainname
+domain1
+-asadmin-args
+start-domain,,,-v
+-instancename
+server
+-verbose
+true
+-debug
+false
+-asadmin-classpath
+/local/mymed/backend/servers/glassfishv3/glassfish/modules/admin-cli.jar
+-asadmin-classname
+com.sun.enterprise.admin.cli.AsadminMain
+-upgrade
+false
+-domaindir
+/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1
+-read-stdin
+true
+13 sept. 2011 17:55:55 com.sun.enterprise.admin.launcher.GFLauncherLogger info
+INFO: Successfully launched in 4 msec.
+[#|2011-09-13T17:55:57.126+0200|INFO|null|null|_ThreadID=11;_ThreadName=Thread-1;|Running GlassFish Version: GlassFish Server Open Source Edition 3.0.1 (build 22)|#]
+
+[#|2011-09-13T17:55:57.394+0200|INFO|glassfish3.0.1|com.sun.grizzly.config.GrizzlyServiceListener|_ThreadID=11;_ThreadName=Thread-1;|Perform lazy SSL initialization for the listener 'http-listener-2'|#]
+
+[#|2011-09-13T17:55:57.437+0200|INFO|glassfish3.0.1|com.sun.grizzly.config.GrizzlyServiceListener|_ThreadID=12;_ThreadName=Thread-1;|Starting Grizzly Framework 1.9.18-o - Tue Sep 13 17:55:57 CEST 2011|#]
+
+[#|2011-09-13T17:55:57.437+0200|INFO|glassfish3.0.1|com.sun.grizzly.config.GrizzlyServiceListener|_ThreadID=13;_ThreadName=Thread-1;|Starting Grizzly Framework 1.9.18-o - Tue Sep 13 17:55:57 CEST 2011|#]
+
+[#|2011-09-13T17:55:57.450+0200|INFO|glassfish3.0.1|null|_ThreadID=15;_ThreadName=Thread-1;|Grizzly Framework 1.9.18-o started in: 48ms listening on port 4848|#]
+
+[#|2011-09-13T17:55:57.450+0200|INFO|glassfish3.0.1|null|_ThreadID=17;_ThreadName=Thread-1;|Grizzly Framework 1.9.18-o started in: 36ms listening on port 7676|#]
+
+[#|2011-09-13T17:55:57.450+0200|INFO|glassfish3.0.1|null|_ThreadID=18;_ThreadName=Thread-1;|Grizzly Framework 1.9.18-o started in: 52ms listening on port 8181|#]
+
+[#|2011-09-13T17:55:57.450+0200|INFO|glassfish3.0.1|null|_ThreadID=14;_ThreadName=Thread-1;|Grizzly Framework 1.9.18-o started in: 67ms listening on port 8080|#]
+
+[#|2011-09-13T17:55:57.450+0200|INFO|glassfish3.0.1|null|_ThreadID=16;_ThreadName=Thread-1;|Grizzly Framework 1.9.18-o started in: 41ms listening on port 3700|#]
+
+[#|2011-09-13T17:55:57.461+0200|INFO|glassfish3.0.1|null|_ThreadID=11;_ThreadName=Thread-1;|The Admin Console is already installed, but not yet loaded.|#]
+
+[#|2011-09-13T17:55:57.706+0200|INFO|glassfish3.0.1|javax.enterprise.resource.jta.com.sun.enterprise.transaction|_ThreadID=11;_ThreadName=Thread-1;|Using com.sun.enterprise.transaction.jts.JavaEETransactionManagerJTSDelegate as the delegate|#]
+
+[#|2011-09-13T17:55:58.017+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security|_ThreadID=11;_ThreadName=Thread-1;|SEC1002: Security Manager is OFF.|#]
+
+[#|2011-09-13T17:55:58.109+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security|_ThreadID=11;_ThreadName=Thread-1;|Security startup service called|#]
+
+[#|2011-09-13T17:55:58.111+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security|_ThreadID=11;_ThreadName=Thread-1;|SEC1143: Loading policy provider com.sun.enterprise.security.provider.PolicyWrapper.|#]
+
+[#|2011-09-13T17:55:58.134+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security.auth.realm|_ThreadID=11;_ThreadName=Thread-1;|Realm admin-realm of classtype com.sun.enterprise.security.auth.realm.file.FileRealm successfully created.|#]
+
+[#|2011-09-13T17:55:58.135+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security.auth.realm|_ThreadID=11;_ThreadName=Thread-1;|Realm file of classtype com.sun.enterprise.security.auth.realm.file.FileRealm successfully created.|#]
+
+[#|2011-09-13T17:55:58.136+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security.auth.realm|_ThreadID=11;_ThreadName=Thread-1;|Realm certificate of classtype com.sun.enterprise.security.auth.realm.certificate.CertificateRealm successfully created.|#]
+
+[#|2011-09-13T17:55:58.139+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security|_ThreadID=11;_ThreadName=Thread-1;|Security service(s) started successfully....|#]
+
+[#|2011-09-13T17:55:58.345+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-1;|Created HTTP listener http-listener-1 on port 8080|#]
+
+[#|2011-09-13T17:55:58.348+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-1;|Created HTTP listener http-listener-2 on port 8181|#]
+
+[#|2011-09-13T17:55:58.350+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-1;|Created HTTP listener admin-listener on port 4848|#]
+
+[#|2011-09-13T17:55:58.365+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-1;|Created virtual server server|#]
+
+[#|2011-09-13T17:55:58.365+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Created virtual server server|#]
+
+[#|2011-09-13T17:55:58.367+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Created virtual server __asadmin|#]
+
+[#|2011-09-13T17:55:58.367+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Created virtual server __asadmin|#]
+
+[#|2011-09-13T17:55:58.367+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-1;|Created virtual server __asadmin|#]
+
+[#|2011-09-13T17:55:58.606+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Virtual server server loaded system default web module|#]
+
+[#|2011-09-13T17:55:58.606+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Virtual server server loaded system default web module|#]
+
+[#|2011-09-13T17:55:58.606+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-1;|Virtual server server loaded system default web module|#]
+
+[#|2011-09-13T17:56:00.356+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application services at /services|#]
+
+[#|2011-09-13T17:56:00.356+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application services at /services|#]
+
+[#|2011-09-13T17:56:00.356+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-1;|Loading application services at /services|#]
+
+[#|2011-09-13T17:56:00.357+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=11;_ThreadName=Thread-1;|Loading services Application done is 2792 ms|#]
+
+[#|2011-09-13T17:56:01.433+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application controller at /controller|#]
+
+[#|2011-09-13T17:56:01.433+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application controller at /controller|#]
+
+[#|2011-09-13T17:56:01.433+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-1;|Loading application controller at /controller|#]
+
+[#|2011-09-13T17:56:01.434+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=11;_ThreadName=Thread-1;|Loading controller Application done is 1075 ms|#]
+
+[#|2011-09-13T17:56:02.504+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application mymed_v1.0_alpha_backend at /mymed_v1.0_alpha_backend|#]
+
+[#|2011-09-13T17:56:02.504+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application mymed_v1.0_alpha_backend at /mymed_v1.0_alpha_backend|#]
+
+[#|2011-09-13T17:56:02.504+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-1;|Loading application mymed_v1.0_alpha_backend at /mymed_v1.0_alpha_backend|#]
+
+[#|2011-09-13T17:56:02.504+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=11;_ThreadName=Thread-1;|Loading mymed_v1.0_alpha_backend Application done is 1070 ms|#]
+
+[#|2011-09-13T17:56:03.995+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-13T17:56:03.995+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-13T17:56:03.995+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-1;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-13T17:56:03.995+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=11;_ThreadName=Thread-1;|Loading mymed_backend Application done is 1491 ms|#]
+
+[#|2011-09-13T17:56:03.995+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=11;_ThreadName=Thread-1;|GlassFish Server Open Source Edition 3.0.1 (22) startup time : Felix(1404ms) startup services(6890ms) total(8294ms)|#]
+
+[#|2011-09-13T17:56:04.016+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.admin.org.glassfish.server|_ThreadID=19;_ThreadName=Thread-1;|Binding RMI port to *:8686|#]
+
+[#|2011-09-13T17:56:04.064+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.admin.org.glassfish.server|_ThreadID=19;_ThreadName=Thread-1;|JMXStartupService: Started JMXConnector, JMXService URL = service:jmx:rmi://mymed2.sophia.inria.fr:8686/jndi/rmi://mymed2.sophia.inria.fr:8686/jmxrmi|#]
+
+[#|2011-09-13T17:56:04.238+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=20;_ThreadName=Thread-1;|[Thread[GlassFish Kernel Main Thread,5,main]] started|#]
+
+[#|2011-09-13T17:56:04.279+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=21;_ThreadName=Thread-1;|{felix.fileinstall.poll (ms) = 5000, felix.fileinstall.dir = /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/bundles, felix.fileinstall.debug = 1, felix.fileinstall.bundles.new.start = true, felix.fileinstall.tmpdir = /tmp/fileinstall--7306456961496704573, felix.fileinstall.filter = null}|#]
+
+[#|2011-09-13T17:56:04.285+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=22;_ThreadName=Thread-1;|{felix.fileinstall.poll (ms) = 5000, felix.fileinstall.dir = /local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart, felix.fileinstall.debug = 1, felix.fileinstall.bundles.new.start = true, felix.fileinstall.tmpdir = /tmp/fileinstall-1760561753214229915, felix.fileinstall.filter = null}|#]
+
+[#|2011-09-13T17:56:04.306+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=22;_ThreadName=Thread-1;|Started bundle: file:/local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart/osgi-web-container.jar|#]
+
+[#|2011-09-13T17:56:04.312+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=22;_ThreadName=Thread-1;|Started bundle: file:/local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart/org.apache.felix.scr.jar|#]
+
+[#|2011-09-13T17:56:09.007+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-1;|login : laurent.vanni@inria.fr|#]
+
+[#|2011-09-13T17:56:09.007+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-1;|password : 3ace0cc89d92395bb110f76213fd7ab7ee5145988adf2c98b76ca8e140ffa47d4b8d5cda1e0ab2c76a992a55baa54280113a46af279e97859a75a3ff988a6f55|#]
+
+[#|2011-09-13T17:56:09.007+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-09-13T17:56:09.039+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-1;|SLF4J: Class path contains multiple SLF4J bindings.|#]
+
+[#|2011-09-13T17:56:09.039+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-1;|SLF4J: Found binding in [jar:file:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/applications/mymed_backend/WEB-INF/lib/slf4j-log4j12-1.5.8.jar!/org/slf4j/impl/StaticLoggerBinder.class]|#]
+
+[#|2011-09-13T17:56:09.039+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-1;|SLF4J: Found binding in [jar:file:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/applications/mymed_backend/WEB-INF/lib/logback-classic-0.9.29.jar!/org/slf4j/impl/StaticLoggerBinder.class]|#]
+
+[#|2011-09-13T17:56:09.039+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-1;|SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.|#]
+
+[#|2011-09-13T17:56:09.140+0200|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=23;_ThreadName=http-thread-pool-8080-(1);|StandardWrapperValve[AuthenticationRequestHandler]: PWC1406: Servlet.service() for servlet AuthenticationRequestHandler threw exception
+java.lang.ExceptionInInitializerError
+	at com.mymed.controller.core.manager.storage.StorageManager.getSlice(StorageManager.java:241)
+	at com.mymed.controller.core.manager.storage.StorageManager.selectByPredicate(StorageManager.java:219)
+	at com.mymed.controller.core.manager.storage.StorageManager.selectAll(StorageManager.java:137)
+	at com.mymed.controller.core.manager.authentication.AuthenticationManager.read(AuthenticationManager.java:73)
+	at com.mymed.controller.core.requesthandler.AuthenticationRequestHandler.doGet(AuthenticationRequestHandler.java:69)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+Caused by: java.lang.ClassCastException: org.slf4j.impl.Log4jLoggerAdapter cannot be cast to ch.qos.logback.classic.Logger
+	at com.mymed.utils.MLogger.<clinit>(MLogger.java:28)
+	... 31 more
+|#]
+
+[#|2011-09-13T17:56:09.140+0200|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=23;_ThreadName=http-thread-pool-8080-(1);|StandardWrapperValve[AuthenticationRequestHandler]: PWC1406: Servlet.service() for servlet AuthenticationRequestHandler threw exception
+java.lang.ExceptionInInitializerError
+	at com.mymed.controller.core.manager.storage.StorageManager.getSlice(StorageManager.java:241)
+	at com.mymed.controller.core.manager.storage.StorageManager.selectByPredicate(StorageManager.java:219)
+	at com.mymed.controller.core.manager.storage.StorageManager.selectAll(StorageManager.java:137)
+	at com.mymed.controller.core.manager.authentication.AuthenticationManager.read(AuthenticationManager.java:73)
+	at com.mymed.controller.core.requesthandler.AuthenticationRequestHandler.doGet(AuthenticationRequestHandler.java:69)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+Caused by: java.lang.ClassCastException: org.slf4j.impl.Log4jLoggerAdapter cannot be cast to ch.qos.logback.classic.Logger
+	at com.mymed.utils.MLogger.<clinit>(MLogger.java:28)
+	... 31 more
+|#]
+
+[#|2011-09-13T17:56:09.140+0200|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=23;_ThreadName=Thread-1;|StandardWrapperValve[AuthenticationRequestHandler]: PWC1406: Servlet.service() for servlet AuthenticationRequestHandler threw exception
+java.lang.ExceptionInInitializerError
+	at com.mymed.controller.core.manager.storage.StorageManager.getSlice(StorageManager.java:241)
+	at com.mymed.controller.core.manager.storage.StorageManager.selectByPredicate(StorageManager.java:219)
+	at com.mymed.controller.core.manager.storage.StorageManager.selectAll(StorageManager.java:137)
+	at com.mymed.controller.core.manager.authentication.AuthenticationManager.read(AuthenticationManager.java:73)
+	at com.mymed.controller.core.requesthandler.AuthenticationRequestHandler.doGet(AuthenticationRequestHandler.java:69)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+Caused by: java.lang.ClassCastException: org.slf4j.impl.Log4jLoggerAdapter cannot be cast to ch.qos.logback.classic.Logger
+	at com.mymed.utils.MLogger.<clinit>(MLogger.java:28)
+	... 31 more
+|#]
+
+[#|2011-09-13T17:56:09.172+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|login : laurent.vanni@inria.fr|#]
+
+[#|2011-09-13T17:56:09.172+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|password : 3ace0cc89d92395bb110f76213fd7ab7ee5145988adf2c98b76ca8e140ffa47d4b8d5cda1e0ab2c76a992a55baa54280113a46af279e97859a75a3ff988a6f55|#]
+
+[#|2011-09-13T17:56:09.172+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-1;|code : 1|#]
+
+[#|2011-09-13T17:56:09.173+0200|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=24;_ThreadName=http-thread-pool-8080-(2);|StandardWrapperValve[AuthenticationRequestHandler]: PWC1406: Servlet.service() for servlet AuthenticationRequestHandler threw exception
+java.lang.NoClassDefFoundError: Could not initialize class com.mymed.utils.MLogger
+	at com.mymed.controller.core.manager.storage.StorageManager.getSlice(StorageManager.java:241)
+	at com.mymed.controller.core.manager.storage.StorageManager.selectByPredicate(StorageManager.java:219)
+	at com.mymed.controller.core.manager.storage.StorageManager.selectAll(StorageManager.java:137)
+	at com.mymed.controller.core.manager.authentication.AuthenticationManager.read(AuthenticationManager.java:73)
+	at com.mymed.controller.core.requesthandler.AuthenticationRequestHandler.doGet(AuthenticationRequestHandler.java:69)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-09-13T17:56:09.173+0200|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=24;_ThreadName=Thread-1;|StandardWrapperValve[AuthenticationRequestHandler]: PWC1406: Servlet.service() for servlet AuthenticationRequestHandler threw exception
+java.lang.NoClassDefFoundError: Could not initialize class com.mymed.utils.MLogger
+	at com.mymed.controller.core.manager.storage.StorageManager.getSlice(StorageManager.java:241)
+	at com.mymed.controller.core.manager.storage.StorageManager.selectByPredicate(StorageManager.java:219)
+	at com.mymed.controller.core.manager.storage.StorageManager.selectAll(StorageManager.java:137)
+	at com.mymed.controller.core.manager.authentication.AuthenticationManager.read(AuthenticationManager.java:73)
+	at com.mymed.controller.core.requesthandler.AuthenticationRequestHandler.doGet(AuthenticationRequestHandler.java:69)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-09-13T17:56:09.173+0200|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=24;_ThreadName=http-thread-pool-8080-(2);|StandardWrapperValve[AuthenticationRequestHandler]: PWC1406: Servlet.service() for servlet AuthenticationRequestHandler threw exception
+java.lang.NoClassDefFoundError: Could not initialize class com.mymed.utils.MLogger
+	at com.mymed.controller.core.manager.storage.StorageManager.getSlice(StorageManager.java:241)
+	at com.mymed.controller.core.manager.storage.StorageManager.selectByPredicate(StorageManager.java:219)
+	at com.mymed.controller.core.manager.storage.StorageManager.selectAll(StorageManager.java:137)
+	at com.mymed.controller.core.manager.authentication.AuthenticationManager.read(AuthenticationManager.java:73)
+	at com.mymed.controller.core.requesthandler.AuthenticationRequestHandler.doGet(AuthenticationRequestHandler.java:69)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:636)
+|#]
+
+[#|2011-09-13T17:56:09.319+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=22;_ThreadName=Thread-1;|Updating configuration from org.apache.felix.fileinstall-autodeploy-bundles.cfg|#]
+
+[#|2011-09-13T17:56:09.322+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=22;_ThreadName=Thread-1;|Installed /local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart/org.apache.felix.fileinstall-autodeploy-bundles.cfg|#]
+
+[#|2011-09-13T17:56:09.323+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=25;_ThreadName=Thread-1;|{felix.fileinstall.poll (ms) = 5000, felix.fileinstall.dir = /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/bundles, felix.fileinstall.debug = 1, felix.fileinstall.bundles.new.start = true, felix.fileinstall.tmpdir = /tmp/fileinstall--8452505445146865150, felix.fileinstall.filter = null}|#]
+
+[#|2011-09-13T17:57:44.519+0200|INFO|glassfish3.0.1|null|_ThreadID=26;_ThreadName=Thread-1;|Total number of available updates : 60|#]
+
+[#|2011-09-13T17:57:44.520+0200|INFO|glassfish3.0.1|null|_ThreadID=26;_ThreadName=Thread-1;|Number of available updates since Fri Sep 09 12:21:56 CEST 2011 : 0|#]
+

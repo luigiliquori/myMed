@@ -18,6 +18,15 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
   <property name="cassandra.dir"       location="../../../../protocols/cassandra/cassandra"/>
   <property name="src.dir"             location="${controller.dir}:${model.dir}:${utils.dir}"/>
 
+	<!-- Fileset with the file extension we want to check -->
+	<fileset id="files.to.check" dir="../">
+    <include name="**/*.java"/>
+    <exclude name="**/*.xml"/>
+    <exclude name="**/*.html"/>
+    <exclude name="**/*.php"/>
+    <exclude name="**/*.jar"/>
+	</fileset>
+
   <!-- Fix the classpath to add the necessary resources -->
 	<path id="mymed.classpath" description="Classpath to be used for running the tests">
 	  <pathelement path="${java.class.path}"/>
@@ -64,13 +73,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
     <pmd shortFilenames="true" encoding="UTF-8" targetjdk="1.6">
       <ruleset>basic,coupling,optimizations,strings,unusedcode,controversial,sunsecure,codesize,design,typeresolution,javabeans,logging-java</ruleset>
       <formatter type="xml" toFile="${results.dir}/pmd.xml"/>
-      <fileset dir="../">
-        <include name="**/*.java"/>
-        <exclude name="**/*.xml"/>
-        <exclude name="**/*.html"/>
-        <exclude name="**/*.php"/>
-        <exclude name="**/*.jar"/>
-      </fileset>
+      <fileset refid="files.to.check"/>
 	  </pmd>
 	</target>
 
@@ -80,13 +83,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
       <class location="../"/>
     	<auxClasspath location="${cassandra.dir}/lib/"/>
       <sourcePath>
-        <fileset dir="../">
-          <include name="**/*.java"/>
-          <exclude name="**/*.xml"/>
-          <exclude name="**/*.html"/>
-          <exclude name="**/*.php"/>
-          <exclude name="**/*.jar"/>
-        </fileset>
+        <fileset refid="files.to.check"/>
       </sourcePath>
     </findbugs>
   </target>

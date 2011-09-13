@@ -1,6 +1,5 @@
 package com.mymed.model.data;
 
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
@@ -8,6 +7,7 @@ import java.util.Map;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.utils.ClassType;
+import com.mymed.utils.MLogger;
 
 /**
  * myMed java Beans:
@@ -42,9 +42,7 @@ public abstract class AbstractMBean {
 
 	/**
 	 * @return all the fields in a hashMap format for the myMed wrapper
-	 * @throws IllegalArgumentException
-	 * @throws IllegalAccessException
-	 * @throws UnsupportedEncodingException
+	 * @throws InternalBackEndException
 	 */
 	public Map<String, byte[]> getAttributeToMap() throws InternalBackEndException {
 		final Map<String, byte[]> args = new HashMap<String, byte[]>();
@@ -66,9 +64,12 @@ public abstract class AbstractMBean {
 
 			try {
 				final ClassType type = ClassType.inferTpye(field.getType());
-
 				args.put(field.getName(), ClassType.objectToByteArray(type, field.get(this)));
-			} catch (final Exception e) {
+			} catch (final IllegalArgumentException ex) {
+				MLogger.getDebugLog().debug("Introspection failed", ex.getCause());
+				throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
+			} catch (final IllegalAccessException ex) {
+				MLogger.getDebugLog().debug("Introspection failed", ex.getCause());
 				throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
 			}
 		}
@@ -76,12 +77,15 @@ public abstract class AbstractMBean {
 		return args;
 	}
 
-	/**
-	 * override toString to have an human readable format
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		String value = "";
+		final StringBuffer value = new StringBuffer(200);
+
 		for (final Field field : this.getClass().getDeclaredFields()) {
 
 			// TODO fix here, not really secure
@@ -89,18 +93,36 @@ public abstract class AbstractMBean {
 
 			try {
 				if (field.get(this) instanceof String) {
-					value += "\t" + field.getName() + " : " + (String) field.get(this) + "\n";
+					value.append('\t');
+					value.append(field.getName());
+					value.append(" : ");
+					value.append((String) field.get(this));
+					value.append('\n');
 				} else {
-					value += "\t" + field.getName() + " : " + field.get(this) + "\n";
+					value.append('\t');
+					value.append(field.getName());
+					value.append(" : ");
+					value.append(field.get(this));
+					value.append('\n');
 				}
 			} catch (final IllegalArgumentException e) {
-				e.printStackTrace();
+				// We should never get here!
+				MLogger.getDebugLog().debug("Arguments are not valid", e.getCause());
 			} catch (final IllegalAccessException e) {
-				e.printStackTrace();
+				MLogger.getDebugLog().debug("Impossibile to access the field '{}'", field.getName(), e.getCause());
 			}
 		}
-		return value;
+
+		value.trimToSize();
+
+		return value.toString();
 	}
-	
+
+	/**
+	 * Updated the bean with new values
+	 * 
+	 * @param mBean
+	 *            the bean to update
+	 */
 	public abstract void update(AbstractMBean mBean);
 }

@@ -18,9 +18,9 @@ public class MSessionBean extends AbstractMBean {
 	private boolean isP2P;
 	private String ip;
 	private int port;
-	
+
 	@Override
-	public void update(AbstractMBean mBean) {
+	public void update(final AbstractMBean mBean) {
 		// TODO Auto-generated method stub
 	}
 
@@ -36,7 +36,6 @@ public class MSessionBean extends AbstractMBean {
 	 */
 	@Override
 	public int hashCode() {
-		// final int PRIME = 31;
 		int result = 1;
 
 		result = PRIME * result + (id == null ? 0 : id.hashCode());
@@ -94,7 +93,7 @@ public class MSessionBean extends AbstractMBean {
 
 		return equal;
 	}
-	
+
 	/* --------------------------------------------------------- */
 	/* GETTER AND SETTER */
 	/* --------------------------------------------------------- */
@@ -115,14 +114,14 @@ public class MSessionBean extends AbstractMBean {
 	}
 
 	/**
-	 * @return the user associated with the session
+	 * @return the ID of the user associated with the session
 	 */
 	public String getUser() {
 		return user;
 	}
 
 	/**
-	 * Set the user to associate with this session
+	 * Set the ID of the user to associate with this session
 	 * 
 	 * @param user
 	 */
@@ -201,4 +200,5 @@ public class MSessionBean extends AbstractMBean {
 	public void setPort(final int port) {
 		this.port = port;
 	}
+
 }

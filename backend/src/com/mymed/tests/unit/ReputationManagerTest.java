@@ -16,7 +16,7 @@ import com.mymed.model.data.reputation.MReputationBean;
  */
 public class ReputationManagerTest extends GeneralTest {
 
-	private final double feedback = 2;
+	private static final double FEEDBACK = 2;
 
 	/**
 	 * Perform an update operation
@@ -24,7 +24,7 @@ public class ReputationManagerTest extends GeneralTest {
 	@Test
 	public void testUpdateReputation() {
 		try {
-			reputationManager.update(interactionBean, feedback);
+			reputationManager.update(interactionBean, FEEDBACK);
 		} catch (final Exception ex) {
 			fail(ex.getMessage());
 		}
@@ -37,7 +37,7 @@ public class ReputationManagerTest extends GeneralTest {
 	public void testReadReputation() {
 		try {
 			final MReputationBean beanRead = reputationManager.read(PRODUCER_ID, CONSUMER_ID, APPLICATION_ID);
-			assertEquals("The reputation beans are not the same\n", feedback, beanRead.getValue(), 0);
+			assertEquals("The reputation beans are not the same\n", FEEDBACK, beanRead.getValue(), 0);
 		} catch (final Exception ex) {
 			fail(ex.getMessage());
 		}

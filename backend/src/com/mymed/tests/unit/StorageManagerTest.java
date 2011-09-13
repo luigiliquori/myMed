@@ -37,8 +37,7 @@ public class StorageManagerTest extends GeneralTest {
 	 */
 	@AfterClass
 	public static void end() throws InternalBackEndException {
-		final StorageManager manager = new StorageManager(
-				new WrapperConfiguration(new File(CONF_FILE)));
+		final StorageManager manager = new StorageManager(new WrapperConfiguration(new File(CONF_FILE)));
 		manager.removeAll(USER_TABLE, USER_ID);
 	}
 
@@ -51,8 +50,7 @@ public class StorageManagerTest extends GeneralTest {
 	 */
 	@Test(expected = InternalBackEndException.class)
 	public void testInsertColumnWrong() throws InternalBackEndException {
-		storageManager.insertColumn(WRONG_USER_TABLE, USER_ID, COLUMN_NAME,
-				name);
+		storageManager.insertColumn(WRONG_USER_TABLE, USER_ID, COLUMN_NAME, name);
 	}
 
 	/**
@@ -64,12 +62,9 @@ public class StorageManagerTest extends GeneralTest {
 	public void testInsertColumn() {
 		try {
 			storageManager.insertColumn(USER_TABLE, USER_ID, COLUMN_NAME, name);
-			storageManager.insertColumn(USER_TABLE, USER_ID, COLUMN_FIRSTNAME,
-					firstName);
-			storageManager.insertColumn(USER_TABLE, USER_ID, COLUMN_LASTNAME,
-					lastName);
-			storageManager.insertColumn(USER_TABLE, USER_ID, COLUMN_BIRTHDATE,
-					birthDate);
+			storageManager.insertColumn(USER_TABLE, USER_ID, COLUMN_FIRSTNAME, firstName);
+			storageManager.insertColumn(USER_TABLE, USER_ID, COLUMN_LASTNAME, lastName);
+			storageManager.insertColumn(USER_TABLE, USER_ID, COLUMN_BIRTHDATE, birthDate);
 		} catch (final InternalBackEndException ex) {
 			fail(ex.getMessage());
 		}
@@ -82,10 +77,8 @@ public class StorageManagerTest extends GeneralTest {
 	public void testRemoveAll() {
 		try {
 			storageManager.removeAll(USER_TABLE, USER_ID);
-			final Map<byte[], byte[]> column = storageManager.selectAll(
-					USER_TABLE, USER_ID);
-			assertTrue("The number of columns after a removeAll is not 0",
-					column.isEmpty());
+			final Map<byte[], byte[]> column = storageManager.selectAll(USER_TABLE, USER_ID);
+			assertTrue("The number of columns after a removeAll is not 0", column.isEmpty());
 		} catch (final Exception ex) {
 			fail(ex.getMessage());
 		}
@@ -118,29 +111,20 @@ public class StorageManagerTest extends GeneralTest {
 	@Test
 	public void testSelectColumn() {
 		try {
-			byte[] returnValue = storageManager.selectColumn(USER_TABLE,
-					USER_ID, COLUMN_NAME);
-			assertArrayEquals(
-					"The returned byte array (name) is not equal to the inserted one",
-					name, returnValue);
+			byte[] returnValue = storageManager.selectColumn(USER_TABLE, USER_ID, COLUMN_NAME);
+			assertArrayEquals("The returned byte array (name) is not equal to the inserted one", name, returnValue);
 
-			returnValue = storageManager.selectColumn(USER_TABLE, USER_ID,
-					COLUMN_FIRSTNAME);
-			assertArrayEquals(
-					"The returned byte array (firstname) is not equal to the inserted one",
-					firstName, returnValue);
+			returnValue = storageManager.selectColumn(USER_TABLE, USER_ID, COLUMN_FIRSTNAME);
+			assertArrayEquals("The returned byte array (firstname) is not equal to the inserted one", firstName,
+			        returnValue);
 
-			returnValue = storageManager.selectColumn(USER_TABLE, USER_ID,
-					COLUMN_LASTNAME);
-			assertArrayEquals(
-					"The returned byte array (lastname) is not equal to the inserted one",
-					lastName, returnValue);
+			returnValue = storageManager.selectColumn(USER_TABLE, USER_ID, COLUMN_LASTNAME);
+			assertArrayEquals("The returned byte array (lastname) is not equal to the inserted one", lastName,
+			        returnValue);
 
-			returnValue = storageManager.selectColumn(USER_TABLE, USER_ID,
-					COLUMN_BIRTHDATE);
-			assertArrayEquals(
-					"The returned byte array (birthdate) is not equal to the inserted one",
-					birthDate, returnValue);
+			returnValue = storageManager.selectColumn(USER_TABLE, USER_ID, COLUMN_BIRTHDATE);
+			assertArrayEquals("The returned byte array (birthdate) is not equal to the inserted one", birthDate,
+			        returnValue);
 		} catch (final Exception ex) {
 			fail(ex.getMessage());
 		}
@@ -155,8 +139,7 @@ public class StorageManagerTest extends GeneralTest {
 	 * @throws IOBackEndException
 	 */
 	@Test(expected = InternalBackEndException.class)
-	public void testSelectColumnWrong() throws InternalBackEndException,
-			IOBackEndException {
+	public void testSelectColumnWrong() throws InternalBackEndException, IOBackEndException {
 		storageManager.selectColumn(WRONG_USER_TABLE, USER_ID, COLUMN_NAME);
 	}
 
@@ -169,8 +152,7 @@ public class StorageManagerTest extends GeneralTest {
 	 * @throws IOBackEndException
 	 */
 	@Test(expected = IOBackEndException.class)
-	public void testSelectColumnWrong1() throws InternalBackEndException,
-			IOBackEndException {
+	public void testSelectColumnWrong1() throws InternalBackEndException, IOBackEndException {
 		storageManager.selectColumn(USER_TABLE, WRONG_USER_ID, COLUMN_NAME);
 	}
 
@@ -184,8 +166,7 @@ public class StorageManagerTest extends GeneralTest {
 	 * @throws IOBackEndException
 	 */
 	@Test(expected = IOBackEndException.class)
-	public void testSelectColumnWrong2() throws InternalBackEndException,
-			IOBackEndException {
+	public void testSelectColumnWrong2() throws InternalBackEndException, IOBackEndException {
 		storageManager.selectColumn(USER_TABLE, USER_ID, WRONG_COLUMN_NAME);
 	}
 
@@ -196,11 +177,8 @@ public class StorageManagerTest extends GeneralTest {
 	@Test
 	public void testSelectAll() {
 		try {
-			final Map<byte[], byte[]> columns = storageManager.selectAll(
-					USER_TABLE, USER_ID);
-			assertSame(
-					"The number of retrived columns is not equal to the inserted one",
-					INSERTS, columns.size());
+			final Map<byte[], byte[]> columns = storageManager.selectAll(USER_TABLE, USER_ID);
+			assertSame("The number of retrived columns is not equal to the inserted one", INSERTS, columns.size());
 		} catch (final Exception ex) {
 			fail(ex.getMessage());
 		}
@@ -217,10 +195,8 @@ public class StorageManagerTest extends GeneralTest {
 			columnNames.add(COLUMN_NAME);
 			columnNames.add(COLUMN_BIRTHDATE);
 
-			final Map<byte[], byte[]> column = storageManager.selectRange(
-					USER_TABLE, USER_ID, columnNames);
-			assertSame("The number of retrieved columns is wrong", 2,
-					column.size());
+			final Map<byte[], byte[]> column = storageManager.selectRange(USER_TABLE, USER_ID, columnNames);
+			assertSame("The number of retrieved columns is wrong", 2, column.size());
 		} catch (final Exception ex) {
 			fail(ex.getMessage());
 		}
@@ -238,10 +214,8 @@ public class StorageManagerTest extends GeneralTest {
 			columnNames.add(COLUMN_NAME);
 			columnNames.add(WRONG_COLUMN_NAME);
 
-			final Map<byte[], byte[]> column = storageManager.selectRange(
-					USER_TABLE, USER_ID, columnNames);
-			assertSame("The number of retrieved columns is wrong", 1,
-					column.size());
+			final Map<byte[], byte[]> column = storageManager.selectRange(USER_TABLE, USER_ID, columnNames);
+			assertSame("The number of retrieved columns is wrong", 1, column.size());
 		} catch (final Exception ex) {
 			fail(ex.getMessage());
 		}
@@ -256,11 +230,8 @@ public class StorageManagerTest extends GeneralTest {
 		try {
 			storageManager.removeColumn(USER_TABLE, USER_ID, COLUMN_NAME);
 
-			final Map<byte[], byte[]> column = storageManager.selectAll(
-					USER_TABLE, USER_ID);
-			assertSame(
-					"The number of columns after removing one is not correct",
-					INSERTS - 1, column.size());
+			final Map<byte[], byte[]> column = storageManager.selectAll(USER_TABLE, USER_ID);
+			assertSame("The number of columns after removing one is not correct", INSERTS - 1, column.size());
 		} catch (final Exception ex) {
 			fail(ex.getMessage());
 		}

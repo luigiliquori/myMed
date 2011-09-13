@@ -37,6 +37,8 @@ public class MInteractionBean extends AbstractMBean {
 	 *            the interaction bean to clone
 	 */
 	protected MInteractionBean(final MInteractionBean toClone) {
+		super();
+
 		id = toClone.getId();
 		application = toClone.getApplication();
 		producer = toClone.getProducer();
@@ -53,12 +55,12 @@ public class MInteractionBean extends AbstractMBean {
 	 */
 	public MInteractionBean() {
 		// Empty constructor, needed because of the copy constructor
+		super();
 	}
 
 	@Override
 	public MInteractionBean clone() {
-		final MInteractionBean interactionBean = new MInteractionBean(this);
-		return interactionBean;
+		return new MInteractionBean(this);
 	}
 
 	@Override

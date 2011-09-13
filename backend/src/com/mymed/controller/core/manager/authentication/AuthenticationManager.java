@@ -1,7 +1,6 @@
 package com.mymed.controller.core.manager.authentication;
 
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
 import java.util.Map;
 
 import com.mymed.controller.core.exception.IOBackEndException;
@@ -19,18 +18,16 @@ import com.mymed.model.data.user.MUserBean;
  * @author Milo Casagrande
  * 
  */
-public class AuthenticationManager extends AbstractManager implements
-		IAuthenticationManager {
+public class AuthenticationManager extends AbstractManager implements IAuthenticationManager {
 
-	/* --------------------------------------------------------- */
-	/* Constructors */
-	/* --------------------------------------------------------- */
+	private static final String LOGIN_COLUMN = "login";
+	private static final String ENCODING = "UTF8";
+
 	public AuthenticationManager() throws InternalBackEndException {
 		this(new StorageManager());
 	}
 
-	public AuthenticationManager(final StorageManager storageManager)
-			throws InternalBackEndException {
+	public AuthenticationManager(final StorageManager storageManager) throws InternalBackEndException {
 		super(storageManager);
 	}
 
@@ -39,30 +36,30 @@ public class AuthenticationManager extends AbstractManager implements
 	 * @see IAuthenticationManager#create(MUserBean, MAuthenticationBean)
 	 */
 	@Override
-	public MUserBean create(final MUserBean user,
-			final MAuthenticationBean authentication)
-			throws InternalBackEndException, IOBackEndException {
+	public MUserBean create(final MUserBean user, final MAuthenticationBean authentication)
+	        throws InternalBackEndException, IOBackEndException {
 
-		final ProfileManager profileManager = new ProfileManager();
+		final ProfileManager profileManager = new ProfileManager(storageManager);
 		profileManager.create(user);
 
 		try {
 			read(authentication.getLogin(), authentication.getPassword());
-		} catch (IOBackEndException e) { 
-			if(e.getStatus() == 404) { // only if the user does not exist
-				storageManager.insertSlice(CF_AUTHENTICATION, "login",
-						authentication.getAttributeToMap());
+		} catch (final IOBackEndException e) {
+			if (e.getStatus() == 404) { // only if the user does not exist
+				storageManager.insertSlice(CF_AUTHENTICATION, LOGIN_COLUMN, authentication.getAttributeToMap());
+
 				try {
-					final Map<String, byte[]> authMap = authentication
-							.getAttributeToMap();
-					storageManager.insertSlice(CF_AUTHENTICATION,
-							new String(authMap.get("login"), "UTF8"), authMap);
+					final Map<String, byte[]> authMap = authentication.getAttributeToMap();
+					storageManager.insertSlice(CF_AUTHENTICATION, new String(authMap.get(LOGIN_COLUMN), ENCODING),
+					        authMap);
 				} catch (final UnsupportedEncodingException ex) {
 					throw new InternalBackEndException(ex.getMessage());
 				}
+
 				return user;
 			}
 		}
+
 		throw new IOBackEndException("The login already exist!", 409);
 	}
 
@@ -70,43 +67,36 @@ public class AuthenticationManager extends AbstractManager implements
 	 * @see IAuthenticationManager#read(String, String)
 	 */
 	@Override
-	public MUserBean read(final String login, final String password)
-			throws InternalBackEndException, IOBackEndException {
+	public MUserBean read(final String login, final String password) throws InternalBackEndException,
+	        IOBackEndException {
 
-		Map<byte[], byte[]> args = new HashMap<byte[], byte[]>();
-		MAuthenticationBean authentication = new MAuthenticationBean();
-
-		args = storageManager.selectAll(CF_AUTHENTICATION, login);
-		authentication = (MAuthenticationBean) introspection(authentication,
-				args);
-
-		System.out.println(authentication);
+		final Map<byte[], byte[]> args = storageManager.selectAll(CF_AUTHENTICATION, login);
+		final MAuthenticationBean authentication = (MAuthenticationBean) introspection(new MAuthenticationBean(), args);
 
 		if (authentication.getLogin().equals("")) {
 			throw new IOBackEndException("the login does not exist!", 404);
 		} else if (!authentication.getPassword().equals(password)) {
 			throw new IOBackEndException("Wrong password", 403);
 		}
-		return new ProfileManager().read(authentication.getUser());
+
+		return new ProfileManager(storageManager).read(authentication.getUser());
 	}
 
 	/**
-	 * @throws IOBackEndException 
+	 * @throws IOBackEndException
 	 * @see IAuthenticationManager#update(MAuthenticationBean)
 	 */
 	@Override
-	public void update(final String id, final MAuthenticationBean authentication)
-			throws InternalBackEndException, IOBackEndException {
+	public void update(final String id, final MAuthenticationBean authentication) throws InternalBackEndException,
+	        IOBackEndException {
 		// Remove the old Authentication (the login/key can be changed)
 		storageManager.removeAll(CF_AUTHENTICATION, id);
 		// Insert the new Authentication
-		storageManager.insertSlice(CF_AUTHENTICATION, "login",
-				authentication.getAttributeToMap());
+		storageManager.insertSlice(CF_AUTHENTICATION, LOGIN_COLUMN, authentication.getAttributeToMap());
+
 		try {
-			final Map<String, byte[]> authMap = authentication
-					.getAttributeToMap();
-			storageManager.insertSlice(CF_AUTHENTICATION,
-					new String(authMap.get("login"), "UTF8"), authMap);
+			final Map<String, byte[]> authMap = authentication.getAttributeToMap();
+			storageManager.insertSlice(CF_AUTHENTICATION, new String(authMap.get(LOGIN_COLUMN), ENCODING), authMap);
 		} catch (final UnsupportedEncodingException ex) {
 			throw new InternalBackEndException(ex.getMessage());
 		}
