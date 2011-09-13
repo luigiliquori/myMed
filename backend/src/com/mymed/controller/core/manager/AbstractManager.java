@@ -117,8 +117,6 @@ public abstract class AbstractManager extends ManagerValues {
 		setterName.append("set");
 		String subName = fieldName;
 
-		MLogger.getDebugLog().debug("Creating setter name with filed name: {}", fieldName);
-
 		/*
 		 * Check that the boolean field we are on does start with 'is'. This
 		 * should be the default prefix for boolean fields. In this case the
@@ -127,15 +125,11 @@ public abstract class AbstractManager extends ManagerValues {
 		 */
 		if (classType.equals(ClassType.BOOL) && fieldName.startsWith("is")) {
 			subName = fieldName.substring(2, fieldName.length());
-			MLogger.getDebugLog().debug("Field is a boolean field with sub-name: {}", subName);
 		}
 
 		setterName.append(subName.substring(0, 1).toUpperCase(Locale.US));
 		setterName.append(subName.substring(1));
-
 		setterName.trimToSize();
-
-		MLogger.getDebugLog().debug("Setter name created as: {}", setterName.toString());
 
 		return setterName.toString();
 	}
