@@ -41,7 +41,7 @@ public class TestValues {
 	protected static final String BUDDY_LST_ID = "buddylist1";
 	protected static final String SUBSCRIPTION_LST_ID = "subscription1";
 	protected static final String REPUTATION_ID = "reputation1";
-	protected static final String SESSION_ID = USER_ID + "_SUFFIX";
+	protected static final String SESSION_ID = USER_ID + "_SESSION";
 	protected static final String INTERACTION_LST_ID = "interaction1";
 
 	protected static final String INTERACTION_ID = "interaction1";
