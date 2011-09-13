@@ -103,11 +103,13 @@ public final class ConnectionManager implements IConnectionManager {
 	 */
 	@Override
 	public void checkIn(final IConnection connection) {
-		final String address = ((Connection) connection).getAddress();
-		final int port = ((Connection) connection).getPort();
-		final IConnectionPool pool = pools.get(address + port);
+		if (connection != null) {
+			final String address = ((Connection) connection).getAddress();
+			final int port = ((Connection) connection).getPort();
+			final IConnectionPool pool = pools.get(address + port);
 
-		pool.checkIn(connection);
+			pool.checkIn(connection);
+		}
 	}
 
 	/*

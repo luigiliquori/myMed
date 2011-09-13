@@ -13,11 +13,15 @@ import com.mymed.utils.MLogger;
  * 
  */
 public class ConnectionPool implements IConnectionPool {
+	/*
+	 * The default capacity of the pool, this is set to a power of 2: 2^7
+	 */
+	private static final int DEFAULT_CAP = 128;
 
 	/*
-	 * The default capacity of the pool
+	 * The maximum capacity of the pool, this is set to a power of 2: 2^12
 	 */
-	private static final int DEFAULT_CAP = 100;
+	private static final int MAX_CAP = 4096;
 
 	/*
 	 * The maximum capacity of the pool, when set to zero it means limit-less
@@ -74,11 +78,16 @@ public class ConnectionPool implements IConnectionPool {
 	 *            the maximum capacity of the pool
 	 */
 	public ConnectionPool(final String address, final int port, final int capacity) {
-		available = new ArrayBlockingQueue<IConnection>(capacity, true);
+		if (capacity > MAX_CAP || capacity == 0) {
+			this.capacity = MAX_CAP;
+		} else {
+			this.capacity = capacity;
+		}
 
-		this.capacity = capacity;
 		this.address = address;
 		this.port = port;
+
+		available = new ArrayBlockingQueue<IConnection>(this.capacity, true);
 	}
 
 	/**
@@ -95,8 +104,9 @@ public class ConnectionPool implements IConnectionPool {
 			con.open();
 		} catch (final InternalBackEndException ex) {
 			// If we cannot open the connection, we return null
-			con = null; // NOPMD
 			MLogger.getLog().info(ex.getMessage());
+			MLogger.getDebugLog().debug(ex.getMessage(), ex.getCause());
+			con = null; // NOPMD
 		}
 
 		return con;
@@ -144,12 +154,10 @@ public class ConnectionPool implements IConnectionPool {
 	@Override
 	public void checkIn(final IConnection connection) {
 		synchronized (SYNC) {
-			if (connection != null) {
-				available.add(connection);
-				checkedOut.decrementAndGet();
+			available.add(connection);
+			checkedOut.decrementAndGet();
 
-				SYNC.notifyAll();
-			}
+			SYNC.notifyAll();
 		}
 	}
 

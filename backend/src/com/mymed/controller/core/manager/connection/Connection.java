@@ -3,6 +3,9 @@ package com.mymed.controller.core.manager.connection;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+import org.apache.cassandra.thrift.Cassandra.Client;
+import org.apache.cassandra.thrift.TBinaryProtocol;
+import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TFramedTransport;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransportException;
@@ -30,7 +33,9 @@ public class Connection implements IConnection {
 
 	// Socket and transport used for the connection
 	private final TSocket socket;
-	private final TFramedTransport thriftTransport;
+	private final TFramedTransport transport;
+	private final TProtocol protocol;
+	private final Client cassandra;
 
 	/**
 	 * Create a new connection using as address the localhost address and the
@@ -63,7 +68,16 @@ public class Connection implements IConnection {
 		}
 
 		socket = new TSocket(this.address, this.port);
-		thriftTransport = new TFramedTransport(socket);
+		transport = new TFramedTransport(socket);
+		protocol = new TBinaryProtocol(transport);
+		cassandra = new Client(protocol);
+	}
+
+	/**
+	 * @return the Cassandra instance to use
+	 */
+	public Client getClient() {
+		return cassandra;
 	}
 
 	/*
@@ -94,7 +108,7 @@ public class Connection implements IConnection {
 	 */
 	@Override
 	public boolean isOpen() {
-		return thriftTransport.isOpen();
+		return transport.isOpen();
 	}
 
 	/*
@@ -105,12 +119,11 @@ public class Connection implements IConnection {
 	@Override
 	public void open() throws InternalBackEndException {
 		try {
-			if (!thriftTransport.isOpen()) {
-				thriftTransport.open();
+			if (!transport.isOpen()) {
+				transport.open();
 			}
 		} catch (final TTransportException ex) {
-			MLogger.getDebugLog().debug("Error opening connection", ex.getCause());
-			throw new InternalBackEndException("Error opening the connection");
+			throw new InternalBackEndException("Error opening the connection to " + address + ":" + port, ex.getCause());
 		}
 	}
 
@@ -121,8 +134,8 @@ public class Connection implements IConnection {
 	 */
 	@Override
 	public void close() {
-		if (thriftTransport.isOpen()) {
-			thriftTransport.close();
+		if (transport.isOpen()) {
+			transport.close();
 		}
 	}
 
