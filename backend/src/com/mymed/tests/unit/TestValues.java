@@ -58,10 +58,6 @@ public class TestValues {
 	 */
 	private static final SecureRandom RANDOM = new SecureRandom();
 
-	private TestValues() {
-		// Private empty constructor to silence warnings about singleton
-	}
-
 	/**
 	 * Get the string representation of a RANDOM casual generated password
 	 * 
