@@ -43,7 +43,7 @@ class MyTemplateHandler implements IRequestHandler {
 				$find->send();
 			} 
 		} else if(isset($_GET['getDetails'])) {
-			$request = new Request("PubSubRequestHandler", READ);
+			$request = new Request("FindRequestHandler", READ);
 			$request->addArgument("application", "myTemplate");
 			$request->addArgument("predicate", $_GET['predicate']);
 			$request->addArgument("user", $_GET['user']);

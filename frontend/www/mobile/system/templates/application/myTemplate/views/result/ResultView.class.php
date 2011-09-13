@@ -45,6 +45,11 @@ class ResultView extends MyTemplate {
 	<?php }
 	
 	/**
+	* Get the FOOTER for jQuery Mobile
+	*/
+	public /*String*/ function getFooter() { }
+	
+	/**
 	* Print the Template
 	*/
 	public /*String*/ function getContent() { ?>
@@ -83,7 +88,7 @@ class ResultView extends MyTemplate {
 						</li>
 					<?php } ?>
 				</ul>
-			<?php } else if($this->handler->getSuccess() && $_POST['method'] == "publish") { ?>
+			<?php } else if($this->handler->getSuccess() && ($_POST['method'] == "publish" || $_POST['method'] == "subscribe")) { ?>
 				<h2 style="color:green;">Message envoyé avec succès</h2>
 				<a href="?application=myTemplate" data-role="button" rel="external">Retour</a>
 			<?php } else { ?>

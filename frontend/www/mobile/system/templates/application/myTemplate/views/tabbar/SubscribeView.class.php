@@ -34,23 +34,44 @@ class SubscribeView extends MyTemplate {
 	public /*String*/ function getContent() { ?>
 		<!-- CONTENT -->
 		<div class="content" data-role="content">
-			<form  action="#" method="get" name="subscribeForm" id="subscribeForm">
+			<form  action="#" method="post" name="myTemplateSubscribeForm" id="myTemplateSubscribeForm">
+				<!-- Define the method to call -->
 				<input type="hidden" name="application" value="myTemplate" />
-				<input type="hidden" name="subscribe" value="1" />
-				Ontology 1 (Type: KEYWORD) :<br />
-				<input type="text" name="start" value=""  data-inline="true"/><br />
-				Ontology 2 (Type: GPS) :<br />
-				<input type="text" name="start" value=""  data-inline="true"/><br />
-				Ontology 3 (Type: ENUM) :<br />
-				<select name="type" data-theme="a">
+				<input type="hidden" name="method" value="subscribe" />
+				<input type="hidden" name="numberOfOntology" value="4" />
+				
+				<!-- KEYWORD -->
+				Ontology 0 (Type: KEYWORD) :<br />
+				<input type="text" name="keyword" value=""  data-inline="true"/><br />
+				<?php $keyword = new MDataBean("keyword", null, KEYWORD); ?>
+				<input type="hidden" name="ontology0" value="<?= urlencode(json_encode($keyword)); ?>">
+				
+				<!-- GPS -->
+				Ontology 1 (Type: GPS) :<br />
+				<input type="text" name="gps" value=""  data-inline="true"/>
+				<?php $gps = new MDataBean("gps", null, GPS); ?>
+				<input type="hidden" name="ontology1" value="<?= urlencode(json_encode($gps)); ?>">
+				<br />
+				
+				<!-- ENUM -->
+				Ontology 2 (Type: ENUM) :<br />
+				<select name="enum" data-theme="a">
 					<option value="Option1">Option1</option>
 					<option value="Option2">Option2</option>
 					<option value="Option3">Option3</option>
-				</select><br />
-				Ontology 4 (Type: DATE) :<br />
+				</select>
+				<?php $enum = new MDataBean("enum", null, ENUM); ?>
+				<input type="hidden" name="ontology2" value="<?= urlencode(json_encode($enum)); ?>">
+				<br />
+				
+				<!-- DATE -->
+				Ontology 3 (Type: DATE) :<br />
 				<input type="date" name="date" value="<?php echo date('Y-m-d');?>"  data-inline="true"/>
+				<?php $date = new MDataBean("date", null, DATE); ?>
+				<input type="hidden" name="ontology3" value="<?= urlencode(json_encode($date)); ?>">
+
 				<br /><br />
-				<a href="#" data-role="button"onclick="document.subscribeForm.submit()">Subscribe</a>	
+				<a href="#" data-role="button"onclick="document.myTemplateSubscribeForm.submit()">Subscribe</a>	
 			</form>
 		</div>
 	<?php }

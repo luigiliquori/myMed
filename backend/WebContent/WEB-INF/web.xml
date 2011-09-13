@@ -85,12 +85,32 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>PubSubRequestHandler</display-name>
-    <servlet-name>PubSubRequestHandler</servlet-name>
-    <servlet-class>com.mymed.controller.core.requesthandler.PubSubRequestHandler</servlet-class>
+    <display-name>PublishRequestHandler</display-name>
+    <servlet-name>PublishRequestHandler</servlet-name>
+    <servlet-class>com.mymed.controller.core.requesthandler.PublishRequestHandler</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>PubSubRequestHandler</servlet-name>
-    <url-pattern>/PubSubRequestHandler</url-pattern>
+    <servlet-name>PublishRequestHandler</servlet-name>
+    <url-pattern>/PublishRequestHandler</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SubscribeRequestHandler</display-name>
+    <servlet-name>SubscribeRequestHandler</servlet-name>
+    <servlet-class>com.mymed.controller.core.requesthandler.SubscribeRequestHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SubscribeRequestHandler</servlet-name>
+    <url-pattern>/SubscribeRequestHandler</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>FindRequestHandler</display-name>
+    <servlet-name>FindRequestHandler</servlet-name>
+    <servlet-class>com.mymed.controller.core.requesthandler.FindRequestHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FindRequestHandler</servlet-name>
+    <url-pattern>/FindRequestHandler</url-pattern>
   </servlet-mapping>
 </web-app>

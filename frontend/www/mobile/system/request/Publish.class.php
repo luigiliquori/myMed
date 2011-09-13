@@ -20,7 +20,7 @@ class Publish extends Request {
 	/* Constructors */
 	/* --------------------------------------------------------- */
 	public function __construct(/*IRequestHandler*/ $handler) {
-		parent::__construct("PubSubRequestHandler", CREATE);
+		parent::__construct("PublishRequestHandler", CREATE);
 		$this->handler	= $handler;
 	}
 	

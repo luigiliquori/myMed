@@ -19,7 +19,7 @@ class Find extends Request {
 	/* Constructors */
 	/* --------------------------------------------------------- */
 	public function __construct(/*IRequestHandler*/ $handler) {
-		parent::__construct("PubSubRequestHandler", READ);
+		parent::__construct("FindRequestHandler", READ);
 		$this->handler	= $handler;
 	}
 	

@@ -17,7 +17,7 @@ import com.mymed.model.data.user.MUserBean;
 public interface IPubSubManager {
 
 	/**
-	 * Insert a new Predicate in the dataBase
+	 * Insert a new Predicate in the dataBase - PUBLISH
 	 * 
 	 * @param application
 	 *            the application responsible for this predicate
@@ -26,6 +26,17 @@ public interface IPubSubManager {
 	 */
 	public void create(String application, String predicate,
 			MUserBean publisher, List<MDataBean> dataList)
+			throws InternalBackEndException, IOBackEndException;
+	
+	/**
+	 * Insert a new Predicate in the dataBase - SUBSCRIBE
+	 * @param application
+	 * @param predicate
+	 * @param publisher
+	 * @throws InternalBackEndException
+	 * @throws IOBackEndException
+	 */
+	public void create(String application, String predicate, MUserBean publisher)
 			throws InternalBackEndException, IOBackEndException;
 
 	/**
