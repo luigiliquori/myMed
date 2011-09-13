@@ -79,7 +79,7 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
 			throw new IOBackEndException("Wrong password", 403);
 		}
 
-		return new ProfileManager().read(authentication.getUser());
+		return new ProfileManager(storageManager).read(authentication.getUser());
 	}
 
 	/**
