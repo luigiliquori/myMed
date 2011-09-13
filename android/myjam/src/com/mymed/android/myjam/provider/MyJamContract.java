@@ -84,8 +84,6 @@ public final class MyJamContract {
     	String REPORT_TYPE = "report_type";
     	/** Traffic flow. */
     	String TRAFFIC_FLOW = "traffic_flow";
-    	/** Transit type. */
-    	String TRANSIT_TYPE = "transit_type";
     	/** Comment. */
     	String COMMENT = "comment";
         /** Insertion date. */
@@ -105,8 +103,6 @@ public final class MyJamContract {
     	String USER_NAME = "user_name";
     	/** Traffic flow. */
     	String TRAFFIC_FLOW = "traffic_flow";
-    	/** Transit type. */
-    	String TRANSIT_TYPE = "transit_type";
     	/** Comment. */
     	String COMMENT = "comment";
     	/** Insertion date. */
@@ -116,14 +112,16 @@ public final class MyJamContract {
     interface FeedbackColumns {
     	/** Unique id identifying the feedback. */
     	String FEEDBACK_ID = "feedback_id";
-    	/** Unique id identifying the report. */
+    	/** Unique id identifying the report. 	*/
     	String REPORT_ID = "report_id";
-    	/** Unique id identifying the report. */
+    	/** Unique id identifying the report. 	*/
     	String UPDATE_ID = "update_id";
-    	/** Unique id identifying the user. */
+    	/** Unique id identifying the user. 	*/
     	String USER_ID = "user_id";
-    	/** Grade. */
-        String GRADE = "grade";     
+    	/** Says whether the feedback is positive or negative.(1 or 0) */
+        String VALUE = "value";   
+        /** Used to count the feedbacks */
+        String COUNT = "count(*) AS count";
     }
     
     interface RequestColumns {
@@ -463,6 +461,16 @@ public final class MyJamContract {
          * The prefix to use when a qualified name is required.
          */
         public static final String QUALIFIER = Tables.FEEDBACKS_TABLE_NAME + ".";
+        
+        /**
+         * The index of the value on the feedback query.
+         */
+        public static final int VALUE_INDEX = 0;
+        
+        /**
+         * The index of the count on the feedback query.
+         */
+        public static final int COUNT_INDEX = 1;
         
         public static String getId(Uri uri) {
             return uri.getPathSegments().get(2);

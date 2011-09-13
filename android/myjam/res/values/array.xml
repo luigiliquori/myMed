@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-        <!-- Used in SearchActivity preferences -->
+    <!-- Used in SearchActivity preferences -->
     <string-array name="radius_list_preference">
         <item>5 Km</item>
         <item>10 Km</item>
@@ -14,6 +14,22 @@
         <item>10000</item>
         <item>25000</item>
         <item>50000</item>  
+    </string-array>
+    
+    <!-- Used in SearchActivity preferences -->
+    <string-array name="search_rate_list_preference">
+        <item>Every 5 Minutes</item>
+        <item>Every 10 Minutes</item>
+        <item>Every 15 Minutes</item>
+        <item>Every 30 Minutes</item>  
+    </string-array>
+
+    <!-- Used in SearchActivity preferences -->
+    <string-array name="search_ratevalues_list_preference">
+        <item>300000</item>
+        <item>600000</item>
+        <item>900000</item>
+        <item>1800000</item> 
     </string-array>
     
     <string-array name="filter_list_preference">
@@ -72,18 +88,5 @@
         <item>SLOW</item>
         <item>VERY_SLOW</item>
         <item>BLOCKED</item>
-    </string-array>
-    
-	<string-array name="transit_list">
-        <item>Normal</item>
-        <item>Partially compromised</item>
-        <item>Compromised</item>
-    </string-array>
-
-    <string-array name="transit_listvalues">
-        <item>NORMAL</item>
-        <item>PARTIALLY_COMROMISED</item>
-        <item>COMPROMISED</item>
-    </string-array>
-       
+    </string-array>      
 </resources>

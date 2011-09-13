@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/insert_report"
-        android:title="Insert Report"
-        android:icon="@android:drawable/ic_menu_add" />
-
-    <item android:id="@+id/view_on_map"
-        android:title="View on Map"
-        android:icon="@android:drawable/ic_menu_mapmode" />
-	
+  xmlns:android="http://schemas.android.com/apk/res/android">	
     <item android:id="@+id/preferences"
         android:title="Preferences"
         android:icon="@android:drawable/ic_menu_manage" />

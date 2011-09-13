@@ -24,13 +24,14 @@ public class GlobalStateAndUtils {
 	public static final int WORK_IN_PROGRESS = 0x2;
 	public static final int FIXED_SPEED_CAM = 0x3;
 	public static final int MOBILE_SPEED_CAM = 0x4;
+ 
 	/** Code for the user position 
 	 * Must not overlap the report types, used to show results in map. */
 	public static final int USER_POSITION = 0x10;
 	/** Max value for a feedback */
 	public static final int MAX_RATING = 10;
 	/** Max distance between the user and a report for the insertion of an update or a feeback.*/
-	public static final int MAX_INSERTION_DISTANCE = 1000;
+	public static final int MAX_INSERTION_DISTANCE = 2000;
 	/**
 	 * LogIn attributes.
 	 */
@@ -89,7 +90,7 @@ public class GlobalStateAndUtils {
     public String formatDistance(int arg0){
     	int km = arg0/1000;
     	int m = arg0 - km*1000;
-    	String tmp = km + " Km "+m+" m ";
+    	String tmp = km + " Km "+m+" m";
     	return tmp;
     }
     
@@ -131,6 +132,42 @@ public class GlobalStateAndUtils {
     			return i;
     	}
     	return -1;
+    }
+    
+    /**
+     * Returns the id of the icon related to the selected report type, or -1 if the report type
+     * code is not valid.
+     * @param type The report type
+     * @return The id of the icon associated to the type
+     */
+    public int getIconByReportType(int type){
+    	switch (type){
+    	case JAM:
+    		return R.drawable.brown_marker_j;
+    	case CAR_CRASH:
+    		return R.drawable.red_marker_c;
+    	case WORK_IN_PROGRESS:
+    		return R.drawable.yellow_marker_w;
+    	case FIXED_SPEED_CAM:
+    		return R.drawable.orange_marker_s;
+    	case MOBILE_SPEED_CAM:
+    		return R.drawable.blue_marker_s;
+    	default:
+    		return -1;
+    	}
+    		
+    }
+    
+    /**
+     * Returns the id of the icon related to the selected report type, or -1 if the report type
+     * code is not valid.
+     *TODO Its a little bit tricky, it uses the array from the xml resources. Could be find a better solution.
+     * @param type The report type
+     * @return The id of the icon associated to the type
+     */
+    public int getIconByReportType(String type){
+    	return getIconByReportType(getStringArrayValueIndex(
+    			mContext.getResources().getStringArray(R.array.report_typevalues_list),type));
     }
 
     /*

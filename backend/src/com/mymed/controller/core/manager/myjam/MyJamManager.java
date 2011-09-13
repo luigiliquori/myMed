@@ -33,7 +33,7 @@ import com.mymed.utils.MConverter;
  */
 public class MyJamManager extends AbstractManager{
 	/**
-	 * TODO This class must be aware of the userName and the userId.
+	 * TODO The identity of the users must be checked.
 	 */
 	//private final String userId = "iacopoId";
 	//private final String userName = "iacopo"; 
@@ -270,15 +270,24 @@ public class MyJamManager extends AbstractManager{
 		}
 	}
 	
+	/**
+	 * Returns an integer array with: 
+	 * 	- The number of negative feedbacks with index 0.
+	 *  - The number of positive feedbacks with index 1.
+	 * @param reportId
+	 * @return
+	 * @throws InternalBackEndException
+	 * @throws IOBackEndException
+	 */
 	public List<MFeedBackBean> getFeedbacks(String reportId) throws InternalBackEndException, IOBackEndException{
-		List<MFeedBackBean> feedBacksList = new LinkedList<MFeedBackBean>();
+		List<MFeedBackBean> feedBacksList = new LinkedList<MFeedBackBean>();  
 		try{
 			Map<byte[],byte[]> feedBacksMap = myJamStorageManager.selectAll("Feedback", reportId);
 			for (byte[] key: feedBacksMap.keySet()){
 				MFeedBackBean currFeedBack = new MFeedBackBean();
 				currFeedBack.setUserId(MConverter.byteBufferToString(ByteBuffer.wrap(key)));
-				currFeedBack.setGrade(MConverter.byteBufferToInteger(ByteBuffer.wrap(feedBacksMap.get(key))));
-				feedBacksList.add(currFeedBack);
+				currFeedBack.setValue(MConverter.byteBufferToInteger(ByteBuffer.wrap(feedBacksMap.get(key))));
+				feedBacksList.add(currFeedBack);				
 			}
 			return feedBacksList;
 		}catch(InternalBackEndException e){
@@ -366,15 +375,24 @@ public class MyJamManager extends AbstractManager{
 				MConverter.longToByteBuffer(locationId).array(), 
 				MyJamId.parseString(reportId).ReportIdAsByteBuffer().array());
 		/**
+		 * Check if the user has already put a feedback on this report.
+		 */
+		//TODO Check if the user yet inserted a feedback. Check the userId.
+		try{
+			myJamStorageManager.selectColumn("Feedback", updateId==null?reportId:updateId, 
+				null, MConverter.stringToByteBuffer(feedback.getUserId()).array());
+			throw new InternalBackEndException("Feedback already present.");
+		}catch(IOBackEndException e){}
+		/**
 		 * Report is not expired.
 		 * Columns insertion in CF Report 
 		 **/
-		//TODO Check if the user yet inserted a feedback. Check the userId
-		myJamStorageManager.insertColumn("Feedback", updateId==null?reportId:updateId, MConverter.stringToByteBuffer(feedback.getUserId()).array(), 
-				MConverter.intToByteBuffer(feedback.getGrade()).array());
+		
+			myJamStorageManager.insertColumn("Feedback", updateId==null?reportId:updateId, MConverter.stringToByteBuffer(feedback.getUserId()).array(), 
+					MConverter.intToByteBuffer(feedback.getValue()).array());
 		
 		} catch(InternalBackEndException e){
-			throw new InternalBackEndException("Wrong parameter: "+e.getMessage());
+			throw new InternalBackEndException(" "+e.getMessage());
 		} catch (WrongFormatException e) {
 			throw new InternalBackEndException("Wrong parameter: "+e.getMessage());
 		}  catch (IOBackEndException e) { //TODO Check the possible causes of IOException.

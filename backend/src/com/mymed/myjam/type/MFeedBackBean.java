@@ -16,14 +16,15 @@ public class MFeedBackBean extends AbstractMBean implements Serializable{
 	private static final long serialVersionUID = 3889004040399952200L;
 
 	private String userId = null;
-	private Integer grade = null;
+	private Integer value = null;
+	//TODO Not used at the moment.
 	private Integer timestamp = null;
 
-	public void setGrade(Integer grade) {
-		this.grade = grade;
+	public void setValue(Integer value) {
+		this.value = value;
 	}
-	public Integer getGrade() {
-		return grade;
+	public Integer getValue() {
+		return value;
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;

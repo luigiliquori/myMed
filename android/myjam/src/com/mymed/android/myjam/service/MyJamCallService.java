@@ -295,7 +295,6 @@ public class MyJamCallService extends IntentService{
 		MReportBean report = myJamRestCall.getReport(reportId);
 		ContentValues reportVal = new ContentValues();
 		reportVal.put(Report.TRAFFIC_FLOW, report.getTrafficFlowType());
-		reportVal.put(Report.TRANSIT_TYPE, report.getTransitType());
 		reportVal.put(Report.COMMENT, report.getComment());
 		reportVal.put(Report.USER_ID, report.getUserId());
 		reportVal.put(Report.USER_NAME, report.getUserName());
@@ -320,7 +319,6 @@ public class MyJamCallService extends IntentService{
 			currVal.put(Update.UPDATE_ID, currUpdate.getId());
 			currVal.put(Update.REPORT_ID, reportId);
 			currVal.put(Update.TRAFFIC_FLOW, currUpdate.getTrafficFlowType());
-			currVal.put(Update.TRANSIT_TYPE, currUpdate.getTransitType());
 			currVal.put(Update.COMMENT, currUpdate.getComment());
 			currVal.put(Update.DATE, currUpdate.getTimestamp());
 			currVal.put(Update.USER_ID, currUpdate.getUserId());
@@ -344,7 +342,7 @@ public class MyJamCallService extends IntentService{
 			ContentValues currVal = new ContentValues();
 			currVal.put(Feedback.USER_ID, currFeedBack.getUserId());
 			currVal.put(reqCode==RequestCode.GET_REPORT_FEEDBACKS?Feedback.REPORT_ID:Feedback.UPDATE_ID, reportOrUpdateId);
-			currVal.put(Feedback.GRADE, currFeedBack.getGrade());
+			currVal.put(Feedback.VALUE, currFeedBack.getValue());
 			batch.add(ContentProviderOperation.newInsert(Feedback.CONTENT_URI).withValues(currVal).build());
 		}
 		resolver.applyBatch(MyJamContract.CONTENT_AUTHORITY, batch);
@@ -371,7 +369,6 @@ public class MyJamCallService extends IntentService{
 		currVal.put(Report.LONGITUDE, longitude);
 		currVal.put(Report.DATE, reportRes.getTimestamp());
 		currVal.put(Report.REPORT_TYPE, reportRes.getReportType());
-		currVal.put(Report.TRANSIT_TYPE, reportRes.getTransitType());
 		currVal.put(Report.TRAFFIC_FLOW, reportRes.getTrafficFlowType());
 		currVal.put(Report.COMMENT, reportRes.getComment());
 		currVal.put(Report.FLAG_COMPLETE, true);
@@ -390,7 +387,6 @@ public class MyJamCallService extends IntentService{
 		currVal.put(Update.USER_ID, updateRes.getUserId());
 		currVal.put(Update.USER_NAME, updateRes.getUserName());
 		currVal.put(Update.DATE, updateRes.getTimestamp());
-		currVal.put(Update.TRANSIT_TYPE, updateRes.getTransitType());
 		currVal.put(Update.TRAFFIC_FLOW, updateRes.getTrafficFlowType());
 		currVal.put(Update.COMMENT, updateRes.getComment());
 		resolver.insert(Update.CONTENT_URI, currVal);
@@ -406,8 +402,11 @@ public class MyJamCallService extends IntentService{
 			currVal.put(Feedback.USER_ID, feedback.getUserId()); //TODO fix this
 			currVal.put(reqCode==RequestCode.INSERT_REPORT_FEEDBACK?Feedback.REPORT_ID:Feedback.UPDATE_ID, 
 					reqCode==RequestCode.INSERT_REPORT_FEEDBACK?reportId:updateId);
-			currVal.put(Feedback.GRADE, feedback.getGrade());
+			currVal.put(Feedback.VALUE, feedback.getValue());
 			resolver.insert(Feedback.CONTENT_URI, currVal);
+			resolver.notifyChange(reqCode==RequestCode.INSERT_REPORT_FEEDBACK?
+					Feedback.buildReportIdUri(null):
+						Feedback.buildUpdateIdUri(null), null);
 		}
 	
 	

@@ -37,11 +37,12 @@ public class MyJamItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 		
 	public MyJamItemizedOverlay(Drawable defaultMarker,Context context) {
 		super(boundCenterBottom(defaultMarker));	
-	    mJamMarker = context.getResources().getDrawable(R.drawable.brown_marker_j);
-		mCarCrashMarker = context.getResources().getDrawable(R.drawable.red_marker_c);
-		mWorkInProgressMarker = context.getResources().getDrawable(R.drawable.yellow_marker_w);
-		mFixedSpeedCamMarker = context.getResources().getDrawable(R.drawable.orange_marker_s);
-		mMobileSpeedCamMarker = context.getResources().getDrawable(R.drawable.blue_marker_s);
+		GlobalStateAndUtils instance = GlobalStateAndUtils.getInstance(context);
+	    mJamMarker = context.getResources().getDrawable(instance.getIconByReportType(GlobalStateAndUtils.JAM));
+		mCarCrashMarker = context.getResources().getDrawable(instance.getIconByReportType(GlobalStateAndUtils.CAR_CRASH));
+		mWorkInProgressMarker = context.getResources().getDrawable(instance.getIconByReportType(GlobalStateAndUtils.WORK_IN_PROGRESS));
+		mFixedSpeedCamMarker = context.getResources().getDrawable(instance.getIconByReportType(GlobalStateAndUtils.FIXED_SPEED_CAM));
+		mMobileSpeedCamMarker = context.getResources().getDrawable(instance.getIconByReportType(GlobalStateAndUtils.MOBILE_SPEED_CAM));
 		mCurrentPositionMarker = context.getResources().getDrawable(R.drawable.ic_maps_indicator_current_position);
 		
 		mContext = context;

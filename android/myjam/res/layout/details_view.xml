@@ -7,49 +7,133 @@
   	<TextView 	
   		android:id="@+id/textViewReport"
   		style="?android:attr/listSeparatorTextViewStyle"
-  		android:layout_height="wrap_content" 						 
-  		android:textAppearance="?android:attr/textAppearanceLarge" 
-  		android:text="Report" 
-  		android:layout_width="match_parent">
-  	</TextView>
-  	<ScrollView android:id="@+id/scrollViewReport" android:layout_height="0px" android:layout_width="match_parent" android:layout_weight="1">
-  		<LinearLayout android:id="@+id/linearLayoutReport" android:layout_width="match_parent" android:layout_height="match_parent"></LinearLayout>
-  	</ScrollView>
-  	<TextView 
-  		android:id="@+id/textViewUpdates"
-  		style="?android:attr/listSeparatorTextViewStyle"
-  		android:layout_height="wrap_content"  
-  		android:textAppearance="?android:attr/textAppearanceLarge" 
-  		android:text="Updates" 
-  		android:layout_width="match_parent">
-  	</TextView>
-    <ScrollView android:id="@+id/scrollViewUpdate" android:layout_height="0px" android:layout_width="match_parent" android:layout_weight="1">
-        <LinearLayout android:id="@+id/linearLayoutUpdate" android:layout_width="match_parent" android:layout_height="match_parent">
+  		android:layout_height="wrap_content" 
+  		android:layout_width="match_parent"			  
+  		android:text="@string/report_detail_title"/> 
+  	<LinearLayout android:id="@+id/linearLayoutDetails"
+  		android:layout_width="match_parent"
+  		android:layout_height="0px"
+  		android:layout_weight="1"
+  		android:orientation="vertical">
+  	<LinearLayout android:id="@+id/linearLayoutButtons"
+  		android:layout_width="match_parent" 
+    	android:layout_height="wrap_content" 
+    	android:orientation="vertical"
+    	android:gravity="center_horizontal"
+    	android:visibility="gone">  	
+    	<LinearLayout  
+    		android:layout_width="match_parent" 
+    		android:layout_height="wrap_content" 
+    		android:orientation="horizontal">
+       		<ImageButton	android:id="@+id/imageButtonPrevious"
+        					android:layout_weight="1"
+        					android:layout_width="0px"
+        					android:layout_height="40dp"  
+        					android:src="@drawable/ic_menu_back">
+        	</ImageButton>
+        	<ImageButton	android:id="@+id/imageButtonNext"
+        					android:layout_weight="1"
+        					android:layout_width="0px" 
+        					android:layout_height="40dp"  
+        					android:src="@drawable/ic_menu_forward">
+        	</ImageButton>
+    	</LinearLayout>
+  		<TextView android:id="@+id/textViewIndex"
+  			android:layout_width="wrap_content"  
+  			android:text="Report Details" 
+  			android:layout_height="wrap_content"
+  			android:layout_gravity="center_horizontal"/>
+  	</LinearLayout>
+    <ScrollView android:id="@+id/scrollViewUpdate" 
+    	android:layout_height="0px" 
+    	android:layout_width="match_parent" 
+    	android:layout_weight="1"
+    	android:background="@drawable/gray_gradient_box">
+    	<LinearLayout 
+        	android:id="@+id/linearLayoutUpdate" 
+  			android:layout_width="match_parent" 
+  			android:layout_height="match_parent"
+  			android:orientation="vertical"> 
+  			<LinearLayout  
+    			android:id="@+id/linearLayoutType" 
+    			android:layout_width="match_parent" 
+    			android:layout_height="wrap_content"
+    			android:layout_gravity="top"
+    			android:gravity="center_horizontal"
+    			android:orientation="horizontal"
+    			android:padding="2dip"
+    			android:visibility="gone">
+    			<ImageView 
+  					android:id="@+id/typeIcon" 
+					android:src="@drawable/blue_marker_s"
+					android:layout_width="wrap_content" 
+					android:layout_height="match_parent" 
+					android:layout_gravity="center_vertical"
+					android:paddingRight="5dp"/>			
+				<TextView android:id="@+id/textViewType"
+					style = "@style/DarkDataTextLarge"   				
+					android:textColor="#000000"
+   					android:text="Fixed Speed Cam" 
+    				android:layout_height="wrap_content"
+    				android:layout_width="wrap_content"
+   					android:layout_gravity="center_vertical"
+   					android:typeface="sans">
+   				</TextView>
+		</LinearLayout>		
+		<View
+        android:layout_height="2dip"
+        android:layout_width="match_parent"
+        android:background="@color/black" 
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>			
+			<include 
+				layout="@layout/report_detail_item"
+				android:id="@+id/posted_by_detail" 
+				android:visibility="gone"/>
+			<include 
+				layout="@layout/report_detail_item"
+				android:id="@+id/posted_detail" 
+				android:visibility="gone"/>
+			<include 
+				layout="@layout/report_detail_item"
+				android:id="@+id/updated_by_detail"
+				android:visibility="gone"/>
+			<include 
+				layout="@layout/report_detail_item"
+				android:id="@+id/updated_detail"
+				android:visibility="gone"/>  
+			<include 
+				layout="@layout/report_detail_item"
+				android:id="@+id/traffic_flow_detail"
+				android:visibility="gone"/>
+			<include 
+				layout="@layout/comment_item"
+				android:id="@+id/comment_detail"
+				android:visibility="gone"/>
+			<include 
+  				layout="@layout/feedbacks_indicator_item"
+  				android:id="@+id/feedbacks_indicator"
+  				android:visibility="gone"/>
         </LinearLayout>
     </ScrollView>
-    <LinearLayout  
-    	android:id="@+id/linearLayout1" 
-    	android:layout_width="match_parent" 
-    	android:layout_height="wrap_content" 
-    	android:orientation="horizontal">
-       	<ImageButton	android:id="@+id/imageButtonPrevious"
-        				android:layout_weight="1"
-        				android:layout_width="0px"
-        				android:layout_height="40dp"  
-        				android:src="@drawable/ic_menu_back">
-        </ImageButton>
-        <ImageButton	android:id="@+id/imageButtonNext"
-        				android:layout_weight="1"
-        				android:layout_width="0px" 
-        				android:layout_height="40dp"  
-        				android:src="@drawable/ic_menu_forward">
-        </ImageButton>
-    </LinearLayout>   
-    <TextView 
-    	android:id="@+id/textViewIndex"
-    	android:layout_height="wrap_content"  
-    	android:layout_gravity="center_horizontal" 
-    	android:textAppearance="?android:attr/textAppearanceMedium" 
-    	android:text="0/0" android:layout_width="wrap_content">
-    </TextView>
+    </LinearLayout>
+	<LinearLayout android:orientation="horizontal"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:background="@android:color/darker_gray">
+    	<Button android:id="@+id/buttonInsertUpdate"
+    		style="@style/ImageButton"
+        	android:layout_width="0dp" 
+        	android:layout_height="wrap_content"
+        	android:layout_weight="1"
+        	android:drawableTop="@android:drawable/ic_menu_add"
+        	android:text="Insert Update"/>
+        <Button android:id="@+id/buttonViewOnMap"
+        	style="@style/ImageButton"
+        	android:layout_width="0dp" 
+        	android:layout_height="wrap_content"
+        	android:layout_weight="1"        	
+        	android:drawableTop="@android:drawable/ic_menu_mapmode"
+        	android:text="View On Map"/>
+  	</LinearLayout>
 </LinearLayout>

@@ -104,8 +104,8 @@ public class MyJamRequestHandler extends AbstractRequestHandler implements IMyJa
 				break;
 			case GET_FEEDBACKS:
 				reportId = MyJamId.parseString(params.get(ID));
-				List<MFeedBackBean> feedbackList = myJamManager.getFeedbacks(reportId.toString());
-				resToJson = this.getGson().toJson(feedbackList);
+				List<MFeedBackBean> feedbacksList = myJamManager.getFeedbacks(reportId.toString());
+				resToJson = this.getGson().toJson(feedbacksList);
 				setResponseText(resToJson);
 				break;
 			case GET_ACTIVE_REPORTS:

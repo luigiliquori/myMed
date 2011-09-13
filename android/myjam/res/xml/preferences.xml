@@ -20,5 +20,13 @@
                 android:entryValues="@array/filtervalues_list_preference"
                 android:dialogTitle="@string/dialog_title_type_filter_preference"
                 android:defaultValue="NONE"/>
+		<ListPreference
+                android:key="search_rate_preference"
+                android:title="@string/title_search_rate_preference"
+                android:summary="@string/summary_search_rate_preference"
+                android:entries="@array/search_rate_list_preference"
+                android:entryValues="@array/search_ratevalues_list_preference"
+                android:dialogTitle="@string/dialog_title_search_rate_preference"
+                android:defaultValue="600000"/>
     </PreferenceCategory>
 </PreferenceScreen>

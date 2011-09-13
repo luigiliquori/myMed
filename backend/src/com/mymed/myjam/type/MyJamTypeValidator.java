@@ -2,7 +2,6 @@ package com.mymed.myjam.type;
 
 import com.mymed.myjam.type.MyJamTypes.ReportType;
 import com.mymed.myjam.type.MyJamTypes.TrafficFlowType;
-import com.mymed.myjam.type.MyJamTypes.TransitType;
 
 /**
  * Static methods to validate the myJam MBeans.
@@ -10,14 +9,12 @@ import com.mymed.myjam.type.MyJamTypes.TransitType;
  *
  */
 public class MyJamTypeValidator {
-	private final static  int maxGrade = 10;
 	
 	public static void validate(MFeedBackBean mFeedBackBean) throws WrongFormatException {
-		int grade = mFeedBackBean.getGrade();
-		if (mFeedBackBean.getGrade()==null)
-			throw new WrongFormatException(" Grade not set. ");
-		if (grade<0 || grade>maxGrade)
-			throw new WrongFormatException(" Grade out of bound. ");
+		if (mFeedBackBean.getValue()==null)
+			throw new WrongFormatException(" Value not set. ");
+		if (mFeedBackBean.getValue()!=0 && mFeedBackBean.getValue()!=1)
+			throw new WrongFormatException(" Value can be only 0 or 1. ");
 	}
 	
 	public void validate(MSearchReportBean mShorteportBean) throws WrongFormatException {
@@ -30,36 +27,28 @@ public class MyJamTypeValidator {
 	public static void validate(MReportBean mReportBean) throws WrongFormatException {
 		ReportType type = null;
 		TrafficFlowType trafficFlow = null;
-		TransitType transit = null;
 		try{
 			
 			if ((type = ReportType.valueOf(mReportBean.getReportType()))==null)
 				throw new WrongFormatException(" Wrong report type.");
 			else if(mReportBean.getTrafficFlowType()!=null && (trafficFlow = TrafficFlowType.valueOf(mReportBean.getTrafficFlowType()))==null)
 				throw new WrongFormatException(" Wrong traffic flow type.");
-			else if(mReportBean.getTransitType()!=null && (transit = TransitType.valueOf(mReportBean.getTransitType()))==null)
-				throw new WrongFormatException(" Wrong transit type.");
 			
 			
 			
 			switch (type){
 				case CAR_CRASH:
 				case WORK_IN_PROGRESS:
-					if (trafficFlow == null || 
-							transit == null)
-						throw new WrongFormatException(" Wrong attributes. ");
-					if (transit == TransitType.COMPROMISED && trafficFlow != TrafficFlowType.BLOCKED)
+					if (trafficFlow == null)
 						throw new WrongFormatException(" Wrong attributes. ");
 					break;
 				case JAM:
-					if (trafficFlow == null ||
-							transit != null)
+					if (trafficFlow == null)
 						throw new WrongFormatException(" Wrong attributes. ");
 					break;
 				case MOBILE_SPEED_CAM:
 				case FIXED_SPEED_CAM:
-					if (trafficFlow != null ||
-							transit != null)
+					if (trafficFlow != null)
 						throw new WrongFormatException(" Wrong attributes. ");
 					break;
 				default:

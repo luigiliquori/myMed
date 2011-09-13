@@ -37,7 +37,8 @@ public class MyJamStorageManager extends StorageManager implements IMyJamStorage
 	/**
 	 * The Default path of the wrapper config file
 	 */
-	public final static String CONFIG_PATH = "/home/iacopo/workspace/mymed/backend/conf/myJamConfig.xml";	
+	public final static String CONFIG_PATH = "/home/iacopo/workspace/mymed/backend/conf/myJamConfig.xml";
+	//TODO Maximum number of received columns, maybe it would be better to insert in the configuration file as a parameter. 
 	public final static int maxNumColumns=10000; 
 
 	private final CassandraWrapper wrapper;
@@ -168,7 +169,7 @@ public class MyJamStorageManager extends StorageManager implements IMyJamStorage
 		expCol.setTimeToLive(res.getTtl());
 				
 		}catch (InternalBackEndException e){
-			throw new InternalBackEndException("selectColumnInSuperColumn failed.");
+			throw new InternalBackEndException("selectExpiringColumn failed.");
 		}
 		return expCol;
 	}

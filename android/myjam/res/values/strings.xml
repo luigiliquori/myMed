@@ -10,7 +10,7 @@
     <string name="report_string">Report</string>
     <string name="update_string">Update</string>
     <string name="feedback_string">Feedback</string>
-    <string name="dialog_title">myJam Info</string>
+    <string name="dialog_title">myJam Dialog</string>
     <string name="positive_button_label">Ok</string>
     <!-- ============================ -->
     <!--  	LoginActivity strings  	  -->
@@ -38,14 +38,18 @@
     <string name="type_string_separator">_</string>
     
     <string name="last_search_label">Last search:</string>
-    <string name="search_results_label">Search results:</string>
+    <string name="search_results_label">Search results</string>
     <string name="search_button_hint">Wait for the location to be available.</string>
     
     <string name="loc_not_available_dialog_message">You cannot insert a new report, because your location is not available at the moment.</string>
     <string name="no_location">No location available.</string>
+    <string name="post_date_label">Posted:</string>
+    <string name="distance_label">Distance:</string>
+    <string name="type_label">Type:</string>
     <!-- ============================ -->
     <!--  	    Insert  strings       -->
     <!-- ============================ -->
+    <string name="insert_title">Insert <xliff:g id="type">%1$s</xliff:g> - <xliff:g id="reportType">%2$s</xliff:g> </string>
     <string name="report_type_choose">Choose a report type</string>
     <string name="report_type_label">Report type</string>
     <string name="transit_choose">Choose a transit status</string>
@@ -71,30 +75,49 @@
     <!-- ============================ -->
     <!--  	ReportDetails  strings    -->
     <!-- ============================ -->
+    <string name="report_detail_title">Report Details</string>
     <string name="sync_msg">Synchronizing <xliff:g id="error">%1$s</xliff:g></string>
     <string name="reception_finished">Reception finished</string>
     <string name="post_date">Posted on:</string>
     <string name="post_by">Posted by:</string>
+    <string name="update_date">Updated on:</string>
+    <string name="update_by">Updated by:</string>
     <string name="report_type">Report Type:</string>
     <string name="traffic_flow_type">Traffic Flow:</string>
     <string name="transit_type">Transit:</string>
     <string name="report_comment">Comment:</string>
-    <string name="cursor_position"><xliff:g id="pos">%1$s</xliff:g>/<xliff:g id="index">%2$s</xliff:g></string>
-    <plurals name="num_feedbacks">
-    	<item quantity="zero">No votes present.</item>
-        <item quantity="one">One vote.</item>
-        <item quantity="other">%d votes.</item>
+    <string name="cursor_position"> Update (<xliff:g id="pos">%1$s</xliff:g>/<xliff:g id="index">%2$s</xliff:g>)</string>
+    <string name="original_report"> Original report</string>
+    <plurals name="num_confirmations">
+    	<item quantity="zero">No confirmations present.</item>
+        <item quantity="one">One confirmation.</item>
+        <item quantity="other">%d confirmations.</item>
+    </plurals>
+    <plurals name="num_denials">
+    	<item quantity="zero">No denials present.</item>
+        <item quantity="one">One denial.</item>
+        <item quantity="other">%d denials.</item>
     </plurals>
     
     <string name="dialog_report_unavailable_text">Cannot proceed.\n Report data unavailable.</string>
     <string name="dialog_location_unavailable_text">Cannot proceed.\n User location unavailable.</string>
     <string name="dialog_not_in_range_text">Cannot proceed.\n You are too far from the report location.</string>
-    
+    <string name="inserting_feedback">Inserting the feedback...</string>
+    <string name="dialog_insert_report_feedback_text">Press the below buttons to put you confirmation or denial on the report.</string>
+    <string name="dialog_insert_update_feedback_text">Press the below buttons to put you confirmation or denial on the update.</string>
     <!-- ============================ -->
     <!--  LocationServices  strings   -->
     <!-- ============================ -->
     <string name="notification_loc_available_title">User location</string>
     <string name="notification_loc_available_text">User location available.</string>
+    <!-- ============================ -->
+    <!--  		Legend  strings       -->
+    <!-- ============================ -->
+    <string name="jam_legend_label">Jam :</string>
+    <string name="car_crash_legend_label">Car crash :</string>
+    <string name="work_in_progress_legend_label">Work in progress :</string>
+    <string name="fixed_speed_cam_legend_label">Fixed speed cam :</string>
+    <string name="mobile_speed_cam_legend_label">Mobile speed cam :</string>
     <!-- ============================ -->
     <!--  	MyPreferences  strings    -->
     <!-- ============================ -->
@@ -104,5 +127,9 @@
     <string name="dialog_title_search_preference">Select the radius of the search.</string>
     <string name="title_type_filter_preference">Choose the filter type.</string>
     <string name="summary_type_filter_preference">Type of filter.</string>
-    <string name="dialog_title_type_filter_preference">Select the filter you want to apply.</string>       
+    <string name="dialog_title_type_filter_preference">Select the filter you want to apply.</string>
+    <string name="title_search_rate_preference">Choose search rate.</string>
+    <string name="summary_search_rate_preference">Search rate.</string>
+    <string name="dialog_title_search_rate_preference">Select the rate of the searches.</string>       
+           
 </resources>

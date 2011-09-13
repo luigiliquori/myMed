@@ -171,7 +171,6 @@ public class MyJamProvider extends ContentProvider{
                     + Report.LONGITUDE + " INTEGER NOT NULL,"
                     + Report.REPORT_TYPE + " TEXT NOT NULL,"
                     + Report.TRAFFIC_FLOW + " TEXT,"
-                    + Report.TRANSIT_TYPE + " TEXT,"
                     + Report.COMMENT + " TEXT,"
                     + Report.DATE + " INTEGER,"
                     + Report.FLAG_COMPLETE + " INTEGER DEFAULT 0,"
@@ -187,7 +186,6 @@ public class MyJamProvider extends ContentProvider{
                     + Update.USER_ID + " TEXT NOT NULL,"
                     + Update.USER_NAME + " TEXT NOT NULL,"
                     + Update.TRAFFIC_FLOW + " TEXT,"
-                    + Update.TRANSIT_TYPE + " TEXT,"
                     + Update.COMMENT + " TEXT,"
                     + Update.DATE + " INTEGER NOT NULL,"
                     + "UNIQUE (" + Update.UPDATE_ID + ") ON CONFLICT REPLACE)");
@@ -205,7 +203,7 @@ public class MyJamProvider extends ContentProvider{
             		+ BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             		+ Feedback.REPORT_ID + " TEXT " + References.REPORT_ID + " ON DELETE CASCADE,"
             		+ Feedback.UPDATE_ID + " TEXT " + References.UPDATE_ID + " ON DELETE CASCADE,"
-                    + Feedback.GRADE + " INTEGER,"
+                    + Feedback.VALUE + " INTEGER,"
                     + Feedback.USER_ID + " TEXT NOT NULL,"
                     + "UNIQUE (" + Feedback.USER_ID + "," + Feedback.REPORT_ID + ") ON CONFLICT REPLACE,"
             		+ "UNIQUE (" + Feedback.USER_ID + "," + Feedback.UPDATE_ID + ") ON CONFLICT REPLACE)");
@@ -370,6 +368,7 @@ public class MyJamProvider extends ContentProvider{
 	public Cursor query(Uri uri, String[] projection, String selection,
 			String[] selectionArgs, String sortOrder) {
 		final String id;
+		String groupBy = null;
 		
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 		int match = sUriMatcher.match(uri);
@@ -417,12 +416,24 @@ public class MyJamProvider extends ContentProvider{
         	qb.appendWhere(UpdatesRequest.REPORT_ID + "=\"" + id+"\"");
         	break;	
         case REPORT_ID_FEEDBACK:
+        	/*
+        	 * In this case a count of the feedbacks is done, the results 
+        	 * are grouped by value (0 or 1).
+        	 */
         	id = Feedback.getId(uri);
+        	groupBy = Feedback.VALUE;
+        	projection = new String[]{Feedback.VALUE,Feedback.COUNT};//TODO Check
         	qb.setTables(Tables.FEEDBACKS_TABLE_NAME);
         	qb.appendWhere(Feedback.REPORT_ID + "=\"" + id+"\"");
         	break;
         case UPDATE_ID_FEEDBACK:
+        	/*
+        	 * In this case a count of the feedbacks is done, the results 
+        	 * are grouped by value (0 or 1).
+        	 */
         	id = Feedback.getId(uri);
+        	groupBy = Feedback.VALUE;
+        	projection = new String[]{Feedback.VALUE,Feedback.COUNT};//TODO Check
         	qb.setTables(Tables.FEEDBACKS_TABLE_NAME);
         	qb.appendWhere(Feedback.UPDATE_ID + "=\"" + id+"\"");
         	break;
@@ -442,7 +453,7 @@ public class MyJamProvider extends ContentProvider{
         
         // Get the database and run the query
         SQLiteDatabase db = mOpenHelper.getReadableDatabase();
-        Cursor c = qb.query(db, projection, selection, selectionArgs, null, null, sortOrder);
+        Cursor c = qb.query(db, projection, selection, selectionArgs, groupBy, null, sortOrder);
 
         // Tell the cursor what uri to watch, so it knows when its source data changes
         c.setNotificationUri(getContext().getContentResolver(), uri);

@@ -6,27 +6,6 @@ package com.mymed.model.data.myjam;
  */
 public abstract class MyJamTypes{
 	
-	/** TransitType*/ 
-	public enum TransitType { 
-		NORMAL, 	
-		PARTIALLY_COMROMISED, 
-		COMPROMISED;
-
-		TransitType(){
-		}
-		/*
-		 * Returns a string representing the enum,
-		 * the enum name words must be separated by
-		 * the char "_".
-		 */
-		@Override
-		public String toString(){
-			String tmp = this.name();
-			tmp=tmp.replace("_", " ");
-			return tmp.toLowerCase();
-		}
-	}
-
 	/** TrafficFlowType*/
 	public enum TrafficFlowType { 
 		NORMAL, 	

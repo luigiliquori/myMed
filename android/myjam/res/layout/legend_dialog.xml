@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center_horizontal" android:orientation="vertical">
+    <View
+        android:layout_height="2dip"
+        android:layout_width="match_parent"
+        android:background="@android:color/darker_gray" />  
+    <TextView 
+    	android:id="@+id/textViewInsertFeedback" 
+    	android:layout_height="wrap_content" 
+    	android:textAppearance="?android:attr/textAppearanceMedium" 
+    	android:text="Legend" 
+    	android:layout_width="wrap_content"
+    	android:padding="5dip">
+    </TextView>
+    <View
+        android:layout_height="2dip"
+        android:layout_width="match_parent"
+        android:background="@android:color/darker_gray" />
+    <TableLayout
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:padding="10dip"
+    	android:stretchColumns="1">
+    <TableRow android:gravity="center_vertical">
+    	<TextView android:id="@+id/textDate"
+			android:text="Fixed Speed Cam:" 
+    		android:layout_height="wrap_content" 
+    		android:layout_width="match_parent"  
+			android:gravity="left"
+    		android:singleLine="true">
+		</TextView>	
+		<ImageView 
+			android:id="@+id/imageViewSearchIcon"
+			android:layout_width="match_parent"  
+			android:layout_height="wrap_content" 
+			android:src="@drawable/blue_marker_s" 
+			android:gravity="right"
+			android:padding="10dip"/>	
+	</TableRow>
+    <TableRow android:gravity="center_vertical">
+    	<TextView android:id="@+id/textDate"
+			android:text="Fixed Speed Cam:" 
+    		android:layout_height="wrap_content" 
+    		android:layout_width="wrap_content"  
+			android:gravity="right"
+    		android:singleLine="true">
+		</TextView>	
+		<ImageView 
+			android:id="@+id/imageViewSearchIcon"
+			android:layout_width="wrap_content"  
+			android:layout_height="wrap_content" 
+			android:src="@drawable/blue_marker_s" 
+			android:gravity="right"
+			android:padding="10dip"/>	
+	</TableRow>    
+    <TableRow android:gravity="center_vertical">
+    	<TextView android:id="@+id/textDate"
+			android:text="Fixed Speed Cam:" 
+    		android:layout_height="wrap_content" 
+    		android:layout_width="wrap_content"  
+			android:gravity="right"
+    		android:singleLine="true">
+		</TextView>	
+		<ImageView 
+			android:id="@+id/imageViewSearchIcon"
+			android:layout_width="wrap_content"  
+			android:layout_height="wrap_content" 
+			android:src="@drawable/blue_marker_s" 
+			android:gravity="right"
+			android:padding="10dip"/>	
+	</TableRow>    
+	</TableLayout>
+</LinearLayout>
+
