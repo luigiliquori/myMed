@@ -83,7 +83,8 @@ public class UserThread extends Thread {
 
 						usersList.notifyAll();
 					} catch (final Exception ex) {
-						MLogger.getLog().info("Error in thread '{}'", getName(), ex.getCause());
+						MLogger.getDebugLog().debug("Error in thread '{}'", getName(), ex.getCause());
+						MLogger.getLog().info("Error in thread '{}'", getName());
 					}
 				}
 			}
@@ -117,7 +118,8 @@ public class UserThread extends Thread {
 
 						usersList.notifyAll();
 					} catch (final Exception ex) {
-						MLogger.getLog().info("Error in thread '{}'", getName(), ex.getCause());
+						MLogger.getDebugLog().debug("Error in thread '{}'", getName(), ex.getCause());
+						MLogger.getLog().info("Error in thread '{}'", getName());
 					}
 				}
 			}
