@@ -1,8 +1,6 @@
 package com.mymed.controller.core.manager.connection;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
@@ -45,7 +43,7 @@ public class ConnectionPool implements IConnectionPool {
 	/*
 	 * The real pool, implemented as a list
 	 */
-	private final List<IConnection> available;
+	private final ArrayBlockingQueue<IConnection> available;
 
 	/*
 	 * Object used to sync operations
@@ -76,7 +74,7 @@ public class ConnectionPool implements IConnectionPool {
 	 *            the maximum capacity of the pool
 	 */
 	public ConnectionPool(final String address, final int port, final int capacity) {
-		available = Collections.synchronizedList(new ArrayList<IConnection>(capacity));
+		available = new ArrayBlockingQueue<IConnection>(capacity, true);
 
 		this.capacity = capacity;
 		this.address = address;
@@ -116,7 +114,7 @@ public class ConnectionPool implements IConnectionPool {
 
 		synchronized (SYNC) {
 			if (getSize() > 0) {
-				con = available.remove(0);
+				con = available.poll();
 
 				if (!con.isOpen()) {
 					// If we had a closed or null connection we try again
