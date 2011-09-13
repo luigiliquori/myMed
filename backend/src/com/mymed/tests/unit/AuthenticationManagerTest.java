@@ -22,7 +22,6 @@ public class AuthenticationManagerTest extends GeneralTest {
 	@Test
 	public void createAuthTest() {
 		try {
-			profileManager.create(userBean);
 			authenticationManager.create(userBean, authenticationBean);
 		} catch (final Exception ex) {
 			fail(ex.getMessage());
