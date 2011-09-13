@@ -21,17 +21,30 @@
 		<?php require_once dirname(__FILE__).'/Publish.class.php'; ?>
 		<?php require_once dirname(__FILE__).'/Find.class.php'; ?>
 		<?php require_once dirname(__FILE__).'/Map.class.php'; ?>
+		<?php require_once dirname(__FILE__).'/Result.class.php'; ?>
+		<?php require_once dirname(__FILE__).'/Details.class.php'; ?>
+		<?php require_once dirname(__FILE__).'/handler/MyTransportHandler.class.php'; ?>
+		<?php $handler = new MyTransportHandler(); ?>
+		<?php $handler->handleRequest(); ?>
 		
 	</head>
 	
 	<body onload="initialize()">
 		<?php 
-			$map = new Map();
-			$map->printTemplate();
-			$publish = new Publish();
-			$publish->printTemplate();
-			$find = new Find();
-			$find->printTemplate();
+			if($handler->getError() == null && $handler->getSuccess() == null) {		
+				$map = new Map();
+				$map->printTemplate();
+				$publish = new Publish();
+				$publish->printTemplate();
+				$find = new Find();
+				$find->printTemplate();
+			} else if(isset($_GET['publish']) || isset($_GET['subscribe'])) {
+				$result = new Result($handler);
+				$result->printTemplate();
+			} else if(isset($_GET['getDetails'])) {
+				$details = new Details($handler);
+				$details->printTemplate();
+			}
 		?>
 	</body>
 </html> 

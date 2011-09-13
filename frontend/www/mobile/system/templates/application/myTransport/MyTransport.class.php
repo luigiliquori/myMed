@@ -2,7 +2,6 @@
 
 require_once 'system/templates/ITemplate.php';
 require_once 'system/templates/AbstractTemplate.class.php';
-require_once dirname(__FILE__).'/handler/MyTransportHandler.class.php';
 
 /**
  * 
@@ -27,8 +26,7 @@ abstract class MyTransport extends AbstractTemplate {
 	public function __construct(/*String*/ $id) {
 		parent::__construct($id, "myTransport");
 		$this->activeFooter = $id;
-		$this->handler = new MyTransportHandler();
-		$this->handler->handleRequest();
+		
 	}
 	
 	/* --------------------------------------------------------- */
@@ -38,18 +36,11 @@ abstract class MyTransport extends AbstractTemplate {
 	* Get the HEADER for jQuery Mobile
 	*/
 	public /*String*/ function getHeader() { ?>
-		<!-- NOTIFICATION -->
-		<?php if($this->handler->getError()) { ?>
-			<div data-role="header" data-theme="a">
-				<a href="?application=myTransport" data-role="button" rel="external">Close</a>
-				<h2>No Result</h2>
-			</div>
-		<?php } else { ?>
-			<div data-role="header" data-theme="b">
-				<a href="?application=0" rel="external" data-role="button" data-theme="r">Fermer</a>
-				<h1><?= $this->title ?></h1>
-			</div>
-		<?php }?>
+		<!-- HEADER -->
+		<div data-role="header" data-theme="b">
+			<a href="?application=0" rel="external" data-role="button" data-theme="r">Fermer</a>
+			<h1><?= $this->title ?></h1>
+		</div>
 	<?php }
 	
 	/**
@@ -73,63 +64,9 @@ abstract class MyTransport extends AbstractTemplate {
 	*/
 	public /*String*/ function printTemplate() { ?>
 		<div id="<?= $this->id ?>" data-role="page" data-theme="b">
-			<?php if($this->handler->getSuccess() && isset($_GET['subscribe'])) { ?>
-				<div data-role="header" data-theme="a">
-					<a href="?application=myTransport" data-role="button" rel="external">Close</a>
-					<h1>Result:</h1>
-				</div>
-				<div class="content">
-					<?php
-					$request = new Request("ProfileRequestHandler", READ);
-					$request->addArgument("id", $this->handler->getSuccess());
-					$response = $request->send();
-					
-					// Check if there's not error
-					$check = json_decode($response);
-					if(isset($check->error)) { ?>
-						<h2>0 Result</h2>
-					<?php } else { ?>
-						<div style="text-align: left;">
-							<?php if($check->profilePicture != "") { ?>
-								<img alt="thumbnail" src="<?= $check->profilePicture ?>" width="180" height="150">
-							<?php } else { ?>
-								<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="180" height="150">
-							<?php } ?>
-							<br><br>
-							Prenom: <?= $check->firstName ?><br />
-							Nom: <?= $check->lastName ?><br />
-							Date de naissance: <?= $check->birthday ?><br />
-							eMail: <?= $check->email ?><br />
-							Reputation: 
-							 <?php 
-						    	$rand = rand(0, 4);
-						    	$j=0;
-						    	while($j<=$rand){ ?>
-						    		<img alt="star" src="img/star.png" width="20" />
-						    		<?php 
-						    		$j++;
-						    	}
-						    	while($j<=4){ ?>
-						    		<img alt="star" src="img/starGray.png" width="20" />		
-						    		<?php 
-						    		$j++;
-						    	}
-						    ?>
-						</div>
-					<?php } ?>
-				</div>
-			<?php } else { 
-				if($this->handler->getSuccess() && isset($_GET['publish'])) { ?>
-					<div data-role="header" data-theme="a">
-						<a href="?application=myTransport" data-role="button" rel="external">Close</a>
-						<h1><?= $this->handler->getSuccess() ?></h1>
-					</div>
-				<?php } else { ?>
-					<?php  $this->getHeader(); ?>
-				<?php } ?>
-				<?php $this->getContent(); ?>
-				<?php $this->getFooter(); ?>
-			<?php } ?>
+			<?php  $this->getHeader(); ?>
+			<?php $this->getContent(); ?>
+			<?php $this->getFooter(); ?>
 		</div>
 	<?php }
 }

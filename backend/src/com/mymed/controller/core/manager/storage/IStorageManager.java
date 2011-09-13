@@ -37,7 +37,25 @@ public interface IStorageManager {
 	 *            All columnName and the their value
 	 * @return true if the entry is correctly stored, false otherwise
 	 */
-	void insertSlice(String tableName, String primaryKey, Map<String, byte[]> args) throws InternalBackEndException;
+	public void insertSlice(String tableName, String primaryKey, Map<String, byte[]> args) throws IOBackEndException,
+	        InternalBackEndException;
+
+	/**
+	 * Insert a new entry in the database
+	 * 
+	 * @param superTableName
+	 *            the name of the Table/SuperColumnFamily
+	 * @param key
+	 *            the ID of the entry
+	 * @param superKey
+	 *            the ID of the entry in the SuperColumnFamily
+	 * @param args
+	 *            All columnName and the their value
+	 * @throws ServiceManagerException
+	 * @throws InternalBackEndException
+	 */
+	public void insertSuperSlice(final String superTableName, final String key, final String superKey,
+	        final Map<String, byte[]> args) throws IOBackEndException, InternalBackEndException;
 
 	/**
 	 * Get the value of an entry column
@@ -88,7 +106,7 @@ public interface IStorageManager {
 	        throws InternalBackEndException;
 
 	/**
-	 * Get the value of a column family
+	 * Get the value of a Column family
 	 * 
 	 * @param tableName
 	 *            the name of the Table/ColumnFamily
@@ -98,8 +116,20 @@ public interface IStorageManager {
 	 *            the name of the column
 	 * @return the value of the column
 	 */
-	Map<byte[], byte[]> selectAll(String tableName, String primaryKey) throws IOBackEndException,
+	public Map<byte[], byte[]> selectAll(String tableName, String primaryKey) throws IOBackEndException,
 	        InternalBackEndException;
+
+	/**
+	 * Get the list of values of a Super Column Family
+	 * 
+	 * @param tableName
+	 * @param key
+	 * @return
+	 * @throws InternalBackEndException
+	 * @throws IOBackEndException
+	 */
+	public List<Map<byte[], byte[]>> selectList(final String tableName, final String key)
+	        throws InternalBackEndException, IOBackEndException;
 
 	/**
 	 * Get the values of a range of columns
