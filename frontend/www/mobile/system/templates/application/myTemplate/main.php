@@ -17,11 +17,14 @@
 		<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
 		<link rel="stylesheet" href="system/templates/application/myTemplate/css/style.css" />
 		
-		<?php require_once dirname(__FILE__).'/PublishView.class.php'; ?>
-		<?php require_once dirname(__FILE__).'/SubscribeView.class.php'; ?>
-		<?php require_once dirname(__FILE__).'/FindView.class.php'; ?>
+		<?php require_once dirname(__FILE__).'/views/tabbar/PublishView.class.php'; ?>
+		<?php require_once dirname(__FILE__).'/views/tabbar/SubscribeView.class.php'; ?>
+		<?php require_once dirname(__FILE__).'/views/tabbar/FindView.class.php'; ?>
+
+		<?php require_once dirname(__FILE__).'/views/result/ResultView.class.php'; ?>
+		<?php require_once dirname(__FILE__).'/views/result/DetailView.class.php'; ?>
+
 		<?php require_once dirname(__FILE__).'/handler/MyTemplateHandler.class.php'; ?>
-		
 		<?php $handler = new MyTemplateHandler(); ?>
 		<?php $handler->handleRequest(); ?>
 		
@@ -29,14 +32,22 @@
 	
 	<body>
 		<?php 
-			$publish = new PublishView();
-			$publish->printTemplate();
-			
-			$subscribe = new SubscribeView();
-			$subscribe->printTemplate();
-			
-			$find = new FindView();
-			$find->printTemplate();
+			if(isset($_POST['method'])) { 				// Print The Results View
+				$result = new ResultView($handler);
+				$result->printTemplate();
+			} else if(isset($_GET['getDetails'])) {		// Print The Details View
+				$details = new DetailView($handler);
+				$details->printTemplate();
+			} else {									// Print The Default Views
+				$publish = new PublishView();
+				$publish->printTemplate();
+				
+				$subscribe = new SubscribeView();
+				$subscribe->printTemplate();
+				
+				$find = new FindView();
+				$find->printTemplate();
+			}
 		?>
 	</body>
 </html> 

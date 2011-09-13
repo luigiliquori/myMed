@@ -9,7 +9,7 @@ require_once 'system/templates/AbstractTemplate.class.php';
  * @author lvanni
  *
  */
-class Details extends AbstractTemplate {
+class DetailView extends MyTemplate {
 	
 	/* --------------------------------------------------------- */
 	/* Attributes */
@@ -34,7 +34,7 @@ class Details extends AbstractTemplate {
 	* Get the HEADER for jQuery Mobile
 	*/
 	public /*String*/ function getHeader() { ?>
-		<div data-role="header" data-theme="a">
+		<div data-role="header" data-theme="b">
 			<a href="?application=myTemplate" data-role="button" rel="external">Retour</a>
 				<h2>Info</h2>
 		</div>

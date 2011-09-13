@@ -31,7 +31,6 @@
 	
 	<body onload="initialize()">
 		<?php 
-
 			if($handler->getError() == null && $handler->getSuccess() == null) {		
 				$map = new Map();
 				$map->printTemplate();

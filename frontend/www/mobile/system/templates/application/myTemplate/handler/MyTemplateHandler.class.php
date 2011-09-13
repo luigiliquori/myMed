@@ -41,6 +41,18 @@ class MyTemplateHandler implements IRequestHandler {
 			} else if($_POST['method'] == "find") {
 				$find = new Find($this);
 				$find->send();
+			} 
+		} else if(isset($_GET['getDetails'])) {
+			$request = new Request("PubSubRequestHandler", READ);
+			$request->addArgument("application", "myTemplate");
+			$request->addArgument("predicate", $_GET['predicate']);
+			$request->addArgument("user", $_GET['user']);
+			$response = $request->send();
+			$check = json_decode($response);
+			if($check->error != null) {
+				$this->error = $check->error->message;
+			} else {
+				$this->success = $response;
 			}
 		}
 	}

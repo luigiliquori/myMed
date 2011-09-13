@@ -1,6 +1,7 @@
 <?php
 
-require_once dirname(__FILE__).'/MyTemplate.class.php';
+require_once 'system/templates/application/myTemplate/MyTemplate.class.php';
+require_once 'system/beans/MDataBean.class.php';
 
 /**
  * 
@@ -8,7 +9,7 @@ require_once dirname(__FILE__).'/MyTemplate.class.php';
  * @author lvanni
  *
  */
-class FindView extends MyTemplate {
+class SubscribeView extends MyTemplate {
 	
 	/* --------------------------------------------------------- */
 	/* Attributes */
@@ -21,7 +22,7 @@ class FindView extends MyTemplate {
 	 * Default constructor
 	 */
 	public function __construct() {
-		parent::__construct("Find");
+		parent::__construct("Subscribe");
 	}
 	
 	/* --------------------------------------------------------- */
@@ -33,11 +34,9 @@ class FindView extends MyTemplate {
 	public /*String*/ function getContent() { ?>
 		<!-- CONTENT -->
 		<div class="content" data-role="content">
-			<form  action="#" method="post" name="findForm" id="findForm">
-				<!-- Define the method to call -->
+			<form  action="#" method="get" name="subscribeForm" id="subscribeForm">
 				<input type="hidden" name="application" value="myTemplate" />
-				<input type="hidden" name="method" value="find" />
-				<!-- Define the Ontology needed -->
+				<input type="hidden" name="subscribe" value="1" />
 				Ontology 1 (Type: KEYWORD) :<br />
 				<input type="text" name="start" value=""  data-inline="true"/><br />
 				Ontology 2 (Type: GPS) :<br />
@@ -51,7 +50,7 @@ class FindView extends MyTemplate {
 				Ontology 4 (Type: DATE) :<br />
 				<input type="date" name="date" value="<?php echo date('Y-m-d');?>"  data-inline="true"/>
 				<br /><br />
-				<a href="#" data-role="button"onclick="document.findForm.submit()">Find</a>	
+				<a href="#" data-role="button"onclick="document.subscribeForm.submit()">Subscribe</a>	
 			</form>
 		</div>
 	<?php }

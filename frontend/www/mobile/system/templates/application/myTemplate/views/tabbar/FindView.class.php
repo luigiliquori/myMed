@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__).'/MyTemplate.class.php';
+require_once 'system/templates/application/myTemplate/MyTemplate.class.php';
 require_once 'system/beans/MDataBean.class.php';
 
 /**
@@ -9,7 +9,7 @@ require_once 'system/beans/MDataBean.class.php';
  * @author lvanni
  *
  */
-class PublishView extends MyTemplate {
+class FindView extends MyTemplate {
 	
 	/* --------------------------------------------------------- */
 	/* Attributes */
@@ -22,7 +22,7 @@ class PublishView extends MyTemplate {
 	 * Default constructor
 	 */
 	public function __construct() {
-		parent::__construct("Publish");
+		parent::__construct("Find");
 	}
 	
 	/* --------------------------------------------------------- */
@@ -33,12 +33,12 @@ class PublishView extends MyTemplate {
 	 */
 	public /*String*/ function getContent() { ?>
 		<!-- CONTENT -->
-		<div class="content">
-			<form  action="#" method="post" name="myTamplatePublishForm" id="myTamplatePublishForm">
+		<div class="content" data-role="content">
+			<form  action="#" method="post" name="myTemplateFindForm" id="myTemplateFindForm">
 				<!-- Define the method to call -->
 				<input type="hidden" name="application" value="myTemplate" />
-				<input type="hidden" name="method" value="publish" />
-				<input type="hidden" name="numberOfOntology" value="5" />
+				<input type="hidden" name="method" value="find" />
+				<input type="hidden" name="numberOfOntology" value="4" />
 				
 				<!-- KEYWORD -->
 				Ontology 0 (Type: KEYWORD) :<br />
@@ -69,29 +69,9 @@ class PublishView extends MyTemplate {
 				<input type="date" name="date" value="<?php echo date('Y-m-d');?>"  data-inline="true"/>
 				<?php $date = new MDataBean("date", null, DATE); ?>
 				<input type="hidden" name="ontology3" value="<?= urlencode(json_encode($date)); ?>">
-				<br />
-				
-				<!-- TEXT -->
-				Ontology 4 (Type: TEXT) :<br />
-				<textarea name="text" rows="" cols=""></textarea>
-				<?php $text = new MDataBean("text", null, TEXT); ?>
-				<input type="hidden" name="ontology4" value="<?= urlencode(json_encode($text)); ?>">
-				<br />
-				
-				<!-- PICTURE -->
-				Ontology 5 (Type: PICTURE) :<br />
-				<input type="file" disabled="disabled" />
-				<br />
-				
-				<!-- VIDEO -->
-				Ontology 6 (Type: VIDEO) :<br />
-				<input type="file" disabled="disabled" /><br />
-				
-				<!-- AUDIO -->
-				Ontology 7 (Type: AUDIO) :<br />
-				<input type="file" disabled="disabled" /><br /><br />
-				
-				<a href="#" data-role="button" onclick="document.myTamplatePublishForm.submit()">Publish</a>
+
+				<br /><br />
+				<a href="#" data-role="button"onclick="document.myTemplateFindForm.submit()">Find</a>	
 			</form>
 		</div>
 	<?php }

@@ -9,7 +9,7 @@ require_once 'system/templates/AbstractTemplate.class.php';
  * @author lvanni
  *
  */
-class Result extends AbstractTemplate {
+class ResultView extends MyTemplate {
 	
 	/* --------------------------------------------------------- */
 	/* Attributes */
@@ -34,7 +34,7 @@ class Result extends AbstractTemplate {
 	* Get the HEADER for jQuery Mobile
 	*/
 	public /*String*/ function getHeader() { ?>
-		<div data-role="header" data-theme="a">
+		<div data-role="header" data-theme="b">
 			<a href="?application=myTemplate" data-role="button" rel="external">Retour</a>
 			<?php if(isset($_GET['publish'])) { ?>
 				<h2>info</h2>
@@ -50,7 +50,7 @@ class Result extends AbstractTemplate {
 	public /*String*/ function getContent() { ?>
 		<!-- CONTENT -->
 		<div class="content">
-			<?php if($this->handler->getSuccess() && isset($_GET['subscribe'])) { ?>
+			<?php if($this->handler->getSuccess() && $_POST['method'] == "find") { ?>
 				<ul data-role="listview" data-filter="true" data-theme="c" data-dividertheme="a" >
 				<?php foreach(json_decode($this->handler->getSuccess()) as $controller) { ?>
 					<li>
@@ -83,7 +83,7 @@ class Result extends AbstractTemplate {
 						</li>
 					<?php } ?>
 				</ul>
-			<?php } else if($this->handler->getSuccess() && isset($_GET['publish'])) { ?>
+			<?php } else if($this->handler->getSuccess() && $_POST['method'] == "publish") { ?>
 				<h2 style="color:green;">Message envoyé avec succès</h2>
 				<a href="?application=myTemplate" data-role="button" rel="external">Retour</a>
 			<?php } else { ?>
