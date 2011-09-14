@@ -136,7 +136,7 @@ public class StorageManager extends ManagerValues implements IStorageManager {
 
 		return selectByPredicate(tableName, key, predicate);
 	}
-	
+
 	/**
 	 * Get the value of a column family
 	 * 
@@ -151,9 +151,8 @@ public class StorageManager extends ManagerValues implements IStorageManager {
 	 * @throws IOBackEndException
 	 */
 	@Override
-	public List<Map<byte[], byte[]>> selectList(final String tableName,
-			final String key) throws InternalBackEndException,
-			IOBackEndException {
+	public List<Map<byte[], byte[]>> selectList(final String tableName, final String key)
+	        throws InternalBackEndException, IOBackEndException {
 
 		// read entire row
 		final SlicePredicate predicate = new SlicePredicate();
@@ -163,15 +162,14 @@ public class StorageManager extends ManagerValues implements IStorageManager {
 		predicate.setSlice_range(sliceRange);
 
 		final ColumnParent parent = new ColumnParent(tableName);
-		final List<ColumnOrSuperColumn> results = getSlice(key, parent,
-				predicate);
-		
-		final List<Map<byte[], byte[]>> sliceList = new ArrayList<Map<byte[],byte[]>>();
+		final List<ColumnOrSuperColumn> results = getSlice(key, parent, predicate);
+
+		final List<Map<byte[], byte[]>> sliceList = new ArrayList<Map<byte[], byte[]>>();
 
 		for (final ColumnOrSuperColumn res : results) {
-			if(res.isSetSuper_column()){
-				Map<byte[], byte[]> slice = new HashMap<byte[], byte[]>();
-				for(Column column : res.getSuper_column().getColumns()){
+			if (res.isSetSuper_column()) {
+				final Map<byte[], byte[]> slice = new HashMap<byte[], byte[]>();
+				for (final Column column : res.getSuper_column().getColumns()) {
 					slice.put(column.getName(), column.getValue());
 				}
 				sliceList.add(slice);
@@ -228,7 +226,7 @@ public class StorageManager extends ManagerValues implements IStorageManager {
 
 		return slice;
 	}
-	
+
 	/**
 	 * Retrieve the slice.
 	 * 
@@ -371,7 +369,7 @@ public class StorageManager extends ManagerValues implements IStorageManager {
 
 		MLogger.getLog().info("batch_mutate performed correctly");
 	}
-	
+
 	/**
 	 * Insert a new entry in the database
 	 * 
@@ -387,9 +385,8 @@ public class StorageManager extends ManagerValues implements IStorageManager {
 	 * @throws InternalBackEndException
 	 */
 	@Override
-	public void insertSuperSlice(final String superTableName, final String key, final String superKey, 
-			final Map<String, byte[]> args) throws IOBackEndException,
-			InternalBackEndException {
+	public void insertSuperSlice(final String superTableName, final String key, final String superKey,
+	        final Map<String, byte[]> args) throws IOBackEndException, InternalBackEndException {
 
 		final Map<String, Map<String, List<Mutation>>> mutationMap = new HashMap<String, Map<String, List<Mutation>>>();
 		final long timestamp = System.currentTimeMillis();
@@ -400,19 +397,17 @@ public class StorageManager extends ManagerValues implements IStorageManager {
 			tableMap.put(superTableName, sliceMutationList);
 
 			final Iterator<String> iterator = args.keySet().iterator();
-			List<Column> columns = new ArrayList<Column>();
+			final List<Column> columns = new ArrayList<Column>();
 			while (iterator.hasNext()) {
 				final String columnName = iterator.next();
-				columns.add(new Column(MConverter
-						.stringToByteBuffer(columnName), ByteBuffer.wrap(args
-						.get(columnName)), timestamp));
+				columns.add(new Column(MConverter.stringToByteBuffer(columnName),
+				        ByteBuffer.wrap(args.get(columnName)), timestamp));
 			}
 			final Mutation mutation = new Mutation();
-			SuperColumn superColumn = new SuperColumn(MConverter
-						.stringToByteBuffer(superKey), columns);
+			final SuperColumn superColumn = new SuperColumn(MConverter.stringToByteBuffer(superKey), columns);
 			mutation.setColumn_or_supercolumn(new ColumnOrSuperColumn().setSuper_column(superColumn));
 			sliceMutationList.add(mutation);
-			
+
 			// Insertion in the map
 			mutationMap.put(key, tableMap);
 

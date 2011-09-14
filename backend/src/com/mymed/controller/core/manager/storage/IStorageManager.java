@@ -40,7 +40,7 @@ public interface IStorageManager {
 	public void insertSlice(String tableName, String primaryKey,
 			Map<String, byte[]> args) throws IOBackEndException,
 			InternalBackEndException;
-	
+
 	/**
 	 * Insert a new entry in the database
 	 * 
@@ -58,6 +58,7 @@ public interface IStorageManager {
 	public void insertSuperSlice(final String superTableName, final String key, final String superKey, 
 			final Map<String, byte[]> args) throws IOBackEndException,
 			InternalBackEndException;
+
 
 	/**
 	 * Get the value of an entry column
@@ -120,7 +121,7 @@ public interface IStorageManager {
 	 */
 	public Map<byte[], byte[]> selectAll(String tableName, String primaryKey)
 			throws IOBackEndException, InternalBackEndException;
-	
+
 	/**
 	 * Get the list of values of a Super Column Family
 	 * 
@@ -133,6 +134,7 @@ public interface IStorageManager {
 	public List<Map<byte[], byte[]>> selectList(final String tableName,
 			final String key) throws InternalBackEndException,
 			IOBackEndException;
+
 
 	/**
 	 * Get the values of a range of columns
