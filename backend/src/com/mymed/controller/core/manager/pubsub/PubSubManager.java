@@ -23,7 +23,7 @@ import com.mymed.utils.Mail;
  * 
  */
 public class PubSubManager extends AbstractManager implements IPubSubManager {
-
+	
 	/* --------------------------------------------------------- */
 	/* Constructors */
 	/* --------------------------------------------------------- */
@@ -64,14 +64,16 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 					}
 				}
 			}
-			String content = "Bonjour, \nDe nouvelles informations sont arrivées sur votre plateforme myMed.\n"
-			+ "Application Concernée: " + application + "\n"
-			+ "Predicate: \n";
-			for(MDataBean data : dataList){
-				content += "\t- " + data.getKey() + ": " + data.getValue() + "\n";
+			if(!mailinglist.equals("")){
+				String content = "Bonjour, \nDe nouvelles informations sont arrivées sur votre plateforme myMed.\n"
+				+ "Application Concernée: " + application + "\n"
+				+ "Predicate: \n";
+				for(MDataBean data : dataList){
+					content += "\t- " + data.getKey() + ": " + data.getValue() + "\n";
+				}
+				content += "\n------\nL'équipe myMed";
+				new Mail("mymed.subscribe@gmail.com", mailinglist, "myMed subscribe info: " + application, content);
 			}
-			content += "\n------\nL'équipe myMed";
-			new Mail("mymed.subscribe@gmail.com", mailinglist, "myMed subscribe info: " + application, content);
 			
 			// STORE A NEW ENTRY IN THE UserList (PublisherList)
 			args = new HashMap<String, byte[]>();

@@ -18,11 +18,13 @@
 		<script src="system/templates/application/myTransport/javascript/map.js"></script>
 		<link rel="stylesheet" href="system/templates/application/myTransport/css/style.css" />
 		
-		<?php require_once dirname(__FILE__).'/Publish.class.php'; ?>
-		<?php require_once dirname(__FILE__).'/Find.class.php'; ?>
-		<?php require_once dirname(__FILE__).'/Map.class.php'; ?>
-		<?php require_once dirname(__FILE__).'/Result.class.php'; ?>
-		<?php require_once dirname(__FILE__).'/Details.class.php'; ?>
+		<?php require_once dirname(__FILE__).'/views/tabbar/MapView.class.php'; ?>
+		<?php require_once dirname(__FILE__).'/views/tabbar/PublishView.class.php'; ?>
+		<?php require_once dirname(__FILE__).'/views/tabbar/FindView.class.php'; ?>
+
+		<?php require_once dirname(__FILE__).'/views/result/ResultView.class.php'; ?>
+		<?php require_once dirname(__FILE__).'/views/result/DetailView.class.php'; ?>
+		
 		<?php require_once dirname(__FILE__).'/handler/MyTransportHandler.class.php'; ?>
 		<?php $handler = new MyTransportHandler(); ?>
 		<?php $handler->handleRequest(); ?>
@@ -31,19 +33,21 @@
 	
 	<body onload="initialize()">
 		<?php 
-			if($handler->getError() == null && $handler->getSuccess() == null) {		
-				$map = new Map();
-				$map->printTemplate();
-				$publish = new Publish();
-				$publish->printTemplate();
-				$find = new Find();
-				$find->printTemplate();
-			} else if(isset($_GET['publish']) || isset($_GET['subscribe'])) {
-				$result = new Result($handler);
+			if(isset($_POST['method'])) { 				// Print The Results View
+				$result = new ResultView($handler);
 				$result->printTemplate();
-			} else if(isset($_GET['getDetails'])) {
-				$details = new Details($handler);
+			} else if(isset($_GET['getDetails'])) {		// Print The Details View
+				$details = new DetailView($handler);
 				$details->printTemplate();
+			} else {									// Print The Default Views
+				$map = new MapView();
+				$map->printTemplate();
+				
+				$publish = new PublishView();
+				$publish->printTemplate();
+				
+				$find = new FindView();
+				$find->printTemplate();
 			}
 		?>
 	</body>

@@ -34,7 +34,7 @@ class PublishView extends MyTemplate {
 	public /*String*/ function getContent() { ?>
 		<!-- CONTENT -->
 		<div class="content">
-			<form  action="#" method="post" name="myTamplatePublishForm" id="myTamplatePublishForm">
+			<form  action="#" method="post" name="myTemplatePublishForm" id="myTemplatePublishForm">
 				<!-- Define the method to call -->
 				<input type="hidden" name="application" value="myTemplate" />
 				<input type="hidden" name="method" value="publish" />
@@ -91,7 +91,7 @@ class PublishView extends MyTemplate {
 				Ontology 7 (Type: AUDIO) :<br />
 				<input type="file" disabled="disabled" /><br /><br />
 				
-				<a href="#" data-role="button" onclick="document.myTamplatePublishForm.submit()">Publish</a>
+				<a href="#" data-role="button" onclick="document.myTemplatePublishForm.submit()">Publish</a>
 			</form>
 		</div>
 	<?php }

@@ -60,7 +60,7 @@ class Profile extends AbstractHome {
 				<?php } else { ?>
 					<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="180" height="150">
 				<?php } ?>
-				 <?php if($_SESSION['user']->email == 'lvanni@inria.fr') { ?>
+				 <?php if($_SESSION['user']->email == 'laurent.vanni@inria.fr') { // DEBUG MODE (JUST FOR TESTING) ?> 
 				   <br>
 			 	   <a href="?admin" rel="external" data-role="button" data-inline="true" data-theme="a">Admin</a>
 			    <?php } ?>

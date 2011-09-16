@@ -1,7 +1,9 @@
 <?php 
-require_once 'system/request/Request.class.php';
 require_once 'system/handler/IRequestHandler.php';
 require_once 'system/beans/MDataBean.class.php';
+require_once 'system/request/Publish.class.php';
+require_once 'system/request/Subscribe.class.php';
+require_once 'system/request/Find.class.php';
 
 /**
  * 
@@ -29,37 +31,19 @@ class MyTransportHandler implements IRequestHandler {
 	/* Public methods */
 	/* --------------------------------------------------------- */
 	public /*void*/ function handleRequest() { 
-		if(isset($_GET['publish'])) {
-			$request = new Request("PubSubRequestHandler", CREATE);
-			$request->addArgument("application", "myTransport");
-			$request->addArgument("predicate", $_GET['start'].$_GET['end'].$_GET['date']);
-			$request->addArgument("user", json_encode($_SESSION['user']));
-			// construct the data
-			$comment = new MDataBean("Commentaires", urlencode($_GET['comment']), TEXT);
-			$type = new MDataBean("Type de véhicule", $_GET['type'], ENUM);
-			$data = array($comment, $type);
-			$request->addArgument("data", json_encode($data));
-			
-			$response = $request->send();
-			$check = json_decode($response);
-			if($check->error != null) {
-				$this->error = $check->error->message;
-			} else {
-				$this->success = "Request sent!";
-			}
-		} else if(isset($_GET['subscribe'])) {
-			$request = new Request("PubSubRequestHandler", READ);
-			$request->addArgument("application", "myTransport");
-			$request->addArgument("predicate", $_GET['start'].$_GET['end'].$_GET['date']);
-			$response = $request->send();
-			$check = json_decode($response);
-			if($check->error != null) {
-				$this->error = $check->error->message;
-			} else {
-				$this->success = $response;
-			}
+		if(isset($_POST['method'])) {
+			if($_POST['method'] == "publish") {
+				$publish = new Publish($this);
+				$publish->send();
+			} else if($_POST['method'] == "subscribe") {
+				$subscribe = new Subscribe($this);
+				$subscribe->send();
+			} else if($_POST['method'] == "find") {
+				$find = new Find($this);
+				$find->send();
+			} 
 		} else if(isset($_GET['getDetails'])) {
-			$request = new Request("PubSubRequestHandler", READ);
+			$request = new Request("FindRequestHandler", READ);
 			$request->addArgument("application", "myTransport");
 			$request->addArgument("predicate", $_GET['predicate']);
 			$request->addArgument("user", $_GET['user']);
@@ -73,12 +57,23 @@ class MyTransportHandler implements IRequestHandler {
 		}
 	}
 	
+	/* --------------------------------------------------------- */
+	/* Getter&Setter */
+	/* --------------------------------------------------------- */
 	public /*String*/ function getError(){
 		return $this->error;
 	}
 	
+	public /*void*/ function setError(/*String*/ $error){
+		return $this->error = $error;
+	}
+	
 	public /*String*/ function getSuccess(){
 		return $this->success;
+	}
+	
+	public /*void*/ function setSuccess(/*String*/ $success){
+		return $this->success = $success;
 	}
 	
 }

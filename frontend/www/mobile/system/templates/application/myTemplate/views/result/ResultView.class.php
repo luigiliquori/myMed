@@ -22,7 +22,7 @@ class ResultView extends MyTemplate {
 	/**
 	 * Default constructor
 	 */
-	public function __construct(/*MyTransportHandler*/ $handler) {
+	public function __construct(/*MyTemplateHandler*/ $handler) {
 		parent::__construct("myTemplate", "myTemplate");
 		$this->handler = $handler;
 	}
