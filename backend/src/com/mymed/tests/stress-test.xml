@@ -42,10 +42,9 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
       Cassandra has sl4j binding in its classpath, that's why it complains -->
       <exclude name="slf4j-log4j12-1.6.1.jar"/>
     </fileset>
-		<fileset dir="${glassfish.dir}">
-			<include name="*.jar"/>
-			<include name="**/*.jar"/>
-		</fileset>
+    <fileset dir="${glassfish.dir}">
+      <include name="**/mail.jar"/>
+    </fileset>
 	</path>
 
   <!-- Used if we want to pretty print the classpath in case we need to debug -->
