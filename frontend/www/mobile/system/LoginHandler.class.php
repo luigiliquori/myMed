@@ -1,5 +1,5 @@
 <?php require_once 'system/request/Request.class.php'; ?>
-<?php require_once 'system/request/IRequestHandler.php'; ?>
+<?php require_once 'system/handler/IRequestHandler.php'; ?>
 <?php require_once 'system/beans/MUserBean.class.php'; ?>
 <?php require_once 'system/beans/MAuthenticationBean.class.php'; ?>
 

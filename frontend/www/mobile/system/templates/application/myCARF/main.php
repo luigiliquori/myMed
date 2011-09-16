@@ -18,20 +18,14 @@
 		<script src="system/templates/application/myTransport/javascript/map.js"></script>
 		<link rel="stylesheet" href="system/templates/application/myTransport/css/style.css" />
 		
-		<?php require_once dirname(__FILE__).'/Publish.class.php'; ?>
-		<?php require_once dirname(__FILE__).'/Find.class.php'; ?>
-		<?php require_once dirname(__FILE__).'/Map.class.php'; ?>
+		<?php require_once dirname(__FILE__).'/MyCARF.class.php'; ?>
 		
 	</head>
 	
 	<body onload="initialize()">
 		<?php 
-			$map = new Map();
-			$map->printTemplate();
-			$publish = new Publish();
-			$publish->printTemplate();
-			$find = new Find();
-			$find->printTemplate();
+			$myCARF = new MyCARF();
+			$myCARF->printTemplate();
 		?>
 	</body>
 </html> 

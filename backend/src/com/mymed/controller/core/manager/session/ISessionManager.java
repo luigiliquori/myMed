@@ -13,8 +13,7 @@ public interface ISessionManager {
 	 * @param ip
 	 * @throws InternalBackEndException
 	 */
-	public void create(String userID, String ip)
-			throws InternalBackEndException, IOBackEndException;
+	void create(String userID, String ip) throws InternalBackEndException, IOBackEndException;
 
 	/**
 	 * 
@@ -22,8 +21,7 @@ public interface ISessionManager {
 	 * @return
 	 * @throws InternalBackEndException
 	 */
-	public MSessionBean read(String userID) throws InternalBackEndException,
-			IOBackEndException;
+	MSessionBean read(String userID) throws InternalBackEndException, IOBackEndException;
 
 	/**
 	 * 
@@ -31,8 +29,7 @@ public interface ISessionManager {
 	 * @return
 	 * @throws InternalBackEndException
 	 */
-	public void update(MSessionBean session) throws InternalBackEndException,
-			IOBackEndException;
+	void update(MSessionBean session) throws InternalBackEndException, IOBackEndException;
 
 	/**
 	 * logout
@@ -40,5 +37,5 @@ public interface ISessionManager {
 	 * @param userID
 	 * @throws InternalBackEndException
 	 */
-	public void delete(String userID) throws InternalBackEndException;
+	void delete(String userID) throws InternalBackEndException;
 }

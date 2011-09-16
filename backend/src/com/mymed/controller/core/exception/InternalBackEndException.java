@@ -12,18 +12,23 @@ public class InternalBackEndException extends AbstractMymedException {
 	/* Attributes */
 	/* --------------------------------------------------------- */
 	private static final long serialVersionUID = 1L;
-	private String message;
+	private final String message;
 
 	/* --------------------------------------------------------- */
 	/* Constructors */
 	/* --------------------------------------------------------- */
-	public InternalBackEndException(Exception ex) {
+	public InternalBackEndException(final Exception ex) {
 		super(ex, 500);
-		this.message = ex.toString();
+		message = ex.toString();
 	}
 
-	public InternalBackEndException(String message) {
+	public InternalBackEndException(final String message) {
 		super(message, 500);
+		this.message = message;
+	}
+
+	public InternalBackEndException(final String message, final Throwable cause) {
+		super(message, cause, 500);
 		this.message = message;
 	}
 
@@ -33,11 +38,10 @@ public class InternalBackEndException extends AbstractMymedException {
 	/**
 	 * see {@link AbstractMymedException#getJsonException()}
 	 */
+	@Override
 	public String getJsonException() {
-		String res = "{\n" + "\"error\": {\n"
-				+ "\"type\": \"InternalBackEndException\",\n"
-				+ "\"status\":  \"" + status + "\",\n"
-				+ "\"message\": \"" + message + "\"\n" + "}\n" + "}";
+		final String res = "{\n" + "\"error\": {\n" + "\"type\": \"InternalBackEndException\",\n" + "\"status\":  \""
+		        + status + "\",\n" + "\"message\": \"" + message + "\"\n" + "}\n" + "}";
 		return res;
 	}
 }

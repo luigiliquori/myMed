@@ -1,8 +1,11 @@
 package com.mymed.controller.core.manager;
 
+
 /**
- * Simple class to hold generic string that can be used with all the managers.
- * We hold the names of the columns families and of the super columns
+ * Simple class to hold generic strings that can be used with all the managers.
+ * We hold the names of the columns families and of the super columns.
+ * <p>
+ * It contains also the log facilities for all the managers.
  * 
  * @author Milo Casagrande
  * 
@@ -35,11 +38,6 @@ public class ManagerValues {
 	protected static final String CF_ONTOLOGY = "Ontology";
 
 	/**
-	 * The 'OntologyType' column family
-	 */
-	protected static final String CF_ONTOLOGY_TYPE = "OntologyType";
-
-	/**
 	 * The 'Reputation' column family
 	 */
 	protected static final String CF_REPUTATION = "Reputation";
@@ -69,7 +67,17 @@ public class ManagerValues {
 	 * The 'ApplicationModel' super column
 	 */
 	protected static final String SC_APPLICATION_MODEL = "ApplicationModel";
+	
+	/**
+	 * The 'OntologyList' super column
+	 */
+	protected static final String SC_ONTOLOGY_LIST = "OntologyList";
 
+	/**
+	 * The 'DataList' super column
+	 */
+	protected static final String SC_DATA_LIST = "DataList";
+	
 	/**
 	 * The 'UserList' super column
 	 */

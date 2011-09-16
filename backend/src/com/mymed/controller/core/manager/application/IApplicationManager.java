@@ -12,15 +12,11 @@ import com.mymed.model.data.user.MUserBean;
  */
 public interface IApplicationManager {
 
+	void create(MUserBean user) throws InternalBackEndException, IOBackEndException;
 
-	public void create(MUserBean user) throws InternalBackEndException, IOBackEndException;
+	MUserBean read(String id) throws InternalBackEndException, IOBackEndException;
 
+	void update(MUserBean user) throws InternalBackEndException, IOBackEndException;
 
-	public MUserBean read(String id) throws InternalBackEndException, IOBackEndException;
-
-
-	public void update(MUserBean user) throws InternalBackEndException, IOBackEndException;
-
-
-	public void delete(String id) throws InternalBackEndException;
+	void delete(String id) throws InternalBackEndException;
 }

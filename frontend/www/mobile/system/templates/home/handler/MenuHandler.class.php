@@ -1,6 +1,6 @@
 <?php 
 require_once 'system/request/Request.class.php';
-require_once 'system/request/IRequestHandler.php';
+require_once 'system/handler/IRequestHandler.php';
 
 /**
  * 

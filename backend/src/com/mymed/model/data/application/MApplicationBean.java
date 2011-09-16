@@ -9,19 +9,64 @@ import com.mymed.model.data.AbstractMBean;
  * @author Milo Casagrande
  */
 public final class MApplicationBean extends AbstractMBean {
-	
+
+	// Used for the calculation of the hashCode()
+	private static final int PRIME = 31;
 
 	@Override
-	public boolean equals(final Object object) {
-		final boolean returnValue = true;
-		// TODO
-		return returnValue;
-	}
-	
-	@Override
-	public void update(AbstractMBean mBean) {
+	public void update(final AbstractMBean mBean) {
 		// TODO Auto-generated method stub
-		
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		int result = 1;
+		result = PRIME * result + (controller == null ? 0 : controller.hashCode());
+		result = PRIME * result + (model == null ? 0 : model.hashCode());
+		result = PRIME * result + (view == null ? 0 : view.hashCode());
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals()
+	 */
+	@Override
+	public boolean equals(final Object object) {
+		boolean equal = false;
+
+		if (this == object) {
+			equal = true;
+		} else if (object instanceof MApplicationBean) {
+			final MApplicationBean comparable = (MApplicationBean) object;
+			equal = true;
+
+			if (model == null && comparable.getModel() != null) {
+				equal &= false;
+			} else {
+				equal &= model.equals(comparable.getModel());
+			}
+
+			if (view == null && comparable.getView() != null) {
+				equal &= false;
+			} else {
+				equal &= view.equals(comparable.getView());
+			}
+
+			if (controller == null && comparable.getController() != null) {
+				equal &= false;
+			} else {
+				equal &= controller.equals(comparable.getController());
+			}
+		}
+
+		return equal;
 	}
 
 	/* --------------------------------------------------------- */
@@ -86,6 +131,4 @@ public final class MApplicationBean extends AbstractMBean {
 	public void setController(final String controller) {
 		this.controller = controller;
 	}
-
-
 }

@@ -73,7 +73,7 @@ class Login extends AbstractLogin {
 			    <span>Password:</span><br />
 			    <input type="password" name="password" id="password" value="" />
 				<br />
-				<a href="#home" data-role="button" data-inline="true" onclick="document.singinForm.submit()">Connexion</a>
+				<input type="submit" data-role="button" data-inline="true" onclick="document.singinForm.submit()" value="Connexion"  data-theme="a"/>
 				<a href="#inscription" data-role="button" data-inline="true" data-rel="dialog">Inscription</a>
 			</form>
 		</div>

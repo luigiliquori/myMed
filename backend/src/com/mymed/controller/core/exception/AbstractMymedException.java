@@ -18,23 +18,27 @@ public abstract class AbstractMymedException extends Exception {
 	/* --------------------------------------------------------- */
 	/* Constructors */
 	/* --------------------------------------------------------- */
-	public AbstractMymedException(Exception ex, int status) {
+	public AbstractMymedException(final Exception ex, final int status) {
 		super(ex);
 		this.status = status;
 	}
 
-	public AbstractMymedException(String message, int status) {
+	public AbstractMymedException(final String message, final int status) {
 		super(message);
 		this.status = status;
 	}
 
-	
+	public AbstractMymedException(final String message, final Throwable cause, final int status) {
+		super(message, cause);
+		this.status = status;
+	}
+
 	public abstract String getJsonException();
 
 	/* --------------------------------------------------------- */
 	/* GETTER & SETTER */
 	/* --------------------------------------------------------- */
-	
+
 	/**
 	 * 
 	 * @return the status code server
@@ -45,10 +49,11 @@ public abstract class AbstractMymedException extends Exception {
 
 	/**
 	 * Set the status server
+	 * 
 	 * @param status
 	 * @return
 	 */
-	public int setStatus(int status) {
+	public int setStatus(final int status) {
 		return this.status = status;
 	}
 }
