@@ -1,5 +1,5 @@
 <?php
-
+require_once 'system/templates/application/' . APPLICATION_NAME . '/MyApplication.class.php';
 require_once 'system/templates/ITemplate.php';
 require_once 'system/templates/AbstractTemplate.class.php';
 
@@ -9,7 +9,7 @@ require_once 'system/templates/AbstractTemplate.class.php';
  * @author lvanni
  *
  */
-class DetailView extends MyTransport {
+class DetailView extends MyApplication {
 	
 	/* --------------------------------------------------------- */
 	/* Attributes */
@@ -23,7 +23,7 @@ class DetailView extends MyTransport {
 	 * Default constructor
 	 */
 	public function __construct(/*MyTransportHandler*/ $handler) {
-		parent::__construct("myTransport", "myTransport");
+		parent::__construct(APPLICATION_NAME, APPLICATION_NAME);
 		$this->handler = $handler;
 	}
 	
@@ -35,7 +35,7 @@ class DetailView extends MyTransport {
 	*/
 	public /*String*/ function getHeader() { ?>
 		<div data-role="header" data-theme="b">
-			<a href="?application=myTransport" data-role="button" rel="external">Retour</a>
+			<a href="?application=<?= APPLICATION_NAME ?>" data-role="button" rel="external">Retour</a>
 				<h2>Info</h2>
 		</div>
 	<?php }

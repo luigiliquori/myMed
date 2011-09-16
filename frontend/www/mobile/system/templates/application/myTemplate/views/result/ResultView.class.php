@@ -1,5 +1,5 @@
 <?php
-
+require_once 'system/templates/application/' . APPLICATION_NAME . '/MyApplication.class.php';
 require_once 'system/templates/ITemplate.php';
 require_once 'system/templates/AbstractTemplate.class.php';
 
@@ -9,7 +9,7 @@ require_once 'system/templates/AbstractTemplate.class.php';
  * @author lvanni
  *
  */
-class ResultView extends MyTemplate {
+class ResultView extends MyApplication {
 	
 	/* --------------------------------------------------------- */
 	/* Attributes */
@@ -23,7 +23,7 @@ class ResultView extends MyTemplate {
 	 * Default constructor
 	 */
 	public function __construct(/*MyTemplateHandler*/ $handler) {
-		parent::__construct("myTemplate", "myTemplate");
+		parent::__construct(APPLICATION_NAME, APPLICATION_NAME);
 		$this->handler = $handler;
 	}
 	
@@ -35,7 +35,7 @@ class ResultView extends MyTemplate {
 	*/
 	public /*String*/ function getHeader() { ?>
 		<div data-role="header" data-theme="b">
-			<a href="?application=myTemplate" data-role="button" rel="external">Retour</a>
+			<a href="?application=<?= APPLICATION_NAME ?>" data-role="button" rel="external">Retour</a>
 			<?php if(isset($_GET['publish'])) { ?>
 				<h2>info</h2>
 			<?php } else { ?>
@@ -71,7 +71,7 @@ class ResultView extends MyTemplate {
 						<?php } else {?>
 							<!-- RESULT DETAILS -->
 							<form action="#" method="post" name="getDetailForm" id="getDetailForm">
-								<input type="hidden" name="application=myTemplate" value="1" />
+								<input type="hidden" name="application=<?= APPLICATION_NAME ?>" value="1" />
 								<input type="hidden" name="getResult" value="1" />
 								<input type="hidden" name="user" value="<?= $controller->user ?>" />
 								<input type="hidden" name="predicate" value="<?= $controller->predicate ?>" />
@@ -81,7 +81,7 @@ class ResultView extends MyTemplate {
 							<?php } else { ?>
 								<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="60" height="60">
 							<?php } ?>
-							<a rel="external" href="?application=myTemplate&getDetails=1&user=<?= $controller->user ?>&predicate=<?= $controller->predicate ?>">
+							<a rel="external" href="?application=<?= APPLICATION_NAME ?>&getDetails=1&user=<?= $controller->user ?>&predicate=<?= $controller->predicate ?>">
 								<?= $profile->name ?>
 							</a>
 						<?php } ?>
@@ -90,7 +90,7 @@ class ResultView extends MyTemplate {
 				</ul>
 			<?php } else if($this->handler->getSuccess() && ($_POST['method'] == "publish" || $_POST['method'] == "subscribe")) { ?>
 				<h2 style="color:green;">Message envoyé avec succès</h2>
-				<a href="?application=myTemplate" data-role="button" rel="external">Retour</a>
+				<a href="?application=<?= APPLICATION_NAME ?>" data-role="button" rel="external">Retour</a>
 			<?php } else { ?>
 				<h2 style="color:red;"><?= $this->handler->getError() ?></h2>
 			<?php } ?>

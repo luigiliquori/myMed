@@ -1,6 +1,6 @@
 <?php
 
-require_once 'system/templates/application/myTransport/MyTransport.class.php';
+require_once 'system/templates/application/' . APPLICATION_NAME . '/MyApplication.class.php';
 require_once 'system/beans/MDataBean.class.php';
 
 /**
@@ -9,7 +9,7 @@ require_once 'system/beans/MDataBean.class.php';
  * @author lvanni
  *
  */
-class FindView extends MyTransport {
+class FindView extends MyApplication {
 	
 	/* --------------------------------------------------------- */
 	/* Attributes */
@@ -34,9 +34,9 @@ class FindView extends MyTransport {
 	public /*String*/ function getContent() { ?>
 		<!-- CONTENT -->
 		<div class="content" data-role="content">
-			<form  action="#" method="post" name="myTransportFindForm" id="myTransportFindForm">
+			<form  action="#" method="post" name="<?= APPLICATION_NAME ?>FindForm" id="<?= APPLICATION_NAME ?>FindForm">
 				<!-- Define the method to call -->
-				<input type="hidden" name="application" value="myTransport" />
+				<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
 				<input type="hidden" name="method" value="find" />
 				<input type="hidden" name="numberOfOntology" value="3" />
 				
@@ -61,7 +61,7 @@ class FindView extends MyTransport {
 				<input type="hidden" name="ontology2" value="<?= urlencode(json_encode($gps)); ?>">
 
 				<br /><br />
-				<a href="#" data-role="button"onclick="document.myTransportFindForm.submit()">Find</a>	
+				<a href="#" data-role="button"onclick="document.<?= APPLICATION_NAME ?>FindForm.submit()">Find</a>	
 			</form>
 		</div>
 	<?php }

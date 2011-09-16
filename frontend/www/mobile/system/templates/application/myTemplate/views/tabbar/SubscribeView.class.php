@@ -1,6 +1,6 @@
 <?php
 
-require_once 'system/templates/application/myTemplate/MyTemplate.class.php';
+require_once 'system/templates/application/' . APPLICATION_NAME . '/MyApplication.class.php';
 require_once 'system/beans/MDataBean.class.php';
 
 /**
@@ -9,7 +9,7 @@ require_once 'system/beans/MDataBean.class.php';
  * @author lvanni
  *
  */
-class SubscribeView extends MyTemplate {
+class SubscribeView extends MyApplication {
 	
 	/* --------------------------------------------------------- */
 	/* Attributes */
@@ -34,9 +34,9 @@ class SubscribeView extends MyTemplate {
 	public /*String*/ function getContent() { ?>
 		<!-- CONTENT -->
 		<div class="content" data-role="content">
-			<form  action="#" method="post" name="myTemplateSubscribeForm" id="myTemplateSubscribeForm">
+			<form  action="#" method="post" name="<?= APPLICATION_NAME ?>SubscribeForm" id="<?= APPLICATION_NAME ?>SubscribeForm">
 				<!-- Define the method to call -->
-				<input type="hidden" name="application" value="myTemplate" />
+				<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
 				<input type="hidden" name="method" value="subscribe" />
 				<input type="hidden" name="numberOfOntology" value="4" />
 				
@@ -71,7 +71,7 @@ class SubscribeView extends MyTemplate {
 				<input type="hidden" name="ontology3" value="<?= urlencode(json_encode($date)); ?>">
 
 				<br /><br />
-				<a href="#" data-role="button"onclick="document.myTemplateSubscribeForm.submit()">Subscribe</a>	
+				<a href="#" data-role="button"onclick="document.<?= APPLICATION_NAME ?>SubscribeForm.submit()">Subscribe</a>	
 			</form>
 		</div>
 	<?php }

@@ -1,6 +1,6 @@
 <?php
 
-require_once 'system/templates/application/myTemplate/MyTemplate.class.php';
+require_once 'system/templates/application/' . APPLICATION_NAME . '/MyApplication.class.php';
 require_once 'system/beans/MDataBean.class.php';
 
 /**
@@ -9,7 +9,7 @@ require_once 'system/beans/MDataBean.class.php';
  * @author lvanni
  *
  */
-class PublishView extends MyTemplate {
+class PublishView extends MyApplication {
 	
 	/* --------------------------------------------------------- */
 	/* Attributes */
@@ -34,9 +34,9 @@ class PublishView extends MyTemplate {
 	public /*String*/ function getContent() { ?>
 		<!-- CONTENT -->
 		<div class="content">
-			<form  action="#" method="post" name="myTemplatePublishForm" id="myTemplatePublishForm">
+			<form  action="#" method="post" name="<?= APPLICATION_NAME ?>PublishForm" id="<?= APPLICATION_NAME ?>PublishForm">
 				<!-- Define the method to call -->
-				<input type="hidden" name="application" value="myTemplate" />
+				<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
 				<input type="hidden" name="method" value="publish" />
 				<input type="hidden" name="numberOfOntology" value="5" />
 				
@@ -91,7 +91,7 @@ class PublishView extends MyTemplate {
 				Ontology 7 (Type: AUDIO) :<br />
 				<input type="file" disabled="disabled" /><br /><br />
 				
-				<a href="#" data-role="button" onclick="document.myTemplatePublishForm.submit()">Publish</a>
+				<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>PublishForm.submit()">Publish</a>
 			</form>
 		</div>
 	<?php }

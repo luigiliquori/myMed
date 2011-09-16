@@ -1,6 +1,6 @@
 <?php
 
-require_once 'system/templates/application/myTransport/MyTransport.class.php';
+require_once 'system/templates/application/' . APPLICATION_NAME . '/MyApplication.class.php';
 require_once 'system/beans/MDataBean.class.php';
 
 /**
@@ -9,7 +9,7 @@ require_once 'system/beans/MDataBean.class.php';
  * @author lvanni
  *
  */
-class PublishView extends MyTransport {
+class PublishView extends MyApplication {
 	
 	/* --------------------------------------------------------- */
 	/* Attributes */
@@ -34,9 +34,9 @@ class PublishView extends MyTransport {
 	public /*String*/ function getContent() { ?>
 		<!-- CONTENT -->
 		<div class="content">
-			<form  action="#" method="post" name="myTransportPublishForm" id="myTransportPublishForm">
+			<form  action="#" method="post" name="<?= APPLICATION_NAME ?>PublishForm" id="<?= APPLICATION_NAME ?>PublishForm">
 				<!-- Define the method to call -->
-				<input type="hidden" name="application" value="myTransport" />
+				<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
 				<input type="hidden" name="method" value="publish" />
 				<input type="hidden" name="numberOfOntology" value="5" />
 				
@@ -62,7 +62,7 @@ class PublishView extends MyTransport {
 				<br />
 				
 				<!-- ENUM -->
-				Type de vehicule:  :<br />
+				Type de vehicule :<br />
 				<select name="Type" data-theme="a">
 					<option value="Compacte"> Compacte - Berline - Coupé</option>
 					<option value="Cabriolet">Cabriolet</option>
@@ -78,13 +78,13 @@ class PublishView extends MyTransport {
 				<br />
 				
 				<!-- TEXT -->
-				Commentaires : :<br />
+				Commentaires :<br />
 				<textarea name="Commentaires" rows="" cols=""></textarea>
 				<?php $text = new MDataBean("Commentaires", null, TEXT); ?>
 				<input type="hidden" name="ontology4" value="<?= urlencode(json_encode($text)); ?>">
 				<br />
 				
-				<a href="#" data-role="button" onclick="document.myTransportPublishForm.submit()">Publish</a>
+				<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>PublishForm.submit()">Publish</a>
 			</form>
 		</div>
 	<?php }

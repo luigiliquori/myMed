@@ -1,6 +1,6 @@
 <?php
 
-require_once 'system/templates/application/myTransport/MyTransport.class.php';
+require_once 'system/templates/application/' . APPLICATION_NAME . '/MyApplication.class.php';
 require_once 'system/beans/MDataBean.class.php';
 
 /**
@@ -9,7 +9,7 @@ require_once 'system/beans/MDataBean.class.php';
  * @author lvanni
  *
  */
-class MapView extends MyTransport {
+class MapView extends MyApplication {
 	
 	/* --------------------------------------------------------- */
 	/* Attributes */

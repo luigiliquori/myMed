@@ -2,7 +2,7 @@
 class TemplateManager {
 	private /*string*/ $template;
 	
-	public function __construct(/*string*/ $template="accueil") {
+	public function __construct(/*string*/ $template="login") {
 		$this->template	= $template;
 	}
 
@@ -22,7 +22,7 @@ class TemplateManager {
 		if($name!==null) {
 			$this->selectTemplate($name);
 		}
-		require(dirname(__FILE__).'/' . $this->template . '/main.php');
+		require_once(dirname(__FILE__).'/' . $this->template . '/main.php');
 	}
 }
 ?>
