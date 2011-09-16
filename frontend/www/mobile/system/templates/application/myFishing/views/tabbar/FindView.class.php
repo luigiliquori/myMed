@@ -38,38 +38,34 @@ class FindView extends MyApplication {
 				<!-- Define the method to call -->
 				<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
 				<input type="hidden" name="method" value="find" />
-				<input type="hidden" name="numberOfOntology" value="4" />
+				<input type="hidden" name="numberOfOntology" value="3" />
 				
-				<!-- KEYWORD -->
-				Ontology 0 (Type: KEYWORD) :<br />
-				<input type="text" name="keyword" value=""  data-inline="true"/><br />
-				<?php $keyword = new MDataBean("keyword", null, KEYWORD); ?>
-				<input type="hidden" name="ontology0" value="<?= urlencode(json_encode($keyword)); ?>">
+				<!-- ENUM for Fish Specie -->
+				Kind of Fish:<br />
+				<select name="FishSpecie" data-theme="a">
+					<option value="Trout">Trout</option>
+					<option value="Grayling">Grayling</option>
+					<option value="Salmon">Salmon</option>
+					<option value="Dorade">Dorade</option>					
+				</select>
+				<?php $enum = new MDataBean("FishSpecie", null, ENUM); ?>
+				<input type="hidden" name="ontology0" value="<?= urlencode(json_encode($enum)); ?>">
+				<br />
 				
 				<!-- GPS -->
-				Ontology 1 (Type: GPS) :<br />
-				<input type="text" name="gps" value=""  data-inline="true"/>
-				<?php $gps = new MDataBean("gps", null, GPS); ?>
+				Location :<br />
+				<input type="text" name="Location" value=""  data-inline="true"/>
+				<?php $gps = new MDataBean("Location", null, GPS); ?>
 				<input type="hidden" name="ontology1" value="<?= urlencode(json_encode($gps)); ?>">
 				<br />
 				
-				<!-- ENUM -->
-				Ontology 2 (Type: ENUM) :<br />
-				<select name="enum" data-theme="a">
-					<option value="Option1">Option1</option>
-					<option value="Option2">Option2</option>
-					<option value="Option3">Option3</option>
-				</select>
-				<?php $enum = new MDataBean("enum", null, ENUM); ?>
-				<input type="hidden" name="ontology2" value="<?= urlencode(json_encode($enum)); ?>">
+				<!-- DATE -->
+				Catch Date:<br />
+				<input type="date" name="date" value=" "  data-inline="true"/>
+				<?php $date = new MDataBean("date", null, DATE); ?>
+				<input type="hidden" name="ontology2" value="<?= urlencode(json_encode($date)); ?>">
 				<br />
 				
-				<!-- DATE -->
-				Ontology 3 (Type: DATE) :<br />
-				<input type="date" name="date" value="<?php echo date('Y-m-d');?>"  data-inline="true"/>
-				<?php $date = new MDataBean("date", null, DATE); ?>
-				<input type="hidden" name="ontology3" value="<?= urlencode(json_encode($date)); ?>">
-
 				<br /><br />
 				<a href="#" data-role="button"onclick="document.<?= APPLICATION_NAME ?>FindForm.submit()">Find</a>	
 			</form>

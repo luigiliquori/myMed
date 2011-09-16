@@ -40,6 +40,9 @@ class DetailView extends MyApplication {
 		</div>
 	<?php }
 	
+	public /*String*/ function getFooter() { ?>
+	<?php }
+	
 	/**
 	* Print the Template
 	*/
