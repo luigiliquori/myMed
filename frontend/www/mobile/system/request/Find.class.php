@@ -27,23 +27,44 @@ class Find extends Request {
 	/* Public methods */
 	/* --------------------------------------------------------- */
 	public /*void*/ function send() {
-		parent::addArgument("application", $_POST['application']);
 		// construct the predicate + data
-		$predicate = "";
+		$predicateArray;
+		$numberOfPredicate = 0;
 		for($i=0 ; $i<$_POST['numberOfOntology'] ; $i++){
 			/*MDataBean*/ $ontology = json_decode(urldecode($_POST['ontology' . $i]));
 			$ontology->value = $_POST[$ontology->key];
-			$predicate .= $ontology->value;
+			if($ontology->ontologyID < 4) {
+				// it's a predicate
+				$predicateArray[$numberOfPredicate++] = $ontology;
+			}
 		}
-		// construct the request
-		parent::addArgument("predicate", $predicate);
-	
-		$response = parent::send();
-		$check = json_decode($response);
-		if($check->error != null) {
-			$this->handler->setError($check->error->message);
-		} else {
-			$this->handler->setSuccess($response);
+		
+		// Construct the requests
+		parent::addArgument("application", $_POST['application']);
+		
+		// Broadcast predicate algorithm
+		$result = array();
+		for($i=1 ; $i<pow(2, $numberOfPredicate) ; $i++){
+			$mask = $i;
+			$predicate = "";
+			$j = 0;
+			while($mask > 0){
+				if($mask&1 == 1){
+					$predicate .= $predicateArray[$j]->value;
+				}
+				$mask >>= 1;
+				$j++;
+			}
+			if($predicate != ""){
+// 				echo '<script type="text/javascript">alert("$predicate = ' . $predicate . '")</script>';
+				parent::addArgument("predicate", $predicate);
+				$response = parent::send();
+				$check = json_decode($response);
+				if($check->error == null) {
+ 					$this->handler->setSuccess($response); // TODO CONCATENATION!!!!!
+ 					break;
+				}
+			}
 		}
 	}
 }
