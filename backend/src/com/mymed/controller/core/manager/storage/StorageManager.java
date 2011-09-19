@@ -338,13 +338,12 @@ public class StorageManager extends ManagerValues implements IStorageManager {
 	@Override
 	public void insertSlice(final String tableName, final String primaryKey, final Map<String, byte[]> args)
 	        throws InternalBackEndException {
-
-		final Map<String, Map<String, List<Mutation>>> mutationMap = new HashMap<String, Map<String, List<Mutation>>>();
-		final long timestamp = System.currentTimeMillis();
-
 		try {
+			final Map<String, Map<String, List<Mutation>>> mutationMap = new HashMap<String, Map<String, List<Mutation>>>();
+			final long timestamp = System.currentTimeMillis();
 			final Map<String, List<Mutation>> tableMap = new HashMap<String, List<Mutation>>();
 			final List<Mutation> sliceMutationList = new ArrayList<Mutation>(5);
+
 			tableMap.put(tableName, sliceMutationList);
 
 			final Iterator<Entry<String, byte[]>> iterator = args.entrySet().iterator();
@@ -389,13 +388,12 @@ public class StorageManager extends ManagerValues implements IStorageManager {
 	@Override
 	public void insertSuperSlice(final String superTableName, final String key, final String superKey,
 	        final Map<String, byte[]> args) throws IOBackEndException, InternalBackEndException {
-
-		final Map<String, Map<String, List<Mutation>>> mutationMap = new HashMap<String, Map<String, List<Mutation>>>();
-		final long timestamp = System.currentTimeMillis();
-
 		try {
+			final Map<String, Map<String, List<Mutation>>> mutationMap = new HashMap<String, Map<String, List<Mutation>>>();
+			final long timestamp = System.currentTimeMillis();
 			final Map<String, List<Mutation>> tableMap = new HashMap<String, List<Mutation>>();
 			final List<Mutation> sliceMutationList = new ArrayList<Mutation>(5);
+
 			tableMap.put(superTableName, sliceMutationList);
 
 			final Iterator<Entry<String, byte[]>> iterator = args.entrySet().iterator();
