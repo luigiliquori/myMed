@@ -56,16 +56,23 @@ class Find extends Request {
 				$j++;
 			}
 			if($predicate != ""){
-// 				echo '<script type="text/javascript">alert("$predicate = ' . $predicate . '")</script>';
 				parent::addArgument("predicate", $predicate);
 				$response = parent::send();
 				$check = json_decode($response);
 				if($check->error == null) {
+// 					$result = array_merge($result, json_decode($response));
+					echo '<script type="text/javascript">alert("$response = ' . json_decode($response) . '")</script>';
  					$this->handler->setSuccess($response); // TODO CONCATENATION!!!!!
  					break;
 				}
 			}
 		}
+		
+		//debug
+//  		foreach($result as $test) {
+//  			echo '<script type="text/javascript">alert("$response = ' . $test->user . '")</script>';
+//  		}
+//  		echo json_encode($result);
 	}
 }
 ?>

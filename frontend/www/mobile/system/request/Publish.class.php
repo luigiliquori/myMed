@@ -59,7 +59,7 @@ class Publish extends Request {
 				$j++;
 			}
 			if($predicate != ""){
-// 				echo '<script type="text/javascript">alert("$predicate = ' . $predicate . '")</script>';
+				echo '<script type="text/javascript">alert("$predicate = ' . $predicate . '")</script>';
 				parent::addArgument("predicate", $predicate);
 				$response = parent::send();
 				$check = json_decode($response);
