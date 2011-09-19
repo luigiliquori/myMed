@@ -21,7 +21,7 @@ import com.mymed.model.data.myjam.MSearchReportBean;
 public class MyJamCallManager extends HTTPCall implements ICallAttributes{
 	private static MyJamCallManager instance;
 	private static final String QUERY ="?code=";
-	private static final String MY_JAM_HANDLER_URL = "http://iacoporozzo.dyndns-server.com/backend/MyJamRequestHandler";
+	private static final String MY_JAM_HANDLER_URL = "http://130.192.9.113/backend/MyJamRequestHandler";
 	private Gson gson;
 	
 	private MyJamCallManager(){

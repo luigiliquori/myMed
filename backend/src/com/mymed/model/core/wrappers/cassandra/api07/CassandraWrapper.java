@@ -51,7 +51,7 @@ public class CassandraWrapper implements ICassandraWrapper {
 	/*
 	 * The port number to use for interacting with Cassandra
 	 */
-	private static final int PORT_NUMBER = 9160;
+	private static final int PORT_NUMBER = 4201;
 
 	/*
 	 * The name of the default keyspace we use for Cassandra
