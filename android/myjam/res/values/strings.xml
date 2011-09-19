@@ -88,6 +88,7 @@
     <string name="report_comment">Comment:</string>
     <string name="cursor_position"> Update (<xliff:g id="pos">%1$s</xliff:g>/<xliff:g id="index">%2$s</xliff:g>)</string>
     <string name="original_report"> Original report</string>
+    
     <plurals name="num_confirmations">
     	<item quantity="zero">No confirmations present.</item>
         <item quantity="one">One confirmation.</item>
@@ -102,6 +103,7 @@
     <string name="dialog_report_unavailable_text">Cannot proceed.\n Report data unavailable.</string>
     <string name="dialog_location_unavailable_text">Cannot proceed.\n User location unavailable.</string>
     <string name="dialog_not_in_range_text">Cannot proceed.\n You are too far from the report location.</string>
+    <string name="dialog_feedback_already_present_text">Cannot proceed.\n You have already put your feedback here.</string>
     <string name="inserting_feedback">Inserting the feedback...</string>
     <string name="dialog_insert_report_feedback_text">Press the below buttons to put you confirmation or denial on the report.</string>
     <string name="dialog_insert_update_feedback_text">Press the below buttons to put you confirmation or denial on the update.</string>
@@ -118,10 +120,12 @@
     <string name="work_in_progress_legend_label">Work in progress :</string>
     <string name="fixed_speed_cam_legend_label">Fixed speed cam :</string>
     <string name="mobile_speed_cam_legend_label">Mobile speed cam :</string>
+    <string name="user_position_legend_label">User position :</string>
     <!-- ============================ -->
     <!--  	MyPreferences  strings    -->
     <!-- ============================ -->
     <string name="search_preferences">Search Preferences</string>
+    <string name="map_preferences">Map View Preferences</string>
     <string name="title_radius_preference">Set search radius</string>
     <string name="summary_radius_preference">Radius of the search in km.</string>
     <string name="dialog_title_search_preference">Select the radius of the search.</string>
@@ -130,6 +134,8 @@
     <string name="dialog_title_type_filter_preference">Select the filter you want to apply.</string>
     <string name="title_search_rate_preference">Choose search rate.</string>
     <string name="summary_search_rate_preference">Search rate.</string>
-    <string name="dialog_title_search_rate_preference">Select the rate of the searches.</string>       
+    <string name="dialog_title_search_rate_preference">Select the rate of the searches.</string>
+    <string name="title_navigation_preference">Navigatione mode</string>
+    <string name="summary_navigation_preference">When is active the map in centered on the user position.</string>       
            
 </resources>

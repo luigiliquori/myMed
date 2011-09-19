@@ -249,6 +249,11 @@ public final class MyJamContract {
          */
         public static final String SEARCH_ID_SELECTION = SEARCH_ID +"= ?";
         
+        /**
+         * Selection used to update a report.
+         */
+        public static final String REPORT_SELECTION = REPORT_ID+"=? ";
+        
     }
     
     public static final class SearchReports implements BaseColumns {
@@ -466,6 +471,11 @@ public final class MyJamContract {
          * The index of the value on the feedback query.
          */
         public static final int VALUE_INDEX = 0;
+        
+        /**
+         * Selection used to update a report.
+         */
+        public static final String USER_ID_SELECTION = USER_ID+"=?";
         
         /**
          * The index of the count on the feedback query.

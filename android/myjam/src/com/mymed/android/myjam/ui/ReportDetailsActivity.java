@@ -69,6 +69,9 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 	private static final int DIALOG_REPORT_UNAVAILABLE_ID = 0x0;
 	private static final int DIALOG_LOC_UNAVAILABLE_ID = 0x1;
 	private static final int DIALOG_NOT_IN_RANGE_ID = 0x2;
+	private static final int DIALOG_FEEDBACK_ALREADY_PRESENT_ID = 0x3;
+	
+	private static final int DISTANCE_RESOLUTION = 50; //meters
 	
 	private GlobalStateAndUtils mUtils;
     private Handler mMessageQueueHandler = new Handler();
@@ -87,6 +90,8 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 					mButtonsView,
 					mAddPositiveFeedback,
 					mAddNegativeFeedback;
+	
+	private int mDistance; //meters
 	
 	private final String[] demandQueryProjection = new String[]{
 		UpdatesRequest.LAST_UPDATE,
@@ -131,6 +136,8 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 		mAddNegativeFeedback = mFeedbacksView.findViewById(R.id.imageAddNegFeedback);
 		mAddNegativeFeedback.setOnClickListener(this);
 		mButtonsView = (View) findViewById(R.id.linearLayoutButtons);
+		
+		mDistance = -1;
 	}
 	
 	@Override
@@ -165,8 +172,6 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 		if (mReportCursor.moveToFirst()){
 			if (mReportCursor.getInt(ReportQuery.FLAG_COMPLETE)==0)	
 				requestReport();
-			else
-				refreshDetailsView(REPORT);
 		}
 		/** This query is not asynchronous because before retrieving the updates, we want to know how many Updates are presents in the db*/
 		mUpdatesCursor = getContentResolver().query(Update.buildReportIdUri(mReportId)
@@ -174,9 +179,10 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 		if (mUpdatesCursor!=null){
 			if (mUpdatesCursor.moveToFirst())
 				mUpdateId = mUpdatesCursor.getString(UpdateQuery.UPDATE_ID);
-			refreshDetailsView(UPDATE);
 			refreshButtons();
 		}
+		/** Updates the details informations. */
+		refreshDetailsView();
 		mMessageQueueHandler.post(mRefreshRunnable);
 		/** The content observer trigger the refresh*/
 		getContentResolver().registerContentObserver(
@@ -208,7 +214,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 					requestFeedbacks(REPORT,mReportId);
 				}
 				refreshButtons();
-				refreshDetailsView(mUpdateId==null?REPORT:UPDATE);
+				refreshDetailsView();
 			}
 		}else if (v.equals(mMapButton)){
         	if (mReportId != null){
@@ -217,19 +223,19 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 		        intent.setData(uri);   	
 		        startActivity(intent);
         	}else
-        		Log.e(TAG, "mReportId not set");
+        		Log.e(TAG, "mReportId not set or checkInsert failed");
 		}else if (v.equals(mInsertButton)){
-        	if (mReportId != null && checkInsert()){
+        	if (mReportId != null &&  checkInsert()){
             	Intent intent = new Intent(this,InsertActivity.class);
             	intent.putExtra(InsertActivity.EXTRA_INSERT_TYPE, InsertActivity.UPDATE);
             	intent.setData(Report.buildReportIdUri(mReportId));
             	startActivity(intent);
         	}else
-        		Log.e(TAG, "mReportId not set");
-		}else if(v.equals(mAddPositiveFeedback) && checkInsert())
+        		Log.e(TAG, "mReportId not set or checkInsert failed");
+		}else if(v.equals(mAddPositiveFeedback) && checkFeedbackInsert() && checkInsert())
 			//TODO
 			insertFeedback(mReportId,mUpdateId,CONFIRM);
-		else if (v.equals(mAddNegativeFeedback) && checkInsert())
+		else if (v.equals(mAddNegativeFeedback) && checkFeedbackInsert() && checkInsert())
 			//TODO
 			insertFeedback(mReportId,mUpdateId,DENY);
 	}
@@ -265,6 +271,14 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
             long nextFiveMinutes = SystemClock.uptimeMillis() + TWO_MINUTES; //TODO Use a setting. 
             mMessageQueueHandler.postAtTime(mRefreshRunnable, nextFiveMinutes);
         }
+    };
+    
+    private Runnable mRefreshDistance = new Runnable() {
+		@Override
+		public void run() {
+			mDistance = refreshDistance();
+			mMessageQueueHandler.postDelayed(mRefreshDistance, 2000);
+		}
     };
     
     /**
@@ -461,7 +475,9 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
     }
 
 	@Override
-	protected void onLocServiceConnected() {}
+	protected void onLocServiceConnected() {
+		mMessageQueueHandler.postDelayed(mRefreshDistance, 2000);
+	}
 
 	@Override
 	protected void onLocServiceDisconnected() {}
@@ -499,7 +515,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 				if (mReportCursor!=null)
 					mReportCursor.close();
 				mReportCursor = cursor;
-				refreshDetailsView(REPORT);
+				refreshDetailsView();
 			}
 		}
 	}
@@ -516,7 +532,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 			if (mUpdatesCursor.moveToFirst()){
 				mUpdateId = mUpdatesCursor.getString(UpdateQuery.UPDATE_ID);
 				requestFeedbacks(UPDATE,mUpdateId);
-				refreshDetailsView(UPDATE);
+				refreshDetailsView();
 			}else 
 				mUpdateId = null;			
 			refreshButtons();
@@ -529,7 +545,8 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 	private void refreshButtons(){
 		boolean originalReport = false;
 		
-		if (mUpdatesCursor.getCount()>0)
+		int numUpdates = mUpdatesCursor.getCount();
+		if (numUpdates>0)
 			mButtonsView.setVisibility(View.VISIBLE);
 		else
 			mButtonsView.setVisibility(View.GONE);
@@ -541,10 +558,9 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 		}
 		if (mUpdatesCursor.isFirst() || mUpdatesCursor.isBeforeFirst())
 			mPreviousButton.setEnabled(false);
-		int numUpdates = mUpdatesCursor.getCount();
 		String index = originalReport?getResources().getString(R.string.original_report):
 			String.format(this.getResources().getString(R.string.cursor_position, 
-				numUpdates>0?mUpdatesCursor.getPosition() + 1:0 , numUpdates));
+				numUpdates- mUpdatesCursor.getPosition() , numUpdates));
 		mUpdateIndexTextView.setText(index);
 	}
 	
@@ -592,7 +608,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 	 * When is called the cursors must point valid items,
 	 * or the method does nothing. 
 	 */
-	private void refreshDetailsView(int code){
+	private void refreshDetailsView(){
 		TextView nameTextView;
 		TextView valueTextView;
 		View view;
@@ -607,7 +623,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 			iconView.setImageResource(mUtils.getIconByReportType(type));
 			valueTextView.setText(mUtils.formatType(type));
 			view.setVisibility(View.VISIBLE);
-			
+						
 			/** Shows the post date. */
 			view = findViewById(R.id.posted_detail);
 			nameTextView = (TextView) view.findViewById(R.id.textViewDetailName);
@@ -638,11 +654,11 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 			
 			/** Shows the comment. */
 			view = findViewById(R.id.comment_detail);
-			if ((value = mReportCursor.getString(code==REPORT?ReportQuery.COMMENT:UpdateQuery.COMMENT))!=null && value.trim().length() > 0){
+			if ((value = mReportCursor.getString(ReportQuery.COMMENT))!=null && value.trim().length() > 0){
 				nameTextView = (TextView)view.findViewById(R.id.textViewCommentName);
 				valueTextView = (TextView)view.findViewById(R.id.textViewCommentValue);
 				nameTextView.setText(getResources().getText(R.string.report_comment));
-				value = mReportCursor.getString(code==REPORT?ReportQuery.COMMENT:UpdateQuery.COMMENT);
+				value = mReportCursor.getString(ReportQuery.COMMENT);
 				valueTextView.setText(value);
 				valueTextView.setTextColor(getResources().getColor(R.color.black));
 				view.setVisibility(View.VISIBLE);
@@ -701,6 +717,30 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 
 	}
 	
+	/**
+	 * Refresh the distance between the user and the position of the report.
+	 */
+	private int refreshDistance(){
+		/** Shows the post date. */
+		int dist;
+		
+		if (mReportCursor!=null && !mReportCursor.isBeforeFirst() && !mReportCursor.isAfterLast()){
+			View view = findViewById(R.id.distance_detail);
+			TextView nameTextView = (TextView) view.findViewById(R.id.textViewDetailName);
+			TextView valueTextView = (TextView) view.findViewById(R.id.textViewDetailValue);
+			nameTextView.setText(getResources().getText(R.string.distance_label));
+			
+			dist = (mService !=null && mService.ismLocAvailable())?(int) GeoUtils.getGCDistance(GeoUtils.toGeoPoint(mService.getCurrentLocation()),
+					new GeoPoint(mReportCursor.getInt(ReportQuery.LATITUDE),mReportCursor.getInt(ReportQuery.LONGITUDE))):-1;
+			// If the user location is available shows the distance, if not shows '-'.
+			valueTextView.setText(dist==-1? "-":
+				mUtils.formatDistance(dist,50));
+			view.setVisibility(View.VISIBLE);
+			return dist;
+		}
+		return -1;
+	}
+	
 	@Override
 	/**
 	 * Inflate the menu,from the XML description.
@@ -709,7 +749,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 		super.onCreateOptionsMenu(menu);
 
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.report_details_menu, menu);		
+        inflater.inflate(R.menu.preference_menu, menu);		
 		return true;
 	}	
 	
@@ -735,16 +775,35 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 			showDialog(DIALOG_REPORT_UNAVAILABLE_ID);
 			return false;
 		}
-		if (!mService.ismLocAvailable()){
+		// If distance is not available.
+		if (mDistance == -1){
 			showDialog(DIALOG_LOC_UNAVAILABLE_ID);
 			return false;
 		}
-		double dist = GeoUtils.getGCDistance(GeoUtils.toGeoPoint(mService.getCurrentLocation()),
-				new GeoPoint(mReportCursor.getInt(ReportQuery.LATITUDE),mReportCursor.getInt(ReportQuery.LONGITUDE)));
-		if (dist > GlobalStateAndUtils.MAX_INSERTION_DISTANCE){
+		// If distance is greater then treshold.
+		int distance =  (int) (mDistance / DISTANCE_RESOLUTION) * DISTANCE_RESOLUTION;
+		if (distance > GlobalStateAndUtils.MAX_INSERTION_DISTANCE){
 			showDialog(DIALOG_NOT_IN_RANGE_ID);
 			return false;
 		}
+		return true;
+	}
+	
+	/**
+	 * Checks if the user has already inserted a feedback on the report/update
+	 * visualized.
+	 * @return {@value false} if the logged user has already put his feedback on the currently shown report/update.
+	 * @return {@value true} if the logged user has not already put his feedback on the currently shown report/update.
+	 */
+	private boolean checkFeedbackInsert(){
+
+	Cursor cursor = getContentResolver().query(mUpdateId==null?Feedback.buildReportIdUri(mReportId):
+		Feedback.buildUpdateIdUri(mUpdateId), 
+					null, Feedback.USER_ID_SELECTION, new String[]{mUtils.getUserId()}, null);
+	if (cursor.moveToFirst()){
+		showDialog(DIALOG_FEEDBACK_ALREADY_PRESENT_ID);
+		return false;
+	}else
 		return true;
 	}
 	
@@ -772,6 +831,9 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
             break;
         case DIALOG_NOT_IN_RANGE_ID:
         	builder.setMessage(R.string.dialog_not_in_range_text);        		
+        	break;
+        case DIALOG_FEEDBACK_ALREADY_PRESENT_ID:
+        	builder.setMessage(R.string.dialog_feedback_already_present_text);
         	break;
         default:
             return null;

@@ -13,65 +13,114 @@
     	android:textAppearance="?android:attr/textAppearanceMedium" 
     	android:text="Legend" 
     	android:layout_width="wrap_content"
-    	android:padding="5dip">
+    	android:padding="5dp">
     </TextView>
     <View
-        android:layout_height="2dip"
+        android:layout_height="2dp"
         android:layout_width="match_parent"
         android:background="@android:color/darker_gray" />
     <TableLayout
     	android:layout_width="match_parent"
     	android:layout_height="wrap_content"
-    	android:padding="10dip"
+    	android:padding="10dp"
     	android:stretchColumns="1">
     <TableRow android:gravity="center_vertical">
-    	<TextView android:id="@+id/textDate"
-			android:text="Fixed Speed Cam:" 
+    	<TextView
+			android:text="@string/jam_legend_label" 
     		android:layout_height="wrap_content" 
     		android:layout_width="match_parent"  
 			android:gravity="left"
-    		android:singleLine="true">
-		</TextView>	
-		<ImageView 
-			android:id="@+id/imageViewSearchIcon"
+    		android:singleLine="true"/>
+		<ImageView
 			android:layout_width="match_parent"  
 			android:layout_height="wrap_content" 
-			android:src="@drawable/blue_marker_s" 
-			android:gravity="right"
-			android:padding="10dip"/>	
+			android:src="@drawable/brown_marker_j" 
+			android:layout_gravity="right"
+			android:paddingRight="12dp"
+			android:paddingTop="2dp"
+			android:paddingBottom="2dp"/>	
 	</TableRow>
     <TableRow android:gravity="center_vertical">
-    	<TextView android:id="@+id/textDate"
-			android:text="Fixed Speed Cam:" 
+    	<TextView 
+			android:text="@string/car_crash_legend_label" 
     		android:layout_height="wrap_content" 
-    		android:layout_width="wrap_content"  
-			android:gravity="right"
-    		android:singleLine="true">
-		</TextView>	
+    		android:layout_width="match_parent"  
+			android:gravity="left"
+    		android:singleLine="true"/>
 		<ImageView 
 			android:id="@+id/imageViewSearchIcon"
 			android:layout_width="wrap_content"  
 			android:layout_height="wrap_content" 
-			android:src="@drawable/blue_marker_s" 
-			android:gravity="right"
-			android:padding="10dip"/>	
+			android:src="@drawable/red_marker_c" 
+			android:layout_gravity="right"
+			android:paddingRight="12dp"
+			android:paddingTop="2dp"
+			android:paddingBottom="2dp"/>	
 	</TableRow>    
     <TableRow android:gravity="center_vertical">
-    	<TextView android:id="@+id/textDate"
-			android:text="Fixed Speed Cam:" 
+    	<TextView
+			android:text="@string/work_in_progress_legend_label" 
     		android:layout_height="wrap_content" 
-    		android:layout_width="wrap_content"  
-			android:gravity="right"
-    		android:singleLine="true">
-		</TextView>	
-		<ImageView 
-			android:id="@+id/imageViewSearchIcon"
+    		android:layout_width="match_parent"  
+			android:gravity="left"
+    		android:singleLine="true"/>		
+    	<ImageView
+			android:layout_width="wrap_content"  
+			android:layout_height="wrap_content" 
+			android:src="@drawable/yellow_marker_w" 
+			android:layout_gravity="right"
+			android:paddingRight="12dp"
+			android:paddingTop="2dp"
+			android:paddingBottom="2dp"/>	
+	</TableRow> 
+	<TableRow android:gravity="center_vertical">
+    	<TextView
+			android:text="@string/mobile_speed_cam_legend_label" 
+    		android:layout_height="wrap_content" 
+    		android:layout_width="match_parent"  
+			android:gravity="left"
+    		android:singleLine="true"/>		
+    	<ImageView
 			android:layout_width="wrap_content"  
 			android:layout_height="wrap_content" 
 			android:src="@drawable/blue_marker_s" 
-			android:gravity="right"
-			android:padding="10dip"/>	
-	</TableRow>    
+			android:layout_gravity="right"
+			android:paddingRight="12dp"
+			android:paddingTop="2dp"
+			android:paddingBottom="2dp"/>	
+	</TableRow>
+	<TableRow android:gravity="center_vertical">
+    	<TextView
+			android:text="@string/fixed_speed_cam_legend_label" 
+    		android:layout_height="wrap_content" 
+    		android:layout_width="match_parent"  
+			android:gravity="left"
+    		android:singleLine="true"/>		
+    	<ImageView
+			android:layout_width="wrap_content"  
+			android:layout_height="wrap_content" 
+			android:src="@drawable/orange_marker_s" 
+			android:layout_gravity="right"
+			android:paddingRight="12dp"
+			android:paddingTop="2dp"
+			android:paddingBottom="2dp"/>	
+	</TableRow>
+		<TableRow android:gravity="center_vertical">
+    	<TextView
+			android:text="@string/user_position_legend_label" 
+    		android:layout_height="wrap_content" 
+    		android:layout_width="match_parent"  
+			android:gravity="left"
+    		android:singleLine="true"/>		
+    	<ImageView
+			android:layout_width="wrap_content"  
+			android:layout_height="wrap_content" 
+			android:src="@drawable/ic_maps_indicator_current_position" 
+			android:layout_gravity="right"
+			android:padding="2dp"
+			android:paddingTop="2dp"
+			android:paddingBottom="2dp"/>	
+	</TableRow>                
 	</TableLayout>
 </LinearLayout>
 

@@ -87,9 +87,19 @@ public class GlobalStateAndUtils {
     	return tmp;
     }
     
-    public String formatDistance(int arg0){
+    /**
+     * Format the distance as '* Km * m'
+     * @param arg0 The distance value.
+     * @param arg1 The resolution.
+     * @return
+     */
+    public String formatDistance(int arg0,int arg1){
+    	if (arg1 == 0)
+    		throw new IllegalArgumentException("The resolution cannot be zero.");
+    	
     	int km = arg0/1000;
     	int m = arg0 - km*1000;
+    	m = ((int) (m/arg1) * arg1);
     	String tmp = km + " Km "+m+" m";
     	return tmp;
     }

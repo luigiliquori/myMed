@@ -22,6 +22,11 @@ import com.mymed.android.myjam.R;
 import com.mymed.android.myjam.provider.MyJamContract.Report;
 import com.mymed.utils.GlobalStateAndUtils;
 
+/**
+ * 
+ * @author iacopo
+ *
+ */
 public class MyJamItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 	private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
 	private ArrayList<GeoPoint[]> mFigures = new ArrayList<GeoPoint[]>();
@@ -92,7 +97,8 @@ public class MyJamItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 				overlayItem.setMarker(mMobileSpeedCamMarker);
 				break;
 			case GlobalStateAndUtils.USER_POSITION:
-				overlayItem = new OverlayItem(position,"User location","Current user location.");
+				overlayItem = new OverlayItem(position,mContext.getResources().getString(R.string.notification_loc_available_title),
+						mContext.getResources().getString(R.string.notification_loc_available_title));
 				boundCenterBottom(mCurrentPositionMarker);
 				overlayItem.setMarker(mCurrentPositionMarker);
 				if (currUserPosition != null)
@@ -113,10 +119,11 @@ public class MyJamItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 
         if (currUserPosition != null && currUserPosition.equals(item)){
         	//Do stuff here when you tap, i.e. :
-            AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
-            dialog.setTitle(item.getTitle());
-            dialog.setMessage(item.getSnippet());
-            dialog.show();
+            new AlertDialog.Builder(mContext)
+    		.setTitle(R.string.dialog_title)
+    		.setIcon(R.drawable.myjam_icon)
+            .setMessage(item.getSnippet())
+            .show();
         }else{
         	showDetails(item.getSnippet());
         }

@@ -489,7 +489,7 @@ public class MyJamProvider extends ContentProvider{
         SQLiteDatabase db = mOpenHelper.getReadableDatabase();
         int num = db.update(tableName, values, selection, selectionArgs);
 
-        // Tell the cursor what uri to watch, so it knows when its source data changes
+        // Notify changes to the content observers.
         getContext().getContentResolver().notifyChange(contentUri, null);
 
 		return num;

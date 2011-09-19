@@ -29,4 +29,12 @@
                 android:dialogTitle="@string/dialog_title_search_rate_preference"
                 android:defaultValue="600000"/>
     </PreferenceCategory>
+    <PreferenceCategory
+    	android:title="@string/map_preferences">
+    		<CheckBoxPreference
+				android:key="navigation_mode_preference"
+           		android:title="@string/title_navigation_preference"
+           		android:defaultValue="true"
+				android:summary="@string/summary_navigation_preference"/>
+    </PreferenceCategory> 
 </PreferenceScreen>

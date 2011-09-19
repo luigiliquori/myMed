@@ -1,12 +1,18 @@
 package com.mymed.android.myjam.ui;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.ContentProviderOperation;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.OperationApplicationException;
 import android.content.SharedPreferences;
 import android.database.ContentObserver;
 import android.database.Cursor;
@@ -14,6 +20,9 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
+import android.os.RemoteException;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -33,8 +42,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.android.maps.GeoPoint;
 import com.mymed.android.myjam.R;
 import com.mymed.android.myjam.controller.ICallAttributes;
+import com.mymed.android.myjam.provider.MyJamContract;
 import com.mymed.android.myjam.provider.MyJamContract.Report;
 import com.mymed.android.myjam.provider.MyJamContract.Search;
 import com.mymed.android.myjam.provider.MyJamContract.SearchReports;
@@ -42,6 +53,7 @@ import com.mymed.android.myjam.provider.MyJamContract.SearchResult;
 import com.mymed.android.myjam.service.MyJamCallService;
 import com.mymed.android.myjam.service.MyJamCallService.RequestCode;
 
+import com.mymed.utils.GeoUtils;
 import com.mymed.utils.GlobalStateAndUtils;
 import com.mymed.utils.MyResultReceiver;
 
@@ -60,6 +72,8 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 	/** Search rate preference */
 	private static final String SEARCH_RATE_PREFERENCE = "search_rate_preference";
 
+	private static final int DISTANCE_UPDATE_TIME = 30000;
+	
 	private static final int INSERT_REPORT_REQ = 0x1;
 	
 	private ListView mList;
@@ -68,6 +82,10 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 	static final int DIALOG_NO_LOCATION_ID = 0;
 	
 	private Handler mMessageQueueHandler = new Handler();
+	
+    private HandlerThread thread;
+	private volatile Looper mThreadLooper;
+	private Handler mRefreshDistanceHandler;
 	
 	MyResultReceiver mResultReceiver;
 
@@ -78,13 +96,17 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 			Report.QUALIFIER+Report.REPORT_ID,				//1
 			Report.QUALIFIER+Report.REPORT_TYPE,			//2
 			Report.QUALIFIER+Report.DATE,					//3
-			SearchResult.QUALIFIER+SearchResult.DISTANCE,	//4
+			Report.QUALIFIER+Report.LATITUDE,				//4
+			Report.QUALIFIER+Report.LONGITUDE,				//5
+			SearchResult.QUALIFIER+SearchResult.DISTANCE,	//6
 		};
 		
 		int REPORT_ID = 1;
 		int REPORT_TYPE = 2;
 		int DATE = 3;
-		int DISTANCE = 4;
+		int LATITUDE = 4;
+		int LONGITUDE = 5;
+		int DISTANCE = 6;
 	}
 	
 	private interface SearchQuery{
@@ -182,6 +204,45 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
             mMessageQueueHandler.postDelayed(mSearchRunnable, nextSearchTime);
         }
     };
+    
+    /**
+     *  TODO Check
+     *  This runnable runs on a thread different from the UI one. It access concurrently the cursor used by the list adapter,
+     *  problems may arise.
+     *   
+     */
+    private Runnable mRefreshDistanceRunnable = new Runnable() {
+        public void run() {
+        	try {
+        		ContentResolver resolver = getContentResolver();
+        		Cursor cursor = mAdapter.getCursor();
+        		if (cursor.moveToFirst() && mService!=null && mService.ismLocAvailable()){
+        			ArrayList<ContentProviderOperation> batch = new ArrayList<ContentProviderOperation> (cursor.getCount());
+        			Location currLoc = mService.getCurrentLocation();
+        			while (!cursor.isClosed() && !cursor.isAfterLast()){
+        				String reportId = cursor.getString(SearchReportsQuery.REPORT_ID);
+        				double dist = GeoUtils.getGCDistance(GeoUtils.toGeoPoint(currLoc),
+        						new GeoPoint(cursor.getInt(SearchReportsQuery.LATITUDE),cursor.getInt(SearchReportsQuery.LONGITUDE)));
+        				ContentValues currVal = new ContentValues();
+        				currVal.put(SearchResult.DISTANCE, (int) dist);
+        				batch.add(ContentProviderOperation.newUpdate(SearchResult.CONTENT_URI).withValues(currVal)
+        						.withSelection(SearchResult.REPORT_SELECTION, new String[]{reportId}).build());
+        				cursor.moveToNext();
+        			}
+						resolver.applyBatch(MyJamContract.CONTENT_AUTHORITY, batch);
+						resolver.notifyChange(SearchReports.buildSearchUri(String.valueOf(mSearchId)), null);
+        		}
+        		long nextSearchTime = DISTANCE_UPDATE_TIME;//TODO Fix this.
+        		mRefreshDistanceHandler.postDelayed(mRefreshDistanceRunnable, nextSearchTime);
+        	} catch (RemoteException e) {
+        		Log.e(TAG, e.getMessage()!=null?"RefreshDistanceRunnable: "+e.getMessage():"RefreshDistanceRunnable: No messages.");
+        	} catch (OperationApplicationException e) {
+        		Log.e(TAG, e.getMessage()!=null?"RefreshDistanceRunnable: "+e.getMessage():"RefreshDistanceRunnable: No messages.");
+//        	} catch (Exception e){
+//        		Log.e(TAG, e.getMessage()!=null?"RefreshDistanceRunnable: "+e.getMessage():"RefreshDistanceRunnable: No messages.");
+        	}
+        }
+    };
 
 	
 	@Override
@@ -275,6 +336,8 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 		//TODO Enable or disable search button.
 		getContentResolver().unregisterContentObserver(mSearchChangesObserver);
 		mMessageQueueHandler.removeCallbacks(mSearchRunnable);
+		mRefreshDistanceHandler.removeCallbacks(mRefreshDistanceRunnable);
+		mThreadLooper.quit();
 	}
 
 	/**
@@ -301,6 +364,13 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 				postSearch();
 		}
 		updateRefreshStatus(mResultReceiver.ismSyncing());
+		
+		//** Starts a new thread to where the distance refresh is executed. */ 
+		thread = new HandlerThread(TAG);
+		thread.start();
+		mThreadLooper = thread.getLooper();
+		mRefreshDistanceHandler= new Handler(mThreadLooper);
+		mRefreshDistanceHandler.postDelayed(mRefreshDistanceRunnable, DISTANCE_UPDATE_TIME);
 	}
 	
 	/** Checks the time of last search, if a search has been done at a time t greater then (actual_time - refresh_period) the search is executed immediately. */
@@ -377,7 +447,7 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 		super.onCreateOptionsMenu(menu);
 
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.search_menu, menu);
+        inflater.inflate(R.menu.preference_menu, menu);
 		return true;
 	}
 	
@@ -518,7 +588,7 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 			int distance = cursor.getInt(SearchReportsQuery.DISTANCE);
 			long date = cursor.getLong(SearchReportsQuery.DATE);
 			typeTextView.setText(mUtils.formatType(type));
-			distanceTextView.setText(mUtils.formatDistance(distance));
+			distanceTextView.setText(mUtils.formatDistance(distance,50));
 			dateTextView.setText(mUtils.formatDate(date));
 			iconImageView.setImageResource(GlobalStateAndUtils.getInstance(context).getIconByReportType(type));
 		}
