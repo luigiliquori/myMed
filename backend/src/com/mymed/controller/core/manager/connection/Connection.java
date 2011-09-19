@@ -67,6 +67,8 @@ public class Connection implements IConnection {
 			this.port = port;
 		}
 
+		MLogger.getDebugLog().debug("Connection set to {}:{}", address, port);
+
 		socket = new TSocket(this.address, this.port);
 		transport = new TFramedTransport(socket);
 		protocol = new TBinaryProtocol(transport);
