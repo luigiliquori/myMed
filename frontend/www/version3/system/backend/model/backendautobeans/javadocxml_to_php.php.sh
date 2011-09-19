@@ -12,12 +12,12 @@ function /*string*/ parseXml(/*strong*/ $url)
 }
 function /*void*/ createPhpFileFromXml(/*string*/ $className)
 {
-	file_put_contents(__DIR__.'/'.$className.'.class.php', parseXml('http://mymed2.sophia.inria.fr/documentationXML/'.$className.'.xml'));
+	file_put_contents(__DIR__.'/'.$className.'.class.php', parseXml('http://mymeddev:alcotra@mymed2.sophia.inria.fr/documentationXML/'.$className.'.xml'));
 }
 function /*void*/ main(/*void*/)
 {
 	$index = new DOMDocument();
-	$index->loadHTMLFile('http://mymed2.sophia.inria.fr/documentationXML/');
+	$index->loadHTMLFile('http://mymeddev:alcotra@mymed2.sophia.inria.fr/documentationXML/');
 	$xpath	= new DOMXPath($index);
 	$trList	= $xpath->query('/html/body/table/tr');
 	for($i=2 ; $i<$trList->length ; $i++)

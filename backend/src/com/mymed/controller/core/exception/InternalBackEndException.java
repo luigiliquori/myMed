@@ -6,39 +6,42 @@ package com.mymed.controller.core.exception;
  * @author lvanni
  * 
  */
-public class InternalBackEndException extends Exception implements
-		IMymedException {
+public class InternalBackEndException extends AbstractMymedException {
+
+	/* --------------------------------------------------------- */
+	/* Attributes */
+	/* --------------------------------------------------------- */
 	private static final long serialVersionUID = 1L;
+	private final String message;
 
-	private String message;
-
-	/**
-	 * Exception throws by the wrapper
-	 * 
-	 * @param message
-	 */
-	public InternalBackEndException(Exception ex) {
-		super(ex);
-		this.message = ex.toString();
+	/* --------------------------------------------------------- */
+	/* Constructors */
+	/* --------------------------------------------------------- */
+	public InternalBackEndException(final Exception ex) {
+		super(ex, 500);
+		message = ex.toString();
 	}
-	
-	/**
-	 * 
-	 * @param message
-	 */
-	public InternalBackEndException(String message) {
-		super(message);
+
+	public InternalBackEndException(final String message) {
+		super(message, 500);
 		this.message = message;
 	}
-	
-	
+
+	public InternalBackEndException(final String message, final Throwable cause) {
+		super(message, cause, 500);
+		this.message = message;
+	}
+
+	/* --------------------------------------------------------- */
+	/* extends AbstractMymedException */
+	/* --------------------------------------------------------- */
 	/**
-	 * see {@link IMymedException#getJsonException()}
+	 * see {@link AbstractMymedException#getJsonException()}
 	 */
+	@Override
 	public String getJsonException() {
-		String res = "{\n" + "\"error\": {\n"
-				+ "\"type\": \"InternalBackEndException\",\n"
-				+ "\"message\": \"" + message + "\"\n" + "}\n" + "}";
+		final String res = "{\n" + "\"error\": {\n" + "\"type\": \"InternalBackEndException\",\n" + "\"status\":  \""
+		        + status + "\",\n" + "\"message\": \"" + message + "\"\n" + "}\n" + "}";
 		return res;
 	}
 }

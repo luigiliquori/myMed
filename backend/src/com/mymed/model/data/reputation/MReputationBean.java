@@ -28,37 +28,7 @@ public final class MReputationBean extends AbstractMBean {
 	public String toString() {
 		return "Reputation:\n" + super.toString();
 	}
-
-	/**
-	 * @return the value
-	 */
-	public double getValue() {
-		return value;
-	}
-
-	/**
-	 * @param value
-	 *            the value to set
-	 */
-	public void setValue(final double value) {
-		this.value = value;
-	}
-
-	/**
-	 * @return the nbRaters
-	 */
-	public int getNbRaters() {
-		return nbRaters;
-	}
-
-	/**
-	 * @param nbRaters
-	 *            the nbRater to set
-	 */
-	public void setNbRaters(final int nbRaters) {
-		this.nbRaters = nbRaters;
-	}
-
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -97,5 +67,44 @@ public final class MReputationBean extends AbstractMBean {
 		result = PRIME * result + (int) (temp ^ temp >>> 32);
 
 		return result;
+	}
+	
+	@Override
+	public void update(AbstractMBean mBean) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/* --------------------------------------------------------- */
+	/* GETTER AND SETTER */
+	/* --------------------------------------------------------- */
+	/**
+	 * @return the value
+	 */
+	public double getValue() {
+		return value;
+	}
+
+	/**
+	 * @param value
+	 *            the value to set
+	 */
+	public void setValue(final double value) {
+		this.value = value;
+	}
+
+	/**
+	 * @return the nbRaters
+	 */
+	public int getNbRaters() {
+		return nbRaters;
+	}
+
+	/**
+	 * @param nbRaters
+	 *            the nbRater to set
+	 */
+	public void setNbRaters(final int nbRaters) {
+		this.nbRaters = nbRaters;
 	}
 }

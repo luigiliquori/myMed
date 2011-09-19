@@ -43,7 +43,7 @@ abstract class JSon
 			foreach($props as $prop)
 			{
 				$propName	= $prop->getName();
-				//$this->$propName = Undefined::getInstance();
+				$this->$propName = Undefined::getInstance();
 			}
 		}
 	}
@@ -67,7 +67,17 @@ abstract class JSon
 	
 	public /*string*/ function __toString()
 	{
-		return json_encode($this);
+		$o	= clone $this;
+		//on supprime les champs undefined (en JS=>JSon un attribut undefined n'existe pas)
+		$class	= new ReflectionObject($this);
+		$props	= $class->getProperties();
+		foreach($props as $prop)
+		{
+			$propName	= $prop->getName();
+			if($o->$propName instanceof Undefined)
+			unset($o->$propName);
+		}
+		return json_encode($o);
 	}
 }
 ?>

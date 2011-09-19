@@ -1,2 +1,3 @@
-		<link rel="stylesheet" href="<?=ROOTPATH?>style/desktop/design.home.css" media="(min-width: 654px) and (min-height: 480px)" />
-		<!--[if IE 8]><link rel="stylesheet" href="<?=ROOTPATH?>style/desktop/design.home.ie8.css" media="screen" /><![endif]-->
+		<link rel="stylesheet" href="<?=ROOTPATH?>style/desktop/design.home.min.css" media="only screen and (min-width: <?=MOBILESWITCH_WIDTH?>px)" />
+		<link rel="stylesheet" href="<?=ROOTPATH?>style/mobile/design.home.min.css" media="only screen and (max-width: <?=MOBILESWITCH_WIDTH-1?>px)" />
+		<!--[if IE 8]><link rel="stylesheet" href="<?=ROOTPATH?>style/desktop/design.home.ie8.min.css" media="screen" /><![endif]-->

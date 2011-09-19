@@ -38,5 +38,10 @@ public class MFeedBackBean extends AbstractMBean implements Serializable{
 	public void setTimestamp(Integer timestamp) {
 		this.timestamp = timestamp;
 	}
+	@Override
+	public void update(AbstractMBean mBean) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

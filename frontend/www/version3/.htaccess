@@ -1,4 +1,25 @@
 <Files *>
 ForceType application/x-httpd-php
 </Files>
+<Files *.png>
+ForceType none
+</Files>
+<Files *.ico>
+ForceType none
+</Files>
 DirectoryIndex index.php index.html home
+
+FileETag none
+
+AddType application/vnd.ms-fontobject .eot
+AddType application/x-font-ttf .ttf
+
+ExpiresActive On
+ExpiresByType application/vnd.ms-fontobject	"access plus 1 month"
+ExpiresByType application/x-font-ttf		"access plus 1 month"
+ExpiresByType image/x-icon	"access plus 1 weeks"
+ExpiresByType image/jpeg	"access plus 1 weeks"
+ExpiresByType image/gif		"access plus 1 weeks"
+ExpiresByType image/png		"access plus 1 weeks"
+ExpiresByType text/css			"access plus 3 days"
+ExpiresByType text/javascript	"access plus 3 days"

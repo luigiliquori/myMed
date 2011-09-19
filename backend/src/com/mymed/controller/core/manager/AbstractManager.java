@@ -1,8 +1,11 @@
 package com.mymed.controller.core.manager;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -11,6 +14,7 @@ import com.mymed.controller.core.manager.storage.IMyJamStorageManager;
 import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.model.data.AbstractMBean;
 import com.mymed.utils.ClassType;
+import com.mymed.utils.MLogger;
 
 /**
  * Abstract manager the all the managers should extend.
@@ -25,6 +29,8 @@ public abstract class AbstractManager extends ManagerValues {
 
 	private static final int PRIV_FIN = Modifier.PRIVATE + Modifier.FINAL;
 	private static final int PRIV_STAT_FIN = Modifier.PRIVATE + Modifier.STATIC + Modifier.FINAL;
+
+	private static final String ENCODING = "UTF8";
 
 	protected IStorageManager storageManager;
 	protected IMyJamStorageManager myJamStorageManager;
@@ -49,34 +55,51 @@ public abstract class AbstractManager extends ManagerValues {
 	 */
 	public AbstractMBean introspection(final AbstractMBean mbean, final Map<byte[], byte[]> args)
 	        throws InternalBackEndException {
-		try {
-			for (final Entry<byte[], byte[]> arg : args.entrySet()) {
-				try {
-					final Field field = mbean.getClass().getDeclaredField(new String(arg.getKey(), "UTF8"));
+		for (final Entry<byte[], byte[]> arg : args.entrySet()) {
+			try {
+				final Field field = mbean.getClass().getDeclaredField(new String(arg.getKey(), ENCODING));
 
-					/*
-					 * We check the value of the modifiers of the field: if the
-					 * field is private and final, or private static and final,
-					 * we skip it.
-					 */
-					final int modifiers = field.getModifiers();
-					if (modifiers == PRIV_FIN || modifiers == PRIV_STAT_FIN) {
-						continue;
-					}
-
-					final ClassType classType = ClassType.inferType(field.getGenericType());
-					final String setterName = createSetterName(field, classType);
-					final Method method = mbean.getClass().getMethod(setterName, classType.getPrimitiveType());
-					final Object argument = ClassType.objectFromClassType(classType, arg.getValue());
-
-					method.invoke(mbean, argument);
-				} catch (final NoSuchFieldException e) {
-					// TODO use logger
-					System.out.println("\nWARNING: " + new String(arg.getKey(), "UTF8") + " is not a bean field");
+				/*
+				 * We check the value of the modifiers of the field: if the
+				 * field is private and final, or private static and final, we
+				 * skip it.
+				 */
+				final int modifiers = field.getModifiers();
+				if (modifiers == PRIV_FIN || modifiers == PRIV_STAT_FIN) {
+					continue;
 				}
+
+				final ClassType classType = ClassType.inferType(field.getGenericType());
+				final String setterName = createSetterName(field, classType);
+				final Method method = mbean.getClass().getMethod(setterName, classType.getPrimitiveType());
+				final Object argument = ClassType.objectFromClassType(classType, arg.getValue());
+
+				method.invoke(mbean, argument);
+			} catch (final NoSuchFieldException e) {
+				try {
+					MLogger.getLog().info("WARNING: {} is not a bean field", new String(arg.getKey(), ENCODING));
+				} catch (final UnsupportedEncodingException ex) {
+					// If we ever get here, there is something seriously wrong.
+					// This should never happen.
+					MLogger.getLog().info("Error in encoding string using {} encoding", ENCODING);
+					MLogger.getDebugLog().debug("Error in eoncoding string", ex.getCause());
+				}
+			} catch (final SecurityException ex) {
+				throw new InternalBackEndException(ex);
+			} catch (final NoSuchMethodException ex) {
+				throw new InternalBackEndException(ex);
+			} catch (final IllegalArgumentException ex) {
+				throw new InternalBackEndException(ex);
+			} catch (final IllegalAccessException ex) {
+				throw new InternalBackEndException(ex);
+			} catch (final InvocationTargetException ex) {
+				throw new InternalBackEndException(ex);
+			} catch (final UnsupportedEncodingException ex) {
+				// If we ever get here, there is something seriously wrong.
+				// This should never happen.
+				MLogger.getLog().info("Error in encoding string using {} encoding", ENCODING);
+				MLogger.getDebugLog().debug("Error in encoding string", ex.getCause());
 			}
-		} catch (final Exception ex) {
-			throw new InternalBackEndException(ex);
 		}
 
 		return mbean;
@@ -112,9 +135,8 @@ public abstract class AbstractManager extends ManagerValues {
 			subName = fieldName.substring(2, fieldName.length());
 		}
 
-		setterName.append(subName.substring(0, 1).toUpperCase());
+		setterName.append(subName.substring(0, 1).toUpperCase(Locale.US));
 		setterName.append(subName.substring(1));
-
 		setterName.trimToSize();
 
 		return setterName.toString();

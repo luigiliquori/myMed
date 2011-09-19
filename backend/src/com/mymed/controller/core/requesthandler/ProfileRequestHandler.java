@@ -60,7 +60,7 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
 			/** handle the request */
 			String id;
 			if((id = parameters.get("id"))== null){
-				handleInternalError(new InternalBackEndException("missing id argument!"), response);
+				handleError(new InternalBackEndException("missing id argument!"), response);
 				return;
 			}
 			switch (code) {
@@ -70,7 +70,7 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
 					userBean = profileManager.read(id);
 					setResponseText(getGson().toJson(userBean));
 				} catch (IOBackEndException e) {
-					handleNotFoundError(e, response);
+					handleError(e, response);
 					return;
 				}
 				break;
@@ -80,14 +80,17 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
 						+ " deleted!");
 				break;
 			default:
-				handleInternalError(new InternalBackEndException("ProfileRequestHandler.doGet(" + code + ") not exist!"), response);
+				handleError(new InternalBackEndException("ProfileRequestHandler.doGet(" + code + ") not exist!"), response);
 				return;
 			}
 			super.doGet(request, response);
 		} catch (InternalBackEndException e) {
 			e.printStackTrace();
-			handleInternalError(e, response);
+			handleError(e, response);
 			return;
+		} catch (IOBackEndException e) {
+			e.printStackTrace();
+			handleError(e, response);
 		}
 	}
 
@@ -107,7 +110,7 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
 			/** handle the request */
 			String user;
 			if((user = parameters.get("user"))== null){
-				handleInternalError(new InternalBackEndException("missing user argument!"), response);
+				handleError(new InternalBackEndException("missing user argument!"), response);
 				return;
 			}
 			switch (code) {
@@ -118,7 +121,7 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
 					userBean = getGson().fromJson(user,
 							MUserBean.class);
 				} catch (JsonSyntaxException e) {
-					handleInternalError(new InternalBackEndException("user jSon format is not valid"), response);
+					handleError(new InternalBackEndException("user jSon format is not valid"), response);
 					return;
 				}
 				System.out.println("\nINFO: trying to create a new user:\n" + userBean);
@@ -131,25 +134,26 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
 					userBean = getGson().fromJson(user,
 							MUserBean.class);
 				} catch (JsonSyntaxException e) {
-					handleInternalError(new InternalBackEndException("user jSon format is not valid"), response);
+					handleError(new InternalBackEndException("user jSon format is not valid"), response);
 					return;
 				}
 				System.out.println("\nINFO: trying to update user:\n" + userBean);
-				profileManager.update(userBean);
+				userBean = profileManager.update(userBean);
+				setResponseText(getGson().toJson(userBean));
 				System.out.println("\nINFO: User updated!");
 				break;
 			default:
-				handleInternalError(new InternalBackEndException("ProfileRequestHandler.doPost(" + code + ") not exist!"), response);
+				handleError(new InternalBackEndException("ProfileRequestHandler.doPost(" + code + ") not exist!"), response);
 				return;
 			}
 			super.doPost(request, response);
 		} catch (InternalBackEndException e) {
 			e.printStackTrace();
-			handleInternalError(e, response);
+			handleError(e, response);
 			return;
 		} catch (IOBackEndException e) {
 			e.printStackTrace();
-			handleNotFoundError(e, response);
+			handleError(e, response);
 		}
 	}
 }

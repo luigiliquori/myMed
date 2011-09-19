@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  logback configuration file for myMed logging.
+
+  Here we have three different loggers, two on files and one to the standard
+  output.
+
+  In order for the logging service to work, this file should be passed to the JVM as:
+  -Dlogback.configurationFile=PATH_TO_THIS_FILE
+
+  or it has to be accessible from the CLASSPATH.
+
+  The logger is also set up in order to periodically scan this file, the period is set
+  to 5 minutes. So, if we want to turn on or off a different log we can do that on the
+  fly.
+
+  Milo Casagrande milo.casagrande@inria.fr, 2011
+ -->
+<!-- Set debug to 'true' to turn it on, it will print information on the stdout -->
+<configuration debug="true" scan="true" scanPeriod="5 minutes">
+  <contextName>myMed</contextName>
+  <property name="LOG_DIR" value="/local/var/log/mymed"/>
+  <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%date %-5level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <!-- The appender for the info logger  -->
+  <!-- We accept only info level logging statement, all the others are denied -->
+  <!-- It also has a rolling policy: daily and gzipped files -->
+  <appender name="info.file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+      <level>info</level>
+      <onMatch>ACCEPT</onMatch>
+      <onMismatch>DENY</onMismatch>
+    </filter>
+    <file>${LOG_DIR}/mymed-backend-info.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${LOG_DIR}/mymed-backend-info-%d.log.gz</fileNamePattern>
+    </rollingPolicy>
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} %-5level [%thread] [%file:%line] %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <!-- The appender for the debug logger -->
+  <appender name="debug.file" class="ch.qos.logback.core.FileAppender">
+    <file>${LOG_DIR}/mymed-backend-debug.log</file>
+    <encoder>
+      <pattern>%date %-5level [%thread] [%file:%line] %msg%n%ex{full}</pattern>
+    </encoder>
+  </appender>
+
+  <!-- Logger for 'info' level, to turn off the logger set its level to 'off' -->
+  <!-- To turn it on set it to 'info' -->
+  <logger name="mymed.info.logger" level="info" additivity="false">
+    <appender-ref ref="info.file"/>
+  </logger>
+
+  <!-- Logger for 'debug' level, to turn off the logger set its level to 'off' -->
+  <!-- To turn it on set it to 'debug' -->
+  <logger name="mymed.debug.logger" level="debug" additivity="false">
+    <appender-ref ref="debug.file"/>
+  </logger>
+
+  <!-- The default logger, default is to be set to 'info' and to print to the stdout. -->
+  <!--  To turn it off, set its level to 'off' -->
+  <root level="off">
+    <appender-ref ref="stdout" />
+  </root>
+</configuration>

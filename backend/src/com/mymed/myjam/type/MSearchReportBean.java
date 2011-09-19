@@ -66,5 +66,10 @@ public void setDate(Long date) {
 	this.date = date;
 }
 
+@Override
+public void update(AbstractMBean mBean) {
+	
+}
+
 }
 

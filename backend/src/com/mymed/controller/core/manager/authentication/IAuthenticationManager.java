@@ -35,6 +35,6 @@ public interface IAuthenticationManager {
 	 * @param authentication
 	 * @throws InternalBackEndException
 	 */
-	public void update(MAuthenticationBean authentication)
-			throws InternalBackEndException;
+	public void update(String id, MAuthenticationBean authentication)
+			throws InternalBackEndException, IOBackEndException;
 }

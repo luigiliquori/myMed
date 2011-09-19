@@ -48,6 +48,14 @@ public final class MUserBean extends AbstractMBean {
 	/* Constructors */
 	/* --------------------------------------------------------- */
 	/**
+	 * Create a new empty MUserBean
+	 */
+	public MUserBean() {
+		// Empty constructor, needed because of the copy constructor
+		super();
+	}
+
+	/**
 	 * Copy constructor.
 	 * <p>
 	 * Provide a clone of the passed MUserBean
@@ -56,6 +64,8 @@ public final class MUserBean extends AbstractMBean {
 	 *            the user bean to clone
 	 */
 	protected MUserBean(final MUserBean toClone) {
+		super();
+
 		id = toClone.getId();
 		login = toClone.getLogin();
 		email = toClone.getEmail();
@@ -67,6 +77,7 @@ public final class MUserBean extends AbstractMBean {
 		hometown = toClone.getHometown();
 		gender = toClone.getGender();
 		lastConnection = toClone.getLastConnection();
+		profilePicture = toClone.getProfilePicture();
 		buddyList = toClone.getBuddyList();
 		subscribtionList = toClone.getSubscribtionList();
 		reputation = toClone.getReputation();
@@ -78,15 +89,24 @@ public final class MUserBean extends AbstractMBean {
 
 	@Override
 	public MUserBean clone() {
-		final MUserBean userBean = new MUserBean(this);
-		return userBean;
+		return new MUserBean(this);
 	}
 
-	/**
-	 * Create a new empty MUserBean
-	 */
-	public MUserBean() {
-		// Empty constructor, needed because of the copy constructor
+	@Override
+	public void update(final AbstractMBean mBean) {
+		if (mBean instanceof MUserBean) {
+			final MUserBean newValue = (MUserBean) mBean;
+			login = newValue.getLogin() == null ? login : newValue.getLogin();
+			email = newValue.getEmail() == null ? email : newValue.getEmail();
+			name = newValue.getName() == null ? name : newValue.getName();
+			firstName = newValue.getFirstName() == null ? firstName : newValue.getFirstName();
+			lastName = newValue.getLastName() == null ? lastName : newValue.getLastName();
+			link = newValue.getLink() == null ? link : newValue.getLink();
+			birthday = newValue.getBirthday() == null ? birthday : newValue.getBirthday();
+			hometown = newValue.getHometown() == null ? hometown : newValue.getHometown();
+			gender = newValue.getGender() == null ? gender : newValue.getGender();
+			profilePicture = newValue.getProfilePicture() == null ? profilePicture : newValue.getProfilePicture();
+		}
 	}
 
 	/* --------------------------------------------------------- */
@@ -154,8 +174,7 @@ public final class MUserBean extends AbstractMBean {
 		int result = 1;
 
 		result = PRIME * result + (email == null ? 0 : email.hashCode());
-		result = PRIME * result
-				+ (firstName == null ? 0 : firstName.hashCode());
+		result = PRIME * result + (firstName == null ? 0 : firstName.hashCode());
 		result = PRIME * result + (lastName == null ? 0 : lastName.hashCode());
 		result = PRIME * result + (id == null ? 0 : id.hashCode());
 		result = PRIME * result + (name == null ? 0 : name.hashCode());
@@ -348,7 +367,7 @@ public final class MUserBean extends AbstractMBean {
 	 * 
 	 * @param profilePicture
 	 */
-	public void setProfilePicture(String profilePicture) {
+	public void setProfilePicture(final String profilePicture) {
 		this.profilePicture = profilePicture;
 	}
 

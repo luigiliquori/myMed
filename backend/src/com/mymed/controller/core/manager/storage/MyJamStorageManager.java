@@ -74,12 +74,11 @@ public class MyJamStorageManager extends StorageManager implements IMyJamStorage
 
 	@Override
 	public void insertSlice(String tableName, String primaryKey,
-			Map<String, byte[]> args) throws IOBackEndException, InternalBackEndException {
+			Map<String, byte[]> args) throws InternalBackEndException {
 		Map<String,Map<String,List<Mutation>>> mutationMap = new HashMap<String,Map<String,List<Mutation>>>();
 		/** The convention is to use microseconds since 1 Jenuary 1970*/
 		long timestamp = (long) (System.currentTimeMillis()*1E3);	
 		try{
-			wrapper.open();
 			Map<String,List<Mutation>> tableMap = new HashMap<String,List<Mutation>>();
 			List<Mutation> sliceMutationList = new ArrayList<Mutation>(5);
 			tableMap.put(tableName,sliceMutationList);
@@ -98,8 +97,6 @@ public class MyJamStorageManager extends StorageManager implements IMyJamStorage
 			wrapper.batch_mutate(mutationMap, consistencyOnWrite);
 		}catch(InternalBackEndException e){
 			throw new InternalBackEndException(" InsertSlice failed. ");
-		}finally{
-			wrapper.close();
 		}
 	}
 	
@@ -117,10 +114,6 @@ public class MyJamStorageManager extends StorageManager implements IMyJamStorage
 	public byte[] selectColumn(String tableName, String primaryKey,
 			byte[] superColumn, byte[] column) throws IOBackEndException, InternalBackEndException {
 		try {
-										
-		/** Transport Opening*/
-		wrapper.open();
-
 		/** Check if the position is already occupied.*/
 		final ColumnPath columnPath = new ColumnPath(tableName);
 		if (superColumn != null)
@@ -151,10 +144,6 @@ public class MyJamStorageManager extends StorageManager implements IMyJamStorage
 			byte[] superColumn, byte[] column) throws IOBackEndException, InternalBackEndException {
 		ExpColumnBean expCol = new ExpColumnBean();
 		try {
-										
-		/** Transport Opening*/
-		wrapper.open();
-
 		/** Set up parameters.*/
 		ColumnPath columnPath = new ColumnPath(tableName);
 		if (superColumn!=null)
@@ -224,7 +213,6 @@ public class MyJamStorageManager extends StorageManager implements IMyJamStorage
 			byte[] superColumn, byte[] columnName, byte[] value,long timestamp,int expiringTime)
 			throws  InternalBackEndException {
 		
-		try {
 			final ColumnParent parent = new ColumnParent(tableName);
 			if (superColumn!=null)
 				parent.setSuper_column(superColumn);
@@ -235,12 +223,7 @@ public class MyJamStorageManager extends StorageManager implements IMyJamStorage
 				timestamp);
 			if (expiringTime>0)
 				column.setTtl(expiringTime);
-
-			wrapper.open();
-			wrapper.insert(key, parent, column, consistencyOnWrite);
-		} finally {
-			wrapper.close();
-		}		
+			wrapper.insert(key, parent, column, consistencyOnWrite);	
 	}
 
 
@@ -349,22 +332,17 @@ public class MyJamStorageManager extends StorageManager implements IMyJamStorage
 	public int countColumns(String tableName, String primaryKey,
 			byte[] superColumn) throws IOBackEndException, InternalBackEndException {
 		
-		try {
-			final ColumnParent parent = new ColumnParent(tableName);
-			if (superColumn!=null)
-				parent.setSuper_column(superColumn);
-			final SlicePredicate predicate = new SlicePredicate();
-			final SliceRange sliceRange = new SliceRange();
-			sliceRange.setStart(new byte[0]);
-			sliceRange.setFinish(new byte[0]);
-			sliceRange.setCount(maxNumColumns);
-			predicate.setSlice_range(sliceRange);
+		final ColumnParent parent = new ColumnParent(tableName);
+		if (superColumn!=null)
+			parent.setSuper_column(superColumn);
+		final SlicePredicate predicate = new SlicePredicate();
+		final SliceRange sliceRange = new SliceRange();
+		sliceRange.setStart(new byte[0]);
+		sliceRange.setFinish(new byte[0]);
+		sliceRange.setCount(maxNumColumns);
+		predicate.setSlice_range(sliceRange);
 
-			wrapper.open();
-			return wrapper.get_count(primaryKey, parent, predicate, consistencyOnRead);
-		} finally {
-			wrapper.close();
-		}	
+		return wrapper.get_count(primaryKey, parent, predicate, consistencyOnRead);	
 	}
 
 	/**
@@ -391,9 +369,7 @@ public class MyJamStorageManager extends StorageManager implements IMyJamStorage
 		final long timestamp = System.currentTimeMillis();
 		final ColumnPath columnPath = new ColumnPath(columnFamily);
 
-		wrapper.open();
 		wrapper.remove(key, columnPath, timestamp, consistencyOnWrite);
-		wrapper.close();
 	}
 	
 	/**
@@ -410,20 +386,16 @@ public class MyJamStorageManager extends StorageManager implements IMyJamStorage
 	@Override
 	public void removeColumn(String tableName, String primaryKey,
 			byte[] superColumn, byte[] column) throws InternalBackEndException {
-		try {
-			final String columnFamily = tableName;
-			final long timestamp = (long) (System.currentTimeMillis()*1E3);
-			final ColumnPath columnPath = new ColumnPath(columnFamily);
-			if (superColumn!=null)
-				columnPath.setSuper_column(superColumn);
-			if (column!=null)
-				columnPath.setColumn(column);
+		
+		final String columnFamily = tableName;
+		final long timestamp = (long) (System.currentTimeMillis()*1E3);
+		final ColumnPath columnPath = new ColumnPath(columnFamily);
+		if (superColumn!=null)
+			columnPath.setSuper_column(superColumn);
+		if (column!=null)
+			columnPath.setColumn(column);
 
-			wrapper.open();
-			wrapper.remove(primaryKey, columnPath, timestamp, consistencyOnWrite);
-		} finally {
-			wrapper.close();
-		}
+		wrapper.remove(primaryKey, columnPath, timestamp, consistencyOnWrite);
 	}
 	
 	/*
@@ -433,32 +405,25 @@ public class MyJamStorageManager extends StorageManager implements IMyJamStorage
 			final String key, final SlicePredicate predicate)
 			throws InternalBackEndException, IOBackEndException {
 
-		try {
-			wrapper.open();
-
-			final ColumnParent parent = new ColumnParent(columnFamily);
-			final List<ColumnOrSuperColumn> results = wrapper.get_slice(key,
-					parent, predicate, consistencyOnRead);
+		final ColumnParent parent = new ColumnParent(columnFamily);
+		final List<ColumnOrSuperColumn> results = wrapper.get_slice(key,
+				parent, predicate, consistencyOnRead);
 
 //			final Map<byte[], byte[]> slice = new HashMap<byte[], byte[]>(
 //					results.size());
-			/**
-			 * I need to mantain the results ordered.
-			 */
-			final Map<byte[], byte[]> slice = new LinkedHashMap<byte[], byte[]>(
-					results.size());
+		/**
+		 * I need to mantain the results ordered.
+		*/
+		final Map<byte[], byte[]> slice = new LinkedHashMap<byte[], byte[]>(
+				results.size());
 			
 			
-			for (final ColumnOrSuperColumn res : results) {
-				final Column col = res.getColumn();
-
-				slice.put(col.getName(), col.getValue());
-			}
-
-			return slice;
-		} finally {
-			wrapper.close();
+		for (final ColumnOrSuperColumn res : results) {
+			final Column col = res.getColumn();
+			slice.put(col.getName(), col.getValue());
 		}
+
+		return slice;
 	}
 	
 	/*
@@ -468,32 +433,26 @@ public class MyJamStorageManager extends StorageManager implements IMyJamStorage
 			final List<String> keys, final SlicePredicate predicate)
 			throws InternalBackEndException, IOBackEndException {
 
-		try {
-			wrapper.open();
-
-			final ColumnParent parent = new ColumnParent(columnFamily);
-			final Map<ByteBuffer,List<ColumnOrSuperColumn>> results = wrapper.multiget_slice(keys,
+		final ColumnParent parent = new ColumnParent(columnFamily);
+		final Map<ByteBuffer,List<ColumnOrSuperColumn>> results = wrapper.multiget_slice(keys,
 					parent, predicate, consistencyOnRead);
 
-			final Map<String,Map<byte[], byte[]>> slice = new HashMap<String, Map<byte[],byte[]>>
+		final Map<String,Map<byte[], byte[]>> slice = new HashMap<String, Map<byte[],byte[]>>
 					(results.size());
 
 
-			for (final ByteBuffer key : results.keySet()) {
-				final List<ColumnOrSuperColumn> columns = results.get(key);
-				if (!columns.isEmpty()){
-					Map<byte[],byte[]> colMap = new HashMap<byte[],byte[]>();
-					for (ColumnOrSuperColumn resCol :columns){
-						colMap.put(resCol.getColumn().getName(), resCol.getColumn().getValue());
-					}
-					slice.put(MConverter.byteBufferToString(key), colMap);
+		for (final ByteBuffer key : results.keySet()) {
+			final List<ColumnOrSuperColumn> columns = results.get(key);
+			if (!columns.isEmpty()){
+				Map<byte[],byte[]> colMap = new HashMap<byte[],byte[]>();
+				for (ColumnOrSuperColumn resCol :columns){
+					colMap.put(resCol.getColumn().getName(), resCol.getColumn().getValue());
 				}
+				slice.put(MConverter.byteBufferToString(key), colMap);
 			}
-
-			return slice;
-		} finally {
-			wrapper.close();
 		}
+
+		return slice;
 	}
 	
 	/*
@@ -503,32 +462,26 @@ public class MyJamStorageManager extends StorageManager implements IMyJamStorage
 			final List<String> keys, final SlicePredicate predicate)
 			throws InternalBackEndException, IOBackEndException {
 
-		try {
-			wrapper.open();
-
-			final ColumnParent parent = new ColumnParent(columnFamily);
-			final Map<ByteBuffer,List<ColumnOrSuperColumn>> results = wrapper.multiget_slice(keys,
-					parent, predicate, consistencyOnRead);
-			List<ColumnOrSuperColumn> listResults = new LinkedList<ColumnOrSuperColumn>();
-			for (final ByteBuffer key : results.keySet()){
-				listResults.addAll(results.get(key));
-			}
-			final Map<byte[],Map<byte[], byte[]>> slice = new HashMap<byte[], Map<byte[],byte[]>>(
-					listResults.size());
-
-			for (final ColumnOrSuperColumn res : listResults) {
-				final SuperColumn col = res.getSuper_column();
-				Map<byte[],byte[]> colMap = new HashMap<byte[],byte[]>();
-				for (Column resCol :col.columns){
-					colMap.put(resCol.getName(), resCol.getValue());
-				}
-				slice.put(col.getName(), colMap);
-			}
-
-			return slice;
-		} finally {
-			wrapper.close();
+		final ColumnParent parent = new ColumnParent(columnFamily);
+		final Map<ByteBuffer,List<ColumnOrSuperColumn>> results = wrapper.multiget_slice(keys,
+				parent, predicate, consistencyOnRead);
+		List<ColumnOrSuperColumn> listResults = new LinkedList<ColumnOrSuperColumn>();
+		for (final ByteBuffer key : results.keySet()){
+			listResults.addAll(results.get(key));
 		}
+		final Map<byte[],Map<byte[], byte[]>> slice = new HashMap<byte[], Map<byte[],byte[]>>(
+				listResults.size());
+
+		for (final ColumnOrSuperColumn res : listResults) {
+			final SuperColumn col = res.getSuper_column();
+			Map<byte[],byte[]> colMap = new HashMap<byte[],byte[]>();
+			for (Column resCol :col.columns){
+				colMap.put(resCol.getName(), resCol.getValue());
+			}
+			slice.put(col.getName(), colMap);
+		}
+
+		return slice;
 	}
 	
 	public class ExpColumnBean{

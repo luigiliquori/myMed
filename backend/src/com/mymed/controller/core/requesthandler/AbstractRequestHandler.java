@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.mymed.controller.core.exception.IMymedException;
+import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 
 public abstract class AbstractRequestHandler extends HttpServlet {
@@ -94,27 +94,16 @@ public abstract class AbstractRequestHandler extends HttpServlet {
 	}
 	
 	/**
-	 * Handle an "internal" server error, and send a feedback to the frontend
+	 * Handle a server error, and send a feedback to the frontend
 	 * @param message
 	 * @param response
 	 */
-	protected void handleInternalError(IMymedException e, HttpServletResponse response){
-		response.setStatus(500);
+	protected void handleError(AbstractMymedException e, HttpServletResponse response){
+		response.setStatus(e.getStatus());
 		this.responseText = e.getJsonException();
 		printResponse(response);
 	}
 	
-	/**
-	 * Handle an "not found" server error, and send a feedback to the frontend
-	 * @param message
-	 * @param response
-	 */
-	protected void handleNotFoundError(IMymedException e, HttpServletResponse response){
-		response.setStatus(404);
-		this.responseText = e.getJsonException();
-		printResponse(response);
-	}
-
 	/**
 	 * Print the feedback to the frontend
 	 * @param response

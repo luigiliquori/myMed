@@ -2,7 +2,6 @@
 require_once __DIR__.'/ConnexionOAuth1_0.class.php';
 /**
  * A class to define a twitter login to myMed
- * TWITTER NEED PHP5-CURL PACKAGE
  * @author blanchard
  */
 class ConnexionTwitter extends ConnexionOAuth1_0

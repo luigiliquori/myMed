@@ -1,5 +1,6 @@
 #!/usr/bin/php
 <?php
+define('BACKEND_URL', 'http://mymed2.sophia.inria.fr:8080/mymed_backend/');
 define('KEYS', <<<EOT
 define('ConnexionTwitter_KEY', 'HgsnlIpCJ7RqHhCFELkTvw');
 define('ConnexionTwitter_SECRET', 'P7Gkj9AfeNEIHXrj0PMTiNHM3lJbHEqkuXwuWtGzU');
@@ -24,6 +25,7 @@ function /*void*/ error(/*string*/ $message, /*int*/ $exitCode = -1)
 function /*void*/ configureFile(/*string*/ $fileName, /*string*/ $ROOTPATH)
 {
 	$ROOTPATH_regex		= '#^define\\(\'ROOTPATH\', \'([^\']|\\\\\')*\'\\);\\s*$#';
+	$BACKEND_URL_regex	= '#^define\\(\'BACKEND_URL\', \'([^\']|\\\\\')*\'\\);\\s*$#';
 	$fileSrc	= fopen($fileName, 'r');
 	$destFileName	= dirname($fileName).'/~'.basename($fileName).'.tmp';
 	$fileDest	= fopen($destFileName, 'w');
@@ -33,9 +35,11 @@ function /*void*/ configureFile(/*string*/ $fileName, /*string*/ $ROOTPATH)
 		{
 			$line	= fgets($fileSrc);
 			if($line === false)
-				error('Syntax error : Line "//Social Networks Keys" not fount !'."\n");
+				error('Syntax error : Line "//Social Networks Keys" not found !'."\n");
 			if(preg_match($ROOTPATH_regex, $line))
 				$line	= "define('ROOTPATH', '$ROOTPATH');\n";
+			elseif(preg_match($BACKEND_URL_regex, $line))
+				$line	= "define('BACKEND_URL', '".str_replace("'", "\\'", BACKEND_URL)."');\n";
 			fputs($fileDest, $line);
 		}while($line !== '//Social Networks Keys'."\n");
 		fputs($fileDest, KEYS);

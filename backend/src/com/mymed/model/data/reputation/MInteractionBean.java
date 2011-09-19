@@ -37,6 +37,8 @@ public class MInteractionBean extends AbstractMBean {
 	 *            the interaction bean to clone
 	 */
 	protected MInteractionBean(final MInteractionBean toClone) {
+		super();
+
 		id = toClone.getId();
 		application = toClone.getApplication();
 		producer = toClone.getProducer();
@@ -53,19 +55,100 @@ public class MInteractionBean extends AbstractMBean {
 	 */
 	public MInteractionBean() {
 		// Empty constructor, needed because of the copy constructor
+		super();
 	}
 
 	@Override
 	public MInteractionBean clone() {
-		final MInteractionBean interactionBean = new MInteractionBean(this);
-		return interactionBean;
+		return new MInteractionBean(this);
 	}
 
 	@Override
 	public String toString() {
 		return "Interaction:\n" + super.toString();
 	}
+	
+	@Override
+	public void update(AbstractMBean mBean) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		int result = 1;
+		result = PRIME * result + (application == null ? 0 : application.hashCode());
+		result = PRIME * result + (complexInteraction == null ? 0 : complexInteraction.hashCode());
+		result = PRIME * result + (consumer == null ? 0 : consumer.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(feedback);
+		result = PRIME * result + (int) (temp ^ temp >>> 32);
+		result = PRIME * result + (id == null ? 0 : id.hashCode());
+		result = PRIME * result + (producer == null ? 0 : producer.hashCode());
+		return result;
+	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(final Object obj) {
+
+		boolean equal = false;
+
+		if (this == obj) {
+			equal = true;
+		} else if (obj instanceof MInteractionBean) {
+			final MInteractionBean comparable = (MInteractionBean) obj;
+
+			equal = true;
+
+			if (application == null && comparable.getApplication() != null) {
+				equal &= false;
+			} else {
+				equal &= application.equals(comparable.getApplication());
+			}
+
+			if (complexInteraction == null && comparable.getComplexInteraction() != null) {
+				equal &= false;
+			} else {
+				equal &= complexInteraction.equals(comparable.getComplexInteraction());
+			}
+
+			if (consumer == null && comparable.getConsumer() != null) {
+				equal &= false;
+			} else {
+				equal &= consumer.equals(comparable.getConsumer());
+			}
+
+			equal &= feedback == comparable.getFeedback();
+
+			if (id == null && comparable.getId() != null) {
+				equal &= false;
+			} else {
+				equal &= id.equals(comparable.getId());
+			}
+
+			if (producer == null && comparable.getProducer() != null) {
+				equal &= false;
+			} else {
+				equal &= producer.equals(comparable.getProducer());
+			}
+		}
+
+		return equal;
+	}
+
+	/* --------------------------------------------------------- */
+	/* GETTER AND SETTER */
+	/* --------------------------------------------------------- */
 	/**
 	 * @return the feedback associated with this interaction
 	 */
@@ -201,75 +284,4 @@ public class MInteractionBean extends AbstractMBean {
 		this.complexInteraction = complexInteraction;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		int result = 1;
-		result = PRIME * result + (application == null ? 0 : application.hashCode());
-		result = PRIME * result + (complexInteraction == null ? 0 : complexInteraction.hashCode());
-		result = PRIME * result + (consumer == null ? 0 : consumer.hashCode());
-		long temp;
-		temp = Double.doubleToLongBits(feedback);
-		result = PRIME * result + (int) (temp ^ temp >>> 32);
-		result = PRIME * result + (id == null ? 0 : id.hashCode());
-		result = PRIME * result + (producer == null ? 0 : producer.hashCode());
-		return result;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(final Object obj) {
-
-		boolean equal = false;
-
-		if (this == obj) {
-			equal = true;
-		} else if (obj instanceof MInteractionBean) {
-			final MInteractionBean comparable = (MInteractionBean) obj;
-
-			equal = true;
-
-			if (application == null && comparable.getApplication() != null) {
-				equal &= false;
-			} else {
-				equal &= application.equals(comparable.getApplication());
-			}
-
-			if (complexInteraction == null && comparable.getComplexInteraction() != null) {
-				equal &= false;
-			} else {
-				equal &= complexInteraction.equals(comparable.getComplexInteraction());
-			}
-
-			if (consumer == null && comparable.getConsumer() != null) {
-				equal &= false;
-			} else {
-				equal &= consumer.equals(comparable.getConsumer());
-			}
-
-			equal &= feedback == comparable.getFeedback();
-
-			if (id == null && comparable.getId() != null) {
-				equal &= false;
-			} else {
-				equal &= id.equals(comparable.getId());
-			}
-
-			if (producer == null && comparable.getProducer() != null) {
-				equal &= false;
-			} else {
-				equal &= producer.equals(comparable.getProducer());
-			}
-		}
-
-		return equal;
-	}
 }

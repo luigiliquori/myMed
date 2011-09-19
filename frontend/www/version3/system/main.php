@@ -46,7 +46,7 @@ require_once __DIR__.'/../socialNetworkAPIs/GlobalConnexion.class.php';
 // define PATH_INFO contante
 $PATH_INFO		= explode('/', isset($_SERVER['PATH_INFO'])?$_SERVER['PATH_INFO']:null);
 $PATH_INFO[0]	= basename($_SERVER['SCRIPT_NAME']);
-trace($PATH_INFO,'$PATH_INFO', __FILE__, __LINE__);
+//trace($PATH_INFO,'$PATH_INFO', __FILE__, __LINE__);
 
 //BEGIN
 function main()
@@ -65,8 +65,20 @@ function main()
 		$_SESSION['user'] = new Profile;
 		$_SESSION['user']->socialNetworkName	= null;
 	}
-	trace($_SESSION['user'],'$_SESSION[\'user\']', __FILE__, __LINE__);
+	//trace($_SESSION['user'],'$_SESSION[\'user\']', __FILE__, __LINE__);
 	define('USER_CONNECTED', $_SESSION['user']->socialNetworkName!==null );
+	
+	//redirect to onlycontent template if referer is from an onlycontent template
+	if(isset($_SERVER['HTTP_REFERER']) && ($_SERVER['REQUEST_METHOD']=='GET') && !isset($_GET['template']))
+	{
+		$refererGet	= Array();
+		parse_str(parse_url($_SERVER['HTTP_REFERER'], PHP_URL_QUERY), $refererGet);
+		if(isset($refererGet['template']) && $refererGet['template']==='onlycontent')
+		{
+			$_GET['template']	='onlycontent';
+			httpRedirect($_SERVER['PHP_SELF'].'?'.http_build_query($_GET));
+		}
+	}
 	
 	// Load Template
 	$subtemplateName	= 'Template'.ucfirst(basename($_SERVER['SCRIPT_NAME']));
@@ -89,7 +101,7 @@ function main()
 		$contentClass = basename(CONTENTOBJECT);
 		$template->setContent(new $contentClass());
 	}
-	else if(isset($PATH_INFO[1])&&$PATH_INFO[1])
+	else if($template instanceof IContainerObject&&isset($PATH_INFO[1])&&$PATH_INFO[1])
 	{
 		$serviceFile = __DIR__.'/../services/'.$PATH_INFO[1].'/'.$PATH_INFO[1].'.class.php';
 		if(is_file($serviceFile))
@@ -104,8 +116,29 @@ function main()
 			$template->setContent(new ServiceNotFound());
 		}
 	}
-	
+	$noSpaceCompression	= /**true;/*/defined('NOSPACECOMPRESSION')?NOSPACECOMPRESSION:(strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE 8.0')!==false);//*/
+	if(!$noSpaceCompression)
+		ob_start();
 	// Exec
 	$mainTemplate->callTemplate();
+	if(!$noSpaceCompression)
+	{
+		$buffer = ob_get_contents();
+		ob_end_clean();
+		$patterns = Array(
+			'#/<!\[CDATA\[([^\]]|(\][^\]])|(\]\][^>]))*\]\]>#s', 
+			'#([\\n\\r][	 ]*)?<!--([^-]|(-[^-])|(--[^>]))*-->#s',
+			'#[	 ]+#s',
+			'#([\\n\\r][	 ]*)+#s');
+		$replacment = Array(
+			'$0', 
+			'',
+			' ',
+			"\n");
+		echo preg_replace($patterns, $replacment, $buffer);
+		//echo preg_replace('#//<!\[CDATA\[#', '//<![CDATA['."\n", 
+		//		preg_replace('#<!--([^-]|(-[^-])|(--[^>]))*-->#s', '',
+		//			preg_replace('#\\s+#s', ' ', $buffer)));
+	}
 }
 ?>

@@ -120,15 +120,15 @@ public class MyJamRequestHandler extends AbstractRequestHandler implements IMyJa
 			super.doGet(request, response);
 		} catch (InternalBackEndException e) {
 			// TODO Check
-			handleInternalError(e, response);
+			handleError(e, response);
 		} catch (NullPointerException e) {
-			handleInternalError(new InternalBackEndException("Missing parameter: "+e.getMessage()==null?"":e.getMessage()), response);
+			handleError(new InternalBackEndException("Missing parameter: "+e.getMessage()==null?"":e.getMessage()), response);
 		}catch (NumberFormatException e){
-			handleInternalError(new InternalBackEndException("Wrong parameter: "+e.getMessage()==null?"":e.getMessage()), response);
+			handleError(new InternalBackEndException("Wrong parameter: "+e.getMessage()==null?"":e.getMessage()), response);
 		} catch (WrongFormatException e){
-			handleInternalError(new InternalBackEndException("Wrong search type: "+e.getMessage()==null?"":e.getMessage()), response);
+			handleError(new InternalBackEndException("Wrong search type: "+e.getMessage()==null?"":e.getMessage()), response);
 		} catch (IOBackEndException e) {
-			handleNotFoundError(e, response);
+			handleError(e, response);
 		}
 	}
 
@@ -177,17 +177,17 @@ public class MyJamRequestHandler extends AbstractRequestHandler implements IMyJa
 			super.doPost(request, response);
 		} catch (InternalBackEndException e) {
 			// TODO Check
-			handleInternalError(e, response);
+			handleError(e, response);
 		} catch (IOBackEndException e) {
-			handleNotFoundError(e, response);
+			handleError(e, response);
 		}catch (NullPointerException e) {
-			handleInternalError(new InternalBackEndException("Missing parameter: "+e.getMessage()==null?"":e.getMessage()), response);
+			handleError(new InternalBackEndException("Missing parameter: "+e.getMessage()==null?"":e.getMessage()), response);
 		} catch (NumberFormatException e){
-			handleInternalError(new InternalBackEndException("Wrong parameter: "+e.getMessage()==null?"":e.getMessage()), response);
+			handleError(new InternalBackEndException("Wrong parameter: "+e.getMessage()==null?"":e.getMessage()), response);
 		} catch (WrongFormatException e){
-			handleInternalError(new InternalBackEndException("Wrong format: "+e.getMessage()==null?"":e.getMessage()), response);
+			handleError(new InternalBackEndException("Wrong format: "+e.getMessage()==null?"":e.getMessage()), response);
 		} catch (JsonSyntaxException e){
-			handleInternalError(new InternalBackEndException("Error parsing content: "+e.getMessage()==null?"":e.getMessage()), response);
+			handleError(new InternalBackEndException("Error parsing content: "+e.getMessage()==null?"":e.getMessage()), response);
 		}
 	}
 
@@ -206,15 +206,15 @@ public class MyJamRequestHandler extends AbstractRequestHandler implements IMyJa
 			super.doDelete(request, response);
 		} catch (InternalBackEndException e) {
 			// TODO Check
-			handleInternalError(e, response);
+			handleError(e, response);
 		}catch (NullPointerException e) {
-			handleInternalError(new InternalBackEndException("Missing parameter: "+e.getMessage()==null?"":e.getMessage()), response);
+			handleError(new InternalBackEndException("Missing parameter: "+e.getMessage()==null?"":e.getMessage()), response);
 		} catch (NumberFormatException e){
-			handleInternalError(new InternalBackEndException("Wrong parameter: "+e.getMessage()==null?"":e.getMessage()), response);
+			handleError(new InternalBackEndException("Wrong parameter: "+e.getMessage()==null?"":e.getMessage()), response);
 		} catch (JsonSyntaxException e){
-			handleInternalError(new InternalBackEndException("Error parsing content: "+e.getMessage()==null?"":e.getMessage()), response);
+			handleError(new InternalBackEndException("Error parsing content: "+e.getMessage()==null?"":e.getMessage()), response);
 		} catch (WrongFormatException e) {
-			handleInternalError(new InternalBackEndException("Wrong report id: "+e.getMessage()==null?"":e.getMessage()), response);
+			handleError(new InternalBackEndException("Wrong report id: "+e.getMessage()==null?"":e.getMessage()), response);
 		}
 	}
 

@@ -20,10 +20,83 @@ public class MSessionBean extends AbstractMBean {
 	private int port;
 
 	@Override
+	public void update(final AbstractMBean mBean) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
 	public String toString() {
 		return "Session:\n" + super.toString();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		int result = 1;
+
+		result = PRIME * result + (id == null ? 0 : id.hashCode());
+		result = PRIME * result + (ip == null ? 0 : ip.hashCode());
+		result = PRIME * result + (isP2P ? 1231 : 1237);
+		result = PRIME * result + port;
+		result = PRIME * result + (user == null ? 0 : user.hashCode());
+
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(final Object object) {
+
+		boolean equal = false;
+
+		if (this == object) {
+			equal = true;
+		} else if (object instanceof MSessionBean) {
+			final MSessionBean comparable = (MSessionBean) object;
+
+			/*
+			 * We compare only a subsets of the field to check that two
+			 * MUserBean objects are the same. These should be values that are
+			 * set for sure, and not null.
+			 */
+			equal = true;
+
+			if (id == null && comparable.getId() != null) {
+				equal &= false;
+			} else {
+				equal &= id.equals(comparable.getId());
+			}
+
+			if (ip == null && comparable.getIp() != null) {
+				equal &= false;
+			} else {
+				equal &= ip.equals(comparable.getIp());
+			}
+
+			equal &= isP2P == comparable.isP2P();
+			equal &= port == comparable.getPort();
+
+			if (user == null && comparable.getUser() != null) {
+				equal &= false;
+			} else {
+				equal &= user.equals(comparable.getUser());
+			}
+		}
+
+		return equal;
+	}
+
+	/* --------------------------------------------------------- */
+	/* GETTER AND SETTER */
+	/* --------------------------------------------------------- */
 	/**
 	 * @return the id of the session
 	 */
@@ -41,14 +114,14 @@ public class MSessionBean extends AbstractMBean {
 	}
 
 	/**
-	 * @return the user associated with the session
+	 * @return the ID of the user associated with the session
 	 */
 	public String getUser() {
 		return user;
 	}
 
 	/**
-	 * Set the user to associate with this session
+	 * Set the ID of the user to associate with this session
 	 * 
 	 * @param user
 	 */
@@ -128,69 +201,4 @@ public class MSessionBean extends AbstractMBean {
 		this.port = port;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		// final int PRIME = 31;
-		int result = 1;
-
-		result = PRIME * result + (id == null ? 0 : id.hashCode());
-		result = PRIME * result + (ip == null ? 0 : ip.hashCode());
-		result = PRIME * result + (isP2P ? 1231 : 1237);
-		result = PRIME * result + port;
-		result = PRIME * result + (user == null ? 0 : user.hashCode());
-
-		return result;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(final Object object) {
-
-		boolean equal = false;
-
-		if (this == object) {
-			equal = true;
-		} else if (object instanceof MSessionBean) {
-			final MSessionBean comparable = (MSessionBean) object;
-
-			/*
-			 * We compare only a subsets of the field to check that two
-			 * MUserBean objects are the same. These should be values that are
-			 * set for sure, and not null.
-			 */
-			equal = true;
-
-			if (id == null && comparable.getId() != null) {
-				equal &= false;
-			} else {
-				equal &= id.equals(comparable.getId());
-			}
-
-			if (ip == null && comparable.getIp() != null) {
-				equal &= false;
-			} else {
-				equal &= ip.equals(comparable.getIp());
-			}
-
-			equal &= isP2P == comparable.isP2P();
-			equal &= port == comparable.getPort();
-
-			if (user == null && comparable.getUser() != null) {
-				equal &= false;
-			} else {
-				equal &= user.equals(comparable.getUser());
-			}
-		}
-
-		return equal;
-	}
 }

@@ -17,24 +17,25 @@ public interface IProfileManager {
 	 * 
 	 * @param user
 	 *            the user to insert into the database
-	 * @return true if the user if the user is created, false otherwise
+	 * @return the profile of the user
 	 */
-	public MUserBean create(MUserBean user) throws InternalBackEndException, IOBackEndException;
+	MUserBean create(MUserBean user) throws InternalBackEndException, IOBackEndException;
 
 	/**
 	 * @param id
 	 *            the id of the user
 	 * @return the User corresponding to the id
 	 */
-	public MUserBean read(String id) throws InternalBackEndException, IOBackEndException;
+	MUserBean read(String id) throws InternalBackEndException, IOBackEndException;
 
 	/**
 	 * Update the profile of an user into the database
 	 * 
 	 * @param user
 	 *            The profile updated to store
+	 * @return
 	 */
-	public void update(MUserBean user) throws InternalBackEndException, IOBackEndException;
+	MUserBean update(MUserBean user) throws InternalBackEndException, IOBackEndException;
 
 	/**
 	 * Delete an existing user
@@ -42,5 +43,5 @@ public interface IProfileManager {
 	 * @param user
 	 *            The user to delete
 	 */
-	public void delete(String id) throws InternalBackEndException;
+	void delete(String id) throws InternalBackEndException, IOBackEndException;
 }
