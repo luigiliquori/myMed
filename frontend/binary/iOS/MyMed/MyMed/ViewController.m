@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "Reachability.h"
+#import "UIDeviceHardware.h"
 
 NSString * const MY_MED_URL = @"http://mymed2.sophia.inria.fr/mobile/";
 NSString * const GOOGLE_URL = @"google.fr"; //Don't add HTTP or www. for Reachability.
@@ -27,18 +28,6 @@ NSString * const GOOGLE_URL = @"google.fr"; //Don't add HTTP or www. for Reachab
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    if ([self reachable]) {
-        [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:MY_MED_URL]]];
-    } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No internet connection" 
-                                                        message:@"You need an active internet connection to use this application" 
-                                                       delegate:self 
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-    }
-
 }
 
 - (void)viewDidUnload
@@ -55,7 +44,7 @@ NSString * const GOOGLE_URL = @"google.fr"; //Don't add HTTP or www. for Reachab
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewDidAppear:animated];    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -72,6 +61,30 @@ NSString * const GOOGLE_URL = @"google.fr"; //Don't add HTTP or www. for Reachab
 {
     // Return YES for supported orientations
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+}
+
+#pragma mark - MyMed
+- (void) loadMyMed
+{
+    if ([self reachable]) {
+        [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:MY_MED_URL]]];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No internet connection" 
+                                                        message:@"You need an active internet connection to use this application" 
+                                                       delegate:self 
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        NSString *errorPage;
+        
+        if ([[UIDeviceHardware platformString] hasPrefix:@"iPad"]) {
+            errorPage = @"error_ipad";
+        } else {
+            errorPage = @"error_iphone";
+        }
+        
+        [webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:errorPage ofType:@"html"] isDirectory:NO]]];
+    }
 }
 
 #pragma mark - Reachable
