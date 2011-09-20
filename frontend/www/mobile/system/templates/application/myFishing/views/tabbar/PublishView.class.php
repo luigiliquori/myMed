@@ -61,13 +61,13 @@ class PublishView extends MyApplication {
 				
 				<!-- DATE -->
 				Catch Date:<br />
-				<input type="date" name="date" value=" "  data-inline="true"/>
+				<input type="date" name="date" value="<?php echo date('Y-m-d');?>"  data-inline="true"/>
 				<?php $date = new MDataBean("date", null, DATE); ?>
 				<input type="hidden" name="ontology2" value="<?= urlencode(json_encode($date)); ?>">
 				<br />
 								
 				<!-- PICTURE -->
-				Picture :<br />
+				Picture (URL):<br />
 				<input type="text" name="picture" value=""  data-inline="true"/><br />
 				<?php $keyword = new MDataBean("picture", null, PICTURE); ?>
 				<input type="hidden" name="ontology3" value="<?= urlencode(json_encode($keyword)); ?>">
