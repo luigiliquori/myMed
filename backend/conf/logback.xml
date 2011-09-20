@@ -66,7 +66,7 @@
 
   <!-- The default logger, default is to be set to 'info' and to print to the stdout. -->
   <!--  To turn it off, set its level to 'off' -->
-  <root level="off">
+  <root level="info">
     <appender-ref ref="stdout" />
   </root>
 </configuration>

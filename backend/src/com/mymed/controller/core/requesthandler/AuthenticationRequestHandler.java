@@ -36,6 +36,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 	 */
 	public AuthenticationRequestHandler() throws ServletException {
 		super();
+
 		try {
 			authenticationManager = new AuthenticationManager();
 		} catch (final InternalBackEndException e) {
@@ -54,58 +55,30 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
 	        IOException {
 		try {
-			/** Get the parameters */
 			final Map<String, String> parameters = getParameters(request);
-
-			/** Get the method code */
 			final RequestCode code = requestCodeMap.get(parameters.get("code"));
+			final String login = parameters.get("login");
+			final String password = parameters.get("password");
 
-			/** handle the request */
-			String login, password;
-			if ((login = parameters.get("login")) == null || (password = parameters.get("password")) == null) {
+			if (login == null || password == null) {
 				handleError(new InternalBackEndException("missing argument!"), response);
-				return;
-			}
-
-			if (code == RequestCode.READ) {
-				MUserBean userBean;
+			} else if (code == RequestCode.READ) {
 				try {
-					userBean = authenticationManager.read(login, password);
+					final MUserBean userBean = authenticationManager.read(login, password);
 					setResponseText(getGson().toJson(userBean));
+
+					super.doGet(request, response);
 				} catch (final IOBackEndException e) {
 					handleError(e, response);
-					return;
 				}
 			} else {
 				handleError(new InternalBackEndException("ProfileRequestHandler.doGet(" + code + ") not exist!"),
 				        response);
-				return;
 			}
-
-			// TODO test if it works
-			// switch (code) {
-			// case READ:
-			// MUserBean userBean;
-			// try {
-			// userBean = authenticationManager.read(login, password);
-			// setResponseText(getGson().toJson(userBean));
-			// } catch (IOBackEndException e) {
-			// handleError(e, response);
-			// return;
-			// }
-			// break;
-			// default:
-			// handleError(new
-			// InternalBackEndException("ProfileRequestHandler.doGet(" + code +
-			// ") not exist!"), response);
-			// return;
-			// }
-
-			super.doGet(request, response);
 		} catch (final InternalBackEndException e) {
-			e.printStackTrace();
+			MLogger.getLog().info("Error in doGet operation");
+			MLogger.getDebugLog().debug("Error in doGet operation", e.getCause());
 			handleError(e, response);
-			return;
 		}
 	}
 
@@ -117,79 +90,60 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 	protected void doPost(final HttpServletRequest request, final HttpServletResponse response)
 	        throws ServletException, IOException {
 		try {
-			/** Get the parameters */
 			final Map<String, String> parameters = getParameters(request);
-
-			/** Get the method code */
 			final RequestCode code = requestCodeMap.get(parameters.get("code"));
+			final String authentication = parameters.get("authentication");
 
-			/** handle the request */
-			String authentication;
-			if ((authentication = parameters.get("authentication")) == null) {
-				handleError(new InternalBackEndException("missing authentication argument!"), response);
-				return;
-			}
-			switch (code) {
-				case CREATE :
-					String user;
-					if ((user = parameters.get("user")) == null) {
-						handleError(new InternalBackEndException("missing user argument!"), response);
-						return;
-					}
+			if (authentication == null) {
+				handleError(new InternalBackEndException("Missing authentication argument!"), response);
+			} else if (code == RequestCode.CREATE) {
+				final String user = parameters.get("user");
 
-					MUserBean userBean = null;
+				if (user == null) {
+					handleError(new InternalBackEndException("Missing user argument!"), response);
+				} else {
 					try {
-						userBean = getGson().fromJson(user, MUserBean.class);
+						MUserBean userBean = getGson().fromJson(user, MUserBean.class);
 						userBean.setSocialNetworkID("MYMED");
 						userBean.setSocialNetworkName("myMed");
-					} catch (final JsonSyntaxException e) {
-						handleError(new InternalBackEndException("user jSon format is not valid"), response);
-						return;
-					}
 
-					MAuthenticationBean authenticationBean = null;
+						final MAuthenticationBean authenticationBean = getGson().fromJson(authentication,
+						        MAuthenticationBean.class);
+
+						MLogger.getLog().info("Trying to create a new user:\n {}", userBean.toString());
+						userBean = authenticationManager.create(userBean, authenticationBean);
+						MLogger.getLog().info("User created");
+
+						setResponseText(getGson().toJson(userBean));
+
+						super.doPost(request, response);
+					} catch (final JsonSyntaxException e) {
+						handleError(new InternalBackEndException("User/Authentication jSon format is not valid"),
+						        response);
+					}
+				}
+			} else if (code == RequestCode.UPDATE) {
+				final String id = parameters.get("id");
+				if (id == null) {
+					handleError(new InternalBackEndException("Missing user argument!"), response);
+				} else {
 					try {
-						authenticationBean = getGson().fromJson(authentication, MAuthenticationBean.class);
+						final MAuthenticationBean authenticationBean = getGson().fromJson(authentication,
+						        MAuthenticationBean.class);
+
+						MLogger.getLog().info("Trying to update authentication:\n {}", authenticationBean.toString());
+						authenticationManager.update(id, authenticationBean);
+						MLogger.getLog().info("Authentication updated!");
+
+						super.doPost(request, response);
 					} catch (final JsonSyntaxException e) {
-						handleError(new InternalBackEndException("authentication jSon format is not valid"), response);
-						return;
+						handleError(new InternalBackEndException("Authentication jSon format is not valid"), response);
 					}
-
-					MLogger.getLog().info("Trying to create a new user:\n {}", userBean.toString());
-
-					userBean = authenticationManager.create(userBean, authenticationBean);
-
-					MLogger.getLog().info("User created");
-
-					setResponseText(getGson().toJson(userBean));
-					break;
-				case UPDATE :
-					try {
-						authenticationBean = getGson().fromJson(authentication, MAuthenticationBean.class);
-					} catch (final JsonSyntaxException e) {
-						handleError(new InternalBackEndException("authentication jSon format is not valid"), response);
-						return;
-					}
-
-					String id;
-					if ((id = parameters.get("id")) == null) {
-						handleError(new InternalBackEndException("missing user argument!"), response);
-						return;
-					}
-
-					MLogger.getLog().info("Trying to update authentication:\n {}", authenticationBean.toString());
-
-					authenticationManager.update(id, authenticationBean);
-
-					MLogger.getLog().info("Authentication updated!");
-
-					break;
-				default :
-					handleError(new InternalBackEndException("ProfileRequestHandler.doPost(" + code + ") not exist!"),
-					        response);
-					return;
+				}
+			} else {
+				handleError(new InternalBackEndException("ProfileRequestHandler.doPost(" + code + ") not exist!"),
+				        response);
 			}
-			super.doPost(request, response);
 		} catch (final InternalBackEndException e) {
 			MLogger.getLog().info("Error in doPost operation");
 			MLogger.getDebugLog().debug("Error in doPost operation", e.getCause());
