@@ -35,7 +35,7 @@ class Publish extends Request {
 		for($i=0 ; $i<$_POST['numberOfOntology'] ; $i++){
 			/*MDataBean*/ $ontology = json_decode(urldecode($_POST['ontology' . $i]));
 			$ontology->value = $_POST[$ontology->key];
-			if($ontology->ontologyID < 4) { // it's a predicate
+			if($ontology->ontologyID < 4 && $ontology->value != "") { // it's a predicate
 				$predicateArray[$numberOfPredicate++] = $ontology;
 			}
 			$data[$i] = $ontology;
@@ -53,14 +53,14 @@ class Publish extends Request {
 			$j = 0;
 			while($mask > 0){
 				if($mask&1 == 1){
-					$predicate .= $predicateArray[$j]->value;
+					$predicate .= $predicateArray[$j]->key . "(" . $predicateArray[$j]->value . ")";
 				}
 				$mask >>= 1;
 				$j++;
 			}
 			if($predicate != ""){
-				echo '<script type="text/javascript">alert("$predicate = ' . $predicate . '")</script>';
-				parent::addArgument("predicate", $predicate);
+// 				echo '<script type="text/javascript">alert("$predicate = ' . $predicate . '")</script>';
+				parent::addArgument("predicate", urlencode($predicate));
 				$response = parent::send();
 				$check = json_decode($response);
 				if($check->error != null) {
