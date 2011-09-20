@@ -27,13 +27,14 @@ class Find extends Request {
 	/* Public methods */
 	/* --------------------------------------------------------- */
 	public /*void*/ function send() {
+		
 		// construct the predicate + data
 		$predicateArray;
 		$numberOfPredicate = 0;
 		for($i=0 ; $i<$_POST['numberOfOntology'] ; $i++){
 			/*MDataBean*/ $ontology = json_decode(urldecode($_POST['ontology' . $i]));
 			$ontology->value = $_POST[$ontology->key];
-			if($ontology->ontologyID < 4) {
+			if($ontology->ontologyID < 4 && $ontology->value != "") {
 				// it's a predicate
 				$predicateArray[$numberOfPredicate++] = $ontology;
 			}
@@ -50,22 +51,29 @@ class Find extends Request {
 			$j = 0;
 			while($mask > 0){
 				if($mask&1 == 1){
-					$predicate .= $predicateArray[$j]->value;
+					$predicate .= $predicateArray[$j]->key . "(" . $predicateArray[$j]->value . ")";
 				}
 				$mask >>= 1;
 				$j++;
 			}
 			if($predicate != ""){
-// 				echo '<script type="text/javascript">alert("$predicate = ' . $predicate . '")</script>';
-				parent::addArgument("predicate", $predicate);
+				parent::addArgument("predicate", urlencode($predicate));
 				$response = parent::send();
 				$check = json_decode($response);
 				if($check->error == null) {
+// 					$result = array_merge($result, json_decode($response));
+// 					echo '<script type="text/javascript">alert("$response = ' . json_decode($response) . '")</script>';
  					$this->handler->setSuccess($response); // TODO CONCATENATION!!!!!
- 					break;
+//  					break;
 				}
 			}
 		}
+		
+		//debug
+//  		foreach($result as $test) {
+//  			echo '<script type="text/javascript">alert("$response = ' . $test->user . '")</script>';
+//  		}
+//  		echo json_encode($result);
 	}
 }
 ?>

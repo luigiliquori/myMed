@@ -1,0 +1,359 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		141FF5871423423000FC46F4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 141FF5861423423000FC46F4 /* UIKit.framework */; };
+		141FF5891423423000FC46F4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 141FF5881423423000FC46F4 /* Foundation.framework */; };
+		141FF58B1423423000FC46F4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 141FF58A1423423000FC46F4 /* CoreGraphics.framework */; };
+		141FF5911423423000FC46F4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 141FF58F1423423000FC46F4 /* InfoPlist.strings */; };
+		141FF5931423423000FC46F4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 141FF5921423423000FC46F4 /* main.m */; };
+		141FF5971423423000FC46F4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 141FF5961423423000FC46F4 /* AppDelegate.m */; };
+		141FF59A1423423000FC46F4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 141FF5991423423000FC46F4 /* ViewController.m */; };
+		141FF59D1423423000FC46F4 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 141FF59B1423423000FC46F4 /* ViewController.xib */; };
+		141FF5A51423515E00FC46F4 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 141FF5A41423515E00FC46F4 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		141FF5B51423546800FC46F4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 141FF5B41423546700FC46F4 /* SystemConfiguration.framework */; };
+		141FF5BD14235E6000FC46F4 /* Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 141FF5BC14235E6000FC46F4 /* Background.png */; };
+		141FF5BF14235FC800FC46F4 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 141FF5BE14235FC800FC46F4 /* Default.png */; };
+		14264C051427726F00E44481 /* icon-mymed.png in Resources */ = {isa = PBXBuildFile; fileRef = 14264C041427726F00E44481 /* icon-mymed.png */; };
+		14264C09142773D700E44481 /* UIDeviceHardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 14264C08142773D700E44481 /* UIDeviceHardware.m */; };
+		14264C0B142775A800E44481 /* error_iphone.html in Resources */ = {isa = PBXBuildFile; fileRef = 14264C0A142775A800E44481 /* error_iphone.html */; };
+		14B780A51427496100A8E3D4 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 14B780A41427496100A8E3D4 /* Default-Landscape~ipad.png */; };
+		14B780A714274A0500A8E3D4 /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 14B780A614274A0500A8E3D4 /* Default-Portrait~ipad.png */; };
+		14B780AA14276AEC00A8E3D4 /* error_ipad.html in Resources */ = {isa = PBXBuildFile; fileRef = 14B780A814276AEC00A8E3D4 /* error_ipad.html */; };
+		14B780AB14276AEC00A8E3D4 /* mymed_logo_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 14B780A914276AEC00A8E3D4 /* mymed_logo_small.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		141FF5821423423000FC46F4 /* MyMed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyMed.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		141FF5861423423000FC46F4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		141FF5881423423000FC46F4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		141FF58A1423423000FC46F4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		141FF58E1423423000FC46F4 /* MyMed-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MyMed-Info.plist"; sourceTree = "<group>"; };
+		141FF5901423423000FC46F4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		141FF5921423423000FC46F4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		141FF5941423423000FC46F4 /* MyMed-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MyMed-Prefix.pch"; sourceTree = "<group>"; };
+		141FF5951423423000FC46F4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		141FF5961423423000FC46F4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		141FF5981423423000FC46F4 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		141FF5991423423000FC46F4 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		141FF59C1423423000FC46F4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
+		141FF5A31423515E00FC46F4 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		141FF5A41423515E00FC46F4 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		141FF5B41423546700FC46F4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		141FF5BC14235E6000FC46F4 /* Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Background.png; sourceTree = "<group>"; };
+		141FF5BE14235FC800FC46F4 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		14264C041427726F00E44481 /* icon-mymed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-mymed.png"; path = "../icon-mymed.png"; sourceTree = "<group>"; };
+		14264C07142773D700E44481 /* UIDeviceHardware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIDeviceHardware.h; sourceTree = "<group>"; };
+		14264C08142773D700E44481 /* UIDeviceHardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIDeviceHardware.m; sourceTree = "<group>"; };
+		14264C0A142775A800E44481 /* error_iphone.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = error_iphone.html; sourceTree = "<group>"; };
+		14B780A41427496100A8E3D4 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape~ipad.png"; path = "../Default-Landscape~ipad.png"; sourceTree = "<group>"; };
+		14B780A614274A0500A8E3D4 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Portrait~ipad.png"; path = "../Default-Portrait~ipad.png"; sourceTree = "<group>"; };
+		14B780A814276AEC00A8E3D4 /* error_ipad.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = error_ipad.html; sourceTree = "<group>"; };
+		14B780A914276AEC00A8E3D4 /* mymed_logo_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mymed_logo_small.png; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		141FF57F1423423000FC46F4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				141FF5B51423546800FC46F4 /* SystemConfiguration.framework in Frameworks */,
+				141FF5871423423000FC46F4 /* UIKit.framework in Frameworks */,
+				141FF5891423423000FC46F4 /* Foundation.framework in Frameworks */,
+				141FF58B1423423000FC46F4 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		141FF5771423423000FC46F4 = {
+			isa = PBXGroup;
+			children = (
+				141FF58C1423423000FC46F4 /* MyMed */,
+				141FF5851423423000FC46F4 /* Frameworks */,
+				141FF5831423423000FC46F4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		141FF5831423423000FC46F4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				141FF5821423423000FC46F4 /* MyMed.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		141FF5851423423000FC46F4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				141FF5B41423546700FC46F4 /* SystemConfiguration.framework */,
+				141FF5861423423000FC46F4 /* UIKit.framework */,
+				141FF5881423423000FC46F4 /* Foundation.framework */,
+				141FF58A1423423000FC46F4 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		141FF58C1423423000FC46F4 /* MyMed */ = {
+			isa = PBXGroup;
+			children = (
+				141FF5951423423000FC46F4 /* AppDelegate.h */,
+				141FF5961423423000FC46F4 /* AppDelegate.m */,
+				141FF5A71423517000FC46F4 /* WebView */,
+				141FF5A61423516100FC46F4 /* External */,
+				141FF58D1423423000FC46F4 /* Supporting Files */,
+			);
+			path = MyMed;
+			sourceTree = "<group>";
+		};
+		141FF58D1423423000FC46F4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				14B780AC14276AF000A8E3D4 /* Error Webpage */,
+				14B780A614274A0500A8E3D4 /* Default-Portrait~ipad.png */,
+				14B780A41427496100A8E3D4 /* Default-Landscape~ipad.png */,
+				14264C041427726F00E44481 /* icon-mymed.png */,
+				141FF5BC14235E6000FC46F4 /* Background.png */,
+				141FF5BE14235FC800FC46F4 /* Default.png */,
+				141FF58E1423423000FC46F4 /* MyMed-Info.plist */,
+				141FF58F1423423000FC46F4 /* InfoPlist.strings */,
+				141FF5921423423000FC46F4 /* main.m */,
+				141FF5941423423000FC46F4 /* MyMed-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		141FF5A61423516100FC46F4 /* External */ = {
+			isa = PBXGroup;
+			children = (
+				141FF5A31423515E00FC46F4 /* Reachability.h */,
+				141FF5A41423515E00FC46F4 /* Reachability.m */,
+				14264C07142773D700E44481 /* UIDeviceHardware.h */,
+				14264C08142773D700E44481 /* UIDeviceHardware.m */,
+			);
+			name = External;
+			sourceTree = "<group>";
+		};
+		141FF5A71423517000FC46F4 /* WebView */ = {
+			isa = PBXGroup;
+			children = (
+				141FF5981423423000FC46F4 /* ViewController.h */,
+				141FF5991423423000FC46F4 /* ViewController.m */,
+				141FF59B1423423000FC46F4 /* ViewController.xib */,
+			);
+			name = WebView;
+			sourceTree = "<group>";
+		};
+		14B780AC14276AF000A8E3D4 /* Error Webpage */ = {
+			isa = PBXGroup;
+			children = (
+				14264C0A142775A800E44481 /* error_iphone.html */,
+				14B780A814276AEC00A8E3D4 /* error_ipad.html */,
+				14B780A914276AEC00A8E3D4 /* mymed_logo_small.png */,
+			);
+			name = "Error Webpage";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		141FF5811423423000FC46F4 /* MyMed */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 141FF5A01423423000FC46F4 /* Build configuration list for PBXNativeTarget "MyMed" */;
+			buildPhases = (
+				141FF57E1423423000FC46F4 /* Sources */,
+				141FF57F1423423000FC46F4 /* Frameworks */,
+				141FF5801423423000FC46F4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MyMed;
+			productName = MyMed;
+			productReference = 141FF5821423423000FC46F4 /* MyMed.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		141FF5791423423000FC46F4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = GandoGames;
+			};
+			buildConfigurationList = 141FF57C1423423000FC46F4 /* Build configuration list for PBXProject "MyMed" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 141FF5771423423000FC46F4;
+			productRefGroup = 141FF5831423423000FC46F4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				141FF5811423423000FC46F4 /* MyMed */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		141FF5801423423000FC46F4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				141FF5911423423000FC46F4 /* InfoPlist.strings in Resources */,
+				141FF59D1423423000FC46F4 /* ViewController.xib in Resources */,
+				141FF5BD14235E6000FC46F4 /* Background.png in Resources */,
+				141FF5BF14235FC800FC46F4 /* Default.png in Resources */,
+				14B780A51427496100A8E3D4 /* Default-Landscape~ipad.png in Resources */,
+				14B780A714274A0500A8E3D4 /* Default-Portrait~ipad.png in Resources */,
+				14B780AA14276AEC00A8E3D4 /* error_ipad.html in Resources */,
+				14B780AB14276AEC00A8E3D4 /* mymed_logo_small.png in Resources */,
+				14264C051427726F00E44481 /* icon-mymed.png in Resources */,
+				14264C0B142775A800E44481 /* error_iphone.html in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		141FF57E1423423000FC46F4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				141FF5931423423000FC46F4 /* main.m in Sources */,
+				141FF5971423423000FC46F4 /* AppDelegate.m in Sources */,
+				141FF59A1423423000FC46F4 /* ViewController.m in Sources */,
+				141FF5A51423515E00FC46F4 /* Reachability.m in Sources */,
+				14264C09142773D700E44481 /* UIDeviceHardware.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		141FF58F1423423000FC46F4 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				141FF5901423423000FC46F4 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		141FF59B1423423000FC46F4 /* ViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				141FF59C1423423000FC46F4 /* en */,
+			);
+			name = ViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		141FF59E1423423000FC46F4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		141FF59F1423423000FC46F4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		141FF5A11423423000FC46F4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MyMed/MyMed-Prefix.pch";
+				INFOPLIST_FILE = "MyMed/MyMed-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		141FF5A21423423000FC46F4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MyMed/MyMed-Prefix.pch";
+				INFOPLIST_FILE = "MyMed/MyMed-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		141FF57C1423423000FC46F4 /* Build configuration list for PBXProject "MyMed" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				141FF59E1423423000FC46F4 /* Debug */,
+				141FF59F1423423000FC46F4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		141FF5A01423423000FC46F4 /* Build configuration list for PBXNativeTarget "MyMed" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				141FF5A11423423000FC46F4 /* Debug */,
+				141FF5A21423423000FC46F4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 141FF5791423423000FC46F4 /* Project object */;
+}

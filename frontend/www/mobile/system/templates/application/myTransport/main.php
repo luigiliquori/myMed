@@ -7,6 +7,7 @@
 		<title>myMed | <?= APPLICATION_NAME ?></title>
 		
 		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 		<link rel="stylesheet" href="css/style.css" />
 		
 		<!-- JQUERY -->
@@ -15,7 +16,6 @@
 		<script src="http://code.jquery.com/mobile/1.0b2/jquery.mobile-1.0b2.min.js"></script>
 		
 		<!-- MAP -->
-		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 		<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
 		<script src="system/templates/application/<?= APPLICATION_NAME ?>/javascript/map.js"></script>
 		

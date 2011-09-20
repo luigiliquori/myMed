@@ -40,8 +40,8 @@ abstract class AbstractHome extends AbstractTemplate {
 		<div data-role="header">
 			<div data-role="controlgroup" data-type="horizontal" style="text-align: center;">
 				<a href="#favorite" data-transition="fade" data-role="button" <?= $this->activeHeader == "favorite" ? 'class="ui-btn-active"' : ''; ?> data-inline="true">Favoris</a>
-				<a href="#category" data-transition="fade" data-role="button" <?= $this->activeHeader == "category" ? 'class="ui-btn-active"' : ''; ?> data-inline="true">Catégories</a>
 				<a href="#top10" data-transition="fade" data-role="button" <?= $this->activeHeader == "top10" ? 'class="ui-btn-active"' : ''; ?> data-inline="true">Top 10</a>
+				<a href="#category" data-transition="fade" data-role="button" <?= $this->activeHeader == "category" ? 'class="ui-btn-active"' : ''; ?> data-inline="true">Toutes les applications</a>
 			</div>
 		</div>
 	<?php }

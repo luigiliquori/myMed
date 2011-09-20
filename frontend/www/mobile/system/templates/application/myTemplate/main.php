@@ -7,6 +7,7 @@
 		<title>myMed | <?= APPLICATION_NAME ?></title>
 		
 		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 		<link rel="stylesheet" href="css/style.css" />
 		
 		<!-- JQUERY -->
