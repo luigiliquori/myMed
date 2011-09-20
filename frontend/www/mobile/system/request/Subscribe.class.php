@@ -33,10 +33,12 @@ class Subscribe extends Request {
 		for($i=0 ; $i<$_POST['numberOfOntology'] ; $i++){
 			/*MDataBean*/ $ontology = json_decode(urldecode($_POST['ontology' . $i]));
 			$ontology->value = $_POST[$ontology->key];
-			$predicate .= $ontology->value;
+			if($ontology->value != "") {
+				$predicate .= $ontology->key . "(" . $ontology->value . ")";
+			}
 		}
 		// construct the request
-		parent::addArgument("predicate", $predicate);
+		parent::addArgument("predicate", urlencode($predicate));
 		parent::addArgument("user", json_encode($_SESSION['user']));
 	
 		$response = parent::send();

@@ -61,7 +61,7 @@ class SubscribeView extends MyApplication {
 				
 				<!-- DATE -->
 				Catch Date:<br />
-				<input type="date" name="date"<?php echo date('Y-m-d');?>"  data-inline="true"/>
+				<input type="date" name="date" value="<?php echo date('Y-m-d');?>"  data-inline="true"/>
 				<?php $date = new MDataBean("date", null, DATE); ?>
 				<input type="hidden" name="ontology2" value="<?= urlencode(json_encode($date)); ?>">
 				<br />
