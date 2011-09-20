@@ -157,6 +157,7 @@ V pkg jersey 1.1.0,0-1.0:20090513T205337Z
 V pkg jersey 1.1.4.1,0-1.0:20091202T094413Z
 V pkg jersey 1.1.1,0-1.0:20090729T114642Z
 V pkg jersey 1.1.0,0-1.0:20090521T164553Z
+V pkg jersey 1.9,0-1.18:20110914T150157Z
 V pkg jersey 1.1.5,0-1.0:20100608T222028Z
 V pkg nss-libs 3.12.8,0-2.0:20110228T201758Z
 V pkg glassfish-jcdi 3.0,0-57:20090729T114717Z
@@ -448,6 +449,7 @@ V pkg glassfish-jca-l10n 3.0.1,0-20.1:20100603T144259Z
 V pkg glassfish-jca-l10n 3.0,0-32.1:20091130T181952Z
 V pkg glassfish-jca-l10n 3.1.1,0-10:20110718T204546Z
 V pkg jersey-docs-and-examples 1.1.1,0-1.0:20090715T170240Z
+V pkg jersey-docs-and-examples 1.9,0-1.18:20110914T150208Z
 V pkg jersey-docs-and-examples 1.1.0,0-1.0:20090504T093956Z
 V pkg mq-config-gf 4.5,0-29.2:20110210T074525Z
 V pkg mq-config-gf 4.4,0-11.5:20090709T063757Z

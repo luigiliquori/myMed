@@ -124,21 +124,8 @@ reduce_cache_capacity_to: 0.6
 seeds:
 # INRIA: F125
  - 138.96.242.1
-# INRIA: F107
- - 138.96.242.2
- - 138.96.242.8
-# INRIA: F102
- - 138.96.242.3
- - 138.96.242.4
-# Univ. Nice: Valrose - Salon de Musique
- - 134.59.12.39
-# Univ. Nice: St-Jean d'Angely - Mr Gasperini
- - 134.59.74.51
-# Univ. Nice: Valrose - Mme Bertone 
- - 134.59.12.45
-# INRIA: F101 
- - 138.96.242.9
- - 138.96.242.10
+
+
 
 
 # For workloads with more data than can fit in memory, Cassandra's

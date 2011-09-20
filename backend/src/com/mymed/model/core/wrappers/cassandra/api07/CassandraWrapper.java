@@ -73,7 +73,7 @@ public class CassandraWrapper implements ICassandraWrapper {
 	 */
 	private final String address;
 	private final int port;
-
+	
 	/**
 	 * Empty constructor to create a normal Cassandra client, with address the
 	 * machine address, and port the default port
@@ -175,10 +175,23 @@ public class CassandraWrapper implements ICassandraWrapper {
 
 		return result;
 	}
-
+	
 	@Override
 	public List<ColumnOrSuperColumn> get_slice(final String key, final ColumnParent parent,
 	        final SlicePredicate predicate, final ConsistencyLevel level) throws InternalBackEndException {
+		int ttl = 3;
+		while(ttl>0) {
+			try {
+				return get_slice(key, parent, predicate, level, ttl--);
+			} catch (TimedOutException e) {
+				continue;
+			}
+		}
+		throw new InternalBackEndException("TimedOutException");
+	}
+	
+	private List<ColumnOrSuperColumn> get_slice(final String key, final ColumnParent parent,
+	        final SlicePredicate predicate, final ConsistencyLevel level, final int ttl) throws InternalBackEndException, TimedOutException {
 
 		final ByteBuffer keyToBuffer = MConverter.stringToByteBuffer(key);
 		List<ColumnOrSuperColumn> result = null;
@@ -189,14 +202,11 @@ public class CassandraWrapper implements ICassandraWrapper {
 			throw new InternalBackEndException(ex);
 		} catch (final UnavailableException ex) {
 			throw new InternalBackEndException(ex);
-		} catch (final TimedOutException ex) {
-			throw new InternalBackEndException(ex);
 		} catch (final TException ex) {
 			throw new InternalBackEndException(ex);
 		} finally {
 			manager.checkIn(connection);
 		}
-
 		return result;
 	}
 
