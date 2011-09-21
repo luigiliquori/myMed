@@ -34,11 +34,17 @@ class DetailView extends MyApplication {
 	* Get the HEADER for jQuery Mobile
 	*/
 	public /*String*/ function getHeader() { ?>
-		<div data-role="header" data-theme="b">
+		<div data-role="header" data-theme="a">
 			<a href="?application=<?= APPLICATION_NAME ?>" data-role="button" rel="external">Retour</a>
 				<h2>Info</h2>
 		</div>
 	<?php }
+	
+	/**
+	* Get the FOOTER for jQuery Mobile
+	*/
+	public /*String*/ function getFooter() {
+	}
 	
 	/**
 	* Print the Template
@@ -61,11 +67,11 @@ class DetailView extends MyApplication {
 					<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="180" height="150">
 				<?php } ?>
 				<br><br>
-				Prenom: <?= $_SESSION['user']->firstName ?><br />
-				Nom: <?= $_SESSION['user']->lastName ?><br />
-				Date de naissance: <?= $_SESSION['user']->birthday ?><br />
-				eMail: <?= $_SESSION['user']->email ?><br />
-				Reputation: 
+				Prenom: <?= $profile->firstName ?><br />
+				Nom: <?= $profile->lastName ?><br />
+				Date de naissance: <?= $profile->birthday ?><br />
+				eMail: <?= $profile->email ?><br />
+				Reputation:  
 				 <?php 
 			    	$rand = rand(0, 4);
 			    	$j=0;
@@ -79,6 +85,9 @@ class DetailView extends MyApplication {
 			    		<?php 
 			    		$j++;
 			    	} ?>
+			    	<br />
+			    	<a href="?admin" rel="external" data-role="button" data-inline="true" data-theme="a">+1</a>
+			    	<a href="?admin" rel="external" data-role="button" data-inline="true" data-theme="a">-1</a>
 			    	<br />
 			<?php } ?>
 			<hr />

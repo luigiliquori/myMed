@@ -33,7 +33,7 @@ class FindView extends MyApplication {
 	 */
 	public /*String*/ function getContent() { ?>
 		<!-- CONTENT -->
-		<div class="content" data-role="content">
+		<div class="content">
 			<form  action="#" method="post" name="<?= APPLICATION_NAME ?>FindForm" id="<?= APPLICATION_NAME ?>FindForm">
 				<!-- Define the method to call -->
 				<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
@@ -66,7 +66,7 @@ class FindView extends MyApplication {
 				
 				<!-- DATE -->
 				Ontology 3 (Type: DATE) :<br />
-				<input type="date" name="date" value="<?php echo date('Y-m-d');?>"  data-inline="true"/>
+				<input type="date" name="date" data-role="datebox" data-options='{"mode": "calbox"}' data-theme="a"/>
 				<?php $date = new MDataBean("date", null, DATE); ?>
 				<input type="hidden" name="ontology3" value="<?= urlencode(json_encode($date)); ?>">
 

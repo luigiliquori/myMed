@@ -34,7 +34,7 @@ class ResultView extends MyApplication {
 	* Get the HEADER for jQuery Mobile
 	*/
 	public /*String*/ function getHeader() { ?>
-		<div data-role="header" data-theme="b">
+		<div data-role="header" data-theme="a">
 			<a href="?application=<?= APPLICATION_NAME ?>" data-role="button" rel="external">Retour</a>
 			<?php if(isset($_GET['publish'])) { ?>
 				<h2>info</h2>

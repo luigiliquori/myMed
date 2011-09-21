@@ -33,7 +33,7 @@ class FindView extends MyApplication {
 	 */
 	public /*String*/ function getContent() { ?>
 		<!-- CONTENT -->
-		<div class="content" data-role="content">
+		<div class="content">
 			<form  action="#" method="post" name="<?= APPLICATION_NAME ?>FindForm" id="<?= APPLICATION_NAME ?>FindForm">
 				<!-- Define the method to call -->
 				<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
@@ -42,7 +42,7 @@ class FindView extends MyApplication {
 				
 				<!-- ENUM for Fish Specie -->
 				Kind of Fish:<br />
-				<select name="FishSpecie" data-theme="a">
+				<select name="FishSpecie" data-theme="b">
 					<option value="Trout">Trout</option>
 					<option value="Grayling">Grayling</option>
 					<option value="Salmon">Salmon</option>
@@ -54,14 +54,14 @@ class FindView extends MyApplication {
 				
 				<!-- GPS -->
 				Location :<br />
-				<input type="text" name="Location" value=""  data-inline="true"/>
+				<input type="text" name="Location" value=""  data-inline="true" data-theme="c"/>
 				<?php $gps = new MDataBean("Location", null, GPS); ?>
 				<input type="hidden" name="ontology1" value="<?= urlencode(json_encode($gps)); ?>">
 				<br />
 				
 				<!-- DATE -->
 				Catch Date:<br />
-				<input type="date" name="date" value="<?php echo date('Y-m-d');?>"  data-inline="true"/>
+				<input type="date" name="date" data-role="datebox" data-options='{"mode": "calbox"}' data-theme="c"/>
 				<?php $date = new MDataBean("date", null, DATE); ?>
 				<input type="hidden" name="ontology2" value="<?= urlencode(json_encode($date)); ?>">
 				<br />

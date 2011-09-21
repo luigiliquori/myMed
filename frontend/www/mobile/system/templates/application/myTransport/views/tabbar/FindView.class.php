@@ -33,7 +33,7 @@ class FindView extends MyApplication {
 	 */
 	public /*String*/ function getContent() { ?>
 		<!-- CONTENT -->
-		<div class="content" data-role="content">
+		<div class="content">
 			<form  action="#" method="post" name="<?= APPLICATION_NAME ?>FindForm" id="<?= APPLICATION_NAME ?>FindForm">
 				<!-- Define the method to call -->
 				<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
@@ -42,21 +42,21 @@ class FindView extends MyApplication {
 				
 				<!-- DATE -->
 				Date :<br />
-				<input type="date" name="date" value="<?php echo date('Y-m-d');?>"  data-inline="true"/>
-				<?php $date = new MDataBean("date", null, DATE); ?>
+				<input type="date" name="Date" data-role="datebox" data-options='{"mode": "calbox"}' data-theme="c"/>
+				<?php $date = new MDataBean("Date", null, DATE); ?>
 				<input type="hidden" name="ontology0" value="<?= urlencode(json_encode($date)); ?>">
 				<br />
 				
 				<!-- GPS -->
 				Ville de départ :<br />
-				<input type="text" name="Depart" value=""  data-inline="true"/>
+				<input type="text" name="Depart" value=""  data-inline="true" data-theme="c"/>
 				<?php $gps = new MDataBean("Depart", null, GPS); ?>
 				<input type="hidden" name="ontology1" value="<?= urlencode(json_encode($gps)); ?>">
 				<br />
 				
 				<!-- GPS -->
 				Ville d'arrivée :<br />
-				<input type="text" name="Arrivée" value=""  data-inline="true"/>
+				<input type="text" name="Arrivée" value=""  data-inline="true" data-theme="c"/>
 				<?php $gps = new MDataBean("Arrivée", null, GPS); ?>
 				<input type="hidden" name="ontology2" value="<?= urlencode(json_encode($gps)); ?>">
 

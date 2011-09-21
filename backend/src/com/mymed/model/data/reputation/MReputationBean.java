@@ -20,9 +20,9 @@ public final class MReputationBean extends AbstractMBean {
 	private double value;
 
 	/**
-	 * The number of raters
+	 * The raterList ID (userList)
 	 */
-	private int nbRaters;
+	private String raters;
 
 	@Override
 	public String toString() {
@@ -46,7 +46,7 @@ public final class MReputationBean extends AbstractMBean {
 
 			equal = true;
 			equal &= getValue() == comparable.getValue();
-			equal &= getNbRaters() == comparable.getNbRaters();
+			equal &= getRaters() == comparable.getRaters();
 		}
 
 		return equal;
@@ -61,7 +61,7 @@ public final class MReputationBean extends AbstractMBean {
 	public int hashCode() {
 		int result = 1;
 
-		result = PRIME * result + nbRaters;
+		result = PRIME * result;
 		long temp;
 		temp = Double.doubleToLongBits(value);
 		result = PRIME * result + (int) (temp ^ temp >>> 32);
@@ -94,17 +94,18 @@ public final class MReputationBean extends AbstractMBean {
 	}
 
 	/**
-	 * @return the nbRaters
+	 * 
+	 * @return
 	 */
-	public int getNbRaters() {
-		return nbRaters;
+	public String getRaters() {
+		return raters;
 	}
 
 	/**
-	 * @param nbRaters
-	 *            the nbRater to set
+	 * 
+	 * @param raters
 	 */
-	public void setNbRaters(final int nbRaters) {
-		this.nbRaters = nbRaters;
+	public void setRaters(String raters) {
+		this.raters = raters;
 	}
 }

@@ -42,28 +42,28 @@ class PublishView extends MyApplication {
 				
 				<!-- DATE -->
 				Date :<br />
-				<input type="date" name="Date" value="<?php echo date('Y-m-d');?>"  data-inline="true"/>
+				<input type="date" name="Date" data-role="datebox" data-options='{"mode": "calbox"}' data-theme="c"/>
 				<?php $date = new MDataBean("Date", null, DATE); ?>
 				<input type="hidden" name="ontology0" value="<?= urlencode(json_encode($date)); ?>">
 				<br />
 				
 				<!-- GPS -->
 				Ville de départ :<br />
-				<input type="text" name="Depart" value=""  data-inline="true"/>
+				<input type="text" name="Depart" value=""  data-inline="true" data-theme="c"/>
 				<?php $gps = new MDataBean("Depart", null, GPS); ?>
 				<input type="hidden" name="ontology1" value="<?= urlencode(json_encode($gps)); ?>">
 				<br />
 				
 				<!-- GPS -->
 				Ville d'arrivée :<br />
-				<input type="text" name="Arrivée" value=""  data-inline="true"/>
+				<input type="text" name="Arrivée" value=""  data-inline="true" data-theme="c"/>
 				<?php $gps = new MDataBean("Arrivée", null, GPS); ?>
 				<input type="hidden" name="ontology2" value="<?= urlencode(json_encode($gps)); ?>">
 				<br />
 				
 				<!-- ENUM -->
 				Type de vehicule :<br />
-				<select name="Type" data-theme="a">
+				<select name="Type" data-theme="b">
 					<option value="Compacte"> Compacte - Berline - Coupé</option>
 					<option value="Cabriolet">Cabriolet</option>
 					<option value="Break">Break - Monospace</option>
@@ -79,7 +79,7 @@ class PublishView extends MyApplication {
 				
 				<!-- TEXT -->
 				Commentaires :<br />
-				<textarea name="Commentaires" rows="" cols=""></textarea>
+				<textarea name="Commentaires" rows="" cols="" data-theme="c"></textarea>
 				<?php $text = new MDataBean("Commentaires", null, TEXT); ?>
 				<input type="hidden" name="ontology4" value="<?= urlencode(json_encode($text)); ?>">
 				<br />
