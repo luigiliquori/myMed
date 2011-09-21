@@ -73,7 +73,7 @@ public class CassandraWrapper implements ICassandraWrapper {
 	 */
 	private final String address;
 	private final int port;
-	
+
 	/**
 	 * Empty constructor to create a normal Cassandra client, with address the
 	 * machine address, and port the default port
@@ -153,6 +153,33 @@ public class CassandraWrapper implements ICassandraWrapper {
 	@Override
 	public ColumnOrSuperColumn get(final String key, final ColumnPath path, final ConsistencyLevel level)
 	        throws IOBackEndException, InternalBackEndException {
+		/*
+		 * Little trick in order to avoid TimedOutException on Cassandra. We
+		 * experienced some timeouts caused by one or two nodes to be down, but
+		 * still part of the ring. Looks like Cassandra in the version we use
+		 * tries to connect to a node that is down nonetheless, resulting in
+		 * timeout exceptions. We retry three times the get operation, in order
+		 * to pass over this error.
+		 */
+		int ttl = 3;
+
+		do {
+			try {
+				return get(key, path, level, ttl--);
+			} catch (final TimedOutException ex) {
+				MLogger.getDebugLog().debug("Impossible to connect to a host", ex.getCause());
+				continue;
+			}
+		} while (ttl > 0);
+
+		throw new InternalBackEndException("TimedOutException");
+	}
+
+	/*
+	 * Where we perform the real get operation
+	 */
+	private ColumnOrSuperColumn get(final String key, final ColumnPath path, final ConsistencyLevel level, final int ttl)
+	        throws IOBackEndException, InternalBackEndException, TimedOutException {
 
 		final ByteBuffer keyToBuffer = MConverter.stringToByteBuffer(key);
 		ColumnOrSuperColumn result = null;
@@ -175,23 +202,38 @@ public class CassandraWrapper implements ICassandraWrapper {
 
 		return result;
 	}
-	
+
 	@Override
 	public List<ColumnOrSuperColumn> get_slice(final String key, final ColumnParent parent,
 	        final SlicePredicate predicate, final ConsistencyLevel level) throws InternalBackEndException {
+		/*
+		 * Little trick in order to avoid TimedOutException on Cassandra. We
+		 * experienced some timeouts caused by one or two nodes to be down, but
+		 * still part of the ring. Looks like Cassandra in the version we use
+		 * tries to connect to a node that is down nonetheless, resulting in
+		 * timeout exceptions. We retry three times the get operation, in order
+		 * to pass over this error.
+		 */
 		int ttl = 3;
-		while(ttl>0) {
+
+		do {
 			try {
 				return get_slice(key, parent, predicate, level, ttl--);
-			} catch (TimedOutException e) {
+			} catch (final TimedOutException ex) {
+				MLogger.getDebugLog().debug("Impossible to connect to a host", ex.getCause());
 				continue;
 			}
-		}
+		} while (ttl > 0);
+
 		throw new InternalBackEndException("TimedOutException");
 	}
-	
+
+	/*
+	 * Where we perform the real get operation
+	 */
 	private List<ColumnOrSuperColumn> get_slice(final String key, final ColumnParent parent,
-	        final SlicePredicate predicate, final ConsistencyLevel level, final int ttl) throws InternalBackEndException, TimedOutException {
+	        final SlicePredicate predicate, final ConsistencyLevel level, final int ttl)
+	        throws InternalBackEndException, TimedOutException {
 
 		final ByteBuffer keyToBuffer = MConverter.stringToByteBuffer(key);
 		List<ColumnOrSuperColumn> result = null;
@@ -204,9 +246,11 @@ public class CassandraWrapper implements ICassandraWrapper {
 			throw new InternalBackEndException(ex);
 		} catch (final TException ex) {
 			throw new InternalBackEndException(ex);
+		} catch (final TimedOutException ex) {
 		} finally {
 			manager.checkIn(connection);
 		}
+
 		return result;
 	}
 
@@ -214,7 +258,34 @@ public class CassandraWrapper implements ICassandraWrapper {
 	public Map<ByteBuffer, List<ColumnOrSuperColumn>> multiget_slice(final List<String> keys,
 	        final ColumnParent parent, final SlicePredicate predicate, final ConsistencyLevel level)
 	        throws InternalBackEndException {
+		/*
+		 * Little trick in order to avoid TimedOutException on Cassandra. We
+		 * experienced some timeouts caused by one or two nodes to be down, but
+		 * still part of the ring. Looks like Cassandra in the version we use
+		 * tries to connect to a node that is down nonetheless, resulting in
+		 * timeout exceptions. We retry three times the get operation, in order
+		 * to pass over this error.
+		 */
+		int ttl = 3;
 
+		do {
+			try {
+				return multiget_slice(keys, parent, predicate, level, ttl--);
+			} catch (final TimedOutException ex) {
+				MLogger.getDebugLog().debug("Impossible to connect to a host", ex.getCause());
+				continue;
+			}
+		} while (ttl > 0);
+
+		throw new InternalBackEndException("TimedOutException");
+	}
+
+	/*
+	 * Where we perform the real get operation
+	 */
+	private Map<ByteBuffer, List<ColumnOrSuperColumn>> multiget_slice(final List<String> keys,
+	        final ColumnParent parent, final SlicePredicate predicate, final ConsistencyLevel level, final int ttl)
+	        throws InternalBackEndException, TimedOutException {
 		final List<ByteBuffer> keysToBuffer = MConverter.stringToByteBuffer(keys);
 		Map<ByteBuffer, List<ColumnOrSuperColumn>> result = null;
 
@@ -238,6 +309,33 @@ public class CassandraWrapper implements ICassandraWrapper {
 	@Override
 	public int get_count(final String key, final ColumnParent parent, final SlicePredicate predicate,
 	        final ConsistencyLevel level) throws InternalBackEndException {
+		/*
+		 * Little trick in order to avoid TimedOutException on Cassandra. We
+		 * experienced some timeouts caused by one or two nodes to be down, but
+		 * still part of the ring. Looks like Cassandra in the version we use
+		 * tries to connect to a node that is down nonetheless, resulting in
+		 * timeout exceptions. We retry three times the get operation, in order
+		 * to pass over this error.
+		 */
+		int ttl = 3;
+
+		do {
+			try {
+				return get_count(key, parent, predicate, level, ttl--);
+			} catch (final TimedOutException ex) {
+				MLogger.getDebugLog().debug("Impossible to connect to a host", ex.getCause());
+				continue;
+			}
+		} while (ttl > 0);
+
+		throw new InternalBackEndException("TimedOutException");
+	}
+
+	/*
+	 * Where we perform the real get operation
+	 */
+	private int get_count(final String key, final ColumnParent parent, final SlicePredicate predicate,
+	        final ConsistencyLevel level, final int ttl) throws InternalBackEndException, TimedOutException {
 
 		final ByteBuffer keyToBuffer = MConverter.stringToByteBuffer(key);
 		int result = -1;
@@ -262,6 +360,34 @@ public class CassandraWrapper implements ICassandraWrapper {
 	@Override
 	public Map<ByteBuffer, Integer> multiget_count(final List<String> keys, final ColumnParent parent,
 	        final SlicePredicate predicate, final ConsistencyLevel level) throws InternalBackEndException {
+		/*
+		 * Little trick in order to avoid TimedOutException on Cassandra. We
+		 * experienced some timeouts caused by one or two nodes to be down, but
+		 * still part of the ring. Looks like Cassandra in the version we use
+		 * tries to connect to a node that is down nonetheless, resulting in
+		 * timeout exceptions. We retry three times the get operation, in order
+		 * to pass over this error.
+		 */
+		int ttl = 3;
+
+		do {
+			try {
+				return multiget_count(keys, parent, predicate, level, ttl--);
+			} catch (final TimedOutException ex) {
+				MLogger.getDebugLog().debug("Impossible to connect to a host", ex.getCause());
+				continue;
+			}
+		} while (ttl > 0);
+
+		throw new InternalBackEndException("TimedOutException");
+	}
+
+	/*
+	 * Where we perform the real get operation
+	 */
+	private Map<ByteBuffer, Integer> multiget_count(final List<String> keys, final ColumnParent parent,
+	        final SlicePredicate predicate, final ConsistencyLevel level, final int ttl)
+	        throws InternalBackEndException, TimedOutException {
 
 		final List<ByteBuffer> keysToBuffer = MConverter.stringToByteBuffer(keys);
 		Map<ByteBuffer, Integer> result = null;
@@ -286,6 +412,34 @@ public class CassandraWrapper implements ICassandraWrapper {
 	@Override
 	public List<KeySlice> get_range_slices(final ColumnParent parent, final SlicePredicate predicate,
 	        final KeyRange range, final ConsistencyLevel level) throws InternalBackEndException {
+		/*
+		 * Little trick in order to avoid TimedOutException on Cassandra. We
+		 * experienced some timeouts caused by one or two nodes to be down, but
+		 * still part of the ring. Looks like Cassandra in the version we use
+		 * tries to connect to a node that is down nonetheless, resulting in
+		 * timeout exceptions. We retry three times the get operation, in order
+		 * to pass over this error.
+		 */
+		int ttl = 3;
+
+		do {
+			try {
+				return get_range_slices(parent, predicate, range, level, ttl--);
+			} catch (final TimedOutException ex) {
+				MLogger.getDebugLog().debug("Impossible to connect to a host", ex.getCause());
+				continue;
+			}
+		} while (ttl > 0);
+
+		throw new InternalBackEndException("TimedOutException");
+	}
+
+	/*
+	 * Where we perform the real get operation
+	 */
+	private List<KeySlice> get_range_slices(final ColumnParent parent, final SlicePredicate predicate,
+	        final KeyRange range, final ConsistencyLevel level, final int ttl) throws InternalBackEndException,
+	        TimedOutException {
 
 		List<KeySlice> result = null;
 
