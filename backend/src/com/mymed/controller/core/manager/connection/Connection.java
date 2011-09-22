@@ -34,7 +34,6 @@ public class Connection implements IConnection {
 	// Socket and transport used for the connection
 	private final TSocket socket;
 	private final TFramedTransport transport;
-	private final TProtocol protocol;
 	private final Client cassandra;
 
 	/**
@@ -71,7 +70,8 @@ public class Connection implements IConnection {
 
 		socket = new TSocket(this.address, this.port);
 		transport = new TFramedTransport(socket);
-		protocol = new TBinaryProtocol(transport);
+		final TProtocol protocol = new TBinaryProtocol(transport);
+
 		cassandra = new Client(protocol);
 	}
 
@@ -125,7 +125,7 @@ public class Connection implements IConnection {
 				transport.open();
 			}
 		} catch (final TTransportException ex) {
-			throw new InternalBackEndException("Error opening the connection to " + address + ":" + port, ex.getCause());
+			throw new InternalBackEndException("Error opening the connection to " + address + ":" + port, ex.getCause()); // NOPMD
 		}
 	}
 
