@@ -41,6 +41,12 @@ class DetailView extends MyApplication {
 	<?php }
 	
 	/**
+	* Get the FOOTER for jQuery Mobile
+	*/
+	public /*String*/ function getFooter() {
+	}
+	
+	/**
 	* Print the Template
 	*/
 	public /*String*/ function getContent() { ?>

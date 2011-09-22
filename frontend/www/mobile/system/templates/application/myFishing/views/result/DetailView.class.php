@@ -86,7 +86,12 @@ class DetailView extends MyApplication {
 			<?php } ?>
 			<hr />
 			<?php foreach(json_decode($this->handler->getSuccess()) as $details) { ?>
-				<?= $details->key; ?> : <?= urldecode($details->value) ?>
+				<?php if ($details->key == "picture") { ?>
+					<?= $details->key; ?> : <br />
+					<img alt="fish picture" src="<?= urldecode($details->value) ?>" width="180" height="150">
+				<?php } else { ?>
+					<?= $details->key; ?> : <?= urldecode($details->value) ?>
+				<?php } ?>
 				<br />
 			<?php } ?>
 		</div>

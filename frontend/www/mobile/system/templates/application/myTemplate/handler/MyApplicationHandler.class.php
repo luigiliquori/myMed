@@ -45,7 +45,7 @@ class MyApplicationHandler implements IRequestHandler {
 		} else if(isset($_GET['getDetails'])) {
 			$request = new Request("FindRequestHandler", READ);
 			$request->addArgument("application", APPLICATION_NAME);
-			$request->addArgument("predicate", $_GET['predicate']);
+			$request->addArgument("predicate", urlencode($_GET['predicate']));
 			$request->addArgument("user", $_GET['user']);
 			$response = $request->send();
 			$check = json_decode($response);
