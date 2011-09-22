@@ -22,7 +22,7 @@
   <property name="LOG_DIR" value="/local/var/log/mymed"/>
   <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
-      <pattern>%date %-5level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+      <pattern>%d{HH:mm:ss.SSS} %logger{10} %-5level [%thread] [%file] %msg%n</pattern>
     </encoder>
   </appender>
 
@@ -40,7 +40,7 @@
       <fileNamePattern>${LOG_DIR}/mymed-backend-info-%d.log.gz</fileNamePattern>
     </rollingPolicy>
     <encoder>
-      <pattern>%d{HH:mm:ss.SSS} %-5level [%thread] [%file:%line] %msg%n</pattern>
+      <pattern>%d{HH:mm:ss.SSS} %logger{10} %-5level [%thread] [%file] %msg%n</pattern>
     </encoder>
   </appender>
 
@@ -48,7 +48,7 @@
   <appender name="debug.file" class="ch.qos.logback.core.FileAppender">
     <file>${LOG_DIR}/mymed-backend-debug.log</file>
     <encoder>
-      <pattern>%date %-5level [%thread] [%file:%line] %msg%n%ex{full}</pattern>
+      <pattern>%d{HH:mm:ss.SSS} %logger{10} %-5level [%thread] [%file] %msg%n%ex{full}</pattern>
     </encoder>
   </appender>
 
