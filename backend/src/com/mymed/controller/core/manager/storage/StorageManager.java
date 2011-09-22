@@ -43,7 +43,7 @@ public class StorageManager extends ManagerValues implements IStorageManager {
 	/*
 	 * The Default path of the wrapper config file
 	 */
-	public static final String CONFIG_PATH = "/local/mymed/backend/conf/config.xml";
+	private static final String CONFIG_PATH = "/local/mymed/backend/conf/config.xml";
 
 	// The wrapper
 	private final CassandraWrapper wrapper;
@@ -101,6 +101,8 @@ public class StorageManager extends ManagerValues implements IStorageManager {
 
 			resultValue = wrapper.get(key, colPathName, IStorageManager.consistencyOnRead).getColumn().getValue();
 		} catch (final UnsupportedEncodingException e) {
+			MLogger.getDebugLog().debug("Select column '{}' failed", columnName, e.getCause());
+
 			throw new InternalBackEndException("UnsupportedEncodingException with\n" + "\t- columnFamily = "
 			        + tableName + "\n" + "\t- key = " + key + "\n" + "\t- columnName = " + columnName + "\n");
 		}
