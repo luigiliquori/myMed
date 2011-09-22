@@ -70,7 +70,7 @@ class Login extends AbstractLogin {
 				<input type="hidden" name="singin" value="1" />
 			    <span>eMail:</span><br />
 			    <input type="text" name="login" id="login" value="" /><br />
-			    <span>Password:</span><br />
+			    <span>Mot de passe:</span><br />
 			    <input type="password" name="password" id="password" value="" />
 				<br />
 				<input type="submit" data-role="button" data-inline="true" onclick="document.singinForm.submit()" value="Connexion"  data-theme="a"/>

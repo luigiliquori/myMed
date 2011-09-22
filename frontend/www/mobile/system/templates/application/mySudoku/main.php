@@ -12,6 +12,9 @@
 	<script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.0b2/jquery.mobile-1.0b2.min.js"></script>
 	
+	<!-- CSS -->
+	<link rel="stylesheet" href="system/templates/application/mySudoku/css/style.css" />
+	
 	<?php require_once dirname(__FILE__).'/MySudoku.class.php'; ?>
 	
 	</head> 
