@@ -79,7 +79,7 @@
     <servlet-name>SessionRequestHandler</servlet-name>
     <url-pattern>/SessionRequestHandler</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <description></description>
     <display-name>MyJamRequestHandler</display-name>
     <servlet-name>MyJamRequestHandler</servlet-name>

@@ -19,9 +19,9 @@ public class AuthenticationManager extends HTTPCall implements ICallAttributes {
 	/*
 	 *		Attributes. 
 	 */
-	private static final String PROFILE_HANDLER_URL = "http://130.192.9.113/backend/ProfileRequestHandler";
-	private static final String AUTHENTICATION_HANDLER_URL = "http://130.192.9.113/backend/AuthenticationRequestHandler";
-	private static final String SESSION_HANDLER_URL = "http://130.192.9.113/backend/SessionRequestHandler";
+	private static final String PROFILE_HANDLER_URL = "http://130.192.9.113:8080/mymed_backend/ProfileRequestHandler";
+	private static final String AUTHENTICATION_HANDLER_URL = "http://130.192.9.113:8080/mymed_backend/AuthenticationRequestHandler";
+	private static final String SESSION_HANDLER_URL = "http://130.192.9.113:8080/mymed_backend/SessionRequestHandler";
 	
 	private static final String QUERY ="?code=";
 	

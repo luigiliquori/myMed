@@ -252,6 +252,7 @@ public class KeysFinder {
 	/*
 	 * Returns the level on depth to use to get the boundary.
 	 */
+	/**TODO This procedure can be probably optimized*/
 	private short getLevel(){
 		short level = 1;
 		double	deltaLat = (HilbertQuad.latitudeRange[1]-HilbertQuad.latitudeRange[0]), 
