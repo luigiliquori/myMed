@@ -248,6 +248,29 @@ public class StorageManager extends ManagerValues implements IStorageManager {
 
 		return slice;
 	}
+	
+	/**
+	 * Count columns in record
+	 * @param key
+	 * @param parent
+	 * @return
+	 * @throws InternalBackEndException
+	 */
+	public int countColumns(final String tableName, final String key) throws InternalBackEndException {
+		
+		final ColumnParent parent = new ColumnParent(tableName);
+		MLogger.getLog().info("Selecting slice from column family '{}' with key '{}'", parent.getColumn_family(), key);
+		
+		final SlicePredicate predicate = new SlicePredicate();
+		final SliceRange sliceRange = new SliceRange();
+		sliceRange.setStart(new byte[0]);
+		sliceRange.setFinish(new byte[0]);
+		predicate.setSlice_range(sliceRange);
+		int count =  wrapper.get_count(key, parent, predicate, consistencyOnRead);
+		
+		MLogger.getLog().info("Slice selection completed");
+		return count;
+	}
 
 	/**
 	 * Update the value of a Simple Column

@@ -66,10 +66,10 @@ class PublishView extends MyApplication {
 				
 				<!-- DATE -->
 				Ontology 3 (Type: DATE) :<br />
-				<input type="date" name="date" value="<?php echo date('Y-m-d');?>"  data-inline="true"/>
+				<input type="date" name="date" data-role="datebox" data-options='{"mode": "calbox"}' data-theme="a"/>
 				<?php $date = new MDataBean("date", null, DATE); ?>
 				<input type="hidden" name="ontology3" value="<?= urlencode(json_encode($date)); ?>">
-				<br />
+				<br /><br />
 				
 				<!-- TEXT -->
 				Ontology 4 (Type: TEXT) :<br />
@@ -77,19 +77,6 @@ class PublishView extends MyApplication {
 				<?php $text = new MDataBean("text", null, TEXT); ?>
 				<input type="hidden" name="ontology4" value="<?= urlencode(json_encode($text)); ?>">
 				<br />
-				
-				<!-- PICTURE -->
-				Ontology 5 (Type: PICTURE) :<br />
-				<input type="file" disabled="disabled" />
-				<br />
-				
-				<!-- VIDEO -->
-				Ontology 6 (Type: VIDEO) :<br />
-				<input type="file" disabled="disabled" /><br />
-				
-				<!-- AUDIO -->
-				Ontology 7 (Type: AUDIO) :<br />
-				<input type="file" disabled="disabled" /><br /><br />
 				
 				<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>PublishForm.submit()">Publish</a>
 			</form>

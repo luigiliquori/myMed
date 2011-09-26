@@ -18,6 +18,9 @@
 		<script src="system/templates/application/myTransport/javascript/map.js"></script>
 		<link rel="stylesheet" href="system/templates/application/myTransport/css/style.css" />
 		
+		<!-- CSS -->
+		<link rel="stylesheet" href="system/templates/application/myCARF/css/style.css" />
+		
 		<?php require_once dirname(__FILE__).'/MyCARF.class.php'; ?>
 		
 	</head>

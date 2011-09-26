@@ -34,7 +34,7 @@ class Favorite extends AbstractHome {
 					    while (false !== ($file = readdir($handle))) {
 					    	if($file != "." && $file != ".." && $file != ".DS_Store"){ ?>
 						    	<div class="ui-block-<?= $column ?>">
-							    	<a href="?application=<?= $file ?>" class="myIcon" rel="external"><img alt="<?= $file ?>" src="system/templates/application/<?= $file ?>/icon.png" >
+							    	<a href="?application=<?= $file ?>" class="myIcon" rel="external"><img alt="<?= $file ?>" src="system/templates/application/<?= $file ?>/img/icon.png" >
 							    	</a>
 							    	<br>
 							    	<span style="font-size: 9pt; font-weight: bold;">

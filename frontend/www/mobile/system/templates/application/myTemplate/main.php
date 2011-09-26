@@ -12,8 +12,10 @@
 		
 		<!-- JQUERY -->
 		<link href="http://code.jquery.com/mobile/1.0b2/jquery.mobile-1.0b2.min.css" rel="stylesheet" />
+		<link href="css/jquery.mobile.datebox.min.css" rel="stylesheet" />
 		<script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.0b2/jquery.mobile-1.0b2.min.js"></script>
+		<script src="javascript/jquery/datebox/jquery.mobile.datebox.min.js"></script>
 		
 		<!-- CSS -->
 		<link rel="stylesheet" href="system/templates/application/<?= APPLICATION_NAME ?>/css/style.css" />
@@ -37,11 +39,13 @@
 	<body>
 		<?php 
 			if(isset($_POST['method'])) { 				// Print The Results View
-				$result = new ResultView($handler);
-				$result->printTemplate();
-			} else if(isset($_GET['getDetails'])) {		// Print The Details View
-				$details = new DetailView($handler);
-				$details->printTemplate();
+				if($_POST['method'] == 'getDetail') {
+					$details = new DetailView($handler);
+					$details->printTemplate();
+				} else {
+					$result = new ResultView($handler);
+					$result->printTemplate();
+				}
 			} else {									// Print The Default Views
 				$publish = new PublishView();
 				$publish->printTemplate();

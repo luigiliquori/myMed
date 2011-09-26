@@ -6,9 +6,14 @@
 
 	<!-- CONTENT -->
 	<div data-role="content" id="one" data-theme="b">
-		<?php 
-			$connexion = GlobalConnexion::getInstance();
-			$connexion->button();
-		?>
+	  <div id="fb-root"></div>
+      <script src="http://connect.facebook.net/en_US/all.js"></script>
+      <script>
+         FB.init({ 
+            appId:'<?= FACEBOOK_APP_ID ?>', cookie:true, 
+            status:true, xfbml:true 
+         });
+      </script>
+      <fb:login-button>Login with Facebook</fb:login-button>
 	</div>
 </div>

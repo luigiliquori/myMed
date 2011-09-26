@@ -18,11 +18,22 @@ public final class MReputationBean extends AbstractMBean {
 	 * The value of the reputation
 	 */
 	private double value;
+	
+	/**
+	 * The number of interaction
+	 */
+	private int nbInteraction;
+
 
 	/**
-	 * The number of raters
+	 * The raterList ID (userList)
 	 */
-	private int nbRaters;
+	private String raterList;
+	
+	/**
+	 * The raterList ID (userList)
+	 */
+	private String interactionList;
 
 	@Override
 	public String toString() {
@@ -46,7 +57,7 @@ public final class MReputationBean extends AbstractMBean {
 
 			equal = true;
 			equal &= getValue() == comparable.getValue();
-			equal &= getNbRaters() == comparable.getNbRaters();
+			equal &= getRaterList() == comparable.getRaterList();
 		}
 
 		return equal;
@@ -61,7 +72,7 @@ public final class MReputationBean extends AbstractMBean {
 	public int hashCode() {
 		int result = 1;
 
-		result = PRIME * result + nbRaters;
+		result = PRIME * result;
 		long temp;
 		temp = Double.doubleToLongBits(value);
 		result = PRIME * result + (int) (temp ^ temp >>> 32);
@@ -92,19 +103,52 @@ public final class MReputationBean extends AbstractMBean {
 	public void setValue(final double value) {
 		this.value = value;
 	}
-
+	
 	/**
-	 * @return the nbRaters
+	 * 
+	 * @return
 	 */
-	public int getNbRaters() {
-		return nbRaters;
+	public int getNbInteraction() {
+		return nbInteraction;
 	}
 
 	/**
-	 * @param nbRaters
-	 *            the nbRater to set
+	 * 
+	 * @param nbInteraction
 	 */
-	public void setNbRaters(final int nbRaters) {
-		this.nbRaters = nbRaters;
+	public void setNbInteraction(int nbInteraction) {
+		this.nbInteraction = nbInteraction;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public String getRaterList() {
+		return raterList;
+	}
+
+	/**
+	 * 
+	 * @param raters
+	 */
+	public void setRaterList(String raters) {
+		this.raterList = raters;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public String getInteractionList() {
+		return interactionList;
+	}
+
+	/**
+	 * 
+	 * @param interactionList
+	 */
+	public void setInteractionList(String interactionList) {
+		this.interactionList = interactionList;
 	}
 }

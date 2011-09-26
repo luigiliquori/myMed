@@ -44,6 +44,9 @@
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a4/jquery.mobile-1.0a4.min.css" />
 		<link rel="stylesheet" href="css/style.css" />
 		
+		<!-- CSS -->
+		<link rel="stylesheet" href="system/templates/application/myItineraire/css/style.css" />
+		
 	</head> 
 
 	<body> 

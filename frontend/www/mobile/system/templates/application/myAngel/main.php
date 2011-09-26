@@ -12,11 +12,8 @@
 		<script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.0b2/jquery.mobile-1.0b2.min.js"></script>
 		
-		<!-- MAP -->
-		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-		<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
-		<script src="system/templates/application/myTransport/javascript/map.js"></script>
-		<link rel="stylesheet" href="system/templates/application/myTransport/css/style.css" />
+		<!-- CSS -->
+		<link rel="stylesheet" href="system/templates/application/myAngel/css/style.css" />
 		
 		<?php require_once dirname(__FILE__).'/MyAngel.class.php'; ?>
 		

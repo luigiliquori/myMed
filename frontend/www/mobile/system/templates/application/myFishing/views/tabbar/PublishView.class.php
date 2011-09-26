@@ -42,7 +42,7 @@ class PublishView extends MyApplication {
 				
 				<!-- ENUM for Fish Specie -->
 				Kind of Fish:<br />
-				<select name="FishSpecie" data-theme="a">
+				<select name="FishSpecie" data-theme="b">
 					<option value="Trout">Trout</option>
 					<option value="Grayling">Grayling</option>
 					<option value="Salmon">Salmon</option>
@@ -54,27 +54,27 @@ class PublishView extends MyApplication {
 				
 				<!-- GPS -->
 				Location :<br />
-				<input type="text" name="Location" value=""  data-inline="true"/>
+				<input type="text" name="Location" value=""  data-inline="true" data-theme="c"/>
 				<?php $gps = new MDataBean("Location", null, GPS); ?>
 				<input type="hidden" name="ontology1" value="<?= urlencode(json_encode($gps)); ?>">
 				<br />
 				
 				<!-- DATE -->
 				Catch Date:<br />
-				<input type="date" name="date" value="<?php echo date('Y-m-d');?>"  data-inline="true"/>
+				<input type="date" name="date" data-role="datebox" data-options='{"mode": "calbox"}' data-theme="c"/>
 				<?php $date = new MDataBean("date", null, DATE); ?>
 				<input type="hidden" name="ontology2" value="<?= urlencode(json_encode($date)); ?>">
-				<br />
+				<br /><br />
 								
 				<!-- PICTURE -->
 				Picture (URL):<br />
-				<input type="text" name="picture" value=""  data-inline="true"/><br />
+				<input type="text" name="picture" value=""  data-inline="true" data-theme="c"/><br />
 				<?php $keyword = new MDataBean("picture", null, PICTURE); ?>
 				<input type="hidden" name="ontology3" value="<?= urlencode(json_encode($keyword)); ?>">
 				
 				<!-- Comment -->
 				Public Notes :<br />
-				<textarea name="comment" rows="" cols=""></textarea>
+				<textarea name="comment" rows="" cols="" data-theme="c"></textarea>
 				<?php $text = new MDataBean("comment", null, TEXT); ?>
 				<input type="hidden" name="ontology4" value="<?= urlencode(json_encode($text)); ?>">
 				<br />

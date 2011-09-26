@@ -47,7 +47,7 @@ class Login extends AbstractLogin {
 			<img alt="mymed" src="img/logo-mymed.png" width="200px;">
 			<br />
 			<br />
-			<!-- <a href="#socialNetwork" data-role="button" data-rel="dialog">Connexion Via Réseau Social</a> -->
+<!-- 			<a href="#socialNetwork" data-role="button" data-rel="dialog">Connexion Via Réseau Social</a> -->
 			
 			<!-- NOTIFICATION -->
 			<?php if($this->handler->getError()) { ?>
@@ -70,7 +70,7 @@ class Login extends AbstractLogin {
 				<input type="hidden" name="singin" value="1" />
 			    <span>eMail:</span><br />
 			    <input type="text" name="login" id="login" value="" /><br />
-			    <span>Password:</span><br />
+			    <span>Mot de passe:</span><br />
 			    <input type="password" name="password" id="password" value="" />
 				<br />
 				<input type="submit" data-role="button" data-inline="true" onclick="document.singinForm.submit()" value="Connexion"  data-theme="a"/>
