@@ -22,6 +22,6 @@
 	//define('ConnexionLinkedIn_SECRET', '');
 	define('ConnexionGoogle_KEY', $_SERVER['HTTP_HOST']);//unused
 	define('ConnexionGoogle_SECRET', 'LCQZrwojk1KdSf1ARurdjIr8');
-	define('ConnexionFacebook_KEY', '154730914571286');
-	define('ConnexionFacebook_SECRET', 'a29bd2d27e8beb0b34da460fcf7b5522');
+	define('FACEBOOK_APP_ID', '263064853727560');
+	define('FACEBOOK_SECRET', '31132a354804069960f966668df6daa2');
 ?>

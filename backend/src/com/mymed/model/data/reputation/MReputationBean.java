@@ -18,11 +18,22 @@ public final class MReputationBean extends AbstractMBean {
 	 * The value of the reputation
 	 */
 	private double value;
+	
+	/**
+	 * The number of interaction
+	 */
+	private int nbInteraction;
+
 
 	/**
 	 * The raterList ID (userList)
 	 */
-	private String raters;
+	private String raterList;
+	
+	/**
+	 * The raterList ID (userList)
+	 */
+	private String interactionList;
 
 	@Override
 	public String toString() {
@@ -46,7 +57,7 @@ public final class MReputationBean extends AbstractMBean {
 
 			equal = true;
 			equal &= getValue() == comparable.getValue();
-			equal &= getRaters() == comparable.getRaters();
+			equal &= getRaterList() == comparable.getRaterList();
 		}
 
 		return equal;
@@ -92,20 +103,52 @@ public final class MReputationBean extends AbstractMBean {
 	public void setValue(final double value) {
 		this.value = value;
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public int getNbInteraction() {
+		return nbInteraction;
+	}
+
+	/**
+	 * 
+	 * @param nbInteraction
+	 */
+	public void setNbInteraction(int nbInteraction) {
+		this.nbInteraction = nbInteraction;
+	}
 
 	/**
 	 * 
 	 * @return
 	 */
-	public String getRaters() {
-		return raters;
+	public String getRaterList() {
+		return raterList;
 	}
 
 	/**
 	 * 
 	 * @param raters
 	 */
-	public void setRaters(String raters) {
-		this.raters = raters;
+	public void setRaterList(String raters) {
+		this.raterList = raters;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public String getInteractionList() {
+		return interactionList;
+	}
+
+	/**
+	 * 
+	 * @param interactionList
+	 */
+	public void setInteractionList(String interactionList) {
+		this.interactionList = interactionList;
 	}
 }

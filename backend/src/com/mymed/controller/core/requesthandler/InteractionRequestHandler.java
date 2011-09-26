@@ -38,7 +38,7 @@ public class InteractionRequestHandler extends AbstractRequestHandler {
 		try {
 			this.interactionManager = new InteractionManager();
 		} catch (InternalBackEndException e) {
-			throw new ServletException("ProfileManager is not accessible because: " + e.getMessage());
+			throw new ServletException("InteractionManager is not accessible because: " + e.getMessage());
 		}
 	}
 
@@ -65,7 +65,7 @@ public class InteractionRequestHandler extends AbstractRequestHandler {
 			case DELETE:
 				break;
 			default:
-				handleError(new InternalBackEndException("ProfileRequestHandler.doGet(" + code + ") not exist!"), response);
+				handleError(new InternalBackEndException("InteractionManager.doGet(" + code + ") not exist!"), response);
 				return;
 			}
 			super.doGet(request, response);
@@ -90,7 +90,7 @@ public class InteractionRequestHandler extends AbstractRequestHandler {
 			RequestCode code = requestCodeMap.get(parameters.get("code"));
 
 			/** handle the request */
-			String application, producer, consumer, deadline, feedback;
+			String application, producer, consumer, start, end, predicate, feedback;
 			switch (code) {
 			case UPDATE:
 				if ((application = parameters.get("application")) == null) {
@@ -105,31 +105,38 @@ public class InteractionRequestHandler extends AbstractRequestHandler {
 					handleError(new InternalBackEndException(
 							"missing consumer argument!"), response);
 					return;
-				} else if ((feedback = parameters.get("feedback")) == null) {
+				} else if ((start = parameters.get("start")) == null) {
 					handleError(new InternalBackEndException(
-							"missing feedback argument!"), response);
+							"missing start argument!"), response);
 					return;
-				} else if ((deadline = parameters.get("deadline")) == null) {
+				} else if ((end = parameters.get("end")) == null) {
 					handleError(new InternalBackEndException(
-							"missing deadline argument!"), response);
+							"missing end argument!"), response);
+					return;
+				} else if ((predicate = parameters.get("predicate")) == null) {
+					handleError(new InternalBackEndException(
+							"missing predicate argument!"), response);
 					return;
 				}
+				
 				// CREATE THE INTERACTION
 				MInteractionBean interaction = new MInteractionBean();
+				interaction.setId(application+producer+consumer+predicate);
 				interaction.setApplication(application);
 				interaction.setProducer(producer);
 				interaction.setConsumer(consumer);
-				interaction.setStart(System.currentTimeMillis());
-				if(!feedback.equals("null")) {
+				interaction.setStart(Long.parseLong(start));
+				interaction.setEnd(Long.parseLong(end));
+				
+				// ATOMIC INTERACTION
+				if ((feedback = parameters.get("feedback")) != null) {
 					interaction.setFeedback(Double.parseDouble(feedback));
 				}
-				if(deadline.equals("null")){
-					interaction.setEnd(Long.parseLong(deadline));
-				}
 				interactionManager.create(interaction);
+				setResponseText("interaction created!");
 				break;
 			default:
-				handleError(new InternalBackEndException("ProfileRequestHandler.doPost(" + code + ") not exist!"), response);
+				handleError(new InternalBackEndException("InteractionManager.doPost(" + code + ") not exist!"), response);
 				return;
 			}
 			super.doPost(request, response);

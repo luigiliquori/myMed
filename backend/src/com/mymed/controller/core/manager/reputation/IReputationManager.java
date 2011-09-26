@@ -8,6 +8,15 @@ import com.mymed.model.data.reputation.MReputationBean;
 public interface IReputationManager {
 
 	/**
+	 * 
+	 * @param reputation
+	 * @throws InternalBackEndException
+	 * @throws IOBackEndException
+	 */
+	void create(MReputationBean reputation, String id)
+			throws InternalBackEndException, IOBackEndException;
+
+	/**
 	 * Get the reputation of a publisher related to a given service
 	 * 
 	 * @param producerID
@@ -17,15 +26,17 @@ public interface IReputationManager {
 	 * @throws InternalBackEndException
 	 * @throws IOBackEndException
 	 */
-	MReputationBean read(String producerID, String consumerID, String applicationID) throws InternalBackEndException,
-	        IOBackEndException;
+	MReputationBean read(String producerID, String consumerID,
+			String applicationID) throws InternalBackEndException,
+			IOBackEndException;
 
 	/**
 	 * Update the reputation of a publisher related to a given service
 	 * 
 	 * @param session
 	 * @throws InternalBackEndException
-	 * @throws IOBackEndException
+	 * @throws IOBackEndException 
 	 */
-	void update(MInteractionBean interaction, double feedback) throws InternalBackEndException, IOBackEndException;
+	public void update(MReputationBean reputation, String id)
+			throws InternalBackEndException, IOBackEndException;
 }

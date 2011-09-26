@@ -76,7 +76,7 @@ public class ReputationTest {
 			// interactionListManager.update(intBean);
 
 			System.err.println("Setting new reputation value...");
-			repManager.update(intBean, 0.6);
+			repManager.update(repBean, producer1.getId() + applicationID);
 
 			repBean = repManager.read(producer1.getId(), consumer1.getId(), applicationID);
 			System.out.println("\nThe new reputation of " + producer1.getName() + " is: " + repBean.getValue());

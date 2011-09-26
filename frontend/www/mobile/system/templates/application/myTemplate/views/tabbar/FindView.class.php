@@ -71,7 +71,7 @@ class FindView extends MyApplication {
 				<input type="hidden" name="ontology3" value="<?= urlencode(json_encode($date)); ?>">
 
 				<br /><br />
-				<a href="#" data-role="button"onclick="document.<?= APPLICATION_NAME ?>FindForm.submit()">Find</a>	
+				<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>FindForm.submit()">Find</a>	
 			</form>
 		</div>
 	<?php }

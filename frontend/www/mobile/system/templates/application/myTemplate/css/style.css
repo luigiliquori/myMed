@@ -3,3 +3,7 @@
 	background-size: 100% 100%; 
 	color: white
 }
+
+.ui-li-desc {
+white-space: normal;
+}

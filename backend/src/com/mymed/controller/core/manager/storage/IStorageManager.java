@@ -3,6 +3,7 @@ package com.mymed.controller.core.manager.storage;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.cassandra.thrift.ColumnParent;
 import org.apache.cassandra.thrift.ConsistencyLevel;
 
 import com.mymed.controller.core.exception.IOBackEndException;
@@ -149,6 +150,15 @@ public interface IStorageManager {
 	 */
 	Map<byte[], byte[]> selectRange(String tableName, String primaryKey, List<String> columnNames)
 	        throws IOBackEndException, InternalBackEndException;
+	
+	/**
+	 * Count columns in record
+	 * @param key
+	 * @param parent
+	 * @return
+	 * @throws InternalBackEndException
+	 */
+	public int countColumns(final String tableName, final String key) throws InternalBackEndException;
 
 	/**
 	 * Remove a specific column defined by the columnName

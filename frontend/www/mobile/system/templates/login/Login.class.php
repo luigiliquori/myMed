@@ -47,7 +47,7 @@ class Login extends AbstractLogin {
 			<img alt="mymed" src="img/logo-mymed.png" width="200px;">
 			<br />
 			<br />
-			<!-- <a href="#socialNetwork" data-role="button" data-rel="dialog">Connexion Via Réseau Social</a> -->
+<!-- 			<a href="#socialNetwork" data-role="button" data-rel="dialog">Connexion Via Réseau Social</a> -->
 			
 			<!-- NOTIFICATION -->
 			<?php if($this->handler->getError()) { ?>
