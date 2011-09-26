@@ -69,7 +69,7 @@ public class CassandraWrapper implements ICassandraWrapper {
 	private Connection connection;
 
 	/*
-	 * Address and port tu ose for establishing a connection
+	 * Address and port to use for establishing a connection
 	 */
 	private final String address;
 	private final int port;
