@@ -2,6 +2,7 @@
 require_once 'system/templates/application/' . APPLICATION_NAME . '/MyApplication.class.php';
 require_once 'system/templates/ITemplate.php';
 require_once 'system/templates/AbstractTemplate.class.php';
+require_once 'system/request/Reputation.class.php';
 
 /**
  * 
@@ -22,7 +23,7 @@ class DetailView extends MyApplication {
 	/**
 	 * Default constructor
 	 */
-	public function __construct(/*MyTransportHandler*/ $handler) {
+	public function __construct(/*MyTemplateHandler*/ $handler) {
 		parent::__construct(APPLICATION_NAME, APPLICATION_NAME);
 		$this->handler = $handler;
 	}
@@ -52,9 +53,10 @@ class DetailView extends MyApplication {
 	public /*String*/ function getContent() { ?>
 		<!-- CONTENT -->
 		<div class="content" style="text-align: left;">
+			<!-- PROFILE -->
 			<?php
 			$request = new Request("ProfileRequestHandler", READ);
-			$request->addArgument("id",  $_GET['user']);
+			$request->addArgument("id",  $_POST['user']);
 			$response = $request->send(); 
 			// Check if there's not error
 			$profile = json_decode($response);
@@ -67,31 +69,42 @@ class DetailView extends MyApplication {
 					<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="180" height="150">
 				<?php } ?>
 				<br><br>
-				Prenom: <?= $_SESSION['user']->firstName ?><br />
-				Nom: <?= $_SESSION['user']->lastName ?><br />
-				Date de naissance: <?= $_SESSION['user']->birthday ?><br />
-				eMail: <?= $_SESSION['user']->email ?><br />
-				Reputation: 
-				 <?php 
-			    	$rand = rand(0, 4);
-			    	$j=0;
-			    	while($j<=$rand){ ?>
-			    		<img alt="star" src="img/star.png" width="20" />
-			    		<?php 
-			    		$j++;
-			    	}
-			    	while($j<=4){ ?>
-			    		<img alt="star" src="img/starGray.png" width="20" />		
-			    		<?php 
-			    		$j++;
-			    	} ?>
-			    	<br />
+				Prenom: <?= $profile->firstName ?><br />
+				Nom: <?= $profile->lastName ?><br />
+				Date de naissance: <?= $profile->birthday ?><br />
+				eMail: <br />
+				Reputation:
+				<?php 
+					$reputation = new Reputation();
+					$value = $reputation->getReputation(APPLICATION_NAME, $profile->id, $_SESSION['user']->id);
+					$percent = ($value * 100);
+					echo $percent . "%"; 
+				?><br />
+				<?php 
+		    	$j=0;
+		    	while($j<=$percent){ ?>
+		    		<img alt="star" src="img/star.png" width="20" />
+		    		<?php 
+		    		$j+=25;
+		    	}
+		    	while($j<=100){ ?>
+		    		<img alt="star" src="img/starGray.png" width="20" />		
+		    		<?php 
+		    		$j+=25;
+		    	} ?>
+		    	<br />
 			<?php } ?>
+			
 			<hr />
+			
+			<!-- VALUES -->
 			<?php foreach(json_decode($this->handler->getSuccess()) as $details) { ?>
 				<?= $details->key; ?> : <?= urldecode($details->value) ?>
 				<br />
 			<?php } ?>
+			<?php $_SESSION['producer'] = $profile->email ?>
+			<a href="#contact" data-role="button" data-theme="b" data-rel="dialog">Contacter</a>
+			
 		</div>
 	<?php }
 }

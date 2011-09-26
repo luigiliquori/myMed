@@ -29,6 +29,8 @@
 			require_once dirname(__FILE__).'/views/tabbar/MapView.class.php';
 			require_once dirname(__FILE__).'/views/tabbar/PublishView.class.php';
 			require_once dirname(__FILE__).'/views/tabbar/FindView.class.php';
+			// IMPORT DIALOG VIEW
+			require_once dirname(__FILE__).'/views/dialog/Contact.class.php';
 			// IMPORT THE RESULT VIEW
 			require_once dirname(__FILE__).'/views/result/ResultView.class.php';
 			require_once dirname(__FILE__).'/views/result/DetailView.class.php';
@@ -43,12 +45,17 @@
 	<body onload="initialize()">
 		<?php 
 			if(isset($_POST['method'])) { 				// Print The Results View
-				$result = new ResultView($handler);
-				$result->printTemplate();
-			} else if(isset($_GET['getDetails'])) {		// Print The Details View
-				$details = new DetailView($handler);
-				$details->printTemplate();
-			} else {									// Print The Default Views
+				if($_POST['method'] == 'getDetail') {
+					$details = new DetailView($handler);
+					$details->printTemplate();
+					
+					$contact = new Contact();
+					$contact->printTemplate();
+				} else {
+					$result = new ResultView($handler);
+					$result->printTemplate();
+				}
+			} else {								// Print The Default Views
 				$map = new MapView();
 				$map->printTemplate();
 				

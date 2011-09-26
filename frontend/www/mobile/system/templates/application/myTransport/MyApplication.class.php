@@ -64,7 +64,7 @@ abstract class MyApplication extends AbstractTemplate {
 	*/
 	public /*String*/ function printTemplate() { ?>
 		<div id="<?= $this->id ?>" data-role="page" data-theme="b">
-			<?php  $this->getHeader(); ?>
+			<?php $this->getHeader(); ?>
 			<?php $this->getContent(); ?>
 			<?php $this->getFooter(); ?>
 		</div>
