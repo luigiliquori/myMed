@@ -119,6 +119,13 @@ public class InteractionRequestHandler extends AbstractRequestHandler {
 					return;
 				}
 				
+				// verify consumer != producer
+				if(consumer.equals(producer)){
+					handleError(new InternalBackEndException(
+							"cannot create interaction between same users"), response);
+					return;
+				}
+				
 				// CREATE THE INTERACTION
 				MInteractionBean interaction = new MInteractionBean();
 				interaction.setId(application+producer+consumer+predicate);

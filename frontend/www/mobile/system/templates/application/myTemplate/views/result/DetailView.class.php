@@ -103,29 +103,31 @@ class DetailView extends MyApplication {
 				<br />
 			<?php } ?>
 			
-			<!-- REPUTATION -->
-			<form action="#" method="post" name="increaseRepForm" id="increaseRepForm">
-	    		<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
-				<input type="hidden" name="method" value="startInteraction" />
-	    		<input type="hidden" name="producer" value="<?= $profile->id ?>">
-	    		<input type="hidden" name="consumer" value="<?= $_SESSION['user']->id ?>" />
-	    		<input type="hidden" name="start" value="<?= time(); ?>" />
-	    		<input type="hidden" name="end" value="<?= time(); ?>" />
-	    		<input type="hidden" name="feedback" value="1" />
-	    		<input type="hidden" name="predicate" value="<?= $_POST['predicate'] ?>" />
-	    	</form>
-	    	<form action="#" method="post" name="decreaseRepForm" id="decreaseRepForm">
-	    		<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
-				<input type="hidden" name="method" value="startInteraction" />
-	    		<input type="hidden" name="producer" value="<?= $profile->id ?>">
-	    		<input type="hidden" name="consumer" value="<?= $_SESSION['user']->id ?>" />
-	    		<input type="hidden" name="start" value="<?= time(); ?>" />
-	    		<input type="hidden" name="end" value="<?= time(); ?>" />
-	    		<input type="hidden" name="feedback" value="-1" />
-	    		<input type="hidden" name="predicate" value="<?= $_POST['predicate'] ?>" />
-	    	</form>
-	    	<a data-role="button" data-inline="true" data-theme="a" onclick="document.decreaseRepForm.submit()">-1</a>
-	    	<a data-role="button" data-inline="true" data-theme="a" onclick="document.increaseRepForm.submit()">+1</a>
+			<?php if($_SESSION['user']->id != $profile->id) { ?>
+				<!-- REPUTATION -->
+				<form action="#" method="post" name="increaseRepForm" id="increaseRepForm">
+		    		<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
+					<input type="hidden" name="method" value="startInteraction" />
+		    		<input type="hidden" name="producer" value="<?= $profile->id ?>">
+		    		<input type="hidden" name="consumer" value="<?= $_SESSION['user']->id ?>" />
+		    		<input type="hidden" name="start" value="<?= time(); ?>" />
+		    		<input type="hidden" name="end" value="<?= time(); ?>" />
+		    		<input type="hidden" name="feedback" value="1" />
+		    		<input type="hidden" name="predicate" value="<?= $_POST['predicate'] ?>" />
+		    	</form>
+		    	<form action="#" method="post" name="decreaseRepForm" id="decreaseRepForm">
+		    		<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
+					<input type="hidden" name="method" value="startInteraction" />
+		    		<input type="hidden" name="producer" value="<?= $profile->id ?>">
+		    		<input type="hidden" name="consumer" value="<?= $_SESSION['user']->id ?>" />
+		    		<input type="hidden" name="start" value="<?= time(); ?>" />
+		    		<input type="hidden" name="end" value="<?= time(); ?>" />
+		    		<input type="hidden" name="feedback" value="-1" />
+		    		<input type="hidden" name="predicate" value="<?= $_POST['predicate'] ?>" />
+		    	</form>
+		    	<a data-role="button" data-inline="true" data-theme="a" onclick="document.decreaseRepForm.submit()">-1</a>
+		    	<a data-role="button" data-inline="true" data-theme="a" onclick="document.increaseRepForm.submit()">+1</a>
+	    	<?php } ?>
 		</div>
 	<?php }
 }
