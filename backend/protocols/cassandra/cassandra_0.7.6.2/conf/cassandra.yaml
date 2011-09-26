@@ -7,7 +7,7 @@
 
 # The name of the cluster. This is mainly used to prevent machines in
 # one logical cluster from joining another.
-cluster_name: 'Mymed cluster'
+cluster_name: 'Milo cluster'
 
 # You should always specify InitialToken when setting up a production
 # cluster for the first time, and often when adding capacity later.
@@ -122,8 +122,8 @@ reduce_cache_capacity_to: 0.6
 # the topology of the ring.  You must change this if you are running
 # multiple nodes!
 seeds:
-#  - 127.0.0.1
- - 138.96.242.2
+  - 127.0.0.1
+# - 138.96.242.2
 
 # For workloads with more data than can fit in memory, Cassandra's
 # bottleneck will be reads that need to fetch data from
@@ -166,7 +166,8 @@ storage_port: 4200
 # address associated with the hostname (it might not be).
 #
 # Setting this to 0.0.0.0 is always wrong.
-listen_address: 138.96.242.22
+# listen_address: 138.96.242.22
+listen_address: 127.0.0.1
 
 # The address to bind the Thrift RPC service to -- clients connect
 # here. Unlike ListenAddress above, you *can* specify 0.0.0.0 here if
@@ -174,7 +175,8 @@ listen_address: 138.96.242.22
 #
 # Leaving this blank has the same effect it does for ListenAddress,
 # (i.e. it will be based on the configured hostname of the node).
-rpc_address: 138.96.242.22
+# rpc_address: 138.96.242.22
+rpc_address: 127.0.0.1
 
 # port for Thrift to listen for clients on
 rpc_port: 9161
@@ -245,7 +247,7 @@ in_memory_compaction_limit_in_mb: 64
 compaction_preheat_key_cache: true
 
 # Time to wait for a reply from other nodes before failing the command
-rpc_timeout_in_ms: 30000
+rpc_timeout_in_ms: 10000
 
 # phi value that must be reached for a host to be marked down.
 # most users should never need to adjust this.
