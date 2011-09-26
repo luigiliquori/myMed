@@ -39,12 +39,14 @@
 	<body>
 		<?php 
 			if(isset($_POST['method'])) { 				// Print The Results View
-				$result = new ResultView($handler);
-				$result->printTemplate();
-			} else if(isset($_GET['getDetails'])) {		// Print The Details View
-				$details = new DetailView($handler);
-				$details->printTemplate();
-			} else {									// Print The Default Views
+				if($_POST['method'] == 'getDetail') {
+					$details = new DetailView($handler);
+					$details->printTemplate();
+				} else {
+					$result = new ResultView($handler);
+					$result->printTemplate();
+				}
+			} else {										// Print The Default Views
 				$publish = new PublishView();
 				$publish->printTemplate();
 				
