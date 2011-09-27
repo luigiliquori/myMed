@@ -52,6 +52,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 		</fileset>
 		<fileset dir="${glassfish.dir}">
 			<include name="**/mail.jar"/>
+			<include name="**/javaee.jar"/>
 		</fileset>
 	</path>
 
