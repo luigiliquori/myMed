@@ -5,7 +5,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.mymed.controller.core.manager.reputation.ReputationManager;
+import com.mymed.controller.core.manager.reputation.old.ReputationManager;
 import com.mymed.model.data.reputation.MReputationBean;
 
 /**

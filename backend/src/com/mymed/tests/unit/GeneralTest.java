@@ -9,10 +9,10 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.controller.core.manager.application.InteractionManager;
 import com.mymed.controller.core.manager.authentication.AuthenticationManager;
 import com.mymed.controller.core.manager.profile.ProfileManager;
-import com.mymed.controller.core.manager.reputation.InteractionManager;
-import com.mymed.controller.core.manager.reputation.ReputationManager;
+import com.mymed.controller.core.manager.reputation.old.ReputationManager;
 import com.mymed.controller.core.manager.session.SessionManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.core.configuration.WrapperConfiguration;

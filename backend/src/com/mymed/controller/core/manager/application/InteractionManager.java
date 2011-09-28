@@ -38,7 +38,7 @@ public class InteractionManager extends AbstractManager implements IInteractionM
 		} catch (IOBackEndException e) {
 			// INTERACTION CREATION
 			storageManager.insertSlice(CF_INTERACTION, interaction.getId(), interaction.getAttributeToMap());
-			if(interaction.getFeedback() != 0) {
+			if(interaction.getFeedback() != -1) {
 				// REPUTATION UPDATE
 				MReputationBean reputation = reputationManager.read(interaction.getProducer(), interaction.getConsumer(), interaction.getApplication());
 				// count the number of interaction 

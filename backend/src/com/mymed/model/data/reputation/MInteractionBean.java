@@ -23,7 +23,7 @@ public class MInteractionBean extends AbstractMBean {
 	private String consumer;
 	private long start;
 	private long end;
-	private double feedback;
+	private double feedback = -1;
 	private int snooze;
 	/** INTERACTION_LIST_ID */
 	private String complexInteraction;
