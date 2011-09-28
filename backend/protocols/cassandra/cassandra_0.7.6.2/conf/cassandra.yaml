@@ -125,9 +125,6 @@ seeds:
 # INRIA: F125
  - 127.0.0.1
 
-
-
-
 # For workloads with more data than can fit in memory, Cassandra's
 # bottleneck will be reads that need to fetch data from
 # disk. "concurrent_reads" should be set to (16 * number_of_drives) in

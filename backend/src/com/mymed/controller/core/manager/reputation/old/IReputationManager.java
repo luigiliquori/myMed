@@ -1,4 +1,4 @@
-package com.mymed.controller.core.manager.reputation;
+package com.mymed.controller.core.manager.reputation.old;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;

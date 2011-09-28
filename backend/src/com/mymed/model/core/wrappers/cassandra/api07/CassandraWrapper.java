@@ -675,4 +675,18 @@ public class CassandraWrapper implements ICassandraWrapper {
 
 		return cfId;
 	}
+	
+	/*
+	 * 
+	 * TODO REFACTOR THIS METHOD
+	 */
+    public void batchMutate(Map<ByteBuffer, Map<String, List<Mutation>>> buffer, ConsistencyLevel consistencyLevel) throws InternalBackEndException {
+        try {
+        	 getClient().batch_mutate(buffer, consistencyLevel);
+        } catch (Exception ex){
+            throw new InternalBackEndException(ex);
+        } finally {
+			manager.checkIn(connection);
+		}
+    }
 }

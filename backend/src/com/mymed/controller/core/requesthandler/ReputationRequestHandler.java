@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.controller.core.manager.reputation.ReputationManager;
+import com.mymed.controller.core.manager.reputation.old.ReputationManager;
 import com.mymed.model.data.reputation.MReputationBean;
 
 /**
