@@ -122,7 +122,7 @@ class DetailView extends MyApplication {
 		    		<input type="hidden" name="consumer" value="<?= $_SESSION['user']->id ?>" />
 		    		<input type="hidden" name="start" value="<?= time(); ?>" />
 		    		<input type="hidden" name="end" value="<?= time(); ?>" />
-		    		<input type="hidden" name="feedback" value="-1" />
+		    		<input type="hidden" name="feedback" value="0" />
 		    		<input type="hidden" name="predicate" value="<?= $_POST['predicate'] ?>" />
 		    	</form>
 		    	<a data-role="button" data-inline="true" data-theme="a" onclick="document.decreaseRepForm.submit()">-1</a>
