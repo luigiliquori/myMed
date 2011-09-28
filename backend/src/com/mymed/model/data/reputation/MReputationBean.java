@@ -3,152 +3,171 @@ package com.mymed.model.data.reputation;
 import com.mymed.model.data.AbstractMBean;
 
 /**
- * 
  * @author lvanni
- * 
  */
 public final class MReputationBean extends AbstractMBean {
 
-	/**
-	 * Used for the hash code
-	 */
-	private static final int PRIME = 31;
+  /**
+   * Used for the hash code
+   */
+  private static final int PRIME = 31;
 
-	/**
-	 * The value of the reputation
-	 */
-	private double value;
-	
-	/**
-	 * The number of interaction
-	 */
-	private int nbInteraction;
+  /**
+   * The value of the reputation
+   */
+  private double value;
 
+  /**
+   * The number of interaction
+   */
+  private int nbInteraction;
 
-	/**
-	 * The raterList ID (userList)
-	 */
-	private String raterList;
-	
-	/**
-	 * The raterList ID (userList)
-	 */
-	private String interactionList;
+  /**
+   * The raterList ID (userList)
+   */
+  private String raterList;
 
-	@Override
-	public String toString() {
-		return "Reputation:\n" + super.toString();
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals()
-	 */
-	@Override
-	public boolean equals(final Object object) {
+  /**
+   * The raterList ID (userList)
+   */
+  private String interactionList;
 
-		boolean equal = false;
+  /**
+   * Create an empty MReputationBean
+   */
+  public MReputationBean() {
+    // Empty constructor, needed because of the copy constructor
+    super();
+  }
 
-		if (this == object) {
-			equal = true;
-		} else if (object instanceof MReputationBean) {
-			final MReputationBean comparable = (MReputationBean) object;
+  /**
+   * Copy constructor
+   * <p>
+   * Provide a clone of the passed MReputationBean
+   * 
+   * @param toClone
+   *          the MReputationBean to clone
+   */
+  protected MReputationBean(final MReputationBean toClone) {
+    super();
 
-			equal = true;
-			equal &= getValue() == comparable.getValue();
-			equal &= getRaterList() == comparable.getRaterList();
-		}
+    value = toClone.getValue();
+    nbInteraction = toClone.getNbInteraction();
+    raterList = toClone.getRaterList();
+    interactionList = toClone.getInteractionList();
+  }
 
-		return equal;
-	}
+  @Override
+  public MReputationBean clone() {
+    return new MReputationBean(this);
+  }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		int result = 1;
+  @Override
+  public String toString() {
+    return "Reputation:\n" + super.toString();
+  }
 
-		result = PRIME * result;
-		long temp;
-		temp = Double.doubleToLongBits(value);
-		result = PRIME * result + (int) (temp ^ temp >>> 32);
+  /*
+   * (non-Javadoc)
+   * @see java.lang.Object#equals()
+   */
+  @Override
+  public boolean equals(final Object object) {
 
-		return result;
-	}
-	
-	@Override
-	public void update(AbstractMBean mBean) {
-		// TODO Auto-generated method stub
-		
-	}
+    boolean equal = false;
 
-	/* --------------------------------------------------------- */
-	/* GETTER AND SETTER */
-	/* --------------------------------------------------------- */
-	/**
-	 * @return the value
-	 */
-	public double getValue() {
-		return value;
-	}
+    if (this == object) {
+      equal = true;
+    } else if (object instanceof MReputationBean) {
+      final MReputationBean comparable = (MReputationBean) object;
 
-	/**
-	 * @param value
-	 *            the value to set
-	 */
-	public void setValue(final double value) {
-		this.value = value;
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public int getNbInteraction() {
-		return nbInteraction;
-	}
+      equal = true;
+      equal &= getValue() == comparable.getValue();
+      equal &= getRaterList() == comparable.getRaterList();
+    }
 
-	/**
-	 * 
-	 * @param nbInteraction
-	 */
-	public void setNbInteraction(int nbInteraction) {
-		this.nbInteraction = nbInteraction;
-	}
+    return equal;
+  }
 
-	/**
-	 * 
-	 * @return
-	 */
-	public String getRaterList() {
-		return raterList;
-	}
+  /*
+   * (non-Javadoc)
+   * @see java.lang.Object#hashCode()
+   */
+  @Override
+  public int hashCode() {
+    int result = 1;
 
-	/**
-	 * 
-	 * @param raters
-	 */
-	public void setRaterList(String raters) {
-		this.raterList = raters;
-	}
+    result = PRIME * result;
+    long temp;
+    temp = Double.doubleToLongBits(value);
+    result = (PRIME * result) + (int) (temp ^ (temp >>> 32));
 
-	/**
-	 * 
-	 * @return
-	 */
-	public String getInteractionList() {
-		return interactionList;
-	}
+    return result;
+  }
 
-	/**
-	 * 
-	 * @param interactionList
-	 */
-	public void setInteractionList(String interactionList) {
-		this.interactionList = interactionList;
-	}
+  @Override
+  public void update(final AbstractMBean mBean) {
+    // TODO Auto-generated method stub
+
+  }
+
+  /* --------------------------------------------------------- */
+  /* GETTER AND SETTER */
+  /* --------------------------------------------------------- */
+  /**
+   * @return the value
+   */
+  public double getValue() {
+    return value;
+  }
+
+  /**
+   * @param value
+   *          the value to set
+   */
+  public void setValue(final double value) {
+    this.value = value;
+  }
+
+  /**
+   * @return
+   */
+  public int getNbInteraction() {
+    return nbInteraction;
+  }
+
+  /**
+   * @param nbInteraction
+   */
+  public void setNbInteraction(final int nbInteraction) {
+    this.nbInteraction = nbInteraction;
+  }
+
+  /**
+   * @return
+   */
+  public String getRaterList() {
+    return raterList;
+  }
+
+  /**
+   * @param raters
+   */
+  public void setRaterList(final String raters) {
+    this.raterList = raters;
+  }
+
+  /**
+   * @return
+   */
+  public String getInteractionList() {
+    return interactionList;
+  }
+
+  /**
+   * @param interactionList
+   */
+  public void setInteractionList(final String interactionList) {
+    this.interactionList = interactionList;
+  }
 }

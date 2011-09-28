@@ -13,45 +13,45 @@ import com.mymed.model.data.reputation.MReputationBean;
  * 
  * @author lvanni
  * @author Milo Casagrande
- * 
  */
 public class ReputationManager extends AbstractManager implements IReputationManager {
 
-	public ReputationManager() throws InternalBackEndException {
-		this(new StorageManager());
-	}
+  public ReputationManager() throws InternalBackEndException {
+    this(new StorageManager());
+  }
 
-	public ReputationManager(final StorageManager storageManager) throws InternalBackEndException {
-		super(storageManager);
-	}
+  public ReputationManager(final StorageManager storageManager) throws InternalBackEndException {
+    super(storageManager);
+  }
 
-	@Override
-	public void create(MReputationBean reputation, String id)
-			throws InternalBackEndException, IOBackEndException {
-		final Map<String, byte[]> args = reputation.getAttributeToMap();
-		storageManager.insertSlice(CF_REPUTATION, id, args);
-	}
+  @Override
+  public void create(final MReputationBean reputation, final String id) throws InternalBackEndException,
+      IOBackEndException {
+    final Map<String, byte[]> args = reputation.getAttributeToMap();
+    storageManager.insertSlice(CF_REPUTATION, id, args);
+  }
 
-	@Override
-	public MReputationBean read(final String producerID, final String consumerID, final String applicationID)
-			throws InternalBackEndException, IOBackEndException {
-		MReputationBean reputationBean = new MReputationBean();
-		Map<byte[], byte[]> args;
-		args = storageManager.selectAll(CF_REPUTATION, applicationID + producerID);
-		reputationBean = (MReputationBean) introspection(reputationBean, args);
-		if(reputationBean.getRaterList() == null) {	// The reputation of the user is not yet initialized
-			reputationBean.setValue(0.5);									// init reputation value
-			reputationBean.setNbInteraction(1);								// init nbInteraction
-			reputationBean.setRaterList(applicationID+producerID);			// init rater list
-			reputationBean.setInteractionList(applicationID+producerID);	// init interaction list
-			create(reputationBean, applicationID+producerID); 				// create the reputation
-		}
-		return reputationBean;
-	}
+  @Override
+  public MReputationBean read(final String producerID, final String consumerID, final String applicationID)
+      throws InternalBackEndException, IOBackEndException {
+    MReputationBean reputationBean = new MReputationBean();
+    final Map<byte[], byte[]> args = storageManager.selectAll(CF_REPUTATION, applicationID + producerID);
+    reputationBean = (MReputationBean) introspection(reputationBean, args);
 
-	@Override
-	public void update(MReputationBean reputation, String id) throws InternalBackEndException,
-	IOBackEndException {
-		create(reputation, id);
-	}
+    if (reputationBean.getRaterList() == null) { // The reputation of the user is not yet initialized
+      reputationBean.setValue(0.5); // init reputation value
+      reputationBean.setNbInteraction(1); // init nbInteraction
+      reputationBean.setRaterList(applicationID + producerID); // init rater list
+      reputationBean.setInteractionList(applicationID + producerID); // init interaction list
+      create(reputationBean, applicationID + producerID); // create the reputation
+    }
+
+    return reputationBean;
+  }
+
+  @Override
+  public void update(final MReputationBean reputation, final String id) throws InternalBackEndException,
+      IOBackEndException {
+    create(reputation, id);
+  }
 }

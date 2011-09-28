@@ -6,11 +6,12 @@ import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.AbstractManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
+import com.mymed.utils.MLogger;
 
 /**
  * 
  * @author lvanni
- *
+ * 
  */
 public class DHTManager extends AbstractManager implements IDHTManager {
 	/* --------------------------------------------------------- */
@@ -19,16 +20,14 @@ public class DHTManager extends AbstractManager implements IDHTManager {
 	public DHTManager() throws InternalBackEndException {
 		this(new StorageManager());
 	}
-	
-	public DHTManager(StorageManager storageManager) throws InternalBackEndException {
+
+	public DHTManager(final StorageManager storageManager) throws InternalBackEndException {
 		super(storageManager);
 	}
-	
 
 	/* --------------------------------------------------------- */
 	/* Put_Get */
 	/* --------------------------------------------------------- */
-
 	/**
 	 * 
 	 * @param key
@@ -36,15 +35,16 @@ public class DHTManager extends AbstractManager implements IDHTManager {
 	 * @throws IOBackEndException
 	 * @throws InternalBackEndException
 	 */
-	public void put(String key, String value) throws IOBackEndException, InternalBackEndException {
+	@Override
+	public void put(final String key, final String value) throws IOBackEndException, InternalBackEndException {
 		try {
-			System.out.println("\nINFO: put value = " + value );
+			MLogger.getLog().info("Put value = {}", value);
 			storageManager.put(key, value.getBytes("UTF8"));
-		} catch (UnsupportedEncodingException e) {
+		} catch (final UnsupportedEncodingException e) {
 			throw new InternalBackEndException(e.getMessage());
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param key
@@ -52,14 +52,14 @@ public class DHTManager extends AbstractManager implements IDHTManager {
 	 * @throws IOBackEndException
 	 * @throws InternalBackEndException
 	 */
-	public String get(String key) throws IOBackEndException, InternalBackEndException {
+	@Override
+	public String get(final String key) throws IOBackEndException, InternalBackEndException {
 		try {
-			String value = new String(storageManager.get(key), "UTF8");
-			System.out.println("\nINFO: get value = " + value );
+			final String value = new String(storageManager.get(key), "UTF8");
+			MLogger.getLog().info("Get value = {}", value);
 			return value;
-		} catch (UnsupportedEncodingException e) {
+		} catch (final UnsupportedEncodingException e) {
 			throw new InternalBackEndException(e.getMessage());
 		}
 	}
-	
 }
