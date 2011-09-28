@@ -11880,3 +11880,1330 @@ Response sent:
 Response sent:
 0.75|#]
 
+28 sept. 2011 15:44:19 com.sun.enterprise.admin.launcher.GFLauncherLogger info
+INFO: JVM invocation command line:
+/usr/lib/jvm/java-6-openjdk/bin/java
+-cp
+/local/mymed/backend/servers/glassfishv3/glassfish/modules/glassfish.jar
+-XX:+UnlockDiagnosticVMOptions
+-XX:MaxPermSize=192m
+-XX:NewRatio=2
+-XX:+LogVMOutput
+-XX:LogFile=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/logs/jvm.log
+-Xmx512m
+-client
+-javaagent:/local/mymed/backend/servers/glassfishv3/glassfish/lib/monitor/btrace-agent.jar=unsafe=true,noServer=true
+-Dosgi.shell.telnet.maxconn=1
+-Djdbc.drivers=org.apache.derby.jdbc.ClientDriver
+-Dfelix.fileinstall.dir=/local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart/
+-Djavax.net.ssl.keyStore=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/keystore.jks
+-Dosgi.shell.telnet.port=6666
+-Djava.security.policy=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/server.policy
+-Dfelix.fileinstall.poll=5000
+-Dcom.sun.aas.instanceRoot=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1
+-Dcom.sun.enterprise.config.config_environment_factory_class=com.sun.enterprise.config.serverbeans.AppserverConfigEnvironmentFactory
+-Dosgi.shell.telnet.ip=127.0.0.1
+-Djava.endorsed.dirs=/local/mymed/backend/servers/glassfishv3/glassfish/modules/endorsed:/local/mymed/backend/servers/glassfishv3/glassfish/lib/endorsed
+-Dcom.sun.aas.installRoot=/local/mymed/backend/servers/glassfishv3/glassfish
+-Djava.ext.dirs=/usr/lib/jvm/java-6-openjdk/lib/ext:/usr/lib/jvm/java-6-openjdk/jre/lib/ext:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/lib/ext
+-Dfelix.fileinstall.bundles.new.start=true
+-Djavax.net.ssl.trustStore=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/cacerts.jks
+-Dcom.sun.enterprise.security.httpsOutboundKeyAlias=s1as
+-Djava.security.auth.login.config=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/login.conf
+-DANTLR_USE_DIRECT_CLASS_LOADING=true
+-Dfelix.fileinstall.debug=1
+-Dorg.glassfish.web.rfc2109_cookie_names_enforced=false
+-Djava.library.path=/local/mymed/backend/servers/glassfishv3/glassfish/lib:/local/mymed/backend/servers/glassfishv3/glassfish/bin:/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java
+com.sun.enterprise.glassfish.bootstrap.ASMain
+-domainname
+domain1
+-asadmin-args
+start-domain,,,-v
+-instancename
+server
+-verbose
+true
+-debug
+false
+-asadmin-classpath
+/local/mymed/backend/servers/glassfishv3/glassfish/modules/admin-cli.jar
+-asadmin-classname
+com.sun.enterprise.admin.cli.AsadminMain
+-upgrade
+false
+-domaindir
+/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1
+-read-stdin
+true
+28 sept. 2011 15:44:20 com.sun.enterprise.admin.launcher.GFLauncherLogger info
+INFO: Successfully launched in 79 msec.
+[#|2011-09-28T15:45:07.022+0200|INFO|null|null|_ThreadID=11;_ThreadName=Thread-3;|Running GlassFish Version: GlassFish Server Open Source Edition 3.0.1 (build 22)|#]
+
+[#|2011-09-28T15:45:08.204+0200|INFO|glassfish3.0.1|com.sun.grizzly.config.GrizzlyServiceListener|_ThreadID=11;_ThreadName=Thread-3;|Perform lazy SSL initialization for the listener 'http-listener-2'|#]
+
+[#|2011-09-28T15:45:08.341+0200|INFO|glassfish3.0.1|com.sun.grizzly.config.GrizzlyServiceListener|_ThreadID=12;_ThreadName=Thread-3;|Starting Grizzly Framework 1.9.18-o - Wed Sep 28 15:45:08 CEST 2011|#]
+
+[#|2011-09-28T15:45:08.341+0200|INFO|glassfish3.0.1|com.sun.grizzly.config.GrizzlyServiceListener|_ThreadID=13;_ThreadName=Thread-3;|Starting Grizzly Framework 1.9.18-o - Wed Sep 28 15:45:08 CEST 2011|#]
+
+[#|2011-09-28T15:45:08.388+0200|INFO|glassfish3.0.1|null|_ThreadID=14;_ThreadName=Thread-3;|Grizzly Framework 1.9.18-o started in: 291ms listening on port 8080|#]
+
+[#|2011-09-28T15:45:08.388+0200|INFO|glassfish3.0.1|null|_ThreadID=15;_ThreadName=Thread-3;|Grizzly Framework 1.9.18-o started in: 167ms listening on port 8181|#]
+
+[#|2011-09-28T15:45:08.388+0200|INFO|glassfish3.0.1|null|_ThreadID=16;_ThreadName=Thread-3;|Grizzly Framework 1.9.18-o started in: 120ms listening on port 7676|#]
+
+[#|2011-09-28T15:45:08.388+0200|INFO|glassfish3.0.1|null|_ThreadID=17;_ThreadName=Thread-3;|Grizzly Framework 1.9.18-o started in: 153ms listening on port 4848|#]
+
+[#|2011-09-28T15:45:08.390+0200|INFO|glassfish3.0.1|null|_ThreadID=18;_ThreadName=Thread-3;|Grizzly Framework 1.9.18-o started in: 142ms listening on port 3700|#]
+
+[#|2011-09-28T15:45:08.411+0200|INFO|glassfish3.0.1|null|_ThreadID=11;_ThreadName=Thread-3;|The Admin Console is already installed, but not yet loaded.|#]
+
+[#|2011-09-28T15:45:09.603+0200|INFO|glassfish3.0.1|javax.enterprise.resource.jta.com.sun.enterprise.transaction|_ThreadID=11;_ThreadName=Thread-3;|Using com.sun.enterprise.transaction.jts.JavaEETransactionManagerJTSDelegate as the delegate|#]
+
+[#|2011-09-28T15:45:10.936+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security|_ThreadID=11;_ThreadName=Thread-3;|SEC1002: Security Manager is OFF.|#]
+
+[#|2011-09-28T15:45:11.273+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security|_ThreadID=11;_ThreadName=Thread-3;|Security startup service called|#]
+
+[#|2011-09-28T15:45:11.277+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security|_ThreadID=11;_ThreadName=Thread-3;|SEC1143: Loading policy provider com.sun.enterprise.security.provider.PolicyWrapper.|#]
+
+[#|2011-09-28T15:45:11.923+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security.auth.realm|_ThreadID=11;_ThreadName=Thread-3;|Realm admin-realm of classtype com.sun.enterprise.security.auth.realm.file.FileRealm successfully created.|#]
+
+[#|2011-09-28T15:45:11.951+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security.auth.realm|_ThreadID=11;_ThreadName=Thread-3;|Realm file of classtype com.sun.enterprise.security.auth.realm.file.FileRealm successfully created.|#]
+
+[#|2011-09-28T15:45:11.953+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security.auth.realm|_ThreadID=11;_ThreadName=Thread-3;|Realm certificate of classtype com.sun.enterprise.security.auth.realm.certificate.CertificateRealm successfully created.|#]
+
+[#|2011-09-28T15:45:11.960+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security|_ThreadID=11;_ThreadName=Thread-3;|Security service(s) started successfully....|#]
+
+[#|2011-09-28T15:45:12.374+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Created HTTP listener http-listener-1 on port 8080|#]
+
+[#|2011-09-28T15:45:12.422+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Created HTTP listener http-listener-2 on port 8181|#]
+
+[#|2011-09-28T15:45:12.427+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Created HTTP listener admin-listener on port 4848|#]
+
+[#|2011-09-28T15:45:12.474+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Created virtual server server|#]
+
+[#|2011-09-28T15:45:12.474+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Created virtual server server|#]
+
+[#|2011-09-28T15:45:12.478+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Created virtual server __asadmin|#]
+
+[#|2011-09-28T15:45:12.478+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Created virtual server __asadmin|#]
+
+[#|2011-09-28T15:45:12.478+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Created virtual server __asadmin|#]
+
+[#|2011-09-28T15:45:13.596+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Virtual server server loaded system default web module|#]
+
+[#|2011-09-28T15:45:13.596+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Virtual server server loaded system default web module|#]
+
+[#|2011-09-28T15:45:13.596+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Virtual server server loaded system default web module|#]
+
+[#|2011-09-28T15:46:45.199+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Loading application services at /services|#]
+
+[#|2011-09-28T15:46:45.199+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application services at /services|#]
+
+[#|2011-09-28T15:46:45.199+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application services at /services|#]
+
+[#|2011-09-28T15:46:45.231+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=11;_ThreadName=Thread-3;|Loading services Application done is 96722 ms|#]
+
+[#|2011-09-28T15:46:51.190+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Loading application controller at /controller|#]
+
+[#|2011-09-28T15:46:51.190+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application controller at /controller|#]
+
+[#|2011-09-28T15:46:51.190+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application controller at /controller|#]
+
+[#|2011-09-28T15:46:51.192+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=11;_ThreadName=Thread-3;|Loading controller Application done is 5956 ms|#]
+
+[#|2011-09-28T15:46:56.202+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application mymed_v1.0_alpha_backend at /mymed_v1.0_alpha_backend|#]
+
+[#|2011-09-28T15:46:56.202+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Loading application mymed_v1.0_alpha_backend at /mymed_v1.0_alpha_backend|#]
+
+[#|2011-09-28T15:46:56.202+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application mymed_v1.0_alpha_backend at /mymed_v1.0_alpha_backend|#]
+
+[#|2011-09-28T15:46:56.255+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=11;_ThreadName=Thread-3;|Loading mymed_v1.0_alpha_backend Application done is 5062 ms|#]
+
+[#|2011-09-28T15:47:01.349+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-28T15:47:01.349+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-28T15:47:01.349+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-28T15:47:01.355+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=11;_ThreadName=Thread-3;|Loading mymed_backend Application done is 5098 ms|#]
+
+[#|2011-09-28T15:47:01.362+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=11;_ThreadName=Thread-3;|GlassFish Server Open Source Edition 3.0.1 (22) startup time : Felix(44669ms) startup services(114531ms) total(159200ms)|#]
+
+[#|2011-09-28T15:47:01.550+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.admin.org.glassfish.server|_ThreadID=19;_ThreadName=Thread-3;|Binding RMI port to *:8686|#]
+
+[#|2011-09-28T15:47:02.935+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.admin.org.glassfish.server|_ThreadID=19;_ThreadName=Thread-3;|JMXStartupService: Started JMXConnector, JMXService URL = service:jmx:rmi://mymed-test-network.local:8686/jndi/rmi://mymed-test-network.local:8686/jmxrmi|#]
+
+[#|2011-09-28T15:47:05.365+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=20;_ThreadName=Thread-3;|[Thread[GlassFish Kernel Main Thread,5,main]] started|#]
+
+[#|2011-09-28T15:47:05.634+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=21;_ThreadName=Thread-3;|{felix.fileinstall.poll (ms) = 5000, felix.fileinstall.dir = /local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart, felix.fileinstall.debug = 1, felix.fileinstall.bundles.new.start = true, felix.fileinstall.tmpdir = /var/folders/Bl/BlxKCRtIFWWrPxP-wyQoJU+++TI/-Tmp-/fileinstall-5820722877937676528, felix.fileinstall.filter = null}|#]
+
+[#|2011-09-28T15:47:05.644+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=22;_ThreadName=Thread-3;|{felix.fileinstall.poll (ms) = 5000, felix.fileinstall.dir = /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/bundles, felix.fileinstall.debug = 1, felix.fileinstall.bundles.new.start = true, felix.fileinstall.tmpdir = /var/folders/Bl/BlxKCRtIFWWrPxP-wyQoJU+++TI/-Tmp-/fileinstall-65900805743660615, felix.fileinstall.filter = null}|#]
+
+[#|2011-09-28T15:47:06.406+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=21;_ThreadName=Thread-3;|Started bundle: file:/local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart/osgi-web-container.jar|#]
+
+[#|2011-09-28T15:47:06.719+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=21;_ThreadName=Thread-3;|Started bundle: file:/local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart/org.apache.felix.scr.jar|#]
+
+[#|2011-09-28T15:47:07.342+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=23;_ThreadName=Thread-3;|[AutoDeploy] Selecting file /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war for autodeployment.|#]
+
+[#|2011-09-28T15:47:08.239+0200|INFO|glassfish3.0.1|org.hibernate.validator.util.Version|_ThreadID=23;_ThreadName=Thread-3;|Hibernate Validator bean-validator-3.0-JBoss-4.0.2|#]
+
+[#|2011-09-28T15:47:08.256+0200|INFO|glassfish3.0.1|org.hibernate.validator.engine.resolver.DefaultTraversableResolver|_ThreadID=23;_ThreadName=Thread-3;|Instantiated an instance of org.hibernate.validator.engine.resolver.JPATraversableResolver.|#]
+
+[#|2011-09-28T15:47:11.953+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=21;_ThreadName=Thread-3;|Updated /local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart/osgi-web-container.jar|#]
+
+[#|2011-09-28T15:47:12.064+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=21;_ThreadName=Thread-3;|Updated /local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart/org.apache.felix.scr.jar|#]
+
+[#|2011-09-28T15:47:12.188+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=21;_ThreadName=Thread-3;|Updating configuration from org.apache.felix.fileinstall-autodeploy-bundles.cfg|#]
+
+[#|2011-09-28T15:47:12.271+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-3;|{felix.fileinstall.poll (ms) = 5000, felix.fileinstall.dir = /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/bundles, felix.fileinstall.debug = 1, felix.fileinstall.bundles.new.start = true, felix.fileinstall.tmpdir = /var/folders/Bl/BlxKCRtIFWWrPxP-wyQoJU+++TI/-Tmp-/fileinstall--2059567240260442004, felix.fileinstall.filter = null}|#]
+
+[#|2011-09-28T15:47:12.274+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=21;_ThreadName=Thread-3;|Installed /local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart/org.apache.felix.fileinstall-autodeploy-bundles.cfg|#]
+
+[#|2011-09-28T15:47:18.540+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=23;_ThreadName=Thread-3;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-28T15:47:18.540+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=23;_ThreadName=AutoDeployer;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-28T15:47:18.540+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=23;_ThreadName=AutoDeployer;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-28T15:47:19.121+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.admin.org.glassfish.deployment.admin|_ThreadID=23;_ThreadName=Thread-3;|mymed_backend was successfully deployed in 11Ê618 milliseconds.|#]
+
+[#|2011-09-28T15:47:19.369+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=23;_ThreadName=Thread-3;|[AutoDeploy] Successfully autodeployed : /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war.|#]
+
+[#|2011-09-28T15:47:19.431+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=23;_ThreadName=Thread-3;|[AutoDeploy] Selecting file /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_v1.0_alpha_backend.war for autodeployment.|#]
+
+[#|2011-09-28T15:47:25.573+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=23;_ThreadName=Thread-3;|Loading application mymed_v1.0_alpha_backend at /mymed_v1.0_alpha_backend|#]
+
+[#|2011-09-28T15:47:25.573+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=23;_ThreadName=AutoDeployer;|Loading application mymed_v1.0_alpha_backend at /mymed_v1.0_alpha_backend|#]
+
+[#|2011-09-28T15:47:25.573+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=23;_ThreadName=AutoDeployer;|Loading application mymed_v1.0_alpha_backend at /mymed_v1.0_alpha_backend|#]
+
+[#|2011-09-28T15:47:25.666+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.admin.org.glassfish.deployment.admin|_ThreadID=23;_ThreadName=Thread-3;|mymed_v1.0_alpha_backend was successfully deployed in 6Ê227 milliseconds.|#]
+
+[#|2011-09-28T15:47:25.668+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=23;_ThreadName=Thread-3;|[AutoDeploy] Successfully autodeployed : /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_v1.0_alpha_backend.war.|#]
+
+[#|2011-09-28T15:50:32.481+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=23;_ThreadName=Thread-3;|[AutoDeploy] Selecting file /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war for autodeployment.|#]
+
+[#|2011-09-28T15:50:32.507+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=23;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-28T15:50:32.511+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=23;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-28T15:50:32.567+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=23;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-28T15:50:32.568+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=23;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-28T15:50:32.571+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=23;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-28T15:50:32.571+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=23;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-28T15:50:32.711+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=23;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-28T15:50:32.711+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=23;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-28T15:50:32.733+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=23;_ThreadName=Thread-3;|Module type not recognized|#]
+
+[#|2011-09-28T15:50:32.734+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=23;_ThreadName=Thread-3;|Il nÕy a aucun rŽcipient capable de gŽrer cette application com.sun.enterprise.deploy.shared.FileArchive@3eee7317|#]
+
+[#|2011-09-28T15:50:32.778+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=23;_ThreadName=Thread-3;|[AutoDeploy] Autodeploy failed : /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war.|#]
+
+[#|2011-09-28T15:50:38.466+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=23;_ThreadName=Thread-3;|[AutoDeploy] Selecting file /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war for autodeployment.|#]
+
+[#|2011-09-28T15:50:41.867+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=23;_ThreadName=Thread-3;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-28T15:50:41.867+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=23;_ThreadName=AutoDeployer;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-28T15:50:41.867+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=23;_ThreadName=AutoDeployer;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-28T15:50:41.877+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.admin.org.glassfish.deployment.admin|_ThreadID=23;_ThreadName=Thread-3;|mymed_backend was successfully deployed in 3Ê400 milliseconds.|#]
+
+[#|2011-09-28T15:50:41.878+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=23;_ThreadName=Thread-3;|[AutoDeploy] Successfully autodeployed : /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war.|#]
+
+28 sept. 2011 16:43:25 com.sun.enterprise.admin.launcher.GFLauncherLogger info
+INFO: JVM invocation command line:
+/usr/lib/jvm/java-6-openjdk/bin/java
+-cp
+/local/mymed/backend/servers/glassfishv3/glassfish/modules/glassfish.jar
+-XX:+UnlockDiagnosticVMOptions
+-XX:MaxPermSize=192m
+-XX:NewRatio=2
+-XX:+LogVMOutput
+-XX:LogFile=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/logs/jvm.log
+-Xmx512m
+-client
+-javaagent:/local/mymed/backend/servers/glassfishv3/glassfish/lib/monitor/btrace-agent.jar=unsafe=true,noServer=true
+-Dosgi.shell.telnet.maxconn=1
+-Djdbc.drivers=org.apache.derby.jdbc.ClientDriver
+-Dfelix.fileinstall.dir=/local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart/
+-Djavax.net.ssl.keyStore=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/keystore.jks
+-Dosgi.shell.telnet.port=6666
+-Djava.security.policy=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/server.policy
+-Dfelix.fileinstall.poll=5000
+-Dcom.sun.aas.instanceRoot=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1
+-Dcom.sun.enterprise.config.config_environment_factory_class=com.sun.enterprise.config.serverbeans.AppserverConfigEnvironmentFactory
+-Dosgi.shell.telnet.ip=127.0.0.1
+-Djava.endorsed.dirs=/local/mymed/backend/servers/glassfishv3/glassfish/modules/endorsed:/local/mymed/backend/servers/glassfishv3/glassfish/lib/endorsed
+-Dcom.sun.aas.installRoot=/local/mymed/backend/servers/glassfishv3/glassfish
+-Djava.ext.dirs=/usr/lib/jvm/java-6-openjdk/lib/ext:/usr/lib/jvm/java-6-openjdk/jre/lib/ext:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/lib/ext
+-Dfelix.fileinstall.bundles.new.start=true
+-Djavax.net.ssl.trustStore=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/cacerts.jks
+-Dcom.sun.enterprise.security.httpsOutboundKeyAlias=s1as
+-Djava.security.auth.login.config=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/login.conf
+-DANTLR_USE_DIRECT_CLASS_LOADING=true
+-Dfelix.fileinstall.debug=1
+-Dorg.glassfish.web.rfc2109_cookie_names_enforced=false
+-Djava.library.path=/local/mymed/backend/servers/glassfishv3/glassfish/lib:/local/mymed/backend/servers/glassfishv3/glassfish/bin:/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java
+com.sun.enterprise.glassfish.bootstrap.ASMain
+-domainname
+domain1
+-asadmin-args
+start-domain,,,-v
+-instancename
+server
+-verbose
+true
+-debug
+false
+-asadmin-classpath
+/local/mymed/backend/servers/glassfishv3/glassfish/modules/admin-cli.jar
+-asadmin-classname
+com.sun.enterprise.admin.cli.AsadminMain
+-upgrade
+false
+-domaindir
+/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1
+-read-stdin
+true
+28 sept. 2011 16:43:25 com.sun.enterprise.admin.launcher.GFLauncherLogger info
+INFO: Successfully launched in 81 msec.
+[#|2011-09-28T16:43:36.262+0200|INFO|null|null|_ThreadID=11;_ThreadName=Thread-3;|Running GlassFish Version: GlassFish Server Open Source Edition 3.0.1 (build 22)|#]
+
+[#|2011-09-28T16:43:37.395+0200|INFO|glassfish3.0.1|com.sun.grizzly.config.GrizzlyServiceListener|_ThreadID=11;_ThreadName=Thread-3;|Perform lazy SSL initialization for the listener 'http-listener-2'|#]
+
+[#|2011-09-28T16:43:37.500+0200|INFO|glassfish3.0.1|com.sun.grizzly.config.GrizzlyServiceListener|_ThreadID=12;_ThreadName=Thread-3;|Starting Grizzly Framework 1.9.18-o - Wed Sep 28 16:43:37 CEST 2011|#]
+
+[#|2011-09-28T16:43:37.500+0200|INFO|glassfish3.0.1|com.sun.grizzly.config.GrizzlyServiceListener|_ThreadID=13;_ThreadName=Thread-3;|Starting Grizzly Framework 1.9.18-o - Wed Sep 28 16:43:37 CEST 2011|#]
+
+[#|2011-09-28T16:43:37.638+0200|INFO|glassfish3.0.1|null|_ThreadID=14;_ThreadName=Thread-3;|Grizzly Framework 1.9.18-o started in: 190ms listening on port 7676|#]
+
+[#|2011-09-28T16:43:37.639+0200|INFO|glassfish3.0.1|null|_ThreadID=16;_ThreadName=Thread-3;|Grizzly Framework 1.9.18-o started in: 307ms listening on port 8080|#]
+
+[#|2011-09-28T16:43:37.638+0200|INFO|glassfish3.0.1|null|_ThreadID=15;_ThreadName=Thread-3;|Grizzly Framework 1.9.18-o started in: 213ms listening on port 3700|#]
+
+[#|2011-09-28T16:43:37.640+0200|INFO|glassfish3.0.1|null|_ThreadID=17;_ThreadName=Thread-3;|Grizzly Framework 1.9.18-o started in: 239ms listening on port 8181|#]
+
+[#|2011-09-28T16:43:37.640+0200|INFO|glassfish3.0.1|null|_ThreadID=18;_ThreadName=Thread-3;|Grizzly Framework 1.9.18-o started in: 232ms listening on port 4848|#]
+
+[#|2011-09-28T16:43:37.718+0200|INFO|glassfish3.0.1|null|_ThreadID=11;_ThreadName=Thread-3;|The Admin Console is already installed, but not yet loaded.|#]
+
+[#|2011-09-28T16:43:38.649+0200|INFO|glassfish3.0.1|javax.enterprise.resource.jta.com.sun.enterprise.transaction|_ThreadID=11;_ThreadName=Thread-3;|Using com.sun.enterprise.transaction.jts.JavaEETransactionManagerJTSDelegate as the delegate|#]
+
+[#|2011-09-28T16:43:39.815+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security|_ThreadID=11;_ThreadName=Thread-3;|SEC1002: Security Manager is OFF.|#]
+
+[#|2011-09-28T16:43:40.122+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security|_ThreadID=11;_ThreadName=Thread-3;|Security startup service called|#]
+
+[#|2011-09-28T16:43:40.134+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security|_ThreadID=11;_ThreadName=Thread-3;|SEC1143: Loading policy provider com.sun.enterprise.security.provider.PolicyWrapper.|#]
+
+[#|2011-09-28T16:43:40.243+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security.auth.realm|_ThreadID=11;_ThreadName=Thread-3;|Realm admin-realm of classtype com.sun.enterprise.security.auth.realm.file.FileRealm successfully created.|#]
+
+[#|2011-09-28T16:43:40.245+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security.auth.realm|_ThreadID=11;_ThreadName=Thread-3;|Realm file of classtype com.sun.enterprise.security.auth.realm.file.FileRealm successfully created.|#]
+
+[#|2011-09-28T16:43:40.247+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security.auth.realm|_ThreadID=11;_ThreadName=Thread-3;|Realm certificate of classtype com.sun.enterprise.security.auth.realm.certificate.CertificateRealm successfully created.|#]
+
+[#|2011-09-28T16:43:40.254+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security|_ThreadID=11;_ThreadName=Thread-3;|Security service(s) started successfully....|#]
+
+[#|2011-09-28T16:43:40.837+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Created HTTP listener http-listener-1 on port 8080|#]
+
+[#|2011-09-28T16:43:40.843+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Created HTTP listener http-listener-2 on port 8181|#]
+
+[#|2011-09-28T16:43:40.847+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Created HTTP listener admin-listener on port 4848|#]
+
+[#|2011-09-28T16:43:40.901+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Created virtual server server|#]
+
+[#|2011-09-28T16:43:40.901+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Created virtual server server|#]
+
+[#|2011-09-28T16:43:40.904+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Created virtual server __asadmin|#]
+
+[#|2011-09-28T16:43:40.904+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Created virtual server __asadmin|#]
+
+[#|2011-09-28T16:43:40.904+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Created virtual server __asadmin|#]
+
+[#|2011-09-28T16:43:42.456+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Virtual server server loaded system default web module|#]
+
+[#|2011-09-28T16:43:42.456+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Virtual server server loaded system default web module|#]
+
+[#|2011-09-28T16:43:42.456+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Virtual server server loaded system default web module|#]
+
+[#|2011-09-28T16:43:48.079+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Loading application services at /services|#]
+
+[#|2011-09-28T16:43:48.079+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application services at /services|#]
+
+[#|2011-09-28T16:43:48.079+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application services at /services|#]
+
+[#|2011-09-28T16:43:48.080+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=11;_ThreadName=Thread-3;|Loading services Application done is 10260 ms|#]
+
+[#|2011-09-28T16:43:51.291+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application controller at /controller|#]
+
+[#|2011-09-28T16:43:51.291+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application controller at /controller|#]
+
+[#|2011-09-28T16:43:51.291+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Loading application controller at /controller|#]
+
+[#|2011-09-28T16:43:51.314+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=11;_ThreadName=Thread-3;|Loading controller Application done is 3215 ms|#]
+
+[#|2011-09-28T16:43:53.612+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Loading application mymed_v1.0_alpha_backend at /mymed_v1.0_alpha_backend|#]
+
+[#|2011-09-28T16:43:53.612+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application mymed_v1.0_alpha_backend at /mymed_v1.0_alpha_backend|#]
+
+[#|2011-09-28T16:43:53.612+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application mymed_v1.0_alpha_backend at /mymed_v1.0_alpha_backend|#]
+
+[#|2011-09-28T16:43:53.614+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=11;_ThreadName=Thread-3;|Loading mymed_v1.0_alpha_backend Application done is 2299 ms|#]
+
+[#|2011-09-28T16:43:56.369+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-28T16:43:56.369+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-28T16:43:56.369+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-28T16:43:56.370+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=11;_ThreadName=Thread-3;|Loading mymed_backend Application done is 2753 ms|#]
+
+[#|2011-09-28T16:43:56.371+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=11;_ThreadName=Thread-3;|GlassFish Server Open Source Edition 3.0.1 (22) startup time : Felix(10188ms) startup services(20188ms) total(30376ms)|#]
+
+[#|2011-09-28T16:43:56.461+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.admin.org.glassfish.server|_ThreadID=19;_ThreadName=Thread-3;|Binding RMI port to *:8686|#]
+
+[#|2011-09-28T16:43:56.648+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.admin.org.glassfish.server|_ThreadID=19;_ThreadName=Thread-3;|JMXStartupService: Started JMXConnector, JMXService URL = service:jmx:rmi://mymed-test-network.local:8686/jndi/rmi://mymed-test-network.local:8686/jmxrmi|#]
+
+[#|2011-09-28T16:43:57.659+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=20;_ThreadName=Thread-3;|[Thread[GlassFish Kernel Main Thread,5,main]] started|#]
+
+[#|2011-09-28T16:43:57.783+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=21;_ThreadName=Thread-3;|{felix.fileinstall.poll (ms) = 5000, felix.fileinstall.dir = /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/bundles, felix.fileinstall.debug = 1, felix.fileinstall.bundles.new.start = true, felix.fileinstall.tmpdir = /var/folders/Bl/BlxKCRtIFWWrPxP-wyQoJU+++TI/-Tmp-/fileinstall-6205804878885197113, felix.fileinstall.filter = null}|#]
+
+[#|2011-09-28T16:43:57.783+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=22;_ThreadName=Thread-3;|{felix.fileinstall.poll (ms) = 5000, felix.fileinstall.dir = /local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart, felix.fileinstall.debug = 1, felix.fileinstall.bundles.new.start = true, felix.fileinstall.tmpdir = /var/folders/Bl/BlxKCRtIFWWrPxP-wyQoJU+++TI/-Tmp-/fileinstall-3585619990062709235, felix.fileinstall.filter = null}|#]
+
+[#|2011-09-28T16:43:57.816+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=22;_ThreadName=Thread-3;|Started bundle: file:/local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart/osgi-web-container.jar|#]
+
+[#|2011-09-28T16:43:57.824+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=22;_ThreadName=Thread-3;|Started bundle: file:/local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart/org.apache.felix.scr.jar|#]
+
+[#|2011-09-28T16:44:02.848+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=22;_ThreadName=Thread-3;|Updating configuration from org.apache.felix.fileinstall-autodeploy-bundles.cfg|#]
+
+[#|2011-09-28T16:44:02.872+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=22;_ThreadName=Thread-3;|Installed /local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart/org.apache.felix.fileinstall-autodeploy-bundles.cfg|#]
+
+[#|2011-09-28T16:44:02.875+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-3;|{felix.fileinstall.poll (ms) = 5000, felix.fileinstall.dir = /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/bundles, felix.fileinstall.debug = 1, felix.fileinstall.bundles.new.start = true, felix.fileinstall.tmpdir = /var/folders/Bl/BlxKCRtIFWWrPxP-wyQoJU+++TI/-Tmp-/fileinstall--4669188643714329999, felix.fileinstall.filter = null}|#]
+
+[#|2011-09-28T16:50:10.082+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-3;|act : 0|#]
+
+[#|2011-09-28T16:50:10.083+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-3;|address : 127.0.0.1|#]
+
+[#|2011-09-28T16:50:10.083+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-3;|port : 4201|#]
+
+[#|2011-09-28T16:50:20.879+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=25;_ThreadName=Thread-3;|act : 4|#]
+
+[#|2011-09-28T16:50:20.879+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=25;_ThreadName=Thread-3;|key1 : test|#]
+
+[#|2011-09-28T16:50:20.880+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=25;_ThreadName=Thread-3;|value1 : salut|#]
+
+[#|2011-09-28T16:50:20.882+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=25;_ThreadName=Thread-3;|org.apache.thrift.transport.TTransportException: java.net.ConnectException: Connection refused
+	at org.apache.thrift.transport.TSocket.open(TSocket.java:185)
+	at org.apache.thrift.transport.TFramedTransport.open(TFramedTransport.java:81)
+	at com.mymed.controller.core.requesthandler.debug.DebugConsole.doGet(DebugConsole.java:110)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:680)
+Caused by: java.net.ConnectException: Connection refused
+	at java.net.PlainSocketImpl.socketConnect(Native Method)
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:351)
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:213)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:200)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:432)
+	at java.net.Socket.connect(Socket.java:529)
+	at org.apache.thrift.transport.TSocket.open(TSocket.java:180)
+	... 28 more
+|#]
+
+28 sept. 2011 16:57:03 com.sun.enterprise.admin.launcher.GFLauncherLogger info
+INFO: JVM invocation command line:
+/usr/lib/jvm/java-6-openjdk/bin/java
+-cp
+/local/mymed/backend/servers/glassfishv3/glassfish/modules/glassfish.jar
+-XX:+UnlockDiagnosticVMOptions
+-XX:MaxPermSize=192m
+-XX:NewRatio=2
+-XX:+LogVMOutput
+-XX:LogFile=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/logs/jvm.log
+-Xmx512m
+-client
+-javaagent:/local/mymed/backend/servers/glassfishv3/glassfish/lib/monitor/btrace-agent.jar=unsafe=true,noServer=true
+-Dosgi.shell.telnet.maxconn=1
+-Djdbc.drivers=org.apache.derby.jdbc.ClientDriver
+-Dfelix.fileinstall.dir=/local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart/
+-Djavax.net.ssl.keyStore=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/keystore.jks
+-Dosgi.shell.telnet.port=6666
+-Djava.security.policy=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/server.policy
+-Dfelix.fileinstall.poll=5000
+-Dcom.sun.aas.instanceRoot=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1
+-Dcom.sun.enterprise.config.config_environment_factory_class=com.sun.enterprise.config.serverbeans.AppserverConfigEnvironmentFactory
+-Dosgi.shell.telnet.ip=127.0.0.1
+-Djava.endorsed.dirs=/local/mymed/backend/servers/glassfishv3/glassfish/modules/endorsed:/local/mymed/backend/servers/glassfishv3/glassfish/lib/endorsed
+-Dcom.sun.aas.installRoot=/local/mymed/backend/servers/glassfishv3/glassfish
+-Djava.ext.dirs=/usr/lib/jvm/java-6-openjdk/lib/ext:/usr/lib/jvm/java-6-openjdk/jre/lib/ext:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/lib/ext
+-Dfelix.fileinstall.bundles.new.start=true
+-Djavax.net.ssl.trustStore=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/cacerts.jks
+-Dcom.sun.enterprise.security.httpsOutboundKeyAlias=s1as
+-Djava.security.auth.login.config=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/login.conf
+-DANTLR_USE_DIRECT_CLASS_LOADING=true
+-Dfelix.fileinstall.debug=1
+-Dorg.glassfish.web.rfc2109_cookie_names_enforced=false
+-Djava.library.path=/local/mymed/backend/servers/glassfishv3/glassfish/lib:/local/mymed/backend/servers/glassfishv3/glassfish/bin:/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java
+com.sun.enterprise.glassfish.bootstrap.ASMain
+-domainname
+domain1
+-asadmin-args
+start-domain,,,-v
+-instancename
+server
+-verbose
+true
+-debug
+false
+-asadmin-classpath
+/local/mymed/backend/servers/glassfishv3/glassfish/modules/admin-cli.jar
+-asadmin-classname
+com.sun.enterprise.admin.cli.AsadminMain
+-upgrade
+false
+-domaindir
+/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1
+-read-stdin
+true
+28 sept. 2011 16:57:03 com.sun.enterprise.admin.launcher.GFLauncherLogger info
+INFO: Successfully launched in 47 msec.
+[#|2011-09-28T16:57:11.800+0200|INFO|null|null|_ThreadID=11;_ThreadName=Thread-3;|Running GlassFish Version: GlassFish Server Open Source Edition 3.0.1 (build 22)|#]
+
+[#|2011-09-28T16:57:12.259+0200|INFO|glassfish3.0.1|com.sun.grizzly.config.GrizzlyServiceListener|_ThreadID=11;_ThreadName=Thread-3;|Perform lazy SSL initialization for the listener 'http-listener-2'|#]
+
+[#|2011-09-28T16:57:12.321+0200|INFO|glassfish3.0.1|com.sun.grizzly.config.GrizzlyServiceListener|_ThreadID=12;_ThreadName=Thread-3;|Starting Grizzly Framework 1.9.18-o - Wed Sep 28 16:57:12 CEST 2011|#]
+
+[#|2011-09-28T16:57:12.338+0200|INFO|glassfish3.0.1|null|_ThreadID=13;_ThreadName=Thread-3;|Grizzly Framework 1.9.18-o started in: 71ms listening on port 8181|#]
+
+[#|2011-09-28T16:57:12.339+0200|INFO|glassfish3.0.1|null|_ThreadID=14;_ThreadName=Thread-3;|Grizzly Framework 1.9.18-o started in: 28ms listening on port 3700|#]
+
+[#|2011-09-28T16:57:12.343+0200|INFO|glassfish3.0.1|null|_ThreadID=16;_ThreadName=Thread-3;|Grizzly Framework 1.9.18-o started in: 61ms listening on port 4848|#]
+
+[#|2011-09-28T16:57:12.343+0200|INFO|glassfish3.0.1|com.sun.grizzly.config.GrizzlyServiceListener|_ThreadID=15;_ThreadName=Thread-3;|Starting Grizzly Framework 1.9.18-o - Wed Sep 28 16:57:12 CEST 2011|#]
+
+[#|2011-09-28T16:57:12.346+0200|INFO|glassfish3.0.1|null|_ThreadID=17;_ThreadName=Thread-3;|Grizzly Framework 1.9.18-o started in: 124ms listening on port 8080|#]
+
+[#|2011-09-28T16:57:12.348+0200|INFO|glassfish3.0.1|null|_ThreadID=18;_ThreadName=Thread-3;|Grizzly Framework 1.9.18-o started in: 10ms listening on port 7676|#]
+
+[#|2011-09-28T16:57:12.444+0200|INFO|glassfish3.0.1|null|_ThreadID=11;_ThreadName=Thread-3;|The Admin Console is already installed, but not yet loaded.|#]
+
+[#|2011-09-28T16:57:13.430+0200|INFO|glassfish3.0.1|javax.enterprise.resource.jta.com.sun.enterprise.transaction|_ThreadID=11;_ThreadName=Thread-3;|Using com.sun.enterprise.transaction.jts.JavaEETransactionManagerJTSDelegate as the delegate|#]
+
+[#|2011-09-28T16:57:14.089+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security|_ThreadID=11;_ThreadName=Thread-3;|SEC1002: Security Manager is OFF.|#]
+
+[#|2011-09-28T16:57:14.267+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security|_ThreadID=11;_ThreadName=Thread-3;|Security startup service called|#]
+
+[#|2011-09-28T16:57:14.270+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security|_ThreadID=11;_ThreadName=Thread-3;|SEC1143: Loading policy provider com.sun.enterprise.security.provider.PolicyWrapper.|#]
+
+[#|2011-09-28T16:57:14.351+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security.auth.realm|_ThreadID=11;_ThreadName=Thread-3;|Realm admin-realm of classtype com.sun.enterprise.security.auth.realm.file.FileRealm successfully created.|#]
+
+[#|2011-09-28T16:57:14.355+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security.auth.realm|_ThreadID=11;_ThreadName=Thread-3;|Realm file of classtype com.sun.enterprise.security.auth.realm.file.FileRealm successfully created.|#]
+
+[#|2011-09-28T16:57:14.357+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security.auth.realm|_ThreadID=11;_ThreadName=Thread-3;|Realm certificate of classtype com.sun.enterprise.security.auth.realm.certificate.CertificateRealm successfully created.|#]
+
+[#|2011-09-28T16:57:14.363+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security|_ThreadID=11;_ThreadName=Thread-3;|Security service(s) started successfully....|#]
+
+[#|2011-09-28T16:57:14.761+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Created HTTP listener http-listener-1 on port 8080|#]
+
+[#|2011-09-28T16:57:14.767+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Created HTTP listener http-listener-2 on port 8181|#]
+
+[#|2011-09-28T16:57:14.771+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Created HTTP listener admin-listener on port 4848|#]
+
+[#|2011-09-28T16:57:14.798+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Created virtual server server|#]
+
+[#|2011-09-28T16:57:14.798+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Created virtual server server|#]
+
+[#|2011-09-28T16:57:14.801+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Created virtual server __asadmin|#]
+
+[#|2011-09-28T16:57:14.801+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Created virtual server __asadmin|#]
+
+[#|2011-09-28T16:57:14.801+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Created virtual server __asadmin|#]
+
+[#|2011-09-28T16:57:15.310+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Virtual server server loaded system default web module|#]
+
+[#|2011-09-28T16:57:15.310+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Virtual server server loaded system default web module|#]
+
+[#|2011-09-28T16:57:15.310+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Virtual server server loaded system default web module|#]
+
+[#|2011-09-28T16:57:21.042+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Loading application services at /services|#]
+
+[#|2011-09-28T16:57:21.042+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application services at /services|#]
+
+[#|2011-09-28T16:57:21.042+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application services at /services|#]
+
+[#|2011-09-28T16:57:21.044+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=11;_ThreadName=Thread-3;|Loading services Application done is 8541 ms|#]
+
+[#|2011-09-28T16:57:23.731+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Loading application controller at /controller|#]
+
+[#|2011-09-28T16:57:23.731+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application controller at /controller|#]
+
+[#|2011-09-28T16:57:23.731+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application controller at /controller|#]
+
+[#|2011-09-28T16:57:23.733+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=11;_ThreadName=Thread-3;|Loading controller Application done is 2672 ms|#]
+
+[#|2011-09-28T16:57:26.469+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application mymed_v1.0_alpha_backend at /mymed_v1.0_alpha_backend|#]
+
+[#|2011-09-28T16:57:26.469+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application mymed_v1.0_alpha_backend at /mymed_v1.0_alpha_backend|#]
+
+[#|2011-09-28T16:57:26.469+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Loading application mymed_v1.0_alpha_backend at /mymed_v1.0_alpha_backend|#]
+
+[#|2011-09-28T16:57:26.471+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=11;_ThreadName=Thread-3;|Loading mymed_v1.0_alpha_backend Application done is 2736 ms|#]
+
+[#|2011-09-28T16:57:28.636+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-28T16:57:28.636+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-28T16:57:28.636+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-28T16:57:28.638+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=11;_ThreadName=Thread-3;|Loading mymed_backend Application done is 2166 ms|#]
+
+[#|2011-09-28T16:57:28.640+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=11;_ThreadName=Thread-3;|GlassFish Server Open Source Edition 3.0.1 (22) startup time : Felix(7601ms) startup services(16939ms) total(24540ms)|#]
+
+[#|2011-09-28T16:57:28.718+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.admin.org.glassfish.server|_ThreadID=19;_ThreadName=Thread-3;|Binding RMI port to *:8686|#]
+
+[#|2011-09-28T16:57:28.839+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.admin.org.glassfish.server|_ThreadID=19;_ThreadName=Thread-3;|JMXStartupService: Started JMXConnector, JMXService URL = service:jmx:rmi://172.16.0.46:8686/jndi/rmi://172.16.0.46:8686/jmxrmi|#]
+
+[#|2011-09-28T16:57:29.750+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=20;_ThreadName=Thread-3;|[Thread[GlassFish Kernel Main Thread,5,main]] started|#]
+
+[#|2011-09-28T16:57:29.840+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=21;_ThreadName=Thread-3;|{felix.fileinstall.poll (ms) = 5000, felix.fileinstall.dir = /local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart, felix.fileinstall.debug = 1, felix.fileinstall.bundles.new.start = true, felix.fileinstall.tmpdir = /var/folders/Bl/BlxKCRtIFWWrPxP-wyQoJU+++TI/-Tmp-/fileinstall-6934122922219898856, felix.fileinstall.filter = null}|#]
+
+[#|2011-09-28T16:57:29.863+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=22;_ThreadName=Thread-3;|{felix.fileinstall.poll (ms) = 5000, felix.fileinstall.dir = /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/bundles, felix.fileinstall.debug = 1, felix.fileinstall.bundles.new.start = true, felix.fileinstall.tmpdir = /var/folders/Bl/BlxKCRtIFWWrPxP-wyQoJU+++TI/-Tmp-/fileinstall-4166796923845406241, felix.fileinstall.filter = null}|#]
+
+[#|2011-09-28T16:57:29.886+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=21;_ThreadName=Thread-3;|Started bundle: file:/local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart/osgi-web-container.jar|#]
+
+[#|2011-09-28T16:57:29.894+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=21;_ThreadName=Thread-3;|Started bundle: file:/local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart/org.apache.felix.scr.jar|#]
+
+[#|2011-09-28T16:57:34.902+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=21;_ThreadName=Thread-3;|Updating configuration from org.apache.felix.fileinstall-autodeploy-bundles.cfg|#]
+
+[#|2011-09-28T16:57:34.909+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=21;_ThreadName=Thread-3;|Installed /local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart/org.apache.felix.fileinstall-autodeploy-bundles.cfg|#]
+
+[#|2011-09-28T16:57:34.911+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-3;|{felix.fileinstall.poll (ms) = 5000, felix.fileinstall.dir = /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/bundles, felix.fileinstall.debug = 1, felix.fileinstall.bundles.new.start = true, felix.fileinstall.tmpdir = /var/folders/Bl/BlxKCRtIFWWrPxP-wyQoJU+++TI/-Tmp-/fileinstall-3603770182127740547, felix.fileinstall.filter = null}|#]
+
+28 sept. 2011 17:00:52 com.sun.enterprise.admin.launcher.GFLauncherLogger info
+INFO: JVM invocation command line:
+/usr/lib/jvm/java-6-openjdk/bin/java
+-cp
+/local/mymed/backend/servers/glassfishv3/glassfish/modules/glassfish.jar
+-XX:+UnlockDiagnosticVMOptions
+-XX:MaxPermSize=192m
+-XX:NewRatio=2
+-XX:+LogVMOutput
+-XX:LogFile=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/logs/jvm.log
+-Xmx512m
+-client
+-javaagent:/local/mymed/backend/servers/glassfishv3/glassfish/lib/monitor/btrace-agent.jar=unsafe=true,noServer=true
+-Dosgi.shell.telnet.maxconn=1
+-Djdbc.drivers=org.apache.derby.jdbc.ClientDriver
+-Dfelix.fileinstall.dir=/local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart/
+-Djavax.net.ssl.keyStore=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/keystore.jks
+-Dosgi.shell.telnet.port=6666
+-Djava.security.policy=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/server.policy
+-Dfelix.fileinstall.poll=5000
+-Dcom.sun.aas.instanceRoot=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1
+-Dcom.sun.enterprise.config.config_environment_factory_class=com.sun.enterprise.config.serverbeans.AppserverConfigEnvironmentFactory
+-Dosgi.shell.telnet.ip=127.0.0.1
+-Djava.endorsed.dirs=/local/mymed/backend/servers/glassfishv3/glassfish/modules/endorsed:/local/mymed/backend/servers/glassfishv3/glassfish/lib/endorsed
+-Dcom.sun.aas.installRoot=/local/mymed/backend/servers/glassfishv3/glassfish
+-Djava.ext.dirs=/usr/lib/jvm/java-6-openjdk/lib/ext:/usr/lib/jvm/java-6-openjdk/jre/lib/ext:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/lib/ext
+-Dfelix.fileinstall.bundles.new.start=true
+-Djavax.net.ssl.trustStore=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/cacerts.jks
+-Dcom.sun.enterprise.security.httpsOutboundKeyAlias=s1as
+-Djava.security.auth.login.config=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/login.conf
+-DANTLR_USE_DIRECT_CLASS_LOADING=true
+-Dfelix.fileinstall.debug=1
+-Dorg.glassfish.web.rfc2109_cookie_names_enforced=false
+-Djava.library.path=/local/mymed/backend/servers/glassfishv3/glassfish/lib:/local/mymed/backend/servers/glassfishv3/glassfish/bin:/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java
+com.sun.enterprise.glassfish.bootstrap.ASMain
+-domainname
+domain1
+-asadmin-args
+start-domain,,,-v
+-instancename
+server
+-verbose
+true
+-debug
+false
+-asadmin-classpath
+/local/mymed/backend/servers/glassfishv3/glassfish/modules/admin-cli.jar
+-asadmin-classname
+com.sun.enterprise.admin.cli.AsadminMain
+-upgrade
+false
+-domaindir
+/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1
+-read-stdin
+true
+28 sept. 2011 17:00:52 com.sun.enterprise.admin.launcher.GFLauncherLogger info
+INFO: Successfully launched in 51 msec.
+[#|2011-09-28T17:00:56.700+0200|INFO|null|null|_ThreadID=11;_ThreadName=Thread-2;|Running GlassFish Version: GlassFish Server Open Source Edition 3.0.1 (build 22)|#]
+
+[#|2011-09-28T17:00:57.239+0200|INFO|glassfish3.0.1|com.sun.grizzly.config.GrizzlyServiceListener|_ThreadID=11;_ThreadName=Thread-2;|Perform lazy SSL initialization for the listener 'http-listener-2'|#]
+
+[#|2011-09-28T17:00:57.303+0200|INFO|glassfish3.0.1|null|_ThreadID=12;_ThreadName=Thread-2;|Grizzly Framework 1.9.18-o started in: 112ms listening on port 8080|#]
+
+[#|2011-09-28T17:00:57.303+0200|INFO|glassfish3.0.1|null|_ThreadID=13;_ThreadName=Thread-2;|Grizzly Framework 1.9.18-o started in: 56ms listening on port 8181|#]
+
+[#|2011-09-28T17:00:57.306+0200|INFO|glassfish3.0.1|null|_ThreadID=14;_ThreadName=Thread-2;|Grizzly Framework 1.9.18-o started in: 48ms listening on port 4848|#]
+
+[#|2011-09-28T17:00:57.321+0200|INFO|glassfish3.0.1|com.sun.grizzly.config.GrizzlyServiceListener|_ThreadID=15;_ThreadName=Thread-2;|Starting Grizzly Framework 1.9.18-o - Wed Sep 28 17:00:57 CEST 2011|#]
+
+[#|2011-09-28T17:00:57.323+0200|INFO|glassfish3.0.1|null|_ThreadID=16;_ThreadName=Thread-2;|Grizzly Framework 1.9.18-o started in: 14ms listening on port 3700|#]
+
+[#|2011-09-28T17:00:57.336+0200|INFO|glassfish3.0.1|com.sun.grizzly.config.GrizzlyServiceListener|_ThreadID=17;_ThreadName=Thread-2;|Starting Grizzly Framework 1.9.18-o - Wed Sep 28 17:00:57 CEST 2011|#]
+
+[#|2011-09-28T17:00:57.347+0200|INFO|glassfish3.0.1|null|_ThreadID=18;_ThreadName=Thread-2;|Grizzly Framework 1.9.18-o started in: 18ms listening on port 7676|#]
+
+[#|2011-09-28T17:00:57.471+0200|INFO|glassfish3.0.1|null|_ThreadID=11;_ThreadName=Thread-2;|The Admin Console is already installed, but not yet loaded.|#]
+
+[#|2011-09-28T17:00:58.103+0200|INFO|glassfish3.0.1|javax.enterprise.resource.jta.com.sun.enterprise.transaction|_ThreadID=11;_ThreadName=Thread-2;|Using com.sun.enterprise.transaction.jts.JavaEETransactionManagerJTSDelegate as the delegate|#]
+
+[#|2011-09-28T17:00:58.641+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security|_ThreadID=11;_ThreadName=Thread-2;|SEC1002: Security Manager is OFF.|#]
+
+[#|2011-09-28T17:00:58.785+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security|_ThreadID=11;_ThreadName=Thread-2;|Security startup service called|#]
+
+[#|2011-09-28T17:00:58.788+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security|_ThreadID=11;_ThreadName=Thread-2;|SEC1143: Loading policy provider com.sun.enterprise.security.provider.PolicyWrapper.|#]
+
+[#|2011-09-28T17:00:58.852+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security.auth.realm|_ThreadID=11;_ThreadName=Thread-2;|Realm admin-realm of classtype com.sun.enterprise.security.auth.realm.file.FileRealm successfully created.|#]
+
+[#|2011-09-28T17:00:58.854+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security.auth.realm|_ThreadID=11;_ThreadName=Thread-2;|Realm file of classtype com.sun.enterprise.security.auth.realm.file.FileRealm successfully created.|#]
+
+[#|2011-09-28T17:00:58.861+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security.auth.realm|_ThreadID=11;_ThreadName=Thread-2;|Realm certificate of classtype com.sun.enterprise.security.auth.realm.certificate.CertificateRealm successfully created.|#]
+
+[#|2011-09-28T17:00:58.869+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security|_ThreadID=11;_ThreadName=Thread-2;|Security service(s) started successfully....|#]
+
+[#|2011-09-28T17:00:59.096+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-2;|Created HTTP listener http-listener-1 on port 8080|#]
+
+[#|2011-09-28T17:00:59.101+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-2;|Created HTTP listener http-listener-2 on port 8181|#]
+
+[#|2011-09-28T17:00:59.108+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-2;|Created HTTP listener admin-listener on port 4848|#]
+
+[#|2011-09-28T17:00:59.138+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-2;|Created virtual server server|#]
+
+[#|2011-09-28T17:00:59.138+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Created virtual server server|#]
+
+[#|2011-09-28T17:00:59.142+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-2;|Created virtual server __asadmin|#]
+
+[#|2011-09-28T17:00:59.142+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Created virtual server __asadmin|#]
+
+[#|2011-09-28T17:00:59.142+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Created virtual server __asadmin|#]
+
+[#|2011-09-28T17:00:59.675+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Virtual server server loaded system default web module|#]
+
+[#|2011-09-28T17:00:59.675+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Virtual server server loaded system default web module|#]
+
+[#|2011-09-28T17:00:59.675+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-2;|Virtual server server loaded system default web module|#]
+
+[#|2011-09-28T17:01:04.508+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application services at /services|#]
+
+[#|2011-09-28T17:01:04.508+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application services at /services|#]
+
+[#|2011-09-28T17:01:04.508+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-2;|Loading application services at /services|#]
+
+[#|2011-09-28T17:01:04.510+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=11;_ThreadName=Thread-2;|Loading services Application done is 6974 ms|#]
+
+[#|2011-09-28T17:01:06.524+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application controller at /controller|#]
+
+[#|2011-09-28T17:01:06.524+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application controller at /controller|#]
+
+[#|2011-09-28T17:01:06.524+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-2;|Loading application controller at /controller|#]
+
+[#|2011-09-28T17:01:06.525+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=11;_ThreadName=Thread-2;|Loading controller Application done is 2009 ms|#]
+
+[#|2011-09-28T17:01:08.831+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-2;|Loading application mymed_v1.0_alpha_backend at /mymed_v1.0_alpha_backend|#]
+
+[#|2011-09-28T17:01:08.831+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application mymed_v1.0_alpha_backend at /mymed_v1.0_alpha_backend|#]
+
+[#|2011-09-28T17:01:08.831+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application mymed_v1.0_alpha_backend at /mymed_v1.0_alpha_backend|#]
+
+[#|2011-09-28T17:01:08.832+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=11;_ThreadName=Thread-2;|Loading mymed_v1.0_alpha_backend Application done is 2306 ms|#]
+
+[#|2011-09-28T17:01:10.950+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-28T17:01:10.950+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-2;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-28T17:01:10.950+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-28T17:01:10.952+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=11;_ThreadName=Thread-2;|Loading mymed_backend Application done is 2118 ms|#]
+
+[#|2011-09-28T17:01:10.953+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=11;_ThreadName=Thread-2;|GlassFish Server Open Source Edition 3.0.1 (22) startup time : Felix(4229ms) startup services(14302ms) total(18531ms)|#]
+
+[#|2011-09-28T17:01:11.142+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.admin.org.glassfish.server|_ThreadID=19;_ThreadName=Thread-2;|Binding RMI port to *:8686|#]
+
+[#|2011-09-28T17:01:11.461+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.admin.org.glassfish.server|_ThreadID=19;_ThreadName=Thread-2;|JMXStartupService: Started JMXConnector, JMXService URL = service:jmx:rmi://172.16.0.46:8686/jndi/rmi://172.16.0.46:8686/jmxrmi|#]
+
+[#|2011-09-28T17:01:12.279+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=20;_ThreadName=Thread-2;|[Thread[GlassFish Kernel Main Thread,5,main]] started|#]
+
+[#|2011-09-28T17:01:12.356+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=21;_ThreadName=Thread-2;|{felix.fileinstall.poll (ms) = 5000, felix.fileinstall.dir = /local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart, felix.fileinstall.debug = 1, felix.fileinstall.bundles.new.start = true, felix.fileinstall.tmpdir = /var/folders/Bl/BlxKCRtIFWWrPxP-wyQoJU+++TI/-Tmp-/fileinstall--2875354571625457079, felix.fileinstall.filter = null}|#]
+
+[#|2011-09-28T17:01:12.376+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=22;_ThreadName=Thread-2;|{felix.fileinstall.poll (ms) = 5000, felix.fileinstall.dir = /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/bundles, felix.fileinstall.debug = 1, felix.fileinstall.bundles.new.start = true, felix.fileinstall.tmpdir = /var/folders/Bl/BlxKCRtIFWWrPxP-wyQoJU+++TI/-Tmp-/fileinstall-8384139827790011211, felix.fileinstall.filter = null}|#]
+
+[#|2011-09-28T17:01:12.405+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=21;_ThreadName=Thread-2;|Started bundle: file:/local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart/osgi-web-container.jar|#]
+
+[#|2011-09-28T17:01:12.419+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=21;_ThreadName=Thread-2;|Started bundle: file:/local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart/org.apache.felix.scr.jar|#]
+
+[#|2011-09-28T17:01:13.706+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|act : 4|#]
+
+[#|2011-09-28T17:01:13.707+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|key1 : test|#]
+
+[#|2011-09-28T17:01:13.707+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|value1 : salut|#]
+
+[#|2011-09-28T17:01:13.848+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|
+insert:	- keyspace = Mymed
+	- key = User_ID_1
+	- columnFamily = User
+	- name = test
+	- value = salut
+|#]
+
+[#|2011-09-28T17:01:17.436+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=21;_ThreadName=Thread-2;|Updating configuration from org.apache.felix.fileinstall-autodeploy-bundles.cfg|#]
+
+[#|2011-09-28T17:01:17.440+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=21;_ThreadName=Thread-2;|Installed /local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart/org.apache.felix.fileinstall-autodeploy-bundles.cfg|#]
+
+[#|2011-09-28T17:01:17.448+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-2;|{felix.fileinstall.poll (ms) = 5000, felix.fileinstall.dir = /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/bundles, felix.fileinstall.debug = 1, felix.fileinstall.bundles.new.start = true, felix.fileinstall.tmpdir = /var/folders/Bl/BlxKCRtIFWWrPxP-wyQoJU+++TI/-Tmp-/fileinstall--3989262985403486967, felix.fileinstall.filter = null}|#]
+
+[#|2011-09-28T17:01:21.666+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=25;_ThreadName=Thread-2;|act : 0|#]
+
+[#|2011-09-28T17:01:21.666+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=25;_ThreadName=Thread-2;|address : 127.0.0.1|#]
+
+[#|2011-09-28T17:01:21.666+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=25;_ThreadName=Thread-2;|port : 4201|#]
+
+[#|2011-09-28T17:01:38.904+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|act : 4|#]
+
+[#|2011-09-28T17:01:38.904+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|key1 : name|#]
+
+[#|2011-09-28T17:01:38.904+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|value1 : test|#]
+
+[#|2011-09-28T17:01:38.986+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|InvalidRequestException(why:Keyspace Mymed does not exist)
+	at org.apache.cassandra.thrift.Cassandra$set_keyspace_result.read(Cassandra.java:4816)
+	at org.apache.cassandra.thrift.Cassandra$Client.recv_set_keyspace(Cassandra.java:451)
+	at org.apache.cassandra.thrift.Cassandra$Client.set_keyspace(Cassandra.java:426)
+	at com.mymed.controller.core.requesthandler.debug.DebugConsole.doGet(DebugConsole.java:111)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:680)
+|#]
+
+[#|2011-09-28T17:06:05.259+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=25;_ThreadName=Thread-2;|act : 4|#]
+
+[#|2011-09-28T17:06:05.259+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=25;_ThreadName=Thread-2;|key1 : name|#]
+
+[#|2011-09-28T17:06:05.259+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=25;_ThreadName=Thread-2;|value1 : test|#]
+
+[#|2011-09-28T17:06:05.261+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=25;_ThreadName=Thread-2;|
+insert:	- keyspace = Mymed
+	- key = User_ID_1
+	- columnFamily = User
+	- name = name
+	- value = test
+|#]
+
+[#|2011-09-28T17:06:05.314+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=25;_ThreadName=Thread-2;|org.apache.thrift.TApplicationException: Internal error processing insert
+	at org.apache.thrift.TApplicationException.read(TApplicationException.java:108)
+	at org.apache.cassandra.thrift.Cassandra$Client.recv_insert(Cassandra.java:820)
+	at org.apache.cassandra.thrift.Cassandra$Client.insert(Cassandra.java:800)
+	at com.mymed.controller.core.requesthandler.debug.DebugConsole.doGet(DebugConsole.java:147)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:680)
+|#]
+
+[#|2011-09-28T17:06:35.641+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=25;_ThreadName=Thread-2;|act : 4|#]
+
+[#|2011-09-28T17:06:35.642+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=25;_ThreadName=Thread-2;|key1 : name|#]
+
+[#|2011-09-28T17:06:35.642+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=25;_ThreadName=Thread-2;|value1 : test|#]
+
+[#|2011-09-28T17:06:35.645+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=25;_ThreadName=Thread-2;|
+insert:	- keyspace = Mymed
+	- key = User_ID_1
+	- columnFamily = User
+	- name = name
+	- value = test
+|#]
+
+[#|2011-09-28T17:06:35.659+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=25;_ThreadName=Thread-2;|org.apache.thrift.TApplicationException: Internal error processing insert
+	at org.apache.thrift.TApplicationException.read(TApplicationException.java:108)
+	at org.apache.cassandra.thrift.Cassandra$Client.recv_insert(Cassandra.java:820)
+	at org.apache.cassandra.thrift.Cassandra$Client.insert(Cassandra.java:800)
+	at com.mymed.controller.core.requesthandler.debug.DebugConsole.doGet(DebugConsole.java:147)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:680)
+|#]
+
+[#|2011-09-28T17:14:28.336+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=25;_ThreadName=Thread-2;|act : 0|#]
+
+[#|2011-09-28T17:14:28.337+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=25;_ThreadName=Thread-2;|address : 127.0.0.1|#]
+
+[#|2011-09-28T17:14:28.337+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=25;_ThreadName=Thread-2;|port : 4201|#]
+
+[#|2011-09-28T17:14:38.717+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|act : 4|#]
+
+[#|2011-09-28T17:14:38.717+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|key1 : name|#]
+
+[#|2011-09-28T17:14:38.717+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|value1 : test|#]
+
+[#|2011-09-28T17:14:38.720+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|
+insert:	- keyspace = Mymed
+	- key = User_ID_1
+	- columnFamily = User
+	- name = name
+	- value = test
+|#]
+
+[#|2011-09-28T17:14:48.221+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=25;_ThreadName=Thread-2;|act : 5|#]
+
+[#|2011-09-28T17:14:48.221+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=25;_ThreadName=Thread-2;|key2 : name|#]
+
+[#|2011-09-28T17:23:25.878+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|login : fsad|#]
+
+[#|2011-09-28T17:23:25.880+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|password : 401b09eab3c013d4ca54922bb802bec8fd5318192b0a75f201d8b3727429080fb337591abd3e44453b954555b7a0812e1081c39b740293f765eae731f5a65ed1|#]
+
+[#|2011-09-28T17:23:25.880+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|code : 1|#]
+
+[#|2011-09-28T17:23:26.039+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:23:25.985 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Selecting slice from column family 'Authentication' with key 'fsad'
+|#]
+
+[#|2011-09-28T17:23:26.047+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:23:26.046 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Setting keyspace to 'Mymed'
+|#]
+
+[#|2011-09-28T17:23:26.146+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:23:26.145 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Slice selection completed
+|#]
+
+[#|2011-09-28T17:23:26.147+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|
+Response sent:
+{
+"error": {
+"type": "IOBackEndException",
+"status":  "404",
+"message": "the login does not exist!"
+}
+}|#]
+
+[#|2011-09-28T17:23:26.194+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|login : fsad|#]
+
+[#|2011-09-28T17:23:26.195+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|password : 401b09eab3c013d4ca54922bb802bec8fd5318192b0a75f201d8b3727429080fb337591abd3e44453b954555b7a0812e1081c39b740293f765eae731f5a65ed1|#]
+
+[#|2011-09-28T17:23:26.195+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|code : 1|#]
+
+[#|2011-09-28T17:23:26.195+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:23:26.195 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Selecting slice from column family 'Authentication' with key 'fsad'
+|#]
+
+[#|2011-09-28T17:23:26.195+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:23:26.195 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Setting keyspace to 'Mymed'
+|#]
+
+[#|2011-09-28T17:23:26.199+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:23:26.199 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Slice selection completed
+|#]
+
+[#|2011-09-28T17:23:26.199+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|
+Response sent:
+{
+"error": {
+"type": "IOBackEndException",
+"status":  "404",
+"message": "the login does not exist!"
+}
+}|#]
+
+[#|2011-09-28T17:24:58.591+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|login : fsad|#]
+
+[#|2011-09-28T17:24:58.591+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|password : 401b09eab3c013d4ca54922bb802bec8fd5318192b0a75f201d8b3727429080fb337591abd3e44453b954555b7a0812e1081c39b740293f765eae731f5a65ed1|#]
+
+[#|2011-09-28T17:24:58.591+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|code : 1|#]
+
+[#|2011-09-28T17:24:58.592+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:24:58.591 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Selecting slice from column family 'Authentication' with key 'fsad'
+|#]
+
+[#|2011-09-28T17:24:58.592+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:24:58.592 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Setting keyspace to 'Mymed'
+|#]
+
+[#|2011-09-28T17:24:58.597+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:24:58.597 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Slice selection completed
+|#]
+
+[#|2011-09-28T17:24:58.597+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|
+Response sent:
+{
+"error": {
+"type": "IOBackEndException",
+"status":  "404",
+"message": "the login does not exist!"
+}
+}|#]
+
+[#|2011-09-28T17:25:19.314+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|login : laurent.vanni@gmail.fr|#]
+
+[#|2011-09-28T17:25:19.314+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|password : 3ace0cc89d92395bb110f76213fd7ab7ee5145988adf2c98b76ca8e140ffa47d4b8d5cda1e0ab2c76a992a55baa54280113a46af279e97859a75a3ff988a6f55|#]
+
+[#|2011-09-28T17:25:19.314+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|code : 1|#]
+
+[#|2011-09-28T17:25:19.314+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:25:19.314 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Selecting slice from column family 'Authentication' with key 'laurent.vanni@gmail.fr'
+|#]
+
+[#|2011-09-28T17:25:19.315+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:25:19.314 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Setting keyspace to 'Mymed'
+|#]
+
+[#|2011-09-28T17:25:19.318+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:25:19.318 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Slice selection completed
+|#]
+
+[#|2011-09-28T17:25:19.318+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|
+Response sent:
+{
+"error": {
+"type": "IOBackEndException",
+"status":  "404",
+"message": "the login does not exist!"
+}
+}|#]
+
+[#|2011-09-28T17:25:19.371+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|login : laurent.vanni@gmail.fr|#]
+
+[#|2011-09-28T17:25:19.372+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|password : 3ace0cc89d92395bb110f76213fd7ab7ee5145988adf2c98b76ca8e140ffa47d4b8d5cda1e0ab2c76a992a55baa54280113a46af279e97859a75a3ff988a6f55|#]
+
+[#|2011-09-28T17:25:19.372+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|code : 1|#]
+
+[#|2011-09-28T17:25:19.372+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:25:19.372 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Selecting slice from column family 'Authentication' with key 'laurent.vanni@gmail.fr'
+|#]
+
+[#|2011-09-28T17:25:19.372+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:25:19.372 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Setting keyspace to 'Mymed'
+|#]
+
+[#|2011-09-28T17:25:19.382+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:25:19.382 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Slice selection completed
+|#]
+
+[#|2011-09-28T17:25:19.382+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|
+Response sent:
+{
+"error": {
+"type": "IOBackEndException",
+"status":  "404",
+"message": "the login does not exist!"
+}
+}|#]
+
+[#|2011-09-28T17:26:24.155+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|authentication : {"login":"laurent.vanni@gmail.com","user":"MYMED_laurent.vanni@gmail.com","password":"3ace0cc89d92395bb110f76213fd7ab7ee5145988adf2c98b76ca8e140ffa47d4b8d5cda1e0ab2c76a992a55baa54280113a46af279e97859a75a3ff988a6f55"}|#]
+
+[#|2011-09-28T17:26:24.155+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|user : {"PRIME":null,"id":"MYMED_laurent.vanni@gmail.com","login":"laurent.vanni@gmail.com","email":"laurent.vanni@gmail.com","name":"laurent vanni","firstName":"laurent","lastName":"vanni","link":null,"birthday":"19\/04\/1984","hometown":null,"gender":null,"lastConnection":null,"profilePicture":"https:\/\/lh4.googleusercontent.com\/-EoktMiFe3jE\/AAAAAAAAAAI\/AAAAAAAABTY\/C3nevDR3VIs\/photo.jpg?sz=200","buddyList":null,"subscribtionList":null,"reputation":null,"session":null,"interactionList":null,"socialNetworkID":null,"socialNetworkName":null}|#]
+
+[#|2011-09-28T17:26:24.155+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|code : 0|#]
+
+[#|2011-09-28T17:26:24.340+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|
+INFO: trying to create a new user:
+User:
+	PRIME : 31
+	id : MYMED_laurent.vanni@gmail.com
+	login : laurent.vanni@gmail.com
+	email : laurent.vanni@gmail.com
+	name : laurent vanni
+	firstName : laurent
+	lastName : vanni
+	link : null
+	birthday : 19/04/1984
+	hometown : null
+	gender : null
+	lastConnection : 0
+	profilePicture : https://lh4.googleusercontent.com/-EoktMiFe3jE/AAAAAAAAAAI/AAAAAAAABTY/C3nevDR3VIs/photo.jpg?sz=200
+	buddyList : null
+	subscribtionList : null
+	reputation : null
+	session : null
+	interactionList : null
+	socialNetworkID : MYMED
+	socialNetworkName : myMed
+|#]
+
+[#|2011-09-28T17:26:24.401+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:24.400 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Performing a batch_mutate on table 'User' with key 'MYMED_laurent.vanni@gmail.com  '
+|#]
+
+[#|2011-09-28T17:26:24.401+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:24.401 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Setting keyspace to 'Mymed'
+|#]
+
+[#|2011-09-28T17:26:24.512+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:24.512 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - batch_mutate performed correctly
+|#]
+
+[#|2011-09-28T17:26:24.512+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:24.512 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Selecting slice from column family 'Authentication' with key 'laurent.vanni@gmail.com'
+|#]
+
+[#|2011-09-28T17:26:24.512+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:24.512 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Setting keyspace to 'Mymed'
+|#]
+
+[#|2011-09-28T17:26:24.516+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:24.516 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Slice selection completed
+|#]
+
+[#|2011-09-28T17:26:24.517+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:24.517 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Performing a batch_mutate on table 'Authentication' with key 'login'
+|#]
+
+[#|2011-09-28T17:26:24.517+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:24.517 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Setting keyspace to 'Mymed'
+|#]
+
+[#|2011-09-28T17:26:24.519+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:24.519 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - batch_mutate performed correctly
+|#]
+
+[#|2011-09-28T17:26:24.519+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:24.519 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Performing a batch_mutate on table 'Authentication' with key 'laurent.vanni@gmail.com  '
+|#]
+
+[#|2011-09-28T17:26:24.520+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:24.520 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Setting keyspace to 'Mymed'
+|#]
+
+[#|2011-09-28T17:26:24.522+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:24.522 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - batch_mutate performed correctly
+|#]
+
+[#|2011-09-28T17:26:24.522+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|
+INFO: User created!|#]
+
+[#|2011-09-28T17:26:24.601+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|
+Response sent:
+{"id":"MYMED_laurent.vanni@gmail.com","login":"laurent.vanni@gmail.com","email":"laurent.vanni@gmail.com","name":"laurent vanni","firstName":"laurent","lastName":"vanni","birthday":"19/04/1984","lastConnection":0,"profilePicture":"https://lh4.googleusercontent.com/-EoktMiFe3jE/AAAAAAAAAAI/AAAAAAAABTY/C3nevDR3VIs/photo.jpg?sz\u003d200","socialNetworkID":"MYMED","socialNetworkName":"myMed"}|#]
+
+[#|2011-09-28T17:26:34.232+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|login : laurent.vanni@gmail.com|#]
+
+[#|2011-09-28T17:26:34.233+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|password : 3ace0cc89d92395bb110f76213fd7ab7ee5145988adf2c98b76ca8e140ffa47d4b8d5cda1e0ab2c76a992a55baa54280113a46af279e97859a75a3ff988a6f55|#]
+
+[#|2011-09-28T17:26:34.233+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|code : 1|#]
+
+[#|2011-09-28T17:26:34.233+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.233 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Selecting slice from column family 'Authentication' with key 'laurent.vanni@gmail.com'
+|#]
+
+[#|2011-09-28T17:26:34.233+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.233 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Setting keyspace to 'Mymed'
+|#]
+
+[#|2011-09-28T17:26:34.240+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.240 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Slice selection completed
+|#]
+
+[#|2011-09-28T17:26:34.241+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.241 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Selecting slice from column family 'User' with key 'MYMED_laurent.vanni@gmail.com'
+|#]
+
+[#|2011-09-28T17:26:34.241+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.241 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Setting keyspace to 'Mymed'
+|#]
+
+[#|2011-09-28T17:26:34.286+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.286 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Slice selection completed
+|#]
+
+[#|2011-09-28T17:26:34.290+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|
+Response sent:
+{"id":"MYMED_laurent.vanni@gmail.com","login":"laurent.vanni@gmail.com","email":"laurent.vanni@gmail.com","name":"laurent vanni","firstName":"laurent","lastName":"vanni","link":"","birthday":"19/04/1984","hometown":"","gender":"","lastConnection":0,"profilePicture":"https://lh4.googleusercontent.com/-EoktMiFe3jE/AAAAAAAAAAI/AAAAAAAABTY/C3nevDR3VIs/photo.jpg?sz\u003d200","buddyList":"","subscribtionList":"","reputation":"","session":"","interactionList":"","socialNetworkID":"MYMED","socialNetworkName":"myMed"}|#]
+
+[#|2011-09-28T17:26:34.397+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|userID : MYMED_laurent.vanni@gmail.com|#]
+
+[#|2011-09-28T17:26:34.397+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|code : 0|#]
+
+[#|2011-09-28T17:26:34.397+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.397 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Creating new session with ID MYMED_laurent.vanni@gmail.com_SESSION for user MYMED_laurent.vanni@gmail.com
+|#]
+
+[#|2011-09-28T17:26:34.399+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.399 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Performing a batch_mutate on table 'Session' with key 'MYMED_laurent.vanni@gmail.com_SESSION'
+|#]
+
+[#|2011-09-28T17:26:34.399+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.399 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Setting keyspace to 'Mymed'
+|#]
+
+[#|2011-09-28T17:26:34.405+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.405 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - batch_mutate performed correctly
+|#]
+
+[#|2011-09-28T17:26:34.406+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.406 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Selecting slice from column family 'User' with key 'MYMED_laurent.vanni@gmail.com'
+|#]
+
+[#|2011-09-28T17:26:34.406+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.406 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Setting keyspace to 'Mymed'
+|#]
+
+[#|2011-09-28T17:26:34.409+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.409 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Slice selection completed
+|#]
+
+[#|2011-09-28T17:26:34.411+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.411 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Updating user with ID 'MYMED_laurent.vanni@gmail.com'
+|#]
+
+[#|2011-09-28T17:26:34.411+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.411 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Selecting slice from column family 'User' with key 'MYMED_laurent.vanni@gmail.com'
+|#]
+
+[#|2011-09-28T17:26:34.411+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.411 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Setting keyspace to 'Mymed'
+|#]
+
+[#|2011-09-28T17:26:34.414+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.414 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Slice selection completed
+|#]
+
+[#|2011-09-28T17:26:34.417+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.417 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Performing a batch_mutate on table 'User' with key 'MYMED_laurent.vanni@gmail.com  '
+|#]
+
+[#|2011-09-28T17:26:34.418+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.418 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Setting keyspace to 'Mymed'
+|#]
+
+[#|2011-09-28T17:26:34.421+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.421 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - batch_mutate performed correctly
+|#]
+
+[#|2011-09-28T17:26:34.422+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|
+INFO: Session MYMED_laurent.vanni@gmail.com created! -> LOGIN|#]
+
+[#|2011-09-28T17:26:34.522+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|login : laurent.vanni@gmail.com|#]
+
+[#|2011-09-28T17:26:34.522+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|password : 3ace0cc89d92395bb110f76213fd7ab7ee5145988adf2c98b76ca8e140ffa47d4b8d5cda1e0ab2c76a992a55baa54280113a46af279e97859a75a3ff988a6f55|#]
+
+[#|2011-09-28T17:26:34.522+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|code : 1|#]
+
+[#|2011-09-28T17:26:34.522+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.522 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Selecting slice from column family 'Authentication' with key 'laurent.vanni@gmail.com'
+|#]
+
+[#|2011-09-28T17:26:34.523+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.523 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Setting keyspace to 'Mymed'
+|#]
+
+[#|2011-09-28T17:26:34.531+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.531 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Slice selection completed
+|#]
+
+[#|2011-09-28T17:26:34.532+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.532 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Selecting slice from column family 'User' with key 'MYMED_laurent.vanni@gmail.com'
+|#]
+
+[#|2011-09-28T17:26:34.532+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.532 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Setting keyspace to 'Mymed'
+|#]
+
+[#|2011-09-28T17:26:34.535+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.535 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Slice selection completed
+|#]
+
+[#|2011-09-28T17:26:34.538+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|
+Response sent:
+{"id":"MYMED_laurent.vanni@gmail.com","login":"laurent.vanni@gmail.com","email":"laurent.vanni@gmail.com","name":"laurent vanni","firstName":"laurent","lastName":"vanni","link":"","birthday":"19/04/1984","hometown":"","gender":"","lastConnection":0,"profilePicture":"https://lh4.googleusercontent.com/-EoktMiFe3jE/AAAAAAAAAAI/AAAAAAAABTY/C3nevDR3VIs/photo.jpg?sz\u003d200","buddyList":"","subscribtionList":"","reputation":"","session":"","interactionList":"","socialNetworkID":"MYMED","socialNetworkName":"myMed"}|#]
+
+[#|2011-09-28T17:26:34.555+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|userID : MYMED_laurent.vanni@gmail.com|#]
+
+[#|2011-09-28T17:26:34.555+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|code : 0|#]
+
+[#|2011-09-28T17:26:34.555+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.555 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Creating new session with ID MYMED_laurent.vanni@gmail.com_SESSION for user MYMED_laurent.vanni@gmail.com
+|#]
+
+[#|2011-09-28T17:26:34.557+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.556 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Performing a batch_mutate on table 'Session' with key 'MYMED_laurent.vanni@gmail.com_SESSION'
+|#]
+
+[#|2011-09-28T17:26:34.557+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.557 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Setting keyspace to 'Mymed'
+|#]
+
+[#|2011-09-28T17:26:34.563+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.563 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - batch_mutate performed correctly
+|#]
+
+[#|2011-09-28T17:26:34.563+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.563 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Selecting slice from column family 'User' with key 'MYMED_laurent.vanni@gmail.com'
+|#]
+
+[#|2011-09-28T17:26:34.563+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.563 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Setting keyspace to 'Mymed'
+|#]
+
+[#|2011-09-28T17:26:34.577+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.576 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Slice selection completed
+|#]
+
+[#|2011-09-28T17:26:34.578+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.578 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Updating user with ID 'MYMED_laurent.vanni@gmail.com'
+|#]
+
+[#|2011-09-28T17:26:34.579+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.579 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Selecting slice from column family 'User' with key 'MYMED_laurent.vanni@gmail.com'
+|#]
+
+[#|2011-09-28T17:26:34.579+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.579 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Setting keyspace to 'Mymed'
+|#]
+
+[#|2011-09-28T17:26:34.590+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.590 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Slice selection completed
+|#]
+
+[#|2011-09-28T17:26:34.593+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.593 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Performing a batch_mutate on table 'User' with key 'MYMED_laurent.vanni@gmail.com  '
+|#]
+
+[#|2011-09-28T17:26:34.593+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.593 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - Setting keyspace to 'Mymed'
+|#]
+
+[#|2011-09-28T17:26:34.597+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|17:26:34.597 [http-thread-pool-8080-(1)] INFO  mymed.info.logger - batch_mutate performed correctly
+|#]
+
+[#|2011-09-28T17:26:34.598+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-2;|
+INFO: Session MYMED_laurent.vanni@gmail.com created! -> LOGIN|#]
+

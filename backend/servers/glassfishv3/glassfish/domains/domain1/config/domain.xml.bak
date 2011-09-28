@@ -1,6 +1,6 @@
 <domain log-root="${com.sun.aas.instanceRoot}/logs" application-root="${com.sun.aas.instanceRoot}/applications" version="22">
   <system-applications>
-    <application context-root="" location="${com.sun.aas.installRootURI}/lib/install/applications/__admingui" name="__admingui" directory-deployed="true" object-type="system-admin">
+    <application context-root="" location="${com.sun.aas.installRootURI}/lib/install/applications/__admingui" directory-deployed="true" name="__admingui" object-type="system-admin">
       <module name="__admingui">
         <engine sniffer="web" />
         <engine sniffer="security" />
@@ -37,7 +37,7 @@
       <property name="databaseName" value="${com.sun.aas.instanceRoot}/lib/databases/ejbtimer" />
       <property name="connectionAttributes" value=";create=true" />
     </jdbc-connection-pool>
-    <jdbc-connection-pool is-isolation-level-guaranteed="false" datasource-classname="org.apache.derby.jdbc.ClientDataSource" res-type="javax.sql.DataSource" name="DerbyPool">
+    <jdbc-connection-pool datasource-classname="org.apache.derby.jdbc.ClientDataSource" is-isolation-level-guaranteed="false" res-type="javax.sql.DataSource" name="DerbyPool">
       <property name="PortNumber" value="1527" />
       <property name="Password" value="APP" />
       <property name="User" value="APP" />
@@ -65,16 +65,16 @@
       </http-service>
       <iiop-service>
         <orb use-thread-pool-ids="thread-pool-1" />
-        <iiop-listener port="3700" id="orb-listener-1" address="0.0.0.0" lazy-init="true" />
-        <iiop-listener port="3820" id="SSL" address="0.0.0.0" security-enabled="true">
+        <iiop-listener id="orb-listener-1" port="3700" address="0.0.0.0" lazy-init="true" />
+        <iiop-listener id="SSL" port="3820" address="0.0.0.0" security-enabled="true">
           <ssl cert-nickname="s1as" />
         </iiop-listener>
-        <iiop-listener port="3920" id="SSL_MUTUALAUTH" address="0.0.0.0" security-enabled="true">
+        <iiop-listener id="SSL_MUTUALAUTH" port="3920" address="0.0.0.0" security-enabled="true">
           <ssl cert-nickname="s1as" client-auth-enabled="true" />
         </iiop-listener>
       </iiop-service>
       <admin-service system-jmx-connector-name="system" type="das-and-server">
-        <jmx-connector port="8686" address="0.0.0.0" security-enabled="false" auth-realm-name="admin-realm" name="system" />
+        <jmx-connector port="8686" address="0.0.0.0" security-enabled="false" name="system" auth-realm-name="admin-realm" />
         <das-config dynamic-reload-enabled="true" autodeploy-dir="${com.sun.aas.instanceRoot}/autodeploy" autodeploy-enabled="true" />
         <property name="adminConsoleContextRoot" value="/admin" />
         <property name="adminConsoleDownloadLocation" value="${com.sun.aas.installRoot}/lib/install/applications/admingui.war" />
@@ -99,20 +99,20 @@
         <jms-host host="localhost" name="default_JMS_host" lazy-init="true" />
       </jms-service>
       <security-service>
-        <auth-realm classname="com.sun.enterprise.security.auth.realm.file.FileRealm" name="admin-realm">
+        <auth-realm name="admin-realm" classname="com.sun.enterprise.security.auth.realm.file.FileRealm">
           <property name="file" value="${com.sun.aas.instanceRoot}/config/admin-keyfile" />
           <property name="jaas-context" value="fileRealm" />
         </auth-realm>
-        <auth-realm classname="com.sun.enterprise.security.auth.realm.file.FileRealm" name="file">
+        <auth-realm name="file" classname="com.sun.enterprise.security.auth.realm.file.FileRealm">
           <property name="file" value="${com.sun.aas.instanceRoot}/config/keyfile" />
           <property name="jaas-context" value="fileRealm" />
         </auth-realm>
-        <auth-realm classname="com.sun.enterprise.security.auth.realm.certificate.CertificateRealm" name="certificate" />
+        <auth-realm name="certificate" classname="com.sun.enterprise.security.auth.realm.certificate.CertificateRealm" />
         <jacc-provider policy-provider="com.sun.enterprise.security.provider.PolicyWrapper" name="default" policy-configuration-factory-provider="com.sun.enterprise.security.provider.PolicyConfigurationFactoryImpl">
           <property name="repository" value="${com.sun.aas.instanceRoot}/generated/policy" />
         </jacc-provider>
         <jacc-provider policy-provider="com.sun.enterprise.security.jacc.provider.SimplePolicyProvider" name="simple" policy-configuration-factory-provider="com.sun.enterprise.security.jacc.provider.SimplePolicyConfigurationFactory" />
-        <audit-module classname="com.sun.enterprise.security.Audit" name="default">
+        <audit-module name="default" classname="com.sun.enterprise.security.Audit">
           <property name="auditOn" value="false" />
         </audit-module>
         <message-security-config auth-layer="SOAP">
@@ -184,18 +184,18 @@
       <network-config>
         <protocols>
           <protocol name="http-listener-1">
-            <http default-virtual-server="server" max-connections="250" server-name="">
+            <http max-connections="250" default-virtual-server="server" server-name="">
               <file-cache enabled="false" />
             </http>
           </protocol>
           <protocol security-enabled="true" name="http-listener-2">
-            <http default-virtual-server="server" max-connections="250" server-name="">
+            <http max-connections="250" default-virtual-server="server" server-name="">
               <file-cache enabled="false" />
             </http>
             <ssl ssl3-enabled="false" cert-nickname="s1as" />
           </protocol>
           <protocol name="admin-listener">
-            <http default-virtual-server="__asadmin" max-connections="250" server-name="">
+            <http max-connections="250" default-virtual-server="__asadmin" server-name="">
               <file-cache enabled="false" />
             </http>
           </protocol>
@@ -211,7 +211,7 @@
       </network-config>
       <thread-pools>
         <thread-pool name="http-thread-pool" />
-        <thread-pool name="thread-pool-1" max-thread-pool-size="200" />
+        <thread-pool max-thread-pool-size="200" name="thread-pool-1" />
       </thread-pools>
     </config>
   </configs>

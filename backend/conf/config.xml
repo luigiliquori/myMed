@@ -5,10 +5,10 @@
 	<backend>
 		<!-- Cloud Info -->
 		<cassandra>
-			<ListenAddress>138.96.242.2</ListenAddress>
+			<ListenAddress>127.0.0.1</ListenAddress>
 			<!-- See the Cassandra configuration file at ../protocols/cassandra/cassandra/conf/cassandra.yaml -->
 			<StoragePort>4200</StoragePort>
-			<ThriftAddress>138.96.242.2</ThriftAddress>
+			<ThriftAddress>127.0.0.1</ThriftAddress>
 			<ThriftPort>4201</ThriftPort>
 		</cassandra>
 		<!-- P2P Info -->

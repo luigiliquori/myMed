@@ -7,9 +7,9 @@
 	/** define minimum width of desktop design */
 	define('MOBILESWITCH_WIDTH', 737);
 	/** define the path in URL to access to the website, must begin with '/' and ended with '/' */
-	define('ROOTPATH', '/mymed/version3/');
+	define('ROOTPATH', '/mymed/mobile/');
 	/** define the backend's URL'*/
-	define('BACKEND_URL', 'http://mymed2.sophia.inria.fr:8080/mymed_backend/');
+	define('BACKEND_URL', 'http://127.0.0.1:8080/mymed_backend/');
 	
 	//Social Networks Keys
 	define('ConnexionTwitter_KEY', 'HgsnlIpCJ7RqHhCFELkTvw');
