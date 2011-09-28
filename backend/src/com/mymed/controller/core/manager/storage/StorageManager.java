@@ -43,7 +43,7 @@ public class StorageManager extends ManagerValues implements IStorageManager {
 	/*
 	 * The Default path of the wrapper config file
 	 */
-	public static final String CONFIG_PATH = "/local/mymed/backend/conf/config.xml";
+	private static final String CONFIG_PATH = "/local/mymed/backend/conf/config.xml";
 
 	// The wrapper
 	private final CassandraWrapper wrapper;
@@ -101,6 +101,8 @@ public class StorageManager extends ManagerValues implements IStorageManager {
 
 			resultValue = wrapper.get(key, colPathName, IStorageManager.consistencyOnRead).getColumn().getValue();
 		} catch (final UnsupportedEncodingException e) {
+			MLogger.getDebugLog().debug("Select column '{}' failed", columnName, e.getCause());
+
 			throw new InternalBackEndException("UnsupportedEncodingException with\n" + "\t- columnFamily = "
 			        + tableName + "\n" + "\t- key = " + key + "\n" + "\t- columnName = " + columnName + "\n");
 		}
@@ -169,9 +171,11 @@ public class StorageManager extends ManagerValues implements IStorageManager {
 		for (final ColumnOrSuperColumn res : results) {
 			if (res.isSetSuper_column()) {
 				final Map<byte[], byte[]> slice = new HashMap<byte[], byte[]>();
+
 				for (final Column column : res.getSuper_column().getColumns()) {
 					slice.put(column.getName(), column.getValue());
 				}
+
 				sliceList.add(slice);
 			}
 		}
@@ -359,13 +363,12 @@ public class StorageManager extends ManagerValues implements IStorageManager {
 	@Override
 	public void insertSlice(final String tableName, final String primaryKey, final Map<String, byte[]> args)
 	        throws InternalBackEndException {
-
-		final Map<String, Map<String, List<Mutation>>> mutationMap = new HashMap<String, Map<String, List<Mutation>>>();
-		final long timestamp = System.currentTimeMillis();
-
 		try {
+			final Map<String, Map<String, List<Mutation>>> mutationMap = new HashMap<String, Map<String, List<Mutation>>>();
+			final long timestamp = System.currentTimeMillis();
 			final Map<String, List<Mutation>> tableMap = new HashMap<String, List<Mutation>>();
 			final List<Mutation> sliceMutationList = new ArrayList<Mutation>(5);
+
 			tableMap.put(tableName, sliceMutationList);
 
 			final Iterator<Entry<String, byte[]>> iterator = args.entrySet().iterator();
@@ -410,22 +413,23 @@ public class StorageManager extends ManagerValues implements IStorageManager {
 	@Override
 	public void insertSuperSlice(final String superTableName, final String key, final String superKey,
 	        final Map<String, byte[]> args) throws IOBackEndException, InternalBackEndException {
-
-		final Map<String, Map<String, List<Mutation>>> mutationMap = new HashMap<String, Map<String, List<Mutation>>>();
-		final long timestamp = System.currentTimeMillis();
-
 		try {
+			final Map<String, Map<String, List<Mutation>>> mutationMap = new HashMap<String, Map<String, List<Mutation>>>();
+			final long timestamp = System.currentTimeMillis();
 			final Map<String, List<Mutation>> tableMap = new HashMap<String, List<Mutation>>();
 			final List<Mutation> sliceMutationList = new ArrayList<Mutation>(5);
+
 			tableMap.put(superTableName, sliceMutationList);
 
-			final Iterator<String> iterator = args.keySet().iterator();
+			final Iterator<Entry<String, byte[]>> iterator = args.entrySet().iterator();
 			final List<Column> columns = new ArrayList<Column>();
+
 			while (iterator.hasNext()) {
-				final String columnName = iterator.next();
-				columns.add(new Column(MConverter.stringToByteBuffer(columnName),
-				        ByteBuffer.wrap(args.get(columnName)), timestamp));
+				final Entry<String, byte[]> entry = iterator.next();
+				columns.add(new Column(MConverter.stringToByteBuffer(entry.getKey()),
+				        ByteBuffer.wrap(entry.getValue()), timestamp));
 			}
+
 			final Mutation mutation = new Mutation();
 			final SuperColumn superColumn = new SuperColumn(MConverter.stringToByteBuffer(superKey), columns);
 			mutation.setColumn_or_supercolumn(new ColumnOrSuperColumn().setSuper_column(superColumn));

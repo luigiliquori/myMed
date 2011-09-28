@@ -1,7 +1,6 @@
 package com.mymed.controller.core.requesthandler;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
@@ -10,13 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.pubsub.PubSubManager;
-import com.mymed.model.data.application.MDataBean;
-import com.mymed.model.data.user.MUserBean;
 
 /**
  * Servlet implementation class PubSubRequestHandler
@@ -41,9 +36,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
 		try {
 			pubsubManager = new PubSubManager();
 		} catch (final InternalBackEndException e) {
-			throw new ServletException(
-					"PubSubManager is not accessible because: "
-							+ e.getMessage());
+			throw new ServletException("PubSubManager is not accessible because: " + e.getMessage());
 		}
 	}
 
@@ -55,9 +48,8 @@ public class FindRequestHandler extends AbstractRequestHandler {
 	 *      response)
 	 */
 	@Override
-	protected void doGet(final HttpServletRequest request,
-			final HttpServletResponse response) throws ServletException,
-			IOException {
+	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
+	        IOException {
 		try {
 			/** Get the parameters */
 			final Map<String, String> parameters = getParameters(request);
@@ -67,44 +59,84 @@ public class FindRequestHandler extends AbstractRequestHandler {
 
 			/** handle the request */
 			String application, predicate, user;
-			switch (code) {
-			case READ: // GET
+
+			if (code == RequestCode.READ) {
 				if ((application = parameters.get("application")) == null) {
-					handleError(new InternalBackEndException(
-							"missing application argument!"), response);
+					handleError(new InternalBackEndException("missing application argument!"), response);
 					return;
 				} else if ((predicate = parameters.get("predicate")) == null) {
-					handleError(new InternalBackEndException(
-							"missing predicate argument!"), response);
+					handleError(new InternalBackEndException("missing predicate argument!"), response);
 					return;
 				}
+
 				try {
 					// GET DETAILS
 					if ((user = parameters.get("user")) != null) {
-						List<Map<String, String>> details = pubsubManager.read(
-								application, predicate, user);
+						final List<Map<String, String>> details = pubsubManager.read(application, predicate, user);
 						if (details.isEmpty()) {
 							throw new IOBackEndException("no reslult found!");
 						}
+
 						setResponseText(getGson().toJson(details));
 					} else { // GET RESULTS
-						List<Map<String, String>> resList = pubsubManager.read(
-								application, predicate);
+						final List<Map<String, String>> resList = pubsubManager.read(application, predicate);
 						if (resList.isEmpty()) {
 							throw new IOBackEndException("no reslult found!");
 						}
+
 						setResponseText(getGson().toJson(resList));
 					}
-				} catch (IOBackEndException e) {
+				} catch (final IOBackEndException e) {
 					handleError(e, response);
 				}
-				break;
-			default:
-				handleError(new InternalBackEndException(
-						"DHTRequestHandler.doGet(" + code + ") not exist!"),
-						response);
+			} else {
+				handleError(new InternalBackEndException("DHTRequestHandler.doGet(" + code + ") not exist!"), response);
 				return;
 			}
+
+			// TODO test if it works
+			// switch (code) {
+			// case READ : // GET
+			// if ((application = parameters.get("application")) == null) {
+			// handleError(new
+			// InternalBackEndException("missing application argument!"),
+			// response);
+			// return;
+			// } else if ((predicate = parameters.get("predicate")) == null) {
+			// handleError(new
+			// InternalBackEndException("missing predicate argument!"),
+			// response);
+			// return;
+			// }
+			// try {
+			// // GET DETAILS
+			// if ((user = parameters.get("user")) != null) {
+			// final List<Map<String, String>> details =
+			// pubsubManager.read(application, predicate, user);
+			// if (details.isEmpty()) {
+			// throw new IOBackEndException("no reslult found!");
+			// }
+			// setResponseText(getGson().toJson(details));
+			// } else { // GET RESULTS
+			// final List<Map<String, String>> resList =
+			// pubsubManager.read(application, predicate);
+			// if (resList.isEmpty()) {
+			// throw new IOBackEndException("no reslult found!");
+			// }
+			// setResponseText(getGson().toJson(resList));
+			// }
+			// } catch (final IOBackEndException e) {
+			// handleError(e, response);
+			// }
+			// break;
+			// default :
+			// handleError(new
+			// InternalBackEndException("DHTRequestHandler.doGet(" + code +
+			// ") not exist!"),
+			// response);
+			// return;
+			// }
+
 			super.doGet(request, response);
 		} catch (final InternalBackEndException e) {
 			e.printStackTrace();
@@ -118,9 +150,8 @@ public class FindRequestHandler extends AbstractRequestHandler {
 	 *      response)
 	 */
 	@Override
-	protected void doPost(final HttpServletRequest request,
-			final HttpServletResponse response) throws ServletException,
-			IOException {
+	protected void doPost(final HttpServletRequest request, final HttpServletResponse response)
+	        throws ServletException, IOException {
 		try {
 			/** Get the parameters */
 			final Map<String, String> parameters = getParameters(request);
@@ -129,15 +160,24 @@ public class FindRequestHandler extends AbstractRequestHandler {
 			final RequestCode code = requestCodeMap.get(parameters.get("code"));
 
 			/** handle the request */
-			switch (code) {
-			case CREATE: 
-				break;
-			default:
-				handleError(new InternalBackEndException(
-						"PubSubRequestHandler.doGet(" + code + ") not exist!"),
-						response);
+			if (code != RequestCode.CREATE) {
+				handleError(new InternalBackEndException("PubSubRequestHandler.doGet(" + code + ") not exist!"),
+				        response);
 				return;
 			}
+
+			// TODO test if it works
+			// switch (code) {
+			// case CREATE :
+			// break;
+			// default :
+			// handleError(new
+			// InternalBackEndException("PubSubRequestHandler.doGet(" + code +
+			// ") not exist!"),
+			// response);
+			// return;
+			// }
+
 			super.doGet(request, response);
 		} catch (final InternalBackEndException e) {
 			e.printStackTrace();

@@ -15,8 +15,8 @@ public interface IAuthenticationManager {
 	 * @return
 	 * @throws InternalBackEndException
 	 */
-	public MUserBean create(MUserBean user, MAuthenticationBean authentication)
-			throws InternalBackEndException, IOBackEndException;
+	MUserBean create(MUserBean user, MAuthenticationBean authentication) throws InternalBackEndException,
+	        IOBackEndException;
 
 	/**
 	 * authentication
@@ -26,8 +26,7 @@ public interface IAuthenticationManager {
 	 * @return
 	 * @throws InternalBackEndException
 	 */
-	public MUserBean read(String login, String password)
-			throws InternalBackEndException, IOBackEndException;
+	MUserBean read(String login, String password) throws InternalBackEndException, IOBackEndException;
 
 	/**
 	 * update myMed user profile : Authentication Table (password)
@@ -35,6 +34,5 @@ public interface IAuthenticationManager {
 	 * @param authentication
 	 * @throws InternalBackEndException
 	 */
-	public void update(String id, MAuthenticationBean authentication)
-			throws InternalBackEndException, IOBackEndException;
+	void update(String id, MAuthenticationBean authentication) throws InternalBackEndException, IOBackEndException;
 }

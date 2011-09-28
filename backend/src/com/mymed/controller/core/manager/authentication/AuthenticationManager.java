@@ -10,6 +10,7 @@ import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.data.session.MAuthenticationBean;
 import com.mymed.model.data.user.MUserBean;
+import com.mymed.utils.MLogger;
 
 /**
  * The manager for the authentication bean
@@ -53,6 +54,10 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
 					storageManager.insertSlice(CF_AUTHENTICATION, new String(authMap.get(LOGIN_COLUMN), ENCODING),
 					        authMap);
 				} catch (final UnsupportedEncodingException ex) {
+					MLogger.getLog().info("Error in string conversion using {} encoding", ENCODING);
+					MLogger.getDebugLog()
+					        .debug("Error in string conversion using {} encoding", ENCODING, ex.getCause());
+
 					throw new InternalBackEndException(ex.getMessage());
 				}
 
@@ -98,6 +103,9 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
 			final Map<String, byte[]> authMap = authentication.getAttributeToMap();
 			storageManager.insertSlice(CF_AUTHENTICATION, new String(authMap.get(LOGIN_COLUMN), ENCODING), authMap);
 		} catch (final UnsupportedEncodingException ex) {
+			MLogger.getLog().info("Error in string conversion using {} encoding", ENCODING);
+			MLogger.getDebugLog().debug("Error in string conversion using {} encoding", ENCODING, ex.getCause());
+
 			throw new InternalBackEndException(ex.getMessage());
 		}
 	}
