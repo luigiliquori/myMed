@@ -1,4 +1,4 @@
-package com.mymed.controller.core.manager.reputation;
+package com.mymed.controller.core.manager.application;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
@@ -6,6 +6,7 @@ import java.util.Map;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.AbstractManager;
+import com.mymed.controller.core.manager.reputation.old.ReputationManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.data.reputation.MInteractionBean;
 import com.mymed.model.data.reputation.MReputationBean;

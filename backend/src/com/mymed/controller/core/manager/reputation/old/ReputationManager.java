@@ -1,4 +1,4 @@
-package com.mymed.controller.core.manager.reputation;
+package com.mymed.controller.core.manager.reputation.old;
 
 import java.util.Map;
 
