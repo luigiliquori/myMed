@@ -17,4 +17,5 @@ public class Constants {
     public static final String CASSANDRA_STRATEGY = "org.apache.cassandra.locator.SimpleStrategy";
     public static final String PRIMARY_KEY_PACKAGE = "com.mymed.controller.core.manager.reputation.primary_key";
     public static final String DB_TABLE_PACKAGE = "com.mymed.controller.core.manager.reputation.db.table";
+    public static final String OUTPUT_SCRIPT = "/local/mymed/backend/conf/script-reputation.xml";   
 }
