@@ -7,7 +7,7 @@
  *
 */
 
-/* Create the 'mymed' keyspace
+/* Create the 'Mymed' keyspace
  *
  * The 'RackUnawareStrategy' has been renamed into 'SimpleStrategy' from v0.7.
  * Also, the 'RackAwareStrategy' should have been renamed into 'NetworkTopologyStrategy'.

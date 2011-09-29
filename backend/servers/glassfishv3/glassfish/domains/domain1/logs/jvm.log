@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<hotspot_log version='160 1' process='1409' time_ms='1317222052261'>
+<hotspot_log version='160 1' process='492' time_ms='1317282846458'>
 <vm_version>
 <name>
 Java HotSpot(TM) 64-Bit Server VM
@@ -13,7 +13,7 @@ Java HotSpot(TM) 64-Bit Server VM (20.1-b02-384) for macosx-amd64 JRE (1.6.0), b
 </vm_version>
 <vm_arguments>
 <args>
--XX:+UnlockDiagnosticVMOptions -XX:MaxPermSize=192m -XX:NewRatio=2 -XX:+LogVMOutput -XX:LogFile=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/logs/jvm.log -Xmx512m -javaagent:/local/mymed/backend/servers/glassfishv3/glassfish/lib/monitor/btrace-agent.jar=unsafe=true,noServer=true -Dosgi.shell.telnet.maxconn=1 -Djdbc.drivers=org.apache.derby.jdbc.ClientDriver -Dfelix.fileinstall.dir=/local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart/ -Djavax.net.ssl.keyStore=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/keystore.jks -Dosgi.shell.telnet.port=6666 -Djava.security.policy=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/server.policy -Dfelix.fileinstall.poll=5000 -Dcom.sun.aas.instanceRoot=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1 -Dcom.sun.enterprise.config.config_environment_factory_class=com.sun.enterprise.config.serverbeans.AppserverConfigEnvironmentFactory -Dosgi.shell.telnet.ip=127.0.0.1 -Djava.endorsed.dirs=/local/mymed/backend/servers/glassfishv3/glassfish/modules/endorsed:/local/mymed/backend/servers/glassfishv3/glassfish/lib/endorsed -Dcom.sun.aas.installRoot=/local/mymed/backend/servers/glassfishv3/glassfish -Djava.ext.dirs=/usr/lib/jvm/java-6-openjdk/lib/ext:/usr/lib/jvm/java-6-openjdk/jre/lib/ext:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/lib/ext -Dfelix.fileinstall.bundles.new.start=true -Djavax.net.ssl.trustStore=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/cacerts.jks -Dcom.sun.enterprise.security.httpsOutboundKeyAlias=s1as -Djava.security.auth.login.config=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/login.conf -DANTLR_USE_DIRECT_CLASS_LOADING=true -Dfelix.fileinstall.debug=1 -Dorg.glassfish.web.rfc2109_cookie_names_enforced=false -Djava.library.path=/local/mymed/backend/servers/glassfishv3/glassfish/lib:/local/mymed/backend/servers/glassfishv3/glassfish/bin:/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java 
+-XX:+UnlockDiagnosticVMOptions -XX:MaxPermSize=192m -XX:NewRatio=2 -XX:+LogVMOutput -XX:LogFile=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/logs/jvm.log -Xmx512m -javaagent:/local/mymed/backend/servers/glassfishv3/glassfish/lib/monitor/btrace-agent.jar=unsafe=true,noServer=true -Dosgi.shell.telnet.maxconn=1 -Djdbc.drivers=org.apache.derby.jdbc.ClientDriver -Dfelix.fileinstall.dir=/local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart/ -Djavax.net.ssl.keyStore=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/keystore.jks -Dosgi.shell.telnet.port=6666 -Djava.security.policy=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/server.policy -Dfelix.fileinstall.poll=5000 -Dcom.sun.aas.instanceRoot=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1 -Dosgi.shell.telnet.ip=127.0.0.1 -Dcom.sun.enterprise.config.config_environment_factory_class=com.sun.enterprise.config.serverbeans.AppserverConfigEnvironmentFactory -Djava.endorsed.dirs=/local/mymed/backend/servers/glassfishv3/glassfish/modules/endorsed:/local/mymed/backend/servers/glassfishv3/glassfish/lib/endorsed -Dcom.sun.aas.installRoot=/local/mymed/backend/servers/glassfishv3/glassfish -Djava.ext.dirs=/usr/lib/jvm/java-6-openjdk/lib/ext:/usr/lib/jvm/java-6-openjdk/jre/lib/ext:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/lib/ext -Dfelix.fileinstall.bundles.new.start=true -Djavax.net.ssl.trustStore=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/cacerts.jks -Dcom.sun.enterprise.security.httpsOutboundKeyAlias=s1as -Djava.security.auth.login.config=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/login.conf -DANTLR_USE_DIRECT_CLASS_LOADING=true -Dlogback.configurationFile=/local/mymed/backend/conf/logback.xml -Dfelix.fileinstall.debug=1 -Dorg.glassfish.web.rfc2109_cookie_names_enforced=false -Djava.library.path=/local/mymed/backend/servers/glassfishv3/glassfish/lib:/local/mymed/backend/servers/glassfishv3/glassfish/bin:/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java 
 </args>
 <command>
 com.sun.enterprise.glassfish.bootstrap.ASMain -domainname domain1 -asadmin-args start-domain,,,-v -instancename server -verbose true -debug false -asadmin-classpath /local/mymed/backend/servers/glassfishv3/glassfish/modules/admin-cli.jar -asadmin-classname com.sun.enterprise.admin.cli.AsadminMain -upgrade false -domaindir /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1 -read-stdin true
@@ -44,14 +44,15 @@ osgi.shell.telnet.port=6666
 java.security.policy=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/server.policy
 felix.fileinstall.poll=5000
 com.sun.aas.instanceRoot=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1
-com.sun.enterprise.config.config_environment_factory_class=com.sun.enterprise.config.serverbeans.AppserverConfigEnvironmentFactory
 osgi.shell.telnet.ip=127.0.0.1
+com.sun.enterprise.config.config_environment_factory_class=com.sun.enterprise.config.serverbeans.AppserverConfigEnvironmentFactory
 com.sun.aas.installRoot=/local/mymed/backend/servers/glassfishv3/glassfish
 felix.fileinstall.bundles.new.start=true
 javax.net.ssl.trustStore=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/cacerts.jks
 com.sun.enterprise.security.httpsOutboundKeyAlias=s1as
 java.security.auth.login.config=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/login.conf
 ANTLR_USE_DIRECT_CLASS_LOADING=true
+logback.configurationFile=/local/mymed/backend/conf/logback.xml
 felix.fileinstall.debug=1
 org.glassfish.web.rfc2109_cookie_names_enforced=false
 sun.java.command=com.sun.enterprise.glassfish.bootstrap.ASMain -domainname domain1 -asadmin-args start-domain,,,-v -instancename server -verbose true -debug false -asadmin-classpath /local/mymed/backend/servers/glassfishv3/glassfish/modules/admin-cli.jar -asadmin-classname com.sun.enterprise.admin.cli.AsadminMain -upgrade false -domaindir /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1 -read-stdin true
@@ -59,85 +60,108 @@ sun.java.launcher=SUN_STANDARD
 </properties>
 </vm_arguments>
 <tty>
-<writer thread='4516036608'/>
-<dependency_failed type='leaf_type' ctxk='java/io/ByteArrayOutputStream' witness='com/sun/common/util/logging/LoggingOutputStream' stamp='4.398'/>
-<dependency_failed type='unique_concrete_method' x='java/io/ObjectOutputStream replaceObject (Ljava/lang/Object;)Ljava/lang/Object;' witness='com/sun/enterprise/container/common/spi/util/JavaEEObjectOutputStream' stamp='6.748'/>
-<dependency_failed type='unique_concrete_method' x='java/lang/ThreadLocal get ()Ljava/lang/Object;' witness='org/glassfish/web/admin/monitor/HttpServiceStatsProvider$1' stamp='6.761'/>
-<dependency_failed type='unique_concrete_method' x='java/util/ArrayList add (Ljava/lang/Object;)Z' witness='javax/management/AttributeList' stamp='7.652'/>
-<dependency_failed type='unique_concrete_method' x='java/util/ArrayList add (Ljava/lang/Object;)Z' witness='javax/management/AttributeList' stamp='7.652'/>
-<dependency_failed type='unique_concrete_method' x='java/util/ArrayList add (Ljava/lang/Object;)Z' witness='javax/management/AttributeList' stamp='7.652'/>
-<dependency_failed type='unique_concrete_method' x='java/util/ArrayList add (Ljava/lang/Object;)Z' witness='javax/management/AttributeList' stamp='7.652'/>
-<dependency_failed type='unique_concrete_method' x='java/util/ArrayList add (Ljava/lang/Object;)Z' witness='javax/management/AttributeList' stamp='7.652'/>
-<dependency_failed type='unique_concrete_method' x='java/util/ArrayList add (Ljava/lang/Object;)Z' witness='javax/management/AttributeList' stamp='7.652'/>
-<dependency_failed type='unique_concrete_method' x='java/util/ArrayList add (Ljava/lang/Object;)Z' witness='javax/management/AttributeList' stamp='7.652'/>
-<dependency_failed type='unique_concrete_method' x='java/util/ArrayList add (Ljava/lang/Object;)Z' witness='javax/management/AttributeList' stamp='7.652'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='14.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='14.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='14.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='14.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='14.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='14.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='14.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='14.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='14.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='14.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='14.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='14.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='14.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='14.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='14.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='14.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='14.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='14.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='14.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='14.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='14.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='14.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='14.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='14.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='14.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='14.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='14.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='14.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='14.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='14.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='14.586'/>
-<writer thread='4654968832'/>
-<dependency_failed type='leaf_type' ctxk='java/io/FileInputStream' witness='java/net/SocketInputStream' stamp='19.040'/>
-<dependency_failed type='leaf_type' ctxk='java/io/FileInputStream' witness='java/net/SocketInputStream' stamp='19.040'/>
-<writer thread='4676595712'/>
-<dependency_failed type='unique_concrete_method' x='java/io/BufferedReader close ()V' witness='org/apache/catalina/connector/CoyoteReader' stamp='20.578'/>
-<dependency_failed type='unique_concrete_method' x='java/io/Reader read ([C)I' witness='org/apache/catalina/connector/CoyoteReader' stamp='20.578'/>
-<dependency_failed type='unique_concrete_method' x='java/io/Reader read ([C)I' witness='org/apache/catalina/connector/CoyoteReader' stamp='20.578'/>
-<dependency_failed type='unique_concrete_method' ctxk='java/util/LinkedHashMap' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='20.584'/>
-<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='20.584'/>
-<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='20.584'/>
-<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='20.584'/>
-<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='20.584'/>
-<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='20.584'/>
-<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='20.584'/>
-<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='20.584'/>
-<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='20.584'/>
-<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='20.584'/>
-<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='20.584'/>
-<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='20.584'/>
-<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='20.584'/>
-<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='20.584'/>
-<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='20.584'/>
-<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='20.584'/>
-<dependency_failed type='unique_concrete_method' x='java/util/Date getTime ()J' witness='java/sql/Timestamp' stamp='21.022'/>
-<dependency_failed type='unique_concrete_method' x='java/util/Date getTime ()J' witness='java/sql/Timestamp' stamp='21.022'/>
-<dependency_failed type='unique_concrete_method' x='java/util/Date compareTo (Ljava/util/Date;)I' witness='java/sql/Timestamp' stamp='21.022'/>
-<dependency_failed type='unique_concrete_method' x='java/util/Date compareTo (Ljava/util/Date;)I' witness='java/sql/Timestamp' stamp='21.022'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio/StringCharBuffer' stamp='21.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio/StringCharBuffer' stamp='21.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio/StringCharBuffer' stamp='21.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio/StringCharBuffer' stamp='21.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio/StringCharBuffer' stamp='21.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio/StringCharBuffer' stamp='21.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio/StringCharBuffer' stamp='21.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio/StringCharBuffer' stamp='21.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio/StringCharBuffer' stamp='21.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio/StringCharBuffer' stamp='21.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio/StringCharBuffer' stamp='21.586'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio
+<writer thread='4485562368'/>
+<dependency_failed type='leaf_type' ctxk='java/io/ByteArrayOutputStream' witness='com/sun/common/util/logging/LoggingOutputStream' stamp='5.060'/>
+<dependency_failed type='unique_concrete_method' x='java/io/ObjectOutputStream replaceObject (Ljava/lang/Object;)Ljava/lang/Object;' witness='com/sun/enterprise/container/common/spi/util/JavaEEObjectOutputStream' stamp='7.791'/>
+<dependency_failed type='unique_concrete_method' x='java/lang/ThreadLocal get ()Ljava/lang/Object;' witness='org/glassfish/web/admin/monitor/HttpServiceStatsProvider$1' stamp='7.802'/>
+<dependency_failed type='unique_concrete_method' x='java/util/ArrayList add (Ljava/lang/Object;)Z' witness='javax/management/AttributeList' stamp='8.839'/>
+<dependency_failed type='unique_concrete_method' x='java/util/ArrayList add (Ljava/lang/Object;)Z' witness='javax/management/AttributeList' stamp='8.839'/>
+<dependency_failed type='unique_concrete_method' x='java/util/ArrayList add (Ljava/lang/Object;)Z' witness='javax/management/AttributeList' stamp='8.839'/>
+<dependency_failed type='unique_concrete_method' x='java/util/ArrayList add (Ljava/lang/Object;)Z' witness='javax/management/AttributeList' stamp='8.839'/>
+<dependency_failed type='unique_concrete_method' x='java/util/ArrayList add (Ljava/lang/Object;)Z' witness='javax/management/AttributeList' stamp='8.981'/>
+<dependency_failed type='unique_concrete_method' x='java/util/ArrayList add (Ljava/lang/Object;)Z' witness='javax/management/AttributeList' stamp='8.981'/>
+<dependency_failed type='unique_concrete_method' x='java/util/ArrayList add (Ljava/lang/Object;)Z' witness='javax/management/AttributeList' stamp='8.982'/>
+<dependency_failed type='unique_concrete_method' x='java/util/ArrayList add (Ljava/lang/Object;)Z' witness='javax/management/AttributeList' stamp='8.982'/>
+<dependency_failed type='unique_concrete_method' x='java/util/ArrayList add (Ljava/lang/Object;)Z' witness='javax/management/AttributeList' stamp='8.982'/>
+<writer thread='4502650880'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='12.918'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='12.918'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='12.918'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='12.918'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='12.918'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='12.918'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='12.918'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='12.918'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='12.919'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='12.919'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='12.919'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='12.919'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='12.919'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='12.919'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='12.919'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='12.919'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='12.919'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='12.919'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='12.919'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='12.919'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='12.919'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='12.919'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='12.919'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='12.919'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='12.919'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='12.919'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='12.919'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='12.919'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='12.919'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='12.919'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/ByteBuffer' x='java/nio/HeapByteBuffer' witness='java/nio/DirectByteBuffer' stamp='12.919'/>
+<dependency_failed type='unique_concrete_method' x='java/io/BufferedReader close ()V' witness='org/apache/catalina/connector/CoyoteReader' stamp='12.974'/>
+<dependency_failed type='unique_concrete_method' x='java/io/Reader read ([C)I' witness='org/apache/catalina/connector/CoyoteReader' stamp='12.974'/>
+<dependency_failed type='unique_concrete_method' x='java/io/Reader read ([C)I' witness='org/apache/catalina/connector/CoyoteReader' stamp='12.974'/>
+<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='12.984'/>
+<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='12.984'/>
+<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='12.984'/>
+<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='12.984'/>
+<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='12.984'/>
+<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='12.984'/>
+<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='12.984'/>
+<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='12.984'/>
+<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='12.984'/>
+<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='12.984'/>
+<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='12.984'/>
+<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='12.984'/>
+<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='12.985'/>
+<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='12.985'/>
+<writer thread='4595646464'/>
+<dependency_failed type='leaf_type' ctxk='java/io/FileInputStream' witness='java/net/SocketInputStream' stamp='21.364'/>
+<dependency_failed type='leaf_type' ctxk='java/io/FileInputStream' witness='java/net/SocketInputStream' stamp='21.364'/>
+<dependency_failed type='leaf_type' ctxk='java/io/FileInputStream' witness='java/net/SocketInputStream' stamp='21.364'/>
+<writer thread='4502650880'/>
+<dependency_failed type='unique_concrete_method' x='java/util/Date getTime ()J' witness='java/sql/Timestamp' stamp='29.108'/>
+<dependency_failed type='unique_concrete_method' x='java/util/Date getTime ()J' witness='java/sql/Timestamp' stamp='29.108'/>
+<dependency_failed type='unique_concrete_method' x='java/util/Date compareTo (Ljava/util/Date;)I' witness='java/sql/Timestamp' stamp='29.108'/>
+<dependency_failed type='unique_concrete_method' x='java/util/Date compareTo (Ljava/util/Date;)I' witness='java/sql/Timestamp' stamp='29.108'/>
+<dependency_failed type='leaf_type' ctxk='java/util/GregorianCalendar' witness='ch/qos/logback/core/rolling/helper/RollingCalendar' stamp='29.727'/>
+<dependency_failed type='leaf_type' ctxk='java/util/GregorianCalendar' witness='ch/qos/logback/core/rolling/helper/RollingCalendar' stamp='29.727'/>
+<dependency_failed type='leaf_type' ctxk='java/util/GregorianCalendar' witness='ch/qos/logback/core/rolling/helper/RollingCalendar' stamp='29.727'/>
+<dependency_failed type='leaf_type' ctxk='java/util/GregorianCalendar' witness='ch/qos/logback/core/rolling/helper/RollingCalendar' stamp='29.727'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio/StringCharBuffer' stamp='29.837'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio/StringCharBuffer' stamp='29.837'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio/StringCharBuffer' stamp='29.837'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio/StringCharBuffer' stamp='29.837'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio/StringCharBuffer' stamp='29.837'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio/StringCharBuffer' stamp='29.837'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio/StringCharBuffer' stamp='29.837'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio/StringCharBuffer' stamp='29.837'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio/StringCharBuffer' stamp='29.837'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio/StringCharBuffer' stamp='29.837'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio/StringCharBuffer' stamp='29.837'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio/StringCharBuffer' stamp='29.837'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio/StringCharBuffer' stamp='29.837'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio/StringCharBuffer' stamp='29.837'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio/StringCharBuffer' stamp='29.837'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio/StringCharBuffer' stamp='29.837'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio/StringCharBuffer' stamp='29.837'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio/StringCharBuffer' stamp='29.837'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio/StringCharBuffer' stamp='29.837'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio/StringCharBuffer' stamp='29.837'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio/StringCharBuffer' stamp='29.837'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio/StringCharBuffer' stamp='29.837'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio/StringCharBuffer' stamp='29.837'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/nio/CharBuffer' x='java/nio/HeapCharBuffer' witness='java/nio/StringCharBuffer' stamp='29.838'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/util/concurrent/locks/ReentrantLock$Sync' x='java/util/concurrent/locks/ReentrantLock$NonfairSync' witness='java/util/concurrent/locks/ReentrantLock$FairSync' stamp='29.853'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/util/concurrent/locks/ReentrantLock$Sync' x='java/util/concurrent/locks/ReentrantLock$NonfairSync' witness='java/util/concurrent/locks/ReentrantLock$FairSync' stamp='29.853'/>
+<tty_done stamp='2673.965'/>
+</tty>
+<hotspot_log_done stamp='2673.965'/>
+</hotspot_log>

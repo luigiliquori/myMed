@@ -27,13 +27,13 @@ import com.mymed.model.core.wrappers.cassandra.api07.CassandraWrapper;
  * concerning an atomic interaction between producer and consumer. 
  * @author piccolo
  */
-public class InteractionManager {
+public class VerdictManager {
     
     private DbTableAdapter adapter;
     private ReputationAlgorithm reputationAlgorithm;
     private ReputationUpdaterFactory reputationUpdaterFactory;
         
-    public InteractionManager(CassandraWrapper w){
+    public VerdictManager(CassandraWrapper w){
         adapter = new DbTableAdapter(w);
         reputationAlgorithm = new AverageReputationAlgorithm();
         reputationUpdaterFactory = new ReputationUpdaterFactory(w, reputationAlgorithm);
@@ -98,11 +98,11 @@ public class InteractionManager {
             t.start();
         }
         catch (PersistException ex) {
-            Logger.getLogger(InteractionManager.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VerdictManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }        
         catch(InternalBackEndException ex){
-            Logger.getLogger(InteractionManager.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VerdictManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
             
@@ -135,9 +135,9 @@ public class InteractionManager {
             return idAggregation;
         }
         catch (PersistException ex) {
-            Logger.getLogger(InteractionManager.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VerdictManager.class.getName()).log(Level.SEVERE, null, ex);
         }        catch (InternalBackEndException ex) {
-            Logger.getLogger(InteractionManager.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VerdictManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -155,7 +155,7 @@ public class InteractionManager {
         adapter.commit();
         return true;
         } catch (InternalBackEndException ex) {
-            Logger.getLogger(InteractionManager.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VerdictManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
 
@@ -234,10 +234,10 @@ public class InteractionManager {
             adapter.commit();            
         }   
         catch (PersistException ex) {
-            Logger.getLogger(InteractionManager.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VerdictManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }        catch (InternalBackEndException ex) {
-            Logger.getLogger(InteractionManager.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VerdictManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
         return true;
@@ -260,7 +260,7 @@ public class InteractionManager {
         
 //        wrapper.set_keyspace(Constants.KEYSPACE);
         
-        InteractionManager interactionManager = new InteractionManager(wrapper);
+        VerdictManager interactionManager = new VerdictManager(wrapper);
         ReputationManager reputationManager = new ReputationManager(wrapper);
         
         ReputationObject readReputation = reputationManager.readReputation("6utent2", "app1", false);

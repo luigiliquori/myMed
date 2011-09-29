@@ -8,7 +8,7 @@ import java.io.File;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.reputation.globals.Constants;
-import com.mymed.controller.core.manager.reputation.reputation_manager.InteractionManager;
+import com.mymed.controller.core.manager.reputation.reputation_manager.VerdictManager;
 import com.mymed.controller.core.manager.reputation.reputation_manager.ReputationManager;
 import com.mymed.controller.core.manager.reputation.reputation_manager.ReputationManager.ReputationObject;
 import com.mymed.model.core.configuration.WrapperConfiguration;
@@ -44,7 +44,7 @@ public class DBPopulationScript {
 
         wrapper.set_keyspace(Constants.KEYSPACE);
 
-        InteractionManager interactionManager = new InteractionManager(wrapper);
+        VerdictManager interactionManager = new VerdictManager(wrapper);
         ReputationManager reputationManager = new ReputationManager(wrapper);
         
 

@@ -4,7 +4,7 @@ import java.io.File;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.reputation.globals.Constants;
-import com.mymed.controller.core.manager.reputation.reputation_manager.InteractionManager;
+import com.mymed.controller.core.manager.reputation.reputation_manager.VerdictManager;
 import com.mymed.controller.core.manager.reputation.reputation_manager.ReputationManager;
 import com.mymed.model.core.configuration.WrapperConfiguration;
 import com.mymed.model.core.wrappers.cassandra.api07.CassandraWrapper;
@@ -42,7 +42,7 @@ public class Test1 {
 	    
 	    wrapper.set_keyspace(Constants.KEYSPACE);
 	    
-	    InteractionManager interactionManager = new InteractionManager(wrapper);
+	    VerdictManager interactionManager = new VerdictManager(wrapper);
 	    ReputationManager reputationManager = new ReputationManager(wrapper);
 	    
 	    // check if aggregation 12345 exists
