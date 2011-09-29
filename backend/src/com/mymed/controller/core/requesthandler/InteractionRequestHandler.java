@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.interaction.InteractionManager;
-import com.mymed.model.data.reputation.MInteractionBean;
+import com.mymed.model.data.interaction.MInteractionBean;
 
 /**
  * Servlet implementation class InteractionRequestHandler

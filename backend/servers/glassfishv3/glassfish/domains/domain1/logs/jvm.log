@@ -118,4 +118,28 @@ sun.java.launcher=SUN_STANDARD
 <dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='718.112'/>
 <dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='718.112'/>
 <dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='718.112'/>
-<dependency_failed type='uni
+<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='718.112'/>
+<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='718.112'/>
+<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='718.112'/>
+<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='718.112'/>
+<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='718.112'/>
+<dependency_failed type='unique_concrete_method' x='java/util/HashMap remove (Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='718.112'/>
+<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='718.112'/>
+<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='718.112'/>
+<dependency_failed type='unique_concrete_method' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/catalina/util/ParameterMap' stamp='718.112'/>
+<dependency_failed type='leaf_type' ctxk='java/util/Date' witness='java/sql/Date' stamp='718.303'/>
+<dependency_failed type='leaf_type' ctxk='java/util/Date' witness='java/sql/Date' stamp='718.303'/>
+<dependency_failed type='unique_concrete_method' x='java/util/Date getTime ()J' witness='java/sql/Timestamp' stamp='718.406'/>
+<dependency_failed type='unique_concrete_method' x='java/util/Date getTime ()J' witness='java/sql/Timestamp' stamp='718.406'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/xml/sax/Attributes' x='com/sun/org/apache/xerces/internal/parsers/AbstractSAXParser$AttributesProxy getLength ()I' witness='org/xml/sax/Attributes' stamp='718.752'/>
+<dependency_failed type='leaf_type' ctxk='java/util/GregorianCalendar' witness='ch/qos/logback/core/rolling/helper/RollingCalendar' stamp='719.191'/>
+<writer thread='-2048435344'/>
+<dependency_failed type='leaf_type' ctxk='java/io/File' witness='org/glassfish/deployment/autodeploy/AutoDeployedFilesManager$UndeployRequestedFile' stamp='4714.571'/>
+<dependency_failed type='leaf_type' ctxk='java/io/File' witness='org/glassfish/deployment/autodeploy/AutoDeployedFilesManager$UndeployRequestedFile' stamp='4714.571'/>
+<dependency_failed type='leaf_type' ctxk='java/io/File' witness='org/glassfish/deployment/autodeploy/AutoDeployedFilesManager$UndeployRequestedFile' stamp='4714.571'/>
+<dependency_failed type='leaf_type' ctxk='java/io/File' witness='org/glassfish/deployment/autodeploy/AutoDeployedFilesManager$UndeployRequestedFile' stamp='4714.571'/>
+<dependency_failed type='leaf_type' ctxk='java/io/File' witness='org/glassfish/deployment/autodeploy/AutoDeployedFilesManager$UndeployRequestedFile' stamp='4714.571'/>
+<dependency_failed type='leaf_type' ctxk='java/io/File' witness='org/glassfish/deployment/autodeploy/AutoDeployedFilesManager$UndeployRequestedFile' stamp='4714.571'/>
+<dependency_failed type='leaf_type' ctxk='java/io/File' witness='org/glassfish/deployment/autodeploy/AutoDeployedFilesManager$UndeployRequestedFile' stamp='4714.571'/>
+<dependency_failed type='leaf_type' ctxk='java/io/File' witness='org/glassfish/deployment/autodeploy/AutoDeployedFilesManager$UndeployRequestedFile' stamp='4714.571'/>
+<dependency_failed type='leaf_type' ctxk='java/io/File' witness='org/glassfish/deployment/autodeploy/AutoDeployedFilesManager$UndeployRequestedFile' stam

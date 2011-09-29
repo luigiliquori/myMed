@@ -18,9 +18,9 @@ import com.mymed.controller.core.manager.reputation.db.table.VerdictAggregation;
 import com.mymed.controller.core.manager.reputation.db.table.facade.DbTableAdapter;
 import com.mymed.controller.core.manager.reputation.db.table.facade.PersistException;
 import com.mymed.controller.core.manager.reputation.globals.Constants;
-import com.mymed.controller.core.manager.reputation.reputation_manager.ReputationManager.ReputationObject;
 import com.mymed.model.core.configuration.WrapperConfiguration;
 import com.mymed.model.core.wrappers.cassandra.api07.CassandraWrapper;
+import com.mymed.model.data.reputation.MReputationBean;
 
 /**
  * This class contains methods allowing the application level to store feedbacks 
@@ -243,6 +243,7 @@ public class VerdictManager {
         return true;
     }
     
+    // TEST
     public static void main(String a[]) throws InternalBackEndException{
         final WrapperConfiguration conf = new WrapperConfiguration(new File(Constants.CONFIGURATION_FILE_PATH));
         
@@ -260,36 +261,37 @@ public class VerdictManager {
         
 //        wrapper.set_keyspace(Constants.KEYSPACE);
         
-        VerdictManager interactionManager = new VerdictManager(wrapper);
+        VerdictManager verdictManager = new VerdictManager(wrapper);
         ReputationManager reputationManager = new ReputationManager(wrapper);
+        AggregationManager aggregationManager = new AggregationManager(wrapper);
         
-        ReputationObject readReputation = reputationManager.readReputation("6utent2", "app1", false);
+        MReputationBean readReputation = reputationManager.read("6utent2", "app1", false);
         System.out.println("Reputazione iniziale u2: " + readReputation.getReputation());
         System.out.println("numero di giudizi: " + readReputation.getNoOfRatings());
    
               
-        interactionManager.updateReputation("app1", "utente1", true, "6utent2", 0.7);        
-        System.out.println("Reputazione dopo il primo voto: " + reputationManager.readReputation("6utent2", "app1", false).getReputation());
-        interactionManager.updateReputation("app1", "utente3", true, "6utent2", 0.5);
+        verdictManager.updateReputation("app1", "utente1", true, "6utent2", 0.7);        
+        System.out.println("Reputazione dopo il primo voto: " + reputationManager.read("6utent2", "app1", false).getReputation());
+        verdictManager.updateReputation("app1", "utente3", true, "6utent2", 0.5);
         
-        System.out.println("Reputazione dopo il secondo voto: " + reputationManager.readReputation("6utent2", "app1", false).getReputation());
+        System.out.println("Reputazione dopo il secondo voto: " + reputationManager.read("6utent2", "app1", false).getReputation());
       
         
-        String aggid1 = interactionManager.createAggregation("12345");
+        String aggid1 = verdictManager.createAggregation("12345");
         
         System.out.println("Aggregation " + aggid1 + " created");
-        interactionManager.updateAggregation(aggid1, "app1", "utente1", true, "6utent2", 0.4);
-        System.out.println("Aggregation score dopo il primo verdetto: " + reputationManager.readAggregationReputation(aggid1).getReputation());
-        interactionManager.updateAggregation(aggid1, "app1", "utente2", true, "6utent2", 0.6);
-        System.out.println("Aggregation score dopo il secondo verdetto: " + reputationManager.readAggregationReputation(aggid1).getReputation());
+        verdictManager.updateAggregation(aggid1, "app1", "utente1", true, "6utent2", 0.4);
+        System.out.println("Aggregation score dopo il primo verdetto: " + aggregationManager.read(aggid1).getReputation());
+        verdictManager.updateAggregation(aggid1, "app1", "utente2", true, "6utent2", 0.6);
+        System.out.println("Aggregation score dopo il secondo verdetto: " + aggregationManager.read(aggid1).getReputation());
 
-        interactionManager.updateAggregation(aggid1, "app1", "utente2", true, "utente3", 0.5);
-        System.out.println("Aggregation score dopo il secondo verdetto: " + reputationManager.readAggregationReputation(aggid1).getReputation());
+        verdictManager.updateAggregation(aggid1, "app1", "utente2", true, "utente3", 0.5);
+        System.out.println("Aggregation score dopo il secondo verdetto: " + aggregationManager.read(aggid1).getReputation());
         
-        String aggid2 = interactionManager.createAggregation("22345");
+        String aggid2 = verdictManager.createAggregation("22345");
         System.out.println("Aggregation " + aggid2 + " created");
-        interactionManager.updateAggregation(aggid2, "app2", "utente1", true, "utente2", 0.2);
-        System.out.println("Aggregation score dopo il primo verdetto: " + reputationManager.readAggregationReputation(aggid2).getReputation());
+        verdictManager.updateAggregation(aggid2, "app2", "utente1", true, "utente2", 0.2);
+        System.out.println("Aggregation score dopo il primo verdetto: " + aggregationManager.read(aggid2).getReputation());
         
         
         try {
@@ -315,14 +317,14 @@ public class VerdictManager {
             e.printStackTrace();
         }
         
-        interactionManager.deleteAggregation(aggid1);
-        if (!interactionManager.updateAggregation(aggid1, "app1", "utente1", true, "6utent2", 0.4)) {
+        verdictManager.deleteAggregation(aggid1);
+        if (!verdictManager.updateAggregation(aggid1, "app1", "utente1", true, "6utent2", 0.4)) {
         	System.out.println("updateAggregation: aggregation pointed by "+ aggid1 + " does not exist");
         	
         }
-        interactionManager.deleteAggregation(aggid2);
+        verdictManager.deleteAggregation(aggid2);
                      
-        System.out.println("Reputazione dopo il secondo voto: " + reputationManager.readReputation("6utent2", "app1", false).getReputation());
+        System.out.println("Reputazione dopo il secondo voto: " + reputationManager.read("6utent2", "app1", false).getReputation());
                
         //System.out.println(new SimpleReputationEngine(new UserApplicationConsumerFacade(wrapper),
         //        new UserApplicationProducerFacade(wrapper), new VerdictFacade(wrapper)).readReputation("user2", "app1", false).getReputation());

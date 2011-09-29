@@ -4,14 +4,14 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.mymed.controller.core.manager.application.InteractionManager;
+import com.mymed.controller.core.manager.interaction.old.InteractionManager;
 import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.reputation.old.ReputationManager;
 import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.core.configuration.WrapperConfiguration;
-import com.mymed.model.data.reputation.MInteractionBean;
-import com.mymed.model.data.reputation.MReputationBean;
+import com.mymed.model.data.interaction.MInteractionBean;
+import com.mymed.model.data.reputation.old.MReputationBean;
 import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.MConverter;
 

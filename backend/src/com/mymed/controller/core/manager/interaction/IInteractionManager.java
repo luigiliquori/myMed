@@ -2,7 +2,7 @@ package com.mymed.controller.core.manager.interaction;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.model.data.reputation.MInteractionBean;
+import com.mymed.model.data.interaction.MInteractionBean;
 
 public interface IInteractionManager {
 

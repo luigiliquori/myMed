@@ -6,7 +6,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.mymed.controller.core.manager.reputation.old.ReputationManager;
-import com.mymed.model.data.reputation.MReputationBean;
+import com.mymed.model.data.reputation.old.MReputationBean;
 
 /**
  * Test class for the {@link ReputationManager}

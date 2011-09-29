@@ -5,10 +5,9 @@ import java.util.Map;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.AbstractManager;
-import com.mymed.controller.core.manager.reputation.reputation_manager.ReputationManager;
 import com.mymed.controller.core.manager.reputation.reputation_manager.VerdictManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
-import com.mymed.model.data.reputation.MInteractionBean;
+import com.mymed.model.data.interaction.MInteractionBean;
 
 /**
  * Manage the reputation of a user
@@ -35,10 +34,10 @@ public class InteractionManager extends AbstractManager implements
 	@Override
 	public void create(final MInteractionBean interaction)
 			throws InternalBackEndException, IOBackEndException {
-//		try { // Verify the interaction does not exist
-//			storageManager.selectColumn(CF_INTERACTION, interaction.getId(),
-//					"id");
-//		} catch (IOBackEndException e) {
+		try { // Verify the interaction does not exist
+			storageManager.selectColumn(CF_INTERACTION, interaction.getId(),
+					"id");
+		} catch (IOBackEndException e) {
 			// INTERACTION CREATION
 			storageManager.insertSlice(CF_INTERACTION, interaction.getId(),
 					interaction.getAttributeToMap());
@@ -51,8 +50,8 @@ public class InteractionManager extends AbstractManager implements
 				}
 			}
 			return;
-//		}
-//		throw new IOBackEndException("Interaction already exist!");
+		}
+		throw new IOBackEndException("Interaction already exist!");
 	}
 
 	@Override

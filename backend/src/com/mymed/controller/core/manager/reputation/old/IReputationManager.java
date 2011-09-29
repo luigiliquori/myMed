@@ -2,7 +2,7 @@ package com.mymed.controller.core.manager.reputation.old;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.model.data.reputation.MReputationBean;
+import com.mymed.model.data.reputation.old.MReputationBean;
 
 public interface IReputationManager {
 
