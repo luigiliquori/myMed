@@ -82,8 +82,20 @@ public final class MReputationBean extends AbstractMBean {
       final MReputationBean comparable = (MReputationBean) object;
 
       equal = true;
-      equal &= getValue() == comparable.getValue();
-      equal &= getRaterList() == comparable.getRaterList();
+      equal &= value == comparable.getValue();
+      equal &= nbInteraction == comparable.getNbInteraction();
+
+      if ((raterList == null) && (comparable.getRaterList() != null)) {
+        equal = false;
+      } else {
+        equal &= raterList.equals(comparable.getRaterList());
+      }
+
+      if ((interactionList == null) && (comparable.getRaterList() != null)) {
+        equal = false;
+      } else {
+        equal &= interactionList.equals(comparable.getRaterList());
+      }
     }
 
     return equal;
