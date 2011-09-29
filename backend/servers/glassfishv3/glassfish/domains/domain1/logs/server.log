@@ -19363,3 +19363,1201 @@ INFO: Successfully launched in 49 msec.
 	at java.lang.Thread.run(Thread.java:680)
 |#]
 
+29 sept. 2011 10:42:03 com.sun.enterprise.admin.launcher.GFLauncherLogger info
+INFO: JVM invocation command line:
+/usr/lib/jvm/java-6-openjdk/bin/java
+-cp
+/local/mymed/backend/servers/glassfishv3/glassfish/modules/glassfish.jar
+-XX:+UnlockDiagnosticVMOptions
+-XX:MaxPermSize=192m
+-XX:NewRatio=2
+-XX:+LogVMOutput
+-XX:LogFile=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/logs/jvm.log
+-Xmx512m
+-client
+-javaagent:/local/mymed/backend/servers/glassfishv3/glassfish/lib/monitor/btrace-agent.jar=unsafe=true,noServer=true
+-Dosgi.shell.telnet.maxconn=1
+-Djdbc.drivers=org.apache.derby.jdbc.ClientDriver
+-Dfelix.fileinstall.dir=/local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart/
+-Djavax.net.ssl.keyStore=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/keystore.jks
+-Dosgi.shell.telnet.port=6666
+-Djava.security.policy=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/server.policy
+-Dfelix.fileinstall.poll=5000
+-Dcom.sun.aas.instanceRoot=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1
+-Dosgi.shell.telnet.ip=127.0.0.1
+-Dcom.sun.enterprise.config.config_environment_factory_class=com.sun.enterprise.config.serverbeans.AppserverConfigEnvironmentFactory
+-Djava.endorsed.dirs=/local/mymed/backend/servers/glassfishv3/glassfish/modules/endorsed:/local/mymed/backend/servers/glassfishv3/glassfish/lib/endorsed
+-Dcom.sun.aas.installRoot=/local/mymed/backend/servers/glassfishv3/glassfish
+-Djava.ext.dirs=/usr/lib/jvm/java-6-openjdk/lib/ext:/usr/lib/jvm/java-6-openjdk/jre/lib/ext:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/lib/ext
+-Dfelix.fileinstall.bundles.new.start=true
+-Djavax.net.ssl.trustStore=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/cacerts.jks
+-Dcom.sun.enterprise.security.httpsOutboundKeyAlias=s1as
+-Djava.security.auth.login.config=/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/login.conf
+-DANTLR_USE_DIRECT_CLASS_LOADING=true
+-Dlogback.configurationFile=/local/mymed/backend/conf/logback.xml
+-Dfelix.fileinstall.debug=1
+-Dorg.glassfish.web.rfc2109_cookie_names_enforced=false
+-Djava.library.path=/local/mymed/backend/servers/glassfishv3/glassfish/lib:/local/mymed/backend/servers/glassfishv3/glassfish/bin:/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java
+com.sun.enterprise.glassfish.bootstrap.ASMain
+-domainname
+domain1
+-asadmin-args
+start-domain,,,-v
+-instancename
+server
+-verbose
+true
+-debug
+false
+-asadmin-classpath
+/local/mymed/backend/servers/glassfishv3/glassfish/modules/admin-cli.jar
+-asadmin-classname
+com.sun.enterprise.admin.cli.AsadminMain
+-upgrade
+false
+-domaindir
+/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1
+-read-stdin
+true
+29 sept. 2011 10:42:03 com.sun.enterprise.admin.launcher.GFLauncherLogger info
+INFO: Successfully launched in 44 msec.
+[#|2011-09-29T10:42:10.220+0200|INFO|null|null|_ThreadID=11;_ThreadName=Thread-3;|Running GlassFish Version: GlassFish Server Open Source Edition 3.0.1 (build 22)|#]
+
+[#|2011-09-29T10:42:10.879+0200|INFO|glassfish3.0.1|com.sun.grizzly.config.GrizzlyServiceListener|_ThreadID=11;_ThreadName=Thread-3;|Perform lazy SSL initialization for the listener 'http-listener-2'|#]
+
+[#|2011-09-29T10:42:10.983+0200|INFO|glassfish3.0.1|null|_ThreadID=12;_ThreadName=Thread-3;|Grizzly Framework 1.9.18-o started in: 145ms listening on port 8080|#]
+
+[#|2011-09-29T10:42:10.991+0200|INFO|glassfish3.0.1|null|_ThreadID=13;_ThreadName=Thread-3;|Grizzly Framework 1.9.18-o started in: 23ms listening on port 8181|#]
+
+[#|2011-09-29T10:42:11.004+0200|INFO|glassfish3.0.1|null|_ThreadID=14;_ThreadName=Thread-3;|Grizzly Framework 1.9.18-o started in: 4ms listening on port 4848|#]
+
+[#|2011-09-29T10:42:11.030+0200|INFO|glassfish3.0.1|com.sun.grizzly.config.GrizzlyServiceListener|_ThreadID=15;_ThreadName=Thread-3;|Starting Grizzly Framework 1.9.18-o - Thu Sep 29 10:42:11 CEST 2011|#]
+
+[#|2011-09-29T10:42:11.045+0200|INFO|glassfish3.0.1|null|_ThreadID=16;_ThreadName=Thread-3;|Grizzly Framework 1.9.18-o started in: 28ms listening on port 3700|#]
+
+[#|2011-09-29T10:42:11.054+0200|INFO|glassfish3.0.1|com.sun.grizzly.config.GrizzlyServiceListener|_ThreadID=17;_ThreadName=Thread-3;|Starting Grizzly Framework 1.9.18-o - Thu Sep 29 10:42:11 CEST 2011|#]
+
+[#|2011-09-29T10:42:11.057+0200|INFO|glassfish3.0.1|null|_ThreadID=18;_ThreadName=Thread-3;|Grizzly Framework 1.9.18-o started in: 5ms listening on port 7676|#]
+
+[#|2011-09-29T10:42:11.302+0200|INFO|glassfish3.0.1|null|_ThreadID=11;_ThreadName=Thread-3;|The Admin Console is already installed, but not yet loaded.|#]
+
+[#|2011-09-29T10:42:12.303+0200|INFO|glassfish3.0.1|javax.enterprise.resource.jta.com.sun.enterprise.transaction|_ThreadID=11;_ThreadName=Thread-3;|Using com.sun.enterprise.transaction.jts.JavaEETransactionManagerJTSDelegate as the delegate|#]
+
+[#|2011-09-29T10:42:12.838+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security|_ThreadID=11;_ThreadName=Thread-3;|SEC1002: Security Manager is OFF.|#]
+
+[#|2011-09-29T10:42:12.984+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security|_ThreadID=11;_ThreadName=Thread-3;|Security startup service called|#]
+
+[#|2011-09-29T10:42:12.988+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security|_ThreadID=11;_ThreadName=Thread-3;|SEC1143: Loading policy provider com.sun.enterprise.security.provider.PolicyWrapper.|#]
+
+[#|2011-09-29T10:42:13.067+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security.auth.realm|_ThreadID=11;_ThreadName=Thread-3;|Realm admin-realm of classtype com.sun.enterprise.security.auth.realm.file.FileRealm successfully created.|#]
+
+[#|2011-09-29T10:42:13.068+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security.auth.realm|_ThreadID=11;_ThreadName=Thread-3;|Realm file of classtype com.sun.enterprise.security.auth.realm.file.FileRealm successfully created.|#]
+
+[#|2011-09-29T10:42:13.070+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security.auth.realm|_ThreadID=11;_ThreadName=Thread-3;|Realm certificate of classtype com.sun.enterprise.security.auth.realm.certificate.CertificateRealm successfully created.|#]
+
+[#|2011-09-29T10:42:13.075+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.security.com.sun.enterprise.security|_ThreadID=11;_ThreadName=Thread-3;|Security service(s) started successfully....|#]
+
+[#|2011-09-29T10:42:13.308+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Created HTTP listener http-listener-1 on port 8080|#]
+
+[#|2011-09-29T10:42:13.314+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Created HTTP listener http-listener-2 on port 8181|#]
+
+[#|2011-09-29T10:42:13.319+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Created HTTP listener admin-listener on port 4848|#]
+
+[#|2011-09-29T10:42:13.346+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Created virtual server server|#]
+
+[#|2011-09-29T10:42:13.346+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Created virtual server __asadmin|#]
+
+[#|2011-09-29T10:42:13.346+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Created virtual server server|#]
+
+[#|2011-09-29T10:42:13.350+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Created virtual server __asadmin|#]
+
+[#|2011-09-29T10:42:13.350+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Created virtual server __asadmin|#]
+
+[#|2011-09-29T10:42:13.888+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Virtual server server loaded system default web module|#]
+
+[#|2011-09-29T10:42:13.888+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Virtual server server loaded system default web module|#]
+
+[#|2011-09-29T10:42:13.888+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Virtual server server loaded system default web module|#]
+
+[#|2011-09-29T10:42:19.217+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Loading application services at /services|#]
+
+[#|2011-09-29T10:42:19.217+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application services at /services|#]
+
+[#|2011-09-29T10:42:19.217+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application services at /services|#]
+
+[#|2011-09-29T10:42:19.227+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=11;_ThreadName=Thread-3;|Loading services Application done is 7792 ms|#]
+
+[#|2011-09-29T10:42:21.602+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application controller at /controller|#]
+
+[#|2011-09-29T10:42:21.602+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Loading application controller at /controller|#]
+
+[#|2011-09-29T10:42:21.602+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application controller at /controller|#]
+
+[#|2011-09-29T10:42:21.609+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=11;_ThreadName=Thread-3;|Loading controller Application done is 2378 ms|#]
+
+[#|2011-09-29T10:42:24.971+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Loading application mymed_v1.0_alpha_backend at /mymed_v1.0_alpha_backend|#]
+
+[#|2011-09-29T10:42:24.971+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application mymed_v1.0_alpha_backend at /mymed_v1.0_alpha_backend|#]
+
+[#|2011-09-29T10:42:24.971+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application mymed_v1.0_alpha_backend at /mymed_v1.0_alpha_backend|#]
+
+[#|2011-09-29T10:42:24.972+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=11;_ThreadName=Thread-3;|Loading mymed_v1.0_alpha_backend Application done is 3362 ms|#]
+
+[#|2011-09-29T10:42:27.472+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=Thread-3;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-29T10:42:27.472+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-29T10:42:27.472+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=11;_ThreadName=FelixStartLevel;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-29T10:42:27.474+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=11;_ThreadName=Thread-3;|Loading mymed_backend Application done is 2500 ms|#]
+
+[#|2011-09-29T10:42:27.478+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=11;_ThreadName=Thread-3;|GlassFish Server Open Source Edition 3.0.1 (22) startup time : Felix(6324ms) startup services(17326ms) total(23650ms)|#]
+
+[#|2011-09-29T10:42:27.634+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.admin.org.glassfish.server|_ThreadID=19;_ThreadName=Thread-3;|Binding RMI port to *:8686|#]
+
+[#|2011-09-29T10:42:27.960+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.admin.org.glassfish.server|_ThreadID=19;_ThreadName=Thread-3;|JMXStartupService: Started JMXConnector, JMXService URL = service:jmx:rmi://172.16.0.46:8686/jndi/rmi://172.16.0.46:8686/jmxrmi|#]
+
+[#|2011-09-29T10:42:28.762+0200|INFO|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=20;_ThreadName=Thread-3;|[Thread[GlassFish Kernel Main Thread,5,main]] started|#]
+
+[#|2011-09-29T10:42:28.853+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=21;_ThreadName=Thread-3;|{felix.fileinstall.poll (ms) = 5000, felix.fileinstall.dir = /local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart, felix.fileinstall.debug = 1, felix.fileinstall.bundles.new.start = true, felix.fileinstall.tmpdir = /var/folders/Bl/BlxKCRtIFWWrPxP-wyQoJU+++TI/-Tmp-/fileinstall--4388797686658777470, felix.fileinstall.filter = null}|#]
+
+[#|2011-09-29T10:42:28.866+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=22;_ThreadName=Thread-3;|{felix.fileinstall.poll (ms) = 5000, felix.fileinstall.dir = /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/bundles, felix.fileinstall.debug = 1, felix.fileinstall.bundles.new.start = true, felix.fileinstall.tmpdir = /var/folders/Bl/BlxKCRtIFWWrPxP-wyQoJU+++TI/-Tmp-/fileinstall--6151144491452548636, felix.fileinstall.filter = null}|#]
+
+[#|2011-09-29T10:42:28.905+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=21;_ThreadName=Thread-3;|Started bundle: file:/local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart/osgi-web-container.jar|#]
+
+[#|2011-09-29T10:42:28.925+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=21;_ThreadName=Thread-3;|Started bundle: file:/local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart/org.apache.felix.scr.jar|#]
+
+[#|2011-09-29T10:42:32.030+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-3;|10:42:31,490 |-INFO in ch.qos.logback.classic.LoggerContext[myMed] - Found resource [/local/mymed/backend/conf/logback.xml] at [file:/local/mymed/backend/conf/logback.xml]
+10:42:31,670 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - Setting ReconfigureOnChangeFilter scanning period to 5 minutes
+10:42:31,670 |-INFO in ch.qos.logback.classic.turbo.ReconfigureOnChangeFilter@3b724527 - Will scan for changes in [[/local/mymed/backend/conf/logback.xml]] every 300 seconds. 
+10:42:31,670 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - Adding ReconfigureOnChangeFilter as a turbo filter
+10:42:31,672 |-INFO in ch.qos.logback.classic.joran.action.ContextNameAction - Setting logger context name as [myMed]
+10:42:31,676 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - About to instantiate appender of type [ch.qos.logback.core.ConsoleAppender]
+10:42:31,687 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - Naming appender as [stdout]
+10:42:31,716 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+10:42:31,849 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - About to instantiate appender of type [ch.qos.logback.core.rolling.RollingFileAppender]
+10:42:31,874 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - Naming appender as [info.file]
+10:42:31,936 |-INFO in c.q.l.core.rolling.TimeBasedRollingPolicy - Will use gz compression
+10:42:31,944 |-INFO in c.q.l.core.rolling.TimeBasedRollingPolicy - Will use the pattern /local/var/log/mymed/mymed-backend-info-%d.log for the active file
+10:42:31,965 |-INFO in c.q.l.core.rolling.DefaultTimeBasedFileNamingAndTriggeringPolicy - The date pattern is 'yyyy-MM-dd' from file name pattern '/local/var/log/mymed/mymed-backend-info-%d.log.gz'.
+10:42:31,965 |-INFO in c.q.l.core.rolling.DefaultTimeBasedFileNamingAndTriggeringPolicy - Roll-over at midnight.
+10:42:31,965 |-INFO in c.q.l.core.rolling.DefaultTimeBasedFileNamingAndTriggeringPolicy - Setting initial period to Thu Sep 29 10:06:20 CEST 2011
+10:42:31,994 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+10:42:32,019 |-INFO in ch.qos.logback.core.rolling.RollingFileAppender[info.file] - Active log file name: /local/var/log/mymed/mymed-backend-info.log
+10:42:32,019 |-INFO in ch.qos.logback.core.rolling.RollingFileAppender[info.file] - File property is set to [/local/var/log/mymed/mymed-backend-info.log]
+10:42:32,022 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - About to instantiate appender of type [ch.qos.logback.core.FileAppender]
+10:42:32,022 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - Naming appender as [debug.file]
+10:42:32,022 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+10:42:32,023 |-INFO in ch.qos.logback.core.FileAppender[debug.file] - File property is set to [/local/var/log/mymed/mymed-backend-debug.log]
+10:42:32,023 |-INFO in ch.qos.logback.classic.joran.action.LoggerAction - Setting level of logger [mymed.info.logger] to INFO
+10:42:32,023 |-INFO in ch.qos.logback.classic.joran.action.LoggerAction - Setting additivity of logger [mymed.info.logger] to false
+10:42:32,023 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [info.file] to Logger[mymed.info.logger]
+10:42:32,026 |-INFO in ch.qos.logback.classic.joran.action.LoggerAction - Setting level of logger [mymed.debug.logger] to DEBUG
+10:42:32,026 |-INFO in ch.qos.logback.classic.joran.action.LoggerAction - Setting additivity of logger [mymed.debug.logger] to false
+10:42:32,026 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [debug.file] to Logger[mymed.debug.logger]
+10:42:32,026 |-INFO in ch.qos.logback.classic.joran.action.RootLoggerAction - Setting level of ROOT logger to INFO
+10:42:32,026 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [stdout] to Logger[ROOT]
+10:42:32,026 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - End of configuration.
+|#]
+
+[#|2011-09-29T10:42:33.934+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=21;_ThreadName=Thread-3;|Updating configuration from org.apache.felix.fileinstall-autodeploy-bundles.cfg|#]
+
+[#|2011-09-29T10:42:33.944+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=21;_ThreadName=Thread-3;|Installed /local/mymed/backend/servers/glassfishv3/glassfish/modules/autostart/org.apache.felix.fileinstall-autodeploy-bundles.cfg|#]
+
+[#|2011-09-29T10:42:33.945+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=24;_ThreadName=Thread-3;|{felix.fileinstall.poll (ms) = 5000, felix.fileinstall.dir = /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/bundles, felix.fileinstall.debug = 1, felix.fileinstall.bundles.new.start = true, felix.fileinstall.tmpdir = /var/folders/Bl/BlxKCRtIFWWrPxP-wyQoJU+++TI/-Tmp-/fileinstall-7991560269821039941, felix.fileinstall.filter = null}|#]
+
+[#|2011-09-29T11:23:47.122+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|[AutoDeploy] Selecting file /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war for autodeployment.|#]
+
+[#|2011-09-29T11:23:47.609+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:23:47.611+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:23:47.615+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:23:47.615+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:23:47.637+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:23:47.637+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:23:48.263+0200|INFO|glassfish3.0.1|org.hibernate.validator.util.Version|_ThreadID=25;_ThreadName=Thread-3;|Hibernate Validator bean-validator-3.0-JBoss-4.0.2|#]
+
+[#|2011-09-29T11:23:48.289+0200|INFO|glassfish3.0.1|org.hibernate.validator.engine.resolver.DefaultTraversableResolver|_ThreadID=25;_ThreadName=Thread-3;|Instantiated an instance of org.hibernate.validator.engine.resolver.JPATraversableResolver.|#]
+
+[#|2011-09-29T11:23:49.785+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:23:49.785+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:23:49.814+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=25;_ThreadName=Thread-3;|Module type not recognized|#]
+
+[#|2011-09-29T11:23:49.815+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=25;_ThreadName=Thread-3;|Il n’y a aucun récipient capable de gérer cette application com.sun.enterprise.deploy.shared.FileArchive@5c9fd14a|#]
+
+[#|2011-09-29T11:23:49.819+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|[AutoDeploy] Autodeploy failed : /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war.|#]
+
+[#|2011-09-29T11:23:53.822+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|[AutoDeploy] Selecting file /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war for autodeployment.|#]
+
+[#|2011-09-29T11:23:56.444+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|Servlet [com.mymed.controller.core.requesthandler.ReputationRequestHandler] and Servlet [com.mymed.controller.core.requesthandler.ReputationRequestHandlerOld] have the same url pattern: [/ReputationRequestHandler]|#]
+
+[#|2011-09-29T11:23:56.444+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=25;_ThreadName=Thread-3;|Exception while deploying the app
+java.lang.IllegalStateException: Servlet [com.mymed.controller.core.requesthandler.ReputationRequestHandler] and Servlet [com.mymed.controller.core.requesthandler.ReputationRequestHandlerOld] have the same url pattern: [/ReputationRequestHandler]at org.glassfish.apf.AnnotationInfo@5ea03ac7
+	at com.sun.enterprise.deployment.archivist.Archivist.readAnnotations(Archivist.java:478)
+	at com.sun.enterprise.deployment.archivist.Archivist.readAnnotations(Archivist.java:420)
+	at com.sun.enterprise.deployment.archivist.Archivist.readRestDeploymentDescriptors(Archivist.java:396)
+	at com.sun.enterprise.deployment.archivist.Archivist.openWith(Archivist.java:259)
+	at com.sun.enterprise.deployment.archivist.ApplicationFactory.openWith(ApplicationFactory.java:222)
+	at org.glassfish.javaee.core.deployment.DolProvider.load(DolProvider.java:152)
+	at org.glassfish.javaee.core.deployment.DolProvider.load(DolProvider.java:79)
+	at com.sun.enterprise.v3.server.ApplicationLifecycle.loadDeployer(ApplicationLifecycle.java:612)
+	at com.sun.enterprise.v3.server.ApplicationLifecycle.setupContainerInfos(ApplicationLifecycle.java:554)
+	at com.sun.enterprise.v3.server.ApplicationLifecycle.deploy(ApplicationLifecycle.java:262)
+	at com.sun.enterprise.v3.server.ApplicationLifecycle.deploy(ApplicationLifecycle.java:183)
+	at org.glassfish.deployment.admin.DeployCommand.execute(DeployCommand.java:272)
+	at com.sun.enterprise.v3.admin.CommandRunnerImpl$1.execute(CommandRunnerImpl.java:310)
+	at com.sun.enterprise.v3.admin.CommandRunnerImpl.doCommand(CommandRunnerImpl.java:320)
+	at com.sun.enterprise.v3.admin.CommandRunnerImpl.doCommand(CommandRunnerImpl.java:1176)
+	at com.sun.enterprise.v3.admin.CommandRunnerImpl.access$900(CommandRunnerImpl.java:83)
+	at com.sun.enterprise.v3.admin.CommandRunnerImpl$ExecutionContext.execute(CommandRunnerImpl.java:1235)
+	at org.glassfish.deployment.autodeploy.AutoOperation.run(AutoOperation.java:141)
+	at org.glassfish.deployment.autodeploy.AutoDeployer.deploy(AutoDeployer.java:573)
+	at org.glassfish.deployment.autodeploy.AutoDeployer.deployAll(AutoDeployer.java:459)
+	at org.glassfish.deployment.autodeploy.AutoDeployer.run(AutoDeployer.java:391)
+	at org.glassfish.deployment.autodeploy.AutoDeployer.run(AutoDeployer.java:376)
+	at org.glassfish.deployment.autodeploy.AutoDeployService$1.run(AutoDeployService.java:195)
+	at java.util.TimerThread.mainLoop(Timer.java:512)
+	at java.util.TimerThread.run(Timer.java:462)
+Caused by: Servlet [com.mymed.controller.core.requesthandler.ReputationRequestHandler] and Servlet [com.mymed.controller.core.requesthandler.ReputationRequestHandlerOld] have the same url pattern: [/ReputationRequestHandler]at org.glassfish.apf.AnnotationInfo@5ea03ac7
+	at org.glassfish.apf.impl.AnnotationProcessorImpl.process(AnnotationProcessorImpl.java:360)
+	at org.glassfish.apf.impl.AnnotationProcessorImpl.process(AnnotationProcessorImpl.java:368)
+	at org.glassfish.apf.impl.AnnotationProcessorImpl.processAnnotations(AnnotationProcessorImpl.java:282)
+	at org.glassfish.apf.impl.AnnotationProcessorImpl.process(AnnotationProcessorImpl.java:188)
+	at org.glassfish.apf.impl.AnnotationProcessorImpl.process(AnnotationProcessorImpl.java:129)
+	at com.sun.enterprise.deployment.archivist.Archivist.processAnnotations(Archivist.java:581)
+	at com.sun.enterprise.deployment.archivist.Archivist.readAnnotations(Archivist.java:433)
+	... 24 more
+Caused by: java.lang.IllegalArgumentException: Servlet [com.mymed.controller.core.requesthandler.ReputationRequestHandler] and Servlet [com.mymed.controller.core.requesthandler.ReputationRequestHandlerOld] have the same url pattern: [/ReputationRequestHandler]
+	at com.sun.enterprise.deployment.WebBundleDescriptor.addWebComponentDescriptor(WebBundleDescriptor.java:353)
+	at com.sun.enterprise.deployment.annotation.handlers.WebServletHandler.processAnnotation(WebServletHandler.java:115)
+	at com.sun.enterprise.deployment.annotation.handlers.AbstractWebHandler.processAnnotation(AbstractWebHandler.java:117)
+	at com.sun.enterprise.deployment.annotation.handlers.WebServletHandler.processAnnotation(WebServletHandler.java:63)
+	at org.glassfish.apf.impl.AnnotationProcessorImpl.process(AnnotationProcessorImpl.java:337)
+	... 30 more
+|#]
+
+[#|2011-09-29T11:23:56.586+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|[AutoDeploy] Autodeploy failed : /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war.|#]
+
+[#|2011-09-29T11:27:10.627+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|[AutoDeploy] Selecting file /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war for autodeployment.|#]
+
+[#|2011-09-29T11:27:10.736+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:27:10.736+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:27:10.739+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:27:10.739+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:27:10.741+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:27:10.742+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:27:10.754+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:27:10.754+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:27:10.768+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=25;_ThreadName=Thread-3;|Module type not recognized|#]
+
+[#|2011-09-29T11:27:10.768+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=25;_ThreadName=Thread-3;|Il n’y a aucun récipient capable de gérer cette application com.sun.enterprise.deploy.shared.FileArchive@74f508b9|#]
+
+[#|2011-09-29T11:27:10.770+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|[AutoDeploy] Autodeploy failed : /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war.|#]
+
+[#|2011-09-29T11:27:16.605+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|[AutoDeploy] Selecting file /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war for autodeployment.|#]
+
+[#|2011-09-29T11:27:21.848+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|Servlet [ReputationRequestHandler] and Servlet [com.mymed.controller.core.requesthandler.ReputationRequestHandlerOld] have the same url pattern: [/ReputationRequestHandler]|#]
+
+[#|2011-09-29T11:27:21.849+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=25;_ThreadName=Thread-3;|Exception while deploying the app
+java.lang.IllegalStateException: Servlet [ReputationRequestHandler] and Servlet [com.mymed.controller.core.requesthandler.ReputationRequestHandlerOld] have the same url pattern: [/ReputationRequestHandler]at org.glassfish.apf.AnnotationInfo@406f8d74
+	at com.sun.enterprise.deployment.archivist.Archivist.readAnnotations(Archivist.java:478)
+	at com.sun.enterprise.deployment.archivist.Archivist.readAnnotations(Archivist.java:420)
+	at com.sun.enterprise.deployment.archivist.Archivist.readRestDeploymentDescriptors(Archivist.java:396)
+	at com.sun.enterprise.deployment.archivist.Archivist.openWith(Archivist.java:259)
+	at com.sun.enterprise.deployment.archivist.ApplicationFactory.openWith(ApplicationFactory.java:222)
+	at org.glassfish.javaee.core.deployment.DolProvider.load(DolProvider.java:152)
+	at org.glassfish.javaee.core.deployment.DolProvider.load(DolProvider.java:79)
+	at com.sun.enterprise.v3.server.ApplicationLifecycle.loadDeployer(ApplicationLifecycle.java:612)
+	at com.sun.enterprise.v3.server.ApplicationLifecycle.setupContainerInfos(ApplicationLifecycle.java:554)
+	at com.sun.enterprise.v3.server.ApplicationLifecycle.deploy(ApplicationLifecycle.java:262)
+	at com.sun.enterprise.v3.server.ApplicationLifecycle.deploy(ApplicationLifecycle.java:183)
+	at org.glassfish.deployment.admin.DeployCommand.execute(DeployCommand.java:272)
+	at com.sun.enterprise.v3.admin.CommandRunnerImpl$1.execute(CommandRunnerImpl.java:310)
+	at com.sun.enterprise.v3.admin.CommandRunnerImpl.doCommand(CommandRunnerImpl.java:320)
+	at com.sun.enterprise.v3.admin.CommandRunnerImpl.doCommand(CommandRunnerImpl.java:1176)
+	at com.sun.enterprise.v3.admin.CommandRunnerImpl.access$900(CommandRunnerImpl.java:83)
+	at com.sun.enterprise.v3.admin.CommandRunnerImpl$ExecutionContext.execute(CommandRunnerImpl.java:1235)
+	at org.glassfish.deployment.autodeploy.AutoOperation.run(AutoOperation.java:141)
+	at org.glassfish.deployment.autodeploy.AutoDeployer.deploy(AutoDeployer.java:573)
+	at org.glassfish.deployment.autodeploy.AutoDeployer.deployAll(AutoDeployer.java:459)
+	at org.glassfish.deployment.autodeploy.AutoDeployer.run(AutoDeployer.java:391)
+	at org.glassfish.deployment.autodeploy.AutoDeployer.run(AutoDeployer.java:376)
+	at org.glassfish.deployment.autodeploy.AutoDeployService$1.run(AutoDeployService.java:195)
+	at java.util.TimerThread.mainLoop(Timer.java:512)
+	at java.util.TimerThread.run(Timer.java:462)
+Caused by: Servlet [ReputationRequestHandler] and Servlet [com.mymed.controller.core.requesthandler.ReputationRequestHandlerOld] have the same url pattern: [/ReputationRequestHandler]at org.glassfish.apf.AnnotationInfo@406f8d74
+	at org.glassfish.apf.impl.AnnotationProcessorImpl.process(AnnotationProcessorImpl.java:360)
+	at org.glassfish.apf.impl.AnnotationProcessorImpl.process(AnnotationProcessorImpl.java:368)
+	at org.glassfish.apf.impl.AnnotationProcessorImpl.processAnnotations(AnnotationProcessorImpl.java:282)
+	at org.glassfish.apf.impl.AnnotationProcessorImpl.process(AnnotationProcessorImpl.java:188)
+	at org.glassfish.apf.impl.AnnotationProcessorImpl.process(AnnotationProcessorImpl.java:129)
+	at com.sun.enterprise.deployment.archivist.Archivist.processAnnotations(Archivist.java:581)
+	at com.sun.enterprise.deployment.archivist.Archivist.readAnnotations(Archivist.java:433)
+	... 24 more
+Caused by: java.lang.IllegalArgumentException: Servlet [ReputationRequestHandler] and Servlet [com.mymed.controller.core.requesthandler.ReputationRequestHandlerOld] have the same url pattern: [/ReputationRequestHandler]
+	at com.sun.enterprise.deployment.WebBundleDescriptor.addWebComponentDescriptor(WebBundleDescriptor.java:353)
+	at com.sun.enterprise.deployment.annotation.handlers.WebServletHandler.processAnnotation(WebServletHandler.java:115)
+	at com.sun.enterprise.deployment.annotation.handlers.AbstractWebHandler.processAnnotation(AbstractWebHandler.java:117)
+	at com.sun.enterprise.deployment.annotation.handlers.WebServletHandler.processAnnotation(WebServletHandler.java:63)
+	at org.glassfish.apf.impl.AnnotationProcessorImpl.process(AnnotationProcessorImpl.java:337)
+	... 30 more
+|#]
+
+[#|2011-09-29T11:27:21.961+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|[AutoDeploy] Autodeploy failed : /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war.|#]
+
+[#|2011-09-29T11:28:25.965+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|[AutoDeploy] Selecting file /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war for autodeployment.|#]
+
+[#|2011-09-29T11:28:25.976+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:28:25.976+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:28:25.978+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:28:25.979+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:28:25.986+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:28:25.986+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:28:25.992+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:28:25.992+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:28:26.089+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=25;_ThreadName=Thread-3;|Module type not recognized|#]
+
+[#|2011-09-29T11:28:26.090+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=25;_ThreadName=Thread-3;|Il n’y a aucun récipient capable de gérer cette application com.sun.enterprise.deploy.shared.FileArchive@1ee1daa3|#]
+
+[#|2011-09-29T11:28:26.093+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|[AutoDeploy] Autodeploy failed : /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war.|#]
+
+[#|2011-09-29T11:28:29.966+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|[AutoDeploy] Selecting file /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war for autodeployment.|#]
+
+[#|2011-09-29T11:28:33.101+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=AutoDeployer;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-29T11:28:33.101+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=Thread-3;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-29T11:28:33.101+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=AutoDeployer;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-29T11:28:33.323+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.admin.org.glassfish.deployment.admin|_ThreadID=25;_ThreadName=Thread-3;|mymed_backend was successfully deployed in 3 347 milliseconds.|#]
+
+[#|2011-09-29T11:28:33.333+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|[AutoDeploy] Successfully autodeployed : /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war.|#]
+
+[#|2011-09-29T11:28:56.837+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-3;|11:28:56,558 |-INFO in ch.qos.logback.classic.LoggerContext[myMed] - Found resource [/local/mymed/backend/conf/logback.xml] at [file:/local/mymed/backend/conf/logback.xml]
+11:28:56,664 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - Setting ReconfigureOnChangeFilter scanning period to 5 minutes
+11:28:56,664 |-INFO in ch.qos.logback.classic.turbo.ReconfigureOnChangeFilter@39dbbe10 - Will scan for changes in [[/local/mymed/backend/conf/logback.xml]] every 300 seconds. 
+11:28:56,664 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - Adding ReconfigureOnChangeFilter as a turbo filter
+11:28:56,665 |-INFO in ch.qos.logback.classic.joran.action.ContextNameAction - Setting logger context name as [myMed]
+11:28:56,668 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - About to instantiate appender of type [ch.qos.logback.core.ConsoleAppender]
+11:28:56,696 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - Naming appender as [stdout]
+11:28:56,714 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+11:28:56,781 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - About to instantiate appender of type [ch.qos.logback.core.rolling.RollingFileAppender]
+11:28:56,787 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - Naming appender as [info.file]
+11:28:56,815 |-INFO in c.q.l.core.rolling.TimeBasedRollingPolicy - Will use gz compression
+11:28:56,819 |-INFO in c.q.l.core.rolling.TimeBasedRollingPolicy - Will use the pattern /local/var/log/mymed/mymed-backend-info-%d.log for the active file
+11:28:56,827 |-INFO in c.q.l.core.rolling.DefaultTimeBasedFileNamingAndTriggeringPolicy - The date pattern is 'yyyy-MM-dd' from file name pattern '/local/var/log/mymed/mymed-backend-info-%d.log.gz'.
+11:28:56,827 |-INFO in c.q.l.core.rolling.DefaultTimeBasedFileNamingAndTriggeringPolicy - Roll-over at midnight.
+11:28:56,827 |-INFO in c.q.l.core.rolling.DefaultTimeBasedFileNamingAndTriggeringPolicy - Setting initial period to Thu Sep 29 10:42:35 CEST 2011
+11:28:56,828 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+11:28:56,829 |-INFO in ch.qos.logback.core.rolling.RollingFileAppender[info.file] - Active log file name: /local/var/log/mymed/mymed-backend-info.log
+11:28:56,829 |-INFO in ch.qos.logback.core.rolling.RollingFileAppender[info.file] - File property is set to [/local/var/log/mymed/mymed-backend-info.log]
+11:28:56,830 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - About to instantiate appender of type [ch.qos.logback.core.FileAppender]
+11:28:56,831 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - Naming appender as [debug.file]
+11:28:56,831 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+11:28:56,831 |-INFO in ch.qos.logback.core.FileAppender[debug.file] - File property is set to [/local/var/log/mymed/mymed-backend-debug.log]
+11:28:56,832 |-INFO in ch.qos.logback.classic.joran.action.LoggerAction - Setting level of logger [mymed.info.logger] to INFO
+11:28:56,832 |-INFO in ch.qos.logback.classic.joran.action.LoggerAction - Setting additivity of logger [mymed.info.logger] to false
+11:28:56,832 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [info.file] to Logger[mymed.info.logger]
+11:28:56,834 |-INFO in ch.qos.logback.classic.joran.action.LoggerAction - Setting level of logger [mymed.debug.logger] to DEBUG
+11:28:56,834 |-INFO in ch.qos.logback.classic.joran.action.LoggerAction - Setting additivity of logger [mymed.debug.logger] to false
+11:28:56,834 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [debug.file] to Logger[mymed.debug.logger]
+11:28:56,834 |-INFO in ch.qos.logback.classic.joran.action.RootLoggerAction - Setting level of ROOT logger to INFO
+11:28:56,834 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [stdout] to Logger[ROOT]
+11:28:56,834 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - End of configuration.
+|#]
+
+[#|2011-09-29T11:31:59.353+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|[AutoDeploy] Selecting file /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war for autodeployment.|#]
+
+[#|2011-09-29T11:31:59.363+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:31:59.364+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:31:59.366+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:31:59.366+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:31:59.368+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:31:59.368+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:31:59.673+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:31:59.674+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:31:59.678+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=25;_ThreadName=Thread-3;|Module type not recognized|#]
+
+[#|2011-09-29T11:31:59.678+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=25;_ThreadName=Thread-3;|Il n’y a aucun récipient capable de gérer cette application com.sun.enterprise.deploy.shared.FileArchive@7705b9e8|#]
+
+[#|2011-09-29T11:31:59.680+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|[AutoDeploy] Autodeploy failed : /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war.|#]
+
+[#|2011-09-29T11:32:03.354+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|[AutoDeploy] Selecting file /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war for autodeployment.|#]
+
+[#|2011-09-29T11:32:06.650+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=AutoDeployer;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-29T11:32:06.650+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=AutoDeployer;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-29T11:32:06.650+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=Thread-3;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-29T11:32:06.705+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.admin.org.glassfish.deployment.admin|_ThreadID=25;_ThreadName=Thread-3;|mymed_backend was successfully deployed in 3 339 milliseconds.|#]
+
+[#|2011-09-29T11:32:06.706+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|[AutoDeploy] Successfully autodeployed : /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war.|#]
+
+[#|2011-09-29T11:32:13.216+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-3;|11:32:12,951 |-INFO in ch.qos.logback.classic.LoggerContext[myMed] - Found resource [/local/mymed/backend/conf/logback.xml] at [file:/local/mymed/backend/conf/logback.xml]
+11:32:13,061 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - Setting ReconfigureOnChangeFilter scanning period to 5 minutes
+11:32:13,062 |-INFO in ch.qos.logback.classic.turbo.ReconfigureOnChangeFilter@27f6e0f8 - Will scan for changes in [[/local/mymed/backend/conf/logback.xml]] every 300 seconds. 
+11:32:13,062 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - Adding ReconfigureOnChangeFilter as a turbo filter
+11:32:13,063 |-INFO in ch.qos.logback.classic.joran.action.ContextNameAction - Setting logger context name as [myMed]
+11:32:13,065 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - About to instantiate appender of type [ch.qos.logback.core.ConsoleAppender]
+11:32:13,072 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - Naming appender as [stdout]
+11:32:13,088 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+11:32:13,154 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - About to instantiate appender of type [ch.qos.logback.core.rolling.RollingFileAppender]
+11:32:13,159 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - Naming appender as [info.file]
+11:32:13,196 |-INFO in c.q.l.core.rolling.TimeBasedRollingPolicy - Will use gz compression
+11:32:13,199 |-INFO in c.q.l.core.rolling.TimeBasedRollingPolicy - Will use the pattern /local/var/log/mymed/mymed-backend-info-%d.log for the active file
+11:32:13,207 |-INFO in c.q.l.core.rolling.DefaultTimeBasedFileNamingAndTriggeringPolicy - The date pattern is 'yyyy-MM-dd' from file name pattern '/local/var/log/mymed/mymed-backend-info-%d.log.gz'.
+11:32:13,207 |-INFO in c.q.l.core.rolling.DefaultTimeBasedFileNamingAndTriggeringPolicy - Roll-over at midnight.
+11:32:13,207 |-INFO in c.q.l.core.rolling.DefaultTimeBasedFileNamingAndTriggeringPolicy - Setting initial period to Thu Sep 29 11:29:52 CEST 2011
+11:32:13,208 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+11:32:13,209 |-INFO in ch.qos.logback.core.rolling.RollingFileAppender[info.file] - Active log file name: /local/var/log/mymed/mymed-backend-info.log
+11:32:13,209 |-INFO in ch.qos.logback.core.rolling.RollingFileAppender[info.file] - File property is set to [/local/var/log/mymed/mymed-backend-info.log]
+11:32:13,211 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - About to instantiate appender of type [ch.qos.logback.core.FileAppender]
+11:32:13,211 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - Naming appender as [debug.file]
+11:32:13,211 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+11:32:13,212 |-INFO in ch.qos.logback.core.FileAppender[debug.file] - File property is set to [/local/var/log/mymed/mymed-backend-debug.log]
+11:32:13,212 |-INFO in ch.qos.logback.classic.joran.action.LoggerAction - Setting level of logger [mymed.info.logger] to INFO
+11:32:13,212 |-INFO in ch.qos.logback.classic.joran.action.LoggerAction - Setting additivity of logger [mymed.info.logger] to false
+11:32:13,212 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [info.file] to Logger[mymed.info.logger]
+11:32:13,214 |-INFO in ch.qos.logback.classic.joran.action.LoggerAction - Setting level of logger [mymed.debug.logger] to DEBUG
+11:32:13,214 |-INFO in ch.qos.logback.classic.joran.action.LoggerAction - Setting additivity of logger [mymed.debug.logger] to false
+11:32:13,214 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [debug.file] to Logger[mymed.debug.logger]
+11:32:13,214 |-INFO in ch.qos.logback.classic.joran.action.RootLoggerAction - Setting level of ROOT logger to INFO
+11:32:13,214 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [stdout] to Logger[ROOT]
+11:32:13,214 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - End of configuration.
+|#]
+
+[#|2011-09-29T11:32:27.080+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-3;|java.io.FileNotFoundException: /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/conf/reputation-data-model.xml (No such file or directory)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(FileInputStream.java:120)
+	at java.io.FileInputStream.<init>(FileInputStream.java:79)
+	at sun.net.www.protocol.file.FileURLConnection.connect(FileURLConnection.java:70)
+	at sun.net.www.protocol.file.FileURLConnection.getInputStream(FileURLConnection.java:161)
+	at com.sun.org.apache.xerces.internal.impl.XMLEntityManager.setupCurrentEntity(XMLEntityManager.java:653)
+	at com.sun.org.apache.xerces.internal.impl.XMLVersionDetector.determineDocVersion(XMLVersionDetector.java:186)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:772)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:737)
+	at com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:119)
+	at com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(DOMParser.java:235)
+	at com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:284)
+	at javax.xml.parsers.DocumentBuilder.parse(DocumentBuilder.java:180)
+	at com.mymed.controller.core.manager.reputation.db.facade.CassandraDescTable.<init>(CassandraDescTable.java:54)
+	at com.mymed.controller.core.manager.reputation.db.facade.CassandraDescTable.<clinit>(CassandraDescTable.java:37)
+	at com.mymed.controller.core.manager.reputation.db.facade.CassandraQueryFacade.<init>(CassandraQueryFacade.java:56)
+	at com.mymed.controller.core.manager.reputation.db.facade.CassandraQueryFacade.getNewInstance(CassandraQueryFacade.java:68)
+	at com.mymed.controller.core.manager.reputation.db.facade.TransactionManager.createTransaction(TransactionManager.java:54)
+	at com.mymed.controller.core.manager.reputation.db.table.facade.DbTableAdapter.createTransaction(DbTableAdapter.java:41)
+	at com.mymed.controller.core.manager.reputation.reputation_manager.ReputationManager.readReputation(ReputationManager.java:66)
+	at com.mymed.controller.core.manager.reputation.reputation_manager.ReputationManager.readReputation(ReputationManager.java:53)
+	at com.mymed.controller.core.requesthandler.ReputationRequestHandler.doGet(ReputationRequestHandler.java:77)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:680)
+|#]
+
+[#|2011-09-29T11:32:27.096+0200|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=26;_ThreadName=http-thread-pool-8080-(1);|StandardWrapperValve[ReputationRequestHandler]: PWC1406: Servlet.service() for servlet ReputationRequestHandler threw exception
+java.lang.NullPointerException
+	at com.mymed.controller.core.requesthandler.ReputationRequestHandler.doGet(ReputationRequestHandler.java:78)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:680)
+|#]
+
+[#|2011-09-29T11:32:27.093+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-3;|java.lang.NullPointerException
+	at com.mymed.controller.core.manager.reputation.db.facade.CassandraDescTable.getListOfConstraints(CassandraDescTable.java:92)
+	at com.mymed.controller.core.manager.reputation.db.facade.CassandraDescTable.getUniqueFields(CassandraDescTable.java:140)
+	at com.mymed.controller.core.manager.reputation.db.facade.CassandraDescTable.generateKeyForColumnFamily(CassandraDescTable.java:186)
+	at com.mymed.controller.core.manager.reputation.db.table.facade.UserApplicationProducerFacade.persist(UserApplicationProducerFacade.java:61)
+	at com.mymed.controller.core.manager.reputation.db.table.facade.DbTableAdapter.persistUserApplicationProducer(DbTableAdapter.java:105)
+	at com.mymed.controller.core.manager.reputation.reputation_manager.ReputationManager.readReputation(ReputationManager.java:78)
+	at com.mymed.controller.core.manager.reputation.reputation_manager.ReputationManager.readReputation(ReputationManager.java:53)
+	at com.mymed.controller.core.requesthandler.ReputationRequestHandler.doGet(ReputationRequestHandler.java:77)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:680)
+|#]
+
+[#|2011-09-29T11:32:27.096+0200|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=26;_ThreadName=Thread-3;|StandardWrapperValve[ReputationRequestHandler]: PWC1406: Servlet.service() for servlet ReputationRequestHandler threw exception
+java.lang.NullPointerException
+	at com.mymed.controller.core.requesthandler.ReputationRequestHandler.doGet(ReputationRequestHandler.java:78)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:680)
+|#]
+
+[#|2011-09-29T11:32:27.096+0200|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=26;_ThreadName=http-thread-pool-8080-(1);|StandardWrapperValve[ReputationRequestHandler]: PWC1406: Servlet.service() for servlet ReputationRequestHandler threw exception
+java.lang.NullPointerException
+	at com.mymed.controller.core.requesthandler.ReputationRequestHandler.doGet(ReputationRequestHandler.java:78)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:680)
+|#]
+
+[#|2011-09-29T11:34:10.736+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|[AutoDeploy] Selecting file /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war for autodeployment.|#]
+
+[#|2011-09-29T11:34:11.063+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:34:11.063+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:34:11.081+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:34:11.082+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:34:11.084+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:34:11.084+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:34:11.477+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:34:11.477+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:34:11.481+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=25;_ThreadName=Thread-3;|Module type not recognized|#]
+
+[#|2011-09-29T11:34:11.481+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=25;_ThreadName=Thread-3;|Il n’y a aucun récipient capable de gérer cette application com.sun.enterprise.deploy.shared.FileArchive@248dc612|#]
+
+[#|2011-09-29T11:34:11.484+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|[AutoDeploy] Autodeploy failed : /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war.|#]
+
+[#|2011-09-29T11:34:14.739+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|[AutoDeploy] Selecting file /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war for autodeployment.|#]
+
+[#|2011-09-29T11:34:18.526+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=AutoDeployer;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-29T11:34:18.526+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=AutoDeployer;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-29T11:34:18.526+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=Thread-3;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-29T11:34:18.582+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.admin.org.glassfish.deployment.admin|_ThreadID=25;_ThreadName=Thread-3;|mymed_backend was successfully deployed in 3 834 milliseconds.|#]
+
+[#|2011-09-29T11:34:18.583+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|[AutoDeploy] Successfully autodeployed : /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war.|#]
+
+[#|2011-09-29T11:34:28.275+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-3;|11:34:28,017 |-INFO in ch.qos.logback.classic.LoggerContext[myMed] - Found resource [/local/mymed/backend/conf/logback.xml] at [file:/local/mymed/backend/conf/logback.xml]
+11:34:28,123 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - Setting ReconfigureOnChangeFilter scanning period to 5 minutes
+11:34:28,124 |-INFO in ch.qos.logback.classic.turbo.ReconfigureOnChangeFilter@5ffcb67 - Will scan for changes in [[/local/mymed/backend/conf/logback.xml]] every 300 seconds. 
+11:34:28,124 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - Adding ReconfigureOnChangeFilter as a turbo filter
+11:34:28,125 |-INFO in ch.qos.logback.classic.joran.action.ContextNameAction - Setting logger context name as [myMed]
+11:34:28,127 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - About to instantiate appender of type [ch.qos.logback.core.ConsoleAppender]
+11:34:28,134 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - Naming appender as [stdout]
+11:34:28,150 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+11:34:28,215 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - About to instantiate appender of type [ch.qos.logback.core.rolling.RollingFileAppender]
+11:34:28,220 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - Naming appender as [info.file]
+11:34:28,255 |-INFO in c.q.l.core.rolling.TimeBasedRollingPolicy - Will use gz compression
+11:34:28,258 |-INFO in c.q.l.core.rolling.TimeBasedRollingPolicy - Will use the pattern /local/var/log/mymed/mymed-backend-info-%d.log for the active file
+11:34:28,266 |-INFO in c.q.l.core.rolling.DefaultTimeBasedFileNamingAndTriggeringPolicy - The date pattern is 'yyyy-MM-dd' from file name pattern '/local/var/log/mymed/mymed-backend-info-%d.log.gz'.
+11:34:28,266 |-INFO in c.q.l.core.rolling.DefaultTimeBasedFileNamingAndTriggeringPolicy - Roll-over at midnight.
+11:34:28,266 |-INFO in c.q.l.core.rolling.DefaultTimeBasedFileNamingAndTriggeringPolicy - Setting initial period to Thu Sep 29 11:32:54 CEST 2011
+11:34:28,267 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+11:34:28,268 |-INFO in ch.qos.logback.core.rolling.RollingFileAppender[info.file] - Active log file name: /local/var/log/mymed/mymed-backend-info.log
+11:34:28,268 |-INFO in ch.qos.logback.core.rolling.RollingFileAppender[info.file] - File property is set to [/local/var/log/mymed/mymed-backend-info.log]
+11:34:28,269 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - About to instantiate appender of type [ch.qos.logback.core.FileAppender]
+11:34:28,269 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - Naming appender as [debug.file]
+11:34:28,270 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+11:34:28,270 |-INFO in ch.qos.logback.core.FileAppender[debug.file] - File property is set to [/local/var/log/mymed/mymed-backend-debug.log]
+11:34:28,270 |-INFO in ch.qos.logback.classic.joran.action.LoggerAction - Setting level of logger [mymed.info.logger] to INFO
+11:34:28,270 |-INFO in ch.qos.logback.classic.joran.action.LoggerAction - Setting additivity of logger [mymed.info.logger] to false
+11:34:28,270 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [info.file] to Logger[mymed.info.logger]
+11:34:28,272 |-INFO in ch.qos.logback.classic.joran.action.LoggerAction - Setting level of logger [mymed.debug.logger] to DEBUG
+11:34:28,272 |-INFO in ch.qos.logback.classic.joran.action.LoggerAction - Setting additivity of logger [mymed.debug.logger] to false
+11:34:28,272 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [debug.file] to Logger[mymed.debug.logger]
+11:34:28,272 |-INFO in ch.qos.logback.classic.joran.action.RootLoggerAction - Setting level of ROOT logger to INFO
+11:34:28,272 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [stdout] to Logger[ROOT]
+11:34:28,272 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - End of configuration.
+|#]
+
+[#|2011-09-29T11:34:28.468+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-3;|java.io.FileNotFoundException: /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/config/reputation-data-model.xml (No such file or directory)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(FileInputStream.java:120)
+	at java.io.FileInputStream.<init>(FileInputStream.java:79)
+	at sun.net.www.protocol.file.FileURLConnection.connect(FileURLConnection.java:70)
+	at sun.net.www.protocol.file.FileURLConnection.getInputStream(FileURLConnection.java:161)
+	at com.sun.org.apache.xerces.internal.impl.XMLEntityManager.setupCurrentEntity(XMLEntityManager.java:653)
+	at com.sun.org.apache.xerces.internal.impl.XMLVersionDetector.determineDocVersion(XMLVersionDetector.java:186)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:772)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:737)
+	at com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:119)
+	at com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(DOMParser.java:235)
+	at com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:284)
+	at javax.xml.parsers.DocumentBuilder.parse(DocumentBuilder.java:180)
+	at com.mymed.controller.core.manager.reputation.db.facade.CassandraDescTable.<init>(CassandraDescTable.java:54)
+	at com.mymed.controller.core.manager.reputation.db.facade.CassandraDescTable.<clinit>(CassandraDescTable.java:37)
+	at com.mymed.controller.core.manager.reputation.db.facade.CassandraQueryFacade.<init>(CassandraQueryFacade.java:56)
+	at com.mymed.controller.core.manager.reputation.db.facade.CassandraQueryFacade.getNewInstance(CassandraQueryFacade.java:68)
+	at com.mymed.controller.core.manager.reputation.db.facade.TransactionManager.createTransaction(TransactionManager.java:54)
+	at com.mymed.controller.core.manager.reputation.db.table.facade.DbTableAdapter.createTransaction(DbTableAdapter.java:41)
+	at com.mymed.controller.core.manager.reputation.reputation_manager.ReputationManager.readReputation(ReputationManager.java:66)
+	at com.mymed.controller.core.manager.reputation.reputation_manager.ReputationManager.readReputation(ReputationManager.java:53)
+	at com.mymed.controller.core.requesthandler.ReputationRequestHandler.doGet(ReputationRequestHandler.java:77)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:680)
+|#]
+
+[#|2011-09-29T11:34:28.476+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-3;|java.lang.NullPointerException
+	at com.mymed.controller.core.manager.reputation.db.facade.CassandraDescTable.getListOfConstraints(CassandraDescTable.java:92)
+	at com.mymed.controller.core.manager.reputation.db.facade.CassandraDescTable.getUniqueFields(CassandraDescTable.java:140)
+	at com.mymed.controller.core.manager.reputation.db.facade.CassandraDescTable.generateKeyForColumnFamily(CassandraDescTable.java:186)
+	at com.mymed.controller.core.manager.reputation.db.table.facade.UserApplicationProducerFacade.persist(UserApplicationProducerFacade.java:61)
+	at com.mymed.controller.core.manager.reputation.db.table.facade.DbTableAdapter.persistUserApplicationProducer(DbTableAdapter.java:105)
+	at com.mymed.controller.core.manager.reputation.reputation_manager.ReputationManager.readReputation(ReputationManager.java:78)
+	at com.mymed.controller.core.manager.reputation.reputation_manager.ReputationManager.readReputation(ReputationManager.java:53)
+	at com.mymed.controller.core.requesthandler.ReputationRequestHandler.doGet(ReputationRequestHandler.java:77)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:680)
+|#]
+
+[#|2011-09-29T11:34:28.479+0200|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=23;_ThreadName=http-thread-pool-8080-(2);|StandardWrapperValve[ReputationRequestHandler]: PWC1406: Servlet.service() for servlet ReputationRequestHandler threw exception
+java.lang.NullPointerException
+	at com.mymed.controller.core.requesthandler.ReputationRequestHandler.doGet(ReputationRequestHandler.java:78)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:680)
+|#]
+
+[#|2011-09-29T11:34:28.479+0200|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=23;_ThreadName=http-thread-pool-8080-(2);|StandardWrapperValve[ReputationRequestHandler]: PWC1406: Servlet.service() for servlet ReputationRequestHandler threw exception
+java.lang.NullPointerException
+	at com.mymed.controller.core.requesthandler.ReputationRequestHandler.doGet(ReputationRequestHandler.java:78)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:680)
+|#]
+
+[#|2011-09-29T11:34:28.479+0200|WARNING|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=23;_ThreadName=Thread-3;|StandardWrapperValve[ReputationRequestHandler]: PWC1406: Servlet.service() for servlet ReputationRequestHandler threw exception
+java.lang.NullPointerException
+	at com.mymed.controller.core.requesthandler.ReputationRequestHandler.doGet(ReputationRequestHandler.java:78)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:734)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:680)
+|#]
+
+[#|2011-09-29T11:36:10.611+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|[AutoDeploy] Selecting file /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war for autodeployment.|#]
+
+[#|2011-09-29T11:36:10.625+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:36:10.626+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:36:10.628+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:36:10.629+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:36:10.632+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:36:10.632+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:36:10.844+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:36:10.844+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:36:10.848+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=25;_ThreadName=Thread-3;|Module type not recognized|#]
+
+[#|2011-09-29T11:36:10.848+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=25;_ThreadName=Thread-3;|Il n’y a aucun récipient capable de gérer cette application com.sun.enterprise.deploy.shared.FileArchive@1bda416d|#]
+
+[#|2011-09-29T11:36:10.854+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|[AutoDeploy] Autodeploy failed : /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war.|#]
+
+[#|2011-09-29T11:36:14.612+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|[AutoDeploy] Selecting file /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war for autodeployment.|#]
+
+[#|2011-09-29T11:36:17.972+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=AutoDeployer;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-29T11:36:17.972+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=AutoDeployer;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-29T11:36:17.972+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=Thread-3;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-29T11:36:17.980+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.admin.org.glassfish.deployment.admin|_ThreadID=25;_ThreadName=Thread-3;|mymed_backend was successfully deployed in 3 359 milliseconds.|#]
+
+[#|2011-09-29T11:36:17.981+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|[AutoDeploy] Successfully autodeployed : /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war.|#]
+
+[#|2011-09-29T11:36:39.348+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-3;|11:36:39,100 |-INFO in ch.qos.logback.classic.LoggerContext[myMed] - Found resource [/local/mymed/backend/conf/logback.xml] at [file:/local/mymed/backend/conf/logback.xml]
+11:36:39,195 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - Setting ReconfigureOnChangeFilter scanning period to 5 minutes
+11:36:39,195 |-INFO in ch.qos.logback.classic.turbo.ReconfigureOnChangeFilter@37ccbb9a - Will scan for changes in [[/local/mymed/backend/conf/logback.xml]] every 300 seconds. 
+11:36:39,195 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - Adding ReconfigureOnChangeFilter as a turbo filter
+11:36:39,197 |-INFO in ch.qos.logback.classic.joran.action.ContextNameAction - Setting logger context name as [myMed]
+11:36:39,199 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - About to instantiate appender of type [ch.qos.logback.core.ConsoleAppender]
+11:36:39,215 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - Naming appender as [stdout]
+11:36:39,231 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+11:36:39,295 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - About to instantiate appender of type [ch.qos.logback.core.rolling.RollingFileAppender]
+11:36:39,300 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - Naming appender as [info.file]
+11:36:39,329 |-INFO in c.q.l.core.rolling.TimeBasedRollingPolicy - Will use gz compression
+11:36:39,332 |-INFO in c.q.l.core.rolling.TimeBasedRollingPolicy - Will use the pattern /local/var/log/mymed/mymed-backend-info-%d.log for the active file
+11:36:39,339 |-INFO in c.q.l.core.rolling.DefaultTimeBasedFileNamingAndTriggeringPolicy - The date pattern is 'yyyy-MM-dd' from file name pattern '/local/var/log/mymed/mymed-backend-info-%d.log.gz'.
+11:36:39,339 |-INFO in c.q.l.core.rolling.DefaultTimeBasedFileNamingAndTriggeringPolicy - Roll-over at midnight.
+11:36:39,339 |-INFO in c.q.l.core.rolling.DefaultTimeBasedFileNamingAndTriggeringPolicy - Setting initial period to Thu Sep 29 11:34:55 CEST 2011
+11:36:39,341 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+11:36:39,341 |-INFO in ch.qos.logback.core.rolling.RollingFileAppender[info.file] - Active log file name: /local/var/log/mymed/mymed-backend-info.log
+11:36:39,341 |-INFO in ch.qos.logback.core.rolling.RollingFileAppender[info.file] - File property is set to [/local/var/log/mymed/mymed-backend-info.log]
+11:36:39,343 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - About to instantiate appender of type [ch.qos.logback.core.FileAppender]
+11:36:39,343 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - Naming appender as [debug.file]
+11:36:39,343 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+11:36:39,344 |-INFO in ch.qos.logback.core.FileAppender[debug.file] - File property is set to [/local/var/log/mymed/mymed-backend-debug.log]
+11:36:39,344 |-INFO in ch.qos.logback.classic.joran.action.LoggerAction - Setting level of logger [mymed.info.logger] to INFO
+11:36:39,344 |-INFO in ch.qos.logback.classic.joran.action.LoggerAction - Setting additivity of logger [mymed.info.logger] to false
+11:36:39,344 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [info.file] to Logger[mymed.info.logger]
+11:36:39,346 |-INFO in ch.qos.logback.classic.joran.action.LoggerAction - Setting level of logger [mymed.debug.logger] to DEBUG
+11:36:39,346 |-INFO in ch.qos.logback.classic.joran.action.LoggerAction - Setting additivity of logger [mymed.debug.logger] to false
+11:36:39,346 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [debug.file] to Logger[mymed.debug.logger]
+11:36:39,346 |-INFO in ch.qos.logback.classic.joran.action.RootLoggerAction - Setting level of ROOT logger to INFO
+11:36:39,346 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [stdout] to Logger[ROOT]
+11:36:39,346 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - End of configuration.
+|#]
+
+[#|2011-09-29T11:36:39.532+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-3;|
+            |#]
+
+[#|2011-09-29T11:39:53.905+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-3;|act : 0|#]
+
+[#|2011-09-29T11:39:53.906+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-3;|address : 127.0.0.1|#]
+
+[#|2011-09-29T11:39:53.906+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-3;|port : 4201|#]
+
+[#|2011-09-29T11:40:09.420+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-3;|act : 2|#]
+
+[#|2011-09-29T11:40:09.420+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-3;|columnFamily : Verdict|#]
+
+[#|2011-09-29T11:44:15.745+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-3;|
+            |#]
+
+[#|2011-09-29T11:46:10.352+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-3;|act : 2|#]
+
+[#|2011-09-29T11:46:10.352+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-3;|columnFamily : UserApplicationProducer|#]
+
+[#|2011-09-29T11:46:13.617+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-3;|act : 3|#]
+
+[#|2011-09-29T11:46:13.617+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-3;|keyUserID : MYMED_toto@inria.fr|PK|myTemplate|#]
+
+[#|2011-09-29T11:46:27.023+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-3;|act : 5|#]
+
+[#|2011-09-29T11:46:27.023+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-3;|key2 : score|#]
+
+[#|2011-09-29T11:47:31.664+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-3;|com.mymed.controller.core.exception.IOBackEndException: Interaction already exist!
+	at com.mymed.controller.core.manager.application.InteractionManager.create(InteractionManager.java:67)
+	at com.mymed.controller.core.requesthandler.InteractionRequestHandler.doPost(InteractionRequestHandler.java:142)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:754)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1523)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:279)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:188)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:641)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:97)
+	at com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(PESessionLockingStandardPipeline.java:85)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:185)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:325)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:226)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:165)
+	at com.sun.grizzly.http.ProcessorTask.invokeAdapter(ProcessorTask.java:791)
+	at com.sun.grizzly.http.ProcessorTask.doProcess(ProcessorTask.java:693)
+	at com.sun.grizzly.http.ProcessorTask.process(ProcessorTask.java:954)
+	at com.sun.grizzly.http.DefaultProtocolFilter.execute(DefaultProtocolFilter.java:170)
+	at com.sun.grizzly.DefaultProtocolChain.executeProtocolFilter(DefaultProtocolChain.java:135)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:102)
+	at com.sun.grizzly.DefaultProtocolChain.execute(DefaultProtocolChain.java:88)
+	at com.sun.grizzly.http.HttpProtocolChain.execute(HttpProtocolChain.java:76)
+	at com.sun.grizzly.ProtocolChainContextTask.doCall(ProtocolChainContextTask.java:53)
+	at com.sun.grizzly.SelectionKeyContextTask.call(SelectionKeyContextTask.java:57)
+	at com.sun.grizzly.ContextTask.run(ContextTask.java:69)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:330)
+	at com.sun.grizzly.util.AbstractThreadPool$Worker.run(AbstractThreadPool.java:309)
+	at java.lang.Thread.run(Thread.java:680)
+|#]
+
+[#|2011-09-29T11:48:20.062+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|[AutoDeploy] Selecting file /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war for autodeployment.|#]
+
+[#|2011-09-29T11:48:20.117+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:48:20.117+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:48:20.121+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:48:20.121+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:48:20.123+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:48:20.123+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:48:20.389+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:48:20.389+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:48:20.393+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=25;_ThreadName=Thread-3;|Module type not recognized|#]
+
+[#|2011-09-29T11:48:20.393+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=25;_ThreadName=Thread-3;|Il n’y a aucun récipient capable de gérer cette application com.sun.enterprise.deploy.shared.FileArchive@21cca54e|#]
+
+[#|2011-09-29T11:48:20.395+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|[AutoDeploy] Autodeploy failed : /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war.|#]
+
+[#|2011-09-29T11:48:24.063+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|[AutoDeploy] Selecting file /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war for autodeployment.|#]
+
+[#|2011-09-29T11:48:27.347+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=AutoDeployer;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-29T11:48:27.347+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=AutoDeployer;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-29T11:48:27.347+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=Thread-3;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-29T11:48:27.358+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.admin.org.glassfish.deployment.admin|_ThreadID=25;_ThreadName=Thread-3;|mymed_backend was successfully deployed in 3 286 milliseconds.|#]
+
+[#|2011-09-29T11:48:27.359+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|[AutoDeploy] Successfully autodeployed : /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war.|#]
+
+[#|2011-09-29T11:49:09.416+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|[AutoDeploy] Selecting file /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war for autodeployment.|#]
+
+[#|2011-09-29T11:49:09.424+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:49:09.424+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:49:09.426+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:49:09.426+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:49:09.429+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:49:09.429+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:49:09.573+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|DPL8004: file open failure; file = jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:49:09.574+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|error in opening zip file --  invalid zip file: jar:/local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war|#]
+
+[#|2011-09-29T11:49:09.581+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=25;_ThreadName=Thread-3;|Module type not recognized|#]
+
+[#|2011-09-29T11:49:09.581+0200|SEVERE|glassfish3.0.1|javax.enterprise.system.core.com.sun.enterprise.v3.server|_ThreadID=25;_ThreadName=Thread-3;|Il n’y a aucun récipient capable de gérer cette application com.sun.enterprise.deploy.shared.FileArchive@10538a9f|#]
+
+[#|2011-09-29T11:49:09.584+0200|WARNING|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|[AutoDeploy] Autodeploy failed : /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war.|#]
+
+[#|2011-09-29T11:49:13.416+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|[AutoDeploy] Selecting file /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war for autodeployment.|#]
+
+[#|2011-09-29T11:49:16.427+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=Thread-3;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-29T11:49:16.427+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=AutoDeployer;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-29T11:49:16.427+0200|INFO|glassfish3.0.1|javax.enterprise.system.container.web.com.sun.enterprise.web|_ThreadID=25;_ThreadName=AutoDeployer;|Loading application mymed_backend at /mymed_backend|#]
+
+[#|2011-09-29T11:49:16.436+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.admin.org.glassfish.deployment.admin|_ThreadID=25;_ThreadName=Thread-3;|mymed_backend was successfully deployed in 3 011 milliseconds.|#]
+
+[#|2011-09-29T11:49:16.437+0200|INFO|glassfish3.0.1|javax.enterprise.system.tools.deployment.org.glassfish.deployment.common|_ThreadID=25;_ThreadName=Thread-3;|[AutoDeploy] Successfully autodeployed : /local/mymed/backend/servers/glassfishv3/glassfish/domains/domain1/autodeploy/mymed_backend.war.|#]
+
+[#|2011-09-29T11:49:18.714+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-3;|11:49:18,444 |-INFO in ch.qos.logback.classic.LoggerContext[myMed] - Found resource [/local/mymed/backend/conf/logback.xml] at [file:/local/mymed/backend/conf/logback.xml]
+11:49:18,552 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - Setting ReconfigureOnChangeFilter scanning period to 5 minutes
+11:49:18,552 |-INFO in ch.qos.logback.classic.turbo.ReconfigureOnChangeFilter@61932006 - Will scan for changes in [[/local/mymed/backend/conf/logback.xml]] every 300 seconds. 
+11:49:18,552 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - Adding ReconfigureOnChangeFilter as a turbo filter
+11:49:18,554 |-INFO in ch.qos.logback.classic.joran.action.ContextNameAction - Setting logger context name as [myMed]
+11:49:18,556 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - About to instantiate appender of type [ch.qos.logback.core.ConsoleAppender]
+11:49:18,564 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - Naming appender as [stdout]
+11:49:18,581 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+11:49:18,657 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - About to instantiate appender of type [ch.qos.logback.core.rolling.RollingFileAppender]
+11:49:18,663 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - Naming appender as [info.file]
+11:49:18,692 |-INFO in c.q.l.core.rolling.TimeBasedRollingPolicy - Will use gz compression
+11:49:18,696 |-INFO in c.q.l.core.rolling.TimeBasedRollingPolicy - Will use the pattern /local/var/log/mymed/mymed-backend-info-%d.log for the active file
+11:49:18,704 |-INFO in c.q.l.core.rolling.DefaultTimeBasedFileNamingAndTriggeringPolicy - The date pattern is 'yyyy-MM-dd' from file name pattern '/local/var/log/mymed/mymed-backend-info-%d.log.gz'.
+11:49:18,704 |-INFO in c.q.l.core.rolling.DefaultTimeBasedFileNamingAndTriggeringPolicy - Roll-over at midnight.
+11:49:18,704 |-INFO in c.q.l.core.rolling.DefaultTimeBasedFileNamingAndTriggeringPolicy - Setting initial period to Thu Sep 29 11:48:00 CEST 2011
+11:49:18,706 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+11:49:18,706 |-INFO in ch.qos.logback.core.rolling.RollingFileAppender[info.file] - Active log file name: /local/var/log/mymed/mymed-backend-info.log
+11:49:18,706 |-INFO in ch.qos.logback.core.rolling.RollingFileAppender[info.file] - File property is set to [/local/var/log/mymed/mymed-backend-info.log]
+11:49:18,708 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - About to instantiate appender of type [ch.qos.logback.core.FileAppender]
+11:49:18,708 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - Naming appender as [debug.file]
+11:49:18,708 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+11:49:18,709 |-INFO in ch.qos.logback.core.FileAppender[debug.file] - File property is set to [/local/var/log/mymed/mymed-backend-debug.log]
+11:49:18,709 |-INFO in ch.qos.logback.classic.joran.action.LoggerAction - Setting level of logger [mymed.info.logger] to INFO
+11:49:18,709 |-INFO in ch.qos.logback.classic.joran.action.LoggerAction - Setting additivity of logger [mymed.info.logger] to false
+11:49:18,709 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [info.file] to Logger[mymed.info.logger]
+11:49:18,711 |-INFO in ch.qos.logback.classic.joran.action.LoggerAction - Setting level of logger [mymed.debug.logger] to DEBUG
+11:49:18,711 |-INFO in ch.qos.logback.classic.joran.action.LoggerAction - Setting additivity of logger [mymed.debug.logger] to false
+11:49:18,711 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [debug.file] to Logger[mymed.debug.logger]
+11:49:18,711 |-INFO in ch.qos.logback.classic.joran.action.RootLoggerAction - Setting level of ROOT logger to INFO
+11:49:18,711 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [stdout] to Logger[ROOT]
+11:49:18,711 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - End of configuration.
+|#]
+
+[#|2011-09-29T11:49:31.553+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-3;|
+            |#]
+
+[#|2011-09-29T11:49:31.557+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-3;|
+            |#]
+
+[#|2011-09-29T11:49:31.697+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=27;_ThreadName=Thread-3;|
+            |#]
+
+[#|2011-09-29T11:49:48.016+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-3;|
+            |#]
+
+[#|2011-09-29T11:49:48.047+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=28;_ThreadName=Thread-3;|
+            |#]
+
+[#|2011-09-29T11:49:57.385+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-3;|
+            |#]
+
+[#|2011-09-29T11:49:57.413+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=29;_ThreadName=Thread-3;|
+            |#]
+
+[#|2011-09-29T11:50:13.832+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=26;_ThreadName=Thread-3;|
+            |#]
+
+[#|2011-09-29T11:50:13.894+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=30;_ThreadName=Thread-3;|
+            |#]
+
+[#|2011-09-29T11:50:24.015+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-3;|
+            |#]
+
+[#|2011-09-29T11:50:24.045+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=31;_ThreadName=Thread-3;|
+            |#]
+
+[#|2011-09-29T11:50:32.818+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=23;_ThreadName=Thread-3;|
+            |#]
+
+[#|2011-09-29T11:50:32.861+0200|INFO|glassfish3.0.1|javax.enterprise.system.std.com.sun.enterprise.v3.services.impl|_ThreadID=32;_ThreadName=Thread-3;|
+            |#]
+

@@ -519,4 +519,12 @@ public class StorageManager extends ManagerValues implements IStorageManager {
 	public byte[] get(final String key) throws IOBackEndException, InternalBackEndException {
 		return selectColumn("Services", key, key);
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public CassandraWrapper getWrapper() {
+		return wrapper;
+	}
 }

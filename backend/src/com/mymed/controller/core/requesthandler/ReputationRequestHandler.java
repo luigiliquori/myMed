@@ -9,10 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.controller.core.manager.reputation.old.ReputationManager;
-import com.mymed.model.data.reputation.MReputationBean;
+import com.mymed.controller.core.manager.reputation.reputation_manager.ReputationManager;
+import com.mymed.controller.core.manager.storage.StorageManager;
 
 /**
  * Servlet implementation class ReputationRequestHandler
@@ -36,7 +35,7 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
 	public ReputationRequestHandler() throws ServletException {
 		super();
 		try {
-			this.reputationManager = new ReputationManager();
+			this.reputationManager = new ReputationManager(new StorageManager().getWrapper());
 		} catch (InternalBackEndException e) {
 			throw new ServletException("ReputationManager is not accessible because: " + e.getMessage());
 		}
@@ -75,8 +74,8 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
 							"missing consumer argument!"), response);
 					return;
 				}
-				MReputationBean reputation = reputationManager.read(producer, consumer, application);
-				setResponseText(reputation.getValue() + "");
+				ReputationManager.ReputationObject reputation = reputationManager.readReputation(producer, consumer, application, true);
+				setResponseText(reputation.getReputation() + "");
 				break;
 			case DELETE:
 				break;
@@ -89,9 +88,6 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
 			e.printStackTrace();
 			handleError(e, response);
 			return;
-		} catch (IOBackEndException e) {
-			e.printStackTrace();
-			handleError(e, response);
 		} 
 	}
 

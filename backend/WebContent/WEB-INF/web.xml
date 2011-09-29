@@ -113,4 +113,14 @@
     <servlet-name>FindRequestHandler</servlet-name>
     <url-pattern>/FindRequestHandler</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ReputationRequestHandler</display-name>
+    <servlet-name>ReputationRequestHandler</servlet-name>
+    <servlet-class>com.mymed.controller.core.requesthandler.ReputationRequestHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReputationRequestHandler</servlet-name>
+    <url-pattern>/ReputationRequestHandler</url-pattern>
+  </servlet-mapping>
 </web-app>

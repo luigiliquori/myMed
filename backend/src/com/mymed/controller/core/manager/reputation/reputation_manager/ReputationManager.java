@@ -18,6 +18,7 @@ import com.mymed.model.core.wrappers.cassandra.api07.CassandraWrapper;
 public class ReputationManager {
    
     DbTableAdapter adapter;
+        
     public ReputationManager(CassandraWrapper w){
         adapter = new DbTableAdapter(w);
     }
@@ -38,6 +39,18 @@ public class ReputationManager {
         public int getNoOfRatings(){
             return noOfRatings;
         }
+    }
+    
+    /**
+     * 
+     * @param idUser
+     * @param idRequester
+     * @param idApp
+     * @param isProducer
+     * @return
+     */
+    public ReputationObject readReputation(String idUser, String idRequester, String idApp, boolean isProducer){
+    	return readReputation(idUser, idApp, isProducer);
     }
     
    /**
