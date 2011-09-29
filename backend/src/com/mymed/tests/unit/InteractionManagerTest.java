@@ -9,7 +9,7 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.mymed.model.data.reputation.MInteractionBean;
+import com.mymed.model.data.interaction.MInteractionBean;
 
 public class InteractionManagerTest extends GeneralTest {
 	/**

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.reputation.reputation_manager.ReputationManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
+import com.mymed.model.data.reputation.MReputationBean;
 
 /**
  * Servlet implementation class ReputationRequestHandler
@@ -74,7 +75,7 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
 							"missing consumer argument!"), response);
 					return;
 				}
-				ReputationManager.ReputationObject reputation = reputationManager.readReputation(producer, consumer, application, true);
+				MReputationBean reputation = reputationManager.read(producer, consumer, application, true);
 				setResponseText(reputation.getReputation() + "");
 				break;
 			case DELETE:

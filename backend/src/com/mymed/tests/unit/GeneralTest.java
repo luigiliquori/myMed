@@ -9,15 +9,15 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.controller.core.manager.application.InteractionManager;
 import com.mymed.controller.core.manager.authentication.AuthenticationManager;
+import com.mymed.controller.core.manager.interaction.old.InteractionManager;
 import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.reputation.old.ReputationManager;
 import com.mymed.controller.core.manager.session.SessionManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.core.configuration.WrapperConfiguration;
-import com.mymed.model.data.reputation.MInteractionBean;
-import com.mymed.model.data.reputation.MReputationBean;
+import com.mymed.model.data.interaction.MInteractionBean;
+import com.mymed.model.data.reputation.old.MReputationBean;
 import com.mymed.model.data.session.MAuthenticationBean;
 import com.mymed.model.data.session.MSessionBean;
 import com.mymed.model.data.user.MUserBean;

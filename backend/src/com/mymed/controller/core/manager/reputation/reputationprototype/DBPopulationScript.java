@@ -8,11 +8,12 @@ import java.io.File;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.reputation.globals.Constants;
-import com.mymed.controller.core.manager.reputation.reputation_manager.VerdictManager;
+import com.mymed.controller.core.manager.reputation.reputation_manager.AggregationManager;
 import com.mymed.controller.core.manager.reputation.reputation_manager.ReputationManager;
-import com.mymed.controller.core.manager.reputation.reputation_manager.ReputationManager.ReputationObject;
+import com.mymed.controller.core.manager.reputation.reputation_manager.VerdictManager;
 import com.mymed.model.core.configuration.WrapperConfiguration;
 import com.mymed.model.core.wrappers.cassandra.api07.CassandraWrapper;
+import com.mymed.model.data.reputation.MReputationBean;
 
 /**
  *
@@ -46,6 +47,7 @@ public class DBPopulationScript {
 
         VerdictManager interactionManager = new VerdictManager(wrapper);
         ReputationManager reputationManager = new ReputationManager(wrapper);
+        AggregationManager aggregationManager = new AggregationManager(wrapper);
         
 
         //reputazione semplice
@@ -56,11 +58,11 @@ public class DBPopulationScript {
         
         for(int i =1;i<10;i++){
             System.out.println("Reputazione utente" + i + "come produttore");
-            ReputationObject readReputation = reputationManager.readReputation("utente" + String.valueOf(i), "app1", true);
+            MReputationBean readReputation = reputationManager.read("utente" + String.valueOf(i), "app1", true);
             System.out.println("giudizi: " + readReputation.getNoOfRatings() + "reputazione: " + readReputation.getReputation());
             
             System.out.println("Reputazione utente" + i + "come consumatore");
-            readReputation = reputationManager.readReputation("utente" + String.valueOf(i), "app1", false);
+            readReputation = reputationManager.read("utente" + String.valueOf(i), "app1", false);
             System.out.println("giudizi: " + readReputation.getNoOfRatings() + " reputazione: " + readReputation.getReputation());       
         }
         
@@ -76,7 +78,7 @@ public class DBPopulationScript {
         
         for(int i=0;i<10;i++){
             System.out.println("Reputazione aggregazione " + i);
-            ReputationObject readAggregationReputation = reputationManager.readAggregationReputation(aggregations[i]);
+            MReputationBean readAggregationReputation = aggregationManager.read(aggregations[i]);
             
             System.out.println("giudizi: " + readAggregationReputation.getNoOfRatings() + " reputazione: " + readAggregationReputation.getReputation());
         }
