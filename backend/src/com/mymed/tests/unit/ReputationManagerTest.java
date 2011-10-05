@@ -1,6 +1,7 @@
 package com.mymed.tests.unit;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
@@ -50,7 +51,7 @@ public class ReputationManagerTest extends GeneralTest {
 
       reputationManager.update(newReputationBean, APPLICATION_ID + PRODUCER_ID);
       final MReputationBean readReputation = reputationManager.read(PRODUCER_ID, CONSUMER_ID, APPLICATION_ID);
-      assertEquals("The reputation beans are not the same\n", reputationBean, readReputation);
+      assertFalse("The reputation beans are the same\n", reputationBean.equals(readReputation));
     } catch (final Exception ex) {
       fail(ex.getMessage());
     }

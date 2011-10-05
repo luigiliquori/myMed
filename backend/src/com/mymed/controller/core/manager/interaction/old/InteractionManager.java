@@ -20,16 +20,16 @@ import com.mymed.model.data.reputation.old.MReputationBean;
  */
 public class InteractionManager extends AbstractManager implements IInteractionManager {
 
-	private ReputationManager reputationManager;
+  private final ReputationManager reputationManager;
 
-	public InteractionManager() throws InternalBackEndException {
-		this(new StorageManager());
-	}
+  public InteractionManager() throws InternalBackEndException {
+    this(new StorageManager());
+  }
 
-	public InteractionManager(final StorageManager storageManager) throws InternalBackEndException {
-		super(storageManager);
-		this.reputationManager = new ReputationManager();
-	}
+  public InteractionManager(final StorageManager storageManager) throws InternalBackEndException {
+    super(storageManager);
+    reputationManager = new ReputationManager();
+  }
 
 	@Override
 	public void create(final MInteractionBean interaction) throws InternalBackEndException, IOBackEndException {
@@ -67,21 +67,21 @@ public class InteractionManager extends AbstractManager implements IInteractionM
 		throw new IOBackEndException("Interaction already exist!");
 	}
 
-	@Override
-	public MInteractionBean read(final String interactionID) throws InternalBackEndException, IOBackEndException {
-		final MInteractionBean interaction = new MInteractionBean();
-		final Map<byte[], byte[]> args = storageManager.selectAll(CF_INTERACTION, interactionID);
+  @Override
+  public MInteractionBean read(final String interactionID) throws InternalBackEndException, IOBackEndException {
+    final MInteractionBean interaction = new MInteractionBean();
+    final Map<byte[], byte[]> args = storageManager.selectAll(CF_INTERACTION, interactionID);
 
-		return (MInteractionBean) introspection(interaction, args);
-	}
+    return (MInteractionBean) introspection(interaction, args);
+  }
 
-	@Override
-	public void update(final MInteractionBean interaction) throws InternalBackEndException, IOBackEndException {
-		create(interaction);
-	}
+  @Override
+  public void update(final MInteractionBean interaction) throws InternalBackEndException, IOBackEndException {
+    create(interaction);
+  }
 
-	@Override
-	public void delete(final String interactionID) throws InternalBackEndException {
-		storageManager.removeAll(CF_INTERACTION, interactionID);
-	}
+  @Override
+  public void delete(final String interactionID) throws InternalBackEndException {
+    storageManager.removeAll(CF_INTERACTION, interactionID);
+  }
 }
