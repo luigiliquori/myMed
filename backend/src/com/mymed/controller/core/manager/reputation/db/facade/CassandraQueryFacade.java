@@ -651,16 +651,16 @@ public class CassandraQueryFacade {
    * @return
    */
   private List<String> readSuperColummFamilyFromBuffer(final String nameOfSuperColumnFamily, final String key) {
-
     final Map<String, List<String>> insertionKey = superColumnFamilyInsertions.get(nameOfSuperColumnFamily);
+
     if (insertionKey != null) {
       final List<String> resultList = insertionKey.get(key);
       if (resultList != null) {
         return resultList;
       }
     }
-    return new ArrayList<String>();
 
+    return new ArrayList<String>();
   }
 
   /**
@@ -672,7 +672,7 @@ public class CassandraQueryFacade {
    *          the key of the row
    * @throws InternalBackEndException
    */
-  void deleteRow(final String nameOfColumnFamily, final String key) throws InternalBackEndException {
+  public void deleteRow(final String nameOfColumnFamily, final String key) throws InternalBackEndException {
 
     final ByteBuffer bkey = ByteBuffer.wrap(key.getBytes());
     final Map<String, List<Mutation>> keyRow = buffer.get(bkey);
@@ -706,7 +706,7 @@ public class CassandraQueryFacade {
     buffer.put(bkey, m);
   }
 
-  List<String> readSuperColummFamily(final String nameOfSuperColumnFamily, final String key)
+  public List<String> readSuperColummFamily(final String nameOfSuperColumnFamily, final String key)
       throws InternalBackEndException {
     final List<String> cass = readSuperColummFamilyFromCassandra(nameOfSuperColumnFamily, key);
     final List<String> buff = readSuperColummFamilyFromBuffer(nameOfSuperColumnFamily, key);
@@ -752,150 +752,4 @@ public class CassandraQueryFacade {
     columnFamilyInsertions = new HashMap<String, Map<String, Object>>();
     superColumnFamilyInsertions = new HashMap<String, Map<String, List<String>>>();
   }
-
-  // public static void main(final String a[]) throws IllegalArgumentException,
-  // IllegalAccessException,
-  // NoSuchFieldException, InternalBackEndException, ClassNotFoundException,
-  // InstantiationException,
-  // InvocationTargetException, Exception {
-  // final WrapperConfiguration conf = new WrapperConfiguration(new
-  // File(Constants.CONFIGURATION_FILE_PATH));
-  //
-  // final String listenAddress = conf.getCassandraListenAddress();
-  // final int thriftPort = conf.getThriftPort();
-  //
-  // System.out.println("Connection information:");
-  // System.out.println("\tListen Address: " + listenAddress);
-  // System.out.println("\tThrift Port   : " + thriftPort);
-  // System.out.println("\n");
-  //
-  // final CassandraWrapper wrapper = new CassandraWrapper(listenAddress,
-  // thriftPort);
-  //
-  // System.out.println("Opening Cassandra connection...");
-  // // wrapper.open();
-  //
-  // wrapper.set_keyspace(Constants.KEYSPACE);
-  //
-  // final CassandraQueryFacade x = new CassandraQueryFacade(wrapper);
-  // final CassandraDescTable desc = CassandraDescTable.getNewInstance();
-  //
-  // final UserApplicationConsumer c = new UserApplicationConsumer();
-  // c.setApplicationId("app1");
-  // c.setOutcomeList("outcomel");
-  // c.setScore(1);
-  // c.setSize(4);
-  // c.setUserApplicationConsumerId(desc.generateKeyForColumnFamily(c));
-  // c.setUserId("user1");
-  // c.setVerdictList_userCharging("ccc");
-  //
-  // x.insertDbTableObject(c);
-  //
-  // final Verdict verd = new Verdict();
-  // verd.setJudgeId("user1");
-  // verd.setChargedId("char1");
-  // verd.setApplicationId("app1");
-  // verd.setTime(101);
-  // verd.setIsJudgeProducer(true);
-  // verd.setVerdictAggregationList("listAgg");
-  // verd.setVote(0.8);
-  //
-  // verd.setVerdictId(desc.generateKeyForColumnFamily(verd));
-  // x.insertDbTableObject(verd);
-  //
-  // x.insertIntoList("TimeOrderVerdictList", "ccc",
-  // desc.generateKeyForColumnFamily(verd));
-  //
-  // final Verdict verd2 = new Verdict();
-  // verd2.setJudgeId("user2");
-  // verd2.setChargedId("char2");
-  // verd2.setApplicationId("app1");
-  // verd2.setTime(110);
-  // verd2.setIsJudgeProducer(true);
-  // verd2.setVerdictAggregationList("listAgg");
-  // verd2.setVote(0.8);
-  //
-  // verd2.setVerdictId(desc.generateKeyForColumnFamily(verd2));
-  //
-  // x.insertIntoList("AuxOrderVerdictList", "agg", verd.getVerdictId());
-  // x.insertIntoList("AuxOrderVerdictList", "agg", verd2.getVerdictId());
-  //
-  // x.insertDbTableObject(verd2);
-  // x.flush();
-  //
-  // System.out.println("-----------------");
-  //
-  // System.out.println(x.loadRow("UserApplicationConsumer", "sssss"));
-  // System.out.println("---1---");
-  // System.out.println(x.readSuperColummFamily("TimeOrderVerdictList", "ccc"));
-  // System.out.println(x.loadTable("Verdict"));
-  // System.out.println(x.getListOfObjectFromListOfKeys(x.readSuperColummFamily("TimeOrderVerdictList",
-  // "ccc"),
-  // "Verdict"));
-  //
-  // System.out.println("-----------------");
-  //
-  // System.out.println(x.descTable.generateKeyForColumnFamily(verd));
-  // System.out.println(x.descTable.generateKeyForSuperColumnItem(verd,
-  // "TimeOrderVerdictList"));
-  //
-  // System.out.println("-----------------");
-  //
-  // System.err.println(x.descTable.getReferredTable("TimeOrderVerdictList",
-  // "verdictId"));
-  // System.out.println(x.descTable.getUniqueFields("Verdict"));
-  //
-  // System.out.println("-- aux--");
-  // System.out.println(x.readSuperColummFamily("AuxOrderVerdictList", "agg"));
-  //
-  // System.out.println("-----------------");
-  //
-  // System.out.println(x.loadTable("UserApplicationConsumer"));
-  // System.out.println("---2---");
-  // System.out.println(x.getListOfObjectFromListOfKeys(x.readSuperColummFamily("TimeOrderVerdictList",
-  // "ccc"),
-  // "Verdict"));
-  //
-  // System.out.println("-----------------");
-  //
-  // System.out.println(x.descTable.generateKeyForColumnFamily(verd));
-  // System.out.println("---3---");
-  // System.out.println(x.descTable.generateKeyForSuperColumnItem(verd,
-  // "TimeOrderVerdictList"));
-  //
-  // System.out.println("-----------------");
-  //
-  // System.err.println(x.descTable.getReferredTable("TimeOrderVerdictList",
-  // "verdictId"));
-  // System.out.println(x.descTable.getUniqueFields("Verdict"));
-  //
-  // System.out.println("------del agg --------");
-  // x.deleteRow("AuxOrderVerdictList", "agg");
-  // x.flush(); // if we remove this flush the following read returns correct
-  // // values, FIX ?
-  // System.out.println("------read agg --------");
-  // System.out.println(x.readSuperColummFamily("AuxOrderVerdictList", "agg"));
-  //
-  // System.out.println("------ deferred commit --------");
-  //
-  // final Verdict verd3 = new Verdict();
-  // verd3.setJudgeId("user1");
-  // verd3.setChargedId("char1");
-  // verd3.setApplicationId("app1");
-  // verd3.setTime(System.currentTimeMillis());
-  // verd3.setIsJudgeProducer(true);
-  // verd3.setVerdictAggregationList("listAgg");
-  // verd3.setVote(0.6);
-  // verd3.setVerdictId(desc.generateKeyForColumnFamily(verd3));
-  //
-  // x.insertDbTableObject(verd3);
-  //
-  // // x.insertIntoList("AuxOrderVerdictList", "agg1" ,"ver2" ,"ver2" );
-  // // x.insertIntoList("AuxOrderVerdictList", "agg1" ,"ver3" ,"ver3" );
-  // x.deleteRow("AuxOrderVerdictList", "agg1");
-  //
-  // x.flush();
-  //
-  // }
-
 }
