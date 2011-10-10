@@ -28,7 +28,7 @@
 	<body>
 	
 		<!-- Disconnect the user -->
-		<form action="#" method="get" name="disconnectForm" id="disconnectForm">
+		<form action="#" method="post" name="disconnectForm" id="disconnectForm">
 			<input type="hidden" name="disconnect" value="1" />
 		</form>
 	

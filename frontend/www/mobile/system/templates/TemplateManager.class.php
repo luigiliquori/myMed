@@ -16,7 +16,7 @@ class TemplateManager {
 	
 	/**
 	 * Methode to call template for the current page
-	 * @param string $name	name of the template's file without .php if not exists use selected Template
+	 * @param string $name	name of the template's folder if not exists use current Template
 	 */
 	public /*void*/ function callTemplate(/*string*/ $name=null) {
 		if($name!==null) {

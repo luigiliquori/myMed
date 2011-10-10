@@ -14,7 +14,6 @@
 		<script src="http://code.jquery.com/mobile/1.0b2/jquery.mobile-1.0b2.min.js"></script>
 
 		<?php 
-		require_once 'socialNetworkAPIs/GlobalConnexion.class.php';
 		require_once dirname(__FILE__).'/Login.class.php';			
 		require_once dirname(__FILE__).'/Privacy.class.php';
 		require_once dirname(__FILE__).'/Aboutus.class.php'; 
