@@ -67,6 +67,11 @@ class Request {
 				break;
 		}
 		
+		// SSL CONNECTION
+		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
+		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2); // see address in config.php
+		curl_setopt($curl, CURLOPT_CAINFO, "/local/mymed/backend/WebContent/certificate/mymed.crt"); // TO EXPORT FROM GLASSFISH!
+		
 		return curl_exec($curl);
 	}
 }
