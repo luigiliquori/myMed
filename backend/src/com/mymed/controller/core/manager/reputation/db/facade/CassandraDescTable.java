@@ -11,8 +11,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -191,19 +189,19 @@ public class CassandraDescTable {
       final Object referredId = mainConstructor.newInstance(initArgs);
       return referredId.toString();
     } catch (final InstantiationException ex) {
-      Logger.getLogger(CassandraDescTable.class.getName()).log(Level.SEVERE, null, ex);
+      MLogger.getDebugLog().debug("Error generating key for column family", ex.getCause());
     } catch (final IllegalAccessException ex) {
-      Logger.getLogger(CassandraDescTable.class.getName()).log(Level.SEVERE, null, ex);
+      MLogger.getDebugLog().debug("Error generating key for column family", ex.getCause());
     } catch (final IllegalArgumentException ex) {
-      Logger.getLogger(CassandraDescTable.class.getName()).log(Level.SEVERE, null, ex);
+      MLogger.getDebugLog().debug("Error generating key for column family", ex.getCause());
     } catch (final InvocationTargetException ex) {
-      Logger.getLogger(CassandraDescTable.class.getName()).log(Level.SEVERE, null, ex);
+      MLogger.getDebugLog().debug("Error generating key for column family", ex.getCause());
     } catch (final NoSuchFieldException ex) {
-      Logger.getLogger(CassandraDescTable.class.getName()).log(Level.SEVERE, null, ex);
+      MLogger.getDebugLog().debug("Error generating key for column family", ex.getCause());
     } catch (final SecurityException ex) {
-      Logger.getLogger(CassandraDescTable.class.getName()).log(Level.SEVERE, null, ex);
+      MLogger.getDebugLog().debug("Error generating key for column family", ex.getCause());
     } catch (final ClassNotFoundException ex) {
-      Logger.getLogger(CassandraDescTable.class.getName()).log(Level.SEVERE, null, ex);
+      MLogger.getDebugLog().debug("Error generating key for column family", ex.getCause());
     }
     return "";
   }
