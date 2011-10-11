@@ -13,6 +13,5 @@
 @property (nonatomic, retain) IBOutlet UIWebView *webView;
 
 - (void) loadMyMed;
-- (BOOL) reachable;
 
 @end
