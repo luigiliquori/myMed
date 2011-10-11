@@ -44,7 +44,7 @@ class MyAngel extends AbstractTemplate {
 	public /*String*/ function getContent() { ?>
 		<div class="content">
 			<br><br>
-			<img alt="button" src="system/templates/application/myAngel/button.png" onclick="alert('ALERT SENT!');">
+			<img alt="button" src="system/templates/application/myAngel/img/button.png" onclick="alert('ALERT SENT!');">
 		</div>
 	<?php }
 	

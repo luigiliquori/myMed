@@ -1,7 +1,6 @@
 package com.mymed.tests.unit;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -9,7 +8,9 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.mymed.model.data.reputation.MInteractionBean;
+import com.mymed.controller.core.exception.IOBackEndException;
+import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.model.data.interaction.MInteractionBean;
 
 public class InteractionManagerTest extends GeneralTest {
 	/**
@@ -40,20 +41,16 @@ public class InteractionManagerTest extends GeneralTest {
 	/**
 	 * Update the interaction bean, and check that the new bean is not the same
 	 * as the old one
+	 * 
+	 * @throws IOBackEndException
+	 * @throws InternalBackEndException
 	 */
-	@Test
-	public void testUpdateInteraction() {
-		try {
-			final MInteractionBean newInteractionBean = interactionBean.clone();
-			newInteractionBean.setFeedback(4);
+	@Test(expected = IOBackEndException.class)
+	public void testUpdateInteraction() throws InternalBackEndException, IOBackEndException {
+		final MInteractionBean newInteractionBean = interactionBean.clone();
+		newInteractionBean.setFeedback(0.6);
 
-			interactionManager.update(newInteractionBean);
-
-			final MInteractionBean readValue = interactionManager.read(INTERACTION_ID);
-			assertFalse("The interaction beans are the same.", interactionBean.equals(readValue));
-		} catch (final Exception ex) {
-			fail(ex.getMessage());
-		}
+		interactionManager.update(newInteractionBean);
 	}
 
 	/**

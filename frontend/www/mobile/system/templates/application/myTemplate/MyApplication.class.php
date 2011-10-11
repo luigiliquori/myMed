@@ -37,7 +37,7 @@ abstract class MyApplication extends AbstractTemplate {
 	*/
 	public /*String*/ function getHeader() { ?>
 		<!-- HEADER -->
-		<div data-role="header" data-theme="b">
+		<div data-role="header" data-theme="a">
 			<a href="?application=0" rel="external" data-role="button" data-theme="r">Close</a>
 			<h1><?= $this->title ?></h1>
 		</div>
@@ -48,7 +48,7 @@ abstract class MyApplication extends AbstractTemplate {
 	*/
 	public /*String*/ function getFooter() { ?>
 		<!-- FOOTER_PERSITENT-->
-		<div data-role="footer" data-position="fixed" data-theme="b">
+		<div data-role="footer" data-position="fixed" data-theme="a">
 			<div data-role="navbar">
 				<ul>
 				<li><a href="#Publish" data-back="true" <?= $this->activeFooter == "Publish" ? 'class="ui-btn-active ui-state-persist"' : ''; ?> >Publish</a></li>
@@ -63,7 +63,7 @@ abstract class MyApplication extends AbstractTemplate {
 	* Print the Template
 	*/
 	public /*String*/ function printTemplate() { ?>
-		<div id="<?= $this->id ?>" data-role="page" data-theme="b">
+		<div id="<?= $this->id ?>" data-role="page" data-theme="a">
 			<?php  $this->getHeader(); ?>
 			<?php $this->getContent(); ?>
 			<?php $this->getFooter(); ?>

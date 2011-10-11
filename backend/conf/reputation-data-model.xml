@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : data-model.xml
+    Created on : August 22, 2011, 9:37 PM
+    Author     : piccolo
+    Description:
+        Purpose of the document follows.
+-->
+
+<datamodel>
+<table type="cf" name="UserApplicationConsumer">
+    <attributes>
+        <attribute type="String" key="primary">userApplicationConsumerId</attribute>
+        <attribute type="String">userId</attribute>
+        <attribute type="String">applicationId</attribute>
+        <attribute type="String" key="foreign" references="TimeOrderVerdictList">verdictList_userCharging</attribute>
+        <attribute type="Double">score</attribute>
+        <attribute type="Integer">size</attribute>
+    </attributes>
+    <constraints>
+        <constraint type="unique">
+            <attribute order="0">userId</attribute>
+            <attribute order="1">applicationId</attribute>
+        </constraint>    
+    </constraints>
+</table>
+
+<table type="cf" name="UserApplicationProducer">
+    <attributes>
+        <attribute type="String" key="primary">userApplicationProducerId</attribute>
+        <attribute type="String">userId</attribute>
+        <attribute type="String">applicationId</attribute>
+        <attribute type="String" key="foreign" references="TimeOrderVerdictList">verdictList_userCharging</attribute>
+        <attribute type="Double">score</attribute>
+        <attribute type="Integer">size</attribute>
+    </attributes>
+    <constraints>
+        <constraint type="unique">
+            <attribute order="0">userId</attribute>
+            <attribute order="1">applicationId</attribute>
+        </constraint>    
+    </constraints>
+</table>
+
+<table type="cf" name="Verdict">
+    <attributes>
+        <attribute type="String" key="primary">verdictId</attribute>
+        <attribute type="String">judgeId</attribute>
+        <attribute type="String">chargedId</attribute>
+        <attribute type="String">applicationId</attribute>
+        <attribute type="Long">time</attribute>
+        <attribute type="Boolean">isJudgeProducer</attribute>
+        <attribute type="String" key="foreign" references="VerdictAggregationList">verdictAggregationList</attribute>
+        <attribute type="Double">vote</attribute>
+    </attributes>
+    <constraints>
+        <constraint type="unique">
+            <attribute order="0">judgeId</attribute>
+            <attribute order="1">chargedId</attribute>
+            <attribute order="2">applicationId</attribute>
+            <attribute order="3">time</attribute>
+        </constraint>
+    </constraints>
+</table>
+
+<table type="cf" name="VerdictAggregation"> 
+    <attributes>
+        <attribute type="String" key="primary">verdictAggregationId</attribute>
+        <attribute type="String" key="foreign" references="AuxOrderVerdictList">verdictListId</attribute>
+        <attribute type="Double">score</attribute>
+        <attribute type="Integer">size</attribute>
+    </attributes>
+    <constraints>
+        <constraint type="unique">
+            <attribute order="0">verdictListId</attribute>
+        </constraint>            
+    </constraints>
+</table>
+
+<table type ="scf" name="TimeOrderVerdictList" subcomparator="yes">
+    <attributes>
+        <attribute type="String" key="foreign" references="Verdict">verdictId</attribute>
+    </attributes>
+    <orderBy>time</orderBy>
+</table>
+
+<table type="scf" name="AuxOrderVerdictList" subcomparator="no">
+    <attributes>
+        <attribute type="String" key="foreign" references="Verdict">verdictId</attribute>
+    </attributes>
+</table>
+
+<table type="scf" name="VerdictAggregationList" subcomparator="no">
+    <attributes>
+        <attribute type="String" key="foreign" references="VerdictAggregation">aggregationId</attribute>
+    </attributes>
+</table>
+
+</datamodel>
+

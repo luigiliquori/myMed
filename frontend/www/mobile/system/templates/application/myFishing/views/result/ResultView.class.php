@@ -57,6 +57,7 @@ class ResultView extends MyApplication {
 		<div class="content">
 			<?php if($this->handler->getSuccess() && $_POST['method'] == "find") { ?>
 				<ul data-role="listview" data-filter="true" data-theme="c" data-dividertheme="a" >
+				<?php $i=0 ?>
 				<?php foreach(json_decode($this->handler->getSuccess()) as $controller) { ?>
 					<li>
 						<?php
@@ -70,9 +71,9 @@ class ResultView extends MyApplication {
 							<h2 style="color:red;"><?= $profile->error ?></h2>
 						<?php } else {?>
 							<!-- RESULT DETAILS -->
-							<form action="#" method="post" name="getDetailForm" id="getDetailForm">
-								<input type="hidden" name="application=<?= APPLICATION_NAME ?>" value="1" />
-								<input type="hidden" name="getResult" value="1" />
+							<form action="#" method="post" name="getDetailForm<?= $i ?>">
+								<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
+								<input type="hidden" name="method" value="getDetail" />
 								<input type="hidden" name="user" value="<?= $controller->user ?>" />
 								<input type="hidden" name="predicate" value="<?= $controller->predicate ?>" />
 							</form>
@@ -81,12 +82,13 @@ class ResultView extends MyApplication {
 							<?php } else { ?>
 								<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="60" height="60">
 							<?php } ?>
-							<a rel="external" href="?application=<?= APPLICATION_NAME ?>&getDetails=1&user=<?= $controller->user ?>&predicate=<?= $controller->predicate ?>">
-								<?= $profile->name ?>
+							<a href="#" onclick="document.getDetailForm<?= $i ?>.submit()">
+								<?= $profile->name ?> 
 							</a>
 						<?php } ?>
 						</li>
-					<?php } ?>
+					<?php $i++ ?>
+				<?php } ?>
 				</ul>
 			<?php } else if($this->handler->getSuccess() && ($_POST['method'] == "publish" || $_POST['method'] == "subscribe")) { ?>
 				<h2 style="color:green;">Message envoyé avec succès</h2>

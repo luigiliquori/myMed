@@ -17,6 +17,7 @@ import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.pubsub.PubSubManager;
 import com.mymed.model.data.application.MDataBean;
 import com.mymed.model.data.user.MUserBean;
+import com.mymed.utils.MLogger;
 
 /**
  * Servlet implementation class PubSubRequestHandler
@@ -38,12 +39,11 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 	 */
 	public PublishRequestHandler() throws ServletException {
 		super();
+
 		try {
 			pubsubManager = new PubSubManager();
 		} catch (final InternalBackEndException e) {
-			throw new ServletException(
-					"PubSubManager is not accessible because: "
-							+ e.getMessage());
+			throw new ServletException("PubSubManager is not accessible because: " + e.getMessage());
 		}
 	}
 
@@ -55,9 +55,8 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 	 *      response)
 	 */
 	@Override
-	protected void doGet(final HttpServletRequest request,
-			final HttpServletResponse response) throws ServletException,
-			IOException {
+	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
+	        IOException {
 		try {
 			/** Get the parameters */
 			final Map<String, String> parameters = getParameters(request);
@@ -66,15 +65,22 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 			final RequestCode code = requestCodeMap.get(parameters.get("code"));
 
 			/** handle the request */
-			switch (code) {
-			case READ: 
-				break;
-			default:
-				handleError(new InternalBackEndException(
-						"DHTRequestHandler.doGet(" + code + ") not exist!"),
-						response);
+			if (code != RequestCode.READ) {
+				handleError(new InternalBackEndException("DHTRequestHandler.doGet(" + code + ") not exist!"), response);
 				return;
 			}
+
+			// TODO test if it works
+			// switch (code) {
+			// case READ:
+			// break;
+			// default:
+			// handleError(new InternalBackEndException(
+			// "DHTRequestHandler.doGet(" + code + ") not exist!"),
+			// response);
+			// return;
+			// }
+
 			super.doGet(request, response);
 		} catch (final InternalBackEndException e) {
 			e.printStackTrace();
@@ -88,9 +94,8 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 	 *      response)
 	 */
 	@Override
-	protected void doPost(final HttpServletRequest request,
-			final HttpServletResponse response) throws ServletException,
-			IOException {
+	protected void doPost(final HttpServletRequest request, final HttpServletResponse response)
+	        throws ServletException, IOException {
 		try {
 			/** Get the parameters */
 			final Map<String, String> parameters = getParameters(request);
@@ -100,57 +105,100 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 
 			/** handle the request */
 			String application, predicate, user, data;
-			switch (code) {
-			case CREATE: // PUT
+
+			if (code == RequestCode.CREATE) {
 				if ((application = parameters.get("application")) == null) {
-					handleError(new InternalBackEndException(
-							"missing application argument!"), response);
+					handleError(new InternalBackEndException("missing application argument!"), response);
 					return;
 				} else if ((predicate = parameters.get("predicate")) == null) {
-					handleError(new InternalBackEndException(
-							"missing predicate argument!"), response);
+					handleError(new InternalBackEndException("missing predicate argument!"), response);
 					return;
 				} else if ((user = parameters.get("user")) == null) {
-					handleError(new InternalBackEndException(
-							"missing user argument!"), response);
+					handleError(new InternalBackEndException("missing user argument!"), response);
 					return;
 				} else if ((data = parameters.get("data")) == null) {
-					handleError(new InternalBackEndException(
-							"missing data argument!"), response);
+					handleError(new InternalBackEndException("missing data argument!"), response);
 					return;
 				}
+
 				try {
 					// Deserialize user
-					MUserBean userBean = getGson().fromJson(user,
-							MUserBean.class);
+					final MUserBean userBean = getGson().fromJson(user, MUserBean.class);
 					// Deserialize data
-					Type type = new TypeToken<List<MDataBean>>() {
+					final Type type = new TypeToken<List<MDataBean>>() {
 					}.getType();
-					List<MDataBean> dataList = getGson().fromJson(data, type);
+
+					final List<MDataBean> dataList = getGson().fromJson(data, type);
 
 					// Create the new entry
-					pubsubManager.create(application, predicate, userBean,
-							dataList);
+					pubsubManager.create(application, predicate, userBean, dataList);
 					setResponseText("predicate published");
-				} catch (JsonSyntaxException e) {
-					handleError(new InternalBackEndException(
-							"jSon format is not valid"), response);
+				} catch (final JsonSyntaxException e) {
+					handleError(new InternalBackEndException("jSon format is not valid"), response);
 				} catch (final IOBackEndException e) {
 					handleError(e, response);
 				}
-				break;
-			default:
-				handleError(new InternalBackEndException(
-						"PubSubRequestHandler.doGet(" + code + ") not exist!"),
-						response);
+			} else {
+				handleError(new InternalBackEndException("PubSubRequestHandler.doGet(" + code + ") not exist!"),
+				        response);
 				return;
 			}
+
+			// TODO test if it works
+			// switch (code) {
+			// case CREATE : // PUT
+			// if ((application = parameters.get("application")) == null) {
+			// handleError(new
+			// InternalBackEndException("missing application argument!"),
+			// response);
+			// return;
+			// } else if ((predicate = parameters.get("predicate")) == null) {
+			// handleError(new
+			// InternalBackEndException("missing predicate argument!"),
+			// response);
+			// return;
+			// } else if ((user = parameters.get("user")) == null) {
+			// handleError(new
+			// InternalBackEndException("missing user argument!"), response);
+			// return;
+			// } else if ((data = parameters.get("data")) == null) {
+			// handleError(new
+			// InternalBackEndException("missing data argument!"), response);
+			// return;
+			// }
+			// try {
+			// // Deserialize user
+			// final MUserBean userBean = getGson().fromJson(user,
+			// MUserBean.class);
+			// // Deserialize data
+			// final Type type = new TypeToken<List<MDataBean>>() {
+			// }.getType();
+			// final List<MDataBean> dataList = getGson().fromJson(data, type);
+			//
+			// // Create the new entry
+			// pubsubManager.create(application, predicate, userBean, dataList);
+			// setResponseText("predicate published");
+			// } catch (final JsonSyntaxException e) {
+			// handleError(new
+			// InternalBackEndException("jSon format is not valid"), response);
+			// } catch (final IOBackEndException e) {
+			// handleError(e, response);
+			// }
+			// break;
+			// default :
+			// handleError(new
+			// InternalBackEndException("PubSubRequestHandler.doGet(" + code +
+			// ") not exist!"),
+			// response);
+			// return;
+			// }
+
 			super.doGet(request, response);
 		} catch (final InternalBackEndException e) {
-			e.printStackTrace();
+			MLogger.getLog().info("Error in doPost");
+			MLogger.getDebugLog().debug("Error in doPost", e.getCause());
 			handleError(e, response);
 			return;
 		}
 	}
-
 }

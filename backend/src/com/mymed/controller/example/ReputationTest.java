@@ -4,14 +4,14 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.mymed.controller.core.manager.interaction.old.InteractionManager;
 import com.mymed.controller.core.manager.profile.ProfileManager;
-import com.mymed.controller.core.manager.reputation.InteractionManager;
-import com.mymed.controller.core.manager.reputation.ReputationManager;
+import com.mymed.controller.core.manager.reputation.old.ReputationManager;
 import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.core.configuration.WrapperConfiguration;
-import com.mymed.model.data.reputation.MInteractionBean;
-import com.mymed.model.data.reputation.MReputationBean;
+import com.mymed.model.data.interaction.MInteractionBean;
+import com.mymed.model.data.reputation.old.MReputationBean;
 import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.MConverter;
 
@@ -76,7 +76,7 @@ public class ReputationTest {
 			// interactionListManager.update(intBean);
 
 			System.err.println("Setting new reputation value...");
-			repManager.update(intBean, 0.6);
+			repManager.update(repBean, producer1.getId() + applicationID);
 
 			repBean = repManager.read(producer1.getId(), consumer1.getId(), applicationID);
 			System.out.println("\nThe new reputation of " + producer1.getName() + " is: " + repBean.getValue());

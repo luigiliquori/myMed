@@ -9,15 +9,15 @@ import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 
 /**
- * 
+ *
  * This class represent the DAO pattern: Access to data varies depending on the
  * source of the data. Access to persistent storage, such as to a database,
  * varies greatly depending on the type of storage
- * 
+ *
  * Use a Data Access Object (DAO) to abstract and encapsulate all access to the
  * data source. The DAO manages the connection with the data source to obtain
  * and store data.
- * 
+ *
  * @author lvanni
  */
 public interface IStorageManager {
@@ -28,7 +28,7 @@ public interface IStorageManager {
 
 	/**
 	 * Insert a new entry in the database
-	 * 
+	 *
 	 * @param tableName
 	 *            the name of the Table/ColumnFamily
 	 * @param primaryKey
@@ -37,13 +37,12 @@ public interface IStorageManager {
 	 *            All columnName and the their value
 	 * @return true if the entry is correctly stored, false otherwise
 	 */
-	public void insertSlice(String tableName, String primaryKey,
-			Map<String, byte[]> args) throws IOBackEndException,
-			InternalBackEndException;
+	void insertSlice(String tableName, String primaryKey, Map<String, byte[]> args) throws IOBackEndException,
+	        InternalBackEndException;
 
 	/**
 	 * Insert a new entry in the database
-	 * 
+	 *
 	 * @param superTableName
 	 *            the name of the Table/SuperColumnFamily
 	 * @param key
@@ -55,14 +54,12 @@ public interface IStorageManager {
 	 * @throws ServiceManagerException
 	 * @throws InternalBackEndException
 	 */
-	public void insertSuperSlice(final String superTableName, final String key, final String superKey, 
-			final Map<String, byte[]> args) throws IOBackEndException,
-			InternalBackEndException;
-
+	void insertSuperSlice(final String superTableName, final String key, final String superKey,
+	        final Map<String, byte[]> args) throws IOBackEndException, InternalBackEndException;
 
 	/**
 	 * Get the value of an entry column
-	 * 
+	 *
 	 * @param tableName
 	 *            the name of the Table/ColumnFamily
 	 * @param primaryKey
@@ -76,7 +73,7 @@ public interface IStorageManager {
 
 	/**
 	 * Update the value of a Simple Column
-	 * 
+	 *
 	 * @param tableName
 	 *            the name of the Table/ColumnFamily
 	 * @param primaryKey
@@ -91,7 +88,7 @@ public interface IStorageManager {
 
 	/**
 	 * Update the value of a Super Column
-	 * 
+	 *
 	 * @param tableName
 	 *            the name of the Table/ColumnFamily
 	 * @param key
@@ -110,7 +107,7 @@ public interface IStorageManager {
 
 	/**
 	 * Get the value of a Column family
-	 * 
+	 *
 	 * @param tableName
 	 *            the name of the Table/ColumnFamily
 	 * @param primaryKey
@@ -119,26 +116,24 @@ public interface IStorageManager {
 	 *            the name of the column
 	 * @return the value of the column
 	 */
-	public Map<byte[], byte[]> selectAll(String tableName, String primaryKey)
-			throws IOBackEndException, InternalBackEndException;
+	Map<byte[], byte[]> selectAll(String tableName, String primaryKey) throws IOBackEndException,
+	        InternalBackEndException;
 
 	/**
 	 * Get the list of values of a Super Column Family
-	 * 
+	 *
 	 * @param tableName
 	 * @param key
 	 * @return
 	 * @throws InternalBackEndException
 	 * @throws IOBackEndException
 	 */
-	public List<Map<byte[], byte[]>> selectList(final String tableName,
-			final String key) throws InternalBackEndException,
-			IOBackEndException;
-
+	List<Map<byte[], byte[]>> selectList(final String tableName, final String key) throws InternalBackEndException,
+	        IOBackEndException;
 
 	/**
 	 * Get the values of a range of columns
-	 * 
+	 *
 	 * @param tableName
 	 *            the name of the Table/ColumnFamily
 	 * @param primaryKey
@@ -151,8 +146,17 @@ public interface IStorageManager {
 	        throws IOBackEndException, InternalBackEndException;
 
 	/**
+	 * Count columns in record
+	 * @param key
+	 * @param parent
+	 * @return
+	 * @throws InternalBackEndException
+	 */
+	public int countColumns(final String tableName, final String key) throws InternalBackEndException;
+
+	/**
 	 * Remove a specific column defined by the columnName
-	 * 
+	 *
 	 * @param keyspace
 	 * @param columnFamily
 	 * @param key
@@ -163,7 +167,7 @@ public interface IStorageManager {
 
 	/**
 	 * Remove an entry in the columnFamily
-	 * 
+	 *
 	 * @param keyspace
 	 * @param columnFamily
 	 * @param key
@@ -173,7 +177,7 @@ public interface IStorageManager {
 
 	/**
 	 * Common put operation
-	 * 
+	 *
 	 * @param key
 	 * @param value
 	 * @param DHTType
@@ -183,7 +187,7 @@ public interface IStorageManager {
 
 	/**
 	 * Common get operation
-	 * 
+	 *
 	 * @param key
 	 * @param DHTType
 	 *            The type of DHT used for the operation

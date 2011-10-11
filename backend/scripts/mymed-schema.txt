@@ -7,13 +7,13 @@
  *
 */
 
-/* Create the 'mymed' keyspace
+/* Create the 'Mymed' keyspace
  *
  * The 'RackUnawareStrategy' has been renamed into 'SimpleStrategy' from v0.7.
  * Also, the 'RackAwareStrategy' should have been renamed into 'NetworkTopologyStrategy'.
  *
  */
-create keyspace Mymed with replication_factor = 5 and placement_strategy = 'org.apache.cassandra.locator.SimpleStrategy';
+create keyspace Mymed with replication_factor = 1 and placement_strategy = 'org.apache.cassandra.locator.SimpleStrategy';
 
 /* Switch to the 'mymed' keyspace */
 use Mymed;
@@ -63,3 +63,16 @@ create column family OntologyList with column_type = 'Super' and comparator = 'U
 create column family UserList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family InteractionList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family RaterList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
+
+
+/*
+ * REPUTATION DATASTRUCTURE
+ *
+*/
+create column family UserApplicationConsumer with column_type = 'Standard' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+create column family UserApplicationProducer with column_type = 'Standard' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+create column family Verdict with column_type = 'Standard' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+create column family VerdictAggregation with column_type = 'Standard' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+create column family TimeOrderVerdictList with column_type = 'Super' and comparator ='BytesType' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+create column family AuxOrderVerdictList with column_type = 'Super' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+create column family VerdictAggregationList with column_type = 'Super' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;

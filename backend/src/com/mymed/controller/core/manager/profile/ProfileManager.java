@@ -80,8 +80,6 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 		MLogger.getLog().info("Updating user with ID '{}'", user.getId());
 		final MUserBean userToUpdate = read(user.getId());
 		userToUpdate.update(user);
-		// TODO Implement the update method witch use the wrapper updateColumn
-		// method
 
 		// create(user) will replace the current values of the user...
 		create(userToUpdate);

@@ -2,21 +2,43 @@
 <?php require_once 'system/handler/IRequestHandler.php'; ?>
 <?php require_once 'system/beans/MUserBean.class.php'; ?>
 <?php require_once 'system/beans/MAuthenticationBean.class.php'; ?>
+<?php require_once 'socialNetworkAPIs/SocialNetworkConnection.class.php'; ?>
 
 <?php 
+/**
+ * 
+ * Enter description here ...
+ * @author lvanni
+ *
+ */
 class LoginHandler implements IRequestHandler {
 	
 	private /*string*/ $error;
 	private /*string*/ $success;
+	private /*SocialNetworkConnection*/ $socialNetworkConnection;
 	
+	/**
+	 * 
+	 * Enter description here ...
+	 */
 	public function __construct() {
 		$this->error	= false;
 		$this->success	= false;
+		$this->socialNetworkConnection = new SocialNetworkConnection();
 	}
 	
+	/**
+	 * 
+	 * Enter description here ...
+	 */
 	public /*String*/ function handleRequest() { 
-		// TRY TO REGISTER A NEW ACCOUNT
-		if(isset($_POST['singin'])) { // TRY TO LOGIN
+		// HANDLE ALL THE SOCIAL NETWORK LOGIN
+		foreach($this->socialNetworkConnection->getWrappers() as $wrapper) {
+			$wrapper->handleLogin();
+		}
+		
+		// HANDLE MYMED LOGIN
+		if(isset($_POST['singin'])) { 
 			// Preconditions
 			if($_POST['login'] == ""){
 				$this->error = "FAIL: eMail cannot be empty!";
@@ -35,7 +57,6 @@ class LoginHandler implements IRequestHandler {
 			$check = json_decode($response);
 			if(isset($check->error)) {
 				$_SESSION['error'] = $check->error->message;
-				return;
 			} else if($check->firstName != null) {
 				$user = $check;
 				// AUTHENTENTICATION OK: CREATE A SESSION
@@ -45,21 +66,35 @@ class LoginHandler implements IRequestHandler {
 				$check = json_decode($response);
 				if(isset($check->error)) {
 					$_SESSION['error'] = $check->error->message;
-					return;
 				} else {
 					$_SESSION['user'] = $user;
-					return;
 				}
 			}
 		}
 	}
 	
+	/**
+	 * 
+	 * Enter description here ...
+	 */
 	public /*String*/ function getError(){
 		return $this->error;
 	}
 	
+	/**
+	 * 
+	 * Enter description here ...
+	 */
 	public /*String*/ function getSuccess(){
 		return $this->success;
+	}
+	
+	/**
+	 * 
+	 * Enter description here ...
+	 */
+	public /*ISocialNetwork[]*/ function getSocialNetworks(){
+		return $this->socialNetworks;
 	}
 }
 ?>
