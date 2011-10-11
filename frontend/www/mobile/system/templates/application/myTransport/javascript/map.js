@@ -21,3 +21,5 @@ function successCallback(position){
 	    map: map
 	  });
 }
+
+initialize();
