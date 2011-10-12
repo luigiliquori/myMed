@@ -11,11 +11,12 @@
 #import "UIDeviceHardware.h"
 
 #pragma mark - Static Definitions
-static NSString * const MY_MED_URL = @"http://mymed2.sophia.inria.fr/mobile/";
+static NSString * const MY_MED_INDEX_URL = @"http://mymed2.sophia.inria.fr/mobile/index.php";
 
 @implementation ViewController
 
 @synthesize webView;
+@synthesize delegate;
 
 - (void)didReceiveMemoryWarning
 {
@@ -63,11 +64,13 @@ static NSString * const MY_MED_URL = @"http://mymed2.sophia.inria.fr/mobile/";
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
+
+
 #pragma mark - MyMed
 - (void) loadMyMed
 {
     if ([ConnectionStatusChecker doesHaveConnectivity]) {
-        [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:MY_MED_URL]]];
+        [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:MY_MED_INDEX_URL]]];
     } else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No internet connection" 
                                                         message:@"You need an active internet connection to use this application" 

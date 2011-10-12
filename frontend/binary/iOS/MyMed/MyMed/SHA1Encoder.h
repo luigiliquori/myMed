@@ -10,6 +10,6 @@
 
 @interface SHA1Encoder : NSObject
 
-+ (NSString *)signClearText:(NSString *)text withSecret:(NSString *)secret 
++ (NSString *) sha512FromString:(NSString *)source;
 
 @end

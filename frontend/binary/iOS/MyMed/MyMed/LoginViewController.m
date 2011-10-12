@@ -7,33 +7,77 @@
 //
 
 #import "LoginViewController.h"
+#import "ViewController.h"
+#import "POSTRequestBuilder.h"
 #import "ConnectionStatusChecker.h"
-#import "MyMedHttpHandler.h"
 #import "SHA1Encoder.h"
+#import "SBJson.h"
 
 #pragma mark - const definitions
-
 static NSString * const ERROR_MESSAGE = @"message";
-static NSString * const URL_MYMED_LOGIN = @"http://mymed2.sophia.inria.fr:8080/mymed_backend/AuthenticationRequestHandler";
+static NSString * const URL_MYMED_AUTH = @"http://mymed2.sophia.inria.fr/mobile/tools/authentication.php";
+static NSString * const URL_MYMED_SESSION = @"http://mymed2.sophia.inria.fr/mobile/index.php"; 
 
 #pragma mark - Private Methods
-
 @interface LoginViewController (private)
-
+- (NSDictionary *) POSTdictionaryWithKeys:(NSArray *) keys andObjects:(NSArray *) objects;
 - (void) submitLogin:(NSString *) login andPassword:(NSString *) password;
+- (void) openMyMedSessionWithLogin:(NSString *) login andPassword:(NSString *) password;
 - (BOOL) displayAlertForErrorInData:(NSDictionary *) data;
-
+- (void) presentMyMedWebView;
 @end
 
 @implementation LoginViewController (private)
 
+- (NSDictionary *) POSTdictionaryWithKeys:(NSArray *) keys andObjects:(NSArray *) objects
+{
+    assert([keys count] == [objects count]);
+    NSDictionary *dictionary = [[NSDictionary alloc] initWithObjects:objects forKeys:keys];    
+    return dictionary;
+}
+
 - (void) submitLogin:(NSString *) login andPassword:(NSString *) password
 {
-    [httpHandler submitLoginURL:[NSString stringWithFormat:@"%@?code=1&login=%@&password=%@", URL_MYMED_LOGIN, login, password]];    
+    // Pack data for POST request
+   NSDictionary *dictionary = [self POSTdictionaryWithKeys:[NSArray arrayWithObjects:@"login", @"password", nil] 
+                                                andObjects:[NSArray arrayWithObjects:login, [SHA1Encoder sha512FromString:password], nil]];
+    
+    // Forge request and stablish connection.
+    NSMutableURLRequest *request = [POSTRequestBuilder multipartPostRequestWithURL:[NSURL URLWithString:URL_MYMED_AUTH] 
+                                                                 andDataDictionary:dictionary];
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    if (connection) {
+        NSLog(@"Connection Success!");
+    } else {
+        NSLog(@"Connection Fail");
+    }
+}
+
+- (void) openMyMedSessionWithLogin:(NSString *) login andPassword:(NSString *) password
+{
+    // Pack Data for POST request
+    NSDictionary *dictionary = [self POSTdictionaryWithKeys:[NSArray arrayWithObjects:@"login", @"password", @"signin", @"ismobile", nil] 
+                                                 andObjects:[NSArray arrayWithObjects:login, [SHA1Encoder sha512FromString:password], @"true", @"true", nil]];
+    
+    // Forge request and stablish a connection
+    NSMutableURLRequest *request = [POSTRequestBuilder multipartPostRequestWithURL:[NSURL URLWithString:URL_MYMED_SESSION] 
+                                                                 andDataDictionary:dictionary];
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    if (connection) {
+        NSLog(@"Open Session Success!");
+    } else {
+        NSLog(@"Open Session Fail!");
+    }
 }
 
 - (BOOL) displayAlertForErrorInData:(NSDictionary *) data
-{
+{   
+    if (!data) {
+        return YES;
+    }
+    
     NSDictionary *error = [data objectForKey:@"error"];
     if (error) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[error objectForKey:ERROR_MESSAGE] 
@@ -47,10 +91,18 @@ static NSString * const URL_MYMED_LOGIN = @"http://mymed2.sophia.inria.fr:8080/m
     return NO;
 }
 
+- (void) presentMyMedWebView 
+{
+    ViewController *webViewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
+    webViewController.delegate = self;
+    webViewController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    [self presentModalViewController:webViewController animated:YES];
+    [webViewController loadMyMed];
+}
+
 @end
 
 #pragma mark - Public Interface
-
 @implementation LoginViewController
 
 @synthesize eMailField = eMailField_;
@@ -61,8 +113,7 @@ static NSString * const URL_MYMED_LOGIN = @"http://mymed2.sophia.inria.fr:8080/m
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 
     if (self) {
-        httpHandler = [[MyMedHttpHandler alloc] init];
-        [httpHandler setDelegate:self];
+        jsonParser = [[SBJsonParser alloc] init];
     }
     
     return self;
@@ -70,14 +121,10 @@ static NSString * const URL_MYMED_LOGIN = @"http://mymed2.sophia.inria.fr:8080/m
 
 - (void)didReceiveMemoryWarning
 {
-    // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
 }
 
 #pragma mark - View lifecycle
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -89,18 +136,16 @@ static NSString * const URL_MYMED_LOGIN = @"http://mymed2.sophia.inria.fr:8080/m
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    self.eMailField = nil;
+    self.passwordField = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - UITextFieldDelegate
-
 -(BOOL) textFieldShouldReturn:(UITextField *) textField;
 {
     // Try to find next responder
@@ -111,8 +156,7 @@ static NSString * const URL_MYMED_LOGIN = @"http://mymed2.sophia.inria.fr:8080/m
         [nextResponder becomeFirstResponder];
     } else {
         if ([ConnectionStatusChecker doesHaveConnectivity] && ![[self.eMailField text] isEqualToString:@""]) {
-            //NSLog(@"%@", [SHA1Encoder SHA1HashForString:self.passwordField.text]);
-            //[self submitLogin:self.eMailField.text andPassword:[SHA1Encoder SHA1HashForString:self.passwordField.text]];
+            [self submitLogin:self.eMailField.text andPassword:[SHA1Encoder sha512FromString:self.passwordField.text]];
         }
     }
 
@@ -120,16 +164,37 @@ static NSString * const URL_MYMED_LOGIN = @"http://mymed2.sophia.inria.fr:8080/m
 }
 
 #pragma mark - MyMedHttpHandlerDelegate
+- (BOOL) connection:(NSURLConnection *)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace 
+{
+    return [protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust];
+}
 
-- (void) receivedHTTPData:(NSDictionary *) data
-{    
-    if ([self displayAlertForErrorInData:data]) {
-        // Handle Error
+- (void) connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge 
+{
+    [challenge.sender useCredential:[NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust] forAuthenticationChallenge:challenge];
+    [challenge.sender continueWithoutCredentialForAuthenticationChallenge:challenge];
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+    NSDictionary *dataDictionary = [jsonParser objectWithData:data];
+    
+    NSLog(@"%@", dataDictionary);
+    
+    if ([self displayAlertForErrorInData:dataDictionary]) {
+        // Error in the JSON data or dataDictionary is nil.
+    } else { //TODO: Wait until multiple sessions are validated in Backend and improve.
+        
+        NSString *message = [dataDictionary objectForKey:@"message"];
+        
+        if ([message isEqualToString:@"authentication ok"]) {
+            [self openMyMedSessionWithLogin:self.eMailField.text andPassword:self.passwordField.text];
+        }
     }
 }
 
-- (void) connectionError:(NSError *)error
-{
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{   
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error" 
                                                     message:@"Unable to connect to MyMed, try again later."
                                                    delegate:self 
@@ -137,6 +202,5 @@ static NSString * const URL_MYMED_LOGIN = @"http://mymed2.sophia.inria.fr:8080/m
                                           otherButtonTitles:nil, nil];
     [alert show];
 }
-
 
 @end

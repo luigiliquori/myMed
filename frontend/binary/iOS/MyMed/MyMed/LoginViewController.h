@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MyMedHttpHandler.h"
 
-@class MyMedHttpHandler;
+@class SBJsonParser;
 
-@interface LoginViewController : UIViewController <UITextFieldDelegate, MyMedHttpHandlerDelegate>
+@interface LoginViewController : UIViewController <UITextFieldDelegate>
 {
-    MyMedHttpHandler *httpHandler;
+    NSData *receivedData;
+    SBJsonParser *jsonParser;
 }
 
 @property (nonatomic, retain) IBOutlet UITextField *eMailField;

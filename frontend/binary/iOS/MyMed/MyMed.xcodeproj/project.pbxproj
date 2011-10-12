@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		14188CF5143DA5C80028A452 /* MyMedHttpHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 14188CF4143DA5C80028A452 /* MyMedHttpHandler.m */; };
+		140086F41445D92D009A94C4 /* POSTRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 140086F31445D92D009A94C4 /* POSTRequestBuilder.m */; };
 		141FF5871423423000FC46F4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 141FF5861423423000FC46F4 /* UIKit.framework */; };
 		141FF5891423423000FC46F4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 141FF5881423423000FC46F4 /* Foundation.framework */; };
 		141FF58B1423423000FC46F4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 141FF58A1423423000FC46F4 /* CoreGraphics.framework */; };
@@ -48,8 +48,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		14188CF3143DA5C80028A452 /* MyMedHttpHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMedHttpHandler.h; sourceTree = "<group>"; };
-		14188CF4143DA5C80028A452 /* MyMedHttpHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyMedHttpHandler.m; sourceTree = "<group>"; };
+		140086F21445D92C009A94C4 /* POSTRequestBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSTRequestBuilder.h; sourceTree = "<group>"; };
+		140086F31445D92D009A94C4 /* POSTRequestBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSTRequestBuilder.m; sourceTree = "<group>"; };
 		141FF5821423423000FC46F4 /* MyMed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyMed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		141FF5861423423000FC46F4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		141FF5881423423000FC46F4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -128,6 +128,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		140086F61445D942009A94C4 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				149B6501143C93FE008A341C /* ConnectionStatusChecker.h */,
+				149B6502143C93FE008A341C /* ConnectionStatusChecker.m */,
+				140086F21445D92C009A94C4 /* POSTRequestBuilder.h */,
+				140086F31445D92D009A94C4 /* POSTRequestBuilder.m */,
+				14DC47A7143E0583008DE8DF /* SHA1Encoder.h */,
+				14DC47A8143E0583008DE8DF /* SHA1Encoder.m */,
+			);
+			name = Helper;
+			sourceTree = "<group>";
+		};
 		141FF5771423423000FC46F4 = {
 			isa = PBXGroup;
 			children = (
@@ -160,7 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				149B64FF143C934B008A341C /* Views */,
-				149B64FE143C9345008A341C /* Model */,
+				149B64FE143C9345008A341C /* Model - MyMed */,
 				141FF5951423423000FC46F4 /* AppDelegate.h */,
 				141FF5961423423000FC46F4 /* AppDelegate.m */,
 				141FF58D1423423000FC46F4 /* Supporting Files */,
@@ -220,18 +233,13 @@
 			name = LoginView;
 			sourceTree = "<group>";
 		};
-		149B64FE143C9345008A341C /* Model */ = {
+		149B64FE143C9345008A341C /* Model - MyMed */ = {
 			isa = PBXGroup;
 			children = (
+				140086F61445D942009A94C4 /* Helper */,
 				141FF5A61423516100FC46F4 /* External */,
-				149B6501143C93FE008A341C /* ConnectionStatusChecker.h */,
-				149B6502143C93FE008A341C /* ConnectionStatusChecker.m */,
-				14188CF3143DA5C80028A452 /* MyMedHttpHandler.h */,
-				14188CF4143DA5C80028A452 /* MyMedHttpHandler.m */,
-				14DC47A7143E0583008DE8DF /* SHA1Encoder.h */,
-				14DC47A8143E0583008DE8DF /* SHA1Encoder.m */,
 			);
-			name = Model;
+			name = "Model - MyMed";
 			sourceTree = "<group>";
 		};
 		149B64FF143C934B008A341C /* Views */ = {
@@ -366,7 +374,6 @@
 				14264C09142773D700E44481 /* UIDeviceHardware.m in Sources */,
 				149B64FC143C87F9008A341C /* LoginViewController.m in Sources */,
 				149B6503143C93FE008A341C /* ConnectionStatusChecker.m in Sources */,
-				14188CF5143DA5C80028A452 /* MyMedHttpHandler.m in Sources */,
 				14DC479A143DCEF4008DE8DF /* NSObject+SBJson.m in Sources */,
 				14DC479B143DCEF4008DE8DF /* SBJsonParser.m in Sources */,
 				14DC479C143DCEF4008DE8DF /* SBJsonStreamParser.m in Sources */,
@@ -381,6 +388,7 @@
 				14DC47A5143DCEF4008DE8DF /* SBJsonWriter.m in Sources */,
 				14DC47A9143E0583008DE8DF /* SHA1Encoder.m in Sources */,
 				14DC47BC143E0B3A008DE8DF /* Base64Transcoder.c in Sources */,
+				140086F41445D92D009A94C4 /* POSTRequestBuilder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

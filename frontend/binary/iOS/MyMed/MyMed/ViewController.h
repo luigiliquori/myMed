@@ -10,6 +10,7 @@
 
 @interface ViewController : UIViewController
 
+@property (nonatomic, retain) id delegate;
 @property (nonatomic, retain) IBOutlet UIWebView *webView;
 
 - (void) loadMyMed;
