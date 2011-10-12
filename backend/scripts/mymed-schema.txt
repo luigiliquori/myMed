@@ -64,7 +64,6 @@ create column family UserList with column_type = 'Super' and comparator = 'UTF8T
 create column family InteractionList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family RaterList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 
-<<<<<<< HEAD
 /* Column families for myJam application */
 
 create column family Location
@@ -95,7 +94,7 @@ create column family Feedback
 create column family UserReport
 	with comparator = 'com.mymed.myjam.type.MyJamIdType'
 	and comment = 'A column family used as an index to bind users with reports and updates.';
-=======
+
 
 /*
  * REPUTATION DATASTRUCTURE
@@ -108,4 +107,4 @@ create column family VerdictAggregation with column_type = 'Standard' and rows_c
 create column family TimeOrderVerdictList with column_type = 'Super' and comparator ='BytesType' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 create column family AuxOrderVerdictList with column_type = 'Super' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 create column family VerdictAggregationList with column_type = 'Super' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
->>>>>>> 9670a4dee31b0ec5556023d40e5335d2c5a25139
+
