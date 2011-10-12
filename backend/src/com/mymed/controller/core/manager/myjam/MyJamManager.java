@@ -14,17 +14,17 @@ import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.storage.MyJamStorageManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.controller.core.manager.storage.MyJamStorageManager.ExpColumnBean;
+import com.mymed.model.data.myjam.MFeedBackBean;
+import com.mymed.model.data.myjam.MReportBean;
+import com.mymed.model.data.myjam.MSearchReportBean;
+import com.mymed.model.data.myjam.MyJamId;
+import com.mymed.model.data.myjam.WrongFormatException;
+import com.mymed.model.data.myjam.MyJamTypes.ReportType;
 import com.mymed.model.data.user.MUserBean;
-import com.mymed.myjam.locator.GeoLocationOutOfBoundException;
-import com.mymed.myjam.locator.Location;
-import com.mymed.myjam.locator.Locator;
-import com.mymed.myjam.type.MFeedBackBean;
-import com.mymed.myjam.type.MReportBean;
-import com.mymed.myjam.type.MSearchReportBean;
-import com.mymed.myjam.type.MyJamId;
-import com.mymed.myjam.type.WrongFormatException;
-import com.mymed.myjam.type.MyJamTypes.ReportType;
 import com.mymed.utils.MConverter;
+import com.mymed.utils.locator.GeoLocationOutOfBoundException;
+import com.mymed.utils.locator.Location;
+import com.mymed.utils.locator.Locator;
 
 /**
  * Controls the insertion and the retrieving of data to/from the database.

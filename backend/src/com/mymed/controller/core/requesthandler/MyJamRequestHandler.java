@@ -22,12 +22,12 @@ import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.myjam.MyJamManager;
 import com.mymed.controller.core.manager.storage.MyJamStorageManager;
-import com.mymed.myjam.type.MyJamTypeValidator;
-import com.mymed.myjam.type.MReportBean;
-import com.mymed.myjam.type.MSearchReportBean;
-import com.mymed.myjam.type.MFeedBackBean;
-import com.mymed.myjam.type.MyJamId;
-import com.mymed.myjam.type.WrongFormatException;
+import com.mymed.model.data.myjam.MFeedBackBean;
+import com.mymed.model.data.myjam.MReportBean;
+import com.mymed.model.data.myjam.MSearchReportBean;
+import com.mymed.model.data.myjam.MyJamId;
+import com.mymed.model.data.myjam.MyJamTypeValidator;
+import com.mymed.model.data.myjam.WrongFormatException;
 /**
  * 
  * @author iacopo
