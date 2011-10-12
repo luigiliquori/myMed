@@ -174,7 +174,6 @@ public enum ClassType {
 		final String methodName = classType.getPrimitiveType().getSimpleName().toLowerCase() + TO_BYTE_BUFFER;
 		ByteBuffer returnBuffer = null;
 
-		// try {
 		try {
 			final Method method = MConverter.class.getMethod(methodName, classType.getPrimitiveType());
 			returnBuffer = (ByteBuffer) method.invoke(null, object);

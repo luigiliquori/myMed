@@ -1,4 +1,4 @@
-# Cassandra storage config YAML 
+# Cassandra storage config YAML
 
 # NOTE:
 #   See http://wiki.apache.org/cassandra/StorageConfiguration for
@@ -7,6 +7,7 @@
 
 # The name of the cluster. This is mainly used to prevent machines in
 # one logical cluster from joining another.
+
 cluster_name: 'Mymed cluster'
 
 # You should always specify InitialToken when setting up a production
@@ -51,7 +52,7 @@ authority: org.apache.cassandra.auth.AllowAllAuthority
 # org.apache.cassandra.dht.OrderPreservingPartitioner (deprecated),
 # and org.apache.cassandra.dht.CollatingOrderPreservingPartitioner
 # (deprecated).
-# 
+#
 # - RandomPartitioner distributes rows across the cluster evenly by md5.
 #   When in doubt, this is the best option.
 # - ByteOrderedPartitioner orders rows lexically by key bytes.  BOP allows
@@ -77,10 +78,10 @@ commitlog_directory: /local/var/lib/cassandra/commitlog
 # saved caches
 saved_caches_directory: /local/var/lib/cassandra/saved_caches
 
-# Size to allow commitlog to grow to before creating a new segment 
+# Size to allow commitlog to grow to before creating a new segment
 commitlog_rotation_threshold_in_mb: 128
 
-# commitlog_sync may be either "periodic" or "batch." 
+# commitlog_sync may be either "periodic" or "batch."
 # When in batch mode, Cassandra won't ack writes until the commit log
 # has been fsynced to disk.  It will wait up to
 # CommitLogSyncBatchWindowInMS milliseconds for other writes, before
@@ -94,7 +95,7 @@ commitlog_sync_period_in_ms: 10000
 
 # emergency pressure valve: each time heap usage after a full (CMS)
 # garbage collection is above this fraction of the max, Cassandra will
-# flush the largest memtables.  
+# flush the largest memtables.
 #
 # Set to 1.0 to disable.  Setting this lower than
 # CMSInitiatingOccupancyFraction is not likely to be useful.
@@ -110,8 +111,8 @@ flush_largest_memtables_at: 1.0
 # Cassandra will reduce cache maximum _capacity_ to the given fraction
 # of the current _size_.  Should usually be set substantially above
 # flush_largest_memtables_at, since that will have less long-term
-# impact on the system.  
-# 
+# impact on the system.
+#
 # Set to 1.0 to disable.  Setting this lower than
 # CMSInitiatingOccupancyFraction is not likely to be useful.
 reduce_cache_sizes_at: 1.0
@@ -122,23 +123,7 @@ reduce_cache_capacity_to: 0.6
 # the topology of the ring.  You must change this if you are running
 # multiple nodes!
 seeds:
-# INRIA: F125
- - 138.96.242.1
-# INRIA: F107
- - 138.96.242.2
- - 138.96.242.8
-# INRIA: F102
- - 138.96.242.3
- - 138.96.242.4
-# Univ. Nice: Valrose - Salon de Musique
- - 134.59.12.39
-# Univ. Nice: St-Jean d'Angely - Mr Gasperini
- - 134.59.74.51
-# Univ. Nice: Valrose - Mme Bertone 
- - 134.59.12.45
-# INRIA: F101 
- - 138.96.242.9
- - 138.96.242.10
+ - 127.0.0.1
 
 
 # For workloads with more data than can fit in memory, Cassandra's
@@ -165,7 +150,7 @@ concurrent_writes: 32
 # the maximum number of secondary indexes created on a single CF.
 memtable_flush_queue_size: 4
 
-# Buffer size to use when performing contiguous column slices. 
+# Buffer size to use when performing contiguous column slices.
 # Increase this to the size of the column slices you typically perform
 sliced_buffer_size_in_kb: 64
 
@@ -175,22 +160,22 @@ storage_port: 4200
 # Address to bind to and tell other Cassandra nodes to connect to. You
 # _must_ change this if you want multiple nodes to be able to
 # communicate!
-# 
+#
 # Leaving it blank leaves it up to InetAddress.getLocalHost(). This
 # will always do the Right Thing *if* the node is properly configured
 # (hostname, name resolution, etc), and the Right Thing is to use the
 # address associated with the hostname (it might not be).
 #
 # Setting this to 0.0.0.0 is always wrong.
-listen_address: 138.96.242.2
+listen_address: 127.0.0.1
 
 # The address to bind the Thrift RPC service to -- clients connect
 # here. Unlike ListenAddress above, you *can* specify 0.0.0.0 here if
 # you want Thrift to listen on all interfaces.
-# 
+#
 # Leaving this blank has the same effect it does for ListenAddress,
 # (i.e. it will be based on the configured hostname of the node).
-rpc_address: 138.96.242.2
+rpc_address: 127.0.0.1
 # port for Thrift to listen for clients on
 rpc_port: 4201
 
@@ -201,7 +186,7 @@ rpc_keepalive: true
 # be expensive in memory used for thread stack for a large
 # enough number of clients.  (Hence, connection pooling is
 # very, very strongly recommended.)
-# 
+#
 # Uncomment rpc_min|max|thread to set request pool size.
 # You would primarily set max as a safeguard against misbehaved
 # clients; if you do hit the max, Cassandra will block until
@@ -259,7 +244,7 @@ in_memory_compaction_limit_in_mb: 64
 # key caches.
 compaction_preheat_key_cache: true
 
-# Time to wait for a reply from other nodes before failing the command 
+# Time to wait for a reply from other nodes before failing the command
 rpc_timeout_in_ms: 10000
 
 # phi value that must be reached for a host to be marked down.
@@ -289,7 +274,7 @@ endpoint_snitch: org.apache.cassandra.locator.SimpleSnitch
 dynamic_snitch: true
 # controls how often to perform the more expensive part of host score
 # calculation
-dynamic_snitch_update_interval_in_ms: 100 
+dynamic_snitch_update_interval_in_ms: 100
 # controls how often to reset all host scores, allowing a bad host to
 # possibly recover
 dynamic_snitch_reset_interval_in_ms: 600000
@@ -319,7 +304,7 @@ request_scheduler: org.apache.cassandra.scheduler.NoScheduler
 # NoScheduler - Has no options
 # RoundRobin
 #  - throttle_limit -- The throttle_limit is the number of in-flight
-#                      requests per client.  Requests beyond 
+#                      requests per client.  Requests beyond
 #                      that limit are queued up until
 #                      running requests can complete.
 #                      The value of 80 here is twice the number of

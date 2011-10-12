@@ -16,6 +16,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
   <property name="java.dir"            location="/usr/share/java"/>
   <property name="findbugs.dir"        location="/usr/share/findbugs"/>
 	<property name="libs.dir"            location="../../../../lib"/>
+	<property name="glassfish.dir"       location="../../../../servers/glassfishv3/glassfish/"/>
   <property name="cassandra.dir"       location="../../../../protocols/cassandra/cassandra"/>
   <property name="src.dir"             location="${controller.dir}:${model.dir}:${utils.dir}"/>
 	<property name="test.jar"            value="stresstest.jar" />
@@ -40,6 +41,10 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
       not good to see. For more info see: http://www.slf4j.org/codes.html#multiple_bindings
       Cassandra has sl4j binding in its classpath, that's why it complains -->
       <exclude name="slf4j-log4j12-1.6.1.jar"/>
+    </fileset>
+    <fileset dir="${glassfish.dir}">
+      <include name="**/mail.jar"/>
+      <include name="**/javaee.jar"/>
     </fileset>
 	</path>
 

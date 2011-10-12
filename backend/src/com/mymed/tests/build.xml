@@ -15,6 +15,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 	<property name="utils.dir"           location="../utils"/>
 	<property name="libs.dir"            location="../../../../lib"/>
 	<property name="java.dir"            location="/usr/share/java"/>
+	<property name="glassfish.dir"       location="../../../../servers/glassfishv3/glassfish/"/>
 	<property name="cassandra.dir"       location="../../../../protocols/cassandra/cassandra"/>
 	<property name="synapse.dir"         location="../../../../protocols/synapse/jSynapse/src"/>
 	<property name="src.dir"             location="${controller.dir}:${model.dir}:${utils.dir}"/>
@@ -48,6 +49,10 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 			<include name="**/junit.jar"/>
 			<include name="*.jar"/>
 			<include name="**/*.jar"/>
+		</fileset>
+		<fileset dir="${glassfish.dir}">
+			<include name="**/mail.jar"/>
+			<include name="**/javaee.jar"/>
 		</fileset>
 	</path>
 

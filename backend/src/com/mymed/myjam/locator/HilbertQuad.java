@@ -5,6 +5,11 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 
+ * @author iacopo
+ *
+ */
 public class HilbertQuad {
 	protected enum QuadType{A,D,U,C};
 	private long index;
@@ -28,7 +33,7 @@ public class HilbertQuad {
 	 * 		-------------------------
 	 * 		|			|			|
  	 *		|	  2		|	  3		| 	 		
-	 *		|	Fourth	|	Third	|
+	 *		|	Third	|	Fourth	|
 	 * 		-------------------------
 	 * 		|			|			|
  	 *		|	  0		|	  1		| 	 		
@@ -97,8 +102,8 @@ public class HilbertQuad {
 		Math.toDegrees(Location.MAX_LAT)};
 	protected static double[] longitudeRange = new double[]{Math.toDegrees(Location.MIN_LON),
 		Math.toDegrees(Location.MAX_LON)};
-	public static int numBits=45;
-	public static short maxLevel=23;
+	public static final short maxLevel=24; // There are maxLevel levels in the range (0..maxLevel-1)
+	public static final int numBits=maxLevel*2-1;
 	
 	protected HilbertQuad(long index,short level,double fLat,double fLon,double cLat,double cLon,
 			QuadType typeQuad){
@@ -181,7 +186,7 @@ public class HilbertQuad {
 	/*
 	 * Returns the quad of level @param i that contains the point @param lat, @param lon.
 	 */
-	//TODO Make it iterative may be better.
+	//TODO Could be better iterative.
 	private static void getQuad(short i, double lat, double lon, HilbertQuad quad,
 			int level) {
 		short quadPos=0;

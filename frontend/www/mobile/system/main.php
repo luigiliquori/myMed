@@ -3,7 +3,7 @@
 	@set_magic_quotes_runtime(false);	// for the magic_quotes
 	
 	// DEBUG
-	ini_set('display_errors', 1);
+	ini_set('display_errors', 0);
 	
 	require_once dirname(__FILE__).'/config.php';
 	require_once dirname(__FILE__).'/templates/TemplateManager.class.php';
@@ -15,6 +15,14 @@
 	$handler = new LoginHandler();
 	$handler->handleRequest();
 	
+	// MOBILE DETECT
+	require_once 'php-mobile-detect/Mobile_Detect.php';
+	$detect = new Mobile_Detect();
+	$target = "mobile";
+	if ($detect->isMobile()) {
+		$target = "mobile";
+	}
+	
 	$templateManager = new TemplateManager();
 	define('USER_CONNECTED', isset($_SESSION['user']) || isset($_GET['user']));
 	if (USER_CONNECTED) {
@@ -23,10 +31,10 @@
 		} else if(isset($_GET['admin']) && $_GET['admin'] != "0"){
 			$templateManager->selectTemplate('admin');
 		} else {
-			$templateManager->selectTemplate('home');
+			$templateManager->selectTemplate($target . '/home');
 		}
 	} else {
-		$templateManager->selectTemplate('login');
+		$templateManager->selectTemplate($target . '/login');
 	}
 	$templateManager->callTemplate();
 	

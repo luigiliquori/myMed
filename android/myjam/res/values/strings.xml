@@ -135,7 +135,7 @@
     <string name="title_search_rate_preference">Choose search rate.</string>
     <string name="summary_search_rate_preference">Search rate.</string>
     <string name="dialog_title_search_rate_preference">Select the rate of the searches.</string>
-    <string name="title_navigation_preference">Navigatione mode</string>
-    <string name="summary_navigation_preference">When is active the map in centered on the user position.</string>       
+    <string name="title_navigation_preference">Navigation mode</string>
+    <string name="summary_navigation_preference">When is active the map is centered on the user position.</string>       
            
 </resources>

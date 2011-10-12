@@ -4,6 +4,8 @@ require_once 'system/beans/MDataBean.class.php';
 require_once 'system/request/Publish.class.php';
 require_once 'system/request/Subscribe.class.php';
 require_once 'system/request/Find.class.php';
+require_once 'system/request/GetDetail.class.php';
+require_once 'system/request/StartInteraction.class.php';
 
 /**
  * 
@@ -41,20 +43,14 @@ class MyApplicationHandler implements IRequestHandler {
 			} else if($_POST['method'] == "find") {
 				$find = new Find($this);
 				$find->send();
+			} else if($_POST['method'] == "getDetail") {
+				$getDetail = new GetDetail($this);
+				$getDetail->send();
+			} else if($_POST['method'] == "startInteraction") {
+				$startInteraction = new StartInteraction($this);
+				$startInteraction->send();
 			} 
-		} else if(isset($_GET['getDetails'])) {
-			$request = new Request("FindRequestHandler", READ);
-			$request->addArgument("application", APPLICATION_NAME);
-			$request->addArgument("predicate", $_GET['predicate']);
-			$request->addArgument("user", $_GET['user']);
-			$response = $request->send();
-			$check = json_decode($response);
-			if($check->error != null) {
-				$this->error = $check->error->message;
-			} else {
-				$this->success = $response;
-			}
-		}
+		} 
 	}
 	
 	/* --------------------------------------------------------- */

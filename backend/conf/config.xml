@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Configuration of the data storage layer of myMed -->
-<!-- Change the x.x.x.x field to the IP address of the actual machine  -->
+<!-- Change the 127.0.0.1 field to the IP address of the actual machine  -->
 <node>
 	<backend>
 		<!-- Cloud Info -->
@@ -11,6 +11,7 @@
 			<ThriftAddress>130.192.9.113</ThriftAddress>
 			<ThriftPort>4201</ThriftPort>
 		</cassandra>
+
 		<!-- P2P Info -->
 		<synapse address="130.192.9.113" port="0">
 			<chord>

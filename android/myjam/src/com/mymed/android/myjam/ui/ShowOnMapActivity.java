@@ -81,7 +81,7 @@ public class ShowOnMapActivity extends MapActivity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.map_view);
 	    mMapView = (MapView) findViewById(R.id.mapview);
-        mMapView.setStreetView(true);//setting this to true causes blue lines around roads
+//        mMapView.setStreetView(true);//setting this to true causes blue lines around roads
         mMapView.invalidate();
         mMapView.setBuiltInZoomControls(true);
         mMapController = mMapView.getController();
