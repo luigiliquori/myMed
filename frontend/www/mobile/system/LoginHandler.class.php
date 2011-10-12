@@ -51,7 +51,11 @@ class LoginHandler implements IRequestHandler {
 			// AUTHENTICATION
 			$request = new Request("AuthenticationRequestHandler", READ);
 			$request->addArgument("login", $_POST["login"]);
-			$request->addArgument("password", hash('sha512', $_POST["password"]));
+			if(isset($_POST['isMobileConnection'])) {
+				$request->addArgument("password", $_POST["password"]);	// the password should be already encrypted by the client
+			} else {
+				$request->addArgument("password", hash('sha512', $_POST["password"]));
+			}
 			$response = $request->send();
 			// Check if there's not error
 			$check = json_decode($response);

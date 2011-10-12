@@ -55,12 +55,7 @@ abstract class AbstractHome extends AbstractTemplate {
 	* Print the Template
 	*/
 	public /*String*/ function printTemplate() { ?>
-	
-		<div style="position: absolute; left: 0px; width: 20%; height:500px; border: thin black solid;">
-			
-		</div>
-	
-		<div id="<?= $this->id ?>" data-role="page" data-theme="d" style="left:20%; width: 60%; border: thin black solid; top:200px;">
+		<div id="<?= $this->id ?>" data-role="page" data-theme="d" style="left:25%; width: 50%; top:120px; border: thin #d2d2d2 solid; padding: 5px;">
 			<?php $this->getHeader(); ?>
 			<?php $this->getContent(); ?>
 			<?php $this->getFooter(); ?>

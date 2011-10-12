@@ -18,13 +18,13 @@
 	// MOBILE DETECT
 	require_once 'php-mobile-detect/Mobile_Detect.php';
 	$detect = new Mobile_Detect();
-	$target = "mobile";
+	$target = "desktop";
 	if ($detect->isMobile()) {
 		$target = "mobile";
 	}
 	
 	$templateManager = new TemplateManager();
-	define('USER_CONNECTED', isset($_SESSION['user']) || isset($_GET['user']));
+	define('USER_CONNECTED', isset($_SESSION['user']));
 	if (USER_CONNECTED) {
 		if(isset($_GET['application']) && $_GET['application'] != "0"){
 			$templateManager->selectTemplate('application/'.$_GET['application']);

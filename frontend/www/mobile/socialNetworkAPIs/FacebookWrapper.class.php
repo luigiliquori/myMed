@@ -40,6 +40,9 @@ class FacebookWrapper implements IWrapper {
 	 		try {
 	 			// Proceed knowing you have a logged in user who's authenticated.
 	 			$user_profile = $this->facebook->api('/me');
+	 			// register the wrapper
+	 			$_SESSION['wrapper'] = $this;
+	 			
 	 			// Format the user Object
 	 			$_SESSION['user'] = new MUserBean();
 	 			$_SESSION['user']->id = $user_profile["id"];
@@ -53,8 +56,10 @@ class FacebookWrapper implements IWrapper {
 	 			$_SESSION['user']->hometown = $user_profile["hometown"];
 	 			$_SESSION['user']->profilePicture = "http://graph.facebook.com/" . $user_profile["id"] . "/picture?type=large";
 	 			$_SESSION['user']->gender = $user_profile["gender"];
-	 			// register the wrapper
-	 			$_SESSION['wrapper'] = $this;
+	 			$_SESSION['user']->socialNetwork = "Facebook";
+	 			
+	 			$_SESSION['friends'] = $user_profile->api('/me/friends?access_token=' . $this->facebook->getAccessToken())->data;
+	 			
 	 		} catch (FacebookApiException $e) {
 	 			error_log($e);
 	 			$user = null;

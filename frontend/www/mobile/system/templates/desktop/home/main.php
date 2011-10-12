@@ -14,13 +14,16 @@ $menuHandler->handleRequest();
 	<input type="hidden" name="disconnect" value="1" />
 </form>
 
-<?php
+<div id="header"></div>
+
+<?php 
+$profile = new Profile();
+$profile->printTemplate(); 
 $favorite = new Favorite();
 $favorite->printTemplate();
 $category = new Category();
 $category->printTemplate();
 $top10 = new Top10();
 $top10->printTemplate();
-$profile = new Profile();
-$profile->printTemplate();
+include('updateProfile.php');
 ?>
