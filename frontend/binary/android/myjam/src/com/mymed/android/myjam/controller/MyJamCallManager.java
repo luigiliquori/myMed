@@ -14,7 +14,7 @@ import com.mymed.model.data.myjam.MReportBean;
 import com.mymed.model.data.myjam.MSearchReportBean;
 
 /**
- * Singleton class used to perform REST calls, according to MyJam API.
+ * Singleton class used to perform HTTP calls, according to MyJam API.
  * @author iacopo
  *
  */
