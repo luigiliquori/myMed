@@ -65,7 +65,7 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
 			case READ:
 			case DELETE:
 			default:
-				throw new InternalBackEndException("DHTRequestHandler.doGet(" + code + ") not exist!");
+				throw new InternalBackEndException("SubscribeRequestHandler.doGet(" + code + ") not exist!");
 			}
 
 		} catch (final AbstractMymedException e) {
@@ -115,7 +115,7 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
 				} 
 				break;
 			default :
-				new InternalBackEndException("PubSubRequestHandler.doGet(" + code + ") not exist!");
+				new InternalBackEndException("SubscribeRequestHandler.doGet(" + code + ") not exist!");
 			}
 
 		} catch (final AbstractMymedException e) {

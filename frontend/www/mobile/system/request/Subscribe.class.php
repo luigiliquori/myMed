@@ -44,7 +44,7 @@ class Subscribe extends Request {
 		$responsejSon = parent::send();
 		$responseObject = json_decode($responsejSon);
 		
-		if($responseObject->error != null) {
+		if($responseObject->status != 200) {
 			$this->handler->setError($responseObject->description);
 		} else {
 			$this->handler->setSuccess("Request sent!");

@@ -9,10 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mymed.controller.core.exception.IOBackEndException;
+import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.reputation.old.ReputationManager;
+import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.reputation.old.MReputationBean;
+import com.mymed.utils.MLogger;
 
 /**
  * Servlet implementation class ReputationRequestHandler
@@ -51,48 +53,39 @@ public class ReputationRequestHandlerOld extends AbstractRequestHandler {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		
+		JsonMessage message = new JsonMessage(200, this.getClass().getName());
+
 		try {
-			/** Get the parameters */
 			Map<String, String> parameters = getParameters(request);
-
-			/** Get the method code */
 			RequestCode code = requestCodeMap.get(parameters.get("code"));
-
-			/** handle the request */
 			String application, producer, consumer;
+		
 			switch (code) {
 			case READ:
 				if ((application = parameters.get("application")) == null) {
-					handleError(new InternalBackEndException(
-							"missing application argument!"), response);
-					return;
+					throw new InternalBackEndException("missing application argument!");
 				} else if ((producer = parameters.get("producer")) == null) {
-					handleError(new InternalBackEndException(
-							"missing producer argument!"), response);
-					return;
+					throw new InternalBackEndException("missing producer argument!");
 				} else if ((consumer = parameters.get("consumer")) == null) {
-					handleError(new InternalBackEndException(
-							"missing consumer argument!"), response);
-					return;
+					throw new InternalBackEndException("missing consumer argument!");
 				}
 				MReputationBean reputation = reputationManager.read(producer, consumer, application);
-				setResponseText(reputation.getValue() + "");
+				message.addData("reputation", reputation.getValue() + "");
 				break;
 			case DELETE:
 				break;
 			default:
-				handleError(new InternalBackEndException("ReputationRequestHandler.doGet(" + code + ") not exist!"), response);
-				return;
+				throw new InternalBackEndException("ReputationRequestHandler.doGet(" + code + ") not exist!");
 			}
-			super.doGet(request, response);
-		} catch (InternalBackEndException e) {
-			e.printStackTrace();
-			handleError(e, response);
-			return;
-		} catch (IOBackEndException e) {
-			e.printStackTrace();
-			handleError(e, response);
+		} catch (final AbstractMymedException e) {
+			MLogger.getLog().info("Error in doGet operation");
+			MLogger.getDebugLog().debug("Error in doGet operation", e.getCause());
+			message.setStatus(e.getStatus());
+			message.setDescription(e.getMessage());
 		} 
+
+		printJSonResponse(message, response);
 	}
 
 	/**
@@ -101,25 +94,27 @@ public class ReputationRequestHandlerOld extends AbstractRequestHandler {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		try {
-			/** Get the parameters */
-			Map<String, String> parameters = getParameters(request);
+		JsonMessage message = new JsonMessage(200, this.getClass().getName());
 
-			/** Get the method code */
+		try {
+			Map<String, String> parameters = getParameters(request);
 			RequestCode code = requestCodeMap.get(parameters.get("code"));
 
-			/** handle the request */
 			switch (code) {
+			case CREATE:
 			case UPDATE:
 				break;
 			default:
-				handleError(new InternalBackEndException("ReputationRequestHandler.doPost(" + code + ") not exist!"), response);
-				return;
+				throw new InternalBackEndException("ReputationRequestHandler.doPost(" + code + ") not exist!");
 			}
 			super.doPost(request, response);
-		} catch (InternalBackEndException e) {
-			e.printStackTrace();
-			handleError(e, response);
-		}
+		} catch (final AbstractMymedException e) {
+			MLogger.getLog().info("Error in doPost operation");
+			MLogger.getDebugLog().debug("Error in doPost operation", e.getCause());
+			message.setStatus(e.getStatus());
+			message.setDescription(e.getMessage());
+		} 
+
+		printJSonResponse(message, response);
 	}
 }

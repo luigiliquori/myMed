@@ -52,8 +52,6 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 	public void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
 	IOException {
 
-		System.out.println("REQUEST: \n" + request.getQueryString());
-
 		JsonMessage message = new JsonMessage(200, this.getClass().getName());
 
 		try {

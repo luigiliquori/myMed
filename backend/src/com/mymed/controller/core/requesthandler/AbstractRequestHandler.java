@@ -102,6 +102,10 @@ public abstract class AbstractRequestHandler extends HttpServlet {
 		if (!parameters.containsKey("code")) {
 			throw new InternalBackEndException("code argument is missing!");
 		}
+		
+		if (requestCodeMap.get(parameters.get("code")) == null) {
+			throw new InternalBackEndException("code argument is not well formated");
+		}
 
 		return parameters;
 	}
