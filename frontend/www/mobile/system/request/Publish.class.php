@@ -61,11 +61,14 @@ class Publish extends Request {
 			if($predicate != ""){
 // 				echo '<script type="text/javascript">alert("$predicate = ' . $predicate . '")</script>';
 				parent::addArgument("predicate", urlencode($predicate));
-				$response = parent::send();
-				$check = json_decode($response);
-				if($check->error != null) {
-					$this->handler->setError($check->error->message);
-					break;
+				
+				$responsejSon = parent::send();
+				$responseObject = json_decode($responsejSon);
+				
+				if($responseObject->status != 200) {
+// 					echo '<script type="text/javascript">alert("$responseObject->status = ' . $responseObject->status . '")</script>';
+					$this->handler->setError($responseObject->description);
+					return;
 				} 
 			}
 		}

@@ -57,13 +57,15 @@ class DetailView extends MyApplication {
 			<?php
 			$request = new Request("ProfileRequestHandler", READ);
 			$request->addArgument("id",  $_POST['user']);
-			$response = $request->send(); 
-			// Check if there's not error
-			$profile = json_decode($response);
-			if(isset($profile->error)) { ?>
+			
+			$responsejSon = $request->send();
+			$responseObject = json_decode($responsejSon);
+				
+			if($responseObject->status != 200) { ?>
 				<h2 style="color:red;"><?= $profile->error ?></h2>
-			<?php } else { ?>
-				<?php if($profile->profilePicture != "") { ?>
+			<?php } else { 
+				$profile = json_decode($responseObject->data->profile);
+				if($profile->profilePicture != "") { ?>
 					<img alt="thumbnail" src="<?= $profile->profilePicture ?>" width="180" height="150">
 				<?php } else { ?>
 					<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="180" height="150">

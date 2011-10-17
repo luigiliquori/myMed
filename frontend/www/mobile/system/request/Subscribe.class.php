@@ -41,10 +41,11 @@ class Subscribe extends Request {
 		parent::addArgument("predicate", urlencode($predicate));
 		parent::addArgument("user", json_encode($_SESSION['user']));
 	
-		$response = parent::send();
-		$check = json_decode($response);
-		if($check->error != null) {
-			$this->handler->setError($check->error->message);
+		$responsejSon = parent::send();
+		$responseObject = json_decode($responsejSon);
+		
+		if($responseObject->error != null) {
+			$this->handler->setError($responseObject->description);
 		} else {
 			$this->handler->setSuccess("Request sent!");
 		}

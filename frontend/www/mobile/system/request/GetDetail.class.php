@@ -30,12 +30,14 @@ class GetDetail extends Request {
 		parent::addArgument("application", $_POST['application']);
 		parent::addArgument("predicate", $_POST['predicate']);
 		parent::addArgument("user", $_POST['user']);
-		$response = parent::send();
-		$check = json_decode($response);
-		if($check->error != null) {
-			$this->handler->setError($check->error->message);
+		
+		$responsejSon = parent::send();
+		$responseObject = json_decode($responsejSon);
+		
+		if($responseObject->error != null) {
+			$this->handler->setError($responseObject->description);
 		} else {
-			$this->handler->setSuccess($response);
+			$this->handler->setSuccess($responseObject->data->details);
 		}
 	}
 }

@@ -54,15 +54,15 @@ class InscriptionHandler implements IRequestHandler {
 			$request = new Request("AuthenticationRequestHandler", CREATE);
 			$request->addArgument("authentication", json_encode($mAuthenticationBean));
 			$request->addArgument("user", json_encode($mUserBean));
-			$response = $request->send();
 			
-			// Check if there's not error
-			$check = json_decode($response);
-			if(isset($check->error)) {
-				$this->error = $check->error->message;
+			$responsejSon = $request->send();
+			$responseObject = json_decode($responsejSon);
+
+			if($responseObject->status != 200) {
+				$_SESSION['error'] = $responseObject->description;
 				return;
 			} else {
-				$this->success = "INFO: The profile has been successfully created!";
+				$this->success = "The profile has been successfully created!";
 				return;
 			}
 		} 

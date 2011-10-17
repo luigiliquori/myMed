@@ -6,9 +6,11 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
 import com.mymed.controller.core.exception.InternalBackEndException;
@@ -65,6 +67,24 @@ public abstract class AbstractRequestHandler extends HttpServlet {
 	 * @return the parameters of an HttpServletRequest
 	 */
 	protected Map<String, String> getParameters(final HttpServletRequest request) throws InternalBackEndException {
+
+		// see multipart/form-data Request
+		if(request.getContentType() != null){
+			try {
+				if(request.getContentType().matches("multipart/form-data")){
+					MLogger.getLog().info("multipart/form-data REQUEST");
+					for(Part part : request.getParts()){
+						MLogger.getLog().info("PART {} ", part);
+					}
+					throw new InternalBackEndException("multi-part is not yet implemented...");
+				}
+			} catch (IOException e) {
+				throw new InternalBackEndException(e);
+			} catch (ServletException e) {
+				throw new InternalBackEndException(e);
+			}
+		}
+
 		final Map<String, String> parameters = new HashMap<String, String>();
 		final Enumeration<String> paramNames = request.getParameterNames();
 

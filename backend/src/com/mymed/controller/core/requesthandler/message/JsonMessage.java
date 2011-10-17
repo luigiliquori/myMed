@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.google.gson.Gson;
-import com.mymed.model.data.AbstractMBean;
 
 /**
  * Represent the message/notification for the frontend
