@@ -9,10 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.JsonSyntaxException;
-import com.mymed.controller.core.exception.IOBackEndException;
+import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.authentication.AuthenticationManager;
 import com.mymed.controller.core.manager.authentication.IAuthenticationManager;
+import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.session.MAuthenticationBean;
 import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.MLogger;
@@ -45,62 +46,62 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 	}
 
 	/* --------------------------------------------------------- */
-	/* extends HttpServlet */
+	/* extends AbstractRequestHandler */
 	/* --------------------------------------------------------- */
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	@Override
-	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-	        IOException {
+	public void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
+	IOException {
+
+		JsonMessage message = new JsonMessage(200, this.getClass().getName());
+
 		try {
 			final Map<String, String> parameters = getParameters(request);
 			final RequestCode code = requestCodeMap.get(parameters.get("code"));
 			final String login = parameters.get("login");
 			final String password = parameters.get("password");
 
-			if (login == null || password == null) {
-				handleError(new InternalBackEndException("missing argument!"), response);
-			} else if (code == RequestCode.READ) {
-				try {
+			switch (code) {
+			case READ :
+				message.setMethod("READ");
+				if (login == null || password == null) {
+					throw new InternalBackEndException("missing argument!");
+				} else {
 					final MUserBean userBean = authenticationManager.read(login, password);
-					setResponseText(getGson().toJson(userBean));
-
-					super.doGet(request, response);
-				} catch (final IOBackEndException e) {
-					handleError(e, response);
+					message.addData("profile", getGson().toJson(userBean));
 				}
-			} else {
-				handleError(new InternalBackEndException("ProfileRequestHandler.doGet(" + code + ") not exist!"),
-				        response);
+				break;
+			case DELETE :
+				break;
+			default :
+				throw new InternalBackEndException("ProfileRequestHandler(" + code + ") not exist!");
 			}
-		} catch (final InternalBackEndException e) {
-			MLogger.getLog().info("Error in doGet operation");
-			MLogger.getDebugLog().debug("Error in doGet operation", e.getCause());
-			handleError(e, response);
-		}
-	}
+		} catch (final AbstractMymedException e) {
+			MLogger.getLog().info("Error in doRequest operation");
+			MLogger.getDebugLog().debug("Error in doRequest operation", e.getCause());
+			message.setStatus(e.getStatus());
+			message.setDescription(e.getMessage());
+		} 
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+		printJSonResponse(message, response);
+	}
+	
 	@Override
-	protected void doPost(final HttpServletRequest request, final HttpServletResponse response)
-	        throws ServletException, IOException {
+	public void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
+	IOException {
+
+		JsonMessage message = new JsonMessage(200, this.getClass().getName());
+
 		try {
 			final Map<String, String> parameters = getParameters(request);
 			final RequestCode code = requestCodeMap.get(parameters.get("code"));
 			final String authentication = parameters.get("authentication");
 
-			if (authentication == null) {
-				handleError(new InternalBackEndException("Missing authentication argument!"), response);
-			} else if (code == RequestCode.CREATE) {
+			switch (code) {
+			case CREATE :
+				message.setMethod("CREATE");
 				final String user = parameters.get("user");
-
-				if (user == null) {
-					handleError(new InternalBackEndException("Missing user argument!"), response);
+				if (user == null || authentication == null) {
+					throw new InternalBackEndException("Missing user argument!");
 				} else {
 					try {
 						MUserBean userBean = getGson().fromJson(user, MUserBean.class);
@@ -108,51 +109,50 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 						userBean.setSocialNetworkName("myMed");
 
 						final MAuthenticationBean authenticationBean = getGson().fromJson(authentication,
-						        MAuthenticationBean.class);
+								MAuthenticationBean.class);
 
 						MLogger.getLog().info("Trying to create a new user:\n {}", userBean.toString());
 						userBean = authenticationManager.create(userBean, authenticationBean);
+						
 						MLogger.getLog().info("User created");
-
-						setResponseText(getGson().toJson(userBean));
+						message.setDescription("User created");
+						message.addData("profile", getGson().toJson(userBean));
 
 						super.doPost(request, response);
 					} catch (final JsonSyntaxException e) {
-						handleError(new InternalBackEndException("User/Authentication jSon format is not valid"),
-						        response);
+						throw new InternalBackEndException("User/Authentication jSon format is not valid");
 					}
 				}
-			} else if (code == RequestCode.UPDATE) {
+				break;
+			case UPDATE :
 				final String id = parameters.get("id");
-				if (id == null) {
-					handleError(new InternalBackEndException("Missing user argument!"), response);
+				if (id == null || authentication == null) {
+					throw new InternalBackEndException("Missing id argument!");
 				} else {
 					try {
 						final MAuthenticationBean authenticationBean = getGson().fromJson(authentication,
-						        MAuthenticationBean.class);
+								MAuthenticationBean.class);
 
 						MLogger.getLog().info("Trying to update authentication:\n {}", authenticationBean.toString());
 						authenticationManager.update(id, authenticationBean);
 						MLogger.getLog().info("Authentication updated!");
 
-						super.doPost(request, response);
 					} catch (final JsonSyntaxException e) {
-						handleError(new InternalBackEndException("Authentication jSon format is not valid"), response);
+						throw new InternalBackEndException("Authentication jSon format is not valid");
 					}
 				}
-			} else {
-				handleError(new InternalBackEndException("ProfileRequestHandler.doPost(" + code + ") not exist!"),
-				        response);
+				break;
+			default :
+				throw new InternalBackEndException("ProfileRequestHandler(" + code + ") not exist!");
 			}
-		} catch (final InternalBackEndException e) {
-			MLogger.getLog().info("Error in doPost operation");
-			MLogger.getDebugLog().debug("Error in doPost operation", e.getCause());
-			handleError(e, response);
-			return;
-		} catch (final IOBackEndException e) {
-			MLogger.getLog().info("Error in doPost operation");
-			MLogger.getDebugLog().debug("Error in doPost operation", e.getCause());
-			handleError(e, response);
-		}
+		} catch (final AbstractMymedException e) {
+			MLogger.getLog().info("Error in doRequest operation");
+			MLogger.getDebugLog().debug("Error in doRequest operation", e.getCause());
+			message.setStatus(e.getStatus());
+			message.setDescription(e.getMessage());
+		} 
+
+		printJSonResponse(message, response);
 	}
+	
 }

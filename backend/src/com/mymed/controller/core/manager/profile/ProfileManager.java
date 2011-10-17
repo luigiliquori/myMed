@@ -47,7 +47,7 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 			MLogger.getLog().info("Error in string conversion using {} encoding", ENCODING);
 			MLogger.getDebugLog().debug("Error in string conversion using {} encoding", ENCODING, e.getCause());
 
-			throw new InternalBackEndException(e.getMessage());
+			throw new InternalBackEndException(e.toString());
 		}
 	}
 

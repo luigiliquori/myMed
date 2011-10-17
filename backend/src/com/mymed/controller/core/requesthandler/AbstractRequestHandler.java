@@ -6,14 +6,13 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.utils.MLogger;
 
 public abstract class AbstractRequestHandler extends HttpServlet {
@@ -88,24 +87,22 @@ public abstract class AbstractRequestHandler extends HttpServlet {
 	}
 
 	/**
-	 * Handle a server error, and send a feedback to the frontend
-	 * 
+	 * Print the server response in a jSon format
 	 * @param message
 	 * @param response
 	 */
-	protected void handleError(final AbstractMymedException e, final HttpServletResponse response) {
-		response.setStatus(e.getStatus());
-		responseText = e.getJsonException();
+	protected void printJSonResponse(final JsonMessage message, final HttpServletResponse response) {
+		response.setStatus(message.getStatus());
+		responseText = message.toString();
 		printResponse(response);
 	}
 
 	/**
-	 * Print the feedback to the frontend
-	 * 
+	 * Print the server response
 	 * @param response
 	 * @throws IOException
 	 */
-	protected void printResponse(final HttpServletResponse response) {
+	private void printResponse(final HttpServletResponse response) {
 		/** Init response */
 		if (responseText != null) {
 			response.setContentType("text/plain;charset=UTF-8");
@@ -127,29 +124,6 @@ public abstract class AbstractRequestHandler extends HttpServlet {
 	}
 
 	/* --------------------------------------------------------- */
-	/* extends HttpServlet */
-	/* --------------------------------------------------------- */
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	@Override
-	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-	        IOException {
-		printResponse(response);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	@Override
-	protected void doPost(final HttpServletRequest request, final HttpServletResponse response)
-	        throws ServletException, IOException {
-		printResponse(response);
-	}
-
-	/* --------------------------------------------------------- */
 	/* GETTER&SETTER */
 	/* --------------------------------------------------------- */
 	public Gson getGson() {
@@ -162,9 +136,5 @@ public abstract class AbstractRequestHandler extends HttpServlet {
 
 	public String getResponseText() {
 		return responseText;
-	}
-
-	public void setResponseText(final String responseText) {
-		this.responseText = responseText;
 	}
 }

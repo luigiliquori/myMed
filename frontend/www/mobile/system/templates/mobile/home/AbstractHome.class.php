@@ -60,12 +60,5 @@ abstract class AbstractHome extends AbstractTemplate {
 			</div>
 		</div>
 	<?php }
-	
-	/**
-	* Print the Template
-	*/
-	public /*String*/ function printTemplate() {
-		parent::printTemplate();
-	}
 }
 ?>

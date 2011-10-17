@@ -51,7 +51,7 @@ public class InteractionManager extends AbstractManager implements
 			}
 			return;
 		}
-		throw new IOBackEndException("Interaction already exist!");
+		throw new IOBackEndException("Interaction already exist!", 409);
 	}
 
 	@Override

@@ -13,3 +13,16 @@ body {
 	height:205px;
 	background-image: url("../img/header.png");
 }
+
+#menu {
+	font-size:11px;
+}
+
+#menu a{
+	color: white;
+	text-decoration:none;
+}
+
+#menu a:HOVER{
+	color: red;
+}

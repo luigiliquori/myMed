@@ -58,7 +58,12 @@ class FacebookWrapper implements IWrapper {
 	 			$_SESSION['user']->gender = $user_profile["gender"];
 	 			$_SESSION['user']->socialNetwork = "Facebook";
 	 			
-	 			$_SESSION['friends'] = $user_profile->api('/me/friends?access_token=' . $this->facebook->getAccessToken())->data;
+	 			$_SESSION['friends'] =  $this->facebook->api('/me/friends?access_token=' . $this->facebook->getAccessToken());
+	 			$_SESSION['friends'] = $_SESSION['friends']["data"];
+	 			$i=0;
+	 			foreach ($_SESSION['friends'] as $friend ) { 
+	 					$_SESSION['friends'][$i++]["link"] = "https://www.facebook.com/profile.php?id=" . $friend["id"];
+	 			}
 	 			
 	 		} catch (FacebookApiException $e) {
 	 			error_log($e);

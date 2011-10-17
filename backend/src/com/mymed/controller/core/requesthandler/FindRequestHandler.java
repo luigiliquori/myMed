@@ -74,14 +74,14 @@ public class FindRequestHandler extends AbstractRequestHandler {
 					if ((user = parameters.get("user")) != null) {
 						final List<Map<String, String>> details = pubsubManager.read(application, predicate, user);
 						if (details.isEmpty()) {
-							throw new IOBackEndException("no reslult found!");
+							throw new IOBackEndException("no reslult found!", 404);
 						}
 
 						setResponseText(getGson().toJson(details));
 					} else { // GET RESULTS
 						final List<Map<String, String>> resList = pubsubManager.read(application, predicate);
 						if (resList.isEmpty()) {
-							throw new IOBackEndException("no reslult found!");
+							throw new IOBackEndException("no reslult found!", 404);
 						}
 
 						setResponseText(getGson().toJson(resList));

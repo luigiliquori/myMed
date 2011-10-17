@@ -187,7 +187,7 @@ public class CassandraWrapper implements ICassandraWrapper {
 		try {
 			result = getClient().get(keyToBuffer, path, level);
 		} catch (final NotFoundException ex) {
-			throw new IOBackEndException(ex);
+			throw new IOBackEndException(ex.toString(), 404);
 		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex);
 		} catch (final UnavailableException ex) {
@@ -597,7 +597,7 @@ public class CassandraWrapper implements ICassandraWrapper {
 		try {
 			keySpaceDef = getClient().describe_keyspace(keySpace);
 		} catch (final NotFoundException ex) {
-			throw new IOBackEndException(ex);
+			throw new IOBackEndException(ex.toString(), 404);
 		} catch (final InvalidRequestException ex) {
 			throw new InternalBackEndException(ex);
 		} catch (final TException ex) {

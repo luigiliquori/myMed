@@ -1,6 +1,5 @@
 <?php
-
-require_once dirname(__FILE__).'/AbstractHome.class.php';
+require_once 'system/templates/AbstractTemplate.class.php';
 require_once dirname(__FILE__).'/handler/UpdateProfileHandler.class.php';
 
 /**
@@ -9,7 +8,12 @@ require_once dirname(__FILE__).'/handler/UpdateProfileHandler.class.php';
  * @author lvanni
  *
  */
-class Profile extends AbstractHome {
+class Profile extends AbstractTemplate {
+	/* --------------------------------------------------------- */
+	/* Attribute */
+	/* --------------------------------------------------------- */
+	private /*String*/ $pictureURL = "http://graph.facebook.com//picture?type=large";
+	
 	/* --------------------------------------------------------- */
 	/* Constructors */
 	/* --------------------------------------------------------- */
@@ -17,7 +21,10 @@ class Profile extends AbstractHome {
 	 * Default constructor
 	 */
 	public function __construct() {
-		parent::__construct("profile");
+		parent::__construct("profile", "profile");
+		if($_SESSION['user']->profilePicture != "") {
+			$this->pictureURL =  $_SESSION['user']->profilePicture;
+		}
 	}
 	
 	/* --------------------------------------------------------- */
@@ -28,8 +35,15 @@ class Profile extends AbstractHome {
 	 */
 	public /*String*/ function getHeader() { ?>
 		<!-- HEADER -->
-		<div style="position: absolute; top: 50px; left: 20%;">
+		<div style="position: absolute; top: 50px; left: 22%;">
 			<h1>myMed's home page: <?= $_SESSION['user']->name ?></h1>
+		</div>
+		<div style="position: absolute; top: 2px; left: 65%; color: white;">
+			<img alt="thumbnail" src="<?= $this->pictureURL ?>" width="20px" style="position: absolute;" />
+			<div style="position:relative; margin-left: 30px; top:10px;">
+				<?= $_SESSION['user']->name ?>
+				<a href="#login" onclick="document.disconnectForm.submit()">Deconnexion</a>
+			</div>
 		</div>
 	<?php }
 	
@@ -46,7 +60,7 @@ class Profile extends AbstractHome {
 		$updateProfileHandler->handleRequest();
 		?>
 		<!-- CONTENT -->
-		<div style="position: absolute; margin-left: 25%; left:-200px; top: 210px; width: 200px; overflow: auto;">
+		<div style="position: absolute; margin-left: 30%; left:-200px; top: 210px; width: 200px; overflow: auto;">
 			<!-- NOTIFICATION -->
 			<?php if($updateProfileHandler->getError()) { ?>
 				<div style="color: red;">
@@ -60,15 +74,7 @@ class Profile extends AbstractHome {
 			
 			<!-- Profile -->
 			<div style="text-align: left;">
-				<?php if($_SESSION['user']->profilePicture != "") { ?>
-					<img alt="thumbnail" src="<?= $_SESSION['user']->profilePicture ?>" width="150px">
-				<?php } else { ?>
-					<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="150px">
-				<?php } ?>
-				 <?php if($_SESSION['user']->email == 'laurent.vanni@inria.fr') { // DEBUG MODE (JUST FOR TESTING) ?> 
-				   <br>
-			 	   <a href="?admin" rel="external" data-role="button" data-inline="true" data-theme="a">Admin</a>
-			    <?php } ?>
+				<img alt="thumbnail" src="<?= $this->pictureURL ?>" width="198px" />
 				<br><br>
 				Prenom: <?= $_SESSION['user']->firstName ?><br />
 				Nom: <?= $_SESSION['user']->lastName ?><br />
@@ -92,13 +98,15 @@ class Profile extends AbstractHome {
 			    ?>
 			    <br /><br />
 			    <a href="#inscription" data-role="button" data-rel="dialog">mise à jour</a>
-				<a href="#login" onclick="document.disconnectForm.submit()" data-role="button" data-theme="r">Deconnexion</a>
+				<br /><br />
 				
 				<!-- FRIENDS STREAM -->
-				<div style="background-color: #415b68; color: white; width: 200px; font-size: 15px; font-weight: bold;">my Friends</div>
-				<div style="position:relative; height: 150px; width: 200px; overflow: auto; background-color: #edf2f4; top:0px;">
-					<?php while (list(, $value) = each($_SESSION['friends'])) { ?>
-						<a href=http://www.facebook.com/#!/profile.php?id=<?= $value->id ?>"><?= $value->name ?></a><br />
+				<div style="background-color: #415b68; color: white; width: 200px; font-size: 15px; font-weight: bold;">Contacts</div>
+				<div style="position:relative; height: 200px; width: 200px; overflow: auto; background-color: #edf2f4; top:0px;">
+					<?php foreach ($_SESSION['friends'] as $friend ) { ?>
+						<img src="http://graph.facebook.com/<?= $friend["id"] ?>/picture" width="20px" />
+						<a href="<?= $friend["link"] ?>"><?= $friend["name"] ?></a>
+						<br />
 					<?php } ?>
 				</div>
 				

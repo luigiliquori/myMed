@@ -9,9 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.JsonSyntaxException;
-import com.mymed.controller.core.exception.IOBackEndException;
+import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.session.SessionManager;
+import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.session.MSessionBean;
 import com.mymed.utils.MLogger;
 
@@ -39,7 +40,9 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 		try {
 			sessionManager = new SessionManager();
 		} catch (final InternalBackEndException e) {
-			throw new ServletException("SessionManager is not accessible because: " + e.getMessage());
+			throw new ServletException(
+					"SessionManager is not accessible because: "
+							+ e.getMessage());
 		}
 	}
 
@@ -51,49 +54,43 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 	 *      response)
 	 */
 	@Override
-	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-	        IOException {
+	protected void doGet(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
+
+		JsonMessage message = new JsonMessage(200, this.getClass().getName());
+
 		try {
-			/** Get the parameters */
 			final Map<String, String> parameters = getParameters(request);
-
-			/** Get the method code */
 			final RequestCode code = requestCodeMap.get(parameters.get("code"));
-
-			/** handle the request */
-			String userID;
-			if ((userID = parameters.get("userID")) == null) {
-				handleError(new InternalBackEndException("missing id argument!"), response);
-				return;
+			String userID = parameters.get("userID");
+			if (userID == null) {
+				throw new InternalBackEndException("missing argument!");
 			}
+			
 			switch (code) {
-				case READ :
-					MSessionBean sessionBean;
-					try {
-						sessionBean = sessionManager.read(userID);
-						setResponseText(getGson().toJson(sessionBean));
-					} catch (final IOBackEndException e) {
-						handleError(e, response);
-						return;
-					}
-					break;
-				case DELETE :
-					sessionManager.delete(userID);
-					MLogger.getLog().info("Session {} deleted -> LOGOUT", userID);
-					break;
-				default :
-					handleError(new InternalBackEndException("SessionRequestHandler.doGet(" + code + ") not exist!"),
-					        response);
-					return;
+			case READ:
+				message.setMethod("READ");
+				sessionManager.read(userID);
+				break;
+			case DELETE:
+				message.setMethod("DELETE");
+				sessionManager.delete(userID);
+				MLogger.getLog().info("Session {} deleted -> LOGOUT", userID);
+				break;
+			default:
+				throw new InternalBackEndException(
+						"SessionRequestHandler.doGet(" + code + ") not exist!");
 			}
-
-			super.doGet(request, response);
-		} catch (final InternalBackEndException e) {
+			
+		} catch (final AbstractMymedException e) {
 			MLogger.getLog().info("Error in doGet");
 			MLogger.getDebugLog().debug("Error in doGet", e.getCause());
-			handleError(e, response);
-			return;
+			message.setStatus(e.getStatus());
+			message.setDescription(e.getMessage());
 		}
+
+		printJSonResponse(message, response);
 	}
 
 	/**
@@ -101,47 +98,47 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 	 *      response)
 	 */
 	@Override
-	protected void doPost(final HttpServletRequest request, final HttpServletResponse response)
-	        throws ServletException, IOException {
+	protected void doPost(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
+		
+		JsonMessage message = new JsonMessage(200, this.getClass().getName());
+		
 		try {
-			/** Get the parameters */
 			final Map<String, String> parameters = getParameters(request);
-
-			/** Get the method code */
 			final RequestCode code = requestCodeMap.get(parameters.get("code"));
 
-			/** handle the request */
 			switch (code) {
-				case CREATE :
-					sessionManager.create(parameters.get("userID"), parameters.get("ip"));
-					MLogger.getLog().info("Session {} created -> LOGIN", parameters.get("userID"));
-					break;
-				case UPDATE :
-					MSessionBean sessionBean;
-					try {
-						sessionBean = getGson().fromJson(parameters.get("session"), MSessionBean.class);
-					} catch (final JsonSyntaxException e) {
-						handleError(new InternalBackEndException("user jSon format is not valid"), response);
-						return;
-					}
+			case CREATE:
+				message.setMethod("CREATE");
+				sessionManager.create(parameters.get("userID"),
+						parameters.get("ip"));
+				MLogger.getLog().info("Session {} created -> LOGIN",
+						parameters.get("userID"));
+				break;
+			case UPDATE:
+				message.setMethod("UPDATE");
+				try {
+					MSessionBean sessionBean = getGson().fromJson(parameters.get("session"),
+							MSessionBean.class);
 					sessionManager.update(sessionBean);
-					break;
-				default :
-					handleError(new InternalBackEndException("ProfileRequestHandler.doPost(" + code + ") not exist!"),
-					        response);
-					return;
+				} catch (final JsonSyntaxException e) {
+					throw new InternalBackEndException(
+							"user jSon format is not valid");
+				}
+				break;
+			default:
+				throw new InternalBackEndException("ProfileRequestHandler.doPost(" + code
+										+ ") not exist!");
 			}
 
-			super.doPost(request, response);
-		} catch (final InternalBackEndException e) {
-			MLogger.getLog().info("Error in doPost");
-			MLogger.getDebugLog().debug("Error in doPost", e.getCause());
-			handleError(e, response);
-			return;
-		} catch (final IOBackEndException e) {
-			MLogger.getLog().info("Error in doPost");
-			MLogger.getDebugLog().debug("Error in doPost", e.getCause());
-			handleError(e, response);
+		} catch (final AbstractMymedException e) {
+			MLogger.getLog().info("Error in doGet");
+			MLogger.getDebugLog().debug("Error in doGet", e.getCause());
+			message.setStatus(e.getStatus());
+			message.setDescription(e.getMessage());
 		}
+		
+		printJSonResponse(message, response);
 	}
 }

@@ -125,7 +125,7 @@ public class Connection implements IConnection {
 				transport.open();
 			}
 		} catch (final TTransportException ex) {
-			throw new InternalBackEndException("Error opening the connection to " + address + ":" + port, ex.getCause()); // NOPMD
+			throw new InternalBackEndException("Error opening the connection to " + address + ":" + port);
 		}
 	}
 

@@ -72,7 +72,9 @@ class Request {
 		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2); // see address in config.php
 		curl_setopt($curl, CURLOPT_CAINFO, "/local/mymed/backend/WebContent/certificate/mymed.crt"); // TO EXPORT FROM GLASSFISH!
 		
-		return curl_exec($curl);
+		$result = curl_exec($curl);
+		echo '<script type="text/javascript">alert(\'' . $result . '\');</script>';
+		return $result;
 	}
 }
 ?>

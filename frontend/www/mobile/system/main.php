@@ -3,7 +3,7 @@
 	@set_magic_quotes_runtime(false);	// for the magic_quotes
 	
 	// DEBUG
-	ini_set('display_errors', 0);
+	ini_set('display_errors', 1);
 	
 	require_once dirname(__FILE__).'/config.php';
 	require_once dirname(__FILE__).'/templates/TemplateManager.class.php';
@@ -18,7 +18,7 @@
 	// MOBILE DETECT
 	require_once 'php-mobile-detect/Mobile_Detect.php';
 	$detect = new Mobile_Detect();
-	$target = "desktop";
+	$target = "mobile";
 	if ($detect->isMobile()) {
 		$target = "mobile";
 	}
@@ -39,3 +39,4 @@
 	$templateManager->callTemplate();
 	
 ?>
+

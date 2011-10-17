@@ -59,12 +59,12 @@ public class InteractionManager extends AbstractManager implements IInteractionM
 					// update the rater list
 					storageManager.insertSuperColumn(SC_USER_LIST, reputation.getRaterList(), interaction.getConsumer(), "user", interaction.getConsumer().getBytes("UTF-8"));
 				} catch (UnsupportedEncodingException e1) {
-					throw new InternalBackEndException(e1);
+					throw new InternalBackEndException(e1.toString());
 				}
 			}
 			return;
 		}
-		throw new IOBackEndException("Interaction already exist!");
+		throw new IOBackEndException("Interaction already exist!", 409);
 	}
 
   @Override
