@@ -7,7 +7,6 @@
 
 # The name of the cluster. This is mainly used to prevent machines in
 # one logical cluster from joining another.
-
 cluster_name: 'Mymed cluster'
 
 # You should always specify InitialToken when setting up a production
@@ -124,7 +123,6 @@ reduce_cache_capacity_to: 0.6
 # multiple nodes!
 seeds:
  - 127.0.0.1
-
 
 # For workloads with more data than can fit in memory, Cassandra's
 # bottleneck will be reads that need to fetch data from
