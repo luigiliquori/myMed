@@ -1,9 +1,5 @@
 package com.mymed.controller.core.exception;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import com.mymed.controller.core.requesthandler.message.JsonMessage;
 
 /**
  * An myMed exception is used to convert the Exception message in a jSon format

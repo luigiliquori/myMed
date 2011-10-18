@@ -35,8 +35,10 @@ public class SessionManager extends AbstractManager implements ISessionManager {
 	 * @see ISessionManager#create(String, String)
 	 */
 	@Override
+	@Deprecated
 	public void create(final String userID, final String ip) throws InternalBackEndException, IOBackEndException {
 		final MSessionBean sessionBean = new MSessionBean();
+		sessionBean.setId(sessionBean.getUser() + SESSION_SUFFIX);
 		sessionBean.setIp(ip);
 		sessionBean.setUser(userID);
 		sessionBean.setCurrentApplications("");
@@ -51,7 +53,7 @@ public class SessionManager extends AbstractManager implements ISessionManager {
 	 */
 	public void create(final MSessionBean sessionBean) throws InternalBackEndException, IOBackEndException {
 		if (sessionBean.getId() == null) {
-			sessionBean.setId(sessionBean.getUser() + SESSION_SUFFIX);
+			throw new InternalBackEndException("The session id is null!");
 		}
 
 		MLogger.getLog().info("Creating new session with ID {} for user {}", sessionBean.getId(),
@@ -70,14 +72,10 @@ public class SessionManager extends AbstractManager implements ISessionManager {
 	 * @see ISessionManager#read(String)
 	 */
 	@Override
-	public MSessionBean read(final String userID) throws InternalBackEndException, IOBackEndException {
+	public MSessionBean read(final String sessionID) throws InternalBackEndException, IOBackEndException {
 
-		MLogger.getLog().info("Reading session for user with ID: {}", userID);
-
-		final ProfileManager profileManager = new ProfileManager(storageManager);
-		final MUserBean user = profileManager.read(userID);
 		final MSessionBean session = new MSessionBean();
-		final Map<byte[], byte[]> args = storageManager.selectAll(CF_SESSION, user.getSession());
+		final Map<byte[], byte[]> args = storageManager.selectAll(CF_SESSION, sessionID);
 
 		return (MSessionBean) introspection(session, args);
 	}

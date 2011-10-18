@@ -59,6 +59,14 @@ class Request {
 				curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($this->arguments));
 				break;
 			case READ:
+				if($this->ressource == "AuthenticationRequestHandler"){
+					$httpHeader[] = 'Content-Type:application/x-www-form-urlencoded';
+					curl_setopt($curl, CURLOPT_HTTPHEADER, $httpHeader);
+					curl_setopt($curl, CURLOPT_URL, BACKEND_URL.$this->ressource);
+					curl_setopt($curl, CURLOPT_POST, true);
+					curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($this->arguments));
+					break;
+				}
 			case DELETE:
 				curl_setopt($curl, CURLOPT_HTTPHEADER, $httpHeader);
 				curl_setopt($curl, CURLOPT_URL, BACKEND_URL.$this->ressource.'?'.http_build_query($this->arguments));

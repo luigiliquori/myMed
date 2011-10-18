@@ -11,9 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.JsonSyntaxException;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.session.SessionManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.session.MSessionBean;
+import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.MLogger;
 
 /**
@@ -26,6 +28,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 	private static final long serialVersionUID = 1L;
 
 	private SessionManager sessionManager;
+	private ProfileManager profileManager;
 
 	/* --------------------------------------------------------- */
 	/* Constructors */
@@ -39,6 +42,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 
 		try {
 			sessionManager = new SessionManager();
+			profileManager = new ProfileManager();
 		} catch (final InternalBackEndException e) {
 			throw new ServletException(
 					"SessionManager is not accessible because: "
@@ -63,20 +67,25 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 		try {
 			final Map<String, String> parameters = getParameters(request);
 			final RequestCode code = requestCodeMap.get(parameters.get("code"));
-			String userID = parameters.get("userID");
-			if (userID == null) {
-				throw new InternalBackEndException("missing argument!");
+			String accessToken = parameters.get("accessToken");
+			
+			if (accessToken == null) {
+					throw new InternalBackEndException("accessToken argument missing!");
 			}
 			
 			switch (code) {
 			case READ:
 				message.setMethod("READ");
-				sessionManager.read(userID);
+				MSessionBean session = sessionManager.read(accessToken);
+				message.setDescription("Session avaible");
+				MUserBean userBean = profileManager.read(session.getUser());
+				message.addData("profile", getGson().toJson(userBean));
 				break;
 			case DELETE:
 				message.setMethod("DELETE");
-				sessionManager.delete(userID);
-				MLogger.getLog().info("Session {} deleted -> LOGOUT", userID);
+				sessionManager.delete(accessToken);
+				message.setDescription("Session deleted -> LOGOUT");
+				MLogger.getLog().info("Session {} deleted -> LOGOUT", accessToken);
 				break;
 			default:
 				throw new InternalBackEndException(
@@ -107,19 +116,23 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 		try {
 			final Map<String, String> parameters = getParameters(request);
 			final RequestCode code = requestCodeMap.get(parameters.get("code"));
+			String accessToken = parameters.get("accessToken");
+			String session = parameters.get("session");
+			
+			if (accessToken == null) {
+				throw new InternalBackEndException("accessToken argument missing!");
+				
+			}
 
 			switch (code) {
-			case CREATE:
-				message.setMethod("CREATE");
-				sessionManager.create(parameters.get("userID"),
-						parameters.get("ip"));
-				MLogger.getLog().info("Session {} created -> LOGIN",
-						parameters.get("userID"));
-				break;
 			case UPDATE:
 				message.setMethod("UPDATE");
 				try {
-					MSessionBean sessionBean = getGson().fromJson(parameters.get("session"),
+					if (session == null) {
+						throw new InternalBackEndException("session argument missing!");
+						
+					}
+					MSessionBean sessionBean = getGson().fromJson(session,
 							MSessionBean.class);
 					sessionManager.update(sessionBean);
 				} catch (final JsonSyntaxException e) {
