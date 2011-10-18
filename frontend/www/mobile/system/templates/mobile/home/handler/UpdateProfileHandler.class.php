@@ -56,11 +56,13 @@ class UpdateProfileHandler implements IRequestHandler {
 			$mUserBean->profilePicture = $_POST["thumbnail"];
 			$request = new Request("ProfileRequestHandler", UPDATE);
 			$request->addArgument("user", json_encode($mUserBean));
-			$response = $request->send();
-			// Check if there's not error
-			$check1 = json_decode($response);
-			if(isset($check1->error)) {
-				$this->error = $check1->error->message;
+			
+			$responsejSon = $request->send();
+			$responseObject1 = json_decode($responsejSon);
+			
+			$responseObject1 = json_decode($responsejSon);
+			if($responseObject1->status != 200) {
+				$this->error = $responseObject1->description;
 				return;
 			}
 			
@@ -72,15 +74,16 @@ class UpdateProfileHandler implements IRequestHandler {
 			$request = new Request("AuthenticationRequestHandler", UPDATE);
 			$request->addArgument("id", $_SESSION['user']->login); // the id of the authentication is the current login
 			$request->addArgument("authentication", json_encode($mAuthenticationBean));
-			$response = $request->send();
-			//Check if there's not error
-			$check2 = json_decode($response);
-			if(isset($check2->error)) {
-				$this->error = $check2->error->message;
+			
+			$responsejSon = $request->send();
+			$responseObject2 = json_decode($responsejSon);
+			
+			if($responseObject2->status != 200) {
+				$this->error = $responseObject2->description;
 				return;
 			}
 			
-			$_SESSION['user'] = $check1;
+			$_SESSION['user'] = json_decode($responseObject1->data->profile);
 			header("Refresh:0;url=".$_SERVER['PHP_SELF']);
 		}
 	}

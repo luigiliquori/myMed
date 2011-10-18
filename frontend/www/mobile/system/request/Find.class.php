@@ -60,10 +60,12 @@ class Find extends Request {
 				}
 				if($predicate != ""){
 					parent::addArgument("predicate", urlencode($predicate));
-					$response = parent::send();
-					$check = json_decode($response);
-					if($check->error == null) {
-						$result = array_merge($result, json_decode($response));
+					
+					$responsejSon = parent::send();
+					$responseObject = json_decode($responsejSon);
+					
+					if($responseObject->status == 200) {
+						$result = array_merge($result, json_decode($responseObject->data->results));
 	// 					echo '<script type="text/javascript">alert("$response = ' . json_decode($response) . '")</script>';
 					}
 				}
@@ -71,12 +73,14 @@ class Find extends Request {
 	 		$this->handler->setSuccess(json_encode($result));
 		} else {		// Classical matching
 			parent::addArgument("predicate", urlencode($predicate));
-			$response = parent::send();
-			$check = json_decode($response);
-			if($check->error != null) {
-				$this->handler->setError($check->error->message);
+			
+			$responsejSon = parent::send();
+			$responseObject = json_decode($responsejSon);
+			
+			if($responseObject->status != 200) {
+				$this->handler->setError($responseObject->description);
 			} else {
-				$this->handler->setSuccess($response);
+				$this->handler->setSuccess($responseObject->data->results);
 			}
 		}
 	}

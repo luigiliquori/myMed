@@ -32,18 +32,21 @@ class MenuHandler implements IRequestHandler {
 			// DELETE BACKEND SESSION
 			$request = new Request("SessionRequestHandler", DELETE);
 			$request->addArgument("userID", $_SESSION['user']->id);
-			$response = $request->send();
-			$check = json_decode($response);
-			if(isset($check->error)) {
-				$this->error = $check->error->message;
+			
+			$responsejSon = $request->send();
+			$responseObject = json_decode($responsejSon);
+			
+			if($responseObject->status != 200) {
+				$this->error = $responseObject->description;
+				return;
+			}
+			
+			// DELETE FRONTEND SESSION
+			session_destroy();
+			if (isset($_SESSION['wrapper'])){	
+				header("Refresh:0;url=".$_SESSION['wrapper']->getLogoutUrl());
 			} else {
-				// DELETE FRONTEND SESSION
-				session_destroy();
-				if (isset($_SESSION['wrapper'])){	
-					header("Refresh:0;url=".$_SESSION['wrapper']->getLogoutUrl());
-				} else {
-					header("Refresh:0;url=".$_SERVER['PHP_SELF']);
-				}
+				header("Refresh:0;url=".$_SERVER['PHP_SELF']);
 			}
 		}
 	}

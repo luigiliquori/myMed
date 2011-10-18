@@ -51,21 +51,25 @@ class LoginHandler implements IRequestHandler {
 			// AUTHENTICATION
 			$request = new Request("AuthenticationRequestHandler", READ);
 			$request->addArgument("login", $_POST["login"]);
-			$request->addArgument("password", hash('sha512', $_POST["password"]));
-			$response = $request->send();
-			// Check if there's not error
-			$check = json_decode($response);
-			if(isset($check->error)) {
-				$_SESSION['error'] = $check->error->message;
-			} else if($check->firstName != null) {
-				$user = $check;
+			if(isset($_POST['isMobileConnection'])) {
+				$request->addArgument("password", $_POST["password"]);	// the password should be already encrypted by the client
+			} else {
+				$request->addArgument("password", hash('sha512', $_POST["password"]));
+			}
+			$responsejSon = $request->send();
+			$responseObject = json_decode($responsejSon);
+			
+			if($responseObject->status != 200) {
+				$_SESSION['error'] = $responseObject->description;
+			} else {
+				$user = json_decode($responseObject->data->profile);
 				// AUTHENTENTICATION OK: CREATE A SESSION
 				$request = new Request("SessionRequestHandler", CREATE);
 				$request->addArgument("userID", $user->id);
-				$response = $request->send();
-				$check = json_decode($response);
-				if(isset($check->error)) {
-					$_SESSION['error'] = $check->error->message;
+				$responsejSon = $request->send();
+				$responseObject = json_decode($responsejSon);
+				if($responseObject->status != 200) {
+					$_SESSION['error'] = $responseObject->description;
 				} else {
 					$_SESSION['user'] = $user;
 				}

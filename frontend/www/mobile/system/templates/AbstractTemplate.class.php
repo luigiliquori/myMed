@@ -48,8 +48,8 @@ abstract class AbstractTemplate implements ITemplate {
 	/**
 	* Print the Template
 	*/
-	public /*String*/ function printTemplate() { ?>
-		<div id="<?= $this->id ?>" data-role="page" data-theme="a" >
+	public /*String*/ function printTemplate($theme="a", $css="") { ?>
+		<div id="<?= $this->id ?>" data-role="page" data-theme="<?= $theme ?>" style="<?= $css ?>">
 			<?php $this->getHeader(); ?>
 			<?php $this->getContent(); ?>
 			<?php $this->getFooter(); ?>

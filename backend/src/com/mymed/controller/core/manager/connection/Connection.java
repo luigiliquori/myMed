@@ -20,7 +20,6 @@ import com.mymed.utils.MLogger;
  * 
  */
 public class Connection implements IConnection {
-
   // Used for the hash code
   private static final int PRIME = 31;
 
@@ -124,7 +123,7 @@ public class Connection implements IConnection {
         transport.open();
       }
     } catch (final TTransportException ex) {
-      throw new InternalBackEndException("Error opening the connection to " + address + ":" + port, ex.getCause()); // NOPMD
+      throw new InternalBackEndException("Error opening the connection to " + address + ":" + port); // NOPMD
     }
   }
 

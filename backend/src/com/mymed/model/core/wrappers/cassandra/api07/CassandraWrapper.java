@@ -48,6 +48,7 @@ import com.mymed.utils.MLogger;
  * 
  */
 public class CassandraWrapper implements ICassandraWrapper {
+
   /*
    * The port number to use for interacting with Cassandra
    */
@@ -187,7 +188,7 @@ public class CassandraWrapper implements ICassandraWrapper {
     try {
       result = getClient().get(keyToBuffer, path, level);
     } catch (final NotFoundException ex) {
-      throw new IOBackEndException(ex);
+      throw new IOBackEndException(ex.getMessage(), 404);
     } catch (final InvalidRequestException ex) {
       throw new InternalBackEndException(ex);
     } catch (final UnavailableException ex) {
@@ -601,7 +602,7 @@ public class CassandraWrapper implements ICassandraWrapper {
     try {
       keySpaceDef = getClient().describe_keyspace(keySpace);
     } catch (final NotFoundException ex) {
-      throw new IOBackEndException(ex);
+    	throw new IOBackEndException(ex.getMessage(), 404);
     } catch (final InvalidRequestException ex) {
       throw new InternalBackEndException(ex);
     } catch (final TException ex) {
