@@ -23,6 +23,8 @@
 		14264C051427726F00E44481 /* icon-mymed.png in Resources */ = {isa = PBXBuildFile; fileRef = 14264C041427726F00E44481 /* icon-mymed.png */; };
 		14264C09142773D700E44481 /* UIDeviceHardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 14264C08142773D700E44481 /* UIDeviceHardware.m */; };
 		14264C0B142775A800E44481 /* error_iphone.html in Resources */ = {isa = PBXBuildFile; fileRef = 14264C0A142775A800E44481 /* error_iphone.html */; };
+		1464B2CF144848820099C98B /* MyMedMessageDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1464B2CE144848820099C98B /* MyMedMessageDecoder.m */; };
+		1464B2D3144873090099C98B /* WebObjCBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 1464B2D2144873090099C98B /* WebObjCBridge.m */; };
 		147FB31014277EE600BD50FE /* mymed_ipad_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 147FB30F14277EE600BD50FE /* mymed_ipad_icon.png */; };
 		149B64FC143C87F9008A341C /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 149B64FA143C87F9008A341C /* LoginViewController.m */; };
 		149B64FD143C87F9008A341C /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 149B64FB143C87F9008A341C /* LoginViewController.xib */; };
@@ -72,6 +74,10 @@
 		14264C07142773D700E44481 /* UIDeviceHardware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIDeviceHardware.h; sourceTree = "<group>"; };
 		14264C08142773D700E44481 /* UIDeviceHardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIDeviceHardware.m; sourceTree = "<group>"; };
 		14264C0A142775A800E44481 /* error_iphone.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = error_iphone.html; sourceTree = "<group>"; };
+		1464B2CD144848820099C98B /* MyMedMessageDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMedMessageDecoder.h; sourceTree = "<group>"; };
+		1464B2CE144848820099C98B /* MyMedMessageDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyMedMessageDecoder.m; sourceTree = "<group>"; };
+		1464B2D1144873090099C98B /* WebObjCBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebObjCBridge.h; sourceTree = "<group>"; };
+		1464B2D2144873090099C98B /* WebObjCBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebObjCBridge.m; sourceTree = "<group>"; };
 		147FB30F14277EE600BD50FE /* mymed_ipad_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mymed_ipad_icon.png; path = ../mymed_ipad_icon.png; sourceTree = "<group>"; };
 		149B64F9143C87F9008A341C /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		149B64FA143C87F9008A341C /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
@@ -128,19 +134,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		140086F61445D942009A94C4 /* Helper */ = {
-			isa = PBXGroup;
-			children = (
-				149B6501143C93FE008A341C /* ConnectionStatusChecker.h */,
-				149B6502143C93FE008A341C /* ConnectionStatusChecker.m */,
-				140086F21445D92C009A94C4 /* POSTRequestBuilder.h */,
-				140086F31445D92D009A94C4 /* POSTRequestBuilder.m */,
-				14DC47A7143E0583008DE8DF /* SHA1Encoder.h */,
-				14DC47A8143E0583008DE8DF /* SHA1Encoder.m */,
-			);
-			name = Helper;
-			sourceTree = "<group>";
-		};
 		141FF5771423423000FC46F4 = {
 			isa = PBXGroup;
 			children = (
@@ -236,8 +229,17 @@
 		149B64FE143C9345008A341C /* Model - MyMed */ = {
 			isa = PBXGroup;
 			children = (
-				140086F61445D942009A94C4 /* Helper */,
 				141FF5A61423516100FC46F4 /* External */,
+				149B6501143C93FE008A341C /* ConnectionStatusChecker.h */,
+				149B6502143C93FE008A341C /* ConnectionStatusChecker.m */,
+				140086F21445D92C009A94C4 /* POSTRequestBuilder.h */,
+				140086F31445D92D009A94C4 /* POSTRequestBuilder.m */,
+				14DC47A7143E0583008DE8DF /* SHA1Encoder.h */,
+				14DC47A8143E0583008DE8DF /* SHA1Encoder.m */,
+				1464B2CD144848820099C98B /* MyMedMessageDecoder.h */,
+				1464B2CE144848820099C98B /* MyMedMessageDecoder.m */,
+				1464B2D1144873090099C98B /* WebObjCBridge.h */,
+				1464B2D2144873090099C98B /* WebObjCBridge.m */,
 			);
 			name = "Model - MyMed";
 			sourceTree = "<group>";
@@ -389,6 +391,8 @@
 				14DC47A9143E0583008DE8DF /* SHA1Encoder.m in Sources */,
 				14DC47BC143E0B3A008DE8DF /* Base64Transcoder.c in Sources */,
 				140086F41445D92D009A94C4 /* POSTRequestBuilder.m in Sources */,
+				1464B2CF144848820099C98B /* MyMedMessageDecoder.m in Sources */,
+				1464B2D3144873090099C98B /* WebObjCBridge.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -466,6 +470,10 @@
 				GCC_PREFIX_HEADER = "MyMed/MyMed-Prefix.pch";
 				INFOPLIST_FILE = "MyMed/MyMed-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -479,6 +487,10 @@
 				GCC_PREFIX_HEADER = "MyMed/MyMed-Prefix.pch";
 				INFOPLIST_FILE = "MyMed/MyMed-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;

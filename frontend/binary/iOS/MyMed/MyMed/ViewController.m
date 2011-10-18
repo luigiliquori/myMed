@@ -3,20 +3,51 @@
 //  MyMed
 //
 //  Created by Nicolas Goles on 9/16/11.
-//  Copyright (c) 2011 GandoGames. All rights reserved.
+//  Copyright (c) 2011 LOGNET. All rights reserved.
 //
 
 #import "ViewController.h"
+#import "WebObjCBridge.h"
 #import "ConnectionStatusChecker.h"
 #import "UIDeviceHardware.h"
 
 #pragma mark - Static Definitions
 static NSString * const MY_MED_INDEX_URL = @"http://mymed2.sophia.inria.fr/mobile/index.php";
 
+#pragma mark -
+#pragma mark - Private Protocol for Notification Handling
+@interface ViewController (NotificationObserver)
+- (void) startObservingNotifications;
+- (void) displayCameraView:(id) sender;
+@end
+
+@implementation ViewController (NotificationObserver)
+- (void) startObservingNotifications
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(displayCameraView:) 
+                                                 name:FN_CHOOSE_PICTURE
+                                               object:nil];
+}
+
+- (void) displayCameraView:(id) sender
+{
+    UIImagePickerController *cameraUI = [[UIImagePickerController alloc] init];
+    cameraUI.sourceType = UIImagePickerControllerSourceTypeCamera;
+    cameraUI.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
+    cameraUI.allowsEditing = NO;    
+    cameraUI.delegate = self;
+
+    [self presentModalViewController:cameraUI animated:YES];
+}
+
+@end
+
+#pragma mark -
+#pragma mark - Public Interface Implementation
 @implementation ViewController
 
 @synthesize webView;
-@synthesize delegate;
 
 - (void)didReceiveMemoryWarning
 {
@@ -29,6 +60,8 @@ static NSString * const MY_MED_INDEX_URL = @"http://mymed2.sophia.inria.fr/mobil
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    webView.delegate = self;
+    [self startObservingNotifications];
 }
 
 - (void)viewDidUnload
@@ -64,13 +97,12 @@ static NSString * const MY_MED_INDEX_URL = @"http://mymed2.sophia.inria.fr/mobil
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
-
-
+#pragma mark -
 #pragma mark - MyMed
-- (void) loadMyMed
+- (void) loadMyMedURL:(NSURL *) url
 {
     if ([ConnectionStatusChecker doesHaveConnectivity]) {
-        [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:MY_MED_INDEX_URL]]];
+        [webView loadRequest:[NSURLRequest requestWithURL:url]];
     } else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No internet connection" 
                                                         message:@"You need an active internet connection to use this application" 
@@ -88,6 +120,29 @@ static NSString * const MY_MED_INDEX_URL = @"http://mymed2.sophia.inria.fr/mobil
         
         [webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:errorPage ofType:@"html"] isDirectory:NO]]];
     }
+}
+
+#pragma mark - Javascript <--> Objective-C Bridge
+- (BOOL) webView:(UIWebView *) inWebView shouldStartLoadWithRequest:(NSURLRequest *) inRequest navigationType:(UIWebViewNavigationType) inNavigationType
+{
+    return [WebObjCBridge webView:inWebView shouldStartLoadWithRequest:inRequest navigationType:inNavigationType];
+}
+
+- (void) dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark -
+#pragma mark - UIImagePickerDelegate
+- (void) imagePickerController:(UIImagePickerController *) picker didFinishPickingMediaWithInfo:(NSDictionary *) info
+{
+    
+}
+
+- (void) imagePickerControllerDidCancel:(UIImagePickerController *) picker
+{
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 @end

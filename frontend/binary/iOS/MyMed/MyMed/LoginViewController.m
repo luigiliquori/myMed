@@ -3,28 +3,40 @@
 //  MyMed
 //
 //  Created by Nicolas Goles on 10/5/11.
-//  Copyright (c) 2011 GandoGames. All rights reserved.
+//  Copyright (c) 2011 LOGNET. All rights reserved.
 //
 
 #import "LoginViewController.h"
 #import "ViewController.h"
+#import "MyMedMessageDecoder.h"
 #import "POSTRequestBuilder.h"
 #import "ConnectionStatusChecker.h"
 #import "SHA1Encoder.h"
-#import "SBJson.h"
 
 #pragma mark - const definitions
-static NSString * const ERROR_MESSAGE = @"message";
-static NSString * const URL_MYMED_AUTH = @"http://mymed2.sophia.inria.fr/mobile/tools/authentication.php";
-static NSString * const URL_MYMED_SESSION = @"http://mymed2.sophia.inria.fr/mobile/index.php"; 
+
+// URL'S
+static NSString * const M_URL_AUTH = @"http://mymed2.sophia.inria.fr:8080/mymed_backend/AuthenticationRequestHandler";
+static NSString * const M_URL_SESSION = @"http://mymed2.sophia.inria.fr:8080/mymed_backend/SessionRequestHandler";
+
+// STATUS
+static const unsigned M_STATUS_AUTH_WRONG_PASS = 403;
+static const unsigned M_STATUS_AUTH_WRONG_LOGIN = 404;
+static const unsigned M_STATUS_AUTH_OK = 200;
+
+// CODES for Backend/Frontend
+static const unsigned M_CREATE = 0;
+static const unsigned M_READ = 1;
+static const unsigned M_UPDATE = 2;
+static const unsigned M_DELETE = 3;
 
 #pragma mark - Private Methods
 @interface LoginViewController (private)
 - (NSDictionary *) POSTdictionaryWithKeys:(NSArray *) keys andObjects:(NSArray *) objects;
 - (void) submitLogin:(NSString *) login andPassword:(NSString *) password;
 - (void) openMyMedSessionWithLogin:(NSString *) login andPassword:(NSString *) password;
-- (BOOL) displayAlertForErrorInData:(NSDictionary *) data;
-- (void) presentMyMedWebView;
+- (void) displayAlertWithTittle:(NSString *) tittle andMessage:(NSString *) message;
+- (void) presentMyMedWebViewWithURL:(NSURL *) url;
 @end
 
 @implementation LoginViewController (private)
@@ -32,19 +44,20 @@ static NSString * const URL_MYMED_SESSION = @"http://mymed2.sophia.inria.fr/mobi
 - (NSDictionary *) POSTdictionaryWithKeys:(NSArray *) keys andObjects:(NSArray *) objects
 {
     assert([keys count] == [objects count]);
-    NSDictionary *dictionary = [[NSDictionary alloc] initWithObjects:objects forKeys:keys];    
+    NSDictionary *dictionary = [[NSDictionary alloc] initWithObjects:objects forKeys:keys];
     return dictionary;
 }
 
 - (void) submitLogin:(NSString *) login andPassword:(NSString *) password
 {
     // Pack data for POST request
-   NSDictionary *dictionary = [self POSTdictionaryWithKeys:[NSArray arrayWithObjects:@"login", @"password", nil] 
-                                                andObjects:[NSArray arrayWithObjects:login, [SHA1Encoder sha512FromString:password], nil]];
+    NSDictionary *dictionary = [self POSTdictionaryWithKeys:[NSArray arrayWithObjects:@"login", @"password", @"code", nil] 
+                                                andObjects:[NSArray arrayWithObjects:login, [SHA1Encoder sha512FromString:password], [NSString stringWithFormat:@"%d", M_READ], nil]];
     
     // Forge request and stablish connection.
-    NSMutableURLRequest *request = [POSTRequestBuilder multipartPostRequestWithURL:[NSURL URLWithString:URL_MYMED_AUTH] 
-                                                                 andDataDictionary:dictionary];
+    NSMutableURLRequest *request = [POSTRequestBuilder urlEncodedPostRequestWithURL:[NSURL URLWithString:M_URL_AUTH] 
+                                                                  andDataDictionary:dictionary];
+    
     NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     
     if (connection) {
@@ -61,7 +74,7 @@ static NSString * const URL_MYMED_SESSION = @"http://mymed2.sophia.inria.fr/mobi
                                                  andObjects:[NSArray arrayWithObjects:login, [SHA1Encoder sha512FromString:password], @"true", @"true", nil]];
     
     // Forge request and stablish a connection
-    NSMutableURLRequest *request = [POSTRequestBuilder multipartPostRequestWithURL:[NSURL URLWithString:URL_MYMED_SESSION] 
+    NSMutableURLRequest *request = [POSTRequestBuilder multipartPostRequestWithURL:[NSURL URLWithString:M_URL_SESSION] 
                                                                  andDataDictionary:dictionary];
     NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     
@@ -72,32 +85,22 @@ static NSString * const URL_MYMED_SESSION = @"http://mymed2.sophia.inria.fr/mobi
     }
 }
 
-- (BOOL) displayAlertForErrorInData:(NSDictionary *) data
+- (void) displayAlertWithTittle:(NSString *) tittle andMessage:(NSString *) message
 {   
-    if (!data) {
-        return YES;
-    }
-    
-    NSDictionary *error = [data objectForKey:@"error"];
-    if (error) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[error objectForKey:ERROR_MESSAGE] 
-                                                        message:nil 
-                                                       delegate:self 
-                                              cancelButtonTitle:@"Ok" 
-                                              otherButtonTitles:nil, nil];
-        [alert show];
-        return YES;
-    }
-    return NO;
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:tittle
+                                                    message:message 
+                                                   delegate:self 
+                                          cancelButtonTitle:@"Ok" 
+                                          otherButtonTitles:nil, nil];
+    [alert show];
 }
 
-- (void) presentMyMedWebView 
+- (void) presentMyMedWebViewWithURL:(NSURL *) url
 {
     ViewController *webViewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
-    webViewController.delegate = self;
     webViewController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    [self presentModalViewController:webViewController animated:YES];
-    [webViewController loadMyMed];
+    [self presentModalViewController:webViewController animated:YES];    
+    [webViewController loadMyMedURL:url];
 }
 
 @end
@@ -113,7 +116,6 @@ static NSString * const URL_MYMED_SESSION = @"http://mymed2.sophia.inria.fr/mobi
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 
     if (self) {
-        jsonParser = [[SBJsonParser alloc] init];
     }
     
     return self;
@@ -156,7 +158,7 @@ static NSString * const URL_MYMED_SESSION = @"http://mymed2.sophia.inria.fr/mobi
         [nextResponder becomeFirstResponder];
     } else {
         if ([ConnectionStatusChecker doesHaveConnectivity] && ![[self.eMailField text] isEqualToString:@""]) {
-            [self submitLogin:self.eMailField.text andPassword:[SHA1Encoder sha512FromString:self.passwordField.text]];
+            [self submitLogin:self.eMailField.text andPassword:self.passwordField.text];
         }
     }
 
@@ -176,25 +178,26 @@ static NSString * const URL_MYMED_SESSION = @"http://mymed2.sophia.inria.fr/mobi
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-    NSDictionary *dataDictionary = [jsonParser objectWithData:data];
+{    
+    NSDictionary *message = [MyMedMessageDecoder dictionaryFromMessage:data];
     
-    NSLog(@"%@", dataDictionary);
+    if ([[message objectForKey:M_KEY_STATUS] intValue] != M_STATUS_OK) {
+        [self displayAlertWithTittle:@"Login Error" andMessage:(NSString *)[message objectForKey:M_KEY_DESCRIPTION]];
+        return;
+    }
     
-    if ([self displayAlertForErrorInData:dataDictionary]) {
-        // Error in the JSON data or dataDictionary is nil.
-    } else { //TODO: Wait until multiple sessions are validated in Backend and improve.
-        
-        NSString *message = [dataDictionary objectForKey:@"message"];
-        
-        if ([message isEqualToString:@"authentication ok"]) {
-            [self openMyMedSessionWithLogin:self.eMailField.text andPassword:self.passwordField.text];
-        }
+    //  If We are logged in
+    //  NSString Casts are needed to transform from NSCFString to NSString *
+    //  Note: NSCFString doesn't support isEqualToString:
+    NSString *messageHandler = (NSString *)[message objectForKey:M_KEY_HANDLER]; 
+    NSString *messageMethod = (NSString *)[message objectForKey:M_KEY_METHOD];
+    if ([messageHandler isEqualToString:M_HANDLER_AUTH_REQUEST] && [messageMethod isEqualToString:M_METHOD_READ]) {
+        [self presentMyMedWebViewWithURL:[NSURL URLWithString:[[[message objectForKey:M_KEY_DATA] objectForKey:@"url"] stringValue]]];
     }
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{   
+{  
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error" 
                                                     message:@"Unable to connect to MyMed, try again later."
                                                    delegate:self 

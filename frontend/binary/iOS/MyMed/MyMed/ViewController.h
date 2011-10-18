@@ -3,16 +3,17 @@
 //  MyMed
 //
 //  Created by Nicolas Goles on 9/16/11.
-//  Copyright (c) 2011 GandoGames. All rights reserved.
+//  Copyright (c) 2011 LOGNET. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <UIWebViewDelegate
+                                            , UIImagePickerControllerDelegate
+                                            , UINavigationControllerDelegate>
 
-@property (nonatomic, retain) id delegate;
 @property (nonatomic, retain) IBOutlet UIWebView *webView;
 
-- (void) loadMyMed;
+- (void) loadMyMedURL:(NSURL *) url;
 
 @end
