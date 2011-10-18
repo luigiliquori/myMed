@@ -73,7 +73,7 @@ class Request {
 		curl_setopt($curl, CURLOPT_CAINFO, "/local/mymed/backend/WebContent/certificate/mymed.crt"); // TO EXPORT FROM GLASSFISH!
 		
 		$result = curl_exec($curl);
-		echo '<script type="text/javascript">alert(\'' . $result . '\');</script>';
+// 		echo '<script type="text/javascript">alert(\'' . $result . '\');</script>';
 		return $result;
 	}
 }

@@ -35,7 +35,7 @@ class DetailView extends MyApplication {
 	* Get the HEADER for jQuery Mobile
 	*/
 	public /*String*/ function getHeader() { ?>
-		<div data-role="header" data-theme="b">
+		<div data-role="header" data-theme="a">
 			<a href="?application=<?= APPLICATION_NAME ?>" data-role="button" rel="external">Retour</a>
 				<h2>Info</h2>
 		</div>
@@ -57,16 +57,18 @@ class DetailView extends MyApplication {
 			<?php
 			$request = new Request("ProfileRequestHandler", READ);
 			$request->addArgument("id",  $_POST['user']);
-			$response = $request->send(); 
-			// Check if there's not error
-			$profile = json_decode($response);
-			if(isset($profile->error)) { ?>
+			
+			$responsejSon = $request->send();
+			$responseObject = json_decode($responsejSon);
+				
+			if($responseObject->status != 200) { ?>
 				<h2 style="color:red;"><?= $profile->error ?></h2>
-			<?php } else { ?>
-				<?php if($profile->profilePicture != "") { ?>
-					<img alt="thumbnail" src="<?= $profile->profilePicture ?>" width="180" height="150">
+			<?php } else { 
+				$profile = json_decode($responseObject->data->profile);
+				if($profile->profilePicture != "") { ?>
+					<img alt="thumbnail" src="<?= $profile->profilePicture ?>" width="180">
 				<?php } else { ?>
-					<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="180" height="150">
+					<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="180">
 				<?php } ?>
 				<br><br>
 				Prenom: <?= $profile->firstName ?><br />
@@ -100,8 +102,10 @@ class DetailView extends MyApplication {
 			<!-- VALUES -->
 			<?php foreach(json_decode($this->handler->getSuccess()) as $details) { ?>
 				<?php if ($details->key == "picture") { ?>
-					<?= $details->key; ?> : <br />
-					<img alt="fish picture" src="<?= urldecode($details->value) ?>" width="180" height="150">
+					<?= $details->key; ?> : 
+					<a href="<?= urldecode($details->value) ?>" target="blank">
+						<img alt="no picture" src="<?= urldecode($details->value) ?>" width="180" />
+					</a>
 				<?php } else { ?>
 					<?= $details->key; ?> : <?= urldecode($details->value) ?>
 				<?php } ?>

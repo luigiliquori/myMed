@@ -66,9 +66,9 @@ class DetailView extends MyApplication {
 			<?php } else { 
 				$profile = json_decode($responseObject->data->profile);
 				if($profile->profilePicture != "") { ?>
-					<img alt="thumbnail" src="<?= $profile->profilePicture ?>" width="180" height="150">
+					<img alt="thumbnail" src="<?= $profile->profilePicture ?>" width="180">
 				<?php } else { ?>
-					<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="180" height="150">
+					<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="180">
 				<?php } ?>
 				<br><br>
 				Prenom: <?= $profile->firstName ?><br />
