@@ -99,7 +99,7 @@ static const unsigned M_DELETE = 3;
 {
     ViewController *webViewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
     webViewController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    [self presentModalViewController:webViewController animated:YES];    
+    [self presentModalViewController:webViewController animated:YES];
     [webViewController loadMyMedURL:url];
 }
 
@@ -179,7 +179,7 @@ static const unsigned M_DELETE = 3;
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {    
-    NSDictionary *message = [MyMedMessageDecoder dictionaryFromMessage:data];
+    NSDictionary *message = [MyMedMessageDecoder dictionaryFromData:data];
     
     if ([[message objectForKey:M_KEY_STATUS] intValue] != M_STATUS_OK) {
         [self displayAlertWithTittle:@"Login Error" andMessage:(NSString *)[message objectForKey:M_KEY_DESCRIPTION]];
@@ -192,7 +192,13 @@ static const unsigned M_DELETE = 3;
     NSString *messageHandler = (NSString *)[message objectForKey:M_KEY_HANDLER]; 
     NSString *messageMethod = (NSString *)[message objectForKey:M_KEY_METHOD];
     if ([messageHandler isEqualToString:M_HANDLER_AUTH_REQUEST] && [messageMethod isEqualToString:M_METHOD_READ]) {
-        [self presentMyMedWebViewWithURL:[NSURL URLWithString:[[[message objectForKey:M_KEY_DATA] objectForKey:@"url"] stringValue]]];
+        NSDictionary *data = (NSDictionary *)[message objectForKey:M_KEY_DATA];
+        NSString *url = [data objectForKey:M_KEY_URL];
+        NSString *token = [data objectForKey:M_KEY_ACCESS_TOKEN];
+        NSString *string = [NSString stringWithFormat:@"%@?accessToken=%@", url, token];
+        NSLog(@"%@", string);
+        
+        [self presentMyMedWebViewWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?accessToken=%@", url, token]]];
     }
 }
 
