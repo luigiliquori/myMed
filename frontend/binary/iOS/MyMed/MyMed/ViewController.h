@@ -11,6 +11,10 @@
 @interface ViewController : UIViewController <UIWebViewDelegate
                                             , UIImagePickerControllerDelegate
                                             , UINavigationControllerDelegate>
+{
+    NSURL *sessionURL;
+    NSArray *trustedHosts;
+}
 
 @property (nonatomic, retain) IBOutlet UIWebView *webView;
 

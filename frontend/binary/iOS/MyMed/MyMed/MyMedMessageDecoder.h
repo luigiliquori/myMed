@@ -22,12 +22,15 @@ static NSString * const M_KEY_HANDLER = @"handler";
 static NSString * const M_KEY_METHOD = @"method";
 static NSString * const M_KEY_DESCRIPTION = @"description";
 static NSString * const M_KEY_DATA = @"data";
+static NSString * const M_KEY_URL = @"url";
+static NSString * const M_KEY_ACCESS_TOKEN = @"accessToken";
 
 // OK Value for a MyMed Message Status
 static const unsigned M_STATUS_OK = 200;
 
 @interface MyMedMessageDecoder : NSObject
 
-+ (NSDictionary *) dictionaryFromMessage:(NSData *) message;
++ (NSDictionary *) dictionaryFromData:(NSData *) data;
++ (NSDictionary *) dictionaryFromString:(NSString *) string;
 
 @end
