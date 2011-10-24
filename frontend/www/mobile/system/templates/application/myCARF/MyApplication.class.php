@@ -9,11 +9,13 @@ require_once 'system/templates/AbstractTemplate.class.php';
  * @author lvanni
  *
  */
-class MyCARF extends AbstractTemplate {
+abstract class MyApplication extends AbstractTemplate {
 	
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
+	private /*String*/ $activeFooter;
+	private /*MyTransportHandler*/ $handler;
 	
 	/* --------------------------------------------------------- */
 	/* Constructors */
@@ -21,8 +23,9 @@ class MyCARF extends AbstractTemplate {
 	/**
 	 * Default constructor
 	 */
-	public function __construct() {
-		parent::__construct("myCARF", "myCARF");
+	public function __construct(/*String*/ $id) {
+		parent::__construct($id, APPLICATION_NAME);
+		$this->activeFooter = $id;
 		
 	}
 	
@@ -35,22 +38,26 @@ class MyCARF extends AbstractTemplate {
 	public /*String*/ function getHeader() { ?>
 		<!-- HEADER -->
 		<div data-role="header" data-theme="a">
-			<a href="?application=0" rel="external" data-role="button" data-theme="r">Fermer</a>
+			<a href="?application=0" rel="external" data-role="button" data-theme="r">Close</a>
 			<h1><?= $this->title ?></h1>
 		</div>
 	<?php }
 	
 	/**
-	* Get the CONTENT for jQuery Mobile
+	* Get the FOOTER for jQuery Mobile
 	*/
-	public /*String*/ function getContent() { ?>
-		<!-- CONTENT -->
-		<div class="content" >
-			<br />
-			<iframe src="http://www.countdownr.com/external.html?logo=&amp;alert=&amp;time=2012_02_19_14_30&amp;title=myCARF&amp;repeat=0&amp;url=&amp;background=transparent" frameborder="0" width="320" height="130" scrolling="no"><a href="http://www.countdownr.com"></a></iframe>
+	public /*String*/ function getFooter() { ?>
+		<!-- FOOTER_PERSITENT-->
+		<div data-role="footer" data-position="fixed" data-theme="a">
+			<div data-role="navbar">
+				<ul>
+				<li><a href="#Find" <?= $this->activeFooter == "Find" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>Rechercher</a></li>
+				<li><a href="#Subscribe" <?= $this->activeFooter == "Subscribe" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>Actualités</a></li>
+				</ul>
+			</div>
 		</div>
 	<?php }
-
+	
 	/**
 	* Print the Template
 	*/

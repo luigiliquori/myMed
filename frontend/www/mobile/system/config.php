@@ -14,4 +14,8 @@
 	//Social Networks Keys
 	define('Facebook_APP_ID', '263064853727560');
 	define('Facebook_APP_SECRET', '31132a354804069960f966668df6daa2');
+	
+	//CITYWAY Keys
+	define('Cityway_URL', 'http://openservice.cityway.fr/api/');
+	define('Cityway_APP_ID', 'INRIACARF');
 ?>

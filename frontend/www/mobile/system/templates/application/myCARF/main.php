@@ -1,5 +1,30 @@
-<?php
-require_once dirname(__FILE__).'/MyCARF.class.php';
-$myCARF = new MyCARF();
-$myCARF->printTemplate();
+<?php 
+	define('APPLICATION_NAME', "myCARF");
+	
+	// IMPORT THE MAIN VIEW
+	require_once dirname(__FILE__).'/views/tabbar/SubscribeView.class.php';
+	require_once dirname(__FILE__).'/views/tabbar/FindView.class.php';
+	// IMPORT THE RESULT VIEW
+	require_once dirname(__FILE__).'/views/result/ResultView.class.php';
+	require_once dirname(__FILE__).'/views/result/DetailView.class.php';
+	// IMPORT AND DEFINE THE REQUEST HANDLER
+	require_once dirname(__FILE__).'/handler/MyApplicationHandler.class.php';
+	$handler = new MyApplicationHandler();
+	$handler->handleRequest();
+
+	if(isset($_POST['method'])) { 				// Print The Results View
+		if($_POST['method'] == 'getDetail') {
+			$details = new DetailView($handler);
+			$details->printTemplate();
+		} else {
+			$result = new ResultView($handler);
+			$result->printTemplate();
+		}
+	} else {
+		$find = new FindView();
+		$find->printTemplate();
+
+		$subscribe = new SubscribeView();
+		$subscribe->printTemplate();
+	}
 ?>
