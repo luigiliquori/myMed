@@ -118,11 +118,4 @@ public abstract class AbstractMBean {
 		return value.toString();
 	}
 
-	/**
-	 * Updated the bean with new values
-	 * 
-	 * @param mBean
-	 *            the bean to update
-	 */
-	public abstract void update(AbstractMBean mBean);
 }

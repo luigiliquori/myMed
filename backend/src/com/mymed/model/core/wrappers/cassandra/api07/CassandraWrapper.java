@@ -111,6 +111,7 @@ public class CassandraWrapper implements ICassandraWrapper {
 
     try {
       MLogger.getLog().info("Setting keyspace to '{}'", KEYSPACE);
+      System.out.println("****" + connection.hashCode() + " : " + connection.getAddress() + " : " + connection.getPort());
       connection.getClient().set_keyspace(KEYSPACE);
     } catch (final InvalidRequestException ex) {
       MLogger.getDebugLog().debug("Error setting the keyspace '{}'", KEYSPACE, ex.getCause());

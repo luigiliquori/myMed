@@ -31,12 +31,6 @@ public final class MOntologyTypeBean extends AbstractMBean {
 		return returnValue;
 	}
 
-	@Override
-	public void update(AbstractMBean mBean) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	/* --------------------------------------------------------- */
 	/* GETTER AND SETTER */
 	/* --------------------------------------------------------- */

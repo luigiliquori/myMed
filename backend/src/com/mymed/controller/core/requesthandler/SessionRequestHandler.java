@@ -93,6 +93,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 			}
 			
 		} catch (final AbstractMymedException e) {
+			e.printStackTrace();
 			MLogger.getLog().info("Error in doGet");
 			MLogger.getDebugLog().debug("Error in doGet", e.getCause());
 			message.setStatus(e.getStatus());
@@ -146,6 +147,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 			}
 
 		} catch (final AbstractMymedException e) {
+			e.printStackTrace();
 			MLogger.getLog().info("Error in doGet");
 			MLogger.getDebugLog().debug("Error in doGet", e.getCause());
 			message.setStatus(e.getStatus());

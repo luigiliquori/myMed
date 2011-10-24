@@ -46,5 +46,5 @@ public interface ISessionManager {
 	 * @param userID
 	 * @throws InternalBackEndException
 	 */
-	void delete(String userID) throws InternalBackEndException;
+	void delete(String userID) throws InternalBackEndException, IOBackEndException;
 }

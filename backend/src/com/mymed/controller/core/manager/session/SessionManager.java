@@ -52,6 +52,7 @@ public class SessionManager extends AbstractManager implements ISessionManager {
 	 * @see ISessionManager#create(String, String)
 	 */
 	public void create(final MSessionBean sessionBean) throws InternalBackEndException, IOBackEndException {
+		
 		if (sessionBean.getId() == null) {
 			throw new InternalBackEndException("The session id is null!");
 		}
@@ -73,11 +74,16 @@ public class SessionManager extends AbstractManager implements ISessionManager {
 	 */
 	@Override
 	public MSessionBean read(final String sessionID) throws InternalBackEndException, IOBackEndException {
-
-		final MSessionBean session = new MSessionBean();
+		
+		MSessionBean session = new MSessionBean();
 		final Map<byte[], byte[]> args = storageManager.selectAll(CF_SESSION, sessionID);
-
-		return (MSessionBean) introspection(session, args);
+		session = (MSessionBean) introspection(session, args);
+		
+		if(session.isExpired()) {
+			throw new IOBackEndException("session expired!", 404);
+		}
+		
+		return session;
 	}
 
 	/**
@@ -90,13 +96,18 @@ public class SessionManager extends AbstractManager implements ISessionManager {
 	}
 
 	/**
+	 * @throws IOBackEndException 
 	 * @throws ServiceManagerException
 	 * @see ISessionManager#delete(String)
 	 */
 	@Override
-	public void delete(final String userID) throws InternalBackEndException {
-		MLogger.getLog().info("Deleting session for user with ID: {}", userID);
-
-		storageManager.removeAll(CF_SESSION, userID + SESSION_SUFFIX);
+	public void delete(final String sessionID) throws InternalBackEndException, IOBackEndException {
+		
+		MLogger.getLog().info("Deleting session for user with ID: {}", sessionID);
+		MSessionBean session = read(sessionID);
+		session.setExpired(true); // The session is marked as expired
+		update(session);
+		
+		storageManager.removeAll(CF_SESSION, sessionID + SESSION_SUFFIX); // Removed after 10 days
 	}
 }

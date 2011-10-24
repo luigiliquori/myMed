@@ -92,6 +92,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 				throw new InternalBackEndException("AuthenticationRequestHandler(" + code + ") not exist!");
 			}
 		} catch (final AbstractMymedException e) {
+			e.printStackTrace();
 			MLogger.getLog().info("Error in doGet operation");
 			MLogger.getDebugLog().debug("Error in doGet operation", e.getCause());
 			message.setStatus(e.getStatus());
@@ -144,6 +145,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 				}
 				break;
 			case READ :
+				
 				message.setMethod("READ");
 				if (login == null) {
 					throw new InternalBackEndException("login argument missing!");
@@ -199,6 +201,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 				throw new InternalBackEndException("AuthenticationRequestHandler(" + code + ") not exist!");
 			}
 		} catch (final AbstractMymedException e) {
+			e.printStackTrace();
 			MLogger.getLog().info("Error in doPost operation");
 			MLogger.getDebugLog().debug("Error in doPost operation", e.getCause());
 			message.setStatus(e.getStatus());

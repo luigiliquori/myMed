@@ -19,11 +19,7 @@ public class MSessionBean extends AbstractMBean {
 	private String ip;
 	private int port;
 	private String accessToken;
-
-	@Override
-	public void update(final AbstractMBean mBean) {
-		// TODO Auto-generated method stub
-	}
+	private boolean isExpired = false;
 
 	@Override
 	public String toString() {
@@ -209,7 +205,13 @@ public class MSessionBean extends AbstractMBean {
 	public void setAccessToken(String accessToken) {
 		this.accessToken = accessToken;
 	}
+
+	public boolean isExpired() {
+		return isExpired;
+	}
+
+	public void setExpired(boolean isExpired) {
+		this.isExpired = isExpired;
+	}
  
-	
-	
 }

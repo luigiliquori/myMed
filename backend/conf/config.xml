@@ -5,22 +5,22 @@
 	<backend>
 		<!-- Cloud Info -->
 		<cassandra>
-			<ListenAddress>mymed2.sophia.inria.fr</ListenAddress>
+			<ListenAddress>138.96.242.2</ListenAddress>
 			<!-- See the Cassandra configuration file at ../protocols/cassandra/cassandra/conf/cassandra.yaml -->
 			<StoragePort>4200</StoragePort>
-			<ThriftAddress>mymed2.sophia.inria.fr</ThriftAddress>
+			<ThriftAddress>138.96.242.2</ThriftAddress>
 			<ThriftPort>4201</ThriftPort>
 		</cassandra>
 
 		<!-- P2P Info -->
-		<synapse address="mymed2.sophia.inria.fr" port="0">
+		<synapse address="138.96.242.2" port="0">
 			<chord>
-				<ListenAddress>mymed2.sophia.inria.fr</ListenAddress>
+				<ListenAddress>138.96.242.2</ListenAddress>
 				<!-- 0 means random free port number -->
 				<StoragePort>0</StoragePort>
 			</chord>
 			<kad>
-				<ListenAddress>mymed2.sophia.inria.fr</ListenAddress>
+				<ListenAddress>138.96.242.2</ListenAddress>
 				<!-- 0 means random free port number -->
 				<StoragePort>0</StoragePort>
 			</kad>
