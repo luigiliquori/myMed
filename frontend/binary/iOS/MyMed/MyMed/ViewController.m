@@ -61,6 +61,7 @@ static NSString * const MY_MED_INDEX_URL = @"http://mymed2.sophia.inria.fr/mobil
     [super viewDidLoad];
     webView.delegate = self;
     [self startObservingNotifications];
+    trustedHosts = [NSArray arrayWithObjects:@"138.96.242.2", nil];
 }
 
 - (void)viewDidUnload
@@ -101,14 +102,10 @@ static NSString * const MY_MED_INDEX_URL = @"http://mymed2.sophia.inria.fr/mobil
 - (void) loadMyMedURL:(NSURL *) url
 {
     if ([ConnectionStatusChecker doesHaveConnectivity]) {
-        [webView loadRequest:[NSURLRequest requestWithURL:url]];
-        
         NSURLRequest *req = [NSURLRequest requestWithURL:url];
-        NSURLConnection *urlConnection = [[NSURLConnection alloc] initWithRequest:req delegate:self];
+        NSURLConnection *urlConnection = [[NSURLConnection alloc] initWithRequest:req delegate:self];  // Little "hack" to use unsigned SSL certificate.
         webView.scalesPageToFit = YES;
         [webView loadRequest:req];
-        
-        
     } else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No internet connection" 
                                                         message:@"You need an active internet connection to use this application" 
@@ -141,19 +138,23 @@ static NSString * const MY_MED_INDEX_URL = @"http://mymed2.sophia.inria.fr/mobil
 
 #pragma mark -
 #pragma mark - NSURLConnectionDelegate
-- (BOOL) connection:(NSURLConnection *) connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace 
-{
+- (BOOL)connection:(NSURLConnection *) connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *) protectionSpace {
     return [protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust];
 }
 
-- (void) connection:(NSURLConnection *) connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *) challenge 
-{
-    [challenge.sender useCredential:[NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust] forAuthenticationChallenge:challenge];
+- (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
+    if ([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]) {
+        if ([trustedHosts containsObject:challenge.protectionSpace.host]) {
+            [challenge.sender useCredential:[NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust] forAuthenticationChallenge:challenge];
+        }
+    }
+    
     [challenge.sender continueWithoutCredentialForAuthenticationChallenge:challenge];
 }
 
 - (void)connection:(NSURLConnection *) connection didReceiveResponse:(NSURLResponse *) response
 {
+    NSLog(@"Cancel bogus SSL connection. -- to remove warning install valid SSL certificate on server");
     [connection cancel];
 }
 
