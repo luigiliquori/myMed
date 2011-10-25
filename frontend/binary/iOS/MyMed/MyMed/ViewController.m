@@ -15,7 +15,7 @@
 static NSString * const MY_MED_INDEX_URL = @"http://mymed2.sophia.inria.fr/mobile/index.php";
 
 #pragma mark -
-#pragma mark - Private Protocol for Notification Handling
+#pragma mark - Private Methods for Notification Handling
 @interface ViewController (NotificationObserver)
 - (void) startObservingNotifications;
 - (void) displayCameraView:(id) sender;
