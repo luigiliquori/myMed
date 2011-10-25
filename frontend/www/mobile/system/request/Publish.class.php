@@ -31,12 +31,16 @@ class Publish extends Request {
 		// construct the predicate + data
 		$predicateArray;
 		$data = array();
+		$hasPicture = false;
 		$numberOfPredicate = 0;
 		for($i=0 ; $i<$_POST['numberOfOntology'] ; $i++){
 			/*MDataBean*/ $ontology = json_decode(urldecode($_POST['ontology' . $i]));
 			$ontology->value = $_POST[$ontology->key];
 			if($ontology->ontologyID < 4 && $ontology->value != "") { // it's a predicate
 				$predicateArray[$numberOfPredicate++] = $ontology;
+			}
+			if(($ontology->ontologyID == PICTURE) && ($_POST[$ontology->key] == 1)) {
+				$hasPicture = true;
 			}
 			$data[$i] = $ontology;
 		}
@@ -73,8 +77,13 @@ class Publish extends Request {
 			}
 		}
 		
-		if($check->error == null) {
-			$this->handler->setSuccess("Request sent!");
+		if($hasPicture) {
+			header("Refresh:0;url=mobile_binary:choose_picture"); // REDIRECTION
+// 			echo '<script type="text/javascript">window.location = "mobile_binary:choose_picture"</script>';
+		} else {
+			if($check->error == null) {
+				$this->handler->setSuccess("Request sent!");
+			}
 		}
 	}
 }

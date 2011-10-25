@@ -38,7 +38,7 @@ class PublishView extends MyApplication {
 				<!-- Define the method to call -->
 				<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
 				<input type="hidden" name="method" value="publish" />
-				<input type="hidden" name="numberOfOntology" value="5" />
+				<input type="hidden" name="numberOfOntology" value="6" />
 				
 				<!-- KEYWORD -->
 				Ontology 0 (Type: KEYWORD) :<br />
@@ -71,11 +71,19 @@ class PublishView extends MyApplication {
 				<input type="hidden" name="ontology3" value="<?= urlencode(json_encode($date)); ?>">
 				<br /><br />
 				
+				<!-- PICTURE -->
+				Ontology 4 (Type: PICTURE) :<br />
+				<a href="#" onclick="enableCamera()"><img id="picture" alt="picture" src="img/camera.png" width="80"/></a>
+				<input id="pictureValue" type="hidden" name="picture" value="0">
+				<?php $picture = new MDataBean("picture", null, PICTURE); ?>
+				<input type="hidden" name="ontology4" value="<?= urlencode(json_encode($picture)); ?>">
+				<br />
+				
 				<!-- TEXT -->
-				Ontology 4 (Type: TEXT) :<br />
+				Ontology 5 (Type: TEXT) :<br />
 				<textarea name="text" rows="" cols=""></textarea>
 				<?php $text = new MDataBean("text", null, TEXT); ?>
-				<input type="hidden" name="ontology4" value="<?= urlencode(json_encode($text)); ?>">
+				<input type="hidden" name="ontology5" value="<?= urlencode(json_encode($text)); ?>">
 				<br />
 				
 				<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>PublishForm.submit()">Publish</a>
