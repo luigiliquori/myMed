@@ -15,6 +15,7 @@ static NSString * const M_HANDLER_AUTH_REQUEST = @"com.mymed.controller.core.req
 static NSString * const M_METHOD_READ = @"READ";
 static NSString * const M_METHOD_WRITE = @"WRITE";
 static NSString * const M_METHOD_CREATE = @"CREATE";
+static NSString * const M_METHOD_DELETE = @"DELETE";
 
 // Keys of a MyMed Message Dictionary
 static NSString * const M_KEY_STATUS = @"status";
@@ -24,6 +25,9 @@ static NSString * const M_KEY_DESCRIPTION = @"description";
 static NSString * const M_KEY_DATA = @"data";
 static NSString * const M_KEY_URL = @"url";
 static NSString * const M_KEY_ACCESS_TOKEN = @"accessToken";
+static NSString * const M_KEY_SOCIAL_NETWORK = @"socialNetwork";
+static NSString * const M_KEY_SOCIAL_MYMED = @"mymed";
+static NSString * const M_KEY_SOCIAL_FACEBOOK = @"facebook";
 
 // OK Value for a MyMed Message Status
 static const unsigned M_STATUS_OK = 200;
