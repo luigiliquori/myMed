@@ -86,7 +86,13 @@ class Profile extends AbstractHome {
 			    ?>
 			    <br /><br />
 			    <a href="#inscription" data-role="button" data-rel="dialog">mise à jour</a>
-				<a href="#login" onclick="document.disconnectForm.submit()" data-role="button" data-theme="r">Deconnexion</a>
+			    <?php
+			    $detect = new Mobile_Detect();
+			    if($detect->isDevice("isIphone") || $detect->isDevice("isIpad")) { ?>
+			  		<a href="mobile_binary:logout" data-role="button" data-theme="r">Deconnexion</a>
+				<?php } else { ?>
+					<a href="#login" onclick="document.disconnectForm.submit()" data-role="button" data-theme="r">Deconnexion</a>
+				<?php } ?>
 			</div>
 		</div>
 	<?php }

@@ -68,24 +68,40 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 			final Map<String, String> parameters = getParameters(request);
 			final RequestCode code = requestCodeMap.get(parameters.get("code"));
 			String accessToken = parameters.get("accessToken");
+			String socialNetwork = parameters.get("socialNetwork");
 			
 			if (accessToken == null) {
 					throw new InternalBackEndException("accessToken argument missing!");
+			}
+			if (socialNetwork == null) {
+				throw new InternalBackEndException("socialNetwork argument missing!");
 			}
 			
 			switch (code) {
 			case READ:
 				message.setMethod("READ");
-				MSessionBean session = sessionManager.read(accessToken);
-				message.setDescription("Session avaible");
-				MUserBean userBean = profileManager.read(session.getUser());
-				message.addData("profile", getGson().toJson(userBean));
+				if(socialNetwork.equals("myMed")){
+					MSessionBean session = sessionManager.read(accessToken);
+					message.setDescription("Session avaible");
+					MUserBean userBean = profileManager.read(session.getUser());
+					message.addData("profile", getGson().toJson(userBean));
+				} else if(socialNetwork.equals("facebook")){
+					throw new InternalBackEndException("not implemented yet...");
+				} else {
+					throw new InternalBackEndException("socialNetwork not recognized!");
+				}
 				break;
 			case DELETE:
 				message.setMethod("DELETE");
-				sessionManager.delete(accessToken);
-				message.setDescription("Session deleted -> LOGOUT");
-				MLogger.getLog().info("Session {} deleted -> LOGOUT", accessToken);
+				if(socialNetwork.equals("myMed")){
+					sessionManager.delete(accessToken);
+					message.setDescription("Session deleted -> LOGOUT");
+					MLogger.getLog().info("Session {} deleted -> LOGOUT", accessToken);
+					} else if(socialNetwork.equals("facebook")){
+					throw new InternalBackEndException("not implemented yet...");
+				} else {
+					throw new InternalBackEndException("socialNetwork not recognized!");
+				}
 				break;
 			default:
 				throw new InternalBackEndException(

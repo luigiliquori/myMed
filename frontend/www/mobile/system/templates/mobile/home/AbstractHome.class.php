@@ -50,15 +50,17 @@ abstract class AbstractHome extends AbstractTemplate {
 	 * Get the FOOTER for jQuery Mobile
 	 */
 	public /*String*/ function getFooter() { ?>
-		<!-- FOOTER_PERSITENT-->
-		<div data-role="footer" data-position="fixed">
-			<div data-role="navbar">
-				<ul>
-				<li><a href="#favorite" data-transition="slide" data-back="true" <?= $this->activeFooter == "home" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>Applications</a></li>
-				<li><a href="#profile" data-transition="slide" <?= $this->activeFooter == "profile" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>Profile</a></li>
-				</ul>
+		<?php if (TARGET == "mobile") { ?>
+			<!-- FOOTER_PERSITENT-->
+			<div data-role="footer" data-position="fixed">
+				<div data-role="navbar">
+					<ul>
+					<li><a href="#favorite" data-transition="slide" data-back="true" <?= $this->activeFooter == "home" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>Applications</a></li>
+					<li><a href="#profile" data-transition="slide" <?= $this->activeFooter == "profile" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>Profile</a></li>
+					</ul>
+				</div>
 			</div>
-		</div>
-	<?php }
+		<?php } ?>
+	<?php } 
 }
 ?>

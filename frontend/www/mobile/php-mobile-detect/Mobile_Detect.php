@@ -77,7 +77,7 @@ class Mobile_Detect
 		return $this->isMobile;
 	}
 
-	protected function isDevice($device)
+	public function isDevice($device)
 	{
 		$var = "is" . ucfirst($device);
 		$return = $this->$var === null ? (bool) preg_match("/" . $this->devices[strtolower($device)] . "/i", $this->userAgent) : $this->$var;

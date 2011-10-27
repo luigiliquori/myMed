@@ -32,9 +32,9 @@ class LoginHandler implements IRequestHandler {
 	 * Enter description here ...
 	 */
 	public /*String*/ function handleRequest() { 
-		// HANDLE ALL THE SOCIAL NETWORK LOGIN
+		// HANDLE ALL THE SOCIAL NETWORK AUTHENTICATION
 		foreach($this->socialNetworkConnection->getWrappers() as $wrapper) {
-			$wrapper->handleLogin();
+			$wrapper->handleAuthentication();
 		}
 		
 		// HANDLE AUTHENTICATION
@@ -59,7 +59,7 @@ class LoginHandler implements IRequestHandler {
 				$_SESSION['error'] = $responseObject->description;
 			} else {
 				$accessToken = $responseObject->data->accessToken;
-				header("Refresh:0;url=" . $_SERVER['PHP_SELF'] . "?accessToken=" . $accessToken); // REDIRECTION
+				header("Refresh:0;url=" . $_SERVER['PHP_SELF'] . "?socialNetwork=myMed&accessToken=" . $accessToken); // REDIRECTION
 			}
 		}
 		
@@ -67,6 +67,7 @@ class LoginHandler implements IRequestHandler {
 		if(isset($_GET['accessToken'])) {
 			$request = new Request("SessionRequestHandler", READ);
 			$request->addArgument("accessToken", $_GET['accessToken']);
+			$request->addArgument("socialNetwork", $_GET['socialNetwork']);
 			
 			$responsejSon = $request->send();
 			$responseObject = json_decode($responsejSon);

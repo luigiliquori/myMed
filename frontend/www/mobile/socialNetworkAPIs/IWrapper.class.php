@@ -18,7 +18,7 @@ interface IWrapper {
 	/**
 	 * Handle a login request
 	 */
-	public /*void*/ function handleLogin();
+	public /*void*/ function handleAuthentication();
 	
 	/**
 	 * get the login url for the social network button

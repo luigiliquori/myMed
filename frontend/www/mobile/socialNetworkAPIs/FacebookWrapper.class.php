@@ -33,7 +33,7 @@ class FacebookWrapper implements IWrapper {
 	/**
 	 * Handle a facebook login request
 	 */
-	public /*void*/ function handleLogin() {
+	public /*void*/ function handleAuthentication() {
 		// Get User ID
 	 	$user = $this->facebook->getUser();
 	 	if ($user) {
@@ -45,7 +45,7 @@ class FacebookWrapper implements IWrapper {
 	 			
 	 			// Format the user Object
 	 			$_SESSION['user'] = new MUserBean();
-	 			$_SESSION['user']->id = $user_profile["id"];
+	 			$_SESSION['user']->id = "FACEBOOK_" . $user_profile["id"];
 	 			$_SESSION['user']->login = $user_profile["email"];
 	 			$_SESSION['user']->email = $user_profile["email"];
 	 			$_SESSION['user']->name = $user_profile["name"];
@@ -69,6 +69,8 @@ class FacebookWrapper implements IWrapper {
 	 			error_log($e);
 	 			$user = null;
 	 		}
+	 		
+// 	 		header("Refresh:0;url=" . $_SERVER['PHP_SELF'] . "?socialNetwork=facebook&accessToken=" . $this->facebook->getAccessToken()); // REDIRECTION
 	 	}	
 	}
 	

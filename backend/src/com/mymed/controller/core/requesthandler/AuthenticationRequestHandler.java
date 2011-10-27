@@ -145,7 +145,6 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 				}
 				break;
 			case READ :
-				
 				message.setMethod("READ");
 				if (login == null) {
 					throw new InternalBackEndException("login argument missing!");
@@ -162,11 +161,11 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 					sessionBean.setUser(userBean.getId());
 					sessionBean.setCurrentApplications("");
 					sessionBean.setP2P(false);
-					sessionBean.setTimeout(System.currentTimeMillis());
+					sessionBean.setTimeout(System.currentTimeMillis()); // TODO Use The Cassandra Timeout mecanism
 					HashFunction h = new HashFunction("myMed");
 					String accessToken = h.SHA1ToString(login + password + sessionBean.getTimeout());
 					sessionBean.setAccessToken(accessToken);
-					sessionBean.setId(accessToken);					
+					sessionBean.setId(accessToken);	
 					sessionManager.create(sessionBean);
 
 					// Update the profile with the new session
@@ -174,7 +173,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 					profileManager.update(userBean);
 					
 					MLogger.getLog().info("Session {} created -> LOGIN", accessToken);
-					message.addData("url", "https://" + InetAddress.getLocalHost().getHostAddress() + "/mobile"); // TODO Find a better way to get the url
+					message.addData("url", "http://" + InetAddress.getLocalHost().getHostAddress() + "/mobile"); // TODO Find a better way to get the url
 					message.addData("accessToken", accessToken);
 				}
 				break;

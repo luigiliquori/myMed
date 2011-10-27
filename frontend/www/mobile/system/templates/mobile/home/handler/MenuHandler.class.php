@@ -32,6 +32,7 @@ class MenuHandler implements IRequestHandler {
 			// DELETE BACKEND SESSION
 			$request = new Request("SessionRequestHandler", DELETE);
 			$request->addArgument("accessToken", $_SESSION['user']->session);
+			$request->addArgument("socialNetwork", $_SESSION['user']->socialNetworkName);
 			
 			$responsejSon = $request->send();
 			$responseObject = json_decode($responsejSon);
