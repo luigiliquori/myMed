@@ -23,14 +23,12 @@ public class Connection implements IConnection {
   // Used for the hash code
   private static final int PRIME = 31;
 
-  // The default port to use if nothing is passed as arguments
   private static final int DEFAULT_PORT = 4201;
 
   // The port and the address associated with this connection
   private String address = null;
   private int port = 0;
 
-  // Socket and transport used for the connection
   private final TSocket socket;
   private final TFramedTransport transport;
   private final Client cassandra;
