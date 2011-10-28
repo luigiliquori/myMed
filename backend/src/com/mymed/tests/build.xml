@@ -31,6 +31,13 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 	  <pathelement location="${lib.dir}/jSynapse.jar"/>
 	  <pathelement location="${lib.dir}/mymedtest.jar"/>
 	  <pathelement location="."/>
+		<!-- Keep this one here, otherwise it is possible to get nasty compilation errors due
+		to how JARs are imported on the CLASSPATH, and there could be errors with JARs coming
+		from Cassandra -->
+		<fileset dir="${glassfish.dir}">
+			<include name="**/mail.jar"/>
+			<include name="**/javaee.jar"/>
+		</fileset>
 		<fileset dir="${libs.dir}">
 			<include name="*.jar"/>
 			<include name="**/*.jar"/>
@@ -50,23 +57,16 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 			<include name="*.jar"/>
 			<include name="**/*.jar"/>
 		</fileset>
-		<fileset dir="${glassfish.dir}">
-			<include name="**/mail.jar"/>
-			<include name="**/javaee.jar"/>
-		</fileset>
 	</path>
 
-	<!-- Used if we want to pretty print the classpath in case we need to debug -->
 	<pathconvert description="Pretty print the classpath" property="echo.path.compile" refid="mymed.classpath" pathsep="${line.separator}|  |--" />
 
-	<!-- Create the directories structure -->
 	<target name="init" depends="clean" description="Initialize the necessary directories">
 		<mkdir dir="${build.dir}" />
 		<mkdir dir="${lib.dir}" />
 		<mkdir dir="${results.dir}" />
 	</target>
 
-	<!-- Build synapse -->
 	<target name="synapse" depends="init" description="Compile and create the Synapse JAR">
 		<javac srcdir="${synapse.dir}" destdir="${build.dir}" debug="on">
 			<classpath refid="mymed.classpath"/>
@@ -74,7 +74,6 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 		<jar destfile="${lib.dir}/${jsynapse.jar}" basedir="${build.dir}" duplicate="preserve" index="true" />
 	</target>
 
-	<!-- Compile mymed -->
 	<target name="compile" depends="synapse,cleanbuild" description="Compile the necessary files">
 		<javac srcdir="${src.dir}" destdir="${build.dir}" debug="on">
 			<classpath refid="mymed.classpath"/>
@@ -82,7 +81,6 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 		<jar destfile="${lib.dir}/${mymed.jar}" basedir="${build.dir}" duplicate="preserve" index="true"/>
 	</target>
 
-	<!-- Compile the tests -->
 	<target name="compiletest" depends="compile,cleanbuild" description="Compile the test classes">
 		<javac srcdir="${tests.dir}" destdir="${build.dir}" debug="on">
 			<classpath refid="mymed.classpath"/>
@@ -91,7 +89,6 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 		<jar destfile="${lib.dir}/${mymedtest.jar}" basedir="${build.dir}" duplicate="preserve" index="true"/>
 	</target>
 
-	<!-- Run the tests -->
 	<target name="test" depends="compiletest" description="Run all the JUnit tests">
 		<junit printsummary="yes" haltonfailure="no" showoutput="yes">
 			<classpath refid="mymed.classpath"/>
@@ -101,14 +98,30 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 		</junit>
 	</target>
 
-	<!-- Clean the build dir so that we have small new JARs -->
+	<target name="webtest" depends="compiletest" description="Run all the JUnit tests">
+	  <junit printsummary="yes" haltonfailure="no" showoutput="yes">
+	    <classpath refid="mymed.classpath"/>
+	    <test name="com.mymed.tests.unit.WebTestSuite" todir="${results.dir}"/>
+	    <formatter type="xml"/>
+	    <batchtest fork="true"/>
+	  </junit>
+	</target>
+
+	<target name="requesthandler" depends="compiletest" description="Run all the JUnit tests">
+	  <junit printsummary="yes" haltonfailure="no" showoutput="yes">
+	    <classpath refid="mymed.classpath"/>
+	     <test name="com.mymed.tests.unit.handler.RequestHandlerSuite" todir="${results.dir}"/>
+	     <formatter type="xml"/>
+	     <batchtest fork="true"/>
+	  </junit>
+	</target>
+
 	<target name="cleanbuild" description="Clean the build directory from other directories">
 		<delete includeemptydirs="true" failonerror="false">
 		  <fileset dir="${build.dir}" includes="**/*"/>
 		</delete>
 	</target>
 
-	<!-- Clean up everything -->
 	<target name="clean" description="Remove the directories used for the build">
 	  <delete dir="${build.dir}" />
 		<delete dir="${lib.dir}" />
