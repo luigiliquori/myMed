@@ -112,9 +112,9 @@ public class ShowOnMapActivity extends MapActivity {
 	
     private Runnable mRefreshUserPositionRunnable = new Runnable() {
         public void run() {
-        	if (mBound && mService.ismLocAvailable()){
-        		Location loc = mService.getCurrentLocation();
-        		GeoPoint userPos = GeoUtils.toGeoPoint(loc);
+        	Location currLoc;
+        	if (mBound && (currLoc = mService.getCurrentLocation())!=null){
+        		GeoPoint userPos = GeoUtils.toGeoPoint(currLoc);
         		mItemizedOverlay.addOverlay(userPos, GlobalStateAndUtils.USER_POSITION, null);
         		mMapView.getOverlays().clear();
         		mMapView.getOverlays().add(mItemizedOverlay);
@@ -158,8 +158,8 @@ public class ShowOnMapActivity extends MapActivity {
 		if (reportsCursor.moveToFirst()){
 			GeoPoint reportPos = addOverlays(reportsCursor);
 			mMapView.getOverlays().add(mItemizedOverlay);
-			mMapController.setZoom(18);
 			mMapController.animateTo(reportPos);
+			mMapController.setZoom(Math.min(18, mMapView.getMaxZoomLevel()));
 		}else
 			finish();
 	}

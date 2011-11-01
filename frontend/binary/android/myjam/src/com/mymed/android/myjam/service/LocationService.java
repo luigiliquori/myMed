@@ -25,7 +25,7 @@ import android.util.Log;
  * 
  * @author iacopo
  *TODO Check the logic.
- * Only locations with accuracy less then 15 m are considered.
+ * Only locations with accuracy less then 10 m are considered.
  * If no locations are received for ten seconds, user location is considered not available.
  */
 public class LocationService extends Service implements LocationListener{
@@ -40,7 +40,7 @@ public class LocationService extends Service implements LocationListener{
 	
 	private static final int TEN_SECONDS = 10000;	//Expiration time for location.
     
-    public static final int MINIMUM_FINE_ACCURACY = 15;	//Minimum accuracy of the new location.
+    public static final int MINIMUM_FINE_ACCURACY = 10;	//Minimum accuracy of the new location.
     
 	/**Parameters used for broadcast intent.*/
 	public static final String LOCATION_ACTION = "com.mymed.android.myjam.intent.action.LOCATION_CHANGE";
@@ -61,7 +61,8 @@ public class LocationService extends Service implements LocationListener{
     // RemoteService for a more complete example.
     
 	LocationManager locationManager;
-	private Location currLocation = null;
+	private Location currFineLocation = null,
+					 currCoarseLocation = null;
 
 	@Override
 	public void onCreate(){
@@ -96,6 +97,7 @@ public class LocationService extends Service implements LocationListener{
 
 		locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this, mServiceLooper);//locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, TWO_MINUTES, MIN_SPACE_FINE, this, mServiceLooper);
+//		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this, mServiceLooper);
 		if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
 			Log.d(TAG, "Network provider available.");
 		else
@@ -120,22 +122,26 @@ public class LocationService extends Service implements LocationListener{
 	@Override
 	public void onLocationChanged(Location arg0) {
 		//TODO Check the scope of this intent.
-		if (arg0.getAccuracy()<MINIMUM_FINE_ACCURACY){
-			/** Removes the old time-out and sets a new one. */
-			mMessageQueueHandler.removeCallbacks(mLocationExpiredRunnable);
-			long nextTenSeconds = SystemClock.uptimeMillis() + TEN_SECONDS; //TODO Use a setting.
-            mMessageQueueHandler.postAtTime(mLocationExpiredRunnable, nextTenSeconds);
-            synchronized(lock){
-            	if(!mLocAvailable){				
-            		mLocAvailable = true;
-            		this.currLocation = arg0;
-            		mNotificationManager.notify(LOCATION_ID, mNotification);
-            		Intent intent = new Intent(LOCATION_ACTION);
-            		intent.putExtra(EXTRA_ACTION_CODE, LOCATION_AVAILABLE);
-            		sendBroadcast(intent); 
-            	}
-            	currLocation = arg0;
-            }
+		if (arg0.getProvider().equals(LocationManager.GPS_PROVIDER)){
+			if (arg0.getAccuracy()<MINIMUM_FINE_ACCURACY){
+				/** Removes the old time-out and sets a new one. */
+				mMessageQueueHandler.removeCallbacks(mLocationExpiredRunnable);
+				long nextTenSeconds = SystemClock.uptimeMillis() + TEN_SECONDS; //TODO Use a setting.
+	            mMessageQueueHandler.postAtTime(mLocationExpiredRunnable, nextTenSeconds);
+	            synchronized(lock){
+	            	if(!mLocAvailable){				
+	            		mLocAvailable = true;
+	            		this.currFineLocation = arg0;
+	            		mNotificationManager.notify(LOCATION_ID, mNotification);
+	            		Intent intent = new Intent(LOCATION_ACTION);
+	            		intent.putExtra(EXTRA_ACTION_CODE, LOCATION_AVAILABLE);
+	            		sendBroadcast(intent); 
+	            	}
+	            	currFineLocation = arg0;
+	            }
+			}
+		} else if (arg0.getProvider().equals(LocationManager.NETWORK_PROVIDER)){
+			currCoarseLocation = arg0;
 		}
 	}
 	
@@ -185,14 +191,25 @@ public class LocationService extends Service implements LocationListener{
 			return mService.get();
 		}
 	}
-
+	
+	/**
+	 * Gets the current location.
+	 * @return The current location if available, if not returns {@value null}.
+	 */
 	public Location getCurrentLocation(){
-		return currLocation;
-	}
-
-	public boolean ismLocAvailable() {
 		synchronized(lock){
-			return mLocAvailable;
+			if (mLocAvailable)
+				return currFineLocation;
+			else
+				return null;
 		}
+	}
+	
+	/**
+	 * Gets the current network location.
+	 * @return The current location if available, if not returns {@value null}.
+	 */
+	public Location getCurrentCoarseLocation(){
+		return currCoarseLocation;
 	}
 }

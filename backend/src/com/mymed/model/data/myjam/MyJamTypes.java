@@ -54,7 +54,7 @@ public abstract class MyJamTypes{
 		JAM (1), 	
 		CAR_CRASH (2), 
 		WORK_IN_PROGRESS (12),
-		FIXED_SPEED_CAM (0),//In Cassandra fix TTL to 0 is equivalent to don't fix it.
+		FIXED_SPEED_CAM (4380),//In Cassandra fix TTL to 0 is equivalent to don't fix it.
 		MOBILE_SPEED_CAM (8);
 
 		public final int permTime;

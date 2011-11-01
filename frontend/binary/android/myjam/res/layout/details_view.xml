@@ -130,14 +130,21 @@
         	android:layout_width="0dp" 
         	android:layout_height="wrap_content"
         	android:layout_weight="1"
-        	android:drawableTop="@android:drawable/ic_menu_add"
+        	android:drawableTop="@drawable/ic_menu_add"
         	android:text="Insert Update"/>
+  		<Button android:id="@+id/buttonSync"
+    		style="@style/ImageButton"
+        	android:layout_width="0dp" 
+        	android:layout_height="wrap_content"
+        	android:layout_weight="1"
+        	android:drawableTop="@drawable/ic_menu_refresh"
+        	android:text="Sync"/>
         <Button android:id="@+id/buttonViewOnMap"
         	style="@style/ImageButton"
         	android:layout_width="0dp" 
         	android:layout_height="wrap_content"
         	android:layout_weight="1"        	
-        	android:drawableTop="@android:drawable/ic_menu_mapmode"
+        	android:drawableTop="@drawable/ic_menu_mapmode"
         	android:text="View On Map"/>
   	</LinearLayout>
 </LinearLayout>

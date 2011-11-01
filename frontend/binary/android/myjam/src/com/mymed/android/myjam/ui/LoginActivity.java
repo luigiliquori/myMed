@@ -93,7 +93,7 @@ public class LoginActivity extends Activity implements MyResultReceiver.Receiver
 		mSignInLink = (TextView) findViewById(R.id.textViewSignIn);
 		mSignInLink.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				Uri uri = Uri.parse( "http://130.192.9.113/mobile/" );
+				Uri uri = Uri.parse( "http://130.192.9.113/mobile/#login&ui-state=dialog" );
 				startActivity( new Intent( Intent.ACTION_VIEW, uri ) );
 			}
 		});

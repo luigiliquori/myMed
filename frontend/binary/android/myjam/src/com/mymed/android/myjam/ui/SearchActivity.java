@@ -216,9 +216,9 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
         	try {
         		ContentResolver resolver = getContentResolver();
         		Cursor cursor = mAdapter.getCursor();
-        		if (cursor.moveToFirst() && mService!=null && mService.ismLocAvailable()){
+        		Location currLoc;
+        		if (cursor.moveToFirst() && mService!=null && (currLoc = mService.getCurrentLocation())!=null){
         			ArrayList<ContentProviderOperation> batch = new ArrayList<ContentProviderOperation> (cursor.getCount());
-        			Location currLoc = mService.getCurrentLocation();
         			while (!cursor.isClosed() && !cursor.isAfterLast()){
         				String reportId = cursor.getString(SearchReportsQuery.REPORT_ID);
         				double dist = GeoUtils.getGCDistance(GeoUtils.toGeoPoint(currLoc),
@@ -232,14 +232,14 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 						resolver.applyBatch(MyJamContract.CONTENT_AUTHORITY, batch);
 						resolver.notifyChange(SearchReports.buildSearchUri(String.valueOf(mSearchId)), null);
         		}
-        		long nextSearchTime = DISTANCE_UPDATE_TIME;//TODO Fix this.
-        		mRefreshDistanceHandler.postDelayed(mRefreshDistanceRunnable, nextSearchTime);
+        		long nextUpdateDistanceTime = DISTANCE_UPDATE_TIME;//TODO Fix this.
+        		mRefreshDistanceHandler.postDelayed(mRefreshDistanceRunnable, nextUpdateDistanceTime);
         	} catch (RemoteException e) {
         		Log.e(TAG, e.getMessage()!=null?"RefreshDistanceRunnable: "+e.getMessage():"RefreshDistanceRunnable: No messages.");
         	} catch (OperationApplicationException e) {
         		Log.e(TAG, e.getMessage()!=null?"RefreshDistanceRunnable: "+e.getMessage():"RefreshDistanceRunnable: No messages.");
-//        	} catch (Exception e){
-//        		Log.e(TAG, e.getMessage()!=null?"RefreshDistanceRunnable: "+e.getMessage():"RefreshDistanceRunnable: No messages.");
+        	} catch (Exception e){
+        		Log.e(TAG, e.getMessage()!=null?"RefreshDistanceRunnable: "+e.getMessage():"RefreshDistanceRunnable: No messages.");
         	}
         }
     };
@@ -251,10 +251,10 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 				mForceSearchFlag = true;
 				postSearch();
 		}else if (v.equals(mInsertButton)){
-        	if (this.mService.ismLocAvailable()){
+			Location currLoc;
+        	if ((currLoc = this.mService.getCurrentLocation()) != null){
         		Intent intent = new Intent(this,InsertActivity.class);
-        		intent.putExtra(InsertActivity.EXTRA_INSERT_TYPE, InsertActivity.REPORT);
-        		Location currLoc = mService.getCurrentLocation();					
+        		intent.putExtra(InsertActivity.EXTRA_INSERT_TYPE, InsertActivity.REPORT);					
 				int lat = (int) (currLoc.getLatitude()*1E6);
 				int lon = (int) (currLoc.getLongitude()*1E6);
 		        Bundle bundle = new Bundle();
@@ -298,9 +298,9 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 	 */
 	private void requestSearch(int searchId){
 		final Intent intent = new Intent(SearchActivity.this, MyJamCallService.class);
+		Location currLoc;
 		
-		if (mService != null && mService.ismLocAvailable()){
-			Location currLoc = mService.getCurrentLocation();					
+		if (mService != null && (currLoc = mService.getCurrentLocation())!=null){					
 			int lat = (int) (currLoc.getLatitude()*1E6);
 			int lon = (int) (currLoc.getLongitude()*1E6);
 			int radius = Integer.parseInt(mSettings.getString(RADIUS_PREFERENCE,"10000"));
@@ -359,7 +359,7 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 		getContentResolver().registerContentObserver(
 				uri,false, mSearchChangesObserver);
 		//TODO Enable or disable search button.
-		if (mService!=null && mService.ismLocAvailable()){
+		if (mService!=null && mService.getCurrentLocation()!=null){
 				handleSearchButton(true);
 				postSearch();
 		}
@@ -414,7 +414,7 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 
 	@Override
 	protected void onLocServiceConnected() {
-		if (!this.mService.ismLocAvailable())
+		if (mService.getCurrentLocation() == null)
 			handleSearchButton(false);
 	}
 

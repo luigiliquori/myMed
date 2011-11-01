@@ -24,6 +24,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -184,7 +185,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 		/** Updates the details informations. */
 		refreshDetailsView();
 		mMessageQueueHandler.post(mRefreshRunnable);
-		/** The content observer trigger the refresh*/
+		/** The content observer triggers the refresh*/
 		getContentResolver().registerContentObserver(
                 Update.CONTENT_URI, false, mUpdatesChangesObserver);
 		getContentResolver().registerContentObserver(
@@ -730,7 +731,8 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 			TextView valueTextView = (TextView) view.findViewById(R.id.textViewDetailValue);
 			nameTextView.setText(getResources().getText(R.string.distance_label));
 			
-			dist = (mService !=null && mService.ismLocAvailable())?(int) GeoUtils.getGCDistance(GeoUtils.toGeoPoint(mService.getCurrentLocation()),
+			Location currLoc;
+			dist = (mService !=null && (currLoc = mService.getCurrentLocation())!=null)?(int) GeoUtils.getGCDistance(GeoUtils.toGeoPoint(currLoc),
 					new GeoPoint(mReportCursor.getInt(ReportQuery.LATITUDE),mReportCursor.getInt(ReportQuery.LONGITUDE))):-1;
 			// If the user location is available shows the distance, if not shows '-'.
 			valueTextView.setText(dist==-1? "-":

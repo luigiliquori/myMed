@@ -51,21 +51,21 @@
         	android:layout_width="0dp" 
         	android:layout_height="wrap_content"
         	android:layout_weight="1"
-        	android:drawableTop="@android:drawable/ic_menu_add"
+        	android:drawableTop="@drawable/ic_menu_add"
         	android:text="Insert Report"/>
         <Button android:id="@+id/buttonSearch"
         	style="@style/ImageButton" 
         	android:layout_width="0dp" 
         	android:layout_height="wrap_content"
         	android:layout_weight="1"
-        	android:drawableTop="@android:drawable/ic_menu_search"
+        	android:drawableTop="@drawable/ic_menu_search"
         	android:text="Search"/>        
         <Button android:id="@+id/buttonViewOnMap"
         	style="@style/ImageButton"
         	android:layout_width="0dp" 
         	android:layout_height="wrap_content"
         	android:layout_weight="1"        	
-        	android:drawableTop="@android:drawable/ic_menu_mapmode"
+        	android:drawableTop="@drawable/ic_menu_mapmode"
         	android:text="View On Map"/>
   	</LinearLayout>
 </LinearLayout>

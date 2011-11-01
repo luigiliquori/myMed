@@ -102,7 +102,7 @@ public class HilbertQuad {
 		Math.toDegrees(Location.MAX_LAT)};
 	protected static double[] longitudeRange = new double[]{Math.toDegrees(Location.MIN_LON),
 		Math.toDegrees(Location.MAX_LON)};
-	public static final short maxLevel=24; // There are maxLevel levels in the range (0..maxLevel-1)
+	public static final short maxLevel=26; // There are maxLevel levels in the range (0..maxLevel-1)
 	public static final int numBits=maxLevel*2-1;
 	
 	protected HilbertQuad(long index,short level,double fLat,double fLon,double cLat,double cLon,

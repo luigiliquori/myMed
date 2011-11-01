@@ -28,8 +28,6 @@ public class GlobalStateAndUtils {
 	/** Code for the user position 
 	 * Must not overlap the report types, used to show results in map. */
 	public static final int USER_POSITION = 0x10;
-	/** Max value for a feedback */
-	public static final int MAX_RATING = 10;
 	/** Max distance between the user and a report for the insertion of an update or a feeback.*/
 	public static final int MAX_INSERTION_DISTANCE = 2000;
 	/**

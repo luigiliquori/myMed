@@ -25,8 +25,8 @@ import junit.framework.TestCase;
 public class MyJamCallTest extends TestCase {
 	private MyJamCallManager restCall;
 	public static double earthRadius = 6371.01d*1E3;
-	private final static double centerLat = 44.0;
-	private final static double centerLon = 7.01;
+	private final static double centerLat = 45.15;
+	private final static double centerLon = 7.5;
 	private final static double degreeRange = 2.0;
 	private final static int meterRange = 50000;
 	private List<MyJamId> reportsInRange;
@@ -70,7 +70,7 @@ public class MyJamCallTest extends TestCase {
 			e.printStackTrace();
 		}
         
-        for (int i=0;i<100;i++){
+        for (int i=0;i<10000;i++){
         	double lat = rand.nextDouble()*degreeRange +(centerLat-degreeRange/2); 
         	double lon = rand.nextDouble()*degreeRange +(centerLon-degreeRange/2);
         	try {
