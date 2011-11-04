@@ -9,8 +9,8 @@ package com.mymed.android.myjam;
 
 public final class R {
     public static final class array {
-        public static final int filter_list_preference=0x7f050004;
-        public static final int filtervalues_list_preference=0x7f050005;
+        public static final int filter_list_preference=0x7f050006;
+        public static final int filtervalues_list_preference=0x7f050007;
         /**  Used in SearchActivity preferences 
          */
         public static final int radius_list_preference=0x7f050000;
@@ -19,19 +19,25 @@ public final class R {
         public static final int radiusvalues_list_preference=0x7f050001;
         /**  Used in InsertActivity preferences 
          */
-        public static final int report_type_list=0x7f050007;
-        public static final int report_typevalues_list=0x7f050008;
+        public static final int report_type_list=0x7f050009;
+        public static final int report_typevalues_list=0x7f05000a;
         /**  Used in SearchActivity preferences 
          */
         public static final int search_rate_list_preference=0x7f050002;
         /**  Used in SearchActivity preferences 
          */
         public static final int search_ratevalues_list_preference=0x7f050003;
-        public static final int traffic_flow_list=0x7f050009;
-        public static final int traffic_flowvalues_list=0x7f05000a;
+        /**  Used in SearchActivity preferences 
+         */
+        public static final int sync_rate_list_preference=0x7f050004;
+        /**  Used in SearchActivity preferences 
+         */
+        public static final int sync_ratevalues_list_preference=0x7f050005;
+        public static final int traffic_flow_list=0x7f05000b;
+        public static final int traffic_flowvalues_list=0x7f05000c;
         /**  Used in ReportDetailsActivity to format the ProgressDialog text 
          */
-        public static final int type_obj=0x7f050006;
+        public static final int type_obj=0x7f050008;
     }
     public static final class attr {
     }
@@ -92,8 +98,8 @@ public final class R {
         public static final int feedbacks_indicator=0x7f0b0017;
         public static final int imageAddNegFeedback=0x7f0b0020;
         public static final int imageAddPosFeedback=0x7f0b001d;
-        public static final int imageButtonNext=0x7f0b0009;
-        public static final int imageButtonPrevious=0x7f0b0008;
+        public static final int imageButtonNext=0x7f0b0008;
+        public static final int imageButtonPrevious=0x7f0b0009;
         public static final int imageViewConfirm=0x7f0b001c;
         public static final int imageViewDeny=0x7f0b001f;
         public static final int imageViewSearchIcon=0x7f0b002a;
@@ -190,9 +196,10 @@ public final class R {
         public static final int dialog_not_in_range_text=0x7f070045;
         public static final int dialog_report_unavailable_text=0x7f070043;
         public static final int dialog_title=0x7f070007;
-        public static final int dialog_title_search_preference=0x7f070056;
-        public static final int dialog_title_search_rate_preference=0x7f07005c;
-        public static final int dialog_title_type_filter_preference=0x7f070059;
+        public static final int dialog_title_search_preference=0x7f070057;
+        public static final int dialog_title_search_rate_preference=0x7f07005d;
+        public static final int dialog_title_sync_preference=0x7f070062;
+        public static final int dialog_title_type_filter_preference=0x7f07005a;
         public static final int distance_label=0x7f070021;
         public static final int empty_login_msg=0x7f070013;
         public static final int empty_pwd_msg=0x7f070014;
@@ -254,6 +261,7 @@ public final class R {
  ============================ 
          */
         public static final int report_detail_title=0x7f070036;
+        public static final int report_details_preferences=0x7f070054;
         public static final int report_string=0x7f070004;
         public static final int report_type=0x7f07003d;
         public static final int report_type_choose=0x7f070024;
@@ -269,15 +277,17 @@ public final class R {
         public static final int search_start=0x7f070035;
         public static final int searching_reports_msg=0x7f070017;
         public static final int sign_in_link=0x7f070015;
-        public static final int summary_navigation_preference=0x7f07005e;
-        public static final int summary_radius_preference=0x7f070055;
-        public static final int summary_search_rate_preference=0x7f07005b;
-        public static final int summary_type_filter_preference=0x7f070058;
+        public static final int summary_navigation_preference=0x7f07005f;
+        public static final int summary_radius_preference=0x7f070056;
+        public static final int summary_search_rate_preference=0x7f07005c;
+        public static final int summary_sync_preference=0x7f070061;
+        public static final int summary_type_filter_preference=0x7f070059;
         public static final int sync_msg=0x7f070037;
-        public static final int title_navigation_preference=0x7f07005d;
-        public static final int title_radius_preference=0x7f070054;
-        public static final int title_search_rate_preference=0x7f07005a;
-        public static final int title_type_filter_preference=0x7f070057;
+        public static final int title_navigation_preference=0x7f07005e;
+        public static final int title_radius_preference=0x7f070055;
+        public static final int title_search_rate_preference=0x7f07005b;
+        public static final int title_sync_preference=0x7f070060;
+        public static final int title_type_filter_preference=0x7f070058;
         /**  ============================ 
   	SearchReport  strings  	  
  ============================ 

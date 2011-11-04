@@ -12,12 +12,14 @@ import com.mymed.android.myjam.exception.InternalBackEndException;
 import com.mymed.android.myjam.exception.InternalClientException;
 import com.mymed.android.myjam.provider.MyJamContract;
 import com.mymed.android.myjam.provider.MyJamContract.Feedback;
+import com.mymed.android.myjam.provider.MyJamContract.FeedbacksRequest;
 import com.mymed.android.myjam.provider.MyJamContract.Login;
 import com.mymed.android.myjam.provider.MyJamContract.Report;
 import com.mymed.android.myjam.provider.MyJamContract.Search;
 import com.mymed.android.myjam.provider.MyJamContract.SearchReports;
 import com.mymed.android.myjam.provider.MyJamContract.SearchResult;
 import com.mymed.android.myjam.provider.MyJamContract.Update;
+import com.mymed.android.myjam.provider.MyJamContract.UpdatesRequest;
 import com.mymed.android.myjam.provider.MyJamContract.User;
 import com.mymed.model.data.myjam.MFeedBackBean;
 import com.mymed.model.data.myjam.MReportBean;
@@ -48,6 +50,9 @@ public class MyJamCallService extends IntentService{
     
     public static final String EXTRA_REQUEST_CODE =
             "com.mymed.android.myjam.extra.REQUEST_CODE";
+    
+    public static final String EXTRA_UPDATE_ID =
+            "com.mymed.android.myjam.extra.UPDATE_ID";
     
     public static final String EXTRA_ATTRIBUTES =
             "com.mymed.android.myjam.extra.ATTRIBUTES";
@@ -101,12 +106,18 @@ public class MyJamCallService extends IntentService{
 	protected void onHandleIntent(Intent intent) {
 		final ResultReceiver receiver = intent.getParcelableExtra(EXTRA_STATUS_RECEIVER);
         
-		int reqCode = intent.getIntExtra(EXTRA_REQUEST_CODE, 0);
+		final Bundle contBundle = intent.getBundleExtra(EXTRA_ATTRIBUTES);
+		final int reqCode = intent.getIntExtra(EXTRA_REQUEST_CODE, 0);
+		/** Contains a value only if request is one among: GET_REPORT_FEEDBACKS, GET_UPDATE_FEEDBACKS, GET_UPDATES */
+		final String reportOrUpdateId = contBundle.getString(ICallAttributes.REPORT_ID);
+		/** Contains a value only if request is SEARCH_REPORTS */
+		final int searchId = contBundle.getInt(ICallAttributes.SEARCH_ID);
         final Bundle bundle = new Bundle();
         bundle.putInt(EXTRA_REQUEST_CODE, reqCode);
-		if (receiver != null) receiver.send(STATUS_RUNNING, bundle);
+        
+ 		if (receiver != null) receiver.send(STATUS_RUNNING, bundle);
         try {
-        	Bundle contBundle = intent.getBundleExtra(EXTRA_ATTRIBUTES);
+        	ContentValues currVal;
         	switch (reqCode){
         	case (RequestCode.LOG_IN):
         		logIn(contBundle);
@@ -116,16 +127,34 @@ public class MyJamCallService extends IntentService{
         		logOut(contBundle,reqCode);
         		break;
         	case (RequestCode.SEARCH_REPORTS):
+        		/** Set a flag indicating that the request is running */
+        		currVal = new ContentValues();
+    			currVal.put(Search.SEARCHING, true);	// The search operation is ongoing.
+    			getContentResolver().update(Search.CONTENT_URI, currVal, 
+    					Search.SEARCH_ID_SELECTION, new String[]{String.valueOf(searchId)});
         		search(contBundle);
 				break;
         	case (RequestCode.GET_REPORT):
         		getReport(contBundle);
         		break;
         	case (RequestCode.GET_UPDATES):
+        		/** Set a flag indicating that the request is running */
+    			currVal = new ContentValues();
+    			currVal.put(FeedbacksRequest.REPORT_ID, reportOrUpdateId);
+    			currVal.put(FeedbacksRequest.UPDATING, true);
+    			currVal.put(FeedbacksRequest.LAST_UPDATE, System.currentTimeMillis());
+        		getContentResolver().insert(UpdatesRequest.CONTENT_URI, currVal);
         		getUpdates(contBundle);
         		break;
         	case (RequestCode.GET_REPORT_FEEDBACKS):
         	case (RequestCode.GET_UPDATE_FEEDBACKS):
+        		/** Set a flag indicating that the request is running */
+        		currVal = new ContentValues();
+				currVal.put(reqCode==RequestCode.GET_REPORT_FEEDBACKS?UpdatesRequest.REPORT_ID:
+					UpdatesRequest.UPDATE_ID, reportOrUpdateId);
+				currVal.put(UpdatesRequest.UPDATING, true);
+				currVal.put(UpdatesRequest.LAST_UPDATE, System.currentTimeMillis());
+				getContentResolver().insert(FeedbacksRequest.CONTENT_URI, currVal);
         		getFeedbacks(contBundle,reqCode);
         		break;
         	case (RequestCode.INSERT_REPORT):
@@ -148,6 +177,29 @@ public class MyJamCallService extends IntentService{
 		} catch (Exception e) {
             bundle.putString(Intent.EXTRA_TEXT, e.getMessage());
 			if (receiver != null) receiver.send(STATUS_ERROR, bundle);
+		} finally {
+			/** Reset synchronization flag */
+			if ((reqCode == RequestCode.SEARCH_REPORTS)){
+        		ContentValues currVal = new ContentValues();
+				currVal.put(Search.SEARCHING, false);	// The Updates are no more under update.
+				getContentResolver().update(Search.CONTENT_URI, currVal, 
+						Search.SEARCH_ID_SELECTION, new String[]{String.valueOf(searchId)});
+
+			}
+			if ((reqCode == RequestCode.GET_REPORT_FEEDBACKS) || (reqCode == RequestCode.GET_UPDATE_FEEDBACKS)){
+				ContentValues currVal = new ContentValues();
+				currVal.put(FeedbacksRequest.UPDATING, false);
+				getContentResolver().update(FeedbacksRequest.CONTENT_URI, currVal, 
+						reqCode == RequestCode.GET_REPORT_FEEDBACKS?FeedbacksRequest.REPORT_SELECTION:
+							FeedbacksRequest.UPDATE_SELECTION, new String[]{reportOrUpdateId});
+			}
+			if ((reqCode == RequestCode.GET_UPDATES)){
+        		ContentValues currVal = new ContentValues();
+				currVal.put(UpdatesRequest.UPDATING, false);	// The Updates are no more under update.
+				getContentResolver().update(UpdatesRequest.CONTENT_URI, currVal, 
+						UpdatesRequest.REPORT_SELECTION, new String[]{reportOrUpdateId});
+
+			}
 		}
 		
 	}
@@ -265,6 +317,7 @@ public class MyJamCallService extends IntentService{
 			currVal.put(Search.LATITUDE, bundle.getInt(ICallAttributes.LATITUDE));
 			currVal.put(Search.LONGITUDE, bundle.getInt(ICallAttributes.LONGITUDE));
 			currVal.put(Search.RADIUS, bundle.getInt(ICallAttributes.RADIUS));
+			currVal.put(Search.SEARCHING, false);
 			batch.add(ContentProviderOperation.newInsert(Search.CONTENT_URI).withValues(currVal).build());
 			for (MSearchReportBean currShortRep:listSearchRep){
 				currVal = new ContentValues();
@@ -346,8 +399,7 @@ public class MyJamCallService extends IntentService{
 			batch.add(ContentProviderOperation.newInsert(Feedback.CONTENT_URI).withValues(currVal).build());
 		}
 		resolver.applyBatch(MyJamContract.CONTENT_AUTHORITY, batch);
-		if (listFeedBacks.size()>0)
-			resolver.notifyChange(reqCode==RequestCode.GET_REPORT_FEEDBACKS?
+		resolver.notifyChange(reqCode==RequestCode.GET_REPORT_FEEDBACKS?
 					Feedback.buildReportIdUri(null):
 						Feedback.buildUpdateIdUri(null), null);
 	}

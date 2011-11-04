@@ -51,7 +51,7 @@ public abstract class MyJamTypes{
 		public String toString(){
 			String tmp = this.name();
 			tmp=tmp.replace("_", " ");
-			return tmp.toLowerCase();
+			return tmp.charAt(0)+tmp.substring(1).toLowerCase();
 		}
 	}
 	

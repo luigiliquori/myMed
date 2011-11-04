@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -157,7 +158,8 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 	public void onResume(){
 		super.onResume();
 		mResultReceiver.setReceiver(this);
-		updateRefreshStatus(mResultReceiver.ismSyncing(),"");
+		if (!mResultReceiver.ismSyncing())
+			updateRefreshStatus(false,"");
 	}
 
 	/**
@@ -175,12 +177,16 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 			
 			int i = 0;
 			LayoutInflater inflater = getLayoutInflater();
+			boolean isFirst = true;
 			for (CharSequence trafficFlowVal:getResources().getTextArray(R.array.traffic_flow_list)){
-				RadioButton radioButton = (RadioButton) inflater.inflate(R.layout.radio_button_item,null);
-				radioButton.setText(trafficFlowVal);
-				radioButton.setClickable(true);
-				radioButton.setId(i++);
-				mTrafficFlowRadioGroup.addView(radioButton);
+				if (!(insertionType == REPORT && isFirst)){ //If it is a report the first value corresponding to ``NORMAL'' is skipped.
+					RadioButton radioButton = (RadioButton) inflater.inflate(R.layout.radio_button_item,null);
+					radioButton.setText(trafficFlowVal);
+					radioButton.setClickable(true);
+					radioButton.setId(i++);
+					mTrafficFlowRadioGroup.addView(radioButton);
+				}
+				isFirst = false;
 			}
 			mTrafficFlowRadioGroup.check(0);
 			mTrafficFlowRadioGroup.setVisibility(View.VISIBLE);
@@ -397,6 +403,15 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 		if (refreshing){
 			mDialog = ProgressDialog.show(this, "", 
 					message, true);
+		 	mDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+				@Override
+				public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+					if (keyCode == KeyEvent.KEYCODE_SEARCH && event.getRepeatCount() == 0) {
+						return true; // Pretend we processed it
+					}
+					return false; // Any other keys are still processed as normal
+				}
+		 	});
 		}else{
 			if (mDialog != null)
 				mDialog.dismiss();

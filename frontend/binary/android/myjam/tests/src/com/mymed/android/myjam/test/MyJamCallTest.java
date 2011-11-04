@@ -70,7 +70,7 @@ public class MyJamCallTest extends TestCase {
 			e.printStackTrace();
 		}
         
-        for (int i=0;i<10000;i++){
+        for (int i=0;i<100;i++){
         	double lat = rand.nextDouble()*degreeRange +(centerLat-degreeRange/2); 
         	double lon = rand.nextDouble()*degreeRange +(centerLon-degreeRange/2);
         	try {
@@ -292,7 +292,7 @@ public class MyJamCallTest extends TestCase {
     
     private MReportBean generateReport(Random rand){
     	MReportBean currRep = new MReportBean();
-    	ReportType repT = ReportType.values()[rand.nextInt(ReportType.values().length)];
+    	ReportType repT = ReportType.values()[rand.nextInt(ReportType.values().length-1)];
     	currRep.setReportType(repT.name());
     	switch (repT){
     	case CAR_CRASH:

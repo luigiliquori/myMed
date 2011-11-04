@@ -26,6 +26,9 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -69,6 +72,12 @@ public class HTTPCall{
 	protected String httpRequest(String uriString,httpMethod method,String JSonObj)  
 			throws InternalBackEndException, IOBackEndException, InternalClientException{
 		HttpClient httpclient = new DefaultHttpClient();
+		final HttpParams httpParams = new BasicHttpParams();
+		/** Sets a timeout until a request is established. */
+		HttpConnectionParams.setConnectionTimeout(httpParams, 10000);
+		/** Sets a timeout for waiting for data. */
+		HttpConnectionParams.setSoTimeout(httpParams, 5000);
+		
 		HttpUriRequest request; 
 		try{
 			URI uri = new URI(uriString);
@@ -92,6 +101,7 @@ public class HTTPCall{
 			default:
 				request = new HttpGet(uri);
 			} 
+			request.setParams(httpParams);
 			Log.i("REQUEST : ", ""+request.getURI());
 			HttpResponse response = httpclient.execute(request);
 			HttpEntity entity = response.getEntity();

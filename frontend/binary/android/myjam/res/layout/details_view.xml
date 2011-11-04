@@ -25,13 +25,13 @@
     		android:layout_width="match_parent" 
     		android:layout_height="wrap_content" 
     		android:orientation="horizontal">
-       		<ImageButton	android:id="@+id/imageButtonPrevious"
+       		<ImageButton	android:id="@+id/imageButtonNext"
         					android:layout_weight="1"
         					android:layout_width="0px"
         					android:layout_height="40dp"  
         					android:src="@drawable/ic_menu_back">
         	</ImageButton>
-        	<ImageButton	android:id="@+id/imageButtonNext"
+        	<ImageButton	android:id="@+id/imageButtonPrevious"
         					android:layout_weight="1"
         					android:layout_width="0px" 
         					android:layout_height="40dp"  

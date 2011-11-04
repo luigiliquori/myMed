@@ -19,17 +19,18 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -41,6 +42,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mymed.model.data.myjam.MFeedBackBean;
+import com.mymed.model.data.myjam.MyJamTypes.ReportType;
 import com.mymed.utils.GeoUtils;
 import com.mymed.utils.GlobalStateAndUtils;
 import com.mymed.utils.NotifyingAsyncQueryHandler;
@@ -57,15 +59,15 @@ public class ReportDetailsActivity extends AbstractLocatedActivity implements
 NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.OnClickListener{
 	private static final String TAG = "ReportDetailsActivity";
 	
+	/** String used to access the set radius preference */
+	private static final String SYNC_RATE_PREFERENCE = "sync_rate_preference";
+	
 	private static final int REPORT = 0x0;
 	private static final int UPDATE = 0x1;
 	
 	/** Feedbacks values */
 	private static final int DENY = 0x0;
 	private static final int CONFIRM = 0x1;
-	
-	private static final int TWO_MINUTES = 120000;
-	private static final int ONE_MINUTE = 60000;
 	
 	private static final int DIALOG_REPORT_UNAVAILABLE_ID = 0x0;
 	private static final int DIALOG_LOC_UNAVAILABLE_ID = 0x1;
@@ -86,7 +88,8 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 	private ImageButton mPreviousButton;
 	private TextView 	mUpdateIndexTextView;
 	private Button 	mInsertButton,
-					mMapButton; 
+					mMapButton,
+					mSyncButton; 
 	private View 	mFeedbacksView,
 					mButtonsView,
 					mAddPositiveFeedback,
@@ -103,12 +106,17 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
     private String mReportId; /** The Id of the currently pointed report. */
     private String mUpdateId; /** The Id of the currently pointed update. */
     
+	/** Flag used to force a refresh even if the time elapsed wouldn't be sufficient.*/
+	private boolean mForceRefreshFlag = false;
+	
+	private SharedPreferences mSettings;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.details_view);
 		
+		mSettings = PreferenceManager.getDefaultSharedPreferences(this);
 		mUtils = GlobalStateAndUtils.getInstance(getApplicationContext());
 		mResultReceiver = MyResultReceiver.getInstance();
 		mHandler = new NotifyingAsyncQueryHandler(ReportDetailsActivity.this
@@ -129,6 +137,8 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 		mMapButton.setOnClickListener(this);
 		mInsertButton = (Button) findViewById(R.id.buttonInsertUpdate);
 		mInsertButton.setOnClickListener(this);
+		mSyncButton = (Button) findViewById(R.id.buttonSync);
+		mSyncButton.setOnClickListener(this);
 		mUpdateIndexTextView = (TextView) findViewById(R.id.textViewIndex);
 		/** Prepares the feedback views */
 		mFeedbacksView  = (View) findViewById(R.id.feedbacks_indicator);
@@ -173,6 +183,8 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 		if (mReportCursor.moveToFirst()){
 			if (mReportCursor.getInt(ReportQuery.FLAG_COMPLETE)==0)	
 				requestReport();
+			if (mReportCursor.getString(ReportQuery.REPORT_TYPE).equals(ReportType.FIXED_SPEED_CAM.name()))
+				mInsertButton.setEnabled(false);
 		}
 		/** This query is not asynchronous because before retrieving the updates, we want to know how many Updates are presents in the db*/
 		mUpdatesCursor = getContentResolver().query(Update.buildReportIdUri(mReportId)
@@ -182,7 +194,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 				mUpdateId = mUpdatesCursor.getString(UpdateQuery.UPDATE_ID);
 			refreshButtons();
 		}
-		/** Updates the details informations. */
+		/** Update the details informations. */
 		refreshDetailsView();
 		mMessageQueueHandler.post(mRefreshRunnable);
 		/** The content observer triggers the refresh*/
@@ -195,7 +207,8 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 				Feedback.buildUpdateIdUri(null),
 					false, mUpdateFeedbacksChangesObserver);
 		
-		updateRefreshStatus(mResultReceiver.ismSyncing(),null);
+		if (!mResultReceiver.ismSyncing())
+			updateRefreshStatus(false,null);
 	}
 	
 	@Override
@@ -209,17 +222,17 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 					mUpdatesCursor.moveToNext();
 				try{
 					mUpdateId = mUpdatesCursor.getString(UpdateQuery.UPDATE_ID);
-					requestFeedbacks(UPDATE,mUpdateId);
+					requestFeedbacks(UPDATE,mUpdateId,false);
 				}catch(Exception e){
 					mUpdateId = null;
-					requestFeedbacks(REPORT,mReportId);
+					requestFeedbacks(REPORT,mReportId,false);
 				}
 				refreshButtons();
 				refreshDetailsView();
 			}
 		}else if (v.equals(mMapButton)){
         	if (mReportId != null){
-		        Intent intent = new Intent(ReportDetailsActivity.this,ShowOnMapActivity.class);
+		        Intent intent = new Intent(ReportDetailsActivity.this,ViewOnMapActivity.class);
 		        Uri uri = Report.buildReportIdUri(mReportId);
 		        intent.setData(uri);   	
 		        startActivity(intent);
@@ -233,6 +246,10 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
             	startActivity(intent);
         	}else
         		Log.e(TAG, "mReportId not set or checkInsert failed");
+		}else if(v.equals(mSyncButton)){
+			mForceRefreshFlag = true;
+			mMessageQueueHandler.removeCallbacks(mRefreshRunnable);
+			mMessageQueueHandler.post(mRefreshRunnable);
 		}else if(v.equals(mAddPositiveFeedback) && checkFeedbackInsert() && checkInsert())
 			//TODO
 			insertFeedback(mReportId,mUpdateId,CONFIRM);
@@ -243,34 +260,13 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 	
     private Runnable mRefreshRunnable = new Runnable() {
         public void run() {
-        	ContentResolver contentResolver = getContentResolver();
-        	
-        	if (mUpdatesCursor!=null){
-        		String[] args = new String[] {String.valueOf(System.currentTimeMillis()-TWO_MINUTES)};
-            	Cursor cursor  = contentResolver.query(Uri.withAppendedPath(UpdatesRequest.CONTENT_URI, mReportId)
-        				, demandQueryProjection, UpdatesRequest.REFRESH_SELECTION, 
-        				args,null);
-            	startManagingCursor(cursor);
-            	if (!cursor.moveToFirst()){
-               		/** Insert the update entry. */
-            		ContentValues currVal = new ContentValues();
-    				currVal.put(UpdatesRequest.REPORT_ID, mReportId);
-    				currVal.put(UpdatesRequest.UPDATING, 1);
-    				currVal.put(UpdatesRequest.LAST_UPDATE, System.currentTimeMillis());
-            		contentResolver.insert(UpdatesRequest.CONTENT_URI, currVal);
-                	/** Performs a request to receive the updates. */
-                	requestUpdate();
-            	}
-        	}else{
-        		Log.d(TAG, "Updates cursor not initialized.");
-        	}
+        	requestUpdates(mForceRefreshFlag);
     	    if (mUpdateId!=null)
-    	    	requestFeedbacks(UPDATE,mUpdateId);
+    	    	requestFeedbacks(UPDATE,mUpdateId,mForceRefreshFlag);
     	    else
-    	    	requestFeedbacks(REPORT,mReportId);
-            // The runnable starts again after 5 minutes
-            long nextFiveMinutes = SystemClock.uptimeMillis() + TWO_MINUTES; //TODO Use a setting. 
-            mMessageQueueHandler.postAtTime(mRefreshRunnable, nextFiveMinutes);
+    	    	requestFeedbacks(REPORT,mReportId,mForceRefreshFlag);
+    	    mForceRefreshFlag = false;
+            mMessageQueueHandler.postDelayed(mRefreshRunnable, Integer.parseInt(mSettings.getString(SYNC_RATE_PREFERENCE,"120000")) + 10000); //10 seconds  are added to take into account the time needed to MyJamCallService to start the request.
         }
     };
     
@@ -297,44 +293,54 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
     }
     
     /**
-     * Sends an intent to {@link MyJamCallService} requesting updates.
+     * 
+     * @param forceRefresh
      */
-    private void requestUpdate(){
+    private void requestUpdates(boolean forceRefresh){
+    	ContentResolver contentResolver = getContentResolver();
+    	
     	if (mUpdatesCursor!=null){
-        	int numUpdates = mUpdatesCursor.getCount();
-    		Intent intent = new Intent(ReportDetailsActivity.this, MyJamCallService.class);
-    	    intent.putExtra(MyJamCallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
-    	    intent.putExtra(MyJamCallService.EXTRA_REQUEST_CODE, RequestCode.GET_UPDATES);
-    	    Bundle bundle = new Bundle();
-    	    bundle.putString(ICallAttributes.REPORT_ID, mReportId);
-    	    bundle.putInt(ICallAttributes.NUM, numUpdates);
-    	    intent.putExtra(MyJamCallService.EXTRA_ATTRIBUTES, bundle);			
-    	    Log.d(TAG,"Intent sent: "+intent.toString());
-    	    startService(intent);
+    		int syncRate = Integer.parseInt(mSettings.getString(SYNC_RATE_PREFERENCE,"120000"));
+    		String[] args = new String[] {String.valueOf(System.currentTimeMillis()-syncRate)};
+        	Cursor cursor  = contentResolver.query(Uri.withAppendedPath(UpdatesRequest.CONTENT_URI, mReportId)
+    				, demandQueryProjection, UpdatesRequest.REFRESH_SELECTION, 
+    				args,null);
+        	startManagingCursor(cursor);
+        	if (!cursor.moveToFirst() || forceRefresh){
+            	/** Performs a request to receive the updates. */
+            	int numUpdates = mUpdatesCursor.getCount();
+        		Intent intent = new Intent(ReportDetailsActivity.this, MyJamCallService.class);
+        	    intent.putExtra(MyJamCallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
+        	    intent.putExtra(MyJamCallService.EXTRA_REQUEST_CODE, RequestCode.GET_UPDATES);
+        	    Bundle bundle = new Bundle();
+        	    bundle.putString(ICallAttributes.REPORT_ID, mReportId);
+        	    bundle.putInt(ICallAttributes.NUM, numUpdates);
+        	    intent.putExtra(MyJamCallService.EXTRA_ATTRIBUTES, bundle);			
+        	    Log.d(TAG,"Intent sent: "+intent.toString());
+        	    startService(intent);
+        	}
+    	}else{
+    		Log.d(TAG, "Updates cursor not initialized.");
     	}
     }
     
     /**
-     * Sends an intent requesting feedbacks related to the current report or update.
-     * @param code	To specify if the feedbacks are related to {@value REPORT} or {@value UPDATE}
-     * @param reportOrUpdateId
+     * Dispatch a request to synchronize the feedbacks either of the report, or one of its updates to the {@link CallService}. 
+     * @param code	To distinguish between reports and feedbacks.
+     * @param reportOrUpdateId The identifier either of the report or update.
+     * @param forceRefresh Force the request even if the elapsed time is not sufficient.
      */
-    private void requestFeedbacks(int code,String reportOrUpdateId){
+    private void requestFeedbacks(int code ,String reportOrUpdateId ,boolean forceRefresh){
     	ContentResolver contentResolver = getContentResolver();
     	
-    	String[] args = new String[] {String.valueOf(System.currentTimeMillis()-ONE_MINUTE)};
+    	int syncRate = Integer.parseInt(mSettings.getString(SYNC_RATE_PREFERENCE,"120000"));
+    	String[] args = new String[] {String.valueOf(System.currentTimeMillis()-syncRate)};
     	Cursor cursor  = contentResolver.query( 
     			code==REPORT?FeedbacksRequest.buildReportIdUri(reportOrUpdateId):
     				FeedbacksRequest.buildUpdateIdUri(reportOrUpdateId)
 				, demandQueryProjection, FeedbacksRequest.REFRESH_SELECTION, 
 				args,null);
-    	if (!cursor.moveToFirst()){
-       		/** Insert the update entry. */
-    		ContentValues currVal = new ContentValues();
-			currVal.put(code==REPORT?FeedbacksRequest.REPORT_ID:FeedbacksRequest.UPDATE_ID, reportOrUpdateId);
-			currVal.put(FeedbacksRequest.UPDATING, true);
-			currVal.put(FeedbacksRequest.LAST_UPDATE, System.currentTimeMillis());
-    		contentResolver.insert(FeedbacksRequest.CONTENT_URI, currVal);
+    	if (!cursor.moveToFirst() || forceRefresh){
         	/** Performs a request to receive the updates. */
     		Intent intent = new Intent(ReportDetailsActivity.this, MyJamCallService.class);
             intent.putExtra(MyJamCallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
@@ -344,9 +350,9 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
             intent.putExtra(MyJamCallService.EXTRA_ATTRIBUTES, bundle);			
             Log.d(TAG,"Intent sent: "+intent.toString());
             startService(intent);
-    	}
+    	}else
+    		refreshFeedbacks(code);
     	cursor.close();
-    	refreshFeedbacks(code);
     }
     
     private ContentObserver mUpdatesChangesObserver = new ContentObserver(new Handler()) {
@@ -370,9 +376,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
     private ContentObserver mUpdateFeedbacksChangesObserver = new ContentObserver(new Handler()) {
         @Override
         public void onChange(boolean selfChange) {
-            if (mHandler != null) {
             	refreshFeedbacks(UPDATE);
-            }
         }
     };
 	
@@ -424,28 +428,6 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 				 */
 			case MyJamCallService.STATUS_FINISHED:
 				mSyncing = false;
-				if (reqCode == RequestCode.GET_UPDATES){
-               		/** Insert the update entry. */
-            		ContentValues currVal = new ContentValues();
-    				currVal.put(UpdatesRequest.REPORT_ID, mReportId);
-    				currVal.put(UpdatesRequest.UPDATING, 0);	// The Updates are no more under update.
-    				currVal.put(UpdatesRequest.LAST_UPDATE, System.currentTimeMillis());
-            		getContentResolver().insert(UpdatesRequest.CONTENT_URI, currVal);
-				} else if (reqCode == RequestCode.GET_REPORT_FEEDBACKS){
-              		/** Insert the update entry. */
-            		ContentValues currVal = new ContentValues();
-    				currVal.put(FeedbacksRequest.REPORT_ID, mReportId);
-    				currVal.put(FeedbacksRequest.UPDATING, 0);	// The Updates are no more under update.
-    				currVal.put(FeedbacksRequest.LAST_UPDATE, System.currentTimeMillis());
-            		getContentResolver().insert(FeedbacksRequest.CONTENT_URI, currVal);
-				} else if (reqCode == RequestCode.GET_UPDATE_FEEDBACKS){
-					/** Insert the update entry. */
-            		ContentValues currVal = new ContentValues();
-    				currVal.put(FeedbacksRequest.UPDATE_ID, mUpdateId);
-    				currVal.put(FeedbacksRequest.UPDATING, 0);	// The Updates are no more under update.
-    				currVal.put(FeedbacksRequest.LAST_UPDATE, System.currentTimeMillis());
-            		getContentResolver().insert(FeedbacksRequest.CONTENT_URI, currVal);
-				}
 				if  (resultCode == MyJamCallService.STATUS_FINISHED){
 					//Toast.makeText(this, getResources().getString(R.string.reception_finished),Toast.LENGTH_LONG).show();
 					/** Once is received the report never changes, then is not used a content observer, but the query is triggered here.  */
@@ -468,6 +450,15 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
         		message = String.format(getResources().getString(R.string.sync_msg, ""));
         	mDialog = ProgressDialog.show(this, "", 
 					message, true);
+         	mDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+				@Override
+				public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+					if (keyCode == KeyEvent.KEYCODE_SEARCH && event.getRepeatCount() == 0) {
+						return true; // Pretend we processed it
+					}
+					return false; // Any other keys are still processed as normal
+				}
+         	});
         }else{
 			if (mDialog != null)
 				mDialog.dismiss();
@@ -477,7 +468,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 
 	@Override
 	protected void onLocServiceConnected() {
-		mMessageQueueHandler.postDelayed(mRefreshDistance, 2000);
+		mMessageQueueHandler.postDelayed(mRefreshDistance, 5000); //Refresh the distance every 5 seconds.
 	}
 
 	@Override
@@ -532,7 +523,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 		if (mUpdatesCursor!=null){
 			if (mUpdatesCursor.moveToFirst()){
 				mUpdateId = mUpdatesCursor.getString(UpdateQuery.UPDATE_ID);
-				requestFeedbacks(UPDATE,mUpdateId);
+				requestFeedbacks(UPDATE,mUpdateId,false);
 				refreshDetailsView();
 			}else 
 				mUpdateId = null;			

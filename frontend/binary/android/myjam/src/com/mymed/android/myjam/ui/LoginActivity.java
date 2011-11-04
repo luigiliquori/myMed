@@ -13,6 +13,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -117,6 +118,9 @@ public class LoginActivity extends Activity implements MyResultReceiver.Receiver
 		super.onResume();
 		
 		mResultReceiver.setReceiver(this);
+		
+		if (!mResultReceiver.ismSyncing())
+			updateRefreshStatus(false,0);
 		
 		updateLoginStatus();
 		if (mGlobalState.isLogged()){
@@ -308,6 +312,15 @@ public class LoginActivity extends Activity implements MyResultReceiver.Receiver
         if (refreshing){
         	mDialog = ProgressDialog.show(LoginActivity.this, "", 
 					getResources().getString(code==LOG_IN?R.string.logging_in_msg:R.string.logging_out_msg), true);
+         	mDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+				@Override
+				public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+					if (keyCode == KeyEvent.KEYCODE_SEARCH && event.getRepeatCount() == 0) {
+						return true; // Pretend we processed it
+					}
+					return false; // Any other keys are still processed as normal
+				}
+         	});
         }else{
 			if (mDialog != null)
 				mDialog.dismiss();

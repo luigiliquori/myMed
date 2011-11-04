@@ -111,7 +111,7 @@
     <!--  LocationServices  strings   -->
     <!-- ============================ -->
     <string name="notification_loc_available_title">User location</string>
-    <string name="notification_loc_available_text">User location available.</string>
+    <string name="notification_loc_available_text">User location available for myJam.</string>
     <!-- ============================ -->
     <!--  		Legend  strings       -->
     <!-- ============================ -->
@@ -126,6 +126,7 @@
     <!-- ============================ -->
     <string name="search_preferences">Search Preferences</string>
     <string name="map_preferences">Map View Preferences</string>
+    <string name="report_details_preferences">Map View Preferences</string>
     <string name="title_radius_preference">Set search radius</string>
     <string name="summary_radius_preference">Radius of the search in km.</string>
     <string name="dialog_title_search_preference">Select the radius of the search.</string>
@@ -137,5 +138,7 @@
     <string name="dialog_title_search_rate_preference">Select the rate of the searches.</string>
     <string name="title_navigation_preference">Navigation mode</string>
     <string name="summary_navigation_preference">When is active the map is periodically centered on the user position.</string>       
-           
+    <string name="title_sync_preference">Choose refresh rate</string>
+    <string name="summary_sync_preference">The rate of report details refresh </string>
+    <string name="dialog_title_sync_preference">Select the refresh rate.</string>  
 </resources>

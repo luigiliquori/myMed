@@ -151,6 +151,7 @@ public class MyJamProvider extends ContentProvider{
                     + Search.LATITUDE + " INTEGER,"
                     + Search.LONGITUDE + " INTEGER,"
                     + Search.RADIUS + " INTEGER,"
+                    + Search.SEARCHING + " INTEGER,"
                     + "UNIQUE (" + Search.SEARCH_ID + ") ON CONFLICT REPLACE)");
             
             db.execSQL("CREATE TABLE " + Tables.SEARCH_RESULT_TABLE_NAME + " ("
@@ -473,12 +474,24 @@ public class MyJamProvider extends ContentProvider{
         	tableName = Tables.LOGIN_TABLE_NAME;
         	contentUri = Login.CONTENT_URI;
         	break;
+        case SEARCH:
+        	tableName = Tables.SEARCH_TABLE_NAME;
+        	contentUri = Search.CONTENT_URI;
+        	break;
         case SEARCH_RESULT:
         	tableName = Tables.SEARCH_RESULT_TABLE_NAME;
         	contentUri = SearchResult.CONTENT_URI;
         	break;
         case REPORT:
         	tableName = Tables.REPORTS_TABLE_NAME;
+        	contentUri = Report.CONTENT_URI;
+        	break;
+        case UPDATE_REQUEST:
+        	tableName = Tables.UPDATE_REQUEST_TABLE_NAME;
+        	contentUri = Report.CONTENT_URI;
+        	break;
+        case FEEDBACK_REQUEST:
+        	tableName = Tables.FEEDBACK_REQUEST_TABLE_NAME;
         	contentUri = Report.CONTENT_URI;
         	break;
         default:

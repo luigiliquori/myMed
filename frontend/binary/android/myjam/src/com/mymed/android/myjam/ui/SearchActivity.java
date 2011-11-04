@@ -27,6 +27,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -112,7 +113,8 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 	private interface SearchQuery{
 		//TODO Add distance to order in a proper way.
 		String[] PROJECTION = new String[] {
-			Search.DATE									//0
+			Search.DATE,									//0
+			Search.SEARCHING								//1
 		};	
 	}
 	
@@ -189,19 +191,32 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 		// Perform a managed query. The Activity will handle closing and requerying the cursor
 		// when needed.
 		//Query to get the date of the last search.
-		Cursor searchCursor = getContentResolver().query(Search.buildSearchUri(String.valueOf(mSearchId)),SearchQuery.PROJECTION, 
+		ContentResolver cr = getContentResolver();
+		Cursor searchCursor = cr.query(Search.buildSearchUri(String.valueOf(mSearchId)),SearchQuery.PROJECTION, 
 				null, null, null);
-		if (searchCursor!= null && searchCursor.moveToFirst())
+		if (searchCursor.moveToFirst())
 			refreshDate(searchCursor);
-		searchCursor.close();
-		
+		else{
+			//Insert an entry corresponding to the search type, if not already present.
+			ContentValues contVal = new ContentValues();
+			contVal.put(Search.SEARCH_ID, mSearchId);
+			contVal.put(Search.SEARCHING, false);
+			cr.insert(Search.CONTENT_URI, contVal);
+		}			
+		searchCursor.close();		
 	}
 	
     private Runnable mSearchRunnable = new Runnable() {
         public void run() {
-        	requestSearch(Search.NEW_SEARCH);
+        	//If there is a search ongoing this search is skipped, but the next is normally scheduled.
+    		Cursor searchCursor = getContentResolver().query(Search.buildSearchUri(String.valueOf(mSearchId)),SearchQuery.PROJECTION, 
+    				null, null, null);
+    		//Checks whether synch flag is set or not.
+    		if (searchCursor.moveToFirst() && searchCursor.getInt(1)==0)
+    			requestSearch(Search.NEW_SEARCH);
         	long nextSearchTime = Integer.parseInt(mSettings.getString(SEARCH_RATE_PREFERENCE,"600000"));
             mMessageQueueHandler.postDelayed(mSearchRunnable, nextSearchTime);
+            searchCursor.close();
         }
     };
     
@@ -267,7 +282,7 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
         		showDialog(DIALOG_NO_LOCATION_ID);
         	}
 		}else if (v.equals(mMapButton)){
-    		Intent intent = new Intent(this,ShowOnMapActivity.class);
+    		Intent intent = new Intent(this,ViewOnMapActivity.class);
     		Uri uri = getIntent().getData();
     		String filter =  mSettings.getString(FILTER_PREFERENCE,"NONE");
     		if (mSearchId == Search.NEW_SEARCH && !filter.equals("NONE"))
@@ -363,7 +378,8 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 				handleSearchButton(true);
 				postSearch();
 		}
-		updateRefreshStatus(mResultReceiver.ismSyncing());
+		if (!mResultReceiver.ismSyncing())
+			updateRefreshStatus(false);
 		
 		//** Starts a new thread to where the distance refresh is executed. */ 
 		thread = new HandlerThread(TAG);
@@ -383,6 +399,7 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 			long nextSearchTime = Math.max(0, lastSearch + Integer.parseInt(mSettings.getString(SEARCH_RATE_PREFERENCE,"600000")) - System.currentTimeMillis());
             mMessageQueueHandler.postDelayed(mSearchRunnable, nextSearchTime);
 		}else{
+			mMessageQueueHandler.removeCallbacks(mSearchRunnable);
 			mMessageQueueHandler.post(mSearchRunnable);
 			//Maybe that the search is done immediately because mForceSearch flag was true.
 			mForceSearchFlag = false;
@@ -476,7 +493,7 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 		    	final Cursor cursor = (Cursor)mAdapter.getItem(info.position);
 		        final String reportId = cursor.getString(SearchReportsQuery.REPORT_ID);
 
-		        Intent intent = new Intent(SearchActivity.this,ShowOnMapActivity.class);
+		        Intent intent = new Intent(SearchActivity.this,ViewOnMapActivity.class);
 		        Uri uri = Report.buildReportIdUri(reportId);
 		        intent.setData(uri);   	
 		        startActivity(intent);
@@ -493,8 +510,18 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 	 */
     private void updateRefreshStatus(boolean refreshing) {
         if (refreshing){
-        	mDialog = ProgressDialog.show(SearchActivity.this, "", 
+        	mDialog = ProgressDialog
+			.show(SearchActivity.this, "", 
 					getResources().getString(R.string.searching_reports_msg), true);
+        	mDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+				@Override
+				public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+					if (keyCode == KeyEvent.KEYCODE_SEARCH && event.getRepeatCount() == 0) {
+						return true; // Pretend we processed it
+					}
+					return false; // Any other keys are still processed as normal
+				}
+			});
         }else{
 			if (mDialog != null)
 				mDialog.dismiss();
@@ -551,6 +578,8 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 		case MyJamCallService.STATUS_ERROR:
 			// Error happened down in SyncService, show as toast.
 			mSyncing = false;
+			//
+			
 			String errMsg = resultData.getString(Intent.EXTRA_TEXT);
 			final String errorText = String.format(this.getResources().getString(R.string.toast_call_error, errMsg));
 			Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();

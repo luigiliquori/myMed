@@ -58,6 +58,8 @@ public final class MyJamContract {
         String LONGITUDE = "longitude";
         /** Radius of the search.*/
         String RADIUS = "radius";
+        /** Radius of the search.*/
+        String SEARCHING = "searching";
     }
     
     interface SearchResultColumns {
@@ -215,6 +217,12 @@ public final class MyJamContract {
         }
         
         /**
+         * Selection used to perform query where a specific search_id is required.
+         */
+        public static final String SEARCH_ID_SELECTION = SEARCH_ID +"= ?";
+
+        
+        /**
          * The default {@link SEARCH_ID}.
          */
         public static final int NEW_SEARCH = 0x0;
@@ -250,7 +258,7 @@ public final class MyJamContract {
         public static final String SEARCH_ID_SELECTION = SEARCH_ID +"= ?";
         
         /**
-         * Selection used to update a report.
+         * Selection used to update.
          */
         public static final String REPORT_SELECTION = REPORT_ID+"=? ";
         
@@ -433,6 +441,11 @@ public final class MyJamContract {
          * Selection used to perform query, to know if the data can be refreshed.
          */
         public static final String REFRESH_SELECTION = UPDATING+"=1 OR ("+UPDATING+"=0 AND "+LAST_UPDATE+">? )";
+        
+        /**
+         * Selection used to update a report.
+         */
+        public static final String REPORT_SELECTION = REPORT_ID+"=? ";
     }
     
     public static final class Feedback implements BaseColumns,FeedbackColumns {
@@ -532,7 +545,17 @@ public final class MyJamContract {
         
         public static String getId(Uri uri) {
             return uri.getPathSegments().get(2);
-        }       
+        }  
+        
+        /**
+         * Selection used to update a report.
+         */
+        public static final String REPORT_SELECTION = REPORT_ID+"=? ";
+        
+        /**
+         * Selection used to update an update.
+         */
+        public static final String UPDATE_SELECTION = UPDATE_ID+"=? ";
     }
 	
     
