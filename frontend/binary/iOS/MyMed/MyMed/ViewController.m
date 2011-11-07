@@ -11,6 +11,11 @@
 #import "ConnectionStatusChecker.h"
 #import "UIDeviceHardware.h"
 
+enum CameraAlertButtonIndex {
+    CameraIndex = 1,
+    ExistingPicture = 2,
+};
+
 #pragma mark - Static Definitions
 static NSString * const MY_MED_INDEX_URL = @"http://mymed2.sophia.inria.fr/mobile/index.php";
 
@@ -41,16 +46,30 @@ static NSString * const MY_MED_INDEX_URL = @"http://mymed2.sophia.inria.fr/mobil
                                           cancelButtonTitle:@"Cancel"
                                           otherButtonTitles:@"Camera", @"Existing Picture", nil];
     [alert show];
-    
-    //Init the Image Picker in case user want's to publish a Picture
-    imagePickerController = [[UIImagePickerController alloc] init];
-    imagePickerController.delegate = self;
-    imagePickerController.allowsEditing = NO;
 }
 
 - (void) alertView:(UIAlertView *)alert clickedButtonAtIndex:(NSInteger) buttonIndex
 {
+    if (!imagePickerController) {
+        imagePickerController = [[UIImagePickerController alloc] init];
+        imagePickerController.delegate = self;
+        imagePickerController.allowsEditing = NO;
+    }
     
+    switch (buttonIndex) {
+        case CameraIndex:
+            //Init the Image Picker in case user want's to publish a Picture            
+            imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+            [self presentModalViewController:imagePickerController animated:YES];            
+            break;
+        case ExistingPicture:
+            // Find existing Picture
+            imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            [self presentModalViewController:imagePickerController animated:YES];         
+            break;            
+        default:
+            break;
+    }
 }
 
 - (void) displayCameraView:(id) sender

@@ -198,10 +198,6 @@ static NSString * const UD_KEY_USERNAME = @"UserName";
                                                  name:FN_LOGOUT
                                                object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self 
-                                             selector:@selector(logout:) 
-                                                 name:UIApplicationDidEnterBackgroundNotification 
-                                               object:nil];
     if (storedUserName) {
         self.eMailField.text = storedUserName;
         self.passwordField.text = [self retrievePasswordForUserName:storedUserName];
@@ -235,9 +231,15 @@ static NSString * const UD_KEY_USERNAME = @"UserName";
     if (nextResponder) {
         [nextResponder becomeFirstResponder];
     } else {
-        if ([ConnectionStatusChecker doesHaveConnectivity] && ![[self.eMailField text] isEqualToString:@""]) {
-            [self submitLogin:self.eMailField.text andPassword:self.passwordField.text];
-            [self storeUserName:self.eMailField.text andPassword:self.passwordField.text];
+        if ([[self.eMailField text] isEqualToString:@""]) {
+            [self displayAlertWithTittle:@"Specify Username" andMessage:@"Please specify a username to login"];
+        } else {
+            if ([ConnectionStatusChecker doesHaveConnectivity]) {
+                [self submitLogin:self.eMailField.text andPassword:self.passwordField.text];
+                [self storeUserName:self.eMailField.text andPassword:self.passwordField.text];
+            }  else {
+                [self displayAlertWithTittle:@"Server Unreachable" andMessage:@"The myMed server is unreachable, please check your network connectivity (WiFi, 3G)"];
+            }
         }
     }
 
