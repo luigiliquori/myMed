@@ -75,7 +75,7 @@ class LoginHandler implements IRequestHandler {
 			if($responseObject->status != 200) {
 				$_SESSION['error'] = $responseObject->description;
 			} else {
-				$_SESSION['user'] = json_decode($responseObject->data->profile);;
+				$_SESSION['user'] = json_decode($responseObject->data->profile);
 			}
 		}
 	}

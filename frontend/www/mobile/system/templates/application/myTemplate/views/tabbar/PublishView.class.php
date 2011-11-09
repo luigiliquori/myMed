@@ -34,7 +34,7 @@ class PublishView extends MyApplication {
 	public /*String*/ function getContent() { ?>
 		<!-- CONTENT -->
 		<div class="content">
-			<form  action="#" method="post" name="<?= APPLICATION_NAME ?>PublishForm" id="<?= APPLICATION_NAME ?>PublishForm">
+			<form  action="#" method="post" name="<?= APPLICATION_NAME ?>PublishForm" id="<?= APPLICATION_NAME ?>PublishForm" enctype="multipart/form-data">
 				<!-- Define the method to call -->
 				<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
 				<input type="hidden" name="method" value="publish" />
@@ -73,11 +73,16 @@ class PublishView extends MyApplication {
 				
 				<!-- PICTURE -->
 				Ontology 4 (Type: PICTURE) :<br />
-				<a href="#" onclick="enableCamera()"><img id="picture" alt="picture" src="img/camera.png" width="80"/></a>
-				<input id="pictureValue" type="hidden" name="picture" value="0">
+				<?php if (TARGET == "mobile") { ?>
+					<a href="mobile_binary:choose_picture" data-role="button" data-inline="true">Add Picture</a>
+					<input id="picture" type="hidden" name="picture" value="0">
+				<?php } else { ?>
+					<input id="picture" type="file" name="picture" />
+				<?php } ?>
 				<?php $picture = new MDataBean("picture", null, PICTURE); ?>
 				<input type="hidden" name="ontology4" value="<?= urlencode(json_encode($picture)); ?>">
-				<br />
+				<br /><br />
+				
 				
 				<!-- TEXT -->
 				Ontology 5 (Type: TEXT) :<br />

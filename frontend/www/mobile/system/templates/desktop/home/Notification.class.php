@@ -1,7 +1,6 @@
 <?php
 
 require_once 'system/templates/AbstractTemplate.class.php';
-require_once dirname(__FILE__).'/handler/UpdateProfileHandler.class.php';
 
 /**
  * 

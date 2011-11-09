@@ -69,14 +69,14 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 			final RequestCode code = requestCodeMap.get(parameters.get("code"));
 			String accessToken = parameters.get("accessToken");
 			String socialNetwork = parameters.get("socialNetwork");
-			
+
 			if (accessToken == null) {
-					throw new InternalBackEndException("accessToken argument missing!");
+				throw new InternalBackEndException("accessToken argument missing!");
 			}
 			if (socialNetwork == null) {
 				throw new InternalBackEndException("socialNetwork argument missing!");
 			}
-			
+
 			switch (code) {
 			case READ:
 				message.setMethod("READ");
@@ -97,8 +97,8 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 					sessionManager.delete(accessToken);
 					message.setDescription("Session deleted -> LOGOUT");
 					MLogger.getLog().info("Session {} deleted -> LOGOUT", accessToken);
-					} else if(socialNetwork.equals("facebook")){
-					throw new InternalBackEndException("not implemented yet...");
+				} else if(socialNetwork.equals("facebook")){
+					throw new InternalBackEndException("facebook logout not implemented yet...");
 				} else {
 					throw new InternalBackEndException("socialNetwork not recognized!");
 				}
@@ -107,7 +107,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 				throw new InternalBackEndException(
 						"SessionRequestHandler.doGet(" + code + ") not exist!");
 			}
-			
+
 		} catch (final AbstractMymedException e) {
 			e.printStackTrace();
 			MLogger.getLog().info("Error in doGet");
@@ -127,18 +127,18 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 	protected void doPost(final HttpServletRequest request,
 			final HttpServletResponse response) throws ServletException,
 			IOException {
-		
+
 		JsonMessage message = new JsonMessage(200, this.getClass().getName());
-		
+
 		try {
 			final Map<String, String> parameters = getParameters(request);
 			final RequestCode code = requestCodeMap.get(parameters.get("code"));
 			String accessToken = parameters.get("accessToken");
 			String session = parameters.get("session");
-			
+
 			if (accessToken == null) {
 				throw new InternalBackEndException("accessToken argument missing!");
-				
+
 			}
 
 			switch (code) {
@@ -147,7 +147,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 				try {
 					if (session == null) {
 						throw new InternalBackEndException("session argument missing!");
-						
+
 					}
 					MSessionBean sessionBean = getGson().fromJson(session,
 							MSessionBean.class);
@@ -159,7 +159,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 				break;
 			default:
 				throw new InternalBackEndException("ProfileRequestHandler.doPost(" + code
-										+ ") not exist!");
+						+ ") not exist!");
 			}
 
 		} catch (final AbstractMymedException e) {
@@ -169,7 +169,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 			message.setStatus(e.getStatus());
 			message.setDescription(e.getMessage());
 		}
-		
+
 		printJSonResponse(message, response);
 	}
 }

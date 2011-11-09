@@ -5,7 +5,7 @@ require_once 'system/templates/mobile/home/Top10.class.php';
 require_once dirname(__FILE__).'/Profile.class.php';
 require_once dirname(__FILE__).'/News.class.php';
 require_once dirname(__FILE__).'/Notification.class.php';
-require_once dirname(__FILE__).'/handler/MenuHandler.class.php';
+require_once 'system/templates/mobile/home/handler/MenuHandler.class.php';
 
 $menuHandler = new MenuHandler();
 $menuHandler->handleRequest();

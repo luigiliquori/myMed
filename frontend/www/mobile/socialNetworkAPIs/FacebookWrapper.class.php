@@ -56,7 +56,8 @@ class FacebookWrapper implements IWrapper {
 	 			$_SESSION['user']->hometown = $user_profile["hometown"];
 	 			$_SESSION['user']->profilePicture = "http://graph.facebook.com/" . $user_profile["id"] . "/picture?type=large";
 	 			$_SESSION['user']->gender = $user_profile["gender"];
-	 			$_SESSION['user']->socialNetwork = "Facebook";
+	 			$_SESSION['user']->socialNetworkID = "Facebook";
+	 			$_SESSION['user']->socialNetworkName = "facebook";
 	 			
 	 			$_SESSION['friends'] =  $this->facebook->api('/me/friends?access_token=' . $this->facebook->getAccessToken());
 	 			$_SESSION['friends'] = $_SESSION['friends']["data"];

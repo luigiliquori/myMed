@@ -71,10 +71,10 @@ public abstract class AbstractRequestHandler extends HttpServlet {
 		// see multipart/form-data Request
 		if(request.getContentType() != null){
 			try {
-				if(request.getContentType().matches("multipart/form-data")){
-					MLogger.getLog().info("multipart/form-data REQUEST");
+				if(request.getContentType().matches("multipart/form-data.*")){
+					System.out.println("\nPART size = " + request.getParts().size());
 					for(Part part : request.getParts()){
-						MLogger.getLog().info("PART {} ", part);
+						System.out.println("\nPART: " + part);
 					}
 					throw new InternalBackEndException("multi-part is not yet implemented...");
 				}
@@ -84,6 +84,7 @@ public abstract class AbstractRequestHandler extends HttpServlet {
 				throw new InternalBackEndException(e);
 			}
 		}
+		System.out.println(request.getContentType());
 
 		final Map<String, String> parameters = new HashMap<String, String>();
 		final Enumeration<String> paramNames = request.getParameterNames();
