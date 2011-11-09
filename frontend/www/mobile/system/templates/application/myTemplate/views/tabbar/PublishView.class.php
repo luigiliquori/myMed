@@ -83,7 +83,6 @@ class PublishView extends MyApplication {
 				<input type="hidden" name="ontology4" value="<?= urlencode(json_encode($picture)); ?>">
 				<br /><br />
 				
-				
 				<!-- TEXT -->
 				Ontology 5 (Type: TEXT) :<br />
 				<textarea name="text" rows="" cols=""></textarea>

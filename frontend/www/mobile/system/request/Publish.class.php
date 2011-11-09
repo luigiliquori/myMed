@@ -57,44 +57,25 @@ class Publish extends Request {
 		}
 
 		// Construct the requests
-		parent::addArgument("application", $_POST['application']);
-		parent::addArgument("user", json_encode($_SESSION['user']));
-		parent::addArgument("predicate", json_encode($predicateArray));
-		parent::addArgument("data", json_encode($data));
+		$application = $_POST['application'];
+		$user = json_encode($_SESSION['user']);
+		$predicate = json_encode($predicateArray);
+		$data = json_encode($data);
 		
-		$responsejSon = parent::send();
-		$responseObject = json_decode($responsejSon);
-		
-		if($check->error == null) {
-			$this->handler->setSuccess("Request sent!");
+		if (TARGET == "desktop") {
+			$responsejSon = parent::send();
+			parent::addArgument("application", $application);
+			parent::addArgument("user", $user);
+			parent::addArgument("predicate", $predicate);
+			parent::addArgument("data", $data);
+			$responseObject = json_decode($responsejSon);
+				
+			if($check->error == null) {
+				$this->handler->setSuccess("Request sent!");
+			}
+		} else { // TARGET == "mobile"
+			header("Refresh:0;url=mobile_binary:publish:" . $application . ":" . $user . ":" . $predicate . ":" . $data);
 		}
-		
-		// Broadcast predicate algorithm
-// 		for($i=1 ; $i<pow(2, $numberOfPredicate) ; $i++){
-// 			$mask = $i;
-// 			$predicate = "";
-// 			$j = 0;
-// 			while($mask > 0){
-// 				if($mask&1 == 1){
-// 					$predicate .= $predicateArray[$j]->key . "(" . $predicateArray[$j]->value . ")";
-// 				}
-// 				$mask >>= 1;
-// 				$j++;
-// 			}
-// 			if($predicate != ""){
-// 								echo '<script type="text/javascript">alert("$predicate = ' . $predicate . '")</script>';
-// 				parent::addArgument("predicate", urlencode($predicate));
-
-// 				$responsejSon = parent::send();
-// 				$responseObject = json_decode($responsejSon);
-
-// 				if($responseObject->status != 200) {
-// 										echo '<script type="text/javascript">alert("$responseObject->status = ' . $responseObject->status . '")</script>';
-// 					$this->handler->setError($responseObject->description);
-// 					return;
-// 				}
-// 			}
-// 		}
 	}
 }
 ?>
