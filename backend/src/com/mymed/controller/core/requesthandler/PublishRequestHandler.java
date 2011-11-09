@@ -95,14 +95,14 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 		try {
 			final Map<String, String> parameters = getParameters(request);
 			final RequestCode code = requestCodeMap.get(parameters.get("code"));
-			String application, predicate, user, data;
+			String application, predicates, user, data;
 
 			switch (code) {
 			case CREATE : // PUT
 				message.setMethod("CREATE");
 				if ((application = parameters.get("application")) == null) {
 					throw new InternalBackEndException("missing application argument!");
-				} else if ((predicate = parameters.get("predicate")) == null) {
+				} else if ((predicates = parameters.get("predicate")) == null) {
 					throw new InternalBackEndException("missing predicate argument!");
 				} else if ((user = parameters.get("user")) == null) {
 					throw new InternalBackEndException("missing user argument!");
@@ -112,13 +112,33 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 				
 				try {
 					final MUserBean userBean = getGson().fromJson(user, MUserBean.class);
-					final Type type = new TypeToken<List<MDataBean>>(){}.getType();
-					final List<MDataBean> dataList = getGson().fromJson(data, type);
+				
+					final Type dataType = new TypeToken<List<MDataBean>>(){}.getType();
+					final List<MDataBean> dataList = getGson().fromJson(data, dataType);
+					
+					final List<MDataBean> predicatesArray = getGson().fromJson(predicates, dataType);
 
-					MLogger.getLog().info("predicate to publish: " + predicate);
-					pubsubManager.create(application, predicate, userBean, dataList);
-					MLogger.getLog().info("predicate published!");
-					message.setDescription("predicate published: " + predicate);
+					// broadcast algorithm
+					int broadcastSize = (int) Math.pow(2, predicatesArray.size());
+					for(int i=1 ; i<broadcastSize ; i++){
+			 			int mask = i;
+			 			String predicate = "";
+			 			int j = 0;
+			 			while(mask > 0){
+			 				if((mask&1) == 1){
+			 					MDataBean element = predicatesArray.get(j);
+			 					predicate += element.getKey() + "%28" + element.getValue() + "%29";
+			 				}
+			 				mask >>= 1;
+			 				j++;
+			 			}
+			 			if(!predicate.equals("")){
+			 				System.out.println("create predicate: " + predicate);
+			 				pubsubManager.create(application, predicate, userBean, dataList);
+			 			}
+			 		}
+
+					message.setDescription("predicate published: " + predicates);
 				} catch (final JsonSyntaxException e) {
 					throw new InternalBackEndException("jSon format is not valid");
 				}
