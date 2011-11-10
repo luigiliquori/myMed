@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.mymed.controller.core.exception.AbstractMymedException;
@@ -151,7 +152,6 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 				}
 				
 				try {
-					System.out.println("\n-------------\n" + user);
 					final MUserBean userBean = getGson().fromJson(user, MUserBean.class);
 				
 					final Type dataType = new TypeToken<List<MDataBean>>(){}.getType();
@@ -182,6 +182,8 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 					message.setDescription("predicate published: " + predicates);
 				} catch (final JsonSyntaxException e) {
 					throw new InternalBackEndException("jSon format is not valid");
+				} catch (final JsonParseException e) {
+					throw new InternalBackEndException(e.getMessage());
 				}
 				break;
 			default :

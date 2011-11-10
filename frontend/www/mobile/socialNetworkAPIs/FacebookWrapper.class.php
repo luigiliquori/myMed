@@ -53,11 +53,18 @@ class FacebookWrapper implements IWrapper {
 	 			$_SESSION['user']->lastName = $user_profile["last_name"];
 	 			$_SESSION['user']->link = $user_profile["link"];
 	 			$_SESSION['user']->birthday = $user_profile["birthday"];
-	 			$_SESSION['user']->hometown = $user_profile["hometown"];
+	 			$_SESSION['user']->hometown = "";
 	 			$_SESSION['user']->profilePicture = "http://graph.facebook.com/" . $user_profile["id"] . "/picture?type=large";
 	 			$_SESSION['user']->gender = $user_profile["gender"];
 	 			$_SESSION['user']->socialNetworkID = "Facebook";
 	 			$_SESSION['user']->socialNetworkName = "facebook";
+	 			
+	 			// make the user profile persistant into myMed
+	 			$request = new Request("ProfileRequestHandler", CREATE);
+	 			$request->addArgument("user", json_encode($_SESSION['user']));
+	 				
+	 			$responsejSon = $request->send();
+	 			$responseObject = json_decode($responsejSon);
 	 			
 	 			$_SESSION['friends'] =  $this->facebook->api('/me/friends?access_token=' . $this->facebook->getAccessToken());
 	 			$_SESSION['friends'] = $_SESSION['friends']["data"];
