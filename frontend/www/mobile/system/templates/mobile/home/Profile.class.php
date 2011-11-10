@@ -89,7 +89,7 @@ class Profile extends AbstractHome {
 			    <?php
 			    $detect = new Mobile_Detect();
 			    if($detect->isDevice("isIphone") || $detect->isDevice("isIpad")) { ?>
-			  		<a href="mobile_binary:logout" data-role="button" data-theme="r">Deconnexion</a>
+			  		<a href="mobile_binary<?= MOBILE_PARAMETER_SEPARATOR ?>logout" data-role="button" data-theme="r">Deconnexion</a>
 				<?php } else { ?>
 					<a href="#login" onclick="document.disconnectForm.submit()" data-role="button" data-theme="r">Deconnexion</a>
 				<?php } ?>

@@ -2,13 +2,18 @@ package com.mymed.controller.core.requesthandler;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
@@ -23,6 +28,8 @@ import com.mymed.utils.MLogger;
 /**
  * Servlet implementation class PubSubRequestHandler
  */
+@MultipartConfig
+@WebServlet("/PublishRequestHandler")
 public class PublishRequestHandler extends AbstractRequestHandler {
 	/* --------------------------------------------------------- */
 	/* Attributes */
@@ -46,6 +53,39 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 		} catch (final InternalBackEndException e) {
 			throw new ServletException("PubSubManager is not accessible because: " + e.getMessage());
 		}
+	}
+	
+	/* --------------------------------------------------------- */
+	/* extends AbstractRequestHandler */
+	/* --------------------------------------------------------- */
+	protected Map<String, String> getParameters(final HttpServletRequest request) throws InternalBackEndException {
+		
+		if(!request.getContentType().matches("multipart/form-data.*")){
+			return super.getParameters(request);
+//			throw new InternalBackEndException("PublishRequestHandler should use a multipart request!");
+		}
+		
+		final Map<String, String> parameters = new HashMap<String, String>();
+		try {
+			System.out.println("\nPART size = " + request.getParts().size());
+			for(Part part : request.getParts()){
+				String key = part.getName();
+				Scanner s = new Scanner(part.getInputStream());
+				String value = s.nextLine();    // read filename from stream
+				parameters.put(key, value);
+				System.out.println("\nKEY = " + key);
+				System.out.println("\nVALUE = " + value);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new InternalBackEndException("Error in getting arguments");
+		}
+		
+		if (!parameters.containsKey("code")) {
+			throw new InternalBackEndException("code argument is missing!");
+		}
+		
+		return parameters;
 	}
 
 	/* --------------------------------------------------------- */
@@ -111,6 +151,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 				}
 				
 				try {
+					System.out.println("\n-------------\n" + user);
 					final MUserBean userBean = getGson().fromJson(user, MUserBean.class);
 				
 					final Type dataType = new TypeToken<List<MDataBean>>(){}.getType();

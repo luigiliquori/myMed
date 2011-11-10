@@ -21,6 +21,7 @@ class Publish extends Request {
 	/* --------------------------------------------------------- */
 	public function __construct(/*IRequestHandler*/ $handler) {
 		parent::__construct("PublishRequestHandler", CREATE);
+// 		parent::setMultipart(true);
 		$this->handler	= $handler;
 	}
 
@@ -63,18 +64,42 @@ class Publish extends Request {
 		$data = json_encode($data);
 		
 		if (TARGET == "desktop") {
-			$responsejSon = parent::send();
-			parent::addArgument("application", $application);
-			parent::addArgument("user", $user);
-			parent::addArgument("predicate", $predicate);
-			parent::addArgument("data", $data);
+			$params = array(
+				 	  	  'code'=>'0',
+						  'application'=>$application,
+						  'user'=>$user,
+						  'predicate'=>$predicate,
+						  'data'=>$data
+			);
+				
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_VERBOSE, 1);
+			curl_setopt($ch, CURLOPT_URL, BACKEND_URL . "/PublishRequestHandler");
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+				
+			// SSL CONNECTION
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2); // see address in config.php
+			curl_setopt($ch, CURLOPT_CAINFO, "/local/mymed/backend/WebContent/certificate/mymed.crt"); // TO EXPORT FROM GLASSFISH!
+				
+			$responsejSon = curl_exec($ch);
+			curl_close($ch);
 			$responseObject = json_decode($responsejSon);
 				
-			if($check->error == null) {
-				$this->handler->setSuccess("Request sent!");
+			if($responseObject->status != 200) {
+				$this->handler->setError($responseObject->description);
+			} else {
+				$this->handler->setSuccess($responseObject->description);
 			}
+			
 		} else { // TARGET == "mobile"
-			header("Refresh:0;url=mobile_binary:publish:" . $application . ":" . $user . ":" . $predicate . ":" . $data);
+			header("Refresh:0;url=mobile_binary". MOBILE_PARAMETER_SEPARATOR 
+			."publish" . MOBILE_PARAMETER_SEPARATOR 
+			. urlencode($application) . MOBILE_PARAMETER_SEPARATOR 
+			. urlencode($user) . MOBILE_PARAMETER_SEPARATOR 
+			. urlencode($predicate) . MOBILE_PARAMETER_SEPARATOR 
+			. urlencode($data));
 		}
 	}
 }

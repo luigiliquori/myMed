@@ -76,7 +76,7 @@ public abstract class AbstractRequestHandler extends HttpServlet {
 					for(Part part : request.getParts()){
 						System.out.println("\nPART: " + part);
 					}
-					throw new InternalBackEndException("multi-part is not yet implemented...");
+					throw new InternalBackEndException("multi-part is not implemented for this handler!");
 				}
 			} catch (IOException e) {
 				throw new InternalBackEndException(e);

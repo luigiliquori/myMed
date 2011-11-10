@@ -74,7 +74,7 @@ class PublishView extends MyApplication {
 				<!-- PICTURE -->
 				Ontology 4 (Type: PICTURE) :<br />
 				<?php if (TARGET == "mobile") { ?>
-					<a href="mobile_binary:choose_picture" data-role="button" data-inline="true">Add Picture</a>
+					<a href="mobile_binary<?= MOBILE_PARAMETER_SEPARATOR ?>choose_picture" data-role="button" data-inline="true">Add Picture</a>
 					<input id="picture" type="hidden" name="picture" value="0">
 				<?php } else { ?>
 					<input id="picture" type="file" name="picture" />
