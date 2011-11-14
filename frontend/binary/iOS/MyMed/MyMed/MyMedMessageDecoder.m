@@ -13,13 +13,23 @@ static SBJsonParser *jsonParser = nil;
 
 @implementation MyMedMessageDecoder
 
-+ (NSDictionary *) dictionaryFromMessage:(NSData *) message
++ (NSDictionary *) dictionaryFromData:(NSData *) data
 {
     if (!jsonParser) {
         jsonParser = [[SBJsonParser alloc] init];
     }
     
-    NSDictionary *dataDictionary = [jsonParser objectWithData:message];
+    NSDictionary *dataDictionary = [jsonParser objectWithData:data];
+    return dataDictionary;
+}
+
++ (NSDictionary *) dictionaryFromString:(NSString *) string
+{
+    if (!jsonParser) {
+        jsonParser = [[SBJsonParser alloc] init];
+    }
+    
+    NSDictionary *dataDictionary = [jsonParser objectWithString:string];
     return dataDictionary;
 }
 

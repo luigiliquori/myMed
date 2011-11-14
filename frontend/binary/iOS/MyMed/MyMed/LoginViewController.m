@@ -12,6 +12,8 @@
 #import "POSTRequestBuilder.h"
 #import "ConnectionStatusChecker.h"
 #import "SHA1Encoder.h"
+#import "UIDeviceHardware.h"
+#import "SFHFKeychainUtils.h"
 
 #pragma mark - const definitions
 
@@ -30,13 +32,17 @@ static const unsigned M_READ = 1;
 static const unsigned M_UPDATE = 2;
 static const unsigned M_DELETE = 3;
 
+// Keys for NSUserDefaults
+static NSString * const UD_KEY_USERNAME = @"UserName";
+
 #pragma mark - Private Methods
 @interface LoginViewController (private)
 - (NSDictionary *) POSTdictionaryWithKeys:(NSArray *) keys andObjects:(NSArray *) objects;
 - (void) submitLogin:(NSString *) login andPassword:(NSString *) password;
-- (void) openMyMedSessionWithLogin:(NSString *) login andPassword:(NSString *) password;
 - (void) displayAlertWithTittle:(NSString *) tittle andMessage:(NSString *) message;
 - (void) presentMyMedWebViewWithURL:(NSURL *) url;
+- (void) storeUserName:(NSString *) username andPassword:(NSString *) password;
+- (NSString *) retrieveStoredUserName;
 @end
 
 @implementation LoginViewController (private)
@@ -67,30 +73,12 @@ static const unsigned M_DELETE = 3;
     }
 }
 
-- (void) openMyMedSessionWithLogin:(NSString *) login andPassword:(NSString *) password
-{
-    // Pack Data for POST request
-    NSDictionary *dictionary = [self POSTdictionaryWithKeys:[NSArray arrayWithObjects:@"login", @"password", @"signin", @"ismobile", nil] 
-                                                 andObjects:[NSArray arrayWithObjects:login, [SHA1Encoder sha512FromString:password], @"true", @"true", nil]];
-    
-    // Forge request and stablish a connection
-    NSMutableURLRequest *request = [POSTRequestBuilder multipartPostRequestWithURL:[NSURL URLWithString:M_URL_SESSION] 
-                                                                 andDataDictionary:dictionary];
-    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-    
-    if (connection) {
-        NSLog(@"Open Session Success!");
-    } else {
-        NSLog(@"Open Session Fail!");
-    }
-}
-
 - (void) displayAlertWithTittle:(NSString *) tittle andMessage:(NSString *) message
 {   
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:tittle
-                                                    message:message 
-                                                   delegate:self 
-                                          cancelButtonTitle:@"Ok" 
+                                                    message:message
+                                                   delegate:self
+                                          cancelButtonTitle:@"Ok"
                                           otherButtonTitles:nil, nil];
     [alert show];
 }
@@ -99,8 +87,51 @@ static const unsigned M_DELETE = 3;
 {
     ViewController *webViewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
     webViewController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    [self presentModalViewController:webViewController animated:YES];    
+    [self presentModalViewController:webViewController animated:YES];
     [webViewController loadMyMedURL:url];
+}
+
+- (void) storeUserName:(NSString *) username andPassword:(NSString *) password
+{
+    // Store username in NSUserDefaults
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    
+    if (standardUserDefaults) {
+        [standardUserDefaults setObject:username forKey:UD_KEY_USERNAME];
+        [standardUserDefaults synchronize];
+    }
+    
+    // If we are not in Simulator use the device Keychain
+    if (![[UIDeviceHardware platformString] isEqualToString:@"Simulator"]) {
+        NSError *error = nil;
+        [SFHFKeychainUtils storeUsername:username andPassword:password forServiceName:@"myMed" updateExisting:YES error:&error];
+    }
+}
+
+- (NSString *) retrieveStoredUserName
+{
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+
+    if (standardUserDefaults) {
+        NSString *username = [standardUserDefaults objectForKey:UD_KEY_USERNAME];
+        return username;
+    } 
+    
+    return nil;
+}
+
+- (NSString *) retrievePasswordForUserName:(NSString *) username 
+{
+    // If we are not in Simulator use the device Keychain
+    if (![[UIDeviceHardware platformString] isEqualToString:@"Simulator"]) {
+        NSError *error = nil;
+        
+        if (username) {
+            return [SFHFKeychainUtils getPasswordForUsername:username andServiceName:@"myMed" error:&error];
+        }
+    }
+    
+    return nil;
 }
 
 @end
@@ -131,8 +162,17 @@ static const unsigned M_DELETE = 3;
 {
     [super viewDidLoad];
     
+    NSString *storedUserName = [self retrieveStoredUserName];
+    
+    if (storedUserName) {
+        self.eMailField.text = storedUserName;
+        self.passwordField.text = [self retrievePasswordForUserName:storedUserName];
+        [self.passwordField becomeFirstResponder];
+        return;
+    }
+
     //Brings out keyboard automatically on the e-mail field.
-    [self.eMailField becomeFirstResponder];
+    [self.eMailField becomeFirstResponder];    
 }
 
 - (void)viewDidUnload
@@ -159,6 +199,7 @@ static const unsigned M_DELETE = 3;
     } else {
         if ([ConnectionStatusChecker doesHaveConnectivity] && ![[self.eMailField text] isEqualToString:@""]) {
             [self submitLogin:self.eMailField.text andPassword:self.passwordField.text];
+            [self storeUserName:self.eMailField.text andPassword:self.passwordField.text];
         }
     }
 
@@ -179,20 +220,23 @@ static const unsigned M_DELETE = 3;
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {    
-    NSDictionary *message = [MyMedMessageDecoder dictionaryFromMessage:data];
+    NSDictionary *message = [MyMedMessageDecoder dictionaryFromData:data];
     
     if ([[message objectForKey:M_KEY_STATUS] intValue] != M_STATUS_OK) {
         [self displayAlertWithTittle:@"Login Error" andMessage:(NSString *)[message objectForKey:M_KEY_DESCRIPTION]];
         return;
     }
     
-    //  If We are logged in
     //  NSString Casts are needed to transform from NSCFString to NSString *
     //  Note: NSCFString doesn't support isEqualToString:
     NSString *messageHandler = (NSString *)[message objectForKey:M_KEY_HANDLER]; 
     NSString *messageMethod = (NSString *)[message objectForKey:M_KEY_METHOD];
+    
     if ([messageHandler isEqualToString:M_HANDLER_AUTH_REQUEST] && [messageMethod isEqualToString:M_METHOD_READ]) {
-        [self presentMyMedWebViewWithURL:[NSURL URLWithString:[[[message objectForKey:M_KEY_DATA] objectForKey:@"url"] stringValue]]];
+        NSDictionary *data = (NSDictionary *)[message objectForKey:M_KEY_DATA];
+        NSString *url = [data objectForKey:M_KEY_URL];
+        NSString *token = [data objectForKey:M_KEY_ACCESS_TOKEN];      
+        [self presentMyMedWebViewWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?accessToken=%@", url, token]]];
     }
 }
 

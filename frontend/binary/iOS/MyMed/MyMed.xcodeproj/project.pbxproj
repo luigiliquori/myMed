@@ -29,6 +29,8 @@
 		149B64FC143C87F9008A341C /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 149B64FA143C87F9008A341C /* LoginViewController.m */; };
 		149B64FD143C87F9008A341C /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 149B64FB143C87F9008A341C /* LoginViewController.xib */; };
 		149B6503143C93FE008A341C /* ConnectionStatusChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 149B6502143C93FE008A341C /* ConnectionStatusChecker.m */; };
+		149FAF4F1455604700A186A1 /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 149FAF4E1455604700A186A1 /* SFHFKeychainUtils.m */; settings = {COMPILER_FLAGS = " -fno-objc-arc "; }; };
+		149FAF511455614200A186A1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 149FAF501455614100A186A1 /* Security.framework */; };
 		14B780A51427496100A8E3D4 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 14B780A41427496100A8E3D4 /* Default-Landscape~ipad.png */; };
 		14B780A714274A0500A8E3D4 /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 14B780A614274A0500A8E3D4 /* Default-Portrait~ipad.png */; };
 		14B780AA14276AEC00A8E3D4 /* error_ipad.html in Resources */ = {isa = PBXBuildFile; fileRef = 14B780A814276AEC00A8E3D4 /* error_ipad.html */; };
@@ -84,6 +86,9 @@
 		149B64FB143C87F9008A341C /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		149B6501143C93FE008A341C /* ConnectionStatusChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectionStatusChecker.h; sourceTree = "<group>"; };
 		149B6502143C93FE008A341C /* ConnectionStatusChecker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectionStatusChecker.m; sourceTree = "<group>"; };
+		149FAF4D1455604700A186A1 /* SFHFKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHFKeychainUtils.h; sourceTree = "<group>"; };
+		149FAF4E1455604700A186A1 /* SFHFKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHFKeychainUtils.m; sourceTree = "<group>"; };
+		149FAF501455614100A186A1 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		14B780A41427496100A8E3D4 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape~ipad.png"; path = "../Default-Landscape~ipad.png"; sourceTree = "<group>"; };
 		14B780A614274A0500A8E3D4 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Portrait~ipad.png"; path = "../Default-Portrait~ipad.png"; sourceTree = "<group>"; };
 		14B780A814276AEC00A8E3D4 /* error_ipad.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = error_ipad.html; sourceTree = "<group>"; };
@@ -124,6 +129,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				149FAF511455614200A186A1 /* Security.framework in Frameworks */,
 				141FF5B51423546800FC46F4 /* SystemConfiguration.framework in Frameworks */,
 				141FF5871423423000FC46F4 /* UIKit.framework in Frameworks */,
 				141FF5891423423000FC46F4 /* Foundation.framework in Frameworks */,
@@ -154,6 +160,7 @@
 		141FF5851423423000FC46F4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				149FAF501455614100A186A1 /* Security.framework */,
 				141FF5B41423546700FC46F4 /* SystemConfiguration.framework */,
 				141FF5861423423000FC46F4 /* UIKit.framework */,
 				141FF5881423423000FC46F4 /* Foundation.framework */,
@@ -195,6 +202,7 @@
 		141FF5A61423516100FC46F4 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				149FAF4B1455602300A186A1 /* Keychain */,
 				14DC4780143DCEF4008DE8DF /* SBJSON */,
 				141FF5A31423515E00FC46F4 /* Reachability.h */,
 				141FF5A41423515E00FC46F4 /* Reachability.m */,
@@ -251,6 +259,15 @@
 				149B64F8143C87C2008A341C /* LoginView */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		149FAF4B1455602300A186A1 /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				149FAF4D1455604700A186A1 /* SFHFKeychainUtils.h */,
+				149FAF4E1455604700A186A1 /* SFHFKeychainUtils.m */,
+			);
+			name = Keychain;
 			sourceTree = "<group>";
 		};
 		14B780AC14276AF000A8E3D4 /* Error Webpage */ = {
@@ -393,6 +410,7 @@
 				140086F41445D92D009A94C4 /* POSTRequestBuilder.m in Sources */,
 				1464B2CF144848820099C98B /* MyMedMessageDecoder.m in Sources */,
 				1464B2D3144873090099C98B /* WebObjCBridge.m in Sources */,
+				149FAF4F1455604700A186A1 /* SFHFKeychainUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
