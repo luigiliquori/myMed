@@ -55,7 +55,7 @@ class Notification extends AbstractTemplate {
 	* Print the Template
 	*/
 	public /*String*/ function printTemplate() { ?>
-		<div style="position: absolute; left: 71%; top:435px;">
+		<div style="position: absolute; left: 70.5%; top:385px;">
 			<?php 
 			$this->getHeader();
 			$this->getContent();

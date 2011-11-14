@@ -60,7 +60,7 @@ class Profile extends AbstractTemplate {
 		$updateProfileHandler->handleRequest();
 		?>
 		<!-- CONTENT -->
-		<div style="position: absolute; margin-left: 30%; left:-200px; top: 210px; width: 200px; overflow: auto;">
+		<div style="position: absolute; margin-left: 30%; left:-202px; top: 160px; width: 200px; overflow: auto;">
 			<!-- NOTIFICATION -->
 			<?php if($updateProfileHandler->getError()) { ?>
 				<div style="color: red;">

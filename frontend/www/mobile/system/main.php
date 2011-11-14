@@ -27,6 +27,18 @@
 	$templateManager = new TemplateManager();
 	define('USER_CONNECTED', isset($_SESSION['user']));
 	if (USER_CONNECTED) {
+		
+		// Try to get th position && Store the position of the user: TODO move this part
+		if(isset($_GET["latitude"]) && isset($_GET["longitude"])) {
+			$request = new Request("DHTRequestHandler", CREATE);
+			$request->addArgument("key", $_SESSION['user']->name . "latitude");
+			$request->addArgument("value", $_GET["latitude"]);
+			$request->send();
+			$request->addArgument("key", $_SESSION['user']->name . "longitude");
+			$request->addArgument("value", $_GET["longitude"]);
+			$request->send();
+		}
+		
 		if(isset($_GET['application']) && $_GET['application'] != "0"){
 			$templateManager->selectTemplate('application/'.$_GET['application']);
 		} else if(isset($_GET['admin']) && $_GET['admin'] != "0"){

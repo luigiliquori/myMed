@@ -1,9 +1,9 @@
 <?php 
-	define('APPLICATION_NAME', "myCARF");
+	define('APPLICATION_NAME', "myRiviera");
 	
 	// IMPORT THE MAIN VIEW
-	require_once dirname(__FILE__).'/views/tabbar/SubscribeView.class.php';
-	require_once dirname(__FILE__).'/views/tabbar/FindView.class.php';
+	require_once dirname(__FILE__).'/views/tabbar/FindView1.class.php';
+	require_once dirname(__FILE__).'/views/tabbar/FindView2.class.php';
 	// IMPORT THE RESULT VIEW
 	require_once dirname(__FILE__).'/views/result/ResultView.class.php';
 	require_once dirname(__FILE__).'/views/result/DetailView.class.php';
@@ -21,10 +21,10 @@
 			$result->printTemplate();
 		}
 	} else {
-		$find = new FindView();
-		$find->printTemplate();
+		$find1 = new FindView1();
+		$find1->printTemplate();
 
-		$subscribe = new SubscribeView();
-		$subscribe->printTemplate();
+		$find2 = new FindView2();
+		$find2->printTemplate();
 	}
 ?>

@@ -100,6 +100,8 @@ class Publish extends Request {
 			. urlencode($user) . MOBILE_PARAMETER_SEPARATOR 
 			. urlencode($predicate) . MOBILE_PARAMETER_SEPARATOR 
 			. urlencode($data));
+			
+			$this->handler->setSuccess("ok");
 		}
 	}
 }

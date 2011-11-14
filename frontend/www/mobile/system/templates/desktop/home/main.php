@@ -33,7 +33,7 @@ $profile = new Profile();
 $profile->printTemplate(); 
 
 $theme = "d";
-$css = "position: absolute; top:150px; left:30%; width:40%; border: thin black solid;";
+$css = "position: absolute; top:120px; left:30%; width:40%; border: thin black solid;";
 
 $favorite = new Favorite();
 $favorite->printTemplate($theme, $css);
