@@ -75,9 +75,9 @@ public abstract class AbstractRequestHandler extends HttpServlet {
     if (request.getContentType() != null) {
       try {
         if (request.getContentType().matches("multipart/form-data")) {
-          MLogger.getLog().info("multipart/form-data REQUEST");
+          MLogger.info("multipart/form-data REQUEST");
           for (final Part part : request.getParts()) {
-            MLogger.getLog().info("PART {} ", part);
+            MLogger.info("PART {} ", part);
           }
           throw new InternalBackEndException("multi-part is not yet implemented...");
         }
@@ -106,9 +106,9 @@ public abstract class AbstractRequestHandler extends HttpServlet {
           final String value = URLDecoder.decode(paramValues[0], ENCODING);
           parameters.put(paramName, value);
 
-          MLogger.getLog().info("{}: {}", paramName, value);
+          MLogger.info("{}: {}", paramName, value);
         } catch (final UnsupportedEncodingException ex) {
-          MLogger.getLog().info("Error decoding string from '{}'", ENCODING, ex.getCause());
+          MLogger.debug("Error decoding string from '{}'", ENCODING, ex.getCause());
         }
       }
     }
@@ -150,14 +150,14 @@ public abstract class AbstractRequestHandler extends HttpServlet {
       try {
         out = response.getWriter();
 
-        MLogger.getLog().info("Response sent:\n {}", responseText);
+        MLogger.info("Response sent:\n {}", responseText);
 
         out.print(responseText);
         out.close();
         responseText = null; // NOPMD to avoid code check warnings
       } catch (final IOException e) {
-        MLogger.getLog().info("IOException: {}", e.getMessage());
-        MLogger.getDebugLog().debug("Error in printResponse()", e.getCause());
+        MLogger.info("IOException: {}", e.getMessage());
+        MLogger.debug("Error in printResponse()", e.getCause());
       }
     }
   }
