@@ -8,27 +8,6 @@ import com.mymed.model.data.AbstractMBean;
  * @author lvanni
  */
 public final class MUserBean extends AbstractMBean {
-
-  public enum UserEnum {
-
-    ID("id");
-
-    public String str;
-
-    private UserEnum(final String str) {
-      this.str = str;
-    }
-
-    public static boolean isValidElement(final String str) {
-      return false;
-    }
-
-    @Override
-    public String toString() {
-      return str;
-    }
-  }
-
   /* --------------------------------------------------------- */
   /* Attributes */
   /* --------------------------------------------------------- */
