@@ -2,6 +2,8 @@ package com.mymed.controller.core.requesthandler;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,146 +21,160 @@ import com.mymed.utils.MLogger;
 
 public abstract class AbstractRequestHandler extends HttpServlet {
 
-	/* --------------------------------------------------------- */
-	/* Attributes */
-	/* --------------------------------------------------------- */
-	private static final long serialVersionUID = 1L;
+  /* --------------------------------------------------------- */
+  /* Attributes */
+  /* --------------------------------------------------------- */
+  private static final long serialVersionUID = 1L;
 
-	/** Google library to handle jSon request */
-	private Gson gson;
+  private static final String ENCODING = "UTF-8";
 
-	/** The response/feedback printed */
-	private String responseText = null;
+  /** Google library to handle jSon request */
+  private Gson gson;
 
-	/** Request code Map */
-	protected Map<String, RequestCode> requestCodeMap = new HashMap<String, RequestCode>();
+  /** The response/feedback printed */
+  private String responseText = null;
 
-	/** Request codes */
-	protected enum RequestCode {
-		// C.R.U.D
-		CREATE("0"),
-		READ("1"),
-		UPDATE("2"),
-		DELETE("3");
+  /** Request code Map */
+  protected Map<String, RequestCode> requestCodeMap = new HashMap<String, RequestCode>();
 
-		public final String code;
+  /** Request codes */
+  protected enum RequestCode {
+    // C.R.U.D
+    CREATE("0"),
+    READ("1"),
+    UPDATE("2"),
+    DELETE("3");
 
-		RequestCode(final String code) {
-			this.code = code;
-		}
-	}
+    public final String code;
 
-	/* --------------------------------------------------------- */
-	/* Constructors */
-	/* --------------------------------------------------------- */
-	protected AbstractRequestHandler() {
-		super();
+    RequestCode(final String code) {
+      this.code = code;
+    }
+  }
 
-		gson = new Gson();
-		for (final RequestCode r : RequestCode.values()) {
-			requestCodeMap.put(r.code, r);
-		}
-	}
+  /* --------------------------------------------------------- */
+  /* Constructors */
+  /* --------------------------------------------------------- */
+  protected AbstractRequestHandler() {
+    super();
 
-	/* --------------------------------------------------------- */
-	/* protected methods */
-	/* --------------------------------------------------------- */
-	/**
-	 * @return the parameters of an HttpServletRequest
-	 */
-	protected Map<String, String> getParameters(final HttpServletRequest request) throws InternalBackEndException {
+    gson = new Gson();
+    for (final RequestCode r : RequestCode.values()) {
+      requestCodeMap.put(r.code, r);
+    }
+  }
 
-		// see multipart/form-data Request
-		if(request.getContentType() != null){
-			try {
-				if(request.getContentType().matches("multipart/form-data")){
-					MLogger.getLog().info("multipart/form-data REQUEST");
-					for(Part part : request.getParts()){
-						MLogger.getLog().info("PART {} ", part);
-					}
-					throw new InternalBackEndException("multi-part is not yet implemented...");
-				}
-			} catch (IOException e) {
-				throw new InternalBackEndException(e);
-			} catch (ServletException e) {
-				throw new InternalBackEndException(e);
-			}
-		}
+  /* --------------------------------------------------------- */
+  /* protected methods */
+  /* --------------------------------------------------------- */
+  /**
+   * @return the parameters of an HttpServletRequest
+   */
+  protected Map<String, String> getParameters(final HttpServletRequest request) throws InternalBackEndException {
 
-		final Map<String, String> parameters = new HashMap<String, String>();
-		final Enumeration<String> paramNames = request.getParameterNames();
+    // see multipart/form-data Request
+    if (request.getContentType() != null) {
+      try {
+        if (request.getContentType().matches("multipart/form-data")) {
+          MLogger.getLog().info("multipart/form-data REQUEST");
+          for (final Part part : request.getParts()) {
+            MLogger.getLog().info("PART {} ", part);
+          }
+          throw new InternalBackEndException("multi-part is not yet implemented...");
+        }
+      } catch (final IOException e) {
+        throw new InternalBackEndException(e);
+      } catch (final ServletException e) {
+        throw new InternalBackEndException(e);
+      }
+    }
 
-		while (paramNames.hasMoreElements()) {
-			final String paramName = paramNames.nextElement();
-			final String[] paramValues = request.getParameterValues(paramName);
+    final Map<String, String> parameters = new HashMap<String, String>();
+    final Enumeration<String> paramNames = request.getParameterNames();
 
-			if (paramValues.length >= 1) { // all the params should be atomic
-				parameters.put(paramName, paramValues[0]);
-			}
+    while (paramNames.hasMoreElements()) {
+      final String paramName = paramNames.nextElement();
+      final String[] paramValues = request.getParameterValues(paramName);
 
-			MLogger.getLog().info("{}: {}", paramName, paramValues[0]);
-		}
+      // all the parameter should be atomic
+      if (paramValues.length >= 1) {
+        try {
+          /*
+           * Since this comes in like an HTTP request, we might have non ASCII
+           * chars in the parameters, so it is better to decode them. If there
+           * are only ASCII char, it is safe since ASCII < UTF-8.
+           */
+          final String value = URLDecoder.decode(paramValues[0], ENCODING);
+          parameters.put(paramName, value);
 
-		if (!parameters.containsKey("code")) {
-			throw new InternalBackEndException("code argument is missing!");
-		}
-		
-		if (requestCodeMap.get(parameters.get("code")) == null) {
-			throw new InternalBackEndException("code argument is not well formated");
-		}
+          MLogger.getLog().info("{}: {}", paramName, value);
+        } catch (final UnsupportedEncodingException ex) {
+          MLogger.getLog().info("Error decoding string from '{}'", ENCODING, ex.getCause());
+        }
+      }
+    }
 
-		return parameters;
-	}
+    if (!parameters.containsKey("code")) {
+      throw new InternalBackEndException("code argument is missing!");
+    }
 
-	/**
-	 * Print the server response in a jSon format
-	 * @param message
-	 * @param response
-	 */
-	protected void printJSonResponse(final JsonMessage message, final HttpServletResponse response) {
-		response.setStatus(message.getStatus());
-		responseText = message.toString();
-		printResponse(response);
-	}
+    if (requestCodeMap.get(parameters.get("code")) == null) {
+      throw new InternalBackEndException("code argument is not well formated");
+    }
 
-	/**
-	 * Print the server response
-	 * @param response
-	 * @throws IOException
-	 */
-	private void printResponse(final HttpServletResponse response) {
-		/** Init response */
-		if (responseText != null) {
-			response.setContentType("text/plain;charset=UTF-8");
-			/** send the response */
-			PrintWriter out;
-			try {
-				out = response.getWriter();
+    return parameters;
+  }
+  /**
+   * Print the server response in a jSon format
+   * 
+   * @param message
+   * @param response
+   */
+  protected void printJSonResponse(final JsonMessage message, final HttpServletResponse response) {
+    response.setStatus(message.getStatus());
+    responseText = message.toString();
+    printResponse(response);
+  }
 
-				MLogger.getLog().info("Response sent:\n {}", responseText);
+  /**
+   * Print the server response
+   * 
+   * @param response
+   * @throws IOException
+   */
+  private void printResponse(final HttpServletResponse response) {
+    /** Init response */
+    if (responseText != null) {
+      response.setContentType("text/plain;charset=UTF-8");
+      /** send the response */
+      PrintWriter out;
+      try {
+        out = response.getWriter();
 
-				out.print(responseText);
-				out.close();
-				responseText = null; // NOPMD to avoid code check warnings
-			} catch (final IOException e) {
-				MLogger.getLog().info("IOException: {}", e.getMessage());
-				MLogger.getDebugLog().debug("Errore in printResponse()", e.getCause());
-			}
-		}
-	}
+        MLogger.getLog().info("Response sent:\n {}", responseText);
 
-	/* --------------------------------------------------------- */
-	/* GETTER&SETTER */
-	/* --------------------------------------------------------- */
-	public Gson getGson() {
-		return gson;
-	}
+        out.print(responseText);
+        out.close();
+        responseText = null; // NOPMD to avoid code check warnings
+      } catch (final IOException e) {
+        MLogger.getLog().info("IOException: {}", e.getMessage());
+        MLogger.getDebugLog().debug("Error in printResponse()", e.getCause());
+      }
+    }
+  }
 
-	public void setGson(final Gson gson) {
-		this.gson = gson;
-	}
+  /* --------------------------------------------------------- */
+  /* GETTER&SETTER */
+  /* --------------------------------------------------------- */
+  public Gson getGson() {
+    return gson;
+  }
 
-	public String getResponseText() {
-		return responseText;
-	}
+  public void setGson(final Gson gson) {
+    this.gson = gson;
+  }
+
+  public String getResponseText() {
+    return responseText;
+  }
 }
