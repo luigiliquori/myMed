@@ -58,11 +58,9 @@ public class StorageManager extends ManagerValues implements IStorageManager {
   }
 
   /**
-   * /** will create a ServiceManger on top of the WrapperType And use the
-   * specific configuration file for the transport layer
+   * will create a ServiceManger on top of the WrapperType And use the specific
+   * configuration file for the transport layer
    * 
-   * @param type
-   *          Type of DHTClient used
    * @param conf
    *          The configuration of the transport layer
    * @throws InternalBackEndException
