@@ -56,14 +56,14 @@ public class Connection implements IConnection {
         this.address = InetAddress.getLocalHost().getHostAddress();
         this.port = DEFAULT_PORT;
       } catch (final UnknownHostException ex) {
-        MLogger.getDebugLog().debug("Error recovering local host address", ex.getCause());
+        MLogger.debug("Error recovering local host address", ex.getCause());
       }
     } else {
       this.address = address;
       this.port = port;
     }
 
-    MLogger.getDebugLog().debug("Connection set to {}:{}", address, port);
+    MLogger.debug("Connection set to {}:{}", address, port);
 
     socket = new TSocket(this.address, this.port);
     transport = new TFramedTransport(socket);

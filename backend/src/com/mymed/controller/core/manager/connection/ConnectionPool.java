@@ -85,8 +85,8 @@ public class ConnectionPool implements IConnectionPool {
       con.open();
     } catch (final InternalBackEndException ex) {
       // If we cannot open the connection, we return null
-      MLogger.getLog().info(ex.getMessage());
-      MLogger.getDebugLog().debug(ex.getMessage(), ex.getCause());
+      MLogger.info(ex.getMessage());
+      MLogger.debug(ex.getMessage(), ex.getCause());
       con = null; // NOPMD
     }
 
@@ -109,7 +109,7 @@ public class ConnectionPool implements IConnectionPool {
 
         if (!con.isOpen()) {
           // If we had a closed or null connection we try again
-          MLogger.getLog().info("Got a closed connection. Retrying...");
+          MLogger.info("Got a closed connection. Retrying...");
           con = checkOut();
         }
       } else if (capacity == 0 || checkedOut.get() < capacity) {

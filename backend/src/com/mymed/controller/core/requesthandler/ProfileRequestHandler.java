@@ -119,7 +119,7 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
             userBean = profileManager.create(userBean);
             MLogger.info("User created!");
             message.setDescription("User created!");
-            message.addData("profile", getGson().toJson(userBean));
+            message.addData("user", getGson().toJson(userBean));
           } catch (final JsonSyntaxException e) {
             throw new InternalBackEndException("user jSon format is not valid");
           }
