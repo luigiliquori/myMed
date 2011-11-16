@@ -60,7 +60,7 @@ class Login extends AbstractLogin {
 					<?php $_SESSION['error'] = null; ?>
 				</div>
 			<?php } else if($this->handler->getSuccess()) { ?>
-				<div style="color: #12ff00;">
+				<div id="success" style="color: #12ff00;">
 					<?= $this->handler->getSuccess(); ?>
 				</div>
 			<?php } ?>
@@ -73,8 +73,8 @@ class Login extends AbstractLogin {
 			    <span>Mot de passe:</span><br />
 			    <input type="password" name="password" id="password" value="" />
 				<br />
-				<input type="submit" data-role="button" data-inline="true" onclick="document.singinForm.submit()" value="Connexion"  data-theme="a"/>
-				<a href="#inscription" data-role="button" data-inline="true" data-rel="dialog">Inscription</a>
+				<input id="login" type="submit" data-role="button" data-inline="true" onclick="document.singinForm.submit()" value="Connexion" data-theme="a"/>
+				<a id="register" href="#inscription" data-role="button" data-inline="true" data-rel="dialog">Inscription</a>
 			</form>
 		</div>
 	<?php }
