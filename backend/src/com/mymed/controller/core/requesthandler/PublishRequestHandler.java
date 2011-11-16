@@ -152,16 +152,21 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 				}
 				
 				try {
+					
 					final MUserBean userBean = getGson().fromJson(user, MUserBean.class);
-				
+					System.out.println("\nuser converted!");
+					
 					final Type dataType = new TypeToken<List<MDataBean>>(){}.getType();
 					final List<MDataBean> dataList = getGson().fromJson(data, dataType);
+					System.out.println("\ndata converted!");
 					
 					final List<MDataBean> predicatesArray = getGson().fromJson(predicates, dataType);
+					System.out.println("\npredicates converted!");
 
 					// broadcast algorithm
 					int broadcastSize = (int) Math.pow(2, predicatesArray.size());
 					for(int i=1 ; i<broadcastSize ; i++){
+						System.out.println("\nfor loop");
 			 			int mask = i;
 			 			String predicate = "";
 			 			int j = 0;

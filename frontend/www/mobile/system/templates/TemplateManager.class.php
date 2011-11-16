@@ -35,7 +35,8 @@ class TemplateManager {
 		<link rel="stylesheet" href="css/style.css" />
 		
 		<!-- JQUERY -->
-		<link href="css/jquery.mobile-1.0b2.min.css" rel="stylesheet" />
+		<link href="http://code.jquery.com/mobile/1.0rc2/jquery.mobile-1.0rc2.min.css" rel="stylesheet" />
+		<!--  <link href="css/jquery.mobile-1.0b2.min.css" rel="stylesheet" /> -->
 		<link href="css/jquery.mobile.datebox.min.css" rel="stylesheet" />
 		<script src="javascript/jquery/jquery-1.6.2.min.js"></script>
 		<script src="javascript/jquery/jquery.mobile-1.0b2.min.js"></script>

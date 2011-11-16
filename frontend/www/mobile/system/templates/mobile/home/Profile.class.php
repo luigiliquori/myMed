@@ -71,7 +71,7 @@ class Profile extends AbstractHome {
 				eMail: <?= $_SESSION['user']->email ?><br />
 				Reputation: 
 				 <?php 
-			    	$rand = rand(0, 4);
+			    	$rand = 3;
 			    	$j=0;
 			    	while($j<=$rand){ ?>
 			    		<img alt="star" src="img/star.png" width="20" />

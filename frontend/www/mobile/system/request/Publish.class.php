@@ -30,10 +30,11 @@ class Publish extends Request {
 	/* --------------------------------------------------------- */
 	public /*void*/ function send() {
 		$predicateArray;
-		$data = array();
+		$dataArray;
 		$askForMobilePicture = false;
 		$numberOfPredicate = 0;
-
+		$numberOfOntology = 0;
+		
 		// construct the predicate + data
 		for($i=0 ; $i<$_POST['numberOfOntology'] ; $i++){
 			/*MDataBean*/ $ontology = json_decode(urldecode($_POST['ontology' . $i]));
@@ -54,14 +55,14 @@ class Publish extends Request {
 			}
 				
 			// construct the data
-			$data[$i] = $ontology;
+			$dataArray[$numberOfOntology++] = $ontology;
 		}
 
 		// Construct the requests
 		$application = $_POST['application'];
 		$user = json_encode($_SESSION['user']);
 		$predicate = json_encode($predicateArray);
-		$data = json_encode($data);
+		$data = json_encode($dataArray);
 		
 		if (TARGET == "desktop") {
 			$params = array(

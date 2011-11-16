@@ -83,7 +83,7 @@ class Profile extends AbstractTemplate {
 				Profile: <a href="<?= $_SESSION['user']->link ?>"><?= $_SESSION['user']->socialNetworkName ?></a><br />
 				Reputation: 
 				 <?php 
-			    	$rand = rand(0, 4);
+			    	$rand = 3;
 			    	$j=0;
 			    	while($j<=$rand){ ?>
 			    		<img alt="star" src="img/star.png" width="20" />
@@ -101,8 +101,8 @@ class Profile extends AbstractTemplate {
 				<br /><br />
 				
 				<!-- FRIENDS STREAM -->
-				<div style="background-color: #545454; color: white; width: 200px; font-size: 15px; font-weight: bold;">Contacts</div>
-				<div style="position:relative; height: 200px; width: 200px; overflow: auto; background-color: #f0f0f0; top:0px;">
+				<div style="background-color: #1d1d1d; color: white; width: 200px; font-size: 15px; font-weight: bold;">Contacts</div>
+				<div style="position:relative; width: 200px; height:400px; overflow: auto; background-color: #f0f0f0; top:0px;">
 					<?php foreach ($_SESSION['friends'] as $friend ) { ?>
 						<img src="http://graph.facebook.com/<?= $friend["id"] ?>/picture" width="20px" />
 						<a href="<?= $friend["link"] ?>"><?= $friend["name"] ?></a>

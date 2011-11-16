@@ -83,7 +83,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 					message.addData("warning", "METHOD DEPRECATED - Post method should be used instead of Get!");
 					final MUserBean userBean = authenticationManager.read(login, password);
 					message.setDescription("Successfully authenticated");
-					message.addData("profile", getGson().toJson(userBean));
+					message.addData("user", getGson().toJson(userBean));
 				}
 				break;
 			case DELETE :
@@ -138,7 +138,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 
 						MLogger.getLog().info("User created");
 						message.setDescription("User created");
-						message.addData("profile", getGson().toJson(userBean));
+						message.addData("user", getGson().toJson(userBean));
 					} catch (final JsonSyntaxException e) {
 						throw new InternalBackEndException("User/Authentication jSon format is not valid");
 					}
@@ -153,7 +153,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 				} else {
 					final MUserBean userBean = authenticationManager.read(login, password);
 					message.setDescription("Successfully authenticated");
-					message.addData("profile", getGson().toJson(userBean)); // TODO Remove this parameter
+					message.addData("user", getGson().toJson(userBean)); // TODO Remove this parameter
 					
 					// Create a new session
 					final MSessionBean sessionBean = new MSessionBean();

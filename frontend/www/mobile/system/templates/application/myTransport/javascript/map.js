@@ -34,7 +34,7 @@ function successCallback(position){
 	       if(xhr.readyState  == 4)
 	       {
 	        if(xhr.status  == 200) 
-	            alert("position stored!"); 
+	            alert("Position enregistrée."); 
 	        else 
 	        	alert("Error code " + xhr.status);
 	        }

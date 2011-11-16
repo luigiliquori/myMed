@@ -18,6 +18,10 @@ class FacebookWrapper implements IWrapper {
 		return "Facebook";
 	}
 	
+	public /*String*/ function getSocialNetworkButton() {
+		return "<img alt='facebook' src='img/facebook_button.gif' />";
+	}
+	
 	/**
 	 * Default constructor
 	 * @param $initialization
@@ -65,6 +69,9 @@ class FacebookWrapper implements IWrapper {
 	 				
 	 			$responsejSon = $request->send();
 	 			$responseObject = json_decode($responsejSon);
+	 			if($responseObject->status != 200) {
+	 				throw new FacebookApiException($responseObject->description);
+	 			}
 	 			
 	 			$_SESSION['friends'] =  $this->facebook->api('/me/friends?access_token=' . $this->facebook->getAccessToken());
 	 			$_SESSION['friends'] = $_SESSION['friends']["data"];
@@ -75,7 +82,7 @@ class FacebookWrapper implements IWrapper {
 	 			
 	 		} catch (FacebookApiException $e) {
 	 			error_log($e);
-	 			$user = null;
+	 			$_SESSION['user'] = null;
 	 		}
 	 		
 // 	 		header("Refresh:0;url=" . $_SERVER['PHP_SELF'] . "?socialNetwork=facebook&accessToken=" . $this->facebook->getAccessToken()); // REDIRECTION

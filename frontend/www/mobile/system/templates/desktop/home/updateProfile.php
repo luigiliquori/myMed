@@ -5,16 +5,16 @@
 	</div>
 
 	<!-- CONTENT -->
-	<div data-role="content" id="one" data-theme="b">
+	<div data-role="content" id="one" data-theme="b" style="text-align: center;" >
 		<form action="#" method="post" name="inscriptionForm" id="inscriptionForm">
 			<input type="hidden" name="update" value="1" />
-			<span>Prénom : </span><input type="text" name="prenom" value="<?= $_SESSION['user']->firstName ?>" /><br />
-			<span>Nom : </span><input type="text" name="nom" value="<?= $_SESSION['user']->lastName ?>" /><br />
-			<span>eMail : </span><input type="text" name="email" value="<?= $_SESSION['user']->email ?>" /><br />
-			<span>Password : </span><input type="password" name="password" /><br />
-			<span>Confirm : </span><input type="password" name="confirm" /><br />
-			<span>Date de naissance : </span><input type="text" name="birthday" value="<?= $_SESSION['user']->birthday ?>" /><br />
-			<span>Photo du profil : </span><input type="text" name="thumbnail" value="<?= $_SESSION['user']->profilePicture ?>" /><br />
+			<span>Prénom : </span><br /><input type="text" name="prenom" value="<?= $_SESSION['user']->firstName ?>" /><br />
+			<span>Nom : </span><br /><input type="text" name="nom" value="<?= $_SESSION['user']->lastName ?>" /><br />
+			<span>eMail : </span><br /><input type="text" name="email" value="<?= $_SESSION['user']->email ?>" /><br />
+			<span>Password : </span><br /><input type="password" name="password" /><br />
+			<span>Confirm : </span><br /><input type="password" name="confirm" /><br />
+			<span>Date de naissance : </span><br /><input type="text" name="birthday" value="<?= $_SESSION['user']->birthday ?>" /><br />
+			<span>Photo du profil : </span><br /><input type="text" name="thumbnail" value="<?= $_SESSION['user']->profilePicture ?>" /><br />
 			<a data-role="button" onclick="document.inscriptionForm.submit()">Mise à jour</a>
 		</form>
 	</div>
