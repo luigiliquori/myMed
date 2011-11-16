@@ -18,6 +18,10 @@ class FacebookWrapper implements IWrapper {
 		return "Facebook";
 	}
 	
+	public /*String*/ function getSocialNetworkButton() {
+		return "<img alt='facebook' src='img/facebook_button.gif' />";
+	}
+	
 	/**
 	 * Default constructor
 	 * @param $initialization
@@ -33,7 +37,7 @@ class FacebookWrapper implements IWrapper {
 	/**
 	 * Handle a facebook login request
 	 */
-	public /*void*/ function handleLogin() {
+	public /*void*/ function handleAuthentication() {
 		// Get User ID
 	 	$user = $this->facebook->getUser();
 	 	if ($user) {
@@ -45,7 +49,7 @@ class FacebookWrapper implements IWrapper {
 	 			
 	 			// Format the user Object
 	 			$_SESSION['user'] = new MUserBean();
-	 			$_SESSION['user']->id = $user_profile["id"];
+	 			$_SESSION['user']->id = "FACEBOOK_" . $user_profile["id"];
 	 			$_SESSION['user']->login = $user_profile["email"];
 	 			$_SESSION['user']->email = $user_profile["email"];
 	 			$_SESSION['user']->name = $user_profile["name"];
@@ -53,10 +57,21 @@ class FacebookWrapper implements IWrapper {
 	 			$_SESSION['user']->lastName = $user_profile["last_name"];
 	 			$_SESSION['user']->link = $user_profile["link"];
 	 			$_SESSION['user']->birthday = $user_profile["birthday"];
-	 			$_SESSION['user']->hometown = $user_profile["hometown"];
+	 			$_SESSION['user']->hometown = "";
 	 			$_SESSION['user']->profilePicture = "http://graph.facebook.com/" . $user_profile["id"] . "/picture?type=large";
 	 			$_SESSION['user']->gender = $user_profile["gender"];
-	 			$_SESSION['user']->socialNetwork = "Facebook";
+	 			$_SESSION['user']->socialNetworkID = "Facebook";
+	 			$_SESSION['user']->socialNetworkName = "facebook";
+	 			
+	 			// make the user profile persistant into myMed
+	 			$request = new Request("ProfileRequestHandler", CREATE);
+	 			$request->addArgument("user", json_encode($_SESSION['user']));
+	 				
+	 			$responsejSon = $request->send();
+	 			$responseObject = json_decode($responsejSon);
+	 			if($responseObject->status != 200) {
+	 				throw new FacebookApiException($responseObject->description);
+	 			}
 	 			
 	 			$_SESSION['friends'] =  $this->facebook->api('/me/friends?access_token=' . $this->facebook->getAccessToken());
 	 			$_SESSION['friends'] = $_SESSION['friends']["data"];
@@ -67,8 +82,10 @@ class FacebookWrapper implements IWrapper {
 	 			
 	 		} catch (FacebookApiException $e) {
 	 			error_log($e);
-	 			$user = null;
+	 			$_SESSION['user'] = null;
 	 		}
+	 		
+// 	 		header("Refresh:0;url=" . $_SERVER['PHP_SELF'] . "?socialNetwork=facebook&accessToken=" . $this->facebook->getAccessToken()); // REDIRECTION
 	 	}	
 	}
 	

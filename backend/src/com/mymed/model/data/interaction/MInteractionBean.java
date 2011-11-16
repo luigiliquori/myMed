@@ -68,11 +68,6 @@ public class MInteractionBean extends AbstractMBean {
     return "Interaction:\n" + super.toString();
   }
 
-  @Override
-  public void update(final AbstractMBean mBean) {
-    // TODO Auto-generated method stub
-  }
-
   /*
    * (non-Javadoc)
    * 

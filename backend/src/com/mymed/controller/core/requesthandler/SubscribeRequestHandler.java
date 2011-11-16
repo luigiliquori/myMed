@@ -115,7 +115,7 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
 				} 
 				break;
 			default :
-				new InternalBackEndException("SubscribeRequestHandler.doGet(" + code + ") not exist!");
+				throw new InternalBackEndException("SubscribeRequestHandler.doGet(" + code + ") not exist!");
 			}
 
 		} catch (final AbstractMymedException e) {

@@ -6,6 +6,7 @@
 .project
 .settings
 .classpath
+.fbprefs
 
 .DS_Store
 

@@ -20,7 +20,6 @@ import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.utils.MLogger;
 
 public abstract class AbstractRequestHandler extends HttpServlet {
-
   /* --------------------------------------------------------- */
   /* Attributes */
   /* --------------------------------------------------------- */

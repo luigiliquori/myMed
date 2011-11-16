@@ -59,7 +59,7 @@ public class SessionTest extends StressTestValues {
 		}
 	}
 
-	public void removeSession(final MSessionBean sessionBean) throws InternalBackEndException {
+	public void removeSession(final MSessionBean sessionBean) throws InternalBackEndException, IOBackEndException {
 		final SessionManager sessionManager = new SessionManager(new StorageManager(new WrapperConfiguration(new File(
 		        CONF_FILE))));
 		sessionManager.delete(sessionBean.getUser());

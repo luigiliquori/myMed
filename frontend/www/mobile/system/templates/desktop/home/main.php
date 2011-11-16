@@ -5,7 +5,7 @@ require_once 'system/templates/mobile/home/Top10.class.php';
 require_once dirname(__FILE__).'/Profile.class.php';
 require_once dirname(__FILE__).'/News.class.php';
 require_once dirname(__FILE__).'/Notification.class.php';
-require_once dirname(__FILE__).'/handler/MenuHandler.class.php';
+require_once 'system/templates/mobile/home/handler/MenuHandler.class.php';
 
 $menuHandler = new MenuHandler();
 $menuHandler->handleRequest();
@@ -33,17 +33,14 @@ $profile = new Profile();
 $profile->printTemplate(); 
 
 $theme = "d";
-$css = "position: absolute; top:150px; left:30%; width:40%; border: thin black solid;";
+$css = "position: absolute; top:120px; left:30%; width:40%; border: thin #d0d0d0 solid; padding:5px;";
 
 $favorite = new Favorite();
 $favorite->printTemplate($theme, $css);
-$category = new Category();
-$category->printTemplate($theme, $css);
 $top10 = new Top10();
 $top10->printTemplate($theme, $css);
-
-$news = new News();
-$news->printTemplate();
+$category = new Category();
+$category->printTemplate($theme, $css);
 
 $notification = new Notification();
 $notification->printTemplate();

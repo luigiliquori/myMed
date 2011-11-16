@@ -34,11 +34,11 @@ class PublishView extends MyApplication {
 	public /*String*/ function getContent() { ?>
 		<!-- CONTENT -->
 		<div class="content">
-			<form  action="#" method="post" name="<?= APPLICATION_NAME ?>PublishForm" id="<?= APPLICATION_NAME ?>PublishForm">
+			<form  action="#" method="post" name="<?= APPLICATION_NAME ?>PublishForm" id="<?= APPLICATION_NAME ?>PublishForm" enctype="multipart/form-data">
 				<!-- Define the method to call -->
 				<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
 				<input type="hidden" name="method" value="publish" />
-				<input type="hidden" name="numberOfOntology" value="5" />
+				<input type="hidden" name="numberOfOntology" value="6" />
 				
 				<!-- KEYWORD -->
 				Ontology 0 (Type: KEYWORD) :<br />
@@ -71,11 +71,23 @@ class PublishView extends MyApplication {
 				<input type="hidden" name="ontology3" value="<?= urlencode(json_encode($date)); ?>">
 				<br /><br />
 				
+				<!-- PICTURE -->
+				Ontology 4 (Type: PICTURE) :<br />
+				<?php if (TARGET == "mobile") { ?>
+					<a href="mobile_binary<?= MOBILE_PARAMETER_SEPARATOR ?>choose_picture" data-role="button" data-inline="true">Add Picture</a>
+					<input id="picture" type="hidden" name="picture" value="0">
+				<?php } else { ?>
+					<input id="picture" type="file" name="picture" />
+				<?php } ?>
+				<?php $picture = new MDataBean("picture", null, PICTURE); ?>
+				<input type="hidden" name="ontology4" value="<?= urlencode(json_encode($picture)); ?>">
+				<br /><br />
+				
 				<!-- TEXT -->
-				Ontology 4 (Type: TEXT) :<br />
+				Ontology 5 (Type: TEXT) :<br />
 				<textarea name="text" rows="" cols=""></textarea>
 				<?php $text = new MDataBean("text", null, TEXT); ?>
-				<input type="hidden" name="ontology4" value="<?= urlencode(json_encode($text)); ?>">
+				<input type="hidden" name="ontology5" value="<?= urlencode(json_encode($text)); ?>">
 				<br />
 				
 				<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>PublishForm.submit()">Publish</a>

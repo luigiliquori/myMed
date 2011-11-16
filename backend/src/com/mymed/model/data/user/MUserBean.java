@@ -92,23 +92,6 @@ public final class MUserBean extends AbstractMBean {
 		return new MUserBean(this);
 	}
 
-	@Override
-	public void update(final AbstractMBean mBean) {
-		if (mBean instanceof MUserBean) {
-			final MUserBean newValue = (MUserBean) mBean;
-			login = newValue.getLogin() == null ? login : newValue.getLogin();
-			email = newValue.getEmail() == null ? email : newValue.getEmail();
-			name = newValue.getName() == null ? name : newValue.getName();
-			firstName = newValue.getFirstName() == null ? firstName : newValue.getFirstName();
-			lastName = newValue.getLastName() == null ? lastName : newValue.getLastName();
-			link = newValue.getLink() == null ? link : newValue.getLink();
-			birthday = newValue.getBirthday() == null ? birthday : newValue.getBirthday();
-			hometown = newValue.getHometown() == null ? hometown : newValue.getHometown();
-			gender = newValue.getGender() == null ? gender : newValue.getGender();
-			profilePicture = newValue.getProfilePicture() == null ? profilePicture : newValue.getProfilePicture();
-		}
-	}
-
 	/* --------------------------------------------------------- */
 	/* Override methods */
 	/* --------------------------------------------------------- */

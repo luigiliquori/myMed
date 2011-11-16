@@ -18,11 +18,8 @@ public class MSessionBean extends AbstractMBean {
 	private boolean isP2P;
 	private String ip;
 	private int port;
-
-	@Override
-	public void update(final AbstractMBean mBean) {
-		// TODO Auto-generated method stub
-	}
+	private String accessToken;
+	private boolean isExpired = false;
 
 	@Override
 	public String toString() {
@@ -201,4 +198,20 @@ public class MSessionBean extends AbstractMBean {
 		this.port = port;
 	}
 
+	public String getAccessToken() {
+		return accessToken;
+	}
+
+	public void setAccessToken(String accessToken) {
+		this.accessToken = accessToken;
+	}
+
+	public boolean isExpired() {
+		return isExpired;
+	}
+
+	public void setExpired(boolean isExpired) {
+		this.isExpired = isExpired;
+	}
+ 
 }

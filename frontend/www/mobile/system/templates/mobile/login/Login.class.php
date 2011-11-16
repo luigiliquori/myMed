@@ -51,11 +51,11 @@ class Login extends AbstractLogin {
 			
 			<!-- NOTIFICATION -->
 			<?php if($this->handler->getError()) { ?>
-				<div style="color: red;">
+				<div id="loginError" style="color: red;">
 					<?= $this->handler->getError(); ?>
 				</div>
 			<?php } else if(isset($_SESSION['error'])) { ?>
-				<div style="color: red;">
+				<div id="loginError" style="color: red;">
 					<?= $_SESSION['error']; ?>
 					<?php $_SESSION['error'] = null; ?>
 				</div>

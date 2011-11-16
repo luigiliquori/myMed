@@ -5,22 +5,22 @@
 	<backend>
 		<!-- Cloud Info -->
 		<cassandra>
-			<ListenAddress>127.0.0.1</ListenAddress>
+			<ListenAddress>138.96.242.2</ListenAddress>
 			<!-- See the Cassandra configuration file at ../protocols/cassandra/cassandra/conf/cassandra.yaml -->
 			<StoragePort>4200</StoragePort>
-			<ThriftAddress>127.0.0.1</ThriftAddress>
+			<ThriftAddress>138.96.242.2</ThriftAddress>
 			<ThriftPort>4201</ThriftPort>
 		</cassandra>
 
 		<!-- P2P Info -->
-		<synapse address="127.0.0.1" port="0">
+		<synapse address="138.96.242.2" port="0">
 			<chord>
-				<ListenAddress>127.0.0.1</ListenAddress>
+				<ListenAddress>138.96.242.2</ListenAddress>
 				<!-- 0 means random free port number -->
 				<StoragePort>0</StoragePort>
 			</chord>
 			<kad>
-				<ListenAddress>127.0.0.1</ListenAddress>
+				<ListenAddress>138.96.242.2</ListenAddress>
 				<!-- 0 means random free port number -->
 				<StoragePort>0</StoragePort>
 			</kad>

@@ -52,7 +52,7 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
    *      response)
    */
   @Override
-  public void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
+  protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
       IOException {
 
     final JsonMessage message = new JsonMessage(200, this.getClass().getName());
@@ -69,21 +69,21 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
         case READ :
           message.setMethod("READ");
           final MUserBean userBean = profileManager.read(id);
-          message.addData("profile", getGson().toJson(userBean));
+          message.addData("user", getGson().toJson(userBean));
           break;
         case DELETE :
           message.setMethod("DELETE");
           profileManager.delete(id);
           message.setDescription("User " + id + " deleted");
-          MLogger.info("User '{}' deleted", id);
+          MLogger.getLog().info("User '{}' deleted", id);
           break;
         default :
           throw new InternalBackEndException("ProfileRequestHandler.doGet(" + code + ") not exist!");
       }
 
     } catch (final AbstractMymedException e) {
-      MLogger.info("Error in doGet operation");
-      MLogger.debug("Error in doGet operation", e.getCause());
+      MLogger.getLog().info("Error in doRequest operation");
+      MLogger.getDebugLog().debug("Error in doRequest operation", e.getCause());
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());
     }
@@ -92,11 +92,11 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
   }
 
   /**
-   * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+   * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
    *      response)
    */
   @Override
-  public void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
+  protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
       IOException {
 
     final JsonMessage message = new JsonMessage(200, this.getClass().getName());
@@ -113,11 +113,11 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
         case CREATE :
           message.setMethod("CREATE");
           try {
-            MLogger.info("User:\n {}", user);
+            MLogger.getLog().info("User:\n", user);
             MUserBean userBean = getGson().fromJson(user, MUserBean.class);
-            MLogger.info("Trying to create a new user:\n {}", userBean.toString());
+            MLogger.getLog().info("Trying to create a new user:\n {}", userBean.toString());
             userBean = profileManager.create(userBean);
-            MLogger.info("User created!");
+            MLogger.getLog().info("User created!");
             message.setDescription("User created!");
             message.addData("profile", getGson().toJson(userBean));
           } catch (final JsonSyntaxException e) {
@@ -128,11 +128,11 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
           message.setMethod("UPDATE");
           try {
             MUserBean userBean = getGson().fromJson(user, MUserBean.class);
-            MLogger.info("Trying to update user:\n {}", userBean.toString());
+            MLogger.getLog().info("Trying to update user:\n {}", userBean.toString());
             userBean = profileManager.update(userBean);
             message.addData("profile", getGson().toJson(userBean));
             message.setDescription("User updated!");
-            MLogger.info("User updated!");
+            MLogger.getLog().info("User updated!");
           } catch (final JsonSyntaxException e) {
             throw new InternalBackEndException("user jSon format is not valid");
           }
@@ -142,8 +142,8 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
       }
 
     } catch (final AbstractMymedException e) {
-      MLogger.info("Error in doPost operation");
-      MLogger.debug("Error in doPost operation", e.getCause());
+      MLogger.getLog().info("Error in doRequest operation");
+      MLogger.getDebugLog().debug("Error in doRequest operation", e.getCause());
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());
     }
