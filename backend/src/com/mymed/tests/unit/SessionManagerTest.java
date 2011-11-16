@@ -11,7 +11,7 @@ import org.junit.Test;
 import com.mymed.model.data.session.MSessionBean;
 
 /**
- * Test class for the {@link SessionManager}.
+ * Test class for the {@link PositionManager}.
  * 
  * @author Milo Casagrande
  */

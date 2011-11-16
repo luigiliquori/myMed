@@ -8,6 +8,7 @@
 	require_once dirname(__FILE__).'/config.php';
 	require_once dirname(__FILE__).'/templates/TemplateManager.class.php';
 	require_once dirname(__FILE__).'/LoginHandler.class.php';
+// 	require_once 'system/beans/MPositionBean.class.php';
 	
 	session_start();
 	
@@ -29,15 +30,16 @@
 	if (USER_CONNECTED) {
 		
 		// Try to get th position && Store the position of the user: TODO move this part
-		if(isset($_GET["latitude"]) && isset($_GET["longitude"])) {
-			$request = new Request("DHTRequestHandler", CREATE);
-			$request->addArgument("key", $_SESSION['user']->name . "latitude");
-			$request->addArgument("value", $_GET["latitude"]);
-			$request->send();
-			$request->addArgument("key", $_SESSION['user']->name . "longitude");
-			$request->addArgument("value", $_GET["longitude"]);
-			$request->send();
-		}
+// 		if(isset($_GET["latitude"]) && isset($_GET["longitude"])) {
+// 			$request = new Request("PositionRequestHandler", UPDATE);
+// 			$position = new MPositionBean();
+// 			$position->id = $_SESSION['user']->id;
+// 			$position->latitude = $_GET["latitude"];
+// 			$position->longitude = $_GET["longitude"];
+// 			TODO add city+zipCode+formatedAddress
+// 			$request->addArgument("position", json_encode($position));
+// 			$request->send();
+// 		}
 		
 		if(isset($_GET['application']) && $_GET['application'] != "0"){
 			$templateManager->selectTemplate('application/'.$_GET['application']);
