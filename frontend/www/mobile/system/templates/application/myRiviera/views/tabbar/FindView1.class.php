@@ -28,6 +28,13 @@ class FindView1 extends MyApplication {
 	/* --------------------------------------------------------- */
 	/* public methods */
 	/* --------------------------------------------------------- */
+	private /*Response*/ function getPosition(/*String*/ $id, /*String*/ $type){
+		$request = new Request("DHTRequestHandler", READ);
+		$request->addArgument("key", $id . $type);
+		$responsejSon = $request->send();
+		return json_decode($responsejSon);
+	}
+	
 	/**
 	 * Get the CONTENT for jQuery Mobile
 	 */
@@ -41,125 +48,110 @@ class FindView1 extends MyApplication {
 				<input type="hidden" name="numberOfOntology" value="4" />
 				
 				<div class="ui-grid-b">
-					<!-- From -->
+					
+					<!-- FROM -->
 					<div class="ui-block-a">
 					<img id="dpicture" alt="thumbnail" src="http://graph.facebook.com/007/picture?type=large" width="80" height="80" style="" /><br />
 					<select id="selectDepart" name="enum" data-theme="a" onchange="changeDestination('depart')">
                                                 
-						<?php // DEFAULT == NO POSITION?>
 						<option value="nullpart&&007">Choisir</option>
 
 						<?php
 						// MY POSITION
-                                                $request = new Request("DHTRequestHandler", READ);
-                                                $request->addArgument("key", $_SESSION['user']->name . "latitude");
-                                                $responsejSon = $request->send();
-                                                $responseObject = json_decode($responsejSon);
+						$responseObject = $this->getPosition($_SESSION['user']->name, "latitude");
+						if($responseObject->status == 200) {
+							$latitude = $responseObject->data->value;
+							$responseObject = $this->getPosition($_SESSION['user']->name, "longitude");
+							if($responseObject->status == 200) {
+								$longitude = $responseObject->data->value;
+								$geoloc = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?latlng=".$latitude.",".$longitude."&sensor=true")); ?>
+								<option
+									value="<?= $geoloc->results[0]->formatted_address ?>&&<?= $_SESSION['user']->profilePicture ?>">
+									<?= $_SESSION['user']->name ?>
+								</option>
+								<?php
+							}
+						}
 
-                                                if($responseObject->status == 200) {
-                                                	$latitude = $responseObject->data->value;
-                                                        $request->addArgument("key", $_SESSION['user']->name . "longitude");
-                                                        $responsejSon = $request->send();
-                                                        $responseObject = json_decode($responsejSon);
-                                                        if($responseObject->status == 200) {
-                                                        	$longitude = $responseObject->data->value;
-                                                                // CALL TO GOOGLE GEOCODE API
-                                                                 $geoloc = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?latlng=".$latitude.",".$longitude."&sensor=true")); ?>
-                                                                 <option value="<?= $geoloc->results[0]->formatted_address ?>&&<?= $_SESSION['user']->profilePicture ?>"><?= $_SESSION['user']->name ?></option><?php
-                                                        }
-                                                 }
-                                                
 						// FRIENDS POSITION
 						if(isset($_SESSION['friends'])) {
-						foreach ($_SESSION['friends'] as $friend ) { ?>
-                                                        <?php
-                                                        $request = new Request("DHTRequestHandler", READ);
-                                                        $request->addArgument("key", $friend["name"] . "latitude");
-                                                        $responsejSon = $request->send();
-                                                        $responseObject = json_decode($responsejSon);
-
-                                                        if($responseObject->status == 200) {
-                                                                $latitude = $responseObject->data->value;
-                                                                $request->addArgument("key", $friend["name"] . "longitude");
-                                                                $responsejSon = $request->send();
-                                                                $responseObject = json_decode($responsejSon);
-                                                                if($responseObject->status == 200) {
-                                                                        $longitude = $responseObject->data->value;
-                                                                        // CALL TO GOOGLE GEOCODE API
-                                                                        $geoloc = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?latlng=".$latitude.",".$longitude."&sensor=true"));
-                                                                        ?>
-                                                                        <option value="<?= $geoloc->results[0]->formatted_address ?>&&<?= "http://graph.facebook.com/" . $friend["id"] . "/picture?type=large" ?>"><?= $friend["name"] ?></option><?php
-                                                                }
-                                                        }
-                                                }
-						} ?>
-                                        </select>
+							foreach ($_SESSION['friends'] as $friend ) { 
+							$responseObject = $this->getPosition($friend["name"], "latitude");
+							if($responseObject->status == 200) {
+								$responseObject = $this->getPosition($friend["name"], "longitude");
+								if($responseObject->status == 200) {
+									$longitude = $responseObject->data->value;
+									// CALL TO GOOGLE GEOCODE API
+									$geoloc = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?latlng=".$latitude.",".$longitude."&sensor=true"));
+									?>
+									<option
+										value="<?= $geoloc->results[0]->formatted_address ?>&&<?= "http://graph.facebook.com/" . $friend["id"] . "/picture?type=large" ?>">
+										<?= $friend["name"] ?>
+									</option>
+									<?php
+								}
+							}
+						}
+					} ?>
+					</select>
 					</div>
 					<input id="depart" type="hidden" name="Départ" value=""  />
 
-					<!-- Arrow -->
+					<!-- SEPARATOR -->
 					<div class="ui-block-b">
-					<img alt="thumbnail" src="http://www.poledream.com/wp-content/uploads/2009/10/icon_map2.png" width="80" height="80" style="" />				
+						<img alt="thumbnail" src="http://www.poledream.com/wp-content/uploads/2009/10/icon_map2.png" width="80" height="80" style="" />				
 					</div>
 
-					<!-- To -->
+					<!-- TO -->
 					<div class="ui-block-c">
-					<img id="apicture" alt="thumbnail" src="http://graph.facebook.com/007/picture?type=large" width="80" height="80" style="" /><br />
+					<img id="apicture" alt="thumbnail" src="http://graph.facebook.com/007/picture?type=large" width="80" height="80" style="" /><br /> 
 					<select id="selectArrivee" name="enum" data-theme="a" onchange="changeDestination('arrivee')">
 
-                                                <?php // DEFAULT == NO POSITION?>
-                                                <option value="nullpart&&007">Choisir</option>
-
-                                                <?php
-                                                // MY POSITION
-                                                $request = new Request("DHTRequestHandler", READ);
-                                                $request->addArgument("key", $_SESSION['user']->name . "latitude");
-                                                $responsejSon = $request->send();
-                                                $responseObject = json_decode($responsejSon);
-
-                                                if($responseObject->status == 200) {
-                                                        $latitude = $responseObject->data->value;
-                                                        $request->addArgument("key", $_SESSION['user']->name . "longitude");
-                                                        $responsejSon = $request->send();
-                                                        $responseObject = json_decode($responsejSon);
-                                                        if($responseObject->status == 200) {
-                                                                $longitude = $responseObject->data->value;
-                                                                // CALL TO GOOGLE GEOCODE API
-                                                                 $geoloc = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?latlng=".$latitude.",".$longitude."&sensor=true")); ?>
-                                                                 <option value="<?= $geoloc->results[0]->formatted_address ?>&&<?= $_SESSION['user']->profilePicture ?>"><?= $_SESSION['user']->name ?></option><?php
-                                                        }
-                                                 }
-
-                                                // FRIENDS POSITION
-                                                if(isset($_SESSION['friends'])) {
-                                                foreach ($_SESSION['friends'] as $friend ) { ?>
-                                                        <?php
-                                                        $request = new Request("DHTRequestHandler", READ);
-                                                        $request->addArgument("key", $friend["name"] . "latitude");
-                                                        $responsejSon = $request->send();
-                                                        $responseObject = json_decode($responsejSon);
-
-                                                        if($responseObject->status == 200) {
-                                                                $latitude = $responseObject->data->value;
-                                                                $request->addArgument("key", $friend["name"] . "longitude");
-                                                                $responsejSon = $request->send();
-                                                                $responseObject = json_decode($responsejSon);                                                                if($responseObject->status == 200) {
-                                                                        $longitude = $responseObject->data->value;
-                                                                        // CALL TO GOOGLE GEOCODE API
-                                                                        $geoloc = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?latlng=".$latitude.",".$longitude."&sensor=true"));
-                                                                        ?>
-                                                                        <option value="<?= $geoloc->results[0]->formatted_address ?>&&<?= "http://graph.facebook.com/" . $friend["id"] . "/picture?type=large" ?>"><?= $friend["name"] ?></
-option><?php
-                                                                }
-                                                        }
-                                                }
-                                                } ?>
-                                        </select>
+						<option value="nullpart&&007">Choisir</option>
+					
+						<?php
+						// MY POSITION
+						$responseObject = $this->getPosition($_SESSION['user']->name, "latitude");
+						if($responseObject->status == 200) {
+							$latitude = $responseObject->data->value;
+							$responseObject = $this->getPosition($_SESSION['user']->name, "longitude");
+							if($responseObject->status == 200) {
+								$longitude = $responseObject->data->value;
+								$geoloc = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?latlng=".$latitude.",".$longitude."&sensor=true")); ?>
+								<option
+									value="<?= $geoloc->results[0]->formatted_address ?>&&<?= $_SESSION['user']->profilePicture ?>">
+									<?= $_SESSION['user']->name ?>
+								</option>
+								<?php
+							}
+						}
+			
+						// FRIENDS POSITION
+						if(isset($_SESSION['friends'])) {
+							foreach ($_SESSION['friends'] as $friend ) { 
+							$responseObject = $this->getPosition($friend["name"], "latitude");
+							if($responseObject->status == 200) {
+								$responseObject = $this->getPosition($friend["name"], "longitude");
+								if($responseObject->status == 200) {
+									$longitude = $responseObject->data->value;
+									// CALL TO GOOGLE GEOCODE API
+									$geoloc = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?latlng=".$latitude.",".$longitude."&sensor=true"));
+									?>
+									<option
+										value="<?= $geoloc->results[0]->formatted_address ?>&&<?= "http://graph.facebook.com/" . $friend["id"] . "/picture?type=large" ?>">
+										<?= $friend["name"] ?>
+									</option>
+									<?php
+								}
+							}
+						}
+					} ?>
+                    </select>
 					</div>
+					<input id="arrivee" type="hidden" name="Arrivée" value=""  />
+					
 				</div>
-				<input id="arrivee" type="hidden" name="Arrivée" value=""  />
 				<br />
-				
 				<!-- DATE -->
 				Partir le :<br />
 				<input type="date" name="date" data-role="datebox" data-options='{"mode": "calbox"}' data-theme="a"/>
