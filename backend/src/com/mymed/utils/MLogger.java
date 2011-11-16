@@ -96,10 +96,23 @@ public final class MLogger {
    * @param format
    *          the format of the string to log
    * @param arg
-   *          that arguments used
+   *          the argument to log
    */
   public static void info(final String format, final Object arg) {
     INFO_LOGGER.info(format, arg);
+  }
+
+  /**
+   * @see ch.qos.logback.classic.Logger#info(String, Object, Object)
+   * @param format
+   *          the format of the string to log
+   * @param arg1
+   *          the argument to log
+   * @param arg2
+   *          the argument to log
+   */
+  public static void info(final String format, final Object arg1, final Object arg2) {
+    INFO_LOGGER.info(format, arg1, arg2);
   }
 
   /**
@@ -129,5 +142,18 @@ public final class MLogger {
    */
   public static void debug(final String msg, final Throwable cause) {
     DEBUG_LOGGER.debug(msg, cause);
+  }
+
+  /**
+   * @see ch.qos.logback.classic.Logger#debug(String, Object, Object)
+   * @param format
+   *          the format of the string to log
+   * @param arg1
+   *          the argument to log
+   * @param arg2
+   *          the argument to log
+   */
+  public static void debug(final String format, final Object arg1, final Object arg2) {
+    DEBUG_LOGGER.debug(format, arg1, arg2);
   }
 }
