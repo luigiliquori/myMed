@@ -12,34 +12,22 @@ import ch.qos.logback.classic.Logger;
  * 
  */
 public final class MLogger {
-  /*
-   * The private instance for the MLogger class to implement the singleton
-   */
+  // The private instance for the MLogger class to implement the singleton
   private static final MLogger INSTANCE = new MLogger();
 
-  /*
-   * The name of the default info logger as defined in the file logback.xml
-   */
+  // The name of the default info logger as defined in the file logback.xml
   private static final String INFO_LOG_NAME = "mymed.info.logger";
 
-  /*
-   * The name of the default debug logger as defined in the file logback.xml
-   */
+  // The name of the default debug logger as defined in the file logback.xml
   private static final String DEBUG_LOG_NAME = "mymed.debug.logger";
 
-  /*
-   * The default info logger to be used throughout all the managers
-   */
+  // The default info logger to be used throughout all the managers
   private static final Logger INFO_LOGGER = (Logger) LoggerFactory.getLogger(INFO_LOG_NAME);
 
-  /*
-   * The default debug logger to be used throughout all the managers
-   */
+  // The default debug logger to be used throughout all the managers
   private static final Logger DEBUG_LOGGER = (Logger) LoggerFactory.getLogger(DEBUG_LOG_NAME);
 
-  /*
-   * Private constructor since all methods are static and we have a singleton
-   */
+  // Private constructor since all methods are static and we have a singleton
   private MLogger() {
   }
 
