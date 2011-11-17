@@ -15,15 +15,17 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 	<property name="utils.dir"           location="../utils"/>
 	<property name="libs.dir"            location="../../../../lib"/>
 	<property name="java.dir"            location="/usr/share/java"/>
+	<property name="junit.dir"           location="/usr/share/junit"/>
 	<property name="glassfish.dir"       location="../../../../servers/glassfishv3/glassfish/"/>
 	<property name="cassandra.dir"       location="../../../../protocols/cassandra/cassandra"/>
 	<property name="synapse.dir"         location="../../../../protocols/synapse/jSynapse/src"/>
+	<property name="httpcomp.dir"        location="/usr/share/apache-commons/httpcomponents"/>
 	<property name="src.dir"             location="${controller.dir}:${model.dir}:${utils.dir}"/>
 	<property name="jsynapse.jar"        value="jSynapse.jar"/>
 	<property name="mymed.jar"           value="mymed.jar"/>
 	<property name="mymedtest.jar"       value="mymedtest.jar"/>
 
- <!-- Fix the classpath to add the necessary resources -->
+  <!-- Fix the classpath to add the necessary resources -->
 	<path id="mymed.classpath" description="Classpath to be used for running the tests">
 		<pathelement path="${java.class.path}"/>
 		<pathelement location="${conf.dir}"/>
@@ -38,23 +40,27 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 			<include name="**/mail.jar"/>
 			<include name="**/javaee.jar"/>
 		</fileset>
-		<fileset dir="${libs.dir}">
-			<include name="*.jar"/>
+		<fileset dir="${java.dir}">
 			<include name="**/*.jar"/>
 		</fileset>
-		<fileset dir="${cassandra.dir}/lib">
-			<include name="*.jar"/>
+		<fileset dir="${libs.dir}">
 			<include name="**/*.jar"/>
-			<!-- We exclude this JAR here otherwise SLF4J will throw a warning, nothing blocking, but
+			<exclude name="apache-cassandra-0.7.6-2.jar"/>
+			<!-- Excluding this one since we are recompiling it -->
+			<exclude name="jSynapse.jar"/>
+			<exclude name="libthrift-0.5.jar"/>
+			<exclude name="deployment-javaee-full.jar"/>
+		</fileset>
+		<fileset dir="${cassandra.dir}/lib">
+			<include name="**/*.jar"/>
+			<!-- We exclude this JARs here otherwise SLF4J will throw a warning, nothing blocking, but
 			not good to see. For more info see: http://www.slf4j.org/codes.html#multiple_bindings
 			Cassandra has sl4j binding in its classpath, that's why it complains -->
 			<exclude name="slf4j-log4j12-1.6.1.jar"/>
+			<exclude name="slf4j-api-1.6.1.jar"/>
+			<exclude name="log4j-1.2.16.jar"/>
 		</fileset>
-		<!-- This is necessary for JUnit to work under Jenkins -->
-		<!-- Looks like it is necessary to specify the path to the needed JARs -->
-		<fileset dir="${java.dir}">
-			<include name="**/junit.jar"/>
-			<include name="*.jar"/>
+		<fileset dir="${httpcomp.dir}">
 			<include name="**/*.jar"/>
 		</fileset>
 	</path>
@@ -68,21 +74,21 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 	</target>
 
 	<target name="synapse" depends="init" description="Compile and create the Synapse JAR">
-		<javac srcdir="${synapse.dir}" destdir="${build.dir}" debug="on">
+		<javac srcdir="${synapse.dir}" destdir="${build.dir}" debug="on" fork="true" includeantruntime="true" includejavaruntime="true">
 			<classpath refid="mymed.classpath"/>
 		</javac>
 		<jar destfile="${lib.dir}/${jsynapse.jar}" basedir="${build.dir}" duplicate="preserve" index="true" />
 	</target>
 
 	<target name="compile" depends="synapse,cleanbuild" description="Compile the necessary files">
-		<javac srcdir="${src.dir}" destdir="${build.dir}" debug="on">
+		<javac srcdir="${src.dir}" destdir="${build.dir}" debug="on" fork="true" includeantruntime="true" includejavaruntime="true">
 			<classpath refid="mymed.classpath"/>
 		</javac>
 		<jar destfile="${lib.dir}/${mymed.jar}" basedir="${build.dir}" duplicate="preserve" index="true"/>
 	</target>
 
 	<target name="compiletest" depends="compile,cleanbuild" description="Compile the test classes">
-		<javac srcdir="${tests.dir}" destdir="${build.dir}" debug="on">
+		<javac srcdir="${tests.dir}" destdir="${build.dir}" debug="on" fork="yes" includeantruntime="true" includejavaruntime="true">
 			<classpath refid="mymed.classpath"/>
 			<include name="**/*.java"/>
 		</javac>
@@ -90,7 +96,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 	</target>
 
 	<target name="test" depends="compiletest" description="Run all the JUnit tests">
-		<junit printsummary="yes" haltonfailure="no" showoutput="yes">
+		<junit printsummary="yes" haltonfailure="no" showoutput="yes" includeantruntime="true" fork="true">
 			<classpath refid="mymed.classpath"/>
 			<test name="com.mymed.tests.unit.MyMedTestSuite" todir="${results.dir}"/>
 			<formatter type="xml"/>
@@ -98,17 +104,8 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 		</junit>
 	</target>
 
-	<target name="webtest" depends="compiletest" description="Run all the JUnit tests">
-	  <junit printsummary="yes" haltonfailure="no" showoutput="yes">
-	    <classpath refid="mymed.classpath"/>
-	    <test name="com.mymed.tests.unit.WebTestSuite" todir="${results.dir}"/>
-	    <formatter type="xml"/>
-	    <batchtest fork="true"/>
-	  </junit>
-	</target>
-
-	<target name="requesthandler" depends="compiletest" description="Run all the JUnit tests">
-	  <junit printsummary="yes" haltonfailure="no" showoutput="yes">
+	<target name="requesthandler" depends="compiletest" description="Run all the JUnit tests for the RequestHandler">
+	  <junit printsummary="yes" haltonfailure="no" showoutput="yes" includeantruntime="true">
 	    <classpath refid="mymed.classpath"/>
 	     <test name="com.mymed.tests.unit.handler.RequestHandlerSuite" todir="${results.dir}"/>
 	     <formatter type="xml"/>
