@@ -84,7 +84,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 					MSessionBean session = sessionManager.read(accessToken);
 					message.setDescription("Session avaible");
 					MUserBean userBean = profileManager.read(session.getUser());
-					message.addData("profile", getGson().toJson(userBean));
+					message.addData("user", getGson().toJson(userBean));
 				} else if(socialNetwork.equals("facebook")){
 					throw new InternalBackEndException("not implemented yet...");
 				} else {

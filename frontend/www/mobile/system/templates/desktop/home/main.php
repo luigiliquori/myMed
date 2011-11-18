@@ -19,7 +19,7 @@ $menuHandler->handleRequest();
 <div id="header"></div>
 
 <!-- HEADER -->
-<table id="menu" style="position: absolute; left: 20%; top: 0px;">
+<table id="menu" style="position: absolute; left: 20%; top: 7px;">
 	<tr>
 		<td><img alt="title" src="system/templates/desktop/home/img/title.png" height="30" /></td>
 		<td><a href="http://www-sop.inria.fr/teams/lognet/MYMED/index.php?static1/projet">Documentation</a></td>

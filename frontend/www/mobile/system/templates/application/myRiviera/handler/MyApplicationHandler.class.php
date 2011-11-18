@@ -67,7 +67,7 @@ class MyApplicationHandler implements IRequestHandler {
 					$this->error = "bad parameters";
 				}
 			} 
-		} 
+		}
 	}
 	
 	/* --------------------------------------------------------- */
