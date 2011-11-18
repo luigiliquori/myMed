@@ -29,7 +29,7 @@ import com.mymed.controller.core.requesthandler.ProfileRequestHandler;
  */
 public class ProfileRequestHandlerTest {
 
-  private static final String PROFILE_REQUEST_HANDLER_NAME = "ProfileRequestHandler";
+  private static final String REQUEST_HANDLER_NAME = "ProfileRequestHandler";
   // The query codes
   private static final String CREATE = "0";
   private static final String READ = "1";
@@ -45,7 +45,7 @@ public class ProfileRequestHandlerTest {
 
   @BeforeClass
   public static void setUpOnce() {
-    path = TestUtils.createPath(PROFILE_REQUEST_HANDLER_NAME);
+    path = TestUtils.createPath(REQUEST_HANDLER_NAME);
   }
 
   @Before
@@ -118,7 +118,7 @@ public class ProfileRequestHandlerTest {
   /**
    * Update a user in the database.
    * <p>
-   * Check that the response code is 200, and that the JSON format is a valid
+   * Check that the response code is '200', and that the JSON format is a valid
    * 'user' JSON format
    * 
    * @throws URISyntaxException
@@ -147,7 +147,7 @@ public class ProfileRequestHandlerTest {
   /**
    * Delete a user in the database.
    * <p>
-   * Check that the response code is 200, and that the JSON format is valid
+   * Check that the response code is '200', and that the JSON format is valid
    * 
    * @throws URISyntaxException
    * @throws ClientProtocolException
@@ -165,6 +165,30 @@ public class ProfileRequestHandlerTest {
     final HttpResponse response = client.execute(getRequest);
 
     BackendAssert.assertResponseCodeIs(response, 200);
+    BackendAssert.assertIsValidJson(response);
+  }
+
+  /**
+   * Read the database for the deleted user.
+   * <p>
+   * Check that the response code is '404', and that the JSON format is valid
+   * 
+   * @throws URISyntaxException
+   * @throws ClientProtocolException
+   * @throws IOException
+   */
+  @Test
+  public void getDeletedUserTest() throws URISyntaxException, ClientProtocolException, IOException {
+    TestUtils.addParameter(params, "code", READ);
+    TestUtils.addParameter(params, "id", "MYMED_prova@example.org");
+
+    final String query = TestUtils.createQueryParams(params);
+    final URI uri = TestUtils.createUri(path, query);
+
+    final HttpGet getRequest = new HttpGet(uri);
+    final HttpResponse response = client.execute(getRequest);
+
+    BackendAssert.assertResponseCodeIs(response, 404);
     BackendAssert.assertIsValidJson(response);
   }
 
