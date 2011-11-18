@@ -194,7 +194,7 @@ public class ProfileRequestHandlerTest {
   }
 
   /**
-   * Send a wrong code in the query.
+   * Send a wrong code in the query with a 'GET' request.
    * <p>
    * Check that the response code is '500', and that the JSON format is valid
    * 
@@ -203,7 +203,7 @@ public class ProfileRequestHandlerTest {
    * @throws IOException
    */
   @Test
-  public void sendWrongCodeTest() throws URISyntaxException, ClientProtocolException, IOException {
+  public void sendWrongCodeGetTest() throws URISyntaxException, ClientProtocolException, IOException {
     TestUtils.addParameter(params, "code", WRONG);
 
     final String query = TestUtils.createQueryParams(params);
@@ -211,6 +211,29 @@ public class ProfileRequestHandlerTest {
 
     final HttpGet getRequest = new HttpGet(uri);
     final HttpResponse response = client.execute(getRequest);
+
+    BackendAssert.assertResponseCodeIs(response, 500);
+    BackendAssert.assertIsValidJson(response);
+  }
+
+  /**
+   * Send a wrong code in the query with a 'POST' request.
+   * <p>
+   * Check that the response code is '500', and that the JSON format is valid
+   * 
+   * @throws URISyntaxException
+   * @throws ClientProtocolException
+   * @throws IOException
+   */
+  @Test
+  public void sendWrongCodePostTest() throws URISyntaxException, ClientProtocolException, IOException {
+    TestUtils.addParameter(params, "code", WRONG);
+
+    final String query = TestUtils.createQueryParams(params);
+    final URI uri = TestUtils.createUri(path, query);
+
+    final HttpPost postRequest = new HttpPost(uri);
+    final HttpResponse response = client.execute(postRequest);
 
     BackendAssert.assertResponseCodeIs(response, 500);
     BackendAssert.assertIsValidJson(response);
