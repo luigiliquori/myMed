@@ -32,6 +32,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 	  <pathelement location="${lib.dir}/mymed.jar"/>
 	  <pathelement location="${lib.dir}/jSynapse.jar"/>
 	  <pathelement location="${lib.dir}/mymedtest.jar"/>
+		<pathelement location="${junit.dir}/junit.jar"/>
 	  <pathelement location="."/>
 		<!-- Keep this one here, otherwise it is possible to get nasty compilation errors due
 		to how JARs are imported on the CLASSPATH, and there could be errors with JARs coming
