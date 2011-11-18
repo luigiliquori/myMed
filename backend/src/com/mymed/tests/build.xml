@@ -99,7 +99,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 	<target name="test" depends="compiletest" description="Run all the JUnit tests">
 		<junit printsummary="yes" haltonfailure="no" showoutput="yes" includeantruntime="true">
 			<classpath refid="mymed.classpath"/>
-			<test name="com.mymed.tests.unit.MyMedTestSuite" todir="${results.dir}" outfile="TEST-UnitTest.xml"/>
+			<test name="com.mymed.tests.unit.MyMedTestSuite" todir="${results.dir}" outfile="TEST-UnitTest"/>
 			<formatter type="xml"/>
 			<batchtest fork="true"/>
 		</junit>
@@ -108,7 +108,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 	<target name="requesthandler" depends="compiletest" description="Run all the JUnit tests for the RequestHandler">
 	  <junit printsummary="yes" haltonfailure="no" showoutput="yes" includeantruntime="true">
 	    <classpath refid="mymed.classpath"/>
-	     <test name="com.mymed.tests.unit.handler.RequestHandlerSuite" todir="${results.dir}" outfile="TEST-RequestHandler.xml"/>
+	     <test name="com.mymed.tests.unit.handler.RequestHandlerSuite" todir="${results.dir}" outfile="TEST-RequestHandler"/>
 	     <formatter type="xml"/>
 	     <batchtest fork="true"/>
 	  </junit>
