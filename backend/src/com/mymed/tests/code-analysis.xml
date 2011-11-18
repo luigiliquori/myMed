@@ -14,6 +14,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
   <property name="utils.dir"           location="../utils"/>
   <property name="java.dir"            location="/usr/share/java"/>
   <property name="findbugs.dir"        location="/usr/share/findbugs"/>
+	<property name="junit.dir"           location="/usr/share/junit"/>
 	<property name="libs.dir"            location="../../../../lib"/>
   <property name="cassandra.dir"       location="../../../../protocols/cassandra/cassandra"/>
   <property name="src.dir"             location="${controller.dir}:${model.dir}:${utils.dir}"/>
@@ -34,8 +35,15 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
     <pathelement location="${lib.dir}/mymed.jar"/>
     <pathelement location="${lib.dir}/jSynapse.jar"/>
     <pathelement location="${lib.dir}/mymedtest.jar"/>
-	  <fileset dir="${libs.dir}" includes="*.jar" />
-    <fileset dir="${cassandra.dir}/lib" includes="*.jar"/>
+		<pathelement location="${junit.dir}/junit.jar"/>
+    <fileset dir="${libs.dir}">
+      <include name="**/*.jar"/>
+      <exclude name="apache-cassandra-0.7.6-2.jar"/>
+      <exclude name="jSynapse.jar"/>
+      <exclude name="libthrift-0.5.jar"/>
+      <exclude name="deployment-javaee-full.jar"/>
+    </fileset>
+		<fileset dir="${cassandra.dir}/lib" includes="*.jar"/>
 	  <!-- This is necessary for PMD and FindBugs to work under Jenkins -->
 	  <!-- Looks like it is necessary to specify the path to the needed JARs -->
 	  <fileset dir="${java.dir}">
@@ -58,17 +66,14 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
   <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="mymed.classpath"/>
   <taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask" classpathref="mymed.classpath"/>
 
-  <!-- Create the directories structure -->
   <target name="init" description="Initialize the necessary directories">
     <mkdir dir="${results.dir}"/>
   </target>
 
-  <!-- Clean up everything -->
   <target name="clean" description="Remove the directories used for the build">
     <delete dir="${results.dir}"/>
   </target>
 
-  <!-- Run the static code analyzer PMD to analyze the code -->
   <target name="pmd" depends="init" description="Analyze the code with PMD">
     <pmd shortFilenames="true" encoding="UTF-8" targetjdk="1.6">
       <ruleset>basic,coupling,optimizations,strings,unusedcode,controversial,sunsecure,codesize,design,typeresolution,javabeans,logging-java</ruleset>
@@ -77,7 +82,6 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 	  </pmd>
 	</target>
 
-  <!-- Run the static code analyzer FinBugs to analyze the code -->
   <target name="findbugs" depends="init" description="Analyze the code with FindBugs">
     <findbugs home="${findbugs.dir}" output="xml" outputFile="${results.dir}/findbugs.xml" reportLevel="low" effort="max">
       <class location="../"/>
@@ -88,6 +92,5 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
     </findbugs>
   </target>
 
-	<!-- Execute all the code analysis -->
 	<target name="all" depends="pmd,findbugs" description="Run all the tasks"/>
 </project>
