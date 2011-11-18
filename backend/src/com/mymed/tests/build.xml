@@ -68,7 +68,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 
 	<pathconvert description="Pretty print the classpath" property="echo.path.compile" refid="mymed.classpath" pathsep="${line.separator}|  |--" />
 
-	<target name="init" depends="clean" description="Initialize the necessary directories">
+	<target name="init" description="Initialize the necessary directories">
 		<mkdir dir="${build.dir}" />
 		<mkdir dir="${lib.dir}" />
 		<mkdir dir="${results.dir}" />
