@@ -35,6 +35,7 @@ public class ProfileRequestHandlerTest {
   private static final String READ = "1";
   private static final String UPDATE = "2";
   private static final String DELETE = "3";
+  private static final String WRONG = "8";
 
   private static String path;
 
@@ -74,7 +75,7 @@ public class ProfileRequestHandlerTest {
    * @throws URISyntaxException
    */
   @Test
-  public void wrongGetTest() throws IOException, URISyntaxException {
+  public void readWrongUserTest() throws IOException, URISyntaxException {
     TestUtils.addParameter(params, "code", READ);
     TestUtils.addParameter(params, "id", "wrong.email@example.org");
 
@@ -189,6 +190,29 @@ public class ProfileRequestHandlerTest {
     final HttpResponse response = client.execute(getRequest);
 
     BackendAssert.assertResponseCodeIs(response, 404);
+    BackendAssert.assertIsValidJson(response);
+  }
+
+  /**
+   * Send a wrong code in the query.
+   * <p>
+   * Check that the response code is '500', and that the JSON format is valid
+   * 
+   * @throws URISyntaxException
+   * @throws ClientProtocolException
+   * @throws IOException
+   */
+  @Test
+  public void sendWrongCodeTest() throws URISyntaxException, ClientProtocolException, IOException {
+    TestUtils.addParameter(params, "code", WRONG);
+
+    final String query = TestUtils.createQueryParams(params);
+    final URI uri = TestUtils.createUri(path, query);
+
+    final HttpGet getRequest = new HttpGet(uri);
+    final HttpResponse response = client.execute(getRequest);
+
+    BackendAssert.assertResponseCodeIs(response, 500);
     BackendAssert.assertIsValidJson(response);
   }
 
