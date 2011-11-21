@@ -6,17 +6,32 @@ import java.net.URISyntaxException;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class AuthenticationRequestHandlerTest extends GenralHandlerTest {
+public class AuthenticationRequestHandlerTest extends GeneralHandlerTest {
 
   private static final String HANDLER_NAME = "AuthenticationRequestHandler";
 
   @BeforeClass
   public static void setUpOnce() {
     path = TestUtils.createPath(HANDLER_NAME);
+  }
+
+  @Test
+  public void deleteTest() throws URISyntaxException, ClientProtocolException, IOException {
+    TestUtils.addParameter(params, "code", DELETE);
+
+    final String query = TestUtils.createQueryParams(params);
+    final URI uri = TestUtils.createUri(path, query);
+
+    final HttpGet getRequest = new HttpGet(uri);
+    final HttpResponse response = client.execute(getRequest);
+
+    BackendAssert.assertIsValidJson(response);
+    BackendAssert.assertResponseCodeIs(response, 500);
   }
 
   @Test
