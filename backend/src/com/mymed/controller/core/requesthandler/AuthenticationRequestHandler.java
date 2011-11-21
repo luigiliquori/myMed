@@ -87,7 +87,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 				}
 				break;
 			case DELETE :
-				break;
+				throw new InternalBackEndException("not implemented yet...");
 			default :
 				throw new InternalBackEndException("AuthenticationRequestHandler(" + code + ") not exist!");
 			}

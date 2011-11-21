@@ -36,11 +36,13 @@ class MyApplicationHandler implements IRequestHandler {
 		if(isset($_POST['method'])) {
 			if($_POST['method'] == "find") {
 				if(isset($_POST['Départ']) && isset($_POST['Arrivée'])) {
+					
 					// CALL TO GOOGLE GEOCODE API
 					$geocode1 = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($_POST['Départ']) . "&sensor=true"));
 					$geocode2 = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($_POST['Arrivée']) . "&sensor=true"));
+
+					// CALL TO CITYWAY API
 					if($geocode1->status == "OK" && $geocode2->status == "OK"){
-						// CALL TO CITYWAY API
 						$itineraire = file_get_contents(
 						Cityway_URL . "/tripplanner/v1/detailedtrip/json?key=" . Cityway_APP_ID . 
 						"&mode=transit" . 
@@ -55,7 +57,7 @@ class MyApplicationHandler implements IRequestHandler {
 						
 						$itineraireObj = json_decode($itineraire);
 						if(isset($itineraireObj->ItineraryObj)) {
-// 							echo '<script type="text/javascript">alert(\'' . $itineraire . '\');</script>';
+							echo '<script type="text/javascript">alert(\'' . $itineraire . '\');</script>';
 							$this->success = $itineraireObj;
 						} else {
 							$this->error = "error with cityWay";
