@@ -2,6 +2,8 @@ package com.mymed.tests.unit.handler;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
@@ -32,6 +34,11 @@ public class TestUtils {
   /* The path to the backend servlet */
   private static final String SERVLET_PATH = "/mymed_backend/";
   private static final String PROTOCOL = "http";
+
+  private static final String MYMED_LOGIN = "ema.nymton@example.org";
+  private static final String FIRST_NAME = "Ema";
+  private static final String LAST_NAME = "Nymton";
+  private static final String NAME = FIRST_NAME + " " + LAST_NAME;
 
   /**
    * Create the URL to use to query the backend servlet
@@ -143,5 +150,47 @@ public class TestUtils {
     }
 
     return validJson;
+  }
+
+  /**
+   * @return a JSON object for a user
+   */
+  static JsonObject createUser() {
+    final JsonObject user = new JsonObject();
+
+    user.addProperty("id", "MYMED_" + MYMED_LOGIN);
+    user.addProperty("login", MYMED_LOGIN);
+    user.addProperty("email", MYMED_LOGIN);
+    user.addProperty("name", NAME);
+    user.addProperty("firstName", FIRST_NAME);
+    user.addProperty("lastName", LAST_NAME);
+    user.addProperty("birthday", "");
+    user.addProperty("lastConnection", "0");
+    user.addProperty("profilePicture", "");
+    user.addProperty("socialNetworkID", "MYMED");
+    user.addProperty("socialNetworkName", "myMed");
+
+    return user;
+  }
+
+  /**
+   * @return a JSON object for the authentication
+   */
+  static JsonObject createAuthentication() {
+    final JsonObject auth = new JsonObject();
+
+    try {
+      final MessageDigest digest = MessageDigest.getInstance("SHA-512");
+      digest.digest("password".getBytes());
+    } catch (final NoSuchAlgorithmException ex) {
+      // TODO Auto-generated catch block
+      ex.printStackTrace();
+    }
+
+    auth.addProperty("login", MYMED_LOGIN);
+    auth.addProperty("user", "");
+    auth.addProperty("password", "");
+
+    return auth;
   }
 }
