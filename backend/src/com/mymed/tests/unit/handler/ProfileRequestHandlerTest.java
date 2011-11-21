@@ -20,7 +20,7 @@ import com.mymed.controller.core.requesthandler.ProfileRequestHandler;
  * @author Milo Casagrande
  * 
  */
-public class ProfileRequestHandlerTest extends GenralHandlerTest {
+public class ProfileRequestHandlerTest extends GeneralHandlerTest {
 
   private static final String HANDLER_NAME = "ProfileRequestHandler";
 
