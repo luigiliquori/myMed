@@ -93,8 +93,8 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
       }
     } catch (final AbstractMymedException e) {
       e.printStackTrace();
-      MLogger.getLog().info("Error in doGet operation");
-      MLogger.getDebugLog().debug("Error in doGet operation", e.getCause());
+      MLogger.info("Error in doGet operation");
+      MLogger.debug("Error in doGet operation", e.getCause());
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());
     }
@@ -133,10 +133,10 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
               final MAuthenticationBean authenticationBean = getGson().fromJson(authentication,
                   MAuthenticationBean.class);
 
-              MLogger.getLog().info("Trying to create a new user:\n {}", userBean.toString());
+              MLogger.info("Trying to create a new user:\n {}", userBean.toString());
               userBean = authenticationManager.create(userBean, authenticationBean);
 
-              MLogger.getLog().info("User created");
+              MLogger.info("User created");
               message.setDescription("User created");
               message.addData("user", getGson().toJson(userBean));
             } catch (final JsonSyntaxException e) {
@@ -161,7 +161,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
             sessionBean.setUser(userBean.getId());
             sessionBean.setCurrentApplications("");
             sessionBean.setP2P(false);
-            // TODO Use The Cassandra Timeout mecanism
+            // TODO Use The Cassandra Timeout mechanism
             sessionBean.setTimeout(System.currentTimeMillis());
             final HashFunction h = new HashFunction("myMed");
             final String accessToken = h.SHA1ToString(login + password + sessionBean.getTimeout());
@@ -173,7 +173,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
             userBean.setSession(accessToken);
             profileManager.update(userBean);
 
-            MLogger.getLog().info("Session {} created -> LOGIN", accessToken);
+            MLogger.info("Session {} created -> LOGIN", accessToken);
             // TODO Find a better way to get the URL
             message.addData("url", "http://" + InetAddress.getLocalHost().getHostAddress() + "/mobile");
             message.addData("accessToken", accessToken);
@@ -189,9 +189,9 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
               final MAuthenticationBean authenticationBean = getGson().fromJson(authentication,
                   MAuthenticationBean.class);
 
-              MLogger.getLog().info("Trying to update authentication:\n {}", authenticationBean.toString());
+              MLogger.info("Trying to update authentication:\n {}", authenticationBean.toString());
               authenticationManager.update(id, authenticationBean);
-              MLogger.getLog().info("Authentication updated!");
+              MLogger.info("Authentication updated!");
 
             } catch (final JsonSyntaxException e) {
               throw new InternalBackEndException("Authentication jSon format is not valid");
@@ -203,8 +203,8 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
       }
     } catch (final AbstractMymedException e) {
       e.printStackTrace();
-      MLogger.getLog().info("Error in doPost operation");
-      MLogger.getDebugLog().debug("Error in doPost operation", e.getCause());
+      MLogger.info("Error in doPost operation");
+      MLogger.debug("Error in doPost operation", e.getCause());
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());
     }
