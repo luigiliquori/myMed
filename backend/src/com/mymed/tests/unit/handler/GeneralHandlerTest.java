@@ -18,7 +18,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
-public class GenralHandlerTest {
+public class GeneralHandlerTest {
   // The query codes
   protected static final String CREATE = "0";
   protected static final String READ = "1";
