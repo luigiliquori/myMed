@@ -76,9 +76,9 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
         case READ :
           message.setMethod("READ");
           if (login == null) {
-            throw new InternalBackEndException("login argument missing!");
+            throw new InternalBackEndException("Argument 'login' is missing!");
           } else if (password == null) {
-            throw new InternalBackEndException("password argument missing!");
+            throw new InternalBackEndException("Argument 'password' is missing!");
           } else {
             message.addData("warning", "METHOD DEPRECATED - Post method should be used instead of Get!");
             final MUserBean userBean = authenticationManager.read(login, password);
