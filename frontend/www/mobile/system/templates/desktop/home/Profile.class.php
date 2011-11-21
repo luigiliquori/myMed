@@ -38,11 +38,11 @@ class Profile extends AbstractTemplate {
 		<div style="position: absolute; top: 50px; left: 22%;">
 			<h1>myMed's home page: <?= $_SESSION['user']->name ?></h1>
 		</div>
-		<div style="position: absolute; top: 2px; left: 65%; color: white;">
+		<div style="position: absolute; top: 7px; left: 65%; color: white;">
 			<img alt="thumbnail" src="<?= $this->pictureURL ?>" width="20px" style="position: absolute;" />
 			<div style="position:relative; margin-left: 30px; top:10px;">
-				<?= $_SESSION['user']->name ?>
-				<a href="#login" onclick="document.disconnectForm.submit()">Deconnexion</a>
+				<?= $_SESSION['user']->name ?> : 
+				<a href="#login" onclick="document.disconnectForm.submit()" style="font-weight: bold; color: red; text-decoration: none;">Deconnexion</a>
 			</div>
 		</div>
 	<?php }

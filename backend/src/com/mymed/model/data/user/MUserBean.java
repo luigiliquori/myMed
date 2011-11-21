@@ -11,13 +11,21 @@ public final class MUserBean extends AbstractMBean {
   /* --------------------------------------------------------- */
   /* Attributes */
   /* --------------------------------------------------------- */
-  // Used for the hash code
+  /**
+   * Used for the hash code
+   */
   private static final int PRIME = 31;
 
-  /** USER_ID */
+  /**
+   * ID := SOCIALNETWORKNAME_SOCIALNETWORKID SOCIALNETWORKNAME :=
+   * MYMED|FACEBOOK|TWITTER|GOOGLE SOCIALNETWORKID := email|[a-z0-9]+
+   * */
   private String id = null;
+
   /** AUTHENTICATION_ID */
   private String login = null;
+
+  /** PERSONAL INFO */
   private String email = null;
   private String name = null;
   private String firstName = null;
@@ -25,17 +33,23 @@ public final class MUserBean extends AbstractMBean {
   private String link = null;
   private String birthday;
   private String hometown = null;
+  private String position = null;
   private String gender = null;
   private long lastConnection;
   private String profilePicture = null;
+
   /** USER_LIST_ID */
   private String buddyList = null;
+
   /** APPLICATION_LIST_ID */
   private String subscribtionList = null;
+
   /** REPUTATION_ID */
   private String reputation = null;
-  /** SESSION_ID || null */
+
+  /** SESSION_ID || null (== not connected) */
   private String session = null;
+
   /** INTERACTION_LIST_ID */
   private String interactionList = null;
   private String socialNetworkID = null;
@@ -72,6 +86,7 @@ public final class MUserBean extends AbstractMBean {
     link = toClone.getLink();
     birthday = toClone.getBirthday();
     hometown = toClone.getHometown();
+    position = toClone.getPosition();
     gender = toClone.getGender();
     lastConnection = toClone.getLastConnection();
     profilePicture = toClone.getProfilePicture();
@@ -454,5 +469,23 @@ public final class MUserBean extends AbstractMBean {
    */
   public void setSocialNetworkName(final String socialNetworkName) {
     this.socialNetworkName = socialNetworkName;
+  }
+
+  /**
+   * 
+   * @return the lastest GPS position known of the user
+   */
+  public String getPosition() {
+    return position;
+  }
+
+  /**
+   * Store a new GPS position for the user
+   * 
+   * @param position
+   *          , POSITION_ID
+   */
+  public void setPosition(final String position) {
+    this.position = position;
   }
 }

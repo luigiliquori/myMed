@@ -32,7 +32,7 @@ class Top10 extends AbstractHome {
 			<?php if ($handle = opendir('system/templates/application')) {
 				    while (false !== ($file = readdir($handle))) {
 				    	if($file != "." && $file != ".." && $file != ".DS_Store"){ ?>
-				    		<li><img alt="<?= $file ?>" src="system/templates/application/<?= $file ?>/img/icon.png" ><a href="?application=<?= $file ?>" class="myIcon" rel="external"><?= $file ?></a></li>
+				    		<li><img alt="<?= $file ?>" src="system/templates/application/<?= $file ?>/img/icon.png" height="53"><a href="?application=<?= $file ?>" class="myIcon" rel="external"><?= $file ?></a></li>
 				    	<?php } ?>
 				    <?php } ?>
 			<?php } ?>

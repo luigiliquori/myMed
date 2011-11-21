@@ -30,7 +30,6 @@ import edu.lognet.core.tools.HashFunction;
  * Servlet implementation class AuthenticationRequestHandler
  */
 public class AuthenticationRequestHandler extends AbstractRequestHandler {
-
   /* --------------------------------------------------------- */
   /* Attributes */
   /* --------------------------------------------------------- */
@@ -88,14 +87,14 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
           }
           break;
         case DELETE :
-          break;
+          throw new InternalBackEndException("not implemented yet...");
         default :
           throw new InternalBackEndException("AuthenticationRequestHandler(" + code + ") not exist!");
       }
     } catch (final AbstractMymedException e) {
       e.printStackTrace();
-      MLogger.info("Error in doGet operation");
-      MLogger.debug("Error in doGet operation", e.getCause());
+      MLogger.getLog().info("Error in doGet operation");
+      MLogger.getDebugLog().debug("Error in doGet operation", e.getCause());
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());
     }
@@ -134,10 +133,10 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
               final MAuthenticationBean authenticationBean = getGson().fromJson(authentication,
                   MAuthenticationBean.class);
 
-              MLogger.info("Trying to create a new user:\n {}", userBean.toString());
+              MLogger.getLog().info("Trying to create a new user:\n {}", userBean.toString());
               userBean = authenticationManager.create(userBean, authenticationBean);
 
-              MLogger.info("User created");
+              MLogger.getLog().info("User created");
               message.setDescription("User created");
               message.addData("user", getGson().toJson(userBean));
             } catch (final JsonSyntaxException e) {
@@ -156,7 +155,6 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
             message.setDescription("Successfully authenticated");
             // TODO Remove this parameter
             message.addData("user", getGson().toJson(userBean));
-
             // Create a new session
             final MSessionBean sessionBean = new MSessionBean();
             sessionBean.setIp(request.getRemoteAddr());
@@ -175,8 +173,8 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
             userBean.setSession(accessToken);
             profileManager.update(userBean);
 
-            MLogger.info("Session {} created -> LOGIN", accessToken);
-            // TODO Find a better way to get the url
+            MLogger.getLog().info("Session {} created -> LOGIN", accessToken);
+            // TODO Find a better way to get the URL
             message.addData("url", "http://" + InetAddress.getLocalHost().getHostAddress() + "/mobile");
             message.addData("accessToken", accessToken);
           }
@@ -191,9 +189,9 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
               final MAuthenticationBean authenticationBean = getGson().fromJson(authentication,
                   MAuthenticationBean.class);
 
-              MLogger.info("Trying to update authentication:\n {}", authenticationBean.toString());
+              MLogger.getLog().info("Trying to update authentication:\n {}", authenticationBean.toString());
               authenticationManager.update(id, authenticationBean);
-              MLogger.info("Authentication updated!");
+              MLogger.getLog().info("Authentication updated!");
 
             } catch (final JsonSyntaxException e) {
               throw new InternalBackEndException("Authentication jSon format is not valid");
@@ -205,8 +203,8 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
       }
     } catch (final AbstractMymedException e) {
       e.printStackTrace();
-      MLogger.info("Error in doPost operation");
-      MLogger.debug("Error in doPost operation", e.getCause());
+      MLogger.getLog().info("Error in doPost operation");
+      MLogger.getDebugLog().debug("Error in doPost operation", e.getCause());
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());
     }

@@ -29,7 +29,6 @@ class MenuHandler implements IRequestHandler {
 	/* --------------------------------------------------------- */
 	public /*void*/ function handleRequest() {
 		if(isset($_POST['disconnect'])) {
-			
 			// DELETE BACKEND SESSION
 			$request = new Request("SessionRequestHandler", DELETE);
 			$request->addArgument("accessToken", $_SESSION['user']->session);
@@ -40,7 +39,6 @@ class MenuHandler implements IRequestHandler {
 				
 			if($responseObject->status != 200) {
 				$this->error = $responseObject->description;
-				return;
 			}
 				
 			// DELETE FRONTEND SESSION
