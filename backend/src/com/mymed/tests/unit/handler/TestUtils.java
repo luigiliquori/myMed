@@ -35,10 +35,11 @@ public class TestUtils {
   private static final String SERVLET_PATH = "/mymed_backend/";
   private static final String PROTOCOL = "http";
 
-  private static final String MYMED_LOGIN = "ema.nymton@example.org";
-  private static final String FIRST_NAME = "Ema";
-  private static final String LAST_NAME = "Nymton";
-  private static final String NAME = FIRST_NAME + " " + LAST_NAME;
+  protected static final String MYMED_LOGIN = "ema.nymton@example.org";
+  protected static final String FIRST_NAME = "Ema";
+  protected static final String LAST_NAME = "Nymton";
+  protected static final String NAME = FIRST_NAME + " " + LAST_NAME;
+  protected static final String MYMED_ID = "MYMED_" + MYMED_LOGIN;
 
   /**
    * Create the URL to use to query the backend servlet
