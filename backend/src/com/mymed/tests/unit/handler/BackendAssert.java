@@ -69,8 +69,10 @@ public class BackendAssert {
     String line = "";
 
     try {
-      while ((line = br.readLine()) != null) {
-        assertTrue("The JSON format is not valid.", TestUtils.isValidUserJson(line));
+      if (br.ready()) {
+        while ((line = br.readLine()) != null) {
+          assertTrue("The JSON format is not valid.", TestUtils.isValidUserJson(line));
+        }
       }
     } finally {
       in.close();
