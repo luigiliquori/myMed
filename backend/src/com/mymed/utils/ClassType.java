@@ -158,8 +158,8 @@ public enum ClassType {
    * Internal log function to record the error
    */
   private static void logErrorCreatingObj(final Throwable cause, final Class<?> type) {
-    MLogger.info("Problem creating an object of type '{}'", type);
-    MLogger.debug("Problem creating an object of type '{}'", type, cause);
+    MLogger.getLogger().info("Problem creating an object of type '{}'", type);
+    MLogger.getLogger().debug("Problem creating an object of type '{}'", type, cause);
   }
 
   /**
@@ -197,8 +197,8 @@ public enum ClassType {
    * Internal log function to record the error
    */
   private static void logErrorConvertingObj(final Throwable cause, final Class<?> type) {
-    MLogger.info("Problem converting an object of class '{}' to a byte array", type);
-    MLogger.debug("Problem converting to byte array from '{}'", type, cause);
+    MLogger.getLogger().info("Problem converting an object of class '{}' to a byte array", type);
+    MLogger.getLogger().debug("Problem converting to byte array from '{}'", type, cause);
   }
 
   @Override

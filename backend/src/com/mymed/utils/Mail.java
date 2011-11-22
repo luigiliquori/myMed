@@ -49,7 +49,7 @@ public class Mail {
 
       Transport.send(message);
 
-      MLogger.info("Email sent!");
+      MLogger.getLogger().info("Email sent!");
 
     } catch (final MessagingException e) {
       throw new RuntimeException(e);
