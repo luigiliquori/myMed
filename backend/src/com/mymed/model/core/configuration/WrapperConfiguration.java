@@ -14,6 +14,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import ch.qos.logback.classic.Logger;
+
 import com.mymed.utils.MLogger;
 
 /**
@@ -34,6 +36,8 @@ public class WrapperConfiguration {
   private int chordStoragePort;
   private String kadListenAddress;
   private int kadStoragePort;
+
+  private static final Logger LOGGER = MLogger.getLogger();
 
   /* --------------------------------------------------------- */
   /* Constructors */
@@ -118,21 +122,21 @@ public class WrapperConfiguration {
         }
       }
     } catch (final ParserConfigurationException e) {
-      MLogger.info("Error parsing configuration file");
-      MLogger.debug("Error parsing configuration file", e.getCause());
+      LOGGER.info("Error parsing configuration file");
+      LOGGER.debug("Error parsing configuration file", e.getCause());
     } catch (final SAXException e) {
-      MLogger.info("Error parsing configuration file");
-      MLogger.debug("Error parsing configuration file", e.getCause());
+      LOGGER.info("Error parsing configuration file");
+      LOGGER.debug("Error parsing configuration file", e.getCause());
     } catch (final IOException e) {
-      MLogger.info("Config file '{}' not found", file.getAbsolutePath());
+      LOGGER.info("Config file '{}' not found", file.getAbsolutePath());
       // If the config xml file is not found, the configuration
       // will be defined with the default values
       String host = "127.0.0.1";
       try {
         host = InetAddress.getLocalHost().getHostAddress();
       } catch (final UnknownHostException e1) {
-        MLogger.info("Impossible to find the local host.");
-        MLogger.debug("Impossible to find the local host", e1.getCause());
+        LOGGER.info("Impossible to find the local host.");
+        LOGGER.debug("Impossible to find the local host", e1.getCause());
       }
 
       cassandraListenAddress = host;
@@ -142,7 +146,7 @@ public class WrapperConfiguration {
       kadListenAddress = host;
       kadStoragePort = 0;
 
-      MLogger.info("WARNING: no XML config file found!");
+      LOGGER.info("WARNING: no XML configuration file found!");
     }
   }
 
@@ -220,11 +224,12 @@ public class WrapperConfiguration {
     this.kadStoragePort = kadStoragePort;
   }
 
+  // TODO Remove main, write test
   /* --------------------------------------------------------- */
   /* Test */
   /* --------------------------------------------------------- */
   public static void main(final String args[]) {
     final WrapperConfiguration conf = new WrapperConfiguration(new File("./conf/config.xml"));
-    MLogger.info(conf.toString());
+    LOGGER.info(conf.toString());
   }
 }

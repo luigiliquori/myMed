@@ -3,6 +3,8 @@ package com.mymed.controller.core.manager.connection;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import ch.qos.logback.classic.Logger;
+
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.utils.MLogger;
 
@@ -18,6 +20,8 @@ public class ConnectionPool implements IConnectionPool {
 
   // The maximum capacity of the pool, this is set to a power of 2: 2^12
   private static final int MAX_CAP = 4096;
+
+  private static final Logger LOGGER = MLogger.getLogger();
 
   // The real capacity of the pool
   private final int capacity;
@@ -85,8 +89,8 @@ public class ConnectionPool implements IConnectionPool {
       con.open();
     } catch (final InternalBackEndException ex) {
       // If we cannot open the connection, we return null
-      MLogger.info(ex.getMessage());
-      MLogger.debug(ex.getMessage(), ex.getCause());
+      LOGGER.info(ex.getMessage());
+      LOGGER.debug(ex.getMessage(), ex.getCause());
       con = null; // NOPMD
     }
 
@@ -109,7 +113,7 @@ public class ConnectionPool implements IConnectionPool {
 
         if (!con.isOpen()) {
           // If we had a closed or null connection we try again
-          MLogger.info("Got a closed connection. Retrying...");
+          LOGGER.info("Got a closed connection. Retrying...");
           con = checkOut();
         }
       } else if (capacity == 0 || checkedOut.get() < capacity) {

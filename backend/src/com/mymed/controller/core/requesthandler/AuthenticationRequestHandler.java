@@ -22,7 +22,6 @@ import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.session.MAuthenticationBean;
 import com.mymed.model.data.session.MSessionBean;
 import com.mymed.model.data.user.MUserBean;
-import com.mymed.utils.MLogger;
 
 import edu.lognet.core.tools.HashFunction;
 
@@ -76,9 +75,9 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
         case READ :
           message.setMethod("READ");
           if (login == null) {
-            throw new InternalBackEndException("Argument 'login' is missing!");
+            throw new InternalBackEndException("Argument login is missing!");
           } else if (password == null) {
-            throw new InternalBackEndException("Argument 'password' is missing!");
+            throw new InternalBackEndException("Argument password is missing!");
           } else {
             message.addData("warning", "METHOD DEPRECATED - Post method should be used instead of Get!");
             final MUserBean userBean = authenticationManager.read(login, password);
@@ -92,9 +91,8 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
           throw new InternalBackEndException("AuthenticationRequestHandler(" + code + ") not exist!");
       }
     } catch (final AbstractMymedException e) {
-      e.printStackTrace();
-      MLogger.info("Error in doGet operation");
-      MLogger.debug("Error in doGet operation", e.getCause());
+      LOGGER.info("Error in doGet operation", e.getCause());
+      LOGGER.debug("Error in doGet operation", e.getCause());
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());
     }
@@ -121,9 +119,9 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
         case CREATE :
           message.setMethod("CREATE");
           if (authentication == null) {
-            throw new InternalBackEndException("authentication argument missing!");
+            throw new InternalBackEndException("Argument 'authentication' is missing!");
           } else if (user == null) {
-            throw new InternalBackEndException("user argument missing!");
+            throw new InternalBackEndException("Argument 'user' is missing!");
           } else {
             try {
               MUserBean userBean = getGson().fromJson(user, MUserBean.class);
@@ -133,10 +131,10 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
               final MAuthenticationBean authenticationBean = getGson().fromJson(authentication,
                   MAuthenticationBean.class);
 
-              MLogger.info("Trying to create a new user:\n {}", userBean.toString());
+              LOGGER.info("Trying to create a new user:\n {}", userBean.toString());
               userBean = authenticationManager.create(userBean, authenticationBean);
 
-              MLogger.info("User created");
+              LOGGER.info("User created");
               message.setDescription("User created");
               message.addData("user", getGson().toJson(userBean));
             } catch (final JsonSyntaxException e) {
@@ -173,7 +171,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
             userBean.setSession(accessToken);
             profileManager.update(userBean);
 
-            MLogger.info("Session {} created -> LOGIN", accessToken);
+            LOGGER.info("Session {} created -> LOGIN", accessToken);
             // TODO Find a better way to get the URL
             message.addData("url", "http://" + InetAddress.getLocalHost().getHostAddress() + "/mobile");
             message.addData("accessToken", accessToken);
@@ -189,9 +187,9 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
               final MAuthenticationBean authenticationBean = getGson().fromJson(authentication,
                   MAuthenticationBean.class);
 
-              MLogger.info("Trying to update authentication:\n {}", authenticationBean.toString());
+              LOGGER.info("Trying to update authentication:\n {}", authenticationBean.toString());
               authenticationManager.update(id, authenticationBean);
-              MLogger.info("Authentication updated!");
+              LOGGER.info("Authentication updated!");
 
             } catch (final JsonSyntaxException e) {
               throw new InternalBackEndException("Authentication jSon format is not valid");
@@ -202,9 +200,8 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
           throw new InternalBackEndException("AuthenticationRequestHandler(" + code + ") not exist!");
       }
     } catch (final AbstractMymedException e) {
-      e.printStackTrace();
-      MLogger.info("Error in doPost operation");
-      MLogger.debug("Error in doPost operation", e.getCause());
+      LOGGER.info("Error in doPost operation");
+      LOGGER.debug("Error in doPost operation", e.getCause());
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());
     }

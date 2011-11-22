@@ -14,7 +14,6 @@ import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.user.MUserBean;
-import com.mymed.utils.MLogger;
 
 /**
  * Servlet implementation class UsersRequestHandler
@@ -75,15 +74,15 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
           message.setMethod("DELETE");
           profileManager.delete(id);
           message.setDescription("User " + id + " deleted");
-          MLogger.info("User '{}' deleted", id);
+          LOGGER.info("User '{}' deleted", id);
           break;
         default :
           throw new InternalBackEndException("ProfileRequestHandler.doGet(" + code + ") not exist!");
       }
 
     } catch (final AbstractMymedException e) {
-      MLogger.info("Error in doRequest operation");
-      MLogger.debug("Error in doRequest operation", e.getCause());
+      LOGGER.info("Error in doRequest operation");
+      LOGGER.debug("Error in doRequest operation", e.getCause());
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());
     }
@@ -113,11 +112,11 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
         case CREATE :
           message.setMethod("CREATE");
           try {
-            MLogger.info("User:\n", user);
+            LOGGER.info("User:\n", user);
             MUserBean userBean = getGson().fromJson(user, MUserBean.class);
-            MLogger.info("Trying to create a new user:\n {}", userBean.toString());
+            LOGGER.info("Trying to create a new user:\n {}", userBean.toString());
             userBean = profileManager.create(userBean);
-            MLogger.info("User created!");
+            LOGGER.info("User created!");
             message.setDescription("User created!");
             message.addData("user", getGson().toJson(userBean));
           } catch (final JsonSyntaxException e) {
@@ -128,11 +127,11 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
           message.setMethod("UPDATE");
           try {
             MUserBean userBean = getGson().fromJson(user, MUserBean.class);
-            MLogger.info("Trying to update user:\n {}", userBean.toString());
+            LOGGER.info("Trying to update user:\n {}", userBean.toString());
             userBean = profileManager.update(userBean);
             message.addData("profile", getGson().toJson(userBean));
             message.setDescription("User updated!");
-            MLogger.info("User updated!");
+            LOGGER.info("User updated!");
           } catch (final JsonSyntaxException e) {
             throw new InternalBackEndException("user jSon format is not valid");
           }
@@ -142,8 +141,8 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
       }
 
     } catch (final AbstractMymedException e) {
-      MLogger.info("Error in doRequest operation");
-      MLogger.debug("Error in doRequest operation", e.getCause());
+      LOGGER.info("Error in doRequest operation");
+      LOGGER.debug("Error in doRequest operation", e.getCause());
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());
     }

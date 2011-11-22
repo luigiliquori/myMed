@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import ch.qos.logback.classic.Logger;
+
 import com.google.gson.Gson;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
@@ -26,6 +28,9 @@ public abstract class AbstractRequestHandler extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   private static final String ENCODING = "UTF-8";
+
+  // The default logger for all the RequestHandler that extends this class
+  protected static final Logger LOGGER = MLogger.getLogger();
 
   /** Google library to handle jSon request */
   private Gson gson;
@@ -75,9 +80,9 @@ public abstract class AbstractRequestHandler extends HttpServlet {
     if (request.getContentType() != null) {
       try {
         if (request.getContentType().matches("multipart/form-data")) {
-          MLogger.info("multipart/form-data REQUEST");
+          LOGGER.info("multipart/form-data REQUEST");
           for (final Part part : request.getParts()) {
-            MLogger.info("PART {} ", part);
+            LOGGER.info("PART {} ", part);
           }
           throw new InternalBackEndException("multi-part is not yet implemented...");
         }
@@ -106,9 +111,9 @@ public abstract class AbstractRequestHandler extends HttpServlet {
           final String value = URLDecoder.decode(paramValues[0], ENCODING);
           parameters.put(paramName, value);
 
-          MLogger.info("{}: {}", paramName, value);
+          LOGGER.info("{}: {}", paramName, value);
         } catch (final UnsupportedEncodingException ex) {
-          MLogger.debug("Error decoding string from '{}'", ENCODING, ex.getCause());
+          LOGGER.debug("Error decoding string from '{}'", ENCODING, ex.getCause());
         }
       }
     }
@@ -150,14 +155,14 @@ public abstract class AbstractRequestHandler extends HttpServlet {
       try {
         out = response.getWriter();
 
-        MLogger.info("Response sent:\n {}", responseText);
+        LOGGER.info("Response sent:\n {}", responseText);
 
         out.print(responseText);
         out.close();
         responseText = null; // NOPMD to avoid code check warnings
       } catch (final IOException e) {
-        MLogger.info("IOException: {}", e.getMessage());
-        MLogger.debug("Error in printResponse()", e.getCause());
+        LOGGER.info("IOException: {}", e.getMessage());
+        LOGGER.debug("Error in printResponse()", e.getCause());
       }
     }
   }

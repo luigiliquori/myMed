@@ -25,7 +25,6 @@ import com.mymed.controller.core.manager.ManagerValues;
 import com.mymed.model.core.configuration.WrapperConfiguration;
 import com.mymed.model.core.wrappers.cassandra.api07.CassandraWrapper;
 import com.mymed.utils.MConverter;
-import com.mymed.utils.MLogger;
 
 /**
  * This class represent the DAO pattern: Access to data varies depending on the
@@ -93,17 +92,17 @@ public class StorageManager extends ManagerValues implements IStorageManager {
       final ColumnPath colPathName = new ColumnPath(tableName);
       colPathName.setColumn(columnName.getBytes("UTF8"));
 
-      MLogger.info("Selecting column '{}' from table '{}' with key '{}'", new Object[] {columnName, tableName, key});
+      LOGGER.info("Selecting column '{}' from table '{}' with key '{}'", new Object[] {columnName, tableName, key});
 
       resultValue = wrapper.get(key, colPathName, IStorageManager.consistencyOnRead).getColumn().getValue();
     } catch (final UnsupportedEncodingException e) {
-      MLogger.debug("Select column '{}' failed", columnName, e.getCause());
+      LOGGER.debug("Select column '{}' failed", columnName, e.getCause());
 
       throw new InternalBackEndException("UnsupportedEncodingException with\n" + "\t- columnFamily = " + tableName
           + "\n" + "\t- key = " + key + "\n" + "\t- columnName = " + columnName + "\n");
     }
 
-    MLogger.info("Column selection performed");
+    LOGGER.info("Column selection performed");
 
     return resultValue;
   }
@@ -236,11 +235,11 @@ public class StorageManager extends ManagerValues implements IStorageManager {
   private List<ColumnOrSuperColumn> getSlice(final String key, final ColumnParent parent, final SlicePredicate predicate)
       throws InternalBackEndException, IOBackEndException {
 
-    MLogger.info("Selecting slice from column family '{}' with key '{}'", parent.getColumn_family(), key);
+    LOGGER.info("Selecting slice from column family '{}' with key '{}'", parent.getColumn_family(), key);
 
     final List<ColumnOrSuperColumn> slice = wrapper.get_slice(key, parent, predicate, consistencyOnRead);
 
-    MLogger.info("Slice selection completed");
+    LOGGER.info("Slice selection completed");
 
     return slice;
   }
@@ -257,7 +256,7 @@ public class StorageManager extends ManagerValues implements IStorageManager {
   public int countColumns(final String tableName, final String key) throws InternalBackEndException {
 
     final ColumnParent parent = new ColumnParent(tableName);
-    MLogger.info("Selecting slice from column family '{}' with key '{}'", parent.getColumn_family(), key);
+    LOGGER.info("Selecting slice from column family '{}' with key '{}'", parent.getColumn_family(), key);
 
     final SlicePredicate predicate = new SlicePredicate();
     final SliceRange sliceRange = new SliceRange();
@@ -266,7 +265,7 @@ public class StorageManager extends ManagerValues implements IStorageManager {
     predicate.setSlice_range(sliceRange);
     final int count = wrapper.get_count(key, parent, predicate, consistencyOnRead);
 
-    MLogger.info("Slice selection completed");
+    LOGGER.info("Slice selection completed");
     return count;
   }
 
@@ -339,12 +338,12 @@ public class StorageManager extends ManagerValues implements IStorageManager {
     final ByteBuffer buffer = ByteBuffer.wrap(value);
     final Column column = new Column(MConverter.stringToByteBuffer(columnName), buffer, timestamp);
 
-    MLogger.info("Inserting column '{}' into '{}' with key '{}'", new Object[] {columnName, parent.getColumn_family(),
+    LOGGER.info("Inserting column '{}' into '{}' with key '{}'", new Object[] {columnName, parent.getColumn_family(),
         key});
 
     wrapper.insert(key, parent, column, consistencyOnWrite);
 
-    MLogger.info("Column '{}' inserted", columnName);
+    LOGGER.info("Column '{}' inserted", columnName);
   }
 
   /**
@@ -383,15 +382,15 @@ public class StorageManager extends ManagerValues implements IStorageManager {
       // Insertion in the map
       mutationMap.put(primaryKey, tableMap);
 
-      MLogger.info("Performing a batch_mutate on table '{}' with key '{}'", tableName, primaryKey);
+      LOGGER.info("Performing a batch_mutate on table '{}' with key '{}'", tableName, primaryKey);
 
       wrapper.batch_mutate(mutationMap, consistencyOnWrite);
     } catch (final InternalBackEndException e) {
-      MLogger.debug("Insert slice in table '{}' failed", tableName, e.getCause());
+      LOGGER.debug("Insert slice in table '{}' failed", tableName, e.getCause());
       throw new InternalBackEndException("InsertSlice failed.");
     }
 
-    MLogger.info("batch_mutate performed correctly");
+    LOGGER.info("batch_mutate performed correctly");
   }
 
   /**
@@ -463,7 +462,7 @@ public class StorageManager extends ManagerValues implements IStorageManager {
 
       wrapper.remove(key, columnPath, timestamp, consistencyOnWrite);
     } catch (final UnsupportedEncodingException e) {
-      MLogger.debug("Remove column '{}' failed", columnName, e.getCause());
+      LOGGER.debug("Remove column '{}' failed", columnName, e.getCause());
       throw new InternalBackEndException("removeColumn failed because of an UnsupportedEncodingException");
     }
   }
@@ -483,11 +482,11 @@ public class StorageManager extends ManagerValues implements IStorageManager {
     final long timestamp = System.currentTimeMillis();
     final ColumnPath columnPath = new ColumnPath(columnFamily);
 
-    MLogger.info("Remove all columns in table '{}' with key '{}'", tableName, key);
+    LOGGER.info("Remove all columns in table '{}' with key '{}'", tableName, key);
 
     wrapper.remove(key, columnPath, timestamp, consistencyOnWrite);
 
-    MLogger.info("Removed all columns in table '{}'", tableName);
+    LOGGER.info("Removed all columns in table '{}'", tableName);
   }
 
   /* --------------------------------------------------------- */
