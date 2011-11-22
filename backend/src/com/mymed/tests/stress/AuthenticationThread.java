@@ -3,6 +3,8 @@ package com.mymed.tests.stress;
 import java.util.LinkedList;
 import java.util.List;
 
+import ch.qos.logback.classic.Logger;
+
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.model.data.AbstractMBean;
 import com.mymed.model.data.session.MAuthenticationBean;
@@ -19,54 +21,56 @@ import com.mymed.utils.MLogger;
  */
 public class AuthenticationThread extends Thread {
 
-	private final List<AbstractMBean[]> authList = new LinkedList<AbstractMBean[]>();
-	private final Thread createAuthentication;
+  private final List<AbstractMBean[]> authList = new LinkedList<AbstractMBean[]>();
+  private final Thread createAuthentication;
 
-	public AuthenticationThread() {
-		this(StressTestValues.NUMBER_OF_ELEMENTS);
-	}
+  private static final Logger LOGGER = MLogger.getLogger();
 
-	public AuthenticationThread(final int maxElements) {
-		super();
+  public AuthenticationThread() {
+    this(StressTestValues.NUMBER_OF_ELEMENTS);
+  }
 
-		final AuthenticationTest authTest = new AuthenticationTest(maxElements);
+  public AuthenticationThread(final int maxElements) {
+    super();
 
-		createAuthentication = new Thread("createAuthentication") {
-			@Override
-			public void run() {
-				MLogger.getLog().info("Starting thread '{}'", getName());
+    final AuthenticationTest authTest = new AuthenticationTest(maxElements);
 
-				while (authList.isEmpty()) {
-					final AbstractMBean[] beanArray = authTest.createAuthenticationBean();
+    createAuthentication = new Thread("createAuthentication") {
+      @Override
+      public void run() {
+        LOGGER.info("Starting thread '{}'", getName());
 
-					if (beanArray == null) {
-						interrupt();
-						break;
-					}
+        while (authList.isEmpty()) {
+          final AbstractMBean[] beanArray = authTest.createAuthenticationBean();
 
-					authList.add(beanArray);
+          if (beanArray == null) {
+            interrupt();
+            break;
+          }
 
-					final MAuthenticationBean authBean = (MAuthenticationBean) beanArray[0];
-					final MUserBean userBean = (MUserBean) beanArray[1];
+          authList.add(beanArray);
 
-					try {
-						authTest.createAuthentication(userBean, authBean);
-					} catch (final InternalBackEndException ex) {
-						interrupt();
-						MLogger.getLog().info("Thread '{}' interrupted", getName());
-						break;
-					}
+          final MAuthenticationBean authBean = (MAuthenticationBean) beanArray[0];
+          final MUserBean userBean = (MUserBean) beanArray[1];
 
-					((LinkedList<AbstractMBean[]>) authList).pop();
-				}
+          try {
+            authTest.createAuthentication(userBean, authBean);
+          } catch (final InternalBackEndException ex) {
+            interrupt();
+            LOGGER.info("Thread '{}' interrupted", getName());
+            break;
+          }
 
-				MLogger.getLog().info("Thread '{}' completed", getName());
-			}
-		};
-	}
+          ((LinkedList<AbstractMBean[]>) authList).pop();
+        }
 
-	@Override
-	public void run() {
-		createAuthentication.start();
-	}
+        LOGGER.info("Thread '{}' completed", getName());
+      }
+    };
+  }
+
+  @Override
+  public void run() {
+    createAuthentication.start();
+  }
 }
