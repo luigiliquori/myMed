@@ -20,6 +20,15 @@ public class AuthenticationRequestHandlerTest extends GeneralHandlerTest {
     path = TestUtils.createPath(HANDLER_NAME);
   }
 
+  /**
+   * Call the DELETE method that is not implemented.
+   * <p>
+   * Check that the response is '500'.
+   * 
+   * @throws URISyntaxException
+   * @throws ClientProtocolException
+   * @throws IOException
+   */
   @Test
   public void deleteTest() throws URISyntaxException, ClientProtocolException, IOException {
     TestUtils.addParameter(params, "code", DELETE);
@@ -34,9 +43,17 @@ public class AuthenticationRequestHandlerTest extends GeneralHandlerTest {
     BackendAssert.assertResponseCodeIs(response, 500);
   }
 
+  /**
+   * Create an authentication and a user
+   * 
+   * @throws URISyntaxException
+   * @throws ClientProtocolException
+   * @throws IOException
+   */
   @Test
   public void createTest() throws URISyntaxException, ClientProtocolException, IOException {
     TestUtils.addParameter(params, "code", CREATE);
+    TestUtils.addParameter(params, "authentication", TestUtils.createAuthentication().toString());
     TestUtils.addParameter(params, "user", TestUtils.createUser().toString());
 
     final String query = TestUtils.createQueryParams(params);
@@ -44,5 +61,80 @@ public class AuthenticationRequestHandlerTest extends GeneralHandlerTest {
 
     final HttpPost postRequest = new HttpPost(uri);
     final HttpResponse response = client.execute(postRequest);
+
+    BackendAssert.assertIsValidJson(response);
+    BackendAssert.assertResponseCodeIs(response, 200);
+  }
+
+  /**
+   * Perform a read with the GET method
+   * 
+   * @throws URISyntaxException
+   * @throws ClientProtocolException
+   * @throws IOException
+   */
+  @Test
+  public void readTest1() throws URISyntaxException, ClientProtocolException, IOException {
+    TestUtils.addParameter(params, "code", READ);
+    TestUtils.addParameter(params, "login", TestUtils.MYMED_EMAIL);
+    TestUtils.addParameter(params, "password", TestUtils.getFakePassword());
+
+    final String query = TestUtils.createQueryParams(params);
+    final URI uri = TestUtils.createUri(path, query);
+
+    final HttpGet getRequest = new HttpGet(uri);
+    final HttpResponse response = client.execute(getRequest);
+
+    BackendAssert.assertIsValidJson(response);
+    BackendAssert.assertResponseCodeIs(response, 200);
+    BackendAssert.assertIsValidUserJson(response);
+  }
+
+  /**
+   * Perform a read with the POST method
+   * 
+   * @throws URISyntaxException
+   * @throws ClientProtocolException
+   * @throws IOException
+   */
+  @Test
+  public void readTest2() throws URISyntaxException, ClientProtocolException, IOException {
+    TestUtils.addParameter(params, "code", READ);
+    TestUtils.addParameter(params, "login", TestUtils.MYMED_EMAIL);
+    TestUtils.addParameter(params, "password", TestUtils.getFakePassword());
+
+    final String query = TestUtils.createQueryParams(params);
+    final URI uri = TestUtils.createUri(path, query);
+
+    final HttpPost postRequest = new HttpPost(uri);
+    final HttpResponse response = client.execute(postRequest);
+
+    BackendAssert.assertIsValidJson(response);
+    BackendAssert.assertResponseCodeIs(response, 200);
+    BackendAssert.assertIsValidUserJson(response);
+  }
+
+  /**
+   * Perform an update of the 'authentication', and check that the response code
+   * is '200'
+   * 
+   * @throws URISyntaxException
+   * @throws ClientProtocolException
+   * @throws IOException
+   */
+  @Test
+  public void updateTest() throws URISyntaxException, ClientProtocolException, IOException {
+    TestUtils.addParameter(params, "code", UPDATE);
+    TestUtils.addParameter(params, "authentication", TestUtils.createAuthentication().toString());
+    TestUtils.addParameter(params, "id", TestUtils.MYMED_ID);
+
+    final String query = TestUtils.createQueryParams(params);
+    final URI uri = TestUtils.createUri(path, query);
+
+    final HttpPost postRequest = new HttpPost(uri);
+    final HttpResponse response = client.execute(postRequest);
+
+    BackendAssert.assertIsValidJson(response);
+    BackendAssert.assertResponseCodeIs(response, 200);
   }
 }
