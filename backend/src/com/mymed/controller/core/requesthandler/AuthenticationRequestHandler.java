@@ -171,7 +171,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
             userBean.setSession(accessToken);
             profileManager.update(userBean);
 
-            LOGGER.info("Session {} created -> LOGIN", accessToken);
+            LOGGER.info("Session '{}' created -> LOGIN", accessToken);
             // TODO Find a better way to get the URL
             message.addData("url", "http://" + InetAddress.getLocalHost().getHostAddress() + "/mobile");
             message.addData("accessToken", accessToken);
