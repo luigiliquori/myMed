@@ -75,7 +75,7 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
     final MAuthenticationBean authentication = (MAuthenticationBean) introspection(new MAuthenticationBean(), args);
 
     if (authentication.getLogin().equals("")) {
-      throw new IOBackEndException("the login does not exist!", 404);
+      throw new IOBackEndException("The login does not exist!", 404);
     } else if (!authentication.getPassword().equals(password)) {
       throw new IOBackEndException("Wrong password", 403);
     }
