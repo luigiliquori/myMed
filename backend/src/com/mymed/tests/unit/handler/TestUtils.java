@@ -16,6 +16,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
+import com.mymed.utils.MLogger;
 
 /**
  * Class with utilities used to perform tests on the various requests handler on
@@ -35,11 +36,14 @@ public class TestUtils {
   private static final String SERVLET_PATH = "/mymed_backend/";
   private static final String PROTOCOL = "http";
 
-  protected static final String MYMED_LOGIN = "ema.nymton@example.org";
+  private static final String DIGEST_ALGORITHM = "SHA-512";
+  private static final String FAKE_PASSWORD = "one, two, three, star";
+
+  protected static final String MYMED_EMAIL = "ema.nymton@example.org";
   protected static final String FIRST_NAME = "Ema";
   protected static final String LAST_NAME = "Nymton";
   protected static final String NAME = FIRST_NAME + " " + LAST_NAME;
-  protected static final String MYMED_ID = "MYMED_" + MYMED_LOGIN;
+  protected static final String MYMED_ID = "MYMED_" + MYMED_EMAIL;
 
   /**
    * Create the URL to use to query the backend servlet
@@ -159,9 +163,9 @@ public class TestUtils {
   static JsonObject createUser() {
     final JsonObject user = new JsonObject();
 
-    user.addProperty("id", "MYMED_" + MYMED_LOGIN);
-    user.addProperty("login", MYMED_LOGIN);
-    user.addProperty("email", MYMED_LOGIN);
+    user.addProperty("id", MYMED_ID);
+    user.addProperty("login", MYMED_EMAIL);
+    user.addProperty("email", MYMED_EMAIL);
     user.addProperty("name", NAME);
     user.addProperty("firstName", FIRST_NAME);
     user.addProperty("lastName", LAST_NAME);
@@ -180,18 +184,46 @@ public class TestUtils {
   static JsonObject createAuthentication() {
     final JsonObject auth = new JsonObject();
 
-    try {
-      final MessageDigest digest = MessageDigest.getInstance("SHA-512");
-      digest.digest("password".getBytes());
-    } catch (final NoSuchAlgorithmException ex) {
-      // TODO Auto-generated catch block
-      ex.printStackTrace();
-    }
-
-    auth.addProperty("login", MYMED_LOGIN);
-    auth.addProperty("user", "");
-    auth.addProperty("password", "");
+    auth.addProperty("login", MYMED_EMAIL);
+    auth.addProperty("user", MYMED_ID);
+    auth.addProperty("password", createPassword(FAKE_PASSWORD));
 
     return auth;
+  }
+
+  /**
+   * @return a fake password to be used for testing
+   */
+  static String getFakePassword() {
+    return createPassword(FAKE_PASSWORD);
+  }
+
+  /**
+   * Create a SHA-512 string from a fictitious password
+   * 
+   * @param pwd
+   *          the fictitious password
+   * @return the SHA-512 of the password
+   */
+  private static String createPassword(final String pwd) {
+    String password = "";
+
+    try {
+      final StringBuffer hex = new StringBuffer(250);
+      final MessageDigest digest = MessageDigest.getInstance(DIGEST_ALGORITHM);
+      final byte[] mdbytes = digest.digest("password".getBytes());
+
+      for (final byte b : mdbytes) {
+        hex.append(Integer.toHexString(0xFF & b));
+      }
+
+      hex.trimToSize();
+      password = hex.toString();
+    } catch (final NoSuchAlgorithmException ex) {
+      // We should never get here
+      MLogger.getLogger().debug("Digest algorithm '{}' does not exist!", DIGEST_ALGORITHM, ex.getCause());
+    }
+
+    return password;
   }
 }
