@@ -32,7 +32,7 @@ public class GeneralHandlerTest {
   protected List<NameValuePair> user;
 
   // String necessary to create the URL to the backend
-  protected static String path;
+  static String path;
 
   @Before
   public void setUp() {
