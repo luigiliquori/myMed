@@ -79,9 +79,9 @@ public class TestValues {
 
       hex.trimToSize();
     } catch (final NoSuchAlgorithmException ex) {
-      MLogger.debug("Random password generator failed", ex.getCause());
+      MLogger.getLogger().debug("Random password generator failed", ex.getCause());
     } catch (final UnsupportedEncodingException ex) {
-      MLogger.debug("Random password generator failed", ex.getCause());
+      MLogger.getLogger().debug("Random password generator failed", ex.getCause());
     }
 
     return hex.toString();
