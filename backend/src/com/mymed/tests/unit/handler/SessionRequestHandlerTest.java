@@ -16,6 +16,8 @@ import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.session.SessionManager;
+import com.mymed.tests.unit.handler.utils.BackendAssert;
+import com.mymed.tests.unit.handler.utils.TestUtils;
 
 public class SessionRequestHandlerTest extends GeneralHandlerTest {
 

@@ -18,6 +18,9 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.mymed.tests.unit.handler.utils.BackendAssert;
+import com.mymed.tests.unit.handler.utils.TestUtils;
+
 public class GeneralHandlerTest {
   // The query codes
   protected static final String CREATE = "0";

@@ -11,6 +11,9 @@ import org.apache.http.client.methods.HttpPost;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.mymed.tests.unit.handler.utils.BackendAssert;
+import com.mymed.tests.unit.handler.utils.TestUtils;
+
 public class AuthenticationRequestHandlerTest extends GeneralHandlerTest {
 
   private static final String HANDLER_NAME = "AuthenticationRequestHandler";

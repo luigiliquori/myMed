@@ -1,4 +1,4 @@
-package com.mymed.tests.unit.handler;
+package com.mymed.tests.unit.handler.utils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import org.apache.http.HttpResponse;
+
 
 /**
  * Assert utilities for the RequestHandler classes

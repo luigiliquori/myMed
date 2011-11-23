@@ -1,4 +1,4 @@
-package com.mymed.tests.unit.handler;
+package com.mymed.tests.unit.handler.utils;
 
 import java.util.EnumSet;
 

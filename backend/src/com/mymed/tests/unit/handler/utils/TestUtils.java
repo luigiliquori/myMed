@@ -1,4 +1,4 @@
-package com.mymed.tests.unit.handler;
+package com.mymed.tests.unit.handler.utils;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -33,6 +33,12 @@ import com.mymed.utils.MLogger;
  * 
  */
 public class TestUtils {
+  public static final String MYMED_EMAIL = "ema.nymton@example.org";
+  public static final String FIRST_NAME = "Ema";
+  public static final String LAST_NAME = "Nymton";
+  public static final String NAME = FIRST_NAME + " " + LAST_NAME;
+  public static final String MYMED_ID = "MYMED_" + MYMED_EMAIL;
+
   /* Where the backend is running */
   private static final String AUTHORITY = "localhost:8080";
   /* The path to the backend servlet */
@@ -44,12 +50,6 @@ public class TestUtils {
   private static final String CHAR_NAME = "UTF-8";
   private static final String FAKE_PASSWORD = "one, two, three, star";
 
-  protected static final String MYMED_EMAIL = "ema.nymton@example.org";
-  protected static final String FIRST_NAME = "Ema";
-  protected static final String LAST_NAME = "Nymton";
-  protected static final String NAME = FIRST_NAME + " " + LAST_NAME;
-  protected static final String MYMED_ID = "MYMED_" + MYMED_EMAIL;
-
   /**
    * Create the URL to use to query the backend servlet
    * 
@@ -57,7 +57,7 @@ public class TestUtils {
    *          a list of pair values
    * @return the String that represents the query URL encoded in UTF-8
    */
-  static String createQueryParams(final List<NameValuePair> params) {
+  public static String createQueryParams(final List<NameValuePair> params) {
     return URLEncodedUtils.format(params, "UTF-8");
   }
 
@@ -68,7 +68,7 @@ public class TestUtils {
    *          the name of the handler, should be the name of the class
    * @return the path to the servlet
    */
-  static String createPath(final String handlerName) {
+  public static String createPath(final String handlerName) {
     String returnString = "";
 
     if (handlerName != null) {
@@ -88,7 +88,7 @@ public class TestUtils {
    * @return the URI to use for the test
    * @throws URISyntaxException
    */
-  static URI createUri(final String path, final String query) throws URISyntaxException {
+  public static URI createUri(final String path, final String query) throws URISyntaxException {
     return new URI(PROTOCOL, AUTHORITY, path, query, null);
   }
 
@@ -102,7 +102,7 @@ public class TestUtils {
    * @param value
    *          the value of the parameter
    */
-  static void addParameter(final List<NameValuePair> params, final String name, final String value) {
+  public static void addParameter(final List<NameValuePair> params, final String name, final String value) {
     params.add(new BasicNameValuePair(name, value));
   }
 
@@ -114,7 +114,7 @@ public class TestUtils {
    *          the JSON string to be validated
    * @return true if is valid, false otherwise
    */
-  static boolean isValidJson(final String json) {
+  public static boolean isValidJson(final String json) {
     boolean validJson = false;
 
     final JsonParser parser = new JsonParser();
@@ -139,7 +139,7 @@ public class TestUtils {
    *          the JSON string to be validated
    * @return true if is valid, false otherwise
    */
-  static boolean isValidUserJson(final String json) {
+  public static boolean isValidUserJson(final String json) {
     boolean validJson = false;
 
     final JsonParser parser = new JsonParser();
@@ -165,7 +165,7 @@ public class TestUtils {
   /**
    * @return a JSON object for a user
    */
-  static JsonObject createUserJson() {
+  public static JsonObject createUserJson() {
     final JsonObject user = new JsonObject();
 
     user.addProperty("id", MYMED_ID);
@@ -186,7 +186,7 @@ public class TestUtils {
   /**
    * @return a JSON object for the authentication
    */
-  static JsonObject createAuthenticationJson() {
+  public static JsonObject createAuthenticationJson() {
     final JsonObject auth = new JsonObject();
 
     auth.addProperty("login", MYMED_EMAIL);
@@ -199,7 +199,7 @@ public class TestUtils {
   /**
    * @return a JSON object for the session
    */
-  static JsonObject createSessionJson() {
+  public static JsonObject createSessionJson() {
     final JsonObject session = new JsonObject();
     final String accessToken = createAccessToken();
 
@@ -214,7 +214,7 @@ public class TestUtils {
   /**
    * @return a fake password to be used for testing
    */
-  static String getFakePassword() {
+  public static String getFakePassword() {
     return createPassword(FAKE_PASSWORD);
   }
 
@@ -252,7 +252,7 @@ public class TestUtils {
    * 
    * @return an access token
    */
-  static String createAccessToken() {
+  public static String createAccessToken() {
     String token = "";
 
     final long time = System.currentTimeMillis();
@@ -284,7 +284,7 @@ public class TestUtils {
    *          the access token to set for this session
    * @return a session bean
    */
-  static MSessionBean createSessionBean(final String accessToken) {
+  public static MSessionBean createSessionBean(final String accessToken) {
     final MSessionBean sessionBean = new MSessionBean();
 
     sessionBean.setAccessToken(accessToken);
@@ -302,7 +302,7 @@ public class TestUtils {
    * 
    * @return a user bean
    */
-  static MUserBean createUserBean(final String accessToken) {
+  public static MUserBean createUserBean(final String accessToken) {
     final MUserBean user = new MUserBean();
 
     user.setId(MYMED_ID);

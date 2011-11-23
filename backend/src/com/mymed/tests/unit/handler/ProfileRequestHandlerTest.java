@@ -13,6 +13,8 @@ import org.junit.Test;
 
 import com.google.gson.JsonObject;
 import com.mymed.controller.core.requesthandler.ProfileRequestHandler;
+import com.mymed.tests.unit.handler.utils.BackendAssert;
+import com.mymed.tests.unit.handler.utils.TestUtils;
 
 /**
  * Test class for the {@link ProfileRequestHandler}.
