@@ -106,4 +106,10 @@ public class ManagerValues {
    * The default logger for the backend managers
    */
   protected static final Logger LOGGER = MLogger.getLogger();
+
+  // Encoding
+  /**
+   * The default encoding
+   */
+  protected static final String ENCODING = "UTF-8";
 }
