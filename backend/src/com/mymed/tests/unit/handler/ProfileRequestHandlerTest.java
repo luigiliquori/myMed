@@ -40,8 +40,8 @@ public class ProfileRequestHandlerTest extends GeneralHandlerTest {
    */
   @Test
   public void readWrongUserTest() throws IOException, URISyntaxException {
-    TestUtils.addParameter(params, "code", READ);
-    TestUtils.addParameter(params, "id", "wrong.email@example.org");
+    TestUtils.addParameter(params, PARAM_CODE, READ);
+    TestUtils.addParameter(params, PARAM_ID, "wrong.email@example.org");
 
     final String query = TestUtils.createQueryParams(params);
     final URI uri = TestUtils.createUri(path, query);
@@ -67,8 +67,8 @@ public class ProfileRequestHandlerTest extends GeneralHandlerTest {
   public void createTest() throws URISyntaxException, ClientProtocolException, IOException {
     final JsonObject user = TestUtils.createUser();
 
-    TestUtils.addParameter(params, "code", CREATE);
-    TestUtils.addParameter(params, "user", user.toString());
+    TestUtils.addParameter(params, PARAM_CODE, CREATE);
+    TestUtils.addParameter(params, PARAM_USER, user.toString());
 
     final String query = TestUtils.createQueryParams(params);
     final URI uri = TestUtils.createUri(path, query);
@@ -92,12 +92,12 @@ public class ProfileRequestHandlerTest extends GeneralHandlerTest {
    */
   @Test
   public void updateTest() throws URISyntaxException, ClientProtocolException, IOException {
-    TestUtils.addParameter(params, "code", UPDATE);
+    TestUtils.addParameter(params, PARAM_CODE, UPDATE);
 
     final JsonObject user = TestUtils.createUser();
     user.addProperty("gender", "female");
 
-    TestUtils.addParameter(params, "user", user.toString());
+    TestUtils.addParameter(params, PARAM_USER, user.toString());
 
     final String query = TestUtils.createQueryParams(params);
     final URI uri = TestUtils.createUri(path, query);
@@ -120,8 +120,8 @@ public class ProfileRequestHandlerTest extends GeneralHandlerTest {
    */
   @Test
   public void deleteTest() throws URISyntaxException, IOException {
-    TestUtils.addParameter(params, "code", DELETE);
-    TestUtils.addParameter(params, "id", TestUtils.MYMED_ID);
+    TestUtils.addParameter(params, PARAM_CODE, DELETE);
+    TestUtils.addParameter(params, PARAM_ID, TestUtils.MYMED_ID);
 
     final String query = TestUtils.createQueryParams(params);
     final URI uri = TestUtils.createUri(path, query);
@@ -144,8 +144,8 @@ public class ProfileRequestHandlerTest extends GeneralHandlerTest {
    */
   @Test
   public void getDeletedUserTest() throws URISyntaxException, ClientProtocolException, IOException {
-    TestUtils.addParameter(params, "code", READ);
-    TestUtils.addParameter(params, "id", TestUtils.MYMED_ID);
+    TestUtils.addParameter(params, PARAM_CODE, READ);
+    TestUtils.addParameter(params, PARAM_ID, TestUtils.MYMED_ID);
 
     final String query = TestUtils.createQueryParams(params);
     final URI uri = TestUtils.createUri(path, query);

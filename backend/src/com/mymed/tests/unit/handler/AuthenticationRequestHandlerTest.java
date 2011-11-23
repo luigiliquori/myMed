@@ -31,7 +31,7 @@ public class AuthenticationRequestHandlerTest extends GeneralHandlerTest {
    */
   @Test
   public void deleteTest() throws URISyntaxException, ClientProtocolException, IOException {
-    TestUtils.addParameter(params, "code", DELETE);
+    TestUtils.addParameter(params, PARAM_CODE, DELETE);
 
     final String query = TestUtils.createQueryParams(params);
     final URI uri = TestUtils.createUri(path, query);
@@ -52,9 +52,9 @@ public class AuthenticationRequestHandlerTest extends GeneralHandlerTest {
    */
   @Test
   public void createTest() throws URISyntaxException, ClientProtocolException, IOException {
-    TestUtils.addParameter(params, "code", CREATE);
-    TestUtils.addParameter(params, "authentication", TestUtils.createAuthentication().toString());
-    TestUtils.addParameter(params, "user", TestUtils.createUser().toString());
+    TestUtils.addParameter(params, PARAM_CODE, CREATE);
+    TestUtils.addParameter(params, PARAM_AUTH, TestUtils.createAuthentication().toString());
+    TestUtils.addParameter(params, PARAM_USER, TestUtils.createUser().toString());
 
     final String query = TestUtils.createQueryParams(params);
     final URI uri = TestUtils.createUri(path, query);
@@ -75,9 +75,9 @@ public class AuthenticationRequestHandlerTest extends GeneralHandlerTest {
    */
   @Test
   public void readTest1() throws URISyntaxException, ClientProtocolException, IOException {
-    TestUtils.addParameter(params, "code", READ);
-    TestUtils.addParameter(params, "login", TestUtils.MYMED_EMAIL);
-    TestUtils.addParameter(params, "password", TestUtils.getFakePassword());
+    TestUtils.addParameter(params, PARAM_CODE, READ);
+    TestUtils.addParameter(params, PARAM_LOGIN, TestUtils.MYMED_EMAIL);
+    TestUtils.addParameter(params, PARAM_PWD, TestUtils.getFakePassword());
 
     final String query = TestUtils.createQueryParams(params);
     final URI uri = TestUtils.createUri(path, query);
@@ -99,9 +99,9 @@ public class AuthenticationRequestHandlerTest extends GeneralHandlerTest {
    */
   @Test
   public void readTest2() throws URISyntaxException, ClientProtocolException, IOException {
-    TestUtils.addParameter(params, "code", READ);
-    TestUtils.addParameter(params, "login", TestUtils.MYMED_EMAIL);
-    TestUtils.addParameter(params, "password", TestUtils.getFakePassword());
+    TestUtils.addParameter(params, PARAM_CODE, READ);
+    TestUtils.addParameter(params, PARAM_LOGIN, TestUtils.MYMED_EMAIL);
+    TestUtils.addParameter(params, PARAM_PWD, TestUtils.getFakePassword());
 
     final String query = TestUtils.createQueryParams(params);
     final URI uri = TestUtils.createUri(path, query);
@@ -124,9 +124,9 @@ public class AuthenticationRequestHandlerTest extends GeneralHandlerTest {
    */
   @Test
   public void updateTest() throws URISyntaxException, ClientProtocolException, IOException {
-    TestUtils.addParameter(params, "code", UPDATE);
-    TestUtils.addParameter(params, "authentication", TestUtils.createAuthentication().toString());
-    TestUtils.addParameter(params, "id", TestUtils.MYMED_ID);
+    TestUtils.addParameter(params, PARAM_CODE, UPDATE);
+    TestUtils.addParameter(params, PARAM_AUTH, TestUtils.createAuthentication().toString());
+    TestUtils.addParameter(params, PARAM_ID, TestUtils.MYMED_ID);
 
     final String query = TestUtils.createQueryParams(params);
     final URI uri = TestUtils.createUri(path, query);
