@@ -65,7 +65,7 @@ public class ProfileRequestHandlerTest extends GeneralHandlerTest {
    */
   @Test
   public void createTest() throws URISyntaxException, ClientProtocolException, IOException {
-    final JsonObject user = TestUtils.createUser();
+    final JsonObject user = TestUtils.createUserJson();
 
     TestUtils.addParameter(params, PARAM_CODE, CREATE);
     TestUtils.addParameter(params, PARAM_USER, user.toString());
@@ -94,7 +94,7 @@ public class ProfileRequestHandlerTest extends GeneralHandlerTest {
   public void updateTest() throws URISyntaxException, ClientProtocolException, IOException {
     TestUtils.addParameter(params, PARAM_CODE, UPDATE);
 
-    final JsonObject user = TestUtils.createUser();
+    final JsonObject user = TestUtils.createUserJson();
     user.addProperty("gender", "female");
 
     TestUtils.addParameter(params, PARAM_USER, user.toString());
