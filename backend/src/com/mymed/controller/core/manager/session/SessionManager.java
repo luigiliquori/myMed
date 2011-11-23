@@ -57,7 +57,7 @@ public class SessionManager extends AbstractManager implements ISessionManager {
       throw new InternalBackEndException("The session id is null!");
     }
 
-    LOGGER.info("Creating new session with ID {} for user {}", sessionBean.getId(), sessionBean.getUser());
+    LOGGER.info("Creating new session with ID '{}' for user '{}'", sessionBean.getId(), sessionBean.getUser());
     storageManager.insertSlice(CF_SESSION, sessionBean.getId(), sessionBean.getAttributeToMap());
 
     final ProfileManager profileManager = new ProfileManager(storageManager);
@@ -79,7 +79,7 @@ public class SessionManager extends AbstractManager implements ISessionManager {
     session = (MSessionBean) introspection(session, args);
 
     if (session.isExpired()) {
-      throw new IOBackEndException("session expired!", 404);
+      throw new IOBackEndException("Session expired!", 404);
     }
 
     return session;
@@ -101,14 +101,12 @@ public class SessionManager extends AbstractManager implements ISessionManager {
    */
   @Override
   public void delete(final String sessionID) throws InternalBackEndException, IOBackEndException {
-
     LOGGER.info("Deleting session for user with ID: {}", sessionID);
     final MSessionBean session = read(sessionID);
-    session.setExpired(true); // The session is marked as expired
+    session.setExpired(true);
     update(session);
 
-    storageManager.removeAll(CF_SESSION, sessionID + SESSION_SUFFIX); // Removed
-                                                                      // after
-                                                                      // 10 days
+    // Removed after 10 days
+    storageManager.removeAll(CF_SESSION, sessionID + SESSION_SUFFIX);
   }
 }
