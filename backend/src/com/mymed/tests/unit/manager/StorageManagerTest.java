@@ -1,4 +1,4 @@
-package com.mymed.tests.unit;
+package com.mymed.tests.unit.manager;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertSame;

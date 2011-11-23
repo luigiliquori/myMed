@@ -1,4 +1,4 @@
-package com.mymed.tests.unit;
+package com.mymed.tests.unit.manager;
 
 import java.math.BigInteger;
 import java.nio.charset.Charset;
