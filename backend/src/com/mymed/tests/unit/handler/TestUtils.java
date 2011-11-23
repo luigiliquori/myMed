@@ -2,6 +2,7 @@ package com.mymed.tests.unit.handler;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Iterator;
@@ -16,6 +17,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
+import com.mymed.model.data.session.MSessionBean;
+import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.MLogger;
 
 /**
@@ -36,7 +39,9 @@ public class TestUtils {
   private static final String SERVLET_PATH = "/mymed_backend/";
   private static final String PROTOCOL = "http";
 
-  private static final String DIGEST_ALGORITHM = "SHA-512";
+  private static final String DIGEST_SHA_512 = "SHA-512";
+  private static final String DIGEST_SHA_1 = "SHA-1";
+  private static final String CHAR_NAME = "UTF-8";
   private static final String FAKE_PASSWORD = "one, two, three, star";
 
   protected static final String MYMED_EMAIL = "ema.nymton@example.org";
@@ -160,7 +165,7 @@ public class TestUtils {
   /**
    * @return a JSON object for a user
    */
-  static JsonObject createUser() {
+  static JsonObject createUserJson() {
     final JsonObject user = new JsonObject();
 
     user.addProperty("id", MYMED_ID);
@@ -181,7 +186,7 @@ public class TestUtils {
   /**
    * @return a JSON object for the authentication
    */
-  static JsonObject createAuthentication() {
+  static JsonObject createAuthenticationJson() {
     final JsonObject auth = new JsonObject();
 
     auth.addProperty("login", MYMED_EMAIL);
@@ -189,6 +194,21 @@ public class TestUtils {
     auth.addProperty("password", createPassword(FAKE_PASSWORD));
 
     return auth;
+  }
+
+  /**
+   * @return a JSON object for the session
+   */
+  static JsonObject createSessionJson() {
+    final JsonObject session = new JsonObject();
+    final String accessToken = createAccessToken();
+
+    session.addProperty("accessToken", accessToken);
+    session.addProperty("user", MYMED_ID);
+    session.addProperty("ip", "localhost");
+    session.addProperty("id", accessToken);
+
+    return session;
   }
 
   /**
@@ -210,8 +230,8 @@ public class TestUtils {
 
     try {
       final StringBuffer hex = new StringBuffer(250);
-      final MessageDigest digest = MessageDigest.getInstance(DIGEST_ALGORITHM);
-      final byte[] mdbytes = digest.digest(pwd.getBytes());
+      final MessageDigest digest = MessageDigest.getInstance(DIGEST_SHA_512);
+      final byte[] mdbytes = digest.digest(pwd.getBytes(Charset.forName(CHAR_NAME)));
 
       for (final byte b : mdbytes) {
         hex.append(Integer.toHexString(0xFF & b));
@@ -221,9 +241,80 @@ public class TestUtils {
       password = hex.toString();
     } catch (final NoSuchAlgorithmException ex) {
       // We should never get here
-      MLogger.getLogger().debug("Digest algorithm '{}' does not exist!", DIGEST_ALGORITHM, ex.getCause());
+      MLogger.getLogger().debug("Digest algorithm '{}' does not exist!", DIGEST_SHA_512, ex.getCause());
     }
 
     return password;
+  }
+
+  /**
+   * Create a fake access token as an hash string
+   * 
+   * @return an access token
+   */
+  static String createAccessToken() {
+    String token = "";
+
+    final long time = System.currentTimeMillis();
+
+    final StringBuffer hex = new StringBuffer(250);
+    try {
+      final MessageDigest digest = MessageDigest.getInstance(DIGEST_SHA_1);
+      final byte[] mdBytes = digest
+          .digest((MYMED_EMAIL + getFakePassword() + time).getBytes(Charset.forName(CHAR_NAME)));
+
+      for (final byte b : mdBytes) {
+        hex.append(Integer.toHexString(0xFF & b));
+      }
+
+      hex.trimToSize();
+      token = hex.toString();
+    } catch (final NoSuchAlgorithmException ex) {
+      // We should never get here
+      MLogger.getLogger().debug("Digest algorithm '{}' does not exist!", DIGEST_SHA_1, ex.getCause());
+    }
+
+    return token;
+  }
+
+  /**
+   * Create a new session bean
+   * 
+   * @param accessToken
+   *          the access token to set for this session
+   * @return a session bean
+   */
+  static MSessionBean createSessionBean(final String accessToken) {
+    final MSessionBean sessionBean = new MSessionBean();
+
+    sessionBean.setAccessToken(accessToken);
+    sessionBean.setId(accessToken);
+    sessionBean.setUser(MYMED_ID);
+    sessionBean.setIp("localhost");
+    sessionBean.setCurrentApplications("");
+    sessionBean.setP2P(false);
+
+    return sessionBean;
+  }
+
+  /**
+   * Create a new user bean
+   * 
+   * @return a user bean
+   */
+  static MUserBean createUserBean(final String accessToken) {
+    final MUserBean user = new MUserBean();
+
+    user.setId(MYMED_ID);
+    user.setLogin(MYMED_EMAIL);
+    user.setEmail(MYMED_EMAIL);
+    user.setName(NAME);
+    user.setSession(accessToken);
+    user.setFirstName(FIRST_NAME);
+    user.setLastName(LAST_NAME);
+    user.setSocialNetworkID("MYMED");
+    user.setSocialNetworkName("myMed");
+
+    return user;
   }
 }
