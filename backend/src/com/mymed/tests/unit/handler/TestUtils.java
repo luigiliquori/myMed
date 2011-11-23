@@ -211,7 +211,7 @@ public class TestUtils {
     try {
       final StringBuffer hex = new StringBuffer(250);
       final MessageDigest digest = MessageDigest.getInstance(DIGEST_ALGORITHM);
-      final byte[] mdbytes = digest.digest("password".getBytes());
+      final byte[] mdbytes = digest.digest(pwd.getBytes());
 
       for (final byte b : mdbytes) {
         hex.append(Integer.toHexString(0xFF & b));
