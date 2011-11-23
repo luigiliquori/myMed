@@ -26,6 +26,8 @@ public class SessionRequestHandler extends AbstractRequestHandler {
   /* --------------------------------------------------------- */
   private static final long serialVersionUID = 1L;
 
+  private static final String SOCIAL_NETWORK_NAME = "myMed";
+
   private SessionManager sessionManager;
   private ProfileManager profileManager;
 
@@ -77,7 +79,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
       switch (code) {
         case READ :
           message.setMethod("READ");
-          if (socialNetwork.equals("myMed")) {
+          if (socialNetwork.equals(SOCIAL_NETWORK_NAME)) {
             final MSessionBean session = sessionManager.read(accessToken);
             message.setDescription("Session avaible");
             final MUserBean userBean = profileManager.read(session.getUser());
@@ -90,7 +92,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
           break;
         case DELETE :
           message.setMethod("DELETE");
-          if (socialNetwork.equals("myMed")) {
+          if (socialNetwork.equals(SOCIAL_NETWORK_NAME)) {
             sessionManager.delete(accessToken);
             message.setDescription("Session deleted -> LOGOUT");
             LOGGER.info("Session {} deleted -> LOGOUT", accessToken);
@@ -104,7 +106,6 @@ public class SessionRequestHandler extends AbstractRequestHandler {
           throw new InternalBackEndException("SessionRequestHandler.doGet(" + code + ") not exist!");
       }
     } catch (final AbstractMymedException e) {
-      e.printStackTrace();
       LOGGER.info("Error in doGet");
       LOGGER.debug("Error in doGet", e.getCause());
       message.setStatus(e.getStatus());
@@ -113,7 +114,6 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 
     printJSonResponse(message, response);
   }
-
   /**
    * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
    *      response)
@@ -132,7 +132,6 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 
       if (accessToken == null) {
         throw new InternalBackEndException("accessToken argument missing!");
-
       }
 
       switch (code) {
@@ -146,14 +145,13 @@ public class SessionRequestHandler extends AbstractRequestHandler {
             final MSessionBean sessionBean = getGson().fromJson(session, MSessionBean.class);
             sessionManager.update(sessionBean);
           } catch (final JsonSyntaxException e) {
-            throw new InternalBackEndException("user jSon format is not valid");
+            throw new InternalBackEndException("session jSon format is not valid");
           }
           break;
         default :
-          throw new InternalBackEndException("ProfileRequestHandler.doPost(" + code + ") not exist!");
+          throw new InternalBackEndException("ProfileRequestHandler.doPost(" + code + ") does not exist!");
       }
     } catch (final AbstractMymedException e) {
-      e.printStackTrace();
       LOGGER.info("Error in doPost");
       LOGGER.debug("Error in doPost", e.getCause());
       message.setStatus(e.getStatus());
