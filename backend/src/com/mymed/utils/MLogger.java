@@ -17,11 +17,10 @@ public final class MLogger {
   // The name of the default mymed backend logger as defined in logback.xml
   private static final String DEFAULT_LOG_NAME = "mymed.backend.logger";
 
-  private final Logger BACKEND_LOGGER;
+  private static final Logger BACKEND_LOGGER = (Logger) LoggerFactory.getLogger(DEFAULT_LOG_NAME);
 
   // Private constructor since all methods are static and we have a singleton
   private MLogger() {
-    BACKEND_LOGGER = (Logger) LoggerFactory.getLogger(DEFAULT_LOG_NAME);
   }
 
   /**
@@ -40,7 +39,7 @@ public final class MLogger {
    */
   @Deprecated
   public static Logger getLog() {
-    return getInstance().BACKEND_LOGGER;
+    return MLogger.BACKEND_LOGGER;
   }
 
   /**
@@ -50,7 +49,7 @@ public final class MLogger {
    */
   @Deprecated
   public static Logger getInfoLog() {
-    return getInstance().BACKEND_LOGGER;
+    return MLogger.BACKEND_LOGGER;
   }
 
   /**
@@ -60,7 +59,7 @@ public final class MLogger {
    */
   @Deprecated
   public static Logger getDebugLog() {
-    return getInstance().BACKEND_LOGGER;
+    return MLogger.BACKEND_LOGGER;
   }
 
   /**
@@ -69,6 +68,6 @@ public final class MLogger {
    * @return the default logger
    */
   public static Logger getLogger() {
-    return getInstance().BACKEND_LOGGER;
+    return MLogger.BACKEND_LOGGER;
   }
 }
