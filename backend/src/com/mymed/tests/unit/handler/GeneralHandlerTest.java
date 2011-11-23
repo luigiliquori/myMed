@@ -32,6 +32,9 @@ public class GeneralHandlerTest {
   protected static final String PARAM_USER = "user";
   protected static final String PARAM_AUTH = "authentication";
   protected static final String PARAM_ID = "id";
+  protected static final String PARAM_ACCESS_TOKEN = "accessToken";
+  protected static final String PARAM_SOCIAL_NETWORK = "socialNetwork";
+  protected static final String PARAM_SESS_STRING = "session";
 
   protected HttpClient client;
   // Lists where we store the parameters to construct the queries
