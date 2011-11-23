@@ -1,7 +1,7 @@
 package com.mymed.tests.unit;
 
-import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
+import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -70,7 +70,7 @@ public class TestValues {
       final String randString = new BigInteger(130, RANDOM).toString(32);
       final MessageDigest digest = MessageDigest.getInstance("SHA-256");
 
-      digest.update(randString.getBytes("UTF-8"));
+      digest.update(randString.getBytes(Charset.forName("UTF-8")));
       final byte[] mdbytes = digest.digest();
 
       for (final byte b : mdbytes) {
@@ -79,8 +79,6 @@ public class TestValues {
 
       hex.trimToSize();
     } catch (final NoSuchAlgorithmException ex) {
-      MLogger.getLogger().debug("Random password generator failed", ex.getCause());
-    } catch (final UnsupportedEncodingException ex) {
       MLogger.getLogger().debug("Random password generator failed", ex.getCause());
     }
 
