@@ -53,8 +53,8 @@ public class AuthenticationRequestHandlerTest extends GeneralHandlerTest {
   @Test
   public void createTest() throws URISyntaxException, ClientProtocolException, IOException {
     TestUtils.addParameter(params, PARAM_CODE, CREATE);
-    TestUtils.addParameter(params, PARAM_AUTH, TestUtils.createAuthentication().toString());
-    TestUtils.addParameter(params, PARAM_USER, TestUtils.createUser().toString());
+    TestUtils.addParameter(params, PARAM_AUTH, TestUtils.createAuthenticationJson().toString());
+    TestUtils.addParameter(params, PARAM_USER, TestUtils.createUserJson().toString());
 
     final String query = TestUtils.createQueryParams(params);
     final URI uri = TestUtils.createUri(path, query);
@@ -125,7 +125,7 @@ public class AuthenticationRequestHandlerTest extends GeneralHandlerTest {
   @Test
   public void updateTest() throws URISyntaxException, ClientProtocolException, IOException {
     TestUtils.addParameter(params, PARAM_CODE, UPDATE);
-    TestUtils.addParameter(params, PARAM_AUTH, TestUtils.createAuthentication().toString());
+    TestUtils.addParameter(params, PARAM_AUTH, TestUtils.createAuthenticationJson().toString());
     TestUtils.addParameter(params, PARAM_ID, TestUtils.MYMED_ID);
 
     final String query = TestUtils.createQueryParams(params);
