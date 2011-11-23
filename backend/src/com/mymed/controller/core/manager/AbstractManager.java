@@ -28,8 +28,6 @@ public abstract class AbstractManager extends ManagerValues {
   private static final int PRIV_FIN = Modifier.PRIVATE + Modifier.FINAL;
   private static final int PRIV_STAT_FIN = Modifier.PRIVATE + Modifier.STATIC + Modifier.FINAL;
 
-  private static final String ENCODING = "UTF8";
-
   protected IStorageManager storageManager;
 
   public AbstractManager(final IStorageManager storageManager) {
