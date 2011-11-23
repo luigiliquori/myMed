@@ -11,33 +11,72 @@
 #import "ConnectionStatusChecker.h"
 #import "UIDeviceHardware.h"
 
+enum CameraAlertButtonIndex {
+    CameraIndex = 1,
+    ExistingPicture = 2,
+};
+
 #pragma mark - Static Definitions
 static NSString * const MY_MED_INDEX_URL = @"http://mymed2.sophia.inria.fr/mobile/index.php";
 
 #pragma mark -
-#pragma mark - Private Protocol for Notification Handling
+#pragma mark - Private Methods for Notification Handling
 @interface ViewController (NotificationObserver)
 - (void) startObservingNotifications;
+- (void) choosePicture:(id) sender;
 - (void) displayCameraView:(id) sender;
+- (void) alertView:(UIAlertView *) alert clickedButtonAtIndex:(NSInteger) buttonIndex;
 @end
 
 @implementation ViewController (NotificationObserver)
 - (void) startObservingNotifications
 {
+    // Subscribe to Choose picture events
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(displayCameraView:) 
+                                             selector:@selector(choosePicture:) 
                                                  name:FN_CHOOSE_PICTURE
                                                object:nil];
 }
 
-- (void) displayCameraView:(id) sender
+- (void) choosePicture:(id) sender 
+{    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Picture Source"
+                                                    message:nil
+                                                   delegate:self
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"Camera", @"Existing Picture", nil];
+    [alert show];
+}
+
+- (void) alertView:(UIAlertView *)alert clickedButtonAtIndex:(NSInteger) buttonIndex
 {
-    UIImagePickerController *cameraUI = [[UIImagePickerController alloc] init];
-    cameraUI.sourceType = UIImagePickerControllerSourceTypeCamera;
-    cameraUI.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
-    cameraUI.allowsEditing = NO;    
-    cameraUI.delegate = self;
-    [self presentModalViewController:cameraUI animated:YES];
+    if (!imagePickerController) {
+        imagePickerController = [[UIImagePickerController alloc] init];
+        imagePickerController.delegate = self;
+        imagePickerController.allowsEditing = NO;
+    }
+    
+    switch (buttonIndex) {
+        case CameraIndex:
+            //Init the Image Picker in case user want's to publish a Picture            
+            imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+            [self presentModalViewController:imagePickerController animated:YES];            
+            break;
+        case ExistingPicture:
+            // Find existing Picture
+            imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            [self presentModalViewController:imagePickerController animated:YES];         
+            break;            
+        default:
+            break;
+    }
+}
+
+- (void) displayCameraView:(id) sender
+{    
+    imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+    imagePickerController.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
+    [self presentModalViewController:imagePickerController animated:YES];
 }
 
 @end
@@ -67,6 +106,9 @@ static NSString * const MY_MED_INDEX_URL = @"http://mymed2.sophia.inria.fr/mobil
 - (void)viewDidUnload
 {
     [super viewDidUnload];
+    imagePickerController = nil;
+    trustedHosts = nil;
+    sessionURL = nil;
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
@@ -78,7 +120,7 @@ static NSString * const MY_MED_INDEX_URL = @"http://mymed2.sophia.inria.fr/mobil
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];    
+    [super viewDidAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

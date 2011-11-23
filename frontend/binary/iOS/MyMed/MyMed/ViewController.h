@@ -14,6 +14,7 @@
 {
     NSURL *sessionURL;
     NSArray *trustedHosts;
+    UIImagePickerController *imagePickerController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWebView *webView;

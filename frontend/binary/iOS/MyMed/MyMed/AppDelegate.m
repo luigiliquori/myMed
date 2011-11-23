@@ -10,6 +10,7 @@
 
 #import "ViewController.h"
 #import "LoginViewController.h"
+#import "WebObjCBridge.h"
 
 @implementation AppDelegate
 

@@ -24,8 +24,10 @@ static NSString * const KEY_OBJ_C_CALL = @"mobile_binary";
         
         if ([components count] > 1) {
         	if([[components objectAtIndex:1] isEqualToString:FN_CHOOSE_PICTURE]) {
-                 [[NSNotificationCenter defaultCenter] postNotificationName:FN_CHOOSE_PICTURE object:nil];
-        	}
+                [[NSNotificationCenter defaultCenter] postNotificationName:FN_CHOOSE_PICTURE object:nil];
+        	} else if([[components objectAtIndex:1] isEqualToString:FN_LOGOUT]) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:FN_LOGOUT object:nil];
+            }
         }
 
         return NO;
