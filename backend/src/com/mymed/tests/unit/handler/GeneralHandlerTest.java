@@ -26,6 +26,13 @@ public class GeneralHandlerTest {
   protected static final String DELETE = "3";
   protected static final String WRONG = "8";
 
+  protected static final String PARAM_CODE = "code";
+  protected static final String PARAM_LOGIN = "login";
+  protected static final String PARAM_PWD = "password";
+  protected static final String PARAM_USER = "user";
+  protected static final String PARAM_AUTH = "authentication";
+  protected static final String PARAM_ID = "id";
+
   protected HttpClient client;
   // Lists where we store the parameters to construct the queries
   protected List<NameValuePair> params;
@@ -66,7 +73,7 @@ public class GeneralHandlerTest {
    */
   @Test
   public void sendWrongCodeGetTest() throws URISyntaxException, ClientProtocolException, IOException {
-    TestUtils.addParameter(params, "code", WRONG);
+    TestUtils.addParameter(params, PARAM_CODE, WRONG);
 
     final String query = TestUtils.createQueryParams(params);
     final URI uri = TestUtils.createUri(path, query);
@@ -89,7 +96,7 @@ public class GeneralHandlerTest {
    */
   @Test
   public void sendWrongCodePostTest() throws URISyntaxException, ClientProtocolException, IOException {
-    TestUtils.addParameter(params, "code", WRONG);
+    TestUtils.addParameter(params, PARAM_CODE, WRONG);
 
     final String query = TestUtils.createQueryParams(params);
     final URI uri = TestUtils.createUri(path, query);
