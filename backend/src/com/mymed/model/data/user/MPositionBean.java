@@ -3,169 +3,171 @@ package com.mymed.model.data.user;
 import com.mymed.model.data.AbstractMBean;
 
 public class MPositionBean extends AbstractMBean {
-	/* --------------------------------------------------------- */
-	/* Attributes */
-	/* --------------------------------------------------------- */
-	/** == Position ID*/
-	private String userID;
-	/** GPS information */
-	private String latitude;
-	private String longitude;
-	
-	/** Adress information  */
-	private String city;
-	private String zipCode;
-	private String country;
-	private String formattedAddress;
-	
-	
+  /* --------------------------------------------------------- */
+  /* Attributes */
+  /* --------------------------------------------------------- */
+  /** == Position ID */
+  private String userID;
+  /** GPS information */
+  private String latitude;
+  private String longitude;
 
-	/* --------------------------------------------------------- */
-	/* Constructors */
-	/* --------------------------------------------------------- */
-	/**
-	 * Create a new empty MPositionBean
-	 */
-	public MPositionBean() {
-		// Empty constructor, needed because of the copy constructor
-		super();
-	}
+  /** Adress information */
+  private String city;
+  private String zipCode;
+  private String country;
+  private String formattedAddress;
 
-	/**
-	 * Copy constructor.
-	 * <p>
-	 * Provide a clone of the passed MPositionBean
-	 * 
-	 * @param toClone
-	 *            the position bean to clone
-	 */
-	protected MPositionBean(final MPositionBean toClone) {
-		super();
+  /* --------------------------------------------------------- */
+  /* Constructors */
+  /* --------------------------------------------------------- */
+  /**
+   * Create a new empty MPositionBean
+   */
+  public MPositionBean() {
+    // Empty constructor, needed because of the copy constructor
+    super();
+  }
 
-		latitude = toClone.getLatitude();
-		longitude = toClone.getLongitude();
-		city = toClone.getCity();
-		zipCode = toClone.getZipCode();
-		country = toClone.getCountry();
-		formattedAddress = toClone.getFormattedAddress();
-	}
-	
-	@Override
-	public MPositionBean clone() {
-		return new MPositionBean(this);
-	}
+  /**
+   * Copy constructor.
+   * <p>
+   * Provide a clone of the passed MPositionBean
+   * 
+   * @param toClone
+   *          the position bean to clone
+   */
+  protected MPositionBean(final MPositionBean toClone) {
+    super();
 
-	/* --------------------------------------------------------- */
-	/* Override methods */
-	/* --------------------------------------------------------- */
-	/**
-	 * @see java.lang.Object#equals()
-	 */
-	@Override
-	public boolean equals(final Object object) {
+    userID = toClone.getUserID();
+    latitude = toClone.getLatitude();
+    longitude = toClone.getLongitude();
+    city = toClone.getCity();
+    zipCode = toClone.getZipCode();
+    country = toClone.getCountry();
+    formattedAddress = toClone.getFormattedAddress();
+  }
 
-		boolean equal = false;
+  @Override
+  public MPositionBean clone() {
+    return new MPositionBean(this);
+  }
 
-		if (this == object) {
-			equal = true;
-		} else if (object instanceof MPositionBean) {
-			final MPositionBean comparable = (MPositionBean) object;
+  /* --------------------------------------------------------- */
+  /* Override methods */
+  /* --------------------------------------------------------- */
+  /**
+   * @see java.lang.Object#equals()
+   */
+  @Override
+  public boolean equals(final Object object) {
 
-			/*
-			 * We compare only a subsets of the field to check that two
-			 * MUserBean objects are the same. These should be values that are
-			 * set for sure, and not null.
-			 */
-			equal = true;
+    boolean equal = false;
 
-			if (latitude == null && comparable.getLatitude() != null) {
-				equal &= false;
-			} else {
-				equal &= latitude.equals(comparable.getLatitude());
-			}
+    if (this == object) {
+      equal = true;
+    } else if (object instanceof MPositionBean) {
+      final MPositionBean comparable = (MPositionBean) object;
+      /*
+       * We compare only a subsets of the field to check that two MUserBean
+       * objects are the same. These should be values that are set for sure, and
+       * not null.
+       */
+      equal = true;
 
-			if (longitude == null && comparable.getLongitude() != null) {
-				equal &= false;
-			} else {
-				equal &= longitude.equals(comparable.getLongitude());
-			}
+      if (latitude == null && comparable.getLatitude() != null) {
+        equal &= false;
+      } else if (latitude != null && comparable.getLatitude() != null) {
+        equal &= latitude.equals(comparable.getLatitude());
+      }
 
-		}
+      if (longitude == null && comparable.getLongitude() != null) {
+        equal &= false;
+      } else if (longitude != null && comparable.getLongitude() != null) {
+        equal &= longitude.equals(comparable.getLongitude());
+      }
+    }
 
-		return equal;
-	}
+    return equal;
+  }
 
-	/**
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		int result = 1;
-		return result;
-	}
+  /**
+   * @see java.lang.Object#hashCode()
+   */
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
 
-	@Override
-	public String toString() {
-		return "Position:\n" + super.toString();
-	}
+    result = prime * result + (userID != null ? 0 : userID.hashCode());
+    result = prime * result + (longitude != null ? 0 : longitude.hashCode());
+    result = prime * result + (latitude != null ? 0 : latitude.hashCode());
 
-	/* --------------------------------------------------------- */
-	/* GETTER AND SETTER */
-	/* --------------------------------------------------------- */
-	public String getUserID() {
-		return userID;
-	}
+    return result;
+  }
 
-	public void setUserID(String id) {
-		this.userID = id;
-	}
-	
-	public String getLatitude() {
-		return latitude;
-	}
+  @Override
+  public String toString() {
+    return "Position:\n" + super.toString();
+  }
 
-	public void setLatitude(String latitude) {
-		this.latitude = latitude;
-	}
+  /* --------------------------------------------------------- */
+  /* GETTER AND SETTER */
+  /* --------------------------------------------------------- */
+  public String getUserID() {
+    return userID;
+  }
 
-	public String getLongitude() {
-		return longitude;
-	}
+  public void setUserID(final String id) {
+    userID = id;
+  }
 
-	public void setLongitude(String longitude) {
-		this.longitude = longitude;
-	}
+  public String getLatitude() {
+    return latitude;
+  }
 
-	public String getCity() {
-		return city;
-	}
+  public void setLatitude(final String latitude) {
+    this.latitude = latitude;
+  }
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+  public String getLongitude() {
+    return longitude;
+  }
 
-	public String getZipCode() {
-		return zipCode;
-	}
+  public void setLongitude(final String longitude) {
+    this.longitude = longitude;
+  }
 
-	public void setZipCode(String zipCode) {
-		this.zipCode = zipCode;
-	}
+  public String getCity() {
+    return city;
+  }
 
-	public String getCountry() {
-		return country;
-	}
+  public void setCity(final String city) {
+    this.city = city;
+  }
 
-	public void setCountry(String country) {
-		this.country = country;
-	}
+  public String getZipCode() {
+    return zipCode;
+  }
 
-	public String getFormattedAddress() {
-		return formattedAddress;
-	}
+  public void setZipCode(final String zipCode) {
+    this.zipCode = zipCode;
+  }
 
-	public void setFormattedAddress(String formattedAddress) {
-		this.formattedAddress = formattedAddress;
-	}
-	
+  public String getCountry() {
+    return country;
+  }
+
+  public void setCountry(final String country) {
+    this.country = country;
+  }
+
+  public String getFormattedAddress() {
+    return formattedAddress;
+  }
+
+  public void setFormattedAddress(final String formattedAddress) {
+    this.formattedAddress = formattedAddress;
+  }
 }
