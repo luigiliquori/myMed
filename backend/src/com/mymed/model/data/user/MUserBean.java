@@ -129,31 +129,31 @@ public final class MUserBean extends AbstractMBean {
 
       if (email == null && comparable.getEmail() != null) {
         equal &= false;
-      } else {
+      } else if (email != null && comparable.getEmail() != null) {
         equal &= email.equals(comparable.getEmail());
       }
 
       if (firstName == null && comparable.getFirstName() != null) {
         equal &= false;
-      } else {
+      } else if (firstName != null && comparable.getFirstName() != null) {
         equal &= firstName.equals(comparable.getFirstName());
       }
 
       if (lastName == null && comparable.getLastName() != null) {
         equal &= false;
-      } else {
+      } else if (lastName != null && comparable.getLastName() != null) {
         equal &= lastName.equals(comparable.getLastName());
       }
 
       if (id == null && comparable.getId() != null) {
         equal &= false;
-      } else {
+      } else if (id != null && comparable.getId() != null) {
         equal &= id.equals(comparable.getId());
       }
 
       if (name == null && comparable.getName() != null) {
         equal &= false;
-      } else {
+      } else if (name != null && comparable.getName() != null) {
         equal &= name.equals(comparable.getName());
       }
     }
