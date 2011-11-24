@@ -61,6 +61,8 @@ public class GeneralHandlerTest {
 
     user.clear();
     user = null;
+
+    client = null;
   }
 
   @AfterClass

@@ -8,6 +8,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -25,11 +26,14 @@ public class SessionRequestHandlerTest extends GeneralHandlerTest {
   private static String accessToken;
 
   @BeforeClass
-  public static void setUpOnce() throws InternalBackEndException, IOBackEndException {
+  public static void setUpOnce() {
     accessToken = TestUtils.createAccessToken();
     path = TestUtils.createPath(HANDLER_NAME);
+  }
 
-    // Set up everything we need in the server
+  @Before
+  public void setupBefore() throws InternalBackEndException, IOBackEndException {
+    // Set up what we need in the server
     final ProfileManager profileManager = new ProfileManager();
     profileManager.create(TestUtils.createUserBean(accessToken));
 

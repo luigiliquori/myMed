@@ -8,10 +8,15 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.google.gson.JsonObject;
+import com.mymed.controller.core.exception.IOBackEndException;
+import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.requesthandler.ProfileRequestHandler;
 import com.mymed.tests.unit.handler.utils.BackendAssert;
 import com.mymed.tests.unit.handler.utils.TestUtils;
@@ -29,6 +34,22 @@ public class ProfileRequestHandlerTest extends GeneralHandlerTest {
   @BeforeClass
   public static void setUpOnce() {
     path = TestUtils.createPath(HANDLER_NAME);
+  }
+
+  @Before
+  public void setupBefore() throws InternalBackEndException, IOBackEndException {
+    final ProfileManager manager = new ProfileManager();
+    manager.create(TestUtils.createUserBean(""));
+  }
+
+  @After
+  public void cleanAfter() throws InternalBackEndException {
+    final ProfileManager manager = new ProfileManager();
+    try {
+      manager.delete(TestUtils.MYMED_ID);
+    } catch (final IOBackEndException ex) {
+      // Do nothing, even if we have an error deleting something
+    }
   }
 
   /**
@@ -132,30 +153,6 @@ public class ProfileRequestHandlerTest extends GeneralHandlerTest {
     final HttpResponse response = client.execute(getRequest);
 
     BackendAssert.assertResponseCodeIs(response, 200);
-    BackendAssert.assertIsValidJson(response);
-  }
-
-  /**
-   * Read the database for the deleted user.
-   * <p>
-   * Check that the response code is '404', and that the JSON format is valid
-   * 
-   * @throws URISyntaxException
-   * @throws ClientProtocolException
-   * @throws IOException
-   */
-  @Test
-  public void getDeletedUserTest() throws URISyntaxException, ClientProtocolException, IOException {
-    TestUtils.addParameter(params, PARAM_CODE, READ);
-    TestUtils.addParameter(params, PARAM_ID, TestUtils.MYMED_ID);
-
-    final String query = TestUtils.createQueryParams(params);
-    final URI uri = TestUtils.createUri(path, query);
-
-    final HttpGet getRequest = new HttpGet(uri);
-    final HttpResponse response = client.execute(getRequest);
-
-    BackendAssert.assertResponseCodeIs(response, 404);
     BackendAssert.assertIsValidJson(response);
   }
 }

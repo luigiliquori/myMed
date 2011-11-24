@@ -89,7 +89,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 	</target>
 
 	<target name="compiletest" depends="compile,cleanbuild" description="Compile the test classes">
-		<javac srcdir="${tests.dir}" destdir="${build.dir}" debug="on" fork="yes" includeantruntime="true" includejavaruntime="true">
+		<javac srcdir="${tests.dir}" destdir="${build.dir}" debug="on" fork="true" includeantruntime="true" includejavaruntime="true">
 			<classpath refid="mymed.classpath"/>
 			<include name="**/*.java"/>
 		</javac>
