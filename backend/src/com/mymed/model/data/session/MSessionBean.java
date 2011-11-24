@@ -68,13 +68,13 @@ public class MSessionBean extends AbstractMBean {
 
       if (id == null && comparable.getId() != null) {
         equal &= false;
-      } else {
+      } else if (id != null && comparable.getId() != null) {
         equal &= id.equals(comparable.getId());
       }
 
       if (ip == null && comparable.getIp() != null) {
         equal &= false;
-      } else {
+      } else if (ip != null && comparable.getIp() != null) {
         equal &= ip.equals(comparable.getIp());
       }
 
@@ -84,20 +84,19 @@ public class MSessionBean extends AbstractMBean {
 
       if (accessToken == null && comparable.getAccessToken() != null) {
         equal &= false;
-      } else {
+      } else if (accessToken != null && comparable.getAccessToken() != null) {
         equal &= accessToken.equals(comparable.getAccessToken());
       }
 
       if (user == null && comparable.getUser() != null) {
         equal &= false;
-      } else {
+      } else if (user != null && comparable.getUser() != null) {
         equal &= user.equals(comparable.getUser());
       }
     }
 
     return equal;
   }
-
   /* --------------------------------------------------------- */
   /* GETTER AND SETTER */
   /* --------------------------------------------------------- */
