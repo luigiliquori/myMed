@@ -37,7 +37,7 @@ public class SessionManager extends AbstractManager implements ISessionManager {
   @Deprecated
   public void create(final String userID, final String ip) throws InternalBackEndException, IOBackEndException {
     final MSessionBean sessionBean = new MSessionBean();
-    sessionBean.setId(sessionBean.getUser() + SESSION_SUFFIX);
+    sessionBean.setId(userID + SESSION_SUFFIX);
     sessionBean.setIp(ip);
     sessionBean.setUser(userID);
     sessionBean.setCurrentApplications("");
