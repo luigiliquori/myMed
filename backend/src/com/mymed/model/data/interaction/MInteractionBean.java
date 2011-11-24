@@ -106,19 +106,19 @@ public class MInteractionBean extends AbstractMBean {
 
       if (application == null && comparable.getApplication() != null) {
         equal &= false;
-      } else {
+      } else if (application != null && comparable.getApplication() != null) {
         equal &= application.equals(comparable.getApplication());
       }
 
       if (complexInteraction == null && comparable.getComplexInteraction() != null) {
         equal &= false;
-      } else {
+      } else if (complexInteraction != null && comparable.getComplexInteraction() != null) {
         equal &= complexInteraction.equals(comparable.getComplexInteraction());
       }
 
       if (consumer == null && comparable.getConsumer() != null) {
         equal &= false;
-      } else {
+      } else if (consumer != null && comparable.getConsumer() != null) {
         equal &= consumer.equals(comparable.getConsumer());
       }
 
@@ -126,13 +126,13 @@ public class MInteractionBean extends AbstractMBean {
 
       if (id == null && comparable.getId() != null) {
         equal &= false;
-      } else {
+      } else if (id != null && comparable.getId() != null) {
         equal &= id.equals(comparable.getId());
       }
 
       if (producer == null && comparable.getProducer() != null) {
         equal &= false;
-      } else {
+      } else if (producer != null && comparable.getProducer() != null) {
         equal &= producer.equals(comparable.getProducer());
       }
     }
