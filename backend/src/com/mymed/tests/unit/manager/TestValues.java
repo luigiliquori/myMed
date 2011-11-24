@@ -43,6 +43,7 @@ public class TestValues {
   protected static final String REPUTATION_ID = "reputation1";
   protected static final String SESSION_ID = USER_ID + "_SESSION";
   protected static final String INTERACTION_LST_ID = "interaction1";
+  protected static final String ACCESS_TOKEN = Long.toString(System.currentTimeMillis());
 
   protected static final String INTERACTION_ID = "interaction1";
   protected static final String APPLICATION_ID = "application1";

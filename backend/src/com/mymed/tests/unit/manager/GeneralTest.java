@@ -59,10 +59,11 @@ public class GeneralTest extends TestValues {
     birthDate = MConverter.longToByteBuffer(CAL_INSTANCE.getTimeInMillis()).array();
 
     sessionBean = new MSessionBean();
-    sessionBean.setId(USER_ID + "_SESSION");
+    sessionBean.setId(SESSION_ID);
     sessionBean.setUser(USER_ID);
     sessionBean.setIp(IP);
     sessionBean.setCurrentApplications("");
+    sessionBean.setAccessToken(ACCESS_TOKEN);
     sessionBean.setP2P(false);
 
     userBean = new MUserBean();
