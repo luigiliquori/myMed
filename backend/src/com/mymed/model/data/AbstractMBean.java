@@ -5,6 +5,8 @@ import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 
+import ch.qos.logback.classic.Logger;
+
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.utils.ClassType;
 import com.mymed.utils.MLogger;
@@ -36,86 +38,88 @@ import com.mymed.utils.MLogger;
  * @author lvanni
  */
 public abstract class AbstractMBean {
+  // Default logger for all the beans that extend this abstract
+  protected static final Logger LOGGER = MLogger.getLogger();
 
-	private static final int PRIV_FIN = Modifier.PRIVATE + Modifier.FINAL;
-	private static final int PRIV_STAT_FIN = Modifier.PRIVATE + Modifier.STATIC + Modifier.FINAL;
+  private static final int PRIV_FIN = Modifier.PRIVATE + Modifier.FINAL;
+  private static final int PRIV_STAT_FIN = Modifier.PRIVATE + Modifier.STATIC + Modifier.FINAL;
 
-	/**
-	 * @return all the fields in a hashMap format for the myMed wrapper
-	 * @throws InternalBackEndException
-	 */
-	public Map<String, byte[]> getAttributeToMap() throws InternalBackEndException {
-		final Map<String, byte[]> args = new HashMap<String, byte[]>();
-		for (final Field field : this.getClass().getDeclaredFields()) {
+  /**
+   * @return all the fields in a hashMap format for the myMed wrapper
+   * @throws InternalBackEndException
+   */
+  public Map<String, byte[]> getAttributeToMap() throws InternalBackEndException {
+    final Map<String, byte[]> args = new HashMap<String, byte[]>();
+    for (final Field field : this.getClass().getDeclaredFields()) {
 
-			// Set the field as accessible: it is not really secure in this case
-			// TODO maybe we should invoke the get methods and retrieve the
-			// values in that way
-			field.setAccessible(true);
+      // Set the field as accessible: it is not really secure in this case
+      // TODO maybe we should invoke the get methods and retrieve the
+      // values in that way
+      field.setAccessible(true);
 
-			/*
-			 * We check the value of the modifiers of the field: if the field is
-			 * private and final, or private static and final, we skip it.
-			 */
-			final int modifiers = field.getModifiers();
-			if (modifiers == PRIV_FIN || modifiers == PRIV_STAT_FIN) {
-				continue;
-			}
+      /*
+       * We check the value of the modifiers of the field: if the field is
+       * private and final, or private static and final, we skip it.
+       */
+      final int modifiers = field.getModifiers();
+      if (modifiers == PRIV_FIN || modifiers == PRIV_STAT_FIN) {
+        continue;
+      }
 
-			try {
-				final ClassType type = ClassType.inferTpye(field.getType());
-				args.put(field.getName(), ClassType.objectToByteArray(type, field.get(this)));
-			} catch (final IllegalArgumentException ex) {
-				MLogger.getDebugLog().debug("Introspection failed", ex.getCause());
-				throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
-			} catch (final IllegalAccessException ex) {
-				MLogger.getDebugLog().debug("Introspection failed", ex.getCause());
-				throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
-			}
-		}
+      try {
+        final ClassType type = ClassType.inferTpye(field.getType());
+        args.put(field.getName(), ClassType.objectToByteArray(type, field.get(this)));
+      } catch (final IllegalArgumentException ex) {
+        LOGGER.debug("Introspection failed", ex.getCause());
+        throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
+      } catch (final IllegalAccessException ex) {
+        LOGGER.debug("Introspection failed", ex.getCause());
+        throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
+      }
+    }
 
-		return args;
-	}
+    return args;
+  }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		final StringBuffer value = new StringBuffer(200);
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    final StringBuffer value = new StringBuffer(200);
 
-		for (final Field field : this.getClass().getDeclaredFields()) {
+    for (final Field field : this.getClass().getDeclaredFields()) {
 
-			// TODO fix here, not really secure
-			field.setAccessible(true);
+      // TODO fix here, not really secure
+      field.setAccessible(true);
 
-			try {
-				if (field.get(this) instanceof String) {
-					value.append('\t');
-					value.append(field.getName());
-					value.append(" : ");
-					value.append((String) field.get(this));
-					value.append('\n');
-				} else {
-					value.append('\t');
-					value.append(field.getName());
-					value.append(" : ");
-					value.append(field.get(this));
-					value.append('\n');
-				}
-			} catch (final IllegalArgumentException e) {
-				// We should never get here!
-				MLogger.getDebugLog().debug("Arguments are not valid", e.getCause());
-			} catch (final IllegalAccessException e) {
-				MLogger.getDebugLog().debug("Impossibile to access the field '{}'", field.getName(), e.getCause());
-			}
-		}
+      try {
+        if (field.get(this) instanceof String) {
+          value.append('\t');
+          value.append(field.getName());
+          value.append(" : ");
+          value.append((String) field.get(this));
+          value.append('\n');
+        } else {
+          value.append('\t');
+          value.append(field.getName());
+          value.append(" : ");
+          value.append(field.get(this));
+          value.append('\n');
+        }
+      } catch (final IllegalArgumentException e) {
+        // We should never get here!
+        LOGGER.debug("Arguments are not valid", e.getCause());
+      } catch (final IllegalAccessException e) {
+        LOGGER.debug("Impossibile to access the field '{}'", field.getName(), e.getCause());
+      }
+    }
 
-		value.trimToSize();
+    value.trimToSize();
 
-		return value.toString();
-	}
+    return value.toString();
+  }
 
 }
