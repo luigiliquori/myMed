@@ -33,7 +33,20 @@ class Login extends AbstractLogin {
 	/**
 	* Get the HEADER for jQuery Mobile
 	*/
-	public /*String*/ function getHeader() { }
+	public /*String*/ function getHeader() { ?>
+		<!-- HEADER -->
+		<div data-role="header">
+			<div data-role="controlgroup" data-type="horizontal" style="text-align: center;">
+				<a href="#inscription" data-role="button" data-inline="true" data-rel="dialog" >myMed</a>
+				<?php 
+				 	$socialNetworkConnection =  new SocialNetworkConnection();
+				 	foreach($socialNetworkConnection->getWrappers() as $wrapper) {
+				 		echo "<a href='" . $wrapper->getLoginUrl() . "' data-role='button'>" . $wrapper->getSocialNetworkName() . "</a>";
+				 	}
+	 			?>
+			</div>
+		</div>		
+	<?php }
 	
 	/**
 	 * Get the CONTENT for jQuery Mobile
@@ -42,12 +55,14 @@ class Login extends AbstractLogin {
 		?>
 		<!-- CONTENT -->
 		<div class="content">
-			<!-- LOGO -->
+			<!-- LOGO 
 			<br />
 			<img alt="mymed" src="img/logo-mymed.png" width="200px;">
 			<br />
 			<br />
-			<a href="#socialNetwork" data-role="button" data-inline="true" data-rel="dialog">Connexion Via Réseau Social</a>
+			<a href="#socialNetwork" data-role="button" data-inline="true" data-rel="dialog">Connexion Via Réseau Social</a> -->
+			<br /><br />
+			<h1>myMed</h1>
 			
 			<!-- NOTIFICATION -->
 			<?php if($this->handler->getError()) { ?>
@@ -68,13 +83,9 @@ class Login extends AbstractLogin {
 			<br />
 			<form action="#" method="post" name="singinForm" id="singinForm">
 				<input type="hidden" name="singin" value="1" />
-			    <span>eMail:</span><br />
-			    <input type="text" name="login" id="login" value="" /><br />
-			    <span>Mot de passe:</span><br />
-			    <input type="password" name="password" id="password" value="" />
-				<br />
-				<input type="submit" data-role="button" data-inline="true" onclick="document.singinForm.submit()" value="Connexion"  data-theme="a"/>
-				<a href="#inscription" data-role="button" data-inline="true" data-rel="dialog">Inscription</a>
+			    <input type="text" name="login" id="login" value="login" /><br />
+			    <input type="password" name="password" id="password" value="Mot de passe" /><br />
+			    <a href="#" onclick="document.singinForm.submit()"><span style="color:white; text-decoration: none;">Connexion</span></a>
 			</form>
 		</div>
 	<?php }

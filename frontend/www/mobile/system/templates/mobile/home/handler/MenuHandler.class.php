@@ -28,7 +28,7 @@ class MenuHandler implements IRequestHandler {
 	/* Public methods */
 	/* --------------------------------------------------------- */
 	public /*void*/ function handleRequest() {
-		if(isset($_POST['disconnect'])) {
+		if(isset($_POST['disconnect']) || isset($_GET['disconnect'])) {
 			// DELETE BACKEND SESSION
 			$request = new Request("SessionRequestHandler", DELETE);
 			$request->addArgument("accessToken", $_SESSION['user']->session);
