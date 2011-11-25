@@ -100,9 +100,9 @@ public class MPositionBean extends AbstractMBean {
     final int prime = 31;
     int result = 1;
 
-    result = prime * result + (userID != null ? 0 : userID.hashCode());
-    result = prime * result + (longitude != null ? 0 : longitude.hashCode());
-    result = prime * result + (latitude != null ? 0 : latitude.hashCode());
+    result = prime * result + (userID == null ? 0 : userID.hashCode());
+    result = prime * result + (longitude == null ? 0 : longitude.hashCode());
+    result = prime * result + (latitude == null ? 0 : latitude.hashCode());
 
     return result;
   }
