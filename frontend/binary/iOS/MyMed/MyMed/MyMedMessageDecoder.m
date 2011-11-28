@@ -18,7 +18,7 @@ static SBJsonParser *jsonParser = nil;
     if (!jsonParser) {
         jsonParser = [[SBJsonParser alloc] init];
     }
-    
+
     NSDictionary *dataDictionary = [jsonParser objectWithData:data];
     return dataDictionary;
 }
@@ -28,7 +28,7 @@ static SBJsonParser *jsonParser = nil;
     if (!jsonParser) {
         jsonParser = [[SBJsonParser alloc] init];
     }
-    
+
     NSDictionary *dataDictionary = [jsonParser objectWithString:string];
     return dataDictionary;
 }

@@ -22,11 +22,6 @@
 static NSString * const M_URL_AUTH = @"http://mymed2.sophia.inria.fr:8080/mymed_backend/AuthenticationRequestHandler";
 static NSString * const M_URL_SESSION = @"http://mymed2.sophia.inria.fr:8080/mymed_backend/SessionRequestHandler";
 
-// STATUS
-static const unsigned M_STATUS_AUTH_WRONG_PASS = 403;
-static const unsigned M_STATUS_AUTH_WRONG_LOGIN = 404;
-static const unsigned M_STATUS_AUTH_OK = 200;
-
 // CODES for Backend/Frontend
 static const unsigned M_CODE_CREATE = 0;
 static const unsigned M_CODE_READ = 1;
