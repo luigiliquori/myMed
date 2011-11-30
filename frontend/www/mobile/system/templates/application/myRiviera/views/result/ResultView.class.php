@@ -51,8 +51,23 @@ class ResultView extends MyApplication {
 	public /*String*/ function getContent() { ?>
 		<!-- CONTENT -->
 		<div class="content">
-			<?php if ($this->handler->getSuccess()) { ?>
-				<?php $listDivider = null; ?>
+			
+			<div id="map_canvas" style="width: 100%; height: 280px; border: thin gray solid; text-align: center; background-color: gray;">
+				<br><br>
+				Loading map...
+			</div>
+			<br>
+			
+			<?php if ($this->handler->getSuccess()) {
+				
+				if(isset($_SESSION['KML'])) { // update the map
+					$kml = $_SESSION['KML'];
+					$originLatitude = $this->handler->getSuccess()->ItineraryObj->originPoint->latitude;
+					$originLongitude = $this->handler->getSuccess()->ItineraryObj->originPoint->longitude;
+					echo '<script type="text/javascript">setTimeout("updateMapWithKML(\'' . $kml . '\',\'' . $originLatitude . '\',\'' . $originLongitude . '\')", 1500);</script>';
+				}
+				
+				$listDivider = null;?>
 				<ul data-role="listview" data-theme="c" data-dividertheme="a" >
 				<?php foreach($this->handler->getSuccess()->ItineraryObj->tripSegments->tripSegment as $tripSegment) { ?>
 					<?php if($listDivider == null || $listDivider != $tripSegment->type) { ?>
@@ -62,9 +77,11 @@ class ResultView extends MyApplication {
 					<li><?= $tripSegment->comment ?></li>
 				<?php } ?>
 				</ul>
+				
 			<?php } else { ?>
 				<h2 style="color:red;"><?= $this->handler->getError() ?></h2>
 			<?php } ?>
+			
 		</div>
 	<?php }
 }

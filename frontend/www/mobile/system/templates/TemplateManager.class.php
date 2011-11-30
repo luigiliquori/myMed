@@ -43,7 +43,7 @@ class TemplateManager {
 		<script src="javascript/jquery/datebox/jquery.mobile.datebox.min.js"></script>
 		
 		<!-- MAP -->
-		<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+		<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=mymed2.sophia.inria.fr" type="text/javascript"></script>
 		
 		<!-- LOAD DYNAMICALLY THE CSS FOR EACH TEMPLATE -->
 		<?php 

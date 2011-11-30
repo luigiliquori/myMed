@@ -43,21 +43,21 @@ class MyApplicationHandler implements IRequestHandler {
 
 					// CALL TO CITYWAY API
 					if($geocode1->status == "OK" && $geocode2->status == "OK"){
-						$itineraire = file_get_contents(
-						Cityway_URL . "/tripplanner/v1/detailedtrip/json?key=" . Cityway_APP_ID . 
-						"&mode=transit" . 
+						
+						$trip = "&mode=transit" . 
 						"&depLon=" . $geocode1->results[0]->geometry->location->lng .
 						"&depLat=" . $geocode1->results[0]->geometry->location->lat .
 						"&depType=7" . 
 						"&arrLon=" . $geocode2->results[0]->geometry->location->lng .
 						"&arrLat=" . $geocode2->results[0]->geometry->location->lat .
 						"&arrType=7" . 
-						"&departureTime=" . $_POST['date'] . "_12-00"
-						);
+						"&departureTime=" . $_POST['date'] . "_12-00";
+						
+						$itineraire = file_get_contents(Cityway_URL . "/tripplanner/v1/detailedtrip/json?key=" . Cityway_APP_ID . $trip);
 						
 						$itineraireObj = json_decode($itineraire);
 						if(isset($itineraireObj->ItineraryObj)) {
-							echo '<script type="text/javascript">alert(\'' . $itineraire . '\');</script>';
+							$_SESSION['KML'] = Cityway_URL . "/tripplanner/v1/detailedtrip/kml?key=" . Cityway_APP_ID . $trip;
 							$this->success = $itineraireObj;
 						} else {
 							$this->error = "error with cityWay";
