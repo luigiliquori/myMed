@@ -11,14 +11,13 @@ public final class MUserBean extends AbstractMBean {
   /* --------------------------------------------------------- */
   /* Attributes */
   /* --------------------------------------------------------- */
-  /**
-   * Used for the hash code
-   */
+  // Used for the hash code
   private static final int PRIME = 31;
 
   /**
-   * ID := SOCIALNETWORKNAME_SOCIALNETWORKID SOCIALNETWORKNAME :=
-   * MYMED|FACEBOOK|TWITTER|GOOGLE SOCIALNETWORKID := email|[a-z0-9]+
+   * ID := SOCIALNETWORKNAME_SOCIALNETWORKID<br>
+   * SOCIALNETWORKNAME := MYMED|FACEBOOK|TWITTER|GOOGLE<br>
+   * SOCIALNETWORKID := email|[a-z0-9]+
    * */
   private String id = null;
 
