@@ -45,9 +45,8 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
     try {
       read(authentication.getLogin(), authentication.getPassword());
     } catch (final IOBackEndException e) {
-      if (e.getStatus() == 404) { // only if the user does not exist
-        storageManager.insertSlice(CF_AUTHENTICATION, LOGIN_COLUMN, authentication.getAttributeToMap());
-
+      // only if the user does not exist
+      if (e.getStatus() == 404) {
         try {
           final Map<String, byte[]> authMap = authentication.getAttributeToMap();
           storageManager.insertSlice(CF_AUTHENTICATION, new String(authMap.get(LOGIN_COLUMN), ENCODING), authMap);
