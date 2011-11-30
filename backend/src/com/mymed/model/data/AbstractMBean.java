@@ -2,6 +2,10 @@ package com.mymed.model.data;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
+import java.security.PrivilegedActionException;
+import java.security.PrivilegedExceptionAction;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,44 +45,53 @@ public abstract class AbstractMBean {
   // Default logger for all the beans that extend this abstract
   protected static final Logger LOGGER = MLogger.getLogger();
 
-  private static final int PRIV_FIN = Modifier.PRIVATE + Modifier.FINAL;
-  private static final int PRIV_STAT_FIN = Modifier.PRIVATE + Modifier.STATIC + Modifier.FINAL;
+  private static final int PRIV = Modifier.PRIVATE;
 
   /**
    * @return all the fields in a hashMap format for the myMed wrapper
    * @throws InternalBackEndException
+   * @throws PrivilegedActionException
    */
   public Map<String, byte[]> getAttributeToMap() throws InternalBackEndException {
-    final Map<String, byte[]> args = new HashMap<String, byte[]>();
-    for (final Field field : this.getClass().getDeclaredFields()) {
 
-      // Set the field as accessible: it is not really secure in this case
-      // TODO maybe we should invoke the get methods and retrieve the
-      // values in that way
-      field.setAccessible(true);
+    final Object object = this;
+    final Class<?> clazz = object.getClass();
 
-      /*
-       * We check the value of the modifiers of the field: if the field is
-       * private and final, or private static and final, we skip it.
-       */
-      final int modifiers = field.getModifiers();
-      if (modifiers == PRIV_FIN || modifiers == PRIV_STAT_FIN) {
-        continue;
-      }
+    try {
+      return AccessController.doPrivilegedWithCombiner(new PrivilegedExceptionAction<Map<String, byte[]>>() {
 
-      try {
-        final ClassType type = ClassType.inferTpye(field.getType());
-        args.put(field.getName(), ClassType.objectToByteArray(type, field.get(this)));
-      } catch (final IllegalArgumentException ex) {
-        LOGGER.debug("Introspection failed", ex.getCause());
-        throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
-      } catch (final IllegalAccessException ex) {
-        LOGGER.debug("Introspection failed", ex.getCause());
-        throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
-      }
+        @Override
+        public Map<String, byte[]> run() throws InternalBackEndException {
+          final Map<String, byte[]> args = new HashMap<String, byte[]>();
+
+          for (final Field field : clazz.getDeclaredFields()) {
+            field.setAccessible(true);
+
+            // We check the value of the modifiers of the field: if the field is
+            // not just private, we skip it
+            final int modifiers = field.getModifiers();
+            if (modifiers != PRIV) {
+              continue;
+            }
+
+            try {
+              final ClassType type = ClassType.inferTpye(field.getType());
+              args.put(field.getName(), ClassType.objectToByteArray(type, field.get(object)));
+            } catch (final IllegalArgumentException ex) {
+              LOGGER.debug("Introspection failed", ex.getCause());
+              throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
+            } catch (final IllegalAccessException ex) {
+              LOGGER.debug("Introspection failed", ex.getCause());
+              throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
+            }
+          }
+
+          return args;
+        }
+      });
+    } catch (final PrivilegedActionException ex) {
+      throw (InternalBackEndException) ex.getException();
     }
-
-    return args;
   }
 
   /*
@@ -88,38 +101,54 @@ public abstract class AbstractMBean {
    */
   @Override
   public String toString() {
-    final StringBuffer value = new StringBuffer(200);
 
-    for (final Field field : this.getClass().getDeclaredFields()) {
+    final Object object = this;
+    final Class<?> clazz = object.getClass();
 
-      // TODO fix here, not really secure
-      field.setAccessible(true);
+    final StringBuffer bean = AccessController.doPrivilegedWithCombiner(new PrivilegedAction<StringBuffer>() {
 
-      try {
-        if (field.get(this) instanceof String) {
-          value.append('\t');
-          value.append(field.getName());
-          value.append(" : ");
-          value.append((String) field.get(this));
-          value.append('\n');
-        } else {
-          value.append('\t');
-          value.append(field.getName());
-          value.append(" : ");
-          value.append(field.get(this));
-          value.append('\n');
+      @Override
+      public StringBuffer run() {
+        final StringBuffer value = new StringBuffer(200);
+
+        for (final Field field : clazz.getDeclaredFields()) {
+          field.setAccessible(true);
+
+          // We check the value of the modifiers of the field: if the field is
+          // not just private, we skip it
+          final int modifiers = field.getModifiers();
+          if (modifiers != PRIV) {
+            continue;
+          }
+
+          try {
+            if (field.get(object) instanceof String) {
+              value.append('\t');
+              value.append(field.getName());
+              value.append(" : ");
+              value.append((String) field.get(object));
+              value.append('\n');
+            } else {
+              value.append('\t');
+              value.append(field.getName());
+              value.append(" : ");
+              value.append(field.get(object));
+              value.append('\n');
+            }
+          } catch (final IllegalArgumentException e) {
+            // We should never get here!
+            LOGGER.debug("Arguments are not valid", e.getCause());
+          } catch (final IllegalAccessException e) {
+            LOGGER.debug("Impossible to access field '{}'", field.getName(), e.getCause());
+          }
         }
-      } catch (final IllegalArgumentException e) {
-        // We should never get here!
-        LOGGER.debug("Arguments are not valid", e.getCause());
-      } catch (final IllegalAccessException e) {
-        LOGGER.debug("Impossibile to access the field '{}'", field.getName(), e.getCause());
+
+        value.trimToSize();
+        return value;
       }
-    }
+    });
 
-    value.trimToSize();
-
-    return value.toString();
+    return bean.toString();
   }
 
 }
