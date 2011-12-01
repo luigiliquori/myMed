@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({MUserBeanTest.class, MSessionBeanTest.class, MInteractionBeanTest.class})
+@SuiteClasses({MUserBeanTest.class, MSessionBeanTest.class, MInteractionBeanTest.class, MReputationBeanTest.class})
 public class BeansTestSuite {
 
 }
