@@ -7,6 +7,8 @@ require_once 'system/request/Find.class.php';
 require_once 'system/request/GetDetail.class.php';
 require_once 'system/request/StartInteraction.class.php';
 
+require_once 'system/templates/application/' . APPLICATION_NAME . '/lib/Convert.class.php';
+
 /**
  * 
  * Request Handler for the tabBarMenu
@@ -44,7 +46,7 @@ class MyApplicationHandler implements IRequestHandler {
 					// CALL TO CITYWAY API
 					if($geocode1->status == "OK" && $geocode2->status == "OK"){
 						
-						$trip = "&mode=transit" . 
+						$args = "&mode=transit" . 
 						"&depLon=" . $geocode1->results[0]->geometry->location->lng .
 						"&depLat=" . $geocode1->results[0]->geometry->location->lat .
 						"&depType=7" . 
@@ -53,12 +55,38 @@ class MyApplicationHandler implements IRequestHandler {
 						"&arrType=7" . 
 						"&departureTime=" . $_POST['date'] . "_12-00";
 						
-						$itineraire = file_get_contents(Cityway_URL . "/tripplanner/v1/detailedtrip/json?key=" . Cityway_APP_ID . $trip);
-						
+						$itineraire = file_get_contents(Cityway_URL . "/tripplanner/v1/detailedtrip/json?key=" . Cityway_APP_ID . $args);
 						$itineraireObj = json_decode($itineraire);
+						
 						if(isset($itineraireObj->ItineraryObj)) {
+							
 							$this->success->itineraire = $itineraireObj;
-							$this->success->kml = Cityway_URL . "/tripplanner/v1/detailedtrip/kml?key=" . Cityway_APP_ID . $trip;;
+							$this->success->kml = Cityway_URL . "/tripplanner/v1/detailedtrip/kml?key=" . Cityway_APP_ID . $args;
+							
+							// Construct the default POIs
+							foreach($itineraireObj->ItineraryObj->tripSegments->tripSegment as $tripSegment) {
+								
+								$args = "&mode=transit" . 
+								"&lon=" . $tripSegment->departurePoint->longitude .
+								"&lat=" . $tripSegment->departurePoint->latitude .
+								"&distance=150" . 
+								"&TypePoint=-1" .
+								"&POICategory=-1";
+								$pois = json_decode(file_get_contents(Cityway_URL . "/display/v1/GetTripPointByWGS84/json?key=" . Cityway_APP_ID . $args));
+								
+								$i = 0;
+								$tripSegment->poi = array();
+								foreach($pois->TripPointServiceObj->TripPoint as $poi) {
+									// Convert From Lambert2 to WGS64
+									$convertion = new Convert($poi->x, $poi->y);
+									$newCoord = $convertion->convertion();
+									$poi->longitude = $newCoord[0]; //X
+									$poi->latitude = $newCoord[1];  //Y
+									
+									$tripSegment->poi[$i++] = $poi;
+								}
+							}
+							
 						} else {
 							$this->error = "error with cityWay";
 						}
