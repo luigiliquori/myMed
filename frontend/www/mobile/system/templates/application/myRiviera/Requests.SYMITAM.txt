@@ -1,0 +1,18 @@
+Liste des lignes de la CARF
+http://openservice.cityway.fr/api/display/v1/GetLinesByPTNetwork/xml?key=INRIACARF&&filterName=&OnlyPublished=true&PTNetwork=CARF
+
+Liste des arrêts d’une ligne (ligne 1)
+http://openservice.cityway.fr/api/display/v1/GetLineStopsByLineDirectionAndDate/xml?key=INRIACARF&ID_Line=202&Direction=1&SelectedDate=2011-10-17
+
+Arrêts & POI à proximité
+http://openservice.cityway.fr/api/display/v1/GetTripPointByWGS84/xml?key=INRIACARF&lon=7.493868&lat=43.7777&distance=300&TypePoint=-1&POICategory=-1
+
+Solutions TC
+http://openservice.cityway.fr/api/tripplanner/v1/plantrip/xml?key=INRIACARF&depLon=7.493868&depLat=43.7777&depType=7&arrLon=7.49684858&arrLat=43.79419&arrType=7&departureTime=2011-10-14_11-00
+
+Un itinéraire TC
+http://openservice.cityway.fr/api/tripplanner/v1/detailedtrip/xml?key=INRIACARF&mode=transit&depLon=7.493868&depLat=43.7777&depType=7&arrLon=7.49684858&arrLat=43.79419&arrType=7&departureTime=2011-10-14_11-00
+
+Itinéraires cross-mode
+http://openservice.cityway.fr/api/tripplanner/v1/plancrossmodetrip/xml?key=INRIACARF&depLon=7.493868&depLat=43.7777&depType=7&arrLon=7.49684858&arrLat=43.79419&arrType=7&departureTime=2011-10-14_11-00
+Attention pour les itinéraires 100% marche à pied, la distance est limitée à 10 km (config moteur). Si la distance est dépassée il n'y aura pas de solution (code erreur = -5)

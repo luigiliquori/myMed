@@ -57,8 +57,8 @@ class MyApplicationHandler implements IRequestHandler {
 						
 						$itineraireObj = json_decode($itineraire);
 						if(isset($itineraireObj->ItineraryObj)) {
-							$_SESSION['KML'] = Cityway_URL . "/tripplanner/v1/detailedtrip/kml?key=" . Cityway_APP_ID . $trip;
-							$this->success = $itineraireObj;
+							$this->success->itineraire = $itineraireObj;
+							$this->success->kml = Cityway_URL . "/tripplanner/v1/detailedtrip/kml?key=" . Cityway_APP_ID . $trip;;
 						} else {
 							$this->error = "error with cityWay";
 						}

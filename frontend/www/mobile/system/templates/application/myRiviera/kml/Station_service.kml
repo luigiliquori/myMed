@@ -1,5 +1,8 @@
-﻿<?xml version='1.0' encoding='UTF-8'?>
-<kml xmlns='http://earth.google.com/kml/2.2'>
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+
+
+
 <Document>
 <Placemark>
 	<name>Station service Beaune - Merceuil</name>
@@ -62,7 +65,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service Relais Total d'Urvillers</name>
+	<name>Station service Relais Total d"Urvillers</name>
 	<Point>
 		<coordinates>3.3342, 49.7856</coordinates>
 	</Point>
@@ -494,7 +497,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service Relais Total d'Hallennes</name>
+	<name>Station service Relais Total d"Hallennes</name>
 	<Point>
 		<coordinates>2.942368, 50.6024926</coordinates>
 	</Point>
@@ -836,7 +839,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service Relais Total de l'Almont</name>
+	<name>Station service Relais Total de l"Almont</name>
 	<Point>
 		<coordinates>2.6737563, 48.5412385</coordinates>
 	</Point>
@@ -1316,7 +1319,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service Station Total D'Eybens</name>
+	<name>Station service Station Total D"Eybens</name>
 	<Point>
 		<coordinates>5.7398481, 45.1520688</coordinates>
 	</Point>
@@ -2096,7 +2099,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service Relais Total D'albert</name>
+	<name>Station service Relais Total D"albert</name>
 	<Point>
 		<coordinates>2.6656301, 50.0077508</coordinates>
 	</Point>
@@ -2996,7 +2999,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service Relais Total De L'olympe</name>
+	<name>Station service Relais Total De L"olympe</name>
 	<Point>
 		<coordinates>5.8628852, 43.4468492</coordinates>
 	</Point>
@@ -3422,7 +3425,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service Relais Total Du Bol D'or</name>
+	<name>Station service Relais Total Du Bol D"or</name>
 	<Point>
 		<coordinates>0.195, 47.948</coordinates>
 	</Point>
@@ -4178,7 +4181,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service Relais Total De L'Aar</name>
+	<name>Station service Relais Total De L"Aar</name>
 	<Point>
 		<coordinates>7.7582739, 48.6038843</coordinates>
 	</Point>
@@ -4226,7 +4229,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service Relais Total d'Erbrée</name>
+	<name>Station service Relais Total d"Erbrée</name>
 	<Point>
 		<coordinates>-1.09831, 48.09032</coordinates>
 	</Point>
@@ -4304,7 +4307,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service Relais Total De L'orme-aux-loups</name>
+	<name>Station service Relais Total De L"orme-aux-loups</name>
 	<Point>
 		<coordinates>2.84294, 48.88422</coordinates>
 	</Point>
@@ -4598,7 +4601,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service Relais Total De L'Anjoly</name>
+	<name>Station service Relais Total De L"Anjoly</name>
 	<Point>
 		<coordinates>5.2686, 43.42079</coordinates>
 	</Point>
@@ -4640,7 +4643,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service Station Esso L'oasis</name>
+	<name>Station service Station Esso L"oasis</name>
 	<Point>
 		<coordinates>1.53613, 44.16585</coordinates>
 	</Point>
@@ -5174,7 +5177,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service Relais Total De L'ehn</name>
+	<name>Station service Relais Total De L"ehn</name>
 	<Point>
 		<coordinates>7.5001286, 48.4586784</coordinates>
 	</Point>
@@ -5210,7 +5213,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service Relais Total Porte D'italie</name>
+	<name>Station service Relais Total Porte D"italie</name>
 	<Point>
 		<coordinates>2.3597405, 48.8169651</coordinates>
 	</Point>
@@ -6020,7 +6023,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service Relais Total De L'épervière</name>
+	<name>Station service Relais Total De L"épervière</name>
 	<Point>
 		<coordinates>4.8782179, 44.9199708</coordinates>
 	</Point>
@@ -7052,7 +7055,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service Relais Total Porte d'Espagne</name>
+	<name>Station service Relais Total Porte d"Espagne</name>
 	<Point>
 		<coordinates>2.8906554, 42.6777889</coordinates>
 	</Point>
@@ -7220,7 +7223,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service Géant Château d'Olonne</name>
+	<name>Station service Géant Château d"Olonne</name>
 	<Point>
 		<coordinates>-1.7459494, 46.4867214</coordinates>
 	</Point>
@@ -7388,7 +7391,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service Relais Total De L'universite</name>
+	<name>Station service Relais Total De L"universite</name>
 	<Point>
 		<coordinates>6.01395, 43.13769</coordinates>
 	</Point>
@@ -7544,7 +7547,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service Station Total De L'espinoy</name>
+	<name>Station service Station Total De L"espinoy</name>
 	<Point>
 		<coordinates>2.46897, 49.78732</coordinates>
 	</Point>
@@ -8006,7 +8009,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service Relais Total De L'aéroport</name>
+	<name>Station service Relais Total De L"aéroport</name>
 	<Point>
 		<coordinates>7.2016339, 43.6636405</coordinates>
 	</Point>
@@ -8078,7 +8081,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service Relais Total De L'ile Gad</name>
+	<name>Station service Relais Total De L"ile Gad</name>
 	<Point>
 		<coordinates>1.11106, 49.40391</coordinates>
 	</Point>
@@ -8534,7 +8537,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service Relais Total D'orgeval</name>
+	<name>Station service Relais Total D"orgeval</name>
 	<Point>
 		<coordinates>1.9506323, 48.9422638</coordinates>
 	</Point>
@@ -9056,7 +9059,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service Relais Total De L'oseraie</name>
+	<name>Station service Relais Total De L"oseraie</name>
 	<Point>
 		<coordinates>4.8578, 43.977</coordinates>
 	</Point>
@@ -9224,7 +9227,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service C C ''Cap-Sud'' Géant</name>
+	<name>Station service C C ""Cap-Sud"" Géant</name>
 	<Point>
 		<coordinates>4.842, 43.927</coordinates>
 	</Point>
@@ -9380,7 +9383,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service Relais Total De L'espace St-germain</name>
+	<name>Station service Relais Total De L"espace St-germain</name>
 	<Point>
 		<coordinates>2.118, 49.431</coordinates>
 	</Point>
@@ -11150,7 +11153,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service Station Carrefour Isle d'Abeau</name>
+	<name>Station service Station Carrefour Isle d"Abeau</name>
 	<Point>
 		<coordinates>5.2251009, 45.6142201</coordinates>
 	</Point>
@@ -12716,7 +12719,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service Garage de l'Amirauté Citroën</name>
+	<name>Station service Garage de l"Amirauté Citroën</name>
 	<Point>
 		<coordinates>-2.552739, 48.5892862</coordinates>
 	</Point>
@@ -13316,7 +13319,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service Total Relais Jeanne d'Arc</name>
+	<name>Station service Total Relais Jeanne d"Arc</name>
 	<Point>
 		<coordinates>6.1761739, 48.6792551</coordinates>
 	</Point>
@@ -14492,7 +14495,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service Station Leclerc Val d'Orson</name>
+	<name>Station service Station Leclerc Val d"Orson</name>
 	<Point>
 		<coordinates>-1.6245019, 48.0631809</coordinates>
 	</Point>
@@ -14618,7 +14621,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service Station Super U l'Hermitage</name>
+	<name>Station service Station Super U l"Hermitage</name>
 	<Point>
 		<coordinates>-1.8008896, 48.1232604</coordinates>
 	</Point>
@@ -15038,7 +15041,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service Fluvial&route</name>
+	<name>Station service Fluvial et route</name>
 	<Point>
 		<coordinates>4.8240222, 45.7371867</coordinates>
 	</Point>
@@ -15896,7 +15899,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service Relais Elf d'Espagne</name>
+	<name>Station service Relais Elf d"Espagne</name>
 	<Point>
 		<coordinates>1.4238818, 43.5737052</coordinates>
 	</Point>
@@ -23384,7 +23387,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service Aire de L'Epitre</name>
+	<name>Station service Aire de L"Epitre</name>
 	<Point>
 		<coordinates>1.6865833, 50.7927795</coordinates>
 	</Point>
@@ -24236,7 +24239,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service Relais Total Porte D'italie</name>
+	<name>Station service Relais Total Porte D"italie</name>
 	<Point>
 		<coordinates>2.3604808, 48.8168431</coordinates>
 	</Point>
@@ -24962,7 +24965,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service L'Albaron</name>
+	<name>Station service L"Albaron</name>
 	<Point>
 		<coordinates>4.4774171, 43.6095641</coordinates>
 	</Point>
@@ -25490,7 +25493,7 @@
 	</Point>
 </Placemark>
 <Placemark>
-	<name>Station service Carrefour 'Market'</name>
+	<name>Station service Carrefour "Market"</name>
 	<Point>
 		<coordinates>2.6401837, 48.8748462</coordinates>
 	</Point>
