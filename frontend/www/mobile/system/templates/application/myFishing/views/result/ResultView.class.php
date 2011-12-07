@@ -34,7 +34,7 @@ class ResultView extends MyApplication {
 	* Get the HEADER for jQuery Mobile
 	*/
 	public /*String*/ function getHeader() { ?>
-		<div data-role="header" data-theme="b">
+		<div data-role="header" data-theme="a">
 			<a href="?application=<?= APPLICATION_NAME ?>" data-role="button" rel="external">Retour</a>
 			<?php if(isset($_GET['publish'])) { ?>
 				<h2>info</h2>
@@ -63,13 +63,15 @@ class ResultView extends MyApplication {
 						<?php
 						$request = new Request("ProfileRequestHandler", READ);
 						$request->addArgument("id", $controller->user);
-						$response = $request->send();
 						
-						// Check if there's not error
-						$profile = json_decode($response);
-						if(isset($profile->error)) { ?>
-							<h2 style="color:red;"><?= $profile->error ?></h2>
-						<?php } else {?>
+						$responsejSon = $request->send();
+						$responseObject = json_decode($responsejSon);
+
+						if($responseObject->status != 200) { ?>
+							<h2 style="color:red;"><?= $responseObject->description ?></h2>
+						<?php } else {
+							$profile = json_decode($responseObject->data->profile);
+							?>
 							<!-- RESULT DETAILS -->
 							<form action="#" method="post" name="getDetailForm<?= $i ?>">
 								<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />

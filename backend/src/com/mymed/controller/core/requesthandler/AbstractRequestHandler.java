@@ -10,10 +10,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
-import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.utils.MLogger;
 
 public abstract class AbstractRequestHandler extends HttpServlet {
@@ -66,6 +67,24 @@ public abstract class AbstractRequestHandler extends HttpServlet {
 	 * @return the parameters of an HttpServletRequest
 	 */
 	protected Map<String, String> getParameters(final HttpServletRequest request) throws InternalBackEndException {
+
+		// see multipart/form-data Request
+		if(request.getContentType() != null){
+			try {
+				if(request.getContentType().matches("multipart/form-data")){
+					MLogger.getLog().info("multipart/form-data REQUEST");
+					for(Part part : request.getParts()){
+						MLogger.getLog().info("PART {} ", part);
+					}
+					throw new InternalBackEndException("multi-part is not yet implemented...");
+				}
+			} catch (IOException e) {
+				throw new InternalBackEndException(e);
+			} catch (ServletException e) {
+				throw new InternalBackEndException(e);
+			}
+		}
+
 		final Map<String, String> parameters = new HashMap<String, String>();
 		final Enumeration<String> paramNames = request.getParameterNames();
 
@@ -87,29 +106,31 @@ public abstract class AbstractRequestHandler extends HttpServlet {
 		if (!parameters.containsKey("code")) {
 			throw new InternalBackEndException("code argument is missing!");
 		}
+		
+		if (requestCodeMap.get(parameters.get("code")) == null) {
+			throw new InternalBackEndException("code argument is not well formated");
+		}
 
 		return parameters;
 	}
 
 	/**
-	 * Handle a server error, and send a feedback to the frontend
-	 * 
+	 * Print the server response in a jSon format
 	 * @param message
 	 * @param response
 	 */
-	protected void handleError(final AbstractMymedException e, final HttpServletResponse response) {
-		response.setStatus(e.getStatus());
-		responseText = e.getJsonException();
+	protected void printJSonResponse(final JsonMessage message, final HttpServletResponse response) {
+		response.setStatus(message.getStatus());
+		responseText = message.toString();
 		printResponse(response);
 	}
 
 	/**
-	 * Print the feedback to the frontend
-	 * 
+	 * Print the server response
 	 * @param response
 	 * @throws IOException
 	 */
-	protected void printResponse(final HttpServletResponse response) {
+	private void printResponse(final HttpServletResponse response) {
 		/** Init response */
 		if (responseText != null) {
 			response.setContentType("text/plain;charset=UTF-8");
@@ -129,7 +150,7 @@ public abstract class AbstractRequestHandler extends HttpServlet {
 			}
 		}
 	}
-
+	
 	/* --------------------------------------------------------- */
 	/* extends HttpServlet */
 	/* --------------------------------------------------------- */
@@ -173,9 +194,5 @@ public abstract class AbstractRequestHandler extends HttpServlet {
 
 	public String getResponseText() {
 		return responseText;
-	}
-
-	public void setResponseText(final String responseText) {
-		this.responseText = responseText;
 	}
 }

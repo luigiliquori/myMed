@@ -74,9 +74,9 @@ public class HTTPCall{
 		HttpClient httpclient = new DefaultHttpClient();
 		final HttpParams httpParams = new BasicHttpParams();
 		/** Sets a timeout until a request is established. */
-		HttpConnectionParams.setConnectionTimeout(httpParams, 10000);
+		HttpConnectionParams.setConnectionTimeout(httpParams, 10000);//8000
 		/** Sets a timeout for waiting for data. */
-		HttpConnectionParams.setSoTimeout(httpParams, 5000);
+		HttpConnectionParams.setSoTimeout(httpParams, 5000);//5000
 		
 		HttpUriRequest request; 
 		try{

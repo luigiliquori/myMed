@@ -81,7 +81,7 @@ public class MyJamRequestHandler extends AbstractRequestHandler implements IMyJa
 				int radius = Integer.parseInt(params.get(RADIUS));
 				List<MSearchReportBean> resultList = myJamManager.searchReports((double) (latitude/1E6), (double) (longitude/1E6), radius);
 				resToJson = this.getGson().toJson(resultList);
-				setResponseText(resToJson);
+				printResponse(resToJson);
 				break;
 			case GET_REPORT:
 				reportId = MyJamId.parseString(params.get(ID));	//This conversion is done only to check the syntax of the id.

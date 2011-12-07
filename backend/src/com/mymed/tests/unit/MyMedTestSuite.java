@@ -6,7 +6,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({StorageManagerTest.class, AuthenticationManagerTest.class, ProfileManagerTest.class,
-        ReputationManagerTest.class, SessionManagerTest.class, InteractionManagerTest.class})
+    SessionManagerTest.class, InteractionManagerTest.class})
 public class MyMedTestSuite {
 
 }

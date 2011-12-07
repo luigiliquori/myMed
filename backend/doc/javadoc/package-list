@@ -17,11 +17,11 @@ com.mymed.controller.core.manager.reputation.old
 com.mymed.controller.core.manager.reputation.primary_key
 com.mymed.controller.core.manager.reputation.primary_key.comparator
 com.mymed.controller.core.manager.reputation.reputation_manager
-com.mymed.controller.core.manager.reputation.reputationprototype
 com.mymed.controller.core.manager.session
 com.mymed.controller.core.manager.storage
 com.mymed.controller.core.requesthandler
 com.mymed.controller.core.requesthandler.debug
+com.mymed.controller.core.requesthandler.message
 com.mymed.controller.example
 com.mymed.controller.example.client
 com.mymed.model.core.configuration

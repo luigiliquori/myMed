@@ -51,11 +51,11 @@ public abstract class MyJamTypes{
 	
 	/** ReportType*/ 
 	public enum ReportType { 
-		JAM (1), 	
-		CAR_CRASH (2), 
-		WORK_IN_PROGRESS (12),
-		FIXED_SPEED_CAM (4380),//In Cassandra fix TTL to 0 is equivalent to don't fix it.
-		MOBILE_SPEED_CAM (8);
+		JAM (0), //0 	
+		CAR_CRASH (0), //2 
+		WORK_IN_PROGRESS (0), //12
+		FIXED_SPEED_CAM (0),//4380 //In Cassandra fix TTL to 0 is equivalent to don't fix it.
+		MOBILE_SPEED_CAM (0);//8
 
 		public final int permTime;
 		private static final int secPerHour = 60 * 60;

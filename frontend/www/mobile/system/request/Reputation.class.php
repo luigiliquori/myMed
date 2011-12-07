@@ -28,13 +28,15 @@ class Reputation extends Request {
 		parent::addArgument("application", $application);
 		parent::addArgument("producer", $producer);
 		parent::addArgument("consumer", $consumer);
-		$response = parent::send();
-// 		$check = json_decode($response);
-// 		if($check->error != null) {
-// 			return $check->error->message;
-// 		} else {
-			return $response;
-// 		}
+		
+		$responsejSon = parent::send();
+		$responseObject = json_decode($responsejSon);
+		
+		if($responseObject->status == 200) {
+			return $responseObject->data->reputation;
+		} else {
+			return $responseObject->description;
+		}
 	}
 }
 ?>

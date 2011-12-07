@@ -369,7 +369,7 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 			mSyncing = false;
 			message = "";
 			if (reqCode == RequestCode.INSERT_REPORT || reqCode == RequestCode.INSERT_UPDATE){
-				String type = getResources().getString(R.string.report_string);
+				String type = getResources().getString(reqCode==RequestCode.INSERT_REPORT?R.string.report_string:R.string.update_string);
 				final String successText = String.format(this.getResources().getString(R.string.insert_success, type));
 				Toast.makeText(this, successText, Toast.LENGTH_SHORT).show();
 				setResult(Activity.RESULT_OK);

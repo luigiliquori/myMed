@@ -40,12 +40,14 @@ class StartInteraction extends Request {
 		if(isset($_POST['feedback'])){
 			parent::addArgument("feedback", $_POST['feedback']);
 		}
-		$response = parent::send();
-		$check = json_decode($response);
-		if($check->error != null) {
-			$this->handler->setError($check->error->message);
+		
+		$responsejSon = parent::send();
+		$responseObject = json_decode($responsejSon);
+		
+		if($responseObject->status != 200) {
+			$this->handler->setError($responseObject->description);
 		} else {
-			$this->handler->setSuccess($response);
+			$this->handler->setSuccess($responseObject->description);
 		}
 	}
 }

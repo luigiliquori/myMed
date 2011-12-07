@@ -64,6 +64,8 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 					}
 				}
 			}
+			
+			// Format the mail -- TODO Refactor and put this into an other class (mail package should be used)
 			if(!mailinglist.equals("")){
 				String content = "Bonjour, \nDe nouvelles informations sont arrivées sur votre plateforme myMed.\n"
 				+ "Application Concernée: " + application + "\n"

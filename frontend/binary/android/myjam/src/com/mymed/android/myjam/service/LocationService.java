@@ -30,39 +30,38 @@ import android.util.Log;
  */
 public class LocationService extends Service implements LocationListener{
 	private static final String TAG = "MyJamLocationService";
-	
-    HandlerThread thread;
+
+	HandlerThread thread;
 	private volatile Looper mServiceLooper;
-	
+
 	private Handler mMessageQueueHandler = new Handler();
 	/* Lock used to synchronize the access to location. */
 	private Object lock = new Object();
-	
+
 	private static final int TEN_SECONDS = 10000;	//Expiration time for location.
-    
-    public static final int MINIMUM_FINE_ACCURACY = 10;	//Minimum accuracy of the new location.
-    
+
+	public static final int MINIMUM_FINE_ACCURACY = 5000;	//Minimum accuracy of the new location.
+
 	/**Parameters used for broadcast intent.*/
 	public static final String LOCATION_ACTION = "com.mymed.android.myjam.intent.action.LOCATION_CHANGE";
-    public static final String EXTRA_ACTION_CODE =
-            "com.mymed.android.myjam.extra.ACTION_CODE";
-    public static final int LOCATION_AVAILABLE = 0;
-    public static final int LOCATION_NO_MORE_AVAILABLE = 1;
-    /** Identifier for the notification */
+	public static final String EXTRA_ACTION_CODE =
+			"com.mymed.android.myjam.extra.ACTION_CODE";
+	public static final int LOCATION_AVAILABLE = 0;
+	public static final int LOCATION_NO_MORE_AVAILABLE = 1;
+	/** Identifier for the notification */
 	private static final int LOCATION_ID = 1;
-    /**Private parameters.*/
-    private boolean mLocAvailable;
+	/**Private parameters.*/
+	private boolean mLocAvailable;
 	private final IBinder mBinder = new LocalBinder<LocationService>(this);
-	
+
 	Notification mNotification;
 	NotificationManager mNotificationManager;
-	
-    // This is the object that receives interactions from clients.  See
-    // RemoteService for a more complete example.
-    
+
+	// This is the object that receives interactions from clients.  See
+	// RemoteService for a more complete example.
+
 	LocationManager locationManager;
-	private Location currFineLocation = null,
-					 currCoarseLocation = null;
+	private Location currFineLocation = null;
 
 	@Override
 	public void onCreate(){
@@ -73,11 +72,11 @@ public class LocationService extends Service implements LocationListener{
 		thread.start();
 
 		mServiceLooper = thread.getLooper();
-		
+
 		/** Prepares the notification */
 		String ns = Context.NOTIFICATION_SERVICE;
 		mNotificationManager = (NotificationManager) getSystemService(ns);
-		
+
 		/** Create a new notification */
 		int icon = R.drawable.user_location_available;
 		CharSequence tickerText = getResources().getText(R.string.notification_loc_available_text);
@@ -85,7 +84,7 @@ public class LocationService extends Service implements LocationListener{
 
 		mNotification = new Notification(icon, tickerText, when);
 		mNotification.defaults |= Notification.DEFAULT_VIBRATE;
-		
+
 		Context context = getApplicationContext();
 		CharSequence contentTitle = getResources().getText(R.string.notification_loc_available_title);
 		CharSequence contentText = getResources().getText(R.string.notification_loc_available_text);
@@ -96,8 +95,8 @@ public class LocationService extends Service implements LocationListener{
 
 
 		locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this, mServiceLooper);//locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, TWO_MINUTES, MIN_SPACE_FINE, this, mServiceLooper);
-//		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this, mServiceLooper);
+				locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this, mServiceLooper);//locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, TWO_MINUTES, MIN_SPACE_FINE, this, mServiceLooper);
+		//		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this, mServiceLooper);
 		if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
 			Log.d(TAG, "Network provider available.");
 		else
@@ -122,35 +121,41 @@ public class LocationService extends Service implements LocationListener{
 	@Override
 	public void onLocationChanged(Location arg0) {
 		//TODO Check the scope of this intent.
-		if (arg0.getProvider().equals(LocationManager.GPS_PROVIDER)){
-			if (arg0.getAccuracy()<MINIMUM_FINE_ACCURACY){
-				/** Removes the old time-out and sets a new one. */
-				mMessageQueueHandler.removeCallbacks(mLocationExpiredRunnable);
-				long nextTenSeconds = SystemClock.uptimeMillis() + TEN_SECONDS; //TODO Use a setting.
-	            mMessageQueueHandler.postAtTime(mLocationExpiredRunnable, nextTenSeconds);
-	            synchronized(lock){
-	            	if(!mLocAvailable){				
-	            		mLocAvailable = true;
-	            		this.currFineLocation = arg0;
-	            		mNotificationManager.notify(LOCATION_ID, mNotification);
-	            		Intent intent = new Intent(LOCATION_ACTION);
-	            		intent.putExtra(EXTRA_ACTION_CODE, LOCATION_AVAILABLE);
-	            		sendBroadcast(intent); 
-	            	}
-	            	currFineLocation = arg0;
-	            }
+		if (arg0.getAccuracy()<MINIMUM_FINE_ACCURACY){
+			/** Removes the old time-out and sets a new one. */
+			mMessageQueueHandler.removeCallbacks(mLocationExpiredRunnable);
+			long nextTenSeconds = SystemClock.uptimeMillis() + TEN_SECONDS; //TODO Use a setting.
+			mMessageQueueHandler.postAtTime(mLocationExpiredRunnable, nextTenSeconds);
+			synchronized(lock){
+				if(!mLocAvailable){				
+					mLocAvailable = true;
+					this.currFineLocation = arg0;
+					mNotificationManager.notify(LOCATION_ID, mNotification);
+					Intent intent = new Intent(LOCATION_ACTION);
+					intent.putExtra(EXTRA_ACTION_CODE, LOCATION_AVAILABLE);
+					sendBroadcast(intent); 
+				}
+				currFineLocation = arg0;
 			}
-		} else if (arg0.getProvider().equals(LocationManager.NETWORK_PROVIDER)){
-			currCoarseLocation = arg0;
 		}
 	}
+
+	private Runnable mLocationExpiredRunnable = new Runnable() {
+		public void run() {
+			onLocationExpired();
+		}
+	};
 	
-    private Runnable mLocationExpiredRunnable = new Runnable() {
-        public void run() {
-        	onLocationExpired();
-        }
-    };
-	
+//	private Runnable mFixedLocationRunnable = new Runnable() {
+//		public void run() {
+//			Location loc = new Location("FIXED_PROVIDER");
+//			loc.setAccuracy((float) 5.0);
+//			loc.setLatitude(45.063086);
+//			loc.setLongitude(7.662223);
+//			onLocationChanged(loc);
+//		}
+//	};
+
 
 	public void onLocationExpired() {
 		synchronized(lock){
@@ -177,6 +182,7 @@ public class LocationService extends Service implements LocationListener{
 
 	@Override
 	public IBinder onBind(Intent intent) {
+		//mMessageQueueHandler.postDelayed(mFixedLocationRunnable, 5000); //To be used for the demonstration
 		return mBinder;
 	}
 
@@ -191,7 +197,7 @@ public class LocationService extends Service implements LocationListener{
 			return mService.get();
 		}
 	}
-	
+
 	/**
 	 * Gets the current location.
 	 * @return The current location if available, if not returns {@value null}.
@@ -203,13 +209,5 @@ public class LocationService extends Service implements LocationListener{
 			else
 				return null;
 		}
-	}
-	
-	/**
-	 * Gets the current network location.
-	 * @return The current location if available, if not returns {@value null}.
-	 */
-	public Location getCurrentCoarseLocation(){
-		return currCoarseLocation;
 	}
 }
