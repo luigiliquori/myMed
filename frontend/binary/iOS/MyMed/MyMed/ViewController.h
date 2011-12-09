@@ -8,15 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+@class ImagePickerDelegate;
+
 @interface ViewController : UIViewController <UIWebViewDelegate
                                             , UIImagePickerControllerDelegate
                                             , UINavigationControllerDelegate>
-{
-    NSURL *sessionURL;
-    NSArray *trustedHosts;
-}
 
 @property (nonatomic, retain) IBOutlet UIWebView *webView;
+@property (nonatomic, retain) NSURL *sessionURL;
+@property (nonatomic, retain) NSArray *trustedHosts;
+@property (nonatomic, retain) UIImagePickerController *imagePickerController;
+@property (nonatomic, retain) ImagePickerDelegate *imagePickerDelegate;
 
 - (void) loadMyMedURL:(NSURL *) url;
 

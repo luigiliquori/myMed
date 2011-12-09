@@ -8,9 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class ViewController;
+
 @interface LoginViewController : UIViewController <UITextFieldDelegate>
 {
     NSData *receivedData;
+    NSString *accessToken;
+    NSString *socialNetwork;
+    ViewController *webViewController;
 }
 
 @property (nonatomic, retain) IBOutlet UITextField *eMailField;

@@ -10,34 +10,97 @@
 #import "WebObjCBridge.h"
 #import "ConnectionStatusChecker.h"
 #import "UIDeviceHardware.h"
+#import "ImagePickerDelegate.h"
+#import "POSTRequestBuilder.h"
+#import "MyMedMessageDecoder.h"
+
+enum CameraAlertButtonIndex {
+    CameraAlertButtonIndexCamera = 1,
+    CameraAlertButtonIndexExistingPicture = 2,
+};
 
 #pragma mark - Static Definitions
 static NSString * const MY_MED_INDEX_URL = @"http://mymed2.sophia.inria.fr/mobile/index.php";
+static NSString * const MY_MED_PUBLISH_URL = @"http://mymed2.sophia.inria.fr:8080/mymed_backend/PublishRequestHandler";
 
 #pragma mark -
-#pragma mark - Private Protocol for Notification Handling
+#pragma mark - Private Methods for Notification Handling
 @interface ViewController (NotificationObserver)
 - (void) startObservingNotifications;
+- (void) choosePicture:(NSNotification *) notification;
+- (void) publish:(NSNotification *) notification;
 - (void) displayCameraView:(id) sender;
+- (void) alertView:(UIAlertView *) alert clickedButtonAtIndex:(NSInteger) buttonIndex;
 @end
 
 @implementation ViewController (NotificationObserver)
 - (void) startObservingNotifications
 {
+    // Subscribe to Choose Picture Notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(displayCameraView:) 
+                                             selector:@selector(choosePicture:) 
                                                  name:FN_CHOOSE_PICTURE
+                                               object:nil];
+    
+    // Subscribe to MyMed Publish Notifications
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+                                             selector:@selector(publish:) 
+                                                 name:FN_PUBLISH 
                                                object:nil];
 }
 
-- (void) displayCameraView:(id) sender
+- (void) choosePicture:(NSNotification *) notification
+{    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Picture Source"
+                                                    message:nil
+                                                   delegate:self
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"Camera", @"Existing Picture", nil];
+    [alert show];
+}
+
+- (void) publish: (NSNotification *) notification
 {
-    UIImagePickerController *cameraUI = [[UIImagePickerController alloc] init];
-    cameraUI.sourceType = UIImagePickerControllerSourceTypeCamera;
-    cameraUI.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
-    cameraUI.allowsEditing = NO;    
-    cameraUI.delegate = self;
-    [self presentModalViewController:cameraUI animated:YES];
+    NSMutableURLRequest *request = [POSTRequestBuilder multipartPostRequestWithURL:[NSURL URLWithString:MY_MED_PUBLISH_URL] 
+                                                                 andDataDictionary:[notification userInfo]];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    if (!connection) {
+        NSLog(@"Publish Connection Failed");
+    }
+}
+
+- (void) alertView:(UIAlertView *)alert clickedButtonAtIndex:(NSInteger) buttonIndex
+{
+    if (!self.imagePickerController) {
+        self.imagePickerDelegate = [[ImagePickerDelegate alloc] init];
+        self.imagePickerController = [[UIImagePickerController alloc] init];
+        self.imagePickerController.delegate = self.imagePickerDelegate;
+        self.imagePickerController.allowsEditing = YES;
+    }
+    
+    switch (buttonIndex) {
+        case CameraAlertButtonIndexCamera:
+            //Init the Image Picker in case user want's to publish a Picture            
+            self.imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+            [self presentModalViewController:self.imagePickerController animated:YES];            
+            break;
+        case CameraAlertButtonIndexExistingPicture:
+            // Find existing Picture
+            self.imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            [self presentModalViewController:self.imagePickerController animated:YES];         
+            break;            
+        default:
+            break;
+    }
+}
+
+- (void) displayCameraView:(id) sender
+{    
+    self.imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+    self.imagePickerController.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
+    [self presentModalViewController:self.imagePickerController animated:YES];
 }
 
 @end
@@ -47,6 +110,10 @@ static NSString * const MY_MED_INDEX_URL = @"http://mymed2.sophia.inria.fr/mobil
 @implementation ViewController
 
 @synthesize webView;
+@synthesize sessionURL;
+@synthesize trustedHosts;
+@synthesize imagePickerController;
+@synthesize imagePickerDelegate;
 
 - (void)didReceiveMemoryWarning
 {
@@ -60,6 +127,7 @@ static NSString * const MY_MED_INDEX_URL = @"http://mymed2.sophia.inria.fr/mobil
 {
     [super viewDidLoad];
     webView.delegate = self;
+    webView.scalesPageToFit = NO; 
     [self startObservingNotifications];
     trustedHosts = [NSArray arrayWithObjects:@"138.96.242.2", nil];
 }
@@ -67,8 +135,9 @@ static NSString * const MY_MED_INDEX_URL = @"http://mymed2.sophia.inria.fr/mobil
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    imagePickerController = nil;
+    trustedHosts = nil;
+    sessionURL = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -78,7 +147,7 @@ static NSString * const MY_MED_INDEX_URL = @"http://mymed2.sophia.inria.fr/mobil
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];    
+    [super viewDidAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -103,7 +172,7 @@ static NSString * const MY_MED_INDEX_URL = @"http://mymed2.sophia.inria.fr/mobil
 {
     if ([ConnectionStatusChecker doesHaveConnectivity]) {
         NSURLRequest *req = [NSURLRequest requestWithURL:url];
-        NSURLConnection *urlConnection = [[NSURLConnection alloc] initWithRequest:req delegate:self];  // Little "hack" to use unsigned SSL certificate.
+//        NSURLConnection *urlConnection = [[NSURLConnection alloc] initWithRequest:req delegate:self];  // Little "hack" to use unsigned SSL certificate.
         webView.scalesPageToFit = YES;
         [webView loadRequest:req];
     } else {
@@ -138,11 +207,13 @@ static NSString * const MY_MED_INDEX_URL = @"http://mymed2.sophia.inria.fr/mobil
 
 #pragma mark -
 #pragma mark - NSURLConnectionDelegate
-- (BOOL)connection:(NSURLConnection *) connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *) protectionSpace {
+- (BOOL)connection:(NSURLConnection *) connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *) protectionSpace 
+{
     return [protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust];
 }
 
-- (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
+- (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge 
+{
     if ([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]) {
         if ([trustedHosts containsObject:challenge.protectionSpace.host]) {
             [challenge.sender useCredential:[NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust] forAuthenticationChallenge:challenge];
@@ -152,10 +223,17 @@ static NSString * const MY_MED_INDEX_URL = @"http://mymed2.sophia.inria.fr/mobil
     [challenge.sender continueWithoutCredentialForAuthenticationChallenge:challenge];
 }
 
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{    
+//    NSDictionary *message = [MyMedMessageDecoder dictionaryFromData:data];
+//    NSLog(@"--------------------");
+//    NSLog(@"%@", message);
+}
+
 - (void)connection:(NSURLConnection *) connection didReceiveResponse:(NSURLResponse *) response
 {
-    NSLog(@"Cancel bogus SSL connection. -- to remove warning install valid SSL certificate on server");
-    [connection cancel];
+//    NSLog(@"Cancel bogus SSL connection. -- to remove warning install valid SSL certificate on server");
+//    [connection cancel];
 }
 
 #pragma mark -

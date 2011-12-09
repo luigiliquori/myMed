@@ -22,14 +22,13 @@ static Reachability *reachability = nil;
     if (!reachability) {
         reachability = [Reachability reachabilityWithHostName:GOOGLE_URL];
     }
-    
 
     NetworkStatus internetStatus = [reachability currentReachabilityStatus];
     
     if (internetStatus == kNotReachable) {
         return NO;
     }
-    
+
     return YES;
 }
 

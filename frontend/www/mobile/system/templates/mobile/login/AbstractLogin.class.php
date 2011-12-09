@@ -33,18 +33,7 @@ abstract class AbstractLogin extends AbstractTemplate {
 	/**
 	 * Get the FOOTER for jQuery Mobile
 	 */
-	public /*String*/ function getFooter() { ?>
-		<!-- FOOTER_PERSITENT-->
-		<div data-role="footer" data-position="fixed">
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#login" <?= $this->activeFooter == "login" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>Connexion</a></li>
-					<li><a href="#privacy" <?= $this->activeFooter == "privacy" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>Confidentialité</a></li>
-					<li><a href="#aboutus" <?= $this->activeFooter == "aboutus" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>A propos</a></li>
-				</ul>
-			</div>
-		</div>
-	<?php }
+	public /*String*/ function getFooter() { }
 	
 	/**
 	* Print the Template

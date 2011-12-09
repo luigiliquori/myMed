@@ -70,7 +70,7 @@ class ResultView extends MyApplication {
 						if($responseObject->status != 200) { ?>
 							<h2 style="color:red;"><?= $responseObject->description ?></h2>
 						<?php } else {
-							$profile = json_decode($responseObject->data->profile);
+							$profile = json_decode($responseObject->data->user);
 							?>
 							<!-- RESULT DETAILS -->
 							<form action="#" method="post" name="getDetailForm<?= $i ?>">

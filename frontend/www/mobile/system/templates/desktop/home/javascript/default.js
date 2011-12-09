@@ -4,7 +4,7 @@ function initialize() {
 
 function geoloc() {
 	if (navigator.geolocation)
-		var watchId = navigator.geolocation.watchPosition(successCallback, null, {enableHighAccuracy:true});
+		navigator.geolocation.watchPosition(successCallback, null, {enableHighAccuracy:true});
 	else
 	    alert("Votre navigateur ne prend pas en compte la géolocalisation HTML5");
 }

@@ -14,6 +14,7 @@
 #import "SHA1Encoder.h"
 #import "UIDeviceHardware.h"
 #import "SFHFKeychainUtils.h"
+#import "WebObjCBridge.h"
 
 #pragma mark - const definitions
 
@@ -21,16 +22,11 @@
 static NSString * const M_URL_AUTH = @"http://mymed2.sophia.inria.fr:8080/mymed_backend/AuthenticationRequestHandler";
 static NSString * const M_URL_SESSION = @"http://mymed2.sophia.inria.fr:8080/mymed_backend/SessionRequestHandler";
 
-// STATUS
-static const unsigned M_STATUS_AUTH_WRONG_PASS = 403;
-static const unsigned M_STATUS_AUTH_WRONG_LOGIN = 404;
-static const unsigned M_STATUS_AUTH_OK = 200;
-
 // CODES for Backend/Frontend
-static const unsigned M_CREATE = 0;
-static const unsigned M_READ = 1;
-static const unsigned M_UPDATE = 2;
-static const unsigned M_DELETE = 3;
+static const unsigned M_CODE_CREATE = 0;
+static const unsigned M_CODE_READ = 1;
+static const unsigned M_CODE_UPDATE = 2;
+static const unsigned M_CODE_DELETE = 3;
 
 // Keys for NSUserDefaults
 static NSString * const UD_KEY_USERNAME = @"UserName";
@@ -58,12 +54,12 @@ static NSString * const UD_KEY_USERNAME = @"UserName";
 {
     // Pack data for POST request
     NSDictionary *dictionary = [self POSTdictionaryWithKeys:[NSArray arrayWithObjects:@"login", @"password", @"code", nil] 
-                                                andObjects:[NSArray arrayWithObjects:login, [SHA1Encoder sha512FromString:password], [NSString stringWithFormat:@"%d", M_READ], nil]];
-    
+                                                andObjects:[NSArray arrayWithObjects:login, [SHA1Encoder sha512FromString:password], [NSString stringWithFormat:@"%d", M_CODE_READ], nil]];
+
     // Forge request and stablish connection.
     NSMutableURLRequest *request = [POSTRequestBuilder urlEncodedPostRequestWithURL:[NSURL URLWithString:M_URL_AUTH] 
                                                                   andDataDictionary:dictionary];
-    
+
     NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     
     if (connection) {
@@ -85,7 +81,7 @@ static NSString * const UD_KEY_USERNAME = @"UserName";
 
 - (void) presentMyMedWebViewWithURL:(NSURL *) url
 {
-    ViewController *webViewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
+    webViewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
     webViewController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentModalViewController:webViewController animated:YES];
     [webViewController loadMyMedURL:url];
@@ -136,6 +132,31 @@ static NSString * const UD_KEY_USERNAME = @"UserName";
 
 @end
 
+#pragma mark - Notifications listener
+@interface LoginViewController (NotificationListener)
+- (void) logout:(id) sender;
+@end
+
+@implementation LoginViewController (NotificationListener)
+
+- (void) logout:(id) sender
+{
+    // Forge request and stablish connection.
+    NSString *urlString = [NSString stringWithFormat:@"%@?accessToken=%@&socialNetwork=%@&code=%d", M_URL_SESSION, accessToken, socialNetwork, M_CODE_DELETE];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    if (connection) {
+        NSLog(@"Logout sent");
+    } else {
+        NSLog(@"Error trying to send logout");
+    }
+    
+    [webViewController dismissModalViewControllerAnimated:YES];    
+}
+
+@end
+
 #pragma mark - Public Interface
 @implementation LoginViewController
 
@@ -163,6 +184,14 @@ static NSString * const UD_KEY_USERNAME = @"UserName";
     [super viewDidLoad];
     
     NSString *storedUserName = [self retrieveStoredUserName];
+    accessToken = @"Not Set";
+    socialNetwork = @"myMed";
+    
+    // Setup for listening to logout Notifications
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+                                             selector:@selector(logout:)
+                                                 name:FN_LOGOUT
+                                               object:nil];
     
     if (storedUserName) {
         self.eMailField.text = storedUserName;
@@ -172,7 +201,7 @@ static NSString * const UD_KEY_USERNAME = @"UserName";
     }
 
     //Brings out keyboard automatically on the e-mail field.
-    [self.eMailField becomeFirstResponder];    
+    [self.eMailField becomeFirstResponder];
 }
 
 - (void)viewDidUnload
@@ -197,9 +226,15 @@ static NSString * const UD_KEY_USERNAME = @"UserName";
     if (nextResponder) {
         [nextResponder becomeFirstResponder];
     } else {
-        if ([ConnectionStatusChecker doesHaveConnectivity] && ![[self.eMailField text] isEqualToString:@""]) {
-            [self submitLogin:self.eMailField.text andPassword:self.passwordField.text];
-            [self storeUserName:self.eMailField.text andPassword:self.passwordField.text];
+        if ([[self.eMailField text] isEqualToString:@""]) {
+            [self displayAlertWithTittle:@"Specify Username" andMessage:@"Please specify a username to login"];
+        } else {
+            if ([ConnectionStatusChecker doesHaveConnectivity]) {
+                [self submitLogin:self.eMailField.text andPassword:self.passwordField.text];
+                [self storeUserName:self.eMailField.text andPassword:self.passwordField.text];
+            }  else {
+                [self displayAlertWithTittle:@"Server Unreachable" andMessage:@"The myMed server is unreachable, please check your network connectivity (WiFi, 3G)"];
+            }
         }
     }
 
@@ -235,8 +270,8 @@ static NSString * const UD_KEY_USERNAME = @"UserName";
     if ([messageHandler isEqualToString:M_HANDLER_AUTH_REQUEST] && [messageMethod isEqualToString:M_METHOD_READ]) {
         NSDictionary *data = (NSDictionary *)[message objectForKey:M_KEY_DATA];
         NSString *url = [data objectForKey:M_KEY_URL];
-        NSString *token = [data objectForKey:M_KEY_ACCESS_TOKEN];      
-        [self presentMyMedWebViewWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?accessToken=%@", url, token]]];
+        accessToken = [data objectForKey:M_KEY_ACCESS_TOKEN];
+        [self presentMyMedWebViewWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?accessToken=%@&socialNetwork=%@", url, accessToken, socialNetwork]]];
     }
 }
 

@@ -10,6 +10,8 @@
 
 #import "ViewController.h"
 #import "LoginViewController.h"
+#import "WebObjCBridge.h"
+#import "UIDeviceHardware.h"
 
 @implementation AppDelegate
 
@@ -19,7 +21,14 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+    
+    if ([[UIDeviceHardware platformString] rangeOfString:@"iPhone"].location == NSNotFound 
+        && [[UIDeviceHardware platformString] rangeOfString:@"Simulator"].location == NSNotFound) {
+        self.loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController_iPad" bundle:nil];        
+    } else {
+        self.loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];        
+    }
+
     self.window.rootViewController = self.loginViewController;
     [self.window makeKeyAndVisible];
     return YES;

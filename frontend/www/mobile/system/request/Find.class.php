@@ -76,7 +76,7 @@ class Find extends Request {
 			
 			$responsejSon = parent::send();
 			$responseObject = json_decode($responsejSon);
-			
+			// echo '<script type="text/javascript">alert("$response = ' . $responsejSon . '")</script>';
 			if($responseObject->status != 200) {
 				$this->handler->setError($responseObject->description);
 			} else {
