@@ -115,9 +115,9 @@ public class HTTPCall{
 			case HttpStatus.SC_CONFLICT: //TODO Check if this error code is really used.
 				JSONObject object = (JSONObject) new JSONTokener(responseContent).nextValue();
 				String message = null;
-				if (object.has("error")){
-					JSONObject errObj = object.getJSONObject("error");
-					message = errObj.getString("message");
+				if (object.has("description")){
+					//JSONObject errObj = object.getJSONObject("error");
+					message = object.getString("description");
 				}				
 				if (statusCode==HttpStatus.SC_INTERNAL_SERVER_ERROR)
 					throw new InternalBackEndException(message);

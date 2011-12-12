@@ -2,6 +2,10 @@ package com.mymed.android.myjam.controller;
 
 import java.lang.reflect.Type;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
@@ -22,29 +26,14 @@ public class AuthenticationManager extends HTTPCall implements ICallAttributes {
 	private static final String PROFILE_HANDLER_URL = "http://130.192.9.113:8080/mymed_backend/ProfileRequestHandler";
 	private static final String AUTHENTICATION_HANDLER_URL = "http://130.192.9.113:8080/mymed_backend/AuthenticationRequestHandler";
 	private static final String SESSION_HANDLER_URL = "http://130.192.9.113:8080/mymed_backend/SessionRequestHandler";
-//*/
-/** 	//For local testing with the emulator.
+/**
+ 	//For local testing with the emulator.
 
 	private static final String PROFILE_HANDLER_URL = "http://10.0.2.2:8080/LocalMyMed/ProfileRequestHandler";
 	private static final String AUTHENTICATION_HANDLER_URL = "http://10.0.2.2:8080/LocalMyMed/AuthenticationRequestHandler";
 	private static final String SESSION_HANDLER_URL = "http://10.0.2.2:8080/LocalMyMed/SessionRequestHandler";
 //*/	
 	private static final String QUERY ="?code=";
-	
-	/** Request codes*/ 
-	protected enum RequestCode {
-		// C.R.U.D 
-		CREATE 	("0"), 	
-		READ 	("1"), 
-		UPDATE 	("2"),
-		DELETE 	("3");
-
-		public final String code;
-
-		RequestCode(String code){
-			this.code = code;
-		}
-	}
 	
 	private Gson gson;
 	
@@ -70,11 +59,16 @@ public class AuthenticationManager extends HTTPCall implements ICallAttributes {
 		
 		String q=QUERY+RequestCode.READ.code;
 		q=appendAttribute(q,ID,userId);
-		String response = httpRequest(PROFILE_HANDLER_URL+q,httpMethod.GET,null);
-		Type userType = new TypeToken<MUserBean>(){}.getType();
+		JSONObject response;
 		try{
-			return this.gson.fromJson(response, userType);
+			response = (JSONObject) new JSONTokener(httpRequest(PROFILE_HANDLER_URL+q,httpMethod.POST,null)).nextValue();
+			JSONObject data = response.getJSONObject("data");
+			String profile = data.getString("profile");
+			Type userType = new TypeToken<MUserBean>(){}.getType();
+			return this.gson.fromJson(profile, userType);
 		}catch(JsonSyntaxException e){
+			throw new InternalBackEndException("Wrong response format.");
+		} catch (JSONException e) {
 			throw new InternalBackEndException("Wrong response format.");
 		}		
 	}
@@ -94,10 +88,16 @@ public class AuthenticationManager extends HTTPCall implements ICallAttributes {
 		String q=QUERY+RequestCode.READ.code;
 		q=appendAttribute(q,LOGIN,login);
 		q=appendAttribute(q,PASSWORD,password);
-		String response = httpRequest(AUTHENTICATION_HANDLER_URL+q,httpMethod.GET,null);
-		Type userType = new TypeToken<MUserBean>(){}.getType();
-		try{
-			return this.gson.fromJson(response, userType);
+
+		JSONObject response;
+		try {
+			response = (JSONObject) new JSONTokener(httpRequest(AUTHENTICATION_HANDLER_URL+q,httpMethod.POST,null)).nextValue();
+			JSONObject data = response.getJSONObject("data");
+			String profile = data.getString("profile");
+			Type userType = new TypeToken<MUserBean>(){}.getType();
+			return this.gson.fromJson(profile, userType);
+		} catch (JSONException e) {
+			throw new InternalBackEndException("Wrong response format.");
 		}catch(JsonSyntaxException e){
 			throw new InternalBackEndException("Wrong response format.");
 		}		

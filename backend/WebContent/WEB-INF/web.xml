@@ -81,13 +81,33 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>MyJamRequestHandler</display-name>
-    <servlet-name>MyJamRequestHandler</servlet-name>
-    <servlet-class>com.mymed.controller.core.requesthandler.MyJamRequestHandler</servlet-class>
+    <display-name>MyJamReportRequestHandler</display-name>
+    <servlet-name>MyJamReportRequestHandler</servlet-name>
+    <servlet-class>com.mymed.controller.core.requesthandler.MyJamReportRequestHandler</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>MyJamRequestHandler</servlet-name>
-    <url-pattern>/MyJamRequestHandler</url-pattern>
+    <servlet-name>MyJamReportRequestHandler</servlet-name>
+    <url-pattern>/MyJamReportRequestHandler</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MyJamUpdateRequestHandler</display-name>
+    <servlet-name>MyJamUpdateRequestHandler</servlet-name>
+    <servlet-class>com.mymed.controller.core.requesthandler.MyJamUpdateRequestHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MyJamUpdateRequestHandler</servlet-name>
+    <url-pattern>/MyJamUpdateRequestHandler</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MyJamFeedbackRequestHandler</display-name>
+    <servlet-name>MyJamFeedbackRequestHandler</servlet-name>
+    <servlet-class>com.mymed.controller.core.requesthandler.MyJamFeedbackRequestHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MyJamFeedbackRequestHandler</servlet-name>
+    <url-pattern>/MyJamFeedbackRequestHandler</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>

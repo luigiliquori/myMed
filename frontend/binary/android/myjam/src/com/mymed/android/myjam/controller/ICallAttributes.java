@@ -28,4 +28,19 @@ public interface ICallAttributes {
 	public static final String LONGITUDE = "longitude";
 	public static final String RADIUS = "radius";	
 	public static final String SEARCH_ID = "searchID";
+	
+	/* Request codes*/ 
+	public enum RequestCode {
+		// C.R.U.D 
+		CREATE 	("0"), 	
+		READ 	("1"), 
+		UPDATE 	("2"),
+		DELETE 	("3");
+
+		public final String code;
+
+		RequestCode(String code){
+			this.code = code;
+		}
+	}
 }

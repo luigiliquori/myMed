@@ -3,6 +3,10 @@ package com.mymed.android.myjam.controller;
 import java.lang.reflect.Type;
 import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
@@ -21,9 +25,14 @@ import com.mymed.model.data.myjam.MSearchReportBean;
 public class MyJamCallManager extends HTTPCall implements ICallAttributes{
 	private static MyJamCallManager instance;
 	private static final String QUERY ="?code=";
-	private static final String MY_JAM_HANDLER_URL = "http://130.192.9.113:8080/mymed_backend/MyJamRequestHandler";
-//  For local testing with the emulator.
-//	private static final String MY_JAM_HANDLER_URL = "http://10.0.2.2:8080/LocalMyMed/MyJamRequestHandler";
+//	private static final String MY_JAM_HANDLER_URL = "http://130.192.9.113:8080/mymed_backend/MyJamRequestHandler";
+	private static final String MY_JAM_REPORT_HANDLER_URL = "http://130.192.9.113:8080/mymed_backend/MyJamReportRequestHandler";
+	private static final String MY_JAM_UPDATE_HANDLER_URL = "http://130.192.9.113:8080/mymed_backend/MyJamUpdateRequestHandler";
+	private static final String MY_JAM_FEEDBACK_HANDLER_URL = "http://130.192.9.113:8080/mymed_backend/MyJamFeedbackRequestHandler";
+	//  For local testing with the emulator.
+//	private static final String MY_JAM_REPORT_HANDLER_URL = "http://10.0.2.2:8080/LocalMyMed/MyJamReportRequestHandler";
+//	private static final String MY_JAM_UPDATE_HANDLER_URL = "http://10.0.2.2:8080/LocalMyMed/MyJamUpdateRequestHandler";
+//	private static final String MY_JAM_FEEDBACK_HANDLER_URL = "http://10.0.2.2:8080/LocalMyMed/MyJamFeedbackRequestHandler";
 	
 	private Gson gson;
 	
@@ -38,21 +47,21 @@ public class MyJamCallManager extends HTTPCall implements ICallAttributes{
 		return instance;
 	}
 	
-	/** Request Code*/
-	public interface MyJamRequestCode { 
-		public static final int SEARCH_REPORTS = 0;
-		public static final int GET_REPORT = 1; 	
-		public static final int GET_NUMBER_UPDATES = 2;
-		public static final int GET_UPDATES = 3;
-		public static final int GET_FEEDBACKS = 4;
-		public static final int GET_ACTIVE_REPORTS = 5;	
-		public static final int GET_USER_REPORT_UPDATE = 6;	//TODO To implement
-		public static final int INSERT_REPORT = 7;
-		public static final int INSERT_UPDATE = 8;
-		public static final int INSERT_FEEDBACK = 9;
-		public static final int DELETE_REPORT = 10;
-		//TODO Eventually add DELETE_REPORT and DELETE_UPDATE
-	}
+//	/** Request Code*/
+//	public interface MyJamRequestCode { 
+//		public static final int SEARCH_REPORTS = 0;
+//		public static final int GET_REPORT = 1; 	
+//		public static final int GET_NUMBER_UPDATES = 2;
+//		public static final int GET_UPDATES = 3;
+//		public static final int GET_FEEDBACKS = 4;
+//		public static final int GET_ACTIVE_REPORTS = 5;	
+//		public static final int GET_USER_REPORT_UPDATE = 6;	//TODO To implement
+//		public static final int INSERT_REPORT = 7;
+//		public static final int INSERT_UPDATE = 8;
+//		public static final int INSERT_FEEDBACK = 9;
+//		public static final int DELETE_REPORT = 10;
+//		//TODO Eventually add DELETE_REPORT and DELETE_UPDATE
+//	}
 	
 	/**
 	 * Searches the reports in the specified area.
@@ -66,15 +75,21 @@ public class MyJamCallManager extends HTTPCall implements ICallAttributes{
 	 */
 	public List<MSearchReportBean> searchReports(int latitude,int longitude, int radius) 
 			throws InternalBackEndException, IOBackEndException, InternalClientException{
-		String q=QUERY+MyJamRequestCode.SEARCH_REPORTS;
+		String q=QUERY+RequestCode.READ.code;
 		q=appendAttribute(q,LATITUDE,String.valueOf(latitude));
 		q=appendAttribute(q,LONGITUDE,String.valueOf(longitude));
 		q=appendAttribute(q,RADIUS,String.valueOf(radius));
-		String response = httpRequest(MY_JAM_HANDLER_URL+q,httpMethod.GET,null);
-		Type shortReportListType = new TypeToken<List<MSearchReportBean>>(){}.getType();
+//		String response = httpRequest(MY_JAM_HANDLER_URL+q,httpMethod.GET,null);
+		JSONObject response;
 		try{
-			return this.gson.fromJson(response, shortReportListType);
+			response = (JSONObject) new JSONTokener(httpRequest(MY_JAM_REPORT_HANDLER_URL+q,httpMethod.GET,null)).nextValue();
+			JSONObject data = response.getJSONObject("data");
+			String jsonData = data.getString("search_reports");
+			Type shortReportListType = new TypeToken<List<MSearchReportBean>>(){}.getType();
+			return this.gson.fromJson(jsonData, shortReportListType);
 		}catch(JsonSyntaxException e){
+			throw new InternalBackEndException("Wrong response format.");
+		} catch (JSONException e) {
 			throw new InternalBackEndException("Wrong response format.");
 		}
 	}
@@ -87,12 +102,20 @@ public class MyJamCallManager extends HTTPCall implements ICallAttributes{
 	 * @throws InternalClientException
 	 */
 	public MReportBean getReport(String id) throws InternalBackEndException, IOBackEndException, InternalClientException{
-		String q=QUERY+MyJamRequestCode.GET_REPORT;
+		String q=QUERY+RequestCode.READ.code;
 		q=appendAttribute(q,REPORT_ID,id);
-		String response = httpRequest(MY_JAM_HANDLER_URL+q,httpMethod.GET,null);
+		
+		JSONObject response;
 		try{
-			return this.gson.fromJson(response, MReportBean.class);
+			response = (JSONObject) new JSONTokener(httpRequest(MY_JAM_REPORT_HANDLER_URL+q,httpMethod.GET,null)).nextValue();
+			JSONObject data = response.getJSONObject("data");
+			String jsonData = data.getString("report");
+			Type shortReportListType = new TypeToken<MReportBean>(){}.getType();
+			return this.gson.fromJson(jsonData, shortReportListType);
+
 		}catch(JsonSyntaxException e){
+			throw new InternalBackEndException("Wrong response format.");
+		} catch (JSONException e) {
 			throw new InternalBackEndException("Wrong response format.");
 		}
 	}
@@ -105,12 +128,18 @@ public class MyJamCallManager extends HTTPCall implements ICallAttributes{
 	 * @throws InternalClientException
 	 */
 	public int getNumberUpdates(String id) throws InternalBackEndException, IOBackEndException, InternalClientException{
-		String q=QUERY+MyJamRequestCode.GET_NUMBER_UPDATES;
+		String q=QUERY+RequestCode.READ.code;
 		q=appendAttribute(q,REPORT_ID,id);
-		String response = httpRequest(MY_JAM_HANDLER_URL+q,httpMethod.GET,null);
+
+		JSONObject response;
 		try{
-			return this.gson.fromJson(response, int.class);
+			response = (JSONObject) new JSONTokener(httpRequest(MY_JAM_UPDATE_HANDLER_URL+q,httpMethod.GET,null)).nextValue();
+			JSONObject data = response.getJSONObject("data");
+			String jsonData = data.getString("num_updates");
+			return this.gson.fromJson(jsonData, int.class);
 		}catch(JsonSyntaxException e){
+			throw new InternalBackEndException("Wrong response format.");
+		} catch (JSONException e) {
 			throw new InternalBackEndException("Wrong response format.");
 		}
 	}
@@ -124,17 +153,22 @@ public class MyJamCallManager extends HTTPCall implements ICallAttributes{
 	 * @throws InternalClientException
 	 */
 	public List<MReportBean> getUpdates(String id,int numUpdates) throws InternalBackEndException, IOBackEndException, InternalClientException{
-		String q=QUERY+MyJamRequestCode.GET_UPDATES;
+		String q=QUERY+RequestCode.READ.code;
 		q=appendAttribute(q,REPORT_ID,id);
 		q=appendAttribute(q,NUM,String.valueOf(numUpdates));
-		String response = httpRequest(MY_JAM_HANDLER_URL+q,httpMethod.GET,null);
-		Type reportListType = new TypeToken<List<MReportBean>>(){}.getType();
+		
+		JSONObject response;
 		try{
-			return this.gson.fromJson(response, reportListType);
+			response = (JSONObject) new JSONTokener(httpRequest(MY_JAM_UPDATE_HANDLER_URL+q,httpMethod.GET,null)).nextValue();
+			JSONObject data = response.getJSONObject("data");
+			String jsonData = data.getString("updates");
+			Type reportListType = new TypeToken<List<MReportBean>>(){}.getType();
+			return this.gson.fromJson(jsonData, reportListType);
 		}catch(JsonSyntaxException e){
 			throw new InternalBackEndException("Wrong response format.");
-		}
-		
+		} catch (JSONException e) {
+			throw new InternalBackEndException("Wrong response format.");
+		}		
 	}
 	
 	/**
@@ -146,16 +180,21 @@ public class MyJamCallManager extends HTTPCall implements ICallAttributes{
 	 * @throws InternalClientException
 	 */
 	public List<MFeedBackBean> getFeedBacks(String id) throws InternalBackEndException, IOBackEndException, InternalClientException{
-		String q=QUERY+MyJamRequestCode.GET_FEEDBACKS;
+		String q=QUERY+RequestCode.READ.code;
 		q=appendAttribute(q,REPORT_ID,id);
-		String response = httpRequest(MY_JAM_HANDLER_URL+q,httpMethod.GET,null);
-		Type feedListType = new TypeToken<List<MFeedBackBean>>(){}.getType();
+ 
+		JSONObject response;
 		try{
-			return this.gson.fromJson(response, feedListType);
+			response = (JSONObject) new JSONTokener(httpRequest(MY_JAM_FEEDBACK_HANDLER_URL+q,httpMethod.GET,null)).nextValue();
+			JSONObject data = response.getJSONObject("data");
+			String jsonData = data.getString("feedbacks");
+			Type feedListType = new TypeToken<List<MFeedBackBean>>(){}.getType();
+			return this.gson.fromJson(jsonData, feedListType);
 		}catch(JsonSyntaxException e){
 			throw new InternalBackEndException("Wrong response format.");
+		} catch (JSONException e) {
+			throw new InternalBackEndException("Wrong response format.");
 		}
-		
 	}
 	
 	/**
@@ -167,13 +206,20 @@ public class MyJamCallManager extends HTTPCall implements ICallAttributes{
 	 * @throws InternalClientException
 	 */
 	public List<String> getActiveReports(String userId) throws InternalBackEndException, IOBackEndException, InternalClientException{
-		String q=QUERY+MyJamRequestCode.GET_ACTIVE_REPORTS;
+		String q=QUERY+RequestCode.READ.code;
+		
 		q=appendAttribute(q,USER_ID,userId);
-		String response = httpRequest(MY_JAM_HANDLER_URL+q,httpMethod.GET,null);
-		Type stringListType = new TypeToken<List<String>>(){}.getType();
+		
+		JSONObject response;
 		try{
-			return this.gson.fromJson(response, stringListType);
+			response = (JSONObject) new JSONTokener(httpRequest(MY_JAM_REPORT_HANDLER_URL+q,httpMethod.GET,null)).nextValue();
+			JSONObject data = response.getJSONObject("data");
+			String jsonData = data.getString("active_reports");
+			Type stringListType = new TypeToken<List<String>>(){}.getType();
+			return this.gson.fromJson(jsonData, stringListType);
 		}catch(JsonSyntaxException e){
+			throw new InternalBackEndException("Wrong response format.");
+		} catch (JSONException e) {
 			throw new InternalBackEndException("Wrong response format.");
 		}
 	}
@@ -192,19 +238,27 @@ public class MyJamCallManager extends HTTPCall implements ICallAttributes{
 	 * @throws InternalBackEndException 
 	 */
 	public MReportBean insertReport(int latitude,int longitude,MReportBean report) throws InternalBackEndException, IOBackEndException, InternalClientException{
-		String q=QUERY+MyJamRequestCode.INSERT_REPORT;
+		String q=QUERY+RequestCode.CREATE.code;
 		q=appendAttribute(q,LATITUDE,String.valueOf(latitude));
 		q=appendAttribute(q,LONGITUDE,String.valueOf(longitude));
 		String jSonReport = gson.toJson(report);
-		String response =httpRequest(MY_JAM_HANDLER_URL+q,httpMethod.POST,jSonReport);
-		System.out.println(response);
-		Type mReportBeanType = new TypeToken<MReportBean>(){}.getType();
+		
+		JSONObject response;
 		try{
-			return this.gson.fromJson(response, mReportBeanType);
+			String res = httpRequest(MY_JAM_REPORT_HANDLER_URL+q,httpMethod.POST,jSonReport);
+			response = (JSONObject) new JSONTokener(res).nextValue();
+			JSONObject data = response.getJSONObject("data");
+			String jsonData = data.getString("report");
+			System.out.println(jsonData);
+			Type mReportBeanType = new TypeToken<MReportBean>(){}.getType();
+			return this.gson.fromJson(jsonData, mReportBeanType);
 		}catch(JsonSyntaxException e){
 			throw new InternalBackEndException("Wrong response format.");
-		}		
+		} catch (JSONException e) {
+			throw new InternalBackEndException("Wrong response format.");
+		}
 	}
+	
 	/**
 	 * Inserts a new update
 	 * @param id		Id of the report which update refers to.
@@ -215,17 +269,24 @@ public class MyJamCallManager extends HTTPCall implements ICallAttributes{
 	 * @return The updateId
 	 */
 	public MReportBean insertUpdate(String id,MReportBean update) throws InternalBackEndException, IOBackEndException, InternalClientException{
-		String q=QUERY+MyJamRequestCode.INSERT_UPDATE;
+		String q=QUERY+RequestCode.CREATE.code;
 		q=appendAttribute(q,REPORT_ID,id);
 		String jSonReport = gson.toJson(update);
-		String response = httpRequest(MY_JAM_HANDLER_URL+q,httpMethod.POST,jSonReport);
-		System.out.println(response);
-		Type mReportBeanType = new TypeToken<MReportBean>(){}.getType();
+		
+		JSONObject response;
 		try{
-			return this.gson.fromJson(response, mReportBeanType);
+			response = (JSONObject) new JSONTokener(httpRequest(MY_JAM_UPDATE_HANDLER_URL+q,httpMethod.POST,jSonReport)).nextValue();
+			JSONObject data = response.getJSONObject("data");
+			String jsonData = data.getString("update");
+			System.out.println(jsonData);
+			System.out.println(jsonData);
+			Type mReportBeanType = new TypeToken<MReportBean>(){}.getType();
+			return this.gson.fromJson(jsonData, mReportBeanType);
 		}catch(JsonSyntaxException e){
 			throw new InternalBackEndException("Wrong response format.");
-		}	
+		} catch (JSONException e) {
+			throw new InternalBackEndException("Wrong response format.");
+		}
 	}
 	/**
 	 * Inserts a new feedBack
@@ -236,17 +297,17 @@ public class MyJamCallManager extends HTTPCall implements ICallAttributes{
 	 * @throws InternalClientException
 	 */
 	public void insertFeedBack(String reportId,String updateId,MFeedBackBean update) throws InternalBackEndException, IOBackEndException, InternalClientException{
-		String q=QUERY+MyJamRequestCode.INSERT_FEEDBACK;
+		String q=QUERY+RequestCode.CREATE.code;
 		q=appendAttribute(q,REPORT_ID,reportId);
 		if (updateId!=null)
 			q=appendAttribute(q,UPDATE_ID,updateId);
 		String jSonFeedBack = gson.toJson(update);
-		System.out.println(httpRequest(MY_JAM_HANDLER_URL+q,httpMethod.POST,jSonFeedBack));
+		System.out.println(httpRequest(MY_JAM_FEEDBACK_HANDLER_URL+q,httpMethod.POST,jSonFeedBack));
 	}
 	
 	public void deleteReport(String id) throws InternalBackEndException, IOBackEndException, InternalClientException{
-		String q=QUERY+MyJamRequestCode.DELETE_REPORT;
+		String q=QUERY+RequestCode.DELETE.code;
 		q=appendAttribute(q,REPORT_ID,id);
-		System.out.println(httpRequest(MY_JAM_HANDLER_URL+q,httpMethod.DELETE,null));
+		System.out.println(httpRequest(MY_JAM_FEEDBACK_HANDLER_URL+q,httpMethod.DELETE,null));
 	}
 }

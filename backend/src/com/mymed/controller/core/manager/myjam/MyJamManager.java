@@ -113,7 +113,7 @@ public class MyJamManager extends AbstractManager{
 		} catch (IllegalArgumentException e){
 			throw new InternalBackEndException("Wrong parameter: "+e.getMessage());
 		} catch (IOBackEndException e){
-			throw new IOBackEndException(e.getMessage());
+			throw new IOBackEndException(e.getMessage(),404);
 		}
 	}
 
@@ -185,7 +185,7 @@ public class MyJamManager extends AbstractManager{
 		} catch (WrongFormatException e){
 			throw new InternalBackEndException("Wrong report Id: "+e.getMessage());
 		} catch (IOBackEndException e){
-			throw new IOBackEndException(e.getMessage());
+			throw new IOBackEndException(e.getMessage(),404);
 		}
 	}
 	
@@ -302,7 +302,7 @@ public class MyJamManager extends AbstractManager{
 		 */
 		Map<byte[],byte[]> reportMap = myJamStorageManager.selectAll("Report", reportId);
 		if (reportMap.isEmpty())
-			throw new IOBackEndException("Report not present");
+			throw new IOBackEndException("Report not present",404);
 		MReportBean reportDetails = (MReportBean) introspection(new MReportBean(),reportMap);
 		if (!reportDetails.getReportType().equals(update.getReportType()))
 			throw new InternalBackEndException("Report and update types don't match.");
@@ -351,7 +351,7 @@ public class MyJamManager extends AbstractManager{
 		} catch (WrongFormatException e) {
 			throw new InternalBackEndException("Wrong parameter: "+e.getMessage());
 		} catch (IOBackEndException e) {
-			throw new IOBackEndException("The report is expired, you cannot insert an update.");
+			throw new IOBackEndException("The report is expired, you cannot insert an update.",404);
 		}
 	}
 	
@@ -363,7 +363,7 @@ public class MyJamManager extends AbstractManager{
 		 */
 		Map<byte[],byte[]> reportMap = myJamStorageManager.selectAll("Report", reportId);
 		if (reportMap.isEmpty())
-			throw new IOBackEndException(" Report not valid. ");
+			throw new IOBackEndException(" Report not valid. ",404);
 		MReportBean reportDetails = (MReportBean) introspection(new MReportBean(),reportMap);
 		long locationId = reportDetails.getLocationId();
 		String areaId = String.valueOf(Locator.getAreaId(locationId));								
@@ -396,7 +396,7 @@ public class MyJamManager extends AbstractManager{
 		} catch (WrongFormatException e) {
 			throw new InternalBackEndException("Wrong parameter: "+e.getMessage());
 		}  catch (IOBackEndException e) { //TODO Check the possible causes of IOException.
-			throw new IOBackEndException("The report is expired, you cannot insert a feedback.");
+			throw new IOBackEndException("The report is expired, you cannot insert a feedback.",404);
 		}
 	}
 	
