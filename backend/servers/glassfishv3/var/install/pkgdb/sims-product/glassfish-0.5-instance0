@@ -1,8 +1,0 @@
-SIMS_VERSION=0.5
-SIMS_REQUIRED_PRODUCTS=updatetool&0.5&instance0
-SIMS_DESC=glassfish
-SIMS_NAME=glassfish
-SIMS_INSTANCE_ID=instance0
-SIMS_PRODUCT_BASEDIR=null
-SIMS_CONTAINED_PACKAGES=glassfish.zip&0.5.0.0&instance0&&&&&#icons.zip&0.5.0.0&instance0&&&&&
-SIMS_PRODUCT_READABLE_NAME=glassfish

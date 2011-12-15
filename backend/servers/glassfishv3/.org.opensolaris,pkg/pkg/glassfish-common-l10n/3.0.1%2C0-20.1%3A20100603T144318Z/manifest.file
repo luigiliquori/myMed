@@ -1,4 +1,0 @@
-file 3a19db5966bedb0d89948094849750dad6050954 chash=53fb6fe4318e67cf73ef54413fed071e20c93d71 group=sys mode=0644 owner=nobody path=glassfish/modules/monitoring-core-l10n.jar pkg.csize=5087 pkg.size=10166
-file bdf41f265dd7c816305cb4914fcd5833be9596df chash=12885d8a1b05dda0a3b3a125fab119f445ab4933 group=sys mode=0644 owner=nobody path=glassfish/modules/cli-framework-l10n.jar pkg.csize=15916 pkg.size=18345
-file 6f9a55a93b2d7a0e4c46006fe3548a5b9c964c50 chash=8c44376889d3c4295d47e43343991aae62327a1f group=sys mode=0644 owner=nobody path=glassfish/modules/server-mgmt-l10n.jar pkg.csize=105878 pkg.size=111021
-file 6484790b410f5153799bb165b82437f5b343745e chash=25e35a8e19aaeae17acbeb34934509a3dfc94702 group=sys mode=0644 owner=nobody path=glassfish/modules/admin-util-l10n.jar pkg.csize=3937 pkg.size=6313
