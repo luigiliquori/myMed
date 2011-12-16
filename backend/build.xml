@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Ant build file to compile the mymed backend
+
+Milo Casagrande <milo.casagrande@inria.fr>, 2011
+-->
+<project name="mymed" default="" basedir=".">
+	<property name="src.dir" location="src"/>
+	<property name="test.dir" location="${src.dir}/com/mymed/tests"/>
+	<property name="build.dir" location="build"/>
+	<property name="build.lib.dir" location="${build.dir}/lib"/>
+	<property name="build.classes.dir" location="${build.dir}/classes"/>
+	<property name="war.dir" location="${build.dir}/war"/>
+	<property name="war.webinf.dir" location="${war.dir}/WEB-INF"/>
+	<property name="war.webinf.dir.lib" location="${war.webinf.dir}/lib"/>
+	<property name="cassandra.dir" location="protocols/cassandra/cassandra/lib"/>
+	<property name="glassfish.dir" location="/local/glassfish3/glassfish"/>
+	<property name="java.dir" location="/usr/share/java"/>
+
+	<property name="web.content.lib" location="WebContent/WEB-INF/lib"/>
+
+	<property name="debug.flag" value="on"/>
+	<property name="jarname" value="mymed_backend.jar"/>
+	<property name="warname" value="mymed_backend.war"/>
+
+	<path id="backend.classpath" description="Path for compiling the backend">
+		<pathelement path="${java.class.path}"/>
+    <fileset dir="${glassfish.dir}" id="id">
+      <include name="**/mail.jar"/>
+		  <include name="**/javaee.jar"/>
+		</fileset>
+    <fileset dir="${java.dir}">
+      <include name="**/*.jar"/>
+    </fileset>
+		<fileset dir="${web.content.lib}">
+		  <include name="apache-cassandra-0.7.6-2.jar"/>
+		  <include name="libthrift-0.5.jar"/>
+		  <include name="log4j-over-sl4j-1.6.2.jar"/>
+		  <include name="logback-classic-0.9.29.jar"/>
+		  <include name="logback-core-0.9.29.jar"/>
+		  <include name="slf4j-api-1.6.2.jar"/>
+		  <include name="gson-1.6.jar"/>
+		</fileset>
+	</path>
+
+	<pathconvert description="Pretty print the classpath" property="echo.path.compile" refid="backend.classpath" pathsep="${line.separator}|  |--" />
+
+	<target name="init" description="Initialize the necessary directories">
+    <mkdir dir="${build.dir}"/>
+    <mkdir dir="${build.lib.dir}"/>
+    <mkdir dir="${build.classes.dir}"/>
+    <mkdir dir="${war.dir}"/>
+    <mkdir dir="${war.webinf.dir}"/>
+    <mkdir dir="${war.webinf.dir.lib}"/>
+	</target>
+
+  <target name="compile" depends="init" description="Compile the necessary files">
+    <javac srcdir="${src.dir}" destdir="${build.classes.dir}" debug="${debug.flag}" fork="true" includeantruntime="true" includejavaruntime="true">
+    	<exclude name="**/tests/**"/>
+      <classpath refid="backend.classpath"/>
+    </javac>
+    <jar destfile="${build.lib.dir}/${jarname}" basedir="${build.classes.dir}" duplicate="preserve" index="true"/>
+  </target>
+
+  <target name="clean" description="Remove the directories used for the build">
+    <delete includeemptydirs="true" failonerror="false" dir="${build.dir}"/>
+  </target>
+</project>
