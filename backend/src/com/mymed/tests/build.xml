@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Ant build file to run JUnit tests for mymed
+Ant build file to run mymed tests
 
 Milo Casagrande <milo.casagrande@inria.fr>, 2011
 -->
-<project name="mymed" default="managertest" basedir=".">
+<project name="mymed-test" default="managertest" basedir=".">
 	<property name="build.dir"           location="build"/>
 	<property name="lib.dir"             location="lib" />
 	<property name="results.dir"         location="results"/>
@@ -13,12 +13,10 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 	<property name="controller.dir"      location="../controller"/>
 	<property name="model.dir"           location="../model"/>
 	<property name="utils.dir"           location="../utils"/>
-	<property name="libs.dir"            location="../../../../lib"/>
 	<property name="java.dir"            location="/usr/share/java"/>
 	<property name="junit.dir"           location="/usr/share/junit"/>
-	<property name="glassfish.dir"       location="../../../../servers/glassfishv3/glassfish/"/>
+	<property name="glassfish.dir"       location="/local/glassfish3/glassfish/"/>
 	<property name="cassandra.dir"       location="../../../../protocols/cassandra/cassandra"/>
-	<property name="synapse.dir"         location="../../../../protocols/synapse/jSynapse/src"/>
 	<property name="httpcomp.dir"        location="/usr/share/apache-commons/httpcomponents"/>
 	<property name="src.dir"             location="${controller.dir}:${model.dir}:${utils.dir}"/>
 	<property name="jsynapse.jar"        value="jSynapse.jar"/>
@@ -30,7 +28,6 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 		<pathelement path="${java.class.path}"/>
 		<pathelement location="${conf.dir}"/>
 	  <pathelement location="${lib.dir}/mymed.jar"/>
-	  <pathelement location="${lib.dir}/jSynapse.jar"/>
 	  <pathelement location="${lib.dir}/mymedtest.jar"/>
 		<pathelement location="${junit.dir}/junit.jar"/>
 	  <pathelement location="."/>
@@ -43,14 +40,6 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 		</fileset>
 		<fileset dir="${java.dir}">
 			<include name="**/*.jar"/>
-		</fileset>
-		<fileset dir="${libs.dir}">
-			<include name="**/*.jar"/>
-			<exclude name="apache-cassandra-0.7.6-2.jar"/>
-			<!-- Excluding this one since we are recompiling it -->
-			<exclude name="jSynapse.jar"/>
-			<exclude name="libthrift-0.5.jar"/>
-			<exclude name="deployment-javaee-full.jar"/>
 		</fileset>
 		<fileset dir="${cassandra.dir}/lib">
 			<include name="**/*.jar"/>
@@ -81,7 +70,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 		<jar destfile="${lib.dir}/${jsynapse.jar}" basedir="${build.dir}" duplicate="preserve" index="true" />
 	</target>
 
-	<target name="compile" depends="synapse,cleanbuild" description="Compile the necessary files">
+	<target name="compile" depends="cleanbuild" description="Compile the necessary files">
 		<javac srcdir="${src.dir}" destdir="${build.dir}" debug="on" fork="true" includeantruntime="true" includejavaruntime="true">
 			<classpath refid="mymed.classpath"/>
 		</javac>
