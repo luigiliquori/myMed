@@ -105,12 +105,6 @@ public final class MReputationBean extends AbstractMBean {
     return result;
   }
 
-  @Override
-  public void update(final AbstractMBean mBean) {
-    // TODO Auto-generated method stub
-
-  }
-
   /* --------------------------------------------------------- */
   /* GETTER AND SETTER */
   /* --------------------------------------------------------- */

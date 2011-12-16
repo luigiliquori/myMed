@@ -64,7 +64,7 @@ class DetailView extends MyApplication {
 			if($responseObject->status != 200) { ?>
 				<h2 style="color:red;"><?= $profile->error ?></h2>
 			<?php } else { 
-				$profile = json_decode($responseObject->data->profile);
+				$profile = json_decode($responseObject->data->user);
 				if($profile->profilePicture != "") { ?>
 					<img alt="thumbnail" src="<?= $profile->profilePicture ?>" width="180">
 				<?php } else { ?>

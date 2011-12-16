@@ -30,12 +30,7 @@ public final class MApplicationModelBean extends AbstractMBean {
 		// TODO
 		return returnValue;
 	}
-	
-	@Override
-	public void update(AbstractMBean mBean) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 
 	/* --------------------------------------------------------- */

@@ -85,6 +85,7 @@ V pkg glassfish-registration 3.0,0-68:20091016T081339Z
 V pkg glassfish-registration 3.1.1,0-7:20110609T011840Z
 V pkg glassfish-registration 3.1.1,0-2:20110421T085201Z
 V pkg glassfish-registration 3.1.2,0-4:20110920T084931Z
+V pkg glassfish-registration 3.1.2,0-6:20111018T143656Z
 V pkg glassfish-registration 3.1,0-13:20100727T090349Z
 V pkg glassfish-registration 3.0.1,0-21:20100603T183333Z
 V pkg glassfish-registration 3.1,0-27:20101102T200813Z
@@ -94,6 +95,7 @@ V pkg glassfish-registration 3.0.1,0-9:20100317T081455Z
 V pkg glassfish-registration 3.0,0-63:20090911T003505Z
 V pkg glassfish-registration 3.1.1,0-4:20110504T093231Z
 V pkg glassfish-registration 3.0.1,0-5:20100216T094647Z
+V pkg glassfish-registration 3.1.2,0-7:20111027T144611Z
 V pkg glassfish-registration 3.2,0-4:20110426T075712Z
 V pkg glassfish-registration 3.0,0-71:20091106T150800Z
 V pkg glassfish-registration 3.1,0-18:20100831T215512Z
@@ -136,6 +138,7 @@ V pkg jersey 1.1.1,0-1.0:20090729T114642Z
 V pkg jersey 1.5,0-1.0:20110526T005853Z
 V pkg jersey 1.1.2,0-1.0:20090903T111304Z
 V pkg jersey 1.1.5,0-1.0:20100303T141442Z
+V pkg jersey 1.10,0-0.8:20111027T145637Z
 V pkg jersey 1.1.5,0-1.0:20100525T200038Z
 V pkg jersey 1.0.1,0-0.1:20081224T084302Z
 V pkg jersey 1.5,0-1.0:20110419T081631Z
@@ -196,6 +199,7 @@ V pkg jersey 1.5,0-1.0:20110421T091859Z
 V pkg jersey 1.1.5,0-1.0:20100421T181434Z
 V pkg jersey 1.1.1,0-1.0:20090722T195607Z
 V pkg jersey 1.1.0,0-1.0:20090702T113557Z
+V pkg jersey 1.8,0-1.10:20111018T144713Z
 V pkg jersey 1.1.5,0-1.0:20100210T173342Z
 V pkg jersey 1.1.5,0-1.0:20100618T234129Z
 V pkg jersey 1.1.5,0-1.0:20100310T094205Z
@@ -300,6 +304,7 @@ V pkg glassfish-full-incorporation 3.1,0-27:20101102T204024Z
 V pkg glassfish-full-incorporation 3.1,0-13:20100727T092847Z
 V pkg glassfish-full-incorporation 3.1,0-34:20101222T001857Z
 V pkg glassfish-full-incorporation 3.1,0-9:20100708T004222Z
+V pkg glassfish-full-incorporation 3.1.2,0-7:20111027T150458Z
 V pkg glassfish-full-incorporation 3.1,0-43:20110215T074016Z
 V pkg glassfish-full-incorporation 3.1,0-1:20100520T055641Z
 V pkg glassfish-full-incorporation 3.1,0-25:20101019T111708Z
@@ -309,6 +314,7 @@ V pkg glassfish-full-incorporation 3.0.1,0-21:20100603T185943Z
 V pkg glassfish-full-incorporation 3.0,0-70:20091028T083426Z
 V pkg glassfish-full-incorporation 3.1,0-41:20110205T153748Z
 V pkg glassfish-full-incorporation 3.0.1,0-16:20100503T115150Z
+V pkg glassfish-full-incorporation 3.1.2,0-6:20111018T145524Z
 V pkg glassfish-full-incorporation 3.2,0-4:20110426T083750Z
 V pkg glassfish-full-incorporation 3.1.1,0-6:20110526T011346Z
 V pkg glassfish-full-incorporation 3.1.1,0-5:20110516T213727Z
@@ -407,7 +413,9 @@ V pkg glassfish-web-incorporation 3.1,0-21:20100921T105330Z
 V pkg glassfish-web-incorporation 3.1,0-2:20100525T201423Z
 V pkg glassfish-web-incorporation 3.1.1,0-7:20110609T015839Z
 V pkg glassfish-web-incorporation 3.1,0-7:20100629T185354Z
+V pkg glassfish-web-incorporation 3.1.2,0-7:20111027T150456Z
 V pkg glassfish-web-incorporation 3.1,0-41:20110205T153746Z
+V pkg glassfish-web-incorporation 3.1.2,0-6:20111018T145522Z
 V pkg glassfish-web-incorporation 3.1,0-14:20100804T213936Z
 V pkg glassfish-web-incorporation 3.0.1,0-10:20100324T083928Z
 V pkg glassfish-web-incorporation 3.2,0-1:20110405T230446Z
@@ -526,6 +534,7 @@ V pkg glassfish-hk2 3.2,0-1:20110914T223924Z
 V pkg glassfish-hk2 3.1,0-31:20101130T110659Z
 V pkg glassfish-hk2 3.1.1,0-9:20110623T164711Z
 V pkg glassfish-hk2 3.0.1,0-16:20100503T111633Z
+V pkg glassfish-hk2 3.1.2,0-6:20111018T143035Z
 V pkg glassfish-hk2 3.0.1,0-14:20100414T183855Z
 V pkg glassfish-hk2 3.0,0-63:20090911T002601Z
 V pkg glassfish-hk2 3.0.1,0-7:20100303T134718Z
@@ -576,6 +585,7 @@ V pkg glassfish-hk2 3.2,0-1:20110405T221231Z
 V pkg glassfish-hk2 3.1,0-11:20100720T110208Z
 V pkg glassfish-hk2 3.0.1,0-12:20100407T121924Z
 V pkg glassfish-hk2 3.0,0-66:20091001T014354Z
+V pkg glassfish-hk2 3.1.2,0-7:20111027T143943Z
 V pkg glassfish-hk2 3.1,0-25:20101019T105119Z
 V pkg glassfish-hk2 3.1.1,0-3:20110427T073737Z
 V pkg glassfish-hk2 3.1,0-2:20100525T192908Z
@@ -657,6 +667,7 @@ V pkg glassfish-ejb-lite 3.1,0-25:20101019T110149Z
 V pkg glassfish-ejb-lite 3.2,0-2:20110412T084921Z
 V pkg glassfish-ejb-lite 3.1,0-40:20110128T203720Z
 V pkg glassfish-ejb-lite 3.1,0-32:20101207T154211Z
+V pkg glassfish-ejb-lite 3.1.2,0-6:20111018T144326Z
 V pkg glassfish-ejb-lite 3.0,0-73:20091119T231540Z
 V pkg glassfish-ejb-lite 3.1.1,0-2:20110421T090707Z
 V pkg glassfish-ejb-lite 3.1,0-19:20100908T200753Z
@@ -718,6 +729,7 @@ V pkg glassfish-ejb-lite 3.0.1,0-6:20100225T153239Z
 V pkg glassfish-ejb-lite 3.0,0-69:20091022T082238Z
 V pkg glassfish-ejb-lite 3.0.1,0-2:20100128T035342Z
 V pkg glassfish-ejb-lite 3.0.1,0-4:20100210T172859Z
+V pkg glassfish-ejb-lite 3.1.2,0-7:20111027T145243Z
 V pkg glassfish-ejb-lite 3.1,0-43:20110215T072030Z
 V pkg glassfish-ejb-lite 3.1.2,0-2:20110907T175756Z
 V pkg glassfish-ejb-lite 3.1,0-24:20101012T161204Z
@@ -746,6 +758,7 @@ V pkg glassfish-osgi-incorporation 3.1.2,0-4:20110920T090954Z
 V pkg glassfish-osgi-incorporation 3.1,0-40:20110128T210015Z
 V pkg glassfish-osgi-incorporation 3.1,0-42:20110214T093349Z
 V pkg glassfish-osgi-incorporation 3.1.1,0-9:20110623T173843Z
+V pkg glassfish-osgi-incorporation 3.1.2,0-7:20111027T150608Z
 V pkg glassfish-osgi-incorporation 3.1,0-37:20110111T145918Z
 V pkg glassfish-osgi-incorporation 3.1.1,0-5:20110516T213838Z
 V pkg glassfish-osgi-incorporation 3.1,0-27:20101102T204041Z
@@ -770,6 +783,7 @@ V pkg glassfish-osgi-incorporation 3.1.1,0-7:20110609T015952Z
 V pkg glassfish-osgi-incorporation 3.1.1,0-2:20110421T093552Z
 V pkg glassfish-osgi-incorporation 3.1.1,0-4:20110504T101533Z
 V pkg glassfish-osgi-incorporation 3.1,0-35:20101228T092258Z
+V pkg glassfish-osgi-incorporation 3.1.2,0-6:20111018T145633Z
 V pkg glassfish-cluster-l10n 3.1.1,0-10:20110718T204652Z
 V pkg glassfish-cluster-l10n 3.1,0-36.1:20110125T004735Z
 V pkg glassfish-cluster-l10n 3.1,0-41.1:20110213T154512Z
@@ -830,6 +844,7 @@ V pkg glassfish-jca 3.2,0-6:20110510T074735Z
 V pkg glassfish-jca 3.1,0-6:20100623T140201Z
 V pkg glassfish-jca 3.1.1,0-3:20110428T220339Z
 V pkg glassfish-jca 3.0.1,0-16:20100503T112838Z
+V pkg glassfish-jca 3.1.2,0-6:20111018T143752Z
 V pkg glassfish-jca 3.1,0-14:20100804T211546Z
 V pkg glassfish-jca 3.0,0-73:20091119T230710Z
 V pkg glassfish-jca 3.1,0-37:20110111T142026Z
@@ -874,6 +889,7 @@ V pkg glassfish-jca 3.0.1,0-1:20100121T090942Z
 V pkg glassfish-jca 3.1,0-38:20110118T084921Z
 V pkg glassfish-jca 3.0,0-61:20090826T110622Z
 V pkg glassfish-jca 3.1.1,0-7:20110609T011941Z
+V pkg glassfish-jca 3.1.2,0-7:20111027T144709Z
 V pkg glassfish-jca 3.1.1,0-11:20110708T210721Z
 V pkg glassfish-jca 3.2,0-4:20110426T075813Z
 V pkg glassfish-jca 3.1,0-42:20110214T090422Z
@@ -908,6 +924,7 @@ V pkg glassfish-jcdi 3.0.1,0-15:20100421T181329Z
 V pkg glassfish-jcdi 3.1,0-26:20101027T221125Z
 V pkg glassfish-jcdi 3.1,0-6:20100623T142020Z
 V pkg glassfish-jcdi 3.1,0-41:20110205T152411Z
+V pkg glassfish-jcdi 3.1.2,0-7:20111027T145550Z
 V pkg glassfish-jcdi 3.0,0-61:20090826T111923Z
 V pkg glassfish-jcdi 3.1,0-4:20100608T083417Z
 V pkg glassfish-jcdi 3.1,0-7:20100629T183628Z
@@ -932,6 +949,7 @@ V pkg glassfish-jcdi 3.0,0-63:20090911T004749Z
 V pkg glassfish-jcdi 3.1,0-1:20100520T054141Z
 V pkg glassfish-jcdi 3.0,0-50:20090610T182912Z
 V pkg glassfish-jcdi 3.0,0-71:20091106T152019Z
+V pkg glassfish-jcdi 3.1.2,0-6:20111018T144630Z
 V pkg glassfish-jcdi 3.0,0-51:20090617T114516Z
 V pkg glassfish-jcdi 3.1.1,0-5:20110516T212204Z
 V pkg glassfish-jcdi 3.1.1,0-6:20110526T005811Z
@@ -1030,6 +1048,7 @@ V pkg metro 2.0,0-16:20090805T204649Z
 V pkg metro 2.0,0-29:20100324T083159Z
 V pkg metro 2.1,0-14:20100921T104735Z
 V pkg metro 2.1,0-17:20101027T221754Z
+V pkg metro 2.2,0-4:20111027T145923Z
 V pkg metro 2.1,0-9:20100810T091619Z
 V pkg metro 1.4,0-5010:20090429T113400Z
 V pkg metro 2.1.1,0-7:20110623T172828Z
@@ -1081,6 +1100,7 @@ V pkg metro 2.0,0-10:20090527T114819Z
 V pkg metro 1.4,0-5010:20081224T084214Z
 V pkg metro 2.1,0-16:20101012T162117Z
 V pkg metro 2.0.1,0-3:20100421T181817Z
+V pkg metro 2.2,0-4:20111018T144953Z
 V pkg metro 2.1,0-19:20101207T160036Z
 V pkg metro 2.1,0-30:20110405T225305Z
 V pkg metro 2.1,0-9:20100721T164846Z
@@ -1217,6 +1237,7 @@ V pkg glassfish-grizzly 1.9.19,0-1:20100928T121500Z
 V pkg glassfish-grizzly 1.9.18,0-3:20091010T230824Z
 V pkg glassfish-grizzly 1.9.18,0-8:20091125T085920Z
 V pkg glassfish-grizzly 1.9.19,0-1:20100720T110258Z
+V pkg glassfish-grizzly 1.9.36,0-1:20111027T144017Z
 V pkg glassfish-grizzly 1.9.19,0-0:20100601T203401Z
 V pkg glassfish-grizzly 1.9.15,0-0:20090603T112503Z
 V pkg glassfish-grizzly 2.1.2,0-0:20110914T223959Z
@@ -1255,6 +1276,7 @@ V pkg glassfish-grizzly 1.9.31,0-1:20110419T074321Z
 V pkg glassfish-grizzly 1.9.0,0-0:20090107T082809Z
 V pkg glassfish-grizzly 1.9.26,0-1:20101221T233336Z
 V pkg glassfish-grizzly 1.9.4,0-0:20090218T085443Z
+V pkg glassfish-grizzly 1.9.36,0-1:20111018T143108Z
 V pkg glassfish-grizzly 1.9.18,0-2:20090911T002639Z
 V pkg glassfish-grizzly 1.9.3,0-0:20090114T100004Z
 V pkg glassfish-grizzly 1.9.19,0-1:20100713T232623Z
@@ -1304,6 +1326,7 @@ V pkg glassfish-gui 3.0.1,0-2:20100128T035306Z
 V pkg glassfish-gui 3.1,0-9:20100708T001541Z
 V pkg glassfish-gui 3.1.1,0-2:20110421T090522Z
 V pkg glassfish-gui 3.2,0-1:20110914T223525Z
+V pkg glassfish-gui 3.1.2,0-7:20111027T145210Z
 V pkg glassfish-gui 3.1,0-29:20101110T172051Z
 V pkg glassfish-gui 3.1,0-27:20101102T201636Z
 V pkg glassfish-gui 3.1,0-19:20100908T143004Z
@@ -1366,6 +1389,7 @@ V pkg glassfish-gui 3.1,0-13:20100727T091220Z
 V pkg glassfish-gui 3.0,0-62:20090903T110759Z
 V pkg glassfish-gui 3.1,0-37:20110111T143010Z
 V pkg glassfish-gui 3.0.1,0-3:20100203T140301Z
+V pkg glassfish-gui 3.1.2,0-6:20111018T144253Z
 V pkg glassfish-gui 3.0,0-71:20091106T151610Z
 V pkg glassfish-gui 3.0,0-60:20090819T184945Z
 V pkg glassfish-gui 3.0.1,0-6:20100225T153203Z
@@ -1441,6 +1465,7 @@ V pkg glassfish-jta 3.1,0-21:20100921T103253Z
 V pkg glassfish-jta 3.0,0-59:20090812T143107Z
 V pkg glassfish-jta 3.0.1,0-20:20100526T113536Z
 V pkg glassfish-jta 3.1,0-25:20101019T105650Z
+V pkg glassfish-jta 3.1.2,0-7:20111027T144838Z
 V pkg glassfish-jta 3.1,0-31:20101130T111247Z
 V pkg glassfish-jta 3.1.2,0-4:20110920T085206Z
 V pkg glassfish-jta 3.1,0-6:20100623T140400Z
@@ -1469,6 +1494,7 @@ V pkg glassfish-jta 3.0.1,0-15:20100421T180331Z
 V pkg glassfish-jta 3.1,0-34:20101221T233854Z
 V pkg glassfish-jta 3.0.1,0-3:20100203T135706Z
 V pkg glassfish-jta 3.1,0-11:20100720T111829Z
+V pkg glassfish-jta 3.1.2,0-6:20111018T143924Z
 V pkg glassfish-jta 3.1,0-2:20100525T194350Z
 V pkg glassfish-jta 3.0,0-60:20090819T184524Z
 V pkg glassfish-jta 3.1,0-37:20110111T142110Z
@@ -1563,6 +1589,7 @@ V pkg glassfish-jsf 2.0.2,0-10:20100303T140332Z
 V pkg glassfish-jsf 2.0.2,0-10:20100407T123240Z
 V pkg glassfish-jsf 2.1.1,0-4:20110419T075256Z
 V pkg glassfish-jsf 2.1.0,0-4:20100915T193648Z
+V pkg glassfish-jsf 2.1.3,0-4:20111018T143954Z
 V pkg glassfish-jsf 2.1.1,0-4:20110504T093552Z
 V pkg glassfish-jsf 2.1.0,0-11:20110205T150940Z
 V pkg glassfish-jsf 2.0.0,0-11:20090429T112228Z
@@ -1587,6 +1614,7 @@ V pkg glassfish-jsf 2.0.0,0-13:20090617T112941Z
 V pkg glassfish-jsf 2.1.0,0-2:20100810T085912Z
 V pkg glassfish-jsf 2.0.2,0-10:20100702T231443Z
 V pkg glassfish-jsf 2.1.0,0-4:20100921T103309Z
+V pkg glassfish-jsf 2.1.3,0-4:20111027T144908Z
 V pkg glassfish-jsf 2.0.0,0-13:20090702T112155Z
 V pkg glassfish-jsf 2.1.0,0-2:20100721T162543Z
 V pkg glassfish-jsf 2.0.2,0-10:20100121T091357Z
@@ -1678,6 +1706,7 @@ V pkg glassfish-jsf 2.0.2,0-10:20100414T185211Z
 V pkg glassfish-jsf 2.0.2,0-1:20091106T151241Z
 V pkg glassfish-jsf 2.0.0,0-9:20090304T211717Z
 V pkg glassfish-jsf 2.0.0,0-13:20090527T113631Z
+V pkg glassfish-web-profile 3.1.2,0-6:20111018T145549Z
 V pkg glassfish-web-profile 3.0,0-72:20091111T150453Z
 V pkg glassfish-web-profile 3.0,0-63:20090911T005754Z
 V pkg glassfish-web-profile 3.1.1,0-4:20110504T101446Z
@@ -1774,6 +1803,7 @@ V pkg glassfish-web-profile 3.0,0-67:20091010T233849Z
 V pkg glassfish-web-profile 3.1,0-43:20110215T074022Z
 V pkg glassfish-web-profile 3.1,0-13:20100727T092849Z
 V pkg glassfish-web-profile 3.0.1,0-6:20100225T154806Z
+V pkg glassfish-web-profile 3.1.2,0-7:20111027T150521Z
 V pkg glassfish-web-profile 3.1,0-24:20101012T162723Z
 V pkg glassfish-web-profile 3.1,0-9:20100708T004224Z
 V pkg glassfish-web-profile 3.0.1,0-20:20100526T115900Z
@@ -1885,6 +1915,7 @@ V pkg glassfish-osgi-feature-pack 3.1.1,0-11:20110708T214921Z
 V pkg glassfish-osgi-feature-pack 3.1.1,0-12:20110720T013846Z
 V pkg glassfish-osgi-feature-pack 3.1.1,0-1:20110413T202849Z
 V pkg glassfish-osgi-feature-pack 3.1,0-39:20110127T000041Z
+V pkg glassfish-osgi-feature-pack 3.1.2,0-7:20111027T150630Z
 V pkg glassfish-osgi-feature-pack 3.1,0-37:20110111T145924Z
 V pkg glassfish-osgi-feature-pack 3.1,0-38:20110118T092926Z
 V pkg glassfish-osgi-feature-pack 3.1.2,0-2:20110907T181130Z
@@ -1896,6 +1927,7 @@ V pkg glassfish-osgi-feature-pack 3.1.1,0-6:20110526T011517Z
 V pkg glassfish-osgi-feature-pack 3.1.1,0-8:20110616T062735Z
 V pkg glassfish-osgi-feature-pack 3.1,0-40:20110128T210021Z
 V pkg glassfish-osgi-feature-pack 3.1.1,0-9:20110623T173907Z
+V pkg glassfish-osgi-feature-pack 3.1.2,0-6:20111018T145655Z
 V pkg glassfish-osgi-feature-pack 3.1.1,0-5:20110516T213900Z
 V pkg glassfish-osgi-feature-pack 3.1.1,0-2:20110421T093615Z
 V pkg mq-config-gf 4.4,0-6.3:20090422T172120Z
@@ -1958,6 +1990,7 @@ V pkg glassfish-verifier 3.0.1,0-7:20100303T141908Z
 V pkg glassfish-verifier 3.1.1,0-4:20110504T101021Z
 V pkg glassfish-verifier 3.1.2,0-3:20110913T080651Z
 V pkg glassfish-verifier 3.1,0-8:20100702T234026Z
+V pkg glassfish-verifier 3.1.2,0-6:20111018T145131Z
 V pkg glassfish-verifier 3.1,0-14:20100804T213451Z
 V pkg glassfish-verifier 3.1.1,0-6:20110526T010957Z
 V pkg glassfish-verifier 3.1,0-3:20100601T211114Z
@@ -2023,6 +2056,7 @@ V pkg glassfish-verifier 3.1,0-7:20100629T184614Z
 V pkg glassfish-verifier 3.0,0-70:20091028T082819Z
 V pkg glassfish-verifier 3.1,0-5:20100618T234845Z
 V pkg glassfish-verifier 3.0.1,0-2:20100128T040236Z
+V pkg glassfish-verifier 3.1.2,0-7:20111027T150105Z
 V pkg glassfish-verifier 3.1,0-39:20110126T235653Z
 V pkg glassfish-verifier 3.1.2,0-2:20110907T180613Z
 V pkg glassfish-verifier 3.1,0-24:20101012T162415Z
@@ -2074,6 +2108,7 @@ V pkg glassfish-osgi-http 3.1,0-41:20110205T151201Z
 V pkg glassfish-osgi-http 3.1,0-33:20101214T084405Z
 V pkg glassfish-osgi-http 3.0,0-69:20091022T082038Z
 V pkg glassfish-osgi-http 3.0,0-66:20091001T015955Z
+V pkg glassfish-osgi-http 3.1.2,0-7:20111027T145040Z
 V pkg glassfish-osgi-http 3.0,0-67:20091010T232335Z
 V pkg glassfish-osgi-http 3.0,0-61:20090826T111258Z
 V pkg glassfish-osgi-http 3.0,0-65:20090923T224528Z
@@ -2090,6 +2125,7 @@ V pkg glassfish-osgi-http 3.0,0-63:20090911T004216Z
 V pkg glassfish-osgi-http 3.0.1,0-6:20100225T153034Z
 V pkg glassfish-osgi-http 3.0.1,0-19:20100519T083733Z
 V pkg glassfish-osgi-http 3.1,0-1:20100520T053156Z
+V pkg glassfish-osgi-http 3.1.2,0-6:20111018T144128Z
 V pkg glassfish-osgi-http 3.1,0-35:20101228T084722Z
 V pkg glassfish-osgi-http 3.1,0-4:20100608T082319Z
 V pkg glassfish-osgi-http 3.0.1,0-3:20100203T140118Z
@@ -2196,6 +2232,7 @@ V pkg mq-core 4.4.1,0-3.4:20091008T072012Z
 V pkg mq-core 4.4,0-16.1:20090827T155300Z
 V pkg mq-core 4.5,0-8.1:20100520T071430Z
 V pkg shoal 1.5.34,0-0:20110720T005224Z
+V pkg shoal 1.6.13,0-0:20111018T143450Z
 V pkg shoal 1.5.30,0-0:20110405T221716Z
 V pkg shoal 1.5.16,0-0:20101005T100802Z
 V pkg shoal 1.5.30,0-0:20110421T084938Z
@@ -2207,6 +2244,7 @@ V pkg shoal 1.5.21,0-0:20101207T152949Z
 V pkg shoal 1.5.30,0-0:20110426T075446Z
 V pkg shoal 1.5.6,0-0:20100810T085451Z
 V pkg shoal 1.5.26,0-0:20110118T084800Z
+V pkg shoal 1.6.13,0-0:20111027T144359Z
 V pkg shoal 1.5.34,0-0:20110701T204730Z
 V pkg shoal 1.5.21,0-0:20101117T115255Z
 V pkg shoal 1.5.28,0-0:20110126T231826Z
@@ -2298,6 +2336,7 @@ V pkg glassfish-web 3.2,0-1:20110914T223321Z
 V pkg glassfish-web 3.2,0-3:20110419T075455Z
 V pkg glassfish-web 3.1,0-9:20100708T001138Z
 V pkg glassfish-web 3.0,0-55:20090715T151633Z
+V pkg glassfish-web 3.1.2,0-7:20111027T145014Z
 V pkg glassfish-web 3.0,0-64:20090916T153153Z
 V pkg glassfish-web 3.0,0-73:20091119T231305Z
 V pkg glassfish-web 3.0,0-68:20091016T082112Z
@@ -2376,6 +2415,7 @@ V pkg glassfish-web 3.0.1,0-14:20100414T185440Z
 V pkg glassfish-web 3.0.1,0-18:20100512T115344Z
 V pkg glassfish-web 3.1.1,0-5:20110516T210213Z
 V pkg glassfish-web 3.0.1,0-10:20100324T082048Z
+V pkg glassfish-web 3.1.2,0-6:20111018T144102Z
 V pkg glassfish-web 3.0,0-63:20090911T004206Z
 V pkg glassfish-web 3.2,0-6:20110510T075151Z
 V pkg glassfish-web 3.0,0-50:20090610T181716Z
@@ -2383,6 +2423,7 @@ V pkg glassfish-web 3.1,0-17:20100824T090329Z
 V pkg javadb-common 10.5.3.0,0-1:20090924T200906Z
 V pkg javadb-common 10.6.2.1,0-1:20101213T185828Z
 V pkg glassfish-javahelp 2.0.2,0-0:20091111T144106Z
+V pkg glassfish-javahelp 2.0.2,0-1:20111018T143608Z
 V pkg glassfish-javahelp 2.0.2,0-0:20100414T184747Z
 V pkg glassfish-javahelp 2.0.2,0-0:20100629T181504Z
 V pkg glassfish-javahelp 2.0.2,0-0:20100727T090316Z
@@ -2405,6 +2446,7 @@ V pkg glassfish-javahelp 2.0.2,0-0:20100128T034314Z
 V pkg glassfish-javahelp 2.0.2,0-1:20110413T194337Z
 V pkg glassfish-javahelp 2.0.2,0-1:20110128T202611Z
 V pkg glassfish-javahelp 2.0.2,0-0:20100608T081545Z
+V pkg glassfish-javahelp 2.0.2,0-1:20111027T144521Z
 V pkg glassfish-javahelp 2.0.2,0-1:20101228T084217Z
 V pkg glassfish-javahelp 2.0.2,0-1:20110426T075620Z
 V pkg glassfish-javahelp 2.0.2,0-0:20100618T231952Z
@@ -2498,6 +2540,7 @@ V pkg glassfish-appclient 3.0.1,0-3:20100203T141436Z
 V pkg glassfish-appclient 3.1.2,0-2:20110907T180805Z
 V pkg glassfish-appclient 3.0.1,0-5:20100216T100839Z
 V pkg glassfish-appclient 3.1,0-11:20100720T114707Z
+V pkg glassfish-appclient 3.1.2,0-7:20111027T150306Z
 V pkg glassfish-appclient 3.0.1,0-16:20100503T114633Z
 V pkg glassfish-appclient 3.1,0-35:20101228T092059Z
 V pkg glassfish-appclient 3.1.1,0-2:20110421T093248Z
@@ -2532,6 +2575,7 @@ V pkg glassfish-appclient 3.0,0-68:20091016T080226Z
 V pkg glassfish-appclient 3.1,0-7:20100629T184756Z
 V pkg glassfish-appclient 3.1,0-41:20110205T153609Z
 V pkg glassfish-appclient 3.1,0-20:20100915T195534Z
+V pkg glassfish-appclient 3.1.2,0-6:20111018T145341Z
 V pkg glassfish-appclient 3.0.1,0-19:20100519T085211Z
 V pkg glassfish-appclient 3.1,0-2:20100525T200904Z
 V pkg glassfish-appclient 3.0.1,0-22:20100608T222625Z
@@ -2696,6 +2740,7 @@ V pkg glassfish-common-full 3.0.1,0-21:20100603T184259Z
 V pkg glassfish-common-full 3.0,0-67:20091010T232531Z
 V pkg glassfish-common-full 3.1,0-39:20110126T233421Z
 V pkg glassfish-common-full 3.0,0-66:20091001T020244Z
+V pkg glassfish-common-full 3.1.2,0-7:20111027T145308Z
 V pkg glassfish-common-full 3.0,0-57:20090729T113809Z
 V pkg glassfish-common-full 3.0.1,0-17:20100506T142108Z
 V pkg glassfish-common-full 3.0,0-64:20090916T153629Z
@@ -2708,6 +2753,7 @@ V pkg glassfish-common-full 3.0.1,0-12:20100407T123749Z
 V pkg glassfish-common-full 3.0,0-55:20090715T152053Z
 V pkg glassfish-common-full 3.1.1,0-3:20110427T080133Z
 V pkg glassfish-common-full 3.0,0-65:20090923T224757Z
+V pkg glassfish-common-full 3.1.2,0-6:20111018T144351Z
 V pkg glassfish-common-full 3.0,0-70:20091028T081912Z
 V pkg glassfish-common-full 3.0,0-59:20090812T144135Z
 V pkg glassfish-common-full 3.1,0-15:20100810T090652Z
@@ -2858,6 +2904,7 @@ V pkg glassfish-grizzly-full 1.9.18,0-10:20100608T220007Z
 V pkg glassfish-grizzly-full 1.9.35,0-1:20110616T054126Z
 V pkg glassfish-grizzly-full 1.9.19,0-1:20100702T230229Z
 V pkg glassfish-grizzly-full 1.9.19,0-0:20100520T051902Z
+V pkg glassfish-grizzly-full 1.9.36,0-1:20111027T144153Z
 V pkg glassfish-grizzly-full 1.9.19,0-1:20100804T210959Z
 V pkg glassfish-grizzly-full 1.9.19,0-1:20100821T170742Z
 V pkg glassfish-grizzly-full 1.9.22,0-1:20101110T170902Z
@@ -2866,6 +2913,7 @@ V pkg glassfish-grizzly-full 1.9.31,0-1:20110215T070725Z
 V pkg glassfish-grizzly-full 1.9.26,0-1:20101214T083637Z
 V pkg glassfish-grizzly-full 1.9.19,0-1:20100727T085830Z
 V pkg glassfish-grizzly-full 1.9.28,0-1:20110118T084626Z
+V pkg glassfish-grizzly-full 1.9.36,0-1:20111018T143242Z
 V pkg glassfish-grizzly-full 1.9.31,0-1:20110412T082914Z
 V pkg glassfish-grizzly-full 1.9.34,0-1:20110428T215736Z
 V pkg glassfish-grizzly-full 1.9.17,0-0:20090819T183538Z
@@ -2927,6 +2975,7 @@ V pkg glassfish-ant-tasks 3.1,0-12:20100721T165839Z
 V pkg glassfish-ant-tasks 3.1.2,0-4:20110920T091041Z
 V pkg glassfish-ant-tasks 3.1,0-36:20110104T163132Z
 V pkg glassfish-ant-tasks 3.1,0-35:20101228T092311Z
+V pkg glassfish-ant-tasks 3.1.2,0-6:20111018T145717Z
 V pkg glassfish-ant-tasks 3.1.1,0-8:20110616T062800Z
 V pkg glassfish-ant-tasks 3.1.1,0-2:20110421T093640Z
 V pkg glassfish-ant-tasks 3.1,0-42:20110214T093405Z
@@ -2936,6 +2985,7 @@ V pkg glassfish-ant-tasks 3.2,0-3:20110419T083405Z
 V pkg glassfish-ant-tasks 3.1,0-6:20100623T143639Z
 V pkg glassfish-ant-tasks 3.1,0-33:20101214T092608Z
 V pkg glassfish-ant-tasks 3.1,0-26:20101027T222627Z
+V pkg glassfish-ant-tasks 3.1.2,0-7:20111027T150655Z
 V pkg glassfish-ant-tasks 3.1,0-37:20110111T145931Z
 V pkg glassfish-ant-tasks 3.1.1,0-6:20110526T011542Z
 V pkg glassfish-ant-tasks 3.2,0-5:20110503T124833Z
@@ -3008,6 +3058,7 @@ V pkg glassfish-corba-base 3.1.0,0-4:20100908T195840Z
 V pkg glassfish-corba-base 3.1.0,0-19:20101214T083649Z
 V pkg glassfish-corba-base 3.1.0,0-19:20101221T233513Z
 V pkg glassfish-corba-base 3.2.0,0-2:20110405T221530Z
+V pkg glassfish-corba-base 3.1.0,0-30:20111027T144222Z
 V pkg glassfish-corba-base 3.2.0,0-2:20110426T075250Z
 V pkg glassfish-corba-base 3.0.0,0-41:20100203T134551Z
 V pkg glassfish-corba-base 3.1.0,0-1:20100707T235743Z
@@ -3050,6 +3101,7 @@ V pkg glassfish-corba-base 3.0.0,0-41:20100324T080743Z
 V pkg glassfish-corba-base 3.1.0,0-1:20100629T180758Z
 V pkg glassfish-corba-base 3.1.0,0-19:20110104T154832Z
 V pkg glassfish-corba-base 3.0.0,0-41:20100310T091828Z
+V pkg glassfish-corba-base 3.1.0,0-30:20111018T143311Z
 V pkg glassfish-corba-base 3.1.0,0-4:20100831T215009Z
 V pkg glassfish-corba-base 3.2.0,0-2:20110609T011442Z
 V pkg glassfish-corba-base 3.1.0,0-24:20110128T202410Z
@@ -3129,6 +3181,7 @@ V pkg glassfish-nucleus 3.1,0-38:20110118T084612Z
 V pkg glassfish-nucleus 3.0.1,0-11:20100331T080847Z
 V pkg glassfish-nucleus 3.1,0-35:20101228T083954Z
 V pkg glassfish-nucleus 3.1.1,0-4:20110504T092647Z
+V pkg glassfish-nucleus 3.1.2,0-6:20111018T143216Z
 V pkg glassfish-nucleus 3.1,0-16:20100821T170706Z
 V pkg glassfish-nucleus 3.1,0-33:20101214T083623Z
 V pkg glassfish-nucleus 3.1,0-5:20100618T231257Z
@@ -3159,6 +3212,7 @@ V pkg glassfish-nucleus 3.1,0-26:20101027T214806Z
 V pkg glassfish-nucleus 3.1.1,0-10:20110701T204421Z
 V pkg glassfish-nucleus 3.0.1,0-9:20100317T080754Z
 V pkg glassfish-nucleus 3.0.1,0-16:20100503T111931Z
+V pkg glassfish-nucleus 3.1.2,0-7:20111027T144126Z
 V pkg glassfish-nucleus 3.1.2,0-4:20110920T084435Z
 V pkg glassfish-nucleus 3.0.1,0-22:20100608T215932Z
 V pkg glassfish-nucleus 3.0,0-71:20091106T150148Z
@@ -3216,6 +3270,7 @@ V pkg felix 2.0.0,0-0:20091010T230714Z
 V pkg felix 3.0.8,0-0:20110510T073835Z
 V pkg felix 3.0.1,0-0:20100908T195620Z
 V pkg felix 3.0.7,0-0:20110128T202207Z
+V pkg felix 3.0.8,0-0:20111018T142958Z
 V pkg felix 3.0.8,0-0:20110421T084308Z
 V pkg felix 2.0.1,0-0:20091106T145824Z
 V pkg felix 3.0.6,0-0:20101130T110605Z
@@ -3295,6 +3350,7 @@ V pkg felix 3.0.7,0-0:20110118T084443Z
 V pkg felix 3.0.1,0-0:20100721T160727Z
 V pkg felix 1.8.0,0-0:20090617T111624Z
 V pkg felix 3.0.6,0-0:20101207T152548Z
+V pkg felix 3.0.8,0-0:20111027T143906Z
 V pkg felix 3.0.4,0-0:20101019T105037Z
 V pkg felix 1.2.2,0-0:20090107T082710Z
 V pkg felix 1.2.2,0-0:20090128T191240Z
@@ -3415,6 +3471,7 @@ V pkg glassfish-jts 3.0,0-66:20091001T020301Z
 V pkg glassfish-jts 3.0.1,0-22:20100608T221548Z
 V pkg glassfish-jts 3.0,0-68:20091016T082356Z
 V pkg glassfish-jts 3.2,0-1:20110405T223640Z
+V pkg glassfish-jts 3.1.2,0-6:20111018T144416Z
 V pkg glassfish-jts 3.1,0-43:20110215T072233Z
 V pkg glassfish-jts 3.1,0-22:20100928T122557Z
 V pkg glassfish-jts 3.0.1,0-20:20100526T114213Z
@@ -3446,6 +3503,7 @@ V pkg glassfish-jts 3.0.1,0-21:20100603T184325Z
 V pkg glassfish-jts 3.1.2,0-2:20110907T175851Z
 V pkg glassfish-jts 3.1.1,0-2:20110421T091027Z
 V pkg glassfish-jts 3.1,0-42:20110214T091536Z
+V pkg glassfish-jts 3.1.2,0-7:20111027T145334Z
 V pkg glassfish-jts 3.1.1,0-12:20110720T011350Z
 V pkg glassfish-jts 3.0,0-70:20091028T081932Z
 V pkg glassfish-jts 3.0.1,0-6:20100225T153312Z
@@ -3555,6 +3613,7 @@ V pkg glassfish-management 3.1,0-34:20101221T233753Z
 V pkg glassfish-management 3.1,0-30:20101117T115409Z
 V pkg glassfish-management 3.1,0-18:20100831T215534Z
 V pkg glassfish-management 3.0,0-64:20090916T152508Z
+V pkg glassfish-management 3.1.2,0-6:20111018T143720Z
 V pkg glassfish-management 3.1,0-43:20110215T071037Z
 V pkg glassfish-management 3.1.1,0-2:20110421T085234Z
 V pkg glassfish-management 3.0.1,0-11:20100331T081635Z
@@ -3593,6 +3652,7 @@ V pkg glassfish-management 3.1.1,0-3:20110428T220304Z
 V pkg glassfish-management 3.1,0-20:20100915T193536Z
 V pkg glassfish-management 3.0,0-60:20090819T184146Z
 V pkg glassfish-management 3.1,0-37:20110111T142010Z
+V pkg glassfish-management 3.1.2,0-7:20111027T144637Z
 V pkg glassfish-management 3.0.1,0-9:20100317T081620Z
 V pkg glassfish-management 3.0,0-58:20090805T203231Z
 V pkg glassfish-management 3.0,0-59:20090812T142727Z
@@ -3654,6 +3714,7 @@ V pkg glassfish-full-profile 3.1,0-19:20100908T202220Z
 V pkg glassfish-full-profile 3.1,0-35:20101228T092251Z
 V pkg glassfish-full-profile 3.1,0-21:20100921T105343Z
 V pkg glassfish-full-profile 3.1.1,0-1:20110413T202801Z
+V pkg glassfish-full-profile 3.1.2,0-7:20111027T150546Z
 V pkg glassfish-full-profile 3.2,0-1:20110914T225240Z
 V pkg glassfish-full-profile 3.1,0-28:20101109T093824Z
 V pkg glassfish-full-profile 3.1.2,0-2:20110907T181041Z
@@ -3683,6 +3744,7 @@ V pkg glassfish-full-profile 3.1,0-1:20100520T055648Z
 V pkg glassfish-full-profile 3.1,0-39:20110127T000029Z
 V pkg glassfish-full-profile 3.1.1,0-11:20110708T214835Z
 V pkg glassfish-full-profile 3.1,0-22:20100928T123945Z
+V pkg glassfish-full-profile 3.1.2,0-6:20111018T145610Z
 V pkg glassfish-full-profile 3.0.1,0-18:20100512T121223Z
 V pkg glassfish-full-profile 3.1,0-16:20100821T173717Z
 V pkg glassfish-full-profile 3.1,0-42:20110214T093341Z
@@ -3720,6 +3782,7 @@ V pkg glassfish-osgi-gui 3.1.2,0-4:20110920T085440Z
 V pkg glassfish-osgi-gui 3.1.1,0-7:20110609T012751Z
 V pkg glassfish-osgi-gui 3.1,0-41:20110205T151359Z
 V pkg glassfish-osgi-gui 3.1.1,0-3:20110427T075459Z
+V pkg glassfish-osgi-gui 3.1.2,0-7:20111027T145107Z
 V pkg glassfish-osgi-gui 3.1,0-37:20110111T142657Z
 V pkg glassfish-osgi-gui 3.1,0-29:20101110T171752Z
 V pkg glassfish-osgi-gui 3.1,0-26:20101027T215704Z
@@ -3741,6 +3804,7 @@ V pkg glassfish-osgi-gui 3.1,0-30:20101117T120003Z
 V pkg glassfish-osgi-gui 3.1.1,0-1:20110413T195408Z
 V pkg glassfish-osgi-gui 3.1,0-33:20101214T085256Z
 V pkg glassfish-osgi-gui 3.1.1,0-9:20110623T170436Z
+V pkg glassfish-osgi-gui 3.1.2,0-6:20111018T144153Z
 V pkg glassfish-osgi-gui 3.1,0-27:20101102T201351Z
 V pkg glassfish-osgi-gui 3.1.1,0-11:20110708T211624Z
 V pkg glassfish-osgi-gui 3.1,0-36:20110104T155907Z
@@ -3795,6 +3859,7 @@ V pkg glassfish-corba 3.1.0,0-27:20110214T090458Z
 V pkg glassfish-corba 3.0.0,0-41:20100608T220912Z
 V pkg glassfish-corba 3.1.0,0-8:20101012T160650Z
 V pkg glassfish-corba 3.1.0,0-4:20100824T090102Z
+V pkg glassfish-corba 3.1.0,0-30:20111027T144814Z
 V pkg glassfish-corba 3.0.0,0-20:20090429T112140Z
 V pkg glassfish-corba 3.0.0,0-20:20090812T143057Z
 V pkg glassfish-corba 3.1.0,0-30:20110913T075349Z
@@ -3862,6 +3927,7 @@ V pkg glassfish-corba 3.2.0,0-2:20110516T205916Z
 V pkg glassfish-corba 3.2.0,0-2:20110412T083622Z
 V pkg glassfish-corba 3.0.0,0-41:20100203T135656Z
 V pkg glassfish-corba 3.0.0,0-20:20090911T003853Z
+V pkg glassfish-corba 3.1.0,0-30:20111018T143900Z
 V pkg glassfish-corba 3.1.0,0-17:20101207T153152Z
 V pkg glassfish-corba 3.0.0,0-41:20100503T113001Z
 V pkg glassfish-corba 3.0.0,0-24:20090916T152839Z
@@ -4000,6 +4066,7 @@ V pkg glassfish-cmp 3.1,0-5:20100618T233833Z
 V pkg glassfish-cmp 3.1.2,0-3:20110913T080116Z
 V pkg glassfish-cmp 3.1,0-40:20110128T204542Z
 V pkg glassfish-cmp 3.1.1,0-3:20110428T222736Z
+V pkg glassfish-cmp 3.1.2,0-7:20111027T145516Z
 V pkg glassfish-cmp 3.0,0-59:20090812T144415Z
 V pkg glassfish-cmp 3.0.1,0-8:20100310T094014Z
 V pkg glassfish-cmp 3.2,0-3:20110419T081510Z
@@ -4027,11 +4094,13 @@ V pkg glassfish-cmp 3.2,0-6:20110510T081117Z
 V pkg glassfish-cmp 3.0,0-73:20091119T231836Z
 V pkg glassfish-cmp 3.1,0-6:20100623T141937Z
 V pkg glassfish-cmp 3.1,0-27:20101102T202724Z
+V pkg glassfish-cmp 3.1.2,0-6:20111018T144557Z
 V pkg glassfish-cmp 3.1,0-11:20100720T113448Z
 V pkg glassfish-cmp 3.1,0-39:20110126T234330Z
 V pkg glassfish-cmp 3.1,0-43:20110215T072715Z
 V pkg glassfish-common 3.0.1,0-2:20100128T040906Z
 V pkg glassfish-common 3.1,0-7:20100629T185341Z
+V pkg glassfish-common 3.1.2,0-6:20111018T145517Z
 V pkg glassfish-common 3.0,0-74:20091125T093955Z
 V pkg glassfish-common 3.1,0-37:20110111T145841Z
 V pkg glassfish-common 3.0.1,0-5:20100216T101358Z
@@ -4093,6 +4162,7 @@ V pkg glassfish-common 3.2,0-3:20110419T083158Z
 V pkg glassfish-common 3.1,0-19:20100908T202156Z
 V pkg glassfish-common 3.0,0-67:20091010T233840Z
 V pkg glassfish-common 3.0,0-71:20091106T153027Z
+V pkg glassfish-common 3.1.2,0-7:20111027T150448Z
 V pkg glassfish-common 3.0,0-65:20090923T230116Z
 V pkg glassfish-common 3.1,0-16:20100821T173654Z
 V pkg glassfish-common 3.1,0-11:20100720T115240Z
@@ -4206,6 +4276,7 @@ V pkg glassfish-upgrade 3.1,0-16:20100821T171212Z
 V pkg glassfish-upgrade 3.1,0-14:20100804T211432Z
 V pkg glassfish-upgrade 3.0,0-64:20090916T152426Z
 V pkg glassfish-upgrade 3.1.2,0-4:20110920T084903Z
+V pkg glassfish-upgrade 3.1.2,0-6:20111018T143630Z
 V pkg glassfish-upgrade 3.0.1,0-21:20100603T183304Z
 V pkg glassfish-upgrade 3.1,0-11:20100720T111453Z
 V pkg glassfish-upgrade 3.1,0-23:20101005T100851Z
@@ -4261,6 +4332,7 @@ V pkg glassfish-upgrade 3.0,0-59:20090812T142643Z
 V pkg glassfish-upgrade 3.1,0-22:20100928T121811Z
 V pkg glassfish-upgrade 3.2,0-1:20110405T221916Z
 V pkg glassfish-upgrade 3.1,0-26:20101027T215107Z
+V pkg glassfish-upgrade 3.1.2,0-7:20111027T144544Z
 V pkg glassfish-upgrade 3.0.1,0-10:20100324T081316Z
 V pkg glassfish-upgrade 3.0,0-72:20091111T144115Z
 V pkg glassfish-upgrade 3.1,0-5:20100618T232007Z
@@ -4327,6 +4399,7 @@ V pkg glassfish-jms 3.1.2,0-2:20110907T175925Z
 V pkg glassfish-jms 3.0,0-55:20090715T152141Z
 V pkg glassfish-jms 3.0.1,0-20:20100526T114251Z
 V pkg glassfish-jms 3.1,0-35:20101228T090039Z
+V pkg glassfish-jms 3.1.2,0-7:20111027T145405Z
 V pkg glassfish-jms 3.1.2,0-4:20110920T085743Z
 V pkg glassfish-jms 3.1,0-38:20110118T090652Z
 V pkg glassfish-jms 3.0.1,0-21:20100603T184402Z
@@ -4334,6 +4407,7 @@ V pkg glassfish-jms 3.0,0-57:20090729T113856Z
 V pkg glassfish-jms 3.1,0-43:20110215T072339Z
 V pkg glassfish-jms 3.0,0-70:20091028T082008Z
 V pkg glassfish-jms 3.1,0-21:20100921T104020Z
+V pkg glassfish-jms 3.1.2,0-6:20111018T144445Z
 V pkg glassfish-jms 3.1,0-29:20101110T172711Z
 V pkg glassfish-jms 3.0,0-53:20090702T112845Z
 V pkg glassfish-jms 3.1,0-31:20101130T112911Z
@@ -4420,6 +4494,7 @@ V pkg glassfish-cluster 3.1,0-41:20110205T150733Z
 V pkg glassfish-cluster 3.1,0-21:20100921T103103Z
 V pkg glassfish-cluster 3.1,0-39:20110126T231852Z
 V pkg glassfish-cluster 3.1,0-32:20101207T153011Z
+V pkg glassfish-cluster 3.1.2,0-6:20111018T143523Z
 V pkg glassfish-cluster 3.1.2,0-4:20110920T084749Z
 V pkg glassfish-cluster 3.1,0-7:20100629T181433Z
 V pkg glassfish-cluster 3.1,0-42:20110214T090319Z
@@ -4457,6 +4532,7 @@ V pkg glassfish-cluster 3.1,0-9:20100708T000403Z
 V pkg glassfish-cluster 3.1.1,0-7:20110609T011658Z
 V pkg glassfish-cluster 3.1,0-38:20110118T084820Z
 V pkg glassfish-cluster 3.1.1,0-9:20110623T165240Z
+V pkg glassfish-cluster 3.1.2,0-7:20111027T144433Z
 V pkg glassfish-cluster 3.1,0-36:20110104T155015Z
 V pkg glassfish-cluster 3.2,0-5:20110503T120011Z
 V pkg glassfish-cluster 3.1.1,0-4:20110504T093049Z
@@ -4483,6 +4559,7 @@ V pkg glassfish-ha 3.2,0-5:20110503T120037Z
 V pkg glassfish-ha 3.1,0-15:20100810T085528Z
 V pkg glassfish-ha 3.1,0-38:20110118T084829Z
 V pkg glassfish-ha 3.1,0-23:20101005T100838Z
+V pkg glassfish-ha 3.1.2,0-7:20111027T144457Z
 V pkg glassfish-ha 3.1,0-14:20100804T211407Z
 V pkg glassfish-ha 3.1,0-43:20110215T070954Z
 V pkg glassfish-ha 3.2,0-2:20110412T083245Z
@@ -4531,6 +4608,7 @@ V pkg glassfish-ha 3.1,0-12:20100721T162058Z
 V pkg glassfish-ha 3.1,0-16:20100821T171149Z
 V pkg glassfish-ha 3.1,0-32:20101207T153019Z
 V pkg glassfish-ha 3.1,0-10:20100713T233831Z
+V pkg glassfish-ha 3.1.2,0-6:20111018T143546Z
 V pkg glassfish-ha 3.1,0-39:20110126T231901Z
 V pkg glassfish-ha 3.1.1,0-3:20110428T220114Z
 V pkg glassfish-ha 3.1,0-42:20110214T090328Z
@@ -4645,6 +4723,7 @@ V pkg glassfish-ejb 3.2,0-1:20110914T223759Z
 V pkg glassfish-ejb 3.0,0-73:20091119T231707Z
 V pkg glassfish-ejb 3.1,0-35:20101228T090230Z
 V pkg glassfish-ejb 3.0,0-50:20090610T182215Z
+V pkg glassfish-ejb 3.1.2,0-6:20111018T144515Z
 V pkg glassfish-ejb 3.1.1,0-8:20110616T060625Z
 V pkg glassfish-ejb 3.0.1,0-9:20100317T082740Z
 V pkg glassfish-ejb 3.1.1,0-10:20110701T211537Z
@@ -4657,6 +4736,7 @@ V pkg glassfish-ejb 3.1.1,0-2:20110421T091405Z
 V pkg glassfish-ejb 3.1,0-28:20101109T092019Z
 V pkg glassfish-ejb 3.0.1,0-11:20100331T082623Z
 V pkg glassfish-ejb 3.0.1,0-3:20100203T140514Z
+V pkg glassfish-ejb 3.1.2,0-7:20111027T145434Z
 V pkg glassfish-ejb 3.0,0-52:20090625T113735Z
 V pkg glassfish-ejb 3.1,0-29:20101110T172852Z
 V pkg glassfish-ejb 3.0.1,0-1:20100121T092202Z
@@ -4768,6 +4848,7 @@ V pkg glassfish-jpa 3.1.1,0-2:20110421T085338Z
 V pkg glassfish-jpa 3.1.1,0-11:20110708T210750Z
 V pkg glassfish-jpa 3.0,0-50:20090610T181301Z
 V pkg glassfish-jpa 3.0,0-72:20091111T144415Z
+V pkg glassfish-jpa 3.1.2,0-6:20111018T143821Z
 V pkg glassfish-jpa 3.1,0-42:20110214T090435Z
 V pkg glassfish-jpa 3.1,0-26:20101027T215200Z
 V pkg glassfish-jpa 3.1,0-2:20100525T194220Z
@@ -4799,6 +4880,7 @@ V pkg glassfish-jpa 3.1,0-17:20100824T090018Z
 V pkg glassfish-jpa 3.2,0-1:20110405T222116Z
 V pkg glassfish-jpa 3.1.1,0-1:20110413T194604Z
 V pkg glassfish-jpa 3.2,0-2:20110412T083541Z
+V pkg glassfish-jpa 3.1.2,0-7:20111027T144737Z
 V pkg glassfish-jpa 3.0,0-74:20091125T091302Z
 V pkg glassfish-jpa 3.0,0-57:20090729T112900Z
 V pkg glassfish-jpa 3.0.1,0-14:20100414T185015Z
@@ -4876,6 +4958,7 @@ V pkg glassfish-jdbc 3.1.1,0-4:20110504T094334Z
 V pkg glassfish-jdbc 3.2,0-3:20110419T080055Z
 V pkg glassfish-jdbc 3.0.1,0-19:20100519T083756Z
 V pkg glassfish-jdbc 3.1,0-32:20101207T153844Z
+V pkg glassfish-jdbc 3.1.2,0-7:20111027T145135Z
 V pkg glassfish-jdbc 3.1,0-43:20110215T071818Z
 V pkg glassfish-jdbc 3.0,0-63:20090911T004228Z
 V pkg glassfish-jdbc 3.0.1,0-12:20100407T123547Z
@@ -4897,6 +4980,7 @@ V pkg glassfish-jdbc 3.0,0-71:20091106T151511Z
 V pkg glassfish-jdbc 3.1,0-26:20101027T215823Z
 V pkg glassfish-jdbc 3.0.1,0-16:20100503T113425Z
 V pkg glassfish-jdbc 3.0,0-69:20091022T082052Z
+V pkg glassfish-jdbc 3.1.2,0-6:20111018T144219Z
 V pkg glassfish-jdbc 3.0.1,0-8:20100310T093500Z
 V pkg glassfish-jdbc 3.1,0-29:20101110T171916Z
 V pkg glassfish-jdbc 3.1,0-39:20110126T232919Z

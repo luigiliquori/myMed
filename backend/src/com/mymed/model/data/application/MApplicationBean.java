@@ -13,10 +13,6 @@ public final class MApplicationBean extends AbstractMBean {
 	// Used for the calculation of the hashCode()
 	private static final int PRIME = 31;
 
-	@Override
-	public void update(final AbstractMBean mBean) {
-		// TODO Auto-generated method stub
-	}
 
 	/*
 	 * (non-Javadoc)

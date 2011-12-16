@@ -69,7 +69,7 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
 				case READ :
 					message.setMethod("READ");
 					MUserBean userBean = profileManager.read(id);
-					message.addData("profile", getGson().toJson(userBean));
+					message.addData("user", getGson().toJson(userBean));
 					break;
 				case DELETE :
 					message.setMethod("DELETE");

@@ -51,6 +51,11 @@ public class ManagerValues {
 	 * The 'User' column family
 	 */
 	protected static final String CF_USER = "User";
+	
+	/**
+	 * The 'Position' column family
+	 */
+	protected static final String CF_POSITION = "Position";
 
 	// Super columns
 	/**

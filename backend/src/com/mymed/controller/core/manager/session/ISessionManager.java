@@ -13,7 +13,16 @@ public interface ISessionManager {
 	 * @param ip
 	 * @throws InternalBackEndException
 	 */
+	@Deprecated
 	void create(String userID, String ip) throws InternalBackEndException, IOBackEndException;
+	
+	/**
+	 * Login
+	 * @param sessionBean
+	 * @throws InternalBackEndException
+	 * @throws IOBackEndException
+	 */
+	public void create(final MSessionBean sessionBean) throws InternalBackEndException, IOBackEndException;
 
 	/**
 	 * 
@@ -37,5 +46,5 @@ public interface ISessionManager {
 	 * @param userID
 	 * @throws InternalBackEndException
 	 */
-	void delete(String userID) throws InternalBackEndException;
+	void delete(String userID) throws InternalBackEndException, IOBackEndException;
 }

@@ -30,15 +30,16 @@ class TemplateManager {
 		<title>myMed | Réseaux Social Transfrontalier</title> 
 		
 		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" /> 
+		<meta name="viewport" content="width=device-width, initial-scale=1, <?= TARGET == "mobile" ? "user-scalable=0" : "" ?>" /> 
 		
 		<link rel="stylesheet" href="css/style.css" />
 		
 		<!-- JQUERY -->
-		<link href="http://code.jquery.com/mobile/1.0b2/jquery.mobile-1.0b2.min.css" rel="stylesheet" />
+		<link href="http://code.jquery.com/mobile/1.0rc2/jquery.mobile-1.0rc2.min.css" rel="stylesheet" />
+		<!--  <link href="css/jquery.mobile-1.0b2.min.css" rel="stylesheet" /> -->
 		<link href="css/jquery.mobile.datebox.min.css" rel="stylesheet" />
-		<script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
-		<script src="http://code.jquery.com/mobile/1.0b2/jquery.mobile-1.0b2.min.js"></script>
+		<script src="javascript/jquery/jquery-1.6.2.min.js"></script>
+		<script src="javascript/jquery/jquery.mobile-1.0b2.min.js"></script>
 		<script src="javascript/jquery/datebox/jquery.mobile.datebox.min.js"></script>
 		
 		<!-- MAP -->

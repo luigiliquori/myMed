@@ -1,6 +1,7 @@
 package com.mymed.controller.core.requesthandler;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -13,10 +14,17 @@ import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.authentication.AuthenticationManager;
 import com.mymed.controller.core.manager.authentication.IAuthenticationManager;
+import com.mymed.controller.core.manager.profile.IProfileManager;
+import com.mymed.controller.core.manager.profile.ProfileManager;
+import com.mymed.controller.core.manager.session.ISessionManager;
+import com.mymed.controller.core.manager.session.SessionManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.session.MAuthenticationBean;
+import com.mymed.model.data.session.MSessionBean;
 import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.MLogger;
+
+import edu.lognet.core.tools.HashFunction;
 
 /**
  * Servlet implementation class AuthenticationRequestHandler
@@ -28,6 +36,8 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 	private static final long serialVersionUID = 1L;
 
 	private IAuthenticationManager authenticationManager;
+	private ISessionManager sessionManager;
+	private IProfileManager profileManager;
 
 	/* --------------------------------------------------------- */
 	/* Constructors */
@@ -40,6 +50,8 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 
 		try {
 			authenticationManager = new AuthenticationManager();
+			sessionManager = new SessionManager();
+			profileManager = new ProfileManager();
 		} catch (final InternalBackEndException e) {
 			throw new ServletException("AuthenticationManager is not accessible because: " + e.getMessage());
 		}
@@ -71,15 +83,16 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 					message.addData("warning", "METHOD DEPRECATED - Post method should be used instead of Get!");
 					final MUserBean userBean = authenticationManager.read(login, password);
 					message.setDescription("Successfully authenticated");
-					message.addData("profile", getGson().toJson(userBean));
+					message.addData("user", getGson().toJson(userBean));
 				}
 				break;
 			case DELETE :
-				break;
+				throw new InternalBackEndException("not implemented yet...");
 			default :
 				throw new InternalBackEndException("AuthenticationRequestHandler(" + code + ") not exist!");
 			}
 		} catch (final AbstractMymedException e) {
+			e.printStackTrace();
 			MLogger.getLog().info("Error in doGet operation");
 			MLogger.getDebugLog().debug("Error in doGet operation", e.getCause());
 			message.setStatus(e.getStatus());
@@ -125,7 +138,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 
 						MLogger.getLog().info("User created");
 						message.setDescription("User created");
-						message.addData("profile", getGson().toJson(userBean));
+						message.addData("user", getGson().toJson(userBean));
 					} catch (final JsonSyntaxException e) {
 						throw new InternalBackEndException("User/Authentication jSon format is not valid");
 					}
@@ -140,7 +153,28 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 				} else {
 					final MUserBean userBean = authenticationManager.read(login, password);
 					message.setDescription("Successfully authenticated");
-					message.addData("profile", getGson().toJson(userBean));
+					message.addData("user", getGson().toJson(userBean)); // TODO Remove this parameter
+					
+					// Create a new session
+					final MSessionBean sessionBean = new MSessionBean();
+					sessionBean.setIp(request.getRemoteAddr());
+					sessionBean.setUser(userBean.getId());
+					sessionBean.setCurrentApplications("");
+					sessionBean.setP2P(false);
+					sessionBean.setTimeout(System.currentTimeMillis()); // TODO Use The Cassandra Timeout mecanism
+					HashFunction h = new HashFunction("myMed");
+					String accessToken = h.SHA1ToString(login + password + sessionBean.getTimeout());
+					sessionBean.setAccessToken(accessToken);
+					sessionBean.setId(accessToken);	
+					sessionManager.create(sessionBean);
+
+					// Update the profile with the new session
+					userBean.setSession(accessToken);
+					profileManager.update(userBean);
+					
+					MLogger.getLog().info("Session {} created -> LOGIN", accessToken);
+					message.addData("url", "http://" + InetAddress.getLocalHost().getHostAddress() + "/mobile"); // TODO Find a better way to get the url
+					message.addData("accessToken", accessToken);
 				}
 				break;
 			case UPDATE :
@@ -166,6 +200,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 				throw new InternalBackEndException("AuthenticationRequestHandler(" + code + ") not exist!");
 			}
 		} catch (final AbstractMymedException e) {
+			e.printStackTrace();
 			MLogger.getLog().info("Error in doPost operation");
 			MLogger.getDebugLog().debug("Error in doPost operation", e.getCause());
 			message.setStatus(e.getStatus());

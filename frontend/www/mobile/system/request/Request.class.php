@@ -16,13 +16,15 @@ class Request {
 	private /*string*/					$ressource;
 	private /*BackendRequest_*/			$method;
 	private /*Array<string,string>*/	$arguments	= Array();
+	private /*Boolean>*/				$multipart;
 	
 	/* --------------------------------------------------------- */
 	/* Constructors */
 	/* --------------------------------------------------------- */
 	public function __construct(/*string*/ $ressource, /*BackendRequest_*/ $method=READ) {
 		$this->ressource	= $ressource;
-		$this->method	= $method;
+		$this->method		= $method;
+		$this->multipart	= false;
 	}
 
 	/* --------------------------------------------------------- */
@@ -39,7 +41,15 @@ class Request {
 	public /*void*/ function setMethod(/*BackendRequest_*/ $method) {
 		$this->method	= $method;
 	}
+	
+	public /*Boolean*/ function setMultipart($multipart = false) {
+		$this->multipart = $multipart;
+	}
 
+	public /*Boolean*/ function isMultipart() {
+		return $this->multipart;
+	}
+	
 	public /*string*/ function send() {
 // 		echo '<script type="text/javascript">alert("send method called to: ' . $this->ressource . '")</script>';
 		$curl	= curl_init();
@@ -52,13 +62,25 @@ class Request {
 		switch($this->method) {
 			case CREATE:
 			case UPDATE:
-				$httpHeader[] = 'Content-Type:application/x-www-form-urlencoded';
+				if($this->isMultipart()) {
+					$httpHeader[] = 'Content-Type:multipart/form-data; boundary=--------------------------boundary';
+				} else { 
+					$httpHeader[] = 'Content-Type:application/x-www-form-urlencoded';
+				}
 				curl_setopt($curl, CURLOPT_HTTPHEADER, $httpHeader);
 				curl_setopt($curl, CURLOPT_URL, BACKEND_URL.$this->ressource);
 				curl_setopt($curl, CURLOPT_POST, true);
 				curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($this->arguments));
 				break;
 			case READ:
+				if($this->ressource == "AuthenticationRequestHandler"){
+					$httpHeader[] = 'Content-Type:application/x-www-form-urlencoded';
+					curl_setopt($curl, CURLOPT_HTTPHEADER, $httpHeader);
+					curl_setopt($curl, CURLOPT_URL, BACKEND_URL.$this->ressource);
+					curl_setopt($curl, CURLOPT_POST, true);
+					curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($this->arguments));
+					break;
+				}
 			case DELETE:
 				curl_setopt($curl, CURLOPT_HTTPHEADER, $httpHeader);
 				curl_setopt($curl, CURLOPT_URL, BACKEND_URL.$this->ressource.'?'.http_build_query($this->arguments));

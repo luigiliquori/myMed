@@ -74,7 +74,6 @@ public class DHTRequestHandler extends AbstractRequestHandler {
 				throw new InternalBackEndException("DHTRequestHandler.doGet(" + code + ") not exist!");
 			}
 
-			super.doGet(request, response);
 		} catch (final AbstractMymedException e) {
 			MLogger.getLog().info("Error in doGet operation");
 			MLogger.getDebugLog().debug("Error in doGet operation", e.getCause());
@@ -113,7 +112,6 @@ public class DHTRequestHandler extends AbstractRequestHandler {
 				 throw new InternalBackEndException("DHTRequestHandler.doPost(" + code + ") not exist!");
 			 }
 
-			super.doGet(request, response);
 		} catch (final AbstractMymedException e) {
 			MLogger.getLog().info("Error in doPost operation");
 			MLogger.getDebugLog().debug("Error in doPost operation", e.getCause());

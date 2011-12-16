@@ -1,6 +1,6 @@
 <?php
 require_once 'system/templates/AbstractTemplate.class.php';
-require_once dirname(__FILE__).'/handler/UpdateProfileHandler.class.php';
+require_once 'system/templates/mobile/home/handler/UpdateProfileHandler.class.php';
 
 /**
  * 
@@ -38,11 +38,11 @@ class Profile extends AbstractTemplate {
 		<div style="position: absolute; top: 50px; left: 22%;">
 			<h1>myMed's home page: <?= $_SESSION['user']->name ?></h1>
 		</div>
-		<div style="position: absolute; top: 2px; left: 65%; color: white;">
+		<div style="position: absolute; top: 7px; left: 65%; color: white;">
 			<img alt="thumbnail" src="<?= $this->pictureURL ?>" width="20px" style="position: absolute;" />
 			<div style="position:relative; margin-left: 30px; top:10px;">
-				<?= $_SESSION['user']->name ?>
-				<a href="#login" onclick="document.disconnectForm.submit()">Deconnexion</a>
+				<?= $_SESSION['user']->name ?> : 
+				<a href="#login" onclick="document.disconnectForm.submit()" style="font-weight: bold; color: red; text-decoration: none;">Deconnexion</a>
 			</div>
 		</div>
 	<?php }
@@ -60,7 +60,7 @@ class Profile extends AbstractTemplate {
 		$updateProfileHandler->handleRequest();
 		?>
 		<!-- CONTENT -->
-		<div style="position: absolute; margin-left: 30%; left:-200px; top: 210px; width: 200px; overflow: auto;">
+		<div style="position: absolute; margin-left: 30%; left:-202px; top: 160px; width: 200px; overflow: auto;">
 			<!-- NOTIFICATION -->
 			<?php if($updateProfileHandler->getError()) { ?>
 				<div style="color: red;">
@@ -80,10 +80,10 @@ class Profile extends AbstractTemplate {
 				Nom: <?= $_SESSION['user']->lastName ?><br />
 				Date de naissance: <?= $_SESSION['user']->birthday ?><br />
 				eMail: <?= $_SESSION['user']->email ?><br />
-				Profile: <a href="<?= $_SESSION['user']->link ?>"><?= $_SESSION['user']->socialNetwork ?></a><br />
+				Profile: <a href="<?= $_SESSION['user']->link ?>"><?= $_SESSION['user']->socialNetworkName ?></a><br />
 				Reputation: 
 				 <?php 
-			    	$rand = rand(0, 4);
+			    	$rand = 3;
 			    	$j=0;
 			    	while($j<=$rand){ ?>
 			    		<img alt="star" src="img/star.png" width="20" />
@@ -101,8 +101,8 @@ class Profile extends AbstractTemplate {
 				<br /><br />
 				
 				<!-- FRIENDS STREAM -->
-				<div style="background-color: #415b68; color: white; width: 200px; font-size: 15px; font-weight: bold;">Contacts</div>
-				<div style="position:relative; height: 200px; width: 200px; overflow: auto; background-color: #edf2f4; top:0px;">
+				<div style="background-color: #1d1d1d; color: white; width: 200px; font-size: 15px; font-weight: bold;">Contacts</div>
+				<div style="position:relative; width: 200px; height:400px; overflow: auto; background-color: #f0f0f0; top:0px;">
 					<?php foreach ($_SESSION['friends'] as $friend ) { ?>
 						<img src="http://graph.facebook.com/<?= $friend["id"] ?>/picture" width="20px" />
 						<a href="<?= $friend["link"] ?>"><?= $friend["name"] ?></a>

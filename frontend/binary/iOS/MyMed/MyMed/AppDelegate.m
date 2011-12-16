@@ -3,24 +3,33 @@
 //  MyMed
 //
 //  Created by Nicolas Goles on 9/16/11.
-//  Copyright (c) 2011 GandoGames. All rights reserved.
+//  Copyright (c) 2011 LOGNET. All rights reserved.
 //
 
 #import "AppDelegate.h"
 
 #import "ViewController.h"
+#import "LoginViewController.h"
+#import "WebObjCBridge.h"
+#import "UIDeviceHardware.h"
 
 @implementation AppDelegate
 
 @synthesize window = _window;
-@synthesize viewController = _viewController;
+@synthesize loginViewController = _loginViewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
-    self.window.rootViewController = self.viewController;
+    
+    if ([[UIDeviceHardware platformString] rangeOfString:@"iPhone"].location == NSNotFound 
+        && [[UIDeviceHardware platformString] rangeOfString:@"Simulator"].location == NSNotFound) {
+        self.loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController_iPad" bundle:nil];        
+    } else {
+        self.loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];        
+    }
+
+    self.window.rootViewController = self.loginViewController;
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -53,7 +62,6 @@
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
-    [self.viewController loadMyMed];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

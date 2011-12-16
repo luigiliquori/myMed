@@ -3,6 +3,18 @@
 	padding: 10px;
 }
 
+#footer {
+	position: relative;
+	top: 115%;
+	text-align	: center;
+	margin		: auto;
+	width		: 930px;
+	border-top	: solid 1px #B0C0E1;
+}
+#footer img {
+	vertical-align	: middle;
+}
+
 .ui-btn-text img {
 	position: absolute;
 }

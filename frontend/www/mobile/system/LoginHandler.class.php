@@ -32,12 +32,12 @@ class LoginHandler implements IRequestHandler {
 	 * Enter description here ...
 	 */
 	public /*String*/ function handleRequest() { 
-		// HANDLE ALL THE SOCIAL NETWORK LOGIN
+		// HANDLE ALL THE SOCIAL NETWORK AUTHENTICATION
 		foreach($this->socialNetworkConnection->getWrappers() as $wrapper) {
-			$wrapper->handleLogin();
+			$wrapper->handleAuthentication();
 		}
 		
-		// HANDLE MYMED LOGIN
+		// HANDLE AUTHENTICATION
 		if(isset($_POST['singin'])) { 
 			// Preconditions
 			if($_POST['login'] == ""){
@@ -48,31 +48,34 @@ class LoginHandler implements IRequestHandler {
 				return;
 			}
 			
-			// AUTHENTICATION
 			$request = new Request("AuthenticationRequestHandler", READ);
 			$request->addArgument("login", $_POST["login"]);
-			if(isset($_POST['isMobileConnection'])) {
-				$request->addArgument("password", $_POST["password"]);	// the password should be already encrypted by the client
-			} else {
-				$request->addArgument("password", hash('sha512', $_POST["password"]));
-			}
+			$request->addArgument("password", hash('sha512', $_POST["password"]));
+			
 			$responsejSon = $request->send();
 			$responseObject = json_decode($responsejSon);
 			
 			if($responseObject->status != 200) {
 				$_SESSION['error'] = $responseObject->description;
 			} else {
-				$user = json_decode($responseObject->data->profile);
-				// AUTHENTENTICATION OK: CREATE A SESSION
-				$request = new Request("SessionRequestHandler", CREATE);
-				$request->addArgument("userID", $user->id);
-				$responsejSon = $request->send();
-				$responseObject = json_decode($responsejSon);
-				if($responseObject->status != 200) {
-					$_SESSION['error'] = $responseObject->description;
-				} else {
-					$_SESSION['user'] = $user;
-				}
+				$accessToken = $responseObject->data->accessToken;
+				header("Refresh:0;url=" . $_SERVER['PHP_SELF'] . "?socialNetwork=myMed&accessToken=" . $accessToken); // REDIRECTION
+			}
+		}
+		
+		// HANDLE LOGIN
+		if(isset($_GET['accessToken'])) {
+			$request = new Request("SessionRequestHandler", READ);
+			$request->addArgument("accessToken", $_GET['accessToken']);
+			$request->addArgument("socialNetwork", $_GET['socialNetwork']);
+			
+			$responsejSon = $request->send();
+			$responseObject = json_decode($responsejSon);
+			
+			if($responseObject->status != 200) {
+				$_SESSION['error'] = $responseObject->description;
+			} else {
+				$_SESSION['user'] = json_decode($responseObject->data->user);
 			}
 		}
 	}

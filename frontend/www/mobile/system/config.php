@@ -10,8 +10,17 @@
 	define('ROOTPATH', '/mymed/mobile/');
 	/** define the backend's URL'*/
 	define('BACKEND_URL', 'https://mymed2.sophia.inria.fr:8181/mymed_backend/');
+	/** define the backend's URL'*/
+	define('MOBILE_PARAMETER_SEPARATOR', '::');
 	
 	//Social Networks Keys
 	define('Facebook_APP_ID', '263064853727560');
 	define('Facebook_APP_SECRET', '31132a354804069960f966668df6daa2');
+	
+	//Social Networks Keys
+	define('Google_APP_SECRET', 'IQVBaitB9zaBX1UIytixrw7i');
+	
+	//CITYWAY Keys
+	define('Cityway_URL', 'http://openservice.cityway.fr/api/');
+	define('Cityway_APP_ID', 'INRIACARF');
 ?>
