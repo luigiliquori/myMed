@@ -5,8 +5,7 @@ import org.slf4j.LoggerFactory;
 import ch.qos.logback.classic.Logger;
 
 /**
- * Class to hold the logger facilities for mymed.
- * 
+ * Class to hold the logger facilities for the mymed backend.
  * 
  * @author Milo Casagrande
  * 
