@@ -16,10 +16,10 @@ public class MyJamTypeValidator {
 			throw new WrongFormatException(" Value can be only 0 or 1. ");
 	}
 	
-	public void validate(MSearchReportBean mShorteportBean) throws WrongFormatException {
-		if (ReportType.valueOf(mShorteportBean.getReportType())==null)
+	public void validate(MSearchBean mShorteportBean) throws WrongFormatException {
+		if (ReportType.valueOf(mShorteportBean.getValue())==null)
 			throw new WrongFormatException(" Wrong report type. ");
-		if (MyJamId.parseString(mShorteportBean.getReportId()).getType()!=MyJamId.REPORT_ID)
+		if (MyJamId.parseString(mShorteportBean.getId()).getType()!=MyJamId.REPORT_ID)
 			throw new WrongFormatException(" Wrong report id. ");
 	}
 	

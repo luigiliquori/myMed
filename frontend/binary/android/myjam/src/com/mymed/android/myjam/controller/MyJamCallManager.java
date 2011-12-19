@@ -15,7 +15,7 @@ import com.mymed.android.myjam.exception.InternalBackEndException;
 import com.mymed.android.myjam.exception.InternalClientException;
 import com.mymed.model.data.myjam.MFeedBackBean;
 import com.mymed.model.data.myjam.MReportBean;
-import com.mymed.model.data.myjam.MSearchReportBean;
+import com.mymed.model.data.myjam.MSearchBean;
 
 /**
  * Singleton class used to perform HTTP calls, according to MyJam API.
@@ -26,13 +26,13 @@ public class MyJamCallManager extends HTTPCall implements ICallAttributes{
 	private static MyJamCallManager instance;
 	private static final String QUERY ="?code=";
 //	private static final String MY_JAM_HANDLER_URL = "http://130.192.9.113:8080/mymed_backend/MyJamRequestHandler";
-	private static final String MY_JAM_REPORT_HANDLER_URL = "http://130.192.9.113:8080/mymed_backend/MyJamReportRequestHandler";
-	private static final String MY_JAM_UPDATE_HANDLER_URL = "http://130.192.9.113:8080/mymed_backend/MyJamUpdateRequestHandler";
-	private static final String MY_JAM_FEEDBACK_HANDLER_URL = "http://130.192.9.113:8080/mymed_backend/MyJamFeedbackRequestHandler";
+//	private static final String MY_JAM_REPORT_HANDLER_URL = "http://130.192.9.113:8080/mymed_backend/MyJamReportRequestHandler";
+//	private static final String MY_JAM_UPDATE_HANDLER_URL = "http://130.192.9.113:8080/mymed_backend/MyJamUpdateRequestHandler";
+//	private static final String MY_JAM_FEEDBACK_HANDLER_URL = "http://130.192.9.113:8080/mymed_backend/MyJamFeedbackRequestHandler";
 	//  For local testing with the emulator.
-//	private static final String MY_JAM_REPORT_HANDLER_URL = "http://10.0.2.2:8080/LocalMyMed/MyJamReportRequestHandler";
-//	private static final String MY_JAM_UPDATE_HANDLER_URL = "http://10.0.2.2:8080/LocalMyMed/MyJamUpdateRequestHandler";
-//	private static final String MY_JAM_FEEDBACK_HANDLER_URL = "http://10.0.2.2:8080/LocalMyMed/MyJamFeedbackRequestHandler";
+	private static final String MY_JAM_REPORT_HANDLER_URL = "http://10.0.2.2:8080/mymed_backend/MyJamReportRequestHandler";
+	private static final String MY_JAM_UPDATE_HANDLER_URL = "http://10.0.2.2:8080/mymed_backend/MyJamUpdateRequestHandler";
+	private static final String MY_JAM_FEEDBACK_HANDLER_URL = "http://10.0.2.2:8080/mymed_backend/MyJamFeedbackRequestHandler";
 	
 	private Gson gson;
 	
@@ -73,7 +73,7 @@ public class MyJamCallManager extends HTTPCall implements ICallAttributes{
 	 * @throws IOBackEndException 
 	 * @throws InternalBackEndException 
 	 */
-	public List<MSearchReportBean> searchReports(int latitude,int longitude, int radius) 
+	public List<MSearchBean> searchReports(int latitude,int longitude, int radius) 
 			throws InternalBackEndException, IOBackEndException, InternalClientException{
 		String q=QUERY+RequestCode.READ.code;
 		q=appendAttribute(q,LATITUDE,String.valueOf(latitude));
@@ -85,7 +85,7 @@ public class MyJamCallManager extends HTTPCall implements ICallAttributes{
 			response = (JSONObject) new JSONTokener(httpRequest(MY_JAM_REPORT_HANDLER_URL+q,httpMethod.GET,null)).nextValue();
 			JSONObject data = response.getJSONObject("data");
 			String jsonData = data.getString("search_reports");
-			Type shortReportListType = new TypeToken<List<MSearchReportBean>>(){}.getType();
+			Type shortReportListType = new TypeToken<List<MSearchBean>>(){}.getType();
 			return this.gson.fromJson(jsonData, shortReportListType);
 		}catch(JsonSyntaxException e){
 			throw new InternalBackEndException("Wrong response format.");

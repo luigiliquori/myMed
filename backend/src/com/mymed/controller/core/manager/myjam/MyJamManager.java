@@ -51,19 +51,19 @@ public class MyJamManager extends AbstractManager{
 	 * @throws InternalBackEndException
 	 * @throws IOBackEndException 
 	 */
-	public MReportBean insertReport(MReportBean report,double latitude,double longitude) throws InternalBackEndException, IOBackEndException{
+	public MReportBean insertReport(MReportBean report,int latitude,int longitude) throws InternalBackEndException, IOBackEndException{
 		try {
 			/**
 			 * Data preparation
 			 */
-			long locId = Locator.getLocationId(latitude,longitude);
+			long locId = Locator.getLocationId((double) (latitude/1E6),(double) (longitude/1E6));
 
 			/** The user profile is received ProfileManager */
 			final ProfileManager profileManager = new ProfileManager(new StorageManager());
 			final LocatorManager locatorManager = new LocatorManager();
 			MUserBean userProfile = profileManager.read(report.getUserId()); //TODO Not secure. The server trust the user identity.
 			/** Insert a new located object into Location column family. */
-			MSearchBean searchBean = locatorManager.create("myJam", "report", userProfile.getLogin(), (int) (latitude*1E6),(int) (longitude*1E6), report.getReportType(), 
+			MSearchBean searchBean = locatorManager.create("myJam", "report", userProfile.getLogin(), latitude, longitude, report.getReportType(), 
 					ReportType.valueOf(report.getReportType()).permTime);
 			/** The convention is to use milliseconds since 1 Jenuary 1970. */
 			long timestamp = searchBean.getDate();
@@ -123,10 +123,10 @@ public class MyJamManager extends AbstractManager{
 	 * @return
 	 * @throws InternalBackEndException
 	 */
-	public List<MSearchBean> searchReports(double latitude,double longitude,int radius) throws InternalBackEndException,IOBackEndException{
+	public List<MSearchBean> searchReports(int latitude,int longitude,int radius) throws InternalBackEndException,IOBackEndException{
 		final LocatorManager locatorManager = new LocatorManager();
 		
-		return locatorManager.read("myJam", "report", (int) (latitude*1E6), (int) (longitude*1E6), radius);
+		return locatorManager.read("myJam", "report", latitude, longitude, radius);
 	}
 	
 	/**

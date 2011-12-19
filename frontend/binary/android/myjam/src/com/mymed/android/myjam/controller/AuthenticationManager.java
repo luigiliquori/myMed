@@ -23,15 +23,15 @@ public class AuthenticationManager extends HTTPCall implements ICallAttributes {
 	/*
 	 *		Attributes. 
 	 */
-	private static final String PROFILE_HANDLER_URL = "http://130.192.9.113:8080/mymed_backend/ProfileRequestHandler";
+/**	private static final String PROFILE_HANDLER_URL = "http://130.192.9.113:8080/mymed_backend/ProfileRequestHandler";
 	private static final String AUTHENTICATION_HANDLER_URL = "http://130.192.9.113:8080/mymed_backend/AuthenticationRequestHandler";
 	private static final String SESSION_HANDLER_URL = "http://130.192.9.113:8080/mymed_backend/SessionRequestHandler";
-/**
+//*/
  	//For local testing with the emulator.
 
-	private static final String PROFILE_HANDLER_URL = "http://10.0.2.2:8080/LocalMyMed/ProfileRequestHandler";
-	private static final String AUTHENTICATION_HANDLER_URL = "http://10.0.2.2:8080/LocalMyMed/AuthenticationRequestHandler";
-	private static final String SESSION_HANDLER_URL = "http://10.0.2.2:8080/LocalMyMed/SessionRequestHandler";
+	private static final String PROFILE_HANDLER_URL = "http://10.0.2.2:8080/mymed_backend/ProfileRequestHandler";
+	private static final String AUTHENTICATION_HANDLER_URL = "http://10.0.2.2:8080/mymed_backend/AuthenticationRequestHandler";
+	private static final String SESSION_HANDLER_URL = "http://10.0.2.2:8080/mymed_backend/SessionRequestHandler";
 //*/	
 	private static final String QUERY ="?code=";
 	
@@ -93,7 +93,7 @@ public class AuthenticationManager extends HTTPCall implements ICallAttributes {
 		try {
 			response = (JSONObject) new JSONTokener(httpRequest(AUTHENTICATION_HANDLER_URL+q,httpMethod.POST,null)).nextValue();
 			JSONObject data = response.getJSONObject("data");
-			String profile = data.getString("profile");
+			String profile = data.getString("user");
 			Type userType = new TypeToken<MUserBean>(){}.getType();
 			return this.gson.fromJson(profile, userType);
 		} catch (JSONException e) {

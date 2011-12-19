@@ -23,7 +23,7 @@ import com.mymed.android.myjam.provider.MyJamContract.UpdatesRequest;
 import com.mymed.android.myjam.provider.MyJamContract.User;
 import com.mymed.model.data.myjam.MFeedBackBean;
 import com.mymed.model.data.myjam.MReportBean;
-import com.mymed.model.data.myjam.MSearchReportBean;
+import com.mymed.model.data.myjam.MSearchBean;
 import com.mymed.model.data.user.MUserBean;
 
 import android.app.IntentService;
@@ -221,8 +221,8 @@ public class MyJamCallService extends IntentService{
 		MUserBean user = authManager.authenticate(
 			bundle.getString(ICallAttributes.LOGIN),
 			bundle.getString(ICallAttributes.PASSWORD));
-		authManager.logIn(user.getId(), 
-				bundle.getString(ICallAttributes.IP));
+		//authManager.logIn(user.getId(), 
+		//		bundle.getString(ICallAttributes.IP));
 		ContentValues currVal = new ContentValues();
 		currVal.put(User.USER_ID, user.getId());
 		currVal.put(User.LOGIN_ID, user.getLogin());
@@ -280,7 +280,7 @@ public class MyJamCallService extends IntentService{
 			throws InternalBackEndException, IOBackEndException, InternalClientException, RemoteException, OperationApplicationException{
 		final ArrayList<ContentProviderOperation> batch;
 		
-		List<MSearchReportBean> listSearchRep = myJamRestCall.searchReports(
+		List<MSearchBean> listSearchRep = myJamRestCall.searchReports(
     			bundle.getInt(ICallAttributes.LATITUDE),
     			bundle.getInt(ICallAttributes.LONGITUDE),
     			bundle.getInt(ICallAttributes.RADIUS));
@@ -319,15 +319,15 @@ public class MyJamCallService extends IntentService{
 			currVal.put(Search.RADIUS, bundle.getInt(ICallAttributes.RADIUS));
 			currVal.put(Search.SEARCHING, false);
 			batch.add(ContentProviderOperation.newInsert(Search.CONTENT_URI).withValues(currVal).build());
-			for (MSearchReportBean currShortRep:listSearchRep){
+			for (MSearchBean currShortRep:listSearchRep){
 				currVal = new ContentValues();
-				currVal.put(SearchResult.REPORT_ID, currShortRep.getReportId());
+				currVal.put(SearchResult.REPORT_ID, currShortRep.getId());
 				currVal.put(SearchResult.DISTANCE, currShortRep.getDistance());
 				currVal.put(SearchResult.SEARCH_ID, searchId);
 				batch.add(ContentProviderOperation.newInsert(SearchResult.CONTENT_URI).withValues(currVal).build());
 				currVal = new ContentValues();
-				currVal.put(Report.REPORT_ID,	currShortRep.getReportId());
-				currVal.put(Report.REPORT_TYPE,	currShortRep.getReportType());
+				currVal.put(Report.REPORT_ID,	currShortRep.getId());
+				currVal.put(Report.REPORT_TYPE,	currShortRep.getValue());
 				currVal.put(Report.LATITUDE, currShortRep.getLatitude());
 				currVal.put(Report.LONGITUDE, currShortRep.getLongitude());
 				currVal.put(Report.DATE, currShortRep.getDate());
