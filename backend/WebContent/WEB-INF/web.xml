@@ -21,16 +21,6 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>FirstRequestHandler</display-name>
-    <servlet-name>FirstRequestHandler</servlet-name>
-    <servlet-class>com.mymed.controller.core.requesthandler.tests.FirstRequestHandler</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>FirstRequestHandler</servlet-name>
-    <url-pattern>/FirstRequestHandler</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
     <display-name>DHTRequestHandler</display-name>
     <servlet-name>DHTRequestHandler</servlet-name>
     <servlet-class>com.mymed.controller.core.requesthandler.DHTRequestHandler</servlet-class>
