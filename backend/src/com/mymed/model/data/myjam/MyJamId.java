@@ -7,6 +7,8 @@ import java.nio.CharBuffer;
 import java.nio.charset.CharacterCodingException;
 import java.nio.charset.Charset;
 
+import com.mymed.controller.core.exception.WrongFormatException;
+
 /**
  * Class used to identify a report.
  * @author iacopo
@@ -100,11 +102,11 @@ public class MyJamId {
 			return new MyJamId(checkType(type),checkTimestamp(timestamp),
 					checkUserId(userId));
 		}catch(NumberFormatException e){
-			throw new WrongFormatException("ReportId: Parsing error.");	
+			throw new WrongFormatException("Mymed Id: Parsing error.");	
 		}catch(BufferUnderflowException e){
-			throw new WrongFormatException("ReportId: BufferUnderflow.");
+			throw new WrongFormatException("Mymed Id: BufferUnderflow.");
 		}catch(Exception e){
-			throw new WrongFormatException("ReportId: Parsing error occurred. "+e.getLocalizedMessage());
+			throw new WrongFormatException("Mymed Id: Parsing error occurred. "+e.getLocalizedMessage());
 		}
 	}
 	
@@ -148,8 +150,8 @@ public class MyJamId {
 		switch (type){
 			case REPORT_ID:
 			case UPDATE_ID:
-			case FEEDBACK_ID:
-				return type;
+			case FEEDBACK_ID:				
+			return type;
 			default:
 				throw new WrongFormatException("Wrong type.");
 		}

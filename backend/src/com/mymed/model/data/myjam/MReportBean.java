@@ -133,8 +133,4 @@ public class MReportBean extends AbstractMBean implements Serializable{
 		return args;
 	}
 
-	@Override
-	public void update(AbstractMBean mBean) {
-		// TODO Auto-generated method stub		
-	}
 }

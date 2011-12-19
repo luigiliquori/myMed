@@ -9,16 +9,17 @@ import java.util.Map;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.controller.core.exception.WrongFormatException;
 import com.mymed.controller.core.manager.AbstractManager;
+import com.mymed.controller.core.manager.locator.LocatorManager;
 import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.storage.MyJamStorageManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
-import com.mymed.controller.core.manager.storage.MyJamStorageManager.ExpColumnBean;
+import com.mymed.model.data.locator.MSearchBean;
+import com.mymed.model.data.myjam.ExpColumnBean;
 import com.mymed.model.data.myjam.MFeedBackBean;
 import com.mymed.model.data.myjam.MReportBean;
-import com.mymed.model.data.myjam.MSearchReportBean;
 import com.mymed.model.data.myjam.MyJamId;
-import com.mymed.model.data.myjam.WrongFormatException;
 import com.mymed.model.data.myjam.MyJamTypes.ReportType;
 import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.MConverter;
@@ -33,10 +34,8 @@ import com.mymed.utils.locator.Locator;
  */
 public class MyJamManager extends AbstractManager{
 	/**
-	 * TODO The identity of the users must be checked.
+	 * TODO The identity of the users must be checked. Authorization.
 	 */
-	//private final String userId = "iacopoId";
-	//private final String userName = "iacopo"; 
 
 	public MyJamManager(MyJamStorageManager storageManager) {
 		super(storageManager);
@@ -52,22 +51,25 @@ public class MyJamManager extends AbstractManager{
 	 * @throws InternalBackEndException
 	 * @throws IOBackEndException 
 	 */
-	public MReportBean insertReport(MReportBean report,int latitude,int longitude) throws InternalBackEndException, IOBackEndException{
+	public MReportBean insertReport(MReportBean report,double latitude,double longitude) throws InternalBackEndException, IOBackEndException{
 		try {
 			/**
 			 * Data preparation
 			 */
-			long locId = Locator.getLocationId((double) (latitude/1E6),
-					(double) (longitude/1E6));
-			String areaId = String.valueOf(Locator.getAreaId(locId));
+			long locId = Locator.getLocationId(latitude,longitude);
+
 			/** The user profile is received ProfileManager */
 			final ProfileManager profileManager = new ProfileManager(new StorageManager());
-			MUserBean userProfile = profileManager.read(report.getUserId()); //TODO Not secure. The server trust the user identity.  
-			/** The convention is to use milliseconds since 1 Jenuary 1970*/
-			long timestamp = System.currentTimeMillis();				
-			MyJamId reportId = new MyJamId(MyJamId.REPORT_ID,timestamp,userProfile.getLogin());
+			final LocatorManager locatorManager = new LocatorManager();
+			MUserBean userProfile = profileManager.read(report.getUserId()); //TODO Not secure. The server trust the user identity.
+			/** Insert a new located object into Location column family. */
+			MSearchBean searchBean = locatorManager.create("myJam", "report", userProfile.getLogin(), (int) (latitude*1E6),(int) (longitude*1E6), report.getReportType(), 
+					ReportType.valueOf(report.getReportType()).permTime);
+			/** The convention is to use milliseconds since 1 Jenuary 1970. */
+			long timestamp = searchBean.getDate();
+			MyJamId reportId = MyJamId.parseString(searchBean.getId());
 			
-			report.setId(reportId.toString());
+			report.setId(searchBean.getId());
 			report.setUserName(userProfile.getName());
 			report.setUserId(userProfile.getId());
 			report.setLocationId(locId);
@@ -84,13 +86,6 @@ public class MyJamManager extends AbstractManager{
 //				throw new InternalBackEndException("Position occupied.");
 //			}catch(IOBackEndException e){} // If the exception is thrown the position is not occupied.
 			
-			/**
-			 * SuperColumn insertion in CF Location 
-			 **/
-			myJamStorageManager.insertExpiringColumn("Location", areaId, MConverter.longToByteBuffer(locId).array(), 
-					reportId.ReportIdAsByteBuffer().array(),
-					MConverter.stringToByteBuffer(report.getReportType()).array(),
-					timestamp, ReportType.valueOf(report.getReportType()).permTime);
 			/**
 			 * Column insertion in CF ActiveReport 
 			 **/
@@ -114,6 +109,8 @@ public class MyJamManager extends AbstractManager{
 			throw new InternalBackEndException("Wrong parameter: "+e.getMessage());
 		} catch (IOBackEndException e){
 			throw new IOBackEndException(e.getMessage(),404);
+		} catch (WrongFormatException e) {
+			throw new InternalBackEndException("Wrong id format: "+e.getMessage());
 		}
 	}
 
@@ -126,67 +123,10 @@ public class MyJamManager extends AbstractManager{
 	 * @return
 	 * @throws InternalBackEndException
 	 */
-	public List<MSearchReportBean> searchReports(double latitude,double longitude,int radius) throws InternalBackEndException,IOBackEndException{
-		List<MSearchReportBean> resultReports = new LinkedList<MSearchReportBean>();
-		try{
-			/**
-			 * Data structures preparation
-			 */
-			Map<byte[],Map<byte[],byte[]>> reports = new HashMap<byte[],Map<byte[],byte[]>>();
-			List<long[]> covId = Locator.getCoveringLocationId(latitude, longitude, radius);
-			List<String> areaIds = new LinkedList<String>();
-			Iterator<long[]> covIdIterator = covId.iterator();
-			/**
-			 * Cassandra calls
-			 */
-			while(covIdIterator.hasNext()){
-				long[] range = covIdIterator.next();
-				long startAreaId = Locator.getAreaId(range[0]);
-				long endAreaId = Locator.getAreaId(range[1]);
-				for (long ind=startAreaId;ind<=endAreaId;ind++){
-					areaIds.add(String.valueOf(ind));
-				}//TODO Check
-				Map<byte[],Map<byte[],byte[]>> mapRep = myJamStorageManager.selectSCRange("Location", areaIds, MConverter.longToByteBuffer(range[0]).array(),
-						MConverter.longToByteBuffer(range[1]).array()); 
-				reports.putAll(mapRep);
-				areaIds.clear();
-			}
-			/**
-			 * Data processing
-			 */
-			for (byte[] scName:reports.keySet()){
-				long posId = MConverter.byteBufferToLong(ByteBuffer.wrap(scName));
-				Location reportLoc = Locator.getLocationFromId(posId);
-				double distance = reportLoc.distanceGCTo(new Location(latitude,longitude));
-				/** Distance check */
-				if (distance <= radius){
-					for (byte[] colName : reports.get(scName).keySet()){
-						MSearchReportBean reportBean = new MSearchReportBean();
-						MyJamId repId = MyJamId.parseByteBuffer(ByteBuffer.wrap(colName));
-						reportBean.setReportType(MConverter.byteBufferToString(
-								ByteBuffer.wrap(reports.get(scName).get(colName))));
-						reportBean.setReportId(repId.toString());
-						reportBean.setLatitude((int) (reportLoc.getLatitude()*1E6));
-						reportBean.setLongitude((int) (reportLoc.getLongitude()*1E6));
-						reportBean.setDistance((int) distance);
-						/**The timestamp is set with the convention used in Java (milliseconds from 1 January 1970)*/
-						reportBean.setDate((repId.getTimestamp()));
-						resultReports.add(reportBean);
-					}
-				}
-			}			
-			return resultReports;
-		} catch (InternalBackEndException e) {
-			throw new InternalBackEndException("Wrong parameter: "+e.getMessage());
-		} catch (GeoLocationOutOfBoundException e){
-			throw new InternalBackEndException(e.getMessage());
-		} catch (IllegalArgumentException e){
-			throw new InternalBackEndException("Wrong parameter: "+e.getMessage());
-		} catch (WrongFormatException e){
-			throw new InternalBackEndException("Wrong report Id: "+e.getMessage());
-		} catch (IOBackEndException e){
-			throw new IOBackEndException(e.getMessage(),404);
-		}
+	public List<MSearchBean> searchReports(double latitude,double longitude,int radius) throws InternalBackEndException,IOBackEndException{
+		final LocatorManager locatorManager = new LocatorManager();
+		
+		return locatorManager.read("myJam", "report", (int) (latitude*1E6), (int) (longitude*1E6), radius);
 	}
 	
 	/**

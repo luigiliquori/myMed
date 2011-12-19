@@ -150,8 +150,8 @@ public class LocationService extends Service implements LocationListener{
 //		public void run() {
 //			Location loc = new Location("FIXED_PROVIDER");
 //			loc.setAccuracy((float) 5.0);
-//			loc.setLatitude(45.063086);
-//			loc.setLongitude(7.662223);
+//			loc.setLatitude(43.615721); //Prova a Sophia-Antipolis
+//			loc.setLongitude(7.068511);
 //			onLocationChanged(loc);
 //		}
 //	};
