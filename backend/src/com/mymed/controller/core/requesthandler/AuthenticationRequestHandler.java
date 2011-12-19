@@ -22,8 +22,7 @@ import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.session.MAuthenticationBean;
 import com.mymed.model.data.session.MSessionBean;
 import com.mymed.model.data.user.MUserBean;
-
-import edu.lognet.core.tools.HashFunction;
+import com.mymed.utils.HashFunction;
 
 /**
  * Servlet implementation class AuthenticationRequestHandler
@@ -161,8 +160,8 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
             sessionBean.setP2P(false);
             // TODO Use The Cassandra Timeout mechanism
             sessionBean.setTimeout(System.currentTimeMillis());
-            final HashFunction h = new HashFunction("myMed");
-            final String accessToken = h.SHA1ToString(login + password + sessionBean.getTimeout());
+            final HashFunction hash = new HashFunction("myMed");
+            final String accessToken = hash.SHA1ToString(login + password + sessionBean.getTimeout());
             sessionBean.setAccessToken(accessToken);
             sessionBean.setId(accessToken);
             sessionManager.create(sessionBean);
