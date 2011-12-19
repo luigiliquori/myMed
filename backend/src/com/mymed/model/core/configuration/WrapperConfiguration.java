@@ -1,7 +1,10 @@
 package com.mymed.model.core.configuration;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -27,6 +30,8 @@ public class WrapperConfiguration {
   /* --------------------------------------------------------- */
   /* Attributes */
   /* --------------------------------------------------------- */
+  private static final Logger LOGGER = MLogger.getLogger();
+
   /** Cassandra */
   private String cassandraListenAddress;
   private int thriftPort;
@@ -37,7 +42,7 @@ public class WrapperConfiguration {
   private String kadListenAddress;
   private int kadStoragePort;
 
-  private static final Logger LOGGER = MLogger.getLogger();
+  private String configName;
 
   /* --------------------------------------------------------- */
   /* Constructors */
@@ -62,16 +67,57 @@ public class WrapperConfiguration {
   }
 
   /**
-   * Register a new Configuration for the backend Node
+   * Register a new configuration for the backend node
+   * <p>
+   * Use this method only if the file is in a known fixed location
    * 
    * @param file
-   *          THe xml configuration file
+   *          The xml configuration file
    */
   public WrapperConfiguration(final File file) {
+    configName = file.getName();
+    FileInputStream fis = null;
+
+    try {
+      try {
+        fis = new FileInputStream(file);
+        final InputStream input = fis;
+
+        createConfiguration(input);
+
+      } catch (final FileNotFoundException ex) {
+        LOGGER.info("Error opening the configuration file");
+        LOGGER.debug("Error opening the configuration file", ex);
+      } finally {
+        fis.close();
+      }
+    } catch (final IOException ex) {
+      LOGGER.info("Error opening the configuration file");
+      LOGGER.debug("Error opening the configuration file", ex);
+    }
+  }
+
+  /**
+   * Register a new configuration for the backend node
+   * 
+   * @param configXml
+   *          The name of the configuration file in the Classpath
+   */
+  public WrapperConfiguration(final String configXml) {
+    configName = configXml;
+    final InputStream input = this.getClass().getClassLoader().getResourceAsStream(configXml);
+
+    createConfiguration(input);
+  }
+
+  /**
+   * Read and create the configuration parameters
+   */
+  private void createConfiguration(final InputStream input) {
     try {
       final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
       final DocumentBuilder db = dbf.newDocumentBuilder();
-      final Document doc = db.parse(file);
+      final Document doc = db.parse(input);
       doc.getDocumentElement().normalize();
       final NodeList backend = doc.getElementsByTagName("backend");
       final NodeList config = backend.item(0).getChildNodes();
@@ -123,12 +169,12 @@ public class WrapperConfiguration {
       }
     } catch (final ParserConfigurationException e) {
       LOGGER.info("Error parsing configuration file");
-      LOGGER.debug("Error parsing configuration file", e.getCause());
+      LOGGER.debug("Error parsing configuration file", e);
     } catch (final SAXException e) {
       LOGGER.info("Error parsing configuration file");
-      LOGGER.debug("Error parsing configuration file", e.getCause());
+      LOGGER.debug("Error parsing configuration file", e);
     } catch (final IOException e) {
-      LOGGER.info("Config file '{}' not found", file.getAbsolutePath());
+      LOGGER.info("Config file '{}' not found", configName);
       // If the config xml file is not found, the configuration
       // will be defined with the default values
       String host = "127.0.0.1";
@@ -136,7 +182,7 @@ public class WrapperConfiguration {
         host = InetAddress.getLocalHost().getHostAddress();
       } catch (final UnknownHostException e1) {
         LOGGER.info("Impossible to find the local host.");
-        LOGGER.debug("Impossible to find the local host", e1.getCause());
+        LOGGER.debug("Impossible to find the local host", e1);
       }
 
       cassandraListenAddress = host;
@@ -222,14 +268,5 @@ public class WrapperConfiguration {
 
   public void setKadStoragePort(final int kadStoragePort) {
     this.kadStoragePort = kadStoragePort;
-  }
-
-  // TODO Remove main, write test
-  /* --------------------------------------------------------- */
-  /* Test */
-  /* --------------------------------------------------------- */
-  public static void main(final String args[]) {
-    final WrapperConfiguration conf = new WrapperConfiguration(new File("./conf/config.xml"));
-    LOGGER.info(conf.toString());
   }
 }
