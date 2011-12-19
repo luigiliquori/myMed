@@ -1,6 +1,5 @@
 package com.mymed.controller.core.manager.storage;
 
-import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -40,8 +39,8 @@ import com.mymed.utils.MConverter;
  */
 public class StorageManager extends ManagerValues implements IStorageManager {
 
-  // The Default path of the wrapper config file
-  private static final String CONFIG_PATH = "/local/mymed/backend/conf/config.xml";
+  // The name of the configuration file
+  private static final String CONFIG_PATH = "config.xml";
 
   // The wrapper
   private final CassandraWrapper wrapper;
@@ -53,7 +52,7 @@ public class StorageManager extends ManagerValues implements IStorageManager {
    * @throws InternalBackEndException
    */
   public StorageManager() throws InternalBackEndException {
-    this(new WrapperConfiguration(new File(CONFIG_PATH)));
+    this(new WrapperConfiguration(CONFIG_PATH));
   }
 
   /**
