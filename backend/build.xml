@@ -11,9 +11,11 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 	<property name="build.lib.dir" location="${build.dir}/lib"/>
 	<property name="build.classes.dir" location="${build.dir}/classes"/>
 	<property name="war.dir" location="${build.dir}/war"/>
+	<property name="war.lib.dir" location="${war.dir}/lib"/>
 	<property name="war.webinf.dir" location="${war.dir}/WEB-INF"/>
-	<property name="war.webinf.dir.lib" location="${war.webinf.dir}/lib"/>
-	<property name="cassandra.dir" location="protocols/cassandra/cassandra/lib"/>
+	<property name="war.webinf.classes.dir" location="${war.webinf.dir}/classes"/>
+	<property name="war.webinf.lib.dir" location="${war.webinf.dir}/lib"/>
+	<property name="war.webinf.resources.dir" location="${war.webinf.dir}/resources"/>
 	<property name="glassfish.dir" location="/local/glassfish3/glassfish"/>
 	<property name="java.dir" location="/usr/share/java"/>
 
@@ -22,6 +24,16 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 	<property name="debug.flag" value="on"/>
 	<property name="jarname" value="mymed_backend.jar"/>
 	<property name="warname" value="mymed_backend.war"/>
+
+	<fileset dir="${web.content.lib}" id="jarnames" description="JARs necessary to compile">
+    <include name="apache-cassandra-0.7.6-2.jar"/>
+    <include name="libthrift-0.5.jar"/>
+    <include name="log4j-over-sl4j-1.6.2.jar"/>
+    <include name="logback-classic-0.9.29.jar"/>
+    <include name="logback-core-0.9.29.jar"/>
+    <include name="slf4j-api-1.6.2.jar"/>
+    <include name="gson-1.6.jar"/>
+	</fileset>
 
 	<path id="backend.classpath" description="Path for compiling the backend">
 		<pathelement path="${java.class.path}"/>
@@ -32,18 +44,15 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
     <fileset dir="${java.dir}">
       <include name="**/*.jar"/>
     </fileset>
-		<fileset dir="${web.content.lib}">
-		  <include name="apache-cassandra-0.7.6-2.jar"/>
-		  <include name="libthrift-0.5.jar"/>
-		  <include name="log4j-over-sl4j-1.6.2.jar"/>
-		  <include name="logback-classic-0.9.29.jar"/>
-		  <include name="logback-core-0.9.29.jar"/>
-		  <include name="slf4j-api-1.6.2.jar"/>
-		  <include name="gson-1.6.jar"/>
-		</fileset>
+		<fileset refid="jarnames"/>
 	</path>
 
 	<pathconvert description="Pretty print the classpath" property="echo.path.compile" refid="backend.classpath" pathsep="${line.separator}|  |--" />
+
+	<!-- Used as timestamp for the MANIFEST file -->
+	<tstamp id="date">
+	  <format property="TODAY" pattern="yyyy-mm-dd--hh.mm.ssaa"/>
+	</tstamp>
 
 	<target name="init" description="Initialize the necessary directories">
     <mkdir dir="${build.dir}"/>
@@ -51,18 +60,59 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
     <mkdir dir="${build.classes.dir}"/>
     <mkdir dir="${war.dir}"/>
     <mkdir dir="${war.webinf.dir}"/>
-    <mkdir dir="${war.webinf.dir.lib}"/>
+    <mkdir dir="${war.webinf.classes.dir}"/>
+    <mkdir dir="${war.webinf.lib.dir}"/>
+  	<mkdir dir="${war.webinf.resources.dir}"/>
 	</target>
 
   <target name="compile" depends="init" description="Compile the necessary files">
     <javac srcdir="${src.dir}" destdir="${build.classes.dir}" debug="${debug.flag}" fork="true" includeantruntime="true" includejavaruntime="true">
     	<exclude name="**/tests/**"/>
+    	<exclude name="**/debug/**"/>
       <classpath refid="backend.classpath"/>
     </javac>
+  	<!-- If we need to compile a JAR or to compile different JARs, we have an example here -->
+  	<!--
     <jar destfile="${build.lib.dir}/${jarname}" basedir="${build.classes.dir}" duplicate="preserve" index="true"/>
+    -->
   </target>
 
-  <target name="clean" description="Remove the directories used for the build">
+	<!-- - - - - - - - - - - - - - - - - -
+          target: movefiles
+         - - - - - - - - - - - - - - - - - -->
+  <target name="movefiles" depends="compile" description="Copy the necessary stuff in the right places">
+  	<copy todir="${war.webinf.resources.dir}" description="Copy the configuration files into the resources/ dir">
+  		<fileset dir="conf" />
+  	</copy>
+
+  	<copy todir="${war.webinf.classes.dir}" description="Copy the compiled classes in the WEB-INF/classes/ dir">
+  		<fileset dir="${build.classes.dir}"/>
+  	</copy>
+
+  	<!-- Copy the default JSP pages -->
+  	<copy todir="${war.dir}" file="WebContent/error.jsp"/>
+  	<copy todir="${war.dir}" file="WebContent/index.jsp"/>
+
+  	<!-- Copy the JAR files to the right directories -->
+  	<copy todir="${war.webinf.lib.dir}">
+  		<fileset refid="jarnames"/>
+  	</copy>
+  	<copy todir="${war.webinf.dir}" file="WebContent/WEB-INF/sun-web.xml"/>
+  </target>
+
+  <target name="buildwar" depends="compile" description="Generate the WAR file to be deployed">
+    <war destfile="${build.lib.dir}/${warname}" webxml="WebContent/WEB-INF/web.xml" basedir="${war.dir}">
+    	<manifest>
+    	  <attribute name="Built-By" value="${user.name}"/>
+    	  <attribute name="Built-On" value="${TODAY}"/>
+    	</manifest>
+    </war>
+  	<!-- Clean up everything that is not needed anymore -->
+  	<delete dir="${war.dir}" />
+  	<delete dir="${build.classes.dir}" />
+  </target>
+
+	<target name="clean" description="Remove the directories used for the build">
     <delete includeemptydirs="true" failonerror="false" dir="${build.dir}"/>
   </target>
 </project>
