@@ -1,6 +1,7 @@
 package com.mymed.model.data.myjam;
 
 import com.mymed.controller.core.exception.WrongFormatException;
+import com.mymed.model.data.id.MyMedId;
 import com.mymed.model.data.locator.MSearchBean;
 import com.mymed.model.data.myjam.MyJamTypes.ReportType;
 import com.mymed.model.data.myjam.MyJamTypes.TrafficFlowType;
@@ -11,6 +12,9 @@ import com.mymed.model.data.myjam.MyJamTypes.TrafficFlowType;
  *
  */
 public class MyJamTypeValidator {
+	public final static char REPORT_ID = 'r';
+	public final static char UPDATE_ID = 'u';
+	public final static char FEEDBACK_ID = 'f';
 	
 	public static void validate(MFeedBackBean mFeedBackBean) throws WrongFormatException {
 		if (mFeedBackBean.getValue()==null)
@@ -22,7 +26,7 @@ public class MyJamTypeValidator {
 	public void validate(MSearchBean mShorteportBean) throws WrongFormatException {
 		if (ReportType.valueOf(mShorteportBean.getValue())==null)
 			throw new WrongFormatException(" Wrong report type. ");
-		if (MyJamId.parseString(mShorteportBean.getId()).getType()!=MyJamId.REPORT_ID)
+		if (MyMedId.parseString(mShorteportBean.getId()).getType()!=REPORT_ID)
 			throw new WrongFormatException(" Wrong report id. ");
 	}
 	

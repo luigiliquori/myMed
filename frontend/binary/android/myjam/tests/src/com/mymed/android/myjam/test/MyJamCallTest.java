@@ -11,7 +11,7 @@ import com.mymed.android.myjam.exception.InternalBackEndException;
 import com.mymed.android.myjam.exception.InternalClientException;
 import com.mymed.model.data.myjam.MFeedBackBean;
 import com.mymed.model.data.myjam.MReportBean;
-import com.mymed.model.data.myjam.MSearchReportBean;
+import com.mymed.model.data.myjam.MSearchBean;
 import com.mymed.model.data.myjam.MyJamId;
 import com.mymed.model.data.myjam.MyJamTypes.ReportType;
 import com.mymed.model.data.myjam.MyJamTypes.TrafficFlowType;
@@ -47,14 +47,14 @@ public class MyJamCallTest extends TestCase {
     }
     
     public void testSearch(){
-    	List<MSearchReportBean> listShortRep = null;
+    	List<MSearchBean> listShortRep = null;
         double err = 10.0;
         Location currLocDec = null;
         
 		try {
 			listShortRep = this.restCall.searchReports((int) (centerLat*1E6),(int) (centerLon*1E6), meterRange);
-			for (MSearchReportBean sRep :listShortRep){
-				reportsInRange.add(MyJamId.parseString(sRep.getReportId()));
+			for (MSearchBean sRep :listShortRep){
+				reportsInRange.add(MyJamId.parseString(sRep.getId()));
 			}
 		} catch (InternalBackEndException e1) {
 			// TODO Auto-generated catch block

@@ -24,7 +24,7 @@ import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.model.core.configuration.WrapperConfiguration;
 import com.mymed.model.core.wrappers.cassandra.api07.CassandraWrapper;
-import com.mymed.model.data.myjam.ExpColumnBean;
+import com.mymed.model.data.storage.ExpColumnBean;
 import com.mymed.utils.MConverter;
 /**
  * Storage manager created ad-hoc for myJam application.
