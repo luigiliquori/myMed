@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.model.data.myjam.ExpColumnBean;
+import com.mymed.model.data.storage.ExpColumnBean;
 /**
  * 
  * @author iacopo

@@ -81,11 +81,11 @@ create column family Report
 	and comment = 'A column family to store the details of the reports and the updates.';
 
 create column family ActiveReport
-	with comparator = 'com.mymed.myjam.type.MyJamIdType'
+	with comparator = 'com.mymed.data.id.MyMedIdType'
 	and comment = 'A column family used as an index to bind users and their active reports (not yet expired or permanents).';
 
 create column family ReportUpdate
-    with comparator = 'com.mymed.myjam.type.MyJamIdType'
+    with comparator = 'com.mymed.data.id.MyMedIdType'
 	and comment = 'A column family used as an index, to bind a report with its updates.';
 
 create column family Feedback
@@ -93,7 +93,7 @@ create column family Feedback
 	and comment = 'A column family used to store the feedbacks associated to the reports or the updates.';
 
 create column family UserReport
-	with comparator = 'com.mymed.myjam.type.MyJamIdType'
+	with comparator = 'com.mymed.data.id.MyMedIdType'
 	and comment = 'A column family used as an index to bind users with reports and updates.';
 
 
