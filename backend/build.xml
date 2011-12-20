@@ -4,7 +4,7 @@ Ant build file to compile the mymed backend
 
 Milo Casagrande <milo.casagrande@inria.fr>, 2011
 -->
-<project name="mymed" default="" basedir=".">
+<project name="mymed" default="build" basedir=".">
 	<property name="src.dir" location="src"/>
 	<property name="test.dir" location="${src.dir}/com/mymed/tests"/>
 	<property name="build.dir" location="build"/>
@@ -81,7 +81,8 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
           target: movefiles
          - - - - - - - - - - - - - - - - - -->
   <target name="movefiles" depends="compile" description="Copy the necessary stuff in the right places">
-  	<copy todir="${war.webinf.resources.dir}" description="Copy the configuration files into the resources/ dir">
+  	<!-- Copy the configuration files into the resources/ dir -->
+  	<copy todir="${war.webinf.resources.dir}">
   		<fileset dir="conf" />
   	</copy>
 
@@ -100,7 +101,10 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
   	<copy todir="${war.webinf.dir}" file="WebContent/WEB-INF/sun-web.xml"/>
   </target>
 
-  <target name="buildwar" depends="compile" description="Generate the WAR file to be deployed">
+	<!-- =================================
+          target: build
+         ================================= -->
+  <target name="build" depends="movefiles" description="Generate the WAR file to be deployed">
     <war destfile="${build.lib.dir}/${warname}" webxml="WebContent/WEB-INF/web.xml" basedir="${war.dir}">
     	<manifest>
     	  <attribute name="Built-By" value="${user.name}"/>
