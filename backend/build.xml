@@ -37,7 +37,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 
 	<path id="backend.classpath" description="Path for compiling the backend">
 		<pathelement path="${java.class.path}"/>
-    <fileset dir="${glassfish.dir}" id="id">
+    <fileset dir="${glassfish.dir}">
       <include name="**/mail.jar"/>
 		  <include name="**/javaee.jar"/>
 		</fileset>
@@ -112,8 +112,8 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
     	</manifest>
     </war>
   	<!-- Clean up everything that is not needed anymore -->
-  	<delete dir="${war.dir}" />
-  	<delete dir="${build.classes.dir}" />
+  	<delete includeemptydirs="true" dir="${war.dir}" />
+  	<delete includeemptydirs="true" dir="${build.classes.dir}" />
   </target>
 
 	<target name="clean" description="Remove the directories used for the build">
