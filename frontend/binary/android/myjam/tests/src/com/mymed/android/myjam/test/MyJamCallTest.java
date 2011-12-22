@@ -315,7 +315,7 @@ public class MyJamCallTest extends TestCase {
     	return currRep;
     }
     
-    private MReportBean generateUpdate(ReportType type,Random rand){
+    private MReportBean generateUpdate(ReportType type, Random rand){
     	MReportBean currRep = new MReportBean();
     	currRep.setReportType(type.name());
 

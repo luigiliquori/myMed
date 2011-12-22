@@ -9,12 +9,13 @@ import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.exception.WrongFormatException;
 import com.mymed.controller.core.manager.AbstractManager;
-import com.mymed.controller.core.manager.locator.LocatorManager;
+import com.mymed.controller.core.manager.geolocation.GeolocationManager;
 import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.storage.MyJamStorageManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
+import com.mymed.model.data.geolocation.MSearchBean;
 import com.mymed.model.data.id.MyMedId;
-import com.mymed.model.data.locator.MSearchBean;
+
 import com.mymed.model.data.myjam.MFeedBackBean;
 import com.mymed.model.data.myjam.MReportBean;
 import com.mymed.model.data.myjam.MyJamTypeValidator;
@@ -58,7 +59,7 @@ public class MyJamManager extends AbstractManager{
 
 			/** The user profile is received ProfileManager */
 			final ProfileManager profileManager = new ProfileManager(new StorageManager());
-			final LocatorManager locatorManager = new LocatorManager();
+			final GeolocationManager locatorManager = new GeolocationManager();
 			MUserBean userProfile = profileManager.read(report.getUserId()); //TODO Not secure. The server trust the user identity.
 			/** Insert a new located object into Location column family. */
 			MSearchBean searchBean = locatorManager.create("myJam", "report", userProfile.getLogin(), latitude, longitude, report.getReportType(), 
@@ -122,7 +123,7 @@ public class MyJamManager extends AbstractManager{
 	 * @throws InternalBackEndException
 	 */
 	public List<MSearchBean> searchReports(int latitude,int longitude,int radius) throws InternalBackEndException,IOBackEndException{
-		final LocatorManager locatorManager = new LocatorManager();
+		final GeolocationManager locatorManager = new GeolocationManager();
 
 		return locatorManager.read("myJam", "report", latitude, longitude, radius);
 	}
@@ -236,7 +237,7 @@ public class MyJamManager extends AbstractManager{
 	public MReportBean insertUpdate(String reportId,MReportBean update) throws InternalBackEndException, IOBackEndException{
 		try{
 
-			final LocatorManager locatorManager = new LocatorManager();
+			final GeolocationManager locatorManager = new GeolocationManager();
 			/**
 			 * Data preparation
 			 */
@@ -294,7 +295,7 @@ public class MyJamManager extends AbstractManager{
 	public void insertFeedback(String reportId, String updateId, MFeedBackBean feedback) throws InternalBackEndException, IOBackEndException{
 		try{
 
-			final LocatorManager locatorManager = new LocatorManager();
+			final GeolocationManager locatorManager = new GeolocationManager();
 			/**
 			 * Data preparation
 			 */
