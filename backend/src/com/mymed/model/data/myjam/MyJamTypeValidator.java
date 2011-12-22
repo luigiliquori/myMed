@@ -1,8 +1,8 @@
 package com.mymed.model.data.myjam;
 
 import com.mymed.controller.core.exception.WrongFormatException;
+import com.mymed.model.data.geolocation.MSearchBean;
 import com.mymed.model.data.id.MyMedId;
-import com.mymed.model.data.locator.MSearchBean;
 import com.mymed.model.data.myjam.MyJamTypes.ReportType;
 import com.mymed.model.data.myjam.MyJamTypes.TrafficFlowType;
 
