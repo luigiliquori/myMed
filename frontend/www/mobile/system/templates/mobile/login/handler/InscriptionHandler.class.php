@@ -60,10 +60,8 @@ class InscriptionHandler implements IRequestHandler {
 
 			if($responseObject->status != 200) {
 				$_SESSION['error'] = $responseObject->description;
-				return;
 			} else {
 				$this->success = "The profile has been successfully created!";
-				return;
 			}
 		} 
 	}

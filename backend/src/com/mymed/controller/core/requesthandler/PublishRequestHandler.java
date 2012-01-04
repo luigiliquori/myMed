@@ -2,6 +2,7 @@ package com.mymed.controller.core.requesthandler;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,7 +60,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 	/* --------------------------------------------------------- */
 	/* extends AbstractRequestHandler */
 	/* --------------------------------------------------------- */
-	protected Map<String, String> getParameters(final HttpServletRequest request) throws InternalBackEndException {
+	protected Map<String, String> getParameters(final HttpServletRequest request) throws AbstractMymedException {
 		
 		if(!request.getContentType().matches("multipart/form-data.*")){
 			return super.getParameters(request);
@@ -68,14 +69,11 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 		
 		final Map<String, String> parameters = new HashMap<String, String>();
 		try {
-			System.out.println("\nPART size = " + request.getParts().size());
 			for(Part part : request.getParts()){
 				String key = part.getName();
 				Scanner s = new Scanner(part.getInputStream());
-				String value = s.nextLine();    // read filename from stream
+				String value = URLDecoder.decode(s.nextLine(), "UTF-8");    // read filename from stream
 				parameters.put(key, value);
-				System.out.println("\nKEY = " + key);
-				System.out.println("\nVALUE = " + value);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -106,6 +104,13 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 			final Map<String, String> parameters = getParameters(request);
 			final RequestCode code = requestCodeMap.get(parameters.get("code"));
 
+			// accessToken
+			if (!parameters.containsKey("accessToken")) {
+				throw new InternalBackEndException("accessToken argument is missing!");
+			} else {
+				tokenValidation(parameters.get("accessToken")); // Security Validation
+			}
+			
 			switch (code) {
 			case READ:
 			case DELETE:
@@ -138,6 +143,13 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 			final RequestCode code = requestCodeMap.get(parameters.get("code"));
 			String application, predicates, user, data;
 
+			// accessToken
+			if (parameters.get("accessToken") == null) {
+				throw new InternalBackEndException("accessToken argument is missing!");
+			} else {
+				tokenValidation(parameters.get("accessToken")); // Security Validation
+			}
+			
 			switch (code) {
 			case CREATE : // PUT
 				message.setMethod("CREATE");
@@ -154,37 +166,29 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 				try {
 					
 					final MUserBean userBean = getGson().fromJson(user, MUserBean.class);
-					System.out.println("\nuser converted!");
-					
 					final Type dataType = new TypeToken<List<MDataBean>>(){}.getType();
 					final List<MDataBean> dataList = getGson().fromJson(data, dataType);
-					System.out.println("\ndata converted!");
-					
 					final List<MDataBean> predicatesArray = getGson().fromJson(predicates, dataType);
-					System.out.println("\npredicates converted!");
 
 					// broadcast algorithm
 					int broadcastSize = (int) Math.pow(2, predicatesArray.size());
 					for(int i=1 ; i<broadcastSize ; i++){
-						System.out.println("\nfor loop");
 			 			int mask = i;
 			 			String predicate = "";
 			 			int j = 0;
 			 			while(mask > 0){
 			 				if((mask&1) == 1){
 			 					MDataBean element = predicatesArray.get(j);
-			 					predicate += element.getKey() + "%28" + element.getValue() + "%29";
+			 					predicate += element.getKey() + "(" + element.getValue() + ")";
 			 				}
 			 				mask >>= 1;
 			 				j++;
 			 			}
 			 			if(!predicate.equals("")){
-			 				System.out.println("create predicate: " + predicate);
 			 				pubsubManager.create(application, predicate, userBean, dataList);
 			 			}
 			 		}
 
-					message.setDescription("predicate published: " + predicates);
 				} catch (final JsonSyntaxException e) {
 					throw new InternalBackEndException("jSon format is not valid");
 				} catch (final JsonParseException e) {

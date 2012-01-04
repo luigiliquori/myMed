@@ -92,21 +92,14 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
 	 * @see IAuthenticationManager#update(MAuthenticationBean)
 	 */
 	@Override
-	public void update(final String id, final MAuthenticationBean authentication) throws InternalBackEndException,
+	public void update(final String oldLogin, final MAuthenticationBean authentication) throws InternalBackEndException,
 	        IOBackEndException {
-		// Remove the old Authentication (the login/key can be changed)
-		storageManager.removeAll(CF_AUTHENTICATION, id);
-		// Insert the new Authentication
-		storageManager.insertSlice(CF_AUTHENTICATION, LOGIN_COLUMN, authentication.getAttributeToMap());
-
-		try {
-			final Map<String, byte[]> authMap = authentication.getAttributeToMap();
-			storageManager.insertSlice(CF_AUTHENTICATION, new String(authMap.get(LOGIN_COLUMN), ENCODING), authMap);
-		} catch (final UnsupportedEncodingException ex) {
-			MLogger.getLog().info("Error in string conversion using {} encoding", ENCODING);
-			MLogger.getDebugLog().debug("Error in string conversion using {} encoding", ENCODING, ex.getCause());
-
-			throw new InternalBackEndException(ex.getMessage());
+		if(!oldLogin.equals(authentication.getLogin())){
+			// Remove the old Authentication (the login/key can be changed)
+			storageManager.removeAll(CF_AUTHENTICATION, oldLogin);
 		}
+		
+		// Insert the new Authentication
+		storageManager.insertSlice(CF_AUTHENTICATION, authentication.getLogin(), authentication.getAttributeToMap());
 	}
 }

@@ -34,6 +34,20 @@ class FacebookWrapper implements IWrapper {
 				// Proceed knowing you have a logged in user who's authenticated.
 				$user_profile = $this->facebook->api('/me');
 				$user_mymedWrapper;
+				
+				// Create the myMed session
+				$request = new Request("SessionRequestHandler", CREATE);
+				$request->addArgument("userID", "FACEBOOK_" . $user_profile["id"]);
+				$request->addArgument("accessToken", $this->facebook->getAccessToken());
+				
+				$responsejSon = $request->send();
+				$responseObject = json_decode($responsejSon);
+				
+				if($responseObject->status != 200) {
+					throw new FacebookApiException();
+				}
+				$accessToken = $responseObject->data->accessToken;
+				$url = $responseObject->data->url;
 					
 				// Format the user Object
 				$user_mymedWrapper = new MUserBean();
@@ -54,19 +68,8 @@ class FacebookWrapper implements IWrapper {
 				// make the user profile persistant into myMed TODO: verify if not exist
 				$request = new Request("ProfileRequestHandler", CREATE);
 				$request->addArgument("user", json_encode($user_mymedWrapper));
-
-				$responsejSon = $request->send();
-				$responseObject = json_decode($responsejSon);
-				
-				if($responseObject->status != 200) {
-					throw new FacebookApiException();
-				}
-				
-				// Create the myMed session
-				$request = new Request("SessionRequestHandler", CREATE);
-				$request->addArgument("userID", $user_mymedWrapper->id);
 				$request->addArgument("accessToken", $this->facebook->getAccessToken());
-				
+
 				$responsejSon = $request->send();
 				$responseObject = json_decode($responsejSon);
 				
@@ -78,8 +81,6 @@ class FacebookWrapper implements IWrapper {
 				$_SESSION['wrapper'] = $this;
 				
 				// REDIRECTION
-				$accessToken = $responseObject->data->accessToken;
-				$url = $responseObject->data->url;
 				header("Refresh:0;url=" . $url . "&accessToken=" . $accessToken);
 				
 			}	catch (FacebookApiException $e) {

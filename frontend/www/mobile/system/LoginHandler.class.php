@@ -42,7 +42,11 @@ class LoginHandler implements IRequestHandler {
 				// HANDLE LOGIN
 				$request = new Request("SessionRequestHandler", READ);
 				$request->addArgument("accessToken", $_GET['accessToken']);
-				$request->addArgument("socialNetwork", $_GET['socialNetwork']);
+				if(isset($_GET['socialNetwork'])){
+					$request->addArgument("socialNetwork", $_GET['socialNetwork']);
+				} else {
+					$request->addArgument("socialNetwork", "myMed");
+				}
 			
 				$responsejSon = $request->send();
 				$responseObject = json_decode($responsejSon);
@@ -51,6 +55,10 @@ class LoginHandler implements IRequestHandler {
 					$_SESSION['error'] = $responseObject->description;
 				} else {
 					$_SESSION['user'] = json_decode($responseObject->data->user);
+					if(!isset($_SESSION['friends'])){
+						$_SESSION['friends'] = array();
+					}
+					$_SESSION['accessToken'] = $_GET['accessToken'];
 				}
 				
 			} else if(isset($_POST['singin'])) { // HANDLE MYMED AUTHENTICATION

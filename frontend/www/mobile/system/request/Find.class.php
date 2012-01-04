@@ -59,24 +59,22 @@ class Find extends Request {
 					$j++;
 				}
 				if($predicate != ""){
-					parent::addArgument("predicate", urlencode($predicate));
+					parent::addArgument("predicate", $predicate);
 					
 					$responsejSon = parent::send();
 					$responseObject = json_decode($responsejSon);
 					
 					if($responseObject->status == 200) {
 						$result = array_merge($result, json_decode($responseObject->data->results));
-	// 					echo '<script type="text/javascript">alert("$response = ' . json_decode($response) . '")</script>';
 					}
 				}
 			}
 	 		$this->handler->setSuccess(json_encode($result));
 		} else {		// Classical matching
-			parent::addArgument("predicate", urlencode($predicate));
+			parent::addArgument("predicate", $predicate);
 			
 			$responsejSon = parent::send();
 			$responseObject = json_decode($responsejSon);
-			// echo '<script type="text/javascript">alert("$response = ' . $responsejSon . '")</script>';
 			if($responseObject->status != 200) {
 				$this->handler->setError($responseObject->description);
 			} else {

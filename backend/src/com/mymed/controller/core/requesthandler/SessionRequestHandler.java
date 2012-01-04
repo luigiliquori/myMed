@@ -134,7 +134,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 			}
 
 			switch (code) {
-			case CREATE:
+			case CREATE: // FOR FACEBOOK - TODO Check Security!
 				message.setMethod("CREATE");
 				if (userID == null) {
 					throw new InternalBackEndException("session argument missing!");
@@ -163,19 +163,19 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 				message.addData("accessToken", accessToken);
 				break;
 			case UPDATE:
-				message.setMethod("UPDATE");
-				try {
-					if (session == null) {
-						throw new InternalBackEndException("session argument missing!");
-
-					}
-					sessionBean = getGson().fromJson(session,
-							MSessionBean.class);
-					sessionManager.update(sessionBean);
-				} catch (final JsonSyntaxException e) {
-					throw new InternalBackEndException(
-							"user jSon format is not valid");
-				}
+//				message.setMethod("UPDATE");
+//				try {
+//					if (session == null) {
+//						throw new InternalBackEndException("session argument missing!");
+//
+//					}
+//					sessionBean = getGson().fromJson(session,
+//							MSessionBean.class);
+//					sessionManager.update(sessionBean);
+//				} catch (final JsonSyntaxException e) {
+//					throw new InternalBackEndException(
+//							"user jSon format is not valid");
+//				}
 				break;
 			default:
 				throw new InternalBackEndException("ProfileRequestHandler.doPost(" + code

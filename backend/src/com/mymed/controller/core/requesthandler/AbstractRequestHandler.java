@@ -2,6 +2,8 @@ package com.mymed.controller.core.requesthandler;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
+import com.mymed.controller.core.exception.AbstractMymedException;
+import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.controller.core.manager.session.SessionManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.utils.MLogger;
 
@@ -59,6 +64,7 @@ public abstract class AbstractRequestHandler extends HttpServlet {
 			requestCodeMap.put(r.code, r);
 		}
 	}
+	
 
 	/* --------------------------------------------------------- */
 	/* protected methods */
@@ -66,12 +72,13 @@ public abstract class AbstractRequestHandler extends HttpServlet {
 	/**
 	 * @return the parameters of an HttpServletRequest
 	 */
-	protected Map<String, String> getParameters(final HttpServletRequest request) throws InternalBackEndException {
+	protected Map<String, String> getParameters(final HttpServletRequest request) throws AbstractMymedException {
 
 		// see multipart/form-data Request
 		if(request.getContentType() != null){
 			try {
 				if(request.getContentType().matches("multipart/form-data.*")){
+					System.out.println("*******multi-part is not implemented for this handler!");
 					System.out.println("\nPART size = " + request.getParts().size());
 					for(Part part : request.getParts()){
 						System.out.println("\nPART: " + part);
@@ -84,7 +91,6 @@ public abstract class AbstractRequestHandler extends HttpServlet {
 				throw new InternalBackEndException(e);
 			}
 		}
-		System.out.println(request.getContentType());
 
 		final Map<String, String> parameters = new HashMap<String, String>();
 		final Enumeration<String> paramNames = request.getParameterNames();
@@ -94,7 +100,11 @@ public abstract class AbstractRequestHandler extends HttpServlet {
 			final String[] paramValues = request.getParameterValues(paramName);
 
 			if (paramValues.length >= 1) { // all the params should be atomic
-				parameters.put(paramName, paramValues[0]);
+				try {
+					parameters.put(paramName, URLDecoder.decode(paramValues[0], "UTF-8"));
+				} catch (UnsupportedEncodingException e) {
+					throw new InternalBackEndException(e.getMessage());
+				}
 			}
 
 			MLogger.getLog().info("{}: {}", paramName, paramValues[0]);
@@ -117,11 +127,24 @@ public abstract class AbstractRequestHandler extends HttpServlet {
 	 * @param response
 	 */
 	protected void printJSonResponse(final JsonMessage message, final HttpServletResponse response) {
+		
 		response.setStatus(message.getStatus());
 		responseText = message.toString();
 		printResponse(response);
 	}
-
+	
+	/**
+	 * Validate an accesstoken
+	 * @param accesstoken
+	 * @throws InternalBackEndException
+	 */
+	protected void tokenValidation(String accessToken) throws InternalBackEndException, IOBackEndException {
+		new SessionManager().read(accessToken);
+	}
+	
+	/* --------------------------------------------------------- */
+	/* private methods */
+	/* --------------------------------------------------------- */
 	/**
 	 * Print the server response
 	 * @param response
@@ -147,7 +170,7 @@ public abstract class AbstractRequestHandler extends HttpServlet {
 			}
 		}
 	}
-
+	
 	/* --------------------------------------------------------- */
 	/* GETTER&SETTER */
 	/* --------------------------------------------------------- */

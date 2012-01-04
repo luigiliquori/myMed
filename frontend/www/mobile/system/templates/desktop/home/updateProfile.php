@@ -11,6 +11,7 @@
 			<span>Prénom : </span><br /><input type="text" name="prenom" value="<?= $_SESSION['user']->firstName ?>" /><br />
 			<span>Nom : </span><br /><input type="text" name="nom" value="<?= $_SESSION['user']->lastName ?>" /><br />
 			<span>eMail : </span><br /><input type="text" name="email" value="<?= $_SESSION['user']->email ?>" /><br />
+			<span>Ancien Password : </span><input type="password" name="oldPassword" /><br />
 			<span>Password : </span><br /><input type="password" name="password" /><br />
 			<span>Confirm : </span><br /><input type="password" name="confirm" /><br />
 			<span>Date de naissance : </span><br /><input type="text" name="birthday" value="<?= $_SESSION['user']->birthday ?>" /><br />

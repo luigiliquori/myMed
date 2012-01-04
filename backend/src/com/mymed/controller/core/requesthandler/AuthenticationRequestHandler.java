@@ -68,6 +68,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 
 		try {
 			final Map<String, String> parameters = getParameters(request);
+			
 			final RequestCode code = requestCodeMap.get(parameters.get("code"));
 			final String login = parameters.get("login");
 			final String password = parameters.get("password");
@@ -115,8 +116,9 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 			final String user = parameters.get("user");
 			final String login = parameters.get("login");
 			final String password = parameters.get("password");
-			final String id = parameters.get("id");
-
+			final String oldPassword = parameters.get("oldPassword");
+			final String oldLogin = parameters.get("oldLogin");
+			
 			switch (code) {
 			case CREATE :
 				message.setMethod("CREATE");
@@ -178,17 +180,25 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 				}
 				break;
 			case UPDATE :
-				if (id == null) {
-					throw new InternalBackEndException("Missing id argument!");
-				} else if (authentication == null) {
+				if (authentication == null) {
 					throw new InternalBackEndException("Missing authentication argument!");
+				} else if (oldLogin == null) {
+					throw new InternalBackEndException("oldLogin argument missing!");
+				} else if (oldPassword == null) {
+					throw new InternalBackEndException("oldPassword argument missing!");
 				} else {
 					try {
 						final MAuthenticationBean authenticationBean = getGson().fromJson(authentication,
 								MAuthenticationBean.class);
-
+						
+						// verify the oldPassword
+						System.out.println("login = " + oldLogin);
+						System.out.println("oldPassword = " + oldPassword);
+						authenticationManager.read(oldLogin, oldPassword);
+						
+						// no exception = update the Authentication
 						MLogger.getLog().info("Trying to update authentication:\n {}", authenticationBean.toString());
-						authenticationManager.update(id, authenticationBean);
+						authenticationManager.update(oldLogin, authenticationBean);
 						MLogger.getLog().info("Authentication updated!");
 
 					} catch (final JsonSyntaxException e) {

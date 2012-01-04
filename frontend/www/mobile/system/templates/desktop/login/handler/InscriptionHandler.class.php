@@ -3,21 +3,21 @@
 <?php require_once 'system/beans/MUserBean.class.php'; ?>
 <?php require_once 'system/beans/MAuthenticationBean.class.php'; ?>
 
-<?php 
+<?php
 class InscriptionHandler implements IRequestHandler {
-	
+
 	private /*string*/ $error;
 	private /*string*/ $success;
-	
+
 	public function __construct() {
 		$this->error	= false;
 		$this->success	= false;
 	}
-	
-	public /*String*/ function handleRequest() { 
+
+	public /*String*/ function handleRequest() {
 		// TRY TO REGISTER A NEW ACCOUNT
 		if(isset($_POST['inscription'])) {
-			
+				
 			// Preconditions
 			if($_POST['password'] != $_POST['confirm']){
 				$this->error = "FAIL: password != confirmation";
@@ -32,7 +32,7 @@ class InscriptionHandler implements IRequestHandler {
 				$this->error = "FAIL: you may accept the condition";
 				return;
 			}
-			
+				
 			// create the new user
 			$mUserBean = new MUserBean();
 			$mUserBean->id = "MYMED_" . $_POST["email"];
@@ -43,35 +43,33 @@ class InscriptionHandler implements IRequestHandler {
 			$mUserBean->login = $_POST["email"];
 			$mUserBean->birthday = $_POST["birthday"];
 			$mUserBean->profilePicture = $_POST["thumbnail"];
-			
+				
 			// create the authentication
 			$mAuthenticationBean = new MAuthenticationBean();
 			$mAuthenticationBean->login =  $mUserBean->login;
 			$mAuthenticationBean->user = $mUserBean->id;
 			$mAuthenticationBean->password = hash('sha512', $_POST["password"]);
-			
+				
 			// register the new account
 			$request = new Request("AuthenticationRequestHandler", CREATE);
 			$request->addArgument("authentication", json_encode($mAuthenticationBean));
 			$request->addArgument("user", json_encode($mUserBean));
-			$response = $request->send();
-			
-			// Check if there's not error
-			$check = json_decode($response);
-			if(isset($check->error)) {
-				$this->error = $check->error->message;
-				return;
+				
+			$responsejSon = $request->send();
+			$responseObject = json_decode($responsejSon);
+				
+			if($responseObject->status != 200) {
+				$_SESSION['error'] = $responseObject->description;
 			} else {
-				$this->success = "INFO: The profile has been successfully created!";
-				return;
+				$this->success = "The profile has been successfully created!";
 			}
-		} 
+		}
 	}
-	
+
 	public /*String*/ function getError(){
 		return $this->error;
 	}
-	
+
 	public /*String*/ function getSuccess(){
 		return $this->success;
 	}

@@ -31,7 +31,8 @@ class Request {
 	/* public methods */
 	/* --------------------------------------------------------- */
 	public /*void*/ function addArgument(/*string*/ $name, /*string*/ $value) {
-		$this->arguments["$name"]	= "$value";
+// 		$this->arguments["$name"] = urlencode(strtolower($value));
+		$this->arguments["$name"] = urlencode($value);
 	}
 
 	public /*void*/ function removeArgument(/*string*/ $name) {
@@ -51,46 +52,36 @@ class Request {
 	}
 	
 	public /*string*/ function send() {
+		
 // 		echo '<script type="text/javascript">alert("send method called to: ' . $this->ressource . '")</script>';
 		$curl	= curl_init();
-		if($curl === false)
-		trigger_error('Unable to init CURL : ', E_USER_ERROR);
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-		$httpHeader = Array('Accept: text/plain,application/json');
-		$this->arguments['code']	= $this->method;
+		if($curl === false) {
+			trigger_error('Unable to init CURL : ', E_USER_ERROR);
+		}
 		
-		switch($this->method) {
-			case CREATE:
-			case UPDATE:
-				if($this->isMultipart()) {
-					$httpHeader[] = 'Content-Type:multipart/form-data; boundary=--------------------------boundary';
-				} else { 
-					$httpHeader[] = 'Content-Type:application/x-www-form-urlencoded';
-				}
-				curl_setopt($curl, CURLOPT_HTTPHEADER, $httpHeader);
-				curl_setopt($curl, CURLOPT_URL, BACKEND_URL.$this->ressource);
-				curl_setopt($curl, CURLOPT_POST, true);
-				curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($this->arguments));
-				break;
-			case READ:
-				if($this->ressource == "AuthenticationRequestHandler"){
-					$httpHeader[] = 'Content-Type:application/x-www-form-urlencoded';
-					curl_setopt($curl, CURLOPT_HTTPHEADER, $httpHeader);
-					curl_setopt($curl, CURLOPT_URL, BACKEND_URL.$this->ressource);
-					curl_setopt($curl, CURLOPT_POST, true);
-					curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($this->arguments));
-					break;
-				}
-			case DELETE:
-				curl_setopt($curl, CURLOPT_HTTPHEADER, $httpHeader);
-				curl_setopt($curl, CURLOPT_URL, BACKEND_URL.$this->ressource.'?'.http_build_query($this->arguments));
-				 break;
-			default:
-				break;
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		$httpHeader[] = 'Content-Type:application/x-www-form-urlencoded';
+		$this->arguments['code'] = $this->method;
+
+		// Token for security - to access to the API
+		if(isset($_SESSION['accessToken'])) {
+			$this->arguments['accessToken'] = $_SESSION['accessToken'];
+		}
+		
+		if($this->method == CREATE || $this->method == UPDATE || ($this->ressource == "AuthenticationRequestHandler" && $this->method == READ)){
+			// POST REQUEST
+			curl_setopt($curl, CURLOPT_HTTPHEADER, $httpHeader);
+			curl_setopt($curl, CURLOPT_URL, BACKEND_URL.$this->ressource);
+			curl_setopt($curl, CURLOPT_POST, true);
+			curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($this->arguments));
+		} else {
+			// GET REQUEST
+			curl_setopt($curl, CURLOPT_HTTPHEADER, $httpHeader);
+			curl_setopt($curl, CURLOPT_URL, BACKEND_URL.$this->ressource.'?'.http_build_query($this->arguments));
 		}
 		
 		// SSL CONNECTION
-		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
+		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true); 	
 		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2); // see address in config.php
 		curl_setopt($curl, CURLOPT_CAINFO, "/local/mymed/backend/WebContent/certificate/mymed.crt"); // TO EXPORT FROM GLASSFISH!
 		

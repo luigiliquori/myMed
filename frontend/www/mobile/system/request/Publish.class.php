@@ -21,7 +21,6 @@ class Publish extends Request {
 	/* --------------------------------------------------------- */
 	public function __construct(/*IRequestHandler*/ $handler) {
 		parent::__construct("PublishRequestHandler", CREATE);
-// 		parent::setMultipart(true);
 		$this->handler	= $handler;
 	}
 
@@ -31,7 +30,6 @@ class Publish extends Request {
 	public /*void*/ function send() {
 		$predicateArray;
 		$dataArray;
-		$askForMobilePicture = false;
 		$numberOfPredicate = 0;
 		$numberOfOntology = 0;
 		
@@ -65,27 +63,13 @@ class Publish extends Request {
 		$data = json_encode($dataArray);
 		
 		if (TARGET == "desktop") {
-			$params = array(
-				 	  	  'code'=>'0',
-						  'application'=>$application,
-						  'user'=>$user,
-						  'predicate'=>$predicate,
-						  'data'=>$data
-			);
-				
-			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_VERBOSE, 1);
-			curl_setopt($ch, CURLOPT_URL, BACKEND_URL . "/PublishRequestHandler");
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
-				
-			// SSL CONNECTION
-			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2); // see address in config.php
-			curl_setopt($ch, CURLOPT_CAINFO, "/local/mymed/backend/WebContent/certificate/mymed.crt"); // TO EXPORT FROM GLASSFISH!
-				
-			$responsejSon = curl_exec($ch);
-			curl_close($ch);
+			
+			parent::addArgument("application", $application);
+			parent::addArgument("user", $user);
+			parent::addArgument("predicate", $predicate);
+			parent::addArgument("data", $data);
+			
+			$responsejSon = parent::send();
 			$responseObject = json_decode($responsejSon);
 			
 			if($responseObject->status != 200) {
@@ -102,7 +86,6 @@ class Publish extends Request {
 			. urlencode($predicate) . MOBILE_PARAMETER_SEPARATOR 
 			. urlencode($data));
 			
-			$this->handler->setSuccess("ok");
 		}
 	}
 }
