@@ -1,6 +1,7 @@
 package com.mymed.controller.core.requesthandler;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -17,6 +18,8 @@ import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.session.MSessionBean;
 import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.MLogger;
+
+import edu.lognet.core.tools.HashFunction;
 
 /**
  * Servlet implementation class SessionRequestHandler
@@ -80,28 +83,16 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 			switch (code) {
 			case READ:
 				message.setMethod("READ");
-				if(socialNetwork.equals("myMed")){
-					MSessionBean session = sessionManager.read(accessToken);
-					message.setDescription("Session avaible");
-					MUserBean userBean = profileManager.read(session.getUser());
-					message.addData("user", getGson().toJson(userBean));
-				} else if(socialNetwork.equals("facebook")){
-					throw new InternalBackEndException("not implemented yet...");
-				} else {
-					throw new InternalBackEndException("socialNetwork not recognized!");
-				}
+				MSessionBean session = sessionManager.read(accessToken);
+				message.setDescription("Session avaible");
+				MUserBean userBean = profileManager.read(session.getUser());
+				message.addData("user", getGson().toJson(userBean));
 				break;
 			case DELETE:
 				message.setMethod("DELETE");
-				if(socialNetwork.equals("myMed")){
-					sessionManager.delete(accessToken);
-					message.setDescription("Session deleted -> LOGOUT");
-					MLogger.getLog().info("Session {} deleted -> LOGOUT", accessToken);
-				} else if(socialNetwork.equals("facebook")){
-					throw new InternalBackEndException("facebook logout not implemented yet...");
-				} else {
-					throw new InternalBackEndException("socialNetwork not recognized!");
-				}
+				sessionManager.delete(accessToken);
+				message.setDescription("Session deleted -> LOGOUT");
+				MLogger.getLog().info("Session {} deleted -> LOGOUT", accessToken);
 				break;
 			default:
 				throw new InternalBackEndException(
@@ -135,6 +126,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 			final RequestCode code = requestCodeMap.get(parameters.get("code"));
 			String accessToken = parameters.get("accessToken");
 			String session = parameters.get("session");
+			String userID = parameters.get("userID");
 
 			if (accessToken == null) {
 				throw new InternalBackEndException("accessToken argument missing!");
@@ -142,6 +134,34 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 			}
 
 			switch (code) {
+			case CREATE:
+				message.setMethod("CREATE");
+				if (userID == null) {
+					throw new InternalBackEndException("session argument missing!");
+
+				}
+				final MUserBean userBean = profileManager.read(userID);
+				
+				// Create a new session
+				MSessionBean sessionBean = new MSessionBean();
+				sessionBean.setIp(request.getRemoteAddr());
+				sessionBean.setUser(userBean.getId());
+				sessionBean.setCurrentApplications("");
+				sessionBean.setP2P(false);
+				sessionBean.setTimeout(System.currentTimeMillis()); // TODO Use The Cassandra Timeout mecanism
+				sessionBean.setAccessToken(accessToken);
+				sessionBean.setId(accessToken);	
+				sessionManager.create(sessionBean);
+
+				// Update the profile with the new session
+				userBean.setSession(accessToken);
+				profileManager.update(userBean);
+				
+				message.setDescription("session created");
+				MLogger.getLog().info("Session {} created -> LOGIN", accessToken);
+				message.addData("url", "https://" + InetAddress.getLocalHost().getCanonicalHostName() + "/mobile?socialNetwork=" + userBean.getSocialNetworkName()); // TODO Find a better way to get the url
+				message.addData("accessToken", accessToken);
+				break;
 			case UPDATE:
 				message.setMethod("UPDATE");
 				try {
@@ -149,7 +169,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 						throw new InternalBackEndException("session argument missing!");
 
 					}
-					MSessionBean sessionBean = getGson().fromJson(session,
+					sessionBean = getGson().fromJson(session,
 							MSessionBean.class);
 					sessionManager.update(sessionBean);
 				} catch (final JsonSyntaxException e) {

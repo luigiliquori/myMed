@@ -492,3 +492,5 @@ V pkg glassfish-corba 3.0.0,0-20:20090521T162940Z
 V pkg glassfish-corba 3.1.0,0-27:20110215T071130Z
 V pkg glassfish-corba 3.0.0,0-41:20091202T093236Z
 V pkg glassfish-corba 3.0.0,0-41:20100608T220912Z
+V pkg glassfish-generic-ra 2.1,5.10-0.0:20110125T212104Z
+V pkg glassfish-generic-ra 2.0,5.10-0.0:20090724T233930Z

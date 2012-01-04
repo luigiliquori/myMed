@@ -16,6 +16,8 @@
 	$handler = new LoginHandler();
 	$handler->handleRequest();
 	
+	define('USER_CONNECTED', isset($_SESSION['user']));
+	
 	// MOBILE DETECT
 	require_once 'php-mobile-detect/Mobile_Detect.php';
 	$detect = new Mobile_Detect();
@@ -26,7 +28,7 @@
 	}
 	
 	$templateManager = new TemplateManager();
-	define('USER_CONNECTED', isset($_SESSION['user']));
+
 	if (USER_CONNECTED) {
 		
 		// Try to get th position && Store the position of the user: TODO move this part
@@ -58,6 +60,7 @@
 		}
 		
 		if(isset($_GET['application']) && $_GET['application'] != "0"){
+			// LOAD THE APPLICATION
 			$templateManager->selectTemplate('application/'.$_GET['application']);
 		} else if(isset($_GET['admin']) && $_GET['admin'] != "0"){
 			$templateManager->selectTemplate('admin');

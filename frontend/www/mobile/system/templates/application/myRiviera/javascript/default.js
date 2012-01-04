@@ -42,7 +42,6 @@ function focusOn(id){
 		}, i * 200);
 	}
 
-
 	// FOCUS ON
 	var myLatlng = new google.maps.LatLng(latitude, longitude);
 	map.setCenter(myLatlng);
@@ -56,19 +55,25 @@ function addMarker(){
 	// POI
 	if(!poiMem[poi[poiIterator].id]){
 		
-//		alert(poi[poiIterator].category + " : " + poi[poiIterator].type.toLowerCase() + " : " + poi[poiIterator].name.toLowerCase());
-		
 		var myLatlng = new google.maps.LatLng(poi[poiIterator].latitude, poi[poiIterator].longitude);
 		
 		var myMarkerImage = "";
 		if(poi[poiIterator].category == "4"){
-			myMarkerImage = new google.maps.MarkerImage('http://mymed2.sophia.inria.fr/mobile/system/templates/application/myRiviera/img/velobleu.jpg');
+			myMarkerImage = 'http://mymed2.sophia.inria.fr/mobile/system/templates/application/myRiviera/img/velobleu.png';
+		} else if (poi[poiIterator].category == "5"){
+			myMarkerImage = 'http://mymed2.sophia.inria.fr/mobile/system/templates/application/myRiviera/img/veloparc.png';
+		} else if (poi[poiIterator].category == "10"){
+			myMarkerImage = 'http://mymed2.sophia.inria.fr/mobile/system/templates/application/myRiviera/img/info.png';
+		} else if (poi[poiIterator].category == "1" || poi[poiIterator].category == "2" || poi[poiIterator].category == "3" || poi[poiIterator].category == "8"){
+			myMarkerImage = 'http://mymed2.sophia.inria.fr/mobile/system/templates/application/myRiviera/img/lieu.png';
+		} else {
+			myMarkerImage = 'http://mymed2.sophia.inria.fr/mobile/system/templates/application/myRiviera/img/trip.png';
 		}
 		var marker = new google.maps.Marker({
 			animation: google.maps.Animation.DROP,
 			position: myLatlng,
 			title:poi[poiIterator].name,
-			image: myMarkerImage
+			icon: myMarkerImage
 		});
 		marker.setMap(map);
 

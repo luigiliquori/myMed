@@ -33,35 +33,57 @@ class FacebookWrapper implements IWrapper {
 			try {
 				// Proceed knowing you have a logged in user who's authenticated.
 				$user_profile = $this->facebook->api('/me');
+				$user_mymedWrapper;
 					
 				// Format the user Object
-				$_SESSION['user'] = new MUserBean();
-				$_SESSION['user']->id = "FACEBOOK_" . $user_profile["id"];
-				$_SESSION['user']->login = $user_profile["email"];
-				$_SESSION['user']->email = $user_profile["email"];
-				$_SESSION['user']->name = $user_profile["name"];
-				$_SESSION['user']->firstName = $user_profile["first_name"];
-				$_SESSION['user']->lastName = $user_profile["last_name"];
-				$_SESSION['user']->link = $user_profile["link"];
-				$_SESSION['user']->birthday = $user_profile["birthday"];
-				$_SESSION['user']->hometown = "";
-				$_SESSION['user']->profilePicture = "http://graph.facebook.com/" . $user_profile["id"] . "/picture?type=large";
-				$_SESSION['user']->gender = $user_profile["gender"];
-				$_SESSION['user']->socialNetworkID = "Facebook";
-				$_SESSION['user']->socialNetworkName = "facebook";
+				$user_mymedWrapper = new MUserBean();
+				$user_mymedWrapper->id = "FACEBOOK_" . $user_profile["id"];
+				$user_mymedWrapper->login = $user_profile["email"];
+				$user_mymedWrapper->email = $user_profile["email"];
+				$user_mymedWrapper->name = $user_profile["name"];
+				$user_mymedWrapper->firstName = $user_profile["first_name"];
+				$user_mymedWrapper->lastName = $user_profile["last_name"];
+				$user_mymedWrapper->link = $user_profile["link"];
+				$user_mymedWrapper->birthday = "";
+				$user_mymedWrapper->hometown = "";
+				$user_mymedWrapper->profilePicture = "http://graph.facebook.com/" . $user_profile["id"] . "/picture?type=large";
+				$user_mymedWrapper->gender = $user_profile["gender"];
+				$user_mymedWrapper->socialNetworkID = "Facebook";
+				$user_mymedWrapper->socialNetworkName = "facebook";
 					
-				// make the user profile persistant into myMed
+				// make the user profile persistant into myMed TODO: verify if not exist
 				$request = new Request("ProfileRequestHandler", CREATE);
-				$request->addArgument("user", json_encode($_SESSION['user']));
+				$request->addArgument("user", json_encode($user_mymedWrapper));
 
 				$responsejSon = $request->send();
 				$responseObject = json_decode($responsejSon);
+				
 				if($responseObject->status != 200) {
-					throw new FacebookApiException($responseObject->description);
+					throw new FacebookApiException();
 				}
+				
+				// Create the myMed session
+				$request = new Request("SessionRequestHandler", CREATE);
+				$request->addArgument("userID", $user_mymedWrapper->id);
+				$request->addArgument("accessToken", $this->facebook->getAccessToken());
+				
+				$responsejSon = $request->send();
+				$responseObject = json_decode($responsejSon);
+				
+				if($responseObject->status != 200) {
+					throw new FacebookApiException();
+				}
+				
+				// MOMORIZE THE WRAPPER
+				$_SESSION['wrapper'] = $this;
+				
+				// REDIRECTION
+				$accessToken = $responseObject->data->accessToken;
+				$url = $responseObject->data->url;
+				header("Refresh:0;url=" . $url . "&accessToken=" . $accessToken);
+				
 			}	catch (FacebookApiException $e) {
 				error_log($e);
-				$_SESSION['user'] = null;
 			}
 		}
 	}
@@ -113,15 +135,8 @@ class FacebookWrapper implements IWrapper {
 	 * Handle a facebook login request
 	 */
 	public /*void*/ function handleAuthentication() {
-		if(!isset($_SESSION['wrapper'])){
-			$_SESSION['wrapper'] = $this;
-		}
-		if(!isset($_SESSION['user'])) {
-			$this->refreshUserData();
-		}
-		if(!isset($_SESSION['friends'])) {
-			$this->refreshFriendsData();
-		}
+		$this->refreshUserData();
+		$this->refreshFriendsData();
 	}
 
 	/**

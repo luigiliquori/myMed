@@ -73,17 +73,21 @@ class MyApplicationHandler implements IRequestHandler {
 								"&TypePoint=-1" .
 								"&POICategory=-1";
 								$pois = json_decode(file_get_contents(Cityway_URL . "/display/v1/GetTripPointByWGS84/json?key=" . Cityway_APP_ID . $args));
-								
-								$i = 0;
-								$tripSegment->poi = array();
-								foreach($pois->TripPointServiceObj->TripPoint as $poi) {
-									// Convert From Lambert2 to WGS64
-									$convertion = new Convert($poi->x, $poi->y);
-									$newCoord = $convertion->convertion();
-									$poi->longitude = $newCoord[0]; //X
-									$poi->latitude = $newCoord[1];  //Y
-									
-									$tripSegment->poi[$i++] = $poi;
+
+								if($pois->TripPointServiceObj->Status->code == 0) {
+									$i = 0;
+									$tripSegment->poi = array();
+									foreach($pois->TripPointServiceObj->TripPoint as $poi) {
+										if(is_object($poi)){
+											// Convert From Lambert2 to WGS64
+											$convertion = new Convert($poi->x, $poi->y);
+											$newCoord = $convertion->convertion();
+											$poi->longitude = $newCoord[0]; //X
+											$poi->latitude = $newCoord[1];  //Y
+											
+											$tripSegment->poi[$i++] = $poi;
+										}
+									}
 								}
 							}
 							
