@@ -61,7 +61,7 @@ public class AuthenticationManager extends HTTPCall implements ICallAttributes {
 		q=appendAttribute(q,ID,userId);
 		JSONObject response;
 		try{
-			response = (JSONObject) new JSONTokener(httpRequest(PROFILE_HANDLER_URL+q,httpMethod.POST,null)).nextValue();
+			response = (JSONObject) new JSONTokener(httpRequest(PROFILE_HANDLER_URL+q,HttpMethod.POST,null)).nextValue();
 			JSONObject data = response.getJSONObject("data");
 			String profile = data.getString("profile");
 			Type userType = new TypeToken<MUserBean>(){}.getType();

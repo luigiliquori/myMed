@@ -16,7 +16,7 @@ import com.mymed.controller.core.manager.myjam.MyJamManager;
 import com.mymed.controller.core.manager.storage.MyJamStorageManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.id.MyMedId;
-import com.mymed.model.data.locator.MSearchBean;
+import com.mymed.model.data.geolocation.MSearchBean;
 import com.mymed.model.data.myjam.MReportBean;
 
 import com.mymed.model.data.myjam.MyJamTypeValidator;
