@@ -33,8 +33,15 @@ class Favorite extends AbstractHome {
 						$column = "a";
 					    while (false !== ($file = readdir($handle))) {
 					    	if($file != "." && $file != ".." && $file != ".DS_Store"){ ?>
+					    		<?php if(TARGET == "desktop") { ?>
+					   				<iframe src="index.php" id="<?= $file ?>_iframe" name="<?= $file ?>_iframe" style="position: absolute; width:70%; height:70%; top:20px; left:15%; display: none;"></iframe> 
+						    	<?php } ?>
 						    	<div class="ui-block-<?= $column ?>">
-							    	<a href="?application=<?= $file ?>" class="myIcon" rel="external"><img alt="<?= $file ?>" src="system/templates/application/<?= $file ?>/img/icon.png" width="50px" >
+							    	<a href="?application=<?= $file ?>" 
+							    	<?php if(TARGET == "desktop") { ?> 
+							    		onClick="displayFrame('<?= $file ?>_iframe')" target="<?= $file ?>_iframe"
+							    	<?php } ?>
+							    	class="myIcon" rel="external"><img alt="<?= $file ?>" src="system/templates/application/<?= $file ?>/img/icon.png" width="50px" >
 							    	</a>
 							    	<br>
 							    	<span style="font-size: 9pt; font-weight: bold;">

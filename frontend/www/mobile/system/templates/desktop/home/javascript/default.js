@@ -33,4 +33,3 @@ function successCallback(position){
 	   xhr.send(null); 
 }
 
-

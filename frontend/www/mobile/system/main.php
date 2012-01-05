@@ -32,38 +32,36 @@
 	if (USER_CONNECTED) {
 		
 		// Try to get th position && Store the position of the user: TODO move this part
-		if(isset($_GET["latitude"]) && isset($_GET["longitude"])) {
-			$request = new Request("PositionRequestHandler", UPDATE);
-			$position = new MPositionBean();
-			$position->userID = $_SESSION['user']->id;
-			echo '<script type="text/javascript">alert(\'' . $_SESSION['user']->id . '\');</script>';
-			$position->latitude = $_GET["latitude"];
-			$position->longitude = $_GET["longitude"];
-			$geoloc = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?latlng=".$position->latitude.",".$position->longitude."&sensor=true"));
-			$position->formattedAddress = $geoloc->results[0]->formatted_address;
+// 		if(isset($_GET["latitude"]) && isset($_GET["longitude"])) {
+// 			$request = new Request("PositionRequestHandler", UPDATE);
+// 			$position = new MPositionBean();
+// 			$position->userID = $_SESSION['user']->id;
+// 			echo '<script type="text/javascript">alert(\'' . $_SESSION['user']->id . '\');</script>';
+// 			$position->latitude = $_GET["latitude"];
+// 			$position->longitude = $_GET["longitude"];
+// 			$geoloc = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?latlng=".$position->latitude.",".$position->longitude."&sensor=true"));
+// 			$position->formattedAddress = $geoloc->results[0]->formatted_address;
 // 			TODO add city+zipCode
-			$request->addArgument("position", json_encode($position));
-			$request->send();
+// 			$request->addArgument("position", json_encode($position));
+// 			$request->send();
 			
-			if($responseObject->status != 200) {
-				echo '<script type="text/javascript">alert(\'' . $responseObject->description . '\');</script>';
-			} 
-		}
+// 			if($responseObject->status != 200) {
+// 				echo '<script type="text/javascript">alert(\'' . $responseObject->description . '\');</script>';
+// 			} 
+// 		}
 		
 		// GET THE LASTEST KNOWN POSITION OF THE USER: TODO move this part
-		$request = new Request("PositionRequestHandler", READ);
-		$request->addArgument("userID", $_SESSION['user']->id);
-		$responsejSon = $request->send();
-		$responseObject = json_decode($responsejSon);
-		if($responseObject->status == 200) {
-			$_SESSION['position'] = json_decode($responseObject->data->position);
-		}
+// 		$request = new Request("PositionRequestHandler", READ);
+// 		$request->addArgument("userID", $_SESSION['user']->id);
+// 		$responsejSon = $request->send();
+// 		$responseObject = json_decode($responsejSon);
+// 		if($responseObject->status == 200) {
+// 			$_SESSION['position'] = json_decode($responseObject->data->position);
+// 		}
 		
 		if(isset($_GET['application']) && $_GET['application'] != "0"){
-			// LOAD THE APPLICATION
+		// LOAD THE APPLICATION
 			$templateManager->selectTemplate('application/'.$_GET['application']);
-		} else if(isset($_GET['admin']) && $_GET['admin'] != "0"){
-			$templateManager->selectTemplate('admin');
 		} else {
 			$templateManager->selectTemplate(TARGET . '/home');
 		}

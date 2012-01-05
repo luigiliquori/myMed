@@ -33,8 +33,12 @@ class MyConcert extends AbstractTemplate {
 	*/
 	public /*String*/ function getHeader() { ?>
 		<!-- HEADER -->
-		<div data-role="header">
-			<a href="?application=0" rel="external" data-role="button" data-theme="r">Fermer</a>
+		<div data-role="header" data-theme="a">
+			<?php if(TARGET == "desktop") { ?>
+				<a href="#" onClick="hideFrame('<?= APPLICATION_NAME ?>_iframe')" data-role="button" data-theme="r" target="_top">Fermer</a>
+			<?php } else { ?>
+				<a href="?application=0" rel="external" data-role="button" data-theme="r">Close</a>
+			<?php } ?>
 			<h1><?= $this->title ?></h1>
 		</div>
 	<?php }

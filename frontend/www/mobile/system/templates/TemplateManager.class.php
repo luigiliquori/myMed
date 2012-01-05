@@ -45,6 +45,9 @@ class TemplateManager {
 		
 		<!-- MAP -->
 		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=mymed2.sophia.inria.fr&sensor=true"> </script>
+		
+		<!-- Common javascript -->
+		<script src="javascript/common.js"></script>
 
 		
 		<!-- LOAD DYNAMICALLY THE CSS FOR EACH TEMPLATE -->
