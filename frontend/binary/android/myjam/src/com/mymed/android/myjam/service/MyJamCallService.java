@@ -215,31 +215,31 @@ public class MyJamCallService extends IntentService{
 	 */
 	private void logIn(Bundle bundle)
 			throws InternalBackEndException, IOBackEndException, InternalClientException, RemoteException, OperationApplicationException{
-		final ArrayList<ContentProviderOperation> batch = new ArrayList<ContentProviderOperation> (2);
-		final AuthenticationManager authManager = new AuthenticationManager();
-		
-		MUserBean user = authManager.authenticate(
-			bundle.getString(ICallAttributes.LOGIN),
-			bundle.getString(ICallAttributes.PASSWORD));
-		//authManager.logIn(user.getId(), 
-		//		bundle.getString(ICallAttributes.IP));
-		ContentValues currVal = new ContentValues();
-		currVal.put(User.USER_ID, user.getId());
-		currVal.put(User.LOGIN_ID, user.getLogin());
-		currVal.put(User.USER_NAME, user.getName());
-		currVal.put(User.FIRST_NAME, user.getFirstName());
-		currVal.put(User.LAST_NAME, user.getLastName());
-		currVal.put(User.GENDER, user.getGender());
-		//TODO add eventually other values.
-		batch.add(ContentProviderOperation.newInsert(User.CONTENT_URI).withValues(currVal).build());
-		currVal = new ContentValues();
-		currVal.put(Login.LOGIN_ID, user.getLogin());
-		currVal.put(Login.USER_ID, user.getId());
-		currVal.put(Login.PASSWORD, bundle.getString(ICallAttributes.PASSWORD));
-		currVal.put(Login.DATE, System.currentTimeMillis());
-		currVal.put(Login.LOGGED, true);
-		batch.add(ContentProviderOperation.newInsert(Login.CONTENT_URI).withValues(currVal).build());
-		resolver.applyBatch(MyJamContract.CONTENT_AUTHORITY, batch);
+//		final ArrayList<ContentProviderOperation> batch = new ArrayList<ContentProviderOperation> (2);
+//		final AuthenticationManager authManager = new AuthenticationManager();
+//		
+//		MUserBean user = authManager.authenticate(
+//			bundle.getString(ICallAttributes.LOGIN),
+//			bundle.getString(ICallAttributes.PASSWORD));
+//		//authManager.logIn(user.getId(), 
+//		//		bundle.getString(ICallAttributes.IP));
+//		ContentValues currVal = new ContentValues();
+//		currVal.put(User.USER_ID, user.getId());
+//		currVal.put(User.LOGIN_ID, user.getLogin());
+//		currVal.put(User.USER_NAME, user.getName());
+//		currVal.put(User.FIRST_NAME, user.getFirstName());
+//		currVal.put(User.LAST_NAME, user.getLastName());
+//		currVal.put(User.GENDER, user.getGender());
+//		//TODO add eventually other values.
+//		batch.add(ContentProviderOperation.newInsert(User.CONTENT_URI).withValues(currVal).build());
+//		currVal = new ContentValues();
+//		currVal.put(Login.LOGIN_ID, user.getLogin());
+//		currVal.put(Login.USER_ID, user.getId());
+//		currVal.put(Login.PASSWORD, bundle.getString(ICallAttributes.PASSWORD));
+//		currVal.put(Login.DATE, System.currentTimeMillis());
+//		currVal.put(Login.LOGGED, true);
+//		batch.add(ContentProviderOperation.newInsert(Login.CONTENT_URI).withValues(currVal).build());
+//		resolver.applyBatch(MyJamContract.CONTENT_AUTHORITY, batch);
 	}
 	
 	/**
@@ -253,18 +253,18 @@ public class MyJamCallService extends IntentService{
 	 */
 	private void logOut(Bundle bundle,int reqCode)
 			throws InternalBackEndException, IOBackEndException, InternalClientException, RemoteException, OperationApplicationException{
-		final ArrayList<ContentProviderOperation> batch = new ArrayList<ContentProviderOperation> (2);
-		final AuthenticationManager authManager = new AuthenticationManager();
-		
-		authManager.logOut(bundle.getString(ICallAttributes.USER_ID));
-		if (reqCode == RequestCode.COMPLETE_LOG_OUT)
-			batch.add(ContentProviderOperation.newDelete(Login.CONTENT_URI).build());
-		else if (reqCode == RequestCode.PARTIAL_LOG_OUT){
-			ContentValues val = new ContentValues();
-			val.put(Login.LOGGED, false);
-			batch.add(ContentProviderOperation.newUpdate(Login.CONTENT_URI).withValues(val).build());
-		}		
-		resolver.applyBatch(MyJamContract.CONTENT_AUTHORITY, batch);
+//		final ArrayList<ContentProviderOperation> batch = new ArrayList<ContentProviderOperation> (2);
+//		final AuthenticationManager authManager = new AuthenticationManager();
+//		
+//		authManager.logOut(bundle.getString(ICallAttributes.USER_ID));
+//		if (reqCode == RequestCode.COMPLETE_LOG_OUT)
+//			batch.add(ContentProviderOperation.newDelete(Login.CONTENT_URI).build());
+//		else if (reqCode == RequestCode.PARTIAL_LOG_OUT){
+//			ContentValues val = new ContentValues();
+//			val.put(Login.LOGGED, false);
+//			batch.add(ContentProviderOperation.newUpdate(Login.CONTENT_URI).withValues(val).build());
+//		}		
+//		resolver.applyBatch(MyJamContract.CONTENT_AUTHORITY, batch);
 	}	
 	
 	/**
@@ -280,185 +280,185 @@ public class MyJamCallService extends IntentService{
 			throws InternalBackEndException, IOBackEndException, InternalClientException, RemoteException, OperationApplicationException{
 		final ArrayList<ContentProviderOperation> batch;
 		
-		List<MSearchBean> listSearchRep = myJamRestCall.searchReports(
-    			bundle.getInt(ICallAttributes.LATITUDE),
-    			bundle.getInt(ICallAttributes.LONGITUDE),
-    			bundle.getInt(ICallAttributes.RADIUS));
-			batch = new ArrayList<ContentProviderOperation> ((2*listSearchRep.size())+3);
-			int searchId = bundle.getInt(ICallAttributes.SEARCH_ID);
-			/** 
-			 * If it's a {@link NEW_SEARCH} the following operations are done:
-			 * -The search results with flag OLD_SEARCH are deleted.
-			 * -The search results with flag NEW_SEARCH are marked as old (OLD_SEARCH).
-			 * -The new search results are inserted, with flag NEW_SEARCH.
-			 * -The reports that are no more pointed by entries in SearchResults table and that doesn't belong to
-			 * the current user are deleted.   
-			 **/
-			if (searchId == Search.NEW_SEARCH){
-				batch.add(ContentProviderOperation.newDelete(SearchResult.CONTENT_URI).withSelection(SearchResult.SEARCH_ID_SELECTION,
-						new String[]{String.valueOf(Search.OLD_SEARCH)}).build());
-				batch.add(ContentProviderOperation.newUpdate(SearchResult.CONTENT_URI).withSelection(SearchResult.SEARCH_ID_SELECTION,
-						new String[]{String.valueOf(Search.NEW_SEARCH)}).withValue(SearchResult.SEARCH_ID, Search.OLD_SEARCH).build());
-				/** 
-				 * If it's a {@link INSERT_SEARCH} the following operations are done:
-				 * -The search results with flag INSERT_SEARCH are deleted.
-				 * -The new search results are inserted, with flag INSERT_SEARCH.
-				 * -The reports that are no more pointed by entries in SearchResults table and that doesn't belong to
-				 * the current user are deleted.   
-				 **/
-			}else if(searchId == Search.INSERT_SEARCH){
-				batch.add(ContentProviderOperation.newDelete(SearchResult.CONTENT_URI).withSelection(SearchResult.SEARCH_ID_SELECTION,
-						new String[]{String.valueOf(Search.INSERT_SEARCH)}).build());
-			}else
-				throw new InternalClientException("The search id is not valid.");
-			ContentValues currVal = new ContentValues();
-			currVal.put(Search.SEARCH_ID, searchId);
-			currVal.put(Search.DATE, System.currentTimeMillis());
-			currVal.put(Search.LATITUDE, bundle.getInt(ICallAttributes.LATITUDE));
-			currVal.put(Search.LONGITUDE, bundle.getInt(ICallAttributes.LONGITUDE));
-			currVal.put(Search.RADIUS, bundle.getInt(ICallAttributes.RADIUS));
-			currVal.put(Search.SEARCHING, false);
-			batch.add(ContentProviderOperation.newInsert(Search.CONTENT_URI).withValues(currVal).build());
-			for (MSearchBean currShortRep:listSearchRep){
-				currVal = new ContentValues();
-				currVal.put(SearchResult.REPORT_ID, currShortRep.getId());
-				currVal.put(SearchResult.DISTANCE, currShortRep.getDistance());
-				currVal.put(SearchResult.SEARCH_ID, searchId);
-				batch.add(ContentProviderOperation.newInsert(SearchResult.CONTENT_URI).withValues(currVal).build());
-				currVal = new ContentValues();
-				currVal.put(Report.REPORT_ID,	currShortRep.getId());
-				currVal.put(Report.REPORT_TYPE,	currShortRep.getValue());
-				currVal.put(Report.LATITUDE, currShortRep.getLatitude());
-				currVal.put(Report.LONGITUDE, currShortRep.getLongitude());
-				currVal.put(Report.DATE, currShortRep.getDate());
-				batch.add(ContentProviderOperation.newInsert(Report.CONTENT_URI).withValues(currVal).build());
-			}
-			batch.add(ContentProviderOperation.newDelete(Report.CONTENT_URI).
-					withSelection(Report.STALE_ENTRIES_SELECTION, null).build());
-			resolver.applyBatch(MyJamContract.CONTENT_AUTHORITY, batch);
-			resolver.notifyChange(SearchReports.buildSearchUri(String.valueOf(searchId)), null);
+//		List<MSearchBean> listSearchRep = myJamRestCall.searchReports(
+//    			bundle.getInt(ICallAttributes.LATITUDE),
+//    			bundle.getInt(ICallAttributes.LONGITUDE),
+//    			bundle.getInt(ICallAttributes.RADIUS));
+//			batch = new ArrayList<ContentProviderOperation> ((2*listSearchRep.size())+3);
+//			int searchId = bundle.getInt(ICallAttributes.SEARCH_ID);
+//			/** 
+//			 * If it's a {@link NEW_SEARCH} the following operations are done:
+//			 * -The search results with flag OLD_SEARCH are deleted.
+//			 * -The search results with flag NEW_SEARCH are marked as old (OLD_SEARCH).
+//			 * -The new search results are inserted, with flag NEW_SEARCH.
+//			 * -The reports that are no more pointed by entries in SearchResults table and that doesn't belong to
+//			 * the current user are deleted.   
+//			 **/
+//			if (searchId == Search.NEW_SEARCH){
+//				batch.add(ContentProviderOperation.newDelete(SearchResult.CONTENT_URI).withSelection(SearchResult.SEARCH_ID_SELECTION,
+//						new String[]{String.valueOf(Search.OLD_SEARCH)}).build());
+//				batch.add(ContentProviderOperation.newUpdate(SearchResult.CONTENT_URI).withSelection(SearchResult.SEARCH_ID_SELECTION,
+//						new String[]{String.valueOf(Search.NEW_SEARCH)}).withValue(SearchResult.SEARCH_ID, Search.OLD_SEARCH).build());
+//				/** 
+//				 * If it's a {@link INSERT_SEARCH} the following operations are done:
+//				 * -The search results with flag INSERT_SEARCH are deleted.
+//				 * -The new search results are inserted, with flag INSERT_SEARCH.
+//				 * -The reports that are no more pointed by entries in SearchResults table and that doesn't belong to
+//				 * the current user are deleted.   
+//				 **/
+//			}else if(searchId == Search.INSERT_SEARCH){
+//				batch.add(ContentProviderOperation.newDelete(SearchResult.CONTENT_URI).withSelection(SearchResult.SEARCH_ID_SELECTION,
+//						new String[]{String.valueOf(Search.INSERT_SEARCH)}).build());
+//			}else
+//				throw new InternalClientException("The search id is not valid.");
+//			ContentValues currVal = new ContentValues();
+//			currVal.put(Search.SEARCH_ID, searchId);
+//			currVal.put(Search.DATE, System.currentTimeMillis());
+//			currVal.put(Search.LATITUDE, bundle.getInt(ICallAttributes.LATITUDE));
+//			currVal.put(Search.LONGITUDE, bundle.getInt(ICallAttributes.LONGITUDE));
+//			currVal.put(Search.RADIUS, bundle.getInt(ICallAttributes.RADIUS));
+//			currVal.put(Search.SEARCHING, false);
+//			batch.add(ContentProviderOperation.newInsert(Search.CONTENT_URI).withValues(currVal).build());
+//			for (MSearchBean currShortRep:listSearchRep){
+//				currVal = new ContentValues();
+//				currVal.put(SearchResult.REPORT_ID, currShortRep.getId());
+//				currVal.put(SearchResult.DISTANCE, currShortRep.getDistance());
+//				currVal.put(SearchResult.SEARCH_ID, searchId);
+//				batch.add(ContentProviderOperation.newInsert(SearchResult.CONTENT_URI).withValues(currVal).build());
+//				currVal = new ContentValues();
+//				currVal.put(Report.REPORT_ID,	currShortRep.getId());
+//				currVal.put(Report.REPORT_TYPE,	currShortRep.getValue());
+//				currVal.put(Report.LATITUDE, currShortRep.getLatitude());
+//				currVal.put(Report.LONGITUDE, currShortRep.getLongitude());
+//				currVal.put(Report.DATE, currShortRep.getDate());
+//				batch.add(ContentProviderOperation.newInsert(Report.CONTENT_URI).withValues(currVal).build());
+//			}
+//			batch.add(ContentProviderOperation.newDelete(Report.CONTENT_URI).
+//					withSelection(Report.STALE_ENTRIES_SELECTION, null).build());
+//			resolver.applyBatch(MyJamContract.CONTENT_AUTHORITY, batch);
+//			resolver.notifyChange(SearchReports.buildSearchUri(String.valueOf(searchId)), null);
 	}
 	
 	private void getReport(Bundle bundle) 
 			throws InternalBackEndException, IOBackEndException, InternalClientException {
 		
-		String reportId = bundle.getString(ICallAttributes.REPORT_ID);
-		/** If the report is present on the database the rest call is not performed. */
-		Uri uri = Report.CONTENT_URI;
-		MReportBean report = myJamRestCall.getReport(reportId);
-		ContentValues reportVal = new ContentValues();
-		reportVal.put(Report.TRAFFIC_FLOW, report.getTrafficFlowType());
-		reportVal.put(Report.COMMENT, report.getComment());
-		reportVal.put(Report.USER_ID, report.getUserId());
-		reportVal.put(Report.USER_NAME, report.getUserName());
-		reportVal.put(Report.FLAG_COMPLETE, true);
-		/**
-		 * I use update because the report is inserted during the search, here I add only the details that were not present.
-		 */
-		resolver.update(uri, reportVal, Report.REPORT_SELECTION, new String[]{reportId});
+//		String reportId = bundle.getString(ICallAttributes.REPORT_ID);
+//		/** If the report is present on the database the rest call is not performed. */
+//		Uri uri = Report.CONTENT_URI;
+//		MReportBean report = myJamRestCall.getReport(reportId);
+//		ContentValues reportVal = new ContentValues();
+//		reportVal.put(Report.TRAFFIC_FLOW, report.getTrafficFlowType());
+//		reportVal.put(Report.COMMENT, report.getComment());
+//		reportVal.put(Report.USER_ID, report.getUserId());
+//		reportVal.put(Report.USER_NAME, report.getUserName());
+//		reportVal.put(Report.FLAG_COMPLETE, true);
+//		/**
+//		 * I use update because the report is inserted during the search, here I add only the details that were not present.
+//		 */
+//		resolver.update(uri, reportVal, Report.REPORT_SELECTION, new String[]{reportId});
 	}
 	
 	private void getUpdates(Bundle bundle) 
 			throws InternalBackEndException, IOBackEndException, InternalClientException, RemoteException, OperationApplicationException {
-		final String reportId = bundle.getString(ICallAttributes.REPORT_ID);
-		final int numUpdates = myJamRestCall.getNumberUpdates(bundle.getString(ICallAttributes.REPORT_ID));
-		final ArrayList<ContentProviderOperation> batch;
-		final int numNewUpdates = numUpdates - bundle.getInt(ICallAttributes.NUM)<0? 0:(numUpdates - bundle.getInt(ICallAttributes.NUM));
-		List<MReportBean> listUpdates = myJamRestCall.getUpdates(reportId, numNewUpdates);
-		batch = new ArrayList<ContentProviderOperation> (listUpdates.size());
-		ContentValues currVal = new ContentValues();
-		for (MReportBean currUpdate:listUpdates){
-			currVal = new ContentValues();
-			currVal.put(Update.UPDATE_ID, currUpdate.getId());
-			currVal.put(Update.REPORT_ID, reportId);
-			currVal.put(Update.TRAFFIC_FLOW, currUpdate.getTrafficFlowType());
-			currVal.put(Update.COMMENT, currUpdate.getComment());
-			currVal.put(Update.DATE, currUpdate.getTimestamp());
-			currVal.put(Update.USER_ID, currUpdate.getUserId());
-			currVal.put(Update.USER_NAME, currUpdate.getUserName());
-			batch.add(ContentProviderOperation.newInsert(Update.CONTENT_URI).withValues(currVal).build());
-		}
-		resolver.applyBatch(MyJamContract.CONTENT_AUTHORITY, batch);
-		if (listUpdates.size()>0)
-			resolver.notifyChange(Update.CONTENT_URI, null);
-		
+//		final String reportId = bundle.getString(ICallAttributes.REPORT_ID);
+//		final int numUpdates = myJamRestCall.getNumberUpdates(bundle.getString(ICallAttributes.REPORT_ID));
+//		final ArrayList<ContentProviderOperation> batch;
+//		final int numNewUpdates = numUpdates - bundle.getInt(ICallAttributes.NUM)<0? 0:(numUpdates - bundle.getInt(ICallAttributes.NUM));
+//		List<MReportBean> listUpdates = myJamRestCall.getUpdates(reportId, numNewUpdates);
+//		batch = new ArrayList<ContentProviderOperation> (listUpdates.size());
+//		ContentValues currVal = new ContentValues();
+//		for (MReportBean currUpdate:listUpdates){
+//			currVal = new ContentValues();
+//			currVal.put(Update.UPDATE_ID, currUpdate.getId());
+//			currVal.put(Update.REPORT_ID, reportId);
+//			currVal.put(Update.TRAFFIC_FLOW, currUpdate.getTrafficFlowType());
+//			currVal.put(Update.COMMENT, currUpdate.getComment());
+//			currVal.put(Update.DATE, currUpdate.getTimestamp());
+//			currVal.put(Update.USER_ID, currUpdate.getUserId());
+//			currVal.put(Update.USER_NAME, currUpdate.getUserName());
+//			batch.add(ContentProviderOperation.newInsert(Update.CONTENT_URI).withValues(currVal).build());
+//		}
+//		resolver.applyBatch(MyJamContract.CONTENT_AUTHORITY, batch);
+//		if (listUpdates.size()>0)
+//			resolver.notifyChange(Update.CONTENT_URI, null);
+//		
 	}
 	
 	private void getFeedbacks(Bundle bundle,int reqCode) 
 			throws InternalBackEndException, IOBackEndException, InternalClientException, RemoteException, OperationApplicationException {
-		final ArrayList<ContentProviderOperation> batch;
-		final String reportOrUpdateId = bundle.getString(ICallAttributes.REPORT_ID);
-		
-		List<MFeedBackBean> listFeedBacks = myJamRestCall.getFeedBacks(reportOrUpdateId);
-		batch = new ArrayList<ContentProviderOperation> (listFeedBacks.size());
-		for (MFeedBackBean currFeedBack:listFeedBacks){
-			ContentValues currVal = new ContentValues();
-			currVal.put(Feedback.USER_ID, currFeedBack.getUserId());
-			currVal.put(reqCode==RequestCode.GET_REPORT_FEEDBACKS?Feedback.REPORT_ID:Feedback.UPDATE_ID, reportOrUpdateId);
-			currVal.put(Feedback.VALUE, currFeedBack.getValue());
-			batch.add(ContentProviderOperation.newInsert(Feedback.CONTENT_URI).withValues(currVal).build());
-		}
-		resolver.applyBatch(MyJamContract.CONTENT_AUTHORITY, batch);
-		resolver.notifyChange(reqCode==RequestCode.GET_REPORT_FEEDBACKS?
-					Feedback.buildReportIdUri(null):
-						Feedback.buildUpdateIdUri(null), null);
+//		final ArrayList<ContentProviderOperation> batch;
+//		final String reportOrUpdateId = bundle.getString(ICallAttributes.REPORT_ID);
+//		
+//		List<MFeedBackBean> listFeedBacks = myJamRestCall.getFeedBacks(reportOrUpdateId);
+//		batch = new ArrayList<ContentProviderOperation> (listFeedBacks.size());
+//		for (MFeedBackBean currFeedBack:listFeedBacks){
+//			ContentValues currVal = new ContentValues();
+//			currVal.put(Feedback.USER_ID, currFeedBack.getUserId());
+//			currVal.put(reqCode==RequestCode.GET_REPORT_FEEDBACKS?Feedback.REPORT_ID:Feedback.UPDATE_ID, reportOrUpdateId);
+//			currVal.put(Feedback.VALUE, currFeedBack.getValue());
+//			batch.add(ContentProviderOperation.newInsert(Feedback.CONTENT_URI).withValues(currVal).build());
+//		}
+//		resolver.applyBatch(MyJamContract.CONTENT_AUTHORITY, batch);
+//		resolver.notifyChange(reqCode==RequestCode.GET_REPORT_FEEDBACKS?
+//					Feedback.buildReportIdUri(null):
+//						Feedback.buildUpdateIdUri(null), null);
 	}
 	
 	private void insertReport(Bundle bundle,MReportBean report)
 		throws InternalBackEndException, IOBackEndException, InternalClientException, RemoteException, OperationApplicationException {
-		int latitude = bundle.getInt(ICallAttributes.LATITUDE);
-		int longitude = bundle.getInt(ICallAttributes.LONGITUDE);
-		MReportBean reportRes = myJamRestCall.insertReport(
-    			latitude,
-    			longitude,
-				report);
-		//TODO Use user_name and user_id in my_reports (to add after log-in is done).
-		ContentValues currVal = new ContentValues();
-		currVal.put(Report.REPORT_ID, reportRes.getId());
-		currVal.put(Report.USER_ID, reportRes.getUserId());
-		currVal.put(Report.USER_NAME, reportRes.getUserName());
-		currVal.put(Report.LATITUDE, latitude);
-		currVal.put(Report.LONGITUDE, longitude);
-		currVal.put(Report.DATE, reportRes.getTimestamp());
-		currVal.put(Report.REPORT_TYPE, reportRes.getReportType());
-		currVal.put(Report.TRAFFIC_FLOW, reportRes.getTrafficFlowType());
-		currVal.put(Report.COMMENT, reportRes.getComment());
-		currVal.put(Report.FLAG_COMPLETE, true);
-		resolver.insert(Report.CONTENT_URI, currVal);
+//		int latitude = bundle.getInt(ICallAttributes.LATITUDE);
+//		int longitude = bundle.getInt(ICallAttributes.LONGITUDE);
+//		MReportBean reportRes = myJamRestCall.insertReport(
+//    			latitude,
+//    			longitude,
+//				report);
+//		//TODO Use user_name and user_id in my_reports (to add after log-in is done).
+//		ContentValues currVal = new ContentValues();
+//		currVal.put(Report.REPORT_ID, reportRes.getId());
+//		currVal.put(Report.USER_ID, reportRes.getUserId());
+//		currVal.put(Report.USER_NAME, reportRes.getUserName());
+//		currVal.put(Report.LATITUDE, latitude);
+//		currVal.put(Report.LONGITUDE, longitude);
+//		currVal.put(Report.DATE, reportRes.getTimestamp());
+//		currVal.put(Report.REPORT_TYPE, reportRes.getReportType());
+//		currVal.put(Report.TRAFFIC_FLOW, reportRes.getTrafficFlowType());
+//		currVal.put(Report.COMMENT, reportRes.getComment());
+//		currVal.put(Report.FLAG_COMPLETE, true);
+//		resolver.insert(Report.CONTENT_URI, currVal);
 	}
 
 
 	private void insertUpdate(Bundle bundle,MReportBean update)
 		throws InternalBackEndException, IOBackEndException, InternalClientException, RemoteException, OperationApplicationException {
-		String reportId = bundle.getString(ICallAttributes.REPORT_ID);
-		MReportBean updateRes = myJamRestCall.insertUpdate(reportId,update);
-		//TODO Use user_name and user_id in my_reports (to add after log-in is done).
-		ContentValues currVal = new ContentValues();
-		currVal.put(Update.UPDATE_ID, updateRes.getId());
-		currVal.put(Update.REPORT_ID, reportId);
-		currVal.put(Update.USER_ID, updateRes.getUserId());
-		currVal.put(Update.USER_NAME, updateRes.getUserName());
-		currVal.put(Update.DATE, updateRes.getTimestamp());
-		currVal.put(Update.TRAFFIC_FLOW, updateRes.getTrafficFlowType());
-		currVal.put(Update.COMMENT, updateRes.getComment());
-		resolver.insert(Update.CONTENT_URI, currVal);
+//		String reportId = bundle.getString(ICallAttributes.REPORT_ID);
+//		MReportBean updateRes = myJamRestCall.insertUpdate(reportId,update);
+//		//TODO Use user_name and user_id in my_reports (to add after log-in is done).
+//		ContentValues currVal = new ContentValues();
+//		currVal.put(Update.UPDATE_ID, updateRes.getId());
+//		currVal.put(Update.REPORT_ID, reportId);
+//		currVal.put(Update.USER_ID, updateRes.getUserId());
+//		currVal.put(Update.USER_NAME, updateRes.getUserName());
+//		currVal.put(Update.DATE, updateRes.getTimestamp());
+//		currVal.put(Update.TRAFFIC_FLOW, updateRes.getTrafficFlowType());
+//		currVal.put(Update.COMMENT, updateRes.getComment());
+//		resolver.insert(Update.CONTENT_URI, currVal);
 	}
 	
 	private void insertFeedback(Bundle bundle, int reqCode, MFeedBackBean feedback)
 			throws InternalBackEndException, IOBackEndException, InternalClientException, RemoteException, OperationApplicationException {
-			String reportId = bundle.getString(ICallAttributes.REPORT_ID);
-			String updateId = bundle.getString(ICallAttributes.UPDATE_ID);
-			myJamRestCall.insertFeedBack(reportId, updateId, feedback);
-			//TODO Use user_name and user_id in my_reports (to add after log-in is done).
-			ContentValues currVal = new ContentValues();
-			currVal.put(Feedback.USER_ID, feedback.getUserId()); //TODO fix this
-			currVal.put(reqCode==RequestCode.INSERT_REPORT_FEEDBACK?Feedback.REPORT_ID:Feedback.UPDATE_ID, 
-					reqCode==RequestCode.INSERT_REPORT_FEEDBACK?reportId:updateId);
-			currVal.put(Feedback.VALUE, feedback.getValue());
-			resolver.insert(Feedback.CONTENT_URI, currVal);
-			resolver.notifyChange(reqCode==RequestCode.INSERT_REPORT_FEEDBACK?
-					Feedback.buildReportIdUri(null):
-						Feedback.buildUpdateIdUri(null), null);
+//			String reportId = bundle.getString(ICallAttributes.REPORT_ID);
+//			String updateId = bundle.getString(ICallAttributes.UPDATE_ID);
+//			myJamRestCall.insertFeedBack(reportId, updateId, feedback);
+//			//TODO Use user_name and user_id in my_reports (to add after log-in is done).
+//			ContentValues currVal = new ContentValues();
+//			currVal.put(Feedback.USER_ID, feedback.getUserId()); //TODO fix this
+//			currVal.put(reqCode==RequestCode.INSERT_REPORT_FEEDBACK?Feedback.REPORT_ID:Feedback.UPDATE_ID, 
+//					reqCode==RequestCode.INSERT_REPORT_FEEDBACK?reportId:updateId);
+//			currVal.put(Feedback.VALUE, feedback.getValue());
+//			resolver.insert(Feedback.CONTENT_URI, currVal);
+//			resolver.notifyChange(reqCode==RequestCode.INSERT_REPORT_FEEDBACK?
+//					Feedback.buildReportIdUri(null):
+//						Feedback.buildUpdateIdUri(null), null);
 		}
 	
 	
