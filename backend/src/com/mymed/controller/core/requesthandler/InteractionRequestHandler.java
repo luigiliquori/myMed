@@ -60,6 +60,13 @@ public class InteractionRequestHandler extends AbstractRequestHandler {
 			Map<String, String> parameters = getParameters(request);
 			RequestCode code = requestCodeMap.get(parameters.get("code"));
 
+			// accessToken
+			if (!parameters.containsKey("accessToken")) {
+				throw new InternalBackEndException("accessToken argument is missing!");
+			} else {
+				tokenValidation(parameters.get("accessToken")); // Security Validation
+			}
+			
 			switch (code) {
 			case READ:
 			case DELETE:
@@ -89,6 +96,13 @@ public class InteractionRequestHandler extends AbstractRequestHandler {
 			Map<String, String> parameters = getParameters(request);
 			RequestCode code = requestCodeMap.get(parameters.get("code"));
 			String application, producer, consumer, start, end, predicate, feedback;
+			
+			// accessToken
+			if (!parameters.containsKey("accessToken")) {
+				throw new InternalBackEndException("accessToken argument is missing!");
+			} else {
+				tokenValidation(parameters.get("accessToken")); // Security Validation
+			}
 			
 			switch (code) {
 			case UPDATE:

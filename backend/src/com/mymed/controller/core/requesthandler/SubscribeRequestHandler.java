@@ -60,6 +60,13 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
       final Map<String, String> parameters = getParameters(request);
       final RequestCode code = requestCodeMap.get(parameters.get("code"));
 
+      // accessToken
+      if (!parameters.containsKey("accessToken")) {
+        throw new InternalBackEndException("accessToken argument is missing!");
+      } else {
+        tokenValidation(parameters.get("accessToken")); // Security Validation
+      }
+
       switch (code) {
         case READ :
         case DELETE :
@@ -92,6 +99,13 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
       final RequestCode code = requestCodeMap.get(parameters.get("code"));
       String application, predicate, user;
 
+      // accessToken
+      if (!parameters.containsKey("accessToken")) {
+        throw new InternalBackEndException("accessToken argument is missing!");
+      } else {
+        tokenValidation(parameters.get("accessToken")); // Security Validation
+      }
+
       switch (code) {
         case CREATE :
           if ((application = parameters.get("application")) == null) {
@@ -117,8 +131,8 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
       }
 
     } catch (final AbstractMymedException e) {
-      LOGGER.info("Error in doPost operation");
-      LOGGER.debug("Error in doPost operation", e.getCause());
+      LOGGER.info("Error in doGet operation");
+      LOGGER.debug("Error in doGet operation", e.getCause());
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());
     }

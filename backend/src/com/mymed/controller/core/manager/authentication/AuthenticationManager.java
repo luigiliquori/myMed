@@ -21,6 +21,7 @@ import com.mymed.model.data.user.MUserBean;
 public class AuthenticationManager extends AbstractManager implements IAuthenticationManager {
 
   private static final String LOGIN_COLUMN = "login";
+  private static final String ENCODING = "UTF8";
   private static final String CONVERSION_ERROR = "Error in string conversion using '{}' encoding";
 
   public AuthenticationManager() throws InternalBackEndException {

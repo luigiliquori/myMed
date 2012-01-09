@@ -62,6 +62,13 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
 			RequestCode code = requestCodeMap.get(parameters.get("code"));
 			String application, producer, consumer;
 			
+			// accessToken
+			if (!parameters.containsKey("accessToken")) {
+				throw new InternalBackEndException("accessToken argument is missing!");
+			} else {
+				tokenValidation(parameters.get("accessToken")); // Security Validation
+			}
+			
 			switch (code) {
 			case READ:
 				if ((application = parameters.get("application")) == null) {
@@ -102,6 +109,13 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
 			Map<String, String> parameters = getParameters(request);
 			RequestCode code = requestCodeMap.get(parameters.get("code"));
 
+			// accessToken
+			if (!parameters.containsKey("accessToken")) {
+				throw new InternalBackEndException("accessToken argument is missing!");
+			} else {
+				tokenValidation(parameters.get("accessToken")); // Security Validation
+			}
+			
 			switch (code) {
 			case CREATE:
 			case UPDATE:

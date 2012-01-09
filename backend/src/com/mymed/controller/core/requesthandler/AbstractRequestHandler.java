@@ -17,7 +17,9 @@ import javax.servlet.http.Part;
 import ch.qos.logback.classic.Logger;
 
 import com.google.gson.Gson;
+import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.controller.core.manager.session.SessionManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.utils.MLogger;
 
@@ -165,6 +167,16 @@ public abstract class AbstractRequestHandler extends HttpServlet {
         LOGGER.debug("Error in printResponse()", e.getCause());
       }
     }
+  }
+
+  /**
+   * Validate an accesstoken
+   * 
+   * @param accesstoken
+   * @throws InternalBackEndException
+   */
+  protected void tokenValidation(final String accessToken) throws InternalBackEndException, IOBackEndException {
+    new SessionManager().read(accessToken);
   }
 
   /* --------------------------------------------------------- */
