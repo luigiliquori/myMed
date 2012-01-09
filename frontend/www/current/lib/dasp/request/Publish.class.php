@@ -84,7 +84,8 @@ class Publish extends Request {
 			. urlencode($application) . MOBILE_PARAMETER_SEPARATOR 
 			. urlencode($user) . MOBILE_PARAMETER_SEPARATOR 
 			. urlencode($predicate) . MOBILE_PARAMETER_SEPARATOR 
-			. urlencode($data));
+			. urlencode($data) . MOBILE_PARAMETER_SEPARATOR 
+			. urlencode($_SESSION['accessToken']));
 			
 		}
 	}

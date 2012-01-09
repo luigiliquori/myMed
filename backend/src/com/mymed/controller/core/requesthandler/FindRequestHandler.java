@@ -77,6 +77,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
 					throw new InternalBackEndException("missing predicate argument!");
 				}
 				if ((user = parameters.get("user")) != null) {
+					System.out.println("************PREDICATE = "  + predicate);
 					final List<Map<String, String>> details =
 							pubsubManager.read(application, predicate, user);
 					if (details.isEmpty()) {
