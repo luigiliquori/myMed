@@ -9,9 +9,9 @@
 	/** define the path in URL to access to the website, must begin with '/' and ended with '/' */
 	define('ROOTPATH', '/mymed/mobile/');
 	/** define the backend's URL'*/
-	define('BACKEND_URL', 'https://mymed2.sophia.inria.fr:8181/mymed_backend/');
 	/** define the backend's URL'*/
 	define('MOBILE_PARAMETER_SEPARATOR', '::');
+	define('BACKEND_URL', 'http://mymed22.sophia.inria.fr:8080/mymed_backend/');
 	
 	//Social Networks Keys
 	define('Facebook_APP_ID', '263064853727560');

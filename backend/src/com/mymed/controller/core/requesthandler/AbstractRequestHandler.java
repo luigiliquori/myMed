@@ -14,8 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import ch.qos.logback.classic.Logger;
+
 import com.google.gson.Gson;
-import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.session.SessionManager;
@@ -23,166 +24,173 @@ import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.utils.MLogger;
 
 public abstract class AbstractRequestHandler extends HttpServlet {
+  /* --------------------------------------------------------- */
+  /* Attributes */
+  /* --------------------------------------------------------- */
+  private static final long serialVersionUID = 1L;
 
-	/* --------------------------------------------------------- */
-	/* Attributes */
-	/* --------------------------------------------------------- */
-	private static final long serialVersionUID = 1L;
+  private static final String ENCODING = "UTF-8";
 
-	/** Google library to handle jSon request */
-	private Gson gson;
+  // The default logger for all the RequestHandler that extends this class
+  protected static final Logger LOGGER = MLogger.getLogger();
 
-	/** The response/feedback printed */
-	private String responseText = null;
+  /** Google library to handle jSon request */
+  private Gson gson;
 
-	/** Request code Map */
-	protected Map<String, RequestCode> requestCodeMap = new HashMap<String, RequestCode>();
+  /** The response/feedback printed */
+  private String responseText = null;
 
-	/** Request codes */
-	protected enum RequestCode {
-		// C.R.U.D
-		CREATE("0"),
-		READ("1"),
-		UPDATE("2"),
-		DELETE("3");
+  /** Request code Map */
+  protected Map<String, RequestCode> requestCodeMap = new HashMap<String, RequestCode>();
 
-		public final String code;
+  /** Request codes */
+  protected enum RequestCode {
+    // C.R.U.D
+    CREATE("0"),
+    READ("1"),
+    UPDATE("2"),
+    DELETE("3");
 
-		RequestCode(final String code) {
-			this.code = code;
-		}
-	}
+    public final String code;
 
-	/* --------------------------------------------------------- */
-	/* Constructors */
-	/* --------------------------------------------------------- */
-	protected AbstractRequestHandler() {
-		super();
+    RequestCode(final String code) {
+      this.code = code;
+    }
+  }
 
-		gson = new Gson();
-		for (final RequestCode r : RequestCode.values()) {
-			requestCodeMap.put(r.code, r);
-		}
-	}
-	
+  /* --------------------------------------------------------- */
+  /* Constructors */
+  /* --------------------------------------------------------- */
+  protected AbstractRequestHandler() {
+    super();
 
-	/* --------------------------------------------------------- */
-	/* protected methods */
-	/* --------------------------------------------------------- */
-	/**
-	 * @return the parameters of an HttpServletRequest
-	 */
-	protected Map<String, String> getParameters(final HttpServletRequest request) throws AbstractMymedException {
+    gson = new Gson();
+    for (final RequestCode r : RequestCode.values()) {
+      requestCodeMap.put(r.code, r);
+    }
+  }
 
-		// see multipart/form-data Request
-		if(request.getContentType() != null){
-			try {
-				if(request.getContentType().matches("multipart/form-data.*")){
-					System.out.println("*******multi-part is not implemented for this handler!");
-					System.out.println("\nPART size = " + request.getParts().size());
-					for(Part part : request.getParts()){
-						System.out.println("\nPART: " + part);
-					}
-					throw new InternalBackEndException("multi-part is not implemented for this handler!");
-				}
-			} catch (IOException e) {
-				throw new InternalBackEndException(e);
-			} catch (ServletException e) {
-				throw new InternalBackEndException(e);
-			}
-		}
+  /* --------------------------------------------------------- */
+  /* protected methods */
+  /* --------------------------------------------------------- */
+  /**
+   * @return the parameters of an HttpServletRequest
+   */
+  protected Map<String, String> getParameters(final HttpServletRequest request) throws InternalBackEndException {
 
-		final Map<String, String> parameters = new HashMap<String, String>();
-		final Enumeration<String> paramNames = request.getParameterNames();
+    // see multipart/form-data Request
+    if (request.getContentType() != null) {
+      try {
+        if (request.getContentType().matches("multipart/form-data")) {
+          LOGGER.info("multipart/form-data REQUEST");
+          for (final Part part : request.getParts()) {
+            LOGGER.info("PART {} ", part);
+          }
+          throw new InternalBackEndException("multi-part is not yet implemented...");
+        }
+      } catch (final IOException e) {
+        throw new InternalBackEndException(e);
+      } catch (final ServletException e) {
+        throw new InternalBackEndException(e);
+      }
+    }
 
-		while (paramNames.hasMoreElements()) {
-			final String paramName = paramNames.nextElement();
-			final String[] paramValues = request.getParameterValues(paramName);
+    final Map<String, String> parameters = new HashMap<String, String>();
+    final Enumeration<String> paramNames = request.getParameterNames();
 
-			if (paramValues.length >= 1) { // all the params should be atomic
-				try {
-					parameters.put(paramName, URLDecoder.decode(paramValues[0], "UTF-8"));
-				} catch (UnsupportedEncodingException e) {
-					throw new InternalBackEndException(e.getMessage());
-				}
-			}
+    while (paramNames.hasMoreElements()) {
+      final String paramName = paramNames.nextElement();
+      final String[] paramValues = request.getParameterValues(paramName);
 
-			MLogger.getLog().info("{}: {}", paramName, paramValues[0]);
-		}
+      // all the parameter should be atomic
+      if (paramValues.length >= 1) {
+        try {
+          /*
+           * Since this comes in like an HTTP request, we might have non ASCII
+           * chars in the parameters, so it is better to decode them. If there
+           * are only ASCII char, it is safe since ASCII < UTF-8.
+           */
+          final String value = URLDecoder.decode(paramValues[0], ENCODING);
+          parameters.put(paramName, value);
 
-		if (!parameters.containsKey("code")) {
-			throw new InternalBackEndException("code argument is missing!");
-		}
-		
-		if (requestCodeMap.get(parameters.get("code")) == null) {
-			throw new InternalBackEndException("code argument is not well formated");
-		}
+          LOGGER.info("{}: {}", paramName, value);
+        } catch (final UnsupportedEncodingException ex) {
+          LOGGER.debug("Error decoding string from '{}'", ENCODING, ex.getCause());
+        }
+      }
+    }
 
-		return parameters;
-	}
+    if (!parameters.containsKey("code")) {
+      throw new InternalBackEndException("code argument is missing!");
+    }
 
-	/**
-	 * Print the server response in a jSon format
-	 * @param message
-	 * @param response
-	 */
-	protected void printJSonResponse(final JsonMessage message, final HttpServletResponse response) {
-		
-		response.setStatus(message.getStatus());
-		responseText = message.toString();
-		printResponse(response);
-	}
-	
-	/**
-	 * Validate an accesstoken
-	 * @param accesstoken
-	 * @throws InternalBackEndException
-	 */
-	protected void tokenValidation(String accessToken) throws InternalBackEndException, IOBackEndException {
-		new SessionManager().read(accessToken);
-	}
-	
-	/* --------------------------------------------------------- */
-	/* private methods */
-	/* --------------------------------------------------------- */
-	/**
-	 * Print the server response
-	 * @param response
-	 * @throws IOException
-	 */
-	private void printResponse(final HttpServletResponse response) {
-		/** Init response */
-		if (responseText != null) {
-			response.setContentType("text/plain;charset=UTF-8");
-			/** send the response */
-			PrintWriter out;
-			try {
-				out = response.getWriter();
+    if (requestCodeMap.get(parameters.get("code")) == null) {
+      throw new InternalBackEndException("code argument is not well formated");
+    }
 
-				MLogger.getLog().info("Response sent:\n {}", responseText);
+    return parameters;
+  }
+  /**
+   * Print the server response in a jSon format
+   * 
+   * @param message
+   * @param response
+   */
+  protected void printJSonResponse(final JsonMessage message, final HttpServletResponse response) {
+    response.setStatus(message.getStatus());
+    responseText = message.toString();
+    printResponse(response);
+  }
 
-				out.print(responseText);
-				out.close();
-				responseText = null; // NOPMD to avoid code check warnings
-			} catch (final IOException e) {
-				MLogger.getLog().info("IOException: {}", e.getMessage());
-				MLogger.getDebugLog().debug("Errore in printResponse()", e.getCause());
-			}
-		}
-	}
-	
-	/* --------------------------------------------------------- */
-	/* GETTER&SETTER */
-	/* --------------------------------------------------------- */
-	public Gson getGson() {
-		return gson;
-	}
+  /**
+   * Print the server response
+   * 
+   * @param response
+   * @throws IOException
+   */
+  private void printResponse(final HttpServletResponse response) {
+    /** Init response */
+    if (responseText != null) {
+      response.setContentType("text/plain;charset=UTF-8");
+      /** send the response */
+      PrintWriter out;
+      try {
+        out = response.getWriter();
 
-	public void setGson(final Gson gson) {
-		this.gson = gson;
-	}
+        LOGGER.info("Response sent:\n {}", responseText);
 
-	public String getResponseText() {
-		return responseText;
-	}
+        out.print(responseText);
+        out.close();
+        responseText = null; // NOPMD to avoid code check warnings
+      } catch (final IOException e) {
+        LOGGER.info("IOException: {}", e.getMessage());
+        LOGGER.debug("Error in printResponse()", e.getCause());
+      }
+    }
+  }
+
+  /**
+   * Validate an accesstoken
+   * 
+   * @param accesstoken
+   * @throws InternalBackEndException
+   */
+  protected void tokenValidation(final String accessToken) throws InternalBackEndException, IOBackEndException {
+    new SessionManager().read(accessToken);
+  }
+
+  /* --------------------------------------------------------- */
+  /* GETTER&SETTER */
+  /* --------------------------------------------------------- */
+  public Gson getGson() {
+    return gson;
+  }
+
+  public void setGson(final Gson gson) {
+    this.gson = gson;
+  }
+
+  public String getResponseText() {
+    return responseText;
+  }
 }

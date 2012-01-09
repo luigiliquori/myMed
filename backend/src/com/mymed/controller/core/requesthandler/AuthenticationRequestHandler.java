@@ -22,202 +22,213 @@ import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.session.MAuthenticationBean;
 import com.mymed.model.data.session.MSessionBean;
 import com.mymed.model.data.user.MUserBean;
-import com.mymed.utils.MLogger;
-
-import edu.lognet.core.tools.HashFunction;
+import com.mymed.utils.HashFunction;
 
 /**
  * Servlet implementation class AuthenticationRequestHandler
  */
 public class AuthenticationRequestHandler extends AbstractRequestHandler {
-	/* --------------------------------------------------------- */
-	/* Attributes */
-	/* --------------------------------------------------------- */
-	private static final long serialVersionUID = 1L;
+  /* --------------------------------------------------------- */
+  /* Attributes */
+  /* --------------------------------------------------------- */
+  private static final long serialVersionUID = 1L;
 
-	private IAuthenticationManager authenticationManager;
-	private ISessionManager sessionManager;
-	private IProfileManager profileManager;
+  private IAuthenticationManager authenticationManager;
+  private ISessionManager sessionManager;
+  private IProfileManager profileManager;
 
-	/* --------------------------------------------------------- */
-	/* Constructors */
-	/* --------------------------------------------------------- */
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public AuthenticationRequestHandler() throws ServletException {
-		super();
+  /* --------------------------------------------------------- */
+  /* Constructors */
+  /* --------------------------------------------------------- */
+  /**
+   * @see HttpServlet#HttpServlet()
+   */
+  public AuthenticationRequestHandler() throws ServletException {
+    super();
 
-		try {
-			authenticationManager = new AuthenticationManager();
-			sessionManager = new SessionManager();
-			profileManager = new ProfileManager();
-		} catch (final InternalBackEndException e) {
-			throw new ServletException("AuthenticationManager is not accessible because: " + e.getMessage());
-		}
-	}
+    try {
+      authenticationManager = new AuthenticationManager();
+      sessionManager = new SessionManager();
+      profileManager = new ProfileManager();
+    } catch (final InternalBackEndException e) {
+      throw new ServletException("AuthenticationManager is not accessible because: " + e.getMessage());
+    }
+  }
 
-	/* --------------------------------------------------------- */
-	/* extends AbstractRequestHandler */
-	/* --------------------------------------------------------- */
-	@Override
-	public void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-	IOException {
+  /* --------------------------------------------------------- */
+  /* extends AbstractRequestHandler */
+  /* --------------------------------------------------------- */
+  @Override
+  public void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
+      IOException {
 
-		JsonMessage message = new JsonMessage(200, this.getClass().getName());
+    final JsonMessage message = new JsonMessage(200, this.getClass().getName());
 
-		try {
-			final Map<String, String> parameters = getParameters(request);
-			
-			final RequestCode code = requestCodeMap.get(parameters.get("code"));
-			final String login = parameters.get("login");
-			final String password = parameters.get("password");
+    try {
+      final Map<String, String> parameters = getParameters(request);
 
-			switch (code) {
-			case READ :
-				message.setMethod("READ");
-				if (login == null) {
-					throw new InternalBackEndException("login argument missing!");
-				} else if (password == null) {
-					throw new InternalBackEndException("password argument missing!");
-				} else {
-					message.addData("warning", "METHOD DEPRECATED - Post method should be used instead of Get!");
-					final MUserBean userBean = authenticationManager.read(login, password);
-					message.setDescription("Successfully authenticated");
-					message.addData("user", getGson().toJson(userBean));
-				}
-				break;
-			case DELETE :
-				throw new InternalBackEndException("not implemented yet...");
-			default :
-				throw new InternalBackEndException("AuthenticationRequestHandler(" + code + ") not exist!");
-			}
-		} catch (final AbstractMymedException e) {
-			e.printStackTrace();
-			MLogger.getLog().info("Error in doGet operation");
-			MLogger.getDebugLog().debug("Error in doGet operation", e.getCause());
-			message.setStatus(e.getStatus());
-			message.setDescription(e.getMessage());
-		} 
+      final RequestCode code = requestCodeMap.get(parameters.get("code"));
+      final String login = parameters.get("login");
+      final String password = parameters.get("password");
 
-		printJSonResponse(message, response);
-	}
+      switch (code) {
+        case READ :
+          message.setMethod("READ");
+          if (login == null) {
+            throw new InternalBackEndException("login argument missing!");
+          } else if (password == null) {
+            throw new InternalBackEndException("password argument missing!");
+          } else {
+            message.addData("warning", "METHOD DEPRECATED - Post method should be used instead of Get!");
+            final MUserBean userBean = authenticationManager.read(login, password);
+            message.setDescription("Successfully authenticated");
+            message.addData("user", getGson().toJson(userBean));
+          }
+          break;
+        case DELETE :
+          throw new InternalBackEndException("not implemented yet...");
+        default :
+          throw new InternalBackEndException("AuthenticationRequestHandler(" + code + ") not exist!");
+      }
+    } catch (final AbstractMymedException e) {
+      e.printStackTrace();
+      LOGGER.info("Error in doGet operation");
+      LOGGER.debug("Error in doGet operation", e.getCause());
+      message.setStatus(e.getStatus());
+      message.setDescription(e.getMessage());
+    }
 
-	@Override
-	public void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-	IOException {
+    printJSonResponse(message, response);
+  }
 
-		JsonMessage message = new JsonMessage(200, this.getClass().getName());
+  @Override
+  public void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
+      IOException {
 
-		try {
-			final Map<String, String> parameters = getParameters(request);
-			final RequestCode code = requestCodeMap.get(parameters.get("code"));
-			final String authentication = parameters.get("authentication");
-			final String user = parameters.get("user");
-			final String login = parameters.get("login");
-			final String password = parameters.get("password");
-			final String oldPassword = parameters.get("oldPassword");
-			final String oldLogin = parameters.get("oldLogin");
-			
-			switch (code) {
-			case CREATE :
-				message.setMethod("CREATE");
-				if (authentication == null) {
-					throw new InternalBackEndException("authentication argument missing!");
-				} else if (user == null) {
-					throw new InternalBackEndException("user argument missing!");
-				} else {
-					try {
-						MUserBean userBean = getGson().fromJson(user, MUserBean.class);
-						userBean.setSocialNetworkID("MYMED");
-						userBean.setSocialNetworkName("myMed");
+    final JsonMessage message = new JsonMessage(200, this.getClass().getName());
 
-						final MAuthenticationBean authenticationBean = getGson().fromJson(authentication,
-								MAuthenticationBean.class);
+    try {
+      final Map<String, String> parameters = getParameters(request);
+      final RequestCode code = requestCodeMap.get(parameters.get("code"));
+      final String authentication = parameters.get("authentication");
+      final String user = parameters.get("user");
+      final String login = parameters.get("login");
+      final String password = parameters.get("password");
+      final String oldPassword = parameters.get("oldPassword");
+      final String oldLogin = parameters.get("oldLogin");
 
-						MLogger.getLog().info("Trying to create a new user:\n {}", userBean.toString());
-						userBean = authenticationManager.create(userBean, authenticationBean);
+      switch (code) {
+        case CREATE :
+          message.setMethod("CREATE");
+          if (authentication == null) {
+            throw new InternalBackEndException("authentication argument missing!");
+          } else if (user == null) {
+            throw new InternalBackEndException("user argument missing!");
+          } else {
+            try {
+              MUserBean userBean = getGson().fromJson(user, MUserBean.class);
+              userBean.setSocialNetworkID("MYMED");
+              userBean.setSocialNetworkName("myMed");
 
-						MLogger.getLog().info("User created");
-						message.setDescription("User created");
-						message.addData("user", getGson().toJson(userBean));
-					} catch (final JsonSyntaxException e) {
-						throw new InternalBackEndException("User/Authentication jSon format is not valid");
-					}
-				}
-				break;
-			case READ :
-				message.setMethod("READ");
-				if (login == null) {
-					throw new InternalBackEndException("login argument missing!");
-				} else if (password == null) {
-					throw new InternalBackEndException("password argument missing!");
-				} else {
-					final MUserBean userBean = authenticationManager.read(login, password);
-					message.setDescription("Successfully authenticated");
-					message.addData("user", getGson().toJson(userBean)); // TODO Remove this parameter
-					
-					// Create a new session
-					final MSessionBean sessionBean = new MSessionBean();
-					sessionBean.setIp(request.getRemoteAddr());
-					sessionBean.setUser(userBean.getId());
-					sessionBean.setCurrentApplications("");
-					sessionBean.setP2P(false);
-					sessionBean.setTimeout(System.currentTimeMillis()); // TODO Use The Cassandra Timeout mecanism
-					HashFunction h = new HashFunction("myMed");
-					String accessToken = h.SHA1ToString(login + password + sessionBean.getTimeout());
-					sessionBean.setAccessToken(accessToken);
-					sessionBean.setId(accessToken);	
-					sessionManager.create(sessionBean);
+              final MAuthenticationBean authenticationBean = getGson().fromJson(authentication,
+                  MAuthenticationBean.class);
 
-					// Update the profile with the new session
-					userBean.setSession(accessToken);
-					profileManager.update(userBean);
-					
-					MLogger.getLog().info("Session {} created -> LOGIN", accessToken);
-					message.addData("url", "http://" + InetAddress.getLocalHost().getCanonicalHostName() + "/mobile"); // TODO Find a better way to get the url
-					message.addData("accessToken", accessToken);
-				}
-				break;
-			case UPDATE :
-				if (authentication == null) {
-					throw new InternalBackEndException("Missing authentication argument!");
-				} else if (oldLogin == null) {
-					throw new InternalBackEndException("oldLogin argument missing!");
-				} else if (oldPassword == null) {
-					throw new InternalBackEndException("oldPassword argument missing!");
-				} else {
-					try {
-						final MAuthenticationBean authenticationBean = getGson().fromJson(authentication,
-								MAuthenticationBean.class);
-						
-						// verify the oldPassword
-						System.out.println("login = " + oldLogin);
-						System.out.println("oldPassword = " + oldPassword);
-						authenticationManager.read(oldLogin, oldPassword);
-						
-						// no exception = update the Authentication
-						MLogger.getLog().info("Trying to update authentication:\n {}", authenticationBean.toString());
-						authenticationManager.update(oldLogin, authenticationBean);
-						MLogger.getLog().info("Authentication updated!");
+              LOGGER.info("Trying to create a new user:\n {}", userBean.toString());
+              userBean = authenticationManager.create(userBean, authenticationBean);
 
-					} catch (final JsonSyntaxException e) {
-						throw new InternalBackEndException("Authentication jSon format is not valid");
-					}
-				}
-				break;
-			default :
-				throw new InternalBackEndException("AuthenticationRequestHandler(" + code + ") not exist!");
-			}
-		} catch (final AbstractMymedException e) {
-			e.printStackTrace();
-			MLogger.getLog().info("Error in doPost operation");
-			MLogger.getDebugLog().debug("Error in doPost operation", e.getCause());
-			message.setStatus(e.getStatus());
-			message.setDescription(e.getMessage());
-		} 
+              LOGGER.info("User created");
+              message.setDescription("User created");
+              message.addData("user", getGson().toJson(userBean));
+            } catch (final JsonSyntaxException e) {
+              throw new InternalBackEndException("User/Authentication jSon format is not valid");
+            }
+          }
+          break;
+        case READ :
+          message.setMethod("READ");
+          if (login == null) {
+            throw new InternalBackEndException("login argument missing!");
+          } else if (password == null) {
+            throw new InternalBackEndException("password argument missing!");
+          } else {
+            final MUserBean userBean = authenticationManager.read(login, password);
+            message.setDescription("Successfully authenticated");
+            message.addData("user", getGson().toJson(userBean)); // TODO Remove
+                                                                 // this
+                                                                 // parameter
 
-		printJSonResponse(message, response);
-	}
+            // Create a new session
+            final MSessionBean sessionBean = new MSessionBean();
+            sessionBean.setIp(request.getRemoteAddr());
+            sessionBean.setUser(userBean.getId());
+            sessionBean.setCurrentApplications("");
+            sessionBean.setP2P(false);
+            sessionBean.setTimeout(System.currentTimeMillis()); // TODO Use The
+                                                                // Cassandra
+                                                                // Timeout
+                                                                // mecanism
+            final HashFunction h = new HashFunction("myMed");
+            final String accessToken = h.SHA1ToString(login + password + sessionBean.getTimeout());
+            sessionBean.setAccessToken(accessToken);
+            sessionBean.setId(accessToken);
+            sessionManager.create(sessionBean);
+
+            // Update the profile with the new session
+            userBean.setSession(accessToken);
+            profileManager.update(userBean);
+
+            LOGGER.info("Session {} created -> LOGIN", accessToken);
+            message.addData("url", "http://" + InetAddress.getLocalHost().getCanonicalHostName() + "/mobile"); // TODO
+                                                                                                               // Find
+                                                                                                               // a
+                                                                                                               // better
+                                                                                                               // way
+                                                                                                               // to
+                                                                                                               // get
+                                                                                                               // the
+                                                                                                               // url
+            message.addData("accessToken", accessToken);
+          }
+          break;
+        case UPDATE :
+          if (authentication == null) {
+            throw new InternalBackEndException("Missing authentication argument!");
+          } else if (oldLogin == null) {
+            throw new InternalBackEndException("oldLogin argument missing!");
+          } else if (oldPassword == null) {
+            throw new InternalBackEndException("oldPassword argument missing!");
+          } else {
+            try {
+              final MAuthenticationBean authenticationBean = getGson().fromJson(authentication,
+                  MAuthenticationBean.class);
+
+              // verify the oldPassword
+              System.out.println("login = " + oldLogin);
+              System.out.println("oldPassword = " + oldPassword);
+              authenticationManager.read(oldLogin, oldPassword);
+
+              // no exception = update the Authentication
+              LOGGER.info("Trying to update authentication:\n {}", authenticationBean.toString());
+              authenticationManager.update(oldLogin, authenticationBean);
+              LOGGER.info("Authentication updated!");
+
+            } catch (final JsonSyntaxException e) {
+              throw new InternalBackEndException("Authentication jSon format is not valid");
+            }
+          }
+          break;
+        default :
+          throw new InternalBackEndException("AuthenticationRequestHandler(" + code + ") not exist!");
+      }
+    } catch (final AbstractMymedException e) {
+      e.printStackTrace();
+      LOGGER.info("Error in doPost operation");
+      LOGGER.debug("Error in doPost operation", e.getCause());
+      message.setStatus(e.getStatus());
+      message.setDescription(e.getMessage());
+    }
+
+    printJSonResponse(message, response);
+  }
 
 }

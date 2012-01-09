@@ -1,9 +1,0 @@
-#!/bin/sh
-#
-# DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
-#
-# Copyright 2008 Sun Microsystems, Inc. All rights reserved.
-#
-# Use is subject to License Terms
-#
-"/local/mymed/backend/controller/servers/glassfishv3/glassfish/bin/asadmin" stop-domain domain1

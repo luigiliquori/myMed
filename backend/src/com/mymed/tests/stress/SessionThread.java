@@ -3,6 +3,8 @@ package com.mymed.tests.stress;
 import java.util.LinkedList;
 import java.util.List;
 
+import ch.qos.logback.classic.Logger;
+
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.model.data.session.MSessionBean;
 import com.mymed.utils.MLogger;
@@ -15,118 +17,120 @@ import com.mymed.utils.MLogger;
  * 
  */
 public class SessionThread extends Thread {
-	private final List<MSessionBean> sessionList = new LinkedList<MSessionBean>();
-	private final SessionTest sessionTest;
-	private final Thread addSession;
-	private final Thread removeSession;
-	private final boolean remove;
+  private final List<MSessionBean> sessionList = new LinkedList<MSessionBean>();
+  private final SessionTest sessionTest;
+  private final Thread addSession;
+  private final Thread removeSession;
+  private final boolean remove;
 
-	/**
-	 * Create the new session thread
-	 */
-	public SessionThread() {
-		this(true, StressTestValues.NUMBER_OF_ELEMENTS);
-	}
+  private static final Logger LOGGER = MLogger.getLogger();
 
-	/**
-	 * Create the new session thread, but do not perform the remove thread, only
-	 * add new session to the database
-	 * 
-	 * @param remove
-	 *            if to perform the remove thread or not
-	 * @param maxElements
-	 *            the maximum number of elements to create
-	 */
-	public SessionThread(final boolean remove, final int maxElements) {
-		super();
-		this.remove = remove;
+  /**
+   * Create the new session thread
+   */
+  public SessionThread() {
+    this(true, StressTestValues.NUMBER_OF_ELEMENTS);
+  }
 
-		sessionTest = new SessionTest(maxElements);
+  /**
+   * Create the new session thread, but do not perform the remove thread, only
+   * add new session to the database
+   * 
+   * @param remove
+   *          if to perform the remove thread or not
+   * @param maxElements
+   *          the maximum number of elements to create
+   */
+  public SessionThread(final boolean remove, final int maxElements) {
+    super();
+    this.remove = remove;
 
-		addSession = new Thread("addSession") {
-			@Override
-			public void run() {
-				MLogger.getLog().info("Starting thread '{}'", getName());
+    sessionTest = new SessionTest(maxElements);
 
-				synchronized (sessionList) {
-					try {
-						while (sessionList.isEmpty()) {
-							final MSessionBean sessionBean = sessionTest.createSessionBean();
+    addSession = new Thread("addSession") {
+      @Override
+      public void run() {
+        LOGGER.info("Starting thread '{}'", getName());
 
-							if (sessionBean == null) {
-								break;
-							}
+        synchronized (sessionList) {
+          try {
+            while (sessionList.isEmpty()) {
+              final MSessionBean sessionBean = sessionTest.createSessionBean();
 
-							sessionList.add(sessionBean);
+              if (sessionBean == null) {
+                break;
+              }
 
-							try {
-								sessionTest.createSession(sessionBean);
-							} catch (final InternalBackEndException ex) {
-								interrupt();
-								MLogger.getLog().info("Thread '{}' interrupted", getName());
-								break;
-							}
+              sessionList.add(sessionBean);
 
-							// To execute only if we do not perform the remove
-							// thread
-							if (!remove) {
-								((LinkedList<MSessionBean>) sessionList).pop();
-							}
+              try {
+                sessionTest.createSession(sessionBean);
+              } catch (final InternalBackEndException ex) {
+                interrupt();
+                LOGGER.info("Thread '{}' interrupted", getName());
+                break;
+              }
 
-							sessionList.notifyAll();
+              // To execute only if we do not perform the remove
+              // thread
+              if (!remove) {
+                ((LinkedList<MSessionBean>) sessionList).pop();
+              }
 
-							if (remove) {
-								sessionList.wait();
-							}
-						}
+              sessionList.notifyAll();
 
-						sessionList.notifyAll();
-					} catch (final Exception ex) {
-						MLogger.getDebugLog().debug("Error in thread '{}'", getName(), ex.getCause());
-					}
-				}
-			}
-		};
+              if (remove) {
+                sessionList.wait();
+              }
+            }
 
-		removeSession = new Thread() {
-			@Override
-			public void run() {
-				MLogger.getLog().info("Starting thread '{}'", getName());
+            sessionList.notifyAll();
+          } catch (final Exception ex) {
+            LOGGER.debug("Error in thread '{}'", getName(), ex.getCause());
+          }
+        }
+      }
+    };
 
-				synchronized (sessionList) {
-					try {
-						while (sessionList.isEmpty()) {
-							sessionList.wait();
-						}
+    removeSession = new Thread() {
+      @Override
+      public void run() {
+        LOGGER.info("Starting thread '{}'", getName());
 
-						while (!sessionList.isEmpty()) {
-							final MSessionBean sessionBean = ((LinkedList<MSessionBean>) sessionList).pop();
+        synchronized (sessionList) {
+          try {
+            while (sessionList.isEmpty()) {
+              sessionList.wait();
+            }
 
-							try {
-								sessionTest.removeSession(sessionBean);
-							} catch (final Exception ex) {
-								interrupt();
-								MLogger.getLog().info("Thread '{}' interrupted", getName());
-								break;
-							}
+            while (!sessionList.isEmpty()) {
+              final MSessionBean sessionBean = ((LinkedList<MSessionBean>) sessionList).pop();
 
-							sessionList.notifyAll();
-							sessionList.wait();
-						}
+              try {
+                sessionTest.removeSession(sessionBean);
+              } catch (final Exception ex) {
+                interrupt();
+                LOGGER.info("Thread '{}' interrupted", getName());
+                break;
+              }
 
-						sessionList.notifyAll();
-					} catch (final Exception ex) {
-						MLogger.getDebugLog().debug("Error in thread '{}'", getName(), ex.getCause());
-					}
-				}
-			}
-		};
-	}
-	@Override
-	public void run() {
-		addSession.start();
-		if (remove) {
-			removeSession.start();
-		}
-	}
+              sessionList.notifyAll();
+              sessionList.wait();
+            }
+
+            sessionList.notifyAll();
+          } catch (final Exception ex) {
+            LOGGER.debug("Error in thread '{}'", getName(), ex.getCause());
+          }
+        }
+      }
+    };
+  }
+  @Override
+  public void run() {
+    addSession.start();
+    if (remove) {
+      removeSession.start();
+    }
+  }
 }

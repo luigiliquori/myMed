@@ -3,6 +3,8 @@ package com.mymed.controller.core.manager.connection;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import ch.qos.logback.classic.Logger;
+
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.utils.MLogger;
 
@@ -13,174 +15,155 @@ import com.mymed.utils.MLogger;
  * 
  */
 public class ConnectionPool implements IConnectionPool {
-	/*
-	 * The default capacity of the pool, this is set to a power of 2: 2^7
-	 */
-	private static final int DEFAULT_CAP = 128;
+  // The default capacity of the pool, this is set to a power of 2: 2^7
+  private static final int DEFAULT_CAP = 128;
 
-	/*
-	 * The maximum capacity of the pool, this is set to a power of 2: 2^12
-	 */
-	private static final int MAX_CAP = 4096;
+  // The maximum capacity of the pool, this is set to a power of 2: 2^12
+  private static final int MAX_CAP = 4096;
 
-	/*
-	 * The maximum capacity of the pool, when set to zero it means limit-less
-	 */
-	private final int capacity;
+  private static final Logger LOGGER = MLogger.getLogger();
 
-	/*
-	 * Atomic value used for concurrency access to the number of connection
-	 * created
-	 */
-	private final AtomicInteger checkedOut = new AtomicInteger(0);
+  // The real capacity of the pool
+  private final int capacity;
 
-	/*
-	 * The address for the connection
-	 */
-	private final String address;
+  // Number of connections
+  private final AtomicInteger checkedOut = new AtomicInteger(0);
 
-	/*
-	 * The port of the connection
-	 */
-	private final int port;
+  private final String address;
 
-	/*
-	 * The real pool, implemented as a list
-	 */
-	private final ArrayBlockingQueue<IConnection> available;
+  private final int port;
 
-	/*
-	 * Object used to sync operations
-	 */
-	private final Object SYNC = new Object();
+  // The real pool
+  private final ArrayBlockingQueue<IConnection> available;
 
-	/**
-	 * Create a new connection pool with a maximum capacity of 100.
-	 * 
-	 * @param address
-	 *            the address where to connect to
-	 * @param port
-	 *            the port to use for the connection
-	 */
-	public ConnectionPool(final String address, final int port) {
-		this(address, port, DEFAULT_CAP);
-	}
+  // Object used to sync operations
+  private final Object SYNC = new Object();
 
-	/**
-	 * Create a new connection pool with initial capacity defined by
-	 * {@code capacity}. If {@code capacity} is zero, the pool is limit-less.
-	 * 
-	 * @param address
-	 *            the address where to connect to
-	 * @param port
-	 *            the port to use for the connection
-	 * @param capacity
-	 *            the maximum capacity of the pool
-	 */
-	public ConnectionPool(final String address, final int port, final int capacity) {
-		if (capacity > MAX_CAP || capacity == 0) {
-			this.capacity = MAX_CAP;
-		} else {
-			this.capacity = capacity;
-		}
+  /**
+   * Create a new connection pool with a maximum capacity of 100.
+   * 
+   * @param address
+   *          the address where to connect to
+   * @param port
+   *          the port to use for the connection
+   */
+  public ConnectionPool(final String address, final int port) {
+    this(address, port, DEFAULT_CAP);
+  }
 
-		this.address = address;
-		this.port = port;
+  /**
+   * Create a new connection pool with initial capacity defined by
+   * {@code capacity}. If {@code capacity} is zero, the pool is limit-less.
+   * 
+   * @param address
+   *          the address where to connect to
+   * @param port
+   *          the port to use for the connection
+   * @param capacity
+   *          the maximum capacity of the pool
+   */
+  public ConnectionPool(final String address, final int port, final int capacity) {
+    if (capacity > MAX_CAP || capacity == 0) {
+      this.capacity = MAX_CAP;
+    } else {
+      this.capacity = capacity;
+    }
 
-		available = new ArrayBlockingQueue<IConnection>(this.capacity, true);
-	}
+    this.address = address;
+    this.port = port;
 
-	/**
-	 * Create a new connection and open it
-	 * 
-	 * @return the opened connection or null if there are errors opening the
-	 *         connection
-	 */
-	private IConnection newConnection() {
-		IConnection con = null;
+    available = new ArrayBlockingQueue<IConnection>(this.capacity, true);
+  }
 
-		try {
-			con = new Connection(address, port);
-			con.open();
-		} catch (final InternalBackEndException ex) {
-			// If we cannot open the connection, we return null
-			MLogger.getLog().info(ex.getMessage());
-			MLogger.getDebugLog().debug(ex.getMessage(), ex.getCause());
-			con = null; // NOPMD
-		}
+  /**
+   * Create a new connection and open it
+   * 
+   * @return the opened connection or null if there are errors opening the
+   *         connection
+   */
+  private IConnection newConnection() {
+    IConnection con = null;
 
-		return con;
-	}
+    try {
+      con = new Connection(address, port);
+      con.open();
+    } catch (final InternalBackEndException ex) {
+      // If we cannot open the connection, we return null
+      LOGGER.info(ex.getMessage());
+      LOGGER.debug(ex.getMessage(), ex.getCause());
+      con = null; // NOPMD
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.mymed.controller.core.manager.connection.IConnectionPool#checkOut()
-	 */
-	@Override
-	public IConnection checkOut() {
-		IConnection con = null;
+    return con;
+  }
 
-		synchronized (SYNC) {
-			if (getSize() > 0) {
-				con = available.poll();
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.mymed.controller.core.manager.connection.IConnectionPool#checkOut()
+   */
+  @Override
+  public IConnection checkOut() {
+    IConnection con = null;
 
-				if (!con.isOpen()) {
-					// If we had a closed or null connection we try again
-					MLogger.getLog().info("Got a closed connection. Retrying...");
-					con = checkOut();
-				}
-			} else if (capacity == 0 || checkedOut.get() < capacity) {
-				con = newConnection();
-			}
+    synchronized (SYNC) {
+      if (getSize() > 0) {
+        con = available.poll();
 
-			if (con != null) {
-				checkedOut.incrementAndGet();
-			}
+        if (!con.isOpen()) {
+          // If we had a closed or null connection we try again
+          LOGGER.info("Got a closed connection. Retrying...");
+          con = checkOut();
+        }
+      } else if (capacity == 0 || checkedOut.get() < capacity) {
+        con = newConnection();
+      }
 
-			SYNC.notifyAll();
-		}
+      if (con != null) {
+        checkedOut.incrementAndGet();
+      }
 
-		return con;
-	}
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.mymed.controller.core.manager.connection.IConnectionPool#checkIn(
-	 * com.mymed.controller.core.manager.connection.IConnection)
-	 */
-	@Override
-	public void checkIn(final IConnection connection) {
-		synchronized (SYNC) {
-			available.add(connection);
-			checkedOut.decrementAndGet();
+      SYNC.notifyAll();
+    }
 
-			SYNC.notifyAll();
-		}
-	}
+    return con;
+  }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.mymed.controller.core.manager.connection.IConnectionPool#getSize()
-	 */
-	@Override
-	public int getSize() {
-		return available.size();
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see com.mymed.controller.core.manager.connection.IConnectionPool#checkIn(
+   * com.mymed.controller.core.manager.connection.IConnection)
+   */
+  @Override
+  public void checkIn(final IConnection connection) {
+    synchronized (SYNC) {
+      available.add(connection);
+      checkedOut.decrementAndGet();
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.mymed.controller.core.manager.connection.IConnectionPool#getCapacity
-	 * ()
-	 */
-	@Override
-	public int getCapacity() {
-		return capacity;
-	}
+      SYNC.notifyAll();
+    }
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see com.mymed.controller.core.manager.connection.IConnectionPool#getSize()
+   */
+  @Override
+  public int getSize() {
+    return available.size();
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.mymed.controller.core.manager.connection.IConnectionPool#getCapacity ()
+   */
+  @Override
+  public int getCapacity() {
+    return capacity;
+  }
 }

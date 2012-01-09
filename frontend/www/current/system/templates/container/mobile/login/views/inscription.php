@@ -15,9 +15,9 @@
 			<span>Confirm : </span><br /><input type="password" name="confirm" /><br />
 			<span>Date de naissance : </span><br /><input type="text" name="birthday" /><br />
 			<span>Photo du profil : </span><br /><input type="text" name="thumbnail" /><br />
-			<input type="checkbox" name="checkCondition" style="position: absolute; top: 13px;"/>
+			<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 13px;"/>
 			<span style="position: relative; left: 50px;">J'accepte les <a href="#">conditions d'utilisation</a></span><br />
-			<a href="#" data-role="button" onclick="document.inscriptionForm.submit()">Création</a>
+			<a id="create" href="#" data-role="button" onclick="document.inscriptionForm.submit()">Création</a>
 		</form>
 	</div>
 </div>

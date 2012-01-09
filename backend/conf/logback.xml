@@ -2,7 +2,7 @@
 <!--
   logback configuration file for myMed logging.
 
-  Here we have three different loggers, two on files and one to the standard
+  Here we have 2 different loggers, 1 on two different files and 1 to the standard
   output.
 
   In order for the logging service to work, this file should be passed to the JVM as:
@@ -16,13 +16,13 @@
 
   Milo Casagrande milo.casagrande@inria.fr, 2011
  -->
-<!-- Set debug to 'true' to turn it on, it will print information on the stdout -->
+<!-- Set debug to 'true' to turn it on, it will print information on the stdout. Set it to 'off' to suppress -->
 <configuration debug="true" scan="true" scanPeriod="5 minutes">
   <contextName>myMed</contextName>
-  <property name="LOG_DIR" value="/local/var/log/mymed"/>
+  <property name="LOG_DIR" value="/var/log/mymed"/>
   <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
-      <pattern>%d{HH:mm:ss.SSS} %logger{10} %-5level [%thread] [%file] %msg%n</pattern>
+      <pattern>%d{HH:mm:ss.SSS} %-5level [%thread] [%file] %msg%n</pattern>
     </encoder>
   </appender>
 
@@ -40,27 +40,32 @@
       <fileNamePattern>${LOG_DIR}/mymed-backend-info-%d.log.gz</fileNamePattern>
     </rollingPolicy>
     <encoder>
-      <pattern>%d{HH:mm:ss.SSS} %logger{10} %-5level [%thread] [%file] %msg%n</pattern>
+      <pattern>%d{HH:mm:ss.SSS} %-5level [%thread] [%file] %msg%n%ex{full}</pattern>
     </encoder>
   </appender>
 
   <!-- The appender for the debug logger -->
-  <appender name="debug.file" class="ch.qos.logback.core.FileAppender">
+  <!-- We accept only debug level logging statement, all the others are denied -->
+  <!-- It also has a rolling policy: daily and gzipped files -->
+  <appender name="debug.file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+      <level>debug</level>
+      <onMatch>ACCEPT</onMatch>
+      <onMismatch>DENY</onMismatch>
+    </filter>
     <file>${LOG_DIR}/mymed-backend-debug.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${LOG_DIR}/mymed-backend-debug-%d.log.gz</fileNamePattern>
+    </rollingPolicy>
     <encoder>
-      <pattern>%d{HH:mm:ss.SSS} %logger{10} %-5level [%thread] [%file] %msg%n%ex{full}</pattern>
+      <pattern>%d{HH:mm:ss.SSS} %-5level [%thread] [%file] %msg%n%ex{full}</pattern>
     </encoder>
   </appender>
 
-  <!-- Logger for 'info' level, to turn off the logger set its level to 'off' -->
-  <!-- To turn it on set it to 'info' -->
-  <logger name="mymed.info.logger" level="info" additivity="false">
+  <!-- Logger for the backend. To turn off the logger set its level to 'off' -->
+  <!-- To turn it on set it to 'info' for logging only INFO level, or 'debug' for debugging -->
+  <logger name="mymed.backend.logger" level="debug" additivity="false">
     <appender-ref ref="info.file"/>
-  </logger>
-
-  <!-- Logger for 'debug' level, to turn off the logger set its level to 'off' -->
-  <!-- To turn it on set it to 'debug' -->
-  <logger name="mymed.debug.logger" level="debug" additivity="false">
     <appender-ref ref="debug.file"/>
   </logger>
 

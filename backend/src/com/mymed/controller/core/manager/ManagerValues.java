@@ -1,5 +1,8 @@
 package com.mymed.controller.core.manager;
 
+import ch.qos.logback.classic.Logger;
+
+import com.mymed.utils.MLogger;
 
 /**
  * Simple class to hold generic strings that can be used with all the managers.
@@ -11,90 +14,102 @@ package com.mymed.controller.core.manager;
  * 
  */
 public class ManagerValues {
-	// Column families
-	/**
-	 * The 'Application' column family
-	 */
-	protected static final String CF_APPLICATION = "Application";
+  // Column families
+  /**
+   * The 'Application' column family
+   */
+  protected static final String CF_APPLICATION = "Application";
 
-	/**
-	 * The 'ApplicationView' column family
-	 */
-	protected static final String CF_APPLICATION_VIEW = "ApplicationView";
+  /**
+   * The 'ApplicationView' column family
+   */
+  protected static final String CF_APPLICATION_VIEW = "ApplicationView";
 
-	/**
-	 * The 'Authentication' column family
-	 */
-	protected static final String CF_AUTHENTICATION = "Authentication";
+  /**
+   * The 'Authentication' column family
+   */
+  protected static final String CF_AUTHENTICATION = "Authentication";
 
-	/**
-	 * The 'Interaction' column family
-	 */
-	protected static final String CF_INTERACTION = "Interaction";
+  /**
+   * The 'Interaction' column family
+   */
+  protected static final String CF_INTERACTION = "Interaction";
 
-	/**
-	 * The 'Ontology' column family
-	 */
-	protected static final String CF_ONTOLOGY = "Ontology";
+  /**
+   * The 'Ontology' column family
+   */
+  protected static final String CF_ONTOLOGY = "Ontology";
 
-	/**
-	 * The 'Reputation' column family
-	 */
-	protected static final String CF_REPUTATION = "Reputation";
+  /**
+   * The 'Reputation' column family
+   */
+  protected static final String CF_REPUTATION = "Reputation";
 
-	/**
-	 * The 'Session' column family
-	 */
-	protected static final String CF_SESSION = "Session";
+  /**
+   * The 'Session' column family
+   */
+  protected static final String CF_SESSION = "Session";
 
-	/**
-	 * The 'User' column family
-	 */
-	protected static final String CF_USER = "User";
-	
-	/**
-	 * The 'Position' column family
-	 */
-	protected static final String CF_POSITION = "Position";
+  /**
+   * The 'User' column family
+   */
+  protected static final String CF_USER = "User";
 
-	// Super columns
-	/**
-	 * The 'ApplicationController' super column
-	 */
-	protected static final String SC_APPLICATION_CONTROLLER = "ApplicationController";
+  /**
+   * The 'Position' column family
+   */
+  protected static final String CF_POSITION = "Position";
 
-	/**
-	 * The 'ApplicationList' super column
-	 */
-	protected static final String SC_APPLICATION_LIST = "ApplicationList";
+  // Super columns
+  /**
+   * The 'ApplicationController' super column
+   */
+  protected static final String SC_APPLICATION_CONTROLLER = "ApplicationController";
 
-	/**
-	 * The 'ApplicationModel' super column
-	 */
-	protected static final String SC_APPLICATION_MODEL = "ApplicationModel";
-	
-	/**
-	 * The 'OntologyList' super column
-	 */
-	protected static final String SC_ONTOLOGY_LIST = "OntologyList";
+  /**
+   * The 'ApplicationList' super column
+   */
+  protected static final String SC_APPLICATION_LIST = "ApplicationList";
 
-	/**
-	 * The 'DataList' super column
-	 */
-	protected static final String SC_DATA_LIST = "DataList";
-	
-	/**
-	 * The 'UserList' super column
-	 */
-	protected static final String SC_USER_LIST = "UserList";
+  /**
+   * The 'ApplicationModel' super column
+   */
+  protected static final String SC_APPLICATION_MODEL = "ApplicationModel";
 
-	/**
-	 * The 'InteractionList' super column
-	 */
-	protected static final String SC_INTERACTION_LIST = "InteractionList";
+  /**
+   * The 'OntologyList' super column
+   */
+  protected static final String SC_ONTOLOGY_LIST = "OntologyList";
 
-	/**
-	 * The 'RaterList' super column
-	 */
-	protected static final String SC_RATER_LIST = "RaterList";
+  /**
+   * The 'DataList' super column
+   */
+  protected static final String SC_DATA_LIST = "DataList";
+
+  /**
+   * The 'UserList' super column
+   */
+  protected static final String SC_USER_LIST = "UserList";
+
+  /**
+   * The 'InteractionList' super column
+   */
+  protected static final String SC_INTERACTION_LIST = "InteractionList";
+
+  /**
+   * The 'RaterList' super column
+   */
+  protected static final String SC_RATER_LIST = "RaterList";
+
+  // Logger
+  /**
+   * The default logger for the backend managers
+   */
+  protected static final Logger LOGGER = MLogger.getLogger();
+
+  // Encoding
+  /**
+   * The default encoding
+   */
+  protected static final String ENCODING = "UTF-8";
 }
