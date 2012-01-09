@@ -1,3 +1,4 @@
+<?php 
 /*
  * Copyright 2012 INRIA 
  *
@@ -13,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-<?php 
 require_once 'lib/dasp/request/Request.class.php';
 require_once 'system/templates/handler/IRequestHandler.php';
 
