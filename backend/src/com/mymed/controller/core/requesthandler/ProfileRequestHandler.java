@@ -61,6 +61,14 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
 			final Map<String, String> parameters = getParameters(request);
 			final RequestCode code = requestCodeMap.get(parameters.get("code"));
 			final String id = parameters.get("id");
+			
+			// accessToken
+			if (!parameters.containsKey("accessToken")) {
+				throw new InternalBackEndException("accessToken argument is missing!");
+			} else {
+				tokenValidation(parameters.get("accessToken")); // Security Validation
+			}
+			
 			if (id == null) {
 				throw new InternalBackEndException("missing id argument!");
 			}
@@ -105,6 +113,14 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
 			final Map<String, String> parameters = getParameters(request);
 			final RequestCode code = requestCodeMap.get(parameters.get("code"));
 			final String user = parameters.get("user");
+			
+			// accessToken
+			if (!parameters.containsKey("accessToken")) {
+				throw new InternalBackEndException("accessToken argument is missing!");
+			} else {
+				tokenValidation(parameters.get("accessToken")); // Security Validation
+			}
+			
 			if (user == null) {
 				throw new InternalBackEndException("missing user argument!");
 			}
