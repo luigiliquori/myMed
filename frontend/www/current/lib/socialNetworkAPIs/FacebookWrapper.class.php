@@ -129,7 +129,7 @@ class FacebookWrapper implements IWrapper {
 	}
 
 	public /*String*/ function getSocialNetworkButton() {
-		return "<img alt='facebook' src='img/facebook_button.gif' />";
+		return "<img alt='facebook' src='lib/socialNetworkAPIs/img/facebook_button.gif' />";
 	}
 
 	/**

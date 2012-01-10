@@ -38,7 +38,8 @@ class TemplateManager {
 		<script type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
 		
 		<!-- MAP -->
-		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=mymed2.sophia.inria.fr&sensor=true"> </script>
+		<!-- <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=mymed2.sophia.inria.fr&sensor=true"> </script> -->
+		<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAf-ISy7Kj36nCaiGW3oOVkxQ4P8h8AWNzzKr4nfpzHlkijjHM8hSTvm_hwBpkCEKxNZU_x6w_lxzLjQ" type="text/javascript"></script>
 		
 		<!-- DATEBOX -->
 		<script src="lib/jquery/datebox/jquery.mobile.datebox.min.js"></script>

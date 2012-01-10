@@ -7,3 +7,7 @@ function hideFrame(frame){
 		$('#' + frame, top.document).hide("slow");
 }
 
+// touchOverflow -- Only for iOS5
+$(document).bind("mobileinit", function(){
+  $.mobile.touchOverflowEnabled = true;
+});
