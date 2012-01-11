@@ -1,72 +1,32 @@
 package com.mymed.android.myjam.controller;
 
-import java.lang.reflect.Type;
-import java.util.List;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONTokener;
-
-import android.os.Handler;
-
 import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
 import com.mymed.android.myjam.controller.HttpCall.HttpMethod;
-import com.mymed.android.myjam.exception.IOBackEndException;
-import com.mymed.android.myjam.exception.InternalBackEndException;
-import com.mymed.android.myjam.exception.InternalClientException;
-import com.mymed.model.data.myjam.MFeedBackBean;
-import com.mymed.model.data.myjam.MReportBean;
-import com.mymed.model.data.myjam.MSearchBean;
+import com.mymed.android.myjam.controller.ICallAttributes.RequestCode;
 
 /**
  * Singleton class used to perform HTTP calls, according to MyJam API.
  * @author iacopo
  *
  */
-public class MyJamCallManager implements ICallAttributes{
-	private static MyJamCallManager instance;
-	private final static String QUERY ="?code=";
+public class MyJamCallFactory extends HttpCall implements ICallAttributes{
 
-	//	private static final String MY_JAM_HANDLER_URL = "http://130.192.9.113:8080/mymed_backend/MyJamRequestHandler";
-/**	private static final String MY_JAM_REPORT_HANDLER_URL = "http://130.192.9.113:8080/mymed_backend/MyJamReportRequestHandler";
-	private static final String MY_JAM_UPDATE_HANDLER_URL = "http://130.192.9.113:8080/mymed_backend/MyJamUpdateRequestHandler";
-	private static final String MY_JAM_FEEDBACK_HANDLER_URL = "http://130.192.9.113:8080/mymed_backend/MyJamFeedbackRequestHandler";
-//*/
-	//  For local testing with the emulator.
-	private static final String MY_JAM_REPORT_HANDLER_URL = "http://10.0.2.2:8080/mymed_backend/MyJamReportRequestHandler";
-	private static final String MY_JAM_UPDATE_HANDLER_URL = "http://10.0.2.2:8080/mymed_backend/MyJamUpdateRequestHandler";
-	private static final String MY_JAM_FEEDBACK_HANDLER_URL = "http://10.0.2.2:8080/mymed_backend/MyJamFeedbackRequestHandler";
-	
-	private Gson gson;
-	
-	private MyJamCallManager(){
-		gson = new Gson();
-	};
-	
-	// Singleton
-	public static MyJamCallManager getInstance(){
-		if (instance == null)
-			instance = new MyJamCallManager();
-		return instance;
+	private MyJamCallFactory(HttpCallHandler handler, HttpMethod method,
+			String uriString, Integer id) {
+		super(handler, method, uriString, id);
 	}
 	
-//	/** Request Code*/
-//	public interface MyJamRequestCode { 
-//		public static final int SEARCH_REPORTS = 0;
-//		public static final int GET_REPORT = 1; 	
-//		public static final int GET_NUMBER_UPDATES = 2;
-//		public static final int GET_UPDATES = 3;
-//		public static final int GET_FEEDBACKS = 4;
-//		public static final int GET_ACTIVE_REPORTS = 5;	
-//		public static final int GET_USER_REPORT_UPDATE = 6;	//TODO To implement
-//		public static final int INSERT_REPORT = 7;
-//		public static final int INSERT_UPDATE = 8;
-//		public static final int INSERT_FEEDBACK = 9;
-//		public static final int DELETE_REPORT = 10;
-//		//TODO Eventually add DELETE_REPORT and DELETE_UPDATE
-//	}
+	private MyJamCallFactory(HttpCallHandler handler, HttpMethod method,
+			String uriString, Integer id, String JSonObj) {
+		super(handler, method, uriString, id, JSonObj);
+	}
+
+	//  For local testing with the emulator.
+	private static final String MY_JAM_REPORT_HANDLER_URL = BACKEND_URL+"MyJamReportRequestHandler";
+	private static final String MY_JAM_UPDATE_HANDLER_URL = BACKEND_URL+"MyJamUpdateRequestHandler";
+	private static final String MY_JAM_FEEDBACK_HANDLER_URL = BACKEND_URL+"MyJamFeedbackRequestHandler";
+	
+	private static Gson gson;
 	
 	/**
 	 * Searches the reports in the specified area.
@@ -78,6 +38,14 @@ public class MyJamCallManager implements ICallAttributes{
 	 * @throws IOBackEndException 
 	 * @throws InternalBackEndException 
 	 */
+	HttpCall searchReports(int id, HttpCallHandler handler, int latitude, int longitude, int radius){
+		HttpCall call = new MyJamCallFactory(handler,HttpMethod.GET, MY_JAM_REPORT_HANDLER_URL,id);
+		call.appendAttribute(CODE, RequestCode.READ.code);
+		call.appendAttribute(LATITUDE, String.valueOf(latitude));
+		call.appendAttribute(LONGITUDE, String.valueOf(longitude));
+		call.appendAttribute(RADIUS, String.valueOf(radius));
+		return call;
+	}
 //	public List<MSearchBean> searchReports(int latitude,int longitude, int radius) 
 //			throws InternalBackEndException, IOBackEndException, InternalClientException{
 //		HttpCall searchCall = new HttpCall(new HttpCallHandler(), HttpMethod.GET, MY_JAM_REPORT_HANDLER_URL);
@@ -100,14 +68,20 @@ public class MyJamCallManager implements ICallAttributes{
 //		}
 //	}
 
-//	/**
-//	 * Gets the report corresponding to id.
-//	 * @param id Identifier of the Report.
-//	 * @return
-//	 * @throws InternalBackEndException
-//	 * @throws IOBackEndException
-//	 * @throws InternalClientException
-//	 */
+	/**
+	 * Gets the report corresponding to id.
+	 * @param id Identifier of the Report.
+	 * @return
+	 * @throws InternalBackEndException
+	 * @throws IOBackEndException
+	 * @throws InternalClientException
+	 */
+	HttpCall getReport(int id, HttpCallHandler handler, String reportId){
+		HttpCall call = new MyJamCallFactory(handler,HttpMethod.GET, MY_JAM_REPORT_HANDLER_URL,id);
+		call.appendAttribute(CODE, RequestCode.READ.code);
+		call.appendAttribute(REPORT_ID, reportId);
+		return call;
+	}
 //	public MReportBean getReport(String id) throws InternalBackEndException, IOBackEndException, InternalClientException{
 //		String q=QUERY+RequestCode.READ.code;
 //		q=appendAttribute(q,REPORT_ID,id);
@@ -126,14 +100,21 @@ public class MyJamCallManager implements ICallAttributes{
 //			throw new InternalBackEndException("Wrong response format.");
 //		}
 //	}
-//	/**
-//	 * Returns the number of available updates.
-//	 * @param id Identifier of the Report.
-//	 * @return
-//	 * @throws InternalBackEndException
-//	 * @throws IOBackEndException
-//	 * @throws InternalClientException
-//	 */
+	
+	/**
+	 * Returns the number of available updates.
+	 * @param id Identifier of the Report.
+	 * @return
+	 * @throws InternalBackEndException
+	 * @throws IOBackEndException
+	 * @throws InternalClientException
+	 */
+	HttpCall getNumberUpdates(int id, HttpCallHandler handler, String reportId){
+		HttpCall call = new MyJamCallFactory(handler,HttpMethod.GET, MY_JAM_REPORT_HANDLER_URL,id);
+		call.appendAttribute(CODE, RequestCode.READ.code);
+		call.appendAttribute(REPORT_ID, reportId);
+		return call;
+	}
 //	public int getNumberUpdates(String id) throws InternalBackEndException, IOBackEndException, InternalClientException{
 //		String q=QUERY+RequestCode.READ.code;
 //		q=appendAttribute(q,REPORT_ID,id);
@@ -317,4 +298,8 @@ public class MyJamCallManager implements ICallAttributes{
 //		q=appendAttribute(q,REPORT_ID,id);
 //		System.out.println(httpRequest(MY_JAM_FEEDBACK_HANDLER_URL+q,HttpMethod.DELETE,null));
 //	}
+	
+	static {
+		gson = new Gson();
+	}
 }

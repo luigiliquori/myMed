@@ -38,7 +38,7 @@ public class LocationService extends Service implements LocationListener{
 	/* Lock used to synchronize the access to location. */
 	private Object lock = new Object();
 
-	private static final int TEN_SECONDS = 10000;	//Expiration time for location.
+	private static final int TEN_SECONDS = 10000;	//Expiration time for location. [ms]
 
 	public static final int MINIMUM_FINE_ACCURACY = 5000;	//Minimum accuracy of the new location.
 

@@ -7,9 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.nio.BufferOverflowException;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
@@ -25,7 +23,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
@@ -33,8 +30,6 @@ import com.mymed.android.myjam.exception.IOBackEndException;
 import com.mymed.android.myjam.exception.InternalBackEndException;
 import com.mymed.android.myjam.exception.InternalClientException;
 
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 /**
  * 
@@ -47,16 +42,22 @@ public class HttpCall implements Runnable{
 	private final static String CHARSET_NAME = "UTF8";
 	private final static Charset CHARSET = Charset.forName(CHARSET_NAME); 
 	
+	//protected static final String BACKEND_URL = "http://10.0.2.2:8080/mymed_backend/"; //Testing purposes.
+	protected static final String BACKEND_URL = "http://130.192.9.113:8080/mymed_backend/"; //Italian backbone.
+	private static final String QUERY_STRING = "?";
 	private static final String AND = "&";
 	private static final String EQUAL = "=";
+	protected static final String CODE = "code";
 	
 	private final HttpClient httpClient;
-	private final Handler handler;
+	private final HttpCallHandler handler;
 	private String uri;
+	private boolean firstParam = true;
 	private final HttpMethod method;
 	private String JSonObj = null;
+	private final int id;
 	
-	private HttpUriRequest request;
+	private HttpUriRequest request = null;
 	
 	/**
 	 * Volatile stop flag used to coordinate state between the threads.
@@ -70,21 +71,22 @@ public class HttpCall implements Runnable{
 	private Object lock = new Object();
 	
 	/** Http Method*/
-	public enum HttpMethod {
+	protected enum HttpMethod {
 		GET,
 		POST,
 		PUT,
 		DELETE;}
 	
-	public HttpCall(Handler handler,HttpMethod method, String uriString){
+	public HttpCall(HttpCallHandler handler,HttpMethod method, String uriString,Integer id){
 		this.httpClient=CallManager.getInstance().getClient();
 		this.uri = uriString;
 		this.method = method;
 		this.handler = handler;
+		this.id = id;
 	};	
 	
-	public HttpCall(Handler handler,HttpMethod method, String uriString,String JSonObj){
-		this(handler, method, uriString);
+	public HttpCall(HttpCallHandler handler,HttpMethod method, String uriString,Integer id, String JSonObj){
+		this(handler, method, uriString, id);
 		this.JSonObj = JSonObj;
 	};
 
@@ -142,7 +144,12 @@ public class HttpCall implements Runnable{
 	 * @return
 	 */
 	public void appendAttribute(String name,String value){
-		uri+=AND+name+EQUAL+value;
+		if (firstParam){
+			uri+=QUERY_STRING+name+EQUAL+value;
+			firstParam = false;
+		}else{
+			uri+=AND+name+EQUAL+value;
+		}
 	}
 
 	/**
@@ -150,38 +157,50 @@ public class HttpCall implements Runnable{
 	 */
 	@Override
 	public void run() { 
+		long startCall = System.currentTimeMillis();
 		try{
-			handler.sendMessage(Message.obtain(handler,0));
+			handler.callStart(id);
+			Log.d(TAG,"Start call "+ id + " :" +String.valueOf(startCall));
 			URI uri = new URI(this.uri);
-			switch (method){
-			case GET:
-				this.request = new HttpGet(uri);
-				break;
-			case POST:
-				request = new HttpPost(uri);
-				if (JSonObj != null)
-					((HttpPost) request).setEntity(new StringEntity(JSonObj,CHARSET_NAME));
-				break;
-			case PUT:
-				request = new HttpPut(uri);
-				if (JSonObj != null)
-					((HttpPut) request).setEntity(new StringEntity(JSonObj,CHARSET_NAME));
-				break;
-			case DELETE:
-				request = new HttpDelete(uri);
-				break;
-			default:
-				request = new HttpGet(uri);
-			} 
 			
-			Log.i(TAG, " REQUEST : "+request.getURI());
+			
+			if (mStopped)
+				return;
+			
+			synchronized(lock){
+				switch (method){
+				case GET:
+					this.request = new HttpGet(uri);
+					break;
+				case POST:
+					request = new HttpPost(uri);
+					if (JSonObj != null)
+						((HttpPost) request).setEntity(new StringEntity(JSonObj,CHARSET_NAME));
+					break;
+				case PUT:
+					request = new HttpPut(uri);
+					if (JSonObj != null)
+						((HttpPut) request).setEntity(new StringEntity(JSonObj,CHARSET_NAME));
+					break;
+				case DELETE:
+					request = new HttpDelete(uri);
+					break;
+				default:
+					request = new HttpGet(uri);
+				} 
+			}
+			//Log.i(TAG, " REQUEST : "+request.getURI());
 			HttpResponse response = httpClient.execute(request);
 			
+			synchronized(lock) {
+				request = null;
+			}
+			
 			HttpEntity entity = response.getEntity();
-			Log.i(TAG," STATUS "+String.valueOf(response.getStatusLine().getStatusCode()));
+			//Log.i(TAG," STATUS "+String.valueOf(response.getStatusLine().getStatusCode()));
 			String responseContent = convertStreamToString(entity.getContent(),entity.getContentLength());
 			entity.consumeContent();
-			Log.i(TAG," RESPONSE : "+responseContent);	
+			//Log.i(TAG," RESPONSE : "+responseContent);	
 			int statusCode = response.getStatusLine().getStatusCode();
 			switch(statusCode){
 			case HttpStatus.SC_INTERNAL_SERVER_ERROR:
@@ -198,45 +217,79 @@ public class HttpCall implements Runnable{
 				else
 					throw new IOBackEndException(message);				
 			case HttpStatus.SC_OK:
-				handler.sendMessage(Message.obtain(handler,1, responseContent));
+				handler.callSuccess(id,responseContent);
+				long endCall = System.currentTimeMillis();
+				Log.d(TAG, "End call "+ id + " :" + String.valueOf(endCall) + " Duration: "+ String.valueOf(endCall - startCall));
 				break;
 			default:
 				throw new InternalClientException("Unknown status code.");
 			}			
-		} catch (URISyntaxException e) {
-			handler.sendMessage(Message.obtain(handler,3,new InternalClientException("Malformed URI.")));
-			this.request.abort();
-		} catch (JSONException e) {
-			handler.sendMessage(Message.obtain(handler,3,new InternalClientException("Wrong message content format.")));
-			this.request.abort();
-		} catch (UnsupportedEncodingException e) {
-			handler.sendMessage(Message.obtain(handler,3,new InternalClientException("Unsupported charset.")));
-			this.request.abort();
-		} catch (IllegalStateException e) {
-			handler.sendMessage(Message.obtain(handler,3,new InternalClientException("Communication error.")));
-			this.request.abort();
-		} catch (IOException e) {
-			handler.sendMessage(Message.obtain(handler,3,new InternalClientException("Communication error.")));
-			this.request.abort();
-		} catch (IOBackEndException e) {
-			handler.sendMessage(Message.obtain(handler,3,new InternalClientException(e.getMessage())));
-			this.request.abort();
-		} catch (InternalBackEndException e) {
-			handler.sendMessage(Message.obtain(handler,3,new InternalClientException(e.getMessage())));
-			this.request.abort();
-		} catch (InternalClientException e) {
-			handler.sendMessage(Message.obtain(handler,3,new InternalClientException(e.getMessage())));
-			this.request.abort();
+//		} catch (URISyntaxException e) {
+//			handler.callError(new InternalClientException("Malformed URI."));
+//			this.request.abort();
+//		} catch (JSONException e) {
+//			handler.callError(new InternalClientException("Wrong message content format."));
+//			this.request.abort();
+//		} catch (UnsupportedEncodingException e) {
+//			handler.callError(new InternalClientException("Unsupported charset."));
+//			this.request.abort();
+//		} catch (IllegalStateException e) {
+//			handler.callError(new InternalClientException("Communication error."));
+//			this.request.abort();
+//		} catch (IOException e) {
+//			handler.callError(new InternalClientException("Communication error."));
+//			this.request.abort();
+//		} catch (IOBackEndException e) {
+//			handler.callError(new InternalClientException(e.getMessage()));
+//			this.request.abort();
+//		} catch (InternalBackEndException e) {
+//			handler.callError(new InternalClientException(e.getMessage()));
+//			this.request.abort();
+//		} catch (InternalClientException e) {
+//			handler.callError(new InternalClientException(e.getMessage()));
+//			this.request.abort();
 		} catch (Exception e) {
-			handler.sendMessage(Message.obtain(handler,3,new InternalClientException("Unknown error.")));
+			String message;
+			if (mStopped){
+				message = "Call interrupted "+id+" : ";
+				handler.callInterrupted(id);
+			}else{
+				message = "Call error or call interrupted: ";
+				handler.callError(id,new InternalClientException(message+e.getMessage()));
+			}
+			Log.d(TAG, message+e.toString());
 			this.request.abort();
-		} 
+		} finally {
+			//long endCall = System.currentTimeMillis();
+			//Log.d(TAG, "End call "+ id + " :" + String.valueOf(endCall) + " Duration: "+ String.valueOf(endCall - startCall));
+		}
 	}
 	
 	/**
 	 * Executes the call exploiting the thread pool of the call manager.
 	 */
-	void execute(){
-		CallManager.getInstance().run(this);
+	public void execute(){
+		CallManager.getInstance().execute(this);
+	}
+	
+	/**
+	 * Aborts the http call.
+	 */
+	public void abort(){
+		/**
+		 *	Already stopped possibly from another thread.
+		 */
+		if (mStopped == true)
+			return;
+		
+		Log.d(TAG, "Stopping call...");
+		
+		mStopped = true;
+		//TODO Check if it is really necessary lock. 
+		synchronized(lock){
+			if (request != null)
+				request.abort();
+		}
+		Log.d(TAG, "Call stopped...");
 	}
 }

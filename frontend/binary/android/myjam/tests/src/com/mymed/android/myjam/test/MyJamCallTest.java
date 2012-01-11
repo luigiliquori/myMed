@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import com.mymed.android.myjam.controller.MyJamCallManager;
+import com.mymed.android.myjam.controller.MyJamCallFactory;
 
 import com.mymed.android.myjam.exception.IOBackEndException;
 import com.mymed.android.myjam.exception.InternalBackEndException;

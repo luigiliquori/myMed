@@ -8,7 +8,6 @@ import com.mymed.android.myjam.controller.CallManager;
 import com.mymed.android.myjam.controller.HttpCall;
 import com.mymed.android.myjam.controller.HttpCall.HttpMethod;
 import com.mymed.android.myjam.controller.ICallAttributes;
-import com.mymed.android.myjam.controller.ICallAttributes.RequestCode;
 import com.mymed.android.myjam.controller.HttpCallHandler;
 
 import junit.framework.TestCase;
@@ -17,13 +16,16 @@ import junit.framework.TestCase;
 public class multithreadCallTest extends TestCase implements ICallAttributes{
 
 	private final static String TAG = "MultithreadCallTest";
-	private final static String QUERY ="?code=";
+	private final static String QUERY ="code";
 	
-	private static final String MY_JAM_REPORT_HANDLER_URL = "http://10.0.2.2:8080/mymed_backend/MyJamReportRequestHandler";
-	private static final String MY_JAM_UPDATE_HANDLER_URL = "http://10.0.2.2:8080/mymed_backend/MyJamUpdateRequestHandler";
-	private static final String MY_JAM_FEEDBACK_HANDLER_URL = "http://10.0.2.2:8080/mymed_backend/MyJamFeedbackRequestHandler";
+	private Handler mMessageQueueHandler = new Handler();
+	private HttpCall stopCall = null;
 	
-	private final Handler handler = new Handler(){
+	private static final String MY_JAM_REPORT_HANDLER_URL = "http://130.192.9.113:8080/mymed_backend/MyJamReportRequestHandler";
+	private static final String MY_JAM_UPDATE_HANDLER_URL = "http://130.192.9.113:8080/mymed_backend/MyJamUpdateRequestHandler";
+	private static final String MY_JAM_FEEDBACK_HANDLER_URL = "http://130.192.9.113:8080/mymed_backend/MyJamFeedbackRequestHandler";
+	
+	private final HttpCallHandler handler = new HttpCallHandler(){
 		public void handleMessage(Message message) {
 			switch (message.what) {
 			case HttpCallHandler.MSG_CALL_START: 
@@ -40,13 +42,50 @@ public class multithreadCallTest extends TestCase implements ICallAttributes{
 			}
 		}
 	};
+	
+	private Runnable mStopCall = new Runnable() {
+		@Override
+		public void run() {
+			if (stopCall!=null)
+				stopCall.abort();
+		}
+	 };
 
 	public void testCall(){
-		HttpCall testCall = new HttpCall(handler, HttpMethod.GET, MY_JAM_REPORT_HANDLER_URL+QUERY+RequestCode.READ.code);
-		testCall.appendAttribute(LATITUDE, String.valueOf(7500000));
-		testCall.appendAttribute(LONGITUDE, String.valueOf(44500000));
-		testCall.appendAttribute(RADIUS, String.valueOf(10000));
-		testCall.run();
+//        String[] urisToGet = {
+//                "http://hc.apache.org/",
+//                "http://hc.apache.org/httpcomponents-core/",
+//                "http://hc.apache.org/httpcomponents-client/",
+//                "http://svn.apache.org/viewvc/httpcomponents/"
+//            };
+        HttpCall[] testCall = new HttpCall[4];
+		for (int i=0; i<1;i++){
+//			testCall[i] = new HttpCall(handler, HttpMethod.GET, urisToGet[i],(long) i);
+			testCall[i] = new HttpCall(handler, HttpMethod.GET, MY_JAM_REPORT_HANDLER_URL, i);
+			testCall[i].appendAttribute(QUERY,RequestCode.READ.code);
+			testCall[i].appendAttribute(LATITUDE, String.valueOf(7500000));
+			testCall[i].appendAttribute(LONGITUDE, String.valueOf(44500000));
+			testCall[i].appendAttribute(RADIUS, String.valueOf(10000));
+		}
+
+		for (int i=0; i<1;i++){
+			testCall[i].execute();
+		}
+		stopCall = testCall[0];
+		mMessageQueueHandler.postDelayed(mStopCall, 100);
+		for (int i=0; i<4;i++){
+//			testCall[i] = new HttpCall(handler, HttpMethod.GET, urisToGet[i],(long) i);
+			testCall[i] = new HttpCall(handler, HttpMethod.GET, MY_JAM_REPORT_HANDLER_URL, i);
+			testCall[i].appendAttribute(QUERY,RequestCode.READ.code);
+			testCall[i].appendAttribute(LATITUDE, String.valueOf(7500000));
+			testCall[i].appendAttribute(LONGITUDE, String.valueOf(44500000));
+			testCall[i].appendAttribute(RADIUS, String.valueOf(10000));
+		}
+		for (int i=0; i<4;i++){
+			testCall[i].execute();
+		}
+		
+		
 		CallManager.shutDown();
 	}
 }

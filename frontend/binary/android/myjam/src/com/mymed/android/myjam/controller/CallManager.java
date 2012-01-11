@@ -29,7 +29,7 @@ import android.util.Log;
 public class CallManager {
 	private static final String TAG = "CallManager";
 	
-	private static final int poolSize = 5;
+	private static final int poolSize = 4;
 	
 	private HttpClient httpClient;
 	private ExecutorService pool;
@@ -46,9 +46,13 @@ public class CallManager {
      * Private constructor.
      */
     private CallManager(){
-    	SchemeRegistry registry = new SchemeRegistry();
-    	registry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
+        
+        // Create and initialize scheme registry 
+        SchemeRegistry schemeRegistry = new SchemeRegistry();
+        schemeRegistry.register(
+                new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
     	
+     // Create and initialize HTTP parameters
     	HttpParams httpParams = new BasicHttpParams();
     	/** Sets the version of the HTTP protocol to 1.1 */
     	HttpProtocolParams.setVersion(httpParams, HttpVersion.HTTP_1_1);		
@@ -61,7 +65,7 @@ public class CallManager {
 		/** Set the maximum number of connections per route. */
 		ConnManagerParams.setMaxConnectionsPerRoute(httpParams, new ConnPerRouteBean(poolSize));
 		
-    	ThreadSafeClientConnManager connManager = new ThreadSafeClientConnManager(httpParams, registry); 
+    	ThreadSafeClientConnManager connManager = new ThreadSafeClientConnManager(httpParams, schemeRegistry); 
     	httpClient = new DefaultHttpClient(connManager,httpParams);
     	
     	pool = Executors.newFixedThreadPool(poolSize);
@@ -73,23 +77,24 @@ public class CallManager {
      *  get closed and system resources allocated by those connections are released.
      */
     public static void shutDown() {
-    	if (instance!=null)
-    		instance.httpClient.getConnectionManager().shutdown();
     	
     	instance.pool.shutdown();
+    	Log.i(TAG, "Executor pool terminating...");
     	while (!instance.pool.isTerminated()) {
-    		Log.i(TAG, "Executor pool terminating...");
 		}
 		System.out.println("Finished all threads");
 		Log.i(TAG, "Executor pool terminated.");
+		
+    	if (instance!=null)
+    		instance.httpClient.getConnectionManager().shutdown();
     }
     
     protected HttpClient getClient(){
     	return instance.httpClient;
     }
     
-    protected void run(Runnable runnable){
-    	pool.execute(runnable);
+    protected void execute(Runnable runnable){
+    	instance.pool.execute(runnable);
     }
     
     

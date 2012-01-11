@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import com.mymed.android.myjam.controller.AuthenticationManager;
+import com.mymed.android.myjam.controller.AuthenticationCallFactory;
 import com.mymed.android.myjam.controller.ICallAttributes;
-import com.mymed.android.myjam.controller.MyJamCallManager;
+import com.mymed.android.myjam.controller.MyJamCallFactory;
 import com.mymed.android.myjam.exception.IOBackEndException;
 import com.mymed.android.myjam.exception.InternalBackEndException;
 import com.mymed.android.myjam.exception.InternalClientException;
@@ -64,7 +64,7 @@ public class MyJamCallService extends IntentService{
     public static final int STATUS_ERROR = 0x2;
     public static final int STATUS_FINISHED = 0x3;        
     
-    private MyJamCallManager myJamRestCall;
+    private MyJamCallFactory myJamRestCall;
     private ContentResolver resolver;
     
     public interface RequestCode{
@@ -98,7 +98,7 @@ public class MyJamCallService extends IntentService{
     public void onCreate() {
         super.onCreate();
 
-        myJamRestCall = MyJamCallManager.getInstance();
+        myJamRestCall = MyJamCallFactory.getInstance();
         resolver = getContentResolver();
     }
 
