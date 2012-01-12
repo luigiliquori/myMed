@@ -164,6 +164,16 @@ public interface IStorageManager {
 	 */
 	void removeColumn(String tableName, String key, String columnName) throws IOBackEndException,
 	        InternalBackEndException;
+	
+	/**
+	 * 
+	 * @param tableName
+	 * @param key
+	 * @param superColumnName
+	 * @throws InternalBackEndException
+	 */
+	public void removeSuperColumn(final String tableName, final String key, final String superColumnName)
+		      throws InternalBackEndException;
 
 	/**
 	 * Remove an entry in the columnFamily

@@ -15,7 +15,7 @@ class InscriptionHandler implements IRequestHandler {
 	}
 	
 	public /*String*/ function handleRequest() { 
-		// TRY TO REGISTER A NEW ACCOUNT
+		
 		if(isset($_POST['inscription'])) {
 			
 			// Preconditions
@@ -61,8 +61,10 @@ class InscriptionHandler implements IRequestHandler {
 			if($responseObject->status != 200) {
 				$_SESSION['error'] = $responseObject->description;
 			} else {
-				$this->success = "The profile has been successfully created!";
+				$this->success = "Félicitation, Un email de confirmation vient de vous être envoyé!";
 			}
+		} else if (isset($_GET['inscription'])) {
+			$this->success = "Votre compte à bien été validé!";
 		} 
 	}
 	

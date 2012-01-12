@@ -466,6 +466,30 @@ public class StorageManager extends ManagerValues implements IStorageManager {
     }
   }
 
+	/**
+	 * 
+	 * @param tableName
+	 * @param key
+	 * @param superColumnName
+	 * @throws InternalBackEndException
+	 */
+  @Override
+  public void removeSuperColumn(final String tableName, final String key, final String superColumnName)
+	      throws InternalBackEndException {
+
+	    try {
+	      final String columnFamily = tableName;
+	      final long timestamp = System.currentTimeMillis();
+	      final ColumnPath columnPath = new ColumnPath(columnFamily);
+	      columnPath.setSuper_column(superColumnName.getBytes("UTF8"));
+
+	      wrapper.remove(key, columnPath, timestamp, consistencyOnWrite);
+	    } catch (final UnsupportedEncodingException e) {
+	      LOGGER.debug("Remove column '{}' failed", superColumnName, e.getCause());
+	      throw new InternalBackEndException("removeColumn failed because of an UnsupportedEncodingException");
+	    }
+	  }
+  
   /**
    * Remove an entry in the columnFamily
    * 
