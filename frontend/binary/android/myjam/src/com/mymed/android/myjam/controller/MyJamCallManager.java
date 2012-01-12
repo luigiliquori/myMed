@@ -27,9 +27,9 @@ public class MyJamCallManager extends HTTPCall implements ICallAttributes{
 	private static final String QUERY ="?code=";
 
 
-	private static final String MY_JAM_REPORT_HANDLER_URL = "http://130.192.9.113:8080/mymed_backend/MyJamReportRequestHandler";
-	private static final String MY_JAM_UPDATE_HANDLER_URL = "http://130.192.9.113:8080/mymed_backend/MyJamUpdateRequestHandler";
-	private static final String MY_JAM_FEEDBACK_HANDLER_URL = "http://130.192.9.113:8080/mymed_backend/MyJamFeedbackRequestHandler";
+	private static final String MY_JAM_REPORT_HANDLER_URL = BACK_END_URL+"MyJamReportRequestHandler";
+	private static final String MY_JAM_UPDATE_HANDLER_URL = BACK_END_URL+"MyJamUpdateRequestHandler";
+	private static final String MY_JAM_FEEDBACK_HANDLER_URL = BACK_END_URL+"MyJamFeedbackRequestHandler";
 	
 	private Gson gson;
 	
@@ -116,30 +116,30 @@ public class MyJamCallManager extends HTTPCall implements ICallAttributes{
 			throw new InternalBackEndException("Wrong response format.");
 		}
 	}
-	/**
-	 * Returns the number of available updates.
-	 * @param id Identifier of the Report.
-	 * @return
-	 * @throws InternalBackEndException
-	 * @throws IOBackEndException
-	 * @throws InternalClientException
-	 */
-	public int getNumberUpdates(String id) throws InternalBackEndException, IOBackEndException, InternalClientException{
-		String q=QUERY+RequestCode.READ.code;
-		q=appendAttribute(q,REPORT_ID,id);
-
-		JSONObject response;
-		try{
-			response = (JSONObject) new JSONTokener(httpRequest(MY_JAM_UPDATE_HANDLER_URL+q,httpMethod.GET,null)).nextValue();
-			JSONObject data = response.getJSONObject("data");
-			String jsonData = data.getString("num_updates");
-			return this.gson.fromJson(jsonData, int.class);
-		}catch(JsonSyntaxException e){
-			throw new InternalBackEndException("Wrong response format.");
-		} catch (JSONException e) {
-			throw new InternalBackEndException("Wrong response format.");
-		}
-	}
+//	/**
+//	 * Returns the number of available updates.
+//	 * @param id Identifier of the Report.
+//	 * @return
+//	 * @throws InternalBackEndException
+//	 * @throws IOBackEndException
+//	 * @throws InternalClientException
+//	 */
+//	public int getNumberUpdates(String id) throws InternalBackEndException, IOBackEndException, InternalClientException{
+//		String q=QUERY+RequestCode.READ.code;
+//		q=appendAttribute(q,REPORT_ID,id);
+//
+//		JSONObject response;
+//		try{
+//			response = (JSONObject) new JSONTokener(httpRequest(MY_JAM_UPDATE_HANDLER_URL+q,httpMethod.GET,null)).nextValue();
+//			JSONObject data = response.getJSONObject("data");
+//			String jsonData = data.getString("num_updates");
+//			return this.gson.fromJson(jsonData, int.class);
+//		}catch(JsonSyntaxException e){
+//			throw new InternalBackEndException("Wrong response format.");
+//		} catch (JSONException e) {
+//			throw new InternalBackEndException("Wrong response format.");
+//		}
+//	}
 	
 	/**
 	 * Gets the last "numUpdates" updates. 
@@ -149,10 +149,10 @@ public class MyJamCallManager extends HTTPCall implements ICallAttributes{
 	 * @throws IOBackEndException
 	 * @throws InternalClientException
 	 */
-	public List<MReportBean> getUpdates(String id,int numUpdates) throws InternalBackEndException, IOBackEndException, InternalClientException{
+	public List<MReportBean> getUpdates(String id,long timestamp) throws InternalBackEndException, IOBackEndException, InternalClientException{
 		String q=QUERY+RequestCode.READ.code;
 		q=appendAttribute(q,REPORT_ID,id);
-		q=appendAttribute(q,NUM,String.valueOf(numUpdates));
+		q=appendAttribute(q,START_TIME,String.valueOf(timestamp));
 		
 		JSONObject response;
 		try{

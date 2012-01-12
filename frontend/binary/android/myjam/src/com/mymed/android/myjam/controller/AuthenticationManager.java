@@ -23,16 +23,9 @@ public class AuthenticationManager extends HTTPCall implements ICallAttributes {
 	/*
 	 *		Attributes. 
 	 */
-	private static final String PROFILE_HANDLER_URL = "http://130.192.9.113:8080/mymed_backend/ProfileRequestHandler";
-	private static final String AUTHENTICATION_HANDLER_URL = "http://130.192.9.113:8080/mymed_backend/AuthenticationRequestHandler";
-	private static final String SESSION_HANDLER_URL = "http://130.192.9.113:8080/mymed_backend/SessionRequestHandler";
-/**//*/
- 	//For local testing with the emulator.
-
-	private static final String PROFILE_HANDLER_URL = "http://10.0.2.2:8080/mymed_backend/ProfileRequestHandler";
-	private static final String AUTHENTICATION_HANDLER_URL = "http://10.0.2.2:8080/mymed_backend/AuthenticationRequestHandler";
-	private static final String SESSION_HANDLER_URL = "http://10.0.2.2:8080/mymed_backend/SessionRequestHandler";
-//*/	
+	private static final String PROFILE_HANDLER_URL = BACK_END_URL+"ProfileRequestHandler";
+	private static final String AUTHENTICATION_HANDLER_URL = BACK_END_URL+"AuthenticationRequestHandler";
+	private static final String SESSION_HANDLER_URL = BACK_END_URL+"SessionRequestHandler";
 	private static final String QUERY ="?code=";
 	
 	private Gson gson;

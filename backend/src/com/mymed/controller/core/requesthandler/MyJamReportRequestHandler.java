@@ -163,7 +163,6 @@ public class MyJamReportRequestHandler  extends AbstractRequestHandler implement
 	 */
 	@Override
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		MyMedId reportId;
 		
 		JsonMessage message = new JsonMessage(200, this.getClass().getName());
 		
@@ -173,8 +172,7 @@ public class MyJamReportRequestHandler  extends AbstractRequestHandler implement
 			switch (code){
 			case DELETE:
 				message.setMethod("DELETE");
-				reportId = MyMedId.parseString(parameters.get("id"));
-				myJamManager.deleteReport(reportId);
+				myJamManager.deleteReport(parameters.get("id"));
 				break;
 			}
 			super.doDelete(request, response);

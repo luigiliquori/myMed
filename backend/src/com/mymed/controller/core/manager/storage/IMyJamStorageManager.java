@@ -152,6 +152,16 @@ public interface IMyJamStorageManager extends IStorageManager  {
 	 * @param column		Column name. Can be set to null to delete the entire row.
 	 * @throws InternalBackEndException
 	 */
-	void removeColumn(String tableName, String primaryKey,
+	public void removeColumn(String tableName, String primaryKey,
 			byte[] superColumn, byte[] column) throws InternalBackEndException;
+
+	/**
+	 * Gets the columns which have name following {@value start} on the given CF row.
+	 * @param tableName		ColumnFamily.
+	 * @param primaryKey	Key of the row.
+	 * @param start		    Starting value.
+	 * @return
+	 */
+	public Map<byte[], byte[]> getFrom(String string, String reportId,
+			byte[] array) throws IOBackEndException, InternalBackEndException;
 }

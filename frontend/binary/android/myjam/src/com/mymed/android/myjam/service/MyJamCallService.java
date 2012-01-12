@@ -185,15 +185,13 @@ public class MyJamCallService extends IntentService{
 				getContentResolver().update(Search.CONTENT_URI, currVal, 
 						Search.SEARCH_ID_SELECTION, new String[]{String.valueOf(searchId)});
 
-			}
-			if ((reqCode == RequestCode.GET_REPORT_FEEDBACKS) || (reqCode == RequestCode.GET_UPDATE_FEEDBACKS)){
+			}else if ((reqCode == RequestCode.GET_REPORT_FEEDBACKS) || (reqCode == RequestCode.GET_UPDATE_FEEDBACKS)){
 				ContentValues currVal = new ContentValues();
 				currVal.put(FeedbacksRequest.UPDATING, false);
 				getContentResolver().update(FeedbacksRequest.CONTENT_URI, currVal, 
 						reqCode == RequestCode.GET_REPORT_FEEDBACKS?FeedbacksRequest.REPORT_SELECTION:
 							FeedbacksRequest.UPDATE_SELECTION, new String[]{reportOrUpdateId});
-			}
-			if ((reqCode == RequestCode.GET_UPDATES)){
+			}else if ((reqCode == RequestCode.GET_UPDATES)){
         		ContentValues currVal = new ContentValues();
 				currVal.put(UpdatesRequest.UPDATING, false);	// The Updates are no more under update.
 				getContentResolver().update(UpdatesRequest.CONTENT_URI, currVal, 
@@ -361,10 +359,9 @@ public class MyJamCallService extends IntentService{
 	private void getUpdates(Bundle bundle) 
 			throws InternalBackEndException, IOBackEndException, InternalClientException, RemoteException, OperationApplicationException {
 		final String reportId = bundle.getString(ICallAttributes.REPORT_ID);
-		final int numUpdates = myJamRestCall.getNumberUpdates(bundle.getString(ICallAttributes.REPORT_ID));
+		final Long startTime = bundle.getLong(ICallAttributes.START_TIME);
 		final ArrayList<ContentProviderOperation> batch;
-		final int numNewUpdates = numUpdates - bundle.getInt(ICallAttributes.NUM)<0? 0:(numUpdates - bundle.getInt(ICallAttributes.NUM));
-		List<MReportBean> listUpdates = myJamRestCall.getUpdates(reportId, numNewUpdates);
+		List<MReportBean> listUpdates = myJamRestCall.getUpdates(reportId, startTime);
 		batch = new ArrayList<ContentProviderOperation> (listUpdates.size());
 		ContentValues currVal = new ContentValues();
 		for (MReportBean currUpdate:listUpdates){

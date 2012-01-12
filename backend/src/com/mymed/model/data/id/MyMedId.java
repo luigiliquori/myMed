@@ -57,7 +57,7 @@ public class MyMedId {
 	 * Return a ByteBuffer representation of the ReportId
 	 * @return 
 	 */
-	public ByteBuffer ReportIdAsByteBuffer(){
+	public ByteBuffer AsByteBuffer(){
 		byte[] userIdBB = userId.getBytes(CHARSET);
 		int size = userIdBB.length;
 		size += LONG_BYTESIZE;
@@ -149,6 +149,20 @@ public class MyMedId {
 		if (userId==null || userId.length()<=0)
 			throw new WrongFormatException("UserId malformed.");
 		return userId;
+	}
+	
+	/**
+	 * If the object is a MyMedId and it is equal to this returns true,
+	 * else return false.
+	 */
+	@Override
+	public boolean equals(Object o){
+		try{
+			MyMedId tmp =(MyMedId) o;
+			return tmp.toString().equals(this.toString());	
+		}catch(Exception e){
+			return false;
+		}
 	}
 	
 //	private static char checkType(char type)  throws WrongFormatException {

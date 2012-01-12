@@ -287,6 +287,7 @@ public class MyJamStorageManager extends StorageManager implements IMyJamStorage
 
 		return selectByPredicate(tableName, primaryKey, new SlicePredicate().setSlice_range(range));		
 	}
+	
 	/**
 	 * Gets the first n columns of the given CF row.
 	 * @param tableName		ColumnFamily.
@@ -303,9 +304,27 @@ public class MyJamStorageManager extends StorageManager implements IMyJamStorage
 				range.setReversed(true);
 				range.setCount(n);
 
-				return selectByPredicate(tableName, primaryKey, new SlicePredicate().setSlice_range(range));	
-		
+				return selectByPredicate(tableName, primaryKey, new SlicePredicate().setSlice_range(range));			
 	}
+	
+	/**
+	 * Gets the columns which have name following {@value start} on the given CF row.
+	 * @param tableName		ColumnFamily.
+	 * @param primaryKey	Key of the row.
+	 * @param start		    Starting value.
+	 * @return
+	 */
+	public Map<byte[], byte[]> getFrom(String tableName, String primaryKey,
+			byte[] start) throws IOBackEndException, InternalBackEndException {
+
+				final SliceRange range = new SliceRange();
+				range.setStart(start);
+				range.setFinish(new byte[0]);
+				range.setCount(maxNumColumns);
+
+				return selectByPredicate(tableName, primaryKey, new SlicePredicate().setSlice_range(range));			
+	}
+
 	
 	/**
 	 * Used in myJam to perform geographical range queries.
