@@ -22,6 +22,7 @@ public class GeoLocationManagerTest extends TestCase {
 	private final static double degreeRange = 2.0;
 	private final static int meterRange = 50000;
 	private final static int numInsertionSearchTest = 10000;
+	private final static int numInsertionDeleteTest = 100;
 	
 	private GeoLocationManager manager;
 	private List<MyMedId> itemsInRange;
@@ -37,7 +38,7 @@ public class GeoLocationManagerTest extends TestCase {
 				itemsInRange = new LinkedList<MyMedId>();
 			if (rand == null)
 				rand = new Random(SEED);
-		}catch(Exception e){
+		}catch(final Exception e){
 			e.printStackTrace();
 		}
 	}
@@ -91,14 +92,33 @@ public class GeoLocationManagerTest extends TestCase {
 					fail("Item found doesn't belongs to items in range.");
 			}
 
-		}catch(Exception e){
+		}catch(final Exception e){
 			fail(e.getMessage());
 		}
 	}
 
 	//TODO Check delete.
 	public void testDelete(){
-		
+		List<MSearchBean> deleteList = new LinkedList<MSearchBean>();
+		try{
+			for (int i=0;i<numInsertionDeleteTest;i++){
+				double lat = rand.nextDouble()*degreeRange +(centerLat-degreeRange/2); 
+				double lon = rand.nextDouble()*degreeRange +(centerLon-degreeRange/2);
+				centerL = new Location(centerLat,centerLon);
+				deleteList.add(this.manager.create(TAG, ITEM, "iacopo",(int) (lat*1E6),(int) (lon*1E6), "Ciao", 60*30));
+			}
+			
+			for (MSearchBean curr: deleteList){
+				this.manager.delete(TAG, ITEM, curr.getLocationId(), curr.getId());
+				try{
+					this.manager.read(TAG, ITEM, curr.getLocationId(), curr.getId());
+					fail("Item "+curr.getId()+" has not been properly deleted.");
+				}catch(Exception e){	
+				}
+			}
+		}catch(final Exception e){
+			fail(e.getMessage());
+		}
 	}
 	
 //	private int[] getPoint(){

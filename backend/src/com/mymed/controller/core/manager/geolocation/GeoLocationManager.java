@@ -40,10 +40,10 @@ public class GeoLocationManager extends AbstractManager {
 	}
 
 	/**
-	 * Insert a new located object into the database.
+	 * Insert a new located item into the database.
 	 * 
 	 * @param applicationId Id of the application.
-	 * @param objId	Id of the located object. Its scope is the application which it belongs to.
+	 * @param itemType	Id of the located object. Its scope is the application which it belongs to.
 	 * @param latitude Latitude in micro-degrees.
 	 * @param longitude Longitude in micro-degrees.
 	 * @param value Textual value (Can be null.)
@@ -52,7 +52,7 @@ public class GeoLocationManager extends AbstractManager {
 	 * @throws InternalBackEndException
 	 * @throws IOBackEndException
 	 */
-	public MSearchBean create(final String applicationId, final String objType, final String userLogin, final int latitude, final int longitude, 
+	public MSearchBean create(final String applicationId, final String itemType, final String userLogin, final int latitude, final int longitude, 
 			final String value, final int permTime) throws InternalBackEndException, IOBackEndException {
 		try {
 			/**
@@ -64,7 +64,7 @@ public class GeoLocationManager extends AbstractManager {
 					(double) (longitude/1E6));
 			String areaId = String.valueOf(Locator.getAreaId(locId));
 			long timestamp = System.currentTimeMillis();				
-			MyMedId id = new MyMedId(Character.toLowerCase(objType.charAt(0)),timestamp,userLogin);
+			MyMedId id = new MyMedId(Character.toLowerCase(itemType.charAt(0)),timestamp,userLogin);
 
 			/** Create a MSearchBean instance to be returned. */
 			MSearchBean searchBean = new MSearchBean();
@@ -83,7 +83,7 @@ public class GeoLocationManager extends AbstractManager {
 			/**
 			 * SuperColumn insertion in CF Location 
 			 **/
-			myJamStorageManager.insertExpiringColumn("Location", applicationId+objType+areaId, MConverter.longToByteBuffer(locId).array(), 
+			myJamStorageManager.insertExpiringColumn("Location", applicationId+itemType+areaId, MConverter.longToByteBuffer(locId).array(), 
 					id.AsByteBuffer().array(),
 					MConverter.stringToByteBuffer(value).array(),
 					timestamp, permTime);
@@ -95,10 +95,10 @@ public class GeoLocationManager extends AbstractManager {
 	}
 
 	/**
-	 * Search located objects in a circular region specified by latitude, longitude and radius.
+	 * Search located items in a circular region specified by latitude, longitude and radius.
 	 * 
-	 * @param applicationId Id of the application.
-	 * @param objId Id of the located object.
+	 * @param applicationId Identifier of the application.
+	 * @param itemId Id of the located item.
 	 * @param latitude Latitude in micro-degrees.
 	 * @param longitude Longitude in micro-degrees.
 	 * @param radius Radius of the search in meters.
@@ -106,7 +106,7 @@ public class GeoLocationManager extends AbstractManager {
 	 * @throws InternalBackEndException
 	 * @throws IOBackEndException
 	 */
-	public List<MSearchBean> read(final String applicationId, final String objType, final int latitude, final int longitude,
+	public List<MSearchBean> read(final String applicationId, final String itemType, final int latitude, final int longitude,
 			final int radius) throws InternalBackEndException, IOBackEndException {
 		List<MSearchBean> resultReports = new LinkedList<MSearchBean>();
 		try{
@@ -125,7 +125,7 @@ public class GeoLocationManager extends AbstractManager {
 				long startAreaId = Locator.getAreaId(range[0]);
 				long endAreaId = Locator.getAreaId(range[1]);
 				for (long ind=startAreaId;ind<=endAreaId;ind++){
-					areaIds.add(applicationId+objType+String.valueOf(ind));
+					areaIds.add(applicationId+itemType+String.valueOf(ind));
 				}
 				Map<byte[],Map<byte[],byte[]>> mapRep = myJamStorageManager.selectSCRange("Location", areaIds, MConverter.longToByteBuffer(range[0]).array(),
 						MConverter.longToByteBuffer(range[1]).array()); 
@@ -173,29 +173,29 @@ public class GeoLocationManager extends AbstractManager {
 	/**
 	 * Returns the MSearchBean or throws an exception if it is not present.
 	 * 
-	 * @param applicationId
-	 * @param objType
+	 * @param applicationId Identifier of the application.
+	 * @param itemType
 	 * @param locationId
-	 * @param objId
+	 * @param itemId
 	 * @return
 	 * @throws InternalBackEndException
 	 * @throws IOBackEndException
 	 */
-	public MSearchBean read(final String applicationId, final String objType, final long locationId, final String objId) 
+	public MSearchBean read(final String applicationId, final String itemType, final long locationId, final String itemId) 
 			throws InternalBackEndException, IOBackEndException {
 		
 		String areaId = String.valueOf(Locator.getAreaId(locationId));
 		MSearchBean searchBean;
 		
 		try {
-			ExpColumnBean expCol = myJamStorageManager.selectExpiringColumn("Location", applicationId+objType+areaId, 
+			ExpColumnBean expCol = myJamStorageManager.selectExpiringColumn("Location", applicationId+itemType+areaId, 
 					MConverter.longToByteBuffer(locationId).array(), 
-					MyMedId.parseString(objId).AsByteBuffer().array());
+					MyMedId.parseString(itemId).AsByteBuffer().array());
 			
 			Location loc = Locator.getLocationFromId(locationId);
 
 			searchBean = new MSearchBean();
-			searchBean.setId(objId);
+			searchBean.setId(itemId);
 			searchBean.setLatitude((int) (loc.getLatitude()*1E6));
 			searchBean.setLongitude((int) (loc.getLongitude()*1E6));
 			searchBean.setValue(MConverter.byteBufferToString(ByteBuffer.wrap(expCol.getValue())));
@@ -214,6 +214,32 @@ public class GeoLocationManager extends AbstractManager {
 		}		
 	}
 	
-
-
+	//TODO To be tested.
+	/**
+	 * Deletes one located item.
+	 * 
+	 * @param applicationId	Identifier of the application.
+	 * @param itemType	Type of localized item.
+	 * @param locationId	Identifier of the location.
+	 * @param itemId	Identifier of the item.
+	 * @return
+	 * @throws InternalBackEndException
+	 * @throws IOBackEndException
+	 */
+	public void delete(final String applicationId, final String itemType, final long locationId, final String itemId) 
+			throws InternalBackEndException, IOBackEndException {
+				
+		try {
+			String areaId = String.valueOf(Locator.getAreaId(locationId));
+			MyMedId id = MyMedId.parseString(itemId);
+			
+			myJamStorageManager.removeColumn("Location", applicationId+itemType+areaId, 
+					MConverter.longToByteBuffer(locationId).array(), 
+					id.AsByteBuffer().array());
+		} catch (WrongFormatException e){
+			throw new InternalBackEndException("Wrong report Id: "+e.getMessage());
+		} catch (IllegalArgumentException e) {
+			throw new InternalBackEndException("Wrong location Id: "+e.getMessage());
+		}		
+	}
 }
