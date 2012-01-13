@@ -22,7 +22,7 @@ public interface ICallAttributes {
 	//General.
 	public static final String REPORT_ID = "id";
 	public static final String UPDATE_ID = "updateID";	
-	public static final String LAST_RECEPTION = "lastReception";
+	public static final String START_TIME = "startTime";
 	//Search report.
 	public static final String LATITUDE = "latitude";
 	public static final String LONGITUDE = "longitude";

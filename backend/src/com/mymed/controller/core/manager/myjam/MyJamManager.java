@@ -162,17 +162,6 @@ public class MyJamManager extends AbstractManager{
 		}
 	}
 
-	public int getNumUpdates(String reportId) throws InternalBackEndException{
-
-		try{
-			return myJamStorageManager.countColumns("ReportUpdate", reportId, null);					
-		}catch(InternalBackEndException e){
-			throw new InternalBackEndException("Wrong parameter: "+e.getMessage());
-		} catch (IOBackEndException e){
-			throw new InternalBackEndException(e.getMessage());
-		}
-	}
-
 	/**
 	 * Returns a list of updates.
 	 * @param updateIds List of update ids.
@@ -348,7 +337,7 @@ public class MyJamManager extends AbstractManager{
 			myJamStorageManager.removeColumn("ActiveReport", report.getUserId(), null,
 					id.AsByteBuffer().array());
 			/**
-			 * Removes the column by ActiveReport CF, if present.
+			 * Removes the column by Location CF, if present.
 			 */
 			myJamStorageManager.removeColumn("Location", areaId, 
 					MConverter.longToByteBuffer(locationId).array(), 

@@ -69,20 +69,16 @@ public class MyJamUpdateRequestHandler  extends AbstractRequestHandler implement
 		try {
 			final Map<String, String> parameters = getParameters(request);
 			final RequestCode code = requestCodeMap.get(parameters.get("code"));
-			String id, last_reception;
+			String id, start_time;
 
 			switch (code) {
 			case READ : // GET
 				message.setMethod("READ");
-				if ((id = parameters.get(ID)) != null && (last_reception = parameters.get(LAST_RECEPTION)) != null){
-					long startTime = Long.parseLong(last_reception);
+				if ((id = parameters.get(ID)) != null && (start_time = parameters.get(START_TIME)) != null){
+					long startTime = Long.parseLong(start_time);
 					MyMedId reportId = MyMedId.parseString(id);
 					List<MReportBean> updates = myJamManager.getUpdates(reportId.toString(), startTime);
 					message.addData("updates", this.getGson().toJson(updates));
-				}else if ((id = parameters.get(ID)) != null){
-					MyMedId reportId = MyMedId.parseString(id);
-					int updateIdList = myJamManager.getNumUpdates(reportId.toString());
-					message.addData("num_updates", this.getGson().toJson(updateIdList));
 				}else
 					throw new InternalBackEndException("missing parameter, bad request!");
 				break;

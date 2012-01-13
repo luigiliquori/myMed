@@ -1,8 +1,7 @@
 package com.mymed.android.myjam.controller;
 
 import com.google.gson.Gson;
-import com.mymed.android.myjam.controller.HttpCall.HttpMethod;
-import com.mymed.android.myjam.controller.ICallAttributes.RequestCode;
+
 
 /**
  * Singleton class used to perform HTTP calls, according to MyJam API.
@@ -102,44 +101,21 @@ public class MyJamCallFactory extends HttpCall implements ICallAttributes{
 //	}
 	
 	/**
-	 * Returns the number of available updates.
-	 * @param id Identifier of the Report.
+	 * Gets the updates with timestamp equal or greater then {@value startTime}.
+	 * @param id
+	 * @param handler
+	 * @param reportId
+	 * @param startTime
 	 * @return
-	 * @throws InternalBackEndException
-	 * @throws IOBackEndException
-	 * @throws InternalClientException
 	 */
-	HttpCall getNumberUpdates(int id, HttpCallHandler handler, String reportId){
-		HttpCall call = new MyJamCallFactory(handler,HttpMethod.GET, MY_JAM_REPORT_HANDLER_URL,id);
+	HttpCall getUpdates(int id, HttpCallHandler handler,String reportId, long startTime){
+		HttpCall call = new MyJamCallFactory(handler,HttpMethod.GET, MY_JAM_UPDATE_HANDLER_URL,id);
 		call.appendAttribute(CODE, RequestCode.READ.code);
 		call.appendAttribute(REPORT_ID, reportId);
+		call.appendAttribute(START_TIME, String.valueOf(startTime));
 		return call;
 	}
-//	public int getNumberUpdates(String id) throws InternalBackEndException, IOBackEndException, InternalClientException{
-//		String q=QUERY+RequestCode.READ.code;
-//		q=appendAttribute(q,REPORT_ID,id);
-//
-//		JSONObject response;
-//		try{
-//			response = (JSONObject) new JSONTokener(httpRequest(MY_JAM_UPDATE_HANDLER_URL+q,HttpMethod.GET,null)).nextValue();
-//			JSONObject data = response.getJSONObject("data");
-//			String jsonData = data.getString("num_updates");
-//			return this.gson.fromJson(jsonData, int.class);
-//		}catch(JsonSyntaxException e){
-//			throw new InternalBackEndException("Wrong response format.");
-//		} catch (JSONException e) {
-//			throw new InternalBackEndException("Wrong response format.");
-//		}
-//	}
-//	
-//	/**
-//	 * Gets the last "numUpdates" updates. 
-//	 * @param ids List of updates id.
-//	 * @return
-//	 * @throws InternalBackEndException
-//	 * @throws IOBackEndException
-//	 * @throws InternalClientException
-//	 */
+	
 //	public List<MReportBean> getUpdates(String id,int numUpdates) throws InternalBackEndException, IOBackEndException, InternalClientException{
 //		String q=QUERY+RequestCode.READ.code;
 //		q=appendAttribute(q,REPORT_ID,id);
@@ -159,14 +135,19 @@ public class MyJamCallFactory extends HttpCall implements ICallAttributes{
 //		}		
 //	}
 //	
-//	/**
-//	 * Gets the feedbacks corresponding to report id. 
-//	 * @param id Id of the report.
-//	 * @return
-//	 * @throws InternalBackEndException
-//	 * @throws IOBackEndException
-//	 * @throws InternalClientException
-//	 */
+	/**
+	 * Gets the feedbacks corresponding to report id.
+	 * @param id	Call identifier.
+	 * @param handler	Handler for the callback.
+	 * @param reportId	Identifier of the report.
+	 * @return	The {@link HttpCall}.
+	 */
+	HttpCall getFeedbacks(int id, HttpCallHandler handler,String reportId){
+		HttpCall call = new MyJamCallFactory(handler,HttpMethod.GET, MY_JAM_FEEDBACK_HANDLER_URL,id);
+		call.appendAttribute(CODE, RequestCode.READ.code);
+		call.appendAttribute(REPORT_ID, reportId);
+		return call;
+	}
 //	public List<MFeedBackBean> getFeedBacks(String id) throws InternalBackEndException, IOBackEndException, InternalClientException{
 //		String q=QUERY+RequestCode.READ.code;
 //		q=appendAttribute(q,REPORT_ID,id);
@@ -212,19 +193,19 @@ public class MyJamCallFactory extends HttpCall implements ICallAttributes{
 //		}
 //	}
 //	
-//	/**
-//	 * Inserts a new Report
-//	 * @param cf	The name of the keyspace.
-//	 * @param key	The row key.
-//	 * @param sCol	The SuperColumn name.
-//	 * @param name	The Column name.
-//	 * @param value	The Column value.
-//	 * @param ttl	The Column time to live before expiration (seconds).
-//	 * @return		
-//	 * @throws InternalClientException 
-//	 * @throws IOBackEndException 
-//	 * @throws InternalBackEndException 
-//	 */
+	/**
+	 * Inserts a new Report
+	 * @param cf	The name of the keyspace.
+	 * @param key	The row key.
+	 * @param sCol	The SuperColumn name.
+	 * @param name	The Column name.
+	 * @param value	The Column value.
+	 * @param ttl	The Column time to live before expiration (seconds).
+	 * @return		
+	 * @throws InternalClientException 
+	 * @throws IOBackEndException 
+	 * @throws InternalBackEndException 
+	 */
 //	public MReportBean insertReport(int latitude,int longitude,MReportBean report) throws InternalBackEndException, IOBackEndException, InternalClientException{
 //		String q=QUERY+RequestCode.CREATE.code;
 //		q=appendAttribute(q,LATITUDE,String.valueOf(latitude));
