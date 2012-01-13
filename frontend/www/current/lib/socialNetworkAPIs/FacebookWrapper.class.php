@@ -31,6 +31,7 @@ class FacebookWrapper implements IWrapper {
 		$user = $this->facebook->getUser();
 		if ($user) {
 			try {
+				
 				// Proceed knowing you have a logged in user who's authenticated.
 				$user_profile = $this->facebook->api('/me');
 				$user_mymedWrapper;
@@ -107,8 +108,11 @@ class FacebookWrapper implements IWrapper {
 					// GET POSITION
 					$request = new Request("PositionRequestHandler", READ);
 					$request->addArgument("userID", "FACEBOOK_" . $friend["id"]);
+					$request->addArgument("accessToken", $this->facebook->getAccessToken());
+					
 					$responsejSon = $request->send();
 					$responseObject = json_decode($responsejSon);
+					
 					if($responseObject->status == 200) {
 						$_SESSION['friends'][$i]["position"] = json_decode($responseObject->data->position);
 					}

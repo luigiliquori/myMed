@@ -33,35 +33,38 @@
 	if (USER_CONNECTED) {
 		
 		// Try to get th position && Store the position of the user: TODO move this part
-// 		if(isset($_GET["latitude"]) && isset($_GET["longitude"])) {
-// 			$request = new Request("PositionRequestHandler", UPDATE);
-// 			$position = new MPositionBean();
-// 			$position->userID = $_SESSION['user']->id;
-// 			echo '<script type="text/javascript">alert(\'' . $_SESSION['user']->id . '\');</script>';
-// 			$position->latitude = $_GET["latitude"];
-// 			$position->longitude = $_GET["longitude"];
-// 			$geoloc = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?latlng=".$position->latitude.",".$position->longitude."&sensor=true"));
-// 			$position->formattedAddress = $geoloc->results[0]->formatted_address;
-// 			TODO add city+zipCode
-// 			$request->addArgument("position", json_encode($position));
-// 			$request->send();
+		if(isset($_GET["latitude"]) && isset($_GET["longitude"])) {
 			
-// 			if($responseObject->status != 200) {
-// 				echo '<script type="text/javascript">alert(\'' . $responseObject->description . '\');</script>';
-// 			} 
-// 		}
+			$request = new Request("PositionRequestHandler", UPDATE);
+			$position = new MPositionBean();
+			$position->userID = $_SESSION['user']->id;
+			$position->latitude = $_GET["latitude"];
+			$position->longitude = $_GET["longitude"];
+			$geoloc = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?latlng=".$position->latitude.",".$position->longitude."&sensor=true"));
+			$position->formattedAddress = $geoloc->results[0]->formatted_address;
+// 			TODO add city+zipCode
+			$request->addArgument("position", json_encode($position));
+			$request->addArgument("accessToken", $_SESSION['accessToken']);
+			
+			$responsejSon = $request->send();
+			$responseObject = json_decode($responsejSon);
+			
+		}
 		
-		// GET THE LASTEST KNOWN POSITION OF THE USER: TODO move this part
-// 		$request = new Request("PositionRequestHandler", READ);
-// 		$request->addArgument("userID", $_SESSION['user']->id);
-// 		$responsejSon = $request->send();
-// 		$responseObject = json_decode($responsejSon);
-// 		if($responseObject->status == 200) {
-// 			$_SESSION['position'] = json_decode($responseObject->data->position);
-// 		}
+// 		GET THE LASTEST KNOWN POSITION OF THE USER: TODO move this part
+		$request = new Request("PositionRequestHandler", READ);
+		$request->addArgument("userID", $_SESSION['user']->id);
+		$request->addArgument("accessToken", $_SESSION['accessToken']);
 		
+		$responsejSon = $request->send();
+		$responseObject = json_decode($responsejSon);
+		
+		if($responseObject->status == 200) {
+			$_SESSION['position'] = json_decode($responseObject->data->position);
+		}
+		
+		// LOAD THE TEMPLATE
 		if(isset($_GET['application']) && $_GET['application'] != "0"){
-		// LOAD THE APPLICATION
 			$templateManager->selectTemplate('application/'.$_GET['application']);
 		} else {
 			$templateManager->selectTemplate('container/' . TARGET . '/home');
