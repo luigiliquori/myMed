@@ -47,14 +47,12 @@ class Notification extends AbstractTemplate {
 	public /*String*/ function getContent() {?>
 		<!-- CONTENT -->
 		<div style="position:relative; width: 200px; background-color: #f0f0f0; top:0px;">
-			<br/>
 			<?php if ($handle = opendir('system/templates/application')) {
 				    while (false !== ($file = readdir($handle))) {
 				    	if($file != "." && $file != ".." && $file != ".DS_Store"){ ?>
-				    		<span style="position: absolute; left:5px;"><img alt="<?= $file ?>" src="system/templates/application/<?= $file ?>/img/icon.png" height="30" ></span>
-				    		<span style="position: relative; left: 50px; top:10px;"><a href="?application=<?= $file ?>" class="myIcon" rel="external"><?= $file ?></a></span>
-				    		<span style="position: absolute; left: 37px; font-weight: bold; color: red"><?= rand(0,4)?></span>
-				    		<br/><br/><br/>
+				    		<span style="position: relative;"><img alt="<?= $file ?>" src="system/templates/application/<?= $file ?>/img/icon.png" height="30" ></span>
+				    		<span style="position: relative; left: 5px; top:-10px;"><a href="?application=<?= $file ?>" class="myIcon" rel="external"><?= $file ?></a></span>
+				    		<br/>
 				    	<?php } ?>
 				    <?php } ?>
 			<?php } ?>
@@ -66,7 +64,7 @@ class Notification extends AbstractTemplate {
 	* Print the Template
 	*/
 	public /*String*/ function printTemplate() { ?>
-		<div style="position: absolute; left: 71%; top:220px;">
+		<div style="position: absolute; left: 71%; top:210px;">
 			<?php 
 			$this->getHeader();
 			$this->getContent();

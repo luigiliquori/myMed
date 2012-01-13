@@ -78,7 +78,7 @@ class Login extends AbstractTemplate {
 			<br />
 			<form action="#" method="post" name="singinForm" id="singinForm">
 				<input type="hidden" name="singin" value="1" />
-			    <input type="text" name="login" id="login" value="login" /><br />
+			    <input type="text" name="login" id="login" value="email" /><br />
 			    <input type="password" name="password" id="password" value="Mot de passe" /><br />
 			    <a href="#" onclick="document.singinForm.submit()"><span style="color:white; text-decoration: none;">Connexion</span></a>
 			</form>

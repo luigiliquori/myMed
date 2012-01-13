@@ -102,7 +102,7 @@ class Profile extends AbstractTemplate {
 				
 				<!-- FRIENDS STREAM -->
 				<div style="background-color: #1d1d1d; color: white; width: 200px; font-size: 15px; font-weight: bold;">Contacts</div>
-				<div style="position:relative; width: 200px; height:400px; overflow: auto; background-color: #f0f0f0; top:0px;">
+				<div style="position:relative; width: 200px; height:300px; overflow: auto; background-color: #f0f0f0; top:0px;">
 					<?php foreach ($_SESSION['friends'] as $friend ) { ?>
 						<img src="http://graph.facebook.com/<?= $friend["id"] ?>/picture" width="20px" />
 						<a href="<?= $friend["link"] ?>"><?= $friend["name"] ?></a>

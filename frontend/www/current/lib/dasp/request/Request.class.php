@@ -13,6 +13,7 @@ class Request {
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
+	private /*string*/					$url;
 	private /*string*/					$ressource;
 	private /*BackendRequest_*/			$method;
 	private /*Array<string,string>*/	$arguments	= Array();
@@ -24,6 +25,7 @@ class Request {
 	public function __construct(/*string*/ $ressource, /*BackendRequest_*/ $method=READ) {
 		$this->ressource	= $ressource;
 		$this->method		= $method;
+		$this->url			= BACKEND_URL;
 		$this->multipart	= false;
 	}
 
@@ -41,6 +43,10 @@ class Request {
 
 	public /*void*/ function setMethod(/*BackendRequest_*/ $method) {
 		$this->method	= $method;
+	}
+
+	public /*Boolean*/ function setURL($url) {
+		$this->url = $url;
 	}
 	
 	public /*Boolean*/ function setMultipart($multipart = false) {
@@ -71,13 +77,14 @@ class Request {
 		if($this->method == CREATE || $this->method == UPDATE || ($this->ressource == "AuthenticationRequestHandler" && $this->method == READ)){
 			// POST REQUEST
 			curl_setopt($curl, CURLOPT_HTTPHEADER, $httpHeader);
-			curl_setopt($curl, CURLOPT_URL, BACKEND_URL.$this->ressource);
+			curl_setopt($curl, CURLOPT_URL, $this->url.$this->ressource);
 			curl_setopt($curl, CURLOPT_POST, true);
 			curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($this->arguments));
+			
 		} else {
 			// GET REQUEST
 			curl_setopt($curl, CURLOPT_HTTPHEADER, $httpHeader);
-			curl_setopt($curl, CURLOPT_URL, BACKEND_URL.$this->ressource.'?'.http_build_query($this->arguments));
+			curl_setopt($curl, CURLOPT_URL, $this->url.$this->ressource.'?'.http_build_query($this->arguments));
 		}
 		
 		// SSL CONNECTION

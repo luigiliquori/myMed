@@ -26,7 +26,7 @@ class Find extends Request {
 	/* --------------------------------------------------------- */
 	/* Public methods */
 	/* --------------------------------------------------------- */
-	public /*void*/ function send() {
+	public /*string*/ function send() {
 		
 		// construct the predicate + data
 		$predicateArray;
@@ -81,6 +81,8 @@ class Find extends Request {
 				$this->handler->setSuccess($responseObject->data->results);
 			}
 		}
+		
+		return $responsejSon;
 	}
 }
 ?>

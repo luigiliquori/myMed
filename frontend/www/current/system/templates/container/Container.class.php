@@ -28,14 +28,14 @@ class Container extends AbstractTemplate {
 	 */
 	public /*String*/ function getContent() { ?>
 		<!-- CONTENT -->
-		<div class="content"> 
-			<div class="ui-grid-b">
+		<div class="content" > 
+			<div class="ui-grid-b" Style="padding: 10px;">
 				<?php if ($handle = opendir('system/templates/application')) {
 						$column = "a";
 					    while (false !== ($file = readdir($handle))) {
 					    	if($file != "." && $file != ".." && $file != ".DS_Store"){ ?>
 					    		<?php if(TARGET == "desktop") { ?>
-					   				<iframe src="#" id="<?= $file ?>_iframe" name="<?= $file ?>_iframe" style="position: absolute; width:70%; height:70%; top:20px; left:15%; display: none;"></iframe> 
+					   				<iframe src="#" id="<?= $file ?>_iframe" name="<?= $file ?>_iframe" style="position: absolute; width:100%; height:70%; top:0px; left:0px; display: none;"></iframe> 
 						    	<?php } ?>
 						    	<div class="ui-block-<?= $column ?>">
 							    	<a
