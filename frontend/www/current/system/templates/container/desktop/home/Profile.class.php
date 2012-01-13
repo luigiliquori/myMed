@@ -86,12 +86,12 @@ class Profile extends AbstractTemplate {
 			    	$rand = 3;
 			    	$j=0;
 			    	while($j<=$rand){ ?>
-			    		<img alt="star" src="img/star.png" width="20" />
+			    		<img alt="star" src="system/img/star.png" width="20" />
 			    		<?php 
 			    		$j++;
 			    	}
 			    	while($j<=4){ ?>
-			    		<img alt="star" src="img/starGray.png" width="20" />		
+			    		<img alt="star" src="system/img/starGray.png" width="20" />		
 			    		<?php 
 			    		$j++;
 			    	}

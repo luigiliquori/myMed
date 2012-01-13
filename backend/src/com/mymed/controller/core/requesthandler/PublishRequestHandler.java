@@ -77,7 +77,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 	/* --------------------------------------------------------- */
 	protected Map<String, String> getParameters(final HttpServletRequest request) throws AbstractMymedException {
 		
-		if(!request.getContentType().matches("multipart/form-data.*")){
+		if(request.getContentType() != null && !request.getContentType().matches("multipart/form-data.*")){
 			return super.getParameters(request);
 //			throw new InternalBackEndException("PublishRequestHandler should use a multipart request!");
 		}
@@ -88,6 +88,8 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 				String key = part.getName();
 				Scanner s = new Scanner(part.getInputStream());
 				String value = URLDecoder.decode(s.nextLine(), "UTF-8");    // read filename from stream
+//				System.out.println("KEY = " + key);
+//				System.out.println("VALUE = " + value);
 				parameters.put(key, value);
 			}
 		} catch (Exception e) {
