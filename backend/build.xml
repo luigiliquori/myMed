@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Copyright 2012 INRIA 
+Copyright 2012 INRIA
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -32,6 +32,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 	<property name="war.webinf.lib.dir" location="${war.webinf.dir}/lib"/>
 	<property name="war.webinf.resources.dir" location="${war.webinf.dir}/resources"/>
 	<property name="glassfish.dir" location="/local/glassfish3/glassfish"/>
+	<property name="ext.dir" location="ext"/>
 	<property name="java.dir" location="/usr/share/java"/>
 
 	<property name="web.content.lib" location="WebContent/WEB-INF/lib"/>
@@ -53,9 +54,8 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 	<path id="backend.classpath" description="Path for compiling the backend">
 		<pathelement path="${java.class.path}"/>
     <fileset dir="${glassfish.dir}">
-      <include name="**/mail.jar"/>
-		  <include name="**/javaee.jar"/>
-		</fileset>
+      <include name="**/javaee.jar"/>
+    </fileset>
     <fileset dir="${java.dir}">
       <include name="**/*.jar"/>
     </fileset>
@@ -64,11 +64,20 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 
 	<pathconvert description="Pretty print the classpath" property="echo.path.compile" refid="backend.classpath" pathsep="${line.separator}|  |--" />
 
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" description="Set up ant-contrib JAR necessary for this build">
+	  <classpath>
+	    <pathelement location="${ext.dir}/lib/ant-contrib-1.0b3.jar"/>
+	  </classpath>
+	</taskdef>
+
 	<!-- Used as timestamp for the MANIFEST file -->
 	<tstamp id="date">
 	  <format property="TODAY" pattern="yyyy-mm-dd--hh.mm.ssaa"/>
 	</tstamp>
 
+	<!-- - - - - - - - - - - - - - - - - -
+	          target: init
+	         - - - - - - - - - - - - - - - - - -->
 	<target name="init" description="Initialize the necessary directories">
     <mkdir dir="${build.dir}"/>
     <mkdir dir="${build.lib.dir}"/>
@@ -80,6 +89,9 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
   	<mkdir dir="${war.webinf.resources.dir}"/>
 	</target>
 
+	<!-- - - - - - - - - - - - - - - - - -
+	          target: compile
+	         - - - - - - - - - - - - - - - - - -->
   <target name="compile" depends="init" description="Compile the necessary files">
     <javac srcdir="${src.dir}" destdir="${build.classes.dir}" debug="${debug.flag}" fork="true" includeantruntime="true" includejavaruntime="true">
     	<exclude name="**/tests/**"/>
@@ -93,12 +105,35 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
   </target>
 
 	<!-- - - - - - - - - - - - - - - - - -
+          target: test
+         - - - - - - - - - - - - - - - - - -->
+  <target name="checkargs" description="Check if the 'address' argument has been passed at the commnad line">
+  	<if>
+  		<isset property="address"/>
+  	  <then>
+  	    <var name="ipaddress" value="${address}"/>
+  	  </then>
+  		<else>
+  			<!-- Unset the property before resetting it! -->
+  			<var name="ipaddress" unset="true"/>
+  			<!-- We set by default the local host -->
+  			<var name="ipaddress" value="127.0.0.1"/>
+  		</else>
+  	</if>
+  </target>
+
+	<!-- - - - - - - - - - - - - - - - - -
           target: movefiles
          - - - - - - - - - - - - - - - - - -->
-  <target name="movefiles" depends="compile" description="Copy the necessary stuff in the right places">
+  <target name="movefiles" depends="compile, checkargs" description="Copy the necessary stuff in the right places">
   	<!-- Copy the configuration files into the resources/ dir -->
   	<copy todir="${war.webinf.resources.dir}">
   		<fileset dir="conf" />
+  		<filterchain>
+  			<replacetokens>
+  				<token key="address" value="${ipaddress}"/>
+  			</replacetokens>
+  		</filterchain>
   	</copy>
 
   	<copy todir="${war.webinf.classes.dir}" description="Copy the compiled classes in the WEB-INF/classes/ dir">
@@ -131,6 +166,9 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
   	<delete includeemptydirs="true" dir="${build.classes.dir}" />
   </target>
 
+	<!-- =================================
+	          target: clean
+	         ================================= -->
 	<target name="clean" description="Remove the directories used for the build">
     <delete includeemptydirs="true" failonerror="false" dir="${build.dir}"/>
   </target>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Copyright 2012 INRIA 
+Copyright 2012 INRIA
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -15,27 +15,28 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <!-- Configuration of the data storage layer of myMed -->
-<!-- Change the 127.0.0.1 field to the IP address of the actual machine  -->
+<!-- Change the @address@ field to the IP address of the actual machine
+That value is substituted at compile time using Ant! -->
 <node>
 	<backend>
 		<!-- Cloud Info -->
 		<cassandra>
-			<ListenAddress>mymed2.sophia.inria.fr</ListenAddress>
+			<ListenAddress>@address@</ListenAddress>
 			<!-- See the Cassandra configuration file at ../protocols/cassandra/cassandra/conf/cassandra.yaml -->
 			<StoragePort>4200</StoragePort>
-			<ThriftAddress>mymed2.sophia.inria.fr</ThriftAddress>
+			<ThriftAddress>@address@</ThriftAddress>
 			<ThriftPort>4201</ThriftPort>
 		</cassandra>
 
 		<!-- P2P Info -->
-		<synapse address="mymed2.sophia.inria.fr" port="0">
+		<synapse address="@address@" port="0">
 			<chord>
-				<ListenAddress>mymed2.sophia.inria.fr</ListenAddress>
+				<ListenAddress>@address@</ListenAddress>
 				<!-- 0 means random free port number -->
 				<StoragePort>0</StoragePort>
 			</chord>
 			<kad>
-				<ListenAddress>mymed2.sophia.inria.fr</ListenAddress>
+				<ListenAddress>@address@</ListenAddress>
 				<!-- 0 means random free port number -->
 				<StoragePort>0</StoragePort>
 			</kad>
