@@ -158,7 +158,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 		try {
 			final Map<String, String> parameters = getParameters(request);
 			final RequestCode code = requestCodeMap.get(parameters.get("code"));
-			String application, predicates, user, data;
+			String application, predicateListJson, user, data;
 
 			// accessToken
 			if (parameters.get("accessToken") == null) {
@@ -172,7 +172,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 				message.setMethod("CREATE");
 				if ((application = parameters.get("application")) == null) {
 					throw new InternalBackEndException("missing application argument!");
-				} else if ((predicates = parameters.get("predicate")) == null) {
+				} else if ((predicateListJson = parameters.get("predicate")) == null) {
 					throw new InternalBackEndException("missing predicate argument!");
 				} else if ((user = parameters.get("user")) == null) {
 					throw new InternalBackEndException("missing user argument!");
@@ -185,24 +185,30 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 					final MUserBean userBean = getGson().fromJson(user, MUserBean.class);
 					final Type dataType = new TypeToken<List<MDataBean>>(){}.getType();
 					final List<MDataBean> dataList = getGson().fromJson(data, dataType);
-					final List<MDataBean> predicatesArray = getGson().fromJson(predicates, dataType);
+					final List<MDataBean> predicateListObject = getGson().fromJson(predicateListJson, dataType);
 
-					// broadcast algorithm
-					int broadcastSize = (int) Math.pow(2, predicatesArray.size());
+					// construct the subPredicate
+					String subPredicate = "";
+					for(MDataBean element : predicateListObject){
+						subPredicate += element.getKey() + "(" + element.getValue() + ")";
+					}
+					
+					// construct the Predicate => broadcast algorithm
+					int broadcastSize = (int) Math.pow(2, predicateListObject.size());
 					for(int i=1 ; i<broadcastSize ; i++){
 			 			int mask = i;
 			 			String predicate = "";
 			 			int j = 0;
 			 			while(mask > 0){
 			 				if((mask&1) == 1){
-			 					MDataBean element = predicatesArray.get(j);
+			 					MDataBean element = predicateListObject.get(j);
 			 					predicate += element.getKey() + "(" + element.getValue() + ")";
 			 				}
 			 				mask >>= 1;
 			 				j++;
 			 			}
 			 			if(!predicate.equals("")){
-			 				pubsubManager.create(application, predicate, userBean, dataList);
+			 				pubsubManager.create(application, predicate, subPredicate, userBean, dataList);
 			 			}
 			 		}
 

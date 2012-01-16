@@ -60,7 +60,7 @@ public class RegistrationManager implements IRegistrationManager {
 		final HashFunction h = new HashFunction("myMed");
 		String accessToken = h.SHA1ToString(user.getLogin() + System.currentTimeMillis());
 
-		pubSubManager.create("myMed", accessToken, user, dataList);
+		pubSubManager.create("myMed", accessToken, accessToken, user, dataList);
 
 		// SEND MAIL
 		String content = "Bienvenu sur myMed.\n"

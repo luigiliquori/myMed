@@ -131,6 +131,7 @@ public class PositionRequestHandler extends AbstractRequestHandler {
 					MPositionBean positionBean = getGson().fromJson(position, MPositionBean.class);
 					MLogger.getLog().info("Trying to update position:\n {}", positionBean.toString());
 					positionManager.update(positionBean);
+					System.out.println("position: " + position);
 					message.setDescription("Position updated!");
 					MLogger.getLog().info("Position updated!");
 				} catch (final JsonSyntaxException e) {
@@ -142,6 +143,7 @@ public class PositionRequestHandler extends AbstractRequestHandler {
 			}
 
 		} catch (final AbstractMymedException e) {
+			e.printStackTrace();
 			MLogger.getLog().info("Error in doRequest operation");
 			MLogger.getDebugLog().debug("Error in doRequest operation", e.getCause());
 			message.setStatus(e.getStatus());

@@ -119,95 +119,95 @@ public class SessionRequestHandler extends AbstractRequestHandler {
     printJSonResponse(message, response);
   }
 
-//  /**
-//   * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-//   *      response)
-//   */
-//  @Override
-//  protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-//      IOException {
-//
-//    final JsonMessage message = new JsonMessage(200, this.getClass().getName());
-//
-//    try {
-//      final Map<String, String> parameters = getParameters(request);
-//      final RequestCode code = requestCodeMap.get(parameters.get("code"));
-//      final String accessToken = parameters.get("accessToken");
-//      final String userID = parameters.get("userID");
-//
-//      if (accessToken == null) {
-//        throw new InternalBackEndException("accessToken argument missing!");
-//
-//      }
-//
-//      switch (code) {
-//        case CREATE : // FOR FACEBOOK - TODO Check Security!
-//          message.setMethod("CREATE");
-//          if (userID == null) {
-//            throw new InternalBackEndException("session argument missing!");
-//
-//          }
-//          final MUserBean userBean = profileManager.read(userID);
-//
-//          // Create a new session
-//          final MSessionBean sessionBean = new MSessionBean();
-//          sessionBean.setIp(request.getRemoteAddr());
-//          sessionBean.setUser(userBean.getId());
-//          sessionBean.setCurrentApplications("");
-//          sessionBean.setP2P(false);
-//          sessionBean.setTimeout(System.currentTimeMillis()); // TODO Use The
-//                                                              // Cassandra
-//                                                              // Timeout
-//                                                              // mecanism
-//          sessionBean.setAccessToken(accessToken);
-//          sessionBean.setId(accessToken);
-//          sessionManager.create(sessionBean);
-//
-//          // Update the profile with the new session
-//          userBean.setSession(accessToken);
-//          profileManager.update(userBean);
-//
-//          message.setDescription("session created");
-//          LOGGER.info("Session {} created -> LOGIN", accessToken);
-//          message.addData("url", "https://" + InetAddress.getLocalHost().getCanonicalHostName()
-//              + "/mobile?socialNetwork=" + userBean.getSocialNetworkName()); // TODO
-//                                                                             // Find
-//                                                                             // a
-//                                                                             // better
-//                                                                             // way
-//                                                                             // to
-//                                                                             // get
-//                                                                             // the
-//                                                                             // url
-//          message.addData("accessToken", accessToken);
-//          break;
-//        case UPDATE :
-//          // message.setMethod("UPDATE");
-//          // try {
-//          // if (session == null) {
-//          // throw new InternalBackEndException("session argument missing!");
-//          //
-//          // }
-//          // sessionBean = getGson().fromJson(session,
-//          // MSessionBean.class);
-//          // sessionManager.update(sessionBean);
-//          // } catch (final JsonSyntaxException e) {
-//          // throw new InternalBackEndException(
-//          // "user jSon format is not valid");
-//          // }
-//          break;
-//        default :
-//          throw new InternalBackEndException("ProfileRequestHandler.doPost(" + code + ") not exist!");
-//      }
-//
-//    } catch (final AbstractMymedException e) {
-//      e.printStackTrace();
-//      LOGGER.info("Error in doGet");
-//      LOGGER.debug("Error in doGet", e.getCause());
-//      message.setStatus(e.getStatus());
-//      message.setDescription(e.getMessage());
-//    }
-//
-//    printJSonResponse(message, response);
-//  }
+  /**
+   * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+   *      response)
+   */
+  @Override
+  protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
+      IOException {
+
+    final JsonMessage message = new JsonMessage(200, this.getClass().getName());
+
+    try {
+      final Map<String, String> parameters = getParameters(request);
+      final RequestCode code = requestCodeMap.get(parameters.get("code"));
+      final String accessToken = parameters.get("accessToken");
+      final String userID = parameters.get("userID");
+
+      if (accessToken == null) {
+        throw new InternalBackEndException("accessToken argument missing!");
+
+      }
+
+      switch (code) {
+        case CREATE : // FOR FACEBOOK - TODO Check Security!
+          message.setMethod("CREATE");
+          if (userID == null) {
+            throw new InternalBackEndException("session argument missing!");
+
+          }
+          final MUserBean userBean = profileManager.read(userID);
+
+          // Create a new session
+          final MSessionBean sessionBean = new MSessionBean();
+          sessionBean.setIp(request.getRemoteAddr());
+          sessionBean.setUser(userBean.getId());
+          sessionBean.setCurrentApplications("");
+          sessionBean.setP2P(false);
+          sessionBean.setTimeout(System.currentTimeMillis()); // TODO Use The
+                                                              // Cassandra
+                                                              // Timeout
+                                                              // mecanism
+          sessionBean.setAccessToken(accessToken);
+          sessionBean.setId(accessToken);
+          sessionManager.create(sessionBean);
+
+          // Update the profile with the new session
+          userBean.setSession(accessToken);
+          profileManager.update(userBean);
+
+          message.setDescription("session created");
+          LOGGER.info("Session {} created -> LOGIN", accessToken);
+          message.addData("url", "https://" + InetAddress.getLocalHost().getCanonicalHostName()
+              + "/mobile?socialNetwork=" + userBean.getSocialNetworkName()); // TODO
+                                                                             // Find
+                                                                             // a
+                                                                             // better
+                                                                             // way
+                                                                             // to
+                                                                             // get
+                                                                             // the
+                                                                             // url
+          message.addData("accessToken", accessToken);
+          break;
+        case UPDATE :
+          // message.setMethod("UPDATE");
+          // try {
+          // if (session == null) {
+          // throw new InternalBackEndException("session argument missing!");
+          //
+          // }
+          // sessionBean = getGson().fromJson(session,
+          // MSessionBean.class);
+          // sessionManager.update(sessionBean);
+          // } catch (final JsonSyntaxException e) {
+          // throw new InternalBackEndException(
+          // "user jSon format is not valid");
+          // }
+          break;
+        default :
+          throw new InternalBackEndException("ProfileRequestHandler.doPost(" + code + ") not exist!");
+      }
+
+    } catch (final AbstractMymedException e) {
+      e.printStackTrace();
+      LOGGER.info("Error in doGet");
+      LOGGER.debug("Error in doGet", e.getCause());
+      message.setStatus(e.getStatus());
+      message.setDescription(e.getMessage());
+    }
+
+    printJSonResponse(message, response);
+  }
 }

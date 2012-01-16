@@ -1,14 +1,15 @@
 function initialize() {
-    geoloc();
+	geoloc();
 }
 
 function geoloc() {
-	if (navigator.geolocation)
+	if (navigator.geolocation) {
 		navigator.geolocation.watchPosition(successCallback, null, {enableHighAccuracy:true});
-	else
+	} else {
 	    alert("Votre navigateur ne prend pas en compte la géolocalisation HTML5");
+	}
 }
-	 
+
 function successCallback(position){
 	// store the position with an AJAX request
 	 var xhr; 
@@ -25,11 +26,10 @@ function successCallback(position){
 	       if(xhr.readyState  == 4) {
 	       		if(xhr.status  != 200) { 
 	        		alert("Error code " + xhr.status);
-			}
+	       		}
 	        }
 	    }; 
 
 	   xhr.open( "GET", "index.php?latitude=" + position.coords.latitude + "&longitude=" + position.coords.longitude,  true); 
 	   xhr.send(null); 
 }
-
