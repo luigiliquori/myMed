@@ -58,7 +58,7 @@ abstract class MyApplication extends AbstractTemplate {
 			<div data-role="navbar">
 				<ul>
 				<li><a href="#Chat" data-back="true" <?= $this->activeFooter == "Chat" ? 'class="ui-btn-active ui-state-persist"' : ''; ?> >chat</a></li>
-				<li><a href="#Find" <?= $this->activeFooter == "Find" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>find</a></li>
+				<li><a href="#Find" <?= $this->activeFooter == "Find" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>channel</a></li>
 				<li><a href="#Add" <?= $this->activeFooter == "Add" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>add</a></li>
 				</ul>
 			</div>
