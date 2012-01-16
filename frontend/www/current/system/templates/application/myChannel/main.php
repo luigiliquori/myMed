@@ -20,3 +20,4 @@
 	$add = new AddView();
 	$add->printTemplate();
 ?>
+

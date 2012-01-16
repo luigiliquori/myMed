@@ -46,6 +46,7 @@ abstract class MyApplication extends AbstractTemplate {
 				<a href="?application=0" rel="external" data-role="button" data-theme="r">Close</a>
 			<?php } ?>
 			<h1><?= $this->title ?></h1>
+			<a href="?application=<?= APPLICATION_NAME ?>" data-role="button"target="_blank">Maximize</a>
 		</div>
 	<?php }
 	

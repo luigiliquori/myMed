@@ -76,7 +76,7 @@ class TemplateManager {
 		
 		</head>
 		
-		<body onload="initialize()">
+		<body onload="initialize();">
 	<?php }
 	
 	/**

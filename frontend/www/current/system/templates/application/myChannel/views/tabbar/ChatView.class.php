@@ -104,7 +104,7 @@ class ChatView extends MyApplication {
 			<!-- TEXT -->
 			<?php if($this->category != null && $this->channel != null) { ?>
 				<h3><?= $this->channel ?></h3>
-				<div id="chatTextArea" Style="position: relative; width: 100%; border: thin white solid; background-color: black; font-size:9pt;">
+				<div id="chatTextArea" Style="position: relative; width: 100%; border: thin white solid; background-color: black; font-size:19pt;">
 					<div Style="position: relative; width: 90%; padding: 10px;">
 						<?php foreach ($this->quotes as $quote) { ?>
 							<span Style="font-weight: bold; color: red; "><?= $quote['date'] ?></span> ::
@@ -113,9 +113,6 @@ class ChatView extends MyApplication {
 						<?php } ?>
 					</div>
 				</div>
-				<script type="text/javascript">
-					$("#myChannel_iframe").scrollTop($("#myChannel_iframe")[0].scrollHeight);
-				</script>
 				<br />
 				<form  action="#" method="post" name="<?= APPLICATION_NAME ?>PublishForm" id="<?= APPLICATION_NAME ?>PublishForm" enctype="multipart/form-data">
 					<!-- Define the method to call -->
