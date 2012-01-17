@@ -17,7 +17,7 @@ limitations under the License.
 <!--
 Ant build file to compile the mymed backend
 
-Milo Casagrande <milo.casagrande@inria.fr>, 2011
+Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
 -->
 <project name="mymed" default="build" basedir=".">
 	<property name="src.dir" location="src"/>
