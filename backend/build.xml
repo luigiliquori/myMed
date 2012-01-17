@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+Copyright 2012 INRIA
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<!--
 Ant build file to compile the mymed backend
 
-Milo Casagrande <milo.casagrande@inria.fr>, 2011
+Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
 -->
 <project name="mymed" default="build" basedir=".">
 	<property name="src.dir" location="src"/>
@@ -16,7 +31,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 	<property name="war.webinf.classes.dir" location="${war.webinf.dir}/classes"/>
 	<property name="war.webinf.lib.dir" location="${war.webinf.dir}/lib"/>
 	<property name="war.webinf.resources.dir" location="${war.webinf.dir}/resources"/>
-	<property name="glassfish.dir" location="/local/glassfish3/glassfish"/>
+	<property name="ext.dir" location="ext"/>
 	<property name="java.dir" location="/usr/share/java"/>
 
 	<property name="web.content.lib" location="WebContent/WEB-INF/lib"/>
@@ -35,25 +50,20 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
     <include name="gson-1.6.jar"/>
 	</fileset>
 
-	<path id="backend.classpath" description="Path for compiling the backend">
-		<pathelement path="${java.class.path}"/>
-    <fileset dir="${glassfish.dir}">
-      <include name="**/mail.jar"/>
-		  <include name="**/javaee.jar"/>
-		</fileset>
-    <fileset dir="${java.dir}">
-      <include name="**/*.jar"/>
-    </fileset>
-		<fileset refid="jarnames"/>
-	</path>
-
-	<pathconvert description="Pretty print the classpath" property="echo.path.compile" refid="backend.classpath" pathsep="${line.separator}|  |--" />
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" description="Set up ant-contrib JAR necessary for this build">
+	  <classpath>
+	    <pathelement location="${ext.dir}/lib/ant-contrib-1.0b3.jar"/>
+	  </classpath>
+	</taskdef>
 
 	<!-- Used as timestamp for the MANIFEST file -->
 	<tstamp id="date">
 	  <format property="TODAY" pattern="yyyy-mm-dd--hh.mm.ssaa"/>
 	</tstamp>
 
+	<!-- - - - - - - - - - - - - - - - - -
+	          target: init
+	         - - - - - - - - - - - - - - - - - -->
 	<target name="init" description="Initialize the necessary directories">
     <mkdir dir="${build.dir}"/>
     <mkdir dir="${build.lib.dir}"/>
@@ -65,11 +75,34 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
   	<mkdir dir="${war.webinf.resources.dir}"/>
 	</target>
 
+	<!-- - - - - - - - - - - - - - - - - -
+	          target: compile
+	         - - - - - - - - - - - - - - - - - -->
   <target name="compile" depends="init" description="Compile the necessary files">
+  	<if>
+  		<isset property="glassfish"/>
+  		<then>
+  			<var name="glassfish.dir" value="${glassfish}"/>
+  		</then>
+  		<else>
+  			<var name="glassfish.dir" unset="true"/>
+  			<var name="glassfish.dir" value="/local/glassfish3"/>
+  		</else>
+  	</if>
     <javac srcdir="${src.dir}" destdir="${build.classes.dir}" debug="${debug.flag}" fork="true" includeantruntime="true" includejavaruntime="true">
     	<exclude name="**/tests/**"/>
     	<exclude name="**/debug/**"/>
-      <classpath refid="backend.classpath"/>
+    	<!-- We define the classpath inside here, in order to be albe to check the args for glassfish directory -->
+    	<classpath>
+        <pathelement path="${java.class.path}"/>
+        <fileset dir="${glassfish.dir}">
+          <include name="**/javaee.jar"/>
+        </fileset>
+        <fileset dir="${java.dir}">
+          <include name="**/*.jar"/>
+        </fileset>
+        <fileset refid="jarnames"/>
+    	</classpath>
     </javac>
   	<!-- If we need to compile a JAR or to compile different JARs, we have an example here -->
   	<!--
@@ -78,12 +111,38 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
   </target>
 
 	<!-- - - - - - - - - - - - - - - - - -
+          target: test
+         - - - - - - - - - - - - - - - - - -->
+  <target name="checkaddress" description="Check if the 'address' argument has been passed on the commnad line">
+  	<echo message="Checking address to use for configuration file"/>
+  	<if>
+  		<isset property="address"/>
+  	  <then>
+  	    <var name="ipaddress" value="${address}"/>
+  	  </then>
+  		<else>
+  			<!-- Unset the property before resetting it! -->
+  			<var name="ipaddress" unset="true"/>
+  			<!-- We set by default the local host -->
+  			<var name="ipaddress" value="127.0.0.1"/>
+  		</else>
+  	</if>
+  	<echo message="Address will be: ${ipaddress}"/>
+  </target>
+
+	<!-- - - - - - - - - - - - - - - - - -
           target: movefiles
          - - - - - - - - - - - - - - - - - -->
-  <target name="movefiles" depends="compile" description="Copy the necessary stuff in the right places">
+  <target name="movefiles" depends="compile, checkaddress" description="Copy the necessary stuff in the right places">
   	<!-- Copy the configuration files into the resources/ dir -->
   	<copy todir="${war.webinf.resources.dir}">
   		<fileset dir="conf" />
+  		<!-- This is necessary for variable substitution in the config.xml file -->
+  		<filterchain>
+  			<replacetokens>
+  				<token key="address" value="${ipaddress}"/>
+  			</replacetokens>
+  		</filterchain>
   	</copy>
 
   	<copy todir="${war.webinf.classes.dir}" description="Copy the compiled classes in the WEB-INF/classes/ dir">
@@ -116,6 +175,9 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
   	<delete includeemptydirs="true" dir="${build.classes.dir}" />
   </target>
 
+	<!-- =================================
+	          target: clean
+	         ================================= -->
 	<target name="clean" description="Remove the directories used for the build">
     <delete includeemptydirs="true" failonerror="false" dir="${build.dir}"/>
   </target>
