@@ -89,6 +89,14 @@ class ChatView extends MyApplication {
 			
 			ksort($this->quotes);
 		}
+		
+		// notify the user if there are new quotes
+		if(isset($_SESSION[APPLICATION_NAME])){
+			if(count($this->quotes) != $_SESSION[APPLICATION_NAME]["nbQuotes"]) {
+				echo '<script type="text/javascript">newExcitingAlerts();</script>';
+			}
+		}
+		$_SESSION[APPLICATION_NAME]["nbQuotes"] = count($this->quotes);
 	}
 	
 	/* --------------------------------------------------------- */
@@ -102,9 +110,9 @@ class ChatView extends MyApplication {
 		<div class="content" Style="text-align: left;">
 		
 			<!-- TEXT -->
-			<?php if($this->category != null && $this->channel != null) { ?>
+			<?php if(CONNECTED) { ?>
 				<h3><?= $this->channel ?></h3>
-				<div id="chatTextArea" Style="position: relative; width: 100%; border: thin white solid; background-color: black; font-size:19pt;">
+				<div id="chatTextArea" Style="position: relative; width: 100%; border: thin white solid; background-color: black; font-size:10pt;">
 					<div Style="position: relative; width: 90%; padding: 10px;">
 						<?php foreach ($this->quotes as $quote) { ?>
 							<span Style="font-weight: bold; color: red; "><?= $quote['date'] ?></span> ::
@@ -113,7 +121,7 @@ class ChatView extends MyApplication {
 						<?php } ?>
 					</div>
 				</div>
-				<br />
+ 				<br />
 				<form  action="#" method="post" name="<?= APPLICATION_NAME ?>PublishForm" id="<?= APPLICATION_NAME ?>PublishForm" enctype="multipart/form-data">
 					<!-- Define the method to call -->
 					<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
@@ -121,7 +129,7 @@ class ChatView extends MyApplication {
 					<input type="hidden" name="numberOfOntology" value="6" />
 					
 					<!-- KEYWORD -->
-					<input type="text" name="Quote" value="" />
+					<input id="quote" type="text" name="Quote" value="" />
 					<?php $keyword = new MDataBean("Quote", null, KEYWORD); ?>
 					<input type="hidden" name="ontology0" value="<?= urlencode(json_encode($keyword)); ?>">
 					
@@ -150,13 +158,13 @@ class ChatView extends MyApplication {
 					<?php $date = new MDataBean("Date", null, DATE); ?>
 					<input type="hidden" name="ontology5" value="<?= urlencode(json_encode($date)); ?>">
 					
-					<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>PublishForm.submit()" >Publish</a>
+					<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>PublishForm.submit()" rel="external">Publish</a>
 				</form>
 			<?php } else { ?>
 				<h3>No channel selected: <a href="#Find">Please choose one</a></h3>
 				<div Style="position: relative; width: 100%; height: 400px; border: thin white solid; background-color: black;"></div>
 				<br />
-				<input type="text" name=Quote value="" />
+				<input id="quote" type="text" name="Quote" value="please select a channel..." Style="color: gray;" readonly="readonly"/>
 				<a href="#" onclick="alert('select a channel first!')" data-role="button">Publish</a>
 			<?php } ?>
 		

@@ -77,11 +77,11 @@ class FindView extends MyApplication {
 		<div class="content">
 			<ul data-role="listview" data-filter="true" data-theme="b">
 			  <?php foreach($this->channelCategory as $category) { ?>
-				  <li data-role="list-divider"><?= $category ?></li>
+				  <li data-role="list-divider" style="position: relative; width: 100%; left:-10px; top:-15px;"><?= $category ?></li>
 				  <?php if(isset($this->channelList[$category])) { ?>
 					  <?php foreach($this->channelList[$category] as $channel) { ?>
-					  		<li data-theme="c">
-					  			<a href="?application=<?= APPLICATION_NAME ?>&channel=<?= $channel["title"] ?>&category=<?= $category ?>" style="position: relative; left: 0px;" rel="external"><?= $channel["title"] ?></a>
+					  		<li data-theme="c" style="position: relative; width: 103%; left:-10px; top:-15px;">
+					  			<a href="?application=<?= APPLICATION_NAME ?>&channel=<?= $channel["title"] ?>&category=<?= $category ?>" style="position: relative; left: 0px;" rel="external" target="_blank"><?= $channel["title"] ?></a>
 					  			<span Style="position: relative; top:-20px; left: 10px; font-size: 9pt; font-weight: lighter;"><?= $channel["description"] ?></span>
 					  		</li>
 					  <?php } ?>

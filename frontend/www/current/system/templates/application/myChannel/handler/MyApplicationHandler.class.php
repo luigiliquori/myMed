@@ -35,7 +35,6 @@ class MyApplicationHandler implements IRequestHandler {
 	public /*void*/ function handleRequest() { 
 		if(isset($_POST['method'])) {
 			if($_POST['method'] == "publish") {
-				echo '<script type="text/javascript">alert(\'request published\');</script>';
 				$publish = new Publish($this);
 				$publish->send();
 			} else if($_POST['method'] == "subscribe") {

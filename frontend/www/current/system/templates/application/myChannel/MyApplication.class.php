@@ -17,7 +17,7 @@ abstract class MyApplication extends AbstractTemplate {
 	private /*String*/ $activeFooter;
 	private /*MyTransportHandler*/ $handler;
 	
-	protected /*Array*/ $channelCategory = array("Work", "News", "myMed");
+	protected /*Array*/ $channelCategory = array("myMed", "logNet", "other");
 	
 	/* --------------------------------------------------------- */
 	/* Constructors */
@@ -45,26 +45,30 @@ abstract class MyApplication extends AbstractTemplate {
 			<?php } else { ?>
 				<a href="?application=0" rel="external" data-role="button" data-theme="r">Close</a>
 			<?php } ?>
-			<h1><?= $this->title ?></h1>
-			<a href="?application=<?= APPLICATION_NAME ?>" data-role="button"target="_blank">Maximize</a>
+			<h1><?= $this->title ?><?= !CONNECTED ? " : Select your channel" : "" ?></h1>
 		</div>
 	<?php }
 	
 	/**
 	* Get the FOOTER for jQuery Mobile
 	*/
-	public /*String*/ function getFooter() { ?>
-		<!-- FOOTER_PERSITENT-->
-		<div data-role="footer" data-position="fixed" data-theme="a">
-			<div data-role="navbar">
-				<ul>
-				<li><a href="#Chat" data-back="true" <?= $this->activeFooter == "Chat" ? 'class="ui-btn-active ui-state-persist"' : ''; ?> >chat</a></li>
-				<li><a href="#Find" <?= $this->activeFooter == "Find" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>channel</a></li>
-				<li><a href="#Add" <?= $this->activeFooter == "Add" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>add</a></li>
-				</ul>
+	public /*String*/ function getFooter() { 
+		if(CONNECTED) {
+			?>
+			<!-- FOOTER_PERSITENT-->
+			<div data-role="footer" data-position="fixed" data-theme="a">
+				<div data-role="navbar">
+					<ul>
+					<li><a href="#Chat" data-back="true" <?= $this->activeFooter == "Chat" ? 'class="ui-btn-active ui-state-persist"' : ''; ?> >chat</a></li>
+					<li><a href="#Find" <?= $this->activeFooter == "Find" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>channel</a></li>
+					<?php if( $_SESSION["user"]->id == "MYMED_laurent.vanni@gmail.com") { ?>
+						<li><a href="#Add" <?= $this->activeFooter == "Add" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>add</a></li>
+					<?php } ?>
+					</ul>
+				</div>
 			</div>
-		</div>
-	<?php }
+		<?php }
+	}
 	
 	/**
 	* Print the Template

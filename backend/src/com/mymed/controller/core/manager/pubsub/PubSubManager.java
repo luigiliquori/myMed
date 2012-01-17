@@ -53,6 +53,11 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 			args.put("publisherList", ("PUBLISH_" + application + subPredicate).getBytes("UTF-8"));
 			args.put("predicate", subPredicate.getBytes("UTF-8"));
 			storageManager.insertSuperSlice(SC_APPLICATION_CONTROLLER, application + predicate, subPredicate, args);
+			
+			// store the new predicate (use to retreive all the predicate of a given application)
+			args = new HashMap<String, byte[]>();
+			args.put("predicate", predicate.getBytes("UTF-8"));
+			storageManager.insertSuperSlice(SC_APPLICATION_CONTROLLER, application, predicate, args);
 
 			// STORE A NEW ENTRY IN THE UserList (PublisherList)
 			args = new HashMap<String, byte[]>();
@@ -147,7 +152,6 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 					if(entryStr.equals("predicate")){
 						String subPredicate = new String(entry.getValue(), "UTF-8");
 						subPredicateList.add(subPredicate);
-						System.out.println("*************PREDICATE FOUND = " + new String(entry.getValue(), "UTF-8"));
 						break;
 					}
 				}
