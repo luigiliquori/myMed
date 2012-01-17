@@ -20,10 +20,16 @@ Ant build file to compile the mymed backend
 Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
 -->
 <project name="mymed" default="build" basedir=".">
-	<property name="src.dir" location="src"/>
+	<property name="backend.dir" location="backend"/>
+	<property name="frontend.dir" location="frontend"/>
+	<property name="ext.dir" location="${backend.dir}/ext"/>
+	<property name="backend.conf.dir" location="${backend.dir}/conf"/>
+	<property name="src.dir" location="${backend.dir}/src"/>
 	<property name="test.dir" location="${src.dir}/com/mymed/tests"/>
+	<property name="frontend.www.current.dir" location="${frontend.dir}/www/current"/>
 	<property name="build.dir" location="build"/>
 	<property name="build.lib.dir" location="${build.dir}/lib"/>
+	<property name="website.dir" location="${build.dir}/mymed"/>
 	<property name="build.classes.dir" location="${build.dir}/classes"/>
 	<property name="war.dir" location="${build.dir}/war"/>
 	<property name="war.lib.dir" location="${war.dir}/lib"/>
@@ -31,16 +37,18 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
 	<property name="war.webinf.classes.dir" location="${war.webinf.dir}/classes"/>
 	<property name="war.webinf.lib.dir" location="${war.webinf.dir}/lib"/>
 	<property name="war.webinf.resources.dir" location="${war.webinf.dir}/resources"/>
-	<property name="ext.dir" location="ext"/>
+
 	<property name="java.dir" location="/usr/share/java"/>
 
-	<property name="web.content.lib" location="WebContent/WEB-INF/lib"/>
+	<property name="web.content.dir" location="${backend.dir}/WebContent"/>
+	<property name="web.content.webinf.dir" location="${backend.dir}/WebContent/WEB-INF"/>
+	<property name="web.content.lib.dir" location="${web.content.webinf.dir}/lib"/>
 
 	<property name="debug.flag" value="on"/>
 	<property name="jarname" value="mymed_backend.jar"/>
 	<property name="warname" value="mymed_backend.war"/>
 
-	<fileset dir="${web.content.lib}" id="jarnames" description="JARs necessary to compile">
+	<fileset dir="${web.content.lib.dir}" id="jarnames" description="JARs necessary to compile">
     <include name="apache-cassandra-0.7.6-2.jar"/>
     <include name="libthrift-0.5.jar"/>
     <include name="log4j-over-sl4j-1.6.2.jar"/>
@@ -73,6 +81,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
     <mkdir dir="${war.webinf.classes.dir}"/>
     <mkdir dir="${war.webinf.lib.dir}"/>
   	<mkdir dir="${war.webinf.resources.dir}"/>
+		<mkdir dir="${website.dir}"/>
 	</target>
 
 	<!-- - - - - - - - - - - - - - - - - -
@@ -136,7 +145,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
   <target name="movefiles" depends="compile, checkaddress" description="Copy the necessary stuff in the right places">
   	<!-- Copy the configuration files into the resources/ dir -->
   	<copy todir="${war.webinf.resources.dir}">
-  		<fileset dir="conf" />
+  		<fileset dir="${backend.conf.dir}" />
   		<!-- This is necessary for variable substitution in the config.xml file -->
   		<filterchain>
   			<replacetokens>
@@ -150,21 +159,21 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
   	</copy>
 
   	<!-- Copy the default JSP pages -->
-  	<copy todir="${war.dir}" file="WebContent/error.jsp"/>
-  	<copy todir="${war.dir}" file="WebContent/index.jsp"/>
+  	<copy todir="${war.dir}" file="${web.content.dir}/error.jsp"/>
+  	<copy todir="${war.dir}" file="${web.content.dir}/index.jsp"/>
 
   	<!-- Copy the JAR files to the right directories -->
   	<copy todir="${war.webinf.lib.dir}">
   		<fileset refid="jarnames"/>
   	</copy>
-  	<copy todir="${war.webinf.dir}" file="WebContent/WEB-INF/sun-web.xml"/>
+  	<copy todir="${war.webinf.dir}" file="${web.content.webinf.dir}/sun-web.xml"/>
   </target>
 
 	<!-- =================================
           target: build
          ================================= -->
   <target name="build" depends="movefiles" description="Generate the WAR file to be deployed">
-    <war destfile="${build.lib.dir}/${warname}" webxml="WebContent/WEB-INF/web.xml" basedir="${war.dir}">
+    <war destfile="${build.lib.dir}/${warname}" webxml="${web.content.webinf.dir}/web.xml" basedir="${war.dir}">
     	<manifest>
     	  <attribute name="Built-By" value="${user.name}"/>
     	  <attribute name="Built-On" value="${TODAY}"/>
@@ -173,6 +182,32 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
   	<!-- Clean up everything that is not needed anymore -->
   	<delete includeemptydirs="true" dir="${war.dir}" />
   	<delete includeemptydirs="true" dir="${build.classes.dir}" />
+  </target>
+
+	<!-- - - - - - - - - - - - - - - - - -
+          target: websiteinit
+         - - - - - - - - - - - - - - - - - -->
+  <target name="websiteinit" description="Create the necessary directories for the frontend build">
+    <mkdir dir="${build.dir}"/>
+    <mkdir dir="${website.dir}"/>
+  </target>
+
+	<!-- =================================
+          target: website
+         ================================= -->
+  <target name="website" depends="websiteinit" description="Create mymed website directory structure">
+    <!-- Copy the configuration files into the resources/ dir -->
+    <copy todir="${website.dir}">
+      <fileset dir="${frontend.www.current.dir}" />
+      <!-- This is necessary for variable substitution in the config.xml file -->
+      <!--
+      <filterchain>
+        <replacetokens>
+          <token key="address" value="${ipaddress}"/>
+        </replacetokens>
+      </filterchain>
+      -->
+    </copy>
   </target>
 
 	<!-- =================================
