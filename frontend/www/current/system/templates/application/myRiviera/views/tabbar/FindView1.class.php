@@ -52,21 +52,21 @@ class FindView1 extends MyApplication {
 				<input type="hidden" name="method" value="find" />
 				<input type="hidden" name="numberOfOntology" value="4" />
 				
-				<div class="ui-grid-b">
 					
-					<!-- FROM -->
-					<div class="ui-block-a">
-					<img id="departpicture" alt="thumbnail" src="http://graph.facebook.com/007/picture?type=large" width="80" height="80" style="" /><br />
+				<!-- FROM -->
+				<div>
+					<img Style="position: absolute; left: 4%; width:11%; height:11%;" id="departpicture" alt="thumbnail" src="http://www.poledream.com/wp-content/uploads/2009/10/icon_map2.png" /><br />
+					<div Style="position: relative; left: 15%; width:80%; text-align: left;"  >Commune, Adresse, Lieu public, Arrêt :</div>
+					<input type="text" id="depart"  name="Départ" Style="position: relative; left: 15%; width:80%;"  >	
 					<select id="selectdepart" name="enum" data-theme="a" onchange="changeDestination('depart')">
-                         
                         <!-- DEFAULT -->                      
-						<option value="nullpart&&007">Choisir</option>
-
+						<option value="nullpart&&007">Lieux Disponibles</option>
+	
 						<!-- USER -->
 						<?php if (isset($_SESSION['position'])) {?>
 							<option value="<?= $_SESSION['user']->profilePicture ?>&&<?= $_SESSION['position']->formattedAddress ?>"><?= $_SESSION['user']->name ?></option>
 						<?php } ?>
-
+	
 						<!-- FRIENDS -->
 						<?php
 						if(isset($_SESSION['friends'])) {
@@ -80,28 +80,28 @@ class FindView1 extends MyApplication {
 							}
 						} ?>
 					</select>
-					</div>
-					<input id="depart" type="hidden" name="Départ" value=""  />
+				</div>
 
-					<!-- SEPARATOR -->
-					<div class="ui-block-b">
-						<img alt="thumbnail" src="http://www.poledream.com/wp-content/uploads/2009/10/icon_map2.png" width="80" height="80" style="" />				
-					</div>
+				<!-- SEPARATOR -->
+				<div >
+					<img alt="thumbnail" src="http://www.poledream.com/wp-content/uploads/2009/10/icon_map2.png" width="80" height="80" style="" />				
+				</div>
 
-					<!-- TO -->
-					<div class="ui-block-c">
-					<img id="arriveepicture" alt="thumbnail" src="http://graph.facebook.com/007/picture?type=large" width="80" height="80" style="" /><br /> 
+				<!-- TO -->
+				<div>
+					<img Style="position: absolute; left: 4%; width:11%; height:11%;" id="arriveepicture" alt="thumbnail" src="http://www.poledream.com/wp-content/uploads/2009/10/icon_map2.png" width="80" height="80" style="" /><br /> 
+					<div Style="position: relative; left: 15%; width:80%; text-align: left;"  >Commune, Adresse, Lieu public, Arrêt :</div>
+					<input type="text" id="depart"  name="Départ" Style="position: relative; left: 15%; width:80%;"  >	
 					<select id="selectarrivee" name="enum" data-theme="a" onchange="changeDestination('arrivee')">
 
-						                         
                         <!-- DEFAULT -->                      
-						<option value="nullpart&&007">Choisir</option>
-
+						<option value="nullpart&&007">Contact</option>
+	
 						<!-- USER -->
 						<?php if (isset($_SESSION['position'])) {?>
 							<option value="<?= $_SESSION['user']->profilePicture ?>&&<?= $_SESSION['position']->formattedAddress ?>"><?= $_SESSION['user']->name ?></option>
 						<?php } ?>
-
+	
 						<!-- FRIENDS -->
 						<?php
 						if(isset($_SESSION['friends'])) {
@@ -117,9 +117,8 @@ class FindView1 extends MyApplication {
                     </select>
 					</div>
 					<input id="arrivee" type="hidden" name="Arrivée" value=""  />
-					
-				</div>
 				<br />
+				
 				<!-- DATE -->
 				Partir le :<br />
 				<input type="date" name="date" data-role="datebox" data-options='{"mode": "calbox"}' data-theme="a"/>
