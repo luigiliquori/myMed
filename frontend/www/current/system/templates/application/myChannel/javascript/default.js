@@ -1,6 +1,8 @@
+var reload = true;
+
 function initialize() {
 	setTimeout("scroller()", 500);
-	setInterval("reloadChat()", 20000);
+	setTimeout("reloadChat()", 20000);
 }
 
 function scroller(){
@@ -8,7 +10,7 @@ function scroller(){
 }
 
 function reloadChat(){
-	if(document.getElementById("quote").value == ""){
+	if(document.getElementById("quote").value == "" && reload){
 		location.reload();
 	}
 }
@@ -16,6 +18,7 @@ function reloadChat(){
 function newExcitingAlerts() {
 	var oldTitle = document.title;
     var msg = "New Message!";
+    reload = false;
     var timeoutId = setInterval(function() {
         document.title = document.title == msg ? ' ' : msg;
     }, 1000);
@@ -23,5 +26,7 @@ function newExcitingAlerts() {
         clearInterval(timeoutId);
         document.title = oldTitle;
         window.onmousemove = null;
+        reload = true;
+        reloadChat();
     };
 }
