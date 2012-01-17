@@ -50,17 +50,7 @@ abstract class MyApplication extends AbstractTemplate {
 	/**
 	* Get the FOOTER for jQuery Mobile
 	*/
-	public /*String*/ function getFooter() { ?>
-		<!-- FOOTER_PERSITENT-->
-		<div data-role="footer" data-position="fixed" data-theme="a">
-			<div data-role="navbar">
-				<ul>
-				<li><a href="#Find1" <?= $this->activeFooter == "Find1" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>Mes Amis</a></li>
-				<li><a href="#Find2" <?= $this->activeFooter == "Find2" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>Mes Lieux</a></li>
-				</ul>
-			</div>
-		</div>
-	<?php }
+	public /*String*/ function getFooter() {  }
 	
 	/**
 	* Print the Template

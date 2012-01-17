@@ -84,18 +84,18 @@ class FindView1 extends MyApplication {
 
 				<!-- SEPARATOR -->
 				<div >
-					<img alt="thumbnail" src="http://www.poledream.com/wp-content/uploads/2009/10/icon_map2.png" width="80" height="80" style="" />				
+					<br /><br />
 				</div>
 
 				<!-- TO -->
 				<div>
 					<img Style="position: absolute; left: 4%; width:11%; height:11%;" id="arriveepicture" alt="thumbnail" src="http://www.poledream.com/wp-content/uploads/2009/10/icon_map2.png" width="80" height="80" style="" /><br /> 
 					<div Style="position: relative; left: 15%; width:80%; text-align: left;"  >Commune, Adresse, Lieu public, Arrêt :</div>
-					<input type="text" id="depart"  name="Départ" Style="position: relative; left: 15%; width:80%;"  >	
+					<input type="text" id="arrivee"  name="Arrivée" Style="position: relative; left: 15%; width:80%;"  >	
 					<select id="selectarrivee" name="enum" data-theme="a" onchange="changeDestination('arrivee')">
 
                         <!-- DEFAULT -->                      
-						<option value="nullpart&&007">Contact</option>
+						<option value="nullpart&&007">Lieux Disponibles</option>
 	
 						<!-- USER -->
 						<?php if (isset($_SESSION['position'])) {?>
@@ -115,15 +115,36 @@ class FindView1 extends MyApplication {
 							}
 						} ?>
                     </select>
-					</div>
-					<input id="arrivee" type="hidden" name="Arrivée" value=""  />
-				<br />
+				</div>
+				
+				<!-- SEPARATOR -->
+				<div >
+					<br /><br />
+				</div>
 				
 				<!-- DATE -->
-				Partir le :<br />
-				<input type="date" name="date" data-role="datebox" data-options='{"mode": "calbox"}' data-theme="a"/>
+				<div class="ui-grid-b">
+					<div class="ui-block-a">
+						Partir le :
+					</div>
+					<div class="ui-block-b">
+						<input type="date" id="date"  name="date"  data-role="datebox" data-options='{"mode": "calbox"}' data-theme="a" readonly="readonly" >	
+					</div>
+				</div>
+				<div class="ui-grid-b">
+					<div class="ui-block-a">
+						à :
+					</div>
+					<div class="ui-block-b">
+						<input type="date" id="date"  name="date"  data-role="datebox" data-options='{"mode": "timebox", "timeFormatOverride": 12}' data-theme="a" readonly="readonly" >
+					</div>
+				</div>	
 				
-				<br /><br />
+				<!-- SEPARATOR -->
+				<div >
+					<br /><br />
+				</div>
+				
 				<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>FindForm1.submit()">Calculer l'itinéraire</a>	
 			</form>
 		</div>

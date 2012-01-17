@@ -3,7 +3,6 @@
 	
 	// IMPORT THE MAIN VIEW
 	require_once dirname(__FILE__).'/views/tabbar/FindView1.class.php';
-	require_once dirname(__FILE__).'/views/tabbar/FindView2.class.php';
 	// IMPORT THE RESULT VIEW
 	require_once dirname(__FILE__).'/views/result/ResultView.class.php';
 	require_once dirname(__FILE__).'/views/result/DetailView.class.php';
@@ -23,8 +22,5 @@
 	} else {
 		$find1 = new FindView1();
 		$find1->printTemplate();
-
-		$find2 = new FindView2();
-		$find2->printTemplate();
 	}
 ?>
