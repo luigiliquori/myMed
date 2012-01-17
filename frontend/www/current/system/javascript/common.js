@@ -12,16 +12,4 @@ $(document).bind("mobileinit", function(){
   $.mobile.touchOverflowEnabled = true;
 });
 
-function newExcitingAlerts() {
-    var oldTitle = document.title;
-    var msg = "New Message!";
-    var timeoutId = setInterval(function() {
-        document.title = document.title == msg ? ' ' : msg;
-    }, 1000);
-    $("body").onmouseover = function() {
-        clearInterval(timeoutId);
-        document.title = oldTitle;
-        window.onmousemove = null;
-    };
-}
 
