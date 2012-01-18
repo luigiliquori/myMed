@@ -100,7 +100,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
   	</if>
     <javac srcdir="${src.dir}" destdir="${build.classes.dir}" debug="${debug.flag}" fork="true" includeantruntime="true" includejavaruntime="true">
     	<exclude name="**/tests/**"/>
-    	<!-- <exclude name="**/debug/**"/> -->
+    	<exclude name="**/debug/**"/>
     	<!-- We define the classpath inside here, in order to be albe to check the args for glassfish directory -->
     	<classpath>
         <pathelement path="${java.class.path}"/>
