@@ -13,13 +13,13 @@
 	define('BACKEND_URL', '@backendurl@');
 	
 	//Social Networks Keys
-	define('Facebook_APP_ID', '263064853727560');
-	define('Facebook_APP_SECRET', '31132a354804069960f966668df6daa2');
+	define('Facebook_APP_ID', '@facebookappid@');
+	define('Facebook_APP_SECRET', '@facebookappsecret@');
 	
 	//Social Networks Keys
-	define('Google_APP_SECRET', 'IQVBaitB9zaBX1UIytixrw7i');
+	define('Google_APP_SECRET', '@googleappsecret@');
 	
 	//CITYWAY Keys
-	define('Cityway_URL', 'http://openservice.cityway.fr/api/');
-	define('Cityway_APP_ID', 'INRIACARF');
+	define('Cityway_URL', '@citywayurl@');
+	define('Cityway_APP_ID', '@citywayappid@');
 ?>
