@@ -68,7 +68,7 @@ public class RegistrationManager implements IRegistrationManager {
 		String content;
 		try {
 			content = "Bienvenu sur myMed.\n"
-					+ "Pour finaliser votre inscription cliquez sur le lien: http://" +  InetAddress.getLocalHost().getCanonicalHostName() + "/mobile?registration=ok&accessToken=" + accessToken + "\n";
+					+ "Pour finaliser votre inscription cliquez sur le lien: http://" +  InetAddress.getLocalHost().getCanonicalHostName() + "?registration=ok&accessToken=" + accessToken + "\n";
 			content += "\n------\nL'équipe myMed";
 			new Mail("mymed.subscribe@gmail.com", user.getEmail(), "Bienvenu sur myMed", content);
 		} catch (UnknownHostException e) {

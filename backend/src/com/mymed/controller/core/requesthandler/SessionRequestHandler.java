@@ -170,7 +170,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
           message.setDescription("session created");
           LOGGER.info("Session {} created -> LOGIN", accessToken);
           message.addData("url", "https://" + InetAddress.getLocalHost().getCanonicalHostName()
-              + "/mobile?socialNetwork=" + userBean.getSocialNetworkName()); // TODO
+              + "?socialNetwork=" + userBean.getSocialNetworkName()); // TODO
                                                                              // Find
                                                                              // a
                                                                              // better

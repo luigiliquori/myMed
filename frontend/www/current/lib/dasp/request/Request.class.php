@@ -105,7 +105,7 @@ class Request {
 		// SSL CONNECTION
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true); 	
 		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2); // see address in config.php
-		curl_setopt($curl, CURLOPT_CAINFO, "/local/mymed/backend/WebContent/certificate/mymed.crt"); // TO EXPORT FROM GLASSFISH!
+		curl_setopt($curl, CURLOPT_CAINFO, "/etc/ssl/certs/mymed.crt"); // TO EXPORT FROM GLASSFISH!
 		
 		$result = curl_exec($curl);
 // 		echo '<script type="text/javascript">alert(\'' . $result . '\');</script>';
