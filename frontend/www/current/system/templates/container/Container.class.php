@@ -37,11 +37,7 @@ class Container extends AbstractTemplate {
 						    	<div class="ui-block-<?= $column ?>">
 							    	<a
 							    	href="?application=<?= $file ?>"
-							    	<?php if(TARGET == "desktop") { ?> 
-							    		target="blank"
-							    	<?php } else { ?>
-							    		rel="external"
-							    	<?php } ?>
+							    	rel="external"
 							    	class="myIcon"><img alt="<?= $file ?>" src="system/templates/application/<?= $file ?>/img/icon.png" width="50px" >
 							    	</a>
 							    	<br>

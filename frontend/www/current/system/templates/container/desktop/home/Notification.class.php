@@ -53,7 +53,7 @@ class Notification extends AbstractTemplate {
 				    	if($file != "." && $file != ".." && $file != ".DS_Store"){ ?>
 				    		<li>
 				    			<img alt="<?= $file ?>" src="system/templates/application/<?= $file ?>/img/icon.png" height="30" >
-						    	<a href="?application=<?= $file ?>" class="myIcon" rel="external" Style="position: relative; left:30px; height:16px;">
+						    	<a href="?application=<?= $file ?>" class="myIcon" Style="position: relative; left:30px; height:16px;" target="blank">
 							    	<?= $file ?>
 						    	</a>
 				    		</li>				    	
