@@ -195,7 +195,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
 	<!-- - - - - - - - - - - - - - - - - -
           target: checkbackend
          - - - - - - - - - - - - - - - - - -->
-  <target name="checkbackend">
+  <target name="checkbackend" description="Check the arguments for the frontend compilation">
     <echo message="Checking address to use for configuration file"/>
 
   	<if>
@@ -226,11 +226,27 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
     <echo message="Address will be: ${backendurl}"/>
   </target>
 
+	<!-- - - - - - - - - - - - - - - - - -
+          target: checkproperties
+         - - - - - - - - - - - - - - - - - -->
+  <target name="checkproperties" description="Check the argument for the path to the properties file, and load the properties">
+  	<echo message="Checking properties file..."/>
+    <if>
+    	<isset property="keys"/>
+    	<then>
+    		<loadproperties srcfile="${keys}"/>
+    		<echo message="Properties file found: properties loaded."/>
+    	</then>
+    	<else>
+    		<fail message="You have to pass a properties file!"/>
+    	</else>
+    </if>
+  </target>
 
 	<!-- =================================
           target: website
          ================================= -->
-  <target name="website" depends="websiteinit, checkbackend" description="Create mymed website directory structure">
+  <target name="website" depends="websiteinit, checkbackend, checkproperties" description="Create mymed website directory structure">
     <!-- Copy the configuration files into the resources/ dir -->
     <copy todir="${website.dir}">
       <fileset dir="${frontend.www.current.dir}">
@@ -242,6 +258,11 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
       <filterchain>
         <replacetokens>
           <token key="backendurl" value="${backendurl}"/>
+        	<token key="facebookappid" value="${facebookappid}"/>
+        	<token key="facebookappsecret" value="${facebookappsecret}"/>
+        	<token key="googleappsecret" value="${googleappsecret}"/>
+        	<token key="citywayurl" value="${citywayurl}"/>
+        	<token key="citywayappid" value="${citywayappid}"/>
         </replacetokens>
       </filterchain>
     </copy>
