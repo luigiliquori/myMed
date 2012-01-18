@@ -3,11 +3,16 @@ require_once 'system/templates/container/Container.class.php';
 require_once 'system/templates/handler/MenuHandler.class.php';
 
 require_once dirname(__FILE__).'/Profile.class.php';
-require_once dirname(__FILE__).'/News.class.php';
+require_once dirname(__FILE__).'/Wall.class.php';
+require_once dirname(__FILE__).'/Friends.class.php';
 require_once dirname(__FILE__).'/Notification.class.php';
 
 $menuHandler = new MenuHandler();
 $menuHandler->handleRequest();
+
+$wall = new Wall();
+$wall->printTemplate();
+
 ?>
 
 <!-- Disconnect the user -->
@@ -28,17 +33,16 @@ $menuHandler->handleRequest();
 </table>
 
 <?php 
+// include('updateProfile.php');
+
 $profile = new Profile();
-$profile->printTemplate(); 
+$profile->printTemplate();
 
-$theme = "d";
-$css = "position: absolute; top:120px; left:30%; width:40%; border: thin #d0d0d0 solid; padding:5px;";
-
-$container = new Container("application");
-$container->printTemplate($theme, $css);
+$friends = new Friends();
+$friends->printTemplate();
 
 $notification = new Notification();
 $notification->printTemplate();
 
-include('updateProfile.php');
+
 ?>

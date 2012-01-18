@@ -5,6 +5,11 @@ body {
 	background-color: white;
 }
 
+.ui-page {
+	background: white;
+	text-shadow: none;
+}
+
 #header{
 	position:absolute;
 	top: 0px;
@@ -26,3 +31,4 @@ body {
 #menu a:HOVER{
 	color: red;
 }
+

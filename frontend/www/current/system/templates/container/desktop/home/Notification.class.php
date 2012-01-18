@@ -32,7 +32,7 @@ class Notification extends AbstractTemplate {
 	public /*String*/ function getHeader() { ?>
 		<!-- HEADER -->
 		<div style="background-color: #1d1d1d; color: white; width: 200px; font-size: 15px; font-weight: bold;">
-			Notifications
+			Applications
 		</div>
 	<?php }
 	
@@ -46,17 +46,21 @@ class Notification extends AbstractTemplate {
 	 */
 	public /*String*/ function getContent() {?>
 		<!-- CONTENT -->
-		<div style="position:relative; width: 200px; background-color: #f0f0f0; top:0px;">
+		<div style="position:relative; top:0px;">
+			<ul data-role="listview" data-theme="d">
 			<?php if ($handle = opendir('system/templates/application')) {
 				    while (false !== ($file = readdir($handle))) {
 				    	if($file != "." && $file != ".." && $file != ".DS_Store"){ ?>
-				    		<span style="position: relative;"><img alt="<?= $file ?>" src="system/templates/application/<?= $file ?>/img/icon.png" height="30" ></span>
-				    		<span style="position: relative; left: 5px; top:-10px;"><a href="?application=<?= $file ?>" class="myIcon" rel="external"><?= $file ?></a></span>
-				    		<br/>
+				    		<li>
+				    			<img alt="<?= $file ?>" src="system/templates/application/<?= $file ?>/img/icon.png" height="30" >
+						    	<a href="?application=<?= $file ?>" class="myIcon" rel="external" Style="position: relative; left:30px; height:16px;">
+							    	<?= $file ?>
+						    	</a>
+				    		</li>				    	
 				    	<?php } ?>
 				    <?php } ?>
 			<?php } ?>
-			<br/>
+			</ul>
 		</div>
 	<?php }
 	
@@ -64,7 +68,7 @@ class Notification extends AbstractTemplate {
 	* Print the Template
 	*/
 	public /*String*/ function printTemplate() { ?>
-		<div style="position: absolute; left: 71%; top:210px;">
+		<div style="position: absolute; margin-left: 30%; left:-202px; top: 660px; width: 200px; background-color: white;">
 			<?php 
 			$this->getHeader();
 			$this->getContent();

@@ -33,3 +33,15 @@ function successCallback(position){
 	   xhr.open( "GET", "index.php?latitude=" + position.coords.latitude + "&longitude=" + position.coords.longitude,  true); 
 	   xhr.send(null); 
 }
+
+function hideOverflow(elt) {
+	$('#' + elt).css("overflow", "hidden");
+	$('#' + elt + "HideButton").hide();
+	$('#' + elt + "ShowButton").show();
+}
+
+function displayOverflow(elt) {
+	$('#' + elt).css("overflow", "visible");
+	$('#' + elt + "ShowButton").hide();
+	$('#' + elt + "HideButton").show();
+}

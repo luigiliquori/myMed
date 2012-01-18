@@ -34,16 +34,12 @@ class Container extends AbstractTemplate {
 						$column = "a";
 					    while (false !== ($file = readdir($handle))) {
 					    	if($file != "." && $file != ".." && $file != ".DS_Store"){ ?>
-					    		<?php if(TARGET == "desktop") { ?>
-					   				<iframe src="#" id="<?= $file ?>_iframe" name="<?= $file ?>_iframe" style="position: absolute; width:100%; height:70%; top:0px; left:0px; display: none;"></iframe> 
-						    	<?php } ?>
 						    	<div class="ui-block-<?= $column ?>">
 							    	<a
+							    	href="?application=<?= $file ?>"
 							    	<?php if(TARGET == "desktop") { ?> 
-							    		href="#" 
-							    		onClick="$('#<?= $file ?>_iframe').attr('src', 'index.php?application=<?= $file ?>'); displayFrame('<?= $file ?>_iframe')" target="<?= $file ?>_iframe"
+							    		target="blank"
 							    	<?php } else { ?>
-							    		href="?application=<?= $file ?>"
 							    		rel="external"
 							    	<?php } ?>
 							    	class="myIcon"><img alt="<?= $file ?>" src="system/templates/application/<?= $file ?>/img/icon.png" width="50px" >

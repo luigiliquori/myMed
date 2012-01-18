@@ -98,30 +98,18 @@ class Profile extends AbstractTemplate {
 			    ?>
 			    <br /><br />
 			    <a href="#inscription" data-role="button" data-rel="dialog">mise à jour</a>
-				<br /><br />
-				
-				<!-- FRIENDS STREAM -->
-				<div style="background-color: #1d1d1d; color: white; width: 200px; font-size: 15px; font-weight: bold;">Contacts</div>
-				<div style="position:relative; width: 200px; height:300px; overflow: auto; background-color: #f0f0f0; top:0px;">
-					<?php foreach ($_SESSION['friends'] as $friend ) { ?>
-						<img src="http://graph.facebook.com/<?= $friend["id"] ?>/picture" width="20px" />
-						<a href="<?= $friend["link"] ?>"><?= $friend["name"] ?></a>
-						<br />
-					<?php } ?>
-				</div>
-				
 			</div>
 		</div>
 	<?php }
 	
-   /**
+	/**
 	* Print the Template
 	*/
-	public /*String*/ function printTemplate() {
-		$this->getHeader();
-		$this->getContent();
-		$this->getFooter();
-	}
+	public /*String*/ function printTemplate() { ?>
+		<?php $this->getHeader(); ?>
+		<?php $this->getContent(); ?>
+		<?php $this->getFooter(); ?>
+	<?php }
 }
 ?>
 
