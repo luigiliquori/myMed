@@ -1,5 +1,7 @@
 package com.mymed.controller.core.manager.registration;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -63,10 +65,15 @@ public class RegistrationManager implements IRegistrationManager {
 		pubSubManager.create("myMed", accessToken, accessToken, user, dataList);
 
 		// SEND MAIL
-		String content = "Bienvenu sur myMed.\n"
-				+ "Pour finaliser votre inscription cliquez sur le lien: http://mymed2.sophia.inria.fr/mobile?registration=ok&accessToken=" + accessToken + "\n";
-		content += "\n------\nL'équipe myMed";
-		new Mail("mymed.subscribe@gmail.com", user.getEmail(), "Bienvenu sur myMed", content);
+		String content;
+		try {
+			content = "Bienvenu sur myMed.\n"
+					+ "Pour finaliser votre inscription cliquez sur le lien: http://" +  InetAddress.getLocalHost().getCanonicalHostName() + "/mobile?registration=ok&accessToken=" + accessToken + "\n";
+			content += "\n------\nL'équipe myMed";
+			new Mail("mymed.subscribe@gmail.com", user.getEmail(), "Bienvenu sur myMed", content);
+		} catch (UnknownHostException e) {
+			throw new InternalBackEndException(e);
+		}
 	}
 
 	@Override
