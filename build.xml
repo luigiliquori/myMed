@@ -19,7 +19,7 @@ Ant build file to compile the mymed backend
 
 Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
 -->
-<project name="mymed" default="build" basedir=".">
+<project name="mymed" default="backend" basedir=".">
 	<property name="backend.dir" location="backend"/>
 	<property name="frontend.dir" location="frontend"/>
 	<property name="ext.dir" location="${backend.dir}/ext"/>
@@ -172,7 +172,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
 	<!-- =================================
           target: build
          ================================= -->
-  <target name="build" depends="movefiles" description="Generate the WAR file to be deployed">
+  <target name="backend" depends="movefiles" description="Generate the WAR file to be deployed">
     <war destfile="${build.lib.dir}/${warname}" webxml="${web.content.webinf.dir}/web.xml" basedir="${war.dir}">
     	<manifest>
     	  <attribute name="Built-By" value="${user.name}"/>
@@ -248,7 +248,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
 	<!-- =================================
           target: website
          ================================= -->
-  <target name="website" depends="websiteinit, checkbackend, checkproperties" description="Create mymed website directory structure">
+  <target name="frontend" depends="websiteinit, checkbackend, checkproperties" description="Create mymed website directory structure">
     <!-- Copy the configuration files into the resources/ dir -->
     <copy todir="${website.dir}">
       <fileset dir="${frontend.www.current.dir}">
