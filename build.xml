@@ -196,34 +196,36 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
           target: checkbackend
          - - - - - - - - - - - - - - - - - -->
   <target name="checkbackend" description="Check the arguments for the frontend compilation">
-    <echo message="Checking address to use for configuration file"/>
-
+    <echo message="Checking values for the frontend..."/>
+    <echo message="Checking protocol to use..."/>
   	<if>
   	  <isset property="protocol"/>
   		<then>
-  			<var name="protcl" value="${protocol}://"/>
+  			<var name="protcl" value="${protocol}"/>
   		</then>
   		<else>
   			<!-- Unset the property before resetting it! -->
   			<var name="protcl" unset="true"/>
   			<!-- We set by default the local host -->
-  			<var name="protcl" value="https://"/>
+  			<var name="protcl" value="https"/>
   		</else>
   	</if>
+  	<echo message="Protocol used will be: ${protcl}"/>
 
+  	<echo message="Checking backend URL..."/>
     <if>
       <isset property="backend"/>
       <then>
-        <var name="backendurl" value="${protcl}${backend}/backend/"/>
+        <var name="backendurl" value="${protcl}://${backend}/backend/"/>
       </then>
       <else>
         <!-- Unset the property before resetting it! -->
         <var name="backendurl" unset="true"/>
         <!-- We set by default the local host -->
-        <var name="backendurl" value="${protcl}localhost:8080/backend/"/>
+        <var name="backendurl" value="${protcl}>://localhost:8080/backend/"/>
       </else>
     </if>
-    <echo message="Address will be: ${backendurl}"/>
+    <echo message="URL used will be: ${backendurl}"/>
   </target>
 
 	<!-- - - - - - - - - - - - - - - - - -
