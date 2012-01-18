@@ -192,21 +192,54 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
     <mkdir dir="${website.dir}"/>
   </target>
 
+	<!-- - - - - - - - - - - - - - - - - -
+          target: checkbackend
+         - - - - - - - - - - - - - - - - - -->
+  <target name="checkbackend">
+    <echo message="Checking address to use for configuration file"/>
+
+  	<if>
+  	  <isset property="protocol"/>
+  		<then>
+  			<var name="protcl" value="${protocol}://"/>
+  		</then>
+  		<else>
+  			<!-- Unset the property before resetting it! -->
+  			<var name="protcl" unset="true"/>
+  			<!-- We set by default the local host -->
+  			<var name="protcl" value="https://"/>
+  		</else>
+  	</if>
+
+    <if>
+      <isset property="backend"/>
+      <then>
+        <var name="backendurl" value="${protcl}${backend}/backend/"/>
+      </then>
+      <else>
+        <!-- Unset the property before resetting it! -->
+        <var name="backendurl" unset="true"/>
+        <!-- We set by default the local host -->
+        <var name="backendurl" value="${protcl}localhost:8080/backend/"/>
+      </else>
+    </if>
+    <echo message="Address will be: ${backendurl}"/>
+  </target>
+
+
 	<!-- =================================
           target: website
          ================================= -->
-  <target name="website" depends="websiteinit" description="Create mymed website directory structure">
+  <target name="website" depends="websiteinit, checkbackend" description="Create mymed website directory structure">
     <!-- Copy the configuration files into the resources/ dir -->
     <copy todir="${website.dir}">
       <fileset dir="${frontend.www.current.dir}" />
       <!-- This is necessary for variable substitution in the config.xml file -->
-      <!--
       <filterchain>
         <replacetokens>
-          <token key="address" value="${ipaddress}"/>
+          <token key="backendurl" value="${backendurl}"/>
         </replacetokens>
       </filterchain>
-      -->
     </copy>
   </target>
 
