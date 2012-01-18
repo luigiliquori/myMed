@@ -233,7 +233,11 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
   <target name="website" depends="websiteinit, checkbackend" description="Create mymed website directory structure">
     <!-- Copy the configuration files into the resources/ dir -->
     <copy todir="${website.dir}">
-      <fileset dir="${frontend.www.current.dir}" />
+      <fileset dir="${frontend.www.current.dir}">
+      	<exclude name="**/config.php"/>
+      </fileset>
+    </copy>
+  	<copy todir="${website.dir}/system" file="${frontend.www.current.dir}/system/config.php">
       <!-- This is necessary for variable substitution in the config.xml file -->
       <filterchain>
         <replacetokens>
