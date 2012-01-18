@@ -203,7 +203,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 					profileManager.update(userBean);
 
 					LOGGER.info("Session {} created -> LOGIN", accessToken);
-					message.addData("url", "http://" + InetAddress.getLocalHost().getCanonicalHostName() + "/mobile"); // TODO
+					message.addData("url", "http://" + InetAddress.getLocalHost().getCanonicalHostName() + ""); // TODO
 					// Find
 					// a
 					// better
