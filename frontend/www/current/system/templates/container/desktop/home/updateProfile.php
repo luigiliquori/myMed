@@ -1,11 +1,11 @@
-<div id="inscription" data-role="page">
+<div id="inscription" style="position: absolute; top:120px; left:30%;width:40%; text-align: center;">
 	<!-- HEADER -->
-	<div data-role="header" data-theme="b" >
+	<div data-role="header" data-theme="d" >
 		<h2>Mise à jour de votre profile</h2>
 	</div>
 
 	<!-- CONTENT -->
-	<div data-role="content" id="one" data-theme="b" style="text-align: center;" >
+	<div data-role="content" id="one" data-theme="d"  >
 		<form action="#" method="post" name="inscriptionForm" id="inscriptionForm">
 			<input type="hidden" name="update" value="1" />
 			<span>Prénom : </span><br /><input type="text" name="prenom" value="<?= $_SESSION['user']->firstName ?>" /><br />

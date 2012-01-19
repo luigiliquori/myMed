@@ -44,5 +44,4 @@ $friends->printTemplate();
 $notification = new Notification();
 $notification->printTemplate();
 
-
 ?>

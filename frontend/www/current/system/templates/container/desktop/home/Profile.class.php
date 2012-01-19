@@ -97,7 +97,7 @@ class Profile extends AbstractTemplate {
 			    	}
 			    ?>
 			    <br /><br />
-			    <a href="#inscription" data-role="button" data-rel="dialog">mise à jour</a>
+			    <a href="#" onClick="hideSection('#news'); fadeInSection('#inscription');" data-role="button" data-rel="dialog">mise à jour</a>
 			</div>
 		</div>
 	<?php }

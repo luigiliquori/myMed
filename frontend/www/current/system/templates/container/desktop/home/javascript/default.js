@@ -34,14 +34,34 @@ function successCallback(position){
 	   xhr.send(null); 
 }
 
+// COMMON DISPLAY/HIDE FUNCTIONS
+
+function displaySection(elt){
+	$(elt).show();
+}
+
+function hideSection(elt){
+	$(elt).hide();
+}
+
+function fadeInSection(elt){
+	$(elt).fadeIn("slow");
+}
+
+function fadeOutSection(elt){
+	$(elt).fadeIn("slow");
+}
+
+
 function hideOverflow(elt) {
 	$('#' + elt).css("overflow", "hidden");
-	$('#' + elt + "HideButton").hide();
-	$('#' + elt + "ShowButton").show();
+	hideSection('#' + elt + "HideButton");
+	fadeInSection('#' + elt + "ShowButton");
 }
 
 function displayOverflow(elt) {
 	$('#' + elt).css("overflow", "visible");
-	$('#' + elt + "ShowButton").hide();
-	$('#' + elt + "HideButton").show();
+	hideSection('#' + elt + "ShowButton");
+	fadeInSection('#' + elt + "HideButton");
 }
+
