@@ -12,10 +12,8 @@
 	$handler = new MyApplicationHandler();
 	$handler->handleRequest();
 
-	if(CONNECTED) {
-		$chat = new ChatView();
-		$chat->printTemplate();
-	}
+	$chat = new ChatView();
+	$chat->printTemplate();
 	
 	$find = new FindView();
 	$find->printTemplate();

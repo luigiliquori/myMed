@@ -93,6 +93,7 @@ class MyApplicationHandler implements IRequestHandler {
 							
 						} else {
 							$this->error = "error with cityWay";
+							echo '<script type="text/javascript">alert(\'' . $itineraire . '\');</script>';
 						}
 					} else {
 						$this->error = "error with google geocode";

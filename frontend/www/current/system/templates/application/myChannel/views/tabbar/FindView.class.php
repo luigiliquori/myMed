@@ -81,7 +81,7 @@ class FindView extends MyApplication {
 				  <?php if(isset($this->channelList[$category])) { ?>
 					  <?php foreach($this->channelList[$category] as $channel) { ?>
 					  		<li data-theme="c" style="position: relative; width: 103%; left:-10px; top:-15px;">
-					  			<a href="?application=<?= APPLICATION_NAME ?>&channel=<?= $channel["title"] ?>&category=<?= $category ?>" style="position: relative; left: 0px;" rel="external" target="_blank"><?= $channel["title"] ?></a>
+					  			<a href="?application=<?= APPLICATION_NAME ?>&channel=<?= $channel["title"] ?>&category=<?= $category ?>" style="position: relative; left: 0px;" rel="external"><?= $channel["title"] ?></a>
 					  			<span Style="position: relative; top:-20px; left: 10px; font-size: 9pt; font-weight: lighter;"><?= $channel["description"] ?></span>
 					  		</li>
 					  <?php } ?>

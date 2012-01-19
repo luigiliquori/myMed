@@ -52,23 +52,20 @@ abstract class MyApplication extends AbstractTemplate {
 	/**
 	* Get the FOOTER for jQuery Mobile
 	*/
-	public /*String*/ function getFooter() { 
-		if(CONNECTED) {
-			?>
-			<!-- FOOTER_PERSITENT-->
-			<div data-role="footer" data-position="fixed" data-theme="a">
-				<div data-role="navbar">
-					<ul>
-					<li><a href="#Chat" data-back="true" <?= $this->activeFooter == "Chat" ? 'class="ui-btn-active ui-state-persist"' : ''; ?> >chat</a></li>
-					<li><a href="#Find" <?= $this->activeFooter == "Find" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>channel</a></li>
-					<?php if( $_SESSION["user"]->id == "MYMED_laurent.vanni@gmail.com") { ?>
-						<li><a href="#Add" <?= $this->activeFooter == "Add" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>add</a></li>
-					<?php } ?>
-					</ul>
-				</div>
+	public /*String*/ function getFooter() { ?>
+		<!-- FOOTER_PERSITENT-->
+		<div data-role="footer" data-position="fixed" data-theme="a">
+			<div data-role="navbar">
+				<ul>
+				<li><a href="#Chat" data-back="true" <?= $this->activeFooter == "Chat" ? 'class="ui-btn-active ui-state-persist"' : ''; ?> >chat</a></li>
+				<li><a href="#Find" <?= $this->activeFooter == "Find" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>channel</a></li>
+				<?php if( $_SESSION["user"]->id == "MYMED_laurent.vanni@gmail.com") { ?>
+					<li><a href="#Add" <?= $this->activeFooter == "Add" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>add</a></li>
+				<?php } ?>
+				</ul>
 			</div>
-		<?php }
-	}
+		</div>
+	<?php }
 	
 	/**
 	* Print the Template

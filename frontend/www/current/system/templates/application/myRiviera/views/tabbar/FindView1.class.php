@@ -55,7 +55,7 @@ class FindView1 extends MyApplication {
 					
 				<!-- FROM -->
 				<div>
-					<img Style="position: absolute; left: 4%; width:11%; height:11%;" id="departpicture" alt="thumbnail" src="http://www.poledream.com/wp-content/uploads/2009/10/icon_map2.png" /><br />
+					<img Style="position: absolute; left: 4%; width:7%; height:7%;" id="departpicture" alt="thumbnail" src="http://www.poledream.com/wp-content/uploads/2009/10/icon_map2.png" /><br />
 					<div Style="position: relative; left: 15%; width:80%; text-align: left;"  >Commune, Adresse, Lieu public, Arrêt :</div>
 					<input type="text" id="depart"  name="Départ" Style="position: relative; left: 15%; width:80%;"  >	
 					<select id="selectdepart" name="enum" data-theme="a" onchange="changeDestination('depart')">
@@ -89,7 +89,7 @@ class FindView1 extends MyApplication {
 
 				<!-- TO -->
 				<div>
-					<img Style="position: absolute; left: 4%; width:11%; height:11%;" id="arriveepicture" alt="thumbnail" src="http://www.poledream.com/wp-content/uploads/2009/10/icon_map2.png" width="80" height="80" style="" /><br /> 
+					<img Style="position: absolute; left: 4%; width:7%; height:7%;" id="arriveepicture" alt="thumbnail" src="http://www.poledream.com/wp-content/uploads/2009/10/icon_map2.png" width="80" height="80" style="" /><br /> 
 					<div Style="position: relative; left: 15%; width:80%; text-align: left;"  >Commune, Adresse, Lieu public, Arrêt :</div>
 					<input type="text" id="arrivee"  name="Arrivée" Style="position: relative; left: 15%; width:80%;"  >	
 					<select id="selectarrivee" name="enum" data-theme="a" onchange="changeDestination('arrivee')">
@@ -123,22 +123,10 @@ class FindView1 extends MyApplication {
 				</div>
 				
 				<!-- DATE -->
-				<div class="ui-grid-b">
-					<div class="ui-block-a">
-						Partir le :
-					</div>
-					<div class="ui-block-b">
-						<input type="date" id="date"  name="date"  data-role="datebox" data-options='{"mode": "calbox"}' data-theme="a" readonly="readonly" >	
-					</div>
-				</div>
-				<div class="ui-grid-b">
-					<div class="ui-block-a">
-						à :
-					</div>
-					<div class="ui-block-b">
-						<input type="date" id="date"  name="date"  data-role="datebox" data-options='{"mode": "timebox", "timeFormatOverride": 12}' data-theme="a" readonly="readonly" >
-					</div>
-				</div>	
+				<div style="text-align: left;">Partir le :</div>
+				<input type="date" id="date"  name="date"  data-role="datebox" data-options='{"mode": "calbox"}' data-theme="a" readonly="readonly" >	
+				<div style="text-align: left;">à :</div>
+				<input type="date" id="time"  name="time"  data-role="datebox" data-options='{"mode": "timebox", "timeFormatOverride": 12}' data-theme="a" readonly="readonly" >
 				
 				<!-- SEPARATOR -->
 				<div >

@@ -56,8 +56,10 @@ class Friends extends AbstractTemplate {
 			<a id="buddyListHideButton" href="#" onClick="hideOverflow('buddyList')" style="display: none;">Masquer ›</a>
 		</div>
 		<br />
-		<a id="buddyListShowButton" href="#" onClick="displayOverflow('buddyList')">Tout afficher ›</a>
-	<?php }
+		<?php if($i != 0) { ?>
+			<a id="buddyListShowButton" href="#" onClick="displayOverflow('buddyList')">Tout afficher ›</a>
+		<?php }
+	}
 	
    /**
 	* Print the Template
