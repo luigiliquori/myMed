@@ -273,6 +273,6 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
 	          target: clean
 	         ================================= -->
 	<target name="clean" description="Remove the directories used for the build">
-    <delete includeemptydirs="true" failonerror="false" dir="${build.dir}" followsymlinks="false" removeNotFollowedSymlinks="true" />
+    <delete includeemptydirs="true" failonerror="false" dir="${build.dir}" followsymlinks="false" />
   </target>
 </project>
