@@ -51,7 +51,6 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
 	<fileset dir="${web.content.lib.dir}" id="jarnames" description="JARs necessary to compile">
     <include name="apache-cassandra-0.7.10.jar"/>
     <include name="libthrift-0.5.jar"/>
-    <include name="log4j-over-sl4j-1.6.2.jar"/>
     <include name="logback-classic-0.9.29.jar"/>
     <include name="logback-core-0.9.29.jar"/>
     <include name="slf4j-api-1.6.2.jar"/>
@@ -274,6 +273,6 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
 	          target: clean
 	         ================================= -->
 	<target name="clean" description="Remove the directories used for the build">
-    <delete includeemptydirs="true" failonerror="false" dir="${build.dir}"/>
+    <delete includeemptydirs="true" failonerror="false" dir="${build.dir}" followsymlinks="false" removeNotFollowedSymlinks="true" />
   </target>
 </project>
