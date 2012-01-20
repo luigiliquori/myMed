@@ -221,7 +221,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
         <!-- Unset the property before resetting it! -->
         <var name="backendurl" unset="true"/>
         <!-- We set by default the local host -->
-        <var name="backendurl" value="${protcl}>://localhost:8080/backend/"/>
+        <var name="backendurl" value="${protcl}://localhost:8080/backend/"/>
       </else>
     </if>
     <echo message="URL used will be: ${backendurl}"/>
