@@ -41,7 +41,7 @@ class MyApplication extends AbstractTemplate {
      */
 	public /*String*/ function getContent() { ?>
         <div class="content">
-            <h2>Comming soon...</h2>
+            <h2>Coming soon...</h2>
         </div>
     <?php }
 	
