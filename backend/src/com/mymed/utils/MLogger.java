@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.utils;
 
 import org.slf4j.LoggerFactory;
@@ -28,10 +28,9 @@ import ch.qos.logback.classic.Logger;
 public final class MLogger {
   private static final MLogger INSTANCE = new MLogger();
 
-  // The name of the default mymed backend logger as defined in logback.xml
-  private static final String DEFAULT_LOG_NAME = "mymed.backend.logger";
-
-  private static final Logger BACKEND_LOGGER = (Logger) LoggerFactory.getLogger(DEFAULT_LOG_NAME);
+  // The name of the default mymed backend logger as defined in the file
+  // logback.xml
+  private static final Logger BACKEND_LOGGER = (Logger) LoggerFactory.getLogger("mymed.backend.logger");
 
   // Private constructor since all methods are static and we have a singleton
   private MLogger() {
