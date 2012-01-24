@@ -2,7 +2,7 @@ var reload = true;
 
 function initialize() {
 	setTimeout("scroller()", 500);
-	setTimeout("reloadChat()", 20000);
+	setTimeout("reloadChat()", 1000);
 }
 
 function scroller(){

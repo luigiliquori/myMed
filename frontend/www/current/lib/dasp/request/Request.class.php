@@ -74,7 +74,6 @@ class Request {
 	
 	public /*string*/ function send() {
 		
-// 		echo '<script type="text/javascript">alert("send method called to: ' . $this->ressource . '")</script>';
 		$curl	= curl_init();
 		if($curl === false) {
 			trigger_error('Unable to init CURL : ', E_USER_ERROR);

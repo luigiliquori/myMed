@@ -68,7 +68,7 @@ class Notification extends AbstractTemplate {
 	* Print the Template
 	*/
 	public /*String*/ function printTemplate() { ?>
-		<div style="position: absolute; margin-left: 30%; left:-202px; top: 660px; width: 200px; background-color: white;">
+		<div style="position: relative; margin-left: 30%; left:-202px; top: 54em; width: 200px; background-color: white;">
 			<?php 
 			$this->getHeader();
 			$this->getContent();
