@@ -85,12 +85,12 @@ class DetailView extends MyApplication {
 				<?php 
 		    	$j=0;
 		    	while($j<=$percent){ ?>
-		    		<img alt="star" src="img/star.png" width="20" />
+		    		<img alt="star" src="system/img/star.png" width="20" />
 		    		<?php 
 		    		$j+=25;
 		    	}
 		    	while($j<=100){ ?>
-		    		<img alt="star" src="img/starGray.png" width="20" />		
+		    		<img alt="star" src="system/img/starGray.png" width="20" />		
 		    		<?php 
 		    		$j+=25;
 		    	} ?>

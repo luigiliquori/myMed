@@ -35,9 +35,6 @@ class MyApplicationHandler implements IRequestHandler {
 	public /*void*/ function handleRequest() { 
 		if(isset($_POST['method'])) {
 			if($_POST['method'] == "publish") {
-				if(isset($_SESSION[APPLICATION_NAME])){
-					$_SESSION[APPLICATION_NAME]["nbQuotes"]++;
-				}
 				$publish = new Publish($this);
 				$publish->send();
 			} else if($_POST['method'] == "subscribe") {
