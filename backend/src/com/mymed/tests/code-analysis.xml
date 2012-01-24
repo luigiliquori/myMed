@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Copyright 2012 INRIA 
+Copyright 2012 INRIA
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ limitations under the License.
 Ant build file to run analysis tools for mymed.
 It depends on the build.xml files, since it needs also some JARs that are created there.
 
-Milo Casagrande <milo.casagrande@inria.fr>, 2011
+Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
 -->
 <project name="mymed-code-analysis" default="all" basedir=".">
   <property name="results.dir"         location="results"/>
@@ -30,9 +30,11 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
   <property name="java.dir"            location="/usr/share/java"/>
   <property name="findbugs.dir"        location="/usr/share/findbugs"/>
 	<property name="junit.dir"           location="/usr/share/junit"/>
-	<property name="libs.dir"            location="../../../../lib"/>
-  <property name="cassandra.dir"       location="../../../../protocols/cassandra/cassandra"/>
+  <property name="cassandra.dir"       location="../../../../WebContent/WEB-INF/lib"/>
   <property name="src.dir"             location="${controller.dir}:${model.dir}:${utils.dir}"/>
+	<property name="httpcomp.dir"        location="/usr/share/apache-commons/httpcomponents"/>
+	<property name="mymed.jar"           value="mymed.jar"/>
+	<property name="mymedtest.jar"       value="tests.jar"/>
 
 	<!-- Fileset with the file extension we want to check -->
 	<fileset id="files.to.check" dir="../">
@@ -43,36 +45,39 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
     <exclude name="**/*.jar"/>
 	</fileset>
 
-  <!-- Fix the classpath to add the necessary resources -->
-	<path id="mymed.classpath" description="Classpath to be used for running the tests">
-	  <pathelement path="${java.class.path}"/>
-	  <pathelement location="."/>
-    <pathelement location="${lib.dir}/mymed.jar"/>
-    <pathelement location="${lib.dir}/jSynapse.jar"/>
-    <pathelement location="${lib.dir}/mymedtest.jar"/>
-		<pathelement location="${junit.dir}/junit.jar"/>
-    <fileset dir="${libs.dir}">
+  <!-- This is the classpath for compiling the tests, since we need also Glassfish and JavaEE -->
+  <path id="mymed.classpath" description="Classpath to be used for compiling the tests">
+    <pathelement path="${java.class.path}"/>
+    <pathelement location="${conf.dir}"/>
+    <pathelement location="${lib.dir}/${mymed.jar}"/>
+    <pathelement location="${lib.dir}/${mymedtest.jar}"/>
+    <pathelement location="${junit.dir}/junit.jar"/>
+    <pathelement location="."/>
+    <fileset dir="${java.dir}">
+      <include name="**/pmd.jar"/>
+      <include name="**/jaxen.jar"/>
+      <include name="**/asm.jar"/>
+      <include name="*.jar"/>
       <include name="**/*.jar"/>
-      <exclude name="apache-cassandra-0.7.6-2.jar"/>
-      <exclude name="jSynapse.jar"/>
-      <exclude name="libthrift-0.5.jar"/>
-      <exclude name="deployment-javaee-full.jar"/>
     </fileset>
-		<fileset dir="${cassandra.dir}/lib" includes="*.jar"/>
-	  <!-- This is necessary for PMD and FindBugs to work under Jenkins -->
-	  <!-- Looks like it is necessary to specify the path to the needed JARs -->
-	  <fileset dir="${java.dir}">
-	    <include name="**/pmd.jar"/>
-	    <include name="**/jaxen.jar"/>
-	    <include name="**/asm.jar"/>
-	    <include name="*.jar"/>
-	    <include name="**/*.jar"/>
-	  </fileset>
-	  <fileset dir="${findbugs.dir}">
-	   <include name="*.jar"/>
-     <include name="**/*.jar"/>
-	  </fileset>
-	</path>
+    <fileset dir="${cassandra.dir}">
+      <include name="apache-cassandra-0.7.10.jar"/>
+      <include name="libthrift-0.5.jar"/>
+      <include name="gson-1.6.jar"/>
+      <include name="logback-core-0.9.29.jar"/>
+      <include name="slf4j-api-1.6.2.jar"/>
+      <include name="logback-classic-0.9.29.jar"/>
+      <exclude name="log4j-over-slf4j-1.6.2.jar"/>
+    </fileset>
+    <fileset dir="${findbugs.dir}">
+      <include name="*.jar"/>
+      <include name="**/*.jar"/>
+    </fileset>
+    <fileset dir="${httpcomp.dir}">
+      <include name="**/*.jar"/>
+    </fileset>
+  </path>
+
 
   <!-- Used if we want to pretty print the classpath in case we need to debug -->
   <pathconvert description="Pretty print the classpath" property="echo.path.compile" refid="mymed.classpath" pathsep="${line.separator}|  |--" />
