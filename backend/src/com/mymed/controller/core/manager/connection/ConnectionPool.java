@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.controller.core.manager.connection;
 
 import java.util.concurrent.ArrayBlockingQueue;
@@ -45,7 +45,6 @@ public class ConnectionPool implements IConnectionPool {
   private final AtomicInteger checkedOut = new AtomicInteger(0);
 
   private final String address;
-
   private final int port;
 
   // The real pool
@@ -105,7 +104,7 @@ public class ConnectionPool implements IConnectionPool {
     } catch (final InternalBackEndException ex) {
       // If we cannot open the connection, we return null
       LOGGER.info(ex.getMessage());
-      LOGGER.debug(ex.getMessage(), ex.getCause());
+      LOGGER.debug(ex.getMessage(), ex);
       con = null; // NOPMD
     }
 
@@ -120,15 +119,16 @@ public class ConnectionPool implements IConnectionPool {
    */
   @Override
   public IConnection checkOut() {
-    IConnection con = null;
-
     synchronized (SYNC) {
+
+      IConnection con = null;
+
       if (getSize() > 0) {
         con = available.poll();
 
         if (!con.isOpen()) {
           // If we had a closed or null connection we try again
-          LOGGER.info("Got a closed connection. Retrying...");
+          LOGGER.info("Got a closed connection. Retrying.");
           con = checkOut();
         }
       } else if (capacity == 0 || checkedOut.get() < capacity) {
@@ -140,9 +140,9 @@ public class ConnectionPool implements IConnectionPool {
       }
 
       SYNC.notifyAll();
-    }
 
-    return con;
+      return con;
+    }
   }
 
   /*
