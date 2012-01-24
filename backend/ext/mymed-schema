@@ -18,6 +18,7 @@ create keyspace Mymed with replication_factor = 1 and placement_strategy = 'org.
 /* Switch to the 'mymed' keyspace */
 use Mymed;
 
+
 /*
  * Create the column families
  * Normal columns are:
