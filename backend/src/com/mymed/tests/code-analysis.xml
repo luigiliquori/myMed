@@ -33,6 +33,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
   <property name="cassandra.dir"       location="../../../../WebContent/WEB-INF/lib"/>
   <property name="src.dir"             location="${controller.dir}:${model.dir}:${utils.dir}"/>
 	<property name="httpcomp.dir"        location="/usr/share/apache-commons/httpcomponents"/>
+	<property name="glassfish.dir"       location="/local/glassfish3/glassfish/"/>
 	<property name="mymed.jar"           value="mymed.jar"/>
 	<property name="mymedtest.jar"       value="tests.jar"/>
 
@@ -53,6 +54,9 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
     <pathelement location="${lib.dir}/${mymedtest.jar}"/>
     <pathelement location="${junit.dir}/junit.jar"/>
     <pathelement location="."/>
+  	<fileset dir="${glassfish.dir}">
+  	      <include name="**/javaee.jar"/>
+  	</fileset>
     <fileset dir="${java.dir}">
       <include name="**/pmd.jar"/>
       <include name="**/jaxen.jar"/>
