@@ -49,13 +49,13 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
   <!-- This is the classpath for compiling the tests, since we need also Glassfish and JavaEE -->
   <path id="mymed.classpath" description="Classpath to be used for compiling the tests">
     <pathelement path="${java.class.path}"/>
-    <pathelement location="${conf.dir}"/>
     <pathelement location="${lib.dir}/${mymed.jar}"/>
     <pathelement location="${lib.dir}/${mymedtest.jar}"/>
     <pathelement location="${junit.dir}/junit.jar"/>
     <pathelement location="."/>
   	<fileset dir="${glassfish.dir}">
-  	      <include name="**/javaee.jar"/>
+  		<include name="**/javaee.jar"/>
+  		<include name="**/mail.jar"/>
   	</fileset>
     <fileset dir="${java.dir}">
       <include name="**/pmd.jar"/>
@@ -82,7 +82,6 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
     </fileset>
   </path>
 
-
   <!-- Used if we want to pretty print the classpath in case we need to debug -->
   <pathconvert description="Pretty print the classpath" property="echo.path.compile" refid="mymed.classpath" pathsep="${line.separator}|  |--" />
 
@@ -108,8 +107,9 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
 
   <target name="findbugs" depends="init" description="Analyze the code with FindBugs">
     <findbugs home="${findbugs.dir}" output="xml" outputFile="${results.dir}/findbugs.xml" reportLevel="low" effort="max">
-      <class location="../"/>
-    	<auxClasspath location="${cassandra.dir}/lib/"/>
+    	<classpath refid="mymed.classpath"/>
+    	<class location="${lib.dir}/mymed.jar"/>
+    	<auxClasspath location="${cassandra.dir}"/>
       <sourcePath>
         <fileset refid="files.to.check"/>
       </sourcePath>
