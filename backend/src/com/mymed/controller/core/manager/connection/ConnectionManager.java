@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.controller.core.manager.connection;
 
 import java.util.HashMap;
@@ -117,6 +117,7 @@ public final class ConnectionManager implements IConnectionManager {
   @Override
   public void checkIn(final IConnection connection) {
     if (connection != null) {
+      connection.flush();
       final String address = ((Connection) connection).getAddress();
       final int port = ((Connection) connection).getPort();
       final IConnectionPool pool = pools.get(address + port);
