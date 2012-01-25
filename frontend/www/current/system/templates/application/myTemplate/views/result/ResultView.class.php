@@ -60,35 +60,22 @@ class ResultView extends MyApplication {
 				<?php $i=0 ?>
 				<?php foreach(json_decode($this->handler->getSuccess()) as $controller) { ?>
 					<li>
-						<?php
-						$request = new Request("ProfileRequestHandler", READ);
-						$request->addArgument("id", $controller->user);
-						
-						$responsejSon = $request->send();
-						$responseObject = json_decode($responsejSon);
-
-						if($responseObject->status != 200) { ?>
-							<h2 style="color:red;"><?= $responseObject->description ?></h2>
-						<?php } else {
-							$profile = json_decode($responseObject->data->user);
-							?>
-							<!-- RESULT DETAILS -->
-							<form action="#" method="post" name="getDetailForm<?= $i ?>">
-								<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
-								<input type="hidden" name="method" value="getDetail" />
-								<input type="hidden" name="user" value="<?= $controller->user ?>" />
-								<input type="hidden" name="predicate" value="<?= $controller->predicate ?>" />
-							</form>
-							<?php if($profile->profilePicture != "") { ?>
-								<img alt="thumbnail" src="<?= $profile->profilePicture ?>" width="60" height="60">
-							<?php } else { ?>
-								<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="60" height="60">
-							<?php } ?>
-							<a href="#" onclick="document.getDetailForm<?= $i ?>.submit()">
-								<?= $profile->name ?> 
-							</a>
+						<!-- RESULT DETAILS -->
+						<form action="#" method="post" name="getDetailForm<?= $i ?>">
+							<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
+							<input type="hidden" name="method" value="getDetail" />
+							<input type="hidden" name="user" value="<?= $controller->publisherID ?>" />
+							<input type="hidden" name="predicate" value="<?= $controller->predicate ?>" />
+						</form>
+						<?php if($controller->publisherProfilePicture  != "") { ?>
+							<img alt="thumbnail" src="<?= $controller->publisherProfilePicture ?>" width="60" height="60">
+						<?php } else { ?>
+							<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="60" height="60">
 						<?php } ?>
-						</li>
+						<a href="#" onclick="document.getDetailForm<?= $i ?>.submit()">
+							<?= $controller->publisherName ?> 
+						</a>
+					</li>
 					<?php $i++ ?>
 				<?php } ?>
 				</ul>
