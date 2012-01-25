@@ -40,6 +40,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
 	<!-- Fileset with the file extension we want to check -->
 	<fileset id="files.to.check" dir="../">
     <include name="**/*.java"/>
+		<exclude name="**/*Bean.java"/>
     <exclude name="**/*.xml"/>
     <exclude name="**/*.html"/>
     <exclude name="**/*.php"/>
@@ -99,11 +100,24 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
 
   <target name="pmd" depends="init" description="Analyze the code with PMD">
     <pmd shortFilenames="true" encoding="UTF-8" targetjdk="1.6">
-      <ruleset>basic,coupling,optimizations,strings,unusedcode,controversial,sunsecure,codesize,design,typeresolution,javabeans,logging-java</ruleset>
+      <ruleset>basic,coupling,optimizations,strings,unusedcode,controversial,sunsecure,codesize,design,typeresolution,logging-java</ruleset>
       <formatter type="xml" toFile="${results.dir}/pmd.xml"/>
       <fileset refid="files.to.check"/>
 	  </pmd>
 	</target>
+
+	<!-- =================================
+          target: pmdbeans
+         ================================= -->
+  <target name="pmdbeans" depends="init" description="description">
+    <pmd shortFilenames="true" encoding="UTF-8" targetjdk="1.6">
+      <ruleset>basic,coupling,optimizations,strings,unusedcode,controversial,sunsecure,codesize,design,typeresolution,javabeans,logging-java</ruleset>
+      <formatter type="xml" toFile="${results.dir}/beanspmd.xml"/>
+      <fileset dir="../">
+      	<include name="**/*Bean.java"/>
+      </fileset>
+	  </pmd>
+  </target>
 
   <target name="findbugs" depends="init" description="Analyze the code with FindBugs">
     <findbugs home="${findbugs.dir}" output="xml" outputFile="${results.dir}/findbugs.xml" reportLevel="low" effort="max">
@@ -116,5 +130,5 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
     </findbugs>
   </target>
 
-	<target name="all" depends="pmd,findbugs" description="Run all the tasks"/>
+	<target name="all" depends="pmd,pmdbeans,findbugs" description="Run all the tasks"/>
 </project>
