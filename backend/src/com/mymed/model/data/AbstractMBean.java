@@ -55,6 +55,7 @@ import com.mymed.utils.MLogger;
  * - The class must override toString to have an human readable format
  * 
  * @author lvanni
+ * @author Milo Casagrande
  */
 public abstract class AbstractMBean {
   // Default logger for all the beans that extend this abstract
@@ -68,7 +69,7 @@ public abstract class AbstractMBean {
    * @throws PrivilegedActionException
    */
   public Map<String, byte[]> getAttributeToMap() throws InternalBackEndException {
-    final AbstractMBean.InnerPrivilegedExceptionAction action = new AbstractMBean.InnerPrivilegedExceptionAction();
+    final AbstractMBean.InnerPrivilegedExceptionAction action = new AbstractMBean.InnerPrivilegedExceptionAction(this);
     try {
       return AccessController.doPrivilegedWithCombiner(action);
     } catch (final PrivilegedActionException ex) {
@@ -83,7 +84,7 @@ public abstract class AbstractMBean {
    */
   @Override
   public String toString() {
-    final AbstractMBean.InnerPrivilegedAction action = new AbstractMBean.InnerPrivilegedAction();
+    final AbstractMBean.InnerPrivilegedAction action = new AbstractMBean.InnerPrivilegedAction(this);
     final StringBuffer bean = AccessController.doPrivileged(action);
 
     return bean.toString();
@@ -96,9 +97,15 @@ public abstract class AbstractMBean {
    */
   private static final class InnerPrivilegedExceptionAction implements PrivilegedExceptionAction<Map<String, byte[]>> {
 
+    private final Object object;
+
+    public InnerPrivilegedExceptionAction(final Object object) {
+      this.object = object;
+    }
+
     @Override
     public Map<String, byte[]> run() throws Exception {
-      final Class<?> clazz = this.getClass();
+      final Class<?> clazz = object.getClass();
       final Map<String, byte[]> args = new HashMap<String, byte[]>();
 
       for (final Field field : clazz.getDeclaredFields()) {
@@ -113,10 +120,9 @@ public abstract class AbstractMBean {
 
         try {
           final ClassType type = ClassType.inferTpye(field.getType());
-          args.put(field.getName(), ClassType.objectToByteArray(type, field.get(this)));
+          args.put(field.getName(), ClassType.objectToByteArray(type, field.get(object)));
         } catch (final IllegalArgumentException ex) {
           LOGGER.debug("Introspection failed", ex);
-          // NO PMD
           throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
         } catch (final IllegalAccessException ex) {
           LOGGER.debug("Introspection failed", ex);
@@ -129,9 +135,16 @@ public abstract class AbstractMBean {
   }
 
   private static final class InnerPrivilegedAction implements PrivilegedAction<StringBuffer> {
+
+    private final Object object;
+
+    public InnerPrivilegedAction(final Object object) {
+      this.object = object;
+    }
+
     @Override
     public StringBuffer run() {
-      final Class<?> clazz = this.getClass();
+      final Class<?> clazz = object.getClass();
       final StringBuffer value = new StringBuffer(200);
 
       for (final Field field : clazz.getDeclaredFields()) {
@@ -145,17 +158,17 @@ public abstract class AbstractMBean {
         }
 
         try {
-          if (field.get(this) instanceof String) {
+          if (field.get(object) instanceof String) {
             value.append('\t');
             value.append(field.getName());
             value.append(" : ");
-            value.append((String) field.get(this));
+            value.append((String) field.get(object));
             value.append('\n');
           } else {
             value.append('\t');
             value.append(field.getName());
             value.append(" : ");
-            value.append(field.get(this));
+            value.append(field.get(object));
             value.append('\n');
           }
         } catch (final IllegalArgumentException e) {
