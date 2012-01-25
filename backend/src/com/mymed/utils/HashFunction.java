@@ -21,11 +21,18 @@ import java.security.NoSuchAlgorithmException;
 
 import org.slf4j.Logger;
 
+/**
+ * Provides a clean hashing function
+ * 
+ * @author lvanni
+ * @author Milo Casagrande
+ * 
+ */
 public class HashFunction {
 
   private static final Logger LOGGER = MLogger.getLogger();
+  private static final int MaxInt = Integer.MAX_VALUE;
 
-  private final int MaxInt = Integer.MAX_VALUE;
   private final String epsilon;
 
   public HashFunction(final String epsilon) {

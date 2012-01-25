@@ -131,7 +131,7 @@ public abstract class AbstractRequestHandler extends HttpServlet {
 
           LOGGER.info("{}: {}", paramName, value);
         } catch (final UnsupportedEncodingException ex) {
-          LOGGER.debug("Error decoding string from '{}'", ENCODING, ex.getCause());
+          LOGGER.debug("Error decoding string from '{}'", ENCODING, ex);
         }
       }
     }
@@ -181,7 +181,7 @@ public abstract class AbstractRequestHandler extends HttpServlet {
         responseText = null; // NOPMD to avoid code check warnings
       } catch (final IOException e) {
         LOGGER.info("IOException: {}", e.getMessage());
-        LOGGER.debug("Error in printResponse()", e.getCause());
+        LOGGER.debug("Error in printResponse()", e);
       }
     }
   }

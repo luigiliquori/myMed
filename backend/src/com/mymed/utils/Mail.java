@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.utils;
 
 import java.util.Properties;
@@ -25,7 +25,18 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import ch.qos.logback.classic.Logger;
+
+/**
+ * Class to provide mail functionalities to the backend
+ * 
+ * @author lvanni
+ * @author Milo Casagrande
+ * 
+ */
 public class Mail {
+
+  private static final Logger LOGGER = MLogger.getLogger();
 
   private final Properties props;
   private final String from, to, object, content;
@@ -47,15 +58,10 @@ public class Mail {
   }
 
   private void sendMail() {
-    final Session session = Session.getInstance(props, new javax.mail.Authenticator() {
-      @Override
-      protected PasswordAuthentication getPasswordAuthentication() {
-        return new PasswordAuthentication("mymed.subscribe", "myalcotra");
-      }
-    });
+    final Mail.MailAuthenticator authenticator = new Mail.MailAuthenticator();
+    final Session session = Session.getInstance(props, authenticator);
 
     try {
-
       final Message message = new MimeMessage(session);
       message.setFrom(new InternetAddress(from));
       message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
@@ -63,11 +69,26 @@ public class Mail {
       message.setText(content);
 
       Transport.send(message);
-
-      MLogger.getLogger().info("Email sent!");
-
     } catch (final MessagingException e) {
+      LOGGER.debug("Error sending the email", e);
       throw new RuntimeException(e);
+    }
+  }
+
+  /**
+   * Inner class used to avoid strong referencing
+   * 
+   * @author Milo Casagrande
+   * 
+   */
+  private static final class MailAuthenticator extends javax.mail.Authenticator {
+    public MailAuthenticator() {
+      super();
+    }
+
+    @Override
+    protected PasswordAuthentication getPasswordAuthentication() {
+      return new PasswordAuthentication("mymed.subscribe", "myalcotra");
     }
   }
 }

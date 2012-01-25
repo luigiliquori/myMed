@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.controller.core.requesthandler;
 
 import java.io.IOException;
@@ -105,7 +105,7 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
 
     } catch (final AbstractMymedException e) {
       LOGGER.info("Error in doRequest operation");
-      LOGGER.debug("Error in doRequest operation", e.getCause());
+      LOGGER.debug("Error in doRequest operation", e);
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());
     }
@@ -173,7 +173,7 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
 
     } catch (final AbstractMymedException e) {
       LOGGER.info("Error in doRequest operation");
-      LOGGER.debug("Error in doRequest operation", e.getCause());
+      LOGGER.debug("Error in doRequest operation", e);
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());
     }
