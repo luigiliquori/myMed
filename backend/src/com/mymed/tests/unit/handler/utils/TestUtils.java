@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.tests.unit.handler.utils;
 
 import java.net.URI;
@@ -57,7 +57,7 @@ public class TestUtils {
   /* Where the backend is running */
   private static final String AUTHORITY = "localhost:8080";
   /* The path to the backend servlet */
-  private static final String SERVLET_PATH = "/mymed_backend/";
+  private static final String SERVLET_PATH = "/backend/";
   private static final String PROTOCOL = "http";
 
   private static final String DIGEST_SHA_512 = "SHA-512";
@@ -256,7 +256,7 @@ public class TestUtils {
       password = hex.toString();
     } catch (final NoSuchAlgorithmException ex) {
       // We should never get here
-      MLogger.getLogger().debug("Digest algorithm '{}' does not exist!", DIGEST_SHA_512, ex.getCause());
+      MLogger.getLogger().debug("Digest algorithm '{}' does not exist!", DIGEST_SHA_512, ex);
     }
 
     return password;
@@ -286,7 +286,7 @@ public class TestUtils {
       token = hex.toString();
     } catch (final NoSuchAlgorithmException ex) {
       // We should never get here
-      MLogger.getLogger().debug("Digest algorithm '{}' does not exist!", DIGEST_SHA_1, ex.getCause());
+      MLogger.getLogger().debug("Digest algorithm '{}' does not exist!", DIGEST_SHA_1, ex);
     }
 
     return token;
