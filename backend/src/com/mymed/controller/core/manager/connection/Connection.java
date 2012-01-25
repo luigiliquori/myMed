@@ -201,7 +201,7 @@ public class Connection implements IConnection {
 
       if (address == null && comparable.getAddress() != null || address != null && comparable.getAddress() == null) {
         equal &= false;
-      } else {
+      } else if (address != null && comparable.getAddress() != null) {
         equal &= address.equals(comparable.getAddress());
       }
 
