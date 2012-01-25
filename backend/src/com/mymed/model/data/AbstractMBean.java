@@ -91,7 +91,8 @@ public abstract class AbstractMBean {
   }
 
   /**
-   * Static named inner class to provide reflection mechanism for the beans
+   * Static inner class to provide reflection mechanism in a protected way,
+   * without strong references
    * 
    * @author Milo Casagrande
    */
@@ -134,6 +135,13 @@ public abstract class AbstractMBean {
     }
   }
 
+  /**
+   * Static inner class to provide reflection mechanism in a protected way,
+   * without strong references
+   * 
+   * @author Milo Casagrande
+   * 
+   */
   private static final class InnerPrivilegedAction implements PrivilegedAction<StringBuffer> {
 
     private final Object object;
