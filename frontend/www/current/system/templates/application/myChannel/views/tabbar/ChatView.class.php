@@ -70,14 +70,15 @@ class ChatView extends MyApplication {
  				
  				<br />
 				
-				<form method="post" name="<?= APPLICATION_NAME ?>PublishForm" id="<?= APPLICATION_NAME ?>PublishForm" enctype="multipart/form-data" target=""> 
+				<form name="<?= APPLICATION_NAME ?>PublishForm" id="<?= APPLICATION_NAME ?>PublishForm" enctype="multipart/form-data" target=""> 
 					<!-- Define the method to call -->
 					<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
 					<input type="hidden" name="method" value="publish" />
 					<input type="hidden" name="numberOfOntology" value="4" />
 					
-					<!-- KEYWORD -->
-					<input type="text" name="data" value="" />
+					<!-- QUOTE -->
+					<textarea id="chatInsertText"/></textarea> 
+					<input id="chatInsertTextFormated" type="hidden" name="data" value="" />
 					<?php $keyword = new MDataBean("data", null, KEYWORD); ?>
 					<input type="hidden" name="ontology0" value="<?= urlencode(json_encode($keyword)); ?>">
 					
@@ -92,11 +93,11 @@ class ChatView extends MyApplication {
 					<input type="hidden" name="ontology2" value="<?= urlencode(json_encode($keyword3)); ?>">
 					
 					<!-- DATE  -->
-					<input type="hidden" name="begin" value="<?= date("F j, Y, g:i a"); ?>" />
+					<input id="getDate" type="hidden" name="begin" value="" />
 					<?php $date = new MDataBean("begin", null, DATE); ?>
 					<input type="hidden" name="ontology3" value="<?= urlencode(json_encode($date)); ?>">
 					
-					<a href="#" data-role="button" onclick="publishDASPRequest('<?= APPLICATION_NAME ?>PublishForm')">Publish</a>
+					<a href="#" data-role="button" onclick="submitNewQuote('<?= APPLICATION_NAME ?>PublishForm')">Publish</a>
 				</form>
 			<?php } else { ?>
 				<h3>No channel selected: <a href="#Find">Please choose one</a></h3>

@@ -4,7 +4,8 @@ var channel;
 var category;
 var accessToken;
 var oldCount = 0;
-var reloadID; 
+
+var currentTitle = document.title;
 
 function initialize() {
 }
@@ -15,71 +16,77 @@ function startChat(url, appName, cat, chan, aToken) {
 	category = cat;
 	channel = chan;
 	accessToken = aToken;
-	reloadID = setTimeout("reloadChat()", 2000);
-}
-
-function stopChat(){
-	clearInterval(reloadID);
+	setInterval("reloadChat()", 2000);
 }
 
 function scroller(){
-	window.scrollTo(0, $("#chatTextArea").height());
+	if((size = $("#chatTextArea").height() - $("body").height()) > 0){
+		window.scrollTo(0, size + 330);
+	}
 }
 
 function reloadChat(){
-	
-	var chatContent = "";
+
 	var count = 0;
-	
+
 	args = "code=1";
 	args += "&application=" + applicationName;
 	args += "&predicate=Category(" + category + ")Channel(" + channel + ")";
 	args += "&accessToken=" + accessToken;
-	
-	var quotes = $.ajax({
+
+	var res = $.ajax({
 		url : backendURL + "/FindRequestHandler",
 		dataType : 'json',
 		data : args,
 		async : false
 	}).responseText;
-	
-	var quotesJSON = $.parseJSON($.parseJSON(quotes).data.results);
-	
-	if(quotesJSON != null) {
-		$.each(quotesJSON, function(i, item) {
-			chatContent += '<span Style="font-weight: bold; color: red; ">' + item.begin + '</span> :: ';
-			chatContent += '<span Style="font-weight: bold; color: green; ">' + item.publisherName + '</span> : ';
-			chatContent += '<span>' + item.data + '</span><br />';
-			count++;
-		});
-	}
-	
-	if(count > oldCount){
-		$('#chatTextAreaContent').html(chatContent);
-		oldCount = count;
+
+	if((resJSON = $.parseJSON(res)) != null) {
+
+		var quotesJSON = $.parseJSON(resJSON.data.results);
+
+		if(quotesJSON != null) {
+			var chat = new Array();
+			$.each(quotesJSON, function(i, item) {
+				quote = '<span Style="font-weight: bold; color: red; ">' + item.begin + '</span> :: ';
+				quote += '<span Style="font-weight: bold; color: green; ">' + item.publisherName + '</span> : ';
+				quote += '<span>' + item.data + '</span><br />';
+				chat[count] = quote;
+				count++;
+			});
+			chat.sort();
+
+			if(count > oldCount){
+				var chatContent = "";
+				$.each(chat, function(i, item) {
+					chatContent += item;
+				});
+				$('#chatTextAreaContent').html(chatContent);
+				oldCount = count;
+				newExcitingAlerts();
+				scroller();
+			}
+		}
+	} else {
+//		alert("Cross Domain Error: ajax request from https://domain.com to http://domain.com");
 	}
 }
 
 function newExcitingAlerts() {
-	var oldTitle = document.title;
-	var msg = "New Message!";
-	var timeoutId = setInterval(function() {
-		document.title = document.title == msg ? ' ' : msg;
-	}, 1000);
+	document.title = "New Message!";
 	window.onmouseover = function() {
-		clearInterval(timeoutId);
-		document.title = oldTitle;
+		document.title = currentTitle;
 		window.onmousemove = null;
 	};
 }
 
-
-function publishDASPRequest(formID){
-	var reponse = $.ajax({
-		type: 'POST',
-		url :"index.php",
-		data : $("#" + formID)	.serialize(),
-		async : false
-	}).responseText;
-	alert(reponse);
+function formatInputText(){
+	$('#chatInsertTextFormated').val($('#chatInsertText').val().replace(/\n/g, '<br>'));
 }
+
+function submitNewQuote(formID){
+	formatInputText();
+	$('#chatInsertText').val("");
+	publishDASPRequest(formID);
+}
+

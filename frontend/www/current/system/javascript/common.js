@@ -4,11 +4,50 @@ function displayFrame(frame){
 
 function hideFrame(frame){
 	// TODO use jQuery to hide the frame
-		$('#' + frame, top.document).hide("slow");
+	$('#' + frame, top.document).hide("slow");
 }
 
-// touchOverflow -- Only for iOS5
-$(document).bind("mobileinit", function(){
-  $.mobile.touchOverflowEnabled = true;
-});
+function getFormatedDate(){
+	var currentTime = new Date();
+	var month = currentTime.getMonth() + 1;
+	var day = currentTime.getDate();
+	var year = currentTime.getFullYear();
+	var hours = currentTime.getHours();
+	var minutes = currentTime.getMinutes();
+	var second = currentTime.getSeconds();
 
+	if (day < 10){
+		day = "0" + day;
+	}
+	if (month < 10){
+		month = "0" + month;
+	}
+	if (second < 10){
+		second = "0" + second;
+	}
+	if (minutes < 10){
+		minutes = "0" + minutes;
+	}
+	if(hours > 11){
+		second += " pm";
+	} else {
+		second += " am";
+	}
+	
+	return day + "/" + month + "/" + year + ", " + hours + ":" + minutes + ":" + second;
+}
+
+function publishDASPRequest(formID){
+
+	// store the current date if needed
+	if($("#getDate") != null){
+		$("#getDate").val(getFormatedDate);
+	}
+
+	$.ajax({
+		type: 'POST',
+		url :"#",
+		data : $("#" + formID).serialize(),
+		async : true
+	});
+}
