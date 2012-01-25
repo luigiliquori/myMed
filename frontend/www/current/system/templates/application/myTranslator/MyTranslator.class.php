@@ -50,7 +50,7 @@ class MyTranslator extends AbstractTemplate {
 		<div id="myTranslatorContent" class="content" >
 			<h1>Texte à traduire:</h1>
 			<center>
-				<script src="http://www.gmodules.com/ig/ifr?url=http://hosting.gmodules.com/ig/gadgets/file/107418635340074551756/prekladac.xml&amp;up_v07firstTime=1&amp;up_langpair=24&amp;up_sl=cs&amp;up_tl=en&amp;synd=open&amp;w=300&amp;h=200&amp;title=&amp;lang=fr&amp;country=ALL&amp;border=http%3A%2F%2Fwww.gmodules.com%2Fig%2Fimages%2F&amp;output=js"></script>			
+				<script src="//www.gmodules.com/ig/ifr?url=http://www.gstatic.com/ig/modules/dictionary/kennedy/dictionary.xml&amp;up_sl=fr&amp;up_tl=en&amp;up_default_text=&amp;synd=open&amp;w=320&amp;h=200&amp;title=&amp;lang=fr&amp;country=ALL&amp;border=%23ffffff%7C3px%2C1px+solid+%23999999&amp;output=js"></script>
 			</center>
 		</div>
 	<?php }
