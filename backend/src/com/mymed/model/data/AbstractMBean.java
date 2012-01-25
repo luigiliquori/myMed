@@ -68,52 +68,8 @@ public abstract class AbstractMBean {
    * @throws PrivilegedActionException
    */
   public Map<String, byte[]> getAttributeToMap() throws InternalBackEndException {
-
-    // final Object object = this;
-    // final Class<?> clazz = object.getClass();
-
     final InnerClazz clazz = new InnerClazz();
-    return clazz.doPriviledged(this, this.getClass());
-
-    // try {
-    // return AccessController.doPrivilegedWithCombiner(new
-    // PrivilegedExceptionAction<Map<String, byte[]>>() {
-    //
-    // @Override
-    // public Map<String, byte[]> run() throws InternalBackEndException {
-    // final Map<String, byte[]> args = new HashMap<String, byte[]>();
-    //
-    // for (final Field field : clazz.getDeclaredFields()) {
-    // field.setAccessible(true);
-    //
-    // // We check the value of the modifiers of the field: if the field is
-    // // not just private, we skip it
-    // final int modifiers = field.getModifiers();
-    // if (modifiers != PRIV) {
-    // continue;
-    // }
-    //
-    // try {
-    // final ClassType type = ClassType.inferTpye(field.getType());
-    // args.put(field.getName(), ClassType.objectToByteArray(type,
-    // field.get(object)));
-    // } catch (final IllegalArgumentException ex) {
-    // LOGGER.debug("Introspection failed", ex);
-    // throw new
-    // InternalBackEndException("getAttribueToMap failed!: Introspection error");
-    // } catch (final IllegalAccessException ex) {
-    // LOGGER.debug("Introspection failed", ex);
-    // throw new
-    // InternalBackEndException("getAttribueToMap failed!: Introspection error");
-    // }
-    // }
-    //
-    // return args;
-    // }
-    // });
-    // } catch (final PrivilegedActionException ex) {
-    // throw (InternalBackEndException) ex.getException();
-    // }
+    return clazz.doPriviledgedToMap(this);
   }
 
   /*
@@ -123,71 +79,40 @@ public abstract class AbstractMBean {
    */
   @Override
   public String toString() {
-
-    final Object object = this;
-    final Class<?> clazz = object.getClass();
-
-    final StringBuffer bean = AccessController.doPrivilegedWithCombiner(new PrivilegedAction<StringBuffer>() {
-
-      @Override
-      public StringBuffer run() {
-        final StringBuffer value = new StringBuffer(200);
-
-        for (final Field field : clazz.getDeclaredFields()) {
-          field.setAccessible(true);
-
-          // We check the value of the modifiers of the field: if the field is
-          // not just private, we skip it
-          final int modifiers = field.getModifiers();
-          if (modifiers != PRIV) {
-            continue;
-          }
-
-          try {
-            if (field.get(object) instanceof String) {
-              value.append('\t');
-              value.append(field.getName());
-              value.append(" : ");
-              value.append((String) field.get(object));
-              value.append('\n');
-            } else {
-              value.append('\t');
-              value.append(field.getName());
-              value.append(" : ");
-              value.append(field.get(object));
-              value.append('\n');
-            }
-          } catch (final IllegalArgumentException e) {
-            // We should never get here!
-            LOGGER.debug("Arguments are not valid", e);
-          } catch (final IllegalAccessException e) {
-            LOGGER.debug("Impossible to access field '{}'", field.getName(), e);
-          }
-        }
-
-        value.trimToSize();
-        return value;
-      }
-    });
+    final InnerClazz clazz = new InnerClazz();
+    final StringBuffer bean = clazz.doPriviledgedStringBuffer(this);
 
     return bean.toString();
   }
 
+  /**
+   * Static named inner class to provide reflection mechanism for the beans
+   * 
+   * @author Milo Casagrande
+   */
   private static class InnerClazz {
-    Map<String, byte[]> doPriviledged(final Object object, final Class<?> clazz) throws InternalBackEndException {
+    /**
+     * Access an object and its fields and provide a map structure of it
+     * 
+     * @param object
+     *          the object to access
+     * @return a map of the object fields and values
+     * @throws InternalBackEndException
+     */
+    private Map<String, byte[]> doPriviledgedToMap(final Object object) throws InternalBackEndException {
       try {
         return AccessController.doPrivilegedWithCombiner(new PrivilegedExceptionAction<Map<String, byte[]>>() {
 
           @Override
           public Map<String, byte[]> run() throws InternalBackEndException {
+            final Class<?> clazz = object.getClass();
             final Map<String, byte[]> args = new HashMap<String, byte[]>();
 
             for (final Field field : clazz.getDeclaredFields()) {
               field.setAccessible(true);
 
               // We check the value of the modifiers of the field: if the field
-              // is
-              // not just private, we skip it
+              // is not just private, we skip it
               final int modifiers = field.getModifiers();
               if (modifiers != PRIV) {
                 continue;
@@ -198,6 +123,7 @@ public abstract class AbstractMBean {
                 args.put(field.getName(), ClassType.objectToByteArray(type, field.get(object)));
               } catch (final IllegalArgumentException ex) {
                 LOGGER.debug("Introspection failed", ex);
+                // NO PMD
                 throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
               } catch (final IllegalAccessException ex) {
                 LOGGER.debug("Introspection failed", ex);
@@ -211,6 +137,60 @@ public abstract class AbstractMBean {
       } catch (final PrivilegedActionException ex) {
         throw (InternalBackEndException) ex.getException();
       }
+    }
+
+    /**
+     * Access the object and retrieve its fields to be printed in human-readable
+     * way
+     * 
+     * @param object
+     *          the object to access
+     * @return a {@link StringBuffer} with the object data
+     */
+    private StringBuffer doPriviledgedStringBuffer(final Object object) {
+      return AccessController.doPrivilegedWithCombiner(new PrivilegedAction<StringBuffer>() {
+
+        @Override
+        public StringBuffer run() {
+          final Class<?> clazz = object.getClass();
+          final StringBuffer value = new StringBuffer(200);
+
+          for (final Field field : clazz.getDeclaredFields()) {
+            field.setAccessible(true);
+
+            // We check the value of the modifiers of the field: if the field is
+            // not just private, we skip it
+            final int modifiers = field.getModifiers();
+            if (modifiers != PRIV) {
+              continue;
+            }
+
+            try {
+              if (field.get(object) instanceof String) {
+                value.append('\t');
+                value.append(field.getName());
+                value.append(" : ");
+                value.append((String) field.get(object));
+                value.append('\n');
+              } else {
+                value.append('\t');
+                value.append(field.getName());
+                value.append(" : ");
+                value.append(field.get(object));
+                value.append('\n');
+              }
+            } catch (final IllegalArgumentException e) {
+              // We should never get here!
+              LOGGER.debug("Arguments are not valid", e);
+            } catch (final IllegalAccessException e) {
+              LOGGER.debug("Impossible to access field '{}'", field.getName(), e);
+            }
+          }
+
+          value.trimToSize();
+          return value;
+        }
+      });
     }
   }
 }
