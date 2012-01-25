@@ -49,7 +49,6 @@ class TemplateManager {
 		
 		<!-- Common css -->
 		<link href="system/css/style.css" rel="stylesheet" />
-
 		
 		<!-- LOAD DYNAMICALLY THE CSS FOR EACH TEMPLATE -->
 		<?php 
