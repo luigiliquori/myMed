@@ -34,10 +34,10 @@ public final class MUserBean extends AbstractMBean {
    * SOCIALNETWORKNAME := MYMED|FACEBOOK|TWITTER|GOOGLE<br>
    * SOCIALNETWORKID := email|[a-z0-9]+
    * */
-  private String id = null;
+  private String id = "";
 
   /** AUTHENTICATION_ID */
-  private String login = null;
+  private String login = "";
 
   /** PERSONAL INFO */
   private String email = null;

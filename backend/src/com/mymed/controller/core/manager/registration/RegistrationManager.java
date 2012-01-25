@@ -79,7 +79,7 @@ public class RegistrationManager implements IRegistrationManager {
 	@Override
 	public void read(String accessToken) throws AbstractMymedException {
 		// Reteive the user profile
-		String userID = pubSubManager.read("myMed", accessToken).get(0).get("user");
+		String userID = pubSubManager.read("myMed", accessToken).get(0).get("publisherID");
 		List<Map<String, String>> dataList = pubSubManager.read("myMed", accessToken, userID);
 		MUserBean userBean = null;
 		MAuthenticationBean authenticationBean = null;

@@ -105,8 +105,8 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 			args.put("end", end.getBytes("UTF-8"));
 			args.put("publisherID", publisher.getId().getBytes("UTF-8"));
 			args.put("publisherName", publisher.getName().getBytes("UTF-8"));
-			args.put("publisherProfilePicture", publisher.getProfilePicture().getBytes("UTF-8"));
-			args.put("publisherReputation", publisher.getReputation().getBytes("UTF-8"));
+			args.put("publisherProfilePicture", (publisher.getProfilePicture() == null ? "" : publisher.getProfilePicture()).getBytes("UTF-8"));
+			args.put("publisherReputation", (publisher.getReputation() == null ? "" : publisher.getReputation()).getBytes("UTF-8"));
 			args.put("data", data.getBytes("UTF-8"));
 			storageManager.insertSuperSlice(SC_APPLICATION_CONTROLLER, application + predicate, subPredicate + publisher.getId(), args);
 
