@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.model.data;
 
 import java.lang.reflect.Field;
@@ -69,44 +69,51 @@ public abstract class AbstractMBean {
    */
   public Map<String, byte[]> getAttributeToMap() throws InternalBackEndException {
 
-    final Object object = this;
-    final Class<?> clazz = object.getClass();
+    // final Object object = this;
+    // final Class<?> clazz = object.getClass();
 
-    try {
-      return AccessController.doPrivilegedWithCombiner(new PrivilegedExceptionAction<Map<String, byte[]>>() {
+    final InnerClazz clazz = new InnerClazz();
+    return clazz.doPriviledged(this, this.getClass());
 
-        @Override
-        public Map<String, byte[]> run() throws InternalBackEndException {
-          final Map<String, byte[]> args = new HashMap<String, byte[]>();
-
-          for (final Field field : clazz.getDeclaredFields()) {
-            field.setAccessible(true);
-
-            // We check the value of the modifiers of the field: if the field is
-            // not just private, we skip it
-            final int modifiers = field.getModifiers();
-            if (modifiers != PRIV) {
-              continue;
-            }
-
-            try {
-              final ClassType type = ClassType.inferTpye(field.getType());
-              args.put(field.getName(), ClassType.objectToByteArray(type, field.get(object)));
-            } catch (final IllegalArgumentException ex) {
-              LOGGER.debug("Introspection failed", ex.getCause());
-              throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
-            } catch (final IllegalAccessException ex) {
-              LOGGER.debug("Introspection failed", ex.getCause());
-              throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
-            }
-          }
-
-          return args;
-        }
-      });
-    } catch (final PrivilegedActionException ex) {
-      throw (InternalBackEndException) ex.getException();
-    }
+    // try {
+    // return AccessController.doPrivilegedWithCombiner(new
+    // PrivilegedExceptionAction<Map<String, byte[]>>() {
+    //
+    // @Override
+    // public Map<String, byte[]> run() throws InternalBackEndException {
+    // final Map<String, byte[]> args = new HashMap<String, byte[]>();
+    //
+    // for (final Field field : clazz.getDeclaredFields()) {
+    // field.setAccessible(true);
+    //
+    // // We check the value of the modifiers of the field: if the field is
+    // // not just private, we skip it
+    // final int modifiers = field.getModifiers();
+    // if (modifiers != PRIV) {
+    // continue;
+    // }
+    //
+    // try {
+    // final ClassType type = ClassType.inferTpye(field.getType());
+    // args.put(field.getName(), ClassType.objectToByteArray(type,
+    // field.get(object)));
+    // } catch (final IllegalArgumentException ex) {
+    // LOGGER.debug("Introspection failed", ex);
+    // throw new
+    // InternalBackEndException("getAttribueToMap failed!: Introspection error");
+    // } catch (final IllegalAccessException ex) {
+    // LOGGER.debug("Introspection failed", ex);
+    // throw new
+    // InternalBackEndException("getAttribueToMap failed!: Introspection error");
+    // }
+    // }
+    //
+    // return args;
+    // }
+    // });
+    // } catch (final PrivilegedActionException ex) {
+    // throw (InternalBackEndException) ex.getException();
+    // }
   }
 
   /*
@@ -152,9 +159,9 @@ public abstract class AbstractMBean {
             }
           } catch (final IllegalArgumentException e) {
             // We should never get here!
-            LOGGER.debug("Arguments are not valid", e.getCause());
+            LOGGER.debug("Arguments are not valid", e);
           } catch (final IllegalAccessException e) {
-            LOGGER.debug("Impossible to access field '{}'", field.getName(), e.getCause());
+            LOGGER.debug("Impossible to access field '{}'", field.getName(), e);
           }
         }
 
@@ -166,4 +173,44 @@ public abstract class AbstractMBean {
     return bean.toString();
   }
 
+  private static class InnerClazz {
+    Map<String, byte[]> doPriviledged(final Object object, final Class<?> clazz) throws InternalBackEndException {
+      try {
+        return AccessController.doPrivilegedWithCombiner(new PrivilegedExceptionAction<Map<String, byte[]>>() {
+
+          @Override
+          public Map<String, byte[]> run() throws InternalBackEndException {
+            final Map<String, byte[]> args = new HashMap<String, byte[]>();
+
+            for (final Field field : clazz.getDeclaredFields()) {
+              field.setAccessible(true);
+
+              // We check the value of the modifiers of the field: if the field
+              // is
+              // not just private, we skip it
+              final int modifiers = field.getModifiers();
+              if (modifiers != PRIV) {
+                continue;
+              }
+
+              try {
+                final ClassType type = ClassType.inferTpye(field.getType());
+                args.put(field.getName(), ClassType.objectToByteArray(type, field.get(object)));
+              } catch (final IllegalArgumentException ex) {
+                LOGGER.debug("Introspection failed", ex);
+                throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
+              } catch (final IllegalAccessException ex) {
+                LOGGER.debug("Introspection failed", ex);
+                throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
+              }
+            }
+
+            return args;
+          }
+        });
+      } catch (final PrivilegedActionException ex) {
+        throw (InternalBackEndException) ex.getException();
+      }
+    }
+  }
 }
