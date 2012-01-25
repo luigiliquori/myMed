@@ -29,7 +29,13 @@ class ChatView extends MyApplication {
 		if(isset($_GET['category']) && isset($_GET['channel'])) {
 			$this->category = $_GET['category'];
 			$this->channel = $_GET['channel'];
-			$this->refreshQuote();
+			echo '<script type="text/javascript">startChat("' . 
+			BACKEND_URL . '", "' .
+			APPLICATION_NAME . '", "' .
+			$_GET['category'] . '", "' . 
+			$_GET['channel'] . '", "' .
+			$_SESSION['accessToken'] . 
+			'");</script>';
 		}
 	}
 	
@@ -44,61 +50,6 @@ class ChatView extends MyApplication {
 		$this->channel = $channel;
 	}
 	
-	/**
-	 * Refresh the chat
-	 */
-	public function refreshQuote() {
-		$request = new Request("FindRequestHandler", READ);
-		$request->addArgument("application", APPLICATION_NAME);
-		$request->addArgument("predicate", "Category(" . $this->category . ")Channel(" . $this->channel . ")");
-		$responsejSon = $request->send();
-		$responseObject = json_decode($responsejSon);
-		
-		// get results
-		if($responseObject->status == 200) {
-			
-			foreach(json_decode($responseObject->data->results) as $result) {
-					
-				$request = new Request("FindRequestHandler", READ);
-				$request->addArgument("application", APPLICATION_NAME);
-				$request->addArgument("predicate", $result->predicate);
-				$request->addArgument("user", $result->user);
-				$responsejSon = $request->send();
-				$responseObject = json_decode($responsejSon);
-					
-				if($responseObject->status == 200) {
-					$time = 0;
-					$userName = "unknown";
-					$date = "unknown";
-					foreach(json_decode($responseObject->data->details) as $details) {
-						if($details->key == "Quote") {
-							$quote = $details->value;
-						} else if ($details->key == "Time") {
-							$time = $details->value;
-						} else if ($details->key == "UserName") {
-							$userName = $details->value;
-						} else if ($details->key == "Date") {
-							$date = $details->value;
-						}
-					} 
-					$this->quotes[$time]['user'] = $userName;
-					$this->quotes[$time]['date'] = $date;
-					$this->quotes[$time]['value'] = $quote;
-				} 
-			}
-			
-			ksort($this->quotes);
-		}
-		
-		// notify the user if there are new quotes
-		if(isset($_SESSION[APPLICATION_NAME])){
-			if(count($this->quotes) != $_SESSION[APPLICATION_NAME]["nbQuotes"]) {
-				echo '<script type="text/javascript">newExcitingAlerts();</script>';
-			}
-		}
-		$_SESSION[APPLICATION_NAME]["nbQuotes"] = count($this->quotes);
-	}
-	
 	/* --------------------------------------------------------- */
 	/* public methods */
 	/* --------------------------------------------------------- */
@@ -111,26 +62,23 @@ class ChatView extends MyApplication {
 		
 			<!-- TEXT -->
 			<?php if(CONNECTED) { ?>
+				
 				<h3><?= $this->channel ?></h3>
 				<div id="chatTextArea" Style="position: relative; width: 100%; border: thin white solid; background-color: black; font-size:10pt;">
-					<div Style="position: relative; width: 90%; padding: 10px;">
-						<?php foreach ($this->quotes as $quote) { ?>
-							<span Style="font-weight: bold; color: red; "><?= $quote['date'] ?></span> ::
-							<span Style="font-weight: bold; color: green; "><?= $quote['user'] ?></span> :
-							<?= $quote['value'] ?><br />
-						<?php } ?>
-					</div>
+					<div id="chatTextAreaContent" Style="position: relative; width: 90%; padding: 10px;"></div>
 				</div>
+ 				
  				<br />
-				<form  action="#" method="post" name="<?= APPLICATION_NAME ?>PublishForm" id="<?= APPLICATION_NAME ?>PublishForm" enctype="multipart/form-data">
+				
+				<form method="post" name="<?= APPLICATION_NAME ?>PublishForm" id="<?= APPLICATION_NAME ?>PublishForm" enctype="multipart/form-data" target=""> 
 					<!-- Define the method to call -->
 					<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
 					<input type="hidden" name="method" value="publish" />
-					<input type="hidden" name="numberOfOntology" value="6" />
+					<input type="hidden" name="numberOfOntology" value="4" />
 					
 					<!-- KEYWORD -->
-					<input id="quote" type="text" name="Quote" value="" />
-					<?php $keyword = new MDataBean("Quote", null, KEYWORD); ?>
+					<input type="text" name="data" value="" />
+					<?php $keyword = new MDataBean("data", null, KEYWORD); ?>
 					<input type="hidden" name="ontology0" value="<?= urlencode(json_encode($keyword)); ?>">
 					
 					<!-- CATEGORY -->
@@ -143,22 +91,12 @@ class ChatView extends MyApplication {
 					<?php $keyword3 = new MDataBean("Channel", null, KEYWORD); ?>
 					<input type="hidden" name="ontology2" value="<?= urlencode(json_encode($keyword3)); ?>">
 					
-					<!-- TIMESTAMP  -->
-					<input type="hidden" name="Time" value="<?= microtime(true) ?>" />
-					<?php $time = new MDataBean("Time", null, DATE); ?>
-					<input type="hidden" name="ontology3" value="<?= urlencode(json_encode($time)); ?>">
-					
-					<!-- USERNAME  -->
-					<input type="hidden" name="UserName" value="<?= $_SESSION['user']->name ?>" />
-					<?php $keyword4 = new MDataBean("UserName", null, KEYWORD); ?>
-					<input type="hidden" name="ontology4" value="<?= urlencode(json_encode($keyword4)); ?>">
-					
 					<!-- DATE  -->
-					<input type="hidden" name="Date" value="<?= date("F j, Y, g:i a"); ?>" />
-					<?php $date = new MDataBean("Date", null, DATE); ?>
-					<input type="hidden" name="ontology5" value="<?= urlencode(json_encode($date)); ?>">
+					<input type="hidden" name="begin" value="<?= date("F j, Y, g:i a"); ?>" />
+					<?php $date = new MDataBean("begin", null, DATE); ?>
+					<input type="hidden" name="ontology3" value="<?= urlencode(json_encode($date)); ?>">
 					
-					<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>PublishForm.submit()" rel="external">Publish</a>
+					<a href="#" data-role="button" onclick="publishDASPRequest('<?= APPLICATION_NAME ?>PublishForm')">Publish</a>
 				</form>
 			<?php } else { ?>
 				<h3>No channel selected: <a href="#Find">Please choose one</a></h3>

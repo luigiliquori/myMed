@@ -137,16 +137,19 @@ public class CassandraWrapper implements ICassandraWrapper {
 
   @Override
   public void login(final AuthenticationRequest authRequest) throws InternalBackEndException {
-    try {
-      getClient().login(authRequest);
-    } catch (final AuthenticationException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final AuthorizationException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final TException ex) {
-      throw new InternalBackEndException(ex);
-    } finally {
-      manager.checkIn(connection);
+    synchronized (SYNC) {
+      try {
+        getClient().login(authRequest);
+      } catch (final AuthenticationException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final AuthorizationException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final TException ex) {
+        throw new InternalBackEndException(ex);
+      } finally {
+        manager.checkIn(connection);
+        SYNC.notifyAll();
+      }
     }
   }
 
@@ -529,9 +532,9 @@ public class CassandraWrapper implements ICassandraWrapper {
   public void insert(final String key, final ColumnParent parent, final Column column, final ConsistencyLevel level)
       throws InternalBackEndException {
 
-    synchronized (SYNC) {
-      final ByteBuffer keyToBuffer = MConverter.stringToByteBuffer(key);
+    final ByteBuffer keyToBuffer = MConverter.stringToByteBuffer(key);
 
+    synchronized (SYNC) {
       try {
         getClient().insert(keyToBuffer, parent, column, level);
       } catch (final InvalidRequestException ex) {

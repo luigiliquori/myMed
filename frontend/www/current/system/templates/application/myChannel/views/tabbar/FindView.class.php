@@ -42,7 +42,7 @@ class FindView extends MyApplication {
 					$request = new Request("FindRequestHandler", READ);
 					$request->addArgument("application", APPLICATION_NAME);
 					$request->addArgument("predicate", $result->predicate);
-					$request->addArgument("user", $result->user);
+					$request->addArgument("user", $result->publisherID);
 					$responsejSon = $request->send();
 					$responseObject = json_decode($responsejSon);
 					
