@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.tests.unit.handler;
 
 import java.io.IOException;
@@ -104,8 +104,7 @@ public class AuthenticationRequestHandlerTest extends GeneralHandlerTest {
     final HttpResponse response = client.execute(getRequest);
 
     BackendAssert.assertIsValidJson(response);
-    BackendAssert.assertResponseCodeIs(response, 200);
-    BackendAssert.assertIsValidUserJson(response);
+    BackendAssert.assertResponseCodeIs(response, 404);
   }
 
   /**
@@ -128,13 +127,12 @@ public class AuthenticationRequestHandlerTest extends GeneralHandlerTest {
     final HttpResponse response = client.execute(postRequest);
 
     BackendAssert.assertIsValidJson(response);
-    BackendAssert.assertResponseCodeIs(response, 200);
-    BackendAssert.assertIsValidUserJson(response);
+    BackendAssert.assertResponseCodeIs(response, 404);
   }
 
   /**
    * Perform an update of the 'authentication', and check that the response code
-   * is '200'
+   * is '404'
    * 
    * @throws URISyntaxException
    * @throws ClientProtocolException
@@ -144,7 +142,8 @@ public class AuthenticationRequestHandlerTest extends GeneralHandlerTest {
   public void updateTest() throws URISyntaxException, ClientProtocolException, IOException {
     TestUtils.addParameter(params, PARAM_CODE, UPDATE);
     TestUtils.addParameter(params, PARAM_AUTH, TestUtils.createAuthenticationJson().toString());
-    TestUtils.addParameter(params, PARAM_ID, TestUtils.MYMED_ID);
+    TestUtils.addParameter(params, PARAM_OLD_PWD, TestUtils.getFakePassword());
+    TestUtils.addParameter(params, PARAM_OLD_LOGIN, TestUtils.MYMED_ID);
 
     final String query = TestUtils.createQueryParams(params);
     final URI uri = TestUtils.createUri(path, query);
@@ -153,6 +152,6 @@ public class AuthenticationRequestHandlerTest extends GeneralHandlerTest {
     final HttpResponse response = client.execute(postRequest);
 
     BackendAssert.assertIsValidJson(response);
-    BackendAssert.assertResponseCodeIs(response, 200);
+    BackendAssert.assertResponseCodeIs(response, 404);
   }
 }

@@ -256,7 +256,7 @@ public class TestUtils {
       password = hex.toString();
     } catch (final NoSuchAlgorithmException ex) {
       // We should never get here
-      MLogger.getLogger().debug("Digest algorithm '{}' does not exist!", DIGEST_SHA_512, ex.getCause());
+      MLogger.getLogger().debug("Digest algorithm '{}' does not exist!", DIGEST_SHA_512, ex);
     }
 
     return password;
@@ -286,7 +286,7 @@ public class TestUtils {
       token = hex.toString();
     } catch (final NoSuchAlgorithmException ex) {
       // We should never get here
-      MLogger.getLogger().debug("Digest algorithm '{}' does not exist!", DIGEST_SHA_1, ex.getCause());
+      MLogger.getLogger().debug("Digest algorithm '{}' does not exist!", DIGEST_SHA_1, ex);
     }
 
     return token;

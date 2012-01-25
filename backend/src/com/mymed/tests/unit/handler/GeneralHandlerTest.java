@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.tests.unit.handler;
 
 import java.io.IOException;
@@ -53,6 +53,8 @@ public class GeneralHandlerTest {
   protected static final String PARAM_ACCESS_TOKEN = "accessToken";
   protected static final String PARAM_SOCIAL_NETWORK = "socialNetwork";
   protected static final String PARAM_SESS_STRING = "session";
+  protected static final String PARAM_OLD_LOGIN = "oldLogin";
+  protected static final String PARAM_OLD_PWD = "oldPassword";
 
   protected HttpClient client;
   // Lists where we store the parameters to construct the queries
