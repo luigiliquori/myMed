@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.tests.unit.handler;
 
 import java.io.IOException;
@@ -32,6 +32,7 @@ import com.google.gson.JsonObject;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.profile.ProfileManager;
+import com.mymed.controller.core.manager.session.SessionManager;
 import com.mymed.controller.core.requesthandler.ProfileRequestHandler;
 import com.mymed.tests.unit.handler.utils.BackendAssert;
 import com.mymed.tests.unit.handler.utils.TestUtils;
@@ -45,6 +46,7 @@ import com.mymed.tests.unit.handler.utils.TestUtils;
 public class ProfileRequestHandlerTest extends GeneralHandlerTest {
 
   private static final String HANDLER_NAME = "ProfileRequestHandler";
+  private String accessToken = null;
 
   @BeforeClass
   public static void setUpOnce() {
@@ -53,15 +55,23 @@ public class ProfileRequestHandlerTest extends GeneralHandlerTest {
 
   @Before
   public void setupBefore() throws InternalBackEndException, IOBackEndException {
+    accessToken = TestUtils.createAccessToken();
+
     final ProfileManager manager = new ProfileManager();
     manager.create(TestUtils.createUserBean(""));
+
+    final SessionManager session = new SessionManager();
+    session.create(TestUtils.createSessionBean(accessToken));
   }
 
   @After
   public void cleanAfter() throws InternalBackEndException {
     final ProfileManager manager = new ProfileManager();
+    final SessionManager session = new SessionManager();
+
     try {
       manager.delete(TestUtils.MYMED_ID);
+      session.delete(accessToken);
     } catch (final IOBackEndException ex) {
       // Do nothing, even if we have an error deleting something
     }
@@ -80,6 +90,7 @@ public class ProfileRequestHandlerTest extends GeneralHandlerTest {
   public void readWrongUserTest() throws IOException, URISyntaxException {
     TestUtils.addParameter(params, PARAM_CODE, READ);
     TestUtils.addParameter(params, PARAM_ID, "wrong.email@example.org");
+    TestUtils.addParameter(params, PARAM_ACCESS_TOKEN, accessToken);
 
     final String query = TestUtils.createQueryParams(params);
     final URI uri = TestUtils.createUri(path, query);
@@ -107,6 +118,7 @@ public class ProfileRequestHandlerTest extends GeneralHandlerTest {
 
     TestUtils.addParameter(params, PARAM_CODE, CREATE);
     TestUtils.addParameter(params, PARAM_USER, user.toString());
+    TestUtils.addParameter(params, PARAM_ACCESS_TOKEN, accessToken);
 
     final String query = TestUtils.createQueryParams(params);
     final URI uri = TestUtils.createUri(path, query);
@@ -131,6 +143,7 @@ public class ProfileRequestHandlerTest extends GeneralHandlerTest {
   @Test
   public void updateTest() throws URISyntaxException, ClientProtocolException, IOException {
     TestUtils.addParameter(params, PARAM_CODE, UPDATE);
+    TestUtils.addParameter(params, PARAM_ACCESS_TOKEN, accessToken);
 
     final JsonObject user = TestUtils.createUserJson();
     user.addProperty("gender", "female");
@@ -160,6 +173,7 @@ public class ProfileRequestHandlerTest extends GeneralHandlerTest {
   public void deleteTest() throws URISyntaxException, IOException {
     TestUtils.addParameter(params, PARAM_CODE, DELETE);
     TestUtils.addParameter(params, PARAM_ID, TestUtils.MYMED_ID);
+    TestUtils.addParameter(params, PARAM_ACCESS_TOKEN, accessToken);
 
     final String query = TestUtils.createQueryParams(params);
     final URI uri = TestUtils.createUri(path, query);
