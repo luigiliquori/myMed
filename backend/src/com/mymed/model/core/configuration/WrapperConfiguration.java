@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.model.core.configuration;
 
 import java.io.File;
@@ -91,24 +91,23 @@ public class WrapperConfiguration {
    */
   public WrapperConfiguration(final File file) {
     configName = file.getName();
-    FileInputStream fis = null;
+    InputStream input = null;
 
     try {
-      try {
-        fis = new FileInputStream(file);
-        final InputStream input = fis;
+      input = new FileInputStream(file);
 
-        createConfiguration(input);
-
-      } catch (final FileNotFoundException ex) {
-        LOGGER.info("Error opening the configuration file");
-        LOGGER.debug("Error opening the configuration file", ex);
-      } finally {
-        fis.close();
-      }
-    } catch (final IOException ex) {
+      createConfiguration(input);
+    } catch (final FileNotFoundException ex) {
       LOGGER.info("Error opening the configuration file");
       LOGGER.debug("Error opening the configuration file", ex);
+    } finally {
+      try {
+        if (input != null) {
+          input.close();
+        }
+      } catch (final IOException ex) {
+        LOGGER.debug("Error closing InputStream", ex);
+      }
     }
   }
 
