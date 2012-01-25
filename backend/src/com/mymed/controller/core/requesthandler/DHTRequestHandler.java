@@ -83,8 +83,8 @@ public class DHTRequestHandler extends AbstractRequestHandler {
         tokenValidation(parameters.get("accessToken")); // Security Validation
       }
 
-      switch (code) {
-        case READ : // GET
+      switch (code) { // NO PMD
+        case READ :
           if ((key = parameters.get("key")) == null) {
             throw new InternalBackEndException("missing key argument!");
           }
@@ -126,8 +126,8 @@ public class DHTRequestHandler extends AbstractRequestHandler {
         tokenValidation(parameters.get("accessToken")); // Security Validation
       }
 
-      switch (code) {
-        case CREATE : // PUT
+      switch (code) { // NO PMD
+        case CREATE :
           if ((key = parameters.get("key")) == null) {
             throw new InternalBackEndException("missing key argument!");
           } else if ((value = parameters.get("value")) == null) {
