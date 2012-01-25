@@ -68,7 +68,7 @@ public abstract class AbstractMBean {
    * @throws PrivilegedActionException
    */
   public Map<String, byte[]> getAttributeToMap() throws InternalBackEndException {
-    final AbstractMBean.InnerPrivilegedExceptionAction action = new AbstractMBean.InnerPrivilegedExceptionAction(this);
+    final AbstractMBean.InnerPrivilegedExceptionAction action = this.new InnerPrivilegedExceptionAction(this);
     try {
       return AccessController.doPrivilegedWithCombiner(action);
     } catch (final PrivilegedActionException ex) {
@@ -83,7 +83,7 @@ public abstract class AbstractMBean {
    */
   @Override
   public String toString() {
-    final AbstractMBean.InnerPrivilegedAction action = new AbstractMBean.InnerPrivilegedAction(this);
+    final AbstractMBean.InnerPrivilegedAction action = this.new InnerPrivilegedAction(this);
     final StringBuffer bean = AccessController.doPrivileged(action);
 
     return bean.toString();
@@ -94,7 +94,7 @@ public abstract class AbstractMBean {
    * 
    * @author Milo Casagrande
    */
-  private static final class InnerPrivilegedExceptionAction implements PrivilegedExceptionAction<Map<String, byte[]>> {
+  private final class InnerPrivilegedExceptionAction implements PrivilegedExceptionAction<Map<String, byte[]>> {
 
     private final Object object;
 
@@ -134,7 +134,7 @@ public abstract class AbstractMBean {
     }
   }
 
-  private static final class InnerPrivilegedAction implements PrivilegedAction<StringBuffer> {
+  private final class InnerPrivilegedAction implements PrivilegedAction<StringBuffer> {
 
     private final Object object;
 
