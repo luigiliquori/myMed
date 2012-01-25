@@ -123,10 +123,13 @@ class FindView1 extends MyApplication {
 				</div>
 				
 				<!-- DATE -->
-				<div style="text-align: left;">Partir le :</div>
-				<input type="date" id="date"  name="date"  data-role="datebox" data-options='{"mode": "calbox"}' data-theme="a" readonly="readonly" >	
-				<div style="text-align: left;">à :</div>
-				<input type="date" id="time"  name="time"  data-role="datebox" data-options='{"mode": "timebox", "timeFormatOverride": 12}' data-theme="a" readonly="readonly" >
+
+				<div data-role="fieldcontain">
+					<label for="date">Partir le :</label><input name="date" type="date" data-role="datebox" id="date" data-options='{"useInline": true, "noButtonFocusMode": true, "useInlineBlind": true, "mode": "calbox"}' value="2012-01-25";/>
+				</div>
+				<div data-role="fieldcontain">
+					<label for="time">à :</label><input name="time" type="date" data-role="datebox" id="time" data-options='{"useInline": true, "noButtonFocusMode": true, "useInlineBlind": true, "mode": "timebox", "timeFormatOverride": 12}' value="5:00 PM"/>
+				</div>
 				
 				<!-- SEPARATOR -->
 				<div >

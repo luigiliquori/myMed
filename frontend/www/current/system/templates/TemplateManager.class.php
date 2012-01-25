@@ -32,17 +32,26 @@ class TemplateManager {
 		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, <?= TARGET == "mobile" ? "user-scalable=0" : "" ?>" /> 
 		
-		<!-- JQUERY -->
+		<!-- JQUERY CSS -->
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+		<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.css" rel="stylesheet" /> 
+		<link type="text/css" href="http://dev.jtsage.com/jQM-DateBox/css/demos.css" rel="stylesheet" /> 
+		
+		<!-- JQUERY -->
 		<script type="text/javascript" src="lib/jquery/jquery-1.7.1.min.js"></script>
 		<script type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
+	
+		<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
+		<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
+		<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
+		<link type="text/css" href="http://dev.jtsage.com/gpretty/prettify.css" rel="stylesheet" />
 		
 		<!-- MAP -->
 		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=<?= Google_APP_SECRET ?>&sensor=true"> </script>
 		
-		<!-- DATEBOX -->
-		<script src="lib/jquery/datebox/jquery.mobile.datebox.min.js"></script>
-		<link href="lib/jquery/datebox/jquery.mobile.datebox.min.css" rel="stylesheet" />
+		<!-- DATEBOX replaced by datebox jtusage -->
+		<!--  <script src="lib/jquery/datebox/jquery.mobile.datebox.min.js"></script>
+		<link href="lib/jquery/datebox/jquery.mobile.datebox.min.css" rel="stylesheet" />   -->
 		
 		<!-- Common javascript -->
 		<script src="system/javascript/common.js"></script>
