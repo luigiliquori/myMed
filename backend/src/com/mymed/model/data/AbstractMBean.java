@@ -119,7 +119,7 @@ public abstract class AbstractMBean {
 
         try {
           final ClassType type = ClassType.inferTpye(field.getType());
-          args.put(field.getName(), ClassType.objectToByteArray(type, field.get(this)));
+          args.put(field.getName(), ClassType.objectToByteArray(type, field.get(object)));
         } catch (final IllegalArgumentException ex) {
           LOGGER.debug("Introspection failed", ex);
           // NO PMD
@@ -158,7 +158,7 @@ public abstract class AbstractMBean {
         }
 
         try {
-          if (field.get(this) instanceof String) {
+          if (field.get(object) instanceof String) {
             value.append('\t');
             value.append(field.getName());
             value.append(" : ");
