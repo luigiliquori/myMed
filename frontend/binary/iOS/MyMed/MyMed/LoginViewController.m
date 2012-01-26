@@ -19,8 +19,8 @@
 #pragma mark - const definitions
 
 // URL'S
-static NSString * const M_URL_AUTH = @"http://mymed2.sophia.inria.fr:8080/mymed_backend/AuthenticationRequestHandler";
-static NSString * const M_URL_SESSION = @"http://mymed2.sophia.inria.fr:8080/mymed_backend/SessionRequestHandler";
+static NSString * const M_URL_AUTH = @"http://mymed2.sophia.inria.fr:8080/backend/AuthenticationRequestHandler";
+static NSString * const M_URL_SESSION = @"http://mymed2.sophia.inria.fr:8080/backend/SessionRequestHandler";
 
 // CODES for Backend/Frontend
 static const unsigned M_CODE_CREATE = 0;
@@ -39,6 +39,7 @@ static NSString * const UD_KEY_USERNAME = @"UserName";
 - (void) presentMyMedWebViewWithURL:(NSURL *) url;
 - (void) storeUserName:(NSString *) username andPassword:(NSString *) password;
 - (NSString *) retrieveStoredUserName;
+- (BOOL) didValidateLogin;
 @end
 
 @implementation LoginViewController (private)
@@ -130,6 +131,24 @@ static NSString * const UD_KEY_USERNAME = @"UserName";
     return nil;
 }
 
+- (BOOL) didValidateLogin
+{
+    if ([[self.eMailField text] isEqualToString:@""]) {
+        [self displayAlertWithTittle:@"Specify Username" andMessage:@"Please specify a username to login"];
+        return NO;
+    } else {
+        if ([ConnectionStatusChecker doesHaveConnectivity]) {
+            
+            return YES;
+        }  else {
+            [self displayAlertWithTittle:@"Server Unreachable" andMessage:@"The myMed server is unreachable, please check your network connectivity (WiFi, 3G)"];
+            return NO;
+        }
+    }
+    
+    return NO;
+}
+
 @end
 
 #pragma mark - Notifications listener
@@ -217,6 +236,17 @@ static NSString * const UD_KEY_USERNAME = @"UserName";
 }
 
 #pragma mark - UITextFieldDelegate
+
+
+
+- (IBAction) submitLogin:(id)sender
+{
+    if ([self didValidateLogin]) {
+        [self submitLogin:self.eMailField.text andPassword:self.passwordField.text];
+        [self storeUserName:self.eMailField.text andPassword:self.passwordField.text];
+    }
+}
+
 -(BOOL) textFieldShouldReturn:(UITextField *) textField;
 {
     // Try to find next responder
@@ -226,15 +256,9 @@ static NSString * const UD_KEY_USERNAME = @"UserName";
     if (nextResponder) {
         [nextResponder becomeFirstResponder];
     } else {
-        if ([[self.eMailField text] isEqualToString:@""]) {
-            [self displayAlertWithTittle:@"Specify Username" andMessage:@"Please specify a username to login"];
-        } else {
-            if ([ConnectionStatusChecker doesHaveConnectivity]) {
-                [self submitLogin:self.eMailField.text andPassword:self.passwordField.text];
-                [self storeUserName:self.eMailField.text andPassword:self.passwordField.text];
-            }  else {
-                [self displayAlertWithTittle:@"Server Unreachable" andMessage:@"The myMed server is unreachable, please check your network connectivity (WiFi, 3G)"];
-            }
+        if ([self didValidateLogin]) {
+            [self submitLogin:self.eMailField.text andPassword:self.passwordField.text];
+            [self storeUserName:self.eMailField.text andPassword:self.passwordField.text];
         }
     }
 

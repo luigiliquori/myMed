@@ -1,5 +1,0 @@
-file d0cbe2cd05dc0aca5b2ca5ede5e379f3b1abca00 chash=cd8e48a977f813370d40b910a7e823d084417718 group=sys mode=0664 owner=root path=glassfish/modules/commons-codec-repackaged.jar pkg.csize=44260 pkg.size=49805
-file f21d1834544d8c12616d44622cac533559247d12 chash=be5a16a4c23939ac5a47b283d3a30c95098bac89 group=sys mode=0664 owner=root path=glassfish/modules/sysnet-registration-repackaged.jar pkg.csize=135745 pkg.size=142991
-file 1469bbc200bb6c075ffa7b70158c1311ec42f6c4 chash=f0355e96fc4d2a30957fef900a6b6c990434f9cd group=sys mode=0664 owner=root path=glassfish/modules/glassfish-registration.jar pkg.csize=11983 pkg.size=14298
-file ca052ba082afcd3f98f0c1a145d80f0f8f977083 chash=890904f93cda2cc5e8533572dff580739d4e213e group=sys mode=0664 owner=root path=glassfish/modules/registration-api.jar pkg.csize=8856 pkg.size=11804
-file b93eea52c86da56a0b525d720e6995f837ea343f chash=e2b58c3c37b203347e834feb49deeb9ebd1d07b7 group=sys mode=0664 owner=root path=glassfish/modules/registration-impl.jar pkg.csize=41281 pkg.size=45280

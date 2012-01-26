@@ -1,3 +1,18 @@
+/*
+ * Copyright 2012 INRIA 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+*/
 package com.mymed.controller.core.requesthandler;
 
 import java.io.IOException;
@@ -53,6 +68,13 @@ public class PositionRequestHandler extends AbstractRequestHandler {
 			final RequestCode code = requestCodeMap.get(parameters.get("code"));
 			String userID = parameters.get("userID");
 
+			// accessToken
+			if (parameters.get("accessToken") == null) {
+				throw new InternalBackEndException("accessToken argument is missing!");
+			} else {
+				tokenValidation(parameters.get("accessToken")); // Security Validation
+			}
+			
 			if (userID == null) {
 				throw new InternalBackEndException("userID argument missing!");
 			}
@@ -60,7 +82,6 @@ public class PositionRequestHandler extends AbstractRequestHandler {
 			switch (code) {
 			case READ:
 				message.setMethod("READ");
-				System.out.println("USER: " + userID);
 				MPositionBean position = positionManager.read(userID);
 				message.addData("position", getGson().toJson(position));
 				break;
@@ -70,7 +91,6 @@ public class PositionRequestHandler extends AbstractRequestHandler {
 			}
 
 		} catch (final AbstractMymedException e) {
-			e.printStackTrace();
 			MLogger.getLog().info("Error in doGet");
 			MLogger.getDebugLog().debug("Error in doGet", e.getCause());
 			message.setStatus(e.getStatus());
@@ -91,6 +111,14 @@ public class PositionRequestHandler extends AbstractRequestHandler {
 			final Map<String, String> parameters = getParameters(request);
 			final RequestCode code = requestCodeMap.get(parameters.get("code"));
 			final String position = parameters.get("position");
+			
+			// accessToken
+			if (!parameters.containsKey("accessToken")) {
+				throw new InternalBackEndException("accessToken argument is missing!");
+			} else {
+				tokenValidation(parameters.get("accessToken")); // Security Validation
+			}
+			
 			if (position == null) {
 				throw new InternalBackEndException("missing position argument!");
 			}
@@ -103,6 +131,7 @@ public class PositionRequestHandler extends AbstractRequestHandler {
 					MPositionBean positionBean = getGson().fromJson(position, MPositionBean.class);
 					MLogger.getLog().info("Trying to update position:\n {}", positionBean.toString());
 					positionManager.update(positionBean);
+					System.out.println("position: " + position);
 					message.setDescription("Position updated!");
 					MLogger.getLog().info("Position updated!");
 				} catch (final JsonSyntaxException e) {
@@ -114,6 +143,7 @@ public class PositionRequestHandler extends AbstractRequestHandler {
 			}
 
 		} catch (final AbstractMymedException e) {
+			e.printStackTrace();
 			MLogger.getLog().info("Error in doRequest operation");
 			MLogger.getDebugLog().debug("Error in doRequest operation", e.getCause());
 			message.setStatus(e.getStatus());

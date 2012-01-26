@@ -1,3 +1,18 @@
+/*
+ * Copyright 2012 INRIA
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.mymed.model.core.wrappers.cassandra.api07;
 
 import java.net.InetAddress;
@@ -32,6 +47,8 @@ import org.apache.cassandra.thrift.TokenRange;
 import org.apache.cassandra.thrift.UnavailableException;
 import org.apache.thrift.TException;
 
+import ch.qos.logback.classic.Logger;
+
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.connection.Connection;
@@ -48,32 +65,24 @@ import com.mymed.utils.MLogger;
  * 
  */
 public class CassandraWrapper implements ICassandraWrapper {
-
-  /*
-   * The port number to use for interacting with Cassandra
-   */
+  // The port number to use for interacting with Cassandra
   private static final int PORT_NUMBER = 4201;
 
-  /*
-   * The name of the default keyspace we use for Cassandra
-   */
+  // The name of the default keyspace we use for Cassandra
   private static final String KEYSPACE = "Mymed";
 
-  /*
-   * The connection manager that provides the connection to Cassandra
-   */
+  private static final Logger LOGGER = MLogger.getLogger();
+
+  // The connection manager that provides the connection to Cassandra
   private static final ConnectionManager manager = ConnectionManager.getInstance();
 
-  /*
-   * The connection instance
-   */
   private Connection connection;
 
-  /*
-   * Address and port to use for establishing a connection
-   */
+  // Address and port to use for establishing a connection
   private final String address;
   private final int port;
+
+  private static final Object SYNC = new Object();
 
   /**
    * Empty constructor to create a normal Cassandra client, with address the
@@ -107,47 +116,56 @@ public class CassandraWrapper implements ICassandraWrapper {
    * @throws InternalBackEndException
    */
   private Client getClient() throws InternalBackEndException {
-    connection = (Connection) manager.checkOut(address, port);
+    synchronized (SYNC) {
+      connection = (Connection) manager.checkOut(address, port);
 
-    try {
-      MLogger.getLog().info("Setting keyspace to '{}'", KEYSPACE);
-      connection.getClient().set_keyspace(KEYSPACE);
-    } catch (final InvalidRequestException ex) {
-      MLogger.getDebugLog().debug("Error setting the keyspace '{}'", KEYSPACE, ex.getCause());
-      throw new InternalBackEndException("Error setting the keyspace");
-    } catch (final TException ex) {
-      MLogger.getDebugLog().debug("Error setting the keyspace '{}'", KEYSPACE, ex.getCause());
-      throw new InternalBackEndException("Error setting the keyspace");
+      try {
+        LOGGER.info("Setting keyspace to '{}'", KEYSPACE);
+        connection.getClient().set_keyspace(KEYSPACE);
+      } catch (final InvalidRequestException ex) {
+        LOGGER.debug("Error setting the keyspace '{}'", KEYSPACE, ex);
+        throw new InternalBackEndException("Error setting the keyspace");
+      } catch (final TException ex) {
+        LOGGER.debug("Error setting the keyspace '{}'", KEYSPACE, ex);
+        throw new InternalBackEndException("Error setting the keyspace");
+      }
+
+      SYNC.notifyAll();
+      return connection.getClient();
     }
-
-    return connection.getClient();
   }
 
   @Override
   public void login(final AuthenticationRequest authRequest) throws InternalBackEndException {
-    try {
-      getClient().login(authRequest);
-    } catch (final AuthenticationException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final AuthorizationException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final TException ex) {
-      throw new InternalBackEndException(ex);
-    } finally {
-      manager.checkIn(connection);
+    synchronized (SYNC) {
+      try {
+        getClient().login(authRequest);
+      } catch (final AuthenticationException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final AuthorizationException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final TException ex) {
+        throw new InternalBackEndException(ex);
+      } finally {
+        manager.checkIn(connection);
+        SYNC.notifyAll();
+      }
     }
   }
 
   @Override
   public void set_keyspace(final String keySpace) throws InternalBackEndException {
-    try {
-      getClient().set_keyspace(keySpace);
-    } catch (final InvalidRequestException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final TException ex) {
-      throw new InternalBackEndException(ex);
-    } finally {
-      manager.checkIn(connection);
+    synchronized (SYNC) {
+      try {
+        getClient().set_keyspace(keySpace);
+      } catch (final InvalidRequestException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final TException ex) {
+        throw new InternalBackEndException(ex);
+      } finally {
+        manager.checkIn(connection);
+        SYNC.notifyAll();
+      }
     }
   }
 
@@ -168,7 +186,7 @@ public class CassandraWrapper implements ICassandraWrapper {
       try {
         return get(key, path, level, ttl--);
       } catch (final TimedOutException ex) {
-        MLogger.getDebugLog().debug("Impossible to connect to a host", ex.getCause());
+        LOGGER.debug("Impossible to connect to a host", ex);
         continue;
       }
     } while (ttl > 0);
@@ -183,25 +201,29 @@ public class CassandraWrapper implements ICassandraWrapper {
       throws IOBackEndException, InternalBackEndException, TimedOutException {
 
     final ByteBuffer keyToBuffer = MConverter.stringToByteBuffer(key);
-    ColumnOrSuperColumn result = null;
 
-    try {
-      result = getClient().get(keyToBuffer, path, level);
-    } catch (final NotFoundException ex) {
-      throw new IOBackEndException(ex.getMessage(), 404);
-    } catch (final InvalidRequestException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final UnavailableException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final TimedOutException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final TException ex) {
-      throw new InternalBackEndException(ex);
-    } finally {
-      manager.checkIn(connection);
+    synchronized (SYNC) {
+      ColumnOrSuperColumn result = null;
+
+      try {
+        result = getClient().get(keyToBuffer, path, level);
+      } catch (final NotFoundException ex) {
+        throw new IOBackEndException(ex.getMessage(), 404);
+      } catch (final InvalidRequestException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final UnavailableException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final TimedOutException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final TException ex) {
+        throw new InternalBackEndException(ex);
+      } finally {
+        manager.checkIn(connection);
+        SYNC.notifyAll();
+      }
+
+      return result;
     }
-
-    return result;
   }
 
   @Override
@@ -221,7 +243,7 @@ public class CassandraWrapper implements ICassandraWrapper {
       try {
         return get_slice(key, parent, predicate, level, ttl--);
       } catch (final TimedOutException ex) {
-        MLogger.getDebugLog().debug("Impossible to connect to a host", ex.getCause());
+        LOGGER.debug("Impossible to connect to a host", ex);
         continue;
       }
     } while (ttl > 0);
@@ -237,22 +259,26 @@ public class CassandraWrapper implements ICassandraWrapper {
       TimedOutException {
 
     final ByteBuffer keyToBuffer = MConverter.stringToByteBuffer(key);
-    List<ColumnOrSuperColumn> result = null;
 
-    try {
-      result = getClient().get_slice(keyToBuffer, parent, predicate, level);
-    } catch (final InvalidRequestException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final UnavailableException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final TException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final TimedOutException ex) {
-    } finally {
-      manager.checkIn(connection);
+    synchronized (SYNC) {
+      List<ColumnOrSuperColumn> result = null;
+
+      try {
+        result = getClient().get_slice(keyToBuffer, parent, predicate, level);
+      } catch (final InvalidRequestException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final UnavailableException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final TException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final TimedOutException ex) {
+      } finally {
+        manager.checkIn(connection);
+        SYNC.notifyAll();
+      }
+
+      return result;
     }
-
-    return result;
   }
 
   @Override
@@ -272,7 +298,7 @@ public class CassandraWrapper implements ICassandraWrapper {
       try {
         return multiget_slice(keys, parent, predicate, level, ttl--);
       } catch (final TimedOutException ex) {
-        MLogger.getDebugLog().debug("Impossible to connect to a host", ex.getCause());
+        LOGGER.debug("Impossible to connect to a host", ex);
         continue;
       }
     } while (ttl > 0);
@@ -286,24 +312,29 @@ public class CassandraWrapper implements ICassandraWrapper {
   private Map<ByteBuffer, List<ColumnOrSuperColumn>> multiget_slice(final List<String> keys, final ColumnParent parent,
       final SlicePredicate predicate, final ConsistencyLevel level, final int ttl) throws InternalBackEndException,
       TimedOutException {
+
     final List<ByteBuffer> keysToBuffer = MConverter.stringToByteBuffer(keys);
-    Map<ByteBuffer, List<ColumnOrSuperColumn>> result = null;
 
-    try {
-      result = getClient().multiget_slice(keysToBuffer, parent, predicate, level);
-    } catch (final InvalidRequestException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final UnavailableException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final TimedOutException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final TException ex) {
-      throw new InternalBackEndException(ex);
-    } finally {
-      manager.checkIn(connection);
+    synchronized (SYNC) {
+      Map<ByteBuffer, List<ColumnOrSuperColumn>> result = null;
+
+      try {
+        result = getClient().multiget_slice(keysToBuffer, parent, predicate, level);
+      } catch (final InvalidRequestException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final UnavailableException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final TimedOutException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final TException ex) {
+        throw new InternalBackEndException(ex);
+      } finally {
+        manager.checkIn(connection);
+        SYNC.notifyAll();
+      }
+
+      return result;
     }
-
-    return result;
   }
 
   @Override
@@ -323,7 +354,7 @@ public class CassandraWrapper implements ICassandraWrapper {
       try {
         return get_count(key, parent, predicate, level, ttl--);
       } catch (final TimedOutException ex) {
-        MLogger.getDebugLog().debug("Impossible to connect to a host", ex.getCause());
+        LOGGER.debug("Impossible to connect to a host", ex);
         continue;
       }
     } while (ttl > 0);
@@ -338,23 +369,27 @@ public class CassandraWrapper implements ICassandraWrapper {
       final ConsistencyLevel level, final int ttl) throws InternalBackEndException, TimedOutException {
 
     final ByteBuffer keyToBuffer = MConverter.stringToByteBuffer(key);
-    int result = -1;
 
-    try {
-      result = getClient().get_count(keyToBuffer, parent, predicate, level);
-    } catch (final InvalidRequestException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final UnavailableException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final TimedOutException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final TException ex) {
-      throw new InternalBackEndException(ex);
-    } finally {
-      manager.checkIn(connection);
+    synchronized (SYNC) {
+      int result = -1;
+
+      try {
+        result = getClient().get_count(keyToBuffer, parent, predicate, level);
+      } catch (final InvalidRequestException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final UnavailableException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final TimedOutException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final TException ex) {
+        throw new InternalBackEndException(ex);
+      } finally {
+        manager.checkIn(connection);
+        SYNC.notifyAll();
+      }
+
+      return result;
     }
-
-    return result;
   }
 
   @Override
@@ -374,7 +409,7 @@ public class CassandraWrapper implements ICassandraWrapper {
       try {
         return multiget_count(keys, parent, predicate, level, ttl--);
       } catch (final TimedOutException ex) {
-        MLogger.getDebugLog().debug("Impossible to connect to a host", ex.getCause());
+        LOGGER.debug("Impossible to connect to a host", ex);
         continue;
       }
     } while (ttl > 0);
@@ -390,23 +425,27 @@ public class CassandraWrapper implements ICassandraWrapper {
       TimedOutException {
 
     final List<ByteBuffer> keysToBuffer = MConverter.stringToByteBuffer(keys);
-    Map<ByteBuffer, Integer> result = null;
 
-    try {
-      result = getClient().multiget_count(keysToBuffer, parent, predicate, level);
-    } catch (final InvalidRequestException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final UnavailableException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final TimedOutException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final TException ex) {
-      throw new InternalBackEndException(ex);
-    } finally {
-      manager.checkIn(connection);
+    synchronized (SYNC) {
+      Map<ByteBuffer, Integer> result = null;
+
+      try {
+        result = getClient().multiget_count(keysToBuffer, parent, predicate, level);
+      } catch (final InvalidRequestException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final UnavailableException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final TimedOutException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final TException ex) {
+        throw new InternalBackEndException(ex);
+      } finally {
+        manager.checkIn(connection);
+        SYNC.notifyAll();
+      }
+
+      return result;
     }
-
-    return result;
   }
 
   @Override
@@ -426,7 +465,7 @@ public class CassandraWrapper implements ICassandraWrapper {
       try {
         return get_range_slices(parent, predicate, range, level, ttl--);
       } catch (final TimedOutException ex) {
-        MLogger.getDebugLog().debug("Impossible to connect to a host", ex.getCause());
+        LOGGER.debug("Impossible to connect to a host", ex);
         continue;
       }
     } while (ttl > 0);
@@ -441,46 +480,52 @@ public class CassandraWrapper implements ICassandraWrapper {
       final KeyRange range, final ConsistencyLevel level, final int ttl) throws InternalBackEndException,
       TimedOutException {
 
-    List<KeySlice> result = null;
+    synchronized (SYNC) {
+      List<KeySlice> result = null;
 
-    try {
-      result = getClient().get_range_slices(parent, predicate, range, level);
-    } catch (final InvalidRequestException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final UnavailableException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final TimedOutException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final TException ex) {
-      throw new InternalBackEndException(ex);
-    } finally {
-      manager.checkIn(connection);
+      try {
+        result = getClient().get_range_slices(parent, predicate, range, level);
+      } catch (final InvalidRequestException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final UnavailableException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final TimedOutException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final TException ex) {
+        throw new InternalBackEndException(ex);
+      } finally {
+        manager.checkIn(connection);
+        SYNC.notifyAll();
+      }
+
+      return result;
     }
-
-    return result;
   }
 
   @Override
   public List<KeySlice> get_indexed_slices(final ColumnParent parent, final IndexClause clause,
       final SlicePredicate predicate, final ConsistencyLevel level) throws InternalBackEndException {
 
-    List<KeySlice> result = null;
+    synchronized (SYNC) {
+      List<KeySlice> result = null;
 
-    try {
-      result = getClient().get_indexed_slices(parent, clause, predicate, level);
-    } catch (final InvalidRequestException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final UnavailableException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final TimedOutException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final TException ex) {
-      throw new InternalBackEndException(ex);
-    } finally {
-      manager.checkIn(connection);
+      try {
+        result = getClient().get_indexed_slices(parent, clause, predicate, level);
+      } catch (final InvalidRequestException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final UnavailableException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final TimedOutException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final TException ex) {
+        throw new InternalBackEndException(ex);
+      } finally {
+        manager.checkIn(connection);
+        SYNC.notifyAll();
+      }
+
+      return result;
     }
-
-    return result;
   }
 
   @Override
@@ -489,18 +534,21 @@ public class CassandraWrapper implements ICassandraWrapper {
 
     final ByteBuffer keyToBuffer = MConverter.stringToByteBuffer(key);
 
-    try {
-      getClient().insert(keyToBuffer, parent, column, level);
-    } catch (final InvalidRequestException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final UnavailableException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final TimedOutException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final TException ex) {
-      throw new InternalBackEndException(ex);
-    } finally {
-      manager.checkIn(connection);
+    synchronized (SYNC) {
+      try {
+        getClient().insert(keyToBuffer, parent, column, level);
+      } catch (final InvalidRequestException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final UnavailableException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final TimedOutException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final TException ex) {
+        throw new InternalBackEndException(ex);
+      } finally {
+        manager.checkIn(connection);
+        SYNC.notifyAll();
+      }
     }
   }
 
@@ -528,18 +576,21 @@ public class CassandraWrapper implements ICassandraWrapper {
 
   public void batchMutate(final Map<ByteBuffer, Map<String, List<Mutation>>> mutationMap, final ConsistencyLevel level)
       throws InternalBackEndException {
-    try {
-      getClient().batch_mutate(mutationMap, level);
-    } catch (final InvalidRequestException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final UnavailableException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final TimedOutException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final TException ex) {
-      throw new InternalBackEndException(ex);
-    } finally {
-      manager.checkIn(connection);
+    synchronized (SYNC) {
+      try {
+        getClient().batch_mutate(mutationMap, level);
+      } catch (final InvalidRequestException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final UnavailableException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final TimedOutException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final TException ex) {
+        throw new InternalBackEndException(ex);
+      } finally {
+        manager.checkIn(connection);
+        SYNC.notifyAll();
+      }
     }
   }
 
@@ -549,33 +600,39 @@ public class CassandraWrapper implements ICassandraWrapper {
 
     final ByteBuffer keyToBuffer = MConverter.stringToByteBuffer(key);
 
-    try {
-      getClient().remove(keyToBuffer, path, timeStamp, level);
-    } catch (final InvalidRequestException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final UnavailableException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final TimedOutException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final TException ex) {
-      throw new InternalBackEndException(ex);
-    } finally {
-      manager.checkIn(connection);
+    synchronized (SYNC) {
+      try {
+        getClient().remove(keyToBuffer, path, timeStamp, level);
+      } catch (final InvalidRequestException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final UnavailableException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final TimedOutException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final TException ex) {
+        throw new InternalBackEndException(ex);
+      } finally {
+        manager.checkIn(connection);
+        SYNC.notifyAll();
+      }
     }
   }
 
   @Override
   public void truncate(final String columnFamily) throws InternalBackEndException {
-    try {
-      getClient().truncate(columnFamily);
-    } catch (final InvalidRequestException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final UnavailableException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final TException ex) {
-      throw new InternalBackEndException(ex);
-    } finally {
-      manager.checkIn(connection);
+    synchronized (SYNC) {
+      try {
+        getClient().truncate(columnFamily);
+      } catch (final InvalidRequestException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final UnavailableException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final TException ex) {
+        throw new InternalBackEndException(ex);
+      } finally {
+        manager.checkIn(connection);
+        SYNC.notifyAll();
+      }
     }
   }
 
@@ -602,7 +659,7 @@ public class CassandraWrapper implements ICassandraWrapper {
     try {
       keySpaceDef = getClient().describe_keyspace(keySpace);
     } catch (final NotFoundException ex) {
-    	throw new IOBackEndException(ex.getMessage(), 404);
+      throw new IOBackEndException(ex.getMessage(), 404);
     } catch (final InvalidRequestException ex) {
       throw new InternalBackEndException(ex);
     } catch (final TException ex) {
@@ -700,110 +757,122 @@ public class CassandraWrapper implements ICassandraWrapper {
 
   @Override
   public String system_add_column_family(final CfDef cfDef) throws InternalBackEndException {
+    synchronized (SYNC) {
+      String schemaId = null;
 
-    String schemaId = null;
+      try {
+        schemaId = getClient().system_add_column_family(cfDef);
+      } catch (final InvalidRequestException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final TException ex) {
+        throw new InternalBackEndException(ex);
+      } finally {
+        manager.checkIn(connection);
+        SYNC.notifyAll();
+      }
 
-    try {
-      schemaId = getClient().system_add_column_family(cfDef);
-    } catch (final InvalidRequestException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final TException ex) {
-      throw new InternalBackEndException(ex);
-    } finally {
-      manager.checkIn(connection);
+      return schemaId;
     }
-
-    return schemaId;
   }
 
   @Override
   public String system_drop_column_family(final String columnFamily) throws InternalBackEndException {
+    synchronized (SYNC) {
+      String schemaId = null;
 
-    String schemaId = null;
+      try {
+        schemaId = getClient().system_drop_column_family(columnFamily);
+      } catch (final InvalidRequestException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final TException ex) {
+        throw new InternalBackEndException(ex);
+      } finally {
+        manager.checkIn(connection);
+        SYNC.notifyAll();
+      }
 
-    try {
-      schemaId = getClient().system_drop_column_family(columnFamily);
-    } catch (final InvalidRequestException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final TException ex) {
-      throw new InternalBackEndException(ex);
-    } finally {
-      manager.checkIn(connection);
+      return schemaId;
     }
-
-    return schemaId;
   }
 
   @Override
   public String system_add_keyspace(final KsDef ksDef) throws InternalBackEndException {
+    synchronized (SYNC) {
+      String schemaId = null;
 
-    String schemaId = null;
+      try {
+        schemaId = getClient().system_add_keyspace(ksDef);
+      } catch (final InvalidRequestException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final TException ex) {
+        throw new InternalBackEndException(ex);
+      } finally {
+        manager.checkIn(connection);
+        SYNC.notifyAll();
+      }
 
-    try {
-      schemaId = getClient().system_add_keyspace(ksDef);
-    } catch (final InvalidRequestException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final TException ex) {
-      throw new InternalBackEndException(ex);
-    } finally {
-      manager.checkIn(connection);
+      return schemaId;
     }
-
-    return schemaId;
   }
 
   @Override
   public String system_drop_keyspace(final String keySpace) throws InternalBackEndException {
+    synchronized (SYNC) {
+      String schemaId = null;
 
-    String schemaId = null;
+      try {
+        schemaId = getClient().system_drop_keyspace(keySpace);
+      } catch (final InvalidRequestException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final TException ex) {
+        throw new InternalBackEndException(ex);
+      } finally {
+        manager.checkIn(connection);
+        SYNC.notifyAll();
+      }
 
-    try {
-      schemaId = getClient().system_drop_keyspace(keySpace);
-    } catch (final InvalidRequestException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final TException ex) {
-      throw new InternalBackEndException(ex);
-    } finally {
-      manager.checkIn(connection);
+      return schemaId;
     }
-
-    return schemaId;
   }
 
   @Override
   public String system_update_column_family(final CfDef columnFamily) throws InternalBackEndException {
+    synchronized (SYNC) {
+      String newSchemaId = null;
 
-    String newSchemaId = null;
+      try {
+        newSchemaId = getClient().system_update_column_family(columnFamily);
+      } catch (final InvalidRequestException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final TException ex) {
+        throw new InternalBackEndException(ex);
+      } finally {
+        manager.checkIn(connection);
+        SYNC.notifyAll();
+      }
 
-    try {
-      newSchemaId = getClient().system_update_column_family(columnFamily);
-    } catch (final InvalidRequestException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final TException ex) {
-      throw new InternalBackEndException(ex);
-    } finally {
-      manager.checkIn(connection);
+      return newSchemaId;
     }
-
-    return newSchemaId;
   }
 
   @Override
   public String system_update_keyspace(final KsDef keySpace) throws InternalBackEndException {
+    synchronized (SYNC) {
+      String newSchemaId = null;
 
-    String newSchemaId = null;
+      try {
+        newSchemaId = getClient().system_update_keyspace(keySpace);
+      } catch (final InvalidRequestException ex) {
+        throw new InternalBackEndException(ex);
+      } catch (final TException ex) {
+        throw new InternalBackEndException(ex);
+      } finally {
+        manager.checkIn(connection);
+        SYNC.notifyAll();
+      }
 
-    try {
-      newSchemaId = getClient().system_update_keyspace(keySpace);
-    } catch (final InvalidRequestException ex) {
-      throw new InternalBackEndException(ex);
-    } catch (final TException ex) {
-      throw new InternalBackEndException(ex);
-    } finally {
-      manager.checkIn(connection);
+      return newSchemaId;
     }
-
-    return newSchemaId;
   }
 
   /**

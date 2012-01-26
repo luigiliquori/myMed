@@ -1,9 +1,30 @@
+/*
+ * Copyright 2012 INRIA
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.mymed.model.data;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
+import java.security.PrivilegedActionException;
+import java.security.PrivilegedExceptionAction;
 import java.util.HashMap;
 import java.util.Map;
+
+import ch.qos.logback.classic.Logger;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.utils.ClassType;
@@ -34,88 +55,140 @@ import com.mymed.utils.MLogger;
  * - The class must override toString to have an human readable format
  * 
  * @author lvanni
+ * @author Milo Casagrande
  */
 public abstract class AbstractMBean {
+  // Default logger for all the beans that extend this abstract
+  protected static final Logger LOGGER = MLogger.getLogger();
 
-	private static final int PRIV_FIN = Modifier.PRIVATE + Modifier.FINAL;
-	private static final int PRIV_STAT_FIN = Modifier.PRIVATE + Modifier.STATIC + Modifier.FINAL;
+  private static final int PRIV = Modifier.PRIVATE;
 
-	/**
-	 * @return all the fields in a hashMap format for the myMed wrapper
-	 * @throws InternalBackEndException
-	 */
-	public Map<String, byte[]> getAttributeToMap() throws InternalBackEndException {
-		final Map<String, byte[]> args = new HashMap<String, byte[]>();
-		for (final Field field : this.getClass().getDeclaredFields()) {
+  /**
+   * @return all the fields in a hashMap format for the myMed wrapper
+   * @throws InternalBackEndException
+   * @throws PrivilegedActionException
+   */
+  public Map<String, byte[]> getAttributeToMap() throws InternalBackEndException {
+    final AbstractMBean.InnerPrivilegedExceptionAction action = new AbstractMBean.InnerPrivilegedExceptionAction(this);
+    try {
+      return AccessController.doPrivilegedWithCombiner(action);
+    } catch (final PrivilegedActionException ex) {
+      throw new InternalBackEndException(ex.getMessage());
+    }
+  }
 
-			// Set the field as accessible: it is not really secure in this case
-			// TODO maybe we should invoke the get methods and retrieve the
-			// values in that way
-			field.setAccessible(true);
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    final AbstractMBean.InnerPrivilegedAction action = new AbstractMBean.InnerPrivilegedAction(this);
+    final StringBuffer bean = AccessController.doPrivileged(action);
 
-			/*
-			 * We check the value of the modifiers of the field: if the field is
-			 * private and final, or private static and final, we skip it.
-			 */
-			final int modifiers = field.getModifiers();
-			if (modifiers == PRIV_FIN || modifiers == PRIV_STAT_FIN) {
-				continue;
-			}
+    return bean.toString();
+  }
 
-			try {
-				final ClassType type = ClassType.inferTpye(field.getType());
-				args.put(field.getName(), ClassType.objectToByteArray(type, field.get(this)));
-			} catch (final IllegalArgumentException ex) {
-				MLogger.getDebugLog().debug("Introspection failed", ex.getCause());
-				throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
-			} catch (final IllegalAccessException ex) {
-				MLogger.getDebugLog().debug("Introspection failed", ex.getCause());
-				throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
-			}
-		}
+  /**
+   * Static inner class to provide reflection mechanism in a protected way,
+   * without strong references
+   * 
+   * @author Milo Casagrande
+   */
+  private static final class InnerPrivilegedExceptionAction implements PrivilegedExceptionAction<Map<String, byte[]>> {
 
-		return args;
-	}
+    private final Object object;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		final StringBuffer value = new StringBuffer(200);
+    public InnerPrivilegedExceptionAction(final Object object) {
+      this.object = object;
+    }
 
-		for (final Field field : this.getClass().getDeclaredFields()) {
+    @Override
+    public Map<String, byte[]> run() throws Exception {
+      final Class<?> clazz = object.getClass();
+      final Map<String, byte[]> args = new HashMap<String, byte[]>();
 
-			// TODO fix here, not really secure
-			field.setAccessible(true);
+      for (final Field field : clazz.getDeclaredFields()) {
+        field.setAccessible(true);
 
-			try {
-				if (field.get(this) instanceof String) {
-					value.append('\t');
-					value.append(field.getName());
-					value.append(" : ");
-					value.append((String) field.get(this));
-					value.append('\n');
-				} else {
-					value.append('\t');
-					value.append(field.getName());
-					value.append(" : ");
-					value.append(field.get(this));
-					value.append('\n');
-				}
-			} catch (final IllegalArgumentException e) {
-				// We should never get here!
-				MLogger.getDebugLog().debug("Arguments are not valid", e.getCause());
-			} catch (final IllegalAccessException e) {
-				MLogger.getDebugLog().debug("Impossibile to access the field '{}'", field.getName(), e.getCause());
-			}
-		}
+        // We check the value of the modifiers of the field: if the field
+        // is not just private, we skip it
+        final int modifiers = field.getModifiers();
+        if (modifiers != PRIV) {
+          continue;
+        }
 
-		value.trimToSize();
+        try {
+          final ClassType type = ClassType.inferTpye(field.getType());
+          args.put(field.getName(), ClassType.objectToByteArray(type, field.get(object)));
+        } catch (final IllegalArgumentException ex) {
+          LOGGER.debug("Introspection failed", ex);
+          throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
+        } catch (final IllegalAccessException ex) {
+          LOGGER.debug("Introspection failed", ex);
+          throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
+        }
+      }
 
-		return value.toString();
-	}
+      return args;
+    }
+  }
 
+  /**
+   * Static inner class to provide reflection mechanism in a protected way,
+   * without strong references
+   * 
+   * @author Milo Casagrande
+   * 
+   */
+  private static final class InnerPrivilegedAction implements PrivilegedAction<StringBuffer> {
+
+    private final Object object;
+
+    public InnerPrivilegedAction(final Object object) {
+      this.object = object;
+    }
+
+    @Override
+    public StringBuffer run() {
+      final Class<?> clazz = object.getClass();
+      final StringBuffer value = new StringBuffer(200);
+
+      for (final Field field : clazz.getDeclaredFields()) {
+        field.setAccessible(true);
+
+        // We check the value of the modifiers of the field: if the field is
+        // not just private, we skip it
+        final int modifiers = field.getModifiers();
+        if (modifiers != PRIV) {
+          continue;
+        }
+
+        try {
+          if (field.get(object) instanceof String) {
+            value.append('\t');
+            value.append(field.getName());
+            value.append(" : ");
+            value.append((String) field.get(object));
+            value.append('\n');
+          } else {
+            value.append('\t');
+            value.append(field.getName());
+            value.append(" : ");
+            value.append(field.get(object));
+            value.append('\n');
+          }
+        } catch (final IllegalArgumentException e) {
+          // We should never get here!
+          LOGGER.debug("Arguments are not valid", e);
+        } catch (final IllegalAccessException e) {
+          LOGGER.debug("Impossible to access field '{}'", field.getName(), e);
+        }
+      }
+
+      value.trimToSize();
+      return value;
+    }
+  }
 }

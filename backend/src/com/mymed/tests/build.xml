@@ -1,114 +1,156 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Ant build file to run JUnit tests for mymed
+Copyright 2012 INRIA
 
-Milo Casagrande <milo.casagrande@inria.fr>, 2011
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 -->
-<project name="mymed" default="test" basedir=".">
+<!--
+Ant build file to run mymed tests
+
+Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
+-->
+<project name="tests" default="managertest" basedir=".">
 	<property name="build.dir"           location="build"/>
 	<property name="lib.dir"             location="lib" />
 	<property name="results.dir"         location="results"/>
 	<property name="tests.dir"           location="unit"/>
-	<property name="conf.dir"            location="../../../../conf"/>
+	<property name="conf.dir"            location="conf"/>
 	<property name="controller.dir"      location="../controller"/>
 	<property name="model.dir"           location="../model"/>
 	<property name="utils.dir"           location="../utils"/>
-	<property name="libs.dir"            location="../../../../lib"/>
 	<property name="java.dir"            location="/usr/share/java"/>
-	<property name="glassfish.dir"       location="../../../../servers/glassfishv3/glassfish/"/>
-	<property name="cassandra.dir"       location="../../../../protocols/cassandra/cassandra"/>
-	<property name="synapse.dir"         location="../../../../protocols/synapse/jSynapse/src"/>
+	<property name="junit.dir"           location="/usr/share/junit"/>
+	<property name="glassfish.dir"       location="/local/glassfish3/glassfish/"/>
+	<property name="cassandra.dir"       location="../../../../WebContent/WEB-INF/lib"/>
+	<property name="httpcomp.dir"        location="/usr/share/apache-commons/httpcomponents"/>
 	<property name="src.dir"             location="${controller.dir}:${model.dir}:${utils.dir}"/>
-	<property name="jsynapse.jar"        value="jSynapse.jar"/>
 	<property name="mymed.jar"           value="mymed.jar"/>
-	<property name="mymedtest.jar"       value="mymedtest.jar"/>
+	<property name="mymedtest.jar"       value="tests.jar"/>
 
- <!-- Fix the classpath to add the necessary resources -->
-	<path id="mymed.classpath" description="Classpath to be used for running the tests">
+  <!-- This is the classpath for compiling the tests, since we need also Glassfish and JavaEE -->
+	<path id="classpath.compile" description="Classpath to be used for compiling the tests">
 		<pathelement path="${java.class.path}"/>
 		<pathelement location="${conf.dir}"/>
-	  <pathelement location="${lib.dir}/mymed.jar"/>
-	  <pathelement location="${lib.dir}/jSynapse.jar"/>
-	  <pathelement location="${lib.dir}/mymedtest.jar"/>
+	  <pathelement location="${lib.dir}/${mymed.jar}"/>
+	  <pathelement location="${lib.dir}/${mymedtest.jar}"/>
+		<pathelement location="${junit.dir}/junit.jar"/>
 	  <pathelement location="."/>
-		<fileset dir="${libs.dir}">
-			<include name="*.jar"/>
-			<include name="**/*.jar"/>
-		</fileset>
-		<fileset dir="${cassandra.dir}/lib">
-			<include name="*.jar"/>
-			<include name="**/*.jar"/>
-			<!-- We exclude this JAR here otherwise SLF4J will throw a warning, nothing blocking, but
-			not good to see. For more info see: http://www.slf4j.org/codes.html#multiple_bindings
-			Cassandra has sl4j binding in its classpath, that's why it complains -->
-			<exclude name="slf4j-log4j12-1.6.1.jar"/>
-		</fileset>
-		<!-- This is necessary for JUnit to work under Jenkins -->
-		<!-- Looks like it is necessary to specify the path to the needed JARs -->
-		<fileset dir="${java.dir}">
-			<include name="**/junit.jar"/>
-			<include name="*.jar"/>
-			<include name="**/*.jar"/>
-		</fileset>
+		<!-- Keep this one here, otherwise it is possible to get nasty compilation errors due
+		to how JARs are imported on the CLASSPATH, and there could be errors with JARs coming
+		from Cassandra -->
 		<fileset dir="${glassfish.dir}">
-			<include name="**/mail.jar"/>
 			<include name="**/javaee.jar"/>
+		</fileset>
+		<fileset dir="${java.dir}">
+			<include name="**/*.jar"/>
+		</fileset>
+		<fileset dir="${cassandra.dir}">
+			<include name="apache-cassandra-0.7.10.jar"/>
+			<include name="libthrift-0.5.jar"/>
+			<include name="gson-1.6.jar"/>
+			<include name="logback-core-0.9.29.jar"/>
+			<include name="slf4j-api-1.6.2.jar"/>
+			<include name="logback-classic-0.9.29.jar"/>
+			<exclude name="log4j-over-slf4j-1.6.2.jar"/>
+		</fileset>
+		<fileset dir="${httpcomp.dir}">
+			<include name="**/*.jar"/>
 		</fileset>
 	</path>
 
-	<!-- Used if we want to pretty print the classpath in case we need to debug -->
-	<pathconvert description="Pretty print the classpath" property="echo.path.compile" refid="mymed.classpath" pathsep="${line.separator}|  |--" />
+  <!--
+  This is the classpath for running the tests. It is different than the above one because
+  of the problem we have running the tests with JavaEE on the classpath. Since for the tests
+  it is not needed, we exlude it and use a different one
+   -->
+  <path id="classpath.run" description="Classpath to be used for running the tests">
+    <pathelement path="${java.class.path}"/>
+    <pathelement location="${conf.dir}"/>
+    <pathelement location="${lib.dir}/${mymed.jar}"/>
+    <pathelement location="${lib.dir}/${mymedtest.jar}"/>
+    <pathelement location="${junit.dir}/junit.jar"/>
+    <pathelement location="."/>
+    <fileset dir="${java.dir}">
+      <include name="**/*.jar"/>
+    </fileset>
+    <fileset dir="${cassandra.dir}">
+      <include name="apache-cassandra-0.7.10.jar"/>
+      <include name="libthrift-0.5.jar"/>
+      <include name="gson-1.6.jar"/>
+      <include name="logback-core-0.9.29.jar"/>
+      <include name="slf4j-api-1.6.2.jar"/>
+      <include name="logback-classic-0.9.29.jar"/>
+      <exclude name="log4j-over-slf4j-1.6.2.jar"/>
+    </fileset>
+    <fileset dir="${httpcomp.dir}">
+      <include name="**/*.jar"/>
+    </fileset>
+  </path>
 
-	<!-- Create the directories structure -->
-	<target name="init" depends="clean" description="Initialize the necessary directories">
+	<target name="init" description="Initialize the necessary directories">
 		<mkdir dir="${build.dir}" />
 		<mkdir dir="${lib.dir}" />
 		<mkdir dir="${results.dir}" />
 	</target>
 
-	<!-- Build synapse -->
-	<target name="synapse" depends="init" description="Compile and create the Synapse JAR">
-		<javac srcdir="${synapse.dir}" destdir="${build.dir}" debug="on">
-			<classpath refid="mymed.classpath"/>
-		</javac>
-		<jar destfile="${lib.dir}/${jsynapse.jar}" basedir="${build.dir}" duplicate="preserve" index="true" />
-	</target>
-
-	<!-- Compile mymed -->
-	<target name="compile" depends="synapse,cleanbuild" description="Compile the necessary files">
-		<javac srcdir="${src.dir}" destdir="${build.dir}" debug="on">
-			<classpath refid="mymed.classpath"/>
+	<target name="compile" depends="init,cleanbuild" description="Compile the necessary files">
+		<javac srcdir="${src.dir}" destdir="${build.dir}" debug="on" fork="true" includeantruntime="true" includejavaruntime="true">
+			<classpath refid="classpath.compile"/>
 		</javac>
 		<jar destfile="${lib.dir}/${mymed.jar}" basedir="${build.dir}" duplicate="preserve" index="true"/>
 	</target>
 
-	<!-- Compile the tests -->
 	<target name="compiletest" depends="compile,cleanbuild" description="Compile the test classes">
-		<javac srcdir="${tests.dir}" destdir="${build.dir}" debug="on">
-			<classpath refid="mymed.classpath"/>
+		<javac srcdir="${tests.dir}" destdir="${build.dir}" debug="on" fork="true" includeantruntime="true" includejavaruntime="true">
+			<classpath refid="classpath.compile"/>
 			<include name="**/*.java"/>
 		</javac>
 		<jar destfile="${lib.dir}/${mymedtest.jar}" basedir="${build.dir}" duplicate="preserve" index="true"/>
 	</target>
 
-	<!-- Run the tests -->
-	<target name="test" depends="compiletest" description="Run all the JUnit tests">
-		<junit printsummary="yes" haltonfailure="no" showoutput="yes">
-			<classpath refid="mymed.classpath"/>
-			<test name="com.mymed.tests.unit.MyMedTestSuite" todir="${results.dir}"/>
+	<target name="managertest" depends="compiletest" description="Run all the JUnit tests for the Manager classes">
+		<junit printsummary="yes" haltonfailure="no" showoutput="yes" includeantruntime="true">
+			<classpath refid="classpath.run"/>
+			<test name="com.mymed.tests.unit.manager.MyMedTestSuite" todir="${results.dir}" outfile="TEST-UnitTest"/>
 			<formatter type="xml"/>
 			<batchtest fork="true"/>
 		</junit>
 	</target>
 
-	<!-- Clean the build dir so that we have small new JARs -->
+	<target name="requesthandler" depends="compiletest" description="Run all the JUnit tests for the RequestHandler">
+	  <junit printsummary="yes" haltonfailure="no" showoutput="yes" includeantruntime="true">
+	    <classpath refid="classpath.run"/>
+	     <test name="com.mymed.tests.unit.handler.RequestHandlerSuite" todir="${results.dir}" outfile="TEST-RequestHandler"/>
+	     <formatter type="xml"/>
+	     <batchtest fork="true"/>
+	  </junit>
+	</target>
+
+	<target name="beans" depends="compiletest" description="Run all the JUnit tests for the bean classes">
+	  <junit printsummary="yes" haltonfailure="no" showoutput="yes" includeantruntime="true">
+	    <classpath refid="classpath.run"/>
+	     <test name="com.mymed.tests.unit.bean.BeansTestSuite" todir="${results.dir}" outfile="TEST-BeansTest"/>
+	     <formatter type="xml"/>
+	     <batchtest fork="true"/>
+	  </junit>
+	</target>
+
 	<target name="cleanbuild" description="Clean the build directory from other directories">
 		<delete includeemptydirs="true" failonerror="false">
 		  <fileset dir="${build.dir}" includes="**/*"/>
 		</delete>
 	</target>
 
-	<!-- Clean up everything -->
 	<target name="clean" description="Remove the directories used for the build">
 	  <delete dir="${build.dir}" />
 		<delete dir="${lib.dir}" />

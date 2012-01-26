@@ -20,8 +20,8 @@ enum CameraAlertButtonIndex {
 };
 
 #pragma mark - Static Definitions
-static NSString * const MY_MED_INDEX_URL = @"http://mymed2.sophia.inria.fr/mobile/index.php";
-static NSString * const MY_MED_PUBLISH_URL = @"http://mymed2.sophia.inria.fr:8080/mymed_backend/PublishRequestHandler";
+static NSString * const MY_MED_INDEX_URL = @"http://mymed2.sophia.inria.fr/index.php";
+static NSString * const MY_MED_PUBLISH_URL = @"http://mymed2.sophia.inria.fr:8080/backend/PublishRequestHandler";
 
 #pragma mark -
 #pragma mark - Private Methods for Notification Handling

@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+Copyright 2012 INRIA
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<!--
 Ant build file to run analysis tools for mymed.
 It depends on the build.xml files, since it needs also some JARs that are created there.
 
-Milo Casagrande <milo.casagrande@inria.fr>, 2011
+Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
 -->
 <project name="mymed-code-analysis" default="all" basedir=".">
   <property name="results.dir"         location="results"/>
@@ -14,42 +29,59 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
   <property name="utils.dir"           location="../utils"/>
   <property name="java.dir"            location="/usr/share/java"/>
   <property name="findbugs.dir"        location="/usr/share/findbugs"/>
-	<property name="libs.dir"            location="../../../../lib"/>
-  <property name="cassandra.dir"       location="../../../../protocols/cassandra/cassandra"/>
+	<property name="junit.dir"           location="/usr/share/junit"/>
+  <property name="cassandra.dir"       location="../../../../WebContent/WEB-INF/lib"/>
   <property name="src.dir"             location="${controller.dir}:${model.dir}:${utils.dir}"/>
+	<property name="httpcomp.dir"        location="/usr/share/apache-commons/httpcomponents"/>
+	<property name="glassfish.dir"       location="/local/glassfish3/glassfish/"/>
+	<property name="mymed.jar"           value="mymed.jar"/>
+	<property name="mymedtest.jar"       value="tests.jar"/>
 
 	<!-- Fileset with the file extension we want to check -->
 	<fileset id="files.to.check" dir="../">
     <include name="**/*.java"/>
+		<exclude name="**/*Bean.java"/>
     <exclude name="**/*.xml"/>
     <exclude name="**/*.html"/>
     <exclude name="**/*.php"/>
     <exclude name="**/*.jar"/>
 	</fileset>
 
-  <!-- Fix the classpath to add the necessary resources -->
-	<path id="mymed.classpath" description="Classpath to be used for running the tests">
-	  <pathelement path="${java.class.path}"/>
-	  <pathelement location="."/>
-    <pathelement location="${lib.dir}/mymed.jar"/>
-    <pathelement location="${lib.dir}/jSynapse.jar"/>
-    <pathelement location="${lib.dir}/mymedtest.jar"/>
-	  <fileset dir="${libs.dir}" includes="*.jar" />
-    <fileset dir="${cassandra.dir}/lib" includes="*.jar"/>
-	  <!-- This is necessary for PMD and FindBugs to work under Jenkins -->
-	  <!-- Looks like it is necessary to specify the path to the needed JARs -->
-	  <fileset dir="${java.dir}">
-	    <include name="**/pmd.jar"/>
-	    <include name="**/jaxen.jar"/>
-	    <include name="**/asm.jar"/>
-	    <include name="*.jar"/>
-	    <include name="**/*.jar"/>
-	  </fileset>
-	  <fileset dir="${findbugs.dir}">
-	   <include name="*.jar"/>
-     <include name="**/*.jar"/>
-	  </fileset>
-	</path>
+  <!-- This is the classpath for compiling the tests, since we need also Glassfish and JavaEE -->
+  <path id="mymed.classpath" description="Classpath to be used for compiling the tests">
+    <pathelement path="${java.class.path}"/>
+    <pathelement location="${lib.dir}/${mymed.jar}"/>
+    <pathelement location="${lib.dir}/${mymedtest.jar}"/>
+    <pathelement location="${junit.dir}/junit.jar"/>
+    <pathelement location="."/>
+  	<fileset dir="${glassfish.dir}">
+  		<include name="**/javaee.jar"/>
+  		<include name="**/mail.jar"/>
+  	</fileset>
+    <fileset dir="${java.dir}">
+      <include name="**/pmd.jar"/>
+      <include name="**/jaxen.jar"/>
+      <include name="**/asm.jar"/>
+      <include name="*.jar"/>
+      <include name="**/*.jar"/>
+    </fileset>
+    <fileset dir="${cassandra.dir}">
+      <include name="apache-cassandra-0.7.10.jar"/>
+      <include name="libthrift-0.5.jar"/>
+      <include name="gson-1.6.jar"/>
+      <include name="logback-core-0.9.29.jar"/>
+      <include name="slf4j-api-1.6.2.jar"/>
+      <include name="logback-classic-0.9.29.jar"/>
+      <exclude name="log4j-over-slf4j-1.6.2.jar"/>
+    </fileset>
+    <fileset dir="${findbugs.dir}">
+      <include name="*.jar"/>
+      <include name="**/*.jar"/>
+    </fileset>
+    <fileset dir="${httpcomp.dir}">
+      <include name="**/*.jar"/>
+    </fileset>
+  </path>
 
   <!-- Used if we want to pretty print the classpath in case we need to debug -->
   <pathconvert description="Pretty print the classpath" property="echo.path.compile" refid="mymed.classpath" pathsep="${line.separator}|  |--" />
@@ -58,36 +90,45 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
   <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="mymed.classpath"/>
   <taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask" classpathref="mymed.classpath"/>
 
-  <!-- Create the directories structure -->
   <target name="init" description="Initialize the necessary directories">
     <mkdir dir="${results.dir}"/>
   </target>
 
-  <!-- Clean up everything -->
   <target name="clean" description="Remove the directories used for the build">
     <delete dir="${results.dir}"/>
   </target>
 
-  <!-- Run the static code analyzer PMD to analyze the code -->
   <target name="pmd" depends="init" description="Analyze the code with PMD">
     <pmd shortFilenames="true" encoding="UTF-8" targetjdk="1.6">
-      <ruleset>basic,coupling,optimizations,strings,unusedcode,controversial,sunsecure,codesize,design,typeresolution,javabeans,logging-java</ruleset>
+      <ruleset>basic,coupling,optimizations,strings,unusedcode,controversial,sunsecure,codesize,design,typeresolution,logging-java</ruleset>
       <formatter type="xml" toFile="${results.dir}/pmd.xml"/>
       <fileset refid="files.to.check"/>
 	  </pmd>
 	</target>
 
-  <!-- Run the static code analyzer FinBugs to analyze the code -->
+	<!-- =================================
+          target: pmdbeans
+         ================================= -->
+  <target name="pmdbeans" depends="init" description="description">
+    <pmd shortFilenames="true" encoding="UTF-8" targetjdk="1.6">
+      <ruleset>basic,coupling,optimizations,strings,unusedcode,controversial,sunsecure,codesize,design,typeresolution,javabeans,logging-java</ruleset>
+      <formatter type="xml" toFile="${results.dir}/beanspmd.xml"/>
+      <fileset dir="../">
+      	<include name="**/*Bean.java"/>
+      </fileset>
+	  </pmd>
+  </target>
+
   <target name="findbugs" depends="init" description="Analyze the code with FindBugs">
     <findbugs home="${findbugs.dir}" output="xml" outputFile="${results.dir}/findbugs.xml" reportLevel="low" effort="max">
-      <class location="../"/>
-    	<auxClasspath location="${cassandra.dir}/lib/"/>
+    	<classpath refid="mymed.classpath"/>
+    	<class location="${lib.dir}/mymed.jar"/>
+    	<auxClasspath location="${cassandra.dir}"/>
       <sourcePath>
         <fileset refid="files.to.check"/>
       </sourcePath>
     </findbugs>
   </target>
 
-	<!-- Execute all the code analysis -->
-	<target name="all" depends="pmd,findbugs" description="Run all the tasks"/>
+	<target name="all" depends="pmd,pmdbeans,findbugs" description="Run all the tasks"/>
 </project>

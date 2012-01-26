@@ -1,7 +1,23 @@
+/*
+ * Copyright 2012 INRIA 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+*/
 package com.mymed.controller.core.requesthandler;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,23 +75,22 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 	/* --------------------------------------------------------- */
 	/* extends AbstractRequestHandler */
 	/* --------------------------------------------------------- */
-	protected Map<String, String> getParameters(final HttpServletRequest request) throws InternalBackEndException {
+	protected Map<String, String> getParameters(final HttpServletRequest request) throws AbstractMymedException {
 		
-		if(!request.getContentType().matches("multipart/form-data.*")){
+		if(request.getContentType() != null && !request.getContentType().matches("multipart/form-data.*")){
 			return super.getParameters(request);
 //			throw new InternalBackEndException("PublishRequestHandler should use a multipart request!");
 		}
 		
 		final Map<String, String> parameters = new HashMap<String, String>();
 		try {
-			System.out.println("\nPART size = " + request.getParts().size());
 			for(Part part : request.getParts()){
 				String key = part.getName();
 				Scanner s = new Scanner(part.getInputStream());
-				String value = s.nextLine();    // read filename from stream
+				String value = URLDecoder.decode(s.nextLine(), "UTF-8");    // read filename from stream
+//				System.out.println("KEY = " + key);
+//				System.out.println("VALUE = " + value);
 				parameters.put(key, value);
-				System.out.println("\nKEY = " + key);
-				System.out.println("\nVALUE = " + value);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -106,6 +121,13 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 			final Map<String, String> parameters = getParameters(request);
 			final RequestCode code = requestCodeMap.get(parameters.get("code"));
 
+			// accessToken
+			if (!parameters.containsKey("accessToken")) {
+				throw new InternalBackEndException("accessToken argument is missing!");
+			} else {
+				tokenValidation(parameters.get("accessToken")); // Security Validation
+			}
+			
 			switch (code) {
 			case READ:
 			case DELETE:
@@ -136,14 +158,21 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 		try {
 			final Map<String, String> parameters = getParameters(request);
 			final RequestCode code = requestCodeMap.get(parameters.get("code"));
-			String application, predicates, user, data;
+			String application, predicateListJson, user, data;
 
+			// accessToken
+			if (parameters.get("accessToken") == null) {
+				throw new InternalBackEndException("accessToken argument is missing!");
+			} else {
+				tokenValidation(parameters.get("accessToken")); // Security Validation
+			}
+			
 			switch (code) {
 			case CREATE : // PUT
 				message.setMethod("CREATE");
 				if ((application = parameters.get("application")) == null) {
 					throw new InternalBackEndException("missing application argument!");
-				} else if ((predicates = parameters.get("predicate")) == null) {
+				} else if ((predicateListJson = parameters.get("predicate")) == null) {
 					throw new InternalBackEndException("missing predicate argument!");
 				} else if ((user = parameters.get("user")) == null) {
 					throw new InternalBackEndException("missing user argument!");
@@ -154,37 +183,35 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 				try {
 					
 					final MUserBean userBean = getGson().fromJson(user, MUserBean.class);
-					System.out.println("\nuser converted!");
-					
 					final Type dataType = new TypeToken<List<MDataBean>>(){}.getType();
 					final List<MDataBean> dataList = getGson().fromJson(data, dataType);
-					System.out.println("\ndata converted!");
-					
-					final List<MDataBean> predicatesArray = getGson().fromJson(predicates, dataType);
-					System.out.println("\npredicates converted!");
+					final List<MDataBean> predicateListObject = getGson().fromJson(predicateListJson, dataType);
 
-					// broadcast algorithm
-					int broadcastSize = (int) Math.pow(2, predicatesArray.size());
+					// construct the subPredicate
+					String subPredicate = "";
+					for(MDataBean element : predicateListObject){
+						subPredicate += element.getKey() + "(" + element.getValue() + ")";
+					}
+					
+					// construct the Predicate => broadcast algorithm
+					int broadcastSize = (int) Math.pow(2, predicateListObject.size());
 					for(int i=1 ; i<broadcastSize ; i++){
-						System.out.println("\nfor loop");
 			 			int mask = i;
 			 			String predicate = "";
 			 			int j = 0;
 			 			while(mask > 0){
 			 				if((mask&1) == 1){
-			 					MDataBean element = predicatesArray.get(j);
-			 					predicate += element.getKey() + "%28" + element.getValue() + "%29";
+			 					MDataBean element = predicateListObject.get(j);
+			 					predicate += element.getKey() + "(" + element.getValue() + ")";
 			 				}
 			 				mask >>= 1;
 			 				j++;
 			 			}
 			 			if(!predicate.equals("")){
-			 				System.out.println("create predicate: " + predicate);
-			 				pubsubManager.create(application, predicate, userBean, dataList);
+			 				pubsubManager.create(application, predicate, subPredicate, userBean, dataList);
 			 			}
 			 		}
 
-					message.setDescription("predicate published: " + predicates);
 				} catch (final JsonSyntaxException e) {
 					throw new InternalBackEndException("jSon format is not valid");
 				} catch (final JsonParseException e) {

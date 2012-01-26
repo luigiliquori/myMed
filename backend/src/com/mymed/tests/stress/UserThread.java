@@ -1,7 +1,24 @@
+/*
+ * Copyright 2012 INRIA 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+*/
 package com.mymed.tests.stress;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import ch.qos.logback.classic.Logger;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.model.data.user.MUserBean;
@@ -15,121 +32,123 @@ import com.mymed.utils.MLogger;
  * 
  */
 public class UserThread extends Thread {
-	private final List<MUserBean> usersList = new LinkedList<MUserBean>();
-	private final UserTest userTest;
-	private final Thread addUser;
-	private final Thread removeUser;
-	private final boolean remove;
+  private final List<MUserBean> usersList = new LinkedList<MUserBean>();
+  private final UserTest userTest;
+  private final Thread addUser;
+  private final Thread removeUser;
+  private final boolean remove;
 
-	/**
-	 * Create the new user thread
-	 */
-	public UserThread() {
-		this(true, StressTestValues.NUMBER_OF_ELEMENTS);
-	}
+  private static final Logger LOGGER = MLogger.getLogger();
 
-	/**
-	 * Create the new user thread, but do not perform the remove thread, only
-	 * add new user to the database
-	 * 
-	 * @param remove
-	 *            if to perform the remove thread or not
-	 * @param maxElements
-	 *            the maximum number of elements to create
-	 */
-	public UserThread(final boolean remove, final int maxElements) {
-		super();
-		this.remove = remove;
+  /**
+   * Create the new user thread
+   */
+  public UserThread() {
+    this(true, StressTestValues.NUMBER_OF_ELEMENTS);
+  }
 
-		userTest = new UserTest(maxElements);
+  /**
+   * Create the new user thread, but do not perform the remove thread, only add
+   * new user to the database
+   * 
+   * @param remove
+   *          if to perform the remove thread or not
+   * @param maxElements
+   *          the maximum number of elements to create
+   */
+  public UserThread(final boolean remove, final int maxElements) {
+    super();
+    this.remove = remove;
 
-		addUser = new Thread("addUser") {
-			@Override
-			public void run() {
-				MLogger.getLog().info("Starting thread '{}'", getName());
+    userTest = new UserTest(maxElements);
 
-				synchronized (usersList) {
-					try {
-						while (usersList.isEmpty()) {
-							final MUserBean user = userTest.createUserBean();
+    addUser = new Thread("addUser") {
+      @Override
+      public void run() {
+        LOGGER.info("Starting thread '{}'", getName());
 
-							if (user == null) {
-								interrupt();
-								break;
-							}
+        synchronized (usersList) {
+          try {
+            while (usersList.isEmpty()) {
+              final MUserBean user = userTest.createUserBean();
 
-							usersList.add(user);
+              if (user == null) {
+                interrupt();
+                break;
+              }
 
-							try {
-								userTest.createUser(user);
-							} catch (final InternalBackEndException ex) {
-								interrupt();
-								MLogger.getLog().info("Thread '{}' interrupted", getName());
-								break;
-							}
+              usersList.add(user);
 
-							// To execute only if we do not perform the remove
-							// thread
-							if (!remove) {
-								((LinkedList<MUserBean>) usersList).pop();
-							}
+              try {
+                userTest.createUser(user);
+              } catch (final InternalBackEndException ex) {
+                interrupt();
+                LOGGER.info("Thread '{}' interrupted", getName());
+                break;
+              }
 
-							usersList.notifyAll();
+              // To execute only if we do not perform the remove
+              // thread
+              if (!remove) {
+                ((LinkedList<MUserBean>) usersList).pop();
+              }
 
-							if (remove) {
-								usersList.wait();
-							}
-						}
+              usersList.notifyAll();
 
-						usersList.notifyAll();
-					} catch (final Exception ex) {
-						MLogger.getDebugLog().debug("Error in thread '{}'", getName(), ex.getCause());
-						MLogger.getLog().info("Error in thread '{}'", getName());
-					}
-				}
-			}
-		};
+              if (remove) {
+                usersList.wait();
+              }
+            }
 
-		removeUser = new Thread("removeUser") {
-			@Override
-			public void run() {
-				MLogger.getLog().info("Starting thread '{}'", getName());
+            usersList.notifyAll();
+          } catch (final Exception ex) {
+            LOGGER.debug("Error in thread '{}'", getName(), ex.getCause());
+            LOGGER.info("Error in thread '{}'", getName());
+          }
+        }
+      }
+    };
 
-				synchronized (usersList) {
-					try {
-						while (usersList.isEmpty()) {
-							usersList.wait();
-						}
+    removeUser = new Thread("removeUser") {
+      @Override
+      public void run() {
+        LOGGER.info("Starting thread '{}'", getName());
 
-						while (!usersList.isEmpty()) {
-							final MUserBean user = ((LinkedList<MUserBean>) usersList).pop();
+        synchronized (usersList) {
+          try {
+            while (usersList.isEmpty()) {
+              usersList.wait();
+            }
 
-							try {
-								userTest.removeUser(user);
-							} catch (final InternalBackEndException ex) {
-								interrupt();
-								MLogger.getLog().info("Thread '{}' interrupted", getName());
-								break;
-							}
+            while (!usersList.isEmpty()) {
+              final MUserBean user = ((LinkedList<MUserBean>) usersList).pop();
 
-							usersList.notifyAll();
-							usersList.wait();
-						}
+              try {
+                userTest.removeUser(user);
+              } catch (final InternalBackEndException ex) {
+                interrupt();
+                LOGGER.info("Thread '{}' interrupted", getName());
+                break;
+              }
 
-						usersList.notifyAll();
-					} catch (final Exception ex) {
-						MLogger.getDebugLog().debug("Error in thread '{}'", getName(), ex.getCause());
-						MLogger.getLog().info("Error in thread '{}'", getName());
-					}
-				}
-			}
-		};
-	}
-	@Override
-	public void run() {
-		addUser.start();
-		if (remove) {
-			removeUser.start();
-		}
-	}
+              usersList.notifyAll();
+              usersList.wait();
+            }
+
+            usersList.notifyAll();
+          } catch (final Exception ex) {
+            LOGGER.debug("Error in thread '{}'", getName(), ex.getCause());
+            LOGGER.info("Error in thread '{}'", getName());
+          }
+        }
+      }
+    };
+  }
+  @Override
+  public void run() {
+    addUser.start();
+    if (remove) {
+      removeUser.start();
+    }
+  }
 }

@@ -18,6 +18,8 @@
     ViewController *webViewController;
 }
 
+- (IBAction) submitLogin:(id)sender;
+
 @property (nonatomic, retain) IBOutlet UITextField *eMailField;
 @property (nonatomic, retain) IBOutlet UITextField *passwordField;
 
