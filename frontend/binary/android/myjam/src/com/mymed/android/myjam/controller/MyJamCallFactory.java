@@ -1,6 +1,7 @@
 package com.mymed.android.myjam.controller;
 
 import com.google.gson.Gson;
+import com.mymed.model.data.myjam.MReportBean;
 
 
 /**
@@ -37,7 +38,7 @@ public class MyJamCallFactory extends HttpCall implements ICallAttributes{
 	 * @throws IOBackEndException 
 	 * @throws InternalBackEndException 
 	 */
-	HttpCall searchReports(int id, HttpCallHandler handler, int latitude, int longitude, int radius){
+	public static HttpCall searchReports(int id, HttpCallHandler handler, int latitude, int longitude, int radius){
 		HttpCall call = new MyJamCallFactory(handler,HttpMethod.GET, MY_JAM_REPORT_HANDLER_URL,id);
 		call.appendAttribute(CODE, RequestCode.READ.code);
 		call.appendAttribute(LATITUDE, String.valueOf(latitude));
@@ -75,7 +76,7 @@ public class MyJamCallFactory extends HttpCall implements ICallAttributes{
 	 * @throws IOBackEndException
 	 * @throws InternalClientException
 	 */
-	HttpCall getReport(int id, HttpCallHandler handler, String reportId){
+	public static HttpCall getReport(int id, HttpCallHandler handler, String reportId){
 		HttpCall call = new MyJamCallFactory(handler,HttpMethod.GET, MY_JAM_REPORT_HANDLER_URL,id);
 		call.appendAttribute(CODE, RequestCode.READ.code);
 		call.appendAttribute(REPORT_ID, reportId);
@@ -108,7 +109,7 @@ public class MyJamCallFactory extends HttpCall implements ICallAttributes{
 	 * @param startTime
 	 * @return
 	 */
-	HttpCall getUpdates(int id, HttpCallHandler handler,String reportId, long startTime){
+	public static HttpCall getUpdates(int id, HttpCallHandler handler,String reportId, long startTime){
 		HttpCall call = new MyJamCallFactory(handler,HttpMethod.GET, MY_JAM_UPDATE_HANDLER_URL,id);
 		call.appendAttribute(CODE, RequestCode.READ.code);
 		call.appendAttribute(REPORT_ID, reportId);
@@ -142,7 +143,7 @@ public class MyJamCallFactory extends HttpCall implements ICallAttributes{
 	 * @param reportId	Identifier of the report.
 	 * @return	The {@link HttpCall}.
 	 */
-	HttpCall getFeedbacks(int id, HttpCallHandler handler,String reportId){
+	public static HttpCall getFeedbacks(int id, HttpCallHandler handler,String reportId){
 		HttpCall call = new MyJamCallFactory(handler,HttpMethod.GET, MY_JAM_FEEDBACK_HANDLER_URL,id);
 		call.appendAttribute(CODE, RequestCode.READ.code);
 		call.appendAttribute(REPORT_ID, reportId);
@@ -206,6 +207,17 @@ public class MyJamCallFactory extends HttpCall implements ICallAttributes{
 	 * @throws IOBackEndException 
 	 * @throws InternalBackEndException 
 	 */
+	public static HttpCall insertReport(int id, HttpCallHandler handler,
+			int latitude,int longitude,MReportBean report){
+		String jsonReport = gson.toJson(report);
+		HttpCall call = new MyJamCallFactory(handler,HttpMethod.GET, 
+				MY_JAM_FEEDBACK_HANDLER_URL,id,jsonReport);
+		call.appendAttribute(CODE, RequestCode.READ.code);
+		call.appendAttribute(LATITUDE, String.valueOf(latitude));
+		call.appendAttribute(LONGITUDE, String.valueOf(longitude));
+		return call;
+	}
+	
 //	public MReportBean insertReport(int latitude,int longitude,MReportBean report) throws InternalBackEndException, IOBackEndException, InternalClientException{
 //		String q=QUERY+RequestCode.CREATE.code;
 //		q=appendAttribute(q,LATITUDE,String.valueOf(latitude));

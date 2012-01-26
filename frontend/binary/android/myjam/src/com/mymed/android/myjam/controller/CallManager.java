@@ -2,6 +2,7 @@ package com.mymed.android.myjam.controller;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import org.apache.http.HttpVersion;
 import org.apache.http.client.HttpClient;
@@ -93,8 +94,8 @@ public class CallManager {
     	return instance.httpClient;
     }
     
-    protected void execute(Runnable runnable){
-    	instance.pool.execute(runnable);
+	protected Future<?> execute(Runnable runnable){
+    	 return instance.pool.submit(runnable);
     }
     
     

@@ -98,7 +98,6 @@ public class MyJamCallService extends IntentService{
     public void onCreate() {
         super.onCreate();
 
-        myJamRestCall = MyJamCallFactory.getInstance();
         resolver = getContentResolver();
     }
 

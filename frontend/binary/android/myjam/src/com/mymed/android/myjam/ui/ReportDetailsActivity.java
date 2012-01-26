@@ -314,7 +314,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
         	    intent.putExtra(MyJamCallService.EXTRA_REQUEST_CODE, RequestCode.GET_UPDATES);
         	    Bundle bundle = new Bundle();
         	    bundle.putString(ICallAttributes.REPORT_ID, mReportId);
-        	    bundle.putInt(ICallAttributes.NUM, numUpdates);
+        	    //bundle.putInt(ICallAttributes.NUM, numUpdates);
         	    intent.putExtra(MyJamCallService.EXTRA_ATTRIBUTES, bundle);			
         	    Log.d(TAG,"Intent sent: "+intent.toString());
         	    startService(intent);

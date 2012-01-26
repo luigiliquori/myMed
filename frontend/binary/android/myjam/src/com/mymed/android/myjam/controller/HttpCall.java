@@ -159,7 +159,8 @@ public class HttpCall implements Runnable{
 	public void run() { 
 		long startCall = System.currentTimeMillis();
 		try{
-			handler.callStart(id);
+			if (handler!=null)
+				handler.callStart(id);
 			Log.d(TAG,"Start call "+ id + " :" +String.valueOf(startCall));
 			URI uri = new URI(this.uri);
 			
@@ -217,7 +218,8 @@ public class HttpCall implements Runnable{
 				else
 					throw new IOBackEndException(message);				
 			case HttpStatus.SC_OK:
-				handler.callSuccess(id,responseContent);
+				if (handler!=null)
+					handler.callSuccess(id,responseContent);
 				long endCall = System.currentTimeMillis();
 				Log.d(TAG, "End call "+ id + " :" + String.valueOf(endCall) + " Duration: "+ String.valueOf(endCall - startCall));
 				break;
@@ -254,8 +256,9 @@ public class HttpCall implements Runnable{
 				message = "Call interrupted "+id+" : ";
 				handler.callInterrupted(id);
 			}else{
-				message = "Call error or call interrupted: ";
-				handler.callError(id,new InternalClientException(message+e.getMessage()));
+				message = "Call error: ";
+				if (handler!=null)
+					handler.callError(id,new InternalClientException(message+e.toString()));
 			}
 			Log.d(TAG, message+e.toString());
 			this.request.abort();

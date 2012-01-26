@@ -1,6 +1,7 @@
 package com.mymed.android.myjam.controller;
 
 import android.os.Handler;
+import android.os.Looper;
 
 /**
  * Handle the results of the Http calls.
@@ -9,10 +10,27 @@ import android.os.Handler;
  */
 public class HttpCallHandler extends Handler{
 	
-	public static final int MSG_CALL_START = 0;
-	public static final int MSG_CALL_SUCCESS = 1;
-	public static final int MSG_CALL_ERROR = 2;
-	public static final int MSG_CALL_INTERRUPTED = 3;
+	public static final int NEW_REQUEST = 0x0;
+	public static final int MSG_CALL_START = 0x1;
+	public static final int MSG_CALL_SUCCESS = 0x2;
+	public static final int MSG_CALL_ERROR = 0x3;
+	public static final int MSG_CALL_INTERRUPTED = 0x4;
+
+	/**
+	 * Basic constructor.
+	 * @param looper
+	 */
+	public HttpCallHandler() {
+		super();
+	}
+	
+	/**
+	 * Constructor with looper.
+	 * @param looper
+	 */
+	public HttpCallHandler(Looper looper) {
+		super(looper);
+	}
 	
 	/**
 	 * The call started.
