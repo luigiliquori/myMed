@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.controller.core.manager.authentication;
 
 import java.io.UnsupportedEncodingException;
@@ -68,9 +68,9 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
           storageManager.insertSlice(CF_AUTHENTICATION, new String(authMap.get(LOGIN_COLUMN), ENCODING), authMap);
         } catch (final UnsupportedEncodingException ex) {
           LOGGER.info(CONVERSION_ERROR, ENCODING);
-          LOGGER.debug(CONVERSION_ERROR, ENCODING, ex.getCause());
+          LOGGER.debug(CONVERSION_ERROR, ENCODING, ex);
 
-          throw new InternalBackEndException(ex.getMessage());
+          throw new InternalBackEndException(ex.getMessage()); // NO PMD
         }
 
         return user;
@@ -115,9 +115,9 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
       storageManager.insertSlice(CF_AUTHENTICATION, new String(authMap.get(LOGIN_COLUMN), ENCODING), authMap);
     } catch (final UnsupportedEncodingException ex) {
       LOGGER.info(CONVERSION_ERROR, ENCODING);
-      LOGGER.debug(CONVERSION_ERROR, ENCODING, ex.getCause());
+      LOGGER.debug(CONVERSION_ERROR, ENCODING, ex);
 
-      throw new InternalBackEndException(ex.getMessage());
+      throw new InternalBackEndException(ex.getMessage()); // NO PMD
     }
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.controller.core.manager;
 
 import java.io.UnsupportedEncodingException;
@@ -85,7 +85,7 @@ public abstract class AbstractManager extends ManagerValues {
           // If we ever get here, there is something seriously wrong.
           // This should never happen.
           LOGGER.info("Error in encoding string using {} encoding", ENCODING);
-          LOGGER.debug("Error in eoncoding string", ex.getCause());
+          LOGGER.debug("Error in eoncoding string", ex);
         }
       } catch (final SecurityException ex) {
         throw new InternalBackEndException(ex);
@@ -101,7 +101,7 @@ public abstract class AbstractManager extends ManagerValues {
         // If we ever get here, there is something seriously wrong.
         // This should never happen.
         LOGGER.info("Error in encoding string using {} encoding", ENCODING);
-        LOGGER.debug("Error in encoding string", ex.getCause());
+        LOGGER.debug("Error in encoding string", ex);
       }
     }
 
