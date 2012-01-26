@@ -21,27 +21,10 @@ function showMap(url, lat, long) {
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 	};
 	map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-}
 
-function addKMLLayerFromURL(url){
-	var KmlObject = new google.maps.KmlLayer(url);
-	KmlObject.setMap(map);
-}
-
-function addMarkerFromJson(elt){
-	if((resJSON = $.parseJSON($("#" + elt).val())) != null) {
-		$.each(resJSON, function(i, item) {
-			var myLatlng = new google.maps.LatLng(item.latitude, item.longitude);
-			var marker = new google.maps.Marker({
-				position: myLatlng,
-				title:item.title,
-				icon: item.icon
-			});
-			marker.setMap(map);
-		});
-	} else {
-		alert("parse error!");
-	}
+	// TRIP
+	var ctaLayer = new google.maps.KmlLayer(url);
+	ctaLayer.setMap(map);
 }
 
 function focusOn(id){
@@ -113,13 +96,4 @@ function addMarker(){
 	}
 	poiIterator++;
 }
-
-
-$(function() {
-	// Handler for .ready() called.
-	var d=new Date();
-
-	$("#date").val(d.getFullYear()+"-"+("0" + (d.getMonth() + 1)).slice(-2)+"-"+("0" + (d.getDate())).slice(-2));
-	$("#time").val(d.getHours()>12?d.getHours()-12+":"+("0" + (d.getMinutes())).slice(-2)+" PM":d.getHours()+":"+("0" + (d.getMinutes())).slice(-2)+" AM");
-});
 

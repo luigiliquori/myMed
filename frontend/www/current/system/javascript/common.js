@@ -46,7 +46,7 @@ function publishDASPRequest(formID){
 
 	$.ajax({
 		type: 'POST',
-		url :"#",
+		url : "#",
 		data : $("#" + formID).serialize(),
 		async : true
 	});

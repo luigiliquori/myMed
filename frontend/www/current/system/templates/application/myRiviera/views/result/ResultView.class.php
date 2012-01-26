@@ -60,11 +60,27 @@ class ResultView extends MyApplication {
 			
 			<?php if ($this->handler->getSuccess()) {
 				
-				// PRINT THE TRIP ON THE MAP
-				$kml = $this->handler->getSuccess()->kml;
+				// PRINT THE MAP
 				$originLatitude = $this->handler->getSuccess()->itineraire->ItineraryObj->originPoint->latitude;
 				$originLongitude = $this->handler->getSuccess()->itineraire->ItineraryObj->originPoint->longitude;
-				echo '<script type="text/javascript">showMap(\'' . $kml . '\',\'' . $originLatitude . '\',\'' . $originLongitude . '\');</script>';
+				echo '<script type="text/javascript">showMap(\'' . $originLatitude . '\',\'' . $originLongitude . '\');</script>';
+				
+				// PRINT THE KML FROM CITYWAY
+				$kmlCityWay = $this->handler->getSuccess()->kml;
+				echo '<script type="text/javascript">addKMLLayerFromURL(\'' . $kmlCityWay . '\');</script>';
+				
+				// PRINT THE KML FROM CARF
+				$request = new Request("FindRequestHandler", READ);
+				$request->addArgument("application", APPLICATION_NAME . "Admin");
+				$request->addArgument("predicate", "keyword(myRivieraAdmin)");
+				$responsejSon = $request->send();
+				$responseObject = json_decode($responsejSon);
+				if($responseObject->status == 200) {
+					$resArray = json_decode($responseObject->data->results);
+					$kmlCARF = $resArray[0]->data;
+					?><textarea id="kmlCARF" Style="display:none;"><?= $kmlCARF ?></textarea><?php
+					echo '<script type="text/javascript">addMarkerFromJson(\'kmlCARF\');</script>';
+				}
 				
 				// PRINT THE ITINEARY
 				$listDivider = null;?>
