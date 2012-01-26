@@ -82,7 +82,7 @@ public class CassandraWrapper implements ICassandraWrapper {
   private final String address;
   private final int port;
 
-  private static final Object SYNC = new Object();
+  private static final Object LOCK = new Object();
 
   /**
    * Empty constructor to create a normal Cassandra client, with address the
@@ -116,7 +116,7 @@ public class CassandraWrapper implements ICassandraWrapper {
    * @throws InternalBackEndException
    */
   private Client getClient() throws InternalBackEndException {
-    synchronized (SYNC) {
+    synchronized (LOCK) {
       connection = (Connection) manager.checkOut(address, port);
 
       try {
@@ -130,14 +130,14 @@ public class CassandraWrapper implements ICassandraWrapper {
         throw new InternalBackEndException("Error setting the keyspace");
       }
 
-      SYNC.notifyAll();
+      LOCK.notifyAll();
       return connection.getClient();
     }
   }
 
   @Override
   public void login(final AuthenticationRequest authRequest) throws InternalBackEndException {
-    synchronized (SYNC) {
+    synchronized (LOCK) {
       try {
         getClient().login(authRequest);
       } catch (final AuthenticationException ex) {
@@ -148,14 +148,14 @@ public class CassandraWrapper implements ICassandraWrapper {
         throw new InternalBackEndException(ex);
       } finally {
         manager.checkIn(connection);
-        SYNC.notifyAll();
+        LOCK.notifyAll();
       }
     }
   }
 
   @Override
   public void set_keyspace(final String keySpace) throws InternalBackEndException {
-    synchronized (SYNC) {
+    synchronized (LOCK) {
       try {
         getClient().set_keyspace(keySpace);
       } catch (final InvalidRequestException ex) {
@@ -164,7 +164,7 @@ public class CassandraWrapper implements ICassandraWrapper {
         throw new InternalBackEndException(ex);
       } finally {
         manager.checkIn(connection);
-        SYNC.notifyAll();
+        LOCK.notifyAll();
       }
     }
   }
@@ -202,7 +202,7 @@ public class CassandraWrapper implements ICassandraWrapper {
 
     final ByteBuffer keyToBuffer = MConverter.stringToByteBuffer(key);
 
-    synchronized (SYNC) {
+    synchronized (LOCK) {
       ColumnOrSuperColumn result = null;
 
       try {
@@ -219,7 +219,7 @@ public class CassandraWrapper implements ICassandraWrapper {
         throw new InternalBackEndException(ex);
       } finally {
         manager.checkIn(connection);
-        SYNC.notifyAll();
+        LOCK.notifyAll();
       }
 
       return result;
@@ -260,7 +260,7 @@ public class CassandraWrapper implements ICassandraWrapper {
 
     final ByteBuffer keyToBuffer = MConverter.stringToByteBuffer(key);
 
-    synchronized (SYNC) {
+    synchronized (LOCK) {
       List<ColumnOrSuperColumn> result = null;
 
       try {
@@ -274,7 +274,7 @@ public class CassandraWrapper implements ICassandraWrapper {
       } catch (final TimedOutException ex) {
       } finally {
         manager.checkIn(connection);
-        SYNC.notifyAll();
+        LOCK.notifyAll();
       }
 
       return result;
@@ -315,7 +315,7 @@ public class CassandraWrapper implements ICassandraWrapper {
 
     final List<ByteBuffer> keysToBuffer = MConverter.stringToByteBuffer(keys);
 
-    synchronized (SYNC) {
+    synchronized (LOCK) {
       Map<ByteBuffer, List<ColumnOrSuperColumn>> result = null;
 
       try {
@@ -330,7 +330,7 @@ public class CassandraWrapper implements ICassandraWrapper {
         throw new InternalBackEndException(ex);
       } finally {
         manager.checkIn(connection);
-        SYNC.notifyAll();
+        LOCK.notifyAll();
       }
 
       return result;
@@ -370,7 +370,7 @@ public class CassandraWrapper implements ICassandraWrapper {
 
     final ByteBuffer keyToBuffer = MConverter.stringToByteBuffer(key);
 
-    synchronized (SYNC) {
+    synchronized (LOCK) {
       int result = -1;
 
       try {
@@ -385,7 +385,7 @@ public class CassandraWrapper implements ICassandraWrapper {
         throw new InternalBackEndException(ex);
       } finally {
         manager.checkIn(connection);
-        SYNC.notifyAll();
+        LOCK.notifyAll();
       }
 
       return result;
@@ -426,7 +426,7 @@ public class CassandraWrapper implements ICassandraWrapper {
 
     final List<ByteBuffer> keysToBuffer = MConverter.stringToByteBuffer(keys);
 
-    synchronized (SYNC) {
+    synchronized (LOCK) {
       Map<ByteBuffer, Integer> result = null;
 
       try {
@@ -441,7 +441,7 @@ public class CassandraWrapper implements ICassandraWrapper {
         throw new InternalBackEndException(ex);
       } finally {
         manager.checkIn(connection);
-        SYNC.notifyAll();
+        LOCK.notifyAll();
       }
 
       return result;
@@ -480,7 +480,7 @@ public class CassandraWrapper implements ICassandraWrapper {
       final KeyRange range, final ConsistencyLevel level, final int ttl) throws InternalBackEndException,
       TimedOutException {
 
-    synchronized (SYNC) {
+    synchronized (LOCK) {
       List<KeySlice> result = null;
 
       try {
@@ -495,7 +495,7 @@ public class CassandraWrapper implements ICassandraWrapper {
         throw new InternalBackEndException(ex);
       } finally {
         manager.checkIn(connection);
-        SYNC.notifyAll();
+        LOCK.notifyAll();
       }
 
       return result;
@@ -506,7 +506,7 @@ public class CassandraWrapper implements ICassandraWrapper {
   public List<KeySlice> get_indexed_slices(final ColumnParent parent, final IndexClause clause,
       final SlicePredicate predicate, final ConsistencyLevel level) throws InternalBackEndException {
 
-    synchronized (SYNC) {
+    synchronized (LOCK) {
       List<KeySlice> result = null;
 
       try {
@@ -521,7 +521,7 @@ public class CassandraWrapper implements ICassandraWrapper {
         throw new InternalBackEndException(ex);
       } finally {
         manager.checkIn(connection);
-        SYNC.notifyAll();
+        LOCK.notifyAll();
       }
 
       return result;
@@ -534,7 +534,7 @@ public class CassandraWrapper implements ICassandraWrapper {
 
     final ByteBuffer keyToBuffer = MConverter.stringToByteBuffer(key);
 
-    synchronized (SYNC) {
+    synchronized (LOCK) {
       try {
         getClient().insert(keyToBuffer, parent, column, level);
       } catch (final InvalidRequestException ex) {
@@ -547,7 +547,7 @@ public class CassandraWrapper implements ICassandraWrapper {
         throw new InternalBackEndException(ex);
       } finally {
         manager.checkIn(connection);
-        SYNC.notifyAll();
+        LOCK.notifyAll();
       }
     }
   }
@@ -576,7 +576,7 @@ public class CassandraWrapper implements ICassandraWrapper {
 
   public void batchMutate(final Map<ByteBuffer, Map<String, List<Mutation>>> mutationMap, final ConsistencyLevel level)
       throws InternalBackEndException {
-    synchronized (SYNC) {
+    synchronized (LOCK) {
       try {
         getClient().batch_mutate(mutationMap, level);
       } catch (final InvalidRequestException ex) {
@@ -589,7 +589,7 @@ public class CassandraWrapper implements ICassandraWrapper {
         throw new InternalBackEndException(ex);
       } finally {
         manager.checkIn(connection);
-        SYNC.notifyAll();
+        LOCK.notifyAll();
       }
     }
   }
@@ -600,7 +600,7 @@ public class CassandraWrapper implements ICassandraWrapper {
 
     final ByteBuffer keyToBuffer = MConverter.stringToByteBuffer(key);
 
-    synchronized (SYNC) {
+    synchronized (LOCK) {
       try {
         getClient().remove(keyToBuffer, path, timeStamp, level);
       } catch (final InvalidRequestException ex) {
@@ -613,14 +613,14 @@ public class CassandraWrapper implements ICassandraWrapper {
         throw new InternalBackEndException(ex);
       } finally {
         manager.checkIn(connection);
-        SYNC.notifyAll();
+        LOCK.notifyAll();
       }
     }
   }
 
   @Override
   public void truncate(final String columnFamily) throws InternalBackEndException {
-    synchronized (SYNC) {
+    synchronized (LOCK) {
       try {
         getClient().truncate(columnFamily);
       } catch (final InvalidRequestException ex) {
@@ -631,7 +631,7 @@ public class CassandraWrapper implements ICassandraWrapper {
         throw new InternalBackEndException(ex);
       } finally {
         manager.checkIn(connection);
-        SYNC.notifyAll();
+        LOCK.notifyAll();
       }
     }
   }
@@ -757,7 +757,7 @@ public class CassandraWrapper implements ICassandraWrapper {
 
   @Override
   public String system_add_column_family(final CfDef cfDef) throws InternalBackEndException {
-    synchronized (SYNC) {
+    synchronized (LOCK) {
       String schemaId = null;
 
       try {
@@ -768,7 +768,7 @@ public class CassandraWrapper implements ICassandraWrapper {
         throw new InternalBackEndException(ex);
       } finally {
         manager.checkIn(connection);
-        SYNC.notifyAll();
+        LOCK.notifyAll();
       }
 
       return schemaId;
@@ -777,7 +777,7 @@ public class CassandraWrapper implements ICassandraWrapper {
 
   @Override
   public String system_drop_column_family(final String columnFamily) throws InternalBackEndException {
-    synchronized (SYNC) {
+    synchronized (LOCK) {
       String schemaId = null;
 
       try {
@@ -788,7 +788,7 @@ public class CassandraWrapper implements ICassandraWrapper {
         throw new InternalBackEndException(ex);
       } finally {
         manager.checkIn(connection);
-        SYNC.notifyAll();
+        LOCK.notifyAll();
       }
 
       return schemaId;
@@ -797,7 +797,7 @@ public class CassandraWrapper implements ICassandraWrapper {
 
   @Override
   public String system_add_keyspace(final KsDef ksDef) throws InternalBackEndException {
-    synchronized (SYNC) {
+    synchronized (LOCK) {
       String schemaId = null;
 
       try {
@@ -808,7 +808,7 @@ public class CassandraWrapper implements ICassandraWrapper {
         throw new InternalBackEndException(ex);
       } finally {
         manager.checkIn(connection);
-        SYNC.notifyAll();
+        LOCK.notifyAll();
       }
 
       return schemaId;
@@ -817,7 +817,7 @@ public class CassandraWrapper implements ICassandraWrapper {
 
   @Override
   public String system_drop_keyspace(final String keySpace) throws InternalBackEndException {
-    synchronized (SYNC) {
+    synchronized (LOCK) {
       String schemaId = null;
 
       try {
@@ -828,7 +828,7 @@ public class CassandraWrapper implements ICassandraWrapper {
         throw new InternalBackEndException(ex);
       } finally {
         manager.checkIn(connection);
-        SYNC.notifyAll();
+        LOCK.notifyAll();
       }
 
       return schemaId;
@@ -837,7 +837,7 @@ public class CassandraWrapper implements ICassandraWrapper {
 
   @Override
   public String system_update_column_family(final CfDef columnFamily) throws InternalBackEndException {
-    synchronized (SYNC) {
+    synchronized (LOCK) {
       String newSchemaId = null;
 
       try {
@@ -848,7 +848,7 @@ public class CassandraWrapper implements ICassandraWrapper {
         throw new InternalBackEndException(ex);
       } finally {
         manager.checkIn(connection);
-        SYNC.notifyAll();
+        LOCK.notifyAll();
       }
 
       return newSchemaId;
@@ -857,7 +857,7 @@ public class CassandraWrapper implements ICassandraWrapper {
 
   @Override
   public String system_update_keyspace(final KsDef keySpace) throws InternalBackEndException {
-    synchronized (SYNC) {
+    synchronized (LOCK) {
       String newSchemaId = null;
 
       try {
@@ -868,7 +868,7 @@ public class CassandraWrapper implements ICassandraWrapper {
         throw new InternalBackEndException(ex);
       } finally {
         manager.checkIn(connection);
-        SYNC.notifyAll();
+        LOCK.notifyAll();
       }
 
       return newSchemaId;
