@@ -1,7 +1,21 @@
-.ui-page {
- 	background-image: url("../img/background.jpg");
-	background-size: 100% 100%; 
-	color: white
+#myRivieraMap { 
+	position: relative;
+	top: 0px;
+	left:0px;
+	width: 100%; 
+	padding: 0; 
+}
+
+#itineraire {
+	position: relative;
+}
+
+#Edit{
+	background-color: white;
+}
+
+.content  {
+ 	padding: 0px;
 }
 
 .ui-li-desc {

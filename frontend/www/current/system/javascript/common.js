@@ -51,3 +51,13 @@ function publishDASPRequest(formID){
 		async : true
 	});
 }
+
+/**
+ * Automatically sets the date input field
+ */
+$(function() {
+	// Handler for .ready() called.
+	var d=new Date();
+	
+	$("#date").val(("0" + (d.getHours())).slice(-2)+":"+("0" + (d.getMinutes())).slice(-2)+" le "+("0" + (d.getDate())).slice(-2)+'/'+("0" + (d.getMonth() + 1)).slice(-2)+'/'+d.getFullYear());
+});

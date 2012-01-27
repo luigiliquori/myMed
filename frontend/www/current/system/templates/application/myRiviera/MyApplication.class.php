@@ -37,26 +37,33 @@ abstract class MyApplication extends AbstractTemplate {
 	*/
 	public /*String*/ function getHeader() { ?>
 		<!-- HEADER -->
-		<div data-role="header" data-theme="a">
-			<?php if(TARGET == "desktop") { ?>
-				<a href="#" onClick="window.close();" data-role="button" data-theme="r" target="_top">Fermer</a>
-			<?php } else { ?>
-				<a href="?application=0" rel="external" data-role="button" data-theme="r">Close</a>
-			<?php } ?>
+		<div data-role="header" data-theme="b">
+			<a href="#Edit" data-rel="dialog" data-icon="gear" class="ui-btn-left" >Edit</a>
 			<h1><?= $this->title ?></h1>
+			<a href="index.html" class="ui-btn-right">Départ</a>
 		</div>
 	<?php }
 	
 	/**
 	* Get the FOOTER for jQuery Mobile
 	*/
-	public /*String*/ function getFooter() {  }
+	public /*String*/ function getFooter() { ?>
+		<!-- FOOTER_PERSITENT-->
+		<div data-role="footer" data-position="fixed" data-theme="b">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#Find" data-back="true" <?= $this->activeFooter == "Find" ? 'class="ui-btn-active ui-state-persist"' : ''; ?> >Carte</a></li>
+					<li><a href="#Trip" <?= $this->activeFooter == "Trip" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>Itineraire</a></li>
+				</ul>
+			</div>
+		</div>
+	<?php }
 	
 	/**
 	* Print the Template
 	*/
 	public /*String*/ function printTemplate() { ?>
-		<div id="<?= $this->id ?>" data-role="page" data-theme="a">
+		<div id="<?= $this->id ?>" data-role="page" data-theme="d">
 			<?php  $this->getHeader(); ?>
 			<?php $this->getContent(); ?>
 			<?php $this->getFooter(); ?>
