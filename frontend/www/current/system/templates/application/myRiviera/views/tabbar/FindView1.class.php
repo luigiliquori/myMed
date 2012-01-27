@@ -58,7 +58,7 @@ class FindView1 extends MyApplication {
 					<img Style="position: absolute; left: 4%; width:7%; height:7%;" id="departpicture" alt="thumbnail" src="http://www.poledream.com/wp-content/uploads/2009/10/icon_map2.png" /><br />
 					<div Style="position: relative; left: 15%; width:80%; text-align: left;"  >Commune, Adresse, Lieu public, Arrêt :</div>
 					<input type="text" id="depart"  name="Départ" Style="position: relative; left: 15%; width:80%;"  >	
-					<select id="selectdepart" name="enum" data-theme="a" onchange="changeDestination('depart')">
+					<select id="selectdepart" name="enum" onchange="changeDestination('depart')">
                         <!-- DEFAULT -->                      
 						<option value="nullpart&&007">Lieux Disponibles</option>
 	
@@ -92,7 +92,7 @@ class FindView1 extends MyApplication {
 					<img Style="position: absolute; left: 4%; width:7%; height:7%;" id="arriveepicture" alt="thumbnail" src="http://www.poledream.com/wp-content/uploads/2009/10/icon_map2.png" width="80" height="80" style="" /><br /> 
 					<div Style="position: relative; left: 15%; width:80%; text-align: left;"  >Commune, Adresse, Lieu public, Arrêt :</div>
 					<input type="text" id="arrivee"  name="Arrivée" Style="position: relative; left: 15%; width:80%;"  >	
-					<select id="selectarrivee" name="enum" data-theme="a" onchange="changeDestination('arrivee')">
+					<select id="selectarrivee" name="enum" onchange="changeDestination('arrivee')">
 
                         <!-- DEFAULT -->                      
 						<option value="nullpart&&007">Lieux Disponibles</option>
@@ -123,12 +123,13 @@ class FindView1 extends MyApplication {
 				</div>
 				
 				<!-- DATE -->
-
 				<div data-role="fieldcontain">
-					<label for="date">Partir le :</label><input name="date" type="date" data-role="datebox" id="date" data-options='{"useInline": true, "noButtonFocusMode": true, "useInlineBlind": true, "mode": "calbox"}' readonly="readonly"/>
+					<label for="date" >Partir le :</label>
+					<input name="date" id="date" type="date" data-role="datebox" data-options='{"noButtonFocusMode": true, "mode": "calbox", "disableManualInput": true}'>
 				</div>
 				<div data-role="fieldcontain">
-					<label for="time">à :</label><input name="time" type="date" data-role="datebox" id="time" data-options='{"useInline": true, "noButtonFocusMode": true, "useInlineBlind": true, "mode": "timebox", "timeFormatOverride": 12}' readonly="readonly"/>
+					<label for="time" >à :</label>
+					<input name="time" id="time" type="date" data-role="datebox" data-options='{"noButtonFocusMode": true, "mode": "timeflipbox", "disableManualInput": true}'>
 				</div>
 				
 				<!-- SEPARATOR -->

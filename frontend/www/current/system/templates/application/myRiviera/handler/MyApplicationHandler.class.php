@@ -46,6 +46,13 @@ class MyApplicationHandler implements IRequestHandler {
 					// CALL TO CITYWAY API
 					if($geocode1->status == "OK" && $geocode2->status == "OK"){
 						
+						//testing date format, if European convert it for cityway
+						$date= $_POST['date'];
+						if (strpos($date,'/'))
+							$date = DateTime::createFromFormat('d/m/Y', $date)->format('Y-m-d');
+						// or use $tmp = preg_split("/[^0-9]/", $date);$date=$tmp[2]."-".$tmp[1]."-".$tmp[0]
+						// but can't use $date = date('Y-m-d',strtortime($dateformat)); //because strtotime expect m/d/Y format (USA)
+
 						$args = "&mode=transit" . 
 						"&depLon=" . $geocode1->results[0]->geometry->location->lng .
 						"&depLat=" . $geocode1->results[0]->geometry->location->lat .
@@ -53,8 +60,8 @@ class MyApplicationHandler implements IRequestHandler {
 						"&arrLon=" . $geocode2->results[0]->geometry->location->lng .
 						"&arrLat=" . $geocode2->results[0]->geometry->location->lat .
 						"&arrType=7" . 
-						"&departureTime=" . $_POST['date'] . "_12-00";
-						
+						"&departureTime=" . $date . '_'.preg_replace("/[^0-9]/",'-',$_POST['time']);
+
 						$itineraire = file_get_contents(Cityway_URL . "/tripplanner/v1/detailedtrip/json?key=" . Cityway_APP_ID . $args);
 						$itineraireObj = json_decode($itineraire);
 						
