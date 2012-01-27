@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.controller.core.requesthandler;
 
 import java.io.IOException;
@@ -31,8 +31,6 @@ import com.mymed.controller.core.manager.session.SessionManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.session.MSessionBean;
 import com.mymed.model.data.user.MUserBean;
-
-
 
 /**
  * Servlet implementation class SessionRequestHandler
@@ -111,7 +109,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
     } catch (final AbstractMymedException e) {
       e.printStackTrace();
       LOGGER.info("Error in doGet");
-      LOGGER.debug("Error in doGet", e.getCause());
+      LOGGER.debug("Error in doGet", e);
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());
     }
@@ -169,16 +167,16 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 
           message.setDescription("session created");
           LOGGER.info("Session {} created -> LOGIN", accessToken);
-          message.addData("url", "https://" + InetAddress.getLocalHost().getCanonicalHostName()
-              + "?socialNetwork=" + userBean.getSocialNetworkName()); // TODO
-                                                                             // Find
-                                                                             // a
-                                                                             // better
-                                                                             // way
-                                                                             // to
-                                                                             // get
-                                                                             // the
-                                                                             // url
+          message.addData("url", "https://" + InetAddress.getLocalHost().getCanonicalHostName() + "?socialNetwork="
+              + userBean.getSocialNetworkName()); // TODO
+                                                  // Find
+                                                  // a
+                                                  // better
+                                                  // way
+                                                  // to
+                                                  // get
+                                                  // the
+                                                  // url
           message.addData("accessToken", accessToken);
           break;
         case UPDATE :
@@ -202,8 +200,8 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 
     } catch (final AbstractMymedException e) {
       e.printStackTrace();
-      LOGGER.info("Error in doGet");
-      LOGGER.debug("Error in doGet", e.getCause());
+      LOGGER.info("Error in doPost");
+      LOGGER.debug("Error in doPost", e);
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());
     }
