@@ -121,12 +121,12 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 
       // STORE THE DATAs
       for (final MDataBean item : dataList) {
-        args = new HashMap<String, byte[]>();
+    	args = new HashMap<String, byte[]>();
+    	args.put("key", item.getKey().getBytes("UTF-8"));
+    	args.put("value", item.getValue().getBytes("UTF-8"));
+    	args.put("ontologyID", item.getOntologyID().getBytes("UTF-8"));
         storageManager.insertSuperSlice(SC_DATA_LIST, application + subPredicate + publisher.getId(), item.getKey(),
             args);
-        // TODO remove sys.out! Use logger insted!
-        System.out.println(application + subPredicate + publisher.getId());
-        System.out.println(item.getKey());
       }
 
       // SEND A MAIL TO THE SUBSCRIBER
@@ -223,7 +223,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
   @Override
   public List<Map<String, String>> read(final String application, final String predicate, final String userID)
       throws InternalBackEndException, IOBackEndException {
-
+	  
     final List<Map<byte[], byte[]>> list = storageManager.selectList(SC_DATA_LIST, application + predicate + userID);
     final List<Map<String, String>> resList = new ArrayList<Map<String, String>>();
     for (final Map<byte[], byte[]> set : list) {
