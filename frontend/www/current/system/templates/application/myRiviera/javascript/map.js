@@ -1,6 +1,6 @@
 function initialize() {
 	// resize the map canvas
-	$("#myRivieraMap").height($("body").height() - 80);
+	$("#myRivieraMap").height($("body").height() - 90);
 	
 	// move itineraire
 	
