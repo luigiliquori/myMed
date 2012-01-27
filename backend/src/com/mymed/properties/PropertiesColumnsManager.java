@@ -28,8 +28,10 @@ public class PropertiesColumnsManager implements IProperties {
       final FileInputStream in = new FileInputStream("columns.properties");
       properties.load(in);
     } catch (final FileNotFoundException ex) {
+      // We should never, ever, ever get here!
       MLogger.getLogger().debug("Impossible to find 'column.properties' properties file in the PATH", ex);
     } catch (final IOException ex) {
+      // Nor here!
       MLogger.getLogger().debug("Error loading the properties from the 'column.properties' file", ex);
     }
   }
