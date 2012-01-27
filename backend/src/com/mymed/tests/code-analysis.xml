@@ -89,6 +89,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
   <!-- Ant tasks defined for running other analysis tools -->
   <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="mymed.classpath"/>
   <taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask" classpathref="mymed.classpath"/>
+	<taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask" classpathref="mymed.classpath"/>
 
   <target name="init" description="Initialize the necessary directories">
     <mkdir dir="${results.dir}"/>
@@ -98,6 +99,9 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
     <delete dir="${results.dir}"/>
   </target>
 
+	 <!-- =================================
+	          target: pmd
+	         ================================= -->
   <target name="pmd" depends="init" description="Analyze the code with PMD">
     <pmd shortFilenames="true" encoding="UTF-8" targetjdk="1.6">
       <ruleset>basic,coupling,optimizations,strings,unusedcode,controversial,sunsecure,codesize,design,typeresolution,logging-java</ruleset>
@@ -119,6 +123,9 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
 	  </pmd>
   </target>
 
+	 <!-- =================================
+	          target: findbugs
+	         ================================= -->
   <target name="findbugs" depends="init" description="Analyze the code with FindBugs">
     <findbugs home="${findbugs.dir}" output="xml" outputFile="${results.dir}/findbugs.xml" reportLevel="low" effort="max">
     	<classpath refid="mymed.classpath"/>
@@ -130,5 +137,17 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
     </findbugs>
   </target>
 
-	<target name="all" depends="pmd,pmdbeans,findbugs" description="Run all the tasks"/>
+	<!-- =================================
+          target: cpd
+         ================================= -->
+  <target name="cpd" depends="init" description="Copy &amp; Paste code analysis">
+    <cpd minimumTokenCount="100" format="xml" language="java" outputFile="${results.dir}/cpd.xml">
+      <fileset dir="../">
+        <include name="**/*.java"/>
+      	<exclude/>
+      </fileset>
+    </cpd>
+  </target>
+
+	<target name="all" depends="pmd,pmdbeans,findbugs,cpd" description="Run all the tasks"/>
 </project>
