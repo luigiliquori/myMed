@@ -1,23 +1,47 @@
+var directionsDisplay;
+var directionsService = new google.maps.DirectionsService();
+
 var map;
+
 var poi;
 var poiMem = {};
 var poiIterator;
+
+function initialize() {
+	directionsDisplay =  new google.maps.DirectionsRenderer();
+	
+	// resize the map canvas
+	$("#myRivieraMap").height($("body").height() - 45);
+
+	map = new google.maps.Map(document.getElementById("myRivieraMap"), {
+		zoom: 13,
+		center: new google.maps.LatLng(43.7, 7.27),
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	});
+	directionsDisplay = new google.maps.DirectionsRenderer();
+	directionsDisplay.setMap(map);
+}
+
+function calcRoute() {
+	var start = document.getElementById("start").value;
+	var end = document.getElementById("end").value;
+	var request = {
+			origin:start,
+			destination:end,
+			travelMode: google.maps.TravelMode.DRIVING
+	};
+	directionsService.route(request, function(result, status) {
+		if (status == google.maps.DirectionsStatus.OK) {
+			directionsDisplay.setDirections(result);
+		}
+	});
+}
 
 function changeDestination(dest){
 	picture = (document.getElementById("select" + dest).value + "").split("&&")[0];
 	address = (document.getElementById("select" + dest).value + "").split("&&")[1];
 	document.getElementById(dest).value = address;
 	document.getElementById(dest + "picture").src = picture;
-}
-
-function showMap(url, lat, long) {
-	var myLatlng = new google.maps.LatLng(lat, long);
-	var myOptions = {
-			zoom: 16,
-			center: myLatlng,
-			mapTypeId: google.maps.MapTypeId.ROADMAP
-	};
-	map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 }
 
 function addKMLLayerFromURL(url){
@@ -67,9 +91,9 @@ function focusOn(id){
 function addMarker(){
 	// POI
 	if(!poiMem[poi[poiIterator].id]){
-		
+
 		var myLatlng = new google.maps.LatLng(poi[poiIterator].latitude, poi[poiIterator].longitude);
-		
+
 		var myMarkerImage = "";
 		if(poi[poiIterator].category == "4"){
 			myMarkerImage = 'system/templates/application/myRiviera/img/velobleu.png';
@@ -92,11 +116,11 @@ function addMarker(){
 
 		var contentString = 
 			"<div class='poiContent'>" +
-				"<h2 class='poiFirstHeading'>" + poi[poiIterator].name.toLowerCase() + "</h2>"+
-				"<div class='poiBodyContent'>" +
-					"<p> type: " + poi[poiIterator].type.toLowerCase() + "<br />" +
-					"ville: " + poi[poiIterator].localityName.toLowerCase() +
-				"</div>" +	
+			"<h2 class='poiFirstHeading'>" + poi[poiIterator].name.toLowerCase() + "</h2>"+
+			"<div class='poiBodyContent'>" +
+			"<p> type: " + poi[poiIterator].type.toLowerCase() + "<br />" +
+			"ville: " + poi[poiIterator].localityName.toLowerCase() +
+			"</div>" +	
 			"</div>";
 		var infowindow = new google.maps.InfoWindow({
 			content: contentString
@@ -110,19 +134,4 @@ function addMarker(){
 	}
 	poiIterator++;
 }
-
-/**
- * Automatically sets the date and time inputs
- */
-$(function() {
-	// Handler for .ready() called.
-	var d=new Date();
-	
-	$("#date").val(d.getDate()+'/'+(d.getMonth() + 1)+'/'+d.getFullYear());
-	//English format $("#date").val(d.getFullYear()+"-"+("0" + (d.getMonth() + 1)).slice(-2)+"-"+("0" + (d.getDate())).slice(-2));
-	
-	// 24H or 12H format:
-	$("#time").val(("0" + (d.getHours())).slice(-2)+":"+("0" + (d.getMinutes())).slice(-2));
-	//$("#time").val(d.getHours()>12?d.getHours()-12+":"+("0" + (d.getMinutes())).slice(-2)+" PM":d.getHours()+":"+("0" + (d.getMinutes())).slice(-2)+" AM");
-});
 

@@ -1,17 +1,3 @@
-function initialize() {
-	// resize the map canvas
-	$("#myRivieraMap").height($("body").height() - 90);
-	
-	// move itineraire
-	
-	map = new google.maps.Map(document.getElementById("myRivieraMap"), {
-        zoom: 13,
-        center: new google.maps.LatLng(43.7, 7.27),
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      });
-//    setTimeout("geoloc()", 1500);
-}
-
 function geoloc(){
 	if (navigator.geolocation)
 		var watchId = navigator.geolocation.watchPosition(successCallback, null, {enableHighAccuracy:true});

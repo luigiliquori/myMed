@@ -57,11 +57,11 @@ class MyApplicationHandler implements IRequestHandler {
 						"&arrLat=" . $geocode2->results[0]->geometry->location->lat .
 						"&arrType=7" . 
 						"&departureTime=" . $tmp[4]."-".$tmp[3]."-".$tmp[2]."_".$tmp[0]."-".$tmp[1];
-
+						
 						$itineraire = file_get_contents(Cityway_URL . "/tripplanner/v1/detailedtrip/json?key=" . Cityway_APP_ID . $args);
 						$itineraireObj = json_decode($itineraire);
 						
-						if(isset($itineraireObj->ItineraryObj)) {
+						if(isset($itineraireObj->ItineraryObj->tripSegments)) {
 							
 							$this->success->itineraire = $itineraireObj;
 							$this->success->kml = Cityway_URL . "/tripplanner/v1/detailedtrip/kml?key=" . Cityway_APP_ID . $args;
@@ -95,14 +95,15 @@ class MyApplicationHandler implements IRequestHandler {
 							}
 							
 						} else {
-							$this->error = "error with cityWay";
-							echo '<script type="text/javascript">alert(\'' . $itineraire . '\');</script>';
+							// $this->error = "error with cityWay";
+							$this->error = "1";
 						}
 					} else {
-						$this->error = "error with google geocode";
+						// err google
+						$this->error = "2";
 					}
 				} else {
-					$this->error = "bad parameters";
+					$this->error = "3";
 				}
 			} 
 		}

@@ -16,3 +16,6 @@ http://openservice.cityway.fr/api/tripplanner/v1/detailedtrip/xml?key=INRIACARF&
 Itin�raires cross-mode
 http://openservice.cityway.fr/api/tripplanner/v1/plancrossmodetrip/xml?key=INRIACARF&depLon=7.493868&depLat=43.7777&depType=7&arrLon=7.49684858&arrLat=43.79419&arrType=7&departureTime=2011-10-14_11-00
 Attention pour les itin�raires 100% marche � pied, la distance est limit�e � 10 km (config moteur). Si la distance est d�pass�e il n'y aura pas de solution (code erreur = -5)
+
+http://openservice.cityway.fr/api/tripplanner/v1/plancrossmodetrip/json?key=INRIACARF&depLon=7.265592&depLat=43.696036&depType=7&arrLon=7.125102&arrLat=43.580418&arrType=7&departureTime=2012-01-30_12-17
+

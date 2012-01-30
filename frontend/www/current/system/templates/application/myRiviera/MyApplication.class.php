@@ -78,6 +78,7 @@ abstract class MyApplication extends AbstractTemplate {
 		</div>
 	<?php }
 	
+
 	/**
 	* Get the FOOTER for jQuery Mobile
 	*/
@@ -100,7 +101,6 @@ abstract class MyApplication extends AbstractTemplate {
 		<div id="<?= $this->id ?>" data-role="page" data-theme="d">
 			<?php  $this->getHeader(); ?>
 			<?php $this->getContent(); ?>
-			<?php $this->getFooter(); ?>
 		</div>
 	<?php }
 }
