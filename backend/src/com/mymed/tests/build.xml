@@ -58,13 +58,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
 			<include name="**/*.jar"/>
 		</fileset>
 		<fileset dir="${cassandra.dir}">
-			<include name="apache-cassandra-0.7.10.jar"/>
-			<include name="libthrift-0.5.jar"/>
-			<include name="gson-1.6.jar"/>
-			<include name="logback-core-0.9.29.jar"/>
-			<include name="slf4j-api-1.6.2.jar"/>
-			<include name="logback-classic-0.9.29.jar"/>
-			<exclude name="log4j-over-slf4j-1.6.2.jar"/>
+			<include name="**/*.jar"/>
 		</fileset>
 		<fileset dir="${httpcomp.dir}">
 			<include name="**/*.jar"/>
@@ -87,13 +81,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
       <include name="**/*.jar"/>
     </fileset>
     <fileset dir="${cassandra.dir}">
-      <include name="apache-cassandra-0.7.10.jar"/>
-      <include name="libthrift-0.5.jar"/>
-      <include name="gson-1.6.jar"/>
-      <include name="logback-core-0.9.29.jar"/>
-      <include name="slf4j-api-1.6.2.jar"/>
-      <include name="logback-classic-0.9.29.jar"/>
-      <exclude name="log4j-over-slf4j-1.6.2.jar"/>
+			<include name="**/*.jar"/>
     </fileset>
     <fileset dir="${httpcomp.dir}">
       <include name="**/*.jar"/>
