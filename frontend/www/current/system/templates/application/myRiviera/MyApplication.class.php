@@ -58,8 +58,10 @@ abstract class MyApplication extends AbstractTemplate {
 					<input data-theme="d" type="text" id="arrivee"  name="Arrivée" />	
 					
 					<!-- DATE -->
-					<img id="arriveepicture" alt="thumbnail" src="system/templates/application/myRiviera/img/calendar.png"  height="32"/><br />
-					<input data-theme="d" name="date" id="date" type="date" data-role="datebox"  data-options='{"noButtonFocusMode": true, "disableManualInput": true, "mode": "slidebox", "dateFormat":"HH:ii le DD/MM/YYYY  ", "fieldsOrderOverride":["h","i","d","m","y"]}'>
+					
+					<img id="arriveepicture" alt="thumbnail" src="system/templates/application/myRiviera/img/calendar.png"  height="32" style="display: inline; vertical-align: middle;"/>
+					<label for="date" style="display: inline; vertical-align: middle;">&nbsp; à</label>
+					<input data-theme="d" name="date" id="date" type="date" data-role="datebox"  data-options='{"noButtonFocusMode": true, "disableManualInput": true, "mode": "slidebox", "dateFormat":"HH:ii le DD/MM/YYYY  ", "fieldsOrderOverride":["h","i","d","m","y"]}' style="display: inline; vertical-align: middle;">
 					
 					<br>
 					

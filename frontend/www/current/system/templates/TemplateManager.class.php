@@ -33,8 +33,8 @@ class TemplateManager {
 		<meta name="viewport" content="width=device-width, initial-scale=1, <?= TARGET == "mobile" ? "user-scalable=0" : "" ?>" /> 
 		
 		<!-- JQUERY CSS -->
-		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
-		<link rel="stylesheet" type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.css" />
+		<link rel="stylesheet" type="text/css" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+		<link rel="stylesheet" type="text/css" href="lib/jquery/jquery.mobile.datebox.css" />
 		
 		<!-- JQUERY -->
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
@@ -49,7 +49,7 @@ class TemplateManager {
 		<script>
 			jQuery.extend(jQuery.mobile.datebox.prototype.options.lang, {
 				'fr': {
-					setDateButtonLabel: 'Date Fixée',
+					setDateButtonLabel: 'Régler la date',
 					setTimeButtonLabel: "Régler l'heure",
 					setDurationButtonLabel: 'Régler la durée',
 					calTodayButtonLabel: "Aller à aujourd'hui",
