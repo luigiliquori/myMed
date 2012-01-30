@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.controller.core.manager.profile;
 
 import java.io.UnsupportedEncodingException;
@@ -33,7 +33,9 @@ import com.mymed.model.data.user.MUserBean;
  */
 public class ProfileManager extends AbstractManager implements IProfileManager {
 
-  private static final String ENCODING = "UTF8";
+  private static final String CF_USER = COLUMNS.get("column.cf.user");
+  private static final String CF_AUTHENTICATION = COLUMNS.get("column.cf.authentication");
+  private static final String FIELD_ID = FIELDS.get("field.id");
 
   public ProfileManager() throws InternalBackEndException {
     this(new StorageManager());
@@ -54,17 +56,16 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
   public MUserBean create(final MUserBean user) throws InternalBackEndException, IOBackEndException {
     try {
       final Map<String, byte[]> args = user.getAttributeToMap();
-      storageManager.insertSlice(CF_USER, new String(args.get("id"), ENCODING), args);
+      storageManager.insertSlice(CF_USER, new String(args.get(FIELD_ID), ENCODING), args);
 
       return user;
     } catch (final UnsupportedEncodingException e) {
-      LOGGER.info("Error in string conversion using {} encoding", ENCODING);
-      LOGGER.debug("Error in string conversion using {} encoding", ENCODING, e.getCause());
+      LOGGER.info(ERROR_ENCODING, ENCODING);
+      LOGGER.debug(ERROR_ENCODING, ENCODING, e);
 
       throw new InternalBackEndException(e.toString());
     }
   }
-
   /**
    * @param id
    *          the id of the user
@@ -78,7 +79,7 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
     final Map<byte[], byte[]> args = storageManager.selectAll(CF_USER, id);
 
     if (args.isEmpty()) {
-      LOGGER.info("User with ID '{}' does not exists", id);
+      LOGGER.info("User with FIELD_ID '{}' does not exists", id);
       throw new IOBackEndException("profile does not exist!", 404);
     }
 
@@ -91,7 +92,7 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
    */
   @Override
   public MUserBean update(final MUserBean user) throws InternalBackEndException, IOBackEndException {
-    LOGGER.info("Updating user with ID '{}'", user.getId());
+    LOGGER.info("Updating user with FIELD_ID '{}'", user.getId());
     // create(user) will replace the current values of the user...
     return create(user);
   }

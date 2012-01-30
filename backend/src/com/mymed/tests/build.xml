@@ -28,12 +28,15 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
 	<property name="controller.dir"      location="../controller"/>
 	<property name="model.dir"           location="../model"/>
 	<property name="utils.dir"           location="../utils"/>
+	<property name="properties.dir"      location="../properties"/>
+	<property name="resources.dir"       location="../resources"/>
+	<property name="build.resources.dir" location="${build.dir}/com/mymed/resources"/>
 	<property name="java.dir"            location="/usr/share/java"/>
 	<property name="junit.dir"           location="/usr/share/junit"/>
 	<property name="glassfish.dir"       location="/local/glassfish3/glassfish/"/>
 	<property name="cassandra.dir"       location="../../../../WebContent/WEB-INF/lib"/>
 	<property name="httpcomp.dir"        location="/usr/share/apache-commons/httpcomponents"/>
-	<property name="src.dir"             location="${controller.dir}:${model.dir}:${utils.dir}"/>
+	<property name="src.dir"             location="${controller.dir}:${model.dir}:${utils.dir}:${properties.dir}"/>
 	<property name="mymed.jar"           value="mymed.jar"/>
 	<property name="mymedtest.jar"       value="tests.jar"/>
 
@@ -107,6 +110,13 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
 		<javac srcdir="${src.dir}" destdir="${build.dir}" debug="on" fork="true" includeantruntime="true" includejavaruntime="true">
 			<classpath refid="classpath.compile"/>
 		</javac>
+		<!-- <mkdir dir="${build.resources.dir}" />
+		<copy todir="${build.resources.dir}">
+			<fileset dir="${resources.dir}">
+				<include name="**/*.properties"/>
+			</fileset>
+		</copy>
+		-->
 		<jar destfile="${lib.dir}/${mymed.jar}" basedir="${build.dir}" duplicate="preserve" index="true"/>
 	</target>
 

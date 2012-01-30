@@ -207,6 +207,12 @@ public class WrapperConfiguration {
       kadStoragePort = 0;
 
       LOGGER.info("WARNING: no XML configuration file found!");
+    } finally {
+      try {
+        input.close();
+      } catch (final IOException ex) {
+        LOGGER.debug("Error closing input stream", ex);
+      }
     }
   }
 

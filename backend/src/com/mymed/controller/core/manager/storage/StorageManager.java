@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.controller.core.manager.storage;
 
 import java.io.UnsupportedEncodingException;
@@ -33,12 +33,17 @@ import org.apache.cassandra.thrift.SlicePredicate;
 import org.apache.cassandra.thrift.SliceRange;
 import org.apache.cassandra.thrift.SuperColumn;
 
+import ch.qos.logback.classic.Logger;
+
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.controller.core.manager.ManagerValues;
 import com.mymed.model.core.configuration.WrapperConfiguration;
 import com.mymed.model.core.wrappers.cassandra.api07.CassandraWrapper;
+import com.mymed.properties.IProperties;
+import com.mymed.properties.PropType;
+import com.mymed.properties.PropertiesManager;
 import com.mymed.utils.MConverter;
+import com.mymed.utils.MLogger;
 
 /**
  * This class represent the DAO pattern: Access to data varies depending on the
@@ -52,12 +57,18 @@ import com.mymed.utils.MConverter;
  * @author lvanni
  * 
  */
-public class StorageManager extends ManagerValues implements IStorageManager {
+public class StorageManager implements IStorageManager {
 
   // The name of the configuration file
   private static final String CONFIG_PATH = "config.xml";
 
-  // The wrapper
+  private static final Logger LOGGER = MLogger.getLogger();
+
+  private static final PropertiesManager PROPERTIES = PropertiesManager.getInstance();
+  protected static final IProperties GENERAL = PROPERTIES.getManager(PropType.GENERAL);
+
+  protected static final String ENCODING = GENERAL.get("general.string.encoding");
+
   private final CassandraWrapper wrapper;
 
   /**
@@ -104,7 +115,7 @@ public class StorageManager extends ManagerValues implements IStorageManager {
 
     try {
       final ColumnPath colPathName = new ColumnPath(tableName);
-      colPathName.setColumn(columnName.getBytes("UTF8"));
+      colPathName.setColumn(columnName.getBytes(ENCODING));
 
       LOGGER.info("Selecting column '{}' from table '{}' with key '{}'", new Object[] {columnName, tableName, key});
 
@@ -472,7 +483,7 @@ public class StorageManager extends ManagerValues implements IStorageManager {
       final String columnFamily = tableName;
       final long timestamp = System.currentTimeMillis();
       final ColumnPath columnPath = new ColumnPath(columnFamily);
-      columnPath.setColumn(columnName.getBytes("UTF8"));
+      columnPath.setColumn(columnName.getBytes(ENCODING));
 
       wrapper.remove(key, columnPath, timestamp, consistencyOnWrite);
     } catch (final UnsupportedEncodingException e) {
@@ -481,30 +492,31 @@ public class StorageManager extends ManagerValues implements IStorageManager {
     }
   }
 
-	/**
-	 * 
-	 * @param tableName
-	 * @param key
-	 * @param superColumnName
-	 * @throws InternalBackEndException
-	 */
+  /**
+   * 
+   * @param tableName
+   * @param key
+   * @param superColumnName
+   * @throws InternalBackEndException
+   */
   @Override
   public void removeSuperColumn(final String tableName, final String key, final String superColumnName)
-	      throws InternalBackEndException {
+      throws InternalBackEndException {
 
-	    try {
-	      final String columnFamily = tableName;
-	      final long timestamp = System.currentTimeMillis();
-	      final ColumnPath columnPath = new ColumnPath(columnFamily);
-	      columnPath.setSuper_column(superColumnName.getBytes("UTF8"));
+    try {
+      final String columnFamily = tableName;
+      final long timestamp = System.currentTimeMillis();
+      final ColumnPath columnPath = new ColumnPath(columnFamily);
+      columnPath.setSuper_column(superColumnName.getBytes(ENCODING));
 
-	      wrapper.remove(key, columnPath, timestamp, consistencyOnWrite);
-	    } catch (final UnsupportedEncodingException e) {
-	      LOGGER.debug("Remove column '{}' failed", superColumnName, e.getCause());
-	      throw new InternalBackEndException("removeColumn failed because of an UnsupportedEncodingException");
-	    }
-	  }
-  
+      wrapper.remove(key, columnPath, timestamp, consistencyOnWrite);
+    } catch (final UnsupportedEncodingException e) {
+      // We should never get here!
+      LOGGER.debug("Remove column '{}' failed", superColumnName, e);
+      throw new InternalBackEndException("removeColumn failed because of an UnsupportedEncodingException");
+    }
+  }
+
   /**
    * Remove an entry in the columnFamily
    * 

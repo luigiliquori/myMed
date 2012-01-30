@@ -35,9 +35,8 @@ import com.mymed.model.data.user.MUserBean;
  */
 public class AuthenticationManager extends AbstractManager implements IAuthenticationManager {
 
-  private static final String LOGIN_COLUMN = "login";
-  private static final String ENCODING = "UTF8";
-  private static final String CONVERSION_ERROR = "Error in string conversion using '{}' encoding";
+  private static final String FIELD_LOGIN = FIELDS.get("field.login");
+  private static final String CF_AUTHENTICATION = COLUMNS.get("column.cf.authentication");
 
   public AuthenticationManager() throws InternalBackEndException {
     this(new StorageManager());
@@ -65,10 +64,10 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
       if (e.getStatus() == 404) {
         try {
           final Map<String, byte[]> authMap = authentication.getAttributeToMap();
-          storageManager.insertSlice(CF_AUTHENTICATION, new String(authMap.get(LOGIN_COLUMN), ENCODING), authMap);
+          storageManager.insertSlice(CF_AUTHENTICATION, new String(authMap.get(FIELD_LOGIN), ENCODING), authMap);
         } catch (final UnsupportedEncodingException ex) {
-          LOGGER.info(CONVERSION_ERROR, ENCODING);
-          LOGGER.debug(CONVERSION_ERROR, ENCODING, ex);
+          LOGGER.info(ERROR_ENCODING, ENCODING);
+          LOGGER.debug(ERROR_ENCODING, ENCODING, ex);
 
           throw new InternalBackEndException(ex.getMessage()); // NO PMD
         }
@@ -108,14 +107,14 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
     // Remove the old Authentication (the login/key can be changed)
     storageManager.removeAll(CF_AUTHENTICATION, id);
     // Insert the new Authentication
-    storageManager.insertSlice(CF_AUTHENTICATION, LOGIN_COLUMN, authentication.getAttributeToMap());
+    storageManager.insertSlice(CF_AUTHENTICATION, FIELD_LOGIN, authentication.getAttributeToMap());
 
     try {
       final Map<String, byte[]> authMap = authentication.getAttributeToMap();
-      storageManager.insertSlice(CF_AUTHENTICATION, new String(authMap.get(LOGIN_COLUMN), ENCODING), authMap);
+      storageManager.insertSlice(CF_AUTHENTICATION, new String(authMap.get(FIELD_LOGIN), ENCODING), authMap);
     } catch (final UnsupportedEncodingException ex) {
-      LOGGER.info(CONVERSION_ERROR, ENCODING);
-      LOGGER.debug(CONVERSION_ERROR, ENCODING, ex);
+      LOGGER.info(ERROR_ENCODING, ENCODING);
+      LOGGER.debug(ERROR_ENCODING, ENCODING, ex);
 
       throw new InternalBackEndException(ex.getMessage()); // NO PMD
     }

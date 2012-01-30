@@ -24,10 +24,16 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import ch.qos.logback.classic.Logger;
+
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.model.data.AbstractMBean;
+import com.mymed.properties.IProperties;
+import com.mymed.properties.PropType;
+import com.mymed.properties.PropertiesManager;
 import com.mymed.utils.ClassType;
+import com.mymed.utils.MLogger;
 
 /**
  * Abstract manager the all the managers should extend.
@@ -38,12 +44,21 @@ import com.mymed.utils.ClassType;
  * @author Milo Casagrande
  * 
  */
-public abstract class AbstractManager extends ManagerValues {
-
-  private static final int PRIV_FIN = Modifier.PRIVATE + Modifier.FINAL;
-  private static final int PRIV_STAT_FIN = Modifier.PRIVATE + Modifier.STATIC + Modifier.FINAL;
+public abstract class AbstractManager {
 
   protected IStorageManager storageManager;
+  protected static final Logger LOGGER = MLogger.getLogger();
+
+  private static final PropertiesManager PROPERTIES = PropertiesManager.getInstance();
+  protected static final IProperties GENERAL = PROPERTIES.getManager(PropType.GENERAL);
+  protected static final IProperties COLUMNS = PROPERTIES.getManager(PropType.COLUMNS);
+  protected static final IProperties ERRORS = PROPERTIES.getManager(PropType.ERRORS);
+  protected static final IProperties FIELDS = PROPERTIES.getManager(PropType.FIELDS);
+
+  protected static final String ENCODING = GENERAL.get("general.string.encoding");
+  protected static final String ERROR_ENCODING = ERRORS.get("error.encodig");
+
+  private static final int PRIV = Modifier.PRIVATE;
 
   public AbstractManager(final IStorageManager storageManager) {
     this.storageManager = storageManager;
@@ -68,7 +83,7 @@ public abstract class AbstractManager extends ManagerValues {
          * private and final, or private static and final, we skip it.
          */
         final int modifiers = field.getModifiers();
-        if (modifiers == PRIV_FIN || modifiers == PRIV_STAT_FIN) {
+        if (modifiers != PRIV) {
           continue;
         }
 
@@ -84,8 +99,8 @@ public abstract class AbstractManager extends ManagerValues {
         } catch (final UnsupportedEncodingException ex) {
           // If we ever get here, there is something seriously wrong.
           // This should never happen.
-          LOGGER.info("Error in encoding string using {} encoding", ENCODING);
-          LOGGER.debug("Error in eoncoding string", ex);
+          LOGGER.info(ERROR_ENCODING, ENCODING);
+          LOGGER.debug(ERROR_ENCODING, ENCODING, ex);
         }
       } catch (final SecurityException ex) {
         throw new InternalBackEndException(ex);
@@ -100,14 +115,13 @@ public abstract class AbstractManager extends ManagerValues {
       } catch (final UnsupportedEncodingException ex) {
         // If we ever get here, there is something seriously wrong.
         // This should never happen.
-        LOGGER.info("Error in encoding string using {} encoding", ENCODING);
-        LOGGER.debug("Error in encoding string", ex);
+        LOGGER.info(ERROR_ENCODING, ENCODING);
+        LOGGER.debug(ERROR_ENCODING, ENCODING, ex);
       }
     }
 
     return mbean;
   }
-
   /**
    * Create the name of the setter method based on the field name and its class.
    * <p>

@@ -25,6 +25,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
 	<property name="ext.dir" location="${backend.dir}/ext"/>
 	<property name="backend.conf.dir" location="${backend.dir}/conf"/>
 	<property name="src.dir" location="${backend.dir}/src"/>
+	<property name="properties.dir" location="${src.dir}/com/mymed/resources"/>
 	<property name="test.dir" location="${src.dir}/com/mymed/tests"/>
 	<property name="frontend.www.current.dir" location="${frontend.dir}/www/current"/>
 	<property name="build.dir" location="build"/>
@@ -119,7 +120,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
   </target>
 
 	<!-- - - - - - - - - - - - - - - - - -
-          target: test
+          target: checkaddress
          - - - - - - - - - - - - - - - - - -->
   <target name="checkaddress" description="Check if the 'address' argument has been passed on the commnad line">
   	<echo message="Checking address to use for configuration file"/>
@@ -151,6 +152,9 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
   				<token key="address" value="${ipaddress}"/>
   			</replacetokens>
   		</filterchain>
+  	</copy>
+  	<copy todir="${war.webinf.resources.dir}">
+  		<fileset dir="${properties.dir}"/>
   	</copy>
 
   	<copy todir="${war.webinf.classes.dir}" description="Copy the compiled classes in the WEB-INF/classes/ dir">

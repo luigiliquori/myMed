@@ -13,10 +13,10 @@ import com.mymed.utils.MLogger;
  * @author Milo Casagrande
  * 
  */
-public class PropertiesColumnsManager implements IProperties {
+public final class PropertiesColumnsManager implements IProperties {
 
   private static final PropertiesColumnsManager INSTANCE = new PropertiesColumnsManager();
-  private static Properties properties;
+  private Properties properties;
 
   /**
    * Initialize the instance, loading the values from the columns name

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.controller.core.manager.interaction;
 
 import java.util.Map;
@@ -31,63 +31,56 @@ import com.mymed.model.data.interaction.MInteractionBean;
  * @author Milo Casagrande
  * 
  */
-public class InteractionManager extends AbstractManager implements
-		IInteractionManager {
+public class InteractionManager extends AbstractManager implements IInteractionManager {
 
-	private VerdictManager verdictManager;
+  private static final String CF_INTERACTION = COLUMNS.get("column.cf.interaction");
+  private static final String COLUMN_ID = COLUMNS.get("column.id");
 
-	public InteractionManager() throws InternalBackEndException {
-		this(new StorageManager());
-	}
+  private final VerdictManager verdictManager;
 
-	public InteractionManager(final StorageManager storageManager)
-			throws InternalBackEndException {
-		super(storageManager);
-		this.verdictManager = new VerdictManager(storageManager.getWrapper());
-	}
+  public InteractionManager() throws InternalBackEndException {
+    this(new StorageManager());
+  }
 
-	@Override
-	public void create(final MInteractionBean interaction)
-			throws InternalBackEndException, IOBackEndException {
-		try { // Verify the interaction does not exist
-			storageManager.selectColumn(CF_INTERACTION, interaction.getId(),
-					"id");
-		} catch (IOBackEndException e) {
-			// INTERACTION CREATION
-			storageManager.insertSlice(CF_INTERACTION, interaction.getId(),
-					interaction.getAttributeToMap());
-			if (interaction.getFeedback() != -1) {
-				// REPUTATION UPDATE
-				if (!verdictManager.updateReputation(interaction
-						.getApplication(), interaction.getConsumer(), false,
-						interaction.getProducer(), interaction.getFeedback())) {
-					throw new InternalBackEndException("Reputation update: doesn't work!");
-				}
-			}
-			return;
-		}
-		throw new IOBackEndException("Interaction already exist!", 409);
-	}
+  public InteractionManager(final StorageManager storageManager) throws InternalBackEndException {
+    super(storageManager);
+    verdictManager = new VerdictManager(storageManager.getWrapper());
+  }
 
-	@Override
-	public MInteractionBean read(final String interactionID)
-			throws InternalBackEndException, IOBackEndException {
-		final MInteractionBean interaction = new MInteractionBean();
-		final Map<byte[], byte[]> args = storageManager.selectAll(
-				CF_INTERACTION, interactionID);
+  @Override
+  public void create(final MInteractionBean interaction) throws InternalBackEndException, IOBackEndException {
+    try { // Verify the interaction does not exist
+      storageManager.selectColumn(CF_INTERACTION, interaction.getId(), COLUMN_ID);
+    } catch (final IOBackEndException e) {
+      // INTERACTION CREATION
+      storageManager.insertSlice(CF_INTERACTION, interaction.getId(), interaction.getAttributeToMap());
+      if (interaction.getFeedback() != -1) {
+        // REPUTATION UPDATE
+        if (!verdictManager.updateReputation(interaction.getApplication(), interaction.getConsumer(), false,
+            interaction.getProducer(), interaction.getFeedback())) {
+          throw new InternalBackEndException("Reputation update: doesn't work!");
+        }
+      }
+      return;
+    }
+    throw new IOBackEndException("Interaction already exist!", 409);
+  }
 
-		return (MInteractionBean) introspection(interaction, args);
-	}
+  @Override
+  public MInteractionBean read(final String interactionID) throws InternalBackEndException, IOBackEndException {
+    final MInteractionBean interaction = new MInteractionBean();
+    final Map<byte[], byte[]> args = storageManager.selectAll(CF_INTERACTION, interactionID);
 
-	@Override
-	public void update(final MInteractionBean interaction)
-			throws InternalBackEndException, IOBackEndException {
-		create(interaction);
-	}
+    return (MInteractionBean) introspection(interaction, args);
+  }
 
-	@Override
-	public void delete(final String interactionID)
-			throws InternalBackEndException {
-		storageManager.removeAll(CF_INTERACTION, interactionID);
-	}
+  @Override
+  public void update(final MInteractionBean interaction) throws InternalBackEndException, IOBackEndException {
+    create(interaction);
+  }
+
+  @Override
+  public void delete(final String interactionID) throws InternalBackEndException {
+    storageManager.removeAll(CF_INTERACTION, interactionID);
+  }
 }

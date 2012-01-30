@@ -15,9 +15,6 @@
  */
 package com.mymed.controller.core.manager;
 
-import ch.qos.logback.classic.Logger;
-
-import com.mymed.utils.MLogger;
 
 /**
  * Simple class to hold generic strings that can be used with all the managers.
@@ -116,16 +113,4 @@ public class ManagerValues {
    * The 'RaterList' super column
    */
   protected static final String SC_RATER_LIST = "RaterList";
-
-  // Logger
-  /**
-   * The default logger for the backend managers
-   */
-  protected static final Logger LOGGER = MLogger.getLogger();
-
-  // Encoding
-  /**
-   * The default encoding
-   */
-  protected static final String ENCODING = "UTF-8";
 }
