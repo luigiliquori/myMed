@@ -3,9 +3,6 @@ var poi;
 var poiMem = {};
 var poiIterator;
 
-function initialize() {
-}
-
 function changeDestination(dest){
 	picture = (document.getElementById("select" + dest).value + "").split("&&")[0];
 	address = (document.getElementById("select" + dest).value + "").split("&&")[1];
@@ -115,12 +112,17 @@ function addMarker(){
 }
 
 /**
- * Automatically sets the date input field
+ * Automatically sets the date and time inputs
  */
 $(function() {
 	// Handler for .ready() called.
 	var d=new Date();
 	
-	$("#date").val(("0" + (d.getHours())).slice(-2)+":"+("0" + (d.getMinutes())).slice(-2)+" le "+("0" + (d.getDate())).slice(-2)+'/'+("0" + (d.getMonth() + 1)).slice(-2)+'/'+d.getFullYear());
+	$("#date").val(d.getDate()+'/'+(d.getMonth() + 1)+'/'+d.getFullYear());
+	//English format $("#date").val(d.getFullYear()+"-"+("0" + (d.getMonth() + 1)).slice(-2)+"-"+("0" + (d.getDate())).slice(-2));
+	
+	// 24H or 12H format:
+	$("#time").val(("0" + (d.getHours())).slice(-2)+":"+("0" + (d.getMinutes())).slice(-2));
+	//$("#time").val(d.getHours()>12?d.getHours()-12+":"+("0" + (d.getMinutes())).slice(-2)+" PM":d.getHours()+":"+("0" + (d.getMinutes())).slice(-2)+" AM");
 });
 
