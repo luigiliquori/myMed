@@ -110,13 +110,6 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
 		<javac srcdir="${src.dir}" destdir="${build.dir}" debug="on" fork="true" includeantruntime="true" includejavaruntime="true">
 			<classpath refid="classpath.compile"/>
 		</javac>
-		<!-- <mkdir dir="${build.resources.dir}" />
-		<copy todir="${build.resources.dir}">
-			<fileset dir="${resources.dir}">
-				<include name="**/*.properties"/>
-			</fileset>
-		</copy>
-		-->
 		<jar destfile="${lib.dir}/${mymed.jar}" basedir="${build.dir}" duplicate="preserve" index="true"/>
 	</target>
 
