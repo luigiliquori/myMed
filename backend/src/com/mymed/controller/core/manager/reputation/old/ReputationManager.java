@@ -36,9 +36,8 @@ public class ReputationManager extends AbstractManager implements IReputationMan
   @Override
   public MReputationBean read(final String producerID, final String consumerID, final String applicationID)
       throws InternalBackEndException, IOBackEndException {
-    MReputationBean reputationBean = new MReputationBean();
     final Map<byte[], byte[]> args = storageManager.selectAll(CF_REPUTATION, applicationID + producerID);
-    reputationBean = (MReputationBean) introspection(reputationBean, args);
+    final MReputationBean reputationBean = (MReputationBean) introspection(MReputationBean.class, args);
 
     if (reputationBean.getRaterList() == null) { // The reputation of the user
                                                  // is not yet initialized

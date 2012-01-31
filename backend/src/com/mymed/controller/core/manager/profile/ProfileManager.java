@@ -29,7 +29,6 @@ import com.mymed.model.data.user.MUserBean;
  * Manage an user profile
  * 
  * @author lvanni
- * 
  */
 public class ProfileManager extends AbstractManager implements IProfileManager {
 
@@ -67,6 +66,7 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
       throw new InternalBackEndException(e.toString());
     }
   }
+
   /**
    * @param id
    *          the id of the user
@@ -76,7 +76,6 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
    */
   @Override
   public MUserBean read(final String id) throws InternalBackEndException, IOBackEndException {
-    final MUserBean user = new MUserBean();
     final Map<byte[], byte[]> args = storageManager.selectAll(CF_USER, id);
 
     if (args.isEmpty()) {
@@ -84,7 +83,7 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
       throw new IOBackEndException("profile does not exist!", 404);
     }
 
-    return (MUserBean) introspection(user, args);
+    return (MUserBean) introspection(MUserBean.class, args);
   }
 
   /**

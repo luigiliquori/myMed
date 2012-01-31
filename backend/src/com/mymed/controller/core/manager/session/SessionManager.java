@@ -30,7 +30,6 @@ import com.mymed.model.data.user.MUserBean;
  * 
  * @author lvanni
  * @author Milo Casagrande
- * 
  */
 public class SessionManager extends AbstractManager implements ISessionManager {
 
@@ -90,9 +89,8 @@ public class SessionManager extends AbstractManager implements ISessionManager {
   @Override
   public MSessionBean read(final String sessionID) throws InternalBackEndException, IOBackEndException {
 
-    MSessionBean session = new MSessionBean();
     final Map<byte[], byte[]> args = storageManager.selectAll(CF_SESSION, sessionID);
-    session = (MSessionBean) introspection(session, args);
+    final MSessionBean session = (MSessionBean) introspection(MSessionBean.class, args);
 
     if (session.isExpired()) {
       throw new IOBackEndException("Session expired!", 404);

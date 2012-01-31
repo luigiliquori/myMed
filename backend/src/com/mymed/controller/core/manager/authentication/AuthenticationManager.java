@@ -31,7 +31,6 @@ import com.mymed.model.data.user.MUserBean;
  * 
  * @author lvanni
  * @author Milo Casagrande
- * 
  */
 public class AuthenticationManager extends AbstractManager implements IAuthenticationManager {
 
@@ -86,7 +85,7 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
   public MUserBean read(final String login, final String password) throws InternalBackEndException, IOBackEndException {
 
     final Map<byte[], byte[]> args = storageManager.selectAll(CF_AUTHENTICATION, login);
-    final MAuthenticationBean authentication = (MAuthenticationBean) introspection(new MAuthenticationBean(), args);
+    final MAuthenticationBean authentication = (MAuthenticationBean) introspection(MAuthenticationBean.class, args);
 
     if (authentication.getLogin().equals("")) {
       throw new IOBackEndException("The login does not exist!", 404);

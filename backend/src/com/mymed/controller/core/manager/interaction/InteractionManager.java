@@ -29,7 +29,6 @@ import com.mymed.model.data.interaction.MInteractionBean;
  * 
  * @author lvanni
  * @author Milo Casagrande
- * 
  */
 public class InteractionManager extends AbstractManager implements IInteractionManager {
 
@@ -68,10 +67,9 @@ public class InteractionManager extends AbstractManager implements IInteractionM
 
   @Override
   public MInteractionBean read(final String interactionID) throws InternalBackEndException, IOBackEndException {
-    final MInteractionBean interaction = new MInteractionBean();
     final Map<byte[], byte[]> args = storageManager.selectAll(CF_INTERACTION, interactionID);
 
-    return (MInteractionBean) introspection(interaction, args);
+    return (MInteractionBean) introspection(MInteractionBean.class, args);
   }
 
   @Override

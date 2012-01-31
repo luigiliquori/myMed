@@ -42,7 +42,6 @@ import com.mymed.utils.MLogger;
  * 
  * @author lvanni
  * @author Milo Casagrande
- * 
  */
 public abstract class AbstractManager {
 
@@ -72,14 +71,14 @@ public abstract class AbstractManager {
    * @return
    * @throws InternalBackEndException
    */
-  public AbstractMBean introspection(final AbstractMBean mbean, final Map<byte[], byte[]> args)
+  public AbstractMBean introspection(final Class<? extends AbstractMBean> mbean, final Map<byte[], byte[]> args)
       throws InternalBackEndException {
     for (final Entry<byte[], byte[]> arg : args.entrySet()) {
       String fieldName = "";
 
       try {
         fieldName = new String(arg.getKey(), ENCODING);
-        final Field field = mbean.getClass().getDeclaredField(fieldName);
+        final Field field = mbean.getDeclaredField(fieldName);
 
         /*
          * We check the value of the modifiers of the field: if the field is
@@ -118,11 +117,11 @@ public abstract class AbstractManager {
 
     return mbean;
   }
+
   /**
    * Create the name of the setter method based on the field name and its class.
    * <p>
-   * This is particularly useful due to the fact that boolean fields does not
-   * have a normal setter name.
+   * This is particularly useful due to the fact that boolean fields does not have a normal setter name.
    * 
    * @param field
    *          the filed we want the setter method of

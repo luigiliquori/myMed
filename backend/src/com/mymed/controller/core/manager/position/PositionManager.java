@@ -29,7 +29,6 @@ import com.mymed.model.data.user.MPositionBean;
  * 
  * @author lvanni
  * @author Milo Casagrande
- * 
  */
 public class PositionManager extends AbstractManager implements IPositionManager {
 
@@ -72,16 +71,13 @@ public class PositionManager extends AbstractManager implements IPositionManager
    */
   @Override
   public MPositionBean read(final String userID) throws InternalBackEndException, IOBackEndException {
-
-    final MPositionBean position = new MPositionBean();
-
     final Map<byte[], byte[]> args = storageManager.selectAll(CF_POSITION, userID);
     if (args.isEmpty()) {
       LOGGER.info("User with ID '{}' does not exists", userID);
       throw new IOBackEndException("position does not exist!", 404);
     }
 
-    return (MPositionBean) introspection(position, args);
+    return (MPositionBean) introspection(MPositionBean.class, args);
   }
 
   /**
