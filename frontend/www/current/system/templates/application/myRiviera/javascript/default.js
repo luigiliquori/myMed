@@ -75,15 +75,15 @@ function addMarker(){
 		
 		var myMarkerImage = "";
 		if(poi[poiIterator].category == "4"){
-			myMarkerImage = 'http://mymed2.sophia.inria.fr/system/templates/application/myRiviera/img/velobleu.png';
+			myMarkerImage = 'system/templates/application/myRiviera/img/velobleu.png';
 		} else if (poi[poiIterator].category == "5"){
-			myMarkerImage = 'http://mymed2.sophia.inria.fr/system/templates/application/myRiviera/img/veloparc.png';
+			myMarkerImage = 'system/templates/application/myRiviera/img/veloparc.png';
 		} else if (poi[poiIterator].category == "10"){
-			myMarkerImage = 'http://mymed2.sophia.inria.fr/system/templates/application/myRiviera/img/info.png';
+			myMarkerImage = 'system/templates/application/myRiviera/img/info.png';
 		} else if (poi[poiIterator].category == "1" || poi[poiIterator].category == "2" || poi[poiIterator].category == "3" || poi[poiIterator].category == "8"){
-			myMarkerImage = 'http://mymed2.sophia.inria.fr/system/templates/application/myRiviera/img/lieu.png';
+			myMarkerImage = 'system/templates/application/myRiviera/img/lieu.png';
 		} else {
-			myMarkerImage = 'http://mymed2.sophia.inria.fr/system/templates/application/myRiviera/img/trip.png';
+			myMarkerImage = 'system/templates/application/myRiviera/img/trip.png';
 		}
 		var marker = new google.maps.Marker({
 			animation: google.maps.Animation.DROP,
@@ -114,12 +114,18 @@ function addMarker(){
 	poiIterator++;
 }
 
-
+/**
+ * Automatically sets the date and time inputs
+ */
 $(function() {
 	// Handler for .ready() called.
 	var d=new Date();
-
-	$("#date").val(d.getFullYear()+"-"+("0" + (d.getMonth() + 1)).slice(-2)+"-"+("0" + (d.getDate())).slice(-2));
-	$("#time").val(d.getHours()>12?d.getHours()-12+":"+("0" + (d.getMinutes())).slice(-2)+" PM":d.getHours()+":"+("0" + (d.getMinutes())).slice(-2)+" AM");
+	
+	$("#date").val(d.getDate()+'/'+(d.getMonth() + 1)+'/'+d.getFullYear());
+	//English format $("#date").val(d.getFullYear()+"-"+("0" + (d.getMonth() + 1)).slice(-2)+"-"+("0" + (d.getDate())).slice(-2));
+	
+	// 24H or 12H format:
+	$("#time").val(("0" + (d.getHours())).slice(-2)+":"+("0" + (d.getMinutes())).slice(-2));
+	//$("#time").val(d.getHours()>12?d.getHours()-12+":"+("0" + (d.getMinutes())).slice(-2)+" PM":d.getHours()+":"+("0" + (d.getMinutes())).slice(-2)+" AM");
 });
 

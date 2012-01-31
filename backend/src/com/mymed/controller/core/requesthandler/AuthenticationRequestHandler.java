@@ -70,6 +70,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
       profileManager = new ProfileManager();
       registrationManager = new RegistrationManager();
     } catch (final InternalBackEndException e) {
+      LOGGER.debug("AuthenticationManager not accessible!", e);
       throw new ServletException("AuthenticationManager is not accessible because: " + e.getMessage());
     }
   }
@@ -110,7 +111,6 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
           throw new InternalBackEndException("AuthenticationRequestHandler(" + code + ") not exist!");
       }
     } catch (final AbstractMymedException e) {
-      e.printStackTrace();
       LOGGER.info("Error in doGet operation");
       LOGGER.debug("Error in doGet operation", e);
       message.setStatus(e.getStatus());
@@ -232,7 +232,6 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
           throw new InternalBackEndException("AuthenticationRequestHandler(" + code + ") not exist!");
       }
     } catch (final AbstractMymedException e) {
-      e.printStackTrace();
       LOGGER.info("Error in doPost operation");
       LOGGER.debug("Error in doPost operation", e);
       message.setStatus(e.getStatus());

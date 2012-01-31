@@ -11,36 +11,6 @@
   </welcome-file-list>
   <servlet>
     <description></description>
-    <display-name>DebugConsole</display-name>
-    <servlet-name>DebugConsole</servlet-name>
-    <servlet-class>com.mymed.controller.core.requesthandler.debug.DebugConsole</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>DebugConsole</servlet-name>
-    <url-pattern>/DebugConsole</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>DHTRequestHandler</display-name>
-    <servlet-name>DHTRequestHandler</servlet-name>
-    <servlet-class>com.mymed.controller.core.requesthandler.DHTRequestHandler</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>DHTRequestHandler</servlet-name>
-    <url-pattern>/DHTRequestHandler</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>SDKRequestHandler</display-name>
-    <servlet-name>SDKRequestHandler</servlet-name>
-    <servlet-class>com.mymed.controller.core.requesthandler.SDKRequestHandler</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>SDKRequestHandler</servlet-name>
-    <url-pattern>/SDKRequestHandler</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
     <display-name>ProfileRequestHandler</display-name>
     <servlet-name>ProfileRequestHandler</servlet-name>
     <servlet-class>com.mymed.controller.core.requesthandler.ProfileRequestHandler</servlet-class>
