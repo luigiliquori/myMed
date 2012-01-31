@@ -85,7 +85,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 
       // STORE VALUES RELATED TO THE PREDICATE
       String data = "";
-      String begin = System.currentTimeMillis() + "";
+      String begin = Long.toString(System.currentTimeMillis());
       String end = "";
 
       for (final MDataBean item : dataList) {
@@ -172,7 +172,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
       }
     } catch (final UnsupportedEncodingException e) {
       LOGGER.debug(ERROR_ENCODING, ENCODING, e);
-      throw new InternalBackEndException(e.getMessage());
+      throw new InternalBackEndException(e.getMessage()); // NOPMD
     }
   }
   /**
@@ -198,7 +198,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 
     } catch (final UnsupportedEncodingException e) {
       LOGGER.debug(ERROR_ENCODING, ENCODING, e);
-      throw new InternalBackEndException(e.getMessage());
+      throw new InternalBackEndException(e.getMessage()); // NOPMD
     }
   }
 
@@ -222,7 +222,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
             resMap.put(new String(entry.getKey(), ENCODING), new String(entry.getValue(), ENCODING));
           } catch (final UnsupportedEncodingException e) {
             LOGGER.debug(ERROR_ENCODING, ENCODING, e);
-            throw new InternalBackEndException(e.getMessage());
+            throw new InternalBackEndException(e.getMessage()); // NOPMD
           }
         }
 
@@ -251,7 +251,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
           resMap.put(new String(entry.getKey(), ENCODING), new String(entry.getValue(), ENCODING));
         } catch (final UnsupportedEncodingException e) {
           LOGGER.debug(ERROR_ENCODING, ENCODING, e);
-          throw new InternalBackEndException(e.getMessage());
+          throw new InternalBackEndException(e.getMessage()); // NOPMD
         }
       }
 
