@@ -56,7 +56,7 @@ public abstract class AbstractManager {
   protected static final IProperties FIELDS = PROPERTIES.getManager(PropType.FIELDS);
 
   protected static final String ENCODING = GENERAL.get("general.string.encoding");
-  protected static final String ERROR_ENCODING = ERRORS.get("error.encodig");
+  protected static final String ERROR_ENCODING = ERRORS.get("error.encoding");
 
   private static final int PRIV = Modifier.PRIVATE;
 
@@ -75,8 +75,11 @@ public abstract class AbstractManager {
   public AbstractMBean introspection(final AbstractMBean mbean, final Map<byte[], byte[]> args)
       throws InternalBackEndException {
     for (final Entry<byte[], byte[]> arg : args.entrySet()) {
+      String fieldName = "";
+
       try {
-        final Field field = mbean.getClass().getDeclaredField(new String(arg.getKey(), ENCODING));
+        fieldName = new String(arg.getKey(), ENCODING);
+        final Field field = mbean.getClass().getDeclaredField(fieldName);
 
         /*
          * We check the value of the modifiers of the field: if the field is
@@ -94,14 +97,7 @@ public abstract class AbstractManager {
 
         method.invoke(mbean, argument);
       } catch (final NoSuchFieldException e) {
-        try {
-          LOGGER.info("WARNING: {} is not a bean field", new String(arg.getKey(), ENCODING));
-        } catch (final UnsupportedEncodingException ex) {
-          // If we ever get here, there is something seriously wrong.
-          // This should never happen.
-          LOGGER.info(ERROR_ENCODING, ENCODING);
-          LOGGER.debug(ERROR_ENCODING, ENCODING, ex);
-        }
+        LOGGER.info("WARNING: {} is not a bean field", fieldName);
       } catch (final SecurityException ex) {
         throw new InternalBackEndException(ex);
       } catch (final NoSuchMethodException ex) {

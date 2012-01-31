@@ -69,7 +69,7 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
           LOGGER.info(ERROR_ENCODING, ENCODING);
           LOGGER.debug(ERROR_ENCODING, ENCODING, ex);
 
-          throw new InternalBackEndException(ex.getMessage()); // NO PMD
+          throw new InternalBackEndException(ex.getMessage()); // NOPMD
         }
 
         return user;
@@ -116,7 +116,7 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
       LOGGER.info(ERROR_ENCODING, ENCODING);
       LOGGER.debug(ERROR_ENCODING, ENCODING, ex);
 
-      throw new InternalBackEndException(ex.getMessage()); // NO PMD
+      throw new InternalBackEndException(ex.getMessage()); // NOPMD
     }
   }
 }
