@@ -58,7 +58,7 @@ public class PropertiesManager {
    * @author Milo Casagrande
    * 
    */
-  private class PropertiesHandler implements IProperties {
+  private static class PropertiesHandler implements IProperties {
     private final Properties properties;
 
     public PropertiesHandler(final String fileName) {
