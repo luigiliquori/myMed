@@ -15,6 +15,7 @@ enum kFunctionPublishParameter {
     kFunctionPublishParameter_UserProfile = 3,
     kFunctionPublishParameter_Predicate = 4,
     kFunctionPublishParameter_Data = 5,
+    kFunctionPublishParameter_AccessToken = 6,
 };
 
 static NSString * const KEY_PUBLISH_APPLICATION = @"application";
@@ -22,6 +23,7 @@ static NSString * const KEY_PUBLISH_USER_PROFILE = @"user";
 static NSString * const KEY_PUBLISH_PREDICATE = @"predicate";
 static NSString * const KEY_PUBLISH_DATA = @"data";
 static NSString * const KEY_PUBLISH_CODE = @"code";
+static NSString * const KEY_PUBLISH_ACCESS_TOKEN = @"accessToken";
 
 // Key to identify that the "redirect" will be handled in Objective-C
 // In javascript is used document.location = "mobile_binary" + ":" + "function_name" + ":" + "param1" + ":" + "param2"
@@ -43,6 +45,7 @@ static NSString * const KEY_OBJ_C_CALL = @"mobile_binary";
                                                  [components objectAtIndex:kFunctionPublishParameter_UserProfile],
                                                  [components objectAtIndex:kFunctionPublishParameter_Predicate],
                                                  [components objectAtIndex:kFunctionPublishParameter_Data],
+                                                 [components objectAtIndex:kFunctionPublishParameter_AccessToken],
                                                  [NSNumber numberWithInt:0],
                                                  nil];
     
@@ -50,6 +53,7 @@ static NSString * const KEY_OBJ_C_CALL = @"mobile_binary";
                                               KEY_PUBLISH_USER_PROFILE,
                                               KEY_PUBLISH_PREDICATE,
                                               KEY_PUBLISH_DATA,
+                                              KEY_PUBLISH_ACCESS_TOKEN,
                                               KEY_PUBLISH_CODE,
                                               nil];
     

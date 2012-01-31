@@ -1,3 +1,18 @@
+/*
+ * Copyright 2012 INRIA 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+*/
 package com.mymed.controller.core.manager.pubsub;
 
 import java.util.List;
@@ -24,7 +39,7 @@ public interface IPubSubManager {
 	 * @param publisher
 	 *            the user who insert the new predicate
 	 */
-	public void create(String application, String predicate,
+	public void create(String application, String predicate, String subPredicate,
 			MUserBean publisher, List<MDataBean> dataList)
 			throws InternalBackEndException, IOBackEndException;
 	
@@ -70,6 +85,6 @@ public interface IPubSubManager {
 	 * @param predicate
 	 *            The predicate to delete
 	 */
-	public void delete(String application, String predicate)
+	public void delete(String application, String predicate, MUserBean user)
 			throws InternalBackEndException, IOBackEndException;
 }

@@ -308,13 +308,19 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
         	startManagingCursor(cursor);
         	if (!cursor.moveToFirst() || forceRefresh){
             	/** Performs a request to receive the updates. */
-            	int numUpdates = mUpdatesCursor.getCount();
+            	int position = mUpdatesCursor.getPosition();
+            	long lastTime = 0;
+            	if (mUpdatesCursor.moveToLast()){
+            		lastTime = mUpdatesCursor.getLong(UpdateQuery.DATE);
+            		mUpdatesCursor.moveToPosition(position);
+            	}
         		Intent intent = new Intent(ReportDetailsActivity.this, MyJamCallService.class);
         	    intent.putExtra(MyJamCallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
         	    intent.putExtra(MyJamCallService.EXTRA_REQUEST_CODE, RequestCode.GET_UPDATES);
         	    Bundle bundle = new Bundle();
         	    bundle.putString(ICallAttributes.REPORT_ID, mReportId);
-        	    //bundle.putInt(ICallAttributes.NUM, numUpdates);
+
+        	    bundle.putLong(ICallAttributes.START_TIME, lastTime);
         	    intent.putExtra(MyJamCallService.EXTRA_ATTRIBUTES, bundle);			
         	    Log.d(TAG,"Intent sent: "+intent.toString());
         	    startService(intent);

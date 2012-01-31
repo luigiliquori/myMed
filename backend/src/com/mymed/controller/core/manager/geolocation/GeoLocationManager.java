@@ -46,8 +46,8 @@ public class GeoLocationManager extends AbstractManager {
 	 * @param itemType	Id of the located object. Its scope is the application which it belongs to.
 	 * @param latitude Latitude in micro-degrees.
 	 * @param longitude Longitude in micro-degrees.
-	 * @param value Textual value (Can be null.)
-	 * @param permTime Permanence time in seconds.
+	 * @param value String value (Can be null.)
+	 * @param permTime Permanence time in seconds (if 0 the item doesn't expire).
 	 * @return
 	 * @throws InternalBackEndException
 	 * @throws IOBackEndException
@@ -83,7 +83,8 @@ public class GeoLocationManager extends AbstractManager {
 			/**
 			 * SuperColumn insertion in CF Location 
 			 **/
-			myJamStorageManager.insertExpiringColumn("Location", applicationId+itemType+areaId, MConverter.longToByteBuffer(locId).array(), 
+
+			((MyJamStorageManager) storageManager).insertExpiringColumn("Location", applicationId+itemType+areaId, MConverter.longToByteBuffer(locId).array(), 
 					id.AsByteBuffer().array(),
 					MConverter.stringToByteBuffer(value).array(),
 					timestamp, permTime);
@@ -127,7 +128,7 @@ public class GeoLocationManager extends AbstractManager {
 				for (long ind=startAreaId;ind<=endAreaId;ind++){
 					areaIds.add(applicationId+itemType+String.valueOf(ind));
 				}
-				Map<byte[],Map<byte[],byte[]>> mapRep = myJamStorageManager.selectSCRange("Location", areaIds, MConverter.longToByteBuffer(range[0]).array(),
+				Map<byte[],Map<byte[],byte[]>> mapRep = ((MyJamStorageManager) storageManager).selectSCRange("Location", areaIds, MConverter.longToByteBuffer(range[0]).array(),
 						MConverter.longToByteBuffer(range[1]).array()); 
 				reports.putAll(mapRep);
 				areaIds.clear();
@@ -188,7 +189,8 @@ public class GeoLocationManager extends AbstractManager {
 		MSearchBean searchBean;
 		
 		try {
-			ExpColumnBean expCol = myJamStorageManager.selectExpiringColumn("Location", applicationId+itemType+areaId, 
+			ExpColumnBean expCol = ((MyJamStorageManager) storageManager).selectExpiringColumn("Location", applicationId+itemType+areaId, 
+
 					MConverter.longToByteBuffer(locationId).array(), 
 					MyMedId.parseString(itemId).AsByteBuffer().array());
 			
@@ -233,7 +235,8 @@ public class GeoLocationManager extends AbstractManager {
 			String areaId = String.valueOf(Locator.getAreaId(locationId));
 			MyMedId id = MyMedId.parseString(itemId);
 			
-			myJamStorageManager.removeColumn("Location", applicationId+itemType+areaId, 
+
+			((MyJamStorageManager) storageManager).removeColumn("Location", applicationId+itemType+areaId, 
 					MConverter.longToByteBuffer(locationId).array(), 
 					id.AsByteBuffer().array());
 		} catch (WrongFormatException e){

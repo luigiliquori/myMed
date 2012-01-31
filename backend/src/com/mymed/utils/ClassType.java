@@ -1,3 +1,18 @@
+/*
+ * Copyright 2012 INRIA 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+*/
 package com.mymed.utils;
 
 import java.lang.reflect.Constructor;
@@ -158,8 +173,8 @@ public enum ClassType {
    * Internal log function to record the error
    */
   private static void logErrorCreatingObj(final Throwable cause, final Class<?> type) {
-    MLogger.getLog().info("Problem creating an object of type '{}'", type);
-    MLogger.getDebugLog().debug("Problem creating an object of type '{}'", type, cause);
+    MLogger.getLogger().info("Problem creating an object of type '{}'", type);
+    MLogger.getLogger().debug("Problem creating an object of type '{}'", type, cause);
   }
 
   /**
@@ -197,8 +212,8 @@ public enum ClassType {
    * Internal log function to record the error
    */
   private static void logErrorConvertingObj(final Throwable cause, final Class<?> type) {
-    MLogger.getLog().info("Problem converting an object of class '{}' to a byte array", type);
-    MLogger.getDebugLog().debug("Problem converting to byte array from '{}'", type, cause);
+    MLogger.getLogger().info("Problem converting an object of class '{}' to a byte array", type);
+    MLogger.getLogger().debug("Problem converting to byte array from '{}'", type, cause);
   }
 
   @Override

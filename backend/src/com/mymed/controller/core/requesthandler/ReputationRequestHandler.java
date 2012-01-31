@@ -1,3 +1,18 @@
+/*
+ * Copyright 2012 INRIA 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+*/
 package com.mymed.controller.core.requesthandler;
 
 import java.io.IOException;
@@ -62,6 +77,13 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
 			RequestCode code = requestCodeMap.get(parameters.get("code"));
 			String application, producer, consumer;
 			
+			// accessToken
+			if (!parameters.containsKey("accessToken")) {
+				throw new InternalBackEndException("accessToken argument is missing!");
+			} else {
+				tokenValidation(parameters.get("accessToken")); // Security Validation
+			}
+			
 			switch (code) {
 			case READ:
 				if ((application = parameters.get("application")) == null) {
@@ -102,6 +124,13 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
 			Map<String, String> parameters = getParameters(request);
 			RequestCode code = requestCodeMap.get(parameters.get("code"));
 
+			// accessToken
+			if (!parameters.containsKey("accessToken")) {
+				throw new InternalBackEndException("accessToken argument is missing!");
+			} else {
+				tokenValidation(parameters.get("accessToken")); // Security Validation
+			}
+			
 			switch (code) {
 			case CREATE:
 			case UPDATE:

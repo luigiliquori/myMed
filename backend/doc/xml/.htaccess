@@ -1,8 +1,0 @@
-IndexOptions XHTML
-IndexOptions HTMLTable
-IndexOptions FoldersFirst
-IndexOptions IconsAreLinks
-IndexOptions IgnoreCase
-IndexOptions SuppressRules
-IndexOptions VersionSort
-IndexHeadInsert '<style type="text/css">html,body{margin:0;padding:0;height:100%;position:relative;background-color:#F8F8F8;}h1{background-image:url(http://mymed2.sophia.inria.fr/developers/img/title.png);background-repeat:no-repeat;background-position:8% 0;text-align:right;background-color:#5d677e;color:#eee;font-family:sans-serif;margin:0;padding:0.2em 8%;}table{border-spacing:0;border:1px #D2D2D2 solid;background-color:#fff;margin:1em auto;}table th{border:solid 1px;border-color:#fff #000 #000 #fff;background-color:#ccc;padding:0;}table th:first-child{border:none 0;}table th a{display:block;height:100%;border:solid 1px;border-color:#ccc #888 #888 #ccc;background-color:#ccc;text-decoration:none;color:#000;}table th:active{border-color:#000 #fff #fff #000;}table th:active a{border-color:#888 #ccc #ccc #888;}table tr:nth-of-type(odd){background-color:#e0f8ff;}table td{padding:0 1ex;}table td:first-child{padding:0;}address{text-align:center;margin:1em;}</style>'
