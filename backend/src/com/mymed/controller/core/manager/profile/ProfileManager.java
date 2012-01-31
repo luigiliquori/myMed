@@ -36,6 +36,7 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
   private static final String CF_USER = COLUMNS.get("column.cf.user");
   private static final String CF_AUTHENTICATION = COLUMNS.get("column.cf.authentication");
   private static final String FIELD_ID = FIELDS.get("field.id");
+  private static final String SOCIAL_NETWORK_ID = GENERAL.get("general.social.network.id");
 
   public ProfileManager() throws InternalBackEndException {
     this(new StorageManager());
@@ -106,7 +107,7 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
     final MUserBean user = read(id);
     storageManager.removeAll(CF_USER, id);
 
-    if (user.getSocialNetworkID().equals("MYMED")) {
+    if (user.getSocialNetworkID().equals(SOCIAL_NETWORK_ID)) {
       storageManager.removeAll(CF_AUTHENTICATION, user.getLogin());
     }
   }

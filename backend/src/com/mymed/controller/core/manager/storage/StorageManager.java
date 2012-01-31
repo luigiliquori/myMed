@@ -59,15 +59,13 @@ import com.mymed.utils.MLogger;
  */
 public class StorageManager implements IStorageManager {
 
-  // The name of the configuration file
-  private static final String CONFIG_PATH = "config.xml";
-
   private static final Logger LOGGER = MLogger.getLogger();
 
   private static final PropertiesManager PROPERTIES = PropertiesManager.getInstance();
   protected static final IProperties GENERAL = PROPERTIES.getManager(PropType.GENERAL);
 
   protected static final String ENCODING = GENERAL.get("general.string.encoding");
+  private static final String CONFIG_FILE = GENERAL.get("general.config.file");
 
   private final CassandraWrapper wrapper;
 
@@ -78,7 +76,7 @@ public class StorageManager implements IStorageManager {
    * @throws InternalBackEndException
    */
   public StorageManager() throws InternalBackEndException {
-    this(new WrapperConfiguration(CONFIG_PATH));
+    this(new WrapperConfiguration(CONFIG_FILE));
   }
 
   /**

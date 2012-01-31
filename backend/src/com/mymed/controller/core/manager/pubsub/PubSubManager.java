@@ -71,13 +71,13 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 
     try {
       // STORE THE PUBLISHER
-      Map<String, byte[]> args = new HashMap<String, byte[]>();
+      final Map<String, byte[]> args = new HashMap<String, byte[]>();
       args.put("publisherList", (PUBLISHER_PREFIX + application + subPredicate).getBytes(ENCODING));
       args.put("predicate", subPredicate.getBytes(ENCODING));
       storageManager.insertSuperSlice(SC_APPLICATION_CONTROLLER, application + predicate, MEMBER_LIST_KEY, args);
 
       // STORE A NEW ENTRY IN THE UserList (PublisherList)
-      args = new HashMap<String, byte[]>();
+      args.clear();
       args.put("name", publisher.getName().getBytes(ENCODING));
       args.put("user", publisher.getId().getBytes(ENCODING));
       storageManager.insertSuperSlice(SC_USER_LIST, PUBLISHER_PREFIX + application + subPredicate, publisher.getId(),
@@ -98,7 +98,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
         }
       }
 
-      args = new HashMap<String, byte[]>();
+      args.clear();
       args.put("predicate", subPredicate.getBytes(ENCODING));
       args.put("begin", begin.getBytes(ENCODING));
       args.put("end", end.getBytes(ENCODING));
@@ -114,50 +114,67 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 
       // STORE A NEW ENTRY IN THE ApplicationModel (use to retreive all the
       // predicate of a given application)
-      args = new HashMap<String, byte[]>();
+      args.clear();
       args.put(APPLICATION_CONTROLLER_ID, (application + predicate).getBytes(ENCODING));
       storageManager.insertSuperSlice(SC_APPLICATION_MODEL, application, predicate, args);
 
       // STORE THE DATAs
+      args.clear();
       for (final MDataBean item : dataList) {
-        args = new HashMap<String, byte[]>();
         args.put("key", item.getKey().getBytes(ENCODING));
         args.put("value", item.getValue().getBytes(ENCODING));
         args.put("ontologyID", item.getOntologyID().getBytes(ENCODING));
         storageManager.insertSuperSlice(SC_DATA_LIST, application + subPredicate + publisher.getId(), item.getKey(),
             args);
+        args.clear();
       }
 
-      // SEND A MAIL TO THE SUBSCRIBER
-      String mailinglist = "";
+      // SEND A MAIL TO THE SUBSCRIBERS
+      // TODO better find a better way to send the email: we are sending the
+      // same email to all at once, exposing the users email
+      final StringBuffer mailingList = new StringBuffer(250);
       final List<Map<byte[], byte[]>> subscribers = storageManager.selectList(SC_USER_LIST, SUBSCRIBER_PREFIX
           + application + subPredicate);
       for (final Map<byte[], byte[]> set : subscribers) {
         for (final Entry<byte[], byte[]> entry : set.entrySet()) {
           if (new String(entry.getKey(), ENCODING).equals("user")) {
             final String userID = new String(entry.getValue(), ENCODING);
-            mailinglist += new String(storageManager.selectColumn(CF_USER, userID, "email"), ENCODING) + ",";
+            mailingList.append(new String(storageManager.selectColumn(CF_USER, userID, "email"), ENCODING));
+            mailingList.append(',');
           }
         }
       }
 
-      // Format the mail -- TODO Refactor and put this into another class (mail
-      // package should be used)
-      if (!mailinglist.equals("")) {
-        String content = "Bonjour, \nDe nouvelles informations sont arrivées sur votre plateforme myMed.\n"
-            + "Application Concernée: " + application + "\n" + "Predicate: \n";
+      mailingList.trimToSize();
+      final String receivers = mailingList.toString();
+
+      // Format the mail
+      // TODO Refactor and put this into another class (mail package should be
+      // used)
+      // TODO move this somewhere else and handle translation of this email!
+      if (!"".equals(receivers)) {
+        final StringBuffer mailContent = new StringBuffer(250);
+        mailContent.append("Bonjour, \nDe nouvelles informations sont arrivées sur votre plateforme myMed.\n");
+        mailContent.append("Application Concernée: ");
+        mailContent.append(application);
+        mailContent.append('\n');
+        mailContent.append("Predicate: \n");
         for (final MDataBean item : dataList) {
-          content += "\t- " + item.getKey() + ": " + item.getValue() + "\n";
+          mailContent.append("\t-");
+          mailContent.append(item.getKey());
+          mailContent.append(": ");
+          mailContent.append(item.getValue());
+          mailContent.append('\n');
         }
-        content += "\n------\nL'équipe myMed";
-        new Mail("mymed.subscribe@gmail.com", mailinglist, "myMed subscribe info: " + application, content);
+        mailContent.append("\n------\nL'équipe myMed");
+        mailContent.trimToSize();
+        new Mail("mymed.subscribe@gmail.com", receivers, "myMed subscribe info: " + application, mailContent.toString());
       }
     } catch (final UnsupportedEncodingException e) {
       LOGGER.debug(ERROR_ENCODING, ENCODING, e);
       throw new InternalBackEndException(e.getMessage());
     }
   }
-
   /**
    * SUBSCRIBE
    * 
@@ -255,5 +272,4 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     storageManager.removeSuperColumn(SC_APPLICATION_CONTROLLER, application, predicate);
     storageManager.removeSuperColumn(SC_APPLICATION_MODEL, application, predicate + user.getId());
   }
-
 }
