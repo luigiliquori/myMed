@@ -66,19 +66,21 @@ public abstract class AbstractManager {
   /**
    * Introspection
    * 
-   * @param mbean
+   * @param clazz
    * @param args
    * @return
    * @throws InternalBackEndException
    */
-  public AbstractMBean introspection(final Class<? extends AbstractMBean> mbean, final Map<byte[], byte[]> args)
+  public AbstractMBean introspection(final Class<? extends AbstractMBean> clazz, final Map<byte[], byte[]> args)
       throws InternalBackEndException {
+    AbstractMBean obj = null;
+
     for (final Entry<byte[], byte[]> arg : args.entrySet()) {
       String fieldName = "";
 
       try {
         fieldName = new String(arg.getKey(), ENCODING);
-        final Field field = mbean.getDeclaredField(fieldName);
+        final Field field = clazz.getDeclaredField(fieldName);
 
         /*
          * We check the value of the modifiers of the field: if the field is
@@ -91,10 +93,10 @@ public abstract class AbstractManager {
 
         final ClassType classType = ClassType.inferType(field.getGenericType());
         final String setterName = createSetterName(field, classType);
-        final Method method = mbean.getClass().getMethod(setterName, classType.getPrimitiveType());
+        final Method method = clazz.getClass().getMethod(setterName, classType.getPrimitiveType());
         final Object argument = ClassType.objectFromClassType(classType, arg.getValue());
 
-        method.invoke(mbean, argument);
+        obj = (AbstractMBean) method.invoke(clazz, argument);
       } catch (final NoSuchFieldException e) {
         LOGGER.info("WARNING: {} is not a bean field", fieldName);
       } catch (final SecurityException ex) {
@@ -115,7 +117,7 @@ public abstract class AbstractManager {
       }
     }
 
-    return mbean;
+    return obj;
   }
 
   /**
