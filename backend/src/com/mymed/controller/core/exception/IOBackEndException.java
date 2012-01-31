@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.controller.core.exception;
 
 /**
@@ -22,16 +22,16 @@ package com.mymed.controller.core.exception;
  * 
  */
 public class IOBackEndException extends AbstractMymedException {
-	
-	/* --------------------------------------------------------- */
-	/* Attributes */
-	/* --------------------------------------------------------- */
-	private static final long serialVersionUID = 1L;
 
-	/* --------------------------------------------------------- */
-	/* Constructors */
-	/* --------------------------------------------------------- */
-	public IOBackEndException(String message, int status) {
-		super(status, message);
-	}
+  /* --------------------------------------------------------- */
+  /* Attributes */
+  /* --------------------------------------------------------- */
+  private static final long serialVersionUID = 1L;
+
+  /* --------------------------------------------------------- */
+  /* Constructors */
+  /* --------------------------------------------------------- */
+  public IOBackEndException(final String message, final int status) {
+    super(status, message);
+  }
 }
