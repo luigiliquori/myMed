@@ -16,6 +16,7 @@
 package com.mymed.controller.core.manager;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -73,12 +74,16 @@ public abstract class AbstractManager {
    */
   public AbstractMBean introspection(final Class<? extends AbstractMBean> clazz, final Map<byte[], byte[]> args)
       throws InternalBackEndException {
-    AbstractMBean obj = null;
 
-    for (final Entry<byte[], byte[]> arg : args.entrySet()) {
-      String fieldName = "";
+    AbstractMBean mbean = null;
+    String fieldName = "";
 
-      try {
+    try {
+      // We create a new instance of the object we are reflecting on
+      final Constructor<?> ctor = clazz.getConstructor();
+      mbean = (AbstractMBean) ctor.newInstance();
+
+      for (final Entry<byte[], byte[]> arg : args.entrySet()) {
         fieldName = new String(arg.getKey(), ENCODING);
         final Field field = clazz.getDeclaredField(fieldName);
 
@@ -93,31 +98,33 @@ public abstract class AbstractManager {
 
         final ClassType classType = ClassType.inferType(field.getGenericType());
         final String setterName = createSetterName(field, classType);
-        final Method method = clazz.getClass().getMethod(setterName, classType.getPrimitiveType());
+        final Method method = clazz.getMethod(setterName, classType.getPrimitiveType());
         final Object argument = ClassType.objectFromClassType(classType, arg.getValue());
 
-        obj = (AbstractMBean) method.invoke(clazz, argument);
-      } catch (final NoSuchFieldException e) {
-        LOGGER.info("WARNING: {} is not a bean field", fieldName);
-      } catch (final SecurityException ex) {
-        throw new InternalBackEndException(ex);
-      } catch (final NoSuchMethodException ex) {
-        throw new InternalBackEndException(ex);
-      } catch (final IllegalArgumentException ex) {
-        throw new InternalBackEndException(ex);
-      } catch (final IllegalAccessException ex) {
-        throw new InternalBackEndException(ex);
-      } catch (final InvocationTargetException ex) {
-        throw new InternalBackEndException(ex);
-      } catch (final UnsupportedEncodingException ex) {
-        // If we ever get here, there is something seriously wrong.
-        // This should never happen.
-        LOGGER.info(ERROR_ENCODING, ENCODING);
-        LOGGER.debug(ERROR_ENCODING, ENCODING, ex);
+        method.invoke(mbean, argument);
       }
+    } catch (final NoSuchFieldException e) {
+      LOGGER.info("WARNING: {} is not a bean field", fieldName);
+    } catch (final SecurityException ex) {
+      throw new InternalBackEndException(ex);
+    } catch (final NoSuchMethodException ex) {
+      throw new InternalBackEndException(ex);
+    } catch (final IllegalArgumentException ex) {
+      throw new InternalBackEndException(ex);
+    } catch (final IllegalAccessException ex) {
+      throw new InternalBackEndException(ex);
+    } catch (final InvocationTargetException ex) {
+      throw new InternalBackEndException(ex);
+    } catch (final UnsupportedEncodingException ex) {
+      // If we ever get here, there is something seriously wrong.
+      // This should never happen.
+      LOGGER.info(ERROR_ENCODING, ENCODING);
+      LOGGER.debug(ERROR_ENCODING, ENCODING, ex);
+    } catch (final InstantiationException ex) {
+      throw new InternalBackEndException(ex);
     }
 
-    return obj;
+    return mbean;
   }
 
   /**

@@ -31,29 +31,23 @@ import com.mymed.utils.ClassType;
 import com.mymed.utils.MLogger;
 
 /**
- * myMed java Beans:
- *
- * The required conventions are as follows:
- *
- * -The class must have a public default constructor (no-argument). This allows
- * easy instantiation within editing and activation frameworks.
- *
- * - The class properties must be accessible using get, set, is (used for
- * boolean properties instead of get) and other methods (so-called accessor
- * methods and mutator methods), following a standard naming-convention. This
- * allows easy automated inspection and updating of bean state within
- * frameworks, many of which include custom editors for various types of
- * properties.
- *
- * -The class should be serializable. It allows applications and frameworks to
- * reliably save, store, and restore the bean's state in a fashion independent
- * of the VM and of the platform.
- *
- * - The class must have a getAttributeToMap method, that convert all the fields
- * in a hashMap format for the myMed wrapper
- *
- * - The class must override toString to have an human readable format
- *
+ * myMed java Beans.
+ * <p>
+ * The required conventions are as follows:<br>
+ * <ul>
+ * <li>The class must have a public default constructor (no-argument). This allows easy instantiation within editing and
+ * activation frameworks.</li>
+ * <li>The class properties must be accessible using get, set, is (used for boolean properties instead of get) and other
+ * methods (so-called accessor methods and mutator methods), following a standard naming-convention. This allows easy
+ * automated inspection and updating of bean state within frameworks, many of which include custom editors for various
+ * types of properties.</li>
+ * <li>The class should be serializable. It allows applications and frameworks to reliably save, store, and restore the
+ * bean's state in a fashion independent of the VM and of the platform.</li>
+ * <li>The class must have a getAttributeToMap method, that convert all the fields in a hashMap format for the myMed
+ * wrapper</li>
+ * <li>The class must override toString to have an human readable format</li>
+ * </ul>
+ * 
  * @author lvanni
  * @author Milo Casagrande
  */
@@ -91,9 +85,8 @@ public abstract class AbstractMBean {
   }
 
   /**
-   * Static inner class to provide reflection mechanism in a protected way,
-   * without strong references
-   *
+   * Static inner class to provide reflection mechanism in a protected way, without strong references
+   * 
    * @author Milo Casagrande
    */
   private static final class InnerPrivilegedExceptionAction implements PrivilegedExceptionAction<Map<String, byte[]>> {
@@ -136,11 +129,9 @@ public abstract class AbstractMBean {
   }
 
   /**
-   * Static inner class to provide reflection mechanism in a protected way,
-   * without strong references
-   *
+   * Static inner class to provide reflection mechanism in a protected way, without strong references
+   * 
    * @author Milo Casagrande
-   *
    */
   private static final class InnerPrivilegedAction implements PrivilegedAction<StringBuffer> {
 
