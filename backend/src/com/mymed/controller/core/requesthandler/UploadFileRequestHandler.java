@@ -64,7 +64,6 @@ public class UploadFileRequestHandler extends HttpServlet {
     response.setContentType("text/html;charset=UTF-8");
     final PrintWriter out = response.getWriter();
     try {
-
       // get access to file that is uploaded from client
       final Part p1 = request.getPart("file");
       final InputStream is = p1.getInputStream();
@@ -84,8 +83,6 @@ public class UploadFileRequestHandler extends HttpServlet {
       }
       os.close();
       out.println("<h3>File uploaded successfully!</h3>");
-    } catch (final Exception ex) {
-      ex.printStackTrace();
     } finally {
       out.close();
     }
