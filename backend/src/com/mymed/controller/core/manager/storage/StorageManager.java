@@ -119,10 +119,10 @@ public class StorageManager implements IStorageManager {
 
       resultValue = wrapper.get(key, colPathName, IStorageManager.consistencyOnRead).getColumn().getValue();
     } catch (final UnsupportedEncodingException e) {
-      LOGGER.debug("Select column '{}' failed", columnName, e.getCause());
+      LOGGER.debug("Select column '{}' failed", columnName, e);
 
       throw new InternalBackEndException("UnsupportedEncodingException with\n" + "\t- columnFamily = " + tableName
-          + "\n" + "\t- key = " + key + "\n" + "\t- columnName = " + columnName + "\n");
+          + "\n" + "\t- key = " + key + "\n" + "\t- columnName = " + columnName + "\n"); // NOPMD
     }
 
     LOGGER.info("Column selection performed");
@@ -409,8 +409,8 @@ public class StorageManager implements IStorageManager {
 
       wrapper.batch_mutate(mutationMap, consistencyOnWrite);
     } catch (final InternalBackEndException e) {
-      LOGGER.debug("Insert slice in table '{}' failed", tableName, e.getCause());
-      throw new InternalBackEndException("InsertSlice failed.");
+      LOGGER.debug("Insert slice in table '{}' failed", tableName, e);
+      throw new InternalBackEndException("InsertSlice failed."); // NOPMD
     }
 
     LOGGER.info("batch_mutate performed correctly");
@@ -485,8 +485,8 @@ public class StorageManager implements IStorageManager {
 
       wrapper.remove(key, columnPath, timestamp, consistencyOnWrite);
     } catch (final UnsupportedEncodingException e) {
-      LOGGER.debug("Remove column '{}' failed", columnName, e.getCause());
-      throw new InternalBackEndException("removeColumn failed because of an UnsupportedEncodingException");
+      LOGGER.debug("Remove column '{}' failed", columnName, e);
+      throw new InternalBackEndException("removeColumn failed because of an UnsupportedEncodingException"); // NOPMD
     }
   }
 
@@ -511,7 +511,7 @@ public class StorageManager implements IStorageManager {
     } catch (final UnsupportedEncodingException e) {
       // We should never get here!
       LOGGER.debug("Remove column '{}' failed", superColumnName, e);
-      throw new InternalBackEndException("removeColumn failed because of an UnsupportedEncodingException");
+      throw new InternalBackEndException("removeColumn failed because of an UnsupportedEncodingException"); // NOPMD
     }
   }
 
@@ -535,34 +535,6 @@ public class StorageManager implements IStorageManager {
     wrapper.remove(key, columnPath, timestamp, consistencyOnWrite);
 
     LOGGER.info("Removed all columns in table '{}'", tableName);
-  }
-
-  /* --------------------------------------------------------- */
-  /* Common DHT operations */
-  /* --------------------------------------------------------- */
-  /**
-   * Common put operation The DHT type is by default Cassandra
-   * 
-   * @param key
-   * @param value
-   * @throws InternalBackEndException
-   * @throws IOBackEndException
-   */
-  @Override
-  public void put(final String key, final byte[] value) throws IOBackEndException, InternalBackEndException {
-    insertColumn("Services", key, key, value);
-  }
-
-  /**
-   * Common get operation The DHT type is by default Cassandra
-   * 
-   * @param key
-   * @throws InternalBackEndException
-   * @throws IOBackEndException
-   */
-  @Override
-  public byte[] get(final String key) throws IOBackEndException, InternalBackEndException {
-    return selectColumn("Services", key, key);
   }
 
   /**
