@@ -50,16 +50,8 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
 	<property name="warname" value="mymed_backend.war"/>
 
 	<fileset dir="${web.content.lib.dir}" id="jarnames" description="JARs necessary to compile">
-<<<<<<< HEAD
-		<include name="apache-cassandra-0.7.10.jar"/>
-		<include name="libthrift-0.5.jar"/>
-		<include name="logback-classic-0.9.29.jar"/>
-		<include name="logback-core-0.9.29.jar"/>
-		<include name="slf4j-api-1.6.2.jar"/>
-		<include name="gson-1.6.jar"/>
-=======
+
    <include name="**/*.jar"/>
->>>>>>> 441a6537c18f525c3a92b9a299c0a96bfeb4c568
 	</fileset>
 
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties" description="Set up ant-contrib JAR necessary for this build">

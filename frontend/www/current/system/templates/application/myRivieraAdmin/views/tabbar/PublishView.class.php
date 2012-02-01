@@ -48,7 +48,7 @@ class PublishView extends MyApplication {
 	public /*String*/ function getContent() { ?>
 		<!-- CONTENT -->
 		<div class="content">
-			<form  action="#" method="post"  enctype="multipart/form-data">
+			<form action="#" method="post" name="<?= APPLICATION_NAME ?>PublishForm" id="<?= APPLICATION_NAME ?>PublishForm" enctype="multipart/form-data">
 				<!-- Define the method to call -->
 				<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
 				<input type="hidden" name="method" value="publish" />
@@ -66,7 +66,7 @@ class PublishView extends MyApplication {
 				<input type="hidden" name="ontology1" value="<?= urlencode(json_encode($text)); ?>">
 				<br />
 				
-				<input type="submit" value="Publish" onclick="alert('request sent!')"/>
+				<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>PublishForm.submit()">Publish</a>
 			</form>
 		</div>
 	<?php }

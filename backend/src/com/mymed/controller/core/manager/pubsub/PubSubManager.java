@@ -71,13 +71,13 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 
     try {
       // STORE THE PUBLISHER
-      final Map<String, byte[]> args = new HashMap<String, byte[]>();
+      Map<String, byte[]> args = new HashMap<String, byte[]>();
       args.put("publisherList", (PUBLISHER_PREFIX + application + subPredicate).getBytes(ENCODING));
       args.put("predicate", subPredicate.getBytes(ENCODING));
       storageManager.insertSuperSlice(SC_APPLICATION_CONTROLLER, application + predicate, MEMBER_LIST_KEY, args);
 
       // STORE A NEW ENTRY IN THE UserList (PublisherList)
-      args.clear();
+      args = new HashMap<String, byte[]>();
       args.put("name", publisher.getName().getBytes(ENCODING));
       args.put("user", publisher.getId().getBytes(ENCODING));
       storageManager.insertSuperSlice(SC_USER_LIST, PUBLISHER_PREFIX + application + subPredicate, publisher.getId(),
@@ -98,7 +98,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
         }
       }
 
-      args.clear();
+      args = new HashMap<String, byte[]>();
       args.put("predicate", subPredicate.getBytes(ENCODING));
       args.put("begin", begin.getBytes(ENCODING));
       args.put("end", end.getBytes(ENCODING));
@@ -114,19 +114,19 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 
       // STORE A NEW ENTRY IN THE ApplicationModel (use to retreive all the
       // predicate of a given application)
-      args.clear();
+      args = new HashMap<String, byte[]>();
       args.put(APPLICATION_CONTROLLER_ID, (application + predicate).getBytes(ENCODING));
       storageManager.insertSuperSlice(SC_APPLICATION_MODEL, application, predicate, args);
 
       // STORE THE DATAs
-      args.clear();
+      args = new HashMap<String, byte[]>();
       for (final MDataBean item : dataList) {
         args.put("key", item.getKey().getBytes(ENCODING));
         args.put("value", item.getValue().getBytes(ENCODING));
         args.put("ontologyID", item.getOntologyID().getBytes(ENCODING));
         storageManager.insertSuperSlice(SC_DATA_LIST, application + subPredicate + publisher.getId(), item.getKey(),
             args);
-        args.clear();
+        args = new HashMap<String, byte[]>();
       }
 
       // SEND A MAIL TO THE SUBSCRIBERS

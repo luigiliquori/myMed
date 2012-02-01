@@ -180,6 +180,11 @@ public class PublishRequestHandler extends AbstractRequestHandler {
           }
 
           try {
+        	  
+        	  System.out.println("***********" + application);
+        	  System.out.println("***********" + predicateListJson);
+        	  System.out.println("***********" + user);
+        	  System.out.println("***********" + data);
 
             final MUserBean userBean = getGson().fromJson(user, MUserBean.class);
             final Type dataType = new TypeToken<List<MDataBean>>() {
