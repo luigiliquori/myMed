@@ -45,7 +45,7 @@ public abstract class AbstractRequestHandler extends HttpServlet {
   /* --------------------------------------------------------- */
   private static final long serialVersionUID = 1L;
 
-  private static final String ENCODING = "UTF-8";
+  protected static final String ENCODING = "UTF-8";
 
   // The default logger for all the RequestHandler that extends this class
   protected static final Logger LOGGER = MLogger.getLogger();
