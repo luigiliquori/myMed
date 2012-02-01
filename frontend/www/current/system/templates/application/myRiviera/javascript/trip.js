@@ -68,11 +68,12 @@ function addKMLLayerFromURL(url){
 function addMarkerFromJson(elt){
 	if((resJSON = $.parseJSON($("#" + elt).val())) != null) {
 		$.each(resJSON, function(i, item) {
-			var myLatlng = new google.maps.LatLng(item.latitude, item.longitude);
+			coord = item.features[0].geometry.coordinates;
+			description = item.features[0].properties.ADRESSE;
+			var myLatlng = new google.maps.LatLng(coord[1], coord[0]);
 			var marker = new google.maps.Marker({
 				position: myLatlng,
-				title:item.title,
-				icon: item.icon
+				title:description,
 			});
 			marker.setMap(map);
 		});
