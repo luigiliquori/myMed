@@ -26,18 +26,19 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
   <property name="tests.dir"           location="unit"/>
   <property name="conf.dir"            location="conf"/>
   <property name="backend.dir"         location="../../../../"/>
+  <property name="web.content.lib.dir" location="${backend.dir}/WebContent/WEB-INF/lib"/>
   <property name="ext.dir"             location="${backend.dir}/ext"/>
-  <property name="controller.dir"      location="../controller"/>
-  <property name="model.dir"           location="../model"/>
-  <property name="utils.dir"           location="../utils"/>
-  <property name="properties.dir"      location="../properties"/>
-  <property name="resources.dir"       location="../resources"/>
-  <property name="build.resources.dir" location="${build.dir}/com/mymed/resources"/>
+  <property name="ext.lib.dir"         location="${ext.dir}/lib"/>
+	<property name="src.dir"             location="${backend.dir}/src/com/mymed"/>
+  <property name="controller.dir"      location="${src.dir}/controller"/>
+  <property name="model.dir"           location="${src.dir}/model"/>
+  <property name="utils.dir"           location="${src.dir}/utils"/>
+  <property name="properties.dir"      location="${src.dir}/properties"/>
+  <property name="resources.dir"       location="${src.dir}/resources"/>
   <property name="java.dir"            location="/usr/share/java"/>
   <property name="junit.dir"           location="/usr/share/junit"/>
   <property name="glassfish.dir"       location="/local/glassfish3/glassfish/"/>
-  <property name="cassandra.dir"       location="../../../../WebContent/WEB-INF/lib"/>
-  <property name="src.dir"             location="${controller.dir}:${model.dir}:${utils.dir}:${properties.dir}"/>
+  <property name="src.compile.dir"     location="${controller.dir}:${model.dir}:${utils.dir}:${properties.dir}"/>
   <property name="mymed.jar"           value="mymed.jar"/>
   <property name="mymedtest.jar"       value="tests.jar"/>
 
@@ -45,8 +46,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
   <path id="classpath.compile" description="Classpath to be used for compiling the tests">
     <pathelement path="${java.class.path}"/>
     <pathelement location="${conf.dir}"/>
-    <pathelement location="${lib.dir}/${mymed.jar}"/>
-    <pathelement location="${lib.dir}/${mymedtest.jar}"/>
+  	<pathelement location="${lib.dir}/${mymed.jar}"/>
     <pathelement location="${junit.dir}/junit.jar"/>
     <pathelement location="."/>
     <!-- Keep this one here, otherwise it is possible to get nasty compilation errors due
@@ -58,10 +58,10 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
     <fileset dir="${java.dir}">
       <include name="**/*.jar"/>
     </fileset>
-    <fileset dir="${cassandra.dir}">
+    <fileset dir="${web.content.lib.dir}">
       <include name="**/*.jar"/>
     </fileset>
-    <fileset dir="${ext.dir}">
+    <fileset dir="${ext.lib.dir}">
       <include name="**/*.jar"/>
     </fileset>
   </path>
@@ -81,7 +81,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
     <fileset dir="${java.dir}">
       <include name="**/*.jar"/>
     </fileset>
-    <fileset dir="${cassandra.dir}">
+    <fileset dir="${web.content.lib.dir}">
       <include name="**/*.jar"/>
     </fileset>
     <fileset dir="${ext.dir}">
@@ -96,7 +96,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
   </target>
 
   <target name="compile" depends="init,cleanbuild" description="Compile the necessary files">
-    <javac srcdir="${src.dir}" destdir="${build.dir}" debug="on" fork="true" includeantruntime="true" includejavaruntime="true">
+    <javac srcdir="${src.compile.dir}" destdir="${build.dir}" debug="on" fork="true" includeantruntime="true" includejavaruntime="true">
       <classpath refid="classpath.compile"/>
     </javac>
     <jar destfile="${lib.dir}/${mymed.jar}" basedir="${build.dir}" duplicate="preserve" index="true"/>
