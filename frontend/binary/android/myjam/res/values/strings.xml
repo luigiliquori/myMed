@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- ============================ -->
+    <!--  	General  strings  	  -->
+    <!-- ============================ -->    
+    <string name="app_name">myJam</string>
+    <string name="location_available">Location available</string>
+    <string name="location_unavailable">Location no more available</string>
+    <string name="date_format">dd-MM-yyyy HH:mm</string>
+    <string name="report_string">Report</string>
+    <string name="update_string">Update</string>
+    <string name="feedback_string">Feedback</string>
+    <string name="dialog_title">myJam Dialog</string>
+    <string name="positive_button_label">Ok</string>
+    <!-- ============================ -->
+    <!--  	LoginActivity strings  	  -->
+    <!-- ============================ -->
+    <string name="login_text_view_label">Login :</string>
+    <string name="password_text_view_label">Password :</string>
+    <string name="logged_text_view_label">%s is logged</string>
+    <string name="login_button_label">Log In</string>
+    <string name="home_button_label">Home</string>
+    <string name="logout_button_label">Log Out</string>
+    <string name="logging_in_msg">Logging in...</string>
+    <string name="logging_out_msg">Logging out...</string>
+    <string name="logged_in_msg">Logged in.</string>
+    <string name="logged_out_msg">Logged out.</string>
+    <string name="empty_login_msg">Login cannot be empty.</string>
+    <string name="empty_pwd_msg">Password cannot be empty.</string>
+    <string name="sign_in_link">click here to sign in</string>
+    <!-- ============================ -->
+    <!--  	SearchReport  strings  	  -->
+    <!-- ============================ -->
+    <string name="toast_call_error">Call error: <xliff:g id="error">%1$s</xliff:g></string>
+    <string name="searching_reports_msg">Searching reports...</string>
+    <string name="search_finished">Search finished</string>
+    <string name="frac_number_separator">.</string>
+    <string name="type_string_separator">_</string>
+    
+    <string name="last_search_label">Last search:</string>
+    <string name="search_results_label">Search results</string>
+    <string name="search_button_hint">Wait for the location to be available.</string>
+    
+    <string name="loc_not_available_dialog_message">You cannot insert a new report, because your location is not available at the moment.</string>
+    <string name="no_location">No location available.</string>
+    <string name="post_date_label">Posted:</string>
+    <string name="distance_label">Distance:</string>
+    <string name="type_label">Type:</string>
+    <!-- ============================ -->
+    <!--  	    Insert  strings       -->
+    <!-- ============================ -->
+    <string name="insert_title">Insert <xliff:g id="type">%1$s</xliff:g> - <xliff:g id="reportType">%2$s</xliff:g> </string>
+    <string name="report_type_choose">Choose a report type</string>
+    <string name="report_type_label">Report type</string>
+    <string name="transit_choose">Choose a transit status</string>
+    <string name="transit_label">Transit status</string>
+    <string name="traffic_flow_choose">Choose a traffic flow status</string>
+    <string name="traffic_flow_label">Traffic flow status</string>
+    <string name="comment_label">Comment</string>
+    <string name="vote_label">Vote:</string>
+    
+    <string name="insert_report_button_label">Insert report</string>
+    <string name="insert_update_button_label">Insert update</string>
+    <string name="vote_report_button_label">Vote report</string>
+    <string name="vote_update_button_label">Vote update</string>    
+    
+    <string name="insert_success"><xliff:g id="type">%1$s</xliff:g> successfully posted.</string>
+    <string name="near_reports_found">Reports of type <xliff:g id="type">%1$s</xliff:g> found within a range of <xliff:g id="type">%2$s</xliff:g> meters.\n
+    Do you want to see them or continue the insertion?</string>
+    <string name="button_continue_label">Continue</string>
+    <string name="button_see_label">See them</string>
+    
+    <string name="insert_start">Inserting the report...</string>
+    <string name="search_start">Searching reports...</string>
+    <!-- ============================ -->
+    <!--  	ReportDetails  strings    -->
+    <!-- ============================ -->
+    <string name="report_detail_title">Report Details</string>
+    <string name="sync_msg">Synchronizing <xliff:g id="error">%1$s</xliff:g></string>
+    <string name="reception_finished">Reception finished</string>
+    <string name="post_date">Posted on:</string>
+    <string name="post_by">Posted by:</string>
+    <string name="update_date">Updated on:</string>
+    <string name="update_by">Updated by:</string>
+    <string name="report_type">Report Type:</string>
+    <string name="traffic_flow_type">Traffic Flow:</string>
+    <string name="transit_type">Transit:</string>
+    <string name="report_comment">Comment:</string>
+    <string name="cursor_position"> Update (<xliff:g id="pos">%1$s</xliff:g>/<xliff:g id="index">%2$s</xliff:g>)</string>
+    <string name="original_report"> Original report</string>
+    
+    <plurals name="num_confirmations">
+    	<item quantity="zero">No confirmations present.</item>
+        <item quantity="one">One confirmation.</item>
+        <item quantity="other">%d confirmations.</item>
+    </plurals>
+    <plurals name="num_denials">
+    	<item quantity="zero">No denials present.</item>
+        <item quantity="one">One denial.</item>
+        <item quantity="other">%d denials.</item>
+    </plurals>
+    
+    <string name="dialog_report_unavailable_text">Cannot proceed.\n Report data unavailable.</string>
+    <string name="dialog_location_unavailable_text">Cannot proceed.\n User location unavailable.</string>
+    <string name="dialog_not_in_range_text">Cannot proceed.\n You are too far from the report location.</string>
+    <string name="dialog_feedback_already_present_text">Cannot proceed.\n You have already put your feedback here.</string>
+    <string name="inserting_feedback">Inserting the feedback...</string>
+    <string name="dialog_insert_report_feedback_text">Press the below buttons to put you confirmation or denial on the report.</string>
+    <string name="dialog_insert_update_feedback_text">Press the below buttons to put you confirmation or denial on the update.</string>
+    <!-- ============================ -->
+    <!--  LocationServices  strings   -->
+    <!-- ============================ -->
+    <string name="notification_loc_available_title">User location</string>
+    <string name="notification_loc_available_text">User location available for myJam.</string>
+    <!-- ============================ -->
+    <!--  		Legend  strings       -->
+    <!-- ============================ -->
+    <string name="jam_legend_label">Jam :</string>
+    <string name="car_crash_legend_label">Car crash :</string>
+    <string name="work_in_progress_legend_label">Work in progress :</string>
+    <string name="fixed_speed_cam_legend_label">Fixed speed cam :</string>
+    <string name="mobile_speed_cam_legend_label">Mobile speed cam :</string>
+    <string name="user_position_legend_label">User position :</string>
+    <!-- ============================ -->
+    <!--  	MyPreferences  strings    -->
+    <!-- ============================ -->
+    <string name="search_preferences">Search Preferences</string>
+    <string name="map_preferences">Map View Preferences</string>
+    <string name="report_details_preferences">Map View Preferences</string>
+    <string name="title_radius_preference">Set search radius</string>
+    <string name="summary_radius_preference">Radius of the search in km.</string>
+    <string name="dialog_title_search_preference">Select the radius of the search.</string>
+    <string name="title_type_filter_preference">Choose the filter type.</string>
+    <string name="summary_type_filter_preference">Type of filter.</string>
+    <string name="dialog_title_type_filter_preference">Select the filter you want to apply.</string>
+    <string name="title_search_rate_preference">Choose search rate.</string>
+    <string name="summary_search_rate_preference">Search rate.</string>
+    <string name="dialog_title_search_rate_preference">Select the rate of the searches.</string>
+    <string name="title_navigation_preference">Navigation mode</string>
+    <string name="summary_navigation_preference">When is active the map is periodically centered on the user position.</string>       
+    <string name="title_sync_preference">Choose refresh rate</string>
+    <string name="summary_sync_preference">The rate of report details refresh </string>
+    <string name="dialog_title_sync_preference">Select the refresh rate.</string>  
+</resources>

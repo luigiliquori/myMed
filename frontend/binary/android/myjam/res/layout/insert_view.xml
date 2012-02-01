@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView android:id="@+id/textViewInsertType"
+    	android:layout_height="wrap_content"
+    	android:layout_width="match_parent"
+    	style="?android:attr/listSeparatorTextViewStyle"    
+    	android:textAppearance="?android:attr/textAppearanceMedium">
+    </TextView>
+    <LinearLayout android:id="@+id/linearLayoutInsert"
+    	android:layout_width="match_parent"
+    	android:layout_height="0dp"
+    	android:layout_weight="1"
+    	android:orientation="vertical"
+    	android:padding="10dp"
+    	android:background="@drawable/gray_gradient_box" android:weightSum="1"
+    	android:gravity="center_vertical">
+        <TextView android:id="@+id/textViewTrafficFlowLabel"
+        	style="@style/DarkLabelText"
+        	android:layout_height="wrap_content" 
+        	android:text="Traffic Flow :" 
+        	android:textAppearance="?android:attr/textAppearanceMedium" 
+        	android:layout_width="wrap_content"></TextView>
+        <RadioGroup android:id="@+id/radioGroupTrafficFlow" 
+        	android:layout_width="wrap_content" 
+        	android:layout_height="wrap_content">
+        </RadioGroup>
+        <TextView android:id="@+id/textViewCommentLabel"
+        	style="@style/DarkLabelText"
+        	android:layout_height="wrap_content" 
+        	android:text="Comment :" 
+        	android:textAppearance="?android:attr/textAppearanceMedium" 
+        	android:layout_width="wrap_content"></TextView>
+        <EditText android:id="@+id/editTextComment"
+        	android:layout_height="wrap_content"  
+        	android:layout_width="match_parent"       	
+        	android:inputType="textMultiLine" 
+        	android:lines="2">
+        </EditText>
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:background="@android:color/darker_gray">
+    	<Button android:id="@+id/buttonInsert"
+    		style="@style/ImageButton"
+        	android:layout_width="0dp" 
+        	android:layout_height="wrap_content"
+        	android:layout_weight="1"
+        	android:drawableTop="@android:drawable/ic_menu_add"
+        	android:text="Insert"/>
+  	</LinearLayout>
+</LinearLayout>

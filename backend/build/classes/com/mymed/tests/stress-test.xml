@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2012 INRIA
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<!--
+Ant build file to run the stress test for mymed.
+It depends on the build.xml files, since it needs also some JARs that are created there.
+
+Milo Casagrande <milo.casagrande@inria.fr>, 2011
+-->
+<project name="mymed-stress-test" default="compile" basedir=".">
+	<property name="build.dir"           location="build"/>
+	<property name="conf.dir"            location="../../../../conf"/>
+  <property name="tests.dir"           location="stress"/>
+	<property name="lib.dir"             location="lib" />
+  <property name="controller.dir"      location="../controller"/>
+  <property name="model.dir"           location="../model"/>
+  <property name="utils.dir"           location="../utils"/>
+  <property name="java.dir"            location="/usr/share/java"/>
+  <property name="findbugs.dir"        location="/usr/share/findbugs"/>
+	<property name="libs.dir"            location="../../../../lib"/>
+	<property name="glassfish.dir"       location="/local/glassfish3/glassfish/"/>
+  <property name="cassandra.dir"       location="../../../../WebContent/WEB-INF/lib"/>
+  <property name="src.dir"             location="${controller.dir}:${model.dir}:${utils.dir}"/>
+	<property name="test.jar"            value="stresstest.jar" />
+
+  <!-- This is the classpath for compiling the tests, since we need also Glassfish and JavaEE -->
+  <path id="classpath.compile" description="Classpath to be used for compiling the tests">
+    <pathelement path="${java.class.path}"/>
+    <pathelement location="${conf.dir}"/>
+    <pathelement location="${lib.dir}/mymed.jar"/>
+    <pathelement location="."/>
+    <!-- Keep this one here, otherwise it is possible to get nasty compilation errors due
+    to how JARs are imported on the CLASSPATH, and there could be errors with JARs coming
+    from Cassandra -->
+    <fileset dir="${glassfish.dir}">
+      <include name="**/javaee.jar"/>
+    </fileset>
+    <fileset dir="${java.dir}">
+      <include name="**/*.jar"/>
+    </fileset>
+    <fileset dir="${cassandra.dir}">
+      <include name="apache-cassandra-0.7.10.jar"/>
+      <include name="libthrift-0.5.jar"/>
+      <include name="gson-1.6.jar"/>
+      <include name="logback-core-0.9.29.jar"/>
+      <include name="slf4j-api-1.6.2.jar"/>
+      <include name="logback-classic-0.9.29.jar"/>
+      <exclude name="log4j-over-slf4j-1.6.2.jar"/>
+    </fileset>
+  </path>
+
+  <!--
+  This is the classpath for running the tests. It is different than the above one because
+  of the problem we have running the tests with JavaEE on the classpath. Since for the tests
+  it is not needed, we exlude it and use a different one
+   -->
+  <path id="classpath.run" description="Classpath to be used for running the tests">
+    <pathelement path="${java.class.path}"/>
+    <pathelement location="${conf.dir}"/>
+    <pathelement location="${lib.dir}/mymed.jar"/>
+    <pathelement location="${lib.dir}/${test.jar}"/>
+    <pathelement location="."/>
+    <fileset dir="${java.dir}">
+      <include name="**/*.jar"/>
+    </fileset>
+    <fileset dir="${cassandra.dir}">
+      <include name="apache-cassandra-0.7.10.jar"/>
+      <include name="libthrift-0.5.jar"/>
+      <include name="gson-1.6.jar"/>
+      <include name="logback-core-0.9.29.jar"/>
+      <include name="slf4j-api-1.6.2.jar"/>
+      <include name="logback-classic-0.9.29.jar"/>
+      <exclude name="log4j-over-slf4j-1.6.2.jar"/>
+    </fileset>
+  </path>
+
+  <!-- Create the directories structure -->
+  <target name="init" description="Initialize the necessary directories">
+    <mkdir dir="${build.dir}"/>
+  	<mkdir dir="${lib.dir}"/>
+  </target>
+
+	<!-- Compile the stress tests -->
+	<target name="compile" depends="init,clean" description="Compile the stress tests">
+		<javac srcdir="${tests.dir}" destdir="${build.dir}" debug="on" fork="true">
+			<classpath refid="classpath.compile"/>
+		  <include name="**/*.java"/>
+		</javac>
+		<jar destfile="${lib.dir}/${test.jar}" basedir="${build.dir}" duplicate="preserve" index="true"/>
+	</target>
+
+	<!-- Run the tests on the User column family -->
+	<target name="user" depends="compile" description="Run the stress test on the User column family" >
+		<java fork="true" classname="com.mymed.tests.stress.UserStressTest">
+		  <classpath refid="classpath.run"/>
+		</java>
+	</target>
+
+	<!-- Run the tests on the Session column family -->
+	<target name="session" depends="compile" description="Run the stress test on the Session column family" >
+		<java fork="true" classname="com.mymed.tests.stress.SessionStressTest">
+		  <classpath refid="classpath.run"/>
+		</java>
+	</target>
+
+	<!-- Run the tests on the User and Session column family -->
+	<target name="usersession" depends="compile" description="Run the stress test on the User and Session column family" >
+		<java fork="true" classname="com.mymed.tests.stress.UserSessionStressTest">
+		  <classpath refid="classpath.run"/>
+		</java>
+	</target>
+
+	<!-- Run the tests on the Authentication column family -->
+	<target name="auth" depends="compile" description="Run the stress test on the Authentication column family" >
+		<java fork="true" classname="com.mymed.tests.stress.AuthenticationStressTest">
+		  <classpath refid="classpath.run"/>
+		</java>
+	</target>
+
+	<!-- Run the tests on the Authentication, User and Session column family -->
+	<target name="alltest" depends="compile" description="Run the stress test on the Authentication, User and Session column family" >
+		<java fork="true" classname="com.mymed.tests.stress.AuthUserSessionStressTest">
+		  <classpath refid="classpath.run"/>
+		</java>
+	</target>
+
+  <!-- Clean up everything -->
+  <target name="clean" description="Clean the directories used for the build">
+  	<delete includeemptydirs="true" failonerror="false">
+  	  <fileset dir="${build.dir}" includes="**/*"/>
+  	</delete>
+  </target>
+</project>

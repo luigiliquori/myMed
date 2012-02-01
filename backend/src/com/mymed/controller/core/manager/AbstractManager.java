@@ -45,7 +45,6 @@ import com.mymed.utils.MLogger;
  * @author Milo Casagrande
  */
 public abstract class AbstractManager {
-
   protected IStorageManager storageManager;
   protected static final Logger LOGGER = MLogger.getLogger();
 
@@ -130,7 +129,8 @@ public abstract class AbstractManager {
   /**
    * Create the name of the setter method based on the field name and its class.
    * <p>
-   * This is particularly useful due to the fact that boolean fields does not have a normal setter name.
+   * This is particularly useful due to the fact that boolean fields does not
+   * have a normal setter name.
    * 
    * @param field
    *          the filed we want the setter method of
