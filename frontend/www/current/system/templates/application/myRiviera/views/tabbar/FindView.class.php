@@ -59,6 +59,22 @@ class FindView extends MyApplication {
 				<input id="end" type="hidden" value="<?= $_POST['Arrivée'] ?>">
 				<script type="text/javascript">setTimeout("calcRoute()", 500);</script>
 			<?php } ?>
+			
+			<?php 
+				// PRINT THE KML FROM CARF
+				$request = new Request("FindRequestHandler", READ);
+				$request->addArgument("application", APPLICATION_NAME . "Admin");
+				$request->addArgument("predicate", "keyword(myRivieraAdmin)");
+				$responsejSon = $request->send();
+				$responseObject = json_decode($responsejSon);
+				if($responseObject->status == 200) {
+					$resArray = json_decode($responseObject->data->results);
+					$kmlCARF = $resArray[0]->data;
+					?><textarea id="kmlCARF" Style="display:none;"><?= $kmlCARF ?></textarea><?php
+					echo '<script type="text/javascript">setTimeout("addMarkerFromJson(\'kmlCARF\')", 500)	;</script>';
+				}
+			?>
+			
 		</div>
 	<?php }
 	

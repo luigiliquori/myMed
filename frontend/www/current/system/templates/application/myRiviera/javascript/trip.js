@@ -20,6 +20,22 @@ function initialize() {
 	});
 	directionsDisplay = new google.maps.DirectionsRenderer();
 	directionsDisplay.setMap(map);
+	
+	// GEOLOC
+	if (navigator.geolocation)
+		var watchId = navigator.geolocation.watchPosition(focusOnPosition, null, {enableHighAccuracy:true});
+	else
+	    alert("Votre navigateur ne prend pas en compte la géolocalisation HTML5");
+}
+
+function focusOnPosition(position){
+	  map.panTo(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+	  myMarkerImage = 'system/templates/application/myRiviera/img/position.png';
+	  var marker = new google.maps.Marker({
+	    position: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+	    icon: myMarkerImage,
+	    map: map
+	  });
 }
 
 function calcRoute() {
