@@ -1,4 +1,4 @@
-package com.mymed.tests.unit;
+package com.mymed.tests.unit.manager;
 
 import java.util.LinkedList;
 import java.util.List;

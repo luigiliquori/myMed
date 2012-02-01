@@ -65,7 +65,7 @@ public class StorageManager implements IStorageManager {
   protected static final IProperties GENERAL = PROPERTIES.getManager(PropType.GENERAL);
 
   protected static final String ENCODING = GENERAL.get("general.string.encoding");
-  private static final String CONFIG_FILE = GENERAL.get("general.config.file");
+  protected static final String CONFIG_FILE = GENERAL.get("general.config.file");
 
   private final CassandraWrapper wrapper;
 

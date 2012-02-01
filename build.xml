@@ -157,7 +157,6 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
   	</copy>
 
   	<!-- Copy the default JSP pages -->
-  	<copy todir="${war.dir}" file="${web.content.dir}/error.jsp"/>
   	<copy todir="${war.dir}" file="${web.content.dir}/index.jsp"/>
 
   	<!-- Copy the JAR files to the right directories -->
