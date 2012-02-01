@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.controller.core.requesthandler;
 
 import java.io.FileOutputStream;
@@ -35,60 +35,56 @@ import javax.servlet.http.Part;
 @MultipartConfig
 @WebServlet("/UploadFileRequestHandler")
 public class UploadFileRequestHandler extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public UploadFileRequestHandler() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+  /**
+   * @see HttpServlet#HttpServlet()
+   */
+  public UploadFileRequestHandler() {
+    super();
+  }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	}
+  /**
+   * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+   *      response)
+   */
+  @Override
+  protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
+      IOException {
+    // Stub method
+  }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		response.setContentType("text/html;charset=UTF-8");
-		PrintWriter out = response.getWriter();
-		try {
-			
-			// get access to file that is uploaded from client
-			Part p1 = request.getPart("file");
-			InputStream is = p1.getInputStream();
+  /**
+   * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+   *      response)
+   */
+  @Override
+  protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
+      IOException {
+    response.setContentType("text/html;charset=UTF-8");
+    final PrintWriter out = response.getWriter();
+    try {
+      // get access to file that is uploaded from client
+      final Part p1 = request.getPart("file");
+      final InputStream is = p1.getInputStream();
 
-			// read filename which is sent as a part
-			Part p2  = request.getPart("filename");
-			Scanner s = new Scanner(p2.getInputStream());
-			String filename = s.nextLine();    // read filename from stream
-			System.out.println("filename: " + filename);
+      // read filename which is sent as a part
+      final Part p2 = request.getPart("filename");
+      final Scanner s = new Scanner(p2.getInputStream());
+      final String filename = s.nextLine();
+      final String outputfile = getServletContext().getRealPath(filename);
+      final FileOutputStream os = new FileOutputStream(outputfile);
 
-//			// get filename to use on the server
-			String outputfile = this.getServletContext().getRealPath(filename);  // get path on the server
-			FileOutputStream os = new FileOutputStream (outputfile);
-
-			// write bytes taken from uploaded file to target file
-			int ch = is.read();
-			while (ch != -1) {
-				os.write(ch);
-				ch = is.read();
-			}
-			os.close();
-			out.println("<h3>File uploaded successfully!</h3>");
-		}
-		catch(Exception ex) {
-			ex.printStackTrace();
-		}
-		finally { 
-			out.close();
-		}
-	}
+      // write bytes taken from uploaded file to target file
+      int ch = is.read();
+      while (ch != -1) {
+        os.write(ch);
+        ch = is.read();
+      }
+      os.close();
+      out.println("<h3>File uploaded successfully!</h3>");
+    } finally {
+      out.close();
+    }
+  }
 }

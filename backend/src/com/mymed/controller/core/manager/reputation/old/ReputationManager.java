@@ -16,6 +16,8 @@ import com.mymed.model.data.reputation.old.MReputationBean;
  */
 public class ReputationManager extends AbstractManager implements IReputationManager {
 
+  private static final String CF_REPUTATION = COLUMNS.get("column.cf.reputation");
+
   public ReputationManager() throws InternalBackEndException {
     this(new StorageManager());
   }
@@ -34,16 +36,20 @@ public class ReputationManager extends AbstractManager implements IReputationMan
   @Override
   public MReputationBean read(final String producerID, final String consumerID, final String applicationID)
       throws InternalBackEndException, IOBackEndException {
-    MReputationBean reputationBean = new MReputationBean();
     final Map<byte[], byte[]> args = storageManager.selectAll(CF_REPUTATION, applicationID + producerID);
-    reputationBean = (MReputationBean) introspection(reputationBean, args);
+    final MReputationBean reputationBean = (MReputationBean) introspection(MReputationBean.class, args);
 
-    if (reputationBean.getRaterList() == null) { // The reputation of the user is not yet initialized
+    if (reputationBean.getRaterList() == null) { // The reputation of the user
+                                                 // is not yet initialized
       reputationBean.setValue(0.5); // init reputation value
       reputationBean.setNbInteraction(1); // init nbInteraction
-      reputationBean.setRaterList(applicationID + producerID); // init rater list
-      reputationBean.setInteractionList(applicationID + producerID); // init interaction list
-      create(reputationBean, applicationID + producerID); // create the reputation
+      reputationBean.setRaterList(applicationID + producerID); // init rater
+                                                               // list
+      reputationBean.setInteractionList(applicationID + producerID); // init
+                                                                     // interaction
+                                                                     // list
+      create(reputationBean, applicationID + producerID); // create the
+                                                          // reputation
     }
 
     return reputationBean;

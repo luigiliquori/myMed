@@ -25,6 +25,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
 	<property name="ext.dir" location="${backend.dir}/ext"/>
 	<property name="backend.conf.dir" location="${backend.dir}/conf"/>
 	<property name="src.dir" location="${backend.dir}/src"/>
+	<property name="properties.dir" location="${src.dir}/com/mymed/resources"/>
 	<property name="test.dir" location="${src.dir}/com/mymed/tests"/>
 	<property name="frontend.www.current.dir" location="${frontend.dir}/www/current"/>
 	<property name="build.dir" location="build"/>
@@ -49,12 +50,16 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
 	<property name="warname" value="mymed_backend.war"/>
 
 	<fileset dir="${web.content.lib.dir}" id="jarnames" description="JARs necessary to compile">
+<<<<<<< HEAD
 		<include name="apache-cassandra-0.7.10.jar"/>
 		<include name="libthrift-0.5.jar"/>
 		<include name="logback-classic-0.9.29.jar"/>
 		<include name="logback-core-0.9.29.jar"/>
 		<include name="slf4j-api-1.6.2.jar"/>
 		<include name="gson-1.6.jar"/>
+=======
+   <include name="**/*.jar"/>
+>>>>>>> 441a6537c18f525c3a92b9a299c0a96bfeb4c568
 	</fileset>
 
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties" description="Set up ant-contrib JAR necessary for this build">
@@ -119,7 +124,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
 	</target>
 
 	<!-- - - - - - - - - - - - - - - - - -
-          target: test
+          target: checkaddress
          - - - - - - - - - - - - - - - - - -->
 	<target name="checkaddress" description="Check if the 'address' argument has been passed on the commnad line">
 		<echo message="Checking address to use for configuration file"/>
@@ -141,17 +146,20 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
 	<!-- - - - - - - - - - - - - - - - - -
           target: movefiles
          - - - - - - - - - - - - - - - - - -->
-	<target name="movefiles" depends="compile, checkaddress" description="Copy the necessary stuff in the right places">
-		<!-- Copy the configuration files into the resources/ dir -->
-		<copy todir="${war.webinf.resources.dir}">
-			<fileset dir="${backend.conf.dir}" />
-			<!-- This is necessary for variable substitution in the config.xml file -->
-			<filterchain>
-				<replacetokens>
-					<token key="address" value="${ipaddress}"/>
-				</replacetokens>
-			</filterchain>
-		</copy>
+  <target name="movefiles" depends="compile, checkaddress" description="Copy the necessary stuff in the right places">
+  	<!-- Copy the configuration files into the resources/ dir -->
+  	<copy todir="${war.webinf.resources.dir}">
+  		<fileset dir="${backend.conf.dir}" />
+  		<!-- This is necessary for variable substitution in the config.xml file -->
+  		<filterchain>
+  			<replacetokens>
+  				<token key="address" value="${ipaddress}"/>
+  			</replacetokens>
+  		</filterchain>
+  	</copy>
+  	<copy todir="${war.webinf.resources.dir}">
+  		<fileset dir="${properties.dir}"/>
+  	</copy>
 
 		<copy todir="${war.webinf.classes.dir}" description="Copy the compiled classes in the WEB-INF/classes/ dir">
 			<fileset dir="${build.classes.dir}"/>
