@@ -48,8 +48,6 @@ class FindView extends MyApplication {
 					<option value="events">Evenements</option>
 				</select>
 			</div>
-	
-			
 			
 			<h1>myRiviera</h1>
 

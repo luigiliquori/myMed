@@ -73,6 +73,10 @@ function addKMLLayerFromURL(url){
 	KmlObject.setMap(map);
 }
 
+function getCurrentAddress(){
+	
+}
+
 /**
  * Load the destination address from a contact
  * @param dest
