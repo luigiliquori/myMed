@@ -62,10 +62,38 @@ class PublishView extends MyApplication {
 	public /*String*/ function getContent() { ?>
 		<!-- CONTENT -->
 		<div class="content">
+		
+			<!-- TOOLs -->
+			<div data-role="collapsible" data-theme="a" data-content-theme="c" data-collapsed="false" Style="text-align: left;">
+			   <h3>Tools</h3>
+			   <form action="?application=<?= APPLICATION_NAME ?>" method="get" rel="external">
+				   	<?php 
+				 	  	$address = "";
+						$longitude = "";
+						$latitude = "";
+						if(isset($_GET['address']) && $_GET['address'] != ""){
+							// CALL TO GOOGLE GEOCODE API
+							$geocode = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($_GET['address']) . "&sensor=true"));
+							if($geocode->status == "OK"){
+								$longitude = $geocode->results[0]->geometry->location->lng;
+								$latitude = $geocode->results[0]->geometry->location->lat;
+							}
+						} else if(isset($_GET['longitude']) && isset($_GET['latitude'])){
+							$geoloc = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?latlng=".$_GET['latitude'].",".$_GET['longitude']."&sensor=true"));
+							$address = $geoloc->results[0]->formatted_address;
+						}
+					?>
+				   Address:<br />
+				   <input name="address" type="text" value="<?= $address ?>" /><br />
+				   Longitude: <input name="longitude" type="text" value="<?= $longitude ?>" data-inline="true" /><br />
+				   Latitude: <input name="latitude" type="text" value="<?= $latitude ?>" data-inline="true" /><br />
+				   <input type="submit" data-role="button" value="Convert" rel="external"/>
+			   </form>
+			</div>
 			
-			<!-- USER POINT -->
-			<div data-role="collapsible" data-theme="a" data-content-theme="c" data-collapsed="false">
-			   <h3>USER POINT</h3>
+			<!-- MYMED POIs -->
+			<div data-role="collapsible" data-theme="a" data-content-theme="c" data-collapsed="true">
+			   <h3>myMed POIs</h3>
 			   <form action="#" method="post" name="<?= APPLICATION_NAME ?>PublishForm1" id="<?= APPLICATION_NAME ?>PublishForm1" enctype="multipart/form-data">
 					<!-- Define the method to call -->
 					<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
@@ -87,9 +115,9 @@ class PublishView extends MyApplication {
 			</div>
 			
 		
-			<!-- CARF POINT -->
-			<div data-role="collapsible" data-theme="a" data-content-theme="c" data-collapsed="false">
-			   <h3>CARF POINT</h3>
+			<!-- CARF POIs -->
+			<div data-role="collapsible" data-theme="a" data-content-theme="c" data-collapsed="true">
+			   <h3>CARF POIs</h3>
 				<form action="#" method="post" name="<?= APPLICATION_NAME ?>PublishForm2" id="<?= APPLICATION_NAME ?>PublishForm2" enctype="multipart/form-data">
 					<!-- Define the method to call -->
 					<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
