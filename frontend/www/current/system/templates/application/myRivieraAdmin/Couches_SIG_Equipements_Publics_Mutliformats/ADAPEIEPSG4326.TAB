@@ -1,0 +1,40 @@
+!table
+!version 700
+!charset WindowsLatin1
+
+Definition Table
+  Type NATIVE Charset "WindowsLatin1"
+  Fields 10
+    Adresse Char (30) ;
+    Code_posta Char (30) ;
+    Ville Char (30) ;
+    Pays Char (30) ;
+    Nom Char (30) ;
+    Descriptio Char (30) ;
+    Source Char (30) ;
+    DateDeSaisie Char (30) ;
+    Lat Char (30) ;
+    Lng Char (30) ;
+begin_metadata
+"\IsReadOnly" = "FALSE"
+"\Shapefile" = ""
+"\Shapefile\PersistentCache" = "TRUE"
+"\Spatial Reference" = ""
+"\Spatial Reference\Geographic" = ""
+"\Spatial Reference\Geographic\Projection" = ""
+"\Spatial Reference\Geographic\Projection\Clause" = "CoordSys Earth Projection 1, 104"
+"\DefaultStyles" = ""
+"\DefaultStyles\Symbol" = ""
+"\DefaultStyles\Symbol\Type" = "1"
+"\DefaultStyles\Symbol\Pointsize" = "14"
+"\DefaultStyles\Symbol\Color" = "9445631"
+"\DefaultStyles\Symbol\Code" = "107"
+"\DefaultStyles\Symbol\Font" = ""
+"\DefaultStyles\Symbol\Font\Description" = "ERS v2 Infrastructures Stage 03"
+"\DefaultStyles\Symbol\Font\Style" = "0"
+"\DefaultStyles\Symbol\Font\ExtStyle" = "0"
+"\DefaultStyles\Symbol\Font\Forecolor" = "0"
+"\DefaultStyles\Symbol\Font\Backcolor" = "0"
+"\DefaultStyles\Symbol\Font\Opaque" = "FALSE"
+"\DefaultStyles\Symbol\Font\Rotation" = "0"
+end_metadata

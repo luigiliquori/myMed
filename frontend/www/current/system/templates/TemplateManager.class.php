@@ -34,11 +34,14 @@ class TemplateManager {
 		
 		<!-- JQUERY CSS -->
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
-		<link rel="stylesheet" type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.css" />
+		<link rel="stylesheet" href="lib/jquery/jquery.mobile.actionsheet.css" />
+		<link rel="stylesheet" href="lib/jquery/jquery.mobile.datebox.css" />
+		
 		
 		<!-- JQUERY -->
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
 		<script type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
+		<script type="text/javascript" src="lib/jquery/jquery.mobile.actionsheet.js"></script>
 	
 	  <!-- mouse wheel for desktops, overwrite jquery mobile --FIX works with jquery 1.6.4 but bugs with 1.7.* -->
 		<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
@@ -49,7 +52,7 @@ class TemplateManager {
 		<script>
 			jQuery.extend(jQuery.mobile.datebox.prototype.options.lang, {
 				'fr': {
-					setDateButtonLabel: 'Date Fixée',
+					setDateButtonLabel: 'Régler la date',
 					setTimeButtonLabel: "Régler l'heure",
 					setDurationButtonLabel: 'Régler la durée',
 					calTodayButtonLabel: "Aller à aujourd'hui",
@@ -74,6 +77,8 @@ class TemplateManager {
 				useLang: 'fr'
 			});
 		</script>
+		
+		
 		
 		<!-- MAP -->
 		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=<?= Google_APP_SECRET ?>&sensor=true"> </script>

@@ -1,0 +1,44 @@
+!table
+!version 700
+!charset WindowsLatin1
+
+Definition Table
+  Type NATIVE Charset "WindowsLatin1"
+  Fields 22
+    Num_com Char (10) ;
+    Nom_com Char (31) ;
+    Num_can Char (10) ;
+    Num_arr Char (10) ;
+    Num_dep Char (10) ;
+    Num_reg Char (10) ;
+    Origine Char (8) ;
+    Date_maj Char (10) ;
+    Comment Char (10) ;
+    Etiquette Char (23) ;
+    Code_epci Char (11) ;
+    Fermentesc Float ;
+    Tonnage_an Char (13) ;
+    Surf_com Float ;
+    Pop_com Decimal (9, 0) ;
+    Nom_epci Char (30) ;
+    Pop_epci Float ;
+    Mode_gest Char (14) ;
+    Dech_verts Float ;
+    Boues_step Float ;
+    Autr_ferm Float ;
+    Exploitant Char (25) ;
+begin_metadata
+"\IsReadOnly" = "FALSE"
+"\Shapefile" = ""
+"\Shapefile\PersistentCache" = "FALSE"
+"\Spatial Reference" = ""
+"\Spatial Reference\Geographic" = ""
+"\Spatial Reference\Geographic\Projection" = ""
+"\Spatial Reference\Geographic\Projection\Clause" = "CoordSys Earth Projection 3, 1002, ""m"", 0, 44.1, 43.19929139, 44.99609389, 600000, 200000 Bounds (-104503824.717, -98311919.6435) (105703824.717, 111895729.79)"
+"\DefaultStyles" = ""
+"\DefaultStyles\Symbol" = ""
+"\DefaultStyles\Symbol\Type" = "0"
+"\DefaultStyles\Symbol\Pointsize" = "12"
+"\DefaultStyles\Symbol\Color" = "0"
+"\DefaultStyles\Symbol\Code" = "35"
+end_metadata

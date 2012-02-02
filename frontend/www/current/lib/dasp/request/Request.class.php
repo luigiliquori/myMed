@@ -80,7 +80,11 @@ class Request {
 		}
 		
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-		$httpHeader[] = 'Content-Type:application/x-www-form-urlencoded';
+		if($this->multipart){
+			$httpHeader[] = 'Content-Type:multipart/form-data';
+		} else {
+			$httpHeader[] = 'Content-Type:application/x-www-form-urlencoded';
+		}
 		$this->arguments['code'] = $this->method;
 
 		// Token for security - to access to the API
@@ -93,7 +97,11 @@ class Request {
 			curl_setopt($curl, CURLOPT_HTTPHEADER, $httpHeader);
 			curl_setopt($curl, CURLOPT_URL, $this->url.$this->ressource);
 			curl_setopt($curl, CURLOPT_POST, true);
-			curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($this->arguments));
+			if($this->multipart){
+				curl_setopt($curl, CURLOPT_POSTFIELDS, $this->arguments);
+			} else {
+				curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($this->arguments));
+			}
 			
 		} else {
 			// GET REQUEST

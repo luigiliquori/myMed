@@ -1,0 +1,7 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "IDENTALPHA": "Fourrière communautaire", "SOURCE": "CARF", "ADRESSE": "144 val du Careï", "TélépHONE": "04 92 10 56 00" }, "geometry": { "type": "Point", "coordinates": [ 7.491499, 43.794245 ] } }
+
+]
+}
