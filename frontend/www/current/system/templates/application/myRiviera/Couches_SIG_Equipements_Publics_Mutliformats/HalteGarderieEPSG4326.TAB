@@ -1,0 +1,28 @@
+!table
+!version 700
+!charset WindowsLatin1
+
+Definition Table
+  Type NATIVE Charset "WindowsLatin1"
+  Fields 6
+    Commune Char (254) ;
+    Adresse Char (254) ;
+    Nom Char (254) ;
+    Remarque Char (136) ;
+    Date_de_said_ Date ;
+    Producteuric_ Char (4) ;
+begin_metadata
+"\IsReadOnly" = "FALSE"
+"\Shapefile" = ""
+"\Shapefile\PersistentCache" = "TRUE"
+"\Spatial Reference" = ""
+"\Spatial Reference\Geographic" = ""
+"\Spatial Reference\Geographic\Projection" = ""
+"\Spatial Reference\Geographic\Projection\Clause" = "CoordSys Earth Projection 3, 1002, ""m"", 0, 44.1, 43.199291275544, 44.996093814511, 600000, 200000 Bounds (-104503824.399, -98311919.314) (105703824.399, 111895729.483)"
+"\DefaultStyles" = ""
+"\DefaultStyles\Symbol" = ""
+"\DefaultStyles\Symbol\Type" = "0"
+"\DefaultStyles\Symbol\Pointsize" = "12"
+"\DefaultStyles\Symbol\Color" = "6356832"
+"\DefaultStyles\Symbol\Code" = "57"
+end_metadata

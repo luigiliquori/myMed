@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Used in SearchActivity preferences -->
+    <string-array name="radius_list_preference">
+        <item>5 Km</item>
+        <item>10 Km</item>
+        <item>25 Km</item>
+        <item>50 Km</item>  
+    </string-array>
+
+    <!-- Used in SearchActivity preferences -->
+    <string-array name="radiusvalues_list_preference">
+        <item>5000</item>
+        <item>10000</item>
+        <item>25000</item>
+        <item>50000</item>  
+    </string-array>
+    
+    <!-- Used in SearchActivity preferences -->
+    <string-array name="search_rate_list_preference">
+        <item>Every 5 Minutes</item>
+        <item>Every 10 Minutes</item>
+        <item>Every 15 Minutes</item>
+        <item>Every 30 Minutes</item>  
+    </string-array>
+
+    <!-- Used in SearchActivity preferences -->
+    <string-array name="search_ratevalues_list_preference">
+        <item>300000</item>
+        <item>600000</item>
+        <item>900000</item>
+        <item>1800000</item> 
+    </string-array>
+    
+    <!-- Used in SearchActivity preferences -->
+    <string-array name="sync_rate_list_preference">
+        <item>Every Minute</item>
+        <item>Every 2 Minutes</item>
+        <item>Every 5 Minutes</item>
+        <item>Every 10 Minutes</item>  
+    </string-array>
+
+    <!-- Used in SearchActivity preferences -->
+    <string-array name="sync_ratevalues_list_preference">
+        <item>60000</item>
+        <item>120000</item>
+        <item>300000</item>
+        <item>600000</item> 
+    </string-array>
+    
+    
+    <string-array name="filter_list_preference">
+        <item>Jam</item>
+        <item>Car crash</item>
+        <item>Work in progress</item>
+        <item>Fixed speed cam</item>
+        <item>Mobile speed cam</item>
+        <item>None</item>
+    </string-array>
+    
+   <string-array name="filtervalues_list_preference">
+        <item>JAM</item>
+        <item>CAR_CRASH</item>
+        <item>WORK_IN_PROGRESS</item>
+        <item>FIXED_SPEED_CAM</item>
+        <item>MOBILE_SPEED_CAM</item>
+        <item>NONE</item>
+    </string-array>
+    
+    <!-- Used in ReportDetailsActivity to format the ProgressDialog text -->
+    <string-array name="type_obj">
+        <item>search</item>
+        <item>report</item>
+        <item>updates</item>
+        <item>report feedbacks</item>
+        <item>update feedbacks</item>    
+    </string-array>
+    
+    <!-- Used in InsertActivity preferences -->
+    <string-array name="report_type_list">
+        <item>Jam</item>
+        <item>Car crash</item>
+        <item>Work in progress</item>
+        <item>Fixed speed cam</item>
+        <item>Mobile speed cam</item>
+    </string-array>
+
+    <string-array name="report_typevalues_list">
+        <item>JAM</item>
+        <item>CAR_CRASH</item>
+        <item>WORK_IN_PROGRESS</item>
+        <item>FIXED_SPEED_CAM</item>
+        <item>MOBILE_SPEED_CAM</item>
+    </string-array>
+    
+    <string-array name="traffic_flow_list">
+        <item>Normal</item>
+        <item>Slow</item>
+        <item>Very slow</item>
+        <item>Blocked</item>
+    </string-array>
+
+    <string-array name="traffic_flowvalues_list">
+        <item>NORMAL</item>
+        <item>SLOW</item>
+        <item>VERY_SLOW</item>
+        <item>BLOCKED</item>
+    </string-array>      
+</resources>

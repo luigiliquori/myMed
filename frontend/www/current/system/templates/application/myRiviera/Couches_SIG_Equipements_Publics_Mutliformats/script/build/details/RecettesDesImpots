@@ -1,0 +1,7 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "SOURCE": "", "NOM": "", "ADRESSE": "5 rue Victor Hugo, Le Triton", "TélépHONE": "0493575454", "DATEDESAIS": "2008\/05\/13" }, "geometry": { "type": "Point", "coordinates": [ 7.495529, 43.774554 ] } }
+
+]
+}

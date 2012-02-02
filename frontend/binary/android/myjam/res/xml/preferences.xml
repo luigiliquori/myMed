@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android">
+                
+    <PreferenceCategory
+            android:title="@string/search_preferences">               
+        <ListPreference
+                android:key="radius_preference"
+                android:title="@string/title_radius_preference"
+                android:summary="@string/summary_radius_preference"
+                android:entries="@array/radius_list_preference"
+                android:entryValues="@array/radiusvalues_list_preference"
+                android:dialogTitle="@string/dialog_title_search_preference"
+                android:defaultValue="10000"/>
+    	<ListPreference
+                android:key="type_filter_preference"
+                android:title="@string/title_type_filter_preference"
+                android:summary="@string/summary_type_filter_preference"
+                android:entries="@array/filter_list_preference"
+                android:entryValues="@array/filtervalues_list_preference"
+                android:dialogTitle="@string/dialog_title_type_filter_preference"
+                android:defaultValue="NONE"/>
+		<ListPreference
+                android:key="search_rate_preference"
+                android:title="@string/title_search_rate_preference"
+                android:summary="@string/summary_search_rate_preference"
+                android:entries="@array/search_rate_list_preference"
+                android:entryValues="@array/search_ratevalues_list_preference"
+                android:dialogTitle="@string/dialog_title_search_rate_preference"
+                android:defaultValue="600000"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+    	android:title="@string/report_details_preferences">
+    	<ListPreference
+                android:key="sync_rate_preference"
+                android:title="@string/title_sync_preference"
+                android:summary="@string/summary_sync_preference"
+                android:entries="@array/sync_rate_list_preference"
+                android:entryValues="@array/sync_ratevalues_list_preference"
+                android:dialogTitle="@string/dialog_title_sync_preference"
+                android:defaultValue="120000"/>
+    </PreferenceCategory> 
+    <PreferenceCategory
+    	android:title="@string/map_preferences">
+    		<CheckBoxPreference
+				android:key="navigation_mode_preference"
+           		android:title="@string/title_navigation_preference"
+           		android:defaultValue="true"
+				android:summary="@string/summary_navigation_preference"/>
+    </PreferenceCategory> 
+</PreferenceScreen>

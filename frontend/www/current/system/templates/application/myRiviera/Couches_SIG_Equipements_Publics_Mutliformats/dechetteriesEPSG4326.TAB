@@ -1,0 +1,14 @@
+!table
+!version 300
+!charset WindowsLatin1
+
+Definition Table
+  Type NATIVE Charset "WindowsLatin1"
+  Fields 7
+    nom Char (30) ;
+    horaire Char (254) ;
+    téléphone Char (100) ;
+    Gardien Char (100) ;
+    adresse Char (254) ;
+    type Char (50) Index 1 ;
+    observations Char (254) ;

@@ -71,7 +71,7 @@ class FindView extends MyApplication {
 					$resArray = json_decode($responseObject->data->results);
 					$kmlCARF = $resArray[0]->data;
 					?><textarea id="kmlCARF" Style="display:none;"><?= $kmlCARF ?></textarea><?php
-					echo '<script type="text/javascript">setTimeout("addMarkerFromJson(\'kmlCARF\')", 500)	;</script>';
+					echo '<script type="text/javascript">setTimeout("addMarkerFromJson(\'kmlCARF\')", 500);</script>';
 				}
 			?>
 			

@@ -1,0 +1,15 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "SOURCE": "CARF", "DATEDESAIS": "2008\/04\/28", "NOM": "Police municipale de la Turbie", "ADRESSE": "1 av Victoire 06320 TURBIE (LA)", "TélépHONE": "04 92 41 51 66" }, "geometry": { "type": "Point", "coordinates": [ 7.398898, 43.745310 ] } }
+,
+{ "type": "Feature", "properties": { "SOURCE": "CARF", "DATEDESAIS": "2008\/04\/28", "NOM": "Police Municipale Hôtel de Ville (Menton)", "ADRESSE": "17 r République 06500 MENTON", "TélépHONE": "04 92 10 50 50" }, "geometry": { "type": "Point", "coordinates": [ 7.502602, 43.775643 ] } }
+,
+{ "type": "Feature", "properties": { "SOURCE": "CARF", "DATEDESAIS": "2008\/05\/26", "NOM": "Police municipale de Beausoleil", "ADRESSE": "11 rue Jules Ferry 06240 Beausoleil", "TélépHONE": "04 92 10 72 83" }, "geometry": { "type": "Point", "coordinates": [ 7.424994, 43.743386 ] } }
+,
+{ "type": "Feature", "properties": { "SOURCE": "CARF", "DATEDESAIS": "2008\/05\/26", "NOM": "Police municipale de RCM", "ADRESSE": "avenue de la Plage à côté du 173", "TélépHONE": "04 92 10 47 55" }, "geometry": { "type": "Point", "coordinates": [ 7.479871, 43.758686 ] } }
+,
+{ "type": "Feature", "properties": { "SOURCE": "CARF", "DATEDESAIS": "2008\/05\/26", "NOM": "Police municipale de Sospel", "ADRESSE": "Bâtiment de la mairie place Saint Pierre", "TélépHONE": "04 93 04 33 00" }, "geometry": { "type": "Point", "coordinates": [ 7.449674, 43.877305 ] } }
+
+]
+}

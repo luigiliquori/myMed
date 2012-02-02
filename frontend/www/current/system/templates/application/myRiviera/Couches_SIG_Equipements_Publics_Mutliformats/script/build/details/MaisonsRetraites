@@ -1,0 +1,39 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "ADRESSE": "Route des Ciappes", "CODE_POSTA": "06500", "VILLE": "MENTON", "PAYS": "FRANCE", "NOM": "Hôtel des Pins (Maison de retraite)", "DE_GESTION": "Privé", "TélépHONE": "04 93 35 75 48", "LAT": "43.778538", "LNG": "7.500717" }, "geometry": { "type": "Point", "coordinates": [ 7.500712, 43.778543 ] } }
+,
+{ "type": "Feature", "properties": { "ADRESSE": "2 rue Antoine Péglion", "CODE_POSTA": "06500", "VILLE": "menton", "PAYS": "france", "NOM": "La Palmosa (Maison de retraite)", "DE_GESTION": "Publique", "TélépHONE": "04 93 28 73 02", "LAT": "43.76605", "LNG": "7.48398" }, "geometry": { "type": "Point", "coordinates": [ 7.483995, 43.767118 ] } }
+,
+{ "type": "Feature", "properties": { "ADRESSE": "6 rue du Louvre", "CODE_POSTA": "06500", "VILLE": "menton", "PAYS": "france", "NOM": "Le Home (Maison de retraite)", "DE_GESTION": "", "TélépHONE": "04 93 35 75 51", "LAT": "43.775479", "LNG": "7.497301" }, "geometry": { "type": "Point", "coordinates": [ 7.497295, 43.775484 ] } }
+,
+{ "type": "Feature", "properties": { "ADRESSE": "166 impasse de la maison Russe", "CODE_POSTA": "06500", "VILLE": "MENTON", "PAYS": "FRANCE", "NOM": "Maison Russe (Maison de retraite Ste Anasthasie)", "DE_GESTION": "Privé", "TélépHONE": "04 92 10 44 55", "LAT": "43.768346", "LNG": "7.484707" }, "geometry": { "type": "Point", "coordinates": [ 7.484701, 43.768351 ] } }
+,
+{ "type": "Feature", "properties": { "ADRESSE": "15 Boulevard de Verdun", "CODE_POSTA": "06380", "VILLE": "sospel", "PAYS": "france", "NOM": "Maison de retraite \"Maison du Golf\"", "DE_GESTION": "Privé", "TélépHONE": "04 93 04 05 87", "LAT": "43.880302", "LNG": "7.461067" }, "geometry": { "type": "Point", "coordinates": [ 7.470323, 43.880721 ] } }
+,
+{ "type": "Feature", "properties": { "ADRESSE": "1, Avenue Aristide Briand", "CODE_POSTA": "06440", "VILLE": "PEILLE", "PAYS": "France", "NOM": "MAISON DE RETRAITE VICTOR NICOLAÏ", "DE_GESTION": "Publique", "TélépHONE": "04 93 91 63 63", "LAT": "", "LNG": "" }, "geometry": { "type": "Point", "coordinates": [ 7.404582, 43.804990 ] } }
+,
+{ "type": "Feature", "properties": { "ADRESSE": "Quai du Moneghetti", "CODE_POSTA": "06240", "VILLE": "BEAUSOLEIL", "PAYS": "FRANCE", "NOM": "Résidence Médico sociale de Beausoleil", "DE_GESTION": "Publique", "TélépHONE": "04 93 78 15 20", "LAT": "", "LNG": "" }, "geometry": { "type": "Point", "coordinates": [ 7.417036, 43.738518 ] } }
+,
+{ "type": "Feature", "properties": { "ADRESSE": "Chemin Romain", "CODE_POSTA": "06240", "VILLE": "BEAUSOLEIL", "PAYS": "FRANCE", "NOM": "RESIDENCE MEDICALISEE FONTDIVINA", "DE_GESTION": "Privé", "TélépHONE": "04 97 17 75 01", "LAT": "", "LNG": "" }, "geometry": { "type": "Point", "coordinates": [ 7.432947, 43.753118 ] } }
+,
+{ "type": "Feature", "properties": { "ADRESSE": "Route du Val de Gorbio", "CODE_POSTA": "06500", "VILLE": "MENTON", "PAYS": "FRANCE", "NOM": "MR LES HAUTS DE MENTON GORBIO", "DE_GESTION": "Privé", "TélépHONE": "04 93 28 22 38", "LAT": "", "LNG": "" }, "geometry": { "type": "Point", "coordinates": [ 7.469376, 43.779817 ] } }
+,
+{ "type": "Feature", "properties": { "ADRESSE": "Route du Val de Gorbio", "CODE_POSTA": "06504", "VILLE": "MENTON", "PAYS": "FRANCE", "NOM": "MAISON DE RETRAITE FONDATION JULES GASTALDY", "DE_GESTION": "Publique", "TélépHONE": "04 92 41 79 00", "LAT": "", "LNG": "" }, "geometry": { "type": "Point", "coordinates": [ 7.469532, 43.780711 ] } }
+,
+{ "type": "Feature", "properties": { "ADRESSE": "RUE CORDIER", "CODE_POSTA": "06540", "VILLE": "BREIL-SUR-ROYA", "PAYS": "FRANCE", "NOM": "MAISON DE RETRAITE HL BREIL SUR ROYA LES JARDINS D'AZUR", "DE_GESTION": "Publique", "TélépHONE": "04 93 04 37 00", "LAT": "", "LNG": "" }, "geometry": { "type": "Point", "coordinates": [ 7.514712, 43.945214 ] } }
+,
+{ "type": "Feature", "properties": { "ADRESSE": "Rue des soeurs Munet", "CODE_POSTA": "06500", "VILLE": "MENTON", "PAYS": "FRANCE", "NOM": "MAISON DE RETRAITE DE LA VIERGE", "DE_GESTION": "Privé", "TélépHONE": "04 93 57 74 90", "LAT": "", "LNG": "" }, "geometry": { "type": "Point", "coordinates": [ 7.491775, 43.774073 ] } }
+,
+{ "type": "Feature", "properties": { "ADRESSE": "Quai Saint Joseph", "CODE_POSTA": "06540", "VILLE": "SAORGE", "PAYS": "FRANCE", "NOM": "LE TEMPS DES CERISES (Maison de retraite)", "DE_GESTION": "Publique", "TélépHONE": "04 93 04 54 60", "LAT": "", "LNG": "" }, "geometry": { "type": "Point", "coordinates": [ 7.553866, 43.985397 ] } }
+,
+{ "type": "Feature", "properties": { "ADRESSE": "Place Saint François", "CODE_POSTA": "06380", "VILLE": "SOSPEL", "PAYS": "FRANCE", "NOM": "HOPITAL LOCAL SAINT ELOI", "DE_GESTION": "Public", "TélépHONE": "04 93 04 30 30", "LAT": "", "LNG": "" }, "geometry": { "type": "Point", "coordinates": [ 7.451636, 43.878967 ] } }
+,
+{ "type": "Feature", "properties": { "ADRESSE": "12 avenue Général de Gaulle", "CODE_POSTA": "06320", "VILLE": "LA TURBIE", "PAYS": "FRANCE", "NOM": "MAISON DE RETRAITE RESIDENCE DE FRANCE", "DE_GESTION": "Privé", "TélépHONE": "04 93 41 09 54", "LAT": "", "LNG": "" }, "geometry": { "type": "Point", "coordinates": [ 7.400749, 43.746324 ] } }
+,
+{ "type": "Feature", "properties": { "ADRESSE": "Avenue de France", "CODE_POSTA": "06430", "VILLE": "LA BRIGUE", "PAYS": "FRANCE", "NOM": "MAISON DE RETRAITE LE TOUZE", "DE_GESTION": "Public", "TélépHONE": "04 93 04 99 50", "LAT": "", "LNG": "" }, "geometry": { "type": "Point", "coordinates": [ 7.610243, 44.063150 ] } }
+,
+{ "type": "Feature", "properties": { "ADRESSE": "3 avenue Jean Médecin", "CODE_POSTA": "06430", "VILLE": "TENDE", "PAYS": "FRANCE", "NOM": "MAISON DE RETRAITE CHU TENDE", "DE_GESTION": "Public", "TélépHONE": "04 93 04 60 50", "LAT": "", "LNG": "" }, "geometry": { "type": "Point", "coordinates": [ 7.594569, 44.082402 ] } }
+
+]
+}

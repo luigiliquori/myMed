@@ -23,7 +23,7 @@ function initialize() {
 	
 	// GEOLOC
 	if (navigator.geolocation)
-		var watchId = navigator.geolocation.watchPosition(focusOnPosition, null, {enableHighAccuracy:true});
+		navigator.geolocation.getCurrentPosition(focusOnPosition, null, {enableHighAccuracy:true});
 	else
 	    alert("Votre navigateur ne prend pas en compte la géolocalisation HTML5");
 }
