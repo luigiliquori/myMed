@@ -7,6 +7,9 @@ var poi;
 var poiMem = {};
 var poiIterator;
 
+/**
+ * Initialize the application
+ */
 function initialize() {
 	directionsDisplay =  new google.maps.DirectionsRenderer();
 	
@@ -28,6 +31,10 @@ function initialize() {
 	    alert("Votre navigateur ne prend pas en compte la géolocalisation HTML5");
 }
 
+/**
+ * Zoom on a position
+ * @param position
+ */
 function focusOnPosition(position){
 	  map.panTo(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
 	  myMarkerImage = 'system/templates/application/myRiviera/img/position.png';
@@ -38,6 +45,10 @@ function focusOnPosition(position){
 	  });
 }
 
+/**
+ * Print route (itineraire) from Google API
+ * In case of cityway errors
+ */
 function calcRoute() {
 	var start = document.getElementById("start").value;
 	var end = document.getElementById("end").value;
@@ -53,6 +64,19 @@ function calcRoute() {
 	});
 }
 
+/**
+ * Print route (itineraire) from CityWay API
+ * @param url
+ */
+function addKMLLayerFromURL(url){
+	var KmlObject = new google.maps.KmlLayer(url);
+	KmlObject.setMap(map);
+}
+
+/**
+ * Load the destination address from a contact
+ * @param dest
+ */
 function changeDestination(dest){
 	picture = (document.getElementById("select" + dest).value + "").split("&&")[0];
 	address = (document.getElementById("select" + dest).value + "").split("&&")[1];
@@ -60,20 +84,18 @@ function changeDestination(dest){
 	document.getElementById(dest + "picture").src = picture;
 }
 
-function addKMLLayerFromURL(url){
-	var KmlObject = new google.maps.KmlLayer(url);
-	KmlObject.setMap(map);
-}
-
-function addMarkerFromJson(elt){
+/**
+ * Add marker according to the myMed jSon format
+ * @param elt
+ */
+function addMarkerFromMymedJsonFormat(elt){
 	if((resJSON = $.parseJSON($("#" + elt).val())) != null) {
 		$.each(resJSON, function(i, item) {
-			coord = item.features[0].geometry.coordinates;
-			description = item.features[0].properties.ADRESSE;
-			var myLatlng = new google.maps.LatLng(coord[1], coord[0]);
+			var myLatlng = new google.maps.LatLng(item.latitude, item.longitude);
 			var marker = new google.maps.Marker({
 				position: myLatlng,
-				title:description,
+				title: item.title,
+				icon: item.icon
 			});
 			marker.setMap(map);
 		});
@@ -82,6 +104,34 @@ function addMarkerFromJson(elt){
 	}
 }
 
+/**
+ * Add marker according to the CARF jSon format
+ * @param elt
+ * @deprecated
+ */
+function addMarkerFromCARFJsonFormat(elt){
+	if((resJSON = $.parseJSON($("#" + elt).val())) != null) {
+		$.each(resJSON, function(i, item) {
+			$.each(item.features, function(j, feature) {
+				coord = feature.geometry.coordinates;
+				description = feature.properties.ADRESSE;
+				var myLatlng = new google.maps.LatLng(coord[1], coord[0]);
+				var marker = new google.maps.Marker({
+					position: myLatlng,
+					title:description,
+				});
+				marker.setMap(map);
+			});
+		});
+	} else {
+		alert("parse error!");
+	}
+}
+
+/**
+ * Focus on a Trip Segment (CityWay API)
+ * @param id
+ */
 function focusOn(id){
 	latitude = document.getElementById(id + "_latitude").value;
 	longitude = document.getElementById(id + "_longitude").value;
@@ -105,6 +155,9 @@ function focusOn(id){
 	window.scrollTo(0,0);
 }
 
+/**
+ * Add the marker around the current Trip Segment
+ */
 function addMarker(){
 	// POI
 	if(!poiMem[poi[poiIterator].id]){

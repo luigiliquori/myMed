@@ -50,6 +50,7 @@ class FindView extends MyApplication {
 			
 			<div id="myRivieraMap"></div>
 			
+			<!-- ITINERAIRE -->
 			<?php if ($this->handler->getSuccess()) {
 				// PRINT THE TRIP (kml format) FROM CITYWAY
 				$kmlCityWay = $this->handler->getSuccess()->kml;
@@ -60,18 +61,32 @@ class FindView extends MyApplication {
 				<script type="text/javascript">setTimeout("calcRoute()", 500);</script>
 			<?php } ?>
 			
+			<!-- POIs -->
 			<?php 
-				// PRINT THE KML FROM CARF
+				// POIs FROM myMed
 				$request = new Request("FindRequestHandler", READ);
 				$request->addArgument("application", APPLICATION_NAME . "Admin");
-				$request->addArgument("predicate", "keyword(myRivieraAdmin)");
+				$request->addArgument("predicate", "keyword(myRivieraPOIs_myMed)");
 				$responsejSon = $request->send();
 				$responseObject = json_decode($responsejSon);
 				if($responseObject->status == 200) {
 					$resArray = json_decode($responseObject->data->results);
 					$kmlCARF = $resArray[0]->data;
-					?><textarea id="kmlCARF" Style="display:none;"><?= $kmlCARF ?></textarea><?php
-					echo '<script type="text/javascript">setTimeout("addMarkerFromJson(\'kmlCARF\')", 500);</script>';
+					?><textarea id="myMedPOIs" Style="display:none;"><?= $kmlCARF ?></textarea><?php
+					echo '<script type="text/javascript">setTimeout("addMarkerFromMymedJsonFormat(\'myMedPOIs\')", 500);</script>';
+				}
+			
+				// POIs FROM CARF
+				$request = new Request("FindRequestHandler", READ);
+				$request->addArgument("application", APPLICATION_NAME . "Admin");
+				$request->addArgument("predicate", "keyword(myRivieraPOIs_carf)");
+				$responsejSon = $request->send();
+				$responseObject = json_decode($responsejSon);
+				if($responseObject->status == 200) {
+					$resArray = json_decode($responseObject->data->results);
+					$kmlCARF = $resArray[0]->data;
+					?><textarea id="CARFPOIs" Style="display:none;"><?= $kmlCARF ?></textarea><?php
+					echo '<script type="text/javascript">setTimeout("addMarkerFromCARFJsonFormat(\'CARFPOIs\')", 500);</script>';
 				}
 			?>
 			
