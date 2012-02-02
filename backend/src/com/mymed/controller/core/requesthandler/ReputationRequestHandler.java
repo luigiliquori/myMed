@@ -26,7 +26,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.controller.core.manager.reputation.reputation_manager.ReputationManager;
+import com.mymed.controller.core.manager.reputation.api.mymed_ids.MymedAppUserId;
+import com.mymed.controller.core.manager.reputation.api.mymed_ids.ReputationRole;
+import com.mymed.controller.core.manager.reputation.api.recommendation_manager.ReputationManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.reputation.MReputationBean;
@@ -53,11 +55,7 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
 	 */
 	public ReputationRequestHandler() throws ServletException {
 		super();
-		try {
-			this.reputationManager = new ReputationManager(new StorageManager().getWrapper());
-		} catch (InternalBackEndException e) {
-			throw new ServletException("ReputationManager is not accessible because: " + e.getMessage());
-		}
+		this.reputationManager = new ReputationManager();
 	}
 
 	/* --------------------------------------------------------- */
@@ -93,7 +91,8 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
 				} else if ((consumer = parameters.get("consumer")) == null) {
 					throw new InternalBackEndException("missing consumer argument!");
 				}
-				MReputationBean reputation = reputationManager.read(producer, consumer, application, true);
+                                MymedAppUserId user = new MymedAppUserId(application, producer, ReputationRole.Producer);
+				MReputationBean reputation = reputationManager.read(user);
 				message.addData("reputation", reputation.getReputation() + "");
 				break;
 			case DELETE:

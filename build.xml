@@ -55,6 +55,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
     <include name="logback-core-0.9.29.jar"/>
     <include name="slf4j-api-1.6.2.jar"/>
     <include name="gson-1.6.jar"/>
+    <include name="uuid-3.2.jar"/>
 	</fileset>
 
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties" description="Set up ant-contrib JAR necessary for this build">
@@ -173,7 +174,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
          ================================= -->
   <target name="backend" depends="movefiles" description="Generate the WAR file to be deployed">
     <war destfile="${build.lib.dir}/${warname}" webxml="${web.content.webinf.dir}/web.xml" basedir="${war.dir}">
-    	<manifest>
+    	<manifest> 
     	  <attribute name="Built-By" value="${user.name}"/>
     	  <attribute name="Built-On" value="${TODAY}"/>
     	</manifest>

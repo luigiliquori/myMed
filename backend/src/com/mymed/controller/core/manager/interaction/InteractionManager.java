@@ -20,7 +20,10 @@ import java.util.Map;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.AbstractManager;
-import com.mymed.controller.core.manager.reputation.reputation_manager.VerdictManager;
+import com.mymed.controller.core.manager.reputation.api.mymed_ids.MymedAppUserId;
+import com.mymed.controller.core.manager.reputation.api.mymed_ids.ReputationRole;
+import com.mymed.controller.core.manager.reputation.api.recommendation_manager.VerdictManager;
+import com.mymed.controller.core.manager.reputation.recommendation_manager.AverageReputationAlgorithm;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.data.interaction.MInteractionBean;
 
@@ -36,6 +39,8 @@ public class InteractionManager extends AbstractManager implements
 
 	private VerdictManager verdictManager;
 
+        public static final int LAST_N = 100;
+        
 	public InteractionManager() throws InternalBackEndException {
 		this(new StorageManager());
 	}
@@ -43,7 +48,7 @@ public class InteractionManager extends AbstractManager implements
 	public InteractionManager(final StorageManager storageManager)
 			throws InternalBackEndException {
 		super(storageManager);
-		this.verdictManager = new VerdictManager(storageManager.getWrapper());
+		this.verdictManager = new VerdictManager(new AverageReputationAlgorithm(LAST_N));
 	}
 
 	@Override
@@ -58,9 +63,11 @@ public class InteractionManager extends AbstractManager implements
 					interaction.getAttributeToMap());
 			if (interaction.getFeedback() != -1) {
 				// REPUTATION UPDATE
-				if (!verdictManager.updateReputation(interaction
-						.getApplication(), interaction.getConsumer(), false,
-						interaction.getProducer(), interaction.getFeedback())) {
+                                MymedAppUserId judge = new MymedAppUserId(interaction.getApplication(), 
+                                        interaction.getConsumer(), ReputationRole.Consumer);
+                                MymedAppUserId charged = new MymedAppUserId(interaction.getApplication(),
+                                        interaction.getProducer(), ReputationRole.Producer);
+				if (!verdictManager.update(judge,charged,interaction.getFeedback())) {
 					throw new InternalBackEndException("Reputation update: doesn't work!");
 				}
 			}
