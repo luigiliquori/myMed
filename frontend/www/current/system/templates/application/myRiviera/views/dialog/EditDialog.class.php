@@ -42,31 +42,65 @@ class EditDialog extends AbstractTemplate {
 	* Get the CONTENT for jQuery Mobile
 	*/
 	public /*String*/ function getContent() { ?>
-		<div data-theme="b" data-role="content">
-			<div style="text-align: left;">
+		<div data-theme="b">
+			<div id="Itin">
 				<form action="#" method="post" name="<?= APPLICATION_NAME ?>FindForm" id="<?= APPLICATION_NAME ?>FindForm">
-					<!-- Define the method to call -->
+
 					<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
 					<input type="hidden" name="method" value="find" />
 					<input type="hidden" name="numberOfOntology" value="4" />
 																
-					<!-- FROM -->
-					<img id="departpicture" alt="thumbnail" src="system/templates/application/myRiviera/img/flag_green.png" height="32"/>
-					<input data-theme="d" type="text" id="depart"  name="Départ" value="Ma position" Style="color: #5e87b0;" onclick="$('#depart').css('color', 'black'); $('#depart').val('');" />
-												
-					<!-- TO -->
-					<img id="arriveepicture" alt="thumbnail" src="system/templates/application/myRiviera/img/flag_finish.png"  height="32"/>
-					<input data-theme="d" type="text" id="arrivee"  name="Arrivée" />	
-												
-					<!-- DATE -->
-					<img id="arriveepicture" alt="thumbnail" src="system/templates/application/myRiviera/img/calendar.png"  height="32"/><br />
-					<input data-theme="d" name="date" id="date" type="date" data-role="datebox"  data-options='{"noButtonFocusMode": true, "disableManualInput": true, "mode": "slidebox", "dateFormat":"HH:ii le DD/MM/YYYY  ", "fieldsOrderOverride":["h","i","d","m","y"]}'>
+					<div data-role="fieldcontain">
 					
-					<br /><br />
+					<!-- FROM -->
+						<div>
+							<img id="departpicture" alt="thumbnail" src="http://www.poledream.com/wp-content/uploads/2009/10/icon_map2.png" width="32px" height="32px"/>
+							<input data-theme="d" type="text" id="depart" name="Départ"
+								value="Ma position"	onclick="$('#depart').css('color', 'black'); $('#depart').val('');" />
+						</div>
+		
+				  <!-- TO -->
+				  
+				  	<img id="arriveepicture" alt="thumbnail" src="http://www.poledream.com/wp-content/uploads/2009/10/icon_map2.png" width="32px" height="32px"  />
+					  <input data-theme="d" type="text" id="arrivee" name="Arrivée"/>
+					  <select id="selectarrivee" name="enum" onchange="changeDestination('arrivee')">
+	
+	                        <!-- DEFAULT -->                      
+							<option value="other">Autre...</option>
+		
+							<!-- USER -->
+							<?php if (isset($_SESSION['position'])) {?>
+								<option value="<?= $_SESSION['user']->profilePicture ?>&&<?= $_SESSION['position']->formattedAddress ?>"><?= $_SESSION['user']->name ?></option>
+							<?php } ?>
+		
+							<!-- FRIENDS -->
+							<?php
+							if(isset($_SESSION['friends'])) {
+								foreach ($_SESSION['friends'] as $friend ) { ?>
+									<?php if ($friend["position"]->formattedAddress != "") {?>
+											<option
+												value="<?= $friend["profilePicture"] ?>&&<?= $friend["position"]->formattedAddress ?>">
+												<?= $friend["name"] ?>
+											</option>
+									<?php }
+								}
+							} ?>
+	          </select>
+				  
+						  
+						  
+			
+	   					<input data-theme="d" name="date" id="date" type="date" data-role="datebox"
+								data-options='{ "disableManualInput": true, "mode": "slidebox", "dateFormat":"GG:ii dd/mm/YYYY", "fieldsOrderOverride":["h","i","d","m","y"]}'>
+
+
+
+					</div>
 					
 					<!-- SUBMIT -->
-					<a href="#" data-role="button"  rel="external" onclick="document.<?= APPLICATION_NAME ?>FindForm.submit()">Find</a>	
+					<a href="#" data-role="button"  rel="external" onclick="document.<?= APPLICATION_NAME ?>FindForm.submit()">Trouver</a>	
 				</form>
+				
 			</div>
 		</div>
 	<?php }

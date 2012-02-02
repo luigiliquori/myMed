@@ -40,8 +40,16 @@ function calcRoute() {
 function changeDestination(dest){
 	picture = (document.getElementById("select" + dest).value + "").split("&&")[0];
 	address = (document.getElementById("select" + dest).value + "").split("&&")[1];
-	document.getElementById(dest).value = address;
-	document.getElementById(dest + "picture").src = picture;
+
+	if ($("#select"+dest).val()!=="other"){ //profile picture
+		document.getElementById(dest).value = address;
+		document.getElementById(dest + "picture").src = picture;
+		
+	}else{
+		document.getElementById(dest + "picture").src ="http://www.poledream.com/wp-content/uploads/2009/10/icon_map2.png"
+		$("#select"+dest).parent().css("display","none");
+		$("#"+dest).css("display","");
+	  }
 }
 
 function addKMLLayerFromURL(url){

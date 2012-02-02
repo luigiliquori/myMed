@@ -35,9 +35,25 @@ class FindView extends MyApplication {
 	*/
 	public /*String*/ function getHeader() { ?>
 		<div data-role="header" data-theme="b">
-			<a href="#Edit" data-role="button" data-rel="dialog" class="ui-btn-left	" data-icon="search">Itinéraire</a> 
+		
+				
+			<a id="Iti" data-role="actionsheet" data-sheet="Itin" data-icon="search" class="ui-btn-left" >Itinéraire</a> 
+			
+			<div class="ui-btn-right">
+				<select name="select-choice" id="select-choice" multiple="multiple" data-native-menu="false" >
+					<option>Options</option>
+					<option value="places">Lieux Public</option>
+					<option value="restos">Restaurants</option>
+					<option value="museums">Musées</option>
+					<option value="events">Evenements</option>
+				</select>
+			</div>
+	
+			
+			
 			<h1>myRiviera</h1>
-			<a href="#Option" data-role="button" data-rel="dialog" class="ui-btn-right" data-icon="gear">Options</a> 
+
+			<!-- <a href="#Option" data-role="button" data-rel="dialog" class="ui-btn-right" data-icon="gear">Options</a>  -->
 		</div>
 	<?php }
 	
@@ -46,7 +62,7 @@ class FindView extends MyApplication {
 	 */
 	public /*String*/ function getContent() { ?>
 		<!-- CONTENT -->
-		<div class="content">
+		<div data-role="content" style="padding: 0">
 			
 			<div id="myRivieraMap"></div>
 			
@@ -59,6 +75,8 @@ class FindView extends MyApplication {
 				<input id="end" type="hidden" value="<?= $_POST['Arrivée'] ?>">
 				<script type="text/javascript">setTimeout("calcRoute()", 500);</script>
 			<?php } ?>
+			
+			
 		</div>
 	<?php }
 	

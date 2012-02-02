@@ -53,11 +53,36 @@ function publishDASPRequest(formID){
 }
 
 /**
- * Automatically sets the date input field
+ * Automatically refresh date
  */
 $(function() {
-	// Handler for .ready() called.
-	var d=new Date();
 	
-	$("#date").val(("0" + (d.getHours())).slice(-2)+":"+("0" + (d.getMinutes())).slice(-2)+" le "+("0" + (d.getDate())).slice(-2)+'/'+("0" + (d.getMonth() + 1)).slice(-2)+'/'+d.getFullYear());
+	//$(".ui-input-datebox").css("display","none");
+
+	var d=new Date();
+	$("#date").find(".ui-btn-text").html( d.getHours()+":"+("0" + (d.getMinutes())).slice(-2)+" le "+ d.getDate()+'/'+d.getMonth() +'/'+d.getFullYear());
+		
+	$("#depart").css("width","70%");
+	$("#arrivee").css({
+		'display': 'none', 
+		'margin-top': "-15px", 
+		'width': "70%"
+	});
+	$(".ui-select").css("width","80%");
+
+	
+	var auto_refresh = setInterval(
+		function(){
+			var tmp=new Date();
+			if (tmp.getMinutes() != d.getMinutes()){
+				d=tmp;
+				$('#date').fadeOut('slow').val( d.getHours()+":"+("0" + (d.getMinutes())).slice(-2)+" "+ d.getDate()+'/'+d.getMonth() +'/'+d.getFullYear()).fadeIn("slow");
+			}
+		}, 10000
+	);
+	
 });
+
+
+
+
