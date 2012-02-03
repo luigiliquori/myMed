@@ -53,7 +53,7 @@ public class MyJamStorageManager extends StorageManager implements IMyJamStorage
    * @throws InternalBackEndException
    */
   public MyJamStorageManager() throws InternalBackEndException {
-    this(new WrapperConfiguration(new File(CONFIG_FILE)));
+    this(new WrapperConfiguration(CONFIG_FILE));
   }
 
   /**

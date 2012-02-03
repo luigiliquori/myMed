@@ -66,6 +66,9 @@ create column family UserList with column_type = 'Super' and comparator = 'UTF8T
 create column family InteractionList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family RaterList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 
+/* TODO: remove myJam in the new comparator name */
+create column family Location with column_type = 'Super' and comparator = 'com.mymed.myjam.type.MyMedIdType' and subcomparator = 'com.mymed.myjam.type.MyMedIdType';
+
 
 /*
  * REPUTATION DATASTRUCTURE
