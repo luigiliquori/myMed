@@ -88,19 +88,15 @@ function changeDestination(dest){
 	
 	if ($("#select"+dest).val()!=""){ //profile picture
 		document.getElementById(dest).value = address;
-		document.getElementById(dest + "picture").src = picture;
+		//document.getElementById(dest + "picture").src = picture;
+		console.log(picture);
+		$("#"+dest).css("background-image", 'url('+picture+')');
+		
 		
 	}else{
 		document.getElementById(dest).value = "Ma destination";
 		document.getElementById(dest + "picture").src ="http://www.poledream.com/wp-content/uploads/2009/10/icon_map2.png"
 	  }
-}
-
-
-function setTime(){
-	var d=new Date();
-	$("#date").val( d.getHours()+":"+("0" + (d.getMinutes())).slice(-2)+" le "+ d.getDate()+'/'+d.getMonth() +'/'+d.getFullYear());
-
 }
 
 /**

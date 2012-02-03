@@ -10,12 +10,19 @@
 	position: relative;
 }
 
+#arrivee {
+	/*background-image:url('../img/flag_finish.png');*/
+	background-repeat: no-repeat;
+	background-position: 164px 6px;
+	background-size: 24px 24px;
+}
+
 .ui-page {
  	text-align: center;
 }
 
 .ui-li-desc {
-white-space: normal;
+	white-space: normal;
 }
 
 .poiContent {
