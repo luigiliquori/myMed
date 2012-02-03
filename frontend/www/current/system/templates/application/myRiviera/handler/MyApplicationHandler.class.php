@@ -39,8 +39,30 @@ class MyApplicationHandler implements IRequestHandler {
 			if($_POST['method'] == "find") {
 				if(isset($_POST['Départ']) && isset($_POST['Arrivée'])) {
 					
-					// CALL TO GOOGLE GEOCODE API
-					$geocode1 = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($_POST['Départ']) . "&sensor=true"));
+					if (strpos($_POST['Départ'], '&') !== false) {
+						$dep = explode("&", $_POST['Départ']);
+						
+						$geocode1 = json_decode(
+						  '{
+						  "status": "OK",
+						  "results": [
+						  			{
+						  				"geometry": {
+						  					"location":{
+						  						"lat": '.$dep[0].',
+						  						"lng": '.$dep[1].'
+						  					}
+						  				}
+										}
+						  		]
+						  	}'
+						);
+						//echo '<script type="text/javascript">alert(\' oo' . $geocode1->status .' '.$geocode1->results[0]->geometry->location->lat.' '.$geocode1->results[0]->geometry->location->lng .'\');</script>';
+					}else{
+						// CALL TO GOOGLE GEOCODE API
+						$geocode1 = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($_POST['Départ']) . "&sensor=true"));
+					}
+					
 					$geocode2 = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($_POST['Arrivée']) . "&sensor=true"));
 
 					// CALL TO CITYWAY API
@@ -60,8 +82,8 @@ class MyApplicationHandler implements IRequestHandler {
 						$tmp[4]."-".
 						($tmp[3] < 10 ? "0" . $tmp[3] : $tmp[3]) . "-".
 						($tmp[2] < 10 ? "0" . $tmp[2] : $tmp[2]) . "_".
-						($tmp[0] < 10 ? "0" . $tmp[1] : $tmp[0])."-".
-						($tmp[1] < 10 ? "0" . $tmp[0] : $tmp[1]);
+						($tmp[0] < 10 ? "0" . $tmp[0] : $tmp[0])."-".
+						($tmp[1] < 10 ? "0" . $tmp[1] : $tmp[1]);
 						
 						$itineraire = file_get_contents(Cityway_URL . "/tripplanner/v1/detailedtrip/json?key=" . Cityway_APP_ID . $args);
 						$itineraireObj = json_decode($itineraire);

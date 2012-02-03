@@ -4,6 +4,7 @@ var map;
 var poi;
 var poiMem = {};
 var poiIterator;
+var myMedPos;
 
 /**
  * Initialize the application
@@ -26,10 +27,11 @@ function initialize() {
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(function(position) {
 			focusOnPosition(position.coords.latitude, position.coords.longitude);
-			}, 
-			null, 
-			{enableHighAccuracy:true});
+		}, 
+		null, 
+		{enableHighAccuracy:true});
 	} else {
+		myMedPos = '';
 		alert("Votre navigateur ne prend pas en compte la géolocalisation HTML5");
 	}
 }
@@ -41,7 +43,8 @@ function initialize() {
 function focusOnPosition(latitude, longitude){
 	// ZOOM
 	map.panTo(new google.maps.LatLng(latitude, longitude));
-	
+
+	myMedPos = position;
 	// ADD POSITION Marker
 	myMarkerImage = 'system/templates/application/myRiviera/img/position.png';
 	var marker = new google.maps.Marker({
@@ -64,13 +67,13 @@ function addMarker(latitude, longitude, icon, title, description){
 		icon: icon
 	});
 	marker.setMap(map);
-	
+
 	var contentString = 
 		"<div class='poiContent'>" +
-			"<h2 class='poiFirstHeading'>" + title + "</h2>"+
-			"<div class='poiBodyContent'>" +
-				+ description +
-			"</div>" +	
+		"<h2 class='poiFirstHeading'>" + title + "</h2>"+
+		"<div class='poiBodyContent'>" +
+		+ description +
+		"</div>" +	
 		"</div>";
 	var infowindow = new google.maps.InfoWindow({
 		content: contentString
@@ -85,10 +88,15 @@ function addMarker(latitude, longitude, icon, title, description){
  * Print route (itineraire) from Google API
  * In case of cityway errors
  */
-function calcRouteFromGoogle(start, end) {
+function calcRouteFromGoogle() {
+	var start = document.getElementById("start").value; 
+	var end = document.getElementById("end").value;
+	if (start.indexOf("&") != -1){
+		start = new google.maps.LatLng(start.split('&')[0], start.split('&')[1]);
+	}
 	var request = {
-			origin:$("#start").val(),
-			destination:$("#end").val(),
+			origin:start,
+			destination:end,
 			travelMode: google.maps.TravelMode.DRIVING
 	};
 	directionsService.route(request, function(result, status) {
@@ -103,7 +111,7 @@ function calcRouteFromGoogle(start, end) {
  * @param url
  */
 function calcRouteFromCityWay(url){
-	alert(url);
+	$("#myRivieraMap").height($("body").height() - ($("body").height()/2));
 	var KmlObject = new google.maps.KmlLayer(url);
 	KmlObject.setMap(map);
 }
@@ -113,16 +121,11 @@ function calcRouteFromCityWay(url){
  * @param dest
  */
 function changeDestination(dest){
-	picture = (document.getElementById("select" + dest).value + "").split("&&")[0];
-	address = (document.getElementById("select" + dest).value + "").split("&&")[1];
-
-	if ($("#select"+dest).val()!="") {
-		document.getElementById(dest).value = address;
-		document.getElementById(dest + "picture").src = picture;
-	} else {
-		document.getElementById(dest).value = "Ma destination";
-		document.getElementById(dest + "picture").src ="http://www.poledream.com/wp-content/uploads/2009/10/icon_map2.png";
-	}
+	picture = $("#select"+dest).val().split("&&")[0];
+	address = $("#select"+dest).val().split("&&")[1];
+	$("#"+dest).val(address);
+	$("#"+dest).css("background-image", 'url('+picture+')');
+	$("#"+dest).css('color','LightGray');
 }
 
 /**
@@ -131,7 +134,6 @@ function changeDestination(dest){
 function setTime(){
 	var d=new Date();
 	$("#date").val( d.getHours()+":"+("0" + (d.getMinutes())).slice(-2)+" le "+ d.getDate()+'/'+d.getMonth() +'/'+d.getFullYear());
-
 }
 
 /* ****************** */
@@ -215,4 +217,5 @@ function addMarker(){
 	}
 	poiIterator++;
 }
+
 
