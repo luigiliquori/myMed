@@ -108,7 +108,13 @@ class EditDialog extends AbstractTemplate {
 					</div>
 					
 					<!-- SUBMIT -->
-					<a href="#" data-role="button"  rel="external" onclick="document.<?= APPLICATION_NAME ?>FindForm.submit()">Trouver</a>	
+					<a href="#" data-role="button"  rel="external" onclick=" if ($('#depart').val()=='Ma position'){
+						console.log('put lat lon instead'); 
+						if (myMedPos != ''){
+							$('#depart').val(myMedPos.coords.latitude+'&'+myMedPos.coords.longitude);
+						}
+					};
+					 document.<?= APPLICATION_NAME ?>FindForm.submit()">Trouver</a>	
 				</form>
 				
 			</div>

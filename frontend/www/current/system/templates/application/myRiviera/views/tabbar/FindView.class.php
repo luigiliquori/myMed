@@ -72,7 +72,7 @@ class FindView extends MyApplication {
 				<!-- CITYWAY NOT AVAILABLE TRY WITH GOOGLE API -->
 				<input id="start" type="hidden" value="<?= $_POST['Départ'] ?>">
 				<input id="end" type="hidden" value="<?= $_POST['Arrivée'] ?>">
-				<script type="text/javascript">setTimeout("calcRoute()", 500);</script>
+				<script type="text/javascript">console.log($('#start').val()); setTimeout("calcRoute()", 500);</script>
 			<?php } ?>
 			
 			<!-- POIs -->
