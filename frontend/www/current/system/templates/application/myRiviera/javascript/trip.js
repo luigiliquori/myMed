@@ -82,22 +82,20 @@ function getCurrentAddress(){
  * @param dest
  */
 function changeDestination(dest){
-	picture = (document.getElementById("select" + dest).value + "").split("&&")[0];
-	address = (document.getElementById("select" + dest).value + "").split("&&")[1];
-	//alert(document.getElementById('selectarrivee').value);
-	
-	if ($("#select"+dest).val()!=""){ //profile picture
-		document.getElementById(dest).value = address;
-		//document.getElementById(dest + "picture").src = picture;
-		console.log(picture);
-		$("#"+dest).css("background-image", 'url('+picture+')');
-		
-		
-	}else{
-		document.getElementById(dest).value = "Ma destination";
-		document.getElementById(dest + "picture").src ="http://www.poledream.com/wp-content/uploads/2009/10/icon_map2.png"
-	  }
+	picture = $("#select"+dest).val().split("&&")[0];
+	address = $("#select"+dest).val().split("&&")[1];
+	$("#"+dest).val(address);
+	$("#"+dest).css("background-image", 'url('+picture+')');
+	$("#"+dest).css('color','LightGray');
 }
+
+function setTime(){
+	var d=new Date();
+	$("#date").val( d.getHours()+":"+("0" + (d.getMinutes())).slice(-2)+" le "+ d.getDate()+'/'+d.getMonth() +'/'+d.getFullYear());
+}
+
+
+
 
 /**
  * Add marker according to the myMed jSon format

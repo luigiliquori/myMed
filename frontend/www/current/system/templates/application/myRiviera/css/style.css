@@ -10,11 +10,30 @@
 	position: relative;
 }
 
+#depart {
+	color: LightBlue;
+}
+
 #arrivee {
+	color: LightGray;
 	/*background-image:url('../img/flag_finish.png');*/
 	background-repeat: no-repeat;
 	background-position: 164px 6px;
 	background-size: 24px 24px;
+}
+
+ #depart, #arrivee {
+	width:87%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#Itin .ui-select {
+	width:87%;
+	margin-left: auto;
+	margin-right: auto;
+	right: -184px;
+	top: -40px;
 }
 
 .ui-page {
