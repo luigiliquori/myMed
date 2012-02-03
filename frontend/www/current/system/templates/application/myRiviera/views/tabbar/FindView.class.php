@@ -37,7 +37,7 @@ class FindView extends MyApplication {
 		<div data-role="header" data-theme="b">
 		
 				
-			<a id="Iti" data-role="actionsheet" data-sheet="Itin" data-icon="search" class="ui-btn-left" >Itinéraire</a> 
+			<a id="Iti" data-role="actionsheet" data-sheet="Itin" data-icon="search" class="ui-btn-left" onclick=" setTime();">Itinéraire</a> 
 			
 			<div class="ui-btn-right">
 				<select name="select-choice" id="select-choice" multiple="multiple" data-native-menu="false" >

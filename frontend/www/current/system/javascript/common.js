@@ -63,15 +63,16 @@ $(function() {
 	$("#date").find(".ui-btn-text").html( d.getHours()+":"+("0" + (d.getMinutes())).slice(-2)+" le "+ d.getDate()+'/'+d.getMonth() +'/'+d.getFullYear());
 		
 	$("#depart").css("width","70%");
-	$("#arrivee").css({
-		'display': 'none', 
-		'margin-top': "-15px", 
-		'width': "70%"
-	});
+	$("#arrivee").css("width", "70%");
 	$(".ui-select").css("width","80%");
+	
+	$("#selectarrivee").parent().css({
+		"margin-top": "-48px",
+		"margin-left": "150px"
+	});	
 
 	
-	var auto_refresh = setInterval(
+	/*var auto_refresh = setInterval(
 		function(){
 			var tmp=new Date();
 			if (tmp.getMinutes() != d.getMinutes()){
@@ -79,7 +80,7 @@ $(function() {
 				$('#date').fadeOut('slow').val( d.getHours()+":"+("0" + (d.getMinutes())).slice(-2)+" "+ d.getDate()+'/'+d.getMonth() +'/'+d.getFullYear()).fadeIn("slow");
 			}
 		}, 10000
-	);
+	);*/
 	
 });
 

@@ -53,19 +53,18 @@ class EditDialog extends AbstractTemplate {
 					<div data-role="fieldcontain">
 						<!-- FROM -->
 						<div>
-							<img id="departpicture" alt="thumbnail" src="http://www.poledream.com/wp-content/uploads/2009/10/icon_map2.png" width="32px" height="32px"/>
+							
 							<input data-theme="d" type="text" id="depart" name="Départ"
 								value="Ma position"	onclick="$('#depart').css('color', 'black'); $('#depart').val('');" />
 						</div>
 			
 					 	 <!-- TO -->
-					  	<img id="arriveepicture" alt="thumbnail" src="http://www.poledream.com/wp-content/uploads/2009/10/icon_map2.png" width="32px" height="32px"  />
-						  <input data-theme="d" type="text" id="arrivee" name="Arrivée"/>
-						  <select id="selectarrivee" name="enum" onchange="changeDestination('arrivee')">
-		
-		                        <!-- DEFAULT -->                      
-								<option value="other">Autre...</option>
-			
+					  	
+						  <input data-theme="d" type="text" id="arrivee" name="Arrivée"
+						  value="Ma destination"	onclick="$('#arrivee').css('color', 'black'); $('#arrivee').val('');" />
+							
+							<select id="selectarrivee" data-iconpos="notext" name="enum" onclick=" changeDestination('arrivee')">
+								
 								<!-- USER -->
 								<?php if (isset($_SESSION['position'])) {?>
 									<option value="<?= $_SESSION['user']->profilePicture ?>&&<?= $_SESSION['position']->formattedAddress ?>"><?= $_SESSION['user']->name ?></option>
@@ -83,11 +82,15 @@ class EditDialog extends AbstractTemplate {
 										<?php }
 									}
 								} ?>
-		        		  </select>
+		        	</select>
+						
 	
 	 					<!-- DATE -->
+	 					
 		   				<input data-theme="d" name="date" id="date" type="date" data-role="datebox"
 								data-options='{ "disableManualInput": true, "mode": "slidebox", "dateFormat":"GG:ii dd/mm/YYYY", "fieldsOrderOverride":["h","i","d","m","y"]}'>
+					 
+					
 					</div>
 					
 					<!-- SUBMIT -->
@@ -95,6 +98,7 @@ class EditDialog extends AbstractTemplate {
 				</form>
 				
 			</div>
+			
 		</div>
 	<?php }
 	
