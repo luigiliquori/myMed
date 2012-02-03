@@ -1,6 +1,5 @@
 package com.mymed.controller.core.manager.storage;
 
-import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;

@@ -63,6 +63,11 @@ public class GeoLocationManager extends AbstractManager {
 			locId = Locator.getLocationId((double) (latitude/1E6),
 					(double) (longitude/1E6));
 			String areaId = String.valueOf(Locator.getAreaId(locId));
+			
+			System.out.println("\n**********LONGITUDE: " + longitude);
+			System.out.println("\n**********LATITUDE: " + latitude);
+			System.out.println("\n**********CREATE AREA ID: " + areaId);
+			
 			long timestamp = System.currentTimeMillis();				
 			MyMedId id = new MyMedId(Character.toLowerCase(itemType.charAt(0)),timestamp,userLogin);
 
@@ -98,7 +103,6 @@ public class GeoLocationManager extends AbstractManager {
 	 * Search located items in a circular region specified by latitude, longitude and radius.
 	 * 
 	 * @param applicationId Identifier of the application.
-	 * @param itemId Id of the located item.
 	 * @param latitude Latitude in micro-degrees.
 	 * @param longitude Longitude in micro-degrees.
 	 * @param radius Radius of the search in meters.
@@ -120,12 +124,15 @@ public class GeoLocationManager extends AbstractManager {
 			/**
 			 * Cassandra calls
 			 */
+			System.out.println("\n**********LONGITUDE: " + longitude);
+			System.out.println("\n**********LATITUDE: " + latitude);
 			while(covIdIterator.hasNext()){
 				long[] range = covIdIterator.next();
 				long startAreaId = Locator.getAreaId(range[0]);
 				long endAreaId = Locator.getAreaId(range[1]);
 				for (long ind=startAreaId;ind<=endAreaId;ind++){
 					areaIds.add(applicationId+itemType+String.valueOf(ind));
+					System.out.println("\n**********READ AREA ID: " + applicationId+itemType+String.valueOf(ind));
 				}
 				Map<byte[],Map<byte[],byte[]>> mapRep = ((MyJamStorageManager) storageManager).selectSCRange("Location", areaIds, MConverter.longToByteBuffer(range[0]).array(),
 						MConverter.longToByteBuffer(range[1]).array()); 

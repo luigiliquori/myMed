@@ -56,7 +56,12 @@ class MyApplicationHandler implements IRequestHandler {
 						"&arrLon=" . $geocode2->results[0]->geometry->location->lng .
 						"&arrLat=" . $geocode2->results[0]->geometry->location->lat .
 						"&arrType=7" . 
-						"&departureTime=" . $tmp[4]."-".$tmp[3]."-".$tmp[2]."_".$tmp[0]."-".$tmp[1];
+						"&departureTime=" . 
+						$tmp[4]."-".
+						($tmp[3] < 10 ? "0" . $tmp[3] : $tmp[3]) . "-".
+						($tmp[2] < 10 ? "0" . $tmp[2] : $tmp[2]) . "_".
+						($tmp[0] < 10 ? "0" . $tmp[1] : $tmp[0])."-".
+						($tmp[1] < 10 ? "0" . $tmp[0] : $tmp[1]);
 						
 						$itineraire = file_get_contents(Cityway_URL . "/tripplanner/v1/detailedtrip/json?key=" . Cityway_APP_ID . $args);
 						$itineraireObj = json_decode($itineraire);
@@ -64,7 +69,7 @@ class MyApplicationHandler implements IRequestHandler {
 						if(isset($itineraireObj->ItineraryObj->tripSegments)) {
 							
 							$this->success->itineraire = $itineraireObj;
-							$this->success->kml = Cityway_URL . "/tripplanner/v1/detailedtrip/kml?key=" . Cityway_APP_ID . $args;
+							$this->success->kmlurl = Cityway_URL . "/tripplanner/v1/detailedtrip/kml?key=" . Cityway_APP_ID . $args;
 							
 							// Construct the default POIs
 							foreach($itineraireObj->ItineraryObj->tripSegments->tripSegment as $tripSegment) {

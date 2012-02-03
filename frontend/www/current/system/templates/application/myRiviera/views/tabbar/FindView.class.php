@@ -65,43 +65,85 @@ class FindView extends MyApplication {
 			<div id="myRivieraMap"></div>
 			
 			<!-- ITINERAIRE -->
-			<?php if ($this->handler->getSuccess()) {
-				// PRINT THE TRIP (kml format) FROM CITYWAY
-				$kmlCityWay = $this->handler->getSuccess()->kml;
-			} else if($this->handler->getError() == "1") { ?> 
-				<!-- CITYWAY NOT AVAILABLE TRY WITH GOOGLE API -->
-				<input id="start" type="hidden" value="<?= $_POST['Départ'] ?>">
-				<input id="end" type="hidden" value="<?= $_POST['Arrivée'] ?>">
-				<script type="text/javascript">setTimeout("calcRoute()", 500);</script>
+			<?php if ($this->handler->getSuccess()) { ?> 				<!-- FROM CITYWAY -->
+				<div data-role="collapsible" data-theme="a" data-content-theme="c" data-collapsed="false">
+				   	<h3>Itinéraire</h3>
+					<script type="text/javascript">setTimeout("calcRouteFromCityWay('<?= $this->handler->getSuccess()->kmlurl ?>')", 500);</script>
+					<ul data-role="listview" data-theme="c" data-dividertheme="a" data-inset="false">
+					<?php $listDivider = null;?>
+					<?php $i=0 ?>
+					<?php foreach($this->handler->getSuccess()->itineraire->ItineraryObj->tripSegments->tripSegment as $tripSegment) { ?>
+	
+						<?php if($listDivider == null || $listDivider != $tripSegment->type) { ?>
+							<li data-role="list-divider"><?php 
+								if($tripSegment->type == "WALK") { ?>
+									<img alt="Marche" src="system/templates/application/myRiviera/img/<?= strtolower($tripSegment->type) ?>.png" />
+									<span Style="position: relative; left: 25px;">Marche</span>
+								<?php } else if($tripSegment->type == "CONNECTION") { ?>
+									<span>Connection</span>
+								<?php } else  { ?>
+									<img alt="Marche" src="system/templates/application/myRiviera/img/<?= strtolower($tripSegment->transportMode) ?>.png" />
+									<span Style="position: relative; left: 25px;"><?= strtolower($tripSegment->transportMode) ?></span>
+								<?php } ?>	
+							</li>
+							<?php $listDivider = $tripSegment->type ?>
+						<?php } ?>
+						
+						<li>
+							<div class="ui-btn-text">
+								<?php
+									$latitude =   $tripSegment->departurePoint->latitude;
+									$longitude = $tripSegment->departurePoint->longitude;
+									$poi =  str_replace("'", "", json_encode($tripSegment->poi)); 
+								?>
+								<input id="<?= $i ?>_latitude" type="hidden" value='<?= $latitude ?>' />
+								<input id="<?= $i ?>_longitude" type="hidden" value='<?= $longitude ?>' />
+								<input id="<?= $i ?>_poi" type="hidden" value='<?= $poi ?>' />
+								<a href="#" onclick="focusOn('<?= $i ?>');" style="position: relative; left: -13px;">
+									<?php if(isset($tripSegment->distance)) { ?>
+										<h3>Distance: <?= $tripSegment->distance ?>m</h3>
+									<?php } else { ?>
+										<h3>Durée: <?= $tripSegment->duration ?>min</h3>
+									<?php } ?>
+									<p class="ui-li-desc"><?= $tripSegment->comment ?></p>
+								</a>
+							</div>
+						</li>
+						<?php $i++ ?>
+					<?php } ?>
+					</ul>
+				</div>
+			<?php } else if($this->handler->getError() == "1") { ?>  	<!-- FROM GOOGLE -->
+				<input type="hidden" id="start" value="<?= $_POST['Départ'] ?>"/>
+				<input type="hidden" id="end" value="<?= $_POST['Arrivée'] ?>"/>
+				<script type="text/javascript">setTimeout("calcRouteFromGoogle()", 500);</script>
 			<?php } ?>
 			
 			<!-- POIs -->
 			<?php 
-				// POIs FROM myMed
-				$request = new Request("FindRequestHandler", READ);
-				$request->addArgument("application", APPLICATION_NAME . "Admin");
-				$request->addArgument("predicate", "keyword(myRivieraPOIs_myMed)");
-				$responsejSon = $request->send();
-				$responseObject = json_decode($responsejSon);
-				if($responseObject->status == 200) {
-					$resArray = json_decode($responseObject->data->results);
-					$kmlCARF = $resArray[0]->data;
-					?><textarea id="myMedPOIs" Style="display:none;"><?= $kmlCARF ?></textarea><?php
-					echo '<script type="text/javascript">setTimeout("addMarkerFromMymedJsonFormat(\'myMedPOIs\')", 500);</script>';
+			// AROUND THE STARTING POINT
+			if(isset($_POST['Départ'])){
+				$geocode = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($_POST['Départ']) . "&sensor=true"));
+				if($geocode->status == "OK"){
+					$longitude = $geocode->results[0]->geometry->location->lng;
+					$latitude = $geocode->results[0]->geometry->location->lat;
+						
+					$request = new Request("POIRequestHandler", READ);
+					$request->addArgument("application", APPLICATION_NAME);
+					$request->addArgument("type", "mymed");
+					$request->addArgument("longitude", $longitude);
+					$request->addArgument("latitude", $latitude);
+					$request->addArgument("radius", 1000); // AROUND 1 Kilometers
+					$request->addArgument("accessToken", $_SESSION["accessToken"]);
+						
+					$responsejSon = $request->send();
+					$responseObject = json_decode($responsejSon);
+// 					echo '<script type="text/javascript">alert(\'' . $responsejSon . '\');</script>';
+					if($responseObject->status != 200) {
+						// TODO
+					}
 				}
-			
-				// POIs FROM CARF
-				$request = new Request("FindRequestHandler", READ);
-				$request->addArgument("application", APPLICATION_NAME . "Admin");
-				$request->addArgument("predicate", "keyword(myRivieraPOIs_carf)");
-				$responsejSon = $request->send();
-				$responseObject = json_decode($responsejSon);
-				if($responseObject->status == 200) {
-					$resArray = json_decode($responseObject->data->results);
-					$kmlCARF = $resArray[0]->data;
-					?><textarea id="CARFPOIs" Style="display:none;"><?= $kmlCARF ?></textarea><?php
-					echo '<script type="text/javascript">setTimeout("addMarkerFromCARFJsonFormat(\'CARFPOIs\')", 500);</script>';
-				}
+			}
 			?>
 			
 		</div>
