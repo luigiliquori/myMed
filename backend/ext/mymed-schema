@@ -71,10 +71,8 @@ create column family RaterList with column_type = 'Super' and comparator = 'UTF8
  * REPUTATION DATASTRUCTURE
  *
 */
-create column family UserApplicationConsumer with column_type = 'Standard' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
-create column family UserApplicationProducer with column_type = 'Standard' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
-create column family Verdict with column_type = 'Standard' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
-create column family VerdictAggregation with column_type = 'Standard' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
-create column family TimeOrderVerdictList with column_type = 'Super' and comparator ='BytesType' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
-create column family AuxOrderVerdictList with column_type = 'Super' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+create column family ReputationEntity with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+create column family VerdictsTimeOrdered with column_type = 'Standard' and comparator = 'TimeUUIDType' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+create column family Verdict with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+create column family VerdictAggregation with column_type = 'Standard'  and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 create column family VerdictAggregationList with column_type = 'Super' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
