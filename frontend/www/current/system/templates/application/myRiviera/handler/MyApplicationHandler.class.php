@@ -39,8 +39,31 @@ class MyApplicationHandler implements IRequestHandler {
 			if($_POST['method'] == "find") {
 				if(isset($_POST['Départ']) && isset($_POST['Arrivée'])) {
 					
-					// CALL TO GOOGLE GEOCODE API
-					$geocode1 = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($_POST['Départ']) . "&sensor=true"));
+					if ( $_POST['Départ']=='' && strpos($_POST['mapos'], '&') != false) {
+						$dep = explode("&", $_POST['mapos']);
+						
+						$geocode1 = json_decode(
+						  '{
+						  "status": "OK",
+						  "results": [
+						  			{
+						  				"geometry": {
+						  					"location":{
+						  						"lat": '.$dep[0].',
+						  						"lng": '.$dep[1].'
+						  					}
+						  				}
+										}
+						  		]
+						  	}'
+						);
+						//echo '<script type="text/javascript">alert(\' oo' . $geocode1->status .' '.$geocode1->results[0]->geometry->location->lat.' '.$geocode1->results[0]->geometry->location->lng .'\');</script>';
+					}else{
+						// CALL TO GOOGLE GEOCODE API
+						//echo '<script type="text/javascript">alert(\' kk\');</script>';
+						$geocode1 = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($_POST['Départ']) . "&sensor=true"));
+					}
+					
 					$geocode2 = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($_POST['Arrivée']) . "&sensor=true"));
 
 					// CALL TO CITYWAY API
@@ -56,7 +79,12 @@ class MyApplicationHandler implements IRequestHandler {
 						"&arrLon=" . $geocode2->results[0]->geometry->location->lng .
 						"&arrLat=" . $geocode2->results[0]->geometry->location->lat .
 						"&arrType=7" . 
-						"&departureTime=" . $tmp[4]."-".$tmp[3]."-".$tmp[2]."_".$tmp[0]."-".$tmp[1];
+						"&departureTime=" . 
+						$tmp[4]."-".
+						($tmp[3] < 10 ? "0" . $tmp[3] : $tmp[3]) . "-".
+						($tmp[2] < 10 ? "0" . $tmp[2] : $tmp[2]) . "_".
+						($tmp[0] < 10 ? "0" . $tmp[0] : $tmp[0])."-".
+						$tmp[1];
 						
 						$itineraire = file_get_contents(Cityway_URL . "/tripplanner/v1/detailedtrip/json?key=" . Cityway_APP_ID . $args);
 						$itineraireObj = json_decode($itineraire);
@@ -64,7 +92,7 @@ class MyApplicationHandler implements IRequestHandler {
 						if(isset($itineraireObj->ItineraryObj->tripSegments)) {
 							
 							$this->success->itineraire = $itineraireObj;
-							$this->success->kml = Cityway_URL . "/tripplanner/v1/detailedtrip/kml?key=" . Cityway_APP_ID . $args;
+							$this->success->kmlurl = Cityway_URL . "/tripplanner/v1/detailedtrip/kml?key=" . Cityway_APP_ID . $args;
 							
 							// Construct the default POIs
 							foreach($itineraireObj->ItineraryObj->tripSegments->tripSegment as $tripSegment) {

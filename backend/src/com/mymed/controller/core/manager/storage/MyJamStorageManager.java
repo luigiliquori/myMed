@@ -1,6 +1,5 @@
 package com.mymed.controller.core.manager.storage;
 
-import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -53,7 +52,7 @@ public class MyJamStorageManager extends StorageManager implements IMyJamStorage
    * @throws InternalBackEndException
    */
   public MyJamStorageManager() throws InternalBackEndException {
-    this(new WrapperConfiguration(new File(CONFIG_FILE)));
+    this(new WrapperConfiguration(CONFIG_FILE));
   }
 
   /**

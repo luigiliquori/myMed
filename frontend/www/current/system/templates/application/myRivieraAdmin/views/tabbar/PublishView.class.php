@@ -26,31 +26,6 @@ class PublishView extends MyApplication {
 	 */
 	public function __construct() {
 		parent::__construct("myRivieraAdmin");
-		// USER POINT
-		$request = new Request("FindRequestHandler", READ);
-		$request->addArgument("application", APPLICATION_NAME);
-		$request->addArgument("predicate", "keyword(myRivieraPOIs_myMed)");
-		
-		$responsejSon = $request->send();
-		$responseObject = json_decode($responsejSon);
-		$this->myRivieraPOIs_myMed = "";
-		if($responseObject->status == 200) {
-			$resArray = json_decode($responseObject->data->results);
-			$this->myRivieraPOIs_myMed = $resArray[0]->data;
-		}
-		
-		// CARF POINT
-		$request = new Request("FindRequestHandler", READ);
-		$request->addArgument("application", APPLICATION_NAME);
-		$request->addArgument("predicate", "keyword(myRivieraPOIs_carf)");
-		
-		$responsejSon = $request->send();
-		$responseObject = json_decode($responsejSon);
-		$this->myRivieraPOIs_carf = "";
-		if($responseObject->status == 200) {
-			$resArray = json_decode($responseObject->data->results);
-			$this->myRivieraPOIs_carf = $resArray[0]->data;
-		}
 	}
 	
 	/* --------------------------------------------------------- */
@@ -64,7 +39,7 @@ class PublishView extends MyApplication {
 		<div class="content">
 		
 			<!-- TOOLs -->
-			<div data-role="collapsible" data-theme="a" data-content-theme="c" data-collapsed="false" Style="text-align: left;">
+			<div data-role="collapsible" data-theme="a" data-content-theme="c" data-collapsed="true" Style="text-align: left;">
 			   <h3>Tools</h3>
 			   <form action="?application=<?= APPLICATION_NAME ?>" method="get" rel="external">
 				   	<?php 
@@ -92,49 +67,51 @@ class PublishView extends MyApplication {
 			</div>
 			
 			<!-- MYMED POIs -->
-			<div data-role="collapsible" data-theme="a" data-content-theme="c" data-collapsed="true">
+			<div data-role="collapsible" data-theme="a" data-content-theme="c" data-collapsed="true" Style="text-align: left;">
 			   <h3>myMed POIs</h3>
+			   <div style="color: gray;">
+			   		<h4>Example:</h4>
+			   		[<br/>
+					{"latitude" : "43.7755517", "longitude" : "7.504739",  "title" : "La Cantinella", "icon" : "http://mymed2.sophia.inria.fr/system/templates/application/myRiviera/img/resto.png"},<br/>
+					{"latitude" : "43.775383", "longitude" : "7.5012805",  "title" : "Méditerranée", "icon" : "http://mymed2.sophia.inria.fr/system/templates/application/myRiviera/img/resto.png"},<br/>
+					{"latitude" : "43.7828274", "longitude" : "7.5120867",  "title" : "Napoléon", "icon" : "http://mymed2.sophia.inria.fr/system/templates/application/myRiviera/img/resto.png"},<br/>
+					{"latitude" : "38.42228990140251", "longitude" : "7.5209301",  "title" : "Paris Rome", "icon" : "http://mymed2.sophia.inria.fr/system/templates/application/myRiviera/img/resto.png"}<br/>
+					]<br/>
+			   </div>
 			   <form action="#" method="post" name="<?= APPLICATION_NAME ?>PublishForm1" id="<?= APPLICATION_NAME ?>PublishForm1" enctype="multipart/form-data">
-					<!-- Define the method to call -->
-					<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
-					<input type="hidden" name="method" value="publish" />
-					<input type="hidden" name="numberOfOntology" value="2" />
-					
-					<!-- KEYWORD -->
-					<input type="hidden" name="keyword" value="myRivieraPOIs_myMed"/>
-					<?php $keyword = new MDataBean("keyword", null, KEYWORD); ?>
-					<input type="hidden" name="ontology0" value="<?= urlencode(json_encode($keyword)); ?>">
-					
-					<textarea name="data" rows="" cols=""><?= $this->myRivieraPOIs_myMed ?></textarea>
-					<?php $text = new MDataBean("data", null, TEXT); ?>
-					<input type="hidden" name="ontology1" value="<?= urlencode(json_encode($text)); ?>">
-					<br />
-					
+					<input type="hidden" name="poisrc" value="mymed" />
+					<textarea name="data" rows="" cols=""></textarea>
 					<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>PublishForm1.submit()">Publish</a>
 				</form>
 			</div>
 			
 		
 			<!-- CARF POIs -->
-			<div data-role="collapsible" data-theme="a" data-content-theme="c" data-collapsed="true">
-			   <h3>CARF POIs</h3>
+			<div data-role="collapsible" data-theme="a" data-content-theme="c" data-collapsed="true" Style="text-align: left;">
+			    <h3>CARF POIs</h3>
+			    <div style="color: gray;">
+			   		<h4>Example:</h4>
+					[ <br/>
+					{
+					"type": "FeatureCollection",
+					"features": [
+					{ "type": "Feature", "properties": { "ADRESSE": "20 rue des Soeurs Munet", "CODE_POSTA": "06500", "VILLE": "menton", "PAYS": "France", "NOM": "ADAPEI", "DESCRIPTIO": "04 93 28 50 3", "SOURCE": "CARF", "DATEDESAIS": "06\/06\/2008", "LAT": "43.774309", "LNG": "7.49246" }, "geometry": { "type": "Point", "coordinates": [ 7.492455, 43.774314 ] } }
+					
+					]
+					}
+					,<br/>
+					{
+					"type": "FeatureCollection",
+					"features": [
+					{ "type": "Feature", "properties": { "NOM": "ADERF", "ADRESSE": "8 val de Menton", "CODE_POSTA": "06500", "VILLE": "menton", "PAYS": "France", "RESPONSABL": "C�drick H�risson", "PR�sIDENT": "Claude Gaven", "T�l�pHONE": "04 93 57 01 08", "DESCRIPTIO": "Cette association mise en place le 06 ao�t 2001 a pour vocation le d�veloppement �conomique du territoire de la Communaut� d�Agglom�ration de la Riviera Fran�aise", "SOURCE": "CARF", "DE_SAISIE": "02\/02008", "LAT": "43.776666", "LNG": "7.505068" }, "geometry": { "type": "Point", "coordinates": [ 7.505063, 43.776671 ] } }
+					
+					]
+					}<br/>
+					]<br/>
+			   </div>
 				<form action="#" method="post" name="<?= APPLICATION_NAME ?>PublishForm2" id="<?= APPLICATION_NAME ?>PublishForm2" enctype="multipart/form-data">
-					<!-- Define the method to call -->
-					<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
-					<input type="hidden" name="method" value="publish" />
-					<input type="hidden" name="numberOfOntology" value="2" />
-					
-					<!-- KEYWORD -->
-					<input type="hidden" name="keyword" value="myRivieraPOIs_carf"/>
-					<?php $keyword = new MDataBean("keyword", null, KEYWORD); ?>
-					<input type="hidden" name="ontology0" value="<?= urlencode(json_encode($keyword)); ?>">
-					
-					<!-- TEXT -->
-					<textarea name="data" rows="" cols=""><?= $this->myRivieraPOIs_carf ?></textarea>
-					<?php $text = new MDataBean("data", null, TEXT); ?>
-					<input type="hidden" name="ontology1" value="<?= urlencode(json_encode($text)); ?>">
-					<br />
-					
+					<input type="hidden" name="poisrc" value="carf" />
+					<textarea name="data" rows="" cols=""></textarea>
 					<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>PublishForm2.submit()">Publish</a>
 				</form>
 			</div>

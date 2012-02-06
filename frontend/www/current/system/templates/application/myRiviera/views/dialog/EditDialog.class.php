@@ -49,45 +49,57 @@ class EditDialog extends AbstractTemplate {
 					<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
 					<input type="hidden" name="method" value="find" />
 					<input type="hidden" name="numberOfOntology" value="4" />
+					<input type="hidden" name="mapos" id="mapos" value="" />
+					
 																
 					<div data-role="fieldcontain">
 						<!-- FROM -->
+			
+						
 						<div>
-							<img id="departpicture" alt="thumbnail" src="http://www.poledream.com/wp-content/uploads/2009/10/icon_map2.png" width="32px" height="32px"/>
-							<input data-theme="d" type="text" id="depart" name="Départ"
-								value="Ma position"	onclick="$('#depart').css('color', 'black'); $('#depart').val('');" />
+							
+							<input data-theme="d" type="text" id="depart" name="Départ" placeholder="Ma pos" onclick="$(this).select();"/>
 						</div>
 			
 					 	 <!-- TO -->
-					  	<img id="arriveepicture" alt="thumbnail" src="http://www.poledream.com/wp-content/uploads/2009/10/icon_map2.png" width="32px" height="32px"  />
-						  <input data-theme="d" type="text" id="arrivee" name="Arrivée"/>
-						  <select id="selectarrivee" name="enum" onchange="changeDestination('arrivee')">
-		
-		                        <!-- DEFAULT -->                      
-								<option value="other">Autre...</option>
-			
-								<!-- USER -->
-								<?php if (isset($_SESSION['position'])) {?>
-									<option value="<?= $_SESSION['user']->profilePicture ?>&&<?= $_SESSION['position']->formattedAddress ?>"><?= $_SESSION['user']->name ?></option>
-								<?php } ?>
-			
-								<!-- FRIENDS -->
-								<?php
-								if(isset($_SESSION['friends'])) {
-									foreach ($_SESSION['friends'] as $friend ) { ?>
-										<?php if ($friend["position"]->formattedAddress != "") {?>
-												<option
-													value="<?= $friend["profilePicture"] ?>&&<?= $friend["position"]->formattedAddress ?>">
-													<?= $friend["name"] ?>
-												</option>
-										<?php }
-									}
-								} ?>
-		        		  </select>
+					  	
+					  <div>
+						  <input data-theme="d" type="text" id="arrivee" name="Arrivée" placeholder="Ma destination" onclick="$(this).select();"/>
+								
+								<select id="selectarrivee" data-iconpos="notext" name="enum" onclick=" changeDestination('arrivee')">
+					
+									<!-- USER -->
+									<?php if (isset($_SESSION['position'])) {?>
+										<option value="<?= $_SESSION['user']->profilePicture ?>&&<?= $_SESSION['position']->formattedAddress ?>"><?= $_SESSION['user']->name ?></option>
+									<?php } ?>
+									
+									<option value="http://www.poledream.com/wp-content/uploads/2009/10/icon_map2.png&&antibes">Antibes </option>
+				
+									<!-- FRIENDS -->
+									<?php
+									if(isset($_SESSION['friends'])) {
+										foreach ($_SESSION['friends'] as $friend ) { ?>
+											<?php if ($friend["position"]->formattedAddress != "") {?>
+													<option
+														value="<?= $friend["profilePicture"] ?>&&<?= $friend["position"]->formattedAddress ?>">
+														<?= $friend["name"] ?>
+													</option>
+											<?php }
+										}
+									} ?>
+			        	</select>
+					  
+					  </div>	
+						  
+							
+						
 	
 	 					<!-- DATE -->
+	 					
 		   				<input data-theme="d" name="date" id="date" type="date" data-role="datebox"
 								data-options='{ "disableManualInput": true, "mode": "slidebox", "dateFormat":"GG:ii dd/mm/YYYY", "fieldsOrderOverride":["h","i","d","m","y"]}'>
+					 
+					
 					</div>
 					
 					<!-- SUBMIT -->
@@ -95,6 +107,7 @@ class EditDialog extends AbstractTemplate {
 				</form>
 				
 			</div>
+			
 		</div>
 	<?php }
 	

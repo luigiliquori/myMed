@@ -1,11 +1,5 @@
 <?php 
-require_once 'system/templates/handler/IRequestHandler.php';
-require_once 'lib/dasp/beans/MDataBean.class.php';
-require_once 'lib/dasp/request/Publish.class.php';
-require_once 'lib/dasp/request/Subscribe.class.php';
-require_once 'lib/dasp/request/Find.class.php';
-require_once 'lib/dasp/request/GetDetail.class.php';
-require_once 'lib/dasp/request/StartInteraction.class.php';
+require_once 'lib/dasp/request/Request.class.php';
 
 /**
  * 
@@ -33,24 +27,24 @@ class MyApplicationHandler implements IRequestHandler {
 	/* Public methods */
 	/* --------------------------------------------------------- */
 	public /*void*/ function handleRequest() { 
-		if(isset($_POST['method'])) {
-			if($_POST['method'] == "publish") {
-				$publish = new Publish($this);
-				$publish->send();
-			} else if($_POST['method'] == "subscribe") {
-				$subscribe = new Subscribe($this);
-				$subscribe->send();
-			} else if($_POST['method'] == "find") {
-				$find = new Find($this);
-				$find->send();
-			} else if($_POST['method'] == "getDetail") {
-				$getDetail = new GetDetail($this);
-				$getDetail->send();
-			} else if($_POST['method'] == "startInteraction") {
-				$startInteraction = new StartInteraction($this);
-				$startInteraction->send();
-			} 
-		} 
+		if(isset($_POST['poisrc'])){
+			$pois = json_decode($_POST['data']);
+			foreach($pois as $poi){
+				$request = new Request("POIRequestHandler", CREATE);
+				$request->addArgument("application", APPLICATION_NAME);
+				$request->addArgument("user", $_SESSION["user"]->id);
+				$request->addArgument("value", $_POST['data']);
+				$request->addArgument("accessToken", $_SESSION["accessToken"]);
+				if($_POST['poisrc'] == "mymed"){
+					$request->addArgument("type", "mymed");
+					$request->addArgument("latitude", $poi->latitude);
+					$request->addArgument("longitude", $poi->longitude);
+				} else {
+					
+				}
+				$request->send();
+			}
+		}
 	}
 	
 	/* --------------------------------------------------------- */
