@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.model.data.interaction;
 
 import com.mymed.model.data.AbstractMBean;
@@ -23,11 +23,6 @@ import com.mymed.model.data.AbstractMBean;
  * 
  */
 public class MInteractionBean extends AbstractMBean {
-  /**
-   * Used for the calculation of the hash code
-   */
-  private static final int PRIME = 31;
-
   /** INTERACTION_ID */
   private String id;
   /** APPLICATION_ID */
