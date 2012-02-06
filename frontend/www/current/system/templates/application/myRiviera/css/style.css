@@ -23,6 +23,12 @@
 #depart {
 	color: LightBlue;
 }
+#depart::-webkit-input-placeholder {
+  color: LightBlue;
+}
+#depart:-moz-placeholder {
+  color: LightBlue;
+}
 
 #arrivee {
 	color: LightGray;
@@ -30,6 +36,12 @@
 	background-repeat: no-repeat;
 	background-position: 164px 6px;
 	background-size: 24px 24px;
+}
+#arrivee::-webkit-input-placeholder {
+  color: LightGray;
+}
+#arrivee:-moz-placeholder {
+  color: LightGray;
 }
 
  #depart, #arrivee {

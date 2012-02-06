@@ -4,7 +4,7 @@ var map;
 var poi;
 var poiMem = {};
 var poiIterator;
-var myMedPos;
+var myLat, myLng;
 
 /**
  * Initialize the application
@@ -26,12 +26,14 @@ function initialize() {
 	// GEOLOC
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(function(position) {
+			myLat = position.coords.latitude;
+			myLng = position.coords.longitude;
+			$("#mapos").val(myLat+'&'+myLng);
 			focusOnPosition(position.coords.latitude, position.coords.longitude);
 		}, 
 		null, 
 		{enableHighAccuracy:true});
 	} else {
-		myMedPos = '';
 		alert("Votre navigateur ne prend pas en compte la géolocalisation HTML5");
 	}
 }
@@ -44,11 +46,10 @@ function focusOnPosition(latitude, longitude){
 	// ZOOM
 	map.panTo(new google.maps.LatLng(latitude, longitude));
 
-	myMedPos = position;
 	// ADD POSITION Marker
 	myMarkerImage = 'system/templates/application/myRiviera/img/position.png';
 	var marker = new google.maps.Marker({
-		position: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+		position: new google.maps.LatLng(latitude, longitude),
 		icon: myMarkerImage,
 		map: map
 	});
@@ -91,8 +92,8 @@ function addMarker(latitude, longitude, icon, title, description){
 function calcRouteFromGoogle() {
 	var start = document.getElementById("start").value; 
 	var end = document.getElementById("end").value;
-	if (start.indexOf("&") != -1){
-		start = new google.maps.LatLng(start.split('&')[0], start.split('&')[1]);
+	if (start == ''){
+		start = new google.maps.LatLng(myLat, myLng);
 	}
 	var request = {
 			origin:start,

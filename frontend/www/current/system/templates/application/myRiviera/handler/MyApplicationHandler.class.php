@@ -39,8 +39,8 @@ class MyApplicationHandler implements IRequestHandler {
 			if($_POST['method'] == "find") {
 				if(isset($_POST['Départ']) && isset($_POST['Arrivée'])) {
 					
-					if (strpos($_POST['Départ'], '&') !== false) {
-						$dep = explode("&", $_POST['Départ']);
+					if ( $_POST['Départ']=='' && strpos($_POST['mapos'], '&') != false) {
+						$dep = explode("&", $_POST['mapos']);
 						
 						$geocode1 = json_decode(
 						  '{
@@ -60,6 +60,7 @@ class MyApplicationHandler implements IRequestHandler {
 						//echo '<script type="text/javascript">alert(\' oo' . $geocode1->status .' '.$geocode1->results[0]->geometry->location->lat.' '.$geocode1->results[0]->geometry->location->lng .'\');</script>';
 					}else{
 						// CALL TO GOOGLE GEOCODE API
+						//echo '<script type="text/javascript">alert(\' kk\');</script>';
 						$geocode1 = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($_POST['Départ']) . "&sensor=true"));
 					}
 					
