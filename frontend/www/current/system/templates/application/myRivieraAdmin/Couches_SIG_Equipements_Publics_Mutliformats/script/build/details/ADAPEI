@@ -1,0 +1,7 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "ADRESSE": "20 rue des Soeurs Munet", "CODE_POSTA": "06500", "VILLE": "menton", "PAYS": "France", "NOM": "ADAPEI", "DESCRIPTIO": "04 93 28 50 3", "SOURCE": "CARF", "DATEDESAIS": "06\/06\/2008", "LAT": "43.774309", "LNG": "7.49246" }, "geometry": { "type": "Point", "coordinates": [ 7.492455, 43.774314 ] } }
+
+]
+}

@@ -1,0 +1,26 @@
+!table
+!version 300
+!charset WindowsLatin1
+
+Definition Table
+  Type NATIVE Charset "WindowsLatin1"
+  Fields 19
+    Adresse_bac Char (100) ;
+    Reference_bac Char (32) ;
+    Type_apport Char (17) ;
+    Mareriau_contenant Char (9) ;
+    Volume_benne Char (2) ;
+    Qte_coll_trim1_2006 Float ;
+    Qte_coll_trim2_2006 Float ;
+    Qte_coll_trim3_2006 Float ;
+    Qte_coll_trim4_2006 Float ;
+    Total_coll_2006 Float ;
+    Qte_coll_trim1_2007 Float ;
+    Qte_coll_trim2_2007 Float ;
+    Qte_coll_trim3_2007 Float ;
+    Qte_coll_trim4_2007 Float ;
+    Etat_pictographique Char (2) ;
+    Etat_Ecriture Char (2) ;
+    Commentaire Char (32) ;
+    Source Char (4) ;
+    Date_de_Saisie Date ;

@@ -1,0 +1,37 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "ADRESSE": "58 r République 06500 CASTELLA", "CODE_POSTA": "06500", "VILLE": "CASTELLAR", "PAYS": "France", "NOM": "Palais LASCARIS", "DESCRIPTIO": "04 93 57 13 63", "SOURCE": "CARF", "DATEDESAIS": "2009\/02\/27", "LAT": "", "LN": "" }, "geometry": { "type": "Point", "coordinates": [ 7.497075, 43.804702 ] } }
+,
+{ "type": "Feature", "properties": { "ADRESSE": "", "CODE_POSTA": "06500", "VILLE": "CASTILLON", "PAYS": "France", "NOM": "Viaduc du Caramel", "DESCRIPTIO": "Ancienne voie ferrée du tramway", "SOURCE": "CARF", "DATEDESAIS": "2009\/02\/27", "LAT": "", "LN": "" }, "geometry": { "type": "Point", "coordinates": [ 7.480934, 43.828107 ] } }
+,
+{ "type": "Feature", "properties": { "ADRESSE": "", "CODE_POSTA": "06440", "VILLE": "PEILLE", "PAYS": "FRANCE", "NOM": "Palais de Lascaris", "DESCRIPTIO": "Médiathèque municipale", "SOURCE": "CARF", "DATEDESAIS": "2009\/02\/27", "LAT": "", "LN": "" }, "geometry": { "type": "Point", "coordinates": [ 7.402980, 43.802470 ] } }
+,
+{ "type": "Feature", "properties": { "ADRESSE": "", "CODE_POSTA": "06440", "VILLE": "Peille", "PAYS": "France", "NOM": "Palais du juge Mage", "DESCRIPTIO": "", "SOURCE": "CARF", "DATEDESAIS": "2009\/02\/27", "LAT": "", "LN": "" }, "geometry": { "type": "Point", "coordinates": [ 7.402707, 43.802914 ] } }
+,
+{ "type": "Feature", "properties": { "ADRESSE": "", "CODE_POSTA": "06440", "VILLE": "PEILLE", "PAYS": "France", "NOM": "Moulins Génois", "DESCRIPTIO": "", "SOURCE": "CARF", "DATEDESAIS": "2009\/03\/02", "LAT": "", "LN": "" }, "geometry": { "type": "Point", "coordinates": [ 7.401495, 43.802418 ] } }
+,
+{ "type": "Feature", "properties": { "ADRESSE": "", "CODE_POSTA": "06440", "VILLE": "PEILLE", "PAYS": "France", "NOM": "Monument au mort \/ Ancien post", "DESCRIPTIO": "", "SOURCE": "", "DATEDESAIS": "0000\/00\/00", "LAT": "", "LN": "" }, "geometry": { "type": "Point", "coordinates": [ 7.403553, 43.802706 ] } }
+,
+{ "type": "Feature", "properties": { "ADRESSE": "", "CODE_POSTA": "06440", "VILLE": "PEILLE", "PAYS": "France", "NOM": "Porte fortifiée", "DESCRIPTIO": "Accès à la Via Ferrata", "SOURCE": "CARF", "DATEDESAIS": "2009\/03\/02", "LAT": "", "LN": "" }, "geometry": { "type": "Point", "coordinates": [ 7.403215, 43.803037 ] } }
+,
+{ "type": "Feature", "properties": { "ADRESSE": "", "CODE_POSTA": "06440", "VILLE": "PEILLE", "PAYS": "France", "NOM": "Palais de la Gabelle", "DESCRIPTIO": "", "SOURCE": "CARF", "DATEDESAIS": "2009\/03\/02", "LAT": "", "LN": "" }, "geometry": { "type": "Point", "coordinates": [ 7.402033, 43.802932 ] } }
+,
+{ "type": "Feature", "properties": { "ADRESSE": "", "CODE_POSTA": "06440", "VILLE": "Peille", "PAYS": "France", "NOM": "Fontaine Gothique", "DESCRIPTIO": "Fontaine Gothique du 14 ° siècle", "SOURCE": "CARF", "DATEDESAIS": "2009\/02\/03", "LAT": "", "LN": "" }, "geometry": { "type": "Point", "coordinates": [ 7.402835, 43.802840 ] } }
+,
+{ "type": "Feature", "properties": { "ADRESSE": "", "CODE_POSTA": "06440", "VILLE": "PEILLE", "PAYS": "France", "NOM": "Tour du XIV eme", "DESCRIPTIO": "Tour du XIV eme siècle", "SOURCE": "CARF", "DATEDESAIS": "2009\/03\/02", "LAT": "", "LN": "" }, "geometry": { "type": "Point", "coordinates": [ 7.402434, 43.804097 ] } }
+,
+{ "type": "Feature", "properties": { "ADRESSE": "", "CODE_POSTA": "06500", "VILLE": "GORBIO", "PAYS": "FRANCE", "NOM": "TOUR LASCARIS", "DESCRIPTIO": "TOUR LASCARIS", "SOURCE": "CARF", "DATEDESAIS": "2010\/06\/09", "LAT": "", "LN": "" }, "geometry": { "type": "Point", "coordinates": [ 7.445351, 43.786047 ] } }
+,
+{ "type": "Feature", "properties": { "ADRESSE": "", "CODE_POSTA": "06500", "VILLE": "GORBIO", "PAYS": "FRANCE", "NOM": "Orme de la place de Gorbio", "DESCRIPTIO": "", "SOURCE": "CARF", "DATEDESAIS": "2010\/06\/09", "LAT": "", "LN": "" }, "geometry": { "type": "Point", "coordinates": [ 7.443559, 43.786710 ] } }
+,
+{ "type": "Feature", "properties": { "ADRESSE": "Rue du Comte de Cessole", "CODE_POSTA": "06320", "VILLE": "LA TURBIE", "PAYS": "FRANCE", "NOM": "Le Portail de l'Ouest (12ème-1", "DESCRIPTIO": "Le Portail de l'Ouest (12ème-14eme siècle-en calcaire de La Turbie)", "SOURCE": "CARF", "DATEDESAIS": "2010\/06\/09", "LAT": "", "LN": "" }, "geometry": { "type": "Point", "coordinates": [ 7.400394, 43.745102 ] } }
+,
+{ "type": "Feature", "properties": { "ADRESSE": "Place de la Crémaillère", "CODE_POSTA": "06320", "VILLE": "LA TURBIE", "PAYS": "FRANCE", "NOM": "Gare de chemin de fer à Crémai", "DESCRIPTIO": "Ancienne Gare", "SOURCE": "CARF", "DATEDESAIS": "2010\/06\/10", "LAT": "", "LN": "" }, "geometry": { "type": "Point", "coordinates": [ 7.402440, 43.745866 ] } }
+,
+{ "type": "Feature", "properties": { "ADRESSE": "Place de la Crémaillère", "CODE_POSTA": "06320", "VILLE": "LA TURBIE", "PAYS": "FRANCE", "NOM": "Le Rondo (pierres de tailles -", "DESCRIPTIO": "Le Rondo (pierres de tailles -19 ème siècle)", "SOURCE": "CARF", "DATEDESAIS": "2010\/06\/10", "LAT": "", "LN": "" }, "geometry": { "type": "Point", "coordinates": [ 7.403450, 43.745513 ] } }
+,
+{ "type": "Feature", "properties": { "ADRESSE": "", "CODE_POSTA": "", "VILLE": "", "PAYS": "", "NOM": "", "DESCRIPTIO": "", "SOURCE": "", "DATEDESAIS": "0000\/00\/00", "LAT": "", "LN": "" }, "geometry": { "type": "Point", "coordinates": [ 7.400031, 43.745551 ] } }
+
+]
+}

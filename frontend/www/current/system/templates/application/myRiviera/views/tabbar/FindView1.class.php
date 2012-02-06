@@ -124,14 +124,9 @@ class FindView1 extends MyApplication {
 				
 				<!-- DATE -->
 				<div data-role="fieldcontain">
-					<label for="date" >Partir le :</label>
-					<input name="date" id="date" type="date" data-role="datebox" data-options='{"noButtonFocusMode": true, "mode": "calbox", "disableManualInput": true}'>
+					<label for="date" >Partir à :</label>
+					<input name="date" id="date" type="date" data-role="datebox" data-options='{"noButtonFocusMode": true, "disableManualInput": true, "mode": "slidebox", "dateFormat":"HH:ii le DD/MM/YYYY  ", "fieldsOrderOverride":["h","i","d","m","y"]}'>
 				</div>
-				<div data-role="fieldcontain">
-					<label for="time" >à :</label>
-					<input name="time" id="time" type="date" data-role="datebox" data-options='{"noButtonFocusMode": true, "mode": "timeflipbox", "disableManualInput": true}'>
-				</div>
-				
 				<!-- SEPARATOR -->
 				<div >
 					<br /><br />

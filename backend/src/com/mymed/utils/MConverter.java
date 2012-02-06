@@ -15,6 +15,11 @@
 */
 package com.mymed.utils;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.BufferOverflowException;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.CharacterCodingException;
@@ -380,5 +385,45 @@ public final class MConverter {
 		}
 
 		return returnValue;
+	}
+	
+	/**
+	 * Given an InputStream reads the bytes as UTF8 chars and return a 
+	 * String.
+	 * @param is Input stream.
+	 * @param length Length of the stream in bytes.
+	 * @return The string
+	 * @throws InternalBackEndException Format is not correct or the length less then the real wrong.
+	 */
+	public static String convertStreamToString(InputStream is,int length) throws InternalBackEndException {
+		try {
+			if (length>0){
+				ByteBuffer byteBuff = ByteBuffer.allocate(length);
+				int currByte;
+				while ((currByte=is.read()) != -1) {
+					byteBuff.put((byte) currByte);
+				}
+				byteBuff.compact();
+				return com.mymed.utils.MConverter.byteBufferToString(byteBuff);
+			}else{
+				BufferedReader buffRead = new BufferedReader(new InputStreamReader(is,Charset.forName("UTF-8")));
+				StringBuilder sb = new StringBuilder();
+				String line;
+				while ((line = buffRead.readLine()) != null) {
+					sb.append(line + "\n");
+				}
+				return sb.toString();
+			}
+		} catch (IOException e) {
+			throw new InternalBackEndException("Wrong content");
+		} catch (BufferOverflowException e){
+			throw new InternalBackEndException("Wrong length");
+		}finally {
+			try {
+				is.close();             
+			} catch (IOException e) {
+				throw new InternalBackEndException("Error closing the stream.");
+			}
+		}
 	}
 }

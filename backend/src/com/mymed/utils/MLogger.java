@@ -32,8 +32,8 @@ public final class MLogger {
   // logback.xml
   private static final Logger BACKEND_LOGGER = (Logger) LoggerFactory.getLogger("mymed.backend.logger");
 
-  // Private constructor since all methods are static and we have a singleton
   private MLogger() {
+    // Private constructor since all methods are static and we have a singleton
   }
 
   /**

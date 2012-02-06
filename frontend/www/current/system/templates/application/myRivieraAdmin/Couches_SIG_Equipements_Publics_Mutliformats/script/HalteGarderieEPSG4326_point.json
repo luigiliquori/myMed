@@ -1,0 +1,13 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "COMMUNE": "Menton", "ADRESSE": "4 promenade Maréchal de Hautecloque", "NOM": "Halte Garderie Le Petit Prince", "REMARQUE": "", "DE_SAID_": "2008\/05\/13", "PRODUCTEUR": "CARF" }, "geometry": { "type": "Point", "coordinates": [ 7.495010, 43.776405 ] } }
+,
+{ "type": "Feature", "properties": { "COMMUNE": "Menton", "ADRESSE": "175 avenue Saint Roman", "NOM": "Halte Garderie Ludothèque Iles aux enfants", "REMARQUE": "", "DE_SAID_": "2008\/05\/13", "PRODUCTEUR": "CARF" }, "geometry": { "type": "Point", "coordinates": [ 7.488294, 43.800002 ] } }
+,
+{ "type": "Feature", "properties": { "COMMUNE": "Menton", "ADRESSE": "", "NOM": "Crèche Centre de la petite enfance", "REMARQUE": "", "DE_SAID_": "2008\/05\/13", "PRODUCTEUR": "CARF" }, "geometry": { "type": "Point", "coordinates": [ 7.484992, 43.764290 ] } }
+,
+{ "type": "Feature", "properties": { "COMMUNE": "Menton", "ADRESSE": "Le Floride 232 avenue Aristide Briand", "NOM": "Relais assistants maternelles RAM", "REMARQUE": "", "DE_SAID_": "2008\/05\/13", "PRODUCTEUR": "CARF" }, "geometry": { "type": "Point", "coordinates": [ 7.484978, 43.764943 ] } }
+
+]
+}

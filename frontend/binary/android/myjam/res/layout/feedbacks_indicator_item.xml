@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="2dp">
+<FrameLayout
+	android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1">
+    <RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:layout_gravity="center_horizontal">
+	<ImageView android:id="@+id/imageViewConfirm"
+		android:src="@drawable/confirm" 
+    	android:layout_width="wrap_content" 
+    	android:layout_height="wrap_content" 
+    	android:layout_alignParentLeft="true">
+    </ImageView>
+    <ImageView android:id="@+id/imageAddPosFeedback"
+    	android:src="@drawable/add_feedback_two_state"
+    	android:clickable="true"
+    	android:layout_width="wrap_content" 
+    	android:layout_height="wrap_content" 
+    	android:layout_alignParentLeft="true" 
+    	android:layout_marginLeft="36dp"
+    	android:layout_marginTop="36dp">
+    </ImageView>
+	<TextView android:id="@+id/textViewPositiveFeedbacks"
+		style="@style/FeedbackText"    	
+    	android:text="0" 
+    	android:textColor="#037502"
+    	android:layout_width="wrap_content"  
+    	android:layout_height="wrap_content"
+    	android:layout_toRightOf="@+id/imageViewConfirm"
+    	android:layout_alignBottom="@+id/imageViewConfirm"
+    	android:gravity="center_vertical"
+    	android:padding="3dp">    	
+	</TextView> 	
+</RelativeLayout>
+</FrameLayout>
+<FrameLayout
+	android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1">
+    <RelativeLayout 
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:layout_gravity="center_horizontal">
+	<ImageView android:id="@+id/imageViewDeny"
+		android:src="@drawable/deny" 
+    	android:layout_width="wrap_content" 
+    	android:layout_height="wrap_content" 
+    	android:layout_alignParentLeft="true">
+    </ImageView>
+    <ImageView android:id="@+id/imageAddNegFeedback"
+    	android:src="@drawable/add_feedback_two_state"
+    	android:clickable="true"
+    	android:layout_width="wrap_content" 
+    	android:layout_height="wrap_content" 
+    	android:layout_alignParentLeft="true" 
+    	android:layout_marginLeft="36dp"
+    	android:layout_marginTop="36dp">
+    </ImageView>
+	<TextView android:id="@+id/textViewNegativeFeedbacks"
+		style="@style/FeedbackText"    	
+    	android:text="0" 
+    	android:textColor="#AA0105"
+    	android:layout_width="wrap_content"  
+    	android:layout_height="wrap_content"
+    	android:layout_toRightOf="@+id/imageViewDeny"
+    	android:layout_alignBottom="@+id/imageViewDeny"
+    	android:gravity="center_vertical"
+    	android:padding="3dp">    	
+	</TextView> 	
+</RelativeLayout>
+</FrameLayout>
+</LinearLayout>

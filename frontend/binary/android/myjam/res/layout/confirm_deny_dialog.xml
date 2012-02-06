@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+    <View
+        android:layout_height="2dip"
+        android:layout_width="match_parent"
+        android:background="@android:color/darker_gray" />  
+    <TextView 
+    	android:id="@+id/textViewInsertFeedback" 
+    	android:layout_height="wrap_content" 
+    	android:textAppearance="?android:attr/textAppearanceMedium" 
+    	android:text="" 
+    	android:layout_width="wrap_content"
+    	android:padding="5dip">
+    </TextView>
+    <LinearLayout
+    	android:id="@+id/linearLayoutButtons" 
+    	android:layout_width="match_parent"  
+    	android:layout_height="wrap_content" 
+    	android:orientation="horizontal"
+    	android:gravity="center_horizontal"
+    	android:padding="5dip"
+    	android:background="@android:color/darker_gray">    	
+    	<Button
+    		android:id="@+id/buttonConfirm"
+ 			android:layout_width="130dip"
+  			android:layout_height="wrap_content"
+  			android:text="Confirm"
+  			android:drawableLeft="@drawable/confirm"
+  			android:gravity="center|center_vertical" />
+    	<Button 
+    		android:id="@+id/buttonDeny" 
+    		android:layout_width="130dip"
+    		android:layout_height="wrap_content"
+    		android:drawableLeft="@drawable/deny"
+    		android:text="Deny" 
+    		android:gravity="center|center_vertical" />
+    </LinearLayout>
+</LinearLayout>
+

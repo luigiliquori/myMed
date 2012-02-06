@@ -46,13 +46,9 @@ class MyApplicationHandler implements IRequestHandler {
 					// CALL TO CITYWAY API
 					if($geocode1->status == "OK" && $geocode2->status == "OK"){
 						
-						//testing date format, if European convert it for cityway
-						$date= $_POST['date'];
-						if (strpos($date,'/'))
-							$date = DateTime::createFromFormat('d/m/Y', $date)->format('Y-m-d');
-						// or use $tmp = preg_split("/[^0-9]/", $date);$date=$tmp[2]."-".$tmp[1]."-".$tmp[0]
-						// but can't use $date = date('Y-m-d',strtortime($dateformat)); //because strtotime expect m/d/Y format (USA)
-
+						// FORMAT date for cityway
+						$tmp = preg_split("/[^0-9]+/", $_POST['date']);
+												
 						$args = "&mode=transit" . 
 						"&depLon=" . $geocode1->results[0]->geometry->location->lng .
 						"&depLat=" . $geocode1->results[0]->geometry->location->lat .
@@ -60,12 +56,12 @@ class MyApplicationHandler implements IRequestHandler {
 						"&arrLon=" . $geocode2->results[0]->geometry->location->lng .
 						"&arrLat=" . $geocode2->results[0]->geometry->location->lat .
 						"&arrType=7" . 
-						"&departureTime=" . $date . '_'.preg_replace("/[^0-9]/",'-',$_POST['time']);
-
+						"&departureTime=" . $tmp[4]."-".$tmp[3]."-".$tmp[2]."_".$tmp[0]."-".$tmp[1];
+						
 						$itineraire = file_get_contents(Cityway_URL . "/tripplanner/v1/detailedtrip/json?key=" . Cityway_APP_ID . $args);
 						$itineraireObj = json_decode($itineraire);
 						
-						if(isset($itineraireObj->ItineraryObj)) {
+						if(isset($itineraireObj->ItineraryObj->tripSegments)) {
 							
 							$this->success->itineraire = $itineraireObj;
 							$this->success->kml = Cityway_URL . "/tripplanner/v1/detailedtrip/kml?key=" . Cityway_APP_ID . $args;
@@ -99,14 +95,15 @@ class MyApplicationHandler implements IRequestHandler {
 							}
 							
 						} else {
-							$this->error = "error with cityWay";
-							echo '<script type="text/javascript">alert(\'' . $itineraire . '\');</script>';
+							// $this->error = "error with cityWay";
+							$this->error = "1";
 						}
 					} else {
-						$this->error = "error with google geocode";
+						// err google
+						$this->error = "2";
 					}
 				} else {
-					$this->error = "bad parameters";
+					$this->error = "3";
 				}
 			} 
 		}

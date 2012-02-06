@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.controller.core.manager.position;
 
 import java.io.UnsupportedEncodingException;
@@ -23,74 +23,69 @@ import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.AbstractManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.data.user.MPositionBean;
-import com.mymed.utils.MLogger;
 
 /**
  * Manage the session of a user
  * 
  * @author lvanni
  * @author Milo Casagrande
- * 
  */
 public class PositionManager extends AbstractManager implements IPositionManager {
 
-	private static final String ENCODING = "UTF8";
-	
-	public PositionManager() throws InternalBackEndException {
-		this(new StorageManager());
-	}
+  private static final String CF_POSITION = COLUMNS.get("column.cf.position");
+  private static final String FIELD_USER_ID = FIELDS.get("field.user.id");
 
-	public PositionManager(final StorageManager storageManager) throws InternalBackEndException {
-		super(storageManager);
-	}
-	
-	/**
-	 * Setup a new user profile into the database
-	 * 
-	 * @param user
-	 *            the user to insert into the database
-	 * @throws IOBackEndException
-	 */
-	@Override
-	public MPositionBean create(final MPositionBean position) throws InternalBackEndException, IOBackEndException {
-		try {
-			final Map<String, byte[]> args = position.getAttributeToMap();
-			storageManager.insertSlice(CF_POSITION, new String(args.get("userID"), ENCODING), args);
+  public PositionManager() throws InternalBackEndException {
+    this(new StorageManager());
+  }
 
-			return position;
-		} catch (final UnsupportedEncodingException e) {
-			MLogger.getLog().info("Error in string conversion using {} encoding", ENCODING);
-			MLogger.getDebugLog().debug("Error in string conversion using {} encoding", ENCODING, e.getCause());
+  public PositionManager(final StorageManager storageManager) throws InternalBackEndException {
+    super(storageManager);
+  }
 
-			throw new InternalBackEndException(e.toString());
-		}
-	}
+  /**
+   * Setup a new user profile into the database
+   * 
+   * @param user
+   *          the user to insert into the database
+   * @throws IOBackEndException
+   */
+  @Override
+  public MPositionBean create(final MPositionBean position) throws InternalBackEndException, IOBackEndException {
+    try {
+      final Map<String, byte[]> args = position.getAttributeToMap();
+      storageManager.insertSlice(CF_POSITION, new String(args.get(FIELD_USER_ID), ENCODING), args);
 
-	/**
-	 * @throws IOBackEndException
-	 * @see IPositionManager#read(String)
-	 */
-	@Override
-	public MPositionBean read(final String userID) throws InternalBackEndException, IOBackEndException {
-		
-		MPositionBean position = new MPositionBean();
-		
-		final Map<byte[], byte[]> args = storageManager.selectAll(CF_POSITION, userID);
-		if (args.isEmpty()) {
-			MLogger.getLog().info("User with ID '{}' does not exists", userID);
-			throw new IOBackEndException("position does not exist!", 404);
-		}
+      return position;
+    } catch (final UnsupportedEncodingException e) {
+      LOGGER.info(ERROR_ENCODING, ENCODING);
+      LOGGER.debug(ERROR_ENCODING, ENCODING, e);
 
-		return (MPositionBean) introspection(position, args);
-	}
+      throw new InternalBackEndException(e.toString());
+    }
+  }
 
-	/**
-	 * @throws IOBackEndException
-	 * @see IPositionManager#update(MPositionBean)
-	 */
-	@Override
-	public void update(final MPositionBean position) throws InternalBackEndException, IOBackEndException {
-		create(position);
-	}
+  /**
+   * @throws IOBackEndException
+   * @see IPositionManager#read(String)
+   */
+  @Override
+  public MPositionBean read(final String userID) throws InternalBackEndException, IOBackEndException {
+    final Map<byte[], byte[]> args = storageManager.selectAll(CF_POSITION, userID);
+    if (args.isEmpty()) {
+      LOGGER.info("User with ID '{}' does not exists", userID);
+      throw new IOBackEndException("position does not exist!", 404);
+    }
 
+    return (MPositionBean) introspection(MPositionBean.class, args);
+  }
+
+  /**
+   * @throws IOBackEndException
+   * @see IPositionManager#update(MPositionBean)
+   */
+  @Override
+  public void update(final MPositionBean position) throws InternalBackEndException, IOBackEndException {
+    create(position);
+  }
 }
