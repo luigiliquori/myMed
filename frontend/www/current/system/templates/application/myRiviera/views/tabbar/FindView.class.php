@@ -59,56 +59,62 @@ class FindView extends MyApplication {
 	 */
 	public /*String*/ function getContent() { ?>
 		<!-- CONTENT -->
-		<div data-role="content" style="padding: 0">
+		<div data-role="content" style="padding: 0px;">
 			
 			<div id="myRivieraMap"></div>
 			
-			<!-- ITINERAIRE -->
-			<?php if ($this->handler->getSuccess()) { ?> 				<!-- FROM CITYWAY -->
-				<script type="text/javascript">setTimeout("calcRouteFromCityWay('<?= $this->handler->getSuccess()->kmlurl ?>')", 500);</script>
-				<ul data-role="listview" data-theme="c" data-dividertheme="a" data-inset="false">
-				<?php $listDivider = null;?>
-				<?php $i=0 ?>
-				<?php foreach($this->handler->getSuccess()->itineraire->ItineraryObj->tripSegments->tripSegment as $tripSegment) { ?>
-
-					<?php if($listDivider == null || $listDivider != $tripSegment->type) { ?>
-						<li data-role="list-divider"><?php 
-							if($tripSegment->type == "WALK") { ?>
-								<img alt="Marche" src="system/templates/application/myRiviera/img/<?= strtolower($tripSegment->type) ?>.png" />
-								<span Style="position: relative; left: 25px;">Marche</span>
-							<?php } else if($tripSegment->type == "CONNECTION") { ?>
-								<span>Connection</span>
-							<?php } else  { ?>
-								<img alt="Marche" src="system/templates/application/myRiviera/img/<?= strtolower($tripSegment->transportMode) ?>.png" />
-								<span Style="position: relative; left: 25px;"><?= strtolower($tripSegment->transportMode) ?></span>
-							<?php } ?>	
-						</li>
-						<?php $listDivider = $tripSegment->type ?>
-					<?php } ?>
-					
-					<li>
-						<div class="ui-btn-text">
+			<div id="itineraire" data-role="collapsible" data-theme="e" data-content-theme="e" style="width: <?= TARGET == "mobile" ? "94" : "50" ?>%;">
+				<h3>Feuille de route</h3>
+				<!-- ITINERAIRE -->
+				<?php if ($this->handler->getSuccess()) { ?> 				<!-- FROM CITYWAY -->
+					<script type="text/javascript">setTimeout("calcRouteFromCityWay('<?= $this->handler->getSuccess()->kmlurl ?>')", 500);</script>
+					<ul data-role="listview" data-inset="true" data-theme="d" data-divider-theme="e">
+						<?php $listDivider = null;?>
+						<?php $i=0 ?>
+						<?php foreach($this->handler->getSuccess()->itineraire->ItineraryObj->tripSegments->tripSegment as $tripSegment) { ?>
+		
+							<?php if($listDivider == null || $listDivider != $tripSegment->type) { ?>
+								<li data-role="list-divider"><?php 
+									if($tripSegment->type == "WALK") { ?>
+										<!-- <img alt="Marche" src="system/templates/application/myRiviera/img/<?= strtolower($tripSegment->type) ?>.png" /> -->
+										<span>Marche</span>
+									<?php } else if($tripSegment->type == "CONNECTION") { ?>
+										<span>Connection</span>
+									<?php } else  { ?>
+										<!-- <img alt="Marche" src="system/templates/application/myRiviera/img/<?= strtolower($tripSegment->transportMode) ?>.png" /> -->
+										<span><?= strtolower($tripSegment->transportMode) ?></span>
+									<?php } ?>	
+								</li>
+								<?php $listDivider = $tripSegment->type ?>
+							<?php } ?>
+							
 							<?php
-								$latitude =   $tripSegment->departurePoint->latitude;
-								$longitude = $tripSegment->departurePoint->longitude;
-								$poi =  str_replace("'", "", json_encode($tripSegment->poi)); 
+							$latitude =   $tripSegment->departurePoint->latitude;
+							$longitude = $tripSegment->departurePoint->longitude;
+							$poi =  str_replace("'", "", json_encode($tripSegment->poi)); 
 							?>
 							<input id="<?= $i ?>_latitude" type="hidden" value='<?= $latitude ?>' />
 							<input id="<?= $i ?>_longitude" type="hidden" value='<?= $longitude ?>' />
 							<input id="<?= $i ?>_poi" type="hidden" value='<?= $poi ?>' />
-							<a href="#" onclick="focusOn('<?= $i ?>');" style="position: relative; left: -13px;">
-								<?php if(isset($tripSegment->distance)) { ?>
-									<h3>Distance: <?= $tripSegment->distance ?>m</h3>
-								<?php } else { ?>
-									<h3>Durée: <?= $tripSegment->duration ?>min</h3>
-								<?php } ?>
-								<p class="ui-li-desc"><?= $tripSegment->comment ?></p>
-							</a>
-						</div>
-					</li>
-					<?php $i++ ?>
-				<?php } ?>
-				</ul>
+							
+							<li style="font-size: 9pt; font-weight: lighter; padding:2px;">
+								<a href="#" onclick="focusOn('<?= $i ?>'); <?= TARGET == "mobile" ? "$('#itineraire').trigger('collapse');" : "" ?>" data-icon="search" >
+									<?php if(isset($tripSegment->distance)) { ?>
+										<span>Distance: <?= $tripSegment->distance ?>m</span>
+									<?php } else { ?>
+										<span>Durée: <?= $tripSegment->duration ?>min</span>
+									<?php } ?>
+								</a>
+								<p style="width: 90%;">
+									<?= $tripSegment->comment ?>
+								</p>
+							</li>
+									
+							<?php $i++ ?>
+						<?php } ?>
+					</ul>
+					<br />
+				</div>
 			<?php } else if($this->handler->getError() == "1") { ?>  	<!-- FROM GOOGLE -->
 				<input type="hidden" id="start" value="<?= $_POST['Départ'] ?>"/>
 				<input type="hidden" id="end" value="<?= $_POST['Arrivée'] ?>"/>

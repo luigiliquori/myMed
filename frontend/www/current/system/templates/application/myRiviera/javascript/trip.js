@@ -111,7 +111,8 @@ function calcRouteFromGoogle() {
  * @param url
  */
 function calcRouteFromCityWay(url){
-	$("#myRivieraMap").height($("body").height() - ($("body").height()/2));
+//	$("#myRivieraMap").height($("body").height() - ($("body").height()/2));
+	$("#itineraire").delay(1500).fadeIn("slow");
 	var KmlObject = new google.maps.KmlLayer(url);
 	KmlObject.setMap(map);
 }

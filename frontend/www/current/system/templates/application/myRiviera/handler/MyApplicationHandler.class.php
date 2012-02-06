@@ -83,7 +83,7 @@ class MyApplicationHandler implements IRequestHandler {
 						($tmp[3] < 10 ? "0" . $tmp[3] : $tmp[3]) . "-".
 						($tmp[2] < 10 ? "0" . $tmp[2] : $tmp[2]) . "_".
 						($tmp[0] < 10 ? "0" . $tmp[0] : $tmp[0])."-".
-						($tmp[1] < 10 ? "0" . $tmp[1] : $tmp[1]);
+						$tmp[1];
 						
 						$itineraire = file_get_contents(Cityway_URL . "/tripplanner/v1/detailedtrip/json?key=" . Cityway_APP_ID . $args);
 						$itineraireObj = json_decode($itineraire);

@@ -6,8 +6,18 @@
 	padding: 0;
 }
 
-#itineraire {
+#itineraire{
+	position: absolute; 
+	top: 40px; 
+	left:10px; 	
+	text-align: left;
+	display: none;
+	opacity: 0.9;
+}
+
+#itineraire li a {
 	position: relative;
+	left: -16px;
 }
 
 #depart {
