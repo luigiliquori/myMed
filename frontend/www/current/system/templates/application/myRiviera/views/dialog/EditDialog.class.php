@@ -49,7 +49,7 @@ class EditDialog extends AbstractTemplate {
 					<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
 					<input type="hidden" name="method" value="find" />
 					<input type="hidden" name="numberOfOntology" value="4" />
-					
+					<input type="hidden" name="mapos" id="mapos" value="" />
 					
 																
 					<div data-role="fieldcontain">
@@ -58,18 +58,13 @@ class EditDialog extends AbstractTemplate {
 						
 						<div>
 							
-							<input data-theme="d" type="text" id="depart" name="Départ"
-								value="Ma position" onclick="$('#depart').select();" 
-								onchange="$('#depart').css('color', $('.ui-body-d').css('color'));" 
-								onblur="if ($('#depart').val()=='') {$('#depart').css('color','LightBlue');$('#depart').val('Ma position')}"/>
+							<input data-theme="d" type="text" id="depart" name="Départ" placeholder="Ma pos" onclick="$(this).select();"/>
 						</div>
 			
 					 	 <!-- TO -->
 					  	
 					  <div>
-						  <input data-theme="d" type="text" id="arrivee" name="Arrivée"
-							  value="Ma destination" onclick="$('#arrivee').select();"
-							  onchange="$('#arrivee').css('color', $('.ui-body-d').css('color')); $('#arrivee').css('background-image', '');"/>
+						  <input data-theme="d" type="text" id="arrivee" name="Arrivée" placeholder="Ma destination" onclick="$(this).select();"/>
 								
 								<select id="selectarrivee" data-iconpos="notext" name="enum" onclick=" changeDestination('arrivee')">
 					
@@ -108,13 +103,7 @@ class EditDialog extends AbstractTemplate {
 					</div>
 					
 					<!-- SUBMIT -->
-					<a href="#" data-role="button"  rel="external" onclick=" if ($('#depart').val()=='Ma position'){
-						console.log('put lat lon instead'); 
-						if (myMedPos != ''){
-							$('#depart').val(myMedPos.coords.latitude+'&'+myMedPos.coords.longitude);
-						}
-					};
-					 document.<?= APPLICATION_NAME ?>FindForm.submit()">Trouver</a>	
+					<a href="#" data-role="button"  rel="external" onclick="document.<?= APPLICATION_NAME ?>FindForm.submit()">Trouver</a>	
 				</form>
 				
 			</div>
