@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,66 +12,118 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.model.data.application;
 
 import com.mymed.model.data.AbstractMBean;
 
 /**
- * This class represent an user profile
+ * This class represent an ontology
  * 
  * @author lvanni
  */
 public final class MOntologyBean extends AbstractMBean {
+  private String name;
+  private String type;
+  private boolean isPredicate;
 
-	/* --------------------------------------------------------- */
-	/* Attributes */
-	/* --------------------------------------------------------- */
-	private String name;
-	private String type;
-	private boolean isPredicate;
+  /**
+   * Create a new empty ontology bean
+   */
+  public MOntologyBean() {
+    super();
+  }
 
-	/* --------------------------------------------------------- */
-	/* Constructors */
-	/* --------------------------------------------------------- */
-	public MOntologyBean() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	/* --------------------------------------------------------- */
-	/* Override methods */
-	/* --------------------------------------------------------- */
-	@Override
-	public boolean equals(final Object object) {
-		boolean returnValue = true;
-		// TODO
-		return returnValue;
-	}
+  /**
+   * Copy constructor.
+   * <p>
+   * Provide a clone of the passed MOntologyBean
+   * 
+   * @param toClone
+   *          the ontology bean to clone
+   */
+  protected MOntologyBean(final MOntologyBean toClone) {
+    super();
 
-	/* --------------------------------------------------------- */
-	/* GETTER AND SETTER */
-	/* --------------------------------------------------------- */
-	public String getName() {
-		return name;
-	}
+    name = toClone.getName();
+    type = toClone.getType();
+    isPredicate = toClone.isPredicate();
+  }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  @Override
+  public MOntologyBean clone() {
+    return new MOntologyBean(this);
+  }
 
-	public String getType() {
-		return type;
-	}
+  public String getName() {
+    return name;
+  }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+  public void setName(final String name) {
+    this.name = name;
+  }
 
-	public boolean isPredicate() {
-		return isPredicate;
-	}
+  public String getType() {
+    return type;
+  }
 
-	public void setPredicate(boolean isPredicate) {
-		this.isPredicate = isPredicate;
-	}
+  public void setType(final String type) {
+    this.type = type;
+  }
+
+  public boolean isPredicate() {
+    return isPredicate;
+  }
+
+  public void setPredicate(final boolean isPredicate) {
+    this.isPredicate = isPredicate;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#hashCode()
+   */
+  @Override
+  public int hashCode() {
+    int result = 1;
+    result = PRIME * result + (isPredicate ? 1231 : 1237);
+    result = PRIME * result + (name == null ? 0 : name.hashCode());
+    result = PRIME * result + (type == null ? 0 : type.hashCode());
+    return result;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#equals(java.lang.Object)
+   */
+  @Override
+  public boolean equals(final Object obj) {
+    boolean equal = false;
+
+    if (this == obj) {
+      equal = true;
+    } else if (obj instanceof MOntologyBean) {
+      final MOntologyBean comparable = (MOntologyBean) obj;
+
+      equal = true;
+
+      equal &= isPredicate == comparable.isPredicate();
+
+      if (name != null && comparable.getName() != null) {
+        equal &= name.equals(comparable.getName());
+      } else if (name == null && comparable.getName() != null || name != null && comparable.getName() == null) {
+        equal &= false;
+      }
+
+      if (type != null && comparable.getType() != null) {
+        equal &= type.equals(comparable.getType());
+      } else if (type == null && comparable.getType() != null || type != null && comparable.getType() == null) {
+        equal &= false;
+      }
+    }
+
+    return equal;
+  }
 }

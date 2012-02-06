@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.model.data.application;
 
 import com.mymed.model.data.AbstractMBean;
@@ -24,32 +24,34 @@ import com.mymed.model.data.AbstractMBean;
  */
 public final class MApplicationModelBean extends AbstractMBean {
 
-	/* --------------------------------------------------------- */
-	/* Attributes */
-	/* --------------------------------------------------------- */
+  /* --------------------------------------------------------- */
+  /* Attributes */
+  /* --------------------------------------------------------- */
 
+  /* --------------------------------------------------------- */
+  /* Constructors */
+  /* --------------------------------------------------------- */
+  public MApplicationModelBean() {
+    // TODO Auto-generated constructor stub
+  }
 
-	/* --------------------------------------------------------- */
-	/* Constructors */
-	/* --------------------------------------------------------- */
-	public MApplicationModelBean() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	/* --------------------------------------------------------- */
-	/* Override methods */
-	/* --------------------------------------------------------- */
-	@Override
-	public boolean equals(final Object object) {
-		boolean returnValue = true;
-		// TODO
-		return returnValue;
-	}
+  /* --------------------------------------------------------- */
+  /* Override methods */
+  /* --------------------------------------------------------- */
+  @Override
+  public boolean equals(final Object object) {
+    final boolean returnValue = true;
+    // TODO
+    return returnValue;
+  }
 
+  @Override
+  public int hashCode() {
+    return 0;
+  }
 
+  /* --------------------------------------------------------- */
+  /* GETTER AND SETTER */
+  /* --------------------------------------------------------- */
 
-	/* --------------------------------------------------------- */
-	/* GETTER AND SETTER */
-	/* --------------------------------------------------------- */
-	
 }
