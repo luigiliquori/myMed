@@ -39,8 +39,8 @@ class MyApplicationHandler implements IRequestHandler {
 			if($_POST['method'] == "find") {
 				if(isset($_POST['Départ']) && isset($_POST['Arrivée'])) {
 					
-					if ( $_POST['Départ']=='' && strpos($_POST['mapos'], '&') != false) {
-						$dep = explode("&", $_POST['mapos']);
+					if (strpos($_POST['Départ'], '&') != false) { //we are given a lon & lat couple
+						$dep = explode("&", $_POST['Départ']);
 						
 						$geocode1 = json_decode(
 						  '{
@@ -80,12 +80,9 @@ class MyApplicationHandler implements IRequestHandler {
 						"&arrLat=" . $geocode2->results[0]->geometry->location->lat .
 						"&arrType=7" . 
 						"&departureTime=" . 
-						$tmp[4]."-".
-						($tmp[3] < 10 ? "0" . $tmp[3] : $tmp[3]) . "-".
-						($tmp[2] < 10 ? "0" . $tmp[2] : $tmp[2]) . "_".
-						($tmp[0] < 10 ? "0" . $tmp[0] : $tmp[0])."-".
-						$tmp[1];
-						
+						sprintf('%d-%02d-%02d_%02d-%02d',$tmp[4],$tmp[3],$tmp[2],$tmp[0],$tmp[1]);
+						// cityway date format yyyy-mm-dd_hh-mm
+						//echo '<script type="text/javascript">alert(\' kk '.$args .'\');</script>';
 						$itineraire = file_get_contents(Cityway_URL . "/tripplanner/v1/detailedtrip/json?key=" . Cityway_APP_ID . $args);
 						$itineraireObj = json_decode($itineraire);
 						

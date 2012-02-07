@@ -28,7 +28,8 @@ function initialize() {
 		navigator.geolocation.getCurrentPosition(function(position) {
 			myLat = position.coords.latitude;
 			myLng = position.coords.longitude;
-			$("#mapos").val(myLat+'&'+myLng);
+			//$("#mapos").val(myLat+'&'+myLng);
+			$('#depart').val(myLat+'&'+myLng);
 			focusOnPosition(position.coords.latitude, position.coords.longitude);
 		}, 
 		null, 
@@ -92,7 +93,7 @@ function addMarker(latitude, longitude, icon, title, description){
 function calcRouteFromGoogle() {
 	var start = document.getElementById("start").value; 
 	var end = document.getElementById("end").value;
-	if (start == ''){
+	if (start.indexOf('&') >0){
 		start = new google.maps.LatLng(myLat, myLng);
 	}
 	var request = {
@@ -127,7 +128,6 @@ function changeDestination(dest){
 	address = $("#select"+dest).val().split("&&")[1];
 	$("#"+dest).val(address);
 	$("#"+dest).css("background-image", 'url('+picture+')');
-	$("#"+dest).css('color','LightGray');
 }
 
 /**

@@ -20,9 +20,6 @@
 	left: -16px;
 }
 
-#depart {
-	color: LightBlue;
-}
 #depart::-webkit-input-placeholder {
   color: LightBlue;
 }
@@ -31,7 +28,6 @@
 }
 
 #arrivee {
-	color: LightGray;
 	/*background-image:url('../img/flag_finish.png');*/
 	background-repeat: no-repeat;
 	background-position: 164px 6px;
@@ -44,19 +40,62 @@
   color: LightGray;
 }
 
- #depart, #arrivee {
+ #depart {
 	width:87%;
 	margin-left: auto;
 	margin-right: auto;
 }
 
-#Itin .ui-select {
-	width:87%;
+
+#arrivee {
+	width:75%;
 	margin-left: auto;
 	margin-right: auto;
-	right: -184px;
-	top: -40px;
 }
+
+#divarrivee .ui-select {
+	max-width:32px;
+	/*margin-left: auto;*/
+	/*margin-right: auto;*/
+	/*right: -184px;*/
+	/*top: -40px;*/
+	float:right;
+	right: 5px;
+	
+	}
+
+#Itin .ui-datebox-inline { 
+	margin-top: 5px; 
+	border: none;
+	/*width: 150px;*/
+}
+#Itin .ui-flip-content {
+	width: 150px;
+}
+#Itin .ui-flip-center {
+	width: 50px;
+}
+
+#dates .ui-btn-inner {
+	padding: 4px; 
+	width: 40px;
+}
+
+#times .ui-btn-inner{
+	padding: 4px; 
+	width: 30px;
+}
+
+#dates .ui-icon, #times .ui-icon{
+	display:none;
+}
+
+#Itin fieldset {
+	display: inline;
+	margin: 5px;
+}
+
+
 
 .ui-page {
  	text-align: center;

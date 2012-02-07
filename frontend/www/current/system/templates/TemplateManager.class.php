@@ -41,14 +41,16 @@ class TemplateManager {
 		<!-- JQUERY -->
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
 		<script type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
-		<script type="text/javascript" src="lib/jquery/jquery.mobile.actionsheet.js"></script>
-	
-	  <!-- mouse wheel for desktops, overwrite jquery mobile --FIX works with jquery 1.6.4 but bugs with 1.7.* -->
+		
+		<!-- mouse wheel for desktops, overwrite jquery mobile -- it works with jquery 1.6.4 but seems to bug with 1.7.* -->
 		<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
 		
+		<script type="text/javascript" src="lib/jquery/jquery.mobile.actionsheet.js"></script>
+		
 		<!-- JQUERY mobile datebox -->
-		<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
-		<!-- datebox lang config French? -->
+		<script type="text/javascript" src="lib/jquery/jquery.mobile.datebox.js"></script>
+		
+		<!-- datebox lang config in French -->
 		<script>
 			jQuery.extend(jQuery.mobile.datebox.prototype.options.lang, {
 				'fr': {
@@ -68,7 +70,7 @@ class TemplateManager {
 					dateFieldOrder: ['d', 'm', 'y'],
 					timeFieldOrder: ['h', 'i', 'a'],
 					slideFieldOrder: ['y', 'm', 'd'],
-					headerFormat: 'ddd, mmm dd, YYYY',
+					headerFormat: 'ddd dd mmm YYYY',
 					dateFormat: 'dd/mm/YYYY',
 					isRTL: false
 				}
