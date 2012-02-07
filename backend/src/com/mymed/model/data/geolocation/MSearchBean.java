@@ -9,19 +9,15 @@ import com.mymed.model.data.AbstractMBean;
  * 
  */
 public class MSearchBean extends AbstractMBean {
-  // Used for the hashCode()
-  private static final int PRIME = 31;
-
   private String id;
-  private Long locationId;
-  private Integer latitude;
-  private Integer longitude;
+  private long locationId;
+  private int latitude;
+  private int longitude;
   private String value;
-  private Integer distance;
-  private Long date;
-  private Long expirationDate;
+  private int distance;
+  private long date;
+  private long expirationDate;
 
-  /** Getter and Setter */
   public void setId(final String id) {
     this.id = id;
   }
@@ -30,35 +26,35 @@ public class MSearchBean extends AbstractMBean {
     return id;
   }
 
-  public Long getLocationId() {
+  public long getLocationId() {
     return locationId;
   }
 
-  public void setLocationId(final Long locationId) {
+  public void setLocationId(final long locationId) {
     this.locationId = locationId;
   }
 
-  public void setLatitude(final Integer latitude) {
+  public void setLatitude(final int latitude) {
     this.latitude = latitude;
   }
 
-  public Integer getLatitude() {
+  public int getLatitude() {
     return latitude;
   }
 
-  public void setLongitude(final Integer longitude) {
+  public void setLongitude(final int longitude) {
     this.longitude = longitude;
   }
 
-  public Integer getLongitude() {
+  public int getLongitude() {
     return longitude;
   }
 
-  public Integer getDistance() {
+  public int getDistance() {
     return distance;
   }
 
-  public void setDistance(final Integer distance) {
+  public void setDistance(final int distance) {
     this.distance = distance;
   }
 
@@ -74,15 +70,15 @@ public class MSearchBean extends AbstractMBean {
     return date;
   }
 
-  public void setDate(final Long date) {
+  public void setDate(final long date) {
     this.date = date;
   }
 
-  public Long getExpirationDate() {
+  public long getExpirationDate() {
     return expirationDate;
   }
 
-  public void setExpirationDate(final Long expirationDate) {
+  public void setExpirationDate(final long expirationDate) {
     this.expirationDate = expirationDate;
   }
 
@@ -93,13 +89,13 @@ public class MSearchBean extends AbstractMBean {
    */
   @Override
   public int hashCode() {
-
     int result = 1;
-    result = PRIME * result + (distance == null ? 0 : distance.hashCode());
+    result = PRIME * result + (int) (date ^ date >>> 32);
+    result = PRIME * result + distance;
     result = PRIME * result + (id == null ? 0 : id.hashCode());
-    result = PRIME * result + (latitude == null ? 0 : latitude.hashCode());
-    result = PRIME * result + (locationId == null ? 0 : locationId.hashCode());
-    result = PRIME * result + (longitude == null ? 0 : longitude.hashCode());
+    result = PRIME * result + latitude;
+    result = PRIME * result + (int) (locationId ^ locationId >>> 32);
+    result = PRIME * result + longitude;
     result = PRIME * result + (value == null ? 0 : value.hashCode());
     return result;
   }
@@ -111,59 +107,35 @@ public class MSearchBean extends AbstractMBean {
    */
   @Override
   public boolean equals(final Object obj) {
-    if (this == obj) {
-      return true;
-    }
-    if (obj == null) {
-      return false;
-    }
-    if (!(obj instanceof MSearchBean)) {
-      return false;
-    }
-    final MSearchBean other = (MSearchBean) obj;
-    if (distance == null) {
-      if (other.distance != null) {
-        return false;
-      }
-    } else if (!distance.equals(other.distance)) {
-      return false;
-    }
-    if (id == null) {
-      if (other.id != null) {
-        return false;
-      }
-    } else if (!id.equals(other.id)) {
-      return false;
-    }
-    if (latitude == null) {
-      if (other.latitude != null) {
-        return false;
-      }
-    } else if (!latitude.equals(other.latitude)) {
-      return false;
-    }
-    if (locationId == null) {
-      if (other.locationId != null) {
-        return false;
-      }
-    } else if (!locationId.equals(other.locationId)) {
-      return false;
-    }
-    if (longitude == null) {
-      if (other.longitude != null) {
-        return false;
-      }
-    } else if (!longitude.equals(other.longitude)) {
-      return false;
-    }
-    if (value == null) {
-      if (other.value != null) {
-        return false;
-      }
-    } else if (!value.equals(other.value)) {
-      return false;
-    }
-    return true;
-  }
 
+    boolean equal = false;
+
+    if (this == obj) {
+      equal = true;
+    } else if (obj != null && obj instanceof MSearchBean) {
+      final MSearchBean comparable = (MSearchBean) obj;
+
+      equal = true;
+
+      if (id != null && comparable.getId() != null) {
+        equal &= id.equals(comparable.getId());
+      } else if (id == null && comparable.getId() != null || id != null && comparable.getId() == null) {
+        equal &= false;
+      }
+
+      if (value != null && comparable.getValue() != null) {
+        equal &= value.equals(comparable.getValue());
+      } else if (value == null && comparable.getValue() != null || value != null && comparable.getValue() == null) {
+        equal &= false;
+      }
+
+      equal &= date == comparable.getDate();
+      equal &= distance == comparable.getDistance();
+      equal &= latitude == comparable.getLatitude();
+      equal &= locationId == comparable.getLocationId();
+      equal &= longitude == comparable.getLongitude();
+    }
+
+    return equal;
+  }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.tests.unit.manager;
 
 import java.math.BigInteger;
@@ -64,6 +64,14 @@ public class TestValues {
   protected static final String APPLICATION_ID = "application1";
   protected static final String PRODUCER_ID = "producerKey";
   protected static final String CONSUMER_ID = "consumerKey";
+
+  // GeoLocation manager values
+  protected static final String ITEM_TYPE = "item1";
+  protected static final int LATITUDE = 4720000;
+  protected static final int LONGITUDE = 1550000;
+  protected static final int EXPIRING_TIME = 0;
+  protected static final int RADIUS = 25000;
+  protected static final String GEO_VALUE = "simplevalue";
 
   protected static final String IP = "138.126.23.2";
 

@@ -27,6 +27,10 @@ import com.mymed.utils.locator.Locator;
  * 
  */
 public class GeoLocationManager extends AbstractManager {
+
+  private static final long A_MILLION = 1000000L;
+  private static final String SC_LOCATION = COLUMNS.get("column.sc.location");
+
   public GeoLocationManager() throws InternalBackEndException {
     this(new MyJamStorageManager());
   }
@@ -59,22 +63,13 @@ public class GeoLocationManager extends AbstractManager {
       final int latitude, final int longitude, final String value, final int permTime) throws InternalBackEndException,
       IOBackEndException {
     try {
-      /**
-       * Data preparation
-       */
-      long locId;
-
-      locId = Locator.getLocationId((latitude / 1E6), (longitude / 1E6));
+      final long locId = Locator.getLocationId(latitude / 1E6, longitude / 1E6);
       final String areaId = String.valueOf(Locator.getAreaId(locId));
-
-      System.out.println("\n**********LONGITUDE: " + longitude);
-      System.out.println("\n**********LATITUDE: " + latitude);
-      System.out.println("\n**********CREATE AREA ID: " + areaId);
 
       long timestamp = System.currentTimeMillis();
       final MyMedId id = new MyMedId(Character.toLowerCase(itemType.charAt(0)), timestamp, userLogin);
 
-      /** Create a MSearchBean instance to be returned. */
+      // Create a MSearchBean instance to be returned.
       final MSearchBean searchBean = new MSearchBean();
       searchBean.setId(id.toString());
       searchBean.setLocationId(locId);
@@ -82,20 +77,15 @@ public class GeoLocationManager extends AbstractManager {
       searchBean.setLatitude(longitude);
       searchBean.setValue(value);
       searchBean.setDate(timestamp);
-      /** If the TTL has been specified, the expiration time is set on the bean. */
+      // If the TTL has been specified, the expiration time is set on the bean.
       if (permTime != 0) {
-        searchBean.setExpirationDate(timestamp + (permTime * 1000000));
+        searchBean.setExpirationDate(timestamp + A_MILLION * permTime);
       }
-      /**
-       * In cassandra is used the convention of microseconds since 1 Jenuary
-       * 1970.
-       */
-      timestamp = (long) (timestamp * 1E3);
 
-      /**
-       * SuperColumn insertion in CF Location
-       **/
-      ((MyJamStorageManager) storageManager).insertExpiringColumn("Location", applicationId + itemType + areaId,
+      // TODO
+      timestamp *= 1000L;
+
+      ((MyJamStorageManager) storageManager).insertExpiringColumn(SC_LOCATION, applicationId + itemType + areaId,
           MConverter.longToByteBuffer(locId).array(), id.AsByteBuffer().array(), MConverter.stringToByteBuffer(value)
               .array(), timestamp, permTime);
 
@@ -129,24 +119,21 @@ public class GeoLocationManager extends AbstractManager {
        * Data structures preparation
        */
       final Map<byte[], Map<byte[], byte[]>> reports = new HashMap<byte[], Map<byte[], byte[]>>();
-      final List<long[]> covId = Locator.getCoveringLocationId((latitude / 1E6), (longitude / 1E6), radius);
+      final List<long[]> covId = Locator.getCoveringLocationId(latitude / 1E6, longitude / 1E6, radius);
       final List<String> areaIds = new LinkedList<String>();
       final Iterator<long[]> covIdIterator = covId.iterator();
       /**
        * Cassandra calls
        */
-      System.out.println("\n**********LONGITUDE: " + longitude);
-      System.out.println("\n**********LATITUDE: " + latitude);
       while (covIdIterator.hasNext()) {
         final long[] range = covIdIterator.next();
         final long startAreaId = Locator.getAreaId(range[0]);
         final long endAreaId = Locator.getAreaId(range[1]);
         for (long ind = startAreaId; ind <= endAreaId; ind++) {
           areaIds.add(applicationId + itemType + String.valueOf(ind));
-          System.out.println("\n**********READ AREA ID: " + applicationId + itemType + String.valueOf(ind));
         }
         final Map<byte[], Map<byte[], byte[]>> mapRep = ((MyJamStorageManager) storageManager).selectSCRange(
-            "Location", areaIds, MConverter.longToByteBuffer(range[0]).array(), MConverter.longToByteBuffer(range[1])
+            SC_LOCATION, areaIds, MConverter.longToByteBuffer(range[0]).array(), MConverter.longToByteBuffer(range[1])
                 .array());
         reports.putAll(mapRep);
         areaIds.clear();
@@ -157,7 +144,7 @@ public class GeoLocationManager extends AbstractManager {
       for (final byte[] scName : reports.keySet()) {
         final long posId = MConverter.byteBufferToLong(ByteBuffer.wrap(scName));
         final Location reportLoc = Locator.getLocationFromId(posId);
-        final double distance = reportLoc.distanceGCTo(new Location((latitude / 1E6), (longitude / 1E6)));
+        final double distance = reportLoc.distanceGCTo(new Location(latitude / 1E6, longitude / 1E6));
         /** Distance check */
         if (distance <= radius) {
           for (final byte[] colName : reports.get(scName).keySet()) {
@@ -210,7 +197,7 @@ public class GeoLocationManager extends AbstractManager {
     MSearchBean searchBean;
 
     try {
-      final ExpColumnBean expCol = ((MyJamStorageManager) storageManager).selectExpiringColumn("Location",
+      final ExpColumnBean expCol = ((MyJamStorageManager) storageManager).selectExpiringColumn(SC_LOCATION,
           applicationId + itemType + areaId, MConverter.longToByteBuffer(locationId).array(),
           MyMedId.parseString(itemId).AsByteBuffer().array());
 
@@ -224,7 +211,7 @@ public class GeoLocationManager extends AbstractManager {
       searchBean.setLocationId(locationId);
       searchBean.setDate(expCol.getTimestamp());
       if (expCol.getTimeToLive() != 0) {
-        searchBean.setExpirationDate(expCol.getTimestamp() + (expCol.getTimeToLive() * 1000000));
+        searchBean.setExpirationDate(expCol.getTimestamp() + A_MILLION * expCol.getTimeToLive());
       }
 
       return searchBean;
@@ -260,7 +247,7 @@ public class GeoLocationManager extends AbstractManager {
       final String areaId = String.valueOf(Locator.getAreaId(locationId));
       final MyMedId id = MyMedId.parseString(itemId);
 
-      ((MyJamStorageManager) storageManager).removeColumn("Location", applicationId + itemType + areaId, MConverter
+      ((MyJamStorageManager) storageManager).removeColumn(SC_LOCATION, applicationId + itemType + areaId, MConverter
           .longToByteBuffer(locationId).array(), id.AsByteBuffer().array());
     } catch (final WrongFormatException e) {
       throw new InternalBackEndException("Wrong report Id: " + e.getMessage());

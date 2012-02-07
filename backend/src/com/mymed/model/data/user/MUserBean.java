@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.model.data.user;
 
 import com.mymed.model.data.AbstractMBean;
@@ -23,12 +23,6 @@ import com.mymed.model.data.AbstractMBean;
  * @author lvanni
  */
 public final class MUserBean extends AbstractMBean {
-  /* --------------------------------------------------------- */
-  /* Attributes */
-  /* --------------------------------------------------------- */
-  // Used for the hash code
-  private static final int PRIME = 31;
-
   /**
    * ID := SOCIALNETWORKNAME_SOCIALNETWORKID<br>
    * SOCIALNETWORKNAME := MYMED|FACEBOOK|TWITTER|GOOGLE<br>
@@ -131,7 +125,7 @@ public final class MUserBean extends AbstractMBean {
 
     if (this == object) {
       equal = true;
-    } else if (object instanceof MUserBean) {
+    } else if (object != null && object instanceof MUserBean) {
       final MUserBean comparable = (MUserBean) object;
 
       /*
@@ -141,31 +135,32 @@ public final class MUserBean extends AbstractMBean {
        */
       equal = true;
 
-      if (email == null && comparable.getEmail() != null) {
+      if (email == null && comparable.getEmail() != null || email != null && comparable.getEmail() == null) {
         equal &= false;
       } else if (email != null && comparable.getEmail() != null) {
         equal &= email.equals(comparable.getEmail());
       }
 
-      if (firstName == null && comparable.getFirstName() != null) {
+      if (firstName == null && comparable.getFirstName() != null || firstName != null
+          && comparable.getFirstName() == null) {
         equal &= false;
       } else if (firstName != null && comparable.getFirstName() != null) {
         equal &= firstName.equals(comparable.getFirstName());
       }
 
-      if (lastName == null && comparable.getLastName() != null) {
+      if (lastName == null && comparable.getLastName() != null || lastName != null && comparable.getLastName() == null) {
         equal &= false;
       } else if (lastName != null && comparable.getLastName() != null) {
         equal &= lastName.equals(comparable.getLastName());
       }
 
-      if (id == null && comparable.getId() != null) {
+      if (id == null && comparable.getId() != null || id != null && comparable.getId() == null) {
         equal &= false;
       } else if (id != null && comparable.getId() != null) {
         equal &= id.equals(comparable.getId());
       }
 
-      if (name == null && comparable.getName() != null) {
+      if (name == null && comparable.getName() != null || name != null && comparable.getName() == null) {
         equal &= false;
       } else if (name != null && comparable.getName() != null) {
         equal &= name.equals(comparable.getName());

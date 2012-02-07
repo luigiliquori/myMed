@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.tests.unit.manager;
 
 import static org.junit.Assert.fail;
@@ -25,6 +25,7 @@ import org.junit.BeforeClass;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.authentication.AuthenticationManager;
+import com.mymed.controller.core.manager.geolocation.GeoLocationManager;
 import com.mymed.controller.core.manager.interaction.old.InteractionManager;
 import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.reputation.old.ReputationManager;
@@ -53,6 +54,7 @@ public class GeneralTest extends TestValues {
   protected ReputationManager reputationManager;
   protected InteractionManager interactionManager;
   protected AuthenticationManager authenticationManager;
+  protected GeoLocationManager geolocationManager;
 
   // Use default package access level
   static MSessionBean sessionBean;
@@ -142,6 +144,7 @@ public class GeneralTest extends TestValues {
     reputationManager = new ReputationManager(storageManager);
     interactionManager = new InteractionManager(storageManager);
     authenticationManager = new AuthenticationManager(storageManager);
+    geolocationManager = new GeoLocationManager();
   }
 
   @After
@@ -152,5 +155,6 @@ public class GeneralTest extends TestValues {
     reputationManager = null;
     interactionManager = null;
     authenticationManager = null;
+    geolocationManager = null;
   }
 }
