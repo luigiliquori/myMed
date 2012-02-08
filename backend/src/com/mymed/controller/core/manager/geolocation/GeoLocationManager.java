@@ -82,7 +82,6 @@ public class GeoLocationManager extends AbstractManager {
         searchBean.setExpirationDate(timestamp + A_MILLION * permTime);
       }
 
-      // TODO
       timestamp *= 1000L;
 
       ((MyJamStorageManager) storageManager).insertExpiringColumn(SC_LOCATION, applicationId + itemType + areaId,
@@ -91,6 +90,7 @@ public class GeoLocationManager extends AbstractManager {
 
       return searchBean;
     } catch (final GeoLocationOutOfBoundException e) {
+      LOGGER.debug(e.getMessage(), e);
       throw new InternalBackEndException(e.getMessage());
     }
   }
@@ -130,7 +130,7 @@ public class GeoLocationManager extends AbstractManager {
         final long startAreaId = Locator.getAreaId(range[0]);
         final long endAreaId = Locator.getAreaId(range[1]);
         for (long ind = startAreaId; ind <= endAreaId; ind++) {
-          areaIds.add(applicationId + itemType + String.valueOf(ind));
+          areaIds.add(applicationId + itemType + ind);
         }
         final Map<byte[], Map<byte[], byte[]>> mapRep = ((MyJamStorageManager) storageManager).selectSCRange(
             SC_LOCATION, areaIds, MConverter.longToByteBuffer(range[0]).array(), MConverter.longToByteBuffer(range[1])
@@ -145,7 +145,7 @@ public class GeoLocationManager extends AbstractManager {
         final long posId = MConverter.byteBufferToLong(ByteBuffer.wrap(scName));
         final Location reportLoc = Locator.getLocationFromId(posId);
         final double distance = reportLoc.distanceGCTo(new Location(latitude / 1E6, longitude / 1E6));
-        /** Distance check */
+
         if (distance <= radius) {
           for (final byte[] colName : reports.get(scName).keySet()) {
             final MSearchBean searchBean = new MSearchBean();
@@ -168,12 +168,16 @@ public class GeoLocationManager extends AbstractManager {
     } catch (final InternalBackEndException e) {
       throw new InternalBackEndException("Wrong parameter: " + e.getMessage());
     } catch (final GeoLocationOutOfBoundException e) {
+      LOGGER.debug(e.getMessage(), e);
       throw new InternalBackEndException(e.getMessage());
     } catch (final IllegalArgumentException e) {
+      LOGGER.debug(e.getMessage(), e);
       throw new InternalBackEndException("Wrong parameter: " + e.getMessage());
     } catch (final WrongFormatException e) {
+      LOGGER.debug(e.getMessage(), e);
       throw new InternalBackEndException("Wrong object Id: " + e.getMessage());
     } catch (final IOBackEndException e) {
+      LOGGER.debug(e.getMessage(), e);
       throw new IOBackEndException(e.getMessage(), 404);
     }
   }
@@ -210,16 +214,20 @@ public class GeoLocationManager extends AbstractManager {
       searchBean.setValue(MConverter.byteBufferToString(ByteBuffer.wrap(expCol.getValue())));
       searchBean.setLocationId(locationId);
       searchBean.setDate(expCol.getTimestamp());
+
       if (expCol.getTimeToLive() != 0) {
         searchBean.setExpirationDate(expCol.getTimestamp() + A_MILLION * expCol.getTimeToLive());
       }
 
       return searchBean;
     } catch (final WrongFormatException e) {
+      LOGGER.debug(e.getMessage(), e);
       throw new InternalBackEndException("Wrong report Id: " + e.getMessage());
     } catch (final IllegalArgumentException e) {
+      LOGGER.debug(e.getMessage(), e);
       throw new InternalBackEndException("Wrong report Id: " + e.getMessage());
     } catch (final GeoLocationOutOfBoundException e) {
+      LOGGER.debug(e.getMessage(), e);
       throw new InternalBackEndException("Wrong report Id: " + e.getMessage());
     }
   }
@@ -250,8 +258,10 @@ public class GeoLocationManager extends AbstractManager {
       ((MyJamStorageManager) storageManager).removeColumn(SC_LOCATION, applicationId + itemType + areaId, MConverter
           .longToByteBuffer(locationId).array(), id.AsByteBuffer().array());
     } catch (final WrongFormatException e) {
+      LOGGER.debug(e.getMessage(), e);
       throw new InternalBackEndException("Wrong report Id: " + e.getMessage());
     } catch (final IllegalArgumentException e) {
+      LOGGER.debug(e.getMessage(), e);
       throw new InternalBackEndException("Wrong location Id: " + e.getMessage());
     }
   }

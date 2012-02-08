@@ -14,9 +14,7 @@ public class Location {
   private final double radLat; // latitude in radians
   private final double radLon; // longitude in radians
 
-  public Location(final Double latitude, final Double longitude) throws GeoLocationOutOfBoundException {
-    // this.setLatitude(latitude);
-    // this.setLongitude(longitude);
+  public Location(final double latitude, final double longitude) throws GeoLocationOutOfBoundException {
     radLat = Math.toRadians(latitude);
     radLon = Math.toRadians(longitude);
     checkBounds();
@@ -52,8 +50,8 @@ public class Location {
 
   private void checkBounds() throws GeoLocationOutOfBoundException {
     if (radLat < MIN_LAT || radLat > MAX_LAT || radLon < MIN_LON || radLon > MAX_LON) {
-      throw new GeoLocationOutOfBoundException("Location is out of bound. Latitude: " + String.valueOf(getLatitude())
-          + " Longitude: " + String.valueOf(getLongitude()));
+      throw new GeoLocationOutOfBoundException("Location is out of bound. Latitude: " + getLatitude() + " Longitude: "
+          + getLongitude());
     }
   }
 
@@ -118,7 +116,7 @@ public class Location {
   public Location[] boundingCoordinates(final double distance) {
 
     if (distance < 0d) {
-      throw new IllegalArgumentException("Distance cannot be negative: " + String.valueOf(distance));
+      throw new IllegalArgumentException("Distance cannot be negative: " + distance);
     }
 
     // angular distance in radians on a great circle
@@ -148,7 +146,7 @@ public class Location {
       return new Location[] {fromRadians(minLat, minLon, ""), fromRadians(maxLat, maxLon, "")};
     } catch (final GeoLocationOutOfBoundException e) {
       // Never happen because maxLat is limited.
-      e.printStackTrace();
+      // TODO add logger
       return null;
     }
   }
@@ -176,9 +174,8 @@ public class Location {
        * Never happens, because the leftBottomCorner and the rightBottomCorner
        * are inside the limits.
        */
-      e.printStackTrace();
+      // TODO add logger
       return null;
     }
-
   }
 }
