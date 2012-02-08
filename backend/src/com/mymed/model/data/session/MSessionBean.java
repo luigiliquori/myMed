@@ -38,6 +38,47 @@ public class MSessionBean extends AbstractMBean {
   private String accessToken;
   private boolean isExpired = false;
 
+  /**
+   * Create a new MSessionBean
+   */
+  public MSessionBean() {
+    super();
+  }
+
+  /**
+   * Copy constructor
+   * <p>
+   * Provide a clone of the actual bean
+   * 
+   * @param toClone
+   *          the object to clone
+   */
+  protected MSessionBean(final MSessionBean toClone) {
+    id = toClone.getId();
+    user = toClone.getUser();
+    currentApplications = toClone.getCurrentApplications();
+    timeout = toClone.getTimeout();
+    isP2P = toClone.isP2P();
+    port = toClone.getPort();
+    accessToken = toClone.getAccessToken();
+    isExpired = toClone.isExpired();
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#clone()
+   */
+  @Override
+  public MSessionBean clone() {
+    return new MSessionBean(this);
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see com.mymed.model.data.AbstractMBean#toString()
+   */
   @Override
   public String toString() {
     return "Session:\n" + super.toString();
