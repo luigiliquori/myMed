@@ -65,11 +65,12 @@ class EditDialog extends AbstractTemplate {
 						<!-- TO -->
 		
 						<div id="divarrivee">
+						
 							<input data-theme="d" type="text" id="arrivee" name="Arrivée"
-								placeholder="Ma destination" onclick="$(this).select();" /> 
-								
+								placeholder="Ma destination" onclick="$(this).select();" onkeyup="$(this).css('background-image', 'none');"/> 
+
 							<select	id="selectarrivee" data-iconpos="notext" name="enum"
-								onclick=" changeDestination('arrivee')">
+								onchange=" changeDestination('arrivee')">
 		
 								<!-- USER -->	
 								<?php if (isset($_SESSION['position'])) {?>
@@ -91,7 +92,6 @@ class EditDialog extends AbstractTemplate {
 									}
 								} ?>
 		        	</select>
-		
 						</div>
 		
 		
@@ -112,25 +112,32 @@ class EditDialog extends AbstractTemplate {
 									<option value="4">4</option>
 									<option value="5">5</option>
 									<option value="6">6</option>
-									<option value="7" style="display: none">7</option>
-								</select> <select name="select-choice-month"
+									<option value="7">7</option>
+									<option value="8">8</option>
+									<option value="9">9</option>
+									<option value="10">10</option>
+									<option value="11">11</option>
+									<option value="12">12</option>
+									<option value="13">13</option>
+								</select> 
+								<select name="select-choice-month"
 									id="select-choice-month">
 									<option>Mois</option>
-									<option value="jan">Janvier</option>
-									<option value="fev">Février</option>
-									<option value="mar">Mars</option>
-									<option value="apr">Avril</option>
-									<option value="may">Mai</option>
-									<option value="jun">Juin</option>
-									<option value="jul">Juillet</option>
-									<option value="aug">Août</option>
-									<option value="sep">September</option>
-									<option value="oct">Octobre</option>
-									<option value="nov">Novembre</option>
-									<option value="dec">Decembre</option>
+									<option value="1">Janvier</option>
+									<option value="2">Février</option>
+									<option value="3">Mars</option>
+									<option value="4">Avril</option>
+									<option value="5">Mai</option>
+									<option value="6">Juin</option>
+									<option value="7">Juillet</option>
+									<option value="8">Août</option>
+									<option value="9">September</option>
+									<option value="10">Octobre</option>
+									<option value="11">Novembre</option>
+									<option value="12">Decembre</option>
 								</select> <select name="select-choice-year"
 									id="select-choice-year">
-									<option>Year</option>
+									<option>Année</option>
 									<option value="2014">2014</option>
 									<option value="2013">2013</option>
 									<option value="2012">2012</option>
@@ -184,7 +191,7 @@ class EditDialog extends AbstractTemplate {
 					</div>
 		
 					<!-- SUBMIT -->
-					<a href="#" data-role="button"  rel="external" onclick="document.<?= APPLICATION_NAME ?>FindForm.submit()">Trouver</a>	
+					<a href="#" id="trouver" data-role="button"  rel="external" onclick="document.<?= APPLICATION_NAME ?>FindForm.submit()">Trouver</a>	
 				</form>
 				
 			</div>

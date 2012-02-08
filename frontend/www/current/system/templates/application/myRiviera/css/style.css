@@ -27,12 +27,12 @@
   color: LightBlue;
 }
 
-#arrivee {
-	/*background-image:url('../img/flag_finish.png');*/
-	background-repeat: no-repeat;
-	background-position: 164px 6px;
-	background-size: 24px 24px;
+#depart {
+	width:87%;
+	margin-left: auto;
+	margin-right: auto;
 }
+
 #arrivee::-webkit-input-placeholder {
   color: LightGray;
 }
@@ -40,29 +40,24 @@
   color: LightGray;
 }
 
- #depart {
-	width:87%;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-
 #arrivee {
-	width:75%;
-	margin-left: auto;
-	margin-right: auto;
+	/*background-image:url('../img/flag_finish.png');*/
+	background-repeat: no-repeat;
+	background-position: 164px 6px;
+	background-size: 24px 24px;
+	width:78%;
+	float: left;
 }
+
 
 #divarrivee .ui-select {
 	max-width:32px;
-	/*margin-left: auto;*/
-	/*margin-right: auto;*/
-	/*right: -184px;*/
-	/*top: -40px;*/
 	float:right;
-	right: 5px;
-	
-	}
+	top:0;
+}
+#divarrivee{
+	margin: 0 10px;
+}
 
 #Itin .ui-datebox-inline { 
 	margin-top: 5px; 

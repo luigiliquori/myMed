@@ -63,7 +63,7 @@ class FindView extends MyApplication {
 			
 			<div id="myRivieraMap"></div>
 			
-			<div id="itineraire" data-role="collapsible" data-theme="e" data-content-theme="e" style="width: <?= TARGET == "mobile" ? "94" : "50" ?>%;">
+			<div id="itineraire" class="itii" data-role="collapsible" data-theme="e" data-content-theme="e" style="width: <?= TARGET == "mobile" ? "94" : "50" ?>%;">
 				<h3>Feuille de route</h3>
 				<!-- ITINERAIRE -->
 				<?php if ($this->handler->getSuccess()) { ?> 				<!-- FROM CITYWAY -->
@@ -113,13 +113,18 @@ class FindView extends MyApplication {
 							<?php $i++ ?>
 						<?php } ?>
 					</ul>
-					<br />
-				</div>
-			<?php } else if($this->handler->getError() == "1") { ?>  	<!-- FROM GOOGLE -->
-				<input type="hidden" id="start" value="<?= $_POST['Départ'] ?>"/>
-				<input type="hidden" id="end" value="<?= $_POST['Arrivée'] ?>"/>
-				<script type="text/javascript">setTimeout("calcRouteFromGoogle()", 500);</script>
-			<?php } ?>
+					
+					
+					<?php } else if($this->handler->getError() == "1") { ?>  	<!-- FROM GOOGLE -->
+					<input type="hidden" id="start" value="<?= $_POST['Départ'] ?>"/>
+					<input type="hidden" id="end" value="<?= $_POST['Arrivée'] ?>"/>
+					<script type="text/javascript">setTimeout("calcRouteFromGoogle()", 500);</script>
+
+					<?php } ?>
+					
+				<br />
+				</div>	
+			
 			
 			<!-- POIs -->
 			<?php 

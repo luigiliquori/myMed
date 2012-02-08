@@ -22,6 +22,11 @@ function initialize() {
 	});
 	directionsDisplay = new google.maps.DirectionsRenderer();
 	directionsDisplay.setMap(map);
+	
+	// autocompletes Google Maps Places API, should make it work
+     var autocompleteDepart = new google.maps.places.Autocomplete(document.getElementById('depart'));
+     var autocompleteArrivee = new google.maps.places.Autocomplete(document.getElementById('arrivee'));
+     autocompleteDepart.bindTo('bounds', map);
 
 	// GEOLOC
 	if (navigator.geolocation) {
@@ -103,7 +108,14 @@ function calcRouteFromGoogle() {
 	};
 	directionsService.route(request, function(result, status) {
 		if (status == google.maps.DirectionsStatus.OK) {
+			$("#itineraire").delay(1500).fadeIn("slow");
+			//alert("L'API Cityway n'a pu trouver de résultats pour cette date ou ces lieux.\n Le résultat affiché est donné par Google Maps API");
 			directionsDisplay.setDirections(result);
+			var listview = $("<ul data-role='listview' data-inset='true' data-theme='d' data-divider-theme='e'></ul>");
+			console.log(result.routes[0].legs[0].distance.value+" m");
+			/*for (var i=0; i < result.routes[0].legs[0].steps.length; i++){
+				
+			}*/
 		}
 	});
 }

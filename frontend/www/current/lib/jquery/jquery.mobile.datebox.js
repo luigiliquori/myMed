@@ -100,30 +100,30 @@
 		fixDateArrays: false,
 		durationSteppers: {'d': 1, 'h': 1, 'i': 1, 's': 1},
 		disabledDayColor: '#888',
-		useLang: 'en',
+		useLang: 'fr',
 		lang: {
-			'en' : {
-				setDateButtonLabel: 'Set Date',
-				setTimeButtonLabel: 'Set Time',
-				setDurationButtonLabel: 'Set Duration',
-				calTodayButtonLabel: 'Jump to Today',
-				titleDateDialogLabel: 'Set Date',
-				titleTimeDialogLabel: 'Set Time',
-				daysOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-				daysOfWeekShort: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-				monthsOfYear: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-				monthsOfYearShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-				durationLabel: ['Days', 'Hours', 'Minutes', 'Seconds'],
-				durationDays: ['Day', 'Days'],
+			'fr' : {
+				setDateButtonLabel: 'Régler la date',
+				setTimeButtonLabel: "Régler l'heure",
+				setDurationButtonLabel: 'Régler la durée',
+				calTodayButtonLabel: "Aller à aujourd'hui",
+				titleDateDialogLabel: 'Date Fixée',
+				titleTimeDialogLabel: "Régler l'heure",
+				daysOfWeek: ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'],
+				daysOfWeekShort: ['D','L','M','M','J','V','S'],
+				monthsOfYear: ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'],
+				monthsOfYearShort: ['jan','fév','mar','avr','mai','juin','juil.','août','sep','oct','nov','déc'],
+				durationLabel: ['Jours','Heures','Minutes','Secondes'],
+				durationDays: ['Jour','Jours'],
 				timeFormat: 24,
-				headerFormat: '%A, %B %-d, %Y',
-				tooltip: 'Open Date Picker',
-				nextMonth: 'Next Month',
-				prevMonth: 'Previous Month',
-				dateFieldOrder: ['m', 'd', 'y'],
+				headerFormat: '%A %-d %b %y',
+				tooltip: 'Selecteur de date',
+				nextMonth: 'Mois prochain',
+				prevMonth: 'Mois précédent ',
+				dateFieldOrder: ['d', 'm', 'y'],
 				timeFieldOrder: ['h', 'i', 'a'],
 				slideFieldOrder: ['y', 'm', 'd'],
-				dateFormat: '%Y-%m-%d',
+				dateFormat: '%d/%m/%Y',
 				useArabicIndic: false,
 				isRTL: false
 			}
@@ -818,7 +818,7 @@
 			
 			inheritDate = self._makeDate(self.input.val());
 			
-			self.controlsHeader.empty().html( self._formatHeader(self.theDate) );
+			self.controlsHeader.empty().html("Trouver le "+ self._formatHeader(self.theDate) );
 			
 			for ( y=0; y<o.fieldsOrder.length; y++ ) {
 				tmpVal = true;
@@ -1258,7 +1258,7 @@
 			controlsInput = $("<div>", {"class":'ui-datebox-flipcontent'}).appendTo(self.pickerContent);
 			controlsPlus = $("<div>", {"class":'ui-datebox-flipcenter ui-overlay-shadow'}).appendTo(self.pickerContent);
 			controlsSet = templControls.clone().appendTo(self.pickerContent);
-			controlsHeader = $("<div class='ui-datebox-header'><h4>Unitialized</h4></div>").appendTo(self.pickerContent).find("h4");
+			controlsHeader = $("#trouver").find(".ui-btn-text");
 			
 			pickerDay = self._makeElement(templFlip, {'attr': {'field':'d'} });
 			pickerMon = self._makeElement(templFlip, {'attr': {'field':'m'} });
