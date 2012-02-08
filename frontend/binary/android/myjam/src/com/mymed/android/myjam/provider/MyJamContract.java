@@ -26,6 +26,8 @@ public final class MyJamContract {
     	String DATE = "date";
     	/** Login date */
     	String LOGGED = "logged";
+    	/** Access token  */
+    	String ACCESS_TOKEN = "access_token";
     }
     
     interface UserColumns {	

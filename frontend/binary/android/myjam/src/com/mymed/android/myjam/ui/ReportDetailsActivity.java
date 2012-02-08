@@ -13,6 +13,7 @@ import com.mymed.android.myjam.provider.MyJamContract.Update;
 
 import com.mymed.android.myjam.service.MyJamCallService;
 import com.mymed.android.myjam.service.MyJamCallService.RequestCode;
+import com.mymed.android.myjam.controller.HttpCall;
 import com.mymed.android.myjam.controller.ICallAttributes;
 
 import android.app.AlertDialog;
@@ -175,7 +176,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 	public void onResume(){
 		super.onResume();
 		
-		mResultReceiver.setReceiver(this);
+		mResultReceiver.setReceiver(this.getClass().getName(),this);
 		mHandler.setQueryListener(this);
 		/** Starts the report query. */
 		mReportCursor = getContentResolver().query(getIntent().getData(), ReportQuery.PROJECTION, null, null, null);
@@ -207,7 +208,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 				Feedback.buildUpdateIdUri(null),
 					false, mUpdateFeedbacksChangesObserver);
 		
-		if (!mResultReceiver.ismSyncing())
+		if (mResultReceiver.getOngoingCalls(HttpCall.HIGH_PRIORITY).isEmpty())
 			updateRefreshStatus(false,null);
 	}
 	

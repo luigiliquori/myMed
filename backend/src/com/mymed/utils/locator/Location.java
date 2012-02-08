@@ -3,7 +3,7 @@ package com.mymed.utils.locator;
 public class Location {
 	public static double earthRadius = 6371.01d*1E3;
 
-	public Location(Double latitude,Double longitude) throws GeoLocationOutOfBoundException {
+	public Location(double latitude,double longitude) throws GeoLocationOutOfBoundException {
 		//this.setLatitude(latitude);
 		//this.setLongitude(longitude);
 		this.radLat = Math.toRadians(latitude);

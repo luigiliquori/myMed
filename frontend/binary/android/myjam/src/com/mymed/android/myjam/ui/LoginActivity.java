@@ -21,13 +21,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mymed.android.myjam.R;
+import com.mymed.android.myjam.controller.HttpCall;
+import com.mymed.android.myjam.controller.HttpCallHandler;
 import com.mymed.android.myjam.controller.ICallAttributes;
 import com.mymed.android.myjam.provider.MyJamContract.Login;
 import com.mymed.android.myjam.provider.MyJamContract.Search;
 import com.mymed.android.myjam.provider.MyJamContract.SearchReports;
 import com.mymed.android.myjam.provider.MyJamContract.User;
-import com.mymed.android.myjam.service.MyJamCallService;
-import com.mymed.android.myjam.service.MyJamCallService.RequestCode;
+import com.mymed.android.myjam.service.CallService;
+import com.mymed.android.myjam.service.CallService.RequestCode;
+import com.mymed.model.data.myjam.MCallBean;
 import com.mymed.utils.GlobalStateAndUtils;
 import com.mymed.utils.HexEncoder;
 import com.mymed.utils.MyResultReceiver;
@@ -69,15 +72,17 @@ public class LoginActivity extends Activity implements MyResultReceiver.Receiver
 			Login.QUALIFIER+Login.USER_ID,					//2
 			Login.QUALIFIER+Login.LOGGED,					//3
 			Login.QUALIFIER+Login.DATE,						//4
-			User.QUALIFIER+User.USER_NAME					//5
+			Login.QUALIFIER+Login.ACCESS_TOKEN,				//5
+			User.QUALIFIER+User.USER_NAME					//6
 		};
 		
 		int LOGIN = 0;
 		int PASSWORD = 1;
 		int USER_ID = 2;
 		int LOGGED = 3;
+		int ACCESS_TOKEN = 5;
 		//TODO Not used at the moment. int DATE = 4;
-		int USER_NAME = 5;
+		int USER_NAME = 6;
 	}
 
 	@Override
@@ -117,9 +122,9 @@ public class LoginActivity extends Activity implements MyResultReceiver.Receiver
 	protected void onResume() {
 		super.onResume();
 		
-		mResultReceiver.setReceiver(this);
+		mResultReceiver.setReceiver(this.getClass().getName(),this);
 		
-		if (!mResultReceiver.ismSyncing())
+		if (mResultReceiver.getOngoingCalls(HttpCall.HIGH_PRIORITY).isEmpty())
 			updateRefreshStatus(false,0);
 		
 		updateLoginStatus();
@@ -146,12 +151,14 @@ public class LoginActivity extends Activity implements MyResultReceiver.Receiver
 			instance.setPassword(searchCursor.getString(LoginQuery.PASSWORD));
 			instance.setLogged(searchCursor.getInt(LoginQuery.LOGGED)==1?true:false);
 			instance.setUserName(searchCursor.getString(LoginQuery.USER_NAME));
+			instance.setAccessToken(searchCursor.getString(LoginQuery.ACCESS_TOKEN));
 		}else{
 			instance.setUserId(null);
 			instance.setLogin(null);
 			instance.setPassword(null);
 			instance.setLogged(false);
 			instance.setPassword(null);
+			instance.setAccessToken(null);
 		}
 		searchCursor.close();
 	}
@@ -170,7 +177,7 @@ public class LoginActivity extends Activity implements MyResultReceiver.Receiver
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		requestLogout(mGlobalState.getUserId());
+		requestLogout(mGlobalState.getAccessToken());
 	}
 
 	private void createLogInLayout(){
@@ -213,7 +220,7 @@ public class LoginActivity extends Activity implements MyResultReceiver.Receiver
 		mLogButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				if (mGlobalState.isLogged())
-					requestLogout(mGlobalState.getUserId());
+					requestLogout(mGlobalState.getAccessToken());
 			}
 		});
 		mHomeButton.setOnClickListener(new View.OnClickListener() {
@@ -237,25 +244,31 @@ public class LoginActivity extends Activity implements MyResultReceiver.Receiver
 	}
 	
 	private void requestLogin(String login,String pwd){
-		final Intent intent = new Intent(LoginActivity.this, MyJamCallService.class);
-        intent.putExtra(MyJamCallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
-        intent.putExtra(MyJamCallService.EXTRA_REQUEST_CODE, RequestCode.LOG_IN);
+		final Intent intent = new Intent(LoginActivity.this, CallService.class);
+		intent.putExtra(CallService.EXTRA_ACTIVITY_ID, this.getClass().getName());
+		intent.putExtra(CallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
+		intent.putExtra(CallService.EXTRA_REQUEST_CODE, RequestCode.LOG_IN);
+		intent.putExtra(CallService.EXTRA_PRIORITY_CODE, HttpCall.HIGH_PRIORITY);
+		intent.putExtra(CallService.EXTRA_NUMBER_ATTEMPTS, 1);
         Bundle bundle = new Bundle();
         bundle.putString(ICallAttributes.LOGIN, login);
         bundle.putString(ICallAttributes.PASSWORD, pwd);
-        bundle.putString(ICallAttributes.IP, "0.0.0.0"); //TODO Fake IP
-        intent.putExtra(MyJamCallService.EXTRA_ATTRIBUTES, bundle);
+        intent.putExtra(CallService.EXTRA_ATTRIBUTES, bundle);
         Log.d(TAG,"Intent sent: "+intent.toString());
         startService(intent);
+//		startSearchActivity();
 	}
 	
-	private void requestLogout(String userId){
-		final Intent intent = new Intent(LoginActivity.this, MyJamCallService.class);
-        intent.putExtra(MyJamCallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
-        intent.putExtra(MyJamCallService.EXTRA_REQUEST_CODE, RequestCode.COMPLETE_LOG_OUT);
+	private void requestLogout(String accessToken){
+		final Intent intent = new Intent(LoginActivity.this, CallService.class);
+		intent.putExtra(CallService.EXTRA_ACTIVITY_ID, this.getClass().getName());
+		intent.putExtra(CallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
+		intent.putExtra(CallService.EXTRA_REQUEST_CODE, RequestCode.LOG_OUT);
+		intent.putExtra(CallService.EXTRA_PRIORITY_CODE, HttpCall.HIGH_PRIORITY);
+		intent.putExtra(CallService.EXTRA_NUMBER_ATTEMPTS, 1);
         Bundle bundle = new Bundle();
-        bundle.putString(ICallAttributes.USER_ID, userId);
-        intent.putExtra(MyJamCallService.EXTRA_ATTRIBUTES, bundle);
+        bundle.putString(ICallAttributes.ACCESS_TOKEN, accessToken);
+        intent.putExtra(CallService.EXTRA_ATTRIBUTES, bundle);
         Log.d(TAG,"Intent sent: "+intent.toString());
         startService(intent);
 	}
@@ -272,27 +285,27 @@ public class LoginActivity extends Activity implements MyResultReceiver.Receiver
 		boolean mSyncing = false;
 		int code = LOG_IN;
 		
-		int reqCode = resultData.getInt(MyJamCallService.EXTRA_REQUEST_CODE);
+		final MCallBean call = (MCallBean) resultData.getSerializable(CallService.CALL_BEAN);
 		switch (resultCode) {
-		case MyJamCallService.STATUS_RUNNING:
+		case HttpCallHandler.MSG_CALL_START:
 			mSyncing = true;
-			if (reqCode == RequestCode.LOG_IN)
+			if (call.getCallCode() == RequestCode.LOG_IN)
 				code=LOG_IN;
-			else if (reqCode == RequestCode.COMPLETE_LOG_OUT || reqCode == RequestCode.PARTIAL_LOG_OUT)
+			else if (call.getCallCode() == RequestCode.LOG_OUT)
 				code=LOG_OUT;
 			break;
-		case MyJamCallService.STATUS_FINISHED: 
+		case HttpCallHandler.MSG_CALL_SUCCESS: 
 			mSyncing = false;
 			updateLoginStatus();
-			if (reqCode == RequestCode.LOG_IN){
+			if (call.getCallCode() == RequestCode.LOG_IN){
 				Toast.makeText(this, getResources().getString(R.string.logged_in_msg), Toast.LENGTH_SHORT).show();
 				startSearchActivity();
-			}else if (reqCode == RequestCode.COMPLETE_LOG_OUT || reqCode == RequestCode.PARTIAL_LOG_OUT){
+			}else if (call.getCallCode() == RequestCode.LOG_OUT){
 				Toast.makeText(this, getResources().getString(R.string.logged_out_msg), Toast.LENGTH_SHORT).show();
 				createLogInLayout();
 			}
 			break;
-		case MyJamCallService.STATUS_ERROR:
+		case HttpCallHandler.MSG_CALL_ERROR:
 			// Error happened down in SyncService, show as toast.
 			mSyncing = false;
 			String errMsg = resultData.getString(Intent.EXTRA_TEXT);

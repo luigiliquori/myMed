@@ -41,9 +41,12 @@ public class HttpCall implements Runnable{
 	
 	private final static String CHARSET_NAME = "UTF8";
 	private final static Charset CHARSET = Charset.forName(CHARSET_NAME); 
+	// The priority of the call can be high or low.
+	public final static int LOW_PRIORITY=0;
+	public final static int HIGH_PRIORITY=1;
 	
-	//protected static final String BACKEND_URL = "http://10.0.2.2:8080/mymed_backend/"; //Testing purposes.
-	protected static final String BACKEND_URL = "http://130.192.9.113:8080/mymed_backend/"; //Italian backbone.
+	protected static final String BACKEND_URL = "http://10.0.2.2:8080/mymed_backend/"; //Testing purposes.
+	//protected static final String BACKEND_URL = "http://mymed38.polito.it:8080/mymed_backend/"; //Italian backbone.
 	private static final String QUERY_STRING = "?";
 	private static final String AND = "&";
 	private static final String EQUAL = "=";
@@ -54,7 +57,7 @@ public class HttpCall implements Runnable{
 	private String uri;
 	private boolean firstParam = true;
 	private final HttpMethod method;
-	private String JSonObj = null;
+	private String jSonObj = null;
 	private final int id;
 	
 	private HttpUriRequest request = null;
@@ -77,7 +80,7 @@ public class HttpCall implements Runnable{
 		PUT,
 		DELETE;}
 	
-	public HttpCall(HttpCallHandler handler,HttpMethod method, String uriString,Integer id){
+	public HttpCall(Integer id, HttpCallHandler handler,HttpMethod method, String uriString){
 		this.httpClient=CallManager.getInstance().getClient();
 		this.uri = uriString;
 		this.method = method;
@@ -85,9 +88,9 @@ public class HttpCall implements Runnable{
 		this.id = id;
 	};	
 	
-	public HttpCall(HttpCallHandler handler,HttpMethod method, String uriString,Integer id, String JSonObj){
-		this(handler, method, uriString, id);
-		this.JSonObj = JSonObj;
+	public HttpCall(Integer id, HttpCallHandler handler,HttpMethod method, String uriString, String jSonObj){
+		this(id, handler, method, uriString);
+		this.jSonObj = jSonObj;
 	};
 
 	/**
@@ -155,7 +158,6 @@ public class HttpCall implements Runnable{
 	/**
 	 * Run the http method.
 	 */
-	@Override
 	public void run() { 
 		long startCall = System.currentTimeMillis();
 		try{
@@ -175,13 +177,13 @@ public class HttpCall implements Runnable{
 					break;
 				case POST:
 					request = new HttpPost(uri);
-					if (JSonObj != null)
-						((HttpPost) request).setEntity(new StringEntity(JSonObj,CHARSET_NAME));
+					if (jSonObj != null)
+						((HttpPost) request).setEntity(new StringEntity(jSonObj,CHARSET_NAME));
 					break;
 				case PUT:
 					request = new HttpPut(uri);
-					if (JSonObj != null)
-						((HttpPut) request).setEntity(new StringEntity(JSonObj,CHARSET_NAME));
+					if (jSonObj != null)
+						((HttpPut) request).setEntity(new StringEntity(jSonObj,CHARSET_NAME));
 					break;
 				case DELETE:
 					request = new HttpDelete(uri);
@@ -226,30 +228,6 @@ public class HttpCall implements Runnable{
 			default:
 				throw new InternalClientException("Unknown status code.");
 			}			
-//		} catch (URISyntaxException e) {
-//			handler.callError(new InternalClientException("Malformed URI."));
-//			this.request.abort();
-//		} catch (JSONException e) {
-//			handler.callError(new InternalClientException("Wrong message content format."));
-//			this.request.abort();
-//		} catch (UnsupportedEncodingException e) {
-//			handler.callError(new InternalClientException("Unsupported charset."));
-//			this.request.abort();
-//		} catch (IllegalStateException e) {
-//			handler.callError(new InternalClientException("Communication error."));
-//			this.request.abort();
-//		} catch (IOException e) {
-//			handler.callError(new InternalClientException("Communication error."));
-//			this.request.abort();
-//		} catch (IOBackEndException e) {
-//			handler.callError(new InternalClientException(e.getMessage()));
-//			this.request.abort();
-//		} catch (InternalBackEndException e) {
-//			handler.callError(new InternalClientException(e.getMessage()));
-//			this.request.abort();
-//		} catch (InternalClientException e) {
-//			handler.callError(new InternalClientException(e.getMessage()));
-//			this.request.abort();
 		} catch (Exception e) {
 			String message;
 			if (mStopped){
@@ -269,10 +247,17 @@ public class HttpCall implements Runnable{
 	}
 	
 	/**
-	 * Executes the call exploiting the thread pool of the call manager.
+	 * Executes the call exploiting the thread pools of the call manager.
+	 * 
+	 * @param priority The priority of the call: {@value 1} for high priority,
+	 * 	{@value 0} for low priority.
 	 */
-	public void execute(){
-		CallManager.getInstance().execute(this);
+	public void execute(int priority){
+		switch(priority){
+		case LOW_PRIORITY:	CallManager.getInstance().executeLp(this); break;
+		case HIGH_PRIORITY: CallManager.getInstance().executeHp(this); break;
+		default:
+		}
 	}
 	
 	/**

@@ -45,14 +45,16 @@ import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
 import com.mymed.android.myjam.R;
+import com.mymed.android.myjam.controller.HttpCall;
+import com.mymed.android.myjam.controller.HttpCallHandler;
 import com.mymed.android.myjam.controller.ICallAttributes;
 import com.mymed.android.myjam.provider.MyJamContract;
 import com.mymed.android.myjam.provider.MyJamContract.Report;
 import com.mymed.android.myjam.provider.MyJamContract.Search;
 import com.mymed.android.myjam.provider.MyJamContract.SearchReports;
 import com.mymed.android.myjam.provider.MyJamContract.SearchResult;
-import com.mymed.android.myjam.service.MyJamCallService;
-import com.mymed.android.myjam.service.MyJamCallService.RequestCode;
+import com.mymed.android.myjam.service.CallService;
+import com.mymed.android.myjam.service.CallService.RequestCode;
 
 import com.mymed.utils.GeoUtils;
 import com.mymed.utils.GlobalStateAndUtils;
@@ -275,7 +277,7 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 		        Bundle bundle = new Bundle();
 		        bundle.putInt(ICallAttributes.LATITUDE, lat);
 		        bundle.putInt(ICallAttributes.LONGITUDE, lon);
-		        intent.putExtra(MyJamCallService.EXTRA_ATTRIBUTES, bundle);
+		        intent.putExtra(CallService.EXTRA_ATTRIBUTES, bundle);
         		startActivityForResult(intent, INSERT_REPORT_REQ);
         	}
         	else{
@@ -305,28 +307,32 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 	}
 	
 	/**
-	 * Requests a search operation to the {@link MyJamCallService}.
+	 * Requests a search operation to the {@link CallService}.
 	 * @param lat		Latitude of the current position of the user.
 	 * @param lon		Longitude of the current position of the user.
 	 * @param radius	Radius of the search.
 	 * @param searchId	Identifier of the search, used to perform the query and show the right results.
 	 */
 	private void requestSearch(int searchId){
-		final Intent intent = new Intent(SearchActivity.this, MyJamCallService.class);
+		final Intent intent = new Intent(SearchActivity.this, CallService.class);
 		Location currLoc;
 		
 		if (mService != null && (currLoc = mService.getCurrentLocation())!=null){					
 			int lat = (int) (currLoc.getLatitude()*1E6);
 			int lon = (int) (currLoc.getLongitude()*1E6);
 			int radius = Integer.parseInt(mSettings.getString(RADIUS_PREFERENCE,"10000"));
-			intent.putExtra(MyJamCallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
-			intent.putExtra(MyJamCallService.EXTRA_REQUEST_CODE, RequestCode.SEARCH_REPORTS);
+			intent.putExtra(CallService.EXTRA_ACTIVITY_ID, this.getClass().getName());
+			intent.putExtra(CallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
+			intent.putExtra(CallService.EXTRA_REQUEST_CODE, RequestCode.SEARCH_REPORTS);
+			intent.putExtra(CallService.EXTRA_PRIORITY_CODE, HttpCall.HIGH_PRIORITY);
+			intent.putExtra(CallService.EXTRA_NUMBER_ATTEMPTS, 1);
 			Bundle bundle = new Bundle();
+			bundle.putString(ICallAttributes.ACCESS_TOKEN, GlobalStateAndUtils.getInstance(this).getAccessToken());
 			bundle.putInt(ICallAttributes.LATITUDE, lat);
 			bundle.putInt(ICallAttributes.LONGITUDE, lon);
 			bundle.putInt(ICallAttributes.RADIUS, radius);
 			bundle.putInt(ICallAttributes.SEARCH_ID, searchId);
-			intent.putExtra(MyJamCallService.EXTRA_ATTRIBUTES, bundle);
+			intent.putExtra(CallService.EXTRA_ATTRIBUTES, bundle);
 			Log.d(TAG,"Intent sent: "+intent.toString());
 			startService(intent);
 		}		
@@ -370,7 +376,7 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 		// Used to map notes entries from the database to views
 		mAdapter = new SearchListAdapter(this,cursor,true);
 		mList.setAdapter(mAdapter);
-		mResultReceiver.setReceiver(this);
+		mResultReceiver.setReceiver(this.getClass().getName(),this);
 		getContentResolver().registerContentObserver(
 				uri,false, mSearchChangesObserver);
 		//TODO Enable or disable search button.
@@ -378,7 +384,7 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 				handleSearchButton(true);
 				postSearch();
 		}
-		if (!mResultReceiver.ismSyncing())
+		if (mResultReceiver.getOngoingCalls(HttpCall.HIGH_PRIORITY).isEmpty())
 			updateRefreshStatus(false);
 		
 		//** Starts a new thread to where the distance refresh is executed. */ 
@@ -568,14 +574,14 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 		boolean mSyncing = false;
 		
 		switch (resultCode) {
-		case MyJamCallService.STATUS_RUNNING:
+		case HttpCallHandler.MSG_CALL_START:
 			mSyncing = true;
 			break;
-		case MyJamCallService.STATUS_FINISHED: 
+		case HttpCallHandler.MSG_CALL_SUCCESS: 
 			mSyncing = false;
 			Toast.makeText(this, getResources().getString(R.string.search_finished),Toast.LENGTH_LONG).show();
 			break;
-		case MyJamCallService.STATUS_ERROR:
+		case HttpCallHandler.MSG_CALL_ERROR:
 			// Error happened down in SyncService, show as toast.
 			mSyncing = false;
 			//

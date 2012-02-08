@@ -30,10 +30,12 @@ import android.util.Log;
 public class CallManager {
 	private static final String TAG = "CallManager";
 	
-	private static final int poolSize = 4;
+	private static final int hpPoolSize = 1;
+	private static final int lpPoolSize = 4;
 	
 	private HttpClient httpClient;
-	private ExecutorService pool;
+	private ExecutorService highPriorityPool;
+	private ExecutorService lowPriorityPool;
  
     private static CallManager instance;
  
@@ -62,15 +64,16 @@ public class CallManager {
 		/** Sets a timeout for waiting for data. [ms]*/
 		HttpConnectionParams.setSoTimeout(httpParams, 5000);
 		/** Set the maximum number of total connections. */
-		ConnManagerParams.setMaxTotalConnections(httpParams, poolSize);
+		ConnManagerParams.setMaxTotalConnections(httpParams, lpPoolSize+hpPoolSize);
 		/** Set the maximum number of connections per route. */
-		ConnManagerParams.setMaxConnectionsPerRoute(httpParams, new ConnPerRouteBean(poolSize));
+		ConnManagerParams.setMaxConnectionsPerRoute(httpParams, new ConnPerRouteBean(lpPoolSize+hpPoolSize));
 		
     	ThreadSafeClientConnManager connManager = new ThreadSafeClientConnManager(httpParams, schemeRegistry); 
     	httpClient = new DefaultHttpClient(connManager,httpParams);
     	
-    	pool = Executors.newFixedThreadPool(poolSize);
-    	Log.i(TAG, "Executor pool created");
+    	lowPriorityPool = Executors.newFixedThreadPool(lpPoolSize);
+    	highPriorityPool = Executors.newFixedThreadPool(hpPoolSize);
+    	Log.i(TAG, "Executor pools created");
     }
     
     /**
@@ -78,25 +81,37 @@ public class CallManager {
      *  get closed and system resources allocated by those connections are released.
      */
     public static void shutDown() {
-    	
-    	instance.pool.shutdown();
-    	Log.i(TAG, "Executor pool terminating...");
-    	while (!instance.pool.isTerminated()) {
-		}
-		System.out.println("Finished all threads");
-		Log.i(TAG, "Executor pool terminated.");
-		
-    	if (instance!=null)
+    	if (instance!=null){    		
+    		instance.highPriorityPool.shutdown();
+    		Log.i(TAG, "High Priority executor pool terminating...");
+    		while (!instance.highPriorityPool.isTerminated()) {
+    		}
+    		Log.i(TAG,"Finished all threads");
+    		Log.i(TAG, "Executor pool terminated.");
+
+    		instance.lowPriorityPool.shutdown();
+    		Log.i(TAG, "Low Priority executor pool terminating...");
+    		while (!instance.lowPriorityPool.isTerminated()) {
+    		}
+    		Log.i(TAG,"Finished all threads");
+    		Log.i(TAG, "Executor pool terminated.");
+
+    		
     		instance.httpClient.getConnectionManager().shutdown();
+    	}
     }
     
     protected HttpClient getClient(){
     	return instance.httpClient;
     }
     
-	protected Future<?> execute(Runnable runnable){
-    	 return instance.pool.submit(runnable);
+	protected Future<?> executeHp(Runnable runnable){
+    	 return instance.highPriorityPool.submit(runnable);
     }
+	
+	protected Future<?> executeLp(Runnable runnable){
+   	 return instance.lowPriorityPool.submit(runnable);
+   }
     
     
 }

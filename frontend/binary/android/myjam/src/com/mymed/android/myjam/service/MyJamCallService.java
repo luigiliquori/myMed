@@ -283,59 +283,6 @@ public class MyJamCallService extends IntentService{
     			bundle.getInt(ICallAttributes.LATITUDE),
     			bundle.getInt(ICallAttributes.LONGITUDE),
     			bundle.getInt(ICallAttributes.RADIUS));
-			batch = new ArrayList<ContentProviderOperation> ((2*listSearchRep.size())+3);
-			int searchId = bundle.getInt(ICallAttributes.SEARCH_ID);
-			/** 
-			 * If it's a {@link NEW_SEARCH} the following operations are done:
-			 * -The search results with flag OLD_SEARCH are deleted.
-			 * -The search results with flag NEW_SEARCH are marked as old (OLD_SEARCH).
-			 * -The new search results are inserted, with flag NEW_SEARCH.
-			 * -The reports that are no more pointed by entries in SearchResults table and that doesn't belong to
-			 * the current user are deleted.   
-			 **/
-			if (searchId == Search.NEW_SEARCH){
-				batch.add(ContentProviderOperation.newDelete(SearchResult.CONTENT_URI).withSelection(SearchResult.SEARCH_ID_SELECTION,
-						new String[]{String.valueOf(Search.OLD_SEARCH)}).build());
-				batch.add(ContentProviderOperation.newUpdate(SearchResult.CONTENT_URI).withSelection(SearchResult.SEARCH_ID_SELECTION,
-						new String[]{String.valueOf(Search.NEW_SEARCH)}).withValue(SearchResult.SEARCH_ID, Search.OLD_SEARCH).build());
-				/** 
-				 * If it's a {@link INSERT_SEARCH} the following operations are done:
-				 * -The search results with flag INSERT_SEARCH are deleted.
-				 * -The new search results are inserted, with flag INSERT_SEARCH.
-				 * -The reports that are no more pointed by entries in SearchResults table and that doesn't belong to
-				 * the current user are deleted.   
-				 **/
-			}else if(searchId == Search.INSERT_SEARCH){
-				batch.add(ContentProviderOperation.newDelete(SearchResult.CONTENT_URI).withSelection(SearchResult.SEARCH_ID_SELECTION,
-						new String[]{String.valueOf(Search.INSERT_SEARCH)}).build());
-			}else
-				throw new InternalClientException("The search id is not valid.");
-			ContentValues currVal = new ContentValues();
-			currVal.put(Search.SEARCH_ID, searchId);
-			currVal.put(Search.DATE, System.currentTimeMillis());
-			currVal.put(Search.LATITUDE, bundle.getInt(ICallAttributes.LATITUDE));
-			currVal.put(Search.LONGITUDE, bundle.getInt(ICallAttributes.LONGITUDE));
-			currVal.put(Search.RADIUS, bundle.getInt(ICallAttributes.RADIUS));
-			currVal.put(Search.SEARCHING, false);
-			batch.add(ContentProviderOperation.newInsert(Search.CONTENT_URI).withValues(currVal).build());
-			for (MSearchBean currShortRep:listSearchRep){
-				currVal = new ContentValues();
-				currVal.put(SearchResult.REPORT_ID, currShortRep.getId());
-				currVal.put(SearchResult.DISTANCE, currShortRep.getDistance());
-				currVal.put(SearchResult.SEARCH_ID, searchId);
-				batch.add(ContentProviderOperation.newInsert(SearchResult.CONTENT_URI).withValues(currVal).build());
-				currVal = new ContentValues();
-				currVal.put(Report.REPORT_ID,	currShortRep.getId());
-				currVal.put(Report.REPORT_TYPE,	currShortRep.getValue());
-				currVal.put(Report.LATITUDE, currShortRep.getLatitude());
-				currVal.put(Report.LONGITUDE, currShortRep.getLongitude());
-				currVal.put(Report.DATE, currShortRep.getDate());
-				batch.add(ContentProviderOperation.newInsert(Report.CONTENT_URI).withValues(currVal).build());
-			}
-			batch.add(ContentProviderOperation.newDelete(Report.CONTENT_URI).
-					withSelection(Report.STALE_ENTRIES_SELECTION, null).build());
-			resolver.applyBatch(MyJamContract.CONTENT_AUTHORITY, batch);
-			resolver.notifyChange(SearchReports.buildSearchUri(String.valueOf(searchId)), null);
 	}
 	
 	private void getReport(Bundle bundle) 

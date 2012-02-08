@@ -20,7 +20,6 @@ import com.mymed.model.data.myjam.MFeedBackBean;
 
 import com.mymed.model.data.myjam.MyJamTypeValidator;
 import com.mymed.utils.MConverter;
-import com.mymed.utils.MLogger;
 
 /**
  * Manages the requests related to updates.
@@ -33,9 +32,9 @@ public class MyJamFeedbackRequestHandler  extends AbstractRequestHandler  implem
 	/* Attributes */
 	/* --------------------------------------------------------- */
 	private static final long serialVersionUID = 1L;
-	
+
 	private MyJamManager myJamManager;
-	
+
 	/* --------------------------------------------------------- */
 	/* Constructors */
 	/* --------------------------------------------------------- */
@@ -65,6 +64,13 @@ public class MyJamFeedbackRequestHandler  extends AbstractRequestHandler  implem
 			final Map<String, String> parameters = getParameters(request);
 			final RequestCode code = requestCodeMap.get(parameters.get("code"));
 			String id;
+
+			// accessToken
+			if (parameters.get("accessToken") == null) {
+				throw new InternalBackEndException("accessToken argument is missing!");
+			} else {
+				tokenValidation(parameters.get("accessToken")); // Security Validation
+			}
 			
 			switch (code) {
 			case READ : // GET
@@ -81,8 +87,9 @@ public class MyJamFeedbackRequestHandler  extends AbstractRequestHandler  implem
 				throw new InternalBackEndException(this.getClass().getName()+"(" + code + ") not exist!");
 			}
 		} catch (final AbstractMymedException e) {
-			MLogger.getLog().info("Error in doGet operation");
-			MLogger.getDebugLog().debug("Error in doGet operation", e.getCause());
+			e.printStackTrace();
+			LOGGER.info("Error in doGet");
+			LOGGER.debug("Error in doGet", e);
 			message.setStatus(e.getStatus());
 			message.setDescription(e.getMessage());
 		}
@@ -97,16 +104,23 @@ public class MyJamFeedbackRequestHandler  extends AbstractRequestHandler  implem
 	@Override
 	protected void doPost(final HttpServletRequest request, final HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		JsonMessage message = new JsonMessage(200, this.getClass().getName());
 
 		try {
 			final Map<String, String> parameters = getParameters(request);
 			final RequestCode code = requestCodeMap.get(parameters.get("code"));
 			String id, content;
+			
+			// accessToken
+			if (parameters.get("accessToken") == null) {
+				throw new InternalBackEndException("accessToken argument is missing!");
+			} else {
+				tokenValidation(parameters.get("accessToken")); // Security Validation
+			}
 
 			switch (code) {
-			case CREATE :
+			case CREATE :				
 				message.setMethod("CREATE");
 				if ((id = parameters.get(ID)) != null){
 					MyMedId.parseString(id);
@@ -125,38 +139,48 @@ public class MyJamFeedbackRequestHandler  extends AbstractRequestHandler  implem
 			}
 
 		} catch (final AbstractMymedException e) {
-			MLogger.getLog().info("Error in doPost operation");
-			MLogger.getDebugLog().debug("Error in doPost operation", e.getCause());
+			e.printStackTrace();
+			LOGGER.info("Error in doPost operation");
+			LOGGER.debug("Error in doPost operation", e);
 			message.setStatus(e.getStatus());
 			message.setDescription(e.getMessage());
 		} 
 
 		printJSonResponse(message, response);
 	}
-	
+
 	/**
 	 * @see HttpServlet#doDelete(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
 	@Override
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		JsonMessage message = new JsonMessage(200, this.getClass().getName());
 		
 		try{
 			final Map<String, String> parameters = getParameters(request);
 			final RequestCode code = requestCodeMap.get(parameters.get("code"));
+			
+			// accessToken
+			if (parameters.get("accessToken") == null) {
+				throw new InternalBackEndException("accessToken argument is missing!");
+			} else {
+				tokenValidation(parameters.get("accessToken")); // Security Validation
+			}
+			
 			switch (code){
 			case DELETE:
 				message.setMethod("DELETE");
 			}
 			super.doDelete(request, response);
 		} catch (final AbstractMymedException e) { 
-			MLogger.getLog().info("Error in doRequest operation");
-			MLogger.getDebugLog().debug("Error in doRequest operation", e.getCause());
+			e.printStackTrace();
+			LOGGER.info("Error in doDelete operation");
+			LOGGER.debug("Error in doDelete operation", e);
 			message.setStatus(e.getStatus());
-			message.setDescription(e.getMessage());
+			message.setDescription(e.getMessage());		
 		}
 	}
-	
+
 }

@@ -1,12 +1,6 @@
 package com.mymed.controller.core.requesthandler;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.BufferOverflowException;
-import java.nio.ByteBuffer;
-import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +19,7 @@ import com.mymed.model.data.id.MyMedId;
 import com.mymed.model.data.myjam.MReportBean;
 
 import com.mymed.model.data.myjam.MyJamTypeValidator;
-import com.mymed.utils.MLogger;
+import com.mymed.utils.MConverter;
 
 /**
  * Manages the requests related to updates.
@@ -70,6 +64,13 @@ public class MyJamUpdateRequestHandler  extends AbstractRequestHandler implement
 			final Map<String, String> parameters = getParameters(request);
 			final RequestCode code = requestCodeMap.get(parameters.get("code"));
 			String id, start_time;
+			
+			// accessToken
+			if (parameters.get("accessToken") == null) {
+				throw new InternalBackEndException("accessToken argument is missing!");
+			} else {
+				tokenValidation(parameters.get("accessToken")); // Security Validation
+			}
 
 			switch (code) {
 			case READ : // GET
@@ -86,8 +87,9 @@ public class MyJamUpdateRequestHandler  extends AbstractRequestHandler implement
 				throw new InternalBackEndException(this.getClass().getName()+"(" + code + ") not exist!");
 			}
 		} catch (final AbstractMymedException e) {
-			MLogger.getLog().info("Error in doGet operation");
-			MLogger.getDebugLog().debug("Error in doGet operation", e.getCause());
+			e.printStackTrace();
+			LOGGER.info("Error in doGet");
+			LOGGER.debug("Error in doGet", e);
 			message.setStatus(e.getStatus());
 			message.setDescription(e.getMessage());
 		} 
@@ -109,13 +111,20 @@ public class MyJamUpdateRequestHandler  extends AbstractRequestHandler implement
 			final Map<String, String> parameters = getParameters(request);
 			final RequestCode code = requestCodeMap.get(parameters.get("code"));
 			String content, id;
+			
+			// accessToken
+			if (parameters.get("accessToken") == null) {
+				throw new InternalBackEndException("accessToken argument is missing!");
+			} else {
+				tokenValidation(parameters.get("accessToken")); // Security Validation
+			}
 
 			switch (code) {
 			case CREATE :
 				message.setMethod("CREATE");
 				if ((id = parameters.get(ID)) != null){
 					MyMedId updateId = MyMedId.parseString(id);
-					content = convertStreamToString(request.getInputStream(),request.getContentLength());
+					content = MConverter.convertStreamToString(request.getInputStream(),request.getContentLength());
 					MReportBean update = this.getGson().fromJson(content, MReportBean.class);
 					MyJamTypeValidator.validate(update);
 					MReportBean res = myJamManager.insertUpdate(updateId.toString(), update);
@@ -128,8 +137,9 @@ public class MyJamUpdateRequestHandler  extends AbstractRequestHandler implement
 			}
 
 		} catch (final AbstractMymedException e) {
-			MLogger.getLog().info("Error in doPost operation");
-			MLogger.getDebugLog().debug("Error in doPost operation", e.getCause());
+			e.printStackTrace();
+			LOGGER.info("Error in doPost");
+			LOGGER.debug("Error in doPost", e);
 			message.setStatus(e.getStatus());
 			message.setDescription(e.getMessage());
 		} 
@@ -149,58 +159,25 @@ public class MyJamUpdateRequestHandler  extends AbstractRequestHandler implement
 		try{
 			final Map<String, String> parameters = getParameters(request);
 			final RequestCode code = requestCodeMap.get(parameters.get("code"));
+			
+			// accessToken
+			if (parameters.get("accessToken") == null) {
+				throw new InternalBackEndException("accessToken argument is missing!");
+			} else {
+				tokenValidation(parameters.get("accessToken")); // Security Validation
+			}
+			
 			switch (code){
 			case DELETE:
 				message.setMethod("DELETE");
 			}
 			super.doDelete(request, response);
 		} catch (final AbstractMymedException e) { 
-			MLogger.getLog().info("Error in doRequest operation");
-			MLogger.getDebugLog().debug("Error in doRequest operation", e.getCause());
+			e.printStackTrace();
+			LOGGER.info("Error in doDelete");
+			LOGGER.debug("Error in doDelete", e);
 			message.setStatus(e.getStatus());
 			message.setDescription(e.getMessage());
 		}
-	}
-	
-	/**
-	 * Given an InputStream reads the bytes as UTF8 chars and return a 
-	 * String.
-	 * @param is Input stream.
-	 * @param length Length of the stream in bytes.
-	 * @return The string
-	 * @throws InternalBackEndException Format is not correct or the length less then the real wrong.
-	 */
-	private static String convertStreamToString(InputStream is,int length) throws InternalBackEndException {
-		try {
-			if (length>0){
-				ByteBuffer byteBuff = ByteBuffer.allocate(length);
-				int currByte;
-				while ((currByte=is.read()) != -1) {
-					byteBuff.put((byte) currByte);
-				}
-				byteBuff.compact();
-				return com.mymed.utils.MConverter.byteBufferToString(byteBuff);
-			}else{
-				BufferedReader buffRead = new BufferedReader(new InputStreamReader(is,Charset.forName("UTF-8")));
-				StringBuilder sb = new StringBuilder();
-				String line;
-				while ((line = buffRead.readLine()) != null) {
-					sb.append(line + "\n");
-				}
-				return sb.toString();
-			}
-		} catch (IOException e) {
-			throw new InternalBackEndException("Wrong content");
-		} catch (BufferOverflowException e){
-			throw new InternalBackEndException("Wrong length");
-		}finally {
-			try {
-				is.close();             
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	
+	}	
 }

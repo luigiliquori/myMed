@@ -1,6 +1,7 @@
 package com.mymed.android.myjam.controller;
 
 import com.google.gson.Gson;
+import com.mymed.model.data.myjam.MFeedBackBean;
 import com.mymed.model.data.myjam.MReportBean;
 
 
@@ -13,12 +14,12 @@ public class MyJamCallFactory extends HttpCall implements ICallAttributes{
 
 	private MyJamCallFactory(HttpCallHandler handler, HttpMethod method,
 			String uriString, Integer id) {
-		super(handler, method, uriString, id);
+		super(id, handler, method, uriString);
 	}
 	
 	private MyJamCallFactory(HttpCallHandler handler, HttpMethod method,
 			String uriString, Integer id, String JSonObj) {
-		super(handler, method, uriString, id, JSonObj);
+		super(id, handler, method, uriString, JSonObj);
 	}
 
 	//  For local testing with the emulator.
@@ -38,9 +39,11 @@ public class MyJamCallFactory extends HttpCall implements ICallAttributes{
 	 * @throws IOBackEndException 
 	 * @throws InternalBackEndException 
 	 */
-	public static HttpCall searchReports(int id, HttpCallHandler handler, int latitude, int longitude, int radius){
+	public static HttpCall searchReports(int id, HttpCallHandler handler, 
+			String accessToken, int latitude, int longitude, int radius){
 		HttpCall call = new MyJamCallFactory(handler,HttpMethod.GET, MY_JAM_REPORT_HANDLER_URL,id);
 		call.appendAttribute(CODE, RequestCode.READ.code);
+		call.appendAttribute(ACCESS_TOKEN, accessToken);
 		call.appendAttribute(LATITUDE, String.valueOf(latitude));
 		call.appendAttribute(LONGITUDE, String.valueOf(longitude));
 		call.appendAttribute(RADIUS, String.valueOf(radius));
@@ -76,9 +79,11 @@ public class MyJamCallFactory extends HttpCall implements ICallAttributes{
 	 * @throws IOBackEndException
 	 * @throws InternalClientException
 	 */
-	public static HttpCall getReport(int id, HttpCallHandler handler, String reportId){
+	public static HttpCall getReport(int id, HttpCallHandler handler, 
+			String accessToken, String reportId){
 		HttpCall call = new MyJamCallFactory(handler,HttpMethod.GET, MY_JAM_REPORT_HANDLER_URL,id);
 		call.appendAttribute(CODE, RequestCode.READ.code);
+		call.appendAttribute(ACCESS_TOKEN, accessToken);
 		call.appendAttribute(REPORT_ID, reportId);
 		return call;
 	}
@@ -109,9 +114,11 @@ public class MyJamCallFactory extends HttpCall implements ICallAttributes{
 	 * @param startTime
 	 * @return
 	 */
-	public static HttpCall getUpdates(int id, HttpCallHandler handler,String reportId, long startTime){
+	public static HttpCall getUpdates(int id, HttpCallHandler handler,
+			String accessToken, String reportId, long startTime){
 		HttpCall call = new MyJamCallFactory(handler,HttpMethod.GET, MY_JAM_UPDATE_HANDLER_URL,id);
 		call.appendAttribute(CODE, RequestCode.READ.code);
+		call.appendAttribute(ACCESS_TOKEN, accessToken);
 		call.appendAttribute(REPORT_ID, reportId);
 		call.appendAttribute(START_TIME, String.valueOf(startTime));
 		return call;
@@ -143,9 +150,11 @@ public class MyJamCallFactory extends HttpCall implements ICallAttributes{
 	 * @param reportId	Identifier of the report.
 	 * @return	The {@link HttpCall}.
 	 */
-	public static HttpCall getFeedbacks(int id, HttpCallHandler handler,String reportId){
+	public static HttpCall getFeedbacks(int id, HttpCallHandler handler,
+			String accessToken, String reportId){
 		HttpCall call = new MyJamCallFactory(handler,HttpMethod.GET, MY_JAM_FEEDBACK_HANDLER_URL,id);
 		call.appendAttribute(CODE, RequestCode.READ.code);
+		call.appendAttribute(ACCESS_TOKEN, accessToken);
 		call.appendAttribute(REPORT_ID, reportId);
 		return call;
 	}
@@ -208,11 +217,12 @@ public class MyJamCallFactory extends HttpCall implements ICallAttributes{
 	 * @throws InternalBackEndException 
 	 */
 	public static HttpCall insertReport(int id, HttpCallHandler handler,
-			int latitude,int longitude,MReportBean report){
+			String accessToken, int latitude,int longitude, MReportBean report){
 		String jsonReport = gson.toJson(report);
-		HttpCall call = new MyJamCallFactory(handler,HttpMethod.GET, 
-				MY_JAM_FEEDBACK_HANDLER_URL,id,jsonReport);
-		call.appendAttribute(CODE, RequestCode.READ.code);
+		HttpCall call = new MyJamCallFactory(handler,HttpMethod.POST, 
+				MY_JAM_REPORT_HANDLER_URL,id,jsonReport);
+		call.appendAttribute(CODE, RequestCode.CREATE.code);
+		call.appendAttribute(ACCESS_TOKEN, accessToken);
 		call.appendAttribute(LATITUDE, String.valueOf(latitude));
 		call.appendAttribute(LONGITUDE, String.valueOf(longitude));
 		return call;
@@ -240,15 +250,26 @@ public class MyJamCallFactory extends HttpCall implements ICallAttributes{
 //		}
 //	}
 //	
-//	/**
-//	 * Inserts a new update
-//	 * @param id		Id of the report which update refers to.
-//	 * @param update	Java bean containing the informations.
-//	 * @throws InternalBackEndException
-//	 * @throws IOBackEndException
-//	 * @throws InternalClientException
-//	 * @return The updateId
-//	 */
+	/**
+	 * Inserts a new update
+	 * @param id		Id of the report which update refers to.
+	 * @param update	Java bean containing the informations.
+	 * @throws InternalBackEndException
+	 * @throws IOBackEndException
+	 * @throws InternalClientException
+	 * @return The updateId
+	 */
+	public static HttpCall insertUpdate(int id, HttpCallHandler handler, 
+			String accessToken, String reportId, MReportBean update){
+		String jsonUpdate = gson.toJson(update);
+		HttpCall call = new MyJamCallFactory(handler,HttpMethod.POST, 
+				MY_JAM_UPDATE_HANDLER_URL,id,jsonUpdate);
+		call.appendAttribute(CODE, RequestCode.CREATE.code);
+		call.appendAttribute(ACCESS_TOKEN, accessToken);
+		call.appendAttribute(REPORT_ID, reportId);
+		return call;
+	}
+	
 //	public MReportBean insertUpdate(String id,MReportBean update) throws InternalBackEndException, IOBackEndException, InternalClientException{
 //		String q=QUERY+RequestCode.CREATE.code;
 //		q=appendAttribute(q,REPORT_ID,id);
@@ -269,14 +290,26 @@ public class MyJamCallFactory extends HttpCall implements ICallAttributes{
 //			throw new InternalBackEndException("Wrong response format.");
 //		}
 //	}
-//	/**
-//	 * Inserts a new feedBack
-//	 * @param reportId Must be included, so that the system can chek if its expired or not.
-//	 * @param updateId
-//	 * @throws InternalBackEndException
-//	 * @throws IOBackEndException
-//	 * @throws InternalClientException
-//	 */
+	/**
+	 * Inserts a new feedBack
+	 * @param reportId Must be included, so that the system can check if its expired or not.
+	 * @param updateId
+	 * @throws InternalBackEndException
+	 * @throws IOBackEndException
+	 * @throws InternalClientException
+	 */
+	public static HttpCall insertFeedBack(int id, HttpCallHandler handler, 
+			String accessToken, String reportId, String updateId, MFeedBackBean feedback){
+		String jsonUpdate = gson.toJson(feedback);
+		HttpCall call = new MyJamCallFactory(handler,HttpMethod.POST, 
+				MY_JAM_UPDATE_HANDLER_URL,id,jsonUpdate);
+		call.appendAttribute(CODE, RequestCode.CREATE.code);
+		call.appendAttribute(ACCESS_TOKEN, accessToken);
+		call.appendAttribute(REPORT_ID, reportId);
+		if (updateId!=null)
+			call.appendAttribute(UPDATE_ID,updateId);
+		return call;
+	}
 //	public void insertFeedBack(String reportId,String updateId,MFeedBackBean update) throws InternalBackEndException, IOBackEndException, InternalClientException{
 //		String q=QUERY+RequestCode.CREATE.code;
 //		q=appendAttribute(q,REPORT_ID,reportId);
@@ -285,7 +318,16 @@ public class MyJamCallFactory extends HttpCall implements ICallAttributes{
 //		String jSonFeedBack = gson.toJson(update);
 //		System.out.println(httpRequest(MY_JAM_FEEDBACK_HANDLER_URL+q,HttpMethod.POST,jSonFeedBack));
 //	}
-//	
+
+	public static HttpCall deleteReport(int id, HttpCallHandler handler, 
+			String accessToken, String reportId){
+		HttpCall call = new MyJamCallFactory(handler,HttpMethod.DELETE, 
+				MY_JAM_REPORT_HANDLER_URL,id);
+		call.appendAttribute(CODE, RequestCode.DELETE.code);
+		call.appendAttribute(ACCESS_TOKEN, accessToken);
+		call.appendAttribute(REPORT_ID, reportId);
+		return call;
+	}
 //	public void deleteReport(String id) throws InternalBackEndException, IOBackEndException, InternalClientException{
 //		String q=QUERY+RequestCode.DELETE.code;
 //		q=appendAttribute(q,REPORT_ID,id);

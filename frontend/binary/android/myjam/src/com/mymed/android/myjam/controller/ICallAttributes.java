@@ -15,6 +15,8 @@ public interface ICallAttributes {
 	public static final String IP = "ip";
 	public static final String LOGIN = "login";
 	public static final String PASSWORD = "password";
+	public static final String ACCESS_TOKEN = "accessToken";
+	public static final String SOCIAL_NETWORK = "socialNetwork";
 	
 	/*
 	 *  myJam Attributes

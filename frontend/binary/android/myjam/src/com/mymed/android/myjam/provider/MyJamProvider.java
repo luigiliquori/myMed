@@ -130,6 +130,7 @@ public class MyJamProvider extends ContentProvider{
                     + Login.PASSWORD + " TEXT NOT NULL,"
                     + Login.DATE + " INTEGER,"
                     + Login.LOGGED + " INTEGER,"
+                    + Login.ACCESS_TOKEN + " TEXT,"
                     + "UNIQUE (" + User.USER_ID + ") ON CONFLICT REPLACE)");
             
             db.execSQL("CREATE TABLE " + Tables.USERS_TABLE_NAME + " ("
