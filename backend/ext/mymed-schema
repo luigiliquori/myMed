@@ -51,7 +51,6 @@ create column family Position with column_type = 'Standard' and comparator = 'UT
  *  ApplicationList
  *  ApplicationModel
  *  DataList
- *  Location
  *  OntologyList
  *  UserList
  *  InteractionList
@@ -66,8 +65,23 @@ create column family OntologyList with column_type = 'Super' and comparator = 'U
 create column family UserList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family InteractionList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family RaterList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
+
+/*
+ * MyJam related columns
+*/
 create column family Location with column_type = 'Super' and comparator = 'LongType';
 
+/* This columns are not necessary to mymed, these are specific for myjam
+ * create column family Report with column_metadata = [{column_name: user, validation_class:UTF8Type},
+ *             {column_name: type, validation_class:UTF8Type},
+ *             {column_name: transit, validation_class:UTF8Type},
+ *             {column_name: traffic_flow, validation_class:UTF8Type},
+ *             {column_name: comment, validation_class:UTF8Type}];
+ * create column family ActiveReport with comparator = 'com.mymed.data.id.MyMedIdType';
+ * create column family ReportUpdate with comparator = 'com.mymed.data.id.MyMedIdType';
+ * create column family UserReport with comparator = 'com.mymed.data.id.MyMedIdType';
+ * create column family Feedback with comparator = 'UTF8Type';
+*/
 
 /*
  * REPUTATION DATASTRUCTURE
