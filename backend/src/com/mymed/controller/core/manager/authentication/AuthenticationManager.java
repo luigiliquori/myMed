@@ -65,7 +65,6 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
           final Map<String, byte[]> authMap = authentication.getAttributeToMap();
           storageManager.insertSlice(CF_AUTHENTICATION, new String(authMap.get(FIELD_LOGIN), ENCODING), authMap);
         } catch (final UnsupportedEncodingException ex) {
-          LOGGER.info(ERROR_ENCODING, ENCODING);
           LOGGER.debug(ERROR_ENCODING, ENCODING, ex);
 
           throw new InternalBackEndException(ex.getMessage()); // NOPMD
@@ -112,7 +111,6 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
       final Map<String, byte[]> authMap = authentication.getAttributeToMap();
       storageManager.insertSlice(CF_AUTHENTICATION, new String(authMap.get(FIELD_LOGIN), ENCODING), authMap);
     } catch (final UnsupportedEncodingException ex) {
-      LOGGER.info(ERROR_ENCODING, ENCODING);
       LOGGER.debug(ERROR_ENCODING, ENCODING, ex);
 
       throw new InternalBackEndException(ex.getMessage()); // NOPMD
