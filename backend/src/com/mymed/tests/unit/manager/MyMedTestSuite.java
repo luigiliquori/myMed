@@ -23,5 +23,5 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({StorageManagerTest.class, AuthenticationManagerTest.class, ProfileManagerTest.class,
     SessionManagerTest.class, InteractionManagerTest.class, GeoLocationManagerTest.class})
 public class MyMedTestSuite {
-
+  // NOPMD
 }

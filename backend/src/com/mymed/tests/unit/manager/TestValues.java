@@ -29,7 +29,7 @@ import com.mymed.utils.MLogger;
  * 
  * @author Milo Casagrande
  */
-public class TestValues {
+public abstract class TestValues {
   protected static final String CONF_FILE = "conf/config.xml";
   protected static final String NAME = "username";
   protected static final String FIRST_NAME = "John";
@@ -73,7 +73,7 @@ public class TestValues {
   protected static final int RADIUS = 25000;
   protected static final String GEO_VALUE = "simplevalue";
 
-  protected static final String IP = "138.126.23.2";
+  protected static final String IP = "138.126.23.2"; // NOPMD
 
   protected static final Calendar CAL_INSTANCE = Calendar.getInstance();
 

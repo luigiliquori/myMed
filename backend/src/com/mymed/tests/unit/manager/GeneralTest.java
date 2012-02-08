@@ -48,6 +48,17 @@ import com.mymed.utils.MConverter;
  */
 public class GeneralTest extends TestValues {
 
+  protected static MSessionBean sessionBean;
+  protected static MUserBean userBean;
+  protected static MInteractionBean interactionBean;
+  protected static MAuthenticationBean authenticationBean;
+  protected static MReputationBean reputationBean;
+
+  protected static byte[] name;
+  protected static byte[] firstName;
+  protected static byte[] lastName;
+  protected static byte[] birthDate;
+
   protected SessionManager sessionManager;
   protected StorageManager storageManager;
   protected ProfileManager profileManager;
@@ -55,19 +66,6 @@ public class GeneralTest extends TestValues {
   protected InteractionManager interactionManager;
   protected AuthenticationManager authenticationManager;
   protected GeoLocationManager geolocationManager;
-
-  // Use default package access level
-  static MSessionBean sessionBean;
-  static MUserBean userBean;
-  static MInteractionBean interactionBean;
-  static MAuthenticationBean authenticationBean;
-  static MReputationBean reputationBean;
-
-  // Use default package access level
-  static byte[] name;
-  static byte[] firstName;
-  static byte[] lastName;
-  static byte[] birthDate;
 
   @BeforeClass
   public static void setUpOnce() {
@@ -149,12 +147,12 @@ public class GeneralTest extends TestValues {
 
   @After
   public void cleanUp() {
-    sessionManager = null;
-    storageManager = null;
-    profileManager = null;
-    reputationManager = null;
-    interactionManager = null;
-    authenticationManager = null;
-    geolocationManager = null;
+    sessionManager = null; // NOPMD
+    storageManager = null; // NOPMD
+    profileManager = null; // NOPMD
+    reputationManager = null; // NOPMD
+    interactionManager = null; // NOPMD
+    authenticationManager = null; // NOPMD
+    geolocationManager = null; // NOPMD
   }
 }
