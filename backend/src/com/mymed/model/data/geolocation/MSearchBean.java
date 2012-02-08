@@ -18,6 +18,44 @@ public class MSearchBean extends AbstractMBean {
   private long date;
   private long expirationDate;
 
+  /**
+   * Create a new MSearchBean
+   */
+  public MSearchBean() {
+    super();
+  }
+
+  /**
+   * Copy constructor
+   * <p>
+   * Provide a clone of the passed bean
+   * 
+   * @param toClone
+   *          the MSearchBean to clone
+   */
+  protected MSearchBean(final MSearchBean toClone) {
+    super();
+
+    id = toClone.getId();
+    locationId = toClone.getLocationId();
+    latitude = toClone.getLatitude();
+    longitude = toClone.getLongitude();
+    value = toClone.getValue();
+    distance = toClone.getDistance();
+    date = toClone.getDate();
+    expirationDate = toClone.getExpirationDate();
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#clone()
+   */
+  @Override
+  public MSearchBean clone() {
+    return new MSearchBean(this);
+  }
+
   public void setId(final String id) {
     this.id = id;
   }
