@@ -17,6 +17,13 @@ package com.mymed.model.data.session;
 
 import com.mymed.model.data.AbstractMBean;
 
+/**
+ * A session bean
+ * 
+ * @author Milo Casagrande
+ * @author lvanni
+ * 
+ */
 public class MSessionBean extends AbstractMBean {
   /** SESSION_ID */
   private String id;
@@ -66,23 +73,18 @@ public class MSessionBean extends AbstractMBean {
 
     if (this == object) {
       equal = true;
-    } else if (object instanceof MSessionBean) {
+    } else if (object != null && object instanceof MSessionBean) {
       final MSessionBean comparable = (MSessionBean) object;
 
-      /*
-       * We compare only a subsets of the field to check that two MUserBean
-       * objects are the same. These should be values that are set for sure, and
-       * not null.
-       */
       equal = true;
 
-      if (id == null && comparable.getId() != null) {
+      if (id == null && comparable.getId() != null || id != null && comparable.getId() == null) {
         equal &= false;
       } else if (id != null && comparable.getId() != null) {
         equal &= id.equals(comparable.getId());
       }
 
-      if (ip == null && comparable.getIp() != null) {
+      if (ip == null && comparable.getIp() != null || ip != null && comparable.getIp() == null) {
         equal &= false;
       } else if (ip != null && comparable.getIp() != null) {
         equal &= ip.equals(comparable.getIp());
@@ -92,13 +94,14 @@ public class MSessionBean extends AbstractMBean {
       equal &= port == comparable.getPort();
       equal &= isExpired == comparable.isExpired();
 
-      if (accessToken == null && comparable.getAccessToken() != null) {
+      if (accessToken == null && comparable.getAccessToken() != null || accessToken != null
+          && comparable.getAccessToken() == null) {
         equal &= false;
       } else if (accessToken != null && comparable.getAccessToken() != null) {
         equal &= accessToken.equals(comparable.getAccessToken());
       }
 
-      if (user == null && comparable.getUser() != null) {
+      if (user == null && comparable.getUser() != null || user != null && comparable.getUser() == null) {
         equal &= false;
       } else if (user != null && comparable.getUser() != null) {
         equal &= user.equals(comparable.getUser());
@@ -107,9 +110,7 @@ public class MSessionBean extends AbstractMBean {
 
     return equal;
   }
-  /* --------------------------------------------------------- */
-  /* GETTER AND SETTER */
-  /* --------------------------------------------------------- */
+
   /**
    * @return the id of the session
    */
@@ -229,5 +230,4 @@ public class MSessionBean extends AbstractMBean {
   public void setExpired(final boolean isExpired) {
     this.isExpired = isExpired;
   }
-
 }
