@@ -16,7 +16,7 @@ function initialize() {
 	$("#myRivieraMap").height($("body").height() - 45);
 
 	map = new google.maps.Map(document.getElementById("myRivieraMap"), {
-		zoom: 13,
+		zoom: 16,
 		center: new google.maps.LatLng(43.7, 7.27),
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	});

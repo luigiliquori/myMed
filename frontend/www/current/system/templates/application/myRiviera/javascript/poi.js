@@ -1,14 +1,13 @@
-var filter = new Array();
-
-function addFilter(name) {
-	filter[name] = true;
-}
+var filter = new Array("mymed", "carf");
 
 /**
  * Zoom on a position
  * @param position
  */
 function focusOnPosition(latitude, longitude){
+	latitude = 43.774309;
+	longitude = 7.49246;
+	
 	// ZOOM
 	map.panTo(new google.maps.LatLng(latitude, longitude));
 	
@@ -21,16 +20,49 @@ function focusOnPosition(latitude, longitude){
 	});
 	
 	// ADD THE POI AROUND THE POSITION
-	if((pois = getPOIs(latitude, longitude, 1000)) != null){
+	if((pois = getPOIs(latitude, longitude, 500)).length != 0){
 		$.each(pois, function(i, poi) {
-			$.each($.parseJSON(poi.value), function(i, value) {
-				// convert from microdegree to degree
-				setTimeout(function() {
-					addPOI(value.latitude,  value.longitude, value.icon, value.title, value.title);
-				}, i * 300);
-			});
+				value = $.parseJSON(poi.value);
+				addPOI(value.latitude,  value.longitude, value.icon, value.title, value.title);
 		});
 	}
+}
+
+/**
+ * Get the complete list of POI around the position according to the radius
+ * @param latitude
+ * 		latitude in degree
+ * @param longitude
+ * 		longitude in degree	
+ * @param radius
+ * 		radius in meter
+ */
+function getPOIs(latitude, longitude, radius) {
+	
+	var result = new Array();
+	$.each(filter, function(i, type) {
+		args = "code=1";
+		args += "&application=" + $("#applicationName").val();
+		args += "&type=" + type;
+		args += "&latitude=" + latitude;
+		args += "&longitude=" + longitude;
+		args += "&radius=" + radius;
+		args += "&accessToken=" + $("#accessToken").val();
+		
+		var res = $.ajax({
+			url : "backend/POIRequestHandler",
+			dataType : 'json',
+			data : args,
+			async : false
+		}).responseText;
+
+		if((resJSON = $.parseJSON(res)) != null) {
+			if((pois = $.parseJSON(resJSON.data.pois)) != null) {
+				result = result.concat(pois);
+			}
+		}
+	});
+	return result;
 }
 
 /**
@@ -61,43 +93,6 @@ function addPOI(latitude, longitude, icon, title, description){
 	google.maps.event.addListener(marker, 'click', function() {
 		infowindow.open(map,marker);
 	});
-}
-
-/**
- * Get the complete list of POI around the position according to the radius
- * @param latitude
- * 		latitude in degree
- * @param longitude
- * 		longitude in degree	
- * @param radius
- * 		radius in meter
- */
-function getPOIs(latitude, longitude, radius) {
-	
-	args = "code=1";
-	args += "&application=" + $("#applicationName").val();
-	args += "&type=mymed";	// TODO use the filter array
-	args += "&latitude=" + latitude;
-	args += "&longitude=" + longitude;
-	args += "&radius=" + radius;
-	args += "&accessToken=" + $("#accessToken").val();
-	
-	var res = $.ajax({
-		url : "backend/POIRequestHandler",
-		dataType : 'json',
-		data : args,
-		async : false
-	}).responseText;
-
-	if((resJSON = $.parseJSON(res)) != null) {
-		if((pois = $.parseJSON(resJSON.data.pois)) != null) {
-			return pois;
-		} else {
-			return null;
-		}
-	} else {
-		return null;
-	}
 }
 
 /* ****************** */
