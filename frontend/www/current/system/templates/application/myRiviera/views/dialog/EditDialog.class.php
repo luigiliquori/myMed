@@ -43,41 +43,39 @@ class EditDialog extends AbstractTemplate {
 	*/
 	public /*String*/ function getContent() { ?>
 		<div data-theme="b">
-			<div id="Itin">
+			<div id="Itin" data-theme="c">
 				<form action="#" method="post" name="<?= APPLICATION_NAME ?>FindForm" id="<?= APPLICATION_NAME ?>FindForm">
 
 					<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
 					<input type="hidden" name="method" value="find" />
 					<input type="hidden" name="numberOfOntology" value="4" />
-					<input type="hidden" name="mapos" id="mapos" value="" />
-		
 		
 					<div data-role="fieldcontain">
-						<!-- FROM -->
-		
-		
-						<div>
-		
-							<input data-theme="d" type="text" id="depart" name="Départ"
-								placeholder="Ma position" onclick="$(this).select();" />
-						</div>
+					<!-- FROM -->
+					
+	
+						<input data-theme="d" type="text" id="depart" name="Départ"
+							placeholder="point de départ" onclick="$(this).select();" />
 		
 						<!-- TO -->
 		
 						<div id="divarrivee">
 						
 							<input data-theme="d" type="text" id="arrivee" name="Arrivée"
-								placeholder="Ma destination" onclick="$(this).select();" onkeyup="$(this).css('background-image', 'none');"/> 
+								placeholder="point d'arrivée" onclick="$(this).select();" onkeyup="$(this).css('background-image', 'none');"/> 
 
 							<select	id="selectarrivee" data-iconpos="notext" name="enum"
-								onchange=" changeDestination('arrivee')">
-		
+								onchange="changeDestination('arrivee')">
+								
+								<option value="http://www.poledream.com/wp-content/uploads/2009/10/icon_map2.png&&Sophia-antipolis, France">Mymed</option>
+								
 								<!-- USER -->	
-								<?php if (isset($_SESSION['position'])) {?>
+								<?php if (isset($_SESSION['position'])) {//echo '<script type="text/javascript">alert(\' kk '.$_SESSION['user']->profilePicture .'\');</script>';
+								?>
 									<option value="<?= $_SESSION['user']->profilePicture ?>&&<?= $_SESSION['position']->formattedAddress ?>"><?= $_SESSION['user']->name ?></option>
 								<?php } ?>
 								
-								<option value="http://www.poledream.com/wp-content/uploads/2009/10/icon_map2.png&&antibes">Antibes </option>
+								
 			
 								<!-- FRIENDS -->
 								<?php
@@ -98,100 +96,66 @@ class EditDialog extends AbstractTemplate {
 		
 		
 						<!-- DATE -->
-		
-						<div data-role="fieldcontain">
-							<fieldset id="dates" data-role="controlgroup"
+						<div id="date" data-role="fieldcontain">
+						
+						<?php 
+						$now = getdate();
+						$months = array('janvier', 'février', 'mars', 'avril','mai',
+						'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre');
+						?>
+							<fieldset  data-role="controlgroup"
 								data-type="horizontal">
-		
-		
-								<select name="select-choice-day" id="select-choice-day">
+								
+								<select name="select-day" id="select-day">
 									<option>Jour</option>
-									<option value="1">1</option>
-									<option value="2">2</option>
-									<option value="3">3</option>
-									<option value="4">4</option>
-									<option value="5">5</option>
-									<option value="6">6</option>
-									<option value="7">7</option>
-									<option value="8">8</option>
-									<option value="9">9</option>
-									<option value="10">10</option>
-									<option value="11">11</option>
-									<option value="12">12</option>
-									<option value="13">13</option>
-								</select> 
-								<select name="select-choice-month"
-									id="select-choice-month">
+									<?php for ($i = 1; $i <= 31; $i++) {
+									?><option value= <?=$i?> <?php if ($i==$now['mday']){?> selected="selected" <?php } ?> > <?=$i?></option>
+									<?php } ?>
+								</select>
+								 
+								<select name="select-month" id="select-month">
 									<option>Mois</option>
-									<option value="1">Janvier</option>
-									<option value="2">Février</option>
-									<option value="3">Mars</option>
-									<option value="4">Avril</option>
-									<option value="5">Mai</option>
-									<option value="6">Juin</option>
-									<option value="7">Juillet</option>
-									<option value="8">Août</option>
-									<option value="9">September</option>
-									<option value="10">Octobre</option>
-									<option value="11">Novembre</option>
-									<option value="12">Decembre</option>
-								</select> <select name="select-choice-year"
-									id="select-choice-year">
+									<?php for ($i = 0; $i <= 11; $i++) {
+									?><option value= <?=$i+1?> <?php if ($i+1==$now['mon']){?> selected="selected" <?php } ?> > <?=$months[$i]?></option>
+									<?php } ?>
+								</select> 
+								
+								<select name="select-year" id="select-year">
 									<option>Année</option>
-									<option value="2014">2014</option>
-									<option value="2013">2013</option>
-									<option value="2012">2012</option>
-									<option value="2011">2011</option>
-									<option value="2010">2010</option>
-									<option value="2009">2009</option>
-									<option value="2008">2008</option>
-									<option value="2007">2007</option>
-									<option value="2006">2006</option>
-									<option value="2005">2005</option>
-									<option value="2004">2004</option>
+									<?php for ($i = 2012; $i <= 2016; $i++) {
+									?><option value= <?=$i?> <?php if ($i==$now['year']){?> selected="selected" <?php } ?> > <?=$i?></option>
+									<?php } ?>
 								</select>
 							</fieldset>
 		
-							<fieldset id="times" data-role="controlgroup"
-								data-type="horizontal">
-								<select name="select-choice-hour" id="select-choice-hour">
+							<fieldset data-role="controlgroup" data-type="horizontal">
+								<select name="select-hour" id="select-hour">
 									<option>Heure</option>
-									<option value="1">1</option>
-									<option value="2">2</option>
-									<option value="3">3</option>
-									<option value="4">4</option>
-									<option value="5">5</option>
-									<option value="6">6</option>
-									<option value="7" style="display: none">7</option>
-								</select> <select name="select-choice-minute"
-									id="select-choice-minute">
+									<?php for ($i = 0; $i <= 23; $i++) {
+									?><option value= <?=$i?> <?php if ($i==$now['hours']){?> selected="selected" <?php } ?> > <?=$i?> h</option>
+									<?php } ?>
+								</select>
+								
+								<select name="select-minute" id="select-minute">
 									<option>Min</option>
-									<option value="1">1</option>
-									<option value="2">2</option>
-									<option value="3">3</option>
-									<option value="4">4</option>
-									<option value="5">5</option>
-									<option value="6">6</option>
-									<option value="7" style="display: none">7</option>
+									<?php for ($i = 0; $i <= 59; $i++) {
+									?><option value= <?=$i?> <?php if ($i==$now['minutes']){?> selected="selected" <?php } ?> > <?=$i?></option>
+									<?php } ?>
 								</select>
 							</fieldset>
 						</div>
-		
-		
+		 
+		 
+						<!--
 						<input name="date" type="date" data-role="datebox" id="date"
 							data-options='{"useInline": true, "useInlineHideInput":true, "noSetButton":true, "mode": "flipbox", "dateFormat":"GG:ii DD/MM/YYYY", "fieldsOrderOverride":["y","m","d","h","i"] }' />
-						<!--
-			 					 <input data-theme="d" name="date" id="date" type="date" data-role="datebox"
-										data-options='{ "disableManualInput": true, "mode": "slidebox", "dateFormat":"GG:ii dd/mm/YYYY", "fieldsOrderOverride":["h","i","d","m","y"]}'>
-			 					 -->
-		
-		
+						-->
 		
 		
 					</div>
 		
 					<!-- SUBMIT -->
-					<a href="#" id="trouver" data-role="button"  rel="external" onclick="document.<?= APPLICATION_NAME ?>FindForm.submit()">Trouver</a>	
+					<a href="#" id="trouver" data-role="button"  rel="external" data-icon="gear" data-iconpos="right" onclick="document.<?= APPLICATION_NAME ?>FindForm.submit()">Trouver</a>	
 				</form>
 				
 			</div>

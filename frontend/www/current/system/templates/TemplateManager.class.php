@@ -35,7 +35,7 @@ class TemplateManager {
 		<!-- JQUERY CSS -->
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
 		<link rel="stylesheet" href="lib/jquery/jquery.mobile.actionsheet.css" />
-		<link rel="stylesheet" href="lib/jquery/jquery.mobile.datebox.css" />
+		<!-- <link rel="stylesheet" href="lib/jquery/jquery.mobile.datebox.css" />-->
 		
 		
 		<!-- JQUERY -->
@@ -44,10 +44,10 @@ class TemplateManager {
 		<script type="text/javascript" src="lib/jquery/jquery.mobile.actionsheet.js"></script>
 		
 		<!-- mouse wheel for desktops, overwrite jquery mobile -- it works with jquery 1.6.4 but seems to bug with 1.7.* -->
-		<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
+		<!-- <script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>-->
 		
 		<!-- JQUERY mobile datebox -->
-		<script type="text/javascript" src="lib/jquery/jquery.mobile.datebox.js"></script>
+		<!-- <script type="text/javascript" src="lib/jquery/jquery.mobile.datebox.js"></script>-->
 		
 		<!-- MAP -->
 		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=<?= Google_APP_SECRET ?>&sensor=true&libraries=places"> </script>

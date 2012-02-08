@@ -70,8 +70,8 @@ class MyApplicationHandler implements IRequestHandler {
 					if($geocode1->status == "OK" && $geocode2->status == "OK"){
 						
 						// FORMAT date for cityway
-						$tmp = preg_split("/[^0-9]+/", $_POST['date']);
-												
+						//$tmp = preg_split("/[^0-9]+/", $_POST['date']);
+						
 						$args = "&mode=transit" . 
 						"&depLon=" . $geocode1->results[0]->geometry->location->lng .
 						"&depLat=" . $geocode1->results[0]->geometry->location->lat .
@@ -80,7 +80,8 @@ class MyApplicationHandler implements IRequestHandler {
 						"&arrLat=" . $geocode2->results[0]->geometry->location->lat .
 						"&arrType=7" . 
 						"&departureTime=" . 
-						sprintf('%d-%02d-%02d_%02d-%02d',$tmp[4],$tmp[3],$tmp[2],$tmp[0],$tmp[1]);
+						sprintf('%d-%02d-%02d_%02d-%02d',$_POST['select-year'],$_POST['select-month'],$_POST['select-day'],$_POST['select-hour'],$_POST['select-minute']);
+						//sprintf('%d-%02d-%02d_%02d-%02d',$tmp[4],$tmp[3],$tmp[2],$tmp[0],$tmp[1]);
 						// cityway date format yyyy-mm-dd_hh-mm
 						//echo '<script type="text/javascript">alert(\' kk '.$args .'\');</script>';
 						$itineraire = file_get_contents(Cityway_URL . "/tripplanner/v1/detailedtrip/json?key=" . Cityway_APP_ID . $args);
