@@ -46,6 +46,17 @@ public final class MLogger {
   }
 
   /**
+   * Create a new named Logger
+   * 
+   * @param name
+   *          the name of the new logger
+   * @return the new logger
+   */
+  public static Logger createNewLogger(final String name) {
+    return (Logger) LoggerFactory.getLogger(name);
+  }
+
+  /**
    * Get the default mymed backend logger
    * 
    * @return the default logger
