@@ -5,10 +5,39 @@ function addFilter(name) {
 }
 
 /**
+ * Zoom on a position
+ * @param position
+ */
+function focusOnPosition(latitude, longitude){
+	// ZOOM
+	map.panTo(new google.maps.LatLng(latitude, longitude));
+	
+	// ADD POSITION Marker
+	myMarkerImage = 'system/templates/application/myRiviera/img/position.png';
+	var marker = new google.maps.Marker({
+		position: new google.maps.LatLng(latitude, longitude),
+		icon: myMarkerImage,
+		map: map
+	});
+	
+	// ADD THE POI AROUND THE POSITION
+	if((pois = getPOIs(latitude, longitude, 1000)) != null){
+		$.each(pois, function(i, poi) {
+			$.each($.parseJSON(poi.value), function(i, value) {
+				// convert from microdegree to degree
+				setTimeout(function() {
+					addPOI(value.latitude,  value.longitude, value.icon, value.title, value.title);
+				}, i * 300);
+			});
+		});
+	}
+}
+
+/**
  * Add marker according to the myMed jSon format
  * @param elt
  */
-function addMarker(latitude, longitude, icon, title, description){
+function addPOI(latitude, longitude, icon, title, description){
 	var myLatlng = new google.maps.LatLng(latitude, longitude);
 	var marker = new google.maps.Marker({
 		animation: google.maps.Animation.DROP,
@@ -53,8 +82,6 @@ function getPOIs(latitude, longitude, radius) {
 	args += "&radius=" + radius;
 	args += "&accessToken=" + $("#accessToken").val();
 	
-	alert(args);
-	
 	var res = $.ajax({
 		url : "backend/POIRequestHandler",
 		dataType : 'json',
@@ -62,10 +89,14 @@ function getPOIs(latitude, longitude, radius) {
 		async : false
 	}).responseText;
 
-	alert(res);
 	if((resJSON = $.parseJSON(res)) != null) {
-		alert("latitude: " + latitude);
-		alert("longitude: " + longitude);
+		if((pois = $.parseJSON(resJSON.data.pois)) != null) {
+			return pois;
+		} else {
+			return null;
+		}
+	} else {
+		return null;
 	}
 }
 

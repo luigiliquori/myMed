@@ -33,18 +33,21 @@ class MyApplicationHandler implements IRequestHandler {
 				$request = new Request("POIRequestHandler", CREATE);
 				$request->addArgument("application", APPLICATION_NAME);
 				$request->addArgument("user", $_SESSION["user"]->id);
-				$request->addArgument("value", $_POST['data']);
 				$request->addArgument("accessToken", $_SESSION["accessToken"]);
 				if($_POST['poisrc'] == "mymed"){
+					// MYMED POIs
 					$request->addArgument("type", "mymed");
+					$request->addArgument("value", json_encode($poi));
 					$request->addArgument("latitude", $poi->latitude);
 					$request->addArgument("longitude", $poi->longitude);
 				} else {
-					
+					// CARF POIs
+					$request->addArgument("type", "carf");
 				}
 				$request->send();
 			}
 		} else if(isset($_POST['longitude']) && isset($_POST['latitude']) && isset($_POST['radius'])){
+			echo '<script type="text/javascript">alert("hello");</script>';
 			$request = new Request("POIRequestHandler", READ);
 			$request->addArgument("application", APPLICATION_NAME);
 			$request->addArgument("type", "mymed");
@@ -52,7 +55,13 @@ class MyApplicationHandler implements IRequestHandler {
 			$request->addArgument("latitude", $_POST['latitude']);
 			$request->addArgument("radius", $_POST['radius']);
 			$request->addArgument("accessToken", $_SESSION["accessToken"]);
-			$request->send();
+			
+			$responsejSon = $request->send();
+			$responseObject = json_decode($responsejSon);
+			
+			if($responseObject->status != 200) {
+// 				echo '<script type="text/javascript">alert("' . $responseObject->data . '");</script>';
+			}
 		}
 	}
 	

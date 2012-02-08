@@ -1,6 +1,6 @@
 <?php
 
-require_once 'system/templates/application/' . APPLICATION_NAME . '/MyApplication.class.php';
+require_once 'system/templates/application/myRivieraAdmin/MyApplication.class.php';
 require_once 'lib/dasp/beans/MDataBean.class.php';
 require_once 'lib/dasp/request/Request.class.php';
 
@@ -119,11 +119,11 @@ class PublishView extends MyApplication {
 			<!--TEST -->
 			<div data-role="collapsible" data-theme="a" data-content-theme="c" data-collapsed="true" Style="text-align: left;">
 			    <h3>Tests</h3>
-				<form action="#" method="post" name="<?= APPLICATION_NAME ?>FindForm" id="<?= APPLICATION_NAME ?>FindForm" enctype="multipart/form-data">
+				<form action="#" method="post" name="<?= APPLICATION_NAME ?>TestForm" id="<?= APPLICATION_NAME ?>TestForm" enctype="multipart/form-data">
 					Longitude: <input name="longitude" type="text" value="" data-inline="true" /><br />
 				    Latitude: <input name="latitude" type="text" value="" data-inline="true" /><br />
 				    Radius: <input name="radius" type="text" value="" data-inline="true" /><br />
-				    <input type="submit" data-role="button" value="Send" rel="external"/>
+				    <a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>TestForm.submit()" rel="external">Send</a>
 				</form>
 			</div>
 		</div>

@@ -35,7 +35,7 @@ function reloadChat(){
 	args += "&accessToken=" + accessToken;
 
 	var res = $.ajax({
-		url : backendURL + "/FindRequestHandler",
+		url : "backend/FindRequestHandler",
 		dataType : 'json',
 		data : args,
 		async : false

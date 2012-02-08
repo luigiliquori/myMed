@@ -3,8 +3,8 @@
 	define('APPLICATION_NAME', "myRiviera");
 
 	// DEFINE ATTRIBUTES FOR THE JAVASCRIPT PART (AJAX CALL)
-	echo "<input type='hidden' name='applicationName' value='" . APPLICATION_NAME . "' />";
-	echo "<input type='hidden' name='accessToken' value='" . $_SESSION['accessToken'] . "' />";
+	echo "<input type='hidden' id='applicationName' value='" . APPLICATION_NAME . "' />";
+	echo "<input type='hidden' id='accessToken' value='" . $_SESSION['accessToken'] . "' />";
 	
 	// IMPORT THE MAIN VIEW
 	require_once dirname(__FILE__).'/views/tabbar/FindView.class.php';

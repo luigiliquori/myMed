@@ -45,27 +45,6 @@ function initialize() {
 }
 
 /**
- * Zoom on a position
- * @param position
- */
-function focusOnPosition(latitude, longitude){
-	// ZOOM
-	map.panTo(new google.maps.LatLng(latitude, longitude));
-
-	// ADD POSITION Marker
-	myMarkerImage = 'system/templates/application/myRiviera/img/position.png';
-	var marker = new google.maps.Marker({
-		position: new google.maps.LatLng(latitude, longitude),
-		icon: myMarkerImage,
-		map: map
-	});
-	
-	// ADD THE POI AROUND THE POSITION
-	getPOIs(latitude, longitude, 1000);
-}
-
-
-/**
  * Print route (itineraire) from Google API
  * In case of cityway errors
  */
