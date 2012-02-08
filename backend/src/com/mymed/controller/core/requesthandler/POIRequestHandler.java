@@ -58,6 +58,23 @@ public class POIRequestHandler extends AbstractRequestHandler {
 			throw new ServletException("GeoLocationManager is not accessible because: " + e.getMessage());
 		}
 	}
+	
+	/* --------------------------------------------------------- */
+	/* private methods */
+	/* --------------------------------------------------------- */
+	private int convertDegreeToMicroDegree(String coord){
+		String[] digits = coord.split("\\.");
+		String result = digits[0];
+		int i = 0;
+		while (i < digits[1].length() && i < 6) {
+			result += digits[1].charAt(i);
+			i++;
+		}
+		for(int j=i ; j < 6 ; j++){
+			result += "0";
+		}
+		return Integer.parseInt(result);
+	}
 
 	/* --------------------------------------------------------- */
 	/* extends HttpServlet */
@@ -103,12 +120,12 @@ public class POIRequestHandler extends AbstractRequestHandler {
 				}
 				
 				// GET THE POIs
-				int latitudeMicroDegrees = (int) (Double.parseDouble(latitude) / 1000000);
-				int longitudeMicroDegrees = (int) (Double.parseDouble(longitude) / 1000000);
-				List<MSearchBean> pois = geoLocationManager.read(application, type, latitudeMicroDegrees, longitudeMicroDegrees, Integer.parseInt(radius));
+				List<MSearchBean> pois = geoLocationManager.read(application, type, convertDegreeToMicroDegree(latitude), convertDegreeToMicroDegree(longitude), Integer.parseInt(radius));
 				message.setDescription("POIs successfully read!");
 				Gson gson = new Gson();
 				message.addData("pois", gson.toJson(pois));
+				
+				System.out.println("********POIs: " + gson.toJson(pois));
 				
 				break;
 			default :
@@ -167,12 +184,7 @@ public class POIRequestHandler extends AbstractRequestHandler {
 				}
 				
 				// CREATE THE NEW POI
-				System.out.println(Long.parseLong(latitude));
-				System.out.println(Long.parseLong(latitude) / 1000000);
-				System.out.println((int) (Long.parseLong(latitude) / 1000000));
-				int latitudeMicroDegrees = (int) (Double.parseDouble(latitude) / 1000000);
-				int longitudeMicroDegrees = (int) (Double.parseDouble(longitude) / 1000000);
-				geoLocationManager.create(application, type, user, latitudeMicroDegrees, longitudeMicroDegrees, null, 0);
+				geoLocationManager.create(application, type, user, convertDegreeToMicroDegree(latitude), convertDegreeToMicroDegree(longitude), value, 0);
 				
 				message.setDescription("POIs successfully created!");
 				break;

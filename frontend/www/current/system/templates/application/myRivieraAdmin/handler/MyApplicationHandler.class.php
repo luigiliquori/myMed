@@ -44,6 +44,15 @@ class MyApplicationHandler implements IRequestHandler {
 				}
 				$request->send();
 			}
+		} else if(isset($_POST['longitude']) && isset($_POST['latitude']) && isset($_POST['radius'])){
+			$request = new Request("POIRequestHandler", READ);
+			$request->addArgument("application", APPLICATION_NAME);
+			$request->addArgument("type", "mymed");
+			$request->addArgument("longitude", $_POST['longitude']);
+			$request->addArgument("latitude", $_POST['latitude']);
+			$request->addArgument("radius", $_POST['radius']);
+			$request->addArgument("accessToken", $_SESSION["accessToken"]);
+			$request->send();
 		}
 	}
 	

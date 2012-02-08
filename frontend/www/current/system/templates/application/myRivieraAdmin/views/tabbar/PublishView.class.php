@@ -115,6 +115,17 @@ class PublishView extends MyApplication {
 					<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>PublishForm2.submit()">Publish</a>
 				</form>
 			</div>
+			
+			<!--TEST -->
+			<div data-role="collapsible" data-theme="a" data-content-theme="c" data-collapsed="true" Style="text-align: left;">
+			    <h3>Tests</h3>
+				<form action="#" method="post" name="<?= APPLICATION_NAME ?>FindForm" id="<?= APPLICATION_NAME ?>FindForm" enctype="multipart/form-data">
+					Longitude: <input name="longitude" type="text" value="" data-inline="true" /><br />
+				    Latitude: <input name="latitude" type="text" value="" data-inline="true" /><br />
+				    Radius: <input name="radius" type="text" value="" data-inline="true" /><br />
+				    <input type="submit" data-role="button" value="Send" rel="external"/>
+				</form>
+			</div>
 		</div>
 	<?php }
 	
