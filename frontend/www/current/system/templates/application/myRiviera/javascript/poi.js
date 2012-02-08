@@ -1,3 +1,9 @@
+var filter = new Array();
+
+function addFilter(name) {
+	filter[name] = true;
+}
+
 /**
  * Add marker according to the myMed jSon format
  * @param elt
@@ -26,6 +32,41 @@ function addMarker(latitude, longitude, icon, title, description){
 	google.maps.event.addListener(marker, 'click', function() {
 		infowindow.open(map,marker);
 	});
+}
+
+/**
+ * Get the complete list of POI around the position according to the radius
+ * @param latitude
+ * 		latitude in degree
+ * @param longitude
+ * 		longitude in degree	
+ * @param radius
+ * 		radius in meter
+ */
+function getPOIs(latitude, longitude, radius) {
+	
+	args = "code=1";
+	args += "&application=" + $("#applicationName").val();
+	args += "&type=mymed";	// TODO use the filter array
+	args += "&latitude=" + latitude;
+	args += "&longitude=" + longitude;
+	args += "&radius=" + radius;
+	args += "&accessToken=" + $("#accessToken").val();
+	
+	alert(args);
+	
+	var res = $.ajax({
+		url : "backend/POIRequestHandler",
+		dataType : 'json',
+		data : args,
+		async : false
+	}).responseText;
+
+	alert(res);
+	if((resJSON = $.parseJSON(res)) != null) {
+		alert("latitude: " + latitude);
+		alert("longitude: " + longitude);
+	}
 }
 
 /* ****************** */

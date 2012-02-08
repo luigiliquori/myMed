@@ -25,7 +25,7 @@ class PublishView extends MyApplication {
 	 * Default constructor
 	 */
 	public function __construct() {
-		parent::__construct("myRivieraAdmin");
+		parent::__construct("myRiviera");
 	}
 	
 	/* --------------------------------------------------------- */

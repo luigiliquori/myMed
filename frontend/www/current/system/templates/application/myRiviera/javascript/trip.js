@@ -59,6 +59,9 @@ function focusOnPosition(latitude, longitude){
 		icon: myMarkerImage,
 		map: map
 	});
+	
+	// ADD THE POI AROUND THE POSITION
+	getPOIs(latitude, longitude, 1000);
 }
 
 
