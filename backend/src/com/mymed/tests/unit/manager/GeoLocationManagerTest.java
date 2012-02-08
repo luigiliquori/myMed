@@ -66,16 +66,9 @@ public class GeoLocationManagerTest extends GeneralTest {
    */
   @Test(expected = IOBackEndException.class)
   public void deleteTest() throws InternalBackEndException, IOBackEndException {
-    MSearchBean createLocation = null;
-
-    try {
-      createLocation = geolocationManager.create(APPLICATION_ID, ITEM_TYPE, USER_ID, LATITUDE + 10, LONGITUDE - 10,
-          GEO_VALUE, EXPIRING_TIME);
-      geolocationManager.delete(APPLICATION_ID, ITEM_TYPE, createLocation.getLocationId(), createLocation.getId());
-    } catch (final Exception ex) {
-      fail(ex.getMessage());
-    }
-
+    final MSearchBean createLocation = geolocationManager.create(APPLICATION_ID, ITEM_TYPE, USER_ID, LATITUDE + 10,
+        LONGITUDE - 10, GEO_VALUE, EXPIRING_TIME);
+    geolocationManager.delete(APPLICATION_ID, ITEM_TYPE, createLocation.getLocationId(), createLocation.getId());
     geolocationManager.read(APPLICATION_ID, ITEM_TYPE, createLocation.getLocationId(), createLocation.getId());
   }
 }
