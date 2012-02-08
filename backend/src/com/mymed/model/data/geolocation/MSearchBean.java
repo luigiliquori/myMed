@@ -117,16 +117,16 @@ public class MSearchBean extends AbstractMBean {
 
       equal = true;
 
-      if (id != null && comparable.getId() != null) {
-        equal &= id.equals(comparable.getId());
-      } else if (id == null && comparable.getId() != null || id != null && comparable.getId() == null) {
+      if (id == null && comparable.getId() != null || id != null && comparable.getId() == null) {
         equal &= false;
+      } else if (id != null && comparable.getId() != null) {
+        equal &= id.equals(comparable.getId());
       }
 
-      if (value != null && comparable.getValue() != null) {
-        equal &= value.equals(comparable.getValue());
-      } else if (value == null && comparable.getValue() != null || value != null && comparable.getValue() == null) {
+      if (value == null && comparable.getValue() != null || value != null && comparable.getValue() == null) {
         equal &= false;
+      } else if (value != null && comparable.getValue() != null) {
+        equal &= value.equals(comparable.getValue());
       }
 
       equal &= date == comparable.getDate();
