@@ -26,22 +26,28 @@ function initialize() {
 	// autocompletes Google Maps Places API, should make it work
      var autocompleteDepart = new google.maps.places.Autocomplete(document.getElementById('depart'));
      var autocompleteArrivee = new google.maps.places.Autocomplete(document.getElementById('arrivee'));
-     autocompleteDepart.bindTo('bounds', map);
+     autocompleteArrivee.bindTo('bounds', map);
 
 	// GEOLOC
 	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(function(position) {
+		navigator.geolocation.getCurrentPosition(
+		function(position) {
 			myLat = position.coords.latitude;
 			myLng = position.coords.longitude;
 			//$("#mapos").val(myLat+'&'+myLng);
+			//alert(myLat+'&'+myLng);
 			$('#depart').val(myLat+'&'+myLng);
 			focusOnPosition(position.coords.latitude, position.coords.longitude);
 		}, 
-		null, 
+		function(position) {
+			alert('code: '    + error.code    + '\n' +
+			'message: ' + error.message + '\n');
+		},
 		{enableHighAccuracy:true});
 	} else {
 		alert("Votre navigateur ne prend pas en compte la géolocalisation HTML5");
 	}
+	
 }
 
 /**
@@ -113,13 +119,6 @@ function changeDestination(dest){
 	$("#"+dest).css("background-image", 'url('+picture+')');
 }
 
-/**
- * Set the current time on the date field
- */
-function setTime(){
-	var d=new Date();
-	$("#date").val( d.getHours()+":"+("0" + (d.getMinutes())).slice(-2)+" le "+ d.getDate()+'/'+d.getMonth() +'/'+d.getFullYear());
-}
 
 function getMap(){
 	

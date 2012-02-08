@@ -71,17 +71,12 @@
 	width: 50px;
 }
 
-#dates .ui-btn-inner {
+#date .ui-btn-inner {
 	padding: 4px; 
-	width: 40px;
+	/*width: 40px;*/
 }
 
-#times .ui-btn-inner{
-	padding: 4px; 
-	width: 30px;
-}
-
-#dates .ui-icon, #times .ui-icon{
+#date .ui-icon{
 	display:none;
 }
 
@@ -89,8 +84,6 @@
 	display: inline;
 	margin: 5px;
 }
-
-
 
 .ui-page {
  	text-align: center;

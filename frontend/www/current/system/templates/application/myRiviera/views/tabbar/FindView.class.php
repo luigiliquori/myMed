@@ -36,7 +36,7 @@ class FindView extends MyApplication {
 	public /*String*/ function getHeader() { ?>
 		<div data-role="header" data-theme="b">
 				
-			<a id="Iti" data-role="actionsheet" data-sheet="Itin" data-icon="search" class="ui-btn-left" onclick="setTime();">Itinéraire</a> 
+			<a id="Iti" data-role="actionsheet" data-sheet="Itin" data-icon="search" class="ui-btn-left">Itinéraire</a> 
 			
 			<div class="ui-btn-right">
 				<select name="select-choice" id="select-choice" multiple="multiple" data-native-menu="false" >
@@ -63,7 +63,7 @@ class FindView extends MyApplication {
 			
 			<div id="myRivieraMap"></div>
 			
-			<div id="itineraire" class="itii" data-role="collapsible" data-theme="e" data-content-theme="e" style="width: <?= TARGET == "mobile" ? "94" : "50" ?>%;">
+			<div id="itineraire" data-role="collapsible" data-theme="e" data-content-theme="e" style="width: <?= TARGET == "mobile" ? "94" : "50" ?>%;">
 				<h3>Feuille de route</h3>
 				<!-- ITINERAIRE -->
 				<?php if ($this->handler->getSuccess()) { ?> 				<!-- FROM CITYWAY -->
