@@ -108,11 +108,4 @@ public class TestValues {
 
     return hex.toString();
   }
-
-  /**
-   * Private constructor, this class holds only variables
-   */
-  private TestValues() {
-    // Empty private constructor
-  }
 }
