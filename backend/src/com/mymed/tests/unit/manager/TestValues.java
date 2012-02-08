@@ -29,7 +29,7 @@ import com.mymed.utils.MLogger;
  * 
  * @author Milo Casagrande
  */
-public abstract class TestValues {
+public class TestValues {
   protected static final String CONF_FILE = "conf/config.xml";
   protected static final String NAME = "username";
   protected static final String FIRST_NAME = "John";
@@ -107,5 +107,12 @@ public abstract class TestValues {
     }
 
     return hex.toString();
+  }
+
+  /**
+   * Private constructor, this class holds only variables
+   */
+  private TestValues() {
+    // Empty private constructor
   }
 }

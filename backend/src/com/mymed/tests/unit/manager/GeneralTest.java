@@ -67,10 +67,11 @@ public class GeneralTest extends TestValues {
   protected AuthenticationManager authenticationManager;
   protected GeoLocationManager geolocationManager;
 
+  private static final String date = "1971-01-01";
+
   @BeforeClass
   public static void setUpOnce() {
     CAL_INSTANCE.set(1971, 1, 1);
-    final String date = "1971-01-01";
     birthDate = MConverter.longToByteBuffer(CAL_INSTANCE.getTimeInMillis()).array();
 
     sessionBean = new MSessionBean();
