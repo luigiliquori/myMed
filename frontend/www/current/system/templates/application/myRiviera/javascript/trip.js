@@ -43,7 +43,7 @@ function initialize() {
 			alert('code: '    + error.code    + '\n' +
 			'message: ' + error.message + '\n');
 		},
-		{enableHighAccuracy:true});
+		{maximumAge: 300000});
 	} else {
 		alert("Votre navigateur ne prend pas en compte la géolocalisation HTML5");
 	}
