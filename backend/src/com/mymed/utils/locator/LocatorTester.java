@@ -8,7 +8,7 @@ public class LocatorTester {
 		Location loc;
 		KeysFinder kf;
 	    try{
-	        loc = new Location(45.15,7.70);	
+	        loc = new Location(Math.toRadians(45.15),Math.toRadians(7.70));	
 	    }catch(Exception e){
 	    	e.printStackTrace();
 	    	loc=null;
@@ -26,7 +26,7 @@ public class LocatorTester {
 	    List<long[]> ranges;
 		//Set<HilbertQuad> quadsSet;
 	    long startnow = System.currentTimeMillis();
-	    ranges = kf.getKeysRanges(loc, 100000);
+	    ranges = kf.getKeysRanges(loc, 50000);
 	    //quadsList = hc.getBound(loc, 100000,quadsList);
 	    long endnow = System.currentTimeMillis();
 	    System.out.println("Execution time:"+ String.valueOf(endnow-startnow));

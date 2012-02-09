@@ -5,7 +5,7 @@ import java.util.Comparator;
 public class HqComparator implements Comparator<HilbertQuad> {
 	
 	/**
-	 * Nota that this comparator doesn't work if used for nested quads!!
+	 * Note that this comparator doesn't work if used for nested quads!!
 	 */
 	@Override
 	public int compare(HilbertQuad object1, HilbertQuad object2) {

@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import com.mymed.controller.core.exception.GeoLocationOutOfBoundException;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.exception.WrongFormatException;
@@ -24,7 +25,6 @@ import com.mymed.model.data.myjam.MyJamTypeValidator;
 import com.mymed.model.data.myjam.MyJamTypes.ReportType;
 import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.MConverter;
-import com.mymed.utils.locator.GeoLocationOutOfBoundException;
 import com.mymed.utils.locator.Locator;
 
 /**
@@ -56,7 +56,7 @@ public class MyJamManager extends AbstractManager{
 			/**
 			 * Data preparation
 			 */
-			long locId = Locator.getLocationId((double) (latitude/1E6),(double) (longitude/1E6));
+			long locId = Locator.getLocationId(latitude,longitude);
 
 			/** The user profile is received ProfileManager */
 			final ProfileManager profileManager = new ProfileManager(new StorageManager());
@@ -128,7 +128,7 @@ public class MyJamManager extends AbstractManager{
 
 		final GeoLocationManager locatorManager = new GeoLocationManager();
 
-		return locatorManager.read("myJam", "report", latitude, longitude, radius);
+		return locatorManager.read("myJam", "report", latitude, longitude, radius, true);
 	}
 
 	/**
@@ -342,7 +342,7 @@ public class MyJamManager extends AbstractManager{
 			((MyJamStorageManager) storageManager).removeColumn("ActiveReport", report.getUserId(), null,
 					id.AsByteBuffer().array());
 			/**
-			 * Removes the column by ActiveReport CF, if present.
+			 * Removes the column by Location CF, if present.
 			 */
 			((MyJamStorageManager) storageManager).removeColumn("Location", areaId, 
 					MConverter.longToByteBuffer(locationId).array(), 
