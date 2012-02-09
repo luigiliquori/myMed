@@ -1,8 +1,75 @@
+var filter = new Array("mymed", "carf");
+
+/**
+ * Zoom on a position
+ * @param position
+ */
+function focusOnPosition(latitude, longitude){
+	latitude = 43.774309;
+	longitude = 7.49246;
+	
+	// ZOOM
+	map.panTo(new google.maps.LatLng(latitude, longitude));
+	
+	// ADD POSITION Marker
+	myMarkerImage = 'system/templates/application/myRiviera/img/position.png';
+	var marker = new google.maps.Marker({
+		position: new google.maps.LatLng(latitude, longitude),
+		icon: myMarkerImage,
+		map: map
+	});
+	
+	// ADD THE POI AROUND THE POSITION
+	if((pois = getPOIs(latitude, longitude, 500)).length != 0){
+		$.each(pois, function(i, poi) {
+				value = $.parseJSON(poi.value);
+				addPOI(value.latitude,  value.longitude, value.icon, value.title, value.title);
+		});
+	}
+}
+
+/**
+ * Get the complete list of POI around the position according to the radius
+ * @param latitude
+ * 		latitude in degree
+ * @param longitude
+ * 		longitude in degree	
+ * @param radius
+ * 		radius in meter
+ */
+function getPOIs(latitude, longitude, radius) {
+	
+	var result = new Array();
+	$.each(filter, function(i, type) {
+		args = "code=1";
+		args += "&application=" + $("#applicationName").val();
+		args += "&type=" + type;
+		args += "&latitude=" + latitude;
+		args += "&longitude=" + longitude;
+		args += "&radius=" + radius;
+		args += "&accessToken=" + $("#accessToken").val();
+		
+		var res = $.ajax({
+			url : "backend/POIRequestHandler",
+			dataType : 'json',
+			data : args,
+			async : false
+		}).responseText;
+
+		if((resJSON = $.parseJSON(res)) != null) {
+			if((pois = $.parseJSON(resJSON.data.pois)) != null) {
+				result = result.concat(pois);
+			}
+		}
+	});
+	return result;
+}
+
 /**
  * Add marker according to the myMed jSon format
  * @param elt
  */
-function addMarker(latitude, longitude, icon, title, description){
+function addPOI(latitude, longitude, icon, title, description){
 	var myLatlng = new google.maps.LatLng(latitude, longitude);
 	var marker = new google.maps.Marker({
 		animation: google.maps.Animation.DROP,

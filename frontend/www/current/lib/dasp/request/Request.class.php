@@ -73,7 +73,6 @@ class Request {
 	}
 	
 	public /*string*/ function send() {
-		
 		$curl	= curl_init();
 		if($curl === false) {
 			trigger_error('Unable to init CURL : ', E_USER_ERROR);
@@ -115,6 +114,7 @@ class Request {
 		curl_setopt($curl, CURLOPT_CAINFO, "/etc/ssl/certs/mymed.crt"); // TO EXPORT FROM GLASSFISH!
 		
 		$result = curl_exec($curl);
+// 		echo '<script type="text/javascript">alert(\'' . $result . '\');</script>';
 		return $result;
 	}
 }

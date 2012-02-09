@@ -125,8 +125,6 @@ public class POIRequestHandler extends AbstractRequestHandler {
 				Gson gson = new Gson();
 				message.addData("pois", gson.toJson(pois));
 				
-				System.out.println("********POIs: " + gson.toJson(pois));
-				
 				break;
 			default :
 				throw new InternalBackEndException("FindRequestHandler(" + code + ") not exist!");

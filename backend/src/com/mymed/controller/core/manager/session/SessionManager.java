@@ -90,8 +90,11 @@ public class SessionManager extends AbstractManager implements ISessionManager {
   public MSessionBean read(final String sessionID) throws InternalBackEndException, IOBackEndException {
 
     final Map<byte[], byte[]> args = storageManager.selectAll(CF_SESSION, sessionID);
+    if(args.size() == 0) {
+    	throw new InternalBackEndException("Session unknown!");
+    }
     final MSessionBean session = (MSessionBean) introspection(MSessionBean.class, args);
-
+    
     if (session.isExpired()) {
       throw new IOBackEndException("Session expired!", 404);
     }
