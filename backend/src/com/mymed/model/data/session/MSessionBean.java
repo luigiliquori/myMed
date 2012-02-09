@@ -59,6 +59,7 @@ public class MSessionBean extends AbstractMBean {
     currentApplications = toClone.getCurrentApplications();
     timeout = toClone.getTimeout();
     isP2P = toClone.isP2P();
+    ip = toClone.getIp();
     port = toClone.getPort();
     accessToken = toClone.getAccessToken();
     isExpired = toClone.isExpired();
