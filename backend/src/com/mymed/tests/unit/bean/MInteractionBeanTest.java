@@ -51,9 +51,6 @@ public class MInteractionBeanTest {
   public void attributeToMapTest() {
     try {
       final Map<String, byte[]> attributeMap = interactionBean.getAttributeToMap();
-      // TODO needs to find a better way to structure this, we need to create
-      // enums for each beans and check that the
-      // fields are valid through that
       assertEquals(9, attributeMap.size());
     } catch (final Exception ex) {
       fail(ex.getMessage());
@@ -74,7 +71,6 @@ public class MInteractionBeanTest {
   @Test
   public void equalsTest() {
     final MInteractionBean actual = interactionBean.clone();
-
     assertEquals("The session beans are not the same", interactionBean, actual);
   }
 
