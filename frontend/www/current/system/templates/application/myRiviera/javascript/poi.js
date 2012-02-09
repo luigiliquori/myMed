@@ -5,8 +5,8 @@ var filter = new Array("mymed", "carf");
  * @param position
  */
 function focusOnPosition(latitude, longitude){
-	latitude = 43.774309;
-	longitude = 7.49246;
+//	latitude = 43.774309;
+//	longitude = 7.49246;
 	
 	// ZOOM
 	map.panTo(new google.maps.LatLng(latitude, longitude));
@@ -20,7 +20,7 @@ function focusOnPosition(latitude, longitude){
 	});
 	
 	// ADD THE POI AROUND THE POSITION
-	if((pois = getPOIs(latitude, longitude, 500)).length != 0){
+	if((pois = getPOIs(latitude, longitude, 1000)).length != 0){
 		$.each(pois, function(i, poi) {
 				value = $.parseJSON(poi.value);
 				addPOI(value.latitude,  value.longitude, value.icon, value.title, value.title);
