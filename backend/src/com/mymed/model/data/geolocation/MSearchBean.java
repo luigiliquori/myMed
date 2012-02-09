@@ -150,7 +150,7 @@ public class MSearchBean extends AbstractMBean {
 
     if (this == obj) {
       equal = true;
-    } else if (obj != null && obj instanceof MSearchBean) {
+    } else if (obj instanceof MSearchBean) {
       final MSearchBean comparable = (MSearchBean) obj;
 
       equal = true;

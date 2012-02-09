@@ -115,7 +115,7 @@ public class MSessionBean extends AbstractMBean {
 
     if (this == object) {
       equal = true;
-    } else if (object != null && object instanceof MSessionBean) {
+    } else if (object instanceof MSessionBean) {
       final MSessionBean comparable = (MSessionBean) object;
 
       equal = true;

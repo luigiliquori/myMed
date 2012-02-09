@@ -125,7 +125,7 @@ public final class MUserBean extends AbstractMBean {
 
     if (this == object) {
       equal = true;
-    } else if (object != null && object instanceof MUserBean) {
+    } else if (object instanceof MUserBean) {
       final MUserBean comparable = (MUserBean) object;
 
       /*

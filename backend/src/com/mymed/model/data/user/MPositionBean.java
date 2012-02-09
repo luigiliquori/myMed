@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.model.data.user;
 
 import com.mymed.model.data.AbstractMBean;
@@ -84,20 +84,16 @@ public class MPositionBean extends AbstractMBean {
       equal = true;
     } else if (object instanceof MPositionBean) {
       final MPositionBean comparable = (MPositionBean) object;
-      /*
-       * We compare only a subsets of the field to check that two MUserBean
-       * objects are the same. These should be values that are set for sure, and
-       * not null.
-       */
       equal = true;
 
-      if (latitude == null && comparable.getLatitude() != null) {
+      if (latitude == null && comparable.getLatitude() != null || latitude != null && comparable.getLatitude() == null) {
         equal &= false;
       } else if (latitude != null && comparable.getLatitude() != null) {
         equal &= latitude.equals(comparable.getLatitude());
       }
 
-      if (longitude == null && comparable.getLongitude() != null) {
+      if (longitude == null && comparable.getLongitude() != null || longitude != null
+          && comparable.getLongitude() == null) {
         equal &= false;
       } else if (longitude != null && comparable.getLongitude() != null) {
         equal &= longitude.equals(comparable.getLongitude());
