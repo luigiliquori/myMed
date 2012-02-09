@@ -52,7 +52,7 @@ public class MSearchBeanTest {
 
   @AfterClass
   public static void cleanUpAfter() {
-    searchBean = null;
+    searchBean = null; // NOPMD
   }
 
   /**
@@ -82,9 +82,7 @@ public class MSearchBeanTest {
    */
   @Test
   public void nullEqualsTest() {
-    final MSearchBean actual = null;
-
-    assertFalse("The user beans are the same", searchBean.equals(actual));
+    assertFalse("The user beans are the same", searchBean.equals(null));
   }
 
   @Test
