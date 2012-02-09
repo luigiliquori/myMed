@@ -14,18 +14,25 @@ import java.util.TreeSet;
 import com.mymed.utils.locator.HilbertQuad.SubQuad;
 
 
+/**
+ * Class implementing the algorithm which translates the search area in a fixed number of keys
+ * ranges. Those keys are the locationId.
+ * 
+ * @author iacopo
+ *
+ */
 public class KeysFinder {
-	private double minLat,minLon,maxLat,maxLon; 	//Degrees
+	private double minLat,minLon,maxLat,maxLon; 	//Radians
 	private Set<HilbertQuad> coveringSet = null;
 
 	private enum Position{internal,intersects,external};
 	private static int maxRadius=50000;
 	private static int maxNumRanges=6;
-	private static short maxDepth=10;
+	private static short maxDepth=6;
 	private static short areaMaskLength=15;
 
 	/**
-	 * Initialize the keys finder creating the covering set.
+	 * Initialize the keys finder creating an empty covering set.
 	 */
 	protected KeysFinder(){
 		coveringSet=new HashSet<HilbertQuad>();
@@ -42,10 +49,10 @@ public class KeysFinder {
 	 */
 	protected List<long[]> getKeysRanges(Location loc,int radius){		
 		//List<HilbertQuad> boundList = getBound(loc,range);
-		List<long[]> ranges = new ArrayList<long[]>(maxNumRanges);
+		List<long[]> keysRanges = new ArrayList<long[]>(maxNumRanges);
 		getBound(loc,radius);
-		expandQuads(ranges);
-		return ranges;
+		expandQuads(keysRanges);
+		return keysRanges;
 	}
 
 	/**
@@ -53,7 +60,7 @@ public class KeysFinder {
 	 * @param index The index of the position.
 	 * @return
 	 */
-	protected static long getAreaId(long index) throws IllegalArgumentException{
+	protected static int getAreaId(long index) throws IllegalArgumentException{
 		long mask;
 		int zeroBits;
 		if (index<0 || index>(long) (Math.pow(2, HilbertQuad.numBits)-1))
@@ -68,30 +75,34 @@ public class KeysFinder {
 		/*
 		 * index AND mask is returned.
 		 */
-		return ((index & mask)>>>zeroBits);
+		return (int) ((index & mask)>>>zeroBits);
 	}
 
 	protected Set<HilbertQuad> getCoveringSet(){
 		return this.coveringSet;
 	}
 
-	/*
-	 * Returns up to four HilbertQuad, that cover the range specified starting from the point loc. It also sets the attributes minLat, 
+	/**
+	 * Returns up to four {@link HilbertQuad} that cover the range specified starting from the point {@param loc}. It also sets the attributes minLat, 
 	 * minLon, maxLat, maxLon, used by the method expandQuad.
-	 */ 	
-	private int getBound(Location loc,int radius){//TODO set to private.
+	 * 
+	 * @param loc		Center of the search area.
+	 * @param radius	Radius of the search area.
+	 * @return
+	 */
+	private int getBound(Location loc,int radius){
 		int level;
 		int numQuads=0;
 
 		if (radius<10 || radius>maxRadius)
 			throw new IllegalArgumentException("Radius "+String.valueOf(radius)+" out of bound");
-		//Evaluate the level of coding necessary to obtain a quad that possibly contains the area determined by range. 
+		//Evaluate the level of coding necessary to obtain an HilbertQuad that possibly contains the area determined by range. 
 		//Set the coordinates of the bounding box.
 		Location[] corners = loc.boundingCoordinates(radius);
-		minLat=corners[0].getLatitude();
-		minLon=corners[0].getLongitude();
-		maxLat=corners[1].getLatitude();
-		maxLon=corners[1].getLongitude();
+		minLat=corners[0].getLatitude(Location.RADIANS);
+		minLon=corners[0].getLongitude(Location.RADIANS);
+		maxLat=corners[1].getLatitude(Location.RADIANS);
+		maxLon=corners[1].getLongitude(Location.RADIANS);
 		level = getLevel();
 		corners = Location.getCorners(corners[0],corners[1]);
 		coveringSet.clear();
@@ -103,9 +114,16 @@ public class KeysFinder {
 		return numQuads;
 	}
 
-	/*
-	 * Expands the HilbertQuads in boundList that cover the search area until no HilbertQuad is further expandable, 
-	 * the max depth is reached or the max.  
+	/**
+	 * Recursively expand the HilbertQuad instances in {@link coveringSet} that overlap the search area until no one is further expandable, 
+	 * or the max depth is reached.
+	 *  
+	 * "Expand" means substitute the considered HilbertQuad with its upper level buckets (its four quadrants) and throw away those which don't 
+	 * overlap the search area. This operation may increase the number of key ranges that must be queried.
+	 * A HilbertQuad is not expandable if expanding it leads to overcome {@link maxNumRanges}.
+	 * 
+	 * @param ranges List of key ranges to be queried.
+	 * @return
 	 */
 	private int expandQuads(List<long[]> ranges){
 		int level=-1;
@@ -121,8 +139,8 @@ public class KeysFinder {
 		OrderedHqList expandable = new OrderedHqList();
 		HilbertQuad oldHq = null;
 		/*
-		 * coveringSet is inserted in a TreeSet, ordered by keys, so that it can be iterated to initialize ranges 
-		 * Extremes.
+		 * coveringSet is inserted in a TreeSet, where the HilbertQuad are sorted by keys, so that it can be iterated to 
+		 * easily obtain key ranges.
 		 */
 		SortedSet<HilbertQuad> tmpCovSet = new TreeSet<HilbertQuad>(new HqComparator());
 		tmpCovSet.addAll(coveringSet);
@@ -249,10 +267,13 @@ public class KeysFinder {
 		return counter;
 	}
 
-	/*
-	 * Returns the level on depth to use to get the boundary.
+	/**
+	 * Returns the level to be used to get the covering set to be optimized.
+	 * It is the level at which the search area can be fully covered by a single
+	 * bucket (HilbertQuad).
+	 * 
+	 * @return The level to be used to determine the starting set of buckets.
 	 */
-	/**TODO This procedure can be probably optimized*/
 	private short getLevel(){
 		short level = 1;
 		double	deltaLat = (HilbertQuad.latitudeRange[1]-HilbertQuad.latitudeRange[0]), 
@@ -268,7 +289,7 @@ public class KeysFinder {
 			 * for sure the minLon is in the longitude interval 0,180, and maxLon is inside -180,0 ,because
 			 * we have never bounding box with deltaLon > 180. Then is sufficient add 360
 			 */
-			deltaLonBound = this.maxLon - this.minLon + 360.0;
+			deltaLonBound = this.maxLon - this.minLon + 2*Math.PI;
 		for (level=1;level<HilbertQuad.maxLevel;level++){
 			//If the HilbertQuads at this level are no more sufficient to cover the bounding box.
 			if (deltaLon < deltaLonBound || deltaLat < deltaLatBound) 
@@ -279,10 +300,12 @@ public class KeysFinder {
 		return level;
 	}
 
-	/*
-	 * Returns a metric between 0 and 1000 indicating how much of the area of the HilbertQuad hq lies 
-	 * on the bounding box region.  
-	 * This function starts from the assumption that the HilbertQuad hq intersects the bounding box.
+	/**
+	 * Returns a metric between 0 and 1000 indicating how much of the area of the HilbertQuad {@param hq} overlaps the bounding box region.  
+	 * This function starts from the assumption that the HilbertQuad {@param hq} intersects the bounding box.
+	 * 
+	 * @param hq The HilbertQuad which intersection must be checked.
+	 * @return The metric.
 	 */
 	private short getMetric(HilbertQuad hq){
 		double deltaLon,deltaLat;
@@ -314,8 +337,11 @@ public class KeysFinder {
 		}
 	}
 
-	/*
-	 * Returns the total number of keys, belonging to the list of HilbertQuad hilbQuadlist.
+	/**
+	 * Returns the total number of keys belonging to {@param covSet}.
+	 * 
+	 * @param covSet Set of {@link HilbertQuad} which covers the search area. 
+	 * @return
 	 */
 	public static long getNumKeys(Set<HilbertQuad> covSet){
 		long num=0;
@@ -332,9 +358,12 @@ public class KeysFinder {
 		}
 	}
 
-	/*
-	 * Returns the number of ranges of keys inside the ordered list of HilbertQuad hilbQuadList, and put
-	 * them inside the list ranges.
+	/**
+	 * Returns the number of key ranges belonging to {@param ranges}, and put them on the list {@param extremes}.
+	 * 
+	 * @param ranges
+	 * @param extremes
+	 * @return
 	 */
 	private static short getNumRanges(List<long[]> ranges,List<Long> extremes){
 		short 	numRanges=0;
@@ -356,21 +385,23 @@ public class KeysFinder {
 		}
 	}
 
-	/*
-	 * Return the position of the HilbertQuad @param hq with respect to the bounding box.
+	/**
+	 * Returns the position of the HilbertQuad {@param hq} with respect to the bounding box.
 	 * Position may be: external, internal or intersects. Position is referred to the HilbertQuad with respect
-	 * to the bounding box. 
+	 * to the bounding box, which is defined by (minLon, maxLon, minLat, maxLat). 
 	 * If the HilbertQuad contains the bounding box the results will be intersects, if the bounding box contains 
-	 * the HilbertQuad the results will be internal.
+	 * the HilbertQuad the results will be internal. 
+	 * @param hq
+	 * @return
 	 */
 	private Position checkPosition(HilbertQuad hq){
 		double 	offset 	 = 0.0,
 		offsetHqLon = 0.0;
 
 		if (minLon>maxLon){// across 180 degrees meridian (the difference between minLon and maxLon must be < 180)
-			offset = 360.0;
+			offset = 2*Math.PI;
 			if (hq.getCeilLon()<0)
-				offsetHqLon = 360.0;
+				offsetHqLon = 2*Math.PI;
 		}
 		if ((hq.getFloorLat()>=minLat && hq.getCeilLat()<=maxLat) && 
 				(hq.getFloorLon()+offsetHqLon>=minLon && hq.getCeilLon()+offsetHqLon<=maxLon+offset))

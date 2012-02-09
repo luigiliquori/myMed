@@ -5,7 +5,15 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 
+import ch.qos.logback.classic.Logger;
+
+import com.mymed.controller.core.exception.GeoLocationOutOfBoundException;
+import com.mymed.utils.MLogger;
+
 /**
+ * 
+ * Class representing a bucket belonging to the hierarchical grid shaped structure
+ * which covers the indexed space. 
  * 
  * @author iacopo
  *
@@ -20,6 +28,8 @@ public class HilbertQuad {
 	private double ceilLon;
 	private QuadType typeQuad;
 	
+	protected static final Logger LOGGER = MLogger.getLogger();
+	
 	protected static class SubQuad {
 		public short pos;
 		public QuadType type;
@@ -29,7 +39,7 @@ public class HilbertQuad {
 			this.type = type;
 		}
 	}
-	/*		Quadrants
+	/**		Quadrants
 	 * 		-------------------------
 	 * 		|			|			|
  	 *		|	  2		|	  3		| 	 		
@@ -98,10 +108,10 @@ public class HilbertQuad {
 			tableDec.put(QuadType.C, mapDec);
 	}
 
-	protected static double[] latitudeRange = new double[]{Math.toDegrees(Location.MIN_LAT),
-		Math.toDegrees(Location.MAX_LAT)};
-	protected static double[] longitudeRange = new double[]{Math.toDegrees(Location.MIN_LON),
-		Math.toDegrees(Location.MAX_LON)};
+	protected static double[] latitudeRange = new double[]{Location.MIN_LAT,
+		Location.MAX_LAT};
+	protected static double[] longitudeRange = new double[]{Location.MIN_LON,
+		Location.MAX_LON};
 	public static final short maxLevel=26; // There are maxLevel levels in the range (0..maxLevel-1)
 	public static final int numBits=maxLevel*2-1;
 	
@@ -130,7 +140,7 @@ public class HilbertQuad {
 			throw new IllegalArgumentException("level exceeds the maximum level.");
 		HilbertQuad quad= new HilbertQuad(0L,(short) 0,latitudeRange[0],longitudeRange[0],
 				latitudeRange[1],longitudeRange[1],QuadType.A);
-		getQuad((short) 0,loc.getLatitude(),loc.getLongitude(),quad,level);		
+		getQuad((short) 0,loc.getLatitude(Location.RADIANS),loc.getLongitude(Location.RADIANS),quad,level);		
 		return quad;
 	}
 	
@@ -144,7 +154,7 @@ public class HilbertQuad {
 		long bitMask = (long) Math.pow(2, numBits-1);
 		HilbertQuad quad= new HilbertQuad(key,maxLevel,latitudeRange[0],longitudeRange[0],
 				latitudeRange[1],longitudeRange[1],QuadType.A);
-		//The first bit chooses the initial longitude range. Either (-180,0) or (0,180) 
+		//The first bit chooses the initial longitude range. Either (-pi,0) or (0,pi) 
 		lonMid = (quad.getCeilLon()+quad.getFloorLon())/2;
 		if ((bitMask & key)==bitMask)
 			quad.floorLon = lonMid;
@@ -171,11 +181,11 @@ public class HilbertQuad {
 				quad.floorLon=lonMid;
 				quad.ceilLat=latMid;
 				break;
-			case (2): //Second quadrant
+			case (2): //Third quadrant
 				quad.ceilLon=lonMid;
 				quad.floorLat=latMid;
 				break; 
-			case (3): //Second quadrant
+			case (3): //Fourth quadrant
 				quad.floorLon=lonMid;
 				quad.floorLat=latMid;
 				break; 
@@ -183,10 +193,17 @@ public class HilbertQuad {
 		}
 		return quad;
 	}
-	/*
-	 * Returns the quad of level @param i that contains the point @param lat, @param lon.
+
+	//TODO Check, could be better iterative.
+	/**
+	 * Find the {@link HilbertQuad} of level {@param i} that contains the point {@param lat}, {@param lon}.
+	 * 
+	 * @param i		Current level of the grid structure. (Because the method is recursive)
+	 * @param lat	Latitude of the point (radiant).
+	 * @param lon	Longitude of the point (radiant).
+	 * @param quad	Starting {@link HilbertQuad}.
+	 * @param level Target level of the grid structure.
 	 */
-	//TODO Could be better iterative.
 	private static void getQuad(short i, double lat, double lon, HilbertQuad quad,
 			int level) {
 		short quadPos=0;
@@ -224,12 +241,16 @@ public class HilbertQuad {
 		}
 	}
 	
-	/*
-	 * Get the sub-quad of @param quad at the position @param pos. 
-	 * 	0 is the bottom-left sub-quad
+	/**
+	 * Return the {@link HilbertQuad} that is on position {@param pos} at the upper layer.
+	 *  0 is the bottom-left sub-quad
 	 * 	1 is the bottom-right sub-quad
 	 * 	2 is the top-left sub-quad
 	 * 	3 is the top-right sub-quad
+	 * 
+	 * @param pos	Position of the upper layer {@link HilbertQuad} (refer to the above legend).  	
+	 * @param down	Not used at the moment, must be always set to {@value true}.
+	 * @return
 	 */
 	protected HilbertQuad getQuad(short pos,boolean down){ 
 		//TODO Implement the code for down == false, if necessary.
@@ -263,7 +284,7 @@ public class HilbertQuad {
 						floorLon = lonMid;
 						ceilLon = this.getCeilLon();
 				break;
-				//I would not happen...
+				//It would not happen...
 				default: throw new IllegalArgumentException("Wrong position (not in the range (0..3))");
 			}
 			SubQuad s = tableEnc.get(this.getTypeQuad()).get(Quad.values()[pos]);
@@ -274,8 +295,9 @@ public class HilbertQuad {
 		return hq;
 	}
 	/**
-	 * Returns the keys range associated to this HilbertQuad.	
-	 * @return
+	 * Returns the keys range associated to this member.	
+	 * 
+	 * @return Keys range.
 	 */
 	protected long[] getKeysRange(){
 		long[] keysInt=new long[2];
@@ -335,7 +357,7 @@ public class HilbertQuad {
 			topLeftCorner = new Location(this.ceilLat,this.floorLon);
 		} catch (GeoLocationOutOfBoundException e) {
 			// Never happens.
-			e.printStackTrace();
+			LOGGER.debug(e.toString());
 			return 0d;
 		}
 		return bottomLeftCorner.distanceGCTo(topLeftCorner);
@@ -348,7 +370,7 @@ public class HilbertQuad {
 			topLeftCorner = new Location(this.ceilLat,this.floorLon);
 		} catch (GeoLocationOutOfBoundException e) {
 			// Never happens.
-			e.printStackTrace();
+			LOGGER.debug(e.toString());
 			return 0d;
 		}
 		return topRightCorner.distanceGCTo(topLeftCorner);
@@ -361,8 +383,7 @@ public class HilbertQuad {
 			bottomLeftCorner = new Location(this.floorLat,this.floorLon);			
 		} catch (GeoLocationOutOfBoundException e) {
 			// Never happens.
-			e.printStackTrace();
-			//android.util.Log.e("HilbertQuad", e.getMessage());
+			LOGGER.debug(e.toString());
 			return 0d;
 		}
 		return bottomRightCorner.distanceGCTo(bottomLeftCorner);		
@@ -383,6 +404,9 @@ public class HilbertQuad {
 	}
 	
 	@Override
+	/**
+	 * Compute a unique hash code identifying the bucket with index {@link index} and level {@link level}
+	 */
 	public int hashCode(){
 	     // Start with a non-zero constant.
 	     int result = 17;

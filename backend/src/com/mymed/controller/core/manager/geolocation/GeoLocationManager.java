@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import com.mymed.controller.core.exception.GeoLocationOutOfBoundException;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.exception.WrongFormatException;
@@ -18,7 +19,6 @@ import com.mymed.model.data.id.MyMedId;
 
 import com.mymed.model.data.storage.ExpColumnBean;
 import com.mymed.utils.MConverter;
-import com.mymed.utils.locator.GeoLocationOutOfBoundException;
 import com.mymed.utils.locator.Location;
 import com.mymed.utils.locator.Locator;
 
@@ -60,8 +60,7 @@ public class GeoLocationManager extends AbstractManager {
 			 */
 			long locId;
 
-			locId = Locator.getLocationId((double) (latitude/1E6),
-					(double) (longitude/1E6));
+			locId = Locator.getLocationId(latitude,longitude);
 			String areaId = String.valueOf(Locator.getAreaId(locId));
 			long timestamp = System.currentTimeMillis();				
 			MyMedId id = new MyMedId(Character.toLowerCase(itemType.charAt(0)),timestamp,userLogin);
@@ -83,7 +82,6 @@ public class GeoLocationManager extends AbstractManager {
 			/**
 			 * SuperColumn insertion in CF Location 
 			 **/
-
 			((MyJamStorageManager) storageManager).insertExpiringColumn("Location", applicationId+itemType+areaId, MConverter.longToByteBuffer(locId).array(), 
 					id.AsByteBuffer().array(),
 					MConverter.stringToByteBuffer(value).array(),
@@ -108,14 +106,14 @@ public class GeoLocationManager extends AbstractManager {
 	 * @throws IOBackEndException
 	 */
 	public List<MSearchBean> read(final String applicationId, final String itemType, final int latitude, final int longitude,
-			final int radius) throws InternalBackEndException, IOBackEndException {
+			final int radius, final boolean filterFlag) throws InternalBackEndException, IOBackEndException {
 		List<MSearchBean> resultReports = new LinkedList<MSearchBean>();
 		try{
 			/**
 			 * Data structures preparation
 			 */
 			Map<byte[],Map<byte[],byte[]>> reports = new HashMap<byte[],Map<byte[],byte[]>>();
-			List<long[]> covId = Locator.getCoveringLocationId((double) (latitude/1E6), (double) (longitude/1E6), radius);
+			List<long[]> covId = Locator.getCoveringLocationId(latitude, longitude, radius);
 			List<String> areaIds = new LinkedList<String>();
 			Iterator<long[]> covIdIterator = covId.iterator();
 			/**
@@ -123,8 +121,8 @@ public class GeoLocationManager extends AbstractManager {
 			 */
 			while(covIdIterator.hasNext()){
 				long[] range = covIdIterator.next();
-				long startAreaId = Locator.getAreaId(range[0]);
-				long endAreaId = Locator.getAreaId(range[1]);
+				int startAreaId = Locator.getAreaId(range[0]);
+				int endAreaId = Locator.getAreaId(range[1]);
 				for (long ind=startAreaId;ind<=endAreaId;ind++){
 					areaIds.add(applicationId+itemType+String.valueOf(ind));
 				}
@@ -137,20 +135,21 @@ public class GeoLocationManager extends AbstractManager {
 			 * Data processing: Filters the results of the search.
 			 */
 			for (byte[] scName:reports.keySet()){
+				double distance=Integer.MIN_VALUE;
 				long posId = MConverter.byteBufferToLong(ByteBuffer.wrap(scName));
 				Location reportLoc = Locator.getLocationFromId(posId);
-				double distance = reportLoc.distanceGCTo(new Location((double) (latitude/1E6),(double) (longitude/1E6)));
-				/** Distance check */
-				if (distance <= radius){
+				if (filterFlag) distance = reportLoc.distanceGCTo(new Location(latitude,longitude));
+				/** Distance check, only if filter is true. */
+				if (!filterFlag || distance <= radius){
 					for (byte[] colName : reports.get(scName).keySet()){
 						MSearchBean searchBean = new MSearchBean();
 						MyMedId repId = MyMedId.parseByteBuffer(ByteBuffer.wrap(colName));
 						searchBean.setValue(MConverter.byteBufferToString(
 								ByteBuffer.wrap(reports.get(scName).get(colName))));
 						searchBean.setId(repId.toString());
-						searchBean.setLatitude((int) (reportLoc.getLatitude()*1E6));
-						searchBean.setLongitude((int) (reportLoc.getLongitude()*1E6));
-						searchBean.setDistance((int) distance);
+						searchBean.setLatitude(reportLoc.getLatitude());
+						searchBean.setLongitude(reportLoc.getLongitude());
+						searchBean.setDistance((int) distance); //If filter is put to 
 						/** The timestamp is set with the convention used in Java (milliseconds from 1 January 1970) */
 						searchBean.setDate((repId.getTimestamp()));
 						resultReports.add(searchBean);
@@ -190,7 +189,6 @@ public class GeoLocationManager extends AbstractManager {
 		
 		try {
 			ExpColumnBean expCol = ((MyJamStorageManager) storageManager).selectExpiringColumn("Location", applicationId+itemType+areaId, 
-
 					MConverter.longToByteBuffer(locationId).array(), 
 					MyMedId.parseString(itemId).AsByteBuffer().array());
 			
@@ -198,8 +196,8 @@ public class GeoLocationManager extends AbstractManager {
 
 			searchBean = new MSearchBean();
 			searchBean.setId(itemId);
-			searchBean.setLatitude((int) (loc.getLatitude()*1E6));
-			searchBean.setLongitude((int) (loc.getLongitude()*1E6));
+			searchBean.setLatitude(loc.getLatitude());
+			searchBean.setLongitude(loc.getLongitude());
 			searchBean.setValue(MConverter.byteBufferToString(ByteBuffer.wrap(expCol.getValue())));
 			searchBean.setLocationId(locationId);
 			searchBean.setDate(expCol.getTimestamp());
@@ -235,7 +233,6 @@ public class GeoLocationManager extends AbstractManager {
 			String areaId = String.valueOf(Locator.getAreaId(locationId));
 			MyMedId id = MyMedId.parseString(itemId);
 			
-
 			((MyJamStorageManager) storageManager).removeColumn("Location", applicationId+itemType+areaId, 
 					MConverter.longToByteBuffer(locationId).array(), 
 					id.AsByteBuffer().array());
