@@ -21,7 +21,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({MUserBeanTest.class, MSessionBeanTest.class, MInteractionBeanTest.class, MReputationBeanTest.class,
-    MOntologyBeanTest.class, MSearchBeanTest.class, MAuthenticationBeanTest.class})
+    MOntologyBeanTest.class, MSearchBeanTest.class, MAuthenticationBeanTest.class, MPositionBeanTest.class})
 public class BeansTestSuite {
   // NOPMD
 }

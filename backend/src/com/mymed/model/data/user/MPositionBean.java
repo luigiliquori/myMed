@@ -86,6 +86,12 @@ public class MPositionBean extends AbstractMBean {
       final MPositionBean comparable = (MPositionBean) object;
       equal = true;
 
+      if (userID == null && comparable.getUserID() != null || userID != null && comparable.getUserID() == null) {
+        equal &= false;
+      } else if (userID != null && comparable.getUserID() != null) {
+        equal &= userID.equals(comparable.getUserID());
+      }
+
       if (latitude == null && comparable.getLatitude() != null || latitude != null && comparable.getLatitude() == null) {
         equal &= false;
       } else if (latitude != null && comparable.getLatitude() != null) {
