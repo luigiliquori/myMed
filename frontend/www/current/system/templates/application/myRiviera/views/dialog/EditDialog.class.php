@@ -53,9 +53,7 @@ class EditDialog extends AbstractTemplate {
 					
 					<!-- FROM -->
 					
-					<input data-theme="d" type="text" id="depart" name="Depart"
-						placeholder="Départ" onclick="$(this).css('background-image', 'none');"
-							onblur="if ($(this).val()=='') if (latitude) $(this).css('background-image', 'url(system/templates/application/myRiviera/img/position.png)');else $(this).attr('placeholder', 'Départ');" />
+					<input data-theme="d" type="text" id="depart" name="Depart" placeholder="Départ" />
 	
 					<!-- TO -->
 	

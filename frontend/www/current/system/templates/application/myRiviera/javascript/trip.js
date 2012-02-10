@@ -35,9 +35,7 @@ function initialize() {
     	longitude = position.coords.longitude;
 		accuracy = position.coords.accuracy;
 		$('#departGeo').val(latitude+'&'+longitude);
-		$('#depart').attr("placeholder", "");
-		myMarkerImage = 'system/templates/application/myRiviera/img/position.png';
-		$('#depart').css("background-image", 'url('+myMarkerImage+')');
+		$('#depart').attr("placeholder", "Ma position");
 		
 		// ADD POSITION Marker
 		var latlng = new google.maps.LatLng(latitude, longitude);
@@ -45,7 +43,7 @@ function initialize() {
 		var marker = new google.maps.Marker({
 			animation: google.maps.Animation.BOUNCE,
 			position: latlng,
-			icon: myMarkerImage,
+			icon: 'system/templates/application/myRiviera/img/position.png',
 			map: map
 		});
 
