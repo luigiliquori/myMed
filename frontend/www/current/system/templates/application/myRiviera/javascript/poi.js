@@ -21,7 +21,7 @@ function focusOnPosition(latitude, longitude, accuracy){
 		map: map
 	});
 	
-	if (accuracy && accuracy<1000){
+	if (accuracy && accuracy<1500){
 		var circle = new google.maps.Circle({
 			strokeColor: "#0000ff",
 	        strokeOpacity: 0.2,
