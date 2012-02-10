@@ -4,7 +4,7 @@ var map;
 var poi;
 var poiMem = {};
 var poiIterator;
-var latitude, longitude, accuracy, watchId; //Html geolocation response
+var latitude, longitude, accuracy; //Html geolocation response
 
 /**
  * Initialize the application
@@ -49,7 +49,7 @@ function initialize() {
 		});
 
 		// if the accuracy is good enough, print a circle to show the area
-		if (accuracy && accuracy<1500){
+		if (accuracy && accuracy<1500){ // is use watchPosition instead of getCurrentPosition don't forget to clear previous circle, using circle.setMap(null)
 			var circle = new google.maps.Circle({
 				strokeColor: "#0000ff",
 				strokeOpacity: 0.2,
@@ -71,16 +71,13 @@ function initialize() {
  			    2: 'Position indisponible',
  			    3: 'Requête expirée'
  			  };
- 			console.log("Erreur: " + errors[error.code]);
- 			if (error.code == 3){
- 				navigator.geolocation.clearWatch(watchId);
+ 			console.log("Erreur géolocalisation: " + errors[error.code]);
+ 			if (error.code == 3)
  				navigator.geolocation.getCurrentPosition(displayPosition, displayError);
- 			}
- 				
     }
 	if (navigator.geolocation) {
-		watchId = navigator.geolocation.watchPosition(displayPosition, displayError,
-			{enableHighAccuracy : true, timeout: 10 * 1000, maximumAge: 0});	
+		navigator.geolocation.getCurrentPosition(displayPosition, displayError,
+			{enableHighAccuracy : true, timeout: 5000, maximumAge: 0});	
 	} else {
 		alert("Votre navigateur ne prend pas en compte la géolocalisation HTML5");
 	}
