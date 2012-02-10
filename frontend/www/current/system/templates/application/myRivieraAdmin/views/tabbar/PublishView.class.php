@@ -78,10 +78,10 @@ class PublishView extends MyApplication {
 					{"latitude" : "38.42228990140251", "longitude" : "7.5209301",  "title" : "Paris Rome", "icon" : "http://mymed2.sophia.inria.fr/system/templates/application/myRiviera/img/resto.png"}<br/>
 					]<br/>
 			   </div>
-			   <form action="#" method="post" name="<?= APPLICATION_NAME ?>PublishForm1" id="<?= APPLICATION_NAME ?>PublishForm1" enctype="multipart/form-data">
+			   <form action="#" method="post" name="Test2Form" id="Test2Form" enctype="multipart/form-data">
 					<input type="hidden" name="poisrc" value="mymed" />
 					<textarea name="data" rows="" cols=""></textarea>
-					<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>PublishForm1.submit()">Publish</a>
+					<a href="#" data-role="button" onclick="document.Test2Form.submit()" rel="external">Publish</a>
 				</form>
 			</div>
 			
@@ -109,21 +109,21 @@ class PublishView extends MyApplication {
 					}<br/>
 					]<br/>
 			   </div>
-				<form action="#" method="post" name="<?= APPLICATION_NAME ?>PublishForm2" id="<?= APPLICATION_NAME ?>PublishForm2" enctype="multipart/form-data">
+				<form action="#" method="post" name="TestForm3" id="TestForm3" enctype="multipart/form-data">
 					<input type="hidden" name="poisrc" value="carf" />
 					<textarea name="data" rows="" cols=""></textarea>
-					<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>PublishForm2.submit()">Publish</a>
+					 <a href="#" data-role="button" onclick="document.TestForm3.submit()" rel="external">Publish</a>
 				</form>
 			</div>
 			
 			<!--TEST -->
 			<div data-role="collapsible" data-theme="a" data-content-theme="c" data-collapsed="true" Style="text-align: left;">
 			    <h3>Tests</h3>
-				<form action="#" method="post" name="<?= APPLICATION_NAME ?>TestForm" id="<?= APPLICATION_NAME ?>TestForm" enctype="multipart/form-data">
+				<form action="#" method="post" name="TestForm4" id="TestForm4" enctype="multipart/form-data">
 					Longitude: <input name="longitude" type="text" value="" data-inline="true" /><br />
 				    Latitude: <input name="latitude" type="text" value="" data-inline="true" /><br />
 				    Radius: <input name="radius" type="text" value="" data-inline="true" /><br />
-				    <a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>TestForm.submit()" rel="external">Send</a>
+				    <a href="#" data-role="button" onclick="document.TestForm4.submit()" rel="external">Send</a>
 				</form>
 			</div>
 		</div>

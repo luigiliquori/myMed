@@ -41,7 +41,7 @@ class FindView extends MyApplication {
 			<div class="ui-btn-right">
 				<select name="select-filter" id="select-filter" multiple="multiple" data-native-menu="false" onchange="updateFilter()">
 					<option>Points d'interêts</option>
-					<option value="myMed">myMed</option>
+					<option value="mymed">myMed</option>
 					<option value="carf">carf</option>
 					<option value="cityway">cityway</option>
 				</select>

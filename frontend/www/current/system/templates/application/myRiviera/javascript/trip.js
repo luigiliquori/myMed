@@ -38,7 +38,32 @@ function initialize() {
 			//$("#mapos").val(myLat+'&'+myLng);
 			$('#departGeo').val(myLat+'&'+myLng);
 			$('#depart').attr("placeholder", "Ma position");
-			focusOnPosition(myLat, myLng, myAcc);
+			
+			// ADD POSITION Marker
+			var myLatlng = new google.maps.LatLng(latitude, longitude);
+			myMarkerImage = 'system/templates/application/myRiviera/img/position.png';
+			var marker = new google.maps.Marker({
+				position: myLatlng,
+				icon: myMarkerImage,
+				map: map
+			});
+
+			// if the accuracy is good enough, print a circle to show the area
+			if (accuracy && accuracy<1500){
+				var circle = new google.maps.Circle({
+					strokeColor: "#0000ff",
+					strokeOpacity: 0.2,
+					strokeWeight: 2,
+					fillColor: "#0000ff",
+					fillOpacity: 0.1,
+					map: map,
+					center: myLatlng,
+					radius: accuracy
+				});
+			}
+			
+			// focus on the position on show the POIs around
+			focusOnPosition(myLat, myLng);
 		}, 
 		function(position) {
 			alert('code: '    + error.code    + '\n' +

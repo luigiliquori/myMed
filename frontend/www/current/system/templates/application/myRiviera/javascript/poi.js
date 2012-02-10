@@ -16,48 +16,25 @@ function updateFilter(){
  * Zoom on a position
  * @param position
  */
-function focusOnPosition(latitude, longitude, accuracy){
-//	latitude = 43.774309;
-//	longitude = 7.49246;
+function focusOnPosition(latitude, longitude){
 
-	// ADD POSITION Marker
+	// focus on the position
 	var myLatlng = new google.maps.LatLng(latitude, longitude);
-	myMarkerImage = 'system/templates/application/myRiviera/img/position.png';
-	var marker = new google.maps.Marker({
-		position: myLatlng,
-		icon: myMarkerImage,
-		map: map
-	});
-
-	// if the accuracy is good enough, print a circle to show the area
-	if (accuracy && accuracy<1500){
-		var circle = new google.maps.Circle({
-			strokeColor: "#0000ff",
-			strokeOpacity: 0.2,
-			strokeWeight: 2,
-			fillColor: "#0000ff",
-			fillOpacity: 0.1,
-			map: map,
-			center: myLatlng,
-			radius: accuracy
-		});
-	}
+	map.setCenter(myLatlng);
+	map.setZoom(16);
+	window.scrollTo(0,0);
 	
-	// Clear the markerArray
+	// clear the markerArray
 	clearPOIs();
-
-	// ADD THE POI AROUND THE POSITION
+	
+	// add the POIs around the position
 	if((pois = getPOIs(latitude, longitude, 500)).length != 0){
 		$.each(pois, function(i, poi) {
 			value = $.parseJSON(poi.value);
 			addPOI(value.latitude,  value.longitude, value.icon, value.title, value.title);
 		});
 	}
-
-	// ZOOM IN
-	map.setCenter(myLatlng);
-	map.setZoom(16);
-	window.scrollTo(0,0);
+	
 }
 
 /**
@@ -73,6 +50,7 @@ function getPOIs(latitude, longitude, radius) {
 
 	var result = new Array();
 	$.each(filterArray, function(i, type) {
+		
 		args = "code=1";
 		args += "&application=" + $("#applicationName").val();
 		args += "&type=" + type;
@@ -87,7 +65,7 @@ function getPOIs(latitude, longitude, radius) {
 			data : args,
 			async : false
 		}).responseText;
-
+		
 		if((resJSON = $.parseJSON(res)) != null) {
 			if((pois = $.parseJSON(resJSON.data.pois)) != null) {
 				result = result.concat(pois);
