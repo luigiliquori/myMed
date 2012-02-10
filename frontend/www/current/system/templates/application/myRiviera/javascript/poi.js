@@ -30,7 +30,7 @@ function focusOnPosition(latitude, longitude, accuracy){
 	});
 
 	// if the accuracy is good enough, print a circle to show the area
-	if (accuracy && accuracy<1000){
+	if (accuracy && accuracy<1500){
 		var circle = new google.maps.Circle({
 			strokeColor: "#0000ff",
 			strokeOpacity: 0.2,
