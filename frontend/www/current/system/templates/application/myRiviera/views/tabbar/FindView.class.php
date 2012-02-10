@@ -89,12 +89,10 @@ class FindView extends MyApplication {
 							$longitude = $tripSegment->departurePoint->longitude;
 							$poi =  str_replace("'", "", json_encode($tripSegment->poi)); 
 							?>
-							<input id="<?= $i ?>_latitude" type="hidden" value='<?= $latitude ?>' />
-							<input id="<?= $i ?>_longitude" type="hidden" value='<?= $longitude ?>' />
 							<input id="<?= $i ?>_poi" type="hidden" value='<?= $poi ?>' />
 							
 							<li style="font-size: 9pt; font-weight: lighter; padding:2px;">
-								<a href="#" onclick="focusOn('<?= $i ?>'); <?= TARGET == "mobile" ? "$('#itineraire').trigger('collapse');" : "" ?>" data-icon="search" >
+								<a href="#" onclick="focusOn('<?= $i ?>', '<?= $latitude ?>', '<?= $longitude ?>'); <?= TARGET == "mobile" ? "$('#itineraire').trigger('collapse');" : "" ?>" data-icon="search" >
 									<?php if(isset($tripSegment->distance)) { ?>
 										<span>Distance: <?= $tripSegment->distance ?>m</span>
 									<?php } else { ?>
@@ -112,14 +110,14 @@ class FindView extends MyApplication {
 					<br />
 				</div>	
 				<?php } else if($this->handler->getError() == "1") {?>  	<!-- FROM GOOGLE -->
-									<div id="itineraire" data-role="collapsible" data-theme="e" data-content-theme="e" style="width: <?= TARGET == "mobile" ? "85" : "50" ?>%;">
-										<h3>Feuille de route</h3>
-										<!-- ITINERAIRE -->
-										<ul data-role="listview" data-inset="true" data-theme="d" data-divider-theme="e">
-										</ul>
-									</div>
-									<script type="text/javascript">setTimeout("calcRouteFromGoogle('<?= $_POST['Depart'] ?>','<?= $_POST['Arrivee'] ?>','<?= TARGET ?>')", 500);</script>
-									<?php } ?>
+					<div id="itineraire" data-role="collapsible" data-theme="e" data-content-theme="e" style="width: <?= TARGET == "mobile" ? "85" : "50" ?>%;">
+						<h3>Feuille de route</h3>
+						<!-- ITINERAIRE -->
+						<ul data-role="listview" data-inset="true" data-theme="d" data-divider-theme="e">
+						</ul>
+					</div>
+					<script type="text/javascript">setTimeout("calcRouteFromGoogle('<?= $_POST['Depart'] ?>','<?= $_POST['Arrivee'] ?>','<?= TARGET ?>')", 500);</script>
+				<?php } ?>
 			
 			
 			<!-- POIs -->

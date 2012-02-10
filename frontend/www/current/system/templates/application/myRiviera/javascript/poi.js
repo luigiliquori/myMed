@@ -1,13 +1,14 @@
-var filter = new Array();
+var filterArray = new Array();
+var markerArray = new Array();
 
 Array.prototype.contains = function(aValue){
-	 if( this.toString().match(aValue)) return true;
+	if( this.toString().match(aValue)) return true;
 };
 
 function updateFilter(){
-	filter = new Array();
+	filterArray = new Array();
 	$.each($("#select-filter").val(), function(i, item) {
-		filter[i] = item;
+		filterArray[i] = item;
 	});
 }
 
@@ -18,40 +19,45 @@ function updateFilter(){
 function focusOnPosition(latitude, longitude, accuracy){
 //	latitude = 43.774309;
 //	longitude = 7.49246;
-	
-	// ZOOM
-	var pos = new google.maps.LatLng(latitude, longitude);
-	
-	map.panTo(pos);
-	
+
 	// ADD POSITION Marker
+	var myLatlng = new google.maps.LatLng(latitude, longitude);
 	myMarkerImage = 'system/templates/application/myRiviera/img/position.png';
 	var marker = new google.maps.Marker({
-		position: pos,
+		position: myLatlng,
 		icon: myMarkerImage,
 		map: map
 	});
-	
+
+	// if the accuracy is good enough, print a circle to show the area
 	if (accuracy && accuracy<1000){
 		var circle = new google.maps.Circle({
 			strokeColor: "#0000ff",
-	        strokeOpacity: 0.2,
-	        strokeWeight: 2,
-	        fillColor: "#0000ff",
-	        fillOpacity: 0.1,
-	        map: map,
-	        center: pos,
-	        radius: accuracy
+			strokeOpacity: 0.2,
+			strokeWeight: 2,
+			fillColor: "#0000ff",
+			fillOpacity: 0.1,
+			map: map,
+			center: myLatlng,
+			radius: accuracy
 		});
 	}
 	
+	// Clear the markerArray
+	clearPOIs();
+
 	// ADD THE POI AROUND THE POSITION
-	if((pois = getPOIs(latitude, longitude, 1000)).length != 0){
+	if((pois = getPOIs(latitude, longitude, 500)).length != 0){
 		$.each(pois, function(i, poi) {
-				value = $.parseJSON(poi.value);
-				addPOI(value.latitude,  value.longitude, value.icon, value.title, value.title);
+			value = $.parseJSON(poi.value);
+			addPOI(value.latitude,  value.longitude, value.icon, value.title, value.title);
 		});
 	}
+
+	// ZOOM IN
+	map.setCenter(myLatlng);
+	map.setZoom(16);
+	window.scrollTo(0,0);
 }
 
 /**
@@ -64,9 +70,9 @@ function focusOnPosition(latitude, longitude, accuracy){
  * 		radius in meter
  */
 function getPOIs(latitude, longitude, radius) {
-	
+
 	var result = new Array();
-	$.each(filter, function(i, type) {
+	$.each(filterArray, function(i, type) {
 		args = "code=1";
 		args += "&application=" + $("#applicationName").val();
 		args += "&type=" + type;
@@ -74,7 +80,7 @@ function getPOIs(latitude, longitude, radius) {
 		args += "&longitude=" + longitude;
 		args += "&radius=" + radius;
 		args += "&accessToken=" + $("#accessToken").val();
-		
+
 		var res = $.ajax({
 			url : "backend/POIRequestHandler",
 			dataType : 'json',
@@ -103,6 +109,7 @@ function addPOI(latitude, longitude, icon, title, description){
 		title: title,
 		icon: icon
 	});
+	markerArray.push(marker);
 	marker.setMap(map);
 
 	var contentString = 
@@ -121,6 +128,13 @@ function addPOI(latitude, longitude, icon, title, description){
 	});
 }
 
+function clearPOIs(){
+    for (var i = 0; i < markerArray.length; i++ ) {
+    	markerArray[i].setMap(null);
+    }
+    markerArray = new Array();
+}
+
 /* ****************** */
 /* DEPRECATED METHODs */
 /* ****************** */
@@ -129,79 +143,61 @@ function addPOI(latitude, longitude, icon, title, description){
  * @param id
  * @deprecated
  */
-function focusOn(id){
-	latitude = document.getElementById(id + "_latitude").value;
-	longitude = document.getElementById(id + "_longitude").value;
-	poiJson = document.getElementById(id + "_poi").value;
-	poi = JSON.parse(poiJson);
+function focusOn(id, latitude, longitude){
+	// new Method
+	focusOnPosition(latitude, longitude);
 
-	// add marker
-	poiIterator = 0;
-	for (var i =0; i < poi.length; i++) {
-		setTimeout(function() {
-			addMarker();
-		}, i * 200);
-	}
+	// add marker only for cityway
+	// TODO Remove this part
+	if (filterArray.contains("cityway")) {
+		poiJson = $("#" + id + "_poi").val();
+		poi = JSON.parse(poiJson);
+		var poiIterator = 0;
+		for (var i =0; i < poi.length; i++) {
+			setTimeout(function() {
+				if(!poiMem[poi[poiIterator].id]){
+					var myLatlng = new google.maps.LatLng(poi[poiIterator].latitude, poi[poiIterator].longitude);
+					var myMarkerImage = "";
+					if(poi[poiIterator].category == "4"){
+						myMarkerImage = 'system/templates/application/myRiviera/img/velobleu.png';
+					} else if (poi[poiIterator].category == "5"){
+						myMarkerImage = 'system/templates/application/myRiviera/img/veloparc.png';
+					} else if (poi[poiIterator].category == "10"){
+						myMarkerImage = 'system/templates/application/myRiviera/img/info.png';
+					} else if (poi[poiIterator].category == "1" || poi[poiIterator].category == "2" || poi[poiIterator].category == "3" || poi[poiIterator].category == "8"){
+						myMarkerImage = 'system/templates/application/myRiviera/img/lieu.png';
+					} else {
+						myMarkerImage = 'system/templates/application/myRiviera/img/trip.png';
+					}
+					var marker = new google.maps.Marker({
+						animation: google.maps.Animation.DROP,
+						position: myLatlng,
+						title:poi[poiIterator].name,
+						icon: myMarkerImage
+					});
+					marker.setMap(map);
 
-	// FOCUS ON
-	var myLatlng = new google.maps.LatLng(latitude, longitude);
-	map.setCenter(myLatlng);
-	map.setZoom(16);
+					var contentString = 
+						"<div class='poiContent'>" +
+						"<h2 class='poiFirstHeading'>" + poi[poiIterator].name.toLowerCase() + "</h2>"+
+						"<div class='poiBodyContent'>" +
+						"<p> type: " + poi[poiIterator].type.toLowerCase() + "<br />" +
+						"ville: " + poi[poiIterator].localityName.toLowerCase() +
+						"</div>" +	
+						"</div>";
+					var infowindow = new google.maps.InfoWindow({
+						content: contentString
+					});
 
-	// ZOOM IN
-	window.scrollTo(0,0);
-}
+					google.maps.event.addListener(marker, 'click', function() {
+						infowindow.open(map,marker);
+					});
 
-/**
- * CITYWAY APIs
- * Add the marker around the current Trip Segment
- * @deprecated
- */
-function addMarker(){
-	if (filter.contains("cityway")) {
-		// POI
-		if(!poiMem[poi[poiIterator].id]){
-	
-			var myLatlng = new google.maps.LatLng(poi[poiIterator].latitude, poi[poiIterator].longitude);
-	
-			var myMarkerImage = "";
-			if(poi[poiIterator].category == "4"){
-				myMarkerImage = 'system/templates/application/myRiviera/img/velobleu.png';
-			} else if (poi[poiIterator].category == "5"){
-				myMarkerImage = 'system/templates/application/myRiviera/img/veloparc.png';
-			} else if (poi[poiIterator].category == "10"){
-				myMarkerImage = 'system/templates/application/myRiviera/img/info.png';
-			} else if (poi[poiIterator].category == "1" || poi[poiIterator].category == "2" || poi[poiIterator].category == "3" || poi[poiIterator].category == "8"){
-				myMarkerImage = 'system/templates/application/myRiviera/img/lieu.png';
-			} else {
-				myMarkerImage = 'system/templates/application/myRiviera/img/trip.png';
-			}
-			var marker = new google.maps.Marker({
-				animation: google.maps.Animation.DROP,
-				position: myLatlng,
-				title:poi[poiIterator].name,
-				icon: myMarkerImage
-			});
-			marker.setMap(map);
-	
-			var contentString = 
-				"<div class='poiContent'>" +
-				"<h2 class='poiFirstHeading'>" + poi[poiIterator].name.toLowerCase() + "</h2>"+
-				"<div class='poiBodyContent'>" +
-				"<p> type: " + poi[poiIterator].type.toLowerCase() + "<br />" +
-				"ville: " + poi[poiIterator].localityName.toLowerCase() +
-				"</div>" +	
-				"</div>";
-			var infowindow = new google.maps.InfoWindow({
-				content: contentString
-			});
-	
-			google.maps.event.addListener(marker, 'click', function() {
-				infowindow.open(map,marker);
-			});
-	
-			poiMem[poi[poiIterator].id] = true;
+					poiMem[poi[poiIterator].id] = true;
+				}
+				poiIterator++;
+			}, i * 200);
 		}
-		poiIterator++;
 	}
 }
+
