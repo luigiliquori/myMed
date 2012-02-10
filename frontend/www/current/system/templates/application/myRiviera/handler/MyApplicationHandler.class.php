@@ -8,6 +8,8 @@ require_once 'lib/dasp/request/GetDetail.class.php';
 require_once 'lib/dasp/request/StartInteraction.class.php';
 
 require_once 'system/templates/application/' . APPLICATION_NAME . '/lib/Convert.class.php';
+ 
+
 
 /**
  * 
@@ -37,12 +39,11 @@ class MyApplicationHandler implements IRequestHandler {
 	public /*void*/ function handleRequest() { 
 		if(isset($_POST['method'])) {
 			if($_POST['method'] == "find") {
-				if(isset($_POST['Départ']) && isset($_POST['Arrivée'])) {
-					
-					if (strpos($_POST['Départ'], '&') != false) { //we are given a lon & lat couple
-						$dep = explode("&", $_POST['Départ']);
+				if(isset($_POST['Depart']) && isset($_POST['Arrivee'])) {
+					if ( empty($_POST['Depart']) ) { //we use lon & lat couple given by DepartGeo
+						$dep = explode("&", $_POST['DepartGeo']);
 						
-						$geocode1 = json_decode(
+						$geocode1 = json_decode( // a fake geocode for matching with the following
 						  '{
 						  "status": "OK",
 						  "results": [
@@ -57,14 +58,16 @@ class MyApplicationHandler implements IRequestHandler {
 						  		]
 						  	}'
 						);
-						//echo '<script type="text/javascript">alert(\' oo' . $geocode1->status .' '.$geocode1->results[0]->geometry->location->lat.' '.$geocode1->results[0]->geometry->location->lng .'\');</script>';
+						//echo '<script type="text/javascript">alert(\' oo' .$geo.' '. $geocode1->status .' '.$geocode1->results[0]->geometry->location->lat.' '.$geocode1->results[0]->geometry->location->lng .'\');</script>';
+
 					}else{
+
 						// CALL TO GOOGLE GEOCODE API
 						//echo '<script type="text/javascript">alert(\' kk\');</script>';
-						$geocode1 = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($_POST['Départ']) . "&sensor=true"));
+						$geocode1 = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($_POST['Depart']) . "&sensor=true"));
 					}
 					
-					$geocode2 = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($_POST['Arrivée']) . "&sensor=true"));
+					$geocode2 = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($_POST['Arrivee']) . "&sensor=true"));
 
 					// CALL TO CITYWAY API
 					if($geocode1->status == "OK" && $geocode2->status == "OK"){
@@ -103,7 +106,7 @@ class MyApplicationHandler implements IRequestHandler {
 								"&POICategory=-1";
 								$pois = json_decode(file_get_contents(Cityway_URL . "/display/v1/GetTripPointByWGS84/json?key=" . Cityway_APP_ID . $args));
 
-								if($pois->TripPointServiceObj->Status->code == 0) {
+								if($pois->TripPointServiceObj->Status->code == "0") {
 									$i = 0;
 									$tripSegment->poi = array();
 									foreach($pois->TripPointServiceObj->TripPoint as $poi) {

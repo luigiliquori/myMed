@@ -58,11 +58,11 @@ class FindView extends MyApplication {
 		<div data-role="content" style="padding: 0px;">
 			
 			<div id="myRivieraMap"></div>
-			
-			<div id="itineraire" data-role="collapsible" data-theme="b" data-content-theme="b" style="width: <?= TARGET == "mobile" ? "94" : "50" ?>%;">
-				<h3>Feuille de route</h3>
-				<!-- ITINERAIRE -->
-				<?php if ($this->handler->getSuccess()) { ?> 				<!-- FROM CITYWAY -->
+
+			<?php if ($this->handler->getSuccess()) { ?> 				<!-- FROM CITYWAY -->
+				<div id="itineraire" data-role="collapsible" data-theme="b" data-content-theme="b" style="width: <?= TARGET == "mobile" ? "85" : "50" ?>%;">
+					<h3>Feuille de route</h3>
+					<!-- ITINERAIRE -->
 					<script type="text/javascript">setTimeout("calcRouteFromCityWay('<?= $this->handler->getSuccess()->kmlurl ?>')", 500);</script>
 					<ul data-role="listview" data-inset="true" data-theme="d" data-divider-theme="b">
 						<?php $listDivider = null;?>
@@ -109,17 +109,17 @@ class FindView extends MyApplication {
 							<?php $i++ ?>
 						<?php } ?>
 					</ul>
-					
-					
-					<?php } else if($this->handler->getError() == "1") { ?>  	<!-- FROM GOOGLE -->
-					<input type="hidden" id="start" value="<?= $_POST['Départ'] ?>"/>
-					<input type="hidden" id="end" value="<?= $_POST['Arrivée'] ?>"/>
-					<script type="text/javascript">setTimeout("calcRouteFromGoogle()", 500);</script>
-
-					<?php } ?>
-					
-				<br />
+					<br />
 				</div>	
+				<?php } else if($this->handler->getError() == "1") {?>  	<!-- FROM GOOGLE -->
+									<div id="itineraire" data-role="collapsible" data-theme="e" data-content-theme="e" style="width: <?= TARGET == "mobile" ? "85" : "50" ?>%;">
+										<h3>Feuille de route</h3>
+										<!-- ITINERAIRE -->
+										<ul data-role="listview" data-inset="true" data-theme="d" data-divider-theme="e">
+										</ul>
+									</div>
+									<script type="text/javascript">setTimeout("calcRouteFromGoogle('<?= $_POST['Depart'] ?>','<?= $_POST['Arrivee'] ?>','<?= TARGET ?>')", 500);</script>
+									<?php } ?>
 			
 			
 			<!-- POIs -->

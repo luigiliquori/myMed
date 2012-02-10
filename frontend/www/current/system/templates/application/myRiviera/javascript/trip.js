@@ -4,7 +4,7 @@ var map;
 var poi;
 var poiMem = {};
 var poiIterator;
-var myLat, myLng;
+var myLat, myLng, myAcc;
 
 /**
  * Initialize the application
@@ -34,16 +34,18 @@ function initialize() {
 		function(position) {
 			myLat = position.coords.latitude;
 			myLng = position.coords.longitude;
+			myAcc = position.coords.accuracy;
 			//$("#mapos").val(myLat+'&'+myLng);
 			//alert(myLat+'&'+myLng);
-			$('#depart').val(myLat+'&'+myLng);
-			focusOnPosition(position.coords.latitude, position.coords.longitude);
+			$('#departGeo').val(myLat+'&'+myLng);
+			$('#depart').attr("placeholder", "Ma position");
+			focusOnPosition(myLat, myLng);
 		}, 
 		function(position) {
 			alert('code: '    + error.code    + '\n' +
 			'message: ' + error.message + '\n');
 		},
-		{maximumAge: 300000});
+		{enableHighAccuracy : true, maximumAge: 0});
 	} else {
 		alert("Votre navigateur ne prend pas en compte la géolocalisation HTML5");
 	}
@@ -54,10 +56,11 @@ function initialize() {
  * Print route (itineraire) from Google API
  * In case of cityway errors
  */
-function calcRouteFromGoogle() {
-	var start = document.getElementById("start").value; 
-	var end = document.getElementById("end").value;
-	if (start.indexOf('&') >0){
+function calcRouteFromGoogle(start, end, isMobile) {
+	//var start = document.getElementById("start").value; 
+	//var end = document.getElementById("end").value;
+	console.log(start+" "+end);
+	if (start==""){
 		start = new google.maps.LatLng(myLat, myLng);
 	}
 	var request = {
@@ -70,11 +73,18 @@ function calcRouteFromGoogle() {
 			$("#itineraire").delay(1500).fadeIn("slow");
 			//alert("L'API Cityway n'a pu trouver de résultats pour cette date ou ces lieux.\n Le résultat affiché est donné par Google Maps API");
 			directionsDisplay.setDirections(result);
-			var listview = $("<ul data-role='listview' data-inset='true' data-theme='d' data-divider-theme='e'></ul>");
-			console.log(result.routes[0].legs[0].distance.value+" m");
-			/*for (var i=0; i < result.routes[0].legs[0].steps.length; i++){
+			
+			$('<h3>Vers '+result.routes[0].legs[0].start_address+' '+result.routes[0].legs[0].distance.text+'</h3>').prependTo($("#itineraire ul"));
+			for (var i=0; i < result.routes[0].legs[0].steps.length; i++){
+				var step = result.routes[0].legs[0].steps[i];
+				$('<li data-role="list-divider"><span>'+step.travel_mode+'</span></li>').appendTo($('#itineraire ul'));
+				var desc = $('<li style="font-size: 9pt; font-weight: lighter; padding:2px;"><a href="#" onclick="focusOn('+i+'); '+(isMobile?'$("#itineraire").trigger("collapse")':'')+' data-icon="search"></a></li>');
 				
-			}*/
+				$('<li data-role="list-divider"><span>gyjg,</span></li>').appendTo(desc.find('a'));
+				
+				desc.appendTo($('#itineraire ul'));
+			}
+			$("#itineraire ul").listview("refresh");
 		}
 	});
 }

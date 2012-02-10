@@ -116,7 +116,7 @@
 				durationLabel: ['Jours','Heures','Minutes','Secondes'],
 				durationDays: ['Jour','Jours'],
 				timeFormat: 24,
-				headerFormat: '%A %-d %b %y',
+				headerFormat: '%A %-d %b',
 				tooltip: 'Selecteur de date',
 				nextMonth: 'Mois prochain',
 				prevMonth: 'Mois précédent ',
@@ -592,7 +592,7 @@
 								return new Date(found_date[0], found_date[1], found_date[2], o.defaultPickerValue[0], o.defaultPickerValue[1], o.defaultPickerValue[2], 0);
 							}
 							else {
-								return dtte = new Date(o.defaultPickerValue[0], o.defaultPickerValue[1], o.defaultPickerValue[2], 0, 0, 0, 0);
+								return new Date(o.defaultPickerValue[0], o.defaultPickerValue[1], o.defaultPickerValue[2], 0, 0, 0, 0);
 							}
 						}
 						else if ( typeof o.defaultPickerValue === "number" ) {
@@ -818,7 +818,7 @@
 			
 			inheritDate = self._makeDate(self.input.val());
 			
-			self.controlsHeader.empty().html("Trouver le "+ self._formatHeader(self.theDate) );
+			self.controlsHeader.empty().html(self._formatHeader(self.theDate) );
 			
 			for ( y=0; y<o.fieldsOrder.length; y++ ) {
 				tmpVal = true;
@@ -831,10 +831,8 @@
 							if ( i === 0 ) { cTheme = o.pickPageButtonTheme; }
 							$("<li>", { 'class' : 'ui-body-'+cTheme, 'style':((tmpVal===true)?'margin-top: -453px':'') })
 								.html("<span>"+(self.theDate.getFullYear() + i)+"</span>")
-								.jqmData('offset', i)
-								.jqmData('theme', cTheme)
 								.appendTo(thisRow);
-							if ( tmpVal === true ) { tmpVal = false; }
+							tmpVal = false;
 						}
 						break;
 					case 'm':
@@ -846,11 +844,9 @@
 							cTheme = ( inheritDate.getMonth() === testDate.getMonth() && inheritDate.getYear() === testDate.getYear() ) ? o.pickPageHighButtonTheme : o.pickPageFlipButtonTheme;
 							if ( i === 0 ) { cTheme = o.pickPageButtonTheme; }
 							$("<li>", { 'class' : 'ui-body-'+cTheme, 'style':((tmpVal===true)?'margin-top: -357px':'') })
-								.jqmData('offset', i)
-								.jqmData('theme', cTheme)
 								.html("<span>"+o.lang[o.useLang].monthsOfYearShort[testDate.getMonth()]+"</span>")
 								.appendTo(thisRow);
-							if ( tmpVal === true ) { tmpVal = false; }
+							tmpVal = false;
 						}
 						break;
 					case 'd':
@@ -862,11 +858,9 @@
 							cTheme = ( inheritDate.getDate() === testDate.getDate() && inheritDate.getMonth() === testDate.getMonth() && inheritDate.getYear() === testDate.getYear() ) ? o.pickPageHighButtonTheme : o.pickPageFlipButtonTheme;
 							if ( i === 0 ) { cTheme = o.pickPageButtonTheme; }
 							$("<li>", { 'class' : 'ui-body-'+cTheme, 'style':((tmpVal===true)?'margin-top: -453px':'') })
-								.jqmData('offset', i)
-								.jqmData('theme', cTheme)
 								.html("<span>"+testDate.getDate()+"</span>")
 								.appendTo(thisRow);
-							if ( tmpVal === true ) { tmpVal = false; }
+							tmpVal = false;
 						}
 						break;
 					case 'h':
@@ -877,11 +871,9 @@
 							testDate.setHours(testDate.getHours()+i);
 							cTheme = ( i === 0 ) ?  o.pickPageButtonTheme : o.pickPageFlipButtonTheme;
 							$("<li>", { 'class' : 'ui-body-'+cTheme, 'style':((tmpVal===true)?'margin-top: -357px':'') })
-								.jqmData('offset', i)
-								.jqmData('theme', cTheme)
 								.html("<span>"+( ( o.lang[o.useLang].timeFormat === 12 || o.timeFormatOverride === 12  ) ? ( ( testDate.getHours() === 0 ) ? '12' : ( ( testDate.getHours() < 12 ) ? testDate.getHours() : ( ( testDate.getHours() === 12 ) ? '12' : (testDate.getHours()-12) ) ) ) : testDate.getHours() )+"</span>")
 								.appendTo(thisRow);
-							if ( tmpVal === true ) { tmpVal = false; }
+							tmpVal = false;
 						}
 						break;
 					case 'i':
@@ -893,11 +885,9 @@
 							testDate.setMinutes(testDate.getMinutes()+(i*o.minuteStep));
 							cTheme = ( i === 0 ) ?  o.pickPageButtonTheme : o.pickPageFlipButtonTheme;
 							$("<li>", { 'class' : 'ui-body-'+cTheme, 'style':((tmpVal===true)?'margin-top: -933px':'') })
-								.jqmData('offset', i)
-								.jqmData('theme', cTheme)
 								.html("<span>"+self._zeroPad(testDate.getMinutes())+"</span>")
 								.appendTo(thisRow);
-							if ( tmpVal === true ) { tmpVal = false; }
+							tmpVal = false;
 						}
 						break;
 					case 'a':
@@ -912,13 +902,9 @@
 						}
 						$("<li>").appendTo(thisRow).clone().appendTo(thisRow);
 						$("<li>", { 'class' : 'ui-body-'+cTheme[0], 'style':'margin-top: '+tmpVal+'px' })
-							.jqmData('offset', 1)
-							.jqmData('theme', cTheme[0])
 							.html("<span>"+o.meridiemLetters[0]+"</span>")
 							.appendTo(thisRow);
 						$("<li>", { 'class' : 'ui-body-'+cTheme[1] })
-							.jqmData('offset', 1)
-							.jqmData('theme', cTheme[1])
 							.html("<span>"+o.meridiemLetters[1]+"</span>")
 							.appendTo(thisRow);
 						$("<li>").appendTo(thisRow).clone().appendTo(thisRow);
