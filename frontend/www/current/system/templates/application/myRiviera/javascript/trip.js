@@ -105,13 +105,16 @@ function calcRouteFromGoogle(start, end, isMobile) {
 			//alert("L'API Cityway n'a pu trouver de résultats pour cette date ou ces lieux.\n Le résultat affiché est donné par Google Maps API");
 			directionsDisplay.setDirections(result);
 			
-			$('<h3>Vers '+result.routes[0].legs[0].start_address+' '+result.routes[0].legs[0].distance.text+'</h3>').prependTo($("#itineraire ul"));
+			$("<li data-role='list-divider'><span>"+result.routes[0].legs[0].steps[0].travel_mode.toLowerCase()+"</span></li>").appendTo($('#itineraire ul')); //ToDo should check if travel_mode changes in the following loop
+			//$('<h3>Vers '+result.routes[0].legs[0].start_address+' '+result.routes[0].legs[0].distance.text+'</h3>').prependTo($("#itineraire ul"));
 			for (var i=0; i < result.routes[0].legs[0].steps.length; i++){
-				var step = result.routes[0].legs[0].steps[i];
-				$('<li data-role="list-divider"><span>'+step.travel_mode+'</span></li>').appendTo($('#itineraire ul'));
-				var desc = $('<li style="font-size: 9pt; font-weight: lighter; padding:2px;"><a href="#" onclick="focusOn('+i+'); '+(isMobile?'$("#itineraire").trigger("collapse")':'')+' data-icon="search"></a></li>');
+				st = result.routes[0].legs[0].steps[i];
+				desc = $("<li style='font-size: 9pt; font-weight: lighter; padding:2px;'><a href='#' onclick=focusOnPosition('"+st.start_point.Pa+"','"+st.start_point.Qa+"'); "+(isMobile?"$('#itineraire').trigger('collapse')":"")+" data-icon='search'></a></li>");
+				//desc = $('<li style="font-size: 9pt; font-weight: lighter; padding:2px;"><a href="#" onclick=focusOnPosition("'+st.start_point.Pa+'","'+st.start_point.Qa+'"); '+(isMobile?'$("#itineraire").trigger("collapse")':'')+' data-icon="search"></a></li>');
 				
-				$('<li data-role="list-divider"><span>gyjg,</span></li>').appendTo(desc.find('a'));
+				
+				$("<li data-role='list-divider'><span>Distance: "+st.distance.text+" durée; "+st.duration.text+"</span></li>").appendTo(desc.find('a'));
+				$('<p style="width: 90%;">'+st.instructions+'</p>').appendTo(desc);
 				
 				desc.appendTo($('#itineraire ul'));
 			}

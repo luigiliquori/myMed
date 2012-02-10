@@ -110,10 +110,10 @@ class FindView extends MyApplication {
 					<br />
 				</div>	
 				<?php } else if($this->handler->getError() == "1") {?>  	<!-- FROM GOOGLE -->
-					<div id="itineraire" data-role="collapsible" data-theme="e" data-content-theme="e" style="width: <?= TARGET == "mobile" ? "85" : "50" ?>%;">
+					<div id="itineraire" data-role="collapsible" data-theme="b" data-content-theme="b" style="width: <?= TARGET == "mobile" ? "85" : "50" ?>%;">
 						<h3>Feuille de route</h3>
 						<!-- ITINERAIRE -->
-						<ul data-role="listview" data-inset="true" data-theme="d" data-divider-theme="e">
+						<ul data-role="listview" data-inset="true" data-theme="d" data-divider-theme="b">
 						</ul>
 					</div>
 					<script type="text/javascript">setTimeout("calcRouteFromGoogle('<?= $_POST['Depart'] ?>','<?= $_POST['Arrivee'] ?>','<?= TARGET ?>')", 500);</script>

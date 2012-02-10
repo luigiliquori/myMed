@@ -34,6 +34,15 @@ function focusOnPosition(latitude, longitude){
 	map.setZoom(16);
 	window.scrollTo(0,0);
 	
+	//drop Pin ToDo remove after
+	var marker = new google.maps.Marker({
+		animation: google.maps.Animation.DROP,
+		position: myLatlng,
+		/*icon: 'system/templates/application/myRiviera/img/position.png',*/
+		map: map
+	});
+
+	
 	// clear the markerArray
 	clearPOIs();
 	
