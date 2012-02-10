@@ -57,6 +57,9 @@ class TemplateManager {
 		<!--  <script src="lib/jquery/datebox/jquery.mobile.datebox.min.js"></script>
 		<link href="lib/jquery/datebox/jquery.mobile.datebox.min.css" rel="stylesheet" />   -->
 		
+		<!-- DASP JAVASCRIPT LIBRARY -->
+		<script src="lib/dasp/javascript/dasp.js"></script>
+		
 		<!-- Common javascript -->
 		<script src="system/javascript/common.js"></script>
 		
