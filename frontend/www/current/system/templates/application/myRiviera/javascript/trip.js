@@ -40,16 +40,17 @@ function initialize() {
 			$('#depart').attr("placeholder", "Ma position");
 			
 			// ADD POSITION Marker
-			var myLatlng = new google.maps.LatLng(latitude, longitude);
+			var myLatlng = new google.maps.LatLng(myLat, myLng);
 			myMarkerImage = 'system/templates/application/myRiviera/img/position.png';
 			var marker = new google.maps.Marker({
+				animation: google.maps.Animation.BOUNCE,
 				position: myLatlng,
 				icon: myMarkerImage,
 				map: map
 			});
 
 			// if the accuracy is good enough, print a circle to show the area
-			if (accuracy && accuracy<1500){
+			if (myAcc && myAcc<1500){
 				var circle = new google.maps.Circle({
 					strokeColor: "#0000ff",
 					strokeOpacity: 0.2,
