@@ -4,20 +4,35 @@ var filter = new Array("mymed", "carf");
  * Zoom on a position
  * @param position
  */
-function focusOnPosition(latitude, longitude){
+function focusOnPosition(latitude, longitude, accuracy){
 //	latitude = 43.774309;
 //	longitude = 7.49246;
 	
 	// ZOOM
-	map.panTo(new google.maps.LatLng(latitude, longitude));
+	var pos = new google.maps.LatLng(latitude, longitude);
+	
+	map.panTo(pos);
 	
 	// ADD POSITION Marker
 	myMarkerImage = 'system/templates/application/myRiviera/img/position.png';
 	var marker = new google.maps.Marker({
-		position: new google.maps.LatLng(latitude, longitude),
+		position: pos,
 		icon: myMarkerImage,
 		map: map
 	});
+	
+	if (accuracy && accuracy<1000){
+		var circle = new google.maps.Circle({
+			strokeColor: "#0000ff",
+	        strokeOpacity: 0.2,
+	        strokeWeight: 2,
+	        fillColor: "#0000ff",
+	        fillOpacity: 0.1,
+	        map: map,
+	        center: pos,
+	        radius: accuracy
+		});
+	}
 	
 	// ADD THE POI AROUND THE POSITION
 	if((pois = getPOIs(latitude, longitude, 1000)).length != 0){

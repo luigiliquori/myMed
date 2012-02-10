@@ -50,6 +50,7 @@ class TemplateManager {
 		<!-- <script type="text/javascript" src="lib/jquery/jquery.mobile.datebox.js"></script>-->
 		
 		<!-- MAP -->
+		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=<?= Google_APP_SECRET ?>&sensor=true"> </script>
 		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=<?= Google_APP_SECRET ?>&sensor=true&libraries=places"> </script>
 		
 		<!-- DATEBOX replaced by datebox jtusage -->
