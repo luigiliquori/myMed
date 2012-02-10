@@ -35,21 +35,17 @@ class FindView extends MyApplication {
 	*/
 	public /*String*/ function getHeader() { ?>
 		<div data-role="header" data-theme="b">
-				
+			<h1><?= TARGET == "mobile" ? " " : APPLICATION_NAME ?></h1>
 			<a id="Iti" data-role="actionsheet" data-sheet="Itin" data-icon="search" class="ui-btn-left">Itinéraire</a> 
 			
 			<div class="ui-btn-right">
-				<select name="select-choice" id="select-choice" multiple="multiple" data-native-menu="false" >
-					<option>Options</option>
-					<option value="places">Lieux Public</option>
-					<option value="restos">Restaurants</option>
-					<option value="museums">Musées</option>
-					<option value="events">Evenements</option>
+				<select name="select-filter" id="select-filter" multiple="multiple" data-native-menu="false" onchange="updateFilter()">
+					<option>Points d'interêts</option>
+					<option value="myMed">myMed</option>
+					<option value="carf">carf</option>
+					<option value="cityway">cityway</option>
 				</select>
 			</div>
-			
-			<h1>myRiviera</h1>
-
 			<!-- <a href="#Option" data-role="button" data-rel="dialog" class="ui-btn-right" data-icon="gear">Options</a>  -->
 		</div>
 	<?php }
@@ -63,12 +59,12 @@ class FindView extends MyApplication {
 			
 			<div id="myRivieraMap"></div>
 			
-			<div id="itineraire" data-role="collapsible" data-theme="e" data-content-theme="e" style="width: <?= TARGET == "mobile" ? "94" : "50" ?>%;">
+			<div id="itineraire" data-role="collapsible" data-theme="b" data-content-theme="b" style="width: <?= TARGET == "mobile" ? "94" : "50" ?>%;">
 				<h3>Feuille de route</h3>
 				<!-- ITINERAIRE -->
 				<?php if ($this->handler->getSuccess()) { ?> 				<!-- FROM CITYWAY -->
 					<script type="text/javascript">setTimeout("calcRouteFromCityWay('<?= $this->handler->getSuccess()->kmlurl ?>')", 500);</script>
-					<ul data-role="listview" data-inset="true" data-theme="d" data-divider-theme="e">
+					<ul data-role="listview" data-inset="true" data-theme="d" data-divider-theme="b">
 						<?php $listDivider = null;?>
 						<?php $i=0 ?>
 						<?php foreach($this->handler->getSuccess()->itineraire->ItineraryObj->tripSegments->tripSegment as $tripSegment) { ?>

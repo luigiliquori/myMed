@@ -1,10 +1,22 @@
-var filter = new Array("mymed", "carf");
+var filter = new Array();
+
+Array.prototype.contains = function(aValue){
+	 if( this.toString().match(aValue)) return true;
+};
+
+function updateFilter(){
+	filter = new Array();
+	$.each($("#select-filter").val(), function(i, item) {
+		filter[i] = item;
+	});
+}
 
 /**
  * Zoom on a position
  * @param position
  */
 function focusOnPosition(latitude, longitude){
+//  position of menton to test the POIs
 //	latitude = 43.774309;
 //	longitude = 7.49246;
 	
@@ -127,52 +139,55 @@ function focusOn(id){
 }
 
 /**
+ * CITYWAY APIs
  * Add the marker around the current Trip Segment
  * @deprecated
  */
 function addMarker(){
-	// POI
-	if(!poiMem[poi[poiIterator].id]){
-
-		var myLatlng = new google.maps.LatLng(poi[poiIterator].latitude, poi[poiIterator].longitude);
-
-		var myMarkerImage = "";
-		if(poi[poiIterator].category == "4"){
-			myMarkerImage = 'system/templates/application/myRiviera/img/velobleu.png';
-		} else if (poi[poiIterator].category == "5"){
-			myMarkerImage = 'system/templates/application/myRiviera/img/veloparc.png';
-		} else if (poi[poiIterator].category == "10"){
-			myMarkerImage = 'system/templates/application/myRiviera/img/info.png';
-		} else if (poi[poiIterator].category == "1" || poi[poiIterator].category == "2" || poi[poiIterator].category == "3" || poi[poiIterator].category == "8"){
-			myMarkerImage = 'system/templates/application/myRiviera/img/lieu.png';
-		} else {
-			myMarkerImage = 'system/templates/application/myRiviera/img/trip.png';
+	if (filter.contains("cityway")) {
+		// POI
+		if(!poiMem[poi[poiIterator].id]){
+	
+			var myLatlng = new google.maps.LatLng(poi[poiIterator].latitude, poi[poiIterator].longitude);
+	
+			var myMarkerImage = "";
+			if(poi[poiIterator].category == "4"){
+				myMarkerImage = 'system/templates/application/myRiviera/img/velobleu.png';
+			} else if (poi[poiIterator].category == "5"){
+				myMarkerImage = 'system/templates/application/myRiviera/img/veloparc.png';
+			} else if (poi[poiIterator].category == "10"){
+				myMarkerImage = 'system/templates/application/myRiviera/img/info.png';
+			} else if (poi[poiIterator].category == "1" || poi[poiIterator].category == "2" || poi[poiIterator].category == "3" || poi[poiIterator].category == "8"){
+				myMarkerImage = 'system/templates/application/myRiviera/img/lieu.png';
+			} else {
+				myMarkerImage = 'system/templates/application/myRiviera/img/trip.png';
+			}
+			var marker = new google.maps.Marker({
+				animation: google.maps.Animation.DROP,
+				position: myLatlng,
+				title:poi[poiIterator].name,
+				icon: myMarkerImage
+			});
+			marker.setMap(map);
+	
+			var contentString = 
+				"<div class='poiContent'>" +
+				"<h2 class='poiFirstHeading'>" + poi[poiIterator].name.toLowerCase() + "</h2>"+
+				"<div class='poiBodyContent'>" +
+				"<p> type: " + poi[poiIterator].type.toLowerCase() + "<br />" +
+				"ville: " + poi[poiIterator].localityName.toLowerCase() +
+				"</div>" +	
+				"</div>";
+			var infowindow = new google.maps.InfoWindow({
+				content: contentString
+			});
+	
+			google.maps.event.addListener(marker, 'click', function() {
+				infowindow.open(map,marker);
+			});
+	
+			poiMem[poi[poiIterator].id] = true;
 		}
-		var marker = new google.maps.Marker({
-			animation: google.maps.Animation.DROP,
-			position: myLatlng,
-			title:poi[poiIterator].name,
-			icon: myMarkerImage
-		});
-		marker.setMap(map);
-
-		var contentString = 
-			"<div class='poiContent'>" +
-			"<h2 class='poiFirstHeading'>" + poi[poiIterator].name.toLowerCase() + "</h2>"+
-			"<div class='poiBodyContent'>" +
-			"<p> type: " + poi[poiIterator].type.toLowerCase() + "<br />" +
-			"ville: " + poi[poiIterator].localityName.toLowerCase() +
-			"</div>" +	
-			"</div>";
-		var infowindow = new google.maps.InfoWindow({
-			content: contentString
-		});
-
-		google.maps.event.addListener(marker, 'click', function() {
-			infowindow.open(map,marker);
-		});
-
-		poiMem[poi[poiIterator].id] = true;
+		poiIterator++;
 	}
-	poiIterator++;
 }
