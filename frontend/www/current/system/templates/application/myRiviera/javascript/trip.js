@@ -36,7 +36,6 @@ function initialize() {
 			myLng = position.coords.longitude;
 			myAcc = position.coords.accuracy;
 			//$("#mapos").val(myLat+'&'+myLng);
-			alert(myLat+'&'+myLng+'&'+myAcc);
 			$('#departGeo').val(myLat+'&'+myLng);
 			$('#depart').attr("placeholder", "Ma position");
 			focusOnPosition(myLat, myLng, myAcc);
