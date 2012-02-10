@@ -28,10 +28,14 @@
 }
 
 #depart {
+	background-repeat: no-repeat;
+	background-position: left;
+	background-size: 24px 24px;
 	width:88%;
 	margin-top: 10px;
 	margin-left: auto;
 	margin-right: auto;
+	
 }
 
 #arrivee::-webkit-input-placeholder {

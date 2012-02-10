@@ -4,7 +4,7 @@ var map;
 var poi;
 var poiMem = {};
 var poiIterator;
-var myLat, myLng, myAcc;
+var latitude, longitude, accuracy, watchId; //Html geolocation response
 
 /**
  * Initialize the application
@@ -27,49 +27,60 @@ function initialize() {
      var autocompleteDepart = new google.maps.places.Autocomplete(document.getElementById('depart'));
      var autocompleteArrivee = new google.maps.places.Autocomplete(document.getElementById('arrivee'));
      autocompleteArrivee.bindTo('bounds', map);
+     //autocompleteDepart.bindTo('bounds', map); should also be bound, toDo test it 2 can be bound
 
 	// GEOLOC
-	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(
-		function(position) {
-			myLat = position.coords.latitude;
-			myLng = position.coords.longitude;
-			myAcc = position.coords.accuracy;
-			//$("#mapos").val(myLat+'&'+myLng);
-			$('#departGeo').val(myLat+'&'+myLng);
-			$('#depart').attr("placeholder", "Ma position");
-			
-			// ADD POSITION Marker
-			var myLatlng = new google.maps.LatLng(latitude, longitude);
-			myMarkerImage = 'system/templates/application/myRiviera/img/position.png';
-			var marker = new google.maps.Marker({
-				position: myLatlng,
-				icon: myMarkerImage,
-				map: map
-			});
+    function displayPosition(position) {
+    	latitude = position.coords.latitude;
+    	longitude = position.coords.longitude;
+		accuracy = position.coords.accuracy;
+		$('#departGeo').val(latitude+'&'+longitude);
+		$('#depart').attr("placeholder", "");
+		myMarkerImage = 'system/templates/application/myRiviera/img/position.png';
+		$('#depart').css("background-image", 'url('+myMarkerImage+')');
+		
+		// ADD POSITION Marker
+		var latlng = new google.maps.LatLng(latitude, longitude);
+		
+		var marker = new google.maps.Marker({
+			position: latlng,
+			icon: myMarkerImage,
+			map: map
+		});
 
-			// if the accuracy is good enough, print a circle to show the area
-			if (accuracy && accuracy<1500){
-				var circle = new google.maps.Circle({
-					strokeColor: "#0000ff",
-					strokeOpacity: 0.2,
-					strokeWeight: 2,
-					fillColor: "#0000ff",
-					fillOpacity: 0.1,
-					map: map,
-					center: myLatlng,
-					radius: accuracy
-				});
-			}
-			
-			// focus on the position on show the POIs around
-			focusOnPosition(myLat, myLng);
-		}, 
-		function(position) {
-			alert('code: '    + error.code    + '\n' +
-			'message: ' + error.message + '\n');
-		},
-		{enableHighAccuracy : true, maximumAge: 0});
+		// if the accuracy is good enough, print a circle to show the area
+		if (accuracy && accuracy<1500){
+			var circle = new google.maps.Circle({
+				strokeColor: "#0000ff",
+				strokeOpacity: 0.2,
+				strokeWeight: 2,
+				fillColor: "#0000ff",
+				fillOpacity: 0.1,
+				map: map,
+				center: latlng,
+				radius: accuracy
+			});
+		}
+		
+		// focus on the position on show the POIs around
+		focusOnPosition(latitude, longitude);
+    }
+    function displayError(error) {
+    	var errors = { 
+ 			    1: 'Permission refusée',
+ 			    2: 'Position indisponible',
+ 			    3: 'Requête expirée'
+ 			  };
+ 			console.log("Erreur: " + errors[error.code]);
+ 			if (error.code == 3){
+ 				navigator.geolocation.clearWatch(watchId);
+ 				navigator.geolocation.getCurrentPosition(displayPosition, displayError);
+ 			}
+ 				
+    }
+	if (navigator.geolocation) {
+		watchId = navigator.geolocation.watchPosition(displayPosition, displayError,
+			{enableHighAccuracy : true, timeout: 10 * 1000, maximumAge: 0});	
 	} else {
 		alert("Votre navigateur ne prend pas en compte la géolocalisation HTML5");
 	}
@@ -85,7 +96,7 @@ function calcRouteFromGoogle(start, end, isMobile) {
 	//var end = document.getElementById("end").value;
 	console.log(start+" "+end);
 	if (start==""){
-		start = new google.maps.LatLng(myLat, myLng);
+		start = new google.maps.LatLng(latitude, longitude);
 	}
 	var request = {
 			origin:start,

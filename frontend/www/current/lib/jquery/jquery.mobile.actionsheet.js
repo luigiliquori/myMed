@@ -104,8 +104,8 @@
 				width = $(window).width(),
 				scrollPosition = $(window).scrollTop();
 			this.content.css({
-				'top': (scrollPosition + height / 2 - this.content.height() / 2),
-				'left': (width / 2 - this.content.width() / 2)
+				'top': '30px'/*(scrollPosition + height / 2 - this.content.height() / 2)*/,
+				'left': '30px'/*(width / 2 - this.content.width() / 2)*/
 			});
 		}
 	});
