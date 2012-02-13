@@ -40,7 +40,7 @@ function focusOnPosition(latitude, longitude, withIt){
 	
 	if (withIt){
 		//slide the map to the right to keep center visible behind feuille de route
-		map.panBy(- $("#myRivieraMap").width()/4,0); 
+		map.panBy(- ($("#myRivieraMap").width()-$("#itineraire").width())/2,0); 
 		
 		//clear Pin if exists
 		if (tripPin || 0)
@@ -48,7 +48,7 @@ function focusOnPosition(latitude, longitude, withIt){
 		
 		//drop Pin
 		tripPin = new google.maps.Marker({
-			animation: google.maps.Animation.DROP,
+			/*animation: google.maps.Animation.DROP,*/
 			position: myLatlng,
 			/*icon: 'system/templates/application/myRiviera/img/position.png',*/
 			map: map
