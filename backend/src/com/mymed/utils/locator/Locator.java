@@ -2,44 +2,50 @@ package com.mymed.utils.locator;
 
 import java.util.List;
 
+import com.mymed.controller.core.exception.GeoLocationOutOfBoundException;
+
 /**
  * Expose the methods to handle the geographical identifiers.
  * @author iacopo
  *
  */
 public class Locator {
+	
 	/**
-	 * Returns the location Id that corresponds to the specified position.
-	 * @param latitude	Latitude of the position.
-	 * @param longitude Longitude of the position.
-	 * @return
-	 * @throws GeoLocationOutOfBoundException
+	 * Returns the locationId that corresponds to the specified position.
+	 * 
+	 * @param latitude	Latitude of the position expressed in micro-degrees.
+	 * @param longitude Longitude of the position expressed in micro-degrees.
+	 * @return The locationId of the specified position.
+	 * @throws GeoLocationOutOfBoundException If the specified position is out of the indexed space.
 	 */
-	public static long getLocationId(double latitude,double longitude) throws GeoLocationOutOfBoundException{
+	public static long getLocationId(int latitude,int longitude) throws GeoLocationOutOfBoundException{
 		Location loc= new Location(latitude,longitude);		
 		return HilbertQuad.encode(loc, HilbertQuad.maxLevel).getIndex();
 	}
 	/**
-	 * Gets the area Id corresponding to a certain location Id.
+	 * Gets the areaId corresponding to the specified locationId.
+	 * 
 	 * @param locationId
 	 * @return
-	 * @throws IllegalArgumentException
+	 * @throws IllegalArgumentException If the locationId is not valid.
 	 */
-	public static long getAreaId(long locationId) throws IllegalArgumentException{
+	public static int getAreaId(long locationId) throws IllegalArgumentException{
 		return KeysFinder.getAreaId(locationId);
 	}
 	
 	/**
 	 * Returns a list of location Id ranges, that cover the area defined by latitude 
 	 * longitude and radius.
-	 * @param latitude Latitude of the center of the covered area. (degrees)
-	 * @param longitude Longitude of the center of the covered area. (degrees)
+	 * 
+	 * @param latitude Latitude of the center of the covered area. (micro-degrees)
+	 * @param longitude Longitude of the center of the covered area. (micro-degrees)
 	 * @param radius Diameter of the covered area (km)
 	 * @return
 	 * @throws GeoLocationOutOfBoundException Center of the area is out of bounds.
 	 * @throws IllegalArgumentException The radius exceeds the maximum size.
 	 */
-	public static List<long[]> getCoveringLocationId(double latitude,double longitude,int radius) throws GeoLocationOutOfBoundException,
+	public static List<long[]> getCoveringLocationId(int latitude,int longitude,int radius) throws GeoLocationOutOfBoundException,
 			IllegalArgumentException{
 		
 		Location loc= new Location(latitude,longitude);
@@ -48,11 +54,12 @@ public class Locator {
 	}
 	
 	/**
-	 * Decode the location Id and returns the corresponding location (latitude and longitude in degrees).
+	 * Decodes the locationId and returns the corresponding {@link Location} instance.
+	 * 
 	 * @param locationId
 	 * @return
-	 * @throws IllegalArgumentException
-	 * @throws GeoLocationOutOfBoundException
+	 * @throws IllegalArgumentException If the locationId is not valid.
+	 * @throws GeoLocationOutOfBoundException	If the location is out of the indexed area.
 	 */
 	public static Location getLocationFromId(long locationId) throws IllegalArgumentException,GeoLocationOutOfBoundException{
 		HilbertQuad loc = HilbertQuad.decode(locationId);

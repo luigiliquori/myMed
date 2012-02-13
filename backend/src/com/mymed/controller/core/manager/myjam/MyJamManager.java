@@ -21,7 +21,6 @@ import com.mymed.model.data.myjam.MyJamTypeValidator;
 import com.mymed.model.data.myjam.MyJamTypes.ReportType;
 import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.MConverter;
-import com.mymed.utils.locator.GeoLocationOutOfBoundException;
 import com.mymed.utils.locator.Locator;
 
 /**
@@ -397,5 +396,4 @@ public class MyJamManager extends AbstractManager {
       throw new InternalBackEndException("Wrong id format: " + e.getMessage());
     }
   }
-
 }

@@ -1,4 +1,4 @@
-package com.mymed.utils.locator;
+package com.mymed.controller.core.exception;
 
 public class GeoLocationOutOfBoundException extends Exception{
 
