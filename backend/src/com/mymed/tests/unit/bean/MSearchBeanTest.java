@@ -82,7 +82,8 @@ public class MSearchBeanTest {
    */
   @Test
   public void nullEqualsTest() {
-    assertFalse("The user beans are the same", searchBean.equals(null));
+    final MSearchBean actual = null;
+    assertFalse("The user beans are the same", searchBean.equals(actual)); // NOPMD
   }
 
   @Test

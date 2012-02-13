@@ -76,7 +76,6 @@ public class MInteractionBeanTest {
 
   @AfterClass
   public static void cleanUpAfter() {
-    interactionBean = null;
+    interactionBean = null; // NOPMD
   }
-
 }

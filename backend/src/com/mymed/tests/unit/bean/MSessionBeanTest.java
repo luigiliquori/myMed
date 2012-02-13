@@ -64,7 +64,8 @@ public class MSessionBeanTest {
 
   @Test
   public void nullEqualsTest() {
-    assertFalse("The session beans are the same", sessionBean.equals(null));
+    final MSessionBean actual = null;
+    assertFalse("The session beans are the same", sessionBean.equals(actual)); // NOPMD
   }
 
   @Test

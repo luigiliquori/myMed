@@ -39,7 +39,7 @@ public class MAuthenticationBeanTest {
   private static MAuthenticationBean authenticationBean;
 
   @BeforeClass
-  public static void setUpBeforeClass() throws Exception {
+  public static void setUpBeforeClass() {
     authenticationBean = new MAuthenticationBean();
     authenticationBean.setLogin("LOGIN");
     authenticationBean.setPassword("PASSWORD");
@@ -47,7 +47,7 @@ public class MAuthenticationBeanTest {
   }
 
   @AfterClass
-  public static void tearDownAfterClass() throws Exception {
+  public static void tearDownAfterClass() {
     authenticationBean = null; // NOPMD
   }
 
@@ -73,7 +73,8 @@ public class MAuthenticationBeanTest {
 
   @Test
   public void nullEqualsTest() {
-    assertFalse("The beans are the same", authenticationBean.equals(null));
+    final MAuthenticationBean actual = null;
+    assertFalse("The beans are the same", authenticationBean.equals(actual)); // NOPMD
   }
 
   @Test

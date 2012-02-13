@@ -48,7 +48,7 @@ public class MOntologyBeanTest {
 
   @AfterClass
   public static void cleanUpAfter() {
-    ontologyBean = null;
+    ontologyBean = null; // NOPMD
   }
 
   @Test
@@ -86,7 +86,6 @@ public class MOntologyBeanTest {
   @Test
   public void equalsTest() {
     final MOntologyBean actual = ontologyBean.clone();
-
     assertEquals("The beans are not the same", ontologyBean, actual);
   }
 }

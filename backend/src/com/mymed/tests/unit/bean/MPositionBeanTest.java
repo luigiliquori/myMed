@@ -58,7 +58,8 @@ public class MPositionBeanTest {
 
   @Test
   public void nullEqualsTest() {
-    assertFalse("The beans are the same", positionBean.equals(null));
+    final MPositionBean actual = null;
+    assertFalse("The beans are the same", positionBean.equals(actual)); // NOPMD
   }
 
   @Test

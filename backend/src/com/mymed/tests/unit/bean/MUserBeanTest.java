@@ -69,7 +69,8 @@ public class MUserBeanTest {
    */
   @Test
   public void nullEqualsTest() {
-    assertFalse("The user beans are the same", userBean.equals(null));
+    final MUserBean actual = null;
+    assertFalse("The user beans are the same", userBean.equals(actual)); // NOPMD
   }
 
   @Test
