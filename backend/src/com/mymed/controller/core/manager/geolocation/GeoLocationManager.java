@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import com.mymed.controller.core.exception.GeoLocationOutOfBoundException;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.exception.WrongFormatException;
@@ -62,7 +63,7 @@ public class GeoLocationManager extends AbstractManager {
       final int latitude, final int longitude, final String value, final int permTime) throws InternalBackEndException,
       IOBackEndException {
     try {
-      final long locId = Locator.getLocationId(latitude / 1E6, longitude / 1E6);
+      final long locId = Locator.getLocationId(latitude, longitude);
       final String areaId = String.valueOf(Locator.getAreaId(locId));
 
       long timestamp = System.currentTimeMillis();
@@ -118,7 +119,7 @@ public class GeoLocationManager extends AbstractManager {
        * Data structures preparation
        */
       final Map<byte[], Map<byte[], byte[]>> reports = new HashMap<byte[], Map<byte[], byte[]>>();
-      final List<long[]> covId = Locator.getCoveringLocationId(latitude / 1E6, longitude / 1E6, radius);
+      final List<long[]> covId = Locator.getCoveringLocationId(latitude, longitude, radius);
       final List<String> areaIds = new LinkedList<String>();
       final Iterator<long[]> covIdIterator = covId.iterator();
       /**
@@ -177,6 +178,93 @@ public class GeoLocationManager extends AbstractManager {
       throw new InternalBackEndException("Wrong object Id: " + e.getMessage());
     } catch (final IOBackEndException e) {
       LOGGER.debug(e.getMessage(), e);
+      throw new IOBackEndException(e.getMessage(), 404);
+    }
+  }
+
+  /**
+   * Search located items in a circular region specified by latitude, longitude
+   * and radius.
+   * 
+   * @param applicationId
+   *          Identifier of the application.
+   * @param latitude
+   *          Latitude in micro-degrees.
+   * @param longitude
+   *          Longitude in micro-degrees.
+   * @param radius
+   *          Radius of the search in meters.
+   * @return
+   * @throws InternalBackEndException
+   * @throws IOBackEndException
+   */
+  public List<MSearchBean> read(final String applicationId, final String itemType, final int latitude,
+      final int longitude, final int radius, final boolean filterFlag) throws InternalBackEndException,
+      IOBackEndException {
+    final List<MSearchBean> resultReports = new LinkedList<MSearchBean>();
+    try {
+      /**
+       * Data structures preparation
+       */
+      final Map<byte[], Map<byte[], byte[]>> reports = new HashMap<byte[], Map<byte[], byte[]>>();
+      final List<long[]> covId = Locator.getCoveringLocationId(latitude, longitude, radius);
+      final List<String> areaIds = new LinkedList<String>();
+      final Iterator<long[]> covIdIterator = covId.iterator();
+      /**
+       * Cassandra calls
+       */
+      while (covIdIterator.hasNext()) {
+        final long[] range = covIdIterator.next();
+        final int startAreaId = Locator.getAreaId(range[0]);
+        final int endAreaId = Locator.getAreaId(range[1]);
+        for (long ind = startAreaId; ind <= endAreaId; ind++) {
+          areaIds.add(applicationId + itemType + String.valueOf(ind));
+        }
+        final Map<byte[], Map<byte[], byte[]>> mapRep = ((MyJamStorageManager) storageManager).selectSCRange(
+            "Location", areaIds, MConverter.longToByteBuffer(range[0]).array(), MConverter.longToByteBuffer(range[1])
+                .array());
+        reports.putAll(mapRep);
+        areaIds.clear();
+      }
+      /**
+       * Data processing: Filters the results of the search.
+       */
+      for (final byte[] scName : reports.keySet()) {
+        double distance = Integer.MIN_VALUE;
+        final long posId = MConverter.byteBufferToLong(ByteBuffer.wrap(scName));
+        final Location reportLoc = Locator.getLocationFromId(posId);
+        if (filterFlag) {
+          distance = reportLoc.distanceGCTo(new Location(latitude, longitude));
+        }
+        /** Distance check, only if filter is true. */
+        if (!filterFlag || distance <= radius) {
+          for (final byte[] colName : reports.get(scName).keySet()) {
+            final MSearchBean searchBean = new MSearchBean();
+            final MyMedId repId = MyMedId.parseByteBuffer(ByteBuffer.wrap(colName));
+            searchBean.setValue(MConverter.byteBufferToString(ByteBuffer.wrap(reports.get(scName).get(colName))));
+            searchBean.setId(repId.toString());
+            searchBean.setLatitude(reportLoc.getLatitude());
+            searchBean.setLongitude(reportLoc.getLongitude());
+            searchBean.setDistance((int) distance); // If filter is put to
+            /**
+             * The timestamp is set with the convention used in Java
+             * (milliseconds from 1 January 1970)
+             */
+            searchBean.setDate(repId.getTimestamp());
+            resultReports.add(searchBean);
+          }
+        }
+      }
+      return resultReports;
+    } catch (final InternalBackEndException e) {
+      throw new InternalBackEndException("Wrong parameter: " + e.getMessage());
+    } catch (final GeoLocationOutOfBoundException e) {
+      throw new InternalBackEndException(e.getMessage());
+    } catch (final IllegalArgumentException e) {
+      throw new InternalBackEndException("Wrong parameter: " + e.getMessage());
+    } catch (final WrongFormatException e) {
+      throw new InternalBackEndException("Wrong object Id: " + e.getMessage());
+    } catch (final IOBackEndException e) {
       throw new IOBackEndException(e.getMessage(), 404);
     }
   }

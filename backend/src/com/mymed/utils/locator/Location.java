@@ -2,6 +2,7 @@ package com.mymed.utils.locator;
 
 import ch.qos.logback.classic.Logger;
 
+import com.mymed.controller.core.exception.GeoLocationOutOfBoundException;
 import com.mymed.utils.MLogger;
 
 /**

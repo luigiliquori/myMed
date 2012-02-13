@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import com.mymed.controller.core.exception.GeoLocationOutOfBoundException;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.exception.WrongFormatException;
@@ -55,7 +56,7 @@ public class MyJamManager extends AbstractManager {
       /**
        * Data preparation
        */
-      final long locId = Locator.getLocationId(latitude / 1E6, longitude / 1E6);
+      final long locId = Locator.getLocationId(latitude, longitude);
 
       /** The user profile is received ProfileManager */
       final ProfileManager profileManager = new ProfileManager(new StorageManager());
