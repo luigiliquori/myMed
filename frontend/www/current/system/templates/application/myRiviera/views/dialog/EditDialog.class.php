@@ -106,7 +106,7 @@ class EditDialog extends AbstractTemplate {
 							
 							<select name="select-day" id="select-day">
 								<?php for ($i = 1; $i <= 31; $i++) {
-								?><option value= <?=$i?> <?php if ($i==$now['mday']){?> selected="selected" <?php } ?> > <?=$i?></option>
+								?><option value= <?=$i?> <?php if ($i==$now['mday']){?> selected="selected" <?php } ?> >&nbsp;<?= $i?></option>
 								<?php } ?>
 							</select>
 							 
@@ -126,13 +126,13 @@ class EditDialog extends AbstractTemplate {
 						<fieldset data-role="controlgroup" data-type="horizontal">
 							<select name="select-hour" id="select-hour">
 								<?php for ($i = 0; $i <= 23; $i++) {
-								?><option value= <?=$i?> <?php if ($i==$now['hours']){?> selected="selected" <?php } ?> > <?=sprintf('%02d',$i)?>:</option>
+								?><option value= <?=$i?> <?php if ($i==$now['hours']){?> selected="selected" <?php } ?> > <?=sprintf('%02d',$i)?>h</option>
 								<?php } ?>
 							</select>
 							
 							<select name="select-minute" id="select-minute">
 								<?php for ($i = 0; $i <= 59; $i++) {
-								?><option value= <?=$i?> <?php if ($i==$now['minutes']){?> selected="selected" <?php } ?> > <?=$i?></option>
+								?><option value= <?=$i?> <?php if ($i==$now['minutes']){?> selected="selected" <?php } ?> > <?=$i?>'</option>
 								<?php } ?>
 							</select>
 						</fieldset>

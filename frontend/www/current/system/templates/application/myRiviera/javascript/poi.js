@@ -3,6 +3,7 @@ var markerArray = new Array();
 var currentLatitude = 0;
 var currentLongitude = 0;
 var currentSegmentID = 0;
+var tripPin;
 
 Array.prototype.contains = function(aValue){
 	if( this.toString().match(aValue)) return true;
@@ -20,10 +21,12 @@ function updateFilter(){
 
 /**
  * Zoom on a position
- * @param position
+ * @param latitude
+ * @param longitude
+ * @param withIt: boolean if 'Itineraire' overlay is shown or not
  */
-function focusOnPosition(latitude, longitude){
-
+function focusOnPosition(latitude, longitude, withIt){
+	
 	// memorize the current position
 	currentLatitude = latitude;
 	currentLongitude = longitude;
@@ -32,15 +35,27 @@ function focusOnPosition(latitude, longitude){
 	var myLatlng = new google.maps.LatLng(latitude, longitude);
 	map.setCenter(myLatlng);
 	map.setZoom(16);
+	
 	window.scrollTo(0,0);
 	
-	//drop Pin ToDo remove after
-	var marker = new google.maps.Marker({
-		animation: google.maps.Animation.DROP,
-		position: myLatlng,
-		/*icon: 'system/templates/application/myRiviera/img/position.png',*/
-		map: map
-	});
+	if (withIt){
+		//slide the map to the right to keep center visible behind feuille de route
+		map.panBy(- $("#myRivieraMap").width()/4,0); 
+		
+		//clear Pin if exists
+		if (tripPin || 0)
+			tripPin.setMap(null);
+		
+		//drop Pin
+		tripPin = new google.maps.Marker({
+			animation: google.maps.Animation.DROP,
+			position: myLatlng,
+			/*icon: 'system/templates/application/myRiviera/img/position.png',*/
+			map: map
+		});
+	}
+		
+	
 
 	
 	// clear the markerArray
@@ -140,11 +155,11 @@ function clearPOIs(){
  * @param id
  * @deprecated
  */
-function focusOn(id, latitude, longitude){
+function focusOn(id, latitude, longitude, withIt){
 	currentSegmentID = id;
 	
 	// new Method
-	focusOnPosition(latitude, longitude);
+	focusOnPosition(latitude, longitude, withIt);
 
 	// add marker only for cityway
 	// TODO Remove this part

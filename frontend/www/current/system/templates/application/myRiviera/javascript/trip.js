@@ -27,7 +27,7 @@ function initialize() {
      var autocompleteDepart = new google.maps.places.Autocomplete(document.getElementById('depart'));
      var autocompleteArrivee = new google.maps.places.Autocomplete(document.getElementById('arrivee'));
      autocompleteArrivee.bindTo('bounds', map);
-     //autocompleteDepart.bindTo('bounds', map); should also be bound, toDo test it 2 can be bound
+     autocompleteDepart.bindTo('bounds', map);
 
 	// GEOLOC
     function displayPosition(position) {
@@ -109,7 +109,7 @@ function calcRouteFromGoogle(start, end, isMobile) {
 			//$('<h3>Vers '+result.routes[0].legs[0].start_address+' '+result.routes[0].legs[0].distance.text+'</h3>').prependTo($("#itineraire ul"));
 			for (var i=0; i < result.routes[0].legs[0].steps.length; i++){
 				st = result.routes[0].legs[0].steps[i];
-				desc = $("<li style='font-size: 9pt; font-weight: lighter; padding:2px;'><a href='#' onclick=focusOnPosition('"+st.start_point.Pa+"','"+st.start_point.Qa+"'); "+(isMobile?"$('#itineraire').trigger('collapse')":"")+" data-icon='search'></a></li>");
+				desc = $("<li style='font-size: 9pt; font-weight: lighter; padding:2px;'><a href='#' onclick=focusOnPosition('"+st.start_point.Pa+"','"+st.start_point.Qa+"', 'true'); "+(isMobile?"$('#itineraire').trigger('collapse')":"")+" data-icon='search'></a></li>");
 				//desc = $('<li style="font-size: 9pt; font-weight: lighter; padding:2px;"><a href="#" onclick=focusOnPosition("'+st.start_point.Pa+'","'+st.start_point.Qa+'"); '+(isMobile?'$("#itineraire").trigger("collapse")':'')+' data-icon="search"></a></li>');
 				
 				

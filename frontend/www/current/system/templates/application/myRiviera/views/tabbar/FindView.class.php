@@ -92,7 +92,7 @@ class FindView extends MyApplication {
 							<input id="<?= $i ?>_poi" type="hidden" value='<?= $poi ?>' />
 							
 							<li style="font-size: 9pt; font-weight: lighter; padding:2px;">
-								<a href="#" onclick="focusOn('<?= $i ?>', '<?= $latitude ?>', '<?= $longitude ?>'); <?= TARGET == "mobile" ? "$('#itineraire').trigger('collapse');" : "" ?>" data-icon="search" >
+								<a href="#" onclick="focusOn('<?= $i ?>', '<?= $latitude ?>', '<?= $longitude ?>', 'true'); <?= TARGET == "mobile" ? "$('#itineraire').trigger('collapse');" : "" ?>" data-icon="search" >
 									<?php if(isset($tripSegment->distance)) { ?>
 										<span>Distance: <?= $tripSegment->distance ?>m</span>
 									<?php } else { ?>
