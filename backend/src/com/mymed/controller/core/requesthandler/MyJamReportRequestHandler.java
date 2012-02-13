@@ -67,6 +67,13 @@ public class MyJamReportRequestHandler extends AbstractRequestHandler implements
       MyMedId id;
       String reportId, userId, latitude, longitude, radius;
 
+      // accessToken
+      if (parameters.get("accessToken") == null) {
+        throw new InternalBackEndException("accessToken argument is missing!");
+      } else {
+        tokenValidation(parameters.get("accessToken")); // Security Validation
+      }
+
       switch (code) {
         case READ : // GET
           message.setMethod("READ");
@@ -96,13 +103,15 @@ public class MyJamReportRequestHandler extends AbstractRequestHandler implements
           throw new InternalBackEndException(this.getClass().getName() + "(" + code + ") not exist!");
       }
     } catch (final AbstractMymedException e) {
-      LOGGER.info("Error in doGet operation");
-      LOGGER.debug("Error in doGet operation", e);
+      e.printStackTrace();
+      LOGGER.info("Error in doGet");
+      LOGGER.debug("Error in doGet", e);
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());
     } catch (final NumberFormatException e) {
-      LOGGER.info("Error in doRequest operation");
-      LOGGER.debug("Error in doRequest operation", e);
+      e.printStackTrace();
+      LOGGER.info("Error in doGet");
+      LOGGER.debug("Error in doGet", e);
       message.setStatus(500);
       message.setDescription(e.getMessage());
     }
@@ -125,6 +134,13 @@ public class MyJamReportRequestHandler extends AbstractRequestHandler implements
       final RequestCode code = requestCodeMap.get(parameters.get("code"));
       String latitude, longitude, content;
 
+      // accessToken
+      if (parameters.get("accessToken") == null) {
+        throw new InternalBackEndException("accessToken argument is missing!");
+      } else {
+        tokenValidation(parameters.get("accessToken")); // Security Validation
+      }
+
       switch (code) {
         case CREATE :
           message.setMethod("CREATE");
@@ -145,13 +161,15 @@ public class MyJamReportRequestHandler extends AbstractRequestHandler implements
       }
 
     } catch (final AbstractMymedException e) {
-      LOGGER.info("Error in doPost operation");
-      LOGGER.debug("Error in doPost operation", e);
+      e.printStackTrace();
+      LOGGER.info("Error in doPost");
+      LOGGER.debug("Error in doPost", e);
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());
     } catch (final NumberFormatException e) {
-      LOGGER.info("Error in doRequest operation");
-      LOGGER.debug("Error in doRequest operation", e);
+      e.printStackTrace();
+      LOGGER.info("Error in doPost");
+      LOGGER.debug("Error in doPost", e);
       message.setStatus(500);
       message.setDescription(e.getMessage());
     }
@@ -172,6 +190,14 @@ public class MyJamReportRequestHandler extends AbstractRequestHandler implements
     try {
       final Map<String, String> parameters = getParameters(request);
       final RequestCode code = requestCodeMap.get(parameters.get("code"));
+
+      // accessToken
+      if (parameters.get("accessToken") == null) {
+        throw new InternalBackEndException("accessToken argument is missing!");
+      } else {
+        tokenValidation(parameters.get("accessToken")); // Security Validation
+      }
+
       switch (code) {
         case DELETE :
           message.setMethod("DELETE");
@@ -180,8 +206,9 @@ public class MyJamReportRequestHandler extends AbstractRequestHandler implements
       }
       super.doDelete(request, response);
     } catch (final AbstractMymedException e) {
-      LOGGER.info("Error in doRequest operation");
-      LOGGER.debug("Error in doRequest operation", e);
+      e.printStackTrace();
+      LOGGER.info("Error in doDelete");
+      LOGGER.debug("Error in doDelete", e);
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());
     }

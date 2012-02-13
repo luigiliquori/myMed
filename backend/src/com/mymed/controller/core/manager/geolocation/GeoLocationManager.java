@@ -16,7 +16,6 @@ import com.mymed.model.data.geolocation.MSearchBean;
 import com.mymed.model.data.id.MyMedId;
 import com.mymed.model.data.storage.ExpColumnBean;
 import com.mymed.utils.MConverter;
-import com.mymed.utils.locator.GeoLocationOutOfBoundException;
 import com.mymed.utils.locator.Location;
 import com.mymed.utils.locator.Locator;
 

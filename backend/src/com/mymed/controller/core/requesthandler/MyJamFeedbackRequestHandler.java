@@ -65,6 +65,13 @@ public class MyJamFeedbackRequestHandler extends AbstractRequestHandler implemen
       final RequestCode code = requestCodeMap.get(parameters.get("code"));
       String id;
 
+      // accessToken
+      if (parameters.get("accessToken") == null) {
+        throw new InternalBackEndException("accessToken argument is missing!");
+      } else {
+        tokenValidation(parameters.get("accessToken")); // Security Validation
+      }
+
       switch (code) {
         case READ : // GET
           message.setMethod("READ");
@@ -75,13 +82,15 @@ public class MyJamFeedbackRequestHandler extends AbstractRequestHandler implemen
           } else {
             throw new InternalBackEndException("missing parameter, bad request!");
           }
+
           break;
         default :
           throw new InternalBackEndException(this.getClass().getName() + "(" + code + ") not exist!");
       }
     } catch (final AbstractMymedException e) {
-      LOGGER.info("Error in doGet operation");
-      LOGGER.debug("Error in doGet operation", e);
+      e.printStackTrace();
+      LOGGER.info("Error in doGet");
+      LOGGER.debug("Error in doGet", e);
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());
     }
@@ -104,18 +113,28 @@ public class MyJamFeedbackRequestHandler extends AbstractRequestHandler implemen
       final RequestCode code = requestCodeMap.get(parameters.get("code"));
       String id, content;
 
+      // accessToken
+      if (parameters.get("accessToken") == null) {
+        throw new InternalBackEndException("accessToken argument is missing!");
+      } else {
+        tokenValidation(parameters.get("accessToken")); // Security Validation
+      }
+
       switch (code) {
         case CREATE :
           message.setMethod("CREATE");
           if ((id = parameters.get(ID)) != null) {
             MyMedId.parseString(id);
-            // Optional parameter, present only if the feedback refers to an
-            // update.
-            final String updateId = parameters.get(UPDATE_ID);
+            final String updateId = parameters.get(UPDATE_ID); // Optional
+                                                               // parameter,
+                                                               // present only
+                                                               // if the
+                                                               // feedback
+                                                               // refers to the
+                                                               // an update.
             if (updateId != null) {
               MyMedId.parseString(updateId);
             }
-
             content = MConverter.convertStreamToString(request.getInputStream(), request.getContentLength());
             final MFeedBackBean feedback = getGson().fromJson(content, MFeedBackBean.class);
             MyJamTypeValidator.validate(feedback);
@@ -129,6 +148,7 @@ public class MyJamFeedbackRequestHandler extends AbstractRequestHandler implemen
       }
 
     } catch (final AbstractMymedException e) {
+      e.printStackTrace();
       LOGGER.info("Error in doPost operation");
       LOGGER.debug("Error in doPost operation", e);
       message.setStatus(e.getStatus());
@@ -151,14 +171,23 @@ public class MyJamFeedbackRequestHandler extends AbstractRequestHandler implemen
     try {
       final Map<String, String> parameters = getParameters(request);
       final RequestCode code = requestCodeMap.get(parameters.get("code"));
+
+      // accessToken
+      if (parameters.get("accessToken") == null) {
+        throw new InternalBackEndException("accessToken argument is missing!");
+      } else {
+        tokenValidation(parameters.get("accessToken")); // Security Validation
+      }
+
       switch (code) {
         case DELETE :
           message.setMethod("DELETE");
       }
       super.doDelete(request, response);
     } catch (final AbstractMymedException e) {
-      LOGGER.info("Error in doRequest operation");
-      LOGGER.debug("Error in doRequest operation", e);
+      e.printStackTrace();
+      LOGGER.info("Error in doDelete operation");
+      LOGGER.debug("Error in doDelete operation", e);
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());
     }

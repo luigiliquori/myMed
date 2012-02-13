@@ -1,5 +1,11 @@
 package com.mymed.utils.locator;
 
+/**
+ * Class to wrap a {@link HilbertQuad} in order to add a metric with which it can be ordered.
+ * 
+ * @author iacopo
+ *
+ */
 public class HqWrapper {
 	private short metric;
 	private HilbertQuad quad;

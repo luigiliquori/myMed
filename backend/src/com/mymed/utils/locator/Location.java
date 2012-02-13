@@ -1,7 +1,52 @@
 package com.mymed.utils.locator;
 
+import ch.qos.logback.classic.Logger;
+
+import com.mymed.utils.MLogger;
+
+/**
+ * Class representing a location on the Earth.
+ * 
+ * @author iacopo
+ * 
+ */
 public class Location {
+  public final static int DEGREES = 0;
+  public final static int RADIANS = 1;
+
+  protected static final Logger LOGGER = MLogger.getLogger();
   public static double earthRadius = 6371.01d * 1E3;
+
+  /**
+   * Constructor which takes as arguments {@link latitude} and {@link longitude}
+   * expressed in radiant.
+   * 
+   * @param latitude
+   * @param longitude
+   * @throws GeoLocationOutOfBoundException
+   */
+  public Location(final double latitude, final double longitude) throws GeoLocationOutOfBoundException {
+    radLat = latitude;
+    radLon = longitude;
+    checkBounds();
+  }
+
+  /**
+   * Constructor which takes as arguments {@link latitude} and {@link longitude}
+   * expressed in micro-degrees.
+   * 
+   * @param latitude
+   * @param longitude
+   * @throws GeoLocationOutOfBoundException
+   */
+  public Location(final int latitude, final int longitude) throws GeoLocationOutOfBoundException {
+    radLat = Math.toRadians(latitude / 1E6);
+    radLon = Math.toRadians(longitude / 1E6);
+    checkBounds();
+  }
+
+  private final double radLat; // latitude in radians
+  private final double radLon; // longitude in radians
 
   /*
    * The latitude is limited to the range (-80,+80)
@@ -11,81 +56,57 @@ public class Location {
   protected static final double MIN_LON = Math.toRadians(-180d); // -PI
   protected static final double MAX_LON = Math.toRadians(180d); // PI
 
-  private final double radLat; // latitude in radians
-  private final double radLon; // longitude in radians
-
-  public Location(final double latitude, final double longitude) throws GeoLocationOutOfBoundException {
-    radLat = Math.toRadians(latitude);
-    radLon = Math.toRadians(longitude);
-    checkBounds();
-  }
-
-  /**
-   * @param latitude
-   *          the latitude, in degrees.
-   * @param longitude
-   *          the longitude, in degrees.
-   * @throws GeoLocationOutOfBoundException
-   */
-  public static Location fromDegrees(final double latitude, final double longitude, final String provider)
-      throws GeoLocationOutOfBoundException {
-    final Location result = new Location(latitude, longitude);
-    result.checkBounds();
-    return result;
-  }
-
-  /**
-   * @param latitude
-   *          the latitude, in radians.
-   * @param longitude
-   *          the longitude, in radians.
-   * @throws GeoLocationOutOfBoundException
-   */
-  public static Location fromRadians(final double latitude, final double longitude, final String provider)
-      throws GeoLocationOutOfBoundException {
-    final Location result = new Location(Math.toDegrees(latitude), Math.toDegrees(longitude));
-    result.checkBounds();
-    return result;
-  }
-
   private void checkBounds() throws GeoLocationOutOfBoundException {
     if (radLat < MIN_LAT || radLat > MAX_LAT || radLon < MIN_LON || radLon > MAX_LON) {
-      throw new GeoLocationOutOfBoundException("Location is out of bound. Latitude: " + getLatitude() + " Longitude: "
-          + getLongitude());
+      throw new GeoLocationOutOfBoundException("Location is out of bound. Latitude: "
+          + String.valueOf(this.getLatitude(DEGREES)) + " Longitude: " + String.valueOf(this.getLongitude(DEGREES)));
     }
   }
 
   /**
-   * @return the latitude, in radians.
+   * Get the latitude.
+   * 
+   * @param format
+   *          {@link DEGREES} or {@link RADIANS}
+   * @return The latitude in the specified format.
    */
-  public double getLatitudeInRadians() {
-    return radLat;
+  public double getLatitude(final int format) {
+    return format == DEGREES ? Math.toDegrees(radLat) : radLat;
   }
 
   /**
-   * @return the longitude, in radians.
+   * Get the longitude.
+   * 
+   * @param format
+   *          {@link DEGREES} or {@link RADIANS}
+   * @return The longitude in the specified format.
    */
-  public double getLongitude() {
-    return Math.toDegrees(radLon);
+  public double getLongitude(final int format) {
+    return format == DEGREES ? Math.toDegrees(radLon) : radLon;
   }
 
   /**
-   * @return the latitude, in radians.
+   * Get the latitude in micro-degrees.
+   * 
+   * @return
    */
-  public double getLatitude() {
-    return Math.toDegrees(radLat);
+  public int getLatitude() {
+    return (int) (Math.toDegrees(radLat) * 1E6);
   }
 
   /**
-   * @return the longitude, in radians.
+   * Get the longitude in micro-degrees
+   * 
+   * @return
    */
-  public double getLongitudeInRadians() {
-    return radLon;
+  public int getLongitude() {
+    return (int) (Math.toDegrees(radLon) * 1E6);
   }
 
   @Override
   public String toString() {
-    return "(" + getLatitude() + "\u00B0, " + getLongitude() + "\u00B0) = (" + radLat + " rad, " + radLon + " rad)";
+    return "(" + this.getLatitude(DEGREES) + "\u00B0, " + this.getLongitude(DEGREES) + "\u00B0) = (" + radLat
+        + " rad, " + radLon + " rad)";
   }
 
   /**
@@ -96,6 +117,7 @@ public class Location {
    *          the radius of the sphere, e.g. the average radius for a spherical
    *          approximation of the figure of the Earth is approximately 6371.01
    *          kilometers.
+   * 
    * @return the distance, measured in meters
    */
   public double distanceGCTo(final Location location) {
@@ -116,7 +138,7 @@ public class Location {
   public Location[] boundingCoordinates(final double distance) {
 
     if (distance < 0d) {
-      throw new IllegalArgumentException("Distance cannot be negative: " + distance);
+      throw new IllegalArgumentException("Distance cannot be negative: " + String.valueOf(distance));
     }
 
     // angular distance in radians on a great circle
@@ -143,10 +165,10 @@ public class Location {
       minLat = Math.max(minLat, MIN_LAT);
     }
     try {
-      return new Location[] {fromRadians(minLat, minLon, ""), fromRadians(maxLat, maxLon, "")};
+      return new Location[] {new Location(minLat, minLon), new Location(maxLat, maxLon)};
     } catch (final GeoLocationOutOfBoundException e) {
       // Never happen because maxLat is limited.
-      // TODO add logger
+      LOGGER.debug(e.toString());
       return null;
     }
   }
@@ -164,17 +186,17 @@ public class Location {
   protected static Location[] getCorners(final Location leftBottomCorner, final Location rightBottomCorner) {
     Location corner1, corner2, corner3, corner4;
     try {
-      corner1 = new Location(leftBottomCorner.getLatitude(), leftBottomCorner.getLongitude());
-      corner2 = new Location(leftBottomCorner.getLatitude(), rightBottomCorner.getLongitude());
-      corner3 = new Location(rightBottomCorner.getLatitude(), rightBottomCorner.getLongitude());
-      corner4 = new Location(rightBottomCorner.getLatitude(), leftBottomCorner.getLongitude());
+      corner1 = new Location(leftBottomCorner.getLatitude(RADIANS), leftBottomCorner.getLongitude(RADIANS));
+      corner2 = new Location(leftBottomCorner.getLatitude(RADIANS), rightBottomCorner.getLongitude(RADIANS));
+      corner3 = new Location(rightBottomCorner.getLatitude(RADIANS), rightBottomCorner.getLongitude(RADIANS));
+      corner4 = new Location(rightBottomCorner.getLatitude(RADIANS), leftBottomCorner.getLongitude(RADIANS));
       return new Location[] {corner1, corner2, corner3, corner4};
     } catch (final GeoLocationOutOfBoundException e) {
       /*
        * Never happens, because the leftBottomCorner and the rightBottomCorner
        * are inside the limits.
        */
-      // TODO add logger
+      LOGGER.debug(e.toString());
       return null;
     }
   }
