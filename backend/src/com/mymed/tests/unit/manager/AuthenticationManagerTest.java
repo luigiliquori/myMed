@@ -20,6 +20,8 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import com.mymed.controller.core.exception.IOBackEndException;
+import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.authentication.AuthenticationManager;
 import com.mymed.model.data.user.MUserBean;
 
@@ -51,6 +53,15 @@ public class AuthenticationManagerTest extends GeneralTest {
   public void readAuthTest() {
     try {
       authenticationManager.create(userBean, authenticationBean);
+    } catch (final IOBackEndException ex) {
+      // NOPMD
+      // Do nothing in this case, we are creating a user, but if it exists
+      // already we want the test to continue
+    } catch (final InternalBackEndException ex) {
+      fail(ex.getMessage());
+    }
+
+    try {
       final MUserBean readValue = authenticationManager.read(authenticationBean.getLogin(),
           authenticationBean.getPassword());
       assertEquals("The user beans are not the same\n", readValue, userBean);

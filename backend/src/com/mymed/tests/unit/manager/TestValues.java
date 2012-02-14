@@ -67,10 +67,10 @@ public class TestValues {
 
   // GeoLocation manager values
   protected static final String ITEM_TYPE = "item1";
-  protected static final int LATITUDE = 4720000;
-  protected static final int LONGITUDE = 1550000;
+  protected static final int LATITUDE = 472000;
+  protected static final int LONGITUDE = 155000;
   protected static final int EXPIRING_TIME = 0;
-  protected static final int RADIUS = 25000;
+  protected static final int RADIUS = 50000;
   protected static final String GEO_VALUE = "simplevalue";
 
   protected static final String IP = "138.126.23.2"; // NOPMD

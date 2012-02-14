@@ -28,9 +28,6 @@ import com.mymed.utils.locator.Locator;
  */
 public class GeoLocationManager extends AbstractManager {
 
-  private static final long A_MILLION = 1000000L;
-  private static final String SC_LOCATION = COLUMNS.get("column.sc.location");
-
   public GeoLocationManager() throws InternalBackEndException {
     this(new MyJamStorageManager());
   }
@@ -63,13 +60,18 @@ public class GeoLocationManager extends AbstractManager {
       final int latitude, final int longitude, final String value, final int permTime) throws InternalBackEndException,
       IOBackEndException {
     try {
-      final long locId = Locator.getLocationId(latitude, longitude);
+      /**
+       * Data preparation
+       */
+      long locId;
+
+      locId = Locator.getLocationId(latitude, longitude);
       final String areaId = String.valueOf(Locator.getAreaId(locId));
 
       long timestamp = System.currentTimeMillis();
       final MyMedId id = new MyMedId(Character.toLowerCase(itemType.charAt(0)), timestamp, userLogin);
 
-      // Create a MSearchBean instance to be returned.
+      /** Create a MSearchBean instance to be returned. */
       final MSearchBean searchBean = new MSearchBean();
       searchBean.setId(id.toString());
       searchBean.setLocationId(locId);
@@ -77,108 +79,26 @@ public class GeoLocationManager extends AbstractManager {
       searchBean.setLatitude(longitude);
       searchBean.setValue(value);
       searchBean.setDate(timestamp);
-      // If the TTL has been specified, the expiration time is set on the bean.
+      /** If the TTL has been specified, the expiration time is set on the bean. */
       if (permTime != 0) {
-        searchBean.setExpirationDate(timestamp + A_MILLION * permTime);
+        searchBean.setExpirationDate(timestamp + (permTime * 1000000));
       }
+      /**
+       * In cassandra is used the convention of microseconds since 1 Jenuary
+       * 1970.
+       */
+      timestamp = (long) (timestamp * 1E3);
 
-      timestamp *= 1000L;
-
-      ((MyJamStorageManager) storageManager).insertExpiringColumn(SC_LOCATION, applicationId + itemType + areaId,
+      /**
+       * SuperColumn insertion in CF Location
+       **/
+      ((MyJamStorageManager) storageManager).insertExpiringColumn("Location", applicationId + itemType + areaId,
           MConverter.longToByteBuffer(locId).array(), id.AsByteBuffer().array(), MConverter.stringToByteBuffer(value)
               .array(), timestamp, permTime);
 
       return searchBean;
     } catch (final GeoLocationOutOfBoundException e) {
-      LOGGER.debug(e.getMessage(), e);
       throw new InternalBackEndException(e.getMessage());
-    }
-  }
-
-  /**
-   * Search located items in a circular region specified by latitude, longitude
-   * and radius.
-   * 
-   * @param applicationId
-   *          Identifier of the application.
-   * @param latitude
-   *          Latitude in micro-degrees.
-   * @param longitude
-   *          Longitude in micro-degrees.
-   * @param radius
-   *          Radius of the search in meters.
-   * @return
-   * @throws InternalBackEndException
-   * @throws IOBackEndException
-   */
-  public List<MSearchBean> read(final String applicationId, final String itemType, final int latitude,
-      final int longitude, final int radius) throws InternalBackEndException, IOBackEndException {
-    final List<MSearchBean> resultReports = new LinkedList<MSearchBean>();
-    try {
-      /**
-       * Data structures preparation
-       */
-      final Map<byte[], Map<byte[], byte[]>> reports = new HashMap<byte[], Map<byte[], byte[]>>();
-      final List<long[]> covId = Locator.getCoveringLocationId(latitude, longitude, radius);
-      final List<String> areaIds = new LinkedList<String>();
-      final Iterator<long[]> covIdIterator = covId.iterator();
-      /**
-       * Cassandra calls
-       */
-      while (covIdIterator.hasNext()) {
-        final long[] range = covIdIterator.next();
-        final long startAreaId = Locator.getAreaId(range[0]);
-        final long endAreaId = Locator.getAreaId(range[1]);
-        for (long ind = startAreaId; ind <= endAreaId; ind++) {
-          areaIds.add(applicationId + itemType + ind);
-        }
-        final Map<byte[], Map<byte[], byte[]>> mapRep = ((MyJamStorageManager) storageManager).selectSCRange(
-            SC_LOCATION, areaIds, MConverter.longToByteBuffer(range[0]).array(), MConverter.longToByteBuffer(range[1])
-                .array());
-        reports.putAll(mapRep);
-        areaIds.clear();
-      }
-      /**
-       * Data processing: Filters the results of the search.
-       */
-      for (final byte[] scName : reports.keySet()) {
-        final long posId = MConverter.byteBufferToLong(ByteBuffer.wrap(scName));
-        final Location reportLoc = Locator.getLocationFromId(posId);
-        final double distance = reportLoc.distanceGCTo(new Location(latitude / 1E6, longitude / 1E6));
-
-        if (distance <= radius) {
-          for (final byte[] colName : reports.get(scName).keySet()) {
-            final MSearchBean searchBean = new MSearchBean();
-            final MyMedId repId = MyMedId.parseByteBuffer(ByteBuffer.wrap(colName));
-            searchBean.setValue(MConverter.byteBufferToString(ByteBuffer.wrap(reports.get(scName).get(colName))));
-            searchBean.setId(repId.toString());
-            searchBean.setLatitude((int) (reportLoc.getLatitude() * 1E6));
-            searchBean.setLongitude((int) (reportLoc.getLongitude() * 1E6));
-            searchBean.setDistance((int) distance);
-            /**
-             * The timestamp is set with the convention used in Java
-             * (milliseconds from 1 January 1970)
-             */
-            searchBean.setDate(repId.getTimestamp());
-            resultReports.add(searchBean);
-          }
-        }
-      }
-      return resultReports;
-    } catch (final InternalBackEndException e) {
-      throw new InternalBackEndException("Wrong parameter: " + e.getMessage());
-    } catch (final GeoLocationOutOfBoundException e) {
-      LOGGER.debug(e.getMessage(), e);
-      throw new InternalBackEndException(e.getMessage());
-    } catch (final IllegalArgumentException e) {
-      LOGGER.debug(e.getMessage(), e);
-      throw new InternalBackEndException("Wrong parameter: " + e.getMessage());
-    } catch (final WrongFormatException e) {
-      LOGGER.debug(e.getMessage(), e);
-      throw new InternalBackEndException("Wrong object Id: " + e.getMessage());
-    } catch (final IOBackEndException e) {
-      LOGGER.debug(e.getMessage(), e);
-      throw new IOBackEndException(e.getMessage(), 404);
     }
   }
 
@@ -288,7 +208,7 @@ public class GeoLocationManager extends AbstractManager {
     MSearchBean searchBean;
 
     try {
-      final ExpColumnBean expCol = ((MyJamStorageManager) storageManager).selectExpiringColumn(SC_LOCATION,
+      final ExpColumnBean expCol = ((MyJamStorageManager) storageManager).selectExpiringColumn("Location",
           applicationId + itemType + areaId, MConverter.longToByteBuffer(locationId).array(),
           MyMedId.parseString(itemId).AsByteBuffer().array());
 
@@ -296,25 +216,21 @@ public class GeoLocationManager extends AbstractManager {
 
       searchBean = new MSearchBean();
       searchBean.setId(itemId);
-      searchBean.setLatitude((int) (loc.getLatitude() * 1E6));
-      searchBean.setLongitude((int) (loc.getLongitude() * 1E6));
+      searchBean.setLatitude(loc.getLatitude());
+      searchBean.setLongitude(loc.getLongitude());
       searchBean.setValue(MConverter.byteBufferToString(ByteBuffer.wrap(expCol.getValue())));
       searchBean.setLocationId(locationId);
       searchBean.setDate(expCol.getTimestamp());
-
       if (expCol.getTimeToLive() != 0) {
-        searchBean.setExpirationDate(expCol.getTimestamp() + A_MILLION * expCol.getTimeToLive());
+        searchBean.setExpirationDate(expCol.getTimestamp() + (expCol.getTimeToLive() * 1000000));
       }
 
       return searchBean;
     } catch (final WrongFormatException e) {
-      LOGGER.debug(e.getMessage(), e);
       throw new InternalBackEndException("Wrong report Id: " + e.getMessage());
     } catch (final IllegalArgumentException e) {
-      LOGGER.debug(e.getMessage(), e);
       throw new InternalBackEndException("Wrong report Id: " + e.getMessage());
     } catch (final GeoLocationOutOfBoundException e) {
-      LOGGER.debug(e.getMessage(), e);
       throw new InternalBackEndException("Wrong report Id: " + e.getMessage());
     }
   }
@@ -342,13 +258,11 @@ public class GeoLocationManager extends AbstractManager {
       final String areaId = String.valueOf(Locator.getAreaId(locationId));
       final MyMedId id = MyMedId.parseString(itemId);
 
-      ((MyJamStorageManager) storageManager).removeColumn(SC_LOCATION, applicationId + itemType + areaId, MConverter
+      ((MyJamStorageManager) storageManager).removeColumn("Location", applicationId + itemType + areaId, MConverter
           .longToByteBuffer(locationId).array(), id.AsByteBuffer().array());
     } catch (final WrongFormatException e) {
-      LOGGER.debug(e.getMessage(), e);
       throw new InternalBackEndException("Wrong report Id: " + e.getMessage());
     } catch (final IllegalArgumentException e) {
-      LOGGER.debug(e.getMessage(), e);
       throw new InternalBackEndException("Wrong location Id: " + e.getMessage());
     }
   }

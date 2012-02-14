@@ -47,7 +47,7 @@ public class GeoLocationManagerTest extends GeneralTest {
       }
 
       final List<MSearchBean> searchList = geolocationManager.read(APPLICATION_ID, ITEM_TYPE, LATITUDE, LONGITUDE,
-          RADIUS);
+          RADIUS, true);
 
       assertEquals("The results read do not correspond to the written ones", createList.size(), searchList.size());
     } catch (final Exception ex) {

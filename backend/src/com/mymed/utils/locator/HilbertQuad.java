@@ -450,4 +450,5 @@ public class HilbertQuad {
     result = 31 * result + (int) (index ^ index >>> 32);
     return result;
   }
+
 }
