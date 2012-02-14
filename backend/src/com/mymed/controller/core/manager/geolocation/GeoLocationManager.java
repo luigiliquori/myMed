@@ -29,15 +29,37 @@ import com.mymed.utils.locator.Locator;
  */
 public class GeoLocationManager extends AbstractManager {
 
+  /**
+   * Long value for 1,000.
+   */
   private static final long A_THOUSAND = 1000L;
+
+  /**
+   * Long value for 1,000,000.
+   */
   private static final long A_MILLION = 1000000L;
 
+  /**
+   * The name of the supercolumn.
+   */
   private static final String SC_LOCATION = COLUMNS.get("column.sc.location");
 
+  /**
+   * Default constructor.
+   * 
+   * @throws InternalBackEndException
+   */
   public GeoLocationManager() throws InternalBackEndException {
     this(new MyJamStorageManager());
   }
 
+  /**
+   * Constructor.
+   * 
+   * @param storageManager
+   *          the storage manager to use
+   * @throws InternalBackEndException
+   */
   public GeoLocationManager(final MyJamStorageManager storageManager) throws InternalBackEndException {
     super(storageManager);
   }
@@ -236,7 +258,6 @@ public class GeoLocationManager extends AbstractManager {
     }
   }
 
-  // TODO To be tested.
   /**
    * Deletes one located item.
    * 
