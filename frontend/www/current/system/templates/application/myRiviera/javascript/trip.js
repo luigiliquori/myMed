@@ -22,24 +22,24 @@ function initialize() {
 	});
 	directionsDisplay = new google.maps.DirectionsRenderer();
 	directionsDisplay.setMap(map);
-	
+
 	// autocompletes Google Maps Places API, should make it work
-     var autocompleteDepart = new google.maps.places.Autocomplete(document.getElementById('depart'));
-     var autocompleteArrivee = new google.maps.places.Autocomplete(document.getElementById('arrivee'));
-     autocompleteArrivee.bindTo('bounds', map);
-     autocompleteDepart.bindTo('bounds', map);
+	var autocompleteDepart = new google.maps.places.Autocomplete(document.getElementById('depart'));
+	var autocompleteArrivee = new google.maps.places.Autocomplete(document.getElementById('arrivee'));
+	autocompleteArrivee.bindTo('bounds', map);
+	autocompleteDepart.bindTo('bounds', map);
 
 	// GEOLOC
-    function displayPosition(position) {
-    	latitude = position.coords.latitude;
-    	longitude = position.coords.longitude;
+	function displayPosition(position) {
+		latitude = position.coords.latitude;
+		longitude = position.coords.longitude;
 		accuracy = position.coords.accuracy;
 		$('#departGeo').val(latitude+'&'+longitude);
 		$('#depart').attr("placeholder", "Ma position");
-		
+
 		// ADD POSITION Marker
 		var latlng = new google.maps.LatLng(latitude, longitude);
-		
+
 		var marker = new google.maps.Marker({
 			animation: google.maps.Animation.BOUNCE,
 			position: latlng,
@@ -60,27 +60,27 @@ function initialize() {
 				radius: accuracy
 			});
 		}
-		
+
 		// focus on the position on show the POIs around
 		focusOnPosition(latitude, longitude);
-    }
-    function displayError(error) {
-    	var errors = { 
- 			    1: 'Permission refusée',
- 			    2: 'Position indisponible',
- 			    3: 'Requête expirée'
- 			  };
- 			console.log("Erreur géolocalisation: " + errors[error.code]);
- 			if (error.code == 3)
- 				navigator.geolocation.getCurrentPosition(displayPosition, displayError);
-    }
+	}
+	function displayError(error) {
+		var errors = { 
+				1: 'Permission refusée',
+				2: 'Position indisponible',
+				3: 'Requête expirée'
+		};
+		console.log("Erreur géolocalisation: " + errors[error.code]);
+		if (error.code == 3)
+			navigator.geolocation.getCurrentPosition(displayPosition, displayError);
+	}
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(displayPosition, displayError,
-			{enableHighAccuracy : true, timeout: 5000, maximumAge: 0});	
+				{enableHighAccuracy : true, timeout: 5000, maximumAge: 0});	
 	} else {
 		alert("Votre navigateur ne prend pas en compte la géolocalisation HTML5");
 	}
-	
+
 }
 
 /**
@@ -104,18 +104,18 @@ function calcRouteFromGoogle(start, end, isMobile) {
 			$("#itineraire").delay(1500).fadeIn("slow");
 			//alert("L'API Cityway n'a pu trouver de résultats pour cette date ou ces lieux.\n Le résultat affiché est donné par Google Maps API");
 			directionsDisplay.setDirections(result);
-			
+
 			$("<li data-role='list-divider'><span>"+result.routes[0].legs[0].steps[0].travel_mode.toLowerCase()+"</span></li>").appendTo($('#itineraire ul')); //ToDo should check if travel_mode changes in the following loop
 			//$('<h3>Vers '+result.routes[0].legs[0].start_address+' '+result.routes[0].legs[0].distance.text+'</h3>').prependTo($("#itineraire ul"));
 			for (var i=0; i < result.routes[0].legs[0].steps.length; i++){
 				st = result.routes[0].legs[0].steps[i];
 				desc = $("<li style='font-size: 9pt; font-weight: lighter; padding:2px;'><a href='#' onclick=focusOnPosition('"+st.start_point.Pa+"','"+st.start_point.Qa+"', 'true'); "+(isMobile?"$('#itineraire').trigger('collapse')":"")+" data-icon='search'></a></li>");
 				//desc = $('<li style="font-size: 9pt; font-weight: lighter; padding:2px;"><a href="#" onclick=focusOnPosition("'+st.start_point.Pa+'","'+st.start_point.Qa+'"); '+(isMobile?'$("#itineraire").trigger("collapse")':'')+' data-icon="search"></a></li>');
-				
-				
+
+
 				$("<li data-role='list-divider'><span>Distance: "+st.distance.text+" durée; "+st.duration.text+"</span></li>").appendTo(desc.find('a'));
 				$('<p style="width: 90%;">'+st.instructions+'</p>').appendTo(desc);
-				
+
 				desc.appendTo($('#itineraire ul'));
 			}
 			$("#itineraire ul").listview("refresh");
@@ -127,11 +127,31 @@ function calcRouteFromGoogle(start, end, isMobile) {
  * Print route (itineraire) from CityWay API
  * @param url
  */
-function calcRouteFromCityWay(url){
+function calcRouteFromCityWay(start, end, isMobile){
 //	$("#myRivieraMap").height($("body").height() - ($("body").height()/2));
+//	
+//	var KmlObject = new google.maps.KmlLayer(url);
+//	KmlObject.setMap(map);
+	
+	// PRINT THE STARTING POINT
+	geocoder = new google.maps.Geocoder();
+	geocoder.geocode( { 'address': start}, function(results, status) {
+		if (status == google.maps.GeocoderStatus.OK) {
+			lat = results[0].geometry.location.lat();
+			lng = results[0].geometry.location.lng();
+			addPOI(lat, lng, 'system/templates/application/myRiviera/img/start.png', "Départ", "<b>Lieu: </b>" + start, true);
+		}
+	});
+	geocoder.geocode( { 'address': end}, function(results, status) {
+		if (status == google.maps.GeocoderStatus.OK) {
+			lat = results[0].geometry.location.lat();
+			lng = results[0].geometry.location.lng();
+			addPOI(lat, lng, 'system/templates/application/myRiviera/img/end.png', "Arrivée", "<b>Lieu: </b>" + end, true);
+		}
+	});
+	
+	// SHOW ITINERAIRE
 	$("#itineraire").delay(1500).fadeIn("slow");
-	var KmlObject = new google.maps.KmlLayer(url);
-	KmlObject.setMap(map);
 }
 
 /**
@@ -147,5 +167,5 @@ function changeDestination(dest){
 
 
 function getMap(){
-	
+
 }

@@ -3,7 +3,6 @@ var markerArray = new Array();
 var currentLatitude = 0;
 var currentLongitude = 0;
 var currentSegmentID = 0;
-var tripPin;
 
 Array.prototype.contains = function(aValue){
 	if( this.toString().match(aValue)) return true;
@@ -21,46 +20,32 @@ function updateFilter(){
 
 /**
  * Zoom on a position
- * @param latitude
- * @param longitude
- * @param withIt: boolean if 'Itineraire' overlay is shown or not
+ * @param position
  */
-function focusOnPosition(latitude, longitude, withIt){
+function focusOnPosition(latitude, longitude, icon){
 	
 	// memorize the current position
 	currentLatitude = latitude;
 	currentLongitude = longitude;
-	
+
 	// focus on the position
 	var myLatlng = new google.maps.LatLng(latitude, longitude);
 	map.setCenter(myLatlng);
 	map.setZoom(16);
-	
 	window.scrollTo(0,0);
-	
-	if (withIt){
-		//slide the map to the right to keep center visible behind feuille de route
-		map.panBy(- ($("#myRivieraMap").width()-$("#itineraire").width())/2,0); 
-		
-		//clear Pin if exists
-		if (tripPin || 0)
-			tripPin.setMap(null);
-		
-		//drop Pin
-		tripPin = new google.maps.Marker({
-			/*animation: google.maps.Animation.DROP,*/
-			position: myLatlng,
-			/*icon: 'system/templates/application/myRiviera/img/position.png',*/
-			map: map
-		});
-	}
-		
-	
 
-	
+	//drop Pin ToDo remove after
+	var marker = new google.maps.Marker({
+		animation: google.maps.Animation.DROP,
+		position: myLatlng,
+		icon: icon,
+		map: map
+	});
+
+
 	// clear the markerArray
 	clearPOIs();
-	
+
 	// add the POIs around the position
 	if((pois = getPOIs(latitude, longitude, 500)).length != 0){
 		$.each(pois, function(i, poi) {
@@ -68,7 +53,7 @@ function focusOnPosition(latitude, longitude, withIt){
 			addPOI(value.latitude,  value.longitude, value.icon, value.title, value.title);
 		});
 	}
-	
+
 }
 
 /**
@@ -84,7 +69,7 @@ function getPOIs(latitude, longitude, radius) {
 
 	var result = new Array();
 	$.each(filterArray, function(i, type) {
-		
+
 		args = "code=1";
 		args += "&application=" + $("#applicationName").val();
 		args += "&type=" + type;
@@ -99,7 +84,7 @@ function getPOIs(latitude, longitude, radius) {
 			data : args,
 			async : false
 		}).responseText;
-		
+
 		if((resJSON = $.parseJSON(res)) != null) {
 			if((pois = $.parseJSON(resJSON.data.pois)) != null) {
 				result = result.concat(pois);
@@ -113,7 +98,7 @@ function getPOIs(latitude, longitude, radius) {
  * Add marker according to the myMed jSon format
  * @param elt
  */
-function addPOI(latitude, longitude, icon, title, description){
+function addPOI(latitude, longitude, icon, title, description, isPersistent){
 	var myLatlng = new google.maps.LatLng(latitude, longitude);
 	var marker = new google.maps.Marker({
 		animation: google.maps.Animation.DROP,
@@ -121,13 +106,15 @@ function addPOI(latitude, longitude, icon, title, description){
 		title: title,
 		icon: icon
 	});
-	markerArray.push(marker);
+	if(!isPersistent){
+		markerArray.push(marker);
+	}
 	marker.setMap(map);
 
 	var contentString = 
 		"<div class='poiContent'>" +
 		"<h2 class='poiFirstHeading'>" + title + "</h2>"+
-		"<div class='poiBodyContent'>" +
+		"<div class='poiBodyContent'>"
 		+ description +
 		"</div>" +	
 		"</div>";
@@ -141,10 +128,10 @@ function addPOI(latitude, longitude, icon, title, description){
 }
 
 function clearPOIs(){
-    for (var i = 0; i < markerArray.length; i++ ) {
-    	markerArray[i].setMap(null);
-    }
-    markerArray = new Array();
+	for (var i = 0; i < markerArray.length; i++ ) {
+		markerArray[i].setMap(null);
+	}
+	markerArray = new Array();
 }
 
 /* ****************** */
@@ -155,11 +142,11 @@ function clearPOIs(){
  * @param id
  * @deprecated
  */
-function focusOn(id, latitude, longitude, withIt){
+function focusOn(id, latitude, longitude, icon){
 	currentSegmentID = id;
-	
+
 	// new Method
-	focusOnPosition(latitude, longitude, withIt);
+	focusOnPosition(latitude, longitude, icon);
 
 	// add marker only for cityway
 	// TODO Remove this part

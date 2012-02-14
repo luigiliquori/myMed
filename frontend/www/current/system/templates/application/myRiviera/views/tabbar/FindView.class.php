@@ -63,27 +63,34 @@ class FindView extends MyApplication {
 				<div id="itineraire" data-role="collapsible" data-theme="b" data-content-theme="b" style="width: <?= TARGET == "mobile" ? "85" : "50" ?>%;">
 					<h3>Feuille de route</h3>
 					<!-- ITINERAIRE -->
-					<script type="text/javascript">setTimeout("calcRouteFromCityWay('<?= $this->handler->getSuccess()->kmlurl ?>')", 500);</script>
+					<script type="text/javascript">setTimeout("calcRouteFromCityWay('<?= $_POST['Depart'] ?>','<?= $_POST['Arrivee'] ?>','<?= TARGET ?>')", 500);</script>
 					<ul data-role="listview" data-inset="true" data-theme="d" data-divider-theme="b">
 						<?php $listDivider = null;?>
 						<?php $i=0 ?>
 						<?php foreach($this->handler->getSuccess()->itineraire->ItineraryObj->tripSegments->tripSegment as $tripSegment) { ?>
-		
 							<?php if($listDivider == null || $listDivider != $tripSegment->type) { ?>
+								<?php $icon = null ?>
 								<li data-role="list-divider"><?php 
 									if($tripSegment->type == "WALK") { ?>
-										<!-- <img alt="Marche" src="system/templates/application/myRiviera/img/<?= strtolower($tripSegment->type) ?>.png" /> -->
 										<span>Marche</span>
+										<?php $icon = "system/templates/application/myRiviera/img/" . strtolower($tripSegment->type) . ".png" ?>
 									<?php } else if($tripSegment->type == "CONNECTION") { ?>
 										<span>Connection</span>
-									<?php } else  { ?>
-										<!-- <img alt="Marche" src="system/templates/application/myRiviera/img/<?= strtolower($tripSegment->transportMode) ?>.png" /> -->
+									<?php } else if($tripSegment->type == "WAIT") { ?>
+										<span>Attendre</span>
+										</li>
+										<li style="font-size: 9pt; font-weight: lighter; padding:2px;">
+											<span>Durée: <?= $tripSegment->duration ?>min</span>
+										</li>
+										<?php continue; ?>
+									<?php } else { ?>
 										<span><?= strtolower($tripSegment->transportMode) ?></span>
+										<?php $icon = "system/templates/application/myRiviera/img/" . strtolower($tripSegment->transportMode) . ".png" ?>
 									<?php } ?>	
 								</li>
 								<?php $listDivider = $tripSegment->type ?>
 							<?php } ?>
-							
+							  
 							<?php
 							$latitude =   $tripSegment->departurePoint->latitude;
 							$longitude = $tripSegment->departurePoint->longitude;
@@ -92,7 +99,8 @@ class FindView extends MyApplication {
 							<input id="<?= $i ?>_poi" type="hidden" value='<?= $poi ?>' />
 							
 							<li style="font-size: 9pt; font-weight: lighter; padding:2px;">
-								<a href="#" onclick="focusOn('<?= $i ?>', '<?= $latitude ?>', '<?= $longitude ?>', 'true'); <?= TARGET == "mobile" ? "$('#itineraire').trigger('collapse');" : "" ?>" data-icon="search" >
+								<a href="#" onclick="
+								focusOn('<?= $i ?>', '<?= $latitude ?>', '<?= $longitude ?>', '<?= $icon ?>'); <?= TARGET == "mobile" ? "$('#itineraire').trigger('collapse');" : "" ?>" data-icon="search" >
 									<?php if(isset($tripSegment->distance)) { ?>
 										<span>Distance: <?= $tripSegment->distance ?>m</span>
 									<?php } else { ?>
