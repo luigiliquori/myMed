@@ -83,6 +83,7 @@ class FindView extends MyApplication {
 										<li style="font-size: 9pt; font-weight: lighter; padding:2px;">
 											<span>Durée: <?= $tripSegment->duration ?>min</span>
 										</li>
+										<?php $listDivider = null;?>
 										<?php continue; ?>
 									<?php } else { ?>
 										<span><?= strtolower($tripSegment->transportMode) ?></span>
@@ -96,7 +97,9 @@ class FindView extends MyApplication {
 							<?php
 							$latitude =   $tripSegment->departurePoint->latitude;
 							$longitude = $tripSegment->departurePoint->longitude;
-							$poi =  str_replace("'", "", json_encode($tripSegment->poi)); 
+							if(isset($tripSegment->poi)){
+								$poi =  str_replace("'", "", json_encode($tripSegment->poi)); 
+							}
 							?>
 							<input id="<?= $i ?>_poi" type="hidden" value='<?= $poi ?>' />
 							

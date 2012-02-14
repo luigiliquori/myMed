@@ -41,7 +41,7 @@ function focusOnPosition(latitude, longitude){
 	if((pois = getPOIs(latitude, longitude, 500)).length != 0){
 		$.each(pois, function(i, poi) {
 			value = $.parseJSON(poi.value);
-			addPOI(value.latitude,  value.longitude, value.icon, value.title, value.title);
+			addPOI(value.latitude,  value.longitude, value.icon, value.title, value.description);
 		});
 	}
 

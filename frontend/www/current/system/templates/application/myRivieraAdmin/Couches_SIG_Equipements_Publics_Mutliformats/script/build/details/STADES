@@ -1,0 +1,19 @@
+{
+"type": "STADESCollection",
+"features": [
+{ "type": "STADES", "properties": { "ADRESSE": "Chemin de la Valéria", "CODE_POSTA": "06320", "VILLE": "La Turbie", "PAYS": "France", "NOM": "Stade Municipal Ortelli", "DESCRIPTIO": "", "LAT": "", "LNG": "", "INTERNET": "" }, "geometry": { "type": "Point", "coordinates": [ 7.398879, 43.744437 ] } }
+,
+{ "type": "STADES", "properties": { "ADRESSE": "", "CODE_POSTA": "06440", "VILLE": "Peille", "PAYS": "France", "NOM": "Stade municipal de Peille", "DESCRIPTIO": "", "LAT": "", "LNG": "", "INTERNET": "" }, "geometry": { "type": "Point", "coordinates": [ 7.406325, 43.806985 ] } }
+,
+{ "type": "STADES", "properties": { "ADRESSE": "", "CODE_POSTA": "06240", "VILLE": "BEAUSOLEIL", "PAYS": "France", "NOM": "Stade municipal du Devens", "DESCRIPTIO": "04.93.41.96.48", "LAT": "", "LNG": "", "INTERNET": "" }, "geometry": { "type": "Point", "coordinates": [ 7.417885, 43.746884 ] } }
+,
+{ "type": "STADES", "properties": { "ADRESSE": "171, AVENUE PASTEUR", "CODE_POSTA": "06190", "VILLE": "ROQUEBRUNE-CAP-MARTIN", "PAYS": "France", "NOM": "Stade de RCM", "DESCRIPTIO": "04 93 35 71 78", "LAT": "", "LNG": "", "INTERNET": "" }, "geometry": { "type": "Point", "coordinates": [ 7.478344, 43.763830 ] } }
+,
+{ "type": "STADES", "properties": { "ADRESSE": "27 AVENUE PORTE DE FRANCE 06500 Menton", "CODE_POSTA": "06500", "VILLE": "MENTON", "PAYS": "France", "NOM": "Stade Lucien Rhein", "DESCRIPTIO": "04.93.41.61.01", "LAT": "", "LNG": "", "INTERNET": "" }, "geometry": { "type": "Point", "coordinates": [ 7.513469, 43.783610 ] } }
+,
+{ "type": "STADES", "properties": { "ADRESSE": "205 ALLEE DU STADE 06500 Menton", "CODE_POSTA": "06500", "VILLE": "MENTON", "PAYS": "France", "NOM": "Stade Saint-Roman", "DESCRIPTIO": "04.93.41.45.00", "LAT": "", "LNG": "", "INTERNET": "" }, "geometry": { "type": "Point", "coordinates": [ 7.487762, 43.801948 ] } }
+,
+{ "type": "STADES", "properties": { "ADRESSE": "", "CODE_POSTA": "06380", "VILLE": "SOSPEL", "PAYS": "France", "NOM": "Stade Emmanuel Donato", "DESCRIPTIO": "", "LAT": "", "LNG": "", "INTERNET": "" }, "geometry": { "type": "Point", "coordinates": [ 7.442263, 43.879113 ] } }
+
+]
+}

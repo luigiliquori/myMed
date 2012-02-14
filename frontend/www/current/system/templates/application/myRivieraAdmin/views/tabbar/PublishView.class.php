@@ -72,10 +72,10 @@ class PublishView extends MyApplication {
 			   <div style="color: gray;">
 			   		<h4>Example:</h4>
 			   		[<br/>
-					{"latitude" : "43.7755517", "longitude" : "7.504739",  "title" : "La Cantinella", "icon" : "http://mymed2.sophia.inria.fr/system/templates/application/myRiviera/img/resto.png"},<br/>
-					{"latitude" : "43.775383", "longitude" : "7.5012805",  "title" : "Méditerranée", "icon" : "http://mymed2.sophia.inria.fr/system/templates/application/myRiviera/img/resto.png"},<br/>
-					{"latitude" : "43.7828274", "longitude" : "7.5120867",  "title" : "Napoléon", "icon" : "http://mymed2.sophia.inria.fr/system/templates/application/myRiviera/img/resto.png"},<br/>
-					{"latitude" : "38.42228990140251", "longitude" : "7.5209301",  "title" : "Paris Rome", "icon" : "http://mymed2.sophia.inria.fr/system/templates/application/myRiviera/img/resto.png"}<br/>
+					{"latitude" : "43.7755517", "longitude" : "7.504739",  "title" : "La Cantinella", "description" : "restaurant", "icon" : "http://mymed2.sophia.inria.fr/system/templates/application/myRiviera/img/resto.png"},<br/>
+					{"latitude" : "43.775383", "longitude" : "7.5012805",  "title" : "Méditerranée", "description" : "restaurant", "icon" : "http://mymed2.sophia.inria.fr/system/templates/application/myRiviera/img/resto.png"},<br/>
+					{"latitude" : "43.7828274", "longitude" : "7.5120867",  "title" : "Napoléon", "description" : "restaurant", "icon" : "http://mymed2.sophia.inria.fr/system/templates/application/myRiviera/img/resto.png"},<br/>
+					{"latitude" : "38.42228990140251", "longitude" : "7.5209301",  "title" : "Paris Rome", "description" : "restaurant", "icon" : "http://mymed2.sophia.inria.fr/system/templates/application/myRiviera/img/resto.png"}<br/>
 					]<br/>
 			   </div>
 			   <form action="#" method="post" name="Test2Form" id="Test2Form" enctype="multipart/form-data">
