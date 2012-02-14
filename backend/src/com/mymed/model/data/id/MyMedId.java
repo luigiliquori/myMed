@@ -19,15 +19,15 @@ import com.mymed.controller.core.exception.WrongFormatException;
  * @author iacopo
  * 
  */
-public class MyMedId {
-  private final long timestamp;
-  private final String userId;
-  private final char type;
-
+public class MyMedId implements Cloneable {
   private static final Charset CHARSET = Charset.forName("UTF8");
   private static final int LONG_BYTESIZE = 8;
   private static final int CHAR_BYTESIZE = 2;
   private static final char SEPARATOR_CHAR = '_';
+
+  private final long timestamp;
+  private final String userId;
+  private final char type;
 
   /**
    * Public constructor.
@@ -40,6 +40,28 @@ public class MyMedId {
     this.type = type;
     this.timestamp = timestamp; // Removed check
     this.userId = userId;
+  }
+
+  /**
+   * Copy constructor.
+   * 
+   * @param toClone
+   *          the object to clone
+   */
+  protected MyMedId(final MyMedId toClone) {
+    type = toClone.getType();
+    timestamp = toClone.getTimestamp();
+    userId = toClone.getUserId();
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#clone()
+   */
+  @Override
+  public MyMedId clone() {
+    return new MyMedId(this);
   }
 
   /**
@@ -100,7 +122,7 @@ public class MyMedId {
   }
 
   /**
-   * Parse the ByteBuffer argument and returns a ReportId object
+   * Parse the String argument and returns a ReportId object
    * 
    * @return ReportIdObject
    */
