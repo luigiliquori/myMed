@@ -127,33 +127,18 @@ function calcRouteFromGoogle(start, end, isMobile) {
  * @param url
  */
 function calcRouteFromCityWay(start, end, isMobile){
-	// PRINT THE STARTING POINT
-	geocoder = new google.maps.Geocoder();
-	var  coordinates = [];
-	geocoder.geocode( { 'address': start}, function(results, status) {
-		if (status == google.maps.GeocoderStatus.OK) {
-			lat = results[0].geometry.location.lat();
-			lng = results[0].geometry.location.lng();
-			coordinates.push(new google.maps.LatLng(lat, lng));
-			addPOI(lat, lng, 'system/templates/application/myRiviera/img/start.png', "Départ", "<b>Lieu: </b>" + start, true);
-		}
-	});
-	geocoder.geocode( { 'address': end}, function(results, status) {
-		if (status == google.maps.GeocoderStatus.OK) {
-			lat = results[0].geometry.location.lat();
-			lng = results[0].geometry.location.lng();
-			coordinates.push(new google.maps.LatLng(lat, lng));
-			addPOI(lat, lng, 'system/templates/application/myRiviera/img/end.png', "Arrivée", "<b>Lieu: </b>" + end, true);
-		}
-	});
-	
 	// ZOOM ON THE TRIP
+	startLatLng = $("#geocodeStartingPoint").val().split(",");
+	endLatLng = $("#geocodeEndingPoint").val().split(",");
+	
 	bounds = new google.maps.LatLngBounds();
-	for (var i = 0; i < coordinates.length; i++) {
-	    bounds.extend(coordinates[i]);
-	}
+	bounds.extend(new google.maps.LatLng(startLatLng[0], startLatLng[1]));
+	bounds.extend(new google.maps.LatLng(endLatLng[0], endLatLng[1]));
 	map.fitBounds(bounds);
-
+	
+	// PRINT THE STARTING POINT
+	addPOI(startLatLng[0], startLatLng[1], 'system/templates/application/myRiviera/img/start.png', "Départ", "<b>Lieu: </b>" + start, true);
+	addPOI(endLatLng[0], endLatLng[1], 'system/templates/application/myRiviera/img/end.png', "Arrivée", "<b>Lieu: </b>" + end, true);
 	
 	// SHOW ITINERAIRE
 	$("#itineraire").delay(1500).fadeIn("slow");

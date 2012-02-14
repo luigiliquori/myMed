@@ -22,7 +22,7 @@ function updateFilter(){
  * Zoom on a position
  * @param position
  */
-function focusOnPosition(latitude, longitude, icon){
+function focusOnPosition(latitude, longitude){
 	
 	// memorize the current position
 	currentLatitude = latitude;
@@ -34,17 +34,7 @@ function focusOnPosition(latitude, longitude, icon){
 	map.setZoom(16);
 	window.scrollTo(0,0);
 
-	//drop Pin ToDo remove after
-	if(icon) {
-		marker = new google.maps.Marker({
-			animation: google.maps.Animation.DROP,
-			position: myLatlng,
-			icon: icon,
-			map: map
-		});
-	}
-
-	// clear the markerArray
+	// clear the markerArray (POIs array TODO rename it)
 	clearPOIs();
 
 	// add the POIs around the position
@@ -116,7 +106,7 @@ function addPOI(latitude, longitude, icon, title, description, isPersistent){
 		"<div class='poiContent'>" +
 		"<h2 class='poiFirstHeading'>" + title + "</h2>"+
 		"<div class='poiBodyContent'>"
-		+ description +
+		+ decodeURIComponent((description + '').replace(/\+/g, '%20')); +
 		"</div>" +	
 		"</div>";
 	var infowindow = new google.maps.InfoWindow({
@@ -125,6 +115,9 @@ function addPOI(latitude, longitude, icon, title, description, isPersistent){
 
 	google.maps.event.addListener(marker, 'click', function() {
 		infowindow.open(map,marker);
+	});
+	 google.maps.event.addListener(map, 'click', function(){
+		infowindow.close();
 	});
 }
 
@@ -143,11 +136,11 @@ function clearPOIs(){
  * @param id
  * @deprecated
  */
-function focusOn(id, latitude, longitude, icon){
+function focusOn(id, latitude, longitude){
 	currentSegmentID = id;
 
 	// new Method
-	focusOnPosition(latitude, longitude, icon);
+	focusOnPosition(latitude, longitude);
 
 	// add marker only for cityway
 	// TODO Remove this part

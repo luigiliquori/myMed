@@ -60,7 +60,7 @@ class FindView extends MyApplication {
 			<div id="myRivieraMap"></div>
 
 			<?php if ($this->handler->getSuccess()) { ?> 				<!-- FROM CITYWAY -->
-				<div id="itineraire" data-role="collapsible" data-theme="b" data-content-theme="b" style="width: <?= TARGET == "mobile" ? "85" : "50" ?>%;">
+				<div id="itineraire" data-role="collapsible" data-theme="b" data-content-theme="b" style="width: <?= TARGET == "mobile" ? "85" : "35" ?>%;">
 					<h3>Feuille de route</h3>
 					<!-- ITINERAIRE -->
 					<script type="text/javascript">setTimeout("calcRouteFromCityWay('<?= $_POST['Depart'] ?>','<?= $_POST['Arrivee'] ?>','<?= TARGET ?>')", 500);</script>
@@ -73,6 +73,7 @@ class FindView extends MyApplication {
 								<li data-role="list-divider"><?php 
 									if($tripSegment->type == "WALK") { ?>
 										<span>Marche</span>
+										<?php $titre = "Marche" ?>
 										<?php $icon = "system/templates/application/myRiviera/img/" . strtolower($tripSegment->type) . ".png" ?>
 									<?php } else if($tripSegment->type == "CONNECTION") { ?>
 										<span>Connection</span>
@@ -85,6 +86,7 @@ class FindView extends MyApplication {
 										<?php continue; ?>
 									<?php } else { ?>
 										<span><?= strtolower($tripSegment->transportMode) ?></span>
+										<?php $titre = strtolower($tripSegment->transportMode) ?>
 										<?php $icon = "system/templates/application/myRiviera/img/" . strtolower($tripSegment->transportMode) . ".png" ?>
 									<?php } ?>	
 								</li>
@@ -99,17 +101,20 @@ class FindView extends MyApplication {
 							<input id="<?= $i ?>_poi" type="hidden" value='<?= $poi ?>' />
 							
 							<li style="font-size: 9pt; font-weight: lighter; padding:2px;">
+								
+								<!-- FOCUS ON -->
 								<a href="#" onclick="
-								focusOn('<?= $i ?>', '<?= $latitude ?>', '<?= $longitude ?>', '<?= $icon ?>'); <?= TARGET == "mobile" ? "$('#itineraire').trigger('collapse');" : "" ?>" data-icon="search" >
+								focusOn('<?= $i ?>', '<?= $latitude ?>', '<?= $longitude ?>');
+								addPOI('<?= $latitude ?>', '<?= $longitude ?>', '<?= $icon ?>', '<?= $titre ?>', '<?= urlencode($tripSegment->comment) ?>', true);
+								<?= TARGET == "mobile" ? "$('#itineraire').trigger('collapse');" : "" ?>"
+								data-icon="search" >
 									<?php if(isset($tripSegment->distance)) { ?>
-										<span>Distance: <?= $tripSegment->distance ?>m</span>
+									<span>Distance: <?= $tripSegment->distance ?>m</span>
 									<?php } else { ?>
-										<span>Durée: <?= $tripSegment->duration ?>min</span>
+									<span>Durée: <?= $tripSegment->duration ?>min</span>
 									<?php } ?>
 								</a>
-								<p style="width: 90%;">
-									<?= $tripSegment->comment ?>
-								</p>
+								<p style="width: 90%;"><?= $tripSegment->comment ?></p>
 							</li>
 									
 							<?php $i++ ?>

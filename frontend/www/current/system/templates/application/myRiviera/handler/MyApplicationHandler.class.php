@@ -40,41 +40,24 @@ class MyApplicationHandler implements IRequestHandler {
 		if(isset($_POST['method'])) {
 			if($_POST['method'] == "find") {
 				if(isset($_POST['Depart']) && isset($_POST['Arrivee'])) {
-					if ( empty($_POST['Depart']) ) { //we use lon & lat couple given by DepartGeo
+					if ( empty($_POST['Depart']) && isset($_POST['DepartGeo']) ) { //we use lon & lat couple given by DepartGeo
 						$dep = explode("&", $_POST['DepartGeo']);
-						
-						$geocode1 = json_decode( // a fake geocode for matching with the following
-						  '{
-						  "status": "OK",
-						  "results": [
-						  			{
-						  				"geometry": {
-						  					"location":{
-						  						"lat": '.$dep[0].',
-						  						"lng": '.$dep[1].'
-						  					}
-						  				}
-										}
-						  		]
-						  	}'
-						);
-						//echo '<script type="text/javascript">alert(\' oo' .$geo.' '. $geocode1->status .' '.$geocode1->results[0]->geometry->location->lat.' '.$geocode1->results[0]->geometry->location->lng .'\');</script>';
-
-					}else{
-
-						// CALL TO GOOGLE GEOCODE API
-						//echo '<script type="text/javascript">alert(\' kk\');</script>';
+						$geocode1 = json_decode('{' .
+							'"status": "OK",' . 
+							'"results": [ { "geometry": { "location":{ "lat": '.$dep[0].',"lng": '.$dep[1].'} } } ]' . 
+							'}');
+					} else {
 						$geocode1 = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($_POST['Depart']) . "&sensor=true"));
 					}
-					
 					$geocode2 = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($_POST['Arrivee']) . "&sensor=true"));
 
-					// CALL TO CITYWAY API
 					if($geocode1->status == "OK" && $geocode2->status == "OK"){
 						
-						// FORMAT date for cityway
-						//$tmp = preg_split("/[^0-9]+/", $_POST['date']);
+						// Memorize the Starting and the ending point
+						echo '<input id="geocodeStartingPoint" type="hidden" value="' . $geocode1->results[0]->geometry->location->lat . ',' . $geocode1->results[0]->geometry->location->lng . '" />';
+						echo '<input id="geocodeEndingPoint" type="hidden" value="' . $geocode2->results[0]->geometry->location->lat . ',' . $geocode2->results[0]->geometry->location->lng . '" />';
 						
+						// CALL TO CITYWAY API
 						$args = "&mode=transit" . 
 						"&depLon=" . $geocode1->results[0]->geometry->location->lng .
 						"&depLat=" . $geocode1->results[0]->geometry->location->lat .
@@ -84,9 +67,6 @@ class MyApplicationHandler implements IRequestHandler {
 						"&arrType=7" . 
 						"&departureTime=" . 
 						sprintf('%d-%02d-%02d_%02d-%02d',$_POST['select-year'],$_POST['select-month'],$_POST['select-day'],$_POST['select-hour'],$_POST['select-minute']);
-						//sprintf('%d-%02d-%02d_%02d-%02d',$tmp[4],$tmp[3],$tmp[2],$tmp[0],$tmp[1]);
-						// cityway date format yyyy-mm-dd_hh-mm
-						//echo '<script type="text/javascript">alert(\' kk '.$args .'\');</script>';
 						$itineraire = file_get_contents(Cityway_URL . "/tripplanner/v1/detailedtrip/json?key=" . Cityway_APP_ID . $args);
 						$itineraireObj = json_decode($itineraire);
 						
