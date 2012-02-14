@@ -12,11 +12,21 @@ import com.mymed.utils.MLogger;
  * 
  */
 public class Location {
-  public final static int DEGREES = 0;
-  public final static int RADIANS = 1;
+  public static final int DEGREES = 0;
+  public static final int RADIANS = 1;
+  public static final double earthRadius = 6371.01d * 1E3;
 
+  /*
+   * The latitude is limited to the range (-80,+80)
+   */
+  protected static final double MIN_LAT = Math.toRadians(-80d); //
+  protected static final double MAX_LAT = Math.toRadians(80d); //
+  protected static final double MIN_LON = Math.toRadians(-180d); // -PI
+  protected static final double MAX_LON = Math.toRadians(180d); // PI
   protected static final Logger LOGGER = MLogger.getLogger();
-  public static double earthRadius = 6371.01d * 1E3;
+
+  private final double radLat; // latitude in radians
+  private final double radLon; // longitude in radians
 
   /**
    * Constructor which takes as arguments {@link latitude} and {@link longitude}
@@ -45,17 +55,6 @@ public class Location {
     radLon = Math.toRadians(longitude / 1E6);
     checkBounds();
   }
-
-  private final double radLat; // latitude in radians
-  private final double radLon; // longitude in radians
-
-  /*
-   * The latitude is limited to the range (-80,+80)
-   */
-  protected static final double MIN_LAT = Math.toRadians(-80d); //
-  protected static final double MAX_LAT = Math.toRadians(80d); //
-  protected static final double MIN_LON = Math.toRadians(-180d); // -PI
-  protected static final double MAX_LON = Math.toRadians(180d); // PI
 
   private void checkBounds() throws GeoLocationOutOfBoundException {
     if (radLat < MIN_LAT || radLat > MAX_LAT || radLon < MIN_LON || radLon > MAX_LON) {
@@ -178,27 +177,34 @@ public class Location {
    * Returns the four corners of the bounding box given the bottom-left and the
    * top-right corner
    * 
-   * @param leftBottomCorner
-   * @param rightBottomCorner
+   * @param bottomLeftCorner
+   *          the bottom left corner of the region
+   * @param topRightCorner
+   *          the top right corner of the region
    * @return the four corners of the bounding box given the bottom-left and the
    *         top-right corner
    * @throws GeoLocationOutOfBoundException
    */
-  protected static Location[] getCorners(final Location leftBottomCorner, final Location rightBottomCorner) {
-    Location corner1, corner2, corner3, corner4;
+  protected static Location[] getCorners(final Location bottomLeftCorner, final Location topRightCorner) {
+    Location[] corners = new Location[4];
+
     try {
-      corner1 = new Location(leftBottomCorner.getLatitude(RADIANS), leftBottomCorner.getLongitude(RADIANS));
-      corner2 = new Location(leftBottomCorner.getLatitude(RADIANS), rightBottomCorner.getLongitude(RADIANS));
-      corner3 = new Location(rightBottomCorner.getLatitude(RADIANS), rightBottomCorner.getLongitude(RADIANS));
-      corner4 = new Location(rightBottomCorner.getLatitude(RADIANS), leftBottomCorner.getLongitude(RADIANS));
-      return new Location[] {corner1, corner2, corner3, corner4};
+      final Location corner0 = new Location(bottomLeftCorner.getLatitude(RADIANS),
+          bottomLeftCorner.getLongitude(RADIANS));
+      final Location corner1 = new Location(bottomLeftCorner.getLatitude(RADIANS), topRightCorner.getLongitude(RADIANS));
+      final Location corner2 = new Location(topRightCorner.getLatitude(RADIANS), topRightCorner.getLongitude(RADIANS));
+      final Location corner3 = new Location(topRightCorner.getLatitude(RADIANS), bottomLeftCorner.getLongitude(RADIANS));
+
+      corners = new Location[] {corner0, corner1, corner2, corner3};
     } catch (final GeoLocationOutOfBoundException e) {
       /*
        * Never happens, because the leftBottomCorner and the rightBottomCorner
        * are inside the limits.
        */
-      LOGGER.debug(e.toString());
-      return null;
+      LOGGER.debug("Error getting the bounding box with the two corners: {} - {}", new Object[] {bottomLeftCorner,
+          topRightCorner, e});
     }
+
+    return corners;
   }
 }

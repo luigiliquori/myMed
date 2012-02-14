@@ -70,7 +70,7 @@
     <url-pattern>/SubscribeRequestHandler</url-pattern>
   </servlet-mapping>
   <servlet>
-    <description>Request handler for the find mechanism</description>
+    <description>Request handler for the find mechanism.</description>
     <display-name>FindRequestHandler</display-name>
     <servlet-name>FindRequestHandler</servlet-name>
     <servlet-class>com.mymed.controller.core.requesthandler.FindRequestHandler</servlet-class>
