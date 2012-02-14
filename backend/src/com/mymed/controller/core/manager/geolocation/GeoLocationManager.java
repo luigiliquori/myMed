@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.mymed.controller.core.exception.GeoLocationOutOfBoundException;
 import com.mymed.controller.core.exception.IOBackEndException;
@@ -81,7 +82,7 @@ public class GeoLocationManager extends AbstractManager {
       searchBean.setDate(timestamp);
       /** If the TTL has been specified, the expiration time is set on the bean. */
       if (permTime != 0) {
-        searchBean.setExpirationDate(timestamp + (permTime * 1000000));
+        searchBean.setExpirationDate(timestamp + permTime * 1000000);
       }
       /**
        * In cassandra is used the convention of microseconds since 1 Jenuary
@@ -149,7 +150,11 @@ public class GeoLocationManager extends AbstractManager {
       /**
        * Data processing: Filters the results of the search.
        */
-      for (final byte[] scName : reports.keySet()) {
+
+      final Iterator<Entry<byte[], Map<byte[], byte[]>>> iter = reports.entrySet().iterator();
+      while (iter.hasNext()) {
+        final Entry<byte[], Map<byte[], byte[]>> entry = iter.next();
+        final byte[] scName = entry.getKey();
         double distance = Integer.MIN_VALUE;
         final long posId = MConverter.byteBufferToLong(ByteBuffer.wrap(scName));
         final Location reportLoc = Locator.getLocationFromId(posId);
@@ -158,10 +163,13 @@ public class GeoLocationManager extends AbstractManager {
         }
         /** Distance check, only if filter is true. */
         if (!filterFlag || distance <= radius) {
-          for (final byte[] colName : reports.get(scName).keySet()) {
+          final Iterator<Entry<byte[], byte[]>> innerIter = entry.getValue().entrySet().iterator();
+          while (innerIter.hasNext()) {
+            final Entry<byte[], byte[]> innerEntry = innerIter.next();
+            final byte[] colName = innerEntry.getKey();
             final MSearchBean searchBean = new MSearchBean();
             final MyMedId repId = MyMedId.parseByteBuffer(ByteBuffer.wrap(colName));
-            searchBean.setValue(MConverter.byteBufferToString(ByteBuffer.wrap(reports.get(scName).get(colName))));
+            searchBean.setValue(MConverter.byteBufferToString(ByteBuffer.wrap(innerEntry.getValue())));
             searchBean.setId(repId.toString());
             searchBean.setLatitude(reportLoc.getLatitude());
             searchBean.setLongitude(reportLoc.getLongitude());
@@ -222,7 +230,7 @@ public class GeoLocationManager extends AbstractManager {
       searchBean.setLocationId(locationId);
       searchBean.setDate(expCol.getTimestamp());
       if (expCol.getTimeToLive() != 0) {
-        searchBean.setExpirationDate(expCol.getTimestamp() + (expCol.getTimeToLive() * 1000000));
+        searchBean.setExpirationDate(expCol.getTimestamp() + expCol.getTimeToLive() * 1000000);
       }
 
       return searchBean;
