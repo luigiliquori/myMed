@@ -58,8 +58,8 @@ public class Location {
 
   private void checkBounds() throws GeoLocationOutOfBoundException {
     if (radLat < MIN_LAT || radLat > MAX_LAT || radLon < MIN_LON || radLon > MAX_LON) {
-      throw new GeoLocationOutOfBoundException("Location is out of bound. Latitude: "
-          + String.valueOf(this.getLatitude(DEGREES)) + " Longitude: " + String.valueOf(this.getLongitude(DEGREES)));
+      throw new GeoLocationOutOfBoundException("Location is out of bound. Latitude: " + Math.toDegrees(radLat)
+          + " Longitude: " + Math.toDegrees(radLon));
     }
   }
 

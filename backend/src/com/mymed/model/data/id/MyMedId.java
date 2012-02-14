@@ -190,6 +190,8 @@ public class MyMedId {
     } else if (obj instanceof MyMedId) {
       final MyMedId comparable = (MyMedId) obj;
 
+      equal = true;
+
       if (userId == null && comparable.getUserId() != null || userId != null && comparable.getUserId() == null) {
         equal &= false;
       } else if (userId != null && comparable.getUserId() != null) {

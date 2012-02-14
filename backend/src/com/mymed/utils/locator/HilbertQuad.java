@@ -24,25 +24,7 @@ public class HilbertQuad {
     U,
     C
   };
-  private long index;
-  private short level;
-  private double floorLat;
-  private double ceilLat;
-  private double floorLon;
-  private double ceilLon;
-  private QuadType typeQuad;
 
-  protected static final Logger LOGGER = MLogger.getLogger();
-
-  protected static class SubQuad {
-    public short pos;
-    public QuadType type;
-
-    protected SubQuad(final short pos, final QuadType type) {
-      this.pos = pos;
-      this.type = type;
-    }
-  }
   /**
    * Quadrants ------------------------- | | | | 2 | 3 | | Third | Fourth |
    * ------------------------- | | | | 0 | 1 | | First | Second |
@@ -54,6 +36,34 @@ public class HilbertQuad {
     Third,
     Fourth
   }
+
+  protected static class SubQuad {
+    public short pos;
+    public QuadType type;
+
+    protected SubQuad(final short pos, final QuadType type) {
+      this.pos = pos;
+      this.type = type;
+    }
+  }
+
+  // There are maxLevel levels in the range (0..maxLevel-1)
+  public static final short maxLevel = 26;
+  public static final int numBits = maxLevel * 2 - 1;
+
+  protected static double[] latitudeRange = new double[] {Location.MIN_LAT, Location.MAX_LAT};
+  protected static double[] longitudeRange = new double[] {Location.MIN_LON, Location.MAX_LON};
+
+  private long index;
+  private short level;
+  private double floorLat;
+  private double ceilLat;
+  private double floorLon;
+  private double ceilLon;
+  private QuadType typeQuad;
+
+  private static final Logger LOGGER = MLogger.getLogger();
+
   public static Map<QuadType, Map<Quad, SubQuad>> tableEnc = new EnumMap<QuadType, Map<Quad, SubQuad>>(QuadType.class);
   static {
     Map<Quad, SubQuad> map = new EnumMap<Quad, SubQuad>(Quad.class);
@@ -81,6 +91,7 @@ public class HilbertQuad {
     map.put(Quad.Fourth, new SubQuad((short) 0, QuadType.U));
     tableEnc.put(QuadType.C, map);
   }
+
   protected static Map<QuadType, Map<Short, SubQuad>> tableDec = new EnumMap<QuadType, Map<Short, SubQuad>>(
       QuadType.class);
   static {
@@ -110,12 +121,6 @@ public class HilbertQuad {
     tableDec.put(QuadType.C, mapDec);
   }
 
-  protected static double[] latitudeRange = new double[] {Location.MIN_LAT, Location.MAX_LAT};
-  protected static double[] longitudeRange = new double[] {Location.MIN_LON, Location.MAX_LON};
-  public static final short maxLevel = 26; // There are maxLevel levels in the
-                                           // range (0..maxLevel-1)
-  public static final int numBits = maxLevel * 2 - 1;
-
   protected HilbertQuad(final long index, final short level, final double fLat, final double fLon, final double cLat,
       final double cLon, final QuadType typeQuad) {
     this.index = index;
@@ -130,6 +135,7 @@ public class HilbertQuad {
   protected void setIndex(final long index) {
     this.index = index;
   }
+
   /**
    * Returns the HilbertQuad that contains the location.
    * 
@@ -139,7 +145,7 @@ public class HilbertQuad {
    *          Level of the HilbertQuad
    * @return
    */
-  static protected HilbertQuad encode(final Location loc, final int level) throws IllegalArgumentException {
+  protected static HilbertQuad encode(final Location loc, final int level) throws IllegalArgumentException {
     if (level > maxLevel) {
       throw new IllegalArgumentException("level exceeds the maximum level.");
     }
@@ -149,7 +155,7 @@ public class HilbertQuad {
     return quad;
   }
 
-  static protected HilbertQuad decode(final long key) throws IllegalArgumentException {
+  protected static HilbertQuad decode(final long key) throws IllegalArgumentException {
     double lonMid;
     double latMid;
     short tabDecKey;
@@ -328,6 +334,7 @@ public class HilbertQuad {
     }
     return hq;
   }
+
   /**
    * Returns the keys range associated to this member.
    * 
@@ -347,42 +354,55 @@ public class HilbertQuad {
   protected long getIndex() {
     return index;
   }
+
   protected void setLevel(final short level) {
     this.level = level;
   }
+
   protected short getLevel() {
     return level;
   }
+
   protected void setTypeQuad(final QuadType typeQuad) {
     this.typeQuad = typeQuad;
   }
+
   protected QuadType getTypeQuad() {
     return typeQuad;
   }
+
   protected void setFloorLat(final double floorLat) {
     this.floorLat = floorLat;
   }
+
   protected double getFloorLat() {
     return floorLat;
   }
+
   protected void setCeilLat(final double ceilLat) {
     this.ceilLat = ceilLat;
   }
+
   protected double getCeilLat() {
     return ceilLat;
   }
+
   protected void setFloorLon(final double floorLon) {
     this.floorLon = floorLon;
   }
+
   protected double getFloorLon() {
     return floorLon;
   }
+
   protected void setCeilLon(final double ceilLon) {
     this.ceilLon = ceilLon;
   }
+
   protected double getCeilLon() {
     return ceilLon;
   }
+
   protected double getHeigth() {
     Location bottomLeftCorner, topLeftCorner;
 
@@ -396,6 +416,7 @@ public class HilbertQuad {
     }
     return bottomLeftCorner.distanceGCTo(topLeftCorner);
   }
+
   protected double getTopWidth() {
     Location topRightCorner, topLeftCorner;
 
@@ -409,6 +430,7 @@ public class HilbertQuad {
     }
     return topRightCorner.distanceGCTo(topLeftCorner);
   }
+
   protected double getBottomWidth() {
     Location bottomRightCorner, bottomLeftCorner;
 
@@ -425,30 +447,32 @@ public class HilbertQuad {
 
   @Override
   public boolean equals(final Object obj) {
-    HilbertQuad hq = null;
-    if (obj == null || obj.getClass() != this.getClass()) {
-      return false;
-    } else {
-      hq = (HilbertQuad) obj;
-      if (index == hq.getIndex() && level == hq.getLevel()) {
-        return true;
-      } else {
-        return false;
-      }
+
+    boolean equal = false;
+
+    if (this == obj) {
+      equal = true;
+    } else if (obj instanceof HilbertQuad) {
+      final HilbertQuad comparable = (HilbertQuad) obj;
+
+      equal = true;
+
+      equal &= index == comparable.getIndex();
+      equal &= level == comparable.getLevel();
     }
+
+    return equal;
   }
 
-  @Override
   /**
-   * Compute a unique hash code identifying the bucket with index {@link index} and level {@link level}
+   * Compute a unique hash code identifying the bucket with index {@link index}
+   * and level {@link level}
    */
+  @Override
   public int hashCode() {
-    // Start with a non-zero constant.
     int result = 17;
-
     result = 31 * result + level;
     result = 31 * result + (int) (index ^ index >>> 32);
     return result;
   }
-
 }
