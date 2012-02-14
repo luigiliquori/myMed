@@ -10,7 +10,7 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
-    <description></description>
+    <description>Request handler for the user profile.</description>
     <display-name>ProfileRequestHandler</display-name>
     <servlet-name>ProfileRequestHandler</servlet-name>
     <servlet-class>com.mymed.controller.core.requesthandler.ProfileRequestHandler</servlet-class>
@@ -20,7 +20,17 @@
     <url-pattern>/ProfileRequestHandler</url-pattern>
   </servlet-mapping>
   <servlet>
-    <description></description>
+    <description>Request handler for the Point Of Interests.</description>
+    <display-name>POIRequestHandler</display-name>
+    <servlet-name>POIRequestHandler</servlet-name>
+    <servlet-class>com.mymed.controller.core.requesthandler.POIRequestHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>POIRequestHandler</servlet-name>
+    <url-pattern>/POIRequestHandler</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description>Request handler for the user authentication.</description>
     <display-name>AuthenticationRequestHandler</display-name>
     <servlet-name>AuthenticationRequestHandler</servlet-name>
     <servlet-class>com.mymed.controller.core.requesthandler.AuthenticationRequestHandler</servlet-class>
@@ -30,7 +40,7 @@
     <url-pattern>/AuthenticationRequestHandler</url-pattern>
   </servlet-mapping>
   <servlet>
-    <description></description>
+    <description>Request handler for the user session.</description>
     <display-name>SessionRequestHandler</display-name>
     <servlet-name>SessionRequestHandler</servlet-name>
     <servlet-class>com.mymed.controller.core.requesthandler.SessionRequestHandler</servlet-class>
@@ -40,37 +50,7 @@
     <url-pattern>/SessionRequestHandler</url-pattern>
   </servlet-mapping>
   <servlet>
-    <description></description>
-    <display-name>MyJamReportRequestHandler</display-name>
-    <servlet-name>MyJamReportRequestHandler</servlet-name>
-    <servlet-class>com.mymed.controller.core.requesthandler.MyJamReportRequestHandler</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>MyJamReportRequestHandler</servlet-name>
-    <url-pattern>/MyJamReportRequestHandler</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>MyJamUpdateRequestHandler</display-name>
-    <servlet-name>MyJamUpdateRequestHandler</servlet-name>
-    <servlet-class>com.mymed.controller.core.requesthandler.MyJamUpdateRequestHandler</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>MyJamUpdateRequestHandler</servlet-name>
-    <url-pattern>/MyJamUpdateRequestHandler</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>MyJamFeedbackRequestHandler</display-name>
-    <servlet-name>MyJamFeedbackRequestHandler</servlet-name>
-    <servlet-class>com.mymed.controller.core.requesthandler.MyJamFeedbackRequestHandler</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>MyJamFeedbackRequestHandler</servlet-name>
-    <url-pattern>/MyJamFeedbackRequestHandler</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
+    <description>Request handler for the publish mechanism.</description>
     <display-name>PublishRequestHandler</display-name>
     <servlet-name>PublishRequestHandler</servlet-name>
     <servlet-class>com.mymed.controller.core.requesthandler.PublishRequestHandler</servlet-class>
@@ -80,7 +60,7 @@
     <url-pattern>/PublishRequestHandler</url-pattern>
   </servlet-mapping>
   <servlet>
-    <description></description>
+    <description>Request handler for the subscribe mechanism.</description>
     <display-name>SubscribeRequestHandler</display-name>
     <servlet-name>SubscribeRequestHandler</servlet-name>
     <servlet-class>com.mymed.controller.core.requesthandler.SubscribeRequestHandler</servlet-class>
@@ -90,7 +70,7 @@
     <url-pattern>/SubscribeRequestHandler</url-pattern>
   </servlet-mapping>
   <servlet>
-    <description></description>
+    <description>Request handler for the find mechanism</description>
     <display-name>FindRequestHandler</display-name>
     <servlet-name>FindRequestHandler</servlet-name>
     <servlet-class>com.mymed.controller.core.requesthandler.FindRequestHandler</servlet-class>
@@ -100,7 +80,7 @@
     <url-pattern>/FindRequestHandler</url-pattern>
   </servlet-mapping>
   <servlet>
-    <description></description>
+    <description>Request handler for the user reputation.</description>
     <display-name>ReputationRequestHandler</display-name>
     <servlet-name>ReputationRequestHandler</servlet-name>
     <servlet-class>com.mymed.controller.core.requesthandler.ReputationRequestHandler</servlet-class>
