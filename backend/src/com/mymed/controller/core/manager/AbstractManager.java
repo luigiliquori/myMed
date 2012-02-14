@@ -45,20 +45,61 @@ import com.mymed.utils.MLogger;
  * @author Milo Casagrande
  */
 public abstract class AbstractManager {
+  /**
+   * The default storage manager.
+   */
   protected IStorageManager storageManager;
+
+  /**
+   * The default logger to be used.
+   */
   protected static final Logger LOGGER = MLogger.getLogger();
 
+  /**
+   * The default properties manager.
+   */
   private static final PropertiesManager PROPERTIES = PropertiesManager.getInstance();
+
+  /**
+   * General properties about mymed.
+   */
   protected static final IProperties GENERAL = PROPERTIES.getManager(PropType.GENERAL);
+
+  /**
+   * Properties values for the columns in the data structure.
+   */
   protected static final IProperties COLUMNS = PROPERTIES.getManager(PropType.COLUMNS);
+
+  /**
+   * Common error strings.
+   */
   protected static final IProperties ERRORS = PROPERTIES.getManager(PropType.ERRORS);
+
+  /**
+   * Fields of the various beans/objects.
+   */
   protected static final IProperties FIELDS = PROPERTIES.getManager(PropType.FIELDS);
 
+  /**
+   * Default encoding.
+   */
   protected static final String ENCODING = GENERAL.get("general.string.encoding");
+
+  /**
+   * Default error string for encoding exceptions.
+   */
   protected static final String ERROR_ENCODING = ERRORS.get("error.encoding");
 
+  /**
+   * Value of the private modifiers (for introspection).
+   */
   private static final int PRIV = Modifier.PRIVATE;
 
+  /**
+   * Default constructor.
+   * 
+   * @param storageManager
+   */
   public AbstractManager(final IStorageManager storageManager) {
     this.storageManager = storageManager;
   }
@@ -67,8 +108,10 @@ public abstract class AbstractManager {
    * Introspection
    * 
    * @param clazz
+   *          the class to introspect
    * @param args
-   * @return
+   *          the values of the class fields
+   * @return an object of the defined clazz
    * @throws InternalBackEndException
    */
   public AbstractMBean introspection(final Class<? extends AbstractMBean> clazz, final Map<byte[], byte[]> args)
@@ -117,7 +160,6 @@ public abstract class AbstractManager {
     } catch (final UnsupportedEncodingException ex) {
       // If we ever get here, there is something seriously wrong.
       // This should never happen.
-      LOGGER.info(ERROR_ENCODING, ENCODING);
       LOGGER.debug(ERROR_ENCODING, ENCODING, ex);
     } catch (final InstantiationException ex) {
       throw new InternalBackEndException(ex);
@@ -129,8 +171,8 @@ public abstract class AbstractManager {
   /**
    * Create the name of the setter method based on the field name and its class.
    * <p>
-   * This is particularly useful due to the fact that boolean fields does not
-   * have a normal setter name.
+   * This is particularly useful due to the fact that boolean fields do not have
+   * a normal setter name.
    * 
    * @param field
    *          the filed we want the setter method of

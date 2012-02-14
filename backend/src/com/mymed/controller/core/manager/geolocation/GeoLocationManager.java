@@ -32,6 +32,8 @@ public class GeoLocationManager extends AbstractManager {
   private static final long A_THOUSAND = 1000L;
   private static final long A_MILLION = 1000000L;
 
+  private static final String SC_LOCATION = COLUMNS.get("column.sc.location");
+
   public GeoLocationManager() throws InternalBackEndException {
     this(new MyJamStorageManager());
   }
@@ -64,12 +66,7 @@ public class GeoLocationManager extends AbstractManager {
       final int latitude, final int longitude, final String value, final int permTime) throws InternalBackEndException,
       IOBackEndException {
     try {
-      /**
-       * Data preparation
-       */
-      long locId;
-
-      locId = Locator.getLocationId(latitude, longitude);
+      final long locId = Locator.getLocationId(latitude, longitude);
       final String areaId = String.valueOf(Locator.getAreaId(locId));
 
       long timestamp = System.currentTimeMillis();
@@ -97,7 +94,7 @@ public class GeoLocationManager extends AbstractManager {
       /**
        * SuperColumn insertion in CF Location
        **/
-      ((MyJamStorageManager) storageManager).insertExpiringColumn("Location", applicationId + itemType + areaId,
+      ((MyJamStorageManager) storageManager).insertExpiringColumn(SC_LOCATION, applicationId + itemType + areaId,
           MConverter.longToByteBuffer(locId).array(), id.AsByteBuffer().array(), MConverter.stringToByteBuffer(value)
               .array(), timestamp, permTime);
 
@@ -126,18 +123,13 @@ public class GeoLocationManager extends AbstractManager {
   public List<MSearchBean> read(final String applicationId, final String itemType, final int latitude,
       final int longitude, final int radius, final boolean filterFlag) throws InternalBackEndException,
       IOBackEndException {
-    final List<MSearchBean> resultReports = new LinkedList<MSearchBean>();
     try {
-      /**
-       * Data structures preparation
-       */
+      final List<MSearchBean> resultReports = new LinkedList<MSearchBean>();
       final Map<byte[], Map<byte[], byte[]>> reports = new HashMap<byte[], Map<byte[], byte[]>>();
       final List<long[]> covId = Locator.getCoveringLocationId(latitude, longitude, radius);
       final List<String> areaIds = new LinkedList<String>();
+
       final Iterator<long[]> covIdIterator = covId.iterator();
-      /**
-       * Cassandra calls
-       */
       while (covIdIterator.hasNext()) {
         final long[] range = covIdIterator.next();
         final int startAreaId = Locator.getAreaId(range[0]);
@@ -146,15 +138,15 @@ public class GeoLocationManager extends AbstractManager {
           areaIds.add(applicationId + itemType + String.valueOf(ind));
         }
         final Map<byte[], Map<byte[], byte[]>> mapRep = ((MyJamStorageManager) storageManager).selectSCRange(
-            "Location", areaIds, MConverter.longToByteBuffer(range[0]).array(), MConverter.longToByteBuffer(range[1])
+            SC_LOCATION, areaIds, MConverter.longToByteBuffer(range[0]).array(), MConverter.longToByteBuffer(range[1])
                 .array());
         reports.putAll(mapRep);
         areaIds.clear();
       }
+
       /**
        * Data processing: Filters the results of the search.
        */
-
       final Iterator<Entry<byte[], Map<byte[], byte[]>>> iter = reports.entrySet().iterator();
       while (iter.hasNext()) {
         final Entry<byte[], Map<byte[], byte[]>> entry = iter.next();
@@ -187,6 +179,7 @@ public class GeoLocationManager extends AbstractManager {
           }
         }
       }
+
       return resultReports;
     } catch (final InternalBackEndException e) {
       throw new InternalBackEndException("Wrong parameter: " + e.getMessage());
@@ -215,18 +208,14 @@ public class GeoLocationManager extends AbstractManager {
    */
   public MSearchBean read(final String applicationId, final String itemType, final long locationId, final String itemId)
       throws InternalBackEndException, IOBackEndException {
-
-    final String areaId = String.valueOf(Locator.getAreaId(locationId));
-    MSearchBean searchBean;
-
     try {
-      final ExpColumnBean expCol = ((MyJamStorageManager) storageManager).selectExpiringColumn("Location",
+      final String areaId = String.valueOf(Locator.getAreaId(locationId));
+      final ExpColumnBean expCol = ((MyJamStorageManager) storageManager).selectExpiringColumn(SC_LOCATION,
           applicationId + itemType + areaId, MConverter.longToByteBuffer(locationId).array(),
           MyMedId.parseString(itemId).AsByteBuffer().array());
 
       final Location loc = Locator.getLocationFromId(locationId);
-
-      searchBean = new MSearchBean();
+      final MSearchBean searchBean = new MSearchBean();
       searchBean.setId(itemId);
       searchBean.setLatitude(loc.getLatitude());
       searchBean.setLongitude(loc.getLongitude());
@@ -270,7 +259,7 @@ public class GeoLocationManager extends AbstractManager {
       final String areaId = String.valueOf(Locator.getAreaId(locationId));
       final MyMedId id = MyMedId.parseString(itemId);
 
-      ((MyJamStorageManager) storageManager).removeColumn("Location", applicationId + itemType + areaId, MConverter
+      ((MyJamStorageManager) storageManager).removeColumn(SC_LOCATION, applicationId + itemType + areaId, MConverter
           .longToByteBuffer(locationId).array(), id.AsByteBuffer().array());
     } catch (final WrongFormatException e) {
       throw new InternalBackEndException("Wrong report Id: " + e.getMessage());

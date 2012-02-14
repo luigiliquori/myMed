@@ -132,7 +132,6 @@ public class POIRequestHandler extends AbstractRequestHandler {
           throw new InternalBackEndException("FindRequestHandler(" + code + ") not exist!");
       }
     } catch (final AbstractMymedException e) {
-      LOGGER.info("Error in doGet operation");
       LOGGER.debug("Error in doGet operation", e);
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());
@@ -194,7 +193,6 @@ public class POIRequestHandler extends AbstractRequestHandler {
       }
 
     } catch (final AbstractMymedException e) {
-      LOGGER.info("Error in doPost operation");
       LOGGER.debug("Error in doPost operation", e);
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());
@@ -202,5 +200,4 @@ public class POIRequestHandler extends AbstractRequestHandler {
 
     printJSonResponse(message, response);
   }
-
 }
