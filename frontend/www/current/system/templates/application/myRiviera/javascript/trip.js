@@ -39,8 +39,7 @@ function initialize() {
 
 		// ADD POSITION Marker
 		var latlng = new google.maps.LatLng(latitude, longitude);
-
-		var marker = new google.maps.Marker({
+		marker = new google.maps.Marker({
 			animation: google.maps.Animation.BOUNCE,
 			position: latlng,
 			icon: 'system/templates/application/myRiviera/img/position.png',
@@ -49,7 +48,7 @@ function initialize() {
 
 		// if the accuracy is good enough, print a circle to show the area
 		if (accuracy && accuracy<1500){ // is use watchPosition instead of getCurrentPosition don't forget to clear previous circle, using circle.setMap(null)
-			var circle = new google.maps.Circle({
+			circle = new google.maps.Circle({
 				strokeColor: "#0000ff",
 				strokeOpacity: 0.2,
 				strokeWeight: 2,
@@ -128,17 +127,14 @@ function calcRouteFromGoogle(start, end, isMobile) {
  * @param url
  */
 function calcRouteFromCityWay(start, end, isMobile){
-//	$("#myRivieraMap").height($("body").height() - ($("body").height()/2));
-//	
-//	var KmlObject = new google.maps.KmlLayer(url);
-//	KmlObject.setMap(map);
-	
 	// PRINT THE STARTING POINT
 	geocoder = new google.maps.Geocoder();
+	var  coordinates = [];
 	geocoder.geocode( { 'address': start}, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) {
 			lat = results[0].geometry.location.lat();
 			lng = results[0].geometry.location.lng();
+			coordinates.push(new google.maps.LatLng(lat, lng));
 			addPOI(lat, lng, 'system/templates/application/myRiviera/img/start.png', "Départ", "<b>Lieu: </b>" + start, true);
 		}
 	});
@@ -146,9 +142,18 @@ function calcRouteFromCityWay(start, end, isMobile){
 		if (status == google.maps.GeocoderStatus.OK) {
 			lat = results[0].geometry.location.lat();
 			lng = results[0].geometry.location.lng();
+			coordinates.push(new google.maps.LatLng(lat, lng));
 			addPOI(lat, lng, 'system/templates/application/myRiviera/img/end.png', "Arrivée", "<b>Lieu: </b>" + end, true);
 		}
 	});
+	
+	// ZOOM ON THE TRIP
+	bounds = new google.maps.LatLngBounds();
+	for (var i = 0; i < coordinates.length; i++) {
+	    bounds.extend(coordinates[i]);
+	}
+	map.fitBounds(bounds);
+
 	
 	// SHOW ITINERAIRE
 	$("#itineraire").delay(1500).fadeIn("slow");

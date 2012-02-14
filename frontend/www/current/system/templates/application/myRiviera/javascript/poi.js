@@ -35,13 +35,14 @@ function focusOnPosition(latitude, longitude, icon){
 	window.scrollTo(0,0);
 
 	//drop Pin ToDo remove after
-	var marker = new google.maps.Marker({
-		animation: google.maps.Animation.DROP,
-		position: myLatlng,
-		icon: icon,
-		map: map
-	});
-
+	if(icon) {
+		marker = new google.maps.Marker({
+			animation: google.maps.Animation.DROP,
+			position: myLatlng,
+			icon: icon,
+			map: map
+		});
+	}
 
 	// clear the markerArray
 	clearPOIs();
