@@ -102,34 +102,30 @@ public class POIRequestHandler extends AbstractRequestHandler {
         tokenValidation(parameters.get("accessToken"));
       }
 
-      switch (code) {
-        case READ : // GET
-          message.setMethod("READ");
+      if (code == RequestCode.READ) {
+        message.setMethod("READ");
 
-          // CHECK THE PARAMETERS
-          if ((application = parameters.get("application")) == null) {
-            throw new InternalBackEndException("missing application argument!");
-          } else if ((type = parameters.get("type")) == null) {
-            throw new InternalBackEndException("missing type argument!");
-          } else if ((longitude = parameters.get("longitude")) == null) {
-            throw new InternalBackEndException("missing longitude argument!");
-          } else if ((latitude = parameters.get("latitude")) == null) {
-            throw new InternalBackEndException("missing latitude argument!");
-          } else if ((radius = parameters.get("radius")) == null) {
-            throw new InternalBackEndException("missing radius argument!");
-          }
+        // CHECK THE PARAMETERS
+        if ((application = parameters.get("application")) == null) {
+          throw new InternalBackEndException("missing application argument!");
+        } else if ((type = parameters.get("type")) == null) {
+          throw new InternalBackEndException("missing type argument!");
+        } else if ((longitude = parameters.get("longitude")) == null) {
+          throw new InternalBackEndException("missing longitude argument!");
+        } else if ((latitude = parameters.get("latitude")) == null) {
+          throw new InternalBackEndException("missing latitude argument!");
+        } else if ((radius = parameters.get("radius")) == null) {
+          throw new InternalBackEndException("missing radius argument!");
+        }
 
-          // GET THE POIs
-          final List<MSearchBean> pois = geoLocationManager.read(application, type,
-              convertDegreeToMicroDegree(latitude), convertDegreeToMicroDegree(longitude), Integer.parseInt(radius),
-              true);
-          message.setDescription("POIs successfully read!");
-          final Gson gson = new Gson();
-          message.addData("pois", gson.toJson(pois));
-
-          break;
-        default :
-          throw new InternalBackEndException("FindRequestHandler(" + code + ") not exist!");
+        // GET THE POIs
+        final List<MSearchBean> pois = geoLocationManager.read(application, type, convertDegreeToMicroDegree(latitude),
+            convertDegreeToMicroDegree(longitude), Integer.parseInt(radius), true);
+        message.setDescription("POIs successfully read!");
+        final Gson gson = new Gson();
+        message.addData("pois", gson.toJson(pois));
+      } else {
+        throw new InternalBackEndException("FindRequestHandler(" + code + ") not exist!");
       }
     } catch (final AbstractMymedException e) {
       LOGGER.debug("Error in doGet operation", e);
@@ -163,35 +159,32 @@ public class POIRequestHandler extends AbstractRequestHandler {
         tokenValidation(parameters.get("accessToken"));
       }
 
-      switch (code) {
-        case CREATE :
-          message.setMethod("CREATE");
+      if (code == RequestCode.CREATE) {
+        message.setMethod("CREATE");
 
-          // CHECK THE PARAMETERS
-          if ((application = parameters.get("application")) == null) {
-            throw new InternalBackEndException("missing application argument!");
-          } else if ((type = parameters.get("type")) == null) {
-            throw new InternalBackEndException("missing type argument!");
-          } else if ((user = parameters.get("user")) == null) {
-            throw new InternalBackEndException("missing user argument!");
-          } else if ((longitude = parameters.get("longitude")) == null) {
-            throw new InternalBackEndException("missing longitude argument!");
-          } else if ((latitude = parameters.get("latitude")) == null) {
-            throw new InternalBackEndException("missing latitude argument!");
-          } else if ((value = parameters.get("value")) == null) {
-            throw new InternalBackEndException("missing value argument!");
-          }
+        // CHECK THE PARAMETERS
+        if ((application = parameters.get("application")) == null) {
+          throw new InternalBackEndException("missing application argument!");
+        } else if ((type = parameters.get("type")) == null) {
+          throw new InternalBackEndException("missing type argument!");
+        } else if ((user = parameters.get("user")) == null) {
+          throw new InternalBackEndException("missing user argument!");
+        } else if ((longitude = parameters.get("longitude")) == null) {
+          throw new InternalBackEndException("missing longitude argument!");
+        } else if ((latitude = parameters.get("latitude")) == null) {
+          throw new InternalBackEndException("missing latitude argument!");
+        } else if ((value = parameters.get("value")) == null) {
+          throw new InternalBackEndException("missing value argument!");
+        }
 
-          // CREATE THE NEW POI
-          geoLocationManager.create(application, type, user, convertDegreeToMicroDegree(latitude),
-              convertDegreeToMicroDegree(longitude), value, 0);
+        // CREATE THE NEW POI
+        geoLocationManager.create(application, type, user, convertDegreeToMicroDegree(latitude),
+            convertDegreeToMicroDegree(longitude), value, 0);
 
-          message.setDescription("POIs successfully created!");
-          break;
-        default :
-          throw new InternalBackEndException("FindRequestHandler(" + code + ") not exist!");
+        message.setDescription("POIs successfully created!");
+      } else {
+        throw new InternalBackEndException("FindRequestHandler(" + code + ") not exist!");
       }
-
     } catch (final AbstractMymedException e) {
       LOGGER.debug("Error in doPost operation", e);
       message.setStatus(e.getStatus());

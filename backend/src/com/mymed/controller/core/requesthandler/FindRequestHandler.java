@@ -82,37 +82,34 @@ public class FindRequestHandler extends AbstractRequestHandler {
         tokenValidation(parameters.get("accessToken")); // Security Validation
       }
 
-      switch (code) {
-        case READ : // GET
-          message.setMethod("READ");
-          if ((application = parameters.get("application")) == null) {
-            throw new InternalBackEndException("missing application argument!");
-          } else if ((predicate = parameters.get("predicate")) == null) {
-            throw new InternalBackEndException("missing predicate argument!");
+      if (code == RequestCode.READ) {
+        message.setMethod("READ");
+        if ((application = parameters.get("application")) == null) {
+          throw new InternalBackEndException("missing application argument!");
+        } else if ((predicate = parameters.get("predicate")) == null) {
+          throw new InternalBackEndException("missing predicate argument!");
+        }
+        if ((user = parameters.get("user")) != null) {
+          final List<Map<String, String>> details = pubsubManager.read(application, predicate, user);
+          if (details.isEmpty()) {
+            throw new IOBackEndException("no reslult found!", 404);
           }
-          if ((user = parameters.get("user")) != null) {
-            final List<Map<String, String>> details = pubsubManager.read(application, predicate, user);
-            if (details.isEmpty()) {
-              throw new IOBackEndException("no reslult found!", 404);
-            }
-            message.setDescription("Details found for Application: " + application + " User: " + user + " Predicate: "
-                + predicate);
-            LOGGER
-                .info("Details found for Application: " + application + " User: " + user + " Predicate: " + predicate);
-            message.addData("details", getGson().toJson(details));
-          } else { // GET RESULTS
-            final List<Map<String, String>> resList = pubsubManager.read(application, predicate);
-            if (resList.isEmpty()) {
-              throw new IOBackEndException("No reslult found for Application: " + application + " Predicate: "
-                  + predicate, 404);
-            }
-            message.setDescription("Results found for Application: " + application + " Predicate: " + predicate);
-            LOGGER.info("Results found for Application: " + application + " Predicate: " + predicate);
-            message.addData("results", getGson().toJson(resList));
+          message.setDescription("Details found for Application: " + application + " User: " + user + " Predicate: "
+              + predicate);
+          LOGGER.info("Details found for Application: " + application + " User: " + user + " Predicate: " + predicate);
+          message.addData("details", getGson().toJson(details));
+        } else { // GET RESULTS
+          final List<Map<String, String>> resList = pubsubManager.read(application, predicate);
+          if (resList.isEmpty()) {
+            throw new IOBackEndException("No reslult found for Application: " + application + " Predicate: "
+                + predicate, 404);
           }
-          break;
-        default :
-          throw new InternalBackEndException("FindRequestHandler(" + code + ") not exist!");
+          message.setDescription("Results found for Application: " + application + " Predicate: " + predicate);
+          LOGGER.info("Results found for Application: " + application + " Predicate: " + predicate);
+          message.addData("results", getGson().toJson(resList));
+        }
+      } else {
+        throw new InternalBackEndException("FindRequestHandler(" + code + ") not exist!");
       }
     } catch (final AbstractMymedException e) {
       LOGGER.info("Error in doGet operation");
@@ -145,12 +142,9 @@ public class FindRequestHandler extends AbstractRequestHandler {
         tokenValidation(parameters.get("accessToken")); // Security Validation
       }
 
-      switch (code) {
-        case CREATE :
-        default :
-          throw new InternalBackEndException("FindRequestHandler(" + code + ") not exist!");
+      if (code != RequestCode.CREATE) {
+        throw new InternalBackEndException("FindRequestHandler(" + code + ") not exist!");
       }
-
     } catch (final AbstractMymedException e) {
       LOGGER.info("Error in doPost operation");
       LOGGER.debug("Error in doPost operation", e);

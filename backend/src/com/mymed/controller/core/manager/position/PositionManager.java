@@ -58,7 +58,6 @@ public class PositionManager extends AbstractManager implements IPositionManager
 
       return position;
     } catch (final UnsupportedEncodingException e) {
-      LOGGER.info(ERROR_ENCODING, ENCODING);
       LOGGER.debug(ERROR_ENCODING, ENCODING, e);
 
       throw new InternalBackEndException(e.toString());
