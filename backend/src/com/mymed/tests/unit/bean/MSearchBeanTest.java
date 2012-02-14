@@ -47,7 +47,7 @@ public class MSearchBeanTest {
     searchBean.setLocationId(2000L);
     searchBean.setExpirationDate(0L);
     searchBean.setValue("value");
-    searchBean.setDistance(10);
+    searchBean.setDistance(1E2);
   }
 
   @AfterClass

@@ -14,7 +14,7 @@ public class MSearchBean extends AbstractMBean {
   private int latitude;
   private int longitude;
   private String value;
-  private int distance;
+  private double distance;
   private long date;
   private long expirationDate;
 
@@ -88,11 +88,11 @@ public class MSearchBean extends AbstractMBean {
     return longitude;
   }
 
-  public int getDistance() {
+  public double getDistance() {
     return distance;
   }
 
-  public void setDistance(final int distance) {
+  public void setDistance(final double distance) {
     this.distance = distance;
   }
 
@@ -129,7 +129,7 @@ public class MSearchBean extends AbstractMBean {
   public int hashCode() {
     int result = 1;
     result = PRIME * result + (int) (date ^ date >>> 32);
-    result = PRIME * result + distance;
+    result = PRIME * result + (int) (distance * distance);
     result = PRIME * result + (id == null ? 0 : id.hashCode());
     result = PRIME * result + latitude;
     result = PRIME * result + (int) (locationId ^ locationId >>> 32);

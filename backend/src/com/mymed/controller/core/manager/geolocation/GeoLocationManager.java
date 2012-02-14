@@ -29,6 +29,9 @@ import com.mymed.utils.locator.Locator;
  */
 public class GeoLocationManager extends AbstractManager {
 
+  private static final long A_THOUSAND = 1000L;
+  private static final long A_MILLION = 1000000L;
+
   public GeoLocationManager() throws InternalBackEndException {
     this(new MyJamStorageManager());
   }
@@ -82,13 +85,14 @@ public class GeoLocationManager extends AbstractManager {
       searchBean.setDate(timestamp);
       /** If the TTL has been specified, the expiration time is set on the bean. */
       if (permTime != 0) {
-        searchBean.setExpirationDate(timestamp + permTime * 1000000);
+        searchBean.setExpirationDate(timestamp + A_MILLION * permTime);
       }
+
       /**
        * In cassandra is used the convention of microseconds since 1 Jenuary
        * 1970.
        */
-      timestamp = (long) (timestamp * 1E3);
+      timestamp *= A_THOUSAND;
 
       /**
        * SuperColumn insertion in CF Location
@@ -173,7 +177,7 @@ public class GeoLocationManager extends AbstractManager {
             searchBean.setId(repId.toString());
             searchBean.setLatitude(reportLoc.getLatitude());
             searchBean.setLongitude(reportLoc.getLongitude());
-            searchBean.setDistance((int) distance); // If filter is put to
+            searchBean.setDistance(distance);
             /**
              * The timestamp is set with the convention used in Java
              * (milliseconds from 1 January 1970)
@@ -230,7 +234,7 @@ public class GeoLocationManager extends AbstractManager {
       searchBean.setLocationId(locationId);
       searchBean.setDate(expCol.getTimestamp());
       if (expCol.getTimeToLive() != 0) {
-        searchBean.setExpirationDate(expCol.getTimestamp() + expCol.getTimeToLive() * 1000000);
+        searchBean.setExpirationDate(expCol.getTimestamp() + A_MILLION * expCol.getTimeToLive());
       }
 
       return searchBean;

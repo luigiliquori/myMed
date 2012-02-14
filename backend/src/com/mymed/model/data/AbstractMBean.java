@@ -54,7 +54,7 @@ import com.mymed.utils.MLogger;
  * @author lvanni
  * @author Milo Casagrande
  */
-public abstract class AbstractMBean {
+public abstract class AbstractMBean implements Cloneable {
   // Default logger for all the beans that extend this abstract
   protected static final Logger LOGGER = MLogger.getLogger();
   // Used for the hashCode() function
@@ -113,6 +113,7 @@ public abstract class AbstractMBean {
    */
   private static final class InnerPrivilegedExceptionAction implements PrivilegedExceptionAction<Map<String, byte[]>> {
 
+    // The object to work on
     private final Object object;
 
     public InnerPrivilegedExceptionAction(final Object object) {
@@ -158,6 +159,7 @@ public abstract class AbstractMBean {
    */
   private static final class InnerPrivilegedAction implements PrivilegedAction<StringBuffer> {
 
+    // The object to work on
     private final Object object;
 
     public InnerPrivilegedAction(final Object object) {
