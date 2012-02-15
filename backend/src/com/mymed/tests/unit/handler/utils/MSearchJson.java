@@ -17,20 +17,20 @@ package com.mymed.tests.unit.handler.utils;
 
 import java.util.EnumSet;
 
-import com.mymed.model.data.user.MUserBean;
+import com.mymed.model.data.geolocation.MSearchBean;
 
 /**
- * This is the enum class that stores all the fields of a User JSON response.
+ * This is the enum class that stores all the fields of a Search JSON response.
  * <p>
- * The fields in here are the ones that can be found in the {@link MUserBean}
+ * The fields in here are the ones that can be found in the {@link MSearchBean}
  * <p>
  * The format of the JSON message should be:<br>
  * <code>
-   user {
-    "id": String,
-    "email": String,
-    "name": String,
-    "firstName": String,
+   pois {
+    "locationId": String,
+    "longitude": String,
+    "latitude": String,
+    "value": String,
     ...
   }
  * </code>
@@ -38,31 +38,19 @@ import com.mymed.model.data.user.MUserBean;
  * @author Milo Casagrande
  * 
  */
-public enum MUserJson {
+public enum MSearchJson {
   ID("id"),
-  LOGIN("login"),
-  EMAIL("email"),
-  NAME("name"),
-  FIRSTNAME("firstName"),
-  LASTNAME("lastName"),
-  LINK("link"),
-  BIRTHDAY("birthday"),
-  HOMETOWN("hometown"),
-  GENDER("gender"),
-  PRIVATE("private"),
-  LASTCONNECTION("lastConnection"),
-  PROFILEPICTURE("profilePicture"),
-  BUDDYLIST("buddyList"),
-  SUBSCRIPTIONLIST("subscriptionList"),
-  REPUTATION("reputation"),
-  SESSION("session"),
-  INTERACTIONLIST("interactionList"),
-  SOCIALNETWORKID("socialNetworkID"),
-  SOCIALNETWORKNAME("socialNetworkName");
+  LOCATION_ID("locationId"),
+  LATITUDE("latitude"),
+  LONGITUDE("longitude"),
+  VALUE("value"),
+  DISTANCE("distance"),
+  DATE("date"),
+  EXPIRATION_DATE("expirationDate");
 
   private String element;
 
-  private MUserJson(final String element) {
+  private MSearchJson(final String element) {
     this.element = element;
   }
 
@@ -81,7 +69,7 @@ public enum MUserJson {
   public static boolean isValidElement(final String str) {
     boolean isValid = false;
 
-    for (final MUserJson element : EnumSet.allOf(MUserJson.class)) {
+    for (final MSearchJson element : EnumSet.allOf(MSearchJson.class)) {
       if (element.toString().equals(str)) {
         isValid = true;
         break;

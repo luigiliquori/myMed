@@ -55,6 +55,12 @@ public class GeneralHandlerTest {
   protected static final String PARAM_SESS_STRING = "session";
   protected static final String PARAM_OLD_LOGIN = "oldLogin";
   protected static final String PARAM_OLD_PWD = "oldPassword";
+  protected static final String PARAM_APPLICATION = "application";
+  protected static final String PARAM_TYPE = "type";
+  protected static final String PARAM_LONGITUDE = "longitude";
+  protected static final String PARAM_LATITUDE = "latitude";
+  protected static final String PARAM_VALUE = "value";
+  protected static final String PARAM_RADIUS = "radius";
 
   protected HttpClient client;
   // Lists where we store the parameters to construct the queries

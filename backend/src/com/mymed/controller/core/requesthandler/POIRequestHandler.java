@@ -125,7 +125,7 @@ public class POIRequestHandler extends AbstractRequestHandler {
         final Gson gson = new Gson();
         message.addData("pois", gson.toJson(pois));
       } else {
-        throw new InternalBackEndException("FindRequestHandler(" + code + ") not exist!");
+        throw new InternalBackEndException("POIRequestHandler(" + code + ") not exist!");
       }
     } catch (final AbstractMymedException e) {
       LOGGER.debug("Error in doGet operation", e);
@@ -183,7 +183,7 @@ public class POIRequestHandler extends AbstractRequestHandler {
 
         message.setDescription("POIs successfully created!");
       } else {
-        throw new InternalBackEndException("FindRequestHandler(" + code + ") not exist!");
+        throw new InternalBackEndException("POIRequestHandler(" + code + ") not exist!");
       }
     } catch (final AbstractMymedException e) {
       LOGGER.debug("Error in doPost operation", e);
