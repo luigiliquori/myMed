@@ -419,20 +419,18 @@ public class KeysFinder {
     int numRanges = 0;
     long[] currentRange = null;
 
-    try {
-      Collections.sort(extremes);
-      final Iterator<Long> itExt = extremes.iterator();
-      while (itExt.hasNext()) {
-        currentRange = new long[2];
-        currentRange[0] = itExt.next();
-        currentRange[1] = itExt.next();
-        ranges.add(currentRange);
-        numRanges++;
-      }
-      return numRanges;
-    } catch (final Exception e) {
-      throw new IllegalArgumentException("null argument.");
+    Collections.sort(extremes);
+
+    final Iterator<Long> itExt = extremes.iterator();
+    while (itExt.hasNext()) {
+      currentRange = new long[2];
+      currentRange[0] = itExt.next();
+      currentRange[1] = itExt.next();
+      ranges.add(currentRange);
+      numRanges++;
     }
+
+    return numRanges;
   }
 
   /**

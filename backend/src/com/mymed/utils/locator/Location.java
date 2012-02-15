@@ -14,7 +14,7 @@ import com.mymed.utils.MLogger;
 public class Location {
   public static final int DEGREES = 0;
   public static final int RADIANS = 1;
-  public static final double earthRadius = 6371.01d * 1E3;
+  public static final double EARTH_RADIUS = 6371.01d * 1E3;
 
   /*
    * The latitude is limited to the range (-80,+80)
@@ -123,7 +123,7 @@ public class Location {
   public double distanceGCTo(final Location location) {
     return Math.acos(Math.sin(radLat) * Math.sin(location.radLat) + Math.cos(radLat) * Math.cos(location.radLat)
         * Math.cos(radLon - location.radLon))
-        * earthRadius;
+        * EARTH_RADIUS;
   }
 
   /**
@@ -133,7 +133,6 @@ public class Location {
    * @param distance
    *          The radius of the circle whose bounding box is found.
    * @return The bottom-left and the top-right corner of the bounding box.
-   * @throws GeoLocationOutOfBoundException
    */
   public Location[] boundingCoordinates(final double distance) {
 
@@ -141,36 +140,41 @@ public class Location {
       throw new IllegalArgumentException("Distance cannot be negative: " + String.valueOf(distance));
     }
 
-    // angular distance in radians on a great circle
-    final double radDist = distance / earthRadius;
+    Location[] corners = new Location[2];
 
+    // angular distance in radians on a great circle
+    final double radDist = distance / EARTH_RADIUS;
     double minLat = radLat - radDist;
     double maxLat = radLat + radDist;
 
-    double minLon, maxLon;
-
     final double deltaLon = Math.asin(Math.sin(radDist) / Math.cos(radLat));
-    minLon = radLon - deltaLon;
+    double minLon = radLon - deltaLon;
+    double maxLon = radLon + deltaLon;
+
     if (minLon < MIN_LON) {
       minLon += 2d * Math.PI;
     }
-    maxLon = radLon + deltaLon;
+
     if (maxLon > MAX_LON) {
       maxLon -= 2d * Math.PI;
     }
+
     if (maxLat > MAX_LAT) {
       maxLat = Math.min(maxLat, MAX_LAT);
     }
+
     if (minLat < MIN_LAT) {
       minLat = Math.max(minLat, MIN_LAT);
     }
+
     try {
-      return new Location[] {new Location(minLat, minLon), new Location(maxLat, maxLon)};
+      corners = new Location[] {new Location(minLat, minLon), new Location(maxLat, maxLon)};
     } catch (final GeoLocationOutOfBoundException e) {
       // Never happen because maxLat is limited.
       LOGGER.debug(e.toString());
-      return null;
     }
+
+    return corners;
   }
 
   /**
@@ -183,7 +187,6 @@ public class Location {
    *          the top right corner of the region
    * @return the four corners of the bounding box given the bottom-left and the
    *         top-right corner
-   * @throws GeoLocationOutOfBoundException
    */
   protected static Location[] getCorners(final Location bottomLeftCorner, final Location topRightCorner) {
     Location[] corners = new Location[4];
