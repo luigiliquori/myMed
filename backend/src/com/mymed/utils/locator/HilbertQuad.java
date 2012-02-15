@@ -18,6 +18,10 @@ import com.mymed.utils.MLogger;
  * 
  */
 public class HilbertQuad {
+  // There are maxLevel levels in the range (0..maxLevel-1)
+  public static final short maxLevel = 26;
+  public static final int numBits = maxLevel * 2 - 1;
+
   protected enum QuadType {
     A,
     D,
@@ -47,12 +51,10 @@ public class HilbertQuad {
     }
   }
 
-  // There are maxLevel levels in the range (0..maxLevel-1)
-  public static final short maxLevel = 26;
-  public static final int numBits = maxLevel * 2 - 1;
+  static final double[] LATITUDE_RANGE = new double[] {Location.MIN_LAT, Location.MAX_LAT};
+  static final double[] LONGITUDE_RANGE = new double[] {Location.MIN_LON, Location.MAX_LON};
 
-  protected static final double[] LATITUDE_RANGE = new double[] {Location.MIN_LAT, Location.MAX_LAT};
-  protected static final double[] LONGITUDE_RANGE = new double[] {Location.MIN_LON, Location.MAX_LON};
+  private static final Logger LOGGER = MLogger.getLogger();
 
   private long index;
   private short level;
@@ -61,8 +63,6 @@ public class HilbertQuad {
   private double floorLon;
   private double ceilLon;
   private QuadType typeQuad;
-
-  private static final Logger LOGGER = MLogger.getLogger();
 
   protected static final Map<QuadType, Map<Quad, SubQuad>> TABLE_ENC = new EnumMap<QuadType, Map<Quad, SubQuad>>(
       QuadType.class);
