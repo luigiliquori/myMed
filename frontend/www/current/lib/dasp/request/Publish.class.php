@@ -37,6 +37,7 @@ class Publish extends Request {
 	public function __construct(/*IRequestHandler*/ $handler) {
 		parent::__construct("PublishRequestHandler", CREATE);
 		$this->handler	= $handler;
+		$this->setMultipart(true);
 	}
 
 	/* --------------------------------------------------------- */

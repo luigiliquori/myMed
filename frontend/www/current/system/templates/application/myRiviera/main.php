@@ -1,26 +1,35 @@
 <?php 
+	// NAME OF THE APPLICATION
 	define('APPLICATION_NAME', "myRiviera");
+
+	// DEFINE ATTRIBUTES FOR THE JAVASCRIPT PART (AJAX CALL)
+	echo "<input type='hidden' id='applicationName' value='" . APPLICATION_NAME . "' />";
+	echo "<input type='hidden' id='accessToken' value='" . $_SESSION['accessToken'] . "' />";
 	
 	// IMPORT THE MAIN VIEW
-	require_once dirname(__FILE__).'/views/tabbar/FindView1.class.php';
-	// IMPORT THE RESULT VIEW
-	require_once dirname(__FILE__).'/views/result/ResultView.class.php';
-	require_once dirname(__FILE__).'/views/result/DetailView.class.php';
+	require_once dirname(__FILE__).'/views/tabbar/FindView.class.php';
+	require_once dirname(__FILE__).'/views/tabbar/TripView.class.php';
+	
+	// IMPORT DIALOG
+	require_once dirname(__FILE__).'/views/dialog/EditDialog.class.php';
+	require_once dirname(__FILE__).'/views/dialog/OptionDialog.class.php';
+	
 	// IMPORT AND DEFINE THE REQUEST HANDLER
 	require_once dirname(__FILE__).'/handler/MyApplicationHandler.class.php';
 	$handler = new MyApplicationHandler();
 	$handler->handleRequest();
 
-	if(isset($_POST['method'])) { 				// Print The Results View
-		if($_POST['method'] == 'getDetail') {
-			$details = new DetailView($handler);
-			$details->printTemplate();
-		} else {
-			$result = new ResultView($handler);
-			$result->printTemplate();
-		}
-	} else {
-		$find1 = new FindView1();
-		$find1->printTemplate();
-	}
+	// VIEW
+	$find = new FindView($handler);
+	$find->printTemplate();
+	
+	$trip = new TripView();
+	$trip->printTemplate();
+	
+	// DIALOG
+	$edit = new EditDialog();
+	$edit->printTemplate();
+	
+	$option = new OptionDialog();
+	$option->printTemplate();
 ?>

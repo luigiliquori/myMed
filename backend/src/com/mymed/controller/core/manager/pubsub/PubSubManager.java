@@ -38,9 +38,6 @@ import com.mymed.utils.Mail;
  */
 public class PubSubManager extends AbstractManager implements IPubSubManager {
 
-  /* --------------------------------------------------------- */
-  /* Attributes */
-  /* --------------------------------------------------------- */
   protected static final String APPLICATION_CONTROLLER_ID = "applicationControllerID";
   protected static final String PUBLISHER_PREFIX = "PUBLISH_";
   protected static final String SUBSCRIBER_PREFIX = "SUBSCRIBE_";
@@ -49,9 +46,12 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
   protected static final String BEGIN_ARG = "begin";
   protected static final String END_ARG = "end";
 
-  /* --------------------------------------------------------- */
-  /* Constructors */
-  /* --------------------------------------------------------- */
+  private static final String SC_APPLICATION_CONTROLLER = COLUMNS.get("column.sc.application.controller");
+  private static final String SC_APPLICATION_MODEL = COLUMNS.get("column.sc.application.model");
+  private static final String SC_USER_LIST = COLUMNS.get("column.sc.user.list");
+  private static final String SC_DATA_LIST = COLUMNS.get("column.sc.data.list");
+  private static final String CF_USER = COLUMNS.get("column.cf.user");
+
   public PubSubManager() throws InternalBackEndException {
     this(new StorageManager());
   }
@@ -60,9 +60,6 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     super(storageManager);
   }
 
-  /* --------------------------------------------------------- */
-  /* implements IPubSubManager */
-  /* --------------------------------------------------------- */
   /**
    * PUBLISH
    * 
@@ -74,22 +71,23 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 
     try {
       // STORE THE PUBLISHER
-      Map<String, byte[]> args = new HashMap<String, byte[]>();
-      args.put("publisherList", (PUBLISHER_PREFIX + application + subPredicate).getBytes("UTF-8"));
-      args.put("predicate", subPredicate.getBytes("UTF-8"));
+      final Map<String, byte[]> args = new HashMap<String, byte[]>();
+      args.put("publisherList", (PUBLISHER_PREFIX + application + subPredicate).getBytes(ENCODING));
+      args.put("predicate", subPredicate.getBytes(ENCODING));
       storageManager.insertSuperSlice(SC_APPLICATION_CONTROLLER, application + predicate, MEMBER_LIST_KEY, args);
 
       // STORE A NEW ENTRY IN THE UserList (PublisherList)
-      args = new HashMap<String, byte[]>();
-      args.put("name", publisher.getName().getBytes("UTF-8"));
-      args.put("user", publisher.getId().getBytes("UTF-8"));
+      args.clear();
+      args.put("name", publisher.getName().getBytes(ENCODING));
+      args.put("user", publisher.getId().getBytes(ENCODING));
       storageManager.insertSuperSlice(SC_USER_LIST, PUBLISHER_PREFIX + application + subPredicate, publisher.getId(),
           args);
 
       // STORE VALUES RELATED TO THE PREDICATE
       String data = "";
-      String begin = System.currentTimeMillis() + "";
+      String begin = Long.toString(System.currentTimeMillis());
       String end = "";
+
       for (final MDataBean item : dataList) {
         if (item.getKey().equals(DATA_ARG)) {
           data = item.getValue();
@@ -99,66 +97,84 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
           end = item.getValue();
         }
       }
-      args = new HashMap<String, byte[]>();
-      args.put("predicate", subPredicate.getBytes("UTF-8"));
-      args.put("begin", begin.getBytes("UTF-8"));
-      args.put("end", end.getBytes("UTF-8"));
-      args.put("publisherID", publisher.getId().getBytes("UTF-8"));
-      args.put("publisherName", publisher.getName().getBytes("UTF-8"));
+
+      args.clear();
+      args.put("predicate", subPredicate.getBytes(ENCODING));
+      args.put("begin", begin.getBytes(ENCODING));
+      args.put("end", end.getBytes(ENCODING));
+      args.put("publisherID", publisher.getId().getBytes(ENCODING));
+      args.put("publisherName", publisher.getName().getBytes(ENCODING));
       args.put("publisherProfilePicture",
-          (publisher.getProfilePicture() == null ? "" : publisher.getProfilePicture()).getBytes("UTF-8"));
+          (publisher.getProfilePicture() == null ? "" : publisher.getProfilePicture()).getBytes(ENCODING));
       args.put("publisherReputation",
-          (publisher.getReputation() == null ? "" : publisher.getReputation()).getBytes("UTF-8"));
-      args.put("data", data.getBytes("UTF-8"));
+          (publisher.getReputation() == null ? "" : publisher.getReputation()).getBytes(ENCODING));
+      args.put("data", data.getBytes(ENCODING));
       storageManager.insertSuperSlice(SC_APPLICATION_CONTROLLER, application + predicate,
           subPredicate + publisher.getId(), args);
 
       // STORE A NEW ENTRY IN THE ApplicationModel (use to retreive all the
       // predicate of a given application)
-      args = new HashMap<String, byte[]>();
-      args.put(APPLICATION_CONTROLLER_ID, (application + predicate).getBytes("UTF-8"));
+      args.clear();
+      args.put(APPLICATION_CONTROLLER_ID, (application + predicate).getBytes(ENCODING));
       storageManager.insertSuperSlice(SC_APPLICATION_MODEL, application, predicate, args);
 
       // STORE THE DATAs
+      args.clear();
       for (final MDataBean item : dataList) {
-    	args = new HashMap<String, byte[]>();
-    	args.put("key", item.getKey().getBytes("UTF-8"));
-    	args.put("value", item.getValue().getBytes("UTF-8"));
-    	args.put("ontologyID", item.getOntologyID().getBytes("UTF-8"));
+        args.put("key", item.getKey().getBytes(ENCODING));
+        args.put("value", item.getValue().getBytes(ENCODING));
+        args.put("ontologyID", item.getOntologyID().getBytes(ENCODING));
         storageManager.insertSuperSlice(SC_DATA_LIST, application + subPredicate + publisher.getId(), item.getKey(),
             args);
+        args.clear();
       }
 
-      // SEND A MAIL TO THE SUBSCRIBER
-      String mailinglist = "";
+      // SEND A MAIL TO THE SUBSCRIBERS
+      // TODO better find a better way to send the email: we are sending the
+      // same email to all at once, exposing the users email
+      final StringBuffer mailingList = new StringBuffer(250);
       final List<Map<byte[], byte[]>> subscribers = storageManager.selectList(SC_USER_LIST, SUBSCRIBER_PREFIX
           + application + subPredicate);
       for (final Map<byte[], byte[]> set : subscribers) {
         for (final Entry<byte[], byte[]> entry : set.entrySet()) {
-          if (new String(entry.getKey(), "UTF-8").equals("user")) {
-            final String userID = new String(entry.getValue(), "UTF-8");
-            mailinglist += new String(storageManager.selectColumn(CF_USER, userID, "email"), "UTF-8") + ",";
+          if (new String(entry.getKey(), ENCODING).equals("user")) {
+            final String userID = new String(entry.getValue(), ENCODING);
+            mailingList.append(new String(storageManager.selectColumn(CF_USER, userID, "email"), ENCODING));
+            mailingList.append(',');
           }
         }
       }
 
-      // Format the mail -- TODO Refactor and put this into another class (mail
-      // package should be used)
-      if (!mailinglist.equals("")) {
-        String content = "Bonjour, \nDe nouvelles informations sont arrivées sur votre plateforme myMed.\n"
-            + "Application Concernée: " + application + "\n" + "Predicate: \n";
+      mailingList.trimToSize();
+      final String receivers = mailingList.toString();
+
+      // Format the mail
+      // TODO Refactor and put this into another class (mail package should be
+      // used)
+      // TODO move this somewhere else and handle translation of this email!
+      if (!"".equals(receivers)) {
+        final StringBuffer mailContent = new StringBuffer(250);
+        mailContent.append("Bonjour, \nDe nouvelles informations sont arrivées sur votre plateforme myMed.\n");
+        mailContent.append("Application Concernée: ");
+        mailContent.append(application);
+        mailContent.append('\n');
+        mailContent.append("Predicate: \n");
         for (final MDataBean item : dataList) {
-          content += "\t- " + item.getKey() + ": " + item.getValue() + "\n";
+          mailContent.append("\t-");
+          mailContent.append(item.getKey());
+          mailContent.append(": ");
+          mailContent.append(item.getValue());
+          mailContent.append('\n');
         }
-        content += "\n------\nL'équipe myMed";
-        new Mail("mymed.subscribe@gmail.com", mailinglist, "myMed subscribe info: " + application, content);
+        mailContent.append("\n------\nL'équipe myMed");
+        mailContent.trimToSize();
+        new Mail("mymed.subscribe@gmail.com", receivers, "myMed subscribe info: " + application, mailContent.toString());
       }
     } catch (final UnsupportedEncodingException e) {
-      LOGGER.debug("Encoding not supported", e);
-      throw new InternalBackEndException(e.getMessage());
+      LOGGER.debug(ERROR_ENCODING, ENCODING, e);
+      throw new InternalBackEndException(e.getMessage()); // NOPMD
     }
   }
-
   /**
    * SUBSCRIBE
    * 
@@ -170,19 +186,19 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     try {
       // STORE A NEW ENTRY IN THE ApplicationController
       Map<String, byte[]> args = new HashMap<String, byte[]>();
-      args.put("subscriberList", (SUBSCRIBER_PREFIX + application + predicate).getBytes("UTF-8"));
+      args.put("subscriberList", (SUBSCRIBER_PREFIX + application + predicate).getBytes(ENCODING));
       storageManager.insertSuperSlice(SC_APPLICATION_CONTROLLER, application + predicate, MEMBER_LIST_KEY, args);
 
       // STORE A NEW ENTRY IN THE UserList (SubscriberList)
       args = new HashMap<String, byte[]>();
-      args.put("name", subscriber.getName().getBytes("UTF-8"));
-      args.put("user", subscriber.getId().getBytes("UTF-8"));
+      args.put("name", subscriber.getName().getBytes(ENCODING));
+      args.put("user", subscriber.getId().getBytes(ENCODING));
       storageManager.insertSuperSlice(SC_USER_LIST, SUBSCRIBER_PREFIX + application + predicate, subscriber.getId(),
           args);
 
     } catch (final UnsupportedEncodingException e) {
-      LOGGER.debug("Encoding not supported", e);
-      throw new InternalBackEndException(e.getMessage());
+      LOGGER.debug(ERROR_ENCODING, ENCODING, e);
+      throw new InternalBackEndException(e.getMessage()); // NOPMD
     }
   }
 
@@ -203,15 +219,17 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
         final Map<String, String> resMap = new HashMap<String, String>();
         for (final Entry<byte[], byte[]> entry : set.entrySet()) {
           try {
-            resMap.put(new String(entry.getKey(), "UTF-8"), new String(entry.getValue(), "UTF-8"));
+            resMap.put(new String(entry.getKey(), ENCODING), new String(entry.getValue(), ENCODING));
           } catch (final UnsupportedEncodingException e) {
-            LOGGER.debug("Encoding not supported", e);
-            throw new InternalBackEndException(e.getMessage());
+            LOGGER.debug(ERROR_ENCODING, ENCODING, e);
+            throw new InternalBackEndException(e.getMessage()); // NOPMD
           }
         }
+
         resList.add(resMap);
       }
     }
+
     return resList;
   }
 
@@ -223,21 +241,23 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
   @Override
   public List<Map<String, String>> read(final String application, final String predicate, final String userID)
       throws InternalBackEndException, IOBackEndException {
-	  
+
     final List<Map<byte[], byte[]>> list = storageManager.selectList(SC_DATA_LIST, application + predicate + userID);
     final List<Map<String, String>> resList = new ArrayList<Map<String, String>>();
     for (final Map<byte[], byte[]> set : list) {
       final Map<String, String> resMap = new HashMap<String, String>();
       for (final Entry<byte[], byte[]> entry : set.entrySet()) {
         try {
-          resMap.put(new String(entry.getKey(), "UTF-8"), new String(entry.getValue(), "UTF-8"));
+          resMap.put(new String(entry.getKey(), ENCODING), new String(entry.getValue(), ENCODING));
         } catch (final UnsupportedEncodingException e) {
-          LOGGER.debug("Encoding not supported", e);
-          throw new InternalBackEndException(e.getMessage());
+          LOGGER.debug(ERROR_ENCODING, ENCODING, e);
+          throw new InternalBackEndException(e.getMessage()); // NOPMD
         }
       }
+
       resList.add(resMap);
     }
+
     return resList;
   }
 
@@ -252,5 +272,4 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     storageManager.removeSuperColumn(SC_APPLICATION_CONTROLLER, application, predicate);
     storageManager.removeSuperColumn(SC_APPLICATION_MODEL, application, predicate + user.getId());
   }
-
 }

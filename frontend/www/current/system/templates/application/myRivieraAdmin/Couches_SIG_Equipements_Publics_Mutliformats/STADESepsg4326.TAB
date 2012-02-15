@@ -1,0 +1,16 @@
+!table
+!version 300
+!charset WindowsLatin1
+
+Definition Table
+  Type NATIVE Charset "WindowsLatin1"
+  Fields 9
+    Adresse Char (100) ;
+    Code_posta Char (30) ;
+    Ville Char (30) ;
+    Pays Char (30) ;
+    Nom Char (30) ;
+    Descriptio Char (30) ;
+    Lat Char (30) ;
+    Lng Char (30) ;
+    Internet Char (254) ;

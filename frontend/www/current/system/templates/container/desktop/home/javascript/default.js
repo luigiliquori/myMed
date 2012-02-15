@@ -35,7 +35,6 @@ function successCallback(position){
 }
 
 // COMMON DISPLAY/HIDE FUNCTIONS
-
 function displaySection(elt){
 	$(elt).show();
 }

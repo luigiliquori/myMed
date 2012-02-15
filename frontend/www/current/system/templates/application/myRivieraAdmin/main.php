@@ -1,5 +1,5 @@
 <?php 
-	define('APPLICATION_NAME', "myRivieraAdmin");
+	define('APPLICATION_NAME', "myRiviera");
 	
 	// IMPORT THE MAIN VIEW
 	require_once dirname(__FILE__).'/views/tabbar/PublishView.class.php';

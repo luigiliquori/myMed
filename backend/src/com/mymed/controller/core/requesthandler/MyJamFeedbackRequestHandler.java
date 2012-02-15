@@ -17,14 +17,14 @@ import com.mymed.controller.core.manager.storage.MyJamStorageManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.id.MyMedId;
 import com.mymed.model.data.myjam.MFeedBackBean;
-
 import com.mymed.model.data.myjam.MyJamTypeValidator;
 import com.mymed.utils.MConverter;
 
 /**
  * Manages the requests related to updates.
+ * 
  * @author iacopo
- *
+ * 
  */
 @WebServlet("/MyJamFeedbackRequestHandler")
 public class MyJamFeedbackRequestHandler  extends AbstractRequestHandler  implements IMyJamCallAttributes {
@@ -182,5 +182,4 @@ public class MyJamFeedbackRequestHandler  extends AbstractRequestHandler  implem
 			message.setDescription(e.getMessage());		
 		}
 	}
-
 }

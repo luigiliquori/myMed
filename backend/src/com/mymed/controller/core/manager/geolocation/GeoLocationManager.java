@@ -62,6 +62,7 @@ public class GeoLocationManager extends AbstractManager {
 
 			locId = Locator.getLocationId(latitude,longitude);
 			String areaId = String.valueOf(Locator.getAreaId(locId));
+			
 			long timestamp = System.currentTimeMillis();				
 			MyMedId id = new MyMedId(Character.toLowerCase(itemType.charAt(0)),timestamp,userLogin);
 
@@ -97,7 +98,6 @@ public class GeoLocationManager extends AbstractManager {
 	 * Search located items in a circular region specified by latitude, longitude and radius.
 	 * 
 	 * @param applicationId Identifier of the application.
-	 * @param itemId Id of the located item.
 	 * @param latitude Latitude in micro-degrees.
 	 * @param longitude Longitude in micro-degrees.
 	 * @param radius Radius of the search in meters.

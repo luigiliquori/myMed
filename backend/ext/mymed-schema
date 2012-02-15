@@ -57,7 +57,7 @@ create column family Position with column_type = 'Standard' and comparator = 'UT
  *  RaterList
  *
 */
-create column family ApplicationController with column_type = 'Super' and comparator = 'TimeUUIDType' and subcomparator = 'TimeUUIDType';
+create column family ApplicationController with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family ApplicationList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family ApplicationModel with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family DataList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
@@ -65,6 +65,9 @@ create column family OntologyList with column_type = 'Super' and comparator = 'U
 create column family UserList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family InteractionList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family RaterList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
+
+/* TODO: remove myJam in the new comparator name */
+create column family Location with column_type = 'Super' and comparator = 'com.mymed.myjam.type.MyMedIdType' and subcomparator = 'com.mymed.myjam.type.MyMedIdType';
 
 
 /*

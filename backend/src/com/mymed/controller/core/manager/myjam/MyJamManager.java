@@ -10,18 +10,15 @@ import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.exception.WrongFormatException;
 import com.mymed.controller.core.manager.AbstractManager;
-
 import com.mymed.controller.core.manager.geolocation.GeoLocationManager;
 import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.storage.MyJamStorageManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.data.geolocation.MSearchBean;
 import com.mymed.model.data.id.MyMedId;
-
 import com.mymed.model.data.myjam.MFeedBackBean;
 import com.mymed.model.data.myjam.MReportBean;
 import com.mymed.model.data.myjam.MyJamTypeValidator;
-
 import com.mymed.model.data.myjam.MyJamTypes.ReportType;
 import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.MConverter;
@@ -29,8 +26,9 @@ import com.mymed.utils.locator.Locator;
 
 /**
  * Controls the insertion and the retrieving of data to/from the database.
+ * 
  * @author iacopo
- *
+ * 
  */
 public class MyJamManager extends AbstractManager{
 	/**
@@ -143,7 +141,7 @@ public class MyJamManager extends AbstractManager{
 		 */
 		try{
 			Map<byte[],byte[]> reportMap = ((MyJamStorageManager) storageManager).selectAll("Report", reportId);
-			MReportBean report = (MReportBean) introspection(new MReportBean(),reportMap);			
+			MReportBean report = (MReportBean) introspection(MReportBean.class,reportMap);			
 			return report;
 		}catch(InternalBackEndException e){
 			throw new InternalBackEndException("Wrong parameter: "+e.getMessage());
@@ -190,7 +188,7 @@ public class MyJamManager extends AbstractManager{
 			Map<byte[],byte[]> updateCont;
 			for(String currUpdate:updateIds){ //In this way the list updatesList is filled in order of time.
 				if ((updateCont = updateMap.get(currUpdate))!=null)//
-					updatesList.add((MReportBean) introspection(new MReportBean(),updateCont));
+					updatesList.add((MReportBean) introspection(MReportBean.class,updateCont));
 			}
 			return updatesList;
 		}catch(InternalBackEndException e){
@@ -238,7 +236,7 @@ public class MyJamManager extends AbstractManager{
 			Map<byte[],byte[]> reportMap = ((MyJamStorageManager) storageManager).selectAll("Report", reportId);
 			if (reportMap.isEmpty())
 				throw new IOBackEndException("Report not present",404);
-			MReportBean reportDetails = (MReportBean) introspection(new MReportBean(),reportMap);
+			MReportBean reportDetails = (MReportBean) introspection(MReportBean.class,reportMap);
 			if (!reportDetails.getReportType().equals(update.getReportType()))
 				throw new InternalBackEndException("Report and update types don't match.");
 			long locationId = reportDetails.getLocationId();
@@ -297,7 +295,7 @@ public class MyJamManager extends AbstractManager{
 			Map<byte[],byte[]> reportMap = ((MyJamStorageManager) storageManager).selectAll("Report", reportId);
 			if (reportMap.isEmpty())
 				throw new IOBackEndException(" Report not valid. ",404);
-			MReportBean reportDetails = (MReportBean) introspection(new MReportBean(),reportMap);
+			MReportBean reportDetails = (MReportBean) introspection(MReportBean.class,reportMap);
 			long locationId = reportDetails.getLocationId();								
 			
 			/**
