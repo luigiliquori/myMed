@@ -16,6 +16,7 @@
 package com.mymed.controller.core.manager;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -24,10 +25,16 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import ch.qos.logback.classic.Logger;
+
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.model.data.AbstractMBean;
+import com.mymed.properties.IProperties;
+import com.mymed.properties.PropType;
+import com.mymed.properties.PropertiesManager;
 import com.mymed.utils.ClassType;
+import com.mymed.utils.MLogger;
 
 /**
  * Abstract manager the all the managers should extend.
@@ -36,15 +43,21 @@ import com.mymed.utils.ClassType;
  * 
  * @author lvanni
  * @author Milo Casagrande
- * 
  */
-public abstract class AbstractManager extends ManagerValues {
-
-
-  private static final int PRIV_FIN = Modifier.PRIVATE + Modifier.FINAL;
-  private static final int PRIV_STAT_FIN = Modifier.PRIVATE + Modifier.STATIC + Modifier.FINAL;
-
+public abstract class AbstractManager {
   protected IStorageManager storageManager;
+  protected static final Logger LOGGER = MLogger.getLogger();
+
+  private static final PropertiesManager PROPERTIES = PropertiesManager.getInstance();
+  protected static final IProperties GENERAL = PROPERTIES.getManager(PropType.GENERAL);
+  protected static final IProperties COLUMNS = PROPERTIES.getManager(PropType.COLUMNS);
+  protected static final IProperties ERRORS = PROPERTIES.getManager(PropType.ERRORS);
+  protected static final IProperties FIELDS = PROPERTIES.getManager(PropType.FIELDS);
+
+  protected static final String ENCODING = GENERAL.get("general.string.encoding");
+  protected static final String ERROR_ENCODING = ERRORS.get("error.encoding");
+
+  private static final int PRIV = Modifier.PRIVATE;
 
   public AbstractManager(final IStorageManager storageManager) {
     this.storageManager = storageManager;
@@ -53,57 +66,61 @@ public abstract class AbstractManager extends ManagerValues {
   /**
    * Introspection
    * 
-   * @param mbean
+   * @param clazz
    * @param args
    * @return
    * @throws InternalBackEndException
    */
-  public AbstractMBean introspection(final AbstractMBean mbean, final Map<byte[], byte[]> args)
+  public AbstractMBean introspection(final Class<? extends AbstractMBean> clazz, final Map<byte[], byte[]> args)
       throws InternalBackEndException {
-    for (final Entry<byte[], byte[]> arg : args.entrySet()) {
-      try {
-        final Field field = mbean.getClass().getDeclaredField(new String(arg.getKey(), ENCODING));
+
+    AbstractMBean mbean = null;
+    String fieldName = "";
+
+    try {
+      // We create a new instance of the object we are reflecting on
+      final Constructor<?> ctor = clazz.getConstructor();
+      mbean = (AbstractMBean) ctor.newInstance();
+
+      for (final Entry<byte[], byte[]> arg : args.entrySet()) {
+        fieldName = new String(arg.getKey(), ENCODING);
+        final Field field = clazz.getDeclaredField(fieldName);
 
         /*
          * We check the value of the modifiers of the field: if the field is
          * private and final, or private static and final, we skip it.
          */
         final int modifiers = field.getModifiers();
-        if (modifiers == PRIV_FIN || modifiers == PRIV_STAT_FIN) {
+        if (modifiers != PRIV) {
           continue;
         }
 
         final ClassType classType = ClassType.inferType(field.getGenericType());
         final String setterName = createSetterName(field, classType);
-        final Method method = mbean.getClass().getMethod(setterName, classType.getPrimitiveType());
+        final Method method = clazz.getMethod(setterName, classType.getPrimitiveType());
         final Object argument = ClassType.objectFromClassType(classType, arg.getValue());
 
         method.invoke(mbean, argument);
-      } catch (final NoSuchFieldException e) {
-        try {
-          LOGGER.info("WARNING: {} is not a bean field", new String(arg.getKey(), ENCODING));
-        } catch (final UnsupportedEncodingException ex) {
-          // If we ever get here, there is something seriously wrong.
-          // This should never happen.
-          LOGGER.info("Error in encoding string using {} encoding", ENCODING);
-          LOGGER.debug("Error in eoncoding string", ex);
-        }
-      } catch (final SecurityException ex) {
-        throw new InternalBackEndException(ex);
-      } catch (final NoSuchMethodException ex) {
-        throw new InternalBackEndException(ex);
-      } catch (final IllegalArgumentException ex) {
-        throw new InternalBackEndException(ex);
-      } catch (final IllegalAccessException ex) {
-        throw new InternalBackEndException(ex);
-      } catch (final InvocationTargetException ex) {
-        throw new InternalBackEndException(ex);
-      } catch (final UnsupportedEncodingException ex) {
-        // If we ever get here, there is something seriously wrong.
-        // This should never happen.
-        LOGGER.info("Error in encoding string using {} encoding", ENCODING);
-        LOGGER.debug("Error in encoding string", ex);
       }
+    } catch (final NoSuchFieldException e) {
+      LOGGER.info("WARNING: {} is not a bean field", fieldName);
+    } catch (final SecurityException ex) {
+      throw new InternalBackEndException(ex);
+    } catch (final NoSuchMethodException ex) {
+      throw new InternalBackEndException(ex);
+    } catch (final IllegalArgumentException ex) {
+      throw new InternalBackEndException(ex);
+    } catch (final IllegalAccessException ex) {
+      throw new InternalBackEndException(ex);
+    } catch (final InvocationTargetException ex) {
+      throw new InternalBackEndException(ex);
+    } catch (final UnsupportedEncodingException ex) {
+      // If we ever get here, there is something seriously wrong.
+      // This should never happen.
+      LOGGER.info(ERROR_ENCODING, ENCODING);
+      LOGGER.debug(ERROR_ENCODING, ENCODING, ex);
+    } catch (final InstantiationException ex) {
+      throw new InternalBackEndException(ex);
     }
 
     return mbean;

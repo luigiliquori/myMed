@@ -180,7 +180,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
           }
 
           try {
-
+        	  
             final MUserBean userBean = getGson().fromJson(user, MUserBean.class);
             final Type dataType = new TypeToken<List<MDataBean>>() {
             }.getType();

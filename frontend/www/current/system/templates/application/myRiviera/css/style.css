@@ -1,11 +1,105 @@
+#myRivieraMap { 
+	position: relative;
+	top:  0px;
+	left:0px;
+	width: 100%; 
+	padding: 0;
+}
+
+#itineraire{
+	position: absolute; 
+	top: 40px; 
+	left:10px; 	
+	text-align: left;
+	display: none;
+	opacity: 0.9;
+}
+
+#itineraire li a {
+	position: relative;
+	left: -16px;
+}
+
+#depart::-webkit-input-placeholder {
+  color: LightBlue;
+}
+#depart:-moz-placeholder {
+  color: LightBlue;
+}
+
+#depart {
+	background-repeat: no-repeat;
+	background-position: left;
+	background-size: 24px 24px;
+	width:88%;
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	
+}
+
+#arrivee::-webkit-input-placeholder {
+  color: LightGray;
+}
+#arrivee:-moz-placeholder {
+  color: LightGray;
+}
+
+#arrivee {
+	/*background-image:url('../img/flag_finish.png');*/
+	background-repeat: no-repeat;
+	background-position: right;
+	background-size: 24px 24px;
+	width:200px;
+	float: left;
+}
+
+
+#divarrivee .ui-select {
+	float:right;
+	margin: 5px 0 5px -30px;
+}
+#divarrivee .ui-btn {
+	margin: 0;
+}
+	
+#divarrivee{
+	margin-left:3%;
+	margin-right:2%;
+}
+
+#Itin .ui-datebox-inline { 
+	margin-top: 5px; 
+	border: none;
+	/*width: 150px;*/
+}
+#Itin .ui-flip-content {
+	width: 150px;
+}
+#Itin .ui-flip-center {
+	width: 50px;
+}
+
+#date .ui-btn-inner {
+	padding: 4px; 
+	/*width: 40px;*/
+}
+
+#date .ui-icon{
+	display:none;
+}
+
+#Itin fieldset {
+	display: inline;
+	margin: 5px;
+}
+
 .ui-page {
- 	background-image: url("../img/background.jpg");
-	background-size: 100% 100%; 
-	color: white
+ 	text-align: center;
 }
 
 .ui-li-desc {
-white-space: normal;
+	white-space: normal;
 }
 
 .poiContent {

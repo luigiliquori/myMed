@@ -1,0 +1,16 @@
+!table
+!version 300
+!charset WindowsLatin1
+
+Definition Table
+  Type NATIVE Charset "WindowsLatin1"
+  Fields 9
+    Date_Saisie Date ;
+    Source Char (2) ;
+    Remarque Char (136) ;
+    TelBureau Char (32) ;
+    Nom_commune Char (32) ;
+    Adresse Char (32) ;
+    Nom Char (32) ;
+    idnum Integer ;
+    ident Char (40) ;

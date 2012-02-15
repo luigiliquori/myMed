@@ -1,0 +1,7 @@
+{
+"type": "BatiEgliseWGS84Collection",
+"features": [
+{ "type": "BatiEgliseWGS84", "properties": { "ADRESSE": "Chapelle des Pénitents Blancs", "POSTAL": "0", "VILLE": "GORBIO", "PAYS": "France", "NOM": "Chapelle des Pénitents Blancs", "DESCRIPTIO": "", "PRODUCTEUR": "CARF", "DATE_DE_SA": "2010\/07\/01" }, "geometry": { "type": "Point", "coordinates": [ 7.444899, 43.786575 ] } }
+
+]
+}

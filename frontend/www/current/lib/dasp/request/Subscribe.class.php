@@ -53,7 +53,7 @@ class Subscribe extends Request {
 			}
 		}
 		// construct the request
-		parent::addArgument("predicate", urlencode($predicate));
+		parent::addArgument("predicate", $predicate);
 		parent::addArgument("user", json_encode($_SESSION['user']));
 	
 		$responsejSon = parent::send();

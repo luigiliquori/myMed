@@ -1,0 +1,11 @@
+!table
+!version 300
+!charset WindowsLatin1
+
+Definition Table
+  Type NATIVE Charset "WindowsLatin1"
+  Fields 4
+    Nom Char (32) ;
+    Adresse Char (32) ;
+    Téléphone Char (32) ;
+    DateDeSaisie Date ;

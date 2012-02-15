@@ -73,14 +73,17 @@ class Request {
 	}
 	
 	public /*string*/ function send() {
-		
 		$curl	= curl_init();
 		if($curl === false) {
 			trigger_error('Unable to init CURL : ', E_USER_ERROR);
 		}
 		
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-		$httpHeader[] = 'Content-Type:application/x-www-form-urlencoded';
+		if($this->multipart){
+			$httpHeader[] = 'Content-Type:multipart/form-data';
+		} else {
+			$httpHeader[] = 'Content-Type:application/x-www-form-urlencoded';
+		}
 		$this->arguments['code'] = $this->method;
 
 		// Token for security - to access to the API
@@ -93,7 +96,11 @@ class Request {
 			curl_setopt($curl, CURLOPT_HTTPHEADER, $httpHeader);
 			curl_setopt($curl, CURLOPT_URL, $this->url.$this->ressource);
 			curl_setopt($curl, CURLOPT_POST, true);
-			curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($this->arguments));
+			if($this->multipart){
+				curl_setopt($curl, CURLOPT_POSTFIELDS, $this->arguments);
+			} else {
+				curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($this->arguments));
+			}
 			
 		} else {
 			// GET REQUEST
@@ -107,7 +114,7 @@ class Request {
 		curl_setopt($curl, CURLOPT_CAINFO, "/etc/ssl/certs/mymed.crt"); // TO EXPORT FROM GLASSFISH!
 		
 		$result = curl_exec($curl);
-// 		echo '<script type="text/javascript">alert(\'' . $result . '\');</script>';	
+// 		echo '<script type="text/javascript">alert(\'' . $result . '\');</script>';
 		return $result;
 	}
 }

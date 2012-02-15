@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.utils;
 
 import java.lang.reflect.Constructor;
@@ -153,17 +153,17 @@ public enum ClassType {
       final Object initArg = method.invoke(null, ByteBuffer.wrap(arg));
       returnObject = cons.newInstance(initArg);
     } catch (final IllegalArgumentException ex) {
-      logErrorCreatingObj(ex.getCause(), classType.getPrimitiveType());
+      logErrorCreatingObj(ex, classType.getPrimitiveType());
     } catch (final InstantiationException ex) {
-      logErrorCreatingObj(ex.getCause(), classType.getPrimitiveType());
+      logErrorCreatingObj(ex, classType.getPrimitiveType());
     } catch (final IllegalAccessException ex) {
-      logErrorCreatingObj(ex.getCause(), classType.getPrimitiveType());
+      logErrorCreatingObj(ex, classType.getPrimitiveType());
     } catch (final InvocationTargetException ex) {
-      logErrorCreatingObj(ex.getCause(), classType.getPrimitiveType());
+      logErrorCreatingObj(ex, classType.getPrimitiveType());
     } catch (final SecurityException ex) {
-      logErrorCreatingObj(ex.getCause(), classType.getPrimitiveType());
+      logErrorCreatingObj(ex, classType.getPrimitiveType());
     } catch (final NoSuchMethodException ex) {
-      logErrorCreatingObj(ex.getCause(), classType.getPrimitiveType());
+      logErrorCreatingObj(ex, classType.getPrimitiveType());
     }
 
     return returnObject;
@@ -194,15 +194,15 @@ public enum ClassType {
       final Method method = MConverter.class.getMethod(methodName, classType.getPrimitiveType());
       returnBuffer = (ByteBuffer) method.invoke(null, object);
     } catch (final IllegalArgumentException ex) {
-      logErrorConvertingObj(ex.getCause(), classType.getPrimitiveType());
+      logErrorConvertingObj(ex, classType.getPrimitiveType());
     } catch (final IllegalAccessException ex) {
-      logErrorConvertingObj(ex.getCause(), classType.getPrimitiveType());
+      logErrorConvertingObj(ex, classType.getPrimitiveType());
     } catch (final InvocationTargetException ex) {
-      logErrorConvertingObj(ex.getCause(), classType.getPrimitiveType());
+      logErrorConvertingObj(ex, classType.getPrimitiveType());
     } catch (final SecurityException ex) {
-      logErrorConvertingObj(ex.getCause(), classType.getPrimitiveType());
+      logErrorConvertingObj(ex, classType.getPrimitiveType());
     } catch (final NoSuchMethodException ex) {
-      logErrorConvertingObj(ex.getCause(), classType.getPrimitiveType());
+      logErrorConvertingObj(ex, classType.getPrimitiveType());
     }
 
     return returnBuffer.array();

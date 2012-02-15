@@ -20,53 +20,51 @@ Ant build file to run mymed tests
 Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
 -->
 <project name="tests" default="managertest" basedir=".">
-	<property name="build.dir"           location="build"/>
-	<property name="lib.dir"             location="lib" />
-	<property name="results.dir"         location="results"/>
-	<property name="tests.dir"           location="unit"/>
-	<property name="conf.dir"            location="conf"/>
-	<property name="controller.dir"      location="../controller"/>
-	<property name="model.dir"           location="../model"/>
-	<property name="utils.dir"           location="../utils"/>
-	<property name="java.dir"            location="/usr/share/java"/>
-	<property name="junit.dir"           location="/usr/share/junit"/>
-	<property name="glassfish.dir"       location="/local/glassfish3/glassfish/"/>
-	<property name="cassandra.dir"       location="../../../../WebContent/WEB-INF/lib"/>
-	<property name="httpcomp.dir"        location="/usr/share/apache-commons/httpcomponents"/>
-	<property name="src.dir"             location="${controller.dir}:${model.dir}:${utils.dir}"/>
-	<property name="mymed.jar"           value="mymed.jar"/>
-	<property name="mymedtest.jar"       value="tests.jar"/>
+  <property name="build.dir"           location="build"/>
+  <property name="lib.dir"             location="lib" />
+  <property name="results.dir"         location="results"/>
+  <property name="tests.dir"           location="unit"/>
+  <property name="conf.dir"            location="conf"/>
+  <property name="backend.dir"         location="../../../../"/>
+  <property name="web.content.lib.dir" location="${backend.dir}/WebContent/WEB-INF/lib"/>
+  <property name="ext.dir"             location="${backend.dir}/ext"/>
+  <property name="ext.lib.dir"         location="${ext.dir}/lib"/>
+	<property name="src.dir"             location="${backend.dir}/src/com/mymed"/>
+  <property name="controller.dir"      location="${src.dir}/controller"/>
+  <property name="model.dir"           location="${src.dir}/model"/>
+  <property name="utils.dir"           location="${src.dir}/utils"/>
+  <property name="properties.dir"      location="${src.dir}/properties"/>
+  <property name="resources.dir"       location="${src.dir}/resources"/>
+  <property name="java.dir"            location="/usr/share/java"/>
+  <property name="junit.dir"           location="/usr/share/junit"/>
+  <property name="glassfish.dir"       location="/local/glassfish3/glassfish/"/>
+  <property name="src.compile.dir"     location="${controller.dir}:${model.dir}:${utils.dir}:${properties.dir}"/>
+  <property name="mymed.jar"           value="mymed.jar"/>
+  <property name="mymedtest.jar"       value="tests.jar"/>
 
   <!-- This is the classpath for compiling the tests, since we need also Glassfish and JavaEE -->
-	<path id="classpath.compile" description="Classpath to be used for compiling the tests">
-		<pathelement path="${java.class.path}"/>
-		<pathelement location="${conf.dir}"/>
-	  <pathelement location="${lib.dir}/${mymed.jar}"/>
-	  <pathelement location="${lib.dir}/${mymedtest.jar}"/>
-		<pathelement location="${junit.dir}/junit.jar"/>
-	  <pathelement location="."/>
-		<!-- Keep this one here, otherwise it is possible to get nasty compilation errors due
-		to how JARs are imported on the CLASSPATH, and there could be errors with JARs coming
-		from Cassandra -->
-		<fileset dir="${glassfish.dir}">
-			<include name="**/javaee.jar"/>
-		</fileset>
-		<fileset dir="${java.dir}">
-			<include name="**/*.jar"/>
-		</fileset>
-		<fileset dir="${cassandra.dir}">
-			<include name="apache-cassandra-0.7.10.jar"/>
-			<include name="libthrift-0.5.jar"/>
-			<include name="gson-1.6.jar"/>
-			<include name="logback-core-0.9.29.jar"/>
-			<include name="slf4j-api-1.6.2.jar"/>
-			<include name="logback-classic-0.9.29.jar"/>
-			<exclude name="log4j-over-slf4j-1.6.2.jar"/>
-		</fileset>
-		<fileset dir="${httpcomp.dir}">
-			<include name="**/*.jar"/>
-		</fileset>
-	</path>
+  <path id="classpath.compile" description="Classpath to be used for compiling the tests">
+    <pathelement path="${java.class.path}"/>
+    <pathelement location="${conf.dir}"/>
+  	<pathelement location="${lib.dir}/${mymed.jar}"/>
+    <pathelement location="${junit.dir}/junit.jar"/>
+    <pathelement location="."/>
+    <!-- Keep this one here, otherwise it is possible to get nasty compilation errors due
+    to how JARs are imported on the CLASSPATH, and there could be errors with JARs coming
+    from Cassandra -->
+    <fileset dir="${glassfish.dir}">
+      <include name="**/javaee.jar"/>
+    </fileset>
+    <fileset dir="${java.dir}">
+      <include name="**/*.jar"/>
+    </fileset>
+    <fileset dir="${web.content.lib.dir}">
+      <include name="**/*.jar"/>
+    </fileset>
+    <fileset dir="${ext.lib.dir}">
+      <include name="**/*.jar"/>
+    </fileset>
+  </path>
 
   <!--
   This is the classpath for running the tests. It is different than the above one because
@@ -83,77 +81,71 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
     <fileset dir="${java.dir}">
       <include name="**/*.jar"/>
     </fileset>
-    <fileset dir="${cassandra.dir}">
-      <include name="apache-cassandra-0.7.10.jar"/>
-      <include name="libthrift-0.5.jar"/>
-      <include name="gson-1.6.jar"/>
-      <include name="logback-core-0.9.29.jar"/>
-      <include name="slf4j-api-1.6.2.jar"/>
-      <include name="logback-classic-0.9.29.jar"/>
-      <exclude name="log4j-over-slf4j-1.6.2.jar"/>
+    <fileset dir="${web.content.lib.dir}">
+      <include name="**/*.jar"/>
     </fileset>
-    <fileset dir="${httpcomp.dir}">
+    <fileset dir="${ext.dir}">
       <include name="**/*.jar"/>
     </fileset>
   </path>
 
-	<target name="init" description="Initialize the necessary directories">
-		<mkdir dir="${build.dir}" />
-		<mkdir dir="${lib.dir}" />
-		<mkdir dir="${results.dir}" />
-	</target>
+  <target name="init" description="Initialize the necessary directories">
+    <mkdir dir="${build.dir}" />
+    <mkdir dir="${lib.dir}" />
+    <mkdir dir="${results.dir}" />
+  </target>
 
-	<target name="compile" depends="init,cleanbuild" description="Compile the necessary files">
-		<javac srcdir="${src.dir}" destdir="${build.dir}" debug="on" fork="true" includeantruntime="true" includejavaruntime="true">
-			<classpath refid="classpath.compile"/>
-		</javac>
-		<jar destfile="${lib.dir}/${mymed.jar}" basedir="${build.dir}" duplicate="preserve" index="true"/>
-	</target>
+  <target name="compile" depends="init,cleanbuild" description="Compile the necessary files">
+    <javac srcdir="${src.compile.dir}" destdir="${build.dir}" debug="on" fork="true" includeantruntime="true" includejavaruntime="true">
+      <classpath refid="classpath.compile"/>
+    </javac>
+    <jar destfile="${lib.dir}/${mymed.jar}" basedir="${build.dir}" duplicate="preserve" index="true"/>
+  </target>
 
-	<target name="compiletest" depends="compile,cleanbuild" description="Compile the test classes">
-		<javac srcdir="${tests.dir}" destdir="${build.dir}" debug="on" fork="true" includeantruntime="true" includejavaruntime="true">
-			<classpath refid="classpath.compile"/>
-			<include name="**/*.java"/>
-		</javac>
-		<jar destfile="${lib.dir}/${mymedtest.jar}" basedir="${build.dir}" duplicate="preserve" index="true"/>
-	</target>
+  <target name="compiletest" depends="compile,cleanbuild" description="Compile the test classes">
+    <javac srcdir="${tests.dir}" destdir="${build.dir}" debug="on" fork="true" includeantruntime="true" includejavaruntime="true">
+      <classpath refid="classpath.compile"/>
+      <include name="**/*.java"/>
+    </javac>
+    <jar destfile="${lib.dir}/${mymedtest.jar}" basedir="${build.dir}" duplicate="preserve" index="true"/>
+  </target>
 
-	<target name="managertest" depends="compiletest" description="Run all the JUnit tests for the Manager classes">
-		<junit printsummary="yes" haltonfailure="no" showoutput="yes" includeantruntime="true">
-			<classpath refid="classpath.run"/>
-			<test name="com.mymed.tests.unit.manager.MyMedTestSuite" todir="${results.dir}" outfile="TEST-UnitTest"/>
-			<formatter type="xml"/>
-			<batchtest fork="true"/>
-		</junit>
-	</target>
+  <target name="managertest" depends="compiletest" description="Run all the JUnit tests for the Manager classes">
+    <junit printsummary="yes" haltonfailure="no" showoutput="yes" includeantruntime="true">
+      <classpath refid="classpath.run"/>
+      <test name="com.mymed.tests.unit.manager.MyMedTestSuite" todir="${results.dir}" outfile="TEST-UnitTest"/>
+      <formatter type="xml"/>
+      <batchtest fork="true"/>
+    </junit>
+  </target>
 
-	<target name="requesthandler" depends="compiletest" description="Run all the JUnit tests for the RequestHandler">
-	  <junit printsummary="yes" haltonfailure="no" showoutput="yes" includeantruntime="true">
-	    <classpath refid="classpath.run"/>
-	     <test name="com.mymed.tests.unit.handler.RequestHandlerSuite" todir="${results.dir}" outfile="TEST-RequestHandler"/>
-	     <formatter type="xml"/>
-	     <batchtest fork="true"/>
-	  </junit>
-	</target>
+  <target name="requesthandler" depends="compiletest" description="Run all the JUnit tests for the RequestHandler">
+    <junit printsummary="yes" haltonfailure="no" showoutput="yes" includeantruntime="true">
+      <classpath refid="classpath.run"/>
+       <test name="com.mymed.tests.unit.handler.RequestHandlerSuite" todir="${results.dir}" outfile="TEST-RequestHandler"/>
+       <formatter type="xml"/>
+       <batchtest fork="true"/>
+    </junit>
+  </target>
 
-	<target name="beans" depends="compiletest" description="Run all the JUnit tests for the bean classes">
-	  <junit printsummary="yes" haltonfailure="no" showoutput="yes" includeantruntime="true">
-	    <classpath refid="classpath.run"/>
-	     <test name="com.mymed.tests.unit.bean.BeansTestSuite" todir="${results.dir}" outfile="TEST-BeansTest"/>
-	     <formatter type="xml"/>
-	     <batchtest fork="true"/>
-	  </junit>
-	</target>
+  <target name="beans" depends="compiletest" description="Run all the JUnit tests for the bean classes">
+    <junit printsummary="yes" haltonfailure="no" showoutput="yes" includeantruntime="true">
+      <classpath refid="classpath.run"/>
+       <test name="com.mymed.tests.unit.bean.BeansTestSuite" todir="${results.dir}" outfile="TEST-BeansTest"/>
+       <formatter type="xml"/>
+       <batchtest fork="true"/>
+    </junit>
+  </target>
 
-	<target name="cleanbuild" description="Clean the build directory from other directories">
-		<delete includeemptydirs="true" failonerror="false">
-		  <fileset dir="${build.dir}" includes="**/*"/>
-		</delete>
-	</target>
+  <target name="cleanbuild" description="Clean the build directory from other directories">
+    <delete includeemptydirs="true" failonerror="false">
+      <fileset dir="${build.dir}" includes="**/*"/>
+    </delete>
+  </target>
 
-	<target name="clean" description="Remove the directories used for the build">
-	  <delete dir="${build.dir}" />
-		<delete dir="${lib.dir}" />
-		<delete dir="${results.dir}" />
-	</target>
+  <target name="clean" description="Remove the directories used for the build">
+    <delete dir="${build.dir}" />
+    <delete dir="${lib.dir}" />
+    <delete dir="${results.dir}" />
+  </target>
 </project>

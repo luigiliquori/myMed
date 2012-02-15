@@ -120,7 +120,11 @@ public class Location {
 	/**
 	 * Finds the coordinates of the bounding box of the circle with radius distance 
 	 * 
+<<<<<<< HEAD
 	 * @param distance The radius of the circle whose bounding box is found [meter].
+=======
+	 * @param distance The radius of the circle whose bounding box is found.
+>>>>>>> iacopo
 	 * @return The bottom-left and the top-right corner of the bounding box.
 	 * @throws GeoLocationOutOfBoundException 
 	 */

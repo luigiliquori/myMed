@@ -21,10 +21,10 @@ That value is substituted at compile time using Ant! -->
 	<backend>
 		<!-- Cloud Info -->
 		<cassandra>
-			<ListenAddress>localhost</ListenAddress>
+			<ListenAddress>@address@</ListenAddress>
 			<!-- See the Cassandra configuration file at ../protocols/cassandra/cassandra/conf/cassandra.yaml -->
 			<StoragePort>4200</StoragePort>
-			<ThriftAddress>localhost</ThriftAddress>
+			<ThriftAddress>@address@</ThriftAddress>
 			<ThriftPort>4201</ThriftPort>
 		</cassandra>
 
