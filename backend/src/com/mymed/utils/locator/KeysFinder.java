@@ -254,7 +254,7 @@ public class KeysFinder {
     final short numRanges = (short) (extremes.size() / 2);
     for (short i = 0; i < 4; i++) {
       // The sub-quads are visited ordered by key range.
-      final SubQuad s = HilbertQuad.tableDec.get(hq.getTypeQuad()).get(i);
+      final SubQuad s = HilbertQuad.TABLE_DEC.get(hq.getTypeQuad()).get(i);
       subHq = hq.getQuad(s.pos, true);
       final Position subQuadPosition = checkPosition(subHq);
       final long[] subRange = subHq.getKeysRange();
@@ -317,7 +317,7 @@ public class KeysFinder {
    */
   private short getLevel() {
     short level = 1;
-    double deltaLat = HilbertQuad.latitudeRange[1] - HilbertQuad.latitudeRange[0], deltaLon = (HilbertQuad.longitudeRange[1] - HilbertQuad.longitudeRange[0]) / 2;
+    double deltaLat = HilbertQuad.LATITUDE_RANGE[1] - HilbertQuad.LATITUDE_RANGE[0], deltaLon = (HilbertQuad.LONGITUDE_RANGE[1] - HilbertQuad.LONGITUDE_RANGE[0]) / 2;
     final double deltaLatBound = maxLat - minLat;
     double deltaLonBound;
 

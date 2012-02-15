@@ -51,8 +51,8 @@ public class HilbertQuad {
   public static final short maxLevel = 26;
   public static final int numBits = maxLevel * 2 - 1;
 
-  protected static double[] latitudeRange = new double[] {Location.MIN_LAT, Location.MAX_LAT};
-  protected static double[] longitudeRange = new double[] {Location.MIN_LON, Location.MAX_LON};
+  protected static final double[] LATITUDE_RANGE = new double[] {Location.MIN_LAT, Location.MAX_LAT};
+  protected static final double[] LONGITUDE_RANGE = new double[] {Location.MIN_LON, Location.MAX_LON};
 
   private long index;
   private short level;
@@ -64,35 +64,36 @@ public class HilbertQuad {
 
   private static final Logger LOGGER = MLogger.getLogger();
 
-  public static Map<QuadType, Map<Quad, SubQuad>> tableEnc = new EnumMap<QuadType, Map<Quad, SubQuad>>(QuadType.class);
+  protected static final Map<QuadType, Map<Quad, SubQuad>> TABLE_ENC = new EnumMap<QuadType, Map<Quad, SubQuad>>(
+      QuadType.class);
   static {
     Map<Quad, SubQuad> map = new EnumMap<Quad, SubQuad>(Quad.class);
     map.put(Quad.First, new SubQuad((short) 0, QuadType.D));
     map.put(Quad.Second, new SubQuad((short) 3, QuadType.C));
     map.put(Quad.Third, new SubQuad((short) 1, QuadType.A));
     map.put(Quad.Fourth, new SubQuad((short) 2, QuadType.A));
-    tableEnc.put(QuadType.A, map);
+    TABLE_ENC.put(QuadType.A, map);
     map = new EnumMap<Quad, SubQuad>(Quad.class);
     map.put(Quad.First, new SubQuad((short) 0, QuadType.A));
     map.put(Quad.Second, new SubQuad((short) 1, QuadType.D));
     map.put(Quad.Third, new SubQuad((short) 3, QuadType.U));
     map.put(Quad.Fourth, new SubQuad((short) 2, QuadType.D));
-    tableEnc.put(QuadType.D, map);
+    TABLE_ENC.put(QuadType.D, map);
     map = new EnumMap<Quad, SubQuad>(Quad.class);
     map.put(Quad.First, new SubQuad((short) 2, QuadType.U));
     map.put(Quad.Second, new SubQuad((short) 1, QuadType.U));
     map.put(Quad.Third, new SubQuad((short) 3, QuadType.D));
     map.put(Quad.Fourth, new SubQuad((short) 0, QuadType.C));
-    tableEnc.put(QuadType.U, map);
+    TABLE_ENC.put(QuadType.U, map);
     map = new EnumMap<Quad, SubQuad>(Quad.class);
     map.put(Quad.First, new SubQuad((short) 2, QuadType.C));
     map.put(Quad.Second, new SubQuad((short) 3, QuadType.A));
     map.put(Quad.Third, new SubQuad((short) 1, QuadType.C));
     map.put(Quad.Fourth, new SubQuad((short) 0, QuadType.U));
-    tableEnc.put(QuadType.C, map);
+    TABLE_ENC.put(QuadType.C, map);
   }
 
-  protected static Map<QuadType, Map<Short, SubQuad>> tableDec = new EnumMap<QuadType, Map<Short, SubQuad>>(
+  protected static final Map<QuadType, Map<Short, SubQuad>> TABLE_DEC = new EnumMap<QuadType, Map<Short, SubQuad>>(
       QuadType.class);
   static {
     Map<Short, SubQuad> mapDec = new HashMap<Short, SubQuad>();
@@ -100,25 +101,25 @@ public class HilbertQuad {
     mapDec.put((short) 3, new SubQuad((short) Quad.Second.ordinal(), QuadType.C));
     mapDec.put((short) 1, new SubQuad((short) Quad.Third.ordinal(), QuadType.A));
     mapDec.put((short) 2, new SubQuad((short) Quad.Fourth.ordinal(), QuadType.A));
-    tableDec.put(QuadType.A, mapDec);
+    TABLE_DEC.put(QuadType.A, mapDec);
     mapDec = new HashMap<Short, SubQuad>();
     mapDec.put((short) 0, new SubQuad((short) Quad.First.ordinal(), QuadType.A));
     mapDec.put((short) 1, new SubQuad((short) Quad.Second.ordinal(), QuadType.D));
     mapDec.put((short) 3, new SubQuad((short) Quad.Third.ordinal(), QuadType.U));
     mapDec.put((short) 2, new SubQuad((short) Quad.Fourth.ordinal(), QuadType.D));
-    tableDec.put(QuadType.D, mapDec);
+    TABLE_DEC.put(QuadType.D, mapDec);
     mapDec = new HashMap<Short, SubQuad>();
     mapDec.put((short) 2, new SubQuad((short) Quad.First.ordinal(), QuadType.U));
     mapDec.put((short) 1, new SubQuad((short) Quad.Second.ordinal(), QuadType.U));
     mapDec.put((short) 3, new SubQuad((short) Quad.Third.ordinal(), QuadType.D));
     mapDec.put((short) 0, new SubQuad((short) Quad.Fourth.ordinal(), QuadType.C));
-    tableDec.put(QuadType.U, mapDec);
+    TABLE_DEC.put(QuadType.U, mapDec);
     mapDec = new HashMap<Short, SubQuad>();
     mapDec.put((short) 2, new SubQuad((short) Quad.First.ordinal(), QuadType.C));
     mapDec.put((short) 3, new SubQuad((short) Quad.Second.ordinal(), QuadType.A));
     mapDec.put((short) 1, new SubQuad((short) Quad.Third.ordinal(), QuadType.C));
     mapDec.put((short) 0, new SubQuad((short) Quad.Fourth.ordinal(), QuadType.U));
-    tableDec.put(QuadType.C, mapDec);
+    TABLE_DEC.put(QuadType.C, mapDec);
   }
 
   protected HilbertQuad(final long index, final short level, final double fLat, final double fLon, final double cLat,
@@ -149,8 +150,8 @@ public class HilbertQuad {
     if (level > maxLevel) {
       throw new IllegalArgumentException("level exceeds the maximum level.");
     }
-    final HilbertQuad quad = new HilbertQuad(0L, (short) 0, latitudeRange[0], longitudeRange[0], latitudeRange[1],
-        longitudeRange[1], QuadType.A);
+    final HilbertQuad quad = new HilbertQuad(0L, (short) 0, LATITUDE_RANGE[0], LONGITUDE_RANGE[0], LATITUDE_RANGE[1],
+        LONGITUDE_RANGE[1], QuadType.A);
     getQuad((short) 0, loc.getLatitude(Location.RADIANS), loc.getLongitude(Location.RADIANS), quad, level);
     return quad;
   }
@@ -164,8 +165,8 @@ public class HilbertQuad {
       throw new IllegalArgumentException("key is out of bound");
     }
     long bitMask = (long) Math.pow(2, numBits - 1);
-    final HilbertQuad quad = new HilbertQuad(key, maxLevel, latitudeRange[0], longitudeRange[0], latitudeRange[1],
-        longitudeRange[1], QuadType.A);
+    final HilbertQuad quad = new HilbertQuad(key, maxLevel, LATITUDE_RANGE[0], LONGITUDE_RANGE[0], LATITUDE_RANGE[1],
+        LONGITUDE_RANGE[1], QuadType.A);
     // The first bit chooses the initial longitude range. Either (-pi,0) or
     // (0,pi)
     lonMid = (quad.getCeilLon() + quad.getFloorLon()) / 2;
@@ -186,7 +187,7 @@ public class HilbertQuad {
       if ((bitMask & key) == bitMask) {
         tabDecKey++;
       }
-      final SubQuad currSubQuad = tableDec.get(quad.getTypeQuad()).get(tabDecKey);
+      final SubQuad currSubQuad = TABLE_DEC.get(quad.getTypeQuad()).get(tabDecKey);
       quad.setTypeQuad(currSubQuad.type);
       switch (currSubQuad.pos) {
         case 0 : // First quadrant
@@ -262,7 +263,7 @@ public class HilbertQuad {
         } else {
           quad.setCeilLat(latMid);
         }
-        final SubQuad s = tableEnc.get(quad.getTypeQuad()).get(Quad.values()[quadPos]);
+        final SubQuad s = TABLE_ENC.get(quad.getTypeQuad()).get(Quad.values()[quadPos]);
         quad.setIndex(quad.getIndex() + s.pos);
         quad.setTypeQuad(s.type);
       }
@@ -326,7 +327,7 @@ public class HilbertQuad {
         default :
           throw new IllegalArgumentException("Wrong position (not in the range (0..3))");
       }
-      final SubQuad s = tableEnc.get(getTypeQuad()).get(Quad.values()[pos]);
+      final SubQuad s = TABLE_ENC.get(getTypeQuad()).get(Quad.values()[pos]);
       hq = new HilbertQuad((getIndex() << 2) + s.pos, (short) (getLevel() + 1), floorLat, floorLon, ceilLat, ceilLon,
           s.type);
     } else {
