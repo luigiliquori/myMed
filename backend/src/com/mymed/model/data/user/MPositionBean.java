@@ -17,7 +17,7 @@ package com.mymed.model.data.user;
 
 import com.mymed.model.data.AbstractMBean;
 
-public class MPositionBean extends AbstractMBean {
+public final class MPositionBean extends AbstractMBean {
   /* --------------------------------------------------------- */
   /* Attributes */
   /* --------------------------------------------------------- */

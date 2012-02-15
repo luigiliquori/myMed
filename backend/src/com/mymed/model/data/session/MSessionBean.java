@@ -24,7 +24,7 @@ import com.mymed.model.data.AbstractMBean;
  * @author lvanni
  * 
  */
-public class MSessionBean extends AbstractMBean {
+public final class MSessionBean extends AbstractMBean {
   /** SESSION_ID */
   private String id;
   /** USER_ID */
@@ -54,6 +54,8 @@ public class MSessionBean extends AbstractMBean {
    *          the object to clone
    */
   protected MSessionBean(final MSessionBean toClone) {
+    super();
+
     id = toClone.getId();
     user = toClone.getUser();
     currentApplications = toClone.getCurrentApplications();

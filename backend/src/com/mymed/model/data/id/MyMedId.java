@@ -19,7 +19,7 @@ import com.mymed.controller.core.exception.WrongFormatException;
  * @author iacopo
  * 
  */
-public class MyMedId implements Cloneable {
+public final class MyMedId implements Cloneable {
   private static final Charset CHARSET = Charset.forName("UTF8");
   private static final int LONG_BYTESIZE = 8;
   private static final int CHAR_BYTESIZE = 2;

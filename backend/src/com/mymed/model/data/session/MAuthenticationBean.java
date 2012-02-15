@@ -26,7 +26,7 @@ import com.mymed.model.data.user.MUserBean;
  * @author lvanni
  * 
  */
-public class MAuthenticationBean extends AbstractMBean {
+public final class MAuthenticationBean extends AbstractMBean {
   /*
    * Used for the calculation of the hashCode()
    */

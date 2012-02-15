@@ -22,7 +22,7 @@ import com.mymed.model.data.AbstractMBean;
  * @author lvanni
  * 
  */
-public class MInteractionBean extends AbstractMBean {
+public final class MInteractionBean extends AbstractMBean {
   /** INTERACTION_ID */
   private String id;
   /** APPLICATION_ID */

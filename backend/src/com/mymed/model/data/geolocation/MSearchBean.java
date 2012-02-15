@@ -8,7 +8,7 @@ import com.mymed.model.data.AbstractMBean;
  * @author iacopo
  * 
  */
-public class MSearchBean extends AbstractMBean {
+public final class MSearchBean extends AbstractMBean {
   private String id;
   private long locationId;
   private int latitude;
