@@ -206,6 +206,8 @@ public class HilbertQuad {
           quad.floorLon = lonMid;
           quad.floorLat = latMid;
           break;
+        default :
+          break;
       }
     }
     return quad;
