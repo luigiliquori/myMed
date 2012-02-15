@@ -117,7 +117,7 @@ public class GeoLocationManager extends AbstractManager {
        * SuperColumn insertion in CF Location
        **/
       ((MyJamStorageManager) storageManager).insertExpiringColumn(SC_LOCATION, applicationId + itemType + areaId,
-          MConverter.longToByteBuffer(locId).array(), id.AsByteBuffer().array(), MConverter.stringToByteBuffer(value)
+          MConverter.longToByteBuffer(locId).array(), id.asByteBuffer().array(), MConverter.stringToByteBuffer(value)
               .array(), timestamp, permTime);
 
       return searchBean;
@@ -234,7 +234,7 @@ public class GeoLocationManager extends AbstractManager {
       final String areaId = String.valueOf(Locator.getAreaId(locationId));
       final ExpColumnBean expCol = ((MyJamStorageManager) storageManager).selectExpiringColumn(SC_LOCATION,
           applicationId + itemType + areaId, MConverter.longToByteBuffer(locationId).array(),
-          MyMedId.parseString(itemId).AsByteBuffer().array());
+          MyMedId.parseString(itemId).asByteBuffer().array());
 
       final Location loc = Locator.getLocationFromId(locationId);
       final MSearchBean searchBean = new MSearchBean();
@@ -281,7 +281,7 @@ public class GeoLocationManager extends AbstractManager {
       final MyMedId id = MyMedId.parseString(itemId);
 
       ((MyJamStorageManager) storageManager).removeColumn(SC_LOCATION, applicationId + itemType + areaId, MConverter
-          .longToByteBuffer(locationId).array(), id.AsByteBuffer().array());
+          .longToByteBuffer(locationId).array(), id.asByteBuffer().array());
     } catch (final WrongFormatException e) {
       throw new InternalBackEndException("Wrong report Id: " + e.getMessage());
     } catch (final IllegalArgumentException e) {

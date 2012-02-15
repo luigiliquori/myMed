@@ -84,7 +84,7 @@ public final class MyMedId implements Cloneable {
    * 
    * @return
    */
-  public ByteBuffer AsByteBuffer() {
+  public ByteBuffer asByteBuffer() {
     final byte[] userIdBB = userId.getBytes(CHARSET);
     int size = userIdBB.length;
     size += LONG_BYTESIZE;
