@@ -25,6 +25,7 @@ import com.mymed.model.data.id.MyMedId;
 public class MyMedIdTest {
 
   private static MyMedId myMedId;
+  private static MyMedId nullActual = null;
   private static String myMedIdString;
 
   private static final char TYPE = 'T';
@@ -35,7 +36,7 @@ public class MyMedIdTest {
    * @throws java.lang.Exception
    */
   @BeforeClass
-  public static void setUpBeforeClass() throws Exception {
+  public static void setUpBeforeClass() {
     myMedId = new MyMedId(TYPE, TIME, USER_ID);
     myMedIdString = myMedId.toString();
   }
@@ -44,7 +45,7 @@ public class MyMedIdTest {
    * @throws java.lang.Exception
    */
   @AfterClass
-  public static void tearDownAfterClass() throws Exception {
+  public static void tearDownAfterClass() {
     myMedId = null; // NOPMD
     myMedIdString = null; // NOPMD
   }
@@ -63,8 +64,7 @@ public class MyMedIdTest {
 
   @Test
   public void nullEqualsTest() {
-    final MyMedId actual = null;
-    assertFalse("The objects are the same!", myMedId.equals(actual)); // NOPMD
+    assertFalse("The objects are the same!", myMedId.equals(nullActual)); // NOPMD
   }
 
   @Test
