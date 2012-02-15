@@ -1,42 +1,88 @@
 package com.mymed.utils.locator;
 
-import java.util.Iterator;
-import java.util.List;
+import java.util.Random;
 
+import ch.qos.logback.classic.Logger;
+
+import com.mymed.controller.core.exception.GeoLocationOutOfBoundException;
+import com.mymed.utils.MLogger;
+
+/**
+ * 
+ * @author iacopo
+ *
+ */
 public class LocatorTester {
-	public static void main(String[] arg0){
-		Location loc;
-		KeysFinder kf;
-	    try{
-	        loc = new Location(Math.toRadians(45.15),Math.toRadians(7.70));	
-	    }catch(Exception e){
-	    	e.printStackTrace();
-	    	loc=null;
-	    }
-	    kf = new KeysFinder();
-	    HilbertQuad hq = HilbertQuad.encode(loc, HilbertQuad.maxLevel);
-	    long key = KeysFinder.getAreaId(hq.getIndex());
-	    long sColumnName = hq.getIndex();
-	    HilbertQuad hq1 = HilbertQuad.decode(hq.getIndex());
-		System.out.println("Key: (bin) "+Long.toBinaryString(key)+" (dec) "+Long.toString(key));
-	    System.out.println("Cname: (bin) "+Long.toBinaryString(sColumnName)+" (dec) "+Long.toString(sColumnName));
-	    System.out.println("MaxLat: "+String.valueOf(hq1.getCeilLat())+" MinLat: "+ String.valueOf(hq1.getFloorLat())+
-	    		" MaxLon: "+String.valueOf(hq1.getCeilLon())+" MinLon: "+ String.valueOf(hq1.getFloorLon()));
-	    		
-	    List<long[]> ranges;
-		//Set<HilbertQuad> quadsSet;
-	    long startnow = System.currentTimeMillis();
-	    ranges = kf.getKeysRanges(loc, 50000);
-	    //quadsList = hc.getBound(loc, 100000,quadsList);
-	    long endnow = System.currentTimeMillis();
-	    System.out.println("Execution time:"+ String.valueOf(endnow-startnow));
-	    Iterator<long[]> rangesIt = ranges.iterator();
-	    while (rangesIt.hasNext()){
-	    	long[] range = rangesIt.next();
-	    	long startArea=KeysFinder.getAreaId(range[0]);
-	    	long endArea=KeysFinder.getAreaId(range[1]);
-	    	System.out.println("MyJamLocator: (area) "+String.valueOf(startArea)+" (loc) "+range[0]);
-	        System.out.println("MyJamLocator: (area) "+String.valueOf(endArea)+" (loc) "+range[1]);
-	    }
-	}
+        private static String TAG = "LocatorTester";
+        private static final Logger LOGGER = MLogger.getLogger();
+        private static long SEED = 19580427;
+        private static int NUM_SAMPLES = 100000;
+        private static int RADIUS = 50000;
+        private final int maxLat = (int) (Math.toDegrees(Location.MAX_LAT)*1E6);
+        private final int minLat = (int) (Math.toDegrees(Location.MIN_LAT)*1E6);
+        private final int minLon = (int) (Math.toDegrees(Location.MAX_LON)*1E6);
+        private final int maxLon = (int) (Math.toDegrees(Location.MIN_LON)*1E6);
+
+        private Random rand;
+        private long cumulantTime;
+        private int numTotal;
+        private long minTime;
+        private long maxTime;
+
+        public LocatorTester(){
+                rand = new Random(SEED);
+                cumulantTime=0;
+                numTotal=0;
+                maxTime=0;
+                minTime=Long.MAX_VALUE;
+        }
+
+
+        public static void main(String[] args){
+                if (args.length==2){
+                        try{
+                                NUM_SAMPLES = Math.abs(Integer.parseInt(args[0]));
+                                RADIUS = Math.abs(Integer.parseInt(args[0]));
+                        }catch(NumberFormatException e){
+                            LOGGER.debug(TAG+"error: {}", e.toString());
+                    }
+            }
+            LocatorTester locTester = new LocatorTester();
+            Location loc;
+
+            try {
+                    for(int i=0;i<NUM_SAMPLES;i++){
+                            loc = locTester.getRandomLocation();
+                            long startnow = System.currentTimeMillis();
+                            Locator.getCoveringLocationId(loc.getLatitude(), loc.getLongitude(), RADIUS);
+                            long endnow = System.currentTimeMillis();
+                            locTester.addSample(endnow-startnow);
+                            System.out.println("Execution time:"+ String.valueOf(endnow-startnow));
+                    }
+                    LOGGER.info(TAG+" Average execution time: {}\n" +
+                                    "       Number of samples: {}\n" +
+                                    "       Radius [m]: {}",
+                                    new Object[]{locTester.getAvgTime(),String.valueOf(NUM_SAMPLES),String.valueOf(RADIUS)});
+            } catch (GeoLocationOutOfBoundException e) {
+                    LOGGER.debug(TAG+"error: {}", e.getMessage());
+            }
+    }
+
+    public Location getRandomLocation() throws GeoLocationOutOfBoundException{
+            int latitude =(int) (minLat + (maxLat-minLat)*rand.nextDouble());
+            int longitude =(int) (minLon + (maxLon-minLon)*rand.nextDouble());
+            return new Location(latitude,longitude);
+    }
+
+
+    public void addSample(long duration){
+            this.cumulantTime+=duration;
+            this.numTotal++;
+            if (duration>this.maxTime) this.maxTime = duration;
+            if (duration<this.minTime) this.minTime = duration;
+    }
+
+    public int getAvgTime(){
+            return numTotal==0?0:(int) (cumulantTime*1.0/numTotal);
+    }
 }
