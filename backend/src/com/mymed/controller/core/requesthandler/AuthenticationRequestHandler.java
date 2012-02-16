@@ -119,7 +119,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
     try {
       final Map<String, String> parameters = getParameters(request);
 
-      final RequestCode code = requestCodeMap.get(parameters.get(JSON_CODE));
+      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
       final String login = parameters.get(JSON_LOGIN);
       final String password = parameters.get(JSON_PASSWORD);
 
@@ -159,7 +159,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 
     try {
       final Map<String, String> parameters = getParameters(request);
-      final RequestCode code = requestCodeMap.get(parameters.get(JSON_CODE));
+      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
       final String authentication = parameters.get(JSON_AUTH);
       final String user = parameters.get(JSON_USER);
       final String login = parameters.get(JSON_LOGIN);

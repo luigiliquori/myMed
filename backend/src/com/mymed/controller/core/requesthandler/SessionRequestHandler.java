@@ -77,7 +77,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 
     try {
       final Map<String, String> parameters = getParameters(request);
-      final RequestCode code = requestCodeMap.get(parameters.get("code"));
+      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get("code"));
       final String accessToken = parameters.get("accessToken");
       final String socialNetwork = parameters.get("socialNetwork");
 
@@ -129,7 +129,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 
     try {
       final Map<String, String> parameters = getParameters(request);
-      final RequestCode code = requestCodeMap.get(parameters.get("code"));
+      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get("code"));
       final String accessToken = parameters.get("accessToken");
       final String userID = parameters.get("userID");
 

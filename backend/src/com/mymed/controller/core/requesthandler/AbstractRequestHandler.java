@@ -128,14 +128,14 @@ public abstract class AbstractRequestHandler extends HttpServlet {
    */
   protected static final String JSON_CODE_DELETE = JSON.get("json.code.delete");
 
-  /** Google library to handle jSon request */
-  private Gson gson;
-
-  /** The response/feedback printed */
-  private String responseText = null;
-
   /** Request code Map */
-  protected Map<String, RequestCode> requestCodeMap = new HashMap<String, RequestCode>();
+  protected static final Map<String, RequestCode> REQUEST_CODE_MAP = new HashMap<String, RequestCode>(4);
+
+  static {
+    for (final RequestCode code : RequestCode.values()) {
+      REQUEST_CODE_MAP.put(code.getCode(), code);
+    }
+  }
 
   /** Request codes */
   protected enum RequestCode {
@@ -145,23 +145,30 @@ public abstract class AbstractRequestHandler extends HttpServlet {
     UPDATE("2"),
     DELETE("3");
 
-    public final String code;
+    private final String code;
 
     RequestCode(final String code) {
       this.code = code;
     }
+
+    /**
+     * @return the code number
+     */
+    public String getCode() {
+      return code;
+    }
   }
 
-  /* --------------------------------------------------------- */
-  /* Constructors */
-  /* --------------------------------------------------------- */
+  /** Google library to handle jSon request */
+  private Gson gson;
+
+  /** The response/feedback printed */
+  private String responseText = null;
+
   protected AbstractRequestHandler() {
     super();
 
     gson = new Gson();
-    for (final RequestCode r : RequestCode.values()) {
-      requestCodeMap.put(r.code, r);
-    }
   }
 
   /* --------------------------------------------------------- */
@@ -218,7 +225,7 @@ public abstract class AbstractRequestHandler extends HttpServlet {
       throw new InternalBackEndException("code argument is missing!");
     }
 
-    if (requestCodeMap.get(parameters.get(JSON_CODE)) == null) {
+    if (REQUEST_CODE_MAP.get(parameters.get(JSON_CODE)) == null) {
       throw new InternalBackEndException("code argument is not well formated");
     }
 

@@ -119,7 +119,7 @@ public class POIRequestHandler extends AbstractRequestHandler {
     try {
       // GET THE PARAMETERS
       final Map<String, String> parameters = getParameters(request);
-      final RequestCode code = requestCodeMap.get(parameters.get(JSON_CODE));
+      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
       String application, type, latitude, longitude, radius;
 
       // CHECK THE ACCESS TOKEN
@@ -176,7 +176,7 @@ public class POIRequestHandler extends AbstractRequestHandler {
     try {
       // GET THE PARAMETERS
       final Map<String, String> parameters = getParameters(request);
-      final RequestCode code = requestCodeMap.get(parameters.get(JSON_CODE));
+      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
       String application, type, user, longitude, latitude, value;
 
       // CHECK THE ACCESS TOKEN

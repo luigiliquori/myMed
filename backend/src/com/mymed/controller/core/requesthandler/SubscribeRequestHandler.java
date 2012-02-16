@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.controller.core.requesthandler;
 
 import java.io.IOException;
@@ -34,33 +34,15 @@ import com.mymed.model.data.user.MUserBean;
  * Servlet implementation class PubSubRequestHandler
  */
 public class SubscribeRequestHandler extends AbstractRequestHandler {
-  /* --------------------------------------------------------- */
-  /* Attributes */
-  /* --------------------------------------------------------- */
   private static final long serialVersionUID = 1L;
 
-  private PubSubManager pubsubManager;
+  private final PubSubManager pubsubManager;
 
-  /* --------------------------------------------------------- */
-  /* Constructors */
-  /* --------------------------------------------------------- */
-  /**
-   * @throws ServletException
-   * @see HttpServlet#HttpServlet()
-   */
   public SubscribeRequestHandler() throws ServletException {
     super();
-
-    try {
-      pubsubManager = new PubSubManager();
-    } catch (final InternalBackEndException e) {
-      throw new ServletException("PubSubManager is not accessible because: " + e.getMessage());
-    }
+    pubsubManager = new PubSubManager();
   }
 
-  /* --------------------------------------------------------- */
-  /* extends HttpServlet */
-  /* --------------------------------------------------------- */
   /**
    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
    *      response)
@@ -73,7 +55,7 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
 
     try {
       final Map<String, String> parameters = getParameters(request);
-      final RequestCode code = requestCodeMap.get(parameters.get("code"));
+      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get("code"));
 
       // accessToken
       if (!parameters.containsKey("accessToken")) {
@@ -111,7 +93,7 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
 
     try {
       final Map<String, String> parameters = getParameters(request);
-      final RequestCode code = requestCodeMap.get(parameters.get("code"));
+      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get("code"));
       String application, predicate, user;
 
       // accessToken

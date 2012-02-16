@@ -73,7 +73,7 @@ public class InteractionRequestHandler extends AbstractRequestHandler {
 
 		try {
 			Map<String, String> parameters = getParameters(request);
-			RequestCode code = requestCodeMap.get(parameters.get("code"));
+			RequestCode code = REQUEST_CODE_MAP.get(parameters.get("code"));
 
 			// accessToken
 			if (!parameters.containsKey("accessToken")) {
@@ -109,7 +109,7 @@ public class InteractionRequestHandler extends AbstractRequestHandler {
 
 		try {
 			Map<String, String> parameters = getParameters(request);
-			RequestCode code = requestCodeMap.get(parameters.get("code"));
+			RequestCode code = REQUEST_CODE_MAP.get(parameters.get("code"));
 			String application, producer, consumer, start, end, predicate, feedback;
 			
 			// accessToken

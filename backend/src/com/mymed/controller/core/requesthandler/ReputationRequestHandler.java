@@ -61,7 +61,7 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
 
     try {
       final Map<String, String> parameters = getParameters(request);
-      final RequestCode code = requestCodeMap.get(parameters.get("code"));
+      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get("code"));
       String application, producer, consumer;
 
       // accessToken
@@ -108,7 +108,7 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
 
     try {
       final Map<String, String> parameters = getParameters(request);
-      final RequestCode code = requestCodeMap.get(parameters.get("code"));
+      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get("code"));
 
       // accessToken
       if (!parameters.containsKey("accessToken")) {

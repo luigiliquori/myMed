@@ -55,19 +55,11 @@ public class FindRequestHandler extends AbstractRequestHandler {
    */
   private static final String JSON_DETAILS = JSON.get("json.details");
 
-  private PubSubManager pubsubManager;
+  private final PubSubManager pubsubManager;
 
-  /**
-   * @throws ServletException
-   * @see HttpServlet#HttpServlet()
-   */
-  public FindRequestHandler() throws ServletException {
+  public FindRequestHandler() {
     super();
-    try {
-      pubsubManager = new PubSubManager();
-    } catch (final InternalBackEndException e) {
-      throw new ServletException("PubSubManager is not accessible because: " + e.getMessage());
-    }
+    pubsubManager = new PubSubManager();
   }
 
   /**
@@ -82,7 +74,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
 
     try {
       final Map<String, String> parameters = getParameters(request);
-      final RequestCode code = requestCodeMap.get(parameters.get(JSON_CODE));
+      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
       String application, predicate, user;
 
       // accessToken
@@ -142,7 +134,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
 
     try {
       final Map<String, String> parameters = getParameters(request);
-      final RequestCode code = requestCodeMap.get(parameters.get(JSON_CODE));
+      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
 
       // accessToken
       if (!parameters.containsKey(JSON_ACCESS_TKN)) {

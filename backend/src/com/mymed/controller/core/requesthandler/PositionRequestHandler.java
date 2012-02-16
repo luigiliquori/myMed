@@ -79,7 +79,7 @@ public class PositionRequestHandler extends AbstractRequestHandler {
 
     try {
       final Map<String, String> parameters = getParameters(request);
-      final RequestCode code = requestCodeMap.get(parameters.get(JSON_CODE));
+      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
       final String userID = parameters.get(JSON_USER_ID);
 
       // accessToken
@@ -121,7 +121,7 @@ public class PositionRequestHandler extends AbstractRequestHandler {
 
     try {
       final Map<String, String> parameters = getParameters(request);
-      final RequestCode code = requestCodeMap.get(parameters.get(JSON_CODE));
+      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
       final String position = parameters.get(JSON_POSITION);
 
       // accessToken

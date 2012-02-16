@@ -78,7 +78,7 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
 
     try {
       final Map<String, String> parameters = getParameters(request);
-      final RequestCode code = requestCodeMap.get(parameters.get(JSON_CODE));
+      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
       final String id = parameters.get(JSON_ID);
 
       // accessToken
@@ -129,7 +129,7 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
 
     try {
       final Map<String, String> parameters = getParameters(request);
-      final RequestCode code = requestCodeMap.get(parameters.get(JSON_CODE));
+      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
       final String user = parameters.get(JSON_USER);
 
       // accessToken
