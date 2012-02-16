@@ -36,6 +36,7 @@ import com.mymed.model.data.geolocation.MSearchBean;
 public class MSearchBeanTest {
 
   private static MSearchBean searchBean;
+  private static MSearchBean nullActual = null;
 
   @BeforeClass
   public static void setUpBefore() {
@@ -82,8 +83,7 @@ public class MSearchBeanTest {
    */
   @Test
   public void nullEqualsTest() {
-    final MSearchBean actual = null;
-    assertFalse("The user beans are the same", searchBean.equals(actual)); // NOPMD
+    assertFalse("The user beans are the same", searchBean.equals(nullActual)); // NOPMD
   }
 
   @Test

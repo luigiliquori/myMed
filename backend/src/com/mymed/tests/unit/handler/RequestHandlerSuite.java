@@ -22,6 +22,6 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses({ProfileRequestHandlerTest.class, AuthenticationRequestHandlerTest.class,
     SessionRequestHandlerTest.class, POIRequestHandlerTest.class})
-public class RequestHandlerSuite {
+public class RequestHandlerSuite { // NOPMD
 
 }

@@ -36,6 +36,7 @@ import com.mymed.model.data.application.MOntologyBean;
 public class MOntologyBeanTest {
 
   private static MOntologyBean ontologyBean;
+  private static MOntologyBean nullActual = null;
 
   @BeforeClass
   public static void setUpBefore() {
@@ -65,7 +66,6 @@ public class MOntologyBeanTest {
   @Test
   public void notEqualsTest() {
     final MOntologyBean newOntologyBean = new MOntologyBean();
-
     newOntologyBean.setPredicate(false);
     newOntologyBean.setName("NEW_ONTOLOGY_NAME");
 
@@ -77,15 +77,23 @@ public class MOntologyBeanTest {
    */
   @Test
   public void nullEqualsTest() {
-    final MOntologyBean nullFirst = new MOntologyBean();
-    final MOntologyBean nullSecond = new MOntologyBean();
-
-    assertEquals("The beans are not the same", nullFirst, nullSecond);
+    assertFalse("The beans are the same", ontologyBean.equals(nullActual)); // NOPMD
   }
 
   @Test
   public void equalsTest() {
     final MOntologyBean actual = ontologyBean.clone();
     assertEquals("The beans are not the same", ontologyBean, actual);
+  }
+
+  /**
+   * Test two empty objects.
+   */
+  @Test
+  public void emptyEqualsTest() {
+    final MOntologyBean nullFirst = new MOntologyBean();
+    final MOntologyBean nullSecond = new MOntologyBean();
+
+    assertEquals("The beans are not the same!", nullFirst, nullSecond);
   }
 }

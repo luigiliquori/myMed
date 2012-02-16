@@ -76,6 +76,8 @@ public class POIRequestHandlerTest extends GeneralHandlerTest {
    */
   public POIRequestHandlerTest(final String app, final String latitude, final String longitude, final String value,
       final String radius) {
+    super();
+
     this.app = app;
     this.latitude = latitude;
     this.longitude = longitude;

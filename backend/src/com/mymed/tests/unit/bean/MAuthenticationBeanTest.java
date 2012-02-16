@@ -37,6 +37,7 @@ import com.mymed.model.data.session.MAuthenticationBean;
 public class MAuthenticationBeanTest {
 
   private static MAuthenticationBean authenticationBean;
+  private static MAuthenticationBean nullActual = null;
 
   @BeforeClass
   public static void setUpBeforeClass() {
@@ -73,8 +74,7 @@ public class MAuthenticationBeanTest {
 
   @Test
   public void nullEqualsTest() {
-    final MAuthenticationBean actual = null;
-    assertFalse("The beans are the same", authenticationBean.equals(actual)); // NOPMD
+    assertFalse("The beans are the same", authenticationBean.equals(nullActual)); // NOPMD
   }
 
   @Test

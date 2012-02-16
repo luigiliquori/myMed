@@ -14,11 +14,11 @@ public class ExpColumnBean {
   private int timeToLive;
 
   public void setValue(final byte[] value) {
-    this.value = value;
+    this.value = Arrays.copyOf(value, value.length);
   }
 
   public byte[] getValue() {
-    return value;
+    return Arrays.copyOf(value, value.length);
   }
 
   public void setTimestamp(final long timestamp) {

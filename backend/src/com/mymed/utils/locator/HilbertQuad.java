@@ -275,12 +275,9 @@ public class HilbertQuad {
   }
 
   /**
-   * Return the {@link HilbertQuad} that is on position
-   * 
-   * @param pos
-   *          at the upper layer. 0 is the bottom-left sub-quad 1 is the
-   *          bottom-right sub-quad 2 is the top-left sub-quad 3 is the
-   *          top-right sub-quad
+   * Return the {@link HilbertQuad} that is on position at the upper layer. 0 is
+   * the bottom-left sub-quad 1 is the bottom-right sub-quad 2 is the top-left
+   * sub-quad 3 is the top-right sub-quad
    * 
    * @param pos
    *          Position of the upper layer {@link HilbertQuad} (refer to the
@@ -293,6 +290,7 @@ public class HilbertQuad {
     // TODO Implement the code for down == false, if necessary.
     double floorLat, floorLon, ceilLat, ceilLon;
     HilbertQuad hq;
+
     if (getLevel() >= HilbertQuad.maxLevel) {
       hq = null;
     } else if (down) {
@@ -335,6 +333,7 @@ public class HilbertQuad {
     } else {
       hq = null;
     }
+
     return hq;
   }
 

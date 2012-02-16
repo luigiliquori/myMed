@@ -30,6 +30,7 @@ import com.mymed.model.data.session.MSessionBean;
 public class MSessionBeanTest {
 
   private static MSessionBean sessionBean;
+  private static MSessionBean nullActual = null;
 
   @BeforeClass
   public static void setUpBefore() {
@@ -64,8 +65,7 @@ public class MSessionBeanTest {
 
   @Test
   public void nullEqualsTest() {
-    final MSessionBean actual = null;
-    assertFalse("The session beans are the same", sessionBean.equals(actual)); // NOPMD
+    assertFalse("The session beans are the same", sessionBean.equals(nullActual)); // NOPMD
   }
 
   @Test

@@ -70,7 +70,7 @@ public enum MSearchJson {
     boolean isValid = false;
 
     for (final MSearchJson element : EnumSet.allOf(MSearchJson.class)) {
-      if (element.toString().equals(str)) {
+      if (element.equals(str)) {
         isValid = true;
         break;
       }

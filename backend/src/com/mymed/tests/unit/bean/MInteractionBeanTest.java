@@ -36,6 +36,7 @@ import com.mymed.model.data.interaction.MInteractionBean;
 public class MInteractionBeanTest {
 
   private static MInteractionBean interactionBean;
+  private static MInteractionBean nullActual = null;
 
   @BeforeClass
   public static void setUpBefore() {
@@ -72,6 +73,11 @@ public class MInteractionBeanTest {
   public void equalsTest() {
     final MInteractionBean actual = interactionBean.clone();
     assertEquals("The session beans are not the same", interactionBean, actual);
+  }
+
+  @Test
+  public void nullEqualsTest() {
+    assertFalse("The beans are the same", interactionBean.equals(nullActual)); // NOPMD
   }
 
   @AfterClass

@@ -68,7 +68,7 @@ public class GeneralHandlerTest {
   protected List<NameValuePair> user;
 
   // String necessary to create the URL to the backend
-  static String path;
+  protected static String path;
 
   @Before
   public void setUp() {

@@ -15,6 +15,7 @@ import com.mymed.model.data.user.MPositionBean;
 public class MPositionBeanTest {
 
   private static MPositionBean positionBean;
+  private static MPositionBean nullActual = null;
 
   @BeforeClass
   public static void setUpBeforeClass() throws Exception {
@@ -58,8 +59,7 @@ public class MPositionBeanTest {
 
   @Test
   public void nullEqualsTest() {
-    final MPositionBean actual = null;
-    assertFalse("The beans are the same", positionBean.equals(actual)); // NOPMD
+    assertFalse("The beans are the same", positionBean.equals(nullActual)); // NOPMD
   }
 
   @Test

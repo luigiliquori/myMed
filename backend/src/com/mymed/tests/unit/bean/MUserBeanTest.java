@@ -30,6 +30,7 @@ import com.mymed.model.data.user.MUserBean;
 public class MUserBeanTest {
 
   private static MUserBean userBean;
+  private static MUserBean nullActual = null;
 
   @BeforeClass
   public static void setUpBefore() {
@@ -69,8 +70,7 @@ public class MUserBeanTest {
    */
   @Test
   public void nullEqualsTest() {
-    final MUserBean actual = null;
-    assertFalse("The user beans are the same", userBean.equals(actual)); // NOPMD
+    assertFalse("The user beans are the same", userBean.equals(nullActual)); // NOPMD
   }
 
   @Test
