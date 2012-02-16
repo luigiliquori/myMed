@@ -67,9 +67,26 @@ public abstract class AbstractRequestHandler extends HttpServlet {
   protected static final String ENCODING = PROPERTIES.getManager(PropType.GENERAL).get("general.string.encoding");
 
   /**
+   * The default social network ID.
+   */
+  protected static final String SOCIAL_NET_ID = PROPERTIES.getManager(PropType.GENERAL)
+      .get("general.social.network.id");
+
+  /**
+   * The default social network name.
+   */
+  protected static final String SOCIAL_NET_NAME = PROPERTIES.getManager(PropType.GENERAL).get(
+      "general.social.network.name");
+
+  /**
    * JSON 'code' attribute.
    */
   protected static final String JSON_CODE = JSON.get("json.code");
+
+  /**
+   * JSON 'data' attribute.
+   */
+  protected static final String JSON_DATA = JSON.get("json.data");
 
   /**
    * JSON 'user' attribute.

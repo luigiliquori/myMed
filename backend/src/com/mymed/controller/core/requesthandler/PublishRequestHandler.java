@@ -47,16 +47,19 @@ import com.mymed.model.data.user.MUserBean;
 @MultipartConfig
 @WebServlet("/PublishRequestHandler")
 public class PublishRequestHandler extends AbstractRequestHandler {
-  /* --------------------------------------------------------- */
-  /* Attributes */
-  /* --------------------------------------------------------- */
-  private static final long serialVersionUID = 1L;
+
+  /**
+   * Generated serial ID.
+   */
+  private static final long serialVersionUID = 7612306539244045439L;
+
+  /**
+   * JSON 'predicate' attribute.
+   */
+  private static final String JSON_PREDICATE = JSON.get("json.predicate");
 
   private PubSubManager pubsubManager;
 
-  /* --------------------------------------------------------- */
-  /* Constructors */
-  /* --------------------------------------------------------- */
   /**
    * @throws ServletException
    * @see HttpServlet#HttpServlet()
@@ -71,9 +74,13 @@ public class PublishRequestHandler extends AbstractRequestHandler {
     }
   }
 
-  /* --------------------------------------------------------- */
-  /* extends AbstractRequestHandler */
-  /* --------------------------------------------------------- */
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.mymed.controller.core.requesthandler.AbstractRequestHandler#getParameters
+   * (javax.servlet.http.HttpServletRequest)
+   */
   @Override
   protected Map<String, String> getParameters(final HttpServletRequest request) throws AbstractMymedException {
 
@@ -88,7 +95,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
       for (final Part part : request.getParts()) {
         final String key = part.getName();
         final Scanner s = new Scanner(part.getInputStream());
-        final String value = URLDecoder.decode(s.nextLine(), "UTF-8");
+        final String value = URLDecoder.decode(s.nextLine(), ENCODING);
         parameters.put(key, value);
       }
     } catch (final Exception e) {
@@ -96,16 +103,13 @@ public class PublishRequestHandler extends AbstractRequestHandler {
       throw new InternalBackEndException("Error in getting arguments");
     }
 
-    if (!parameters.containsKey("code")) {
+    if (!parameters.containsKey(JSON_CODE)) {
       throw new InternalBackEndException("code argument is missing!");
     }
 
     return parameters;
   }
 
-  /* --------------------------------------------------------- */
-  /* extends HttpServlet */
-  /* --------------------------------------------------------- */
   /**
    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
    *      response)
@@ -118,13 +122,13 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 
     try {
       final Map<String, String> parameters = getParameters(request);
-      final RequestCode code = requestCodeMap.get(parameters.get("code"));
+      final RequestCode code = requestCodeMap.get(parameters.get(JSON_CODE));
 
       // accessToken
-      if (!parameters.containsKey("accessToken")) {
+      if (!parameters.containsKey(JSON_ACCESS_TKN)) {
         throw new InternalBackEndException("accessToken argument is missing!");
       } else {
-        tokenValidation(parameters.get("accessToken")); // Security Validation
+        tokenValidation(parameters.get(JSON_ACCESS_TKN)); // Security Validation
       }
 
       switch (code) {
@@ -135,7 +139,6 @@ public class PublishRequestHandler extends AbstractRequestHandler {
       }
 
     } catch (final AbstractMymedException e) {
-      LOGGER.info("Error in doGet operation");
       LOGGER.debug("Error in doGet operation", e);
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());
@@ -156,31 +159,31 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 
     try {
       final Map<String, String> parameters = getParameters(request);
-      final RequestCode code = requestCodeMap.get(parameters.get("code"));
+      final RequestCode code = requestCodeMap.get(parameters.get(JSON_CODE));
       String application, predicateListJson, user, data;
 
       // accessToken
-      if (parameters.get("accessToken") == null) {
+      if (parameters.get(JSON_ACCESS_TKN) == null) {
         throw new InternalBackEndException("accessToken argument is missing!");
       } else {
-        tokenValidation(parameters.get("accessToken")); // Security Validation
+        tokenValidation(parameters.get(JSON_ACCESS_TKN)); // Security Validation
       }
 
       switch (code) {
         case CREATE : // PUT
-          message.setMethod("CREATE");
-          if ((application = parameters.get("application")) == null) {
+          message.setMethod(JSON_CODE_CREATE);
+          if ((application = parameters.get(JSON_APPLICATION)) == null) {
             throw new InternalBackEndException("missing application argument!");
-          } else if ((predicateListJson = parameters.get("predicate")) == null) {
+          } else if ((predicateListJson = parameters.get(JSON_PREDICATE)) == null) {
             throw new InternalBackEndException("missing predicate argument!");
-          } else if ((user = parameters.get("user")) == null) {
+          } else if ((user = parameters.get(JSON_USER)) == null) {
             throw new InternalBackEndException("missing user argument!");
-          } else if ((data = parameters.get("data")) == null) {
+          } else if ((data = parameters.get(JSON_DATA)) == null) {
             throw new InternalBackEndException("missing data argument!");
           }
 
           try {
-        	  
+
             final MUserBean userBean = getGson().fromJson(user, MUserBean.class);
             final Type dataType = new TypeToken<List<MDataBean>>() {
             }.getType();
@@ -223,7 +226,6 @@ public class PublishRequestHandler extends AbstractRequestHandler {
       }
 
     } catch (final AbstractMymedException e) {
-      LOGGER.info("Error in doPost operation");
       LOGGER.debug("Error in doPost operation", e);
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());

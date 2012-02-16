@@ -36,9 +36,23 @@ import com.mymed.model.data.user.MPositionBean;
  */
 @WebServlet("/PositionRequestHandler")
 public class PositionRequestHandler extends AbstractRequestHandler {
-  private static final long serialVersionUID = 1L;
+
+  /**
+   * Generated serial ID.
+   */
+  private static final long serialVersionUID = -1545024147681413957L;
 
   private PositionManager positionManager;
+
+  /**
+   * JSON 'position' attribute.
+   */
+  private static final String JSON_POSITION = JSON.get("json.position");
+
+  /**
+   * JSON 'userID' attribute.
+   */
+  private static final String JSON_USER_ID = JSON.get("json.user.id");
 
   /**
    * @see HttpServlet#HttpServlet()
@@ -65,14 +79,14 @@ public class PositionRequestHandler extends AbstractRequestHandler {
 
     try {
       final Map<String, String> parameters = getParameters(request);
-      final RequestCode code = requestCodeMap.get(parameters.get("code"));
-      final String userID = parameters.get("userID");
+      final RequestCode code = requestCodeMap.get(parameters.get(JSON_CODE));
+      final String userID = parameters.get(JSON_USER_ID);
 
       // accessToken
-      if (parameters.get("accessToken") == null) {
+      if (parameters.get(JSON_ACCESS_TKN) == null) {
         throw new InternalBackEndException("accessToken argument is missing!");
       } else {
-        tokenValidation(parameters.get("accessToken")); // Security Validation
+        tokenValidation(parameters.get(JSON_ACCESS_TKN)); // Security Validation
       }
 
       if (userID == null) {
@@ -81,16 +95,15 @@ public class PositionRequestHandler extends AbstractRequestHandler {
 
       switch (code) {
         case READ :
-          message.setMethod("READ");
+          message.setMethod(JSON_CODE_READ);
           final MPositionBean position = positionManager.read(userID);
-          message.addData("position", getGson().toJson(position));
+          message.addData(JSON_POSITION, getGson().toJson(position));
           break;
         default :
           throw new InternalBackEndException("PositionRequestHandler.doGet(" + code + ") not exist!");
       }
 
     } catch (final AbstractMymedException e) {
-      LOGGER.info("Error in doGet");
       LOGGER.debug("Error in doGet", e);
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());
@@ -111,14 +124,14 @@ public class PositionRequestHandler extends AbstractRequestHandler {
 
     try {
       final Map<String, String> parameters = getParameters(request);
-      final RequestCode code = requestCodeMap.get(parameters.get("code"));
-      final String position = parameters.get("position");
+      final RequestCode code = requestCodeMap.get(parameters.get(JSON_CODE));
+      final String position = parameters.get(JSON_POSITION);
 
       // accessToken
-      if (!parameters.containsKey("accessToken")) {
+      if (!parameters.containsKey(JSON_ACCESS_TKN)) {
         throw new InternalBackEndException("accessToken argument is missing!");
       } else {
-        tokenValidation(parameters.get("accessToken")); // Security Validation
+        tokenValidation(parameters.get(JSON_ACCESS_TKN)); // Security Validation
       }
 
       if (position == null) {
@@ -128,7 +141,7 @@ public class PositionRequestHandler extends AbstractRequestHandler {
       switch (code) {
 
         case UPDATE :
-          message.setMethod("UPDATE");
+          message.setMethod(JSON_CODE_UPDATE);
           try {
             final MPositionBean positionBean = getGson().fromJson(position, MPositionBean.class);
             LOGGER.info("Trying to update position:\n {}", positionBean.toString());
@@ -140,10 +153,9 @@ public class PositionRequestHandler extends AbstractRequestHandler {
           }
           break;
         default :
-          throw new InternalBackEndException("ProfileRequestHandler.doPost(" + code + ") not exist!");
+          throw new InternalBackEndException("PositionRequestHandler.doPost(" + code + ") not exist!");
       }
     } catch (final AbstractMymedException e) {
-      LOGGER.info("Error in doPost operation");
       LOGGER.debug("Error in doPost operation", e);
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());

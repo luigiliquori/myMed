@@ -30,6 +30,9 @@ public enum PropType implements IPropType {
   JSON("json", "json.properties");
 
   private final String name;
+  /**
+   * The name of the properties file
+   */
   private final String fileName;
 
   private PropType(final String name, final String fileName) {
