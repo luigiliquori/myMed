@@ -37,6 +37,9 @@ import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.session.SessionManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
+import com.mymed.properties.IProperties;
+import com.mymed.properties.PropType;
+import com.mymed.properties.PropertiesManager;
 import com.mymed.utils.MLogger;
 
 public abstract class AbstractRequestHandler extends HttpServlet {
@@ -45,10 +48,68 @@ public abstract class AbstractRequestHandler extends HttpServlet {
   /* --------------------------------------------------------- */
   private static final long serialVersionUID = 1L;
 
-  protected static final String ENCODING = "UTF-8";
-
-  // The default logger for all the RequestHandler that extends this class
+  // The default logger for all the RequestHandler that extends this class.
   protected static final Logger LOGGER = MLogger.getLogger();
+
+  /**
+   * The default properties manager.
+   */
+  private static final PropertiesManager PROPERTIES = PropertiesManager.getInstance();
+
+  /**
+   * Values for the JSON attributes.
+   */
+  protected static final IProperties JSON = PROPERTIES.getManager(PropType.JSON);
+
+  /**
+   * Default string encoding.
+   */
+  protected static final String ENCODING = PROPERTIES.getManager(PropType.GENERAL).get("general.string.encoding");
+
+  /**
+   * JSON 'code' attribute.
+   */
+  protected static final String JSON_CODE = JSON.get("json.code");
+
+  /**
+   * JSON 'user' attribute.
+   */
+  protected static final String JSON_USER = JSON.get("json.user");
+
+  /**
+   * JSON 'value' attribute.
+   */
+  protected static final String JSON_VALUE = JSON.get("json.value");
+
+  /**
+   * JSON 'accessToken' attribute.
+   */
+  protected static final String JSON_ACCESS_TKN = JSON.get("json.accesstoken");
+
+  /**
+   * JSON 'application' attribute.
+   */
+  protected static final String JSON_APPLICATION = JSON.get("json.application");
+
+  /**
+   * JSON 'create' value.
+   */
+  protected static final String JSON_CODE_CREATE = JSON.get("json.code.create");
+
+  /**
+   * JSON 'read' value.
+   */
+  protected static final String JSON_CODE_READ = JSON.get("json.code.read");
+
+  /**
+   * JSON 'update' value.
+   */
+  protected static final String JSON_CODE_UPDATE = JSON.get("json.code.update");
+
+  /**
+   * JSON 'delete' value.
+   */
+  protected static final String JSON_CODE_DELETE = JSON.get("json.code.delete");
 
   /** Google library to handle jSon request */
   private Gson gson;
@@ -136,11 +197,11 @@ public abstract class AbstractRequestHandler extends HttpServlet {
       }
     }
 
-    if (!parameters.containsKey("code")) {
+    if (!parameters.containsKey(JSON_CODE)) {
       throw new InternalBackEndException("code argument is missing!");
     }
 
-    if (requestCodeMap.get(parameters.get("code")) == null) {
+    if (requestCodeMap.get(parameters.get(JSON_CODE)) == null) {
       throw new InternalBackEndException("code argument is not well formated");
     }
 

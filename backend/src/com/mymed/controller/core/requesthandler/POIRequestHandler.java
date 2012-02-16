@@ -37,16 +37,39 @@ import com.mymed.model.data.geolocation.MSearchBean;
  */
 @WebServlet("/POIRequestHandler")
 public class POIRequestHandler extends AbstractRequestHandler {
-  /* --------------------------------------------------------- */
-  /* Attributes */
-  /* --------------------------------------------------------- */
-  private static final long serialVersionUID = 1L;
+
+  /**
+   * Generated serial version.
+   */
+  private static final long serialVersionUID = 8872837258822221066L;
+
+  /**
+   * JSON 'type' attribute.
+   */
+  private static final String JSON_TYPE = JSON.get("json.type");
+
+  /**
+   * JSON 'latitude' attribute.
+   */
+  private static final String JSON_LAT = JSON.get("json.latitude");
+
+  /**
+   * JSON 'longitude' attribute.
+   */
+  private static final String JSON_LON = JSON.get("json.longitude");
+
+  /**
+   * JSON 'pois' attribute.
+   */
+  private static final String JSON_POI = JSON.get("json.poi");
+
+  /**
+   * JSON 'radius' attribute.
+   */
+  private static final String JSON_RADIUS = JSON.get("json.radius");
 
   private GeoLocationManager geoLocationManager;
 
-  /* --------------------------------------------------------- */
-  /* Constructors */
-  /* --------------------------------------------------------- */
   /**
    * @see HttpServlet#HttpServlet()
    */
@@ -59,9 +82,13 @@ public class POIRequestHandler extends AbstractRequestHandler {
     }
   }
 
-  /* --------------------------------------------------------- */
-  /* private methods */
-  /* --------------------------------------------------------- */
+  /**
+   * Convert into micro-degree.
+   * 
+   * @param coord
+   *          the coordinate string as 1.2.3
+   * @return the int representing the coordinate
+   */
   private int convertDegreeToMicroDegree(final String coord) {
     final String[] digits = coord.split("\\.");
     String result = digits[0];
@@ -76,9 +103,6 @@ public class POIRequestHandler extends AbstractRequestHandler {
     return Integer.parseInt(result);
   }
 
-  /* --------------------------------------------------------- */
-  /* extends HttpServlet */
-  /* --------------------------------------------------------- */
   /**
    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
    *      response)
@@ -92,29 +116,29 @@ public class POIRequestHandler extends AbstractRequestHandler {
     try {
       // GET THE PARAMETERS
       final Map<String, String> parameters = getParameters(request);
-      final RequestCode code = requestCodeMap.get(parameters.get("code"));
+      final RequestCode code = requestCodeMap.get(parameters.get(JSON_CODE));
       String application, type, latitude, longitude, radius;
 
       // CHECK THE ACCESS TOKEN
-      if (!parameters.containsKey("accessToken")) {
+      if (!parameters.containsKey(JSON_ACCESS_TKN)) {
         throw new InternalBackEndException("accessToken argument is missing!");
       } else {
-        tokenValidation(parameters.get("accessToken"));
+        tokenValidation(parameters.get(JSON_ACCESS_TKN));
       }
 
       if (code == RequestCode.READ) {
-        message.setMethod("READ");
+        message.setMethod(JSON_CODE_READ);
 
         // CHECK THE PARAMETERS
-        if ((application = parameters.get("application")) == null) {
+        if ((application = parameters.get(JSON_APPLICATION)) == null) {
           throw new InternalBackEndException("missing application argument!");
-        } else if ((type = parameters.get("type")) == null) {
+        } else if ((type = parameters.get(JSON_TYPE)) == null) {
           throw new InternalBackEndException("missing type argument!");
-        } else if ((longitude = parameters.get("longitude")) == null) {
+        } else if ((longitude = parameters.get(JSON_LON)) == null) {
           throw new InternalBackEndException("missing longitude argument!");
-        } else if ((latitude = parameters.get("latitude")) == null) {
+        } else if ((latitude = parameters.get(JSON_LAT)) == null) {
           throw new InternalBackEndException("missing latitude argument!");
-        } else if ((radius = parameters.get("radius")) == null) {
+        } else if ((radius = parameters.get(JSON_RADIUS)) == null) {
           throw new InternalBackEndException("missing radius argument!");
         }
 
@@ -123,7 +147,7 @@ public class POIRequestHandler extends AbstractRequestHandler {
             convertDegreeToMicroDegree(longitude), Integer.parseInt(radius), true);
         message.setDescription("POIs successfully read!");
         final Gson gson = new Gson();
-        message.addData("pois", gson.toJson(pois));
+        message.addData(JSON_POI, gson.toJson(pois));
       } else {
         throw new InternalBackEndException("POIRequestHandler(" + code + ") not exist!");
       }
@@ -149,31 +173,31 @@ public class POIRequestHandler extends AbstractRequestHandler {
     try {
       // GET THE PARAMETERS
       final Map<String, String> parameters = getParameters(request);
-      final RequestCode code = requestCodeMap.get(parameters.get("code"));
+      final RequestCode code = requestCodeMap.get(parameters.get(JSON_CODE));
       String application, type, user, longitude, latitude, value;
 
       // CHECK THE ACCESS TOKEN
-      if (!parameters.containsKey("accessToken")) {
+      if (!parameters.containsKey(JSON_ACCESS_TKN)) {
         throw new InternalBackEndException("accessToken argument is missing!");
       } else {
-        tokenValidation(parameters.get("accessToken"));
+        tokenValidation(parameters.get(JSON_ACCESS_TKN));
       }
 
       if (code == RequestCode.CREATE) {
-        message.setMethod("CREATE");
+        message.setMethod(JSON_CODE_CREATE);
 
         // CHECK THE PARAMETERS
-        if ((application = parameters.get("application")) == null) {
+        if ((application = parameters.get(JSON_APPLICATION)) == null) {
           throw new InternalBackEndException("missing application argument!");
-        } else if ((type = parameters.get("type")) == null) {
+        } else if ((type = parameters.get(JSON_TYPE)) == null) {
           throw new InternalBackEndException("missing type argument!");
-        } else if ((user = parameters.get("user")) == null) {
+        } else if ((user = parameters.get(JSON_USER)) == null) {
           throw new InternalBackEndException("missing user argument!");
-        } else if ((longitude = parameters.get("longitude")) == null) {
+        } else if ((longitude = parameters.get(JSON_LON)) == null) {
           throw new InternalBackEndException("missing longitude argument!");
-        } else if ((latitude = parameters.get("latitude")) == null) {
+        } else if ((latitude = parameters.get(JSON_LAT)) == null) {
           throw new InternalBackEndException("missing latitude argument!");
-        } else if ((value = parameters.get("value")) == null) {
+        } else if ((value = parameters.get(JSON_VALUE)) == null) {
           throw new InternalBackEndException("missing value argument!");
         }
 

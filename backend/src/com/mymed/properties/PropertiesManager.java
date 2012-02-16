@@ -21,11 +21,11 @@ public class PropertiesManager {
 
   private static final PropertiesManager MANAGER = new PropertiesManager();
 
-  /*
+  /**
    * Default capacity of the cache, increase it in case we have more properties
-   * to handle
+   * to handle, jsut look at {@link PropType}.
    */
-  private static final int CAPACITY = 4;
+  private static final int CAPACITY = 5;
 
   // Simple cache mechanism
   private final Map<String, IProperties> propertiesCache;
@@ -53,7 +53,7 @@ public class PropertiesManager {
 
   /**
    * Inner class to define and provide a handler to the properties file in the
-   * file system
+   * file system.
    * 
    * @author Milo Casagrande
    * 
@@ -61,6 +61,12 @@ public class PropertiesManager {
   private static class PropertiesHandler implements IProperties {
     private final Properties properties;
 
+    /**
+     * Create a new properties handler.
+     * 
+     * @param fileName
+     *          the name of the properties file, should be in the CLASSPATH
+     */
     public PropertiesHandler(final String fileName) {
       properties = new Properties();
       InputStream in = null;
@@ -85,6 +91,11 @@ public class PropertiesManager {
       }
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.mymed.properties.IProperties#get(java.lang.String)
+     */
     @Override
     public String get(final String key) {
       return properties.getProperty(key);

@@ -8,7 +8,7 @@ package com.mymed.properties;
  */
 public interface IProperties {
   /**
-   * Retrieve the value of the specified property
+   * Retrieve the value of the specified property.
    * 
    * @param key
    *          the name of the property to retrieve
