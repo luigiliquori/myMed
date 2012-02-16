@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,10 +12,9 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.controller.core.requesthandler;
 
-import java.io.IOException;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -31,120 +30,106 @@ import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.reputation.MReputationBean;
 import com.mymed.utils.MLogger;
-
 /**
  * Servlet implementation class ReputationRequestHandler
  */
 @WebServlet("/ReputationRequestHandler")
 public class ReputationRequestHandler extends AbstractRequestHandler {
-	/* --------------------------------------------------------- */
-	/* Attributes */
-	/* --------------------------------------------------------- */
-	private static final long serialVersionUID = 1L;
+  /* --------------------------------------------------------- */
+  /* Attributes */
+  /* --------------------------------------------------------- */
+  private static final long serialVersionUID = 1L;
 
-	private ReputationManager reputationManager;
+  private final ReputationManager reputationManager;
 
-	/* --------------------------------------------------------- */
-	/* Constructors */
-	/* --------------------------------------------------------- */
-	/**
-	 * @throws ServletException 
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public ReputationRequestHandler() throws ServletException {
-		super();
-		try {
-			this.reputationManager = new ReputationManager(new StorageManager().getWrapper());
-		} catch (InternalBackEndException e) {
-			throw new ServletException("ReputationManager is not accessible because: " + e.getMessage());
-		}
-	}
+  public ReputationRequestHandler() {
+    super();
+    reputationManager = new ReputationManager(new StorageManager().getWrapper());
+  }
 
-	/* --------------------------------------------------------- */
-	/* extends HttpServlet */
-	/* --------------------------------------------------------- */
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+  /* --------------------------------------------------------- */
+  /* extends HttpServlet */
+  /* --------------------------------------------------------- */
+  /**
+   * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+   *      response)
+   */
+  @Override
+  protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
 
-		JsonMessage message = new JsonMessage(200, this.getClass().getName());
+    final JsonMessage message = new JsonMessage(200, this.getClass().getName());
 
-		try {
-			Map<String, String> parameters = getParameters(request);
-			RequestCode code = requestCodeMap.get(parameters.get("code"));
-			String application, producer, consumer;
-			
-			// accessToken
-			if (!parameters.containsKey("accessToken")) {
-				throw new InternalBackEndException("accessToken argument is missing!");
-			} else {
-				tokenValidation(parameters.get("accessToken")); // Security Validation
-			}
-			
-			switch (code) {
-			case READ:
-				if ((application = parameters.get("application")) == null) {
-					throw new InternalBackEndException("missing application argument!");
-				} else if ((producer = parameters.get("producer")) == null) {
-					throw new InternalBackEndException("missing producer argument!");
-				} else if ((consumer = parameters.get("consumer")) == null) {
-					throw new InternalBackEndException("missing consumer argument!");
-				}
-				MReputationBean reputation = reputationManager.read(producer, consumer, application, true);
-				message.addData("reputation", reputation.getReputation() + "");
-				break;
-			case DELETE:
-				break;
-			default:
-				throw new InternalBackEndException("ReputationRequestHandler.doGet(" + code + ") not exist!");
-			}
-		} catch (final AbstractMymedException e) {
-			MLogger.getLog().info("Error in doGet operation");
-			MLogger.getDebugLog().debug("Error in doGet operation", e.getCause());
-			message.setStatus(e.getStatus());
-			message.setDescription(e.getMessage());
-		} 
-		
-		printJSonResponse(message, response);
-	}
+    try {
+      final Map<String, String> parameters = getParameters(request);
+      final RequestCode code = requestCodeMap.get(parameters.get("code"));
+      String application, producer, consumer;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		
-		JsonMessage message = new JsonMessage(200, this.getClass().getName());
+      // accessToken
+      if (!parameters.containsKey("accessToken")) {
+        throw new InternalBackEndException("accessToken argument is missing!");
+      } else {
+        tokenValidation(parameters.get("accessToken")); // Security Validation
+      }
 
-		try {
-			Map<String, String> parameters = getParameters(request);
-			RequestCode code = requestCodeMap.get(parameters.get("code"));
+      switch (code) {
+        case READ :
+          if ((application = parameters.get("application")) == null) {
+            throw new InternalBackEndException("missing application argument!");
+          } else if ((producer = parameters.get("producer")) == null) {
+            throw new InternalBackEndException("missing producer argument!");
+          } else if ((consumer = parameters.get("consumer")) == null) {
+            throw new InternalBackEndException("missing consumer argument!");
+          }
+          final MReputationBean reputation = reputationManager.read(producer, consumer, application, true);
+          message.addData("reputation", reputation.getReputation() + "");
+          break;
+        case DELETE :
+          break;
+        default :
+          throw new InternalBackEndException("ReputationRequestHandler.doGet(" + code + ") not exist!");
+      }
+    } catch (final AbstractMymedException e) {
+      MLogger.getDebugLog().debug("Error in doGet operation", e.getCause());
+      message.setStatus(e.getStatus());
+      message.setDescription(e.getMessage());
+    }
 
-			// accessToken
-			if (!parameters.containsKey("accessToken")) {
-				throw new InternalBackEndException("accessToken argument is missing!");
-			} else {
-				tokenValidation(parameters.get("accessToken")); // Security Validation
-			}
-			
-			switch (code) {
-			case CREATE:
-			case UPDATE:
-				break;
-			default:
-				throw new InternalBackEndException("ReputationRequestHandler.doPost(" + code + ") not exist!");
-			}
-		} catch (final AbstractMymedException e) {
-			MLogger.getLog().info("Error in doGet operation");
-			MLogger.getDebugLog().debug("Error in doGet operation", e.getCause());
-			message.setStatus(e.getStatus());
-			message.setDescription(e.getMessage());
-		} 
-		
-		printJSonResponse(message, response);
-	}
+    printJSonResponse(message, response);
+  }
+
+  /**
+   * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+   *      response)
+   */
+  @Override
+  protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
+
+    final JsonMessage message = new JsonMessage(200, this.getClass().getName());
+
+    try {
+      final Map<String, String> parameters = getParameters(request);
+      final RequestCode code = requestCodeMap.get(parameters.get("code"));
+
+      // accessToken
+      if (!parameters.containsKey("accessToken")) {
+        throw new InternalBackEndException("accessToken argument is missing!");
+      } else {
+        tokenValidation(parameters.get("accessToken")); // Security Validation
+      }
+
+      switch (code) {
+        case CREATE :
+        case UPDATE :
+          break;
+        default :
+          throw new InternalBackEndException("ReputationRequestHandler.doPost(" + code + ") not exist!");
+      }
+    } catch (final AbstractMymedException e) {
+      MLogger.getDebugLog().debug("Error in doGet operation", e.getCause());
+      message.setStatus(e.getStatus());
+      message.setDescription(e.getMessage());
+    }
+
+    printJSonResponse(message, response);
+  }
 }
