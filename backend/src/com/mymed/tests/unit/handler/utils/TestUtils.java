@@ -142,12 +142,14 @@ public class TestUtils {
     final JsonParser parser = new JsonParser();
     final JsonObject obj = parser.parse(json).getAsJsonObject();
 
-    final Iterator<Entry<String, JsonElement>> iter = obj.entrySet().iterator();
-
-    while (iter.hasNext()) {
+    if (obj.isJsonObject()) {
       validJson = true;
-      final Entry<String, JsonElement> entry = iter.next();
-      validJson &= MJson.isValidElement(entry.getKey());
+      final Iterator<Entry<String, JsonElement>> iter = obj.entrySet().iterator();
+
+      while (iter.hasNext()) {
+        final Entry<String, JsonElement> entry = iter.next();
+        validJson &= MJson.isValidElement(entry.getKey());
+      }
     }
 
     return validJson;
@@ -172,10 +174,10 @@ public class TestUtils {
     final JsonObject userObject = parser.parse(element.getAsString()).getAsJsonObject();
 
     if (userObject.isJsonObject()) {
+      validJson = true;
       final Iterator<Entry<String, JsonElement>> iter = userObject.entrySet().iterator();
 
       while (iter.hasNext()) {
-        validJson = true;
         final Entry<String, JsonElement> entry = iter.next();
         validJson &= MUserJson.isValidElement(entry.getKey());
       }
@@ -206,10 +208,10 @@ public class TestUtils {
       final JsonObject arrayObject = iterator.next().getAsJsonObject();
 
       if (arrayObject.isJsonObject()) {
+        validJson = true;
         final Iterator<Entry<String, JsonElement>> iter = arrayObject.entrySet().iterator();
 
         while (iter.hasNext()) {
-          validJson = true;
           final Entry<String, JsonElement> entry = iter.next();
           validJson &= MSearchJson.isValidElement(entry.getKey());
         }
