@@ -93,16 +93,13 @@ public class PositionRequestHandler extends AbstractRequestHandler {
         throw new InternalBackEndException("userID argument missing!");
       }
 
-      switch (code) {
-        case READ :
-          message.setMethod(JSON_CODE_READ);
-          final MPositionBean position = positionManager.read(userID);
-          message.addData(JSON_POSITION, getGson().toJson(position));
-          break;
-        default :
-          throw new InternalBackEndException("PositionRequestHandler.doGet(" + code + ") not exist!");
+      if (code.equals(RequestCode.READ)) {
+        message.setMethod(JSON_CODE_READ);
+        final MPositionBean position = positionManager.read(userID);
+        message.addData(JSON_POSITION, getGson().toJson(position));
+      } else {
+        throw new InternalBackEndException("PositionRequestHandler.doGet(" + code + ") not exist!");
       }
-
     } catch (final AbstractMymedException e) {
       LOGGER.debug("Error in doGet", e);
       message.setStatus(e.getStatus());
@@ -138,22 +135,19 @@ public class PositionRequestHandler extends AbstractRequestHandler {
         throw new InternalBackEndException("missing position argument!");
       }
 
-      switch (code) {
-
-        case UPDATE :
-          message.setMethod(JSON_CODE_UPDATE);
-          try {
-            final MPositionBean positionBean = getGson().fromJson(position, MPositionBean.class);
-            LOGGER.info("Trying to update position:\n {}", positionBean.toString());
-            positionManager.update(positionBean);
-            message.setDescription("Position updated!");
-            LOGGER.info("Position updated!");
-          } catch (final JsonSyntaxException e) {
-            throw new InternalBackEndException("position jSon format is not valid");
-          }
-          break;
-        default :
-          throw new InternalBackEndException("PositionRequestHandler.doPost(" + code + ") not exist!");
+      if (code.equals(RequestCode.UPDATE)) {
+        message.setMethod(JSON_CODE_UPDATE);
+        try {
+          final MPositionBean positionBean = getGson().fromJson(position, MPositionBean.class);
+          LOGGER.info("Trying to update position:\n {}", positionBean.toString());
+          positionManager.update(positionBean);
+          message.setDescription("Position updated!");
+          LOGGER.info("Position updated!");
+        } catch (final JsonSyntaxException e) {
+          throw new InternalBackEndException("position jSon format is not valid");
+        }
+      } else {
+        throw new InternalBackEndException("PositionRequestHandler.doPost(" + code + ") not exist!");
       }
     } catch (final AbstractMymedException e) {
       LOGGER.debug("Error in doPost operation", e);
