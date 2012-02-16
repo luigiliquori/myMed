@@ -32,41 +32,30 @@ import com.mymed.utils.MConverter;
  * 
  */
 public class MyJamStorageManager extends StorageManager implements IMyJamStorageManager {
-  /* --------------------------------------------------------- */
-  /* Attributes */
-  /* --------------------------------------------------------- */
   // TODO Maximum number of received columns, maybe it would be better to insert
   // in the configuration file as a parameter.
   public final static int maxNumColumns = 10000;
 
   private final CassandraWrapper wrapper;
 
-  /* --------------------------------------------------------- */
-  /* Constructors */
-  /* --------------------------------------------------------- */
   /**
    * Default Constructor: will create a ServiceManger on top of a Cassandra
    * Wrapper
-   * 
-   * @throws IOBackEndException
-   * @throws InternalBackEndException
    */
-  public MyJamStorageManager() throws InternalBackEndException {
+  public MyJamStorageManager() {
     this(new WrapperConfiguration(CONFIG_FILE));
   }
 
   /**
-   * /** will create a ServiceManger on top of the WrapperType And use the
-   * specific configuration file for the transport layer
+   * will create a ServiceManger on top of the WrapperType And use the specific
+   * configuration file for the transport layer
    * 
    * @param type
    *          Type of DHTClient used
    * @param conf
    *          The configuration of the transport layer
-   * @throws IOBackEndException
-   * @throws InternalBackEndException
    */
-  public MyJamStorageManager(final WrapperConfiguration conf) throws InternalBackEndException {
+  public MyJamStorageManager(final WrapperConfiguration conf) {
     wrapper = new CassandraWrapper(conf.getCassandraListenAddress(), conf.getThriftPort());
   }
 

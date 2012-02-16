@@ -46,10 +46,8 @@ public class GeoLocationManager extends AbstractManager {
 
   /**
    * Default constructor.
-   * 
-   * @throws InternalBackEndException
    */
-  public GeoLocationManager() throws InternalBackEndException {
+  public GeoLocationManager() {
     this(new MyJamStorageManager());
   }
 
@@ -58,9 +56,8 @@ public class GeoLocationManager extends AbstractManager {
    * 
    * @param storageManager
    *          the storage manager to use
-   * @throws InternalBackEndException
    */
-  public GeoLocationManager(final MyJamStorageManager storageManager) throws InternalBackEndException {
+  public GeoLocationManager(final MyJamStorageManager storageManager) {
     super(storageManager);
   }
 

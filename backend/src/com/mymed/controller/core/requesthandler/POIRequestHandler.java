@@ -68,18 +68,14 @@ public class POIRequestHandler extends AbstractRequestHandler {
    */
   private static final String JSON_RADIUS = JSON.get("json.radius");
 
-  private GeoLocationManager geoLocationManager;
+  private final GeoLocationManager geoLocationManager;
 
   /**
    * @see HttpServlet#HttpServlet()
    */
-  public POIRequestHandler() throws ServletException {
+  public POIRequestHandler() {
     super();
-    try {
-      geoLocationManager = new GeoLocationManager();
-    } catch (final InternalBackEndException e) {
-      throw new ServletException("GeoLocationManager is not accessible because: " + e.getMessage());
-    }
+    geoLocationManager = new GeoLocationManager();
   }
 
   /**
@@ -90,17 +86,24 @@ public class POIRequestHandler extends AbstractRequestHandler {
    * @return the int representing the coordinate
    */
   private int convertDegreeToMicroDegree(final String coord) {
+    final StringBuffer resultBuffer = new StringBuffer(coord.length());
     final String[] digits = coord.split("\\.");
-    String result = digits[0];
+
+    resultBuffer.append(digits[0]);
     int i = 0;
+
     while (i < digits[1].length() && i < 6) {
-      result += digits[1].charAt(i);
+      resultBuffer.append(digits[1].charAt(i));
       i++;
     }
+
     for (int j = i; j < 6; j++) {
-      result += "0";
+      resultBuffer.append('0');
     }
-    return Integer.parseInt(result);
+
+    resultBuffer.trimToSize();
+
+    return Integer.parseInt(resultBuffer.toString());
   }
 
   /**
