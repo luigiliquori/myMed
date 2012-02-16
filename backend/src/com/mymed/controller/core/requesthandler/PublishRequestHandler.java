@@ -58,7 +58,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
    */
   private static final String JSON_PREDICATE = JSON.get("json.predicate");
 
-  private PubSubManager pubsubManager;
+  private final PubSubManager pubsubManager;
 
   /**
    * @throws ServletException
@@ -67,11 +67,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
   public PublishRequestHandler() throws ServletException {
     super();
 
-    try {
-      pubsubManager = new PubSubManager();
-    } catch (final InternalBackEndException e) {
-      throw new ServletException("PubSubManager is not accessible because: " + e.getMessage());
-    }
+    pubsubManager = new PubSubManager();
   }
 
   /*
@@ -86,8 +82,6 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 
     if (request.getContentType() != null && !request.getContentType().matches("multipart/form-data.*")) {
       return super.getParameters(request);
-      // throw new
-      // InternalBackEndException("PublishRequestHandler should use a multipart request!");
     }
 
     final Map<String, String> parameters = new HashMap<String, String>();
@@ -99,7 +93,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
         parameters.put(key, value);
       }
     } catch (final Exception e) {
-      e.printStackTrace();
+      LOGGER.debug("Error retrieving arguments", e);
       throw new InternalBackEndException("Error in getting arguments");
     }
 
@@ -191,30 +185,42 @@ public class PublishRequestHandler extends AbstractRequestHandler {
             final List<MDataBean> predicateListObject = getGson().fromJson(predicateListJson, dataType);
 
             // construct the subPredicate
-            String subPredicate = "";
+            final StringBuffer bufferSubPredicate = new StringBuffer(150);
             for (final MDataBean element : predicateListObject) {
-              subPredicate += element.getKey() + "(" + element.getValue() + ")";
+              bufferSubPredicate.append(element.getKey());
+              bufferSubPredicate.append('(');
+              bufferSubPredicate.append(element.getValue());
+              bufferSubPredicate.append(')');
             }
+
+            bufferSubPredicate.trimToSize();
 
             // construct the Predicate => broadcast algorithm
             final int broadcastSize = (int) Math.pow(2, predicateListObject.size());
             for (int i = 1; i < broadcastSize; i++) {
+              final StringBuffer bufferPredicate = new StringBuffer(150);
               int mask = i;
-              String predicate = "";
               int j = 0;
+
               while (mask > 0) {
                 if ((mask & 1) == 1) {
                   final MDataBean element = predicateListObject.get(j);
-                  predicate += element.getKey() + "(" + element.getValue() + ")";
+                  bufferPredicate.append(element.getKey());
+                  bufferPredicate.append('(');
+                  bufferPredicate.append(element.getValue());
+                  bufferPredicate.append(')');
                 }
                 mask >>= 1;
                 j++;
               }
-              if (!predicate.equals("")) {
-                pubsubManager.create(application, predicate, subPredicate, userBean, dataList);
+
+              bufferPredicate.trimToSize();
+
+              if (bufferPredicate.length() != 0) {
+                pubsubManager.create(application, bufferPredicate.toString(), bufferSubPredicate.toString(), userBean,
+                    dataList);
               }
             }
-
           } catch (final JsonSyntaxException e) {
             throw new InternalBackEndException("jSon format is not valid");
           } catch (final JsonParseException e) {
@@ -224,7 +230,6 @@ public class PublishRequestHandler extends AbstractRequestHandler {
         default :
           throw new InternalBackEndException("PublishRequestHandler(" + code + ") not exist!");
       }
-
     } catch (final AbstractMymedException e) {
       LOGGER.debug("Error in doPost operation", e);
       message.setStatus(e.getStatus());
