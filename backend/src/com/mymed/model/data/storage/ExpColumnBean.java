@@ -9,7 +9,7 @@ import java.util.Arrays;
  * 
  */
 public class ExpColumnBean {
-  private byte[] value;
+  private byte[] value = new byte[0];
   private long timestamp;
   private int timeToLive;
 

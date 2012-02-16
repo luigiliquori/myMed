@@ -18,7 +18,7 @@ public class MPositionBeanTest {
   private static MPositionBean nullActual = null;
 
   @BeforeClass
-  public static void setUpBeforeClass() throws Exception {
+  public static void setUpBeforeClass() {
     positionBean = new MPositionBean();
     positionBean.setUserID("USER_ID");
     positionBean.setCity("CITY");
@@ -30,7 +30,7 @@ public class MPositionBeanTest {
   }
 
   @AfterClass
-  public static void tearDownAfterClass() throws Exception {
+  public static void tearDownAfterClass() {
     positionBean = null; // NOPMD
   }
 
