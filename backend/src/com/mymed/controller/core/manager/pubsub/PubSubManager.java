@@ -52,11 +52,11 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
   private static final String SC_DATA_LIST = COLUMNS.get("column.sc.data.list");
   private static final String CF_USER = COLUMNS.get("column.cf.user");
 
-  public PubSubManager() throws InternalBackEndException {
+  public PubSubManager() {
     this(new StorageManager());
   }
 
-  public PubSubManager(final IStorageManager storageManager) throws InternalBackEndException {
+  public PubSubManager(final IStorageManager storageManager) {
     super(storageManager);
   }
 
