@@ -112,14 +112,10 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 
     try {
       final Map<String, String> parameters = getParameters(request);
-      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
+      // Check the access token
+      checkToken(parameters);
 
-      // accessToken
-      if (!parameters.containsKey(JSON_ACCESS_TKN)) {
-        throw new InternalBackEndException("accessToken argument is missing!");
-      } else {
-        tokenValidation(parameters.get(JSON_ACCESS_TKN)); // Security Validation
-      }
+      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
 
       switch (code) {
         case READ :
@@ -149,15 +145,11 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 
     try {
       final Map<String, String> parameters = getParameters(request);
+      // Check the access token
+      checkToken(parameters);
+
       final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
       String application, predicateListJson, user, data;
-
-      // accessToken
-      if (parameters.get(JSON_ACCESS_TKN) == null) {
-        throw new InternalBackEndException("accessToken argument is missing!");
-      } else {
-        tokenValidation(parameters.get(JSON_ACCESS_TKN)); // Security Validation
-      }
 
       if (code.equals(RequestCode.CREATE)) {
         message.setMethod(JSON_CODE_CREATE);

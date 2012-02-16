@@ -79,15 +79,11 @@ public class PositionRequestHandler extends AbstractRequestHandler {
 
     try {
       final Map<String, String> parameters = getParameters(request);
+      // Check the access token
+      checkToken(parameters);
+
       final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
       final String userID = parameters.get(JSON_USER_ID);
-
-      // accessToken
-      if (parameters.get(JSON_ACCESS_TKN) == null) {
-        throw new InternalBackEndException("accessToken argument is missing!");
-      } else {
-        tokenValidation(parameters.get(JSON_ACCESS_TKN)); // Security Validation
-      }
 
       if (userID == null) {
         throw new InternalBackEndException("userID argument missing!");
@@ -121,15 +117,11 @@ public class PositionRequestHandler extends AbstractRequestHandler {
 
     try {
       final Map<String, String> parameters = getParameters(request);
+      // Check the access token
+      checkToken(parameters);
+
       final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
       final String position = parameters.get(JSON_POSITION);
-
-      // accessToken
-      if (!parameters.containsKey(JSON_ACCESS_TKN)) {
-        throw new InternalBackEndException("accessToken argument is missing!");
-      } else {
-        tokenValidation(parameters.get(JSON_ACCESS_TKN)); // Security Validation
-      }
 
       if (position == null) {
         throw new InternalBackEndException("missing position argument!");

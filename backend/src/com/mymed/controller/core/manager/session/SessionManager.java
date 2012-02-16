@@ -83,11 +83,12 @@ public class SessionManager extends AbstractManager implements ISessionManager {
   }
 
   /**
+   * @throws InternalBackEndException
    * @throws IOBackEndException
    * @see ISessionManager#read(String)
    */
   @Override
-  public MSessionBean read(final String sessionID) throws InternalBackEndException, IOBackEndException {
+  public MSessionBean read(final String sessionID) throws IOBackEndException, InternalBackEndException {
 
     final Map<byte[], byte[]> args = storageManager.selectAll(CF_SESSION, sessionID);
     final MSessionBean session = (MSessionBean) introspection(MSessionBean.class, args);

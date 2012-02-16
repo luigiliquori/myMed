@@ -74,15 +74,11 @@ public class FindRequestHandler extends AbstractRequestHandler {
 
     try {
       final Map<String, String> parameters = getParameters(request);
+      // Check the access token
+      checkToken(parameters);
+
       final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
       String application, predicate, user;
-
-      // accessToken
-      if (!parameters.containsKey(JSON_ACCESS_TKN)) {
-        throw new InternalBackEndException("accessToken argument is missing!");
-      } else {
-        tokenValidation(parameters.get(JSON_ACCESS_TKN)); // Security Validation
-      }
 
       if (code == RequestCode.READ) {
         message.setMethod(JSON_CODE_READ);
@@ -134,14 +130,10 @@ public class FindRequestHandler extends AbstractRequestHandler {
 
     try {
       final Map<String, String> parameters = getParameters(request);
-      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
+      // Check the access token
+      checkToken(parameters);
 
-      // accessToken
-      if (!parameters.containsKey(JSON_ACCESS_TKN)) {
-        throw new InternalBackEndException("accessToken argument is missing!");
-      } else {
-        tokenValidation(parameters.get(JSON_ACCESS_TKN)); // Security Validation
-      }
+      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
 
       if (code != RequestCode.CREATE) {
         throw new InternalBackEndException("FindRequestHandler(" + code + ") not exist!");

@@ -171,9 +171,6 @@ public abstract class AbstractRequestHandler extends HttpServlet {
     gson = new Gson();
   }
 
-  /* --------------------------------------------------------- */
-  /* protected methods */
-  /* --------------------------------------------------------- */
   /**
    * @return the parameters of an HttpServletRequest
    */
@@ -245,17 +242,44 @@ public abstract class AbstractRequestHandler extends HttpServlet {
   }
 
   /**
+   * Check that the access token parameters has been provided, and verifies it.
+   * 
+   * @param parameters
+   *          the parameters where to check
+   * @throws InternalBackEndException
+   * @throws IOBackEndException
+   */
+  protected void checkToken(final Map<String, String> parameters) throws InternalBackEndException, IOBackEndException {
+    if (!parameters.containsKey(JSON_ACCESS_TKN)) {
+      throw new InternalBackEndException("access token argument is missing!");
+    } else {
+      validateToken(parameters.get(JSON_ACCESS_TKN));
+    }
+  }
+
+  /**
+   * Validate an access token
+   * 
+   * @param accesstoken
+   *          the access token to validate
+   * @throws InternalBackEndException
+   * @throws IOBackEndException
+   */
+  private void validateToken(final String accessToken) throws InternalBackEndException, IOBackEndException {
+    new SessionManager().read(accessToken);
+  }
+
+  /**
    * Print the server response
    * 
    * @param response
    * @throws IOException
    */
   private void printResponse(final HttpServletResponse response) {
-    /** Init response */
     if (responseText != null) {
       response.setContentType("text/plain;charset=UTF-8");
-      /** send the response */
       PrintWriter out;
+
       try {
         out = response.getWriter();
 
@@ -271,19 +295,6 @@ public abstract class AbstractRequestHandler extends HttpServlet {
     }
   }
 
-  /**
-   * Validate an accesstoken
-   * 
-   * @param accesstoken
-   * @throws InternalBackEndException
-   */
-  protected void tokenValidation(final String accessToken) throws InternalBackEndException, IOBackEndException {
-    new SessionManager().read(accessToken);
-  }
-
-  /* --------------------------------------------------------- */
-  /* GETTER&SETTER */
-  /* --------------------------------------------------------- */
   public Gson getGson() {
     return gson;
   }

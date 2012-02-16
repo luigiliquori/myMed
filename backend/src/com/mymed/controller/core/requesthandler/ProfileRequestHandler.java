@@ -78,15 +78,11 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
 
     try {
       final Map<String, String> parameters = getParameters(request);
+      // Check the access token
+      checkToken(parameters);
+
       final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
       final String id = parameters.get(JSON_ID);
-
-      // accessToken
-      if (!parameters.containsKey(JSON_ACCESS_TKN)) {
-        throw new InternalBackEndException("accessToken argument is missing!");
-      } else {
-        tokenValidation(parameters.get(JSON_ACCESS_TKN)); // Security Validation
-      }
 
       if (id == null) {
         throw new InternalBackEndException("missing id argument!");
@@ -129,15 +125,11 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
 
     try {
       final Map<String, String> parameters = getParameters(request);
+      // Check the access token
+      checkToken(parameters);
+
       final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
       final String user = parameters.get(JSON_USER);
-
-      // accessToken
-      if (!parameters.containsKey(JSON_ACCESS_TKN)) {
-        throw new InternalBackEndException("accessToken argument is missing!");
-      } else {
-        tokenValidation(parameters.get(JSON_ACCESS_TKN)); // Security Validation
-      }
 
       if (user == null) {
         throw new InternalBackEndException("missing user argument!");

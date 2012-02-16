@@ -38,7 +38,7 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
 
   private final PubSubManager pubsubManager;
 
-  public SubscribeRequestHandler() throws ServletException {
+  public SubscribeRequestHandler() {
     super();
     pubsubManager = new PubSubManager();
   }
@@ -55,25 +55,22 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
 
     try {
       final Map<String, String> parameters = getParameters(request);
-      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get("code"));
+      // Check the access token
+      checkToken(parameters);
 
-      // accessToken
-      if (!parameters.containsKey("accessToken")) {
-        throw new InternalBackEndException("accessToken argument is missing!");
-      } else {
-        tokenValidation(parameters.get("accessToken")); // Security Validation
-      }
+      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
 
       switch (code) {
         case READ :
+          break;
         case DELETE :
+          break;
         default :
           throw new InternalBackEndException("SubscribeRequestHandler.doGet(" + code + ") not exist!");
       }
 
     } catch (final AbstractMymedException e) {
-      LOGGER.info("Error in doGet operation");
-      LOGGER.debug("Error in doGet operation", e.getCause());
+      LOGGER.debug("Error in doGet operation", e);
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());
     }
@@ -93,15 +90,11 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
 
     try {
       final Map<String, String> parameters = getParameters(request);
-      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get("code"));
-      String application, predicate, user;
+      // Check the access token
+      checkToken(parameters);
 
-      // accessToken
-      if (!parameters.containsKey("accessToken")) {
-        throw new InternalBackEndException("accessToken argument is missing!");
-      } else {
-        tokenValidation(parameters.get("accessToken")); // Security Validation
-      }
+      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
+      String application, predicate, user;
 
       switch (code) {
         case CREATE :
@@ -124,12 +117,11 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
           }
           break;
         default :
-          throw new InternalBackEndException("SubscribeRequestHandler.doGet(" + code + ") not exist!");
+          throw new InternalBackEndException("SubscribeRequestHandler.doPost(" + code + ") not exist!");
       }
 
     } catch (final AbstractMymedException e) {
-      LOGGER.info("Error in doGet operation");
-      LOGGER.debug("Error in doGet operation", e.getCause());
+      LOGGER.debug("Error in doPost operation", e);
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());
     }

@@ -36,17 +36,11 @@ import com.mymed.model.data.user.MUserBean;
  * Servlet implementation class SessionRequestHandler
  */
 public class SessionRequestHandler extends AbstractRequestHandler {
-  /* --------------------------------------------------------- */
-  /* Attributes */
-  /* --------------------------------------------------------- */
   private static final long serialVersionUID = 1L;
 
   private SessionManager sessionManager;
   private ProfileManager profileManager;
 
-  /* --------------------------------------------------------- */
-  /* Constructors */
-  /* --------------------------------------------------------- */
   /**
    * @throws ServletException
    * @see HttpServlet#HttpServlet()
@@ -84,6 +78,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
       if (accessToken == null) {
         throw new InternalBackEndException("accessToken argument missing!");
       }
+
       if (socialNetwork == null) {
         throw new InternalBackEndException("socialNetwork argument missing!");
       }
@@ -107,8 +102,6 @@ public class SessionRequestHandler extends AbstractRequestHandler {
       }
 
     } catch (final AbstractMymedException e) {
-      e.printStackTrace();
-      LOGGER.info("Error in doGet");
       LOGGER.debug("Error in doGet", e);
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());
@@ -143,8 +136,8 @@ public class SessionRequestHandler extends AbstractRequestHandler {
           message.setMethod("CREATE");
           if (userID == null) {
             throw new InternalBackEndException("session argument missing!");
-
           }
+
           final MUserBean userBean = profileManager.read(userID);
 
           // Create a new session
@@ -153,10 +146,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
           sessionBean.setUser(userBean.getId());
           sessionBean.setCurrentApplications("");
           sessionBean.setP2P(false);
-          sessionBean.setTimeout(System.currentTimeMillis()); // TODO Use The
-                                                              // Cassandra
-                                                              // Timeout
-                                                              // mecanism
+          sessionBean.setTimeout(System.currentTimeMillis());
           sessionBean.setAccessToken(accessToken);
           sessionBean.setId(accessToken);
           sessionManager.create(sessionBean);
@@ -168,15 +158,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
           message.setDescription("session created");
           LOGGER.info("Session {} created -> LOGIN", accessToken);
           message.addData("url", "https://" + InetAddress.getLocalHost().getCanonicalHostName() + "?socialNetwork="
-              + userBean.getSocialNetworkName()); // TODO
-                                                  // Find
-                                                  // a
-                                                  // better
-                                                  // way
-                                                  // to
-                                                  // get
-                                                  // the
-                                                  // url
+              + userBean.getSocialNetworkName());
           message.addData("accessToken", accessToken);
           break;
         case UPDATE :
@@ -199,8 +181,6 @@ public class SessionRequestHandler extends AbstractRequestHandler {
       }
 
     } catch (final AbstractMymedException e) {
-      e.printStackTrace();
-      LOGGER.info("Error in doPost");
       LOGGER.debug("Error in doPost", e);
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());

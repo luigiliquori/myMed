@@ -117,17 +117,13 @@ public class POIRequestHandler extends AbstractRequestHandler {
     final JsonMessage message = new JsonMessage(200, this.getClass().getName());
 
     try {
-      // GET THE PARAMETERS
+      // Get the parameters from the received request
       final Map<String, String> parameters = getParameters(request);
+      // Check the access token
+      checkToken(parameters);
+
       final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
       String application, type, latitude, longitude, radius;
-
-      // CHECK THE ACCESS TOKEN
-      if (!parameters.containsKey(JSON_ACCESS_TKN)) {
-        throw new InternalBackEndException("accessToken argument is missing!");
-      } else {
-        tokenValidation(parameters.get(JSON_ACCESS_TKN));
-      }
 
       if (code == RequestCode.READ) {
         message.setMethod(JSON_CODE_READ);
@@ -176,15 +172,11 @@ public class POIRequestHandler extends AbstractRequestHandler {
     try {
       // GET THE PARAMETERS
       final Map<String, String> parameters = getParameters(request);
+      // Check the access token
+      checkToken(parameters);
+
       final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
       String application, type, user, longitude, latitude, value;
-
-      // CHECK THE ACCESS TOKEN
-      if (!parameters.containsKey(JSON_ACCESS_TKN)) {
-        throw new InternalBackEndException("accessToken argument is missing!");
-      } else {
-        tokenValidation(parameters.get(JSON_ACCESS_TKN));
-      }
 
       if (code == RequestCode.CREATE) {
         message.setMethod(JSON_CODE_CREATE);
