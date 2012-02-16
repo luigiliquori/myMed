@@ -38,7 +38,7 @@ import com.mymed.model.data.geolocation.MSearchBean;
  * @author Milo Casagrande
  * 
  */
-public enum MSearchJson {
+public enum MSearchJson implements IJson {
   ID("id"),
   LOCATION_ID("locationId"),
   LATITUDE("latitude"),
@@ -54,6 +54,21 @@ public enum MSearchJson {
     this.element = element;
   }
 
+  /*
+   * (non-Javadoc)
+   * 
+   * @see com.mymed.tests.unit.handler.utils.IJson#get()
+   */
+  @Override
+  public String get() {
+    return element;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Enum#toString()
+   */
   @Override
   public String toString() {
     return element;
@@ -70,7 +85,7 @@ public enum MSearchJson {
     boolean isValid = false;
 
     for (final MSearchJson element : EnumSet.allOf(MSearchJson.class)) {
-      if (element.equals(str)) {
+      if (element.get().equals(str)) {
         isValid = true;
         break;
       }

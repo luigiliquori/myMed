@@ -38,7 +38,7 @@ import com.mymed.model.data.user.MUserBean;
  * @author Milo Casagrande
  * 
  */
-public enum MUserJson {
+public enum MUserJson implements IJson {
   ID("id"),
   LOGIN("login"),
   EMAIL("email"),
@@ -66,6 +66,21 @@ public enum MUserJson {
     this.element = element;
   }
 
+  /*
+   * (non-Javadoc)
+   * 
+   * @see com.mymed.tests.unit.handler.utils.IJson#get()
+   */
+  @Override
+  public String get() {
+    return element;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Enum#toString()
+   */
   @Override
   public String toString() {
     return element;
@@ -82,7 +97,7 @@ public enum MUserJson {
     boolean isValid = false;
 
     for (final MUserJson element : EnumSet.allOf(MUserJson.class)) {
-      if (element.toString().equals(str)) {
+      if (element.get().equals(str)) {
         isValid = true;
         break;
       }
