@@ -11,7 +11,7 @@ import com.mymed.model.data.storage.ExpColumnBean;
  * @author iacopo
  *
  */
-public interface IMyJamStorageManager extends IStorageManager  {
+public interface IGeoLocStorageManager extends IStorageManager  {
 	/**
 	 * Can be used to select columns in both SuperCF and CF.
 	 * @param tableName 	Name of the CF.

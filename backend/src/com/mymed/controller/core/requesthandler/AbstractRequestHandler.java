@@ -287,9 +287,8 @@ public abstract class AbstractRequestHandler extends HttpServlet {
 
         out.print(responseText);
         out.close();
-        responseText = null; // NOPMD to avoid code check warnings
+        responseText = null; // NOPMD
       } catch (final IOException e) {
-        LOGGER.info("IOException: {}", e.getMessage());
         LOGGER.debug("Error in printResponse()", e);
       }
     }
