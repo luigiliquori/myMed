@@ -20,28 +20,29 @@ Ant build file to run mymed tests
 Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
 -->
 <project name="tests" default="beans" basedir=".">
-  <property name="build.dir"           location="build"/>
-  <property name="lib.dir"             location="lib" />
-  <property name="results.dir"         location="results"/>
-  <property name="tests.dir"           location="unit"/>
-  <property name="conf.dir"            location="conf"/>
-  <property name="backend.dir"         location="../../../../"/>
-  <property name="web.content.lib.dir" location="${backend.dir}/WebContent/WEB-INF/lib"/>
-  <property name="ext.dir"             location="${backend.dir}/ext"/>
-  <property name="ext.lib.dir"         location="${ext.dir}/lib"/>
-  <property name="src.dir"             location="${backend.dir}/src/com/mymed"/>
-  <property name="controller.dir"      location="${src.dir}/controller"/>
-  <property name="model.dir"           location="${src.dir}/model"/>
-  <property name="utils.dir"           location="${src.dir}/utils"/>
-  <property name="properties.dir"      location="${src.dir}/properties"/>
-  <property name="resources.dir"       location="${src.dir}/resources"/>
-  <property name="java.dir"            location="/usr/share/java"/>
-  <property name="junit.dir"           location="/usr/share/junit"/>
-  <property name="coverage.dir"        location="${results.dir}/coverage" />
-  <property name="glassfish.dir"       location="/local/glassfish3/glassfish/"/>
-  <property name="src.compile.dir"     location="${controller.dir}:${model.dir}:${utils.dir}:${properties.dir}"/>
-  <property name="instrumented.dir"    location="${results.dir}/inst"/>
-  <property name="classes.dir"         location="${build.dir}"/>
+    <property name="build.dir"           location="build"/>
+    <property name="lib.dir"             location="lib" />
+    <property name="results.dir"         location="results"/>
+    <property name="tests.dir"           location="unit"/>
+    <property name="conf.dir"            location="conf"/>
+    <property name="backend.dir"         location="../../../../"/>
+    <property name="web.content.lib.dir" location="${backend.dir}/WebContent/WEB-INF/lib"/>
+    <property name="ext.dir"             location="${backend.dir}/ext"/>
+    <property name="ext.lib.dir"         location="${ext.dir}/lib"/>
+    <property name="src.dir"             location="${backend.dir}/src/com/mymed"/>
+    <property name="controller.dir"      location="${src.dir}/controller"/>
+    <property name="model.dir"           location="${src.dir}/model"/>
+    <property name="utils.dir"           location="${src.dir}/utils"/>
+    <property name="properties.dir"      location="${src.dir}/properties"/>
+    <property name="resources.dir"       location="${src.dir}/resources"/>
+    <property name="java.dir"            location="/usr/share/java"/>
+    <property name="junit.dir"           location="/usr/share/junit"/>
+    <property name="coverage.dir"        location="${results.dir}/coverage" />
+    <property name="glassfish.dir"       location="/local/glassfish3/glassfish/"/>
+    <property name="src.compile.dir"     location="${controller.dir}:${model.dir}:${utils.dir}:${properties.dir}"/>
+    <property name="instrumented.dir"    location="${results.dir}/inst"/>
+    <property name="classes.dir"        location="${build.dir}"/>
+    <property name="mymed.jar"            value="mymed.jar"/>
 
   <!-- This is the classpath for compiling the tests, since we need also Glassfish and JavaEE -->
   <path id="classpath.compile" description="Classpath to be used for compiling the tests">
@@ -110,6 +111,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
     <javac srcdir="${src.compile.dir}" destdir="${build.dir}" debug="on" fork="true" includeantruntime="true" includejavaruntime="true">
       <classpath refid="classpath.compile"/>
     </javac>
+    <jar destfile="${lib.dir}/${mymed.jar}" basedir="${build.dir}" duplicate="preserve" index="yes"/>
   </target>
 
     <!-- - - - - - - - - - - - - - - - - -
