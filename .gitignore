@@ -18,3 +18,4 @@ bundle.jar
 
 ./frontend/.buildpath
 *config.xml
+coverage.ec
