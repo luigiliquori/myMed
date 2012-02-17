@@ -79,6 +79,7 @@ public class GeoLocStorageManager extends StorageManager implements IGeoLocStora
             .stringToByteBuffer(key), ByteBuffer.wrap(args.get(key)), timestamp)));
         sliceMutationList.add(mutation);
       }
+
       // Insertion in the map
       mutationMap.put(primaryKey, tableMap);
       wrapper.batch_mutate(mutationMap, consistencyOnWrite);
