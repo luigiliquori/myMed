@@ -25,6 +25,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -33,6 +34,10 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 import com.google.gson.JsonObject;
+import com.mymed.controller.core.exception.IOBackEndException;
+import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.controller.core.manager.profile.ProfileManager;
+import com.mymed.controller.core.manager.session.SessionManager;
 import com.mymed.controller.core.requesthandler.POIRequestHandler;
 import com.mymed.tests.unit.handler.utils.BackendAssert;
 import com.mymed.tests.unit.handler.utils.TestUtils;
@@ -108,8 +113,29 @@ public class POIRequestHandlerTest extends GeneralHandlerTest {
   }
 
   @Before
-  public void setUpBefore() {
+  public void setUpBefore() throws InternalBackEndException, IOBackEndException {
     accessToken = TestUtils.createAccessToken();
+
+    accessToken = TestUtils.createAccessToken();
+
+    final ProfileManager manager = new ProfileManager();
+    manager.create(TestUtils.createUserBean(""));
+
+    final SessionManager session = new SessionManager();
+    session.create(TestUtils.createSessionBean(accessToken));
+  }
+
+  @After
+  public void cleanAfter() throws InternalBackEndException {
+    final ProfileManager manager = new ProfileManager();
+    final SessionManager session = new SessionManager();
+
+    try {
+      manager.delete(TestUtils.MYMED_ID);
+      session.delete(accessToken);
+    } catch (final IOBackEndException ex) {
+      // Do nothing, even if we have an error deleting something
+    }
   }
 
   @BeforeClass
