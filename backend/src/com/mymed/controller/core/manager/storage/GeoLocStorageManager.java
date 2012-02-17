@@ -31,7 +31,7 @@ import com.mymed.utils.MConverter;
  * @author iacopo
  * 
  */
-public class MyJamStorageManager extends StorageManager implements IGeoLocStorageManager {
+public class GeoLocStorageManager extends StorageManager implements IGeoLocStorageManager {
   // TODO Maximum number of received columns, maybe it would be better to insert
   // in the configuration file as a parameter.
   public static final int maxNumColumns = 10000;
@@ -44,7 +44,7 @@ public class MyJamStorageManager extends StorageManager implements IGeoLocStorag
    * Default Constructor: will create a ServiceManger on top of a Cassandra
    * Wrapper
    */
-  public MyJamStorageManager() {
+  public GeoLocStorageManager() {
     this(new WrapperConfiguration(CONFIG_FILE));
   }
 
@@ -57,7 +57,7 @@ public class MyJamStorageManager extends StorageManager implements IGeoLocStorag
    * @param conf
    *          The configuration of the transport layer
    */
-  public MyJamStorageManager(final WrapperConfiguration conf) {
+  public GeoLocStorageManager(final WrapperConfiguration conf) {
     wrapper = new CassandraWrapper(conf.getCassandraListenAddress(), conf.getThriftPort());
   }
 

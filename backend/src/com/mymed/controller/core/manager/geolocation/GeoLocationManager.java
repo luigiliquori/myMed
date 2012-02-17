@@ -13,7 +13,7 @@ import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.exception.WrongFormatException;
 import com.mymed.controller.core.manager.AbstractManager;
-import com.mymed.controller.core.manager.storage.MyJamStorageManager;
+import com.mymed.controller.core.manager.storage.GeoLocStorageManager;
 import com.mymed.model.data.geolocation.MSearchBean;
 import com.mymed.model.data.id.MyMedId;
 import com.mymed.model.data.storage.ExpColumnBean;
@@ -47,7 +47,7 @@ public class GeoLocationManager extends AbstractManager {
    * Default constructor.
    */
   public GeoLocationManager() {
-    this(new MyJamStorageManager());
+    this(new GeoLocStorageManager());
   }
 
   /**
@@ -56,7 +56,7 @@ public class GeoLocationManager extends AbstractManager {
    * @param storageManager
    *          the storage manager to use
    */
-  public GeoLocationManager(final MyJamStorageManager storageManager) {
+  public GeoLocationManager(final GeoLocStorageManager storageManager) {
     super(storageManager);
   }
 
@@ -112,7 +112,7 @@ public class GeoLocationManager extends AbstractManager {
       /**
        * SuperColumn insertion in CF Location
        **/
-      ((MyJamStorageManager) storageManager).insertExpiringColumn(SC_LOCATION, applicationId + itemType + areaId,
+      ((GeoLocStorageManager) storageManager).insertExpiringColumn(SC_LOCATION, applicationId + itemType + areaId,
           MConverter.longToByteBuffer(locId).array(), id.asByteBuffer().array(), MConverter.stringToByteBuffer(value)
               .array(), timestamp, permTime);
 
@@ -155,7 +155,7 @@ public class GeoLocationManager extends AbstractManager {
         for (long ind = startAreaId; ind <= endAreaId; ind++) {
           areaIds.add(applicationId + itemType + String.valueOf(ind));
         }
-        final Map<byte[], Map<byte[], byte[]>> mapRep = ((MyJamStorageManager) storageManager).selectSCRange(
+        final Map<byte[], Map<byte[], byte[]>> mapRep = ((GeoLocStorageManager) storageManager).selectSCRange(
             SC_LOCATION, areaIds, MConverter.longToByteBuffer(range[0]).array(), MConverter.longToByteBuffer(range[1])
                 .array());
         reports.putAll(mapRep);
@@ -228,7 +228,7 @@ public class GeoLocationManager extends AbstractManager {
       throws InternalBackEndException, IOBackEndException {
     try {
       final String areaId = String.valueOf(Locator.getAreaId(locationId));
-      final ExpColumnBean expCol = ((MyJamStorageManager) storageManager).selectExpiringColumn(SC_LOCATION,
+      final ExpColumnBean expCol = ((GeoLocStorageManager) storageManager).selectExpiringColumn(SC_LOCATION,
           applicationId + itemType + areaId, MConverter.longToByteBuffer(locationId).array(),
           MyMedId.parseString(itemId).asByteBuffer().array());
 
@@ -276,7 +276,7 @@ public class GeoLocationManager extends AbstractManager {
       final String areaId = String.valueOf(Locator.getAreaId(locationId));
       final MyMedId id = MyMedId.parseString(itemId);
 
-      ((MyJamStorageManager) storageManager).removeColumn(SC_LOCATION, applicationId + itemType + areaId, MConverter
+      ((GeoLocStorageManager) storageManager).removeColumn(SC_LOCATION, applicationId + itemType + areaId, MConverter
           .longToByteBuffer(locationId).array(), id.asByteBuffer().array());
     } catch (final WrongFormatException e) {
       throw new InternalBackEndException("Wrong report Id: " + e.getMessage());
