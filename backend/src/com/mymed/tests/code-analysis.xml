@@ -21,133 +21,139 @@ It depends on the build.xml files, since it needs also some JARs that are create
 Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
 -->
 <project name="mymed-code-analysis" default="all" basedir=".">
-  <property name="results.dir"         location="results"/>
-  <property name="tests.dir"           location="."/>
-	<property name="lib.dir"             location="lib" />
-  <property name="controller.dir"      location="../controller"/>
-  <property name="model.dir"           location="../model"/>
-  <property name="utils.dir"           location="../utils"/>
-  <property name="java.dir"            location="/usr/share/java"/>
-  <property name="findbugs.dir"        location="/usr/share/findbugs"/>
-	<property name="junit.dir"           location="/usr/share/junit"/>
-  <property name="cassandra.dir"       location="../../../../WebContent/WEB-INF/lib"/>
-  <property name="src.dir"             location="${controller.dir}:${model.dir}:${utils.dir}"/>
-	<property name="httpcomp.dir"        location="/usr/share/apache-commons/httpcomponents"/>
-	<property name="glassfish.dir"       location="/local/glassfish3/glassfish/"/>
-	<property name="mymed.jar"           value="mymed.jar"/>
-	<property name="mymedtest.jar"       value="tests.jar"/>
+    <property name="results.dir"        location="results"/>
+    <property name="lib.dir"            location="lib" />
+    <property name="controller.dir"     location="../controller"/>
+    <property name="model.dir"          location="../model"/>
+    <property name="utils.dir"          location="../utils"/>
+    <property name="java.dir"           location="/usr/share/java"/>
+    <property name="findbugs.dir"       location="/usr/share/findbugs"/>
+    <property name="junit.dir"          location="/usr/share/junit"/>
+    <property name="cassandra.dir"      location="../../../../WebContent/WEB-INF/lib"/>
+    <property name="src.dir"            location="${controller.dir}:${model.dir}:${utils.dir}"/>
+    <property name="httpcomp.dir"       location="/usr/share/apache-commons/httpcomponents"/>
+    <property name="glassfish.dir"      location="/local/glassfish3/glassfish/"/>
+    <property name="mymed.jar"          value="mymed.jar"/>
+    <property name="mymedtest.jar"      value="tests.jar"/>
 
-	<!-- Fileset with the file extension we want to check -->
-	<fileset id="files.to.check" dir="../">
-    <include name="**/*.java"/>
-		<exclude name="**/*Bean.java"/>
-    <exclude name="**/*.xml"/>
-    <exclude name="**/*.html"/>
-    <exclude name="**/*.php"/>
-    <exclude name="**/*.jar"/>
-	</fileset>
-
-  <!-- This is the classpath for compiling the tests, since we need also Glassfish and JavaEE -->
-  <path id="mymed.classpath" description="Classpath to be used for compiling the tests">
-    <pathelement path="${java.class.path}"/>
-    <pathelement location="${lib.dir}/${mymed.jar}"/>
-    <pathelement location="${lib.dir}/${mymedtest.jar}"/>
-    <pathelement location="${junit.dir}/junit.jar"/>
-    <pathelement location="."/>
-  	<fileset dir="${glassfish.dir}">
-  		<include name="**/javaee.jar"/>
-  		<include name="**/mail.jar"/>
-  	</fileset>
-    <fileset dir="${java.dir}">
-      <include name="**/pmd.jar"/>
-      <include name="**/jaxen.jar"/>
-      <include name="**/asm.jar"/>
-      <include name="*.jar"/>
-      <include name="**/*.jar"/>
+    <!-- Fileset with the file extension we want to check -->
+    <fileset id="files.to.check" dir="../">
+        <include name="**/*.java"/>
+        <exclude name="**/*Bean.java"/>
+        <exclude name="**/*.xml"/>
+        <exclude name="**/*.html"/>
+        <exclude name="**/*.php"/>
+        <exclude name="**/*.jar"/>
     </fileset>
-    <fileset dir="${cassandra.dir}">
-      <include name="apache-cassandra-0.7.10.jar"/>
-      <include name="libthrift-0.5.jar"/>
-      <include name="gson-1.6.jar"/>
-      <include name="logback-core-0.9.29.jar"/>
-      <include name="slf4j-api-1.6.2.jar"/>
-      <include name="logback-classic-0.9.29.jar"/>
-      <exclude name="log4j-over-slf4j-1.6.2.jar"/>
-    </fileset>
-    <fileset dir="${findbugs.dir}">
-      <include name="*.jar"/>
-      <include name="**/*.jar"/>
-    </fileset>
-    <fileset dir="${httpcomp.dir}">
-      <include name="**/*.jar"/>
-    </fileset>
-  </path>
 
-  <!-- Used if we want to pretty print the classpath in case we need to debug -->
-  <pathconvert description="Pretty print the classpath" property="echo.path.compile" refid="mymed.classpath" pathsep="${line.separator}|  |--" />
+    <dirset>
+    </dirset>
 
-  <!-- Ant tasks defined for running other analysis tools -->
-  <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="mymed.classpath"/>
-  <taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask" classpathref="mymed.classpath"/>
-	<taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask" classpathref="mymed.classpath"/>
+    <!-- This is the classpath for compiling the tests, since we need also Glassfish and JavaEE -->
+    <path id="mymed.classpath" description="Classpath to be used for compiling the tests">
+        <pathelement path="${java.class.path}"/>
+        <pathelement location="${lib.dir}/${mymed.jar}"/>
+        <fileset dir="${glassfish.dir}">
+            <include name="**/javaee.jar"/>
+        </fileset>
+        <fileset dir="${java.dir}">
+            <include name="**/pmd.jar"/>
+            <include name="**/jaxen.jar"/>
+            <include name="**/asm.jar"/>
+            <include name="*.jar"/>
+            <include name="**/*.jar"/>
+        </fileset>
+        <fileset dir="${cassandra.dir}">
+            <include name="apache-cassandra-0.7.10.jar"/>
+            <include name="libthrift-0.5.jar"/>
+            <include name="gson-1.6.jar"/>
+            <include name="logback-core-0.9.29.jar"/>
+            <include name="slf4j-api-1.6.2.jar"/>
+            <include name="logback-classic-0.9.29.jar"/>
+            <exclude name="log4j-over-slf4j-1.6.2.jar"/>
+        </fileset>
+        <fileset dir="${findbugs.dir}">
+            <include name="*.jar"/>
+            <include name="**/*.jar"/>
+        </fileset>
+        <fileset dir="${httpcomp.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
 
-  <target name="init" description="Initialize the necessary directories">
-    <mkdir dir="${results.dir}"/>
-  </target>
+    <!-- Used if we want to pretty print the classpath in case we need to debug -->
+    <pathconvert description="Pretty print the classpath" property="echo.path.compile" refid="mymed.classpath" pathsep="${line.separator}|  |--" />
 
-  <target name="clean" description="Remove the directories used for the build">
-    <delete dir="${results.dir}"/>
-  </target>
+    <!-- Ant tasks defined for running other analysis tools -->
+    <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="mymed.classpath"/>
+    <taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask" classpathref="mymed.classpath"/>
+    <taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask" classpathref="mymed.classpath"/>
 
-	 <!-- =================================
-	          target: pmd
-	         ================================= -->
-  <target name="pmd" depends="init" description="Analyze the code with PMD">
-    <pmd shortFilenames="true" encoding="UTF-8" targetjdk="1.6">
-      <ruleset>basic,coupling,optimizations,strings,unusedcode,controversial,sunsecure,codesize,design,typeresolution,logging-java</ruleset>
-      <formatter type="xml" toFile="${results.dir}/pmd.xml"/>
-      <fileset refid="files.to.check"/>
-	  </pmd>
-	</target>
+    <!-- - - - - - - - - - - - - - - - - -
+          target: init
+         - - - - - - - - - - - - - - - - - -->
+    <target name="init" description="Initialize the necessary directories">
+        <mkdir dir="${results.dir}"/>
+    </target>
 
-	<!-- =================================
+    <!-- =================================
+          target: clean
+         ================================= -->
+    <target name="clean" description="Remove the directories used for the build">
+        <delete dir="${results.dir}"/>
+    </target>
+
+    <!-- =================================
+              target: pmd
+         ================================= -->
+    <target name="pmd" depends="init" description="Analyze the code with PMD">
+        <pmd shortFilenames="true" encoding="UTF-8" targetjdk="1.6">
+            <ruleset>basic,coupling,optimizations,strings,unusedcode,controversial,sunsecure,codesize,design,typeresolution,logging-java</ruleset>
+            <formatter type="xml" toFile="${results.dir}/pmd.xml"/>
+            <fileset refid="files.to.check"/>
+        </pmd>
+    </target>
+
+    <!-- =================================
           target: pmdbeans
          ================================= -->
-  <target name="pmdbeans" depends="init" description="description">
-    <pmd shortFilenames="true" encoding="UTF-8" targetjdk="1.6">
-      <ruleset>basic,coupling,optimizations,strings,unusedcode,controversial,sunsecure,codesize,design,typeresolution,javabeans,logging-java</ruleset>
-      <formatter type="xml" toFile="${results.dir}/beanspmd.xml"/>
-      <fileset dir="../">
-      	<include name="**/*Bean.java"/>
-      </fileset>
-	  </pmd>
-  </target>
+    <target name="pmdbeans" depends="init" description="description">
+        <pmd shortFilenames="true" encoding="UTF-8" targetjdk="1.6">
+            <ruleset>basic,coupling,optimizations,strings,unusedcode,controversial,sunsecure,codesize,design,typeresolution,javabeans,logging-java</ruleset>
+            <formatter type="xml" toFile="${results.dir}/beanspmd.xml"/>
+            <fileset dir="../">
+                <include name="**/*Bean.java"/>
+            </fileset>
+        </pmd>
+    </target>
 
 	 <!-- =================================
 	          target: findbugs
 	         ================================= -->
-  <target name="findbugs" depends="init" description="Analyze the code with FindBugs">
-    <findbugs home="${findbugs.dir}" output="xml" outputFile="${results.dir}/findbugs.xml" reportLevel="low" effort="max">
-    	<classpath refid="mymed.classpath"/>
-    	<class location="${lib.dir}/mymed.jar"/>
-    	<auxClasspath location="${cassandra.dir}"/>
-      <sourcePath>
-        <fileset refid="files.to.check"/>
-      </sourcePath>
-    </findbugs>
-  </target>
+    <target name="findbugs" depends="init" description="Analyze the code with FindBugs">
+        <findbugs home="${findbugs.dir}" output="xml" outputFile="${results.dir}/findbugs.xml" reportLevel="low" effort="max">
+            <classpath refid="mymed.classpath"/>
+            <class location="${lib.dir}/mymed.jar"/>
+            <auxClasspath path="${cassandra.dir}"/>
+            <sourcePath>
+                <fileset refid="files.to.check"/>
+            </sourcePath>
+        </findbugs>
+    </target>
 
-	<!-- =================================
+    <!-- =================================
           target: cpd
          ================================= -->
-  <target name="cpd" depends="init" description="Copy &amp; Paste code analysis">
-    <cpd minimumTokenCount="100" format="xml" language="java" outputFile="${results.dir}/cpd.xml">
-      <fileset dir="../">
-        <include name="**/*.java"/>
-      	<exclude/>
-      </fileset>
-    </cpd>
-  </target>
+    <target name="cpd" depends="init" description="Copy &amp; Paste code analysis">
+        <cpd minimumTokenCount="100" format="xml" language="java" outputFile="${results.dir}/cpd.xml">
+            <fileset dir="../">
+                <include name="**/*.java"/>
+            </fileset>
+        </cpd>
+    </target>
 
-	<target name="all" depends="pmd,pmdbeans,findbugs,cpd" description="Run all the tasks"/>
+    <!-- =================================
+          target: all
+         ================================= -->
+    <target name="all" depends="pmd,pmdbeans,findbugs,cpd" description="Run all the tasks"/>
 </project>
