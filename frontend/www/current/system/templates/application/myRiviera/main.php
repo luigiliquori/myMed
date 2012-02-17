@@ -8,7 +8,6 @@
 	
 	// IMPORT THE MAIN VIEW
 	require_once dirname(__FILE__).'/views/tabbar/FindView.class.php';
-	require_once dirname(__FILE__).'/views/tabbar/TripView.class.php';
 	
 	// IMPORT DIALOG
 	require_once dirname(__FILE__).'/views/dialog/EditDialog.class.php';
@@ -22,9 +21,6 @@
 	// VIEW
 	$find = new FindView($handler);
 	$find->printTemplate();
-	
-	$trip = new TripView();
-	$trip->printTemplate();
 	
 	// DIALOG
 	$edit = new EditDialog();
