@@ -33,15 +33,9 @@ public class MReputationBeanTest {
     reputationBean = new MReputationBean(0.5, 10);
   }
 
-  // @Test
-  // public void attributeToMapTest() {
-  // fail("Not implemented yet");
-  // }
-
   @Test
   public void notEqualsTest() {
     final MReputationBean actual = new MReputationBean(1.2, 12);
-
     assertFalse("The session beans are the same", reputationBean.equals(actual));
   }
 
@@ -54,6 +48,6 @@ public class MReputationBeanTest {
 
   @AfterClass
   public static void cleanUpAfter() {
-    reputationBean = null;
+    reputationBean = null; // NOPMD
   }
 }

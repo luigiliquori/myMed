@@ -73,7 +73,7 @@ public class ReputationRequestHandlerOld extends AbstractRequestHandler {
 
 		try {
 			Map<String, String> parameters = getParameters(request);
-			RequestCode code = requestCodeMap.get(parameters.get("code"));
+			RequestCode code = REQUEST_CODE_MAP.get(parameters.get("code"));
 			String application, producer, consumer;
 		
 			switch (code) {
@@ -113,7 +113,7 @@ public class ReputationRequestHandlerOld extends AbstractRequestHandler {
 
 		try {
 			Map<String, String> parameters = getParameters(request);
-			RequestCode code = requestCodeMap.get(parameters.get("code"));
+			RequestCode code = REQUEST_CODE_MAP.get(parameters.get("code"));
 
 			switch (code) {
 			case CREATE:

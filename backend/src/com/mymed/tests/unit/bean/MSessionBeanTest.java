@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.tests.unit.bean;
 
 import static org.junit.Assert.assertEquals;
@@ -30,6 +30,7 @@ import com.mymed.model.data.session.MSessionBean;
 public class MSessionBeanTest {
 
   private static MSessionBean sessionBean;
+  private static MSessionBean nullActual = null;
 
   @BeforeClass
   public static void setUpBefore() {
@@ -45,9 +46,6 @@ public class MSessionBeanTest {
   public void attributeToMapTest() {
     try {
       final Map<String, byte[]> attributeMap = sessionBean.getAttributeToMap();
-      // TODO needs to find a better way to structure this, we need to create
-      // enums for each beans and check that the
-      // fields are valid through that
       assertEquals(9, attributeMap.size());
     } catch (final Exception ex) {
       fail(ex.getMessage());
@@ -66,18 +64,18 @@ public class MSessionBeanTest {
   }
 
   @Test
-  public void equalsTest() {
-    final MSessionBean actual = new MSessionBean();
-    actual.setId("ID");
-    actual.setUser("USER");
-    actual.setAccessToken("ACCESS_TOKEN");
-    actual.setIp("IP");
+  public void nullEqualsTest() {
+    assertFalse("The session beans are the same", sessionBean.equals(nullActual)); // NOPMD
+  }
 
+  @Test
+  public void cloneEqualsTest() {
+    final MSessionBean actual = sessionBean.clone();
     assertEquals("The session beans are not the same", sessionBean, actual);
   }
 
   @AfterClass
   public static void cleanUpAfter() {
-    sessionBean = null;
+    sessionBean = null; // NOPMD
   }
 }

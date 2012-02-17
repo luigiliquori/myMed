@@ -25,7 +25,7 @@ import java.io.InputStreamReader;
 import org.apache.http.HttpResponse;
 
 /**
- * Assert utilities for the RequestHandler classes
+ * Assert utilities for the RequestHandler classes.
  * 
  * @author Milo Casagrande
  * 
@@ -33,7 +33,8 @@ import org.apache.http.HttpResponse;
 public class BackendAssert {
 
   /**
-   * Assert that the response code from the backend is what it is supposed to be
+   * Assert that the response code from the backend is what it is supposed to
+   * be.
    * 
    * @param response
    *          the backend response
@@ -46,7 +47,7 @@ public class BackendAssert {
   }
 
   /**
-   * Assert that the JSON format we get back from the response is valid
+   * Assert that the JSON format we get back from the response is valid.
    * 
    * @param response
    *          the HTTP response
@@ -70,7 +71,7 @@ public class BackendAssert {
   }
 
   /**
-   * Assert that the User JSON format we get back from the response is valid
+   * Assert that the User JSON format we get back from the response is valid.
    * 
    * @param response
    *          the HTTP response
@@ -87,6 +88,32 @@ public class BackendAssert {
       if (br.ready()) {
         while ((line = br.readLine()) != null) {
           assertTrue("The JSON format is not valid.", TestUtils.isValidUserJson(line));
+        }
+      }
+    } finally {
+      in.close();
+      br.close();
+    }
+  }
+
+  /**
+   * Assert that the Search JSON format we get back from the response is valid.
+   * 
+   * @param response
+   *          the HTTP response
+   * @throws IllegalStateException
+   * @throws IOException
+   */
+  public static void assertIsValidPOIJson(final HttpResponse response) throws IllegalStateException, IOException {
+    final InputStreamReader in = new InputStreamReader(response.getEntity().getContent());
+    final BufferedReader br = new BufferedReader(in);
+
+    String line = "";
+
+    try {
+      if (br.ready()) {
+        while ((line = br.readLine()) != null) {
+          assertTrue("The JSON format is not valid.", TestUtils.isValidPOIJson(line));
         }
       }
     } finally {

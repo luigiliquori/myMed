@@ -37,6 +37,9 @@ import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.session.SessionManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
+import com.mymed.properties.IProperties;
+import com.mymed.properties.PropType;
+import com.mymed.properties.PropertiesManager;
 import com.mymed.utils.MLogger;
 
 public abstract class AbstractRequestHandler extends HttpServlet {
@@ -45,19 +48,94 @@ public abstract class AbstractRequestHandler extends HttpServlet {
   /* --------------------------------------------------------- */
   private static final long serialVersionUID = 1L;
 
-  private static final String ENCODING = "UTF-8";
-
-  // The default logger for all the RequestHandler that extends this class
+  // The default logger for all the RequestHandler that extends this class.
   protected static final Logger LOGGER = MLogger.getLogger();
 
-  /** Google library to handle jSon request */
-  private Gson gson;
+  /**
+   * The default properties manager.
+   */
+  private static final PropertiesManager PROPERTIES = PropertiesManager.getInstance();
 
-  /** The response/feedback printed */
-  private String responseText = null;
+  /**
+   * Values for the JSON attributes.
+   */
+  protected static final IProperties JSON = PROPERTIES.getManager(PropType.JSON);
+
+  /**
+   * Default string encoding.
+   */
+  protected static final String ENCODING = PROPERTIES.getManager(PropType.GENERAL).get("general.string.encoding");
+
+  /**
+   * The default social network ID.
+   */
+  protected static final String SOCIAL_NET_ID = PROPERTIES.getManager(PropType.GENERAL)
+      .get("general.social.network.id");
+
+  /**
+   * The default social network name.
+   */
+  protected static final String SOCIAL_NET_NAME = PROPERTIES.getManager(PropType.GENERAL).get(
+      "general.social.network.name");
+
+  /**
+   * JSON 'code' attribute.
+   */
+  protected static final String JSON_CODE = JSON.get("json.code");
+
+  /**
+   * JSON 'data' attribute.
+   */
+  protected static final String JSON_DATA = JSON.get("json.data");
+
+  /**
+   * JSON 'user' attribute.
+   */
+  protected static final String JSON_USER = JSON.get("json.user");
+
+  /**
+   * JSON 'value' attribute.
+   */
+  protected static final String JSON_VALUE = JSON.get("json.value");
+
+  /**
+   * JSON 'accessToken' attribute.
+   */
+  protected static final String JSON_ACCESS_TKN = JSON.get("json.accesstoken");
+
+  /**
+   * JSON 'application' attribute.
+   */
+  protected static final String JSON_APPLICATION = JSON.get("json.application");
+
+  /**
+   * JSON 'create' value.
+   */
+  protected static final String JSON_CODE_CREATE = JSON.get("json.code.create");
+
+  /**
+   * JSON 'read' value.
+   */
+  protected static final String JSON_CODE_READ = JSON.get("json.code.read");
+
+  /**
+   * JSON 'update' value.
+   */
+  protected static final String JSON_CODE_UPDATE = JSON.get("json.code.update");
+
+  /**
+   * JSON 'delete' value.
+   */
+  protected static final String JSON_CODE_DELETE = JSON.get("json.code.delete");
 
   /** Request code Map */
-  protected Map<String, RequestCode> requestCodeMap = new HashMap<String, RequestCode>();
+  protected static final Map<String, RequestCode> REQUEST_CODE_MAP = new HashMap<String, RequestCode>(4);
+
+  static {
+    for (final RequestCode code : RequestCode.values()) {
+      REQUEST_CODE_MAP.put(code.getCode(), code);
+    }
+  }
 
   /** Request codes */
   protected enum RequestCode {
@@ -67,28 +145,32 @@ public abstract class AbstractRequestHandler extends HttpServlet {
     UPDATE("2"),
     DELETE("3");
 
-    public final String code;
+    private final String code;
 
     RequestCode(final String code) {
       this.code = code;
     }
+
+    /**
+     * @return the code number
+     */
+    public String getCode() {
+      return code;
+    }
   }
 
-  /* --------------------------------------------------------- */
-  /* Constructors */
-  /* --------------------------------------------------------- */
+  /** Google library to handle jSon request */
+  private Gson gson;
+
+  /** The response/feedback printed */
+  private String responseText = null;
+
   protected AbstractRequestHandler() {
     super();
 
     gson = new Gson();
-    for (final RequestCode r : RequestCode.values()) {
-      requestCodeMap.put(r.code, r);
-    }
   }
 
-  /* --------------------------------------------------------- */
-  /* protected methods */
-  /* --------------------------------------------------------- */
   /**
    * @return the parameters of an HttpServletRequest
    */
@@ -136,11 +218,11 @@ public abstract class AbstractRequestHandler extends HttpServlet {
       }
     }
 
-    if (!parameters.containsKey("code")) {
+    if (!parameters.containsKey(JSON_CODE)) {
       throw new InternalBackEndException("code argument is missing!");
     }
 
-    if (requestCodeMap.get(parameters.get("code")) == null) {
+    if (REQUEST_CODE_MAP.get(parameters.get(JSON_CODE)) == null) {
       throw new InternalBackEndException("code argument is not well formated");
     }
 
@@ -160,17 +242,44 @@ public abstract class AbstractRequestHandler extends HttpServlet {
   }
 
   /**
+   * Check that the access token parameters has been provided, and verifies it.
+   * 
+   * @param parameters
+   *          the parameters where to check
+   * @throws InternalBackEndException
+   * @throws IOBackEndException
+   */
+  protected void checkToken(final Map<String, String> parameters) throws InternalBackEndException, IOBackEndException {
+    if (!parameters.containsKey(JSON_ACCESS_TKN)) {
+      throw new InternalBackEndException("access token argument is missing!");
+    } else {
+      validateToken(parameters.get(JSON_ACCESS_TKN));
+    }
+  }
+
+  /**
+   * Validate an access token
+   * 
+   * @param accesstoken
+   *          the access token to validate
+   * @throws InternalBackEndException
+   * @throws IOBackEndException
+   */
+  private void validateToken(final String accessToken) throws InternalBackEndException, IOBackEndException {
+    new SessionManager().read(accessToken);
+  }
+
+  /**
    * Print the server response
    * 
    * @param response
    * @throws IOException
    */
   private void printResponse(final HttpServletResponse response) {
-    /** Init response */
     if (responseText != null) {
       response.setContentType("text/plain;charset=UTF-8");
-      /** send the response */
       PrintWriter out;
+
       try {
         out = response.getWriter();
 
@@ -178,27 +287,13 @@ public abstract class AbstractRequestHandler extends HttpServlet {
 
         out.print(responseText);
         out.close();
-        responseText = null; // NOPMD to avoid code check warnings
+        responseText = null; // NOPMD
       } catch (final IOException e) {
-        LOGGER.info("IOException: {}", e.getMessage());
         LOGGER.debug("Error in printResponse()", e);
       }
     }
   }
 
-  /**
-   * Validate an accesstoken
-   * 
-   * @param accesstoken
-   * @throws InternalBackEndException
-   */
-  protected void tokenValidation(final String accessToken) throws InternalBackEndException, IOBackEndException {
-    new SessionManager().read(accessToken);
-  }
-
-  /* --------------------------------------------------------- */
-  /* GETTER&SETTER */
-  /* --------------------------------------------------------- */
   public Gson getGson() {
     return gson;
   }

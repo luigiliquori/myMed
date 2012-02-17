@@ -136,6 +136,8 @@ public class HashFunction {
         case 'f' :
           res += 15 * pow;
           break;
+        default :
+          break;
       }
 
       res %= MaxInt;

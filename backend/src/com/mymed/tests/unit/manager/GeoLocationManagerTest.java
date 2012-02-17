@@ -1,148 +1,74 @@
+/*
+ * Copyright 2012 INRIA
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.mymed.tests.unit.manager;
 
-import java.util.LinkedList;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
-import com.mymed.controller.core.manager.geolocation.GeoLocationManager;
+import com.mymed.controller.core.exception.IOBackEndException;
+import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.model.data.geolocation.MSearchBean;
-import com.mymed.model.data.id.MyMedId;
-import com.mymed.utils.locator.Location;
-import com.mymed.utils.locator.Locator;
 
-public class GeoLocationManagerTest extends TestCase {
-  private final static String TAG = "GeoLocationManagerTest";
-  private final static String ITEM = "test";
-  private static long SEED = 19580427;
+public class GeoLocationManagerTest extends GeneralTest {
 
-  private final static double centerLat = 45.15;
-  private final static double centerLon = 7.5;
-  private final static double degreeRange = 2.0;
-  private final static int meterRange = 50000;
-  private final static int numInsertionSearchTest = 10000;
-  private final static int numInsertionDeleteTest = 100;
+  /**
+   * Perform multiple create operations and one read
+   * <p>
+   * This is a simple test, just check that the number of values read in a
+   * defined radius equals the number of insertion
+   */
+  @Test
+  public void multiCreateReadTest() {
+    final List<MSearchBean> createList = new ArrayList<MSearchBean>(5);
 
-  private GeoLocationManager manager;
-  private List<MyMedId> itemsInRange;
-  private Random rand;
-  private double maxError;
-  Location centerL;
-
-  @Override
-  protected void setUp() {
     try {
-      if (manager == null) {
-        manager = new GeoLocationManager();
+      for (int i = 0; i < 5; i++) {
+        final MSearchBean result = geolocationManager.create(APPLICATION_ID, ITEM_TYPE, USER_ID, LATITUDE + 2 * i,
+            LONGITUDE + 2 * i, GEO_VALUE, EXPIRING_TIME);
+        createList.add(result);
       }
-      if (itemsInRange == null) {
-        itemsInRange = new LinkedList<MyMedId>();
-      }
-      if (rand == null) {
-        rand = new Random(SEED);
-      }
-    } catch (final Exception e) {
-      e.printStackTrace();
+
+      final List<MSearchBean> searchList = geolocationManager.read(APPLICATION_ID, ITEM_TYPE, LATITUDE, LONGITUDE,
+          RADIUS, true);
+
+      assertEquals("The results read do not correspond to the written ones", createList.size(), searchList.size());
+    } catch (final Exception ex) {
+      fail(ex.getMessage());
     }
   }
 
   /**
-   * Insert {@value numInsertionSearchTest} values and checks that the search
-   * returns the right items.
+   * Test the delete operation
+   * <p>
+   * Perform a create, then a delete and in the end a read: the read should
+   * throw an exception
+   * 
+   * @throws InternalBackEndException
+   * @throws IOBackEndException
    */
-  public void testSearch() {
-    List<MSearchBean> listSearchBean = null;
-    double err = 10.0;
-    Location currLocDec = null;
-
-    try {
-      /** Maybe that some item is already there. */
-      listSearchBean = manager.read(TAG, ITEM, (int) (centerLat * 1E6), (int) (centerLon * 1E6), meterRange);
-      for (final MSearchBean sRep : listSearchBean) {
-        itemsInRange.add(MyMedId.parseString(sRep.getId()));
-      }
-
-      for (int i = 0; i < numInsertionSearchTest; i++) {
-        final double lat = rand.nextDouble() * degreeRange + (centerLat - degreeRange / 2);
-        final double lon = rand.nextDouble() * degreeRange + (centerLon - degreeRange / 2);
-        centerL = new Location(centerLat, centerLon);
-        final Location currLoc = new Location(lat, lon);
-        currLocDec = Locator.getLocationFromId(Locator.getLocationId(lat, lon));
-        if ((err = currLoc.distanceGCTo(currLocDec)) > maxError) {
-          maxError = err;
-        }
-
-        MyMedId currRepId = null;
-        final MSearchBean repB = manager.create(TAG, ITEM, "iacopo", (int) (lat * 1E6), (int) (lon * 1E6), "Ciao",
-            60 * 30);
-        currRepId = MyMedId.parseString(repB.getId());
-        if (currRepId != null) {
-          System.out.println(TAG + "	All : " + currRepId.toString());
-        }
-        if (currLocDec != null) {
-          final double distance = currLocDec.distanceGCTo(centerL);
-          System.out.println(TAG + "	Item " + i + ": " + String.valueOf(distance));
-          if (distance <= meterRange) {
-            if (currRepId != null) {
-              itemsInRange.add(currRepId);
-              System.out.println(TAG + "	Inserted : " + currRepId.toString());
-            }
-          }
-        }
-      }
-
-      listSearchBean = manager.read(TAG, ITEM, (int) (centerLat * 1E6), (int) (centerLon * 1E6), meterRange);
-      if (listSearchBean.size() != itemsInRange.size()) {
-        fail("Number of found items doesn't match the number of inserted.");
-      }
-      for (final MSearchBean tmpSearchBean : listSearchBean) {
-        if (!itemsInRange.contains(MyMedId.parseString(tmpSearchBean.getId()))) {
-          fail("Item found doesn't belongs to items in range.");
-        }
-      }
-
-    } catch (final Exception e) {
-      fail(e.getMessage());
-    }
+  @Test(expected = IOBackEndException.class)
+  public void deleteTest() throws InternalBackEndException, IOBackEndException {
+    final MSearchBean createLocation = geolocationManager.create(APPLICATION_ID, ITEM_TYPE, USER_ID, LATITUDE + 10,
+        LONGITUDE - 10, GEO_VALUE, EXPIRING_TIME);
+    geolocationManager.delete(APPLICATION_ID, ITEM_TYPE, createLocation.getLocationId(), createLocation.getId());
+    geolocationManager.read(APPLICATION_ID, ITEM_TYPE, createLocation.getLocationId(), createLocation.getId());
   }
-
-  // TODO Check delete.
-  public void testDelete() {
-    final List<MSearchBean> deleteList = new LinkedList<MSearchBean>();
-    try {
-      for (int i = 0; i < numInsertionDeleteTest; i++) {
-        final double lat = rand.nextDouble() * degreeRange + (centerLat - degreeRange / 2);
-        final double lon = rand.nextDouble() * degreeRange + (centerLon - degreeRange / 2);
-        centerL = new Location(centerLat, centerLon);
-        deleteList.add(manager.create(TAG, ITEM, "iacopo", (int) (lat * 1E6), (int) (lon * 1E6), "Ciao", 60 * 30));
-      }
-
-      for (final MSearchBean curr : deleteList) {
-        manager.delete(TAG, ITEM, curr.getLocationId(), curr.getId());
-        try {
-          manager.read(TAG, ITEM, curr.getLocationId(), curr.getId());
-          fail("Item " + curr.getId() + " has not been properly deleted.");
-        } catch (final Exception e) {
-        }
-      }
-    } catch (final Exception e) {
-      fail(e.getMessage());
-    }
-  }
-
-  // private int[] getPoint(){
-  // int[] point = new int[]{centerLat,centerLon};
-  // double deltaLat = (double) distance/earthRadius;
-  // double deltaLon = Math.acos(Math.cos((double)
-  // distance/earthRadius)/Math.pow(Math.cos((double) centerLat/1E6),2.0) -
-  // Math.pow(Math.tan((double) centerLat/1E6),2.0));
-  //
-  // int latOffset = (int) ((rand.nextDouble()*deltaLat - deltaLat/2)*1E6);
-  // int lonOffset = (int) ((rand.nextDouble()*deltaLon - deltaLon/2)*1E6);
-  // point[0] = centerLat + latOffset;
-  // point[1] = centerLon + lonOffset;
-  //
-  // return point;
-  // }
 }

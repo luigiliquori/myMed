@@ -31,42 +31,33 @@ import com.mymed.utils.MConverter;
  * @author iacopo
  * 
  */
-public class MyJamStorageManager extends StorageManager implements IMyJamStorageManager {
-  /* --------------------------------------------------------- */
-  /* Attributes */
-  /* --------------------------------------------------------- */
+public class GeoLocStorageManager extends StorageManager implements IGeoLocStorageManager {
   // TODO Maximum number of received columns, maybe it would be better to insert
   // in the configuration file as a parameter.
-  public final static int maxNumColumns = 10000;
+  public static final int maxNumColumns = 10000;
+
+  private static final long A_THOUSAND = 1000L;
 
   private final CassandraWrapper wrapper;
 
-  /* --------------------------------------------------------- */
-  /* Constructors */
-  /* --------------------------------------------------------- */
   /**
    * Default Constructor: will create a ServiceManger on top of a Cassandra
    * Wrapper
-   * 
-   * @throws IOBackEndException
-   * @throws InternalBackEndException
    */
-  public MyJamStorageManager() throws InternalBackEndException {
+  public GeoLocStorageManager() {
     this(new WrapperConfiguration(CONFIG_FILE));
   }
 
   /**
-   * /** will create a ServiceManger on top of the WrapperType And use the
-   * specific configuration file for the transport layer
+   * will create a ServiceManger on top of the WrapperType And use the specific
+   * configuration file for the transport layer
    * 
    * @param type
    *          Type of DHTClient used
    * @param conf
    *          The configuration of the transport layer
-   * @throws IOBackEndException
-   * @throws InternalBackEndException
    */
-  public MyJamStorageManager(final WrapperConfiguration conf) throws InternalBackEndException {
+  public GeoLocStorageManager(final WrapperConfiguration conf) {
     wrapper = new CassandraWrapper(conf.getCassandraListenAddress(), conf.getThriftPort());
   }
 
@@ -75,7 +66,7 @@ public class MyJamStorageManager extends StorageManager implements IMyJamStorage
       throws InternalBackEndException {
     final Map<String, Map<String, List<Mutation>>> mutationMap = new HashMap<String, Map<String, List<Mutation>>>();
     /** The convention is to use microseconds since 1 Jenuary 1970 */
-    final long timestamp = (long) (System.currentTimeMillis() * 1E3);
+    final long timestamp = A_THOUSAND * System.currentTimeMillis();
     try {
       final Map<String, List<Mutation>> tableMap = new HashMap<String, List<Mutation>>();
       final List<Mutation> sliceMutationList = new ArrayList<Mutation>(5);
@@ -88,11 +79,12 @@ public class MyJamStorageManager extends StorageManager implements IMyJamStorage
             .stringToByteBuffer(key), ByteBuffer.wrap(args.get(key)), timestamp)));
         sliceMutationList.add(mutation);
       }
+
       // Insertion in the map
       mutationMap.put(primaryKey, tableMap);
       wrapper.batch_mutate(mutationMap, consistencyOnWrite);
     } catch (final InternalBackEndException e) {
-      throw new InternalBackEndException(" InsertSlice failed. ");
+      throw new InternalBackEndException("InsertSlice failed.");
     }
   }
 
@@ -158,11 +150,9 @@ public class MyJamStorageManager extends StorageManager implements IMyJamStorage
 
       // TODO Define the consistency level to use on this operation.
       final Column res = wrapper.get(primaryKey, columnPath, consistencyOnRead).getColumn();
-      // TODO Maybe there's a better way to pass all the arguments.
       expCol.setValue(res.getValue());
       expCol.setTimestamp(res.getTimestamp());
       expCol.setTimeToLive(res.getTtl());
-
     } catch (final InternalBackEndException e) {
       throw new InternalBackEndException("selectExpiringColumn failed.");
     }
@@ -173,7 +163,7 @@ public class MyJamStorageManager extends StorageManager implements IMyJamStorage
   public void insertColumn(final String tableName, final String primaryKey, final String columnName, final byte[] value)
       throws InternalBackEndException {
     try {
-      insertColumn(tableName, primaryKey, columnName.getBytes("UTF8"), value);
+      insertColumn(tableName, primaryKey, columnName.getBytes(ENCODING), value);
     } catch (final UnsupportedEncodingException e) {
       e.printStackTrace();
       throw new InternalBackEndException("UnsupportedEncodingException with\n" + "\t- columnFamily = " + tableName
@@ -185,7 +175,7 @@ public class MyJamStorageManager extends StorageManager implements IMyJamStorage
   public void insertColumn(final String tableName, final String primaryKey, final byte[] columnName, final byte[] value)
       throws InternalBackEndException {
 
-    final long timestamp = (long) (System.currentTimeMillis() * 1E3);
+    final long timestamp = A_THOUSAND * System.currentTimeMillis();
     insertExpiringColumn(tableName, primaryKey, columnName, value, timestamp, 0);
   }
 
@@ -199,9 +189,9 @@ public class MyJamStorageManager extends StorageManager implements IMyJamStorage
   public void insertSuperColumn(final String tableName, final String primaryKey, final String superColumn,
       final String columnName, final byte[] value) throws InternalBackEndException {
 
-    final long timestamp = (long) (System.currentTimeMillis() * 1E3);
+    final long timestamp = A_THOUSAND * System.currentTimeMillis();
     try {
-      insertExpiringColumn(tableName, primaryKey, superColumn.getBytes(), columnName.getBytes("UTF8"), value,
+      insertExpiringColumn(tableName, primaryKey, superColumn.getBytes(), columnName.getBytes(ENCODING), value,
           timestamp, 0);
     } catch (final UnsupportedEncodingException e) {
       e.printStackTrace();
@@ -421,7 +411,7 @@ public class MyJamStorageManager extends StorageManager implements IMyJamStorage
       final byte[] column) throws InternalBackEndException {
 
     final String columnFamily = tableName;
-    final long timestamp = (long) (System.currentTimeMillis() * 1E3);
+    final long timestamp = A_THOUSAND * System.currentTimeMillis();
     final ColumnPath columnPath = new ColumnPath(columnFamily);
     if (superColumn != null) {
       columnPath.setSuper_column(superColumn);
