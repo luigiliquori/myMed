@@ -15,7 +15,6 @@
  */
 package com.mymed.controller.core.manager.authentication;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 import com.mymed.controller.core.exception.IOBackEndException;
@@ -61,15 +60,9 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
     } catch (final IOBackEndException e) {
       // only if the user does not exist
       if (e.getStatus() == 404) {
-        try {
-          final Map<String, byte[]> authMap = authentication.getAttributeToMap();
-          storageManager.insertSlice(CF_AUTHENTICATION, new String(authMap.get(FIELD_LOGIN), ENCODING), authMap);
-        } catch (final UnsupportedEncodingException ex) {
-          LOGGER.debug(ERROR_ENCODING, ENCODING, ex);
-
-          throw new InternalBackEndException(ex.getMessage()); // NOPMD
-        }
-
+        final Map<String, byte[]> authMap = authentication.getAttributeToMap();
+        storageManager.insertSlice(CF_AUTHENTICATION,
+            com.mymed.utils.MConverter.byteArrayToString(authMap.get(FIELD_LOGIN)), authMap);
         return user;
       }
     }
@@ -107,13 +100,8 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
     // Insert the new Authentication
     storageManager.insertSlice(CF_AUTHENTICATION, FIELD_LOGIN, authentication.getAttributeToMap());
 
-    try {
-      final Map<String, byte[]> authMap = authentication.getAttributeToMap();
-      storageManager.insertSlice(CF_AUTHENTICATION, new String(authMap.get(FIELD_LOGIN), ENCODING), authMap);
-    } catch (final UnsupportedEncodingException ex) {
-      LOGGER.debug(ERROR_ENCODING, ENCODING, ex);
-
-      throw new InternalBackEndException(ex.getMessage()); // NOPMD
-    }
+    final Map<String, byte[]> authMap = authentication.getAttributeToMap();
+    storageManager.insertSlice(CF_AUTHENTICATION,
+        com.mymed.utils.MConverter.byteArrayToString(authMap.get(FIELD_LOGIN)), authMap);
   }
 }

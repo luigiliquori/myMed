@@ -15,7 +15,6 @@
  */
 package com.mymed.controller.core.manager;
 
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -126,7 +125,7 @@ public abstract class AbstractManager {
       mbean = (AbstractMBean) ctor.newInstance();
 
       for (final Entry<byte[], byte[]> arg : args.entrySet()) {
-        fieldName = new String(arg.getKey(), ENCODING);
+        fieldName = com.mymed.utils.MConverter.byteArrayToString(arg.getKey());
         final Field field = clazz.getDeclaredField(fieldName);
 
         /*
@@ -157,10 +156,6 @@ public abstract class AbstractManager {
       throw new InternalBackEndException(ex);
     } catch (final InvocationTargetException ex) {
       throw new InternalBackEndException(ex);
-    } catch (final UnsupportedEncodingException ex) {
-      // If we ever get here, there is something seriously wrong.
-      // This should never happen.
-      LOGGER.debug(ERROR_ENCODING, ENCODING, ex);
     } catch (final InstantiationException ex) {
       throw new InternalBackEndException(ex);
     }
