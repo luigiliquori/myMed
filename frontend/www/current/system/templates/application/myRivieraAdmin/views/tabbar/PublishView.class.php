@@ -1,6 +1,6 @@
 <?php
 
-require_once 'system/templates/application/' . APPLICATION_NAME . '/MyApplication.class.php';
+require_once 'system/templates/application/myRivieraAdmin/MyApplication.class.php';
 require_once 'lib/dasp/beans/MDataBean.class.php';
 require_once 'lib/dasp/request/Request.class.php';
 
@@ -25,7 +25,7 @@ class PublishView extends MyApplication {
 	 * Default constructor
 	 */
 	public function __construct() {
-		parent::__construct("myRivieraAdmin");
+		parent::__construct("myRiviera");
 	}
 	
 	/* --------------------------------------------------------- */
@@ -41,7 +41,7 @@ class PublishView extends MyApplication {
 			<!-- TOOLs -->
 			<div data-role="collapsible" data-theme="a" data-content-theme="c" data-collapsed="true" Style="text-align: left;">
 			   <h3>Tools</h3>
-			   <form action="?application=<?= APPLICATION_NAME ?>" method="get" rel="external">
+			   <form action="?application=<?= APPLICATION_NAME ?>Admin" method="get" rel="external">
 				   	<?php 
 				 	  	$address = "";
 						$longitude = "";
@@ -72,16 +72,16 @@ class PublishView extends MyApplication {
 			   <div style="color: gray;">
 			   		<h4>Example:</h4>
 			   		[<br/>
-					{"latitude" : "43.7755517", "longitude" : "7.504739",  "title" : "La Cantinella", "icon" : "http://mymed2.sophia.inria.fr/system/templates/application/myRiviera/img/resto.png"},<br/>
-					{"latitude" : "43.775383", "longitude" : "7.5012805",  "title" : "Méditerranée", "icon" : "http://mymed2.sophia.inria.fr/system/templates/application/myRiviera/img/resto.png"},<br/>
-					{"latitude" : "43.7828274", "longitude" : "7.5120867",  "title" : "Napoléon", "icon" : "http://mymed2.sophia.inria.fr/system/templates/application/myRiviera/img/resto.png"},<br/>
-					{"latitude" : "38.42228990140251", "longitude" : "7.5209301",  "title" : "Paris Rome", "icon" : "http://mymed2.sophia.inria.fr/system/templates/application/myRiviera/img/resto.png"}<br/>
+					{"latitude" : "43.7755517", "longitude" : "7.504739",  "title" : "La Cantinella", "description" : "restaurant", "icon" : "http://mymed2.sophia.inria.fr/system/templates/application/myRiviera/img/resto.png"},<br/>
+					{"latitude" : "43.775383", "longitude" : "7.5012805",  "title" : "Méditerranée", "description" : "restaurant", "icon" : "http://mymed2.sophia.inria.fr/system/templates/application/myRiviera/img/resto.png"},<br/>
+					{"latitude" : "43.7828274", "longitude" : "7.5120867",  "title" : "Napoléon", "description" : "restaurant", "icon" : "http://mymed2.sophia.inria.fr/system/templates/application/myRiviera/img/resto.png"},<br/>
+					{"latitude" : "38.42228990140251", "longitude" : "7.5209301",  "title" : "Paris Rome", "description" : "restaurant", "icon" : "http://mymed2.sophia.inria.fr/system/templates/application/myRiviera/img/resto.png"}<br/>
 					]<br/>
 			   </div>
-			   <form action="#" method="post" name="<?= APPLICATION_NAME ?>PublishForm1" id="<?= APPLICATION_NAME ?>PublishForm1" enctype="multipart/form-data">
+			   <form action="#" method="post" name="Test2Form" id="Test2Form" enctype="multipart/form-data">
 					<input type="hidden" name="poisrc" value="mymed" />
 					<textarea name="data" rows="" cols=""></textarea>
-					<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>PublishForm1.submit()">Publish</a>
+					<a href="#" data-role="button" onclick="document.Test2Form.submit()" rel="external">Publish</a>
 				</form>
 			</div>
 			
@@ -109,10 +109,21 @@ class PublishView extends MyApplication {
 					}<br/>
 					]<br/>
 			   </div>
-				<form action="#" method="post" name="<?= APPLICATION_NAME ?>PublishForm2" id="<?= APPLICATION_NAME ?>PublishForm2" enctype="multipart/form-data">
+				<form action="#" method="post" name="TestForm3" id="TestForm3" enctype="multipart/form-data">
 					<input type="hidden" name="poisrc" value="carf" />
 					<textarea name="data" rows="" cols=""></textarea>
-					<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>PublishForm2.submit()">Publish</a>
+					 <a href="#" data-role="button" onclick="document.TestForm3.submit()" rel="external">Publish</a>
+				</form>
+			</div>
+			
+			<!--TEST -->
+			<div data-role="collapsible" data-theme="a" data-content-theme="c" data-collapsed="true" Style="text-align: left;">
+			    <h3>Tests</h3>
+				<form action="#" method="post" name="TestForm4" id="TestForm4" enctype="multipart/form-data">
+					Longitude: <input name="longitude" type="text" value="" data-inline="true" /><br />
+				    Latitude: <input name="latitude" type="text" value="" data-inline="true" /><br />
+				    Radius: <input name="radius" type="text" value="" data-inline="true" /><br />
+				    <a href="#" data-role="button" onclick="document.TestForm4.submit()" rel="external">Send</a>
 				</form>
 			</div>
 		</div>

@@ -35,57 +35,29 @@ class TemplateManager {
 		<!-- JQUERY CSS -->
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
 		<link rel="stylesheet" href="lib/jquery/jquery.mobile.actionsheet.css" />
-		<link rel="stylesheet" href="lib/jquery/jquery.mobile.datebox.css" />
+		<!-- <link rel="stylesheet" href="lib/jquery/jquery.mobile.datebox.css" />-->
 		
 		
 		<!-- JQUERY -->
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-		<script type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
+		<script type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>		
 		<script type="text/javascript" src="lib/jquery/jquery.mobile.actionsheet.js"></script>
-	
-	  <!-- mouse wheel for desktops, overwrite jquery mobile --FIX works with jquery 1.6.4 but bugs with 1.7.* -->
-		<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
+		
+		<!-- mouse wheel for desktops, overwrite jquery mobile -- it works with jquery 1.6.4 but seems to bug with 1.7.* -->
+		<!-- <script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>-->
 		
 		<!-- JQUERY mobile datebox -->
-		<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
-		<!-- datebox lang config French? -->
-		<script>
-			jQuery.extend(jQuery.mobile.datebox.prototype.options.lang, {
-				'fr': {
-					setDateButtonLabel: 'Régler la date',
-					setTimeButtonLabel: "Régler l'heure",
-					setDurationButtonLabel: 'Régler la durée',
-					calTodayButtonLabel: "Aller à aujourd'hui",
-					titleDateDialogLabel: 'Date Fixée',
-					titleTimeDialogLabel: "Régler l'heure",
-					daysOfWeek: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
-					daysOfWeekShort: ['D','L','M','M','J','V','S'],
-					monthsOfYear: ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
-					monthsOfYearShort: ['Janv','Févr','Mars','Avril','Mai','Juin','Juil.','Août','Sept','Oct','Nov','Déc'],
-					durationLabel: ['Jours','Heures','Minutes','Secondes'],
-					durationDays: ['Jour','Jours'],
-					timeFormat: 24,
-					dateFieldOrder: ['d', 'm', 'y'],
-					timeFieldOrder: ['h', 'i', 'a'],
-					slideFieldOrder: ['y', 'm', 'd'],
-					headerFormat: 'ddd, mmm dd, YYYY',
-					dateFormat: 'dd/mm/YYYY',
-					isRTL: false
-				}
-			});
-			jQuery.extend(jQuery.mobile.datebox.prototype.options, {
-				useLang: 'fr'
-			});
-		</script>
-		
-		
+		<!-- <script type="text/javascript" src="lib/jquery/jquery.mobile.datebox.js"></script>-->
 		
 		<!-- MAP -->
-		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=<?= Google_APP_SECRET ?>&sensor=true"> </script>
+		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=<?= Google_APP_SECRET ?>&sensor=true&libraries=places"> </script>
 		
 		<!-- DATEBOX replaced by datebox jtusage -->
 		<!--  <script src="lib/jquery/datebox/jquery.mobile.datebox.min.js"></script>
 		<link href="lib/jquery/datebox/jquery.mobile.datebox.min.css" rel="stylesheet" />   -->
+		
+		<!-- DASP JAVASCRIPT LIBRARY -->
+		<script src="lib/dasp/javascript/dasp.js"></script>
 		
 		<!-- Common javascript -->
 		<script src="system/javascript/common.js"></script>

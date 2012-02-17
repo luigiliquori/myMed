@@ -35,21 +35,17 @@ class FindView extends MyApplication {
 	*/
 	public /*String*/ function getHeader() { ?>
 		<div data-role="header" data-theme="b">
-				
-			<a id="Iti" data-role="actionsheet" data-sheet="Itin" data-icon="search" class="ui-btn-left" onclick="setTime();">Itinéraire</a> 
+			<h1><?= TARGET == "mobile" ? " " : APPLICATION_NAME ?></h1>
+			<a id="Iti" data-role="actionsheet" data-sheet="Itin" data-icon="search" class="ui-btn-left">Itinéraire</a> 
 			
 			<div class="ui-btn-right">
-				<select name="select-choice" id="select-choice" multiple="multiple" data-native-menu="false" >
-					<option>Options</option>
-					<option value="places">Lieux Public</option>
-					<option value="restos">Restaurants</option>
-					<option value="museums">Musées</option>
-					<option value="events">Evenements</option>
+				<select name="select-filter" id="select-filter" multiple="multiple" data-native-menu="false" onchange="updateFilter()">
+					<option>Points d'interêts</option>
+					<option value="mymed">myMed</option>
+					<option value="carf">carf</option>
+					<option value="cityway">cityway</option>
 				</select>
 			</div>
-			
-			<h1>myRiviera</h1>
-
 			<!-- <a href="#Option" data-role="button" data-rel="dialog" class="ui-btn-right" data-icon="gear">Options</a>  -->
 		</div>
 	<?php }
@@ -62,64 +58,83 @@ class FindView extends MyApplication {
 		<div data-role="content" style="padding: 0px;">
 			
 			<div id="myRivieraMap"></div>
-			
-			<div id="itineraire" data-role="collapsible" data-theme="e" data-content-theme="e" style="width: <?= TARGET == "mobile" ? "94" : "50" ?>%;">
-				<h3>Feuille de route</h3>
-				<!-- ITINERAIRE -->
-				<?php if ($this->handler->getSuccess()) { ?> 				<!-- FROM CITYWAY -->
-					<script type="text/javascript">setTimeout("calcRouteFromCityWay('<?= $this->handler->getSuccess()->kmlurl ?>')", 500);</script>
-					<ul data-role="listview" data-inset="true" data-theme="d" data-divider-theme="e">
+
+			<?php if ($this->handler->getSuccess()) { ?> 				<!-- FROM CITYWAY -->
+				<div id="itineraire" data-role="collapsible" data-theme="b" data-content-theme="b" style="width: <?= TARGET == "mobile" ? "85" : "35" ?>%;">
+					<h3>Feuille de route</h3>
+					<!-- ITINERAIRE -->
+					<script type="text/javascript">setTimeout("calcRouteFromCityWay('<?= $_POST['Depart'] ?>','<?= $_POST['Arrivee'] ?>','<?= TARGET ?>')", 500);</script>
+					<ul data-role="listview" data-inset="true" data-theme="d" data-divider-theme="b">
 						<?php $listDivider = null;?>
 						<?php $i=0 ?>
 						<?php foreach($this->handler->getSuccess()->itineraire->ItineraryObj->tripSegments->tripSegment as $tripSegment) { ?>
-		
 							<?php if($listDivider == null || $listDivider != $tripSegment->type) { ?>
+								<?php $icon = null ?>
 								<li data-role="list-divider"><?php 
 									if($tripSegment->type == "WALK") { ?>
-										<!-- <img alt="Marche" src="system/templates/application/myRiviera/img/<?= strtolower($tripSegment->type) ?>.png" /> -->
 										<span>Marche</span>
+										<?php $titre = "Marche" ?>
+										<?php $icon = "system/templates/application/myRiviera/img/" . strtolower($tripSegment->type) . ".png" ?>
 									<?php } else if($tripSegment->type == "CONNECTION") { ?>
 										<span>Connection</span>
-									<?php } else  { ?>
-										<!-- <img alt="Marche" src="system/templates/application/myRiviera/img/<?= strtolower($tripSegment->transportMode) ?>.png" /> -->
+									<?php } else if($tripSegment->type == "WAIT") { ?>
+										<span>Attendre</span>
+										</li>
+										<li style="font-size: 9pt; font-weight: lighter; padding:2px;">
+											<span>Durée: <?= $tripSegment->duration ?>min</span>
+										</li>
+										<?php $listDivider = null;?>
+										<?php continue; ?>
+									<?php } else { ?>
 										<span><?= strtolower($tripSegment->transportMode) ?></span>
+										<?php $titre = strtolower($tripSegment->transportMode) ?>
+										<?php $icon = "system/templates/application/myRiviera/img/" . strtolower($tripSegment->transportMode) . ".png" ?>
 									<?php } ?>	
 								</li>
 								<?php $listDivider = $tripSegment->type ?>
 							<?php } ?>
-							
+							  
 							<?php
 							$latitude =   $tripSegment->departurePoint->latitude;
 							$longitude = $tripSegment->departurePoint->longitude;
-							$poi =  str_replace("'", "", json_encode($tripSegment->poi)); 
+							if(isset($tripSegment->poi)){
+								$poi =  str_replace("'", "", json_encode($tripSegment->poi)); 
+							}
 							?>
-							<input id="<?= $i ?>_latitude" type="hidden" value='<?= $latitude ?>' />
-							<input id="<?= $i ?>_longitude" type="hidden" value='<?= $longitude ?>' />
 							<input id="<?= $i ?>_poi" type="hidden" value='<?= $poi ?>' />
 							
 							<li style="font-size: 9pt; font-weight: lighter; padding:2px;">
-								<a href="#" onclick="focusOn('<?= $i ?>'); <?= TARGET == "mobile" ? "$('#itineraire').trigger('collapse');" : "" ?>" data-icon="search" >
+								
+								<!-- FOCUS ON -->
+								<a href="#" onclick="
+								focusOn('<?= $i ?>', '<?= $latitude ?>', '<?= $longitude ?>');
+								addPOI('<?= $latitude ?>', '<?= $longitude ?>', '<?= $icon ?>', '<?= $titre ?>', '<?= urlencode($tripSegment->comment) ?>', true);
+								<?= TARGET == "mobile" ? "$('#itineraire').trigger('collapse');" : "" ?>"
+								data-icon="search" >
 									<?php if(isset($tripSegment->distance)) { ?>
-										<span>Distance: <?= $tripSegment->distance ?>m</span>
+									<span>Distance: <?= $tripSegment->distance ?>m</span>
 									<?php } else { ?>
-										<span>Durée: <?= $tripSegment->duration ?>min</span>
+									<span>Durée: <?= $tripSegment->duration ?>min</span>
 									<?php } ?>
 								</a>
-								<p style="width: 90%;">
-									<?= $tripSegment->comment ?>
-								</p>
+								<p style="width: 90%;"><?= $tripSegment->comment ?></p>
 							</li>
 									
 							<?php $i++ ?>
 						<?php } ?>
 					</ul>
 					<br />
-				</div>
-			<?php } else if($this->handler->getError() == "1") { ?>  	<!-- FROM GOOGLE -->
-				<input type="hidden" id="start" value="<?= $_POST['Départ'] ?>"/>
-				<input type="hidden" id="end" value="<?= $_POST['Arrivée'] ?>"/>
-				<script type="text/javascript">setTimeout("calcRouteFromGoogle()", 500);</script>
-			<?php } ?>
+				</div>	
+				<?php } else if($this->handler->getError() == "1") {?>  	<!-- FROM GOOGLE -->
+					<div id="itineraire" data-role="collapsible" data-theme="b" data-content-theme="b" style="width: <?= TARGET == "mobile" ? "85" : "50" ?>%;">
+						<h3>Feuille de route</h3>
+						<!-- ITINERAIRE -->
+						<ul data-role="listview" data-inset="true" data-theme="d" data-divider-theme="b">
+						</ul>
+					</div>
+					<script type="text/javascript">setTimeout("calcRouteFromGoogle('<?= $_POST['Depart'] ?>','<?= $_POST['Arrivee'] ?>','<?= TARGET ?>')", 500);</script>
+				<?php } ?>
+			
 			
 			<!-- POIs -->
 			<?php 

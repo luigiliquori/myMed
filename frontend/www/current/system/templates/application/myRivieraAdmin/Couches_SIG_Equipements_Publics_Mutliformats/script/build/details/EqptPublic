@@ -1,7 +1,7 @@
 {
-"type": "FeatureCollection",
+"type": "EqptPublicCollection",
 "features": [
-{ "type": "Feature", "properties": { "ADRESSE": "Quai de Monléon", "CODE_POSTA": "06500", "VILLE": "MENTON", "PAYS": "FRANCE", "NOM": "HALLES MUNICIPALES", "DESCRIPTIO": "", "LAT": "", "LNG": "" }, "geometry": { "type": "Point", "coordinates": [ 7.506131, 43.775225 ] } }
+{ "type": "EqptPublic", "properties": { "ADRESSE": "Quai de Monléon", "CODE_POSTA": "06500", "VILLE": "MENTON", "PAYS": "FRANCE", "NOM": "HALLES MUNICIPALES", "DESCRIPTIO": "", "LAT": "", "LNG": "" }, "geometry": { "type": "Point", "coordinates": [ 7.506131, 43.775225 ] } }
 
 ]
 }

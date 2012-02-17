@@ -8,6 +8,8 @@ require_once 'lib/dasp/request/GetDetail.class.php';
 require_once 'lib/dasp/request/StartInteraction.class.php';
 
 require_once 'system/templates/application/' . APPLICATION_NAME . '/lib/Convert.class.php';
+ 
+
 
 /**
  * 
@@ -37,41 +39,25 @@ class MyApplicationHandler implements IRequestHandler {
 	public /*void*/ function handleRequest() { 
 		if(isset($_POST['method'])) {
 			if($_POST['method'] == "find") {
-				if(isset($_POST['Départ']) && isset($_POST['Arrivée'])) {
-					
-					if ( $_POST['Départ']=='' && strpos($_POST['mapos'], '&') != false) {
-						$dep = explode("&", $_POST['mapos']);
-						
-						$geocode1 = json_decode(
-						  '{
-						  "status": "OK",
-						  "results": [
-						  			{
-						  				"geometry": {
-						  					"location":{
-						  						"lat": '.$dep[0].',
-						  						"lng": '.$dep[1].'
-						  					}
-						  				}
-										}
-						  		]
-						  	}'
-						);
-						//echo '<script type="text/javascript">alert(\' oo' . $geocode1->status .' '.$geocode1->results[0]->geometry->location->lat.' '.$geocode1->results[0]->geometry->location->lng .'\');</script>';
-					}else{
-						// CALL TO GOOGLE GEOCODE API
-						//echo '<script type="text/javascript">alert(\' kk\');</script>';
-						$geocode1 = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($_POST['Départ']) . "&sensor=true"));
+				if(isset($_POST['Depart']) && isset($_POST['Arrivee'])) {
+					if ( empty($_POST['Depart']) && isset($_POST['DepartGeo']) ) { //we use lon & lat couple given by DepartGeo
+						$dep = explode("&", $_POST['DepartGeo']);
+						$geocode1 = json_decode('{' .
+							'"status": "OK",' . 
+							'"results": [ { "geometry": { "location":{ "lat": '.$dep[0].',"lng": '.$dep[1].'} } } ]' . 
+							'}');
+					} else {
+						$geocode1 = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($_POST['Depart']) . "&sensor=true"));
 					}
-					
-					$geocode2 = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($_POST['Arrivée']) . "&sensor=true"));
+					$geocode2 = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($_POST['Arrivee']) . "&sensor=true"));
 
-					// CALL TO CITYWAY API
 					if($geocode1->status == "OK" && $geocode2->status == "OK"){
 						
-						// FORMAT date for cityway
-						$tmp = preg_split("/[^0-9]+/", $_POST['date']);
-												
+						// Memorize the Starting and the ending point
+						echo '<input id="geocodeStartingPoint" type="hidden" value="' . $geocode1->results[0]->geometry->location->lat . ',' . $geocode1->results[0]->geometry->location->lng . '" />';
+						echo '<input id="geocodeEndingPoint" type="hidden" value="' . $geocode2->results[0]->geometry->location->lat . ',' . $geocode2->results[0]->geometry->location->lng . '" />';
+						
+						// CALL TO CITYWAY API
 						$args = "&mode=transit" . 
 						"&depLon=" . $geocode1->results[0]->geometry->location->lng .
 						"&depLat=" . $geocode1->results[0]->geometry->location->lat .
@@ -80,12 +66,7 @@ class MyApplicationHandler implements IRequestHandler {
 						"&arrLat=" . $geocode2->results[0]->geometry->location->lat .
 						"&arrType=7" . 
 						"&departureTime=" . 
-						$tmp[4]."-".
-						($tmp[3] < 10 ? "0" . $tmp[3] : $tmp[3]) . "-".
-						($tmp[2] < 10 ? "0" . $tmp[2] : $tmp[2]) . "_".
-						($tmp[0] < 10 ? "0" . $tmp[0] : $tmp[0])."-".
-						$tmp[1];
-						
+						sprintf('%d-%02d-%02d_%02d-%02d',$_POST['select-year'],$_POST['select-month'],$_POST['select-day'],$_POST['select-hour'],$_POST['select-minute']);
 						$itineraire = file_get_contents(Cityway_URL . "/tripplanner/v1/detailedtrip/json?key=" . Cityway_APP_ID . $args);
 						$itineraireObj = json_decode($itineraire);
 						
@@ -105,7 +86,7 @@ class MyApplicationHandler implements IRequestHandler {
 								"&POICategory=-1";
 								$pois = json_decode(file_get_contents(Cityway_URL . "/display/v1/GetTripPointByWGS84/json?key=" . Cityway_APP_ID . $args));
 
-								if($pois->TripPointServiceObj->Status->code == 0) {
+								if($pois->TripPointServiceObj->Status->code == "0") {
 									$i = 0;
 									$tripSegment->poi = array();
 									foreach($pois->TripPointServiceObj->TripPoint as $poi) {

@@ -37,7 +37,6 @@ import com.mymed.model.data.geolocation.MSearchBean;
  */
 @WebServlet("/POIRequestHandler")
 public class POIRequestHandler extends AbstractRequestHandler {
-
   /**
    * Generated serial version.
    */

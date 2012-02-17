@@ -28,7 +28,6 @@ import com.mymed.utils.locator.Locator;
  * 
  */
 public class GeoLocationManager extends AbstractManager {
-
   /**
    * Long value for 1,000.
    */

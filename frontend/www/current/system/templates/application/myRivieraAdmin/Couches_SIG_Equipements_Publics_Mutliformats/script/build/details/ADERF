@@ -1,7 +1,7 @@
 {
-"type": "FeatureCollection",
+"type": "ADERFCollection",
 "features": [
-{ "type": "Feature", "properties": { "NOM": "ADERF", "ADRESSE": "8 val de Menton", "CODE_POSTA": "06500", "VILLE": "menton", "PAYS": "France", "RESPONSABL": "Cédrick Hérisson", "PRésIDENT": "Claude Gaven", "TélépHONE": "04 93 57 01 08", "DESCRIPTIO": "Cette association mise en place le 06 août 2001 a pour vocation le développement économique du territoire de la Communauté d’Agglomération de la Riviera Française", "SOURCE": "CARF", "DE_SAISIE": "02\/02008", "LAT": "43.776666", "LNG": "7.505068" }, "geometry": { "type": "Point", "coordinates": [ 7.505063, 43.776671 ] } }
+{ "type": "ADERF", "properties": { "NOM": "ADERF", "ADRESSE": "8 val de Menton", "CODE_POSTA": "06500", "VILLE": "menton", "PAYS": "France", "RESPONSABL": "Cédrick Hérisson", "PRésIDENT": "Claude Gaven", "TélépHONE": "04 93 57 01 08", "DESCRIPTIO": "Cette association mise en place le 06 août 2001 a pour vocation le développement économique du territoire de la Communauté d’Agglomération de la Riviera Française", "SOURCE": "CARF", "DE_SAISIE": "02\/02008", "LAT": "43.776666", "LNG": "7.505068" }, "geometry": { "type": "Point", "coordinates": [ 7.505063, 43.776671 ] } }
 
 ]
 }

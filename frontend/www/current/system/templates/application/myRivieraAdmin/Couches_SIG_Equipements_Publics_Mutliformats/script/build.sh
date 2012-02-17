@@ -19,9 +19,15 @@ for f in $(find *.json)
 do
 	mv $f ${f//epsg*/}
 done
-cd ../../
+
+# update the "type" attribute
+for f in $(find *)
+do
+	sed -i "s#Feature#$f#g" $f
+done
 
 # create the result concatenation
+cd ../../
 rm build/result.json
 touch build/tmp.json
 echo "[" >> build/tmp.json

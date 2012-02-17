@@ -1,0 +1,21 @@
+{
+"type": "JardinsCollection",
+"features": [
+{ "type": "Jardins", "properties": { "ADRESSE": "3 avenue de la Madone", "CODE_POSTA": "06500", "VILLE": "menton", "PAYS": "france", "NOM": "Jardin du Palais de Carnolès", "DESCRIPTIO": "04 93 35 49 71", "LAT": "43.766719", "LNG": "7.488593" }, "geometry": { "type": "Point", "coordinates": [ 7.488588, 43.766724 ] } }
+,
+{ "type": "Jardins", "properties": { "ADRESSE": "avenue Blasco Ibanez", "CODE_POSTA": "06500", "VILLE": "menton", "PAYS": "france", "NOM": "Jardin Fontana Rosa", "DESCRIPTIO": "04 92 10 33 66", "LAT": "43.785249", "LNG": "7.515039" }, "geometry": { "type": "Point", "coordinates": [ 7.515033, 43.785254 ] } }
+,
+{ "type": "Jardins", "properties": { "ADRESSE": "avenue Saint-Jacques", "CODE_POSTA": "06500", "VILLE": "menton", "PAYS": "france", "NOM": "Jardin Val Rahmeh\/Botanique ex", "DESCRIPTIO": "04 93 35 86 72", "LAT": "43.783942", "LNG": "7.511901" }, "geometry": { "type": "Point", "coordinates": [ 7.511896, 43.783948 ] } }
+,
+{ "type": "Jardins", "properties": { "ADRESSE": "Raccourci des Colombières", "CODE_POSTA": "06500", "VILLE": "menton", "PAYS": "france", "NOM": "Jardin des Colombières", "DESCRIPTIO": "04 93 35 71 90", "LAT": "43.786316", "LNG": "7.517557" }, "geometry": { "type": "Point", "coordinates": [ 7.517553, 43.786321 ] } }
+,
+{ "type": "Jardins", "properties": { "ADRESSE": "74 route de Gorbio", "CODE_POSTA": "06500", "VILLE": "MENTON", "PAYS": "France", "NOM": "Jardin des Serres de la Madone", "DESCRIPTIO": "04 93 57 73 90", "LAT": "", "LNG": "" }, "geometry": { "type": "Point", "coordinates": [ 7.474787, 43.775153 ] } }
+,
+{ "type": "Jardins", "properties": { "ADRESSE": "21 promenade Reine Astrid", "CODE_POSTA": "06500", "VILLE": "MENTON", "PAYS": "France", "NOM": "Jardin de la Villa Maria Serena", "DESCRIPTIO": "04 92 10 33 66", "LAT": "", "LNG": "" }, "geometry": { "type": "Point", "coordinates": [ 7.528961, 43.784982 ] } }
+,
+{ "type": "Jardins", "properties": { "ADRESSE": "", "CODE_POSTA": "06500", "VILLE": "Sainte-Agnès", "PAYS": "France", "NOM": "Jardin Médiéval de Saint-Agnès", "DESCRIPTIO": "08 99 23 23 74", "LAT": "", "LNG": "" }, "geometry": { "type": "Point", "coordinates": [ 7.463326, 43.800459 ] } }
+,
+{ "type": "Jardins", "properties": { "ADRESSE": "6 avenue Blasco IBANEZ", "CODE_POSTA": "06500", "VILLE": "MENTON", "PAYS": "FRANCE", "NOM": "Fontana Rosa, le jardin des Romanciers", "DESCRIPTIO": "Jardin", "LAT": "", "LNG": "" }, "geometry": { "type": "Point", "coordinates": [ 7.516308, 43.785447 ] } }
+
+]
+}
