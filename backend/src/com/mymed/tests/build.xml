@@ -44,65 +44,65 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
     <property name="classes.dir"        location="${build.dir}"/>
     <property name="mymed.jar"            value="mymed.jar"/>
 
-  <!-- This is the classpath for compiling the tests, since we need also Glassfish and JavaEE -->
-  <path id="classpath.compile" description="Classpath to be used for compiling the tests">
-    <pathelement path="${java.class.path}"/>
-    <pathelement location="${conf.dir}"/>
-    <pathelement location="${junit.dir}/junit.jar"/>
-    <pathelement location="."/>
-    <!-- Keep this one here, otherwise it is possible to get nasty compilation errors due
-    to how JARs are imported on the CLASSPATH, and there could be errors with JARs coming
-    from Cassandra -->
-    <fileset dir="${glassfish.dir}">
-      <include name="**/javaee.jar"/>
-    </fileset>
-    <fileset dir="${java.dir}">
-      <include name="**/*.jar"/>
-    </fileset>
-    <fileset dir="${web.content.lib.dir}">
-      <include name="**/*.jar"/>
-    </fileset>
-    <fileset dir="${ext.dir}">
-      <include name="**/*.jar"/>
-    </fileset>
-  </path>
+    <!-- This is the classpath for compiling the tests, since we need also Glassfish and JavaEE -->
+    <path id="classpath.compile" description="Classpath to be used for compiling the tests">
+        <pathelement path="${java.class.path}"/>
+        <pathelement location="${conf.dir}"/>
+        <pathelement location="${junit.dir}/junit.jar"/>
+        <pathelement location="."/>
+    	<!-- Keep this one here, otherwise it is possible to get nasty compilation errors due
+        to how JARs are imported on the CLASSPATH, and there could be errors with JARs coming
+        from Cassandra -->
+        <fileset dir="${glassfish.dir}">
+            <include name="**/javaee.jar"/>
+        </fileset>
+        <fileset dir="${java.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+        <fileset dir="${web.content.lib.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+        <fileset dir="${ext.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
 
-  <!--
-  This is the classpath for running the tests. It is different than the above one because
-  of the problem we have running the tests with JavaEE on the classpath. Since for the tests
-  it is not needed, we exlude it and use a different one
-   -->
-  <path id="classpath.run" description="Classpath to be used for running the tests">
-    <pathelement path="${java.class.path}"/>
-    <pathelement location="${instrumented.dir}"/>
-    <pathelement location="${build.dir}"/>
-    <pathelement location="${conf.dir}"/>
-    <pathelement location="${junit.dir}/junit.jar"/>
-    <pathelement location="."/>
-    <fileset dir="${java.dir}">
-      <include name="**/*.jar"/>
-    </fileset>
-    <fileset dir="${web.content.lib.dir}">
-      <include name="**/*.jar"/>
-    </fileset>
-    <fileset dir="${ext.dir}">
-      <include name="**/*.jar"/>
-    </fileset>
-  </path>
+    <!--
+    This is the classpath for running the tests. It is different than the above one because
+    of the problem we have running the tests with JavaEE on the classpath. Since for the tests
+    it is not needed, we exlude it and use a different one
+    -->
+    <path id="classpath.run" description="Classpath to be used for running the tests">
+        <pathelement path="${java.class.path}"/>
+        <pathelement location="${instrumented.dir}"/>
+        <pathelement location="${build.dir}"/>
+        <pathelement location="${conf.dir}"/>
+        <pathelement location="${junit.dir}/junit.jar"/>
+        <pathelement location="."/>
+        <fileset dir="${java.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+        <fileset dir="${web.content.lib.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+        <fileset dir="${ext.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
 
-  <!-- EMMA code coverage taskdef -->
-  <taskdef resource="emma_ant.properties" classpathref="classpath.run"/>
+    <!-- EMMA code coverage taskdef -->
+    <taskdef resource="emma_ant.properties" classpathref="classpath.run"/>
 
     <!-- - - - - - - - - - - - - - - - - -
           target: init
          - - - - - - - - - - - - - - - - - -->
-  <target name="init" description="Initialize the necessary directories">
-    <mkdir dir="${build.dir}" />
-    <mkdir dir="${lib.dir}" />
-    <mkdir dir="${results.dir}" />
-    <mkdir dir="${instrumented.dir}" />
-    <mkdir dir="${coverage.dir}" />
-  </target>
+    <target name="init" description="Initialize the necessary directories">
+        <mkdir dir="${build.dir}" />
+        <mkdir dir="${lib.dir}" />
+        <mkdir dir="${results.dir}" />
+        <mkdir dir="${instrumented.dir}" />
+        <mkdir dir="${coverage.dir}" />
+    </target>
 
     <!-- - - - - - - - - - - - - - - - - -
           target: compile
@@ -223,21 +223,21 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
     </emma>
   </target>
 
-  <!-- - - - - - - - - - - - - - - - - -
+    <!-- - - - - - - - - - - - - - - - - -
         target: cleanbuild
        - - - - - - - - - - - - - - - - - -->
-  <target name="cleanbuild" description="Clean the build directory from other directories">
-    <delete includeemptydirs="true" failonerror="false">
-      <fileset dir="${build.dir}" includes="**/*"/>
-    </delete>
-  </target>
+    <target name="cleanbuild" description="Clean the build directory from other directories">
+        <delete includeemptydirs="true" failonerror="false">
+            <fileset dir="${build.dir}" includes="**/*"/>
+        </delete>
+    </target>
 
-  <!-- =================================
+    <!-- =================================
           target: clean
        ================================= -->
-  <target name="clean" description="Remove the directories used for the build">
-    <delete dir="${build.dir}" />
-    <delete dir="${lib.dir}" />
-    <delete dir="${results.dir}" />
-  </target>
+    <target name="clean" description="Remove the directories used for the build">
+        <delete dir="${build.dir}" />
+        <delete dir="${lib.dir}" />
+        <delete dir="${results.dir}" />
+    </target>
 </project>

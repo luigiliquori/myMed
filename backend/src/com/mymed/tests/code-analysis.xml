@@ -46,9 +46,6 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
         <exclude name="**/*.jar"/>
     </fileset>
 
-    <dirset>
-    </dirset>
-
     <!-- This is the classpath for compiling the tests, since we need also Glassfish and JavaEE -->
     <path id="mymed.classpath" description="Classpath to be used for compiling the tests">
         <pathelement path="${java.class.path}"/>
