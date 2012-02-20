@@ -37,7 +37,7 @@ public class KeysFinder {
   /**
    * Initialize the keys finder creating an empty covering set.
    */
-  protected KeysFinder() {
+  public KeysFinder() {
     coveringSet = new HashSet<HilbertQuad>();
   }
 
@@ -57,7 +57,7 @@ public class KeysFinder {
    * @param quads
    *          List of HilbertQuad of the covering set.
    */
-  protected List<long[]> getKeysRanges(final Location loc, final int radius) {
+  public List<long[]> getKeysRanges(final Location loc, final int radius) {
     final List<long[]> keysRanges = new ArrayList<long[]>(MAX_RANGES);
 
     getBound(loc, radius);
@@ -74,19 +74,19 @@ public class KeysFinder {
    *          The index of the position.
    * @return
    */
-  protected static int getAreaId(final long index) throws IllegalArgumentException {
+  public static int getAreaId(final long index) throws IllegalArgumentException {
     long mask;
     int zeroBits;
 
-    if (index < 0 || index > (long) (Math.pow(2, HilbertQuad.numBits) - 1)) {
+    if (index < 0 || index > (long) (Math.pow(2, HilbertQuad.NUM_BITS) - 1)) {
       throw new IllegalArgumentException("key is out of bound");
     }
 
     /*
      * The mask composed by AREA_MASK_LEN '1', and the remaining bits
-     * (numBits-AREA_MASK_LEN) '0' is created.
+     * (NUM_BITS-AREA_MASK_LEN) '0' is created.
      */
-    zeroBits = HilbertQuad.numBits - AREA_MASK_LEN;
+    zeroBits = HilbertQuad.NUM_BITS - AREA_MASK_LEN;
     mask = (long) Math.pow(2, AREA_MASK_LEN) - 1;
     mask = mask << zeroBits;
     /*
@@ -95,7 +95,7 @@ public class KeysFinder {
     return (int) ((index & mask) >>> zeroBits);
   }
 
-  protected Set<HilbertQuad> getCoveringSet() {
+  public Set<HilbertQuad> getCoveringSet() {
     return coveringSet;
   }
 
@@ -193,7 +193,7 @@ public class KeysFinder {
      */
     short depth = 0;
     List<HilbertQuad> nextExpandable = null;
-    while (expanded && level < HilbertQuad.maxLevel && depth < MAX_DEPTH) {
+    while (expanded && level < HilbertQuad.MAX_LEVEL && depth < MAX_DEPTH) {
       expanded = false;
       // After the first iteration in which nextExpandable is null, expandable
       // list is populated.
@@ -332,7 +332,7 @@ public class KeysFinder {
        */
       deltaLonBound = maxLon - minLon + 2 * Math.PI;
     }
-    for (level = 1; level < HilbertQuad.maxLevel; level++) {
+    for (level = 1; level < HilbertQuad.MAX_LEVEL; level++) {
       // If the HilbertQuads at this level are no more sufficient to cover the
       // bounding box.
       if (deltaLon < deltaLonBound || deltaLat < deltaLatBound) {

@@ -107,121 +107,123 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
     <!-- - - - - - - - - - - - - - - - - -
           target: compile
          - - - - - - - - - - - - - - - - - -->
-  <target name="compile" depends="init,cleanbuild" description="Compile the necessary files">
-    <javac srcdir="${src.compile.dir}" destdir="${build.dir}" debug="on" fork="true" includeantruntime="true" includejavaruntime="true">
-      <classpath refid="classpath.compile"/>
-    </javac>
-    <jar destfile="${lib.dir}/${mymed.jar}" basedir="${build.dir}" duplicate="preserve" index="yes"/>
-  </target>
+    <target name="compile" depends="init,cleanbuild" description="Compile the necessary files">
+        <javac srcdir="${src.compile.dir}" destdir="${build.dir}" debug="on" fork="true" includeantruntime="true" includejavaruntime="true">
+            <classpath refid="classpath.compile"/>
+        </javac>
+        <jar destfile="${lib.dir}/${mymed.jar}" basedir="${build.dir}" duplicate="preserve" index="yes"/>
+    </target>
 
     <!-- - - - - - - - - - - - - - - - - -
           target: compiletest
          - - - - - - - - - - - - - - - - - -->
-  <target name="compiletest" depends="compile,cleanbuild" description="Compile the test classes">
-    <javac srcdir="${tests.dir}" destdir="${build.dir}" debug="on" fork="true" includeantruntime="true" includejavaruntime="true">
-      <classpath refid="classpath.compile"/>
-      <include name="**/*.java"/>
-    </javac>
-  </target>
+    <target name="compiletest" depends="compile,cleanbuild" description="Compile the test classes">
+        <javac srcdir="${tests.dir}" destdir="${build.dir}" debug="on" fork="true" includeantruntime="true" includejavaruntime="true">
+            <classpath refid="classpath.compile"/>
+            <include name="**/*.java"/>
+        </javac>
+    </target>
 
-  <!-- =================================
+    <!-- =================================
           target: managers
        ================================= -->
-  <target name="managers" depends="compiletest" description="Run all the JUnit tests for the Manager classes">
-      <emma enabled="true">
-          <instr instrpath="${classes.dir}" destdir="${instrumented.dir}" metadatafile="${coverage.dir}/metadata-managers.emma" merge="true">
-              <filter excludes="com.google.*"/>
-              <filter excludes="com.mymed.tests.*"/>
-              <filter excludes="org.apache.*"/>
-          </instr>
-      </emma>
-    <junit printsummary="yes" haltonfailure="no" showoutput="yes" includeantruntime="true" fork="yes">
-      <classpath refid="classpath.run"/>
-      <test name="com.mymed.tests.unit.manager.MyMedTestSuite" todir="${results.dir}" outfile="TEST-Managers"/>
-      <formatter type="xml"/>
-      <batchtest fork="true"/>
-    </junit>
-      <emma enabled="true">
-        <merge outfile="${coverage.dir}/coverage.emma">
-            <fileset dir="${coverage.dir}">
-                <include name="*.emma"/>
-            </fileset>
-            <fileset file="${basedir}/*.ec"/>
-        </merge>
-        <report sourcepath="${src.dir}" depth="method">
-          <fileset dir="${coverage.dir}">
-            <include name="*.emma" />
-          </fileset>
-          <xml outfile="${coverage.dir}/coverage.xml"/>
-        </report>
-      </emma>
-  </target>
+    <target name="managers" depends="compiletest" description="Run all the JUnit tests for the Manager classes">
+        <!-- Emma code coverage boilerplate -->
+        <emma enabled="true">
+            <instr instrpath="${classes.dir}" destdir="${instrumented.dir}" metadatafile="${coverage.dir}/metadata-managers.emma" merge="true">
+                <filter excludes="com.google.*"/>
+                <filter excludes="com.mymed.tests.*"/>
+                <filter excludes="org.apache.*"/>
+            </instr>
+        </emma>
+        <junit printsummary="yes" haltonfailure="no" showoutput="yes" includeantruntime="true" fork="yes">
+            <classpath refid="classpath.run"/>
+            <test name="com.mymed.tests.unit.manager.MyMedTestSuite" todir="${results.dir}" outfile="TEST-Managers"/>
+            <formatter type="xml"/>
+            <batchtest fork="true"/>
+        </junit>
+        <!-- Emma code coverage boilerplate -->
+        <emma enabled="true">
+            <merge outfile="${coverage.dir}/coverage.emma">
+                <fileset dir="${coverage.dir}">
+                    <include name="*.emma"/>
+                </fileset>
+                <fileset file="${basedir}/*.ec"/>
+            </merge>
+            <report sourcepath="${src.dir}" depth="method">
+                <fileset dir="${coverage.dir}">
+                    <include name="*.emma" />
+                </fileset>
+                <xml outfile="${coverage.dir}/coverage.xml"/>
+            </report>
+        </emma>
+    </target>
 
-  <!-- =================================
+    <!-- =================================
           target: handlers
        ================================= -->
-  <target name="handlers" depends="compiletest" description="Run all the JUnit tests for the RequestHandler">
-      <emma enabled="true">
-          <instr instrpath="${classes.dir}" destdir="${instrumented.dir}" metadatafile="${coverage.dir}/metadata-handlers.emma" merge="true">
-              <filter excludes="com.google.*"/>
-              <filter excludes="com.mymed.tests.*"/>
-              <filter excludes="org.apache.*"/>
-          </instr>
-      </emma>
-    <junit printsummary="yes" haltonfailure="no" showoutput="yes" includeantruntime="true" fork="yes">
-      <classpath refid="classpath.run"/>
-       <test name="com.mymed.tests.unit.handler.RequestHandlerSuite" todir="${results.dir}" outfile="TEST-Handlers"/>
-       <formatter type="xml"/>
-       <batchtest fork="true"/>
-    </junit>
-      <emma enabled="true">
-        <merge outfile="${coverage.dir}/coverage.emma">
-            <fileset dir="${coverage.dir}">
-                <include name="*.emma"/>
-            </fileset>
-            <fileset file="${basedir}/*.ec"/>
-        </merge>
-        <report sourcepath="${src.dir}" depth="method">
-          <fileset dir="${coverage.dir}">
-            <include name="*.emma" />
-          </fileset>
-          <xml outfile="${coverage.dir}/coverage.xml"/>
-        </report>
-      </emma>
-  </target>
+    <target name="handlers" depends="compiletest" description="Run all the JUnit tests for the RequestHandler">
+        <emma enabled="true">
+            <instr instrpath="${classes.dir}" destdir="${instrumented.dir}" metadatafile="${coverage.dir}/metadata-handlers.emma" merge="true">
+                <filter excludes="com.google.*"/>
+                <filter excludes="com.mymed.tests.*"/>
+                <filter excludes="org.apache.*"/>
+            </instr>
+        </emma>
+        <junit printsummary="yes" haltonfailure="no" showoutput="yes" includeantruntime="true" fork="yes">
+            <classpath refid="classpath.run"/>
+            <test name="com.mymed.tests.unit.handler.RequestHandlerSuite" todir="${results.dir}" outfile="TEST-Handlers"/>
+            <formatter type="xml"/>
+            <batchtest fork="true"/>
+        </junit>
+        <emma enabled="true">
+            <merge outfile="${coverage.dir}/coverage.emma">
+                <fileset dir="${coverage.dir}">
+                    <include name="*.emma"/>
+                </fileset>
+                <fileset file="${basedir}/*.ec"/>
+            </merge>
+            <report sourcepath="${src.dir}" depth="method">
+                <fileset dir="${coverage.dir}">
+                    <include name="*.emma" />
+                </fileset>
+                <xml outfile="${coverage.dir}/coverage.xml"/>
+            </report>
+        </emma>
+    </target>
 
-  <!-- =================================
+    <!-- =================================
           target: beans
        ================================= -->
-  <target name="beans" depends="compiletest" description="Run all the JUnit tests for the bean classes">
-      <emma enabled="true">
-          <instr instrpath="${classes.dir}" destdir="${instrumented.dir}" metadatafile="${coverage.dir}/metadata-beans.emma" merge="true">
-              <filter excludes="com.google.*"/>
-              <filter excludes="com.mymed.tests.*"/>
-              <filter excludes="org.apache.*"/>
-          </instr>
-      </emma>
-    <junit printsummary="yes" haltonfailure="no" showoutput="yes" includeantruntime="true" fork="yes">
-      <classpath refid="classpath.run"/>
-      <test name="com.mymed.tests.unit.bean.BeansTestSuite" todir="${results.dir}" outfile="TEST-Beans"/>
-      <formatter type="xml"/>
-      <batchtest fork="true"/>
-    </junit>
-    <emma enabled="true">
-      <merge outfile="${coverage.dir}/coverage.emma">
-          <fileset dir="${coverage.dir}">
-              <include name="*.emma"/>
-          </fileset>
-          <fileset file="${basedir}/*.ec"/>
-      </merge>
-      <report sourcepath="${src.dir}" depth="method">
-        <fileset dir="${coverage.dir}">
-          <include name="*.emma" />
-        </fileset>
-        <xml outfile="${coverage.dir}/coverage.xml"/>
-      </report>
-    </emma>
-  </target>
+    <target name="beans" depends="compiletest" description="Run all the JUnit tests for the bean classes">
+        <emma enabled="true">
+            <instr instrpath="${classes.dir}" destdir="${instrumented.dir}" metadatafile="${coverage.dir}/metadata-beans.emma" merge="true">
+                <filter excludes="com.google.*"/>
+                <filter excludes="com.mymed.tests.*"/>
+                <filter excludes="org.apache.*"/>
+            </instr>
+        </emma>
+        <junit printsummary="yes" haltonfailure="no" showoutput="yes" includeantruntime="true" fork="yes">
+            <classpath refid="classpath.run"/>
+            <test name="com.mymed.tests.unit.bean.BeansTestSuite" todir="${results.dir}" outfile="TEST-Beans"/>
+            <formatter type="xml"/>
+            <batchtest fork="true"/>
+        </junit>
+        <emma enabled="true">
+            <merge outfile="${coverage.dir}/coverage.emma">
+                <fileset dir="${coverage.dir}">
+                    <include name="*.emma"/>
+                </fileset>
+                <fileset file="${basedir}/*.ec"/>
+            </merge>
+            <report sourcepath="${src.dir}" depth="method">
+                <fileset dir="${coverage.dir}">
+                    <include name="*.emma" />
+                </fileset>
+                <xml outfile="${coverage.dir}/coverage.xml"/>
+            </report>
+        </emma>
+    </target>
 
     <!-- - - - - - - - - - - - - - - - - -
         target: cleanbuild

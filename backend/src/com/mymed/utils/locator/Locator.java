@@ -8,7 +8,6 @@ import com.mymed.controller.core.exception.GeoLocationOutOfBoundException;
  * Expose the methods to handle the geographical identifiers.
  * 
  * @author iacopo
- * 
  */
 public class Locator {
 
@@ -25,8 +24,9 @@ public class Locator {
    */
   public static long getLocationId(final int latitude, final int longitude) throws GeoLocationOutOfBoundException {
     final Location loc = new Location(latitude, longitude);
-    return HilbertQuad.encode(loc, HilbertQuad.maxLevel).getIndex();
+    return HilbertQuad.encode(loc, HilbertQuad.MAX_LEVEL).getIndex();
   }
+
   /**
    * Gets the areaId corresponding to the specified locationId.
    * 
@@ -57,7 +57,6 @@ public class Locator {
    */
   public static List<long[]> getCoveringLocationId(final int latitude, final int longitude, final int radius)
       throws GeoLocationOutOfBoundException, IllegalArgumentException {
-
     final Location loc = new Location(latitude, longitude);
     final KeysFinder kf = new KeysFinder();
     return kf.getKeysRanges(loc, radius);

@@ -18,9 +18,9 @@ import com.mymed.utils.MLogger;
  * 
  */
 public class HilbertQuad {
-  // There are maxLevel levels in the range (0..maxLevel-1)
-  public static final short maxLevel = 26;
-  public static final int numBits = maxLevel * 2 - 1;
+  // There are MAX_LEVEL levels in the range (0..maxLevel-1)
+  public static final short MAX_LEVEL = 26;
+  public static final int NUM_BITS = MAX_LEVEL * 2 - 1;
 
   protected enum QuadType {
     A,
@@ -122,7 +122,7 @@ public class HilbertQuad {
     TABLE_DEC.put(QuadType.C, mapDec);
   }
 
-  protected HilbertQuad(final long index, final short level, final double fLat, final double fLon, final double cLat,
+  public HilbertQuad(final long index, final short level, final double fLat, final double fLon, final double cLat,
       final double cLon, final QuadType typeQuad) {
     this.index = index;
     this.level = level;
@@ -133,7 +133,7 @@ public class HilbertQuad {
     this.typeQuad = typeQuad;
   }
 
-  protected void setIndex(final long index) {
+  public void setIndex(final long index) {
     this.index = index;
   }
 
@@ -146,8 +146,8 @@ public class HilbertQuad {
    *          Level of the HilbertQuad
    * @return
    */
-  protected static HilbertQuad encode(final Location loc, final int level) throws IllegalArgumentException {
-    if (level > maxLevel) {
+  public static HilbertQuad encode(final Location loc, final int level) throws IllegalArgumentException {
+    if (level > MAX_LEVEL) {
       throw new IllegalArgumentException("level exceeds the maximum level.");
     }
     final HilbertQuad quad = new HilbertQuad(0L, (short) 0, LATITUDE_RANGE[0], LONGITUDE_RANGE[0], LATITUDE_RANGE[1],
@@ -156,16 +156,16 @@ public class HilbertQuad {
     return quad;
   }
 
-  protected static HilbertQuad decode(final long key) throws IllegalArgumentException {
+  public static HilbertQuad decode(final long key) throws IllegalArgumentException {
     double lonMid;
     double latMid;
     short tabDecKey;
 
-    if (key < 0 || key > (long) (Math.pow(2, numBits) - 1)) {
+    if (key < 0 || key > (long) (Math.pow(2, NUM_BITS) - 1)) {
       throw new IllegalArgumentException("key is out of bound");
     }
-    long bitMask = (long) Math.pow(2, numBits - 1);
-    final HilbertQuad quad = new HilbertQuad(key, maxLevel, LATITUDE_RANGE[0], LONGITUDE_RANGE[0], LATITUDE_RANGE[1],
+    long bitMask = (long) Math.pow(2, NUM_BITS - 1);
+    final HilbertQuad quad = new HilbertQuad(key, MAX_LEVEL, LATITUDE_RANGE[0], LONGITUDE_RANGE[0], LATITUDE_RANGE[1],
         LONGITUDE_RANGE[1], QuadType.A);
     // The first bit chooses the initial longitude range. Either (-pi,0) or
     // (0,pi)
@@ -175,7 +175,7 @@ public class HilbertQuad {
     } else {
       quad.ceilLon = lonMid;
     }
-    for (int ind = 0; ind < maxLevel - 1; ind++) {
+    for (int ind = 0; ind < MAX_LEVEL - 1; ind++) {
       lonMid = (quad.getCeilLon() + quad.getFloorLon()) / 2;
       latMid = (quad.getCeilLat() + quad.getFloorLat()) / 2;
       tabDecKey = 0;
@@ -286,12 +286,12 @@ public class HilbertQuad {
    *          Not used at the moment, must be always set to true} .
    * @return
    */
-  protected HilbertQuad getQuad(final short pos, final boolean down) {
+  public HilbertQuad getQuad(final short pos, final boolean down) {
     // TODO Implement the code for down == false, if necessary.
     double floorLat, floorLon, ceilLat, ceilLon;
     HilbertQuad hq;
 
-    if (getLevel() >= HilbertQuad.maxLevel) {
+    if (getLevel() >= HilbertQuad.MAX_LEVEL) {
       hq = null;
     } else if (down) {
       double lonMid, latMid;
@@ -342,70 +342,70 @@ public class HilbertQuad {
    * 
    * @return Keys range.
    */
-  protected long[] getKeysRange() {
+  public long[] getKeysRange() {
     final long[] keysInt = new long[2];
 
     int remBits = (getLevel() - 1) * 2;
     remBits++; // Because one additional bit is used.
-    remBits = numBits - remBits;
+    remBits = NUM_BITS - remBits;
     keysInt[0] = getIndex() << remBits;
     keysInt[1] = keysInt[0] + (long) (Math.pow(2, remBits) - 1);
     return keysInt;
   }
 
-  protected long getIndex() {
+  public long getIndex() {
     return index;
   }
 
-  protected void setLevel(final short level) {
+  public void setLevel(final short level) {
     this.level = level;
   }
 
-  protected short getLevel() {
+  public short getLevel() {
     return level;
   }
 
-  protected void setTypeQuad(final QuadType typeQuad) {
+  public void setTypeQuad(final QuadType typeQuad) {
     this.typeQuad = typeQuad;
   }
 
-  protected QuadType getTypeQuad() {
+  public QuadType getTypeQuad() {
     return typeQuad;
   }
 
-  protected void setFloorLat(final double floorLat) {
+  public void setFloorLat(final double floorLat) {
     this.floorLat = floorLat;
   }
 
-  protected double getFloorLat() {
+  public double getFloorLat() {
     return floorLat;
   }
 
-  protected void setCeilLat(final double ceilLat) {
+  public void setCeilLat(final double ceilLat) {
     this.ceilLat = ceilLat;
   }
 
-  protected double getCeilLat() {
+  public double getCeilLat() {
     return ceilLat;
   }
 
-  protected void setFloorLon(final double floorLon) {
+  public void setFloorLon(final double floorLon) {
     this.floorLon = floorLon;
   }
 
-  protected double getFloorLon() {
+  public double getFloorLon() {
     return floorLon;
   }
 
-  protected void setCeilLon(final double ceilLon) {
+  public void setCeilLon(final double ceilLon) {
     this.ceilLon = ceilLon;
   }
 
-  protected double getCeilLon() {
+  public double getCeilLon() {
     return ceilLon;
   }
 
-  protected double getHeigth() {
+  public double getHeigth() {
     Location bottomLeftCorner, topLeftCorner;
 
     try {
@@ -419,7 +419,7 @@ public class HilbertQuad {
     return bottomLeftCorner.distanceGCTo(topLeftCorner);
   }
 
-  protected double getTopWidth() {
+  public double getTopWidth() {
     Location topRightCorner, topLeftCorner;
 
     try {
@@ -433,7 +433,7 @@ public class HilbertQuad {
     return topRightCorner.distanceGCTo(topLeftCorner);
   }
 
-  protected double getBottomWidth() {
+  public double getBottomWidth() {
     Location bottomRightCorner, bottomLeftCorner;
 
     try {
@@ -449,7 +449,6 @@ public class HilbertQuad {
 
   @Override
   public boolean equals(final Object obj) {
-
     boolean equal = false;
 
     if (this == obj) {
