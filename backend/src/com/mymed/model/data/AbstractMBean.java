@@ -1,17 +1,12 @@
 /*
- * Copyright 2012 INRIA
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
+ * Copyright 2012 INRIA Licensed under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law
+ * or agreed to in writing, software distributed under the License is
+ * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
  */
 package com.mymed.model.data;
 
@@ -55,156 +50,156 @@ import com.mymed.utils.MLogger;
  * @author Milo Casagrande
  */
 public abstract class AbstractMBean implements Cloneable {
-  // Default logger for all the beans that extend this abstract
-  protected static final Logger LOGGER = MLogger.getLogger();
-  // Used for the hashCode() function
-  protected static final int PRIME = 31;
+    // Default logger for all the beans that extend this abstract
+    protected static final Logger LOGGER = MLogger.getLogger();
+    // Used for the hashCode() function
+    protected static final int PRIME = 31;
 
-  private static final int PRIV = Modifier.PRIVATE;
+    private static final int PRIV = Modifier.PRIVATE;
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public abstract int hashCode();
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public abstract boolean equals(Object obj);
-
-  /**
-   * @return all the fields in a hashMap format for the myMed wrapper
-   * @throws InternalBackEndException
-   * @throws PrivilegedActionException
-   */
-  public Map<String, byte[]> getAttributeToMap() throws InternalBackEndException {
-    final AbstractMBean.InnerPrivilegedExceptionAction action = new AbstractMBean.InnerPrivilegedExceptionAction(this);
-    try {
-      return AccessController.doPrivilegedWithCombiner(action);
-    } catch (final PrivilegedActionException ex) {
-      throw new InternalBackEndException(ex.getMessage());
-    }
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString() {
-    final AbstractMBean.InnerPrivilegedAction action = new AbstractMBean.InnerPrivilegedAction(this);
-    final StringBuffer bean = AccessController.doPrivileged(action);
-
-    return bean.toString();
-  }
-
-  /**
-   * Static inner class to provide reflection mechanism in a protected way,
-   * without strong references
-   * 
-   * @author Milo Casagrande
-   */
-  private static final class InnerPrivilegedExceptionAction implements PrivilegedExceptionAction<Map<String, byte[]>> {
-
-    // The object to work on
-    private final Object object;
-
-    public InnerPrivilegedExceptionAction(final Object object) {
-      this.object = object;
-    }
-
+    /*
+     * (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
-    public Map<String, byte[]> run() throws Exception {
-      final Class<?> clazz = object.getClass();
-      final Map<String, byte[]> args = new HashMap<String, byte[]>();
+    public abstract int hashCode();
 
-      for (final Field field : clazz.getDeclaredFields()) {
-        field.setAccessible(true);
-
-        // We check the value of the modifiers of the field: if the field
-        // is not just private, we skip it
-        final int modifiers = field.getModifiers();
-        if (modifiers != PRIV) {
-          continue;
-        }
-
-        try {
-          final ClassType type = ClassType.inferTpye(field.getType());
-          args.put(field.getName(), ClassType.objectToByteArray(type, field.get(object)));
-        } catch (final IllegalArgumentException ex) {
-          LOGGER.debug("Introspection failed", ex);
-          throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
-        } catch (final IllegalAccessException ex) {
-          LOGGER.debug("Introspection failed", ex);
-          throw new InternalBackEndException("getAttribueToMap failed!: Introspection error");
-        }
-      }
-
-      return args;
-    }
-  }
-
-  /**
-   * Static inner class to provide reflection mechanism in a protected way,
-   * without strong references
-   * 
-   * @author Milo Casagrande
-   */
-  private static final class InnerPrivilegedAction implements PrivilegedAction<StringBuffer> {
-
-    // The object to work on
-    private final Object object;
-
-    public InnerPrivilegedAction(final Object object) {
-      this.object = object;
-    }
-
+    /*
+     * (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
-    public StringBuffer run() {
-      final Class<?> clazz = object.getClass();
-      final StringBuffer value = new StringBuffer(200);
+    public abstract boolean equals(Object obj);
 
-      for (final Field field : clazz.getDeclaredFields()) {
-        field.setAccessible(true);
-
-        // We check the value of the modifiers of the field: if the field is
-        // not just private, we skip it
-        final int modifiers = field.getModifiers();
-        if (modifiers != PRIV) {
-          continue;
-        }
-
+    /**
+     * @return all the fields in a hashMap format for the myMed wrapper
+     * @throws InternalBackEndException
+     * @throws PrivilegedActionException
+     */
+    public Map<String, byte[]> getAttributeToMap() throws InternalBackEndException {
+        final AbstractMBean.InnerPrivilegedExceptionAction action = new AbstractMBean.InnerPrivilegedExceptionAction(
+                        this);
         try {
-          if (field.get(object) instanceof String) {
-            value.append('\t');
-            value.append(field.getName());
-            value.append(" : ");
-            value.append((String) field.get(object));
-            value.append('\n');
-          } else {
-            value.append('\t');
-            value.append(field.getName());
-            value.append(" : ");
-            value.append(field.get(object));
-            value.append('\n');
-          }
-        } catch (final IllegalArgumentException e) {
-          // We should never get here!
-          LOGGER.debug("Arguments are not valid", e);
-        } catch (final IllegalAccessException e) {
-          LOGGER.debug("Impossible to access field '{}'", field.getName(), e);
+            return AccessController.doPrivilegedWithCombiner(action);
+        } catch (final PrivilegedActionException ex) {
+            throw new InternalBackEndException(ex.getMessage());
         }
-      }
-
-      value.trimToSize();
-      return value;
     }
-  }
+
+    /*
+     * (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        final AbstractMBean.InnerPrivilegedAction action = new AbstractMBean.InnerPrivilegedAction(this);
+        final StringBuffer bean = AccessController.doPrivileged(action);
+
+        return bean.toString();
+    }
+
+    /**
+     * Static inner class to provide reflection mechanism in a protected way,
+     * without strong references
+     * 
+     * @author Milo Casagrande
+     */
+    private static final class InnerPrivilegedExceptionAction implements PrivilegedExceptionAction<Map<String, byte[]>> {
+
+        // The object to work on
+        private final Object object;
+
+        public InnerPrivilegedExceptionAction(final Object object) {
+            this.object = object;
+        }
+
+        @Override
+        public Map<String, byte[]> run() throws Exception { // NOPMD
+            final Class<?> clazz = object.getClass();
+            final Map<String, byte[]> args = new HashMap<String, byte[]>();
+
+            for (final Field field : clazz.getDeclaredFields()) {
+                field.setAccessible(true);
+
+                // We check the value of the modifiers of the field: if the
+                // field
+                // is not just private, we skip it
+                final int modifiers = field.getModifiers();
+                if (modifiers != PRIV) {
+                    continue;
+                }
+
+                try {
+                    final ClassType type = ClassType.inferTpye(field.getType());
+                    args.put(field.getName(), ClassType.objectToByteArray(type, field.get(object)));
+                } catch (final IllegalArgumentException ex) {
+                    LOGGER.debug("Introspection failed", ex);
+                    throw new InternalBackEndException("getAttribueToMap failed!: Introspection error"); // NOPMD
+                } catch (final IllegalAccessException ex) {
+                    LOGGER.debug("Introspection failed", ex);
+                    throw new InternalBackEndException("getAttribueToMap failed!: Introspection error"); // NOPMD
+                }
+            }
+
+            return args;
+        }
+    }
+
+    /**
+     * Static inner class to provide reflection mechanism in a protected way,
+     * without strong references
+     * 
+     * @author Milo Casagrande
+     */
+    private static final class InnerPrivilegedAction implements PrivilegedAction<StringBuffer> {
+
+        // The object to work on
+        private final Object object;
+
+        public InnerPrivilegedAction(final Object object) {
+            this.object = object;
+        }
+
+        @Override
+        public StringBuffer run() {
+            final Class<?> clazz = object.getClass();
+            final StringBuffer value = new StringBuffer(200);
+
+            for (final Field field : clazz.getDeclaredFields()) {
+                field.setAccessible(true);
+
+                // We check the value of the modifiers of the field: if the
+                // field is
+                // not just private, we skip it
+                final int modifiers = field.getModifiers();
+                if (modifiers != PRIV) {
+                    continue;
+                }
+
+                try {
+                    if (field.get(object) instanceof String) {
+                        value.append('\t');
+                        value.append(field.getName());
+                        value.append(" : ");
+                        value.append((String) field.get(object));
+                        value.append('\n');
+                    } else {
+                        value.append('\t');
+                        value.append(field.getName());
+                        value.append(" : ");
+                        value.append(field.get(object));
+                        value.append('\n');
+                    }
+                } catch (final IllegalArgumentException e) {
+                    // We should never get here!
+                    LOGGER.debug("Arguments are not valid", e);
+                } catch (final IllegalAccessException e) {
+                    LOGGER.debug("Impossible to access field '{}'", field.getName(), e);
+                }
+            }
+
+            value.trimToSize();
+            return value;
+        }
+    }
 }
