@@ -1,17 +1,12 @@
 /*
- * Copyright 2012 INRIA
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
+ * Copyright 2012 INRIA Licensed under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law
+ * or agreed to in writing, software distributed under the License is
+ * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
  */
 package com.mymed.model.data.user;
 
@@ -23,478 +18,483 @@ import com.mymed.model.data.AbstractMBean;
  * @author lvanni
  */
 public final class MUserBean extends AbstractMBean {
-  /**
-   * ID := SOCIALNETWORKNAME_SOCIALNETWORKID<br>
-   * SOCIALNETWORKNAME := MYMED|FACEBOOK|TWITTER|GOOGLE<br>
-   * SOCIALNETWORKID := email|[a-z0-9]+
-   * */
-  private String id = "";
+    /**
+     * Generated serial ID.
+     */
+    private static final long serialVersionUID = 7136653831584880254L;
 
-  /** AUTHENTICATION_ID */
-  private String login = "";
+    /**
+     * ID := SOCIALNETWORKNAME_SOCIALNETWORKID<br>
+     * SOCIALNETWORKNAME := MYMED|FACEBOOK|TWITTER|GOOGLE<br>
+     * SOCIALNETWORKID := email|[a-z0-9]+
+     */
+    private String id = "";
 
-  /** PERSONAL INFO */
-  private String email = null;
-  private String name = null;
-  private String firstName = null;
-  private String lastName = null;
-  private String link = null;
-  private String birthday;
-  private String hometown = null;
-  private String position = null;
-  private String gender = null;
-  private long lastConnection;
-  private String profilePicture = null;
+    /** AUTHENTICATION_ID */
+    private String login = "";
 
-  /** USER_LIST_ID */
-  private String buddyList = null;
+    /** PERSONAL INFO */
+    private String email = null;
+    private String name = null;
+    private String firstName = null;
+    private String lastName = null;
+    private String link = null;
+    private String birthday;
+    private String hometown = null;
+    private String position = null;
+    private String gender = null;
+    private long lastConnection;
+    private String profilePicture = null;
 
-  /** APPLICATION_LIST_ID */
-  private String subscribtionList = null;
+    /** USER_LIST_ID */
+    private String buddyList = null;
 
-  /** REPUTATION_ID */
-  private String reputation = null;
+    /** APPLICATION_LIST_ID */
+    private String subscribtionList = null;
 
-  /** SESSION_ID || null (== not connected) */
-  private String session = null;
+    /** REPUTATION_ID */
+    private String reputation = null;
 
-  /** INTERACTION_LIST_ID */
-  private String interactionList = null;
-  private String socialNetworkID = null;
-  private String socialNetworkName = null;
+    /** SESSION_ID || null (== not connected) */
+    private String session = null;
 
-  /* --------------------------------------------------------- */
-  /* Constructors */
-  /* --------------------------------------------------------- */
-  /**
-   * Create a new empty MUserBean
-   */
-  public MUserBean() {
-    // Empty constructor, needed because of the copy constructor
-    super();
-  }
+    /** INTERACTION_LIST_ID */
+    private String interactionList = null;
+    private String socialNetworkID = null;
+    private String socialNetworkName = null;
 
-  /**
-   * Copy constructor.
-   * <p>
-   * Provide a clone of the passed MUserBean
-   * 
-   * @param toClone
-   *          the user bean to clone
-   */
-  protected MUserBean(final MUserBean toClone) {
-    super();
-
-    id = toClone.getId();
-    login = toClone.getLogin();
-    email = toClone.getEmail();
-    name = toClone.getName();
-    firstName = toClone.getFirstName();
-    lastName = toClone.getLastName();
-    link = toClone.getLink();
-    birthday = toClone.getBirthday();
-    hometown = toClone.getHometown();
-    position = toClone.getPosition();
-    gender = toClone.getGender();
-    lastConnection = toClone.getLastConnection();
-    profilePicture = toClone.getProfilePicture();
-    buddyList = toClone.getBuddyList();
-    subscribtionList = toClone.getSubscribtionList();
-    reputation = toClone.getReputation();
-    session = toClone.getSession();
-    interactionList = toClone.getInteractionList();
-    socialNetworkID = toClone.getSocialNetworkID();
-    socialNetworkName = toClone.getSocialNetworkName();
-  }
-
-  @Override
-  public MUserBean clone() {
-    return new MUserBean(this);
-  }
-
-  /* --------------------------------------------------------- */
-  /* Override methods */
-  /* --------------------------------------------------------- */
-  /**
-   * @see java.lang.Object#equals()
-   */
-  @Override
-  public boolean equals(final Object object) {
-
-    boolean equal = false;
-
-    if (this == object) {
-      equal = true;
-    } else if (object instanceof MUserBean) {
-      final MUserBean comparable = (MUserBean) object;
-
-      /*
-       * We compare only a subsets of the field to check that two MUserBean
-       * objects are the same. These should be values that are set for sure, and
-       * not null.
-       */
-      equal = true;
-
-      if (email == null && comparable.getEmail() != null || email != null && comparable.getEmail() == null) {
-        equal &= false;
-      } else if (email != null && comparable.getEmail() != null) {
-        equal &= email.equals(comparable.getEmail());
-      }
-
-      if (firstName == null && comparable.getFirstName() != null || firstName != null
-          && comparable.getFirstName() == null) {
-        equal &= false;
-      } else if (firstName != null && comparable.getFirstName() != null) {
-        equal &= firstName.equals(comparable.getFirstName());
-      }
-
-      if (lastName == null && comparable.getLastName() != null || lastName != null && comparable.getLastName() == null) {
-        equal &= false;
-      } else if (lastName != null && comparable.getLastName() != null) {
-        equal &= lastName.equals(comparable.getLastName());
-      }
-
-      if (id == null && comparable.getId() != null || id != null && comparable.getId() == null) {
-        equal &= false;
-      } else if (id != null && comparable.getId() != null) {
-        equal &= id.equals(comparable.getId());
-      }
-
-      if (name == null && comparable.getName() != null || name != null && comparable.getName() == null) {
-        equal &= false;
-      } else if (name != null && comparable.getName() != null) {
-        equal &= name.equals(comparable.getName());
-      }
+    /* --------------------------------------------------------- */
+    /* Constructors */
+    /* --------------------------------------------------------- */
+    /**
+     * Create a new empty MUserBean
+     */
+    public MUserBean() {
+        // Empty constructor, needed because of the copy constructor
+        super();
     }
 
-    return equal;
-  }
+    /**
+     * Copy constructor.
+     * <p>
+     * Provide a clone of the passed MUserBean
+     * 
+     * @param toClone
+     *            the user bean to clone
+     */
+    protected MUserBean(final MUserBean toClone) {
+        super();
 
-  /**
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode() {
-    int result = 1;
+        id = toClone.getId();
+        login = toClone.getLogin();
+        email = toClone.getEmail();
+        name = toClone.getName();
+        firstName = toClone.getFirstName();
+        lastName = toClone.getLastName();
+        link = toClone.getLink();
+        birthday = toClone.getBirthday();
+        hometown = toClone.getHometown();
+        position = toClone.getPosition();
+        gender = toClone.getGender();
+        lastConnection = toClone.getLastConnection();
+        profilePicture = toClone.getProfilePicture();
+        buddyList = toClone.getBuddyList();
+        subscribtionList = toClone.getSubscribtionList();
+        reputation = toClone.getReputation();
+        session = toClone.getSession();
+        interactionList = toClone.getInteractionList();
+        socialNetworkID = toClone.getSocialNetworkID();
+        socialNetworkName = toClone.getSocialNetworkName();
+    }
 
-    result = PRIME * result + (email == null ? 0 : email.hashCode());
-    result = PRIME * result + (firstName == null ? 0 : firstName.hashCode());
-    result = PRIME * result + (lastName == null ? 0 : lastName.hashCode());
-    result = PRIME * result + (id == null ? 0 : id.hashCode());
-    result = PRIME * result + (name == null ? 0 : name.hashCode());
+    @Override
+    public MUserBean clone() {
+        return new MUserBean(this);
+    }
 
-    return result;
-  }
+    /* --------------------------------------------------------- */
+    /* Override methods */
+    /* --------------------------------------------------------- */
+    /**
+     * @see java.lang.Object#equals()
+     */
+    @Override
+    public boolean equals(final Object object) {
 
-  @Override
-  public String toString() {
-    return "User:\n" + super.toString();
-  }
+        boolean equal = false;
 
-  /* --------------------------------------------------------- */
-  /* GETTER AND SETTER */
-  /* --------------------------------------------------------- */
-  /**
-   * @return the id
-   */
-  public String getId() {
-    return id;
-  }
+        if (this == object) {
+            equal = true;
+        } else if (object instanceof MUserBean) {
+            final MUserBean comparable = (MUserBean) object;
 
-  /**
-   * @param id
-   *          the id to set
-   */
-  public void setId(final String id) {
-    this.id = id;
-  }
+            /*
+             * We compare only a subsets of the field to check that two
+             * MUserBean objects are the same. These should be values that are
+             * set for sure, and not null.
+             */
+            equal = true;
 
-  /**
-   * @return the login
-   */
-  public String getLogin() {
-    return login;
-  }
+            if (((email == null) && (comparable.getEmail() != null))
+                            || ((email != null) && (comparable.getEmail() == null))) {
+                equal &= false;
+            } else if ((email != null) && (comparable.getEmail() != null)) {
+                equal &= email.equals(comparable.getEmail());
+            }
 
-  /**
-   * @param login
-   *          the login to set
-   */
-  public void setLogin(final String login) {
-    this.login = login;
-  }
+            if (((firstName == null) && (comparable.getFirstName() != null))
+                            || ((firstName != null) && (comparable.getFirstName() == null))) {
+                equal &= false;
+            } else if ((firstName != null) && (comparable.getFirstName() != null)) {
+                equal &= firstName.equals(comparable.getFirstName());
+            }
 
-  /**
-   * @return the email
-   */
-  public String getEmail() {
-    return email;
-  }
+            if (((lastName == null) && (comparable.getLastName() != null))
+                            || ((lastName != null) && (comparable.getLastName() == null))) {
+                equal &= false;
+            } else if ((lastName != null) && (comparable.getLastName() != null)) {
+                equal &= lastName.equals(comparable.getLastName());
+            }
 
-  /**
-   * @param email
-   *          the email to set
-   */
-  public void setEmail(final String email) {
-    this.email = email;
-  }
+            if (((id == null) && (comparable.getId() != null)) || ((id != null) && (comparable.getId() == null))) {
+                equal &= false;
+            } else if ((id != null) && (comparable.getId() != null)) {
+                equal &= id.equals(comparable.getId());
+            }
 
-  /**
-   * @return the name
-   */
-  public String getName() {
-    return name;
-  }
+            if (((name == null) && (comparable.getName() != null))
+                            || ((name != null) && (comparable.getName() == null))) {
+                equal &= false;
+            } else if ((name != null) && (comparable.getName() != null)) {
+                equal &= name.equals(comparable.getName());
+            }
+        }
 
-  /**
-   * @param name
-   *          the name to set
-   */
-  public void setName(final String name) {
-    this.name = name;
-  }
+        return equal;
+    }
 
-  /**
-   * @return the firstName
-   */
-  public String getFirstName() {
-    return firstName;
-  }
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        int result = 1;
 
-  /**
-   * @param firstName
-   *          the firstName to set
-   */
-  public void setFirstName(final String firstName) {
-    this.firstName = firstName;
-  }
+        result = (PRIME * result) + (email == null ? 0 : email.hashCode());
+        result = (PRIME * result) + (firstName == null ? 0 : firstName.hashCode());
+        result = (PRIME * result) + (lastName == null ? 0 : lastName.hashCode());
+        result = (PRIME * result) + (id == null ? 0 : id.hashCode());
+        result = (PRIME * result) + (name == null ? 0 : name.hashCode());
 
-  /**
-   * @return the lastName
-   */
-  public String getLastName() {
-    return lastName;
-  }
+        return result;
+    }
 
-  /**
-   * @param lastName
-   *          the lastName to set
-   */
-  public void setLastName(final String lastName) {
-    this.lastName = lastName;
-  }
+    @Override
+    public String toString() {
+        return "User:\n" + super.toString();
+    }
 
-  /**
-   * @return the link
-   */
-  public String getLink() {
-    return link;
-  }
+    /* --------------------------------------------------------- */
+    /* GETTER AND SETTER */
+    /* --------------------------------------------------------- */
+    /**
+     * @return the id
+     */
+    public String getId() {
+        return id;
+    }
 
-  /**
-   * @param link
-   *          the link to set
-   */
-  public void setLink(final String link) {
-    this.link = link;
-  }
+    /**
+     * @param id
+     *            the id to set
+     */
+    public void setId(final String id) {
+        this.id = id;
+    }
 
-  /**
-   * @return the birthday
-   */
-  public String getBirthday() {
-    return birthday;
-  }
+    /**
+     * @return the login
+     */
+    public String getLogin() {
+        return login;
+    }
 
-  /**
-   * @param birthday
-   *          the birthday to set
-   */
-  public void setBirthday(final String birthday) {
-    this.birthday = birthday;
-  }
+    /**
+     * @param login
+     *            the login to set
+     */
+    public void setLogin(final String login) {
+        this.login = login;
+    }
 
-  /**
-   * @return the hometown
-   */
-  public String getHometown() {
-    return hometown;
-  }
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
 
-  /**
-   * @param hometown
-   *          the hometown to set
-   */
-  public void setHometown(final String hometown) {
-    this.hometown = hometown;
-  }
+    /**
+     * @param email
+     *            the email to set
+     */
+    public void setEmail(final String email) {
+        this.email = email;
+    }
 
-  /**
-   * @return the gender
-   */
-  public String getGender() {
-    return gender;
-  }
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
 
-  /**
-   * @param gender
-   *          the gender to set
-   */
-  public void setGender(final String gender) {
-    this.gender = gender;
-  }
+    /**
+     * @param name
+     *            the name to set
+     */
+    public void setName(final String name) {
+        this.name = name;
+    }
 
-  /**
-   * @return the lastConnection
-   */
-  public long getLastConnection() {
-    return lastConnection;
-  }
+    /**
+     * @return the firstName
+     */
+    public String getFirstName() {
+        return firstName;
+    }
 
-  /**
-   * @param lastConnection
-   *          the lastConnection to set
-   */
-  public void setLastConnection(final long lastConnection) {
-    this.lastConnection = lastConnection;
-  }
+    /**
+     * @param firstName
+     *            the firstName to set
+     */
+    public void setFirstName(final String firstName) {
+        this.firstName = firstName;
+    }
 
-  /**
-   * 
-   * @return the profile picture
-   */
-  public String getProfilePicture() {
-    return profilePicture;
-  }
+    /**
+     * @return the lastName
+     */
+    public String getLastName() {
+        return lastName;
+    }
 
-  /**
-   * 
-   * @param profilePicture
-   */
-  public void setProfilePicture(final String profilePicture) {
-    this.profilePicture = profilePicture;
-  }
+    /**
+     * @param lastName
+     *            the lastName to set
+     */
+    public void setLastName(final String lastName) {
+        this.lastName = lastName;
+    }
 
-  /**
-   * @return the buddyList
-   */
-  public String getBuddyList() {
-    return buddyList;
-  }
+    /**
+     * @return the link
+     */
+    public String getLink() {
+        return link;
+    }
 
-  /**
-   * @param buddyList
-   *          the buddyList to set
-   */
-  public void setBuddyList(final String buddyList) {
-    this.buddyList = buddyList;
-  }
+    /**
+     * @param link
+     *            the link to set
+     */
+    public void setLink(final String link) {
+        this.link = link;
+    }
 
-  /**
-   * @return the subscriptionList
-   */
-  public String getSubscribtionList() {
-    return subscribtionList;
-  }
+    /**
+     * @return the birthday
+     */
+    public String getBirthday() {
+        return birthday;
+    }
 
-  /**
-   * @param subscribtionList
-   *          the subscriptionList to set
-   */
-  public void setSubscribtionList(final String subscribtionList) {
-    this.subscribtionList = subscribtionList;
-  }
+    /**
+     * @param birthday
+     *            the birthday to set
+     */
+    public void setBirthday(final String birthday) {
+        this.birthday = birthday;
+    }
 
-  /**
-   * @return the reputation
-   */
-  public String getReputation() {
-    return reputation;
-  }
+    /**
+     * @return the hometown
+     */
+    public String getHometown() {
+        return hometown;
+    }
 
-  /**
-   * @param reputation
-   *          the reputation to set
-   */
-  public void setReputation(final String reputation) {
-    this.reputation = reputation;
-  }
+    /**
+     * @param hometown
+     *            the hometown to set
+     */
+    public void setHometown(final String hometown) {
+        this.hometown = hometown;
+    }
 
-  /**
-   * @return the session
-   */
-  public String getSession() {
-    return session;
-  }
+    /**
+     * @return the gender
+     */
+    public String getGender() {
+        return gender;
+    }
 
-  /**
-   * @param session
-   *          the session to set
-   */
-  public void setSession(final String session) {
-    this.session = session;
-  }
+    /**
+     * @param gender
+     *            the gender to set
+     */
+    public void setGender(final String gender) {
+        this.gender = gender;
+    }
 
-  /**
-   * @return the interactionList
-   */
-  public String getInteractionList() {
-    return interactionList;
-  }
+    /**
+     * @return the lastConnection
+     */
+    public long getLastConnection() {
+        return lastConnection;
+    }
 
-  /**
-   * @param interactionList
-   *          the interactionList to set
-   */
-  public void setInteractionList(final String interactionList) {
-    this.interactionList = interactionList;
-  }
+    /**
+     * @param lastConnection
+     *            the lastConnection to set
+     */
+    public void setLastConnection(final long lastConnection) {
+        this.lastConnection = lastConnection;
+    }
 
-  /**
-   * @return the socialNetworkID
-   */
-  public String getSocialNetworkID() {
-    return socialNetworkID;
-  }
+    /**
+     * @return the profile picture
+     */
+    public String getProfilePicture() {
+        return profilePicture;
+    }
 
-  /**
-   * @param socialNetworkID
-   *          the socialNetworkID to set
-   */
-  public void setSocialNetworkID(final String socialNetworkID) {
-    this.socialNetworkID = socialNetworkID;
-  }
+    /**
+     * @param profilePicture
+     */
+    public void setProfilePicture(final String profilePicture) {
+        this.profilePicture = profilePicture;
+    }
 
-  /**
-   * @return the socialNetworkName
-   */
-  public String getSocialNetworkName() {
-    return socialNetworkName;
-  }
+    /**
+     * @return the buddyList
+     */
+    public String getBuddyList() {
+        return buddyList;
+    }
 
-  /**
-   * @param socialNetworkName
-   *          the socialNetworkName to set
-   */
-  public void setSocialNetworkName(final String socialNetworkName) {
-    this.socialNetworkName = socialNetworkName;
-  }
+    /**
+     * @param buddyList
+     *            the buddyList to set
+     */
+    public void setBuddyList(final String buddyList) {
+        this.buddyList = buddyList;
+    }
 
-  /**
-   * 
-   * @return the lastest GPS position known of the user
-   */
-  public String getPosition() {
-    return position;
-  }
+    /**
+     * @return the subscriptionList
+     */
+    public String getSubscribtionList() {
+        return subscribtionList;
+    }
 
-  /**
-   * Store a new GPS position for the user
-   * 
-   * @param position
-   *          , POSITION_ID
-   */
-  public void setPosition(final String position) {
-    this.position = position;
-  }
+    /**
+     * @param subscribtionList
+     *            the subscriptionList to set
+     */
+    public void setSubscribtionList(final String subscribtionList) {
+        this.subscribtionList = subscribtionList;
+    }
+
+    /**
+     * @return the reputation
+     */
+    public String getReputation() {
+        return reputation;
+    }
+
+    /**
+     * @param reputation
+     *            the reputation to set
+     */
+    public void setReputation(final String reputation) {
+        this.reputation = reputation;
+    }
+
+    /**
+     * @return the session
+     */
+    public String getSession() {
+        return session;
+    }
+
+    /**
+     * @param session
+     *            the session to set
+     */
+    public void setSession(final String session) {
+        this.session = session;
+    }
+
+    /**
+     * @return the interactionList
+     */
+    public String getInteractionList() {
+        return interactionList;
+    }
+
+    /**
+     * @param interactionList
+     *            the interactionList to set
+     */
+    public void setInteractionList(final String interactionList) {
+        this.interactionList = interactionList;
+    }
+
+    /**
+     * @return the socialNetworkID
+     */
+    public String getSocialNetworkID() {
+        return socialNetworkID;
+    }
+
+    /**
+     * @param socialNetworkID
+     *            the socialNetworkID to set
+     */
+    public void setSocialNetworkID(final String socialNetworkID) {
+        this.socialNetworkID = socialNetworkID;
+    }
+
+    /**
+     * @return the socialNetworkName
+     */
+    public String getSocialNetworkName() {
+        return socialNetworkName;
+    }
+
+    /**
+     * @param socialNetworkName
+     *            the socialNetworkName to set
+     */
+    public void setSocialNetworkName(final String socialNetworkName) {
+        this.socialNetworkName = socialNetworkName;
+    }
+
+    /**
+     * @return the lastest GPS position known of the user
+     */
+    public String getPosition() {
+        return position;
+    }
+
+    /**
+     * Store a new GPS position for the user
+     * 
+     * @param position
+     *            , POSITION_ID
+     */
+    public void setPosition(final String position) {
+        this.position = position;
+    }
 }

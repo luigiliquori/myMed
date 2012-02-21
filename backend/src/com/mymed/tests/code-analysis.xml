@@ -53,10 +53,11 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
 
     <!-- Fileset for checkstyle -->
     <fileset id="checkstyle.files" dir="${src.dir}">
-        <exclude name="tests/**/*"/>
+        <exclude name="**/*Test.java"/>
         <exclude name="**/*.php"/>
         <exclude name="**/*.xml"/>
         <exclude name="**/*.jar"/>
+        <exclude name="**/*.class"/>
     </fileset>
 
     <!-- This is the classpath for compiling the tests, since we need also Glassfish and JavaEE -->

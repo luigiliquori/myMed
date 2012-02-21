@@ -10,6 +10,7 @@
  */
 package com.mymed.model.data;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.security.AccessController;
@@ -49,12 +50,18 @@ import com.mymed.utils.MLogger;
  * @author lvanni
  * @author Milo Casagrande
  */
-public abstract class AbstractMBean implements Cloneable {
+public abstract class AbstractMBean implements Cloneable, Serializable {
+    /**
+     * Generated serial ID.
+     */
+    private static final long serialVersionUID = -336877499051592717L;
+
     // Default logger for all the beans that extend this abstract
     protected static final Logger LOGGER = MLogger.getLogger();
     // Used for the hashCode() function
     protected static final int PRIME = 31;
 
+    // Value of the private modifier for reflection
     private static final int PRIV = Modifier.PRIVATE;
 
     /*
@@ -82,7 +89,7 @@ public abstract class AbstractMBean implements Cloneable {
         try {
             return AccessController.doPrivilegedWithCombiner(action);
         } catch (final PrivilegedActionException ex) {
-            throw new InternalBackEndException(ex.getMessage());
+            throw new InternalBackEndException(ex.getMessage()); // NOPMD
         }
     }
 
@@ -107,7 +114,7 @@ public abstract class AbstractMBean implements Cloneable {
     private static final class InnerPrivilegedExceptionAction implements PrivilegedExceptionAction<Map<String, byte[]>> {
 
         // The object to work on
-        private final Object object;
+        private transient final Object object;
 
         public InnerPrivilegedExceptionAction(final Object object) {
             this.object = object;
@@ -154,7 +161,7 @@ public abstract class AbstractMBean implements Cloneable {
     private static final class InnerPrivilegedAction implements PrivilegedAction<StringBuffer> {
 
         // The object to work on
-        private final Object object;
+        private transient final Object object;
 
         public InnerPrivilegedAction(final Object object) {
             this.object = object;
