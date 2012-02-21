@@ -39,8 +39,9 @@ class MyApplicationHandler implements IRequestHandler {
 	public /*void*/ function handleRequest() { 
 		if(isset($_POST['method'])) {
 			if($_POST['method'] == "find") {
-				if(isset($_POST['Depart']) && isset($_POST['Arrivee'])) {
-					if ( empty($_POST['Depart']) && isset($_POST['DepartGeo']) ) { //we use lon & lat couple given by DepartGeo
+				if( (!empty($_POST['Depart']) || !empty($_POST['DepartGeo'])) && !empty($_POST['Arrivee'])) {
+					if ( empty($_POST['Depart']) ) {
+						//we use lon & lat couple given by DepartGeo
 						$dep = explode("&", $_POST['DepartGeo']);
 						$geocode1 = json_decode('{' .
 							'"status": "OK",' . 
@@ -109,10 +110,10 @@ class MyApplicationHandler implements IRequestHandler {
 							$this->success->itineraire->value = "";
 						}
 					} else {
-						// TODO NOTIFY THE USER IN CASE OF ERROR
+						$this->error = "2";
 					}
 				} else {
-					// TODO NOTIFY THE USER IN CASE OF ERROR
+					$this->error = "3";
 				}
 			} 
 		}
