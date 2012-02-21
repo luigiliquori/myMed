@@ -132,7 +132,7 @@ class EditDialog extends AbstractTemplate {
 							
 							<select name="select-minute" id="select-minute">
 								<?php for ($i = 0; $i <= 59; $i++) {
-								?><option value= <?=$i?> <?php if ($i==$now['minutes']){?> selected="selected" <?php } ?> > <?=$i?>'</option>
+								?><option value= <?=$i?> <?php if ($i==$now['minutes']){?> selected="selected" <?php } ?> > <?=sprintf('%02d',$i)?></option>
 								<?php } ?>
 							</select>
 						</fieldset>
@@ -147,7 +147,7 @@ class EditDialog extends AbstractTemplate {
 	
 					
 		
-					<!-- SUBMIT -->
+					<!-- SUBMIT - ToDO validate before submit-->
 					<a href="#" id="trouver" data-role="button"  rel="external" data-icon="arrow-r" data-iconpos="right" onclick="document.<?= APPLICATION_NAME ?>FindForm.submit()">Trouver</a>	
 					
 				

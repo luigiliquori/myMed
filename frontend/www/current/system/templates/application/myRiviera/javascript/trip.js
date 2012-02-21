@@ -43,12 +43,12 @@ function initialize() {
 
 		// ADD POSITION Marker
 		var latlng = new google.maps.LatLng(currentLatitude, currentLongitude);
-		marker = new google.maps.Marker({
+		/*marker = new google.maps.Marker({
 			animation: google.maps.Animation.BOUNCE,
 			position: latlng,
 			icon: 'system/templates/application/myRiviera/img/position.png',
 			map: map
-		});
+		});*/
 
 		// if the accuracy is good enough, print a circle to show the area
 		if (accuracy && accuracy<1500){ // is use watchPosition instead of getCurrentPosition don't forget to clear previous circle, using circle.setMap(null)

@@ -97,13 +97,13 @@ class FindView extends MyApplication {
 			}
 			?>
 			
-			<input id="<?= $i ?>_poi" type="hidden" value='<?= $poi ?>' />
+			<input id="poi_<?= $i ?>" type="hidden" value='<?= $poi ?>' />
 			<li style="font-size: 9pt; font-weight: lighter; padding:2px;">
 				
 				<!-- FOCUS ON -->
 				<a href="#" onclick="
-				focusOn('<?= $i ?>', '<?= $latitude ?>', '<?= $longitude ?>');
-				addPOI('<?= $latitude ?>', '<?= $longitude ?>', '<?= $icon ?>', '<?= $titre ?>', '<?= urlencode($tripSegment->comment) ?>', true);
+				focusOnPosition('<?= $latitude ?>', '<?= $longitude ?>');
+				updatePOIs('<?= $latitude ?>', '<?= $longitude ?>', '<?= $icon ?>', '<?= $titre ?>', '<?= $i ?>');
 				<?= TARGET == "mobile" ? "$('#itineraire').trigger('collapse');" : "" ?>"
 				data-icon="search" >
 					<?php if(isset($tripSegment->distance)) { ?>
@@ -112,7 +112,7 @@ class FindView extends MyApplication {
 					<span>Durée: <?= $tripSegment->duration ?>min</span>
 					<?php } ?>
 				</a>
-				<p style="width: 90%;"><?= $tripSegment->comment ?></p>
+				<p id="poicomment_<?= $i ?>" style="width: 90%;"><?= $tripSegment->comment ?></p>
 			</li>
 			
 			<?php 
@@ -162,4 +162,3 @@ class FindView extends MyApplication {
 	
 }
 ?>
-
