@@ -45,6 +45,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
     <property name="debug.flag" value="on"/>
     <property name="jarname" value="mymed_backend.jar"/>
     <property name="warname" value="mymed_backend.war"/>
+    <property name="java.dir" location="/usr/share/java"/>
 
     <fileset dir="${web.content.lib.dir}" id="jarnames" description="JARs necessary to compile">
         <include name="**/*.jar"/>
@@ -159,6 +160,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
         </copy>
         <copy todir="${war.webinf.dir}" file="${web.content.webinf.dir}/sun-web.xml"/>
     </target>
+
 
     <!-- =================================
           target: build

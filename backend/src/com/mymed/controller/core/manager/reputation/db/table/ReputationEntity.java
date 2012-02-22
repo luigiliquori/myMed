@@ -1,30 +1,33 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template, choose Tools | Templates and open the template in
+ * the editor.
  */
 
 package com.mymed.controller.core.manager.reputation.db.table;
 
-import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.controller.core.manager.reputation.db.facade.TransactionManager;
-import com.mymed.controller.core.manager.reputation.api.mymed_ids.MymedRepId;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.controller.core.manager.reputation.db.facade.TransactionManager;
 /**
- *
- * This class serves as a cache to record the number of verdicts assigned
- * to a uid, and the most recently calculated reputation.
+ * This class serves as a cache to record the number of verdicts assigned to a
+ * uid, and the most recently calculated reputation.
+ * 
  * @author peter
  */
 public class ReputationEntity extends CassandraPersistable {
 
-    private String uid;     //* reputation entity id */
-    private double reputation;  //* most recently calculated reputation */
-    private int numberOfVerdicts; //* number of verdicts used for calculation */
-    private boolean dirty;          //* true if verdicts have been added since last calculation */
+    private String uid; /* reputation entity id */
+    private double reputation; /* most recently calculated reputation */
+    private int numberOfVerdicts; /* number of verdicts used for calculation */
+    /*
+     * true if verdicts have been added since last calculation
+     */
+    private boolean dirty;
 
     // Has to be default constructor for 'deserialization'
     public ReputationEntity() {
@@ -34,7 +37,7 @@ public class ReputationEntity extends CassandraPersistable {
         dirty = false;
     }
 
-    public ReputationEntity(String id) {
+    public ReputationEntity(final String id) {
         uid = id;
         reputation = 1.0;
         numberOfVerdicts = 0;
@@ -50,11 +53,11 @@ public class ReputationEntity extends CassandraPersistable {
         TransactionManager.getInstance().insertDbTableObject(this);
     }
 
-    public ReputationEntity get(String id) {
+    public ReputationEntity get(final String id) {
         System.out.println(" from " + getColumnFamilyName() + "get " + id);
         try {
-            return (ReputationEntity) TransactionManager.getInstance().loadRow(getColumnFamilyName(),id);
-        } catch (InternalBackEndException ex) {
+            return (ReputationEntity) TransactionManager.getInstance().loadRow(getColumnFamilyName(), id);
+        } catch (final InternalBackEndException ex) {
             Logger.getLogger(ReputationEntity.class.getName()).log(Level.SEVERE, "oops", ex);
             return null;
         }
@@ -62,44 +65,47 @@ public class ReputationEntity extends CassandraPersistable {
 
     // TODO: clashes with ICassandraPersistable
     private static String columnFamilyName() {
-            return "ReputationEntity";
+        return "ReputationEntity";
     }
 
     /**
-     * Get ReputationEntity corresponding to id.  If inexistent, creat it.
-     * @param id - uid of ReputationEntity to retrieve
-     * @param createIfNone - if true and not found, create.
-     * @return  ReputationEntity corresponding to uid.  Null if not found and createIfNone is false.
+     * Get ReputationEntity corresponding to id. If inexistent, creat it.
+     * 
+     * @param id
+     *            - uid of ReputationEntity to retrieve
+     * @param createIfNone
+     *            - if true and not found, create.
+     * @return ReputationEntity corresponding to uid. Null if not found and
+     *         createIfNone is false.
      */
-    public static ReputationEntity getCreating(String id, boolean createIfNone) {
+    public static ReputationEntity getCreating(final String id, final boolean createIfNone) {
         ReputationEntity result;
         try {
-            result = (ReputationEntity) TransactionManager.getInstance().loadRow(columnFamilyName(),id);
-            if (result == null && createIfNone) {
+            result = (ReputationEntity) TransactionManager.getInstance().loadRow(columnFamilyName(), id);
+            if ((result == null) && createIfNone) {
                 result = new ReputationEntity(id);
             }
             return result;
-        } catch (InternalBackEndException ex) {
+        } catch (final InternalBackEndException ex) {
             Logger.getLogger(ReputationEntity.class.getName()).log(Level.SEVERE, "oops", ex);
             return null;
         }
     }
 
-    public static ReputationEntity read(String id) {
+    public static ReputationEntity read(final String id) {
         return getCreating(id, false);
     }
 
-    public static ReputationEntity getCreating(String id) {
+    public static ReputationEntity getCreating(final String id) {
         return getCreating(id, true);
     }
 
     public Collection<ReputationEntity> getAll() throws InternalBackEndException {
-        List<Object> loadTable =
-                TransactionManager.getInstance().loadTable(getColumnFamilyName());
+        final List<Object> loadTable = TransactionManager.getInstance().loadTable(getColumnFamilyName());
 
-        ArrayList<ReputationEntity> listResult = new ArrayList<ReputationEntity>();
+        final ArrayList<ReputationEntity> listResult = new ArrayList<ReputationEntity>();
 
-        for (Object obj : loadTable) {
+        for (final Object obj : loadTable) {
             listResult.add((ReputationEntity) obj);
         }
 
@@ -111,8 +117,6 @@ public class ReputationEntity extends CassandraPersistable {
         return "<" + uid + ": " + reputation + ", " + numberOfVerdicts + ">";
     }
 
-
-
     // Accessors
 
     /**
@@ -123,9 +127,10 @@ public class ReputationEntity extends CassandraPersistable {
     }
 
     /**
-     * @param uid the uid to set
+     * @param uid
+     *            the uid to set
      */
-    public void setUid(String uid) {
+    public void setUid(final String uid) {
         this.uid = uid;
     }
 
@@ -137,9 +142,10 @@ public class ReputationEntity extends CassandraPersistable {
     }
 
     /**
-     * @param reputation the reputation to set
+     * @param reputation
+     *            the reputation to set
      */
-    public void setReputation(double reputation) {
+    public void setReputation(final double reputation) {
         this.reputation = reputation;
     }
 
@@ -151,9 +157,10 @@ public class ReputationEntity extends CassandraPersistable {
     }
 
     /**
-     * @param numberOfVerdicts the numberOfVerdicts to set
+     * @param numberOfVerdicts
+     *            the numberOfVerdicts to set
      */
-    public void setNumberOfVerdicts(int numberOfVerdicts) {
+    public void setNumberOfVerdicts(final int numberOfVerdicts) {
         this.numberOfVerdicts = numberOfVerdicts;
     }
 
@@ -165,9 +172,10 @@ public class ReputationEntity extends CassandraPersistable {
     }
 
     /**
-     * @param dirty the dirty to set
+     * @param dirty
+     *            the dirty to set
      */
-    public void setDirty(boolean dirty) {
+    public void setDirty(final boolean dirty) {
         this.dirty = dirty;
     }
 
