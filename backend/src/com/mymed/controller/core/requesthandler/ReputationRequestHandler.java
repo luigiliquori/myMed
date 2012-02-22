@@ -1,21 +1,24 @@
 /*
- * Copyright 2012 INRIA Licensed under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance with the License.
+ * Copyright 2012 INRIA
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law
- * or agreed to in writing, software distributed under the License is
- * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.mymed.controller.core.requesthandler;
 
-import java.io.IOException;
 import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -58,17 +61,15 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
         reputationManager = new ReputationManager();
     }
 
-    /* --------------------------------------------------------- */
-    /* extends HttpServlet */
-    /* --------------------------------------------------------- */
-    /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-     *      response)
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.mymed.controller.core.requesthandler.AbstractRequestHandler#doGet
+     * (javax.servlet.http.HttpServletRequest,
+     * javax.servlet.http.HttpServletResponse)
      */
     @Override
-    protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-                    IOException {
-
+    protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
         final JsonMessage message = new JsonMessage(200, this.getClass().getName());
 
         try {
@@ -97,8 +98,7 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
                     throw new InternalBackEndException("ReputationRequestHandler.doGet(" + code + ") not exist!");
             }
         } catch (final AbstractMymedException e) {
-            LOGGER.info("Error in doGet operation");
-            LOGGER.debug("Error in doGet operation", e.getCause());
+            LOGGER.debug("Error in doGet operation", e);
             message.setStatus(e.getStatus());
             message.setDescription(e.getMessage());
         }
@@ -106,14 +106,15 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
         printJSonResponse(message, response);
     }
 
-    /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-     *      response)
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.mymed.controller.core.requesthandler.AbstractRequestHandler#doPost
+     * (javax.servlet.http.HttpServletRequest,
+     * javax.servlet.http.HttpServletResponse)
      */
     @Override
-    protected void doPost(final HttpServletRequest request, final HttpServletResponse response)
-                    throws ServletException, IOException {
-
+    protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
         final JsonMessage message = new JsonMessage(200, this.getClass().getName());
 
         try {
@@ -130,8 +131,7 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
                     throw new InternalBackEndException("ReputationRequestHandler.doPost(" + code + ") not exist!");
             }
         } catch (final AbstractMymedException e) {
-            LOGGER.info("Error in doPost operation");
-            LOGGER.debug("Error in doPost operation", e.getCause());
+            LOGGER.debug("Error in doPost operation", e);
             message.setStatus(e.getStatus());
             message.setDescription(e.getMessage());
         }
