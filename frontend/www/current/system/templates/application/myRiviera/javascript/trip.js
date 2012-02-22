@@ -137,7 +137,7 @@ function calcRoute(start, end, mobile) {
 		for (i in result.ItineraryObj.tripSegments.tripSegment){
 			tripSegment = result.ItineraryObj.tripSegments.tripSegment[i];
 			if (tripSegment.type && (listDivider == null || listDivider != tripSegment.type)) {
-				item = $('<div class="grup" data-role="collapsible" data-mini="true" data-theme="b" data-content-theme="d" data-collapsed='+(i?'false':'true')+' onclick="$(\'.grup\').not(this).trigger(\'collapse\');"></div>');
+				item = $('<div data-role="collapsible" data-collapsed='+(i?'false':'true')+'></div>');
 				switch(tripSegment.type){
 				case 'WALK':
 					$("<h3>Marche</h3>").appendTo(item);
@@ -158,7 +158,7 @@ function calcRoute(start, end, mobile) {
 					break;
 				}
 				listDivider = tripSegment.type;
-				item.appendTo($('#itineraire div:first'));
+				item.appendTo($('#itineraireIn'));
 			}
 			
 			if (tripSegment.departurePoint && tripSegment.arrivalPoint){
@@ -186,8 +186,7 @@ function calcRoute(start, end, mobile) {
 			}			
 		}
 		
-		$('#itineraire').find('div[data-role=collapsible]').collapsible({refresh:true});
-		$('.grup').not(':eq(0)').trigger('collapse'); //todo: fix div are always expanded after the above line
+		$('#itineraireIn').find('div[data-role=collapsible]').collapsible({refresh:true});
 		$(routes).each(function(i){
 			var request = {
 					origin: routes[i].origin,

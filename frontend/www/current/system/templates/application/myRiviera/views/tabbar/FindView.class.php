@@ -135,6 +135,8 @@ class FindView extends MyApplication {
 				<!-- FROM CITYWAY -->
 				<div id="itineraire" data-role="collapsible" data-theme="b" data-content-theme="b" style="width: <?= TARGET == "mobile" ? "85" : "35" ?>%;">
 					<h3>Feuille de route - Source <?= $this->handler->getSuccess()->itineraire->type ?></h3>
+					<div id="itineraireIn" data-role="collapsible-set" data-theme="b" data-content-theme="d" data-mini="true">
+					</div>
 				</div>	
 				<script type="text/javascript"> 
 console.log(<?php echo $this->handler->getSuccess()->itineraire->value ?>);
