@@ -54,7 +54,7 @@ class FindView extends MyApplication {
 		foreach($itinerary as $tripSegment) {
 			if($listDivider == null || $listDivider != $tripSegment->type) {
 				$icon = null ?>
-				<li data-role="list-divider">
+				<div class="grup" data-role="collapsible" data-mini="true" data-theme="b" data-content-theme="d" data-collapsed=<?php $i?"false":"true" ?> onclick="$('.grup').not(this).trigger('collapse');">
 				<?php if($tripSegment->type == "WALK") { ?>
 					<span>Marche</span>
 					<?php 
@@ -65,10 +65,10 @@ class FindView extends MyApplication {
 					<span>Connection</span>
 				<?php } else if($tripSegment->type == "WAIT") { ?>
 					<span>Attendre</span>
-					</li>
-					<li style="font-size: 9pt; font-weight: lighter; padding:2px;">
+					</div>
+					<div style="font-size: 9pt; font-weight: lighter; padding:2px;">
 						<span>Durée: <?= $tripSegment->duration ?>min</span>
-					</li>
+					</div>
 					<?php $listDivider = null;?>
 					<?php continue; ?>
 				<?php } else { ?>
@@ -76,7 +76,7 @@ class FindView extends MyApplication {
 					<?php $titre = strtolower($tripSegment->transportMode) ?>
 					<?php $icon = "system/templates/application/myRiviera/img/" . strtolower($tripSegment->transportMode) . ".png" ?>
 				<?php } ?>	
-				</li>
+				</div>
 				<?php 
 				$listDivider = $tripSegment->type;
 			}
@@ -88,13 +88,13 @@ class FindView extends MyApplication {
 			}
 			?>
 			
-			<input id="<?= $i ?>_poi" type="hidden" value='<?= $poi ?>' />
-			<li style="font-size: 9pt; font-weight: lighter; padding:2px;">
+			<input id="poi_<?= $i ?>" type="hidden" value='<?= $poi ?>' />
+			<div style="font-size: 9pt; font-weight: lighter; padding:2px;">
 				
 				<!-- FOCUS ON -->
 				<a href="#" onclick="
-				focusOn('<?= $i ?>', '<?= $latitude ?>', '<?= $longitude ?>');
-				addPOI('<?= $latitude ?>', '<?= $longitude ?>', '<?= $icon ?>', '<?= $titre ?>', '<?= urlencode($tripSegment->comment) ?>', true);
+				focusOnPosition('<?= $latitude ?>', '<?= $longitude ?>');
+				updatePOIs('<?= $latitude ?>', '<?= $longitude ?>', '<?= $icon ?>', '<?= $titre ?>', '<?= $i ?>');
 				<?= TARGET == "mobile" ? "$('#itineraire').trigger('collapse');" : "" ?>"
 				data-icon="search" >
 					<?php if(isset($tripSegment->distance)) { ?>
@@ -103,8 +103,8 @@ class FindView extends MyApplication {
 					<span>Durée: <?= $tripSegment->duration ?>min</span>
 					<?php } ?>
 				</a>
-				<p style="width: 90%;"><?= $tripSegment->comment ?></p>
-			</li>
+				<p id="poicomment_<?= $i ?>" style="width: 90%;"><?= $tripSegment->comment ?></p>
+			</div>
 			
 			<?php 
 			$i++;
@@ -123,28 +123,24 @@ class FindView extends MyApplication {
 
 			<?php if ($this->handler->getSuccess()) { ?>			
 				
-				<!-- FROM CITYWAY -->
+				<!-- ITINERARY -->
 				<div id="itineraire" data-role="collapsible" data-theme="b" data-content-theme="b" style="width: <?= TARGET == "mobile" ? "85" : "35" ?>%;">
 					<h3>Feuille de route - Source <?= $this->handler->getSuccess()->itineraire->type ?></h3>
-					<ul data-role="listview" data-inset="true" data-theme="d" data-divider-theme="b">
-						<?php 
-							// TODO REMOVE THIS TEST, THE GOOGLE TRIP SHOULD BE DONE BY THE APPLICATION HANDLER (same way as cityway)
-							if($this->handler->getSuccess()->itineraire->type == "Google") {
-								?><script type="text/javascript">setTimeout("calcRouteFromGoogle('<?= $_POST['Depart'] ?>','<?= $_POST['Arrivee'] ?>','<?= TARGET ?>')", 500);</script><?php
-							} else {
-								$this->printItinerary($this->handler->getSuccess()->itineraire->value);
-							}
-						?>
-					</ul>
-					<br />
+					<div id="itineraireContent" data-role="collapsible-set" data-theme="b" data-content-theme="d" data-mini="true"></div>
 				</div>	
 				
-				<!-- Display The trip on the map (start9end+fitbounds) -->
+				<!-- Calcul Route -->
+				<script type="text/javascript"> 
+					var result = <?php echo $this->handler->getSuccess()->itineraire->value ?>;
+					setTimeout("calcRoute('<?= $_POST['Depart'] ?>','<?= $_POST['Arrivee'] ?>','<?= TARGET ?>')", 500);
+				</script>
+				
+				<!-- Display The trip on the map -->
 				<?php 
 				$start = str_replace("\"", "", str_replace("'", "", $_POST['Depart']));
 				$end = str_replace("\"", "", str_replace("'", "", $_POST['Arrivee']));
 				?>
-				<script type="text/javascript">setTimeout("showTrip('<?= $start ?>', '<?= $end ?>')", 500);</script>
+				<script type="text/javascript">setTimeout("myRivieraShowTrip('<?= $start ?>', '<?= $end ?>')", 500);</script>
 				
 			<?php } ?>
 			
@@ -153,4 +149,3 @@ class FindView extends MyApplication {
 	
 }
 ?>
-

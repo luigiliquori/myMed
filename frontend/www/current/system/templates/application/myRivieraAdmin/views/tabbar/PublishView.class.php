@@ -96,15 +96,23 @@ class PublishView extends MyApplication {
 					"type": "FeatureCollection",<br/>
 					"features": [<br/>
 					{ "type": "Feature", "properties": { "Type": "ADAPEI_EPSG4326", "Nom": "ADAPEI", "Description": "04 93 28 46 12", "Adresse": "20 rue des Soeurs Munet 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.492455, 43.774314 ] } }
-					<br/>
+					
 					]<br/>
 					}<br/>
 					,<br/>
 					{<br/>
 					"type": "FeatureCollection",<br/>
 					"features": [<br/>
-					{ "type": "Feature", "properties": { "Type": "ADERF_EPSG4326", "Nom": " ADERF", "Description": "Cette association mise en place le 06 ao�t 2001 a pour vocation le d�veloppement �conomique du territoire de la Communaut� d�Agglom�ration de la Riviera Fran�aise", "Adresse": "8 val de Menton 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.501797, 43.776644 ] } }
-					<br/>
+					{ "type": "Feature", "properties": { "Type": "ADERF_EPSG4326", "Nom": "ADERF", "Description": "Cette association mise en place le 06 août 2001 a pour vocation le développement économique du territoire de la Communauté d’Agglomération de la Riviera Française", "Adresse": "8 val de Menton 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.501797, 43.776644 ] } }
+					
+					]<br/>
+					}<br/>
+					,<br/>
+					{<br/>
+					"type": "FeatureCollection",<br/>
+					"features": [<br/>
+					{ "type": "Feature", "properties": { "Type": "ASSEDIC_EPSG4326", "Nom": "ASSEDIC", "Description": "Les ASSEDIC sont ouverts le lundi, de 9h00 à 15h15, le mardi de 9h00 à 14h00, et du mercredi au vendredi  de 9h00 à 15h15", "Adresse": "8 rue Guyau 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.504539, 43.776494 ] } }
+					
 					]<br/>
 					}<br/>
 					]<br/>

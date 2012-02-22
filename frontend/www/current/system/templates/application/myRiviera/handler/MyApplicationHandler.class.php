@@ -39,8 +39,9 @@ class MyApplicationHandler implements IRequestHandler {
 	public /*void*/ function handleRequest() { 
 		if(isset($_POST['method'])) {
 			if($_POST['method'] == "find") {
-				if(isset($_POST['Depart']) && isset($_POST['Arrivee'])) {
-					if ( empty($_POST['Depart']) && isset($_POST['DepartGeo']) ) { //we use lon & lat couple given by DepartGeo
+				if( (!empty($_POST['Depart']) || !empty($_POST['DepartGeo'])) && !empty($_POST['Arrivee'])) {
+					if ( empty($_POST['Depart']) ) {
+						//we use lon & lat couple given by DepartGeo
 						$dep = explode("&", $_POST['DepartGeo']);
 						$geocode1 = json_decode('{' .
 							'"status": "OK",' . 
@@ -73,35 +74,7 @@ class MyApplicationHandler implements IRequestHandler {
 						if(isset($itineraireObj->ItineraryObj->tripSegments)) {
 							
 							$this->success->itineraire->type = "Cityway";
-							$this->success->itineraire->value = $itineraireObj->ItineraryObj->tripSegments->tripSegment;
-							
-							// Construct the default POIs
-							foreach($itineraireObj->ItineraryObj->tripSegments->tripSegment as $tripSegment) {
-								
-								$args = "&mode=transit" . 
-								"&lon=" . $tripSegment->departurePoint->longitude .
-								"&lat=" . $tripSegment->departurePoint->latitude .
-								"&distance=150" . 
-								"&TypePoint=-1" .
-								"&POICategory=-1";
-								$pois = json_decode(file_get_contents(Cityway_URL . "/display/v1/GetTripPointByWGS84/json?key=" . Cityway_APP_ID . $args));
-
-								if($pois->TripPointServiceObj->Status->code == "0") {
-									$i = 0;
-									$tripSegment->poi = array();
-									foreach($pois->TripPointServiceObj->TripPoint as $poi) {
-										if(is_object($poi)){
-											// Convert From Lambert2 to WGS64
-											$convertion = new Convert($poi->x, $poi->y);
-											$newCoord = $convertion->convertion();
-											$poi->longitude = $newCoord[0]; //X
-											$poi->latitude = $newCoord[1];  //Y
-											
-											$tripSegment->poi[$i++] = $poi;
-										}
-									}
-								}
-							}
+							$this->success->itineraire->value = $itineraire;
 							
 						} else {
 							
@@ -109,10 +82,10 @@ class MyApplicationHandler implements IRequestHandler {
 							$this->success->itineraire->value = "";
 						}
 					} else {
-						// TODO NOTIFY THE USER IN CASE OF ERROR
+						$this->error = "2"; $this->success->itineraire->type = "Erreur geocoding";
 					}
 				} else {
-					// TODO NOTIFY THE USER IN CASE OF ERROR
+					$this->error = "3"; $this->success->itineraire->type = "Départ et/ou arrivée non valide";
 				}
 			} 
 		}

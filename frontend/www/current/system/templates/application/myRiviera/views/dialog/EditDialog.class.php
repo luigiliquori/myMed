@@ -131,24 +131,14 @@ class EditDialog extends AbstractTemplate {
 							
 							<select name="select-minute" id="select-minute">
 								<?php for ($i = 0; $i <= 59; $i++) {
-								?><option value= <?=$i?> <?php if ($i==$now['minutes']){?> selected="selected" <?php } ?> > <?=$i?>'</option>
+								?><option value= <?=$i?> <?php if ($i==$now['minutes']){?> selected="selected" <?php } ?> > <?=sprintf('%02d',$i)?></option>
 								<?php } ?>
 							</select>
 						</fieldset>
 					</div>
 	 
-	 
-					<!--
-					<input name="date" type="date" data-role="datebox" id="date"
-						data-options='{"useInline": true, "useInlineHideInput":true, "noSetButton":true, "mode": "flipbox", "dateFormat":"GG:ii DD/MM/YYYY", "fieldsOrderOverride":["y","m","d","h","i"] }' />
-					-->
-	
-	
-					
-		
-					<!-- SUBMIT -->
+					<!-- SUBMIT - ToDO validate before submit-->
 					<a href="#" id="trouver" data-role="button"  rel="external" data-icon="arrow-r" data-iconpos="right" data-theme="b" onclick="document.<?= APPLICATION_NAME ?>FindForm.submit()">Trouver</a>	
-					
 				
 				</form>
 				

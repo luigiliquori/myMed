@@ -1,9 +1,9 @@
 {
 "type": "FeatureCollection",
 "features": [
-{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Beausoleil", "Description": "Mairie de Beausoleil", "Adresse": "27 boulevard de la République 06240 Beausoleil", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.425575, 43.743529 ] } }
+{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Beausoleil", "Description": "Mairie de Beausoleil", "Adresse": "27 boulevard de la RÃ©publique 06240 Beausoleil", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.425575, 43.743529 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Menton", "Description": "Mairie de Menton", "Adresse": "17 rue de la République 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.502946, 43.775669 ] } }
+{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Menton", "Description": "Mairie de Menton", "Adresse": "17 rue de la RÃ©publique 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.502946, 43.775669 ] } }
 ,
 { "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Gorbio", "Description": "Mairie de Gorbio", "Adresse": "30 rue Garibaldi 06500 Gorbio", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.444371, 43.786653 ] } }
 ,
@@ -11,7 +11,7 @@
 ,
 { "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Moulinet", "Description": "Mairie de Moulinet", "Adresse": "Place Saint Joseph 06380 Moulinet", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.413394, 43.942137 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Sainte Agnès", "Description": "Mairie de Sainte Agnès", "Adresse": "102 place Saint-Jean 06500 Sainte-Agnès", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.468982, 43.789281 ] } }
+{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Sainte AgnÃ¨s", "Description": "Mairie de Sainte AgnÃ¨s", "Adresse": "102 place Saint-Jean 06500 Sainte-AgnÃ¨s", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.468982, 43.789281 ] } }
 ,
 { "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Roquebrune Cap Martin", "Description": "Mairie de Roquebrune Cap Martin", "Adresse": "22 avenue Paul Doumer 06190 Roquebrune-Cap-Martin", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.473674, 43.757792 ] } }
 ,
@@ -19,19 +19,19 @@
 ,
 { "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de La Turbie", "Description": "Mairie de La Turbie", "Adresse": "1 avenue Victoire 06320 La Turbie", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.399633, 43.745321 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Castellar", "Description": "Mairie de Castellar", "Adresse": "1 Place G. Clémenceau 06500 Castellar", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.496717, 43.803295 ] } }
+{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Castellar", "Description": "Mairie de Castellar", "Adresse": "1 Place G. ClÃ©menceau 06500 Castellar", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.496717, 43.803295 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Breil-Sur-Roya", "Description": "Mairie de Breil-Sur-Roya", "Adresse": "Place Bianchéri 06540 Breil-sur-Roya", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.514731, 43.938334 ] } }
+{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Breil-Sur-Roya", "Description": "Mairie de Breil-Sur-Roya", "Adresse": "Place BianchÃ©ri 06540 Breil-sur-Roya", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.514731, 43.938334 ] } }
 ,
 { "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Saorge", "Description": "Mairie de Saorge", "Adresse": "Avenue du Docteur DAVEO 06540 Saorge", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.552946, 43.987965 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Fontan", "Description": "Mairie de Fontan", "Adresse": "3 Avenue Théophile Bottone 06540 Fontan", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.554230, 44.003141 ] } }
+{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Fontan", "Description": "Mairie de Fontan", "Adresse": "3 Avenue ThÃ©ophile Bottone 06540 Fontan", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.554230, 44.003141 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Tende", "Description": "Mairie de Tende", "Adresse": "1 Place Général de Gaulle 06430 Tende", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.587214, 44.087092 ] } }
+{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Tende", "Description": "Mairie de Tende", "Adresse": "1 Place GÃ©nÃ©ral de Gaulle 06430 Tende", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.587214, 44.087092 ] } }
 ,
 { "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de la Brigue", "Description": "Mairie de la Brigue", "Adresse": "Place Saint-Martin 06430 La Brigue", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.639334, 44.051985 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie Annexe au village de Sainte-Agnès", "Description": "Mairie Annexe au village", "Adresse": "102 place Saint-Jean 06500 Sainte-Agnès", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.461490, 43.800605 ] } }
+{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie Annexe au village de Sainte-AgnÃ¨s", "Description": "Mairie Annexe au village", "Adresse": "102 place Saint-Jean 06500 Sainte-AgnÃ¨s", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.461490, 43.800605 ] } }
 
 ]
 }

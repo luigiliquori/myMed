@@ -1,9 +1,9 @@
 {
 "type": "FeatureCollection",
 "features": [
-{ "type": "Feature", "properties": { "Type": "Forts_militaires_EPSG4326", "Nom": "Fort de la ligne Maginot", "Description": "http:\/\/en.wikipedia.org\/wiki\/O", "Adresse": "avenue du ch‚teau 06500 SAINTE-AGNES", "Id_media": "", "Code_posta": "", "Ville": "" }, "geometry": { "type": "Point", "coordinates": [ 7.462924, 43.798743 ] } }
+{ "type": "Feature", "properties": { "Type": "Forts_militaires_EPSG4326", "Nom": "Fort de la ligne Maginot", "Description": "http:\/\/en.wikipedia.org\/wiki\/O", "Adresse": "avenue du ch√¢teau 06500 SAINTE-AGNES", "Id_media": "", "Code_posta": "", "Ville": "" }, "geometry": { "type": "Point", "coordinates": [ 7.462924, 43.798743 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "Forts_militaires_EPSG4326", "Nom": "Ch‚teau MÈdiÈval", "Description": "", "Adresse": "Place William Ingram", "Id_media": "", "Code_posta": "", "Ville": "RCM" }, "geometry": { "type": "Point", "coordinates": [ 7.459580, 43.765260 ] } }
+{ "type": "Feature", "properties": { "Type": "Forts_militaires_EPSG4326", "Nom": "Ch√¢teau M√©di√©val", "Description": "", "Adresse": "Place William Ingram", "Id_media": "", "Code_posta": "", "Ville": "RCM" }, "geometry": { "type": "Point", "coordinates": [ 7.459580, 43.765260 ] } }
 ,
 { "type": "Feature", "properties": { "Type": "Forts_militaires_EPSG4326", "Nom": "", "Description": "", "Adresse": "", "Id_media": "", "Code_posta": "", "Ville": "" }, "geometry": { "type": "Point", "coordinates": [ 7.432844, 43.995080 ] } }
 ,

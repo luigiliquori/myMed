@@ -1,35 +1,23 @@
-!table
-!version 700
-!charset WindowsLatin1
-
-Definition Table
-  Type NATIVE Charset "WindowsLatin1"
-  Fields 5
-    Type Char (254) ;
-    Nom Char (30) Index 1 ;
-    Description Char (254) ;
-    Adresse Char (254) ;
-    Id_media Integer ;
-begin_metadata
-"\IsReadOnly" = "FALSE"
-"\Shapefile" = ""
-"\Shapefile\PersistentCache" = "TRUE"
-"\Spatial Reference" = ""
-"\Spatial Reference\Geographic" = ""
-"\Spatial Reference\Geographic\Projection" = ""
-"\Spatial Reference\Geographic\Projection\Clause" = "CoordSys Earth Projection 1, 104"
-"\DefaultStyles" = ""
-"\DefaultStyles\Symbol" = ""
-"\DefaultStyles\Symbol\Type" = "1"
-"\DefaultStyles\Symbol\Pointsize" = "14"
-"\DefaultStyles\Symbol\Color" = "9445631"
-"\DefaultStyles\Symbol\Code" = "107"
-"\DefaultStyles\Symbol\Font" = ""
-"\DefaultStyles\Symbol\Font\Description" = "ERS v2 Infrastructures Stage 03"
-"\DefaultStyles\Symbol\Font\Style" = "0"
-"\DefaultStyles\Symbol\Font\ExtStyle" = "0"
-"\DefaultStyles\Symbol\Font\Forecolor" = "0"
-"\DefaultStyles\Symbol\Font\Backcolor" = "0"
-"\DefaultStyles\Symbol\Font\Opaque" = "FALSE"
-"\DefaultStyles\Symbol\Font\Rotation" = "0"
-end_metadata
+<?xml version="1.0" encoding="utf-8" ?>
+<ogr:FeatureCollection
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://ogr.maptools.org/ ADAPEI_EPSG4326.xsd"
+     xmlns:ogr="http://ogr.maptools.org/"
+     xmlns:gml2="http://www.opengis.net/gml">
+  <gml2:boundedBy>
+    <gml2:Box>
+      <gml2:coord><gml2:X>7.492455</gml2:X><gml2:Y>43.774314</gml2:Y></gml2:coord>
+      <gml2:coord><gml2:X>7.492455</gml2:X><gml2:Y>43.774314</gml2:Y></gml2:coord>
+    </gml2:Box>
+  </gml2:boundedBy>                                                             
+  <gml2:featureMember>
+    <ogr:ADAPEI_EPSG4326 fid="F0">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.492455,43.774313999999997</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>ADAPEI_EPSG4326</ogr:Type>
+      <ogr:Nom>ADAPEI</ogr:Nom>
+      <ogr:Description>04 93 28 46 12</ogr:Description>
+      <ogr:Adresse>20 rue des Soeurs Munet 06500 Menton</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+    </ogr:ADAPEI_EPSG4326>
+  </gml2:featureMember>
+</ogr:FeatureCollection>

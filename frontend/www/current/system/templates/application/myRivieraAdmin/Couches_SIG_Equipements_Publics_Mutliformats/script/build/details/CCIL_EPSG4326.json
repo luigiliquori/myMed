@@ -1,7 +1,7 @@
 {
 "type": "FeatureCollection",
 "features": [
-{ "type": "Feature", "properties": { "Source": "CARF", "Nom": "Maison des entreprises (CCI)", "Adresse": "1 rue Colonnel Hebert", "Téléphone": "04 92 10 43 20", "DateDeSaisie": "2008\/05\/13" }, "geometry": { "type": "Point", "coordinates": [ 7.494997, 43.777037 ] } }
+{ "type": "Feature", "properties": { "Source": "CARF", "Nom": "Maison des entreprises (CCI)", "Adresse": "1 rue Colonnel Hebert", "Téléphone": "", "DateDeSaisie": "2008\/05\/13" }, "geometry": { "type": "Point", "coordinates": [ 7.494997, 43.777037 ] } }
 
 ]
 }

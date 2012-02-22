@@ -1,15 +1,15 @@
 {
 "type": "FeatureCollection",
 "features": [
-{ "type": "Feature", "properties": { "Type": "CCAS_EPSG4326", "Nom": "Centre Communal d'Action Sociale (C.C.A.S)", "Description": "Le Centre Communal d'Action Social est un établissement public autonome chargé de l'aide sociale légale, attribution obligatoire, et de l'aide sociale facultative. Il met en oeuvre la politique sociale déterminée par les élus locaux.", "Adresse": "175 av St Roman 06500 MENTON", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.488021, 43.799340 ] } }
+{ "type": "Feature", "properties": { "Type": "CCAS_EPSG4326", "Nom": "Centre Communal d'Action Sociale (C.C.A.S)", "Description": "Le Centre Communal d'Action Social est un Ã©tablissement public autonome chargÃ© de l'aide sociale lÃ©gale, attribution obligatoire, et de l'aide sociale facultative. Il met en oeuvre la politique sociale dÃ©terminÃ©e par les Ã©lus locaux.", "Adresse": "175 av St Roman 06500 MENTON", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.488021, 43.799340 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "CCAS_EPSG4326", "Nom": "Centre Communal d'Action Sociale (C.C.A.S)", "Description": "L'accueil du Centre Communal d'Action Sociale (CCAS) met à la disposition du public tous les renseignements concernant les différents services et prestations proposés aux Roquebrunois dans le domaine social par cet établissement.", "Adresse": "résid Hernani 2 av Lodola 06190 ROQUEBRUNE CAP MARTIN", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.481574, 43.764990 ] } }
+{ "type": "Feature", "properties": { "Type": "CCAS_EPSG4326", "Nom": "Centre Communal d'Action Sociale (C.C.A.S)", "Description": "L'accueil du Centre Communal d'Action Sociale (CCAS) met Ã  la disposition du public tous les renseignements concernant les diffÃ©rents services et prestations proposÃ©s aux Roquebrunois dans le domaine social par cet Ã©tablissement.", "Adresse": "rÃ©sid Hernani 2 av Lodola 06190 ROQUEBRUNE CAP MARTIN", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.481574, 43.764990 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "CCAS_EPSG4326", "Nom": "Centre Médico Social", "Description": "Dr Bessi 04 93 04 24 10", "Adresse": "8 av Jean Médecin 06380 SOSPEL", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.446117, 43.878012 ] } }
+{ "type": "Feature", "properties": { "Type": "CCAS_EPSG4326", "Nom": "Centre MÃ©dico Social", "Description": "Dr Bessi 04 93 04 24 10", "Adresse": "8 av Jean MÃ©decin 06380 SOSPEL", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.446117, 43.878012 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "CCAS_EPSG4326", "Nom": "Centre Médico Social (DAMS)", "Description": "Mardi de 13H30 à 16H", "Adresse": "Espace Jean Favre 17 pl Neuve 06320 TURBIE (LA)", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.399804, 43.744642 ] } }
+{ "type": "Feature", "properties": { "Type": "CCAS_EPSG4326", "Nom": "Centre MÃ©dico Social (DAMS)", "Description": "Mardi de 13H30 Ã  16H", "Adresse": "Espace Jean Favre 17 pl Neuve 06320 TURBIE (LA)", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.399804, 43.744642 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "CCAS_EPSG4326", "Nom": "Centre Communal d'Action Sociale (CCAS)", "Description": "Le centre communal d’action sociale (CCAS) sur Beausoleil est un établissement public géré par un conseil d’administration et présidé par le Maire.", "Adresse": "1 r Jules Ferry 06240 BEAUSOLEIL", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.423979, 43.742774 ] } }
+{ "type": "Feature", "properties": { "Type": "CCAS_EPSG4326", "Nom": "Centre Communal d'Action Sociale (CCAS)", "Description": "Le centre communal dâ€™action sociale (CCAS) sur Beausoleil est un Ã©tablissement public gÃ©rÃ© par un conseil dâ€™administration et prÃ©sidÃ© par le Maire.", "Adresse": "1 r Jules Ferry 06240 BEAUSOLEIL", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.423979, 43.742774 ] } }
 
 ]
 }

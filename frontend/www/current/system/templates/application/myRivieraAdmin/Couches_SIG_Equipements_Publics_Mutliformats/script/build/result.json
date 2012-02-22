@@ -10,7 +10,7 @@
 {
 "type": "FeatureCollection",
 "features": [
-{ "type": "Feature", "properties": { "Type": "ADERF_EPSG4326", "Nom": " ADERF", "Description": "Cette association mise en place le 06 août 2001 a pour vocation le développement économique du territoire de la Communauté d’Agglomération de la Riviera Française", "Adresse": "8 val de Menton 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.501797, 43.776644 ] } }
+{ "type": "Feature", "properties": { "Type": "ADERF_EPSG4326", "Nom": "ADERF", "Description": "Cette association mise en place le 06 aoÃ»t 2001 a pour vocation le dÃ©veloppement Ã©conomique du territoire de la CommunautÃ© dâ€™AgglomÃ©ration de la Riviera FranÃ§aise", "Adresse": "8 val de Menton 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.501797, 43.776644 ] } }
 
 ]
 }
@@ -18,7 +18,7 @@
 {
 "type": "FeatureCollection",
 "features": [
-{ "type": "Feature", "properties": { "Type": "ASSEDIC_EPSG4326", "Nom": "ASSEDIC", "Description": "Les ASSEDIC sont ouverts le lundi, de 9h00 à 15h15, le mardi de 9h00 à 14h00, et du mercredi au vendredi  de 9h00 à 15h15", "Adresse": "8 rue Guyau 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.504539, 43.776494 ] } }
+{ "type": "Feature", "properties": { "Type": "ASSEDIC_EPSG4326", "Nom": "ASSEDIC", "Description": "Les ASSEDIC sont ouverts le lundi, de 9h00 Ã  15h15, le mardi de 9h00 Ã  14h00, et du mercredi au vendredi  de 9h00 Ã  15h15", "Adresse": "8 rue Guyau 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.504539, 43.776494 ] } }
 
 ]
 }
@@ -26,15 +26,15 @@
 {
 "type": "FeatureCollection",
 "features": [
-{ "type": "Feature", "properties": { "Type": "Bibliotheque_EPSG4326", "Nom": "Bibliothèque de la flamme bleu", "Description": "04 92 10 03 03", "Adresse": "1 rue Saint Charles 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.502410, 43.776088 ] } }
+{ "type": "Feature", "properties": { "Type": "Bibliotheque_EPSG4326", "Nom": "BibliothÃ¨que de la flamme bleu", "Description": "04 92 10 03 03", "Adresse": "1 rue Saint Charles 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.502410, 43.776088 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "Bibliotheque_EPSG4326", "Nom": "Bibliothèque municipale", "Description": "04 92 41 76 60", "Adresse": "8 avenue Boyer 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.497568, 43.774112 ] } }
+{ "type": "Feature", "properties": { "Type": "Bibliotheque_EPSG4326", "Nom": "BibliothÃ¨que municipale", "Description": "04 92 41 76 60", "Adresse": "8 avenue Boyer 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.497568, 43.774112 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "Bibliotheque_EPSG4326", "Nom": "Bibliothèque municipale- Enfants", "Description": "04 93 28 14 94", "Adresse": "15 rue Saint Michel 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.505188, 43.775331 ] } }
+{ "type": "Feature", "properties": { "Type": "Bibliotheque_EPSG4326", "Nom": "BibliothÃ¨que municipale- Enfants", "Description": "04 93 28 14 94", "Adresse": "15 rue Saint Michel 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.505188, 43.775331 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "Bibliotheque_EPSG4326", "Nom": "Bibliothèque pour tous", "Description": "04 93 35 58 58", "Adresse": "7 avenue Thiers 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.496007, 43.774290 ] } }
+{ "type": "Feature", "properties": { "Type": "Bibliotheque_EPSG4326", "Nom": "BibliothÃ¨que pour tous", "Description": "04 93 35 58 58", "Adresse": "7 avenue Thiers 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.496007, 43.774290 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "Bibliotheque_EPSG4326", "Nom": "Bibliothèque municipale", "Description": "04 93 04 33 26", "Adresse": "Place Saint Michel  06380 Sospel", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.447431, 43.877197 ] } }
+{ "type": "Feature", "properties": { "Type": "Bibliotheque_EPSG4326", "Nom": "BibliothÃ¨que municipale", "Description": "04 93 04 33 26", "Adresse": "Place Saint Michel  06380 Sospel", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.447431, 43.877197 ] } }
 
 ]
 }
@@ -42,15 +42,15 @@
 {
 "type": "FeatureCollection",
 "features": [
-{ "type": "Feature", "properties": { "Type": "CCAS_EPSG4326", "Nom": "Centre Communal d'Action Sociale (C.C.A.S)", "Description": "Le Centre Communal d'Action Social est un établissement public autonome chargé de l'aide sociale légale, attribution obligatoire, et de l'aide sociale facultative. Il met en oeuvre la politique sociale déterminée par les élus locaux.", "Adresse": "175 av St Roman 06500 MENTON", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.488021, 43.799340 ] } }
+{ "type": "Feature", "properties": { "Type": "CCAS_EPSG4326", "Nom": "Centre Communal d'Action Sociale (C.C.A.S)", "Description": "Le Centre Communal d'Action Social est un Ã©tablissement public autonome chargÃ© de l'aide sociale lÃ©gale, attribution obligatoire, et de l'aide sociale facultative. Il met en oeuvre la politique sociale dÃ©terminÃ©e par les Ã©lus locaux.", "Adresse": "175 av St Roman 06500 MENTON", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.488021, 43.799340 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "CCAS_EPSG4326", "Nom": "Centre Communal d'Action Sociale (C.C.A.S)", "Description": "L'accueil du Centre Communal d'Action Sociale (CCAS) met à la disposition du public tous les renseignements concernant les différents services et prestations proposés aux Roquebrunois dans le domaine social par cet établissement.", "Adresse": "résid Hernani 2 av Lodola 06190 ROQUEBRUNE CAP MARTIN", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.481574, 43.764990 ] } }
+{ "type": "Feature", "properties": { "Type": "CCAS_EPSG4326", "Nom": "Centre Communal d'Action Sociale (C.C.A.S)", "Description": "L'accueil du Centre Communal d'Action Sociale (CCAS) met Ã  la disposition du public tous les renseignements concernant les diffÃ©rents services et prestations proposÃ©s aux Roquebrunois dans le domaine social par cet Ã©tablissement.", "Adresse": "rÃ©sid Hernani 2 av Lodola 06190 ROQUEBRUNE CAP MARTIN", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.481574, 43.764990 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "CCAS_EPSG4326", "Nom": "Centre Médico Social", "Description": "Dr Bessi 04 93 04 24 10", "Adresse": "8 av Jean Médecin 06380 SOSPEL", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.446117, 43.878012 ] } }
+{ "type": "Feature", "properties": { "Type": "CCAS_EPSG4326", "Nom": "Centre MÃ©dico Social", "Description": "Dr Bessi 04 93 04 24 10", "Adresse": "8 av Jean MÃ©decin 06380 SOSPEL", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.446117, 43.878012 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "CCAS_EPSG4326", "Nom": "Centre Médico Social (DAMS)", "Description": "Mardi de 13H30 à 16H", "Adresse": "Espace Jean Favre 17 pl Neuve 06320 TURBIE (LA)", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.399804, 43.744642 ] } }
+{ "type": "Feature", "properties": { "Type": "CCAS_EPSG4326", "Nom": "Centre MÃ©dico Social (DAMS)", "Description": "Mardi de 13H30 Ã  16H", "Adresse": "Espace Jean Favre 17 pl Neuve 06320 TURBIE (LA)", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.399804, 43.744642 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "CCAS_EPSG4326", "Nom": "Centre Communal d'Action Sociale (CCAS)", "Description": "Le centre communal d’action sociale (CCAS) sur Beausoleil est un établissement public géré par un conseil d’administration et présidé par le Maire.", "Adresse": "1 r Jules Ferry 06240 BEAUSOLEIL", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.423979, 43.742774 ] } }
+{ "type": "Feature", "properties": { "Type": "CCAS_EPSG4326", "Nom": "Centre Communal d'Action Sociale (CCAS)", "Description": "Le centre communal dâ€™action sociale (CCAS) sur Beausoleil est un Ã©tablissement public gÃ©rÃ© par un conseil dâ€™administration et prÃ©sidÃ© par le Maire.", "Adresse": "1 r Jules Ferry 06240 BEAUSOLEIL", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.423979, 43.742774 ] } }
 
 ]
 }
@@ -58,7 +58,7 @@
 {
 "type": "FeatureCollection",
 "features": [
-{ "type": "Feature", "properties": { "Source": "CARF", "Nom": "Maison des entreprises (CCI)", "Adresse": "1 rue Colonnel Hebert", "Téléphone": "04 92 10 43 20", "DateDeSaisie": "2008\/05\/13" }, "geometry": { "type": "Point", "coordinates": [ 7.494997, 43.777037 ] } }
+{ "type": "Feature", "properties": { "Source": "CARF", "Nom": "Maison des entreprises (CCI)", "Adresse": "1 rue Colonnel Hebert", "Téléphone": "", "DateDeSaisie": "2008\/05\/13" }, "geometry": { "type": "Point", "coordinates": [ 7.494997, 43.777037 ] } }
 
 ]
 }
@@ -66,7 +66,7 @@
 {
 "type": "FeatureCollection",
 "features": [
-{ "type": "Feature", "properties": { "Type": "EPCI_EPSG4326", "Nom": "Communauté d'Agglomération de la Riviera Française", "Description": "Bienvenue à la Communauté d’Agglomération de la Riviera Française. Elle se compose de dix communes et d’une population de 65.607 habitants.", "Adresse": "16 rue Villlarey 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.501240, 43.776289 ] } }
+{ "type": "Feature", "properties": { "Type": "EPCI_EPSG4326", "Nom": "CommunautÃ© d'AgglomÃ©ration de la Riviera FranÃ§aise", "Description": "Bienvenue Ã  la CommunautÃ© dâ€™AgglomÃ©ration de la Riviera FranÃ§aise. Elle se compose de dix communes et dâ€™une population de 65.607 habitants.", "Adresse": "16 rue Villlarey 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.501240, 43.776289 ] } }
 
 ]
 }
@@ -78,9 +78,9 @@
 ,
 { "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "OPAM", "Description": "04 92 10 53 40", "Adresse": "5 avenue de Saint Roman 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.487765, 43.803583 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Central téléphonique France Télécom", "Description": "10 14", "Adresse": "23 bis rue Paul Morillot 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.486348, 43.767431 ] } }
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Central tÃ©lÃ©phonique France TÃ©lÃ©com", "Description": "10 14", "Adresse": "23 bis rue Paul Morillot 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.486348, 43.767431 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Téléboutique France Télécom", "Description": "08 00 10 14 06", "Adresse": "19 rue Saint Michel 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.506053, 43.775633 ] } }
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "TÃ©lÃ©boutique France TÃ©lÃ©com", "Description": "08 00 10 14 06", "Adresse": "19 rue Saint Michel 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.506053, 43.775633 ] } }
 ,
 { "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Caisse d'Allocations Famililal", "Description": "0 820 250 610", "Adresse": "10 boulevard Victor Hugo 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.495970, 43.774895 ] } }
 ,
@@ -90,7 +90,7 @@
 ,
 { "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Sud-Est Assainissement Service", "Description": "04 93 57 82 33", "Adresse": "1173 avenue Saint Roman 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.486247, 43.807236 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Prud'Hommes (Secrétariat)", "Description": "04 93 57 68 52", "Adresse": "7 rue Prato 06500 MENTON 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.498558, 43.774692 ] } }
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Prud'Hommes (SecrÃ©tariat)", "Description": "04 93 57 68 52", "Adresse": "7 rue Prato 06500 MENTON 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.498558, 43.774692 ] } }
 ,
 { "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Palais de justice", "Description": "04 93 35 74 92", "Adresse": "7 rue Prato  06500 MENTON 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.498558, 43.774692 ] } }
 ,
@@ -102,13 +102,13 @@
 ,
 { "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Tribunal de commerce", "Description": "04 93 35 74 93", "Adresse": "7 rue Prato 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.498558, 43.774692 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Service de l'Etat Civil", "Description": "04 92 10 50 45", "Adresse": "17 rue de la République 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.502842, 43.775522 ] } }
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Service de l'Etat Civil", "Description": "04 92 10 50 45", "Adresse": "17 rue de la RÃ©publique 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.502842, 43.775522 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Subdivision des Douanes", "Description": "04 93 35 37 51", "Adresse": "152 Bis promenade Val du Caréï 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.490876, 43.794763 ] } }
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Subdivision des Douanes", "Description": "04 93 35 37 51", "Adresse": "152 Bis promenade Val du CarÃ©Ã¯ 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.490876, 43.794763 ] } }
 ,
 { "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Bridage de surveillance des douanes", "Description": "04 93 37 37 70", "Adresse": "avenue Aristide Briand 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.524775, 43.785988 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Huissier de justice", "Description": "04 92 41 78 00", "Adresse": "11 avenue Félix Faure 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.500057, 43.773709 ] } }
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Huissier de justice", "Description": "04 92 41 78 00", "Adresse": "11 avenue FÃ©lix Faure 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.500057, 43.773709 ] } }
 ,
 { "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Fondations Bariquand Alphand", "Description": "04 93 35 72 38", "Adresse": "41 boulevard de Garavan 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.513407, 43.786947 ] } }
 ,
@@ -118,9 +118,9 @@
 ,
 { "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Villa Serre de la Madone", "Description": "04 93 57 73 90", "Adresse": "74 route du val de Gorbio 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.475260, 43.774606 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Moulin à huile", "Description": "04 92 10 59 00", "Adresse": "Voie du moulin à huile 06500 CASTELLAR", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.496415, 43.804878 ] } }
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Moulin Ã  huile", "Description": "04 92 10 59 00", "Adresse": "Voie du moulin Ã  huile 06500 CASTELLAR", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.496415, 43.804878 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Halles municipales", "Description": "04.92.10.50.00", "Adresse": "Quai de Monléon 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.506131, 43.775225 ] } }
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Halles municipales", "Description": "04.92.10.50.00", "Adresse": "Quai de MonlÃ©on 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.506131, 43.775225 ] } }
 
 ]
 }
@@ -128,9 +128,9 @@
 {
 "type": "FeatureCollection",
 "features": [
-{ "type": "Feature", "properties": { "Type": "Forts_militaires_EPSG4326", "Nom": "Fort de la ligne Maginot", "Description": "http:\/\/en.wikipedia.org\/wiki\/O", "Adresse": "avenue du château 06500 SAINTE-AGNES", "Id_media": "", "Code_posta": "", "Ville": "" }, "geometry": { "type": "Point", "coordinates": [ 7.462924, 43.798743 ] } }
+{ "type": "Feature", "properties": { "Type": "Forts_militaires_EPSG4326", "Nom": "Fort de la ligne Maginot", "Description": "http:\/\/en.wikipedia.org\/wiki\/O", "Adresse": "avenue du chÃ¢teau 06500 SAINTE-AGNES", "Id_media": "", "Code_posta": "", "Ville": "" }, "geometry": { "type": "Point", "coordinates": [ 7.462924, 43.798743 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "Forts_militaires_EPSG4326", "Nom": "Château Médiéval", "Description": "", "Adresse": "Place William Ingram", "Id_media": "", "Code_posta": "", "Ville": "RCM" }, "geometry": { "type": "Point", "coordinates": [ 7.459580, 43.765260 ] } }
+{ "type": "Feature", "properties": { "Type": "Forts_militaires_EPSG4326", "Nom": "ChÃ¢teau MÃ©diÃ©val", "Description": "", "Adresse": "Place William Ingram", "Id_media": "", "Code_posta": "", "Ville": "RCM" }, "geometry": { "type": "Point", "coordinates": [ 7.459580, 43.765260 ] } }
 ,
 { "type": "Feature", "properties": { "Type": "Forts_militaires_EPSG4326", "Nom": "", "Description": "", "Adresse": "", "Id_media": "", "Code_posta": "", "Ville": "" }, "geometry": { "type": "Point", "coordinates": [ 7.432844, 43.995080 ] } }
 ,
@@ -146,9 +146,9 @@
 {
 "type": "FeatureCollection",
 "features": [
-{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Beausoleil", "Description": "Mairie de Beausoleil", "Adresse": "27 boulevard de la République 06240 Beausoleil", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.425575, 43.743529 ] } }
+{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Beausoleil", "Description": "Mairie de Beausoleil", "Adresse": "27 boulevard de la RÃ©publique 06240 Beausoleil", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.425575, 43.743529 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Menton", "Description": "Mairie de Menton", "Adresse": "17 rue de la République 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.502946, 43.775669 ] } }
+{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Menton", "Description": "Mairie de Menton", "Adresse": "17 rue de la RÃ©publique 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.502946, 43.775669 ] } }
 ,
 { "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Gorbio", "Description": "Mairie de Gorbio", "Adresse": "30 rue Garibaldi 06500 Gorbio", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.444371, 43.786653 ] } }
 ,
@@ -156,7 +156,7 @@
 ,
 { "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Moulinet", "Description": "Mairie de Moulinet", "Adresse": "Place Saint Joseph 06380 Moulinet", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.413394, 43.942137 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Sainte Agnès", "Description": "Mairie de Sainte Agnès", "Adresse": "102 place Saint-Jean 06500 Sainte-Agnès", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.468982, 43.789281 ] } }
+{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Sainte AgnÃ¨s", "Description": "Mairie de Sainte AgnÃ¨s", "Adresse": "102 place Saint-Jean 06500 Sainte-AgnÃ¨s", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.468982, 43.789281 ] } }
 ,
 { "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Roquebrune Cap Martin", "Description": "Mairie de Roquebrune Cap Martin", "Adresse": "22 avenue Paul Doumer 06190 Roquebrune-Cap-Martin", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.473674, 43.757792 ] } }
 ,
@@ -164,19 +164,19 @@
 ,
 { "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de La Turbie", "Description": "Mairie de La Turbie", "Adresse": "1 avenue Victoire 06320 La Turbie", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.399633, 43.745321 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Castellar", "Description": "Mairie de Castellar", "Adresse": "1 Place G. Clémenceau 06500 Castellar", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.496717, 43.803295 ] } }
+{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Castellar", "Description": "Mairie de Castellar", "Adresse": "1 Place G. ClÃ©menceau 06500 Castellar", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.496717, 43.803295 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Breil-Sur-Roya", "Description": "Mairie de Breil-Sur-Roya", "Adresse": "Place Bianchéri 06540 Breil-sur-Roya", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.514731, 43.938334 ] } }
+{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Breil-Sur-Roya", "Description": "Mairie de Breil-Sur-Roya", "Adresse": "Place BianchÃ©ri 06540 Breil-sur-Roya", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.514731, 43.938334 ] } }
 ,
 { "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Saorge", "Description": "Mairie de Saorge", "Adresse": "Avenue du Docteur DAVEO 06540 Saorge", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.552946, 43.987965 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Fontan", "Description": "Mairie de Fontan", "Adresse": "3 Avenue Théophile Bottone 06540 Fontan", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.554230, 44.003141 ] } }
+{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Fontan", "Description": "Mairie de Fontan", "Adresse": "3 Avenue ThÃ©ophile Bottone 06540 Fontan", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.554230, 44.003141 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Tende", "Description": "Mairie de Tende", "Adresse": "1 Place Général de Gaulle 06430 Tende", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.587214, 44.087092 ] } }
+{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Tende", "Description": "Mairie de Tende", "Adresse": "1 Place GÃ©nÃ©ral de Gaulle 06430 Tende", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.587214, 44.087092 ] } }
 ,
 { "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de la Brigue", "Description": "Mairie de la Brigue", "Adresse": "Place Saint-Martin 06430 La Brigue", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.639334, 44.051985 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie Annexe au village de Sainte-Agnès", "Description": "Mairie Annexe au village", "Adresse": "102 place Saint-Jean 06500 Sainte-Agnès", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.461490, 43.800605 ] } }
+{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie Annexe au village de Sainte-AgnÃ¨s", "Description": "Mairie Annexe au village", "Adresse": "102 place Saint-Jean 06500 Sainte-AgnÃ¨s", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.461490, 43.800605 ] } }
 
 ]
 }

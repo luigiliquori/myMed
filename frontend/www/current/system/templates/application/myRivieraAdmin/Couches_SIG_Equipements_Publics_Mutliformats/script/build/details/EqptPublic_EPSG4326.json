@@ -5,9 +5,9 @@
 ,
 { "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "OPAM", "Description": "04 92 10 53 40", "Adresse": "5 avenue de Saint Roman 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.487765, 43.803583 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Central téléphonique France Télécom", "Description": "10 14", "Adresse": "23 bis rue Paul Morillot 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.486348, 43.767431 ] } }
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Central tÃ©lÃ©phonique France TÃ©lÃ©com", "Description": "10 14", "Adresse": "23 bis rue Paul Morillot 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.486348, 43.767431 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Téléboutique France Télécom", "Description": "08 00 10 14 06", "Adresse": "19 rue Saint Michel 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.506053, 43.775633 ] } }
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "TÃ©lÃ©boutique France TÃ©lÃ©com", "Description": "08 00 10 14 06", "Adresse": "19 rue Saint Michel 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.506053, 43.775633 ] } }
 ,
 { "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Caisse d'Allocations Famililal", "Description": "0 820 250 610", "Adresse": "10 boulevard Victor Hugo 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.495970, 43.774895 ] } }
 ,
@@ -17,7 +17,7 @@
 ,
 { "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Sud-Est Assainissement Service", "Description": "04 93 57 82 33", "Adresse": "1173 avenue Saint Roman 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.486247, 43.807236 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Prud'Hommes (Secrétariat)", "Description": "04 93 57 68 52", "Adresse": "7 rue Prato 06500 MENTON 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.498558, 43.774692 ] } }
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Prud'Hommes (SecrÃ©tariat)", "Description": "04 93 57 68 52", "Adresse": "7 rue Prato 06500 MENTON 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.498558, 43.774692 ] } }
 ,
 { "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Palais de justice", "Description": "04 93 35 74 92", "Adresse": "7 rue Prato  06500 MENTON 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.498558, 43.774692 ] } }
 ,
@@ -29,13 +29,13 @@
 ,
 { "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Tribunal de commerce", "Description": "04 93 35 74 93", "Adresse": "7 rue Prato 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.498558, 43.774692 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Service de l'Etat Civil", "Description": "04 92 10 50 45", "Adresse": "17 rue de la République 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.502842, 43.775522 ] } }
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Service de l'Etat Civil", "Description": "04 92 10 50 45", "Adresse": "17 rue de la RÃ©publique 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.502842, 43.775522 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Subdivision des Douanes", "Description": "04 93 35 37 51", "Adresse": "152 Bis promenade Val du Caréï 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.490876, 43.794763 ] } }
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Subdivision des Douanes", "Description": "04 93 35 37 51", "Adresse": "152 Bis promenade Val du CarÃ©Ã¯ 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.490876, 43.794763 ] } }
 ,
 { "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Bridage de surveillance des douanes", "Description": "04 93 37 37 70", "Adresse": "avenue Aristide Briand 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.524775, 43.785988 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Huissier de justice", "Description": "04 92 41 78 00", "Adresse": "11 avenue Félix Faure 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.500057, 43.773709 ] } }
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Huissier de justice", "Description": "04 92 41 78 00", "Adresse": "11 avenue FÃ©lix Faure 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.500057, 43.773709 ] } }
 ,
 { "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Fondations Bariquand Alphand", "Description": "04 93 35 72 38", "Adresse": "41 boulevard de Garavan 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.513407, 43.786947 ] } }
 ,
@@ -45,9 +45,9 @@
 ,
 { "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Villa Serre de la Madone", "Description": "04 93 57 73 90", "Adresse": "74 route du val de Gorbio 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.475260, 43.774606 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Moulin à huile", "Description": "04 92 10 59 00", "Adresse": "Voie du moulin à huile 06500 CASTELLAR", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.496415, 43.804878 ] } }
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Moulin Ã  huile", "Description": "04 92 10 59 00", "Adresse": "Voie du moulin Ã  huile 06500 CASTELLAR", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.496415, 43.804878 ] } }
 ,
-{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Halles municipales", "Description": "04.92.10.50.00", "Adresse": "Quai de Monléon 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.506131, 43.775225 ] } }
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Halles municipales", "Description": "04.92.10.50.00", "Adresse": "Quai de MonlÃ©on 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.506131, 43.775225 ] } }
 
 ]
 }

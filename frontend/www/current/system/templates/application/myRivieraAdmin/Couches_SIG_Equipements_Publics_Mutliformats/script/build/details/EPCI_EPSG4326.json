@@ -1,7 +1,7 @@
 {
 "type": "FeatureCollection",
 "features": [
-{ "type": "Feature", "properties": { "Type": "EPCI_EPSG4326", "Nom": "Communauté d'Agglomération de la Riviera Française", "Description": "Bienvenue à la Communauté d’Agglomération de la Riviera Française. Elle se compose de dix communes et d’une population de 65.607 habitants.", "Adresse": "16 rue Villlarey 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.501240, 43.776289 ] } }
+{ "type": "Feature", "properties": { "Type": "EPCI_EPSG4326", "Nom": "CommunautÃ© d'AgglomÃ©ration de la Riviera FranÃ§aise", "Description": "Bienvenue Ã  la CommunautÃ© dâ€™AgglomÃ©ration de la Riviera FranÃ§aise. Elle se compose de dix communes et dâ€™une population de 65.607 habitants.", "Adresse": "16 rue Villlarey 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.501240, 43.776289 ] } }
 
 ]
 }

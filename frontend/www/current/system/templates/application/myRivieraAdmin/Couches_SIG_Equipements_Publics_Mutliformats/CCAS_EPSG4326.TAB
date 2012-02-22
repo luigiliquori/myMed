@@ -1,35 +1,63 @@
-!table
-!version 700
-!charset WindowsLatin1
-
-Definition Table
-  Type NATIVE Charset "WindowsLatin1"
-  Fields 5
-    Type Char (254) ;
-    Nom Char (254) Index 1 ;
-    Description Char (254) ;
-    Adresse Char (254) ;
-    Id_media Char (254) ;
-begin_metadata
-"\IsReadOnly" = "FALSE"
-"\Shapefile" = ""
-"\Shapefile\PersistentCache" = "TRUE"
-"\Spatial Reference" = ""
-"\Spatial Reference\Geographic" = ""
-"\Spatial Reference\Geographic\Projection" = ""
-"\Spatial Reference\Geographic\Projection\Clause" = "CoordSys Earth Projection 3, 1002, ""m"", 0, 44.1, 43.199291275544, 44.996093814511, 600000, 200000 Bounds (-104503824.399, -98311919.314) (105703824.399, 111895729.483)"
-"\DefaultStyles" = ""
-"\DefaultStyles\Symbol" = ""
-"\DefaultStyles\Symbol\Type" = "1"
-"\DefaultStyles\Symbol\Pointsize" = "14"
-"\DefaultStyles\Symbol\Color" = "7405567"
-"\DefaultStyles\Symbol\Code" = "43"
-"\DefaultStyles\Symbol\Font" = ""
-"\DefaultStyles\Symbol\Font\Description" = "MapInfo Real Estate"
-"\DefaultStyles\Symbol\Font\Style" = "0"
-"\DefaultStyles\Symbol\Font\ExtStyle" = "0"
-"\DefaultStyles\Symbol\Font\Forecolor" = "0"
-"\DefaultStyles\Symbol\Font\Backcolor" = "0"
-"\DefaultStyles\Symbol\Font\Opaque" = "FALSE"
-"\DefaultStyles\Symbol\Font\Rotation" = "0"
-end_metadata
+<?xml version="1.0" encoding="utf-8" ?>
+<ogr:FeatureCollection
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://ogr.maptools.org/ CCAS_EPSG4326.xsd"
+     xmlns:ogr="http://ogr.maptools.org/"
+     xmlns:gml2="http://www.opengis.net/gml">
+  <gml2:boundedBy>
+    <gml2:Box>
+      <gml2:coord><gml2:X>7.399804</gml2:X><gml2:Y>43.742774</gml2:Y></gml2:coord>
+      <gml2:coord><gml2:X>7.488021</gml2:X><gml2:Y>43.878012</gml2:Y></gml2:coord>
+    </gml2:Box>
+  </gml2:boundedBy>                                                             
+  <gml2:featureMember>
+    <ogr:CCAS_EPSG4326 fid="F0">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.488021,43.79934</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>CCAS_EPSG4326</ogr:Type>
+      <ogr:Nom>Centre Communal d'Action Sociale (C.C.A.S)</ogr:Nom>
+      <ogr:Description>Le Centre Communal d'Action Social est un établissement public autonome chargé de l'aide sociale légale, attribution obligatoire, et de l'aide sociale facultative. Il met en oeuvre la politique sociale déterminée par les élus locaux.</ogr:Description>
+      <ogr:Adresse>175 av St Roman 06500 MENTON</ogr:Adresse>
+      <ogr:Id_media></ogr:Id_media>
+    </ogr:CCAS_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:CCAS_EPSG4326 fid="F1">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.481574,43.764989999999997</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>CCAS_EPSG4326</ogr:Type>
+      <ogr:Nom>Centre Communal d'Action Sociale (C.C.A.S)</ogr:Nom>
+      <ogr:Description>L'accueil du Centre Communal d'Action Sociale (CCAS) met à la disposition du public tous les renseignements concernant les différents services et prestations proposés aux Roquebrunois dans le domaine social par cet établissement.</ogr:Description>
+      <ogr:Adresse>résid Hernani 2 av Lodola 06190 ROQUEBRUNE CAP MARTIN</ogr:Adresse>
+      <ogr:Id_media></ogr:Id_media>
+    </ogr:CCAS_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:CCAS_EPSG4326 fid="F2">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.446117,43.878011999999998</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>CCAS_EPSG4326</ogr:Type>
+      <ogr:Nom>Centre Médico Social</ogr:Nom>
+      <ogr:Description>Dr Bessi 04 93 04 24 10</ogr:Description>
+      <ogr:Adresse>8 av Jean Médecin 06380 SOSPEL</ogr:Adresse>
+      <ogr:Id_media></ogr:Id_media>
+    </ogr:CCAS_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:CCAS_EPSG4326 fid="F3">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.399804,43.744641999999999</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>CCAS_EPSG4326</ogr:Type>
+      <ogr:Nom>Centre Médico Social (DAMS)</ogr:Nom>
+      <ogr:Description>Mardi de 13H30 à 16H</ogr:Description>
+      <ogr:Adresse>Espace Jean Favre 17 pl Neuve 06320 TURBIE (LA)</ogr:Adresse>
+      <ogr:Id_media></ogr:Id_media>
+    </ogr:CCAS_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:CCAS_EPSG4326 fid="F4">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.423979,43.742773999999997</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>CCAS_EPSG4326</ogr:Type>
+      <ogr:Nom>Centre Communal d'Action Sociale (CCAS)</ogr:Nom>
+      <ogr:Description>Le centre communal d’action sociale (CCAS) sur Beausoleil est un établissement public géré par un conseil d’administration et présidé par le Maire.</ogr:Description>
+      <ogr:Adresse>1 r Jules Ferry 06240 BEAUSOLEIL</ogr:Adresse>
+      <ogr:Id_media></ogr:Id_media>
+    </ogr:CCAS_EPSG4326>
+  </gml2:featureMember>
+</ogr:FeatureCollection>

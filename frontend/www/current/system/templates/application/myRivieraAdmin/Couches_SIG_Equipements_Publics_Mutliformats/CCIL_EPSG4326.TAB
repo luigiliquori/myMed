@@ -1,12 +1,23 @@
-!table
-!version 300
-!charset WindowsLatin1
-
-Definition Table
-  Type NATIVE Charset "WindowsLatin1"
-  Fields 5
-    Source Char (4) ;
-    Nom Char (32) ;
-    Adresse Char (32) ;
-    T�l�phone Char (32) ;
-    DateDeSaisie Date ;
+<?xml version="1.0" encoding="utf-8" ?>
+<ogr:FeatureCollection
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://ogr.maptools.org/ CCIL_EPSG4326.xsd"
+     xmlns:ogr="http://ogr.maptools.org/"
+     xmlns:gml2="http://www.opengis.net/gml">
+  <gml2:boundedBy>
+    <gml2:Box>
+      <gml2:coord><gml2:X>7.494997</gml2:X><gml2:Y>43.777037</gml2:Y></gml2:coord>
+      <gml2:coord><gml2:X>7.494997</gml2:X><gml2:Y>43.777037</gml2:Y></gml2:coord>
+    </gml2:Box>
+  </gml2:boundedBy>                                                             
+  <gml2:featureMember>
+    <ogr:CCIL_EPSG4326 fid="F0">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.494997,43.777037</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Source>CARF</ogr:Source>
+      <ogr:Nom>Maison des entreprises (CCI)</ogr:Nom>
+      <ogr:Adresse>1 rue Colonnel Hebert</ogr:Adresse>
+      <ogr:Téléphone>04 92 10 43 20</ogr:Téléphone>
+      <ogr:DateDeSaisie>2008/05/13</ogr:DateDeSaisie>
+    </ogr:CCIL_EPSG4326>
+  </gml2:featureMember>
+</ogr:FeatureCollection>
