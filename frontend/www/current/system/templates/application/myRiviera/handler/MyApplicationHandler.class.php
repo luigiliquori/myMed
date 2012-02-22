@@ -74,11 +74,11 @@ class MyApplicationHandler implements IRequestHandler {
 						if(isset($itineraireObj->ItineraryObj->tripSegments)) {
 							
 							$this->success->itineraire->type = "Cityway";
-							$this->success->itineraire->value = $itineraireObj->ItineraryObj->tripSegments->tripSegment;
+							$this->success->itineraire->value = $itineraire;//$itineraireObj->ItineraryObj->tripSegments->tripSegment;
 							
 							// Construct the default POIs
+							$j = 0;
 							foreach($itineraireObj->ItineraryObj->tripSegments->tripSegment as $tripSegment) {
-								
 								$args = "&mode=transit" . 
 								"&lon=" . $tripSegment->departurePoint->longitude .
 								"&lat=" . $tripSegment->departurePoint->latitude .
@@ -97,10 +97,10 @@ class MyApplicationHandler implements IRequestHandler {
 											$newCoord = $convertion->convertion();
 											$poi->longitude = $newCoord[0]; //X
 											$poi->latitude = $newCoord[1];  //Y
-											
 											$tripSegment->poi[$i++] = $poi;
 										}
 									}
+									echo '<input id="poi_'.$j++.'" type="hidden" value='. urlencode(json_encode($tripSegment->poi)) .' />';
 								}
 							}
 							
@@ -110,10 +110,10 @@ class MyApplicationHandler implements IRequestHandler {
 							$this->success->itineraire->value = "";
 						}
 					} else {
-						$this->error = "2";
+						$this->error = "2"; $this->success->itineraire->type = "Erreur geocoding";
 					}
 				} else {
-					$this->error = "3";
+					$this->error = "3"; $this->success->itineraire->type = "Départ et/ou arrivée non valide";
 				}
 			} 
 		}

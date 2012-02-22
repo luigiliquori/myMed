@@ -63,7 +63,7 @@ class FindView extends MyApplication {
 		foreach($itinerary as $tripSegment) {
 			if($listDivider == null || $listDivider != $tripSegment->type) {
 				$icon = null ?>
-				<li data-role="list-divider">
+				<div class="grup" data-role="collapsible" data-mini="true" data-theme="b" data-content-theme="d" data-collapsed=<?php $i?"false":"true" ?> onclick="$('.grup').not(this).trigger('collapse');">
 				<?php if($tripSegment->type == "WALK") { ?>
 					<span>Marche</span>
 					<?php 
@@ -74,10 +74,10 @@ class FindView extends MyApplication {
 					<span>Connection</span>
 				<?php } else if($tripSegment->type == "WAIT") { ?>
 					<span>Attendre</span>
-					</li>
-					<li style="font-size: 9pt; font-weight: lighter; padding:2px;">
+					</div>
+					<div style="font-size: 9pt; font-weight: lighter; padding:2px;">
 						<span>Durée: <?= $tripSegment->duration ?>min</span>
-					</li>
+					</div>
 					<?php $listDivider = null;?>
 					<?php continue; ?>
 				<?php } else { ?>
@@ -85,7 +85,7 @@ class FindView extends MyApplication {
 					<?php $titre = strtolower($tripSegment->transportMode) ?>
 					<?php $icon = "system/templates/application/myRiviera/img/" . strtolower($tripSegment->transportMode) . ".png" ?>
 				<?php } ?>	
-				</li>
+				</div>
 				<?php 
 				$listDivider = $tripSegment->type;
 			}
@@ -98,7 +98,7 @@ class FindView extends MyApplication {
 			?>
 			
 			<input id="poi_<?= $i ?>" type="hidden" value='<?= $poi ?>' />
-			<li style="font-size: 9pt; font-weight: lighter; padding:2px;">
+			<div style="font-size: 9pt; font-weight: lighter; padding:2px;">
 				
 				<!-- FOCUS ON -->
 				<a href="#" onclick="
@@ -113,7 +113,7 @@ class FindView extends MyApplication {
 					<?php } ?>
 				</a>
 				<p id="poicomment_<?= $i ?>" style="width: 90%;"><?= $tripSegment->comment ?></p>
-			</li>
+			</div>
 			
 			<?php 
 			$i++;
@@ -135,18 +135,20 @@ class FindView extends MyApplication {
 				<!-- FROM CITYWAY -->
 				<div id="itineraire" data-role="collapsible" data-theme="b" data-content-theme="b" style="width: <?= TARGET == "mobile" ? "85" : "35" ?>%;">
 					<h3>Feuille de route - Source <?= $this->handler->getSuccess()->itineraire->type ?></h3>
-					<ul data-role="listview" data-inset="true" data-theme="d" data-divider-theme="b">
-						<?php 
-							// TODO REMOVE THIS TEST, THE GOOGLE TRIP SHOULD BE DONE BY THE APPLICATION HANDLER (same way as cityway)
-							if($this->handler->getSuccess()->itineraire->type == "Google") {
-								?><script type="text/javascript">setTimeout("calcRouteFromGoogle('<?= $_POST['Depart'] ?>','<?= $_POST['Arrivee'] ?>','<?= TARGET ?>')", 500);</script><?php
-							} else {
-								$this->printItinerary($this->handler->getSuccess()->itineraire->value);
-							}
-						?>
-					</ul>
-					<br />
 				</div>	
+				<script type="text/javascript"> 
+console.log(<?php echo $this->handler->getSuccess()->itineraire->value ?>);
+				console.log(' find '+'<?= $_POST['Depart'] ?>'+'<?= TARGET ?>');
+					var result = <?php echo $this->handler->getSuccess()->itineraire->value ?>;
+					
+
+					console.log(' vars ');
+					console.log(result);
+					setTimeout("calcRoute('<?= $_POST['Depart'] ?>','<?= $_POST['Arrivee'] ?>','<?= TARGET ?>')", 500);
+					
+					
+					
+				</script>
 				
 				<!-- Display The trip on the map (start9end+fitbounds) -->
 				<?php 

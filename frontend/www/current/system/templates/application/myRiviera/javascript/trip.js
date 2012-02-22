@@ -1,4 +1,3 @@
-var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 var map;
 
@@ -24,69 +23,71 @@ function initialize() {
 		center: new google.maps.LatLng(43.7, 7.27),
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	});
-	directionsDisplay = new google.maps.DirectionsRenderer();
-	directionsDisplay.setMap(map);
 
 	// autocompletes Google Maps Places API, should make it work
 	var autocompleteDepart = new google.maps.places.Autocomplete(document.getElementById('depart'));
 	var autocompleteArrivee = new google.maps.places.Autocomplete(document.getElementById('arrivee'));
 	autocompleteArrivee.bindTo('bounds', map);
 	autocompleteDepart.bindTo('bounds', map);
-
-	// GEOLOC
-	function displayPosition(position) {
-		currentLatitude = position.coords.latitude;
-		currentLongitude = position.coords.longitude;
-		accuracy = position.coords.accuracy;
-		$('#departGeo').val(currentLatitude+'&'+currentLongitude);
-		$('#depart').attr("placeholder", "Ma position");
-
-		// ADD POSITION Marker
-		var latlng = new google.maps.LatLng(currentLatitude, currentLongitude);
-		/*marker = new google.maps.Marker({
-			animation: google.maps.Animation.BOUNCE,
-			position: latlng,
-			icon: 'system/templates/application/myRiviera/img/position.png',
-			map: map
-		});*/
-
-		// if the accuracy is good enough, print a circle to show the area
-		if (accuracy && accuracy<1500){ // is use watchPosition instead of getCurrentPosition don't forget to clear previous circle, using circle.setMap(null)
-			circle = new google.maps.Circle({
-				strokeColor: "#0000ff",
-				strokeOpacity: 0.2,
-				strokeWeight: 2,
-				fillColor: "#0000ff",
-				fillOpacity: 0.1,
-				map: map,
-				center: latlng,
-				radius: accuracy
-			});
-		}
-
-		// focus on the position on show the POIs around
-		if(focusOnCurrentPosition){
-			focusOnPosition(currentLatitude, currentLongitude);
-		}
-	}
-	function displayError(error) {
-		var errors = { 
-				1: 'Permission refusée',
-				2: 'Position indisponible',
-				3: 'Requête expirée'
-		};
-		console.log("Erreur géolocalisation: " + errors[error.code]);
-		if (error.code == 3)
-			navigator.geolocation.getCurrentPosition(displayPosition, displayError);
-	}
+	
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(displayPosition, displayError,
 				{enableHighAccuracy : true, timeout: 5000, maximumAge: 0});	
 	} else {
 		alert("Votre navigateur ne prend pas en compte la géolocalisation HTML5");
 	}
-
 }
+
+/**
+ * Géoloc 
+ * @param position
+ */
+function displayPosition(position) {
+	currentLatitude = position.coords.latitude;
+	currentLongitude = position.coords.longitude;
+	accuracy = position.coords.accuracy;
+	$('#departGeo').val(currentLatitude+'&'+currentLongitude);
+	$('#depart').attr("placeholder", "Ma position");
+
+	// ADD POSITION Marker
+	var latlng = new google.maps.LatLng(currentLatitude, currentLongitude);
+	/*marker = new google.maps.Marker({
+		animation: google.maps.Animation.BOUNCE,
+		position: latlng,
+		icon: 'system/templates/application/myRiviera/img/position.png',
+		map: map
+	});*/
+
+	// if the accuracy is good enough, print a circle to show the area
+	if (accuracy && accuracy<1500){ // is use watchPosition instead of getCurrentPosition don't forget to clear previous circle, using circle.setMap(null)
+		circle = new google.maps.Circle({
+			strokeColor: "#0000ff",
+			strokeOpacity: 0.2,
+			strokeWeight: 2,
+			fillColor: "#0000ff",
+			fillOpacity: 0.1,
+			map: map,
+			center: latlng,
+			radius: accuracy
+		});
+	}
+
+	// focus on the position on show the POIs around
+	if(focusOnCurrentPosition){
+		focusOnPosition(currentLatitude, currentLongitude);
+	}
+}
+function displayError(error) {
+	var errors = { 
+			1: 'Permission refusée',
+			2: 'Position indisponible',
+			3: 'Requête expirée'
+	};
+	console.log("Erreur géolocalisation: " + errors[error.code]);
+	if (error.code == 3)
+		navigator.geolocation.getCurrentPosition(displayPosition, displayError);
+}
+
 
 /**
  * Print route (itineraire) from Google API
@@ -126,6 +127,86 @@ function calcRouteFromGoogle(start, end, isMobile) {
 			$("#itineraire ul").listview("refresh");
 		}
 	});
+}
+
+function calcRoute(start, end, mobile) {
+	//if (resulttype=="Cityway"){
+		listDivider = null;
+		icon = null;
+		routes=[];
+		for (i in result.ItineraryObj.tripSegments.tripSegment){
+			tripSegment = result.ItineraryObj.tripSegments.tripSegment[i];
+			if (tripSegment.type && (listDivider == null || listDivider != tripSegment.type)) {
+				item = $('<div class="grup" data-role="collapsible" data-mini="true" data-theme="b" data-content-theme="d" data-collapsed='+(i?'false':'true')+' onclick="$(\'.grup\').not(this).trigger(\'collapse\');"></div>');
+				switch(tripSegment.type){
+				case 'WALK':
+					$("<h3>Marche</h3>").appendTo(item);
+					titre="Marche";
+					icon = "system/templates/application/myRiviera/img/" + tripSegment.type.toLowerCase()+ ".png";
+					break;
+				case 'CONNECTION':
+					$("<h3>Connection</h3>").appendTo(item);
+					break;
+				case 'WAIT':
+					$("<h3>Attendre</h3>").appendTo(item);
+					$("<span style='font-size: 9pt; font-weight: lighter; padding:2px;'>Durée: "+tripSegment.duration+" min</span>").appendTo(item);
+					break;
+				default:
+					$("<h3>"+tripSegment.transportMode.toLowerCase()+"</h3>").appendTo(item);
+					titre=tripSegment.transportMode.toLowerCase();
+					icon = "system/templates/application/myRiviera/img/" +tripSegment.transportMode.toLowerCase()+ ".png";
+					break;
+				}
+				listDivider = tripSegment.type;
+				item.appendTo($('#itineraire div:first'));
+			}
+			
+			if (tripSegment.departurePoint && tripSegment.arrivalPoint){
+				desc = $('<div style="font-size: 9pt; font-weight: lighter; padding:2px;"><a href="#" '+
+						' onclick="focusOnPosition('+tripSegment.departurePoint.latitude+','+tripSegment.departurePoint.longitude+'); '+
+						' updatePOIs('+tripSegment.departurePoint.latitude+','+tripSegment.departurePoint.longitude+',\''+icon+'\',\''+titre+'\',\''+i+'\');'+
+						(mobile=="mobile"?' $(\'#itineraire\').trigger(\'collapse\');"':' map.panBy('+(-$("#itineraire").width())/2+',0);"')+
+						' data-icon="search"></a></div>'
+						);
+				$('<span>'+(tripSegment.distance>0?'Distance: '+tripSegment.distance+' m':'Durée: '+tripSegment.duration+' min')+'</span>').appendTo(desc.find('a'));
+				$('<p style="width: 90%;" id=poicomment_'+i+'>'+tripSegment.comment+'</p>').appendTo(desc);
+				desc.appendTo(item);
+
+				if (listDivider=="TRANSPORT"){
+					routes.push({origin:new google.maps.LatLng(tripSegment.departurePoint.latitude, tripSegment.departurePoint.longitude),
+						destination:new google.maps.LatLng(tripSegment.arrivalPoint.latitude, tripSegment.arrivalPoint.longitude),
+						travelMode: google.maps.TravelMode.DRIVING
+					});
+				}else if(listDivider=="WALK"){
+					routes.push({origin:new google.maps.LatLng(tripSegment.departurePoint.latitude, tripSegment.departurePoint.longitude),
+						destination:new google.maps.LatLng(tripSegment.arrivalPoint.latitude, tripSegment.arrivalPoint.longitude),
+						travelMode: google.maps.TravelMode.WALKING
+					});
+				}
+			}			
+		}
+		
+		$('#itineraire').find('div[data-role=collapsible]').collapsible({refresh:true});
+		$('.grup').not(':eq(0)').trigger('collapse'); //todo: fix div are always expanded after the above line
+		$(routes).each(function(i){
+			var request = {
+					origin: routes[i].origin,
+					destination: routes[i].destination,
+					travelMode: routes[i].travelMode
+			};
+			var directionsDisplay = new google.maps.DirectionsRenderer({
+				map: map,
+				suppressMarkers : true
+			});
+			directionsService.route(request, function(result, status) {
+				if (status == google.maps.DirectionsStatus.OK) {
+					result.routes[0].bounds = null; //to prevent automatic fitbounds
+					directionsDisplay.setDirections(result);		
+				}
+			});
+		});
+		
+	//}
 }
 
 /**

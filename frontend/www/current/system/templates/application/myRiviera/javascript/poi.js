@@ -161,9 +161,10 @@ function clearPOIs(){
  * @param id
  * 
  */
+
 function citywayPOI(id, latitude, longitude){
 	if (!poisMarkers.cityway.markers[id]){ //create them if not exist
-		poiJson = $("#poi_"+id).val();
+		poiJson = decodeURIComponent($("#poi_"+id).val().replace(/\+/g, ' '));
 		poi = JSON.parse(poiJson);
 		var poiIterator = 0;
 		poisMarkers.cityway.markers[id] = [];
