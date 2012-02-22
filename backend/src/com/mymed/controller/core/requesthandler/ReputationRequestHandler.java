@@ -31,10 +31,25 @@ import com.mymed.model.data.reputation.MReputationBean;
  */
 @WebServlet("/ReputationRequestHandler")
 public class ReputationRequestHandler extends AbstractRequestHandler {
-    /* --------------------------------------------------------- */
-    /* Attributes */
-    /* --------------------------------------------------------- */
-    private static final long serialVersionUID = 1L;
+    /**
+     * Generated serial ID.
+     */
+    private static final long serialVersionUID = -1758781146254746346L;
+
+    /**
+     * The JSON 'reputation' attribute.
+     */
+    private static final String JSON_REPUTATION = JSON.get("json.reputation");
+
+    /**
+     * The JSON 'consumer' attribute.
+     */
+    private static final String JSON_CONSUMER = JSON.get("json.consumer");
+
+    /**
+     * The JSON 'producer' attribute.
+     */
+    private static final String JSON_PRODUCER = JSON.get("json.producer");
 
     private final ReputationManager reputationManager;
 
@@ -60,21 +75,21 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
             final Map<String, String> parameters = getParameters(request);
             // Check the access token
             checkToken(parameters);
-            final RequestCode code = REQUEST_CODE_MAP.get(parameters.get("code"));
+            final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
             String application, producer, consumer;
 
             switch (code) {
                 case READ :
-                    if ((application = parameters.get("application")) == null) {
+                    if ((application = parameters.get(JSON_APPLICATION)) == null) {
                         throw new InternalBackEndException("missing application argument!");
-                    } else if ((producer = parameters.get("producer")) == null) {
+                    } else if ((producer = parameters.get(JSON_PRODUCER)) == null) {
                         throw new InternalBackEndException("missing producer argument!");
-                    } else if ((consumer = parameters.get("consumer")) == null) {
+                    } else if ((consumer = parameters.get(JSON_CONSUMER)) == null) {
                         throw new InternalBackEndException("missing consumer argument!");
                     }
                     final MymedAppUserId user = new MymedAppUserId(application, producer, ReputationRole.Producer);
                     final MReputationBean reputation = reputationManager.read(user);
-                    message.addData("reputation", reputation.getReputation() + "");
+                    message.addData(JSON_REPUTATION, String.valueOf(reputation.getReputation()));
                     break;
                 case DELETE :
                     break;
@@ -105,7 +120,7 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
             final Map<String, String> parameters = getParameters(request);
             // Check the access token
             checkToken(parameters);
-            final RequestCode code = REQUEST_CODE_MAP.get(parameters.get("code"));
+            final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
 
             switch (code) {
                 case CREATE :
@@ -115,8 +130,8 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
                     throw new InternalBackEndException("ReputationRequestHandler.doPost(" + code + ") not exist!");
             }
         } catch (final AbstractMymedException e) {
-            LOGGER.info("Error in doGet operation");
-            LOGGER.debug("Error in doGet operation", e.getCause());
+            LOGGER.info("Error in doPost operation");
+            LOGGER.debug("Error in doPost operation", e.getCause());
             message.setStatus(e.getStatus());
             message.setDescription(e.getMessage());
         }
