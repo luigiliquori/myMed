@@ -14,78 +14,79 @@ var focusOnCurrentPosition = true;
  * Initialize the application
  */
 function initialize() {
-	directionsDisplay =  new google.maps.DirectionsRenderer();
+	if(!map) {
+		directionsDisplay =  new google.maps.DirectionsRenderer();
 
-	// resize the map canvas
-	$("#myRivieraMap").height($("body").height() - 45);
+		// resize the map canvas
+		$("#myRivieraMap").height($("body").height() - 45);
 
-	map = new google.maps.Map(document.getElementById("myRivieraMap"), {
-		zoom: 16,
-		center: new google.maps.LatLng(43.7, 7.27),
-		mapTypeId: google.maps.MapTypeId.ROADMAP
-	});
-	directionsDisplay = new google.maps.DirectionsRenderer();
-	directionsDisplay.setMap(map);
-
-	// autocompletes Google Maps Places API, should make it work
-	var autocompleteDepart = new google.maps.places.Autocomplete(document.getElementById('depart'));
-	var autocompleteArrivee = new google.maps.places.Autocomplete(document.getElementById('arrivee'));
-	autocompleteArrivee.bindTo('bounds', map);
-	autocompleteDepart.bindTo('bounds', map);
-
-	// GEOLOC
-	function displayPosition(position) {
-		currentLatitude = position.coords.latitude;
-		currentLongitude = position.coords.longitude;
-		accuracy = position.coords.accuracy;
-		$('#departGeo').val(currentLatitude+'&'+currentLongitude);
-		$('#depart').attr("placeholder", "Ma position");
-
-		// ADD POSITION Marker
-		var latlng = new google.maps.LatLng(currentLatitude, currentLongitude);
-		marker = new google.maps.Marker({
-			animation: google.maps.Animation.BOUNCE,
-			position: latlng,
-			icon: 'system/templates/application/myRiviera/img/position.png',
-			map: map
+		map = new google.maps.Map(document.getElementById("myRivieraMap"), {
+			zoom: 16,
+			center: new google.maps.LatLng(43.7, 7.27),
+			mapTypeId: google.maps.MapTypeId.ROADMAP
 		});
+		directionsDisplay = new google.maps.DirectionsRenderer();
+		directionsDisplay.setMap(map);
 
-		// if the accuracy is good enough, print a circle to show the area
-		if (accuracy && accuracy<1500){ // is use watchPosition instead of getCurrentPosition don't forget to clear previous circle, using circle.setMap(null)
-			circle = new google.maps.Circle({
-				strokeColor: "#0000ff",
-				strokeOpacity: 0.2,
-				strokeWeight: 2,
-				fillColor: "#0000ff",
-				fillOpacity: 0.1,
-				map: map,
-				center: latlng,
-				radius: accuracy
+		// autocompletes Google Maps Places API, should make it work
+		var autocompleteDepart = new google.maps.places.Autocomplete(document.getElementById('depart'));
+		var autocompleteArrivee = new google.maps.places.Autocomplete(document.getElementById('arrivee'));
+		autocompleteArrivee.bindTo('bounds', map);
+		autocompleteDepart.bindTo('bounds', map);
+
+		// GEOLOC
+		function displayPosition(position) {
+			currentLatitude = position.coords.latitude;
+			currentLongitude = position.coords.longitude;
+			accuracy = position.coords.accuracy;
+			$('#departGeo').val(currentLatitude+'&'+currentLongitude);
+			$('#depart').attr("placeholder", "Ma position");
+
+			// ADD POSITION Marker
+			var latlng = new google.maps.LatLng(currentLatitude, currentLongitude);
+			marker = new google.maps.Marker({
+				animation: google.maps.Animation.BOUNCE,
+				position: latlng,
+				icon: 'system/templates/application/myRiviera/img/position.png',
+				map: map
 			});
-		}
 
-		// focus on the position on show the POIs around
-		if(focusOnCurrentPosition){
-			focusOnPosition(currentLatitude, currentLongitude);
+			// if the accuracy is good enough, print a circle to show the area
+			if (accuracy && accuracy<1500){ // is use watchPosition instead of getCurrentPosition don't forget to clear previous circle, using circle.setMap(null)
+				circle = new google.maps.Circle({
+					strokeColor: "#0000ff",
+					strokeOpacity: 0.2,
+					strokeWeight: 2,
+					fillColor: "#0000ff",
+					fillOpacity: 0.1,
+					map: map,
+					center: latlng,
+					radius: accuracy
+				});
+			}
+
+			// focus on the position on show the POIs around
+			if(focusOnCurrentPosition){
+				focusOnPosition(currentLatitude, currentLongitude);
+			}
+		}
+		function displayError(error) {
+			var errors = { 
+					1: 'Permission refusée',
+					2: 'Position indisponible',
+					3: 'Requête expirée'
+			};
+			console.log("Erreur géolocalisation: " + errors[error.code]);
+			if (error.code == 3)
+				navigator.geolocation.getCurrentPosition(displayPosition, displayError);
+		}
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(displayPosition, displayError,
+					{enableHighAccuracy : true, timeout: 5000, maximumAge: 0});	
+		} else {
+			alert("Votre navigateur ne prend pas en compte la géolocalisation HTML5");
 		}
 	}
-	function displayError(error) {
-		var errors = { 
-				1: 'Permission refusée',
-				2: 'Position indisponible',
-				3: 'Requête expirée'
-		};
-		console.log("Erreur géolocalisation: " + errors[error.code]);
-		if (error.code == 3)
-			navigator.geolocation.getCurrentPosition(displayPosition, displayError);
-	}
-	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(displayPosition, displayError,
-				{enableHighAccuracy : true, timeout: 5000, maximumAge: 0});	
-	} else {
-		alert("Votre navigateur ne prend pas en compte la géolocalisation HTML5");
-	}
-
 }
 
 /**
@@ -133,22 +134,34 @@ function calcRouteFromGoogle(start, end, isMobile) {
  * @param url
  */
 function showTrip(start, end){
-	
+
+	if(!map) {
+		$("#myRivieraMap").height($("body").height() - 45);
+
+		map = new google.maps.Map(document.getElementById("myRivieraMap"), {
+			zoom: 16,
+			center: new google.maps.LatLng(43.7, 7.27),
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		});
+		directionsDisplay = new google.maps.DirectionsRenderer();
+		directionsDisplay.setMap(map);
+	}
+
 	focusOnCurrentPosition = false;
-	
+
 	// ZOOM ON THE TRIP
 	startLatLng = $("#geocodeStartingPoint").val().split(",");
 	endLatLng = $("#geocodeEndingPoint").val().split(",");
-	
+
 	bounds = new google.maps.LatLngBounds();
 	bounds.extend(new google.maps.LatLng(startLatLng[0], startLatLng[1]));
 	bounds.extend(new google.maps.LatLng(endLatLng[0], endLatLng[1]));
 	map.fitBounds(bounds);
-	
+
 	// PRINT THE STARTING POINT
 	addPOI(startLatLng[0], startLatLng[1], 'system/templates/application/myRiviera/img/start.png', "Départ", "<b>Lieu: </b>" + start, true);
 	addPOI(endLatLng[0], endLatLng[1], 'system/templates/application/myRiviera/img/end.png', "Arrivée", "<b>Lieu: </b>" + end, true);
-	
+
 	// SHOW ITINERAIRE
 	$("#itineraire").delay(1500).fadeIn("slow");
 }

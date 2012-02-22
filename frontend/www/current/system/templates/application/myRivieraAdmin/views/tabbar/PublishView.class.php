@@ -91,21 +91,21 @@ class PublishView extends MyApplication {
 			    <h3>CARF POIs</h3>
 			    <div style="color: gray;">
 			   		<h4>Example:</h4>
-					[ <br/>
-					{
-					"type": "FeatureCollection",
-					"features": [
-					{ "type": "Feature", "properties": { "ADRESSE": "20 rue des Soeurs Munet", "CODE_POSTA": "06500", "VILLE": "menton", "PAYS": "France", "NOM": "ADAPEI", "DESCRIPTIO": "04 93 28 50 3", "SOURCE": "CARF", "DATEDESAIS": "06\/06\/2008", "LAT": "43.774309", "LNG": "7.49246" }, "geometry": { "type": "Point", "coordinates": [ 7.492455, 43.774314 ] } }
-					
-					]
-					}
+					[<br/>
+					{<br/>
+					"type": "FeatureCollection",<br/>
+					"features": [<br/>
+					{ "type": "Feature", "properties": { "Type": "ADAPEI_EPSG4326", "Nom": "ADAPEI", "Description": "04 93 28 46 12", "Adresse": "20 rue des Soeurs Munet 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.492455, 43.774314 ] } }
+					<br/>
+					]<br/>
+					}<br/>
 					,<br/>
-					{
-					"type": "FeatureCollection",
-					"features": [
-					{ "type": "Feature", "properties": { "NOM": "ADERF", "ADRESSE": "8 val de Menton", "CODE_POSTA": "06500", "VILLE": "menton", "PAYS": "France", "RESPONSABL": "C�drick H�risson", "PR�sIDENT": "Claude Gaven", "T�l�pHONE": "04 93 57 01 08", "DESCRIPTIO": "Cette association mise en place le 06 ao�t 2001 a pour vocation le d�veloppement �conomique du territoire de la Communaut� d�Agglom�ration de la Riviera Fran�aise", "SOURCE": "CARF", "DE_SAISIE": "02\/02008", "LAT": "43.776666", "LNG": "7.505068" }, "geometry": { "type": "Point", "coordinates": [ 7.505063, 43.776671 ] } }
-					
-					]
+					{<br/>
+					"type": "FeatureCollection",<br/>
+					"features": [<br/>
+					{ "type": "Feature", "properties": { "Type": "ADERF_EPSG4326", "Nom": " ADERF", "Description": "Cette association mise en place le 06 ao�t 2001 a pour vocation le d�veloppement �conomique du territoire de la Communaut� d�Agglom�ration de la Riviera Fran�aise", "Adresse": "8 val de Menton 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.501797, 43.776644 ] } }
+					<br/>
+					]<br/>
 					}<br/>
 					]<br/>
 			   </div>

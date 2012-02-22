@@ -1,7 +1,0 @@
-{
-"type": "ASSEDICCollection",
-"features": [
-{ "type": "ASSEDIC", "properties": { "NOM": "ASSEDIC", "ADRESSE": "8 rue Guyau", "TélépHONE": "0493820545", "DATEDESAIS": "2008\/05\/13" }, "geometry": { "type": "Point", "coordinates": [ 7.504539, 43.776494 ] } }
-
-]
-}

@@ -1,0 +1,42 @@
+!table
+!version 300
+!charset WindowsLatin1
+
+Definition Table
+  Type NATIVE Charset "WindowsLatin1"
+  Fields 7
+    Type Char (254) ;
+    Nom Char (254) Index 1 ;
+    Description Char (254) ;
+    Adresse Char (254) ;
+    Id_media Char (254) ;
+    Code_posta Char (30) ;
+    Ville Char (30) ;
+ReadOnly
+begin_metadata
+"\IsReadOnly" = "FALSE"
+"\DefaultStyles" = ""
+"\DefaultStyles\Symbol" = ""
+"\DefaultStyles\Symbol\Type" = "2"
+"\DefaultStyles\Symbol\Pointsize" = "12"
+"\DefaultStyles\Symbol\Color" = "0"
+"\DefaultStyles\Symbol\Bitmap" = ""
+"\DefaultStyles\Symbol\Bitmap\Name" = "THEME1.BMP"
+"\DefaultStyles\Symbol\Bitmap\OverrideColor" = "FALSE"
+"\DefaultStyles\Symbol\Bitmap\Transparent" = "TRUE"
+"\DefaultStyles\Symbol\Bitmap\NativeSize" = "FALSE"
+"\DefaultStyles\LinePen" = ""
+"\DefaultStyles\LinePen\LineWidth" = "1"
+"\DefaultStyles\LinePen\LineStyle" = "0"
+"\DefaultStyles\LinePen\Color" = "0"
+"\DefaultStyles\LinePen\Pattern" = "2"
+"\DefaultStyles\Pen" = ""
+"\DefaultStyles\Pen\LineWidth" = "1"
+"\DefaultStyles\Pen\LineStyle" = "0"
+"\DefaultStyles\Pen\Color" = "0"
+"\DefaultStyles\Pen\Pattern" = "2"
+"\DefaultStyles\Brush" = ""
+"\DefaultStyles\Brush\Pattern" = "2"
+"\DefaultStyles\Brush\Forecolor" = "16777215"
+"\DefaultStyles\Brush\Backcolor" = "16777215"
+end_metadata

@@ -8,10 +8,10 @@
 	
 	// IMPORT THE MAIN VIEW
 	require_once dirname(__FILE__).'/views/tabbar/FindView.class.php';
+	require_once dirname(__FILE__).'/views/tabbar/OptionView.class.php';
 	
 	// IMPORT DIALOG
 	require_once dirname(__FILE__).'/views/dialog/EditDialog.class.php';
-	require_once dirname(__FILE__).'/views/dialog/OptionDialog.class.php';
 	
 	// IMPORT AND DEFINE THE REQUEST HANDLER
 	require_once dirname(__FILE__).'/handler/MyApplicationHandler.class.php';
@@ -22,10 +22,11 @@
 	$find = new FindView($handler);
 	$find->printTemplate();
 	
+	$option = new OptionView($handler);
+	$option->printTemplate();
+	
 	// DIALOG
 	$edit = new EditDialog();
 	$edit->printTemplate();
 	
-	$option = new OptionDialog();
-	$option->printTemplate();
 ?>

@@ -36,17 +36,8 @@ class FindView extends MyApplication {
 	public /*String*/ function getHeader() { ?>
 		<div data-role="header" data-theme="b">
 			<h1><?= TARGET == "mobile" ? " " : APPLICATION_NAME ?></h1>
-			<a id="Iti" data-role="actionsheet" data-sheet="Itin" data-icon="search" class="ui-btn-left">Itinéraire</a> 
-			
-			<div class="ui-btn-right">
-				<select name="select-filter" id="select-filter" multiple="multiple" data-native-menu="false" onchange="updateFilter()">
-					<option>Points d'interêts</option>
-					<option value="mymed">myMed</option>
-					<option value="carf">carf</option>
-					<option value="cityway">cityway</option>
-				</select>
-			</div>
-			<!-- <a href="#Option" data-role="button" data-rel="dialog" class="ui-btn-right" data-icon="gear">Options</a>  -->
+			<a id="Iti" data-role="actionsheet" data-sheet="Itin" data-icon="search" data-iconpos="right" class="ui-btn-left">Rechercher</a> 
+			<a href="#Option" data-role="button" class="ui-btn-right" data-icon="gear">Options</a>
 		</div>
 	<?php }
 	

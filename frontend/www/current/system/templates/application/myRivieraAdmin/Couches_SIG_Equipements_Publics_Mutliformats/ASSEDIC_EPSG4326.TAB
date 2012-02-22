@@ -1,0 +1,12 @@
+!table
+!version 300
+!charset WindowsLatin1
+
+Definition Table
+  Type NATIVE Charset "WindowsLatin1"
+  Fields 5
+    Type Char (254) ;
+    Nom Char (32) ;
+    Description Char (254) ;
+    Adresse Char (32) ;
+    Id_media Integer ;
