@@ -1,10 +1,14 @@
 var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 var map;
+
 var poi;
 var poiMem = {};
 var poiIterator;
-var latitude, longitude, accuracy; //Html geolocation response
+var currentLatitude, currentLongitude, accuracy; //Html geolocation response
+
+var focusOnCurrentPosition = true;
+
 
 /**
  * Initialize the application
@@ -31,14 +35,14 @@ function initialize() {
 
 	// GEOLOC
 	function displayPosition(position) {
-		latitude = position.coords.latitude;
-		longitude = position.coords.longitude;
+		currentLatitude = position.coords.latitude;
+		currentLongitude = position.coords.longitude;
 		accuracy = position.coords.accuracy;
-		$('#departGeo').val(latitude+'&'+longitude);
+		$('#departGeo').val(currentLatitude+'&'+currentLongitude);
 		$('#depart').attr("placeholder", "Ma position");
 
 		// ADD POSITION Marker
-		var latlng = new google.maps.LatLng(latitude, longitude);
+		var latlng = new google.maps.LatLng(currentLatitude, currentLongitude);
 		marker = new google.maps.Marker({
 			animation: google.maps.Animation.BOUNCE,
 			position: latlng,
@@ -61,7 +65,9 @@ function initialize() {
 		}
 
 		// focus on the position on show the POIs around
-		focusOnPosition(latitude, longitude);
+		if(focusOnCurrentPosition){
+			focusOnPosition(currentLatitude, currentLongitude);
+		}
 	}
 	function displayError(error) {
 		var errors = { 
@@ -91,7 +97,7 @@ function calcRouteFromGoogle(start, end, isMobile) {
 	//var end = document.getElementById("end").value;
 	console.log(start+" "+end);
 	if (start==""){
-		start = new google.maps.LatLng(latitude, longitude);
+		start = new google.maps.LatLng(currentLatitude, currentLongitude);
 	}
 	var request = {
 			origin:start,
@@ -126,7 +132,10 @@ function calcRouteFromGoogle(start, end, isMobile) {
  * Print route (itineraire) from CityWay API
  * @param url
  */
-function calcRouteFromCityWay(start, end, isMobile){
+function showTrip(start, end){
+	
+	focusOnCurrentPosition = false;
+	
 	// ZOOM ON THE TRIP
 	startLatLng = $("#geocodeStartingPoint").val().split(",");
 	endLatLng = $("#geocodeEndingPoint").val().split(",");
@@ -153,9 +162,4 @@ function changeDestination(dest){
 	address = $("#select"+dest).val().split("&&")[1];
 	$("#"+dest).val(address);
 	$("#"+dest).css("background-image", 'url('+picture+')');
-}
-
-
-function getMap(){
-
 }

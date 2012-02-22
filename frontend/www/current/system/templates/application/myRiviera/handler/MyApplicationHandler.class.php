@@ -72,8 +72,8 @@ class MyApplicationHandler implements IRequestHandler {
 						
 						if(isset($itineraireObj->ItineraryObj->tripSegments)) {
 							
-							$this->success->itineraire = $itineraireObj;
-							$this->success->kmlurl = Cityway_URL . "/tripplanner/v1/detailedtrip/kml?key=" . Cityway_APP_ID . $args;
+							$this->success->itineraire->type = "Cityway";
+							$this->success->itineraire->value = $itineraireObj->ItineraryObj->tripSegments->tripSegment;
 							
 							// Construct the default POIs
 							foreach($itineraireObj->ItineraryObj->tripSegments->tripSegment as $tripSegment) {
@@ -104,15 +104,15 @@ class MyApplicationHandler implements IRequestHandler {
 							}
 							
 						} else {
-							// $this->error = "error with cityWay";
-							$this->error = "1";
+							
+							$this->success->itineraire->type = "Google";
+							$this->success->itineraire->value = "";
 						}
 					} else {
-						// err google
-						$this->error = "2";
+						// TODO NOTIFY THE USER IN CASE OF ERROR
 					}
 				} else {
-					$this->error = "3";
+					// TODO NOTIFY THE USER IN CASE OF ERROR
 				}
 			} 
 		}
