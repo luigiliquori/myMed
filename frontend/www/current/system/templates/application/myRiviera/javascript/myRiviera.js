@@ -1,10 +1,7 @@
 var filterArray = [];
-var markers = {
-	'position' : [],
-	'mymed' : [],
-	'carf' : []
-}; // markers currently loaded on map, toDo should create keys dynamically from
-		// initialize
+var pmarkers = [], fmarkers = []; //position markers and flag (start end) markers
+var markers = {}; // all other markers
+var directionsDisplays = [];
 
 var isPersistent = false; // global behaviour, if we keep or not previous, location MarkerS when we focus elsewhere
 
@@ -24,13 +21,19 @@ function initialize() {
 	setupDASPMap($("#applicationName").val() + "Map");
 	
 	// autocompletes Google Maps Places API
-	var autocompleteDepart = new google.maps.places.Autocomplete(document.getElementById('depart'));
+	/*var autocompleteDepart = new google.maps.places.Autocomplete(document.getElementById('depart'));
 	var autocompleteArrivee = new google.maps.places.Autocomplete(document.getElementById('arrivee'));
 	autocompleteArrivee.bindTo('bounds', map);
-	autocompleteDepart.bindTo('bounds', map);
+	autocompleteDepart.bindTo('bounds', map);*/
 	
 	// resize the map canvas
 	$("#myRivieraMap").height($("body").height() - ((mobile)?0:$('body').find('div[data-role=header]').outerHeight()));
+
+	//setup markers cache keys from options
+	$("#select-filter option:not(:first)").each(function(){
+	    markers[$(this).val()]=[];
+	});
+
 }
 
 /**
@@ -40,6 +43,30 @@ function updateFilter() {
 	filterArray = $("#select-filter").val() || [];
 	// if (filterArray.indexOf(type) < 0|| filterArray.length ==
 	// ($("#select-filter").val() || []).length) {
+}
+
+/**
+ * clear all markers from map, is necessary since 80496024d1dd2d8dc6, because we no longer refresh page (ajax)
+ */
+function clearAll(){
+	
+	for (var i=0; i<pmarkers.length; i++)
+		pmarkers[i].setMap(null);
+	for (var i=0; i<fmarkers.length; i++)
+		fmarkers[i].setMap(null);
+	for (key in markers)
+		for (var i=0; i<markers[key]; i++)
+			for (var j=0; j<markers[key][i]; j++)
+				markers[key][i][j].setMap(null);
+	for (var i=0; i<directionsDisplays.length; i++)
+		directionsDisplays[i].setMap(null);
+	
+	pmarkers = [];
+	fmarker = [];
+	for (key in markers)
+		markers[key] = [];
+	directionsDisplays = [];
+	
 }
 
 /**
@@ -84,32 +111,28 @@ function otherMarkers(latitude, longitude, type, index) {
  * @param index
  */
 function positionMarker(latitude, longitude, icon, title, index) {
-	if (!index || (index && !markers["position"][index])) { // create new marker
+	if (!index || (index && !pmarkers[index])) { // create new marker
 		var marker = addMarker(latitude, longitude, icon, title, $(
 				"#poicomment_" + index).html());
 		if (index) { // index argument is given, we store this marker for
 			// future reuse
-			markers["position"][index] = marker;
+			pmarkers[index] = marker;
 			if (updatezoom) {
 				updatezoom = false;
 				map.setZoom(16);
 			}// only once or it gets annoying
 		}
 	} else {// already existing, redrop it
-		markers["position"][index].setMap(map);
-		markers["position"][index].setAnimation(google.maps.Animation.DROP);
+		pmarkers[index].setMap(map);
+		pmarkers[index].setAnimation(google.maps.Animation.DROP);
 		if (updatezoom) {
 			updatezoom = false;
 			map.setZoom(16);
 		} // only once or it gets annoying
 	}
 
-	if (!isPersistent && prevSegmentID && prevSegmentID != index) {// clear
-																																	// previous
-																																	// position
-																																	// marker if
-																																	// !persistent
-		markers["position"][prevSegmentID].setMap(null);
+	if (!isPersistent && prevSegmentID && prevSegmentID != index) {// clear previous position marker if !persistent
+		pmarkers[prevSegmentID].setMap(null);
 	}
 }
 
@@ -194,14 +217,12 @@ function calcRoute(json) {
 		if (tripSegment.departurePoint && tripSegment.arrivalPoint) {
 			desc = $('<li style="font-weight: lighter; padding-left:5px;"><a style="max-height:1em;" href="#" '
 					+ ' onclick="'
-
 					// FOCUS ON POSITION
 					+ 'focusOnPosition('
 					+ tripSegment.departurePoint.latitude
 					+ ','
 					+ tripSegment.departurePoint.longitude
 					+ '); '
-
 					// UPDATE MARKER
 					+ ' updateMarkers('
 					+ tripSegment.departurePoint.latitude
@@ -217,13 +238,10 @@ function calcRoute(json) {
 					+ (mobile == "mobile" ? ' $(\'#itineraire\').trigger(\'collapse\');"'
 							: ' map.panBy(' + (-$("#itineraire").width()) / 2 + ',0);"')
 					+ ' data-icon="search"></a></li>');
-			$(
-					'<span>'
-							+ (tripSegment.distance > 0 ? 'Distance: ' + tripSegment.distance
+			$('<span>' + (tripSegment.distance > 0 ? 'Distance: ' + tripSegment.distance
 									+ ' m' : 'Durée: ' + tripSegment.duration + ' min')
 							+ '</span>').appendTo(desc.find('a'));
-			$(
-					'<p style="width: 90%;" id=poicomment_' + i + '>'
+			$('<p style="width: 90%;" id=poicomment_' + i + '>'
 							+ tripSegment.comment + '</p>').appendTo(desc);
 			desc.appendTo(item.find('ul'));
 
@@ -265,9 +283,9 @@ function calcRoute(json) {
 		});
 		directionsService.route(request, function(result, status) {
 			if (status == google.maps.DirectionsStatus.OK) {
-				result.routes[0].bounds = null; // to prevent automatic
-				// fitbounds
+				result.routes[0].bounds = null; // to prevent automatic fitbounds
 				directionsDisplay.setDirections(result);
+				directionsDisplays.push(directionsDisplay); //for clearing them later
 			}
 		});
 	});
@@ -300,12 +318,12 @@ function myRivieraShowTrip(start, end, icon) {
 	map.fitBounds(bounds);
 
 	// PRINT THE STARTING POINT
-	addMarker(geocodestart.lat(), geocodestart.lng(),
+	fmarkers.push(addMarker(geocodestart.lat(), geocodestart.lng(),
 			'system/templates/application/myRiviera/img/start.png', "Départ",
-			"<b>Lieu: </b>" + start);
-	addMarker(geocodeend.lat(), geocodeend.lng(),
+			"<b>Lieu: </b>" + start));
+	fmarkers.push(addMarker(geocodeend.lat(), geocodeend.lng(),
 			'system/templates/application/myRiviera/img/end.png', "Arrivée",
-			"<b>Lieu: </b>" + end);
+			"<b>Lieu: </b>" + end));
 
 	// SHOW ITINERAIRE
 	$("#itineraire").delay(1500).fadeIn("slow");
@@ -336,13 +354,15 @@ function validateIt() {
 				validateIt2();
 			} else {
 				console.log("Geocode was not successful for the following reason: "+ status);
+				alert("Départ non valide");
 			}
 		});
 	} else if (currentLatitude) {
 		console.log("great");
 		validateIt2();
 	} else {
-		console.log("enter a start address");
+		console.log("Départ non rempli");
+		alert("Départ non rempli");
 		return;
 	}
 
@@ -366,6 +386,8 @@ function validateIt2() {
 				console.log(date);
 				console.log(geocodestart);
 				
+				clearAll();
+				
 				$.ajax({
 					type: "POST",
 					url: "system/templates/application/myRiviera/handler/cityway.php",
@@ -382,10 +404,12 @@ function validateIt2() {
 				
 			} else {
 				console.log("Geocode was not successful for the following reason: "+ status);
+				alert("Arrivée non valide");
 			}
 		});
 	} else {
-		console.log("enter an end address");
+		console.log("Arrivée non remplie");
+		alert("Arrivée non remplie");
 		return;
 	}
 	
