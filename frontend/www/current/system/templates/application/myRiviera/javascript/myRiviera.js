@@ -67,6 +67,8 @@ function clearAll(){
 		markers[key] = [];
 	directionsDisplays = [];
 	
+	$('#itineraireContent').html("");
+	
 }
 
 /**
@@ -163,17 +165,23 @@ function updateMarkers(latitude, longitude, icon, title, index) {
  */
 function calcRoute(json) {
 
+	result = JSON.parse(json);
+	
+	if (result.ItineraryObj && result.ItineraryObj.Status.code == "0")
+		calcRouteByCityway(result);
+	else
+		calcRouteByGoogle();
+	
+	myRivieraShowTrip($("#depart").val() || "Ma position",$("#arrivee").val());
+}
+
+function calcRouteByCityway(result){
+	
 	currentType = null;
 	icon = null;
 	routes = [];
 	var collapsed = 0;
-	result = JSON.parse(json)
-	
-	if (result.ItineraryObj.Status.code != "0")//can be DisplayObj
-		return; //todo very soon google recovery solution
-	
-	//$('#itineraire h3:first').html("Feuille de route Cityway");
-	myRivieraShowTrip($("#depart").val() || "Ma position",$("#arrivee").val());
+	$('#itineraire h3:first').find('.ui-btn-text').html($('#itineraire h3:first').find('.ui-btn-text').html().replace("Feuille de route", "Feuille de route Cityway"));
 
 	for (i in result.ItineraryObj.tripSegments.tripSegment) {
 
@@ -291,6 +299,78 @@ function calcRoute(json) {
 	});
 
 }
+
+function calcRouteByGoogle(){
+	
+	$('#itineraire h3:first').find('.ui-btn-text').html($('#itineraire h3:first').find('.ui-btn-text').html().replace("Feuille de route", "Feuille de route GoogleMaps"));
+	var request = {
+			origin:geocodestart,
+			destination:geocodeend,
+			travelMode: google.maps.TravelMode.DRIVING
+	};
+	var directionsDisplay = new google.maps.DirectionsRenderer({
+		map: map,
+		suppressMarkers : true
+	});
+	
+	icon = "system/templates/application/myRiviera/img/voiture.png";
+	titre = "Voiture";
+	var collapsed = 0;
+	directionsService.route(request, function(result, status) {
+		if (status == google.maps.DirectionsStatus.OK) {
+
+			$("<li data-role='list-divider'><span>"+result.routes[0].legs[0].steps[0].travel_mode.toLowerCase()+"</span></li>").appendTo($('#itineraire ul')); //ToDo should check if travel_mode changes in the following loop
+
+			for (var i=0; i < result.routes[0].legs[0].steps.length; i++){
+				if (i%5 == 0) { //all 5 results we groupe them by category
+					item = $('<div data-role="collapsible" data-collapsed='+ (collapsed++ == 0 ? 'false' : 'true') + '></div>');
+					$("<h3>Voiture</h3>").appendTo(item);
+					$('<ul data-role="listview" data-inset="true"></ul>').appendTo(item);
+					item.appendTo($('#itineraireContent'));
+				}
+				
+				st = result.routes[0].legs[0].steps[i];	
+				desc = $('<li style="font-weight: lighter; padding-left:5px;"><a style="max-height:1em;" href="#" '
+						+ ' onclick="'
+						// FOCUS ON POSITION
+						+ 'focusOnPosition('
+						+ st.start_location.lat()
+						+ ','
+						+ st.start_location.lng()
+						+ '); '
+						// UPDATE MARKER
+						+ ' updateMarkers('
+						+ st.start_location.lat()
+						+ ','
+						+ st.start_location.lng()
+						+ ',\''
+						+ icon
+						+ '\',\''
+						+ titre
+						+ '\',\''
+						+ i
+						+ '\');'
+						+ (mobile == "mobile" ? ' $(\'#itineraire\').trigger(\'collapse\');"'
+								: ' map.panBy(' + (-$("#itineraire").width()) / 2 + ',0);"')
+						+ ' data-icon="search"></a></li>');
+				$('<span>Distance: '+st.distance.text+', durée: '+st.duration.text+'</span>').appendTo(desc.find('a'));
+				$('<p style="width: 90%;" id=poicomment_' + i + '>'
+								+ st.instructions + '</p>').appendTo(desc);
+				desc.appendTo(item.find('ul'));
+				
+			}
+			
+			// create jquerymobile styled elmts
+			$('.ui-page').trigger('create');
+			
+			// UI - ADD SEGMENT ON THE MAP - TODO MOVE THIS PART -> showTrip function
+			directionsDisplay.setDirections(result);
+		}
+	});
+	
+}
+
+
 
 /**
  * Print route (itineraire) from CityWay API
