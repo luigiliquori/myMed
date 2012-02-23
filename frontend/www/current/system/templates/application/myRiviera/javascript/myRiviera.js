@@ -19,6 +19,25 @@ var poiIterator;
 
 var currentSegmentID;
 
+function initialize() {
+	// INITIALIZE DASP
+	setupDASP($("#userID").val(),
+			$("#accessToken").val(), 
+			$("#applicationName").val());
+	
+	// INITIALIZE DASP->MAP
+	setupDASPMap($("#applicationName").val() + "Map");
+	
+	// autocompletes Google Maps Places API
+	var autocompleteDepart = new google.maps.places.Autocomplete(document.getElementById('depart'));
+	var autocompleteArrivee = new google.maps.places.Autocomplete(document.getElementById('arrivee'));
+	autocompleteArrivee.bindTo('bounds', map);
+	autocompleteDepart.bindTo('bounds', map);
+	
+	// resize the map canvas
+	$("#" + $("#applicationName").val() + "Map").height($("body").height() - 45);
+}
+
 /**
  * Update the filter list for the POIs
  */

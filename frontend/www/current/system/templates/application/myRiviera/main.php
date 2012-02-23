@@ -3,6 +3,7 @@
 	define('APPLICATION_NAME', "myRiviera");
 
 	// DEFINE ATTRIBUTES FOR THE JAVASCRIPT PART (AJAX CALL)
+	echo "<input type='hidden' id='userID' value='" . $_SESSION['user']->id . "' />";
 	echo "<input type='hidden' id='applicationName' value='" . APPLICATION_NAME . "' />";
 	echo "<input type='hidden' id='accessToken' value='" . $_SESSION['accessToken'] . "' />";
 	
@@ -18,21 +19,21 @@
 	$handler = new MyApplicationHandler();
 	$handler->handleRequest();
 
+	// LOAD DASP JAVASCRIPT LIBRARY
+	echo "<script src='lib/dasp/javascript/dasp.js'></script>";
+	
 	// DISCONNECT FORM
 	require_once 'system/templates/handler/MenuHandler.class.php';
 	$menuHandler = new MenuHandler();
-	$menuHandler->handleRequest();
-	?>
-	<!-- Disconnect the user -->
+	$menuHandler->handleRequest(); ?>
 	<form action="?application=0" method="post" name="disconnectForm" id="disconnectForm">
 	<input type="hidden" name="disconnect" value="1" />
 	</form>
 	<?php 
 
-	// VIEW
+	// VIEWs
 	$find = new FindView($handler);
 	$find->printTemplate();
-	
 	$option = new OptionView($handler);
 	$option->printTemplate();
 	
