@@ -69,23 +69,24 @@ class MyApplicationHandler implements IRequestHandler {
 						"&departureTime=" . 
 						sprintf('%d-%02d-%02d_%02d-%02d',$_POST['select-year'],$_POST['select-month'],$_POST['select-day'],$_POST['select-hour'],$_POST['select-minute']);
 						$itineraire = file_get_contents(Cityway_URL . "/tripplanner/v1/detailedtrip/json?key=" . Cityway_APP_ID . $args);
+						//echo ^
 						$itineraireObj = json_decode($itineraire);
 						
 						if(isset($itineraireObj->ItineraryObj->tripSegments)) {
 							
-							$this->success->itineraire->type = "Cityway";
+							$this->success->itineraire->type = "'Cityway'";
 							$this->success->itineraire->value = $itineraire;
 							
 						} else {
 							
-							$this->success->itineraire->type = "Google";
+							$this->success->itineraire->type = "'Google'";
 							$this->success->itineraire->value = "";
 						}
 					} else {
-						$this->error = "2"; $this->success->itineraire->type = "Erreur geocoding";
+						$this->error = "2"; $this->success->itineraire->type = "'Erreur geocoding'";
 					}
 				} else {
-					$this->error = "3"; $this->success->itineraire->type = "Départ et/ou arrivée non valide";
+					$this->error = "3"; $this->success->itineraire->type = "'Départ et/ou arrivée non valide'";
 				}
 			} 
 		}

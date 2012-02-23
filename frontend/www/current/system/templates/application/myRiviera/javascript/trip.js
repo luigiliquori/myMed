@@ -12,7 +12,7 @@ function initialize() {
 		directionsDisplay =  new google.maps.DirectionsRenderer();
 
 		// resize the map canvas
-		$("#myRivieraMap").height($("body").height() - 45);
+		$("#myRivieraMap").height($("body").height() - $('body').find('div[data-role=header]').height() -2);
 
 		map = new google.maps.Map(document.getElementById("myRivieraMap"), {
 			zoom: 16,
@@ -25,6 +25,8 @@ function initialize() {
 		var autocompleteArrivee = new google.maps.places.Autocomplete(document.getElementById('arrivee'));
 		autocompleteArrivee.bindTo('bounds', map);
 		autocompleteDepart.bindTo('bounds', map);
+		
+		
 
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(displayPosition, displayError,

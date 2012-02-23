@@ -20,6 +20,11 @@
 	left: -16px;
 }
 
+#itineraireContent .ui-collapsible-content, #itineraireContent .ui-listview-inset{
+	margin: 0;
+	padding: 0;
+}
+
 #depart::-webkit-input-placeholder {
   color: LightBlue;
 }

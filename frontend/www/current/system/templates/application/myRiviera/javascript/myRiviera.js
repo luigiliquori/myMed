@@ -1,29 +1,25 @@
 var filterArray = [];
-var positionMarkers = [], prevMarker = null;// id of prevmarker
-var poisMarkers = {
-		"cityway" : {
-			markers : [],
-			prevMarkers : null
-		},
-		"mymed" : {
-			markers : [],
-			prevMarkers : null
-		},
-}; // markers: list of gmap markers, prevmarker: id of markers last displayed
-var isPersistent = true; // global behaviour, if we keep or not previous
-//location MarkerS when we focus elsewhere
+var markers = {
+		'position': [],
+		'mymed': [],
+		'cityway': [],
+		'carf': []
+}; //markers currently loaded on map, toDo should create keys dynamically from initialize
+
+var isPersistent = false; // global behaviour, if we keep or not previous location MarkerS when we focus elsewhere
 
 var poi;
 var poiMem = {};
 var poiIterator;
 
-var currentSegmentID;
+var currentSegmentID, prevSegmentID;
 
 /**
  * Update the filter list for the POIs
  */
 function updateFilter() {
 	filterArray = $("#select-filter").val() || [];
+	//if (filterArray.indexOf(type) < 0|| filterArray.length == ($("#select-filter").val() || []).length) {
 }
 
 /**
@@ -32,24 +28,27 @@ function updateFilter() {
  * @param type
  * @param index
  */
-function otherMarker(pois, type, index) {
-	if (!poisMarkers[type].markers[index]) { // create them if not exist
-		poisMarkers[type].markers[index] = [];
-		$.each(pois, function(i, poi) {
-			value = $.parseJSON(poi.value);
-			var marker = addMarker(value.latitude, value.longitude, value.icon,
-					value.title, value.description);
-			poisMarkers[type].markers[index].push(marker);
-		});
+function otherMarkers(latitude, longitude, type, index) {
+	if (!markers[type][index]) { // create them if not exist
+		if ((pois = getMarkers(latitude, longitude, type, 500)).length != 0) {
+			markers[type][index] = [];
+			$.each(pois, function(i, poi) {
+				value = $.parseJSON(poi.value);
+				var marker = addMarker(value.latitude, value.longitude, value.icon,
+						value.title, value.description);
+				markers[type][index].push(marker);
+			});
+		}
+	}else {// already existing, redrop them
+		for (var i=0; i<markers[type][index].length; i++) {
+			markers[type][index][i].setMap(map);
+			markers[type][index][i].setAnimation(google.maps.Animation.DROP);
+		}
 	}
-	if (!isPersistent) {
-		if (poisMarkers[type].prevMarkers
-				&& poisMarkers[type].prevMarkers != index) {
-			t = poisMarkers[type].markers[poisMarkers[type].prevMarkers];
-			for (i in t) {
-				t[i].setMap(null);
-			}
-			poisMarkers[type].prevMarkers = index;
+	
+	if (!isPersistent && prevSegmentID && prevSegmentID != index && markers[type][prevSegmentID]) {//clear previous step markers if !persistent
+		for (var i=0; i<markers[type][prevSegmentID].length; i++) {
+			markers[type][prevSegmentID][i].setMap(null);
 		}
 	}
 }
@@ -63,31 +62,28 @@ function otherMarker(pois, type, index) {
  * @param index
  */
 function positionMarker(latitude, longitude, icon, title, index) {
-	if (!index || (index && !positionMarkers[index])) { // create new marker
+	if (!index || (index && !markers["position"][index])) { // create new marker
 		var marker = addMarker(latitude, longitude, icon, title, $(
 				"#poicomment_" + index).html());
 		if (index) { // index argument is given, we store this marker for
 			// future reuse
-			positionMarkers[index] = marker;
+			markers["position"][index] = marker;
 			if (updatezoom) {
 				updatezoom = false;
 				map.setZoom(16);
 			}// only once or it gets annoying
 		}
 	} else {// already existing, redrop it
-		positionMarkers[index].setAnimation(google.maps.Animation.DROP);
-		marker = positionMarkers[index];
+		markers["position"][index].setMap(map);
+		markers["position"][index].setAnimation(google.maps.Animation.DROP);
 		if (updatezoom) {
 			updatezoom = false;
 			map.setZoom(16);
 		} // only once or it gets annoying
 	}
 
-	if (!isPersistent) {
-		if (prevMarker && prevMarker != index) {
-			marker[prevMarker].setMap(null);
-			prevMarker = index;
-		}
+	if (!isPersistent && prevSegmentID && prevSegmentID != index) {//clear previous position marker if !persistent
+		markers["position"][prevSegmentID].setMap(null);
 	}
 }
 
@@ -103,13 +99,11 @@ function updateMarkers(latitude, longitude, icon, title, index) {
 	positionMarker(latitude, longitude, icon, title, index);
 	
 	// ADD THE MARKERs CORRESPONDING TO ALL THE POIs AROUND THE SEGMENT
-	$.each($("#select-filter").val() || [], function(i, type) {
-		if (filterArray.indexOf(type) < 0|| filterArray.length == ($("#select-filter").val() || []).length) {
-			if ((pois = getMarkers(currentLatitude, currentLongitude, type, 500)).length != 0) {
-				otherMarker(pois, type, currentSegmentID);
-			}
-		}
-	});
+	filterArray = $("#select-filter").val() || [];
+	for (var i=0; i<filterArray.length; i++){
+		otherMarkers(latitude, longitude, filterArray[i], index);
+	}
+	prevSegmentID = index;
 }
 
 /**
@@ -153,11 +147,12 @@ function calcRoute(start, end, mobile) {
 			}
 
 			currentType = tripSegment.type;
+			$('<ul data-role="listview" data-inset="true"></ul>').appendTo(item);
 			item.appendTo($('#itineraireContent'));
 		}
 
 		if (tripSegment.departurePoint && tripSegment.arrivalPoint) {
-			desc = $('<div style="font-size: 9pt; font-weight: lighter; padding:2px;"><a href="#" '
+			desc = $('<li style="font-weight: lighter; padding-left:5px;"><a style="max-height:1em;" href="#" '
 					+ ' onclick="'
 
 					// FOCUS ON POSITION
@@ -182,16 +177,16 @@ function calcRoute(start, end, mobile) {
 					+ (mobile == "mobile" ? ' $(\'#itineraire\').trigger(\'collapse\');"'
 							: ' map.panBy(' + (-$("#itineraire").width()) / 2
 							+ ',0);"')
-							+ ' data-icon="search"></a></div>');
+							+ ' data-icon="search"></a></li>');
 			$('<span>'+ (tripSegment.distance > 0 ? 'Distance: '
 					+ tripSegment.distance + ' m' : 'Durée: '
 						+ tripSegment.duration + ' min')
 						+ '</span>').appendTo(desc.find('a'));
 			$('<p style="width: 90%;" id=poicomment_' + i + '>'
 					+ tripSegment.comment + '</p>').appendTo(desc);
-			desc.appendTo(item);
+			desc.appendTo(item.find('ul'));
 
-			if (currentType == "TRANSPORT") {
+			if (currentType == "TRANSPORT" && ['AVION', 'BOAT', 'TER', 'TRAIN'].indexOf(tripSegment.transportMode)<0) {
 				routes.push({
 					origin : new google.maps.LatLng(
 							tripSegment.departurePoint.latitude,
@@ -215,10 +210,8 @@ function calcRoute(start, end, mobile) {
 		}
 	}
 
-	// REFRESH THE ITINERARY
-	$('#itineraireContent').find('div[data-role=collapsible]').collapsible({
-		refresh : true
-	});
+	// create jquerymobile styled elmts
+	$('.ui-page').trigger('create');
 
 	// UI - ADD SEGMENT ON THE MAP - TODO MOVE THIS PART -> showTrip function
 	$(routes).each(function(i) {
@@ -285,7 +278,7 @@ function myRivieraShowTrip(start, end) {
 }
 
 /**
- * Load the destination address from a contact
+ * Load the desotherMarkertination address from a contact
  * @param dest
  */
 function changeDestination(dest) {

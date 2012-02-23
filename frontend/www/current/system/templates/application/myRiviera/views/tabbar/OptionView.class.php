@@ -63,8 +63,8 @@ class OptionView extends MyApplication {
 			
 				<!-- POIs - radius -->
 				<div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="c" style="text-align: left;">
-				 	<h3>Distance Max</h3>
-		  			Metre:<br>
+				 	<h3>Rayon de recherche</h3>
+		  			Mètre:<br>
 				   	<input type="range" name="slider" id="slider" value="500" min="100" max="1000"  data-theme="b"/>
 				</div>
 				
