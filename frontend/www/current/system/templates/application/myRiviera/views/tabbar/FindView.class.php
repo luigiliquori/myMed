@@ -120,6 +120,15 @@ class FindView extends MyApplication {
 			
 			<!-- MAP -->
 			<div id="myRivieraMap"></div>
+			
+			<script type="text/javascript">
+				var mobile = '<?php echo TARGET ?>';
+			</script>
+			
+			<div id="itineraire" data-role="collapsible" data-theme="b" data-content-theme="b" style="width: <?= TARGET == "mobile" ? "85" : "35" ?>%;">
+				<h3>Feuille de route</h3>
+				<div id="itineraireContent" data-role="collapsible-set" data-theme="b" data-content-theme="d" data-mini="true"></div>
+			</div>
 
 			<?php if ($this->handler->getSuccess()) { ?>			
 				
@@ -132,6 +141,7 @@ class FindView extends MyApplication {
 				<!-- Calcul Route -->
 				<script type="text/javascript"> 
 					var result = <?php echo $this->handler->getSuccess()->itineraire->value ?>;
+					var resulttype = <?php echo $this->handler->getSuccess()->itineraire->type ?>;
 					setTimeout("calcRoute('<?= $_POST['Depart'] ?>','<?= $_POST['Arrivee'] ?>','<?= TARGET ?>')", 500);
 				</script>
 				

@@ -138,7 +138,7 @@ class EditDialog extends AbstractTemplate {
 					</div>
 	 
 					<!-- SUBMIT - ToDO validate before submit-->
-					<a href="#" id="trouver" data-role="button"  rel="external" data-icon="arrow-r" data-iconpos="right" data-theme="b" onclick="document.<?= APPLICATION_NAME ?>FindForm.submit()">Trouver</a>	
+					<a href="#" id="trouver" data-role="button"  rel="external" data-icon="arrow-r" data-iconpos="right" data-theme="b" onclick="validateIt();">Trouver</a>	
 				
 				</form>
 				

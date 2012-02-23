@@ -12,7 +12,7 @@ function initialize() {
 		directionsDisplay =  new google.maps.DirectionsRenderer();
 
 		// resize the map canvas
-		$("#myRivieraMap").height($("body").height() - $('body').find('div[data-role=header]').height() -2);
+		$("#myRivieraMap").height($("body").height() - ((mobile)?0:$('body').find('div[data-role=header]').outerHeight()));
 
 		map = new google.maps.Map(document.getElementById("myRivieraMap"), {
 			zoom: 16,
@@ -21,16 +21,16 @@ function initialize() {
 		});
 
 		// autocompletes Google Maps Places API, should make it work
-		var autocompleteDepart = new google.maps.places.Autocomplete(document.getElementById('depart'));
+		/*var autocompleteDepart = new google.maps.places.Autocomplete(document.getElementById('depart'));
 		var autocompleteArrivee = new google.maps.places.Autocomplete(document.getElementById('arrivee'));
 		autocompleteArrivee.bindTo('bounds', map);
-		autocompleteDepart.bindTo('bounds', map);
+		autocompleteDepart.bindTo('bounds', map);*/
 		
 		
 
 		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(displayPosition, displayError,
-					{enableHighAccuracy : true, timeout: 5000, maximumAge: 0});	
+			navigator.geolocation.watchPosition(displayPosition, displayError,
+					{enableHighAccuracy : true, timeout: 2000, maximumAge: 0});	
 		} else {
 			alert("Votre navigateur ne prend pas en compte la géolocalisation HTML5");
 		}
@@ -58,13 +58,13 @@ function displayPosition(position) {
 	});
 
 	// if the accuracy is good enough, print a circle to show the area
-	if (accuracy && accuracy<1500){ // is use watchPosition instead of getCurrentPosition don't forget to clear previous circle, using circle.setMap(null)
+	if (accuracy){ // is use watchPosition instead of getCurrentPosition don't forget to clear previous circle, using circle.setMap(null)
 		circle = new google.maps.Circle({
 			strokeColor: "#0000ff",
 			strokeOpacity: 0.2,
 			strokeWeight: 2,
 			fillColor: "#0000ff",
-			fillOpacity: 0.1,
+			fillOpacity: (accuracy<400)?0.1:0,
 			map: map,
 			center: latlng,
 			radius: accuracy
