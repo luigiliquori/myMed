@@ -64,8 +64,11 @@
 		}
 		
 		// LOAD THE TEMPLATE
-		if(isset($_GET['application']) && $_GET['application'] != "0"){
-			$templateManager->selectTemplate('application/'.$_GET['application']);
+		if(isset($_GET['application'])){
+			$_SESSION['application'] = $_GET['application'];
+		}
+		if(isset($_SESSION['application']) && $_SESSION['application'] != "0"){
+			$templateManager->selectTemplate('application/'.$_SESSION['application']);
 		} else {
 			$templateManager->selectTemplate('container/' . TARGET . '/home');
 		}

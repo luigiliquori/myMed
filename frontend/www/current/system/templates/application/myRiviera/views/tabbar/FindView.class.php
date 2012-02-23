@@ -42,76 +42,6 @@ class FindView extends MyApplication {
 	<?php }
 	
 	/**
-	 * Print the itinerary
-	 * @param jSon $itinerary
-	 */
-	public /*void*/ function printItinerary($itinerary) { ?>
-		
-		<!-- ITINERAIRE -->
-		<?php 
-		$listDivider = null;
-		$i=0;
-		foreach($itinerary as $tripSegment) {
-			if($listDivider == null || $listDivider != $tripSegment->type) {
-				$icon = null ?>
-				<div class="grup" data-role="collapsible" data-mini="true" data-theme="b" data-content-theme="d" data-collapsed=<?php $i?"false":"true" ?> onclick="$('.grup').not(this).trigger('collapse');">
-				<?php if($tripSegment->type == "WALK") { ?>
-					<span>Marche</span>
-					<?php 
-					$titre = "Marche";
-					$icon = "system/templates/application/myRiviera/img/" . strtolower($tripSegment->type) . ".png";
-					?>
-				<?php } else if($tripSegment->type == "CONNECTION") { ?>
-					<span>Connection</span>
-				<?php } else if($tripSegment->type == "WAIT") { ?>
-					<span>Attendre</span>
-					</div>
-					<div style="font-size: 9pt; font-weight: lighter; padding:2px;">
-						<span>Durée: <?= $tripSegment->duration ?>min</span>
-					</div>
-					<?php $listDivider = null;?>
-					<?php continue; ?>
-				<?php } else { ?>
-					<span><?= strtolower($tripSegment->transportMode) ?></span>
-					<?php $titre = strtolower($tripSegment->transportMode) ?>
-					<?php $icon = "system/templates/application/myRiviera/img/" . strtolower($tripSegment->transportMode) . ".png" ?>
-				<?php } ?>	
-				</div>
-				<?php 
-				$listDivider = $tripSegment->type;
-			}
-			  
-			$latitude =   $tripSegment->departurePoint->latitude;
-			$longitude = $tripSegment->departurePoint->longitude;
-			if(isset($tripSegment->poi)){
-				$poi =  str_replace("'", "", json_encode($tripSegment->poi)); 
-			}
-			?>
-			
-			<input id="poi_<?= $i ?>" type="hidden" value='<?= $poi ?>' />
-			<div style="font-size: 9pt; font-weight: lighter; padding:2px;">
-				
-				<!-- FOCUS ON -->
-				<a href="#" onclick="
-				focusOnPosition('<?= $latitude ?>', '<?= $longitude ?>');
-				updatePOIs('<?= $latitude ?>', '<?= $longitude ?>', '<?= $icon ?>', '<?= $titre ?>', '<?= $i ?>');
-				<?= TARGET == "mobile" ? "$('#itineraire').trigger('collapse');" : "" ?>"
-				data-icon="search" >
-					<?php if(isset($tripSegment->distance)) { ?>
-					<span>Distance: <?= $tripSegment->distance ?>m</span>
-					<?php } else { ?>
-					<span>Durée: <?= $tripSegment->duration ?>min</span>
-					<?php } ?>
-				</a>
-				<p id="poicomment_<?= $i ?>" style="width: 90%;"><?= $tripSegment->comment ?></p>
-			</div>
-			
-			<?php 
-			$i++;
-		}
-	}
-	
-	/**
 	 * Get the CONTENT for jQuery Mobile
 	 */
 	public /*String*/ function getContent() { ?>
@@ -129,17 +59,18 @@ class FindView extends MyApplication {
 					<div id="itineraireContent" data-role="collapsible-set" data-theme="b" data-content-theme="d" data-mini="true"></div>
 				</div>	
 				
-				<!-- Calcul Route -->
-				<script type="text/javascript"> 
-					var result = <?php echo $this->handler->getSuccess()->itineraire->value ?>;
-					setTimeout("calcRoute('<?= $_POST['Depart'] ?>','<?= $_POST['Arrivee'] ?>','<?= TARGET ?>')", 500);
-				</script>
-				
-				<!-- Display The trip on the map -->
 				<?php 
 				$start = str_replace("\"", "", str_replace("'", "", $_POST['Depart']));
 				$end = str_replace("\"", "", str_replace("'", "", $_POST['Arrivee']));
 				?>
+				
+				<!-- Calcul Route -->
+				<script type="text/javascript"> 
+					var result = <?php echo $this->handler->getSuccess()->itineraire->value ?>;
+					setTimeout("calcRoute('<?= $start ?>','<?= $end ?>','<?= TARGET ?>')", 500);
+				</script>
+				
+				<!-- Display The trip on the map -->
 				<script type="text/javascript">setTimeout("myRivieraShowTrip('<?= $start ?>', '<?= $end ?>')", 500);</script>
 				
 			<?php } ?>

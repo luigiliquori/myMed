@@ -1,7 +1,7 @@
 var filterArray = [];
 var positionMarkers = [], prevMarker = null;// id of prevmarker
 var poisMarkers = {
-		"cityway" : {
+		"carf" : {
 			markers : [],
 			prevMarkers : null
 		},
@@ -123,6 +123,7 @@ function calcRoute(start, end, mobile) {
 	currentType = null;
 	icon = null;
 	routes = [];
+	collapsed = 0;
 
 	for (i in result.ItineraryObj.tripSegments.tripSegment) {
 
@@ -130,7 +131,7 @@ function calcRoute(start, end, mobile) {
 
 		if (tripSegment.type && (currentType == null || currentType != tripSegment.type)) {
 
-			item = $('<div data-role="collapsible" data-collapsed='+ (i ? 'false' : 'true') + '></div>');
+			item = $('<div data-role="collapsible" data-collapsed='+ (collapsed++ == 0 ? 'false' : 'true') + '></div>');
 
 			switch(tripSegment.type){
 			case 'WALK':
@@ -247,7 +248,7 @@ function calcRoute(start, end, mobile) {
  * 
  * @param url
  */
-function myRivieraShowTrip(start, end) {
+function myRivieraShowTrip(start, end, icon) {
 
 	if (!map) {
 		$("#myRivieraMap").height($("body").height() - 45);

@@ -1,5 +1,5 @@
 <?php
-
+require_once 'lib/dasp/request/Request.class.php';
 require_once 'lib/socialNetworkAPIs/IWrapper.class.php';
 require_once 'lib/socialNetworkAPIs/facebook/src/facebook.php';
 
@@ -30,6 +30,9 @@ class FacebookWrapper implements IWrapper {
 		// Get User ID
 		$user = $this->facebook->getUser();
 		if ($user) {
+			
+			$_SESSION['socialNetworkEnabled'] = true;
+
 			try {
 				
 				// Proceed knowing you have a logged in user who's authenticated.
@@ -148,7 +151,7 @@ class FacebookWrapper implements IWrapper {
 	 * get the login url for the social network button
 	 */
 	public /*String*/ function getLoginUrl() {
-		return $this->facebook->getLoginUrl() . "&scope=email,read_stream";
+		return $this->facebook->getLoginUrl() . "&scope=email,read_stream&display=popup";
 	}
 
 	/**

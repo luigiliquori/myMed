@@ -18,6 +18,17 @@
 	$handler = new MyApplicationHandler();
 	$handler->handleRequest();
 
+	// DISCONNECT FORM
+	require_once 'system/templates/handler/MenuHandler.class.php';
+	$menuHandler = new MenuHandler();
+	$menuHandler->handleRequest();
+	?>
+	<!-- Disconnect the user -->
+	<form action="?application=0" method="post" name="disconnectForm" id="disconnectForm">
+	<input type="hidden" name="disconnect" value="1" />
+	</form>
+	<?php 
+
 	// VIEW
 	$find = new FindView($handler);
 	$find->printTemplate();

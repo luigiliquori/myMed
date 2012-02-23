@@ -57,7 +57,6 @@ class OptionView extends MyApplication {
 							<option>Type de points d'interêts</option>
 							<option value="mymed">myMed</option>
 							<option value="carf">carf</option>
-							<option value="cityway">cityway</option>
 						</select>
 				 	</div>
 			
@@ -107,7 +106,11 @@ class OptionView extends MyApplication {
 					eMail: <?= $_SESSION['user']->email ?><br />
 					<div data-role="controlgroup" data-type="horizontal">
 						<a href="#inscription" data-role="button" data-rel="dialog" data-inline="true" data-theme="b" data-icon="refresh">mise à jour</a>
-						<a href="mobile_binary<?= MOBILE_PARAMETER_SEPARATOR ?>logout" data-role="button" data-theme="r" data-inline="true" data-icon="delete">Deconnexion</a>
+						<?php if(TARGET == "desktop") { ?>
+							<a href="#login" onclick="document.disconnectForm.submit()" rel="external" data-role="button" data-theme="r">Deconnexion</a>
+						<?php } else { ?>
+							<a href="mobile_binary<?= MOBILE_PARAMETER_SEPARATOR ?>logout" data-role="button" data-theme="r">Deconnexion</a>
+						<?php } ?>
 					</div>
 				</div>
 				
@@ -118,7 +121,15 @@ class OptionView extends MyApplication {
 						<?php foreach ($_SESSION['friends'] as $friend ) { ?>
 							<a href="<?= $friend["link"] ?>"><img src="http://graph.facebook.com/<?= $friend["id"] ?>/picture" width="20px" alt="<?= $friend["name"] ?>" /></a>
 						<?php $i++; ?>
-					<?php } ?>
+					<?php } 
+					if($i == 0) {
+						$socialNetworkConnection =  new SocialNetworkConnection();
+					 	foreach($socialNetworkConnection->getWrappers() as $wrapper) {
+					 		$url = TARGET == "mobile" ? str_replace("www", "m", $wrapper->getLoginUrl()) . "&display=touch" :  $wrapper->getLoginUrl();
+					 		echo "<a href='" . $url . "'>" . $wrapper->getSocialNetworkButton() . "</a>";
+					 	}
+					}
+					?>
 				 </div>
 				 
 				<!-- HELP -->
@@ -140,7 +151,7 @@ class OptionView extends MyApplication {
 						<img alt="Regine Piemonte"		src="system/img/logos/regione"	style="width: 100px;" />
 						<img alt="Région PACA"			src="system/img/logos/PACA"		style="width: 100px;" />
 						<img alt="Prefecture 06"		src="system/img/logos/pref"		style="width: 70px;" />
-						<img alt="Inria"				src="system/img/logos/inria"		style="width: 100px;" />
+						<img alt="Inria"				src="system/img/logos/inria"	style="width: 100px;" />
 						<p>"Ensemble par-delà les frontières"</p>
 					</div>
 				 </div>
