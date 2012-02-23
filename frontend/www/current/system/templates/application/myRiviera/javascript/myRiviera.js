@@ -2,7 +2,6 @@ var filterArray = [];
 var markers = {
 	'position' : [],
 	'mymed' : [],
-	'cityway' : [],
 	'carf' : []
 }; // markers currently loaded on map, toDo should create keys dynamically from
 		// initialize
@@ -14,6 +13,25 @@ var poiMem = {};
 var poiIterator;
 
 var currentSegmentID, prevSegmentID;
+
+function initialize() {
+	// INITIALIZE DASP
+	setupDASP($("#userID").val(),
+			$("#accessToken").val(), 
+			$("#applicationName").val());
+	
+	// INITIALIZE DASP->MAP
+	setupDASPMap($("#applicationName").val() + "Map");
+	
+	// autocompletes Google Maps Places API
+	var autocompleteDepart = new google.maps.places.Autocomplete(document.getElementById('depart'));
+	var autocompleteArrivee = new google.maps.places.Autocomplete(document.getElementById('arrivee'));
+	autocompleteArrivee.bindTo('bounds', map);
+	autocompleteDepart.bindTo('bounds', map);
+	
+	// resize the map canvas
+	$("#myRivieraMap").height($("body").height() - ((mobile)?0:$('body').find('div[data-role=header]').outerHeight()));
+}
 
 /**
  * Update the filter list for the POIs
@@ -125,7 +143,7 @@ function calcRoute(json) {
 	currentType = null;
 	icon = null;
 	routes = [];
-	
+	var collapsed = 0;
 	result = JSON.parse(json)
 	
 	if (result.ItineraryObj.Status.code != "0")//can be DisplayObj
@@ -141,8 +159,7 @@ function calcRoute(json) {
 		if (tripSegment.type
 				&& (currentType == null || currentType != tripSegment.type)) {
 
-			item = $('<div data-role="collapsible" data-collapsed='
-					+ (i ? 'false' : 'true') + '></div>');
+			item = $('<div data-role="collapsible" data-collapsed='+ (collapsed++ == 0 ? 'false' : 'true') + '></div>');
 
 			switch (tripSegment.type) {
 			case 'WALK':
@@ -262,7 +279,7 @@ function calcRoute(json) {
  * 
  * @param url
  */
-function myRivieraShowTrip(start, end) {
+function myRivieraShowTrip(start, end, icon) {
 
 	if (!map) {
 		$("#myRivieraMap").height($("body").height() - ((mobile)?0:$('body').find('div[data-role=header]').outerHeight()));

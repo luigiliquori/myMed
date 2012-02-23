@@ -37,7 +37,6 @@ class TemplateManager {
 		<link rel="stylesheet" href="lib/jquery/jquery.mobile.actionsheet.css" />
 		<!-- <link rel="stylesheet" href="lib/jquery/jquery.mobile.datebox.css" />-->
 		
-		
 		<!-- JQUERY -->
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
 		<script type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>		
@@ -55,9 +54,6 @@ class TemplateManager {
 		<!-- DATEBOX replaced by datebox jtusage -->
 		<!--  <script src="lib/jquery/datebox/jquery.mobile.datebox.min.js"></script>
 		<link href="lib/jquery/datebox/jquery.mobile.datebox.min.css" rel="stylesheet" />   -->
-		
-		<!-- DASP JAVASCRIPT LIBRARY -->
-		<script src="lib/dasp/javascript/dasp.js"></script>
 		
 		<!-- Common javascript -->
 		<script src="system/javascript/common.js"></script>
