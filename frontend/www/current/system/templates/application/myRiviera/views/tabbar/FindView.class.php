@@ -56,7 +56,7 @@ class FindView extends MyApplication {
 			</script>
 			
 			<div id="itineraire" data-role="collapsible" data-theme="b" data-content-theme="b" style="width: <?= TARGET == "mobile" ? "85" : "35" ?>%;">
-				<h3>Feuille de route </h3>
+				<h3>Feuille de route</h3>
 				<div id="itineraireContent" data-role="collapsible-set" data-theme="b" data-content-theme="d" data-mini="true"></div>
 			</div>
 			<div id="next-prev" style="left: 50%;">
@@ -64,6 +64,7 @@ class FindView extends MyApplication {
 				<a id="next-step" data-role="button" data-theme="b" data-iconpos="notext" data-icon="arrow-r" data-inline="true" onclick=""></a>
 			</div>
 			
+
 			<?php if ($this->handler->getSuccess()) { ?>			
 				
 				<!-- ITINERARY -->

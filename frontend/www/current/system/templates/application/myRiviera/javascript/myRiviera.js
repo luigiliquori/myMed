@@ -1,4 +1,4 @@
-var filterArray = ["mymed", "carf"];
+var filterArray = [];
 var pmarkers = [], fmarkers = []; //position markers and flag (start end) markers
 var markers = {}; // all other markers
 var directionsDisplays = [];
@@ -30,23 +30,21 @@ function initialize() {
 	// resize the map canvas
 	$("#myRivieraMap").height($("body").height() - ((!mobile)?0:$('body').find('div[data-role=header]').outerHeight()));
 
-	//setup markers cache keys from options
-	$("#select-filter option:not(:first)").each(function(){
-	    markers[$(this).val()]=[];
-	});
-
 	// init filterArray
-	for ( var i = 0; i < filterArray.length; i++) {
-		$("#POIFilter").html('<input type="checkbox" name="' + filterArray[i] + '" id="' + filterArray[i] + '" class="custom" /><label for="' + filterArray[i] + '">' + filterArray[i] + '</label>');
-	}
+	updateFilter();
 }
 
 /**
  * Update the filter list for the POIs
  */
 function updateFilter() {
-	filterArray = $("#select-filter").val() || [];
+	filterArray = [];
+	$("#" + currentApplication + "Filter input:checked").each(function(index) {
+		 filterArray.push($(this).attr('id'));
+		 markers[$(this).attr('id')] = [];
+	});
 }
+
 
 /**
  * clear all markers from map, is necessary since 80496024d1dd2d8dc6, because we no longer refresh page (ajax)
@@ -151,7 +149,7 @@ function updateMarkers(latitude, longitude, icon, title, index) {
 	positionMarker(latitude, longitude, icon, title, index);
 
 	// ADD THE MARKERs CORRESPONDING TO ALL THE POIs AROUND THE SEGMENT
-	filterArray = $("#select-filter").val() || [];
+//	filterArray = $("#select-filter").val() || [];
 	for ( var i = 0; i < filterArray.length; i++) {
 		otherMarkers(latitude, longitude, filterArray[i], index);
 	}

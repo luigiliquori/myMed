@@ -105,7 +105,6 @@ function displayPosition(position) {
 		});
 	}
 
-
 	// if the accuracy is good enough, print a circle to show the area
 	if (accuracy){ // is use watchPosition instead of getCurrentPosition don't forget to clear previous circle, using circle.setMap(null)
 		if (circle){
@@ -172,7 +171,6 @@ function focusOnPosition(latitude, longitude){
 /**
  * Print the trip on the current map
  * @param trip - jSon trip - Google Based
- * @returns
  */
 function showTrip(trip) {
 	// TODO

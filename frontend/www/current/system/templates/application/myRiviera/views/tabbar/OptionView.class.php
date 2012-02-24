@@ -55,7 +55,7 @@ class OptionView extends MyApplication {
 				<!-- POIs - Filter -->
 				<div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="c" style="text-align: left;">
 				 	<h3>Points d'interêts</h3>
-				 	<div id="<?= APPLICATION ?>" data-role="controlgroup">
+				 	<div id="<?= APPLICATION_NAME ?>Filter" data-role="controlgroup">
 				    	<?php foreach ($this->filterList as $filter) { ?>
 					    	<input type="checkbox" name="<?= $filter ?>" id="<?= $filter ?>" class="custom" checked="checked" />
 					    	<label for="<?= $filter ?>"><?= $filter ?></label>
@@ -147,6 +147,7 @@ class OptionView extends MyApplication {
 							fjs.parentNode.insertBefore(js, fjs);
 						}(document, 'script', 'facebook-jssdk'));</script>
 						<div class="fb-like" data-href="http://www.mymed.fr" data-send="true" data-width="450" data-show-faces="true"></div>
+						<br /><br />
 					<?php } ?>
 				 </div>
 				 
