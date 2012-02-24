@@ -1,4 +1,4 @@
-var filterArray = [];
+var filterArray = ["mymed", "carf"];
 var pmarkers = [], fmarkers = []; //position markers and flag (start end) markers
 var markers = {}; // all other markers
 var directionsDisplays = [];
@@ -12,6 +12,7 @@ var poiIterator;
 var currentSegmentID, prevSegmentID;
 
 function initialize() {
+	
 	// INITIALIZE DASP
 	setupDASP($("#userID").val(),
 			$("#accessToken").val(), 
@@ -34,6 +35,10 @@ function initialize() {
 	    markers[$(this).val()]=[];
 	});
 
+	// init filterArray
+	for ( var i = 0; i < filterArray.length; i++) {
+		$("#POIFilter").html('<input type="checkbox" name="' + filterArray[i] + '" id="' + filterArray[i] + '" class="custom" /><label for="' + filterArray[i] + '">' + filterArray[i] + '</label>');
+	}
 }
 
 /**

@@ -40,5 +40,6 @@
 	// DIALOG
 	$edit = new EditDialog();
 	$edit->printTemplate();
+	include('system/templates/container/mobile/home/views/updateProfile.php');
 	
 ?>

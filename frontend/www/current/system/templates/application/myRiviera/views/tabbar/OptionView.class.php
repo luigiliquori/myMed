@@ -15,6 +15,7 @@ class OptionView extends MyApplication {
 	/* Attributes */
 	/* --------------------------------------------------------- */
 	private /*IRequestHandler*/ $handler;
+	private /*String[]*/ $filterList;
 	
 	/* --------------------------------------------------------- */
 	/* Constructors */
@@ -25,6 +26,7 @@ class OptionView extends MyApplication {
 	public function __construct(/*MyTemplateHandler*/ $handler) {
 		parent::__construct("Option");
 		$this->handler = $handler;
+		$this->filterList = array("mymed", "carf");
 	}
 	
 	/* --------------------------------------------------------- */
@@ -36,7 +38,7 @@ class OptionView extends MyApplication {
 	public /*String*/ function getHeader() { ?>
 		<div data-role="header" data-theme="b">
 			<h1>Options</h1>
-			<a href="#Find" data-role="button" class="ui-btn-left" data-icon="arrow-l">Retour</a>
+			<a href="#Find" data-role="button" class="ui-btn-left" data-icon="arrow-l" data-back="true">Retour</a>
 		</div>
 	<?php }
 	
@@ -53,12 +55,13 @@ class OptionView extends MyApplication {
 				<!-- POIs - Filter -->
 				<div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="c" style="text-align: left;">
 				 	<h3>Points d'interêts</h3>
-					   	<select name="select-filter" id="select-filter" multiple="multiple" data-native-menu="false" onchange="updateFilter()" data-theme="b" data-inline="true"s>
-							<option>Type de points d'interêts</option>
-							<option value="mymed">myMed</option>
-							<option value="carf">carf</option>
-						</select>
-				 	</div>
+				 	<div id="<?= APPLICATION ?>" data-role="controlgroup">
+				    	<?php foreach ($this->filterList as $filter) { ?>
+					    	<input type="checkbox" name="<?= $filter ?>" id="<?= $filter ?>" class="custom" checked="checked" />
+					    	<label for="<?= $filter ?>"><?= $filter ?></label>
+				    	<?php } ?>
+				    </div>
+				</div>
 			
 				<!-- POIs - radius -->
 				<div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="c" style="text-align: left;">
@@ -74,15 +77,21 @@ class OptionView extends MyApplication {
 					<div data-role="fieldcontain">
 					    
 						<fieldset data-role="controlgroup">   
-						   <input type="checkbox" name="checkbox-1" id="checkbox-1" class="custom" checked="checked"/>
+						   <input type="checkbox" name="checkbox-1" id="checkbox-1" class="custom" checked="checked" 
+						   onchange="$('#TrajetTypeRadio').css('display', this.checked ? 'block' : 'none');"/>
 						   <label for="checkbox-1">En Transport Public</label>
 					    </fieldset>
-						<fieldset data-role="controlgroup">
-						   <input type="radio" name="radio-1" id="radio-1" class="custom" checked="checked"/>
-						   <label for="radio-1">Le moins de changements</label>
-						   <input type="radio" name="radio-2" id="radio-2" class="custom" />
-						   <label for="radio-2">Le plus rapide</label>
+					    
+					    	
+						<fieldset id="TrajetTypeRadio" data-role="controlgroup">
+						     	<input type="radio" name="radio-choice-1" id="radio-choice-1" value="choice-1" checked="checked" />
+						     	<label for="radio-choice-1">Le moins de changements</label>
+						
+						     	<input type="radio" name="radio-choice-1" id="radio-choice-2" value="choice-2"  />
+						     	<label for="radio-choice-2">Le plus rapide</label>
 						</fieldset>
+					    
+					    
 						<fieldset data-role="controlgroup">
 						   <input type="checkbox" name="checkbox-1" id="checkbox-1" class="custom" checked="checked"/>
 						   <label for="checkbox-1">En Voiture</label>
@@ -128,8 +137,17 @@ class OptionView extends MyApplication {
 					 		$url = TARGET == "mobile" ? str_replace("www", "m", $wrapper->getLoginUrl()) . "&display=touch" :  $wrapper->getLoginUrl();
 					 		echo "<a href='" . $url . "'>" . $wrapper->getSocialNetworkButton() . "</a>";
 					 	}
-					}
-					?>
+					} else { ?>
+						<br /><br />
+						<script>(function(d, s, id) {
+							var js, fjs = d.getElementsByTagName(s)[0];
+							if (d.getElementById(id)) return;
+							js = d.createElement(s); js.id = id;
+							js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1";
+							fjs.parentNode.insertBefore(js, fjs);
+						}(document, 'script', 'facebook-jssdk'));</script>
+						<div class="fb-like" data-href="http://www.mymed.fr" data-send="true" data-width="450" data-show-faces="true"></div>
+					<?php } ?>
 				 </div>
 				 
 				<!-- HELP -->
