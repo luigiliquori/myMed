@@ -21,10 +21,10 @@ function initialize() {
 	setupDASPMap($("#applicationName").val() + "Map");
 	
 	// autocompletes Google Maps Places API
-	/*var autocompleteDepart = new google.maps.places.Autocomplete(document.getElementById('depart'));
+	var autocompleteDepart = new google.maps.places.Autocomplete(document.getElementById('depart'));
 	var autocompleteArrivee = new google.maps.places.Autocomplete(document.getElementById('arrivee'));
 	autocompleteArrivee.bindTo('bounds', map);
-	autocompleteDepart.bindTo('bounds', map);*/
+	autocompleteDepart.bindTo('bounds', map);
 	
 	// resize the map canvas
 	$("#myRivieraMap").height($("body").height() - ((mobile)?0:$('body').find('div[data-role=header]').outerHeight()));
@@ -41,8 +41,6 @@ function initialize() {
  */
 function updateFilter() {
 	filterArray = $("#select-filter").val() || [];
-	// if (filterArray.indexOf(type) < 0|| filterArray.length ==
-	// ($("#select-filter").val() || []).length) {
 }
 
 /**
