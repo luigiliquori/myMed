@@ -66,8 +66,7 @@ class FindView extends MyApplication {
 				<div id="itineraire" data-role="collapsible" data-theme="b" data-content-theme="b" style="width: <?= TARGET == "mobile" ? "85" : "35" ?>%;">
 					<h3>Feuille de route <?= $this->handler->getSuccess()->itineraire->type ?></h3>
 					<div id="itineraireContent" data-role="collapsible-set" data-theme="b" data-content-theme="d" data-mini="true"></div>
-				</div>	
-				
+				</div>
 				<?php 
 				$start = str_replace("\"", "", str_replace("'", "", $_POST['Depart']));
 				$end = str_replace("\"", "", str_replace("'", "", $_POST['Arrivee']));

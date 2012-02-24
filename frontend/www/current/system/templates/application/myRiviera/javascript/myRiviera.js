@@ -27,7 +27,7 @@ function initialize() {
 	autocompleteDepart.bindTo('bounds', map);
 	
 	// resize the map canvas
-	$("#myRivieraMap").height($("body").height() - ((mobile)?0:$('body').find('div[data-role=header]').outerHeight()));
+	$("#myRivieraMap").height($("body").height() - ((!mobile)?0:$('body').find('div[data-role=header]').outerHeight()));
 
 	//setup markers cache keys from options
 	$("#select-filter option:not(:first)").each(function(){
@@ -378,7 +378,7 @@ function calcRouteByGoogle(){
 function myRivieraShowTrip(start, end, icon) {
 
 	if (!map) {
-		$("#myRivieraMap").height($("body").height() - ((mobile)?0:$('body').find('div[data-role=header]').outerHeight()));
+		$("#myRivieraMap").height($("body").height() - ((!mobile)?0:$('body').find('div[data-role=header]').outerHeight()));
 
 		map = new google.maps.Map(document.getElementById("myRivieraMap"), {
 			zoom : 16,
