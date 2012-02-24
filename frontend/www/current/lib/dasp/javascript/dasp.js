@@ -28,6 +28,7 @@ var map;
 var currentLatitude, currentLongitude, accuracy;
 var focusOnCurrentPosition = true;
 var updatezoom = true;
+var marker, circle;
 
 /* --------------------------------------------------------- */
 /* Setup Lib */
@@ -92,25 +93,37 @@ function displayPosition(position) {
 
 	// ADD POSITION Marker
 	var latlng = new google.maps.LatLng(currentLatitude, currentLongitude);
-	marker = new google.maps.Marker({
-		animation: google.maps.Animation.BOUNCE,
-		position: latlng,
-		icon: 'system/templates/application/myRiviera/img/position.png',
-		map: map
-	});
+	if (marker){
+		marker.setPosition(latlng);
+		marker.setAnimation(google.maps.Animation.BOUNCE);
+	}else{
+		marker = new google.maps.Marker({
+			animation: google.maps.Animation.BOUNCE,
+			position: latlng,
+			icon: 'system/templates/application/myRiviera/img/position.png',
+			map: map
+		});
+	}
+
 
 	// if the accuracy is good enough, print a circle to show the area
 	if (accuracy){ // is use watchPosition instead of getCurrentPosition don't forget to clear previous circle, using circle.setMap(null)
-		circle = new google.maps.Circle({
-			strokeColor: "#0000ff",
-			strokeOpacity: 0.2,
-			strokeWeight: 2,
-			fillColor: "#0000ff",
-			fillOpacity: (accuracy<400)?0.1:0,
-			map: map,
-			center: latlng,
-			radius: accuracy
-		});
+		if (circle){
+			circle.setCenter(latlng);
+			circle.setRadius(accuracy);
+		}else{
+			circle = new google.maps.Circle({
+				strokeColor: "#0000ff",
+				strokeOpacity: 0.2,
+				strokeWeight: 2,
+				fillColor: "#0000ff",
+				fillOpacity: (accuracy<400)?0.1:0,
+				map: map,
+				center: latlng,
+				radius: accuracy
+			});
+		}
+		
 	}
 
 	// focus on the position on show the POIs around
