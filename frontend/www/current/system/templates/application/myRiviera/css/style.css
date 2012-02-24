@@ -25,11 +25,25 @@
 	padding: 0;
 }
 
+#next-prev{
+	position: absolute;  
+	display: none;
+	opacity: 0.8;
+}
+#next-prev a{
+	position: relative;
+	margin-right: 0;
+	margin-left: 0;
+	margin-bottom: 0;
+}
+
 #depart::-webkit-input-placeholder {
   color: LightBlue;
+  font-weight: bold;
 }
 #depart:-moz-placeholder {
   color: LightBlue;
+  font-weight: bold;
 }
 
 #depart {

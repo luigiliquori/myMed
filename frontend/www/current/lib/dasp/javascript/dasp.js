@@ -72,8 +72,8 @@ function setupDASPMap(mapID) {
 
 		// geolocaliseUser
 		if (navigator.geolocation) {
-			navigator.geolocation.watchPosition(displayPosition, displayError,
-					{enableHighAccuracy : true, timeout: 2000, maximumAge: 0});	
+			navigator.geolocation.getCurrentPosition(displayPosition, displayError,
+					{enableHighAccuracy : true, timeout: 5000, maximumAge: 0});	
 		} else {
 			alert("Votre navigateur ne prend pas en compte la géolocalisation HTML5");
 		}
