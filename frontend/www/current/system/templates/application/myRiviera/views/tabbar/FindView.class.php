@@ -59,7 +59,11 @@ class FindView extends MyApplication {
 				<h3>Feuille de route</h3>
 				<div id="itineraireContent" data-role="collapsible-set" data-theme="b" data-content-theme="d" data-mini="true"></div>
 			</div>
-
+			<div id="next-prev">
+				<a id="prev-step" data-role="button" data-theme="b" data-iconpos="notext" data-icon="arrow-l" data-inline="true" onclick=""></a>
+				<a id="next-step" data-role="button" data-theme="b" data-iconpos="notext" data-icon="arrow-r" data-inline="true" onclick=""></a>
+			</div>
+			
 			<?php if ($this->handler->getSuccess()) { ?>			
 				
 				<!-- ITINERARY -->

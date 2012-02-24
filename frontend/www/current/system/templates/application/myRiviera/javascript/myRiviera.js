@@ -9,7 +9,7 @@ var poi;
 var poiMem = {};
 var poiIterator;
 
-var currentSegmentID, prevSegmentID;
+var currentSegmentID=0, prevSegmentID=0;
 
 function initialize() {
 	// INITIALIZE DASP
@@ -96,8 +96,7 @@ function otherMarkers(latitude, longitude, type, index) {
 	}
 
 	if (!isPersistent && prevSegmentID && prevSegmentID != index
-			&& markers[type][prevSegmentID]) {// clear previous step markers if
-																				// !persistent
+			&& markers[type][prevSegmentID]) {// clear previous step markers if !persistent
 		for ( var i = 0; i < markers[type][prevSegmentID].length; i++) {
 			markers[type][prevSegmentID][i].setMap(null);
 		}
@@ -114,8 +113,7 @@ function otherMarkers(latitude, longitude, type, index) {
  */
 function positionMarker(latitude, longitude, icon, title, index) {
 	if (!index || (index && !pmarkers[index])) { // create new marker
-		var marker = addMarker(latitude, longitude, icon, title, $(
-				"#poicomment_" + index).html());
+		var marker = addMarker(latitude, longitude, icon, title, $('#itineraireContent').find('.ui-li p').eq(index).html());
 		if (index) { // index argument is given, we store this marker for
 			// future reuse
 			pmarkers[index] = marker;
@@ -154,6 +152,11 @@ function updateMarkers(latitude, longitude, icon, title, index) {
 	for ( var i = 0; i < filterArray.length; i++) {
 		otherMarkers(latitude, longitude, filterArray[i], index);
 	}
+	len = $('#itineraireContent').find('.ui-li a').length;
+	var c = eval(currentSegmentID);
+	$('#next-step').attr('onclick', $('#itineraireContent').find('.ui-li a').eq(c<len-1?c+1:len-1).attr('onclick'));
+	$('#prev-step').attr('onclick', $('#itineraireContent').find('.ui-li a').eq(c>0?c-1:0).attr('onclick'));
+	
 	prevSegmentID = index;
 }
 
@@ -180,13 +183,12 @@ function calcRouteByCityway(result){
 	currentType = null;
 	icon = null;
 	routes = [];
-	var collapsed = 0;
+	var collapsed = 0, i=0;
 	$('#itineraire h3:first').find('.ui-btn-text').html($('#itineraire h3:first').find('.ui-btn-text').html().replace("Feuille de route", "Feuille de route Cityway"));
 
-	for (i in result.ItineraryObj.tripSegments.tripSegment) {
+	for (j in result.ItineraryObj.tripSegments.tripSegment) {
 
-		tripSegment = result.ItineraryObj.tripSegments.tripSegment[i];
-
+		tripSegment = result.ItineraryObj.tripSegments.tripSegment[j];
 		if (tripSegment.type
 				&& (currentType == null || currentType != tripSegment.type)) {
 
@@ -204,9 +206,9 @@ function calcRouteByCityway(result){
 				break;
 			case 'WAIT':
 				$("<h3>Attendre</h3>").appendTo(item);
-				$(
-						"<span style='font-size: 9pt; font-weight: lighter; padding:2px;'>Durée: "
+				$("<span style='font-size: 9pt; font-weight: lighter; padding:2px;'>Durée: "
 								+ tripSegment.duration + " min</span>").appendTo(item);
+				i--; // no markers for Wait
 				break;
 			default:
 				$("<h3>" + tripSegment.transportMode.toLowerCase() + "</h3>").appendTo(
@@ -241,7 +243,7 @@ function calcRouteByCityway(result){
 					+ '\',\''
 					+ titre
 					+ '\',\''
-					+ i
+					+ i++
 					+ '\');'
 					+ (mobile == "mobile" ? ' $(\'#itineraire\').trigger(\'collapse\');"'
 							: ' map.panBy(' + (-$("#itineraire").width()) / 2 + ',0);"')
@@ -249,7 +251,7 @@ function calcRouteByCityway(result){
 			$('<span>' + (tripSegment.distance > 0 ? 'Distance: ' + tripSegment.distance
 									+ ' m' : 'Durée: ' + tripSegment.duration + ' min')
 							+ '</span>').appendTo(desc.find('a'));
-			$('<p style="width: 90%;" id=poicomment_' + i + '>'
+			$('<p style="width: 90%;">'
 							+ tripSegment.comment + '</p>').appendTo(desc);
 			desc.appendTo(item.find('ul'));
 
@@ -354,7 +356,7 @@ function calcRouteByGoogle(){
 								: ' map.panBy(' + (-$("#itineraire").width()) / 2 + ',0);"')
 						+ ' data-icon="search"></a></li>');
 				$('<span>Distance: '+st.distance.text+', durée: '+st.duration.text+'</span>').appendTo(desc.find('a'));
-				$('<p style="width: 90%;" id=poicomment_' + i + '>'
+				$('<p style="width: 90%;">'
 								+ st.instructions + '</p>').appendTo(desc);
 				desc.appendTo(item.find('ul'));
 				
@@ -407,6 +409,11 @@ function myRivieraShowTrip(start, end, icon) {
 
 	// SHOW ITINERAIRE
 	$("#itineraire").delay(1500).fadeIn("slow");
+	$('#next-step').attr('onclick', $('#itineraireContent').find('.ui-li a').eq(1).attr('onclick'));
+	$('#prev-step').attr('onclick', $('#itineraireContent').find('.ui-li a').eq(0).attr('onclick'));
+	$("#next-prev").css('left', $("#itineraire").width() + 20);
+	$("#next-prev").delay(1500).fadeIn("slow");
+	
 }
 
 /**

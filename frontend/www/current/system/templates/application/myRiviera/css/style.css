@@ -25,6 +25,19 @@
 	padding: 0;
 }
 
+#next-prev{
+	position: absolute; 
+	top: 40px; 
+	left:27px; 	
+	display: none;
+	opacity: 0.9;
+}
+#next-prev a{
+	position: relative;
+	margin-right: 0;
+	margin-left: 0;
+}
+
 #depart::-webkit-input-placeholder {
   color: LightBlue;
 }
