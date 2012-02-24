@@ -50,12 +50,12 @@ function updateFilter() {
  */
 function clearAll(){
 	
-	for (var i=0; i<pmarkers.length; i++)
+	for (var i=0; i<pmarkers.length && pmarkers[i]; i++)
 		pmarkers[i].setMap(null);
-	for (var i=0; i<fmarkers.length; i++)
+	for (var i=0; i<fmarkers.length && fmarkers[i]; i++)
 		fmarkers[i].setMap(null);
 	for (key in markers)
-		for (var i=0; i<markers[key]; i++)
+		for (var i=0; i<markers[key] && markers[key][i]; i++)
 			for (var j=0; j<markers[key][i]; j++)
 				markers[key][i][j].setMap(null);
 	for (var i=0; i<directionsDisplays.length; i++)
@@ -131,7 +131,7 @@ function positionMarker(latitude, longitude, icon, title, index) {
 		} // only once or it gets annoying
 	}
 
-	if (!isPersistent && prevSegmentID && prevSegmentID != index) {// clear previous position marker if !persistent
+	if (!isPersistent && prevSegmentID && prevSegmentID != index && pmarkers[prevSegmentID]) {// clear previous position marker if !persistent
 		pmarkers[prevSegmentID].setMap(null);
 	}
 }
@@ -184,7 +184,7 @@ function calcRouteByCityway(result){
 	icon = null;
 	routes = [];
 	var collapsed = 0, i=0;
-	$('#itineraire h3:first').find('.ui-btn-text').html($('#itineraire h3:first').find('.ui-btn-text').html().replace("Feuille de route", "Feuille de route Cityway"));
+	$('#itineraire h3:first').find('.ui-btn-text').html($('#itineraire h3:first').find('.ui-btn-text').html().replace(/(Feuille de route)( \w+|)/, '$1 Cityway'));
 
 	for (j in result.ItineraryObj.tripSegments.tripSegment) {
 
@@ -304,7 +304,7 @@ function calcRouteByCityway(result){
 
 function calcRouteByGoogle(){
 	
-	$('#itineraire h3:first').find('.ui-btn-text').html($('#itineraire h3:first').find('.ui-btn-text').html().replace("Feuille de route", "Feuille de route GoogleMaps"));
+	$('#itineraire h3:first').find('.ui-btn-text').html($('#itineraire h3:first').find('.ui-btn-text').html().replace(/(Feuille de route)( \w+|)/, '$1 GoogleMaps'));
 	var request = {
 			origin:geocodestart,
 			destination:geocodeend,
@@ -409,11 +409,10 @@ function myRivieraShowTrip(start, end, icon) {
 
 	// SHOW ITINERAIRE
 	$("#itineraire").delay(1500).fadeIn("slow");
+	$("#next-prev").delay(1500).fadeIn("slow");
+	$("#next-prev").css('top', $("body").height() - $("#next-prev").height() );
 	$('#next-step').attr('onclick', $('#itineraireContent').find('.ui-li a').eq(1).attr('onclick'));
 	$('#prev-step').attr('onclick', $('#itineraireContent').find('.ui-li a').eq(0).attr('onclick'));
-	$("#next-prev").css('left', $("#itineraire").width() + 20);
-	$("#next-prev").delay(1500).fadeIn("slow");
-	
 }
 
 /**
