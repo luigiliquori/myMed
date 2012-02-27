@@ -14,7 +14,6 @@ class MyApplication extends AbstractTemplate {
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
-	private /*String*/ $activeFooter;
 	
 	/* --------------------------------------------------------- */
 	/* Constructors */
@@ -24,17 +23,18 @@ class MyApplication extends AbstractTemplate {
 	 */
 	public function __construct(/*String*/ $id) {
 		parent::__construct($id, APPLICATION_NAME);
-		$this->activeFooter = $id;
-		
 	}
 	
 	/* --------------------------------------------------------- */
 	/* public methods */
 	/* --------------------------------------------------------- */
-	/**
-	* Get the HEADER for jQuery Mobile
-	*/
-	public /*String*/ function getHeader() { }
+	public /*String*/ function getHeader() { ?>
+		<!-- HEADER -->
+		<div data-role="header" data-theme="a">
+			<a href="?application=0" rel="external" data-role="button" data-theme="r">Close</a>
+			<h1><?= $this->title ?></h1>
+		</div>
+	<?php }
 
     /**
      * Get the CONTENT for jQuery Mobile

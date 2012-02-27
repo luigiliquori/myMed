@@ -32,7 +32,7 @@
 	$templateManager = new TemplateManager();
 	
 	// Identify the application
-	if(isset($_GET['application'])){
+	if(isset($_GET['application'])) {
 		$_SESSION['application'] = $_GET['application'];
 	}
 
