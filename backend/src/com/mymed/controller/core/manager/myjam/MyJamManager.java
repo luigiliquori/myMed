@@ -284,10 +284,8 @@ public class MyJamManager extends AbstractManager{
 		}
 	}
 
-	public void insertFeedback(String reportId, String updateId, MFeedBackBean feedback) throws InternalBackEndException, IOBackEndException{
+	public MFeedBackBean insertFeedback(String reportId, String updateId, MFeedBackBean feedback) throws InternalBackEndException, IOBackEndException{
 		try{
-
-
 			final GeoLocationManager locatorManager = new GeoLocationManager();
 			/**
 			 * Data preparation
@@ -321,6 +319,7 @@ public class MyJamManager extends AbstractManager{
 					MConverter.stringToByteBuffer(feedback.getUserId()).array(), 
 					MConverter.intToByteBuffer(feedback.getValue()).array());
 
+			return feedback;
 		} catch(InternalBackEndException e){
 			throw new InternalBackEndException(" "+e.getMessage());
 		} catch (IOBackEndException e) { //TODO Check the possible causes of IOException.
