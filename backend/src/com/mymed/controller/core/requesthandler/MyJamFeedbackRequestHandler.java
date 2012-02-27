@@ -130,7 +130,8 @@ public class MyJamFeedbackRequestHandler  extends AbstractRequestHandler  implem
 					content = MConverter.convertStreamToString(request.getInputStream(),request.getContentLength());
 					MFeedBackBean feedback =  this.getGson().fromJson(content, MFeedBackBean.class);
 					MyJamTypeValidator.validate(feedback);
-					myJamManager.insertFeedback(id,updateId, feedback);
+					MFeedBackBean res = myJamManager.insertFeedback(id,updateId, feedback);
+					message.addData("feedback", this.getGson().toJson(res));
 				}else
 					throw new InternalBackEndException("missing parameter, bad request!");
 				break;

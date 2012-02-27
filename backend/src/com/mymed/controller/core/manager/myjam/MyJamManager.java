@@ -284,7 +284,7 @@ public class MyJamManager extends AbstractManager{
 		}
 	}
 
-	public void insertFeedback(String reportId, String updateId, MFeedBackBean feedback) throws InternalBackEndException, IOBackEndException{
+	public MFeedBackBean insertFeedback(String reportId, String updateId, MFeedBackBean feedback) throws InternalBackEndException, IOBackEndException{
 		try{
 
 
@@ -320,7 +320,8 @@ public class MyJamManager extends AbstractManager{
 			((MyJamStorageManager) storageManager).insertColumn("Feedback", updateId==null?reportId:updateId, 
 					MConverter.stringToByteBuffer(feedback.getUserId()).array(), 
 					MConverter.intToByteBuffer(feedback.getValue()).array());
-
+			
+			return feedback;
 		} catch(InternalBackEndException e){
 			throw new InternalBackEndException(" "+e.getMessage());
 		} catch (IOBackEndException e) { //TODO Check the possible causes of IOException.

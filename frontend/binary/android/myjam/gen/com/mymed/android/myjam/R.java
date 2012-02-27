@@ -241,6 +241,11 @@ public final class R {
         public static final int map_preferences=0x7f070053;
         public static final int mobile_speed_cam_legend_label=0x7f070050;
         public static final int near_reports_found=0x7f070031;
+        /**  ============================ 
+  	 CallService  strings     
+ ============================ 
+         */
+        public static final int network_unavailable=0x7f070063;
         public static final int no_location=0x7f07001f;
         public static final int notification_loc_available_text=0x7f07004b;
         /**  ============================ 
@@ -309,6 +314,7 @@ public final class R {
         public static final int vote_report_button_label=0x7f07002e;
         public static final int vote_update_button_label=0x7f07002f;
         public static final int work_in_progress_legend_label=0x7f07004e;
+        public static final int wrong_format=0x7f070064;
     }
     public static final class style {
         public static final int DarkDataText=0x7f090000;

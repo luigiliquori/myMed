@@ -11,10 +11,8 @@ import com.mymed.android.myjam.provider.MyJamContract.Report;
 
 import com.mymed.android.myjam.provider.MyJamContract.Update;
 
-import com.mymed.android.myjam.service.MyJamCallService;
-import com.mymed.android.myjam.service.MyJamCallService.RequestCode;
+
 import com.mymed.android.myjam.controller.HttpCall;
-import com.mymed.android.myjam.controller.ICallAttributes;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -46,6 +44,7 @@ import com.mymed.model.data.myjam.MFeedBackBean;
 import com.mymed.model.data.myjam.MyJamTypes.ReportType;
 import com.mymed.utils.GeoUtils;
 import com.mymed.utils.GlobalStateAndUtils;
+import com.mymed.utils.MyResultReceiver.IReceiver;
 import com.mymed.utils.NotifyingAsyncQueryHandler;
 import com.mymed.utils.MyResultReceiver;
 
@@ -57,7 +56,7 @@ import com.mymed.utils.MyResultReceiver;
  *
  */
 public class ReportDetailsActivity extends AbstractLocatedActivity implements
-NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.OnClickListener{
+NotifyingAsyncQueryHandler.AsyncQueryListener, IReceiver, View.OnClickListener{
 	private static final String TAG = "ReportDetailsActivity";
 	
 	/** String used to access the set radius preference */
@@ -208,8 +207,8 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 				Feedback.buildUpdateIdUri(null),
 					false, mUpdateFeedbacksChangesObserver);
 		
-		if (mResultReceiver.getOngoingCalls(HttpCall.HIGH_PRIORITY).isEmpty())
-			updateRefreshStatus(false,null);
+//		if (mResultReceiver.getOngoingCalls(HttpCall.HIGH_PRIORITY).isEmpty())
+//			updateRefreshStatus(false,null);
 	}
 	
 	@Override
@@ -283,14 +282,14 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
      * Sends an intent to {@link MyJamCallService} to receive a report.
      */
     private void requestReport(){
-		Intent intent = new Intent(ReportDetailsActivity.this, MyJamCallService.class);
-        intent.putExtra(MyJamCallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
-        intent.putExtra(MyJamCallService.EXTRA_REQUEST_CODE, RequestCode.GET_REPORT);
-        Bundle bundle = new Bundle();
-        bundle.putString(ICallAttributes.REPORT_ID, mReportId);
-        intent.putExtra(MyJamCallService.EXTRA_ATTRIBUTES, bundle);			
-        Log.d(TAG,"Intent sent: "+intent.toString());
-        startService(intent);
+//		Intent intent = new Intent(ReportDetailsActivity.this, MyJamCallService.class);
+//        intent.putExtra(MyJamCallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
+//        intent.putExtra(MyJamCallService.EXTRA_REQUEST_CODE, RequestCode.GET_REPORT);
+//        Bundle bundle = new Bundle();
+//        bundle.putString(ICallAttributes.REPORT_ID, mReportId);
+//        intent.putExtra(MyJamCallService.EXTRA_ATTRIBUTES, bundle);			
+//        Log.d(TAG,"Intent sent: "+intent.toString());
+//        startService(intent);
     }
     
     /**
@@ -298,37 +297,37 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
      * @param forceRefresh
      */
     private void requestUpdates(boolean forceRefresh){
-    	ContentResolver contentResolver = getContentResolver();
-    	
-    	if (mUpdatesCursor!=null){
-    		int syncRate = Integer.parseInt(mSettings.getString(SYNC_RATE_PREFERENCE,"120000"));
-    		String[] args = new String[] {String.valueOf(System.currentTimeMillis()-syncRate)};
-        	Cursor cursor  = contentResolver.query(Uri.withAppendedPath(UpdatesRequest.CONTENT_URI, mReportId)
-    				, demandQueryProjection, UpdatesRequest.REFRESH_SELECTION, 
-    				args,null);
-        	startManagingCursor(cursor);
-        	if (!cursor.moveToFirst() || forceRefresh){
-            	/** Performs a request to receive the updates. */
-            	int position = mUpdatesCursor.getPosition();
-            	long lastTime = 0;
-            	if (mUpdatesCursor.moveToLast()){
-            		lastTime = mUpdatesCursor.getLong(UpdateQuery.DATE);
-            		mUpdatesCursor.moveToPosition(position);
-            	}
-        		Intent intent = new Intent(ReportDetailsActivity.this, MyJamCallService.class);
-        	    intent.putExtra(MyJamCallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
-        	    intent.putExtra(MyJamCallService.EXTRA_REQUEST_CODE, RequestCode.GET_UPDATES);
-        	    Bundle bundle = new Bundle();
-        	    bundle.putString(ICallAttributes.REPORT_ID, mReportId);
-
-        	    bundle.putLong(ICallAttributes.START_TIME, lastTime);
-        	    intent.putExtra(MyJamCallService.EXTRA_ATTRIBUTES, bundle);			
-        	    Log.d(TAG,"Intent sent: "+intent.toString());
-        	    startService(intent);
-        	}
-    	}else{
-    		Log.d(TAG, "Updates cursor not initialized.");
-    	}
+//    	ContentResolver contentResolver = getContentResolver();
+//    	
+//    	if (mUpdatesCursor!=null){
+//    		int syncRate = Integer.parseInt(mSettings.getString(SYNC_RATE_PREFERENCE,"120000"));
+//    		String[] args = new String[] {String.valueOf(System.currentTimeMillis()-syncRate)};
+//        	Cursor cursor  = contentResolver.query(Uri.withAppendedPath(UpdatesRequest.CONTENT_URI, mReportId)
+//    				, demandQueryProjection, UpdatesRequest.REFRESH_SELECTION, 
+//    				args,null);
+//        	startManagingCursor(cursor);
+//        	if (!cursor.moveToFirst() || forceRefresh){
+//            	/** Performs a request to receive the updates. */
+//            	int position = mUpdatesCursor.getPosition();
+//            	long lastTime = 0;
+//            	if (mUpdatesCursor.moveToLast()){
+//            		lastTime = mUpdatesCursor.getLong(UpdateQuery.DATE);
+//            		mUpdatesCursor.moveToPosition(position);
+//            	}
+//        		Intent intent = new Intent(ReportDetailsActivity.this, MyJamCallService.class);
+//        	    intent.putExtra(MyJamCallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
+//        	    intent.putExtra(MyJamCallService.EXTRA_REQUEST_CODE, RequestCode.GET_UPDATES);
+//        	    Bundle bundle = new Bundle();
+//        	    bundle.putString(ICallAttributes.REPORT_ID, mReportId);
+//
+//        	    bundle.putLong(ICallAttributes.START_TIME, lastTime);
+//        	    intent.putExtra(MyJamCallService.EXTRA_ATTRIBUTES, bundle);			
+//        	    Log.d(TAG,"Intent sent: "+intent.toString());
+//        	    startService(intent);
+//        	}
+//    	}else{
+//    		Log.d(TAG, "Updates cursor not initialized.");
+//    	}
     }
     
     /**
@@ -338,28 +337,28 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
      * @param forceRefresh Force the request even if the elapsed time is not sufficient.
      */
     private void requestFeedbacks(int code ,String reportOrUpdateId ,boolean forceRefresh){
-    	ContentResolver contentResolver = getContentResolver();
-    	
-    	int syncRate = Integer.parseInt(mSettings.getString(SYNC_RATE_PREFERENCE,"120000"));
-    	String[] args = new String[] {String.valueOf(System.currentTimeMillis()-syncRate)};
-    	Cursor cursor  = contentResolver.query( 
-    			code==REPORT?FeedbacksRequest.buildReportIdUri(reportOrUpdateId):
-    				FeedbacksRequest.buildUpdateIdUri(reportOrUpdateId)
-				, demandQueryProjection, FeedbacksRequest.REFRESH_SELECTION, 
-				args,null);
-    	if (!cursor.moveToFirst() || forceRefresh){
-        	/** Performs a request to receive the updates. */
-    		Intent intent = new Intent(ReportDetailsActivity.this, MyJamCallService.class);
-            intent.putExtra(MyJamCallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
-            intent.putExtra(MyJamCallService.EXTRA_REQUEST_CODE, code==REPORT?RequestCode.GET_REPORT_FEEDBACKS:RequestCode.GET_UPDATE_FEEDBACKS);
-            Bundle bundle = new Bundle();
-            bundle.putString(ICallAttributes.REPORT_ID, reportOrUpdateId);
-            intent.putExtra(MyJamCallService.EXTRA_ATTRIBUTES, bundle);			
-            Log.d(TAG,"Intent sent: "+intent.toString());
-            startService(intent);
-    	}else
-    		refreshFeedbacks(code);
-    	cursor.close();
+//    	ContentResolver contentResolver = getContentResolver();
+//    	
+//    	int syncRate = Integer.parseInt(mSettings.getString(SYNC_RATE_PREFERENCE,"120000"));
+//    	String[] args = new String[] {String.valueOf(System.currentTimeMillis()-syncRate)};
+//    	Cursor cursor  = contentResolver.query( 
+//    			code==REPORT?FeedbacksRequest.buildReportIdUri(reportOrUpdateId):
+//    				FeedbacksRequest.buildUpdateIdUri(reportOrUpdateId)
+//				, demandQueryProjection, FeedbacksRequest.REFRESH_SELECTION, 
+//				args,null);
+//    	if (!cursor.moveToFirst() || forceRefresh){
+//        	/** Performs a request to receive the updates. */
+//    		Intent intent = new Intent(ReportDetailsActivity.this, MyJamCallService.class);
+//            intent.putExtra(MyJamCallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
+//            intent.putExtra(MyJamCallService.EXTRA_REQUEST_CODE, code==REPORT?RequestCode.GET_REPORT_FEEDBACKS:RequestCode.GET_UPDATE_FEEDBACKS);
+//            Bundle bundle = new Bundle();
+//            bundle.putString(ICallAttributes.REPORT_ID, reportOrUpdateId);
+//            intent.putExtra(MyJamCallService.EXTRA_ATTRIBUTES, bundle);			
+//            Log.d(TAG,"Intent sent: "+intent.toString());
+//            startService(intent);
+//    	}else
+//    		refreshFeedbacks(code);
+//    	cursor.close();
     }
     
     private ContentObserver mUpdatesChangesObserver = new ContentObserver(new Handler()) {
@@ -389,61 +388,61 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 	
 	@Override
 	public void onReceiveResult(int resultCode, Bundle resultData) {
-		boolean mSyncing = false;
-		String dialogText = null;
-		final String[] types = getResources().getStringArray(R.array.type_obj);
-		
-		int reqCode = resultData.getInt(MyJamCallService.EXTRA_REQUEST_CODE);
-		switch (resultCode){
-			case MyJamCallService.STATUS_RUNNING:
-				/*
-				 * The Strings on the array "types" are on the same order of the request code corresponding request codes, 
-				 * index 0 corresponds to RequestCode.SEARCH_REPORTS.
-				 */
-				switch (reqCode){
-					case (RequestCode.GET_REPORT):
-						dialogText = String.format(getResources().getString(R.string.sync_msg, types[1]));
-						break;
-					case (RequestCode.GET_UPDATES):
-						dialogText = String.format(getResources().getString(R.string.sync_msg, types[2]));
-						break;
-					case (RequestCode.GET_REPORT_FEEDBACKS):
-						dialogText = String.format(getResources().getString(R.string.sync_msg, types[3]));
-						break;
-					case (RequestCode.GET_UPDATE_FEEDBACKS):
-						dialogText = String.format(getResources().getString(R.string.sync_msg, types[4]));
-						break;
-					case (RequestCode.SEARCH_REPORTS):
-						dialogText = getResources().getString(R.string.searching_reports_msg);
-						break;
-					case (RequestCode.INSERT_REPORT_FEEDBACK):
-					case (RequestCode.INSERT_UPDATE_FEEDBACK):
-						dialogText = getResources().getString(R.string.inserting_feedback); //TODO Change string.
-						
-				}
-				//Toast.makeText(this, searchText, Toast.LENGTH_SHORT).show();
-				Log.d(TAG,dialogText);
-				mSyncing = true;
-				break;
-			case MyJamCallService.STATUS_ERROR:
-				String errMsg = resultData.getString(Intent.EXTRA_TEXT);
-				final String errorText = String.format(this.getResources().getString(R.string.toast_call_error, errMsg));
-				Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
-				Log.d(TAG,errorText);
-				/** break has not been put intentionally, because there are operations that must be executed both in the cases (STATUS_ERROR 
-				 *  and STATUS_FINISHED)
-				 */
-			case MyJamCallService.STATUS_FINISHED:
-				mSyncing = false;
-				if  (resultCode == MyJamCallService.STATUS_FINISHED){
-					//Toast.makeText(this, getResources().getString(R.string.reception_finished),Toast.LENGTH_LONG).show();
-					/** Once is received the report never changes, then is not used a content observer, but the query is triggered here.  */
-					if (reqCode == RequestCode.GET_REPORT)
-						mHandler.startQuery(ReportQuery._TOKEN, Report.buildReportIdUri(mReportId), ReportQuery.PROJECTION);
-				}
-				break;
-		}
-		updateRefreshStatus(mSyncing,dialogText);
+//		boolean mSyncing = false;
+//		String dialogText = null;
+//		final String[] types = getResources().getStringArray(R.array.type_obj);
+//		
+//		int reqCode = resultData.getInt(MyJamCallService.EXTRA_REQUEST_CODE);
+//		switch (resultCode){
+//			case MyJamCallService.STATUS_RUNNING:
+//				/*
+//				 * The Strings on the array "types" are on the same order of the request code corresponding request codes, 
+//				 * index 0 corresponds to RequestCode.SEARCH_REPORTS.
+//				 */
+//				switch (reqCode){
+//					case (RequestCode.GET_REPORT):
+//						dialogText = String.format(getResources().getString(R.string.sync_msg, types[1]));
+//						break;
+//					case (RequestCode.GET_UPDATES):
+//						dialogText = String.format(getResources().getString(R.string.sync_msg, types[2]));
+//						break;
+//					case (RequestCode.GET_REPORT_FEEDBACKS):
+//						dialogText = String.format(getResources().getString(R.string.sync_msg, types[3]));
+//						break;
+//					case (RequestCode.GET_UPDATE_FEEDBACKS):
+//						dialogText = String.format(getResources().getString(R.string.sync_msg, types[4]));
+//						break;
+//					case (RequestCode.SEARCH_REPORTS):
+//						dialogText = getResources().getString(R.string.searching_reports_msg);
+//						break;
+//					case (RequestCode.INSERT_REPORT_FEEDBACK):
+//					case (RequestCode.INSERT_UPDATE_FEEDBACK):
+//						dialogText = getResources().getString(R.string.inserting_feedback); //TODO Change string.
+//						
+//				}
+//				//Toast.makeText(this, searchText, Toast.LENGTH_SHORT).show();
+//				Log.d(TAG,dialogText);
+//				mSyncing = true;
+//				break;
+//			case MyJamCallService.STATUS_ERROR:
+//				String errMsg = resultData.getString(Intent.EXTRA_TEXT);
+//				final String errorText = String.format(this.getResources().getString(R.string.toast_call_error, errMsg));
+//				Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
+//				Log.d(TAG,errorText);
+//				/** break has not been put intentionally, because there are operations that must be executed both in the cases (STATUS_ERROR 
+//				 *  and STATUS_FINISHED)
+//				 */
+//			case MyJamCallService.STATUS_FINISHED:
+//				mSyncing = false;
+//				if  (resultCode == MyJamCallService.STATUS_FINISHED){
+//					//Toast.makeText(this, getResources().getString(R.string.reception_finished),Toast.LENGTH_LONG).show();
+//					/** Once is received the report never changes, then is not used a content observer, but the query is triggered here.  */
+//					if (reqCode == RequestCode.GET_REPORT)
+//						mHandler.startQuery(ReportQuery._TOKEN, Report.buildReportIdUri(mReportId), ReportQuery.PROJECTION);
+//				}
+//				break;
+//		}
+//		updateRefreshStatus(mSyncing,dialogText);
 	}
 	
 	/**
@@ -897,17 +896,17 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 	 * @param value CONFIRM or DENY
 	 */
 	private void insertFeedback(String reportId,String updateId,int value){
-		try{					
-			MFeedBackBean feedback = new MFeedBackBean();
-			feedback.setUserId(GlobalStateAndUtils.getInstance(getApplicationContext()).getUserId());
-			feedback.setValue(value);
-			Bundle bundle = new Bundle();
-			bundle.putString(ICallAttributes.REPORT_ID, reportId);
-			bundle.putString(ICallAttributes.UPDATE_ID, updateId);
-			requestInsertFeedback(updateId == null?REPORT:UPDATE,bundle,feedback);
-		} catch (Exception e){
-			Toast.makeText(ReportDetailsActivity.this, "Wrong parameters.",Toast.LENGTH_LONG).show();
-		}
+//		try{					
+//			MFeedBackBean feedback = new MFeedBackBean();
+//			feedback.setUserId(GlobalStateAndUtils.getInstance(getApplicationContext()).getUserId());
+//			feedback.setValue(value);
+//			Bundle bundle = new Bundle();
+//			bundle.putString(ICallAttributes.REPORT_ID, reportId);
+//			bundle.putString(ICallAttributes.UPDATE_ID, updateId);
+//			requestInsertFeedback(updateId == null?REPORT:UPDATE,bundle,feedback);
+//		} catch (Exception e){
+//			Toast.makeText(ReportDetailsActivity.this, "Wrong parameters.",Toast.LENGTH_LONG).show();
+//		}
 	}
 	
 	/**
@@ -916,17 +915,17 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 	 * @param bundle	{@link Bundle} containing the parameters.
 	 * @param feedback	{@link MFeedbackBeen} to be inserted.
 	 */
-	private void requestInsertFeedback(int code,Bundle bundle,
-			MFeedBackBean feedback) {
-		final Intent intent = new Intent(ReportDetailsActivity.this, MyJamCallService.class);
-		intent.putExtra(MyJamCallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
-		intent.putExtra(MyJamCallService.EXTRA_REQUEST_CODE, code==REPORT?RequestCode.INSERT_REPORT_FEEDBACK:
-			RequestCode.INSERT_UPDATE_FEEDBACK);
-		intent.putExtra(MyJamCallService.EXTRA_OBJECT, feedback);
-		intent.putExtra(MyJamCallService.EXTRA_ATTRIBUTES, bundle);
-		Log.d(TAG,"Intent sent: "+intent.toString());
-		startService(intent);	
-	}
+//	private void requestInsertFeedback(int code,Bundle bundle,
+//			MFeedBackBean feedback) {
+//		final Intent intent = new Intent(ReportDetailsActivity.this, MyJamCallService.class);
+//		intent.putExtra(MyJamCallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
+//		intent.putExtra(MyJamCallService.EXTRA_REQUEST_CODE, code==REPORT?RequestCode.INSERT_REPORT_FEEDBACK:
+//			RequestCode.INSERT_UPDATE_FEEDBACK);
+//		intent.putExtra(MyJamCallService.EXTRA_OBJECT, feedback);
+//		intent.putExtra(MyJamCallService.EXTRA_ATTRIBUTES, bundle);
+//		Log.d(TAG,"Intent sent: "+intent.toString());
+//		startService(intent);	
+//	}
 
 	/**
      * Parameters used to perform the report query.
@@ -975,4 +974,35 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
         int USER_NAME = 3;
         int DATE = 4;
     }
+
+	@Override
+	public void onUpdateProgressStatus(boolean state, int callCode, int callId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onCallError(int callCode, int callId, String errorMessage,
+			int numAttempt, int maxAttempts) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onCallInterrupted(int callCode, int callId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onCallSuccess(int callCode, int callId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onServiceDestroyed() {
+		// TODO Auto-generated method stub
+		
+	}
 }

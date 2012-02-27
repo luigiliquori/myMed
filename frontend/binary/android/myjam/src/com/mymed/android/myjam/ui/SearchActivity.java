@@ -45,27 +45,27 @@ import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
 import com.mymed.android.myjam.R;
+import com.mymed.android.myjam.controller.CallContract;
+import com.mymed.android.myjam.controller.CallContract.CallCode;
 import com.mymed.android.myjam.controller.HttpCall;
-import com.mymed.android.myjam.controller.HttpCallHandler;
-import com.mymed.android.myjam.controller.ICallAttributes;
 import com.mymed.android.myjam.provider.MyJamContract;
 import com.mymed.android.myjam.provider.MyJamContract.Report;
 import com.mymed.android.myjam.provider.MyJamContract.Search;
 import com.mymed.android.myjam.provider.MyJamContract.SearchReports;
 import com.mymed.android.myjam.provider.MyJamContract.SearchResult;
 import com.mymed.android.myjam.service.CallService;
-import com.mymed.android.myjam.service.CallService.RequestCode;
 
 import com.mymed.utils.GeoUtils;
 import com.mymed.utils.GlobalStateAndUtils;
 import com.mymed.utils.MyResultReceiver;
+import com.mymed.utils.MyResultReceiver.IReceiver;
 
 /**
  * Activity that permits to search reports.
  * @author iacopo
  *
  */
-public class SearchActivity extends AbstractLocatedActivity implements MyResultReceiver.Receiver, View.OnClickListener {
+public class SearchActivity extends AbstractLocatedActivity implements IReceiver, View.OnClickListener {
 	private static final String TAG = "SearchActivity";
 	
 	/** String used to access the set radius preference */
@@ -275,8 +275,8 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 				int lat = (int) (currLoc.getLatitude()*1E6);
 				int lon = (int) (currLoc.getLongitude()*1E6);
 		        Bundle bundle = new Bundle();
-		        bundle.putInt(ICallAttributes.LATITUDE, lat);
-		        bundle.putInt(ICallAttributes.LONGITUDE, lon);
+		        bundle.putInt(CallContract.LATITUDE, lat);
+		        bundle.putInt(CallContract.LONGITUDE, lon);
 		        intent.putExtra(CallService.EXTRA_ATTRIBUTES, bundle);
         		startActivityForResult(intent, INSERT_REPORT_REQ);
         	}
@@ -323,15 +323,15 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 			int radius = Integer.parseInt(mSettings.getString(RADIUS_PREFERENCE,"10000"));
 			intent.putExtra(CallService.EXTRA_ACTIVITY_ID, this.getClass().getName());
 			intent.putExtra(CallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
-			intent.putExtra(CallService.EXTRA_REQUEST_CODE, RequestCode.SEARCH_REPORTS);
+			intent.putExtra(CallService.EXTRA_REQUEST_CODE, CallCode.SEARCH_REPORTS);
 			intent.putExtra(CallService.EXTRA_PRIORITY_CODE, HttpCall.HIGH_PRIORITY);
 			intent.putExtra(CallService.EXTRA_NUMBER_ATTEMPTS, 1);
 			Bundle bundle = new Bundle();
-			bundle.putString(ICallAttributes.ACCESS_TOKEN, GlobalStateAndUtils.getInstance(this).getAccessToken());
-			bundle.putInt(ICallAttributes.LATITUDE, lat);
-			bundle.putInt(ICallAttributes.LONGITUDE, lon);
-			bundle.putInt(ICallAttributes.RADIUS, radius);
-			bundle.putInt(ICallAttributes.SEARCH_ID, searchId);
+			bundle.putString(CallContract.ACCESS_TOKEN, GlobalStateAndUtils.getInstance(this).getAccessToken());
+			bundle.putInt(CallContract.LATITUDE, lat);
+			bundle.putInt(CallContract.LONGITUDE, lon);
+			bundle.putInt(CallContract.RADIUS, radius);
+			bundle.putInt(CallContract.SEARCH_ID, searchId);
 			intent.putExtra(CallService.EXTRA_ATTRIBUTES, bundle);
 			Log.d(TAG,"Intent sent: "+intent.toString());
 			startService(intent);
@@ -384,9 +384,6 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 				handleSearchButton(true);
 				postSearch();
 		}
-		if (mResultReceiver.getOngoingCalls(HttpCall.HIGH_PRIORITY).isEmpty())
-			updateRefreshStatus(false);
-		
 		//** Starts a new thread to where the distance refresh is executed. */ 
 		thread = new HandlerThread(TAG);
 		thread.start();
@@ -571,28 +568,28 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 
 	@Override
 	public void onReceiveResult(int resultCode, Bundle resultData) {
-		boolean mSyncing = false;
-		
-		switch (resultCode) {
-		case HttpCallHandler.MSG_CALL_START:
-			mSyncing = true;
-			break;
-		case HttpCallHandler.MSG_CALL_SUCCESS: 
-			mSyncing = false;
-			Toast.makeText(this, getResources().getString(R.string.search_finished),Toast.LENGTH_LONG).show();
-			break;
-		case HttpCallHandler.MSG_CALL_ERROR:
-			// Error happened down in SyncService, show as toast.
-			mSyncing = false;
-			//
-			
-			String errMsg = resultData.getString(Intent.EXTRA_TEXT);
-			final String errorText = String.format(this.getResources().getString(R.string.toast_call_error, errMsg));
-			Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
-			break;
-		}
-
-	updateRefreshStatus(mSyncing);
+//		boolean mSyncing = false;
+//		
+//		switch (resultCode) {
+//		case HttpCallHandler.MSG_CALL_START:
+//			mSyncing = true;
+//			break;
+//		case HttpCallHandler.MSG_CALL_SUCCESS: 
+//			mSyncing = false;
+//			Toast.makeText(this, getResources().getString(R.string.search_finished),Toast.LENGTH_LONG).show();
+//			break;
+//		case HttpCallHandler.MSG_CALL_ERROR:
+//			// Error happened down in SyncService, show as toast.
+//			mSyncing = false;
+//			//
+//			
+//			String errMsg = resultData.getString(Intent.EXTRA_TEXT);
+//			final String errorText = String.format(this.getResources().getString(R.string.toast_call_error, errMsg));
+//			Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
+//			break;
+//		}
+//
+//	updateRefreshStatus(mSyncing);
 	}
 
 	
@@ -636,4 +633,31 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 
 	    }
     }
+
+
+	@Override
+	public void onUpdateProgressStatus(boolean state, int callCode, int callId) {
+		updateRefreshStatus(state);
+	}
+
+	@Override
+	public void onCallError(int callCode, int callId, String errorMessage,
+			int numAttempt, int maxAttempts) {
+		final String errorText = String.format(this.getResources().getString(R.string.toast_call_error, errorMessage));
+		Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
+	}
+
+	@Override
+	public void onCallInterrupted(int callCode, int callId) {}
+
+	@Override
+	public void onCallSuccess(int callCode, int callId) {
+		Toast.makeText(this, getResources().getString(R.string.search_finished),Toast.LENGTH_LONG).show();
+	}
+
+	@Override
+	public void onServiceDestroyed() {
+		// TODO Auto-generated method stub
+		
+	}
 }

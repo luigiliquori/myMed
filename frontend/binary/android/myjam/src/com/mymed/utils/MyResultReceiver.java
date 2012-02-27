@@ -8,8 +8,6 @@ import java.util.Map;
 
 import com.mymed.android.myjam.controller.HttpCall;
 import com.mymed.android.myjam.controller.HttpCallHandler;
-import com.mymed.android.myjam.service.CallService;
-import com.mymed.model.data.myjam.MCallBean;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,103 +15,208 @@ import android.os.ResultReceiver;
 import android.util.Log;
 
 /**
- * Singleton class that retains the status of the calls.
+ * Singleton class that retains the status of the calls and notifies the registered activity.
+ * 
  * @author iacopo
  *
  */
 public class MyResultReceiver extends ResultReceiver {
+	private static final String TAG = "MyResultReceiver";
+	public static final String CALL_ID = "com.mymed.android.myjam.bundle.CALL_ID";
+	public static final String CALL_CODE = "com.mymed.android.myjam.bundle.CALL_CODE";
+	public static final String ACTIVITY_ID = "com.mymed.android.myjam.bundle.ACTIVITY_ID";
+	public static final String PRIORITY = "com.mymed.android.myjam.bundle.PRIORITY";
+	public static final String NUM_ATTEMPTS = "com.mymed.android.myjam.bundle.NUM_ATTEMPTS";
+	public static final String MAX_NUM_ATTEMPTS = "com.mymed.android.myjam.bundle.MAX_NUM_ATTEMPTS";
+	public static final String MESSAGE = "com.mymed.android.myjam.bundle.MESSAGE";
+	
+	
 	private static MyResultReceiver instance;
-    private static final String TAG = "MyResultReceiver";
-    private WeakReference<Receiver> mReceiver;
-    private String currActivity;
-    /** Keep track of the ongoing calls. */
-    private Map<String,List<MCallBean>> highPriorityCalls;
-    private Map<String,List<MCallBean>> lowPriorityCalls;
-    
+	private WeakReference<IReceiver> mReceiver;
+	/** Keep track of the ongoing calls. */
+	private String currActivity;
+	// The array of int contains the call id at the position 0 and the call code at the position 1.
+	private int[] highPriorityCall;
+	private Map<String,Map<Integer,int[]>> lowPriorityCalls;
 
-    public static MyResultReceiver getInstance(){
-    	if (instance == null)
-    		instance = new MyResultReceiver();
-    	return instance;
-    }
-    
-    /** The result receiver is associated to the main thread (UI thread). */
-    private MyResultReceiver() {
-        super(new Handler());
-        
-        lowPriorityCalls = new HashMap<String,List<MCallBean>>();
-        highPriorityCalls = new HashMap<String,List<MCallBean>>();
-    }
-    
-    public void clearReceiver() {
-        mReceiver = null;
-    }
 
-    /**
-     * Sets the {@link Receiver} and the 
-     * @param activityId
-     * @param receiver
-     */
-    public void setReceiver(String activityId, Receiver receiver) {
-    	this.currActivity = activityId;
-        this.mReceiver = new WeakReference<Receiver>(receiver);
-        
-        /** Initializes the list of calls associated to the current activity. */
-        if (lowPriorityCalls.get(currActivity)==null)
-        	lowPriorityCalls.put(currActivity, new ArrayList<MCallBean>());
-        if (highPriorityCalls.get(currActivity)==null)
-        	highPriorityCalls.put(currActivity, new ArrayList<MCallBean>());
-    }
-
-    /**
-     * The activities that want to receive results from {@link MyResultReceiver} must implement
-     * the receiver interface.
-     * 
-     * @author iacopo
-     *
-     */
-    public interface Receiver {
-        public void onReceiveResult(int resultCode, Bundle resultData);
-    }
-    
-	public List<MCallBean> getOngoingCalls(int priority) {
-		return priority==HttpCall.LOW_PRIORITY?lowPriorityCalls.get(this.currActivity):highPriorityCalls.get(this.currActivity);
+	public static MyResultReceiver getInstance(){
+		if (instance == null)
+			instance = new MyResultReceiver();
+		return instance;
 	}
 
-    @Override
-    protected void onReceiveResult(int resultCode, Bundle resultData) {
-    	final MCallBean call = (MCallBean) resultData.getSerializable(CallService.CALL_BEAN);
-    	
-    	switch (resultCode) {
-    	case HttpCallHandler.MSG_CALL_START:
-    		//setmSyncing(true);
-    		switch(call.getPriority()){
-    		case HttpCall.LOW_PRIORITY:
-    			lowPriorityCalls.get(call.getActivityId()).add(call);
-    			break;
-    		case HttpCall.HIGH_PRIORITY:
-    			highPriorityCalls.get(call.getActivityId()).add(call);
-    			break;
-    		}
-    		break;
-    	case HttpCallHandler.MSG_CALL_SUCCESS: 
-    	case HttpCallHandler.MSG_CALL_ERROR:
-    	case HttpCallHandler.MSG_CALL_INTERRUPTED:
-    		switch(call.getPriority()){
-    		case HttpCall.LOW_PRIORITY:
-    			lowPriorityCalls.get(call.getActivityId()).remove(call);
-    			break;
-    		case HttpCall.HIGH_PRIORITY:
-    			highPriorityCalls.get(call.getActivityId()).remove(call);
-    			break;
-    		}
-    		break;
-    	}
-        if (currActivity.equals(call.getActivityId()) && mReceiver != null) {
-            mReceiver.get().onReceiveResult(resultCode, resultData);
-        } else {
-            Log.w(TAG, "Dropping result on floor for code " + resultCode + ": "
-                    + resultData.toString());
-        }
-    }
+	/** The result receiver is associated to the main thread (UI thread). */
+	private MyResultReceiver() {
+		super(new Handler());
+
+		/**
+		 * Contains the attributes of the low priority calls associated the activities.
+		 */
+		lowPriorityCalls = new HashMap<String,Map<Integer,int[]>>();
+		// When highPriorityCall is set to Integer.MIN_VALUE, means that no high priority calls are ongoing.
+		highPriorityCall = null;
+	}
+
+	public void clearReceiver() {
+		mReceiver = null;
+	}
+
+	/**
+	 * Sets the {@link Receiver} and the 
+	 * @param activityId
+	 * @param receiver
+	 */
+	public void setReceiver(String activityId, IReceiver receiver) {
+		this.currActivity = activityId;
+		this.mReceiver = new WeakReference<IReceiver>(receiver);
+
+		/** Initializes the list of calls associated to the current activity. */
+		if (lowPriorityCalls.get(currActivity)==null)
+			lowPriorityCalls.put(currActivity, new HashMap<Integer,int[]>());
+		if (highPriorityCall!=null)
+			mReceiver.get().onUpdateProgressStatus(true, highPriorityCall[1], highPriorityCall[0]);
+	}
+
+	/**
+	 * The activities that want to receive results from {@link MyResultReceiver} must implement
+	 * the receiver interface.
+	 * 
+	 * @author iacopo
+	 *
+	 */
+	public interface IReceiver{
+		/**
+		 * Provide a result to the registered activity.
+		 * 
+		 * @param resultCode
+		 * @param resultData
+		 */
+		public void onReceiveResult(int resultCode, Bundle resultData);
+
+		/**
+		 * Provide an update of the progress status on the current activity.
+		 * 
+		 * @param state 
+		 * 		If {@value true} The progress dialog must be shown.
+		 * 		If {@value true} The progress dialog must be cleaned.
+		 * @param callCode 
+		 * 		Code of the call involved.
+		 * @param callId
+		 * 		Id of the call involved.
+		 */
+		public void onUpdateProgressStatus(boolean state, int callCode, int callId);
+
+		/**
+		 * Provide an error message to be notified from the current activity.
+		 * 
+		 * @param callCode
+		 * 		Code of the call involved.
+		 * @param callId
+		 * 		Id of the call involved.
+		 * @param errorMessage
+		 * 		Error message.
+		 * @param numAttempt
+		 * 		Attempt number of the current call.
+		 * @param maxAttempts
+		 * 		Maximum number of attempts for the current call.
+		 */
+		public void onCallError(int callCode, int callId, String errorMessage, int numAttempt, int maxAttempts);
+
+		/**
+		 * Communicate that the current call has been interrupted.
+		 * 
+		 * @param callCode	Code of the interrupted call.
+		 * @param callId	Id of interrupted call.
+		 */
+		public void onCallInterrupted(int callCode, int callId);
+		
+		/**
+		 * Communicate that the current call has been successful.
+		 * 
+		 * @param callCode	Code of the interrupted call.
+		 * @param callId	Id of interrupted call.
+		 */
+		public void onCallSuccess(int callCode, int callId);
+		
+		public void onServiceDestroyed();
+		
+	}
+
+	/**
+	 * Returns a list containing an array of int[].
+	 * 
+	 * @return
+	 */
+	public List<int[]> getOngoingLPCalls() {
+		Map<Integer,int[]> ongoingCalls = lowPriorityCalls.get(this.currActivity);
+		List<int[]> tmpList = new ArrayList<int[]>(ongoingCalls.values());
+		return tmpList;
+	}
+	
+	public int[] getOngoingHPCall() {
+		return highPriorityCall;
+	}
+
+	@Override
+	protected void onReceiveResult(int resultCode, Bundle bundle) {
+		final int callId = bundle.getInt(MyResultReceiver.CALL_ID);
+		final int callCode = bundle.getInt(MyResultReceiver.CALL_CODE);
+		final int numAttempts = bundle.getInt(MyResultReceiver.NUM_ATTEMPTS);
+		final int maxNumAttempts = bundle.getInt(MyResultReceiver.MAX_NUM_ATTEMPTS);
+		final int priority = bundle.getInt(MyResultReceiver.PRIORITY, HttpCall.LOW_PRIORITY);
+		final String activityId = bundle.getString(MyResultReceiver.ACTIVITY_ID);
+		final String message = bundle.getString(MyResultReceiver.MESSAGE);
+		final int[] callDetails = new int[]{callId,callCode};
+		
+		switch (resultCode) {
+		case HttpCallHandler.MSG_CALL_START:
+			switch(priority){
+			case HttpCall.LOW_PRIORITY:
+				lowPriorityCalls.get(activityId).put(callId, callDetails);
+				break;
+			case HttpCall.HIGH_PRIORITY:
+				highPriorityCall=callDetails;
+				if (activityId.equals(this.currActivity))
+					// The progress dialog is shown only for high priority calls.
+					if (mReceiver!=null) {
+						mReceiver.get().onUpdateProgressStatus(true, callCode, callId);
+						Log.d(TAG, "Show progress status " + callId);
+					}
+				break;
+			}
+			break;
+		case HttpCallHandler.MSG_CALL_SUCCESS:
+			if (mReceiver!=null) mReceiver.get().onCallSuccess(callCode, callId);
+		case HttpCallHandler.MSG_CALL_NOT_STARTED: 
+		case HttpCallHandler.MSG_CALL_ERROR:
+			if (mReceiver!=null && resultCode == HttpCallHandler.MSG_CALL_ERROR)
+				mReceiver.get().onCallError(callCode, callId, message, 
+						numAttempts, maxNumAttempts);
+		case HttpCallHandler.MSG_CALL_INTERRUPTED:
+			if (mReceiver!=null && resultCode == HttpCallHandler.MSG_CALL_INTERRUPTED)
+				mReceiver.get().onCallInterrupted(callCode, callId);
+			switch(priority){
+			case HttpCall.LOW_PRIORITY:
+				lowPriorityCalls.get(activityId).remove(callId);
+				break;
+			case HttpCall.HIGH_PRIORITY:
+				highPriorityCall=null;
+				if (mReceiver!=null) {
+					mReceiver.get().onUpdateProgressStatus(false, callCode, callId);
+					Log.d(TAG, "Dismiss progress status " + callId+" Result code: "+resultCode);
+				}else{
+					Log.d(TAG, "Missed dismiss: "+callId+" Result code: "+resultCode);
+				}
+				break;
+			}
+			break;
+		}
+		if (currActivity.equals(activityId) && mReceiver != null) {
+			mReceiver.get().onReceiveResult(resultCode, bundle);
+		} else {
+			Log.w(TAG, "Dropping result on floor for code " + resultCode + ": "
+					+ bundle.toString());
+		}
+	}
 }

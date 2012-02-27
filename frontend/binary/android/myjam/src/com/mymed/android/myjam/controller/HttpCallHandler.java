@@ -13,11 +13,12 @@ public class HttpCallHandler extends Handler{
 	public static final int NEW_CALL = 0x0;
 	public static final int INTERRUPT_CALL = 0x1;
 	public static final int MSG_CALL_START = 0x2;
-	public static final int MSG_CALL_SUCCESS = 0x3;
-	public static final int MSG_CALL_ERROR = 0x4;
-	public static final int MSG_CALL_INTERRUPTED = 0x5;
-	public static final int MSG_CALL_WAITING = 0x6;
-	public static final int MSG_START_WAITING_CALLS = 0x7;
+	public static final int MSG_CALL_NOT_STARTED = 0x3;
+	public static final int MSG_CALL_SUCCESS = 0x4;
+	public static final int MSG_CALL_ERROR = 0x5;
+	public static final int MSG_CALL_INTERRUPTED = 0x6;
+	public static final int MSG_CALL_WAITING = 0x7;
+	public static final int MSG_START_WAITING_CALLS = 0x8;
 	
 	/**
 	 * Basic constructor.
@@ -45,6 +46,15 @@ public class HttpCallHandler extends Handler{
 	}
 	
 	/**
+	 * The call doesn't start.
+	 * 
+	 * @param id Id of the call.
+	 */
+	public void callNotStart(int id){
+		this.sendMessage(obtainMessage(MSG_CALL_NOT_STARTED, id, 0 ,null));	
+	}
+	
+	/**
 	 * The call was successful.
 	 * 
 	 * @param id Id of the call.
@@ -57,10 +67,10 @@ public class HttpCallHandler extends Handler{
 	 * The call was interrupted by an exception. 
 	 * 
 	 * @param id Id of the call.
-	 * @param e	Exception thrown.
+	 * @param errorMsg	Exception thrown.
 	 */
-	public void callError(int id, Exception e){
-		sendMessage(obtainMessage(MSG_CALL_ERROR, id, 0, e));
+	public void callError(int id, int errorCode, String errorMsg){
+		sendMessage(obtainMessage(MSG_CALL_ERROR, id, errorCode, errorMsg));
 	}
 	
 	/**

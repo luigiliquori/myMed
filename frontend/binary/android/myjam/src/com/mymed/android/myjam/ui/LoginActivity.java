@@ -21,33 +21,29 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mymed.android.myjam.R;
+import com.mymed.android.myjam.controller.CallContract;
+import com.mymed.android.myjam.controller.CallContract.CallCode;
 import com.mymed.android.myjam.controller.HttpCall;
-import com.mymed.android.myjam.controller.HttpCallHandler;
-import com.mymed.android.myjam.controller.ICallAttributes;
 import com.mymed.android.myjam.provider.MyJamContract.Login;
 import com.mymed.android.myjam.provider.MyJamContract.Search;
 import com.mymed.android.myjam.provider.MyJamContract.SearchReports;
 import com.mymed.android.myjam.provider.MyJamContract.User;
 import com.mymed.android.myjam.service.CallService;
-import com.mymed.android.myjam.service.CallService.RequestCode;
-import com.mymed.model.data.myjam.MCallBean;
 import com.mymed.utils.GlobalStateAndUtils;
 import com.mymed.utils.HexEncoder;
 import com.mymed.utils.MyResultReceiver;
+import com.mymed.utils.MyResultReceiver.IReceiver;
 
 /**
  * Activity that handles login and logout.
  * @author iacopo
  *
  */
-public class LoginActivity extends Activity implements MyResultReceiver.Receiver {
+public class LoginActivity extends Activity implements IReceiver {
 	private static final String TAG = "LoginActivity";
 	
 	private MyResultReceiver mResultReceiver;
 	private GlobalStateAndUtils mGlobalState;
-	
-	private static final int LOG_IN = 0x0;
-	private static final int LOG_OUT = 0x1;
 	
 	/* WIDGETS */
 	private Button mLogButton;
@@ -122,11 +118,7 @@ public class LoginActivity extends Activity implements MyResultReceiver.Receiver
 	protected void onResume() {
 		super.onResume();
 		
-		mResultReceiver.setReceiver(this.getClass().getName(),this);
-		
-		if (mResultReceiver.getOngoingCalls(HttpCall.HIGH_PRIORITY).isEmpty())
-			updateRefreshStatus(false,0);
-		
+		mResultReceiver.setReceiver(this.getClass().getName(),this);		
 		updateLoginStatus();
 		if (mGlobalState.isLogged()){
 				createLogOutLayout();
@@ -247,12 +239,12 @@ public class LoginActivity extends Activity implements MyResultReceiver.Receiver
 		final Intent intent = new Intent(LoginActivity.this, CallService.class);
 		intent.putExtra(CallService.EXTRA_ACTIVITY_ID, this.getClass().getName());
 		intent.putExtra(CallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
-		intent.putExtra(CallService.EXTRA_REQUEST_CODE, RequestCode.LOG_IN);
+		intent.putExtra(CallService.EXTRA_REQUEST_CODE, CallCode.LOG_IN);
 		intent.putExtra(CallService.EXTRA_PRIORITY_CODE, HttpCall.HIGH_PRIORITY);
 		intent.putExtra(CallService.EXTRA_NUMBER_ATTEMPTS, 1);
         Bundle bundle = new Bundle();
-        bundle.putString(ICallAttributes.LOGIN, login);
-        bundle.putString(ICallAttributes.PASSWORD, pwd);
+        bundle.putString(CallContract.LOGIN, login);
+        bundle.putString(CallContract.PASSWORD, pwd);
         intent.putExtra(CallService.EXTRA_ATTRIBUTES, bundle);
         Log.d(TAG,"Intent sent: "+intent.toString());
         startService(intent);
@@ -263,11 +255,12 @@ public class LoginActivity extends Activity implements MyResultReceiver.Receiver
 		final Intent intent = new Intent(LoginActivity.this, CallService.class);
 		intent.putExtra(CallService.EXTRA_ACTIVITY_ID, this.getClass().getName());
 		intent.putExtra(CallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
-		intent.putExtra(CallService.EXTRA_REQUEST_CODE, RequestCode.LOG_OUT);
+		intent.putExtra(CallService.EXTRA_REQUEST_CODE, CallCode.LOG_OUT);
 		intent.putExtra(CallService.EXTRA_PRIORITY_CODE, HttpCall.HIGH_PRIORITY);
 		intent.putExtra(CallService.EXTRA_NUMBER_ATTEMPTS, 1);
         Bundle bundle = new Bundle();
-        bundle.putString(ICallAttributes.ACCESS_TOKEN, accessToken);
+        bundle.putString(CallContract.ACCESS_TOKEN, accessToken);
+        bundle.putString(CallContract.SOCIAL_NETWORK, "");
         intent.putExtra(CallService.EXTRA_ATTRIBUTES, bundle);
         Log.d(TAG,"Intent sent: "+intent.toString());
         startService(intent);
@@ -280,66 +273,6 @@ public class LoginActivity extends Activity implements MyResultReceiver.Receiver
         startActivity(intent);
 	}
 		
-	@Override
-	public void onReceiveResult(int resultCode, Bundle resultData) {
-		boolean mSyncing = false;
-		int code = LOG_IN;
-		
-		final MCallBean call = (MCallBean) resultData.getSerializable(CallService.CALL_BEAN);
-		switch (resultCode) {
-		case HttpCallHandler.MSG_CALL_START:
-			mSyncing = true;
-			if (call.getCallCode() == RequestCode.LOG_IN)
-				code=LOG_IN;
-			else if (call.getCallCode() == RequestCode.LOG_OUT)
-				code=LOG_OUT;
-			break;
-		case HttpCallHandler.MSG_CALL_SUCCESS: 
-			mSyncing = false;
-			updateLoginStatus();
-			if (call.getCallCode() == RequestCode.LOG_IN){
-				Toast.makeText(this, getResources().getString(R.string.logged_in_msg), Toast.LENGTH_SHORT).show();
-				startSearchActivity();
-			}else if (call.getCallCode() == RequestCode.LOG_OUT){
-				Toast.makeText(this, getResources().getString(R.string.logged_out_msg), Toast.LENGTH_SHORT).show();
-				createLogInLayout();
-			}
-			break;
-		case HttpCallHandler.MSG_CALL_ERROR:
-			// Error happened down in SyncService, show as toast.
-			mSyncing = false;
-			String errMsg = resultData.getString(Intent.EXTRA_TEXT);
-			final String errorText = String.format(this.getResources().getString(R.string.toast_call_error, errMsg));
-			Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
-			break;
-		}		
-		updateRefreshStatus(mSyncing,code);
-	}
-	
-	/**
-	 * Makes appear and disappear the progress dialog.
-	 * @param refreshing 	If true then the dialog appear, 
-	 * 						if false the dialog disappear.
-	 */
-    private void updateRefreshStatus(boolean refreshing,int code) {
-        if (refreshing){
-        	mDialog = ProgressDialog.show(LoginActivity.this, "", 
-					getResources().getString(code==LOG_IN?R.string.logging_in_msg:R.string.logging_out_msg), true);
-         	mDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
-				@Override
-				public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-					if (keyCode == KeyEvent.KEYCODE_SEARCH && event.getRepeatCount() == 0) {
-						return true; // Pretend we processed it
-					}
-					return false; // Any other keys are still processed as normal
-				}
-         	});
-        }else{
-			if (mDialog != null)
-				mDialog.dismiss();
-        }
-        	
-    }
 	
     protected Dialog onCreateDialog(int id) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -364,6 +297,105 @@ public class LoginActivity extends Activity implements MyResultReceiver.Receiver
         }
         return builder.create();
     }
+
+	@Override
+	public void onUpdateProgressStatus(boolean state, int callCode, int callId) {
+		updateRefreshStatus(state,callCode);
+	}
+
+	@Override
+	public void onCallError(int callCode, int callId, String errorMessage,
+			int numAttempt, int maxAttempts) {
+		//String errMsg = resultData.getString(Intent.EXTRA_TEXT);
+		final String errorText = String.format(this.getResources().getString(R.string.toast_call_error, errorMessage));
+		Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
+	}
+
+	@Override
+	public void onCallInterrupted(int callCode, int callId) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void onReceiveResult(int resultCode, Bundle resultData) {
+//		boolean mSyncing = false;
+//		int code = LOG_IN;
+//		
+//		final MCallBean call = (MCallBean) resultData.getSerializable(CallService.CALL_BEAN);
+//		switch (resultCode) {
+//		case HttpCallHandler.MSG_CALL_START:
+//			mSyncing = true;
+//			if (call.getCallCode() == RequestCode.LOG_IN)
+//				code=LOG_IN;
+//			else if (call.getCallCode() == RequestCode.LOG_OUT)
+//				code=LOG_OUT;
+//			break;
+//		case HttpCallHandler.MSG_CALL_SUCCESS: 
+//			mSyncing = false;
+//			updateLoginStatus();
+//			if (call.getCallCode() == RequestCode.LOG_IN){
+//				Toast.makeText(this, getResources().getString(R.string.logged_in_msg), Toast.LENGTH_SHORT).show();
+//				startSearchActivity();
+//			}else if (call.getCallCode() == RequestCode.LOG_OUT){
+//				Toast.makeText(this, getResources().getString(R.string.logged_out_msg), Toast.LENGTH_SHORT).show();
+//				createLogInLayout();
+//			}
+//			break;
+//		case HttpCallHandler.MSG_CALL_ERROR:
+//			// Error happened down in SyncService, show as toast.
+//			mSyncing = false;
+//			String errMsg = resultData.getString(Intent.EXTRA_TEXT);
+//			final String errorText = String.format(this.getResources().getString(R.string.toast_call_error, errMsg));
+//			Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
+//			break;
+//		}		
+//		
+	}
+	
+	/**
+	 * Makes appear and disappear the progress dialog.
+	 * @param refreshing 	If true then the dialog appear, 
+	 * 						if false the dialog disappear.
+	 */
+    private void updateRefreshStatus(boolean refreshing,int code) {
+        if (refreshing){
+        	mDialog = ProgressDialog.show(LoginActivity.this, "", 
+					getResources().getString(code==CallCode.LOG_IN?R.string.logging_in_msg:R.string.logging_out_msg), true);
+         	mDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+				@Override
+				public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+					if (keyCode == KeyEvent.KEYCODE_SEARCH && event.getRepeatCount() == 0) {
+						return true; // Pretend we processed it
+					}
+					return false; // Any other keys are still processed as normal
+				}
+         	});
+        }else{
+			if (mDialog != null)
+				mDialog.dismiss();
+        }
+        	
+    }
+
+	@Override
+	public void onCallSuccess(int callCode, int callId) {
+		updateLoginStatus();
+		if (callCode == CallCode.LOG_IN){
+			Toast.makeText(this, getResources().getString(R.string.logged_in_msg), Toast.LENGTH_SHORT).show();
+			startSearchActivity();
+		}else if (callCode == CallCode.LOG_OUT){
+			Toast.makeText(this, getResources().getString(R.string.logged_out_msg), Toast.LENGTH_SHORT).show();
+			createLogInLayout();
+		}
+	}
+
+	@Override
+	public void onServiceDestroyed() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 
 }

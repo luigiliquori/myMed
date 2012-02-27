@@ -140,5 +140,10 @@
     <string name="summary_navigation_preference">When is active the map is periodically centered on the user position.</string>       
     <string name="title_sync_preference">Choose refresh rate</string>
     <string name="summary_sync_preference">The rate of report details refresh </string>
-    <string name="dialog_title_sync_preference">Select the refresh rate.</string>  
+    <string name="dialog_title_sync_preference">Select the refresh rate.</string>
+    <!-- ============================ -->
+    <!--  	 CallService  strings     -->
+    <!-- ============================ -->
+    <string name="network_unavailable">Network connection not available at the moment!</string>
+    <string name="wrong_format">Wrong response format.</string>  
 </resources>

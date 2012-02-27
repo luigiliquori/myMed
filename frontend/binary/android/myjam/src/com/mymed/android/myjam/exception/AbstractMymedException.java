@@ -16,22 +16,39 @@
 package com.mymed.android.myjam.exception;
 
 /**
- * Use to return an explicit server Error 404 to the frontend
+ * An myMed exception is used to convert the Exception message in a jSon format
+ * for the frontend
  * 
  * @author lvanni
- * 
  */
-public class IOBackEndException extends AbstractMymedException {
+public abstract class AbstractMymedException extends Exception {
 
   /* --------------------------------------------------------- */
   /* Attributes */
   /* --------------------------------------------------------- */
   private static final long serialVersionUID = 1L;
+  /** the status returned by the http server */
+  private final int status;
+  private final String message;
 
   /* --------------------------------------------------------- */
   /* Constructors */
   /* --------------------------------------------------------- */
-  public IOBackEndException(final String message, final int status) {
-    super(status, message);
+  public AbstractMymedException(final int status, final String message) {
+    super();
+    this.status = status;
+    this.message = message;
+  }
+
+  /* --------------------------------------------------------- */
+  /* Public methods */
+  /* --------------------------------------------------------- */
+  public int getStatus() {
+    return status;
+  }
+
+  @Override
+  public String getMessage() {
+    return message;
   }
 }

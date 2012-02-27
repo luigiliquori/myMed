@@ -18,6 +18,8 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 
+import com.mymed.android.myjam.exception.InternalClientException;
+
 import android.util.Log;
 
 /**
@@ -30,11 +32,12 @@ import android.util.Log;
 public class CallManager {
 	private static final String TAG = "CallManager";
 	
-	private static final int hpPoolSize = 1;
+	//private static final int hpPoolSize = 1;
 	private static final int lpPoolSize = 4;
 	
 	private HttpClient httpClient;
-	private ExecutorService highPriorityPool;
+	//private ExecutorService highPriorityPool;
+	private Thread highPriorityThread;
 	private ExecutorService lowPriorityPool;
  
     private static CallManager instance;
@@ -64,16 +67,16 @@ public class CallManager {
 		/** Sets a timeout for waiting for data. [ms]*/
 		HttpConnectionParams.setSoTimeout(httpParams, 5000);
 		/** Set the maximum number of total connections. */
-		ConnManagerParams.setMaxTotalConnections(httpParams, lpPoolSize+hpPoolSize);
+		ConnManagerParams.setMaxTotalConnections(httpParams, lpPoolSize+1);
 		/** Set the maximum number of connections per route. */
-		ConnManagerParams.setMaxConnectionsPerRoute(httpParams, new ConnPerRouteBean(lpPoolSize+hpPoolSize));
+		ConnManagerParams.setMaxConnectionsPerRoute(httpParams, new ConnPerRouteBean(lpPoolSize+1));
 		
     	ThreadSafeClientConnManager connManager = new ThreadSafeClientConnManager(httpParams, schemeRegistry); 
     	httpClient = new DefaultHttpClient(connManager,httpParams);
     	
     	lowPriorityPool = Executors.newFixedThreadPool(lpPoolSize);
-    	highPriorityPool = Executors.newFixedThreadPool(hpPoolSize);
-    	Log.i(TAG, "Executor pools created");
+//    	highPriorityPool = Executors.newFixedThreadPool(hpPoolSize);
+    	Log.i(TAG, "Executor pool created");
     }
     
     /**
@@ -81,11 +84,16 @@ public class CallManager {
      *  get closed and system resources allocated by those connections are released.
      */
     public static void shutDown() {
-    	if (instance!=null){    		
-    		instance.highPriorityPool.shutdown();
-    		Log.i(TAG, "High Priority executor pool terminating...");
-    		while (!instance.highPriorityPool.isTerminated()) {
+    	if (instance!=null){		
+//    		instance.highPriorityPool.shutdown();
+//    		Log.i(TAG, "High Priority executor pool terminating...");
+    		if (instance.highPriorityThread!=null){
+    			Log.i(TAG, "High Priority executor thread terminating...");
+    			//Wait for the termination of the thread.
+    			while (instance.highPriorityThread.isAlive()){};
     		}
+//    		while (!instance.highPriorityPool.isTerminated()) {
+//    		}
     		Log.i(TAG,"Finished all threads");
     		Log.i(TAG, "Executor pool terminated.");
 
@@ -105,10 +113,24 @@ public class CallManager {
     	return instance.httpClient;
     }
     
-	protected Future<?> executeHp(Runnable runnable){
+/*	protected Future<?> executeHp(Runnable runnable){
     	 return instance.highPriorityPool.submit(runnable);
+    }*/
+    /**
+     * Only one high priority runnable is executed at a time and no queue is present.
+     * if another high priority call is received simply it is discarded. (This avoid to perform the same request multiple times).
+     * 
+     * @param runnable
+     */
+    protected void executeHp(Runnable runnable) throws InternalClientException{
+    	if (instance.highPriorityThread==null || !instance.highPriorityThread.isAlive()){
+    		instance.highPriorityThread = new Thread(runnable,TAG);
+    		instance.highPriorityThread.start();
+    	}else{
+    		throw new InternalClientException("Impossible start call, thread occupied.");
+    	}
     }
-	
+    
 	protected Future<?> executeLp(Runnable runnable){
    	 return instance.lowPriorityPool.submit(runnable);
    }

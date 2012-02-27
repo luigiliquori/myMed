@@ -21,24 +21,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mymed.android.myjam.R;
+import com.mymed.android.myjam.controller.CallContract;
+import com.mymed.android.myjam.controller.CallContract.CallCode;
 import com.mymed.android.myjam.controller.HttpCall;
-import com.mymed.android.myjam.controller.HttpCallHandler;
-import com.mymed.android.myjam.controller.ICallAttributes;
 import com.mymed.android.myjam.provider.MyJamContract.Report;
 import com.mymed.android.myjam.provider.MyJamContract.Search;
 import com.mymed.android.myjam.provider.MyJamContract.SearchReports;
 import com.mymed.android.myjam.service.CallService;
-import com.mymed.android.myjam.service.CallService.RequestCode;
-import com.mymed.model.data.myjam.MCallBean;
 import com.mymed.model.data.myjam.MReportBean;
 import com.mymed.utils.GlobalStateAndUtils;
 import com.mymed.utils.MyResultReceiver;
+import com.mymed.utils.MyResultReceiver.IReceiver;
 /**
  * Activity that permits to insert reports or updates.
  * @author iacopo
  *
  */
-public class InsertActivity extends AbstractLocatedActivity implements MyResultReceiver.Receiver{
+public class InsertActivity extends AbstractLocatedActivity implements IReceiver{
 	private static final String TAG = "InsertActivity";
 
 	private interface SearchReportsQuery{
@@ -132,7 +131,7 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 				finish();
 			}
 			mBundle = new Bundle();
-			mBundle.putString(ICallAttributes.REPORT_ID, Report.getReportId(uri));
+			mBundle.putString(CallContract.REPORT_ID, Report.getReportId(uri));
 			mReportTypeId = GlobalStateAndUtils.getInstance(this).getStringArrayValueIndex(mReportTypesVal,
 					cursor.getString(ReportQuery.REPORT_TYPE));
 			if (mReportTypeId >= 0){
@@ -161,8 +160,6 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 	public void onResume(){
 		super.onResume();
 		mResultReceiver.setReceiver(this.getClass().getName(),this);
-		if (mResultReceiver.getOngoingCalls(HttpCall.HIGH_PRIORITY).isEmpty())
-			updateRefreshStatus(false,"");
 	}
 
 	/**
@@ -239,8 +236,8 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 					/** Dispatches a request to get the reports in a range  {@link INSERT_SEARCH_RANGE} around the position
 					 *  where the report wants to be inserted.
 					 * */
-					int lat = mBundle.getInt(ICallAttributes.LATITUDE);
-					int lon = mBundle.getInt(ICallAttributes.LONGITUDE);
+					int lat = mBundle.getInt(CallContract.LATITUDE);
+					int lon = mBundle.getInt(CallContract.LONGITUDE);
 					int radius = INSERT_SEARCH_RANGE;
 					requestSearch(lat,lon,radius,Search.INSERT_SEARCH);
 					createReportOrUpdateLayout(REPORT);
@@ -289,10 +286,11 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 
 	private void requestInsertReport(Bundle bundle,MReportBean report){
 		final Intent intent = new Intent(InsertActivity.this, CallService.class);
+		bundle.putString(CallContract.ACCESS_TOKEN, GlobalStateAndUtils.getInstance(this).getAccessToken());
 		intent.putExtra(CallService.EXTRA_ACTIVITY_ID, this.getClass().getName());
 		intent.putExtra(CallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
-		intent.putExtra(CallService.EXTRA_REQUEST_CODE, RequestCode.INSERT_REPORT);
-		intent.putExtra(CallService.EXTRA_PRIORITY_CODE, HttpCall.LOW_PRIORITY);
+		intent.putExtra(CallService.EXTRA_REQUEST_CODE, CallCode.INSERT_REPORT);
+		intent.putExtra(CallService.EXTRA_PRIORITY_CODE, HttpCall.HIGH_PRIORITY);
 		intent.putExtra(CallService.EXTRA_NUMBER_ATTEMPTS, 3);
 		intent.putExtra(CallService.EXTRA_OBJECT, report);
 		intent.putExtra(CallService.EXTRA_ATTRIBUTES, bundle);
@@ -303,10 +301,11 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 	private void requestUpdateReport(Bundle bundle,
 			MReportBean update) {
 		final Intent intent = new Intent(InsertActivity.this, CallService.class);
+		bundle.putString(CallContract.ACCESS_TOKEN, GlobalStateAndUtils.getInstance(this).getAccessToken());
 		intent.putExtra(CallService.EXTRA_ACTIVITY_ID, this.getClass().getName());
 		intent.putExtra(CallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
-		intent.putExtra(CallService.EXTRA_REQUEST_CODE, RequestCode.INSERT_UPDATE);
-		intent.putExtra(CallService.EXTRA_PRIORITY_CODE, HttpCall.LOW_PRIORITY);
+		intent.putExtra(CallService.EXTRA_REQUEST_CODE, CallCode.INSERT_UPDATE);
+		intent.putExtra(CallService.EXTRA_PRIORITY_CODE, HttpCall.HIGH_PRIORITY);
 		intent.putExtra(CallService.EXTRA_NUMBER_ATTEMPTS, 3);
 		intent.putExtra(CallService.EXTRA_OBJECT, update);
 		intent.putExtra(CallService.EXTRA_ATTRIBUTES, bundle);
@@ -325,14 +324,15 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 		final Intent intent = new Intent(InsertActivity.this, CallService.class);
 		intent.putExtra(CallService.EXTRA_ACTIVITY_ID, this.getClass().getName());
 		intent.putExtra(CallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
-		intent.putExtra(CallService.EXTRA_REQUEST_CODE, RequestCode.SEARCH_REPORTS);
+		intent.putExtra(CallService.EXTRA_REQUEST_CODE, CallCode.SEARCH_REPORTS);
 		intent.putExtra(CallService.EXTRA_PRIORITY_CODE, HttpCall.HIGH_PRIORITY);
 		intent.putExtra(CallService.EXTRA_NUMBER_ATTEMPTS, 1);
 		Bundle bundle = new Bundle();
-		bundle.putInt(ICallAttributes.LATITUDE, lat);
-		bundle.putInt(ICallAttributes.LONGITUDE, lon);
-		bundle.putInt(ICallAttributes.RADIUS, radius);
-		bundle.putInt(ICallAttributes.SEARCH_ID, searchId);
+		bundle.putString(CallContract.ACCESS_TOKEN, GlobalStateAndUtils.getInstance(this).getAccessToken());
+		bundle.putInt(CallContract.LATITUDE, lat);
+		bundle.putInt(CallContract.LONGITUDE, lon);
+		bundle.putInt(CallContract.RADIUS, radius);
+		bundle.putInt(CallContract.SEARCH_ID, searchId);
 		intent.putExtra(CallService.EXTRA_ATTRIBUTES, bundle);
 		Log.d(TAG,"Intent sent: "+intent.toString());
 		startService(intent);
@@ -359,51 +359,51 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 
 	@Override
 	public void onReceiveResult(int resultCode, Bundle resultData) {
-		final MCallBean call = (MCallBean) resultData.getSerializable(CallService.CALL_BEAN);
-		final boolean mSyncing;
-		final String message;
-		switch (resultCode){
-		//*
-		case HttpCallHandler.MSG_CALL_START:
-			mSyncing = true;
-			message = (call.getCallCode() == RequestCode.SEARCH_REPORTS)?getResources().getString(R.string.search_start):
-				getResources().getString(R.string.insert_start);
-			break;
-		case HttpCallHandler.MSG_CALL_ERROR:
-			mSyncing = false;
-			message = "";
-			String errMsg = resultData.getString(Intent.EXTRA_TEXT);
-			final String errorText = String.format(this.getResources().getString(R.string.toast_call_error, errMsg));
-			Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
-			Log.d(TAG,errorText);
-			break;
-		case HttpCallHandler.MSG_CALL_SUCCESS:
-			mSyncing = false;
-			message = "";
-			if (call.getCallCode() == RequestCode.INSERT_REPORT || call.getCallCode() == RequestCode.INSERT_UPDATE){
-				String type = getResources().getString(call.getCallCode() == RequestCode.INSERT_REPORT?R.string.report_string:R.string.update_string);
-				final String successText = String.format(this.getResources().getString(R.string.insert_success, type));
-				Toast.makeText(this, successText, Toast.LENGTH_SHORT).show();
-				setResult(Activity.RESULT_OK);
-				finish();			
-			}else if (call.getCallCode() == RequestCode.SEARCH_REPORTS){
-				Cursor cursor = managedQuery(SearchReports.buildSearchUri(String.valueOf(Search.INSERT_SEARCH), 
-						getResources().getTextArray(R.array.report_typevalues_list)[mReportTypeId].toString())
-						, SearchReportsQuery.PROJECTION, null, null,
-						SearchReports.DEFAULT_SORT_ORDER);
-				int rowsCount = cursor.getCount();
-				if (rowsCount>0){
-					showDialog(DIALOG_SHOW_REPORTS_ID);
-				}
-			}
-			break;
-		default:
-			Log.d(TAG, "OnReceiveResult: Unknown result code.");
-			mSyncing = false;
-			message = "";
-			break;					
-		}
-		updateRefreshStatus(mSyncing,message);
+//		final MCallBean call = (MCallBean) resultData.getSerializable(CallService.CALL_BEAN);
+//		final boolean mSyncing;
+//		final String message;
+//		switch (resultCode){
+//		//*
+//		case HttpCallHandler.MSG_CALL_START:
+//			mSyncing = true;
+//			message = (call.getCallCode() == RequestCode.SEARCH_REPORTS)?getResources().getString(R.string.search_start):
+//				getResources().getString(R.string.insert_start);
+//			break;
+//		case HttpCallHandler.MSG_CALL_ERROR:
+//			mSyncing = false;
+//			message = "";
+//			String errMsg = resultData.getString(Intent.EXTRA_TEXT);
+//			final String errorText = String.format(this.getResources().getString(R.string.toast_call_error, errMsg));
+//			Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
+//			Log.d(TAG,errorText);
+//			break;
+//		case HttpCallHandler.MSG_CALL_SUCCESS:
+//			mSyncing = false;
+//			message = "";
+//			if (call.getCallCode() == RequestCode.INSERT_REPORT || call.getCallCode() == RequestCode.INSERT_UPDATE){
+//				String type = getResources().getString(call.getCallCode() == RequestCode.INSERT_REPORT?R.string.report_string:R.string.update_string);
+//				final String successText = String.format(this.getResources().getString(R.string.insert_success, type));
+//				Toast.makeText(this, successText, Toast.LENGTH_SHORT).show();
+//				setResult(Activity.RESULT_OK);
+//				finish();			
+//			}else if (call.getCallCode() == RequestCode.SEARCH_REPORTS){
+//				Cursor cursor = managedQuery(SearchReports.buildSearchUri(String.valueOf(Search.INSERT_SEARCH), 
+//						getResources().getTextArray(R.array.report_typevalues_list)[mReportTypeId].toString())
+//						, SearchReportsQuery.PROJECTION, null, null,
+//						SearchReports.DEFAULT_SORT_ORDER);
+//				int rowsCount = cursor.getCount();
+//				if (rowsCount>0){
+//					showDialog(DIALOG_SHOW_REPORTS_ID);
+//				}
+//			}
+//			break;
+//		default:
+//			Log.d(TAG, "OnReceiveResult: Unknown result code.");
+//			mSyncing = false;
+//			message = "";
+//			break;					
+//		}
+//		updateRefreshStatus(mSyncing,message);
 	}
 
 	/**
@@ -429,6 +429,55 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 				mDialog.dismiss();
 		}
 
+	}
+
+	@Override
+	public void onUpdateProgressStatus(boolean state, int callCode, int callId) {
+		final String message;
+		message = (callCode == CallCode.SEARCH_REPORTS)?getResources().getString(R.string.search_start):
+			getResources().getString(R.string.insert_start);
+		updateRefreshStatus(state,message);
+	}
+
+	@Override
+	public void onCallError(int callCode, int callId, String errorMessage,
+			int numAttempt, int maxAttempts) {
+		final String errorText = String.format(this.getResources().getString(R.string.toast_call_error, errorMessage));
+		Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
+		Log.d(TAG,errorText);
+	}
+
+	@Override
+	public void onCallInterrupted(int callCode, int callId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onCallSuccess(int callCode, int callId) {
+		if (callCode == CallCode.INSERT_REPORT || callCode == CallCode.INSERT_UPDATE){
+			String type = getResources().getString(callCode == CallCode.INSERT_REPORT?R.string.report_string:R.string.update_string);
+			final String successText = String.format(this.getResources().getString(R.string.insert_success, type));
+			Toast.makeText(this, successText, Toast.LENGTH_SHORT).show();
+			setResult(Activity.RESULT_OK);
+			finish();			
+		}else if (callCode == CallCode.SEARCH_REPORTS){
+			Cursor cursor = managedQuery(SearchReports.buildSearchUri(String.valueOf(Search.INSERT_SEARCH), 
+					getResources().getTextArray(R.array.report_typevalues_list)[mReportTypeId].toString())
+					, SearchReportsQuery.PROJECTION, null, null,
+					SearchReports.DEFAULT_SORT_ORDER);
+			int rowsCount = cursor.getCount();
+			if (rowsCount>0){
+				showDialog(DIALOG_SHOW_REPORTS_ID);
+			}
+		}
+		
+	}
+
+	@Override
+	public void onServiceDestroyed() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
