@@ -8,17 +8,37 @@ import com.mymed.controller.core.exception.GeoLocationOutOfBoundException;
  *
  */
 public class GeoLocationStressTest {
+    private static int numInsertions;
+    private static int numSearches;
+    private static int centerLat;
+    private static int centerLon;
+    private static int radius;
 
-	public static void main(final String[] args) throws GeoLocationOutOfBoundException {
-		GeoLocationThread geoLocationThread;
 
-		if (args.length == 0) {
-			geoLocationThread = new GeoLocationThread();
-		} else {
-			geoLocationThread = new GeoLocationThread(Math.abs(Integer.parseInt(args[0])), 
-					Math.abs(Integer.parseInt(args[1])), Math.abs(Integer.parseInt(args[2])), 
-					Math.abs(Integer.parseInt(args[3])), Math.abs(Integer.parseInt(args[4])));
-		}
-		geoLocationThread.start();
-	}
+    public static void main(final String[] args) throws GeoLocationOutOfBoundException {
+            GeoLocationThread geoLocationThread;
+            boolean argsOk = false;
+
+            try{
+                    if (args.length==5){
+                            numInsertions = Math.abs(Integer.parseInt(args[0]));
+                            numSearches = Math.abs(Integer.parseInt(args[1]));
+                            centerLat = Math.abs(Integer.parseInt(args[2]));
+                            centerLon = Math.abs(Integer.parseInt(args[3]));
+                            radius = Math.abs(Integer.parseInt(args[4]));
+                            argsOk=true;
+                    }
+            }catch(NumberFormatException e){
+                    e.printStackTrace();
+            }
+
+            if (argsOk) {
+                    geoLocationThread = new GeoLocationThread(numInsertions,
+                                    numSearches, centerLat,
+                                    centerLon, radius);
+            } else {
+                    geoLocationThread = new GeoLocationThread();
+            }
+            geoLocationThread.start();
+    }
 }
