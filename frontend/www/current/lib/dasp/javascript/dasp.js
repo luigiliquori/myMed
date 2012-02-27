@@ -161,7 +161,7 @@ function focusOnPosition(latitude, longitude){
 	// focus on the position
 	var myLatlng = new google.maps.LatLng(latitude, longitude);
 	map.setCenter(myLatlng);
-	window.scrollTo(0,1); //hide url bar on android
+	window.scrollTo(0,0);
 
 }
 
