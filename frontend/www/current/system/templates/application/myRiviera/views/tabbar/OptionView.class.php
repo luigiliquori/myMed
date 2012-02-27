@@ -53,54 +53,61 @@ class OptionView extends MyApplication {
 			<div data-role="collapsible-set">
 			
 				<!-- POIs - Filter -->
-				<div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="c" style="text-align: left;">
-				 	<h3>Points d'interêts</h3>
-				 	<div id="<?= APPLICATION_NAME ?>Filter" data-role="controlgroup">
-				    	<?php foreach ($this->filterList as $filter) { ?>
-					    	<input type="checkbox" name="<?= $filter ?>" id="<?= $filter ?>" class="custom" checked="checked" />
-					    	<label for="<?= $filter ?>"><?= $filter ?></label>
+		<div data-role="collapsible" data-collapsed="true" data-theme="b"
+			data-content-theme="c" style="text-align: left;">
+			<h3>Points d'interêts</h3>
+			<div id="<?= APPLICATION_NAME ?>Filter" data-role="controlgroup">
+
+
+			<?php foreach ($this->filterList as $filter) { ?>
+				<input type="checkbox" name="<?= $filter ?>" id="<?= $filter ?>"
+					class="custom" checked="checked" /> <label for="<?= $filter ?>"><?= $filter ?>
+				</label>
 				    	<?php } ?>
 				    </div>
-				</div>
+		</div>
+
+		<!-- POIs - radius -->
+		<div data-role="collapsible" data-collapsed="true" data-theme="b"
+			data-content-theme="c" style="text-align: left;">
+			<h3>Rayon de recherche</h3>
+			Mètre:<br> <input type="range" name="slider" id="distanceslider"
+				value="500" min="100" max="1000" data-theme="b" />
+		</div>
+
+		<!-- Search Option -->
+		<div id="cityway-search" data-role="collapsible" data-collapsed="true" data-theme="b"
+			data-content-theme="c">
+			<h3>Type de Trajet Cityway</h3>
 			
-				<!-- POIs - radius -->
-				<div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="c" style="text-align: left;">
-				 	<h3>Rayon de recherche</h3>
-		  			Mètre:<br>
-				   	<input type="range" name="slider" id="slider" value="500" min="100" max="1000"  data-theme="b"/>
-				</div>
-				
-				<!-- Search Option -->
-				<div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="c">
-					<h3>Type de Trajet</h3>
-					
-					<div data-role="fieldcontain">
-					    
-						<fieldset data-role="controlgroup">   
-						   <input type="checkbox" name="checkbox-1" id="checkbox-1" class="custom" checked="checked" 
-						   onchange="$('#TrajetTypeRadio').css('display', this.checked ? 'block' : 'none');"/>
-						   <label for="checkbox-1">En Transport Public</label>
-					    </fieldset>
-					    
-					    	
-						<fieldset id="TrajetTypeRadio" data-role="controlgroup">
-						     	<input type="radio" name="radio-choice-1" id="radio-choice-1" value="choice-1" checked="checked" />
-						     	<label for="radio-choice-1">Le moins de changements</label>
-						
-						     	<input type="radio" name="radio-choice-1" id="radio-choice-2" value="choice-2"  />
-						     	<label for="radio-choice-2">Le plus rapide</label>
-						</fieldset>
-					    
-					    
-						<fieldset data-role="controlgroup">
-						   <input type="checkbox" name="checkbox-1" id="checkbox-1" class="custom" checked="checked"/>
-						   <label for="checkbox-1">En Voiture</label>
-						</fieldset>
-					</div>
-					
-				</div>
-				
-				<!-- Profile -->
+			
+			<div data-role="fieldcontain">
+				<fieldset data-role="controlgroup" data-type="horizontal">
+					<input type="radio" name="radio-choice" id="radio-choice-1" value="fastest" checked="checked" /> 
+					<label for="radio-choice-1">Le plus rapide</label>
+					<input type="radio" name="radio-choice" id="radio-choice-2"	value="lessChanges" /> 
+					<label for="radio-choice-2">Le moins de changements</label>
+				</fieldset>
+			</div>
+			
+			<div data-role="fieldcontain">
+				<fieldset data-role="controlgroup" data-type="horizontal">
+					<input type="checkbox" name="checkbox" id="checkbox-0" checked="checked" /><label for="checkbox-0">Bus</label>
+					<input type="checkbox" name="checkbox" id="checkbox-1" checked="checked" /><label for="checkbox-1">Metro</label>
+					<input type="checkbox" name="checkbox" id="checkbox-2" checked="checked" /><label for="checkbox-2">Car</label>
+					<input type="checkbox" name="checkbox" id="checkbox-3" checked="checked" /><label for="checkbox-3">Train</label>
+					<input type="checkbox" name="checkbox" id="checkbox-4" checked="checked" /><label for="checkbox-4">Tram</label>
+					<input type="checkbox" name="checkbox" id="checkbox-5" checked="checked" /><label for="checkbox-5">Ter</label>
+					<input type="checkbox" name="checkbox" id="checkbox-6" checked="checked" /><label for="checkbox-6">Boat</label>
+					<input type="checkbox" name="checkbox" id="checkbox-13" checked="checked" /><label for="checkbox-13">Avion</label>
+					<input type="checkbox" name="checkbox" id="checkbox-19" checked="checked" /><label for="checkbox-19">Tgv</label>
+				</fieldset>
+			</div>
+		
+		</div>
+		
+
+		<!-- Profile -->
 				<div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="c">
 					<h3>Profile</h3>
 					<?php if($_SESSION['user']->profilePicture != "") { ?>
@@ -155,7 +162,7 @@ class OptionView extends MyApplication {
 				<div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="c" style="text-align: left;">
 				 	<h3>Aide</h3>
 				 	<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
-<p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>
+					<p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>
 				 </div>
 				 
 				<!-- ABOUT -->

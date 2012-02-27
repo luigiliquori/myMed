@@ -29,21 +29,40 @@
 	position: absolute;  
 	display: none;
 	opacity: 0.8;
+	top: 40px;
+	left: 40%;
 }
 #next-prev a{
 	position: relative;
-	margin-right: 0;
-	margin-left: 0;
 	margin-bottom: 0;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+#next-step{
+	padding-left: 6px;
+}
+#prev-step{
+	padding-right: 6px;
+}
+
+.steps{ /* items in the itinary list*/
+	font-weight: lighter;
+	padding-left:5px;
+	-webkit-transition-property: background-color;
+	-moz-transition-property: background-color;
+	-o-transition-property: background-color;
+	transition-property: background-color;
+	-webkit-transition-duration: 500ms;
+	-moz-transition-duration: 500ms;
+	-o-transition-duration: 500ms;
+	transition-duration: 500ms;
 }
 
 #depart::-webkit-input-placeholder {
   color: LightBlue;
-  font-weight: bold;
 }
 #depart:-moz-placeholder {
   color: LightBlue;
-  font-weight: bold;
 }
 
 #depart {

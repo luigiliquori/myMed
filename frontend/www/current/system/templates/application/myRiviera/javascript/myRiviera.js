@@ -22,13 +22,13 @@ function initialize() {
 	setupDASPMap($("#applicationName").val() + "Map");
 	
 	// autocompletes Google Maps Places API
-	var autocompleteDepart = new google.maps.places.Autocomplete(document.getElementById('depart'));
+	/*var autocompleteDepart = new google.maps.places.Autocomplete(document.getElementById('depart'));
 	var autocompleteArrivee = new google.maps.places.Autocomplete(document.getElementById('arrivee'));
 	autocompleteArrivee.bindTo('bounds', map);
-	autocompleteDepart.bindTo('bounds', map);
+	autocompleteDepart.bindTo('bounds', map);*/
 	
 	// resize the map canvas
-	$("#myRivieraMap").height($("body").height() - ((!mobile)?0:$('body').find('div[data-role=header]').outerHeight()));
+	$("#myRivieraMap").height($("body").height() - $('body').find('div[data-role=header]').outerHeight());
 
 	// init filterArray
 	updateFilter();
@@ -63,7 +63,7 @@ function clearAll(){
 		directionsDisplays[i].setMap(null);
 	
 	pmarkers = [];
-	fmarker = [];
+	fmarkers = [];
 	for (key in markers)
 		markers[key] = [];
 	directionsDisplays = [];
@@ -80,7 +80,7 @@ function clearAll(){
  */
 function otherMarkers(latitude, longitude, type, index) {
 	if (!markers[type][index]) { // create them if not exist
-		if ((pois = getMarkers(latitude, longitude, type, 500)).length != 0) {
+		if ((pois = getMarkers(latitude, longitude, type, $('#distanceslider').val() || 500)).length != 0) {
 			markers[type][index] = [];
 			$.each(pois, function(i, poi) {
 				value = $.parseJSON(poi.value);
@@ -143,6 +143,11 @@ function positionMarker(latitude, longitude, icon, title, index) {
  * @param elt
  */
 function updateMarkers(latitude, longitude, icon, title, index) {
+	
+	//FOCUS ON POSITION
+	focusOnPosition(latitude, longitude);
+	$('#itineraireContent li').eq(prevSegmentID).removeClass('ui-btn-hover-d').addClass('ui-btn-up-d');
+	$('#itineraireContent li').eq(index).removeClass('ui-btn-up-d').addClass('ui-btn-hover-d');
 
 	// ADD THE MARKER OF THE CURRENT SEGMENT
 	currentSegmentID = index;
@@ -153,10 +158,10 @@ function updateMarkers(latitude, longitude, icon, title, index) {
 	for ( var i = 0; i < filterArray.length; i++) {
 		otherMarkers(latitude, longitude, filterArray[i], index);
 	}
-	len = $('#itineraireContent').find('.ui-li a').length;
+	len = $('#itineraireContent .ui-li a').length;
 	var c = eval(currentSegmentID);
-	$('#next-step').attr('onclick', $('#itineraireContent').find('.ui-li a').eq(c<len-1?c+1:len-1).attr('onclick'));
-	$('#prev-step').attr('onclick', $('#itineraireContent').find('.ui-li a').eq(c>0?c-1:0).attr('onclick'));
+	$('#next-step').attr('onclick', $('#itineraireContent .ui-li a').eq(c<len-1?c+1:0).attr('onclick'));
+	$('#prev-step').attr('onclick', $('#itineraireContent .ui-li a').eq(c>0?c-1:len-1).attr('onclick'));
 	
 	prevSegmentID = index;
 }
@@ -176,7 +181,6 @@ function calcRoute(json) {
 	else
 		calcRouteByGoogle();
 	
-	myRivieraShowTrip($("#depart").val() || "Ma position",$("#arrivee").val());
 }
 
 function calcRouteByCityway(result){
@@ -226,16 +230,9 @@ function calcRouteByCityway(result){
 		}
 
 		if (tripSegment.departurePoint && tripSegment.arrivalPoint) {
-			desc = $('<li style="font-weight: lighter; padding-left:5px;"><a style="max-height:1em;" href="#" '
-					+ ' onclick="'
-					// FOCUS ON POSITION
-					+ 'focusOnPosition('
-					+ tripSegment.departurePoint.latitude
-					+ ','
-					+ tripSegment.departurePoint.longitude
-					+ '); '
+			desc = $('<li class="steps"><a style="max-height:1em;" '
+					+ ' onclick="updateMarkers('
 					// UPDATE MARKER
-					+ ' updateMarkers('
 					+ tripSegment.departurePoint.latitude
 					+ ','
 					+ tripSegment.departurePoint.longitude
@@ -256,7 +253,7 @@ function calcRouteByCityway(result){
 							+ tripSegment.comment + '</p>').appendTo(desc);
 			desc.appendTo(item.find('ul'));
 
-			if (currentType == "TRANSPORT" && [ 'AVION', 'BOAT', 'TER', 'TRAIN' ].indexOf(tripSegment.transportMode) < 0) {
+			if (currentType == "TRANSPORT" && [ 'AVION', 'BOAT', 'TER', 'TRAIN', 'TRAM' ].indexOf(tripSegment.transportMode) < 0) {
 				routes.push({
 					origin : new google.maps.LatLng(tripSegment.departurePoint.latitude,
 							tripSegment.departurePoint.longitude),
@@ -300,6 +297,7 @@ function calcRouteByCityway(result){
 			}
 		});
 	});
+	myRivieraShowTrip($("#depart").val() || "Ma position",$("#arrivee").val());
 
 }
 
@@ -333,16 +331,9 @@ function calcRouteByGoogle(){
 				}
 				
 				st = result.routes[0].legs[0].steps[i];	
-				desc = $('<li style="font-weight: lighter; padding-left:5px;"><a style="max-height:1em;" href="#" '
-						+ ' onclick="'
-						// FOCUS ON POSITION
-						+ 'focusOnPosition('
-						+ st.start_location.lat()
-						+ ','
-						+ st.start_location.lng()
-						+ '); '
+				desc = $('<li class="steps"><a style="max-height:1em;" '
+						+ ' onclick="updateMarkers('
 						// UPDATE MARKER
-						+ ' updateMarkers('
 						+ st.start_location.lat()
 						+ ','
 						+ st.start_location.lng()
@@ -368,6 +359,8 @@ function calcRouteByGoogle(){
 			
 			// UI - ADD SEGMENT ON THE MAP - TODO MOVE THIS PART -> showTrip function
 			directionsDisplay.setDirections(result);
+			directionsDisplays.push(directionsDisplay); //for clearing them later
+			myRivieraShowTrip($("#depart").val() || "Ma position",$("#arrivee").val());
 		}
 	});
 	
@@ -383,7 +376,7 @@ function calcRouteByGoogle(){
 function myRivieraShowTrip(start, end, icon) {
 
 	if (!map) {
-		$("#myRivieraMap").height($("body").height() - ((!mobile)?0:$('body').find('div[data-role=header]').outerHeight()));
+		$("#myRivieraMap").height($("body").height() - $('body').find('div[data-role=header]').outerHeight());
 
 		map = new google.maps.Map(document.getElementById("myRivieraMap"), {
 			zoom : 16,
@@ -411,9 +404,9 @@ function myRivieraShowTrip(start, end, icon) {
 	// SHOW ITINERAIRE
 	$("#itineraire").delay(1500).fadeIn("slow");
 	$("#next-prev").delay(1500).fadeIn("slow");
-	$("#next-prev").css('top', $("body").height() - $("#next-prev").height() );
-	$('#next-step').attr('onclick', $('#itineraireContent').find('.ui-li a').eq(1).attr('onclick'));
-	$('#prev-step').attr('onclick', $('#itineraireContent').find('.ui-li a').eq(0).attr('onclick'));
+	if (mobile == "mobile")	$("#next-prev").css('top', '-3px');
+	$('#next-step').attr('onclick', $('#itineraireContent .ui-li a').eq(1).attr('onclick'));
+	$('#prev-step').attr('onclick', $('#itineraireContent .ui-li a').eq(0).attr('onclick'));
 }
 
 /**
@@ -473,6 +466,18 @@ function validateIt2() {
 				console.log(date);
 				console.log(geocodestart);
 				
+				var optimize = $("#cityway-search input:radio:checked").val();
+				
+				var tModes0 = $('#cityway-search input:checkbox:not(:checked)');
+				var transitModes=0;
+				if (tModes0.length){
+					var tModes = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+					for (var i=0; i<tModes0.length; i++){
+						tModes[tModes0[i].id.match(/\d+/)] = 0; //get the number in the id, that represent the cityway mode index
+					}
+					transitModes = tModes.join('');
+				}
+				
 				clearAll();
 				
 				$.ajax({
@@ -482,6 +487,8 @@ function validateIt2() {
 								"&startlng="+geocodestart.lng()+
 								"&endlat="+geocodeend.lat()+
 								"&endlng="+geocodeend.lng()+
+								(/*optimize!="fastest"*/true?"&optimize="+optimize:"")+
+								(transitModes?"&transitModes="+transitModes:"")+
 								"&date="+date,
 					success: function(data){
 						calcRoute(data);
