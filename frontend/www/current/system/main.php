@@ -4,6 +4,7 @@
 	
 	// DEBUG
 	ini_set('display_errors', 1);
+	require dirname(__FILE__).'/firelogger.php';
 	
 	require_once 'lib/dasp/beans/MPositionBean.class.php';
 	require_once 'lib/php-mobile-detect/Mobile_Detect.php';
@@ -29,6 +30,11 @@
 	}
 	
 	$templateManager = new TemplateManager();
+	
+	// Identify the application
+	if(isset($_GET['application'])){
+		$_SESSION['application'] = $_GET['application'];
+	}
 
 	if (USER_CONNECTED) {
 		
@@ -63,12 +69,8 @@
 			$_SESSION['position'] = json_decode($responseObject->data->position);
 		}
 		
-		// LOAD THE TEMPLATE
-		if(isset($_GET['application'])){
-			$_SESSION['application'] = $_GET['application'];
-		}
 		if(isset($_SESSION['application']) && $_SESSION['application'] != "0"){
-			$templateManager->selectTemplate('application/'.$_SESSION['application']);
+			$templateManager->selectTemplate('application/' . $_SESSION['application']);
 		} else {
 			$templateManager->selectTemplate('container/' . TARGET . '/home');
 		}

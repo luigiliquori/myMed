@@ -436,7 +436,7 @@ function validateIt() {
 	if ($("#depart").val() != "") {
 		geocoder.geocode({'address' : $("#depart").val()}, function(results, status) {
 			if (status == google.maps.GeocoderStatus.OK) {
-				geocodestart = results[0].geometry.location
+				geocodestart = results[0].geometry.location;
 				console.log(results[0].geometry.location);
 				validateIt2();
 			} else {
@@ -460,7 +460,7 @@ function validateIt2() {
 	if ($("#arrivee").val() != "") {
 		geocoder.geocode({'address' : $("#arrivee").val()}, function(results, status) {
 			if (status == google.maps.GeocoderStatus.OK) {
-				geocodeend = results[0].geometry.location
+				geocodeend = results[0].geometry.location;
 				console.log(results[0].geometry.location);
 				
 				date = $('#select-year').val()+"-"+
