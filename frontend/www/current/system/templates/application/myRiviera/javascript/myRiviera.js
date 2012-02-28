@@ -22,13 +22,18 @@ function initialize() {
 	setupDASPMap($("#applicationName").val() + "Map");
 	
 	// autocompletes Google Maps Places API
-	/*var autocompleteDepart = new google.maps.places.Autocomplete(document.getElementById('depart'));
+	var autocompleteDepart = new google.maps.places.Autocomplete(document.getElementById('depart'));
 	var autocompleteArrivee = new google.maps.places.Autocomplete(document.getElementById('arrivee'));
 	autocompleteArrivee.bindTo('bounds', map);
-	autocompleteDepart.bindTo('bounds', map);*/
+	autocompleteDepart.bindTo('bounds', map);
 	
 	// resize the map canvas
-	$("#myRivieraMap").height($("body").height() - $('body').find('div[data-role=header]').outerHeight());
+	$("#" + $("#applicationName").val() + "Map").height($("body").height() - $('body').find('div[data-role=header]').outerHeight());
+	
+	// resize the map on page change
+	$("#Find").live("pageshow", function (event, ui) {
+		google.maps.event.trigger(map, 'resize');
+	});
 
 	// init filterArray
 	updateFilter();
