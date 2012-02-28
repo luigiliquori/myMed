@@ -49,7 +49,7 @@ class FindView extends MyApplication {
 		<div data-role="content" style="padding: 0px;">
 			
 			<!-- MAP -->
-			<div id="myRivieraMap"></div>
+			<div id="<?= APPLICATION_NAME ?>Map"></div>
 			
 			<script type="text/javascript">
 				var mobile = '<?php echo TARGET ?>';

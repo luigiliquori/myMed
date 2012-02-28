@@ -37,26 +37,16 @@ abstract class MyApplication extends AbstractTemplate {
 	public /*String*/ function getHeader() { ?>
 		<!-- HEADER -->
 		<div data-role="header" data-theme="a">
-			<a href="?application=0" rel="external" data-role="button" data-theme="r">Close</a>
+			<a href="#" onclick="alert('not yet implemented...')" data-role="button" data-theme="g">New App</a>
 			<h1><?= $this->title ?></h1>
+			<a href="?application=0" rel="external" data-role="button" data-theme="r" class="ui-btn-right" >Close</a>
 		</div>
 	<?php }
 	
 	/**
 	* Get the FOOTER for jQuery Mobile
 	*/
-	public /*String*/ function getFooter() { ?>
-		<!-- FOOTER_PERSITENT-->
-		<div data-role="footer" data-position="fixed" data-theme="a">
-			<div data-role="navbar">
-				<ul>
-				<li><a href="#Publish" data-back="true" <?= $this->activeFooter == "Publish" ? 'class="ui-btn-active ui-state-persist"' : ''; ?> >Publish</a></li>
-				<li><a href="#Subscribe" <?= $this->activeFooter == "Subscribe" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>Subscribe</a></li>
-				<li><a href="#Find" <?= $this->activeFooter == "Find" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>Find</a></li>
-				</ul>
-			</div>
-		</div>
-	<?php }
+	public /*String*/ function getFooter() { }
 	
 	/**
 	* Print the Template

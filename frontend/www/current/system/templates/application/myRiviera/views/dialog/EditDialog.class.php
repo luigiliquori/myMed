@@ -9,35 +9,15 @@ require_once 'system/templates/AbstractTemplate.class.php';
  * @author lvanni
  *
  */
-class EditDialog extends AbstractTemplate {
+class EditDialog {
 	
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
 	
 	/* --------------------------------------------------------- */
-	/* Constructors */
-	/* --------------------------------------------------------- */
-	/**
-	 * Default constructor
-	 */
-	public function __construct() {
-		
-	}
-	
-	/* --------------------------------------------------------- */
 	/* public methods */
 	/* --------------------------------------------------------- */
-	/**
-	* Get the HEADER for jQuery Mobile
-	*/
-	public /*String*/ function getHeader() { ?>
-		<!-- HEADER -->
-		<div data-theme="b" data-role="header">
-			<h1>Edit</h1>
-		</div>
-	<?php }
-	
 	/**
 	* Get the CONTENT for jQuery Mobile
 	*/
@@ -52,11 +32,9 @@ class EditDialog extends AbstractTemplate {
 					<input type="hidden" id="departGeo" name="DepartGeo"/>
 					
 					<!-- FROM -->
-					
 					<input data-theme="d" type="text" id="depart" name="Depart" placeholder="Départ" />
 	
 					<!-- TO -->
-	
 					<div id="divarrivee">
 					
 						<input data-theme="d" type="text" id="arrivee" name="Arrivee"
@@ -71,8 +49,6 @@ class EditDialog extends AbstractTemplate {
 							<?php if (isset($_SESSION['position'])) { ?>
 								<option value="<?= $_SESSION['user']->profilePicture ?>&&<?= $_SESSION['position']->formattedAddress ?>"><?= $_SESSION['user']->name ?></option>
 							<?php } ?>
-							
-							
 		
 							<!-- FRIENDS -->
 							<?php
@@ -86,20 +62,17 @@ class EditDialog extends AbstractTemplate {
 									<?php }
 								}
 							} ?>
-	        	</select>
+	        			</select>
 					</div>
-	
-	
-	
 	
 					<!-- DATE -->
 					<div id="date">
 					
-					<?php 
-					$now = getdate();
-					$months = array('janvier', 'février', 'mars', 'avril','mai',
-					'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre');
-					?>
+						<?php 
+						$now = getdate();
+						$months = array('janvier', 'février', 'mars', 'avril','mai',
+						'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre');
+						?>
 						<fieldset  data-role="controlgroup"
 							data-type="horizontal">
 							
@@ -144,17 +117,6 @@ class EditDialog extends AbstractTemplate {
 				
 			</div>
 			
-		</div>
-	<?php }
-	
-	/**
-	* Print the Template
-	*/
-	public /*String*/ function printTemplate() { ?>
-		<div id="Edit" data-role="page">
-			<?php  $this->getHeader(); ?>
-			<?php $this->getContent(); ?>
-			<?php $this->getFooter(); ?>
 		</div>
 	<?php }
 	
