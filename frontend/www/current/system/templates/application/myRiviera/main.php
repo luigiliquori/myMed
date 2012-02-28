@@ -10,7 +10,7 @@
 	// IMPORT THE MAIN VIEW
 	require_once dirname(__FILE__).'/views/tabbar/FindView.class.php';
 	
-	//require_once dirname(__FILE__).'/views/tabbar/OptionView.class.php';
+	require_once dirname(__FILE__).'/views/tabbar/OptionView.class.php';
 	
 	// IMPORT DIALOG
 	//require_once dirname(__FILE__).'/views/dialog/EditDialog.class.php';
@@ -35,8 +35,8 @@
 	// VIEWs
 	$find = new FindView();
 	$find->printTemplate();
-	//$option = new OptionView($handler);
-	//$option->printTemplate();
+	$option = new OptionView();
+	$option->printTemplate();
 	
 	// DIALOG
 	//$edit = new EditDialog();

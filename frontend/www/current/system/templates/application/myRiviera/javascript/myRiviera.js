@@ -214,7 +214,7 @@ function calcRouteByCityway(result){
 				$("<h3>Attendre</h3>").appendTo(item);
 				$("<span style='font-size: 9pt; font-weight: lighter; padding:2px;'>Durée: "
 								+ tripSegment.duration + " min</span>").appendTo(item);
-				i--; // no markers for Wait
+				i++; // Wait markers should not be indexed, see updateMarkers below
 				break;
 			default:
 				$("<h3>" + tripSegment.transportMode.toLowerCase() + "</h3>").appendTo(
@@ -242,7 +242,7 @@ function calcRouteByCityway(result){
 					+ '\',\''
 					+ titre
 					+ '\',\''
-					+ i++
+					+ (j-i)
 					+ '\');'
 					+ (mobile == "mobile" ? ' $(\'#itineraire\').trigger(\'collapse\');"'
 							: ' map.panBy(' + (-$("#itineraire").width()) / 2 + ',0);"')
