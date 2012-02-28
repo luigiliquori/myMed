@@ -65,6 +65,10 @@ public class GlobalStateAndUtils {
 	private final String dateFormat;
 	private final String decNumberSeparator;
 	
+	public synchronized static void releaseResources(){
+		mInstance = null;
+	}
+	
 	
 	////////////////////////////////
 	/*   Format data utilities    */

@@ -223,10 +223,9 @@ public class HttpCall extends CallContract implements Runnable {
 				handler.callError(id,e.getStatus(),message);
 			}
 			Log.d(TAG, message);
-//			this.request.abort();
 		} catch (Exception e) {
 			message = CALL_ERROR+e.toString();
-			handler.callError(id,400,message+e.toString());
+			handler.callError(id,400,message);
 		} finally {
 			long endCall = System.currentTimeMillis();
 			if (message!=null) Log.d(TAG,"Result: "+message);

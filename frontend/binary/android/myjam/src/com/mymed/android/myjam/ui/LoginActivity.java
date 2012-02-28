@@ -9,9 +9,11 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.ContentObserver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -118,7 +120,16 @@ public class LoginActivity extends Activity implements IReceiver {
 	protected void onResume() {
 		super.onResume();
 		
-		mResultReceiver.setReceiver(this.getClass().getName(),this);		
+		mResultReceiver.setReceiver(this.getClass().getName(),this);
+		refreshLayout();
+		getContentResolver().registerContentObserver(
+				Login.CONTENT_URI,false, mSessionChangesObserver);
+	}
+	
+	/**
+	 * 	Set the layout according to the login status.
+	 */
+	private void refreshLayout(){
 		updateLoginStatus();
 		if (mGlobalState.isLogged()){
 				createLogOutLayout();
@@ -132,6 +143,9 @@ public class LoginActivity extends Activity implements IReceiver {
 		}
 	}
 	
+	/**
+	 * Updates the status of the login on {@link GlobalStateAndUtils}.
+	 */
 	private void updateLoginStatus(){
 		GlobalStateAndUtils instance = GlobalStateAndUtils.getInstance(getApplicationContext());
 		
@@ -144,6 +158,7 @@ public class LoginActivity extends Activity implements IReceiver {
 			instance.setLogged(searchCursor.getInt(LoginQuery.LOGGED)==1?true:false);
 			instance.setUserName(searchCursor.getString(LoginQuery.USER_NAME));
 			instance.setAccessToken(searchCursor.getString(LoginQuery.ACCESS_TOKEN));
+			checkAccessToken(instance.getAccessToken());
 		}else{
 			instance.setUserId(null);
 			instance.setLogin(null);
@@ -155,10 +170,21 @@ public class LoginActivity extends Activity implements IReceiver {
 		searchCursor.close();
 	}
 	
+	/**
+	 * 	Executed when a change on Login table is notified.
+	 */
+    private ContentObserver mSessionChangesObserver = new ContentObserver(new Handler()) {
+        @Override
+        public void onChange(boolean selfChange) {
+            refreshLayout();
+        }
+    };
+	
 	@Override 
 	protected void onPause() {
 		super.onPause();
 		mResultReceiver.clearReceiver();
+		getContentResolver().unregisterContentObserver(mSessionChangesObserver);
 	}
 	
 	@Override
@@ -170,6 +196,8 @@ public class LoginActivity extends Activity implements IReceiver {
 	public void onDestroy() {
 		super.onDestroy();
 		requestLogout(mGlobalState.getAccessToken());
+		GlobalStateAndUtils.releaseResources();
+		MyResultReceiver.shutdown();
 	}
 
 	private void createLogInLayout(){
@@ -182,7 +210,6 @@ public class LoginActivity extends Activity implements IReceiver {
 		mLogButton.setText(getResources().getString(R.string.login_button_label));
 		mLogButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				//TODO add empty test.
 				if (mLoginEditText.getText().length() == 0){
 					showDialog(DIALOG_NULL_LOGIN_ID);
 					return;
@@ -238,7 +265,6 @@ public class LoginActivity extends Activity implements IReceiver {
 	private void requestLogin(String login,String pwd){
 		final Intent intent = new Intent(LoginActivity.this, CallService.class);
 		intent.putExtra(CallService.EXTRA_ACTIVITY_ID, this.getClass().getName());
-		intent.putExtra(CallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
 		intent.putExtra(CallService.EXTRA_REQUEST_CODE, CallCode.LOG_IN);
 		intent.putExtra(CallService.EXTRA_PRIORITY_CODE, HttpCall.HIGH_PRIORITY);
 		intent.putExtra(CallService.EXTRA_NUMBER_ATTEMPTS, 1);
@@ -254,7 +280,6 @@ public class LoginActivity extends Activity implements IReceiver {
 	private void requestLogout(String accessToken){
 		final Intent intent = new Intent(LoginActivity.this, CallService.class);
 		intent.putExtra(CallService.EXTRA_ACTIVITY_ID, this.getClass().getName());
-		intent.putExtra(CallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
 		intent.putExtra(CallService.EXTRA_REQUEST_CODE, CallCode.LOG_OUT);
 		intent.putExtra(CallService.EXTRA_PRIORITY_CODE, HttpCall.HIGH_PRIORITY);
 		intent.putExtra(CallService.EXTRA_NUMBER_ATTEMPTS, 1);
@@ -265,6 +290,39 @@ public class LoginActivity extends Activity implements IReceiver {
         Log.d(TAG,"Intent sent: "+intent.toString());
         startService(intent);
 	}
+	
+	private void checkAccessToken(String accessToken){
+		final Intent intent = new Intent(LoginActivity.this, CallService.class);
+		intent.putExtra(CallService.EXTRA_ACTIVITY_ID, this.getClass().getName());
+		intent.putExtra(CallService.EXTRA_REQUEST_CODE, CallCode.CHECK_ACCESS_TOKEN);
+		intent.putExtra(CallService.EXTRA_PRIORITY_CODE, HttpCall.LOW_PRIORITY);
+		intent.putExtra(CallService.EXTRA_NUMBER_ATTEMPTS, 1);
+        Bundle bundle = new Bundle();
+        bundle.putString(CallContract.ACCESS_TOKEN, accessToken);
+        bundle.putString(CallContract.SOCIAL_NETWORK, "");
+        intent.putExtra(CallService.EXTRA_ATTRIBUTES, bundle);
+        Log.d(TAG,"Intent sent: "+intent.toString());
+        startService(intent);
+	}
+	
+//	/**
+//	 * Request the interruption of the current HP call.
+//	 * 
+//	 * @return {@value true} if there is an HP call ongoing, {@value false} otherwise. 
+//	 */
+//	private boolean requestInterruptCall(){
+//		final Intent intent = new Intent(LoginActivity.this, CallService.class);
+//		final int[] ongCallDetails;
+//		if ((ongCallDetails=MyResultReceiver.getInstance().getOngoingHPCall())!=null){
+//			intent.putExtra(CallService.EXTRA_ACTIVITY_ID, this.getClass().getName());
+//			intent.putExtra(CallService.EXTRA_CALL_ID, ongCallDetails[0]);
+//	        startService(intent);
+//	        return true;
+//		}else{
+//			return false;
+//		}
+//
+//	}
 	
 	private void startSearchActivity(){
 		final Intent intent = new Intent(LoginActivity.this, SearchActivity.class);
@@ -367,6 +425,11 @@ public class LoginActivity extends Activity implements IReceiver {
 				public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
 					if (keyCode == KeyEvent.KEYCODE_SEARCH && event.getRepeatCount() == 0) {
 						return true; // Pretend we processed it
+					}else if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0){
+						//The calls of LoginActivity are not stoppable.
+						if (MyResultReceiver.getInstance().getOngoingHPCall()==null && mDialog!=null)
+							mDialog.dismiss();
+						return true;
 					}
 					return false; // Any other keys are still processed as normal
 				}

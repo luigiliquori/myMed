@@ -17,6 +17,7 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.mymed.android.myjam.controller.CallContract;
 import com.mymed.android.myjam.controller.CallContract.CallCode;
+import com.mymed.android.myjam.controller.CallManager;
 import com.mymed.android.myjam.controller.HttpCall;
 import com.mymed.android.myjam.controller.HttpCallHandler;
 import com.mymed.android.myjam.exception.AbstractMymedException;
@@ -55,7 +56,6 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.os.RemoteException;
-import android.os.ResultReceiver;
 import android.util.Log;
 
 /**
@@ -143,7 +143,7 @@ public class CallService extends Service {
 
     	@Override
     	public void handleMessage(Message msg) {
-    		final ResultReceiver receiver; 
+    		final MyResultReceiver receiver; 
     		final Intent intent;
     		final String jsonObj;
     		final HttpCall call;
@@ -220,14 +220,31 @@ public class CallService extends Service {
     		/** The call ended due to an error. */
     		case MSG_CALL_ERROR:
     			Log.d(TAG,"Call "+msg.arg1+" error: "+(String) msg.obj);
-    			prepareCallBundle(call,(String) msg.obj,bundle);
-    			if (receiver != null) receiver.send(MSG_CALL_ERROR, bundle);
-    			if (call.getNumAttempts()>=call.getMaxNumAttempts())
-    				mCallsMap.remove(msg.arg1);
-    			else{
-    				/** After first attempt all calls are considered low priority. */
-    				call.setPriority(HttpCall.LOW_PRIORITY);
-    				executeCall(call);
+    			/*	Handling of corner cases.
+    			 * 
+    			 *  - If the session token is no more present on the back-end, but is locally stored on the
+    			 *  content provider, the application thinks it holds a valid token even if this is not actually
+    			 *  true.  
+    			 */ 
+    			// The application tries to log out, but the token is no more valid.
+    			if (call.getCallCode() == CallCode.LOG_OUT && msg.arg2 == 404){
+    				prepareCallBundle(call,(String) msg.obj,bundle);
+        			handleSuccessCall(msg);
+        			if (receiver != null) receiver.send(MSG_CALL_SUCCESS, bundle);
+    			}else if(call.getCallCode() == CallCode.CHECK_ACCESS_TOKEN && msg.arg2 == 404){
+    				prepareCallBundle(call,(String) msg.obj,bundle);
+        			handleSuccessCall(msg);
+        			if (receiver != null) receiver.send(MSG_CALL_SUCCESS, bundle);
+    			}else{
+    				prepareCallBundle(call,(String) msg.obj,bundle);
+        			if (receiver != null) receiver.send(MSG_CALL_ERROR, bundle);
+        			if (call.getNumAttempts()>=call.getMaxNumAttempts())
+        				mCallsMap.remove(msg.arg1); 
+        			else{
+        				/** After first attempt all calls are considered low priority. */
+        				call.setPriority(HttpCall.LOW_PRIORITY);
+        				executeCall(call);
+        			}
     			}
     			break;
     		case MSG_CALL_WAITING:
@@ -252,7 +269,7 @@ public class CallService extends Service {
     private void prepareCallBundle(HttpCall call, String message,Bundle bundle){
     	if (call!=null){
     		bundle.putInt(MyResultReceiver.CALL_ID, call.getCallId());
-    		bundle.putInt(MyResultReceiver.CALL_CODE, call.getCallId());
+    		bundle.putInt(MyResultReceiver.CALL_CODE, call.getCallCode());
     		bundle.putString(MyResultReceiver.ACTIVITY_ID, call.getActivityId());
     		bundle.putInt(MyResultReceiver.PRIORITY, call.getPriority());
     		bundle.putInt(MyResultReceiver.MAX_NUM_ATTEMPTS, call.getMaxNumAttempts());
@@ -275,7 +292,6 @@ public class CallService extends Service {
 		registerReceiver(networkStatusReceiver,filter);
 		/** List which stores the calls waiting to be executed, when the network connection is not available. */
 		mWaitingCalls = new ConcurrentLinkedQueue<HttpCall>();
-
         mServiceLooper = thread.getLooper();
         mServiceHandler = new ServiceHandler(mServiceLooper);
         /** Creates the maps to store MCallBean objects.*/
@@ -302,11 +318,15 @@ public class CallService extends Service {
     @Override
     public void onStart(Intent intent, int startId) {
         Message msg = mServiceHandler.obtainMessage();
-        int req = intent.getIntExtra(EXTRA_REQUEST_CODE, HttpCallHandler.INTERRUPT_CALL);
+        if (intent.getIntExtra(EXTRA_REQUEST_CODE, HttpCallHandler.INTERRUPT_CALL)==HttpCallHandler.INTERRUPT_CALL){
+        	msg.what = HttpCallHandler.INTERRUPT_CALL;
+        	msg.arg1 = intent.getIntExtra(EXTRA_CALL_ID, -1);
+        }else{
+        	msg.what = HttpCallHandler.NEW_CALL;
+            msg.arg1 = startId;
+            msg.obj = intent;
+        }
         /** If it is an interrupt request it doesn't carry the (@value EXTRA_REQUEST_CODE). */
-        msg.what = req==HttpCallHandler.INTERRUPT_CALL?HttpCallHandler.INTERRUPT_CALL:HttpCallHandler.NEW_CALL;
-        msg.arg1 = startId;
-        msg.obj = intent;
         mServiceHandler.sendMessage(msg);
     }
 
@@ -319,6 +339,7 @@ public class CallService extends Service {
 
     @Override
     public void onDestroy() {
+    	CallManager.shutDown();
     	unregisterReceiver(networkStatusReceiver);
         mServiceLooper.quit();
         Log.d(TAG, "onDestroy...");
@@ -481,8 +502,11 @@ public class CallService extends Service {
     		case CallCode.LOG_IN:
     			handleLogIn(result,call.getAttributes());
     			break;
+    		case CallCode.CHECK_ACCESS_TOKEN:
+    			handleCheckAccessToken(msg.arg2);
+    			break;
     		case CallCode.LOG_OUT:
-    			handleLogOut(result);
+    			handleLogOut();
     			break;
     		case CallCode.SEARCH_REPORTS:
     			handleSearchReports(result,call.getAttributes());
@@ -515,8 +539,8 @@ public class CallService extends Service {
     		mServiceHandler.callError(msg.arg1, 400, e.toString());
 		}
     }
-    
-    /**
+
+	/**
      * Executes the operations necessary to store the results upon a successful {@link LOG_IN}
      * 
      * @param callBean
@@ -553,18 +577,34 @@ public class CallService extends Service {
     }
     
     /**
+     * If the result code is not present (result code 404), the Login Data on the content provider is eliminated. 
+     * 
+     * @param resultCode
+     * @throws RemoteException
+     * @throws OperationApplicationException
+     */
+    private void handleCheckAccessToken(int resultCode) 
+    		throws RemoteException, OperationApplicationException {
+		if (resultCode == 200){
+			// Do nothing.
+		}else if (resultCode == 404)
+			handleLogOut();
+	}
+    
+    /**
      * Executes the operations necessary to store the results upon a successful {@link LOG_OUT}
      * 
      * @param callBean
      * @throws RemoteException
      * @throws OperationApplicationException
      */
-    private void handleLogOut(String message) 
+    private void handleLogOut() 
     		throws RemoteException, OperationApplicationException{
     	final ArrayList<ContentProviderOperation> batch = new ArrayList<ContentProviderOperation> (2);
     	
     	batch.add(ContentProviderOperation.newDelete(Login.CONTENT_URI).build());
     	mResolver.applyBatch(MyJamContract.CONTENT_AUTHORITY, batch);
+    	mResolver.notifyChange(Login.CONTENT_URI, null);
     }
     
     /**

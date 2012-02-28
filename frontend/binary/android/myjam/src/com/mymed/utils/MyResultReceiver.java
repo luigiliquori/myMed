@@ -171,6 +171,7 @@ public class MyResultReceiver extends ResultReceiver {
 		
 		switch (resultCode) {
 		case HttpCallHandler.MSG_CALL_START:
+			currActivity = activityId;
 			switch(priority){
 			case HttpCall.LOW_PRIORITY:
 				lowPriorityCalls.get(activityId).put(callId, callDetails);
@@ -218,5 +219,9 @@ public class MyResultReceiver extends ResultReceiver {
 			Log.w(TAG, "Dropping result on floor for code " + resultCode + ": "
 					+ bundle.toString());
 		}
+	}
+	
+	public static void shutdown(){
+		instance = null;
 	}
 }

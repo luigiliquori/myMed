@@ -42,7 +42,7 @@ public class HttpCallHandler extends Handler{
 	 * @param id Id of the call.
 	 */
 	public void callStart(int id){
-		this.sendMessage(obtainMessage(MSG_CALL_START, id, 0 ,null));	
+		this.sendMessage(obtainMessage(MSG_CALL_START, id, Integer.MIN_VALUE ,null));	
 	}
 	
 	/**
@@ -51,7 +51,7 @@ public class HttpCallHandler extends Handler{
 	 * @param id Id of the call.
 	 */
 	public void callNotStart(int id){
-		this.sendMessage(obtainMessage(MSG_CALL_NOT_STARTED, id, 0 ,null));	
+		this.sendMessage(obtainMessage(MSG_CALL_NOT_STARTED, id, Integer.MIN_VALUE ,null));	
 	}
 	
 	/**
@@ -60,7 +60,7 @@ public class HttpCallHandler extends Handler{
 	 * @param id Id of the call.
 	 */
 	public void callSuccess(int id, String result){
-		sendMessage(obtainMessage(MSG_CALL_SUCCESS, id, 0, result));
+		sendMessage(obtainMessage(MSG_CALL_SUCCESS, id, 200, result));
 	}
 	
 	/**
@@ -80,7 +80,7 @@ public class HttpCallHandler extends Handler{
 	 * @param id
 	 */
 	public void callInterrupted(int id){
-		this.sendMessage(obtainMessage(MSG_CALL_INTERRUPTED, id, 0 ,null));
+		this.sendMessage(obtainMessage(MSG_CALL_INTERRUPTED, id, Integer.MIN_VALUE ,null));
 	}
 	
 	/**
@@ -90,7 +90,7 @@ public class HttpCallHandler extends Handler{
 	 * @param id
 	 */
 	public void callWaiting(int id){
-		this.sendMessage(obtainMessage(MSG_CALL_WAITING, id, 0 ,null));
+		this.sendMessage(obtainMessage(MSG_CALL_WAITING, id, Integer.MIN_VALUE ,null));
 	}
 	
 	/**

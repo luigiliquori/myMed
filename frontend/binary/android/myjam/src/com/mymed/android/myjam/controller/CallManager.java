@@ -90,7 +90,8 @@ public class CallManager {
     		if (instance.highPriorityThread!=null){
     			Log.i(TAG, "High Priority executor thread terminating...");
     			//Wait for the termination of the thread.
-    			while (instance.highPriorityThread.isAlive()){};
+    			while (instance.highPriorityThread.isAlive()){  				
+    			}
     		}
 //    		while (!instance.highPriorityPool.isTerminated()) {
 //    		}
@@ -106,6 +107,7 @@ public class CallManager {
 
     		
     		instance.httpClient.getConnectionManager().shutdown();
+    		instance = null;
     	}
     }
     

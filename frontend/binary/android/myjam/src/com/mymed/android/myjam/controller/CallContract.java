@@ -5,6 +5,7 @@ public abstract class CallContract {
 	/** Call Code */
 	public interface CallCode{
 		int LOG_IN = 0x0;
+		int CHECK_ACCESS_TOKEN = 0x1;
 		int LOG_OUT = 0x2;
 
 		int SEARCH_REPORTS = 0x3;
@@ -93,6 +94,8 @@ public abstract class CallContract {
 		switch(callCode){
 		case CallCode.LOG_IN:
 			return AUTHENTICATION_HANDLER_URL;
+		case CallCode.CHECK_ACCESS_TOKEN:
+			return SESSION_HANDLER_URL;
 		case CallCode.LOG_OUT:
 			return SESSION_HANDLER_URL;
 		case CallCode.SEARCH_REPORTS:
@@ -126,6 +129,8 @@ public abstract class CallContract {
 		switch(callCode){
 		case CallCode.LOG_IN:
 			return HttpMethod.POST;
+		case CallCode.CHECK_ACCESS_TOKEN:
+			return HttpMethod.GET;			
 		case CallCode.LOG_OUT:
 			return HttpMethod.GET;
 		case CallCode.SEARCH_REPORTS:
@@ -158,6 +163,8 @@ public abstract class CallContract {
 	protected static final String getRequestCode(int callCode){
 		switch(callCode){
 		case CallCode.LOG_IN:
+			return RequestCode.READ.code;
+		case CallCode.CHECK_ACCESS_TOKEN:
 			return RequestCode.READ.code;
 		case CallCode.LOG_OUT:
 			return RequestCode.DELETE.code;
