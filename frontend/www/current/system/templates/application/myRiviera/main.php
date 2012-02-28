@@ -27,7 +27,7 @@
 	require_once 'system/templates/handler/MenuHandler.class.php';
 	$menuHandler = new MenuHandler();
 	$menuHandler->handleRequest(); ?>
-	<form action="?application=0" method="post" name="disconnectForm" id="disconnectForm">
+	<form action="?application=<?= APPLICATION_NAME ?>" method="post" name="disconnectForm" id="disconnectForm">
 	<input type="hidden" name="disconnect" value="1" />
 	</form>
 	<?php 
