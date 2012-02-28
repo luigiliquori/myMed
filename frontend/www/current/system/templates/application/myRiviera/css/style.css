@@ -6,12 +6,6 @@
 	padding: 0;
 }
 
-#opts_content{
-	width: 98%;
-	margin-left: auto;
-	margin-right: auto;
-}
-
 #itineraire{
 	position: absolute;
 	top: 40px;
@@ -107,18 +101,6 @@
 	margin-right:2%;
 }
 
-#Itin .ui-datebox-inline { 
-	margin-top: 5px;
-	border: none;
-	/*width: 150px;*/
-}
-#Itin .ui-flip-content {
-	width: 150px;
-}
-#Itin .ui-flip-center {
-	width: 50px;
-}
-
 #date .ui-btn-inner {
 	padding: 4px;
 	/*width: 40px;*/
@@ -126,11 +108,6 @@
 
 #date .ui-icon{
 	display:none;
-}
-
-#Itin fieldset {
-	display: inline;
-	margin: 5px;
 }
 
 .ui-page {
