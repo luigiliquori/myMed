@@ -28,7 +28,7 @@ function initialize() {
 	autocompleteDepart.bindTo('bounds', map);*/
 	
 	// resize the map canvas
-	$("#myRivieraMap").height($("body").height() - $('body').find('div[data-role=header]').outerHeight());
+	$($("#applicationName").val()).height($("body").height() - $('body').find('div[data-role=header]').outerHeight());
 
 	// init filterArray
 	updateFilter();

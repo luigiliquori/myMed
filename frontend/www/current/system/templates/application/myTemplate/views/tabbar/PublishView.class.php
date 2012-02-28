@@ -34,6 +34,10 @@ class PublishView extends MyApplication {
 	public /*String*/ function getContent() { ?>
 		<!-- CONTENT -->
 		<div class="content">
+		
+			<!-- MAP -->
+			<div id="<?= APPLICATION_NAME ?>Map" style="position: relative; width: 300px; height: 200px;"></div>
+		
 			<form  action="#" method="post" name="<?= APPLICATION_NAME ?>PublishForm" id="<?= APPLICATION_NAME ?>PublishForm" enctype="multipart/form-data">
 				<!-- Define the method to call -->
 				<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
