@@ -38,7 +38,7 @@ class OptionView extends MyApplication {
 	public /*String*/ function getHeader() { ?>
 		<div data-role="header" data-theme="b">
 			<h1>Options</h1>
-			<a href="#Find" data-role="button" class="ui-btn-left" data-icon="arrow-l" data-back="true">Retour</a>
+			<a href="#Find" data-role="button" class="ui-btn-left" data-icon="arrow-l" >Retour</a>
 		</div>
 	<?php }
 	
