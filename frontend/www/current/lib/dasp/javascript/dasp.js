@@ -62,7 +62,7 @@ function setupDASP(id, at, app){
 function setupDASPMap(mapID) {
 	if(!map) {
 		directionsDisplay =  new google.maps.DirectionsRenderer();
-
+		
 		// init Map
 		map = new google.maps.Map(document.getElementById(mapID), {
 			zoom: 16,
@@ -72,7 +72,7 @@ function setupDASPMap(mapID) {
 
 		// geolocaliseUser
 		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(displayPosition, displayError,
+			navigator.geolocation.watchPosition(displayPosition, displayError,
 					{enableHighAccuracy : true, timeout: 5000, maximumAge: 0});	
 		} else {
 			alert("Votre navigateur ne prend pas en compte la géolocalisation HTML5");

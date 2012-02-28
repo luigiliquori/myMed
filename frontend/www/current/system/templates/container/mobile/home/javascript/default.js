@@ -1,10 +1,10 @@
 function initialize() {
-    geoloc();
+  geoloc();
 }
 
 function geoloc() {
 	if (navigator.geolocation)
-		navigator.geolocation.watchPosition(successCallback, null, {enableHighAccuracy:true});
+		navigator.geolocation.getCurrentPosition(successCallback, null, {enableHighAccuracy:true});
 	else
 	    alert("Votre navigateur ne prend pas en compte la géolocalisation HTML5");
 }

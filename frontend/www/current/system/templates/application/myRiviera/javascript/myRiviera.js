@@ -146,8 +146,8 @@ function updateMarkers(latitude, longitude, icon, title, index) {
 	
 	//FOCUS ON POSITION
 	focusOnPosition(latitude, longitude);
-	$('#itineraireContent li').eq(prevSegmentID).removeClass('ui-btn-hover-d').addClass('ui-btn-up-d');
-	$('#itineraireContent li').eq(index).removeClass('ui-btn-up-d').addClass('ui-btn-hover-d');
+	$('#itineraireContent li').eq(prevSegmentID).removeClass('ui-btn-hover-e').addClass('ui-btn-up-d');
+	$('#itineraireContent li').eq(index).removeClass('ui-btn-up-d').addClass('ui-btn-hover-e');
 
 	// ADD THE MARKER OF THE CURRENT SEGMENT
 	currentSegmentID = index;
@@ -158,10 +158,11 @@ function updateMarkers(latitude, longitude, icon, title, index) {
 	for ( var i = 0; i < filterArray.length; i++) {
 		otherMarkers(latitude, longitude, filterArray[i], index);
 	}
-	len = $('#itineraireContent .ui-li a').length;
 	var c = eval(currentSegmentID);
-	$('#next-step').attr('onclick', $('#itineraireContent .ui-li a').eq(c<len-1?c+1:0).attr('onclick'));
-	$('#prev-step').attr('onclick', $('#itineraireContent .ui-li a').eq(c>0?c-1:len-1).attr('onclick'));
+	var len = $('#itineraireContent .ui-li a').length;
+	
+	$('#next-step').attr('onclick', $('#itineraireContent .ui-li a').eq(Math.min(c+1, len-1)).attr('onclick'));
+	$('#prev-step').attr('onclick', $('#itineraireContent .ui-li a').eq(Math.max(c-1, 0)).attr('onclick'));
 	
 	prevSegmentID = index;
 }
@@ -403,9 +404,9 @@ function myRivieraShowTrip(start, end, icon) {
 
 	// SHOW ITINERAIRE
 	$("#itineraire").delay(1500).fadeIn("slow");
-	$("#next-prev").delay(1500).fadeIn("slow");
-	if (mobile == "mobile")	$("#next-prev").css('top', '-3px');
-	$('#next-step').attr('onclick', $('#itineraireContent .ui-li a').eq(1).attr('onclick'));
+	$("#next-step, #prev-step").delay(1500).fadeIn("slow");
+	if (mobile == "mobile")	$("#next-step, #prev-step").css('top', '0');
+	$('#next-step').attr('onclick', $('#itineraireContent .ui-li a').eq(0).attr('onclick'));
 	$('#prev-step').attr('onclick', $('#itineraireContent .ui-li a').eq(0).attr('onclick'));
 }
 
@@ -414,11 +415,9 @@ function myRivieraShowTrip(start, end, icon) {
  * 
  * @param dest
  */
-function changeDestination(dest) {
-	picture = $("#select" + dest).val().split("&&")[0];
-	address = $("#select" + dest).val().split("&&")[1];
-	$("#" + dest).val(address);
-	$("#" + dest).css("background-image", 'url(' + picture + ')');
+function changeDestination() {
+	$("#arrivee").val($("#selectarrivee").val().split("&&")[1]);
+	$("#arrivee").css("background-image", 'url(' + $("#selectarrivee").val().split("&&")[0] + ')');
 }
 
 var geocoder = new google.maps.Geocoder(), geocoder2 = new google.maps.Geocoder();
@@ -429,7 +428,7 @@ function validateIt() {
 	if ($("#depart").val() != "") {
 		geocoder.geocode({'address' : $("#depart").val()}, function(results, status) {
 			if (status == google.maps.GeocoderStatus.OK) {
-				geocodestart = results[0].geometry.location
+				geocodestart = results[0].geometry.location;
 				console.log(results[0].geometry.location);
 				validateIt2();
 			} else {
@@ -453,7 +452,7 @@ function validateIt2() {
 	if ($("#arrivee").val() != "") {
 		geocoder.geocode({'address' : $("#arrivee").val()}, function(results, status) {
 			if (status == google.maps.GeocoderStatus.OK) {
-				geocodeend = results[0].geometry.location
+				geocodeend = results[0].geometry.location;
 				console.log(results[0].geometry.location);
 				
 				date = $('#select-year').val()+"-"+
@@ -471,7 +470,7 @@ function validateIt2() {
 				var tModes0 = $('#cityway-search input:checkbox:not(:checked)');
 				var transitModes=0;
 				if (tModes0.length){
-					var tModes = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+					var tModes = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]; //all 20 modes enabled
 					for (var i=0; i<tModes0.length; i++){
 						tModes[tModes0[i].id.match(/\d+/)] = 0; //get the number in the id, that represent the cityway mode index
 					}

@@ -2,14 +2,20 @@
 	position: relative;
 	top:  0px;
 	left:0px;
-	width: 100%; 
+	width: 100%;
 	padding: 0;
 }
 
+#opts_content{
+	width: 98%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 #itineraire{
-	position: absolute; 
-	top: 40px; 
-	left:10px; 	
+	position: absolute;
+	top: 40px;
+	left:10px;
 	text-align: left;
 	display: none;
 	opacity: 0.9;
@@ -25,24 +31,19 @@
 	padding: 0;
 }
 
-#next-prev{
-	position: absolute;  
+#next-step, #prev-step{
+	position: absolute;
 	display: none;
 	opacity: 0.8;
 	top: 40px;
-	left: 40%;
-}
-#next-prev a{
-	position: relative;
-	margin-bottom: 0;
-	padding-top: 3px;
-	padding-bottom: 3px;
 }
 #next-step{
-	padding-left: 6px;
+	padding-left: 3%;
+	left: 54%;
 }
 #prev-step{
-	padding-right: 6px;
+	padding-right: 3%;
+	left: 40%
 }
 
 .steps{ /* items in the itinary list*/
@@ -107,7 +108,7 @@
 }
 
 #Itin .ui-datebox-inline { 
-	margin-top: 5px; 
+	margin-top: 5px;
 	border: none;
 	/*width: 150px;*/
 }
@@ -119,7 +120,7 @@
 }
 
 #date .ui-btn-inner {
-	padding: 4px; 
+	padding: 4px;
 	/*width: 40px;*/
 }
 

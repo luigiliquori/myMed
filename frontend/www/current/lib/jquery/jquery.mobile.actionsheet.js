@@ -104,7 +104,7 @@
 				width = $(window).width(),
 				scrollPosition = $(window).scrollTop();
 			this.content.css({
-				'top': (scrollPosition + height / 2 - this.content.height() / 2),
+				'top': (this.content.selector=="#Opt")?42:(scrollPosition + height / 2 - this.content.height() / 2),
 				'left': (width / 2 - this.content.width() / 2)
 			});
 		}
