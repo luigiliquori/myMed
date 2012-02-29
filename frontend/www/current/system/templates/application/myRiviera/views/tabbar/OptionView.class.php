@@ -53,61 +53,58 @@ class OptionView extends MyApplication {
 			<div data-role="collapsible-set">
 			
 				<!-- POIs - Filter -->
-		<div data-role="collapsible" data-collapsed="true" data-theme="b"
-			data-content-theme="c" style="text-align: left;">
-			<h3>Points d'interêts</h3>
-			<div id="<?= APPLICATION_NAME ?>Filter" data-role="controlgroup">
-
-
-			<?php foreach ($this->filterList as $filter) { ?>
-				<input type="checkbox" name="<?= $filter ?>" id="<?= $filter ?>"
-					class="custom" checked="checked" /> <label for="<?= $filter ?>"><?= $filter ?>
-				</label>
-				    	<?php } ?>
-				    </div>
-		</div>
-
-		<!-- POIs - radius -->
-		<div data-role="collapsible" data-collapsed="true" data-theme="b"
-			data-content-theme="c" style="text-align: left;">
-			<h3>Rayon de recherche</h3>
-			Mètre:<br> <input type="range" name="slider" id="distanceslider"
-				value="500" min="100" max="1000" data-theme="b" />
-		</div>
-
-		<!-- Search Option -->
-		<div id="cityway-search" data-role="collapsible" data-collapsed="true" data-theme="b"
-			data-content-theme="c">
-			<h3>Type de Trajet Cityway</h3>
-			
-			
-			<div data-role="fieldcontain">
-				<fieldset data-role="controlgroup" data-type="horizontal">
-					<input type="radio" name="radio-choice" id="radio-choice-1" value="fastest" checked="checked" /> 
-					<label for="radio-choice-1">Le plus rapide</label>
-					<input type="radio" name="radio-choice" id="radio-choice-2"	value="lessChanges" /> 
-					<label for="radio-choice-2">Le moins de changements</label>
-				</fieldset>
-			</div>
-			
-			<div data-role="fieldcontain">
-				<fieldset data-role="controlgroup" data-type="horizontal">
-					<input type="checkbox" name="checkbox" id="checkbox-0" checked="checked" /><label for="checkbox-0">Bus</label>
-					<input type="checkbox" name="checkbox" id="checkbox-1" checked="checked" /><label for="checkbox-1">Metro</label>
-					<input type="checkbox" name="checkbox" id="checkbox-2" checked="checked" /><label for="checkbox-2">Car</label>
-					<input type="checkbox" name="checkbox" id="checkbox-3" checked="checked" /><label for="checkbox-3">Train</label>
-					<input type="checkbox" name="checkbox" id="checkbox-4" checked="checked" /><label for="checkbox-4">Tram</label>
-					<input type="checkbox" name="checkbox" id="checkbox-5" checked="checked" /><label for="checkbox-5">Ter</label>
-					<input type="checkbox" name="checkbox" id="checkbox-6" checked="checked" /><label for="checkbox-6">Boat</label>
-					<input type="checkbox" name="checkbox" id="checkbox-13" checked="checked" /><label for="checkbox-13">Avion</label>
-					<input type="checkbox" name="checkbox" id="checkbox-19" checked="checked" /><label for="checkbox-19">Tgv</label>
-				</fieldset>
-			</div>
+				<div data-role="collapsible" data-collapsed="true" data-theme="b"
+					data-content-theme="c" style="text-align: left;">
+					<h3>Points d'interêts</h3>
+					<div id="<?= APPLICATION_NAME ?>Filter" data-role="controlgroup">
+					<?php foreach ($this->filterList as $filter) { ?>
+						<input type="checkbox" name="<?= $filter ?>" id="<?= $filter ?>"
+							class="custom" checked="checked" /> <label for="<?= $filter ?>"><?= $filter ?>
+						</label>
+					<?php } ?>
+					</div>
+				</div>
 		
-		</div>
+				<!-- POIs - radius -->
+				<div data-role="collapsible" data-collapsed="true" data-theme="b"
+					data-content-theme="c" style="text-align: left;">
+					<h3>Rayon de recherche</h3>
+					Mètre:<br> <input type="range" name="slider" id="distanceslider"
+						value="500" min="100" max="1000" data-theme="b" />
+				</div>
 		
-
-		<!-- Profile -->
+				<!-- Search Option -->
+				<div id="cityway-search" data-role="collapsible" data-collapsed="true" data-theme="b"
+					data-content-theme="c">
+					<h3>Type de Trajet Cityway</h3>
+					
+					
+					<div data-role="fieldcontain">
+						<fieldset data-role="controlgroup" data-type="horizontal">
+							<input type="radio" name="radio-choice" id="radio-choice-1" value="fastest" checked="checked" /> 
+							<label for="radio-choice-1">Le plus rapide</label>
+							<input type="radio" name="radio-choice" id="radio-choice-2"	value="lessChanges" /> 
+							<label for="radio-choice-2">Le moins de changements</label>
+						</fieldset>
+					</div>
+					
+					<div data-role="fieldcontain">
+						<fieldset data-role="controlgroup" data-type="horizontal">
+							<input type="checkbox" name="checkbox" id="checkbox-0" checked="checked" /><label for="checkbox-0">Bus</label>
+							<input type="checkbox" name="checkbox" id="checkbox-1" checked="checked" /><label for="checkbox-1">Metro</label>
+							<input type="checkbox" name="checkbox" id="checkbox-2" checked="checked" /><label for="checkbox-2">Car</label>
+							<input type="checkbox" name="checkbox" id="checkbox-3" checked="checked" /><label for="checkbox-3">Train</label>
+							<input type="checkbox" name="checkbox" id="checkbox-4" checked="checked" /><label for="checkbox-4">Tram</label>
+							<input type="checkbox" name="checkbox" id="checkbox-5" checked="checked" /><label for="checkbox-5">Ter</label>
+							<input type="checkbox" name="checkbox" id="checkbox-6" checked="checked" /><label for="checkbox-6">Boat</label>
+							<input type="checkbox" name="checkbox" id="checkbox-13" checked="checked" /><label for="checkbox-13">Avion</label>
+							<input type="checkbox" name="checkbox" id="checkbox-19" checked="checked" /><label for="checkbox-19">Tgv</label>
+						</fieldset>
+					</div>
+				
+				</div>
+		
+				<!-- Profile -->
 				<div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="c">
 					<h3>Profile</h3>
 					<?php if($_SESSION['user']->profilePicture != "") { ?>

@@ -1,6 +1,6 @@
 <?php 
 	// NAME OF THE APPLICATION
-	define('APPLICATION_NAME', "myTemplate");
+	define('APPLICATION_NAME', "myApplication");
 	
 	// DEFINE ATTRIBUTES FOR THE JAVASCRIPT PART (AJAX CALL)
 	echo "<input type='hidden' id='userID' value='" . $_SESSION['user']->id . "' />";
