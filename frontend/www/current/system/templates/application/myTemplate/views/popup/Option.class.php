@@ -9,7 +9,11 @@ require_once 'lib/dasp/beans/MDataBean.class.php';
  * @author lvanni
  *
  */
-class Validate extends MyApplication {
+class Option extends MyApplication {
+	
+	/* --------------------------------------------------------- */
+	/* Attributes */
+	/* --------------------------------------------------------- */
 	
 	/* --------------------------------------------------------- */
 	/* Constructors */
@@ -17,7 +21,7 @@ class Validate extends MyApplication {
 	/**
 	 * Default constructor
 	 */
-	public function __construct( $id = "Validate") {
+	public function __construct( $id = "Option") {
 		parent::__construct($id);
 	}
 	
@@ -30,7 +34,7 @@ class Validate extends MyApplication {
 	public /*String*/ function getHeader() { ?>
 		<!-- HEADER -->
 		<div data-role="header" data-theme="a">
-			<h1>Créer Application</h1>
+			<h1>Option</h1>
 		</div>
 	<?php }
 
@@ -40,9 +44,9 @@ class Validate extends MyApplication {
 	public /*void*/ function getContent() { ?>
 		<!-- CONTENT -->
 		<div class="content" data-role="content">
-			<input type="text" id="myAppName" name="myAppName" value="Nom de l'application" data-mini="true" />
+			<label for="slider-0">Nombre de vue :</label>
 			<center>
-				<a href="#" data-role="button" data-theme="g" data-inline="true" onclick="createApplication();">Valider</a>
+				<input type="range" name="slider" id="slider-0" value="3" min="1" max="5" />
 			</center>
 		</div>
 	<?php }

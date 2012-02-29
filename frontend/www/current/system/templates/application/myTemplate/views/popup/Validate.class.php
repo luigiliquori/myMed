@@ -40,9 +40,9 @@ class Validate extends MyApplication {
 	public /*void*/ function getContent() { ?>
 		<!-- CONTENT -->
 		<div class="content" data-role="content">
-			<input type="text" id="myAppName" name="myAppName" value="Nom de l'application" data-mini="true" />
+			<input type="text" name="name" value="Nom de l'application" id="basic" data-mini="true" />
 			<center>
-				<a href="#" data-role="button" data-theme="g" data-inline="true" onclick="createApplication();">Valider</a>
+				<a href="#" data-role="button" data-theme="g" data-inline="true">Valider</a>
 			</center>
 		</div>
 	<?php }

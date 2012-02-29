@@ -84,3 +84,26 @@ function refreshMap(address) {
 	});
 
 }
+
+
+/* --------------------------------------------------------- */
+/* Create Application */
+/* --------------------------------------------------------- */
+function createApplication() {
+	
+	url = "?myAppName=" + $("#myAppName").val();
+	
+	for(var i=1 ; i < 4 ; i++) {
+		url += "&VIEW_" + i + "_GEOLOC=" + $("#VIEW_" + i + "_GEOLOC").val() +
+		"&VIEW_" + i + "_MAP=" + $("#VIEW_" + i + "_MAP").val() +
+		"&VIEW_" + i + "_PUBLISH=" + $("#VIEW_" + i + "_PUBLISH").val() +
+		"&VIEW_" + i + "_SUBSCRIBE=" + $("#VIEW_" + i + "_SUBSCRIBE").val() +
+		"&VIEW_" + i + "_FIND=" + $("#VIEW_" + i + "_FIND").val() +
+		"&VIEW_" + i + "_PROFILE=" + $("#VIEW_" + i + "_PROFILE").val() +
+		"&VIEW_" + i + "_SOCIAL_NETWORK=" + $("#VIEW_" + i + "_SOCIAL_NETWORK").val();
+	}
+	
+	$(location).attr('href',url);
+}
+
+

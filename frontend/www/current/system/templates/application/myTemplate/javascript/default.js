@@ -18,6 +18,12 @@ function initialize() {
 		autocompleteAddr.bindTo('bounds', map);
 	}
 	
+	// resize the map on page change
+	for(var i = 1 ; i < 4 ; i++) {
+		$("#View" + i).live("pageshow", function (event, ui) {
+			google.maps.event.trigger(map, 'resize');
+		});
+	}
 }
 
 /**

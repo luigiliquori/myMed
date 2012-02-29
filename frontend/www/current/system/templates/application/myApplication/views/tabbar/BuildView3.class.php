@@ -45,16 +45,16 @@ class BuildView3 extends MainView {
 		<div data-role="collapsible" data-collapsed="false">
 			<h3>Géolocalisation</h3>
 			
-			<label for="flip-a">Activer:</label>
-			<select name="slider" id="flip-a" data-role="slider">
-				<option value="off">Non</option>
-				<option value="on">Oui</option>
+			<label>Activer:</label>
+			<select name="slider" id="VIEW_3_GEOLOC" data-role="slider">
+				<option value="false">Non</option>
+				<option value="true">Oui</option>
 			</select> 
 			<br /><br />
-			<label for="flip-a">Affichage de la carte:</label>
-			<select name="slider" id="flip-a" data-role="slider">
-				<option value="off">Non</option>
-				<option value="on">Oui</option>
+			<label>Affichage de la carte:</label>
+			<select name="slider" id="VIEW_3_MAP" data-role="slider">
+				<option value="false">Non</option>
+				<option value="true">Oui</option>
 			</select> 
 		</div>
 	<?php }
@@ -63,10 +63,10 @@ class BuildView3 extends MainView {
 		<!-- PUBLISH FEATURE -->
 		<div data-role="collapsible">
 			<h3>Publication</h3>
-			<label for="flip-a">Activer:</label>
-			<select name="slider" id="flip-a" data-role="slider">
-				<option value="off">Non</option>
-				<option value="on">Oui</option>
+			<label>Activer:</label>
+			<select name="slider" id="VIEW_3_PUBLISH" data-role="slider">
+				<option value="false">Non</option>
+				<option value="true">Oui</option>
 			</select> 
 		</div>
 	<?php }
@@ -75,10 +75,10 @@ class BuildView3 extends MainView {
 		<!-- SUBSCRIBE FEATURE -->
 		<div data-role="collapsible">
 			<h3>Souscription</h3>
-			<label for="flip-a">Activer:</label>
-			<select name="slider" id="flip-a" data-role="slider">
-				<option value="off">Non</option>
-				<option value="on">Oui</option>
+			<label>Activer:</label>
+			<select name="slider" id="VIEW_3_SUBSCRIBE" data-role="slider">
+				<option value="false">Non</option>
+				<option value="true">Oui</option>
 			</select> 
 		</div>
 	<?php }
@@ -87,10 +87,10 @@ class BuildView3 extends MainView {
 		<!-- FIND FEATURE -->
 		<div data-role="collapsible">
 			<h3>Recherche</h3>
-			<label for="flip-a">Activer:</label>
-			<select name="slider" id="flip-a" data-role="slider">
-				<option value="off">Non</option>
-				<option value="on">Oui</option>
+			<label>Activer:</label>
+			<select name="slider" id="VIEW_3_FIND" data-role="slider">
+				<option value="false">Non</option>
+				<option value="true">Oui</option>
 			</select> 
 		</div>
 	<?php }
@@ -98,10 +98,10 @@ class BuildView3 extends MainView {
 	protected /*void*/ function getProfileFeature() { ?>
 		<div data-role="collapsible" data-collapsed="true">
 			<h3>Profile</h3>
-			<label for="flip-a">Activer:</label>
-			<select name="slider" id="flip-a" data-role="slider">
-				<option value="off">Non</option>
-				<option value="on">Oui</option>
+			<label>Activer:</label>
+			<select name="slider" id="VIEW_3_PROFILE" data-role="slider">
+				<option value="false">Non</option>
+				<option value="true">Oui</option>
 			</select> 
 		</div>
 	<?php }
@@ -110,10 +110,10 @@ class BuildView3 extends MainView {
 		<!-- FRIENDS -->
 		<div data-role="collapsible" data-collapsed="true">
 		 	<h3>Reseaux Sociaux</h3>
-		 	<label for="flip-a">Activer:</label>
-			<select name="slider" id="flip-a" data-role="slider">
-				<option value="off">Non</option>
-				<option value="on">Oui</option>
+		 	<label>Activer:</label>
+			<select name="slider" id="VIEW_3_SOCIAL_NETWORK" data-role="slider">
+				<option value="false">Non</option>
+				<option value="true">Oui</option>
 			</select> 
 		 </div>
 	<?php }

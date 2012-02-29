@@ -10,16 +10,14 @@
 	// LOAD DASP JAVASCRIPT LIBRARY
 	echo "<script src='lib/dasp/javascript/dasp.js'></script>";
 	
-	// IMPORT THE MAIN VIEW
-	require_once dirname(__FILE__).'/views/tabbar/MainView.class.php';
-	require_once dirname(__FILE__).'/views/tabbar/BuildView1.class.php';
-	require_once dirname(__FILE__).'/views/tabbar/BuildView2.class.php';
-	require_once dirname(__FILE__).'/views/tabbar/BuildView3.class.php';
-
-	// IMPORT POPUP
-	require_once dirname(__FILE__).'/views/popup/Option.class.php';
-	require_once dirname(__FILE__).'/views/popup/Validate.class.php';
+	// IMPORT CONFIG
+	require_once dirname(__FILE__).'/myConfig.php';
 	
+	// IMPORT THE MAIN VIEW
+	require_once dirname(__FILE__).'/views/tabbar/View1.class.php';
+	require_once dirname(__FILE__).'/views/tabbar/View2.class.php';
+	require_once dirname(__FILE__).'/views/tabbar/View3.class.php';
+
 	// IMPORT THE RESULT VIEW
 	require_once dirname(__FILE__).'/views/result/ResultView.class.php';
 	require_once dirname(__FILE__).'/views/result/DetailView.class.php';
@@ -29,7 +27,8 @@
 	$handler = new MyApplicationHandler();
 	$handler->handleRequest();
 
-	if(isset($_POST['method'])) { 				// Print The Results View
+	// DEFINE VIEWs
+	if(isset($_POST['method'])) { 			
 		if($_POST['method'] == 'getDetail') {
 			$details = new DetailView($handler);
 			$details->printTemplate();
@@ -37,23 +36,15 @@
 			$result = new ResultView($handler);
 			$result->printTemplate();
 		}
-	} else {									// Print The Default Views
-		$main = new MainView();
-		$main->printTemplate();
+	} else {									
+		$view1 = new View1();
+		$view1->printTemplate();
 		
-		$build1 = new BuildView1();
-		$build1->printTemplate();
+		$view2 = new View2();
+		$view2->printTemplate();
 		
-		$build2 = new BuildView2();
-		$build2->printTemplate();
+		$view3 = new View3();
+		$view3->printTemplate();
 		
-		$build3 = new BuildView3();
-		$build3->printTemplate();
-		
-		$option = new Option();
-		$option->printTemplate();
-		
-		$validate = new Validate();
-		$validate->printTemplate();
 	}
 ?>

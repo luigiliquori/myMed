@@ -26,8 +26,11 @@
 	
 	// IMPORT AND DEFINE THE REQUEST HANDLER
 	require_once dirname(__FILE__).'/handler/MyApplicationHandler.class.php';
-	$handler = new MyApplicationHandler();
-	$handler->handleRequest();
+	$appHandler = new MyApplicationHandler();
+	$appHandler->handleRequest();
+	require_once dirname(__FILE__).'/handler/BuilderHandler.class.php';
+	$builder = new BuilderHandler();
+	$builder->handleRequest();
 
 	if(isset($_POST['method'])) { 				// Print The Results View
 		if($_POST['method'] == 'getDetail') {
@@ -40,7 +43,7 @@
 	} else {									// Print The Default Views
 		$main = new MainView();
 		$main->printTemplate();
-		
+
 		$build1 = new BuildView1();
 		$build1->printTemplate();
 		

@@ -9,7 +9,7 @@ require_once 'lib/dasp/beans/MDataBean.class.php';
  * @author lvanni
  *
  */
-class MainView extends MyApplication {
+class View1 extends MyApplication {
 	
 	/* --------------------------------------------------------- */
 	/* Attributes */
@@ -21,7 +21,7 @@ class MainView extends MyApplication {
 	/**
 	 * Default constructor
 	 */
-	public function __construct( $id = "mainView") {
+	public function __construct($id = "View1") {
 		parent::__construct($id);
 	}
 	
@@ -34,9 +34,9 @@ class MainView extends MyApplication {
 	public /*String*/ function getHeader() { ?>
 		<!-- HEADER -->
 		<div data-role="header" data-theme="a">
-			<a href="#buildView1" data-role="button" data-theme="g" data-transition="slidedown" data-icon="gear">Nouvelle Application</a>
-			<h1>myMed - Fonctionnalités</h1>
-			<a href="?application=0" rel="external" data-role="button" data-theme="r" class="ui-btn-right" data-icon="delete">Fermer</a>
+			<a href="?application=0" rel="external" data-role="button" data-theme="r" data-icon="delete">Fermer</a>
+			<h1><?= APPLICATION_NAME ?></h1>
+			<a href="#View2" data-role="button" class="ui-btn-right">Vue 2</a>
 		</div>
 	<?php }
 		
@@ -123,7 +123,7 @@ class MainView extends MyApplication {
 				<input type="hidden" name="ontology2" value="<?= urlencode(json_encode($date)); ?>">
 
 				<br /><br />
-				<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>SubscribeForm.submit()" >Souscrire</a>	
+				<a href="#" data-role="button"onclick="document.<?= APPLICATION_NAME ?>SubscribeForm.submit()" >Souscrire</a>	
 			</form>
 		</div>
 	<?php }
@@ -223,17 +223,24 @@ class MainView extends MyApplication {
 	public /*void*/ function getContent() { ?>
 		<!-- CONTENT -->
 		<div class="content">
-				<center>
-					<div data-role="collapsible-set" data-theme="a" data-content-theme="d" style="width: 70%; text-align: left;"> 
-						<?php $this->getMapFeature() ?>
-						<?php $this->getPublishFeature() ?>
-						<?php $this->getFindFeature() ?>	
-						<?php $this->getSubscribeFeature() ?>
-						<?php $this->getProfileFeature() ?>
-						<?php $this->getSocialNetworkFeature() ?>
-					</div>
-				</center>
-			
+			<center>
+				<div data-role="collapsible-set" data-theme="a" data-content-theme="d" style="width: 70%; text-align: left;"> 
+					<?php 
+					if(VIEW_1_MAP)
+						$this->getMapFeature();
+					if(VIEW_1_PUBLISH)
+						$this->getPublishFeature();
+					if(VIEW_1_SUBSCRIBE)
+						$this->getSubscribeFeature();
+					if(VIEW_1_FIND)
+						$this->getFindFeature();
+					if(VIEW_1_PROFILE)
+						$this->getProfileFeature();
+					if(VIEW_1_SOCIAL_NETWORK)
+						$this->getSocialNetworkFeature();
+					?> 
+				</div>
+			</center>
 		</div>
 	<?php }
 	
