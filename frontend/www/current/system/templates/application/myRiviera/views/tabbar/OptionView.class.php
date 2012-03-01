@@ -61,6 +61,18 @@ public /*String*/ function getContent() { ?>
 				</label><?php } ?>
 			</fieldset>
 		</div>
+		
+		<!-- Persistence -->
+		<div data-role="collapsible" data-collapsed="true" data-theme="b"
+			data-content-theme="c">
+			<h3>Persistence des points d'intérêts</h3>
+			<fieldset id="flip-persistence" data-role="controlgroup" data-type="horizontal" style="width:200px;">	
+				<select name="flip-per" id="flip-per" data-role="slider" onchange="if(!$(this).val()) {clearMarkers();}">
+					<option value=''>non</option>
+					<option value='1'>oui</option>
+				</select>
+			</fieldset>
+		</div>
 
 		<!-- POIs - radius -->
 		<div data-role="collapsible" data-collapsed="true" data-theme="b"
@@ -74,7 +86,7 @@ public /*String*/ function getContent() { ?>
 		<div id="cityway-search" data-role="collapsible" data-collapsed="true"
 			data-theme="b" data-content-theme="c">
 			<h3>Type de Trajet Cityway</h3>
-			<fieldset data-role="controlgroup" data-type="horizontal" style="width:280px;">
+			<fieldset data-role="controlgroup" data-type="horizontal">
 				<input type="radio" name="radio-choice" id="radio-choice1" value="fastest" checked="checked" />
 				<label for="radio-choice1">Le	+ rapide</label>
 				<input type="radio" name="radio-choice" id="radio-choice2" value="lessChanges" />
@@ -88,18 +100,6 @@ public /*String*/ function getContent() { ?>
 				<input type="checkbox" name="checkbox" id="checkbox5" checked="checked" /><label for="checkbox5">Ter</label>
 				<input type="checkbox" name="checkbox" id="checkbox17" checked="checked" /><label for="checkbox17">Nav_élec</label>
 				<input type="checkbox" name="checkbox" id="checkbox19" checked="checked" /><label	for="checkbox19">Tgv</label>
-			</fieldset>
-		</div>
-		
-		<!-- Persistence -->
-		<div data-role="collapsible" data-collapsed="true" data-theme="b"
-			data-content-theme="c">
-			<h3>Persistence</h3>
-			<fieldset id="flip-persistence" data-role="controlgroup" data-type="horizontal" style="width:200px;">	
-				<select name="flip-per" id="flip-per" data-role="slider" onchange="if(!$(this).val()) {clearMarkers();}">
-					<option value=''>false</option>
-					<option value='1'>true</option>
-				</select>
 			</fieldset>
 		</div>
 
@@ -169,13 +169,13 @@ public /*String*/ function getContent() { ?>
 			<h3>Points d'intérêts</h3>
 			<p>Ils désignent les types d'établissements, d'évênements que vous souhaitez
 				afficher sur la carte.</p>
+			<h3>Persistence des points d'intérêts</h3>
+			<p>Cette préférence permet ou non de conserver les points d'intérêts visités visibles ou non</p>
 			<h3>Rayon de recherche</h3>
 			<p>La valeur, en mètres, autours de la position actuelle pour laquelle vous
 				souhaitez rechercher des points d'intérêts.</p>
 			<h3>Types de Trajet Cityway</h3>
 			<p>Ces champs permettent de paramétrer votre recherche d'itinéraire.</p>
-			<h3>Persistence</h3>
-			<p>Cette préférence permet ou non de conserver les points d'intérêts visités visibles ou non</p>
 			<h3>Profil</h3>
 			<p>Ce champ donne accès à votre profil myRiviera</p>
 			<h3>Mes amis</h3>

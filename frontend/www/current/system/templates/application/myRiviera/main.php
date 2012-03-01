@@ -13,7 +13,7 @@
 	require_once dirname(__FILE__).'/views/tabbar/OptionView.class.php';
 	
 	// IMPORT DIALOG
-	//require_once dirname(__FILE__).'/views/dialog/EditDialog.class.php';
+	require_once dirname(__FILE__).'/views/dialog/EditDialog.class.php';
 	
 	// IMPORT AND DEFINE THE REQUEST HANDLER
 	//require_once dirname(__FILE__).'/handler/MyApplicationHandler.class.php';
@@ -39,8 +39,8 @@
 	$option->printTemplate();
 	
 	// DIALOG
-	//$edit = new EditDialog();
-	//$edit->printTemplate();
+	$edit = new EditDialog();
+	$edit->printTemplate();
 	
 	include('system/templates/container/mobile/home/views/updateProfile.php');
 	

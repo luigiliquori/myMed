@@ -69,7 +69,7 @@ function clearAll(){
 	for (key in markers)
 		markers[key] = [];
 	directionsDisplays = [];
-	
+	currentSegmentID=0, prevSegmentID=0;
 	$('#itineraireContent').html("");
 	
 }
