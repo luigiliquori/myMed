@@ -173,7 +173,6 @@ function focusOnPosition(latitude, longitude) {
 	// focus on the position
 	var myLatlng = new google.maps.LatLng(latitude, longitude);
 	map.setCenter(myLatlng);
-	window.scrollTo(0, 0);
 
 }
 
@@ -248,19 +247,21 @@ function addMarker(latitude, longitude, icon, title, description) {
 		icon : icon,
 		map : map
 	});
-	var contentString = "<div class='poiContent'>"
-		+ "<h2 class='poiFirstHeading'>" + title + "</h2>"
-		+ "<div class='poiBodyContent'>" + description + "</div>"
-		+ "</div>";
-	var infowindow = new google.maps.InfoWindow({
-		content : contentString
-	});
-	google.maps.event.addListener(marker, 'click', function() {
-		infowindow.open(map, this);
-	});
-	google.maps.event.addListener(map, 'click', function() {
-		infowindow.close();
-	});
+	
+	var boxText = document.createElement("div");
+	boxText.style.cssText = " background: white;padding: 0 5px;";
+	boxText.innerHTML = "<h4 style=' margin-top: 2px; margin-bottom: 2px;'>" + title + "</h4><p style='text-align: justify; font-size: 12px;margin: 0;'>" + description+ "</p>";
+
+	var myOptions = {
+		 content: boxText,
+		pixelOffset: new google.maps.Size(-200, -10),
+		boxStyle: {
+		   opacity: 0.8,
+		  width: "200px"
+		 }
+	};
+	marker.ib = new InfoBox(myOptions);
+	
 	return marker;
 }
 

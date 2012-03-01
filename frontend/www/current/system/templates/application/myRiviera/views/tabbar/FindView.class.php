@@ -42,6 +42,11 @@ class FindView extends MyApplication {
 
 	<a href="#Option" data-role="actionsheet" class="ui-btn-right" data-icon="gear">Options</a>
 	
+	<a id="prev-step" data-role="button" data-theme="b"
+		data-icon="arrow-l"	onclick="">&nbsp;</a> 
+	<a id="next-step" data-role="button" data-theme="b"
+		data-iconpos="right" data-icon="arrow-r"	onclick="">&nbsp;</a>
+	
 	<!-- ITINERAIRE POPUP -->
 	<a data-role="actionsheet"	data-icon="search" data-iconpos="right" class="ui-btn-left">Rechercher</a>
 	
@@ -65,7 +70,7 @@ class FindView extends MyApplication {
 					placeholder="Arrivée"
 					onkeyup="$(this).css('background-image', 'none');" /> <select
 					id="selectarrivee" data-iconpos="notext" data-icon="plus"
-					name="enum" onclick="changeDestination()">
+					name="enum-1" onclick="changeDestination()">
 	
 					<!-- USER -->				
 			<?php if (isset($_SESSION['position'])) { ?>
@@ -129,7 +134,7 @@ class FindView extends MyApplication {
 						</select>
 				</fieldset>
 	
-				<fieldset data-role="controlgroup" data-type="horizontal">
+				<fieldset data-role="controlgroup" data-type="horizontal" style="display: inline; margin: 5px;">
 					<select name="select-hour" id="select-hour">
 					<?php for ($i = 0; $i <= 23; $i++) {
 						?>
@@ -186,12 +191,7 @@ public /*String*/ function getContent() { ?>
 			data-content-theme="d" data-mini="true"></div>
 	</div>
 
-	<a id="prev-step" data-role="button" data-theme="b"
-		data-iconpos="notext" data-icon="arrow-l" data-inline="true"
-		onclick=""></a> <a id="next-step" data-role="button" data-theme="b"
-		data-iconpos="notext" data-icon="arrow-r" data-inline="true"
-		onclick=""></a>
-
+	
 </div>
 
 <?php }

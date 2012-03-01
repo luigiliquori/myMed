@@ -52,10 +52,9 @@ public /*String*/ function getContent() { ?>
 	<div data-role="collapsible-set">
 		<!-- POIs - Filter -->
 		<div data-role="collapsible" data-collapsed="true" data-theme="b"
-			data-content-theme="c" style="text-align: left;">
+			data-content-theme="c">
 			<h3>Points d'interêts</h3>
-			<fieldset id="<?= APPLICATION_NAME ?>Filter" data-role="controlgroup"
-				data-type="horizontal">	
+			<fieldset id="<?= APPLICATION_NAME ?>Filter" data-role="controlgroup" data-type="horizontal">	
 				<?php foreach ($this->filterList as $filter) { ?>
 				<input type="checkbox" name="<?= $filter ?>" id="<?= $filter ?>"
 					class="custom" checked="checked" /> <label for="<?= $filter ?>"><?= $filter ?>
@@ -67,7 +66,7 @@ public /*String*/ function getContent() { ?>
 		<div data-role="collapsible" data-collapsed="true" data-theme="b"
 			data-content-theme="c" style="text-align: left;">
 			<h3>Rayon de recherche</h3>
-			<input type="range" name="slider" id="slider-0" value="500" min="100"
+			<input type="range" name="slider-radius" id="slider-radius" value="<?= TARGET == "mobile" ? "2" : "5" ?>00" min="100"
 				max="1000" data-theme="b" /> <span style="display: inline;">mètres</span>
 		</div>
 
@@ -75,22 +74,32 @@ public /*String*/ function getContent() { ?>
 		<div id="cityway-search" data-role="collapsible" data-collapsed="true"
 			data-theme="b" data-content-theme="c">
 			<h3>Type de Trajet Cityway</h3>
-			<fieldset data-role="controlgroup" data-type="horizontal">
+			<fieldset data-role="controlgroup" data-type="horizontal" style="width:280px;">
 				<input type="radio" name="radio-choice" id="radio-choice1" value="fastest" checked="checked" />
-				<label for="radio-choice1">Le	plus rapide</label>
+				<label for="radio-choice1">Le	+ rapide</label>
 				<input type="radio" name="radio-choice" id="radio-choice2" value="lessChanges" />
-				<label for="radio-choice2">Le moins de changements</label>
+				<label for="radio-choice2">Peu de chgt</label>
 			</fieldset>
 			<fieldset data-role="controlgroup" data-type="horizontal">
 				<input type="checkbox" name="checkbox" id="checkbox0"	checked="checked" /><label for="checkbox0">Bus</label>
-				<input type="checkbox" name="checkbox" id="checkbox1" checked="checked" /><label	for="checkbox1">Metro</label>
 				<input type="checkbox" name="checkbox" id="checkbox2" checked="checked" /><label for="checkbox2">Car</label>
 				<input type="checkbox" name="checkbox" id="checkbox3" checked="checked" /><label for="checkbox3">Train</label>
 				<input type="checkbox" name="checkbox" id="checkbox4"	checked="checked" /><label for="checkbox4">Tram</label>
 				<input type="checkbox" name="checkbox" id="checkbox5" checked="checked" /><label for="checkbox5">Ter</label>
-				<input type="checkbox" name="checkbox" id="checkbox6" checked="checked" /><label for="checkbox6">Boat</label>
-				<input type="checkbox" name="checkbox" id="checkbox13" checked="checked" /><label for="checkbox13">Avion</label>
+				<input type="checkbox" name="checkbox" id="checkbox17" checked="checked" /><label for="checkbox17">Nav_élec</label>
 				<input type="checkbox" name="checkbox" id="checkbox19" checked="checked" /><label	for="checkbox19">Tgv</label>
+			</fieldset>
+		</div>
+		
+		<!-- Persistence -->
+		<div data-role="collapsible" data-collapsed="true" data-theme="b"
+			data-content-theme="c">
+			<h3>Persistence</h3>
+			<fieldset id="flip-persistence" data-role="controlgroup" data-type="horizontal" style="width:200px;">	
+				<select name="flip-per" id="flip-per" data-role="slider">
+					<option value=''>false</option>
+					<option value='1'>true</option>
+				</select>
 			</fieldset>
 		</div>
 
@@ -152,25 +161,28 @@ public /*String*/ function getContent() { ?>
 			data-content-theme="c" style="text-align: left;">
 			<h3>Aide</h3>
 			<h3>
-				Bouton Rechercher au dessus de la carte
+				Bouton Rechercher, au dessus de la carte
 			</h3>
-			<p>Ce bouton permet la recherche d'itinéraire, notre méthode de
-				calcul intègre l'API Cityway, en cas d'échec vous serez redirigé
+			<p>Ce bouton permet la recherche d'itinéraire via les transports publics, nous utilisons l'API 
+				<a href="www.cityway.fr">Cityway</a> , en cas d'échec vous serez redirigé
 				vers un itinéraire Google Maps classique.</p>
 			<h3>Points d'intérêts</h3>
-			<p>Ils désignent les types d'établissements que vous souhaitez
-				afficher.</p>
+			<p>Ils désignent les types d'établissements, d'évênements que vous souhaitez
+				afficher sur la carte.</p>
 			<h3>Rayon de recherche</h3>
-			<p>La valeur autours de la position actuelle pour laquelle vous
-				souhaitez les rechercher.</p>
+			<p>La valeur, en mètres, autours de la position actuelle pour laquelle vous
+				souhaitez rechercher des points d'intérêts.</p>
 			<h3>Types de Trajet Cityway</h3>
 			<p>Ces champs permettent de paramétrer votre recherche d'itinéraire.</p>
+			<h3>Persistence</h3>
+			<p>Cette préférence permet ou non de conserver les points d'intérêts visités visibles ou non</p>
 			<h3>Profil</h3>
 			<p>Ce champ donne accès à votre profil myRiviera</p>
 			<h3>Mes amis</h3>
-			<p>En vous connectant avec Facebook, vous chargerez les informations
-				relatives à vos amis, leurs positions par exemples, disponibles dans
-				la recherche d'itinéraire par le bouton + du champs Arrivée.</p>
+			<p>En vous connectant avec Facebook, vous chargerez les positions
+				de vos amis (acceptant la géolocalisation), disponibles dans
+				la recherche d'itinéraire par le bouton + du champs Arrivée. 
+				D'autres fonctionnalités de partage par réseau social sont à venir</p>
 		</div>
 
 		<!-- ABOUT -->
