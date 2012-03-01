@@ -164,7 +164,7 @@ public /*String*/ function getContent() { ?>
 				Bouton Rechercher, au dessus de la carte
 			</h3>
 			<p>Ce bouton permet la recherche d'itinéraire via les transports publics, nous utilisons l'API 
-				<a href="www.cityway.fr">Cityway</a> , en cas d'échec vous serez redirigé
+				<a href="http://www.cityway.fr">Cityway</a> , en cas d'échec vous serez redirigé
 				vers un itinéraire Google Maps classique.</p>
 			<h3>Points d'intérêts</h3>
 			<p>Ils désignent les types d'établissements, d'évênements que vous souhaitez

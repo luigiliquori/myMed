@@ -368,7 +368,7 @@ function calcRouteByGoogle(){
 						+ i
 						+ ');"'
 						+ ' data-icon="search"></a></li>');
-				$('<span>Distance: '+st.distance.text+', durée: '+st.duration.text+'</span>').appendTo(desc.find('a'));
+				$('<span>Distance: '+st.distance.text+' ('+st.duration.text+')</span>').appendTo(desc.find('a'));
 				var c=$('<div>'+st.instructions+'</div>'); //trick to remove google's tags
 				c.find('div').each(
 				    function(i,el) {
