@@ -33,14 +33,15 @@ class EditDialog {
 		<!-- FROM -->
 
 		<input data-theme="d" type="text" id="depart" name="Depart"
-			placeholder="Départ" />
+			placeholder="Départ" onblur="validateStart();"/>
 
 		<!-- TO -->
 
 		<div id="divarrivee">
 		
 			<input data-theme="d" type="text" id="arrivee" name="Arrivee"	
-				placeholder="Arrivée" onkeyup="$(this).css('background-image', 'none');" /> 
+				placeholder="Arrivée" onkeyup="console.log('rbg');$(this).css('background-image', 'none');"
+					 onblur="validateEnd();"/>
 				<select id="selectarrivee" data-iconpos="notext" data-icon="plus"
 				name="enum-1" onclick="changeDestination()">
 

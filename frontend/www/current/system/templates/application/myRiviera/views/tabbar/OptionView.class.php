@@ -81,7 +81,7 @@ class OptionView extends MyApplication {
 			<div data-role="collapsible" data-collapsed="true" data-theme="b"
 				data-content-theme="c" style="text-align: left;">
 				<h3>Rayon de recherche</h3>
-				<input type="range" name="slider-radius" id="slider-radius" value="<?= TARGET == "mobile" ? "2" : "5" ?>00" min="100"
+				<input type="range" name="slider-radius" id="slider-radius" value="<?= TARGET == "mobile" ? "3" : "5" ?>00" min="100"
 					max="1000" data-theme="b" /> <span style="display: inline;">mètres</span>
 			</div>
 	
@@ -173,19 +173,18 @@ class OptionView extends MyApplication {
 				<p>Ils désignent les types d'établissements, d'évênements que vous souhaitez
 					afficher sur la carte.</p>
 				<h3>Persistence des points d'intérêts</h3>
-				<p>Cette préférence permet ou non de conserver les points d'intérêts visités visibles ou non</p>
+				<p>Cette préférence permet ou non de conserver les points d'intérêts visités visibles ou non.</p>
 				<h3>Rayon de recherche</h3>
 				<p>La valeur, en mètres, autours de la position actuelle pour laquelle vous
 					souhaitez rechercher des points d'intérêts.</p>
 				<h3>Types de Trajet Cityway</h3>
 				<p>Ces champs permettent de paramétrer votre recherche d'itinéraire.</p>
 				<h3>Profil</h3>
-				<p>Ce champ donne accès à votre profil myRiviera</p>
+				<p>Ce champ donne accès à votre profil myRiviera.</p>
 				<h3>Mes amis</h3>
 				<p>En vous connectant avec Facebook, vous chargerez les positions
 					de vos amis (acceptant la géolocalisation), disponibles dans
-					la recherche d'itinéraire par le bouton + du champs Arrivée. 
-					D'autres fonctionnalités de partage par réseau social sont à venir</p>
+					la recherche d'itinéraire par le bouton + du champs Arrivée.</p>
 			</div>
 	
 			<!-- ABOUT -->

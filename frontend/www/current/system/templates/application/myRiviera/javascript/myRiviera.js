@@ -1,5 +1,6 @@
 var filterArray = [];
-var pmarkers = [], fmarkers = []; //position markers and flag (start end) markers
+var startmarker, endmarker; //start and end markers
+var pmarkers = []; //position markers
 var markers = {}; // all other markers
 var directionsDisplays = [];
 
@@ -28,10 +29,48 @@ function initialize() {
 	autocompleteArrivee.bindTo('bounds', map);
 	autocompleteDepart.bindTo('bounds', map);
 	
+	startmarker = new google.maps.Marker({
+    map:map,
+    draggable:true,
+    animation: google.maps.Animation.DROP,
+    icon: 'system/templates/application/myRiviera/img/start.png',
+    title: 'Départ'
+  });
+	
+  google.maps.event.addListener(startmarker, 'click', function(){
+    if (startmarker.getAnimation() != null) {
+    	startmarker.setAnimation(null);
+    } else {
+    	startmarker.setAnimation(google.maps.Animation.BOUNCE);
+    }
+  });
+  
+  endmarker = new google.maps.Marker({
+    draggable:true,
+    animation: google.maps.Animation.DROP,
+    icon: 'system/templates/application/myRiviera/img/end.png',
+    title: 'Arrivée'
+  });
+	
+  google.maps.event.addListener(endmarker, 'click', function(){
+    if (endmarker.getAnimation() != null) {
+    	endmarker.setAnimation(null);
+    } else {
+    	endmarker.setAnimation(google.maps.Animation.BOUNCE);
+    }
+  });
+	
+	
+	
 	// resize the map on page change
 	$("#Find").live("pageshow", function (event, ui) {
 		google.maps.event.trigger(map, 'resize');
-		$('#itineraireContent .ui-li a').eq(currentSegmentID).trigger('click');
+		
+		//refocus on lastest position
+		if ($('#itineraireContent .ui-li a').length)
+			$('#itineraireContent .ui-li a').eq(currentSegmentID).trigger('click');
+		else
+			focusOnPosition(currentLatitude, currentLongitude);
 	});
 	
 	// init filterArray
@@ -51,18 +90,16 @@ function displayPosition(position) {
 	
 	// ADD POSITION Marker
 	var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-	if (marker) {
-		marker.setPosition(latlng);
-		marker.setAnimation(google.maps.Animation.BOUNCE);
-	} else {
-		marker = new google.maps.Marker({
-			animation : google.maps.Animation.BOUNCE,
-			position : latlng,
-			icon : 'system/templates/application/myRiviera/img/position.png',
-			map : map
-		});
+
+//focus on the position
+	if (focusOnCurrentPosition) {
+		focusOnPosition(position.coords.latitude, position.coords.longitude);
 	}
 
+	geocodestart = new google.maps.LatLng(currentLatitude, currentLongitude);
+	startmarker.setPosition(geocodestart);
+	startmarker.setMap(map);
+	
 	// if the accuracy is good enough, print a circle to show the area
 	// is use watchPosition instead of getCurrentPosition don't
 	// forget to clear previous circle, using
@@ -78,21 +115,15 @@ function displayPosition(position) {
 				strokeOpacity : 0.2,
 				strokeWeight : 2,
 				fillColor : "#0000ff",
-				fillOpacity : (accuracy < 400) ? 0.1 : 0,
+				fillOpacity : (accuracy < 500) ? 0.1 : 0,
 						map : map,
 						center : latlng,
 						radius : accuracy
 			});
 		}
 	}
-
-	// focus on the position
-	if (focusOnCurrentPosition) {
-		focusOnPosition(position.coords.latitude, position.coords.longitude);
-	}
 	
 	// add the position to the popup
-	$('#departGeo').val(currentLatitude + '&' + currentLongitude);
 	$('#depart').attr("placeholder", "Ma position");
 }
 
@@ -130,12 +161,9 @@ function updateFilter() {
 function clearAll(){
 	
 	clearMarkers();
-	for (var i=0; i<fmarkers.length && fmarkers[i]; i++)
-		fmarkers[i].setMap(null);
 	for (var i=0; i<directionsDisplays.length; i++)
 		directionsDisplays[i].setMap(null);
 	pmarkers = [];
-	fmarkers = [];
 	for (key in markers)
 		markers[key] = [];
 	directionsDisplays = [];
@@ -493,17 +521,17 @@ function myRivieraShowTrip(start, end, icon) {
 	bounds.extend(geocodeend);
 	map.fitBounds(bounds);
 	
-	if ( mobile == "mobile")
+	/*if ( mobile == "mobile")
 		for (var i=0; i<$('#itineraireContent .ui-li a').length; i++)
-			$('#itineraireContent .ui-li a').eq(i).click( function() { $('#itineraire').trigger('collapse'); });
+			$('#itineraireContent .ui-li a').eq(i).click( function() { $('#itineraire').trigger('collapse'); });*/
 	
 	// PRINT THE STARTING POINT
-	fmarkers.push(addMarker(geocodestart.lat(), geocodestart.lng(),
+	/*fmarkers.push(addMarker(geocodestart.lat(), geocodestart.lng(),
 			'system/templates/application/myRiviera/img/start.png', "Départ",
 			"<b>Lieu: </b>" + start));
 	fmarkers.push(addMarker(geocodeend.lat(), geocodeend.lng(),
 			'system/templates/application/myRiviera/img/end.png', "Arrivée",
-			"<b>Lieu: </b>" + end));
+			"<b>Lieu: </b>" + end));*/
 
 	// SHOW ITINERAIRE
 	$("#itineraire, #next-step, #prev-step").delay(1500).fadeIn("slow");
@@ -528,88 +556,80 @@ function changeDestination() {
 
 var geocoder = new google.maps.Geocoder(), geocoder2 = new google.maps.Geocoder();
 
-function validateIt() {
-
+function validateStart(){
 	if ($("#depart").val() != "") {
 		geocoder.geocode({'address' : $("#depart").val()}, function(results, status) {
 			if (status == google.maps.GeocoderStatus.OK) {
-				console.log(results[0].geometry.location);
 				geocodestart = results[0].geometry.location;
-				validateIt2();
+				startmarker.setPosition(geocodestart);
+				startmarker.setMap(map);
 			} else {
-				console.log("Geocode was not successful for the following reason: "+ status);
 				alert("Départ non valide");
 			}
 		});
-	} else if (currentLatitude) {
-		console.log("great");
-		geocodestart = new google.maps.LatLng(currentLatitude, currentLongitude);
-		validateIt2();
 	} else {
-		console.log("Départ non rempli");
 		alert("Départ non rempli");
 		return;
 	}
-
 }
 
-function validateIt2() {
-	
+function validateEnd(){
 	if ($("#arrivee").val() != "") {
 		geocoder.geocode({'address' : $("#arrivee").val()}, function(results, status) {
 			if (status == google.maps.GeocoderStatus.OK) {
 				geocodeend = results[0].geometry.location;
-				console.log(results[0].geometry.location);
-				
-				var date = $('#select-year').val()+"-"+
-				("0" + ($('#select-month').val())).slice(-2)+"-"+
-				("0" + ($('#select-day').val())).slice(-2)+"_"+
-				("0" + ($('#select-hour').val())).slice(-2)+"-"+
-				("0" + ($('#select-minute').val())).slice(-2);
-				
-				console.log(date);
-				console.log(geocodestart);
-				
-				var optimize = $("#cityway-search input:radio:checked").val();
-				
-				var tModes0 = $('#cityway-search input:checkbox:not(:checked)');
-				var transitModes=0;
-				if (tModes0.length){
-					var tModes = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]; //all 20 modes enabled
-					for (var i=0; i<tModes0.length; i++){
-						tModes[tModes0[i].id.match(/\d+/)] = 0; //get the number in the id, that represent the cityway mode index
-					}
-					transitModes = tModes.join('');
-				}
-				
-				clearAll();
-				
-				$.ajax({
-					type: "POST",
-					url: "system/templates/application/myRiviera/handler/cityway.php",
-					data: "startlat="+geocodestart.lat()+
-								"&startlng="+geocodestart.lng()+
-								"&endlat="+geocodeend.lat()+
-								"&endlng="+geocodeend.lng()+
-								(optimize!="fastest"?"&optimize="+optimize:"")+
-								(transitModes?"&transitModes="+transitModes:"")+
-								"&date="+date,
-					success: function(data){
-						calcRoute(data);
-					}
-				});
-				
-				
+				endmarker.setPosition(geocodeend);
+				endmarker.setMap(map);
 			} else {
-				console.log("Geocode was not successful for the following reason: "+ status);
 				alert("Arrivée non valide");
 			}
 		});
 	} else {
-		console.log("Arrivée non remplie");
 		alert("Arrivée non remplie");
 		return;
 	}
-	
 }
+
+function validateIt() {
+
+	if (startmarker.getPosition() && endmarker.getPosition()){
+		var date = $('#select-year').val()+"-"+
+		("0" + ($('#select-month').val())).slice(-2)+"-"+
+		("0" + ($('#select-day').val())).slice(-2)+"_"+
+		("0" + ($('#select-hour').val())).slice(-2)+"-"+
+		("0" + ($('#select-minute').val())).slice(-2);
+		
+		console.log("from "+geocodestart.toString()+" to "+geocodeend.toString());
+		
+		var optimize = $("#cityway-search input:radio:checked").val();
+		
+		var tModes0 = $('#cityway-search input:checkbox:not(:checked)');
+		var transitModes=0;
+		if (tModes0.length){
+			var tModes = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]; //all 20 modes enabled
+			for (var i=0; i<tModes0.length; i++){
+				tModes[tModes0[i].id.match(/\d+/)] = 0; //get the number in the id, that represent the cityway mode index
+			}
+			transitModes = tModes.join('');
+		}
+		
+		clearAll();
+		
+		$.ajax({
+			type: "POST",
+			url: "system/templates/application/myRiviera/handler/cityway.php",
+			data: "startlng="+startmarker.getPosition().lng()+
+						"&startlat="+startmarker.getPosition().lat()+
+						"&endlng="+endmarker.getPosition().lng()+
+						"&endlat="+endmarker.getPosition().lat()+
+						(optimize!="fastest"?"&optimize="+optimize:"")+
+						(transitModes?"&transitModes="+transitModes:"")+
+						"&date="+date,
+			success: function(data){
+				calcRoute(data);
+			}
+		});
+	}
+}
+
 

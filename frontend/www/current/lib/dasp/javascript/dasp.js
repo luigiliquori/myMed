@@ -25,7 +25,7 @@ var currentApplication;
 //Google Map features
 var directionsService = new google.maps.DirectionsService();
 var map;
-var currentLatitude, currentLongitude, accuracy;
+var currentLatitude = 43.7, currentLongitude = 7.27, accuracy;
 var focusOnCurrentPosition = true;
 var updatezoom = true;
 var marker, circle;
@@ -73,7 +73,7 @@ function setupDASPMap(mapID, displayPosition, displayError) {
 		// init Map
 		map = new google.maps.Map(document.getElementById(mapID), {
 			zoom : 16,
-			center : new google.maps.LatLng(43.7, 7.27),
+			center : new google.maps.LatLng(currentLatitude, currentLongitude),
 			mapTypeId : google.maps.MapTypeId.ROADMAP
 		});
 
@@ -162,6 +162,7 @@ function addMarker(latitude, longitude, icon, title, description, animation) {
 	var marker = new google.maps.Marker({
 		animation : animation,
 		position : new google.maps.LatLng(latitude, longitude),
+		draggable : true,
 		title : title,
 		icon : icon,
 		map : map

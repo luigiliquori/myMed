@@ -42,9 +42,9 @@ class FindView extends MyApplication {
 	<a href="#Option" data-role="actionsheet" class="ui-btn-right" data-icon="gear">Options</a>
 	
 	<a id="prev-step" data-role="button" data-theme="b"
-		data-icon="arrow-l"	onclick="">&nbsp;</a> 
+		data-icon="arrow-l"	onclick=""><?= TARGET == "mobile" ? "&nbsp;" : "Préc" ?></a> 
 	<a id="next-step" data-role="button" data-theme="b"
-		data-iconpos="right" data-icon="arrow-r"	onclick="">&nbsp;</a>
+		data-iconpos="right" data-icon="arrow-r"	onclick=""><?= TARGET == "mobile" ? "&nbsp;" : "Suiv" ?></a>
 	
 	<!-- ITINERAIRE POPUP -->
 	<a data-role="actionsheet" data-sheet="Itin" data-icon="search" data-iconpos="right" class="ui-btn-left">Rechercher</a>
