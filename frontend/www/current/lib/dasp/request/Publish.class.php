@@ -104,6 +104,8 @@ class Publish extends Request {
 			. urlencode($_SESSION['accessToken']));
 			
 		}
+		
+		$this->handler->setSuccess("Request sent!");
 	}
 }
 ?>
