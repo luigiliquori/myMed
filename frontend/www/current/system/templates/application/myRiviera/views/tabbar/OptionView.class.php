@@ -96,7 +96,7 @@ public /*String*/ function getContent() { ?>
 			data-content-theme="c">
 			<h3>Persistence</h3>
 			<fieldset id="flip-persistence" data-role="controlgroup" data-type="horizontal" style="width:200px;">	
-				<select name="flip-per" id="flip-per" data-role="slider">
+				<select name="flip-per" id="flip-per" data-role="slider" onchange="if(!$(this).val()) {clearMarkers();}">
 					<option value=''>false</option>
 					<option value='1'>true</option>
 				</select>

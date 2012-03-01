@@ -28,23 +28,17 @@ function initialize() {
 	autocompleteArrivee.bindTo('bounds', map);
 	autocompleteDepart.bindTo('bounds', map);
 	
-	// resize the map canvas
-	$("#" + $("#applicationName").val() + "Map").height($("body").height() - $('body').find('div[data-role=header]').outerHeight());
-	
 	// resize the map on page change
 	$("#Find").live("pageshow", function (event, ui) {
 		google.maps.event.trigger(map, 'resize');
+		$('#itineraireContent .ui-li a').eq(currentSegmentID).trigger('click');
 	});
 
 	// init filterArray
 	updateFilter();
 	
-	if (mobile == 'mobile'){
-		$("#myRivieraMap").height($("body").height()+19);
-		setTimeout(function () {
-		  window.scrollTo(0, 1);
-		}, 1000);
-	}
+	//resize the map: Jquerymobile fails
+	$("#"+$("#applicationName").val()+"Map").height($("body").height() - $('body').find('div[data-role=header]').outerHeight());
 	
 }
 
@@ -65,17 +59,11 @@ function updateFilter() {
  */
 function clearAll(){
 	
-	for (var i=0; i<pmarkers.length && pmarkers[i]; i++)
-		pmarkers[i].setMap(null);
+	clearMarkers();
 	for (var i=0; i<fmarkers.length && fmarkers[i]; i++)
 		fmarkers[i].setMap(null);
-	for (key in markers)
-		for (var i=0; i<markers[key] && markers[key][i]; i++)
-			for (var j=0; j<markers[key][i]; j++)
-				markers[key][i][j].setMap(null);
 	for (var i=0; i<directionsDisplays.length; i++)
 		directionsDisplays[i].setMap(null);
-	
 	pmarkers = [];
 	fmarkers = [];
 	for (key in markers)
@@ -85,6 +73,21 @@ function clearAll(){
 	$('#itineraireContent').html("");
 	
 }
+
+function clearMarkers(){
+	for (var i=0; i<pmarkers.length && pmarkers[i]; i++){
+		pmarkers[i].ib.close();
+		pmarkers[i].setMap(null);
+	}
+		
+	for (key in markers)
+		for (var i=0; i<markers[key] && markers[key][i]; i++)
+			for (var j=0; j<markers[key][i]; j++){
+				markers[key][i][j].ib.close();
+				markers[key][i][j].setMap(null);
+			}
+}
+
 
 /**
  * 
@@ -346,7 +349,7 @@ function calcRouteByGoogle(){
 			for (var i=0; i < result.routes[0].legs[0].steps.length; i++){
 				if (i%5 == 0) { //all 5 results we groupe them by category
 					item = $('<div data-role="collapsible" data-collapsed='+ (collapsed++ == 0 ? 'false' : 'true') + '></div>');
-					$("<h3>Voiture</h3>").appendTo(item);
+					$("<h3>Voiture ("+collapsed+")</h3>").appendTo(item);
 					$('<ul data-role="listview" data-inset="true"></ul>').appendTo(item);
 					item.appendTo($('#itineraireContent'));
 				}
@@ -404,9 +407,6 @@ function calcRouteByGoogle(){
 function myRivieraShowTrip(start, end, icon) {
 
 	if (!map) {
-		
-		if (mobile == 'mobile')
-			$("#myRivieraMap").height($("body").height());
 
 		map = new google.maps.Map(document.getElementById("myRivieraMap"), {
 			zoom : 16,
