@@ -39,20 +39,20 @@ class BuilderHandler implements IRequestHandler {
 	}
 
 	public /*void*/ function handleRequest() {
-		if(isset($_GET['myAppName']) && $_GET['myAppName'] != "") {
+		if(isset($_GET['APPLICATION_NAME']) && $_GET['APPLICATION_NAME'] != "") {
 			
 			// COPY THE TEMPLATE
-			$this->copyDirectory('system/templates/application/myTemplate', 'system/templates/application/' . $_GET['myAppName']);
+			$this->copyDirectory('system/templates/application/myTemplate', 'system/templates/application/' . $_GET['APPLICATION_NAME']);
 			
 			// CONFIGURE THE NEW APPLICATION
-			$fp = fopen('system/templates/application/' . $_GET['myAppName'] . '/config.tmp' , 'w');
+			$fp = fopen('system/templates/application/' . $_GET['APPLICATION_NAME'] . '/config.tmp' , 'w');
 			fwrite($fp, '<?php ');
 			foreach($_GET AS $key=>$value) {
 				fwrite($fp, 'define("' . $key . '", ' . $value . '); ');
 			}
 			fwrite($fp, '?>');
 			fclose($fp);
-			rename('system/templates/application/' . $_GET['myAppName'] . '/config.tmp', 'system/templates/application/' . $_GET['myAppName'] . '/myConfig.php');
+			rename('system/templates/application/' . $_GET['APPLICATION_NAME'] . '/config.tmp', 'system/templates/application/' . $_GET['APPLICATION_NAME'] . '/myConfig.php');
 			
 		}
 	}

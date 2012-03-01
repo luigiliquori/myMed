@@ -34,10 +34,10 @@
 
 	if(isset($_POST['method'])) { 				// Print The Results View
 		if($_POST['method'] == 'getDetail') {
-			$details = new DetailView($handler);
+			$details = new DetailView($appHandler);
 			$details->printTemplate();
 		} else {
-			$result = new ResultView($handler);
+			$result = new ResultView($appHandler);
 			$result->printTemplate();
 		}
 	} else {									// Print The Default Views

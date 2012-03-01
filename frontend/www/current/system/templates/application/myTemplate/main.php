@@ -1,7 +1,7 @@
 <?php 
-	// NAME OF THE APPLICATION
-	define('APPLICATION_NAME', "myTemplate");
-	
+	// IMPORT CONFIG
+	require_once dirname(__FILE__).'/myConfig.php';
+
 	// DEFINE ATTRIBUTES FOR THE JAVASCRIPT PART (AJAX CALL)
 	echo "<input type='hidden' id='userID' value='" . $_SESSION['user']->id . "' />";
 	echo "<input type='hidden' id='applicationName' value='" . APPLICATION_NAME . "' />";
@@ -9,9 +9,6 @@
 	
 	// LOAD DASP JAVASCRIPT LIBRARY
 	echo "<script src='lib/dasp/javascript/dasp.js'></script>";
-	
-	// IMPORT CONFIG
-	require_once dirname(__FILE__).'/myConfig.php';
 	
 	// IMPORT THE MAIN VIEW
 	require_once dirname(__FILE__).'/views/tabbar/View1.class.php';

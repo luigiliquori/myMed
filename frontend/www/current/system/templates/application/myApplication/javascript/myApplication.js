@@ -71,18 +71,30 @@ function displayError(error) {
  * 
  * @param address
  */
-function refreshMap(address) {
+function refreshMap(address, icon) {
 	geocoder.geocode( { 'address': address}, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) {
 			// FOCUS
 			focusOnPosition(results[0].geometry.location.lat(), results[0].geometry.location.lng());
 			// ADD MARKER
-			addMarker(results[0].geometry.location.lat(), results[0].geometry.location.lng(), null, address, "<h3>" + address + "</h3>", google.maps.Animation.DROP);
+			addMarker(results[0].geometry.location.lat(), results[0].geometry.location.lng(), icon, address, "<h3>" + address + "</h3>", google.maps.Animation.DROP);
 		} else {
 			alert("Geocode was not successful for the following reason: " + status);
 		}
 	});
 
+}
+
+/**
+ * Load the desotherMarkertination address from a contact
+ * 
+ * @param dest
+ */
+function changeAddress(dest) {
+	picture = $("#select" + dest).val().split("&&")[0];
+	address = $("#select" + dest).val().split("&&")[1];
+	$("#formatedAddress" + dest).val(address);
+	refreshMap(address, picture.replace("?type=large", ""));
 }
 
 
@@ -91,7 +103,7 @@ function refreshMap(address) {
 /* --------------------------------------------------------- */
 function createApplication() {
 	
-	url = "?myAppName=" + $("#myAppName").val();
+	url = "?APPLICATION_NAME=" + $("#myAppName").val();
 	
 	for(var i=1 ; i < 4 ; i++) {
 		url += "&VIEW_" + i + "_GEOLOC=" + $("#VIEW_" + i + "_GEOLOC").val() +

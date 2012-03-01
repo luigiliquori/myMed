@@ -13,15 +13,20 @@ function initialize() {
 	geocoder = new google.maps.Geocoder();
 	
 	// Auto Complete
-	for(var i = 0 ; i < 4 ; i++) {
-		var autocompleteAddr = new google.maps.places.Autocomplete(document.getElementById("formatedAddress" + i));
-		autocompleteAddr.bindTo('bounds', map);
+	for(var i = 1 ; i < 4 ; i++){
+		for(var j = 0 ; j < 4 ; j++) {
+			if(document.getElementById("formatedAddress" + "View" + i + j)){
+				var autocompleteAddr = new google.maps.places.Autocomplete(document.getElementById("formatedAddress" + "View" + i + j));
+				autocompleteAddr.bindTo('bounds', map);
+			}
+		}
 	}
 	
 	// resize the map on page change
 	for(var i = 1 ; i < 4 ; i++) {
 		$("#View" + i).live("pageshow", function (event, ui) {
 			google.maps.event.trigger(map, 'resize');
+			
 		});
 	}
 }
@@ -46,8 +51,12 @@ function displayPosition(position) {
 	geocoder.geocode({'latLng': latlng}, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) {
 			if (results[0]) {
-				for(var i = 0 ; i < 4 ; i++) {
-					$("#formatedAddress" + i).val(results[0].formatted_address);
+				for(var i = 1 ; i < 4 ; i++){
+					for(var j = 0 ; j < 4 ; j++) {
+						if(document.getElementById("formatedAddress" + "View" + i + j)){
+							$("#formatedAddress" + "View" + i + j).val(results[0].formatted_address);
+						}
+					}
 				}
 			}
 		} else {
@@ -77,16 +86,28 @@ function displayError(error) {
  * 
  * @param address
  */
-function refreshMap(address) {
+function refreshMap(address, icon) {
 	geocoder.geocode( { 'address': address}, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) {
 			// FOCUS
 			focusOnPosition(results[0].geometry.location.lat(), results[0].geometry.location.lng());
 			// ADD MARKER
-			addMarker(results[0].geometry.location.lat(), results[0].geometry.location.lng(), null, address, "<h3>" + address + "</h3>", google.maps.Animation.DROP);
+			addMarker(results[0].geometry.location.lat(), results[0].geometry.location.lng(), icon, address, "<h3>" + address + "</h3>", google.maps.Animation.DROP);
 		} else {
 			alert("Geocode was not successful for the following reason: " + status);
 		}
 	});
 
+}
+
+/**
+ * Load the desotherMarkertination address from a contact
+ * 
+ * @param dest
+ */
+function changeAddress(dest) {
+	picture = $("#select" + dest).val().split("&&")[0];
+	address = $("#select" + dest).val().split("&&")[1];
+	$("#formatedAddress" + dest).val(address);
+	refreshMap(address, picture.replace("?type=large", ""));
 }

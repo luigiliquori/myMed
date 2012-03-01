@@ -14,6 +14,7 @@ class View1 extends MyApplication {
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
+	protected /*String*/ $id;
 	
 	/* --------------------------------------------------------- */
 	/* Constructors */
@@ -23,6 +24,7 @@ class View1 extends MyApplication {
 	 */
 	public function __construct($id = "View1") {
 		parent::__construct($id);
+		$this->id = $id;
 	}
 	
 	/* --------------------------------------------------------- */
@@ -39,6 +41,32 @@ class View1 extends MyApplication {
 			<a href="#View2" data-role="button" class="ui-btn-right">Vue 2</a>
 		</div>
 	<?php }
+	
+	protected /*void*/ function getFirendAddress($id) { ?>
+		<select	id="select<?= $id ?>" data-iconpos="notext" data-icon="plus" name="enum"
+		onchange="changeAddress('<?= $id ?>')">
+		
+			<option value="http://www.poledream.com/wp-content/uploads/2009/10/icon_map2.png&&Sophia-antipolis, France">Mymed</option>
+			
+			<!-- USER -->
+			<?php if (isset($_SESSION['position'])) { ?>
+				<option value="<?= $_SESSION['user']->profilePicture ?>&&<?= $_SESSION['position']->formattedAddress ?>"><?= $_SESSION['user']->name ?></option>
+			<?php } ?>
+	
+			<!-- FRIENDS -->
+			<?php
+			if(isset($_SESSION['friends'])) {
+				foreach ($_SESSION['friends'] as $friend ) { ?>
+					<?php if ($friend["position"]->formattedAddress != "") {?>
+							<option
+								value="<?= $friend["profilePicture"] ?>&&<?= $friend["position"]->formattedAddress ?>">
+								<?= $friend["name"] ?>
+							</option>
+					<?php }
+				}
+			} ?>
+        </select>
+	<?php }
 		
 	protected /*void*/ function getMapFeature() { ?>
 		<!-- MAP FEATURE -->
@@ -47,8 +75,9 @@ class View1 extends MyApplication {
 			<div id="<?= APPLICATION_NAME ?>Map" style="position: relative; width: 100%; height: 200px;"></div>
 			<br />
 			<span>Adresse :</span>
-			<input id="formatedAddress0" type="text" value="" /><br />
-			<a href="#" data-role="button" onclick="refreshMap($('#formatedAddress0').val());" >Géolocaliser</a>
+			<input id="formatedAddress<?= $this->id ?>0" type="text" value="" />
+			<?php $this->getFirendAddress($this->id . "0");	?>
+			<a href="#" data-role="button" onclick="refreshMap($('#formatedAddress<?= $this->id ?>0').val());" >Géolocaliser</a>
 		</div>
 	<?php }
 	
@@ -70,7 +99,8 @@ class View1 extends MyApplication {
 				
 				<!-- GPS -->
 				<span>Adresse (position GPS) :</span>
-				<input id="formatedAddress1" type="text" name="gps" value=""  data-inline="true"/>
+				<input id="formatedAddress<?= $this->id ?>1" type="text" name="gps" value=""  data-inline="true"/>
+				<?php $this->getFirendAddress($this->id . "1");	?>
 				<?php $gps = new MDataBean("gps", null, GPS); ?>
 				<input type="hidden" name="ontology1" value="<?= urlencode(json_encode($gps)); ?>">
 				<br />
@@ -112,7 +142,8 @@ class View1 extends MyApplication {
 				
 				<!-- GPS -->
 				<span>Adresse (position GPS) :</span>
-				<input id="formatedAddress2" type="text" name="gps" value=""  data-inline="true"/>
+				<input id="formatedAddress<?= $this->id ?>2" type="text" name="gps" value=""  data-inline="true"/>
+				<?php $this->getFirendAddress($this->id . "2");	?>
 				<?php $gps = new MDataBean("gps", null, GPS); ?>
 				<input type="hidden" name="ontology1" value="<?= urlencode(json_encode($gps)); ?>">
 				<br />
@@ -146,7 +177,8 @@ class View1 extends MyApplication {
 				
 				<!-- GPS -->
 				<span>Adresse (position GPS) :</span>
-				<input id="formatedAddress3" type="text" name="gps" value=""  data-inline="true"/>
+				<input id="formatedAddress<?= $this->id ?>3" type="text" name="gps" value=""  data-inline="true"/>
+				<?php $this->getFirendAddress($this->id . "3");	?>
 				<?php $gps = new MDataBean("gps", null, GPS); ?>
 				<input type="hidden" name="ontology1" value="<?= urlencode(json_encode($gps)); ?>">
 				<br />

@@ -54,9 +54,9 @@ class View2 extends View1 {
 					if(VIEW_2_PUBLISH)
 						$this->getPublishFeature();
 					if(VIEW_2_SUBSCRIBE)
-						$this->getFindFeature();
-					if(VIEW_2_FIND)
 						$this->getSubscribeFeature();
+					if(VIEW_2_FIND)
+						$this->getFindFeature();
 					if(VIEW_2_PROFILE)
 						$this->getProfileFeature();
 					if(VIEW_2_SOCIAL_NETWORK)
