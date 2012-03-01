@@ -40,7 +40,7 @@ abstract class MyApplication extends AbstractTemplate {
 	* Print the Template
 	*/
 	public /*String*/ function printTemplate() { ?>
-		<div id="<?= $this->id ?>" data-role="page" data-theme="a">
+		<div id="<?= $this->id ?>" data-role="page" data-theme="b">
 			<?php  $this->getHeader(); ?>
 			<?php $this->getContent(); ?>
 			<?php $this->getFooter(); ?>

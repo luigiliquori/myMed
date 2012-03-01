@@ -33,7 +33,7 @@ class View2 extends View1 {
 	*/
 	public /*String*/ function getHeader() { ?>
 		<!-- HEADER -->
-		<div data-role="header" data-theme="a">
+		<div data-role="header" data-theme="b">
 			<a href="#View1" data-role="button">Vue 1</a>
 			<h1><?= APPLICATION_NAME ?></h1>
 			<a href="#View3" data-role="button" class="ui-btn-right">Vue 3</a>
@@ -47,7 +47,7 @@ class View2 extends View1 {
 		<!-- CONTENT -->
 		<div class="content">
 				<center>
-					<div data-role="collapsible-set" data-theme="a" data-content-theme="d" style="width: 70%; text-align: left;"> 
+					<div style="width: 50%; text-align: left; color: black; border: 10px #e5e5e5 solid; border-radius: 15px; padding: 10px;">
 					<?php 
 					if(VIEW_2_MAP)
 						$this->getMapFeature();

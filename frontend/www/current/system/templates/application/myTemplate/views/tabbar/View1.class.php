@@ -35,7 +35,7 @@ class View1 extends MyApplication {
 	*/
 	public /*String*/ function getHeader() { ?>
 		<!-- HEADER -->
-		<div data-role="header" data-theme="a">
+		<div data-role="header" data-theme="b">
 			<a href="?application=0" rel="external" data-role="button" data-theme="r" data-icon="delete">Fermer</a>
 			<h1><?= APPLICATION_NAME ?></h1>
 			<a href="#View2" data-role="button" class="ui-btn-right">Vue 2</a>
@@ -70,7 +70,6 @@ class View1 extends MyApplication {
 		
 	protected /*void*/ function getMapFeature() { ?>
 		<!-- MAP FEATURE -->
-		<div data-role="collapsible" data-collapsed="false">
 			<h3>Géolocalisation</h3>
 			<div id="<?= APPLICATION_NAME ?>Map" style="position: relative; width: 100%; height: 200px;"></div>
 			<br />
@@ -78,12 +77,10 @@ class View1 extends MyApplication {
 			<input id="formatedAddress<?= $this->id ?>0" type="text" value="" />
 			<?php $this->getFirendAddress($this->id . "0");	?>
 			<a href="#" data-role="button" onclick="refreshMap($('#formatedAddress<?= $this->id ?>0').val());" >Géolocaliser</a>
-		</div>
 	<?php }
 	
 	protected /*void*/ function getPublishFeature() { ?>
 		<!-- PUBLISH FEATURE -->
-		<div data-role="collapsible">
 			<h3>Publication</h3>
 			<form  action="#" method="post" name="<?= APPLICATION_NAME ?>PublishForm" id="<?= APPLICATION_NAME ?>PublishForm" enctype="multipart/form-data">
 				<!-- Define the method to call -->
@@ -121,12 +118,10 @@ class View1 extends MyApplication {
 				
 				<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>PublishForm.submit()" >Publier</a>
 			</form>
-		</div>
 	<?php }
 	
 	protected /*void*/ function getSubscribeFeature() { ?>
 		<!-- SUBSCRIBE FEATURE -->
-		<div data-role="collapsible">
 			<h3>Souscription</h3>
 			<form  action="#" method="post" name="<?= APPLICATION_NAME ?>SubscribeForm" id="<?= APPLICATION_NAME ?>SubscribeForm">
 				<!-- Define the method to call -->
@@ -156,12 +151,10 @@ class View1 extends MyApplication {
 				<br /><br />
 				<a href="#" data-role="button"onclick="document.<?= APPLICATION_NAME ?>SubscribeForm.submit()" >Souscrire</a>	
 			</form>
-		</div>
 	<?php }
 	
 	protected /*void*/ function getFindFeature() { ?>
 		<!-- FIND FEATURE -->
-		<div data-role="collapsible">
 		<h3>Recherche</h3>
 			<form  action="#" method="post" name="<?= APPLICATION_NAME ?>FindForm" id="<?= APPLICATION_NAME ?>FindForm">
 				<!-- Define the method to call -->
@@ -192,11 +185,9 @@ class View1 extends MyApplication {
 				<br /><br />
 				<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>FindForm.submit()" >Rechercher</a>	
 			</form>
-		</div>
 	<?php }
 	
 	protected /*void*/ function getProfileFeature() { ?>
-		<div data-role="collapsible" data-collapsed="true">
 			<h3>Profile</h3>
 			<?php if($_SESSION['user']->profilePicture != "") { ?>
 				<img alt="thumbnail" src="<?= $_SESSION['user']->profilePicture ?>" width="100">
@@ -216,12 +207,10 @@ class View1 extends MyApplication {
 					<a href="mobile_binary<?= MOBILE_PARAMETER_SEPARATOR ?>logout" data-role="button" data-theme="r">Deconnexion</a>
 				<?php } ?>
 			</div>
-		</div>
 	<?php }
 	
 	protected /*void*/ function getSocialNetworkFeature() { ?>
 		<!-- FRIENDS -->
-		<div data-role="collapsible" data-collapsed="true">
 		 	<h3>Reseaux Sociaux</h3>
 		 	<?php $i=0; ?>
 				<?php foreach ($_SESSION['friends'] as $friend ) { ?>
@@ -246,7 +235,6 @@ class View1 extends MyApplication {
 				<div class="fb-like" data-href="http://www.mymed.fr" data-send="true" data-width="450" data-show-faces="true"></div>
 				<br />
 			<?php } ?>
-		 </div>
 	<?php }
 
 	/**
@@ -256,7 +244,7 @@ class View1 extends MyApplication {
 		<!-- CONTENT -->
 		<div class="content">
 			<center>
-				<div data-role="collapsible-set" data-theme="a" data-content-theme="d" style="width: 70%; text-align: left;"> 
+				<div style="width: 50%; text-align: left; color: black; border: 10px #e5e5e5 solid; border-radius: 15px; padding: 10px;">
 					<?php 
 					if(VIEW_1_MAP)
 						$this->getMapFeature();
