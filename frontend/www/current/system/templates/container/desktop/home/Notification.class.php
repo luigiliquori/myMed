@@ -50,7 +50,7 @@ class Notification extends AbstractTemplate {
 			<ul data-role="listview" data-theme="d">
 			<?php if ($handle = opendir('system/templates/application')) {
 				    while (false !== ($file = readdir($handle))) {
-				    	if($file != "." && $file != ".." && $file != ".DS_Store"){ ?>
+				    	if($file != "." && $file != ".." && $file != ".DS_Store" && $file != "myTemplate" ){ ?>
 				    		<li>
 				    			<img alt="<?= $file ?>" src="system/templates/application/<?= $file ?>/img/icon.png" height="30" >
 						    	<a href="?application=<?= $file ?>" class="myIcon" Style="position: relative; left:30px; height:16px;" rel="external">

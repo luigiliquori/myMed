@@ -13,22 +13,11 @@ function initialize() {
 	geocoder = new google.maps.Geocoder();
 	
 	// Auto Complete
-	for(var i = 1 ; i < 4 ; i++){
-		for(var j = 0 ; j < 4 ; j++) {
-			if(document.getElementById("formatedAddress" + "View" + i + j)){
-				var autocompleteAddr = new google.maps.places.Autocomplete(document.getElementById("formatedAddress" + "View" + i + j));
-				autocompleteAddr.bindTo('bounds', map);
-			}
-		}
+	for(var i = 0 ; i < 4 ; i++) {
+		var autocompleteAddr = new google.maps.places.Autocomplete(document.getElementById("formatedAddress" + i));
+		autocompleteAddr.bindTo('bounds', map);
 	}
 	
-	// resize the map on page change
-	for(var i = 1 ; i < 4 ; i++) {
-		$("#View" + i).live("pageshow", function (event, ui) {
-			google.maps.event.trigger(map, 'resize');
-			
-		});
-	}
 }
 
 /**
@@ -51,12 +40,8 @@ function displayPosition(position) {
 	geocoder.geocode({'latLng': latlng}, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) {
 			if (results[0]) {
-				for(var i = 1 ; i < 4 ; i++){
-					for(var j = 0 ; j < 4 ; j++) {
-						if(document.getElementById("formatedAddress" + "View" + i + j)){
-							$("#formatedAddress" + "View" + i + j).val(results[0].formatted_address);
-						}
-					}
+				for(var i = 0 ; i < 4 ; i++) {
+					$("#formatedAddress" + i).val(results[0].formatted_address);
 				}
 			}
 		} else {
@@ -111,3 +96,26 @@ function changeAddress(dest) {
 	$("#formatedAddress" + dest).val(address);
 	refreshMap(address, picture.replace("?type=large", ""));
 }
+
+
+/* --------------------------------------------------------- */
+/* Create Application */
+/* --------------------------------------------------------- */
+function createApplication() {
+	
+	url = "?APPLICATION_NAME=" + $("#myAppName").val();
+	
+	for(var i=1 ; i < 4 ; i++) {
+		url += "&VIEW_" + i + "_GEOLOC=" + $("#VIEW_" + i + "_GEOLOC").val() +
+		"&VIEW_" + i + "_MAP=" + $("#VIEW_" + i + "_MAP").val() +
+		"&VIEW_" + i + "_PUBLISH=" + $("#VIEW_" + i + "_PUBLISH").val() +
+		"&VIEW_" + i + "_SUBSCRIBE=" + $("#VIEW_" + i + "_SUBSCRIBE").val() +
+		"&VIEW_" + i + "_FIND=" + $("#VIEW_" + i + "_FIND").val() +
+		"&VIEW_" + i + "_PROFILE=" + $("#VIEW_" + i + "_PROFILE").val() +
+		"&VIEW_" + i + "_SOCIAL_NETWORK=" + $("#VIEW_" + i + "_SOCIAL_NETWORK").val();
+	}
+	
+	$(location).attr('href',url);
+}
+
+

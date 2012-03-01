@@ -25,7 +25,6 @@ class FindView extends MyApplication {
 	public function __construct(/*MyTemplateHandler*/ $handler) {
 		parent::__construct("Find");
 		$this->handler = $handler;
-		$this->filterList = array("mymed", "carf");
 	}
 
 	/* --------------------------------------------------------- */
@@ -63,7 +62,7 @@ public /*String*/ function getContent() { ?>
 <div data-role="content" style="padding: 0px;">
 
 	<!-- MAP -->
-	<div id="myRivieraMap"></div>
+	<div id="<?= APPLICATION_NAME ?>Map"></div>
 
 	<script type="text/javascript">
 				var mobile = '<?php echo TARGET ?>';

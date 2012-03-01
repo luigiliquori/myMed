@@ -33,7 +33,7 @@ class Container extends AbstractTemplate {
 				<?php if ($handle = opendir('system/templates/application')) {
 						$column = "a";
 					    while (false !== ($file = readdir($handle))) {
-					    	if($file != "." && $file != ".." && $file != ".DS_Store"){ ?>
+					    	if($file != "." && $file != ".." && $file != ".DS_Store" && $file != "myTemplate"){ ?>
 						    	<div class="ui-block-<?= $column ?>">
 							    	<a
 							    	href="?application=<?= $file ?>"

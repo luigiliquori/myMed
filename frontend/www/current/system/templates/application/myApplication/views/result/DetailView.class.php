@@ -52,7 +52,7 @@ class DetailView extends MyApplication {
 	*/
 	public /*String*/ function getContent() { ?>
 		<!-- CONTENT -->
-		<div class="content" style="text-align: left; color: black;">
+		<div class="content" style="text-align: left;">
 			<!-- PROFILE -->
 			<?php
 			$request = new Request("ProfileRequestHandler", READ);

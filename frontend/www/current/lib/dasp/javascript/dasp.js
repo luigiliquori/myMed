@@ -65,7 +65,7 @@ function setupDASP(id, at, app) {
  * @param mapID,
  *            id of the map
  */
-function setupDASPMap(mapID) {
+function setupDASPMap(mapID, displayPosition, displayError) {
 
 	if (!map) {
 		directionsDisplay = new google.maps.DirectionsRenderer();
@@ -88,77 +88,6 @@ function setupDASPMap(mapID) {
 }
 
 /**
- * Géoloc - ok
- * 
- * @param position
- */
-function displayPosition(position) {
-	currentLatitude = position.coords.latitude;
-	currentLongitude = position.coords.longitude;
-	accuracy = position.coords.accuracy;
-	$('#departGeo').val(currentLatitude + '&' + currentLongitude);
-	$('#depart').attr("placeholder", "Ma position");
-
-	// ADD POSITION Marker
-	var latlng = new google.maps.LatLng(currentLatitude, currentLongitude);
-	if (marker) {
-		marker.setPosition(latlng);
-		marker.setAnimation(google.maps.Animation.BOUNCE);
-	} else {
-		marker = new google.maps.Marker({
-			animation : google.maps.Animation.BOUNCE,
-			position : latlng,
-			icon : 'system/templates/application/myRiviera/img/position.png',
-			map : map
-		});
-	}
-
-	// if the accuracy is good enough, print a circle to show the area
-	// is use watchPosition instead of getCurrentPosition don't
-	// forget to clear previous circle, using
-	// circle.setMap(null)
-	if (accuracy) {
-		if (circle) {
-			circle.setCenter(latlng);
-			circle.setRadius(accuracy);
-		} else {
-			circle = new google.maps.Circle({
-				strokeColor : "#0000ff",
-				strokeOpacity : 0.2,
-				strokeWeight : 2,
-				fillColor : "#0000ff",
-				fillOpacity : (accuracy < 400) ? 0.1 : 0,
-						map : map,
-						center : latlng,
-						radius : accuracy
-			});
-		}
-
-	}
-
-	// focus on the position on show the POIs around
-	if (focusOnCurrentPosition) {
-		focusOnPosition(currentLatitude, currentLongitude);
-	}
-}
-
-/**
- * Géoloc - ko
- * 
- * @param error
- */
-function displayError(error) {
-	var errors = {
-			1 : 'Permission refusée',
-			2 : 'Position indisponible',
-			3 : 'Requête expirée'
-	};
-	console.log("Erreur géolocalisation: " + errors[error.code]);
-	if (error.code == 3)
-		navigator.geolocation.getCurrentPosition(displayPosition, displayError);
-}
-
-/**
  * Zoom on the position define by the latitude and the longitude
  * 
  * @param latitude
@@ -166,7 +95,7 @@ function displayError(error) {
  */
 function focusOnPosition(latitude, longitude) {
 
-	// memorize the current position
+	// memorize the position
 	currentLatitude = latitude;
 	currentLongitude = longitude;
 
@@ -174,19 +103,6 @@ function focusOnPosition(latitude, longitude) {
 	var myLatlng = new google.maps.LatLng(latitude, longitude);
 	map.setCenter(myLatlng);
 
-}
-
-/* --------------------------------------------------------- */
-/* Trip layer methods */
-/* --------------------------------------------------------- */
-/**
- * Print the trip on the current map
- * 
- * @param trip -
- *            jSon trip - Google Based
- */
-function showTrip(trip) {
-	// TODO
 }
 
 /* --------------------------------------------------------- */
@@ -239,9 +155,12 @@ function getMarkers(latitude, longitude, type, radius) {
  * @param description
  * @returns {google.maps.Marker}
  */
-function addMarker(latitude, longitude, icon, title, description) {
+function addMarker(latitude, longitude, icon, title, description, animation) {
+	if(animation == null){
+		animation = google.maps.Animation.DROP;
+	}
 	var marker = new google.maps.Marker({
-		animation : google.maps.Animation.DROP,
+		animation : animation,
 		position : new google.maps.LatLng(latitude, longitude),
 		title : title,
 		icon : icon,
@@ -263,6 +182,19 @@ function addMarker(latitude, longitude, icon, title, description) {
 	marker.ib = new InfoBox(myOptions);
 	
 	return marker;
+}
+
+/* --------------------------------------------------------- */
+/* Trip layer methods */
+/* --------------------------------------------------------- */
+/**
+ * Print the trip on the current map
+ * 
+ * @param trip -
+ *            jSon trip - Google Based
+ */
+function showTrip(trip) {
+	// TODO
 }
 
 /* --------------------------------------------------------- */

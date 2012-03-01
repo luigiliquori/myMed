@@ -40,8 +40,10 @@
 	
 	// DIALOG
 	$edit = new EditDialog();
-	$edit->printTemplate();
+
+	$edit->getContent();
 	
+	// PROFILE UPDATE
 	include('system/templates/container/mobile/home/views/updateProfile.php');
 	
 ?>
