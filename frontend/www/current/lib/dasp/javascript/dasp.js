@@ -25,7 +25,8 @@ var currentApplication;
 //Google Map features
 var directionsService = new google.maps.DirectionsService();
 var map;
-var currentLatitude = 43.7, currentLongitude = 7.27, accuracy;
+
+var currentPos=new google.maps.LatLng(43.7, 7.27), accuracy;
 var focusOnCurrentPosition = true;
 var updatezoom = true;
 var marker, circle;
@@ -73,7 +74,7 @@ function setupDASPMap(mapID, displayPosition, displayError) {
 		// init Map
 		map = new google.maps.Map(document.getElementById(mapID), {
 			zoom : 16,
-			center : new google.maps.LatLng(currentLatitude, currentLongitude),
+			center : currentPos,
 			mapTypeId : google.maps.MapTypeId.ROADMAP
 		});
 
@@ -98,11 +99,25 @@ function focusOnPosition(latitude, longitude) {
 	// memorize the position
 	currentLatitude = latitude;
 	currentLongitude = longitude;
-
+	
 	// focus on the position
 	var myLatlng = new google.maps.LatLng(latitude, longitude);
 	map.setCenter(myLatlng);
 
+}
+
+/**
+ * Zoom on position
+ * 
+ * @param google.maps.LatLng
+ */
+function focusOnLatLng(pos) {
+
+	// memorize the position
+	currentPos = pos;
+	
+	// focus on the position
+	map.setCenter(pos);
 }
 
 /* --------------------------------------------------------- */
@@ -155,21 +170,20 @@ function getMarkers(latitude, longitude, type, radius) {
  * @param description
  * @returns {google.maps.Marker}
  */
-function addMarker(latitude, longitude, icon, title, description, animation) {
+function addMarker(position, icon, title, description, animation) {
 	if(animation == null){
 		animation = google.maps.Animation.DROP;
 	}
 	var marker = new google.maps.Marker({
 		animation : animation,
-		position : new google.maps.LatLng(latitude, longitude),
-		draggable : true,
-		title : title,
+		position : position,
 		icon : icon,
+		title : title,
 		map : map
 	});
 	
 	var boxText = document.createElement("div");
-	boxText.style.cssText = " background: white;padding: 0 5px;";
+	boxText.style.cssText = " background-color: #ddf;padding: 0 5px;";
 	boxText.innerHTML = "<h4 style=' margin-top: 2px; margin-bottom: 2px;'>" + title + "</h4><p style='text-align: justify; font-size: 12px;margin: 0;'>" + description+ "</p>";
 
 	var myOptions = {

@@ -32,16 +32,14 @@ class EditDialog {
 
 		<!-- FROM -->
 
-		<input data-theme="d" type="text" id="depart" name="Depart"
-			placeholder="Départ" onblur="validateStart();"/>
+		<input data-theme="d" type="text" id="depart" name="Depart" placeholder="Départ" />
 
 		<!-- TO -->
 
 		<div id="divarrivee">
 		
 			<input data-theme="d" type="text" id="arrivee" name="Arrivee"	
-				placeholder="Arrivée" onkeyup="console.log('rbg');$(this).css('background-image', 'none');"
-					 onblur="validateEnd();"/>
+				placeholder="Arrivée" onkeyup="$(this).css('background-image', 'none');" />
 				<select id="selectarrivee" data-iconpos="notext" data-icon="plus"
 				name="enum-1" onclick="changeDestination()">
 
@@ -129,8 +127,8 @@ class EditDialog {
 
 		<!-- SUBMIT - ToDO validate before submit-->
 		<a href="#" id="trouver" data-role="button" rel="external"
-			data-icon="right" data-iconpos="right" data-theme="b"
-			onclick="validateIt();">Rechercher</a>
+			data-icon="arrow-r" data-iconpos="right" data-theme="b" data-mini="true"
+			onclick="validateIt();">Itinéraire</a>
 
 	</form>
 
