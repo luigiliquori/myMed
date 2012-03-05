@@ -48,34 +48,15 @@ function initialize() {
 	}
 	
 	//by default need to bind these fields if the user override autocompletion (use cache field values)
+	//little tumeout, to prevent geocoding if autocompletion has already done it
 	$('#depart').change(function(){
 		start = null;
-		setTimeout(function(){
-			if (start) return;
-			geocoder.geocode({'address' : $('#depart').val()}, function(results, status) {
-				if (status == google.maps.GeocoderStatus.OK) {
-					start = results[0].geometry.location;
-					refresh();
-				} else {
-					alert("Départ non valide");
-				}
-			});
-		}, 250);
+		setTimeout(geocodeStart, 250);
 	});
 	
 	$('#arrivee').change(function(){
 		end = null;
-		setTimeout(function(){
-			if (end) return;
-			geocoder.geocode({'address' : $('#arrivee').val()}, function(results, status) {
-				if (status == google.maps.GeocoderStatus.OK) {
-					end = results[0].geometry.location;
-					refresh();
-				} else {
-					alert("Arrivée non valide");
-				}
-			});
-		}, 250);
+		setTimeout(geocodeEnd, 250);
 	});
 	
 	startmarker = new google.maps.Marker({
@@ -581,6 +562,29 @@ function changeDestination() {
 
 var geocoder = new google.maps.Geocoder(), geocoder2 = new google.maps.Geocoder();
 
+function geocodeStart(){
+	if (start) return;
+	geocoder.geocode({'address' : $('#depart').val()}, function(results, status) {
+		if (status == google.maps.GeocoderStatus.OK) {
+			start = results[0].geometry.location;
+			refresh();
+		} else {
+			alert("Départ non valide");
+		}
+	});
+}
+
+function geocodeEnd(){
+	if (end) return;
+	geocoder.geocode({'address' : $('#arrivee').val()}, function(results, status) {
+		if (status == google.maps.GeocoderStatus.OK) {
+			end = results[0].geometry.location;
+			refresh();
+		} else {
+			alert("Arrivée non valide");
+		}
+	});
+}
 
 function refresh(){
 	if (start && end){
