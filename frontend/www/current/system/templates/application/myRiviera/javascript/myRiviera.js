@@ -15,9 +15,9 @@ var steps=[]; //better storing steps infos here than in huge onclick attributes
 
 var currentSegmentID=0, prevSegmentID=0;
 
-var autocompleteDepart, autocompleteArrivee, useautocompletion=true, autocompleted=false;
+var autocompleteDepart, autocompleteArrivee, useautocompletion=true;
 
-var geocodestart, geocodeend;
+var start= null, end = null;
 
 function initialize() {
 	
@@ -35,53 +35,65 @@ function initialize() {
 		autocompleteArrivee = new google.maps.places.Autocomplete(document.getElementById('arrivee'));
 		autocompleteArrivee.bindTo('bounds', map);
 		autocompleteDepart.bindTo('bounds', map);
+		
+		//prepare handlers for validation
 		google.maps.event.addListener(autocompleteDepart, 'place_changed', function() {
-			geocodestart = autocompleteDepart.getPlace().geometry.location;
-			autocompleted = true;
+			start = autocompleteDepart.getPlace().geometry.location;
+			refresh();
 		});
 		google.maps.event.addListener(autocompleteArrivee, 'place_changed', function() {
-			geocodeend = autocompleteArrivee.getPlace().geometry.location;
-			autocompleted = true;
+			end = autocompleteArrivee.getPlace().geometry.location;
+			refresh();
 		});
 	}
 	
-	//by default need to bind these fields if the user override autocompletion, if not, it will use autocompleted result
-	$('#depart').change(function(){setTimeout(validateStart, 250);});
-	$('#arrivee').change(function(){setTimeout(validateEnd, 250);});
+	//by default need to bind these fields if the user override autocompletion (use cache field values)
+	$('#depart').change(function(){
+		start = null;
+		setTimeout(function(){
+			if (start) return;
+			geocoder.geocode({'address' : $('#depart').val()}, function(results, status) {
+				if (status == google.maps.GeocoderStatus.OK) {
+					start = results[0].geometry.location;
+					refresh();
+				} else {
+					alert("Départ non valide");
+				}
+			});
+		}, 250);
+	});
 	
+	$('#arrivee').change(function(){
+		end = null;
+		setTimeout(function(){
+			if (end) return;
+			geocoder.geocode({'address' : $('#arrivee').val()}, function(results, status) {
+				if (status == google.maps.GeocoderStatus.OK) {
+					end = results[0].geometry.location;
+					refresh();
+				} else {
+					alert("Arrivée non valide");
+				}
+			});
+		}, 250);
+	});
 	
 	startmarker = new google.maps.Marker({
     map:map,
     draggable:true,
     animation: google.maps.Animation.DROP,
     icon: 'system/templates/application/myRiviera/img/start.png',
-    title: 'Départ\nMa position'
-  });
-	
-  google.maps.event.addListener(startmarker, 'click', function(){
-    if (startmarker.getAnimation() != null) {
-    	startmarker.setAnimation(null);
-    } else {
-    	startmarker.setAnimation(google.maps.Animation.BOUNCE);
-    }
+    title: 'Départ\nMa position',
+    zIndex: -1
   });
   
   endmarker = new google.maps.Marker({
     draggable:true,
     animation: google.maps.Animation.DROP,
     icon: 'system/templates/application/myRiviera/img/end.png',
-    title: 'Arrivée'
+    title: 'Arrivée',
+    zIndex: -1
   });
-	
-  google.maps.event.addListener(endmarker, 'click', function(){
-    if (endmarker.getAnimation() != null) {
-    	endmarker.setAnimation(null);
-    } else {
-    	endmarker.setAnimation(google.maps.Animation.BOUNCE);
-    }
-  });
-	
-	
 	
 	// resize the map on page change
 	$("#Find").live("pageshow", function (event, ui) {
@@ -114,8 +126,8 @@ function displayPosition(position) {
 		focusOnLatLng(currentPos);
 	}
 
-	geocodestart = currentPos;
-	startmarker.setPosition(geocodestart);
+	start = currentPos;
+	startmarker.setPosition(start);
 	startmarker.setMap(map);
 	
 	// if the accuracy is good enough, print a circle to show the area
@@ -157,7 +169,7 @@ function displayError(error) {
 			3 : 'Requête expirée'
 	};
 	console.log("Erreur géolocalisation: " + errors[error.code]);
-	geocodestart = currentPos;
+
 	if (error.code == 3)
 		navigator.geolocation.getCurrentPosition(displayPosition, displayError);
 }
@@ -373,8 +385,10 @@ function calcRouteByCityway(result){
 					'title': titre
 			};
 		}else{ //type = 'Attendre'
-			steps[i]= {
-					'position': steps[i + 1].position,
+			steps[i] = {
+					'position': new google.maps.LatLng(
+							result.ItineraryObj.tripSegments.tripSegment[i+1].departurePoint.latitude,
+							result.ItineraryObj.tripSegments.tripSegment[i+1].departurePoint.longitude),
 					'icon': icon,
 					'title': titre
 			};
@@ -514,7 +528,7 @@ function calcRouteByGoogle(){
  */
 function myRivieraShowTrip(start, end, icon) {
 
-	if (!map) {
+	/*if (!map) {
 
 		map = new google.maps.Map(document.getElementById("myRivieraMap"), {
 			zoom : 16,
@@ -523,23 +537,23 @@ function myRivieraShowTrip(start, end, icon) {
 		});
 		directionsDisplay = new google.maps.DirectionsRenderer();
 		directionsDisplay.setMap(map);
-	}
+	}*/
 
-	focusOnCurrentPosition = false;
+	/*focusOnCurrentPosition = false;
 	bounds = new google.maps.LatLngBounds();
 	bounds.extend(startmarker.getPosition());
 	bounds.extend(endmarker.getPosition());
 	map.fitBounds(bounds);
-	
+	*/
 	/*if ( mobile == "mobile")
 		for (var i=0; i<$('#itineraireContent .ui-li a').length; i++)
 			$('#itineraireContent .ui-li a').eq(i).click( function() { $('#itineraire').trigger('collapse'); });*/
 	
 	// PRINT THE STARTING POINT
-	/*fmarkers.push(addMarker(geocodestart.lat(), geocodestart.lng(),
+	/*fmarkers.push(addMarker(start.location.lat(), start.location.lng(),
 			'system/templates/application/myRiviera/img/start.png', "Départ",
 			"<b>Lieu: </b>" + start));
-	fmarkers.push(addMarker(geocodeend.lat(), geocodeend.lng(),
+	fmarkers.push(addMarker(end.location.lat(), end.location.lng(),
 			'system/templates/application/myRiviera/img/end.png', "Arrivée",
 			"<b>Lieu: </b>" + end));*/
 
@@ -562,73 +576,39 @@ function myRivieraShowTrip(start, end, icon) {
 function changeDestination() {
 	$("#arrivee").val($("#selectarrivee").val().split("&&")[1]);
 	$("#arrivee").css("background-image", 'url(' + $("#selectarrivee").val().split("&&")[0] + ')');
-	setTimeout(validateEnd, 250);
+	$("#arrivee").trigger('change');
 }
 
 var geocoder = new google.maps.Geocoder(), geocoder2 = new google.maps.Geocoder();
 
-function fitStart(){
-	startmarker.setPosition(geocodestart);
-	startmarker.setMap(map);
-	if (geocodeend){
+
+function refresh(){
+	if (start && end){
+		startmarker.setPosition(start);
+		startmarker.setMap(map);
+		endmarker.setPosition(end);
+		endmarker.setMap(map);
 		bounds = new google.maps.LatLngBounds();
-		bounds.extend(geocodestart);
-		bounds.extend(geocodeend);
+		bounds.extend(start);
+		bounds.extend(end);
 		map.fitBounds(bounds);
-	}else{
-		focusOnLatLng(geocodestart);
-	}
-}
-
-function fitEnd(){
-	endmarker.setPosition(geocodeend);
-	endmarker.setMap(map);
-	bounds = new google.maps.LatLngBounds();
-	bounds.extend(geocodestart);
-	bounds.extend(geocodeend);
-	map.fitBounds(bounds);
-}
-
-function validateStart(){
-	if (autocompleted=false){
-		fitStart();
-  }else{
-		geocoder.geocode({'address' : $("#depart").val()}, function(results, status) {
-			if (status == google.maps.GeocoderStatus.OK) {
-				geocodestart = results[0].geometry.location;
-				fitStart();
-			} else {
-				alert("Départ non valide");
-			}
-		});
-	}
-}
-
-function validateEnd(){
-	if(autocompleted=false){
-		fitEnd();
-	}else {
-		geocoder.geocode({'address' : $("#arrivee").val()}, function(results, status) {
-			if (status == google.maps.GeocoderStatus.OK) {
-				geocodeend = results[0].geometry.location;
-				fitEnd();
-			} else {
-				alert("Arrivée non valide");
-			}
-		});
+	}else if(start){
+		startmarker.setPosition(start);
+		startmarker.setMap(map);
+		focusOnLatLng(start);
 	}
 }
 
 function validateIt() {
 
-	if (startmarker.getPosition() && endmarker.getPosition()){
+	if (start && end){
 		var date = $('#select-year').val()+"-"+
 		("0" + ($('#select-month').val())).slice(-2)+"-"+
 		("0" + ($('#select-day').val())).slice(-2)+"_"+
 		("0" + ($('#select-hour').val())).slice(-2)+"-"+
 		("0" + ($('#select-minute').val())).slice(-2);
 		
-		console.log("from "+geocodestart.toString()+" to "+geocodeend.toString());
+		console.log("from "+start.toString()+" to "+end.toString());
 		
 		var optimize = $("#cityway-search input:radio:checked").val();
 		

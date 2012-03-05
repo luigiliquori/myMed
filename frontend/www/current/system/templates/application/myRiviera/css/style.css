@@ -62,7 +62,6 @@
 	background-repeat: no-repeat;
 	background-position: left;
 	background-size: 24px 24px;
-	width:88%;
 	margin-top: 10px;
 	margin-left: auto;
 	margin-right: auto;
@@ -81,23 +80,20 @@
 	background-repeat: no-repeat;
 	background-position: right;
 	background-size: 24px 24px;
-	width:200px;
 	float: left;
+	margin-left: 4px;
+	width: 242px;
 }
 
 
 #divarrivee .ui-select {
 	float:right;
-	margin: 5px 0 5px -30px;
+	margin: 5px 10px 5px -34px;
 }
 #divarrivee .ui-btn {
 	margin: 0;
 }
-	
-#divarrivee{
-	margin-left:3%;
-	margin-right:2%;
-}
+
 
 #date .ui-btn-inner {
 	padding: 4px;

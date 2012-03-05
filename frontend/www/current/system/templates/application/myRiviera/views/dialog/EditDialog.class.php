@@ -128,7 +128,7 @@ class EditDialog {
 		<!-- SUBMIT - ToDO validate before submit-->
 		<a href="#" id="trouver" data-role="button" rel="external"
 			data-icon="arrow-r" data-iconpos="right" data-theme="b" data-mini="true"
-			onclick="validateIt();">Itinéraire</a>
+			onclick="setTimeout(validateIt, 500);">Itinéraire</a>
 
 	</form>
 

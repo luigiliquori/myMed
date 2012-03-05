@@ -191,7 +191,7 @@ function addMarker(position, icon, title, description, animation) {
 		pixelOffset: new google.maps.Size(-200, -10),
 		boxStyle: {
 		   opacity: 0.8,
-		  width: "200px"
+		  width: "180px"
 		 }
 	};
 	marker.ib = new InfoBox(myOptions);
