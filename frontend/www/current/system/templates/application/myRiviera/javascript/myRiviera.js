@@ -15,7 +15,9 @@ var steps=[]; //better storing steps infos here than in huge onclick attributes
 
 var currentSegmentID=0, prevSegmentID=0;
 
-var autocompleteDepart, autocompleteArrivee, useautocompletion=true;
+var autocompleteDepart, autocompleteArrivee, useautocompletion=true, autocompleted=false;
+
+var geocodestart, geocodeend;
 
 function initialize() {
 	
@@ -35,32 +37,17 @@ function initialize() {
 		autocompleteDepart.bindTo('bounds', map);
 		google.maps.event.addListener(autocompleteDepart, 'place_changed', function() {
 			geocodestart = autocompleteDepart.getPlace().geometry.location;
-			startmarker.setPosition(geocodestart);
-			startmarker.setMap(map);
-			if (geocodeend){
-				bounds = new google.maps.LatLngBounds();
-				bounds.extend(startmarker.getPosition());
-				bounds.extend(endmarker.getPosition());
-				map.fitBounds(bounds);
-			}else{
-				focusOnPosition(geocodestart.lat(), geocodestart.lng());
-			}
+			autocompleted = true;
 		});
 		google.maps.event.addListener(autocompleteArrivee, 'place_changed', function() {
 			geocodeend = autocompleteArrivee.getPlace().geometry.location;
-			endmarker.setPosition(geocodeend);
-			endmarker.setMap(map);
-			if (geocodestart){
-				bounds = new google.maps.LatLngBounds();
-				bounds.extend(startmarker.getPosition());
-				bounds.extend(endmarker.getPosition());
-				map.fitBounds(bounds);
-			}
+			autocompleted = true;
 		});
-	} else {
-		$('#depart').change(validateStart);
-		$('#arrivee').change(validateEnd);
 	}
+	
+	//by default need to bind these fields if the user override autocompletion, if not, it will use autocompleted result
+	$('#depart').change(function(){setTimeout(validateStart, 250);});
+	$('#arrivee').change(function(){setTimeout(validateEnd, 250);});
 	
 	
 	startmarker = new google.maps.Marker({
@@ -173,6 +160,7 @@ function displayError(error) {
 			3 : 'Requête expirée'
 	};
 	console.log("Erreur géolocalisation: " + errors[error.code]);
+	geocodestart = currentPos;
 	if (error.code == 3)
 		navigator.geolocation.getCurrentPosition(displayPosition, displayError);
 }
@@ -577,57 +565,60 @@ function myRivieraShowTrip(start, end, icon) {
 function changeDestination() {
 	$("#arrivee").val($("#selectarrivee").val().split("&&")[1]);
 	$("#arrivee").css("background-image", 'url(' + $("#selectarrivee").val().split("&&")[0] + ')');
+	setTimeout(validateEnd, 250);
 }
 
 var geocoder = new google.maps.Geocoder(), geocoder2 = new google.maps.Geocoder();
 
+function fitStart(){
+	startmarker.setPosition(geocodestart);
+	startmarker.setMap(map);
+	if (geocodeend){
+		bounds = new google.maps.LatLngBounds();
+		bounds.extend(geocodestart);
+		bounds.extend(geocodeend);
+		map.fitBounds(bounds);
+	}else{
+		focusOnLatLng(geocodestart);
+	}
+}
+
+function fitEnd(){
+	endmarker.setPosition(geocodeend);
+	endmarker.setMap(map);
+	bounds = new google.maps.LatLngBounds();
+	bounds.extend(geocodestart);
+	bounds.extend(geocodeend);
+	map.fitBounds(bounds);
+}
+
 function validateStart(){
-	if ($("#depart").val() != "") {
+	if (autocompleted=false){
+		fitStart();
+  }else{
 		geocoder.geocode({'address' : $("#depart").val()}, function(results, status) {
 			if (status == google.maps.GeocoderStatus.OK) {
 				geocodestart = results[0].geometry.location;
-				startmarker.setPosition(geocodestart);
-				startmarker.setMap(map);
-				if (geocodeend){
-					bounds = new google.maps.LatLngBounds();
-					bounds.extend(startmarker.getPosition());
-					bounds.extend(endmarker.getPosition());
-					map.fitBounds(bounds);
-				}else{
-					focusOnPosition(geocodestart.lat(), geocodestart.lng());
-				}
+				fitStart();
 			} else {
 				alert("Départ non valide");
 			}
 		});
-	} else if(geocodestart){
-		// already geolocalized
-	} else {
-		alert("Départ non rempli");
-		return;
 	}
 }
 
 function validateEnd(){
-	if ($("#arrivee").val() != "") {
+	if(autocompleted=false){
+		fitEnd();
+	}else {
 		geocoder.geocode({'address' : $("#arrivee").val()}, function(results, status) {
 			if (status == google.maps.GeocoderStatus.OK) {
 				geocodeend = results[0].geometry.location;
-				endmarker.setPosition(geocodeend);
-				endmarker.setMap(map);
-				if (geocodestart){
-					bounds = new google.maps.LatLngBounds();
-					bounds.extend(startmarker.getPosition());
-					bounds.extend(endmarker.getPosition());
-					map.fitBounds(bounds);
-				}
+				fitEnd();
 			} else {
 				alert("Arrivée non valide");
 			}
 		});
-	} else {
-		alert("Arrivée non remplie");
-		return;
 	}
 }
 
