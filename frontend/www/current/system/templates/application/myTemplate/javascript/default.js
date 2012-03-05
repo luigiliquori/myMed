@@ -38,8 +38,9 @@ function initialize() {
  */
 function displayPosition(position) {
 
+	var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 	// ADD POSITION Marker
-	addMarker(position.coords.latitude, position.coords.longitude, null, "your current position", "<h3>your current position</h3>", google.maps.Animation.BOUNCE);
+	addMarker(latlng, null, "your current position", "<h3>your current position</h3>");
 	
 	// focus on the position
 	if (focusOnCurrentPosition) {
@@ -92,7 +93,7 @@ function refreshMap(address, icon) {
 			// FOCUS
 			focusOnPosition(results[0].geometry.location.lat(), results[0].geometry.location.lng());
 			// ADD MARKER
-			addMarker(results[0].geometry.location.lat(), results[0].geometry.location.lng(), icon, address, "<h3>" + address + "</h3>", google.maps.Animation.DROP);
+			addMarker(results[0].geometry.location, icon, address, "<h3>" + address + "</h3>", google.maps.Animation.DROP);
 		} else {
 			alert("Geocode was not successful for the following reason: " + status);
 		}

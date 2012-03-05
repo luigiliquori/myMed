@@ -88,10 +88,7 @@ function initialize() {
 		google.maps.event.trigger(map, 'resize');
 		
 		//refocus on lastest position
-		if ($('#itineraireContent .ui-li a').length)
-			$('#itineraireContent .ui-li a').eq(currentSegmentID).trigger('click');
-		else
-			focusOnLatLng(currentPos);
+		focusOnLatLng(currentPos);
 	});
 	
 	// init filterArray
