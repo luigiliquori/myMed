@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--apiKey for debug purposes 
     android:apiKey="04qwKOXEXMRPQxrgdbf8J88T8WO7RYG7xW3edeg"
+    android:apiKey="04qwKOXEXMRNQHx1O-06kdWHQwFhygZpvWKO6dQ" pc Monica
+    android:apiKey="04qwKOXEXMRNYfoMv_CkrMZDqG-JoxaoS_-6RAw" mymed38
     apiKey for release
     android:apiKey="04qwKOXEXMRM1y5A9fTdpDMjNSYiZXCLh1sbkgQ"
 -->
@@ -10,5 +12,5 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:clickable="true"  
-    android:apiKey="04qwKOXEXMRPQxrgdbf8J88T8WO7RYG7xW3edeg"
+    android:apiKey="04qwKOXEXMRNQHx1O-06kdWHQwFhygZpvWKO6dQ"
 />

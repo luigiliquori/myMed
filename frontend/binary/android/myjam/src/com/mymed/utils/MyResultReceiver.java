@@ -21,6 +21,8 @@ import android.util.Log;
  *
  */
 public class MyResultReceiver extends ResultReceiver {
+	public static final int MSG_SERVICE_DESTROYED = -1;
+	
 	private static final String TAG = "MyResultReceiver";
 	public static final String CALL_ID = "com.mymed.android.myjam.bundle.CALL_ID";
 	public static final String CALL_CODE = "com.mymed.android.myjam.bundle.CALL_CODE";
@@ -38,18 +40,41 @@ public class MyResultReceiver extends ResultReceiver {
 	// The array of int contains the call id at the position 0 and the call code at the position 1.
 	private int[] highPriorityCall;
 	private Map<String,Map<Integer,int[]>> lowPriorityCalls;
+//	private int numLowPriorityCalls;
 
-
-	public static MyResultReceiver getInstance(){
+	/**
+	 * Instantiate {@link MyResultReceiver} if the local instance is not {@value null}.
+	 * 
+	 * @param activityId Id of the calling activity.
+	 * @param receiver	{@link IReceiver} implementation of the calling activity. 
+	 * @return An instance of {@link MyResultReceiver}.
+	 */
+	public static MyResultReceiver getInstance(String activityId, IReceiver receiver){
 		if (instance == null)
 			instance = new MyResultReceiver();
+		instance.setReceiver(activityId, receiver);
+		return instance;
+	}
+	
+	/**
+	 * Release the resources.
+	 */
+	public static void shutdown(){
+		instance = null;
+	}
+	
+	/**
+	 * Return current {@link MyResultReceiver} instance.
+	 * 
+	 * @return An instance of {@link MyResultReceiver} or null.
+	 */
+	public static MyResultReceiver get(){
 		return instance;
 	}
 
 	/** The result receiver is associated to the main thread (UI thread). */
 	private MyResultReceiver() {
 		super(new Handler());
-
 		/**
 		 * Contains the attributes of the low priority calls associated the activities.
 		 */
@@ -59,7 +84,7 @@ public class MyResultReceiver extends ResultReceiver {
 	}
 
 	public void clearReceiver() {
-		mReceiver = null;
+		this.mReceiver = null;
 	}
 
 	/**
@@ -67,15 +92,23 @@ public class MyResultReceiver extends ResultReceiver {
 	 * @param activityId
 	 * @param receiver
 	 */
-	public void setReceiver(String activityId, IReceiver receiver) {
+	private void setReceiver(String activityId, IReceiver receiver) {
 		this.currActivity = activityId;
 		this.mReceiver = new WeakReference<IReceiver>(receiver);
 
 		/** Initializes the list of calls associated to the current activity. */
 		if (lowPriorityCalls.get(currActivity)==null)
 			lowPriorityCalls.put(currActivity, new HashMap<Integer,int[]>());
+	}
+	
+	/**
+	 * Check if there is an ongoing hp call.
+	 */
+	public void checkOngoingCalls(){
 		if (highPriorityCall!=null)
 			mReceiver.get().onUpdateProgressStatus(true, highPriorityCall[1], highPriorityCall[0]);
+		else
+			mReceiver.get().onUpdateProgressStatus(false,0,0);
 	}
 
 	/**
@@ -86,13 +119,6 @@ public class MyResultReceiver extends ResultReceiver {
 	 *
 	 */
 	public interface IReceiver{
-		/**
-		 * Provide a result to the registered activity.
-		 * 
-		 * @param resultCode
-		 * @param resultData
-		 */
-		public void onReceiveResult(int resultCode, Bundle resultData);
 
 		/**
 		 * Provide an update of the progress status on the current activity.
@@ -139,8 +165,6 @@ public class MyResultReceiver extends ResultReceiver {
 		 */
 		public void onCallSuccess(int callCode, int callId);
 		
-		public void onServiceDestroyed();
-		
 	}
 
 	/**
@@ -175,6 +199,7 @@ public class MyResultReceiver extends ResultReceiver {
 			switch(priority){
 			case HttpCall.LOW_PRIORITY:
 				lowPriorityCalls.get(activityId).put(callId, callDetails);
+//				numLowPriorityCalls++;
 				break;
 			case HttpCall.HIGH_PRIORITY:
 				highPriorityCall=callDetails;
@@ -199,6 +224,7 @@ public class MyResultReceiver extends ResultReceiver {
 				mReceiver.get().onCallInterrupted(callCode, callId);
 			switch(priority){
 			case HttpCall.LOW_PRIORITY:
+//				numLowPriorityCalls++;
 				lowPriorityCalls.get(activityId).remove(callId);
 				break;
 			case HttpCall.HIGH_PRIORITY:
@@ -211,17 +237,6 @@ public class MyResultReceiver extends ResultReceiver {
 				}
 				break;
 			}
-			break;
 		}
-		if (currActivity.equals(activityId) && mReceiver != null) {
-			mReceiver.get().onReceiveResult(resultCode, bundle);
-		} else {
-			Log.w(TAG, "Dropping result on floor for code " + resultCode + ": "
-					+ bundle.toString());
-		}
-	}
-	
-	public static void shutdown(){
-		instance = null;
 	}
 }

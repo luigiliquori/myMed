@@ -25,12 +25,14 @@ import com.mymed.android.myjam.exception.InternalBackEndException;
 import com.mymed.android.myjam.exception.InternalClientException;
 import com.mymed.android.myjam.provider.MyJamContract;
 import com.mymed.android.myjam.provider.MyJamContract.Feedback;
+import com.mymed.android.myjam.provider.MyJamContract.FeedbacksRequest;
 import com.mymed.android.myjam.provider.MyJamContract.Login;
 import com.mymed.android.myjam.provider.MyJamContract.Report;
 import com.mymed.android.myjam.provider.MyJamContract.Search;
 import com.mymed.android.myjam.provider.MyJamContract.SearchReports;
 import com.mymed.android.myjam.provider.MyJamContract.SearchResult;
 import com.mymed.android.myjam.provider.MyJamContract.Update;
+import com.mymed.android.myjam.provider.MyJamContract.UpdatesRequest;
 import com.mymed.android.myjam.provider.MyJamContract.User;
 import com.mymed.model.data.myjam.MFeedBackBean;
 import com.mymed.model.data.myjam.MReportBean;
@@ -142,36 +144,20 @@ public class CallService extends Service {
     	}
 
     	@Override
-    	public void handleMessage(Message msg) {
-    		final MyResultReceiver receiver; 
+    	public void handleMessage(Message msg) { 
+    		final MyResultReceiver receiver;
     		final Intent intent;
     		final String jsonObj;
     		final HttpCall call;
     		final Bundle bundle = new Bundle();
-//    		if ((callBean = mCallsMap.get(msg.arg1))!=null)
-//    			receiver = callBean.getReceiver();
-//    		else
-//    			receiver = null;
     		call = mCallsMap.get(msg.arg1);
-    		receiver = MyResultReceiver.getInstance();
+    		receiver = MyResultReceiver.get();
     		switch(msg.what){
     		/** It is a new request arrived at the service. */
     		case NEW_CALL:
     			intent = (Intent) msg.obj;
-//TODO    			MCallBean newCall = new MCallBean();
-//    			newCall.setCallId(msg.arg1);
-//    			newCall.setCallCode(intent.getIntExtra(EXTRA_REQUEST_CODE, 0));
-//    			newCall.setAttributes(intent.getBundleExtra(EXTRA_ATTRIBUTES));
-//    			newCall.setObject(intent.getSerializableExtra(EXTRA_OBJECT));
-//    			newCall.setReceiver((ResultReceiver) intent.getParcelableExtra(EXTRA_STATUS_RECEIVER));
-//    			newCall.setPriority(intent.getIntExtra(EXTRA_PRIORITY_CODE, 1));
-//    			newCall.setMaxNumAttempts(intent.getIntExtra(EXTRA_NUMBER_ATTEMPTS, 1));
-//    			newCall.setActivityId(intent.getStringExtra(EXTRA_ACTIVITY_ID));
-    			//TODO Check
     			Object obj = intent.getSerializableExtra(EXTRA_OBJECT);
     			jsonObj=obj!=null?gson.toJson(obj):null;
-  //  			mCallsMap.put(msg.arg1, newCall);
-  //      		startCall(msg.arg1,);
     			startCall(msg.arg1, intent.getIntExtra(EXTRA_REQUEST_CODE, 0), 
     					intent.getBundleExtra(EXTRA_ATTRIBUTES), 
     					intent.getStringExtra(EXTRA_ACTIVITY_ID), 
@@ -187,6 +173,7 @@ public class CallService extends Service {
     		case MSG_CALL_START:
     			Log.d(TAG,"Call "+msg.arg1+" started.");
     			prepareCallBundle(call,null,bundle);
+    			updateRequestStatus(call,true);
     			if (receiver != null) receiver.send(MSG_CALL_START, bundle);
     			break;
     		/** The call didn't start 
@@ -208,6 +195,7 @@ public class CallService extends Service {
     			Log.d(TAG,"Call "+msg.arg1+" succesfull. Result: "+(String) msg.obj);
     			prepareCallBundle(call,(String) msg.obj,bundle);
     			handleSuccessCall(msg);
+    			updateRequestStatus(call,false);
     			if (receiver != null) receiver.send(MSG_CALL_SUCCESS, bundle);
     			break;
     		/** The call has been interrupted. */
@@ -215,6 +203,7 @@ public class CallService extends Service {
     			Log.d(TAG,"Call "+msg.arg1+" interrupted.");
     			prepareCallBundle(call,(String) msg.obj,bundle);
     			if (receiver != null) receiver.send(MSG_CALL_INTERRUPTED, bundle);
+				updateRequestStatus(call,false);
     			mCallsMap.remove(msg.arg1);
     			break;
     		/** The call ended due to an error. */
@@ -238,9 +227,10 @@ public class CallService extends Service {
     			}else{
     				prepareCallBundle(call,(String) msg.obj,bundle);
         			if (receiver != null) receiver.send(MSG_CALL_ERROR, bundle);
-        			if (call.getNumAttempts()>=call.getMaxNumAttempts())
-        				mCallsMap.remove(msg.arg1); 
-        			else{
+        			if (call.getNumAttempts()>=call.getMaxNumAttempts()){
+        				mCallsMap.remove(msg.arg1);
+        				updateRequestStatus(call,true);	
+        			}else{
         				/** After first attempt all calls are considered low priority. */
         				call.setPriority(HttpCall.LOW_PRIORITY);
         				executeCall(call);
@@ -364,77 +354,7 @@ public class CallService extends Service {
      */
     private void startCall(final int reqId, final int callCode, final Bundle attributes, 
     		final String activityId, final int maxNumAttempts, final int priority, final String jsonObj){
-//TODO    	final MCallBean callBean = mCallsMap.get(reqId);
     	final HttpCall call;
-//    	boolean report = false;
-//    	switch(callCode){
-//    	/**
-//    	 * 
-//    	 */
-//    	case CallCode.LOG_IN:
-//    		call = AuthenticationCallFactory.authenticate(reqId, mServiceHandler, 
-//    				attributes.getString(ICallAttributes.LOGIN), 
-//    				attributes.getString(ICallAttributes.PASSWORD));
-//    		break;
-//    	case CallCode.LOG_OUT:
-//    		call = AuthenticationCallFactory.logOut(reqId, mServiceHandler, 
-//    				attributes.getString(ICallAttributes.ACCESS_TOKEN));
-//    		break;
-//    	//TODO
-//    	case CallCode.SEARCH_REPORTS:
-//    		call = MyJamCallFactory.searchReports(reqId, mServiceHandler,
-//    				attributes.getString(ICallAttributes.ACCESS_TOKEN),
-//    				attributes.getInt(ICallAttributes.LATITUDE),
-//    				attributes.getInt(ICallAttributes.LONGITUDE),
-//    				attributes.getInt(ICallAttributes.RADIUS));
-//    		break;
-//    	case CallCode.GET_REPORT:
-//    		call = MyJamCallFactory.getReport(reqId, mServiceHandler,
-//    				attributes.getString(ICallAttributes.ACCESS_TOKEN),
-//    				attributes.getString(ICallAttributes.REPORT_ID));
-//    		break;
-//    	case CallCode.INSERT_REPORT:
-//    		call = MyJamCallFactory.insertReport(reqId, mServiceHandler,
-//    				attributes.getString(ICallAttributes.ACCESS_TOKEN),
-//    				attributes.getInt(ICallAttributes.LATITUDE),
-//    				attributes.getInt(ICallAttributes.LONGITUDE),
-//    				jsonObj);
-//    		break;
-//    	case CallCode.GET_UPDATES:
-//    		call = MyJamCallFactory.getUpdates(reqId, mServiceHandler,
-//    				attributes.getString(ICallAttributes.ACCESS_TOKEN),
-//    				attributes.getString(ICallAttributes.REPORT_ID),
-//    				attributes.getLong(ICallAttributes.START_TIME));
-//    		break;
-//    	case CallCode.INSERT_UPDATE:
-//    		call = MyJamCallFactory.insertUpdate(reqId, mServiceHandler,
-//    				attributes.getString(ICallAttributes.ACCESS_TOKEN),
-//    				attributes.getString(ICallAttributes.REPORT_ID),
-//    				jsonObj);
-//    		break;
-//    	case CallCode.GET_REPORT_FEEDBACKS:
-//    		report = true;
-//    	case CallCode.GET_UPDATE_FEEDBACKS:
-//    		call = MyJamCallFactory.getFeedbacks(reqId, report, mServiceHandler,
-//    				attributes.getString(ICallAttributes.ACCESS_TOKEN),
-//    				attributes.getString(ICallAttributes.REPORT_ID));
-//    		break;
-//    	case CallCode.INSERT_REPORT_FEEDBACK:
-//    	case CallCode.INSERT_UPDATE_FEEDBACK:
-//    		call = MyJamCallFactory.insertFeedBack(reqId, mServiceHandler,
-//    				attributes.getString(ICallAttributes.ACCESS_TOKEN),
-//    				attributes.getString(ICallAttributes.REPORT_ID),
-//    				attributes.getString(ICallAttributes.UPDATE_ID),
-//    				jsonObj);
-//    		break;
-//    	default:
-//    		call = null;
-//    	}
-//    	if (call!=null){
-//    		call.setActivityId(activityId);
-//    		call.setMaxNumAttempts(maxNumAttempts);
-//    		call.setPriority(priority);
-//    	}
     	call = jsonObj==null?new HttpCall(reqId, callCode, attributes, mServiceHandler):
     		new HttpCall(reqId, callCode, attributes, mServiceHandler, jsonObj);
     	call.setActivityId(activityId);
@@ -494,8 +414,42 @@ public class CallService extends Service {
 		}
     }
     
+    /**
+     * Updates the tables UpdatesRequest and FeedbacksRequest.
+     *
+     * @param call 
+     * @param start 
+     */
+    private void updateRequestStatus(HttpCall call,boolean start){
+    	final ContentValues currVal;
+    	
+    	switch(call.getCallCode()){
+    	case CallCode.GET_UPDATES:
+    		currVal = new ContentValues();
+    		currVal.put(UpdatesRequest.REPORT_ID, call.getAttributes().getString(CallContract.REPORT_ID));
+    		currVal.put(UpdatesRequest.LAST_UPDATE, System.currentTimeMillis());
+    		currVal.put(UpdatesRequest.UPDATING, start);
+    		mResolver.insert(UpdatesRequest.CONTENT_URI, currVal);
+    		break;
+    	case CallCode.GET_REPORT_FEEDBACKS:
+    		currVal = new ContentValues();
+    		currVal.put(FeedbacksRequest.REPORT_ID, call.getAttributes().getString(CallContract.REPORT_ID));
+    		currVal.put(FeedbacksRequest.LAST_UPDATE, System.currentTimeMillis());
+    		currVal.put(FeedbacksRequest.UPDATING, start);
+    		mResolver.insert(FeedbacksRequest.CONTENT_URI, currVal);
+    		break;
+    	case CallCode.GET_UPDATE_FEEDBACKS:
+    		currVal = new ContentValues();
+    		currVal.put(FeedbacksRequest.UPDATE_ID, call.getAttributes().getString(CallContract.REPORT_ID));
+    		currVal.put(FeedbacksRequest.LAST_UPDATE, System.currentTimeMillis());
+    		currVal.put(FeedbacksRequest.UPDATING, start);
+    		mResolver.insert(FeedbacksRequest.CONTENT_URI, currVal);
+    		break;
+    	}
+    }
+    
     private void handleSuccessCall(Message msg){
-    	final HttpCall call = mCallsMap.remove(msg.arg1);
+    	final HttpCall call = mCallsMap.get(msg.arg1);
     	final String result = (String) msg.obj;
     	try{
     		switch(call.getCallCode()){
@@ -533,6 +487,7 @@ public class CallService extends Service {
     			break;
     		default:
     		}
+    		mCallsMap.remove(msg.arg1);
     	}catch(AbstractMymedException e){
     		mServiceHandler.callError(msg.arg1, e.getStatus(), e.getMessage());
     	} catch (Exception e) {
@@ -602,7 +557,11 @@ public class CallService extends Service {
     		throws RemoteException, OperationApplicationException{
     	final ArrayList<ContentProviderOperation> batch = new ArrayList<ContentProviderOperation> (2);
     	
-    	batch.add(ContentProviderOperation.newDelete(Login.CONTENT_URI).build());
+    	//batch.add(ContentProviderOperation.newDelete(Login.CONTENT_URI).build());
+    	batch.add(ContentProviderOperation.newUpdate(Login.CONTENT_URI)
+    			.withSelection(Login.LOGIN_STATUS_SELECTION, new String[]{String.valueOf(1)})
+    			.withValue(Login.LOGGED, false)
+    			.build());
     	mResolver.applyBatch(MyJamContract.CONTENT_AUTHORITY, batch);
     	mResolver.notifyChange(Login.CONTENT_URI, null);
     }
@@ -780,7 +739,7 @@ public class CallService extends Service {
     	MReportBean updateRes = this.gson.fromJson(jsonData, reportType);
 		ContentValues currVal = new ContentValues();
 		currVal.put(Update.UPDATE_ID, updateRes.getId());
-		currVal.put(Update.REPORT_ID, attributes.getInt(CallContract.REPORT_ID));
+		currVal.put(Update.REPORT_ID, attributes.getString(CallContract.ID));
 		currVal.put(Update.USER_ID, updateRes.getUserId());
 		currVal.put(Update.USER_NAME, updateRes.getUserName());
 		currVal.put(Update.DATE, updateRes.getTimestamp());

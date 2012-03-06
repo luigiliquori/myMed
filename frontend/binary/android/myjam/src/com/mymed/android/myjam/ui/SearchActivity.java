@@ -46,6 +46,7 @@ import android.widget.Toast;
 import com.google.android.maps.GeoPoint;
 import com.mymed.android.myjam.R;
 import com.mymed.android.myjam.controller.CallContract;
+import com.mymed.android.myjam.controller.HttpCallHandler;
 import com.mymed.android.myjam.controller.CallContract.CallCode;
 import com.mymed.android.myjam.controller.HttpCall;
 import com.mymed.android.myjam.provider.MyJamContract;
@@ -83,6 +84,7 @@ public class SearchActivity extends AbstractLocatedActivity implements IReceiver
 	
 	/** Dialogs */
 	static final int DIALOG_NO_LOCATION_ID = 0;
+	static final int DIALOG_NO_REPORTS_ID = 1;
 	
 	private Handler mMessageQueueHandler = new Handler();
 	
@@ -175,7 +177,7 @@ public class SearchActivity extends AbstractLocatedActivity implements IReceiver
 		});
 		mLastUpdateTextView = (TextView) findViewById(R.id.textViewSearchDate);
 		setDefaultKeyMode(DEFAULT_KEYS_SHORTCUT);
-		mResultReceiver = MyResultReceiver.getInstance();
+		mResultReceiver = MyResultReceiver.getInstance(this.getClass().getName(),this);
 		mSearchButton = (Button) findViewById(R.id.buttonSearch);
 		mInsertButton = (Button) findViewById(R.id.buttonInsertReport);
 		mMapButton = (Button) findViewById(R.id.buttonViewOnMap);
@@ -284,13 +286,16 @@ public class SearchActivity extends AbstractLocatedActivity implements IReceiver
         		showDialog(DIALOG_NO_LOCATION_ID);
         	}
 		}else if (v.equals(mMapButton)){
-    		Intent intent = new Intent(this,ViewOnMapActivity.class);
-    		Uri uri = getIntent().getData();
-    		String filter =  mSettings.getString(FILTER_PREFERENCE,"NONE");
-    		if (mSearchId == Search.NEW_SEARCH && !filter.equals("NONE"))
-    			uri = SearchReports.buildSearchUri(String.valueOf(mSearchId), filter);
-    		intent.setData(uri);
-    		startActivity(intent);
+			if (mAdapter.getCount()>0){
+				Intent intent = new Intent(this,ViewOnMapActivity.class);
+	    		Uri uri = getIntent().getData();
+	    		String filter =  mSettings.getString(FILTER_PREFERENCE,"NONE");
+	    		if (mSearchId == Search.NEW_SEARCH && !filter.equals("NONE"))
+	    			uri = SearchReports.buildSearchUri(String.valueOf(mSearchId), filter);
+	    		intent.setData(uri);
+	    		startActivity(intent);
+			}else
+				showDialog(DIALOG_NO_REPORTS_ID);
 		}
 	}
 	
@@ -322,7 +327,6 @@ public class SearchActivity extends AbstractLocatedActivity implements IReceiver
 			int lon = (int) (currLoc.getLongitude()*1E6);
 			int radius = Integer.parseInt(mSettings.getString(RADIUS_PREFERENCE,"10000"));
 			intent.putExtra(CallService.EXTRA_ACTIVITY_ID, this.getClass().getName());
-			intent.putExtra(CallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
 			intent.putExtra(CallService.EXTRA_REQUEST_CODE, CallCode.SEARCH_REPORTS);
 			intent.putExtra(CallService.EXTRA_PRIORITY_CODE, HttpCall.HIGH_PRIORITY);
 			intent.putExtra(CallService.EXTRA_NUMBER_ATTEMPTS, 1);
@@ -335,6 +339,8 @@ public class SearchActivity extends AbstractLocatedActivity implements IReceiver
 			intent.putExtra(CallService.EXTRA_ATTRIBUTES, bundle);
 			Log.d(TAG,"Intent sent: "+intent.toString());
 			startService(intent);
+			//The search button is disable while a search call is ongoing.
+			mSearchButton.setEnabled(false);
 		}		
 	}
 	
@@ -354,6 +360,7 @@ public class SearchActivity extends AbstractLocatedActivity implements IReceiver
 	protected void onPause() {
 		super.onPause();
 		mResultReceiver.clearReceiver();
+		updateRefreshStatus(false);
 		//TODO Enable or disable search button.
 		getContentResolver().unregisterContentObserver(mSearchChangesObserver);
 		mMessageQueueHandler.removeCallbacks(mSearchRunnable);
@@ -376,7 +383,8 @@ public class SearchActivity extends AbstractLocatedActivity implements IReceiver
 		// Used to map notes entries from the database to views
 		mAdapter = new SearchListAdapter(this,cursor,true);
 		mList.setAdapter(mAdapter);
-		mResultReceiver.setReceiver(this.getClass().getName(),this);
+		MyResultReceiver resultReceiver = MyResultReceiver.getInstance(this.getClass().getName(),this);
+		resultReceiver.checkOngoingCalls();
 		getContentResolver().registerContentObserver(
 				uri,false, mSearchChangesObserver);
 		//TODO Enable or disable search button.
@@ -519,13 +527,37 @@ public class SearchActivity extends AbstractLocatedActivity implements IReceiver
         	mDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
 				@Override
 				public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+					MyResultReceiver resultRec = MyResultReceiver.get();
+					int[] hpCallDetails;
 					if (keyCode == KeyEvent.KEYCODE_SEARCH && event.getRepeatCount() == 0) {
 						return true; // Pretend we processed it
+					}else if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0){
+						//The calls of LoginActivity are not stoppable. The dialog is dismiss only if for some
+						//odd reason the call is ended but the activity has not informed.
+						//if (MyResultReceiver.getInstance(this.getClass().getName(),SearchActivity.this).getOngoingHPCall()==null
+						if ((resultRec = MyResultReceiver.get()) == null){
+							mDialog.dismiss();
+							return true;
+						}								
+						if ((hpCallDetails = resultRec.getOngoingHPCall())==null 
+								&& mDialog!=null){
+							mDialog.dismiss();							
+							return true;
+						}else{
+							Intent intent = new Intent(SearchActivity.this, CallService.class);
+				    		intent.putExtra(CallService.EXTRA_ACTIVITY_ID, this.getClass().getName());
+				    		intent.putExtra(CallService.EXTRA_REQUEST_CODE, HttpCallHandler.INTERRUPT_CALL);
+				    		intent.putExtra(CallService.EXTRA_CALL_ID, hpCallDetails[0]);
+				    		startService(intent);
+				    		return true;
+						}
 					}
 					return false; // Any other keys are still processed as normal
 				}
 			});
         }else{
+        	//Enables the search button.
+        	mSearchButton.setEnabled(true);
 			if (mDialog != null)
 				mDialog.dismiss();
         }
@@ -533,11 +565,16 @@ public class SearchActivity extends AbstractLocatedActivity implements IReceiver
     }
     
     protected Dialog onCreateDialog(int id) {
+    	int msgCode = Integer.MIN_VALUE;
         Dialog dialog;
         switch(id) {
         case DIALOG_NO_LOCATION_ID:
+        	msgCode = R.string.loc_not_available_dialog_message;
+        case DIALOG_NO_REPORTS_ID:
+        	if (msgCode==Integer.MIN_VALUE) 
+        		msgCode = R.string.no_reports_available_dialog_message;
     		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    		builder.setMessage(getResources().getString(R.string.loc_not_available_dialog_message))
+    		builder.setMessage(getResources().getString(msgCode))
     			.setCancelable(false)       	
     			.setTitle(R.string.dialog_title)
     			.setIcon(R.drawable.myjam_icon)
@@ -564,35 +601,7 @@ public class SearchActivity extends AbstractLocatedActivity implements IReceiver
         
         return false;
     }
-    
-
-	@Override
-	public void onReceiveResult(int resultCode, Bundle resultData) {
-//		boolean mSyncing = false;
-//		
-//		switch (resultCode) {
-//		case HttpCallHandler.MSG_CALL_START:
-//			mSyncing = true;
-//			break;
-//		case HttpCallHandler.MSG_CALL_SUCCESS: 
-//			mSyncing = false;
-//			Toast.makeText(this, getResources().getString(R.string.search_finished),Toast.LENGTH_LONG).show();
-//			break;
-//		case HttpCallHandler.MSG_CALL_ERROR:
-//			// Error happened down in SyncService, show as toast.
-//			mSyncing = false;
-//			//
-//			
-//			String errMsg = resultData.getString(Intent.EXTRA_TEXT);
-//			final String errorText = String.format(this.getResources().getString(R.string.toast_call_error, errMsg));
-//			Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
-//			break;
-//		}
-//
-//	updateRefreshStatus(mSyncing);
-	}
-
-	
+    	
 	/**
 	 * Adapter that prepares the data for the List.
 	 * @author iacopo
@@ -643,7 +652,7 @@ public class SearchActivity extends AbstractLocatedActivity implements IReceiver
 	@Override
 	public void onCallError(int callCode, int callId, String errorMessage,
 			int numAttempt, int maxAttempts) {
-		final String errorText = String.format(this.getResources().getString(R.string.toast_call_error, errorMessage));
+		String errorText = String.format(this.getResources().getString(R.string.toast_call_error, errorMessage));
 		Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
 	}
 
@@ -652,12 +661,24 @@ public class SearchActivity extends AbstractLocatedActivity implements IReceiver
 
 	@Override
 	public void onCallSuccess(int callCode, int callId) {
-		Toast.makeText(this, getResources().getString(R.string.search_finished),Toast.LENGTH_LONG).show();
-	}
-
-	@Override
-	public void onServiceDestroyed() {
-		// TODO Auto-generated method stub
-		
+		int messageCode;
+		switch(callCode){
+		case CallCode.SEARCH_REPORTS:
+			messageCode = R.string.search_finished;
+			break;
+		case CallCode.INSERT_REPORT:
+			messageCode = R.string.report_inserted;
+			break;
+		case CallCode.INSERT_UPDATE:
+			messageCode = R.string.update_inserted;
+			break;
+		case CallCode.INSERT_REPORT_FEEDBACK:
+		case CallCode.INSERT_UPDATE_FEEDBACK:
+			messageCode = R.string.feedback_inserted;
+			break;
+		default:
+			return;
+		}
+		Toast.makeText(this, getResources().getString(messageCode),Toast.LENGTH_LONG).show();
 	}
 }

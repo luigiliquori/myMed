@@ -32,7 +32,8 @@ public abstract class CallContract {
 		DELETE;
 	}
 
-	//protected static final String BACKEND_URL = "http://10.0.2.2:8080/mymed_backend/"; //Testing purposes.
+	public static final String FRONTEND_URL = "http://mymed38.polito.it/mymed/";
+	//protected static final String BACKEND_URL = "http://10.0.2.2:8080/mymed_backend/"; //Testing purposes.	
 	protected static final String BACKEND_URL = "http://mymed38.polito.it:8080/backend/"; //Italian backbone.
 	protected static final String PROFILE_HANDLER_URL = BACKEND_URL+"ProfileRequestHandler";
 	protected static final String AUTHENTICATION_HANDLER_URL = BACKEND_URL+"AuthenticationRequestHandler";
@@ -107,7 +108,7 @@ public abstract class CallContract {
 		case CallCode.GET_REPORT_FEEDBACKS:
 			return MY_JAM_FEEDBACK_HANDLER_URL;
 		case CallCode.GET_UPDATE_FEEDBACKS:
-			return MY_JAM_UPDATE_HANDLER_URL;
+			return MY_JAM_FEEDBACK_HANDLER_URL;
 		case CallCode.INSERT_REPORT:
 			return MY_JAM_REPORT_HANDLER_URL;
 		case CallCode.INSERT_UPDATE:
@@ -146,7 +147,7 @@ public abstract class CallContract {
 		case CallCode.INSERT_REPORT:
 			return HttpMethod.POST;
 		case CallCode.INSERT_UPDATE:
-			return HttpMethod.GET;
+			return HttpMethod.POST;
 		case CallCode.INSERT_REPORT_FEEDBACK:
 			return HttpMethod.POST;
 		case CallCode.INSERT_UPDATE_FEEDBACK:

@@ -199,6 +199,7 @@ public class HttpCall extends CallContract implements Runnable {
 			case HttpStatus.SC_INTERNAL_SERVER_ERROR:
 			case HttpStatus.SC_NOT_FOUND:
 			case HttpStatus.SC_CONFLICT: //TODO Check if this error code is really used.
+			case HttpStatus.SC_FORBIDDEN:
 				JSONObject object = (JSONObject) new JSONTokener(responseContent).nextValue();
 				if (object.has("description")){
 					//JSONObject errObj = object.getJSONObject("error");

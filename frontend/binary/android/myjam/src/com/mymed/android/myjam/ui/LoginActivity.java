@@ -2,6 +2,8 @@ package com.mymed.android.myjam.ui;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -9,14 +11,14 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.ContentObserver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -46,11 +48,12 @@ public class LoginActivity extends Activity implements IReceiver {
 	
 	private MyResultReceiver mResultReceiver;
 	private GlobalStateAndUtils mGlobalState;
+	private Map<String,String> mLoginMap;
 	
-	/* WIDGETS */
+	/** WIDGETS */
 	private Button mLogButton;
 	private Button mHomeButton;	
-	private EditText mLoginEditText;
+	private AutoCompleteTextView mLoginEditText;
 	private EditText mPwdEditText;
 	private TextView mLoggedTextView;
 	private TextView mLoginTextView;
@@ -63,7 +66,6 @@ public class LoginActivity extends Activity implements IReceiver {
 	static final int DIALOG_NULL_PWD_ID = 0x1;
 	
 	private interface LoginQuery{
-		//TODO Add distance to order in a proper way.
 		String[] PROJECTION = new String[] {
 			Login.QUALIFIER+Login.LOGIN_ID,					//0
 			Login.QUALIFIER+Login.PASSWORD,					//1
@@ -89,7 +91,7 @@ public class LoginActivity extends Activity implements IReceiver {
 		setContentView(R.layout.login_view);
 		mLogButton = (Button) findViewById(R.id.buttonLogIn);
 		mHomeButton = (Button) findViewById(R.id.buttonHome);
-		mLoginEditText = (EditText) findViewById(R.id.editTextLogin);
+		mLoginEditText = (AutoCompleteTextView) findViewById(R.id.editTextLogin);
 		mPwdEditText = (EditText) findViewById(R.id.editTextPwd);
 		mLoginTextView = (TextView) findViewById(R.id.textViewLogin);
 		mPwdTextView = (TextView) findViewById(R.id.textViewPwd);
@@ -97,7 +99,7 @@ public class LoginActivity extends Activity implements IReceiver {
 		mSignInLink = (TextView) findViewById(R.id.textViewSignIn);
 		mSignInLink.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				Uri uri = Uri.parse( "http://130.192.9.113/mobile/#login&ui-state=dialog" );
+				Uri uri = Uri.parse( CallContract.FRONTEND_URL );
 				startActivity( new Intent( Intent.ACTION_VIEW, uri ) );
 			}
 		});
@@ -107,8 +109,9 @@ public class LoginActivity extends Activity implements IReceiver {
 			}
 		});
 		
-		mResultReceiver = MyResultReceiver.getInstance();
+		//mResultReceiver = MyResultReceiver.getInstance();
 		mGlobalState = GlobalStateAndUtils.getInstance(getApplicationContext());
+		mLoginMap = new HashMap<String,String>();
 	}
 	
 	@Override
@@ -120,10 +123,21 @@ public class LoginActivity extends Activity implements IReceiver {
 	protected void onResume() {
 		super.onResume();
 		
-		mResultReceiver.setReceiver(this.getClass().getName(),this);
+		mResultReceiver = MyResultReceiver.getInstance(this.getClass().getName(),this);
+		mResultReceiver.checkOngoingCalls();
+		updateLoginMap();
+		String[] logins = new String[mLoginMap.size()];
+		int ind=0;
+		for (String currLogin:mLoginMap.keySet()){
+			logins[ind] = currLogin;
+			ind++;
+		}
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(LoginActivity.this, android.R.layout.simple_dropdown_item_1line
+				, logins);
+	    mLoginEditText.setAdapter(adapter);
 		refreshLayout();
-		getContentResolver().registerContentObserver(
-				Login.CONTENT_URI,false, mSessionChangesObserver);
+//		getContentResolver().registerContentObserver(
+//				Login.CONTENT_URI,false, mSessionChangesObserver);
 	}
 	
 	/**
@@ -144,12 +158,27 @@ public class LoginActivity extends Activity implements IReceiver {
 	}
 	
 	/**
+	 * Updates the map containing login and passwords.
+	 */
+	private void updateLoginMap(){
+		mLoginMap.clear();
+		
+		Cursor searchCursor = getContentResolver().query(Login.buildLoginStatusUri(Login.ALL),LoginQuery.PROJECTION, 
+				null, null, null);
+		while (searchCursor.moveToNext()){
+			mLoginMap.put(searchCursor.getString(LoginQuery.LOGIN),
+					searchCursor.getString(LoginQuery.PASSWORD));
+		}
+		searchCursor.close();
+	}
+	
+	/**
 	 * Updates the status of the login on {@link GlobalStateAndUtils}.
 	 */
 	private void updateLoginStatus(){
 		GlobalStateAndUtils instance = GlobalStateAndUtils.getInstance(getApplicationContext());
 		
-		Cursor searchCursor = getContentResolver().query(Login.CONTENT_URI,LoginQuery.PROJECTION, 
+		Cursor searchCursor = getContentResolver().query(Login.buildLoginStatusUri(Login.LOGGED),LoginQuery.PROJECTION, 
 				null, null, null);
 		if (searchCursor.moveToFirst()){
 			instance.setUserId(searchCursor.getString(LoginQuery.USER_ID));
@@ -170,21 +199,21 @@ public class LoginActivity extends Activity implements IReceiver {
 		searchCursor.close();
 	}
 	
-	/**
-	 * 	Executed when a change on Login table is notified.
-	 */
-    private ContentObserver mSessionChangesObserver = new ContentObserver(new Handler()) {
-        @Override
-        public void onChange(boolean selfChange) {
-            refreshLayout();
-        }
-    };
+//	/**
+//	 * 	Executed when a change on Login table is notified.
+//	 */
+//    private ContentObserver mSessionChangesObserver = new ContentObserver(new Handler()) {
+//        @Override
+//        public void onChange(boolean selfChange) {
+//            refreshLayout();
+//        }
+//    };
 	
 	@Override 
 	protected void onPause() {
 		super.onPause();
 		mResultReceiver.clearReceiver();
-		getContentResolver().unregisterContentObserver(mSessionChangesObserver);
+//		getContentResolver().unregisterContentObserver(mSessionChangesObserver);
 	}
 	
 	@Override
@@ -210,11 +239,14 @@ public class LoginActivity extends Activity implements IReceiver {
 		mLogButton.setText(getResources().getString(R.string.login_button_label));
 		mLogButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
+				mLogButton.setEnabled(false);
 				if (mLoginEditText.getText().length() == 0){
+					mLogButton.setEnabled(true);
 					showDialog(DIALOG_NULL_LOGIN_ID);
 					return;
 				}
 				if (mPwdEditText.getText().length() == 0){
+					mLogButton.setEnabled(true);
 					showDialog(DIALOG_NULL_PWD_ID);
 					return;
 				}					
@@ -238,6 +270,7 @@ public class LoginActivity extends Activity implements IReceiver {
 		mLogButton.setText(getResources().getString(R.string.logout_button_label));
 		mLogButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
+				mLogButton.setEnabled(false);
 				if (mGlobalState.isLogged())
 					requestLogout(mGlobalState.getAccessToken());
 			}
@@ -274,7 +307,6 @@ public class LoginActivity extends Activity implements IReceiver {
         intent.putExtra(CallService.EXTRA_ATTRIBUTES, bundle);
         Log.d(TAG,"Intent sent: "+intent.toString());
         startService(intent);
-//		startSearchActivity();
 	}
 	
 	private void requestLogout(String accessToken){
@@ -371,44 +403,7 @@ public class LoginActivity extends Activity implements IReceiver {
 
 	@Override
 	public void onCallInterrupted(int callCode, int callId) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public void onReceiveResult(int resultCode, Bundle resultData) {
-//		boolean mSyncing = false;
-//		int code = LOG_IN;
-//		
-//		final MCallBean call = (MCallBean) resultData.getSerializable(CallService.CALL_BEAN);
-//		switch (resultCode) {
-//		case HttpCallHandler.MSG_CALL_START:
-//			mSyncing = true;
-//			if (call.getCallCode() == RequestCode.LOG_IN)
-//				code=LOG_IN;
-//			else if (call.getCallCode() == RequestCode.LOG_OUT)
-//				code=LOG_OUT;
-//			break;
-//		case HttpCallHandler.MSG_CALL_SUCCESS: 
-//			mSyncing = false;
-//			updateLoginStatus();
-//			if (call.getCallCode() == RequestCode.LOG_IN){
-//				Toast.makeText(this, getResources().getString(R.string.logged_in_msg), Toast.LENGTH_SHORT).show();
-//				startSearchActivity();
-//			}else if (call.getCallCode() == RequestCode.LOG_OUT){
-//				Toast.makeText(this, getResources().getString(R.string.logged_out_msg), Toast.LENGTH_SHORT).show();
-//				createLogInLayout();
-//			}
-//			break;
-//		case HttpCallHandler.MSG_CALL_ERROR:
-//			// Error happened down in SyncService, show as toast.
-//			mSyncing = false;
-//			String errMsg = resultData.getString(Intent.EXTRA_TEXT);
-//			final String errorText = String.format(this.getResources().getString(R.string.toast_call_error, errMsg));
-//			Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
-//			break;
-//		}		
-//		
+		// TODO Auto-generated method stub		
 	}
 	
 	/**
@@ -423,18 +418,29 @@ public class LoginActivity extends Activity implements IReceiver {
          	mDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
 				@Override
 				public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-					if (keyCode == KeyEvent.KEYCODE_SEARCH && event.getRepeatCount() == 0) {
+					MyResultReceiver resultRec = MyResultReceiver.get(); 
+					if (keyCode == KeyEvent.KEYCODE_SEARCH && event.getRepeatCount() == 0)
 						return true; // Pretend we processed it
-					}else if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0){
-						//The calls of LoginActivity are not stoppable.
-						if (MyResultReceiver.getInstance().getOngoingHPCall()==null && mDialog!=null)
+					else if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0){
+						//The calls of LoginActivity are not stoppable. The dialog is dismiss only if for some
+						//odd reason the call is ended but the activity has not informed.
+						if ((resultRec = MyResultReceiver.get()) == null){
 							mDialog.dismiss();
-						return true;
+							return true;
+						}								
+						if (resultRec.getOngoingHPCall()==null 
+								&& mDialog!=null){
+							mDialog.dismiss();							
+							mLogButton.setEnabled(true);
+							return true;
+						}
 					}
 					return false; // Any other keys are still processed as normal
 				}
          	});
         }else{
+        	// Enables again the button.
+        	mLogButton.setEnabled(true);
 			if (mDialog != null)
 				mDialog.dismiss();
         }
@@ -443,22 +449,34 @@ public class LoginActivity extends Activity implements IReceiver {
 
 	@Override
 	public void onCallSuccess(int callCode, int callId) {
+		int messageCode;
 		updateLoginStatus();
-		if (callCode == CallCode.LOG_IN){
-			Toast.makeText(this, getResources().getString(R.string.logged_in_msg), Toast.LENGTH_SHORT).show();
+		switch(callCode){
+		case CallCode.LOG_IN:
+			messageCode = R.string.logged_in_msg;
 			startSearchActivity();
-		}else if (callCode == CallCode.LOG_OUT){
-			Toast.makeText(this, getResources().getString(R.string.logged_out_msg), Toast.LENGTH_SHORT).show();
+			break;
+		case CallCode.LOG_OUT:
+			messageCode = R.string.logged_out_msg;
 			createLogInLayout();
+			break;
+		case CallCode.SEARCH_REPORTS:
+			messageCode = R.string.search_finished;
+			break;
+		case CallCode.INSERT_REPORT:
+			messageCode = R.string.report_inserted;
+			break;
+		case CallCode.INSERT_UPDATE:
+			messageCode = R.string.update_inserted;
+			break;
+		case CallCode.INSERT_REPORT_FEEDBACK:
+		case CallCode.INSERT_UPDATE_FEEDBACK:
+			messageCode = R.string.feedback_inserted;
+			break;
+		default:
+			return;
 		}
+		Toast.makeText(this, getResources().getString(messageCode),Toast.LENGTH_LONG).show();
 	}
-
-	@Override
-	public void onServiceDestroyed() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
 
 }
