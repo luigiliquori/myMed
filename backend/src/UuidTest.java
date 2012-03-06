@@ -17,10 +17,10 @@ public class UuidTest {
      */
     @Test
     public void createUuid() {
+        UUID lastId = null;
         for (int i = 0; i < 10; i++) {
             final UUID id = TimeUuid.getTimeUUID();
             System.out.println(id);
-            UUID lastId = null;
             if (lastId != null) {
                 assertFalse(lastId.equals(id));
             }
