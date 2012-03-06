@@ -1,0 +1,7 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "ASSEDIC_EPSG4326", "Nom": "ASSEDIC", "Description": "Les ASSEDIC sont ouverts le lundi, de 9h00 à 15h15, le mardi de 9h00 à 14h00, et du mercredi au vendredi  de 9h00 à 15h15", "Adresse": "8 rue Guyau 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.504539, 43.776494 ] } }
+
+]
+}

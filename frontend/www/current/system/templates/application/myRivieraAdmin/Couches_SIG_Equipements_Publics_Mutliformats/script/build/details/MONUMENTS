@@ -1,9 +1,0 @@
-{
-"type": "MONUMENTSCollection",
-"features": [
-{ "type": "MONUMENTS", "properties": { "ADRESSE": "", "CODE_POSTA": "06320", "VILLE": "La Turbie", "PAYS": "France", "NOM": "Trophée des Alpes", "DESCRIPTIO": "", "SOURCE": "CARF", "DATEDESAIS": "0000\/00\/00", "LAT": "", "LN": "" }, "geometry": { "type": "Point", "coordinates": [ 7.401757, 43.744752 ] } }
-,
-{ "type": "MONUMENTS", "properties": { "ADRESSE": "", "CODE_POSTA": "06320", "VILLE": "LA TURBIE", "PAYS": "FRANCE", "NOM": "CARRIERE ROMAINE DU MONT JUSTI", "DESCRIPTIO": "CARRIERE ROMAINE DU MONT JUSTICIER", "SOURCE": "CARF", "DATEDESAIS": "2010\/10\/09", "LAT": "", "LN": "" }, "geometry": { "type": "Point", "coordinates": [ 7.411074, 43.747713 ] } }
-
-]
-}

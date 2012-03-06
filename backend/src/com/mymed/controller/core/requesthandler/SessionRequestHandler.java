@@ -36,8 +36,10 @@ import com.mymed.model.data.user.MUserBean;
  * Servlet implementation class SessionRequestHandler
  */
 public class SessionRequestHandler extends AbstractRequestHandler {
-    private static final long serialVersionUID = 1L;
-
+    /**
+     * Generated serial ID.
+     */
+    private static final long serialVersionUID = -1249666546771611959L;
     private SessionManager sessionManager;
     private ProfileManager profileManager;
 
@@ -122,7 +124,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
         try {
             final Map<String, String> parameters = getParameters(request);
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            final String accessToken = parameters.get(JSON_APPLICATION);
+            final String accessToken = parameters.get(JSON_ACCESS_TKN);
             final String userID = parameters.get("userID");
 
             if (accessToken == null) {
@@ -133,7 +135,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
                 case CREATE : // FOR FACEBOOK - TODO Check Security!
                     message.setMethod(JSON_CODE_CREATE);
                     if (userID == null) {
-                        throw new InternalBackEndException("session argument missing!");
+                        throw new InternalBackEndException("userID argument missing!");
                     }
 
                     final MUserBean userBean = profileManager.read(userID);
@@ -157,8 +159,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
                     LOGGER.info("Session {} created -> LOGIN", accessToken);
 
                     final StringBuffer urlBuffer = new StringBuffer(250);
-                    // TODO check: here is 'https', in other part is 'http'
-                    urlBuffer.append("https://");
+                    urlBuffer.append("http://");
                     try {
                         urlBuffer.append(InetAddress.getLocalHost().getCanonicalHostName());
                     } catch (final UnknownHostException ex) {

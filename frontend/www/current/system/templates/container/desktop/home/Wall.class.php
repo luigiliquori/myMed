@@ -70,23 +70,42 @@ class Wall extends AbstractTemplate {
 			
 			<!-- NEWS -->
 			<div id="news">
-				<br />
-				Plus d'infos sur: <a href="http://www.mymed.fr" target="blank">www.mymed.fr</a>
-				<br />
-				<ul style="position: relative; left: -15px;">
-					<li>
-						L'équipe technique de myMed de l'INRIA s'est rendu à Turin pour installer avec ses collègues de l'École Politechnique 
-						de Turin la dorsale de PC Italiens.<br /><br />
-					</li>
-					<li>
-						Deuxième RV avec M. Jérôme Vandamme à une réunion de travail du Club des Entrepreneurs Italiens de l’UPE 06.<br /><br />
-					</li>
-					<li>
-						myMed entame deux réunions les 20 et 27 juillet avec M. Benchimol, Doyen de la faculté de Medicine et le Professeur
-						Pascal Staccini et Edmond Cissé pour étudier quelques réseaux sociaux axés étudiants, docteurs ou "analyse de symptômes,
-						depistage maladies". <br /><br />
-					</li>
-				</ul>
+				<?php
+				$xml=("http://www-sop.inria.fr/teams/lognet/MYMED/feed.php?rss");
+	
+				$xmlDoc = new DOMDocument();
+				$xmlDoc->load($xml);
+	
+				//get elements from "<channel>"
+				$channel=$xmlDoc->getElementsByTagName('channel')->item(0);
+				$channel_title = $channel->getElementsByTagName('title')
+				->item(0)->childNodes->item(0)->nodeValue;
+				$channel_link = $channel->getElementsByTagName('link')
+				->item(0)->childNodes->item(0)->nodeValue;
+				$channel_desc = $channel->getElementsByTagName('description')
+				->item(0)->childNodes->item(0)->nodeValue;
+	
+				//output elements from "<channel>"
+				echo("<H3 Style='position: relative; width:90%; left: 5%;'><a href='" . $channel_link
+				. "'>Actualités - myMed</a>");
+				echo "</h3>";
+	
+				//get and output "<item>" elements
+				$x=$xmlDoc->getElementsByTagName('item');
+				for ($i=0; $i<=7; $i++) {
+					$item_title=$x->item($i)->getElementsByTagName('title')
+					->item(0)->childNodes->item(0)->nodeValue;
+					$item_link=$x->item($i)->getElementsByTagName('link')
+					->item(0)->childNodes->item(0)->nodeValue;
+					$item_desc=$x->item($i)->getElementsByTagName('description')
+					->item(0)->childNodes->item(0)->nodeValue;
+	
+					echo ("<div Style='position: relative; width:90%; left: 5%;'><a href='" . $item_link
+					. "'>" . $item_title . "</a>");
+					echo ("<br />");
+					echo ($item_desc . "</div>");
+				}
+				?>
 			</div>
 		</div>
 	<?php }

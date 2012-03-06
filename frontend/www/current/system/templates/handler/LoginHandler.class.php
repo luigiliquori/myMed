@@ -34,20 +34,21 @@ class LoginHandler implements IRequestHandler {
 	 * Enter description here ...
 	 */
 	public /*String*/ function handleRequest() {
-		
+
 		// Only if there is no existing session
 		if(!isset($_SESSION['user'])) {
-			
+
 			// LOGIN
 			if(isset($_GET['accessToken'])) {
-				
-				if(isset($_GET['registration'])) { // HANDLER REGISTRATION
+
+				if(isset($_GET['registration'])) {
+					// HANDLER REGISTRATION
 					$request = new Request("AuthenticationRequestHandler", CREATE);
 					$request->addArgument("accessToken", $_GET['accessToken']);
-					
+
 					$responsejSon = $request->send();
 					$responseObject = json_decode($responsejSon);
-					
+
 					if($responseObject->status != 200) {
 						$_SESSION['error'] = $responseObject->description;
 					} else {
@@ -61,10 +62,10 @@ class LoginHandler implements IRequestHandler {
 					} else {
 						$request->addArgument("socialNetwork", "myMed");
 					}
-				
+
 					$responsejSon = $request->send();
 					$responseObject = json_decode($responsejSon);
-				
+
 					if($responseObject->status != 200) {
 						$_SESSION['error'] = $responseObject->description;
 					} else {
@@ -75,9 +76,10 @@ class LoginHandler implements IRequestHandler {
 						$_SESSION['accessToken'] = $_GET['accessToken'];
 					}
 				}
-				
-			} else if(isset($_POST['singin'])) { // HANDLE MYMED AUTHENTICATION
-				
+
+			} else if(isset($_POST['singin'])) {
+				// HANDLE MYMED AUTHENTICATION
+
 				// Preconditions
 				if($_POST['login'] == ""){
 					$this->error = "FAIL: eMail cannot be empty!";
@@ -101,14 +103,17 @@ class LoginHandler implements IRequestHandler {
 					$url = $responseObject->data->url;
 					header("Refresh:0;url=" . $url . "?accessToken=" . $accessToken); // REDIRECTION
 				}
-				
-			} else { // HANDLE ALL THE SOCIAL NETWORK AUTHENTICATION
-				
-				foreach($this->socialNetworkConnection->getWrappers() as $wrapper) {
-					$wrapper->handleAuthentication();
-				}
+
+			}
+			foreach($this->socialNetworkConnection->getWrappers() as $wrapper) {
+				$wrapper->handleAuthentication();
+			}
+		} else if(!isset($_SESSION['socialNetworkEnabled'])) {
+			foreach($this->socialNetworkConnection->getWrappers() as $wrapper) {
+				$wrapper->handleAuthentication();
 			}
 		}
+
 	}
 
 	/**
