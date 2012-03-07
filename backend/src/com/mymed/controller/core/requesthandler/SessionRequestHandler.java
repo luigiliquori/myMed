@@ -54,7 +54,8 @@ public class SessionRequestHandler extends AbstractRequestHandler {
             sessionManager = new SessionManager();
             profileManager = new ProfileManager();
         } catch (final InternalBackEndException e) {
-            throw new ServletException("SessionManager is not accessible because: " + e.getMessage());
+            LOGGER.debug("Cannot access session manager", e);
+            throw new ServletException("SessionManager is not accessible because: " + e.getMessage()); // NOPMD
         }
     }
 
@@ -164,7 +165,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
                         urlBuffer.append(InetAddress.getLocalHost().getCanonicalHostName());
                     } catch (final UnknownHostException ex) {
                         LOGGER.debug("Impossibile to retrieve host address", ex);
-                        urlBuffer.append("www.mymed.fr");
+                        urlBuffer.append("www.mymed.fr"); // NOPMD
                     }
 
                     urlBuffer.append("?socialNetwork=");

@@ -21,7 +21,6 @@ public class UuidTest {
         UUID lastId = null;
         for (int i = 0; i < 10; i++) {
             final UUID id = TimeUuid.getTimeUUID();
-            System.out.println(id);
             if (lastId != null) {
                 assertFalse(lastId.equals(id));
             }
