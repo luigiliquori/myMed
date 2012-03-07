@@ -416,7 +416,7 @@ public class InsertActivity extends AbstractLocatedActivity implements IReceiver
 	}
 
 	@Override
-	public void onCallError(int callCode, int callId, String errorMessage,
+	public void onCallError(int callCode, int callId, int statusCode, String errorMessage,
 			int numAttempt, int maxAttempts) {
 		final String errorText = String.format(this.getResources().getString(R.string.toast_call_error, errorMessage));
 		Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();

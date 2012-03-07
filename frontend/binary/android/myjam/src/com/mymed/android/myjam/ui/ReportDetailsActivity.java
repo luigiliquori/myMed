@@ -109,6 +109,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, IReceiver, View.OnClickListener{
 	
     private String mReportId; /** The Id of the currently pointed report. */
     private String mUpdateId; /** The Id of the currently pointed update. */
+    private String mReportType; /** The type of the currently pointed report */
     
 	/** Flag used to force a refresh even if the time elapsed wouldn't be sufficient.*/
 	private boolean mForceRefreshFlag = false;
@@ -189,8 +190,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, IReceiver, View.OnClickListener{
 		if (mReportCursor.moveToFirst()){
 			if (mReportCursor.getInt(ReportQuery.FLAG_COMPLETE)==0)	
 				requestReport();
-			if (mReportCursor.getString(ReportQuery.REPORT_TYPE).equals(ReportType.FIXED_SPEED_CAM.name()))
-				mInsertButton.setEnabled(false);
+			mReportType = mReportCursor.getString(ReportQuery.REPORT_TYPE);
 		}
 		/** This query is not asynchronous because before retrieving the updates, we want to know how many Updates are presents in the db*/
 		mUpdatesCursor = getContentResolver().query(Update.buildReportIdUri(mReportId)
@@ -280,7 +280,8 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, IReceiver, View.OnClickListener{
 		@Override
 		public void run() {
 			mDistance = refreshDistance();
-			mInsertButton.setEnabled(true);
+			if (!mReportType.equals(ReportType.FIXED_SPEED_CAM.name()))
+				mInsertButton.setEnabled(true);
 			mMessageQueueHandler.postDelayed(mRefreshDistance, 2000);
 		}
     };
@@ -358,7 +359,6 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, IReceiver, View.OnClickListener{
     				FeedbacksRequest.buildUpdateIdUri(reportOrUpdateId)
 				, demandQueryProjection, FeedbacksRequest.REFRESH_SELECTION, 
 				args,null);
-    	startManagingCursor(cursor);
     	if (!cursor.moveToFirst() || forceRefresh){
         	/** Performs a request to receive the updates. */
     		Intent intent = new Intent(ReportDetailsActivity.this, CallService.class);
@@ -412,6 +412,8 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, IReceiver, View.OnClickListener{
         if (refreshing){
         	if (message==null)
         		message = String.format(getResources().getString(R.string.sync_msg, ""));
+        	if (mDialog!=null)
+        		mDialog.dismiss();
         	mDialog = ProgressDialog.show(this, "", 
 					message, true);
          	mDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
@@ -454,7 +456,8 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, IReceiver, View.OnClickListener{
 	@Override
 	protected void onLocServiceConnected() {
 		mDistance = refreshDistance();
-		mInsertButton.setEnabled(true);
+		if (!mReportType.equals(ReportType.FIXED_SPEED_CAM.name()))
+				mInsertButton.setEnabled(true);
 		mMessageQueueHandler.postDelayed(mRefreshDistance, 5000); //Refresh the distance every 5 seconds.
 	}
 
@@ -942,7 +945,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, IReceiver, View.OnClickListener{
 	}
 
 	@Override
-	public void onCallError(int callCode, int callId, String errorMessage,
+	public void onCallError(int callCode, int callId, int statusCode, String errorMessage,
 			int numAttempt, int maxAttempts) {
 		final String errorText = String.format(this.getResources().getString(R.string.toast_call_error, errorMessage));
 		Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();

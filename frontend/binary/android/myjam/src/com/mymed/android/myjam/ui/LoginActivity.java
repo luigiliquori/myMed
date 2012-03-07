@@ -394,7 +394,7 @@ public class LoginActivity extends Activity implements IReceiver {
 	}
 
 	@Override
-	public void onCallError(int callCode, int callId, String errorMessage,
+	public void onCallError(int callCode, int callId, int statusCode, String errorMessage,
 			int numAttempt, int maxAttempts) {
 		//String errMsg = resultData.getString(Intent.EXTRA_TEXT);
 		final String errorText = String.format(this.getResources().getString(R.string.toast_call_error, errorMessage));

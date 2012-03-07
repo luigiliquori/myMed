@@ -40,7 +40,7 @@ public class LocationService extends Service implements LocationListener{
 
 	private static final int TEN_SECONDS = 10000;	//Expiration time for location.
 
-	public static final int MINIMUM_FINE_ACCURACY = 5000;	//Minimum accuracy of the new location.
+	public static final int MINIMUM_FINE_ACCURACY = 15;	//Minimum accuracy of the new location.
 
 	/**Parameters used for broadcast intent.*/
 	public static final String LOCATION_ACTION = "com.mymed.android.myjam.intent.action.LOCATION_CHANGE";
@@ -95,7 +95,7 @@ public class LocationService extends Service implements LocationListener{
 
 
 		locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-		//		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this, mServiceLooper);//locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, TWO_MINUTES, MIN_SPACE_FINE, this, mServiceLooper);
+				locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this, mServiceLooper);//locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, TWO_MINUTES, MIN_SPACE_FINE, this, mServiceLooper);
 		//		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this, mServiceLooper);
 		if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
 			Log.d(TAG, "Network provider available.");
@@ -113,7 +113,7 @@ public class LocationService extends Service implements LocationListener{
 	public void onDestroy(){
 		super.onDestroy();
 		locationManager.removeUpdates(this);
-//		mMessageQueueHandler.removeCallbacks(mLocationExpiredRunnable);
+		mMessageQueueHandler.removeCallbacks(mLocationExpiredRunnable);
 		mServiceLooper.quit();
 		mNotificationManager.cancel(LOCATION_ID);//TODO Check
 	}
@@ -123,9 +123,9 @@ public class LocationService extends Service implements LocationListener{
 		//TODO Check the scope of this intent.
 		if (arg0.getAccuracy()<MINIMUM_FINE_ACCURACY){
 			/** Removes the old time-out and sets a new one. */
-//			mMessageQueueHandler.removeCallbacks(mLocationExpiredRunnable);
+			mMessageQueueHandler.removeCallbacks(mLocationExpiredRunnable);
 			long nextTenSeconds = SystemClock.uptimeMillis() + TEN_SECONDS; //TODO Use a setting.
-//			mMessageQueueHandler.postAtTime(mLocationExpiredRunnable, nextTenSeconds);
+			mMessageQueueHandler.postAtTime(mLocationExpiredRunnable, nextTenSeconds);
 			synchronized(lock){
 				if(!mLocAvailable){				
 					mLocAvailable = true;
@@ -140,21 +140,21 @@ public class LocationService extends Service implements LocationListener{
 		}
 	}
 
-//	private Runnable mLocationExpiredRunnable = new Runnable() {
-//		public void run() {
-//			onLocationExpired();
-//		}
-//	};
-	
-	private Runnable mFixedLocationRunnable = new Runnable() {
+	private Runnable mLocationExpiredRunnable = new Runnable() {
 		public void run() {
-			Location loc = new Location("FIXED_PROVIDER");
-			loc.setAccuracy((float) 5.0);
-			loc.setLatitude(45.079529); //Prova a Sophia-Antipolis
-			loc.setLongitude(7.675717);
-			onLocationChanged(loc);
+			onLocationExpired();
 		}
 	};
+	
+//	private Runnable mFixedLocationRunnable = new Runnable() {
+//		public void run() {
+//			Location loc = new Location("FIXED_PROVIDER");
+//			loc.setAccuracy((float) 5.0);
+//			loc.setLatitude(45.079529); //Prova a Sophia-Antipolis
+//			loc.setLongitude(7.675717);
+//			onLocationChanged(loc);
+//		}
+//	};
 
 
 	public void onLocationExpired() {
@@ -182,7 +182,7 @@ public class LocationService extends Service implements LocationListener{
 
 	@Override
 	public IBinder onBind(Intent intent) {
-		mMessageQueueHandler.postDelayed(mFixedLocationRunnable, 5000); //To be used for the demonstration
+		//mMessageQueueHandler.postDelayed(mFixedLocationRunnable, 5000); //To be used for the demonstration
 		return mBinder;
 	}
 

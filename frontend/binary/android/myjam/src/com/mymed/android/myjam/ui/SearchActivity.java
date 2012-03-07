@@ -183,7 +183,7 @@ public class SearchActivity extends AbstractLocatedActivity implements IReceiver
 		mMapButton = (Button) findViewById(R.id.buttonViewOnMap);
 		mMapButton.setOnClickListener(this);
 		if (mSearchId == Search.NEW_SEARCH){
-			mSearchButton.setEnabled(false);			
+			//mSearchButton.setEnabled(false);
 			mSearchButton.setOnClickListener(this);
 			mInsertButton.setOnClickListener(this);
 			mMapButton.setOnClickListener(this);
@@ -557,7 +557,6 @@ public class SearchActivity extends AbstractLocatedActivity implements IReceiver
 			});
         }else{
         	//Enables the search button.
-        	mSearchButton.setEnabled(true);
 			if (mDialog != null)
 				mDialog.dismiss();
         }
@@ -647,10 +646,12 @@ public class SearchActivity extends AbstractLocatedActivity implements IReceiver
 	@Override
 	public void onUpdateProgressStatus(boolean state, int callCode, int callId) {
 		updateRefreshStatus(state);
+		if (!state && callCode!=-1)
+			mSearchButton.setEnabled(true);
 	}
 
 	@Override
-	public void onCallError(int callCode, int callId, String errorMessage,
+	public void onCallError(int callCode, int callId, int statusCode, String errorMessage,
 			int numAttempt, int maxAttempts) {
 		String errorText = String.format(this.getResources().getString(R.string.toast_call_error, errorMessage));
 		Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();

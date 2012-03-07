@@ -26,6 +26,7 @@ public class MyResultReceiver extends ResultReceiver {
 	private static final String TAG = "MyResultReceiver";
 	public static final String CALL_ID = "com.mymed.android.myjam.bundle.CALL_ID";
 	public static final String CALL_CODE = "com.mymed.android.myjam.bundle.CALL_CODE";
+	public static final String STATUS_CODE = "com.mymed.android.myjam.bundle.STATUS_CODE";
 	public static final String ACTIVITY_ID = "com.mymed.android.myjam.bundle.ACTIVITY_ID";
 	public static final String PRIORITY = "com.mymed.android.myjam.bundle.PRIORITY";
 	public static final String NUM_ATTEMPTS = "com.mymed.android.myjam.bundle.NUM_ATTEMPTS";
@@ -108,7 +109,7 @@ public class MyResultReceiver extends ResultReceiver {
 		if (highPriorityCall!=null)
 			mReceiver.get().onUpdateProgressStatus(true, highPriorityCall[1], highPriorityCall[0]);
 		else
-			mReceiver.get().onUpdateProgressStatus(false,0,0);
+			mReceiver.get().onUpdateProgressStatus(false,-1,-1);
 	}
 
 	/**
@@ -147,7 +148,7 @@ public class MyResultReceiver extends ResultReceiver {
 		 * @param maxAttempts
 		 * 		Maximum number of attempts for the current call.
 		 */
-		public void onCallError(int callCode, int callId, String errorMessage, int numAttempt, int maxAttempts);
+		public void onCallError(int callCode, int callId, int errorCode, String errorMessage, int numAttempt, int maxAttempts);
 
 		/**
 		 * Communicate that the current call has been interrupted.
@@ -186,6 +187,7 @@ public class MyResultReceiver extends ResultReceiver {
 	protected void onReceiveResult(int resultCode, Bundle bundle) {
 		final int callId = bundle.getInt(MyResultReceiver.CALL_ID);
 		final int callCode = bundle.getInt(MyResultReceiver.CALL_CODE);
+		final int statusCode = bundle.getInt(MyResultReceiver.STATUS_CODE);
 		final int numAttempts = bundle.getInt(MyResultReceiver.NUM_ATTEMPTS);
 		final int maxNumAttempts = bundle.getInt(MyResultReceiver.MAX_NUM_ATTEMPTS);
 		final int priority = bundle.getInt(MyResultReceiver.PRIORITY, HttpCall.LOW_PRIORITY);
@@ -217,7 +219,7 @@ public class MyResultReceiver extends ResultReceiver {
 		case HttpCallHandler.MSG_CALL_NOT_STARTED: 
 		case HttpCallHandler.MSG_CALL_ERROR:
 			if (mReceiver!=null && resultCode == HttpCallHandler.MSG_CALL_ERROR)
-				mReceiver.get().onCallError(callCode, callId, message, 
+				mReceiver.get().onCallError(callCode, callId, statusCode, message, 
 						numAttempts, maxNumAttempts);
 		case HttpCallHandler.MSG_CALL_INTERRUPTED:
 			if (mReceiver!=null && resultCode == HttpCallHandler.MSG_CALL_INTERRUPTED)
@@ -229,7 +231,7 @@ public class MyResultReceiver extends ResultReceiver {
 				break;
 			case HttpCall.HIGH_PRIORITY:
 				highPriorityCall=null;
-				if (mReceiver!=null) {
+				if (mReceiver!=null && activityId.equals(this.currActivity)) {
 					mReceiver.get().onUpdateProgressStatus(false, callCode, callId);
 					Log.d(TAG, "Dismiss progress status " + callId+" Result code: "+resultCode);
 				}else{

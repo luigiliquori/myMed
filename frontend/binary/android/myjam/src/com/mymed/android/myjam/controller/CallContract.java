@@ -32,7 +32,7 @@ public abstract class CallContract {
 		DELETE;
 	}
 
-	public static final String FRONTEND_URL = "http://mymed38.polito.it/mymed/";
+	public static final String FRONTEND_URL = "http://mymed38.polito.it/";
 	//protected static final String BACKEND_URL = "http://10.0.2.2:8080/mymed_backend/"; //Testing purposes.	
 	protected static final String BACKEND_URL = "http://mymed38.polito.it:8080/backend/"; //Italian backbone.
 	protected static final String PROFILE_HANDLER_URL = BACKEND_URL+"ProfileRequestHandler";

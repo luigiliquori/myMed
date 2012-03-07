@@ -99,6 +99,13 @@ public class CallService extends Service {
     public static final String EXTRA_EXCEPTION =
             "com.mymed.android.myjam.extra.EXCEPTION"; 
     
+    public static final int STATUS_CODE_START = 10;
+    public static final int STATUS_CODE_SUCCESS = 200;
+    public static final int STATUS_CODE_INTERRUPTED = 409;
+    public static final int STATUS_CODE_NOT_STARTED = 406;
+    
+    
+    
     /** Type of connections available.  */
     private static final int[] connType={
 			ConnectivityManager.TYPE_MOBILE,
@@ -172,7 +179,7 @@ public class CallService extends Service {
     		/** The call started. */
     		case MSG_CALL_START:
     			Log.d(TAG,"Call "+msg.arg1+" started.");
-    			prepareCallBundle(call,null,bundle);
+    			prepareCallBundle(call,STATUS_CODE_START,null,bundle);
     			updateRequestStatus(call,true);
     			if (receiver != null) receiver.send(MSG_CALL_START, bundle);
     			break;
@@ -182,7 +189,7 @@ public class CallService extends Service {
     		 * */
     		case MSG_CALL_NOT_STARTED:
     			Log.d(TAG,"Call "+msg.arg1+" not started.");
-    			prepareCallBundle(call,null,bundle);
+    			prepareCallBundle(call,STATUS_CODE_NOT_STARTED,null,bundle);
     			if (receiver != null) 
     				receiver.send(MSG_CALL_NOT_STARTED, bundle);
     			else 
@@ -193,7 +200,7 @@ public class CallService extends Service {
     		/** The call ended successfully. */
     		case MSG_CALL_SUCCESS:
     			Log.d(TAG,"Call "+msg.arg1+" succesfull. Result: "+(String) msg.obj);
-    			prepareCallBundle(call,(String) msg.obj,bundle);
+    			prepareCallBundle(call,STATUS_CODE_SUCCESS,(String) msg.obj,bundle);
     			handleSuccessCall(msg);
     			updateRequestStatus(call,false);
     			if (receiver != null) receiver.send(MSG_CALL_SUCCESS, bundle);
@@ -201,7 +208,7 @@ public class CallService extends Service {
     		/** The call has been interrupted. */
     		case MSG_CALL_INTERRUPTED:
     			Log.d(TAG,"Call "+msg.arg1+" interrupted.");
-    			prepareCallBundle(call,(String) msg.obj,bundle);
+    			prepareCallBundle(call,STATUS_CODE_INTERRUPTED,(String) msg.obj,bundle);
     			if (receiver != null) receiver.send(MSG_CALL_INTERRUPTED, bundle);
 				updateRequestStatus(call,false);
     			mCallsMap.remove(msg.arg1);
@@ -217,15 +224,15 @@ public class CallService extends Service {
     			 */ 
     			// The application tries to log out, but the token is no more valid.
     			if (call.getCallCode() == CallCode.LOG_OUT && msg.arg2 == 404){
-    				prepareCallBundle(call,(String) msg.obj,bundle);
+    				prepareCallBundle(call,STATUS_CODE_SUCCESS,(String) msg.obj,bundle);
         			handleSuccessCall(msg);
         			if (receiver != null) receiver.send(MSG_CALL_SUCCESS, bundle);
     			}else if(call.getCallCode() == CallCode.CHECK_ACCESS_TOKEN && msg.arg2 == 404){
-    				prepareCallBundle(call,(String) msg.obj,bundle);
+    				prepareCallBundle(call,STATUS_CODE_SUCCESS,(String) msg.obj,bundle);
         			handleSuccessCall(msg);
         			if (receiver != null) receiver.send(MSG_CALL_SUCCESS, bundle);
     			}else{
-    				prepareCallBundle(call,(String) msg.obj,bundle);
+    				prepareCallBundle(call,msg.arg2,(String) msg.obj,bundle);
         			if (receiver != null) receiver.send(MSG_CALL_ERROR, bundle);
         			if (call.getNumAttempts()>=call.getMaxNumAttempts()){
         				mCallsMap.remove(msg.arg1);
@@ -239,7 +246,7 @@ public class CallService extends Service {
     			break;
     		case MSG_CALL_WAITING:
     			Log.d(TAG,"Call "+msg.arg1+" waiting for network access.");
-    			prepareCallBundle(call,null,bundle);
+    			prepareCallBundle(call,0,null,bundle);
     			if (receiver != null) receiver.send(MSG_CALL_WAITING, bundle);
     			break;
     		case MSG_START_WAITING_CALLS:
@@ -256,10 +263,11 @@ public class CallService extends Service {
     	}
     }
     
-    private void prepareCallBundle(HttpCall call, String message,Bundle bundle){
+    private void prepareCallBundle(HttpCall call, int statusCode, String message,Bundle bundle){
     	if (call!=null){
     		bundle.putInt(MyResultReceiver.CALL_ID, call.getCallId());
     		bundle.putInt(MyResultReceiver.CALL_CODE, call.getCallCode());
+    		bundle.putInt(MyResultReceiver.STATUS_CODE, statusCode);
     		bundle.putString(MyResultReceiver.ACTIVITY_ID, call.getActivityId());
     		bundle.putInt(MyResultReceiver.PRIORITY, call.getPriority());
     		bundle.putInt(MyResultReceiver.MAX_NUM_ATTEMPTS, call.getMaxNumAttempts());
