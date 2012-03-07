@@ -255,7 +255,7 @@ function otherMarkers(index, type) {
 		$.each(pois, function(i, poi) {
 			value = $.parseJSON(poi.value);
 			var marker = addMarker(new google.maps.LatLng(value.latitude,
-					value.longitude), value.icon, value.title,
+					value.longitude), 'system/templates/application/myRiviera/img/pois/' + type + '.png', value.title,
 					value.description);
 			google.maps.event.addListener(marker, "click", function(e) {
 				marker.ib.open(map, this);

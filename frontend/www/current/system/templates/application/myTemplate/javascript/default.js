@@ -45,7 +45,7 @@ function displayPosition(position) {
 	
 	// add position marker
 	if(!currentPositionMarker) { // WATCH POSITION - do it only the first time
-		currentPositionMarker = addMarker(latlng, null, "your current position", "<h3>your current position</h3>", google.maps.Animation.BOUNCE);
+		currentPositionMarker = addMarker(latlng, null, "your current position", "<h3>current position</h3>", google.maps.Animation.BOUNCE);
 		focusOnLatLng(latlng);
 	}
 	currentPositionMarker.setMap(map);
@@ -100,7 +100,7 @@ function refreshMap(address, icon) {
 }
 
 /**
- * Load the desotherMarkertination address from a contact
+ * Load the destination address from a contact
  * 
  * @param dest
  */

@@ -26,7 +26,16 @@ class OptionView extends MyApplication {
 	public function __construct(/*MyTemplateHandler*/ $handler) {
 		parent::__construct("Option");
 		$this->handler = $handler;
-		$this->filterList = array("mymed", "carf");
+		$this->filterList = array(
+		"ADAPEI",
+		"ADERF",
+		"ASSEDIC",
+		"Bibliotheque",
+		"CCAS",
+		"EPCI",
+		"EqptPublic",
+		"Mairie"
+		);
 	}
 
 	/* --------------------------------------------------------- */
