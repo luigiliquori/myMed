@@ -1,4 +1,5 @@
 var geocoder;
+var currentPositionMarker;
 
 function initialize() {
 	// INIT JAVASCRIPT FOR THE TEMPLATE
@@ -26,17 +27,18 @@ function initialize() {
  * @param position
  */
 function displayPosition(position) {
-
-	// ADD POSITION Marker
-	addMarker(position.coords.latitude, position.coords.longitude, null, "your current position", "<h3>your current position</h3>", google.maps.Animation.BOUNCE);
 	
-	// focus on the position
-	if (focusOnCurrentPosition) {
-		focusOnPosition(position.coords.latitude, position.coords.longitude);
-	}
-
 	// reverse geocode
 	var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+	
+	// add position marker
+	if(!currentPositionMarker) { // WATCH POSITION - do it only the first time
+		currentPositionMarker = addMarker(latlng, null, "your current position", "<h3>your current position</h3>", google.maps.Animation.BOUNCE);
+		focusOnLatLng(latlng);
+	}
+	currentPositionMarker.setMap(map);
+	
+	// Field position address
 	geocoder.geocode({'latLng': latlng}, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) {
 			if (results[0]) {
@@ -77,7 +79,7 @@ function refreshMap(address, icon) {
 			// FOCUS
 			focusOnPosition(results[0].geometry.location.lat(), results[0].geometry.location.lng());
 			// ADD MARKER
-			addMarker(results[0].geometry.location.lat(), results[0].geometry.location.lng(), icon, address, "<h3>" + address + "</h3>", google.maps.Animation.DROP);
+			addMarker(results[0].geometry.location, icon, address, "<h3>" + address + "</h3>", google.maps.Animation.DROP);
 		} else {
 			alert("Geocode was not successful for the following reason: " + status);
 		}

@@ -23,13 +23,8 @@ var accessToken;
 var currentApplication;
 
 //Google Map features
-var directionsService = new google.maps.DirectionsService();
+var directionsService;
 var map;
-
-var currentPos = new google.maps.LatLng(43.7, 7.27), accuracy;
-var focusOnCurrentPosition = true;
-var updatezoom = true;
-var marker, circle;
 
 /* --------------------------------------------------------- */
 /* Setup Lib */
@@ -43,7 +38,7 @@ var marker, circle;
  *            the current application id
  */
 function setupDASP(id, at, app) {
-
+	
 	// MEMORIZE CURRENT IDs FOR JS CALL
 	userID = id;
 	accessToken = at;
@@ -70,11 +65,12 @@ function setupDASPMap(mapID, displayPosition, displayError) {
 
 	if (!map) {
 		directionsDisplay = new google.maps.DirectionsRenderer();
+		directionsService = new google.maps.DirectionsService();
 
 		// init Map
 		map = new google.maps.Map(document.getElementById(mapID), {
 			zoom : 16,
-			center : currentPos,
+			center : new google.maps.LatLng(43.7, 7.27),
 			mapTypeId : google.maps.MapTypeId.ROADMAP
 		});
 
@@ -111,13 +107,13 @@ function focusOnPosition(latitude, longitude) {
  * 
  * @param google.maps.LatLng
  */
-function focusOnLatLng(pos) {
+function focusOnLatLng(position) {
 
 	// memorize the position
-	currentPos = pos;
+	currentPos = position;
 	
 	// focus on the position
-	map.setCenter(pos);
+	map.setCenter(position);
 }
 
 /* --------------------------------------------------------- */

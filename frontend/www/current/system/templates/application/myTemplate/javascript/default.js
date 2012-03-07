@@ -1,4 +1,5 @@
 var geocoder;
+var currentPositionMarker;
 
 function initialize() {
 	// INIT JAVASCRIPT FOR THE TEMPLATE
@@ -31,33 +32,30 @@ function initialize() {
 	}
 }
 
+
 /**
  * Géoloc - ok
  * 
  * @param position
  */
 function displayPosition(position) {
-
-	var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-	// ADD POSITION Marker
-	addMarker(latlng, null, "your current position", "<h3>your current position</h3>");
 	
-	// focus on the position
-	if (focusOnCurrentPosition) {
-		focusOnPosition(position.coords.latitude, position.coords.longitude);
-	}
-
 	// reverse geocode
 	var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+	
+	// add position marker
+	if(!currentPositionMarker) { // WATCH POSITION - do it only the first time
+		currentPositionMarker = addMarker(latlng, null, "your current position", "<h3>your current position</h3>", google.maps.Animation.BOUNCE);
+		focusOnLatLng(latlng);
+	}
+	currentPositionMarker.setMap(map);
+	
+	// Field position address
 	geocoder.geocode({'latLng': latlng}, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) {
 			if (results[0]) {
-				for(var i = 1 ; i < 4 ; i++){
-					for(var j = 0 ; j < 4 ; j++) {
-						if(document.getElementById("formatedAddress" + "View" + i + j)){
-							$("#formatedAddress" + "View" + i + j).val(results[0].formatted_address);
-						}
-					}
+				for(var i = 0 ; i < 4 ; i++) {
+					$("#formatedAddress" + i).val(results[0].formatted_address);
 				}
 			}
 		} else {

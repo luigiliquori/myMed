@@ -1,3 +1,6 @@
+/* --------------------------------------------------------- */
+/* Attributes */
+/* --------------------------------------------------------- */
 var filterArray = [];
 var startmarker, endmarker, posmarker; // start and end markers
 var pmarkers = []; // position markers
@@ -12,15 +15,19 @@ var poi;
 var poiMem = {};
 var poiIterator;
 
-var steps = []; // better storing steps infos here than in huge onclick
-// attributes
-
+var steps = []; 
 var currentSegmentID = 0, prevSegmentID = 0;
-
 var autocompleteDepart, autocompleteArrivee, useautocompletion = true;
 
 var start = null, end = null;
+var circle;
 
+var focusOnCurrentPosition = true;
+var currentPositionMarker = null;
+
+/* --------------------------------------------------------- */
+/* Initialize */
+/* --------------------------------------------------------- */
 function initialize() {
 
 	// INITIALIZE DASP
@@ -76,15 +83,6 @@ function initialize() {
 		setTimeout(geocodeEnd, 250);
 	});
 
-	// current position
-	posmarker = new google.maps.Marker({
-		map : map,
-		animation : google.maps.Animation.BOUNCE,
-		icon : 'system/templates/application/myRiviera/img/position.png',
-		title : 'Départ\nMa position',
-		zIndex : -1
-	});
-
 	startmarker = new google.maps.Marker({
 		// draggable:true,
 		animation : google.maps.Animation.DROP,
@@ -125,20 +123,33 @@ function initialize() {
  * @param position
  */
 function displayPosition(position) {
-
-	// ADD POSITION Marker
-	currentPos = new google.maps.LatLng(position.coords.latitude,
-			position.coords.longitude);
-
-	// focus on the position
-	if (focusOnCurrentPosition) {
-		focusOnLatLng(currentPos);
+	
+	// reverse geocode
+	var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+	
+	// add position marker
+	if(currentPositionMarker == null) { // WATCH POSITION
+		// create current position marker
+		currentPositionMarker = new google.maps.Marker({
+			map : map,
+			animation : google.maps.Animation.BOUNCE,
+			icon : 'system/templates/application/myRiviera/img/position.png',
+			title : 'Départ\nMa position',
+			zIndex : -1
+		});
+		
+		// focus on the position
+		if (focusOnCurrentPosition) {
+			focusOnLatLng(latlng);
+			focusOnCurrentPosition = false;
+		}
 	}
+	// set position of the currentPositionMarker
+	currentPositionMarker.setPosition(latlng);
 
-	start = currentPos;
-	posmarker.setPosition(start);
+	// memorize the default starting point
+	start = latlng;
 	startmarker.setPosition(start);
-	posmarker.setMap(map);
 
 	// if the accuracy is good enough, print a circle to show the area
 	// is use watchPosition instead of getCurrentPosition don't
@@ -147,7 +158,7 @@ function displayPosition(position) {
 	accuracy = position.coords.accuracy;
 	if (accuracy) {
 		if (circle) {
-			circle.setCenter(currentPos);
+			circle.setCenter(latlng);
 			circle.setRadius(accuracy);
 		} else {
 			circle = new google.maps.Circle({
@@ -157,7 +168,7 @@ function displayPosition(position) {
 				fillColor : "#0000ff",
 				fillOpacity : (accuracy < 500) ? 0.1 : 0,
 				map : map,
-				center : currentPos,
+				center : latlng,
 				radius : accuracy
 			});
 		}
@@ -184,6 +195,9 @@ function displayError(error) {
 		navigator.geolocation.getCurrentPosition(displayPosition, displayError);
 }
 
+/* --------------------------------------------------------- */
+/* public methods */
+/* --------------------------------------------------------- */
 /**
  * Update the filter list for the POIs
  */
