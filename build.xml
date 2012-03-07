@@ -200,8 +200,8 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
             <else>
                 <!-- Unset the property before resetting it! -->
                 <var name="protcl" unset="true"/>
-                <!-- We set by default the local host -->
-                <var name="protcl" value="https"/>
+                <!-- We set by default http -->
+                <var name="protcl" value="http"/>
             </else>
         </if>
         <echo message="Protocol used will be: ${protcl}"/>
