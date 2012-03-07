@@ -1,5 +1,5 @@
 var filterArray = [];
-var startmarker, endmarker; //start and end markers
+var startmarker, endmarker, posmarker; //start and end markers
 var pmarkers = []; //position markers
 var markers = {}; // all other markers
 var directionsDisplays = [];
@@ -38,12 +38,18 @@ function initialize() {
 		
 		//prepare handlers for validation
 		google.maps.event.addListener(autocompleteDepart, 'place_changed', function() {
-			start = autocompleteDepart.getPlace().geometry.location;
-			refresh();
+			if (autocompleteDepart.getPlace()){
+				start = autocompleteDepart.getPlace().geometry.location;
+				startmarker.setPosition(start);
+			}
+			
 		});
 		google.maps.event.addListener(autocompleteArrivee, 'place_changed', function() {
-			end = autocompleteArrivee.getPlace().geometry.location;
-			refresh();
+			if (autocompleteArrivee.getPlace()){
+				end = autocompleteArrivee.getPlace().geometry.location;
+				endmarker.setPosition(end);
+			}
+			
 		});
 	}
 	
@@ -59,9 +65,16 @@ function initialize() {
 		setTimeout(geocodeEnd, 250);
 	});
 	
+	
+	posmarker = new google.maps.Marker({
+	    map:map,
+	    animation: google.maps.Animation.DROP,
+	    title: 'Départ\nMa position',
+	    zIndex: -1
+	  });
+	
 	startmarker = new google.maps.Marker({
-    map:map,
-    draggable:true,
+//    draggable:true,
     animation: google.maps.Animation.DROP,
     icon: 'system/templates/application/myRiviera/img/start.png',
     title: 'Départ\nMa position',
@@ -69,7 +82,7 @@ function initialize() {
   });
   
   endmarker = new google.maps.Marker({
-    draggable:true,
+//    draggable:true,
     animation: google.maps.Animation.DROP,
     icon: 'system/templates/application/myRiviera/img/end.png',
     title: 'Arrivée',
@@ -108,8 +121,9 @@ function displayPosition(position) {
 	}
 
 	start = currentPos;
+	posmarker.setPosition(start);
 	startmarker.setPosition(start);
-	startmarker.setMap(map);
+	posmarker.setMap(map);
 	
 	// if the accuracy is good enough, print a circle to show the area
 	// is use watchPosition instead of getCurrentPosition don't
@@ -520,12 +534,16 @@ function myRivieraShowTrip(start, end, icon) {
 		directionsDisplay.setMap(map);
 	}*/
 
-	/*focusOnCurrentPosition = false;
+	/*focusOnCurrentPosition = false;*/
+	
+	// Fit Bounds on the Map
 	bounds = new google.maps.LatLngBounds();
 	bounds.extend(startmarker.getPosition());
 	bounds.extend(endmarker.getPosition());
 	map.fitBounds(bounds);
-	*/
+	startmarker.setMap(map);
+	endmarker.setMap(map);
+	
 	/*if ( mobile == "mobile")
 		for (var i=0; i<$('#itineraireContent .ui-li a').length; i++)
 			$('#itineraireContent .ui-li a').eq(i).click( function() { $('#itineraire').trigger('collapse'); });*/
@@ -539,7 +557,7 @@ function myRivieraShowTrip(start, end, icon) {
 			"<b>Lieu: </b>" + end));*/
 
 	// SHOW ITINERAIRE
-	$("#itineraire, #next-step, #prev-step").delay(1500).fadeIn("slow");
+	$("#itineraire, #next-step, #prev-step").delay(1000).fadeIn("slow");
 	$('#next-step, #prev-step').attr('onclick', 'updateMarkers(0)');
 	$('#next-step').click(function() {
 		$('#itineraireContent .ui-li a').eq(currentSegmentID+1).closest('[data-role="collapsible"]').trigger('expand');
@@ -547,6 +565,8 @@ function myRivieraShowTrip(start, end, icon) {
 	$('#prev-step').click(function() {
 		$('#itineraireContent .ui-li a').eq((currentSegmentID||1)-1).closest('[data-role="collapsible"]').trigger('expand');
 	});
+	
+	
 }
 
 /**
@@ -567,7 +587,7 @@ function geocodeStart(){
 	geocoder.geocode({'address' : $('#depart').val()}, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) {
 			start = results[0].geometry.location;
-			refresh();
+			startmarker.setPosition(start);
 		} else {
 			alert("Départ non valide");
 		}
@@ -579,29 +599,13 @@ function geocodeEnd(){
 	geocoder.geocode({'address' : $('#arrivee').val()}, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) {
 			end = results[0].geometry.location;
-			refresh();
+			endmarker.setPosition(end);
 		} else {
 			alert("Arrivée non valide");
 		}
 	});
 }
 
-function refresh(){
-	if (start && end){
-		startmarker.setPosition(start);
-		startmarker.setMap(map);
-		endmarker.setPosition(end);
-		endmarker.setMap(map);
-		bounds = new google.maps.LatLngBounds();
-		bounds.extend(start);
-		bounds.extend(end);
-		map.fitBounds(bounds);
-	}else if(start){
-		startmarker.setPosition(start);
-		startmarker.setMap(map);
-		focusOnLatLng(start);
-	}
-}
 
 function validateIt() {
 
