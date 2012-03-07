@@ -1,7 +1,0 @@
-{
-"type": "IUTCollection",
-"features": [
-{ "type": "IUT", "properties": { "IDENT": "IUT de Menton", "IDNUM": 0, "NOM": "IUT", "ADRESSE": "Chemin du Collège", "DE_SAID_": "2008\/04\/10" }, "geometry": { "type": "Point", "coordinates": [ 7.500920, 43.777657 ] } }
-
-]
-}

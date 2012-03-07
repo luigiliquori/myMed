@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.tests.unit.bean;
 
 import static org.junit.Assert.assertEquals;
@@ -27,9 +27,16 @@ import org.junit.Test;
 
 import com.mymed.model.data.interaction.MInteractionBean;
 
+/**
+ * MInteractionBean unit tests
+ * 
+ * @author Milo Casagrande
+ * 
+ */
 public class MInteractionBeanTest {
 
   private static MInteractionBean interactionBean;
+  private static MInteractionBean nullActual = null;
 
   @BeforeClass
   public static void setUpBefore() {
@@ -45,9 +52,6 @@ public class MInteractionBeanTest {
   public void attributeToMapTest() {
     try {
       final Map<String, byte[]> attributeMap = interactionBean.getAttributeToMap();
-      // TODO needs to find a better way to structure this, we need to create
-      // enums for each beans and check that the
-      // fields are valid through that
       assertEquals(9, attributeMap.size());
     } catch (final Exception ex) {
       fail(ex.getMessage());
@@ -68,13 +72,16 @@ public class MInteractionBeanTest {
   @Test
   public void equalsTest() {
     final MInteractionBean actual = interactionBean.clone();
-
     assertEquals("The session beans are not the same", interactionBean, actual);
+  }
+
+  @Test
+  public void nullEqualsTest() {
+    assertFalse("The beans are the same", interactionBean.equals(nullActual)); // NOPMD
   }
 
   @AfterClass
   public static void cleanUpAfter() {
-    interactionBean = null;
+    interactionBean = null; // NOPMD
   }
-
 }

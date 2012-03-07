@@ -13,11 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.myjam.MyJamManager;
-import com.mymed.controller.core.manager.storage.MyJamStorageManager;
+import com.mymed.controller.core.manager.storage.GeoLocStorageManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.id.MyMedId;
 import com.mymed.model.data.myjam.MFeedBackBean;
 import com.mymed.model.data.myjam.MyJamTypeValidator;
+import com.mymed.utils.IMyJamCallAttributes;
 import com.mymed.utils.MConverter;
 
 /**
@@ -44,11 +45,7 @@ public class MyJamFeedbackRequestHandler  extends AbstractRequestHandler  implem
 	 */
 	public MyJamFeedbackRequestHandler() throws ServletException {
 		super();
-		try {
-			myJamManager = new MyJamManager(new MyJamStorageManager());
-		} catch (final InternalBackEndException e) {
-			throw new ServletException("MyJamStorageManager is not accessible because: " + e.getMessage());
-		}
+		myJamManager = new MyJamManager(new GeoLocStorageManager());
 	}
 
 	/* --------------------------------------------------------- */
@@ -62,14 +59,14 @@ public class MyJamFeedbackRequestHandler  extends AbstractRequestHandler  implem
 
 		try {
 			final Map<String, String> parameters = getParameters(request);
-			final RequestCode code = requestCodeMap.get(parameters.get("code"));
+			final RequestCode code = REQUEST_CODE_MAP.get(parameters.get("code"));
 			String id;
 
 			// accessToken
 			if (parameters.get("accessToken") == null) {
 				throw new InternalBackEndException("accessToken argument is missing!");
 			} else {
-				tokenValidation(parameters.get("accessToken")); // Security Validation
+				checkToken(parameters); // Security Validation
 			}
 			
 			switch (code) {
@@ -109,14 +106,14 @@ public class MyJamFeedbackRequestHandler  extends AbstractRequestHandler  implem
 
 		try {
 			final Map<String, String> parameters = getParameters(request);
-			final RequestCode code = requestCodeMap.get(parameters.get("code"));
+			final RequestCode code = REQUEST_CODE_MAP.get(parameters.get("code"));
 			String id, content;
 			
 			// accessToken
 			if (parameters.get("accessToken") == null) {
 				throw new InternalBackEndException("accessToken argument is missing!");
 			} else {
-				tokenValidation(parameters.get("accessToken")); // Security Validation
+				checkToken(parameters); // Security Validation
 			}
 
 			switch (code) {
@@ -161,13 +158,13 @@ public class MyJamFeedbackRequestHandler  extends AbstractRequestHandler  implem
 		
 		try{
 			final Map<String, String> parameters = getParameters(request);
-			final RequestCode code = requestCodeMap.get(parameters.get("code"));
+			final RequestCode code = REQUEST_CODE_MAP.get(parameters.get("code"));
 			
 			// accessToken
 			if (parameters.get("accessToken") == null) {
 				throw new InternalBackEndException("accessToken argument is missing!");
 			} else {
-				tokenValidation(parameters.get("accessToken")); // Security Validation
+				checkToken(parameters); // Security Validation
 			}
 			
 			switch (code){

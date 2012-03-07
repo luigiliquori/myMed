@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.tests.unit.manager;
 
 import static org.junit.Assert.fail;
@@ -25,6 +25,7 @@ import org.junit.BeforeClass;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.authentication.AuthenticationManager;
+import com.mymed.controller.core.manager.geolocation.GeoLocationManager;
 import com.mymed.controller.core.manager.interaction.old.InteractionManager;
 import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.reputation.old.ReputationManager;
@@ -47,30 +48,30 @@ import com.mymed.utils.MConverter;
  */
 public class GeneralTest extends TestValues {
 
+  protected static MSessionBean sessionBean;
+  protected static MUserBean userBean;
+  protected static MInteractionBean interactionBean;
+  protected static MAuthenticationBean authenticationBean;
+  protected static MReputationBean reputationBean;
+
+  protected static byte[] name;
+  protected static byte[] firstName;
+  protected static byte[] lastName;
+  protected static byte[] birthDate;
+
   protected SessionManager sessionManager;
   protected StorageManager storageManager;
   protected ProfileManager profileManager;
   protected ReputationManager reputationManager;
   protected InteractionManager interactionManager;
   protected AuthenticationManager authenticationManager;
+  protected GeoLocationManager geolocationManager;
 
-  // Use default package access level
-  static MSessionBean sessionBean;
-  static MUserBean userBean;
-  static MInteractionBean interactionBean;
-  static MAuthenticationBean authenticationBean;
-  static MReputationBean reputationBean;
-
-  // Use default package access level
-  static byte[] name;
-  static byte[] firstName;
-  static byte[] lastName;
-  static byte[] birthDate;
+  private static final String date = "1971-01-01";
 
   @BeforeClass
   public static void setUpOnce() {
     CAL_INSTANCE.set(1971, 1, 1);
-    final String date = "1971-01-01";
     birthDate = MConverter.longToByteBuffer(CAL_INSTANCE.getTimeInMillis()).array();
 
     sessionBean = new MSessionBean();
@@ -142,15 +143,17 @@ public class GeneralTest extends TestValues {
     reputationManager = new ReputationManager(storageManager);
     interactionManager = new InteractionManager(storageManager);
     authenticationManager = new AuthenticationManager(storageManager);
+    geolocationManager = new GeoLocationManager();
   }
 
   @After
   public void cleanUp() {
-    sessionManager = null;
-    storageManager = null;
-    profileManager = null;
-    reputationManager = null;
-    interactionManager = null;
-    authenticationManager = null;
+    sessionManager = null; // NOPMD
+    storageManager = null; // NOPMD
+    profileManager = null; // NOPMD
+    reputationManager = null; // NOPMD
+    interactionManager = null; // NOPMD
+    authenticationManager = null; // NOPMD
+    geolocationManager = null; // NOPMD
   }
 }

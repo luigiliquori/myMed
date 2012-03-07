@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.myjam.MyJamManager;
-import com.mymed.controller.core.manager.storage.MyJamStorageManager;
+import com.mymed.controller.core.manager.storage.GeoLocStorageManager;
 import com.mymed.model.data.geolocation.MSearchBean;
 import com.mymed.model.data.myjam.MFeedBackBean;
 import com.mymed.model.data.myjam.MReportBean;
@@ -43,7 +43,7 @@ public class MyJamManagerTest extends GeneralTest{
 		super.setUp();
 		try {
 			if (manager==null)
-				this.manager = new MyJamManager(new MyJamStorageManager());
+				this.manager = new MyJamManager(new GeoLocStorageManager());
 			if (idList==null)
 				idList = new LinkedList<String>();
 			else

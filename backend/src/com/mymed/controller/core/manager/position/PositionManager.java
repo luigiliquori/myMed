@@ -15,7 +15,6 @@
  */
 package com.mymed.controller.core.manager.position;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 import com.mymed.controller.core.exception.IOBackEndException;
@@ -52,17 +51,11 @@ public class PositionManager extends AbstractManager implements IPositionManager
    */
   @Override
   public MPositionBean create(final MPositionBean position) throws InternalBackEndException, IOBackEndException {
-    try {
-      final Map<String, byte[]> args = position.getAttributeToMap();
-      storageManager.insertSlice(CF_POSITION, new String(args.get(FIELD_USER_ID), ENCODING), args);
+    final Map<String, byte[]> args = position.getAttributeToMap();
+    storageManager
+        .insertSlice(CF_POSITION, com.mymed.utils.MConverter.byteArrayToString(args.get(FIELD_USER_ID)), args);
 
-      return position;
-    } catch (final UnsupportedEncodingException e) {
-      LOGGER.info(ERROR_ENCODING, ENCODING);
-      LOGGER.debug(ERROR_ENCODING, ENCODING, e);
-
-      throw new InternalBackEndException(e.toString());
-    }
+    return position;
   }
 
   /**

@@ -34,16 +34,24 @@ import com.mymed.model.data.user.MUserBean;
  * Servlet implementation class UsersRequestHandler
  */
 public class ProfileRequestHandler extends AbstractRequestHandler {
-  /* --------------------------------------------------------- */
-  /* Attributes */
-  /* --------------------------------------------------------- */
-  private static final long serialVersionUID = 1L;
+
+  /**
+   * Generated serial ID.
+   */
+  private static final long serialVersionUID = -7350632718579822436L;
+
+  /**
+   * JSON 'id' attribute.
+   */
+  private static final String JSON_ID = JSON.get("json.id");
+
+  /**
+   * JSON 'profile' attribute.
+   */
+  private static final String JSON_PROFILE = JSON.get("json.profile");
 
   private ProfileManager profileManager;
 
-  /* --------------------------------------------------------- */
-  /* Constructors */
-  /* --------------------------------------------------------- */
   /**
    * @throws ServletException
    * @see HttpServlet#HttpServlet()
@@ -58,9 +66,6 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
     }
   }
 
-  /* --------------------------------------------------------- */
-  /* extends HttpServlet */
-  /* --------------------------------------------------------- */
   /**
    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
    *      response)
@@ -73,15 +78,11 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
 
     try {
       final Map<String, String> parameters = getParameters(request);
-      final RequestCode code = requestCodeMap.get(parameters.get("code"));
-      final String id = parameters.get("id");
+      // Check the access token
+      checkToken(parameters);
 
-      // accessToken
-      if (!parameters.containsKey("accessToken")) {
-        throw new InternalBackEndException("accessToken argument is missing!");
-      } else {
-        tokenValidation(parameters.get("accessToken")); // Security Validation
-      }
+      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
+      final String id = parameters.get(JSON_ID);
 
       if (id == null) {
         throw new InternalBackEndException("missing id argument!");
@@ -89,12 +90,12 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
 
       switch (code) {
         case READ :
-          message.setMethod("READ");
+          message.setMethod(JSON_CODE_READ);
           final MUserBean userBean = profileManager.read(id);
-          message.addData("user", getGson().toJson(userBean));
+          message.addData(JSON_USER, getGson().toJson(userBean));
           break;
         case DELETE :
-          message.setMethod("DELETE");
+          message.setMethod(JSON_CODE_DELETE);
           profileManager.delete(id);
           message.setDescription("User " + id + " deleted");
           LOGGER.info("User '{}' deleted", id);
@@ -104,8 +105,7 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
       }
 
     } catch (final AbstractMymedException e) {
-      LOGGER.info("Error in doRequest operation");
-      LOGGER.debug("Error in doRequest operation", e);
+      LOGGER.debug("Error in doGet operation", e);
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());
     }
@@ -125,15 +125,11 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
 
     try {
       final Map<String, String> parameters = getParameters(request);
-      final RequestCode code = requestCodeMap.get(parameters.get("code"));
-      final String user = parameters.get("user");
+      // Check the access token
+      checkToken(parameters);
 
-      // accessToken
-      if (!parameters.containsKey("accessToken")) {
-        throw new InternalBackEndException("accessToken argument is missing!");
-      } else {
-        tokenValidation(parameters.get("accessToken")); // Security Validation
-      }
+      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
+      final String user = parameters.get(JSON_USER);
 
       if (user == null) {
         throw new InternalBackEndException("missing user argument!");
@@ -141,7 +137,7 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
 
       switch (code) {
         case CREATE :
-          message.setMethod("CREATE");
+          message.setMethod(JSON_CODE_CREATE);
           try {
             LOGGER.info("User:\n", user);
             MUserBean userBean = getGson().fromJson(user, MUserBean.class);
@@ -149,18 +145,18 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
             userBean = profileManager.create(userBean);
             LOGGER.info("User created!");
             message.setDescription("User created!");
-            message.addData("profile", getGson().toJson(userBean));
+            message.addData(JSON_PROFILE, getGson().toJson(userBean));
           } catch (final JsonSyntaxException e) {
             throw new InternalBackEndException("user jSon format is not valid");
           }
           break;
         case UPDATE :
-          message.setMethod("UPDATE");
+          message.setMethod(JSON_CODE_UPDATE);
           try {
             MUserBean userBean = getGson().fromJson(user, MUserBean.class);
             LOGGER.info("Trying to update user:\n {}", userBean.toString());
             userBean = profileManager.update(userBean);
-            message.addData("profile", getGson().toJson(userBean));
+            message.addData(JSON_PROFILE, getGson().toJson(userBean));
             message.setDescription("User updated!");
             LOGGER.info("User updated!");
           } catch (final JsonSyntaxException e) {
@@ -172,8 +168,7 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
       }
 
     } catch (final AbstractMymedException e) {
-      LOGGER.info("Error in doRequest operation");
-      LOGGER.debug("Error in doRequest operation", e);
+      LOGGER.debug("Error in doPost operation", e);
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());
     }

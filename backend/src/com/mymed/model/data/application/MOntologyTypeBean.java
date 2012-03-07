@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,42 +12,37 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.model.data.application;
 
 import com.mymed.model.data.AbstractMBean;
 
 /**
- * This class represent an user profile
+ * This class represent an ontology type
  * 
  * @author lvanni
  */
 public final class MOntologyTypeBean extends AbstractMBean {
+  /*
+   * (non-Javadoc)
+   * 
+   * @see com.mymed.model.data.AbstractMBean#equals(java.lang.Object)
+   */
+  @Override
+  public boolean equals(final Object object) {
+    final boolean returnValue = true;
+    // TODO
+    return returnValue;
+  }
 
-	/* --------------------------------------------------------- */
-	/* Attributes */
-	/* --------------------------------------------------------- */
-
-
-	/* --------------------------------------------------------- */
-	/* Constructors */
-	/* --------------------------------------------------------- */
-	public MOntologyTypeBean() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	/* --------------------------------------------------------- */
-	/* Override methods */
-	/* --------------------------------------------------------- */
-	@Override
-	public boolean equals(final Object object) {
-		boolean returnValue = true;
-		// TODO
-		return returnValue;
-	}
-
-	/* --------------------------------------------------------- */
-	/* GETTER AND SETTER */
-	/* --------------------------------------------------------- */
-	
+  /*
+   * (non-Javadoc)
+   * 
+   * @see com.mymed.model.data.AbstractMBean#hashCode()
+   */
+  @Override
+  public int hashCode() {
+    // TODO
+    return 0;
+  }
 }

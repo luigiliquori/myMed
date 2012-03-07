@@ -15,7 +15,6 @@
  */
 package com.mymed.controller.core.manager.profile;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 import com.mymed.controller.core.exception.IOBackEndException;
@@ -54,17 +53,10 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
    */
   @Override
   public MUserBean create(final MUserBean user) throws InternalBackEndException, IOBackEndException {
-    try {
-      final Map<String, byte[]> args = user.getAttributeToMap();
-      storageManager.insertSlice(CF_USER, new String(args.get(FIELD_ID), ENCODING), args);
+    final Map<String, byte[]> args = user.getAttributeToMap();
+    storageManager.insertSlice(CF_USER, com.mymed.utils.MConverter.byteArrayToString(args.get(FIELD_ID)), args);
 
-      return user;
-    } catch (final UnsupportedEncodingException e) {
-      LOGGER.info(ERROR_ENCODING, ENCODING);
-      LOGGER.debug(ERROR_ENCODING, ENCODING, e);
-
-      throw new InternalBackEndException(e.toString());
-    }
+    return user;
   }
 
   /**

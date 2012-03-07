@@ -1,10 +1,35 @@
 #! /bin/bash
 
+#
+# Transforms Dutch local data from Shape or MapInfo  format to flat GML v2
+# (no reprojection as this would generate 3D coordinates)
+#
+# Author: Just van den Broecke
+#
+
+
+# Transformation
+function transform() {
+    
+    # http://trac.osgeo.org/gdal/wiki/ConfigOptions
+    # Otherwise we'll loose the CP1252 encoded chars
+    export OGR_FORCE_ASCII=NO
+
+    ogr2ogr -f "GML" $2 $1
+
+    # Dutch source is encoded in Windows LATIN1 :-( (CP1252)
+    # need to make UTF-8 encoded GML and change namespace id for gml2
+    cat $2 | iconv -f CP1252 -t UTF-8 | sed s/gml:/gml2:/g | sed s/:gml/:gml2/g > temp.gml
+    mv temp.gml $2
+
+}
+
 # build the json files
 cd /local/mymed/frontend/www/current/system/templates/application/myRivieraAdmin/Couches_SIG_Equipements_Publics_Mutliformats
-for f in $(find *.shp)
+for f in $(find *.TAB)
 do
-	ogr2ogr -f "GeoJSON" script/${f//.shp/}.json $f ${f//.shp/}
+	transform $f $f
+	ogr2ogr -f "GeoJSON" script/${f//.TAB/}.json $f ${f//.TAB/}
 done
 
 # rename the json files
@@ -12,22 +37,10 @@ cd script
 rm build/details/*
 for f in $(find *.json)
 do
-	mv $f build/details/${f//EPSG*/}
-done
-cd build/details/
-for f in $(find *.json)
-do
-	mv $f ${f//epsg*/}
-done
-
-# update the "type" attribute
-for f in $(find *)
-do
-	sed -i "s#Feature#$f#g" $f
+	mv $f build/details/$f
 done
 
 # create the result concatenation
-cd ../../
 rm build/result.json
 touch build/tmp.json
 echo "[" >> build/tmp.json

@@ -52,26 +52,11 @@ class MyApplicationHandler implements IRequestHandler {
 					foreach ($poi->features as $feature) {
 						$request->addArgument("longitude", $feature->geometry->coordinates[0]);
 						$request->addArgument("latitude", $feature->geometry->coordinates[1]);
-						if(isset($feature->properties->IDENT)){
-							$title = $feature->properties->IDENT;
-						} else if(isset($feature->properties->NOM)){
-							$title = $feature->properties->NOM;
-						} else if(isset($feature->properties->NOM)){
-							$title = $feature->properties->NOM;
-						} else if(isset($feature->properties->BAC)){
-							$title = $feature->properties->BAC;
-						} else if(isset($feature->properties->ETIQUETTE)){
-							$title = $feature->properties->ETIQUETTE;
-						} else if(isset($feature->properties->TOPONYME)){
-							$title = $feature->properties->TOPONYME;
-						} else {
-							$title = $feature->type;
-						}
 						$value = '{
 						"longitude" : "'. $feature->geometry->coordinates[0] .'", 
 						"latitude" : "'. $feature->geometry->coordinates[1] .'", 
-						"title" : "'. $title .'", 
-						"description" : "'. $feature->properties->ADRESSE .'", 
+						"title" : "'. $feature->properties->Nom .'", 
+						"description" : "'. $feature->properties->Description .'", 
 						"icon" : ""
 						}';
 						$request->addArgument("value", $value);

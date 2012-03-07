@@ -98,7 +98,6 @@ public class WrapperConfiguration {
 
       createConfiguration(input);
     } catch (final FileNotFoundException ex) {
-      LOGGER.info("Error opening the configuration file");
       LOGGER.debug("Error opening the configuration file", ex);
     } finally {
       try {
@@ -182,10 +181,8 @@ public class WrapperConfiguration {
         }
       }
     } catch (final ParserConfigurationException e) {
-      LOGGER.info("Error parsing configuration file");
       LOGGER.debug("Error parsing configuration file", e);
     } catch (final SAXException e) {
-      LOGGER.info("Error parsing configuration file");
       LOGGER.debug("Error parsing configuration file", e);
     } catch (final IOException e) {
       LOGGER.info("Config file '{}' not found", configName);
@@ -195,7 +192,6 @@ public class WrapperConfiguration {
       try {
         host = InetAddress.getLocalHost().getHostAddress();
       } catch (final UnknownHostException e1) {
-        LOGGER.info("Impossible to find the local host.");
         LOGGER.debug("Impossible to find the local host", e1);
       }
 

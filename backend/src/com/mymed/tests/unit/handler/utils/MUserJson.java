@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.tests.unit.handler.utils;
 
 import java.util.EnumSet;
@@ -38,7 +38,7 @@ import com.mymed.model.data.user.MUserBean;
  * @author Milo Casagrande
  * 
  */
-public enum MUserJson {
+public enum MUserJson implements IJson {
   ID("id"),
   LOGIN("login"),
   EMAIL("email"),
@@ -66,6 +66,21 @@ public enum MUserJson {
     this.element = element;
   }
 
+  /*
+   * (non-Javadoc)
+   * 
+   * @see com.mymed.tests.unit.handler.utils.IJson#get()
+   */
+  @Override
+  public String get() {
+    return element;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Enum#toString()
+   */
   @Override
   public String toString() {
     return element;
@@ -82,7 +97,7 @@ public enum MUserJson {
     boolean isValid = false;
 
     for (final MUserJson element : EnumSet.allOf(MUserJson.class)) {
-      if (element.toString().equals(str)) {
+      if (element.get().equals(str)) {
         isValid = true;
         break;
       }

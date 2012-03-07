@@ -12,7 +12,7 @@ import com.mymed.controller.core.exception.WrongFormatException;
 import com.mymed.controller.core.manager.AbstractManager;
 import com.mymed.controller.core.manager.geolocation.GeoLocationManager;
 import com.mymed.controller.core.manager.profile.ProfileManager;
-import com.mymed.controller.core.manager.storage.MyJamStorageManager;
+import com.mymed.controller.core.manager.storage.GeoLocStorageManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.data.geolocation.MSearchBean;
 import com.mymed.model.data.id.MyMedId;
@@ -35,7 +35,7 @@ public class MyJamManager extends AbstractManager{
 	 * TODO The identity of the users must be checked. Authorization.
 	 */
 
-	public MyJamManager(MyJamStorageManager storageManager) {
+	public MyJamManager(GeoLocStorageManager storageManager) {
 		super(storageManager);
 	}
 
@@ -79,7 +79,7 @@ public class MyJamManager extends AbstractManager{
 			/** No more used because I inverted value and name, the id now is the column name and the report type the value. */
 			//			/** Check if the position is already occupied.*/
 			//			try{
-			//				((MyJamStorageManager) storageManager).selectColumn("Location", areaId, 
+			//				((GeoLocStorageManager) storageManager).selectColumn("Location", areaId, 
 			//						MConverter.longToByteBuffer(locId).array(), 
 			//						MConverter.stringToByteBuffer(report.getReportType()).array());
 			//				throw new InternalBackEndException("Position occupied.");
@@ -88,17 +88,17 @@ public class MyJamManager extends AbstractManager{
 			/**
 			 * Column insertion in CF ActiveReport 
 			 **/
-			((MyJamStorageManager) storageManager).insertExpiringColumn("ActiveReport", userProfile.getId(), null, reportId.AsByteBuffer().array(), 
+			((GeoLocStorageManager) storageManager).insertExpiringColumn("ActiveReport", userProfile.getId(), null, reportId.asByteBuffer().array(), 
 					new byte[0], //The value field is not used.
 					timestamp, ReportType.valueOf(report.getReportType()).permTime);
 			/**
 			 * Columns insertion in CF Report 
 			 **/
-			((MyJamStorageManager) storageManager).insertSlice("Report", reportId.toString(), report.getAttributeToMap());
+			((GeoLocStorageManager) storageManager).insertSlice("Report", reportId.toString(), report.getAttributeToMap());
 			/**
 			 * Columns insertion in CF UserReport 
 			 **/
-			((MyJamStorageManager) storageManager).insertColumn("UserReport", userProfile.getId(), reportId.AsByteBuffer().array(), new byte[0]);
+			((GeoLocStorageManager) storageManager).insertColumn("UserReport", userProfile.getId(), reportId.asByteBuffer().array(), new byte[0]);
 			return report;
 		} catch (InternalBackEndException e) {
 			throw new InternalBackEndException("Wrong parameter: "+e.getMessage());
@@ -140,7 +140,7 @@ public class MyJamManager extends AbstractManager{
 		 * Insert the report details in the list.		
 		 */
 		try{
-			Map<byte[],byte[]> reportMap = ((MyJamStorageManager) storageManager).selectAll("Report", reportId);
+			Map<byte[],byte[]> reportMap = ((GeoLocStorageManager) storageManager).selectAll("Report", reportId);
 			MReportBean report = (MReportBean) introspection(MReportBean.class,reportMap);			
 			return report;
 		}catch(InternalBackEndException e){
@@ -153,7 +153,7 @@ public class MyJamManager extends AbstractManager{
 	public List<String> getActiveReport(String userId) throws InternalBackEndException, IOBackEndException{
 		List<String> activeReports = new LinkedList<String>();
 		try {
-			Map<byte[],byte[]> res = ((MyJamStorageManager) storageManager).selectAll("ActiveReport", userId);
+			Map<byte[],byte[]> res = ((GeoLocStorageManager) storageManager).selectAll("ActiveReport", userId);
 			for(byte[] key:res.keySet()){
 				activeReports.add(MyMedId.parseByteBuffer(ByteBuffer.wrap(key)).toString());
 			}
@@ -177,14 +177,14 @@ public class MyJamManager extends AbstractManager{
 			 * Gets the ids of the last numberUpdates updates.
 			 */
 			MyMedId start = new MyMedId('u', timestamp, " "); // The user id is set to " " because is the first possible string in lexicographical order. 
-			Map<byte[],byte[]> updatesMap = ((MyJamStorageManager) storageManager).getFrom("ReportUpdate", reportId, start.AsByteBuffer().array());
+			Map<byte[],byte[]> updatesMap = ((GeoLocStorageManager) storageManager).getFrom("ReportUpdate", reportId, start.asByteBuffer().array());
 			for (byte[] key: updatesMap.keySet()){
 				updateIds.add(MyMedId.parseByteBuffer(ByteBuffer.wrap(key)).toString());
 			}			
 			/**
 			 * Insert the updates details in the list.
 			 */
-			Map<String,Map<byte[],byte[]>> updateMap = ((MyJamStorageManager) storageManager).selectAll("Report", updateIds);
+			Map<String,Map<byte[],byte[]>> updateMap = ((GeoLocStorageManager) storageManager).selectAll("Report", updateIds);
 			Map<byte[],byte[]> updateCont;
 			for(String currUpdate:updateIds){ //In this way the list updatesList is filled in order of time.
 				if ((updateCont = updateMap.get(currUpdate))!=null)//
@@ -212,7 +212,7 @@ public class MyJamManager extends AbstractManager{
 	public List<MFeedBackBean> getFeedbacks(String reportId) throws InternalBackEndException, IOBackEndException{
 		List<MFeedBackBean> feedBacksList = new LinkedList<MFeedBackBean>();  
 		try{
-			Map<byte[],byte[]> feedBacksMap = ((MyJamStorageManager) storageManager).selectAll("Feedback", reportId);
+			Map<byte[],byte[]> feedBacksMap = ((GeoLocStorageManager) storageManager).selectAll("Feedback", reportId);
 			for (byte[] key: feedBacksMap.keySet()){
 				MFeedBackBean currFeedBack = new MFeedBackBean();
 				currFeedBack.setUserId(MConverter.byteBufferToString(ByteBuffer.wrap(key)));
@@ -233,7 +233,7 @@ public class MyJamManager extends AbstractManager{
 			/**
 			 * Data preparation
 			 */
-			Map<byte[],byte[]> reportMap = ((MyJamStorageManager) storageManager).selectAll("Report", reportId);
+			Map<byte[],byte[]> reportMap = ((GeoLocStorageManager) storageManager).selectAll("Report", reportId);
 			if (reportMap.isEmpty())
 				throw new IOBackEndException("Report not present",404);
 			MReportBean reportDetails = (MReportBean) introspection(MReportBean.class,reportMap);
@@ -263,15 +263,15 @@ public class MyJamManager extends AbstractManager{
 			 * Report is not expired.
 			 * Columns insertion in CF Report 
 			 **/
-			((MyJamStorageManager) storageManager).insertSlice("Report", updateId.toString(), update.getAttributeToMap());
+			((GeoLocStorageManager) storageManager).insertSlice("Report", updateId.toString(), update.getAttributeToMap());
 			/**
 			 * Column insertion in the CF ReportUpdate
 			 */
-			((MyJamStorageManager) storageManager).insertColumn("ReportUpdate", reportId, updateId.AsByteBuffer().array(), new byte[0]);
+			((GeoLocStorageManager) storageManager).insertColumn("ReportUpdate", reportId, updateId.asByteBuffer().array(), new byte[0]);
 			/**
 			 * Column insertion in the CF UserReport
 			 */
-			((MyJamStorageManager) storageManager).insertColumn("UserReport", userProfile.getId(), updateId.AsByteBuffer().array(), new byte[0]);
+			((GeoLocStorageManager) storageManager).insertColumn("UserReport", userProfile.getId(), updateId.asByteBuffer().array(), new byte[0]);
 			/**
 			 * Update expiration time.
 			 */
@@ -290,7 +290,7 @@ public class MyJamManager extends AbstractManager{
 			/**
 			 * Data preparation
 			 */
-			Map<byte[],byte[]> reportMap = ((MyJamStorageManager) storageManager).selectAll("Report", reportId);
+			Map<byte[],byte[]> reportMap = ((GeoLocStorageManager) storageManager).selectAll("Report", reportId);
 			if (reportMap.isEmpty())
 				throw new IOBackEndException(" Report not valid. ",404);
 			MReportBean reportDetails = (MReportBean) introspection(MReportBean.class,reportMap);
@@ -307,7 +307,7 @@ public class MyJamManager extends AbstractManager{
 			 */
 			//TODO Check if the user yet inserted a feedback. Check the userId.
 			try{
-				((MyJamStorageManager) storageManager).selectColumn("Feedback", updateId==null?reportId:updateId, 
+				((GeoLocStorageManager) storageManager).selectColumn("Feedback", updateId==null?reportId:updateId, 
 						null, MConverter.stringToByteBuffer(feedback.getUserId()).array());
 				throw new InternalBackEndException("Feedback already present.");
 			}catch(IOBackEndException e){}
@@ -315,7 +315,7 @@ public class MyJamManager extends AbstractManager{
 			 * Report is not expired.
 			 * Columns insertion in CF Report 
 			 **/
-			((MyJamStorageManager) storageManager).insertColumn("Feedback", updateId==null?reportId:updateId, 
+			((GeoLocStorageManager) storageManager).insertColumn("Feedback", updateId==null?reportId:updateId, 
 					MConverter.stringToByteBuffer(feedback.getUserId()).array(), 
 					MConverter.intToByteBuffer(feedback.getValue()).array());
 
@@ -336,14 +336,14 @@ public class MyJamManager extends AbstractManager{
 			/**
 			 * Removes the column by ActiveReport CF, if present.
 			 */
-			((MyJamStorageManager) storageManager).removeColumn("ActiveReport", report.getUserId(), null,
-					id.AsByteBuffer().array());
+			((GeoLocStorageManager) storageManager).removeColumn("ActiveReport", report.getUserId(), null,
+					id.asByteBuffer().array());
 			/**
 			 * Removes the column by Location CF, if present.
 			 */
-			((MyJamStorageManager) storageManager).removeColumn("Location", areaId, 
+			((GeoLocStorageManager) storageManager).removeColumn("Location", areaId, 
 					MConverter.longToByteBuffer(locationId).array(), 
-					id.AsByteBuffer().array());
+					id.asByteBuffer().array());
 		}catch(InternalBackEndException e){
 			throw new InternalBackEndException("Wrong parameter: "+e.getMessage());
 		}catch(WrongFormatException e){

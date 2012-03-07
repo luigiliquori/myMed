@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,17 +12,19 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.model.data.session;
 
 import com.mymed.model.data.AbstractMBean;
 
-public class MSessionBean extends AbstractMBean {
-  /**
-   * Used for the calculation of the hash code
-   */
-  private static final int PRIME = 31;
-
+/**
+ * A session bean
+ * 
+ * @author Milo Casagrande
+ * @author lvanni
+ * 
+ */
+public final class MSessionBean extends AbstractMBean {
   /** SESSION_ID */
   private String id;
   /** USER_ID */
@@ -36,6 +38,50 @@ public class MSessionBean extends AbstractMBean {
   private String accessToken;
   private boolean isExpired = false;
 
+  /**
+   * Create a new MSessionBean
+   */
+  public MSessionBean() {
+    super();
+  }
+
+  /**
+   * Copy constructor
+   * <p>
+   * Provide a clone of the actual bean
+   * 
+   * @param toClone
+   *          the object to clone
+   */
+  protected MSessionBean(final MSessionBean toClone) {
+    super();
+
+    id = toClone.getId();
+    user = toClone.getUser();
+    currentApplications = toClone.getCurrentApplications();
+    timeout = toClone.getTimeout();
+    isP2P = toClone.isP2P();
+    ip = toClone.getIp();
+    port = toClone.getPort();
+    accessToken = toClone.getAccessToken();
+    isExpired = toClone.isExpired();
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#clone()
+   */
+  @Override
+  public MSessionBean clone() {
+    return new MSessionBean(this);
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see com.mymed.model.data.AbstractMBean#toString()
+   */
   @Override
   public String toString() {
     return "Session:\n" + super.toString();
@@ -74,20 +120,15 @@ public class MSessionBean extends AbstractMBean {
     } else if (object instanceof MSessionBean) {
       final MSessionBean comparable = (MSessionBean) object;
 
-      /*
-       * We compare only a subsets of the field to check that two MUserBean
-       * objects are the same. These should be values that are set for sure, and
-       * not null.
-       */
       equal = true;
 
-      if (id == null && comparable.getId() != null) {
+      if (id == null && comparable.getId() != null || id != null && comparable.getId() == null) {
         equal &= false;
       } else if (id != null && comparable.getId() != null) {
         equal &= id.equals(comparable.getId());
       }
 
-      if (ip == null && comparable.getIp() != null) {
+      if (ip == null && comparable.getIp() != null || ip != null && comparable.getIp() == null) {
         equal &= false;
       } else if (ip != null && comparable.getIp() != null) {
         equal &= ip.equals(comparable.getIp());
@@ -97,13 +138,14 @@ public class MSessionBean extends AbstractMBean {
       equal &= port == comparable.getPort();
       equal &= isExpired == comparable.isExpired();
 
-      if (accessToken == null && comparable.getAccessToken() != null) {
+      if (accessToken == null && comparable.getAccessToken() != null || accessToken != null
+          && comparable.getAccessToken() == null) {
         equal &= false;
       } else if (accessToken != null && comparable.getAccessToken() != null) {
         equal &= accessToken.equals(comparable.getAccessToken());
       }
 
-      if (user == null && comparable.getUser() != null) {
+      if (user == null && comparable.getUser() != null || user != null && comparable.getUser() == null) {
         equal &= false;
       } else if (user != null && comparable.getUser() != null) {
         equal &= user.equals(comparable.getUser());
@@ -112,9 +154,7 @@ public class MSessionBean extends AbstractMBean {
 
     return equal;
   }
-  /* --------------------------------------------------------- */
-  /* GETTER AND SETTER */
-  /* --------------------------------------------------------- */
+
   /**
    * @return the id of the session
    */
@@ -234,5 +274,4 @@ public class MSessionBean extends AbstractMBean {
   public void setExpired(final boolean isExpired) {
     this.isExpired = isExpired;
   }
-
 }

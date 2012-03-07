@@ -68,8 +68,7 @@ class EditDialog extends AbstractTemplate {
 							<option value="http://www.poledream.com/wp-content/uploads/2009/10/icon_map2.png&&Sophia-antipolis, France">Mymed</option>
 							
 							<!-- USER -->	
-							<?php if (isset($_SESSION['position'])) {//echo '<script type="text/javascript">alert(\' kk '.$_SESSION['user']->profilePicture .'\');</script>';
-							?>
+							<?php if (isset($_SESSION['position'])) { ?>
 								<option value="<?= $_SESSION['user']->profilePicture ?>&&<?= $_SESSION['position']->formattedAddress ?>"><?= $_SESSION['user']->name ?></option>
 							<?php } ?>
 							
@@ -132,24 +131,14 @@ class EditDialog extends AbstractTemplate {
 							
 							<select name="select-minute" id="select-minute">
 								<?php for ($i = 0; $i <= 59; $i++) {
-								?><option value= <?=$i?> <?php if ($i==$now['minutes']){?> selected="selected" <?php } ?> > <?=$i?>'</option>
+								?><option value= <?=$i?> <?php if ($i==$now['minutes']){?> selected="selected" <?php } ?> > <?=sprintf('%02d',$i)?></option>
 								<?php } ?>
 							</select>
 						</fieldset>
 					</div>
 	 
-	 
-					<!--
-					<input name="date" type="date" data-role="datebox" id="date"
-						data-options='{"useInline": true, "useInlineHideInput":true, "noSetButton":true, "mode": "flipbox", "dateFormat":"GG:ii DD/MM/YYYY", "fieldsOrderOverride":["y","m","d","h","i"] }' />
-					-->
-	
-	
-					
-		
-					<!-- SUBMIT -->
-					<a href="#" id="trouver" data-role="button"  rel="external" data-icon="arrow-r" data-iconpos="right" onclick="document.<?= APPLICATION_NAME ?>FindForm.submit()">Trouver</a>	
-					
+					<!-- SUBMIT - ToDO validate before submit-->
+					<a href="#" id="trouver" data-role="button"  rel="external" data-icon="arrow-r" data-iconpos="right" data-theme="b" onclick="validateIt();">Trouver</a>	
 				
 				</form>
 				

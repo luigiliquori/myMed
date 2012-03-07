@@ -28,6 +28,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -64,6 +65,12 @@ public class TestUtils {
   private static final String DIGEST_SHA_1 = "SHA-1";
   private static final String CHAR_NAME = "UTF-8";
   private static final String FAKE_PASSWORD = "one, two, three, star";
+
+  // JSON elements
+  private static final String JSON_PAR_DATA = "data";
+  private static final String JSON_PAR_USER = "user";
+  private static final String JSON_PAR_PROFILE = "profile";
+  private static final String JSON_PAR_POI = "pois";
 
   /**
    * Create the URL to use to query the backend servlet
@@ -123,7 +130,7 @@ public class TestUtils {
 
   /**
    * Check that a JSON string is valid with regards to the Mymed JSON format
-   * defined in {@link JsonMessage}
+   * defined in {@link JsonMessage}.
    * 
    * @param json
    *          the JSON string to be validated
@@ -135,12 +142,14 @@ public class TestUtils {
     final JsonParser parser = new JsonParser();
     final JsonObject obj = parser.parse(json).getAsJsonObject();
 
-    final Iterator<Entry<String, JsonElement>> iter = obj.entrySet().iterator();
-
-    while (iter.hasNext()) {
+    if (obj.isJsonObject()) {
       validJson = true;
-      final Entry<String, JsonElement> entry = iter.next();
-      validJson &= MJson.isValidElement(entry.getKey());
+      final Iterator<Entry<String, JsonElement>> iter = obj.entrySet().iterator();
+
+      while (iter.hasNext()) {
+        final Entry<String, JsonElement> entry = iter.next();
+        validJson &= MJson.isValidElement(entry.getKey());
+      }
     }
 
     return validJson;
@@ -148,7 +157,7 @@ public class TestUtils {
 
   /**
    * Check that a 'user' JSON string is valid with regards to the 'user' JSON
-   * format
+   * format as defined in {@link MUserJson}.
    * 
    * @param json
    *          the JSON string to be validated
@@ -158,17 +167,17 @@ public class TestUtils {
     boolean validJson = false;
 
     final JsonParser parser = new JsonParser();
-    final JsonObject obj = parser.parse(json).getAsJsonObject().get("data").getAsJsonObject();
+    final JsonObject obj = parser.parse(json).getAsJsonObject().get(JSON_PAR_DATA).getAsJsonObject();
 
     // Should be "user" in the response, dunno if it has been fixed everywhere
-    final JsonElement element = obj.get("user") == null ? obj.get("profile") : obj.get("user");
+    final JsonElement element = obj.get(JSON_PAR_USER) == null ? obj.get(JSON_PAR_PROFILE) : obj.get(JSON_PAR_USER);
     final JsonObject userObject = parser.parse(element.getAsString()).getAsJsonObject();
 
     if (userObject.isJsonObject()) {
+      validJson = true;
       final Iterator<Entry<String, JsonElement>> iter = userObject.entrySet().iterator();
 
       while (iter.hasNext()) {
-        validJson = true;
         final Entry<String, JsonElement> entry = iter.next();
         validJson &= MUserJson.isValidElement(entry.getKey());
       }
@@ -178,6 +187,43 @@ public class TestUtils {
   }
 
   /**
+   * Check that a 'search' JSON string is valid with regards to the 'search'
+   * JSON format as defined in {@link MSearchJson}.
+   * 
+   * @param json
+   *          the JSON string to validate
+   * @return true if is valid, false otherwise
+   */
+  public static boolean isValidPOIJson(final String json) {
+    boolean validJson = false;
+
+    final JsonParser parser = new JsonParser();
+    final JsonObject obj = parser.parse(json).getAsJsonObject().get(JSON_PAR_DATA).getAsJsonObject();
+
+    final JsonElement element = obj.get(JSON_PAR_POI);
+    final JsonArray poiArray = parser.parse(element.getAsString()).getAsJsonArray();
+
+    final Iterator<JsonElement> iterator = poiArray.iterator();
+    while (iterator.hasNext()) {
+      final JsonObject arrayObject = iterator.next().getAsJsonObject();
+
+      if (arrayObject.isJsonObject()) {
+        validJson = true;
+        final Iterator<Entry<String, JsonElement>> iter = arrayObject.entrySet().iterator();
+
+        while (iter.hasNext()) {
+          final Entry<String, JsonElement> entry = iter.next();
+          validJson &= MSearchJson.isValidElement(entry.getKey());
+        }
+      }
+    }
+
+    return validJson;
+  }
+
+  /**
+   * Construct a new user in a JSON format.
+   * 
    * @return a JSON object for a user
    */
   public static JsonObject createUserJson() {

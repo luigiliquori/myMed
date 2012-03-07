@@ -1,7 +1,0 @@
-{
-"type": "CimetieresCollection",
-"features": [
-{ "type": "Cimetieres", "properties": { "ADRESSE": "", "CODE_POSTA": "", "VILLE": "ROQUEBRUNE CAP MARTIN", "PAYS": "", "NOM": "", "DESCRIPTIO": "", "SOURCE": "", "DATEDESAIS": "0000\/00\/00", "LAT": "", "LN": "" }, "geometry": { "type": "Point", "coordinates": [ 7.463007, 43.765767 ] } }
-
-]
-}

@@ -72,10 +72,8 @@ public class StorageManager implements IStorageManager {
   /**
    * Default Constructor: will create a ServiceManger on top of a Cassandra
    * Wrapper
-   * 
-   * @throws InternalBackEndException
    */
-  public StorageManager() throws InternalBackEndException {
+  public StorageManager() {
     this(new WrapperConfiguration(CONFIG_FILE));
   }
 
@@ -87,7 +85,7 @@ public class StorageManager implements IStorageManager {
    *          The configuration of the transport layer
    * @throws InternalBackEndException
    */
-  public StorageManager(final WrapperConfiguration conf) throws InternalBackEndException {
+  public StorageManager(final WrapperConfiguration conf) {
     super();
     wrapper = new CassandraWrapper(conf.getCassandraListenAddress(), conf.getThriftPort());
   }
