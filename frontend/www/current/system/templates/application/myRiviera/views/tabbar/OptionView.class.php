@@ -50,14 +50,14 @@ class OptionView extends MyApplication {
 	 */
 	public /*String*/ function getContent() { ?>
 	<!-- CONTENT -->
-	<div data-role="content" Style="font-size: 10pt;">
+	<div data-role="content" Style="font-size: 10pt; width: 90%; margin-left: auto; margin-right: auto;">
 		<!-- UPDATE POIs -->
 		<div data-role="collapsible-set">
 			<!-- POIs - Filter -->
 			<div data-role="collapsible" data-collapsed="true" data-theme="b"
 				data-content-theme="c">
 				<h3>Points d'interêts</h3>
-				<fieldset id="<?= APPLICATION_NAME ?>Filter" data-role="controlgroup" data-type="horizontal">	
+				<fieldset id="<?= APPLICATION_NAME ?>Filter" data-role="controlgroup">	
 					<?php foreach ($this->filterList as $filter) { ?>
 					<input type="checkbox" name="<?= $filter ?>" id="<?= $filter ?>"
 						class="custom" checked="checked" /> <label for="<?= $filter ?>"><?= $filter ?>
@@ -69,7 +69,7 @@ class OptionView extends MyApplication {
 			<div data-role="collapsible" data-collapsed="true" data-theme="b"
 				data-content-theme="c">
 				<h3>Persistence des points d'intérêts</h3>
-				<fieldset id="flip-persistence" data-role="controlgroup" data-type="horizontal" style="width:200px;">	
+				<fieldset id="flip-persistence" data-role="controlgroup" style="width:200px;">	
 					<select name="flip-per" id="flip-per" data-role="slider" onchange="if(!$(this).val()) {clearMarkers();}">
 						<option value=''>non</option>
 						<option value='1'>oui</option>
@@ -89,13 +89,13 @@ class OptionView extends MyApplication {
 			<div id="cityway-search" data-role="collapsible" data-collapsed="true"
 				data-theme="b" data-content-theme="c">
 				<h3>Type de Trajet Cityway</h3>
-				<fieldset data-role="controlgroup" data-type="horizontal" >
+				<fieldset data-role="controlgroup" >
 					<input type="radio" name="radio-choice" id="radio-choice1" value="fastest" checked="checked" />
 					<label for="radio-choice1">le	+ rapide</label>
 					<input type="radio" name="radio-choice" id="radio-choice2" value="lessChanges" />
 					<label for="radio-choice2">le - de chgt</label>
 				</fieldset>
-				<fieldset data-role="controlgroup" data-type="horizontal">
+				<fieldset data-role="controlgroup">
 					<input type="checkbox" name="checkbox" id="checkbox0"	checked="checked" /><label for="checkbox0">Bus</label>
 					<input type="checkbox" name="checkbox" id="checkbox2" checked="checked" /><label for="checkbox2">Car</label>
 					<input type="checkbox" name="checkbox" id="checkbox3" checked="checked" /><label for="checkbox3">Train</label>
@@ -173,7 +173,7 @@ class OptionView extends MyApplication {
 				<p>Ils désignent les types d'établissements, d'évênements que vous souhaitez
 					afficher sur la carte.</p>
 				<h3>Persistence des points d'intérêts</h3>
-				<p>Cette préférence permet ou non de conserver les points d'intérêts visités visibles ou non.</p>
+				<p>Cette préférence permet ou non de conserver les points d'intérêts visités visibles.</p>
 				<h3>Rayon de recherche</h3>
 				<p>La valeur, en mètres, autours de la position actuelle pour laquelle vous
 					souhaitez rechercher des points d'intérêts.</p>

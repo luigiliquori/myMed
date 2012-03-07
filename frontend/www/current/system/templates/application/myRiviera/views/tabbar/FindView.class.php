@@ -34,50 +34,43 @@ class FindView extends MyApplication {
 	 * Get the HEADER for jQuery Mobile
 	 */
 	public /*String*/ function getHeader() { ?>
-<div data-role="header" data-theme="b">
-	<h1>
-	<?= TARGET == "mobile" ? " " : APPLICATION_NAME ?>
-	</h1>
-
-	<a href="#Option" data-role="actionsheet" class="ui-btn-right" data-icon="gear">Options</a>
+		<div data-role="header" data-theme="b">
+			<h1>
+			<?= TARGET == "mobile" ? " " : APPLICATION_NAME ?>
+			</h1>
+		
+			<a href="#Option" data-role="actionsheet" class="ui-btn-right" data-icon="gear">Options</a>
+			
+			<a id="prev-step" data-role="button" data-theme="b"
+				data-icon="arrow-l"	onclick=""><?= TARGET == "mobile" ? "&nbsp;" : "Préc" ?></a>
+			<a id="next-step" data-role="button" data-theme="b"
+				data-iconpos="right" data-icon="arrow-r"	onclick=""><?= TARGET == "mobile" ? "&nbsp;" : "Suiv" ?></a>
+			
+			<!-- ITINERAIRE POPUP -->
+			<a data-role="actionsheet" data-sheet="Itin" data-icon="search" data-iconpos="right" class="ui-btn-left">Rechercher</a>
+			
+		</div>
+	<?php }
 	
-	<a id="prev-step" data-role="button" data-theme="b"
-		data-icon="arrow-l"	onclick=""><?= TARGET == "mobile" ? "&nbsp;" : "Préc" ?></a>
-	<a id="next-step" data-role="button" data-theme="b"
-		data-iconpos="right" data-icon="arrow-r"	onclick=""><?= TARGET == "mobile" ? "&nbsp;" : "Suiv" ?></a>
-	
-	<!-- ITINERAIRE POPUP -->
-	<a data-role="actionsheet" data-sheet="Itin" data-icon="search" data-iconpos="right" class="ui-btn-left">Rechercher</a>
-	
-</div>
+	/**
+	 * Get the CONTENT for jQuery Mobile
+	 */
+	public /*String*/ function getContent() { ?>
+		<!-- CONTENT -->
+		<div data-role="content" style="padding: 0px;">
+		
+			<!-- MAP -->
+			<div id="<?= APPLICATION_NAME ?>Map"></div>
+		
+			<script type="text/javascript">var mobile = '<?php echo TARGET ?>';</script>
+		
+			<div id="itineraire" data-role="collapsible" data-theme="b" data-content-theme="c" style="width: <?= TARGET == "mobile" ? "85" : "35" ?>%;">
+				<h3>Feuille de route</h3>
+				<div id="itineraireContent" data-role="collapsible-set" data-theme="b" data-content-theme="d" ></div>
+			</div>
 
-
-<?php }
-
-/**
- * Get the CONTENT for jQuery Mobile
- */
-public /*String*/ function getContent() { ?>
-<!-- CONTENT -->
-<div data-role="content" style="padding: 0px;">
-
-	<!-- MAP -->
-	<div id="<?= APPLICATION_NAME ?>Map"></div>
-
-	<script type="text/javascript">
-				var mobile = '<?php echo TARGET ?>';
-			</script>
-
-	<div id="itineraire" data-role="collapsible" data-theme="b" data-content-theme="b" style="width: <?= TARGET == "mobile" ? "85" : "35" ?>%;">
-		<h3>Feuille de route</h3>
-		<div id="itineraireContent" data-role="collapsible-set" data-theme="b"
-			data-content-theme="d" data-mini="true"></div>
-	</div>
-
-	
-</div>
-
-<?php }
+		</div>
+	<?php }
 
 }
 ?>
