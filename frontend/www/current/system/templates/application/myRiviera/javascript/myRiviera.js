@@ -576,7 +576,7 @@ function myRivieraShowTrip(start, end, icon) {
  */
 function changeDestination() {
 	$("#arrivee").val($("#selectarrivee").val().split("&&")[1]);
-	$("#arrivee").css("background-image", 'url(' + $("#selectarrivee").val().split("&&")[0] + ')');
+//	$("#arrivee").css("background-image", 'url(' + $("#selectarrivee").val().split("&&")[0] + ')');
 	$("#arrivee").trigger('change');
 }
 

@@ -26,7 +26,7 @@ var currentApplication;
 var directionsService = new google.maps.DirectionsService();
 var map;
 
-var currentPos=new google.maps.LatLng(43.7, 7.27), accuracy;
+var currentPos = new google.maps.LatLng(43.7, 7.27), accuracy;
 var focusOnCurrentPosition = true;
 var updatezoom = true;
 var marker, circle;
@@ -183,15 +183,15 @@ function addMarker(position, icon, title, description, animation) {
 	});
 	
 	var boxText = document.createElement("div");
-	boxText.style.cssText = " background-color: #ddf;padding: 0 5px;";
+	boxText.style.cssText = "background-color: white; padding: 5px; border: thin black solid; border-radius: 5px;";
 	boxText.innerHTML = "<h4 style=' margin-top: 2px; margin-bottom: 2px;'>" + title + "</h4><p style='text-align: justify; font-size: 12px;margin: 0;'>" + description+ "</p>";
 
 	var myOptions = {
 		 content: boxText,
-		pixelOffset: new google.maps.Size(-200, -10),
-		boxStyle: {
-		   opacity: 0.8,
-		  width: "180px"
+		 pixelOffset: new google.maps.Size(-200, -10),
+		 boxStyle: {
+		   opacity: 0.9,
+		   width: "180px"
 		 }
 	};
 	marker.ib = new InfoBox(myOptions);
