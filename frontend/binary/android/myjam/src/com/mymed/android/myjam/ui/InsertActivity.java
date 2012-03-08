@@ -159,8 +159,19 @@ public class InsertActivity extends AbstractLocatedActivity implements IReceiver
 	@Override
 	public void onResume(){
 		super.onResume();
+		testToken();
 		MyResultReceiver resultReceiver = MyResultReceiver.getInstance(this.getClass().getName(),this);
 		resultReceiver.checkOngoingCalls();
+	}
+	
+	/**
+	 * Check if a token is present on {@link GlobalStateAndutils}, if not sent the user back to {@link LoginActivity}
+	 */
+	private void testToken(){
+		if (GlobalStateAndUtils.getInstance(this)
+				.getAccessToken()==null){
+		        startActivity(new Intent(InsertActivity.this, LoginActivity.class));
+		}
 	}
 
 	/**

@@ -180,11 +180,13 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, IReceiver, View.OnClickListener{
 	public void onResume(){
 		super.onResume();
 		mInsertButton.setEnabled(false);
-		
+		/** Initialize */
 		MyResultReceiver resultReceiver = MyResultReceiver.getInstance(this.getClass().getName(),this);
 		resultReceiver.checkOngoingCalls();
+		testToken();		
 		mHandler.setQueryListener(this);
-		/** Starts the report query. */
+		
+		/** Start the report query. */
 		mReportCursor = getContentResolver().query(getIntent().getData(), ReportQuery.PROJECTION, null, null, null);
 		/** If the pointed report is not present in the db then is requested. */
 		if (mReportCursor.moveToFirst()){
@@ -192,7 +194,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, IReceiver, View.OnClickListener{
 				requestReport();
 			mReportType = mReportCursor.getString(ReportQuery.REPORT_TYPE);
 		}
-		/** This query is not asynchronous because before retrieving the updates, we want to know how many Updates are presents in the db*/
+		/** This query is not asynchronous. */
 		mUpdatesCursor = getContentResolver().query(Update.buildReportIdUri(mReportId)
 				, UpdateQuery.PROJECTION,null , null, Update.DEFAULT_SORT_ORDER);
 		if (mUpdatesCursor!=null){
@@ -212,9 +214,16 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, IReceiver, View.OnClickListener{
 		getContentResolver().registerContentObserver(
 				Feedback.buildUpdateIdUri(null),
 					false, mUpdateFeedbacksChangesObserver);
-		
-//		if (mResultReceiver.getOngoingCalls(HttpCall.HIGH_PRIORITY).isEmpty())
-//			updateRefreshStatus(false,null);
+	}
+	
+	/**
+	 * Check if a token is present on {@link GlobalStateAndutils}, if not sent the user back to {@link LoginActivity}
+	 */
+	private void testToken(){
+		if (GlobalStateAndUtils.getInstance(this)
+				.getAccessToken()==null){
+		        startActivity(new Intent(ReportDetailsActivity.this, LoginActivity.class));
+		}
 	}
 	
 	@Override
@@ -857,7 +866,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, IReceiver, View.OnClickListener{
 		final Intent intent = new Intent(ReportDetailsActivity.this, CallService.class);
 		intent.putExtra(CallService.EXTRA_ACTIVITY_ID, this.getClass().getName());
 		intent.putExtra(CallService.EXTRA_REQUEST_CODE, CallCode.GET_UPDATES);
-		intent.putExtra(CallService.EXTRA_PRIORITY_CODE, HttpCall.LOW_PRIORITY);
+		intent.putExtra(CallService.EXTRA_PRIORITY_CODE, HttpCall.HIGH_PRIORITY);
 		intent.putExtra(CallService.EXTRA_NUMBER_ATTEMPTS, 3);
 		intent.putExtra(CallService.EXTRA_REQUEST_CODE, code==REPORT?CallCode.INSERT_REPORT_FEEDBACK:
 			CallCode.INSERT_UPDATE_FEEDBACK);

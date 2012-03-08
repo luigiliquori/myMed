@@ -374,6 +374,7 @@ public class SearchActivity extends AbstractLocatedActivity implements IReceiver
 	@Override 
 	protected void onResume() {
 		super.onResume();
+		testToken();
 		String filter =  mSettings.getString(FILTER_PREFERENCE,"NONE");
 		Uri uri = getIntent().getData();
 		Cursor cursor = managedQuery(uri, SearchReportsQuery.PROJECTION, 
@@ -398,6 +399,16 @@ public class SearchActivity extends AbstractLocatedActivity implements IReceiver
 		mThreadLooper = thread.getLooper();
 		mRefreshDistanceHandler= new Handler(mThreadLooper);
 		mRefreshDistanceHandler.postDelayed(mRefreshDistanceRunnable, DISTANCE_UPDATE_TIME);
+	}
+	
+	/**
+	 * Check if a token is present on {@link GlobalStateAndutils}, if not sent the user back to {@link LoginActivity}
+	 */
+	private void testToken(){
+		if (GlobalStateAndUtils.getInstance(this)
+				.getAccessToken()==null){
+		        startActivity(new Intent(SearchActivity.this, LoginActivity.class));
+		}
 	}
 	
 	/** Checks the time of last search, if a search has been done at a time t greater then (actual_time - refresh_period) the search is executed immediately. */

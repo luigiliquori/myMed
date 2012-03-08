@@ -48,7 +48,12 @@ public class GlobalStateAndUtils {
 		typeSeparator = mContext.getString(R.string.type_string_separator);
 		dateFormat = mContext.getString(R.string.date_format);
 		decNumberSeparator = mContext.getString(R.string.frac_number_separator);
-    	  
+    	accessToken = null;
+    	userId = null;
+    	password = null;
+    	userName = null;
+    	login = null;
+    	logged = false;
     }  
     
     public synchronized static GlobalStateAndUtils getInstance(Context context)  
