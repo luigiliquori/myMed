@@ -85,7 +85,10 @@ class FacebookWrapper implements IWrapper {
 				$_SESSION['wrapper'] = $this;
 				
 				// REDIRECTION
-				header("Refresh:0;url=" . $url . "&accessToken=" . $accessToken);
+				echo "<form id='singinRedirectForm' name='singinRedirectForm' method='post' action='" . $url . "'>";
+				echo "<input type='hidden' name='accessToken' value='" . $accessToken . "' />";
+				echo "</form>";
+				echo '<script type="text/javascript">document.singinRedirectForm.submit();</script>';
 				
 			}	catch (FacebookApiException $e) {
 				error_log($e);
