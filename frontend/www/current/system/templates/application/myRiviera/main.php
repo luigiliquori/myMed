@@ -40,7 +40,6 @@
 	
 	// DIALOG
 	$edit = new EditDialog();
-
 	$edit->getContent();
 	
 	// PROFILE UPDATE
