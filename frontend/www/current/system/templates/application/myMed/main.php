@@ -3,17 +3,15 @@
 	// NAME OF THE APPLICATION
 	define('APPLICATION_NAME', "myMed");
 	
-	// IMPORT THE MAIN VIEW
-	require_once dirname(__FILE__).'/views/Home.class.php';
-	require_once dirname(__FILE__).'/views/Profile.class.php';
-	require_once dirname(__FILE__).'/views/login/LoginDesktop.class.php';
-	require_once dirname(__FILE__).'/views/login/LoginMobile.class.php';
-	
 	// LOAD DASP JAVASCRIPT LIBRARY
 	echo "<script src='lib/dasp/javascript/dasp.js'></script>";
 	
 	// LOAD THE VIEWs
-	if(USER_CONNECTED) {
+	if(USER_CONNECTED) { // HOME PAGE OF THE APPLICATION ---------------------------
+		
+		// IMPORT THE MAIN VIEW
+		require_once dirname(__FILE__).'/views/home/Home.class.php';
+		require_once dirname(__FILE__).'/views/home/Profile.class.php';
 		
 		// DISCONNECT FORM
 		require_once dirname(__FILE__).'/handler/MenuHandler.class.php';
@@ -27,22 +25,29 @@
 		echo "<input type='hidden' id='applicationName' value='" . APPLICATION_NAME . "' />";
 		echo "<input type='hidden' id='accessToken' value='" . $_SESSION['accessToken'] . "' />";
 		
+		// BUILD THE VIEWs
 		$home = new Home();
 		$home->printTemplate();
 		$profile = new Profile();
 		$profile->printTemplate();
 		include('views/dialog/updateProfile.php');
 		
-	} else if(TARGET == "mobile") {
+	} else { // LOGIN PAGE OF THE APPLICATION ---------------------------
 		
-		$login = new LoginMobile();
+		// IMPORT THE MAIN VIEW
+		if(TARGET == "mobile") {
+			// load the css
+			echo '<link href="system/templates/application/' . APPLICATION_NAME . '/views/login/mobile/css/style.css" rel="stylesheet" />';
+			require_once dirname(__FILE__).'/views/login/mobile/Login.class.php';
+		} else {
+			// load the css
+			echo '<link href="system/templates/application/' . APPLICATION_NAME . '/views/login/desktop/css/style.css" rel="stylesheet" />';
+			require_once dirname(__FILE__).'/views/login/desktop/Login.class.php';
+		}
+		
+		// BUILD THE VIEWs
+		$login = new Login();
 		$login->printTemplate();
-		
-	} else {
-		
-		$login = new LoginDesktop();
-		$login->printTemplate();
-		
 	}
 
 ?>
