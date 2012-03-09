@@ -31,6 +31,7 @@ import com.mymed.android.myjam.exception.IOBackEndException;
 import com.mymed.android.myjam.exception.InternalBackEndException;
 import com.mymed.android.myjam.exception.InternalClientException;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 /**
@@ -77,8 +78,8 @@ public class HttpCall extends CallContract implements Runnable {
 	private Object lock = new Object();
 	private Object numAttemptsLock = new Object();
 		
-	public HttpCall(int id, int callCode, Bundle attributes, HttpCallHandler handler){
-		this.httpClient=CallManager.getInstance().getClient();
+	public HttpCall(Context context,int id, int callCode, Bundle attributes, HttpCallHandler handler){
+		this.httpClient=CallManager.getInstance(context).getClient();
 		this.id = id;
 		this.callCode = callCode;
 		this.attributes=attributes;
@@ -91,8 +92,8 @@ public class HttpCall extends CallContract implements Runnable {
 		this.priority = LOW_PRIORITY;
 	};	
 	
-	public HttpCall(int id, int callCode, Bundle attributes, HttpCallHandler handler, String jSonObj){
-		this(id, callCode, attributes, handler);
+	public HttpCall(Context context, int id, int callCode, Bundle attributes, HttpCallHandler handler, String jSonObj){
+		this(context, id, callCode, attributes, handler);
 		this.jSonObj = jSonObj;
 	};
 
@@ -240,11 +241,11 @@ public class HttpCall extends CallContract implements Runnable {
 	 * @param priority The priority of the call: {@value 1} for high priority,
 	 * 	{@value 0} for low priority.
 	 */
-	public void execute(){
+	public void execute(Context context){
 		
 		switch(priority){
 		case LOW_PRIORITY:	
-			CallManager.getInstance().executeLp(this);
+			CallManager.getInstance(context).executeLp(this);
 			synchronized(numAttemptsLock){
 				this.numAttempts++;
 			}
@@ -252,7 +253,7 @@ public class HttpCall extends CallContract implements Runnable {
 		// If no other HP calls are ongoing the call is executed.
 		case HIGH_PRIORITY:
 			try{
-				CallManager.getInstance().executeHp(this);
+				CallManager.getInstance(context).executeHp(this);
 				synchronized(numAttemptsLock){
 					this.numAttempts++;
 				}

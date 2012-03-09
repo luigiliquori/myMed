@@ -252,7 +252,7 @@ public class CallService extends Service {
     		case MSG_START_WAITING_CALLS:
 				HttpCall currCall;
 				while ((currCall = mWaitingCalls.poll())!=null && mConnected){
-					currCall.execute();
+					currCall.execute(CallService.this);
 				}
     			break;
     		}
@@ -363,8 +363,8 @@ public class CallService extends Service {
     private void startCall(final int reqId, final int callCode, final Bundle attributes, 
     		final String activityId, final int maxNumAttempts, final int priority, final String jsonObj){
     	final HttpCall call;
-    	call = jsonObj==null?new HttpCall(reqId, callCode, attributes, mServiceHandler):
-    		new HttpCall(reqId, callCode, attributes, mServiceHandler, jsonObj);
+    	call = jsonObj==null?new HttpCall(CallService.this, reqId, callCode, attributes, mServiceHandler):
+    		new HttpCall(CallService.this, reqId, callCode, attributes, mServiceHandler, jsonObj);
     	call.setActivityId(activityId);
 		call.setMaxNumAttempts(maxNumAttempts);
 		call.setPriority(priority);
@@ -386,7 +386,7 @@ public class CallService extends Service {
     private void executeCall(HttpCall call){
     	if (call!=null){
     		if (mConnected)
-    			call.execute();
+    			call.execute(CallService.this);
     		else{
     			if (call.getPriority() == HttpCall.HIGH_PRIORITY){
     				call.increaseNumAttempts();
