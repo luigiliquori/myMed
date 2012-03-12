@@ -29,7 +29,8 @@ class Login extends AbstractLogin {
 	 * Print the logo fo the application
 	 */
 	public /*void*/ function printLogo() { ?>
-		<img id="logo" alt="title" src="system/templates/application/<?= APPLICATION_NAME ?>/views/login/desktop/img/title.png" height="30" />
+		<img id="logo" alt="title" src="system/templates/application/<?= APPLICATION_NAME ?>/img/icon.png" height="50"  style="position: absolute; top: 0px;" />
+		<span style="position: absolute; left: 60px; top:10px;"><span style="font-size: 16pt; font-weight: bold;">myRiviera</span> - v1.0 beta</span>
 	<?php }
 	
 	/**
@@ -37,10 +38,10 @@ class Login extends AbstractLogin {
 	 */
 	public /*void*/ function printLeftPart() { ?>
 		<div class="ui-block-a" Style="text-align: left;">
-			<h3>Profitez d'une plateforme extensible, <br> programmable et ouverte à tous</h3>
-			<img src="system/templates/container/desktop/login/img/devices.png" height="320" /><br>
+			<h3>Le réseau social pour découvrir et animer<br />le territoire de la Riviera!</h3>
+			<img src="system/templates/application/<?= APPLICATION_NAME ?>/img/login.png" height="320" /><br>
 			<div>
-				L'application myMed est bientôt disponible sur iPhone, iPad, Android, et plus encore...
+				Aidez-nous à mieux valoriser ses richesses
 			</div>
 		</div>
 	<?php }
