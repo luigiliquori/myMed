@@ -33,7 +33,7 @@ class TemplateManager {
 		<meta name="viewport" content="width=device-width, initial-scale=1, <?= TARGET == "mobile" ? "user-scalable=0" : "" ?>" /> 
 		
 		<!-- JQUERY CSS -->
-		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
 		<link rel="stylesheet" href="lib/jquery/jquery.mobile.actionsheet.css" />
 		<!-- <link rel="stylesheet" href="lib/jquery/jquery.mobile.datebox.css" />-->
 		
@@ -42,18 +42,13 @@ class TemplateManager {
 		<script type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>		
 		<script type="text/javascript" src="lib/jquery/jquery.mobile.actionsheet.js"></script>
 		
-		<!-- mouse wheel for desktops, overwrite jquery mobile -- it works with jquery 1.6.4 but seems to bug with 1.7.* -->
-		<!-- <script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>-->
-		
 		<!-- JQUERY mobile datebox -->
-		<!-- <script type="text/javascript" src="lib/jquery/jquery.mobile.datebox.js"></script>-->
+		<script src="lib/jquery/datebox/jquery.mobile.datebox.min.js"></script>
+		<link href="lib/jquery/datebox/jquery.mobile.datebox.min.css" rel="stylesheet" />
 		
 		<!-- MAP -->
 		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=<?= Google_APP_SECRET ?>&sensor=true&libraries=places"> </script>
-		
-		<!-- DATEBOX replaced by datebox jtusage -->
-		<!--  <script src="lib/jquery/datebox/jquery.mobile.datebox.min.js"></script>
-		<link href="lib/jquery/datebox/jquery.mobile.datebox.min.css" rel="stylesheet" />   -->
+		<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox_packed.js"></script>
 		
 		<!-- Common javascript -->
 		<script src="system/javascript/common.js"></script>

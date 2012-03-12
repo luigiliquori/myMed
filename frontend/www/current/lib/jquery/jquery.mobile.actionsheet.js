@@ -60,8 +60,8 @@
 			$(window).bind('orientationchange.actionsheet',$.proxy(function () {
 				this._positionContent();
 			}, this));
-		
-			if( $.support.cssTransitions ) {
+			
+			if( $.support.cssTransitions && mobile!="mobile" ) {
 				this.content.animationComplete(function(event) {
 						$(event.target).removeClass("ui-actionsheet-animateIn");
 					});
@@ -74,7 +74,7 @@
 			var self = this;
 			this.wallpaper.unbind('click');
 			$(window).unbind('orientationchange.actionsheet');
-			if( $.support.cssTransitions ) {
+			if( $.support.cssTransitions && mobile!="mobile" ) {
 				this.content.addClass("ui-actionsheet-animateOut");
 				this.wallpaper.remove();
 				this.content.animationComplete(function() {
@@ -104,7 +104,7 @@
 				width = $(window).width(),
 				scrollPosition = $(window).scrollTop();
 			this.content.css({
-				'top': (scrollPosition + height / 2 - this.content.height() / 2),
+				'top': (this.content.selector=="#Opt")?42:(scrollPosition + height / 2 - this.content.height() / 2),
 				'left': (width / 2 - this.content.width() / 2)
 			});
 		}

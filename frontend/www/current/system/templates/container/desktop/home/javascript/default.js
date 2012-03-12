@@ -4,7 +4,7 @@ function initialize() {
 
 function geoloc() {
 	if (navigator.geolocation) {
-		navigator.geolocation.watchPosition(successCallback, null, {
+		navigator.geolocation.getCurrentPosition(successCallback, null, {
 			enableHighAccuracy : true
 		});
 	} else {

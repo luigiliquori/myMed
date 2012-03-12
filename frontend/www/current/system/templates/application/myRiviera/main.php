@@ -9,15 +9,16 @@
 	
 	// IMPORT THE MAIN VIEW
 	require_once dirname(__FILE__).'/views/tabbar/FindView.class.php';
+	
 	require_once dirname(__FILE__).'/views/tabbar/OptionView.class.php';
 	
 	// IMPORT DIALOG
 	require_once dirname(__FILE__).'/views/dialog/EditDialog.class.php';
 	
 	// IMPORT AND DEFINE THE REQUEST HANDLER
-	require_once dirname(__FILE__).'/handler/MyApplicationHandler.class.php';
-	$handler = new MyApplicationHandler();
-	$handler->handleRequest();
+	//require_once dirname(__FILE__).'/handler/MyApplicationHandler.class.php';
+	//$handler = new MyApplicationHandler();
+	//$handler->handleRequest();
 
 	// LOAD DASP JAVASCRIPT LIBRARY
 	echo "<script src='lib/dasp/javascript/dasp.js'></script>";
@@ -26,20 +27,23 @@
 	require_once 'system/templates/handler/MenuHandler.class.php';
 	$menuHandler = new MenuHandler();
 	$menuHandler->handleRequest(); ?>
-	<form action="?application=0" method="post" name="disconnectForm" id="disconnectForm">
+	<form action="?application=<?= APPLICATION_NAME ?>" method="post" name="disconnectForm" id="disconnectForm">
 	<input type="hidden" name="disconnect" value="1" />
 	</form>
 	<?php 
 
 	// VIEWs
-	$find = new FindView($handler);
+	$find = new FindView();
 	$find->printTemplate();
-	$option = new OptionView($handler);
+	$option = new OptionView();
 	$option->printTemplate();
 	
 	// DIALOG
 	$edit = new EditDialog();
-	$edit->printTemplate();
+
+	$edit->getContent();
+	
+	// PROFILE UPDATE
 	include('system/templates/container/mobile/home/views/updateProfile.php');
 	
 ?>
