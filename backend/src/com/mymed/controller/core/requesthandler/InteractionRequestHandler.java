@@ -58,8 +58,7 @@ public class InteractionRequestHandler extends AbstractRequestHandler {
     }
 
     /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-     *      response)
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
@@ -87,8 +86,7 @@ public class InteractionRequestHandler extends AbstractRequestHandler {
     }
 
     /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-     *      response)
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     @Override
     protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
@@ -101,7 +99,7 @@ public class InteractionRequestHandler extends AbstractRequestHandler {
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
             String application, producer, consumer, start, end, predicate, feedback;
 
-            if (code.equals(RequestCode.READ)) {
+            if (code.equals(RequestCode.UPDATE)) {
                 if ((application = parameters.get(JSON_APPLICATION)) == null) {
                     throw new InternalBackEndException("missing application argument!");
                 } else if ((producer = parameters.get("producer")) == null) {
