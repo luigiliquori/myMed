@@ -69,7 +69,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
   @Override
   public void create(final String application, final String predicate, final String subPredicate,
       final MUserBean publisher, final List<MDataBean> dataList) throws InternalBackEndException, IOBackEndException {
-
+	  
     try {
       // STORE THE PUBLISHER
       final Map<String, byte[]> args = new HashMap<String, byte[]>();
@@ -135,7 +135,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
       // same email to all at once, exposing the users email
       final StringBuffer mailingList = new StringBuffer(250);
       final List<Map<byte[], byte[]>> subscribers = storageManager.selectList(SC_USER_LIST, SUBSCRIBER_PREFIX
-          + application + subPredicate);
+          + application + predicate);
       for (final Map<byte[], byte[]> set : subscribers) {
         for (final Entry<byte[], byte[]> entry : set.entrySet()) {
           if (new String(entry.getKey(), ENCODING).equals("user")) {
