@@ -2,7 +2,6 @@
 
 require_once 'system/templates/ITemplate.php';
 require_once 'system/templates/AbstractTemplate.class.php';
-require_once 'system/templates/handler/InscriptionHandler.class.php';
 
 /**
  * 
@@ -10,11 +9,10 @@ require_once 'system/templates/handler/InscriptionHandler.class.php';
  * @author lvanni
  *
  */
-class Login extends AbstractTemplate {
+abstract class AbstractLogin extends AbstractTemplate {
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
-	private /*InscriptionHandler*/ $handler;
 	
 	/* --------------------------------------------------------- */
 	/* Constructors */
@@ -22,10 +20,8 @@ class Login extends AbstractTemplate {
 	/**
 	 * Default constructor
 	 */
-	public function __construct() {
-		parent::__construct("login");
-		$this->handler = new InscriptionHandler();
-		$this->handler->handleRequest();
+	public function __construct($id) {
+		parent::__construct($id);
 	}
 	
 	/* --------------------------------------------------------- */
@@ -50,12 +46,6 @@ class Login extends AbstractTemplate {
 		?>
 		<!-- CONTENT -->
 		<div class="content">
-			<!-- LOGO 
-			<br />
-			<img alt="mymed" src="img/logo-mymed.png" width="200px;">
-			<br />
-			<br />
-			<a href="#socialNetwork" data-role="button" data-inline="true" data-rel="dialog">Connexion Via Réseau Social</a> -->
 			<br /><br />
 			<h1>myMed</h1>
 			

@@ -9,14 +9,19 @@
 	// LOAD THE VIEWs
 	if(USER_CONNECTED) { // HOME PAGE OF THE APPLICATION ---------------------------
 		
+		// IMPORT THE HANDLER
+		require_once dirname(__FILE__).'/handler/MenuHandler.class.php';
+		$menuHandler = new MenuHandler();
+		$menuHandler->handleRequest();
+		require_once dirname(__FILE__).'/handler/UpdateProfileHandler.class.php';
+		$updateHandler = new UpdateProfileHandler();
+		$updateHandler->handleRequest();
+		
 		// IMPORT THE MAIN VIEW
 		require_once dirname(__FILE__).'/views/home/Home.class.php';
 		require_once dirname(__FILE__).'/views/home/Profile.class.php';
 		
 		// DISCONNECT FORM
-		require_once dirname(__FILE__).'/handler/MenuHandler.class.php';
-		$menuHandler = new MenuHandler();
-		$menuHandler->handleRequest();
 		echo '<form action="?application=' . APPLICATION_NAME . '" method="post" name="disconnectForm" id="disconnectForm">';
 		echo '<input type="hidden" name="disconnect" value="1" /></form>';
 		
@@ -48,6 +53,8 @@
 		// BUILD THE VIEWs
 		$login = new Login();
 		$login->printTemplate();
+		
+		include('views/dialog/socialNetwork.php');
 	}
 
 ?>

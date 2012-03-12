@@ -2,7 +2,6 @@
 
 require_once 'system/templates/ITemplate.php';
 require_once 'system/templates/AbstractTemplate.class.php';
-require_once 'system/templates/handler/InscriptionHandler.class.php';
 
 /**
  * 
@@ -10,11 +9,11 @@ require_once 'system/templates/handler/InscriptionHandler.class.php';
  * @author lvanni
  *
  */
-class Login extends AbstractTemplate {
+abstract class AbstractLogin extends AbstractTemplate {
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
-	private /*InscriptionHandler*/ $handler;
+	protected /*InscriptionHandler*/ $handler;
 	
 	/* --------------------------------------------------------- */
 	/* Constructors */
@@ -22,10 +21,9 @@ class Login extends AbstractTemplate {
 	/**
 	 * Default constructor
 	 */
-	public function __construct() {
-		parent::__construct("loginView", "loginView");
-		$this->handler = new InscriptionHandler();
-		$this->handler->handleRequest();
+	public function __construct($id, $handler) {
+		parent::__construct($id, $id);
+		$this->handler = $handler;
 	}
 	
 	/* --------------------------------------------------------- */
@@ -34,9 +32,7 @@ class Login extends AbstractTemplate {
 	/**
 	 * Print the logo fo the application
 	 */
-	public /*void*/ function printLogo() { ?>
-		<img id="logo" alt="title" src="system/templates/container/desktop/login/img/title.png" height="30" />
-	<?php }
+	abstract public /*void*/ function printLogo();
 	
 	/**
 	* Get the HEADER for jQuery Mobile
@@ -71,15 +67,7 @@ class Login extends AbstractTemplate {
 	/**
 	 * Print the left part of the main page
 	 */
-	public /*void*/ function printLeftPart() { ?>
-		<div class="ui-block-a" Style="text-align: left;">
-			<h3>Profitez d'une plateforme extensible, <br> programmable et ouverte à tous</h3>
-			<img src="system/templates/container/desktop/login/img/devices.png" height="320" /><br>
-			<div>
-				L'application myMed est bientôt disponible sur iPhone, iPad, Android, et plus encore...
-			</div>
-		</div>
-	<?php }
+	abstract public /*void*/ function printLeftPart();
 	
 	/**
 	* Print the right part of the main page
@@ -126,21 +114,6 @@ class Login extends AbstractTemplate {
 	<?php }
 	
 	/**
-	 * Get the CONTENT for jQuery Mobile
-	 */
-	public /*String*/ function getContent() { ?>
-		<!-- CONTENT -->
-		<div id="loginContent" align="center">
-			<div id="loginContainer">
-				<div class="ui-grid-a"> 
-					<?php $this->printLeftPart() ?>
-					<?php $this->printRightPart() ?>
-				</div>
-			</div>
-		</div>
-	<?php }
-	
-	/**
 	* Footer
 	*/
 	public /*String*/ function getFooter() { ?>
@@ -160,6 +133,21 @@ class Login extends AbstractTemplate {
 					<a href="http://www-sop.inria.fr/teams/lognet/MYMED/index.php?static1/projet">Documentation</a>
 					<a href="http://www.mymed.fr">News</a>
 					<a href="http://www-sop.inria.fr/teams/lognet/MYMED/index.php?static4/join">Contact</a>
+				</div>
+			</div>
+		</div>
+	<?php }
+	
+	/**
+	* Get the CONTENT for jQuery Mobile
+	*/
+	public /*String*/ function getContent() { ?>
+		<!-- CONTENT -->
+		<div id="loginContent" align="center">
+			<div id="loginContainer">
+				<div class="ui-grid-a"> 
+					<?php $this->printLeftPart() ?>
+					<?php $this->printRightPart() ?>
 				</div>
 			</div>
 		</div>

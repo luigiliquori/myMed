@@ -146,27 +146,27 @@ class OptionView extends MyApplication {
 				<?php $i=0; ?>
 				<?php foreach ($_SESSION['friends'] as $friend ) { ?>
 					<a href="<?= $friend["link"] ?>"><img src="http://graph.facebook.com/<?= $friend["id"] ?>/picture" width="20px" alt="<?= $friend["name"] ?>" /></a>
-				<?php $i++; ?>
+					<?php $i++; ?>
 				<?php } 
-			if($i == 0) {
-			$socialNetworkConnection =  new SocialNetworkConnection();
-				foreach($socialNetworkConnection->getWrappers() as $wrapper) {
-					$url = TARGET == "mobile" ? str_replace("www", "m", $wrapper->getLoginUrl()) . "&display=touch" :  $wrapper->getLoginUrl();
-					echo "<a href='" . $url . "'>" . $wrapper->getSocialNetworkButton() . "</a>";
+				if($i == 0) {
+					$socialNetworkConnection =  new SocialNetworkConnection();
+					foreach($socialNetworkConnection->getWrappers() as $wrapper) {
+						$url = TARGET == "mobile" ? str_replace("www", "m", $wrapper->getLoginUrl()) . "&display=touch" :  $wrapper->getLoginUrl();
+						echo "<a href='" . $url . "'>" . $wrapper->getSocialNetworkButton() . "</a>";
 					}
 				} else { ?>
 					<br /><br />
 					<script>(function(d, s, id) {
-				var js, fjs = d.getElementsByTagName(s)[0];
-				if (d.getElementById(id)) return;
-					js = d.createElement(s); js.id = id;
-					js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1";
-					fjs.parentNode.insertBefore(js, fjs);
-				}(document, 'script', 'facebook-jssdk'));</script>
+						var js, fjs = d.getElementsByTagName(s)[0];
+						if (d.getElementById(id)) return;
+						js = d.createElement(s); js.id = id;
+						js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1";
+						fjs.parentNode.insertBefore(js, fjs);
+					}(document, 'script', 'facebook-jssdk'));</script>
 					<div class="fb-like" data-href="http://www.mymed.fr" data-send="true" data-width="450" data-show-faces="true"></div>
 					<br /><br />
 				<?php } ?>
-				</div>
+			</div>
 	
 			<!-- HELP -->
 			<div data-role="collapsible" data-collapsed="true" data-theme="b"

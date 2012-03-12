@@ -38,7 +38,7 @@ class Login extends AbstractLogin {
 	public /*void*/ function printLeftPart() { ?>
 		<div class="ui-block-a" Style="text-align: left;">
 			<h3>Profitez d'une plateforme extensible, <br> programmable et ouverte à tous</h3>
-			<img src="system/templates/application/<?= APPLICATION_NAME ?>/views/login/desktop/img/devices.png" height="320" /><br>
+			<img src="system/templates/container/desktop/login/img/devices.png" height="320" /><br>
 			<div>
 				L'application myMed est bientôt disponible sur iPhone, iPad, Android, et plus encore...
 			</div>
