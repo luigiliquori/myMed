@@ -1,6 +1,6 @@
 <?php
 
-require_once 'system/templates/application/' . APPLICATION_NAME . '/views/tabbar/MainView.class.php';
+require_once 'system/templates/application/' . APPLICATION_NAME . '/views/home/MainView.class.php';
 require_once 'lib/dasp/beans/MDataBean.class.php';
 
 /**
