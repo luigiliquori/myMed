@@ -1,6 +1,6 @@
 #!/usr/bin/php
 <?php
-define('BACKEND_URL', 'http://mymed38.polito.it:8080/mymed_backend/');
+define('BACKEND_URL', 'https://mymed38.polito.it:8080/backend/');
 define('KEYS', <<<EOT
 define('ConnexionTwitter_KEY', 'HgsnlIpCJ7RqHhCFELkTvw');
 define('ConnexionTwitter_SECRET', 'P7Gkj9AfeNEIHXrj0PMTiNHM3lJbHEqkuXwuWtGzU');

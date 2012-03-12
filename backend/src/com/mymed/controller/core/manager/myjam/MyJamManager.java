@@ -294,7 +294,20 @@ public class MyJamManager extends AbstractManager{
 			if (reportMap.isEmpty())
 				throw new IOBackEndException(" Report not valid. ",404);
 			MReportBean reportDetails = (MReportBean) introspection(MReportBean.class,reportMap);
-			long locationId = reportDetails.getLocationId();								
+			long locationId = reportDetails.getLocationId();
+			if (updateId!=null){
+				Map<byte[],byte[]> updateMap = ((GeoLocStorageManager) storageManager).selectAll("Report", updateId);
+				if (reportMap.isEmpty())
+					throw new IOBackEndException(" Update not valid. ",404);
+				MReportBean updateDetails = (MReportBean) introspection(MReportBean.class,updateMap);
+				/** Check if the user posting the feedback is the same who posted the update. */
+				if (updateDetails.getUserId().equals(feedback.getUserId()))
+					throw new InternalBackEndException(" You cannot insert a feedback on your own update. ");
+			}else{
+				/** Check if the user posting the feedback is the same who posted the report. */
+				if (reportDetails.getUserId().equals(feedback.getUserId()))
+					throw new InternalBackEndException(" You cannot insert a feedback on your own report. ");
+			}
 			
 			/**
 			 * Check if the report is expired or not.
