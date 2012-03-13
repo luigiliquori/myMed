@@ -51,11 +51,11 @@ class View3 extends View1 {
 					if(VIEW_3_MAP)
 						$this->getMapFeature();
 					if(VIEW_3_PUBLISH)
-						$this->getPublishFeature();
+						$this->getPublishFeature(VIEW_3_PUBLISH_keyword, VIEW_3_PUBLISH_address, VIEW_3_PUBLISH_date);
 					if(VIEW_3_SUBSCRIBE)
-						$this->getFindFeature();
+						$this->getSubscribeFeature(VIEW_3_SUBSCRIBE_keyword, VIEW_3_SUBSCRIBE_address, VIEW_3_SUBSCRIBE_date);
 					if(VIEW_3_FIND)
-						$this->getSubscribeFeature();
+						$this->getFindFeature(VIEW_3_FIND_keyword, VIEW_3_FIND_address, VIEW_3_FIND_date);
 					if(VIEW_3_PROFILE)
 						$this->getProfileFeature();
 					if(VIEW_3_SOCIAL_NETWORK)

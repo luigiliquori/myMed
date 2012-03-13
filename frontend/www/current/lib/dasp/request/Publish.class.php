@@ -51,6 +51,7 @@ class Publish extends Request {
 		
 		// construct the predicate + data
 		for($i=0 ; $i<$_POST['numberOfOntology'] ; $i++){
+			
 			/*MDataBean*/ $ontology = json_decode(urldecode($_POST['ontology' . $i]));
 			
 			if ($ontology->ontologyID == PICTURE) {
@@ -63,6 +64,7 @@ class Publish extends Request {
 			} else {
 				$ontology->value = $_POST[$ontology->key];
 			}
+			
 			// construct the predicate
 			if($ontology->ontologyID < 4 && $ontology->value != "") {
 				$predicateArray[$numberOfPredicate++] = $ontology;

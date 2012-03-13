@@ -42,6 +42,35 @@ class View1 extends MyApplication {
 		</div>
 	<?php }
 	
+	private /*void*/ function getPredicateOntology($keyword, $address, $date) { ?>
+		<!-- KEYWORD -->
+		<?php for( $i=0 ; $i < $keyword ; $i++ ) { ?>
+			<span>Mot Cléf :</span>
+			<input type="text" name="keyword<?= $i ?>" value=""  data-inline="true"/><br />
+			<?php $keywordBean = new MDataBean("keyword" . $i, null, KEYWORD); ?>
+			<input type="hidden" name="ontology<?= $i ?>" value="<?= urlencode(json_encode($keywordBean)); ?>">
+		<?php } ?>
+		
+		<!-- GPS -->
+		<?php for( $i=0 ; $i < $address ; $i++ ) { ?>
+			<span>Adresse (position GPS) :</span>
+			<input id="address_view<?= $this->id ?>_publish_<?= $i ?>" type="text" name="address<?= $i ?>" value=""  data-inline="true"/>
+			<?php $this->getFirendAddress($this->id . "1");	?>
+			<?php $addressBean = new MDataBean("address" . $i, null, GPS); ?>
+			<input type="hidden" name="ontology<?= $keyword+$i ?>" value="<?= urlencode(json_encode($addressBean)); ?>">
+			<br />
+		<?php } ?>
+		
+		<!-- DATE -->
+		<?php for( $i=0 ; $i < $date ; $i++ ) { ?>
+			<span>Date :</span>
+			<input type="date" name="date<?= $i ?>" data-role="datebox" data-options='{"mode": "calbox"}' readonly="readonly" />
+			<?php $dateBean = new MDataBean("date" . $i, null, DATE); ?>
+			<input type="hidden" name="ontology<?= $keyword+$address+$i ?>" value="<?= urlencode(json_encode($dateBean)); ?>">
+			<br /><br />
+		<?php } ?>
+	<?php }
+	
 	protected /*void*/ function getFirendAddress($id) { ?>
 		<select	id="select<?= $id ?>" data-iconpos="notext" data-icon="plus" name="enum"
 		onchange="changeAddress('<?= $id ?>')">
@@ -70,121 +99,67 @@ class View1 extends MyApplication {
 		
 	protected /*void*/ function getMapFeature() { ?>
 		<!-- MAP FEATURE -->
-			<h3>Géolocalisation</h3>
-			<div id="<?= APPLICATION_NAME ?>Map" style="position: relative; width: 100%; height: 200px;"></div>
-			<br />
-			<span>Adresse :</span>
-			<input id="formatedAddress<?= $this->id ?>0" type="text" value="" />
-			<?php $this->getFirendAddress($this->id . "0");	?>
-			<a href="#" data-role="button" onclick="refreshMap($('#formatedAddress<?= $this->id ?>0').val());" >Géolocaliser</a>
+		<h3>Géolocalisation</h3>
+		<div id="<?= APPLICATION_NAME ?>Map" style="position: relative; width: 100%; height: 200px;"></div>
+		<br />
+		<span>Adresse :</span>
+		<input id="formatedAddress<?= $this->id ?>0" type="text" value="" />
+		<?php $this->getFirendAddress($this->id . "0");	?>
+		<a href="#" data-role="button" onclick="refreshMap($('#formatedAddress<?= $this->id ?>0').val());" >Géolocaliser</a>
 	<?php }
 	
-	protected /*void*/ function getPublishFeature() { ?>
+	protected /*void*/ function getPublishFeature($keyword, $address, $date) { ?>
 		<!-- PUBLISH FEATURE -->
-			<h3>Publication</h3>
-			<form  action="#" method="post" name="<?= APPLICATION_NAME ?>PublishForm" id="<?= APPLICATION_NAME ?>PublishForm" enctype="multipart/form-data">
-				<!-- Define the method to call -->
-				<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
-				<input type="hidden" name="method" value="publish" />
-				<input type="hidden" name="numberOfOntology" value="4" />
-				
-				<!-- KEYWORD -->
-				<span>Mot Cléf :</span>
-				<input type="text" name="keyword" value=""  data-inline="true"/><br />
-				<?php $keyword = new MDataBean("keyword", null, KEYWORD); ?>
-				<input type="hidden" name="ontology0" value="<?= urlencode(json_encode($keyword)); ?>">
-				
-				<!-- GPS -->
-				<span>Adresse (position GPS) :</span>
-				<input id="formatedAddress<?= $this->id ?>1" type="text" name="gps" value=""  data-inline="true"/>
-				<?php $this->getFirendAddress($this->id . "1");	?>
-				<?php $gps = new MDataBean("gps", null, GPS); ?>
-				<input type="hidden" name="ontology1" value="<?= urlencode(json_encode($gps)); ?>">
-				<br />
-				
-				<!-- DATE -->
-				<span>Date :</span>
-				<input type="date" name="date" data-role="datebox" data-options='{"mode": "calbox"}' readonly="readonly" />
-				<?php $date = new MDataBean("date", null, DATE); ?>
-				<input type="hidden" name="ontology2" value="<?= urlencode(json_encode($date)); ?>">
-				<br /><br />
-				
-				<!-- TEXT -->
-				<span>Text :</span>
-				<textarea name="text" rows="" cols=""></textarea>
-				<?php $text = new MDataBean("text", null, TEXT); ?>
-				<input type="hidden" name="ontology3" value="<?= urlencode(json_encode($text)); ?>">
-				<br />
-				
-				<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>PublishForm.submit()" >Publier</a>
-			</form>
+		<h3>Publication</h3>
+		<form  action="#" method="post" name="<?= APPLICATION_NAME ?>PublishForm" id="<?= APPLICATION_NAME ?>PublishForm" enctype="multipart/form-data">
+			<!-- Define the method to call -->
+			<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
+			<input type="hidden" name="method" value="publish" />
+			<input type="hidden" name="numberOfOntology" value="<?= $keyword + $address + $date + 1?>" />
+			
+			<?php $this->getPredicateOntology($keyword, $address, $date); ?>
+			
+			<!-- TEXT -->
+			<span>Text :</span>
+			<textarea name="text" rows="" cols=""></textarea>
+			<?php $text = new MDataBean("text", null, TEXT); ?>
+			<input type="hidden" name="ontology<?= $keyword + $address + $date ?>" value="<?= urlencode(json_encode($text)); ?>">
+			<br />
+			
+			<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>PublishForm.submit()" >Publier</a>
+		</form>
 	<?php }
 	
-	protected /*void*/ function getSubscribeFeature() { ?>
+	protected /*void*/ function getSubscribeFeature($keyword, $address, $date) { ?>
 		<!-- SUBSCRIBE FEATURE -->
-			<h3>Souscription</h3>
-			<form  action="#" method="post" name="<?= APPLICATION_NAME ?>SubscribeForm" id="<?= APPLICATION_NAME ?>SubscribeForm">
-				<!-- Define the method to call -->
-				<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
-				<input type="hidden" name="method" value="subscribe" />
-				<input type="hidden" name="numberOfOntology" value="3" />
-				
-				<!-- KEYWORD -->
-				<span>Mot Cléf :</span>
-				<input type="text" name="keyword" value=""  data-inline="true"/><br />
-				<?php $keyword = new MDataBean("keyword", null, KEYWORD); ?>
-				<input type="hidden" name="ontology0" value="<?= urlencode(json_encode($keyword)); ?>">
-				
-				<!-- GPS -->
-				<span>Adresse (position GPS) :</span>
-				<input id="formatedAddress<?= $this->id ?>2" type="text" name="gps" value=""  data-inline="true"/>
-				<?php $this->getFirendAddress($this->id . "2");	?>
-				<?php $gps = new MDataBean("gps", null, GPS); ?>
-				<input type="hidden" name="ontology1" value="<?= urlencode(json_encode($gps)); ?>">
-				<br />
-				<!-- DATE -->
-				<span>Date :</span>
-				<input type="date" name="date" data-role="datebox" data-options='{"mode": "calbox"}' readonly="readonly" />
-				<?php $date = new MDataBean("date", null, DATE); ?>
-				<input type="hidden" name="ontology2" value="<?= urlencode(json_encode($date)); ?>">
-
-				<br /><br />
-				<a href="#" data-role="button"onclick="document.<?= APPLICATION_NAME ?>SubscribeForm.submit()" >Souscrire</a>	
-			</form>
+		<h3>Souscription</h3>
+		<form  action="#" method="post" name="<?= APPLICATION_NAME ?>SubscribeForm" id="<?= APPLICATION_NAME ?>SubscribeForm">
+			<!-- Define the method to call -->
+			<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
+			<input type="hidden" name="method" value="subscribe" />
+			<input type="hidden" name="numberOfOntology" value="<?= $keyword + $address + $date ?>" />
+			
+			<?php $this->getPredicateOntology($keyword, $address, $date); ?>
+			
+			<br /><br />
+			<a href="#" data-role="button"onclick="document.<?= APPLICATION_NAME ?>SubscribeForm.submit()" >Souscrire</a>	
+		</form>
 	<?php }
 	
-	protected /*void*/ function getFindFeature() { ?>
+	protected /*void*/ function getFindFeature($keyword, $address, $date) { ?>
 		<!-- FIND FEATURE -->
 		<h3>Recherche</h3>
-			<form  action="#" method="post" name="<?= APPLICATION_NAME ?>FindForm" id="<?= APPLICATION_NAME ?>FindForm">
-				<!-- Define the method to call -->
-				<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
-				<input type="hidden" name="method" value="find" />
-				<input type="hidden" name="numberOfOntology" value="3" />
-				
-				<!-- KEYWORD -->
-				<span>Mot Cléf :</span>
-				<input type="text" name="keyword" value=""  data-inline="true"/><br />
-				<?php $keyword = new MDataBean("keyword", null, KEYWORD); ?>
-				<input type="hidden" name="ontology0" value="<?= urlencode(json_encode($keyword)); ?>">
-				
-				<!-- GPS -->
-				<span>Adresse (position GPS) :</span>
-				<input id="formatedAddress<?= $this->id ?>3" type="text" name="gps" value=""  data-inline="true"/>
-				<?php $this->getFirendAddress($this->id . "3");	?>
-				<?php $gps = new MDataBean("gps", null, GPS); ?>
-				<input type="hidden" name="ontology1" value="<?= urlencode(json_encode($gps)); ?>">
-				<br />
-				
-				<!-- DATE -->
-				<span>Date :</span>
-				<input type="date" name="date" data-role="datebox" data-options='{"mode": "calbox"}' readonly="readonly" />
-				<?php $date = new MDataBean("date", null, DATE); ?>
-				<input type="hidden" name="ontology2" value="<?= urlencode(json_encode($date)); ?>">
+		<form  action="#" method="post" name="<?= APPLICATION_NAME ?>FindForm" id="<?= APPLICATION_NAME ?>FindForm">
+			<!-- Define the method to call -->
+			<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
+			<input type="hidden" name="method" value="find" />
+			<input type="hidden" name="numberOfOntology" value="<?= $keyword + $address + $date ?>" />
+			
+			<?php $this->getPredicateOntology($keyword, $address, $date); ?>
 
-				<br /><br />
-				<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>FindForm.submit()" >Rechercher</a>	
-			</form>
+			<br /><br />
+			<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>FindForm.submit()" >Rechercher</a>	
+		</form>
 	<?php }
 	
 	protected /*void*/ function getProfileFeature() { ?>
@@ -211,30 +186,30 @@ class View1 extends MyApplication {
 	
 	protected /*void*/ function getSocialNetworkFeature() { ?>
 		<!-- FRIENDS -->
-		 	<h3>Reseaux Sociaux</h3>
-		 	<?php $i=0; ?>
-				<?php foreach ($_SESSION['friends'] as $friend ) { ?>
-					<a href="<?= $friend["link"] ?>"><img src="http://graph.facebook.com/<?= $friend["id"] ?>/picture" width="20px" alt="<?= $friend["name"] ?>" /></a>
-				<?php $i++; ?>
-			<?php } 
-			if($i == 0) {
-				$socialNetworkConnection =  new SocialNetworkConnection();
-			 	foreach($socialNetworkConnection->getWrappers() as $wrapper) {
-			 		$url = TARGET == "mobile" ? str_replace("www", "m", $wrapper->getLoginUrl()) . "&display=touch" :  $wrapper->getLoginUrl();
-			 		echo "<a href='" . $url . "'>" . $wrapper->getSocialNetworkButton() . "</a>";
-			 	}
-			} else { ?>
-				<br /><br />
-				<script>(function(d, s, id) {
-					var js, fjs = d.getElementsByTagName(s)[0];
-					if (d.getElementById(id)) return;
-					js = d.createElement(s); js.id = id;
-					js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1";
-					fjs.parentNode.insertBefore(js, fjs);
-				}(document, 'script', 'facebook-jssdk'));</script>
-				<div class="fb-like" data-href="http://www.mymed.fr" data-send="true" data-width="450" data-show-faces="true"></div>
-				<br />
-			<?php } ?>
+	 	<h3>Reseaux Sociaux</h3>
+	 	<?php $i=0; ?>
+			<?php foreach ($_SESSION['friends'] as $friend ) { ?>
+				<a href="<?= $friend["link"] ?>"><img src="http://graph.facebook.com/<?= $friend["id"] ?>/picture" width="20px" alt="<?= $friend["name"] ?>" /></a>
+			<?php $i++; ?>
+		<?php } 
+		if($i == 0) {
+			$socialNetworkConnection =  new SocialNetworkConnection();
+		 	foreach($socialNetworkConnection->getWrappers() as $wrapper) {
+		 		$url = TARGET == "mobile" ? str_replace("www", "m", $wrapper->getLoginUrl()) . "&display=touch" :  $wrapper->getLoginUrl();
+		 		echo "<a href='" . $url . "'>" . $wrapper->getSocialNetworkButton() . "</a>";
+		 	}
+		} else { ?>
+			<br /><br />
+			<script>(function(d, s, id) {
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) return;
+				js = d.createElement(s); js.id = id;
+				js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1";
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));</script>
+			<div class="fb-like" data-href="http://www.mymed.fr" data-send="true" data-width="450" data-show-faces="true"></div>
+			<br />
+		<?php } ?>
 	<?php }
 
 	/**
@@ -249,11 +224,11 @@ class View1 extends MyApplication {
 					if(VIEW_1_MAP)
 						$this->getMapFeature();
 					if(VIEW_1_PUBLISH)
-						$this->getPublishFeature();
+						$this->getPublishFeature(VIEW_1_PUBLISH_keyword, VIEW_1_PUBLISH_address, VIEW_1_PUBLISH_date);
 					if(VIEW_1_SUBSCRIBE)
-						$this->getSubscribeFeature();
+						$this->getSubscribeFeature(VIEW_1_SUBSCRIBE_keyword, VIEW_1_SUBSCRIBE_address, VIEW_1_SUBSCRIBE_date);
 					if(VIEW_1_FIND)
-						$this->getFindFeature();
+						$this->getFindFeature(VIEW_1_FIND_keyword, VIEW_1_FIND_address, VIEW_1_FIND_date);
 					if(VIEW_1_PROFILE)
 						$this->getProfileFeature();
 					if(VIEW_1_SOCIAL_NETWORK)

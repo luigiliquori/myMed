@@ -52,11 +52,11 @@ class View2 extends View1 {
 					if(VIEW_2_MAP)
 						$this->getMapFeature();
 					if(VIEW_2_PUBLISH)
-						$this->getPublishFeature();
+						$this->getPublishFeature(VIEW_2_PUBLISH_keyword, VIEW_2_PUBLISH_address, VIEW_2_PUBLISH_date);
 					if(VIEW_2_SUBSCRIBE)
-						$this->getSubscribeFeature();
+						$this->getSubscribeFeature(VIEW_2_SUBSCRIBE_keyword, VIEW_2_SUBSCRIBE_address, VIEW_2_SUBSCRIBE_date);
 					if(VIEW_2_FIND)
-						$this->getFindFeature();
+						$this->getFindFeature(VIEW_2_FIND_keyword, VIEW_2_FIND_address, VIEW_2_FIND_date);
 					if(VIEW_2_PROFILE)
 						$this->getProfileFeature();
 					if(VIEW_2_SOCIAL_NETWORK)

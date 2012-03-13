@@ -14,14 +14,14 @@ function initialize() {
 	geocoder = new google.maps.Geocoder();
 	
 	// Auto Complete
-	for(var i = 1 ; i < 4 ; i++){
-		for(var j = 0 ; j < 4 ; j++) {
-			if(document.getElementById("formatedAddress" + "View" + i + j)){
-				var autocompleteAddr = new google.maps.places.Autocomplete(document.getElementById("formatedAddress" + "View" + i + j));
-				autocompleteAddr.bindTo('bounds', map);
-			}
-		}
-	}
+//	for(var i = 1 ; i < 4 ; i++){
+//		for(var j = 0 ; j < 4 ; j++) {
+//			if(document.getElementById("formatedAddress" + "View" + i + j)){
+//				var autocompleteAddr = new google.maps.places.Autocomplete(document.getElementById("formatedAddress" + "View" + i + j));
+//				autocompleteAddr.bindTo('bounds', map);
+//			}
+//		}
+//	}
 	
 	// resize the map on page change
 	for(var i = 1 ; i < 4 ; i++) {

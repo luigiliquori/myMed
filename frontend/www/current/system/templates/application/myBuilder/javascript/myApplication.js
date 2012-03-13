@@ -110,9 +110,22 @@ function createApplication() {
 	for(var i=1 ; i < 4 ; i++) {
 		url += "&VIEW_" + i + "_GEOLOC=" + $("#VIEW_" + i + "_GEOLOC").val() +
 		"&VIEW_" + i + "_MAP=" + $("#VIEW_" + i + "_MAP").val() +
+		
 		"&VIEW_" + i + "_PUBLISH=" + $("#VIEW_" + i + "_PUBLISH").val() +
+		"&VIEW_" + i + "_PUBLISH_keyword=" + $("#VIEW_" + i + "_PUBLISH_keyword").val() +
+		"&VIEW_" + i + "_PUBLISH_address=" + $("#VIEW_" + i + "_PUBLISH_address").val() +
+		"&VIEW_" + i + "_PUBLISH_date=" + $("#VIEW_" + i + "_PUBLISH_date").val() +
+		
 		"&VIEW_" + i + "_SUBSCRIBE=" + $("#VIEW_" + i + "_SUBSCRIBE").val() +
+		"&VIEW_" + i + "_SUBSCRIBE_keyword=" + $("#VIEW_" + i + "_SUBSCRIBE_keyword").val() +
+		"&VIEW_" + i + "_SUBSCRIBE_address=" + $("#VIEW_" + i + "_SUBSCRIBE_address").val() +
+		"&VIEW_" + i + "_SUBSCRIBE_date=" + $("#VIEW_" + i + "_SUBSCRIBE_date").val() +
+		
 		"&VIEW_" + i + "_FIND=" + $("#VIEW_" + i + "_FIND").val() +
+		"&VIEW_" + i + "_FIND_keyword=" + $("#VIEW_" + i + "_FIND_keyword").val() +
+		"&VIEW_" + i + "_FIND_address=" + $("#VIEW_" + i + "_FIND_address").val() +
+		"&VIEW_" + i + "_FIND_date=" + $("#VIEW_" + i + "_FIND_date").val() +
+		
 		"&VIEW_" + i + "_PROFILE=" + $("#VIEW_" + i + "_PROFILE").val() +
 		"&VIEW_" + i + "_SOCIAL_NETWORK=" + $("#VIEW_" + i + "_SOCIAL_NETWORK").val();
 	}
