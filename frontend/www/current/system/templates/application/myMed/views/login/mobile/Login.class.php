@@ -2,6 +2,7 @@
 
 require_once 'system/templates/ITemplate.php';
 require_once 'system/templates/AbstractTemplate.class.php';
+require_once 'system/templates/application/' . APPLICATION_NAME . '/handler/InscriptionHandler.class.php';
 
 /**
  * 
@@ -9,19 +10,22 @@ require_once 'system/templates/AbstractTemplate.class.php';
  * @author lvanni
  *
  */
-abstract class AbstractLogin extends AbstractTemplate {
+class Login extends AbstractTemplate {
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
-	
+	private /*InscriptionHandler*/ $handler;
+
 	/* --------------------------------------------------------- */
 	/* Constructors */
 	/* --------------------------------------------------------- */
 	/**
 	 * Default constructor
 	 */
-	public function __construct($id) {
-		parent::__construct($id);
+	public function __construct() {
+		parent::__construct("loginView", "loginView");
+		$this->handler = new InscriptionHandler();
+		$this->handler->handleRequest();
 	}
 	
 	/* --------------------------------------------------------- */
