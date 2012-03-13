@@ -34,7 +34,20 @@ class OptionView extends MyApplication {
 		"CCAS",
 		"EPCI",
 		"EqptPublic",
-		"Mairie"
+		"Mairie", 
+		"Eglises",
+		"Forts_militaires",
+		"Fourriere",
+		"FoyerRural",
+		"GARES_SUD",
+		"Jardins",
+		"Maisons_Retraites",
+		"Monuments",
+		"OfficeDeTourisme",
+		"Police_municipale",
+		"Ports",
+		"POSTES",
+		"STADES"
 		);
 	}
 
