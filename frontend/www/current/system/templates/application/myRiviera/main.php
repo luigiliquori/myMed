@@ -62,6 +62,7 @@
 		$login->printTemplate();
 		
 		include('views/dialog/socialNetwork.php');
+		include('views/dialog/condition.php');
 	}
 	
 ?>

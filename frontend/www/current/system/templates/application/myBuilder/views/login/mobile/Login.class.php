@@ -2,6 +2,7 @@
 
 require_once 'system/templates/ITemplate.php';
 require_once 'system/templates/AbstractTemplate.class.php';
+require_once 'system/templates/application/' . APPLICATION_NAME . '/handler/InscriptionHandler.class.php';
 
 /**
  * 
@@ -9,19 +10,22 @@ require_once 'system/templates/AbstractTemplate.class.php';
  * @author lvanni
  *
  */
-abstract class AbstractLogin extends AbstractTemplate {
+class Login extends AbstractTemplate {
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
-	
+	private /*InscriptionHandler*/ $handler;
+
 	/* --------------------------------------------------------- */
 	/* Constructors */
 	/* --------------------------------------------------------- */
 	/**
 	 * Default constructor
 	 */
-	public function __construct($id) {
-		parent::__construct($id);
+	public function __construct() {
+		parent::__construct("loginView", "loginView");
+		$this->handler = new InscriptionHandler();
+		$this->handler->handleRequest();
 	}
 	
 	/* --------------------------------------------------------- */
@@ -47,7 +51,7 @@ abstract class AbstractLogin extends AbstractTemplate {
 		<!-- CONTENT -->
 		<div class="content">
 			<br /><br />
-			<h1>myMed</h1>
+			<h1><?= APPLICATION_NAME ?></h1>
 			
 			<!-- NOTIFICATION -->
 			<?php if($this->handler->getError()) { ?>
@@ -70,7 +74,8 @@ abstract class AbstractLogin extends AbstractTemplate {
 				<input type="hidden" name="singin" value="1" />
 			    <input type="text" name="login" id="login" value="email" /><br />
 			    <input type="password" name="password" id="password" value="Mot de passe" /><br />
-			    <a href="#" onclick="document.singinForm.submit()"><span style="color:white; text-decoration: none;">Connexion</span></a>
+			    <a href="#" onclick="document.singinForm.submit()" data-role="button" data-inline="true">Connexion</a><br />
+			    <a href="#socialNetwork">Connexion Via Réseau Social</a>
 			</form>
 		</div>
 	<?php }
@@ -80,8 +85,8 @@ abstract class AbstractLogin extends AbstractTemplate {
 	*/
 	public /*String*/ function printTemplate() {
 		parent::printTemplate();
-		include('views/inscription.php');
-		include('views/socialNetwork.php');
+		include('system/templates/application/' . APPLICATION_NAME . '/views/dialog/inscription.php');
+		include('system/templates/application/' . APPLICATION_NAME . '/views/dialog/socialNetwork.php');
 	}
 }
 ?>

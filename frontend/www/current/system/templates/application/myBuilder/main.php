@@ -1,7 +1,7 @@
 <?php 
 
 // NAME OF THE APPLICATION
-define('APPLICATION_NAME', "myApplicationBuilder");
+define('APPLICATION_NAME', "myBuilder");
 
 // LOAD DASP JAVASCRIPT LIBRARY
 echo "<script src='lib/dasp/javascript/dasp.js'></script>";
@@ -90,6 +90,7 @@ if(USER_CONNECTED) {
 	$login->printTemplate();
 
 	include('views/dialog/socialNetwork.php');
+	include('views/dialog/condition.php');
 }
 
 ?>

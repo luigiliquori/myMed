@@ -67,7 +67,18 @@ class BuildView3 extends MainView {
 			<select name="slider" id="VIEW_3_PUBLISH" data-role="slider">
 				<option value="false">Non</option>
 				<option value="true">Oui</option>
-			</select> 
+			</select>
+			<br /><br />
+			<div data-role="collapsible" data-theme="c" data-content-theme="c" data-inline="true">
+			   <h3>Options Avancées</h3>
+			   <h4>Nombre d'ontologies</h4>
+			   <label for="VIEW_3_PUBLISH_keyword">Mot Cléf</label>
+			   <input type="range" name="VIEW_3_PUBLISH_keyword" id="VIEW_3_PUBLISH_keyword" value="1" min="0" max="3" />
+			   <label for="VIEW_3_PUBLISH_address">Adresse (position GPS) :</label>
+			   <input type="range" name="VIEW_3_PUBLISH_address" id="VIEW_3_PUBLISH_address" value="1" min="0" max="3" />
+			   <label for="VIEW_3_PUBLISH_date">Date :</label>
+			   <input type="range" name="VIEW_3_PUBLISH_date" id="VIEW_3_PUBLISH_date" value="1" min="0" max="3" />
+			</div>
 		</div>
 	<?php }
 	
@@ -79,7 +90,18 @@ class BuildView3 extends MainView {
 			<select name="slider" id="VIEW_3_SUBSCRIBE" data-role="slider">
 				<option value="false">Non</option>
 				<option value="true">Oui</option>
-			</select> 
+			</select>
+			<br /><br />
+			<div data-role="collapsible" data-theme="c" data-content-theme="c" data-inline="true">
+			   <h3>Options Avancées</h3>
+			   <h4>Nombre d'ontologies</h4>
+			   <label for="VIEW_3_SUBSCRIBE_keyword">Mot Cléf</label>
+			   <input type="range" name="VIEW_3_SUBSCRIBE_keyword" id="VIEW_3_SUBSCRIBE_keyword" value="1" min="0" max="3" />
+			   <label for="VIEW_3_SUBSCRIBE_address">Adresse (position GPS) :</label>
+			   <input type="range" name="VIEW_3_SUBSCRIBE_address" id="VIEW_3_SUBSCRIBE_address" value="1" min="0" max="3" />
+			   <label for="VIEW_3_SUBSCRIBE_date">Date :</label>
+			   <input type="range" name="VIEW_3_SUBSCRIBE_date" id="VIEW_3_SUBSCRIBE_date" value="1" min="0" max="3" />
+			</div>
 		</div>
 	<?php }
 	
@@ -91,7 +113,18 @@ class BuildView3 extends MainView {
 			<select name="slider" id="VIEW_3_FIND" data-role="slider">
 				<option value="false">Non</option>
 				<option value="true">Oui</option>
-			</select> 
+			</select>
+			<br /><br />
+			<div data-role="collapsible" data-theme="c" data-content-theme="c" data-inline="true">
+			   <h3>Options Avancées</h3>
+			   <h4>Nombre d'ontologies</h4>
+			   <label for="VIEW_3_FIND_keyword">Mot Cléf</label>
+			   <input type="range" name="VIEW_3_FIND_keyword" id="VIEW_3_FIND_keyword" value="1" min="0" max="3" />
+			   <label for="VIEW_3_FIND_address">Adresse (position GPS) :</label>
+			   <input type="range" name="VIEW_3_FIND_address" id="VIEW_3_FIND_address" value="1" min="0" max="3" />
+			   <label for="VIEW_3_FIND_date">Date :</label>
+			   <input type="range" name="VIEW_3_FIND_date" id="VIEW_3_FIND_date" value="1" min="0" max="3" />
+			</div>
 		</div>
 	<?php }
 	

@@ -102,7 +102,7 @@ abstract class AbstractLogin extends AbstractTemplate {
 							<label>Confirm : </label><br /><input type="password" name="confirm" data-theme="d"/><br>
 							<label>Date de naissance : </label><br /><input type="text" name="birthday" data-theme="d"/>
 							<input type="checkbox" name="checkCondition" style="position: absolute; top: 25px;"/><br>
-							<span style="position: relative; left: 50px;">J'accepte les <a href="#">conditions d'utilisation</a></span>
+							<span style="position: relative; left: 50px;">J'accepte les <a href="#condition">conditions d'utilisation</a></span>
 						</div>
 						<hr>
 						<div align="center">

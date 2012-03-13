@@ -2,7 +2,7 @@
 
 require_once 'system/templates/ITemplate.php';
 require_once 'system/templates/AbstractTemplate.class.php';
-require_once 'system/templates/handler/InscriptionHandler.class.php';
+require_once 'system/templates/application/' . APPLICATION_NAME . '/handler/InscriptionHandler.class.php';
 
 /**
  * 
@@ -15,7 +15,7 @@ class Login extends AbstractTemplate {
 	/* Attributes */
 	/* --------------------------------------------------------- */
 	private /*InscriptionHandler*/ $handler;
-	
+
 	/* --------------------------------------------------------- */
 	/* Constructors */
 	/* --------------------------------------------------------- */
@@ -23,7 +23,7 @@ class Login extends AbstractTemplate {
 	 * Default constructor
 	 */
 	public function __construct() {
-		parent::__construct("login");
+		parent::__construct("loginView", "loginView");
 		$this->handler = new InscriptionHandler();
 		$this->handler->handleRequest();
 	}
@@ -50,14 +50,8 @@ class Login extends AbstractTemplate {
 		?>
 		<!-- CONTENT -->
 		<div class="content">
-			<!-- LOGO 
-			<br />
-			<img alt="mymed" src="img/logo-mymed.png" width="200px;">
-			<br />
-			<br />
-			<a href="#socialNetwork" data-role="button" data-inline="true" data-rel="dialog">Connexion Via Réseau Social</a> -->
 			<br /><br />
-			<h1>myMed</h1>
+			<h1><?= APPLICATION_NAME ?></h1>
 			
 			<!-- NOTIFICATION -->
 			<?php if($this->handler->getError()) { ?>
@@ -80,7 +74,8 @@ class Login extends AbstractTemplate {
 				<input type="hidden" name="singin" value="1" />
 			    <input type="text" name="login" id="login" value="email" /><br />
 			    <input type="password" name="password" id="password" value="Mot de passe" /><br />
-			    <a href="#" onclick="document.singinForm.submit()"><span style="color:white; text-decoration: none;">Connexion</span></a>
+			    <a href="#" onclick="document.singinForm.submit()" data-role="button" data-inline="true">Connexion</a><br />
+			    <a href="#socialNetwork">Connexion Via Réseau Social</a>
 			</form>
 		</div>
 	<?php }
@@ -90,8 +85,8 @@ class Login extends AbstractTemplate {
 	*/
 	public /*String*/ function printTemplate() {
 		parent::printTemplate();
-		include('views/inscription.php');
-		include('views/socialNetwork.php');
+		include('system/templates/application/' . APPLICATION_NAME . '/views/dialog/inscription.php');
+		include('system/templates/application/' . APPLICATION_NAME . '/views/dialog/socialNetwork.php');
 	}
 }
 ?>
