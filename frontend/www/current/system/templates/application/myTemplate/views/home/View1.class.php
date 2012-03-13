@@ -45,35 +45,40 @@ class View1 extends MyApplication {
 	private /*void*/ function getPredicateOntology($keyword, $address, $date) { ?>
 		<!-- KEYWORD -->
 		<?php for( $i=0 ; $i < $keyword ; $i++ ) { ?>
-			<span>Mot Cléf :</span>
-			<input type="text" name="keyword<?= $i ?>" value=""  data-inline="true"/><br />
-			<?php $keywordBean = new MDataBean("keyword" . $i, null, KEYWORD); ?>
-			<input type="hidden" name="ontology<?= $i ?>" value="<?= urlencode(json_encode($keywordBean)); ?>">
+			<div>
+				<span>Mot Cléf :</span>
+				<input type="text" name="keyword<?= $i ?>" value=""  data-inline="true"/><br />
+				<?php $keywordBean = new MDataBean("keyword" . $i, null, KEYWORD); ?>
+				<input type="hidden" name="ontology<?= $i ?>" value="<?= urlencode(json_encode($keywordBean)); ?>">
+			</div>
 		<?php } ?>
 		
 		<!-- GPS -->
 		<?php for( $i=0 ; $i < $address ; $i++ ) { ?>
-			<span>Adresse (position GPS) :</span>
-			<input id="address_view<?= $this->id ?>_publish_<?= $i ?>" type="text" name="address<?= $i ?>" value=""  data-inline="true"/>
-			<?php $this->getFirendAddress($this->id . "1");	?>
-			<?php $addressBean = new MDataBean("address" . $i, null, GPS); ?>
-			<input type="hidden" name="ontology<?= $keyword+$i ?>" value="<?= urlencode(json_encode($addressBean)); ?>">
-			<br />
+			<div>
+				<span>Adresse (position GPS) :</span>
+				<input type="text" name="address<?= $i ?>" value=""  data-inline="true" class="myPositionAutoComplete"/>
+				<?php $this->getFirendAddress($this->id . "1");	?>
+				<?php $addressBean = new MDataBean("address" . $i, null, GPS); ?>
+				<input type="hidden" name="ontology<?= $keyword+$i ?>" value="<?= urlencode(json_encode($addressBean)); ?>">
+				<br />
+			</div>
 		<?php } ?>
 		
 		<!-- DATE -->
 		<?php for( $i=0 ; $i < $date ; $i++ ) { ?>
-			<span>Date :</span>
-			<input type="date" name="date<?= $i ?>" data-role="datebox" data-options='{"mode": "calbox"}' readonly="readonly" />
-			<?php $dateBean = new MDataBean("date" . $i, null, DATE); ?>
-			<input type="hidden" name="ontology<?= $keyword+$address+$i ?>" value="<?= urlencode(json_encode($dateBean)); ?>">
-			<br /><br />
+			<div>
+				<span>Date :</span>
+				<input type="date" name="date<?= $i ?>" data-role="datebox" data-options='{"mode": "calbox"}' readonly="readonly" />
+				<?php $dateBean = new MDataBean("date" . $i, null, DATE); ?>
+				<input type="hidden" name="ontology<?= $keyword+$address+$i ?>" value="<?= urlencode(json_encode($dateBean)); ?>">
+				<br /><br />
+			</div>
 		<?php } ?>
 	<?php }
 	
 	protected /*void*/ function getFirendAddress($id) { ?>
-		<select	id="select<?= $id ?>" data-iconpos="notext" data-icon="plus" name="enum"
-		onchange="changeAddress('<?= $id ?>')">
+		<select data-iconpos="notext" data-icon="plus" name="enum" onchange="changeAddress(this)">
 		
 			<option value="http://www.poledream.com/wp-content/uploads/2009/10/icon_map2.png&&Sophia-antipolis, France">Mymed</option>
 			

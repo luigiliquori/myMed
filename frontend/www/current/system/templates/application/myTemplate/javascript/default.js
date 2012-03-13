@@ -14,14 +14,10 @@ function initialize() {
 	geocoder = new google.maps.Geocoder();
 	
 	// Auto Complete
-//	for(var i = 1 ; i < 4 ; i++){
-//		for(var j = 0 ; j < 4 ; j++) {
-//			if(document.getElementById("formatedAddress" + "View" + i + j)){
-//				var autocompleteAddr = new google.maps.places.Autocomplete(document.getElementById("formatedAddress" + "View" + i + j));
-//				autocompleteAddr.bindTo('bounds', map);
-//			}
-//		}
-//	}
+	$("input:.myPositionAutoComplete").each(function(index, Element) {
+		var autocompleteAddr = new google.maps.places.Autocomplete(Element);
+		autocompleteAddr.bindTo('bounds', map);
+	});
 	
 	// resize the map on page change
 	for(var i = 1 ; i < 4 ; i++) {
@@ -49,19 +45,6 @@ function displayPosition(position) {
 		focusOnLatLng(latlng);
 	}
 	currentPositionMarker.setMap(map);
-	
-	// Field position address
-	geocoder.geocode({'latLng': latlng}, function(results, status) {
-		if (status == google.maps.GeocoderStatus.OK) {
-			if (results[0]) {
-				for(var i = 0 ; i < 4 ; i++) {
-					$("#formatedAddress" + i).val(results[0].formatted_address);
-				}
-			}
-		} else {
-			alert("Geocoder failed due to: " + status);
-		}
-	});
 
 }
 
@@ -104,9 +87,17 @@ function refreshMap(address, icon) {
  * 
  * @param dest
  */
-function changeAddress(dest) {
-	picture = $("#select" + dest).val().split("&&")[0];
-	address = $("#select" + dest).val().split("&&")[1];
-	$("#formatedAddress" + dest).val(address);
-	refreshMap(address, picture.replace("?type=large", ""));
+function changeAddress(addressList) {
+	picture = $(addressList).val().split("&&")[0];
+	address = $(addressList).val().split("&&")[1];
+	
+	$(addressList).parents().each(function(i, item1) {
+		return $(item1).find(".myPositionAutoComplete").each(function(j, item2) {
+			$(item2).val(address);
+			return false;
+		});
+	});
+	
+//	$("input:.myPositionAutoComplete").val(address);
+//	refreshMap(address, picture.replace("?type=large", ""));
 }

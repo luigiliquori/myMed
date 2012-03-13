@@ -7,9 +7,9 @@
 	define('VIEW_1_GEOLOC', 		 true);
 	define('VIEW_1_MAP', 			 true);
 	define('VIEW_1_PUBLISH', 		 true);
-	define('VIEW_1_PUBLISH_keyword',	5);
-	define('VIEW_1_PUBLISH_address', 	0);
-	define('VIEW_1_PUBLISH_date', 		0);
+	define('VIEW_1_PUBLISH_keyword',	2);
+	define('VIEW_1_PUBLISH_address', 	2);
+	define('VIEW_1_PUBLISH_date', 		2);
 	define('VIEW_1_SUBSCRIBE',		false);
 	define('VIEW_1_SUBSCRIBE_keyword',	1);
 	define('VIEW_1_SUBSCRIBE_address', 	1);
@@ -32,9 +32,9 @@
 	define('VIEW_2_SUBSCRIBE_address', 	1);
 	define('VIEW_2_SUBSCRIBE_date', 	1);
 	define('VIEW_2_FIND',			 true);
-	define('VIEW_2_FIND_keyword',		5);
-	define('VIEW_2_FIND_address', 		0);
-	define('VIEW_2_FIND_date', 			0);
+	define('VIEW_2_FIND_keyword',		2);
+	define('VIEW_2_FIND_address', 		2);
+	define('VIEW_2_FIND_date', 			2);
 	define('VIEW_2_PROFILE', 		false);
 	define('VIEW_2_SOCIAL_NETWORK', false);
 	
