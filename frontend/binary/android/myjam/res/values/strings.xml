@@ -12,6 +12,7 @@
     <string name="feedback_string">Feedback</string>
     <string name="dialog_title">myJam Dialog</string>
     <string name="positive_button_label">Ok</string>
+    <string name="request_interrupted">Request interrupted</string>
     
     <string name="search_finished">Search finished</string>
     <string name="report_inserted">Report inserted</string>
@@ -99,6 +100,7 @@
     <string name="dialog_location_unavailable_text">Cannot proceed.\n User location unavailable.</string>
     <string name="dialog_not_in_range_text">Cannot proceed.\n You are too far from the report location.</string>
     <string name="dialog_feedback_already_present_text">Cannot proceed.\n You have already put your feedback here.</string>
+    <string name="dialog_feedback_matching_user_id">Cannot proceed.\n You cannot insert a feedback here.</string>
     <string name="inserting_feedback">Inserting the feedback...</string>
     <string name="dialog_insert_report_feedback_text">Press the below buttons to put you confirmation or denial on the report.</string>
     <string name="dialog_insert_update_feedback_text">Press the below buttons to put you confirmation or denial on the update.</string>

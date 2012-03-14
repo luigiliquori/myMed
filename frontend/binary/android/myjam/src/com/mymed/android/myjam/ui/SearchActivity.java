@@ -669,7 +669,9 @@ public class SearchActivity extends AbstractLocatedActivity implements IReceiver
 	}
 
 	@Override
-	public void onCallInterrupted(int callCode, int callId) {}
+	public void onCallInterrupted(int callCode, int callId) {
+		Toast.makeText(this, getResources().getString(R.string.request_interrupted),Toast.LENGTH_SHORT).show();
+	}
 
 	@Override
 	public void onCallSuccess(int callCode, int callId) {
@@ -691,6 +693,6 @@ public class SearchActivity extends AbstractLocatedActivity implements IReceiver
 		default:
 			return;
 		}
-		Toast.makeText(this, getResources().getString(messageCode),Toast.LENGTH_LONG).show();
+		Toast.makeText(this, getResources().getString(messageCode),Toast.LENGTH_SHORT).show();
 	}
 }

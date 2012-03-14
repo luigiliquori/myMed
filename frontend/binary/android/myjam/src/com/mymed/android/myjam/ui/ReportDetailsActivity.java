@@ -77,6 +77,8 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, IReceiver, View.OnClickListener{
 	private static final int DIALOG_LOC_UNAVAILABLE_ID = 0x1;
 	private static final int DIALOG_NOT_IN_RANGE_ID = 0x2;
 	private static final int DIALOG_FEEDBACK_ALREADY_PRESENT_ID = 0x3;
+	private static final int DIALOG_FEEDBACK_USER_ID_MATCH_YOURS = 0x4;
+	
 	
 	private static final int DISTANCE_RESOLUTION = 50; //meters
 	
@@ -788,14 +790,27 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, IReceiver, View.OnClickListener{
 	 * @return {@value true} if the logged user has not already put his feedback on the currently shown report/update.
 	 */
 	private boolean checkFeedbackInsert(){
-
+	String userId = null;
+		
+	if (mUpdatesCursor!=null && !mUpdatesCursor.isAfterLast() && !mUpdatesCursor.isAfterLast()){
+		userId = mUpdatesCursor.getString(UpdateQuery.USER_ID);
+	}else if (mReportCursor!=null && !mReportCursor.isAfterLast() && !mReportCursor.isAfterLast()){
+		userId = mReportCursor.getString(ReportQuery.USER_ID);
+	}
+	if (userId!=null && userId.equals(GlobalStateAndUtils.getInstance(getApplicationContext()).getUserId())){
+		showDialog(DIALOG_FEEDBACK_USER_ID_MATCH_YOURS);
+		return false;
+	}
+		
 	Cursor cursor = getContentResolver().query(mUpdateId==null?Feedback.buildReportIdUri(mReportId):
 		Feedback.buildUpdateIdUri(mUpdateId), 
 					null, Feedback.USER_ID_SELECTION, new String[]{mUtils.getUserId()}, null);
 	if (cursor.moveToFirst()){
 		showDialog(DIALOG_FEEDBACK_ALREADY_PRESENT_ID);
+		cursor.close();
 		return false;
 	}else
+		cursor.close();
 		return true;
 	}
 	
@@ -826,6 +841,9 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, IReceiver, View.OnClickListener{
         	break;
         case DIALOG_FEEDBACK_ALREADY_PRESENT_ID:
         	builder.setMessage(R.string.dialog_feedback_already_present_text);
+        	break;
+        case DIALOG_FEEDBACK_USER_ID_MATCH_YOURS:
+        	builder.setMessage(R.string.dialog_feedback_matching_user_id);
         	break;
         default:
             return null;
@@ -886,6 +904,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, IReceiver, View.OnClickListener{
                 Report.REPORT_TYPE,
                 Report.TRAFFIC_FLOW,
                 Report.COMMENT,
+                Report.USER_ID,
                 Report.USER_NAME,
                 Report.DATE,
                 Report.FLAG_COMPLETE,
@@ -896,11 +915,12 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, IReceiver, View.OnClickListener{
         int REPORT_TYPE = 0;
         int TRAFFIC_FLOW = 1;
         int COMMENT = 2;
-        int USER_NAME = 3;
-        int DATE = 4;
-        int FLAG_COMPLETE = 5;
-        int LATITUDE = 6;
-        int LONGITUDE = 7;
+        int USER_ID = 3;
+        int USER_NAME = 4;
+        int DATE = 5;
+        int FLAG_COMPLETE = 6;
+        int LATITUDE = 7;
+        int LONGITUDE = 8;
     }
 
     /**
@@ -913,6 +933,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, IReceiver, View.OnClickListener{
                 Update.UPDATE_ID,
                 Update.TRAFFIC_FLOW,
                 Update.COMMENT,
+                Update.USER_ID,
                 Update.USER_NAME,
                 Update.DATE
         };
@@ -920,8 +941,9 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, IReceiver, View.OnClickListener{
         int UPDATE_ID = 0;
         int TRAFFIC_FLOW = 1;
         int COMMENT = 2;
-        int USER_NAME = 3;
-        int DATE = 4;
+        int USER_ID = 3;
+        int USER_NAME = 4;
+        int DATE = 5;
     }
     
 	@Override
@@ -963,7 +985,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, IReceiver, View.OnClickListener{
 
 	@Override
 	public void onCallInterrupted(int callCode, int callId) {
-		Toast.makeText(this, "Call interrupted.", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, getResources().getString(R.string.request_interrupted), Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
