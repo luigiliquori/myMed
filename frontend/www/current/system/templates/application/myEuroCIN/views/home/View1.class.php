@@ -1,6 +1,6 @@
 <?php
-require_once 'system/templates/ITemplate.php';
-require_once 'system/templates/AbstractTemplate.class.php';
+
+require_once 'system/templates/application/' . APPLICATION_NAME . '/MyApplication.class.php';
 require_once 'lib/dasp/beans/MDataBean.class.php';
 
 /**
@@ -9,7 +9,7 @@ require_once 'lib/dasp/beans/MDataBean.class.php';
  * @author lvanni
  *
  */
-class View1 extends AbstractTemplate {
+class View1 extends MyApplication {
 	
 	/* --------------------------------------------------------- */
 	/* Attributes */
@@ -38,7 +38,7 @@ class View1 extends AbstractTemplate {
 		<div data-role="header" data-theme="b">
 			<a href="?application=0" rel="external" data-role="button" data-theme="r" data-icon="delete">Fermer</a>
 			<h1><?= APPLICATION_NAME ?></h1>
-			<a href="#View2" data-role="button" class="ui-btn-right">Vue 2</a>
+			<a href="#View3" data-role="button" class="ui-btn-right" data-icon="home">Profile</a>
 		</div>
 	<?php }
 	
@@ -46,8 +46,45 @@ class View1 extends AbstractTemplate {
 		<!-- KEYWORD -->
 		<?php for( $i=0 ; $i < $keyword ; $i++ ) { ?>
 			<div>
-				<span>Mot Cléf :</span>
-				<input type="text" name="keyword<?= $i ?>" value=""  data-inline="true"/><br />
+				<?php if($i == 0) { ?>
+					<span>Langue</span>
+					<select name="keyword<?= $i ?>" data-theme="c">
+						<option value="" selected></option>
+						<option value="Francais">Francais</option>
+						<option value="Italien">Italien</option>
+					</select>
+				<?php } else if($i == 1) { ?>
+					<span>Categorie</span>
+					<select name="keyword<?= $i ?>" data-theme="c">
+						<option value="" selected></option>
+						<option value="AltaValTanaro">AltaValTanaro</option>
+						<option value="FontiSanBernardo">FontiSanBernardo</option>
+						<option value="Generale">Generale</option>
+						<option value="ItinerariNapoleonic">ItinerariNapoleonic</option>
+						<option value="Parchi">Parchi</option>
+						<option value="ParcoSafari">ParcoSafari</option>
+						<option value="Provincia">Provincia</option>
+						<option value="TermeValdieri">TermeValdieri</option>
+						<option value="ValleGrana">ValleGrana</option>
+						<option value="ValleMaira">ValleMaira</option>
+						<option value="VallibelboBormidaUzzone">VallibelboBormidaUzzone</option>
+						<option value="ValliMongiaCebetta">ValliMongiaCebetta</option>
+						<option value="ValVaraita">ValVaraita</option>
+					</select>
+				<?php } else { ?>
+					<span>Ville</span>
+					<select name="keyword<?= $i ?>" data-theme="c">
+						<option value="" selected></option>
+						<option value="ALESSANDRIA">ALESSANDRIA</option>
+						<option value="ASTI">ASTI</option>
+						<option value="CUNEO">CUNEO</option>
+						<option value="FRANCIA">FRANCIA</option>
+						<option value="GENOVA">GENOVA</option>
+						<option value="IMPERIA">IMPERIA</option>
+						<option value="SAVONA">SAVONA</option>
+					</select>
+				<?php } ?>
+				<br />
 				<?php $keywordBean = new MDataBean("keyword" . $i, null, KEYWORD); ?>
 				<input type="hidden" name="ontology<?= $i ?>" value="<?= urlencode(json_encode($keywordBean)); ?>">
 			</div>
@@ -157,13 +194,14 @@ class View1 extends AbstractTemplate {
 		<form  action="#" method="post" name="<?= APPLICATION_NAME ?>FindForm" id="<?= APPLICATION_NAME ?>FindForm">
 			<!-- Define the method to call -->
 			<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
-			<input type="hidden" name="method" value="find" />
+			<input id="method" type="hidden" name="method" value="find" />
 			<input type="hidden" name="numberOfOntology" value="<?= $keyword + $address + $date ?>" />
 			
 			<?php $this->getPredicateOntology($keyword, $address, $date); ?>
 
 			<br /><br />
 			<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>FindForm.submit()" >Rechercher</a>	
+			<a href="#" data-role="button"onclick="$('#method').val('subscribe'); document.<?= APPLICATION_NAME ?>FindForm.submit()" >Souscrire</a>	
 		</form>
 	<?php }
 	
@@ -222,7 +260,7 @@ class View1 extends AbstractTemplate {
 	 */
 	public /*void*/ function getContent() { ?>
 		<!-- CONTENT -->
-		<div class="content" data-theme="b">
+		<div class="content">
 			<center>
 				<div style="width: 50%; text-align: left; color: black; border: 10px #e5e5e5 solid; border-radius: 15px; padding: 10px;">
 					<?php 
@@ -241,17 +279,6 @@ class View1 extends AbstractTemplate {
 					?> 
 				</div>
 			</center>
-		</div>
-	<?php }
-	
-	/**
-	* Print the Template
-	*/
-	public /*String*/ function printTemplate() { ?>
-		<div id="<?= $this->id ?>" data-role="page" data-theme="b">
-			<?php $this->getHeader(); ?>
-			<?php $this->getContent(); ?>
-			<?php $this->getFooter(); ?>
 		</div>
 	<?php }
 	

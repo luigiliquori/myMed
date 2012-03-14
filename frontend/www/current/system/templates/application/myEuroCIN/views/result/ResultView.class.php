@@ -1,4 +1,5 @@
 <?php
+require_once 'system/templates/application/' . APPLICATION_NAME . '/MyApplication.class.php';
 require_once 'system/templates/ITemplate.php';
 require_once 'system/templates/AbstractTemplate.class.php';
 
@@ -8,7 +9,7 @@ require_once 'system/templates/AbstractTemplate.class.php';
  * @author lvanni
  *
  */
-class ResultView extends AbstractTemplate {
+class ResultView extends MyApplication {
 	
 	/* --------------------------------------------------------- */
 	/* Attributes */
@@ -59,6 +60,7 @@ class ResultView extends AbstractTemplate {
 				<?php $i=0 ?>
 				<?php foreach(json_decode($this->handler->getSuccess()) as $controller) { ?>
 					<li>
+						
 						<!-- RESULT DETAILS -->
 						<form action="#" method="post" name="getDetailForm<?= $i ?>">
 							<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
@@ -66,14 +68,8 @@ class ResultView extends AbstractTemplate {
 							<input type="hidden" name="user" value="<?= $controller->publisherID ?>" />
 							<input type="hidden" name="predicate" value="<?= $controller->predicate ?>" />
 						</form>
-						<?php if($controller->publisherProfilePicture  != "") { ?>
-							<img alt="thumbnail" src="<?= $controller->publisherProfilePicture ?>" width="60" height="60">
-						<?php } else { ?>
-							<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="60" height="60">
-						<?php } ?>
-						<a href="#" onclick="document.getDetailForm<?= $i ?>.submit()">
-							<?= $controller->publisherName ?> 
-						</a>
+						
+						<a href="#" onclick="document.getDetailForm<?= $i ?>.submit()"><?= $controller->data ?></a>
 					</li>
 					<?php $i++ ?>
 				<?php } ?>

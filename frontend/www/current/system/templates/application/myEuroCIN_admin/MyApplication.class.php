@@ -9,11 +9,13 @@ require_once 'system/templates/AbstractTemplate.class.php';
  * @author lvanni
  *
  */
-class MyApplication extends AbstractTemplate {
+abstract class MyApplication extends AbstractTemplate {
 	
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
+	private /*String*/ $activeFooter;
+	private /*MyTransportHandler*/ $handler;
 	
 	/* --------------------------------------------------------- */
 	/* Constructors */
@@ -23,35 +25,26 @@ class MyApplication extends AbstractTemplate {
 	 */
 	public function __construct(/*String*/ $id) {
 		parent::__construct($id, APPLICATION_NAME);
+		$this->activeFooter = $id;
 	}
 	
 	/* --------------------------------------------------------- */
 	/* public methods */
 	/* --------------------------------------------------------- */
 	/**
-	 * Default constructor
-	 */
-	public /*String*/ function getHeader() { ?>
-		<!-- HEADER -->
-		<div data-role="header" data-theme="a">
-			<a href="?application=0" rel="external" data-role="button" data-theme="r">Close</a>
-			<h1><?= $this->title ?></h1>
-		</div>
-	<?php }
-
-    /**
-     * Get the CONTENT for jQuery Mobile
-     */
-	public /*String*/ function getContent() { ?>
-        <div class="content">
-            <h2>Coming soon...</h2>
-        </div>
-    <?php }
-	
-	/**
 	* Get the FOOTER for jQuery Mobile
 	*/
 	public /*String*/ function getFooter() { }
 	
+	/**
+	* Print the Template
+	*/
+	public /*String*/ function printTemplate() { ?>
+		<div id="<?= $this->id ?>" data-role="page" data-theme="b">
+			<?php  $this->getHeader(); ?>
+			<?php $this->getContent(); ?>
+			<?php $this->getFooter(); ?>
+		</div>
+	<?php }
 }
 ?>

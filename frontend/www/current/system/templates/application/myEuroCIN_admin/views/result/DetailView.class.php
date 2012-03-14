@@ -1,4 +1,5 @@
 <?php
+require_once 'system/templates/application/' . APPLICATION_NAME . '/MyApplication.class.php';
 require_once 'system/templates/ITemplate.php';
 require_once 'system/templates/AbstractTemplate.class.php';
 require_once 'lib/dasp/request/Reputation.class.php';
@@ -9,7 +10,7 @@ require_once 'lib/dasp/request/Reputation.class.php';
  * @author lvanni
  *
  */
-class DetailView extends AbstractTemplate {
+class DetailView extends MyApplication {
 	
 	/* --------------------------------------------------------- */
 	/* Attributes */

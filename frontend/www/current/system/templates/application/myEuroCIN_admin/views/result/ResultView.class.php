@@ -1,4 +1,5 @@
 <?php
+require_once 'system/templates/application/' . APPLICATION_NAME . '/MyApplication.class.php';
 require_once 'system/templates/ITemplate.php';
 require_once 'system/templates/AbstractTemplate.class.php';
 
@@ -8,7 +9,7 @@ require_once 'system/templates/AbstractTemplate.class.php';
  * @author lvanni
  *
  */
-class ResultView extends AbstractTemplate {
+class ResultView extends MyApplication {
 	
 	/* --------------------------------------------------------- */
 	/* Attributes */

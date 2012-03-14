@@ -1,8 +1,4 @@
 <?php
-
-require_once 'system/templates/application/' . APPLICATION_NAME . '/MyApplication.class.php';
-require_once 'lib/dasp/beans/MDataBean.class.php';
-
 /**
  * 
  * Represent the template

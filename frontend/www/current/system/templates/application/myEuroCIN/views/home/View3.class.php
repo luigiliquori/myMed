@@ -1,4 +1,8 @@
 <?php
+
+require_once 'system/templates/application/' . APPLICATION_NAME . '/MyApplication.class.php';
+require_once 'lib/dasp/beans/MDataBean.class.php';
+
 /**
  * 
  * Represent the template
@@ -30,7 +34,7 @@ class View3 extends View1 {
 	public /*String*/ function getHeader() { ?>
 		<!-- HEADER -->
 		<div data-role="header" data-theme="b">
-			<a href="#View2" data-role="button">Vue 2</a>
+			<a href="#View1" data-role="button" data-icon="arrow-l">Retour</a>
 			<h1><?= APPLICATION_NAME ?></h1>
 		</div>
 	<?php }
@@ -40,7 +44,7 @@ class View3 extends View1 {
 	 */
 	public /*void*/ function getContent() { ?>
 		<!-- CONTENT -->
-		<div class="content" data-theme="b">
+		<div class="content">
 				<center>
 					<div style="width: 50%; text-align: left; color: black; border: 10px #e5e5e5 solid; border-radius: 15px; padding: 10px;">
 					<?php 
