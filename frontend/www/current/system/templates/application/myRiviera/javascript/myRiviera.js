@@ -36,7 +36,7 @@ function initialize() {
 
 	// INITIALIZE DASP->MAP
 	setupDASPMap($("#applicationName").val() + "Map", displayPosition,
-			displayError);
+			displayError, true);
 
 	// autocompletes Google Maps Places API
 	if (useautocompletion) {
