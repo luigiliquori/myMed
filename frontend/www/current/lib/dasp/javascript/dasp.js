@@ -164,7 +164,7 @@ function getMarkers(latitude, longitude, type, radius) {
 	args += "&latitude=" + latitude;
 	args += "&longitude=" + longitude;
 	args += "&radius=" + radius;
-	//args += "&accessToken=" + $("#accessToken").val();
+	args += "&accessToken=" + $("#accessToken").val();
 
 	var res = $.ajax({
 		url : "backend/POIRequestHandler",
