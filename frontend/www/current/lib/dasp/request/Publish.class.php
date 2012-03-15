@@ -80,7 +80,7 @@ class Publish extends Request {
 		$predicate = json_encode($predicateArray);
 		$data = json_encode($dataArray);
 		
-		if (TARGET == "desktop") {
+// 		if (TARGET == "desktop") {
 			
 			parent::addArgument("application", $application);
 			parent::addArgument("user", $user);
@@ -96,16 +96,17 @@ class Publish extends Request {
 				$this->handler->setSuccess($responseObject->description);
 			}
 			
-		} else { // TARGET == "mobile"
-			header("Refresh:0;url=mobile_binary". MOBILE_PARAMETER_SEPARATOR 
-			."publish" . MOBILE_PARAMETER_SEPARATOR 
-			. urlencode($application) . MOBILE_PARAMETER_SEPARATOR 
-			. urlencode($user) . MOBILE_PARAMETER_SEPARATOR 
-			. urlencode($predicate) . MOBILE_PARAMETER_SEPARATOR 
-			. urlencode($data) . MOBILE_PARAMETER_SEPARATOR 
-			. urlencode($_SESSION['accessToken']));
+			// TODO WORK ON THE PICTURE UPLOAD
+// 		} else { // TARGET == "mobile"
+// 			header("Refresh:0;url=mobile_binary". MOBILE_PARAMETER_SEPARATOR 
+// 			."publish" . MOBILE_PARAMETER_SEPARATOR 
+// 			. urlencode($application) . MOBILE_PARAMETER_SEPARATOR 
+// 			. urlencode($user) . MOBILE_PARAMETER_SEPARATOR 
+// 			. urlencode($predicate) . MOBILE_PARAMETER_SEPARATOR 
+// 			. urlencode($data) . MOBILE_PARAMETER_SEPARATOR 
+// 			. urlencode($_SESSION['accessToken']));
 			
-		}
+// 		}
 		
 		$this->handler->setSuccess("Request sent!");
 	}

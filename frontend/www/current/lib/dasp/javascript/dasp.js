@@ -171,12 +171,13 @@ function getMarkers(latitude, longitude, type, radius) {
  * @param description
  * @returns {google.maps.Marker}
  */
-function addMarker(position, icon, title, description, animation) {
+function addMarker(position, icon, title, description, animation, isDraggable) {
 	
 	if(animation == null){
 		animation = google.maps.Animation.DROP;
 	}
 	var marker = new google.maps.Marker({
+		draggable : isDraggable,
 		animation : animation,
 		position : position,
 		icon : icon,
