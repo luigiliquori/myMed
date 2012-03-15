@@ -14,6 +14,7 @@ class Home extends AbstractTemplate {
 	/* Attributes */
 	/* --------------------------------------------------------- */
 	protected /*String*/ $activeHeader;
+	protected /*String[]*/ $hiddenFolder = array(".", "..", ".DS_Store", "myTemplate", "myMed");
 	
 	/* --------------------------------------------------------- */
 	/* Constructors */
@@ -52,7 +53,7 @@ class Home extends AbstractTemplate {
 					<?php if ($handle = opendir('system/templates/application')) {
 							$column = "a";
 						    while (false !== ($file = readdir($handle))) {
-						    	if($file != "." && $file != ".." && $file != ".DS_Store" && $file != "myTemplate" && $file != "myMed"){ ?>
+						    	if(!in_array($file, $this->hiddenFolder) && preg_match("/my/", $file)) { ?>
 							    	<div class="ui-block-<?= $column ?>">
 								    	<a
 								    	href="?application=<?= $file ?>"

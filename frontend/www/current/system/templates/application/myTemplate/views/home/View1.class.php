@@ -58,7 +58,7 @@ class View1 extends AbstractTemplate {
 			<div>
 				<span>Adresse (position GPS) :</span>
 				<input type="text" name="address<?= $i ?>" value=""  data-inline="true" class="myPositionAutoComplete"/>
-				<?php $this->getFirendAddress($this->id . "1");	?>
+				<?php $this->getFriendAddress($this->id . "1");	?>
 				<?php $addressBean = new MDataBean("address" . $i, null, GPS); ?>
 				<input type="hidden" name="ontology<?= $keyword+$i ?>" value="<?= urlencode(json_encode($addressBean)); ?>">
 				<br />
@@ -77,7 +77,7 @@ class View1 extends AbstractTemplate {
 		<?php } ?>
 	<?php }
 	
-	protected /*void*/ function getFirendAddress($id) { ?>
+	protected /*void*/ function getFriendAddress($id) { ?>
 		<select data-iconpos="notext" data-icon="plus" name="enum" onchange="changeAddress(this)">
 		
 			<option value="http://www.poledream.com/wp-content/uploads/2009/10/icon_map2.png&&Sophia-antipolis, France">Mymed</option>
@@ -109,7 +109,7 @@ class View1 extends AbstractTemplate {
 		<br />
 		<span>Adresse :</span>
 		<input id="formatedAddress<?= $this->id ?>0" type="text" value="" />
-		<?php $this->getFirendAddress($this->id . "0");	?>
+		<?php $this->getFriendAddress($this->id . "0");	?>
 		<a href="#" data-role="button" onclick="refreshMap($('#formatedAddress<?= $this->id ?>0').val());" >Géolocaliser</a>
 	<?php }
 	

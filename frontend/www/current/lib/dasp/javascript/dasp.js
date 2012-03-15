@@ -38,7 +38,7 @@ var map;
  *            the current application id
  */
 function setupDASP(id, at, app) {
-	
+
 	// MEMORIZE CURRENT IDs FOR JS CALL
 	userID = id;
 	accessToken = at;
@@ -61,7 +61,7 @@ function setupDASP(id, at, app) {
  * @param mapID,
  *            id of the map
  */
-function setupDASPMap(mapID, displayPosition, displayError) {
+function setupDASPMap(mapID, displayPosition, displayError, watchPosition) {
 
 	if (!map) {
 		directionsDisplay = new google.maps.DirectionsRenderer();
@@ -76,8 +76,13 @@ function setupDASPMap(mapID, displayPosition, displayError) {
 
 		// geolocaliseUser
 		if (navigator.geolocation) {
-			navigator.geolocation.watchPosition(displayPosition, displayError,
-					{enableHighAccuracy : true, timeout: 5000, maximumAge: 0});
+			if(watchPosition) {
+				navigator.geolocation.watchPosition(displayPosition, displayError,
+						{enableHighAccuracy : true, timeout: 5000, maximumAge: 0});
+			} else {
+				navigator.geolocation.getCurrentPosition(displayPosition, displayError,
+						{enableHighAccuracy : true, timeout: 5000, maximumAge: 0});
+			}
 		} else {
 			alert("Votre navigateur ne prend pas en compte la géolocalisation HTML5");
 		}
@@ -95,7 +100,7 @@ function focusOnPosition(latitude, longitude) {
 	// memorize the position
 	currentLatitude = latitude;
 	currentLongitude = longitude;
-	
+
 	// focus on the position
 	var myLatlng = new google.maps.LatLng(latitude, longitude);
 	map.setCenter(myLatlng);
@@ -111,7 +116,7 @@ function focusOnLatLng(position) {
 
 	// memorize the position
 	currentPos = position;
-	
+
 	// focus on the position
 	map.setCenter(position);
 }
@@ -191,32 +196,34 @@ function getMarkers(latitude, longitude, type, radius) {
  * @param description
  * @returns {google.maps.Marker}
  */
-function addMarker(position, icon, title, description, animation) {
+function addMarker(position, icon, title, description, animation, isDraggable) {
+	
 	if(animation == null){
 		animation = google.maps.Animation.DROP;
 	}
 	var marker = new google.maps.Marker({
+		draggable : isDraggable,
 		animation : animation,
 		position : position,
 		icon : icon,
 		title : title,
 		map : map
 	});
-	
+
 	var boxText = document.createElement("div");
 	boxText.style.cssText = "background-color: white; padding: 5px; border: thin black solid; border-radius: 5px;";
 	boxText.innerHTML = '<h4 style=" margin-top: 2px; margin-bottom: 2px;">' + title + '</h4><p style="text-align: justify; font-size: 12px;margin: 0;">' + description+ '</p>';
 
 	var myOptions = {
-		 content: boxText,
-		 pixelOffset: new google.maps.Size(-200, -10),
-		 boxStyle: {
-		   opacity: 0.9,
-		   width: "180px"
-		 }
+			content: boxText,
+			pixelOffset: new google.maps.Size(-200, -10),
+			boxStyle: {
+				opacity: 0.9,
+				width: "180px"
+			}
 	};
 	marker.ib = new InfoBox(myOptions);
-	
+
 	return marker;
 }
 
