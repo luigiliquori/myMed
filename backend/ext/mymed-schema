@@ -18,7 +18,6 @@ create keyspace Mymed with replication_factor = 3 and placement_strategy = 'org.
 /* Switch to the 'mymed' keyspace */
 use Mymed;
 
-
 /*
  * Create the column families
  * Normal columns are:
@@ -30,7 +29,6 @@ use Mymed;
  *  User
  *  Session
  *  Interaction
- *  Reputation
  *
 */
 create column family Application with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
@@ -40,9 +38,8 @@ create column family Ontology with column_type = 'Standard' and comparator = 'UT
 create column family OntologyType with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 create column family User with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 create column family Session with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
-create column family Interaction with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
-create column family Reputation with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 create column family Position with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+create column family Interaction with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 
 /*
  * Create the super columns
@@ -53,8 +50,7 @@ create column family Position with column_type = 'Standard' and comparator = 'UT
  *  DataList
  *  OntologyList
  *  UserList
- *  InteractionList
- *  RaterList
+ *  Location
  *
 */
 create column family ApplicationController with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
@@ -63,34 +59,14 @@ create column family ApplicationModel with column_type = 'Super' and comparator 
 create column family DataList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family OntologyList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family UserList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
-create column family InteractionList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
-create column family RaterList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
-
-/*
- * MyJam related columns
-*/
 create column family Location with column_type = 'Super' and comparator = 'LongType';
-
-/* This columns are not necessary to mymed, these are specific for myjam
- * create column family Report with column_metadata = [{column_name: user, validation_class:UTF8Type},
- *             {column_name: type, validation_class:UTF8Type},
- *             {column_name: transit, validation_class:UTF8Type},
- *             {column_name: traffic_flow, validation_class:UTF8Type},
- *             {column_name: comment, validation_class:UTF8Type}];
- * create column family ActiveReport with comparator = 'com.mymed.data.id.MyMedIdType';
- * create column family ReportUpdate with comparator = 'com.mymed.data.id.MyMedIdType';
- * create column family UserReport with comparator = 'com.mymed.data.id.MyMedIdType';
- * create column family Feedback with comparator = 'UTF8Type';
-*/
 
 /*
  * REPUTATION DATASTRUCTURE
  *
 */
-create column family UserApplicationConsumer with column_type = 'Standard' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
-create column family UserApplicationProducer with column_type = 'Standard' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
-create column family Verdict with column_type = 'Standard' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
-create column family VerdictAggregation with column_type = 'Standard' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
-create column family TimeOrderVerdictList with column_type = 'Super' and comparator ='BytesType' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
-create column family AuxOrderVerdictList with column_type = 'Super' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+create column family ReputationEntity with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+create column family VerdictsTimeOrdered with column_type = 'Standard' and comparator = 'TimeUUIDType' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+create column family Verdict with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+create column family VerdictAggregation with column_type = 'Standard'  and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 create column family VerdictAggregationList with column_type = 'Super' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;

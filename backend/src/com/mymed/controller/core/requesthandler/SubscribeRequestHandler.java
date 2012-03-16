@@ -15,7 +15,6 @@
  */
 package com.mymed.controller.core.requesthandler;
 
-import java.io.IOException;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -34,101 +33,97 @@ import com.mymed.model.data.user.MUserBean;
  * Servlet implementation class PubSubRequestHandler
  */
 public class SubscribeRequestHandler extends AbstractRequestHandler {
-  /**
-   * Generated serial ID.
-   */
-  private static final long serialVersionUID = -3497628036243410706L;
+    /**
+     * Generated serial ID.
+     */
+    private static final long serialVersionUID = -3497628036243410706L;
 
-  /**
-   * JSON 'predicate' attribute.
-   */
-  private static final String JSON_PREDICATE = JSON.get("json.predicate");
+    /**
+     * JSON 'predicate' attribute.
+     */
+    private static final String JSON_PREDICATE = JSON.get("json.predicate");
 
-  private final PubSubManager pubsubManager;
+    private final PubSubManager pubsubManager;
 
-  public SubscribeRequestHandler() {
-    super();
-    pubsubManager = new PubSubManager();
-  }
-
-  /**
-   * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-   *      response)
-   */
-  @Override
-  protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-      IOException {
-
-    final JsonMessage message = new JsonMessage(200, this.getClass().getName());
-
-    try {
-      final Map<String, String> parameters = getParameters(request);
-      // Check the access token
-      checkToken(parameters);
-
-      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-
-      switch (code) {
-        case READ :
-          break;
-        case DELETE :
-          break;
-        default :
-          throw new InternalBackEndException("SubscribeRequestHandler.doGet(" + code + ") not exist!");
-      }
-    } catch (final AbstractMymedException e) {
-      LOGGER.debug("Error in doGet operation", e);
-      message.setStatus(e.getStatus());
-      message.setDescription(e.getMessage());
+    public SubscribeRequestHandler() {
+        super();
+        pubsubManager = new PubSubManager();
     }
 
-    printJSonResponse(message, response);
-  }
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    @Override
+    protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
+        final JsonMessage message = new JsonMessage(200, this.getClass().getName());
 
-  /**
-   * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-   *      response)
-   */
-  @Override
-  protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-      IOException {
-
-    final JsonMessage message = new JsonMessage(200, this.getClass().getName());
-
-    try {
-      final Map<String, String> parameters = getParameters(request);
-      // Check the access token
-      checkToken(parameters);
-
-      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-      String application, predicate, user;
-
-      if (code.equals(RequestCode.CREATE)) {
-        if ((application = parameters.get(JSON_APPLICATION)) == null) {
-          throw new InternalBackEndException("missing application argument!");
-        } else if ((predicate = parameters.get(JSON_PREDICATE)) == null) {
-          throw new InternalBackEndException("missing predicate argument!");
-        } else if ((user = parameters.get(JSON_USER)) == null) {
-          throw new InternalBackEndException("missing user argument!");
-        }
         try {
-          final MUserBean userBean = getGson().fromJson(user, MUserBean.class);
+            final Map<String, String> parameters = getParameters(request);
+            // Check the access token
+            checkToken(parameters);
 
-          pubsubManager.create(application, predicate, userBean);
-          LOGGER.info("predicate subscribed: " + predicate);
-          message.setDescription("predicate subscribed: " + predicate);
-        } catch (final JsonSyntaxException e) {
-          throw new InternalBackEndException("jSon format is not valid");
+            final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
+
+            switch (code) {
+                case READ :
+                    break;
+                case DELETE :
+                    break;
+                default :
+                    throw new InternalBackEndException("SubscribeRequestHandler.doGet(" + code + ") not exist!");
+            }
+        } catch (final AbstractMymedException e) {
+            LOGGER.debug("Error in doGet operation", e);
+            message.setStatus(e.getStatus());
+            message.setDescription(e.getMessage());
         }
-      } else {
-        throw new InternalBackEndException("SubscribeRequestHandler.doPost(" + code + ") not exist!");
-      }
-    } catch (final AbstractMymedException e) {
-      LOGGER.debug("Error in doPost operation", e);
-      message.setStatus(e.getStatus());
-      message.setDescription(e.getMessage());
+
+        printJSonResponse(message, response);
     }
 
-    printJSonResponse(message, response);
-  }
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    @Override
+    protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
+        final JsonMessage message = new JsonMessage(200, this.getClass().getName());
+
+        try {
+            final Map<String, String> parameters = getParameters(request);
+            // Check the access token
+            checkToken(parameters);
+
+            final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
+            String application, predicate, user;
+
+            if (code.equals(RequestCode.CREATE)) {
+                if ((application = parameters.get(JSON_APPLICATION)) == null) {
+                    throw new InternalBackEndException("missing application argument!");
+                } else if ((predicate = parameters.get(JSON_PREDICATE)) == null) {
+                    throw new InternalBackEndException("missing predicate argument!");
+                } else if ((user = parameters.get(JSON_USER)) == null) {
+                    throw new InternalBackEndException("missing user argument!");
+                }
+                try {
+                    final MUserBean userBean = getGson().fromJson(user, MUserBean.class);
+
+                    pubsubManager.create(application, predicate, userBean);
+                    LOGGER.info("predicate subscribed: " + predicate);
+                    message.setDescription("predicate subscribed: " + predicate);
+                } catch (final JsonSyntaxException e) {
+                    throw new InternalBackEndException("jSon format is not valid");
+                }
+            } else {
+                throw new InternalBackEndException("SubscribeRequestHandler.doPost(" + code + ") not exist!");
+            }
+        } catch (final AbstractMymedException e) {
+            LOGGER.debug("Error in doPost operation", e);
+            message.setStatus(e.getStatus());
+            message.setDescription(e.getMessage());
+        }
+
+        printJSonResponse(message, response);
+    }
 }

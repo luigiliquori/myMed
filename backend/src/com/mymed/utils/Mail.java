@@ -32,63 +32,61 @@ import ch.qos.logback.classic.Logger;
  * 
  * @author lvanni
  * @author Milo Casagrande
- * 
  */
 public class Mail {
 
-  private static final Logger LOGGER = MLogger.getLogger();
+    private static final Logger LOGGER = MLogger.getLogger();
 
-  private final Properties props;
-  private final String from, to, object, content;
+    private final Properties props;
+    private final String from, to, object, content;
 
-  public Mail(final String from, final String to, final String object, final String content) {
-    props = new Properties();
-    props.put("mail.smtp.host", "smtp.gmail.com");
-    props.put("mail.smtp.socketFactory.port", "465");
-    props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-    props.put("mail.smtp.auth", "true");
-    props.put("mail.smtp.port", "465");
+    public Mail(final String from, final String to, final String object, final String content) {
+        props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", "465");
 
-    this.from = from;
-    this.to = to;
-    this.object = object;
-    this.content = content;
+        this.from = from;
+        this.to = to;
+        this.object = object;
+        this.content = content;
 
-    sendMail();
-  }
-
-  private void sendMail() {
-    final Mail.MailAuthenticator authenticator = new Mail.MailAuthenticator();
-    final Session session = Session.getInstance(props, authenticator);
-
-    try {
-      final Message message = new MimeMessage(session);
-      message.setFrom(new InternetAddress(from));
-      message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-      message.setSubject(object);
-      message.setText(content);
-
-      Transport.send(message);
-    } catch (final MessagingException e) {
-      LOGGER.debug("Error sending the email", e);
-      throw new RuntimeException(e);
-    }
-  }
-
-  /**
-   * Inner class used to avoid strong referencing
-   * 
-   * @author Milo Casagrande
-   * 
-   */
-  private static final class MailAuthenticator extends javax.mail.Authenticator {
-    public MailAuthenticator() {
-      super();
+        sendMail();
     }
 
-    @Override
-    protected PasswordAuthentication getPasswordAuthentication() {
-      return new PasswordAuthentication("mymed.subscribe", "myalcotra");
+    private void sendMail() {
+        final Mail.MailAuthenticator authenticator = new Mail.MailAuthenticator();
+        final Session session = Session.getInstance(props, authenticator);
+
+        try {
+            final Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(from));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+            message.setSubject(object);
+            message.setText(content);
+
+            Transport.send(message);
+        } catch (final MessagingException e) {
+            LOGGER.debug("Error sending the email", e);
+            throw new RuntimeException(e);
+        }
     }
-  }
+
+    /**
+     * Inner class used to avoid strong referencing
+     * 
+     * @author Milo Casagrande
+     */
+    private static final class MailAuthenticator extends javax.mail.Authenticator {
+        public MailAuthenticator() {
+            super();
+        }
+
+        @Override
+        protected PasswordAuthentication getPasswordAuthentication() {
+            return new PasswordAuthentication("mymed.subscribe", "myalcotra");
+        }
+    }
 }

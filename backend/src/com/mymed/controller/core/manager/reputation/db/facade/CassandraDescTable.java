@@ -58,6 +58,11 @@ public class CassandraDescTable {
     }
   }
 
+  /**
+   * this method returns the list of attributes of a given columnfamily
+   * @param columnFamilyName the name of the columnfamly
+   * @return the list of attributes
+   */
   public NodeList getListOfAttribute(final String columnFamilyName) {
     final Element rootElement = dom.getDocumentElement();
     final NodeList nl = rootElement.getElementsByTagName("table");
@@ -66,7 +71,7 @@ public class CassandraDescTable {
     if (nl != null && nl.getLength() > 0) {
       for (int i = 0; i < nl.getLength(); i++) {
         final Element currentEl = (Element) nl.item(i);
-
+  System.out.println("cfn: " + currentEl.getAttribute("name"));
         if (currentEl.getAttribute("name").equals(columnFamilyName)) {
           elToRetrieve = currentEl;
           break;
@@ -85,6 +90,11 @@ public class CassandraDescTable {
     }
   }
 
+  /**
+   * this method returns the list of contraints of a given columnfamily
+   * @param columnFamilyName
+   * @return 
+   */
   public NodeList getListOfConstraints(final String columnFamilyName) {
     final Element rootElement = dom.getDocumentElement();
     final NodeList nl = rootElement.getElementsByTagName("table");
@@ -110,6 +120,11 @@ public class CassandraDescTable {
     }
   }
 
+  /**
+   * this method returns the name of the primary key field of a given columnfamily
+   * @param columnFamilyName
+   * @return 
+   */
   public String getNameOfPrimaryKeyField(final String columnFamilyName) {
     final NodeList listOfAttribute = getListOfAttribute(columnFamilyName);
 
@@ -133,6 +148,12 @@ public class CassandraDescTable {
     }
   }
 
+  /**
+   * this method returns the name of the field having the attribute of being unique
+   * i.e. the fields helping us to generate a primary key.
+   * @param columnFamilyName the name of the columnfamily
+   * @return 
+   */
   public List<String> getUniqueFields(final String columnFamilyName) {
     final NodeList constraintList = getListOfConstraints(columnFamilyName);
     final ArrayList<String> result = new ArrayList<String>();
@@ -168,6 +189,12 @@ public class CassandraDescTable {
     }
   }
 
+  /**
+   * This method generates a primary key fo a given object that will be stored in a columnfamily of
+   * Cassandra
+   * @param dbTableObject
+   * @return 
+   */
   public String generateKeyForColumnFamily(final Object dbTableObject) {
     try {
       final String[] objParts = dbTableObject.getClass().getName().split("\\.");
@@ -212,6 +239,11 @@ public class CassandraDescTable {
     return generateKeyForColumnFamily(dbTableObject);
   }
 
+  /**
+   * this method returns the list of foreign key of a given table
+   * @param tableName
+   * @return 
+   */
   public List<String> getListOfForeignKey(final String tableName) {
     final List<String> result = new ArrayList<String>();
 
@@ -242,3 +274,4 @@ public class CassandraDescTable {
     throw new RuntimeException();
   }
 }
+

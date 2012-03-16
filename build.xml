@@ -20,267 +20,263 @@ Ant build file to compile the mymed backend
 Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
 -->
 <project name="mymed" default="backend" basedir=".">
-	<property name="backend.dir" location="backend"/>
-	<property name="frontend.dir" location="frontend"/>
-	<property name="ext.dir" location="${backend.dir}/ext"/>
-	<property name="backend.conf.dir" location="${backend.dir}/conf"/>
-	<property name="src.dir" location="${backend.dir}/src"/>
-	<property name="properties.dir" location="${src.dir}/com/mymed/resources"/>
-	<property name="test.dir" location="${src.dir}/com/mymed/tests"/>
-	<property name="frontend.www.current.dir" location="${frontend.dir}/www/current"/>
-	<property name="build.dir" location="build"/>
-	<property name="build.lib.dir" location="${build.dir}/lib"/>
-	<property name="website.dir" location="${build.dir}/mymed"/>
-	<property name="build.classes.dir" location="${build.dir}/classes"/>
-	<property name="war.dir" location="${build.dir}/war"/>
-	<property name="war.lib.dir" location="${war.dir}/lib"/>
-	<property name="war.webinf.dir" location="${war.dir}/WEB-INF"/>
-	<property name="war.webinf.classes.dir" location="${war.webinf.dir}/classes"/>
-	<property name="war.webinf.lib.dir" location="${war.webinf.dir}/lib"/>
-	<property name="war.webinf.resources.dir" location="${war.webinf.dir}/resources"/>
+    <property name="backend.dir" location="backend"/>
+    <property name="frontend.dir" location="frontend"/>
+    <property name="ext.dir" location="${backend.dir}/ext"/>
+    <property name="backend.conf.dir" location="${backend.dir}/conf"/>
+    <property name="src.dir" location="${backend.dir}/src"/>
+    <property name="properties.dir" location="${src.dir}/com/mymed/resources"/>
+    <property name="test.dir" location="${src.dir}/com/mymed/tests"/>
+    <property name="frontend.www.current.dir" location="${frontend.dir}/www/current"/>
+    <property name="build.dir" location="build"/>
+    <property name="build.lib.dir" location="${build.dir}/lib"/>
+    <property name="website.dir" location="${build.dir}/mymed"/>
+    <property name="build.classes.dir" location="${build.dir}/classes"/>
+    <property name="war.dir" location="${build.dir}/war"/>
+    <property name="war.lib.dir" location="${war.dir}/lib"/>
+    <property name="war.webinf.dir" location="${war.dir}/WEB-INF"/>
+    <property name="war.webinf.classes.dir" location="${war.webinf.dir}/classes"/>
+    <property name="war.webinf.lib.dir" location="${war.webinf.dir}/lib"/>
+    <property name="war.webinf.resources.dir" location="${war.webinf.dir}/resources"/>
+    <property name="java.dir" location="/usr/share/java"/>
+    <property name="web.content.dir" location="${backend.dir}/WebContent"/>
+    <property name="web.content.webinf.dir" location="${backend.dir}/WebContent/WEB-INF"/>
+    <property name="web.content.lib.dir" location="${web.content.webinf.dir}/lib"/>
+    <property name="debug.flag" value="on"/>
+    <property name="jarname" value="mymed_backend.jar"/>
+    <property name="warname" value="mymed_backend.war"/>
+    <property name="java.dir" location="/usr/share/java"/>
 
-	<property name="java.dir" location="/usr/share/java"/>
+    <fileset dir="${web.content.lib.dir}" id="jarnames" description="JARs necessary to compile">
+        <include name="**/*.jar"/>
+    </fileset>
 
-	<property name="web.content.dir" location="${backend.dir}/WebContent"/>
-	<property name="web.content.webinf.dir" location="${backend.dir}/WebContent/WEB-INF"/>
-	<property name="web.content.lib.dir" location="${web.content.webinf.dir}/lib"/>
+    <taskdef resource="net/sf/antcontrib/antcontrib.properties" description="Set up ant-contrib JAR necessary for this build">
+        <classpath>
+            <pathelement location="${ext.dir}/lib/ant-contrib-1.0b3.jar"/>
+        </classpath>
+    </taskdef>
 
-	<property name="debug.flag" value="on"/>
-	<property name="jarname" value="mymed_backend.jar"/>
-	<property name="warname" value="mymed_backend.war"/>
+    <!-- Used as timestamp for the MANIFEST file -->
+    <tstamp id="date">
+        <format property="TODAY" pattern="yyyy-mm-dd--hh.mm.ssaa"/>
+    </tstamp>
 
-	<fileset dir="${web.content.lib.dir}" id="jarnames" description="JARs necessary to compile">
+    <!-- - - - - - - - - - - - - - - - - -
+        target: init
+             - - - - - - - - - - - - - - - - - -->
+    <target name="init" description="Initialize the necessary directories">
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${build.lib.dir}"/>
+        <mkdir dir="${build.classes.dir}"/>
+        <mkdir dir="${war.dir}"/>
+        <mkdir dir="${war.webinf.dir}"/>
+        <mkdir dir="${war.webinf.classes.dir}"/>
+        <mkdir dir="${war.webinf.lib.dir}"/>
+        <mkdir dir="${war.webinf.resources.dir}"/>
+        <mkdir dir="${website.dir}"/>
+    </target>
 
-   <include name="**/*.jar"/>
-	</fileset>
+    <!-- - - - - - - - - - - - - - - - - -
+              target: compile
+                       - - - - - - - - - - - - - - - - - -->
+    <target name="compile" depends="init" description="Compile the necessary files">
+        <if>
+            <isset property="glassfish"/>
+            <then>
+                <var name="glassfish.dir" value="${glassfish}"/>
+            </then>
+            <else>
+                <var name="glassfish.dir" unset="true"/>
+                <var name="glassfish.dir" value="/local/glassfish3"/>
+            </else>
+        </if>
+        <javac srcdir="${src.dir}" destdir="${build.classes.dir}" debug="${debug.flag}" fork="true" includeantruntime="true" includejavaruntime="true">
+            <exclude name="**/tests/**"/>
+            <exclude name="**/debug/**"/>
+            <exclude name="**/package-info.java"/>
+            <exclude name="**/reputation/**/*Test.java"/>
+            <!-- We define the classpath inside here, in order to be albe to check the args for glassfish directory -->
+            <classpath>
+                <pathelement path="${java.class.path}"/>
+                <fileset dir="${glassfish.dir}">
+                    <include name="**/javaee.jar"/>
+                </fileset>
+                <fileset dir="${java.dir}">
+                    <include name="**/*.jar"/>
+                </fileset>
+                <fileset refid="jarnames"/>
+            </classpath>
+        </javac>
+        <!-- If we need to compile a JAR or to compile different JARs, we have an example here -->
+        <!--
+        <jar destfile="${build.lib.dir}/${jarname}" basedir="${build.classes.dir}" duplicate="preserve" index="true"/>
+        -->
+    </target>
 
-	<taskdef resource="net/sf/antcontrib/antcontrib.properties" description="Set up ant-contrib JAR necessary for this build">
-		<classpath>
-			<pathelement location="${ext.dir}/lib/ant-contrib-1.0b3.jar"/>
-		</classpath>
-	</taskdef>
-
-	<!-- Used as timestamp for the MANIFEST file -->
-	<tstamp id="date">
-		<format property="TODAY" pattern="yyyy-mm-dd--hh.mm.ssaa"/>
-	</tstamp>
-
-	<!-- - - - - - - - - - - - - - - - - -
-	          target: init
-	         - - - - - - - - - - - - - - - - - -->
-	<target name="init" description="Initialize the necessary directories">
-		<mkdir dir="${build.dir}"/>
-		<mkdir dir="${build.lib.dir}"/>
-		<mkdir dir="${build.classes.dir}"/>
-		<mkdir dir="${war.dir}"/>
-		<mkdir dir="${war.webinf.dir}"/>
-		<mkdir dir="${war.webinf.classes.dir}"/>
-		<mkdir dir="${war.webinf.lib.dir}"/>
-		<mkdir dir="${war.webinf.resources.dir}"/>
-		<mkdir dir="${website.dir}"/>
-	</target>
-
-	<!-- - - - - - - - - - - - - - - - - -
-	          target: compile
-	         - - - - - - - - - - - - - - - - - -->
-	<target name="compile" depends="init" description="Compile the necessary files">
-		<if>
-			<isset property="glassfish"/>
-			<then>
-				<var name="glassfish.dir" value="${glassfish}"/>
-			</then>
-			<else>
-				<var name="glassfish.dir" unset="true"/>
-				<var name="glassfish.dir" value="/local/glassfish3"/>
-			</else>
-		</if>
-		<javac srcdir="${src.dir}" destdir="${build.classes.dir}" debug="${debug.flag}" fork="true" includeantruntime="true" includejavaruntime="true">
-			<exclude name="**/tests/**"/>
-			<exclude name="**/debug/**"/>
-			<!-- We define the classpath inside here, in order to be albe to check the args for glassfish directory -->
-			<classpath>
-				<pathelement path="${java.class.path}"/>
-				<fileset dir="${glassfish.dir}">
-					<include name="**/javaee.jar"/>
-				</fileset>
-				<fileset dir="${java.dir}">
-					<include name="**/*.jar"/>
-				</fileset>
-				<fileset refid="jarnames"/>
-			</classpath>
-		</javac>
-		<!-- If we need to compile a JAR or to compile different JARs, we have an example here -->
-		<!--
-    <jar destfile="${build.lib.dir}/${jarname}" basedir="${build.classes.dir}" duplicate="preserve" index="true"/>
-    -->
-	</target>
-
-	<!-- - - - - - - - - - - - - - - - - -
+    <!-- - - - - - - - - - - - - - - - - -
           target: checkaddress
          - - - - - - - - - - - - - - - - - -->
-	<target name="checkaddress" description="Check if the 'address' argument has been passed on the commnad line">
-		<echo message="Checking address to use for configuration file"/>
-		<if>
-			<isset property="address"/>
-			<then>
-				<var name="ipaddress" value="${address}"/>
-			</then>
-			<else>
-				<!-- Unset the property before resetting it! -->
-				<var name="ipaddress" unset="true"/>
-				<!-- We set by default the local host -->
-				<var name="ipaddress" value="127.0.0.1"/>
-			</else>
-		</if>
-		<echo message="Address will be: ${ipaddress}"/>
-	</target>
+    <target name="checkaddress" description="Check if the 'address' argument has been passed on the commnad line">
+        <echo message="Checking address to use for configuration file"/>
+        <if>
+            <isset property="address"/>
+            <then>
+                <var name="ipaddress" value="${address}"/>
+            </then>
+            <else>
+                <!-- Unset the property before resetting it! -->
+                <var name="ipaddress" unset="true"/>
+                <!-- We set by default the local host -->
+                <var name="ipaddress" value="127.0.0.1"/>
+            </else>
+        </if>
+        <echo message="Address will be: ${ipaddress}"/>
+    </target>
 
-	<!-- - - - - - - - - - - - - - - - - -
+    <!-- - - - - - - - - - - - - - - - - -
           target: movefiles
          - - - - - - - - - - - - - - - - - -->
-  <target name="movefiles" depends="compile, checkaddress" description="Copy the necessary stuff in the right places">
-  	<!-- Copy the configuration files into the resources/ dir -->
-  	<copy todir="${war.webinf.resources.dir}">
-  		<fileset dir="${backend.conf.dir}" />
-  		<!-- This is necessary for variable substitution in the config.xml file -->
-  		<filterchain>
-  			<replacetokens>
-  				<token key="address" value="${ipaddress}"/>
-  			</replacetokens>
-  		</filterchain>
-  	</copy>
-  	<copy todir="${war.webinf.resources.dir}">
-  		<fileset dir="${properties.dir}"/>
-  	</copy>
+    <target name="movefiles" depends="compile, checkaddress" description="Copy the necessary stuff in the right places">
+        <!-- Copy the configuration files into the resources/ dir -->
+        <copy todir="${war.webinf.resources.dir}">
+            <fileset dir="${backend.conf.dir}" />
+            <!-- This is necessary for variable substitution in the config.xml file -->
+            <filterchain>
+                <replacetokens>
+                    <token key="address" value="${ipaddress}"/>
+                </replacetokens>
+            </filterchain>
+        </copy>
+        <copy todir="${war.webinf.resources.dir}">
+            <fileset dir="${properties.dir}"/>
+        </copy>
+        <copy todir="${war.webinf.classes.dir}" description="Copy the compiled classes in the WEB-INF/classes/ dir">
+            <fileset dir="${build.classes.dir}"/>
+        </copy>
+        <!-- Copy the default JSP pages -->
+        <copy todir="${war.dir}" file="${web.content.dir}/index.jsp"/>
+        <!-- Copy the JAR files to the right directories -->
+        <copy todir="${war.webinf.lib.dir}">
+            <fileset refid="jarnames"/>
+        </copy>
+        <copy todir="${war.webinf.dir}" file="${web.content.webinf.dir}/sun-web.xml"/>
+    </target>
 
-		<copy todir="${war.webinf.classes.dir}" description="Copy the compiled classes in the WEB-INF/classes/ dir">
-			<fileset dir="${build.classes.dir}"/>
-		</copy>
 
-  	<!-- Copy the default JSP pages -->
-  	<copy todir="${war.dir}" file="${web.content.dir}/index.jsp"/>
-
-		<!-- Copy the JAR files to the right directories -->
-		<copy todir="${war.webinf.lib.dir}">
-			<fileset refid="jarnames"/>
-		</copy>
-		<copy todir="${war.webinf.dir}" file="${web.content.webinf.dir}/sun-web.xml"/>
-	</target>
-
-	<!-- =================================
+    <!-- =================================
           target: build
          ================================= -->
-	<target name="backend" depends="movefiles" description="Generate the WAR file to be deployed">
-		<war destfile="${build.lib.dir}/${warname}" webxml="${web.content.webinf.dir}/web.xml" basedir="${war.dir}">
-			<manifest>
-				<attribute name="Built-By" value="${user.name}"/>
-				<attribute name="Built-On" value="${TODAY}"/>
-			</manifest>
-		</war>
-		<!-- Clean up everything that is not needed anymore -->
-		<delete includeemptydirs="true" dir="${war.dir}" />
-		<delete includeemptydirs="true" dir="${build.classes.dir}" />
-	</target>
+    <target name="backend" depends="movefiles" description="Generate the WAR file to be deployed">
+        <war destfile="${build.lib.dir}/${warname}" webxml="${web.content.webinf.dir}/web.xml" basedir="${war.dir}">
+        <manifest>
+                <attribute name="Built-By" value="${user.name}"/>
+                <attribute name="Built-On" value="${TODAY}"/>
+            </manifest>
+        </war>
+        <!-- Clean up everything that is not needed anymore -->
+        <delete includeemptydirs="true" dir="${war.dir}" />
+        <delete includeemptydirs="true" dir="${build.classes.dir}" />
+    </target>
 
-	<!-- - - - - - - - - - - - - - - - - -
+    <!-- - - - - - - - - - - - - - - - - -
           target: websiteinit
          - - - - - - - - - - - - - - - - - -->
-	<target name="websiteinit" description="Create the necessary directories for the frontend build">
-		<mkdir dir="${build.dir}"/>
-		<mkdir dir="${website.dir}"/>
-	</target>
+    <target name="websiteinit" description="Create the necessary directories for the frontend build">
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${website.dir}"/>
+    </target>
 
-	<!-- - - - - - - - - - - - - - - - - -
+    <!-- - - - - - - - - - - - - - - - - -
           target: checkbackend
          - - - - - - - - - - - - - - - - - -->
-	<target name="checkbackend" description="Check the arguments for the frontend compilation">
-		<echo message="Checking values for the frontend..."/>
-		<echo message="Checking protocol to use..."/>
-		<if>
-			<isset property="protocol"/>
-			<then>
-				<var name="protcl" value="${protocol}"/>
-			</then>
-			<else>
-				<!-- Unset the property before resetting it! -->
-				<var name="protcl" unset="true"/>
-				<!-- We set by default the local host -->
-				<var name="protcl" value="https"/>
-			</else>
-		</if>
-		<echo message="Protocol used will be: ${protcl}"/>
+    <target name="checkbackend" description="Check the arguments for the frontend compilation">
+        <echo message="Checking values for the frontend..."/>
+        <echo message="Checking protocol to use..."/>
+        <if>
+            <isset property="protocol"/>
+            <then>
+                <var name="protcl" value="${protocol}"/>
+            </then>
+            <else>
+                <!-- Unset the property before resetting it! -->
+                <var name="protcl" unset="true"/>
+                <!-- We set by default http -->
+                <var name="protcl" value="http"/>
+            </else>
+        </if>
+        <echo message="Protocol used will be: ${protcl}"/>
+        <echo message="Checking backend URL..."/>
+        <if>
+            <isset property="backend"/>
+            <then>
+                <var name="backendurl" value="${protcl}://${backend}/backend/"/>
+            </then>
+            <else>
+                <!-- Unset the property before resetting it! -->
+                <var name="backendurl" unset="true"/>
+                <!-- We set by default the local host -->
+                <var name="backendurl" value="${protcl}://localhost:8080/backend/"/>
+            </else>
+        </if>
+        <echo message="URL used will be: ${backendurl}"/>
+    </target>
 
-		<echo message="Checking backend URL..."/>
-		<if>
-			<isset property="backend"/>
-			<then>
-				<var name="backendurl" value="${protcl}://${backend}/backend/"/>
-			</then>
-			<else>
-				<!-- Unset the property before resetting it! -->
-				<var name="backendurl" unset="true"/>
-				<!-- We set by default the local host -->
-				<var name="backendurl" value="${protcl}://localhost:8080/backend/"/>
-			</else>
-		</if>
-		<echo message="URL used will be: ${backendurl}"/>
-	</target>
-
-	<!-- - - - - - - - - - - - - - - - - -
+    <!-- - - - - - - - - - - - - - - - - -
           target: checkproperties
          - - - - - - - - - - - - - - - - - -->
-	<target name="checkproperties" description="Check the argument for the path to the properties file, and load the properties">
-		<echo message="Checking properties file..."/>
-		<if>
-			<isset property="keys"/>
-			<then>
-				<loadproperties srcfile="${keys}"/>
-				<echo message="Properties file found: properties loaded."/>
-			</then>
-			<else>
-				<fail message="You have to pass a properties file!"/>
-			</else>
-		</if>
-	</target>
+    <target name="checkproperties" description="Check the argument for the path to the properties file, and load the properties">
+        <echo message="Checking properties file..."/>
+        <if>
+            <isset property="keys"/>
+            <then>
+                <loadproperties srcfile="${keys}"/>
+                <echo message="Properties file found: properties loaded."/>
+            </then>
+            <else>
+                <fail message="You have to pass a properties file!"/>
+            </else>
+        </if>
+    </target>
 
-	<!-- =================================
+    <!-- =================================
           target: website
          ================================= -->
-	<target name="frontend" depends="websiteinit, checkbackend, checkproperties" description="Create mymed website directory structure">
-		<!-- Copy the configuration files into the resources/ dir -->
-		<copy todir="${website.dir}">
-			<fileset dir="${frontend.www.current.dir}">
-				<exclude name="**/config.php"/>
-			</fileset>
-		</copy>
-		<copy todir="${website.dir}/system" file="${frontend.www.current.dir}/system/config.php">
-			<!-- This is necessary for variable substitution in the config.xml file -->
-			<filterchain>
-				<replacetokens>
-					<token key="backendurl" value="${backendurl}"/>
-					<token key="facebookappid" value="${facebookappid}"/>
-					<token key="facebookappsecret" value="${facebookappsecret}"/>
-					<token key="googleappsecret" value="${googleappsecret}"/>
-					<token key="citywayurl" value="${citywayurl}"/>
-					<token key="citywayappid" value="${citywayappid}"/>
-				</replacetokens>
-			</filterchain>
-		</copy>
-	</target>
+    <target name="frontend" depends="websiteinit, checkbackend, checkproperties" description="Create mymed website directory structure">
+        <!-- Copy the configuration files into the resources/ dir -->
+        <copy todir="${website.dir}">
+            <fileset dir="${frontend.www.current.dir}">
+                <exclude name="**/config.php"/>
+            </fileset>
+        </copy>
+        <copy todir="${website.dir}/system" file="${frontend.www.current.dir}/system/config.php">
+            <!-- This is necessary for variable substitution in the config.xml file -->
+            <filterchain>
+                <replacetokens>
+                    <token key="backendurl" value="${backendurl}"/>
+                    <token key="facebookappid" value="${facebookappid}"/>
+                    <token key="facebookappsecret" value="${facebookappsecret}"/>
+                    <token key="googleappsecret" value="${googleappsecret}"/>
+                    <token key="citywayurl" value="${citywayurl}"/>
+                    <token key="citywayappid" value="${citywayappid}"/>
+                </replacetokens>
+            </filterchain>
+        </copy>
+    </target>
 
-	<!-- =================================
-	          target: clean
-	         ================================= -->
-	<target name="clean" description="Remove the directories used for the build">
-		<if>
-			<isset property="dir" />
-			<then>
-				<delete includeemptydirs="true" failonerror="false" dir="${build.dir}/${dir}" followsymlinks="false" />
-				<echo message="Cleaned ${dir} (lib:backend, mymed: frontend)" />
-			</then>
-			<else>
-				<delete includeemptydirs="true" failonerror="false" dir="${build.dir}" followsymlinks="false" />
-			</else>
-		</if>
-	</target>
+    <!-- =================================
+              target: clean
+             ================================= -->
+    <target name="clean" description="Remove the directories used for the build">
+        <if>
+            <isset property="dir" />
+            <then>
+                <delete includeemptydirs="true" failonerror="false" dir="${build.dir}/${dir}" followsymlinks="false" />
+                <echo message="Cleaned ${dir} (lib:backend, mymed: frontend)" />
+            </then>
+            <else>
+                <delete includeemptydirs="true" failonerror="false" dir="${build.dir}" followsymlinks="false" />
+            </else>
+        </if>
+    </target>
 </project>

@@ -15,7 +15,6 @@
  */
 package com.mymed.controller.core.requesthandler;
 
-import java.io.IOException;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -35,144 +34,146 @@ import com.mymed.model.data.user.MUserBean;
  */
 public class ProfileRequestHandler extends AbstractRequestHandler {
 
-  /**
-   * Generated serial ID.
-   */
-  private static final long serialVersionUID = -7350632718579822436L;
+    /**
+     * Generated serial ID.
+     */
+    private static final long serialVersionUID = -7350632718579822436L;
 
-  /**
-   * JSON 'id' attribute.
-   */
-  private static final String JSON_ID = JSON.get("json.id");
+    /**
+     * JSON 'id' attribute.
+     */
+    private static final String JSON_ID = JSON.get("json.id");
 
-  /**
-   * JSON 'profile' attribute.
-   */
-  private static final String JSON_PROFILE = JSON.get("json.profile");
+    /**
+     * JSON 'profile' attribute.
+     */
+    private static final String JSON_PROFILE = JSON.get("json.profile");
 
-  private ProfileManager profileManager;
+    private ProfileManager profileManager;
 
-  /**
-   * @throws ServletException
-   * @see HttpServlet#HttpServlet()
-   */
-  public ProfileRequestHandler() throws ServletException {
-    super();
+    /**
+     * @throws ServletException
+     * @see HttpServlet#HttpServlet()
+     */
+    public ProfileRequestHandler() throws ServletException {
+        super();
 
-    try {
-      profileManager = new ProfileManager();
-    } catch (final InternalBackEndException e) {
-      throw new ServletException("ProfileManager is not accessible because: " + e.getMessage());
-    }
-  }
-
-  /**
-   * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-   *      response)
-   */
-  @Override
-  protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-      IOException {
-
-    final JsonMessage message = new JsonMessage(200, this.getClass().getName());
-
-    try {
-      final Map<String, String> parameters = getParameters(request);
-      // Check the access token
-      checkToken(parameters);
-
-      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-      final String id = parameters.get(JSON_ID);
-
-      if (id == null) {
-        throw new InternalBackEndException("missing id argument!");
-      }
-
-      switch (code) {
-        case READ :
-          message.setMethod(JSON_CODE_READ);
-          final MUserBean userBean = profileManager.read(id);
-          message.addData(JSON_USER, getGson().toJson(userBean));
-          break;
-        case DELETE :
-          message.setMethod(JSON_CODE_DELETE);
-          profileManager.delete(id);
-          message.setDescription("User " + id + " deleted");
-          LOGGER.info("User '{}' deleted", id);
-          break;
-        default :
-          throw new InternalBackEndException("ProfileRequestHandler.doGet(" + code + ") not exist!");
-      }
-
-    } catch (final AbstractMymedException e) {
-      LOGGER.debug("Error in doGet operation", e);
-      message.setStatus(e.getStatus());
-      message.setDescription(e.getMessage());
+        try {
+            profileManager = new ProfileManager();
+        } catch (final InternalBackEndException e) {
+            throw new ServletException("ProfileManager is not accessible because: " + e.getMessage());
+        }
     }
 
-    printJSonResponse(message, response);
-  }
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.mymed.controller.core.requesthandler.AbstractRequestHandler#doGet
+     * (javax.servlet.http.HttpServletRequest,
+     * javax.servlet.http.HttpServletResponse)
+     */
+    @Override
+    protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
+        final JsonMessage message = new JsonMessage(200, this.getClass().getName());
 
-  /**
-   * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-   *      response)
-   */
-  @Override
-  protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-      IOException {
+        try {
+            final Map<String, String> parameters = getParameters(request);
+            // Check the access token
+            checkToken(parameters);
 
-    final JsonMessage message = new JsonMessage(200, this.getClass().getName());
+            final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
+            final String id = parameters.get(JSON_ID);
 
-    try {
-      final Map<String, String> parameters = getParameters(request);
-      // Check the access token
-      checkToken(parameters);
+            if (id == null) {
+                throw new InternalBackEndException("missing id argument!");
+            }
 
-      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-      final String user = parameters.get(JSON_USER);
+            switch (code) {
+                case READ :
+                    message.setMethod(JSON_CODE_READ);
+                    final MUserBean userBean = profileManager.read(id);
+                    message.addData(JSON_USER, getGson().toJson(userBean));
+                    break;
+                case DELETE :
+                    message.setMethod(JSON_CODE_DELETE);
+                    profileManager.delete(id);
+                    message.setDescription("User " + id + " deleted");
+                    LOGGER.info("User '{}' deleted", id);
+                    break;
+                default :
+                    throw new InternalBackEndException("ProfileRequestHandler.doGet(" + code + ") not exist!");
+            }
 
-      if (user == null) {
-        throw new InternalBackEndException("missing user argument!");
-      }
+        } catch (final AbstractMymedException e) {
+            LOGGER.debug("Error in doGet operation", e);
+            message.setStatus(e.getStatus());
+            message.setDescription(e.getMessage());
+        }
 
-      switch (code) {
-        case CREATE :
-          message.setMethod(JSON_CODE_CREATE);
-          try {
-            LOGGER.info("User:\n", user);
-            MUserBean userBean = getGson().fromJson(user, MUserBean.class);
-            LOGGER.info("Trying to create a new user:\n {}", userBean.toString());
-            userBean = profileManager.create(userBean);
-            LOGGER.info("User created!");
-            message.setDescription("User created!");
-            message.addData(JSON_PROFILE, getGson().toJson(userBean));
-          } catch (final JsonSyntaxException e) {
-            throw new InternalBackEndException("user jSon format is not valid");
-          }
-          break;
-        case UPDATE :
-          message.setMethod(JSON_CODE_UPDATE);
-          try {
-            MUserBean userBean = getGson().fromJson(user, MUserBean.class);
-            LOGGER.info("Trying to update user:\n {}", userBean.toString());
-            userBean = profileManager.update(userBean);
-            message.addData(JSON_PROFILE, getGson().toJson(userBean));
-            message.setDescription("User updated!");
-            LOGGER.info("User updated!");
-          } catch (final JsonSyntaxException e) {
-            throw new InternalBackEndException("user jSon format is not valid");
-          }
-          break;
-        default :
-          throw new InternalBackEndException("ProfileRequestHandler.doPost(" + code + ") not exist!");
-      }
-
-    } catch (final AbstractMymedException e) {
-      LOGGER.debug("Error in doPost operation", e);
-      message.setStatus(e.getStatus());
-      message.setDescription(e.getMessage());
+        printJSonResponse(message, response);
     }
 
-    printJSonResponse(message, response);
-  }
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.mymed.controller.core.requesthandler.AbstractRequestHandler#doPost
+     * (javax.servlet.http.HttpServletRequest,
+     * javax.servlet.http.HttpServletResponse)
+     */
+    @Override
+    protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
+        final JsonMessage message = new JsonMessage(200, this.getClass().getName());
+
+        try {
+            final Map<String, String> parameters = getParameters(request);
+            // Check the access token
+            checkToken(parameters);
+
+            final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
+            final String user = parameters.get(JSON_USER);
+
+            if (user == null) {
+                throw new InternalBackEndException("missing user argument!");
+            }
+
+            switch (code) {
+                case CREATE :
+                    message.setMethod(JSON_CODE_CREATE);
+                    try {
+                        LOGGER.info("User:\n", user);
+                        MUserBean userBean = getGson().fromJson(user, MUserBean.class);
+                        LOGGER.info("Trying to create a new user:\n {}", userBean.toString());
+                        userBean = profileManager.create(userBean);
+                        LOGGER.info("User created!");
+                        message.setDescription("User created!");
+                        message.addData(JSON_PROFILE, getGson().toJson(userBean));
+                    } catch (final JsonSyntaxException e) {
+                        throw new InternalBackEndException("user jSon format is not valid");
+                    }
+                    break;
+                case UPDATE :
+                    message.setMethod(JSON_CODE_UPDATE);
+                    try {
+                        MUserBean userBean = getGson().fromJson(user, MUserBean.class);
+                        LOGGER.info("Trying to update user:\n {}", userBean.toString());
+                        userBean = profileManager.update(userBean);
+                        message.addData(JSON_PROFILE, getGson().toJson(userBean));
+                        message.setDescription("User updated!");
+                        LOGGER.info("User updated!");
+                    } catch (final JsonSyntaxException e) {
+                        throw new InternalBackEndException("user jSon format is not valid");
+                    }
+                    break;
+                default :
+                    throw new InternalBackEndException("ProfileRequestHandler.doPost(" + code + ") not exist!");
+            }
+
+        } catch (final AbstractMymedException e) {
+            LOGGER.debug("Error in doPost operation", e);
+            message.setStatus(e.getStatus());
+            message.setDescription(e.getMessage());
+        }
+
+        printJSonResponse(message, response);
+    }
 }

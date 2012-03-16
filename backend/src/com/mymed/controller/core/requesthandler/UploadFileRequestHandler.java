@@ -35,56 +35,51 @@ import javax.servlet.http.Part;
 @MultipartConfig
 @WebServlet("/UploadFileRequestHandler")
 public class UploadFileRequestHandler extends HttpServlet {
-  private static final long serialVersionUID = 1L;
+    /**
+     * Generated serial ID.
+     */
+    private static final long serialVersionUID = 337872612023955588L;
 
-  /**
-   * @see HttpServlet#HttpServlet()
-   */
-  public UploadFileRequestHandler() {
-    super();
-  }
-
-  /**
-   * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-   *      response)
-   */
-  @Override
-  protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-      IOException {
-    // Stub method
-  }
-
-  /**
-   * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-   *      response)
-   */
-  @Override
-  protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-      IOException {
-    response.setContentType("text/html;charset=UTF-8");
-    final PrintWriter out = response.getWriter();
-    try {
-      // get access to file that is uploaded from client
-      final Part p1 = request.getPart("file");
-      final InputStream is = p1.getInputStream();
-
-      // read filename which is sent as a part
-      final Part p2 = request.getPart("filename");
-      final Scanner s = new Scanner(p2.getInputStream());
-      final String filename = s.nextLine();
-      final String outputfile = getServletContext().getRealPath(filename);
-      final FileOutputStream os = new FileOutputStream(outputfile);
-
-      // write bytes taken from uploaded file to target file
-      int ch = is.read();
-      while (ch != -1) {
-        os.write(ch);
-        ch = is.read();
-      }
-      os.close();
-      out.println("<h3>File uploaded successfully!</h3>");
-    } finally {
-      out.close();
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    @Override
+    protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
+        // Stub method
     }
-  }
+
+    @Override
+    protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = null;
+        try {
+            out = response.getWriter();
+            // get access to file that is uploaded from client
+            final Part p1 = request.getPart("file");
+            final InputStream is = p1.getInputStream();
+
+            // read filename which is sent as a part
+            final Part p2 = request.getPart("filename");
+            final Scanner s = new Scanner(p2.getInputStream());
+            final String filename = s.nextLine();
+            final String outputfile = getServletContext().getRealPath(filename);
+            final FileOutputStream os = new FileOutputStream(outputfile);
+
+            // write bytes taken from uploaded file to target file
+            int ch = is.read();
+            while (ch != -1) {
+                os.write(ch);
+                ch = is.read();
+            }
+            os.close();
+            out.println("<h3>File uploaded successfully!</h3>");
+        } catch (final IOException ex) {
+            throw new ServletException(ex);
+        } finally {
+            if (out != null) {
+                out.close();
+            }
+        }
+    }
 }

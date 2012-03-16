@@ -16,6 +16,8 @@
 package com.mymed.controller.core.manager.pubsub;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -138,9 +140,12 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
           + application + predicate);
       for (final Map<byte[], byte[]> set : subscribers) {
         for (final Entry<byte[], byte[]> entry : set.entrySet()) {
-          if (new String(entry.getKey(), ENCODING).equals("user")) {
-            final String userID = new String(entry.getValue(), ENCODING);
-            mailingList.append(new String(storageManager.selectColumn(CF_USER, userID, "email"), ENCODING));
+          final String key = Charset.forName(ENCODING).decode(ByteBuffer.wrap(entry.getKey())).toString();
+          if ("user".equals(key)) {
+            final String userID = Charset.forName(ENCODING).decode(ByteBuffer.wrap(entry.getValue())).toString();
+            final byte[] emailByte = storageManager.selectColumn(CF_USER, userID, "email");
+            final String email = Charset.forName(ENCODING).decode(ByteBuffer.wrap(emailByte)).toString();
+            mailingList.append(email);
             mailingList.append(',');
           }
         }
@@ -155,11 +160,10 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
       // TODO move this somewhere else and handle translation of this email!
       if (!"".equals(receivers)) {
         final StringBuffer mailContent = new StringBuffer(250);
-        mailContent.append("Bonjour, \nDe nouvelles informations sont arrivées sur votre plateforme myMed.\n");
-        mailContent.append("Application Concernée: ");
+        mailContent
+            .append("Bonjour, \nDe nouvelles informations sont arrivées sur votre plateforme myMed.\nApplication Concernée: ");
         mailContent.append(application);
-        mailContent.append('\n');
-        mailContent.append("Predicate: \n");
+        mailContent.append("\nPredicate: \n");
         for (final MDataBean item : dataList) {
           mailContent.append("\t-");
           mailContent.append(item.getKey());
@@ -243,12 +247,9 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     for (final Map<byte[], byte[]> set : list) {
       final Map<String, String> resMap = new HashMap<String, String>();
       for (final Entry<byte[], byte[]> entry : set.entrySet()) {
-        try {
-          resMap.put(new String(entry.getKey(), ENCODING), new String(entry.getValue(), ENCODING));
-        } catch (final UnsupportedEncodingException e) {
-          LOGGER.debug(ERROR_ENCODING, ENCODING, e);
-          throw new InternalBackEndException(e.getMessage()); // NOPMD
-        }
+        final String key = Charset.forName(ENCODING).decode(ByteBuffer.wrap(entry.getKey())).toString();
+        final String value = Charset.forName(ENCODING).decode(ByteBuffer.wrap(entry.getValue())).toString();
+        resMap.put(key, value);
       }
 
       resList.add(resMap);
@@ -256,7 +257,6 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 
     return resList;
   }
-
   /**
    * @see IPubSubManager#delete(String, String)
    */
