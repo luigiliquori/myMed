@@ -1,0 +1,12 @@
+.test .x-carousel-indicator span{
+    background-color: darkblue;
+    opacity:0.1;
+}
+
+.test .x-carousel-indicator span.x-carousel-indicator-active{
+    opacity: 0.7
+}
+
+.x-list .x-list-item .x-list-item-label{
+	padding: 0.2em 0.8em;
+}
