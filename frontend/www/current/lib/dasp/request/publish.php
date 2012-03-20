@@ -1,6 +1,6 @@
 <?php
 
-	require_once('../../../system/config.php');;
+	require_once('../../../system/config.php');
 	session_start();
 	
 	$args = Array();

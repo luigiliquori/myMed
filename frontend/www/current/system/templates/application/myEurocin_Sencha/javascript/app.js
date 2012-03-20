@@ -33,14 +33,9 @@ Ext.application({
 		  name: 'application',
 		  value: Ext.getBody().down('#applicationName').getValue()
 		}),
-		fieldApp2 = Ext.create('Ext.field.Text', {
-		  hidden: true,
-		  name: 'application',
-		  value: Ext.getBody().down('#applicationName').getValue()
-		}),
 		fieldKeyword = Ext.create('Ext.field.Text', {
 			name : 'title',
-			label : 'Titolo',
+			label : 'Tema',
 			autoCapitalize : false
 		}),
 		_fieldKeyword = Ext.create('Ext.field.Text', {//_fields* are hidden fields to give ontologyID
@@ -72,7 +67,11 @@ Ext.application({
 	        {text: '', value: ''},
 	        {text: 'Alessandria', value: 'Alessandria'},
 	        {text: 'Asti', value: 'Asti'},
-	        {text: 'Cuneo', value: 'Cuneo'}
+	        {text: 'Cuneo', value: 'Cuneo'},
+	        {text: 'Francia', value: 'Francia'},
+	        {text: 'Genova', value: 'Genova'},
+	        {text: 'Imperia', value: 'Imperia'},
+	        {text: 'Savona', value: 'Savona'}
 	    ]
 		}),
 		_fieldenumC = Ext.create('Ext.field.Text', {name : '_enumC', hidden: true, value: 2}),
@@ -94,6 +93,21 @@ Ext.application({
 		_fieldcheckR = Ext.create('Ext.field.Text', {name : '_r',	hidden: true, value: 2}),
 		_fieldcheckE = Ext.create('Ext.field.Text', {name : '_e',	hidden: true, value: 2}),
 		
+		fieldText = Ext.create('Ext.field.TextArea', {
+			name : 'text',
+			label : 'Testo'
+		}),
+		_fieldText = Ext.create('Ext.field.Text', {
+			name : '_text',
+			hidden: true,
+			value: 4
+		}),
+		
+		fieldApp2 = Ext.create('Ext.field.Text', {
+		  hidden: true,
+		  name: 'application',
+		  value: Ext.getBody().down('#applicationName').getValue()
+		}),
 		fieldenumL2 = Ext.create('Ext.field.Select', {
 			name: 'enumL',
 			label: 'Lingua',
@@ -117,7 +131,11 @@ Ext.application({
 	        {text: '', value: ''},
 	        {text: 'Alessandria', value: 'Alessandria'},
 	        {text: 'Asti', value: 'Asti'},
-	        {text: 'Cuneo', value: 'Cuneo'}
+	        {text: 'Cuneo', value: 'Cuneo'},
+	        {text: 'Francia', value: 'Francia'},
+	        {text: 'Genova', value: 'Genova'},
+	        {text: 'Imperia', value: 'Imperia'},
+	        {text: 'Savona', value: 'Savona'}
 	    ]
 		}),
 		fieldcheckA2 = Ext.create('myCheckbox', { name: 'a', label: 'Arte/Cultura'}),
@@ -127,28 +145,18 @@ Ext.application({
 		fieldcheckB2 = Ext.create('myCheckbox', { name: 'b', label: 'Benessere'}),
 		fieldcheckS2 = Ext.create('myCheckbox', { name: 'c', label: 'Storia'}),
 		fieldcheckR2 = Ext.create('myCheckbox', { name: 'r', label: 'Religione'}),
-		fieldcheckE2 = Ext.create('myCheckbox', { name: 'e', label: 'Escursioni/Sport'}),
-		
-		fieldText = Ext.create('Ext.field.TextArea', {
-			name : 'text',
-			label : 'Testo'
-		}),
-		_fieldText = Ext.create('Ext.field.Text', {
-			name : '_text',
-			hidden: true,
-			value: 4
-		});
+		fieldcheckE2 = Ext.create('myCheckbox', { name: 'e', label: 'Escursioni/Sport'});
 		
 
 		var store = Ext.create('Ext.data.Store', {
 	      fields: ['publisherID', 'publisherName', 'publisherProfilePicture', 'predicate', 
 	               'publisherReputation', 'data', 'end', 'begin', // results got from find
-	               'title','city','a','n','t','g','b','s','r','e', // extracted from predicate string
+	               'title','city','language','a','n','t','g','b','s','r','e', // extracted from predicate string
 	               'text'], //details got from getDetail
 	      sorters: ['publisherName', 'predicate'],
 	      grouper: {
 	          groupFn: function(record) {
-	              return record.get('city')[0];
+	              return record.get('title')[0];
 	          }
 	      }
 	  });
@@ -156,7 +164,7 @@ Ext.application({
 		var formlistdetail = Ext.create('Ext.form.Panel', {});
 		
 		var mylist = Ext.create('Ext.List', {
-			  title: 'Risultato',
+			  title: 'Risultati',
 	      id: 'mylist',
 	      itemTpl: ['<img src="',
         '<tpl if="publisherProfilePicture">',
@@ -165,17 +173,16 @@ Ext.application({
        		'http://graph.facebook.com//picture?type=large',
         '</tpl>',
         '" width="60" height="60" style="vertical-align: middle;">',
-	      '<span style="margin-left: 10px;"> <strong>{title}, {city}, in ',
-	      '<tpl if="language===1">',
-	      	'IT',
-	      '<tpl elseif="language===2">',
-	      	'FR',
+	      '<span style="margin-left: 10px;"> <b> {title}</b>, <b> {city}</b>',
+	      '<tpl if="language==1">',
+	      	', <b>[IT]</b>',
+	      '<tpl elseif="language==2">',
+	      	' <b>[FR]</b>',
 	      '</tpl>',
-	      '</strong></span>'
+	      '</span>'
         ],
 	      grouped: true,
 	      indexBar: true,
-	      plugins: 'pullrefresh',
 	      listeners:{
 	      	itemtap: function(elt, index, item, record, e){
 	      		e.stopEvent();
@@ -199,7 +206,7 @@ Ext.application({
 	  						var j= eval(response.data.details);
 	  						for (var i=0; i<j.length; i++){
 	  							if (j[i].key=='text'){
-	  								mylist.getStore().getAt(storeindex).set('text', j[i].value.replace(/\n/g,'<br>'));
+	  								mylist.getStore().getAt(storeindex).set('text', '<p style="text-align: justify;">'+j[i].value.replace(/\n/g,'<br>')+'</p>');
 	  							}else{
 	  								mylist.getStore().getAt(storeindex).set(j[i].key, j[i].value);
 	  							}
@@ -209,7 +216,7 @@ Ext.application({
 	  	        },
 	  	        failure: function() {
 	  	        	console.log('failed');
-	  	        	Ext.Msg.alert("<strong>Nessun dato trovato</strong>");
+	  	        	Ext.Msg.alert("Nessun dato trovato");
 	  	        }
 	  				});
 	      	}
@@ -229,8 +236,8 @@ Ext.application({
 						var j= eval(response.data.results);
 						mylist.getStore().setData([]);
 						for (var i=0; i<j.length; i++){
-							j[i]['title'] = j[i].predicate.match(/title\(([^)]+)\)/)[1];
-							j[i]['city'] = j[i].predicate.match(/enumC\(([^)]+)\)/)[1];
+							j[i]['title'] = (j[i].predicate.match(/title\(([^)]+)\)/) || [null, 'alcun tema'])[1];
+							j[i]['city'] = j[i].predicate.match(/enumC\(([^)]+)\)/)[1];					
 							j[i]['language'] = j[i].predicate.match(/enumL\(([^)]+)\)/)[1];
 							mylist.getStore().add(j[i]);
 						}
@@ -238,7 +245,7 @@ Ext.application({
 	        },
 	        failure: function() {
 	        	console.log('failed');
-	        	Ext.Msg.alert("<strong>Nessun dato trovato</strong>");
+	        	Ext.Msg.alert("Nessun dato trovato");
 	        }
 				});
 			}
@@ -252,10 +259,10 @@ Ext.application({
 			    url: 'lib/dasp/request/publish.php',
 	        success: function(elt, response) {
             console.log(response);         
-            Ext.Msg.alert("<strong>Testo pubblicato</strong>");
+            Ext.Msg.alert("Testo pubblicato");
 	        },
 	        failure: function() {
-	        	Ext.Msg.alert("<strong>Il vostro testo non pu&oacute; essere pubblicato</strong>");
+	        	Ext.Msg.alert("Testo non pu&oacute; essere pubblicato");
 	        }
 				});
 
@@ -267,28 +274,52 @@ Ext.application({
 			  title: 'Dettagli',
 	      layout: 'fit',
 	      scrollable: true,
+	      listeners: {
+	      	/*pinchstart: {
+	      		element: 'innerElement',
+	      		fn: function (e, t) {
+	      			this.startScale = this.scale;
+	      			this.startHeight = t.clientHeight;
+	      			this.startWidth = t.clientWidth;
+	      		}
+	      	},*/
+					pinch:{
+						element: 'innerElement',
+						fn: function(e, t){
+							//e.preventDefault();
+							//this.scale = e.scale * this.startScale;
+              console.info('pinch');
+              //var p = t.parentNode;
+              //p.style.height = (this.startHeight * this.scale) + 'px';
+              //p.style.width = (this.startWidth * this.scale) + 'px';
+              //detailPanel.doLayout();
+              Ext.Msg.alert("todo");
+            }
+					},
+				},
         styleHtmlContent: true,
 	      tpl: ['<div>',
-	        '<p><strong>Nome dell publicatore</strong>: {publisherName} <img src="',
+	        '<img src="',
 	        '<tpl if="publisherProfilePicture">',
 	        	'{publisherProfilePicture}',
 	        '<tpl else>',
 	       		'http://graph.facebook.com//picture?type=large',
 	        '</tpl>',
 	        '" width="180" style="float:right;">',
-	        '</p>',
-	        //'<p><strong>Predicato</strong>: {predicate}</p>',
-	        '<p><strong>Città</strong>: {city}</p>',
-	        '<p><strong>Titolo</strong>: {title}</p>',
-	        '<p><tpl if="a"> Arte/Cultura</tpl>',
-	        '<tpl if="n"> Natura</tpl>',
-	        '<tpl if="t"> Tradizioni</tpl>',
-	        '<tpl if="g"> Enogastronomia</tpl>',
-	        '<tpl if="b"> Benessere</tpl>',
-	        '<tpl if="s"> Storia</tpl>',
-	        '<tpl if="e"> Religione</tpl>',
-	        '<tpl if="e"> Escursioni/Sport</tpl></p>',
-	        '<p style="text-align: justify;"><strong>Testo</strong>:<br>{text}</p>',
+	        '<span>Nome dell publicatore:<b> {publisherName}</b></span> ',
+	        '<br><span>Città:<b> {city}</b></span>',
+	        '<br><span>Tema:<b> {title}</b></span>',
+	        '<br><span>Categorie:',
+	        '<tpl if="a"><b> Arte/Cultura</b></tpl>',
+	        '<tpl if="n"><b> Natura</b></tpl>',
+	        '<tpl if="t"><b> Tradizioni</b></tpl>',
+	        '<tpl if="g"><b> Enogastronomia</b></tpl>',
+	        '<tpl if="b"><b> Benessere</b></tpl>',
+	        '<tpl if="s"><b> Storia</b></tpl>',
+	        '<tpl if="e"><b> Religione</b></tpl>',
+	        '<tpl if="e"><b> Escursioni/Sport</b></tpl>',
+	        '</span><br><span>Testo:</span>',
+	        '<div id="detailstext">{text}</div>',
 	        '</div>'
 	      ]
 	  });
@@ -392,8 +423,8 @@ Ext.application({
 		var view = Ext.create('Ext.NavigationView', {
 	    fullscreen: true,
 	    autoDestroy: false,
-	    //useTitleForBackButtonText: true,
-	    defaultBackButtonText: 'indietro',
+	    useTitleForBackButtonText: true,
+	    //defaultBackButtonText: 'indietro',
 	    items: [{
         title: Ext.getBody().down('#applicationName').getValue(),
         layout : 'fit',
@@ -403,6 +434,10 @@ Ext.application({
 	    	}
 	    ]
 		});
+		if(Ext.is.Android)
+		{
+		   	 window.scrollTo(0,1);
+		}
 		
 	}
 

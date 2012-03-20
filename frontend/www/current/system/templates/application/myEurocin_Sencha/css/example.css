@@ -10,3 +10,11 @@
 .x-list .x-list-item .x-list-item-label{
 	padding: 0.2em 0.8em;
 }
+
+#detailstext h1, h2, h3, h4{
+	text-align: center;
+}
+
+#detailstext{
+	text-align: justify;
+}

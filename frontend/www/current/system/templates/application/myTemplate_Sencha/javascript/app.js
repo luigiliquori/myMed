@@ -321,7 +321,7 @@ Ext.application({
 	        '" width="180" style="float:right;">',
 	        '</p>',
 	        '<p><strong>Prédicat</strong>: {predicate}</p>',
-	        '<p style="text-align: justify;"><strong>Texte</strong>: {text}</p>',
+	        '<div"><strong>Texte</strong>: {text}</div>',
 	        '</div>'
 	      ]
 	  });
