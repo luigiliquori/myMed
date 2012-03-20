@@ -1,6 +1,5 @@
 package com.mymed.controller.core.manager.registration;
 
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -66,25 +65,25 @@ public class RegistrationManager implements IRegistrationManager {
         pubSubManager.create("myMed", accessToken, accessToken, user, dataList);
 
         final StringBuilder contentBuilder = new StringBuilder(250);
-        try {
-            // TODO add international support
-            contentBuilder.append("Bienvenu sur myMed.\nPour finaliser votre inscription cliquez sur le lien: http://");
-            // TODO fix the host name one final
-            // TODO
-            // contentBuilder.append(InetAddress.getLocalHost().getCanonicalHostName());
-            contentBuilder.append("www.mymed.fr");
-            contentBuilder.append("?registration=ok&accessToken=");
-            contentBuilder.append(accessToken);
-            contentBuilder.append("\n\n------\nL'équipe myMed");
+        // try {
+        // TODO add international support
+        contentBuilder.append("Bienvenu sur myMed.\nPour finaliser votre inscription cliquez sur le lien: http://");
+        // TODO fix the host name one final
+        // TODO
+        // contentBuilder.append(InetAddress.getLocalHost().getCanonicalHostName());
+        contentBuilder.append("www.mymed.fr");
+        contentBuilder.append("?registration=ok&accessToken=");
+        contentBuilder.append(accessToken);
+        contentBuilder.append("\n\n------\nL'équipe myMed");
 
-            contentBuilder.trimToSize();
+        contentBuilder.trimToSize();
 
-            // Send the mail
-            new Mail("mymed.subscribe@gmail.com", user.getEmail(), "Bienvenu sur myMed", contentBuilder.toString());
-        } catch (final UnknownHostException e) {
-            LOGGER.debug("Impossible to find the host", e);
-            throw new InternalBackEndException(e); // NOPMD
-        }
+        // Send the mail
+        new Mail("mymed.subscribe@gmail.com", user.getEmail(), "Bienvenu sur myMed", contentBuilder.toString());
+        // } catch (final UnknownHostException e) {
+        // LOGGER.debug("Impossible to find the host", e);
+        // throw new InternalBackEndException(e); // NOPMD
+        // }
     }
 
     @Override
