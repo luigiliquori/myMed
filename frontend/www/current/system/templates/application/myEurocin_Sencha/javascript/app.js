@@ -156,7 +156,7 @@ Ext.application({
 	      sorters: ['publisherName', 'predicate'],
 	      grouper: {
 	          groupFn: function(record) {
-	              return record.get('title')[0];
+	              return record.get('city')[0];
 	          }
 	      }
 	  });
@@ -166,21 +166,34 @@ Ext.application({
 		var mylist = Ext.create('Ext.List', {
 			  title: 'Risultati',
 	      id: 'mylist',
-	      itemTpl: ['<img src="',
+	      itemTpl: new Ext.XTemplate('<img src="',
         '<tpl if="publisherProfilePicture">',
         	'{publisherProfilePicture}',  
         '<tpl else>',
        		'http://graph.facebook.com//picture?type=large',
         '</tpl>',
         '" width="60" height="60" style="vertical-align: middle;">',
-	      '<span style="margin-left: 10px;"> <b> {title}</b>, <b> {city}</b>',
+	      '<span style="margin-left: 10px;">',
+	      '<tpl if="city">',
+	      	'<b> {city} -</b>',
+	      '</tpl>',
+	      '<tpl if="title">',
+	      	'<b> {title:this.printTitle} -</b>',
+	      '</tpl>',
 	      '<tpl if="language==1">',
 	      	', <b>[IT]</b>',
 	      '<tpl elseif="language==2">',
 	      	' <b>[FR]</b>',
+	      '<tpl else>',
+	      	' <b>[EN]</b>',
 	      '</tpl>',
-	      '</span>'
-        ],
+	      '</span>',
+	      {
+	      	printTitle: function(value){
+	      		return Ext.os.deviceType == 'Phone'?value.substr(0,9)+(value.length>9?'..':''):value;
+	      	}
+	      }
+	      ),
 	      grouped: true,
 	      indexBar: true,
 	      listeners:{
@@ -236,7 +249,7 @@ Ext.application({
 						var j= eval(response.data.results);
 						mylist.getStore().setData([]);
 						for (var i=0; i<j.length; i++){
-							j[i]['title'] = (j[i].predicate.match(/title\(([^)]+)\)/) || [null, 'alcun tema'])[1];
+							j[i]['title'] = j[i].predicate.match(/title\(([^)]+)\)/)[1];
 							j[i]['city'] = j[i].predicate.match(/enumC\(([^)]+)\)/)[1];					
 							j[i]['language'] = j[i].predicate.match(/enumL\(([^)]+)\)/)[1];
 							mylist.getStore().add(j[i]);
@@ -339,10 +352,14 @@ Ext.application({
 				iconCls : 'search',
 				style : "text-align: center;",
 				layout : 'vbox',
+				
 
 				items : [
 				{ 
 					xtype : 'fieldset',
+					defaults: {
+	          minWidth: '100px'
+					},
 					title: Ext.os.deviceType != 'Phone'?'Cercando un testo:':null,
 					items : [
 						fieldApp2,
@@ -375,6 +392,9 @@ Ext.application({
 				items : [
 				{
 					xtype : 'fieldset',
+					defaults: {
+	          minWidth: '100px'
+					},
 					title : Ext.os.deviceType != 'Phone'?'Pubblicare un testo:':null,
 					items : [
 						fieldApp,
@@ -434,10 +454,8 @@ Ext.application({
 	    	}
 	    ]
 		});
-		if(Ext.is.Android)
-		{
-		   	 window.scrollTo(0,1);
-		}
+		
+		window.scrollTo(0,1);
 		
 	}
 
