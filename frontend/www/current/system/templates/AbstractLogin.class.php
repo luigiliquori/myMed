@@ -98,9 +98,8 @@ abstract class AbstractLogin extends AbstractTemplate {
 							<label>Prénom : </label><br /><input type="text" name="prenom" data-theme="d"/><br>
 							<label>Nom : </label><br /><input type="text" name="nom" data-theme="d"/><br>
 							<label>eMail : </label><br /><input type="text" name="email" data-theme="d"/><br>
-							<label>Password : </label><br /><input type="password" name="password" data-theme="d"/><br>
-							<label>Confirm : </label><br /><input type="password" name="confirm" data-theme="d"/><br>
-							<label>Date de naissance : </label><br /><input type="text" name="birthday" data-theme="d"/>
+							<label>Mot de passe : </label><br /><input type="password" name="password" data-theme="d"/><br>
+							<label>Confirmation : </label><br /><input type="password" name="confirm" data-theme="d"/><br>
 							<input type="checkbox" name="checkCondition" style="position: absolute; top: 25px;"/><br>
 							<span style="position: relative; left: 50px;">J'accepte les <a href="#condition">conditions d'utilisation</a></span>
 						</div>

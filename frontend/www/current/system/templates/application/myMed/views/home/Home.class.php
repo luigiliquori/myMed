@@ -61,9 +61,7 @@ class Home extends AbstractTemplate {
 								    	class="myIcon"><img alt="<?= $file ?>" src="system/templates/application/<?= $file ?>/img/icon.png" width="50px" >
 								    	</a>
 								    	<br>
-								    	<span style="font-size: 9pt; font-weight: bold;">
-								    		<?= $file ?>
-								    	</span>
+								    	<span style="font-size: 9pt; font-weight: bold;"><?= $file ?></span>
 							    	</div>
 							    	<?php 
 							    	if($column == "a") {

@@ -1,5 +1,10 @@
 .ui-page {
- 	background-image: url("../img/background.png");
+ 	background-image: url("../img/background.jpg");
 	background-size: 100% 100%; 
-	color: white;
+	color: black;
+	text-shadow: none;
+}
+
+h1 {
+	color: #3b6ea0;
 }
