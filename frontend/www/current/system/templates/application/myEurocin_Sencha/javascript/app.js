@@ -14,10 +14,6 @@ Ext.define('myCheckbox', {
   }
 });
 
-defaultPhonePickerConfig:{
-  hideOnMaskTap: true
-}
-
 Ext.application({
 
 	name : 'myApp',
@@ -75,6 +71,26 @@ Ext.application({
 	    ]
 		}),
 		_fieldenumC = Ext.create('Ext.field.Text', {name : '_enumC', hidden: true, value: 2}),
+
+		//just for the demo, simplified search select insetad of 8 checkboxes
+		_fieldenumT2 = Ext.create('Ext.field.Select', {
+			name: '_enumDemo',
+			label: 'Categorie',
+			defaultPhonePickerConfig:{
+			   hideOnMaskTap: true
+			},
+	    options: [
+	        {text: '', value: ''},
+	        {text: 'Arte/Cultura', value: 'a'},
+	        {text: 'Natura', value: 'n'},
+	        {text: 'Tradizioni', value: 't'},
+	        {text: 'Enogastronomia', value: 'g'},
+	        {text: 'Benessere', value: 'b'},
+	        {text: 'Storia', value: 's'},
+	        {text: 'Religione', value: 'r'},
+	        {text: 'Escursioni/Sport', value: 'e'}
+	    ]
+		}),
 		
 		fieldcheckA = Ext.create('myCheckbox', { name: 'a', label: 'Arte/Cultura'}),
 		fieldcheckN = Ext.create('myCheckbox', { name: 'n', label: 'Natura'}),
@@ -138,15 +154,44 @@ Ext.application({
 	        {text: 'Savona', value: 'Savona'}
 	    ]
 		}),
-		fieldcheckA2 = Ext.create('myCheckbox', { name: 'a', label: 'Arte/Cultura'}),
-		fieldcheckN2 = Ext.create('myCheckbox', { name: 'n', label: 'Natura'}),
-		fieldcheckT2 = Ext.create('myCheckbox', { name: 't', label: 'Tradizioni'}),
-		fieldcheckG2 = Ext.create('myCheckbox', { name: 'g', label: 'Enogastronomia'}),
-		fieldcheckB2 = Ext.create('myCheckbox', { name: 'b', label: 'Benessere'}),
-		fieldcheckS2 = Ext.create('myCheckbox', { name: 'c', label: 'Storia'}),
-		fieldcheckR2 = Ext.create('myCheckbox', { name: 'r', label: 'Religione'}),
-		fieldcheckE2 = Ext.create('myCheckbox', { name: 'e', label: 'Escursioni/Sport'});
-		
+		fieldcheckA2 = Ext.create('myCheckbox', { name: 'a', label: 'Arte/Cultura', hidden:true}),
+		fieldcheckN2 = Ext.create('myCheckbox', { name: 'n', label: 'Natura', hidden:true}),
+		fieldcheckT2 = Ext.create('myCheckbox', { name: 't', label: 'Tradizioni', hidden:true}),
+		fieldcheckG2 = Ext.create('myCheckbox', { name: 'g', label: 'Enogastronomia', hidden:true}),
+		fieldcheckB2 = Ext.create('myCheckbox', { name: 'b', label: 'Benessere', hidden:true}),
+		fieldcheckS2 = Ext.create('myCheckbox', { name: 's', label: 'Storia', hidden:true}),
+		fieldcheckR2 = Ext.create('myCheckbox', { name: 'r', label: 'Religione', hidden:true}),
+		fieldcheckE2 = Ext.create('myCheckbox', { name: 'e', label: 'Escursioni/Sport', hidden:true}),
+		//temporary research field to have 1 select instead of those 8 CB, (for the demo)
+		_fieldenumT2.on('change', function(){
+			fieldcheckA2.setChecked(false);
+			switch(this.getValue()){
+			case 'a':
+				fieldcheckA2.setChecked(true);
+				break;
+			case 'n':
+				fieldcheckN2.setChecked(true);
+				break;
+			case 't':
+				fieldcheckT2.setChecked(true);
+				break;
+			case 'g':
+				fieldcheckG2.setChecked(true);
+				break;
+			case 'b':
+				fieldcheckB2.setChecked(true);
+				break;
+			case 's':
+				fieldcheckS2.setChecked(true);
+				break;
+			case 'r':
+				fieldcheckR2.setChecked(true);
+				break;
+			case 'e':
+				fieldcheckE2.setChecked(true);
+				break;
+			}
+		});
 
 		var store = Ext.create('Ext.data.Store', {
 	      fields: ['publisherID', 'publisherName', 'publisherProfilePicture', 'predicate', 
@@ -175,17 +220,17 @@ Ext.application({
         '" width="60" height="60" style="vertical-align: middle;">',
 	      '<span style="margin-left: 10px;">',
 	      '<tpl if="city">',
-	      	'<b> {city} -</b>',
+	      	'<b>{city}</b> - ',
 	      '</tpl>',
 	      '<tpl if="title">',
-	      	'<b> {title:this.printTitle} -</b>',
+	      	'<b>{title:this.printTitle}</b> - ',
 	      '</tpl>',
 	      '<tpl if="language==1">',
-	      	', <b>[IT]</b>',
+	      	' [IT]',
 	      '<tpl elseif="language==2">',
-	      	' <b>[FR]</b>',
+	      	'[FR]',
 	      '<tpl else>',
-	      	' <b>[EN]</b>',
+	      	' [EN]',
 	      '</tpl>',
 	      '</span>',
 	      {
@@ -219,7 +264,7 @@ Ext.application({
 	  						var j= eval(response.data.details);
 	  						for (var i=0; i<j.length; i++){
 	  							if (j[i].key=='text'){
-	  								mylist.getStore().getAt(storeindex).set('text', '<p style="text-align: justify;">'+j[i].value.replace(/\n/g,'<br>')+'</p>');
+	  								mylist.getStore().getAt(storeindex).set('text', j[i].value.replace(/\n/g,'<br>'));
 	  							}else{
 	  								mylist.getStore().getAt(storeindex).set(j[i].key, j[i].value);
 	  							}
@@ -249,7 +294,7 @@ Ext.application({
 						var j= eval(response.data.results);
 						mylist.getStore().setData([]);
 						for (var i=0; i<j.length; i++){
-							j[i]['title'] = j[i].predicate.match(/title\(([^)]+)\)/)[1];
+							j[i]['title'] = (j[i].predicate.match(/title\(([^)]+)\)/) || [null, ''])[1];
 							j[i]['city'] = j[i].predicate.match(/enumC\(([^)]+)\)/)[1];					
 							j[i]['language'] = j[i].predicate.match(/enumL\(([^)]+)\)/)[1];
 							mylist.getStore().add(j[i]);
@@ -366,13 +411,14 @@ Ext.application({
 						fieldenumC2,
 						fieldenumL2,
 						fieldcheckA2,
-						fieldcheckN2,
-						fieldcheckT2,
-						fieldcheckG2,
-						fieldcheckB2,
-						fieldcheckS2,
-						fieldcheckR2,
-						fieldcheckE2
+					  fieldcheckN2,
+					  fieldcheckT2,
+					  fieldcheckG2,
+					  fieldcheckB2,
+					  fieldcheckS2,					  
+					  fieldcheckR2,
+					  fieldcheckE2,
+						_fieldenumT2
 					]
 				},
 				buttonFind,
