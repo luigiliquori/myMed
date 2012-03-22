@@ -53,7 +53,7 @@ Ext.application({
 				value: new Date(),
 				yearFrom : 1980,
 				cancelButton: false,
-				hideOnMaskTap: 'true',
+				//hideOnMaskTap: 'true',
 				toolbar : {
           items : [
             {
@@ -101,7 +101,7 @@ Ext.application({
 			picker : {
 				yearFrom : 1980,
 				cancelButton: false,
-				hideOnMaskTap: 'true',
+				//hideOnMaskTap: 'true',
 				toolbar : {
           items : [
             {
@@ -174,7 +174,7 @@ Ext.application({
 		var store = Ext.create('Ext.data.Store', {
 	      fields: ['publisherID', 'publisherName', 'publisherProfilePicture', 'predicate', 
 	               'publisherReputation', 'data', 'end', 'begin', // results got from find
-	               //'keyword1','keyword2','keyword3','enum1', 'date', //not necessary as already in predicate string
+	               'date',//,'keyword2','keyword3','enum1', 'date', //not necessary as already in predicate string
 	               'text'], //details got from getDetail
 	      sorters: ['publisherName', 'predicate'],
 	      grouper: {
@@ -184,7 +184,7 @@ Ext.application({
 	      }
 	  });
 		
-		var formlistdetail = Ext.create('Ext.form.Panel', {});
+		var formlistdetail = Ext.create('Ext.form.Panel', { });
 		
 		var mylist = Ext.create('Ext.List', {
 			  title: 'Résultats',
@@ -196,10 +196,18 @@ Ext.application({
        		'http://graph.facebook.com//picture?type=large',
         '</tpl>',
         '" width="60" height="60" style="vertical-align: middle;">',
-	      '<span style="margin-left: 10px;"><strong>{publisherName}</strong></span>'
+	      '<span style="margin-left: 10px;"><b>{publisherName}</b>',
+	      '<tpl if="date">',
+	      	' le {date}',
+	      '</tpl>',
+	      //'<tpl if="gps">',
+	      //	' à {gps}',
+	      //'</tpl>',
+        '</span>'
         ],
 	      grouped: true,
 	      indexBar: true,
+	      form: Ext.create('Ext.form.Panel', {}),
 	      plugins: 'pullrefresh',
 	      listeners:{
 	      	itemtap: function(elt, index, item, record, e){
@@ -211,7 +219,7 @@ Ext.application({
 	          	view.push(detailPanel);
 	          	return;
 	          }
-	          formlistdetail.submit({
+	          this.config.form.submit({
 	  			    url: 'lib/dasp/request/getDetail.php',
 	  			    params: {
                 'user': store.getAt(index).get('publisherID'),
@@ -252,11 +260,12 @@ Ext.application({
 				form.submit({
 			    url: 'lib/dasp/request/publish.php',
 	        success: function(elt, response) {
-            console.log(response);         
-            Ext.Msg.alert("<strong>Donnée publiée</strong>");
+            console.log(response);
+            Ext.Msg.alert("Donnée publiée");
 	        },
-	        failure: function() {
-	        	console.log("<strong>Votre donnée n'a pu être publiée</strong>");
+	        failure: function(elt, response) {
+	        	console.log(response);
+	        	Ext.Msg.alert("Donnée non publiée", response.description);
 	        }
 				});
 
@@ -273,14 +282,17 @@ Ext.application({
 	        success: function(elt, response) {
 						var j= eval(response.data.results);
 						mylist.getStore().setData([]);
-						for (var i=0; i<j.length; i++){
+						for (var i=0; i<j.length; i++){						
+							if (j[i].predicate.indexOf('date')>0){
+								j[i]['date'] = j[i].predicate.match(/date\(([^)]+)\)/)[1];
+							}
 							mylist.getStore().add(j[i]);
 						}
 						view.push(mylist);
 	        },
-	        failure: function() {
+	        failure: function(elt, response) {
 	        	console.log('failed');
-	        	Ext.Msg.alert("<strong>Aucun résultat trouvé</strong>");
+	        	Ext.Msg.alert("Aucun résultat trouvé", response.description);
 	        }
 				});	
 			}
@@ -297,9 +309,9 @@ Ext.application({
 	        	console.log(response);
 	        	Ext.Msg.alert("<strong>Souscription faite</strong>");
 	        },
-	        failure: function() {
+	        failure: function(elt, response) {
 	        	console.log('failed');
-	        	Ext.Msg.alert("<strong>Votre souscription n'a pu être soumise</strong>");
+	        	Ext.Msg.alert("Souscription non soumise", response.description);
 	        }
 				});	
 			}
@@ -312,16 +324,19 @@ Ext.application({
 	      scrollable: true,
         styleHtmlContent: true,
 	      tpl: ['<div>',
-	        '<p><strong>Nom</strong>: {publisherName} <img src="',
+	        '<img src="',
 	        '<tpl if="publisherProfilePicture">',
 	        	'{publisherProfilePicture}',
 	        '<tpl else>',
 	       		'http://graph.facebook.com//picture?type=large',
 	        '</tpl>',
 	        '" width="180" style="float:right;">',
-	        '</p>',
-	        '<p><strong>Prédicat</strong>: {predicate}</p>',
-	        '<div"><strong>Texte</strong>: {text}</div>',
+	        '<b>Nom</b>: <span style="left-margin:5px; color:DarkBlue; font-size:120%;">{publisherName}</span>',
+	        '<br>',
+	        '<b>Prédicat</b>: {predicate}',
+	        '<br>',
+	        '<b>Texte</b>:',
+	        '<div id="detailstext">{text}</div>',
 	        '</div>'
 	      ]
 	  });
@@ -439,19 +454,18 @@ Ext.application({
 		var view = Ext.create('Ext.NavigationView', {
 	    fullscreen: true,
 	    autoDestroy: false,
-	    //useTitleForBackButtonText: true,
-	    defaultBackButtonText: 'retour',
+	    useTitleForBackButtonText: true,
+	    //defaultBackButtonText: 'retour',
 	    navigationBar: {
         items: [
           {
             xtype: 'button',
             ui: 'forward',
             style: 'position: absolute;right: 0;top: .4em;',
-            id: 'editButton',
-            html: '<a style="color:white" href="?application=0">Quitter</a>',
+            html: 'Quitter',
             align: 'right',
             handler: function(){
-            	
+            	window.location="?application=0";
             }
           }
         ]
