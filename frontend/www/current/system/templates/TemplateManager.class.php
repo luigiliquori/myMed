@@ -67,9 +67,46 @@ class TemplateManager {
 		} 
 		?>
 		
+		<!-- LOADING DIALOG -->
+		<style type="text/css">
+			#loading {
+				position: absolute;
+				left:0px;
+				top:0px;
+				padding:10px;
+				height: 100%;
+				width: 100%;
+				background-color: black;
+				z-index: 99;
+				opacity: 0.7;
+			}
+			#loading span {
+				position: relative;
+				top: 100px;
+				color: white;
+				font:bold 12px Verdana;
+			}
+		</style>
+		
+		<script type="text/javascript">
+		function hideLoadingBar(){
+		     //hide loading status...
+		     loading = document.getElementById("loading");
+		     loading.style.display='none';
+		}
+		function showLoadingBar(text){
+		     //hide loading status...
+		     loading = document.getElementById("loading");
+		     if(text) {
+		    	 loading.innerHTML = "<center><span>" + text + "</span></center>";
+		     }
+		     loading.style.display = "block";
+		}
+		</script>
 		</head>
 		
-		<body onload="initialize();">
+		<body onload="hideLoadingBar(); initialize();">
+		<div id="loading"><center><span>Chargement en cours...</span></center></div>
 	<?php }
 	
 	/**

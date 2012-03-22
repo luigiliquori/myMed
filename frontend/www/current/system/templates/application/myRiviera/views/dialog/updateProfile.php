@@ -1,7 +1,7 @@
 <div id="inscription" data-role="page" data-theme="d">
 	<!-- HEADER -->
 	<div data-role="header" data-theme="b" >
-		<a href="#Option" data-role="button" class="ui-btn-left" data-icon="arrow-l">Retour</a>
+		<a href="#Option" data-role="button" class="ui-btn-left" data-icon="arrow-l" data-back="true">Retour</a>
 		<h2>Profile</h2>
 	</div>
 

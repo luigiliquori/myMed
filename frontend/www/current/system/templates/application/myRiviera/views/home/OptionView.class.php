@@ -14,7 +14,6 @@ class OptionView extends MyApplication {
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
-	private /*IRequestHandler*/ $handler;
 	private /*String[]*/ $filterList;
 
 	/* --------------------------------------------------------- */
@@ -23,9 +22,8 @@ class OptionView extends MyApplication {
 	/**
 	 * Default constructor
 	 */
-	public function __construct(/*MyTemplateHandler*/ $handler) {
+	public function __construct() {
 		parent::__construct("Option");
-		$this->handler = $handler;
 		$this->filterList = array(
 		"ADAPEI",
 		"ADERF",
@@ -61,7 +59,7 @@ class OptionView extends MyApplication {
 	public /*String*/ function getHeader() { ?>
 	<div data-role="header" data-theme="b">
 		<h1>Options</h1>
-		<a href="#Find" data-role="button" class="ui-btn-left" data-icon="arrow-l">Retour</a>
+		<a href="#Find" data-role="button" class="ui-btn-left" data-icon="arrow-l" data-back="true">Retour</a>
 	</div>
 	
 	<?php }
@@ -160,7 +158,7 @@ class OptionView extends MyApplication {
 					$socialNetworkConnection =  new SocialNetworkConnection();
 					foreach($socialNetworkConnection->getWrappers() as $wrapper) {
 						$url = TARGET == "mobile" ? str_replace("www", "m", $wrapper->getLoginUrl()) . "&display=touch" :  $wrapper->getLoginUrl();
-						echo "<a href='" . $url . "'>" . $wrapper->getSocialNetworkButton() . "</a>";
+						echo "<a href='" . $url . "' onClick='showLoadingBar(\"redirecton en cours...\")'>" . $wrapper->getSocialNetworkButton() . "</a>";
 					}
 				} else { ?>
 					<br /><br />

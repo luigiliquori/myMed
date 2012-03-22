@@ -655,7 +655,8 @@ function validateIt() {
 				}
 
 				clearAll();
-
+				
+				showLoadingBar("Calcul de l'itinéraire en cours...");
 				$.ajax({
 					type : "POST",
 					url : "system/templates/application/myRiviera/handler/cityway.php",
@@ -668,6 +669,10 @@ function validateIt() {
 					+ "&date=" + date,
 					success : function(data) {
 						calcRoute(data);
+						hideLoadingBar();
+					},
+					error : function(data) {
+						hideLoadingBar();
 					}
 				});
 			} else {
