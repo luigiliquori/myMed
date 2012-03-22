@@ -14,7 +14,6 @@ class FindView extends MyApplication {
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
-	private /*IRequestHandler*/ $handler;
 
 	/* --------------------------------------------------------- */
 	/* Constructors */
@@ -22,9 +21,8 @@ class FindView extends MyApplication {
 	/**
 	 * Default constructor
 	 */
-	public function __construct(/*MyTemplateHandler*/ $handler) {
+	public function __construct() {
 		parent::__construct("Find");
-		$this->handler = $handler;
 	}
 
 	/* --------------------------------------------------------- */

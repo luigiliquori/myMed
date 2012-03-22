@@ -8,8 +8,8 @@ var markers = {}; // all other markers
 var directionsDisplays = [];
 
 var isPersistent = false; // global behaviour, if we keep or not previous,
-// location MarkerS when we focus elsewhere
-// is now $('#flip-per').val() set in option dialog
+//location MarkerS when we focus elsewhere
+//is now $('#flip-per').val() set in option dialog
 
 var poi;
 var poiMem = {};
@@ -46,45 +46,10 @@ function initialize() {
 				.getElementById('arrivee'));
 		autocompleteArrivee.bindTo('bounds', map);
 		autocompleteDepart.bindTo('bounds', map);
-
-		// prepare handlers for validation
-		google.maps.event
-				.addListener(
-						autocompleteDepart,
-						'place_changed',
-						function() {
-							if (autocompleteDepart.getPlace()) {
-								start = autocompleteDepart.getPlace().geometry.location;
-								startmarker.setPosition(start);
-							}
-
-						});
-		google.maps.event.addListener(autocompleteArrivee, 'place_changed',
-				function() {
-					if (autocompleteArrivee.getPlace()) {
-						end = autocompleteArrivee.getPlace().geometry.location;
-						endmarker.setPosition(end);
-					}
-
-				});
 	}
 
-	// by default need to bind these fields if the user override autocompletion
-	// (use cache field values)
-	// little tumeout, to prevent geocoding if autocompletion has already done
-	// it
-	$('#depart').change(function() {
-		start = null;
-		setTimeout(geocodeStart, 250);
-	});
-
-	$('#arrivee').change(function() {
-		end = null;
-		setTimeout(geocodeEnd, 250);
-	});
-
+	// setup the marker for the itinerary
 	startmarker = new google.maps.Marker({
-		// draggable:true,
 		animation : google.maps.Animation.DROP,
 		icon : 'system/templates/application/myRiviera/img/start.png',
 		title : 'Départ\nMa position',
@@ -92,7 +57,6 @@ function initialize() {
 	});
 
 	endmarker = new google.maps.Marker({
-		// draggable:true,
 		animation : google.maps.Animation.DROP,
 		icon : 'system/templates/application/myRiviera/img/end.png',
 		title : 'Arrivée',
@@ -107,13 +71,13 @@ function initialize() {
 		focusOnLatLng(currentPos);
 	});
 
-	// init filterArray
+	// initialize the filter for the markers
 	updateFilter();
 
 	// resize the map: Jquerymobile fails
 	$("#" + $("#applicationName").val() + "Map").height(
 			$("body").height()
-					- $('body').find('div[data-role=header]').outerHeight());
+			- $('body').find('div[data-role=header]').outerHeight());
 
 }
 
@@ -123,10 +87,10 @@ function initialize() {
  * @param position
  */
 function displayPosition(position) {
-	
+
 	// reverse geocode
 	var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-	
+
 	// add position marker
 	if(currentPositionMarker == null) { // WATCH POSITION
 		// create current position marker
@@ -137,7 +101,7 @@ function displayPosition(position) {
 			title : 'Départ\nMa position',
 			zIndex : -1
 		});
-		
+
 		// focus on the position
 		if (focusOnCurrentPosition) {
 			focusOnLatLng(latlng);
@@ -146,10 +110,6 @@ function displayPosition(position) {
 	}
 	// set position of the currentPositionMarker
 	currentPositionMarker.setPosition(latlng);
-
-	// memorize the default starting point
-	start = latlng;
-	startmarker.setPosition(start);
 
 	// if the accuracy is good enough, print a circle to show the area
 	// is use watchPosition instead of getCurrentPosition don't
@@ -167,9 +127,9 @@ function displayPosition(position) {
 				strokeWeight : 2,
 				fillColor : "#0000ff",
 				fillOpacity : (accuracy < 500) ? 0.1 : 0,
-				map : map,
-				center : latlng,
-				radius : accuracy
+						map : map,
+						center : latlng,
+						radius : accuracy
 			});
 		}
 	}
@@ -185,9 +145,9 @@ function displayPosition(position) {
  */
 function displayError(error) {
 	var errors = {
-		1 : 'Permission refusée',
-		2 : 'Position indisponible',
-		3 : 'Requête expirée'
+			1 : 'Permission refusée',
+			2 : 'Position indisponible',
+			3 : 'Requête expirée'
 	};
 	console.log("Erreur géolocalisation: " + errors[error.code]);
 
@@ -291,7 +251,7 @@ function positionMarker(index) {
 	if (!pmarkers[index]) { // create new marker
 		var marker = addMarker(steps[index].position, steps[index].icon,
 				steps[index].title, $('#itineraireContent').find('.ui-li p')
-						.eq(index).html());
+				.eq(index).html());
 		pmarkers[index] = marker;
 		google.maps.event.addListener(marker, "click", function(e) {
 			marker.ib.open(map, this);
@@ -376,14 +336,14 @@ function calcRouteByCityway(result) {
 			+ ", "
 			+ result.ItineraryObj.originPoint.localityName[0]
 			+ result.ItineraryObj.originPoint.localityName.substr(1)
-					.toLowerCase());
+			.toLowerCase());
 	endmarker.setTitle("Arrivée\n"
 			+ result.ItineraryObj.destinationPoint.name[0]
 			+ result.ItineraryObj.destinationPoint.name.substr(1).toLowerCase()
 			+ ", "
 			+ result.ItineraryObj.destinationPoint.localityName[0]
 			+ result.ItineraryObj.destinationPoint.localityName.substr(1)
-					.toLowerCase());
+			.toLowerCase());
 
 	for ( var i = 0; i < result.ItineraryObj.tripSegments.tripSegment.length; i++) {
 
@@ -399,7 +359,7 @@ function calcRouteByCityway(result) {
 				$("<h3>Marche</h3>").appendTo(item);
 				titre = "Marche";
 				icon = "system/templates/application/myRiviera/img/"
-						+ tripSegment.type.toLowerCase() + ".png";
+					+ tripSegment.type.toLowerCase() + ".png";
 				break;
 			case 'CONNECTION':
 				$("<h3>Connection</h3>").appendTo(item);
@@ -413,34 +373,34 @@ function calcRouteByCityway(result) {
 				break;
 			default:
 				$("<h3>" + tripSegment.transportMode.toLowerCase() + "</h3>")
-						.appendTo(item);
-				titre = tripSegment.transportMode.toLowerCase();
-				icon = "system/templates/application/myRiviera/img/"
-						+ tripSegment.transportMode.toLowerCase() + ".png";
-				break;
+				.appendTo(item);
+			titre = tripSegment.transportMode.toLowerCase();
+			icon = "system/templates/application/myRiviera/img/"
+				+ tripSegment.transportMode.toLowerCase() + ".png";
+			break;
 			}
 
 			currentType = tripSegment.type;
 			$('<ul data-role="listview" data-inset="true"></ul>')
-					.appendTo(item);
+			.appendTo(item);
 			item.appendTo($('#itineraireContent'));
 		}
 
 		if (tripSegment.departurePoint) {
 			steps[i] = {
-				'position' : new google.maps.LatLng(
-						tripSegment.departurePoint.latitude,
-						tripSegment.departurePoint.longitude),
-				'icon' : icon,
-				'title' : titre
+					'position' : new google.maps.LatLng(
+							tripSegment.departurePoint.latitude,
+							tripSegment.departurePoint.longitude),
+							'icon' : icon,
+							'title' : titre
 			};
 		} else { // type = 'Attendre'
 			steps[i] = {
-				'position' : new google.maps.LatLng(
-						result.ItineraryObj.tripSegments.tripSegment[i + 1].departurePoint.latitude,
-						result.ItineraryObj.tripSegments.tripSegment[i + 1].departurePoint.longitude),
-				'icon' : icon,
-				'title' : titre
+					'position' : new google.maps.LatLng(
+							result.ItineraryObj.tripSegments.tripSegment[i + 1].departurePoint.latitude,
+							result.ItineraryObj.tripSegments.tripSegment[i + 1].departurePoint.longitude),
+							'icon' : icon,
+							'title' : titre
 			};
 		}
 
@@ -449,33 +409,33 @@ function calcRouteByCityway(result) {
 				+ ');" data-icon="search"><h3>'
 				+ (tripSegment.distance > 0 ? 'Distance: '
 						+ tripSegment.distance + ' m' : 'Durée: '
-						+ tripSegment.duration + ' min')
-				+ '</h3></a><br /><p style="position: relative; margin-left: 20px;">'
-				+ (tripSegment.comment || '&nbsp;') + '</p></li>');
+							+ tripSegment.duration + ' min')
+							+ '</h3></a><br /><p style="position: relative; margin-left: 20px;">'
+							+ (tripSegment.comment || '&nbsp;') + '</p></li>');
 
 		desc.appendTo(item.find('ul'));
 
 		if (currentType == "TRANSPORT"
-				&& [ 'AVION', 'BOAT', 'TER', 'TRAIN', 'TRAM' ]
-						.indexOf(tripSegment.transportMode) < 0) {
+			&& [ 'AVION', 'BOAT', 'TER', 'TRAIN', 'TRAM' ]
+		.indexOf(tripSegment.transportMode) < 0) {
 			routes.push({
 				origin : new google.maps.LatLng(
 						tripSegment.departurePoint.latitude,
 						tripSegment.departurePoint.longitude),
-				destination : new google.maps.LatLng(
-						tripSegment.arrivalPoint.latitude,
-						tripSegment.arrivalPoint.longitude),
-				travelMode : google.maps.TravelMode.DRIVING
+						destination : new google.maps.LatLng(
+								tripSegment.arrivalPoint.latitude,
+								tripSegment.arrivalPoint.longitude),
+								travelMode : google.maps.TravelMode.DRIVING
 			});
 		} else if (currentType == "WALK") {
 			routes.push({
 				origin : new google.maps.LatLng(
 						tripSegment.departurePoint.latitude,
 						tripSegment.departurePoint.longitude),
-				destination : new google.maps.LatLng(
-						tripSegment.arrivalPoint.latitude,
-						tripSegment.arrivalPoint.longitude),
-				travelMode : google.maps.TravelMode.WALKING
+						destination : new google.maps.LatLng(
+								tripSegment.arrivalPoint.latitude,
+								tripSegment.arrivalPoint.longitude),
+								travelMode : google.maps.TravelMode.WALKING
 			});
 		}
 
@@ -487,9 +447,9 @@ function calcRouteByCityway(result) {
 	// UI - ADD SEGMENT ON THE MAP - TODO MOVE THIS PART -> showTrip function
 	$(routes).each(function(i) {
 		var request = {
-			origin : routes[i].origin,
-			destination : routes[i].destination,
-			travelMode : routes[i].travelMode
+				origin : routes[i].origin,
+				destination : routes[i].destination,
+				travelMode : routes[i].travelMode
 		};
 		var directionsDisplay = new google.maps.DirectionsRenderer({
 			map : map,
@@ -515,9 +475,9 @@ function calcRouteByGoogle() {
 			$('#itineraire h3:first').find('.ui-btn-text').html().replace(
 					/(Feuille de route)( \w+|)/, '$1 GoogleMaps'));
 	var request = {
-		origin : startmarker.getPosition(),
-		destination : endmarker.getPosition(),
-		travelMode : google.maps.TravelMode.DRIVING
+			origin : startmarker.getPosition(),
+			destination : endmarker.getPosition(),
+			travelMode : google.maps.TravelMode.DRIVING
 	};
 	var directionsDisplay = new google.maps.DirectionsRenderer({
 		map : map,
@@ -528,83 +488,83 @@ function calcRouteByGoogle() {
 	titre = "Voiture";
 	var collapsed = 0;
 	directionsService
-			.route(
-					request,
-					function(result, status) {
-						if (status == google.maps.DirectionsStatus.OK) {
+	.route(
+			request,
+			function(result, status) {
+				if (status == google.maps.DirectionsStatus.OK) {
 
-							$(
-									"<li data-role='list-divider'><span>"
-											+ result.routes[0].legs[0].steps[0].travel_mode
-													.toLowerCase()
-											+ "</span></li>").appendTo(
+					$(
+							"<li data-role='list-divider'><span>"
+							+ result.routes[0].legs[0].steps[0].travel_mode
+							.toLowerCase()
+							+ "</span></li>").appendTo(
 									$('#itineraire ul'));
-							startmarker.setTitle("Départ\n"
-									+ result.routes[0].legs[0].start_address);
-							endmarker.setTitle("Arrivée\n"
-									+ result.routes[0].legs[0].end_address);
+					startmarker.setTitle("Départ\n"
+							+ result.routes[0].legs[0].start_address);
+					endmarker.setTitle("Arrivée\n"
+							+ result.routes[0].legs[0].end_address);
 
-							for ( var i = 0; i < result.routes[0].legs[0].steps.length; i++) {
-								if (i % 5 == 0) { // all 5 results we groupe
-									// them by category
-									item = $('<div data-role="collapsible" data-collapsed='
-											+ (collapsed++ == 0 ? 'false'
-													: 'true') + '></div>');
-									$("<h3>Voiture (" + collapsed + ")</h3>")
-											.appendTo(item);
-									$(
-											'<ul data-role="listview" data-inset="true"></ul>')
-											.appendTo(item);
-									item.appendTo($('#itineraireContent'));
-								}
-
-								st = result.routes[0].legs[0].steps[i];
-
-								steps[i] = {
-									'position' : st.start_location,
-									'icon' : icon,
-									'title' : titre
-								};
-
-								desc = $('<li><a onclick="updateMarkers('
-										+ i
-										+ ');" data-icon="search"><span>Distance: '
-										+ st.distance.text + ' ('
-										+ st.duration.text
-										+ ')</span></a></li>');
-								var c = $('<div>' + st.instructions + '</div>'); // trick
-								// to
-								// remove
-								// google's
-								// html
-								// tags
-								// inside
-								// instructions
-								c.find('div').each(function(i, el) {
-									$(el).replaceWith(". " + $(el).text());
-								});
-								c.find('b').each(function(i, el) {
-									$(el).replaceWith($(el).text());
-								});
-								$('<p>' + c.html() + '</p>').appendTo(desc);
-								desc.appendTo(item.find('ul'));
-
-							}
-
-							// create jquerymobile styled elmts
-							$('.ui-page').trigger('create');
-
-							// UI - ADD SEGMENT ON THE MAP - TODO MOVE THIS PART
-							// -> showTrip function
-							directionsDisplay.setDirections(result);
-							directionsDisplays.push(directionsDisplay); // for
-							// clearing
-							// them
-							// later
-							myRivieraShowTrip($("#depart").val()
-									|| "Ma position", $("#arrivee").val());
+					for ( var i = 0; i < result.routes[0].legs[0].steps.length; i++) {
+						if (i % 5 == 0) { // all 5 results we groupe
+							// them by category
+							item = $('<div data-role="collapsible" data-collapsed='
+									+ (collapsed++ == 0 ? 'false'
+											: 'true') + '></div>');
+							$("<h3>Voiture (" + collapsed + ")</h3>")
+							.appendTo(item);
+							$(
+							'<ul data-role="listview" data-inset="true"></ul>')
+							.appendTo(item);
+							item.appendTo($('#itineraireContent'));
 						}
-					});
+
+						st = result.routes[0].legs[0].steps[i];
+
+						steps[i] = {
+								'position' : st.start_location,
+								'icon' : icon,
+								'title' : titre
+						};
+
+						desc = $('<li><a onclick="updateMarkers('
+								+ i
+								+ ');" data-icon="search"><span>Distance: '
+								+ st.distance.text + ' ('
+								+ st.duration.text
+								+ ')</span></a></li>');
+						var c = $('<div>' + st.instructions + '</div>'); // trick
+						// to
+						// remove
+						// google's
+						// html
+						// tags
+						// inside
+						// instructions
+						c.find('div').each(function(i, el) {
+							$(el).replaceWith(". " + $(el).text());
+						});
+						c.find('b').each(function(i, el) {
+							$(el).replaceWith($(el).text());
+						});
+						$('<p>' + c.html() + '</p>').appendTo(desc);
+						desc.appendTo(item.find('ul'));
+
+					}
+
+					// create jquerymobile styled elmts
+					$('.ui-page').trigger('create');
+
+					// UI - ADD SEGMENT ON THE MAP - TODO MOVE THIS PART
+					// -> showTrip function
+					directionsDisplay.setDirections(result);
+					directionsDisplays.push(directionsDisplay); // for
+					// clearing
+					// them
+					// later
+					myRivieraShowTrip($("#depart").val()
+							|| "Ma position", $("#arrivee").val());
+				}
+			});
 
 }
 
@@ -627,17 +587,17 @@ function myRivieraShowTrip(start, end, icon) {
 	$("#itineraire, #next-step, #prev-step").delay(1000).fadeIn("slow");
 	$('#next-step, #prev-step').attr('onclick', 'updateMarkers(0)');
 	$('#next-step')
-			.click(
-					function() {
-						$('#itineraireContent .ui-li a').eq(
-								currentSegmentID + 1).closest(
-								'[data-role="collapsible"]').trigger('expand');
-					});
+	.click(
+			function() {
+				$('#itineraireContent .ui-li a').eq(
+						currentSegmentID + 1).closest(
+						'[data-role="collapsible"]').trigger('expand');
+			});
 	$('#prev-step').click(
 			function() {
 				$('#itineraireContent .ui-li a')
-						.eq((currentSegmentID || 1) - 1).closest(
-								'[data-role="collapsible"]').trigger('expand');
+				.eq((currentSegmentID || 1) - 1).closest(
+				'[data-role="collapsible"]').trigger('expand');
 			});
 
 }
@@ -649,82 +609,74 @@ function myRivieraShowTrip(start, end, icon) {
  */
 function changeDestination() {
 	$("#arrivee").val($("#selectarrivee").val().split("&&")[1]);
-	// $("#arrivee").css("background-image", 'url(' +
-	// $("#selectarrivee").val().split("&&")[0] + ')');
 	$("#arrivee").trigger('change');
 }
 
-var geocoder = new google.maps.Geocoder(), geocoder2 = new google.maps.Geocoder();
-
-function geocodeStart() {
-	if (start)
-		return;
-	geocoder.geocode({
-		'address' : $('#depart').val()
-	}, function(results, status) {
-		if (status == google.maps.GeocoderStatus.OK) {
-			start = results[0].geometry.location;
-			startmarker.setPosition(start);
-		} else {
-			alert("Départ non valide");
-		}
-	});
-}
-
-function geocodeEnd() {
-	if (end)
-		return;
-	geocoder.geocode({
-		'address' : $('#arrivee').val()
-	}, function(results, status) {
-		if (status == google.maps.GeocoderStatus.OK) {
-			end = results[0].geometry.location;
-			endmarker.setPosition(end);
-		} else {
-			alert("Arrivée non valide");
-		}
-	});
-}
-
 function validateIt() {
+	var geocoder = new google.maps.Geocoder();
+	
+	// Validate the starting point
+	geocoder.geocode({'address' : $('#depart').val()}, function(results, status) {
+		if (status == google.maps.GeocoderStatus.OK) { // use the position define by the user 
+			start = results[0].geometry.location;
+		} else if($('#depart').val() == "") { // use the current position
+			start = currentPositionMarker.getPosition();
+		} else { // Error with the position define by the user 
+			alert("Départ non valide");
+			return;
+		}
+		
+		// Validate the ending point
+		geocoder.geocode({'address' : $('#arrivee').val()}, function(results, status) {
+			if (status == google.maps.GeocoderStatus.OK) { // use the position define by the user 
 
-	if (start && end) {
-		var date = $('#select-year').val() + "-"
+				end = results[0].geometry.location;
+				
+				startmarker.setPosition(start);
+				endmarker.setPosition(end);
+
+				var date = $('#select-year').val() + "-"
 				+ ("0" + ($('#select-month').val())).slice(-2) + "-"
 				+ ("0" + ($('#select-day').val())).slice(-2) + "_"
 				+ ("0" + ($('#select-hour').val())).slice(-2) + "-"
 				+ ("0" + ($('#select-minute').val())).slice(-2);
 
-		console.log("from " + start.toString() + " to " + end.toString());
+				var optimize = $("#cityway-search input:radio:checked").val();
 
-		var optimize = $("#cityway-search input:radio:checked").val();
+				var tModes0 = $('#cityway-search input:checkbox:not(:checked)');
+				var transitModes = 0;
+				if (tModes0.length) {
+					var tModes = [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+					               1, 1, 1 ]; //all 20 modes enabled
+					for ( var i = 0; i < tModes0.length; i++) {
+						tModes[tModes0[i].id.match(/\d+/)] = 0; //get the number in the id, that represent the cityway mode index
+					}
+					transitModes = tModes.join('');
+				}
 
-		var tModes0 = $('#cityway-search input:checkbox:not(:checked)');
-		var transitModes = 0;
-		if (tModes0.length) {
-			var tModes = [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-					1, 1, 1 ]; //all 20 modes enabled
-			for ( var i = 0; i < tModes0.length; i++) {
-				tModes[tModes0[i].id.match(/\d+/)] = 0; //get the number in the id, that represent the cityway mode index
-			}
-			transitModes = tModes.join('');
-		}
-
-		clearAll();
-
-		$.ajax({
-			type : "POST",
-			url : "system/templates/application/myRiviera/handler/cityway.php",
-			data : "startlng=" + startmarker.getPosition().lng() + "&startlat="
+				clearAll();
+				
+				showLoadingBar("Calcul de l'itinéraire en cours...");
+				$.ajax({
+					type : "POST",
+					url : "system/templates/application/myRiviera/handler/cityway.php",
+					data : "startlng=" + startmarker.getPosition().lng() + "&startlat="
 					+ startmarker.getPosition().lat() + "&endlng="
 					+ endmarker.getPosition().lng() + "&endlat="
 					+ endmarker.getPosition().lat()
 					+ (optimize != "fastest" ? "&optimize=" + optimize : "")
 					+ (transitModes ? "&transitModes=" + transitModes : "")
 					+ "&date=" + date,
-			success : function(data) {
-				calcRoute(data);
-			}
-		});
-	}
+					success : function(data) {
+						calcRoute(data);
+						hideLoadingBar();
+					},
+					error : function(data) {
+						hideLoadingBar();
+					}
+				});
+			} else {
+				alert("Arrivée non valide");
+			}});
+	});
 }

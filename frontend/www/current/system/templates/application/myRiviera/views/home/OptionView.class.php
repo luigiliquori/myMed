@@ -14,7 +14,6 @@ class OptionView extends MyApplication {
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
-	private /*IRequestHandler*/ $handler;
 	private /*String[]*/ $filterList;
 
 	/* --------------------------------------------------------- */
@@ -23,9 +22,8 @@ class OptionView extends MyApplication {
 	/**
 	 * Default constructor
 	 */
-	public function __construct(/*MyTemplateHandler*/ $handler) {
+	public function __construct() {
 		parent::__construct("Option");
-		$this->handler = $handler;
 		$this->filterList = array(
 		"ADAPEI",
 		"ADERF",
@@ -61,8 +59,7 @@ class OptionView extends MyApplication {
 	public /*String*/ function getHeader() { ?>
 	<div data-role="header" data-theme="b">
 		<h1>Options</h1>
-		<a href="#Find" data-role="button" class="ui-btn-left"
-			data-icon="arrow-l">Retour</a>
+		<a href="#Find" data-role="button" class="ui-btn-left" data-icon="arrow-l" data-back="true">Retour</a>
 	</div>
 	
 	<?php }
@@ -143,19 +140,15 @@ class OptionView extends MyApplication {
 					Date de naissance: <?= $_SESSION['user']->birthday ?><br />
 					eMail: <?= $_SESSION['user']->email ?><br />
 					<div data-role="controlgroup" data-type="horizontal">
-						<a href="#inscription" data-role="button" data-rel="dialog" data-inline="true" data-theme="b" data-icon="refresh">mise à jour</a>
-					<?php if(TARGET == "desktop") { ?>
+						<a href="#inscription" data-role="button" data-inline="true" data-theme="b" data-icon="refresh">mise à jour</a>
 						<a href="#login" onclick="document.disconnectForm.submit()" rel="external" data-role="button" data-theme="r">Deconnexion</a>
-					<?php } else { ?>
-						<a href="mobile_binary<?= MOBILE_PARAMETER_SEPARATOR ?>logout" data-role="button" data-theme="r">Deconnexion</a>
-					<?php } ?>
 					</div>
 				</div>
 	
 			<!-- FRIENDS -->
 			<div data-role="collapsible" data-collapsed="true" data-theme="b"
 				data-content-theme="c">
-				<h3>Mes amis</h3>
+				<h3>Réseau social</h3>
 				<?php $i=0; ?>
 				<?php foreach ($_SESSION['friends'] as $friend ) { ?>
 					<a href="<?= $friend["link"] ?>"><img src="http://graph.facebook.com/<?= $friend["id"] ?>/picture" width="20px" alt="<?= $friend["name"] ?>" /></a>
@@ -165,7 +158,7 @@ class OptionView extends MyApplication {
 					$socialNetworkConnection =  new SocialNetworkConnection();
 					foreach($socialNetworkConnection->getWrappers() as $wrapper) {
 						$url = TARGET == "mobile" ? str_replace("www", "m", $wrapper->getLoginUrl()) . "&display=touch" :  $wrapper->getLoginUrl();
-						echo "<a href='" . $url . "'>" . $wrapper->getSocialNetworkButton() . "</a>";
+						echo "<a href='" . $url . "' onClick='showLoadingBar(\"redirecton en cours...\")'>" . $wrapper->getSocialNetworkButton() . "</a>";
 					}
 				} else { ?>
 					<br /><br />

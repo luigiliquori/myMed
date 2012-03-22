@@ -20,16 +20,16 @@ class InscriptionHandler implements IRequestHandler {
 			
 			// Preconditions
 			if($_POST['password'] != $_POST['confirm']){
-				$this->error = "FAIL: password != confirmation";
+				$this->error = "ERR: Mot de passe != confirmation";
 				return;
 			} else if($_POST['password'] == ""){
-				$this->error = "FAIL: password cannot be empty!";
+				$this->error = "ERR: le mot de passe ne peut pas être vide.";
 				return;
 			} else if($_POST['email'] == ""){
-				$this->error = "FAIL: email cannot be empty!";
+				$this->error = "ERR: l'email ne peut pas être vide.";
 				return;
 			} else if(!$_POST['checkCondition']){
-				$this->error = "FAIL: you may accept the condition";
+				$this->error = "ERR: Vous devez accepter les conditions d'utilisation.";
 				return;
 			}
 			

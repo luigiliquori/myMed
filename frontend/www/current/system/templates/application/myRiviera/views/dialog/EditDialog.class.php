@@ -34,38 +34,35 @@ class EditDialog {
 				
 				<!-- TO -->
 				<div id="divarrivee">
-				
-					<input data-theme="d" type="text" id="arrivee" name="Arrivee"	
-						placeholder="Arrivée" onkeyup="$(this).css('background-image', 'none');" style="position: relative; width: 90%; top:2px;"/>
-						<select id="selectarrivee" data-iconpos="notext" data-icon="plus"
-						name="enum-1" onclick="changeDestination()">
-		
-						<!-- USER -->
-						<?php if (isset($_SESSION['position'])) { ?>
-							<option value="<?= $_SESSION['user']->profilePicture ?>&&<?= $_SESSION['position']->formattedAddress ?>"><?= $_SESSION['user']->name ?></option>
-						<?php } ?>
-									
-						<!-- FRIENDS -->
-						<?php if(isset($_SESSION['friends'])) {
-										foreach ($_SESSION['friends'] as $friend ) { ?>
-						<?php if ($friend["position"]->formattedAddress != "") {?>
-							<option value="<?= $friend["profilePicture"] ?>&&<?= $friend["position"]->formattedAddress ?>">
-								<?= $friend["name"] ?>
-							</option>
-						<?php }
-								}
-							} ?>
-						</select>
+					<input data-theme="d" type="text" id="arrivee" name="Arrivee" placeholder="Arrivée" onkeyup="$(this).css('background-image', 'none');" style="position: relative; width: 90%; top:2px;"/>
+					<select id="selectarrivee" data-iconpos="notext" data-icon="plus"
+					name="enum-1" onclick="changeDestination()">
+	
+					<!-- USER -->
+					<?php if (isset($_SESSION['position'])) { ?>
+						<option value="<?= $_SESSION['user']->profilePicture ?>&&<?= $_SESSION['position']->formattedAddress ?>"><?= $_SESSION['user']->name ?></option>
+					<?php } ?>
+								
+					<!-- FRIENDS -->
+					<?php if(isset($_SESSION['friends'])) {
+									foreach ($_SESSION['friends'] as $friend ) { ?>
+					<?php if ($friend["position"]->formattedAddress != "") {?>
+						<option value="<?= $friend["profilePicture"] ?>&&<?= $friend["position"]->formattedAddress ?>">
+							<?= $friend["name"] ?>
+						</option>
+					<?php }
+							}
+						} ?>
+					</select>
 				</div>
 		
 				<!-- DATE -->
 				<div id="date">
-		
-				<?php
-				$now = getdate();
-				$months = array('janvier', 'février', 'mars', 'avril','mai',
-								'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre');
-				?>
+					<?php
+					$now = getdate();
+					$months = array('janvier', 'février', 'mars', 'avril','mai',
+									'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre');
+					?>
 					<fieldset data-role="controlgroup" data-type="horizontal"
 						style="display: inline; margin: 5px;">
 		

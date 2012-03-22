@@ -57,7 +57,7 @@
 		$edit->getContent();
 		
 		// PROFILE UPDATE
-		include('system/templates/container/mobile/home/views/updateProfile.php');
+		include('views/dialog/updateProfile.php');
 	
 	} else { // LOGIN PAGE OF THE APPLICATION ---------------------------
 	
