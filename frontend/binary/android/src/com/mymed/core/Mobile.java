@@ -33,14 +33,10 @@ public class Mobile extends Activity {
 		
 		// GET WEB VIEW
 		webView = (WebView) findViewById(R.id.web_engine);
-		setContentView(webView);
 
 		// SET CLIENT
 		webView.setWebViewClient(webClient);
 		webView.setWebChromeClient(chromeWebClient);
-
-		// setup the zoom
-		webView.getSettings().setDefaultZoom(WebSettings.ZoomDensity.MEDIUM);
 
 		// disable scrolling
 		webView.setVerticalScrollBarEnabled(false);
@@ -48,37 +44,16 @@ public class Mobile extends Activity {
 
 		// set settings
 		WebSettings webSettings = webView.getSettings();
+		webSettings.setDefaultZoom(WebSettings.ZoomDensity.MEDIUM);
 		webSettings.setSavePassword(true);
 		webSettings.setSaveFormData(true);
 		webSettings.setJavaScriptEnabled(true);
 		webSettings.setSupportZoom(false);
 		webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
 		webSettings.setGeolocationEnabled(true);
-		setContentView(R.layout.main);
 		
 		// load myMed URL
 		webView.loadUrl(MYMED_FRONTEND_URL);
-		
-		// launch the splash screen
-//		setContentView(R.layout.splash);
-//		Thread splashThread = new Thread() {
-//			@Override
-//			public void run() {
-//				try {
-//					int waited = 0;
-//					while (waited < 800) {
-//						sleep(400);
-//						waited += 100;
-//					}
-//				} catch (InterruptedException e) {
-//				} finally {
-					// set Clients
-
-//				}
-//			}
-//		};
-//
-//		splashThread.start();
 	}
 
 	public WebView getWebView() {

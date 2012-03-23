@@ -34,7 +34,7 @@ public class WebClient extends WebViewClient {
 
 	@Override
 	public void onPageStarted(WebView view, String url, Bitmap favicon) {
-		Log.v(Mobile.TAG, "URL=" + url);
+		Log.v(Mobile.TAG, "*****************URL=" + url);
 		if(url.matches(".*mobile_binary::.*")){
 			Log.i(Mobile.TAG, "Receive a mobile API call");
 			String params[] = url.split("::");
@@ -86,20 +86,20 @@ public class WebClient extends WebViewClient {
 	}
 
 
-	public void onLoadResource (WebView view, String url) {
-		if (progressDialog == null && !url.matches(".*map.*")) {
-			progressDialog = new ProgressDialog(activity);
-			progressDialog.setMessage("Chargement en cours...");
-			progressDialog.show();
-		}
-	}
-
-	public void onPageFinished(WebView view, String url) {
-		if (progressDialog != null) {
-			if (progressDialog.isShowing()) {
-				progressDialog.dismiss();
-				progressDialog = null;
-			}
-		}
-	}
+//	public void onLoadResource (WebView view, String url) {
+//		if (progressDialog == null && !url.matches(".*map.*")) {
+//			progressDialog = new ProgressDialog(activity);
+//			progressDialog.setMessage("Chargement en cours...");
+//			progressDialog.show();
+//		}
+//	}
+//
+//	public void onPageFinished(WebView view, String url) {
+//		if (progressDialog != null) {
+//			if (progressDialog.isShowing()) {
+//				progressDialog.dismiss();
+//				progressDialog = null;
+//			}
+//		}
+//	}
 }
