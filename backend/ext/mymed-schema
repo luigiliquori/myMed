@@ -66,9 +66,22 @@ create column family UserList with column_type = 'Super' and comparator = 'UTF8T
 create column family InteractionList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family RaterList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 
-/* TODO: remove myJam in the new comparator name */
-create column family Location with column_type = 'Super' and comparator = 'com.mymed.myjam.type.MyMedIdType' and subcomparator = 'com.mymed.myjam.type.MyMedIdType';
+/*
+ * MyJam related columns
+*/
+create column family Location with column_type = 'Super' and comparator = 'LongType';
 
+/* This columns are not necessary to mymed, these are specific for myjam
+ * create column family Report with column_metadata = [{column_name: user, validation_class:UTF8Type},
+ *             {column_name: type, validation_class:UTF8Type},
+ *             {column_name: transit, validation_class:UTF8Type},
+ *             {column_name: traffic_flow, validation_class:UTF8Type},
+ *             {column_name: comment, validation_class:UTF8Type}];
+ * create column family ActiveReport with comparator = 'com.mymed.data.id.MyMedIdType';
+ * create column family ReportUpdate with comparator = 'com.mymed.data.id.MyMedIdType';
+ * create column family UserReport with comparator = 'com.mymed.data.id.MyMedIdType';
+ * create column family Feedback with comparator = 'UTF8Type';
+*/
 
 /*
  * REPUTATION DATASTRUCTURE

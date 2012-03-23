@@ -33,11 +33,7 @@ class MyTranslator extends AbstractTemplate {
 	*/
 	public /*String*/ function getHeader() { ?>
 		<div data-role="header" data-theme="a">
-			<?php if(TARGET == "desktop") { ?>
-				<a href="#" onClick="window.close();" data-role="button" data-theme="r" target="_top">Fermer</a>
-			<?php } else { ?>
-				<a href="?application=0" rel="external" data-role="button" data-theme="r">Close</a>
-			<?php } ?>
+			<a href="?application=0" rel="external" data-role="button" data-theme="r">Close</a>
 			<h1><?= $this->title ?></h1>
 		</div>
 	<?php }

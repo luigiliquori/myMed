@@ -1,7 +1,7 @@
 package com.mymed.properties;
 
 /**
- * Interface for defining a common properties type holder
+ * Interface for defining a common properties type holder.
  * 
  * @author Milo Casagrande
  */

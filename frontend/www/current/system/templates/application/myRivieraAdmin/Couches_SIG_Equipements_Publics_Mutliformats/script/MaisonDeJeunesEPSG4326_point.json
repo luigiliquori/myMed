@@ -1,7 +1,0 @@
-{
-"type": "FeatureCollection",
-"features": [
-{ "type": "Feature", "properties": { "IDENT": "Centre loisirs jeunesse", "IDNUM": 0, "COMMUNE": "MENTON", "ADRESSE": "10 val Menton 06500 MENTON", "LIEU_DIT": "", "NOM": "Centre loisirs jeunesse", "REMARQUE": "", "DE_SAID_": "2008\/01\/16", "BUREAUETUD": "Service SIG CARF" }, "geometry": { "type": "Point", "coordinates": [ 7.504690, 43.777044 ] } }
-
-]
-}

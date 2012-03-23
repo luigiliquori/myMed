@@ -1,0 +1,87 @@
+.ui-page {
+	background: #2a2a2a;
+	text-shadow: none;
+	color: white;
+}
+
+#loginView, #loginView input {
+	font-family: helvetica;
+	font-size: 9pt;
+}
+
+#loginHeader {
+	position: absolute; 
+	top:0px; 
+	left: 0px; 
+	width: 100%; 
+	height: 80px; 
+	background-color: #2d2d2d;
+}
+
+#loginHeaderContainer {
+	position: relative; 
+	width: 1024px;
+}
+
+#logo {
+	position: absolute; 
+	top:17px; 
+	left: 0px;
+}
+
+#loginEmail {
+	position: absolute; 
+	left:380px; 
+	top:-10px; 
+	text-align: left;
+}
+
+#loginPassword {
+	position: absolute; 
+	left:600px;  
+	top:-10px; 
+	text-align: left;
+}
+
+#loginConnexion {
+	position: absolute; 
+	left:820px; 
+	top: 0px;
+	text-align: left;
+}
+
+.field {
+	width: 200px;
+}
+
+#loginContent {
+	position: absolute; 
+	top: 80px; 
+	left:0px; 
+	width: 100%; 
+	height:470px; 
+	background-image: url('../img/background.png');
+}
+
+#loginContainer {
+	position: relative;
+	width: 1024px;
+	text-align: left;
+	color: black;
+	text-shadow: none;
+}
+
+#loginFooter {
+	position: absolute; 
+	top: 560px; 
+	left:0px; 
+	width: 100%; 
+	height:50px;
+}
+
+#loginFooterContainer {
+	position: relative; 
+	width: 1024px; 
+	left:-40px;
+}
+

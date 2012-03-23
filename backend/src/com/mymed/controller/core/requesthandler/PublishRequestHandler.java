@@ -47,40 +47,37 @@ import com.mymed.model.data.user.MUserBean;
 @MultipartConfig
 @WebServlet("/PublishRequestHandler")
 public class PublishRequestHandler extends AbstractRequestHandler {
-  /* --------------------------------------------------------- */
-  /* Attributes */
-  /* --------------------------------------------------------- */
-  private static final long serialVersionUID = 1L;
 
-  private PubSubManager pubsubManager;
-
-  /* --------------------------------------------------------- */
-  /* Constructors */
-  /* --------------------------------------------------------- */
   /**
-   * @throws ServletException
-   * @see HttpServlet#HttpServlet()
+   * Generated serial ID.
    */
-  public PublishRequestHandler() throws ServletException {
+  private static final long serialVersionUID = 7612306539244045439L;
+
+  /**
+   * JSON 'predicate' attribute.
+   */
+  private static final String JSON_PREDICATE = JSON.get("json.predicate");
+
+  private final PubSubManager pubsubManager;
+
+  public PublishRequestHandler() {
     super();
 
-    try {
-      pubsubManager = new PubSubManager();
-    } catch (final InternalBackEndException e) {
-      throw new ServletException("PubSubManager is not accessible because: " + e.getMessage());
-    }
+    pubsubManager = new PubSubManager();
   }
 
-  /* --------------------------------------------------------- */
-  /* extends AbstractRequestHandler */
-  /* --------------------------------------------------------- */
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.mymed.controller.core.requesthandler.AbstractRequestHandler#getParameters
+   * (javax.servlet.http.HttpServletRequest)
+   */
   @Override
   protected Map<String, String> getParameters(final HttpServletRequest request) throws AbstractMymedException {
 
     if (request.getContentType() != null && !request.getContentType().matches("multipart/form-data.*")) {
       return super.getParameters(request);
-      // throw new
-      // InternalBackEndException("PublishRequestHandler should use a multipart request!");
     }
 
     final Map<String, String> parameters = new HashMap<String, String>();
@@ -88,24 +85,21 @@ public class PublishRequestHandler extends AbstractRequestHandler {
       for (final Part part : request.getParts()) {
         final String key = part.getName();
         final Scanner s = new Scanner(part.getInputStream());
-        final String value = URLDecoder.decode(s.nextLine(), "UTF-8");
+        final String value = URLDecoder.decode(s.nextLine(), ENCODING);
         parameters.put(key, value);
       }
     } catch (final Exception e) {
-      e.printStackTrace();
+      LOGGER.debug("Error retrieving arguments", e);
       throw new InternalBackEndException("Error in getting arguments");
     }
 
-    if (!parameters.containsKey("code")) {
+    if (!parameters.containsKey(JSON_CODE)) {
       throw new InternalBackEndException("code argument is missing!");
     }
 
     return parameters;
   }
 
-  /* --------------------------------------------------------- */
-  /* extends HttpServlet */
-  /* --------------------------------------------------------- */
   /**
    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
    *      response)
@@ -118,14 +112,10 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 
     try {
       final Map<String, String> parameters = getParameters(request);
-      final RequestCode code = requestCodeMap.get(parameters.get("code"));
+      // Check the access token
+      checkToken(parameters);
 
-      // accessToken
-      if (!parameters.containsKey("accessToken")) {
-        throw new InternalBackEndException("accessToken argument is missing!");
-      } else {
-        tokenValidation(parameters.get("accessToken")); // Security Validation
-      }
+      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
 
       switch (code) {
         case READ :
@@ -135,7 +125,6 @@ public class PublishRequestHandler extends AbstractRequestHandler {
       }
 
     } catch (final AbstractMymedException e) {
-      LOGGER.info("Error in doGet operation");
       LOGGER.debug("Error in doGet operation", e);
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());
@@ -156,74 +145,78 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 
     try {
       final Map<String, String> parameters = getParameters(request);
-      final RequestCode code = requestCodeMap.get(parameters.get("code"));
+      // Check the access token
+      checkToken(parameters);
+
+      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
       String application, predicateListJson, user, data;
 
-      // accessToken
-      if (parameters.get("accessToken") == null) {
-        throw new InternalBackEndException("accessToken argument is missing!");
+      if (code.equals(RequestCode.CREATE)) {
+        message.setMethod(JSON_CODE_CREATE);
+        if ((application = parameters.get(JSON_APPLICATION)) == null) {
+          throw new InternalBackEndException("missing application argument!");
+        } else if ((predicateListJson = parameters.get(JSON_PREDICATE)) == null) {
+          throw new InternalBackEndException("missing predicate argument!");
+        } else if ((user = parameters.get(JSON_USER)) == null) {
+          throw new InternalBackEndException("missing user argument!");
+        } else if ((data = parameters.get(JSON_DATA)) == null) {
+          throw new InternalBackEndException("missing data argument!");
+        }
+
+        try {
+
+          final MUserBean userBean = getGson().fromJson(user, MUserBean.class);
+          final Type dataType = new TypeToken<List<MDataBean>>() {
+          }.getType();
+          final List<MDataBean> dataList = getGson().fromJson(data, dataType);
+          final List<MDataBean> predicateListObject = getGson().fromJson(predicateListJson, dataType);
+
+          // construct the subPredicate
+          final StringBuffer bufferSubPredicate = new StringBuffer(150);
+          for (final MDataBean element : predicateListObject) {
+            bufferSubPredicate.append(element.getKey());
+            bufferSubPredicate.append('(');
+            bufferSubPredicate.append(element.getValue());
+            bufferSubPredicate.append(')');
+          }
+
+          bufferSubPredicate.trimToSize();
+
+          // construct the Predicate => broadcast algorithm
+          final int broadcastSize = (int) Math.pow(2, predicateListObject.size());
+          for (int i = 1; i < broadcastSize; i++) {
+            final StringBuffer bufferPredicate = new StringBuffer(150);
+            int mask = i;
+            int j = 0;
+
+            while (mask > 0) {
+              if ((mask & 1) == 1) {
+                final MDataBean element = predicateListObject.get(j);
+                bufferPredicate.append(element.getKey());
+                bufferPredicate.append('(');
+                bufferPredicate.append(element.getValue());
+                bufferPredicate.append(')');
+              }
+              mask >>= 1;
+              j++;
+            }
+
+            bufferPredicate.trimToSize();
+
+            if (bufferPredicate.length() != 0) {
+              pubsubManager.create(application, bufferPredicate.toString(), bufferSubPredicate.toString(), userBean,
+                  dataList);
+            }
+          }
+        } catch (final JsonSyntaxException e) {
+          throw new InternalBackEndException("jSon format is not valid");
+        } catch (final JsonParseException e) {
+          throw new InternalBackEndException(e.getMessage());
+        }
       } else {
-        tokenValidation(parameters.get("accessToken")); // Security Validation
+        throw new InternalBackEndException("PublishRequestHandler(" + code + ") not exist!");
       }
-
-      switch (code) {
-        case CREATE : // PUT
-          message.setMethod("CREATE");
-          if ((application = parameters.get("application")) == null) {
-            throw new InternalBackEndException("missing application argument!");
-          } else if ((predicateListJson = parameters.get("predicate")) == null) {
-            throw new InternalBackEndException("missing predicate argument!");
-          } else if ((user = parameters.get("user")) == null) {
-            throw new InternalBackEndException("missing user argument!");
-          } else if ((data = parameters.get("data")) == null) {
-            throw new InternalBackEndException("missing data argument!");
-          }
-
-          try {
-        	  
-            final MUserBean userBean = getGson().fromJson(user, MUserBean.class);
-            final Type dataType = new TypeToken<List<MDataBean>>() {
-            }.getType();
-            final List<MDataBean> dataList = getGson().fromJson(data, dataType);
-            final List<MDataBean> predicateListObject = getGson().fromJson(predicateListJson, dataType);
-
-            // construct the subPredicate
-            String subPredicate = "";
-            for (final MDataBean element : predicateListObject) {
-              subPredicate += element.getKey() + "(" + element.getValue() + ")";
-            }
-
-            // construct the Predicate => broadcast algorithm
-            final int broadcastSize = (int) Math.pow(2, predicateListObject.size());
-            for (int i = 1; i < broadcastSize; i++) {
-              int mask = i;
-              String predicate = "";
-              int j = 0;
-              while (mask > 0) {
-                if ((mask & 1) == 1) {
-                  final MDataBean element = predicateListObject.get(j);
-                  predicate += element.getKey() + "(" + element.getValue() + ")";
-                }
-                mask >>= 1;
-                j++;
-              }
-              if (!predicate.equals("")) {
-                pubsubManager.create(application, predicate, subPredicate, userBean, dataList);
-              }
-            }
-
-          } catch (final JsonSyntaxException e) {
-            throw new InternalBackEndException("jSon format is not valid");
-          } catch (final JsonParseException e) {
-            throw new InternalBackEndException(e.getMessage());
-          }
-          break;
-        default :
-          throw new InternalBackEndException("PublishRequestHandler(" + code + ") not exist!");
-      }
-
     } catch (final AbstractMymedException e) {
-      LOGGER.info("Error in doPost operation");
       LOGGER.debug("Error in doPost operation", e);
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.controller.core.requesthandler;
 
 import java.io.IOException;
@@ -34,33 +34,23 @@ import com.mymed.model.data.user.MUserBean;
  * Servlet implementation class PubSubRequestHandler
  */
 public class SubscribeRequestHandler extends AbstractRequestHandler {
-  /* --------------------------------------------------------- */
-  /* Attributes */
-  /* --------------------------------------------------------- */
-  private static final long serialVersionUID = 1L;
-
-  private PubSubManager pubsubManager;
-
-  /* --------------------------------------------------------- */
-  /* Constructors */
-  /* --------------------------------------------------------- */
   /**
-   * @throws ServletException
-   * @see HttpServlet#HttpServlet()
+   * Generated serial ID.
    */
-  public SubscribeRequestHandler() throws ServletException {
-    super();
+  private static final long serialVersionUID = -3497628036243410706L;
 
-    try {
-      pubsubManager = new PubSubManager();
-    } catch (final InternalBackEndException e) {
-      throw new ServletException("PubSubManager is not accessible because: " + e.getMessage());
-    }
+  /**
+   * JSON 'predicate' attribute.
+   */
+  private static final String JSON_PREDICATE = JSON.get("json.predicate");
+
+  private final PubSubManager pubsubManager;
+
+  public SubscribeRequestHandler() {
+    super();
+    pubsubManager = new PubSubManager();
   }
 
-  /* --------------------------------------------------------- */
-  /* extends HttpServlet */
-  /* --------------------------------------------------------- */
   /**
    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
    *      response)
@@ -73,25 +63,21 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
 
     try {
       final Map<String, String> parameters = getParameters(request);
-      final RequestCode code = requestCodeMap.get(parameters.get("code"));
+      // Check the access token
+      checkToken(parameters);
 
-      // accessToken
-      if (!parameters.containsKey("accessToken")) {
-        throw new InternalBackEndException("accessToken argument is missing!");
-      } else {
-        tokenValidation(parameters.get("accessToken")); // Security Validation
-      }
+      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
 
       switch (code) {
         case READ :
+          break;
         case DELETE :
+          break;
         default :
           throw new InternalBackEndException("SubscribeRequestHandler.doGet(" + code + ") not exist!");
       }
-
     } catch (final AbstractMymedException e) {
-      LOGGER.info("Error in doGet operation");
-      LOGGER.debug("Error in doGet operation", e.getCause());
+      LOGGER.debug("Error in doGet operation", e);
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());
     }
@@ -111,43 +97,34 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
 
     try {
       final Map<String, String> parameters = getParameters(request);
-      final RequestCode code = requestCodeMap.get(parameters.get("code"));
+      // Check the access token
+      checkToken(parameters);
+
+      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
       String application, predicate, user;
 
-      // accessToken
-      if (!parameters.containsKey("accessToken")) {
-        throw new InternalBackEndException("accessToken argument is missing!");
+      if (code.equals(RequestCode.CREATE)) {
+        if ((application = parameters.get(JSON_APPLICATION)) == null) {
+          throw new InternalBackEndException("missing application argument!");
+        } else if ((predicate = parameters.get(JSON_PREDICATE)) == null) {
+          throw new InternalBackEndException("missing predicate argument!");
+        } else if ((user = parameters.get(JSON_USER)) == null) {
+          throw new InternalBackEndException("missing user argument!");
+        }
+        try {
+          final MUserBean userBean = getGson().fromJson(user, MUserBean.class);
+
+          pubsubManager.create(application, predicate, userBean);
+          LOGGER.info("predicate subscribed: " + predicate);
+          message.setDescription("predicate subscribed: " + predicate);
+        } catch (final JsonSyntaxException e) {
+          throw new InternalBackEndException("jSon format is not valid");
+        }
       } else {
-        tokenValidation(parameters.get("accessToken")); // Security Validation
+        throw new InternalBackEndException("SubscribeRequestHandler.doPost(" + code + ") not exist!");
       }
-
-      switch (code) {
-        case CREATE :
-          if ((application = parameters.get("application")) == null) {
-            throw new InternalBackEndException("missing application argument!");
-          } else if ((predicate = parameters.get("predicate")) == null) {
-            throw new InternalBackEndException("missing predicate argument!");
-          } else if ((user = parameters.get("user")) == null) {
-            throw new InternalBackEndException("missing user argument!");
-          }
-          try {
-            final MUserBean userBean = getGson().fromJson(user, MUserBean.class);
-
-            pubsubManager.create(application, predicate, userBean);
-            LOGGER.info("predicate subscribed: " + predicate);
-            message.setDescription("predicate subscribed: " + predicate);
-
-          } catch (final JsonSyntaxException e) {
-            throw new InternalBackEndException("jSon format is not valid");
-          }
-          break;
-        default :
-          throw new InternalBackEndException("SubscribeRequestHandler.doGet(" + code + ") not exist!");
-      }
-
     } catch (final AbstractMymedException e) {
-      LOGGER.info("Error in doGet operation");
-      LOGGER.debug("Error in doGet operation", e.getCause());
+      LOGGER.debug("Error in doPost operation", e);
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());
     }

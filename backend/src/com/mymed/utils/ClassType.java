@@ -218,13 +218,13 @@ public enum ClassType {
 
   @Override
   public String toString() {
-    final StringBuilder stringBuilder = new StringBuilder(45);
+    final StringBuffer buffer = new StringBuffer(45);
 
-    stringBuilder.append("Object Class: " + getObjectClass().getCanonicalName());
-    stringBuilder.append("\nNative Type : " + getPrimitiveType().getSimpleName());
+    buffer.append("Object Class: " + getObjectClass().getCanonicalName());
+    buffer.append("\nNative Type : " + getPrimitiveType().getSimpleName());
 
-    stringBuilder.trimToSize();
+    buffer.trimToSize();
 
-    return stringBuilder.toString();
+    return buffer.toString();
   }
 }

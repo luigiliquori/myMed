@@ -129,6 +129,18 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011
 		  <classpath refid="classpath.run"/>
 		</java>
 	</target>
+	
+	<!-- Run the tests on the Location column family -->
+	<target name="location" depends="compile" description="Run the stress test on the Location column family" >
+		<java fork="true" classname="com.mymed.tests.stress.GeoLocationStressTest">
+		  <classpath refid="classpath.run"/>
+		  <arg value="${arg0}"/>
+	      <arg value="${arg1}"/>
+		  <arg value="${arg2}"/>
+		  <arg value="${arg3}"/>
+		  <arg value="${arg4}"/>
+		</java>
+	</target>
 
 	<!-- Run the tests on the Authentication, User and Session column family -->
 	<target name="alltest" depends="compile" description="Run the stress test on the Authentication, User and Session column family" >

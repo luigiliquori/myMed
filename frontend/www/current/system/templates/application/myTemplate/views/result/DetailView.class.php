@@ -1,5 +1,4 @@
 <?php
-require_once 'system/templates/application/' . APPLICATION_NAME . '/MyApplication.class.php';
 require_once 'system/templates/ITemplate.php';
 require_once 'system/templates/AbstractTemplate.class.php';
 require_once 'lib/dasp/request/Reputation.class.php';
@@ -10,7 +9,7 @@ require_once 'lib/dasp/request/Reputation.class.php';
  * @author lvanni
  *
  */
-class DetailView extends MyApplication {
+class DetailView extends AbstractTemplate {
 	
 	/* --------------------------------------------------------- */
 	/* Attributes */
@@ -52,7 +51,7 @@ class DetailView extends MyApplication {
 	*/
 	public /*String*/ function getContent() { ?>
 		<!-- CONTENT -->
-		<div class="content" style="text-align: left;">
+		<div class="content" style="text-align: left; color: black;">
 			<!-- PROFILE -->
 			<?php
 			$request = new Request("ProfileRequestHandler", READ);

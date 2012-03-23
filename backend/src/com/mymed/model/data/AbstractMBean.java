@@ -35,27 +35,48 @@ import com.mymed.utils.MLogger;
  * <p>
  * The required conventions are as follows:<br>
  * <ul>
- * <li>The class must have a public default constructor (no-argument). This allows easy instantiation within editing and
- * activation frameworks.</li>
- * <li>The class properties must be accessible using get, set, is (used for boolean properties instead of get) and other
- * methods (so-called accessor methods and mutator methods), following a standard naming-convention. This allows easy
- * automated inspection and updating of bean state within frameworks, many of which include custom editors for various
- * types of properties.</li>
- * <li>The class should be serializable. It allows applications and frameworks to reliably save, store, and restore the
- * bean's state in a fashion independent of the VM and of the platform.</li>
- * <li>The class must have a getAttributeToMap method, that convert all the fields in a hashMap format for the myMed
- * wrapper</li>
+ * <li>The class must have a public default constructor (no-argument). This
+ * allows easy instantiation within editing and activation frameworks.</li>
+ * <li>The class properties must be accessible using get, set, is (used for
+ * boolean properties instead of get) and other methods (so-called accessor
+ * methods and mutator methods), following a standard naming-convention. This
+ * allows easy automated inspection and updating of bean state within
+ * frameworks, many of which include custom editors for various types of
+ * properties.</li>
+ * <li>The class should be serializable. It allows applications and frameworks
+ * to reliably save, store, and restore the bean's state in a fashion
+ * independent of the VM and of the platform.</li>
+ * <li>The class must have a getAttributeToMap method, that convert all the
+ * fields in a hashMap format for the myMed wrapper</li>
  * <li>The class must override toString to have an human readable format</li>
  * </ul>
  * 
  * @author lvanni
  * @author Milo Casagrande
  */
-public abstract class AbstractMBean {
+public abstract class AbstractMBean implements Cloneable {
   // Default logger for all the beans that extend this abstract
   protected static final Logger LOGGER = MLogger.getLogger();
+  // Used for the hashCode() function
+  protected static final int PRIME = 31;
 
   private static final int PRIV = Modifier.PRIVATE;
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#hashCode()
+   */
+  @Override
+  public abstract int hashCode();
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#equals(java.lang.Object)
+   */
+  @Override
+  public abstract boolean equals(Object obj);
 
   /**
    * @return all the fields in a hashMap format for the myMed wrapper
@@ -73,7 +94,7 @@ public abstract class AbstractMBean {
 
   /*
    * (non-Javadoc)
-   *
+   * 
    * @see java.lang.Object#toString()
    */
   @Override
@@ -85,12 +106,14 @@ public abstract class AbstractMBean {
   }
 
   /**
-   * Static inner class to provide reflection mechanism in a protected way, without strong references
+   * Static inner class to provide reflection mechanism in a protected way,
+   * without strong references
    * 
    * @author Milo Casagrande
    */
   private static final class InnerPrivilegedExceptionAction implements PrivilegedExceptionAction<Map<String, byte[]>> {
 
+    // The object to work on
     private final Object object;
 
     public InnerPrivilegedExceptionAction(final Object object) {
@@ -129,12 +152,14 @@ public abstract class AbstractMBean {
   }
 
   /**
-   * Static inner class to provide reflection mechanism in a protected way, without strong references
+   * Static inner class to provide reflection mechanism in a protected way,
+   * without strong references
    * 
    * @author Milo Casagrande
    */
   private static final class InnerPrivilegedAction implements PrivilegedAction<StringBuffer> {
 
+    // The object to work on
     private final Object object;
 
     public InnerPrivilegedAction(final Object object) {

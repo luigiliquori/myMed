@@ -34,32 +34,34 @@ import com.mymed.controller.core.requesthandler.message.JsonMessage;
  * Servlet implementation class PubSubRequestHandler
  */
 public class FindRequestHandler extends AbstractRequestHandler {
-  /* --------------------------------------------------------- */
-  /* Attributes */
-  /* --------------------------------------------------------- */
-  private static final long serialVersionUID = 1L;
 
-  private PubSubManager pubsubManager;
-
-  /* --------------------------------------------------------- */
-  /* Constructors */
-  /* --------------------------------------------------------- */
   /**
-   * @throws ServletException
-   * @see HttpServlet#HttpServlet()
+   * Generated serial ID.
    */
-  public FindRequestHandler() throws ServletException {
+  private static final long serialVersionUID = 4295832798531448329L;
+
+  /**
+   * JSON 'results' attribute.
+   */
+  private static final String JSON_RESULTS = JSON.get("json.results");
+
+  /**
+   * JSON 'predicate' attribute.
+   */
+  private static final String JSON_PREDICATE = JSON.get("json.predicate");
+
+  /**
+   * JSON 'details' attribute.
+   */
+  private static final String JSON_DETAILS = JSON.get("json.details");
+
+  private final PubSubManager pubsubManager;
+
+  public FindRequestHandler() {
     super();
-    try {
-      pubsubManager = new PubSubManager();
-    } catch (final InternalBackEndException e) {
-      throw new ServletException("PubSubManager is not accessible because: " + e.getMessage());
-    }
+    pubsubManager = new PubSubManager();
   }
 
-  /* --------------------------------------------------------- */
-  /* extends HttpServlet */
-  /* --------------------------------------------------------- */
   /**
    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
    *      response)
@@ -72,50 +74,42 @@ public class FindRequestHandler extends AbstractRequestHandler {
 
     try {
       final Map<String, String> parameters = getParameters(request);
-      final RequestCode code = requestCodeMap.get(parameters.get("code"));
+      // Check the access token
+      checkToken(parameters);
+
+      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
       String application, predicate, user;
 
-      // accessToken
-      if (!parameters.containsKey("accessToken")) {
-        throw new InternalBackEndException("accessToken argument is missing!");
+      if (code == RequestCode.READ) {
+        message.setMethod(JSON_CODE_READ);
+        if ((application = parameters.get(JSON_APPLICATION)) == null) {
+          throw new InternalBackEndException("missing application argument!");
+        } else if ((predicate = parameters.get(JSON_PREDICATE)) == null) {
+          throw new InternalBackEndException("missing predicate argument!");
+        }
+        if ((user = parameters.get(JSON_USER)) != null) {
+          final List<Map<String, String>> details = pubsubManager.read(application, predicate, user);
+          if (details.isEmpty()) {
+            throw new IOBackEndException("no results found!", 404);
+          }
+          message.setDescription("Details found for Application: " + application + " User: " + user + " Predicate: "
+              + predicate);
+          LOGGER.info("Details found for Application: " + application + " User: " + user + " Predicate: " + predicate);
+          message.addData(JSON_DETAILS, getGson().toJson(details));
+        } else { // GET RESULTS
+          final List<Map<String, String>> resList = pubsubManager.read(application, predicate);
+          if (resList.isEmpty()) {
+            throw new IOBackEndException("No reslult found for Application: " + application + " Predicate: "
+                + predicate, 404);
+          }
+          message.setDescription("Results found for Application: " + application + " Predicate: " + predicate);
+          LOGGER.info("Results found for Application: " + application + " Predicate: " + predicate);
+          message.addData(JSON_RESULTS, getGson().toJson(resList));
+        }
       } else {
-        tokenValidation(parameters.get("accessToken")); // Security Validation
-      }
-
-      switch (code) {
-        case READ : // GET
-          message.setMethod("READ");
-          if ((application = parameters.get("application")) == null) {
-            throw new InternalBackEndException("missing application argument!");
-          } else if ((predicate = parameters.get("predicate")) == null) {
-            throw new InternalBackEndException("missing predicate argument!");
-          }
-          if ((user = parameters.get("user")) != null) {
-            final List<Map<String, String>> details = pubsubManager.read(application, predicate, user);
-            if (details.isEmpty()) {
-              throw new IOBackEndException("no reslult found!", 404);
-            }
-            message.setDescription("Details found for Application: " + application + " User: " + user + " Predicate: "
-                + predicate);
-            LOGGER
-                .info("Details found for Application: " + application + " User: " + user + " Predicate: " + predicate);
-            message.addData("details", getGson().toJson(details));
-          } else { // GET RESULTS
-            final List<Map<String, String>> resList = pubsubManager.read(application, predicate);
-            if (resList.isEmpty()) {
-              throw new IOBackEndException("No reslult found for Application: " + application + " Predicate: "
-                  + predicate, 404);
-            }
-            message.setDescription("Results found for Application: " + application + " Predicate: " + predicate);
-            LOGGER.info("Results found for Application: " + application + " Predicate: " + predicate);
-            message.addData("results", getGson().toJson(resList));
-          }
-          break;
-        default :
-          throw new InternalBackEndException("FindRequestHandler(" + code + ") not exist!");
+        throw new InternalBackEndException("FindRequestHandler(" + code + ") not exist!");
       }
     } catch (final AbstractMymedException e) {
-      LOGGER.info("Error in doGet operation");
       LOGGER.debug("Error in doGet operation", e);
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());
@@ -136,23 +130,15 @@ public class FindRequestHandler extends AbstractRequestHandler {
 
     try {
       final Map<String, String> parameters = getParameters(request);
-      final RequestCode code = requestCodeMap.get(parameters.get("code"));
+      // Check the access token
+      checkToken(parameters);
 
-      // accessToken
-      if (!parameters.containsKey("accessToken")) {
-        throw new InternalBackEndException("accessToken argument is missing!");
-      } else {
-        tokenValidation(parameters.get("accessToken")); // Security Validation
+      final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
+
+      if (code != RequestCode.CREATE) {
+        throw new InternalBackEndException("FindRequestHandler(" + code + ") not exist!");
       }
-
-      switch (code) {
-        case CREATE :
-        default :
-          throw new InternalBackEndException("FindRequestHandler(" + code + ") not exist!");
-      }
-
     } catch (final AbstractMymedException e) {
-      LOGGER.info("Error in doPost operation");
       LOGGER.debug("Error in doPost operation", e);
       message.setStatus(e.getStatus());
       message.setDescription(e.getMessage());

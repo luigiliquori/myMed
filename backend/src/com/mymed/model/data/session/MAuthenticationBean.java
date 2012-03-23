@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 INRIA 
+ * Copyright 2012 INRIA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.mymed.model.data.session;
 
 import com.mymed.model.data.AbstractMBean;
@@ -26,7 +26,7 @@ import com.mymed.model.data.user.MUserBean;
  * @author lvanni
  * 
  */
-public class MAuthenticationBean extends AbstractMBean {
+public final class MAuthenticationBean extends AbstractMBean {
   /*
    * Used for the calculation of the hashCode()
    */
@@ -39,14 +39,42 @@ public class MAuthenticationBean extends AbstractMBean {
   /** sha256(string) */
   private String password = "";
 
+  /**
+   * Create a new {@link MAuthenticationBean}
+   */
+  public MAuthenticationBean() {
+    super();
+  }
+
+  /**
+   * Copy constructor to implement a sane clone method
+   * 
+   * @param toClone
+   *          the bean to clone
+   */
+  protected MAuthenticationBean(final MAuthenticationBean toClone) {
+    super();
+
+    login = toClone.getLogin();
+    user = toClone.getUser();
+    password = toClone.getPassword();
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#clone()
+   */
+  @Override
+  public MAuthenticationBean clone() {
+    return new MAuthenticationBean(this);
+  }
+
   @Override
   public String toString() {
     return "Autentication:\n" + super.toString();
   }
 
-  /* --------------------------------------------------------- */
-  /* GETTER AND SETTER */
-  /* --------------------------------------------------------- */
   /**
    * @return the AUTHENTICATION_ID
    */
@@ -123,19 +151,19 @@ public class MAuthenticationBean extends AbstractMBean {
 
       equal = true;
 
-      if (login == null && comparable.getLogin() != null) {
+      if (login == null && comparable.getLogin() != null || login != null && comparable.getLogin() == null) {
         equal &= false;
       } else if (login != null && comparable.getLogin() != null) {
         equal &= login.equals(comparable.getLogin());
       }
 
-      if (password == null && comparable.getPassword() != null) {
+      if (password == null && comparable.getPassword() != null || password != null && comparable.getPassword() == null) {
         equal &= false;
       } else if (password != null && comparable.getPassword() != null) {
         equal &= password.equals(comparable.getPassword());
       }
 
-      if (user == null && comparable.getUser() != null) {
+      if (user == null && comparable.getUser() != null || user != null && comparable.getUser() == null) {
         equal &= false;
       } else if (user != null && comparable.getUser() != null) {
         equal &= user.equals(comparable.getUser());

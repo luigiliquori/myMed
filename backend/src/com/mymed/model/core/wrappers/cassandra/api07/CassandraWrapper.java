@@ -89,9 +89,8 @@ public class CassandraWrapper implements ICassandraWrapper {
    * machine address, and port the default port
    * 
    * @throws UnknownHostException
-   * @throws InternalBackEndException
    */
-  public CassandraWrapper() throws UnknownHostException, InternalBackEndException {
+  public CassandraWrapper() throws UnknownHostException {
     this(InetAddress.getLocalHost().getHostAddress(), PORT_NUMBER);
   }
 
@@ -102,9 +101,8 @@ public class CassandraWrapper implements ICassandraWrapper {
    *          the address to use for the connection
    * @param port
    *          the port to use for the connection
-   * @throws InternalBackEndException
    */
-  public CassandraWrapper(final String address, final int port) throws InternalBackEndException {
+  public CassandraWrapper(final String address, final int port) {
     this.address = address;
     this.port = port;
   }

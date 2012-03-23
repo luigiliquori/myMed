@@ -276,6 +276,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
 			<isset property="dir" />
 			<then>
 				<delete includeemptydirs="true" failonerror="false" dir="${build.dir}/${dir}" followsymlinks="false" />
+				<echo message="Cleaned ${dir} (lib:backend, mymed: frontend)" />
 			</then>
 			<else>
 				<delete includeemptydirs="true" failonerror="false" dir="${build.dir}" followsymlinks="false" />

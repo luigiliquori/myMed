@@ -29,6 +29,7 @@ import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.data.application.MDataBean;
 import com.mymed.model.data.user.MUserBean;
+import com.mymed.utils.MConverter;
 import com.mymed.utils.Mail;
 /**
  * Manage an user profile
@@ -52,11 +53,11 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
   private static final String SC_DATA_LIST = COLUMNS.get("column.sc.data.list");
   private static final String CF_USER = COLUMNS.get("column.cf.user");
 
-  public PubSubManager() throws InternalBackEndException {
+  public PubSubManager() {
     this(new StorageManager());
   }
 
-  public PubSubManager(final IStorageManager storageManager) throws InternalBackEndException {
+  public PubSubManager(final IStorageManager storageManager) {
     super(storageManager);
   }
 
@@ -68,7 +69,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
   @Override
   public void create(final String application, final String predicate, final String subPredicate,
       final MUserBean publisher, final List<MDataBean> dataList) throws InternalBackEndException, IOBackEndException {
-
+	  
     try {
       // STORE THE PUBLISHER
       final Map<String, byte[]> args = new HashMap<String, byte[]>();
@@ -134,7 +135,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
       // same email to all at once, exposing the users email
       final StringBuffer mailingList = new StringBuffer(250);
       final List<Map<byte[], byte[]>> subscribers = storageManager.selectList(SC_USER_LIST, SUBSCRIBER_PREFIX
-          + application + subPredicate);
+          + application + predicate);
       for (final Map<byte[], byte[]> set : subscribers) {
         for (final Entry<byte[], byte[]> entry : set.entrySet()) {
           if (new String(entry.getKey(), ENCODING).equals("user")) {
@@ -218,12 +219,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
       if (set.size() > 3) { // do not return the memberList
         final Map<String, String> resMap = new HashMap<String, String>();
         for (final Entry<byte[], byte[]> entry : set.entrySet()) {
-          try {
-            resMap.put(new String(entry.getKey(), ENCODING), new String(entry.getValue(), ENCODING));
-          } catch (final UnsupportedEncodingException e) {
-            LOGGER.debug(ERROR_ENCODING, ENCODING, e);
-            throw new InternalBackEndException(e.getMessage()); // NOPMD
-          }
+          resMap.put(MConverter.byteArrayToString(entry.getKey()), MConverter.byteArrayToString(entry.getValue()));
         }
 
         resList.add(resMap);
