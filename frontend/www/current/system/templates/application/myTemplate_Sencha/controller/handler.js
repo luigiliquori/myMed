@@ -9,7 +9,7 @@ Ext.define('myTemplate.controller.handler', {
       findButton: '#findButton',
       publishButton: '#publishButton',
       subscribeButton: '#subscribeButton',
-      resultList: 'list',
+      resultList: '#resultList',
       detailPanel: '#details'
     },
 
@@ -93,6 +93,7 @@ Ext.define('myTemplate.controller.handler', {
 	  }
     var view  = this.getNavView();
 		form.submit({
+			waitMsg: 'recherche...',
 	    url: 'lib/dasp/request/find.php',
       success: function(elt, response) {
 				var j= eval(response.data.results);
@@ -115,6 +116,7 @@ Ext.define('myTemplate.controller.handler', {
 	onPublish: function() {
 		var form = this.getPublishButton().up('formpanel');
 		form.submit({
+			waitMsg: 'publication...',
 	    url: 'lib/dasp/request/publish.php',
       success: function(elt, response) {
         console.log(response);
@@ -130,6 +132,7 @@ Ext.define('myTemplate.controller.handler', {
 	onSubscribe: function() {
     var form = this.getSubscribeButton().up('formpanel');
 		form.submit({
+			waitMsg: 'souscription...',
 	    url: 'lib/dasp/request/subscribe.php',
       success: function(elt, response) {
       	console.log(response);

@@ -11,7 +11,7 @@ Ext.application({
   phoneStartupScreen: 'resources/images/phone_startup.png',
   glossOnIcon: false,
 
-  views: ['publish', 'find', 'subscribe'],
+  views: ['publish', 'find', 'subscribe', 'results', 'details'],
   controllers: ['handler'],
 
   launch: function() {
