@@ -18,3 +18,8 @@
 #detailstext{
 	text-align: justify;
 }
+
+#resultList :-webkit-any(span, img){
+	display: table-cell;
+	vertical-align: middle;
+}

@@ -165,27 +165,27 @@ Ext.application({
 		
 		var mylist = Ext.create('Ext.List', {
 			  title: 'Risultati',
-	      id: 'mylist',
-	      itemTpl: new Ext.XTemplate('<img src="',
+	      id: 'resultList',
+	      itemTpl: new Ext.XTemplate('<span><img src="',
         '<tpl if="publisherProfilePicture">',
         	'{publisherProfilePicture}',  
         '<tpl else>',
        		'http://graph.facebook.com//picture?type=large',
         '</tpl>',
-        '" width="60" height="60" style="vertical-align: middle;">',
-	      '<span style="margin-left: 10px;">',
+        '" width="60" height="60" /></span>',
+	      '<span style="padding-left: 10px;">',
 	      '<tpl if="city">',
-	      	'<b> {city} -</b>',
+	      	' {city} -',
 	      '</tpl>',
 	      '<tpl if="title">',
-	      	'<b> {title:this.printTitle} -</b>',
+	      	' {title:this.printTitle} -',
 	      '</tpl>',
 	      '<tpl if="language==1">',
-	      	', <b>[IT]</b>',
+	      	' [IT]',
 	      '<tpl elseif="language==2">',
-	      	' <b>[FR]</b>',
+	      	' [FR]',
 	      '<tpl else>',
-	      	' <b>[EN]</b>',
+	      	' [EN]',
 	      '</tpl>',
 	      '</span>',
 	      {
@@ -249,7 +249,7 @@ Ext.application({
 						var j= eval(response.data.results);
 						mylist.getStore().setData([]);
 						for (var i=0; i<j.length; i++){
-							j[i]['title'] = j[i].predicate.match(/title\(([^)]+)\)/)[1];
+							j[i]['title'] = (j[i].predicate.match(/title\(([^)]+)\)/)||[null, ' '])[1];
 							j[i]['city'] = j[i].predicate.match(/enumC\(([^)]+)\)/)[1];					
 							j[i]['language'] = j[i].predicate.match(/enumL\(([^)]+)\)/)[1];
 							mylist.getStore().add(j[i]);
