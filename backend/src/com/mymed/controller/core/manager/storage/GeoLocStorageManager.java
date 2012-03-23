@@ -1,3 +1,18 @@
+/*
+ * Copyright 2012 POLITO 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+*/
 package com.mymed.controller.core.manager.storage;
 
 import java.io.UnsupportedEncodingException;
@@ -9,6 +24,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.cassandra.thrift.Column;
 import org.apache.cassandra.thrift.ColumnOrSuperColumn;
@@ -71,12 +87,14 @@ public class GeoLocStorageManager extends StorageManager implements IGeoLocStora
       final Map<String, List<Mutation>> tableMap = new HashMap<String, List<Mutation>>();
       final List<Mutation> sliceMutationList = new ArrayList<Mutation>(5);
       tableMap.put(tableName, sliceMutationList);
-      final Iterator<String> iterator = args.keySet().iterator();
-      while (iterator.hasNext()) {
-        final String key = iterator.next();
-        final Mutation mutation = new Mutation();
-        mutation.setColumn_or_supercolumn(new ColumnOrSuperColumn().setColumn(new Column(MConverter
-            .stringToByteBuffer(key), ByteBuffer.wrap(args.get(key)), timestamp)));
+
+      final Iterator<Entry<String, byte[]>> iter = args.entrySet().iterator();
+      while (iter.hasNext()) {
+        final Entry<String, byte[]> entry = iter.next();
+        final String key = entry.getKey();
+        final byte[] value = entry.getValue();
+        final Mutation mutation = new Mutation().setColumn_or_supercolumn(new ColumnOrSuperColumn()
+            .setColumn(new Column(MConverter.stringToByteBuffer(key), ByteBuffer.wrap(value), timestamp)));
         sliceMutationList.add(mutation);
       }
 
@@ -87,7 +105,6 @@ public class GeoLocStorageManager extends StorageManager implements IGeoLocStora
       throw new InternalBackEndException("InsertSlice failed.");
     }
   }
-
   /**
    * Selects a column in a CF.
    * 
@@ -386,15 +403,6 @@ public class GeoLocStorageManager extends StorageManager implements IGeoLocStora
     this.removeColumn(tableName, key, null, columnName.getBytes());
   }
 
-  @Override
-  public void removeAll(final String tableName, final String key) throws InternalBackEndException {
-    final String columnFamily = tableName;
-    final long timestamp = System.currentTimeMillis();
-    final ColumnPath columnPath = new ColumnPath(columnFamily);
-
-    wrapper.remove(key, columnPath, timestamp, consistencyOnWrite);
-  }
-
   /**
    * Remove a specific column defined by the columnName
    * 
@@ -459,14 +467,16 @@ public class GeoLocStorageManager extends StorageManager implements IGeoLocStora
 
     final Map<String, Map<byte[], byte[]>> slice = new HashMap<String, Map<byte[], byte[]>>(results.size());
 
-    for (final ByteBuffer key : results.keySet()) {
-      final List<ColumnOrSuperColumn> columns = results.get(key);
+    final Iterator<Entry<ByteBuffer, List<ColumnOrSuperColumn>>> iter = results.entrySet().iterator();
+    while (iter.hasNext()) {
+      final Entry<ByteBuffer, List<ColumnOrSuperColumn>> entry = iter.next();
+      final List<ColumnOrSuperColumn> columns = entry.getValue();
       if (!columns.isEmpty()) {
         final Map<byte[], byte[]> colMap = new HashMap<byte[], byte[]>();
         for (final ColumnOrSuperColumn resCol : columns) {
           colMap.put(resCol.getColumn().getName(), resCol.getColumn().getValue());
         }
-        slice.put(MConverter.byteBufferToString(key), colMap);
+        slice.put(MConverter.byteBufferToString(entry.getKey()), colMap);
       }
     }
 
@@ -483,9 +493,12 @@ public class GeoLocStorageManager extends StorageManager implements IGeoLocStora
     final Map<ByteBuffer, List<ColumnOrSuperColumn>> results = wrapper.multiget_slice(keys, parent, predicate,
         consistencyOnRead);
     final List<ColumnOrSuperColumn> listResults = new LinkedList<ColumnOrSuperColumn>();
-    for (final ByteBuffer key : results.keySet()) {
-      listResults.addAll(results.get(key));
+
+    final Iterator<Entry<ByteBuffer, List<ColumnOrSuperColumn>>> iter = results.entrySet().iterator();
+    while (iter.hasNext()) {
+      listResults.addAll(iter.next().getValue());
     }
+
     final Map<byte[], Map<byte[], byte[]>> slice = new HashMap<byte[], Map<byte[], byte[]>>(listResults.size());
 
     for (final ColumnOrSuperColumn res : listResults) {

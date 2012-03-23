@@ -1,3 +1,18 @@
+/*
+ * Copyright 2012 UNITO 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+*/
 package com.mymed.utils.locator;
 
 import java.util.List;
@@ -8,7 +23,6 @@ import com.mymed.controller.core.exception.GeoLocationOutOfBoundException;
  * Expose the methods to handle the geographical identifiers.
  * 
  * @author iacopo
- * 
  */
 public class Locator {
 
@@ -25,8 +39,9 @@ public class Locator {
    */
   public static long getLocationId(final int latitude, final int longitude) throws GeoLocationOutOfBoundException {
     final Location loc = new Location(latitude, longitude);
-    return HilbertQuad.encode(loc, HilbertQuad.maxLevel).getIndex();
+    return HilbertQuad.encode(loc, HilbertQuad.MAX_LEVEL).getIndex();
   }
+
   /**
    * Gets the areaId corresponding to the specified locationId.
    * 
@@ -57,7 +72,6 @@ public class Locator {
    */
   public static List<long[]> getCoveringLocationId(final int latitude, final int longitude, final int radius)
       throws GeoLocationOutOfBoundException, IllegalArgumentException {
-
     final Location loc = new Location(latitude, longitude);
     final KeysFinder kf = new KeysFinder();
     return kf.getKeysRanges(loc, radius);
