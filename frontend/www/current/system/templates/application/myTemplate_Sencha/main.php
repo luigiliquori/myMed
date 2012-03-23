@@ -3,7 +3,7 @@
 	// NAME OF THE APPLICATION
 	define('APPLICATION_NAME', "myTemplate");
 	
-	if(USER_CONNECTED) {
+	if(true || USER_CONNECTED) {
 
 		echo '<input type="hidden" name="application" id="applicationName" value="' . APPLICATION_NAME . '" />';
 		

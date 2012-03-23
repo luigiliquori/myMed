@@ -52,8 +52,7 @@ Ext.application({
 	    options: [
 	        {text: '', value: ''},
 	        {text: 'italiano', value: 1},
-	        {text: 'francese', value: 2},
-	        {text: 'inglese', value: 3}
+	        {text: 'francese', value: 2}
 	    ]
 		}),
 		_fieldenumL = Ext.create('Ext.field.Text', {name : '_enumL', hidden: true, value: 2}),
@@ -117,8 +116,7 @@ Ext.application({
 	    options: [
 	        {text: '', value: ''},
 	        {text: 'italiano', value: 1},
-	        {text: 'francese', value: 2},
-	        {text: 'inglese', value: 3}
+	        {text: 'francese', value: 2}
 	    ]
 		}),
 		fieldenumC2 = Ext.create('Ext.field.Select', {
