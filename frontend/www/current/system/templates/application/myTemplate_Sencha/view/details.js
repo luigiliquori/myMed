@@ -22,7 +22,10 @@ Ext.define('myTemplate.view.details', {
       '<b>Texte</b>:',
       '<div id="detailstext">{text}</div>',
       '</div>'
-    ]
+    ],
+    
+    map: Ext.create('Ext.Map')
+		
   }
 
 });
