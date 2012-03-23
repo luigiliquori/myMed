@@ -46,27 +46,23 @@ Ext.application({
 	    	}
 	    ],
 	    navigationBar: {
+	    	defaults:{
+	    		xtype: 'button',
+          ui: 'forward',
+          style: 'position: absolute;right: 0;top: .4em;',
+          iconMask: true,
+          align: 'right',
+          showAnimation: 'fade'
+	    	},
         items: [
           {
-            xtype: 'button',
-            ui: 'forward',
             id: 'homeButton',
-            style: 'position: absolute;right: 0;top: .4em;',
-            iconMask: true,
-            iconCls: 'home',
-            align: 'right',
-            showAnimation: 'fade'
+            iconCls: 'home'
           },
           {
-            xtype: 'button',
-            ui: 'forward',
             id: 'mapButton',
-            hidden: true,
-            style: 'position: absolute;right: 0;top: .4em;',
-            iconMask: true,
             iconCls: 'locate',
-            align: 'right',
-            showAnimation: 'pop'
+            hidden: true
           }
         ]
       }

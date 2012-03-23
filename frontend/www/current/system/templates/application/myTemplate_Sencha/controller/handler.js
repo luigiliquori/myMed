@@ -16,7 +16,6 @@ Ext.define('myTemplate.controller.handler', {
     control: {
     	navView: {
         push: 'onNavPush',
-        beforepop: 'onNavBeforePop',
         pop: 'onNavPop'
 	    },
 	    homeButton: {
@@ -54,23 +53,10 @@ Ext.define('myTemplate.controller.handler', {
   		homeButton.hide();
   	if (item.id == "details"){
   		mapButton.show();
+  	}else if(item.xtype == "map"){
+  		mapButton.hide();
   	}
   },
-  
-  onNavBeforePop: function() {
-    var history = this.getApplication().getHistory(),
-      urlId = (record && record.get('urlId')) ? record.get('urlId') : '',
-      stack = this.getStack();
-
-
-    history.add(new Ext.app.Action({
-        url: urlId
-    }), true);
-
-    stack.pop();
-    this.setStack(stack);
-
-	},
 
   
   onNavPop: function(view, item) {
@@ -82,21 +68,13 @@ Ext.define('myTemplate.controller.handler', {
   		homeButton.show();
   	}else if(item.id == "details"){
   		mapButton.hide();
+  	}else if(item.xtype == "map"){
+  		mapButton.show();
   	}
   },
   
   showView2: function() {
-    /*var stack = this.getStack();
-
-    if (stack.length) {
-    	this.getNavView().pop();
-      return;
-    }
-
-    this.setStack([]);*/
-  	
-  	this.getNavView().setActiveItem(this.getResultList());
-
+  		console.log('showView2');
 	},
   
   onHome: function(){
@@ -105,24 +83,7 @@ Ext.define('myTemplate.controller.handler', {
   
   onMap: function(){
   	var view  = this.getNavView();
-  	view.push({
-      xtype: 'map',
-      useCurrentLocation: Ext.create('Ext.util.Geolocation', {
-        //autoUpdate: false,
-        listeners: {
-          locationupdate: function(geo) {
-            alert('New latitude: ' + geo.getLatitude());
-          },
-          locationerror: function(geo, bTimeout, bPermissionDenied, bLocationUnavailable, message) {
-            if(bTimeout){
-              alert('Timeout occurred.');
-            } else {
-              alert('Error occurred.');
-            }
-          }
-        }
-      })
-	  });
+  	view.push(this.getDetailPanel().getMap());
   },
   
   onFind: function() {
