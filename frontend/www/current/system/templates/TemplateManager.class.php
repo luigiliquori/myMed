@@ -43,8 +43,8 @@ class TemplateManager {
 
 		</head>
 		
-		<body onload="initialize();">
-		<div id="loading" style="display:none;"><center><span>Chargement en cours...</span></center></div>
+		<body onload="hideLoadingBar(); initialize();">
+		<div id="loading" style="display:<?= TARGET == "desktop" ? "none" : "block" ?>;"><center><span>Chargement en cours...</span></center></div>
 	<?php }
 	
 	/**
