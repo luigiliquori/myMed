@@ -1,20 +1,16 @@
 <?php
 
-require_once 'system/templates/ITemplate.php';
-
 /**
  * 
  * Represent the template
  * @author lvanni
  *
  */
-abstract class AbstractTemplate implements ITemplate {
-	
+abstract class AbstractTemplate {
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
 	protected /*String*/ $id;
-	protected /*String*/ $title;
 	
 	/* --------------------------------------------------------- */
 	/* Constructors */
@@ -22,38 +18,78 @@ abstract class AbstractTemplate implements ITemplate {
 	/**
 	 * Default constructor
 	 */
-	public function __construct(/*String*/ $id, /*String*/ $title) {
+	public function __construct($id) {
 		$this->id = $id;
-		$this->title = $title;
 	}
 	
 	/* --------------------------------------------------------- */
-	/* Override methods */
+	/* Define a tempalte */
 	/* --------------------------------------------------------- */
-	/**
-	 * Get the HEADER for jQuery Mobile
-	 */
-	public /*String*/ function getHeader() { }
+	abstract protected /*void*/ function getHeader();
 	
-	/**
-	* Get the CONTENT for jQuery Mobile
-	*/
-	public /*String*/ function getContent() { }
+	abstract protected /*void*/ function getContent();
 	
-	/**
-	* Get the HEADER for jQuery Mobile
-	*/
-	public /*String*/ function getFooter() { }
+	protected /*void*/ function getFooter() {}
 	
-	/**
-	* Print the Template
-	*/
-	public /*String*/ function printTemplate() { ?>
-		<div id="<?= $this->id ?>" data-role="page" data-theme="a">
-			<?php $this->getHeader(); ?>
-			<?php $this->getContent(); ?>
-			<?php $this->getFooter(); ?>
-		</div>
-	<?php }
+	public /*void*/ function printTemplate() {
+		echo '<div id="<?= $this->id ?>" data-role="page" data-theme="b">';
+		$this->getHeader();
+		$this->getContent();
+		$this->getFooter();
+		echo '</div>';
+	}
+	
+	/* --------------------------------------------------------- */
+	/* Init a tempalte */
+	/* --------------------------------------------------------- */
+	public static function initializeTemplate(/*String*/ $applicationName) {
+		// NAME OF THE APPLICATION
+		define('APPLICATION_NAME', $applicationName);
+	
+		// LOAD THE UI FRAMEWORK
+		echo '<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />';
+		echo '<link rel="stylesheet" href="lib/jquery/jquery.mobile.actionsheet.css" />';
+		echo '<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>';
+		echo '<script type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>';
+		echo '<script type="text/javascript" src="lib/jquery/jquery.mobile.actionsheet.js"></script>';
+		echo '<script src="lib/jquery/datebox/jquery.mobile.datebox.min.js"></script>';
+		echo '<link href="lib/jquery/datebox/jquery.mobile.datebox.min.css" rel="stylesheet" />';
+	
+		// LOAD DASP JAVASCRIPT LIBRARY
+		echo "<script src='lib/dasp/javascript/dasp.js'></script>";
+	
+		// IMPORT THE HANDLER
+		require_once dirname(__FILE__).'/handler/MenuHandler.class.php';
+		$menuHandler = new MenuHandler();
+		$menuHandler->handleRequest();
+		require_once dirname(__FILE__).'/handler/UpdateProfileHandler.class.php';
+		$updateHandler = new UpdateProfileHandler();
+		$updateHandler->handleRequest();
+
+		// DISCONNECT FORM
+		echo '<form action="?application=' . APPLICATION_NAME . '" method="post" name="disconnectForm" id="disconnectForm">';
+		echo '<input type="hidden" name="disconnect" value="1" /></form>';
+			
+		// DEFINE ATTRIBUTES FOR THE JAVASCRIPT PART (AJAX CALL)
+		// TODO REMOVE THIS
+		echo "<input type='hidden' id='userID' value='" . $_SESSION['user']->id . "' />";
+		echo "<input type='hidden' id='applicationName' value='" . APPLICATION_NAME . "' />";
+		echo "<input type='hidden' id='accessToken' value='" . $_SESSION['accessToken'] . "' />";
+
+		// IMPORT THE LOGIN VIEW
+		if(TARGET == "mobile") {
+			// load the css
+			echo '<link href="system/templates/application/' . APPLICATION_NAME . '/views/login/mobile/css/style.css" rel="stylesheet" />';
+			require_once dirname(__FILE__).'/views/login/mobile/Login.class.php';
+		} else {
+			// load the css
+			echo '<link href="system/templates/application/' . APPLICATION_NAME . '/views/login/desktop/css/style.css" rel="stylesheet" />';
+			require_once dirname(__FILE__).'/views/login/desktop/Login.class.php';
+		}
+
+		include('views/dialog/socialNetwork.php');
+		include('views/dialog/condition.php');
+	}
+	
 }
 ?>
