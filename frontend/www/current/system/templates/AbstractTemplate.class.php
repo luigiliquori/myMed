@@ -57,12 +57,30 @@ abstract class AbstractTemplate {
 	
 		// LOAD DASP JAVASCRIPT LIBRARY
 		echo "<script src='lib/dasp/javascript/dasp.js'></script>";
+		
+		// LOAD APPLICATION JAVASCRIPT
+		if ($handle = opendir("system/templates/application/" . APPLICATION_NAME . '/javascript')) {
+			while (false !== ($file = readdir($handle))) {
+				if($file != "." && $file != ".." && $file != ".DS_Store"){
+			    		echo '<script src="system/templates/' . APPLICATION_NAME . '/javascript/' . $file . '"></script>';
+					}
+			    } 
+		} 
+		
+		// LOAD THE CSS OF THE APPLICATION
+		if ($handle = opendir("system/templates/application/" . APPLICATION_NAME . '/css')) {
+			while (false !== ($file = readdir($handle))) {
+				if($file != "." && $file != ".." && $file != ".DS_Store"){
+			    	echo '<link href="system/templates/' . APPLICATION_NAME . '/css/' . $file . '" rel="stylesheet" />';
+				}
+			} 
+		} 
 	
 		// IMPORT THE HANDLER
-		require_once dirname(__FILE__).'/handler/MenuHandler.class.php';
+		require_once "system/templates/application/" . APPLICATION_NAME . '/handler/MenuHandler.class.php';
 		$menuHandler = new MenuHandler();
 		$menuHandler->handleRequest();
-		require_once dirname(__FILE__).'/handler/UpdateProfileHandler.class.php';
+		require_once "system/templates/application/" . APPLICATION_NAME . '/handler/UpdateProfileHandler.class.php';
 		$updateHandler = new UpdateProfileHandler();
 		$updateHandler->handleRequest();
 
@@ -80,11 +98,11 @@ abstract class AbstractTemplate {
 		if(TARGET == "mobile") {
 			// load the css
 			echo '<link href="system/templates/application/' . APPLICATION_NAME . '/views/login/mobile/css/style.css" rel="stylesheet" />';
-			require_once dirname(__FILE__).'/views/login/mobile/Login.class.php';
+			require_once "system/templates/application/" . APPLICATION_NAME . '/views/login/mobile/Login.class.php';
 		} else {
 			// load the css
 			echo '<link href="system/templates/application/' . APPLICATION_NAME . '/views/login/desktop/css/style.css" rel="stylesheet" />';
-			require_once dirname(__FILE__).'/views/login/desktop/Login.class.php';
+			require_once "system/templates/application/" . APPLICATION_NAME . '/views/login/desktop/Login.class.php';
 		}
 
 		include('views/dialog/socialNetwork.php');
