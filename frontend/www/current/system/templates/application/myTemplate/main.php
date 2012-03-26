@@ -15,6 +15,10 @@
 	// LOAD DASP JAVASCRIPT LIBRARY
 	echo "<script src='lib/dasp/javascript/dasp.js'></script>";
 	
+	// APPLICATION STUFF
+	echo '<link rel="stylesheet" href="system/templates/application/' . APPLICATION_NAME . '/css/style.css" />';
+	echo '<script src="system/templates/application/' . APPLICATION_NAME . '/javascript/default.js"></script>';
+	
 	// LOAD THE VIEWs
 	if(USER_CONNECTED) {
 		// HOME PAGE OF THE APPLICATION ---------------------------

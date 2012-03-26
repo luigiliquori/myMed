@@ -9,11 +9,17 @@
 	echo '<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>';
 	echo '<script type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>';
 	echo '<script type="text/javascript" src="lib/jquery/jquery.mobile.actionsheet.js"></script>';
-	echo '<script src="lib/jquery/datebox/jquery.mobile.datebox.min.js"></script>';
-	echo '<link href="lib/jquery/datebox/jquery.mobile.datebox.min.css" rel="stylesheet" />';
+	//echo '<script src="lib/jquery/datebox/jquery.mobile.datebox.min.js"></script>';
+	//echo '<link href="lib/jquery/datebox/jquery.mobile.datebox.min.css" rel="stylesheet" />';
+	echo '<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key='. Google_APP_SECRET .'&sensor=true&libraries=places"></script>';
+	echo '<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox_packed.js"></script>';
 	
 	// LOAD DASP JAVASCRIPT LIBRARY
 	echo "<script src='lib/dasp/javascript/dasp.js'></script>";
+	
+	// APPLICATION STUFF
+	echo '<link rel="stylesheet" href="system/templates/application/' . APPLICATION_NAME . '/css/style.css" />';
+	echo '<script src="system/templates/application/' . APPLICATION_NAME . '/javascript/myRiviera.js"></script>';
 	
 	// LOAD THE VIEWs
 	if(USER_CONNECTED) { // HOME PAGE OF THE APPLICATION ---------------------------

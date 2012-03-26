@@ -33,79 +33,17 @@ class TemplateManager {
 		<title>myMed | Réseaux Social Transfrontalier</title> 
 		
 		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, <?= TARGET == "mobile" ? "user-scalable=0" : "" ?>" /> 
-		
-		<!-- MAP -->
-		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=<?= Google_APP_SECRET ?>&sensor=true&libraries=places"> </script>
-		<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox_packed.js"></script>
+		<!-- <meta name="viewport" content="width=device-width, initial-scale=1, <?= TARGET == "mobile" ? "user-scalable=0" : "" ?>" /> --> 
 		
 		<!-- Common javascript -->
 		<script src="system/javascript/common.js"></script>
 		
 		<!-- Common css -->
 		<link href="system/css/style.css" rel="stylesheet" />
-		
-		<!-- LOAD DYNAMICALLY THE CSS FOR EACH TEMPLATE -->
-		<?php 
-		if ($handle = opendir($this->path . $this->template . '/css')) {
-		    while (false !== ($file = readdir($handle))) {
-		    	if($file != "." && $file != ".." && $file != ".DS_Store"){ ?>
-			    	<link href='system/templates/<?=  $this->template ?>/css/<?= $file ?>' rel="stylesheet" />
-				<?php }
-		    } 
-		} 
-		?>
-		
-		<!-- LOAD DYNAMICALLY THE JAVASCRIPT FOR EACH TEMPLATE -->
-		<?php 
-		if ($handle = opendir($this->path . $this->template . '/javascript')) {
-		    while (false !== ($file = readdir($handle))) {
-		    	if($file != "." && $file != ".." && $file != ".DS_Store"){ ?>
-		    		<script src='system/templates/<?=  $this->template ?>/javascript/<?= $file ?>'></script>
-				<?php }
-		    } 
-		} 
-		?>
-		
-		<!-- LOADING DIALOG -->
-		<style type="text/css">
-			#loading {
-				position: absolute;
-				left:0px;
-				top:0px;
-				padding:10px;
-				height: 100%;
-				width: 100%;
-				background-color: black;
-				z-index: 99;
-				opacity: 0.7;
-			}
-			#loading span {
-				position: relative;
-				top: 100px;
-				color: white;
-				font:bold 12px Verdana;
-			}
-		</style>
-		
-		<script type="text/javascript">
-		function hideLoadingBar(){
-		     //hide loading status...
-		     loading = document.getElementById("loading");
-		     loading.style.display='none';
-		}
-		function showLoadingBar(text){
-		     //hide loading status...
-		     loading = document.getElementById("loading");
-		     if(text) {
-		    	 loading.innerHTML = "<center><span>" + text + "</span></center>";
-		     }
-		     loading.style.display = "block";
-		}
-		</script>
+
 		</head>
 		
-		<body onload="hideLoadingBar(); initialize();">
+		<body onload="initialize();">
 		<div id="loading" style="display:none;"><center><span>Chargement en cours...</span></center></div>
 	<?php }
 	
