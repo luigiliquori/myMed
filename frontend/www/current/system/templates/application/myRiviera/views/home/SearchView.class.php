@@ -79,6 +79,7 @@ class SearchView extends MyApplication {
 				<input data-theme="d" type="text" id="arrivee" name="Arrivee" />
 				
 				<!-- DATE -->
+				<br />
 				<div id="date">
 					<?php
 					$now = getdate();
@@ -87,14 +88,14 @@ class SearchView extends MyApplication {
 					?>
 					le : 
 					<fieldset data-role="controlgroup" data-type="horizontal"
-						style="position: relative; top:10px; display: inline; margin: 5px;">
+						style="position: relative; top:0px; display: inline; margin: 5px;">
 		
 						<select name="select-day" id="select-day">
 						<?php for ($i = 1; $i <= 31; $i++) {?>
 							<option value=<?=$i?>   
 							<?php if ($i==$now['mday']){?> selected="selected" 
 							<?php } ?>>
-								&nbsp;<?= $i?>
+								&nbsp;<?= $i?>&nbsp;
 							</option>
 						<?php } ?>
 						</select> 
@@ -103,7 +104,7 @@ class SearchView extends MyApplication {
 							<option value=<?=$i+1?>
 							<?php if ($i+1==$now['mon']){?> selected="selected"
 							<?php } ?>>
-								  <?=$months[$i]?>
+								  &nbsp;<?=$months[$i]?>&nbsp;
 							</option>
 						<?php } ?>
 						</select>
@@ -112,19 +113,19 @@ class SearchView extends MyApplication {
 							<option value=<?=$i?>  
 							<?php if ($i==$now['year']){?> selected="selected"
 							<?php } ?>>
-								<?=$i?>
+								&nbsp;<?=$i?>&nbsp;
 							</option>
 						<?php } ?>
 						</select>
 					</fieldset>
 					à : 
 					<fieldset data-role="controlgroup" data-type="horizontal"
-						style="position: relative; top:10px; display: inline; margin: 5px;">
+						style="position: relative; top:0px; display: inline; margin: 5px;">
 						<select name="select-hour" id="select-hour">
 						<?php for ($i = 0; $i <= 23; $i++) {?>
 							<option value=<?=$i?>   <?php if ($i==$now['hours']){?> selected="selected"
 							<?php } ?>>
-								<?=sprintf('%02d',$i)?>h
+								&nbsp;<?=sprintf('%02d',$i)?>h&nbsp;
 							</option>
 						<?php } ?>
 						</select>
@@ -132,7 +133,7 @@ class SearchView extends MyApplication {
 								<?php for ($i = 0; $i <= 59; $i++) {?>
 							<option value=<?=$i?>   <?php if ($i==$now['minutes']){?> selected="selected"
 							<?php } ?>>
-								<?=sprintf('%02d',$i)?>
+								&nbsp;<?=sprintf('%02d',$i)?>&nbsp;
 							</option>
 						<?php } ?>
 						</select>

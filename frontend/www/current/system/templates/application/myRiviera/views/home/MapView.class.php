@@ -55,7 +55,7 @@ class MapView extends MyApplication {
 		
 			<script type="text/javascript">var mobile = '<?php echo TARGET ?>';</script>
 		
-			<div id="steps" data-role="controlgroup" data-type="horizontal">
+			<div id="steps" data-role="controlgroup"data-type="horizontal">
 				<a id="prev-step" data-role="button" data-theme="b" data-icon="arrow-l">&nbsp;</a>
 				<a href="#roadMap" data-role="button" data-theme="b" >Détails</a>
 				<a id="next-step" data-role="button" data-theme="b" data-iconpos="right" data-icon="arrow-r">&nbsp;</a>

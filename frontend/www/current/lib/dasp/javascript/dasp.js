@@ -71,6 +71,7 @@ function setupDASPMap(mapID, displayPosition, displayError, watchPosition) {
 		map = new google.maps.Map(document.getElementById(mapID), {
 			zoom : 16,
 			center : new google.maps.LatLng(43.7, 7.27),
+			disableDefaultUI: true,
 			mapTypeId : google.maps.MapTypeId.ROADMAP
 		});
 
