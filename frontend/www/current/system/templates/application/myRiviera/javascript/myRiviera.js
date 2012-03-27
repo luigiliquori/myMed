@@ -64,7 +64,7 @@ function initialize() {
 	});
 
 	// resize the map on page change
-	$("#Find").live("pageshow", function(event, ui) {
+	$("#Map").live("pageshow", function(event, ui) {
 		google.maps.event.trigger(map, 'resize');
 
 		// refocus on lastest position
@@ -96,7 +96,7 @@ function displayPosition(position) {
 		// create current position marker
 		currentPositionMarker = new google.maps.Marker({
 			map : map,
-			animation : google.maps.Animation.BOUNCE,
+			animation : google.maps.Animation.DROP,
 			icon : 'system/templates/application/myRiviera/img/position.png',
 			title : 'Départ\nMa position',
 			zIndex : -1
@@ -283,6 +283,7 @@ function positionMarker(index) {
  */
 function updateMarkers(index) {
 
+	showLoadingBar("Recherche de points d'interêts...");
 	// FOCUS ON POSITION
 	focusOnLatLng(steps[index].position);
 
@@ -302,6 +303,7 @@ function updateMarkers(index) {
 	}
 
 	prevSegmentID = index;
+	hideLoadingBar();
 }
 
 /**
@@ -313,7 +315,7 @@ function updateMarkers(index) {
 function calcRoute(json) {
 
 	result = JSON.parse(json);
-
+	
 	if (result.ItineraryObj && result.ItineraryObj.Status.code == "0")
 		calcRouteByCityway(result);
 	else
@@ -584,7 +586,7 @@ function myRivieraShowTrip(start, end, icon) {
 	endmarker.setMap(map);
 
 	// SHOW ITINERAIRE
-	$("#itineraire, #next-step, #prev-step").delay(1000).fadeIn("slow");
+	$("#itineraire, #steps, #prev-step").delay(1000).fadeIn("slow");
 	$('#next-step, #prev-step').attr('onclick', 'updateMarkers(0)');
 	$('#next-step')
 	.click(

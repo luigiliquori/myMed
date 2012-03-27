@@ -7,19 +7,17 @@
 	if(USER_CONNECTED) { // HOME PAGE OF THE APPLICATION ---------------------------
 		
 		// IMPORT THE MAIN VIEW
-		require_once dirname(__FILE__).'/views/home/FindView.class.php';
+		require_once dirname(__FILE__).'/views/home/MapView.class.php';
 		require_once dirname(__FILE__).'/views/home/OptionView.class.php';
-		require_once dirname(__FILE__).'/views/dialog/EditDialog.class.php';
+		require_once dirname(__FILE__).'/views/home/SearchView.class.php';
 
 		// BUILD THE VIEWs
-		$find = new FindView();
-		$find->printTemplate();
+		$map = new MapView();
+		$map->printTemplate();
 		$option = new OptionView();
 		$option->printTemplate();
-		
-		// DIALOG
-		$edit = new EditDialog();
-		$edit->getContent();
+		$search = new SearchView();
+		$search->printTemplate();
 		
 		// PROFILE UPDATE
 		include('views/dialog/updateProfile.php');

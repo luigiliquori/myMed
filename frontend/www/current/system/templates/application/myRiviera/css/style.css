@@ -10,6 +10,11 @@
 	text-align: justify;
 }
 
+#Itin {
+	text-align: left;
+	padding: 10px;
+}
+
 #itineraire{
 	position: absolute;
 	top: 40px;
@@ -24,18 +29,13 @@
 	padding: 0;
 }
 
-#prev-step{
-	position: absolute; 
+#steps {
+	position: absolute;
+	top: 90%;
+	width: 50%;
+	left:25%;
+	text-align: center;
 	display: none;
-	left: 38%; 
-	top: .4em;
-}
-
-#next-step{
-	position: absolute; 
-	display: none;
-	left: 56%; 
-	top: .4em;
 }
 
 #itineraireContent .ui-li-desc{
@@ -58,33 +58,12 @@
   color: LightBlue;
 }
 
-#depart {
-	background-repeat: no-repeat;
-	background-position: left;
-	background-size: 24px 24px;
-	margin-top: 10px;
-	margin-left: auto;
-	margin-right: auto;
-	
-}
-
 #arrivee::-webkit-input-placeholder {
   color: LightGray;
 }
 #arrivee:-moz-placeholder {
   color: LightGray;
 }
-
-#arrivee {
-	/*background-image:url('../img/flag_finish.png');*/
-	background-repeat: no-repeat;
-	background-position: right;
-	background-size: 24px 24px;
-	float: left;
-	margin-left: 4px;
-	width: 242px;
-}
-
 
 #divarrivee .ui-select {
 	float:right;

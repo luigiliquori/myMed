@@ -9,7 +9,7 @@ require_once 'lib/dasp/beans/MDataBean.class.php';
  * @author lvanni
  *
  */
-class FindView extends MyApplication {
+class MapView extends MyApplication {
 
 	/* --------------------------------------------------------- */
 	/* Attributes */
@@ -22,7 +22,7 @@ class FindView extends MyApplication {
 	 * Default constructor
 	 */
 	public function __construct() {
-		parent::__construct("Find");
+		parent::__construct("Map");
 	}
 
 	/* --------------------------------------------------------- */
@@ -33,19 +33,12 @@ class FindView extends MyApplication {
 	 */
 	public /*String*/ function getHeader() { ?>
 		<div data-role="header" data-theme="b">
-			<h1>
-			<?= TARGET == "mobile" ? " " : APPLICATION_NAME ?>
-			</h1>
+			<h1><?= TARGET == "mobile" ? " " : APPLICATION_NAME ?></h1>
 		
-			<a href="#Option" data-role="actionsheet" class="ui-btn-right" data-icon="gear">Options</a>
-			
-			<a id="prev-step" data-role="button" data-theme="b"
-				data-icon="arrow-l"	onclick=""><?= TARGET == "mobile" ? "&nbsp;" : "Préc" ?></a>
-			<a id="next-step" data-role="button" data-theme="b"
-				data-iconpos="right" data-icon="arrow-r"	onclick=""><?= TARGET == "mobile" ? "&nbsp;" : "Suiv" ?></a>
+			<a href="#Option" class="ui-btn-right" data-icon="gear">Options</a>
 			
 			<!-- ITINERAIRE POPUP -->
-			<a data-role="actionsheet" data-sheet="Itin" data-icon="search" data-iconpos="right" class="ui-btn-left">Rechercher</a>
+			<a href="#Search" data-icon="search" data-iconpos="right" class="ui-btn-left">Rechercher</a>
 			
 		</div>
 	<?php }
@@ -65,6 +58,11 @@ class FindView extends MyApplication {
 			<div id="itineraire" data-role="collapsible" data-theme="b" data-content-theme="c" style="width: <?= TARGET == "mobile" ? "85" : "35" ?>%;">
 				<h3>Feuille de route</h3>
 				<div id="itineraireContent" data-role="collapsible-set" data-theme="b" data-content-theme="d" ></div>
+			</div>
+			
+			<div id="steps" data-role="controlgroup" data-type="horizontal">
+				<a id="prev-step" data-role="button" data-theme="b" data-icon="arrow-l"	>&nbsp;</a>
+				<a id="next-step" data-role="button" data-theme="b" data-iconpos="right" data-icon="arrow-r">&nbsp;</a>
 			</div>
 
 		</div>
