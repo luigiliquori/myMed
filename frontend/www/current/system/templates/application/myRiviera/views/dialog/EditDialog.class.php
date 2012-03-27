@@ -1,6 +1,5 @@
 <?php
 
-require_once 'system/templates/ITemplate.php';
 require_once 'system/templates/AbstractTemplate.class.php';
 
 /**

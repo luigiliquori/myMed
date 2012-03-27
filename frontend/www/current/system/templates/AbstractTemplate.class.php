@@ -54,6 +54,10 @@ abstract class AbstractTemplate {
 		echo '<script type="text/javascript" src="lib/jquery/jquery.mobile.actionsheet.js"></script>';
 		echo '<script src="lib/jquery/datebox/jquery.mobile.datebox.min.js"></script>';
 		echo '<link href="lib/jquery/datebox/jquery.mobile.datebox.min.css" rel="stylesheet" />';
+		
+		// LOAD GOOGLE MAP
+		echo '<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key='. Google_APP_SECRET .'&sensor=true&libraries=places"></script>';
+		echo '<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox_packed.js"></script>';
 	
 		// LOAD DASP JAVASCRIPT LIBRARY
 		echo "<script src='lib/dasp/javascript/dasp.js'></script>";
@@ -62,16 +66,17 @@ abstract class AbstractTemplate {
 		if ($handle = opendir("system/templates/application/" . APPLICATION_NAME . '/javascript')) {
 			while (false !== ($file = readdir($handle))) {
 				if($file != "." && $file != ".." && $file != ".DS_Store"){
-			    		echo '<script src="system/templates/' . APPLICATION_NAME . '/javascript/' . $file . '"></script>';
+			    		echo '<script src="system/templates/application/' . APPLICATION_NAME . '/javascript/' . $file . '"></script>';
 					}
 			    } 
-		} 
+		}
+		echo '<script type="text/javascript">setTimeout("initialize()", 1000);</script>';
 		
 		// LOAD THE CSS OF THE APPLICATION
 		if ($handle = opendir("system/templates/application/" . APPLICATION_NAME . '/css')) {
 			while (false !== ($file = readdir($handle))) {
 				if($file != "." && $file != ".." && $file != ".DS_Store"){
-			    	echo '<link href="system/templates/' . APPLICATION_NAME . '/css/' . $file . '" rel="stylesheet" />';
+			    	echo '<link href="system/templates/application/' . APPLICATION_NAME . '/css/' . $file . '" rel="stylesheet" />';
 				}
 			} 
 		} 
@@ -93,20 +98,6 @@ abstract class AbstractTemplate {
 		echo "<input type='hidden' id='userID' value='" . $_SESSION['user']->id . "' />";
 		echo "<input type='hidden' id='applicationName' value='" . APPLICATION_NAME . "' />";
 		echo "<input type='hidden' id='accessToken' value='" . $_SESSION['accessToken'] . "' />";
-
-		// IMPORT THE LOGIN VIEW
-		if(TARGET == "mobile") {
-			// load the css
-			echo '<link href="system/templates/application/' . APPLICATION_NAME . '/views/login/mobile/css/style.css" rel="stylesheet" />';
-			require_once "system/templates/application/" . APPLICATION_NAME . '/views/login/mobile/Login.class.php';
-		} else {
-			// load the css
-			echo '<link href="system/templates/application/' . APPLICATION_NAME . '/views/login/desktop/css/style.css" rel="stylesheet" />';
-			require_once "system/templates/application/" . APPLICATION_NAME . '/views/login/desktop/Login.class.php';
-		}
-
-		include('views/dialog/socialNetwork.php');
-		include('views/dialog/condition.php');
 	}
 	
 }

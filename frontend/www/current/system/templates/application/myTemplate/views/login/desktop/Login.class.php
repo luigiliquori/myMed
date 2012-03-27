@@ -1,6 +1,5 @@
 <?php
 
-require_once 'system/templates/ITemplate.php';
 require_once 'system/templates/AbstractLogin.class.php';
 require_once 'system/templates/application/' . APPLICATION_NAME . '/handler/InscriptionHandler.class.php';
 
@@ -42,6 +41,17 @@ class Login extends AbstractLogin {
 			<div>
 				L'application myMed est bientôt disponible sur iPhone, iPad, Android, et plus encore...
 			</div>
+		</div>
+	<?php }
+	
+	/**
+	* Print the Template
+	*/
+	public /*String*/ function printTemplate() { ?>
+		<div id="<?= $this->id ?>" data-role="page" data-theme="a">
+			<?php $this->getHeader(); ?>
+			<?php $this->getContent(); ?>
+			<?php $this->getFooter(); ?>
 		</div>
 	<?php }
 	

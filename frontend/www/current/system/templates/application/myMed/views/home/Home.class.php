@@ -1,5 +1,4 @@
 <?php
-require_once 'system/templates/ITemplate.php';
 require_once 'system/templates/AbstractTemplate.class.php';
 
 /**
@@ -47,37 +46,47 @@ class Home extends AbstractTemplate {
 	* Get the CONTENT for jQuery Mobile
 	*/
 	public /*String*/ function getContent() { ?>
-			<!-- CONTENT -->
-			<div class="content" > 
-				<div class="ui-grid-b" Style="padding: 10px;">
-					<?php if ($handle = opendir('system/templates/application')) {
-							$column = "a";
-						    while (false !== ($file = readdir($handle))) {
-						    	if(!in_array($file, $this->hiddenFolder) && preg_match("/my/", $file)) { ?>
-							    	<div class="ui-block-<?= $column ?>">
-								    	<a
-								    	href="?application=<?= $file ?>"
-								    	rel="external"
-								    	class="myIcon"><img alt="<?= $file ?>" src="system/templates/application/<?= $file ?>/img/icon.png" width="50px" >
-								    	</a>
-								    	<br>
-								    	<span style="font-size: 9pt; font-weight: bold;"><?= $file ?></span>
-							    	</div>
-							    	<?php 
-							    	if($column == "a") {
-							    		$column = "b";
-							    	} else if($column == "b") {
-							    		$column = "c";
-							    	} else if($column == "c") {
-							    		$column = "a";
-							    		echo '</div><br /><div class="ui-grid-b">';
-							    	}
-						    	} 
-						    } 
-					} ?>
-				</div>
+		<!-- CONTENT -->
+		<div class="content" > 
+			<div class="ui-grid-b" Style="padding: 10px;">
+				<?php if ($handle = opendir('system/templates/application')) {
+						$column = "a";
+					    while (false !== ($file = readdir($handle))) {
+					    	if(!in_array($file, $this->hiddenFolder) && preg_match("/my/", $file)) { ?>
+						    	<div class="ui-block-<?= $column ?>">
+							    	<a
+							    	href="?application=<?= $file ?>"
+							    	rel="external"
+							    	class="myIcon"><img alt="<?= $file ?>" src="system/templates/application/<?= $file ?>/img/icon.png" width="50px" >
+							    	</a>
+							    	<br>
+							    	<span style="font-size: 9pt; font-weight: bold;"><?= $file ?></span>
+						    	</div>
+						    	<?php 
+						    	if($column == "a") {
+						    		$column = "b";
+						    	} else if($column == "b") {
+						    		$column = "c";
+						    	} else if($column == "c") {
+						    		$column = "a";
+						    		echo '</div><br /><div class="ui-grid-b">';
+						    	}
+					    	} 
+					    } 
+				} ?>
 			</div>
-		<?php }
+		</div>
+	<?php }
+	
+	/**
+	* Print the Template
+	*/
+	public /*String*/ function printTemplate() { ?>
+		<div id="<?= $this->id ?>" data-role="page" data-theme="a">
+			<?php  $this->getHeader(); ?>
+			<?php $this->getContent(); ?>
+		</div>
+	<?php }
 }
 ?>
 

@@ -5,7 +5,7 @@
 
 	// LOAD THE VIEWs
 	if(USER_CONNECTED) { // HOME PAGE OF THE APPLICATION ---------------------------
-	
+		
 		// IMPORT THE MAIN VIEW
 		require_once dirname(__FILE__).'/views/home/FindView.class.php';
 		require_once dirname(__FILE__).'/views/home/OptionView.class.php';
@@ -26,6 +26,17 @@
 	
 	} else { // LOGIN PAGE OF THE APPLICATION ---------------------------
 	
+		// IMPORT THE LOGIN VIEW
+		if(TARGET == "mobile") {
+			// load the css
+			echo '<link href="system/templates/application/' . APPLICATION_NAME . '/views/login/mobile/css/style.css" rel="stylesheet" />';
+			require_once "system/templates/application/" . APPLICATION_NAME . '/views/login/mobile/Login.class.php';
+		} else {
+			// load the css
+			echo '<link href="system/templates/application/' . APPLICATION_NAME . '/views/login/desktop/css/style.css" rel="stylesheet" />';
+			require_once "system/templates/application/" . APPLICATION_NAME . '/views/login/desktop/Login.class.php';
+		}
+		
 		// BUILD THE VIEWs
 		$login = new Login();
 		$login->printTemplate();

@@ -211,7 +211,7 @@ function addMarker(position, icon, title, description, animation, isDraggable) {
 	});
 
 	var boxText = document.createElement("div");
-	boxText.style.cssText = "background-color: white; padding: 5px; border: thin black solid; border-radius: 5px;";
+	boxText.style.cssText = "background-color: white; padding: 5px; border: thin black solid; border-radius: 5px; color: black;";
 	boxText.innerHTML = '<h4 style=" margin-top: 2px; margin-bottom: 2px;">' + title + '</h4><p style="text-align: justify; font-size: 12px;margin: 0;">' + description+ '</p>';
 
 	var myOptions = {

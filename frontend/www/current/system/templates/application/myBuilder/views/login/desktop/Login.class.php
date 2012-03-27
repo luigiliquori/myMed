@@ -1,6 +1,5 @@
 <?php
 
-require_once 'system/templates/ITemplate.php';
 require_once 'system/templates/AbstractLogin.class.php';
 require_once 'system/templates/application/' . APPLICATION_NAME . '/handler/InscriptionHandler.class.php';
 
