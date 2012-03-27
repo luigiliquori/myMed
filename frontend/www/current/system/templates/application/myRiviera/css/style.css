@@ -16,18 +16,9 @@
 }
 
 #itineraire{
-	position: absolute;
-	top: 40px;
-	left:10px;
 	text-align: left;
-	display: none;
-	opacity: 0.9;
 }
 
-#itineraireContent .ui-collapsible-content, #itineraireContent .ui-listview-inset{
-	margin: 0;
-	padding: 0;
-}
 
 #steps {
 	position: absolute;
@@ -38,18 +29,6 @@
 	display: none;
 }
 
-#itineraireContent .ui-li-desc{
-	padding-right: 25px;
-	padding-left: 2px;
-	margin-bottom: 0;
-}
-
-#itineraireContent ul a{
-	font-weight: lighter;
-	padding: 0.3em 0 0 0;
-	margin-bottom: -20px;
-	margin-left: -50px;
-}
 
 #depart::-webkit-input-placeholder {
   color: LightBlue;
@@ -81,14 +60,6 @@
 
 #date .ui-icon{
 	display:none;
-}
-
-.ui-page {
- 	text-align: center;
-}
-
-.ui-li-desc {
-	white-space: normal;
 }
 
 .poiContent {

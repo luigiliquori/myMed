@@ -10,6 +10,8 @@
 		require_once dirname(__FILE__).'/views/home/MapView.class.php';
 		require_once dirname(__FILE__).'/views/home/OptionView.class.php';
 		require_once dirname(__FILE__).'/views/home/SearchView.class.php';
+		require_once dirname(__FILE__).'/views/home/DetailsView.class.php';
+		
 
 		// BUILD THE VIEWs
 		$map = new MapView();
@@ -18,6 +20,8 @@
 		$option->printTemplate();
 		$search = new SearchView();
 		$search->printTemplate();
+		$details = new DetailsView();
+		$details->printTemplate();
 		
 		// PROFILE UPDATE
 		include('views/dialog/updateProfile.php');

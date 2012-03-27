@@ -328,10 +328,9 @@ function calcRouteByCityway(result) {
 	currentType = null;
 	icon = null;
 	routes = [];
-	var collapsed = 0;
-	$('#itineraire h3:first').find('.ui-btn-text').html(
-			$('#itineraire h3:first').find('.ui-btn-text').html().replace(
-					/(Feuille de route)( \w+|)/, '$1 Cityway'));
+//	$('#itineraire h3:first').find('.ui-btn-text').html(
+//			$('#itineraire h3:first').find('.ui-btn-text').html().replace(
+//					/(Feuille de route)( \w+|)/, '$1 Cityway'));
 	startmarker.setTitle("Départ\n"
 			+ result.ItineraryObj.originPoint.name[0]
 			+ result.ItineraryObj.originPoint.name.substr(1).toLowerCase()
@@ -353,39 +352,31 @@ function calcRouteByCityway(result) {
 		if (tripSegment.type
 				&& (currentType == null || currentType != tripSegment.type)) {
 
-			item = $('<div data-role="collapsible" data-collapsed='
-					+ (collapsed++ == 0 ? 'false' : 'true') + '></div>');
-
 			switch (tripSegment.type) {
 			case 'WALK':
-				$("<h3>Marche</h3>").appendTo(item);
 				titre = "Marche";
 				icon = "system/templates/application/myRiviera/img/"
 					+ tripSegment.type.toLowerCase() + ".png";
 				break;
 			case 'CONNECTION':
-				$("<h3>Connection</h3>").appendTo(item);
 				titre = "Connection";
 				icon = "system/templates/application/myRiviera/img/info.png";
 				break;
 			case 'WAIT':
-				$("<h3>Attente</h3>").appendTo(item);
 				titre = "Attendre";
 				icon = "system/templates/application/myRiviera/img/info.png";
 				break;
 			default:
-				$("<h3>" + tripSegment.transportMode.toLowerCase() + "</h3>")
-				.appendTo(item);
-			titre = tripSegment.transportMode.toLowerCase();
-			icon = "system/templates/application/myRiviera/img/"
-				+ tripSegment.transportMode.toLowerCase() + ".png";
+				titre = tripSegment.transportMode.toLowerCase();
+				icon = "system/templates/application/myRiviera/img/"
+					+ tripSegment.transportMode.toLowerCase() + ".png";
 			break;
 			}
 
-			currentType = tripSegment.type;
-			$('<ul data-role="listview" data-inset="true"></ul>')
-			.appendTo(item);
-			item.appendTo($('#itineraireContent'));
+			if(currentType != tripSegment.type) {
+				$('<li data-role="list-divider">' + titre + '</li>').appendTo($('#itineraireContent'));
+				currentType = tripSegment.type;
+			}
 		}
 
 		if (tripSegment.departurePoint) {
@@ -405,17 +396,12 @@ function calcRouteByCityway(result) {
 							'title' : titre
 			};
 		}
+		content1 = tripSegment.distance > 0 ? 'Distance: ' + tripSegment.distance + ' m' : 'Durée: ' + tripSegment.duration + ' min';
+		content2 = (tripSegment.comment || '&nbsp;');
 
-		desc = $('<li><a onclick="updateMarkers('
-				+ i
-				+ ');" data-icon="search"><h3>'
-				+ (tripSegment.distance > 0 ? 'Distance: '
-						+ tripSegment.distance + ' m' : 'Durée: '
-							+ tripSegment.duration + ' min')
-							+ '</h3></a><br /><p style="position: relative; margin-left: 20px;">'
-							+ (tripSegment.comment || '&nbsp;') + '</p></li>');
+		desc = $('<li style="padding:5px;"><img alt="no picture" src="' + icon + '" /><a href="#Map" onclick="updateMarkers('+ i+ ');"><p style="position: relative; left: -16px;">' + content1 + '</p><p>' + content2 + '</p></a></li>');
 
-		desc.appendTo(item.find('ul'));
+		desc.appendTo($('#itineraireContent'));
 
 		if (currentType == "TRANSPORT"
 			&& [ 'AVION', 'BOAT', 'TER', 'TRAIN', 'TRAM' ]
@@ -473,9 +459,9 @@ function calcRouteByCityway(result) {
 
 function calcRouteByGoogle() {
 
-	$('#itineraire h3:first').find('.ui-btn-text').html(
-			$('#itineraire h3:first').find('.ui-btn-text').html().replace(
-					/(Feuille de route)( \w+|)/, '$1 GoogleMaps'));
+//	$('#itineraire h3:first').find('.ui-btn-text').html(
+//			$('#itineraire h3:first').find('.ui-btn-text').html().replace(
+//					/(Feuille de route)( \w+|)/, '$1 GoogleMaps'));
 	var request = {
 			origin : startmarker.getPosition(),
 			destination : endmarker.getPosition(),
@@ -488,15 +474,13 @@ function calcRouteByGoogle() {
 
 	icon = "system/templates/application/myRiviera/img/voiture.png";
 	titre = "Voiture";
-	var collapsed = 0;
 	directionsService
 	.route(
 			request,
 			function(result, status) {
 				if (status == google.maps.DirectionsStatus.OK) {
 
-					$(
-							"<li data-role='list-divider'><span>"
+					$("<li data-role='list-divider'><span>"
 							+ result.routes[0].legs[0].steps[0].travel_mode
 							.toLowerCase()
 							+ "</span></li>").appendTo(
@@ -508,16 +492,7 @@ function calcRouteByGoogle() {
 
 					for ( var i = 0; i < result.routes[0].legs[0].steps.length; i++) {
 						if (i % 5 == 0) { // all 5 results we groupe
-							// them by category
-							item = $('<div data-role="collapsible" data-collapsed='
-									+ (collapsed++ == 0 ? 'false'
-											: 'true') + '></div>');
-							$("<h3>Voiture (" + collapsed + ")</h3>")
-							.appendTo(item);
-							$(
-							'<ul data-role="listview" data-inset="true"></ul>')
-							.appendTo(item);
-							item.appendTo($('#itineraireContent'));
+							$('<li data-role="list-divider">Voiture</li>').appendTo($('#itineraireContent'));
 						}
 
 						st = result.routes[0].legs[0].steps[i];
@@ -527,30 +502,11 @@ function calcRouteByGoogle() {
 								'icon' : icon,
 								'title' : titre
 						};
-
-						desc = $('<li><a onclick="updateMarkers('
-								+ i
-								+ ');" data-icon="search"><span>Distance: '
-								+ st.distance.text + ' ('
-								+ st.duration.text
-								+ ')</span></a></li>');
-						var c = $('<div>' + st.instructions + '</div>'); // trick
-						// to
-						// remove
-						// google's
-						// html
-						// tags
-						// inside
-						// instructions
-						c.find('div').each(function(i, el) {
-							$(el).replaceWith(". " + $(el).text());
-						});
-						c.find('b').each(function(i, el) {
-							$(el).replaceWith($(el).text());
-						});
-						$('<p>' + c.html() + '</p>').appendTo(desc);
-						desc.appendTo(item.find('ul'));
-
+						
+						content1 = 'Distance: ' + st.distance.text + ' (' + st.duration.text + ')';
+						content2 = st.instructions;
+						desc = $('<li style="padding:5px;"><img alt="no picture" src="' + icon + '" /><a href="#Map" onclick="updateMarkers('+ i+ ');"><p style="position: relative; left: -16px;">' + content1 + '</p><p>' + content2 + '</p></a></li>');
+						desc.appendTo($('#itineraireContent'));
 					}
 
 					// create jquerymobile styled elmts
