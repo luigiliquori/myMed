@@ -74,11 +74,14 @@ function initialize() {
 	// initialize the filter for the markers
 	updateFilter();
 
-	// resize the map: Jquerymobile fails
+	resizeMap();
+	
+}
+
+function resizeMap() {
 	$("#" + $("#applicationName").val() + "Map").height(
 			$("body").height()
 			- $('body').find('div[data-role=header]').outerHeight());
-
 }
 
 /**
@@ -399,7 +402,7 @@ function calcRouteByCityway(result) {
 		content1 = tripSegment.distance > 0 ? 'Distance: ' + tripSegment.distance + ' m' : 'Durée: ' + tripSegment.duration + ' min';
 		content2 = (tripSegment.comment || '&nbsp;');
 
-		desc = $('<li style="padding:5px;"><img alt="no picture" src="' + icon + '" /><a href="#Map" onclick="updateMarkers('+ i+ ');"><p style="position: relative; left: -16px;">' + content1 + '</p><p>' + content2 + '</p></a></li>');
+		desc = $('<li style="padding:5px;"><img alt="no picture" src="' + icon + '" /><a href="#Map" onclick="updateMarkers('+ i+ ');" data-back="true"><p style="position: relative; left: -16px;">' + content1 + '</p><p>' + content2 + '</p></a></li>');
 
 		desc.appendTo($('#itineraireContent'));
 
@@ -505,7 +508,7 @@ function calcRouteByGoogle() {
 						
 						content1 = 'Distance: ' + st.distance.text + ' (' + st.duration.text + ')';
 						content2 = st.instructions;
-						desc = $('<li style="padding:5px;"><img alt="no picture" src="' + icon + '" /><a href="#Map" onclick="updateMarkers('+ i+ ');"><p style="position: relative; left: -16px;">' + content1 + '</p><p>' + content2 + '</p></a></li>');
+						desc = $('<li style="padding:5px;"><img alt="no picture" src="' + icon + '" /><a href="#Map" onclick="updateMarkers('+ i+ ');" data-back="true"><p style="position: relative; left: -16px;">' + content1 + '</p><p>' + content2 + '</p></a></li>');
 						desc.appendTo($('#itineraireContent'));
 					}
 

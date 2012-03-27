@@ -146,20 +146,18 @@ class SearchView extends MyApplication {
 					<h3>Options Avancées</h3>
 					
 					<h3>Points d'interêts</h3>
-					<div id="<?= APPLICATION_NAME ?>Filter" class="ui-grid-b">
+					<div id="<?= APPLICATION_NAME ?>Filter" class="ui-grid-a">
 						<?php $i=0; ?>
 						<?php foreach ($this->filterList as $filter) { ?>
-							<?php if($i==0) { ?>
+							<?php if($i%2==0) { ?>
 								<div class="ui-block-a">
-							<?php } else if($i==1) { ?>
-								<div class="ui-block-b">
 							<?php }  else { ?>
-								<div class="ui-block-c">
+								<div class="ui-block-b">
 							<?php } ?>
 								<input type="checkbox" name="<?= $filter ?>" id="<?= $filter ?>" class="custom" checked="checked" /> 
 								<label for="<?= $filter ?>"><?= $filter ?></label>
 							</div>
-							<?php $i = ($i+1)%3; ?>
+							<?php $i++; ?>
 						<?php } ?>
 					</div>
 					

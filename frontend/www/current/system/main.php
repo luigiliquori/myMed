@@ -25,7 +25,7 @@
 	if ($detect->isMobile()) {
 		define('TARGET', "mobile");
 	} else {
-		define('TARGET', "desktop");
+		define('TARGET', "mobile");
 	}
 	
 	/* ----------------------------------------------------------------------------- */

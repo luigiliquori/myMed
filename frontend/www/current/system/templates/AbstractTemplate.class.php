@@ -32,7 +32,7 @@ abstract class AbstractTemplate {
 	protected /*void*/ function getFooter() {}
 	
 	public /*void*/ function printTemplate() {
-		echo '<div id="<?= $this->id ?>" data-role="page" data-theme="b">';
+		echo '<div id="' . $this->id . '" data-role="page" data-theme="b" >';
 		$this->getHeader();
 		$this->getContent();
 		$this->getFooter();
@@ -92,12 +92,6 @@ abstract class AbstractTemplate {
 		// DISCONNECT FORM
 		echo '<form action="?application=' . APPLICATION_NAME . '" method="post" name="disconnectForm" id="disconnectForm">';
 		echo '<input type="hidden" name="disconnect" value="1" /></form>';
-			
-		// DEFINE ATTRIBUTES FOR THE JAVASCRIPT PART (AJAX CALL)
-		// TODO REMOVE THIS
-		echo "<input type='hidden' id='userID' value='" . $_SESSION['user']->id . "' />";
-		echo "<input type='hidden' id='applicationName' value='" . APPLICATION_NAME . "' />";
-		echo "<input type='hidden' id='accessToken' value='" . $_SESSION['accessToken'] . "' />";
 	}
 	
 }

@@ -50,9 +50,13 @@ class Login extends AbstractTemplate {
 		<!-- CONTENT -->
 		<div class="content" data-theme="b">
 			<br /><br />
-				<img id="logo" alt="title" src="system/templates/application/<?= APPLICATION_NAME ?>/img/icon.png" height="50"  style="position: absolute; margin-left: -140px; margin-top: 18px;" />
-				<h1 style="position: relative;"><?= APPLICATION_NAME ?></h1>
-			
+			<div style="position: absolute; left: 50%; top: 90px;">
+				<img alt="title" src="system/templates/application/<?= APPLICATION_NAME ?>/img/icon.png" height="50"  style="position: relative; margin-left: -150px;" />
+			</div>
+			<div style="position: absolute; left: 50%; top: 73px;">
+				<h1 style="position: relative; left: -40px;"><?= APPLICATION_NAME ?></h1>
+			</div>
+			<br /><br />
 			<!-- NOTIFICATION -->
 			<?php if($this->handler->getError()) { ?>
 				<div id="loginError" style="color: red;">

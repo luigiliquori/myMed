@@ -33,14 +33,16 @@ class TemplateManager {
 		<title>myMed | Réseaux Social Transfrontalier</title> 
 		
 		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-		<!-- <meta name="viewport" content="width=device-width, initial-scale=1, <?= TARGET == "mobile" ? "user-scalable=0" : "" ?>" /> --> 
+		<?php if(TARGET == "mobile") { ?>
+			<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
+		<?php }?>
 		
 		<!-- Common javascript -->
 		<script src="system/javascript/common.js"></script>
 		
 		<!-- Common css -->
 		<link href="system/css/style.css" rel="stylesheet" />
-
+		
 		</head>
 		
 		<body onload="hideLoadingBar();">

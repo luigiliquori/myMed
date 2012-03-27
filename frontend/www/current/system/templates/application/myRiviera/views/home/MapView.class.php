@@ -60,7 +60,6 @@ class MapView extends MyApplication {
 				<a href="#roadMap" data-role="button" data-theme="b" >Détails</a>
 				<a id="next-step" data-role="button" data-theme="b" data-iconpos="right" data-icon="arrow-r">&nbsp;</a>
 			</div>
-
 		</div>
 	<?php }
 

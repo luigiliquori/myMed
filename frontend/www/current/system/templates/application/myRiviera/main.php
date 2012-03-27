@@ -25,6 +25,12 @@
 		
 		// PROFILE UPDATE
 		include('views/dialog/updateProfile.php');
+		
+		// DEFINE ATTRIBUTES FOR THE JAVASCRIPT PART (AJAX CALL)
+		// TODO REMOVE THIS
+		echo "<input type='hidden' id='userID' value='" . $_SESSION['user']->id . "' />";
+		echo "<input type='hidden' id='applicationName' value='" . APPLICATION_NAME . "' />";
+		echo "<input type='hidden' id='accessToken' value='" . $_SESSION['accessToken'] . "' />";
 	
 	} else { // LOGIN PAGE OF THE APPLICATION ---------------------------
 	
