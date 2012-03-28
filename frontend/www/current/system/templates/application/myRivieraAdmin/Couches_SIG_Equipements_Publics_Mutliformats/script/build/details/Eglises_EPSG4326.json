@@ -1,0 +1,73 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Eglise du Sacré Coeur", "Description": "Messes à 18H", "Adresse": "15 av. Edouard VII, 06500 Menton", "Id_media": 0, "Ville": "MENTON" }, "geometry": { "type": "Point", "coordinates": [ 7.494861, 43.773302 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "La Méséricorde", "Description": "Messes à 17H30; 18H en été", "Adresse": "Menton", "Id_media": 0, "Ville": "MENTON" }, "geometry": { "type": "Point", "coordinates": [ 7.505660, 43.776358 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Immaculée Conception", "Description": "", "Adresse": "Menton", "Id_media": 0, "Ville": "MENTON" }, "geometry": { "type": "Point", "coordinates": [ 7.506532, 43.777134 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Basilique Saint-Michel", "Description": "Messes à 10H30", "Adresse": "Menton", "Id_media": 0, "Ville": "MENTON" }, "geometry": { "type": "Point", "coordinates": [ 7.507104, 43.777023 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Chapelle Saint-Laurent", "Description": "Messes à 9h30", "Adresse": "Menton", "Id_media": 0, "Ville": "MENTON" }, "geometry": { "type": "Point", "coordinates": [ 7.520260, 43.785130 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Eglise Notre Dame des Neiges", "Description": "Messes à 16H; été:19H", "Adresse": "Sainte-Agnès", "Id_media": 0, "Ville": "SAINTE-AGNES" }, "geometry": { "type": "Point", "coordinates": [ 7.461882, 43.800812 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Eglise Saint-Michel", "Description": "Messes à 9h30 le Dimanche", "Adresse": "Eglise Saint-Michel La Turbie", "Id_media": 0, "Ville": "LA TURBIE" }, "geometry": { "type": "Point", "coordinates": [ 7.400890, 43.744580 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Eglise Saint-Antoine", "Description": "", "Adresse": "Eglise Saint-Antoine Moulinet", "Id_media": 0, "Ville": "MOULINET" }, "geometry": { "type": "Point", "coordinates": [ 7.413035, 43.941556 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Cathédrale Saint Michel", "Description": "", "Adresse": "Cathédrale Saint Michel Sospel", "Id_media": 0, "Ville": "SOSPEL" }, "geometry": { "type": "Point", "coordinates": [ 7.446608, 43.876962 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Eglise de Sospel 2", "Description": "", "Adresse": "Eglise de Sospel 2 Sospel", "Id_media": 0, "Ville": "SOSPEL" }, "geometry": { "type": "Point", "coordinates": [ 7.447398, 43.876860 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Eglise de Sospel 3", "Description": "", "Adresse": "Eglise de Sospel 3 Sospel", "Id_media": 0, "Ville": "SOSPEL" }, "geometry": { "type": "Point", "coordinates": [ 7.447250, 43.876741 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Eglise de Castillon", "Description": "", "Adresse": "Eglise de Castillon Castillon", "Id_media": 0, "Ville": "CASTILLON" }, "geometry": { "type": "Point", "coordinates": [ 7.471871, 43.832979 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Chapelle", "Description": "", "Adresse": "Chapelle 06500 Menton", "Id_media": 0, "Ville": "MENTON" }, "geometry": { "type": "Point", "coordinates": [ 7.509610, 43.782207 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Chapelle", "Description": "", "Adresse": "Chapelle 06500 Menton", "Id_media": 0, "Ville": "MENTON" }, "geometry": { "type": "Point", "coordinates": [ 7.508588, 43.781172 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Chapelle", "Description": "Messes à 18H", "Adresse": "Chapelle 06500 Menton", "Id_media": 0, "Ville": "MENTON" }, "geometry": { "type": "Point", "coordinates": [ 7.487613, 43.766446 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Eglise ST BARTHELEMY", "Description": "Messes à 11H", "Adresse": "Eglise ST BARTHELEMY 06500 Gorbio", "Id_media": 0, "Ville": "GORBIO" }, "geometry": { "type": "Point", "coordinates": [ 7.445184, 43.786490 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Eglise Baroque Saint-Pierre", "Description": "Messes à 9h30", "Adresse": "Eglise Baroque Saint-Pierre 06500 Castellar", "Id_media": 0, "Ville": "CASTELLAR" }, "geometry": { "type": "Point", "coordinates": [ 7.496722, 43.804904 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Chapelle Saint-Sébastien", "Description": "Pas de messes", "Adresse": "Chapelle Saint-Sébastien 06500 Castellar", "Id_media": 0, "Ville": "CASTELLAR" }, "geometry": { "type": "Point", "coordinates": [ 7.498690, 43.806725 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Chapelle Saint Lazare", "Description": "Pas de messes", "Adresse": "Chapelle Saint Lazare 06500 GORBIO", "Id_media": 0, "Ville": "GORBIO" }, "geometry": { "type": "Point", "coordinates": [ 7.445027, 43.789950 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Eglise Saint Jean Baptiste", "Description": "", "Adresse": "", "Id_media": 0, "Ville": "LA TURBIE" }, "geometry": { "type": "Point", "coordinates": [ 7.401278, 43.745288 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Chapelle St Roch", "Description": "", "Adresse": "", "Id_media": 0, "Ville": "LA TURBIE" }, "geometry": { "type": "Point", "coordinates": [ 7.411995, 43.749261 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Chapelle Sainte Croix", "Description": "Pas de messes", "Adresse": "Chapelle Saine Croix 06500 GORBIO", "Id_media": 0, "Ville": "GORBIO" }, "geometry": { "type": "Point", "coordinates": [ 7.450197, 43.878641 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "St Sébastien", "Description": "", "Adresse": "", "Id_media": 0, "Ville": "MOULINET" }, "geometry": { "type": "Point", "coordinates": [ 7.412427, 43.939907 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Chapelle Saint Michel", "Description": "", "Adresse": "", "Id_media": 0, "Ville": "MOULINET" }, "geometry": { "type": "Point", "coordinates": [ 7.409956, 43.941390 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Madone de la Menour", "Description": "", "Adresse": "", "Id_media": 0, "Ville": "MOULINET" }, "geometry": { "type": "Point", "coordinates": [ 7.411958, 43.921942 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Chapelle Sainte Marguerite", "Description": "Messes à 10h30", "Adresse": "Chapelle Sainte Marguerite 06190 ROQUEBRUNE-CAP-MARTIN", "Id_media": 0, "Ville": "ROQUEBRUNE-CAP-MARTIN" }, "geometry": { "type": "Point", "coordinates": [ 7.460035, 43.764818 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Chapelle St Roch", "Description": "", "Adresse": "Chapelle St Roch 06190 ROQUEBRUNE-CAP-MARTIN", "Id_media": 0, "Ville": "ROQUEBRUNE-CAP-MARTIN" }, "geometry": { "type": "Point", "coordinates": [ 7.464386, 43.763596 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Chapelle La Pausa", "Description": "", "Adresse": "Chapelle La Pausa 06190 ROQUEBRUNE-CAP-MARTIN", "Id_media": 0, "Ville": "ROQUEBRUNE-CAP-MARTIN" }, "geometry": { "type": "Point", "coordinates": [ 7.466487, 43.763899 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Chapelle Saint Sébastien", "Description": "", "Adresse": "", "Id_media": 0, "Ville": "SAINTE-AGNES" }, "geometry": { "type": "Point", "coordinates": [ 7.462140, 43.799716 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Ruines de la chapelle Saint Antonin", "Description": "Pas de messes", "Adresse": "", "Id_media": 0, "Ville": "CASTILLON" }, "geometry": { "type": "Point", "coordinates": [ 7.476829, 43.831298 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Chapelle Saint-Roch", "Description": "", "Adresse": "", "Id_media": 0, "Ville": "GORBIO" }, "geometry": { "type": "Point", "coordinates": [ 7.442460, 43.785641 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Chapelle des Pénitents Blancs", "Description": "", "Adresse": "Chapelle des Pénitents Blancs 06500 GORBIO", "Id_media": 0, "Ville": "GORBIO" }, "geometry": { "type": "Point", "coordinates": [ 7.444899, 43.786575 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Chapelle Saint-Roch", "Description": "Messes à 10h30", "Adresse": "Place Saint-Roch 06500 Menton", "Id_media": 0, "Ville": "" }, "geometry": { "type": "Point", "coordinates": [ 7.500862, 43.774475 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Monastère de l'Annonciade", "Description": "Messes à 11H15", "Adresse": "2135 Corniche André Tardieu - 06500 Menton", "Id_media": 0, "Ville": "" }, "geometry": { "type": "Point", "coordinates": [ 7.489372, 43.784740 ] } }
+
+]
+}

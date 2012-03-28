@@ -1,0 +1,15 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Police_municipaleEPSG4326", "Nom": "Police municipale de la Turbie", "Description": "Police municipale: 04 92 41 51 66", "Adresse": "1 av Victoire 06320 La Turbie", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.398898, 43.745310 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Police_municipaleEPSG4326", "Nom": "Police Municipale Hôtel de Ville (Menton)", "Description": "Police municipale: 04 92 10 50 50", "Adresse": "17 r République 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.502602, 43.775643 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Police_municipaleEPSG4326", "Nom": "Police municipale de Beausoleil", "Description": "Police municpale: 04 92 10 72 83", "Adresse": "11 rue Jules Ferry 06240 Beausoleil", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.424994, 43.743386 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Police_municipaleEPSG4326", "Nom": "Police municipale de RCM", "Description": "Police municipale: 04 92 10 47 55", "Adresse": "avenue de la Plage à côté du 173 06190 Roquebrune-Cap-Martin", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.479871, 43.758686 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Police_municipaleEPSG4326", "Nom": "Police municipale de Sospel", "Description": "Police municipale: 04 93 04 33 00", "Adresse": "Bâtiment de la mairie place Saint Pierre 06380 Sospel", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.449674, 43.877305 ] } }
+
+]
+}

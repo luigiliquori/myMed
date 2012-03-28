@@ -1,0 +1,21 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Date_Saisie": "2007\/05\/01", "Source": "01", "Remarque": "Ouvert tous les jours sauf le mardi, 10h-12h et 14h-18h", "TelBureau": "", "Nom_commune": "MENTON", "Adresse": "Esplanade Palmero", "Nom": "Musée Cocteau", "idnum": 0, "ident": "" }, "geometry": { "type": "Point", "coordinates": [ 7.508494, 43.774764 ] } }
+,
+{ "type": "Feature", "properties": { "Date_Saisie": "2007\/05\/01", "Source": "01", "Remarque": "Ouvert tous les jours sauf le mardi, 10h-12h et 14h-18h", "TelBureau": "0493354971", "Nom_commune": "MENTON", "Adresse": "Musée des Beaux Arts du Palais C", "Nom": "Musée des Beaux Arts", "idnum": 0, "ident": "" }, "geometry": { "type": "Point", "coordinates": [ 7.488920, 43.767081 ] } }
+,
+{ "type": "Feature", "properties": { "Date_Saisie": "2007\/05\/01", "Source": "01", "Remarque": "Ouvert tous les jours sauf le mardi, 10h-12h et 14h-18h, expositions permanentes (-objets de fouilles recueillis sur les sites préhistor", "TelBureau": "0493572991", "Nom_commune": "ME", "Adresse": "Mairie de Menton - Place Ardoïno", "Nom": "Salle des Mariages Jean Cocteau", "idnum": 0, "ident": "" }, "geometry": { "type": "Point", "coordinates": [ 7.503085, 43.775719 ] } }
+,
+{ "type": "Feature", "properties": { "Date_Saisie": "2007\/05\/01", "Source": "01", "Remarque": "Propriété de l'Etat", "TelBureau": "0493412084", "Nom_commune": "LA TURBIE", "Adresse": "Cours Albert 1er 06320 LA TURBIE", "Nom": "Musée et Trophée d'Auguste", "idnum": 0, "ident": "" }, "geometry": { "type": "Point", "coordinates": [ 7.402232, 43.744872 ] } }
+,
+{ "type": "Feature", "properties": { "Date_Saisie": "2009\/03\/02", "Source": "CA", "Remarque": "Entrée libre", "TelBureau": "", "Nom_commune": "MENTON", "Adresse": "Rue Loredan-Larchey", "Nom": "Musée de Préhistoire Régional", "idnum": 0, "ident": "" }, "geometry": { "type": "Point", "coordinates": [ 7.503428, 43.777058 ] } }
+,
+{ "type": "Feature", "properties": { "Date_Saisie": "0000\/00\/00", "Source": "", "Remarque": "", "TelBureau": "0 4 92 41 76 66", "Nom_commune": "MENTON", "Adresse": "8, avenue Boyer", "Nom": "Galerie d’Art Contemporain", "idnum": 0, "ident": "" }, "geometry": { "type": "Point", "coordinates": [ 7.497596, 43.774341 ] } }
+,
+{ "type": "Feature", "properties": { "Date_Saisie": "2009\/03\/02", "Source": "CA", "Remarque": "Entrée Libre", "TelBureau": "", "Nom_commune": "MENTON", "Adresse": "3, avenue de la Madone", "Nom": "Musée des Beaux-Arts, Palais Car", "idnum": 0, "ident": "" }, "geometry": { "type": "Point", "coordinates": [ 7.487965, 43.766639 ] } }
+,
+{ "type": "Feature", "properties": { "Date_Saisie": "2010\/06\/09", "Source": "CC", "Remarque": "", "TelBureau": "", "Nom_commune": "CASTELLAR", "Adresse": "06500 CASTELLAR", "Nom": "Palais des Lascaris", "idnum": 0, "ident": "" }, "geometry": { "type": "Point", "coordinates": [ 7.497041, 43.804715 ] } }
+
+]
+}
