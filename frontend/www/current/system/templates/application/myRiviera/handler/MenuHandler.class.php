@@ -46,10 +46,8 @@ class MenuHandler implements IRequestHandler {
 			session_destroy();
 			if (isset($_SESSION['wrapper'])){
 				header("Refresh:0;url=".$_SESSION['wrapper']->getLogoutUrl());
-				header("Refresh:0;url=".$_SERVER['PHP_SELF']);
-			} else {
-				header("Refresh:0;url=".$_SERVER['PHP_SELF']);
 			}
+			header("Refresh:0;url=".$_SERVER['PHP_SELF']. "?application=" . APPLICATION_NAME);
 		} 
 	}
 

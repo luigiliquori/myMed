@@ -71,6 +71,7 @@ function setupDASPMap(mapID, displayPosition, displayError, watchPosition) {
 		map = new google.maps.Map(document.getElementById(mapID), {
 			zoom : 16,
 			center : new google.maps.LatLng(43.7, 7.27),
+			disableDefaultUI: true,
 			mapTypeId : google.maps.MapTypeId.ROADMAP
 		});
 
@@ -88,6 +89,24 @@ function setupDASPMap(mapID, displayPosition, displayError, watchPosition) {
 		}
 	}
 }
+
+//google.maps.Map.prototype.markers = new Array();
+//
+//google.maps.Map.prototype.addMarker = function(marker) {
+//    this.markers[this.markers.length] = marker;
+//};
+//
+//google.maps.Map.prototype.getMarkers = function() {
+//    return this.markers
+//};
+//
+//google.maps.Map.prototype.clearMarkers = function() {
+//    for(var i=0; i<this.markers.length; i++){
+//        this.markers[i].setMap(null);
+//    }
+//    this.markers = new Array();
+//};
+
 
 /**
  * Zoom on the position define by the latitude and the longitude
@@ -135,6 +154,31 @@ function focusOnLatLng(position) {
  * @param radius
  *            radius in meter
  */
+
+function getMarkers2(latitude, longitude, type, radius) {
+
+	var result = new Array();
+
+	var res = $.ajax({
+		url : "lib/dasp/request/POI.php",
+		data : {
+			'application': $("#applicationName").val(),
+			'type': type,
+			'latitude': latitude,
+			'longitude': longitude,
+			'radius': radius
+		},
+		async : false
+	}).responseText;
+
+	if ((resJSON = $.parseJSON(res)) != null) {
+		if ((pois = $.parseJSON(resJSON.data.pois)) != null) {
+			result = result.concat(pois);
+		}
+	}
+	return result;
+}
+
 function getMarkers(latitude, longitude, type, radius) {
 
 	var result = new Array();
@@ -186,8 +230,8 @@ function addMarker(position, icon, title, description, animation, isDraggable) {
 	});
 
 	var boxText = document.createElement("div");
-	boxText.style.cssText = "background-color: white; padding: 5px; border: thin black solid; border-radius: 5px;";
-	boxText.innerHTML = "<h4 style=' margin-top: 2px; margin-bottom: 2px;'>" + title + "</h4><p style='text-align: justify; font-size: 12px;margin: 0;'>" + description+ "</p>";
+	boxText.style.cssText = "background-color: white; padding: 5px; border: thin black solid; border-radius: 5px; color: black;";
+	boxText.innerHTML = '<h4 style=" margin-top: 2px; margin-bottom: 2px;">' + title + '</h4><p style="text-align: justify; font-size: 12px;margin: 0;">' + description+ '</p>';
 
 	var myOptions = {
 			content: boxText,

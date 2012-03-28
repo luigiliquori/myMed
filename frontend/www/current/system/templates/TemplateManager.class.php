@@ -33,25 +33,9 @@ class TemplateManager {
 		<title>myMed | Réseaux Social Transfrontalier</title> 
 		
 		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, <?= TARGET == "mobile" ? "user-scalable=0" : "" ?>" /> 
-		
-		<!-- JQUERY CSS -->
-		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
-		<link rel="stylesheet" href="lib/jquery/jquery.mobile.actionsheet.css" />
-		<!-- <link rel="stylesheet" href="lib/jquery/jquery.mobile.datebox.css" />-->
-		
-		<!-- JQUERY -->
-		<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-		<script type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>		
-		<script type="text/javascript" src="lib/jquery/jquery.mobile.actionsheet.js"></script>
-		
-		<!-- JQUERY mobile datebox -->
-		<script src="lib/jquery/datebox/jquery.mobile.datebox.min.js"></script>
-		<link href="lib/jquery/datebox/jquery.mobile.datebox.min.css" rel="stylesheet" />
-		
-		<!-- MAP -->
-		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=<?= Google_APP_SECRET ?>&sensor=true&libraries=places"> </script>
-		<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox_packed.js"></script>
+		<?php if(TARGET == "mobile") { ?>
+			<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
+		<?php }?>
 		
 		<!-- Common javascript -->
 		<script src="system/javascript/common.js"></script>
@@ -59,31 +43,10 @@ class TemplateManager {
 		<!-- Common css -->
 		<link href="system/css/style.css" rel="stylesheet" />
 		
-		<!-- LOAD DYNAMICALLY THE CSS FOR EACH TEMPLATE -->
-		<?php 
-		if ($handle = opendir($this->path . $this->template . '/css')) {
-		    while (false !== ($file = readdir($handle))) {
-		    	if($file != "." && $file != ".." && $file != ".DS_Store"){ ?>
-			    	<link href='system/templates/<?=  $this->template ?>/css/<?= $file ?>' rel="stylesheet" />
-				<?php }
-		    } 
-		} 
-		?>
-		
-		<!-- LOAD DYNAMICALLY THE JAVASCRIPT FOR EACH TEMPLATE -->
-		<?php 
-		if ($handle = opendir($this->path . $this->template . '/javascript')) {
-		    while (false !== ($file = readdir($handle))) {
-		    	if($file != "." && $file != ".." && $file != ".DS_Store"){ ?>
-		    		<script src='system/templates/<?=  $this->template ?>/javascript/<?= $file ?>'></script>
-				<?php }
-		    } 
-		} 
-		?>
-		
 		</head>
 		
-		<body onload="initialize();">
+		<body onload="hideLoadingBar();">
+		<div id="loading" style="display:<?= TARGET == "desktop" ? "none" : "block" ?>;"><center><span>Chargement en cours...</span></center></div>
 	<?php }
 	
 	/**

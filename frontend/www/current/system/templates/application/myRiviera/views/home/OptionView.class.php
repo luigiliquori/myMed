@@ -14,8 +14,6 @@ class OptionView extends MyApplication {
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
-	private /*IRequestHandler*/ $handler;
-	private /*String[]*/ $filterList;
 
 	/* --------------------------------------------------------- */
 	/* Constructors */
@@ -23,32 +21,8 @@ class OptionView extends MyApplication {
 	/**
 	 * Default constructor
 	 */
-	public function __construct(/*MyTemplateHandler*/ $handler) {
+	public function __construct() {
 		parent::__construct("Option");
-		$this->handler = $handler;
-		$this->filterList = array(
-		"ADAPEI",
-		"ADERF",
-		"ASSEDIC",
-		"Bibliotheque",
-		"CCAS",
-		"EPCI",
-		"EqptPublic",
-		"Mairie", 
-		"Eglises",
-		"Forts_militaires",
-		"Fourriere",
-		"FoyerRural",
-		"GARES_SUD",
-		"Jardins",
-		"Maisons_Retraites",
-		"Monuments",
-		"OfficeDeTourisme",
-		"Police_municipale",
-		"Ports",
-		"POSTES",
-		"STADES"
-		);
 	}
 
 	/* --------------------------------------------------------- */
@@ -57,14 +31,11 @@ class OptionView extends MyApplication {
 	/**
 	 * Get the HEADER for jQuery Mobile
 	 */
-
 	public /*String*/ function getHeader() { ?>
-	<div data-role="header" data-theme="b">
-		<h1>Options</h1>
-		<a href="#Find" data-role="button" class="ui-btn-left"
-			data-icon="arrow-l">Retour</a>
-	</div>
-	
+		<div data-role="header" data-theme="b">
+			<h1>Options</h1>
+			<a href="#Map" data-role="button" class="ui-btn-left" data-icon="arrow-l" data-back="true">Retour</a>
+		</div>
 	<?php }
 	
 	/**
@@ -75,87 +46,30 @@ class OptionView extends MyApplication {
 	<div data-role="content" Style="font-size: 10pt; width: 90%; margin-left: auto; margin-right: auto;">
 		<!-- UPDATE POIs -->
 		<div data-role="collapsible-set">
-			<!-- POIs - Filter -->
-			<div data-role="collapsible" data-collapsed="true" data-theme="b"
-				data-content-theme="c">
-				<h3>Points d'interêts</h3>
-				<fieldset id="<?= APPLICATION_NAME ?>Filter" data-role="controlgroup">	
-					<?php foreach ($this->filterList as $filter) { ?>
-					<input type="checkbox" name="<?= $filter ?>" id="<?= $filter ?>"
-						class="custom" checked="checked" /> <label for="<?= $filter ?>"><?= $filter ?>
-					</label><?php } ?>
-				</fieldset>
-			</div>
-			
-			<!-- Persistence -->
-			<div data-role="collapsible" data-collapsed="true" data-theme="b"
-				data-content-theme="c">
-				<h3>Persistence des points d'intérêts</h3>
-				<fieldset id="flip-persistence" data-role="controlgroup" style="width:200px;">	
-					<select name="flip-per" id="flip-per" data-role="slider" onchange="if(!$(this).val()) {clearMarkers();}">
-						<option value=''>non</option>
-						<option value='1'>oui</option>
-					</select>
-				</fieldset>
-			</div>
-	
-			<!-- POIs - radius -->
-			<div data-role="collapsible" data-collapsed="true" data-theme="b"
-				data-content-theme="c" style="text-align: left;">
-				<h3>Rayon de recherche</h3>
-				<input type="range" name="slider-radius" id="slider-radius" value="<?= TARGET == "mobile" ? "3" : "5" ?>00" min="100"
-					max="1000" data-theme="b" /> <span style="display: inline;">mètres</span>
-			</div>
-	
-			<!-- Search Option -->
-			<div id="cityway-search" data-role="collapsible" data-collapsed="true"
-				data-theme="b" data-content-theme="c">
-				<h3>Type de Trajet Cityway</h3>
-				<fieldset data-role="controlgroup" >
-					<input type="radio" name="radio-choice" id="radio-choice1" value="fastest" checked="checked" />
-					<label for="radio-choice1">le	+ rapide</label>
-					<input type="radio" name="radio-choice" id="radio-choice2" value="lessChanges" />
-					<label for="radio-choice2">le - de chgt</label>
-				</fieldset>
-				<fieldset data-role="controlgroup">
-					<input type="checkbox" name="checkbox" id="checkbox0"	checked="checked" /><label for="checkbox0">Bus</label>
-					<input type="checkbox" name="checkbox" id="checkbox2" checked="checked" /><label for="checkbox2">Car</label>
-					<input type="checkbox" name="checkbox" id="checkbox3" checked="checked" /><label for="checkbox3">Train</label>
-					<input type="checkbox" name="checkbox" id="checkbox4"	checked="checked" /><label for="checkbox4">Tram</label>
-					<input type="checkbox" name="checkbox" id="checkbox5" checked="checked" /><label for="checkbox5">Ter</label>
-					<input type="checkbox" name="checkbox" id="checkbox17" checked="checked" /><label for="checkbox17">Nav_élec</label>
-					<input type="checkbox" name="checkbox" id="checkbox19" checked="checked" /><label	for="checkbox19">Tgv</label>
-				</fieldset>
-			</div>
 	
 			<!-- Profile -->
-			<div data-role="collapsible" data-collapsed="true" data-theme="b"
-				data-content-theme="c">
+			<div data-role="collapsible" data-collapsed="false" data-theme="d" data-content-theme="c">
 				<h3>Profile</h3>
 				<?php if($_SESSION['user']->profilePicture != "") { ?>
 					<img alt="thumbnail" src="<?= $_SESSION['user']->profilePicture ?>" width="100">
 				<?php } else { ?>
 					<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="100">
 				<?php } ?>
-					<br />
-					Prenom: <?= $_SESSION['user']->firstName ?><br />
-					Nom: <?= $_SESSION['user']->lastName ?><br />
-					Date de naissance: <?= $_SESSION['user']->birthday ?><br />
-					eMail: <?= $_SESSION['user']->email ?><br />
-					<div data-role="controlgroup" data-type="horizontal">
-						<a href="#inscription" data-role="button" data-rel="dialog" data-inline="true" data-theme="b" data-icon="refresh">mise à jour</a>
-					<?php if(TARGET == "desktop") { ?>
-						<a href="#login" onclick="document.disconnectForm.submit()" rel="external" data-role="button" data-theme="r">Deconnexion</a>
-					<?php } else { ?>
-						<a href="mobile_binary<?= MOBILE_PARAMETER_SEPARATOR ?>logout" data-role="button" data-theme="r">Deconnexion</a>
-					<?php } ?>
-					</div>
+				<br />
+				Prenom: <?= $_SESSION['user']->firstName ?><br />
+				Nom: <?= $_SESSION['user']->lastName ?><br />
+				Date de naissance: <?= $_SESSION['user']->birthday ?><br />
+				eMail: <?= $_SESSION['user']->email ?><br />
+				<div data-role="controlgroup" data-type="horizontal">
+					<a href="#inscription" data-role="button" data-inline="true" data-theme="b" data-icon="refresh">mise à jour</a>
+					<a href="#login" onclick="document.disconnectForm.submit()" rel="external" data-role="button" data-theme="r">Deconnexion</a>
 				</div>
+			</div>
 	
 			<!-- FRIENDS -->
-			<div data-role="collapsible" data-collapsed="true" data-theme="b"
+			<div data-role="collapsible" data-collapsed="true" data-theme="d"
 				data-content-theme="c">
-				<h3>Mes amis</h3>
+				<h3>Réseau social</h3>
 				<?php $i=0; ?>
 				<?php foreach ($_SESSION['friends'] as $friend ) { ?>
 					<a href="<?= $friend["link"] ?>"><img src="http://graph.facebook.com/<?= $friend["id"] ?>/picture" width="20px" alt="<?= $friend["name"] ?>" /></a>
@@ -165,7 +79,7 @@ class OptionView extends MyApplication {
 					$socialNetworkConnection =  new SocialNetworkConnection();
 					foreach($socialNetworkConnection->getWrappers() as $wrapper) {
 						$url = TARGET == "mobile" ? str_replace("www", "m", $wrapper->getLoginUrl()) . "&display=touch" :  $wrapper->getLoginUrl();
-						echo "<a href='" . $url . "'>" . $wrapper->getSocialNetworkButton() . "</a>";
+						echo "<a href='" . $url . "' onClick='showLoadingBar(\"redirecton en cours...\")'>" . $wrapper->getSocialNetworkButton() . "</a>";
 					}
 				} else { ?>
 					<br /><br />
@@ -182,7 +96,7 @@ class OptionView extends MyApplication {
 			</div>
 	
 			<!-- HELP -->
-			<div data-role="collapsible" data-collapsed="true" data-theme="b"
+			<div data-role="collapsible" data-collapsed="true" data-theme="d"
 				data-content-theme="c" style="text-align: left;">
 				<h3>Aide</h3>
 				<h3>
@@ -210,7 +124,7 @@ class OptionView extends MyApplication {
 			</div>
 	
 			<!-- ABOUT -->
-			<div data-role="collapsible" data-collapsed="true" data-theme="b"
+			<div data-role="collapsible" data-collapsed="true" data-theme="d"
 				data-content-theme="c">
 				<h3>A propos</h3>
 				<h2>myRiviera v1.0 beta</h2>

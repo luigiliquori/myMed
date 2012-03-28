@@ -1,34 +1,14 @@
 <?php
 
-	// NAME OF THE APPLICATION
-	define('APPLICATION_NAME', "myMed");
-	
-	// LOAD DASP JAVASCRIPT LIBRARY
-	echo "<script src='lib/dasp/javascript/dasp.js'></script>";
+	require_once 'system/templates/AbstractTemplate.class.php';
+	AbstractTemplate::initializeTemplate("myMed");
 	
 	// LOAD THE VIEWs
 	if(USER_CONNECTED) { // HOME PAGE OF THE APPLICATION ---------------------------
 		
-		// IMPORT THE HANDLER
-		require_once dirname(__FILE__).'/handler/MenuHandler.class.php';
-		$menuHandler = new MenuHandler();
-		$menuHandler->handleRequest();
-		require_once dirname(__FILE__).'/handler/UpdateProfileHandler.class.php';
-		$updateHandler = new UpdateProfileHandler();
-		$updateHandler->handleRequest();
-		
 		// IMPORT THE MAIN VIEW
 		require_once dirname(__FILE__).'/views/home/Home.class.php';
 		require_once dirname(__FILE__).'/views/home/Profile.class.php';
-		
-		// DISCONNECT FORM
-		echo '<form action="?application=' . APPLICATION_NAME . '" method="post" name="disconnectForm" id="disconnectForm">';
-		echo '<input type="hidden" name="disconnect" value="1" /></form>';
-		
-		// DEFINE ATTRIBUTES FOR THE JAVASCRIPT PART (AJAX CALL)
-		echo "<input type='hidden' id='userID' value='" . $_SESSION['user']->id . "' />";
-		echo "<input type='hidden' id='applicationName' value='" . APPLICATION_NAME . "' />";
-		echo "<input type='hidden' id='accessToken' value='" . $_SESSION['accessToken'] . "' />";
 		
 		// BUILD THE VIEWs
 		$home = new Home();

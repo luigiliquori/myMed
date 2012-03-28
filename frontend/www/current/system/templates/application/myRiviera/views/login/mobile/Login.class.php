@@ -1,6 +1,5 @@
 <?php
 
-require_once 'system/templates/ITemplate.php';
 require_once 'system/templates/AbstractTemplate.class.php';
 require_once 'system/templates/application/' . APPLICATION_NAME . '/handler/InscriptionHandler.class.php';
 
@@ -36,9 +35,9 @@ class Login extends AbstractTemplate {
 	*/
 	public /*String*/ function getHeader() { ?>
 		<!-- HEADER -->
-		<div data-role="header">
+		<div data-role="header" data-theme="b">
 			<div data-role="controlgroup" data-type="horizontal" style="text-align: center;">
-				<a href="#inscription" data-role="button" data-inline="true" data-rel="dialog" >inscription</a>
+				<a href="#inscription" data-role="button" data-inline="true" >inscription</a>
 			</div>
 		</div>		
 	<?php }
@@ -49,10 +48,15 @@ class Login extends AbstractTemplate {
 	public /*String*/ function getContent() {
 		?>
 		<!-- CONTENT -->
-		<div class="content">
+		<div class="content" data-theme="b">
 			<br /><br />
-			<h1><?= APPLICATION_NAME ?></h1>
-			
+			<div style="position: absolute; left: 50%; top: 90px;">
+				<img alt="title" src="system/templates/application/<?= APPLICATION_NAME ?>/img/icon.png" height="50"  style="position: relative; margin-left: -150px;" />
+			</div>
+			<div style="position: absolute; left: 50%; top: 73px;">
+				<h1 style="position: relative; left: -40px;"><?= APPLICATION_NAME ?></h1>
+			</div>
+			<br /><br />
 			<!-- NOTIFICATION -->
 			<?php if($this->handler->getError()) { ?>
 				<div id="loginError" style="color: red;">
@@ -72,9 +76,9 @@ class Login extends AbstractTemplate {
 			<br />
 			<form action="#" method="post" name="singinForm" id="singinForm">
 				<input type="hidden" name="singin" value="1" />
-			    <input type="text" name="login" id="login" value="email" /><br />
-			    <input type="password" name="password" id="password" value="Mot de passe" /><br />
-			    <a href="#" onclick="document.singinForm.submit()" data-role="button" data-inline="true">Connexion</a><br />
+			    <input type="text" name="login" id="login" value="email"  data-theme="c"/><br />
+			    <input type="password" name="password" id="password" value="Mot de passe"  data-theme="c"/><br />
+			    <a href="#" onclick="document.singinForm.submit()" data-role="button" data-inline="true" data-theme="b">Connexion</a><br />
 			    <a href="#socialNetwork">Connexion Via Réseau Social</a>
 			</form>
 		</div>

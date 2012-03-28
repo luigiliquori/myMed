@@ -1,6 +1,6 @@
 <div id="inscription" data-role="page">
 	<!-- HEADER -->
-	<div data-role="header" data-theme="b" >
+	<div data-role="header" data-theme="b">
 		<h2>Mise à jour de votre profile</h2>
 	</div>
 
