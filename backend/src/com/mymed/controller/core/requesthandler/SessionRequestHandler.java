@@ -15,8 +15,6 @@
  */
 package com.mymed.controller.core.requesthandler;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -61,10 +59,8 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 
     /*
      * (non-Javadoc)
-     * @see
-     * com.mymed.controller.core.requesthandler.AbstractRequestHandler#doGet
-     * (javax.servlet.http.HttpServletRequest,
-     * javax.servlet.http.HttpServletResponse)
+     * @see com.mymed.controller.core.requesthandler.AbstractRequestHandler#doGet
+     * (javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
@@ -113,10 +109,8 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 
     /*
      * (non-Javadoc)
-     * @see
-     * com.mymed.controller.core.requesthandler.AbstractRequestHandler#doPost
-     * (javax.servlet.http.HttpServletRequest,
-     * javax.servlet.http.HttpServletResponse)
+     * @see com.mymed.controller.core.requesthandler.AbstractRequestHandler#doPost
+     * (javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
@@ -160,13 +154,13 @@ public class SessionRequestHandler extends AbstractRequestHandler {
                     LOGGER.info("Session {} created -> LOGIN", accessToken);
 
                     final StringBuffer urlBuffer = new StringBuffer(250);
-                    urlBuffer.append("http://");
-                    try {
-                        urlBuffer.append(InetAddress.getLocalHost().getCanonicalHostName());
-                    } catch (final UnknownHostException ex) {
-                        LOGGER.debug("Impossibile to retrieve host address", ex);
-                        urlBuffer.append("www.mymed.fr"); // NOPMD
-                    }
+                    urlBuffer.append("https://www.mymed.fr");
+                    // try {
+                    // urlBuffer.append(InetAddress.getLocalHost().getCanonicalHostName());
+                    // } catch (final UnknownHostException ex) {
+                    // LOGGER.debug("Impossibile to retrieve host address", ex);
+                    // urlBuffer.append("www.mymed.fr"); // NOPMD
+                    // }
 
                     urlBuffer.append("?socialNetwork=");
                     urlBuffer.append(userBean.getSocialNetworkName());

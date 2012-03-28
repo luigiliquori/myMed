@@ -109,7 +109,8 @@ class Request {
 		}
 		
 		// SSL CONNECTION
-		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true); 	
+		// TODO fix once we have the valid certificate!
+		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false); 	
 		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2); // see address in config.php
 		curl_setopt($curl, CURLOPT_CAINFO, "/etc/ssl/certs/mymed.crt"); // TO EXPORT FROM GLASSFISH!
 		
