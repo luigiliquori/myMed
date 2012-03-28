@@ -15,6 +15,8 @@
  */
 package com.mymed.controller.core.requesthandler;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -241,22 +243,18 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
                         profileManager.update(userBean);
 
                         LOGGER.info("Session {} created -> LOGIN", accessToken);
-                        // TODO Find a better way to get the URL
-                        /*
-                         * The URL should always be www.mymed.fr or the URL of the social platform
-                         */
-                        // final StringBuffer urlBuffer = new StringBuffer(40);
-                        // urlBuffer.append("https://www.mymed.fr");
-                        // try {
-                        // urlBuffer.append(InetAddress.getLocalHost().getCanonicalHostName());
-                        // } catch (final UnknownHostException ex) { // NOPMD
-                        // LOGGER.debug("Impossibile to retrieve host information", ex);
-                        // urlBuffer.append("www.mymed.fr");
-                        // }
-                        // urlBuffer.trimToSize();
+                        final StringBuffer urlBuffer = new StringBuffer(40);
+                        urlBuffer.append("http://");
+                        try {
+                            urlBuffer.append(InetAddress.getLocalHost().getCanonicalHostName());
+                        } catch (final UnknownHostException ex) { // NOPMD
+                            LOGGER.debug("Impossibile to retrieve host information", ex);
+                            urlBuffer.append("www.mymed.fr");
+                        }
 
-                        final String siteUrl = "https://www.mymed.fr";
-                        message.addData("url", siteUrl);
+                        urlBuffer.trimToSize();
+
+                        message.addData("url", urlBuffer.toString());
                         message.addData(JSON_ACCESS_TKN, accessToken);
                     }
                     break;
