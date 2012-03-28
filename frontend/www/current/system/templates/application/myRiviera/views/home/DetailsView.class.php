@@ -45,7 +45,7 @@ class DetailsView extends MyApplication {
 	<!-- CONTENT -->
 	<div data-role="content">
 		<div id="itineraire">
-			<ul id="itineraireContent" data-role="listview" data-theme="c" ></ul>
+			<!-- <ul id="itineraireContent" data-role="listview" data-theme="c" ></ul>  -->
 		</div>
 	</div>
 	

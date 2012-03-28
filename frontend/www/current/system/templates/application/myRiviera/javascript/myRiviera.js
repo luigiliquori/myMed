@@ -25,6 +25,8 @@ var circle;
 var focusOnCurrentPosition = true;
 var currentPositionMarker = null;
 
+var refreshRoadMap = false;
+
 /* --------------------------------------------------------- */
 /* Initialize */
 /* --------------------------------------------------------- */
@@ -75,13 +77,13 @@ function initialize() {
 	updateFilter();
 
 	resizeMap();
-	
+
 }
 
 function resizeMap() {
 	$("#" + $("#applicationName").val() + "Map").height(
 			$("body").height() + 100);
-//			- $('body').find('div[data-role=header]').outerHeight());
+//	- $('body').find('div[data-role=header]').outerHeight());
 }
 
 /**
@@ -196,12 +198,19 @@ function clearMarkers() {
 		pmarkers[i].setMap(null);
 	}
 
-	for (key in markers)
-		for ( var i = 0; i < markers[key] && markers[key][i]; i++)
-			for ( var j = 0; j < markers[key][i]; j++) {
-				markers[key][i][j].ib.close();
-				markers[key][i][j].setMap(null);
+	for (key in markers) {
+		for ( var i=0 ; i < markers[key].length ; i++) {    
+			if(markers[key][i]) {
+				for ( var j=0 ; j< markers[key][i].length ; j++) {
+					if(markers[key][i][j]) {
+						console.log(markers[key][i][j]);
+						markers[key][i][j].setMap(null);
+					}
+				}
 			}
+		}
+	}
+
 }
 
 /**
@@ -318,12 +327,40 @@ function updateMarkers(index) {
 function calcRoute(json) {
 
 	result = JSON.parse(json);
-	
-	if (result.ItineraryObj && result.ItineraryObj.Status.code == "0")
+	// TODO CREATE SHOW TRIP FUNCTION!!
+	// use to force to drow the trip
+	if (result.ItineraryObj && result.ItineraryObj.Status.code == "0") {
 		calcRouteByCityway(result);
-	else
-		calcRouteByGoogle();
+	} else {
+		calcRouteByGoogle(true);
+	}
 
+	refreshRoadMap = true;
+	$("#roadMap").live("pageshow", function() {
+		if(refreshRoadMap) {
+			var $this = $(this),
+			ul   = $('<ul id="itineraireContent" data-role="listview" data-theme="c" >'); // create the ul element
+
+			$this.find("#itineraire ul").detach();  // remove the existing ul
+			$this.find("#itineraire").append(ul);  // attach the new ul
+
+			// append the dynamic list items (uses underscore library)
+
+			if (result.ItineraryObj && result.ItineraryObj.Status.code == "0") {
+				calcRouteByCityway(result);
+				// call the listview constructor on the ul
+				ul.listview({
+					"inset": true
+				});
+			} else {
+				calcRouteByGoogle(false);
+			}
+			refreshRoadMap = false;
+		}
+	});
+	if (result.ItineraryObj && result.ItineraryObj.Status.code == "0") {
+		myRivieraShowTrip($("#depart").val() || "Ma position", $("#arrivee").val());
+	}
 }
 
 function calcRouteByCityway(result) {
@@ -332,8 +369,8 @@ function calcRouteByCityway(result) {
 	icon = null;
 	routes = [];
 //	$('#itineraire h3:first').find('.ui-btn-text').html(
-//			$('#itineraire h3:first').find('.ui-btn-text').html().replace(
-//					/(Feuille de route)( \w+|)/, '$1 Cityway'));
+//	$('#itineraire h3:first').find('.ui-btn-text').html().replace(
+//	/(Feuille de route)( \w+|)/, '$1 Cityway'));
 	startmarker.setTitle("Départ\n"
 			+ result.ItineraryObj.originPoint.name[0]
 			+ result.ItineraryObj.originPoint.name.substr(1).toLowerCase()
@@ -371,8 +408,8 @@ function calcRouteByCityway(result) {
 				break;
 			default:
 				titre = tripSegment.transportMode.toLowerCase();
-				icon = "system/templates/application/myRiviera/img/"
-					+ tripSegment.transportMode.toLowerCase() + ".png";
+			icon = "system/templates/application/myRiviera/img/"
+				+ tripSegment.transportMode.toLowerCase() + ".png";
 			break;
 			}
 
@@ -456,15 +493,13 @@ function calcRouteByCityway(result) {
 			}
 		});
 	});
-	myRivieraShowTrip($("#depart").val() || "Ma position", $("#arrivee").val());
-
 }
 
-function calcRouteByGoogle() {
+function calcRouteByGoogle(printTrip) {
 
 //	$('#itineraire h3:first').find('.ui-btn-text').html(
-//			$('#itineraire h3:first').find('.ui-btn-text').html().replace(
-//					/(Feuille de route)( \w+|)/, '$1 GoogleMaps'));
+//	$('#itineraire h3:first').find('.ui-btn-text').html().replace(
+//	/(Feuille de route)( \w+|)/, '$1 GoogleMaps'));
 	var request = {
 			origin : startmarker.getPosition(),
 			destination : endmarker.getPosition(),
@@ -483,11 +518,6 @@ function calcRouteByGoogle() {
 			function(result, status) {
 				if (status == google.maps.DirectionsStatus.OK) {
 
-					$("<li data-role='list-divider'><span>"
-							+ result.routes[0].legs[0].steps[0].travel_mode
-							.toLowerCase()
-							+ "</span></li>").appendTo(
-									$('#itineraire ul'));
 					startmarker.setTitle("Départ\n"
 							+ result.routes[0].legs[0].start_address);
 					endmarker.setTitle("Arrivée\n"
@@ -505,7 +535,7 @@ function calcRouteByGoogle() {
 								'icon' : icon,
 								'title' : titre
 						};
-						
+
 						content1 = 'Distance: ' + st.distance.text + ' (' + st.duration.text + ')';
 						content2 = st.instructions;
 						desc = $('<li style="padding:5px;"><img alt="no picture" src="' + icon + '" /><a href="#Map" onclick="updateMarkers('+ i+ ');"><p style="position: relative; left: -16px;">' + content1 + '</p><p style="position: relative; left: -16px;">' + content2 + '</p></a></li>');
@@ -514,16 +544,17 @@ function calcRouteByGoogle() {
 
 					// create jquerymobile styled elmts
 					$('.ui-page').trigger('create');
+					$('#itineraireContent').listview({"inset": true });
 
 					// UI - ADD SEGMENT ON THE MAP - TODO MOVE THIS PART
 					// -> showTrip function
-					directionsDisplay.setDirections(result);
-					directionsDisplays.push(directionsDisplay); // for
-					// clearing
-					// them
-					// later
-					myRivieraShowTrip($("#depart").val()
-							|| "Ma position", $("#arrivee").val());
+					if(printTrip) {
+						directionsDisplay.setDirections(result);
+						directionsDisplays.push(directionsDisplay);
+						myRivieraShowTrip($("#depart").val() || "Ma position", $("#arrivee").val());
+					}
+				} else {
+					alert("pas de resultat");
 				}
 			});
 
@@ -575,7 +606,7 @@ function changeDestination() {
 
 function validateIt() {
 	var geocoder = new google.maps.Geocoder();
-	
+
 	// Validate the starting point
 	geocoder.geocode({'address' : $('#depart').val()}, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) { // use the position define by the user 
@@ -586,13 +617,13 @@ function validateIt() {
 			alert("Départ non valide");
 			return;
 		}
-		
+
 		// Validate the ending point
 		geocoder.geocode({'address' : $('#arrivee').val()}, function(results, status) {
 			if (status == google.maps.GeocoderStatus.OK) { // use the position define by the user 
 
 				end = results[0].geometry.location;
-				
+
 				startmarker.setPosition(start);
 				endmarker.setPosition(end);
 
@@ -616,7 +647,7 @@ function validateIt() {
 				}
 
 				clearAll();
-				
+
 				showLoadingBar("Calcul de l'itinéraire en cours...");
 				$.ajax({
 					type : "POST",
