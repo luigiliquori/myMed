@@ -1,0 +1,17 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Forts_militaires_EPSG4326", "Nom": "Fort de la ligne Maginot à Sainte-Agnès", "Description": "Le Fort de Sainte-Agnès a été construit entre 1932 et 1938  et  est entièrement souterrain.", "Adresse": "avenue du château 06500 SAINTE-AGNES", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.462924, 43.798743 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Forts_militaires_EPSG4326", "Nom": "Château Médiéval", "Description": "Le Château médiéval fut construit en 970 par Conrad 1er, Comte de Vintimille, en vue de défendre la frontière ouest de son domaine féodal et de prévenir un retour offensif, terrestre ou maritime, des hordes sarrasines qui parcouraient encore trop souvent", "Adresse": "Place William Ingram 06190 Roquebrune-Cap-Martin", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.459580, 43.765260 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Forts_militaires_EPSG4326", "Nom": "Place forte dite barrage de Tende", "Description": "L' ensemble des dix ouvrages appelés \"forts\", correspondent à des batteries d' appui et de protection, disposées en rideau de part et d' autre du fort de barrage central.", "Adresse": "Col de Tende", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.432844, 43.995080 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Forts_militaires_EPSG4326", "Nom": "Fort du Barbonnet", "Description": "Le fort Suchet, dit également du Barbonnet, fait partie de l'ensemble des fortifications de la région constituant un dernier bastion avant la route de Nice pour contrer un éventuel envahisseur venant du col de Tende.", "Adresse": "Au départ de Sospel, emprunter le  GR510 pour arriver au col St Jean . Prendre à gauche ,  dans le petit hameau, l’ancienne route militaire qui monte jusqu’au  fort du Barbonnet.", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.434362, 43.862359 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Forts_militaires_EPSG4326", "Nom": "Fort Saint Roch", "Description": "L'impressionnant fort Saint-Roch a été construit entre 1931 et 1933 dans le cadre de la Ligne Maginot Alpine du secteur fortifé des Alpes Maritimes ( SFAM).", "Adresse": "Près de Sospel", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.442398, 43.874207 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Forts_militaires_EPSG4326", "Nom": "Fort du Mont Agaisen", "Description": "Fort du Mont Agaisen faisant partie de la célèbre Ligne Maginot Alpine. Ouvert au public, contact au 04.93.89.10.58", "Adresse": "Sospel", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.454017, 43.886948 ] } }
+
+]
+}

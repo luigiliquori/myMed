@@ -1,0 +1,23 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Cimetieres_EPSG4326", "Nom": "", "Description": "", "Adresse": "ROQUEBRUNE CAP MARTIN", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.463007, 43.765767 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Cimetieres_EPSG4326", "Nom": "Cimetière du vieux Menton", "Description": "", "Adresse": "06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.505740, 43.778155 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Cimetieres_EPSG4326", "Nom": "Cimetière du Trabuquet", "Description": "", "Adresse": "06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.506091, 43.781470 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Cimetieres_EPSG4326", "Nom": "", "Description": "", "Adresse": "BEAUSOLEIL", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.425389, 43.746474 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Cimetieres_EPSG4326", "Nom": "Cimetière de Castellar", "Description": "", "Adresse": "06500 CASTELLAR", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.498826, 43.806931 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Cimetieres_EPSG4326", "Nom": "Cimetière de Saint-Agnès", "Description": "", "Adresse": "SAINTE-AGNES", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.462297, 43.800497 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Cimetieres_EPSG4326", "Nom": "Cimetière", "Description": "", "Adresse": "06500 GORBIO", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.442063, 43.785355 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Cimetieres_EPSG4326", "Nom": "Cimetière de Sospel", "Description": "", "Adresse": "06380 SOSPEL", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.444068, 43.876346 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Cimetieres_EPSG4326", "Nom": "Cimetière communal", "Description": "", "Adresse": "06320 LA TURBIE", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.401625, 43.743960 ] } }
+
+]
+}

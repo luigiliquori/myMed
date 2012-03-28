@@ -1,0 +1,39 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Maisons_RetraitesEPSG4326", "Nom": "Hôtel des Pins (Maison de retraite)", "Description": "Contact maison de retraite : 04 93 35 75 48", "Adresse": "Route des Ciappes 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.500712, 43.778543 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maisons_RetraitesEPSG4326", "Nom": "La Palmosa (Maison de retraite)", "Description": "Contact maison de retraite : 04 93 28 73 02", "Adresse": "2 rue Antoine Péglion 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.483995, 43.767118 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maisons_RetraitesEPSG4326", "Nom": "Le Home (Maison de retraite)", "Description": "Contact maison de retraite : 04 93 35 75 51", "Adresse": "6 rue du Louvre 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.497295, 43.775484 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maisons_RetraitesEPSG4326", "Nom": "Maison Russe (Maison de retraite Ste Anasthasie)", "Description": "Contact maison de retraite : 04 92 10 44 55", "Adresse": "166 impasse de la maison Russe 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.484701, 43.768351 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maisons_RetraitesEPSG4326", "Nom": "Maison de retraite \"Maison du Golf\"", "Description": "Contact maison de retraite : 04 93 04 05 87", "Adresse": "15 Boulevard de Verdun 06380 Sospel", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.470323, 43.880721 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maisons_RetraitesEPSG4326", "Nom": "MAISON DE RETRAITE VICTOR NICOLAÏ", "Description": "Contact maison de retraite : 04 93 91 63 63", "Adresse": "1, Avenue Aristide Briand 06440 Peille", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.404582, 43.804990 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maisons_RetraitesEPSG4326", "Nom": "Résidence Médico sociale de Beausoleil", "Description": "Contact maison de retraite : 04 93 78 15 20", "Adresse": "Quai du Moneghetti 06240 Beausoleil", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.417036, 43.738518 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maisons_RetraitesEPSG4326", "Nom": "RESIDENCE MEDICALISEE FONTDIVINA", "Description": "Contact maison de retraite : 04 97 17 75 01", "Adresse": "Chemin Romain 06240 Beausoleil", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.432947, 43.753118 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maisons_RetraitesEPSG4326", "Nom": "MR LES HAUTS DE MENTON GORBIO", "Description": "Contact maison de retraite : 04 93 28 22 38", "Adresse": "Route du Val de Gorbio 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.469376, 43.779817 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maisons_RetraitesEPSG4326", "Nom": "MAISON DE RETRAITE FONDATION JULES GASTALDY", "Description": "Contact maison de retraite : 04 92 41 79 00", "Adresse": "Route du Val de Gorbio 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.469532, 43.780711 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maisons_RetraitesEPSG4326", "Nom": "MAISON DE RETRAITE HL BREIL SUR ROYA LES JARDINS D'AZUR", "Description": "Contact maison de retraite : 04 93 04 37 00", "Adresse": "RUE CORDIER 06540 Breil-sur-Roya", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.514712, 43.945214 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maisons_RetraitesEPSG4326", "Nom": "MAISON DE RETRAITE DE LA VIERGE", "Description": "Contact maison de retraite : 04 93 57 74 90", "Adresse": "Rue des soeurs Munet 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.491775, 43.774073 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maisons_RetraitesEPSG4326", "Nom": "LE TEMPS DES CERISES (Maison de retraite)", "Description": "Contact maison de retraite : 04 93 04 54 60", "Adresse": "Quai Saint Joseph 06540 Saorge", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.553866, 43.985397 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maisons_RetraitesEPSG4326", "Nom": "HOPITAL LOCAL SAINT ELOI", "Description": "Contact maison de retraite : 04 93 04 30 30", "Adresse": "Place Saint François 06380 Sospel", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.451636, 43.878967 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maisons_RetraitesEPSG4326", "Nom": "MAISON DE RETRAITE RESIDENCE DE FRANCE", "Description": "Contact maison de retraite : 04 93 41 09 54", "Adresse": "12 avenue Général de Gaulle 06320 La Turbie", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.400749, 43.746324 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maisons_RetraitesEPSG4326", "Nom": "MAISON DE RETRAITE LE TOUZE", "Description": "Contact maison de retraite : 04 93 04 99 50", "Adresse": "Avenue de France 06430 La Brigue", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.610243, 44.063150 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maisons_RetraitesEPSG4326", "Nom": "MAISON DE RETRAITE CHU TENDE", "Description": "Contact maison de retraite : 04 93 04 60 50", "Adresse": "3 avenue Jean Médecin 06430 Tende", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.594569, 44.082402 ] } }
+
+]
+}

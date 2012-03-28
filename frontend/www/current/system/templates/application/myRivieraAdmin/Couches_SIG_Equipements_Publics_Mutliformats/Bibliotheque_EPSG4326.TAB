@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ogr:FeatureCollection
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://ogr.maptools.org/ Bibliotheque_EPSG4326.xsd"
+     xmlns:ogr="http://ogr.maptools.org/"
+     xmlns:gml2="http://www.opengis.net/gml">
+  <gml2:boundedBy>
+    <gml2:Box>
+      <gml2:coord><gml2:X>7.447431</gml2:X><gml2:Y>43.774112</gml2:Y></gml2:coord>
+      <gml2:coord><gml2:X>7.505188</gml2:X><gml2:Y>43.877197</gml2:Y></gml2:coord>
+    </gml2:Box>
+  </gml2:boundedBy>                                                             
+  <gml2:featureMember>
+    <ogr:Bibliotheque_EPSG4326 fid="F0">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.50241,43.776088</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Bibliotheque_EPSG4326</ogr:Type>
+      <ogr:Nom>Bibliothèque de la flamme bleu</ogr:Nom>
+      <ogr:Description>04 92 10 03 03</ogr:Description>
+      <ogr:Adresse>1 rue Saint Charles 06500 Menton</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+    </ogr:Bibliotheque_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Bibliotheque_EPSG4326 fid="F1">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.497568,43.774112000000002</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Bibliotheque_EPSG4326</ogr:Type>
+      <ogr:Nom>Bibliothèque municipale</ogr:Nom>
+      <ogr:Description>04 92 41 76 60</ogr:Description>
+      <ogr:Adresse>8 avenue Boyer 06500 Menton</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+    </ogr:Bibliotheque_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Bibliotheque_EPSG4326 fid="F2">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.505188,43.775331</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Bibliotheque_EPSG4326</ogr:Type>
+      <ogr:Nom>Bibliothèque municipale- Enfants</ogr:Nom>
+      <ogr:Description>04 93 28 14 94</ogr:Description>
+      <ogr:Adresse>15 rue Saint Michel 06500 Menton</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+    </ogr:Bibliotheque_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Bibliotheque_EPSG4326 fid="F3">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.496007,43.77429</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Bibliotheque_EPSG4326</ogr:Type>
+      <ogr:Nom>Bibliothèque pour tous</ogr:Nom>
+      <ogr:Description>04 93 35 58 58</ogr:Description>
+      <ogr:Adresse>7 avenue Thiers 06500 Menton</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+    </ogr:Bibliotheque_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Bibliotheque_EPSG4326 fid="F4">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.447431,43.877197000000002</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Bibliotheque_EPSG4326</ogr:Type>
+      <ogr:Nom>Bibliothèque municipale</ogr:Nom>
+      <ogr:Description>04 93 04 33 26</ogr:Description>
+      <ogr:Adresse>Place Saint Michel  06380 Sospel</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+    </ogr:Bibliotheque_EPSG4326>
+  </gml2:featureMember>
+</ogr:FeatureCollection>
