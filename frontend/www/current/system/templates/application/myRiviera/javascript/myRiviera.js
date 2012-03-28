@@ -262,8 +262,7 @@ function otherMarkers(index, type) {
 function positionMarker(index) {
 	if (!pmarkers[index]) { // create new marker
 		var marker = addMarker(steps[index].position, steps[index].icon,
-				steps[index].title, $('#itineraireContent').find('li').not('[data-role="list-divider"]').find('p')
-				.eq(index).html());
+				steps[index].title, steps[index].desc);
 		pmarkers[index] = marker;
 		google.maps.event.addListener(marker, "click", function(e) {
 			marker.ib.open(map, this);
@@ -303,7 +302,7 @@ function updateMarkers(index) {
 	positionMarker(index);
 
 	currentSegmentID = index;
-	if (index < $('#itineraireContent').find('li').not('[data-role="list-divider"]').length - 1)
+	if (index < steps.length - 1)
 		$('#next-step').attr('onclick', 'updateMarkers(' + (index + 1) + ')');
 	if (index > 0)
 		$('#prev-step').attr('onclick', 'updateMarkers(' + (index - 1) + ')');
@@ -423,22 +422,21 @@ function calcRouteByCityway(result) {
 			steps[i] = {
 					'position' : new google.maps.LatLng(
 							tripSegment.departurePoint.latitude,
-							tripSegment.departurePoint.longitude),
-							'icon' : icon,
-							'title' : titre
+							tripSegment.departurePoint.longitude)
 			};
 		} else { // type = 'Attendre'
 			steps[i] = {
 					'position' : new google.maps.LatLng(
 							result.ItineraryObj.tripSegments.tripSegment[i + 1].departurePoint.latitude,
-							result.ItineraryObj.tripSegments.tripSegment[i + 1].departurePoint.longitude),
-							'icon' : icon,
-							'title' : titre
+							result.ItineraryObj.tripSegments.tripSegment[i + 1].departurePoint.longitude)
 			};
 		}
+		steps[i]['icon'] = icon;
+		steps[i]['title'] = titre;
 		content1 = tripSegment.distance > 0 ? 'Distance: ' + tripSegment.distance + ' m' : 'Durée: ' + tripSegment.duration + ' min';
 		content2 = (tripSegment.comment || '&nbsp;');
-
+		steps[i]['desc'] = content1 + '<br />' + content2;
+		
 		desc = $('<li style="padding:5px;"><img alt="no picture" src="' + icon + '" /><a href="#Map" onclick="updateMarkers('+ i+ ');"><p style="position: relative; left: -16px;">' + content1 + '<br />' + content2 + '</p></a></li>');
 
 		desc.appendTo($('#itineraireContent'));
@@ -530,14 +528,16 @@ function calcRouteByGoogle(printTrip) {
 
 						st = result.routes[0].legs[0].steps[i];
 
+						content1 = 'Distance: ' + st.distance.text + ' (' + st.duration.text + ')';
+						content2 = st.instructions;
+						
 						steps[i] = {
 								'position' : st.start_location,
 								'icon' : icon,
-								'title' : titre
+								'title' : titre,
+								'desc' : content1 + '<br />' + content2
 						};
 
-						content1 = 'Distance: ' + st.distance.text + ' (' + st.duration.text + ')';
-						content2 = st.instructions;
 						desc = $('<li style="padding:5px;"><img alt="no picture" src="' + icon + '" /><a href="#Map" onclick="updateMarkers('+ i+ ');"><p style="position: relative; left: -16px;">' + content1 + '<br />' + content2 + '</p></a></li>');
 						desc.appendTo($('#itineraireContent'));
 					}
