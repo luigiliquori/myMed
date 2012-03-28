@@ -15,8 +15,6 @@
  */
 package com.mymed.controller.core.requesthandler;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -105,10 +103,8 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 
     /*
      * (non-Javadoc)
-     * @see
-     * com.mymed.controller.core.requesthandler.AbstractRequestHandler#doGet
-     * (javax.servlet.http.HttpServletRequest,
-     * javax.servlet.http.HttpServletResponse)
+     * @see com.mymed.controller.core.requesthandler.AbstractRequestHandler#doGet
+     * (javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
@@ -151,10 +147,8 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 
     /*
      * (non-Javadoc)
-     * @see
-     * com.mymed.controller.core.requesthandler.AbstractRequestHandler#doPost
-     * (javax.servlet.http.HttpServletRequest,
-     * javax.servlet.http.HttpServletResponse)
+     * @see com.mymed.controller.core.requesthandler.AbstractRequestHandler#doPost
+     * (javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
@@ -235,21 +229,20 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
                         LOGGER.info("Session {} created -> LOGIN", accessToken);
                         // TODO Find a better way to get the URL
                         /*
-                         * The URL should always be www.mymed.fr or the URL of
-                         * the social platform
+                         * The URL should always be www.mymed.fr or the URL of the social platform
                          */
-                        final StringBuffer urlBuffer = new StringBuffer(40);
-                        urlBuffer.append("http://");
-                        try {
-                            urlBuffer.append(InetAddress.getLocalHost().getCanonicalHostName());
-                        } catch (final UnknownHostException ex) { // NOPMD
-                            LOGGER.debug("Impossibile to retrieve host information", ex);
-                            urlBuffer.append("www.mymed.fr");
-                        }
+                        // final StringBuffer urlBuffer = new StringBuffer(40);
+                        // urlBuffer.append("https://www.mymed.fr");
+                        // try {
+                        // urlBuffer.append(InetAddress.getLocalHost().getCanonicalHostName());
+                        // } catch (final UnknownHostException ex) { // NOPMD
+                        // LOGGER.debug("Impossibile to retrieve host information", ex);
+                        // urlBuffer.append("www.mymed.fr");
+                        // }
+                        // urlBuffer.trimToSize();
 
-                        urlBuffer.trimToSize();
-
-                        message.addData("url", urlBuffer.toString());
+                        final String siteUrl = "https://www.mymed.fr";
+                        message.addData("url", siteUrl);
                         message.addData(JSON_ACCESS_TKN, accessToken);
                     }
                     break;
