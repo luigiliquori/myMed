@@ -58,11 +58,11 @@ class InscriptionHandler implements IRequestHandler {
 			$responsejSon = $request->send();
 			$responseObject = json_decode($responsejSon);
 
-			if($responseObject->status != 200) {
-				$_SESSION['error'] = $responseObject->description;
-			} else {
+// 			if($responseObject->status != 200) {
+// 				$_SESSION['error'] = $responseObject->description;
+// 			} else {
 				$this->success = "Félicitation, Un email de confirmation vient de vous être envoyé!";
-			}
+// 			}
 		} else if (isset($_GET['inscription'])) {
 			$this->success = "Votre compte à bien été validé!";
 		} 
