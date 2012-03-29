@@ -24,6 +24,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.AbstractManager;
@@ -173,7 +176,11 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
         }
         mailContent.append("\n------\nL'équipe myMed");
         mailContent.trimToSize();
-        new Mail("mymed.subscribe@gmail.com", receivers, "myMed subscribe info: " + application, mailContent.toString());
+        try {
+			new Mail("infomymed@gmail.com", receivers, "myMed subscribe info: " + application, mailContent.toString());
+		} catch (Exception e) {
+			throw new InternalBackEndException("Error sending the email");
+		}
       }
     } catch (final UnsupportedEncodingException e) {
       LOGGER.debug(ERROR_ENCODING, ENCODING, e);

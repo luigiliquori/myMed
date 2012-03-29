@@ -79,17 +79,23 @@ class SearchView extends MyApplication {
 				Arrivée :
 				<input data-theme="d" type="text" id="arrivee" name="Arrivee" />
 				<!-- FRIENDS -->
-				<?php if(isset($_SESSION['friends'])) { ?>
-					<select id="selectarrivee" data-iconpos="notext" data-icon="plus"
-					name="enum-1" onChange="changeEndMarkerIcon(); changeDestination()">
-						<?php foreach ($_SESSION['friends'] as $friend ) { ?>
-								<?php if ($friend["position"]->formattedAddress != "") {?>
-										<option value="<?= $friend["profilePicture"] ?>&&<?= $friend["position"]->formattedAddress ?>">
-											<?= $friend["name"] ?>
-										</option>
-								<?php }
-						} ?>
-					</select>
+				<?php if(isset($_SESSION['friends'])) {
+					$knownFriends =  array(); 
+					foreach ($_SESSION['friends'] as $friend ) {
+						if (isset($friend["position"])) {
+							array_push($knownFriends, $friend); 
+						}
+					}?>
+					<?php if(count($knownFriends) > 0) { ?>
+						<select id="selectarrivee" data-iconpos="notext" data-icon="plus"
+						name="enum-1" onChange="changeEndMarkerIcon(); changeDestination()">
+						<?php foreach ($knownFriends as $friend ) { ?>
+								<option value="<?= $friend["profilePicture"] ?>&&<?= $friend["position"]->formattedAddress ?>">
+									<?= $friend["name"] ?>
+								</option>
+						<?php } ?>
+						</select>
+					<?php } ?>
 				<?php } ?>
 				
 				<!-- DATE -->

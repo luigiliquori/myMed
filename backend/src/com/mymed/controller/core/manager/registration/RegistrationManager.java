@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+
 import ch.qos.logback.classic.Logger;
 
 import com.google.gson.Gson;
@@ -79,11 +82,11 @@ public class RegistrationManager implements IRegistrationManager {
         contentBuilder.trimToSize();
 
         // Send the mail
-        new Mail("mymed.subscribe@gmail.com", user.getEmail(), "Bienvenu sur myMed", contentBuilder.toString());
-        // } catch (final UnknownHostException e) {
-        // LOGGER.debug("Impossible to find the host", e);
-        // throw new InternalBackEndException(e); // NOPMD
-        // }
+        try {
+			new Mail("infomymed@gmail.com", user.getEmail(), "Bienvenu sur myMed", contentBuilder.toString());
+		} catch (Exception e) {
+			throw new InternalBackEndException("Error sending the email");
+		}
     }
 
     @Override

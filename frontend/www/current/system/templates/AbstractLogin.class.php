@@ -138,7 +138,7 @@ abstract class AbstractLogin extends AbstractTemplate {
 						style="width: 100px;" /> <img alt="Europe"
 						src="system/img/logos/europe" style="width: 50px;" /> <img
 						alt="Conseil Général 06" src="system/img/logos/cg06"
-						style="width: 100px;" /> <img alt="Regine Piemonte"
+						style="width: 100px; height: 30px;" /> <img alt="Regine Piemonte"
 						src="system/img/logos/regione" style="width: 100px;" /> <img
 						alt="Région PACA" src="system/img/logos/PACA" style="width: 100px;" />
 					<img alt="Prefecture 06" src="system/img/logos/pref"

@@ -148,7 +148,7 @@ class OptionView extends MyApplication {
 				<p>Ces champs permettent de paramétrer votre recherche d'itinéraire.</p>
 				<h3>Profil</h3>
 				<p>Ce champ donne accès à votre profil myRiviera.</p>
-				<h3>Mes amis</h3>
+				<h3>Réseau social</h3>
 				<p>En vous connectant avec Facebook, vous chargerez les positions
 					de vos amis (acceptant la géolocalisation), disponibles dans
 					la recherche d'itinéraire par le bouton + du champs Arrivée.</p>
