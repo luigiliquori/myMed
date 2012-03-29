@@ -21,6 +21,7 @@ import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.AbstractManager;
 import com.mymed.controller.core.manager.profile.ProfileManager;
+import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.data.session.MAuthenticationBean;
 import com.mymed.model.data.user.MUserBean;
@@ -33,75 +34,76 @@ import com.mymed.model.data.user.MUserBean;
  */
 public class AuthenticationManager extends AbstractManager implements IAuthenticationManager {
 
-  private static final String FIELD_LOGIN = FIELDS.get("field.login");
-  private static final String CF_AUTHENTICATION = COLUMNS.get("column.cf.authentication");
+    private static final String FIELD_LOGIN = FIELDS.get("field.login");
+    private static final String CF_AUTHENTICATION = COLUMNS.get("column.cf.authentication");
 
-  public AuthenticationManager() throws InternalBackEndException {
-    this(new StorageManager());
-  }
+    public AuthenticationManager() throws InternalBackEndException {
+        this(new StorageManager());
+    }
 
-  public AuthenticationManager(final StorageManager storageManager) throws InternalBackEndException {
-    super(storageManager);
-  }
+    public AuthenticationManager(final IStorageManager storageManager) throws InternalBackEndException {
+        super(storageManager);
+    }
 
-  /**
-   * @throws IOBackEndException
-   * @see IAuthenticationManager#create(MUserBean, MAuthenticationBean)
-   */
-  @Override
-  public MUserBean create(final MUserBean user, final MAuthenticationBean authentication)
-      throws InternalBackEndException, IOBackEndException {
+    /**
+     * @throws IOBackEndException
+     * @see IAuthenticationManager#create(MUserBean, MAuthenticationBean)
+     */
+    @Override
+    public MUserBean create(final MUserBean user, final MAuthenticationBean authentication)
+                    throws InternalBackEndException, IOBackEndException {
 
-    final ProfileManager profileManager = new ProfileManager(storageManager);
-    profileManager.create(user);
+        final ProfileManager profileManager = new ProfileManager(storageManager);
+        profileManager.create(user);
 
-    try {
-      read(authentication.getLogin(), authentication.getPassword());
-    } catch (final IOBackEndException e) {
-      // only if the user does not exist
-      if (e.getStatus() == 404) {
+        try {
+            read(authentication.getLogin(), authentication.getPassword());
+        } catch (final IOBackEndException e) {
+            // only if the user does not exist
+            if (e.getStatus() == 404) {
+                final Map<String, byte[]> authMap = authentication.getAttributeToMap();
+                storageManager.insertSlice(CF_AUTHENTICATION,
+                                com.mymed.utils.MConverter.byteArrayToString(authMap.get(FIELD_LOGIN)), authMap);
+                return user;
+            }
+        }
+
+        throw new IOBackEndException("The login already exist!", 409);
+    }
+
+    /**
+     * @see IAuthenticationManager#read(String, String)
+     */
+    @Override
+    public MUserBean read(final String login, final String password) throws InternalBackEndException,
+                    IOBackEndException {
+
+        final Map<byte[], byte[]> args = storageManager.selectAll(CF_AUTHENTICATION, login);
+        final MAuthenticationBean authentication = (MAuthenticationBean) introspection(MAuthenticationBean.class, args);
+
+        if (authentication.getLogin().equals("")) {
+            throw new IOBackEndException("The login does not exist!", 404);
+        } else if (!authentication.getPassword().equals(password)) {
+            throw new IOBackEndException("Wrong password", 403);
+        }
+
+        return new ProfileManager(storageManager).read(authentication.getUser());
+    }
+
+    /**
+     * @throws IOBackEndException
+     * @see IAuthenticationManager#update(MAuthenticationBean)
+     */
+    @Override
+    public void update(final String id, final MAuthenticationBean authentication) throws InternalBackEndException,
+                    IOBackEndException {
+        // Remove the old Authentication (the login/key can be changed)
+        storageManager.removeAll(CF_AUTHENTICATION, id);
+        // Insert the new Authentication
+        storageManager.insertSlice(CF_AUTHENTICATION, FIELD_LOGIN, authentication.getAttributeToMap());
+
         final Map<String, byte[]> authMap = authentication.getAttributeToMap();
         storageManager.insertSlice(CF_AUTHENTICATION,
-            com.mymed.utils.MConverter.byteArrayToString(authMap.get(FIELD_LOGIN)), authMap);
-        return user;
-      }
+                        com.mymed.utils.MConverter.byteArrayToString(authMap.get(FIELD_LOGIN)), authMap);
     }
-
-    throw new IOBackEndException("The login already exist!", 409);
-  }
-
-  /**
-   * @see IAuthenticationManager#read(String, String)
-   */
-  @Override
-  public MUserBean read(final String login, final String password) throws InternalBackEndException, IOBackEndException {
-
-    final Map<byte[], byte[]> args = storageManager.selectAll(CF_AUTHENTICATION, login);
-    final MAuthenticationBean authentication = (MAuthenticationBean) introspection(MAuthenticationBean.class, args);
-
-    if (authentication.getLogin().equals("")) {
-      throw new IOBackEndException("The login does not exist!", 404);
-    } else if (!authentication.getPassword().equals(password)) {
-      throw new IOBackEndException("Wrong password", 403);
-    }
-
-    return new ProfileManager(storageManager).read(authentication.getUser());
-  }
-
-  /**
-   * @throws IOBackEndException
-   * @see IAuthenticationManager#update(MAuthenticationBean)
-   */
-  @Override
-  public void update(final String id, final MAuthenticationBean authentication) throws InternalBackEndException,
-      IOBackEndException {
-    // Remove the old Authentication (the login/key can be changed)
-    storageManager.removeAll(CF_AUTHENTICATION, id);
-    // Insert the new Authentication
-    storageManager.insertSlice(CF_AUTHENTICATION, FIELD_LOGIN, authentication.getAttributeToMap());
-
-    final Map<String, byte[]> authMap = authentication.getAttributeToMap();
-    storageManager.insertSlice(CF_AUTHENTICATION,
-        com.mymed.utils.MConverter.byteArrayToString(authMap.get(FIELD_LOGIN)), authMap);
-  }
 }

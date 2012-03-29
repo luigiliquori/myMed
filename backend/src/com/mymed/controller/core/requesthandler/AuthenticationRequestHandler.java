@@ -15,8 +15,6 @@
  */
 package com.mymed.controller.core.requesthandler;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -47,7 +45,6 @@ import com.mymed.utils.HashFunction;
  */
 public class AuthenticationRequestHandler extends AbstractRequestHandler {
 
-	
     /**
      * Generated serial ID.
      */
@@ -170,49 +167,50 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 
             switch (code) {
                 case CREATE :
-                	message.setMethod(JSON_CODE_CREATE);
+                    message.setMethod(JSON_CODE_CREATE);
 
-    				// Finalize the registration
-    				String accessToken = parameters.get(JSON_ACCESS_TKN);
-    				if (accessToken != null) {
-    					registrationManager.read(accessToken);
-    					message.setDescription("user profile created");
-    				} else if (authentication == null) {
-    					throw new InternalBackEndException("authentication argument missing!");
-    				} else if (user == null) {
-    					throw new InternalBackEndException("user argument missing!");
-    				} else {
-    					// Launch the registration procedure
-    					try {
-    						final MUserBean userBean = getGson().fromJson(user, MUserBean.class);
-    						userBean.setSocialNetworkID(SOCIAL_NET_ID);
-    						userBean.setSocialNetworkName(SOCIAL_NET_NAME);
+                    // Finalize the registration
+                    String accessToken = parameters.get(JSON_ACCESS_TKN);
+                    if (accessToken != null) {
+                        registrationManager.read(accessToken);
+                        message.setDescription("user profile created");
+                    } else if (authentication == null) {
+                        throw new InternalBackEndException("authentication argument missing!");
+                    } else if (user == null) {
+                        throw new InternalBackEndException("user argument missing!");
+                    } else {
+                        // Launch the registration procedure
+                        try {
+                            final MUserBean userBean = getGson().fromJson(user, MUserBean.class);
+                            userBean.setSocialNetworkID(SOCIAL_NET_ID);
+                            userBean.setSocialNetworkName(SOCIAL_NET_NAME);
 
-    						final MAuthenticationBean authenticationBean = getGson().fromJson(authentication,
-    								MAuthenticationBean.class);
+                            final MAuthenticationBean authenticationBean = getGson().fromJson(authentication,
+                                            MAuthenticationBean.class);
 
-    						LOGGER.info("Trying to create a new user:\n {}", userBean.toString());
+                            LOGGER.info("Trying to create a new user:\n {}", userBean.toString());
 
-    						// Check if the login already exist
-    						boolean loginAlreadyExist = true;
-    						try {
-    							authenticationManager.read(authenticationBean.getLogin(), authenticationBean.getPassword());
-    						} catch (final IOBackEndException loginTestException) {
-    							if (loginTestException.getStatus() == 404) { // the login does not exist
-    								registrationManager.create(userBean, authenticationBean);
-    								LOGGER.info("registration email sent");
-    								message.setDescription("registration email sent");
-    								loginAlreadyExist = false;
-    							}
-    						}
-    						if (loginAlreadyExist) {
-    							throw new IOBackEndException("The login already exist!", 409);
-    						}
-    					} catch (final JsonSyntaxException e) {
-    						throw new InternalBackEndException("User/Authentication jSon format is not valid");
-    					}
-    				}
-    				break;
+                            // Check if the login already exist
+                            boolean loginAlreadyExist = true;
+                            try {
+                                authenticationManager.read(authenticationBean.getLogin(),
+                                                authenticationBean.getPassword());
+                            } catch (final IOBackEndException loginTestException) {
+                                if (loginTestException.getStatus() == 404) { // the login does not exist
+                                    registrationManager.create(userBean, authenticationBean);
+                                    LOGGER.info("registration email sent");
+                                    message.setDescription("registration email sent");
+                                    loginAlreadyExist = false;
+                                }
+                            }
+                            if (loginAlreadyExist) {
+                                throw new IOBackEndException("The login already exist!", 409);
+                            }
+                        } catch (final JsonSyntaxException e) {
+                            throw new InternalBackEndException("User/Authentication jSon format is not valid");
+                        }
+                    }
+                    break;
                 case READ :
                     message.setMethod(JSON_CODE_READ);
                     if (login == null) {
@@ -245,12 +243,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
                         LOGGER.info("Session {} created -> LOGIN", accessToken);
                         final StringBuffer urlBuffer = new StringBuffer(40);
                         urlBuffer.append("http://");
-                        try {
-                            urlBuffer.append(InetAddress.getLocalHost().getCanonicalHostName());
-                        } catch (final UnknownHostException ex) { // NOPMD
-                            LOGGER.debug("Impossibile to retrieve host information", ex);
-                            urlBuffer.append("www.mymed.fr");
-                        }
+                        urlBuffer.append(SERVER_URI);
 
                         urlBuffer.trimToSize();
 

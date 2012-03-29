@@ -15,8 +15,6 @@
  */
 package com.mymed.controller.core.requesthandler;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -157,15 +155,10 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 
                     final StringBuffer urlBuffer = new StringBuffer(250);
                     urlBuffer.append("http://");
-                    try {
-                        urlBuffer.append(InetAddress.getLocalHost().getCanonicalHostName());
-                        urlBuffer.append("?socialNetwork=");
-                        urlBuffer.append(userBean.getSocialNetworkName());
-                        urlBuffer.trimToSize();
-                    } catch (final UnknownHostException ex) { // NOPMD
-                        LOGGER.debug("Impossibile to retrieve host information", ex);
-                        urlBuffer.append("www.mymed.fr");
-                    }
+                    urlBuffer.append(SERVER_URI);
+                    urlBuffer.append("?socialNetwork=");
+                    urlBuffer.append(userBean.getSocialNetworkName());
+                    urlBuffer.trimToSize();
 
                     message.addData("url", urlBuffer.toString());
                     message.addData(JSON_ACCESS_TKN, accessToken);
