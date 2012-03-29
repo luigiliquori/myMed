@@ -165,7 +165,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
                 </replacetokens>
             </filterchain>
         </copy>
-        <move file="${general.properties.file.tmp}" tofile="${general.properties.file}" force="true"/>
+        <move file="${general.properties.file.tmp}" tofile="${general.properties.file}"/>
     </target>
 
     <!-- - - - - - - - - - - - - - - - - -
