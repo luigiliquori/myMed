@@ -38,7 +38,7 @@ function initialize() {
 
 	// INITIALIZE DASP->MAP
 	setupDASPMap($("#applicationName").val() + "Map", displayPosition,
-			displayError, true);
+			displayError, false);
 
 	// autocompletes Google Maps Places API
 	if (useautocompletion) {
@@ -95,7 +95,13 @@ function displayPosition(position) {
 
 	// reverse geocode
 	var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
+//	var latlng = new google.maps.LatLng(43.774481, 7.49754);  // menton
+//	var latlng = new google.maps.LatLng(43.696036, 7.265592); // nice
+//	var latlng = new google.maps.LatLng(43.580418, 7.125102); // antibes
+//	var latlng = new google.maps.LatLng(43.87793, 7.449154);  // sospel
+//	var latlng = new google.maps.LatLng(43.7904171, 7.607139);  // vintimille
+//	var latlng = new google.maps.LatLng(43.757808, 7.473754);	// roquerbune
+	
 	// add position marker
 	if(currentPositionMarker == null) { // WATCH POSITION
 		// create current position marker
@@ -141,6 +147,21 @@ function displayPosition(position) {
 
 	// add the position to the popup
 	$('#depart').attr("placeholder", "Ma position");
+	
+	// print the marker around me
+	for ( var i = 0; i < filterArray.length; i++) {
+		pois = getMarkers(latlng.lat(), latlng.lng(), filterArray[i], $('#slider-radius').val());
+		pois.type = filterArray[i];
+		$.each(pois, function(i, poi) {
+			value = $.parseJSON(poi.value);
+			var marker = addMarker(new google.maps.LatLng(value.latitude,
+					value.longitude), 'system/templates/application/myRiviera/img/pois/' + pois.type + '.png', value.title,
+					value.description);
+			google.maps.event.addListener(marker, "click", function(e) {
+				marker.ib.open(map, this);
+			});
+		});
+	}
 }
 
 /**
@@ -226,9 +247,10 @@ function otherMarkers(index, type) {
 		markers[type][index] = [];
 		$.each(pois, function(i, poi) {
 			value = $.parseJSON(poi.value);
+			id = poi.id;
 			var marker = addMarker(new google.maps.LatLng(value.latitude,
 					value.longitude), 'system/templates/application/myRiviera/img/pois/' + type + '.png', value.title,
-					value.description);
+					value.description, null, false, id);
 			google.maps.event.addListener(marker, "click", function(e) {
 				marker.ib.open(map, this);
 			});
@@ -671,4 +693,8 @@ function validateIt() {
 				alert("Arrivée non valide");
 			}});
 	});
+}
+
+function changeEndMarkerIcon(icon) {
+	endmarker.setIcon($("#selectarrivee").val().split("&&")[0].replace("?type=large", ""));
 }

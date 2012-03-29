@@ -1,4 +1,5 @@
 <?php 
+require_once 'lib/dasp/request/Subscribe.class.php';
 require_once 'lib/dasp/request/Request.class.php';
 
 /**
@@ -27,7 +28,10 @@ class MyApplicationHandler implements IRequestHandler {
 	/* Public methods */
 	/* --------------------------------------------------------- */
 	public /*void*/ function handleRequest() { 
-		if(isset($_POST['poisrc'])){
+		if($_POST['method'] == "subscribe") {
+			$subscribe = new Subscribe($this);
+			$subscribe->send();
+		} else if(isset($_POST['poisrc'])){
 			$pois = json_decode($_POST['data']);
 			foreach($pois as $poi){
 				
@@ -56,7 +60,7 @@ class MyApplicationHandler implements IRequestHandler {
 		} else if(isset($_POST['longitude']) && isset($_POST['latitude']) && isset($_POST['radius'])){
 			$request = new Request("POIRequestHandler", READ);
 			$request->addArgument("application", APPLICATION_NAME);
-			$request->addArgument("type", "Commerces");
+			$request->addArgument("type", "Bibliotheque");
 			$request->addArgument("longitude", $_POST['longitude']);
 			$request->addArgument("latitude", $_POST['latitude']);
 			$request->addArgument("radius", $_POST['radius']);
