@@ -23,6 +23,11 @@
 		$details = new DetailsView();
 		$details->printTemplate();
 		
+		// IMPORT AND DEFINE THE REQUEST HANDLER
+		require_once dirname(__FILE__).'/handler/MyApplicationHandler.class.php';
+		$handler = new MyApplicationHandler();
+		$handler->handleRequest();
+		
 		// PROFILE UPDATE
 		include('views/dialog/updateProfile.php');
 		

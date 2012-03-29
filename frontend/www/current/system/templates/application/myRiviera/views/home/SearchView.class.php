@@ -25,16 +25,16 @@ class SearchView extends MyApplication {
 		parent::__construct("Search");
 		$this->filterList = array(
 				"ADAPEI",
-				"ADERF",
-				"ASSEDIC",
+// 				"ADERF",
+// 				"ASSEDIC",
 				"Bibliotheque",
-				"CCAS",
-				"EPCI",
+// 				"CCAS",
+// 				"EPCI",
 				"EqptPublic",
 				"Mairie", 
 				"Eglises",
 				"Forts_militaires",
-				"Fourriere",
+// 				"Fourriere",
 				"FoyerRural",
 				"GARES_SUD",
 				"Jardins",
@@ -81,7 +81,7 @@ class SearchView extends MyApplication {
 				<!-- FRIENDS -->
 				<?php if(isset($_SESSION['friends'])) { ?>
 					<select id="selectarrivee" data-iconpos="notext" data-icon="plus"
-					name="enum-1" onclick="changeDestination()">
+					name="enum-1" onChange="changeEndMarkerIcon(); changeDestination()">
 						<?php foreach ($_SESSION['friends'] as $friend ) { ?>
 								<?php if ($friend["position"]->formattedAddress != "") {?>
 										<option value="<?= $friend["profilePicture"] ?>&&<?= $friend["position"]->formattedAddress ?>">
@@ -169,8 +169,8 @@ class SearchView extends MyApplication {
 							<?php }  else { ?>
 								<div class="ui-block-b">
 							<?php } ?>
-								<input type="checkbox" name="<?= $filter ?>" id="<?= $filter ?>" class="custom" checked="checked" /> 
-								<label for="<?= $filter ?>"><?= $filter ?></label>
+								<input type="checkbox" name="<?= $filter ?>" id="<?= $filter ?>" class="custom" checked="checked"/> 
+								<label for="<?= $filter ?>" style="font-size: 9pt;"><?= $filter ?></label>
 							</div>
 							<?php $i++; ?>
 						<?php } ?>
@@ -192,9 +192,9 @@ class SearchView extends MyApplication {
 					<div  id="cityway-search">
 						<fieldset data-role="controlgroup" >
 							<input type="radio" name="radio-choice" id="radio-choice1" value="fastest" checked="checked" />
-							<label for="radio-choice1">le	+ rapide</label>
+							<label for="radio-choice1">le plus rapide</label>
 							<input type="radio" name="radio-choice" id="radio-choice2" value="lessChanges" />
-							<label for="radio-choice2">le - de chgt</label>
+							<label for="radio-choice2">le moins de changement</label>
 						</fieldset>
 						<fieldset data-role="controlgroup">
 							<input type="checkbox" name="checkbox" id="checkbox0"	checked="checked" /><label for="checkbox0">Bus</label>

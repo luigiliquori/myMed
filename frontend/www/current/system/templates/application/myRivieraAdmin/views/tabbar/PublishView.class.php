@@ -134,6 +134,25 @@ class PublishView extends MyApplication {
 				    <a href="#" data-role="button" onclick="document.TestForm4.submit()" rel="external">Send</a>
 				</form>
 			</div>
+			
+			<!--SUBSCRIBE -->
+			<div data-role="collapsible" data-collapsed="true" data-theme="a" data-content-theme="c">
+				<h3>Subscribe</h3>
+				<p>S'abonner aux commentaires de myRiviera:</p>
+				<form  action="#" method="post" name="<?= APPLICATION_NAME ?>SubscribeForm" id="<?= APPLICATION_NAME ?>SubscribeForm">
+					<!-- Define the method to call -->
+					<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
+					<input type="hidden" name="method" value="subscribe" />
+					<input type="hidden" name="numberOfOntology" value="1" />
+					
+					<!-- KEYWORD -->
+					<input type="hidden" name="keyword" value="myRivieraTest"/>
+					<?php $keywordBean = new MDataBean("keyword", null, KEYWORD); ?>
+					<input type="hidden" name="ontology0" value="<?= urlencode(json_encode($keywordBean)); ?>">
+				
+					<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>SubscribeForm.submit()" >Subscribe</a>
+				</form>
+			</div>
 		</div>
 	<?php }
 	

@@ -94,6 +94,32 @@ class OptionView extends MyApplication {
 					<br /><br />
 				<?php } ?>
 			</div>
+			
+			<!-- COMMENT -->
+			<div data-role="collapsible" data-collapsed="true" data-theme="d"
+				data-content-theme="c">
+				<h3>Commentaires</h3>
+				<p>Un commentaire, une idée, ajouter de nouveaux points d'interêts? Laissez nous un commentaire!</p>
+				<form  action="#" method="post" name="<?= APPLICATION_NAME ?>PublishForm" id="<?= APPLICATION_NAME ?>PublishForm" enctype="multipart/form-data">
+					<!-- Define the method to call -->
+					<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>Admin" />
+					<input type="hidden" name="method" value="publish" />
+					<input type="hidden" name="numberOfOntology" value="2" />
+					
+					<!-- KEYWORD -->
+					<input type="hidden" name="keyword" value="myRivieraTest"/>
+					<?php $keywordBean = new MDataBean("keyword", null, KEYWORD); ?>
+					<input type="hidden" name="ontology0" value="<?= urlencode(json_encode($keywordBean)); ?>">
+				
+					<!-- TEXT -->
+					<textarea name="text" rows="" cols=""></textarea>
+					<?php $text = new MDataBean("text", null, TEXT); ?>
+					<input type="hidden" name="ontology1" value="<?= urlencode(json_encode($text)); ?>">
+					<br />
+					
+					<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>PublishForm.submit()" >Publier</a>
+				</form>
+			</div>
 	
 			<!-- HELP -->
 			<div data-role="collapsible" data-collapsed="true" data-theme="d"

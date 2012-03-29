@@ -52,7 +52,7 @@ abstract class AbstractLogin extends AbstractTemplate {
 					    <div id="loginPassword">
 						    <label for="name" >Mot de passe:</label><br>
 						    <input type="password" name="password" id="password" value="" size="45" data-theme="c"/><br>
-						    <a href="#retrievePassword" >Mot de passe oublié ?</a>
+<!-- 						    <a href="#retrievePassword" >Mot de passe oublié ?</a> -->
 					    </div>
 					    <div id="loginConnexion">
 						    <a data-role="button" data-inline="true" onclick="document.singinForm.submit()">Connexion</a>
@@ -131,6 +131,20 @@ abstract class AbstractLogin extends AbstractTemplate {
 					<a href="http://www-sop.inria.fr/teams/lognet/MYMED/index.php?static1/projet">Documentation</a>
 					<a href="http://www.mymed.fr">News</a>
 					<a href="http://www-sop.inria.fr/teams/lognet/MYMED/index.php?static4/join">Contact</a>
+				</div>
+				<div class="innerContent" style="position: relative; top:50px; color: black;">
+					<h4>myMed - INTERREG IV - Alcotra</h4>
+					<img alt="Alcotra" src="system/img/logos/alcotra"
+						style="width: 100px;" /> <img alt="Europe"
+						src="system/img/logos/europe" style="width: 50px;" /> <img
+						alt="Conseil Général 06" src="system/img/logos/cg06"
+						style="width: 100px;" /> <img alt="Regine Piemonte"
+						src="system/img/logos/regione" style="width: 100px;" /> <img
+						alt="Région PACA" src="system/img/logos/PACA" style="width: 100px;" />
+					<img alt="Prefecture 06" src="system/img/logos/pref"
+						style="width: 70px;" /> <img alt="Inria"
+						src="system/img/logos/inria.jpg" style="width: 100px;" />
+					<p>"Ensemble par-delà les frontières"</p>
 				</div>
 			</div>
 		</div>
