@@ -44,7 +44,8 @@ class SearchView extends MyApplication {
 				"Police_municipale",
 				"Ports",
 				"POSTES",
-				"STADES"
+				"STADES",
+				"Commerces"
 		);
 	}
 	

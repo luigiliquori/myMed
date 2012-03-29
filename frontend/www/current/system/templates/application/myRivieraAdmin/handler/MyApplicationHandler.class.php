@@ -56,7 +56,7 @@ class MyApplicationHandler implements IRequestHandler {
 		} else if(isset($_POST['longitude']) && isset($_POST['latitude']) && isset($_POST['radius'])){
 			$request = new Request("POIRequestHandler", READ);
 			$request->addArgument("application", APPLICATION_NAME);
-			$request->addArgument("type", "Eglises");
+			$request->addArgument("type", "Commerces");
 			$request->addArgument("longitude", $_POST['longitude']);
 			$request->addArgument("latitude", $_POST['latitude']);
 			$request->addArgument("radius", $_POST['radius']);
@@ -69,20 +69,20 @@ class MyApplicationHandler implements IRequestHandler {
 				echo '<script type="text/javascript">alert(\'' . json_encode($responseObject->data) . '\');</script>';
 			}
 			
-			$request = new Request("POIRequestHandler", READ);
-			$request->addArgument("application", APPLICATION_NAME);
-			$request->addArgument("type", "carf");
-			$request->addArgument("longitude", $_POST['longitude']);
-			$request->addArgument("latitude", $_POST['latitude']);
-			$request->addArgument("radius", $_POST['radius']);
-			$request->addArgument("accessToken", $_SESSION["accessToken"]);
+// 			$request = new Request("POIRequestHandler", READ);
+// 			$request->addArgument("application", APPLICATION_NAME);
+// 			$request->addArgument("type", "carf");
+// 			$request->addArgument("longitude", $_POST['longitude']);
+// 			$request->addArgument("latitude", $_POST['latitude']);
+// 			$request->addArgument("radius", $_POST['radius']);
+// 			$request->addArgument("accessToken", $_SESSION["accessToken"]);
 				
-			$responsejSon = $request->send();
-			$responseObject = json_decode($responsejSon);
+// 			$responsejSon = $request->send();
+// 			$responseObject = json_decode($responsejSon);
 				
-			if($responseObject->status == 200) {
-				echo '<script type="text/javascript">alert(\'' . json_encode($responseObject->data) . '\');</script>';
-			}
+// 			if($responseObject->status == 200) {
+// 				echo '<script type="text/javascript">alert(\'' . json_encode($responseObject->data) . '\');</script>';
+// 			}
 		}
 	}
 	
