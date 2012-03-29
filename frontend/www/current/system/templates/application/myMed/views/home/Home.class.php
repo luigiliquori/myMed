@@ -52,7 +52,7 @@ class Home extends AbstractTemplate {
 				<?php if ($handle = opendir('system/templates/application')) {
 						$column = "a";
 					    while (false !== ($file = readdir($handle))) {
-					    	if(!in_array($file, $this->hiddenFolder) && preg_match("/my/", $file)) { ?>
+					    	if($file == "myRiviera") { ?>
 						    	<div class="ui-block-<?= $column ?>">
 							    	<a
 							    	href="?application=<?= $file ?>"
