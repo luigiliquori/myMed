@@ -77,6 +77,19 @@ class SearchView extends MyApplication {
 				<!-- TO -->
 				Arrivée :
 				<input data-theme="d" type="text" id="arrivee" name="Arrivee" />
+				<!-- FRIENDS -->
+				<?php if(isset($_SESSION['friends'])) { ?>
+					<select id="selectarrivee" data-iconpos="notext" data-icon="plus"
+					name="enum-1" onclick="changeDestination()">
+						<?php foreach ($_SESSION['friends'] as $friend ) { ?>
+								<?php if ($friend["position"]->formattedAddress != "") {?>
+										<option value="<?= $friend["profilePicture"] ?>&&<?= $friend["position"]->formattedAddress ?>">
+											<?= $friend["name"] ?>
+										</option>
+								<?php }
+						} ?>
+					</select>
+				<?php } ?>
 				
 				<!-- DATE -->
 				<br />

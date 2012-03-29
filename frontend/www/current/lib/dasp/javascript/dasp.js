@@ -183,7 +183,7 @@ function getMarkers(latitude, longitude, type, radius) {
 
 	var result = new Array();
 	args = "code=1";
-	args += "&application=" + $("#applicationName").val();
+	args += "&application=" + $("#applicationName").val() + "Admin";
 	args += "&type=" + type;
 	args += "&latitude=" + latitude;
 	args += "&longitude=" + longitude;

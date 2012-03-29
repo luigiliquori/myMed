@@ -24,7 +24,7 @@ function successCallback(position){
 	    xhr.onreadystatechange  = function() { 
 	       if(xhr.readyState  == 4) {
 	       		if(xhr.status  != 200) { 
-	        		alert("Error code " + xhr.status);
+//	        		alert("Error code " + xhr.status);
 	       		}
 	        }
 	    }; 
