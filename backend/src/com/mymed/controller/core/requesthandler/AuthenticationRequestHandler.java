@@ -242,7 +242,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 
                         LOGGER.info("Session {} created -> LOGIN", accessToken);
                         final StringBuffer urlBuffer = new StringBuffer(40);
-                        urlBuffer.append("http://");
+                        urlBuffer.append(SERVER_PROTOCOL);
                         urlBuffer.append(SERVER_URI);
 
                         urlBuffer.trimToSize();
