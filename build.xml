@@ -46,6 +46,11 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
     <property name="jarname" value="mymed_backend.jar"/>
     <property name="warname" value="mymed_backend.war"/>
     <property name="java.dir" location="/usr/share/java"/>
+    <!-- -->
+    <property name="general.properties.file" value="${properties.dir}/general.properties"/>
+    <property name="general.properties.file.tmp" value="${general.properties.file}.tmp"/>
+    <property name="general.properties.file.old" value="${general.properties.file}.old"/>
+
 
     <fileset dir="${web.content.lib.dir}" id="jarnames" description="JARs necessary to compile">
         <include name="**/*.jar"/>
@@ -81,6 +86,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
               target: compile
                        - - - - - - - - - - - - - - - - - -->
     <target name="compile" depends="init" description="Compile the necessary files">
+        <!-- Define where Glassfish installation is located -->
         <if>
             <isset property="glassfish"/>
             <then>
@@ -91,6 +97,37 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
                 <var name="glassfish.dir" value="/local/glassfish3"/>
             </else>
         </if>
+        <!--
+            A hack: we need to have a variable that defines the URL of the server
+            This is necessary for deployment where the URL of the server is
+            different than the name of the host.
+
+            Here we basically check if a property is set (-Duri=URI), and copy
+            the file where this value needs to be substituted in temp file, substitute the value
+            and copy back the file. We keep also an old version of the file that will be
+            reverted once the WAR file has been created in order to always have the clean copy
+            for subsequent build.
+         -->
+        <if>
+            <isset property="uri"/>
+            <then>
+                <var name="server.uri" value="${uri}"/>
+            </then>
+            <else>
+                <var name="server.uri" unset="true"/>
+                <var name="server.uri" value=""/>
+            </else>
+        </if>
+        <copy file="${general.properties.file}" tofile="${general.properties.file.old}" overwrite="true"/>
+        <copy file="${general.properties.file}" tofile="${general.properties.file.tmp}" overwrite="true">
+            <filterchain>
+                <replacetokens>
+                    <token key="server.uri" value="${server.uri}"/>
+                </replacetokens>
+            </filterchain>
+        </copy>
+        <move file="${general.properties.file.tmp}" tofile="${general.properties.file}" force="true"/>
+
         <javac srcdir="${src.dir}" destdir="${build.classes.dir}" debug="${debug.flag}" fork="true" includeantruntime="true" includejavaruntime="true">
             <exclude name="**/tests/**"/>
             <exclude name="**/debug/**"/>
@@ -149,7 +186,9 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
             </filterchain>
         </copy>
         <copy todir="${war.webinf.resources.dir}">
-            <fileset dir="${properties.dir}"/>
+            <fileset dir="${properties.dir}">
+                <exclude name="**/*.old"/>
+             </fileset>
         </copy>
         <copy todir="${war.webinf.classes.dir}" description="Copy the compiled classes in the WEB-INF/classes/ dir">
             <fileset dir="${build.classes.dir}"/>
@@ -160,7 +199,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
         <copy todir="${war.webinf.lib.dir}">
             <fileset refid="jarnames"/>
         </copy>
-        <copy todir="${war.webinf.dir}" file="${web.content.webinf.dir}/sun-web.xml"/>
+        <copy todir="${war.webinf.dir}" file="${web.content.webinf.dir}/glassfish-web.xml"/>
     </target>
 
 
@@ -177,6 +216,11 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
         <!-- Clean up everything that is not needed anymore -->
         <delete includeemptydirs="true" dir="${war.dir}" />
         <delete includeemptydirs="true" dir="${build.classes.dir}" />
+        <!--
+            This is the other part of the hack for setting the URL of the server.
+            Here we set back the old properties file, so that we do not have problem
+         -->
+        <move file="${general.properties.file.old}" tofile="${general.properties.file}" force="true"/>
     </target>
 
     <!-- - - - - - - - - - - - - - - - - -
