@@ -154,7 +154,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
                     LOGGER.info("Session {} created -> LOGIN", accessToken);
 
                     final StringBuffer urlBuffer = new StringBuffer(250);
-                    urlBuffer.append("http://");
+                    urlBuffer.append(SERVER_PROTOCOL);
                     urlBuffer.append(SERVER_URI);
                     urlBuffer.append("?socialNetwork=");
                     urlBuffer.append(userBean.getSocialNetworkName());

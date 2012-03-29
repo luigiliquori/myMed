@@ -98,6 +98,17 @@ public abstract class AbstractManager {
     protected static String SERVER_URI;
 
     /**
+     * The protocol used for communications. This is the default value provided via the properties.
+     */
+    private static final String DEFAULT_SERVER_PROTOCOL = PROPERTIES.getManager(PropType.GENERAL).get(
+                    "general.server.protocol");
+
+    /**
+     * The protocol used for communications: should be 'http://' or 'https://'.
+     */
+    protected static String SERVER_PROTOCOL;
+
+    /**
      * Default error string for encoding exceptions.
      */
     protected static final String ERROR_ENCODING = ERRORS.get("error.encoding");
@@ -127,6 +138,9 @@ public abstract class AbstractManager {
         } else {
             SERVER_URI = DEFAULT_SERVER_URI;
         }
+
+        // We do not trust what users write on the command line
+        SERVER_PROTOCOL = DEFAULT_SERVER_PROTOCOL.split(":")[0] + "://";
     }
 
     /**
