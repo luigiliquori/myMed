@@ -37,8 +37,8 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
     public RegistrationManager(final IStorageManager storageManager) throws InternalBackEndException {
         super(storageManager);
 
-        pubSubManager = new PubSubManager(storageManager);
-        authenticationManager = new AuthenticationManager(storageManager);
+        pubSubManager = new PubSubManager();
+        authenticationManager = new AuthenticationManager();
         gson = new Gson();
     }
 
