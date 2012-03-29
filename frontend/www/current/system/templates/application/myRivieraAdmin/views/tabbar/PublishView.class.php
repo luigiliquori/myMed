@@ -41,7 +41,7 @@ class PublishView extends MyApplication {
 			<!-- TOOLs -->
 			<div data-role="collapsible" data-theme="a" data-content-theme="c" data-collapsed="true" Style="text-align: left;">
 			   <h3>Tools</h3>
-			   <form action="?application=<?= APPLICATION_NAME ?>Admin" method="get" rel="external">
+			   <form action="?application=<?= APPLICATION_NAME ?>" method="get" rel="external">
 				   	<?php 
 				 	  	$address = "";
 						$longitude = "";
