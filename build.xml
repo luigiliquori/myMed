@@ -264,7 +264,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
             This is the other part of the hack for setting the URL of the server.
             Here we set back the old properties file, so that we do not have problem
          -->
-        <move file="${general.properties.file.old}" tofile="${general.properties.file}" force="true"/>
+        <move file="${general.properties.file.old}" tofile="${general.properties.file}"/>
     </target>
 
     <!-- - - - - - - - - - - - - - - - - -
