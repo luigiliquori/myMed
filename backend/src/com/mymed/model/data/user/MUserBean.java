@@ -67,6 +67,9 @@ public final class MUserBean extends AbstractMBean {
     private String interactionList = null;
     private String socialNetworkID = null;
     private String socialNetworkName = null;
+    
+    /** TO MANAGE THE DIFFERENT PERMISSIONS */
+    private String groups = null;
 
     /* --------------------------------------------------------- */
     /* Constructors */
@@ -501,4 +504,21 @@ public final class MUserBean extends AbstractMBean {
     public void setPosition(final String position) {
         this.position = position;
     }
+
+    /**
+     * 
+     * @return
+     */
+    public String getGroups() {
+		return groups;
+	}
+    
+    /**
+     * Assign a new gro
+     * @param groups
+     */
+    public void setGroups(String groups) {
+		this.groups = groups;
+	}
+    
 }

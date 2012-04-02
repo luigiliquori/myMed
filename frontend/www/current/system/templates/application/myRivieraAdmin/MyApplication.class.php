@@ -37,7 +37,7 @@ abstract class MyApplication extends AbstractTemplate {
 	public /*String*/ function getHeader() { ?>
 		<!-- HEADER -->
 		<div data-role="header" data-theme="a">
-			<a href="?application=0" rel="external" data-role="button" data-theme="r">Close</a>
+			<a href="#login" onclick="document.disconnectForm.submit()" rel="external" data-role="button" data-theme="r">Deconnexion</a>
 			<h1><?= APPLICATION_NAME ?></h1>
 		</div>
 	<?php }
