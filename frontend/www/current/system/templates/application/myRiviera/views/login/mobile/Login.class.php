@@ -77,7 +77,7 @@ class Login extends AbstractTemplate {
 				<input type="hidden" name="singin" value="1" />
 			    <input type="text" name="login" id="login" value="email"  data-theme="c"/><br />
 			    <input type="password" name="password" id="password" value="Mot de passe"  data-theme="c"/><br />
-			    <a href="#socialNetwork">Connexion Via Réseau Social</a><br />
+<!-- 			    <a href="#socialNetwork">Connexion Via Réseau Social</a><br /> -->
 			    <a href="#" onclick="document.singinForm.submit()" data-role="button" data-inline="true" data-theme="b">Connexion</a><br />
 			</form>
 			
