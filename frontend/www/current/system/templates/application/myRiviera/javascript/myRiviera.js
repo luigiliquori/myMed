@@ -102,6 +102,12 @@ function displayPosition(position) {
 //	var latlng = new google.maps.LatLng(43.7904171, 7.607139);  // vintimille
 //	var latlng = new google.maps.LatLng(43.757808, 7.473754);	// roquerbune
 	
+//   xhr.open( "GET", "index.php?latitude=" + position.coords.latitude + "&longitude=" + position.coords.longitude,  true); 
+//   xhr.send(null); 
+	
+	// Store the position into cassandra
+	$.get("#", { latitude: latlng.lat(), longitude: latlng.lng() } );
+	
 	// add position marker
 	if(currentPositionMarker == null) { // WATCH POSITION
 		// create current position marker
