@@ -4,38 +4,39 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.AddressException;
-
-import ch.qos.logback.classic.Logger;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.controller.core.manager.AbstractManager;
 import com.mymed.controller.core.manager.authentication.AuthenticationManager;
 import com.mymed.controller.core.manager.authentication.IAuthenticationManager;
 import com.mymed.controller.core.manager.pubsub.IPubSubManager;
 import com.mymed.controller.core.manager.pubsub.PubSubManager;
+import com.mymed.controller.core.manager.storage.IStorageManager;
+import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.data.application.MDataBean;
 import com.mymed.model.data.session.MAuthenticationBean;
 import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.HashFunction;
-import com.mymed.utils.MLogger;
 import com.mymed.utils.Mail;
 
 /**
  * @author lvanni
  */
-public class RegistrationManager implements IRegistrationManager {
-
-    private static final Logger LOGGER = MLogger.getLogger();
+public class RegistrationManager extends AbstractManager implements IRegistrationManager {
 
     private final IPubSubManager pubSubManager;
     private final IAuthenticationManager authenticationManager;
     private final Gson gson;
 
     public RegistrationManager() throws InternalBackEndException {
+        this(new StorageManager());
+    }
+
+    public RegistrationManager(final IStorageManager storageManager) throws InternalBackEndException {
+        super(storageManager);
+
         pubSubManager = new PubSubManager();
         authenticationManager = new AuthenticationManager();
         gson = new Gson();
@@ -70,11 +71,9 @@ public class RegistrationManager implements IRegistrationManager {
         final StringBuilder contentBuilder = new StringBuilder(250);
         // try {
         // TODO add international support
-        contentBuilder.append("Bienvenu sur myMed.\nPour finaliser votre inscription cliquez sur le lien: http://");
-        // TODO fix the host name one final
-        // TODO
-        // contentBuilder.append(InetAddress.getLocalHost().getCanonicalHostName());
-        contentBuilder.append("www.mymed.fr");
+        contentBuilder.append("Bienvenu sur myMed.\n\nPour finaliser votre inscription cliquez sur le lien:\n\n");
+        contentBuilder.append(SERVER_PROTOCOL);
+        contentBuilder.append(SERVER_URI);
         contentBuilder.append("?registration=ok&accessToken=");
         contentBuilder.append(accessToken);
         contentBuilder.append("\n\n------\nL'équipe myMed");

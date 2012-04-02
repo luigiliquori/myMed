@@ -18,7 +18,9 @@ package com.mymed.controller.core.requesthandler;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.InetAddress;
 import java.net.URLDecoder;
+import java.net.UnknownHostException;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,9 +45,9 @@ import com.mymed.properties.PropertiesManager;
 import com.mymed.utils.MLogger;
 
 public abstract class AbstractRequestHandler extends HttpServlet {
-    /* --------------------------------------------------------- */
-    /* Attributes */
-    /* --------------------------------------------------------- */
+    /**
+     * Serial version ID.
+     */
     private static final long serialVersionUID = 1L;
 
     // The default logger for all the RequestHandler that extends this class.
@@ -77,6 +79,28 @@ public abstract class AbstractRequestHandler extends HttpServlet {
      */
     protected static final String SOCIAL_NET_NAME = PROPERTIES.getManager(PropType.GENERAL).get(
                     "general.social.network.name");
+
+    /**
+     * This is the URL address of the server, necessary for configuring data across all the backend. If nothing has been
+     * set at compile time, the default value is an empty string.
+     */
+    private static final String DEFAULT_SERVER_URI = PROPERTIES.getManager(PropType.GENERAL).get("general.server.uri");
+
+    /**
+     * This is the server URI as to be used in the backend.
+     */
+    protected static String SERVER_URI;
+
+    /**
+     * The protocol used for communications. This is the default value provided via the properties.
+     */
+    private static final String DEFAULT_SERVER_PROTOCOL = PROPERTIES.getManager(PropType.GENERAL).get(
+                    "general.server.protocol");
+
+    /**
+     * The protocol used for communications: should be 'http://' or 'https://'.
+     */
+    protected static String SERVER_PROTOCOL;
 
     /**
      * JSON 'code' attribute.
@@ -169,13 +193,28 @@ public abstract class AbstractRequestHandler extends HttpServlet {
         super();
 
         gson = new Gson();
+
+        // Set a default global URI to be used by the backend, if we cannot get the host name
+        // we fallback to use localhost.
+        if ("".equals(DEFAULT_SERVER_URI)) {
+            try {
+                SERVER_URI = InetAddress.getLocalHost().getCanonicalHostName();
+            } catch (final UnknownHostException ex) {
+                LOGGER.debug("Error retrieving host name of the machine, falling back to 'localhost'", ex);
+                SERVER_URI = "localhost"; // NOPMD
+            }
+        } else {
+            SERVER_URI = DEFAULT_SERVER_URI;
+        }
+
+        // We do not trust what users write on the command line
+        SERVER_PROTOCOL = DEFAULT_SERVER_PROTOCOL.split(":")[0] + "://";
     }
 
     /*
      * (non-Javadoc)
-     * @see
-     * javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest
-     * , javax.servlet.http.HttpServletResponse)
+     * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest ,
+     * javax.servlet.http.HttpServletResponse)
      */
     @Override
     protected abstract void doGet(final HttpServletRequest request, final HttpServletResponse response)
@@ -183,9 +222,8 @@ public abstract class AbstractRequestHandler extends HttpServlet {
 
     /*
      * (non-Javadoc)
-     * @see
-     * javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest
-     * , javax.servlet.http.HttpServletResponse)
+     * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest ,
+     * javax.servlet.http.HttpServletResponse)
      */
     @Override
     protected abstract void doPost(final HttpServletRequest request, final HttpServletResponse response)
@@ -223,10 +261,8 @@ public abstract class AbstractRequestHandler extends HttpServlet {
             if (paramValues.length >= 1) {
                 try {
                     /*
-                     * Since this comes in like an HTTP request, we might have
-                     * non ASCII chars in the parameters, so it is better to
-                     * decode them. If there are only ASCII char, it is safe
-                     * since ASCII < UTF-8.
+                     * Since this comes in like an HTTP request, we might have non ASCII chars in the parameters, so it
+                     * is better to decode them. If there are only ASCII char, it is safe since ASCII < UTF-8.
                      */
                     final String value = URLDecoder.decode(paramValues[0], ENCODING);
                     parameters.put(paramName, value);
@@ -262,8 +298,7 @@ public abstract class AbstractRequestHandler extends HttpServlet {
     }
 
     /**
-     * Check that the access token parameters has been provided, and verifies
-     * it.
+     * Check that the access token parameters has been provided, and verifies it.
      * 
      * @param parameters
      *            the parameters where to check
