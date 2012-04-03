@@ -35,9 +35,9 @@ class Login extends AbstractTemplate {
 	*/
 	public /*String*/ function getHeader() { ?>
 		<!-- HEADER -->
-		<div data-role="header">
+		<div data-role="header" data-theme="b">
 			<div data-role="controlgroup" data-type="horizontal" style="text-align: center;">
-				<a href="#inscription" data-role="button" data-inline="true" data-rel="dialog" >inscription</a>
+				<a href="#inscription" data-role="button" data-inline="true" >inscription</a>
 			</div>
 		</div>		
 	<?php }
@@ -45,13 +45,10 @@ class Login extends AbstractTemplate {
 	/**
 	 * Get the CONTENT for jQuery Mobile
 	 */
-	public /*String*/ function getContent() {
-		?>
+	public /*String*/ function getContent() { ?>
 		<!-- CONTENT -->
-		<div class="content">
-			<br /><br />
+		<div class="content" data-theme="b">
 			<h1><?= APPLICATION_NAME ?></h1>
-			
 			<!-- NOTIFICATION -->
 			<?php if($this->handler->getError()) { ?>
 				<div id="loginError" style="color: red;">
@@ -71,11 +68,26 @@ class Login extends AbstractTemplate {
 			<br />
 			<form action="#" method="post" name="singinForm" id="singinForm">
 				<input type="hidden" name="singin" value="1" />
-			    <input type="text" name="login" id="login" value="email" /><br />
-			    <input type="password" name="password" id="password" value="Mot de passe" /><br />
-			    <a href="#" onclick="document.singinForm.submit()" data-role="button" data-inline="true">Connexion</a><br />
-			    <a href="#socialNetwork">Connexion Via Réseau Social</a>
+			    <input type="text" name="login" id="login" value="email"  data-theme="c"/><br />
+			    <input type="password" name="password" id="password" value="Mot de passe"  data-theme="c"/><br />
+<!-- 			    <a href="#socialNetwork">Connexion Via Réseau Social</a><br /> -->
+			    <a href="#" onclick="document.singinForm.submit()" data-role="button" data-inline="true" data-theme="b">Connexion</a><br />
 			</form>
+			
+			<div class="innerContent" style="position: relative; top:50px; color: black;">
+				<h4>myMed - INTERREG IV - Alcotra</h4>
+				<img alt="Alcotra" src="system/img/logos/alcotra"
+					style="width: 100px;" /> <img alt="Europe"
+					src="system/img/logos/europe" style="width: 50px;" /> <img
+					alt="Conseil Général 06" src="system/img/logos/cg06"
+					style="width: 100px;" /> <img alt="Regine Piemonte"
+					src="system/img/logos/regione" style="width: 100px;" /> <img
+					alt="Région PACA" src="system/img/logos/PACA" style="width: 100px;" />
+				<img alt="Prefecture 06" src="system/img/logos/pref"
+					style="width: 70px;" /> <img alt="Inria"
+					src="system/img/logos/inria.jpg" style="width: 100px;" />
+				<p>"Ensemble par-delà les frontières"</p>
+			</div>
 		</div>
 	<?php }
 	
