@@ -89,6 +89,7 @@ class SearchView extends MyApplication {
 					<?php if(count($knownFriends) > 0) { ?>
 						<select id="selectarrivee" data-iconpos="notext" data-icon="plus"
 						name="enum-1" onChange="changeEndMarkerIcon(); changeDestination()">
+						<option></option>
 						<?php foreach ($knownFriends as $friend ) { ?>
 								<option value="<?= $friend["profilePicture"] ?>&&<?= $friend["position"]->formattedAddress ?>">
 									<?= $friend["name"] ?>
