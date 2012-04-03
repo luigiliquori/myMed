@@ -35,8 +35,13 @@ class LoginHandler implements IRequestHandler {
 	 */
 	public /*String*/ function handleRequest() {
 
+		if(isset($_POST['refreshUserSession'])) {
+			unset($_SESSION['user']);
+// 			echo '<script type="text/javascript">alert(\'refreshUserSession\');</script>';
+		}
+		
 		// Create or Refresh the user session
-		if(!isset($_SESSION['user']) || isset($_POST['refreshUserSession'])) {
+		if(!isset($_SESSION['user'])) {
 
 			// LOGIN
 			if(isset($_GET['accessToken']) || isset($_POST['accessToken'])) {
