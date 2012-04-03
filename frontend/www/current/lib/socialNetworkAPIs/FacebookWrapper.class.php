@@ -85,8 +85,10 @@ class FacebookWrapper implements IWrapper {
 				$_SESSION['wrapper'] = $this;
 				
 				// REDIRECTION
+				$_SESSION['socialNetworkEnabled'] = true;
 				echo "<form id='singinRedirectForm' name='singinRedirectForm' method='post' action='" . $url . "'>";
 				echo "<input type='hidden' name='accessToken' value='" . $accessToken . "' />";
+				echo "<input type='hidden' name='refreshUserSession' value='true' />";
 				echo "</form>";
 				echo '<script type="text/javascript">document.singinRedirectForm.submit();</script>';
 				

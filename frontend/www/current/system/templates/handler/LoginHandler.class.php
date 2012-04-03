@@ -35,8 +35,8 @@ class LoginHandler implements IRequestHandler {
 	 */
 	public /*String*/ function handleRequest() {
 
-		// Only if there is no existing session
-		if(!isset($_SESSION['user'])) {
+		// Create or Refresh the user session
+		if(!isset($_SESSION['user']) || isset($_POST['refreshUserSession'])) {
 
 			// LOGIN
 			if(isset($_GET['accessToken']) || isset($_POST['accessToken'])) {
@@ -109,9 +109,6 @@ class LoginHandler implements IRequestHandler {
 					echo '<script type="text/javascript">document.singinRedirectForm.submit();</script>';
 				}
 
-			}
-			foreach($this->socialNetworkConnection->getWrappers() as $wrapper) {
-				$wrapper->handleAuthentication();
 			}
 		} else if(!isset($_SESSION['socialNetworkEnabled'])) {
 			foreach($this->socialNetworkConnection->getWrappers() as $wrapper) {

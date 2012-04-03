@@ -104,7 +104,7 @@ class OptionView extends MyApplication {
 			           d.getElementsByTagName('head')[0].appendChild(js);
 			         }(document));
 			    </script>
-			    <div class="fb-login-button" scope="email,read_stream">Login with Facebook</div>
+			    <div class="fb-login-button" scope="email,read_stream">Facebook</div>
 			    <!-- END CONNECTION FACEBOOK -->
 				<?php } else { ?>
 					<!-- LIKE BUTTON -->
