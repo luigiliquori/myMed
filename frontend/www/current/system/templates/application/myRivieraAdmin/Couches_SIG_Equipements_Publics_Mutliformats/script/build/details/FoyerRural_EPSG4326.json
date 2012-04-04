@@ -1,9 +1,0 @@
-{
-"type": "FeatureCollection",
-"features": [
-{ "type": "Feature", "properties": { "Type": "FoyerRural_EPSG4326", "Nom": "Foyer rural de Peille dans la Mairie", "Description": "04 93 91 71 71", "Adresse": "", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.401598, 43.802841 ] } }
-,
-{ "type": "Feature", "properties": { "Type": "FoyerRural_EPSG4326", "Nom": "Foyer Rural de Sospel", "Description": "", "Adresse": "", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.447165, 43.877895 ] } }
-
-]
-}
