@@ -55,7 +55,7 @@
 		$login->printTemplate();
 		
 		include('views/dialog/socialNetwork.php');
-		include('views/dialog/condition.php');
+		include('views/dialog/about.php');
 	}
 	
 ?>

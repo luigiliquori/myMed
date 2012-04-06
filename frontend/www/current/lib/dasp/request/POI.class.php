@@ -14,8 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-require_once 'lib/dasp/request/Request.class.php';
-require_once 'system/templates/handler/IRequestHandler.php';
+require_once dirname(__FILE__).'/Request.class.php';
+require_once dirname(__FILE__).'/IRequestHandler.php';
 
 /**
  * 

@@ -1,0 +1,7 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Fourriere_EPSG4326", "Nom": "Fourrière automobile", "Description": "04 92 10 56 00", "Adresse": "144 val du Careï 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.491499, 43.794245 ] } }
+
+]
+}

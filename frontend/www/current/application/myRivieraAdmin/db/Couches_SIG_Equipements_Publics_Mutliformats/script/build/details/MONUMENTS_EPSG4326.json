@@ -1,0 +1,23 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Monuments_EPSG4326", "Nom": "Palais LASCARIS", "Description": "04 93 57 13 63", "Adresse": "58 rue République 06500 Castellar", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.497075, 43.804702 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Monuments_EPSG4326", "Nom": "Viaduc du Caramel", "Description": "Ancienne voie ferrée du tramway", "Adresse": "route de Castellar 06500 Menton", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.480934, 43.828107 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Monuments_EPSG4326", "Nom": "Trophée des Alpes", "Description": "Le trophée des Alpes élevé en l'honneur de l'empereur romain Auguste au point haut de la voie romaine nommée la via Aurelia célèbre la victoire définitive sur quarante-quatre tribus turbulentes qui entravaient autrefois les multiples passages alpins.", "Adresse": "avenue Prince Albert Premier de Monaco 06320 La Turbie", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.401757, 43.744752 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Monuments_EPSG4326", "Nom": "Tour Lascaris", "Description": "La Tour Lascaris a été érigée en 1246 par Guido Guerra, alors comte Lascaris de Vintimille.", "Adresse": "chemin de Gorbio 06500 Gorbio", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.445351, 43.786047 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Monuments_EPSG4326", "Nom": "Orme de la place de Gorbio", "Description": "L'Orme planté en 1713 a  été planté à l'occasion di traité d'UTRECHT par lequel, le Compté de Nice repassa sous la souveraineté du Duc de Savoie.", "Adresse": "Place de la République 06500 Gorbio", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.443559, 43.786710 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Monuments_EPSG4326", "Nom": "Carrière romaine du mont Justicier", "Description": "Lors de l’édification du Trophée des Alpes, ils y ont ouvert une carrière, principalement réservée aux éléments de colonnes.", "Adresse": "Chemin des carrières Romaines 06320 La Turbie", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.411074, 43.747713 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Monuments_EPSG4326", "Nom": "Le Portail de l'Ouest (12ème-14ème siècle)", "Description": "Le Portail de l'Ouest (12ème-14eme siècle-en calcaire de La Turbie)", "Adresse": "Rue du Comte de Cessole 06320 La Turbie", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.400394, 43.745102 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Monuments_EPSG4326", "Nom": "Gare de chemin de fer à Crémaillère", "Description": "Ancienne Gare de la Turbie", "Adresse": "Place de la Crémaillère 06320 La Turbie", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.402440, 43.745866 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Monuments_EPSG4326", "Nom": "Le Rondo (pierres de tailles)", "Description": "Le Rondo (pierres de tailles -19 ème siècle)", "Adresse": "Place de la Crémaillère 06320 La Turbie", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.403450, 43.745513 ] } }
+
+]
+}

@@ -1,0 +1,27 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "GARES_SUD_EPSG4326", "Nom": "Gare de Tende", "Description": "", "Adresse": "", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.595142, 44.088930 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "GARES_SUD_EPSG4326", "Nom": "Gare de la Brigue", "Description": "", "Adresse": "", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.605494, 44.062612 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "GARES_SUD_EPSG4326", "Nom": "Gare de Saint-Dalmas-De-Tende", "Description": "", "Adresse": "", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.582951, 44.055213 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "GARES_SUD_EPSG4326", "Nom": "Gare de Fontan-Saorge", "Description": "", "Adresse": "", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.551829, 43.997040 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "GARES_SUD_EPSG4326", "Nom": "Gare de Breil-sur-Roya", "Description": "", "Adresse": "", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.516205, 43.943910 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "GARES_SUD_EPSG4326", "Nom": "Gare de Sospel", "Description": "", "Adresse": "", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.454106, 43.876421 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "GARES_SUD_EPSG4326", "Nom": "Gare de Menton-Garavan", "Description": "", "Adresse": "", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.516896, 43.785056 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "GARES_SUD_EPSG4326", "Nom": "Gare de Menton", "Description": "", "Adresse": "", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.493208, 43.774501 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "GARES_SUD_EPSG4326", "Nom": "Gare de Carnolès", "Description": "", "Adresse": "", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.481676, 43.762034 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "GARES_SUD_EPSG4326", "Nom": "Gare de Roquebrune-Cap-Martin", "Description": "", "Adresse": "", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.457526, 43.760511 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "GARES_SUD_EPSG4326", "Nom": "Gare de Monaco-Monte-Carlo", "Description": "", "Adresse": "", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.419871, 43.736327 ] } }
+
+]
+}

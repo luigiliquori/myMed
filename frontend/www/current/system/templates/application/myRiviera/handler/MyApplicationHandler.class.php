@@ -1,5 +1,5 @@
 <?php 
-require_once 'system/templates/handler/IRequestHandler.php';
+require_once 'lib/dasp/request/IRequestHandler.php';
 require_once 'lib/dasp/beans/MDataBean.class.php';
 require_once 'lib/dasp/request/Publish.class.php';
 require_once 'lib/dasp/request/Subscribe.class.php';

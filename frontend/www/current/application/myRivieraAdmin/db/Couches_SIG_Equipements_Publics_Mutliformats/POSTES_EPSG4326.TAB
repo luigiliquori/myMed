@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ogr:FeatureCollection
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://ogr.maptools.org/ POSTES_EPSG4326.xsd"
+     xmlns:ogr="http://ogr.maptools.org/"
+     xmlns:gml2="http://www.opengis.net/gml">
+  <gml2:boundedBy>
+    <gml2:Box>
+      <gml2:coord><gml2:X>7.399794</gml2:X><gml2:Y>43.744967</gml2:Y></gml2:coord>
+      <gml2:coord><gml2:X>7.496045</gml2:X><gml2:Y>43.805098</gml2:Y></gml2:coord>
+    </gml2:Box>
+  </gml2:boundedBy>                                                             
+  <gml2:featureMember>
+    <ogr:POSTES_EPSG4326 fid="F0">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.441802,43.783951999999999</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>POSTES_EPSG4326</ogr:Type>
+      <ogr:Nom>Poste de Gorbio</ogr:Nom>
+      <ogr:Description>La Poste: 04 93 35 79 97</ogr:Description>
+      <ogr:Adresse>44 avenue de Verdun 06500 Gorbio</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+    </ogr:POSTES_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:POSTES_EPSG4326 fid="F1">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.399794,43.744967000000003</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>POSTES_EPSG4326</ogr:Type>
+      <ogr:Nom>Poste de La Turbie</ogr:Nom>
+      <ogr:Description>La Poste: 04 92 41 34 15</ogr:Description>
+      <ogr:Adresse>2 place neuve 06320 La Turbie</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+    </ogr:POSTES_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:POSTES_EPSG4326 fid="F2">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.485495,43.781852999999998</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>POSTES_EPSG4326</ogr:Type>
+      <ogr:Nom>Poste du Borrigo</ogr:Nom>
+      <ogr:Description>La Poste: 04 93 57 62 72</ogr:Description>
+      <ogr:Adresse>12 avenue des Acacias 06500 Menton</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+    </ogr:POSTES_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:POSTES_EPSG4326 fid="F3">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.485759,43.805098</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>POSTES_EPSG4326</ogr:Type>
+      <ogr:Nom>Poste du Carei</ogr:Nom>
+      <ogr:Description>La Poste: 04 93 35 61 94</ogr:Description>
+      <ogr:Adresse>15 route de Sospel 06500 Menton</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+    </ogr:POSTES_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:POSTES_EPSG4326 fid="F4">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.496045,43.772671000000003</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>POSTES_EPSG4326</ogr:Type>
+      <ogr:Nom>Poste Principale Menton</ogr:Nom>
+      <ogr:Description>La Poste: 04 93 28 64 84</ogr:Description>
+      <ogr:Adresse>68b avenue Edouard 7 06500 Menton</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+    </ogr:POSTES_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:POSTES_EPSG4326 fid="F5">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.474302,43.757370000000002</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>POSTES_EPSG4326</ogr:Type>
+      <ogr:Nom>Poste Principale de Roquebrune</ogr:Nom>
+      <ogr:Description>La Poste: 04 92 10 43 50</ogr:Description>
+      <ogr:Adresse>45 avenue Paul Doumer 06190 Roquebrune-Cap-Martin</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+    </ogr:POSTES_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:POSTES_EPSG4326 fid="F6">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.480617,43.764988000000002</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>POSTES_EPSG4326</ogr:Type>
+      <ogr:Nom>Poste de Carnolès</ogr:Nom>
+      <ogr:Description>La Poste: 04 92 10 58 00</ogr:Description>
+      <ogr:Adresse>2 avenue de la Pinède 06190 Roquebrune-Cap-Martin</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+    </ogr:POSTES_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:POSTES_EPSG4326 fid="F7">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.460689,43.764951000000003</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>POSTES_EPSG4326</ogr:Type>
+      <ogr:Nom>Poste du village</ogr:Nom>
+      <ogr:Description>La Poste: 04 93 35 00 96</ogr:Description>
+      <ogr:Adresse>place de la Fontaine 06190 Roquebrune-Cap-Martin</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+    </ogr:POSTES_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:POSTES_EPSG4326 fid="F8">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.443197,43.753349999999998</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>POSTES_EPSG4326</ogr:Type>
+      <ogr:Nom>Poste Saint Roman</ogr:Nom>
+      <ogr:Description>La Poste: 04 93 78 06 79</ogr:Description>
+      <ogr:Adresse>avenue de la France 06190 Roquebrune-Cap-Martin</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+    </ogr:POSTES_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:POSTES_EPSG4326 fid="F9">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.489024,43.803345999999998</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>POSTES_EPSG4326</ogr:Type>
+      <ogr:Nom>Poste de Castellar</ogr:Nom>
+      <ogr:Description>La Poste: 04 93 41 53 75</ogr:Description>
+      <ogr:Adresse>3515 route de Mont Gros 06500 Castellar</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+    </ogr:POSTES_EPSG4326>
+  </gml2:featureMember>
+</ogr:FeatureCollection>

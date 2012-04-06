@@ -1,7 +1,7 @@
 <?php
-require_once 'lib/dasp/request/Request.class.php';
-require_once 'lib/socialNetworkAPIs/IWrapper.class.php';
-require_once 'lib/socialNetworkAPIs/facebook/src/facebook.php';
+require_once dirname(__FILE__).'/../dasp/request/Request.class.php';
+require_once dirname(__FILE__).'/IWrapper.class.php';
+require_once dirname(__FILE__).'/facebook/src/facebook.php';
 
 /**
  * Connction to the facebook APIs

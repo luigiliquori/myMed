@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ogr:FeatureCollection
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://ogr.maptools.org/ MONUMENTS_EPSG4326.xsd"
+     xmlns:ogr="http://ogr.maptools.org/"
+     xmlns:gml2="http://www.opengis.net/gml">
+  <gml2:boundedBy>
+    <gml2:Box>
+      <gml2:coord><gml2:X>7.400394</gml2:X><gml2:Y>43.744752</gml2:Y></gml2:coord>
+      <gml2:coord><gml2:X>7.497075</gml2:X><gml2:Y>43.828107</gml2:Y></gml2:coord>
+    </gml2:Box>
+  </gml2:boundedBy>                                                             
+  <gml2:featureMember>
+    <ogr:MONUMENTS_EPSG4326 fid="F0">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.497075,43.804701999999999</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Monuments_EPSG4326</ogr:Type>
+      <ogr:Nom>Palais LASCARIS</ogr:Nom>
+      <ogr:Description>04 93 57 13 63</ogr:Description>
+      <ogr:Adresse>58 rue République 06500 Castellar</ogr:Adresse>
+      <ogr:Id_media></ogr:Id_media>
+    </ogr:MONUMENTS_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:MONUMENTS_EPSG4326 fid="F1">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.480934,43.828107000000003</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Monuments_EPSG4326</ogr:Type>
+      <ogr:Nom>Viaduc du Caramel</ogr:Nom>
+      <ogr:Description>Ancienne voie ferrée du tramway</ogr:Description>
+      <ogr:Adresse>route de Castellar 06500 Menton</ogr:Adresse>
+      <ogr:Id_media></ogr:Id_media>
+    </ogr:MONUMENTS_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:MONUMENTS_EPSG4326 fid="F2">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.401757,43.744751999999998</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Monuments_EPSG4326</ogr:Type>
+      <ogr:Nom>Trophée des Alpes</ogr:Nom>
+      <ogr:Description>Le trophée des Alpes élevé en l'honneur de l'empereur romain Auguste au point haut de la voie romaine nommée la via Aurelia célèbre la victoire définitive sur quarante-quatre tribus turbulentes qui entravaient autrefois les multiples passages alpins.</ogr:Description>
+      <ogr:Adresse>avenue Prince Albert Premier de Monaco 06320 La Turbie</ogr:Adresse>
+      <ogr:Id_media></ogr:Id_media>
+    </ogr:MONUMENTS_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:MONUMENTS_EPSG4326 fid="F3">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.445351,43.786047000000003</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Monuments_EPSG4326</ogr:Type>
+      <ogr:Nom>Tour Lascaris</ogr:Nom>
+      <ogr:Description>La Tour Lascaris a été érigée en 1246 par Guido Guerra, alors comte Lascaris de Vintimille.</ogr:Description>
+      <ogr:Adresse>chemin de Gorbio 06500 Gorbio</ogr:Adresse>
+      <ogr:Id_media></ogr:Id_media>
+    </ogr:MONUMENTS_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:MONUMENTS_EPSG4326 fid="F4">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.443559,43.786709999999999</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Monuments_EPSG4326</ogr:Type>
+      <ogr:Nom>Orme de la place de Gorbio</ogr:Nom>
+      <ogr:Description>L'Orme planté en 1713 a  été planté à l'occasion di traité d'UTRECHT par lequel, le Compté de Nice repassa sous la souveraineté du Duc de Savoie.</ogr:Description>
+      <ogr:Adresse>Place de la République 06500 Gorbio</ogr:Adresse>
+      <ogr:Id_media></ogr:Id_media>
+    </ogr:MONUMENTS_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:MONUMENTS_EPSG4326 fid="F5">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.411074,43.747712999999997</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Monuments_EPSG4326</ogr:Type>
+      <ogr:Nom>Carrière romaine du mont Justicier</ogr:Nom>
+      <ogr:Description>Lors de l’édification du Trophée des Alpes, ils y ont ouvert une carrière, principalement réservée aux éléments de colonnes.</ogr:Description>
+      <ogr:Adresse>Chemin des carrières Romaines 06320 La Turbie</ogr:Adresse>
+      <ogr:Id_media></ogr:Id_media>
+    </ogr:MONUMENTS_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:MONUMENTS_EPSG4326 fid="F6">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.400394,43.745102000000003</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Monuments_EPSG4326</ogr:Type>
+      <ogr:Nom>Le Portail de l'Ouest (12ème-14ème siècle)</ogr:Nom>
+      <ogr:Description>Le Portail de l'Ouest (12ème-14eme siècle-en calcaire de La Turbie)</ogr:Description>
+      <ogr:Adresse>Rue du Comte de Cessole 06320 La Turbie</ogr:Adresse>
+      <ogr:Id_media></ogr:Id_media>
+    </ogr:MONUMENTS_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:MONUMENTS_EPSG4326 fid="F7">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.40244,43.745865999999999</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Monuments_EPSG4326</ogr:Type>
+      <ogr:Nom>Gare de chemin de fer à Crémaillère</ogr:Nom>
+      <ogr:Description>Ancienne Gare de la Turbie</ogr:Description>
+      <ogr:Adresse>Place de la Crémaillère 06320 La Turbie</ogr:Adresse>
+      <ogr:Id_media></ogr:Id_media>
+    </ogr:MONUMENTS_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:MONUMENTS_EPSG4326 fid="F8">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.40345,43.745513000000003</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Monuments_EPSG4326</ogr:Type>
+      <ogr:Nom>Le Rondo (pierres de tailles)</ogr:Nom>
+      <ogr:Description>Le Rondo (pierres de tailles -19 ème siècle)</ogr:Description>
+      <ogr:Adresse>Place de la Crémaillère 06320 La Turbie</ogr:Adresse>
+      <ogr:Id_media></ogr:Id_media>
+    </ogr:MONUMENTS_EPSG4326>
+  </gml2:featureMember>
+</ogr:FeatureCollection>

@@ -1,6 +1,6 @@
 <?php 
 
-require_once 'lib/dasp/beans/MUserBean.class.php';
+require_once dirname(__FILE__).'/../dasp/beans/MUserBean.class.php';
 
 /**
  * 

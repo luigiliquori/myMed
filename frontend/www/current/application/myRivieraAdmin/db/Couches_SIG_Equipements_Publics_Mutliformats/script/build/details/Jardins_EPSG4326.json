@@ -1,0 +1,21 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Jardins_EPSG4326", "Nom": "Jardin du Palais de Carnolès", "Description": "Contact jardin : 04 93 35 49 71", "Adresse": "3 avenue de la Madone 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.488588, 43.766724 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Jardins_EPSG4326", "Nom": "Jardin Fontana Rosa", "Description": "Contact jardin : 04 92 10 33 66", "Adresse": "avenue Blasco Ibanez 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.515033, 43.785254 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Jardins_EPSG4326", "Nom": "Jardin Val Rahmeh\/Botanique exotique", "Description": "Contact jardin : 04 93 35 86 72", "Adresse": "avenue Saint-Jacques 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.511896, 43.783948 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Jardins_EPSG4326", "Nom": "Jardin des Colombières", "Description": "Contact jardin : 04 93 35 71 90", "Adresse": "Raccourci des Colombières 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.517553, 43.786321 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Jardins_EPSG4326", "Nom": "Jardin des Serres de la Madone", "Description": "Contact jardin : 04 93 57 73 90", "Adresse": "74 route de Gorbio 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.474787, 43.775153 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Jardins_EPSG4326", "Nom": "Jardin de la Villa Maria Serena", "Description": "Contact jardin : 04 92 10 33 66", "Adresse": "21 promenade Reine Astrid 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.528961, 43.784982 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Jardins_EPSG4326", "Nom": "Jardin Médiéval de Saint-Agnès", "Description": "Contact jardin : 04 93 35 87 35", "Adresse": "hauts du village de Sainte-Agnès 06500 Sainte-Agnès", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.463326, 43.800459 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Jardins_EPSG4326", "Nom": "Fontana Rosa, le jardin des Romanciers", "Description": "Contact jardin : 04 92 41 76 76", "Adresse": "6 avenue Blasco IBANEZ 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.516308, 43.785447 ] } }
+
+]
+}

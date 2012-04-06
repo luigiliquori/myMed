@@ -1,6 +1,6 @@
 <?php
 require_once 'lib/dasp/request/Request.class.php';
-require_once 'system/templates/handler/IRequestHandler.php';
+require_once 'lib/dasp/request/IRequestHandler.php';
 
 /**
  *

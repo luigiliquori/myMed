@@ -1,6 +1,6 @@
 <?php
 
-require_once 'lib/socialNetworkAPIs/FacebookWrapper.class.php';
+require_once dirname(__FILE__).'/FacebookWrapper.class.php';
 
 /**
  * Connction to the facebook APIs

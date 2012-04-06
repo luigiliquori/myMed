@@ -1,0 +1,524 @@
+[
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "ADAPEI_EPSG4326", "Nom": "ADAPEI", "Description": "04 93 28 46 12", "Adresse": "20 rue des Soeurs Munet 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.492455, 43.774314 ] } }
+
+]
+}
+,
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "ADERF_EPSG4326", "Nom": "ADERF", "Description": "Cette association mise en place le 06 août 2001 a pour vocation le développement économique du territoire de la Communauté d’Agglomération de la Riviera Française", "Adresse": "8 val de Menton 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.501797, 43.776644 ] } }
+
+]
+}
+,
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "ASSEDIC_EPSG4326", "Nom": "ASSEDIC", "Description": "Les ASSEDIC sont ouverts le lundi, de 9h00 à 15h15, le mardi de 9h00 à 14h00, et du mercredi au vendredi  de 9h00 à 15h15", "Adresse": "8 rue Guyau 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.504539, 43.776494 ] } }
+
+]
+}
+,
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Bibliotheque_EPSG4326", "Nom": "Bibliothèque de la flamme bleu", "Description": "04 92 10 03 03", "Adresse": "1 rue Saint Charles 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.502410, 43.776088 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Bibliotheque_EPSG4326", "Nom": "Bibliothèque municipale", "Description": "04 92 41 76 60", "Adresse": "8 avenue Boyer 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.497568, 43.774112 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Bibliotheque_EPSG4326", "Nom": "Bibliothèque municipale- Enfants", "Description": "04 93 28 14 94", "Adresse": "15 rue Saint Michel 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.505188, 43.775331 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Bibliotheque_EPSG4326", "Nom": "Bibliothèque pour tous", "Description": "04 93 35 58 58", "Adresse": "7 avenue Thiers 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.496007, 43.774290 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Bibliotheque_EPSG4326", "Nom": "Bibliothèque municipale", "Description": "04 93 04 33 26", "Adresse": "Place Saint Michel  06380 Sospel", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.447431, 43.877197 ] } }
+
+]
+}
+,
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "CCAS_EPSG4326", "Nom": "Centre Communal d'Action Sociale (C.C.A.S)", "Description": "Le Centre Communal d'Action Social est un établissement public autonome chargé de l'aide sociale légale, attribution obligatoire, et de l'aide sociale facultative. Il met en oeuvre la politique sociale déterminée par les élus locaux.", "Adresse": "175 av St Roman 06500 MENTON", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.488021, 43.799340 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "CCAS_EPSG4326", "Nom": "Centre Communal d'Action Sociale (C.C.A.S)", "Description": "L'accueil du Centre Communal d'Action Sociale (CCAS) met à la disposition du public tous les renseignements concernant les différents services et prestations proposés aux Roquebrunois dans le domaine social par cet établissement.", "Adresse": "résid Hernani 2 av Lodola 06190 ROQUEBRUNE CAP MARTIN", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.481574, 43.764990 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "CCAS_EPSG4326", "Nom": "Centre Médico Social", "Description": "Dr Bessi 04 93 04 24 10", "Adresse": "8 av Jean Médecin 06380 SOSPEL", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.446117, 43.878012 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "CCAS_EPSG4326", "Nom": "Centre Médico Social (DAMS)", "Description": "Mardi de 13H30 à 16H", "Adresse": "Espace Jean Favre 17 pl Neuve 06320 TURBIE (LA)", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.399804, 43.744642 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "CCAS_EPSG4326", "Nom": "Centre Communal d'Action Sociale (CCAS)", "Description": "Le centre communal d’action sociale (CCAS) sur Beausoleil est un établissement public géré par un conseil d’administration et présidé par le Maire.", "Adresse": "1 r Jules Ferry 06240 BEAUSOLEIL", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.423979, 43.742774 ] } }
+
+]
+}
+,
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Source": "CARF", "Nom": "Maison des entreprises (CCI)", "Adresse": "1 rue Colonnel Hebert", "T�l�phone": "", "DateDeSaisie": "2008\/05\/13" }, "geometry": { "type": "Point", "coordinates": [ 7.494997, 43.777037 ] } }
+
+]
+}
+,
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Cimetieres_EPSG4326", "Nom": "", "Description": "", "Adresse": "ROQUEBRUNE CAP MARTIN", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.463007, 43.765767 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Cimetieres_EPSG4326", "Nom": "Cimetière du vieux Menton", "Description": "", "Adresse": "06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.505740, 43.778155 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Cimetieres_EPSG4326", "Nom": "Cimetière du Trabuquet", "Description": "", "Adresse": "06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.506091, 43.781470 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Cimetieres_EPSG4326", "Nom": "", "Description": "", "Adresse": "BEAUSOLEIL", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.425389, 43.746474 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Cimetieres_EPSG4326", "Nom": "Cimetière de Castellar", "Description": "", "Adresse": "06500 CASTELLAR", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.498826, 43.806931 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Cimetieres_EPSG4326", "Nom": "Cimetière de Saint-Agnès", "Description": "", "Adresse": "SAINTE-AGNES", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.462297, 43.800497 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Cimetieres_EPSG4326", "Nom": "Cimetière", "Description": "", "Adresse": "06500 GORBIO", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.442063, 43.785355 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Cimetieres_EPSG4326", "Nom": "Cimetière de Sospel", "Description": "", "Adresse": "06380 SOSPEL", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.444068, 43.876346 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Cimetieres_EPSG4326", "Nom": "Cimetière communal", "Description": "", "Adresse": "06320 LA TURBIE", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.401625, 43.743960 ] } }
+
+]
+}
+,
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Eglise du Sacré Coeur", "Description": "Messes à 18H", "Adresse": "15 av. Edouard VII, 06500 Menton", "Id_media": 0, "Ville": "MENTON" }, "geometry": { "type": "Point", "coordinates": [ 7.494861, 43.773302 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "La Méséricorde", "Description": "Messes à 17H30; 18H en été", "Adresse": "Menton", "Id_media": 0, "Ville": "MENTON" }, "geometry": { "type": "Point", "coordinates": [ 7.505660, 43.776358 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Immaculée Conception", "Description": "", "Adresse": "Menton", "Id_media": 0, "Ville": "MENTON" }, "geometry": { "type": "Point", "coordinates": [ 7.506532, 43.777134 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Basilique Saint-Michel", "Description": "Messes à 10H30", "Adresse": "Menton", "Id_media": 0, "Ville": "MENTON" }, "geometry": { "type": "Point", "coordinates": [ 7.507104, 43.777023 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Chapelle Saint-Laurent", "Description": "Messes à 9h30", "Adresse": "Menton", "Id_media": 0, "Ville": "MENTON" }, "geometry": { "type": "Point", "coordinates": [ 7.520260, 43.785130 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Eglise Notre Dame des Neiges", "Description": "Messes à 16H; été:19H", "Adresse": "Sainte-Agnès", "Id_media": 0, "Ville": "SAINTE-AGNES" }, "geometry": { "type": "Point", "coordinates": [ 7.461882, 43.800812 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Eglise Saint-Michel", "Description": "Messes à 9h30 le Dimanche", "Adresse": "Eglise Saint-Michel La Turbie", "Id_media": 0, "Ville": "LA TURBIE" }, "geometry": { "type": "Point", "coordinates": [ 7.400890, 43.744580 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Eglise Saint-Antoine", "Description": "", "Adresse": "Eglise Saint-Antoine Moulinet", "Id_media": 0, "Ville": "MOULINET" }, "geometry": { "type": "Point", "coordinates": [ 7.413035, 43.941556 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Cathédrale Saint Michel", "Description": "", "Adresse": "Cathédrale Saint Michel Sospel", "Id_media": 0, "Ville": "SOSPEL" }, "geometry": { "type": "Point", "coordinates": [ 7.446608, 43.876962 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Eglise de Sospel 2", "Description": "", "Adresse": "Eglise de Sospel 2 Sospel", "Id_media": 0, "Ville": "SOSPEL" }, "geometry": { "type": "Point", "coordinates": [ 7.447398, 43.876860 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Eglise de Sospel 3", "Description": "", "Adresse": "Eglise de Sospel 3 Sospel", "Id_media": 0, "Ville": "SOSPEL" }, "geometry": { "type": "Point", "coordinates": [ 7.447250, 43.876741 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Eglise de Castillon", "Description": "", "Adresse": "Eglise de Castillon Castillon", "Id_media": 0, "Ville": "CASTILLON" }, "geometry": { "type": "Point", "coordinates": [ 7.471871, 43.832979 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Chapelle", "Description": "", "Adresse": "Chapelle 06500 Menton", "Id_media": 0, "Ville": "MENTON" }, "geometry": { "type": "Point", "coordinates": [ 7.509610, 43.782207 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Chapelle", "Description": "", "Adresse": "Chapelle 06500 Menton", "Id_media": 0, "Ville": "MENTON" }, "geometry": { "type": "Point", "coordinates": [ 7.508588, 43.781172 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Chapelle", "Description": "Messes à 18H", "Adresse": "Chapelle 06500 Menton", "Id_media": 0, "Ville": "MENTON" }, "geometry": { "type": "Point", "coordinates": [ 7.487613, 43.766446 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Eglise ST BARTHELEMY", "Description": "Messes à 11H", "Adresse": "Eglise ST BARTHELEMY 06500 Gorbio", "Id_media": 0, "Ville": "GORBIO" }, "geometry": { "type": "Point", "coordinates": [ 7.445184, 43.786490 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Eglise Baroque Saint-Pierre", "Description": "Messes à 9h30", "Adresse": "Eglise Baroque Saint-Pierre 06500 Castellar", "Id_media": 0, "Ville": "CASTELLAR" }, "geometry": { "type": "Point", "coordinates": [ 7.496722, 43.804904 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Chapelle Saint-Sébastien", "Description": "Pas de messes", "Adresse": "Chapelle Saint-Sébastien 06500 Castellar", "Id_media": 0, "Ville": "CASTELLAR" }, "geometry": { "type": "Point", "coordinates": [ 7.498690, 43.806725 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Chapelle Saint Lazare", "Description": "Pas de messes", "Adresse": "Chapelle Saint Lazare 06500 GORBIO", "Id_media": 0, "Ville": "GORBIO" }, "geometry": { "type": "Point", "coordinates": [ 7.445027, 43.789950 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Eglise Saint Jean Baptiste", "Description": "", "Adresse": "", "Id_media": 0, "Ville": "LA TURBIE" }, "geometry": { "type": "Point", "coordinates": [ 7.401278, 43.745288 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Chapelle St Roch", "Description": "", "Adresse": "", "Id_media": 0, "Ville": "LA TURBIE" }, "geometry": { "type": "Point", "coordinates": [ 7.411995, 43.749261 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Chapelle Sainte Croix", "Description": "Pas de messes", "Adresse": "Chapelle Saine Croix 06500 GORBIO", "Id_media": 0, "Ville": "GORBIO" }, "geometry": { "type": "Point", "coordinates": [ 7.450197, 43.878641 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "St Sébastien", "Description": "", "Adresse": "", "Id_media": 0, "Ville": "MOULINET" }, "geometry": { "type": "Point", "coordinates": [ 7.412427, 43.939907 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Chapelle Saint Michel", "Description": "", "Adresse": "", "Id_media": 0, "Ville": "MOULINET" }, "geometry": { "type": "Point", "coordinates": [ 7.409956, 43.941390 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Madone de la Menour", "Description": "", "Adresse": "", "Id_media": 0, "Ville": "MOULINET" }, "geometry": { "type": "Point", "coordinates": [ 7.411958, 43.921942 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Chapelle Sainte Marguerite", "Description": "Messes à 10h30", "Adresse": "Chapelle Sainte Marguerite 06190 ROQUEBRUNE-CAP-MARTIN", "Id_media": 0, "Ville": "ROQUEBRUNE-CAP-MARTIN" }, "geometry": { "type": "Point", "coordinates": [ 7.460035, 43.764818 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Chapelle St Roch", "Description": "", "Adresse": "Chapelle St Roch 06190 ROQUEBRUNE-CAP-MARTIN", "Id_media": 0, "Ville": "ROQUEBRUNE-CAP-MARTIN" }, "geometry": { "type": "Point", "coordinates": [ 7.464386, 43.763596 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Chapelle La Pausa", "Description": "", "Adresse": "Chapelle La Pausa 06190 ROQUEBRUNE-CAP-MARTIN", "Id_media": 0, "Ville": "ROQUEBRUNE-CAP-MARTIN" }, "geometry": { "type": "Point", "coordinates": [ 7.466487, 43.763899 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Chapelle Saint Sébastien", "Description": "", "Adresse": "", "Id_media": 0, "Ville": "SAINTE-AGNES" }, "geometry": { "type": "Point", "coordinates": [ 7.462140, 43.799716 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Ruines de la chapelle Saint Antonin", "Description": "Pas de messes", "Adresse": "", "Id_media": 0, "Ville": "CASTILLON" }, "geometry": { "type": "Point", "coordinates": [ 7.476829, 43.831298 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Chapelle Saint-Roch", "Description": "", "Adresse": "", "Id_media": 0, "Ville": "GORBIO" }, "geometry": { "type": "Point", "coordinates": [ 7.442460, 43.785641 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Chapelle des Pénitents Blancs", "Description": "", "Adresse": "Chapelle des Pénitents Blancs 06500 GORBIO", "Id_media": 0, "Ville": "GORBIO" }, "geometry": { "type": "Point", "coordinates": [ 7.444899, 43.786575 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Chapelle Saint-Roch", "Description": "Messes à 10h30", "Adresse": "Place Saint-Roch 06500 Menton", "Id_media": 0, "Ville": "" }, "geometry": { "type": "Point", "coordinates": [ 7.500862, 43.774475 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Eglises_EPSG4326", "Nom": "Monastère de l'Annonciade", "Description": "Messes à 11H15", "Adresse": "2135 Corniche André Tardieu - 06500 Menton", "Id_media": 0, "Ville": "" }, "geometry": { "type": "Point", "coordinates": [ 7.489372, 43.784740 ] } }
+
+]
+}
+,
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "EPCI_EPSG4326", "Nom": "Communauté d'Agglomération de la Riviera Française", "Description": "Bienvenue à la Communauté d’Agglomération de la Riviera Française. Elle se compose de dix communes et d’une population de 65.607 habitants.", "Adresse": "16 rue Villlarey 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.501240, 43.776289 ] } }
+
+]
+}
+,
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "DDE subdivision de Menton", "Description": "04 92 41 72 80", "Adresse": "23 avenue de sospel 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.492212, 43.788524 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "OPAM", "Description": "04 92 10 53 40", "Adresse": "5 avenue de Saint Roman 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.487765, 43.803583 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Central téléphonique France Télécom", "Description": "10 14", "Adresse": "23 bis rue Paul Morillot 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.486348, 43.767431 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Téléboutique France Télécom", "Description": "08 00 10 14 06", "Adresse": "19 rue Saint Michel 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.506053, 43.775633 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Caisse d'Allocations Famililal", "Description": "0 820 250 610", "Adresse": "10 boulevard Victor Hugo 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.495970, 43.774895 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Caisse Primaire d'Assurance Maladie", "Description": "0 820 904 130", "Adresse": "4 avenue Edouard 7 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.496276, 43.772435 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Derichebourg Environnement", "Description": "04 92 10 29 38", "Adresse": "1173 avenue Saint Roman 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.486247, 43.807236 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Sud-Est Assainissement Service", "Description": "04 93 57 82 33", "Adresse": "1173 avenue Saint Roman 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.486247, 43.807236 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Prud'Hommes (Secrétariat)", "Description": "04 93 57 68 52", "Adresse": "7 rue Prato 06500 MENTON 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.498558, 43.774692 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Palais de justice", "Description": "04 93 35 74 92", "Adresse": "7 rue Prato  06500 MENTON 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.498558, 43.774692 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Tribunal d'Instance", "Description": "04 93 35 74 92", "Adresse": "7 rue Prato  06500 MENTON 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.498558, 43.774692 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Greffe du Tribunal de Commerce", "Description": "04 93 28 89 28", "Adresse": "7 rue Prato  06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.498558, 43.774692 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Maison de Justice et du droit", "Description": "04 93 78 03 57", "Adresse": "15 rue Partouneaux 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.499213, 43.774831 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Tribunal de commerce", "Description": "04 93 35 74 93", "Adresse": "7 rue Prato 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.498558, 43.774692 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Service de l'Etat Civil", "Description": "04 92 10 50 45", "Adresse": "17 rue de la République 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.502842, 43.775522 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Subdivision des Douanes", "Description": "04 93 35 37 51", "Adresse": "152 Bis promenade Val du Caréï 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.490876, 43.794763 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Bridage de surveillance des douanes", "Description": "04 93 37 37 70", "Adresse": "avenue Aristide Briand 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.524775, 43.785988 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Huissier de justice", "Description": "04 92 41 78 00", "Adresse": "11 avenue Félix Faure 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.500057, 43.773709 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Fondations Bariquand Alphand", "Description": "04 93 35 72 38", "Adresse": "41 boulevard de Garavan 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.513407, 43.786947 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Koaland Parc d'attraction", "Description": "04 92 10 00 40", "Adresse": "avenue de la Madone 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.491174, 43.768839 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Parc du Pian", "Description": "04 93 28 79 00", "Adresse": "avenue Blasco Ibanez 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.515033, 43.785254 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Villa Serre de la Madone", "Description": "04 93 57 73 90", "Adresse": "74 route du val de Gorbio 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.475260, 43.774606 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Moulin à huile", "Description": "04 92 10 59 00", "Adresse": "Voie du moulin à huile 06500 CASTELLAR", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.496415, 43.804878 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "EqptPublic_EPSG4326", "Nom": "Halles municipales", "Description": "04.92.10.50.00", "Adresse": "Quai de Monléon 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.506131, 43.775225 ] } }
+
+]
+}
+,
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Forts_militaires_EPSG4326", "Nom": "Fort de la ligne Maginot à Sainte-Agnès", "Description": "Le Fort de Sainte-Agnès a été construit entre 1932 et 1938  et  est entièrement souterrain.", "Adresse": "avenue du château 06500 SAINTE-AGNES", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.462924, 43.798743 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Forts_militaires_EPSG4326", "Nom": "Château Médiéval", "Description": "Le Château médiéval fut construit en 970 par Conrad 1er, Comte de Vintimille, en vue de défendre la frontière ouest de son domaine féodal et de prévenir un retour offensif, terrestre ou maritime, des hordes sarrasines qui parcouraient encore trop souvent", "Adresse": "Place William Ingram 06190 Roquebrune-Cap-Martin", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.459580, 43.765260 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Forts_militaires_EPSG4326", "Nom": "Place forte dite barrage de Tende", "Description": "L' ensemble des dix ouvrages appelés \"forts\", correspondent à des batteries d' appui et de protection, disposées en rideau de part et d' autre du fort de barrage central.", "Adresse": "Col de Tende", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.432844, 43.995080 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Forts_militaires_EPSG4326", "Nom": "Fort du Barbonnet", "Description": "Le fort Suchet, dit également du Barbonnet, fait partie de l'ensemble des fortifications de la région constituant un dernier bastion avant la route de Nice pour contrer un éventuel envahisseur venant du col de Tende.", "Adresse": "Au départ de Sospel, emprunter le  GR510 pour arriver au col St Jean . Prendre à gauche ,  dans le petit hameau, l’ancienne route militaire qui monte jusqu’au  fort du Barbonnet.", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.434362, 43.862359 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Forts_militaires_EPSG4326", "Nom": "Fort Saint Roch", "Description": "L'impressionnant fort Saint-Roch a été construit entre 1931 et 1933 dans le cadre de la Ligne Maginot Alpine du secteur fortifé des Alpes Maritimes ( SFAM).", "Adresse": "Près de Sospel", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.442398, 43.874207 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Forts_militaires_EPSG4326", "Nom": "Fort du Mont Agaisen", "Description": "Fort du Mont Agaisen faisant partie de la célèbre Ligne Maginot Alpine. Ouvert au public, contact au 04.93.89.10.58", "Adresse": "Sospel", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.454017, 43.886948 ] } }
+
+]
+}
+,
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Fourriere_EPSG4326", "Nom": "Fourrière automobile", "Description": "04 92 10 56 00", "Adresse": "144 val du Careï 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.491499, 43.794245 ] } }
+
+]
+}
+,
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "FoyerRural_EPSG4326", "Nom": "Foyer rural de Peille dans la Mairie", "Description": "04 93 91 71 71", "Adresse": "", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.401598, 43.802841 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "FoyerRural_EPSG4326", "Nom": "Foyer Rural de Sospel", "Description": "", "Adresse": "", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.447165, 43.877895 ] } }
+
+]
+}
+,
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "GARES_SUD_EPSG4326", "Nom": "Gare de Tende", "Description": "", "Adresse": "", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.595142, 44.088930 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "GARES_SUD_EPSG4326", "Nom": "Gare de la Brigue", "Description": "", "Adresse": "", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.605494, 44.062612 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "GARES_SUD_EPSG4326", "Nom": "Gare de Saint-Dalmas-De-Tende", "Description": "", "Adresse": "", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.582951, 44.055213 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "GARES_SUD_EPSG4326", "Nom": "Gare de Fontan-Saorge", "Description": "", "Adresse": "", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.551829, 43.997040 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "GARES_SUD_EPSG4326", "Nom": "Gare de Breil-sur-Roya", "Description": "", "Adresse": "", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.516205, 43.943910 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "GARES_SUD_EPSG4326", "Nom": "Gare de Sospel", "Description": "", "Adresse": "", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.454106, 43.876421 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "GARES_SUD_EPSG4326", "Nom": "Gare de Menton-Garavan", "Description": "", "Adresse": "", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.516896, 43.785056 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "GARES_SUD_EPSG4326", "Nom": "Gare de Menton", "Description": "", "Adresse": "", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.493208, 43.774501 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "GARES_SUD_EPSG4326", "Nom": "Gare de Carnolès", "Description": "", "Adresse": "", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.481676, 43.762034 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "GARES_SUD_EPSG4326", "Nom": "Gare de Roquebrune-Cap-Martin", "Description": "", "Adresse": "", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.457526, 43.760511 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "GARES_SUD_EPSG4326", "Nom": "Gare de Monaco-Monte-Carlo", "Description": "", "Adresse": "", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.419871, 43.736327 ] } }
+
+]
+}
+,
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Jardins_EPSG4326", "Nom": "Jardin du Palais de Carnolès", "Description": "Contact jardin : 04 93 35 49 71", "Adresse": "3 avenue de la Madone 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.488588, 43.766724 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Jardins_EPSG4326", "Nom": "Jardin Fontana Rosa", "Description": "Contact jardin : 04 92 10 33 66", "Adresse": "avenue Blasco Ibanez 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.515033, 43.785254 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Jardins_EPSG4326", "Nom": "Jardin Val Rahmeh\/Botanique exotique", "Description": "Contact jardin : 04 93 35 86 72", "Adresse": "avenue Saint-Jacques 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.511896, 43.783948 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Jardins_EPSG4326", "Nom": "Jardin des Colombières", "Description": "Contact jardin : 04 93 35 71 90", "Adresse": "Raccourci des Colombières 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.517553, 43.786321 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Jardins_EPSG4326", "Nom": "Jardin des Serres de la Madone", "Description": "Contact jardin : 04 93 57 73 90", "Adresse": "74 route de Gorbio 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.474787, 43.775153 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Jardins_EPSG4326", "Nom": "Jardin de la Villa Maria Serena", "Description": "Contact jardin : 04 92 10 33 66", "Adresse": "21 promenade Reine Astrid 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.528961, 43.784982 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Jardins_EPSG4326", "Nom": "Jardin Médiéval de Saint-Agnès", "Description": "Contact jardin : 04 93 35 87 35", "Adresse": "hauts du village de Sainte-Agnès 06500 Sainte-Agnès", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.463326, 43.800459 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Jardins_EPSG4326", "Nom": "Fontana Rosa, le jardin des Romanciers", "Description": "Contact jardin : 04 92 41 76 76", "Adresse": "6 avenue Blasco IBANEZ 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.516308, 43.785447 ] } }
+
+]
+}
+,
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Beausoleil", "Description": "Mairie de Beausoleil", "Adresse": "27 boulevard de la République 06240 Beausoleil", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.425575, 43.743529 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Menton", "Description": "Mairie de Menton", "Adresse": "17 rue de la République 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.502946, 43.775669 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Gorbio", "Description": "Mairie de Gorbio", "Adresse": "30 rue Garibaldi 06500 Gorbio", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.444371, 43.786653 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Castillon", "Description": "Mairie de Castillon", "Adresse": "Place Lucien Rousset 06500 Castillon", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.471637, 43.833079 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Moulinet", "Description": "Mairie de Moulinet", "Adresse": "Place Saint Joseph 06380 Moulinet", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.413394, 43.942137 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Sainte Agnès", "Description": "Mairie de Sainte Agnès", "Adresse": "102 place Saint-Jean 06500 Sainte-Agnès", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.468982, 43.789281 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Roquebrune Cap Martin", "Description": "Mairie de Roquebrune Cap Martin", "Adresse": "22 avenue Paul Doumer 06190 Roquebrune-Cap-Martin", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.473674, 43.757792 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Sospel", "Description": "Mairie de Sospel", "Adresse": "Place Saint-Pierre 06380 Sospel", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.449699, 43.877279 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de La Turbie", "Description": "Mairie de La Turbie", "Adresse": "1 avenue Victoire 06320 La Turbie", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.399633, 43.745321 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Castellar", "Description": "Mairie de Castellar", "Adresse": "1 Place G. Clémenceau 06500 Castellar", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.496717, 43.803295 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Breil-Sur-Roya", "Description": "Mairie de Breil-Sur-Roya", "Adresse": "Place Bianchéri 06540 Breil-sur-Roya", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.514731, 43.938334 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Saorge", "Description": "Mairie de Saorge", "Adresse": "Avenue du Docteur DAVEO 06540 Saorge", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.552946, 43.987965 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Fontan", "Description": "Mairie de Fontan", "Adresse": "3 Avenue Théophile Bottone 06540 Fontan", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.554230, 44.003141 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de Tende", "Description": "Mairie de Tende", "Adresse": "1 Place Général de Gaulle 06430 Tende", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.587214, 44.087092 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie de la Brigue", "Description": "Mairie de la Brigue", "Adresse": "Place Saint-Martin 06430 La Brigue", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.639334, 44.051985 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Mairie_EPSG4326", "Nom": "Mairie Annexe au village de Sainte-Agnès", "Description": "Mairie Annexe au village", "Adresse": "102 place Saint-Jean 06500 Sainte-Agnès", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.461490, 43.800605 ] } }
+
+]
+}
+,
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Maisons_RetraitesEPSG4326", "Nom": "Hôtel des Pins (Maison de retraite)", "Description": "Contact maison de retraite : 04 93 35 75 48", "Adresse": "Route des Ciappes 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.500712, 43.778543 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maisons_RetraitesEPSG4326", "Nom": "La Palmosa (Maison de retraite)", "Description": "Contact maison de retraite : 04 93 28 73 02", "Adresse": "2 rue Antoine Péglion 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.483995, 43.767118 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maisons_RetraitesEPSG4326", "Nom": "Le Home (Maison de retraite)", "Description": "Contact maison de retraite : 04 93 35 75 51", "Adresse": "6 rue du Louvre 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.497295, 43.775484 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maisons_RetraitesEPSG4326", "Nom": "Maison Russe (Maison de retraite Ste Anasthasie)", "Description": "Contact maison de retraite : 04 92 10 44 55", "Adresse": "166 impasse de la maison Russe 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.484701, 43.768351 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maisons_RetraitesEPSG4326", "Nom": "Maison de retraite \"Maison du Golf\"", "Description": "Contact maison de retraite : 04 93 04 05 87", "Adresse": "15 Boulevard de Verdun 06380 Sospel", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.470323, 43.880721 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maisons_RetraitesEPSG4326", "Nom": "MAISON DE RETRAITE VICTOR NICOLAÏ", "Description": "Contact maison de retraite : 04 93 91 63 63", "Adresse": "1, Avenue Aristide Briand 06440 Peille", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.404582, 43.804990 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maisons_RetraitesEPSG4326", "Nom": "Résidence Médico sociale de Beausoleil", "Description": "Contact maison de retraite : 04 93 78 15 20", "Adresse": "Quai du Moneghetti 06240 Beausoleil", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.417036, 43.738518 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maisons_RetraitesEPSG4326", "Nom": "RESIDENCE MEDICALISEE FONTDIVINA", "Description": "Contact maison de retraite : 04 97 17 75 01", "Adresse": "Chemin Romain 06240 Beausoleil", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.432947, 43.753118 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maisons_RetraitesEPSG4326", "Nom": "MR LES HAUTS DE MENTON GORBIO", "Description": "Contact maison de retraite : 04 93 28 22 38", "Adresse": "Route du Val de Gorbio 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.469376, 43.779817 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maisons_RetraitesEPSG4326", "Nom": "MAISON DE RETRAITE FONDATION JULES GASTALDY", "Description": "Contact maison de retraite : 04 92 41 79 00", "Adresse": "Route du Val de Gorbio 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.469532, 43.780711 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maisons_RetraitesEPSG4326", "Nom": "MAISON DE RETRAITE HL BREIL SUR ROYA LES JARDINS D'AZUR", "Description": "Contact maison de retraite : 04 93 04 37 00", "Adresse": "RUE CORDIER 06540 Breil-sur-Roya", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.514712, 43.945214 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maisons_RetraitesEPSG4326", "Nom": "MAISON DE RETRAITE DE LA VIERGE", "Description": "Contact maison de retraite : 04 93 57 74 90", "Adresse": "Rue des soeurs Munet 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.491775, 43.774073 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maisons_RetraitesEPSG4326", "Nom": "LE TEMPS DES CERISES (Maison de retraite)", "Description": "Contact maison de retraite : 04 93 04 54 60", "Adresse": "Quai Saint Joseph 06540 Saorge", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.553866, 43.985397 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maisons_RetraitesEPSG4326", "Nom": "HOPITAL LOCAL SAINT ELOI", "Description": "Contact maison de retraite : 04 93 04 30 30", "Adresse": "Place Saint François 06380 Sospel", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.451636, 43.878967 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maisons_RetraitesEPSG4326", "Nom": "MAISON DE RETRAITE RESIDENCE DE FRANCE", "Description": "Contact maison de retraite : 04 93 41 09 54", "Adresse": "12 avenue Général de Gaulle 06320 La Turbie", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.400749, 43.746324 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maisons_RetraitesEPSG4326", "Nom": "MAISON DE RETRAITE LE TOUZE", "Description": "Contact maison de retraite : 04 93 04 99 50", "Adresse": "Avenue de France 06430 La Brigue", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.610243, 44.063150 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maisons_RetraitesEPSG4326", "Nom": "MAISON DE RETRAITE CHU TENDE", "Description": "Contact maison de retraite : 04 93 04 60 50", "Adresse": "3 avenue Jean Médecin 06430 Tende", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.594569, 44.082402 ] } }
+
+]
+}
+,
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Monuments_EPSG4326", "Nom": "Palais LASCARIS", "Description": "04 93 57 13 63", "Adresse": "58 rue République 06500 Castellar", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.497075, 43.804702 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Monuments_EPSG4326", "Nom": "Viaduc du Caramel", "Description": "Ancienne voie ferrée du tramway", "Adresse": "route de Castellar 06500 Menton", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.480934, 43.828107 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Monuments_EPSG4326", "Nom": "Trophée des Alpes", "Description": "Le trophée des Alpes élevé en l'honneur de l'empereur romain Auguste au point haut de la voie romaine nommée la via Aurelia célèbre la victoire définitive sur quarante-quatre tribus turbulentes qui entravaient autrefois les multiples passages alpins.", "Adresse": "avenue Prince Albert Premier de Monaco 06320 La Turbie", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.401757, 43.744752 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Monuments_EPSG4326", "Nom": "Tour Lascaris", "Description": "La Tour Lascaris a été érigée en 1246 par Guido Guerra, alors comte Lascaris de Vintimille.", "Adresse": "chemin de Gorbio 06500 Gorbio", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.445351, 43.786047 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Monuments_EPSG4326", "Nom": "Orme de la place de Gorbio", "Description": "L'Orme planté en 1713 a  été planté à l'occasion di traité d'UTRECHT par lequel, le Compté de Nice repassa sous la souveraineté du Duc de Savoie.", "Adresse": "Place de la République 06500 Gorbio", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.443559, 43.786710 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Monuments_EPSG4326", "Nom": "Carrière romaine du mont Justicier", "Description": "Lors de l’édification du Trophée des Alpes, ils y ont ouvert une carrière, principalement réservée aux éléments de colonnes.", "Adresse": "Chemin des carrières Romaines 06320 La Turbie", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.411074, 43.747713 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Monuments_EPSG4326", "Nom": "Le Portail de l'Ouest (12ème-14ème siècle)", "Description": "Le Portail de l'Ouest (12ème-14eme siècle-en calcaire de La Turbie)", "Adresse": "Rue du Comte de Cessole 06320 La Turbie", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.400394, 43.745102 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Monuments_EPSG4326", "Nom": "Gare de chemin de fer à Crémaillère", "Description": "Ancienne Gare de la Turbie", "Adresse": "Place de la Crémaillère 06320 La Turbie", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.402440, 43.745866 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Monuments_EPSG4326", "Nom": "Le Rondo (pierres de tailles)", "Description": "Le Rondo (pierres de tailles -19 ème siècle)", "Adresse": "Place de la Crémaillère 06320 La Turbie", "Id_media": "" }, "geometry": { "type": "Point", "coordinates": [ 7.403450, 43.745513 ] } }
+
+]
+}
+,
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Date_Saisie": "2007\/05\/01", "Source": "01", "Remarque": "Ouvert tous les jours sauf le mardi, 10h-12h et 14h-18h", "TelBureau": "", "Nom_commune": "MENTON", "Adresse": "Esplanade Palmero", "Nom": "Musée Cocteau", "idnum": 0, "ident": "" }, "geometry": { "type": "Point", "coordinates": [ 7.508494, 43.774764 ] } }
+,
+{ "type": "Feature", "properties": { "Date_Saisie": "2007\/05\/01", "Source": "01", "Remarque": "Ouvert tous les jours sauf le mardi, 10h-12h et 14h-18h", "TelBureau": "0493354971", "Nom_commune": "MENTON", "Adresse": "Musée des Beaux Arts du Palais C", "Nom": "Musée des Beaux Arts", "idnum": 0, "ident": "" }, "geometry": { "type": "Point", "coordinates": [ 7.488920, 43.767081 ] } }
+,
+{ "type": "Feature", "properties": { "Date_Saisie": "2007\/05\/01", "Source": "01", "Remarque": "Ouvert tous les jours sauf le mardi, 10h-12h et 14h-18h, expositions permanentes (-objets de fouilles recueillis sur les sites préhistor", "TelBureau": "0493572991", "Nom_commune": "ME", "Adresse": "Mairie de Menton - Place Ardoïno", "Nom": "Salle des Mariages Jean Cocteau", "idnum": 0, "ident": "" }, "geometry": { "type": "Point", "coordinates": [ 7.503085, 43.775719 ] } }
+,
+{ "type": "Feature", "properties": { "Date_Saisie": "2007\/05\/01", "Source": "01", "Remarque": "Propriété de l'Etat", "TelBureau": "0493412084", "Nom_commune": "LA TURBIE", "Adresse": "Cours Albert 1er 06320 LA TURBIE", "Nom": "Musée et Trophée d'Auguste", "idnum": 0, "ident": "" }, "geometry": { "type": "Point", "coordinates": [ 7.402232, 43.744872 ] } }
+,
+{ "type": "Feature", "properties": { "Date_Saisie": "2009\/03\/02", "Source": "CA", "Remarque": "Entrée libre", "TelBureau": "", "Nom_commune": "MENTON", "Adresse": "Rue Loredan-Larchey", "Nom": "Musée de Préhistoire Régional", "idnum": 0, "ident": "" }, "geometry": { "type": "Point", "coordinates": [ 7.503428, 43.777058 ] } }
+,
+{ "type": "Feature", "properties": { "Date_Saisie": "0000\/00\/00", "Source": "", "Remarque": "", "TelBureau": "0 4 92 41 76 66", "Nom_commune": "MENTON", "Adresse": "8, avenue Boyer", "Nom": "Galerie d’Art Contemporain", "idnum": 0, "ident": "" }, "geometry": { "type": "Point", "coordinates": [ 7.497596, 43.774341 ] } }
+,
+{ "type": "Feature", "properties": { "Date_Saisie": "2009\/03\/02", "Source": "CA", "Remarque": "Entrée Libre", "TelBureau": "", "Nom_commune": "MENTON", "Adresse": "3, avenue de la Madone", "Nom": "Musée des Beaux-Arts, Palais Car", "idnum": 0, "ident": "" }, "geometry": { "type": "Point", "coordinates": [ 7.487965, 43.766639 ] } }
+,
+{ "type": "Feature", "properties": { "Date_Saisie": "2010\/06\/09", "Source": "CC", "Remarque": "", "TelBureau": "", "Nom_commune": "CASTELLAR", "Adresse": "06500 CASTELLAR", "Nom": "Palais des Lascaris", "idnum": 0, "ident": "" }, "geometry": { "type": "Point", "coordinates": [ 7.497041, 43.804715 ] } }
+
+]
+}
+,
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "OfficeDeTourisme_EPSG4326", "Nom": "Office de Tourisme de Menton", "Description": "Office du tourisme Infos : 04.92.41.76.76 \/\/ Réservation : 04.92.41.76.95", "Adresse": "8 av Boyer 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.497671, 43.774137 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "OfficeDeTourisme_EPSG4326", "Nom": "Office de Tourisme  de Beausoleil", "Description": "Téléphone de l'office de tourisme: 04.93.78.01.55", "Adresse": "32 bd République 06240 BEAUSOLEIL", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.426173, 43.743650 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "OfficeDeTourisme_EPSG4326", "Nom": "Office de Tourisme de Roquebrune-Cap-Martin", "Description": "Téléphone de l'office de tourisme:  04.93.35.62.87", "Adresse": "218 av Aristide Briand 06190 ROQUEBRUNE CAP MARTIN", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.482918, 43.764867 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "OfficeDeTourisme_EPSG4326", "Nom": "Office du Tourisme de Sospel", "Description": "Téléphone de l'office de tourisme: 04.93.04.15.80", "Adresse": "19 av Jean Médecin 06380 SOSPEL", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.446970, 43.877760 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "OfficeDeTourisme_EPSG4326", "Nom": "Point information tourisme de la Turbie", "Description": "Téléphone de l'office de tourisme: 04.93.41.21.15", "Adresse": "POINT INFORMATIONS TOURISME, Place Detras 06320 LA TURBIE", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.400445, 43.745499 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "OfficeDeTourisme_EPSG4326", "Nom": "Syndicat d'Initiative de Castillon", "Description": "Téléphone du syndicat d'initiative: 04.93.04.32.03", "Adresse": "Rue de la République, 06500 CASTILLON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.471727, 43.833073 ] } }
+
+]
+}
+,
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Police_municipaleEPSG4326", "Nom": "Police municipale de la Turbie", "Description": "Police municipale: 04 92 41 51 66", "Adresse": "1 av Victoire 06320 La Turbie", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.398898, 43.745310 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Police_municipaleEPSG4326", "Nom": "Police Municipale Hôtel de Ville (Menton)", "Description": "Police municipale: 04 92 10 50 50", "Adresse": "17 r République 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.502602, 43.775643 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Police_municipaleEPSG4326", "Nom": "Police municipale de Beausoleil", "Description": "Police municpale: 04 92 10 72 83", "Adresse": "11 rue Jules Ferry 06240 Beausoleil", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.424994, 43.743386 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Police_municipaleEPSG4326", "Nom": "Police municipale de RCM", "Description": "Police municipale: 04 92 10 47 55", "Adresse": "avenue de la Plage à côté du 173 06190 Roquebrune-Cap-Martin", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.479871, 43.758686 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Police_municipaleEPSG4326", "Nom": "Police municipale de Sospel", "Description": "Police municipale: 04 93 04 33 00", "Adresse": "Bâtiment de la mairie place Saint Pierre 06380 Sospel", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.449674, 43.877305 ] } }
+
+]
+}
+,
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Ports_EPSG4326", "Nom": "Vieux port", "Description": "D’une capacité de 460 places en hiver, le port public offre jusqu’à 590 places en été (dont 100 pour passages) et pratique les tarifs les plus bas du département.", "Adresse": "quai Napoléon III 06500 Menton", "Id_media": "" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 7.512279, 43.776817 ], [ 7.511405, 43.777021 ], [ 7.511300, 43.776913 ], [ 7.511224, 43.776902 ], [ 7.511198, 43.776913 ], [ 7.511152, 43.776866 ], [ 7.510953, 43.777003 ], [ 7.510998, 43.777036 ], [ 7.510746, 43.777191 ], [ 7.510615, 43.777252 ], [ 7.510461, 43.777283 ], [ 7.510285, 43.777292 ], [ 7.510161, 43.777283 ], [ 7.509862, 43.777208 ], [ 7.509643, 43.777130 ], [ 7.509336, 43.777047 ], [ 7.508965, 43.776936 ], [ 7.508727, 43.776873 ], [ 7.508655, 43.776753 ], [ 7.509143, 43.775890 ], [ 7.509024, 43.775862 ], [ 7.508781, 43.775805 ], [ 7.508709, 43.775323 ], [ 7.508774, 43.775212 ], [ 7.508861, 43.775115 ], [ 7.509358, 43.775268 ], [ 7.509821, 43.775419 ], [ 7.510340, 43.775571 ], [ 7.510647, 43.775661 ], [ 7.510752, 43.775685 ], [ 7.510846, 43.775740 ], [ 7.511021, 43.775870 ], [ 7.511374, 43.776149 ], [ 7.511756, 43.776461 ], [ 7.511837, 43.776532 ], [ 7.511689, 43.776613 ], [ 7.511782, 43.776677 ], [ 7.511948, 43.776561 ], [ 7.512279, 43.776812 ], [ 7.512279, 43.776817 ] ] ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Ports_EPSG4326", "Nom": "Nouveau Port de Menton Garavan", "Description": "800 places dont 144 sont réservées aux bateaux de passage.", "Adresse": "porte de France 06500 Menton", "Id_media": "" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 7.521997, 43.783281 ], [ 7.521457, 43.783553 ], [ 7.521371, 43.783518 ], [ 7.521255, 43.783583 ], [ 7.521216, 43.783594 ], [ 7.521235, 43.783667 ], [ 7.521391, 43.783660 ], [ 7.521455, 43.783982 ], [ 7.521465, 43.784100 ], [ 7.521401, 43.784286 ], [ 7.521338, 43.784492 ], [ 7.521203, 43.784498 ], [ 7.521096, 43.784538 ], [ 7.520951, 43.784580 ], [ 7.520652, 43.784593 ], [ 7.520646, 43.784524 ], [ 7.520368, 43.784517 ], [ 7.519922, 43.784477 ], [ 7.519647, 43.784442 ], [ 7.519304, 43.784364 ], [ 7.518957, 43.784284 ], [ 7.518467, 43.784167 ], [ 7.517796, 43.784019 ], [ 7.517673, 43.783993 ], [ 7.517049, 43.783847 ], [ 7.516725, 43.783774 ], [ 7.515782, 43.783556 ], [ 7.515059, 43.783382 ], [ 7.514686, 43.783287 ], [ 7.514169, 43.783135 ], [ 7.514270, 43.783171 ], [ 7.514381, 43.782969 ], [ 7.514375, 43.782978 ], [ 7.514376, 43.782983 ], [ 7.514371, 43.782971 ], [ 7.514378, 43.782974 ], [ 7.514607, 43.782437 ], [ 7.514905, 43.781751 ], [ 7.514907, 43.781731 ], [ 7.515063, 43.781748 ], [ 7.515631, 43.781811 ], [ 7.516517, 43.781933 ], [ 7.517258, 43.782022 ], [ 7.518326, 43.782158 ], [ 7.519409, 43.782293 ], [ 7.520209, 43.782390 ], [ 7.520421, 43.782433 ], [ 7.520755, 43.782514 ], [ 7.521139, 43.782630 ], [ 7.521449, 43.782731 ], [ 7.521821, 43.782902 ], [ 7.522107, 43.783071 ], [ 7.522214, 43.783145 ], [ 7.522253, 43.783186 ], [ 7.522240, 43.783237 ], [ 7.521998, 43.783280 ], [ 7.521997, 43.783281 ] ] ] } }
+
+]
+}
+,
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "POSTES_EPSG4326", "Nom": "Poste de Gorbio", "Description": "La Poste: 04 93 35 79 97", "Adresse": "44 avenue de Verdun 06500 Gorbio", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.441802, 43.783952 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "POSTES_EPSG4326", "Nom": "Poste de La Turbie", "Description": "La Poste: 04 92 41 34 15", "Adresse": "2 place neuve 06320 La Turbie", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.399794, 43.744967 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "POSTES_EPSG4326", "Nom": "Poste du Borrigo", "Description": "La Poste: 04 93 57 62 72", "Adresse": "12 avenue des Acacias 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.485495, 43.781853 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "POSTES_EPSG4326", "Nom": "Poste du Carei", "Description": "La Poste: 04 93 35 61 94", "Adresse": "15 route de Sospel 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.485759, 43.805098 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "POSTES_EPSG4326", "Nom": "Poste Principale Menton", "Description": "La Poste: 04 93 28 64 84", "Adresse": "68b avenue Edouard 7 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.496045, 43.772671 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "POSTES_EPSG4326", "Nom": "Poste Principale de Roquebrune", "Description": "La Poste: 04 92 10 43 50", "Adresse": "45 avenue Paul Doumer 06190 Roquebrune-Cap-Martin", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.474302, 43.757370 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "POSTES_EPSG4326", "Nom": "Poste de Carnolès", "Description": "La Poste: 04 92 10 58 00", "Adresse": "2 avenue de la Pinède 06190 Roquebrune-Cap-Martin", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.480617, 43.764988 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "POSTES_EPSG4326", "Nom": "Poste du village", "Description": "La Poste: 04 93 35 00 96", "Adresse": "place de la Fontaine 06190 Roquebrune-Cap-Martin", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.460689, 43.764951 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "POSTES_EPSG4326", "Nom": "Poste Saint Roman", "Description": "La Poste: 04 93 78 06 79", "Adresse": "avenue de la France 06190 Roquebrune-Cap-Martin", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.443197, 43.753350 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "POSTES_EPSG4326", "Nom": "Poste de Castellar", "Description": "La Poste: 04 93 41 53 75", "Adresse": "3515 route de Mont Gros 06500 Castellar", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.489024, 43.803346 ] } }
+
+]
+}
+,
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "STADES_EPSG4326", "Nom": "Stade Municipal Ortelli", "Description": "", "Adresse": "Chemin de la Valéria 06320 LA TURBIE", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.398879, 43.744437 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "STADES_EPSG4326", "Nom": "Stade municipal du Devens", "Description": "Appel du stade : 04.93.41.96.48", "Adresse": "Avenue des Combattants d'AFN 06240 BEAUSOLEIL", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.417885, 43.746884 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "STADES_EPSG4326", "Nom": "Stade de RCM", "Description": "Appel du stade: 04.93.35.71.78", "Adresse": "171, AVENUE PASTEUR 06190 ROQUEBRUNE-CAP-MARTIN", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.478344, 43.763830 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "STADES_EPSG4326", "Nom": "Stade Lucien Rhein", "Description": "Appel du stade: 04.93.41.61.01", "Adresse": "27 AVENUE PORTE DE FRANCE 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.513469, 43.783610 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "STADES_EPSG4326", "Nom": "Stade Saint-Roman", "Description": "Appel du stade: 04.93.41.45.00", "Adresse": "205 ALLEE DU STADE 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.487762, 43.801948 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "STADES_EPSG4326", "Nom": "Stade Emmanuel Donato", "Description": "Appel du stade: 04.93.04.15.33", "Adresse": "Av. Imberti 06380 SOSPEL 06380 SOSPEL", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.442263, 43.879113 ] } }
+
+]
+}
+
+]

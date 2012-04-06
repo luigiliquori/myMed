@@ -1,0 +1,17 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "STADES_EPSG4326", "Nom": "Stade Municipal Ortelli", "Description": "", "Adresse": "Chemin de la Valéria 06320 LA TURBIE", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.398879, 43.744437 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "STADES_EPSG4326", "Nom": "Stade municipal du Devens", "Description": "Appel du stade : 04.93.41.96.48", "Adresse": "Avenue des Combattants d'AFN 06240 BEAUSOLEIL", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.417885, 43.746884 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "STADES_EPSG4326", "Nom": "Stade de RCM", "Description": "Appel du stade: 04.93.35.71.78", "Adresse": "171, AVENUE PASTEUR 06190 ROQUEBRUNE-CAP-MARTIN", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.478344, 43.763830 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "STADES_EPSG4326", "Nom": "Stade Lucien Rhein", "Description": "Appel du stade: 04.93.41.61.01", "Adresse": "27 AVENUE PORTE DE FRANCE 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.513469, 43.783610 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "STADES_EPSG4326", "Nom": "Stade Saint-Roman", "Description": "Appel du stade: 04.93.41.45.00", "Adresse": "205 ALLEE DU STADE 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.487762, 43.801948 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "STADES_EPSG4326", "Nom": "Stade Emmanuel Donato", "Description": "Appel du stade: 04.93.04.15.33", "Adresse": "Av. Imberti 06380 SOSPEL 06380 SOSPEL", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.442263, 43.879113 ] } }
+
+]
+}

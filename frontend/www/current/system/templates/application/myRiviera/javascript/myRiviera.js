@@ -27,6 +27,8 @@ var currentPositionMarker = null;
 
 var refreshRoadMap = false;
 
+var EndMarkerIcon = false;
+
 /* --------------------------------------------------------- */
 /* Initialize */
 /* --------------------------------------------------------- */
@@ -635,6 +637,13 @@ function changeDestination() {
 function validateIt() {
 	var geocoder = new google.maps.Geocoder();
 
+	// change EndMarker icon
+	if(EndMarkerIcon) {
+		endmarker.setIcon($("#selectarrivee").val().split("&&")[0].replace("?type=large", ""));
+		EndMarkerIcon = false;
+	} else {
+		endmarker.setIcon('system/templates/application/myRiviera/img/end.png');
+	}
 	// Validate the starting point
 	geocoder.geocode({'address' : $('#depart').val()}, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) { // use the position define by the user 
@@ -701,6 +710,7 @@ function validateIt() {
 	});
 }
 
-function changeEndMarkerIcon(icon) {
-	endmarker.setIcon($("#selectarrivee").val().split("&&")[0].replace("?type=large", ""));
+function changeEndMarkerIcon() {
+	EndMarkerIcon = true;
+	
 }
