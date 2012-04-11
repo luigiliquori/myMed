@@ -1,0 +1,4 @@
+AuthName "Page d'administration protégée"
+AuthType Basic
+AuthUserFile "/var/www/mymed/application/myRivieraAdmin/.htpasswd"
+Require valid-user
