@@ -10,7 +10,7 @@ class TemplateManager {
 		<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">  
 
 		<head> 
-			<title>myRivieraAdmin | Réseaux Social Transfrontalier</title> 
+			<title>myEuroCIN | Réseaux Social Transfrontalier</title> 
 			
 			<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 			<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
@@ -20,9 +20,17 @@ class TemplateManager {
 			<link rel="stylesheet" href="lib/jquery/jquery.mobile.actionsheet.css" />
 			<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
 			<script type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
-			<script type="text/javascript" src="../lib/jquery/jquery.mobile.actionsheet.js"></script>
-			<script src="../lib/jquery/datebox/jquery.mobile.datebox.min.js"></script>
-			<link href="../lib/jquery/datebox/jquery.mobile.datebox.min.css" rel="stylesheet" />
+			<script type="text/javascript" src="../../lib/jquery/jquery.mobile.actionsheet.js"></script>
+			
+			<!-- DateBox -->
+			<script src="../../lib/jquery/datebox/jquery.mobile.datebox.min.js"></script>
+			<link href="../../lib/jquery/datebox/jquery.mobile.datebox.min.css" rel="stylesheet" />
+			
+			<!-- markitup -->
+			<script type="text/javascript" src="../../lib/jquery/markitup/jquery.markitup.js"></script>
+			<script type="text/javascript" src="../../lib/jquery/markitup/sets/default/set.js"></script>
+			<link rel="stylesheet" type="text/css" href="../../lib/jquery/markitup/skins/markitup/style.css" />
+			<link rel="stylesheet" type="text/css" href="../../lib/jquery/markitup/sets/default/style.css" />
 			
 			<!-- APP JS -->
 			<script src="javascript/system.js"></script>

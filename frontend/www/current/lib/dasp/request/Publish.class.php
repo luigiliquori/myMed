@@ -62,7 +62,11 @@ class Publish extends Request {
 					continue; // The file upload will be managed by the binary 
 				}
 			} else {
-				$ontology->value = $_POST[$ontology->key];
+				if(isset($_POST[$ontology->key])) {
+					$ontology->value = $_POST[$ontology->key];
+				} else {
+					continue;
+				}
 			}
 			
 			// construct the predicate
@@ -93,7 +97,8 @@ class Publish extends Request {
 			if($responseObject->status != 200) {
 				$this->handler->setError($responseObject->description);
 			} else {
-				$this->handler->setSuccess($responseObject->description);
+// 				$this->handler->setSuccess($responseObject->description);
+				$this->handler->setSuccess("Request sent!");
 			}
 			
 			// TODO WORK ON THE PICTURE UPLOAD
@@ -107,8 +112,6 @@ class Publish extends Request {
 // 			. urlencode($_SESSION['accessToken']));
 			
 // 		}
-		
-		$this->handler->setSuccess("Request sent!");
 	}
 }
 ?>

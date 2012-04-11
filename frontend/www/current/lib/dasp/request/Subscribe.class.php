@@ -47,7 +47,11 @@ class Subscribe extends Request {
 		$predicate = "";
 		for($i=0 ; $i<$_POST['numberOfOntology'] ; $i++){
 			/*MDataBean*/ $ontology = json_decode(urldecode($_POST['ontology' . $i]));
-			$ontology->value = $_POST[$ontology->key];
+			if(isset($_POST[$ontology->key])) {
+				$ontology->value = $_POST[$ontology->key];
+			} else {
+				continue;
+			}
 			if($ontology->value != "") {
 				$predicate .= $ontology->key . "(" . $ontology->value . ")";
 			}
