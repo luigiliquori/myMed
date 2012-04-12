@@ -38,7 +38,7 @@ class PublishView extends MainView {
 			<!-- Define the method to call -->
 			<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
 			<input type="hidden" name="method" value="publish" />
-			<input type="hidden" name="numberOfOntology" value="12" />
+			<input type="hidden" name="numberOfOntology" value="13" />
 			
 			<!-- Titolo -->
 			<span>Titolo :</span>
@@ -141,6 +141,11 @@ class PublishView extends MainView {
 			<?php $dataBean = new MDataBean("text", null, TEXT); ?>
 			<input type="hidden" name="ontology11" value="<?= urlencode(json_encode($dataBean)); ?>">
 			<br />
+			
+			<!-- DATE  -->
+			<input type="hidden" name="begin" value="<?= date("d/m/Y") . " - " . date("H:i:s") ?>" />
+			<?php $date = new MDataBean("begin", null, DATE); ?>
+			<input type="hidden" name="ontology12" value="<?= urlencode(json_encode($date)); ?>">
 			
 			<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>PublishForm.submit()" >Publicare</a>
 		</form>

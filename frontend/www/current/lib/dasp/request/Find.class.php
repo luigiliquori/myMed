@@ -57,7 +57,7 @@ class Find extends Request {
 			if($ontology->ontologyID < 4 && $ontology->value != "") {
 				// it's a predicate
 				$predicateArray[$numberOfPredicate++] = $ontology;
-				$predicate .= $ontology->key . "(" . $ontology->value . ")";
+				$predicate .= $ontology->key . $ontology->value;
 			}
 		}
 		
@@ -72,7 +72,7 @@ class Find extends Request {
 				$j = 0;
 				while($mask > 0){
 					if($mask&1 == 1){
-						$predicate .= $predicateArray[$j]->key . "(" . $predicateArray[$j]->value . ")";
+						$predicate .= $predicateArray[$j]->key . $predicateArray[$j]->value;
 					}
 					$mask >>= 1;
 					$j++;

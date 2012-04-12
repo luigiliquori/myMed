@@ -173,9 +173,9 @@ public class PublishRequestHandler extends AbstractRequestHandler {
                     final StringBuffer bufferSubPredicate = new StringBuffer(150);
                     for (final MDataBean element : predicateListObject) {
                         bufferSubPredicate.append(element.getKey());
-                        bufferSubPredicate.append('(');
+//                        bufferSubPredicate.append('(');
                         bufferSubPredicate.append(element.getValue());
-                        bufferSubPredicate.append(')');
+//                        bufferSubPredicate.append(')');
                     }
 
                     bufferSubPredicate.trimToSize();
@@ -191,9 +191,9 @@ public class PublishRequestHandler extends AbstractRequestHandler {
                             if ((mask & 1) == 1) {
                                 final MDataBean element = predicateListObject.get(j);
                                 bufferPredicate.append(element.getKey());
-                                bufferPredicate.append('(');
+//                                bufferPredicate.append('(');
                                 bufferPredicate.append(element.getValue());
-                                bufferPredicate.append(')');
+//                                bufferPredicate.append(')');
                             }
                             mask >>= 1;
                             j++;

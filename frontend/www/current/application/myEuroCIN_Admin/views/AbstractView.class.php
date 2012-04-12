@@ -11,7 +11,7 @@ abstract class AbstractView {
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
-	private /*String*/ $id;
+	protected /*String*/ $id;
 	
 	/* --------------------------------------------------------- */
 	/* Constructors */
@@ -32,11 +32,13 @@ abstract class AbstractView {
 	*/
 	public /*String*/ function getHeader() { ?>
 		<!-- HEADER -->
-		<div data-role="header" data-theme="a">
-			<a href="#login" onclick="document.disconnectForm.submit()" rel="external" data-role="button" data-theme="r">Deconnexion</a>
-			<h1><?= APPLICATION_NAME ?></h1>
-		</div>
+		<img alt="logo" src="img/logo.gif">
 	<?php }
+	
+	/**
+	* Get the CONTENT for jQuery Mobile
+	*/
+	public abstract /*String*/ function getMenu();
 	
 	/**
 	* Get the CONTENT for jQuery Mobile
@@ -46,17 +48,44 @@ abstract class AbstractView {
 	/**
 	* Get the FOOTER for jQuery Mobile
 	*/
-	public /*String*/ function getFooter() {  }
+	public /*String*/ function getFooter() { ?>
+		<div data-role="navbar">
+			<ul>
+				<li><a href="a.html">Admin</a></li>
+			</ul>
+		</div><!-- /navbar -->
+		<div Style="position: relative; width: 100%; text-align: center;">
+				<h4>myMed - INTERREG IV - Alcotra</h4>
+				<img alt="Alcotra" src="../../system/img/logos/alcotra"
+					style="width: 100px;" /> <img alt="Europe"
+					src="../../system/img/logos/europe" style="width: 50px;" /> <img
+					alt="Conseil Général 06" src="../../system/img/logos/cg06"
+					style="width: 100px;" /> <img alt="Regine Piemonte"
+					src="../../system/img/logos/regione" style="width: 100px;" /> <img
+					alt="Région PACA" src="../../system/img/logos/PACA" style="width: 100px;" />
+				<img alt="Prefecture 06" src="../../system/img/logos/pref"
+					style="width: 70px;" /> <img alt="Inria"
+					src="../../system/img/logos/inria.jpg" style="width: 100px;" />
+				<p>"Ensemble par-delà les frontières"</p>
+		</div>
+	<?php }
 	
 	/**
 	* Print the Template
 	*/
 	public /*String*/ function printTemplate() { ?>
-		<div id="<?= $this->id ?>" data-role="page" data-theme="a">
+		<div id="<?= $this->id ?>" data-role="page" data-theme="d">
 			<?php  $this->getHeader(); ?>
 			<?php $this->getContent(); ?>
 			<?php $this->getFooter(); ?>
 		</div>
 	<?php }
+	
+	/**
+	* Get the CONTENT for jQuery Mobile
+	*/
+	public /*String*/ function getId(){
+		return 	$this->id;
+	}
 }
 ?>

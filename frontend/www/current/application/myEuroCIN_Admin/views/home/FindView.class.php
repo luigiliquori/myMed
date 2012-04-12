@@ -134,21 +134,7 @@ class FindView extends MainView {
 			<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>FindForm.submit()" >Cercare</a>
 		</form>
 	<?php }
-	
-	/**
-	* Get the CONTENT for jQuery Mobile
-	*/
-	private /*String*/ function getResultContent() {
-		if($succes = $this->handler->getSuccess()) {
-			if($_POST['method'] == "find") {
-				$this->getResult();
-			} else {
-				$this->getDetail();
-			}
-		} else {
-			echo $this->handler->getError();
-		}
-	}
+
 	
 	/**
 	* Get the CONTENT for jQuery Mobile
@@ -156,20 +142,49 @@ class FindView extends MainView {
 	private /*String*/ function getResult() { ?>
 		<ul data-role="listview" data-filter="true" data-theme="c" data-dividertheme="a" >
 				<?php $i=0 ?>
-				<?php foreach(json_decode($this->handler->getSuccess()) as $controller) { ?>
-					<li>
-						<!-- RESULT DETAILS -->
-						<form action="#FindView" method="post" name="getDetailForm<?= $i ?>">
-							<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
-							<input type="hidden" name="method" value="getDetail" />
-							<input type="hidden" name="user" value="<?= $controller->publisherID ?>" />
-							<input type="hidden" name="predicate" value="<?= $controller->predicate ?>" />
-						</form>
-						<a href="#" onclick="document.getDetailForm<?= $i ?>.submit()">
-							<?= $controller->data ?>
-						</a>
-					</li>
-					<?php $i++ ?>
+				<?php 
+				$request = new Request("FindRequestHandler", READ);
+		    	$request->addArgument("application", APPLICATION_NAME);
+		    	$request->addArgument("predicate", "Lingua" . "italiano");
+		    	$responsejSon = $request->send();
+		    	$responseObject = json_decode($responsejSon);
+		    	if($responseObject->status == 200) {
+			    	foreach(json_decode($responseObject->data->results) as $controller) { ?>
+						<li>
+							<!-- RESULT DETAILS -->
+							<form action="#FindView" method="post" name="getDetailForm<?= $i ?>">
+								<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
+								<input type="hidden" name="method" value="getDetail" />
+								<input type="hidden" name="user" value="<?= $controller->publisherID ?>" />
+								<input type="hidden" name="predicate" value="<?= $controller->predicate ?>" />
+							</form>
+							<a href="#" onclick="document.getDetailForm<?= $i ?>.submit()">
+								<?= $controller->data ?>
+							</a>
+						</li>
+						<?php $i++ ?>
+					<?php } ?>
+				<?php } ?>
+				<?php 
+				$request->addArgument("predicate", "Lingua" . "francese");
+		    	$responsejSon = $request->send();
+		    	$responseObject = json_decode($responsejSon);
+		    	if($responseObject->status == 200) {
+			    	foreach(json_decode($responseObject->data->results) as $controller) { ?>
+						<li>
+							<!-- RESULT DETAILS -->
+							<form action="#FindView" method="post" name="getDetailForm<?= $i ?>">
+								<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
+								<input type="hidden" name="method" value="getDetail" />
+								<input type="hidden" name="user" value="<?= $controller->publisherID ?>" />
+								<input type="hidden" name="predicate" value="<?= $controller->predicate ?>" />
+							</form>
+							<a href="#" onclick="document.getDetailForm<?= $i ?>.submit()">
+								<?= $controller->data ?>
+							</a>
+						</li>
+						<?php $i++ ?>
+					<?php } ?>
 				<?php } ?>
 			</ul>
 	<?php }
@@ -205,55 +220,6 @@ class FindView extends MainView {
     	<?php } ?>
 	    <div style="position: relative; top: 3px; left:35px; height: 30px;"><?= $profile->firstName ?> <?= $profile->lastName ?></div>
     	
-    	<hr />
-    	
-    	<!-- COMMENT -->
-    	<div data-role="collapsible"  data-content-theme="d">
-    		<h3>Comment</h3>
-	    	<?php
-	    	$request = new Request("FindRequestHandler", READ);
-	    	$request->addArgument("application", APPLICATION_NAME);
-	    	$request->addArgument("predicate", "commentOn" . $title);
-	    	$responsejSon = $request->send();
-	    	$responseObject = json_decode($responsejSon);
-	    	if($responseObject->status == 200) {
-		    	foreach(json_decode($responseObject->data->results) as $controller) { ?>
-		    		<p><?= $controller->data ?></p>
-		    		<p><?= $controller->publisherName ?></p>
-		    		<p><?= $controller->begin ?></p>
-		    		<br /><br />
-		    	<?php } ?>
-			<?php } else { ?>
-				<p><?= $responseObject->description ?></p>
-			<?php } ?>
-			<form  action="#PublishView" method="post" name="CommentPublishForm" id="CommentPublishForm" enctype="multipart/form-data">
-				<!-- Define the method to call -->
-				<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
-				<input type="hidden" name="method" value="publish" />
-				<input type="hidden" name="numberOfOntology" value="3" />
-							
-				<!-- CommentID -->
-				<input type="hidden" name="commentOn" value="<?= $title ?>" />
-				<?php $dataBean = new MDataBean("commentOn", null, KEYWORD); ?>
-				<input type="hidden" name="ontology0" value="<?= urlencode(json_encode($dataBean)); ?>">
-				<br />
-				
-				<!-- DATE  -->
-				<input type="hidden" name="begin" value="<?= date("d/m/Y") . " - " . date("H:i:s") ?>" />
-				<?php $date = new MDataBean("begin", null, DATE); ?>
-				<input type="hidden" name="ontology1" value="<?= urlencode(json_encode($date)); ?>">
-				
-				<!-- TEXT -->
-				<span>Add Comment :</span>
-				<textarea name="data"></textarea>
-				<?php $dataBean = new MDataBean("data", null, TEXT); ?>
-				<input type="hidden" name="ontology2" value="<?= urlencode(json_encode($dataBean)); ?>">
-				<br />
-				
-				<a href="#" data-role="button" onclick="document.CommentPublishForm.submit()" >Publicare</a>
-			</form>
-		</div>
-		
 	<?php }
 	
 	/**
@@ -261,11 +227,7 @@ class FindView extends MainView {
 	 */
 	public /*String*/ function getContent() { 
 		echo '<div data-role="content" id="content" style="padding: 10px;" data-theme="c">';
-		if(!$this->handler->getError() && !$this->handler->getSuccess()) {
-			$this->getPublishContent();
-		} else {
-			$this->getResultContent();
-		}
+		$this->getResult();
 		echo '</div>';
 	}
 }

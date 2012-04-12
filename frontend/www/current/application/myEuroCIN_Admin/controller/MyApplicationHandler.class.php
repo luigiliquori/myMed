@@ -1,4 +1,7 @@
 <?php 
+require_once '../../lib/dasp/request/Publish.class.php';
+require_once '../../lib/dasp/request/Find.class.php';
+require_once '../../lib/dasp/request/GetDetail.class.php';
 require_once '../../lib/dasp/request/Subscribe.class.php';
 require_once '../../lib/dasp/request/Request.class.php';
 
@@ -29,66 +32,24 @@ class MyApplicationHandler implements IRequestHandler {
 	/* Public methods */
 	/* --------------------------------------------------------- */
 	public /*void*/ function handleRequest() { 
-		if($_POST['method'] == "subscribe") {
-			$subscribe = new Subscribe($this);
-			$subscribe->send();
-		} else if(isset($_POST['poisrc'])){
-			$pois = json_decode($_POST['data']);
-			foreach($pois as $poi){
-				
-				$request = new Request("POIRequestHandler", CREATE);
-				$request->addArgument("application", APPLICATION_NAME);
-				$request->addArgument("user", $_SESSION["user"]->id);
-				$request->addArgument("accessToken", $_SESSION["accessToken"]);
-				
-				// CARF POIs
-				foreach ($poi->features as $feature) {
-					$request->addArgument("type", preg_replace("/_.+$/", "", $feature->properties->Type));
-					$request->addArgument("longitude", $feature->geometry->coordinates[0]);
-					$request->addArgument("latitude", $feature->geometry->coordinates[1]);
-					$value = '{
-					"longitude" : "'. $feature->geometry->coordinates[0] .'", 
-					"latitude" : "'. $feature->geometry->coordinates[1] .'", 
-					"title" : "'. $feature->properties->Nom .'", 
-					"description" : "'. $feature->properties->Description .'", 
-					"icon" : ""
-					}';
-					$request->addArgument("value", $value);
-					$request->send();
-				}
-				
-			}
-		} else if(isset($_POST['longitude']) && isset($_POST['latitude']) && isset($_POST['radius'])){
-			$request = new Request("POIRequestHandler", READ);
-			$request->addArgument("application", APPLICATION_NAME);
-			$request->addArgument("type", "Bibliotheque");
-			$request->addArgument("longitude", $_POST['longitude']);
-			$request->addArgument("latitude", $_POST['latitude']);
-			$request->addArgument("radius", $_POST['radius']);
-			$request->addArgument("accessToken", $_SESSION["accessToken"]);
-			
-			$responsejSon = $request->send();
-			$responseObject = json_decode($responsejSon);
-			
-			if($responseObject->status == 200) {
-				echo '<script type="text/javascript">alert(\'' . json_encode($responseObject->data) . '\');</script>';
-			}
-			
-// 			$request = new Request("POIRequestHandler", READ);
-// 			$request->addArgument("application", APPLICATION_NAME);
-// 			$request->addArgument("type", "carf");
-// 			$request->addArgument("longitude", $_POST['longitude']);
-// 			$request->addArgument("latitude", $_POST['latitude']);
-// 			$request->addArgument("radius", $_POST['radius']);
-// 			$request->addArgument("accessToken", $_SESSION["accessToken"]);
-				
-// 			$responsejSon = $request->send();
-// 			$responseObject = json_decode($responsejSon);
-				
-// 			if($responseObject->status == 200) {
-// 				echo '<script type="text/javascript">alert(\'' . json_encode($responseObject->data) . '\');</script>';
-// 			}
-		}
+		if(isset($_POST['method'])) {
+			if($_POST['method'] == "publish") {
+				$publish = new Publish($this);
+				$publish->send();
+			} else if($_POST['method'] == "subscribe") {
+				$subscribe = new Subscribe($this);
+				$subscribe->send();
+			} else if($_POST['method'] == "find") {
+				$find = new Find($this);
+				$find->send();
+			} else if($_POST['method'] == "getDetail") {
+				$getDetail = new GetDetail($this);
+				$getDetail->send();
+			} else if($_POST['method'] == "startInteraction") {
+				$startInteraction = new StartInteraction($this);
+				$startInteraction->send();
+			} 
+		} 
 	}
 	
 	/* --------------------------------------------------------- */

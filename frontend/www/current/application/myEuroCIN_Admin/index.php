@@ -12,7 +12,7 @@
 	// GET ALL THE API KEYs AND ADDRESS
 	require_once dirname(__FILE__).'/../../system/config.php';
 	
-	define('APPLICATION_NAME', "myRivieraAdmin");
+	define('APPLICATION_NAME', "myEuroCIN");
 	define('USER_CONNECTED', isset($_SESSION['user']));
 	
 	// CREATE THE HTML HEADER
@@ -21,19 +21,13 @@
 	$template->getHeader();
 	
 	// IMPORTS ALL THE HANDLER
-	require_once dirname(__FILE__).'/handler/MyApplicationHandler.class.php';	new MyApplicationHandler();
-	require_once dirname(__FILE__).'/handler/InscriptionHandler.class.php';		$inscription = new InscriptionHandler();
-	require_once dirname(__FILE__).'/handler/LoginHandler.class.php';			new LoginHandler();
-	require_once dirname(__FILE__).'/handler/MenuHandler.class.php';			new MenuHandler();
-	require_once dirname(__FILE__).'/handler/UpdateProfileHandler.class.php';	new UpdateProfileHandler();
+	require_once dirname(__FILE__).'/controller/MyApplicationHandler.class.php';	$application = new MyApplicationHandler();
 	
-	// IMPORTS ALL THE VIEWS
+	// IMPORTS ALL THE VIEWS	
 	require_once dirname(__FILE__).'/views/AbstractView.class.php';	
-	if(USER_CONNECTED) {
-		require_once dirname(__FILE__).'/views/home/PublishView.class.php';		new PublishView();
-	} else {
-		require_once dirname(__FILE__).'/views/login/mobile/Login.class.php';	new Login($inscription);
-	}
+	require_once dirname(__FILE__).'/views/home/MainView.class.php';
+	require_once dirname(__FILE__).'/views/home/FindView.class.php';			new FindView($application);
+	require_once dirname(__FILE__).'/views/home/PublishView.class.php';			new PublishView($application);
 	
 	// CLOSE THE HTML PAGE
 	$template->getFooter();

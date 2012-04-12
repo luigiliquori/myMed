@@ -53,7 +53,7 @@ class Subscribe extends Request {
 				continue;
 			}
 			if($ontology->value != "") {
-				$predicate .= $ontology->key . "(" . $ontology->value . ")";
+				$predicate .= $ontology->key . $ontology->value;
 			}
 		}
 		// construct the request
