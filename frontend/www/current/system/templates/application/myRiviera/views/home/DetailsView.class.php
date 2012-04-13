@@ -33,7 +33,7 @@ class DetailsView extends MyApplication {
 	 */
 	public /*String*/ function getHeader() { ?>
 		<div data-role="header" data-theme="b">
-			<h1>Feuille de route..</h1>
+			<h1>Feuille de route</h1>
 			<a href="#Map" data-role="button" class="ui-btn-left" data-icon="arrow-l" data-back="true">Retour</a>
 		</div>
 	<?php }

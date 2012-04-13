@@ -26,6 +26,8 @@ var currentApplication;
 var directionsService;
 var map;
 
+var currentPos = new google.maps.LatLng(43.774481, 7.49754);
+
 /* --------------------------------------------------------- */
 /* Setup Lib */
 /* --------------------------------------------------------- */
