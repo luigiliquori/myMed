@@ -9,7 +9,7 @@ require_once '../../lib/dasp/request/Request.class.php';
  * @author lvanni
  *
  */
-class PublishView extends MainView {
+class CommentView extends MainView {
 	
 	/* --------------------------------------------------------- */
 	/* Attributes */

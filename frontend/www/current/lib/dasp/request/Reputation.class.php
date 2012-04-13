@@ -52,6 +52,8 @@ class Reputation extends Request {
 		} else {
 			return $responseObject->description;
 		}
+		
+		return $responsejSon;
 	}
 }
 ?>

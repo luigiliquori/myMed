@@ -167,10 +167,10 @@ class PublishView extends MainView {
 	 */
 	public /*String*/ function getContent() { 
 		echo '<div data-role="content" id="content" style="padding: 10px;" data-theme="c">';
-		if(!$this->handler->getError() && !$this->handler->getSuccess()) {
-			$this->getPublishContent();
-		} else {
+		if(isset($_POST['method']) && $_POST['method'] == "publish" && ($this->handler->getError() || $this->handler->getSuccess())) {
 			$this->getResultContent();
+		} else {
+			$this->getPublishContent();
 		}
 		echo '</div>';
 	}

@@ -15,6 +15,13 @@
 	define('APPLICATION_NAME', "myEuroCIN");
 	define('USER_CONNECTED', isset($_SESSION['user']));
 	
+// 	if(!USER_CONNECTED){
+// 		echo "<form id='singinRedirectForm' name='singinRedirectForm' method='post'>";
+// 		echo "<input type='hidden' name='accessToken' value='" . $accessToken . "' />";
+// 		echo "</form>";
+// 		echo '<script type="text/javascript">document.singinRedirectForm.submit();</script>';
+// 	}
+	
 	// CREATE THE HTML HEADER
 	require_once dirname(__FILE__).'/TemplateManager.class.php';
 	$template = new TemplateManager();
@@ -27,6 +34,8 @@
 	require_once dirname(__FILE__).'/views/AbstractView.class.php';	
 	require_once dirname(__FILE__).'/views/home/MainView.class.php';			new MainView();
 	require_once dirname(__FILE__).'/views/home/FindView.class.php';			new FindView($application);
+	require_once dirname(__FILE__).'/views/home/ResultView.class.php';			new ResultView($application);
+	require_once dirname(__FILE__).'/views/home/DetailView.class.php';			new DetailView($application);
 	require_once dirname(__FILE__).'/views/home/PublishView.class.php';			new PublishView($application);
 	
 	// CLOSE THE HTML PAGE

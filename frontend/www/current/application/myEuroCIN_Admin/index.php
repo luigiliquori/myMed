@@ -26,8 +26,8 @@
 	// IMPORTS ALL THE VIEWS	
 	require_once dirname(__FILE__).'/views/AbstractView.class.php';	
 	require_once dirname(__FILE__).'/views/home/MainView.class.php';
-	require_once dirname(__FILE__).'/views/home/FindView.class.php';			new FindView($application);
-	require_once dirname(__FILE__).'/views/home/PublishView.class.php';			new PublishView($application);
+	require_once dirname(__FILE__).'/views/home/ArticleView.class.php';			new ArticleView($application);
+	require_once dirname(__FILE__).'/views/home/CommentView.class.php';			new CommentView($application);
 	
 	// CLOSE THE HTML PAGE
 	$template->getFooter();

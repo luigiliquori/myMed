@@ -1,9 +1,11 @@
 <?php 
-require_once '../../lib/dasp/request/Publish.class.php';
-require_once '../../lib/dasp/request/Find.class.php';
-require_once '../../lib/dasp/request/GetDetail.class.php';
-require_once '../../lib/dasp/request/Subscribe.class.php';
-require_once '../../lib/dasp/request/Request.class.php';
+require_once 'system/templates/handler/IRequestHandler.php';
+require_once 'lib/dasp/beans/MDataBean.class.php';
+require_once 'lib/dasp/request/Publish.class.php';
+require_once 'lib/dasp/request/Subscribe.class.php';
+require_once 'lib/dasp/request/Find.class.php';
+require_once 'lib/dasp/request/GetDetail.class.php';
+require_once 'lib/dasp/request/StartInteraction.class.php';
 
 /**
  * 
@@ -25,7 +27,6 @@ class MyApplicationHandler implements IRequestHandler {
 	public function __construct() {
 		$this->error	= false;
 		$this->success	= false;
-		$this->handleRequest();
 	}
 	
 	/* --------------------------------------------------------- */
@@ -35,19 +36,19 @@ class MyApplicationHandler implements IRequestHandler {
 		if(isset($_POST['method'])) {
 			if($_POST['method'] == "publish") {
 				$publish = new Publish($this);
-				return $publish->send();
+				$publish->send();
 			} else if($_POST['method'] == "subscribe") {
 				$subscribe = new Subscribe($this);
-				return $subscribe->send();
+				$subscribe->send();
 			} else if($_POST['method'] == "find") {
 				$find = new Find($this);
-				return $find->send();
+				$find->send();
 			} else if($_POST['method'] == "getDetail") {
 				$getDetail = new GetDetail($this);
-				return $getDetail->send();
+				$getDetail->send();
 			} else if($_POST['method'] == "startInteraction") {
 				$startInteraction = new StartInteraction($this);
-				return $startInteraction->send();
+				$startInteraction->send();
 			} 
 		} 
 	}

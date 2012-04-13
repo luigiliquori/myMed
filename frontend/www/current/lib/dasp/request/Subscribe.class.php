@@ -68,6 +68,8 @@ class Subscribe extends Request {
 		} else {
 			$this->handler->setSuccess("Request sent!");
 		}
+		
+		return $responsejSon;
 	}
 }
 ?>

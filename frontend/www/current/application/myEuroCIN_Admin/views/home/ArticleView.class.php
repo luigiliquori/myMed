@@ -10,7 +10,7 @@ require_once '../../lib/dasp/request/Reputation.class.php';
  * @author lvanni
  *
  */
-class FindView extends MainView {
+class ArticleView extends MainView {
 	
 	/* --------------------------------------------------------- */
 	/* Attributes */
@@ -25,7 +25,7 @@ class FindView extends MainView {
 	 */
 	public function __construct($handler) {
 		$this->handler = $handler;
-		parent::__construct("FindView");
+		parent::__construct("ArticleView");
 	}
 	
 	/* --------------------------------------------------------- */
@@ -34,7 +34,7 @@ class FindView extends MainView {
 	/**
 	* Get the CONTENT for jQuery Mobile
 	*/
-	private /*String*/ function getPublishContent() { ?>
+	private /*String*/ function getContentToValidate() { ?>
 		<form  action="#FindView" method="post" name="<?= APPLICATION_NAME ?>FindForm" id="<?= APPLICATION_NAME ?>FindForm" enctype="multipart/form-data">
 			<!-- Define the method to call -->
 			<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
@@ -131,7 +131,8 @@ class FindView extends MainView {
 			</div>
 			<br />
 			
-			<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>FindForm.submit()" >Cercare</a>
+			<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>FindForm.submit()" data-theme="g" data-inline="true">Validate</a>
+			<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>FindForm.submit()" data-theme="r" data-inline="true">Reject</a>
 		</form>
 	<?php }
 
@@ -139,7 +140,7 @@ class FindView extends MainView {
 	/**
 	* Get the CONTENT for jQuery Mobile
 	*/
-	private /*String*/ function getResult() { ?>
+	private /*String*/ function getArticle() { ?>
 		<ul data-role="listview" data-filter="true" data-theme="c" data-dividertheme="a" >
 				<?php $i=0 ?>
 				<?php 
@@ -152,7 +153,7 @@ class FindView extends MainView {
 			    	foreach(json_decode($responseObject->data->results) as $controller) { ?>
 						<li>
 							<!-- RESULT DETAILS -->
-							<form action="#FindView" method="post" name="getDetailForm<?= $i ?>">
+							<form action="#ArticleView" method="post" name="getDetailForm<?= $i ?>">
 								<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
 								<input type="hidden" name="method" value="getDetail" />
 								<input type="hidden" name="user" value="<?= $controller->publisherID ?>" />
@@ -173,7 +174,7 @@ class FindView extends MainView {
 			    	foreach(json_decode($responseObject->data->results) as $controller) { ?>
 						<li>
 							<!-- RESULT DETAILS -->
-							<form action="#FindView" method="post" name="getDetailForm<?= $i ?>">
+							<form action="#ArticleView" method="post" name="getDetailForm<?= $i ?>">
 								<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
 								<input type="hidden" name="method" value="getDetail" />
 								<input type="hidden" name="user" value="<?= $controller->publisherID ?>" />
@@ -227,7 +228,11 @@ class FindView extends MainView {
 	 */
 	public /*String*/ function getContent() { 
 		echo '<div data-role="content" id="content" style="padding: 10px;" data-theme="c">';
-		$this->getResult();
+		if(isset($_POST['method']) && $_POST['method']  == "getDetail") {
+			$this->getContentToValidate();
+		} else {
+			$this->getArticle();
+		}
 		echo '</div>';
 	}
 }

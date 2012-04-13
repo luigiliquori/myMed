@@ -42,8 +42,8 @@ class MainView extends AbstractView {
 		<a href="?langue=IT"><img alt="fr" src="img/FR_Flag.png" width="20" Style="position: absolute; left: 300px; top:50px;"></a>
 		<div data-role="navbar">
 			<ul>
-				<li><a href="#FindView" class="<?= parent::getId() == "FindView" ? "ui-btn-active" : "" ?>">Articolo</a></li>
-				<li><a href="#PublishView" class="<?= parent::getId() == "PublishView" ? "ui-btn-active" : "" ?>">commento</a></li>
+				<li><a href="#ArticleView" class="<?= parent::getId() == "ArticleView" ? "ui-btn-active" : "" ?>">Articolo</a></li>
+				<li><a href="#CommentView" class="<?= parent::getId() == "CommentView" ? "ui-btn-active" : "" ?>">commento</a></li>
 			</ul>
 		</div><!-- /navbar -->
 	<?php }

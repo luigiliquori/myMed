@@ -64,6 +64,8 @@ class StartInteraction extends Request {
 		} else {
 			$this->handler->setSuccess($responseObject->description);
 		}
+		
+		return $responsejSon;
 	}
 }
 ?>

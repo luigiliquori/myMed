@@ -101,6 +101,8 @@ class Publish extends Request {
 				$this->handler->setSuccess("Request sent!");
 			}
 			
+		return $responsejSon;
+			
 			// TODO WORK ON THE PICTURE UPLOAD
 // 		} else { // TARGET == "mobile"
 // 			header("Refresh:0;url=mobile_binary". MOBILE_PARAMETER_SEPARATOR 

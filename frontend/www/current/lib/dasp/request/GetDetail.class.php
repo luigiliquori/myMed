@@ -54,6 +54,8 @@ class GetDetail extends Request {
 		} else {
 			$this->handler->setSuccess($responseObject->data->details);
 		}
+		
+		return $responsejSon;
 	}
 }
 ?>
