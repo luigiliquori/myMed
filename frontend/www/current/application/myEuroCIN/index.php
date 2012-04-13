@@ -15,13 +15,6 @@
 	define('APPLICATION_NAME', "myEuroCIN");
 	define('USER_CONNECTED', isset($_SESSION['user']));
 	
-// 	if(!USER_CONNECTED){
-// 		echo "<form id='singinRedirectForm' name='singinRedirectForm' method='post'>";
-// 		echo "<input type='hidden' name='accessToken' value='" . $accessToken . "' />";
-// 		echo "</form>";
-// 		echo '<script type="text/javascript">document.singinRedirectForm.submit();</script>';
-// 	}
-	
 	// CREATE THE HTML HEADER
 	require_once dirname(__FILE__).'/TemplateManager.class.php';
 	$template = new TemplateManager();
@@ -29,6 +22,20 @@
 	
 	// IMPORTS ALL THE HANDLER
 	require_once dirname(__FILE__).'/controller/MyApplicationHandler.class.php';	$application = new MyApplicationHandler();
+	require_once dirname(__FILE__).'/controller/LoginHandler.class.php';			new LoginHandler();
+	
+	// Default user -> Visitor
+	if(!USER_CONNECTED){
+		if(!isset($_SESSION['error'])){
+			echo '<form action="#" method="post" name="singinForm" id="singinForm">';
+			echo '<input type="hidden" name="singin" value="visitor" />';
+			echo '</form>';
+			echo '<script type="text/javascript">document.singinForm.submit();</script>';
+		} else {
+			echo '<script type="text/javascript">alert(\'Error during the login of the visitor user, please refresh the page and try again...\');</script>';
+			unset($_SESSION['error']);
+		}
+	}
 	
 	// IMPORTS ALL THE VIEWS	
 	require_once dirname(__FILE__).'/views/AbstractView.class.php';	

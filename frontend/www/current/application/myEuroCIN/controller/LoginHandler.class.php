@@ -80,19 +80,23 @@ class LoginHandler implements IRequestHandler {
 				}
 
 			} else if(isset($_POST['singin'])) {
-				// HANDLE MYMED AUTHENTICATION
-				// Preconditions
-				if($_POST['login'] == ""){
-					$this->error = "FAIL: eMail cannot be empty!";
-					return;
-				} else if($_POST['password'] == ""){
-					$this->error = "FAIL: password cannot be empty!";
-					return;
+
+				if($_POST['singin'] == "visitor") {
+					$login = "myEurocin_visitor@yopmail.com";
+					$pass = hash("sha512", "myEurocin_visitor");
+				} else {
+					if(($login = $_POST['login']) == ""){
+						$this->error = "FAIL: eMail cannot be empty!";
+						return;
+					} else if(($pass = $_POST['password']) == ""){
+						$this->error = "FAIL: password cannot be empty!";
+						return;
+					}
 				}
 					
 				$request = new Request("AuthenticationRequestHandler", READ);
-				$request->addArgument("login", $_POST["login"]);
-				$request->addArgument("password", hash('sha512', $_POST["password"]));
+				$request->addArgument("login", $login);
+				$request->addArgument("password", $pass);
 					
 				$responsejSon = $request->send();
 				$responseObject = json_decode($responsejSon);

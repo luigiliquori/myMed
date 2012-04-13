@@ -76,6 +76,7 @@ abstract class AbstractView {
 	public /*String*/ function printTemplate() { ?>
 		<div id="<?= $this->id ?>" data-role="page" data-theme="d">
 			<?php  $this->getHeader(); ?>
+			<?php  $this->getMenu(); ?>
 			<?php $this->getContent(); ?>
 			<?php $this->getFooter(); ?>
 		</div>

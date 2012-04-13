@@ -29,22 +29,17 @@ class MainView extends AbstractView {
 	/* --------------------------------------------------------- */
 	/* public methods */
 	/* --------------------------------------------------------- */
-	/**
-	* Get the HEADER for jQuery Mobile
-	*/
-	public /*String*/ function getHeader() {
-		parent::getHeader();
-		$this->getMenu();
-	}
-
 	public /*String*/ function getMenu() { ?>
 		<a href="?langue=IT"><img alt="it" src="img/IT_Flag.png" width="20" Style="position: absolute; left: 300px; top:10px;"></a>
 		<a href="?langue=IT"><img alt="fr" src="img/FR_Flag.png" width="20" Style="position: absolute; left: 300px; top:50px;"></a>
 		<div data-role="navbar">
 			<ul>
-				<li><a href="#MainView" class="<?= parent::getId() == "MainView" ? "ui-btn-active" : "" ?>">Benvenuto</a></li>
-				<li><a href="#FindView" class="<?= parent::getId() == "FindView" ? "ui-btn-active" : "" ?>">Cercare</a></li>
-				<li><a href="#PublishView" class="<?= parent::getId() == "PublishView" ? "ui-btn-active" : "" ?>">Publicare</a></li>
+				<?php $mainView = $this->id == "MainView" ?>
+				<?php $findView = $this->id == "FindView" || $this->id == "ResultView" || $this->id == "DetailView" ?>
+				<?php $publishView = $this->id == "PublishView" ?>
+				<li><a href="#MainView" <?= $mainView ? "data-theme='b'" : "" ?>>Benvenuto</a></li>
+				<li><a href="#FindView" <?= $findView  ? "data-theme='b'" : "" ?>>Cercare</a></li>
+				<li><a href="#PublishView" <?= $publishView ? "data-theme='b'" : "" ?>>Publicare</a></li>
 			</ul>
 		</div><!-- /navbar -->
 	<?php }
