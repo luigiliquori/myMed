@@ -49,7 +49,7 @@ class OptionView extends MyApplication {
 	
 			<!-- Profile -->
 			<div data-role="collapsible" data-collapsed="false" data-theme="d" data-content-theme="c">
-				<h3>Profile</h3>
+				<h3>Profil</h3>
 				<?php if($_SESSION['user']->profilePicture != "") { ?>
 					<img alt="thumbnail" src="<?= $_SESSION['user']->profilePicture ?>" width="100">
 				<?php } else { ?>
