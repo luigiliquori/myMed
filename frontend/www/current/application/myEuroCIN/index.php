@@ -13,6 +13,7 @@
 	require_once dirname(__FILE__).'/../../system/config.php';
 	
 	define('APPLICATION_NAME', "myEuroCIN");
+	define('VISITOR_ID', "MYMED_myEurocin_visitor@yopmail.com");
 	define('USER_CONNECTED', isset($_SESSION['user']));
 	
 	// CREATE THE HTML HEADER
@@ -22,7 +23,7 @@
 	
 	// IMPORTS ALL THE HANDLER
 	require_once dirname(__FILE__).'/controller/MyApplicationHandler.class.php';	$application = new MyApplicationHandler();
-	require_once dirname(__FILE__).'/controller/LoginHandler.class.php';			new LoginHandler();
+	require_once dirname(__FILE__).'/controller/LoginHandler.class.php';			$login = new LoginHandler();
 	
 	// Default user -> Visitor
 	if(!USER_CONNECTED){
@@ -44,6 +45,7 @@
 	require_once dirname(__FILE__).'/views/home/ResultView.class.php';			new ResultView($application);
 	require_once dirname(__FILE__).'/views/home/DetailView.class.php';			new DetailView($application);
 	require_once dirname(__FILE__).'/views/home/PublishView.class.php';			new PublishView($application);
+	require_once dirname(__FILE__).'/views/home/ProfileView.class.php';			new ProfileView($login);
 	
 	// CLOSE THE HTML PAGE
 	$template->getFooter();

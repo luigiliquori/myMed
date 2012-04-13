@@ -34,6 +34,11 @@ class PublishView extends MainView {
 	* Get the CONTENT for jQuery Mobile
 	*/
 	private /*String*/ function getPublishContent() { ?>
+		<?php if($_SESSION['user']->id == VISITOR_ID) {?>
+			<span>Please login before using this feature...</span>
+			<?php return ?>
+		<?php } ?>
+	
 		<form  action="#PublishView" method="post" name="<?= APPLICATION_NAME ?>PublishForm" id="<?= APPLICATION_NAME ?>PublishForm" enctype="multipart/form-data">
 			<!-- Define the method to call -->
 			<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />

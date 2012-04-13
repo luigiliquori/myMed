@@ -32,14 +32,14 @@ class MainView extends AbstractView {
 	public /*String*/ function getMenu() { ?>
 		<a href="?langue=IT"><img alt="it" src="img/IT_Flag.png" width="20" Style="position: absolute; left: 300px; top:10px;"></a>
 		<a href="?langue=IT"><img alt="fr" src="img/FR_Flag.png" width="20" Style="position: absolute; left: 300px; top:50px;"></a>
-		<div data-role="navbar">
+		<div data-role="navbar" data-iconpos="left">
 			<ul>
 				<?php $mainView = $this->id == "MainView" ?>
 				<?php $findView = $this->id == "FindView" || $this->id == "ResultView" || $this->id == "DetailView" ?>
 				<?php $publishView = $this->id == "PublishView" ?>
-				<li><a href="#MainView" <?= $mainView ? "data-theme='b'" : "" ?>>Benvenuto</a></li>
-				<li><a href="#FindView" <?= $findView  ? "data-theme='b'" : "" ?>>Cercare</a></li>
-				<li><a href="#PublishView" <?= $publishView ? "data-theme='b'" : "" ?>>Publicare</a></li>
+				<li><a href="#MainView" <?= $mainView ? "data-theme='b'" : "" ?> data-icon="home">Benvenuto</a></li>
+				<li><a href="#FindView" <?= $findView  ? "data-theme='b'" : "" ?> data-icon="search">Cercare</a></li>
+				<li><a href="#PublishView" <?= $publishView ? "data-theme='b'" : "" ?> data-icon="grid">Publicare</a></li>
 			</ul>
 		</div><!-- /navbar -->
 	<?php }

@@ -68,6 +68,7 @@ class ResultView extends MainView {
 					<?php } ?>
 				</ul>
 			<?php } ?>
+			<br /><br />
 		</div>
 	<?php }
 }

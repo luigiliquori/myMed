@@ -42,17 +42,9 @@ class FindView extends MainView {
 				<input type="hidden" name="method" value="find" />
 				<input type="hidden" name="numberOfOntology" value="12" />
 				
-				<!-- Titolo -->
-				<span>Titolo :</span>
-				<input type="text" name="data" value="" />
-				<?php $dataBean = new MDataBean("data", null, KEYWORD); ?>
-				<input type="hidden" name="ontology0" value="<?= urlencode(json_encode($dataBean)); ?>">
-				<br />
-				
 				<!-- Nazione -->
-				<span>Nazione :</span>
 				<select name="Nazione">
-					<option value=""></option>
+					<option value="">Nazione</option>
 					<option value="Alessandria">Alessandria</option>
 					<option value="Asti">Asti</option>
 					<option value="Cuneo">Cuneo</option>
@@ -63,21 +55,17 @@ class FindView extends MainView {
 				</select>
 				<?php $dataBean = new MDataBean("Nazione", null, KEYWORD); ?>
 				<input type="hidden" name="ontology1" value="<?= urlencode(json_encode($dataBean)); ?>">
-				<br />
 				
 				<!-- Lingua -->
-				<span>Lingua :</span>
 				<select name="Lingua">
+					<option value="">Lingua</option>
 					<option value="italiano">italiano</option>
 					<option value="francese">francese</option>
 				</select>
 				<?php $dataBean = new MDataBean("Lingua", null, KEYWORD); ?>
 				<input type="hidden" name="ontology2" value="<?= urlencode(json_encode($dataBean)); ?>">
-				<br />
 				
 				<!-- Categorie -->
-				<div data-role="fieldcontain">
-					<span>Categorie :</span>
 				    <fieldset data-role="controlgroup">
 					   
 					   <!-- Arte/Cultura: -->
@@ -129,10 +117,15 @@ class FindView extends MainView {
 					   <input type="hidden" name="ontology10" value="<?= urlencode(json_encode($dataBean)); ?>">
 					   
 				    </fieldset>
+				<div data-role="collapsible">
+					 <h3>Titolo</h3>
+					<!-- Titolo -->
+					<input type="search" name="data" value="" />
+					<?php $dataBean = new MDataBean("data", null, KEYWORD); ?>
+					<input type="hidden" name="ontology0" value="<?= urlencode(json_encode($dataBean)); ?>">
 				</div>
-				<br />
 				
-				<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>FindForm.submit()" >Cercare</a>
+				<center><a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>FindForm.submit()" data-inline="true" data-icon="search">Cercare</a></center>
 			</form>
 		</div>
 	<?php }

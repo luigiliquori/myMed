@@ -83,48 +83,51 @@ class DetailView extends MainView {
 	    	<!-- COMMENT -->
 	    	<div data-role="collapsible"  data-content-theme="d">
 	    		<h3>Comment</h3>
-		    	<?php
-		    	$request = new Request("FindRequestHandler", READ);
-		    	$request->addArgument("application", APPLICATION_NAME);
-		    	$request->addArgument("predicate", "commentOn" . $title);
-		    	$responsejSon = $request->send();
-		    	$responseObject = json_decode($responsejSon);
-		    	if($responseObject->status == 200) {
-			    	foreach(json_decode($responseObject->data->results) as $controller) { ?>
-			    		<p><?= $controller->data ?></p>
-			    		<p><?= $controller->publisherName ?></p>
-			    		<p><?= $controller->begin ?></p>
-			    		<br /><br />
-			    	<?php } ?>
-				<?php } else { ?>
-					<p><?= $responseObject->description ?></p>
+	    		<?php if($_SESSION['user']->id == VISITOR_ID) {?>
+	    					<span>Please login before using this feature...</span>
+	    		<?php } else {
+			    	$request = new Request("FindRequestHandler", READ);
+			    	$request->addArgument("application", APPLICATION_NAME);
+			    	$request->addArgument("predicate", "commentOn" . $title);
+			    	$responsejSon = $request->send();
+			    	$responseObject = json_decode($responsejSon);
+			    	if($responseObject->status == 200) {
+				    	foreach(json_decode($responseObject->data->results) as $controller) { ?>
+				    		<p><?= $controller->data ?></p>
+				    		<p><?= $controller->publisherName ?></p>
+				    		<p><?= $controller->begin ?></p>
+				    		<br /><br />
+				    	<?php } ?>
+					<?php } else { ?>
+						<p><?= $responseObject->description ?></p>
+					<?php } ?>
+					<form  action="#DetailView" method="post" name="CommentPublishForm" id="CommentPublishForm" enctype="multipart/form-data">
+						<!-- Define the method to call -->
+						<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
+						<input type="hidden" name="method" value="publish" />
+						<input type="hidden" name="numberOfOntology" value="3" />
+									
+						<!-- CommentID -->
+						<input type="hidden" name="commentOn" value="<?= $title ?>" />
+						<?php $dataBean = new MDataBean("commentOn", null, KEYWORD); ?>
+						<input type="hidden" name="ontology0" value="<?= urlencode(json_encode($dataBean)); ?>">
+						<br />
+						
+						<!-- DATE  -->
+						<input type="hidden" name="begin" value="<?= date("d/m/Y") . " - " . date("H:i:s") ?>" />
+						<?php $date = new MDataBean("begin", null, DATE); ?>
+						<input type="hidden" name="ontology1" value="<?= urlencode(json_encode($date)); ?>">
+						
+						<!-- TEXT -->
+						<span>Add Comment :</span>
+						<textarea name="data"></textarea>
+						<?php $dataBean = new MDataBean("data", null, TEXT); ?>
+						<input type="hidden" name="ontology2" value="<?= urlencode(json_encode($dataBean)); ?>">
+						<br />
+						
+						<a href="#" data-role="button" onclick="document.CommentPublishForm.submit()" >Publicare</a>
+					</form>
 				<?php } ?>
-				<form  action="#DetailView" method="post" name="CommentPublishForm" id="CommentPublishForm" enctype="multipart/form-data">
-					<!-- Define the method to call -->
-					<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
-					<input type="hidden" name="method" value="publish" />
-					<input type="hidden" name="numberOfOntology" value="3" />
-								
-					<!-- CommentID -->
-					<input type="hidden" name="commentOn" value="<?= $title ?>" />
-					<?php $dataBean = new MDataBean("commentOn", null, KEYWORD); ?>
-					<input type="hidden" name="ontology0" value="<?= urlencode(json_encode($dataBean)); ?>">
-					<br />
-					
-					<!-- DATE  -->
-					<input type="hidden" name="begin" value="<?= date("d/m/Y") . " - " . date("H:i:s") ?>" />
-					<?php $date = new MDataBean("begin", null, DATE); ?>
-					<input type="hidden" name="ontology1" value="<?= urlencode(json_encode($date)); ?>">
-					
-					<!-- TEXT -->
-					<span>Add Comment :</span>
-					<textarea name="data"></textarea>
-					<?php $dataBean = new MDataBean("data", null, TEXT); ?>
-					<input type="hidden" name="ontology2" value="<?= urlencode(json_encode($dataBean)); ?>">
-					<br />
-					
-					<a href="#" data-role="button" onclick="document.CommentPublishForm.submit()" >Publicare</a>
-				</form>
 			</div>
 		</div>
 	<?php }

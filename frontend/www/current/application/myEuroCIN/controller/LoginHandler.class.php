@@ -37,7 +37,7 @@ class LoginHandler implements IRequestHandler {
 		}
 		
 		// Create or Refresh the user session
-		if(!isset($_SESSION['user'])) {
+		if(!isset($_SESSION['user']) || $_SESSION['user']->id == VISITOR_ID) {
 			
 			// LOGIN
 			if(isset($_GET['accessToken']) || isset($_POST['accessToken'])) {
@@ -88,7 +88,7 @@ class LoginHandler implements IRequestHandler {
 					if(($login = $_POST['login']) == ""){
 						$this->error = "FAIL: eMail cannot be empty!";
 						return;
-					} else if(($pass = $_POST['password']) == ""){
+					} else if(($pass = hash("sha512", $_POST['password'])) == ""){
 						$this->error = "FAIL: password cannot be empty!";
 						return;
 					}

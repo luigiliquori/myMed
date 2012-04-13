@@ -49,9 +49,11 @@ abstract class AbstractView {
 	* Get the FOOTER for jQuery Mobile
 	*/
 	public /*String*/ function getFooter() { ?>
-		<div data-role="navbar">
+		<?php $profileView = $this->id == "ProfileView" ?>
+		<div data-role="navbar" data-iconpos="left">
 			<ul>
-				<li><a href="a.html">Admin</a></li>
+				<li><a href="#ProfileView" <?= $profileView ? "data-theme='b'" : "" ?> data-icon="profile">Profile</a></li>
+				<li><a href="#" data-icon="gear">Admin</a></li>
 			</ul>
 		</div><!-- /navbar -->
 		<div Style="position: relative; width: 100%; text-align: center;">

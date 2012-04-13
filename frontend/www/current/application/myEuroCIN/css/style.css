@@ -4,14 +4,8 @@
 	text-shadow: none;
 }
 
-#serachBox {
-}
-
-#loginBox {
-}
-
-#content {
-	
+.ui-icon-profile {
+	background-image: url("../img/profile.png");
 }
 
 /* Red button theme for JQuery Mobile
