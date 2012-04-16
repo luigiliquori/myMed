@@ -53,7 +53,7 @@ abstract class AbstractView {
 		<div data-role="navbar" data-iconpos="left">
 			<ul>
 				<li><a href="#ProfileView" <?= $profileView ? "data-theme='b'" : "" ?> data-icon="profile">Profile</a></li>
-				<li><a href="#" data-icon="gear">Admin</a></li>
+				<li><a href="/application/myEuroCIN_Admin" data-icon="gear" target="blank">Admin</a></li>
 			</ul>
 		</div><!-- /navbar -->
 		<div Style="position: relative; width: 100%; text-align: center;">

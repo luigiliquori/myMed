@@ -103,26 +103,32 @@ class DetailView extends MainView {
 					<?php } ?>
 					<form  action="#DetailView" method="post" name="CommentPublishForm" id="CommentPublishForm" enctype="multipart/form-data">
 						<!-- Define the method to call -->
-						<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
+						<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>_ADMIN" />
 						<input type="hidden" name="method" value="publish" />
-						<input type="hidden" name="numberOfOntology" value="3" />
+						<input type="hidden" name="numberOfOntology" value="4" />
+						
+						<!-- CommentGroup -->
+						<input type="hidden" name="commentGroup" value="<?= APPLICATION_NAME ?>" />
+						<?php $dataBean = new MDataBean("commentGroup", null, KEYWORD); ?>
+						<input type="hidden" name="ontology0" value="<?= urlencode(json_encode($dataBean)); ?>">
+						<br />
 									
 						<!-- CommentID -->
 						<input type="hidden" name="commentOn" value="<?= $title ?>" />
 						<?php $dataBean = new MDataBean("commentOn", null, KEYWORD); ?>
-						<input type="hidden" name="ontology0" value="<?= urlencode(json_encode($dataBean)); ?>">
+						<input type="hidden" name="ontology1" value="<?= urlencode(json_encode($dataBean)); ?>">
 						<br />
 						
 						<!-- DATE  -->
 						<input type="hidden" name="begin" value="<?= date("d/m/Y") . " - " . date("H:i:s") ?>" />
 						<?php $date = new MDataBean("begin", null, DATE); ?>
-						<input type="hidden" name="ontology1" value="<?= urlencode(json_encode($date)); ?>">
+						<input type="hidden" name="ontology2" value="<?= urlencode(json_encode($date)); ?>">
 						
 						<!-- TEXT -->
 						<span>Add Comment :</span>
 						<textarea name="data"></textarea>
 						<?php $dataBean = new MDataBean("data", null, TEXT); ?>
-						<input type="hidden" name="ontology2" value="<?= urlencode(json_encode($dataBean)); ?>">
+						<input type="hidden" name="ontology3" value="<?= urlencode(json_encode($dataBean)); ?>">
 						<br />
 						
 						<a href="#" data-role="button" onclick="document.CommentPublishForm.submit()" >Publicare</a>

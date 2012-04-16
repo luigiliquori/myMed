@@ -41,7 +41,7 @@ class PublishView extends MainView {
 	
 		<form  action="#PublishView" method="post" name="<?= APPLICATION_NAME ?>PublishForm" id="<?= APPLICATION_NAME ?>PublishForm" enctype="multipart/form-data">
 			<!-- Define the method to call -->
-			<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
+			<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>_ADMIN" />
 			<input type="hidden" name="method" value="publish" />
 			<input type="hidden" name="numberOfOntology" value="13" />
 			

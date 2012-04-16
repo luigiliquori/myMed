@@ -27,7 +27,9 @@
 	require_once dirname(__FILE__).'/views/AbstractView.class.php';	
 	require_once dirname(__FILE__).'/views/home/MainView.class.php';
 	require_once dirname(__FILE__).'/views/home/ArticleView.class.php';			new ArticleView($application);
+	require_once dirname(__FILE__).'/views/home/EditArticleView.class.php';		new EditArticleView($application);
 	require_once dirname(__FILE__).'/views/home/CommentView.class.php';			new CommentView($application);
+	require_once dirname(__FILE__).'/views/home/EditCommentView.class.php';		new EditCommentView($application);
 	
 	// CLOSE THE HTML PAGE
 	$template->getFooter();
