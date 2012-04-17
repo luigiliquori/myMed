@@ -72,8 +72,8 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
         // try {
         // TODO add international support
         contentBuilder.append("Bienvenu sur myMed.\n\nPour finaliser votre inscription cliquez sur le lien:\n\n");
-        contentBuilder.append(SERVER_PROTOCOL);
-        contentBuilder.append(SERVER_URI);
+        contentBuilder.append(getServerProtocol());
+        contentBuilder.append(getServerURI());
         contentBuilder.append("?registration=ok&accessToken=");
         contentBuilder.append(accessToken);
         contentBuilder.append("\n\n------\nL'équipe myMed");
@@ -82,10 +82,10 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
 
         // Send the mail
         try {
-			new Mail("infomymed@gmail.com", user.getEmail(), "Bienvenu sur myMed", contentBuilder.toString());
-		} catch (Exception e) {
-			throw new InternalBackEndException("Error sending the email");
-		}
+            new Mail("infomymed@gmail.com", user.getEmail(), "Bienvenu sur myMed", contentBuilder.toString());
+        } catch (final Exception e) {
+            throw new InternalBackEndException("Error sending the email");
+        }
     }
 
     @Override
