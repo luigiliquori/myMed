@@ -81,7 +81,6 @@ class PublishView extends MainView {
 				<?php $dataBean = new MDataBean("Lingua", null, KEYWORD); ?>
 				<input type="hidden" name="ontology2" value="<?= urlencode(json_encode($dataBean)); ?>">
 				<br />
-				
 				<!-- Categorie -->
 				<div data-role="fieldcontain">
 					<span>Categorie :</span>
@@ -142,7 +141,7 @@ class PublishView extends MainView {
 			
 			<!-- TEXT -->
 			<span>Testo :</span>
-			<textarea id="markItUp" name="text"></textarea>
+			<textarea id="CLEeditor" name="text"></textarea>
 			<?php $dataBean = new MDataBean("text", null, TEXT); ?>
 			<input type="hidden" name="ontology11" value="<?= urlencode(json_encode($dataBean)); ?>">
 			<br />
