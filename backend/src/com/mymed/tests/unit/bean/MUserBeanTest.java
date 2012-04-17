@@ -29,58 +29,59 @@ import com.mymed.model.data.user.MUserBean;
 
 public class MUserBeanTest {
 
-  private static MUserBean userBean;
-  private static MUserBean nullActual = null;
+    private static MUserBean userBean;
+    private static MUserBean nullActual = null;
+    private static final int NUMBER_OF_ATTR = 21;
 
-  @BeforeClass
-  public static void setUpBefore() {
-    userBean = new MUserBean();
-    userBean.setId("ID");
-    userBean.setName("NAME");
-    userBean.setLastName("LAST_NAME");
-    userBean.setFirstName("FIRST_NAME");
-    userBean.setEmail("EMAIL@PROVA");
-    userBean.setLogin("LOGIN");
-  }
-
-  /**
-   * Check that the getAttributeToMap() method works
-   */
-  @Test
-  public void attributeToMapTest() {
-    try {
-      final Map<String, byte[]> attributesMap = userBean.getAttributeToMap();
-      assertEquals(20, attributesMap.size());
-    } catch (final Exception ex) {
-      fail(ex.getMessage());
+    @BeforeClass
+    public static void setUpBefore() {
+        userBean = new MUserBean();
+        userBean.setId("ID");
+        userBean.setName("NAME");
+        userBean.setLastName("LAST_NAME");
+        userBean.setFirstName("FIRST_NAME");
+        userBean.setEmail("EMAIL@PROVA");
+        userBean.setLogin("LOGIN");
     }
-  }
 
-  @Test
-  public void notEqualsTest() {
-    final MUserBean actual = new MUserBean();
-    actual.setId("ANOTHER_ID");
-    actual.setName("ANOTHER_NAME");
+    /**
+     * Check that the getAttributeToMap() method works
+     */
+    @Test
+    public void attributeToMapTest() {
+        try {
+            final Map<String, byte[]> attributesMap = userBean.getAttributeToMap();
+            assertEquals(NUMBER_OF_ATTR, attributesMap.size());
+        } catch (final Exception ex) {
+            fail(ex.getMessage());
+        }
+    }
 
-    assertFalse("The user beans are the same", userBean.equals(actual));
-  }
+    @Test
+    public void notEqualsTest() {
+        final MUserBean actual = new MUserBean();
+        actual.setId("ANOTHER_ID");
+        actual.setName("ANOTHER_NAME");
 
-  /**
-   * Test equals with null object
-   */
-  @Test
-  public void nullEqualsTest() {
-    assertFalse("The user beans are the same", userBean.equals(nullActual)); // NOPMD
-  }
+        assertFalse("The user beans are the same", userBean.equals(actual));
+    }
 
-  @Test
-  public void cloneEqualsTest() {
-    final MUserBean actual = userBean.clone();
-    assertEquals("The user beans are not the same", userBean, actual);
-  }
+    /**
+     * Test equals with null object
+     */
+    @Test
+    public void nullEqualsTest() {
+        assertFalse("The user beans are the same", userBean.equals(nullActual)); // NOPMD
+    }
 
-  @AfterClass
-  public static void cleanUpAfter() {
-    userBean = null; // NOPMD
-  }
+    @Test
+    public void cloneEqualsTest() {
+        final MUserBean actual = userBean.clone();
+        assertEquals("The user beans are not the same", userBean, actual);
+    }
+
+    @AfterClass
+    public static void cleanUpAfter() {
+        userBean = null; // NOPMD
+    }
 }
