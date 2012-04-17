@@ -44,8 +44,8 @@ class EditArticleView extends MainView {
 	
 		<form  action="#ArticleView" method="post" name="<?= APPLICATION_NAME ?>PublishForm" id="<?= APPLICATION_NAME ?>PublishForm" enctype="multipart/form-data">
 			<!-- Define the method to call -->
-			<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
-			<input type="hidden" name="method" value="publish" />
+			<input type="hidden" id="EditArticleApplication" name="application" value="<?= APPLICATION_NAME ?>" />
+			<input type="hidden" id="EditArticleMethod" name="method" value="publish" />
 			<input type="hidden" name="numberOfOntology" value="13" />
 			
 			<!-- Titolo -->
@@ -140,7 +140,7 @@ class EditArticleView extends MainView {
 			
 			<!-- TEXT -->
 			<span>Testo :</span>
-			<textarea id="markItUp" name="text"><?= $values['text'] ?></textarea>
+			<textarea id="CLEeditor" name="text"><?= $values['text'] ?></textarea>
 			<?php $dataBean = new MDataBean("text", null, TEXT); ?>
 			<input type="hidden" name="ontology11" value="<?= urlencode(json_encode($dataBean)); ?>">
 			<br />
@@ -152,7 +152,7 @@ class EditArticleView extends MainView {
 			
 			<center>
 			<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>PublishForm.submit()" data-theme="g" data-inline="true">Validate</a>
-			<a href="#" data-role="button" onclick="" data-theme="r" data-inline="true">Reject</a>
+			<a href="#" data-role="button" onclick="$('#EditArticleApplication').val('<?= APPLICATION_NAME ?>_ADMIN'); $('#EditArticleMethod').val('delete'); document.<?= APPLICATION_NAME ?>PublishForm.submit()" data-theme="r" data-inline="true">Reject</a>
 			</center>
 		</form>
 	<?php }

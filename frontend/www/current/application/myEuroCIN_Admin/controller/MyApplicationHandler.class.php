@@ -2,6 +2,7 @@
 require_once '../../lib/dasp/request/Publish.class.php';
 require_once '../../lib/dasp/request/Find.class.php';
 require_once '../../lib/dasp/request/GetDetail.class.php';
+require_once '../../lib/dasp/request/Delete.class.php';
 require_once '../../lib/dasp/request/Subscribe.class.php';
 require_once '../../lib/dasp/request/Request.class.php';
 
@@ -36,6 +37,9 @@ class MyApplicationHandler implements IRequestHandler {
 			if($_POST['method'] == "publish") {
 				$publish = new Publish($this);
 				$publish->send();
+				$_POST['application'] = APPLICATION_NAME . "_ADMIN";
+				$delete = new Delete($this);
+				$delete->send();
 			} else if($_POST['method'] == "subscribe") {
 				$subscribe = new Subscribe($this);
 				$subscribe->send();
@@ -45,6 +49,9 @@ class MyApplicationHandler implements IRequestHandler {
 			} else if($_POST['method'] == "getDetail") {
 				$getDetail = new GetDetail($this);
 				$getDetail->send();
+			} else if($_POST['method'] == "delete") {
+				$delete = new Delete($this);
+				$delete->send();
 			} else if($_POST['method'] == "startInteraction") {
 				$startInteraction = new StartInteraction($this);
 				$startInteraction->send();

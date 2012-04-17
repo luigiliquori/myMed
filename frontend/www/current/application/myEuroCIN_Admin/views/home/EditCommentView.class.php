@@ -42,10 +42,10 @@ class EditCommentView extends MainView {
 			$values[$details->key] = urldecode($details->value);
 		} ?>
 	
-		<form action="#CommentView" method="post" name="CommentPublishForm" id="CommentPublishForm" enctype="multipart/form-data">
+		<form action="#CommentView" method="post" name="EditCommentForm" id="EditCommentForm" enctype="multipart/form-data">
 			<!-- Define the method to call -->
-			<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
-			<input type="hidden" name="method" value="publish" />
+			<input type="hidden" id="EditCommentApplication" name="application" value="<?= APPLICATION_NAME ?>" />
+			<input type="hidden" id="EditCommentMethod" name="method" value="publish" />
 			<input type="hidden" name="numberOfOntology" value="4" />
 			
 			<!-- CommentGroup -->
@@ -66,17 +66,18 @@ class EditCommentView extends MainView {
 			<input type="text" name="begin" value="<?= $values["begin"] ?>"  readonly="readonly"/>
 			<?php $date = new MDataBean("begin", null, DATE); ?>
 			<input type="hidden" name="ontology2" value="<?= urlencode(json_encode($date)); ?>">
+			<br />
 			
 			<!-- TEXT -->
-			<span>Add Comment :</span>
+			<span>Comment :</span>
 			<textarea name="data"><?= $values["data"] ?></textarea>
 			<?php $dataBean = new MDataBean("data", null, TEXT); ?>
 			<input type="hidden" name="ontology3" value="<?= urlencode(json_encode($dataBean)); ?>">
 			<br />
 			
 			<center>
-			<a href="#" data-role="button" onclick="document.CommentPublishForm.submit()" data-theme="g" data-inline="true">Validate</a>
-			<a href="#" data-role="button" onclick="" data-theme="r" data-inline="true">Reject</a>
+			<a href="#" data-role="button" onclick="document.EditCommentForm.submit()" data-theme="g" data-inline="true">Validate</a>
+			<a href="#" data-role="button" onclick="$('#EditCommentApplication').val('<?= APPLICATION_NAME ?>_ADMIN'); $('#EditCommentMethod').val('delete'); document.EditCommentForm.submit()" data-theme="r" data-inline="true">Reject</a>
 			</center>
 		</form>
 	<?php }

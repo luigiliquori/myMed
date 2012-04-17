@@ -37,8 +37,8 @@ class DetailView extends MainView {
 	public /*String*/ function getContent() { ?>
 		<div data-role="content" id="content" style="padding: 10px;" data-theme="c">
 		
-			<a href="#ResultView" data-role="button" data-direction="reverse" data-inline="true">back</a><br /><br /> <?php 
-			
+			<a href="#ResultView" data-role="button" data-direction="reverse" data-inline="true">back</a><br />
+ 			<?php 
 			if(isset($_POST['method']) && $_POST['method'] == "getDetail" && $this->handler->getSuccess()) {
 				$details = json_decode($this->handler->getSuccess());
 				$_SESSION[APPLICATION_NAME]['details'] = $details;
@@ -50,18 +50,15 @@ class DetailView extends MainView {
 			}
 			?>
 			<!-- TEXT -->
+			<?php $values = array(); ?>
 			<?php foreach($details as $detail) {
 				if(isset($detail->key) && isset($detail->value)) {
-					if($detail->key == "data") { 
-						$title = urldecode($detail->value);
-					}
-					if($detail->key == "text") {
-						$text = urldecode($detail->value);
-					}
+					$values[$detail->key] = urldecode($detail->value);
 				}
 			} ?>
-			<h1><?= $title ?></h1>
-			<p><?= $text ?></p>
+			<h1><?= $values['data'] ?></h1>
+			<div id="article"><?= $values['text'] ?></div>
+			<br />
 			
 	    	<!-- AUTHOR -->
 	    	<?php
@@ -76,9 +73,11 @@ class DetailView extends MainView {
 	    	<?php } else { ?>
 	    		<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="30" height="30" style="position: absolute;">
 	    	<?php } ?>
-		    <div style="position: relative; top: 3px; left:35px; height: 30px;"><?= $profile->firstName ?> <?= $profile->lastName ?></div>
-	    	
-	    	<hr />
+		    <div style="position: relative; top: 3px; left:35px; height: 30px;">
+		    	<?= $profile->firstName ?> 
+		    	<?= $profile->lastName ?> - 
+		    	<?= $values['begin'] ?>
+		    </div>
 	    	
 	    	<!-- COMMENT -->
 	    	<div data-role="collapsible"  data-content-theme="d">
@@ -88,7 +87,7 @@ class DetailView extends MainView {
 	    		<?php } else {
 			    	$request = new Request("FindRequestHandler", READ);
 			    	$request->addArgument("application", APPLICATION_NAME);
-			    	$request->addArgument("predicate", "commentOn" . $title);
+			    	$request->addArgument("predicate", "commentOn" . $values['data']);
 			    	$responsejSon = $request->send();
 			    	$responseObject = json_decode($responsejSon);
 			    	if($responseObject->status == 200) {
@@ -99,7 +98,7 @@ class DetailView extends MainView {
 				    		<br /><br />
 				    	<?php } ?>
 					<?php } else { ?>
-						<p><?= $responseObject->description ?></p>
+						<p>0 comments</p>
 					<?php } ?>
 					<form  action="#DetailView" method="post" name="CommentPublishForm" id="CommentPublishForm" enctype="multipart/form-data">
 						<!-- Define the method to call -->
@@ -114,7 +113,7 @@ class DetailView extends MainView {
 						<br />
 									
 						<!-- CommentID -->
-						<input type="hidden" name="commentOn" value="<?= $title ?>" />
+						<input type="hidden" name="commentOn" value="<?= $values['data'] ?>" />
 						<?php $dataBean = new MDataBean("commentOn", null, KEYWORD); ?>
 						<input type="hidden" name="ontology1" value="<?= urlencode(json_encode($dataBean)); ?>">
 						<br />

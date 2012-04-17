@@ -37,9 +37,9 @@ class MainView extends AbstractView {
 				<?php $mainView = $this->id == "MainView" ?>
 				<?php $findView = $this->id == "FindView" || $this->id == "ResultView" || $this->id == "DetailView" ?>
 				<?php $publishView = $this->id == "PublishView" ?>
-				<li><a href="#MainView" <?= $mainView ? "data-theme='b'" : "" ?> data-icon="home">Benvenuto</a></li>
-				<li><a href="#FindView" <?= $findView  ? "data-theme='b'" : "" ?> data-icon="search">Cercare</a></li>
-				<li><a href="#PublishView" <?= $publishView ? "data-theme='b'" : "" ?> data-icon="grid">Publicare</a></li>
+				<li><a href="#MainView" <?= $mainView ? "data-theme='b'" : "" ?> data-icon="home" data-transition="fade">Benvenuto</a></li>
+				<li><a href="#FindView" <?= $findView  ? "data-theme='b'" : "" ?> data-icon="search" data-transition="fade">Cercare</a></li>
+				<li><a href="#PublishView" <?= $publishView ? "data-theme='b'" : "" ?> data-icon="grid" data-transition="fade">Publicare</a></li>
 			</ul>
 		</div><!-- /navbar -->
 	<?php }

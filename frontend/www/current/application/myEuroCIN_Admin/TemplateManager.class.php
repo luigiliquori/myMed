@@ -26,11 +26,11 @@ class TemplateManager {
 			<script src="../../lib/jquery/datebox/jquery.mobile.datebox.min.js"></script>
 			<link href="../../lib/jquery/datebox/jquery.mobile.datebox.min.css" rel="stylesheet" />
 			
-			<!-- markitup -->
-			<script type="text/javascript" src="../../lib/jquery/markitup/jquery.markitup.js"></script>
-			<script type="text/javascript" src="../../lib/jquery/markitup/sets/default/set.js"></script>
-			<link rel="stylesheet" type="text/css" href="../../lib/jquery/markitup/skins/markitup/style.css" />
-			<link rel="stylesheet" type="text/css" href="../../lib/jquery/markitup/sets/default/style.css" />
+			<!-- CLEeditor -->
+    		<link rel="stylesheet" type="text/css" href="../../lib/jquery/CLEeditor/jquery.cleditor.css" />
+    		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    		<script type="text/javascript" src="../../lib/jquery/CLEeditor/jquery.cleditor.min.js"></script>
+    		<script type="text/javascript" src="../../lib/jquery/CLEeditor/startCLE.js"> </script>
 			
 			<!-- APP JS -->
 			<script src="javascript/system.js"></script>
