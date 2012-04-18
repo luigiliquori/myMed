@@ -897,7 +897,7 @@
 
       // Resize the iframe
       hgt = (/%/.test("" + options.height) ? $main.height() : parseInt(options.height)) - hgt;
-      $frame.width(wid).height(hgt);
+      $frame.width("100%").height("100%");
 
       // Resize the textarea. IE6 textareas have a 1px top
       // & bottom margin that cannot be removed using css.
