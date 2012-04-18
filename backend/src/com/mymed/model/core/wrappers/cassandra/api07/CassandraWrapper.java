@@ -138,10 +138,10 @@ public class CassandraWrapper implements ICassandraWrapper {
                 connection.getClient().set_keyspace(KEYSPACE);
             } catch (final InvalidRequestException ex) {
                 LOGGER.debug("Error setting the keyspace '{}'", KEYSPACE, ex);
-                throw new InternalBackEndException("Error setting the keyspace");
+                throw new InternalBackEndException("Error setting the keyspace"); // NOPMD
             } catch (final TException ex) {
                 LOGGER.debug("Error setting the keyspace '{}'", KEYSPACE, ex);
-                throw new InternalBackEndException("Error setting the keyspace");
+                throw new InternalBackEndException("Error setting the keyspace"); // NOPMD
             }
 
             LOCK.notifyAll();
@@ -234,7 +234,7 @@ public class CassandraWrapper implements ICassandraWrapper {
             try {
                 result = getClient().get(keyToBuffer, path, level);
             } catch (final NotFoundException ex) {
-                throw new IOBackEndException(ex.getMessage(), 404);
+                throw new IOBackEndException(ex.getMessage(), 404); // NOPMD
             } catch (final InvalidRequestException ex) {
                 throw new InternalBackEndException(ex);
             } catch (final UnavailableException ex) {
@@ -731,7 +731,7 @@ public class CassandraWrapper implements ICassandraWrapper {
         try {
             keySpaceDef = getClient().describe_keyspace(keySpace);
         } catch (final NotFoundException ex) {
-            throw new IOBackEndException(ex.getMessage(), 404);
+            throw new IOBackEndException(ex.getMessage(), 404); // NOPMD
         } catch (final InvalidRequestException ex) {
             throw new InternalBackEndException(ex);
         } catch (final TException ex) {
