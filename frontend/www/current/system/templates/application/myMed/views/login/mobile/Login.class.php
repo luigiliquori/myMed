@@ -37,7 +37,7 @@ class Login extends AbstractTemplate {
 		<!-- HEADER -->
 		<div data-role="header" data-theme="b">
 			<div data-role="controlgroup" data-type="horizontal" style="text-align: center;">
-				<a href="#inscription" data-role="button" data-inline="true" >inscription</a>
+				<!-- <a href="#inscription" data-role="button" data-inline="true" >inscription</a> -->
 			</div>
 		</div>		
 	<?php }
