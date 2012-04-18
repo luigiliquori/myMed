@@ -12,6 +12,9 @@
 	// GET ALL THE API KEYs AND ADDRESS
 	require_once dirname(__FILE__).'/../../system/config.php';
 	
+	// IMPORT DICIONARY
+	require_once dirname(__FILE__).'/dictionary.php';
+	
 	define('APPLICATION_NAME', "myEuroCIN");
 	define('VISITOR_ID', "MYMED_myEurocin_visitor@yopmail.com");
 	define('USER_CONNECTED', isset($_SESSION['user']));

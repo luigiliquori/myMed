@@ -49,6 +49,11 @@ abstract class AbstractView {
 	* Get the FOOTER for jQuery Mobile
 	*/
 	public /*String*/ function getFooter() { ?>
+		<div data-role="navbar" data-iconpos="left">
+			<ul>
+				<li><a href="/application/myEuroCIN" data-icon="gear" target="blank">Back</a></li>
+			</ul>
+		</div><!-- /navbar -->
 		<div Style="position: relative; width: 100%; text-align: center;">
 				<h4>myMed - INTERREG IV - Alcotra</h4>
 				<img alt="Alcotra" src="../../system/img/logos/alcotra"

@@ -37,7 +37,7 @@ class DetailView extends MainView {
 	public /*String*/ function getContent() { ?>
 		<div data-role="content" id="content" style="padding: 10px;" data-theme="c">
 		
-			<a href="#ResultView" data-role="button" data-direction="reverse" data-inline="true">back</a><br />
+			<a href="#ResultView" data-role="button" data-direction="reverse" data-inline="true"><?= $_SESSION['dictionary'][IT]["back"] ?></a><br />
  			<?php 
 			if(isset($_POST['method']) && $_POST['method'] == "getDetail" && $this->handler->getSuccess()) {
 				$details = json_decode($this->handler->getSuccess());
