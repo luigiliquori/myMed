@@ -24,29 +24,57 @@ class SearchView extends MyApplication {
 	public function __construct() {
 		parent::__construct("Search");
 		$this->filterList = array(
-				"ADAPEI",
+// 				"ADAPEI",
 // 				"ADERF",
 // 				"ASSEDIC",
+				"Banques",
 				"Bibliotheque",
 // 				"CCAS",
+				"Cimetieres",
+				"colleges",
+				"Eglises",
 // 				"EPCI",
 				"EqptPublic",
-				"Mairie", 
-				"Eglises",
 				"Forts_militaires",
 // 				"Fourriere",
 				"FoyerRural",
 				"GARES_SUD",
+				"Halte_Garderie",
+				"IUT",
 				"Jardins",
+// 				"LCM",
+// 				"LYP",
+// 				"LP",
+// 				"LYT",
+// 				"LEGTA",
+// 				"EREA",
+// 				"LCL",
+// 				"LCM",
+// 				"LPA",
+// 				"LG",
+				"Mairie",
 				"Maisons_Retraites",
+				"Maternelles",
 				"Monuments",
 				"OfficeDeTourisme",
+				"Pizza_Emporter",
 				"Police_municipale",
 				"Ports",
 				"POSTES",
+				"Primaire",
+				"Restaurants",
+				"SCIENCES_PO",
 				"STADES",
-				"Commerces"
+				"Travail_Temporaire",
+				"Tresor_Public",
 		);
+		if ($handle = opendir('system/templates/application/' . APPLICATION_NAME . '/img/pois')) {
+			$pois = "";
+			while (false !== ($file = readdir($handle))) {
+				$pois .= $file . ",";
+			}
+			echo "<input id='poiIcon' type='hidden' value='" . $pois . "' />";
+		}
 	}
 	
 	/**
