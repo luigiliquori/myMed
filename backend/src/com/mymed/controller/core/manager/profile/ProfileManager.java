@@ -71,7 +71,7 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
      * @throws IOBackEndException
      */
     @Override
-    public MUserBean create(final MUserBean user) throws InternalBackEndException, IOBackEndException {
+    public final MUserBean create(final MUserBean user) throws InternalBackEndException, IOBackEndException {
         final Map<String, byte[]> args = user.getAttributeToMap();
         storageManager.insertSlice(CF_USER, com.mymed.utils.MConverter.byteArrayToString(args.get(FIELD_ID)), args);
 
@@ -86,7 +86,7 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
      * @throws IOBackEndException
      */
     @Override
-    public MUserBean read(final String id) throws InternalBackEndException, IOBackEndException {
+    public final MUserBean read(final String id) throws InternalBackEndException, IOBackEndException {
         final Map<byte[], byte[]> args = storageManager.selectAll(CF_USER, id);
 
         if (args.isEmpty()) {
@@ -102,7 +102,7 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
      * @see IProfileManager#update(MUserBean)
      */
     @Override
-    public MUserBean update(final MUserBean user) throws InternalBackEndException, IOBackEndException {
+    public final MUserBean update(final MUserBean user) throws InternalBackEndException, IOBackEndException {
         LOGGER.info("Updating user with FIELD_ID '{}'", user.getId());
         // create(user) will replace the current values of the user...
         return create(user);
@@ -113,7 +113,7 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
      * @see IProfileManager#delete(MUserBean)
      */
     @Override
-    public void delete(final String id) throws InternalBackEndException, IOBackEndException {
+    public final void delete(final String id) throws InternalBackEndException, IOBackEndException {
         final MUserBean user = read(id);
         storageManager.removeAll(CF_USER, id);
 
