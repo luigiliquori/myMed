@@ -15,7 +15,8 @@ class ProfileView extends MainView {
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
-	private /*IRequestHandler*/ $handler;
+	private /*IRequestHandler*/ $loginHandler;
+	private /*IRequestHandler*/ $inscriptionHandler;
 	
 	/* --------------------------------------------------------- */
 	/* Constructors */
@@ -23,8 +24,9 @@ class ProfileView extends MainView {
 	/**
 	 * Default constructor
 	 */
-	public function __construct($handler) {
-		$this->handler = $handler;
+	public function __construct($loginHandler, $inscriptionHandler) {
+		$this->loginHandler = $loginHandler;
+		$this->inscriptionHandler = $inscriptionHandler;
 		parent::__construct("ProfileView");
 	}
 	
@@ -55,21 +57,23 @@ class ProfileView extends MainView {
 			<?php } else { ?>
 				<form action="#ProfileView" method="post" name="singinForm" id="singinForm" Style="text-align: center;">
 					<h3><?= APPLICATION_NAME ?></h3>
+					
 					<!-- NOTIFICATION -->
-					<?php if($this->handler->getError()) { ?>
+					<?php if(($error = $this->loginHandler->getError()) || ($error = $this->inscriptionHandler->getError())) { ?>
 						<div id="loginError" style="color: red;">
-							<?= $this->handler->getError(); ?>
+							<?= $error; ?>
 						</div>
 					<?php } else if(isset($_SESSION['error'])) { ?>
 						<div id="loginError" style="color: red;">
 							<?= $_SESSION['error']; ?>
 							<?php $_SESSION['error'] = null; ?>
 						</div>
-					<?php } else if($this->handler->getSuccess()) { ?>
+					<?php } else if($success = $this->inscriptionHandler->getSuccess()) { ?>
 						<div style="color: #12ff00;">
-							<?= $this->handler->getSuccess(); ?>
+							<?= $success ?>
 						</div>
 					<?php } ?>
+					
 					<input type="hidden" name="singin" value="1" />
 					<input type="text" name="login" id="login" value="email"  data-theme="c"/><br />
 					<input type="password" name="password" id="password" value="Mot de passe"  data-theme="c"/><br />

@@ -164,6 +164,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
             final String password = parameters.get(JSON_PASSWORD);
             final String oldPassword = parameters.get(JSON_OLD_PWD);
             final String oldLogin = parameters.get(JSON_OLD_LOGIN);
+            final String application = parameters.get(JSON_APPLICATION);
 
             switch (code) {
                 case CREATE :
@@ -197,7 +198,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
                                                 authenticationBean.getPassword());
                             } catch (final IOBackEndException loginTestException) {
                                 if (loginTestException.getStatus() == 404) { // the login does not exist
-                                    registrationManager.create(userBean, authenticationBean);
+                                    registrationManager.create(userBean, authenticationBean, application);
                                     LOGGER.info("registration email sent");
                                     message.setDescription("registration email sent");
                                     loginAlreadyExist = false;

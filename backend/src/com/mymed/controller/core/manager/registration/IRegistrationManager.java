@@ -16,7 +16,7 @@ public interface IRegistrationManager {
    * @param authentication
    * @throws AbstractMymedException
    */
-  void create(MUserBean user, MAuthenticationBean authentication) throws AbstractMymedException;
+  void create(MUserBean user, MAuthenticationBean authentication, String application) throws AbstractMymedException;
 
   /**
    * 

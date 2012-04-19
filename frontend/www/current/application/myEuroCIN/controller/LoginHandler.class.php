@@ -54,7 +54,7 @@ class LoginHandler implements IRequestHandler {
 					if($responseObject->status != 200) {
 						$_SESSION['error'] = $responseObject->description;
 					} else {
-						header("Refresh:0;url=" . $url . "/" . APPLICATION_NAME . "?inscription=ok"); // REDIRECTION
+						header("Refresh:0;url=/application/" . APPLICATION_NAME . "?inscription=ok#ProfileView"); // REDIRECTION
 					}
 				} else { // HANDLE LOGIN
 					$request = new Request("SessionRequestHandler", READ);
@@ -105,7 +105,6 @@ class LoginHandler implements IRequestHandler {
 					$_SESSION['error'] = $responseObject->description;
 				} else {
 					$accessToken = $responseObject->data->accessToken;
-					$url = $responseObject->data->url;
 					echo "<form id='singinRedirectForm' name='singinRedirectForm' method='post'>";
 					echo "<input type='hidden' name='accessToken' value='" . $accessToken . "' />";
 					echo "</form>";

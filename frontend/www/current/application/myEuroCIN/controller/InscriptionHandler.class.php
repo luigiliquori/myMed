@@ -54,7 +54,10 @@ class InscriptionHandler implements IRequestHandler {
 			$request = new Request("AuthenticationRequestHandler", CREATE);
 			$request->addArgument("authentication", json_encode($mAuthenticationBean));
 			$request->addArgument("user", json_encode($mUserBean));
+			$request->addArgument("application", APPLICATION_NAME);
 			
+			// force to delete existing accessToken
+			unset($_SESSION['accessToken']);
 			$responsejSon = $request->send();
 			$responseObject = json_decode($responsejSon);
 
