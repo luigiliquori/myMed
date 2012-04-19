@@ -98,7 +98,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
             registrationManager = new RegistrationManager();
         } catch (final InternalBackEndException e) {
             LOGGER.debug("AuthenticationManager not accessible!", e);
-            throw new ServletException("AuthenticationManager is not accessible because: " + e.getMessage());
+            throw new ServletException("AuthenticationManager is not accessible because: " + e.getMessage()); // NOPMD
         }
     }
 
@@ -208,7 +208,8 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
                                 throw new IOBackEndException("The login already exist!", 409);
                             }
                         } catch (final JsonSyntaxException e) {
-                            throw new InternalBackEndException("User/Authentication jSon format is not valid");
+                            LOGGER.debug("JSON format is not valid", e);
+                            throw new InternalBackEndException("User/Authentication jSon format is not valid"); // NOPMD
                         }
                     }
                     break;
@@ -272,7 +273,8 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
                             authenticationManager.update(oldLogin, authenticationBean);
                             LOGGER.info("Authentication updated!");
                         } catch (final JsonSyntaxException e) {
-                            throw new InternalBackEndException("Authentication jSon format is not valid");
+                            LOGGER.debug("JSON format is not valid", e);
+                            throw new InternalBackEndException("Authentication jSon format is not valid"); // NOPMD
                         }
                     }
                     break;

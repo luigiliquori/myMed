@@ -85,10 +85,10 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
 
         // Send the mail
         try {
-			new Mail("infomymed@gmail.com", user.getEmail(), "Bienvenu sur myMed", contentBuilder.toString());
-		} catch (Exception e) {
-			throw new InternalBackEndException("Error sending the email");
-		}
+            new Mail("infomymed@gmail.com", user.getEmail(), "Bienvenu sur myMed", contentBuilder.toString());
+        } catch (final Exception e) {
+            throw new InternalBackEndException("Error sending the email");
+        }
     }
 
     @Override

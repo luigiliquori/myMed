@@ -130,7 +130,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
                  <var name="server.protocol" value="http"/>
              </else>
          </if>
-         <echo message="Protocol will be: ${backend.protocol}"/>
+         <echo message="Protocol will be: ${server.protocol}"/>
 
         <!--
             A hack: we need to have a variable that defines the URL of the server
