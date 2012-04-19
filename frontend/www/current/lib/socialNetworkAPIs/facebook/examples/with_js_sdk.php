@@ -3,37 +3,37 @@
 require '../src/facebook.php';
 
 $facebook = new Facebook(array(
-  'appId'  => '191149314281714',
-  'secret' => '73b67bf1c825fa47efae70a46c18906b',
+		'appId'  => '191149314281714',
+		'secret' => '73b67bf1c825fa47efae70a46c18906b',
 ));
 
 // See if there is a user from a cookie
 $user = $facebook->getUser();
 
 if ($user) {
-  try {
-    // Proceed knowing you have a logged in user who's authenticated.
-    $user_profile = $facebook->api('/me');
-  } catch (FacebookApiException $e) {
-    echo '<pre>'.htmlspecialchars(print_r($e, true)).'</pre>';
-    $user = null;
-  }
+	try {
+		// Proceed knowing you have a logged in user who's authenticated.
+		$user_profile = $facebook->api('/me');
+	} catch (FacebookApiException $e) {
+		echo '<pre>'.htmlspecialchars(print_r($e, true)).'</pre>';
+		$user = null;
+	}
 }
 
 ?>
 <!DOCTYPE html>
 <html xmlns:fb="http://www.facebook.com/2008/fbml">
-  <body>
-    <?php if ($user) { ?>
-      Your user profile is
-      <pre>
+<body>
+	<?php if ($user) { ?>
+	Your user profile is
+	<pre>
         <?php print htmlspecialchars(print_r($user_profile, true)) ?>
       </pre>
-    <?php } else { ?>
-      <fb:login-button></fb:login-button>
-    <?php } ?>
-    <div id="fb-root"></div>
-    <script>
+	<?php } else { ?>
+	<fb:login-button></fb:login-button>
+	<?php } ?>
+	<div id="fb-root"></div>
+	<script>
       window.fbAsyncInit = function() {
         FB.init({
           appId: '<?php echo $facebook->getAppID() ?>',
@@ -55,5 +55,5 @@ if ($user) {
         document.getElementById('fb-root').appendChild(e);
       }());
     </script>
-  </body>
+</body>
 </html>
