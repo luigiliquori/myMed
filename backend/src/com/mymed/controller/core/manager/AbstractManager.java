@@ -47,6 +47,21 @@ import com.mymed.utils.MLogger;
  */
 public abstract class AbstractManager {
     /**
+     * Default value for the 403 HTTP error code.
+     */
+    public static final int ERROR_FORBIDDEN = 403;
+
+    /**
+     * Default value for the 404 HTTP error code.
+     */
+    public static final int ERROR_NOT_FOUND = 404;
+
+    /**
+     * Default value for the 409 HTTP error code.
+     */
+    public static final int ERROR_CONFLICT = 409;
+
+    /**
      * The default storage manager.
      */
     protected IStorageManager storageManager;
