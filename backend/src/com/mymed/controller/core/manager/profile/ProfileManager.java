@@ -26,7 +26,7 @@ import com.mymed.model.data.user.MUserBean;
 
 /**
  * Manage an user profile.
- * 
+ *
  * @author lvanni
  */
 public class ProfileManager extends AbstractManager implements IProfileManager {
@@ -52,7 +52,7 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 
     /**
      * Default constructor.
-     * 
+     *
      * @throws InternalBackEndException
      */
     public ProfileManager() throws InternalBackEndException {
@@ -65,7 +65,7 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 
     /**
      * Setup a new user profile into the database
-     * 
+     *
      * @param user
      *            the user to insert into the database
      * @throws IOBackEndException
