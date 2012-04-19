@@ -62,7 +62,7 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
      * @see IAuthenticationManager#create(MUserBean, MAuthenticationBean)
      */
     @Override
-    public MUserBean create(final MUserBean user, final MAuthenticationBean authentication)
+    public final MUserBean create(final MUserBean user, final MAuthenticationBean authentication)
                     throws InternalBackEndException, IOBackEndException {
 
         final ProfileManager profileManager = new ProfileManager(storageManager);
@@ -87,7 +87,7 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
      * @see IAuthenticationManager#read(String, String)
      */
     @Override
-    public MUserBean read(final String login, final String password) throws InternalBackEndException,
+    public final MUserBean read(final String login, final String password) throws InternalBackEndException,
                     IOBackEndException {
 
         final Map<byte[], byte[]> args = storageManager.selectAll(CF_AUTHENTICATION, login);
@@ -107,8 +107,8 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
      * @see IAuthenticationManager#update(MAuthenticationBean)
      */
     @Override
-    public void update(final String id, final MAuthenticationBean authentication) throws InternalBackEndException,
-                    IOBackEndException {
+    public final void update(final String id, final MAuthenticationBean authentication)
+                    throws InternalBackEndException, IOBackEndException {
         // Remove the old Authentication (the login/key can be changed)
         storageManager.removeAll(CF_AUTHENTICATION, id);
         // Insert the new Authentication
