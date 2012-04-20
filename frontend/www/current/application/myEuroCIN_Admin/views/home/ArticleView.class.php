@@ -16,6 +16,7 @@ class ArticleView extends MainView {
 	/* Attributes */
 	/* --------------------------------------------------------- */
 	private /*IRequestHandler*/ $handler;
+	private /*int*/ $numberOfArticle;	
 	
 	/* --------------------------------------------------------- */
 	/* Constructors */
@@ -25,63 +26,52 @@ class ArticleView extends MainView {
 	 */
 	public function __construct($handler) {
 		$this->handler = $handler;
+		$this->numberOfArticle = 0;
 		parent::__construct("ArticleView");
 	}
 	
 	/* --------------------------------------------------------- */
 	/* public methods */
 	/* --------------------------------------------------------- */
+	function /*void*/ getArticle($application, $langue) {
+		$request = new Request("FindRequestHandler", READ);
+		$request->addArgument("application", $application);
+		$request->addArgument("predicate", "Lingua" . $langue);
+		$responsejSon = $request->send();
+		$responseObject = json_decode($responsejSon);
+		if($responseObject->status == 200) {
+			foreach(json_decode($responseObject->data->results) as $controller) { ?>
+				<li>
+					<!-- RESULT DETAILS -->
+					<form action="#EditArticleView" method="post" name="getDetailForm<?= $this->numberOfArticle ?>">
+						<input type="hidden" name="application" value="<?= $application ?>" />
+						<input type="hidden" name="method" value="getDetail" />
+						<input type="hidden" name="user" value="<?= $controller->publisherID ?>" />
+						<input type="hidden" name="predicate" value="<?= $controller->predicate ?>" />
+					</form>
+					<a href="#" onclick="document.getDetailForm<?= $this->numberOfArticle ?>.submit()">
+						<?= $controller->data ?>
+					</a>
+				</li>
+				<?php 
+				$this->numberOfArticle++;
+			}
+		}
+	}
+	
 	/**
 	* Load all the article: French/Italiano
 	*/
-	private /*String*/ function getArticle() { ?>
+	private /*String*/ function getArticleList() { ?>
 		<ul data-role="listview" data-filter="true" data-theme="c" data-dividertheme="a" >
-				<?php $i=0 ?>
-				<?php 
-				$request = new Request("FindRequestHandler", READ);
-		    	$request->addArgument("application", APPLICATION_NAME . "_ADMIN");
-		    	$request->addArgument("predicate", "Lingua" . "italiano");
-		    	$responsejSon = $request->send();
-		    	$responseObject = json_decode($responsejSon);
-		    	if($responseObject->status == 200) {
-			    	foreach(json_decode($responseObject->data->results) as $controller) { ?>
-						<li>
-							<!-- RESULT DETAILS -->
-							<form action="#EditArticleView" method="post" name="getDetailForm<?= $i ?>">
-								<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>_ADMIN" />
-								<input type="hidden" name="method" value="getDetail" />
-								<input type="hidden" name="user" value="<?= $controller->publisherID ?>" />
-								<input type="hidden" name="predicate" value="<?= $controller->predicate ?>" />
-							</form>
-							<a href="#" onclick="document.getDetailForm<?= $i ?>.submit()">
-								<?= $controller->data ?>
-							</a>
-						</li>
-						<?php $i++ ?>
-					<?php } ?>
-				<?php } ?>
-				<?php 
-				$request->addArgument("predicate", "Lingua" . "francese");
-		    	$responsejSon = $request->send();
-		    	$responseObject = json_decode($responsejSon);
-		    	if($responseObject->status == 200) {
-			    	foreach(json_decode($responseObject->data->results) as $controller) { ?>
-						<li>
-							<!-- RESULT DETAILS -->
-							<form action="#EditArticleView" method="post" name="getDetailForm<?= $i ?>">
-								<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>_ADMIN" />
-								<input type="hidden" name="method" value="getDetail" />
-								<input type="hidden" name="user" value="<?= $controller->publisherID ?>" />
-								<input type="hidden" name="predicate" value="<?= $controller->predicate ?>" />
-							</form>
-							<a href="#" onclick="document.getDetailForm<?= $i ?>.submit()">
-								<?= $controller->data ?>
-							</a>
-						</li>
-						<?php $i++ ?>
-					<?php } ?>
-				<?php } ?>
-			</ul>
+			<li data-role="list-divider" data-theme='b'>Pending</li>
+			<?php $this->getArticle( APPLICATION_NAME."_ADMIN", "italiano") ?>
+			<?php $this->getArticle( APPLICATION_NAME."_ADMIN", "francese") ?>	
+			<li data-role="list-divider" data-theme='b'>Validated</li>
+			<?php $this->getArticle( APPLICATION_NAME, "italiano") ?>
+			<?php $this->getArticle( APPLICATION_NAME, "francese") ?>
+		</ul>
+		<br/><br/>
 	<?php }
 	
 	/**
@@ -89,7 +79,7 @@ class ArticleView extends MainView {
 	 */
 	public /*String*/ function getContent() { 
 		echo '<div data-role="content" id="content" style="padding: 10px;" data-theme="c">';
-			$this->getArticle();
+			$this->getArticleList();
 		echo '</div>';
 	}
 }

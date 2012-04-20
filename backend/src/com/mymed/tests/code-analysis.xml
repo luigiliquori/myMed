@@ -49,6 +49,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
         <exclude name="**/*.html"/>
         <exclude name="**/*.php"/>
         <exclude name="**/*.jar"/>
+        <exclude name="**/tests/**/*.java"/>
     </fileset>
 
     <!-- Fileset for checkstyle -->
@@ -101,7 +102,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
           target: clean
          ================================= -->
     <target name="clean" description="Remove the directories used for the build">
-        <delete dir="${results.dir}"/>
+        <delete dir="${results.dir}" followsymlinks="false"/>
     </target>
 
     <!-- =================================
@@ -128,9 +129,9 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
         </pmd>
     </target>
 
-	 <!-- =================================
-	          target: findbugs
-	         ================================= -->
+     <!-- =================================
+              target: findbugs
+             ================================= -->
     <target name="findbugs" depends="init" description="Analyze the code with FindBugs">
         <findbugs home="${findbugs.dir}" output="xml" outputFile="${results.dir}/findbugs.xml" reportLevel="low" effort="max">
             <classpath refid="mymed.classpath"/>

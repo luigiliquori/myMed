@@ -61,6 +61,7 @@ class CommentView extends MainView {
 					<?php } ?>
 				<?php } ?>
 			</ul>
+			<br/><br/>
 	<?php }
 	
 	/**

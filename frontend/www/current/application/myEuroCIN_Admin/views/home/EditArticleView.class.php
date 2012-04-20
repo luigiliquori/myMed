@@ -152,7 +152,7 @@ class EditArticleView extends MainView {
 			
 			<center>
 			<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>PublishForm.submit()" data-theme="g" data-inline="true">Validate</a>
-			<a href="#" data-role="button" onclick="$('#EditArticleApplication').val('<?= APPLICATION_NAME ?>_ADMIN'); $('#EditArticleMethod').val('delete'); document.<?= APPLICATION_NAME ?>PublishForm.submit()" data-theme="r" data-inline="true">Reject</a>
+			<a href="#" data-role="button" onclick="$('#EditArticleMethod').val('delete'); document.<?= APPLICATION_NAME ?>PublishForm.submit()" data-theme="r" data-inline="true">Reject</a>
 			</center>
 		</form>
 	<?php }

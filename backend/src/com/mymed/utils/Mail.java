@@ -26,8 +26,6 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import ch.qos.logback.classic.Logger;
-
 /**
  * Class to provide mail functionalities to the backend
  * 
@@ -36,53 +34,48 @@ import ch.qos.logback.classic.Logger;
  */
 public class Mail {
 
-	private static final Logger LOGGER = MLogger.getLogger();
+    private final Properties props;
+    private final String from, to, object, content;
 
-	private final Properties props;
-	private final String from, to, object, content;
+    public Mail(final String from, final String to, final String object, final String content) throws AddressException,
+                    MessagingException {
+        props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", "465");
 
-	public Mail(final String from, final String to, final String object, final String content) throws AddressException, MessagingException {
-		props = new Properties();
-		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.socketFactory.port", "465");
-		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.port", "465");
+        this.from = from;
+        this.to = to;
+        this.object = object;
+        this.content = content;
 
-		this.from = from;
-		this.to = to;
-		this.object = object;
-		this.content = content;
+        sendMail();
+    }
 
-		sendMail();
-	}
+    private void sendMail() throws AddressException, MessagingException {
+        final Mail.MailAuthenticator authenticator = new Mail.MailAuthenticator();
+        final Session session = Session.getInstance(props, authenticator);
 
-	private void sendMail() throws AddressException, MessagingException {
-		final Mail.MailAuthenticator authenticator = new Mail.MailAuthenticator();
-		final Session session = Session.getInstance(props, authenticator);
+        final Message message = new MimeMessage(session);
+        message.setFrom(new InternetAddress(from));
+        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+        message.setSubject(object);
+        message.setText(content);
 
-		final Message message = new MimeMessage(session);
-		message.setFrom(new InternetAddress(from));
-		message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-		message.setSubject(object);
-		message.setText(content);
+        Transport.send(message);
+    }
 
-		Transport.send(message);
-	}
-
-	/**
-	 * Inner class used to avoid strong referencing
-	 * 
-	 * @author Milo Casagrande
-	 */
-	private static final class MailAuthenticator extends javax.mail.Authenticator {
-		public MailAuthenticator() {
-			super();
-		}
-
-		@Override
-		protected PasswordAuthentication getPasswordAuthentication() {
-			return new PasswordAuthentication("mymed.subscribe", "myalcotra");
-		}
-	}
+    /**
+     * Inner class used to avoid strong referencing
+     * 
+     * @author Milo Casagrande
+     */
+    private static final class MailAuthenticator extends javax.mail.Authenticator {
+        @Override
+        protected PasswordAuthentication getPasswordAuthentication() {
+            return new PasswordAuthentication("mymed.subscribe", "myalcotra");
+        }
+    }
 }

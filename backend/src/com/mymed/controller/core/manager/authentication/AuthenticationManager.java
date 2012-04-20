@@ -34,9 +34,21 @@ import com.mymed.model.data.user.MUserBean;
  */
 public class AuthenticationManager extends AbstractManager implements IAuthenticationManager {
 
+    /**
+     * The 'login' field.
+     */
     private static final String FIELD_LOGIN = FIELDS.get("field.login");
+
+    /**
+     * The 'authentication' column family.
+     */
     private static final String CF_AUTHENTICATION = COLUMNS.get("column.cf.authentication");
 
+    /**
+     * Default constructor.
+     * 
+     * @throws InternalBackEndException
+     */
     public AuthenticationManager() throws InternalBackEndException {
         this(new StorageManager());
     }
@@ -50,7 +62,7 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
      * @see IAuthenticationManager#create(MUserBean, MAuthenticationBean)
      */
     @Override
-    public MUserBean create(final MUserBean user, final MAuthenticationBean authentication)
+    public final MUserBean create(final MUserBean user, final MAuthenticationBean authentication)
                     throws InternalBackEndException, IOBackEndException {
 
         final ProfileManager profileManager = new ProfileManager(storageManager);
@@ -60,7 +72,7 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
             read(authentication.getLogin(), authentication.getPassword());
         } catch (final IOBackEndException e) {
             // only if the user does not exist
-            if (e.getStatus() == 404) {
+            if (e.getStatus() == ERROR_NOT_FOUND) {
                 final Map<String, byte[]> authMap = authentication.getAttributeToMap();
                 storageManager.insertSlice(CF_AUTHENTICATION,
                                 com.mymed.utils.MConverter.byteArrayToString(authMap.get(FIELD_LOGIN)), authMap);
@@ -68,23 +80,23 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
             }
         }
 
-        throw new IOBackEndException("The login already exist!", 409);
+        throw new IOBackEndException("The login already exist!", ERROR_CONFLICT);
     }
 
     /**
      * @see IAuthenticationManager#read(String, String)
      */
     @Override
-    public MUserBean read(final String login, final String password) throws InternalBackEndException,
+    public final MUserBean read(final String login, final String password) throws InternalBackEndException,
                     IOBackEndException {
 
         final Map<byte[], byte[]> args = storageManager.selectAll(CF_AUTHENTICATION, login);
         final MAuthenticationBean authentication = (MAuthenticationBean) introspection(MAuthenticationBean.class, args);
 
-        if (authentication.getLogin().equals("")) {
-            throw new IOBackEndException("The login does not exist!", 404);
+        if ("".equals(authentication.getLogin())) {
+            throw new IOBackEndException("The login does not exist!", ERROR_NOT_FOUND);
         } else if (!authentication.getPassword().equals(password)) {
-            throw new IOBackEndException("Wrong password", 403);
+            throw new IOBackEndException("Wrong password", ERROR_FORBIDDEN);
         }
 
         return new ProfileManager(storageManager).read(authentication.getUser());
@@ -95,8 +107,8 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
      * @see IAuthenticationManager#update(MAuthenticationBean)
      */
     @Override
-    public void update(final String id, final MAuthenticationBean authentication) throws InternalBackEndException,
-                    IOBackEndException {
+    public final void update(final String id, final MAuthenticationBean authentication)
+                    throws InternalBackEndException, IOBackEndException {
         // Remove the old Authentication (the login/key can be changed)
         storageManager.removeAll(CF_AUTHENTICATION, id);
         // Insert the new Authentication

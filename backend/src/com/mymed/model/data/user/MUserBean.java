@@ -67,7 +67,7 @@ public final class MUserBean extends AbstractMBean {
     private String interactionList = null;
     private String socialNetworkID = null;
     private String socialNetworkName = null;
-    
+
     /** TO MANAGE THE DIFFERENT PERMISSIONS */
     private String groups = null;
 
@@ -113,6 +113,7 @@ public final class MUserBean extends AbstractMBean {
         interactionList = toClone.getInteractionList();
         socialNetworkID = toClone.getSocialNetworkID();
         socialNetworkName = toClone.getSocialNetworkName();
+        groups = toClone.getGroups();
     }
 
     @Override
@@ -489,7 +490,7 @@ public final class MUserBean extends AbstractMBean {
     }
 
     /**
-     * @return the lastest GPS position known of the user
+     * @return the latest GPS position known of the user
      */
     public String getPosition() {
         return position;
@@ -499,26 +500,27 @@ public final class MUserBean extends AbstractMBean {
      * Store a new GPS position for the user
      * 
      * @param position
-     *            , POSITION_ID
+     *            the user position
      */
     public void setPosition(final String position) {
         this.position = position;
     }
 
     /**
-     * 
-     * @return
+     * @return the group associated with this user
      */
     public String getGroups() {
-		return groups;
-	}
-    
+        return groups;
+    }
+
     /**
-     * Assign a new gro
+     * Assign a new group to the user
+     * 
      * @param groups
+     *            the group to assign to the user
      */
-    public void setGroups(String groups) {
-		this.groups = groups;
-	}
-    
+    public void setGroups(final String groups) {
+        this.groups = groups;
+    }
+
 }

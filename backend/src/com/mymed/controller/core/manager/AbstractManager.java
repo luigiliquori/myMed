@@ -47,6 +47,21 @@ import com.mymed.utils.MLogger;
  */
 public abstract class AbstractManager {
     /**
+     * Default value for the 403 HTTP error code.
+     */
+    public static final int ERROR_FORBIDDEN = 403;
+
+    /**
+     * Default value for the 404 HTTP error code.
+     */
+    public static final int ERROR_NOT_FOUND = 404;
+
+    /**
+     * Default value for the 409 HTTP error code.
+     */
+    public static final int ERROR_CONFLICT = 409;
+
+    /**
      * The default storage manager.
      */
     protected IStorageManager storageManager;
@@ -93,20 +108,20 @@ public abstract class AbstractManager {
     private static final String DEFAULT_SERVER_URI = PROPERTIES.getManager(PropType.GENERAL).get("general.server.uri");
 
     /**
-     * This is the server URI as to be used in the backend.
-     */
-    protected static String SERVER_URI;
-
-    /**
      * The protocol used for communications. This is the default value provided via the properties.
      */
     private static final String DEFAULT_SERVER_PROTOCOL = PROPERTIES.getManager(PropType.GENERAL).get(
                     "general.server.protocol");
 
     /**
+     * This is the server URI as to be used in the backend.
+     */
+    private String SERVER_URI;
+
+    /**
      * The protocol used for communications: should be 'http://' or 'https://'.
      */
-    protected static String SERVER_PROTOCOL;
+    private final String SERVER_PROTOCOL;
 
     /**
      * Default error string for encoding exceptions.
@@ -234,5 +249,23 @@ public abstract class AbstractManager {
         setterName.trimToSize();
 
         return setterName.toString();
+    }
+
+    /**
+     * Retrieves the server URI as defined at build time.
+     * 
+     * @return the server URI to use
+     */
+    public String getServerURI() {
+        return SERVER_URI;
+    }
+
+    /**
+     * Retrieves the server protocol as defined at build time.
+     * 
+     * @return the server protocol to use
+     */
+    public String getServerProtocol() {
+        return SERVER_PROTOCOL;
     }
 }
