@@ -47,6 +47,10 @@
 	
 	$_SESSION['dictionary'][IT]["noResult"] = "Nessun risultato";
 	
+	$_SESSION['dictionary'][IT]["pleaseLogin"] = "Please login before using this feature...";
+	
+	$_SESSION['dictionary'][IT]["requestSent"] = "Votre requête à bien été envoyé. Elle est maintenant en attente de validation par un administrateur de myEuroCIN.";
+	
 	$_SESSION['dictionary'][IT]["ontology0"] = "Titolo";
 	
 	$_SESSION['dictionary'][IT]["ontology1"] = "Località";
@@ -111,6 +115,10 @@ Les contenus de myEurocin sont consultables par les visiteurs, auxquels nous dem
 	$_SESSION['dictionary'][FR]["back"] = "Retour";
 	
 	$_SESSION['dictionary'][FR]["noResult"] = "Pas de résultat";
+	
+	$_SESSION['dictionary'][FR]["pleaseLogin"] = "Veuillez vous <a href='#ProfileView'>authentifier</a> avant d'utiliser cette fonction...";
+	
+	$_SESSION['dictionary'][FR]["requestSent"] = "Votre requête à bien été envoyé. Elle est maintenant en attente de validation par un administrateur de myEuroCIN.";
 	
 	$_SESSION['dictionary'][FR]["ontology0"] = "Titre";
 	

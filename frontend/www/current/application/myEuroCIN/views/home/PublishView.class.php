@@ -35,7 +35,7 @@ class PublishView extends MainView {
 	*/
 	private /*String*/ function getPublishContent() { ?>
 		<?php if($_SESSION['user']->id == VISITOR_ID) {?>
-			<span>Please login before using this feature...</span>
+			<span><?= $_SESSION['dictionary'][LG]["pleaseLogin"] ?></span>
 			<?php return ?>
 		<?php } ?>
 	
@@ -151,7 +151,9 @@ class PublishView extends MainView {
 			<?php $date = new MDataBean("begin", null, DATE); ?>
 			<input type="hidden" name="ontology12" value="<?= urlencode(json_encode($date)); ?>">
 			
-			<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>PublishForm.submit()" ><?= $_SESSION['dictionary'][LG]["view3"] ?></a>
+			<center>
+			<a href="#" data-role="button" data-inline="true" onclick="document.<?= APPLICATION_NAME ?>PublishForm.submit()" ><?= $_SESSION['dictionary'][LG]["view3"] ?></a>
+			</center>
 		</form>
 	<?php }
 	
@@ -159,8 +161,8 @@ class PublishView extends MainView {
 	* Get the CONTENT for jQuery Mobile
 	*/
 	private /*String*/ function getResultContent() {
-		if($succes = $this->handler->getSuccess()) {
-			echo $succes;
+		if($succes = $this->handler->getSuccess()) { 
+			echo $_SESSION['dictionary'][LG]["requestSent"];
 		} else {
 			echo $this->handler->getError();
 		}

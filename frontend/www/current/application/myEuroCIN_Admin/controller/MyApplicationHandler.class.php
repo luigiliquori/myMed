@@ -35,6 +35,8 @@ class MyApplicationHandler implements IRequestHandler {
 	public /*void*/ function handleRequest() { 
 		if(isset($_POST['method'])) {
 			if($_POST['method'] == "publish") {
+				$delete = new Delete($this);
+				$delete->send();
 				$publish = new Publish($this);
 				$publish->send();
 				$_POST['application'] = APPLICATION_NAME . "_ADMIN";
@@ -50,6 +52,9 @@ class MyApplicationHandler implements IRequestHandler {
 				$getDetail = new GetDetail($this);
 				$getDetail->send();
 			} else if($_POST['method'] == "delete") {
+				$delete = new Delete($this);
+				$delete->send();
+				$_POST['application'] = APPLICATION_NAME . "_ADMIN";
 				$delete = new Delete($this);
 				$delete->send();
 			} else if($_POST['method'] == "startInteraction") {
