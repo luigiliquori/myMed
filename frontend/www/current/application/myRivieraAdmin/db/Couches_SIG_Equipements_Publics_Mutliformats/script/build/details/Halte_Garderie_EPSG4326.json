@@ -1,0 +1,17 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Halte_Garderie_EPSG4326", "Nom": "Halte Garderie Le Petit Prince", "Description": "Téléphone: 04 92 41 76 25", "Adresse": "4 promenade Maréchal de Hautecloque 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.495010, 43.776405 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Halte_Garderie_EPSG4326", "Nom": "Halte Garderie Ludothèque Iles aux enfants", "Description": "Téléphone: 04 93 28 21 18", "Adresse": "175 avenue Saint Roman 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.488294, 43.800002 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Halte_Garderie_EPSG4326", "Nom": "Crèche Centre de la petite enfance", "Description": "Téléphone:04.92.41.40.00", "Adresse": "rue Honoré Augier 06190 Roquebrune-Cap-Martin", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.484992, 43.764290 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Halte_Garderie_EPSG4326", "Nom": "Relais assistants maternelles RCM", "Description": "Téléphone: 0 899 235 944", "Adresse": "Le Floride 232 avenue Aristide Briand 06190 ROQUEBRUNE-CAP-MARTIN", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.484978, 43.764943 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Halte_Garderie_EPSG4326", "Nom": "Crèche halte garderie des Moneghetti", "Description": "Téléphone: 04 93 41 99 21", "Adresse": "av Paul Doumer 06240 BEAUSOLEIL", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.414678, 43.737949 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Halte_Garderie_EPSG4326", "Nom": "Halte Garderie le Petit Prince", "Description": "Téléphone: 04 93 78 49 45", "Adresse": "1 place de la Libération 06240 BEAUSOLEIL", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.426175, 43.744039 ] } }
+
+]
+}

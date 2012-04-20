@@ -256,8 +256,14 @@ function otherMarkers(index, type) {
 		$.each(pois, function(i, poi) {
 			value = $.parseJSON(poi.value);
 			id = poi.id;
+			iconAvailable = $('#poiIcon').val().split(",");
+			if(iconAvailable.contains(type + '.png')){
+				icon = 'system/templates/application/myRiviera/img/pois/' + type + '.png';
+			} else {
+				icon = null;
+			}
 			var marker = addMarker(new google.maps.LatLng(value.latitude,
-					value.longitude), 'system/templates/application/myRiviera/img/pois/' + type + '.png', value.title,
+					value.longitude), icon, value.title,
 					value.description, null, false, id);
 			google.maps.event.addListener(marker, "click", function(e) {
 				marker.ib.open(map, this);

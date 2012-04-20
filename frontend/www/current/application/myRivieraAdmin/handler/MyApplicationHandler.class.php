@@ -41,7 +41,7 @@ class MyApplicationHandler implements IRequestHandler {
 				$request->addArgument("user", $_SESSION["user"]->id);
 				$request->addArgument("accessToken", $_SESSION["accessToken"]);
 				
-				// CARF POIs
+				// Publish CARF POIs
 				foreach ($poi->features as $feature) {
 					$request->addArgument("type", preg_replace("/_.+$/", "", $feature->properties->Type));
 					$request->addArgument("longitude", $feature->geometry->coordinates[0]);

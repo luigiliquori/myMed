@@ -1,0 +1,37 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Primaire_EPSG4326", "Nom": "Ecole communale Primaire", "Description": "Téléphone de l'école: 04 93 57 70 77", "Adresse": "16 chemin de Peille 06500 GORBIO", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.443326, 43.786643 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Primaire_EPSG4326", "Nom": "Ecole Waldorf", "Description": "Téléphone de l'école: 04 92 10 89 48", "Adresse": "291 chemin de Saint Roch 06320 LA TURBIE", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.409146, 43.748923 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Primaire_EPSG4326", "Nom": "Ecole André Guillevin", "Description": "Téléphone de l'école: 04 93 35 74 74", "Adresse": "39 avenue des Acacias 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.485490, 43.781858 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Primaire_EPSG4326", "Nom": "Ecole du Carei", "Description": "Téléphone de l'école: 04 93 35 59 46", "Adresse": "1 route de Sospel 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.485753, 43.805103 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Primaire_EPSG4326", "Nom": "Ecole Primaire Alphonse Daudet", "Description": "Téléphone de l'école: 04 93 28 14 52", "Adresse": "4 avenue Saint Jacques 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.511896, 43.783948 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Primaire_EPSG4326", "Nom": "Ecole Publique André Guillevin", "Description": "Téléphone de l'école: 04 93 35 74 74", "Adresse": "39 avenue des Acacias 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.485490, 43.781858 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Primaire_EPSG4326", "Nom": "Ecole Villa Blanche", "Description": "Téléphone de l'école: 04 92 10 56 10", "Adresse": "3 rue Louis Pasteur 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.480360, 43.763752 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Primaire_EPSG4326", "Nom": "Groupe scolaire de la Condamine", "Description": "Téléphone de l'école: 04 93 35 73 55", "Adresse": "24 rue Morgan 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.493265, 43.772725 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Primaire_EPSG4326", "Nom": "Ecole de Cabbé", "Description": "Téléphone de l'école: 04 93 35 05 17", "Adresse": "avenue de la Gare 06190 ROQUBRUNE-CAP-MARTIN", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.456662, 43.761140 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Primaire_EPSG4326", "Nom": "Ecole Primaire du Stade", "Description": "Téléphone de l'école: 04 93 35 52 77", "Adresse": "avenue Louis Pasteur 061910 ROQUEBRUNE-CAP-MARTIN", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.480360, 43.763752 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Primaire_EPSG4326", "Nom": "Ecole Primaire du Cap", "Description": "Téléphone de l'école: 04 93 35 63 27", "Adresse": "153 avenue Bedoux 06190 ROQUEBRUNE-CAP-MARTN", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.473472, 43.758734 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Primaire_EPSG4326", "Nom": "Ecole du Rataou", "Description": "Téléphone de l'école: 04 93 28 93 93", "Adresse": "590 avenue des Genêts 06190 ROQUEBRUNE-CAP-MARTIN", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.458892, 43.766860 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Primaire_EPSG4326", "Nom": "Ecole Primaire de la Plage", "Description": "Téléphone de l'école: 04 93 57 24 88", "Adresse": "1 avenue de la Plage 06190 ROQUEBRUNE-CAP-MARTIN", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.480712, 43.758344 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Primaire_EPSG4326", "Nom": "Institution St Joseph-St Roman", "Description": "Téléphone de l'école: 04 93 35 85 68", "Adresse": "10 rue Victor Hugo 06190 ROQUEBRUNE-CAP-MARTIN", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.482787, 43.765630 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Primaire_EPSG4326", "Nom": "Institution St Joseph", "Description": "Téléphone de l'école: 04 93 35 85 68", "Adresse": "191, Avenue Aristide Briand  06190 ROQUEBRUNE-CAP-MARTIN", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.441248, 43.753912 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Primaire_EPSG4326", "Nom": "Ecole du Tenao", "Description": "Téléphone de l'école: 04 92 10 72 05", "Adresse": "302 Avenue Delphine 06240 BEAUSOLEIL", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.434694, 43.750743 ] } }
+
+]
+}

@@ -1,0 +1,29 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Maternelles_EPSG4326", "Nom": "Ecole maternelle Jacqueline De", "Description": "04 93 41 38 09", "Adresse": "4242 val de Menton 06500 GORBIO", "Id_media": 0, "Code_postal": "06500", "Ville": "gorbio" }, "geometry": { "type": "Point", "coordinates": [ 7.478142, 43.772227 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maternelles_EPSG4326", "Nom": "Ecole maternelle Alphonse Daud", "Description": "04 93 41 51 09", "Adresse": "4 avenue Saint-Jacques 06500 MENTON", "Id_media": 0, "Code_postal": "06500", "Ville": "menton" }, "geometry": { "type": "Point", "coordinates": [ 7.511896, 43.783948 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maternelles_EPSG4326", "Nom": "Ecole maternelle Carei", "Description": "04 93 28 07 60", "Adresse": "Promenade du val du Carei 06500 MENTON", "Id_media": 0, "Code_postal": "06500", "Ville": "menton" }, "geometry": { "type": "Point", "coordinates": [ 7.492820, 43.790029 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maternelles_EPSG4326", "Nom": "Ecole maternelle Germaine Coty", "Description": "04 93 35 92 92", "Adresse": "9 rue Morgan 06500 MENTON", "Id_media": 0, "Code_postal": "06500", "Ville": "menton" }, "geometry": { "type": "Point", "coordinates": [ 7.494233, 43.771952 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maternelles_EPSG4326", "Nom": "Ecole maternelle Manon des Sources", "Description": "04 93 57 54 89", "Adresse": "25 rue Paul Morillot 06500 MENTON", "Id_media": 0, "Code_postal": "06500", "Ville": "menton" }, "geometry": { "type": "Point", "coordinates": [ 7.484106, 43.766122 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maternelles_EPSG4326", "Nom": "Ecole maternelle Saint-Exupéry", "Description": "04 93 41 40 44", "Adresse": "254 avenue Saint Roman 06500 MENTON", "Id_media": 0, "Code_postal": "06500", "Ville": "menton" }, "geometry": { "type": "Point", "coordinates": [ 7.487765, 43.803583 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maternelles_EPSG4326", "Nom": "Ecole maternelle du stade", "Description": "04 92 10 17 82", "Adresse": "77 montée du stade 06190 ROQUEBRUNE-CAP-MARTIN", "Id_media": 0, "Code_postal": "06190", "Ville": "roquebrune-cap-martin" }, "geometry": { "type": "Point", "coordinates": [ 7.478495, 43.763359 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maternelles_EPSG4326", "Nom": "Ecole maternelle de la Plage", "Description": "04 93 35 56 13", "Adresse": "1 avenue de la plage 06190 ROQUEBRUNE-CAP-MARTIN", "Id_media": 0, "Code_postal": "06190", "Ville": "roquebrune-cap-martin" }, "geometry": { "type": "Point", "coordinates": [ 7.480712, 43.758344 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maternelles_EPSG4326", "Nom": "Ecole maternelle", "Description": "04 93 41 38 09", "Adresse": "boulevard Jules Ferry 06380 SOSPEL", "Id_media": 0, "Code_postal": "06380", "Ville": "sospel" }, "geometry": { "type": "Point", "coordinates": [ 7.446818, 43.879256 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maternelles_EPSG4326", "Nom": "Ecole maternelle", "Description": "04 93 41 16 29", "Adresse": "Chemin Valiéra 06320 LA TURBIE", "Id_media": 0, "Code_postal": "06320", "Ville": "LA TURBIE" }, "geometry": { "type": "Point", "coordinates": [ 7.398091, 43.743238 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maternelles_EPSG4326", "Nom": "Ecole maternelle des copains", "Description": "04 93 41 86 69", "Adresse": "29 bis avenue de Villaine 06240 BEAUSOLEIL", "Id_media": 0, "Code_postal": "06240", "Ville": "Beausoleil" }, "geometry": { "type": "Point", "coordinates": [ 7.418184, 43.740529 ] } }
+,
+{ "type": "Feature", "properties": { "Type": "Maternelles_EPSG4326", "Nom": "Ecole du Tenao", "Description": "04 92 10 72 05", "Adresse": "302 Avenue Delphine 06240 BEAUSOLEIL", "Id_media": 0, "Code_postal": "06240", "Ville": "BEAUSOLEIL" }, "geometry": { "type": "Point", "coordinates": [ 7.434694, 43.750743 ] } }
+
+]
+}

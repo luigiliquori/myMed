@@ -32,7 +32,7 @@ abstract class AbstractView {
 	*/
 	public /*String*/ function getHeader() { ?>
 		<!-- HEADER -->
-		<img alt="logo" src="img/logo.gif">
+		<a href="#MainView"><img alt="logo" src="img/logo.gif"></a>
 	<?php }
 	
 	/**
@@ -52,8 +52,8 @@ abstract class AbstractView {
 		<?php $profileView = $this->id == "ProfileView" ?>
 		<div data-role="navbar" data-iconpos="left">
 			<ul>
-				<li><a href="#ProfileView" <?= $profileView ? "data-theme='b'" : "" ?> data-icon="profile">Profile</a></li>
-				<li><a href="#" data-icon="gear">Admin</a></li>
+				<li><a href="#ProfileView" <?= $profileView ? "data-theme='b'" : "" ?> data-icon="profile" data-transition="fade"><?= $_SESSION['dictionary'][LG]["view4"] ?></a></li>
+				<li><a href="/application/myEuroCIN_Admin" data-icon="gear" target="blank"><?= $_SESSION['dictionary'][LG]["view5"] ?></a></li>
 			</ul>
 		</div><!-- /navbar -->
 		<div Style="position: relative; width: 100%; text-align: center;">

@@ -37,10 +37,10 @@ class ResultView extends MainView {
 	public /*String*/ function getContent() { ?>
 		<div data-role="content" id="content" style="padding: 10px;" data-theme="c">
 		
-			<a href="#FindView" data-role="button" data-direction="reverse" data-inline="true">back</a><br /><br />
+			<a href="#FindView" data-role="button" data-direction="reverse" data-inline="true"><?= $_SESSION['dictionary'][IT]["back"] ?></a><br /><br />
 			
 			<?php if(isset($_POST['method']) && $_POST['method'] == "find" &&  $this->handler->getError()) { ?>
-				<h3>No result...</h3>
+				<h3><?= $_SESSION['dictionary'][IT]["noResult"] ?></h3>
 			<?php } else { ?>
 				<ul data-role="listview" data-filter="true" data-theme="c" data-dividertheme="a" >
 					<?php

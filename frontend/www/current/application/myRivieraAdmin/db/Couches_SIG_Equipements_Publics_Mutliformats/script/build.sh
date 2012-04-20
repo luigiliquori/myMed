@@ -25,10 +25,9 @@ function transform() {
 }
 
 # build the json files
-cd /local/mymed/frontend/www/current/system/templates/application/myRivieraAdmin/Couches_SIG_Equipements_Publics_Mutliformats
 for f in $(find *.TAB)
 do
-	transform $f $f
+	#transform $f $f
 	ogr2ogr -f "GeoJSON" script/${f//.TAB/}.json $f ${f//.TAB/}
 done
 

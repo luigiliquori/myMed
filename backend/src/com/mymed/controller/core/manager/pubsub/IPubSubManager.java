@@ -85,5 +85,5 @@ public interface IPubSubManager {
    * @param predicate
    *          The predicate to delete
    */
-  void delete(String application, String predicate, MUserBean user) throws InternalBackEndException, IOBackEndException;
+  void delete(String application, String predicate, String subPredicate, MUserBean publisher)  throws InternalBackEndException, IOBackEndException;
 }
