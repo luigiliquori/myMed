@@ -150,6 +150,9 @@ class EditArticleView extends MainView {
 			<?php $date = new MDataBean("begin", null, DATE); ?>
 			<input type="hidden" name="ontology12" value="<?= urlencode(json_encode($date)); ?>">
 			
+			<!-- PUBLISHER -->
+			<input type="hidden" name="publisher" value="<?= $_POST['user'] ?>" />
+			
 			<center>
 			<a href="#" data-role="button" onclick="document.<?= APPLICATION_NAME ?>PublishForm.submit()" data-theme="g" data-inline="true">Validate</a>
 			<a href="#" data-role="button" onclick="$('#EditArticleMethod').val('delete'); document.<?= APPLICATION_NAME ?>PublishForm.submit()" data-theme="r" data-inline="true">Reject</a>

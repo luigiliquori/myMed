@@ -257,9 +257,11 @@ public class PublishRequestHandler extends AbstractRequestHandler {
                         }
                     }
                 } catch (final JsonSyntaxException e) {
+                	e.printStackTrace();
                     throw new InternalBackEndException("jSon format is not valid");
                 } catch (final JsonParseException e) {
-                    throw new InternalBackEndException(e.getMessage());
+                	e.printStackTrace();
+                	throw new InternalBackEndException(e.getMessage());
                 }
             } else {
                 throw new InternalBackEndException("PublishRequestHandler(" + code + ") not exist!");
