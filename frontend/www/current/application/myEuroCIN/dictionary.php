@@ -47,9 +47,9 @@
 	
 	$_SESSION['dictionary'][IT]["noResult"] = "Nessun risultato";
 	
-	$_SESSION['dictionary'][IT]["pleaseLogin"] = "Please login before using this feature...";
+	$_SESSION['dictionary'][IT]["pleaseLogin"] = "È necessario autenticarsi per utilizzare questa funzione...";
 	
-	$_SESSION['dictionary'][IT]["requestSent"] = "Votre requête à bien été envoyé. Elle est maintenant en attente de validation par un administrateur de myEuroCIN.";
+	$_SESSION['dictionary'][IT]["requestSent"] = "La vostra richiesta è stata correttamente inviata. Un amministratore di myEuroCIN la controllerà e validerà.";
 	
 	$_SESSION['dictionary'][IT]["ontology0"] = "Titolo";
 	
