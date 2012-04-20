@@ -4,33 +4,19 @@
  * This file should be executed just for one node, when updating the cluster.
  *
  * Created by Milo Casagrande <milo.casagrande@inria.fr>, 2011
- *
 */
 
 /* Create the 'Mymed' keyspace
  *
  * The 'RackUnawareStrategy' has been renamed into 'SimpleStrategy' from v0.7.
  * Also, the 'RackAwareStrategy' should have been renamed into 'NetworkTopologyStrategy'.
- *
- */
+*/
 create keyspace Mymed with replication_factor = 3 and placement_strategy = 'org.apache.cassandra.locator.SimpleStrategy';
 
 /* Switch to the 'mymed' keyspace */
 use Mymed;
 
-/*
- * Create the column families
- * Normal columns are:
- *  Application
- *  ApplicationView
- *  Authentication
- *  Ontology
- *  OntologyType
- *  User
- *  Session
- *  Interaction
- *
-*/
+/* Column families necessary for mymed as general structure */
 create column family Application with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 create column family ApplicationView with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 create column family Authentication with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
@@ -41,32 +27,23 @@ create column family Session with column_type = 'Standard' and comparator = 'UTF
 create column family Position with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 create column family Interaction with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 
-/*
- * Create the super columns
- * Super columns are:
- *  ApplicationController
- *  ApplicationList
- *  ApplicationModel
- *  DataList
- *  OntologyList
- *  UserList
- *  Location
- *
-*/
+/* Super columns necessary for mymed as general structure */
 create column family ApplicationController with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family ApplicationList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family ApplicationModel with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family DataList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family OntologyList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family UserList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
-create column family Location with column_type = 'Super' and comparator = 'LongType';
+create column family Location with column_type = 'Super' and comparator = 'LongType' and comment = 'A column family with supercolumns, whose column names are Longs (8 bytes)';
 
-/*
- * REPUTATION DATASTRUCTURE
- *
-*/
+/* MyJam related columns */
+create column family Report with column_type = 'Standard' and column_metadata = [{column_name: 'user', validation_class: 'UTF8Type'}, {column_name: 'type', validation_class: 'UTF8Type'}, {column_name: 'transit', validation_class: 'UTF8Type'}, {column_name: 'traffic_flow', validation_class: 'UTF8Type'}, {column_name: 'comment', validation_class: 'UTF8Type'}] and comment = 'A column family to store the details of the reports and the updates.';
+create column family ActiveReport with column_type = 'Standard' and comparator = 'com.mymed.id.MyMedIdType' and comment = 'A column family used as an index to bind users and their active reports (not yet expired or permanents).';
+create column family ReportUpdate with column_type = 'Standard' and comparator = 'com.mymed.id.MyMedIdType' and comment = 'A column family used as an index, to bind a report with its updates.';
+create column family UserReport with column_type = 'Standard' and comparator = 'com.mymed.id.MyMedIdType' and comment = 'A column family used as an index to bind users with reports and updates.';
+create column family Feedback with column_type = 'Standard' and comparator = 'UTF8Type' and comment = 'A column family used to store the feedbacks associated to the reports or the updates.';
+
+/* Reputation colums */
 create column family ReputationEntity with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 create column family VerdictsTimeOrdered with column_type = 'Standard' and comparator = 'TimeUUIDType' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 create column family Verdict with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
-create column family VerdictAggregation with column_type = 'Standard'  and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
-create column family VerdictAggregationList with column_type = 'Super' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
