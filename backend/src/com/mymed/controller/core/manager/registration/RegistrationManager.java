@@ -43,7 +43,8 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
     }
 
     @Override
-    public void create(final MUserBean user, final MAuthenticationBean authentication, final String application) throws AbstractMymedException {
+    public void create(final MUserBean user, final MAuthenticationBean authentication, final String application)
+                    throws AbstractMymedException {
         // PUBLISH A NEW REGISTATION PENDING TASK
         final List<MDataBean> dataList = new ArrayList<MDataBean>();
         try {
@@ -72,10 +73,10 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
         // try {
         // TODO add international support
         contentBuilder.append("Bienvenu sur myMed.\n\nPour finaliser votre inscription cliquez sur le lien:\n\n");
-        contentBuilder.append(SERVER_PROTOCOL);
-        contentBuilder.append(SERVER_URI);
+        contentBuilder.append(getServerProtocol());
+        contentBuilder.append(getServerURI());
         if (application != null) {
-        	contentBuilder.append("/application/" + application);
+            contentBuilder.append("/application/" + application);
         }
         contentBuilder.append("?registration=ok&accessToken=");
         contentBuilder.append(accessToken);
