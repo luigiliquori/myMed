@@ -22,16 +22,16 @@ class Mobile_Detect
 	protected $isWindowsphone = null;
 	protected $isGeneric = null;
 	protected $devices = array(
-		"android" => "android.*mobile",
-		"androidtablet" => "android(?!.*mobile)",
-		"blackberry" => "blackberry",
-		"blackberrytablet" => "rim tablet os",
-		"iphone" => "(iphone|ipod)",
-		"ipad" => "(ipad)",
-		"palm" => "(avantgo|blazer|elaine|hiptop|palm|plucker|xiino)",
-		"windows" => "windows ce; (iemobile|ppc|smartphone)",
-		"windowsphone" => "windows phone os",
-		"generic" => "(kindle|mobile|mmp|midp|o2|pda|pocket|psp|symbian|smartphone|treo|up.browser|up.link|vodafone|wap|opera mini)"
+			"android" => "android.*mobile",
+			"androidtablet" => "android(?!.*mobile)",
+			"blackberry" => "blackberry",
+			"blackberrytablet" => "rim tablet os",
+			"iphone" => "(iphone|ipod)",
+			"ipad" => "(ipad)",
+			"palm" => "(avantgo|blazer|elaine|hiptop|palm|plucker|xiino)",
+			"windows" => "windows ce; (iemobile|ppc|smartphone)",
+			"windowsphone" => "windows phone os",
+			"generic" => "(kindle|mobile|mmp|midp|o2|pda|pocket|psp|symbian|smartphone|treo|up.browser|up.link|vodafone|wap|opera mini)"
 	);
 
 	public function __construct()

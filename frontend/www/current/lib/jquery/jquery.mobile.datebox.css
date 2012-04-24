@@ -1,38 +1,140 @@
 /* jQuery-Mobile-DateBox Plugin
  * contains all plugin styles
  */
- 
+
 /* Base input element Styles */
-
-.ui-input-datebox { width: 97%; background-image: none; padding: .4em; line-height: 1.4; font-size: 16px; display: block; padding-top: 0px; padding-bottom: 0px; } 
-.ui-input-datebox { min-height: 38px; } /* Fix for IE8 */
-.ui-input-datebox .ui-btn-icon-notext { margin-top: 5px !important; margin-bottom: 5px !important; }
-.ui-input-datebox input { width: 87% !important; padding: 0 !important; margin-top: 5px !important; border: 1px solid transparent !important; vertical-align: middle; display: inline-block !important; background-color: transparent; zoom: 1; *display: inline; }
-.ui-input-datebox input:focus { outline: none;}
-.ui-input-datebox .ui-btn-text {display: none;}
-
-@media all and (max-width: 650px){ /* Fix internal input element at low size */
-  .ui-input-datebox input { width: 80% !important; }
-}
-@media all and (min-width: 450px){
-  .ui-input-datebox { width: 60%; display: inline-block; zoom:1; *display: inline; }
+.ui-input-datebox {
+	width: 97%;
+	background-image: none;
+	padding: .4em;
+	line-height: 1.4;
+	font-size: 16px;
+	display: block;
+	padding-top: 0px;
+	padding-bottom: 0px;
 }
 
+.ui-input-datebox {
+	min-height: 38px;
+} /* Fix for IE8 */
+.ui-input-datebox .ui-btn-icon-notext {
+	margin-top: 5px !important;
+	margin-bottom: 5px !important;
+}
+
+.ui-input-datebox input {
+	width: 87% !important;
+	padding: 0 !important;
+	margin-top: 5px !important;
+	border: 1px solid transparent !important;
+	vertical-align: middle;
+	display: inline-block !important;
+	background-color: transparent;
+	zoom: 1;
+	*display: inline;
+}
+
+.ui-input-datebox input:focus {
+	outline: none;
+}
+
+.ui-input-datebox .ui-btn-text {
+	display: none;
+}
+
+@media all and (max-width: 650px) {
+	/* Fix internal input element at low size */
+	.ui-input-datebox input {
+		width: 80% !important;
+	}
+}
+
+@media all and (min-width: 450px) {
+	.ui-input-datebox {
+		width: 60%;
+		display: inline-block;
+		zoom: 1;
+		*display: inline;
+	}
+}
 
 /* Flip Mode Styles */
-.ui-datebox-flipcontent { text-align: center; height: 125px; margin-bottom: -40px;}
-.ui-datebox-flipcontent div { margin-left: 3px; margin-right: 3px; width: 40px; height: 120px; display: inline-block; text-align: center; zoom: 1; *display: inline; overflow: hidden;}
-.ui-datebox-flipcenter { border: 1px solid #eee; height: 40px; margin-left: 10px; width: 235px; margin-right: auto; margin-left: auto; position: relative; top: -45px;}
-.ui-datebox-flipcontent ul { list-style-type: none; display: inline; }
-.ui-datebox-flipcontent li { height: 30px; }
-.ui-datebox-flipcontent li span { margin-top: 7px; display: block; }
+.ui-datebox-flipcontent {
+	text-align: center;
+	height: 125px;
+	margin-bottom: -40px;
+}
+
+.ui-datebox-flipcontent div {
+	margin-left: 3px;
+	margin-right: 3px;
+	width: 40px;
+	height: 120px;
+	display: inline-block;
+	text-align: center;
+	zoom: 1;
+	*display: inline;
+	overflow: hidden;
+}
+
+.ui-datebox-flipcenter {
+	border: 1px solid #eee;
+	height: 40px;
+	margin-left: 10px;
+	width: 235px;
+	margin-right: auto;
+	margin-left: auto;
+	position: relative;
+	top: -45px;
+}
+
+.ui-datebox-flipcontent ul {
+	list-style-type: none;
+	display: inline;
+}
+
+.ui-datebox-flipcontent li {
+	height: 30px;
+}
+
+.ui-datebox-flipcontent li span {
+	margin-top: 7px;
+	display: block;
+}
 /* Shared Styles */
+.ui-datebox-container { /*width: 150px;*/
+	
+}
 
-.ui-datebox-container {  /*width: 150px;*/ }
-.ui-datebox-screen { position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; }
-.ui-datebox-screen-modal { background-color: black; -moz-opacity: 0.8; opacity:.80; filter: alpha(opacity=80); }
-.ui-datebox-hidden { display: none; }
-.ui-dialog .ui-datebox-container { /*border: none !important;*/ }
+.ui-datebox-screen {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+}
 
-.ui-datebox-inline { margin-top: 5px; text-align: center; }
-.ui-datebox-inlineblind { margin-top: 5px; text-align: center; }
+.ui-datebox-screen-modal {
+	background-color: black;
+	-moz-opacity: 0.8;
+	opacity: .80;
+	filter: alpha(opacity = 80);
+}
+
+.ui-datebox-hidden {
+	display: none;
+}
+
+.ui-dialog .ui-datebox-container { /*border: none !important;*/
+	
+}
+
+.ui-datebox-inline {
+	margin-top: 5px;
+	text-align: center;
+}
+
+.ui-datebox-inlineblind {
+	margin-top: 5px;
+	text-align: center;
+}

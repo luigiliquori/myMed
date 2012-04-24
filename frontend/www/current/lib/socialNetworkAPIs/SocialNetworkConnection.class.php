@@ -7,20 +7,20 @@ require_once dirname(__FILE__).'/FacebookWrapper.class.php';
  * @author lvanni
  */
 class SocialNetworkConnection {
-	
+
 	private /*IWrapper[]*/ $wrappers;
-	
+
 	/**
-	 * 
+	 *
 	 * Enter description here ...
 	 * @param unknown_type $init
 	 */
 	public function __construct(/*boolean*/ $init = false) {
 		$this->wrappers = array(
-			new FacebookWrapper()
+				new FacebookWrapper()
 		);
 	}
-	
+
 	public /*IWrapper[]*/ function getWrappers(){
 		return $this->wrappers;
 	}

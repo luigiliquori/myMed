@@ -1,4 +1,6 @@
-.cleditorMain {border:1px solid #999; 
+.cleditorMain {border:1px solid #999;
+		max-width: 100%;
+		min-width: 42%; 
             overflow: hidden;
             resize: both;
 padding:0 1px 1px; background-color:white}

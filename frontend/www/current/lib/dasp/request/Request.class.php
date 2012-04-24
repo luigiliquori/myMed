@@ -1,18 +1,18 @@
 <?php
 /*
- * Copyright 2012 INRIA 
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright 2012 INRIA
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
 */
 
 define('CREATE'		, 0);
@@ -24,7 +24,7 @@ define('DELETE'		, 3);
  *
  */
 class Request {
-	
+
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
@@ -33,7 +33,7 @@ class Request {
 	private /*BackendRequest_*/			$method;
 	private /*Array<string,string>*/	$arguments	= Array();
 	private /*Boolean>*/				$multipart;
-	
+
 	/* --------------------------------------------------------- */
 	/* Constructors */
 	/* --------------------------------------------------------- */
@@ -48,7 +48,7 @@ class Request {
 	/* public methods */
 	/* --------------------------------------------------------- */
 	public /*void*/ function addArgument(/*string*/ $name, /*string*/ $value) {
-// 		$this->arguments["$name"] = urlencode(strtolower($value));
+		// 		$this->arguments["$name"] = urlencode(strtolower($value));
 		$this->arguments["$name"] = urlencode($value);
 	}
 
@@ -63,7 +63,7 @@ class Request {
 	public /*Boolean*/ function setURL($url) {
 		$this->url = $url;
 	}
-	
+
 	public /*Boolean*/ function setMultipart($multipart = false) {
 		$this->multipart = $multipart;
 	}
@@ -71,13 +71,13 @@ class Request {
 	public /*Boolean*/ function isMultipart() {
 		return $this->multipart;
 	}
-	
+
 	public /*string*/ function send() {
 		$curl	= curl_init();
 		if($curl === false) {
 			trigger_error('Unable to init CURL : ', E_USER_ERROR);
 		}
-		
+
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		if($this->multipart){
 			$httpHeader[] = 'Content-Type:multipart/form-data';
@@ -90,7 +90,7 @@ class Request {
 		if(isset($_SESSION['accessToken'])) {
 			$this->arguments['accessToken'] = $_SESSION['accessToken'];
 		}
-		
+
 		if($this->method == CREATE || $this->method == UPDATE || ($this->ressource == "AuthenticationRequestHandler" && $this->method == READ)){
 			// POST REQUEST
 			curl_setopt($curl, CURLOPT_HTTPHEADER, $httpHeader);
@@ -101,21 +101,21 @@ class Request {
 			} else {
 				curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($this->arguments));
 			}
-			
+				
 		} else {
 			// GET REQUEST
 			curl_setopt($curl, CURLOPT_HTTPHEADER, $httpHeader);
 			curl_setopt($curl, CURLOPT_URL, $this->url.$this->ressource.'?'.http_build_query($this->arguments));
 		}
-		
+
 		// SSL CONNECTION
 		// TODO fix once we have the valid certificate!
-		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false); 	
+		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2); // see address in config.php
 		curl_setopt($curl, CURLOPT_CAINFO, "/etc/ssl/certs/mymed.crt"); // TO EXPORT FROM GLASSFISH!
-		
+
 		$result = curl_exec($curl);
-// 		echo '<script type="text/javascript">alert(\'' . $result . '\');</script>';
+		// 		echo '<script type="text/javascript">alert(\'' . $result . '\');</script>';
 		return $result;
 	}
 }
