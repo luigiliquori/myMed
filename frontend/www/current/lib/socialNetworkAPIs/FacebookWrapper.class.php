@@ -18,8 +18,8 @@ class FacebookWrapper implements IWrapper {
 	 */
 	public function __construct(/*boolean*/ $initialization = false) {
 		$this->facebook = new Facebook(array(
-	 	  'appId'  => Facebook_APP_ID,
-	 	  'secret' => Facebook_APP_SECRET,
+				'appId'  => Facebook_APP_ID,
+				'secret' => Facebook_APP_SECRET,
 		));
 	}
 
@@ -30,29 +30,29 @@ class FacebookWrapper implements IWrapper {
 		// Get User ID
 		$user = $this->facebook->getUser();
 		if ($user) {
-			
+				
 			$_SESSION['socialNetworkEnabled'] = true;
 
 			try {
-				
+
 				// Proceed knowing you have a logged in user who's authenticated.
 				$user_profile = $this->facebook->api('/me');
 				$user_mymedWrapper;
-				
+
 				// Create the myMed session
 				$request = new Request("SessionRequestHandler", CREATE);
 				$request->addArgument("userID", "FACEBOOK_" . $user_profile["id"]);
 				$request->addArgument("accessToken", $this->facebook->getAccessToken());
-				
+
 				$responsejSon = $request->send();
 				$responseObject = json_decode($responsejSon);
-				
+
 				// HACK TO MAKE IT WORKS ON WWW.MYMED.FR
-				// TODO FIX THE TEST				
+				// TODO FIX THE TEST
 				//if($responseObject->status != 200) {
-					//throw new FacebookApiException();
+				//throw new FacebookApiException();
 				//}
-				
+
 				$accessToken = $responseObject->data->accessToken;
 				$url = $responseObject->data->url;
 					
@@ -79,24 +79,24 @@ class FacebookWrapper implements IWrapper {
 
 				$responsejSon = $request->send();
 				$responseObject = json_decode($responsejSon);
-				
+
 				// HACK TO MAKE IT WORKS ON WWW.MYMED.FR
 				// TODO FIX THE TEST
- 				// if($responseObject->status != 200) {
-					//throw new FacebookApiException();
- 				// }
-				
-				// MOMORIZE THE WRAPPER
-				$_SESSION['wrapper'] = $this;
-				
-				// REDIRECTION
-				$_SESSION['socialNetworkEnabled'] = true;
-				echo "<form id='singinRedirectForm' name='singinRedirectForm' method='post' action='" . $url . "'>";
-				echo "<input type='hidden' name='accessToken' value='" . $accessToken . "' />";
-				echo "<input type='hidden' name='refreshUserSession' value='true' />";
-				echo "</form>";
-				echo '<script type="text/javascript">document.singinRedirectForm.submit();</script>';
-				
+				// if($responseObject->status != 200) {
+				//throw new FacebookApiException();
+					// }
+
+					// MOMORIZE THE WRAPPER
+					$_SESSION['wrapper'] = $this;
+
+					// REDIRECTION
+					$_SESSION['socialNetworkEnabled'] = true;
+					echo "<form id='singinRedirectForm' name='singinRedirectForm' method='post' action='" . $url . "'>";
+					echo "<input type='hidden' name='accessToken' value='" . $accessToken . "' />";
+					echo "<input type='hidden' name='refreshUserSession' value='true' />";
+					echo "</form>";
+					echo '<script type="text/javascript">document.singinRedirectForm.submit();</script>';
+
 			}	catch (FacebookApiException $e) {
 				error_log($e);
 			}
@@ -122,10 +122,10 @@ class FacebookWrapper implements IWrapper {
 					$request = new Request("PositionRequestHandler", READ);
 					$request->addArgument("userID", "FACEBOOK_" . $friend["id"]);
 					$request->addArgument("accessToken", $this->facebook->getAccessToken());
-					
+						
 					$responsejSon = $request->send();
 					$responseObject = json_decode($responsejSon);
-					
+						
 					if($responseObject->status == 200) {
 						$_SESSION['friends'][$i]["position"] = json_decode($responseObject->data->position);
 					}
@@ -137,7 +137,7 @@ class FacebookWrapper implements IWrapper {
 			}
 		}
 	}
-	
+
 	/**
 	 * Return the social network name of the wrapper
 	 */
