@@ -164,7 +164,7 @@ function displayPosition(position) {
 			value = $.parseJSON(poi.value);
 			var marker = addMarker(new google.maps.LatLng(value.latitude,
 					value.longitude), 'system/templates/application/myRiviera/img/pois/' + pois.type + '.png', value.title,
-					value.description);
+					"<p>Type: 	" + pois.type + "</p>" + value.description);
 			google.maps.event.addListener(marker, "click", function(e) {
 				marker.ib.open(map, this);
 			});
@@ -264,7 +264,7 @@ function otherMarkers(index, type) {
 			}
 			var marker = addMarker(new google.maps.LatLng(value.latitude,
 					value.longitude), icon, value.title,
-					value.description, null, false, id);
+					"<p>Type: 	" + type + "</p>" + value.description, null, false, id);
 			google.maps.event.addListener(marker, "click", function(e) {
 				marker.ib.open(map, this);
 			});
@@ -344,7 +344,7 @@ function updateMarkers(index) {
 		$('#prev-step').attr('onclick', 'updateMarkers(' + (index - 1) + ')');
 
 	// ADD THE MARKERs CORRESPONDING TO ALL THE POIs AROUND THE SEGMENT
-	// filterArray = $("#select-filter").val() || [];
+	updateFilter();
 	for ( var i = 0; i < filterArray.length; i++) {
 		otherMarkers(index, filterArray[i]);
 	}
