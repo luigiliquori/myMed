@@ -36,6 +36,7 @@ public class JsonMessage {
   private String method;
   private String description;
   private final Map<String, String> data;
+  private final Map<String, Object> dataObject;
 
   /* --------------------------------------------------------- */
   /* Constructors */
@@ -49,7 +50,7 @@ public class JsonMessage {
    *          The ClassName of the handler responsible for the message
    */
   public JsonMessage(final int status, final String handler) {
-    this(status, handler, "unknown", new HashMap<String, String>());
+    this(status, handler, "unknown", new HashMap<String, String>(), new HashMap<String, Object>());
   }
 
   /**
@@ -63,11 +64,12 @@ public class JsonMessage {
    * @param data
    *          The content of the response
    */
-  public JsonMessage(final int status, final String handler, final String method, final Map<String, String> data) {
+  public JsonMessage(final int status, final String handler, final String method, final Map<String, String> data, final Map<String, Object> dataObject) {
     this.status = status;
     this.handler = handler;
     this.method = method;
     this.data = data;
+    this.dataObject = dataObject;
   }
 
   /*
@@ -110,9 +112,24 @@ public class JsonMessage {
   public Map<String, String> getData() {
     return data;
   }
-
+  
+  /**
+   * 
+   * @param key
+   * @param value
+   * @deprecated Use {@link #addDataObject(String, Object)} instead
+   */
+  @Deprecated
   public void addData(final String key, final String value) {
     data.put(key, value);
+  }
+
+  public Map<String, Object> getDataObject() {
+    return dataObject;
+  }
+  
+  public void addDataObject(final String key, final Object value) {
+    dataObject.put(key, value);
   }
 
   public String getDescription() {

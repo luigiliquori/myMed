@@ -95,6 +95,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
                     LOGGER.info("Details found for Application: " + application + " User: " + user + " Predicate: "
                                     + predicate);
                     message.addData(JSON_DETAILS, getGson().toJson(details));
+                    message.addDataObject(JSON_DETAILS, details);
                 } else { // GET RESULTS
                     final List<Map<String, String>> resList = pubsubManager.read(application, predicate);
                     if (resList.isEmpty()) {
@@ -104,6 +105,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
                     message.setDescription("Results found for Application: " + application + " Predicate: " + predicate);
                     LOGGER.info("Results found for Application: " + application + " Predicate: " + predicate);
                     message.addData(JSON_RESULTS, getGson().toJson(resList));
+                    message.addDataObject(JSON_RESULTS, resList);
                 }
             } else {
                 throw new InternalBackEndException("FindRequestHandler(" + code + ") not exist!");

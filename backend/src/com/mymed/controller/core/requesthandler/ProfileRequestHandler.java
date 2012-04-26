@@ -93,6 +93,7 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
                     message.setMethod(JSON_CODE_READ);
                     final MUserBean userBean = profileManager.read(id);
                     message.addData(JSON_USER, getGson().toJson(userBean));
+                    message.addDataObject(JSON_USER, userBean);
                     break;
                 case DELETE :
                     message.setMethod(JSON_CODE_DELETE);
@@ -147,6 +148,7 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
                         LOGGER.info("User created!");
                         message.setDescription("User created!");
                         message.addData(JSON_PROFILE, getGson().toJson(userBean));
+                        message.addDataObject(JSON_PROFILE, userBean);
                     } catch (final JsonSyntaxException e) {
                         throw new InternalBackEndException("user jSon format is not valid");
                     }
@@ -158,6 +160,7 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
                         LOGGER.info("Trying to update user:\n {}", userBean.toString());
                         userBean = profileManager.update(userBean);
                         message.addData(JSON_PROFILE, getGson().toJson(userBean));
+                        message.addDataObject(JSON_PROFILE, userBean);
                         message.setDescription("User updated!");
                         LOGGER.info("User updated!");
                     } catch (final JsonSyntaxException e) {

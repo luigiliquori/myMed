@@ -90,6 +90,7 @@ public class PositionRequestHandler extends AbstractRequestHandler {
                 message.setMethod(JSON_CODE_READ);
                 final MPositionBean position = positionManager.read(userID);
                 message.addData(JSON_POSITION, getGson().toJson(position));
+                message.addDataObject(JSON_POSITION, position);
             } else {
                 throw new InternalBackEndException("PositionRequestHandler.doGet(" + code + ") not exist!");
             }

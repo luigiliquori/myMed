@@ -144,6 +144,7 @@ public class POIRequestHandler extends AbstractRequestHandler {
                 message.setDescription("POIs successfully read!");
                 final Gson gson = new Gson();
                 message.addData(JSON_POI, gson.toJson(pois));
+                message.addDataObject(JSON_POI, pois);
             } else {
                 throw new InternalBackEndException("POIRequestHandler(" + code + ") not exist!");
             }
