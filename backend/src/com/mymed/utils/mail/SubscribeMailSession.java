@@ -12,9 +12,9 @@ import javax.naming.NamingException;
  */
 public class SubscribeMailSession extends MailSession implements IMailSession {
     /**
-     * The name of the mail session as define in Glassfish.
+     * The name of the mail session as defined in Glassfish.
      */
-    private static final String MAIL_SESSION_SUBSCRIBE = "mail/mymed.subscribe";
+    private static final String MAIL_SESSION_SUBSCRIBE = GENERAL.get("general.mail.session.subscribe");
 
     /**
      * This is the real session.

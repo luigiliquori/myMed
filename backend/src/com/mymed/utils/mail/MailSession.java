@@ -6,6 +6,9 @@ import javax.naming.NamingException;
 
 import ch.qos.logback.classic.Logger;
 
+import com.mymed.properties.IProperties;
+import com.mymed.properties.PropType;
+import com.mymed.properties.PropertiesManager;
 import com.mymed.utils.MLogger;
 
 /**
@@ -20,9 +23,19 @@ public class MailSession {
     protected static final Logger LOGGER = MLogger.getLogger();
 
     /**
+     * The default properties manager.
+     */
+    private static final PropertiesManager PROPERTIES = PropertiesManager.getInstance();
+
+    /**
+     * General properties about mymed.
+     */
+    protected static final IProperties GENERAL = PROPERTIES.getManager(PropType.GENERAL);
+
+    /**
      * The default Java context.
      */
-    private static final String DEFAULT_JAVA_CTX = "java:comp/env";
+    private static final String DEFAULT_JAVA_CTX = GENERAL.get("general.java.context");
 
     /**
      * The default initial context.
