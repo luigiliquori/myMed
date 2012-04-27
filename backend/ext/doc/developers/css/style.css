@@ -1,0 +1,135 @@
+body {
+	color:#333333;
+	font-family:"Lucida Grande",Tahoma,Verdana,Arial,sans-serif;
+	font-size:11px;
+}
+
+a {
+	color: black;
+	text-decoration: none;
+}
+
+a:LINK {
+	color: black;
+}
+
+a:VISITED {
+	color: black;
+}
+
+a:HOVER {
+	color: gray;
+}
+
+#content tr:HOVER {
+	background-color: #ecf0ff;
+}
+
+#header{
+	position:relative;
+	margin-top: 0px;
+	width:100%;
+	height:205px;
+	background-image: url("../img/header.png");
+}
+
+#header a{
+	color: white;
+	text-decoration:none;
+}
+
+#header a:HOVER{
+	color: red;
+}
+
+
+#content {
+	position: relative;
+	padding:10px;
+	text-align: left;
+	width:1024px;
+	margin-top:-80px;
+	background-color: white;
+	border:thin #d2d2d2 solid;	
+}
+
+#model, #modelHeader, #architecture, #architectureHeader, #vocabulary, #vocabularyHeader, #workflow, #workflowHeader, #rest, #restHeader {
+	display: none;	
+}
+
+.items {
+	position: absolute;
+	text-align: left;
+	padding:5px;
+	width:10em;
+	background-color: #5d677e; 	
+	font-weight: bold;
+	color: white;
+	opacity: 0.8;
+	top: 37px;
+}
+
+#designItems, #softwareItems, #prototypeItems, #linksItems {
+	display: none;
+}
+
+.requestHandlerName {
+	text-align: left;
+}
+
+.restAPITable {
+	border-spacing: 0px;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.json div {
+	position: relative;
+	left: 20px;
+	font-style: italic;
+}
+
+.handler, .handlerHead, .method, .methodHead, .arguments, .argumentsHead, .response, .responseHead, .docHead, .doc {
+	padding: 5px;
+	border: thin black solid;
+}
+
+.handlerHead {
+	background-color: #ffe599;
+}
+
+.handler {
+	background-color: #fff2cc;
+}
+
+.methodHead {
+	background-color: #d5a6bd;
+}
+
+.method {
+	background-color: #ead1dc;
+}
+
+.argumentsHead {
+	background-color: #f9cb9c;
+}
+
+.arguments {
+	background-color: #fce5cd;
+}
+
+.responseHead {
+	background-color: #b6d7a8;
+}
+
+.response {
+	background-color: #d9ead3;
+}
+
+.docHead {
+	background-color: #a4c2f4;
+}
+
+.doc {
+	background-color: #c9daf8;
+}
