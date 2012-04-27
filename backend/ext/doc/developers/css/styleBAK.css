@@ -1,0 +1,17 @@
+td {
+	border: thin black solid;
+	padding: 5px;
+}
+
+a {
+	text-decoration: none;
+	color: blue;	
+}
+
+a:VISITED{
+	color: blue;	
+}
+
+a:HOVER {
+	color: red;
+}
