@@ -30,7 +30,7 @@ import com.mymed.utils.MLogger;
  * 
  * @author Milo Casagrande
  */
-public class Mail {
+public final class Mail {
     /**
      * The default logger.
      */

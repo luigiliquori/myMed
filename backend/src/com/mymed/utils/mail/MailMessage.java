@@ -60,9 +60,7 @@ public final class MailMessage {
     /**
      * Creates a new mail message.
      * 
-     * @param from
-     *            Who sends the email
-     * @param recipients
+     * @param recipient
      *            Who receives the email
      * @param subject
      *            The subject of the email
@@ -78,8 +76,6 @@ public final class MailMessage {
     /**
      * Creates a new mail message.
      * 
-     * @param from
-     *            Who sends the email
      * @param recipients
      *            Who receives the email
      * @param subject
@@ -184,7 +180,7 @@ public final class MailMessage {
     /**
      * The mime-type of this email message.
      * 
-     * @param mymeType
+     * @param mimeType
      *            the myme-type to set
      */
     public void setMymeType(final String mimeType) {

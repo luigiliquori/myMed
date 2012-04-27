@@ -10,7 +10,7 @@ import javax.naming.NamingException;
  * 
  * @author Milo Casagrande
  */
-public class SubscribeMailSession extends MailSession implements IMailSession {
+public final class SubscribeMailSession extends MailSession implements IMailSession {
     /**
      * The name of the mail session as defined in Glassfish.
      */

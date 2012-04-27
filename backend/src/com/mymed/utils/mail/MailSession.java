@@ -38,11 +38,6 @@ public class MailSession {
     private static final String DEFAULT_JAVA_CTX = GENERAL.get("general.java.context");
 
     /**
-     * The default initial context.
-     */
-    private Context initialContext;
-
-    /**
      * This Java environment context.
      */
     private Context environmetContext;
@@ -52,7 +47,7 @@ public class MailSession {
      */
     public MailSession() {
         try {
-            initialContext = new InitialContext();
+            final Context initialContext = new InitialContext();
             environmetContext = (Context) initialContext.lookup(DEFAULT_JAVA_CTX);
         } catch (final NamingException ex) {
             LOGGER.debug("Error retrieving default Java context for this session", ex); // NOPMD
