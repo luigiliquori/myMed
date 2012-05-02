@@ -237,8 +237,8 @@ class SearchView extends MyApplication {
 							<input type="checkbox" name="checkbox" id="checkbox3" checked="checked" /><label for="checkbox3">Train</label>
 							<input type="checkbox" name="checkbox" id="checkbox4"	checked="checked" /><label for="checkbox4">Tram</label>
 							<input type="checkbox" name="checkbox" id="checkbox5" checked="checked" /><label for="checkbox5">Ter</label>
-							<input type="checkbox" name="checkbox" id="checkbox17" checked="checked" /><label for="checkbox17">Nav_élec</label>
-							<input type="checkbox" name="checkbox" id="checkbox19" checked="checked" /><label	for="checkbox19">Tgv</label>
+							<input type="hidden" name="checkbox" id="checkbox17" checked="checked" /><label for="checkbox17">Nav_élec</label>
+							<input type="hidden" name="checkbox" id="checkbox19" checked="checked" /><label	for="checkbox19">Tgv</label>
 						</fieldset>
 					</div>
 					

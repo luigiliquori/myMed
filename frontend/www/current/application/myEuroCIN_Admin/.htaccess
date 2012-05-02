@@ -1,5 +1,5 @@
 AuthName "Page d'administration protégée"
 AuthType Basic
-AuthUserFile "/local/mymed/build/mymed/application/myEuroCIN_Admin/.htpasswd"
+AuthUserFile "/var/www/mymed/application/myEuroCIN_Admin/.htpasswd"
 
 Require valid-user

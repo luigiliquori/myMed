@@ -75,7 +75,15 @@ class Delete extends Request {
 
 		// Construct the requests
 		$application = $_POST['application'];
-		$user = json_encode($_SESSION['user']);
+		if(isset($_POST['publisher'])) {
+			$request = new Request("ProfileRequestHandler", READ);
+			$request->addArgument("id",  $_POST['publisher']);
+			$responsejSon = $request->send();
+			$responseObject = json_decode($responsejSon);
+			$user = $responseObject->data->user;
+		} else {
+			$user = json_encode($_SESSION['user']);
+		}
 		$predicate = json_encode($predicateArray);
 
 		parent::addArgument("application", $application);

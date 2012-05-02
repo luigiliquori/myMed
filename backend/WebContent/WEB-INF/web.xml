@@ -89,4 +89,9 @@
     <servlet-name>ReputationRequestHandler</servlet-name>
     <url-pattern>/ReputationRequestHandler</url-pattern>
   </servlet-mapping>
+  <resource-ref>
+    <res-ref-name>mail/mymed.subscribe</res-ref-name>
+    <res-type>javax.mail.Session</res-type>
+    <res-auth>Application</res-auth>
+  </resource-ref>
 </web-app>

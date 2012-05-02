@@ -37,7 +37,7 @@ class Login extends AbstractTemplate {
 		<!-- HEADER -->
 		<div data-role="header" data-theme="b">
 			<div data-role="controlgroup" data-type="horizontal" style="text-align: center;">
-				<!-- <a href="#inscription" data-role="button" data-inline="true" >inscription</a> -->
+				<a href="#inscription" data-role="button" data-inline="true" >inscription</a>
 			</div>
 		</div>		
 	<?php }
@@ -71,8 +71,9 @@ class Login extends AbstractTemplate {
 			    <input type="text" name="login" id="login" value="email"  data-theme="c"/><br />
 			    <input type="password" name="password" id="password" value="Mot de passe"  data-theme="c"/><br />
 <!-- 			    <a href="#socialNetwork">Connexion Via Réseau Social</a><br /> -->
-<!-- 			    <a href="#" onclick="document.singinForm.submit()" data-role="button" data-inline="true" data-theme="b">Connexion</a> -->
-			    <a href="#" onclick="alert('L\'application n\'est pas encore ouverte, mais vous pouvez vous inscrire dès maintenant!');" data-role="button" data-inline="true" data-theme="b">Connexion</a>
+				<a href="http://www-sop.inria.fr/lognet/MYMED/" target="blank">A propos</a><br />
+ 			    <a href="#" onclick="document.singinForm.submit()" data-role="button" data-inline="true" data-theme="b">Connexion</a>
+			    <!-- <a href="#" onclick="alert('L\'application n\'est pas encore ouverte, mais vous pouvez vous inscrire dès maintenant!');" data-role="button" data-inline="true" data-theme="b">Connexion</a> -->
 			</form>
 			
 			<div class="innerContent" style="position: relative; top:50px; color: black;">
