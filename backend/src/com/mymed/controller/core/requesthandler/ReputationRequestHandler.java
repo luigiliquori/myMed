@@ -91,6 +91,7 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
                     final MymedAppUserId user = new MymedAppUserId(application, producer, ReputationRole.Producer);
                     final MReputationBean reputation = reputationManager.read(user);
                     message.addData(JSON_REPUTATION, String.valueOf(reputation.getReputation()));
+                    message.addDataObject(JSON_REPUTATION, String.valueOf(reputation.getReputation()));
                     break;
                 case DELETE :
                     break;
