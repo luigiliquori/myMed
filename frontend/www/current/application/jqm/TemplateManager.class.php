@@ -25,7 +25,7 @@ class TemplateManager {
 		</head>
 		
 		<body>
-			<?php 
+			<?php
 			if(isset($_GET['accessToken'])) {
 				// HANDLER REGISTRATION VALIDATION
 				$request = new Request("AuthenticationRequestHandler", CREATE);
@@ -35,9 +35,9 @@ class TemplateManager {
 				$responseObject = json_decode($responsejSon);
 			
 				if($responseObject->status != 200) {
-					header("Refresh:0;url=/jqm?registration=no");
+					header("Refresh:0;url=/application/jqm?registration=no");
 				} else {
-					header("Refresh:0;url=/jqm?hello");
+					header("Refresh:0;url=/application/jqm?hello");
 				}
 			}
 			?>

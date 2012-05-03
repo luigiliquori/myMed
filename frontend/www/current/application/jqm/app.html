@@ -12,7 +12,7 @@
 		</div>
 	</div>
 	<div data-role="content">
-		<form id="findForm" onsubmit="getResults();">
+		<form action="find.php" id="findForm" >
 			<input name="application" value="myTemplate" type="hidden" />
 			<div data-role="fieldcontain">
 				<fieldset data-role="controlgroup">
@@ -34,7 +34,7 @@
 					<label for="textinputf4"> date: </label> <input id="textinputf4"  name="end" placeholder="" value="" type="date" />
 				</fieldset>
 			</div>
-			<input type="submit" data-theme="g" value="Chercher" />
+			<input type= "submit" data-theme="g" value="Chercher" />
 		</form>
 	</div>
 </div>
@@ -127,40 +127,7 @@
 		</form>
 	</div>
 </div>
-<div data-role="page" id="Results">
-	<div data-theme="b" data-role="header" data-position="fixed">
-		<h3>myTemplate</h3>
-		<div data-role="navbar" data-iconpos="left">
-			<ul>
-				<li><a href="#Find" data-theme="c" data-icon="search"> Chercher </a></li>
-				<li><a href="#Results" data-theme="c" data-icon="check" class="ui-btn-active"> Résultats </a></li>
-				<li><a href="#Publish" data-theme="c" data-icon="grid"> Publier </a></li>
-				<li><a href="#Subscribe" data-theme="c" data-icon="alert"> Souscrire </a></li>
-			</ul>
-		</div>
-	</div>
-	<div data-role="content">
-		<ul data-role="listview" data-filter="true" data-inset="true"></ul>
-	</div>
-</div>
-<div data-role="page" id="Detail">
-	<div data-theme="b" data-role="header" data-position="fixed">
-		<h3>myTemplate</h3>
-		<div data-role="navbar" data-iconpos="left">
-			<ul>
-				<li><a href="#Find" data-theme="c" data-icon="search"> Chercher </a></li>
-				<li><a href="#Results" data-theme="c" data-icon="check"> Résultats </a></li>
-				<li><a href="#Detail" data-theme="c" data-icon="check" class="ui-btn-active"> Détail </a></li>
-				<li><a href="#Publish" data-theme="c" data-icon="grid"> Publier </a></li>
-				<li><a href="#Subscribe" data-theme="c" data-icon="alert"> Souscrire </a></li>
-			</ul>
-		</div>
-	</div>
-	<div data-role="content">
-		<div></div>
-		<a href="#Find" type="button" data-theme="r" data-icon="delete" onclick="_delete();">Supprimer</a>
-	</div>
-</div>
+
 <div data-role="page" id="Connect">
 	<div data-theme="b" data-role="header" data-position="fixed">
 		<a href="#Find" class="ui-btn-left" data-transition="slide">Back</a>
@@ -178,7 +145,7 @@
 					<label for="textinputl2"> Password: </label> <input id="textinputl2"  name="password" placeholder="" value="" type="password" />
 				</fieldset>
 			</div>
-			<a href="#Find" type="button" onclick="connect();">Connecter</a>
+			<a href="#Find" type="submit" onclick="connect();">Connecter</a>
 			<a href="#Register" type="button" data-transition="flip">Créer un compte</a>
 		</form>
 	</div>
@@ -190,7 +157,7 @@
 	</div>
 	<div data-role="content">
 		<form action="">
-			Booooooooo
+			Todo, put Profile detals here
 			<a href="#Deconnect" type="button" onclick="disconnect();">Déconnecter</a>
 		</form>
 	</div>

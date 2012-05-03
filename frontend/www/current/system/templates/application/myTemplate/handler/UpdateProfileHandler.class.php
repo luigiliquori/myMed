@@ -3,7 +3,7 @@ require_once 'lib/dasp/request/Request.class.php';
 require_once 'lib/dasp/beans/MUserBean.class.php';
 require_once 'lib/dasp/beans/MAuthenticationBean.class.php';
 
-require_once 'system/templates/handler/IRequestHandler.php';
+require_once 'lib/dasp/request/IRequestHandler.php';
 
 /**
  * RequestHandler for the profile management

@@ -1,7 +1,7 @@
 <?php require_once 'lib/dasp/request/Request.class.php'; ?>
 <?php require_once 'lib/dasp/beans/MUserBean.class.php'; ?>
 <?php require_once 'lib/dasp/beans/MAuthenticationBean.class.php'; ?>
-<?php require_once 'system/templates/handler/IRequestHandler.php'; ?>
+<?php require_once 'lib/dasp/request/IRequestHandler.php'; ?>
 
 <?php 
 class InscriptionHandler implements IRequestHandler {

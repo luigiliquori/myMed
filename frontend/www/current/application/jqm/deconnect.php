@@ -12,6 +12,6 @@
 	unset($_SESSION['accessToken']);
 	$responseObject->success = true;
 	echo json_encode($responseObject);
-	 
+	
 
 ?>

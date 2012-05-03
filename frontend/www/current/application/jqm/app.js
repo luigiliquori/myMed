@@ -1,23 +1,17 @@
 
 var results; // current resultList stored
 
-var details; // current details stored, (necessary for delete)
+var details = {}; // current details stored, (necessary for delete)
 
 var user; //user connected
-
-var resultsReady= false;
 
 $(function() {  
 	// check if a session is already opened
 	session();
 	
-	$('#Results').bind('pageinit', function() {
-		$('#Results [data-role=listview]').listview('refresh');
-		resultsReady = true;
-	});
 });  
 
-function getResults(){
+/*function getResults(){
 	var values = {};
 	$.each($('#findForm').serializeArray(), function(i, field) {
 	    values[field.name] = field.value;
@@ -36,7 +30,7 @@ function getResults(){
 			var res = JSON.parse(data);
 		}
 	});
-}
+}*/
 
 function refreshResults(){
 	$('#Results [data-role=listview]').html('');
@@ -53,13 +47,12 @@ function refreshResults(){
 
 		$('#Results [data-role=listview]').append('<li><a href="#Detail"'+item.id+' onclick="getDetail('+i/*item.id*/+');">'+row+'</div></a></li>');
 	}
-	if (resultsReady)
-		$('#Results [data-role=listview]').listview('refresh');
+	$('#Results [data-role=listview]').listview('refresh');
 		
 	
 }
 
-function getDetail(index){
+/*function getDetail(index){
 	var item = results[index];
 	$.ajax({
 		url: 'getDetail.php',
@@ -69,7 +62,8 @@ function getDetail(index){
             'application' : 'myTemplate'
 		},
 		success: function(data) {
-			var res = JSON.parse(data), content='', text='...', details = res.dataObject.details;
+			var res = JSON.parse(data), content='', text='...';
+			details = res.dataObject.details;
 			for (var i in details){
 				var pred = details[i];
 				if (pred.key == 'text') {
@@ -95,7 +89,7 @@ function getDetail(index){
 			var res = JSON.parse(data);
 		}		
 	});
-}
+}*/
 
 function connect(){
 	var values = {};
@@ -165,32 +159,35 @@ function session(){
 
 function disconnect(){
 	$.ajax({
-		url: 'disconnect.php',
+		url: 'deconnect.php',
 		success: function(data) {
-	    	location.reload(0);
+			location.href="#";
+			location.reload(0);
 		}
 	});
 }
 
-function _delete(){
+function _delete(index){
 	// add additional params to the form, (ontologyID's)
+	details['application'] = 'myTemplate';
 	details['_keyword'] = 0;
 	details['_data'] = 1;
 	details['_enum'] = 2;
 	details['_end'] = 3;
 
-	console.log(results[details.id].publisherID);
+	console.log(results[index].publisherID);
 	console.log(user.id);
-	if (results[details.id].publisherID != user.id){
-		details['user'] = publisher;
+	if (results[index].publisherID != user.id){
+		details['user'] = results[index].publisherID;
 	}
 	
 	$.ajax({
 		url: 'delete.php',
+		type: 'POST',
 		data: details,
 		success: function(data) {
-			results.splice(details.id, 1);
-			refreshResults();
+			//results.splice(index, 1);
+			//refreshResults();
 			history.back();
 		},
 		error: function(data) {

@@ -21,18 +21,20 @@
 		}
 	}
 	
-	$request = new Request("PublishRequestHandler", DELETE);
-	$request->addArgument("application", $_REQUEST['application']);
-	$request->addArgument("predicate", json_encode($predicates));
+	$user = "";
 	if(isset($_REQUEST['user'])) {
 		$request = new Request("ProfileRequestHandler", READ);
 		$request->addArgument("id", $_REQUEST["user"]);
 		$responsejSon = $request->send();
 		$responseObject = json_decode($responsejSon);
-		$request->addArgument("user", json_encode($responseObject->dataObject->user));
+		$user = json_encode($responseObject->dataObject->user);
 	}else{
-		$request->addArgument("user", json_encode($_SESSION['user']));
+		$user = json_encode($_SESSION['user']);
 	}
+	$request = new Request("PublishRequestHandler", DELETE);
+	$request->addArgument("application", $_REQUEST['application']);
+	$request->addArgument("predicate", json_encode($predicates));
+	$request->addArgument("user", $user );
 	
 	$responsejSon = $request->send();
 	debug($responsejSon);
