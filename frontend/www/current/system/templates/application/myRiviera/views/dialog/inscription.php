@@ -8,7 +8,7 @@
 	<!-- CONTENT -->
 	<div data-theme="c" style="text-align: left; padding: 10px;">
 		<center>
-			<h3>Expérimentation pour 2 mois, à partir d'avril avec un nombre limité de menbres.</h3>
+			<h3>Expérimentation pour 2 mois, à partir d'avril avec un nombre limité de membres.</h3>
 			<h2>Participez!</h2>
 		</center>
 		<form action="#" method="post" name="inscriptionForm" id="inscriptionForm">
