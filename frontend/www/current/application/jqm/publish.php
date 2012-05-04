@@ -3,6 +3,11 @@
 	require_once('../../system/config.php');
 	session_start();
 	
+	function cmp($a, $b)
+	{
+		return strcmp($a->key, $b->key);
+	}
+	
 	$responseObject = new stdClass();
 	
 	$predicates = Array();
@@ -22,6 +27,7 @@
 			
 		}
 	}
+	usort($predicates, "cmp"); // VERY important, to be able to delete the exact same predicates later
 	$data = array_merge($predicates, $data);
 	
 	$request = new Request("PublishRequestHandler", CREATE);

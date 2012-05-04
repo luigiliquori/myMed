@@ -28,6 +28,9 @@
 			if($responseObject->status == 200) {
 				$responseObject->success = true;
 				$_SESSION['user'] = $responseObject->dataObject->user;
+				if(!isset($_SESSION['friends'])){
+					$_SESSION['friends'] = array();
+				}
 			}
 			
 		}else{

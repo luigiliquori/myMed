@@ -22,6 +22,11 @@
 	require_once('PhpConsole.php');
 	PhpConsole::start();
 	
+	function cmp($a, $b)
+	{
+		return strcmp($a->key, $b->key);
+	}
+	
 	$responseObject = new stdClass();
 	
 	$request = new Request("FindRequestHandler", READ);
@@ -42,6 +47,7 @@
 				array_splice($details, $i, 1);
 			}	
 		}
+		usort($details, "cmp"); //important, we sorted also when we published this predicates.
 		?>
 		<img src='<?= $_REQUEST['profPic'] ?>' width="180" style="float:right;" />
 		<b>Id de l'auteur</b>: <span style="left-margin:5px; color:DarkBlue; font-size:160%;"><?= $_REQUEST['user'] ?></span>
