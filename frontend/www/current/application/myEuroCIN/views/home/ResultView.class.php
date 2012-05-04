@@ -61,7 +61,18 @@ class ResultView extends MainView {
 								<input type="hidden" name="predicate" value="<?= $result->predicate ?>" />
 							</form>
 							<a href="#" onclick="document.getDetailForm<?= $i ?>.submit()">
-								<?= $result->data ?>
+								<div class="row">
+								<?php 
+									$pos = strpos($result->predicate, "Linguaitaliano");
+									if($pos === false){ ?>
+										<img alt="fr" src="img/FR_Flag.png" width="40" />
+									<?php }else{ ?>
+										<img alt="it" src="img/IT_Flag.png" width="40" />
+									<?php }
+								?>
+								</div>
+								<div class="row" style="padding-left: 20px;"><?= $result->data ?></div>
+								
 							</a>
 						</li>
 						<?php $i++ ?>
