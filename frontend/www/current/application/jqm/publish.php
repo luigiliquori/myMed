@@ -37,9 +37,8 @@
 	if($responseObject->status == 200) {
 		$responseObject->success = true;
 	}
-	header("location:./#Publish");
+
+	header("location:./#Find");
 	//echo json_encode($responseObject);
 
 ?>
-
-<h1>publishing</h1>

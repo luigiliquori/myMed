@@ -51,7 +51,7 @@
 		</div>
 	</div>
 	<div data-role="content">
-		<form action="publish.php" id="publishForm" >
+		<form action="publish.php" method="post" id="publishForm" >
 			<input name="application" value="myTemplate" type="hidden" />
 			<input name="_keyword" value="0" type="hidden" />
 			<input name="_data" value="1" type="hidden" />
@@ -84,7 +84,7 @@
 					<label for="textinputp5"> texte: </label> <textarea id="textinputp5"  name="text" placeholder="" value=""></textarea>
 				</fieldset>
 			</div>
-			<input type="submit" data-theme="g" value="Publier" />
+			<input type="submit" rel="external" data-ajax="false" data-theme="g" value="Publier" />
 		</form>
 	</div>
 </div>
@@ -192,5 +192,16 @@
 			</div>
 			<a href="#Find" type="button" onclick="register();">Créer</a>
 		</form>
+	</div>
+</div>
+
+<div data-role="page" id="Map">
+	<div data-theme="b" data-role="header" data-position="fixed">
+		<a href="#Find" class="ui-btn-left" data-transition="slide">Back</a>
+		<h3>Map</h3>
+	</div>
+	<div data-role="content">
+		<div id="map_canvas" style="height:600px;">
+		</div>
 	</div>
 </div>

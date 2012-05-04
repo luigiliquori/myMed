@@ -18,24 +18,24 @@
 		debug($responsejSon);
 		$responseObject = json_decode($responsejSon);
 		if($responseObject->status == 200) {
-			$responseObject->success = true;
 			$_SESSION['accessToken'] = $responseObject->dataObject->accessToken;
-			$_SESSION['user'] = $responseObject->dataObject->user;
+			//$_SESSION['user'] = $responseObject->dataObject->user;
+			$request = new Request("SessionRequestHandler", READ);
+			$request->addArgument("socialNetwork", "myMed");
+			$responsejSon = $request->send();
+			debug($responsejSon);
+			$responseObject = json_decode($responsejSon);
+			if($responseObject->status == 200) {
+				$responseObject->success = true;
+				$_SESSION['user'] = $responseObject->dataObject->user;
+			}
 			
-			//header("Refresh:1;url=/application/jqm?hello");
-			
-			//$responseObject->data->accessToken = $responseObject->dataObject->accessToken = null;
 		}else{
 			//header("Refresh:1;url=/application/jqm?hello");
 		}
 		
-		//header("location:./");
 	}
-	/*debug($_REQUEST["login"]);
-	
-	header("location:./?hello");
-	header("Refresh:1;url=/application/jqm?hello");
-	header("Refresh:0;url=".$_SERVER['SERVER_NAME']);*/
+
 	echo json_encode($responseObject);
 
 ?>

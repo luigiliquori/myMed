@@ -36,9 +36,11 @@
 		$responseObject->success = true;
 		$details = $responseObject->dataObject->details;
 		$text="";
-		foreach( $details as $value ){
-			if ($value->key=="text")
+		foreach( $details as $i => $value ){
+			if ($value->key=="text"){
 				$text = str_replace("\n", "<br />", $value->value);
+				array_splice($details, $i, 1);
+			}	
 		}
 		?>
 		<img src='<?= $_REQUEST['profPic'] ?>' width="180" style="float:right;" />
@@ -58,6 +60,9 @@
 
 		<a href="" type="button" data-theme="r" data-icon="delete" onclick="_delete(<?= $_REQUEST['index'] ?>);" style="width:270px;float:right;">Supprimer</a>
 	</div>
+	<script language=javascript>
+		details = <?php echo json_encode($details);?> //saving details for being able to delete it with the above button ^
+	</script>
 </div>
 
 

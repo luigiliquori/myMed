@@ -8,9 +8,19 @@
 	PhpConsole::start();
 	
 	$responseObject = new stdClass();
-	unset($_SESSION['user']);
-	unset($_SESSION['accessToken']);
-	$responseObject->success = true;
+	$request = new Request("SessionRequestHandler", DELETE);
+	$request->addArgument("accessToken", $_SESSION['user']->session);
+	$request->addArgument("socialNetwork", $_SESSION['user']->socialNetworkName);
+	
+	$responsejSon = $request->send();
+	$responseObject = json_decode($responsejSon);
+	
+	if($responseObject->status == 200) {
+		$responseObject->success = true;
+	}
+
+	session_destroy();
+	
 	echo json_encode($responseObject);
 	
 

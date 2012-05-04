@@ -1,15 +1,72 @@
 
 var results; // current resultList stored
 
-var details = {}; // current details stored, (necessary for delete)
+var details; // current details stored, (necessary for delete)
 
 var user; //user connected
+
+var map, marker;
 
 $(function() {  
 	// check if a session is already opened
 	session();
 	
-});  
+	map = new google.maps.Map(document.getElementById("map_canvas"), {
+		zoom: 11,
+		center: new google.maps.LatLng(43.6, 7.11),
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	});
+	
+	marker = new google.maps.Marker({
+        position: new google.maps.LatLng(43.6, 7.11),
+        map: map,
+        draggable: true
+    });
+	
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(displayPosition, displayError,
+				{enableHighAccuracy : true, timeout: 5000, maximumAge: 0});
+	}
+	
+	$("#Map").live("pageshow", function() {
+		google.maps.event.trigger(map, 'resize');
+		$.get('position.php', function(data) {
+			var res = JSON.parse(data);
+			var latlng = new google.maps.LatLng(res.dataObject.position.latitude, res.dataObject.position.longitude);
+			var infowindow = new google.maps.InfoWindow({
+			    content: user.name+"<img src="+(user.profilePicture || "http://graph.facebook.com//picture?type=large")+" width='60' style='float:right;' />"
+			});
+			infowindow.open(map,marker);
+			map.setCenter(latlng);
+			marker.setPosition(latlng);
+		});
+	});
+});
+
+function displayPosition(position) {
+
+	var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+	
+	// Store the position into cassandra
+	$.get("position.php", { latitude: latlng.lat(), longitude: latlng.lng(), formatted_address: "Here" } );
+
+	marker.setPosition(latlng);
+	map.setCenter(latlng);
+	if (position.coords.accuracy) {
+	}
+
+}
+function displayError(error) {
+	var errors = {
+			1 : 'Permission refusée',
+			2 : 'Position indisponible',
+			3 : 'Requête expirée'
+	};
+	console.log("Erreur géolocalisation: " + errors[error.code]);
+
+	if (error.code == 3)
+		navigator.geolocation.getCurrentPosition(displayPosition, displayError);
+}
 
 /*function getResults(){
 	var values = {};
@@ -92,13 +149,13 @@ function refreshResults(){
 }*/
 
 function connect(){
-	var values = {};
+	var params = {};
 	$.each($('#loginForm').serializeArray(), function(i, field) {
-	    values[field.name] = field.value;
+		params[field.name] = field.value;
 	});
 	$.ajax({
 		url: 'authentication.php',
-		data: values,
+		data: params,
 		success: function(data) {
 			var res = JSON.parse(data);
 			if (res.dataObject.user){
@@ -120,13 +177,13 @@ function connect(){
 }
 
 function register(){
-	var values = {};
+	var params = {};
 	$.each($('#registerForm').serializeArray(), function(i, field) {
-	    values[field.name] = field.value;
+		params[field.name] = field.value;
 	});
 	$.ajax({
 		url: 'registration.php',
-		data: values,
+		data: params,
 		success: function(data) {
 			var res = JSON.parse(data);
 			alert('Validez votre compte par mail');
@@ -167,24 +224,20 @@ function disconnect(){
 	});
 }
 
-function _delete(index){
+function _delete(index, predicates){
 	// add additional params to the form, (ontologyID's)
-	details['application'] = 'myTemplate';
-	details['_keyword'] = 0;
-	details['_data'] = 1;
-	details['_enum'] = 2;
-	details['_end'] = 3;
+	var params = {};
+	params['application'] = 'myTemplate';
+	params['predicates'] = details;
 
-	console.log(results[index].publisherID);
-	console.log(user.id);
 	if (results[index].publisherID != user.id){
-		details['user'] = results[index].publisherID;
+		params['user'] = results[index].publisherID;
 	}
 	
 	$.ajax({
 		url: 'delete.php',
 		type: 'POST',
-		data: details,
+		data: params,
 		success: function(data) {
 			//results.splice(index, 1);
 			//refreshResults();

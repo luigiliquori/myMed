@@ -9,18 +9,6 @@
 	
 	$responseObject = new stdClass();
 	
-	$predicates = Array();
-	foreach( $_REQUEST as $i => $value ){
-		if ( $i!='application' && $i!='user' && $i[0]!='_' && $value && $value!='false' && $value!='' ){
-			$ontology = new stdClass();
-			$ontology->key = $i;
-			$ontology->value = $value;
-			$ontology->ontologyID = $_REQUEST['_'.$i]; // '_'.$i form fields contain the ontologyID of the value
-				
-			array_push($predicates, $ontology);
-		}
-	}
-	
 	$user = "";
 	if(isset($_REQUEST['user'])) {
 		$request = new Request("ProfileRequestHandler", READ);
@@ -31,9 +19,10 @@
 	}else{
 		$user = json_encode($_SESSION['user']);
 	}
+	
 	$request = new Request("PublishRequestHandler", DELETE);
 	$request->addArgument("application", $_REQUEST['application']);
-	$request->addArgument("predicate", json_encode($predicates));
+	$request->addArgument("predicate", json_encode($_REQUEST['predicates']));
 	$request->addArgument("user", $user );
 	
 	$responsejSon = $request->send();
