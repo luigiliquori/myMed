@@ -58,7 +58,7 @@ class LoginHandler implements IRequestHandler {
 					}
 				} else { // HANDLE LOGIN
 					$request = new Request("SessionRequestHandler", READ);
-					$request->addArgument("accessToken", $accessToken);
+					$_SESSION['accessToken'] = $accessToken;
 					if(isset($_GET['socialNetwork'])){
 						$request->addArgument("socialNetwork", $accessToken);
 					} else {

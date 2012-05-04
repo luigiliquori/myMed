@@ -87,6 +87,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
                     message.setDescription("Session avaible");
                     final MUserBean userBean = profileManager.read(session.getUser());
                     message.addData(JSON_USER, getGson().toJson(userBean));
+                    message.addDataObject(JSON_USER, userBean);
                     break;
                 case DELETE :
                     message.setMethod(JSON_CODE_DELETE);
@@ -161,7 +162,9 @@ public class SessionRequestHandler extends AbstractRequestHandler {
                     urlBuffer.trimToSize();
 
                     message.addData("url", urlBuffer.toString());
+                    message.addDataObject("url", urlBuffer.toString());
                     message.addData(JSON_ACCESS_TKN, accessToken);
+                    message.addDataObject(JSON_ACCESS_TKN, accessToken);
                     break;
                 case UPDATE :
                     // message.setMethod("UPDATE");
