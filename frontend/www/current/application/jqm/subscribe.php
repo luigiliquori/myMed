@@ -3,7 +3,7 @@
 	require_once('../../system/config.php');
 	session_start();
 	
-	$responseObject = new stdClass();
+	$responseObject = new stdClass();$responseObject->success = false;
 	
 	$predicate = "";
 	foreach( $_REQUEST as $i => $value ){

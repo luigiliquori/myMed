@@ -4,7 +4,7 @@
 	require_once('../../system/config.php');
 	session_start();
 	
-	$responseObject = new stdClass();
+	$responseObject = new stdClass();$responseObject->success = false;
 	
 	if (isset($_SESSION['user'])){
 		$request = new Request("PositionRequestHandler", isset($_REQUEST['latitude'])?UPDATE:READ);

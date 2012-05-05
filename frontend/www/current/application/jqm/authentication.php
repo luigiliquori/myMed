@@ -7,7 +7,7 @@
 	require_once('PhpConsole.php');
 	PhpConsole::start();
 	
-	$responseObject = new stdClass();
+	$responseObject = new stdClass();$responseObject->success = false;
 	
 	if(!isset($_SESSION['user'])) {
 		$request = new Request("AuthenticationRequestHandler", READ);

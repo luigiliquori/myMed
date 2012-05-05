@@ -1,3 +1,10 @@
+<?php 
+	//in case you refresh page
+	require_once dirname(__FILE__).'/TemplateManager.class.php';
+	$template = new TemplateManager();
+	$template->getHead();
+?>
+
 
 <div data-role="page" id="Results">
 	<div data-theme="b" data-role="header" data-position="fixed">
@@ -22,7 +29,7 @@
 	require_once('PhpConsole.php');
 	PhpConsole::start();
 	
-	$responseObject = new stdClass();
+	$responseObject = new stdClass();$responseObject->success = false;
 	
 	$predicate = "";
 	foreach( $_REQUEST as $i => $value ){
@@ -42,7 +49,7 @@
 		$responseObject->success = true;
 		$results = $responseObject->dataObject->results;
 		foreach( $results as $i => $value ){ 
-			$profPic = $value->publisherProfilePicture ? publisherProfilePicture : "http://graph.facebook.com//picture?type=large";
+			$profPic = $value->publisherProfilePicture ? $value->publisherProfilePicture : "http://graph.facebook.com//picture?type=large";
 			$date = $value->end ? " le ".$value->end : " ";
 			$position = $value->data ? " à ".$value->data : "";
 			?>

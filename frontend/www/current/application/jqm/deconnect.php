@@ -7,7 +7,7 @@
 	require_once('PhpConsole.php');
 	PhpConsole::start();
 	
-	$responseObject = new stdClass();
+	$responseObject = new stdClass();$responseObject->success = false;
 	$request = new Request("SessionRequestHandler", DELETE);
 	$request->addArgument("accessToken", $_SESSION['user']->session);
 	$request->addArgument("socialNetwork", $_SESSION['user']->socialNetworkName);

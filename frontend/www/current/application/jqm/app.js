@@ -109,6 +109,20 @@ function refreshResults(){
 	
 }
 
+function updateUser(){
+	$('.homeButton').each(function(i, v) {
+		if ($(v).find('.ui-btn-text').length)
+			$(v).find('.ui-btn-text').html('<u>'+user.name+'</u>'); //button already loaded by jqm
+		else
+			$(v).html('<u>'+user.name+'</u>'); //button not loaded yet by jqm
+	});
+	$('.homeButton').attr('href', '#Profile');
+	$('#Profile form').children().not('a').remove();
+	$('#Profile form').prepend("Reputation: "+(user.reputation||30)+"<br />");
+	$('#Profile form').prepend("<img src="+(user.profilePicture || "http://graph.facebook.com//picture?type=large")+" width='300'/><br />");
+	$('#Profile form').prepend("<h2>"+user.name + "</h2>");
+}
+
 /*function getDetail(index){
 	var item = results[index];
 	$.ajax({
@@ -160,13 +174,7 @@ function connect(){
 			var res = JSON.parse(data);
 			if (res.dataObject.user){
 				user= res.dataObject.user;
-				$('.homeButton').each(function(i, v) {
-        			if ($(v).find('.ui-btn-text').length)
-        				$(v).find('.ui-btn-text').html('<u>'+user.name+'</u>'); //button already loaded by jqm
-        			else
-        				$(v).html('<u>'+user.name+'</u>'); //button not loaded yet by jqm
-        		});
-				$('.homeButton').attr('href', '#Profile');
+				updateUser();
 			}
 		},
 		error: function(data) {
@@ -194,6 +202,35 @@ function register(){
 		}
 	});
 }
+function updateProfile(){
+	$('#textinputu1').val(user.firstName);
+	$('#textinputu2').val(user.lastName);
+	$('#textinputu3').val(user.email);
+	$('#textinputu6').val(user.birthday);
+	$('#textinputu7').val(user.profilePicture);
+}
+function update(){
+	var params = {};
+	$.each($('#updateForm').serializeArray(), function(i, field) {
+		params[field.name] = field.value;
+	});
+	$.ajax({
+		url: 'update.php',
+		type: 'post',
+		data: params,
+		success: function(data) {
+			var res = JSON.parse(data);
+			if (res.dataObject){
+        		user= res.dataObject.profile;
+        		updateUser();
+			}
+		},
+		error: function(data) {
+			alert('error');
+			var res = JSON.parse(data);
+		}
+	});
+}
 
 function session(){
 	$.ajax({
@@ -202,14 +239,8 @@ function session(){
 			var res = JSON.parse(data);
         	if (res.dataObject){
         		user= res.dataObject.user;
-        		$('.homeButton').each(function(i, v) {
-        			if ($(v).find('.ui-btn-text').length)
-        				$(v).find('.ui-btn-text').html('<u>'+user.name+'</u>'); //button already loaded by jqm
-        			else
-        				$(v).html('<u>'+user.name+'</u>'); //button not loaded yet by jqm
-        		});
-				$('.homeButton').attr('href', '#Profile');
-        	}
+        		updateUser();
+			}
 		}
 	});
 }
@@ -236,7 +267,7 @@ function _delete(index, predicates){
 	
 	$.ajax({
 		url: 'delete.php',
-		type: 'POST',
+		type: 'post',
 		data: params,
 		success: function(data) {
 			//results.splice(index, 1);
@@ -247,5 +278,19 @@ function _delete(index, predicates){
 			alert('error');
 			var res = JSON.parse(data);
 		}
+	});
+}
+
+function interaction(consumer, producer, value){
+	$('#interaction').fadeOut("slow", function() { 
+		$(this).children().remove();
+		if (consumer == producer){
+			$(this).html("<span style='color: red;'>Vous ne pouvez pas voter pour vous-même</span>").fadeIn("slow"); 
+		}
+		else{
+			$(this).html("<span style='color: green;'>"+(value?"+1":"-1")+"</span>").fadeIn("slow");
+			//here send an ajax interaction
+		}
+		
 	});
 }

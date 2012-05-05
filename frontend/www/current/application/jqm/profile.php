@@ -7,7 +7,7 @@
 	require_once('PhpConsole.php');
 	PhpConsole::start();
 	
-	$responseObject = new stdClass();
+	$responseObject = new stdClass();$responseObject->success = false;
 	
 	$request = new Request("ProfileRequestHandler", READ);
 	$request->addArgument("id", $_REQUEST["id"]);

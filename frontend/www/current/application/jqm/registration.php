@@ -9,7 +9,7 @@
 	require_once('PhpConsole.php');
 	PhpConsole::start();
 	
-	$responseObject = new stdClass();
+	$responseObject = new stdClass();$responseObject->success = false;
 	
 	// create the new user
 	$mUserBean = new MUserBean();

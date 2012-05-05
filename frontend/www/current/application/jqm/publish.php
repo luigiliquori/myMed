@@ -8,7 +8,7 @@
 		return strcmp($a->key, $b->key);
 	}
 	
-	$responseObject = new stdClass();
+	$responseObject = new stdClass();$responseObject->success = false;
 	
 	$predicates = Array();
 	$data = Array();

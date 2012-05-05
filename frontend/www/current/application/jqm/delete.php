@@ -7,7 +7,7 @@
 	require_once('PhpConsole.php');
 	PhpConsole::start();
 	
-	$responseObject = new stdClass();
+	$responseObject = new stdClass();$responseObject->success = false;
 	
 	$user = "";
 	if(isset($_REQUEST['user'])) {
