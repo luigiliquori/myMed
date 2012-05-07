@@ -13,8 +13,7 @@
 		if($responseObject->status != 200) {
 			header("Refresh:0;url=/application/jqm?registration=no");
 		} else {
-			header("Refresh:0;url=/application/jqm?hello");
-			echo '<script type="text/javascript">alert(\'Compte validé, vous pouvez vous logguer\');</script>';
+			header("Refresh:0;url=/application/jqm?hello please log in now");
 		}
 	}
 	

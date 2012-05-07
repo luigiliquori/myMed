@@ -5,7 +5,7 @@ var details; // current details stored, (necessary for delete)
 
 var user; //user connected
 
-var map, marker;
+var map, marker, infowindow;
 
 //ToDo set a keyspace for these vars, for no possible conflicts
 
@@ -35,10 +35,16 @@ $(function() {
 		$.get('position.php', function(data) {
 			var res = JSON.parse(data);
 			var latlng = new google.maps.LatLng(res.dataObject.position.latitude, res.dataObject.position.longitude);
-			var infowindow = new google.maps.InfoWindow({
-			    content: user.name+"<img src="+(user.profilePicture || "http://graph.facebook.com//picture?type=large")+" width='60' style='float:right;' />"
-			});
-			infowindow.open(map,marker);
+			var content = user.name+"<img src="+(user.profilePicture || "http://graph.facebook.com//picture?type=large")+" width='60' style='float:right;' />";
+			if (!infowindow){
+				infowindow = new google.maps.InfoWindow({
+				    content: content
+				});
+				infowindow.open(map,marker);
+			}else{
+				infowindow.setContent(content);
+			}
+			
 			map.setCenter(latlng);
 			marker.setPosition(latlng);
 		});
@@ -195,7 +201,7 @@ function register(){
 		success: function(data) {
 			var res = JSON.parse(data);
 			if (res.success){
-				alert('Validez votre compte par mail');
+				alert('Veuillez valider votre compte par mail');
 			}else {
 				alert('error: '+res.description);
 			}
