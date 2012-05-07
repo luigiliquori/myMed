@@ -3,25 +3,15 @@
 	require_once('../../system/config.php');
 	session_start();
 	
-	// DEBUG 
-	require_once('PhpConsole.php');
-	PhpConsole::start();
-	
-	$responseObject = new stdClass();$responseObject->success = false;
 	$request = new Request("SessionRequestHandler", DELETE);
 	$request->addArgument("accessToken", $_SESSION['user']->session);
 	$request->addArgument("socialNetwork", $_SESSION['user']->socialNetworkName);
 	
-	$responsejSon = $request->send();
-	$responseObject = json_decode($responsejSon);
-	
-	if($responseObject->status == 200) {
-		$responseObject->success = true;
-	}
-
 	session_destroy();
 	
-	echo json_encode($responseObject);
+	$responsejSon = $request->send();
+	
+	echo $responsejSon;
 	
 
 ?>

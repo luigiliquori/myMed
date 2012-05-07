@@ -4,7 +4,7 @@
 	require_once('../../system/config.php');
 	session_start();
 	
-	$responseObject = new stdClass();$responseObject->success = false;
+	$responseObject = new stdClass(); $responseObject->success = false;
 	
 	if (isset($_SESSION['user'])){
 		$request = new Request("PositionRequestHandler", isset($_REQUEST['latitude'])?UPDATE:READ);
@@ -23,7 +23,6 @@
 		
 		$responsejSon = $request->send();
 		$responseObject = json_decode($responsejSon);
-		
 		if($responseObject->status == 200) {
 			$responseObject->success = true;
 		}

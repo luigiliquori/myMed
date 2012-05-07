@@ -5,11 +5,7 @@
 	require_once '../../lib/dasp/beans/MAuthenticationBean.class.php';
 	session_start();
 	
-	// DEBUG 
-	require_once('PhpConsole.php');
-	PhpConsole::start();
-	
-	$responseObject = new stdClass();$responseObject->success = false;
+	$responseObject = new stdClass(); $responseObject->success = false; $responseObject1->success = false;
 	
 	if($_POST['password'] == ""){
 		$responseObject->error = "FAIL: password cannot be empty!";
@@ -31,11 +27,10 @@
 	$request->addArgument("oldPassword", hash('sha512', $_POST["oldPassword"]));
 		
 	$responsejSon = $request->send();
-	debug($responsejSon);
 	$responseObject1 = json_decode($responsejSon);
 		
 	if($responseObject1->status != 200) {
-		$responseObject->error = $responseObject1->description;
+		echo json_encode($responseObject1);
 		return;
 	}
 		
@@ -59,13 +54,10 @@
 	$request->addArgument("user", json_encode($mUserBean));
 	
 	$responsejSon = $request->send();
-	debug($responsejSon);
 	$responseObject = json_decode($responsejSon);
-	
-	$responseObject = json_decode($responsejSon);
-	if($responseObject->status != 200) {
-		$responseObject->error = $responseObject->description;
-		return;
+
+	if($responseObject->status == 200) {
+		$responseObject->success = true;
 	}
 		
 	$_SESSION['user'] = $responseObject->dataObject->profile;

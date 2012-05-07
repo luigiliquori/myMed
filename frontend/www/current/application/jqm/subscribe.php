@@ -3,7 +3,7 @@
 	require_once('../../system/config.php');
 	session_start();
 	
-	$responseObject = new stdClass();$responseObject->success = false;
+	header("location:.");
 	
 	$predicate = "";
 	foreach( $_REQUEST as $i => $value ){
@@ -22,10 +22,10 @@
 	$responsejSon = $request->send();
 	$responseObject = json_decode($responsejSon);
 	if($responseObject->status == 200) {
-		$responseObject->success = true;
+		echo '<script type="text/javascript">alert(\'Souscrit\');</script>';
+	}else{
+		echo '<script type="text/javascript">alert(\'Error: '.$responseObject->description.'\');</script>';
 	}
-	header("location:./#Subscribe");
 	
 
 ?>
-<h1>subscribing</h1>

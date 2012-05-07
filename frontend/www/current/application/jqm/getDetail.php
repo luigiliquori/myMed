@@ -3,6 +3,10 @@
 	require_once dirname(__FILE__).'/TemplateManager.class.php';
 	$template = new TemplateManager();
 	$template->getHead();
+	require_once('PhpConsole.php');
+	PhpConsole::start();
+	
+	debug('dt');
 ?>
 
 
@@ -25,10 +29,6 @@
 	require_once('../../system/config.php');
 	session_start();
 	
-	// DEBUG 
-	require_once('PhpConsole.php');
-	PhpConsole::start();
-	
 	function cmp($a, $b)
 	{
 		return strcmp($a->key, $b->key);
@@ -42,10 +42,8 @@
 	$request->addArgument("user", $_REQUEST['user']);
 	
 	$responsejSon = $request->send();
-	debug($responsejSon);
 	$responseObject = json_decode($responsejSon);
 	if($responseObject->status == 200) {
-		$responseObject->success = true;
 		$details = $responseObject->dataObject->details;
 		$text="";
 		foreach( $details as $i => $value ){
@@ -81,8 +79,12 @@
 
 ?>
 		
-
-		<a href="" type="button" data-theme="r" data-icon="delete" onclick="_delete(<?= $_REQUEST['index'] ?>);" style="width:270px;float:right;">Supprimer</a>
+		<form action="" id="deleteForm">
+			<input name="application" value="myTemplate" type="hidden" />
+			<input name="predicates" value=<?= json_encode($details) ?> type="hidden" />
+			<input name="user" value=<?= $_REQUEST['user'] ?> type="hidden" />
+		</form>
+		<a href="" type="button" data-theme="r" data-icon="delete" onclick="_delete();" style="width:270px;float:right;">Supprimer</a>
 	</div>
 	<script language=javascript>
 		details = <?php echo json_encode($details);?> //saving details for being able to delete it with the above button ^

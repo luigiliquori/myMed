@@ -3,12 +3,12 @@
 	require_once('../../system/config.php');
 	session_start();
 	
+	header("location:.");
+	
 	function cmp($a, $b)
 	{
 		return strcmp($a->key, $b->key);
 	}
-	
-	$responseObject = new stdClass();$responseObject->success = false;
 	
 	$predicates = Array();
 	$data = Array();
@@ -41,10 +41,11 @@
 	$responsejSon = $request->send();
 	$responseObject = json_decode($responsejSon);
 	if($responseObject->status == 200) {
-		$responseObject->success = true;
+		echo '<script type="text/javascript">alert(\'Publié\');</script>';
+	}else{
+		echo '<script type="text/javascript">alert(\'Error: '.$responseObject->description.'\');</script>';
 	}
 
-	header("location:./#Find");
 	//echo json_encode($responseObject);
 
 ?>

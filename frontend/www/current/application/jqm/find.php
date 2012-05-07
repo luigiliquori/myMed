@@ -3,6 +3,11 @@
 	require_once dirname(__FILE__).'/TemplateManager.class.php';
 	$template = new TemplateManager();
 	$template->getHead();
+	// DEBUG
+	require_once('PhpConsole.php');
+	PhpConsole::start();
+	
+	debug('f');
 ?>
 
 
@@ -25,10 +30,6 @@
 	require_once('../../system/config.php');
 	session_start();
 	
-	// DEBUG 
-	require_once('PhpConsole.php');
-	PhpConsole::start();
-	
 	$responseObject = new stdClass();$responseObject->success = false;
 	
 	$predicate = "";
@@ -41,12 +42,10 @@
 	$request = new Request("FindRequestHandler", READ);
 	$request->addArgument("application", $_REQUEST['application']);
 	$request->addArgument("predicate", $predicate);
-	
+	$results = Array();
 	$responsejSon = $request->send();
-	debug($responsejSon);
 	$responseObject = json_decode($responsejSon);
 	if($responseObject->status == 200) {
-		$responseObject->success = true;
 		$results = $responseObject->dataObject->results;
 		foreach( $results as $i => $value ){ 
 			$profPic = $value->publisherProfilePicture ? $value->publisherProfilePicture : "http://graph.facebook.com//picture?type=large";

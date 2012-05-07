@@ -120,7 +120,7 @@ function updateUser(){
 	});
 	$('.homeButton').attr('href', '#Profile');
 	$('#Profile form').children().not('a').remove();
-	$('#Profile form').prepend("Reputation: "+(user.reputation||30)+"<br />");
+	$('#Profile form').prepend("<p>Reputation: "+(user.reputation||30)+"</p>");
 	$('#Profile form').prepend("<img src="+(user.profilePicture || "http://graph.facebook.com//picture?type=large")+" width='300'/><br />");
 	$('#Profile form').prepend("<h2>"+user.name + "</h2>");
 }
@@ -174,14 +174,12 @@ function connect(){
 		data: params,
 		success: function(data) {
 			var res = JSON.parse(data);
-			if (res.dataObject.user){
+			if (res.success){
 				user= res.dataObject.user;
 				updateUser();
+			}else {
+				alert('error: '+res.description);
 			}
-		},
-		error: function(data) {
-			alert('error');
-			var res = JSON.parse(data);
 		}
 	});
 }
@@ -196,11 +194,11 @@ function register(){
 		data: params,
 		success: function(data) {
 			var res = JSON.parse(data);
-			alert('Validez votre compte par mail');
-		},
-		error: function(data) {
-			alert('error');
-			var res = JSON.parse(data);
+			if (res.success){
+				alert('Validez votre compte par mail');
+			}else {
+				alert('error: '+res.description);
+			}
 		}
 	});
 }
@@ -222,14 +220,12 @@ function update(){
 		data: params,
 		success: function(data) {
 			var res = JSON.parse(data);
-			if (res.dataObject){
+			if (res.success){
         		user= res.dataObject.profile;
         		updateUser();
+			}else{
+				alert('error: '+res.description);
 			}
-		},
-		error: function(data) {
-			alert('error');
-			var res = JSON.parse(data);
 		}
 	});
 }
@@ -239,7 +235,7 @@ function session(){
 		url: 'session.php',
 		success: function(data) {
 			var res = JSON.parse(data);
-        	if (res.dataObject){
+        	if (res.success){
         		user= res.dataObject.user;
         		updateUser();
 			}
@@ -260,12 +256,9 @@ function disconnect(){
 function _delete(index, predicates){
 	// add additional params to the form, (ontologyID's)
 	var params = {};
-	params['application'] = 'myTemplate';
-	params['predicates'] = details;
-
-	if (results[index].publisherID != user.id){
-		params['user'] = results[index].publisherID;
-	}
+	$.each($('#deleteForm').serializeArray(), function(i, field) {
+		params[field.name] = field.value;
+	});
 	
 	$.ajax({
 		url: 'delete.php',
@@ -274,11 +267,12 @@ function _delete(index, predicates){
 		success: function(data) {
 			//results.splice(index, 1);
 			//refreshResults();
-			history.back();
-		},
-		error: function(data) {
-			alert('error');
 			var res = JSON.parse(data);
+			if (res.success){
+				history.back();
+			}else{
+				alert('error: '+res.description);
+			}
 		}
 	});
 }
