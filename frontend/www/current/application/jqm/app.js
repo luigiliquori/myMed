@@ -7,6 +7,8 @@ var user; //user connected
 
 var map, marker;
 
+//ToDo set a keyspace for these vars, for no possible conflicts
+
 $(function() {  
 	// check if a session is already opened
 	session();
