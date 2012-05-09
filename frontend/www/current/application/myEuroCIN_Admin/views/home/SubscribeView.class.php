@@ -25,8 +25,6 @@ class SubscribeView extends MainView {
 	 */
 	public function __construct($handler) {
 		$this->handler = $handler;
-		$this->dataBean1 = new MDataBean("Lingua", "italiano", KEYWORD);
-		$this->dataBean2 = new MDataBean("Lingua", "francese", KEYWORD);
 		parent::__construct("SubscribeView");
 	}
 	
@@ -38,32 +36,38 @@ class SubscribeView extends MainView {
 	* 
 	*/
 	private /*String*/ function getSubscribeContent() { ?>
-		<br/><br/>
+
 		<form action="" method="post" name="getSubscribeForm1">
 			<input name="application" value="<?= APPLICATION_NAME."_ADMIN" ?>" type="hidden" />
 			<input name="method" value="subscribe" type="hidden" />
 			<input name="numberOfOntology" value="1" type="hidden"/>
 			
-			<input name="ontology0" value="<?= urlencode(json_encode($this->dataBean1)); ?>" type="hidden" >
+			<input name="ontology0" value="<?= urlencode(json_encode(new MDataBean("Lingua", "italiano", KEYWORD))); ?>" type="hidden" >
 		</form>
-		<a type="button" data-theme="g" href="#" onclick="document.getSubscribeForm1.submit()">Sottoscrivere ai testi in italiano</a>
-		
 		<form action="" method="post" name="getSubscribeForm2">
 			<input name="application" value="<?= APPLICATION_NAME."_ADMIN" ?>" type="hidden" />
 			<input name="method" value="subscribe" type="hidden" />
 			<input name="numberOfOntology" value="1" type="hidden"/>
-			<input name="ontology0" value="<?= urlencode(json_encode($this->dataBean2)); ?>" type="hidden" >
+			<input name="ontology0" value="<?= urlencode(json_encode(new MDataBean("Lingua", "francese", KEYWORD))); ?>" type="hidden" >
 		</form>
-		<a type="button" data-theme="g" href="#" onclick="document.getSubscribeForm2.submit()">Sottoscrivere ai testi in francese</a>
-		
-		<br/><br/>
+		<a type="button" data-theme="e" href="#" onclick="document.getSubscribeForm1.submit();">Sottoscrivere ai testi (it)</a>
+		<a type="button" data-theme="e" href="#" onclick="document.getSubscribeForm2.submit();">Sottoscrivere ai testi (fr)</a>
+
+		<form action="" method="post" name="getSubscribeForm3">
+			<input name="application" value="<?= APPLICATION_NAME."_ADMIN" ?>" type="hidden" />
+			<input name="method" value="subscribe" type="hidden" />
+			<input name="numberOfOntology" value="1" type="hidden"/>
+			<input name="ontology0" value="<?= urlencode(json_encode(new MDataBean("commentGroup", APPLICATION_NAME, KEYWORD))); ?>" type="hidden" >
+		</form>
+		<a type="button" data-theme="e" href="#" onclick="document.getSubscribeForm3.submit();" >Sottoscrivere ai commenti</a>
+
 	<?php }
 	
 	/**
 	 * Get the CONTENT for jQuery Mobile
 	 */
 	public /*String*/ function getContent() { 
-		echo '<div data-role="content" id="content" style="padding: 10px;" data-theme="c">';
+		echo '<div data-role="content" style="padding: 10px;" data-theme="c">';
 			$this->getSubscribeContent();
 		echo '</div>';
 	}
