@@ -63,7 +63,7 @@ class ArticleView extends MainView {
 	* Load all the article: French/Italiano
 	*/
 	private /*String*/ function getArticleList() { ?>
-		<ul data-role="listview" data-filter="true" data-theme="c" data-dividertheme="a" >
+		<ul data-role="listview" data-filter="true" data-theme="c" data-divider-theme="b" >
 			<li data-role="list-divider" data-theme='b'>Pending</li>
 			<?php $this->getArticle( APPLICATION_NAME."_ADMIN", "italiano") ?>
 			<?php $this->getArticle( APPLICATION_NAME."_ADMIN", "francese") ?>	
