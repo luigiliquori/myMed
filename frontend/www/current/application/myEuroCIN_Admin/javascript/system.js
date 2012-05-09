@@ -14,6 +14,6 @@ function showLoadingBar(text){
 	loading.style.display = "block";
 }
 
-$(document).ready(function() {
-   $("#markItUp").markItUp(mySettings);
-});
+//$(document).ready(function() {
+//   $("#markItUp").markItUp(mySettings);
+//});
