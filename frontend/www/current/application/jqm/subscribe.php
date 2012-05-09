@@ -3,8 +3,6 @@
 	require_once('../../system/config.php');
 	session_start();
 	
-	header("location:.");
-	
 	$predicate = "";
 	foreach( $_REQUEST as $i => $value ){
 		if ( $i!='application' && $i[0]!='_' && $value && $value!='false' && $value!='' ){
@@ -22,9 +20,10 @@
 	$responsejSon = $request->send();
 	$responseObject = json_decode($responsejSon);
 	if($responseObject->status == 200) {
-		echo '<script type="text/javascript">alert(\'Souscrit\');</script>';
+		header("location:.");
 	}else{
-		echo '<script type="text/javascript">alert(\'Error: '.$responseObject->description.'\');</script>';
+		echo '<html><body>Failed to subscribe: '.$responseObject->description.'</html></body>';
+		header("Refresh:1;url=http://mymed20.sophia.inria.fr/application/jqm/");
 	}
 	
 

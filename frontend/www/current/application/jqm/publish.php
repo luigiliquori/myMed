@@ -3,8 +3,6 @@
 	require_once('../../system/config.php');
 	session_start();
 	
-	header("location:.");
-	
 	function cmp($a, $b)
 	{
 		return strcmp($a->key, $b->key);
@@ -24,7 +22,6 @@
 			}else{
 				array_push($data, $ontology);
 			}
-			
 		}
 	}
 	usort($predicates, "cmp"); // VERY important, to be able to delete the exact same predicates later
@@ -41,9 +38,11 @@
 	$responsejSon = $request->send();
 	$responseObject = json_decode($responsejSon);
 	if($responseObject->status == 200) {
-		echo '<script type="text/javascript">alert(\'Publié\');</script>';
+		header("location:.");
 	}else{
-		echo '<script type="text/javascript">alert(\'Error: '.$responseObject->description.'\');</script>';
+		//echo '<script type="text/javascript">$("[data-url=\"/application/jqm/publish.php\"]").html("Fail to publish: '.$responseObject->description.'");</script>';
+		echo '<html><body>Failed to publish: '.$responseObject->description.'</html></body>';
+		header("Refresh:1;url=http://mymed20.sophia.inria.fr/application/jqm/");
 	}
 
 	//echo json_encode($responseObject);
