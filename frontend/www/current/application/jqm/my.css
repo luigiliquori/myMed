@@ -13,6 +13,9 @@
 #detailstext img{
 	margin: 5px;
 }
+.ui-controlgroup {
+	margin: 0;
+}
 .row{
 	vertical-align: middle;
 	display:table-cell;

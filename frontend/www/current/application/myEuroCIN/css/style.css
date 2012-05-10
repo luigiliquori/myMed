@@ -14,6 +14,14 @@
 	padding: 10px;
 }
 
+.row{
+	vertical-align: middle;
+	display:table-cell;
+}
+.row img {
+	vertical-align: top;
+}
+
 /* Red button theme for JQuery Mobile
 * - Use data-theme="r" for red versions of the default JQuery Mobile Buttons.
 ******************************************************************************************/

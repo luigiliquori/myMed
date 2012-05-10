@@ -1,15 +1,11 @@
 <?php
 	require_once('../../lib/dasp/request/Request.class.php');
 	require_once('../../system/config.php');
-	require_once '../../beans/MUserBean.class.php';
-	require_once '../../beans/MAuthenticationBean.class.php';
+	require_once '../../lib/dasp/beans/MUserBean.class.php';
+	require_once '../../lib/dasp/beans/MAuthenticationBean.class.php';
 	session_start();
 	
-	// DEBUG 
-	require_once('PhpConsole.php');
-	PhpConsole::start();
-	
-	$responseObject = new stdClass();
+	$responseObject = new stdClass(); $responseObject->success = false;
 	
 	// create the new user
 	$mUserBean = new MUserBean();
@@ -19,8 +15,8 @@
 	$mUserBean->name = $_REQUEST["prenom"] . " " . $_REQUEST["nom"];
 	$mUserBean->email = $_REQUEST["email"];
 	$mUserBean->login = $_REQUEST["email"];
-	$mUserBean->birthday = $_REQUEST["birthday"];
-	$mUserBean->profilePicture = $_REQUEST["thumbnail"];
+	$mUserBean->birthday = isset($_REQUEST["birthday"])?$_REQUEST["birthday"]:"";
+	$mUserBean->profilePicture = isset($_REQUEST["thumbnail"])?$_REQUEST["thumbnail"]:"";
 	
 	// create the authentication
 	$mAuthenticationBean = new MAuthenticationBean();
@@ -39,10 +35,8 @@
 	$responsejSon = $request->send();
 	$responseObject = json_decode($responsejSon);
 
-	if($responseObject->status != 200) {
-		$responseObject->success = false;
-	} else {
-		$responseObject->success = "Félicitation, Un email de confirmation vient de vous être envoyé!";
+	if($responseObject->status == 200) {
+		$responseObject->success = true;
 	}
 	
 	echo json_encode($responseObject);

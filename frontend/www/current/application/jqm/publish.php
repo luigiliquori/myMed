@@ -3,7 +3,12 @@
 	require_once('../../system/config.php');
 	session_start();
 	
-	$responseObject = new stdClass();
+	header("location:.");
+	
+	function cmp($a, $b)
+	{
+		return strcmp($a->key, $b->key);
+	}
 	
 	$predicates = Array();
 	$data = Array();
@@ -22,6 +27,7 @@
 			
 		}
 	}
+	usort($predicates, "cmp"); // VERY important, to be able to delete the exact same predicates later
 	$data = array_merge($predicates, $data);
 	
 	$request = new Request("PublishRequestHandler", CREATE);
@@ -35,11 +41,11 @@
 	$responsejSon = $request->send();
 	$responseObject = json_decode($responsejSon);
 	if($responseObject->status == 200) {
-		$responseObject->success = true;
+		echo '<script type="text/javascript">alert(\'Publié\');</script>';
+	}else{
+		echo '<script type="text/javascript">alert(\'Error: '.$responseObject->description.'\');</script>';
 	}
-	header("location:./#Publish");
+
 	//echo json_encode($responseObject);
 
 ?>
-
-<h1>publishing</h1>

@@ -14,9 +14,8 @@ import java.util.List;
  * <li><tt>attachments</tt></li>
  * <li><tt>mime-type</tt></li>
  * </ul>
- * The <tt>from</tt> field is gathered from the JavaMail session in Glassfish, the <tt>mime-type</tt> field, by default
- * is set to "text/html". The <tt>attachments</tt> have to be file names that are accessible via the Java classloader,
- * it is not necessary to specify a path.
+ * The <tt>mime-type</tt> field by default is set to "text/html". The <tt>attachments</tt> have to be file names that
+ * are accessible via the Java classloader, it is not necessary to specify a path.
  * 
  * @author Milo Casagrande
  */

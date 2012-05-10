@@ -30,6 +30,7 @@
 	require_once dirname(__FILE__).'/views/home/EditArticleView.class.php';		new EditArticleView($application);
 	require_once dirname(__FILE__).'/views/home/CommentView.class.php';			new CommentView($application);
 	require_once dirname(__FILE__).'/views/home/EditCommentView.class.php';		new EditCommentView($application);
+	require_once dirname(__FILE__).'/views/home/SubscribeView.class.php';		new SubscribeView($application);
 	
 	// CLOSE THE HTML PAGE
 	$template->getFooter();

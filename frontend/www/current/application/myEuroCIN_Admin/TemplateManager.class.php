@@ -17,10 +17,8 @@ class TemplateManager {
 			
 			<!-- JQUERY -->
 			<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
-			<link rel="stylesheet" href="lib/jquery/jquery.mobile.actionsheet.css" />
 			<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
 			<script type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
-			<script type="text/javascript" src="../../lib/jquery/jquery.mobile.actionsheet.js"></script>
 			
 			<!-- DateBox -->
 			<script src="../../lib/jquery/datebox/jquery.mobile.datebox.min.js"></script>

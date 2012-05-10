@@ -50,7 +50,7 @@ class Subscribe extends Request {
 			if(isset($_POST[$ontology->key])) {
 				$ontology->value = $_POST[$ontology->key];
 			} else {
-				continue;
+				//continue;
 			}
 			if($ontology->value != "") {
 				$predicate .= $ontology->key . $ontology->value;

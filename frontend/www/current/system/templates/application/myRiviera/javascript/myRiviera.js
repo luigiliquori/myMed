@@ -158,7 +158,7 @@ function displayPosition(position) {
 	
 	// print the marker around me
 	for ( var i = 0; i < filterArray.length; i++) {
-		pois = getMarkers(latlng.lat(), latlng.lng(), filterArray[i], $('#slider-radius').val());
+		pois = getMarkers2(latlng.lat(), latlng.lng(), filterArray[i], $('#slider-radius').val());
 		pois.type = filterArray[i];
 		$.each(pois, function(i, poi) {
 			value = $.parseJSON(poi.value);
@@ -250,7 +250,7 @@ function clearMarkers() {
  */
 function otherMarkers(index, type) {
 	if (!markers[type][index]) { // create them if not exist
-		pois = getMarkers(steps[index].position.lat(), steps[index].position
+		pois = getMarkers2(steps[index].position.lat(), steps[index].position
 				.lng(), type, $('#slider-radius').val());
 		markers[type][index] = [];
 		$.each(pois, function(i, poi) {
