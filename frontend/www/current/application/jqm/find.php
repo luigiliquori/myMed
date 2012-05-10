@@ -45,7 +45,9 @@
 	$results = Array();
 	$responsejSon = $request->send();
 	$responseObject = json_decode($responsejSon);
-	if($responseObject->status == 200) {
+	if($responseObject->status != 200) {
+		echo '<script type="text/javascript">alert(\'' . $responseObject->description . '\');</script>';
+	}else{
 		$results = $responseObject->dataObject->results;
 		foreach( $results as $i => $value ){ 
 			$profPic = $value->publisherProfilePicture ? $value->publisherProfilePicture : "http://graph.facebook.com//picture?type=large";
