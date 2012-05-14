@@ -66,8 +66,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 
     /*
      * (non-Javadoc)
-     * @see
-     * com.mymed.controller.core.requesthandler.AbstractRequestHandler#getParameters
+     * @see com.mymed.controller.core.requesthandler.AbstractRequestHandler#getParameters
      * (javax.servlet.http.HttpServletRequest)
      */
     @Override
@@ -78,6 +77,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
         }
 
         final Map<String, String> parameters = new HashMap<String, String>();
+
         try {
             for (final Part part : request.getParts()) {
                 final String key = part.getName();
@@ -99,10 +99,8 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 
     /*
      * (non-Javadoc)
-     * @see
-     * com.mymed.controller.core.requesthandler.AbstractRequestHandler#doGet
-     * (javax.servlet.http.HttpServletRequest,
-     * javax.servlet.http.HttpServletResponse)
+     * @see com.mymed.controller.core.requesthandler.AbstractRequestHandler#doGet
+     * (javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
@@ -115,63 +113,64 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
             String application, predicateListJson, user;
-            
+
             switch (code) {
                 case READ :
-                	break;
+                    break;
                 case DELETE :
-                	message.setMethod(JSON_CODE_DELETE);
-                	 if ((application = parameters.get(JSON_APPLICATION)) == null) {
-                         throw new InternalBackEndException("missing application argument!");
-                     } else if ((predicateListJson = parameters.get(JSON_PREDICATE)) == null) {
-                         throw new InternalBackEndException("missing predicate argument!");
-                     } else if ((user = parameters.get(JSON_USER)) == null) {
-                         throw new InternalBackEndException("missing user argument!");
-                     }
-                	 
-                     try {
-                         final MUserBean userBean = getGson().fromJson(user, MUserBean.class);
-                         final Type dataType = new TypeToken<List<MDataBean>>(){}.getType();
-                         final List<MDataBean> predicateListObject = getGson().fromJson(predicateListJson, dataType);
-                	 
-	                     // construct the subPredicate
-	                     final StringBuffer bufferSubPredicate = new StringBuffer(150);
-	                     for (final MDataBean element : predicateListObject) {
-	                         bufferSubPredicate.append(element.getKey());
-	                         bufferSubPredicate.append(element.getValue());
-	                     }
-	                     
-	                     // construct the Predicate => broadcast algorithm
-	                     final int broadcastSize = (int) Math.pow(2, predicateListObject.size());
-	                     for (int i = 1; i < broadcastSize; i++) {
-	                         final StringBuffer bufferPredicate = new StringBuffer(150);
-	                         int mask = i;
-	                         int j = 0;
+                    message.setMethod(JSON_CODE_DELETE);
+                    if ((application = parameters.get(JSON_APPLICATION)) == null) {
+                        throw new InternalBackEndException("missing application argument!");
+                    } else if ((predicateListJson = parameters.get(JSON_PREDICATE)) == null) {
+                        throw new InternalBackEndException("missing predicate argument!");
+                    } else if ((user = parameters.get(JSON_USER)) == null) {
+                        throw new InternalBackEndException("missing user argument!");
+                    }
 
-	                         while (mask > 0) {
-	                             if ((mask & 1) == 1) {
-	                                 final MDataBean element = predicateListObject.get(j);
-	                                 bufferPredicate.append(element.getKey());
-	                                 bufferPredicate.append(element.getValue());
-	                             }
-	                             mask >>= 1;
-	                             j++;
-	                         }
+                    try {
+                        final MUserBean userBean = getGson().fromJson(user, MUserBean.class);
+                        final Type dataType = new TypeToken<List<MDataBean>>() {
+                        }.getType();
+                        final List<MDataBean> predicateListObject = getGson().fromJson(predicateListJson, dataType);
 
-	                         bufferPredicate.trimToSize();
+                        // construct the subPredicate
+                        final StringBuffer bufferSubPredicate = new StringBuffer(150);
+                        for (final MDataBean element : predicateListObject) {
+                            bufferSubPredicate.append(element.getKey());
+                            bufferSubPredicate.append(element.getValue());
+                        }
 
-	                         if (bufferPredicate.length() != 0) {
-	                             pubsubManager.delete(application, bufferPredicate.toString(),
-	                                             bufferSubPredicate.toString(), userBean);
-	                         }
-	                     }
-	                     
-                     } catch (final JsonSyntaxException e) {
-                         throw new InternalBackEndException("jSon format is not valid");
-                     } catch (final JsonParseException e) {
-                         throw new InternalBackEndException(e.getMessage());
-                     }
-                     break;
+                        // construct the Predicate => broadcast algorithm
+                        final int broadcastSize = (int) Math.pow(2, predicateListObject.size());
+                        for (int i = 1; i < broadcastSize; i++) {
+                            final StringBuffer bufferPredicate = new StringBuffer(150);
+                            int mask = i;
+                            int j = 0;
+
+                            while (mask > 0) {
+                                if ((mask & 1) == 1) {
+                                    final MDataBean element = predicateListObject.get(j);
+                                    bufferPredicate.append(element.getKey());
+                                    bufferPredicate.append(element.getValue());
+                                }
+                                mask >>= 1;
+                                j++;
+                            }
+
+                            bufferPredicate.trimToSize();
+
+                            if (bufferPredicate.length() != 0) {
+                                pubsubManager.delete(application, bufferPredicate.toString(),
+                                                bufferSubPredicate.toString(), userBean);
+                            }
+                        }
+
+                    } catch (final JsonSyntaxException e) {
+                        throw new InternalBackEndException("jSon format is not valid");
+                    } catch (final JsonParseException e) {
+                        throw new InternalBackEndException(e.getMessage());
+                    }
+                    break;
                 default :
                     throw new InternalBackEndException("PublishRequestHandler(" + code + ") not exist!");
             }
@@ -187,10 +186,8 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 
     /*
      * (non-Javadoc)
-     * @see
-     * com.mymed.controller.core.requesthandler.AbstractRequestHandler#doPost
-     * (javax.servlet.http.HttpServletRequest,
-     * javax.servlet.http.HttpServletResponse)
+     * @see com.mymed.controller.core.requesthandler.AbstractRequestHandler#doPost
+     * (javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
@@ -257,11 +254,11 @@ public class PublishRequestHandler extends AbstractRequestHandler {
                         }
                     }
                 } catch (final JsonSyntaxException e) {
-                	e.printStackTrace();
+                    LOGGER.debug("Error in Json format", e);
                     throw new InternalBackEndException("jSon format is not valid");
                 } catch (final JsonParseException e) {
-                	e.printStackTrace();
-                	throw new InternalBackEndException(e.getMessage());
+                    LOGGER.debug("Error in parsing Json", e);
+                    throw new InternalBackEndException(e.getMessage());
                 }
             } else {
                 throw new InternalBackEndException("PublishRequestHandler(" + code + ") not exist!");
