@@ -28,12 +28,14 @@
 	$_SESSION['dictionary'][IT]["name"] = "Cognome";
 	$_SESSION['dictionary'][IT]["firstName"] = "Nome";
 	$_SESSION['dictionary'][IT]["birthday"] = "Data di nascita";
+	$_SESSION['dictionary'][IT]["profilePicture"] = "Profile photo (url)";
 	$_SESSION['dictionary'][IT]["update"] = "Aggiorna";
 	$_SESSION['dictionary'][IT]["connect"] = "Accedi";
 	$_SESSION['dictionary'][IT]["disconnect"] = "Esci";
 	$_SESSION['dictionary'][IT]["inscription"] = "Iscrizione";
 	$_SESSION['dictionary'][IT]["password"] = "Password";
 	$_SESSION['dictionary'][IT]["confirm"] = "Conferma password";
+	$_SESSION['dictionary'][IT]["oldPassword"] = "Password precedente";
 	$_SESSION['dictionary'][IT]["accept"] = "Accetto";
 	$_SESSION['dictionary'][IT]["condition"] = "Condizioni d'uso";
 	$_SESSION['dictionary'][IT]["validate"] = "Validazione";
@@ -97,10 +99,12 @@ Les contenus de myEurocin sont consultables par les visiteurs, auxquels nous dem
 	$_SESSION['dictionary'][FR]["name"] = "Nom";
 	$_SESSION['dictionary'][FR]["firstName"] = "Prénom";
 	$_SESSION['dictionary'][FR]["birthday"] = "Date de naissance";
+	$_SESSION['dictionary'][FR]["profilePicture"] = "Photo de profil (url)";
 	$_SESSION['dictionary'][FR]["update"] = "Mise à jour";
 	$_SESSION['dictionary'][FR]["connect"] = "Connexion";
 	$_SESSION['dictionary'][FR]["disconnect"] = "Deconnexion";
 	$_SESSION['dictionary'][FR]["inscription"] = "Inscription";
+	$_SESSION['dictionary'][FR]["oldPassword"] = "Ancien Mot de passe";
 	$_SESSION['dictionary'][FR]["password"] = "Mot de passe";
 	$_SESSION['dictionary'][FR]["confirm"] = "Confirmation";
 	$_SESSION['dictionary'][FR]["accept"] = "J'accepte les";
