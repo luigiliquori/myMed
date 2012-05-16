@@ -5,10 +5,10 @@
 	// DEBUG
 	ini_set('display_errors', 1);
 	
-	require_once 'lib/dasp/beans/MPositionBean.class.php';
-	require_once 'lib/php-mobile-detect/Mobile_Detect.php';
+	require_once '../../lib/dasp/beans/MPositionBean.class.php';
+	require_once '../../lib/php-mobile-detect/Mobile_Detect.php';
 	
-	require_once dirname(__FILE__).'/config.php';
+	require_once '../../system/config.php';
 	require_once dirname(__FILE__).'/templates/TemplateManager.class.php';
 	require_once dirname(__FILE__).'/templates/handler/LoginHandler.class.php';
 	
@@ -65,14 +65,7 @@
 	
 	// Select the template & call it
 	$templateManager = new TemplateManager();
-	if(isset($_GET['application'])) {
-		$_SESSION['application'] = $_GET['application'];
-	}
-	if(isset($_SESSION['application']) && $_SESSION['application'] != "0"){
-		$templateManager->selectTemplate('application/' . $_SESSION['application']);
-	} else {
-		$templateManager->selectTemplate('application/myMed');
-	}
+	$templateManager->selectTemplate('application/myRiviera');
 	$templateManager->callTemplate();
 	
 ?>

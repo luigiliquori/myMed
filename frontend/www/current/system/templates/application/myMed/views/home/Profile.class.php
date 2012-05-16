@@ -42,11 +42,7 @@ class Profile extends Home {
 				eMail: <?= $_SESSION['user']->email ?><br />
 				<div data-role="controlgroup" data-type="horizontal">
 					<a href="#inscription" data-role="button" data-rel="dialog" data-inline="true" data-theme="b" data-icon="refresh">mise à jour</a>
-					<?php if(TARGET == "desktop") { ?>
-						<a href="#login" onclick="document.disconnectForm.submit()" data-inline="true" rel="external" data-role="button" data-theme="r">Deconnexion</a>
-					<?php } else { ?>
-						<a href="mobile_binary<?= MOBILE_PARAMETER_SEPARATOR ?>logout" data-role="button" data-theme="r">Deconnexion</a>
-					<?php } ?>
+					<a href="#login" onclick="document.disconnectForm.submit()" data-inline="true" rel="external" data-role="button" data-theme="r">Deconnexion</a>
 				</div>
 			</div>
 	
