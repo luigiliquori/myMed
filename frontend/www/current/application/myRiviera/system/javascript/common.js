@@ -43,11 +43,8 @@ function hideLoadingBar(){
   loading.style.display='none';
 }
 function showLoadingBar(text){
-  //hide loading status...
-  loading = document.getElementById("loading");
-  if(text) {
- 	 loading.innerHTML = "<center><span>" + text + "</span></center>";
-  }
-  loading.style.display = "block";
+	//hide loading status...
+	$("#loading").html("<center><span>" + text + "</span></center>");
+	$("#loading").show("fast", function() { setTimeout(hideLoadingBar, 3000);}); 
 }
 
