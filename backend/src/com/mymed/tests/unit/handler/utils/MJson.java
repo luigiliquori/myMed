@@ -22,8 +22,7 @@ import com.mymed.controller.core.requesthandler.message.JsonMessage;
 /**
  * This is the enum class that stores all the fields of a normal JSON response.
  * <p>
- * The fields in here are the ones of a general JSON response as created by the
- * {@link JsonMessage} class.
+ * The fields in here are the ones of a general JSON response as created by the {@link JsonMessage} class.
  * <p>
  * The format of the JSON message should be:<br>
  * <code>
@@ -40,58 +39,57 @@ import com.mymed.controller.core.requesthandler.message.JsonMessage;
  * </code>
  * 
  * @author Milo Casagrande
- * 
  */
 public enum MJson implements IJson {
-  STATUS("status"),
-  DESCRIPTION("description"),
-  HANDLER("handler"),
-  METHOD("method"),
-  DATA("data");
+    STATUS("status"),
+    DESCRIPTION("description"),
+    HANDLER("handler"),
+    METHOD("method"),
+    DATA("data"),
+    DATAOBJECT("dataObject"),
+    WARNING("warning");
 
-  private String element;
+    private String element;
 
-  private MJson(final String element) {
-    this.element = element;
-  }
-
-  /**
-   * Check if JSON element is valid for the JSON format
-   * 
-   * @param str
-   *          the element to check
-   * @return true if the element is valid, false otherwise
-   */
-  public static boolean isValidElement(final String str) {
-    boolean isValid = false;
-
-    for (final MJson element : EnumSet.allOf(MJson.class)) {
-      if (element.get().equals(str)) {
-        isValid = true;
-        break;
-      }
+    private MJson(final String element) {
+        this.element = element;
     }
 
-    return isValid;
-  }
+    /**
+     * Check if JSON element is valid for the JSON format
+     * 
+     * @param str
+     *            the element to check
+     * @return true if the element is valid, false otherwise
+     */
+    public static boolean isValidElement(final String str) {
+        boolean isValid = false;
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Enum#toString()
-   */
-  @Override
-  public String toString() {
-    return element;
-  }
+        for (final MJson element : EnumSet.allOf(MJson.class)) {
+            if (element.get().equals(str)) {
+                isValid = true;
+                break;
+            }
+        }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see com.mymed.tests.unit.handler.utils.IJson#get()
-   */
-  @Override
-  public String get() {
-    return element;
-  }
+        return isValid;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see java.lang.Enum#toString()
+     */
+    @Override
+    public String toString() {
+        return element;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see com.mymed.tests.unit.handler.utils.IJson#get()
+     */
+    @Override
+    public String get() {
+        return element;
+    }
 }

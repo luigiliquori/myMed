@@ -21,12 +21,9 @@
 	define('USER_CONNECTED', isset($_SESSION['user']));
 	
 	// MOBILE DETECT
-	$detect = new Mobile_Detect();
-	if ($detect->isMobile()) {
-		define('TARGET', "mobile");
-	} else {
-		define('TARGET', "mobile");
-	}
+// 	$detect = new Mobile_Detect();
+// 	if ($detect->isMobile()) {
+	define('TARGET', "mobile");
 	
 	/* ----------------------------------------------------------------------------- */
 	// TODO - MOVE THIS PART

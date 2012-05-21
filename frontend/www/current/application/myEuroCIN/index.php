@@ -51,6 +51,7 @@
 	require_once dirname(__FILE__).'/views/home/DetailView.class.php';			new DetailView($application);
 	require_once dirname(__FILE__).'/views/home/PublishView.class.php';			new PublishView($application);
 	require_once dirname(__FILE__).'/views/home/ProfileView.class.php';			new ProfileView($login, $inscription);
+	require_once dirname(__FILE__).'/views/home/UpdateProfileView.class.php';	new UpdateProfileView();
 	require_once dirname(__FILE__).'/views/home/InscriptionView.class.php';		new InscriptionView();
 	
 	// CLOSE THE HTML PAGE

@@ -162,7 +162,7 @@ function getMarkers2(latitude, longitude, type, radius) {
 	var result = new Array();
 
 	var res = $.ajax({
-		url : "lib/dasp/request/POI.php",
+		url : "../../lib/dasp/request/POI.php",
 		data : {
 			'application': $("#applicationName").val() + "Admin",
 			'type': type,
