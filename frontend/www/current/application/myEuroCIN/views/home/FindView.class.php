@@ -41,7 +41,7 @@ class FindView extends MainView {
 				<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
 				<input type="hidden" name="method" value="find" />
 				<input type="hidden" name="numberOfOntology" value="12" />
-				
+				<br />
 				<!-- Nazione -->
 				<select name="Nazione">
 					<option value=""><?= $_SESSION['dictionary'][LG]["ontology1"] ?></option>
@@ -55,7 +55,7 @@ class FindView extends MainView {
 				</select>
 				<?php $dataBean = new MDataBean("Nazione", null, KEYWORD); ?>
 				<input type="hidden" name="ontology1" value="<?= urlencode(json_encode($dataBean)); ?>">
-				
+				<br />
 				<!-- Lingua -->
 				<select name="Lingua">
 					<option value=""><?= $_SESSION['dictionary'][LG]["ontology2"] ?></option>
@@ -64,7 +64,7 @@ class FindView extends MainView {
 				</select>
 				<?php $dataBean = new MDataBean("Lingua", null, KEYWORD); ?>
 				<input type="hidden" name="ontology2" value="<?= urlencode(json_encode($dataBean)); ?>">
-				
+				<br />
 				<!-- Categorie -->
 				    <fieldset data-role="controlgroup">
 					   
