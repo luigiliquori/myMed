@@ -37,118 +37,118 @@ import com.mymed.tests.unit.handler.utils.TestUtils;
 
 public class SessionRequestHandlerTest extends GeneralHandlerTest {
 
-  private static final String HANDLER_NAME = "SessionRequestHandler";
-  private static String accessToken;
+    private static final String HANDLER_NAME = "SessionRequestHandler";
+    private static String accessToken;
 
-  @BeforeClass
-  public static void setUpOnce() {
-    accessToken = TestUtils.createAccessToken();
-    path = TestUtils.createPath(HANDLER_NAME);
-  }
+    @BeforeClass
+    public static void setUpOnce() {
+        accessToken = TestUtils.createAccessToken();
+        path = TestUtils.createPath(HANDLER_NAME);
+    }
 
-  @Before
-  public void setupBefore() throws InternalBackEndException, IOBackEndException {
-    // Set up what we need in the server
-    final ProfileManager profileManager = new ProfileManager();
-    profileManager.create(TestUtils.createUserBean(accessToken));
+    @Before
+    public void setupBefore() throws InternalBackEndException, IOBackEndException {
+        // Set up what we need in the server
+        final ProfileManager profileManager = new ProfileManager();
+        profileManager.create(TestUtils.createUserBean(accessToken));
 
-    final SessionManager manager = new SessionManager();
-    manager.create(TestUtils.createSessionBean(accessToken));
-  }
+        final SessionManager manager = new SessionManager();
+        manager.create(TestUtils.createSessionBean(accessToken));
+    }
 
-  /**
-   * Perform a read with wrong data, and check that the response code is '500'
-   * 
-   * @throws URISyntaxException
-   * @throws ClientProtocolException
-   * @throws IOException
-   */
-  @Test
-  public void wrongReadTest() throws URISyntaxException, ClientProtocolException, IOException {
-    TestUtils.addParameter(params, PARAM_CODE, READ);
-    TestUtils.addParameter(params, PARAM_ACCESS_TOKEN, TestUtils.createAccessToken());
-    TestUtils.addParameter(params, PARAM_SOCIAL_NETWORK, "myMed");
+    /**
+     * Perform a read with wrong data, and check that the response code is '500'
+     * 
+     * @throws URISyntaxException
+     * @throws ClientProtocolException
+     * @throws IOException
+     */
+    @Test
+    public void wrongReadTest() throws URISyntaxException, ClientProtocolException, IOException {
+        TestUtils.addParameter(params, PARAM_CODE, READ);
+        TestUtils.addParameter(params, PARAM_ACCESS_TOKEN, TestUtils.createAccessToken());
+        TestUtils.addParameter(params, PARAM_SOCIAL_NETWORK, "myMed");
 
-    final String query = TestUtils.createQueryParams(params);
-    final URI uri = TestUtils.createUri(path, query);
+        final String query = TestUtils.createQueryParams(params);
+        final URI uri = TestUtils.createUri(path, query);
 
-    final HttpGet getRequest = new HttpGet(uri);
-    final HttpResponse response = client.execute(getRequest);
+        final HttpGet getRequest = new HttpGet(uri);
+        final HttpResponse response = client.execute(getRequest);
 
-    BackendAssert.assertIsValidJson(response);
-    BackendAssert.assertResponseCodeIs(response, 500);
-  }
+        BackendAssert.assertIsValidJson(response);
+        BackendAssert.assertResponseCodeIs(response, 500);
+    }
 
-  /**
-   * Perform a correct read, and check that the response code is '200'
-   * 
-   * @throws URISyntaxException
-   * @throws ClientProtocolException
-   * @throws IOException
-   */
-  @Test
-  public void readUserTest() throws URISyntaxException, ClientProtocolException, IOException {
-    TestUtils.addParameter(params, PARAM_CODE, READ);
-    TestUtils.addParameter(params, PARAM_ACCESS_TOKEN, accessToken);
-    TestUtils.addParameter(params, PARAM_SOCIAL_NETWORK, "myMed");
+    /**
+     * Perform a correct read, and check that the response code is '200'
+     * 
+     * @throws URISyntaxException
+     * @throws ClientProtocolException
+     * @throws IOException
+     */
+    @Test
+    public void readUserTest() throws URISyntaxException, ClientProtocolException, IOException {
+        TestUtils.addParameter(params, PARAM_CODE, READ);
+        TestUtils.addParameter(params, PARAM_ACCESS_TOKEN, accessToken);
+        TestUtils.addParameter(params, PARAM_SOCIAL_NETWORK, "myMed");
 
-    final String query = TestUtils.createQueryParams(params);
-    final URI uri = TestUtils.createUri(path, query);
+        final String query = TestUtils.createQueryParams(params);
+        final URI uri = TestUtils.createUri(path, query);
 
-    final HttpGet getRequest = new HttpGet(uri);
-    final HttpResponse response = client.execute(getRequest);
+        final HttpGet getRequest = new HttpGet(uri);
+        final HttpResponse response = client.execute(getRequest);
 
-    BackendAssert.assertIsValidJson(response);
-    BackendAssert.assertResponseCodeIs(response, 200);
-    BackendAssert.assertIsValidUserJson(response);
-  }
+        BackendAssert.assertIsValidJson(response);
+        BackendAssert.assertResponseCodeIs(response, 200);
+        BackendAssert.assertIsValidUserJson(response);
+    }
 
-  /**
-   * Update a session object, and check that the response code is '200'
-   * 
-   * @throws URISyntaxException
-   * @throws ClientProtocolException
-   * @throws IOException
-   */
-  @Test
-  public void updateTest() throws URISyntaxException, ClientProtocolException, IOException {
-    final JsonObject session = TestUtils.createSessionJson();
-    session.addProperty("isExpired", "true");
+    /**
+     * Update a session object, and check that the response code is '200'
+     * 
+     * @throws URISyntaxException
+     * @throws ClientProtocolException
+     * @throws IOException
+     */
+    @Test
+    public void updateTest() throws URISyntaxException, ClientProtocolException, IOException {
+        final JsonObject session = TestUtils.createSessionJson();
+        session.addProperty("isExpired", "true");
 
-    TestUtils.addParameter(params, PARAM_CODE, UPDATE);
-    TestUtils.addParameter(params, PARAM_ACCESS_TOKEN, accessToken);
-    TestUtils.addParameter(params, PARAM_SESS_STRING, session.toString());
+        TestUtils.addParameter(params, PARAM_CODE, UPDATE);
+        TestUtils.addParameter(params, PARAM_ACCESS_TOKEN, accessToken);
+        TestUtils.addParameter(params, PARAM_SESS_STRING, session.toString());
 
-    final String query = TestUtils.createQueryParams(params);
-    final URI uri = TestUtils.createUri(path, query);
+        final String query = TestUtils.createQueryParams(params);
+        final URI uri = TestUtils.createUri(path, query);
 
-    final HttpPost postRequest = new HttpPost(uri);
-    final HttpResponse response = client.execute(postRequest);
+        final HttpPost postRequest = new HttpPost(uri);
+        final HttpResponse response = client.execute(postRequest);
 
-    BackendAssert.assertIsValidJson(response);
-    BackendAssert.assertResponseCodeIs(response, 200);
-  }
+        BackendAssert.assertIsValidJson(response);
+        BackendAssert.assertResponseCodeIs(response, 200);
+    }
 
-  /**
-   * Delete a session object, and check that the response code is '200'
-   * 
-   * @throws URISyntaxException
-   * @throws ClientProtocolException
-   * @throws IOException
-   */
-  @Test
-  public void deleteTest() throws URISyntaxException, ClientProtocolException, IOException {
-    TestUtils.addParameter(params, PARAM_CODE, DELETE);
-    TestUtils.addParameter(params, PARAM_ACCESS_TOKEN, accessToken);
-    TestUtils.addParameter(params, PARAM_SOCIAL_NETWORK, "myMed");
+    /**
+     * Delete a session object, and check that the response code is '200'
+     * 
+     * @throws URISyntaxException
+     * @throws ClientProtocolException
+     * @throws IOException
+     */
+    @Test
+    public void deleteTest() throws URISyntaxException, ClientProtocolException, IOException {
+        TestUtils.addParameter(params, PARAM_CODE, DELETE);
+        TestUtils.addParameter(params, PARAM_ACCESS_TOKEN, accessToken);
+        TestUtils.addParameter(params, PARAM_SOCIAL_NETWORK, "myMed");
 
-    final String query = TestUtils.createQueryParams(params);
-    final URI uri = TestUtils.createUri(path, query);
+        final String query = TestUtils.createQueryParams(params);
+        final URI uri = TestUtils.createUri(path, query);
 
-    final HttpGet getRequest = new HttpGet(uri);
-    final HttpResponse response = client.execute(getRequest);
+        final HttpGet getRequest = new HttpGet(uri);
+        final HttpResponse response = client.execute(getRequest);
 
-    BackendAssert.assertIsValidJson(response);
-    BackendAssert.assertResponseCodeIs(response, 200);
-  }
+        BackendAssert.assertIsValidJson(response);
+        BackendAssert.assertResponseCodeIs(response, 200);
+    }
 }
