@@ -76,6 +76,21 @@ public interface IPubSubManager {
    */
   List<Map<String, String>> read(String application, String predicate, String userID) throws InternalBackEndException,
       IOBackEndException;
+  
+  
+  /**
+   * Get the Subscriptions Entry related to application + userID
+   *
+   * @param application
+   * @param userID
+   * @return A List of predicates (strings)
+   * @throws InternalBackEndException
+   * @throws IOBackEndException
+   */
+  //TODO "put this method in a more appropriate place"
+  
+  List<String> read(String user) throws InternalBackEndException,
+	IOBackEndException;
 
   /**
    * Delete an existing predicate
@@ -86,4 +101,17 @@ public interface IPubSubManager {
    *          The predicate to delete
    */
   void delete(String application, String predicate, String subPredicate, MUserBean publisher)  throws InternalBackEndException, IOBackEndException;
+  
+  /**
+   * Delete an existing predicate in Subscribers CF, you seem to like multiple functions with same names and different arguments so here's a new one
+   * 
+   * @param application
+   *          the application responsible for this predicate
+   * @param user
+   *          the user that has an ongoing subscription
+   * @param predicate
+   *          The predicate subscription pattern to delete from the row
+   */
+  void delete(String application, String user, String predicate)  throws InternalBackEndException, IOBackEndException;
+
 }
