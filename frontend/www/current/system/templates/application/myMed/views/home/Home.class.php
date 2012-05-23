@@ -49,15 +49,15 @@ class Home extends AbstractTemplate {
 		<!-- CONTENT -->
 		<div class="content" > 
 			<div class="ui-grid-b" Style="padding: 10px;">
-				<?php if ($handle = opendir('system/templates/application')) {
+				<?php if ($handle = opendir('application')) {
 						$column = "a";
 					    while (false !== ($file = readdir($handle))) {
-					    	if($file == "myRiviera") { ?>
+					    	if(preg_match("/my/", $file) && !preg_match("/Admin/", $file)) { ?>
 						    	<div class="ui-block-<?= $column ?>">
 							    	<a
-							    	href="?application=<?= $file ?>"
+							    	href="/application/<?= $file ?>"
 							    	rel="external"
-							    	class="myIcon"><img alt="<?= $file ?>" src="system/templates/application/<?= $file ?>/img/icon.png" width="50px" >
+							    	class="myIcon"><img alt="<?= $file ?>" src="application/<?= $file ?>/img/icon.png" width="50px" >
 							    	</a>
 							    	<br>
 							    	<span style="font-size: 9pt; font-weight: bold;"><?= $file ?></span>

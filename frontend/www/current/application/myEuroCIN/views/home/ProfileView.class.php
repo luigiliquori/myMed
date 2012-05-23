@@ -51,7 +51,7 @@ class ProfileView extends MainView {
 				<?= $_SESSION['dictionary'][LG]["birthday"]?>: <?= $_SESSION['user']->birthday ?><br />
 				eMail: <?= $_SESSION['user']->email ?><br />
 				<div data-role="controlgroup" data-type="horizontal">
-					<a href="#inscription" data-role="button" data-inline="true" data-theme="c" data-icon="refresh"><?= $_SESSION['dictionary'][LG]["update"] ?></a>
+					<a href="#UpdateProfileView" data-role="button" data-inline="true" data-theme="c" data-icon="refresh"><?= $_SESSION['dictionary'][LG]["update"] ?></a>
 					<a href="#login" onclick="document.disconnectForm.submit()" rel="external" data-role="button" data-theme="r"><?= $_SESSION['dictionary'][LG]["disconnect"] ?></a>
 				</div>
 			<?php } else { ?>
