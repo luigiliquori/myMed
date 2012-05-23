@@ -1,4 +1,3 @@
-
 <div data-role="page" id="Find">
 	<div data-theme="b" data-role="header" data-position="fixed">
 		<a href="#Connect" class="homeButton ui-btn-left" data-transition="slide" data-direction="reverse">Log In</a>
@@ -6,14 +5,14 @@
 		<h3>myTemplate</h3>
 		<div data-role="navbar" data-iconpos="left">
 			<ul>
-				<li><a href="#Find" data-theme="c" data-icon="search" class="ui-btn-active"> Chercher </a></li>
+				<li><a href="#Find" data-theme="c" data-icon="search" class="ui-btn-active ui-state-persist"> Chercher </a></li>
 				<li><a href="#Publish" data-theme="c" data-icon="grid"> Publier </a></li>
 				<li><a href="#Subscribe" data-theme="c" data-icon="alert"> Souscrire </a></li>
 			</ul>
 		</div>
 	</div>
 	<div data-role="content">
-		<form action="find.php" id="findForm" >
+		<form action="results.php" id="findForm">
 			<input name="application" value="myTemplate" type="hidden" />
 			<div data-role="fieldcontain">
 				<fieldset data-role="controlgroup">
@@ -46,7 +45,7 @@
 		<div data-role="navbar" data-iconpos="left">
 			<ul>
 				<li><a href="#Find" data-theme="c" data-icon="search"> Find </a></li>
-				<li><a href="#Publish" data-theme="c" data-icon="grid" class="ui-btn-active"> Publish </a></li>
+				<li><a href="#Publish" data-theme="c" data-icon="grid" class="ui-btn-active ui-state-persist"> Publish </a></li>
 				<li><a href="#Subscribe" data-theme="c" data-icon="alert"> Subscribe </a></li>
 			</ul>
 		</div>
@@ -54,11 +53,7 @@
 	<div data-role="content">
 		<form action="publish.php" method="post" id="publishForm" >
 			<input name="application" value="myTemplate" type="hidden" />
-			<input name="_keyword" value="0" type="hidden" />
-			<input name="_data" value="1" type="hidden" />
-			<input name="_enum" value="2" type="hidden" />
-			<input name="_end" value="3" type="hidden" />
-			<input name="_text" value="4" type="hidden" />
+			<input name="_text" value="" type="hidden" />
 			<div data-role="fieldcontain">
 				<fieldset data-role="controlgroup">
 					<label for="textinputp1"> keyword: </label> <input id="textinputp1"  name="keyword" placeholder="" value="" type="text" />
@@ -85,7 +80,7 @@
 					<label for="textinputp5"> texte: </label> <textarea id="textinputp5"  name="text" placeholder="" value=""></textarea>
 				</fieldset>
 			</div>
-			<input type="submit" rel="external" data-ajax="false" data-theme="g" value="Publier" />
+			<input type="submit" data-theme="g" value="Publier" />
 		</form>
 	</div>
 </div>
@@ -97,12 +92,12 @@
 			<ul>
 				<li><a href="#Find" data-theme="c" data-icon="search"> Find </a></li>
 				<li><a href="#Publish" data-theme="c" data-icon="grid"> Publish </a></li>
-				<li><a href="#Subscribe" data-theme="c" data-icon="alert" class="ui-btn-active"> Subscribe </a></li>
+				<li><a href="#Subscribe" data-theme="c" data-icon="alert" class="ui-btn-active ui-state-persist"> Subscribe </a></li>
 			</ul>
 		</div>
 	</div>
 	<div data-role="content">
-		<form action="subscribe.php" id="subscribeForm" >
+		<form action="subscribe.php" method="post" id="subscribeForm" >
 			<input name="application" value="myTemplate" type="hidden" />
 			<div data-role="fieldcontain">
 				<fieldset data-role="controlgroup">
@@ -126,8 +121,26 @@
 			</div>
 			<input type="submit" data-theme="g" value="Souscrire" />
 		</form>
+		<form action="subscriptions.php">
+			<input name="application" value="myTemplate" type="hidden" />
+			<input type="submit" value="Gérer ses Souscriptions" data-transition="flip" />
+		</form>
 	</div>
 </div>
+
+
+<div data-role="page" id="Results">
+	<div data-theme="b" data-role="header" data-position="fixed">
+		<h3>Résultats</h3>
+	</div>
+	<div data-role="content">
+		<ul data-role="listview" data-filter="true">
+			<li><a href="">Hello </a></li>
+			<li><a href="">Bye	</a></li>
+		</ul>
+	</div>
+</div>
+
 
 <div data-role="page" id="Connect">
 	<div data-theme="b" data-role="header" data-position="fixed">

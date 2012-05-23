@@ -4,10 +4,9 @@
 	$template = new TemplateManager();
 	$template->getHead();
 	// DEBUG
-	require_once('PhpConsole.php');
-	PhpConsole::start();
-	
-	debug('f');
+	//require_once('PhpConsole.php');
+	//PhpConsole::start();
+
 ?>
 
 
@@ -32,6 +31,8 @@
 	
 	$responseObject = new stdClass();$responseObject->success = false;
 	
+	ksort($_REQUEST); // important to match a possible predicate, keys must be ordered
+	
 	$predicate = "";
 	foreach( $_REQUEST as $i => $value ){
 		if ( $i!='application' && $i[0]!='_' && $value && $value!='false' && $value!='' ){
@@ -49,17 +50,17 @@
 		echo '<script type="text/javascript">alert(\'' . $responseObject->description . '\');</script>';
 	}else{
 		$results = $responseObject->dataObject->results;
-		foreach( $results as $i => $value ){ 
+		$_SESSION['results'] = $results;
+		$_SESSION['application'] = $_REQUEST['application'];
+		foreach( $results as $value ){ 
 			$profPic = $value->publisherProfilePicture ? $value->publisherProfilePicture : "http://graph.facebook.com//picture?type=large";
 			$date = $value->end ? " le ".$value->end : " ";
 			$position = $value->data ? " à ".$value->data : "";
 			?>
-		<li><form action="getDetail.php">
+		<li><form action="detail.php">
 			<input name="application" value="myTemplate" type="hidden" />
 			<input name="predicate" value=<?= $value->predicate ?> type="hidden" />
 			<input name="user" value=<?= $value->publisherID ?> type="hidden" />
-			<input name="profPic" value=<?= $profPic ?> type="hidden" />
-			<input name="index" value=<?= $i ?> type="hidden" />
 			</form>
 			<a href="" onclick="$(this).prev('form').submit(); return false;" style="padding-top: 1px;padding-bottom: 1px;">
 				<div class="row"><img src='<?= $profPic ?>' width="60" height="60" /></div>
@@ -77,8 +78,6 @@
 		
 		</ul>
 	</div>
-	<script language=javascript>
-		results = <?php echo json_encode($results);?>
-	</script>
+
 </div>
 

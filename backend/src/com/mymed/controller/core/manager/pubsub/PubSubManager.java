@@ -24,6 +24,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import ch.qos.logback.classic.Logger;
+
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.AbstractManager;
@@ -93,7 +95,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     public PubSubManager(final IStorageManager storageManager) {
         super(storageManager);
     }
-
+    
     /**
      * Publish mechanism.
      * 
@@ -236,6 +238,11 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
             args.put("user", subscriber.getId().getBytes(ENCODING));
             storageManager.insertSuperSlice(SC_USER_LIST, SUBSCRIBER_PREFIX + application + predicate,
                             subscriber.getId(), args);
+            
+            //
+            storageManager.insertColumn("Subscriptions", application + subscriber.getId(), predicate, new byte[0]);
+            
+            
 
         } catch (final UnsupportedEncodingException e) {
             LOGGER.debug(ERROR_ENCODING, ENCODING, e);
@@ -294,9 +301,29 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 
         return resList;
     }
+    
+    /*
+     * The find mechanism.
+     * @see com.mymed.controller.core.manager.pubsub.IPubSubManager#read(java.lang.String)
+     */
+    @Override
+    public final List<String> read(final String appuserid)
+                    throws InternalBackEndException, IOBackEndException {
+
+    	final List<String> res = new ArrayList<String>();
+		final Map<byte[], byte[]> predicates = storageManager.selectAll("Subscriptions", appuserid);
+		LOGGER.info("size: "+predicates.size());
+		for (final Entry<byte[], byte[]> entry : predicates.entrySet()) {
+			String key = Charset.forName(ENCODING).decode(ByteBuffer.wrap(entry.getKey())).toString();
+            res.add(key);
+            LOGGER.info(key);
+		}
+
+        return res;
+    }
 
     /**
-     * @see IPubSubManager#delete(String, String)
+     * @see IPubSubManager#delete(String * 3 + MUserBean)
      */
     @Override
     public final void delete(final String application, final String predicate, final String subPredicate,
@@ -311,4 +338,19 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
         // Remove app model entry
         // storageManager.removeSuperColumn(SC_APPLICATION_MODEL, application, predicate + publisher.getId());
     }
+    
+    /**
+     * @see IPubSubManager#delete(String * 3)
+     */
+    @Override
+    public final void delete(final String application, final String user, final String predicate) throws InternalBackEndException, IOBackEndException {
+        
+    	// Remove subscriber member from subsribers list
+        storageManager.removeColumn("Subscriptions", application + user, predicate);
+        
+        // Remove subscriber member from predicates subscribed list
+        storageManager.removeSuperColumn(SC_USER_LIST, SUBSCRIBER_PREFIX + application + predicate, user);
+        
+    }
+
 }
