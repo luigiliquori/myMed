@@ -2,8 +2,8 @@
 	require_once('../../lib/dasp/request/Request.class.php');
 	require_once('../../system/config.php');
 	session_start();
-	require_once('PhpConsole.php');
-	PhpConsole::start();
+	//require_once('PhpConsole.php');
+	//PhpConsole::start();
 	$predicate = "";
 	ksort($_REQUEST); // important to match a possible predicate, keys must be ordered
 	
@@ -21,7 +21,6 @@
 	}
 	
 	$responsejSon = $request->send();
-	debug($responsejSon);
 	$responseObject = json_decode($responsejSon);
 	if($responseObject->status == 200) {
 		header("location:.");
