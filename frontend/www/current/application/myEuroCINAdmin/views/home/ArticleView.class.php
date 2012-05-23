@@ -51,6 +51,9 @@ class ArticleView extends MainView {
 					</form>
 					<a href="#" onclick="document.getDetailForm<?= $this->numberOfArticle ?>.submit()">
 						<?= $controller->data ?>
+						<span class="ui-link" style="float:right;"><?= substr($controller->publisherID, 6) ?>
+							<a href="mailto:<?= substr($controller->publisherID, 6) ?>" target="_blank"><?= substr($controller->publisherID, 6) ?></a>
+						</span>
 					</a>
 				</li>
 				<?php 

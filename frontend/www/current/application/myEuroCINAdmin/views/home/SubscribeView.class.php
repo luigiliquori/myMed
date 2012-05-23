@@ -50,8 +50,7 @@ class SubscribeView extends MainView {
 			<input name="numberOfOntology" value="1" type="hidden"/>
 			<input name="ontology0" value="<?= urlencode(json_encode(new MDataBean("Lingua", "francese", KEYWORD))); ?>" type="hidden" >
 		</form>
-		<a type="button" data-theme="e" href="#" onclick="document.getSubscribeForm1.submit();">Sottoscrivere ai testi (it)</a>
-		<a type="button" data-theme="e" href="#" onclick="document.getSubscribeForm2.submit();">Sottoscrivere ai testi (fr)</a>
+		
 
 		<form action="" method="post" name="getSubscribeForm3">
 			<input name="application" value="<?= APPLICATION_NAME."_ADMIN" ?>" type="hidden" />
@@ -59,8 +58,12 @@ class SubscribeView extends MainView {
 			<input name="numberOfOntology" value="1" type="hidden"/>
 			<input name="ontology0" value="<?= urlencode(json_encode(new MDataBean("commentGroup", APPLICATION_NAME, KEYWORD))); ?>" type="hidden" >
 		</form>
-		<a type="button" data-theme="e" href="#" onclick="document.getSubscribeForm3.submit();" >Sottoscrivere ai commenti</a>
-
+		<div style="width:700px;margin-left:auto; margin-right:auto;">
+			<a type="button" data-inline="true" data-theme="e" href="#" onclick="$(this).parent().addClass('ui-disabled');document.getSubscribeForm1.submit();">Sottoscrivere testi (it)</a>
+			<a type="button" data-inline="true" data-theme="e" href="#" onclick="$(this).parent().addClass('ui-disabled');document.getSubscribeForm2.submit();">Sottoscrivere testi (fr)</a>
+			<a type="button" data-inline="true" data-theme="e" href="#" onclick="$(this).parent().addClass('ui-disabled');document.getSubscribeForm3.submit();" >Sottoscrivere commenti</a>
+		</div>
+		
 	<?php }
 	
 	/**
