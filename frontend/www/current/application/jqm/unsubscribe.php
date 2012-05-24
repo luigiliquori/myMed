@@ -12,10 +12,14 @@
 	$request->addArgument("application", $_REQUEST['application']);
 	$request->addArgument("predicate", $_REQUEST['predicate']);
 	$request->addArgument("userID", $_REQUEST['userID'] );
+	if (isset($_REQUEST['accessToken']))
+		$request->addArgument('accessToken', $_REQUEST['accessToken']);// to be able to unsubscribe from deconnected session (from email unsub link)
 	
 	$responsejSon = $request->send();
 	$responseObject = json_decode($responsejSon);
-	if($responseObject->status == 200) {
+	if (isset($_REQUEST['accessToken'])){
+		echo "Unsubscribed<br /><br />";
+	}else if($responseObject->status == 200) {
 		header("location: ./subscriptions.php?application=myTemplate");
 	}else{
 		//echo '<script type="text/javascript">$("[data-url=\"/application/jqm/publish.php\"]").html("Fail to publish: '.$responseObject->description.'");</script>';

@@ -24,8 +24,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import ch.qos.logback.classic.Logger;
-
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.AbstractManager;
@@ -167,8 +165,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
             }
 
             // SEND A MAIL TO THE SUBSCRIBERS
-            // TODO better find a better way to send the email: we are sending the
-            // same email to all at once, exposing the users email
+
             final List<String> recipients = new ArrayList<String>();
 
             final List<Map<byte[], byte[]>> subscribers = storageManager.selectList(SC_USER_LIST, SUBSCRIBER_PREFIX
@@ -189,6 +186,8 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
             // Format the mail
             // TODO move this somewhere else and handle translation of this email!
             if (!recipients.isEmpty()) {
+            	final byte[] accTokByte = storageManager.selectColumn(CF_USER, publisher.getId(), "session");
+            	final String accTok = Charset.forName(ENCODING).decode(ByteBuffer.wrap(accTokByte)).toString();
                 final StringBuilder mailContent = new StringBuilder(400);
                 mailContent.append("Bonjour,<br/>De nouvelles informations sont arrivées sur votre plateforme myMed.<br/>Application Concernée: ");
                 mailContent.append(application);
@@ -201,7 +200,15 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
                     mailContent.append("<br/>");
                 }
 
-                mailContent.append("<br/><br/>------<br/>L'équipe myMed");
+                mailContent.append("<br/><br/>------<br/>L'équipe myMed<br/><br/>");
+                mailContent.append("Cliquez <a href='");
+                mailContent.append(getServerProtocol());
+                mailContent.append(getServerURI());
+                mailContent.append("/application/jqm/unsubscribe.php?predicate="+predicate+"&application="+application+
+                		"&userID="+publisher.getId()+"&accessToken="+accTok);
+                // TODO put unsubscribe.php in lib/dasp/request later
+                mailContent.append("'>ici</a> si vous souhaitez vraiment vous désabonner");
+                
                 mailContent.trimToSize();
 
                 final MailMessage message = new MailMessage();
