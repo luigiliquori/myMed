@@ -180,7 +180,7 @@ function connect(){
 		data: params,
 		success: function(data) {
 			var res = JSON.parse(data);
-			if (res.success){
+			if (res.status==200){
 				user= res.dataObject.user;
 				updateUser();
 			}else {
@@ -200,7 +200,7 @@ function register(){
 		data: params,
 		success: function(data) {
 			var res = JSON.parse(data);
-			if (res.success){
+			if (res.status==200){
 				alert('Veuillez valider votre compte par mail');
 			}else {
 				alert('error: '+res.description);
@@ -226,7 +226,7 @@ function update(){
 		data: params,
 		success: function(data) {
 			var res = JSON.parse(data);
-			if (res.success){
+			if (res.status==200){
         		user= res.dataObject.profile;
         		updateUser();
 			}else{
@@ -241,9 +241,11 @@ function session(){
 		url: 'session.php',
 		success: function(data) {
 			var res = JSON.parse(data);
-        	if (res.success){
+        	if (res.status){
         		user= res.dataObject.user;
         		updateUser();
+			}else if (res.status != 200){
+        		//
 			}
 		}
 	});
@@ -259,7 +261,7 @@ function disconnect(){
 	});
 }
 
-function _delete(index, predicates){
+function _delete(){
 	// add additional params to the form, (ontologyID's)
 	var params = {};
 	$.each($('#deleteForm').serializeArray(), function(i, field) {
@@ -274,8 +276,85 @@ function _delete(index, predicates){
 			//results.splice(index, 1);
 			//refreshResults();
 			var res = JSON.parse(data);
-			if (res.success){
+			if (res.status==200){
 				history.back();
+			}else{
+				alert('error: '+res.description);
+			}
+		}
+	});
+}
+
+function comment(){
+	// add additional params to the form, (ontologyID's)
+	var params = {};
+	$.each($('#commentForm').serializeArray(), function(i, field) {
+		params[field.name] = field.value;
+	});
+	var d=new Date(), me = this;
+	params['end'] = d.toJSON();
+	
+	$.ajax({
+		url: 'publish.php',
+		type: 'post',
+		data: params,
+		success: function(data) {
+			//results.splice(index, 1);
+			//refreshResults();
+			$("#commentButton span span").text("envoyé");
+			$("#commentButton").addClass('ui-disabled');
+			var res = JSON.parse(data);
+			if (res.status==200){
+				$(this).addClass('ui-disabled');
+				alert('commented: '+params.data+'\n'+res.description);
+			}else{
+				alert('error: '+res.description);
+			}
+		}
+	});
+}
+
+function __delete(){ //comment
+	// add additional params to the form, (ontologyID's)
+	var params = {};
+	$.each($('#deleteCommentForm').serializeArray(), function(i, field) {
+		params[field.name] = field.value;
+	});
+	
+	$.ajax({
+		url: 'delete.php',
+		type: 'post',
+		data: params,
+		success: function(data) {
+			//results.splice(index, 1);
+			//refreshResults();
+			var res = JSON.parse(data);
+			if (res.status==200){
+				location.reload();
+			}else{
+				alert('error: '+res.description);
+			}
+		}
+	});
+}
+
+function ___delete(i){ //subscription
+	var params = {};
+	$.each($('#deleteSubscriptionForm'+i).serializeArray(), function(i, field) {
+		params[field.name] = field.value;
+	});
+	
+	$.ajax({
+		url: 'unsubscribe.php',
+		type: 'post',
+		data: params,
+		success: function(data) {
+			//results.splice(index, 1);
+			//refreshResults();
+			var res = JSON.parse(data);
+			if (res.status==200){
+				console.log(data);
+				//location.reload();
 			}else{
 				alert('error: '+res.description);
 			}
