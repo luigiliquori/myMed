@@ -189,7 +189,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
                 final byte[] accTokByte = storageManager.selectColumn(CF_USER, publisher.getId(), "session");
                 final String accTok = Charset.forName(ENCODING).decode(ByteBuffer.wrap(accTokByte)).toString();
                 final StringBuilder mailContent = new StringBuilder(400);
-                mailContent.append("Bonjour,<br/>De nouvelles informations sont arriv&acute;es sur votre plateforme myMed.<br/>Application Concern&eacute;e: ");
+                mailContent.append("Bonjour,<br/>De nouvelles informations sont arriv&eacute;es sur votre plateforme myMed.<br/>Application Concern&eacute;e: ");
                 mailContent.append(application);
                 mailContent.append("<br/>Predicate:<br/>");
                 for (final MDataBean item : dataList) {
