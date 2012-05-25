@@ -93,7 +93,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     public PubSubManager(final IStorageManager storageManager) {
         super(storageManager);
     }
-    
+
     /**
      * Publish mechanism.
      * 
@@ -186,8 +186,8 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
             // Format the mail
             // TODO move this somewhere else and handle translation of this email!
             if (!recipients.isEmpty()) {
-            	final byte[] accTokByte = storageManager.selectColumn(CF_USER, publisher.getId(), "session");
-            	final String accTok = Charset.forName(ENCODING).decode(ByteBuffer.wrap(accTokByte)).toString();
+                final byte[] accTokByte = storageManager.selectColumn(CF_USER, publisher.getId(), "session");
+                final String accTok = Charset.forName(ENCODING).decode(ByteBuffer.wrap(accTokByte)).toString();
                 final StringBuilder mailContent = new StringBuilder(400);
                 mailContent.append("Bonjour,<br/>De nouvelles informations sont arrivées sur votre plateforme myMed.<br/>Application Concernée: ");
                 mailContent.append(application);
@@ -204,11 +204,11 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
                 mailContent.append("Cliquez <a href='");
                 mailContent.append(getServerProtocol());
                 mailContent.append(getServerURI());
-                mailContent.append("/application/jqm/unsubscribe.php?predicate="+predicate+"&application="+application+
-                		"&userID="+publisher.getId()+"&accessToken="+accTok);
+                mailContent.append("/application/jqm/unsubscribe.php?predicate=" + predicate + "&application="
+                                + application + "&userID=" + publisher.getId() + "&accessToken=" + accTok);
                 // TODO put unsubscribe.php in lib/dasp/request later
                 mailContent.append("'>ici</a> si vous souhaitez vraiment vous désabonner");
-                
+
                 mailContent.trimToSize();
 
                 final MailMessage message = new MailMessage();
@@ -245,11 +245,8 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
             args.put("user", subscriber.getId().getBytes(ENCODING));
             storageManager.insertSuperSlice(SC_USER_LIST, SUBSCRIBER_PREFIX + application + predicate,
                             subscriber.getId(), args);
-            
-            //
+
             storageManager.insertColumn("Subscriptions", application + subscriber.getId(), predicate, new byte[0]);
-            
-            
 
         } catch (final UnsupportedEncodingException e) {
             LOGGER.debug(ERROR_ENCODING, ENCODING, e);
@@ -308,23 +305,22 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 
         return resList;
     }
-    
+
     /*
      * The find mechanism.
      * @see com.mymed.controller.core.manager.pubsub.IPubSubManager#read(java.lang.String)
      */
     @Override
-    public final List<String> read(final String appuserid)
-                    throws InternalBackEndException, IOBackEndException {
+    public final List<String> read(final String appuserid) throws InternalBackEndException, IOBackEndException {
 
-    	final List<String> res = new ArrayList<String>();
-		final Map<byte[], byte[]> predicates = storageManager.selectAll("Subscriptions", appuserid);
-		LOGGER.info("size: "+predicates.size());
-		for (final Entry<byte[], byte[]> entry : predicates.entrySet()) {
-			String key = Charset.forName(ENCODING).decode(ByteBuffer.wrap(entry.getKey())).toString();
+        final List<String> res = new ArrayList<String>();
+        final Map<byte[], byte[]> predicates = storageManager.selectAll("Subscriptions", appuserid);
+        LOGGER.info("size: " + predicates.size());
+        for (final Entry<byte[], byte[]> entry : predicates.entrySet()) {
+            final String key = Charset.forName(ENCODING).decode(ByteBuffer.wrap(entry.getKey())).toString();
             res.add(key);
             LOGGER.info(key);
-		}
+        }
 
         return res;
     }
@@ -345,19 +341,16 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
         // Remove app model entry
         // storageManager.removeSuperColumn(SC_APPLICATION_MODEL, application, predicate + publisher.getId());
     }
-    
+
     /**
      * @see IPubSubManager#delete(String * 3)
      */
     @Override
-    public final void delete(final String application, final String user, final String predicate) throws InternalBackEndException, IOBackEndException {
-        
-    	// Remove subscriber member from subsribers list
+    public final void delete(final String application, final String user, final String predicate)
+                    throws InternalBackEndException, IOBackEndException {
+        // Remove subscriber member from subsribers list
         storageManager.removeColumn("Subscriptions", application + user, predicate);
-        
         // Remove subscriber member from predicates subscribed list
         storageManager.removeSuperColumn(SC_USER_LIST, SUBSCRIBER_PREFIX + application + predicate, user);
-        
     }
-
 }
