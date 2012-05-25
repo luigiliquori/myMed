@@ -1,6 +1,5 @@
 package com.mymed.utils.mail;
 
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,7 +69,7 @@ public final class MailMessage {
     public MailMessage(final String recipient, final String subject, final String text) {
         recipients.add(recipient);
         this.subject = subject;
-        setText(text);
+        this.text = text;
     }
 
     /**
@@ -85,8 +84,8 @@ public final class MailMessage {
      */
     public MailMessage(final List<String> recipients, final String subject, final String text) {
         this.subject = subject;
+        this.text = text;
         this.recipients.addAll(recipients);
-        setText(text);
     }
 
     /**
@@ -145,8 +144,7 @@ public final class MailMessage {
      *            The body of the email
      */
     public void setText(final String text) {
-        final String encString = new String(text.getBytes(), Charset.forName("UTF-8"));
-        this.text = encString;
+        this.text = text;
     }
 
     /**
