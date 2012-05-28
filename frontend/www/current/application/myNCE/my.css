@@ -1,20 +1,30 @@
 .text-align-center {
-  text-align: center;
-}
-.text-align-right {
-  text-align: right;
+	text-align: center;
 }
 
-div.ui-slider{
+.text-align-right {
+	text-align: right;
+}
+
+div.ui-slider {
 	width: 150px;
 }
 
-input.ui-slider-input{
+input.ui-slider-input {
 	display: none;
 }
-.ui-controlgroup-last{
+
+.ui-controlgroup-last {
 	vertical-align: top;
 }
+.row{
+	vertical-align: middle;
+	display:table-cell;
+}
+.row img {
+	vertical-align: top;
+}
+
 
 /* Red button theme for JQuery Mobile
 * - Use data-theme="r" for red versions of the default JQuery Mobile Buttons.
