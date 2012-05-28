@@ -17,16 +17,11 @@
     </head>
     <body>
         <div data-role="page" id="page1">
+        	<div data-role="header" data-theme="e">
+				<a href="home.html" data-icon="back"> Back </a>
+				<h3>myNCE - résultats</h3>
+			</div>
             <div data-role="content">
-                <div data-role="navbar" data-iconpos="left">
-                    <ul>
-                        <li>
-                            <a href="#page1" data-theme="a" data-icon="back">
-                                Back
-                            </a>
-                        </li>
-                    </ul>
-                </div>
                 <div>
                     <b>
                         Here is detailed content to display
@@ -41,9 +36,16 @@ Here is detailed content to display
 Here is detailed content to display
                     </b>
                 </div>
-                <a data-role="button" data-transition="fade" data-theme="a" href="page1">
-                    Comment
-                </a>
+                <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup">
+                        <label for="textarea1">
+                            Commenter:
+                        </label>
+                        <textarea id="textarea1" placeholder="">
+                        </textarea>
+                        <input value="Envoyer" type="submit" data-inline="true"/>
+                    </fieldset>
+                </div>
             </div>
         </div>
         <script>

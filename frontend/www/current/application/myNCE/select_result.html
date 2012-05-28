@@ -16,52 +16,36 @@
         </script>
     </head>
     <body>
-        <div data-role="page" id="page1">
+        <div data-role="page">
+        	<div data-role="header" data-theme="e">
+				<a href="home.html" data-icon="back"> Back </a>
+				<h3>my NCE</h3>
+				<a href="home.html" data-icon="alert" class="ui-btn-right"> Souscrire </a>
+			</div>
+			<br /><br />
             <div data-role="content">
-                <div data-role="navbar" data-iconpos="top">
-                    <ul>
-                        <li>
-                            <a href="#page1" data-theme="a" data-icon="">
-                                Back
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#page1" data-theme="a" data-icon="">
-                                Submit
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div data-role="content">
-                  <input type="search" name="search" id="searc-basic" value="" />
-                </div>
-                <ul data-role="listview" data-divider-theme="b" data-inset="true">
-                    <li data-role="list-divider" role="heading">
+                <ul data-role="listview" data-filter="true" data-divider-theme="b" data-inset="true">
+                    <li data-role="list-divider">
                         Results:
                     </li>
-                    <li data-theme="c">
+                    <li>
                         <a href="#page1" data-transition="slide">
                             result1
                         </a>
                     </li>
-                    <li data-theme="c">
+                    <li>
                         <a href="#page1" data-transition="slide">
                             result2
                         </a>
                     </li>
-                    <li data-theme="c">
+                    <li>
                         <a href="#page1" data-transition="slide">
                             result3
                         </a>
                     </li>
-                    <li data-theme="c">
+                    <li>
                         <a href="#page1" data-transition="slide">
                             result4
-                        </a>
-                    </li>
-                    <li data-theme="c">
-                        <a href="#page1" data-transition="slide">
-                            result5
                         </a>
                     </li>
                 </ul>

@@ -17,21 +17,63 @@
     </head>
     <body>
         <div data-role="page" id="page1">
+        	<div data-role="header" data-theme="e">
+				<a href="home.html" data-icon="back"> Back </a>
+				<h3>myNCE</h3>
+			</div>
             <div data-role="content">
-                <div data-role="navbar" data-iconpos="left">
-                    <ul>
-                        <li>
-                            <a href="home.html" data-theme="a" data-icon="">
-                                Back
-                            </a>
-                        </li>
+                <div style=" text-align:center; min-height:200px;">
+                	<h3>Mon profil</h3>
+
+               		<img style="position: absolute; width: 300; right: 5px;" src="http://graph.facebook.com//picture?type=large"/>
+
+               		nom: Doe<br />
+               		prénom: John<br />
+               		date de naissance: 1986-06-06<br />
+               		Réputation: <input type="range" name="slider" id="slider-0" value="25" min="0" max="100" data-highlight="true" data-mini="true" /><br />
+               		
+               		<br />
+               		<a type="button" data-mini="true" style="width:200px; margin-right: auto; margin-left: auto;" href="javascript://" data-icon="grid" onclick="$('#deleteSubscriptionForm<?= $i ?>').submit();">Modifier</a>
+               		
+                </div>
+                <hr />
+                <div style=" text-align:center">
+                	<h3>Mes souscriptions</h3>
+                    <ul data-role="listview" data-filter="true" data-inset="true">
+                    	<li>
+							<a href="" onclick="$(this).prev('form').submit(); return false;">
+							boo!!
+								<form action="unsubscribe.php" id="deleteSubscriptionForm<?= $i ?>">
+									<input name="application" value="" type="hidden" />
+									<input name="predicate" value="" type="hidden" />
+									<input name="userID" value="" type="hidden" />
+								</form>
+								<a href="javascript://" data-icon="delete" data-theme="r" onclick="$('#deleteSubscriptionForm<?= $i ?>').submit();">stop this</a>
+							</a>
+						</li>
+						<li>
+							<a href="" onclick="$(this).prev('form').submit(); return false;">
+							boo2!!
+								<form action="unsubscribe.php" id="deleteSubscriptionForm<?= $i ?>">
+									<input name="application" value="" type="hidden" />
+									<input name="predicate" value="" type="hidden" />
+									<input name="userID" value="" type="hidden" />
+								</form>
+								<a href="javascript://" data-icon="delete" data-theme="r" onclick="$('#deleteSubscriptionForm<?= $i ?>').submit();">stop this</a>
+							</a>
+						</li>
+						<li>
+							<a href="" onclick="$(this).prev('form').submit(); return false;">
+							...
+								<form action="unsubscribe.php" id="deleteSubscriptionForm<?= $i ?>">
+									<input name="application" value="" type="hidden" />
+									<input name="predicate" value="" type="hidden" />
+									<input name="userID" value="" type="hidden" />
+								</form>
+								<a href="javascript://" data-icon="delete" data-theme="r" onclick="$('#deleteSubscriptionForm<?= $i ?>').submit();">stop this</a>
+							</a>
+						</li>
                     </ul>
-                </div>
-                <div style=" text-align:center">
-                    <img style="width: 30%; height: 10%" src="http://www.pmradio.com.au/images/mainsite/profile_m.gif"/>
-                </div>
-                <div style=" text-align:center">
-                    <img style="width: 30%; height: 10%" src="http://cdn.slacktory.com/wp-content/uploads/2011/11/Subscribe-to-this-cartoon.jpg" />
                 </div>
             </div>
         </div>
