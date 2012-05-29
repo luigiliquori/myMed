@@ -36,7 +36,7 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:element>
-    <xs:element name="Téléphone" nillable="true" minOccurs="0" maxOccurs="1">
+    <xs:element name="TÃ©lÃ©phone" nillable="true" minOccurs="0" maxOccurs="1">
       <xs:simpleType>
         <xs:restriction base="xs:string">
           <xs:maxLength value="32"/>
@@ -46,7 +46,7 @@
     <xs:element name="DateDeSaisie" nillable="true" minOccurs="0" maxOccurs="1">
       <xs:simpleType>
         <xs:restriction base="xs:string">
-          <xs:maxLength value="unbounded"/>
+          <xs:maxLength value="32"/>
         </xs:restriction>
       </xs:simpleType>
     </xs:element>

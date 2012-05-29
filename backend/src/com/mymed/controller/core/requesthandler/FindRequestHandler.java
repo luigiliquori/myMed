@@ -83,7 +83,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
                 if ((application = parameters.get(JSON_APPLICATION)) == null) {
                     throw new InternalBackEndException("missing application argument!");
                 } else if ((predicate = parameters.get(JSON_PREDICATE)) == null) {
-                    throw new InternalBackEndException("missing predicate argument!");
+                	throw new InternalBackEndException("missing predicate argument!");
                 }
                 if ((user = parameters.get(JSON_USER)) != null) {
                     final List<Map<String, String>> details = pubsubManager.read(application, predicate, user);

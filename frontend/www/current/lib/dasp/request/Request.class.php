@@ -111,7 +111,7 @@ class Request {
 			curl_setopt($curl, CURLOPT_HTTPHEADER, $httpHeader);
 			curl_setopt($curl, CURLOPT_URL, $this->url.$this->ressource.'?'.http_build_query($this->arguments));
 		}
-		debug($this->url.$this->ressource.'?'.http_build_query($this->arguments));
+
 		// SSL CONNECTION
 		// TODO fix once we have the valid certificate!
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
@@ -119,6 +119,7 @@ class Request {
 		curl_setopt($curl, CURLOPT_CAINFO, "/etc/ssl/certs/mymed.crt"); // TO EXPORT FROM GLASSFISH!
 
 		$result = curl_exec($curl);
+//		debug($result);
 // 				echo '<script type="text/javascript">alert(\'' . $result . '\');</script>';
 		debug($result);
 		return $result;

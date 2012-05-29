@@ -1,5 +1,7 @@
 <?php
 	
+	ob_start("ob_gzhandler");
+
 	require_once dirname(__FILE__).'/TemplateManager.class.php';
 	
 	if(isset($_GET['accessToken'])) {

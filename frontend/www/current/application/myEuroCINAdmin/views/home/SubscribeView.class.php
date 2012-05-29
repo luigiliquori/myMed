@@ -35,7 +35,35 @@ class SubscribeView extends MainView {
 	/**
 	* 
 	*/
-	private /*String*/ function getSubscribeContent() { ?>
+	private /*String*/ function getSubscribeContent() { 
+	
+		
+		$subFr = false;
+		$subIt = false;
+		$subCom = false;
+		
+		$request = new Request("SubscribeRequestHandler", READ);
+		$request->addArgument("application", APPLICATION_NAME."_ADMIN");
+		$request->addArgument("userID", $_SESSION['user']->id);
+		
+		$responsejSon = $request->send();
+		$responseObject = json_decode($responsejSon);
+		if($responseObject->status == 200) {
+			$res = $responseObject->dataObject->subscriptions;
+			foreach( $res as $value ){
+				if (strrpos($value, "Linguafrancese") !== false){
+					$subFr = true;
+				}
+				if (strrpos($value, "Linguaitaliano") !== false){
+					$subIt = true;
+				}
+				if (strrpos($value, "commentGroup") !== false){
+					$subCom = true;
+				}
+			}
+		}
+		
+		?>
 
 		<form action="" method="post" name="getSubscribeForm1">
 			<input name="application" value="<?= APPLICATION_NAME."_ADMIN" ?>" type="hidden" />
@@ -50,8 +78,7 @@ class SubscribeView extends MainView {
 			<input name="numberOfOntology" value="1" type="hidden"/>
 			<input name="ontology0" value="<?= urlencode(json_encode(new MDataBean("Lingua", "francese", KEYWORD))); ?>" type="hidden" >
 		</form>
-		<a type="button" data-theme="e" href="#" onclick="document.getSubscribeForm1.submit();">Sottoscrivere ai testi (it)</a>
-		<a type="button" data-theme="e" href="#" onclick="document.getSubscribeForm2.submit();">Sottoscrivere ai testi (fr)</a>
+		
 
 		<form action="" method="post" name="getSubscribeForm3">
 			<input name="application" value="<?= APPLICATION_NAME."_ADMIN" ?>" type="hidden" />
@@ -59,8 +86,12 @@ class SubscribeView extends MainView {
 			<input name="numberOfOntology" value="1" type="hidden"/>
 			<input name="ontology0" value="<?= urlencode(json_encode(new MDataBean("commentGroup", APPLICATION_NAME, KEYWORD))); ?>" type="hidden" >
 		</form>
-		<a type="button" data-theme="e" href="#" onclick="document.getSubscribeForm3.submit();" >Sottoscrivere ai commenti</a>
-
+		<div style="width:700px;margin-left:auto; margin-right:auto;">
+			<a <?= $subIt?"class='ui-disabled'":"" ?> type="button" data-inline="true" data-theme="e" href="#" onclick="document.getSubscribeForm1.submit();">Sottoscrivere testi (it)</a>
+			<a <?= $subFr?"class='ui-disabled'":"" ?> type="button" data-inline="true" data-theme="e" href="#" onclick="document.getSubscribeForm2.submit();">Sottoscrivere testi (fr)</a>
+			<a <?= $subCom?"class='ui-disabled'":"" ?> type="button" data-inline="true" data-theme="e" href="#" onclick="document.getSubscribeForm3.submit();" >Sottoscrivere commenti</a>
+		</div>
+		
 	<?php }
 	
 	/**

@@ -1,20 +1,21 @@
 .text-align-center {
-  text-align: center;
-}
-.text-align-right {
-  text-align: right;
-}
-#detailstext h1 {
 	text-align: center;
 }
-#detailstext {
-	text-align: justify;
+
+.text-align-right {
+	text-align: right;
 }
-#detailstext img{
-	margin: 5px;
+
+div.ui-slider {
+	width: 150px;
 }
-.ui-controlgroup {
-	margin: 0;
+
+input.ui-slider-input {
+	display: none;
+}
+
+.ui-controlgroup-last {
+	vertical-align: top;
 }
 .row{
 	vertical-align: middle;
@@ -22,9 +23,6 @@
 }
 .row img {
 	vertical-align: top;
-}
-.ui-li-link-alt .ui-btn {
-	margin-top: -14px;
 }
 
 

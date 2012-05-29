@@ -11,7 +11,7 @@ var map, marker, infowindow;
 
 $(function() {  
 	// check if a session is already opened
-	session();
+	//session();
 	
 	map = new google.maps.Map(document.getElementById("map_canvas"), {
 		zoom: 11,
@@ -209,11 +209,11 @@ function register(){
 	});
 }
 function updateProfile(){
-	$('#textinputu1').val(user.firstName);
-	$('#textinputu2').val(user.lastName);
-	$('#textinputu3').val(user.email);
-	$('#textinputu6').val(user.birthday);
-	$('#textinputu7').val(user.profilePicture);
+//	$('#textinputu1').val(user.firstName);
+//	$('#textinputu2').val(user.lastName);
+//	$('#textinputu3').val(user.email);
+//	$('#textinputu6').val(user.birthday);
+//	$('#textinputu7').val(user.profilePicture);
 }
 function update(){
 	var params = {};
@@ -300,9 +300,6 @@ function comment(){
 		data: params,
 		success: function(data) {
 			//results.splice(index, 1);
-			//refreshResults();
-			$("#commentButton span span").text("envoyé");
-			$("#commentButton").addClass('ui-disabled');
 			var res = JSON.parse(data);
 			if (res.status==200){
 				$(this).addClass('ui-disabled');
