@@ -127,7 +127,7 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
 
         final StringBuilder contentBuilder = new StringBuilder(250);
         // TODO add internationalization support
-        contentBuilder.append("Bienvenu sur myMed.<br/><br/>Pour finaliser votre inscription cliquez sur le lien:<br/><br/>");
+        contentBuilder.append("Bienvenu sur myMed.<br/><br/>Pour finaliser votre inscription allez sur <a href='");
         contentBuilder.append(getServerProtocol());
         contentBuilder.append(getServerURI());
 
@@ -137,7 +137,7 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
 
         contentBuilder.append("?registration=ok&accessToken=");
         contentBuilder.append(accessToken);
-        contentBuilder.append("<br/><br/>------<br/>L'équipe myMed");
+        contentBuilder.append("'>"+application+"</a><br/><br/>------<br/>L'&eacute;quipe myMed");
 
         contentBuilder.trimToSize();
 
