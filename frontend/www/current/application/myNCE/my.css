@@ -17,6 +17,9 @@ input.ui-slider-input {
 .ui-controlgroup-last {
 	vertical-align: top;
 }
+.ui-li-link-alt .ui-btn {
+	margin-top: -14px;
+}
 .row{
 	vertical-align: middle;
 	display:table-cell;
