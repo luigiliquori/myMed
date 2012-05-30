@@ -34,9 +34,11 @@ class InscriptionView extends MainView {
 	 */
 	public /*String*/ function getContent() { ?>
 		<div data-role="content" style="padding: 10px;" data-theme="c">
-			<a href="#ProfileView" data-role="button" data-direction="reverse" data-inline="true"><?= $_SESSION['dictionary'][IT]["back"] ?></a><br /><br />
+			<a href="#ProfileView" data-role="button" data-direction="reverse" data-inline="true"><?= $_SESSION['dictionary'][LG]["back"] ?></a><br /><br />
 			<form action="#ProfileView" method="post" name="inscriptionForm" id="inscriptionForm">
 				<input type="hidden" name="inscription" value="1" />
+				
+
 				<span><?= $_SESSION['dictionary'][LG]["firstName"] ?> : </span><input type="text" name="prenom" value="" /><br />
 				<span><?= $_SESSION['dictionary'][LG]["name"] ?> : </span><input type="text" name="nom" value="" /><br />
 				<span>eMail : </span><input type="text" name="email" value="" /><br />

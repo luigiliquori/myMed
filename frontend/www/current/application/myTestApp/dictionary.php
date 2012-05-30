@@ -147,4 +147,20 @@
 	
 	$_SESSION['dictionary'][FR]["view5"] = "Admin";
 	
+	/*
+	 * MyAlzheimer
+	 */
+	$_SESSION['dictionary'][FR]["PleaseCompleteProfile"] = "Ceci est votre premiere utilisation de l'application, veuillez";
+	$_SESSION['dictionary'][FR]["CompleteProfile"] = "completer votre profil.";
+	$_SESSION['dictionary'][FR]["myMemProfile"] = "Profil spécifique à l'application MyMem";
+	$_SESSION['dictionary'][FR]["angel"] = "Aidant-naturel officiel";
+	$_SESSION['dictionary'][FR]["angelName"] = "Nom de l'aidant-naturel officiel";
+	$_SESSION['dictionary'][FR]["angelEmail"] = "E-mail de l'aidant-naturel officiel";
+	$_SESSION['dictionary'][FR]["diseaseLevel"] = "Niveau de la maladie";
+	$_SESSION['dictionary'][FR]["diseaseLevel_low"] = "Légère";
+	$_SESSION['dictionary'][FR]["diseaseLevel_med"] = "Modérée";
+	$_SESSION['dictionary'][FR]["diseaseLevel_high"] = "Avancée";
+	$_SESSION['dictionary'][FR]["meds"] = "Médication";
+	$_SESSION['dictionary'][FR]["callOrder"] = "Ordre d'appel des aidants";
+	$_SESSION['dictionary'][FR]["acceptGeoLoc"] = "J'accepte d'être géolocalisé";
 ?>

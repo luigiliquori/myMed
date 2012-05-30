@@ -132,7 +132,11 @@ public class CassandraWrapper implements ICassandraWrapper {
     private Client getClient() throws InternalBackEndException {
         synchronized (LOCK) {
             connection = (Connection) manager.checkOut(address, port);
-
+            
+            if (connection == null) {
+            	throw new InternalBackEndException("The backend is unable to connect to Cassandra");
+            }
+            
             try {
                 LOGGER.info("Setting keyspace to '{}'", KEYSPACE);
                 connection.getClient().set_keyspace(KEYSPACE);

@@ -49,6 +49,13 @@ class MainView extends AbstractView {
 	 */
 	public /*String*/ function getContent() { ?>
 		<div data-role="content" id="content" style="padding: 10px;" data-theme="c">
+		
+		<?php
+		if(USER_CONNECTED && $_SESSION['user']->id != VISITOR_I && !isset($_SESSION['user']->myMem_Profile)) { ?>
+		
+			<div style="color:orange;"><?= $_SESSION['dictionary'][LG]["PleaseCompleteProfile"]?><a href="#UpdateProfileView" > <?= $_SESSION['dictionary'][LG]["CompleteProfile"]?></a></div>	
+			
+		<?php } ?>
 			<?= $_SESSION['dictionary'][LG]["welcome"] ?>
 		</div>
 	<?php }

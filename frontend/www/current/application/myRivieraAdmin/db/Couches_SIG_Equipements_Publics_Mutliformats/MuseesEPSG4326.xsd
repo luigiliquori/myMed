@@ -18,7 +18,7 @@
     <xs:element name="Date_Saisie" nillable="true" minOccurs="0" maxOccurs="1">
       <xs:simpleType>
         <xs:restriction base="xs:string">
-          <xs:maxLength value="unbounded"/>
+          <xs:maxLength value="32"/>
         </xs:restriction>
       </xs:simpleType>
     </xs:element>

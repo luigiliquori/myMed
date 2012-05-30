@@ -29,6 +29,7 @@
 	require_once dirname(__FILE__).'/controller/LoginHandler.class.php';			$login = new LoginHandler();
 	require_once dirname(__FILE__).'/controller/InscriptionHandler.class.php';		$inscription = new InscriptionHandler();
 	require_once dirname(__FILE__).'/controller/MenuHandler.class.php';				new MenuHandler();
+	require_once dirname(__FILE__).'/MyMemProfile.class.php';
 	
 	// Default user -> Visitor
 	if(!USER_CONNECTED){

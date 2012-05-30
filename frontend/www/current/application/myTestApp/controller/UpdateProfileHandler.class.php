@@ -20,11 +20,13 @@ class UpdateProfileHandler implements IRequestHandler {
 	/* Constructors */
 	/* --------------------------------------------------------- */
 	public function __construct() {
+		
 		$this->error	= false;
 		$this->success	= false;
 		$this->handleRequest();
 	}
-	
+
+		
 	/* --------------------------------------------------------- */
 	/* Public methods */
 	/* --------------------------------------------------------- */
@@ -42,6 +44,10 @@ class UpdateProfileHandler implements IRequestHandler {
 			} else if($_POST['email'] == ""){
 				$this->error = "FAIL: email cannot be empty!";
 				return;
+			} else if($_POST['angelName'] == "" || $_POST['angelEmail'] == ""){
+				$this->error = "FAIL : angel cannot be empty!";
+			} else if(!$_POST['checkCondition']){
+				$this->error = "FAIL : Vous devez accepter d'être géolocalisé.";
 			}
 			
 			// update the authentication
@@ -63,6 +69,8 @@ class UpdateProfileHandler implements IRequestHandler {
 				$this->error = $responseObject1->description;
 				return;
 			}
+			
+			
 			
 			// update the profile
 			$mUserBean = new MUserBean();
@@ -93,6 +101,42 @@ class UpdateProfileHandler implements IRequestHandler {
 			}
 			
 			$_SESSION['user'] = json_decode($responseObject2->data->profile);
+			
+
+			// update the myMem profile
+			$myMemProfile = new MyMemProfile();
+			$myMemProfile->angelName = $_POST['angelName'];
+			$myMemProfile->angelEmail = $_POST['angelEmail'];
+			$myMemProfile->diseaseLevel = $_POST['diseaseLevel'];
+			$myMemProfile->meds = $_POST['meds'];
+			$myMemProfile->callOrder = $_POST['callOrder'];
+				
+			/*
+			 * Save the myMem profile
+			* We decided to save it as a publication
+			*/
+			
+			//$request = new Request("PublishRequestHandler", CREATE);
+			/*$request->addArgument("application", $_REQUEST['application']);
+			
+			$predicate = 'myTestApp_extProfile_'+ $_SESSION['user']->id;
+			
+			$request->addArgument("predicate", $predicate);
+			$request->addArgument("data", json_encode($myMemProfile));
+			// TODO : Shouldn't I need to add the accessToken here?
+			
+			$reponseJSon = $request->send();
+			$reponseJSon2 = json_decode($reponseJSon);
+			if($responseObject2->status != 200) {
+				$this->error = $responseObject2->description;
+				return;
+			}*/
+			
+			//TODO : $_SESSION['myMem_profile'] = json_decode($responseObject2->??????)
+			
+			
+			
+			
 			header("Refresh:0;url=".$_SERVER['PHP_SELF']);
 		}
 	}
