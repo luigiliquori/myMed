@@ -26,7 +26,7 @@ import com.google.gson.Gson;
  * @author lvanni
  * 
  */
-public class JsonMessage {
+public class JsonMessage<T> {
 
   /* --------------------------------------------------------- */
   /* Attributes */
@@ -35,8 +35,8 @@ public class JsonMessage {
   private String handler;
   private String method;
   private String description;
-  private final Map<String, String> data;
-  private final Map<String, Object> dataObject;
+  private  Map<String, String> data;
+  private final Map<String, T> dataObject;
 
   /* --------------------------------------------------------- */
   /* Constructors */
@@ -50,7 +50,7 @@ public class JsonMessage {
    *          The ClassName of the handler responsible for the message
    */
   public JsonMessage(final int status, final String handler) {
-    this(status, handler, "unknown", new HashMap<String, String>(), new HashMap<String, Object>());
+    this(status, handler, "unknown", new HashMap<String, String>(), new HashMap<String, T>());
   }
 
   /**
@@ -64,7 +64,7 @@ public class JsonMessage {
    * @param data
    *          The content of the response
    */
-  public JsonMessage(final int status, final String handler, final String method, final Map<String, String> data, final Map<String, Object> dataObject) {
+  public JsonMessage(final int status, final String handler, final String method, final Map<String, String> data, final Map<String, T> dataObject) {
     this.status = status;
     this.handler = handler;
     this.method = method;
@@ -124,11 +124,11 @@ public class JsonMessage {
     data.put(key, value);
   }
 
-  public Map<String, Object> getDataObject() {
+  public Map<String, T> getDataObject() {
     return dataObject;
   }
   
-  public void addDataObject(final String key, final Object value) {
+  public void addDataObject(final String key, final T value) {
     dataObject.put(key, value);
   }
 
