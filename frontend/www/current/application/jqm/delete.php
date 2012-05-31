@@ -3,11 +3,9 @@
 	require_once('../../system/config.php');
 	session_start();
 	$responseObject = new stdClass(); $responseObject->success = false;
-	$user = "";
-	require_once('PhpConsole.php');
-	PhpConsole::start();
-	
-	debug('d');
+
+	//require_once('PhpConsole.php');
+	//PhpConsole::start();
 	
 	if(isset($_REQUEST['user'])) {
 		if ($_REQUEST['user'] != $_SESSION['user']->id){

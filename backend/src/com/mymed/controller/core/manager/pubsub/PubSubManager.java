@@ -32,7 +32,9 @@ import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.data.application.MDataBean;
 import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.MConverter;
-import com.mymed.utils.Mail;
+import com.mymed.utils.mail.Mail;
+import com.mymed.utils.mail.MailMessage;
+import com.mymed.utils.mail.SubscribeMailSession;
 
 /**
  * The pub/sub mechanism manager.
@@ -163,9 +165,9 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
             }
 
             // SEND A MAIL TO THE SUBSCRIBERS
-            // TODO better find a better way to send the email: we are sending the
-            // same email to all at once, exposing the users email
-            final StringBuffer mailingList = new StringBuffer(250);
+
+            final List<String> recipients = new ArrayList<String>();
+
             final List<Map<byte[], byte[]>> subscribers = storageManager.selectList(SC_USER_LIST, SUBSCRIBER_PREFIX
                             + application + predicate);
             for (final Map<byte[], byte[]> set : subscribers) {
@@ -176,39 +178,46 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
                                         .toString();
                         final byte[] emailByte = storageManager.selectColumn(CF_USER, userID, "email");
                         final String email = Charset.forName(ENCODING).decode(ByteBuffer.wrap(emailByte)).toString();
-                        mailingList.append(email);
-                        mailingList.append(',');
+                        recipients.add(email);
                     }
                 }
             }
 
-            mailingList.trimToSize();
-            final String receivers = mailingList.toString();
-
             // Format the mail
-            // TODO Refactor and put this into another class (mail package should be
-            // used)
             // TODO move this somewhere else and handle translation of this email!
-            if (!"".equals(receivers)) {
-                final StringBuffer mailContent = new StringBuffer(250);
-                mailContent.append("Bonjour, \nDe nouvelles informations sont arrivées sur votre plateforme myMed.\nApplication Concernée: ");
+            if (!recipients.isEmpty()) {
+                final byte[] accTokByte = storageManager.selectColumn(CF_USER, publisher.getId(), "session");
+                final String accTok = Charset.forName(ENCODING).decode(ByteBuffer.wrap(accTokByte)).toString();
+                final StringBuilder mailContent = new StringBuilder(400);
+                mailContent.append("Bonjour,<br/>De nouvelles informations sont arriv&eacute;es sur votre plateforme myMed.<br/>Application Concern&eacute;e: ");
                 mailContent.append(application);
-                mailContent.append("\nPredicate: \n");
+                mailContent.append("<br/>Predicate:<br/>");
                 for (final MDataBean item : dataList) {
-                    mailContent.append("\t-");
+                    mailContent.append("&nbsp;&nbsp;-");
                     mailContent.append(item.getKey());
                     mailContent.append(": ");
                     mailContent.append(item.getValue());
-                    mailContent.append('\n');
+                    mailContent.append("<br/>");
                 }
-                mailContent.append("\n------\nL'équipe myMed");
+
+                mailContent.append("<br/><br/>------<br/>L'&eacute;quipe myMed<br/><br/>");
+                mailContent.append("Cliquez <a href='");
+                mailContent.append(getServerProtocol());
+                mailContent.append(getServerURI());
+                mailContent.append("/application/jqm/unsubscribe.php?predicate=" + predicate + "&application="
+                                + application + "&userID=" + publisher.getId() + "&accessToken=" + accTok);
+                // TODO put unsubscribe.php in lib/dasp/request later
+                mailContent.append("'>ici</a> si vous souhaitez vraiment vous désabonner");
+
                 mailContent.trimToSize();
-                try {
-                    new Mail("infomymed@gmail.com", receivers, "myMed subscribe info: " + application,
-                                    mailContent.toString());
-                } catch (final Exception e) {
-                    throw new InternalBackEndException("Error sending the email");
-                }
+
+                final MailMessage message = new MailMessage();
+                message.setSubject("myMed subscribe info: " + application);
+                message.setRecipients(recipients);
+                message.setText(mailContent.toString());
+
+                final Mail mail = new Mail(message, SubscribeMailSession.getInstance());
+                mail.send();
             }
         } catch (final UnsupportedEncodingException e) {
             LOGGER.debug(ERROR_ENCODING, ENCODING, e);
@@ -236,6 +245,8 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
             args.put("user", subscriber.getId().getBytes(ENCODING));
             storageManager.insertSuperSlice(SC_USER_LIST, SUBSCRIBER_PREFIX + application + predicate,
                             subscriber.getId(), args);
+
+            storageManager.insertColumn("Subscriptions", application + subscriber.getId(), predicate, new byte[0]);
 
         } catch (final UnsupportedEncodingException e) {
             LOGGER.debug(ERROR_ENCODING, ENCODING, e);
@@ -295,8 +306,27 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
         return resList;
     }
 
+    /*
+     * The find mechanism.
+     * @see com.mymed.controller.core.manager.pubsub.IPubSubManager#read(java.lang.String)
+     */
+    @Override
+    public final List<String> read(final String appuserid) throws InternalBackEndException, IOBackEndException {
+
+        final List<String> res = new ArrayList<String>();
+        final Map<byte[], byte[]> predicates = storageManager.selectAll("Subscriptions", appuserid);
+        LOGGER.info("size: " + predicates.size());
+        for (final Entry<byte[], byte[]> entry : predicates.entrySet()) {
+            final String key = Charset.forName(ENCODING).decode(ByteBuffer.wrap(entry.getKey())).toString();
+            res.add(key);
+            LOGGER.info(key);
+        }
+
+        return res;
+    }
+
     /**
-     * @see IPubSubManager#delete(String, String)
+     * @see IPubSubManager#delete(String * 3 + MUserBean)
      */
     @Override
     public final void delete(final String application, final String predicate, final String subPredicate,
@@ -310,5 +340,17 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
         storageManager.removeAll(SC_DATA_LIST, application + subPredicate + publisher.getId());
         // Remove app model entry
         // storageManager.removeSuperColumn(SC_APPLICATION_MODEL, application, predicate + publisher.getId());
+    }
+
+    /**
+     * @see IPubSubManager#delete(String * 3)
+     */
+    @Override
+    public final void delete(final String application, final String user, final String predicate)
+                    throws InternalBackEndException, IOBackEndException {
+        // Remove subscriber member from subsribers list
+        storageManager.removeColumn("Subscriptions", application + user, predicate);
+        // Remove subscriber member from predicates subscribed list
+        storageManager.removeSuperColumn(SC_USER_LIST, SUBSCRIBER_PREFIX + application + predicate, user);
     }
 }

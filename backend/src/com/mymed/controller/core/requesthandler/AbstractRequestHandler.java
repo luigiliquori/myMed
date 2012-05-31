@@ -116,6 +116,7 @@ public abstract class AbstractRequestHandler extends HttpServlet {
      * JSON 'user' attribute.
      */
     protected static final String JSON_USER = JSON.get("json.user");
+    protected static final String JSON_USERID = JSON.get("json.user.id");
 
     /**
      * JSON 'value' attribute.

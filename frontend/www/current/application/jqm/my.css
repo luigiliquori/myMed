@@ -23,6 +23,9 @@
 .row img {
 	vertical-align: top;
 }
+.ui-li-link-alt .ui-btn {
+	margin-top: -14px;
+}
 
 
 /* Red button theme for JQuery Mobile

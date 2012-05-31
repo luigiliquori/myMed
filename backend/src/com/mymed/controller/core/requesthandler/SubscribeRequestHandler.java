@@ -15,6 +15,8 @@
  */
 package com.mymed.controller.core.requesthandler;
 
+import java.lang.reflect.Type;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -22,11 +24,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.pubsub.PubSubManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
+import com.mymed.model.data.application.MDataBean;
 import com.mymed.model.data.user.MUserBean;
 
 /**
@@ -42,6 +47,8 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
      * JSON 'predicate' attribute.
      */
     private static final String JSON_PREDICATE = JSON.get("json.predicate");
+    
+    private static final String JSON_SUBSCRIPTIONS = JSON.get("json.subscriptions");
 
     private final PubSubManager pubsubManager;
 
@@ -64,11 +71,36 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-
+            String application, predicate, user;
+            
             switch (code) {
                 case READ :
+                	message.setMethod(JSON_CODE_READ);
+                	if ((application = parameters.get(JSON_APPLICATION)) == null) {
+                		throw new InternalBackEndException("missing application argument!");
+                	} else if((user = parameters.get(JSON_USERID)) == null){
+
+                	}
+                	final List<String> predicates = pubsubManager.read(application + user);
+                 	message.setDescription("Subscriptions found for Application: " + application + " User: " + user);
+ 		            LOGGER.info("Subscriptions found for Application: " + application + " User: " + user);
+ 		            message.addDataObject(JSON_SUBSCRIPTIONS, predicates);
                     break;
                 case DELETE :
+                	
+                	message.setMethod(JSON_CODE_DELETE);
+                	if ((application = parameters.get(JSON_APPLICATION)) == null) {
+                        throw new InternalBackEndException("missing application argument!");
+                    } else if ((predicate = parameters.get(JSON_PREDICATE)) == null) {
+                        throw new InternalBackEndException("missing predicate argument!");
+                    } else if ((user = parameters.get(JSON_USERID)) == null) {
+                        throw new InternalBackEndException("missing user argument!");
+                    }
+
+                	pubsubManager.delete(application, user, predicate);
+                	LOGGER.info("subscription deleted: " + predicate +" for user: " + user);
+                	message.setDescription("subscription deleted: " + predicate +" for user: " + user);
+                        
                     break;
                 default :
                     throw new InternalBackEndException("SubscribeRequestHandler.doGet(" + code + ") not exist!");
