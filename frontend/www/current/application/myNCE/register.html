@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>
+        </title>
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
+        <link rel="stylesheet" href="my.css" />
+        <style>
+            /* App custom styles */
+        </style>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
+        </script>
+        <script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js">
+        </script>
+        <script src="app.js">
+        </script>
+        
+    </head>
+    <body>
+    <!--
+        <div data-role="page" id="page1">
+            <div data-role="content">
+		<form action="registration.php" method="post" id="registerForm">
+                <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup">
+                        <label for="textinput1">
+                            Surname:
+                        </label>
+                        <input id="textinput1" placeholder="" value="" type="text" name="prenom" />
+                    </fieldset>
+                </div>
+                <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup">
+                        <label for="textinput5">
+                            Name:
+                        </label>
+                        <input id="textinput5" placeholder="" value="" type="text" name="nom"/>
+                    </fieldset>
+                </div>
+                <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup">
+                        <label for="textinput4">
+                            email:
+                        </label>
+                        <input id="textinput4" placeholder="" value="" type="email" name="email" />
+                    </fieldset>
+                </div>
+                <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup">
+                        <label for="textinput2">
+                            Password:
+                        </label>
+                        <input id="textinput2" placeholder="" value="" type="password" name="password"/>
+                    </fieldset>
+                </div>
+                <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup">
+                        <label for="textinput3">
+                            Confirm password:
+                        </label>
+                        <input id="textinput3" placeholder="" value="" type="password" />
+                    </fieldset>
+                </div>
+                <input data-theme="a" value="Send" type="submit" onclick="register(); />
+		</form>
+            </div>
+        </div>
+        <script>
+            //App custom javascript
+        </script> -->
+<div data-role="page" id="Register">
+	<div data-role="header"  data-theme="b" data-position="fixed">
+		<a href="login.html" class="ui-btn-left" data-transition="flip" data-direction="reverse">Back</a>
+		<h3>myTemplate</h3>
+	</div>
+	<div data-role="content">
+		<form action="" id="registerForm">
+			<input name="application" placeholder="" value="jqm" type="hidden" />
+			<div data-role="fieldcontain">
+				<fieldset data-role="controlgroup">
+					<label for="textinputr1"> Prénom: </label> <input id="textinputr1"  name="prenom" placeholder="" value="" type="text" />
+				</fieldset>
+			</div>
+			<div data-role="fieldcontain">
+				<fieldset data-role="controlgroup">
+					<label for="textinputr2"> Nom: </label> <input id="textinputr2"  name="nom" placeholder="" value="" type="text" />
+				</fieldset>
+			</div>
+			<div data-role="fieldcontain">
+				<fieldset data-role="controlgroup">
+					<label for="textinputr3"> eMail: </label> <input id="textinputr3"  name="email" placeholder="" value="" type="email" />
+				</fieldset>
+			</div>
+			<div data-role="fieldcontain">
+				<fieldset data-role="controlgroup">
+					<label for="textinputr4"> Password: </label> <input id="textinputr4"  name="password" placeholder="" value="" type="password" />
+				</fieldset>
+			</div>
+			<a href="home.html" type="button" onclick="register();">Créer</a>
+		</form>
+	</div>
+</div>
+
+    </body>
+</html>
