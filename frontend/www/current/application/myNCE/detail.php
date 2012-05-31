@@ -217,6 +217,17 @@
 				</div>
 			</div>
 		</div>
+		<script type="text/javascript">
+    	$(".ui-slider-handle .ui-btn-inner").live("mouseup", function() {
+	    <?php 
+			if ($_REQUEST['user'] == $_SESSION['user']->id){ //we can't update it's reputation
+			?>
+	        $("#slider-0").val(25).slider("refresh");
+	        <?php
+			} 
+		?>
+	    });
+		</script>
 	</body>
 </html>
 
