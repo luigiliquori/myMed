@@ -45,6 +45,6 @@ function hideLoadingBar(){
 function showLoadingBar(text){
 	//hide loading status...
 	$("#loading").html("<center><span>" + text + "</span></center>");
-	$("#loading").show("fast", function() { setTimeout(hideLoadingBar, 3000);}); 
+	$("#loading").fadeIn("fast", function() { setTimeout(hideLoadingBar, 3000);}); 
 }
 

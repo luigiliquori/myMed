@@ -34,8 +34,8 @@ import com.mymed.controller.core.exception.InternalBackEndException;
 public interface IStorageManager {
 
     /** Default ConsistencyLevel */
-    ConsistencyLevel consistencyOnWrite = ConsistencyLevel.LOCAL_QUORUM;
-    ConsistencyLevel consistencyOnRead = ConsistencyLevel.LOCAL_QUORUM;
+    ConsistencyLevel consistencyOnWrite = ConsistencyLevel.ONE;
+    ConsistencyLevel consistencyOnRead = ConsistencyLevel.ONE;
 
     /**
      * Insert a new entry in the database

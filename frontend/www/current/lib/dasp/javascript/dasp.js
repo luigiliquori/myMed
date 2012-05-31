@@ -70,6 +70,7 @@ function setupDASPMap(mapID, displayPosition, displayError, watchPosition) {
 		directionsService = new google.maps.DirectionsService();
 
 		// init Map
+		showLoadingBar("chargement de la carte..."); 
 		map = new google.maps.Map(document.getElementById(mapID), {
 			zoom : 16,
 			center : new google.maps.LatLng(43.7, 7.27),
