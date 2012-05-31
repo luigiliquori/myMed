@@ -13,7 +13,7 @@ class Home extends AbstractTemplate {
 	/* Attributes */
 	/* --------------------------------------------------------- */
 	protected /*String*/ $activeHeader;
-	protected /*String[]*/ $hiddenFolder = array(".", "..", ".DS_Store", "myTemplate", "myMed", "myRivieraAdmin");
+	protected /*String[]*/ $hiddenFolder = array(".", "..", ".DS_Store", "myTemplate", "myMed", "myRivieraAdmin", "myNCE");
 	
 	/* --------------------------------------------------------- */
 	/* Constructors */
