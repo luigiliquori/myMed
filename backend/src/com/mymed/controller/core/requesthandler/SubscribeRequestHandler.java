@@ -81,7 +81,7 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
                 	} else if((user = parameters.get(JSON_USERID)) == null){
 
                 	}
-                	final List<String> predicates = pubsubManager.read(application + user);
+                	final Map<String, String> predicates = pubsubManager.read(application + user);
                  	message.setDescription("Subscriptions found for Application: " + application + " User: " + user);
  		            LOGGER.info("Subscriptions found for Application: " + application + " User: " + user);
  		            message.addDataObject(JSON_SUBSCRIPTIONS, predicates);

@@ -64,7 +64,7 @@ public class PositionManager extends AbstractManager implements IPositionManager
    */
   @Override
   public MPositionBean read(final String userID) throws InternalBackEndException, IOBackEndException {
-    final Map<byte[], byte[]> args = storageManager.selectAll(CF_POSITION, userID);
+    final Map<byte[], byte[]> args = storageManager.selectAll(CF_POSITION, userID, false);
     if (args.isEmpty()) {
       LOGGER.info("User with ID '{}' does not exists", userID);
       throw new IOBackEndException("position does not exist!", 404);

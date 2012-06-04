@@ -75,7 +75,7 @@ public class InteractionManager extends AbstractManager implements IInteractionM
 
   @Override
   public MInteractionBean read(final String interactionID) throws InternalBackEndException, IOBackEndException {
-    final Map<byte[], byte[]> args = storageManager.selectAll(CF_INTERACTION, interactionID);
+    final Map<byte[], byte[]> args = storageManager.selectAll(CF_INTERACTION, interactionID, false);
 
     return (MInteractionBean) introspection(MInteractionBean.class, args);
   }

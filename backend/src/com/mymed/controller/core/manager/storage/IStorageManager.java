@@ -127,7 +127,7 @@ public interface IStorageManager {
      *            the name of the column
      * @return the value of the column
      */
-    Map<byte[], byte[]> selectAll(String tableName, String primaryKey) throws IOBackEndException,
+    Map<byte[], byte[]> selectAll(String tableName, String primaryKey, Boolean reversed) throws IOBackEndException,
                     InternalBackEndException;
 
     /**

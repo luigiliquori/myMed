@@ -90,7 +90,7 @@ public class SessionManager extends AbstractManager implements ISessionManager {
   @Override
   public MSessionBean read(final String sessionID) throws IOBackEndException, InternalBackEndException {
 
-    final Map<byte[], byte[]> args = storageManager.selectAll(CF_SESSION, sessionID);
+    final Map<byte[], byte[]> args = storageManager.selectAll(CF_SESSION, sessionID, false);
     if(args.size() == 0) {
     	throw new InternalBackEndException("Session unknown!");
     }

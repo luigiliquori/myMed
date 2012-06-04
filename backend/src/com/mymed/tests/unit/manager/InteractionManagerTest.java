@@ -73,7 +73,7 @@ public class InteractionManagerTest extends GeneralTest {
     public void testDeleteInteraction() {
         try {
             interactionManager.delete(INTERACTION_ID);
-            final Map<byte[], byte[]> column = storageManager.selectAll("Interaction", INTERACTION_ID);
+            final Map<byte[], byte[]> column = storageManager.selectAll("Interaction", INTERACTION_ID, false);
             assertTrue("The number of columns after a delete is not 0", column.isEmpty());
         } catch (final Exception ex) {
             fail(ex.getMessage());

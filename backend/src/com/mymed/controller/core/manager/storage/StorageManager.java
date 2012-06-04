@@ -142,7 +142,7 @@ public class StorageManager implements IStorageManager {
    * @throws IOBackEndException
    */
   @Override
-  public Map<byte[], byte[]> selectAll(final String tableName, final String key) throws InternalBackEndException,
+  public Map<byte[], byte[]> selectAll(final String tableName, final String key, final Boolean reversed) throws InternalBackEndException,
       IOBackEndException {
 
     // read entire row
@@ -150,6 +150,7 @@ public class StorageManager implements IStorageManager {
     final SliceRange sliceRange = new SliceRange();
     sliceRange.setStart(new byte[0]);
     sliceRange.setFinish(new byte[0]);
+    if (reversed) sliceRange.setReversed(true);
     predicate.setSlice_range(sliceRange);
 
     return selectByPredicate(tableName, key, predicate);
@@ -313,6 +314,7 @@ public class StorageManager implements IStorageManager {
     insert(key, parent, columnName, value);
   }
 
+
   /**
    * Update the value of a Super Column
    * 
@@ -352,20 +354,22 @@ public class StorageManager implements IStorageManager {
    *          the value updated
    * @throws InternalBackEndException
    */
+  
   private void insert(final String key, final ColumnParent parent, final String columnName, final byte[] value)
-      throws InternalBackEndException {
+	      throws InternalBackEndException {
 
-    final long timestamp = System.currentTimeMillis();
-    final ByteBuffer buffer = ByteBuffer.wrap(value);
-    final Column column = new Column(MConverter.stringToByteBuffer(columnName), buffer, timestamp);
+	    final long timestamp = System.currentTimeMillis();
+	    final ByteBuffer buffer = ByteBuffer.wrap(value);
+	    final Column column = new Column(MConverter.stringToByteBuffer(columnName), buffer, timestamp);
+	    LOGGER.info("Inserting column '{}' into '{}' with key '{}'", new Object[] {columnName, parent.getColumn_family(),
+	        key});
 
-    LOGGER.info("Inserting column '{}' into '{}' with key '{}'", new Object[] {columnName, parent.getColumn_family(),
-        key});
+	    wrapper.insert(key, parent, column, consistencyOnWrite);
 
-    wrapper.insert(key, parent, column, consistencyOnWrite);
+	    LOGGER.info("Column '{}' inserted", columnName);
+	  }
+  
 
-    LOGGER.info("Column '{}' inserted", columnName);
-  }
 
   /**
    * Insert a new entry in the database

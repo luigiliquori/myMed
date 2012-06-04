@@ -89,7 +89,7 @@ public interface IPubSubManager {
    */
   //TODO "put this method in a more appropriate place"
   
-  List<String> read(String user) throws InternalBackEndException,
+  Map<String, String> read(String user) throws InternalBackEndException,
 	IOBackEndException;
 
   /**

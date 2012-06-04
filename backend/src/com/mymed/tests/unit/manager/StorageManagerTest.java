@@ -92,7 +92,7 @@ public class StorageManagerTest extends GeneralTest {
 	public void testRemoveAll() {
 		try {
 			storageManager.removeAll(USER_TABLE, USER_ID);
-			final Map<byte[], byte[]> column = storageManager.selectAll(USER_TABLE, USER_ID);
+			final Map<byte[], byte[]> column = storageManager.selectAll(USER_TABLE, USER_ID, false);
 			assertTrue("The number of columns after a removeAll is not 0", column.isEmpty());
 		} catch (final Exception ex) {
 			fail(ex.getMessage());
@@ -192,7 +192,7 @@ public class StorageManagerTest extends GeneralTest {
 	@Test
 	public void testSelectAll() {
 		try {
-			final Map<byte[], byte[]> columns = storageManager.selectAll(USER_TABLE, USER_ID);
+			final Map<byte[], byte[]> columns = storageManager.selectAll(USER_TABLE, USER_ID, false);
 			assertSame("The number of retrived columns is not equal to the inserted one", INSERTS, columns.size());
 		} catch (final Exception ex) {
 			fail(ex.getMessage());
@@ -245,7 +245,7 @@ public class StorageManagerTest extends GeneralTest {
 		try {
 			storageManager.removeColumn(USER_TABLE, USER_ID, COLUMN_NAME);
 
-			final Map<byte[], byte[]> column = storageManager.selectAll(USER_TABLE, USER_ID);
+			final Map<byte[], byte[]> column = storageManager.selectAll(USER_TABLE, USER_ID, false);
 			assertSame("The number of columns after removing one is not correct", INSERTS - 1, column.size());
 		} catch (final Exception ex) {
 			fail(ex.getMessage());
