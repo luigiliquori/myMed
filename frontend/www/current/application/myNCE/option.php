@@ -13,7 +13,7 @@
 	 *  if param email is present, it will attempt a profile update
 	 *  if param predicate is present it will attempt unsubscribe this user to this application and predicate
 	 *  
-	 *  ex: yourPC/application/myNCE/option?application=myTemplate shows your profile and your subscription for myTemplate app
+	 *  ex: yourPC/application/myEurope/option?application=myTemplate shows your profile and your subscription for myTemplate app
 	 *  
 	 *  if you are not satisfied with this doc, do it yourself
 	 */
@@ -21,19 +21,18 @@
 	//ob_start("ob_gzhandler");
 	require_once 'Template.class.php';
 	$template = new Template();
-	$template->head();
+
 	// DEBUG
 	//require_once('PhpConsole.php');
 	//PhpConsole::start();
-	//debug('boo '.dirname(__FILE__));
+	
 	
 	require_once '../../lib/dasp/request/Request.class.php';
 	require_once '../../system/config.php';
 	session_start();
+	$application = isset($_REQUEST['application'])?$_REQUEST['application']:"myEurope";
 	
-	$application = isset($_REQUEST['application'])?$_REQUEST['application']:"myNCE";
-	
-	if (isset($_REQUEST['email'])){ //we update the profile
+	if (isset($_POST['email'])){ //we update the profile
 		require_once '../../lib/dasp/beans/MUserBean.class.php';
 		require_once '../../lib/dasp/beans/MAuthenticationBean.class.php';
 		if($_POST['password'] == ""){
@@ -116,120 +115,87 @@
 	$request->addArgument("userID", $_SESSION['user']->id);
 	$responsejSon = $request->send();
 	$subscriptions = json_decode($responsejSon);
+	$totalSub = 0;
+	if($subscriptions->status == 200) {
+		$totalSub = count( (array) $subscriptions->dataObject->subscriptions);
+	}
 ?>
+
+	<head>
+		<?= $template->head(); ?>
+		<script type="text/javascript">
+	    	$(".ui-slider-handle .ui-btn-inner").live("mouseup", function() {
+		        // we can't update reputation from the profile
+		        $("#slider-0").val(25).slider("refresh");
+		    });
+		</script>
+	</head>
+
 
 	<body>
 	
-		<div data-role="page" id="Option">
-			<div data-role="header" data-theme="e">
-				<a href="home.html" data-icon="back"> Back </a>
-				<h2>myNCE Profil</h2>
-			</div>
-			<div data-role="content">
-
-			<?php 
-			
-			if($profile->status == 200) {
-				$profile = $profile->dataObject->user;
-				$profPic = ($profile->profilePicture) ? $profile->profilePicture : "http://graph.facebook.com//picture?type=large";
-				?>
-			<div style="text-align: center; min-height: 220px;" >
-				<h3>Mon profil</h3>
-				<div style="background-image:url(<?= $profPic ?>);background-repeat:no-repeat;background-position:center right; background-size: contain;">
-					nom:
-					<?= $profile->firstName ?>
-					<br /> prénom:
-					<?= $profile->lastName ?>
-					<br /> date de naissance:
-					<?= $profile->birthday ?>
-					<br /> 
-					Réputation: <input type="range" name="slider" id="slider-0" value="25" min="0" max="100" data-highlight="true" data-mini="true" /><br /> <br />
+		<div data-role="page" id="Home">
+			<div class="wrapper">
+				<div data-role="header" data-theme="b">
+					<a href="search" data-icon="back" data-ajax="false"> Retour </a>
+					<h2>myEurope - profil</h2>
 				</div>
-
-				<a href="#Update" type="button" data-transition="flip" data-mini="true" data-icon="grid"
-					style="width: 200px; margin-right: auto; margin-left: auto;">Modifier</a>
-			
-			</div>
-			<?php 
-			}
-
-			?>
-				
-				<hr />
-				<div style="text-align: center">
-					<h3>Mes souscriptions</h3>
-					<ul data-role="listview" data-filter="true" data-inset="true" data-filter-placeholder="...">
+				<div data-role="content">
+					<div style="position:relative;text-align: center;min-height: 280px;">
+						<h3>Mon profil</h3>
 						<?php 
-						if($subscriptions->status == 200) {
-							$subscriptions = $subscriptions->dataObject->subscriptions;
-							foreach( $subscriptions as $i => $value ){ 
-							?>
-							<li><a href=""> <?= $value ?>
-									<form action="#Option" method="post" id="deleteSubscriptionForm<?= $i ?>">
-										<input name="application" value=<?= $application ?> type="hidden" /> <input name="predicate" value=<?= $value ?> type="hidden" />
-										<input name="userID" value=<?= $_SESSION['user']->id ?> type="hidden" />
-									</form> <a href="javascript://" data-icon="delete" data-theme="r" onclick="$('#deleteSubscriptionForm<?= $i ?>').submit();">Désabonnement</a>
-							</a>
-							</li>
-							<?php 
-							}
-						}
+						
+						if($profile->status == 200) {
+							$profile = $profile->dataObject->user;
+							$profPic = ($profile->profilePicture) ? $profile->profilePicture : "http://graph.facebook.com//picture?type=large";
 						?>
-					</ul>
+						<img style="float:right;text-align: center; max-height: 220px;opacity: 0.2;" src="<?= $profPic ?>" />
+						<div style="width: 40%;opacity: 1; position:absolute;top:30%;left:30%;z-index:1">
+							 nom:
+							<?= $profile->firstName ?>
+							<br /> prénom:
+							<?= $profile->lastName ?>
+							<br /> date de naissance:
+							<?= $profile->birthday ?>
+							<br />
+							Réputation: <input type="range" name="slider" id="slider-0" value="25" min="0" max="100" data-highlight="true" data-mini="true" />
+							<br /><br />
+							<a href="update" type="button" data-transition="flip" data-mini="true" data-icon="grid"
+							style="width: 200px; margin-right: auto; margin-left: auto;">Modifier</a>
+						</div>
+						​
+	
+					<?php 
+					}
+				?>
+					</div>
+					
+					<hr />
+					<div style="text-align: center;">
+						<h3>Mes souscriptions (<?= $totalSub ?>)</h3>
+						<ul data-role="listview" data-inset="true" data-filter-placeholder="...">
+							<?php 
+							if($subscriptions->status == 200) {
+								$subscriptions = (array) $subscriptions->dataObject->subscriptions;
+								foreach( $subscriptions as $i => $value ){ 
+							?>
+							<li><a href=""> <?= $i ?>
+								<form action="#" method="post" id="deleteSubscriptionForm<?= $i ?>">
+									<input name="application" value="<?= $application ?>" type="hidden" /> <input name="predicate" value=<?= $i ?> type="hidden" />
+									<input name="userID" value="<?= $_SESSION['user']->id ?>" type="hidden" />
+								</form> <a href="javascript://" data-icon="delete" data-theme="r" onclick="$('#deleteSubscriptionForm<?= $i ?>').submit();">Désabonnement</a>
+								</a>
+							</li>
+								<?php 
+								}
+							}
+							?>
+						</ul>
+					</div>
+					<div class="push"></div>
 				</div>
 			</div>
+			<?= $template->credits(); ?>
 		</div>
-		<div data-role="page" id="Update">
-			<div data-role="header" data-theme="e">
-				<a href="#Option" class="ui-btn-left" data-transition="flip" data-direction="reverse">Back</a>
-				<h3>myNCE MaJProfil</h3>
-			</div>
-			<div data-role="content">
-				<form action="#Option" method="post" id="updateForm">
-					<div data-role="fieldcontain">
-						<fieldset data-role="controlgroup">
-							<label for="textinputu1"> Prénom: </label> <input id="textinputu1"  name="prenom" placeholder="" value="<?= $profile->firstName ?>" type="text" />
-						</fieldset>
-					</div>
-					<div data-role="fieldcontain">
-						<fieldset data-role="controlgroup">
-							<label for="textinputu2"> Nom: </label> <input id="textinputu2"  name="nom" placeholder="" value="<?= $profile->lastName ?>" type="text" />
-						</fieldset>
-					</div>
-					<div data-role="fieldcontain">
-						<fieldset data-role="controlgroup">
-							<label for="textinputu3"> eMail: </label> <input id="textinputu3"  name="email" placeholder="" value="<?= $profile->email ?>" type="email" />
-						</fieldset>
-					</div>
-					<div data-role="fieldcontain">
-						<fieldset data-role="controlgroup">
-							<label for="textinputu4"> Ancien Password: </label> <input id="textinputu4"  name="oldPassword" placeholder="" value="" type="password" />
-						</fieldset>
-					</div>
-					<div data-role="fieldcontain">
-						<fieldset data-role="controlgroup">
-							<label for="textinputu5"> Nouveau Password: </label> <input id="textinputu5"  name="password" placeholder="" value="" type="password" />
-						</fieldset>
-					</div>
-					<div data-role="fieldcontain">
-						<fieldset data-role="controlgroup">
-							<label for="textinputu6"> Date de naissance: </label> <input id="textinputu6"  name="birthday" placeholder="" value="<?= $profile->birthday ?>" type="date" />
-						</fieldset>
-					</div>
-					<div data-role="fieldcontain">
-						<fieldset data-role="controlgroup">
-							<label for="textinputu7"> Photo du profil (lien url): </label> <input id="textinputu7"  name="thumbnail" placeholder="" value="<?= $profile->profilePicture ?>" type="text" />
-						</fieldset>
-					</div>
-					<a href="" type="button" data-icon="gear" onclick="$('#updateForm').submit();" style="width:80px; margin-right: auto; margin-left: auto;">Ok</a>
-				</form>
-			</div>
-		</div>
-		<script type="text/javascript">
-    	$(".ui-slider-handle .ui-btn-inner").live("mouseup", function() {
-	        // we can't update reputation from the profile
-	        $("#slider-0").val(25).slider("refresh");
-	    });
-		</script>
 	</body>
 </html>

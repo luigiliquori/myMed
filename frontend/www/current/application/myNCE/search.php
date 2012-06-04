@@ -13,14 +13,14 @@
 	 *  
 	 *  if param _sub is present it will attempt a mail subscription for this predicate
 	 *  
-	 *  ex: yourPC/application/myNCE/search?application=myTemplate&keyword=2 (publish something on mytemplate with keyword 2)
+	 *  ex: yourPC/application/myEurope/search?application=myTemplate&keyword=2 (publish something on mytemplate with keyword 2)
 	 */
 
 
 	//ob_start("ob_gzhandler");
 	require_once 'Template.class.php';
 	$template = new Template();
-	$template->head();
+	
 	// DEBUG
 	//require_once('PhpConsole.php');
 	//PhpConsole::start();
@@ -29,20 +29,24 @@
 	require_once '../../lib/dasp/request/Request.class.php';
 	require_once '../../system/config.php';
 	session_start();
+	$application = isset($_REQUEST['application'])?$_REQUEST['application']:"myEurope";
+		
+	ksort($_GET); // important to match a possible predicate, keys must be ordered
+	ksort($_REQUEST);
 	
-	ksort($_REQUEST); // important to match a possible predicate, keys must be ordered
+	//debug("post l ".count($_POST));
+	//debug("get l ".count($_GET));
 	
 	$predicate = "";
-	foreach( $_REQUEST as $i => $value ){
-		if ( $i!='application' && $i[0]!='_' && $value && $value!='false' && $value!='' ){
-			$predicate .= $i . $value;
-		}
-	}
-	
 	$sub = false;
-	if (isset($_REQUEST['_sub'])){ // to subscribe for this result
+	if (count($_GET) > 1){ // to subscribe for this result
+		foreach( $_REQUEST as $i => $value ){
+			if ( $i!='application' && $i[0]!='_' && $value!=''){
+				$predicate .= $i . $value;
+			}
+		}
 		$request = new Request("SubscribeRequestHandler", CREATE);
-		$request->addArgument("application", $_REQUEST['application']);
+		$request->addArgument("application", $application);
 		$request->addArgument("predicate", $predicate);
 		$request->addArgument("user", json_encode($_SESSION['user']));
 		$responsejSon = $request->send();
@@ -51,60 +55,118 @@
 			$sub = true;
 		}
 	}
+	
+	$predicate = ""; 
+	$_GET["~"] = "";//we add ~ in predicates (tags in all texts) so we get all results by default
+	foreach( $_GET as $i => $value ){
+		if ( $i!='application' && $i[0]!='_' && ($value!='' || $i=='~')){
+			$predicate .= $i . $value;
+		}
+	}
+	
+	
 
 	
 	$request = new Request("FindRequestHandler", READ);
-	$request->addArgument("application", $_REQUEST['application']);
+	$request->addArgument("application", $application);
 	$request->addArgument("predicate", $predicate);
 	$responsejSon = $request->send();
 	$res = json_decode($responsejSon);
 ?>
+	<head>
+		<?= $template->head(); ?>
+		<script src="lib/jquery.dataTables.nightly.js">
+        </script>
+		<script type="text/javascript">
+			$(document).live("pageshow", function(){
+				console.log("pageshow");
+				$('#example').dataTable();
+				$('#Search').trigger('pagecreate');
+			});
+		</script>
+	</head>
 
 	<body>
 		<div data-role="page" id="Search">
-			<div data-role="header" data-theme="e">
-				<a href="home.html" data-icon="back"> Back </a>
-				<h2>myNCE Recherche</h2>
-				<form action="#Search" method="post" id="subscribeForm">
-					<input name="application" value="<?= $_REQUEST['application'] ?>" type="hidden" />
-					<input name="_sub" value="" type="hidden" />
-					<a href="" type="button" class="<?= $sub?"ui-disabled":"" ?> ui-btn-right" data-inline="true" data-iconpos="right" data-icon="alert" onclick="$('#commentForm').submit();">Souscrire</a>
-				</form>
-			</div>
-			<div data-role="content">
-
-				<ul data-role="listview" data-filter="true" data-divider-theme="b" data-inset="true" data-filter-placeholder="...">
-				<?php 
+			<div class="wrapper">
+				<div data-role="header" data-theme="b">
+					<h2>myEurope</h2>
+					<a href="option" data-icon="forward" class="ui-btn-right"> Options </a>
+				</div>
+				<div data-role="content">
+					<div style="text-align: center;">
+					<br />
+					PROVENCE-ALPES-COTE D'AZUR : Rechercher un ou plusieurs projets cofinancés par l'Union européenne
+					</div>
+					<br />
+					<table width="100%" cellpadding="0" align="center" cellspacing="0" border="0" class="display" id="example">
+						<thead>
+							<tr>
+								<th>Nom de l'organisme bénéficiaire</th>
+								<th>Libellé du projet</th>
+								<th>Coût total du projet (en euros)</th>
+								<th>Montant du financement européen (en euros)</th>
+								<th>Date de clôture</th>
+								<th>Contact</th>	
+							</tr>
+						</thead>
+						<tbody>
+						<?php 
+							
+						if($res->status == 200) {
+							$res = $res->dataObject->results;
+							foreach( $res as $i => $value ){
+								$preds = json_decode($value->data);
+							?>
+							<tr id="tr_<?= $i ?>" class="gradeA" onmouseover="$(this).css('cursor','pointer');" onclick="$('#detailForm<?= $i ?>').submit();">
+								<td class="center"><?= $preds->nom ?></td>
+								<td class="center"><?= $preds->lib ?></td>
+								<td class="center"><?= $preds->cout ?></td>
+								<td class="center"><?= $preds->montant ?></td>
+								<td class="center"><?= $preds->date ?></td>
+								<td class="center">
+									<a href="mailto:<?= substr($value->publisherID, 6) ?>" target="_blank">mail</a>
+									<form action="detail" id="detailForm<?= $i ?>">
+										<input name="application" value="<?= $application ?>" type="hidden" />
+										<input name="predicate" value="<?= $value->predicate ?>" type="hidden" />
+										<input name="user" value="<?= $value->publisherID ?>" type="hidden" />
+									</form>
+								</td>
+							</tr>
+							<?php 
+							}
+						}
 					
-				if($res->status == 200) {
-					$res = $res->dataObject->results;
-					foreach( $res as $value ){
-						$profPic = $value->publisherProfilePicture ? $value->publisherProfilePicture : "http://graph.facebook.com//picture?type=large";
-						$date = $value->end ? " <span style='font-weight:lighter;'>le</span> ".$value->end : " ";
-						$position = $value->data ? " <span style='font-weight:lighter;'>à</span> ".$value->data : "";
 						?>
-					<li><form action="detail.php">
-							<input name="application" value="<?= $_REQUEST['application'] ?>" type="hidden" />
-							<input name="predicate" value=<?= $value->predicate ?> type="hidden" />
-							<input name="user" value=<?= $value->publisherID ?> type="hidden" />
-						</form> <a href="" onclick="$(this).prev('form').submit(); return false;" style="padding-top: 1px; padding-bottom: 1px;">
-							<div class="row">
-								<img src='<?= $profPic ?>' width="60" height="60" />
+						</tbody>
+					</table>
+					
+					<br /><br />
+					
+						
+					
+					<div data-role="collapsible" data-mini="true" style="width:80%;margin-right: auto; margin-left: auto;">
+						<h3>Recherche avancée</h3>
+						<form  data-ajax="false" action="#" id="subscribeForm">
+							<div>
+							<input name="application" value="<?= $application ?>" type="hidden" />
+							<div data-role="fieldcontain" style="margin-left: auto;margin-right: auto;">
+								<fieldset data-role="controlgroup" >
+									<label for="textinputs1"> Nom de l'organisme bénéficiaire: </label> <input id="textinputs1"  name="nom" placeholder="" value="" type="text" />
+								</fieldset>
 							</div>
-							<div class="row" style="padding-left: 10px;">
-								<?= $value->publisherName ?>
-								<?= $date ?>
-								<?= $position ?>
+							<div data-role="fieldcontain" style="margin-left: auto;margin-right: auto;">
+								<fieldset data-role="controlgroup" >
+									<label for="textinputs2"> Libellé du projet: </label> <input id="textinputs2"  name="lib" placeholder="" value="" type="text" />
+								</fieldset>
 							</div>
-					</a></li>
-					<?php 
-					}
-				}
-			
-				?>
-				</ul>
-
+							<a href="" type="button" data-icon="gear" onclick="$('#subscribeForm').submit();" style="width:280px;margin-left: auto;margin-right: auto;">rechercher</a></div>
+						</form>
+					</div>
+					<div class="push"></div>
+				</div>
 			</div>
+			<?= $template->credits(); ?>
 		</div>
 	</body>
 </html>

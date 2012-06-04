@@ -13,7 +13,7 @@ $(function() {
 	// check if a session is already opened
 	//session();
 	
-	map = new google.maps.Map(document.getElementById("map_canvas"), {
+	/*map = new google.maps.Map(document.getElementById("map_canvas"), {
 		zoom: 11,
 		center: new google.maps.LatLng(43.6, 7.11),
 		mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -48,7 +48,7 @@ $(function() {
 			map.setCenter(latlng);
 			marker.setPosition(latlng);
 		});
-	});
+	});*/
 });
 
 function displayPosition(position) {
@@ -371,4 +371,10 @@ function interaction(consumer, producer, value){
 		}
 		
 	});
+}
+
+function showComment() {
+	$('#CommentButton').fadeOut('slow');
+    $('#Comments').fadeIn('slow');
+    $('#Commenter').fadeIn('slow');
 }

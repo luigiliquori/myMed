@@ -20,7 +20,7 @@
 	//ob_start("ob_gzhandler");
 	require_once 'Template.class.php';
 	$template = new Template();
-	$template->head();
+
 	// DEBUG
 	//require_once('PhpConsole.php');
 	//PhpConsole::start();
@@ -68,14 +68,17 @@
 		$responseObject = json_decode($responsejSon);
 	}
 	
-	if (isset($_REQUEST['predicates'])){ // to delete our text or comment
+	if (isset($_POST['predicates'])){ // to delete our text or comment
 		$request = new Request("PublishRequestHandler", DELETE);
-		$request->addArgument("application", $_REQUEST['application']);
-		$request->addArgument("predicate", $_REQUEST['predicates']);
+		$request->addArgument("application", $_POST['application']);
+		$request->addArgument("predicate", $_POST['predicates']);
 		$request->addArgument("user", json_encode($_SESSION['user']) );
 		
 		$responsejSon = $request->send();
 		$responseObject = json_decode($responsejSon);
+		if($responseObject->status == 200) {
+			header("Refresh:1;url=/application/myNCE/search");
+		}
 	}
 	
 	$request = new Request("FindRequestHandler", READ);
@@ -86,148 +89,185 @@
 	$detail = json_decode($responsejSon);
 	
 	$request = new Request("ProfileRequestHandler", READ);
-	$request->addArgument("id", $_SESSION["user"]->id);
+	$request->addArgument("id", $_REQUEST['user']);
 	$responsejSon = $request->send();
 	$profile = json_decode($responsejSon);
+	
+	$request = new Request("FindRequestHandler", READ);
+	$request->addArgument("application", $_REQUEST['application']);
+	$request->addArgument("predicate", "commentOn" . $_REQUEST['predicate']);
+	$responsejSon = $request->send();
+	$comments = json_decode($responsejSon);
+	$totalCom = 0;
+	if($comments->status == 200) {
+		$totalCom = count($comments->dataObject->results);
+	}
 
 	
 ?>
+	<head>
+		<?= $template->head(); ?>
+		<script type="text/javascript">
+	    	$(".ui-slider-handle .ui-btn-inner").live("mouseup", function() {
+		    <?php 
+				if ($_REQUEST['user'] == $_SESSION['user']->id){ //we can't update it's reputation
+				?>
+		        $("#slider-0").val(25).slider("refresh");
+		        <?php
+				} 
+			?>
+		    });
+		</script>
+	</head>
 
 	<body>
         <div data-role="page" id="Detail">
-        	<div data-role="header" data-theme="e">
-				<a href="home.html" data-icon="back"> Back </a>
-				<h3>myNCE - détail</h3>
-			</div>
-            <div data-role="content">
-	
-			<?php
+        	<div class="wrapper">
+	        	<div data-role="header" data-theme="b">
+					<a href="search" data-icon="back" data-ajax=false> Retour </a>
+					<h3>myEurope - détail</h3>
+				</div>
+	            <div data-role="content">
 		
-			if($profile->status == 200) {
-				$profile = $profile->dataObject->user;
-				$profPic = ($profile->profilePicture) ? $profile->profilePicture : "http://graph.facebook.com//picture?type=large";
-			}
-	
-			if($detail->status == 200) {
-				$detail = $detail->dataObject->details;
-				$text="";
-				foreach( $detail as $i => $value ){
-					if ($value->key=="text"){
-						$text = str_replace("\n", "<br />", $value->value);
-						array_splice($detail, $i, 1);
-					}	
+				<?php
+			
+				if($profile->status == 200) {
+					$profile = $profile->dataObject->user;
+					$profPic = ($profile->profilePicture) ? $profile->profilePicture : "http://graph.facebook.com//picture?type=large";
 				}
-				usort($detail, "cmp"); //important, we sorted also when we published this predicates.
-				
-				// Todo add a profile request on the publisher to get his reputation
-				
-				?>
-				<img src='<?= $profPic ?>' width="180" style="float:right;" />
-				<b>Auteur</b>: <span style="left-margin:5px; color:DarkBlue; font-size:160%;"><?= $profile->name ?></span>
-				<br />
-				<b>Réputation</b>: <input type="range" name="slider" id="slider-0" value="25" min="0" max="100" data-highlight="true" data-mini="true" /> 
-				<br /><br />
-				<b>Texte</b>:
-				<br /><br /><br /><br />
-				<div id="detailstext"><?= $text ?></div>
-				<br />
-			<?php 
-			}
-	
-			?>
 		
-			<?php 
-			if ($_REQUEST['user'] == $_SESSION['user']->id){ //we can delete our own text
-				?>
-				<form action="#Detail" id="deleteForm">
-					<input name="application" value=<?= $_REQUEST['application'] ?> type="hidden" />
-					<input name="predicates" value=<?= json_encode($detail) ?> type="hidden" />
-					<input name="user" value=<?= $_REQUEST['user'] ?> type="hidden" />
-				</form>
-				<a href="" type="button" data-theme="r" data-icon="delete" onclick="$('#deleteForm').submit();" style="width:210px;float:right;">Supprimer mon texte</a>
+				if($detail->status == 200) {
+					$detail = $detail->dataObject->details;
+					$text="";
+					foreach( $detail as $i => $value ) {
+						if ($value->key=="desc"){
+							$text = str_replace("\n", "<br />", $value->value);
+							array_splice($detail, $i, 1);
+						}
+					}
+					foreach( $detail as $i => $value ) {
+						if ($value->key=="data"){
+							$preds = json_decode($value->value);
+							array_splice($detail, $i, 1);
+						}
+					}
+					foreach( $detail as $value ) {
+						//debug($value->key." -> ".$value->value);
+						if ($value->key=="data"){
+							array_splice($detail, $i, 1);
+						}
+					}
+					
+					usort($detail, "cmp"); //important, we sorted also when we published this predicates.
+					
+					// Todo add a profile request on the publisher to get his reputation
+					?>
+					<img style="float:right;text-align: center; max-height: 100px;opacity: 0.6;" src="<?= $profPic ?>" />
+					<b>Auteur</b>: <span style="left-margin:5px; color:DarkBlue; font-size:160%;"><?= $profile->name ?></span>
+					<br />
+					<b>Réputation</b>: <input type="range" name="slider" id="slider-0" value="25" min="0" max="100" data-highlight="true" data-mini="true" /> 
+					<br /><br /><br />
+					<b>Nom de l'org:</b>&nbsp; <span style="left-margin:5px; color:DarkBlue; font-size:140%;"><?= $preds->nom ?></span><br />
+					<b>Libellé du projet:</b>&nbsp; <span style="left-margin:5px; color:DarkBlue; font-size:140%;"><?= $preds->lib ?></span><br />
+					<b>Texte</b>:
+					<br /><br /><br />
+					<div id="detailstext"><?= $text ?>
+					
+					But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?
+					
+					</div>
+					<br />
 				<?php 
-			}
-
-			?>
-			
-			<div style="height:100px;" id="spacer"></div>
-			<hr />
+				}
 		
-			<div style="text-align: center">
-				<div data-role="fieldcontain">
-					<fieldset data-role="controlgroup">
-						<form action="#Detail" method="post" id="commentForm">
-							<label for="textarea1" style="width: 80px;"> Commenter: </label>
-							<input name="application" value=<?= $_REQUEST['application'] ?> type="hidden" />
-							<input name="commentOn" value="<?= $_REQUEST['predicate'] ?>" type="hidden" />
-							<input name="end" value="<?= date("Y-m-d") . "T" . date("H:i:s") ?>" type="hidden" />
-							<input name="_data" value="" type="hidden" />
-							<textarea name="data" id="textarea1" placeholder="" style="height: 26px;"></textarea>
-							<a href="" type="button" data-inline="true" data-iconpos="right" data-icon="check" onclick="$('#commentForm').submit();">Envoyer</a>
-							
-						</form>
-					</fieldset>
-				</div>
-			</div>
-			<a href="" type="button" data-icon="arrow-d" onclick="$('#Comments').show();">Afficher les commentaires</a>
-	
-			<div id="Comments" style="display: none;">
-			<?php
-			$request = new Request("FindRequestHandler", READ);
-			$request->addArgument("application", $_REQUEST['application']);
-			$request->addArgument("predicate", "commentOn" . $_REQUEST['predicate']);
-			$responsejSon = $request->send();
-			$comments = json_decode($responsejSon);
+				?>
 			
-	    	if($comments->status == 200) {
-	    		$comments = $comments->dataObject->results;
-		    	foreach($comments as $i => $value) { ?>
-		    		<form action="#Detail" method="post" id="deleteCommentForm<?= $i ?>">
-						<input name="application" value=<?= $_REQUEST['application'] ?> type="hidden" />
-						<?php 
-							$commentOn = new stdClass();
-							$commentOn->key = "commentOn";
-							$commentOn->value = $_REQUEST['predicate'];
-							$commentOn->ontologyID = 0;
-							$end = new stdClass();
-							$end->key = "end";
-							$end->value = $value->end;
-							$end->ontologyID = 0;
-							$predicates=array($commentOn, $end);
-						?>
-						<input name="predicates" value=<?= json_encode($predicates) ?> type="hidden" />
-						<input name="user" value=<?= $value->publisherID ?> type="hidden" />
-						<p><?= $value->data ?></p>
-		    			<p><b><?= $value->publisherName ?></b> le <?= $value->end ?>
-		    			<?php 
-						if ($_REQUEST['user'] == $_SESSION['user']->id){ //we can delete our comments
-							?>
-							<a href="" type="button" data-inline="true" data-theme="r" data-iconpos="notext" data-icon="delete" onclick="$('#deleteCommentForm<?= $i ?>').submit();"></a>
-							<?php
-						} 
-						?>
-							
+				<?php 
+				if ($_REQUEST['user'] == $_SESSION['user']->id){ //we can delete our own text
+					?>
+					<form action="#" method="post" id="deleteForm">
+						<input name="application" value="<?= $_REQUEST['application'] ?>" type="hidden" />
+						<input name="predicates" value=<?= json_encode($detail) ?> type="hidden" />
+						<input name="user" value="<?= $_REQUEST['user'] ?>" type="hidden" />
 					</form>
-		    		
-		    	<?php } 
-			}
-			?>
-			
+					<a href="" type="button" data-theme="r" data-icon="delete" onclick="$('#deleteForm').submit();" style="width:222px;float:right;">Supprimer cette fiche</a>
+					<?php 
+					}
 		
+					?>
+				
+					<a id="CommentButton" href="" type="button" data-icon="arrow-d" onclick="showComment();" style="width: 300px;margin-left: auto; margin-right: auto">Afficher les commentaires (<?= $totalCom ?>)</a>
+		
+					<div id="Comments" style="text-align: center;display: none;">
+						<ul data-role="listview" data-inset="true">
+						<?php
+
+				    	if($comments->status == 200) {
+				    		$comments = $comments->dataObject->results;
+					    	foreach($comments as $i => $value) { ?>
+					    		<li>
+					    		<div style="width:100%; overflow:hidden;">
+					    			<form action="#" method="post" id="deleteCommentForm<?= $i ?>">
+										<input name="application" value="<?= $_REQUEST['application'] ?>" type="hidden" />
+										<?php 
+											$commentOn = new stdClass();
+											$commentOn->key = "commentOn";
+											$commentOn->value = $_REQUEST['predicate'];
+											$commentOn->ontologyID = 0;
+											$end = new stdClass();
+											$end->key = "end";
+											$end->value = $value->end;
+											$end->ontologyID = 0;
+											$predicates=array($commentOn, $end);
+										?>
+										<input name="predicates" value=<?= json_encode($predicates) ?> type="hidden" />
+										<input name="user" value="<?= $value->publisherID ?>" type="hidden" />
+									</form>
+									<div style="display:inline; float:left; height:40px; line-height:40px;font-weight:lighter;"><?= $value->data ?></div>
+					    			<div style="display:block;float:right;font-weight:lighter;"><b style="margin-right: 15px;"><?= $value->publisherName ?></b> le <?= $value->end ?>
+					    			<?php 
+									if ($_REQUEST['user'] == $_SESSION['user']->id){ //we can delete our comments
+										?>
+										<a href="" type="button" data-inline=true data-theme="r" data-iconpos="notext" data-icon="delete" onclick="$('#deleteCommentForm<?= $i ?>').submit();"></a>
+										<?php
+									} 
+									?>
+									</div>
+								</div>
+
+								</li>
+					    		
+								
+								
+					    		
+					    	<?php } 
+						}
+						?>
+						</ul>
+				
+			
+					</div>
+					<div id="Commenter" style="text-align: center;display: none;">
+						<div data-role="fieldcontain">
+							<fieldset data-role="controlgroup">
+								<form action="#" method="post" id="commentForm">
+									
+									<input name="application" value="<?= $_REQUEST['application'] ?>" type="hidden" />
+									<input name="commentOn" value="<?= $_REQUEST['predicate'] ?>" type="hidden" />
+									<input name="end" value="<?= date("Y-m-d") . "T" . date("H:i:s") ?>" type="hidden" />
+									<input name="_data" value="" type="hidden" />
+									<textarea name="data" id="textarea1" placeholder="" style="height: 22px;"></textarea>
+									<a href="" type="button" data-inline="true" data-mini=true data-iconpos="right" data-icon="check" onclick="$('#commentForm').submit();">Commenter</a>
+									
+								</form>
+							</fieldset>
+						</div>
+					</div>
+					<div class="push"></div>
 				</div>
 			</div>
+			<?= $template->credits(); ?>
 		</div>
-		<script type="text/javascript">
-    	$(".ui-slider-handle .ui-btn-inner").live("mouseup", function() {
-	    <?php 
-			if ($_REQUEST['user'] == $_SESSION['user']->id){ //we can't update it's reputation
-			?>
-	        $("#slider-0").val(25).slider("refresh");
-	        <?php
-			} 
-		?>
-	    });
-		</script>
 	</body>
 </html>
 
