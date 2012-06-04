@@ -186,9 +186,9 @@
 				if ($_REQUEST['user'] == $_SESSION['user']->id){ //we can delete our own text
 					?>
 					<form action="#" method="post" id="deleteForm">
-						<input name="application" value="<?= $_REQUEST['application'] ?>" type="hidden" />
-						<input name="predicates" value=<?= json_encode($detail) ?> type="hidden" />
-						<input name="user" value="<?= $_REQUEST['user'] ?>" type="hidden" />
+						<input name="application" value='<?= $_REQUEST['application'] ?>' type="hidden" />
+						<input name="predicates" value='<?= json_encode($detail) ?>' type="hidden" />
+						<input name="user" value='<?= $_REQUEST['user'] ?>' type="hidden" />
 					</form>
 					<a href="" type="button" data-theme="r" data-icon="delete" onclick="$('#deleteForm').submit();" style="width:270px;margin-left: auto; margin-right: auto">Supprimer ce document</a>
 					<?php 
@@ -208,7 +208,7 @@
 					    		<li>
 					    		<div style="width:100%; overflow:hidden;">
 					    			<form action="#" method="post" id="deleteCommentForm<?= $i ?>">
-										<input name="application" value="<?= $_REQUEST['application'] ?>" type="hidden" />
+										<input name="application" value='<?= $_REQUEST['application'] ?>' type="hidden" />
 										<?php 
 											$commentOn = new stdClass();
 											$commentOn->key = "commentOn";
@@ -220,18 +220,27 @@
 											$end->ontologyID = 0;
 											$predicates=array($commentOn, $end);
 										?>
-										<input name="predicates" value=<?= json_encode($predicates) ?> type="hidden" />
-										<input name="user" value="<?= $value->publisherID ?>" type="hidden" />
+										<input name="predicates" value='<?= json_encode($predicates) ?>' type="hidden" />
+										<input name="user" value='<?= $value->publisherID ?>' type="hidden" />
 									</form>
-									<div style="display:block; float:left; height:40px; line-height:40px;font-weight:lighter;"><?= $value->data ?></div>
-					    			<div style="display:block;float:right;font-weight:lighter;"><b style="margin-right: 15px;"><?= $value->publisherName ?></b> le <?= $value->end ?>
-					    			<?php 
-									if ($_REQUEST['user'] == $_SESSION['user']->id){ //we can delete our comments
+									<div style="display:inline-block; float:left; height:40px; line-height:40px;font-weight:lighter;"><?= $value->data ?></div>
+					    			<div style="display:inline-block;float:right;font-weight:lighter;"><b style="display:inline-block;float:left; height:40px; line-height:40px;margin-right: 15px;"><?= $value->publisherName ?></b> le <?= $value->end ?>
+					    				<a href="" type="button" data-inline=true data-iconpos="notext" 
+					    				<?php 
+									if ($value->publisherID == $_SESSION['user']->id){ //we can delete our comments
 										?>
-										<a href="" type="button" data-inline=true data-theme="r" data-iconpos="notext" data-icon="delete" onclick="$('#deleteCommentForm<?= $i ?>').submit();"></a>
-										<?php
-									} 
+					    				data-theme="r" data-icon="delete" onclick="$('#deleteCommentForm<?= $i ?>').submit();"
+					    				<?php
+									} else {
 									?>
+										data-theme="" data-icon="plus"
+									<?php
+									}
+									?>
+					    				></a>
+					    			
+										
+										
 									</div>
 									
 								</div>
@@ -253,9 +262,9 @@
 							<fieldset data-role="controlgroup">
 								<form action="#" method="post" id="commentForm">
 									
-									<input name="application" value="<?= $_REQUEST['application'] ?>" type="hidden" />
-									<input name="commentOn" value="<?= $_REQUEST['predicate'] ?>" type="hidden" />
-									<input name="end" value="<?= date("Y-m-d") . "T" . date("H:i:s") ?>" type="hidden" />
+									<input name="application" value='<?= $_REQUEST['application'] ?>' type="hidden" />
+									<input name="commentOn" value='<?= $_REQUEST['predicate'] ?>' type="hidden" />
+									<input name="end" value='<?= date("Y-m-d") . "T" . date("H:i:s") ?>' type="hidden" />
 									<input name="_data" value="" type="hidden" />
 									<textarea name="data" id="textarea1" placeholder="" style="height: 22px;"></textarea>
 									<a href="" type="button" data-inline="true" data-mini=true data-iconpos="right" data-icon="check" onclick="$('#commentForm').submit();">Commenter</a>

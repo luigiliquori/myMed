@@ -201,8 +201,8 @@
 							?>
 							<li><a href=""> <?= $i ?>
 								<form action="#" method="post" id="deleteSubscriptionForm<?= $i ?>">
-									<input name="application" value="<?= $application ?>" type="hidden" /> <input name="predicate" value=<?= $i ?> type="hidden" />
-									<input name="userID" value="<?= $_SESSION['user']->id ?>" type="hidden" />
+									<input name="application" value='<?= $application ?>' type="hidden" /> <input name="predicate" value=<?= $i ?> type="hidden" />
+									<input name="userID" value='<?= $_SESSION['user']->id ?>' type="hidden" />
 								</form> <a href="javascript://" data-icon="delete" data-theme="r" onclick="$('#deleteSubscriptionForm<?= $i ?>').submit();">Désabonnement</a>
 								</a>
 							</li>

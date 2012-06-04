@@ -9,10 +9,9 @@
 	*  post
 	*
 	* what it does:
-	*  display the form for posting new content
+	*  display the form for posting new content: IMPORTANT this view should be reserved to special users
 	*
-	*  if param commentOn is present it will attempt to publish a comment on this data
-	*  if param predicates is present it will attempt to delete either text (if we are the authod) or our comment (only our comments not other's or change it if you want)
+	* 
 	*/
 
 	//ob_start("ob_gzhandler");

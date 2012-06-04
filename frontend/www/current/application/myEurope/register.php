@@ -8,8 +8,8 @@
 	$template = new Template();
 	
 	// DEBUG
-	require_once('PhpConsole.php');
-	PhpConsole::start();
+	//require_once('PhpConsole.php');
+	//PhpConsole::start();
 	//debug('boo '.dirname(__FILE__));
 	
 	require_once '../../lib/dasp/request/Request.class.php';
@@ -18,7 +18,7 @@
 	require_once '../../lib/dasp/beans/MAuthenticationBean.class.php';
 	session_start();
 	
-	
+	$responseObject = new stdClass(); $responseObject->status = false;
 	
 	if (count($_POST)){ // to publish something
 		// create the new user
@@ -50,8 +50,7 @@
 		$responseObject = json_decode($responsejSon);
 		
 		if($responseObject->status == 200) {
-			debug("sdfh");
-			echo '<script type="text/javascript">alert(\'' . Veuillez valider votre compte par mail . '\');</script>';
+			//debug("sdfh");
 		}
 	}
 	
@@ -68,8 +67,8 @@
 					<h3>myEurope - insertion</h3>
 				</div>
 				<div data-role="content">
-					<?= ($responseObject->status==200)?"<div style='color:lightGreen;text-align:center;'>Contenu publié</div>":"" ?>
-					<form action="#" id="registerForm">
+					<?= ($responseObject->status==200)?"<div style='color:lightGreen;text-align:center;'>Compte créé, validez-le par mail</div>":"" ?>
+					<form action="#" method="post" id="registerForm">
 						<input name="application" placeholder="" value="myEurope" type="hidden" />
 						<div data-role="fieldcontain">
 							<fieldset data-role="controlgroup">

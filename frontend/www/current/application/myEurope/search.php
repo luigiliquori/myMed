@@ -181,9 +181,9 @@
 								<td class="center">
 									<a href="mailto:<?= substr($value->publisherID, 6) ?>" target="_blank">mail</a>
 									<form action="detail" id="detailForm<?= $i ?>">
-										<input name="application" value="<?= $application ?>" type="hidden" />
-										<input name="predicate" value="<?= $value->predicate ?>" type="hidden" />
-										<input name="user" value="<?= $value->publisherID ?>" type="hidden" />
+										<input name="application" value='<?= $application ?>' type="hidden" />
+										<input name="predicate" value='<?= $value->predicate ?>' type="hidden" />
+										<input name="user" value='<?= $value->publisherID ?>' type="hidden" />
 									</form>
 								</td>
 							</tr>
@@ -203,7 +203,7 @@
 						<h3>Recherche avancée</h3>
 						<form  data-ajax="false" action="#" id="subscribeForm">
 							<div>
-							<input name="application" value="<?= $application ?>" type="hidden" />
+							<input name="application" value='<?= $application ?>' type="hidden" />
 							<div data-role="fieldcontain" style="margin-left: auto;margin-right: auto;">
 								<fieldset data-role="controlgroup" >
 									<label for="textinputs1"> Nom de l'organisme bénéficiaire: </label> <input id="textinputs1"  name="nom" placeholder="" value="" type="text" />

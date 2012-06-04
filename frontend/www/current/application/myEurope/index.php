@@ -11,9 +11,9 @@
 		$responseObject = json_decode($responsejSon);
 			
 		if($responseObject->status != 200) {
-			header("Refresh:0;url=/application/myEurope?registration=no");
+			header("Location: ./search?registration=no");
 		} else {
-			header("Refresh:0;url=/application/myEurope?log-in-now-please");
+			header("Location: ./authenticate");
 		}
 	}
 	
