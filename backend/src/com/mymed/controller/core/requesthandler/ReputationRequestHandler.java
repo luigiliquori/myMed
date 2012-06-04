@@ -89,6 +89,9 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
                         throw new InternalBackEndException("missing consumer argument!");
                     }
                     final MymedAppUserId user = new MymedAppUserId(application, producer, ReputationRole.Producer);
+                    
+                    System.out.println(user.getPrimaryId());
+                    
                     final MReputationBean reputation = reputationManager.read(user);
                     message.addData(JSON_REPUTATION, String.valueOf(reputation.getReputation()));
                     message.addDataObject(JSON_REPUTATION, String.valueOf(reputation.getReputation()));
