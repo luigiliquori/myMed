@@ -72,7 +72,7 @@ class Login extends AbstractTemplate {
 			    <input type="password" name="password" id="password" value="Mot de passe"  data-theme="c"/><br />
 <!-- 			    <a href="#socialNetwork">Connexion Via Réseau Social</a><br /> -->
 				<a href="http://www-sop.inria.fr/lognet/MYMED/" target="blank">A propos</a><br />
- 			    <a href="#" onclick="document.singinForm.submit()" data-role="button" data-inline="true" data-theme="b">Connexion</a>
+ 			    <a href="#" onclick="document.singinForm.submit()" data-role="button" data-inline="true" data-theme="b" rel="external">Connexion</a>
 			    <!-- <a href="#" onclick="alert('L\'application n\'est pas encore ouverte, mais vous pouvez vous inscrire dès maintenant!');" data-role="button" data-inline="true" data-theme="b">Connexion</a> -->
 			</form>
 			

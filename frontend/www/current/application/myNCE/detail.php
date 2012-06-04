@@ -4,12 +4,15 @@
 <?php
 
 	/*
-	 *  detail.php
+	 * 
+	 * usage:
+	 *  detail?application=val1&predicate=val2&user=val3
+	 * 
+	 * what it does:
+	 *  display the data identified by predicate and user in the given application
 	 *  
-	 *  arguments : 
-	 *  	application
-	 *  	predicate
-	 *  	user
+	 *  if param commentOn is present it will attempt to publish a comment on this data
+	 *  if param predicates is present it will attempt to delete either text (if we are the authod) or our comment (only our comments not other's or change it if you want)
 	 */		
 
 
@@ -19,9 +22,9 @@
 	$template = new Template();
 	$template->head();
 	// DEBUG
-	require_once('PhpConsole.php');
-	PhpConsole::start();
-	debug('boo '.dirname(__FILE__));
+	//require_once('PhpConsole.php');
+	//PhpConsole::start();
+	//debug('boo '.dirname(__FILE__));
 	
 	require_once '../../lib/dasp/request/Request.class.php';
 	require_once '../../system/config.php';
@@ -32,18 +35,17 @@
 		return strcmp($a->key, $b->key);
 	}
 	
-	
-	if (isset($_REQUEST['commentOn'])){
+	if (isset($_POST['commentOn'])){ // we want to comment
 		$predicates = Array();
 		$data = Array();
-		foreach( $_REQUEST as $i => $value ){
+		foreach( $_POST as $i => $value ){
 			if ( $i!='application' && $i[0]!='_' && $value && $value!='false' && $value!='' ){
 				$ontology = new stdClass();
 				$ontology->key = $i;
 				$ontology->value = $value;
-				$ontology->ontologyID = isset($_REQUEST['_'.$i])?$_REQUEST['_'.$i]:0; // '_'.$i form fields contain the ontologyID of the value
+				$ontology->ontologyID = isset($_POST['_'.$i])?$_POST['_'.$i]:0; // '_'.$i form fields contain the ontologyID of the value
 	
-				if(isset($_REQUEST['_'.$i])){
+				if(isset($_POST['_'.$i])){
 					array_push($data, $ontology);
 				}else{
 					array_push($predicates, $ontology);
@@ -54,7 +56,7 @@
 		$data = array_merge($predicates, $data);
 	
 		$request = new Request("PublishRequestHandler", CREATE);
-		$request->addArgument("application", $_REQUEST['application']);
+		$request->addArgument("application", $_POST['application']);
 		$request->addArgument("predicate", json_encode($predicates));
 	
 		$request->addArgument("data", json_encode($data));
@@ -66,7 +68,7 @@
 		$responseObject = json_decode($responsejSon);
 	}
 	
-	if (isset($_REQUEST['predicates'])){ // to delete our comment
+	if (isset($_REQUEST['predicates'])){ // to delete our text or comment
 		$request = new Request("PublishRequestHandler", DELETE);
 		$request->addArgument("application", $_REQUEST['application']);
 		$request->addArgument("predicate", $_REQUEST['predicates']);
@@ -87,12 +89,9 @@
 	$request->addArgument("id", $_SESSION["user"]->id);
 	$responsejSon = $request->send();
 	$profile = json_decode($responsejSon);
-	
-	
+
 	
 ?>
-
-
 
 	<body>
         <div data-role="page" id="Detail">
@@ -141,11 +140,11 @@
 			if ($_REQUEST['user'] == $_SESSION['user']->id){ //we can delete our own text
 				?>
 				<form action="#Detail" id="deleteForm">
-					<input name="application" value="myNCE" type="hidden" />
+					<input name="application" value=<?= $_REQUEST['application'] ?> type="hidden" />
 					<input name="predicates" value=<?= json_encode($detail) ?> type="hidden" />
 					<input name="user" value=<?= $_REQUEST['user'] ?> type="hidden" />
 				</form>
-				<a href="" type="button" data-theme="r" data-icon="delete" onclick="$('#deleteForm').submit();" style="width:200px;float:right;">Supprimer le texte</a>
+				<a href="" type="button" data-theme="r" data-icon="delete" onclick="$('#deleteForm').submit();" style="width:210px;float:right;">Supprimer mon texte</a>
 				<?php 
 			}
 
@@ -159,7 +158,7 @@
 					<fieldset data-role="controlgroup">
 						<form action="#Detail" method="post" id="commentForm">
 							<label for="textarea1" style="width: 80px;"> Commenter: </label>
-							<input name="application" value="myNCE" type="hidden" />
+							<input name="application" value=<?= $_REQUEST['application'] ?> type="hidden" />
 							<input name="commentOn" value="<?= $_REQUEST['predicate'] ?>" type="hidden" />
 							<input name="end" value="<?= date("Y-m-d") . "T" . date("H:i:s") ?>" type="hidden" />
 							<input name="_data" value="" type="hidden" />
@@ -184,7 +183,7 @@
 	    		$comments = $comments->dataObject->results;
 		    	foreach($comments as $i => $value) { ?>
 		    		<form action="#Detail" method="post" id="deleteCommentForm<?= $i ?>">
-						<input name="application" value="myNCE" type="hidden" />
+						<input name="application" value=<?= $_REQUEST['application'] ?> type="hidden" />
 						<?php 
 							$commentOn = new stdClass();
 							$commentOn->key = "commentOn";
@@ -218,6 +217,17 @@
 				</div>
 			</div>
 		</div>
+		<script type="text/javascript">
+    	$(".ui-slider-handle .ui-btn-inner").live("mouseup", function() {
+	    <?php 
+			if ($_REQUEST['user'] == $_SESSION['user']->id){ //we can't update it's reputation
+			?>
+	        $("#slider-0").val(25).slider("refresh");
+	        <?php
+			} 
+		?>
+	    });
+		</script>
 	</body>
 </html>
 
