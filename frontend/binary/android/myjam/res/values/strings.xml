@@ -12,6 +12,11 @@
     <string name="feedback_string">Feedback</string>
     <string name="dialog_title">myJam Dialog</string>
     <string name="positive_button_label">Ok</string>
+    
+    <string name="search_finished">Search finished</string>
+    <string name="report_inserted">Report inserted</string>
+    <string name="update_inserted">Update inserted</string>
+    <string name="feedback_inserted">Feedback inserted</string>
     <!-- ============================ -->
     <!--  	LoginActivity strings  	  -->
     <!-- ============================ -->
@@ -33,7 +38,6 @@
     <!-- ============================ -->
     <string name="toast_call_error">Call error: <xliff:g id="error">%1$s</xliff:g></string>
     <string name="searching_reports_msg">Searching reports...</string>
-    <string name="search_finished">Search finished</string>
     <string name="frac_number_separator">.</string>
     <string name="type_string_separator">_</string>
     
@@ -42,6 +46,7 @@
     <string name="search_button_hint">Wait for the location to be available.</string>
     
     <string name="loc_not_available_dialog_message">You cannot insert a new report, because your location is not available at the moment.</string>
+    <string name="no_reports_available_dialog_message">No reports to be shown, try to perform a search operation.</string>
     <string name="no_location">No location available.</string>
     <string name="post_date_label">Posted:</string>
     <string name="distance_label">Distance:</string>
@@ -70,7 +75,8 @@
     <string name="button_continue_label">Continue</string>
     <string name="button_see_label">See them</string>
     
-    <string name="insert_start">Inserting the report...</string>
+    <string name="insert_report_start">Inserting the report...</string>
+    <string name="insert_update_start">Inserting the update...</string>
     <string name="search_start">Searching reports...</string>
     <!-- ============================ -->
     <!--  	ReportDetails  strings    -->
@@ -88,18 +94,7 @@
     <string name="report_comment">Comment:</string>
     <string name="cursor_position"> Update (<xliff:g id="pos">%1$s</xliff:g>/<xliff:g id="index">%2$s</xliff:g>)</string>
     <string name="original_report"> Original report</string>
-    
-    <plurals name="num_confirmations">
-    	<item quantity="zero">No confirmations present.</item>
-        <item quantity="one">One confirmation.</item>
-        <item quantity="other">%d confirmations.</item>
-    </plurals>
-    <plurals name="num_denials">
-    	<item quantity="zero">No denials present.</item>
-        <item quantity="one">One denial.</item>
-        <item quantity="other">%d denials.</item>
-    </plurals>
-    
+        
     <string name="dialog_report_unavailable_text">Cannot proceed.\n Report data unavailable.</string>
     <string name="dialog_location_unavailable_text">Cannot proceed.\n User location unavailable.</string>
     <string name="dialog_not_in_range_text">Cannot proceed.\n You are too far from the report location.</string>
@@ -140,5 +135,10 @@
     <string name="summary_navigation_preference">When is active the map is periodically centered on the user position.</string>       
     <string name="title_sync_preference">Choose refresh rate</string>
     <string name="summary_sync_preference">The rate of report details refresh </string>
-    <string name="dialog_title_sync_preference">Select the refresh rate.</string>  
+    <string name="dialog_title_sync_preference">Select the refresh rate.</string>
+    <!-- ============================ -->
+    <!--  	 CallService  strings     -->
+    <!-- ============================ -->
+    <string name="network_unavailable">Network connection not available at the moment!</string>
+    <string name="wrong_format">Wrong response format.</string>  
 </resources>

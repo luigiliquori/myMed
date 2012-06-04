@@ -21,21 +21,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mymed.android.myjam.R;
-import com.mymed.android.myjam.controller.ICallAttributes;
+import com.mymed.android.myjam.controller.CallContract;
+import com.mymed.android.myjam.controller.CallContract.CallCode;
+import com.mymed.android.myjam.controller.HttpCall;
 import com.mymed.android.myjam.provider.MyJamContract.Report;
 import com.mymed.android.myjam.provider.MyJamContract.Search;
 import com.mymed.android.myjam.provider.MyJamContract.SearchReports;
-import com.mymed.android.myjam.service.MyJamCallService;
-import com.mymed.android.myjam.service.MyJamCallService.RequestCode;
+import com.mymed.android.myjam.service.CallService;
 import com.mymed.model.data.myjam.MReportBean;
 import com.mymed.utils.GlobalStateAndUtils;
 import com.mymed.utils.MyResultReceiver;
+import com.mymed.utils.MyResultReceiver.IReceiver;
 /**
  * Activity that permits to insert reports or updates.
  * @author iacopo
  *
  */
-public class InsertActivity extends AbstractLocatedActivity implements MyResultReceiver.Receiver{
+public class InsertActivity extends AbstractLocatedActivity implements IReceiver{
 	private static final String TAG = "InsertActivity";
 
 	private interface SearchReportsQuery{
@@ -92,7 +94,7 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.insert_view);
-		mResultReceiver = MyResultReceiver.getInstance();
+		mResultReceiver = MyResultReceiver.getInstance(this.getClass().getName(),this);
 		mInsertTypeTextView = (TextView) findViewById(R.id.textViewInsertType);
 		mReportTypes = getResources().getStringArray(R.array.report_type_list);
 		mReportTypesVal = getResources().getStringArray(R.array.report_typevalues_list);
@@ -129,7 +131,7 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 				finish();
 			}
 			mBundle = new Bundle();
-			mBundle.putString(ICallAttributes.REPORT_ID, Report.getReportId(uri));
+			mBundle.putString(CallContract.REPORT_ID, Report.getReportId(uri));
 			mReportTypeId = GlobalStateAndUtils.getInstance(this).getStringArrayValueIndex(mReportTypesVal,
 					cursor.getString(ReportQuery.REPORT_TYPE));
 			if (mReportTypeId >= 0){
@@ -157,9 +159,19 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 	@Override
 	public void onResume(){
 		super.onResume();
-		mResultReceiver.setReceiver(this);
-		if (!mResultReceiver.ismSyncing())
-			updateRefreshStatus(false,"");
+		testToken();
+		MyResultReceiver resultReceiver = MyResultReceiver.getInstance(this.getClass().getName(),this);
+		resultReceiver.checkOngoingCalls();
+	}
+	
+	/**
+	 * Check if a token is present on {@link GlobalStateAndutils}, if not sent the user back to {@link LoginActivity}
+	 */
+	private void testToken(){
+		if (GlobalStateAndUtils.getInstance(this)
+				.getAccessToken()==null){
+		        startActivity(new Intent(InsertActivity.this, LoginActivity.class));
+		}
 	}
 
 	/**
@@ -211,6 +223,7 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 							requestInsertReport(mBundle,reportOrUpdate);
 						else if (insertionType == UPDATE)
 							requestUpdateReport(mBundle,reportOrUpdate);
+						mInsertButton.setEnabled(false);
 					} catch (Exception e){
 						Toast.makeText(InsertActivity.this, "Wrong parameters.",Toast.LENGTH_LONG).show();
 					}
@@ -236,11 +249,12 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 					/** Dispatches a request to get the reports in a range  {@link INSERT_SEARCH_RANGE} around the position
 					 *  where the report wants to be inserted.
 					 * */
-					int lat = mBundle.getInt(ICallAttributes.LATITUDE);
-					int lon = mBundle.getInt(ICallAttributes.LONGITUDE);
+					int lat = mBundle.getInt(CallContract.LATITUDE);
+					int lon = mBundle.getInt(CallContract.LONGITUDE);
 					int radius = INSERT_SEARCH_RANGE;
 					requestSearch(lat,lon,radius,Search.INSERT_SEARCH);
 					createReportOrUpdateLayout(REPORT);
+					mInsertButton.setEnabled(false);
 				}
 			})
 			.setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -285,22 +299,28 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 	}
 
 	private void requestInsertReport(Bundle bundle,MReportBean report){
-		final Intent intent = new Intent(InsertActivity.this, MyJamCallService.class);
-		intent.putExtra(MyJamCallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
-		intent.putExtra(MyJamCallService.EXTRA_REQUEST_CODE, RequestCode.INSERT_REPORT);
-		intent.putExtra(MyJamCallService.EXTRA_OBJECT, report);
-		intent.putExtra(MyJamCallService.EXTRA_ATTRIBUTES, bundle);
+		final Intent intent = new Intent(InsertActivity.this, CallService.class);
+		bundle.putString(CallContract.ACCESS_TOKEN, GlobalStateAndUtils.getInstance(this).getAccessToken());
+		intent.putExtra(CallService.EXTRA_ACTIVITY_ID, this.getClass().getName());
+		intent.putExtra(CallService.EXTRA_REQUEST_CODE, CallCode.INSERT_REPORT);
+		intent.putExtra(CallService.EXTRA_PRIORITY_CODE, HttpCall.HIGH_PRIORITY);
+		intent.putExtra(CallService.EXTRA_NUMBER_ATTEMPTS, 3);
+		intent.putExtra(CallService.EXTRA_OBJECT, report);
+		intent.putExtra(CallService.EXTRA_ATTRIBUTES, bundle);
 		Log.d(TAG,"Intent sent: "+intent.toString());
 		startService(intent);
 	}
 
 	private void requestUpdateReport(Bundle bundle,
 			MReportBean update) {
-		final Intent intent = new Intent(InsertActivity.this, MyJamCallService.class);
-		intent.putExtra(MyJamCallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
-		intent.putExtra(MyJamCallService.EXTRA_REQUEST_CODE, RequestCode.INSERT_UPDATE);
-		intent.putExtra(MyJamCallService.EXTRA_OBJECT, update);
-		intent.putExtra(MyJamCallService.EXTRA_ATTRIBUTES, bundle);
+		final Intent intent = new Intent(InsertActivity.this, CallService.class);
+		bundle.putString(CallContract.ACCESS_TOKEN, GlobalStateAndUtils.getInstance(this).getAccessToken());
+		intent.putExtra(CallService.EXTRA_ACTIVITY_ID, this.getClass().getName());
+		intent.putExtra(CallService.EXTRA_REQUEST_CODE, CallCode.INSERT_UPDATE);
+		intent.putExtra(CallService.EXTRA_PRIORITY_CODE, HttpCall.HIGH_PRIORITY);
+		intent.putExtra(CallService.EXTRA_NUMBER_ATTEMPTS, 3);
+		intent.putExtra(CallService.EXTRA_OBJECT, update);
+		intent.putExtra(CallService.EXTRA_ATTRIBUTES, bundle);
 		Log.d(TAG,"Intent sent: "+intent.toString());
 		startService(intent);	
 	}
@@ -313,15 +333,18 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 	 * @param searchId	Identifier of the search, used to perform the query and show the right results.
 	 */
 	private void requestSearch(int lat,int lon,int radius, int searchId){
-		final Intent intent = new Intent(InsertActivity.this, MyJamCallService.class);
-		intent.putExtra(MyJamCallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
-		intent.putExtra(MyJamCallService.EXTRA_REQUEST_CODE, RequestCode.SEARCH_REPORTS);
+		final Intent intent = new Intent(InsertActivity.this, CallService.class);
+		intent.putExtra(CallService.EXTRA_ACTIVITY_ID, this.getClass().getName());
+		intent.putExtra(CallService.EXTRA_REQUEST_CODE, CallCode.SEARCH_REPORTS);
+		intent.putExtra(CallService.EXTRA_PRIORITY_CODE, HttpCall.HIGH_PRIORITY);
+		intent.putExtra(CallService.EXTRA_NUMBER_ATTEMPTS, 1);
 		Bundle bundle = new Bundle();
-		bundle.putInt(ICallAttributes.LATITUDE, lat);
-		bundle.putInt(ICallAttributes.LONGITUDE, lon);
-		bundle.putInt(ICallAttributes.RADIUS, radius);
-		bundle.putInt(ICallAttributes.SEARCH_ID, searchId);
-		intent.putExtra(MyJamCallService.EXTRA_ATTRIBUTES, bundle);
+		bundle.putString(CallContract.ACCESS_TOKEN, GlobalStateAndUtils.getInstance(this).getAccessToken());
+		bundle.putInt(CallContract.LATITUDE, lat);
+		bundle.putInt(CallContract.LONGITUDE, lon);
+		bundle.putInt(CallContract.RADIUS, radius);
+		bundle.putInt(CallContract.SEARCH_ID, searchId);
+		intent.putExtra(CallService.EXTRA_ATTRIBUTES, bundle);
 		Log.d(TAG,"Intent sent: "+intent.toString());
 		startService(intent);
 	}
@@ -344,56 +367,6 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 	protected void onLocationNoMoreAvailable() {
 	}
 
-
-	@Override
-	public void onReceiveResult(int resultCode, Bundle resultData) {
-		int reqCode = resultData.getInt(MyJamCallService.EXTRA_REQUEST_CODE);
-		final boolean mSyncing;
-		final String message;
-		switch (resultCode){
-		//*
-		case MyJamCallService.STATUS_RUNNING:
-			mSyncing = true;
-			message = (reqCode == RequestCode.SEARCH_REPORTS)?getResources().getString(R.string.search_start):
-				getResources().getString(R.string.insert_start);
-			break;
-		case MyJamCallService.STATUS_ERROR:
-			mSyncing = false;
-			message = "";
-			String errMsg = resultData.getString(Intent.EXTRA_TEXT);
-			final String errorText = String.format(this.getResources().getString(R.string.toast_call_error, errMsg));
-			Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
-			Log.d(TAG,errorText);
-			break;
-		case MyJamCallService.STATUS_FINISHED:
-			mSyncing = false;
-			message = "";
-			if (reqCode == RequestCode.INSERT_REPORT || reqCode == RequestCode.INSERT_UPDATE){
-				String type = getResources().getString(reqCode==RequestCode.INSERT_REPORT?R.string.report_string:R.string.update_string);
-				final String successText = String.format(this.getResources().getString(R.string.insert_success, type));
-				Toast.makeText(this, successText, Toast.LENGTH_SHORT).show();
-				setResult(Activity.RESULT_OK);
-				finish();			
-			}else if (reqCode == RequestCode.SEARCH_REPORTS){
-				Cursor cursor = managedQuery(SearchReports.buildSearchUri(String.valueOf(Search.INSERT_SEARCH), 
-						getResources().getTextArray(R.array.report_typevalues_list)[mReportTypeId].toString())
-						, SearchReportsQuery.PROJECTION, null, null,
-						SearchReports.DEFAULT_SORT_ORDER);
-				int rowsCount = cursor.getCount();
-				if (rowsCount>0){
-					showDialog(DIALOG_SHOW_REPORTS_ID);
-				}
-			}
-			break;
-		default:
-			Log.d(TAG, "OnReceiveResult: Unknown result code.");
-			mSyncing = false;
-			message = "";
-			break;					
-		}
-		updateRefreshStatus(mSyncing,message);
-	}
-
 	/**
 	 * Makes appear and disappear the progress dialog.
 	 * @param refreshing 	If true then the dialog appear, 
@@ -406,17 +379,88 @@ public class InsertActivity extends AbstractLocatedActivity implements MyResultR
 		 	mDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
 				@Override
 				public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+					MyResultReceiver resultRec = MyResultReceiver.get();
 					if (keyCode == KeyEvent.KEYCODE_SEARCH && event.getRepeatCount() == 0) {
 						return true; // Pretend we processed it
+					}else if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0){
+						//The calls of LoginActivity are not stoppable. The dialog is dismiss only if for some
+						//odd reason the call is ended but the activity has not informed.
+						if ((resultRec = MyResultReceiver.get()) == null){
+							mDialog.dismiss();
+							return true;
+						}								
+						if (resultRec.getOngoingHPCall()==null 
+								&& mDialog!=null){
+							mDialog.dismiss();							
+							return true;
+						}
 					}
 					return false; // Any other keys are still processed as normal
 				}
 		 	});
 		}else{
+			mInsertButton.setEnabled(true);
 			if (mDialog != null)
 				mDialog.dismiss();
 		}
 
 	}
 
+	@Override
+	public void onUpdateProgressStatus(boolean state, int callCode, int callId) {
+		int messageCode;
+		switch(callCode){
+		case(CallCode.SEARCH_REPORTS):
+			messageCode = R.string.search_start;
+			break;
+		case (CallCode.INSERT_REPORT):
+			messageCode = R.string.insert_report_start;
+			break;
+		case (CallCode.INSERT_UPDATE):
+			messageCode = R.string.insert_update_start;
+			break;
+		default:
+			return;
+		}
+		String message = getResources().getString(messageCode);
+		updateRefreshStatus(state,message);
+	}
+
+	@Override
+	public void onCallError(int callCode, int callId, int statusCode, String errorMessage,
+			int numAttempt, int maxAttempts) {
+		final String errorText = String.format(this.getResources().getString(R.string.toast_call_error, errorMessage));
+		Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
+		Log.d(TAG,errorText);
+		finish();
+	}
+
+	@Override
+	public void onCallInterrupted(int callCode, int callId) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void onCallSuccess(int callCode, int callId) {
+		switch (callCode){
+		case CallCode.INSERT_REPORT:
+		case CallCode.INSERT_UPDATE:
+			String type = getResources().getString(callCode == CallCode.INSERT_REPORT?R.string.report_string:R.string.update_string);
+			final String successText = String.format(this.getResources().getString(R.string.insert_success, type));
+			Toast.makeText(this, successText, Toast.LENGTH_SHORT).show();
+			setResult(Activity.RESULT_OK);
+			finish();			
+			break;
+		case CallCode.SEARCH_REPORTS:
+			Cursor cursor = managedQuery(SearchReports.buildSearchUri(String.valueOf(Search.INSERT_SEARCH), 
+					getResources().getTextArray(R.array.report_typevalues_list)[mReportTypeId].toString())
+					, SearchReportsQuery.PROJECTION, null, null,
+					SearchReports.DEFAULT_SORT_ORDER);
+			int rowsCount = cursor.getCount();
+			if (rowsCount>0){
+				showDialog(DIALOG_SHOW_REPORTS_ID);
+			}			
+			return;
+		}
+	}
 }

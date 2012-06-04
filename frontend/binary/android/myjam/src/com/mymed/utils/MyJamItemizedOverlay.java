@@ -1,4 +1,4 @@
-package com.mymed.android.myjam.ui;
+package com.mymed.utils;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -20,7 +20,7 @@ import com.google.android.maps.OverlayItem;
 import com.google.android.maps.Projection;
 import com.mymed.android.myjam.R;
 import com.mymed.android.myjam.provider.MyJamContract.Report;
-import com.mymed.utils.GlobalStateAndUtils;
+import com.mymed.android.myjam.ui.ReportDetailsActivity;
 
 /**
  * 

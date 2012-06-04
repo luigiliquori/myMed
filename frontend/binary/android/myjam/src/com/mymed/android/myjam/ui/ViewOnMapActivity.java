@@ -37,6 +37,7 @@ import com.mymed.android.myjam.service.LocationService;
 import com.mymed.android.myjam.service.LocationService.LocalBinder;
 import com.mymed.utils.GeoUtils;
 import com.mymed.utils.GlobalStateAndUtils;
+import com.mymed.utils.MyJamItemizedOverlay;
 
 /**
  * Shows the reports position on map. 

@@ -67,7 +67,7 @@ public class StorageManager implements IStorageManager {
   protected static final String ENCODING = GENERAL.get("general.string.encoding");
   protected static final String CONFIG_FILE = GENERAL.get("general.config.file");
 
-  private final CassandraWrapper wrapper;
+  protected final CassandraWrapper wrapper;
 
   /**
    * Default Constructor: will create a ServiceManger on top of a Cassandra

@@ -35,6 +35,20 @@ create column family DataList with column_type = 'Super' and comparator = 'UTF8T
 create column family OntologyList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family UserList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 <<<<<<< HEAD
+create column family Location with column_type = 'Super' and comparator = 'LongType' and comment = 'A column family with supercolumns, whose column names are Longs (8 bytes)';
+
+/* MyJam related columns */
+create column family Report with column_type = 'Standard' and column_metadata = [{column_name: 'user', validation_class: 'UTF8Type'}, {column_name: 'type', validation_class: 'UTF8Type'}, {column_name: 'transit', validation_class: 'UTF8Type'}, {column_name: 'traffic_flow', validation_class: 'UTF8Type'}, {column_name: 'comment', validation_class: 'UTF8Type'}] and comment = 'A column family to store the details of the reports and the updates.';
+create column family ActiveReport with column_type = 'Standard' and comparator = 'com.mymed.id.MyMedIdType' and comment = 'A column family used as an index to bind users and their active reports (not yet expired or permanents).';
+create column family ReportUpdate with column_type = 'Standard' and comparator = 'com.mymed.id.MyMedIdType' and comment = 'A column family used as an index, to bind a report with its updates.';
+create column family UserReport with column_type = 'Standard' and comparator = 'com.mymed.id.MyMedIdType' and comment = 'A column family used as an index to bind users with reports and updates.';
+create column family Feedback with column_type = 'Standard' and comparator = 'UTF8Type' and comment = 'A column family used to store the feedbacks associated to the reports or the updates.';
+
+/* Reputation colums */
+create column family ReputationEntity with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+create column family VerdictsTimeOrdered with column_type = 'Standard' and comparator = 'TimeUUIDType' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+create column family Verdict with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+=======
 create column family InteractionList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family RaterList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 
@@ -99,18 +113,4 @@ create column family VerdictAggregation with column_type = 'Standard' and rows_c
 create column family TimeOrderVerdictList with column_type = 'Super' and comparator ='BytesType' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 create column family AuxOrderVerdictList with column_type = 'Super' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 create column family VerdictAggregationList with column_type = 'Super' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
-=======
-create column family Location with column_type = 'Super' and comparator = 'LongType' and comment = 'A column family with supercolumns, whose column names are Longs (8 bytes)';
-
-/* MyJam related columns */
-create column family Report with column_type = 'Standard' and column_metadata = [{column_name: 'user', validation_class: 'UTF8Type'}, {column_name: 'type', validation_class: 'UTF8Type'}, {column_name: 'transit', validation_class: 'UTF8Type'}, {column_name: 'traffic_flow', validation_class: 'UTF8Type'}, {column_name: 'comment', validation_class: 'UTF8Type'}] and comment = 'A column family to store the details of the reports and the updates.';
-create column family ActiveReport with column_type = 'Standard' and comparator = 'com.mymed.id.MyMedIdType' and comment = 'A column family used as an index to bind users and their active reports (not yet expired or permanents).';
-create column family ReportUpdate with column_type = 'Standard' and comparator = 'com.mymed.id.MyMedIdType' and comment = 'A column family used as an index, to bind a report with its updates.';
-create column family UserReport with column_type = 'Standard' and comparator = 'com.mymed.id.MyMedIdType' and comment = 'A column family used as an index to bind users with reports and updates.';
-create column family Feedback with column_type = 'Standard' and comparator = 'UTF8Type' and comment = 'A column family used to store the feedbacks associated to the reports or the updates.';
-
-/* Reputation colums */
-create column family ReputationEntity with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
-create column family VerdictsTimeOrdered with column_type = 'Standard' and comparator = 'TimeUUIDType' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
-create column family Verdict with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
->>>>>>> d6d61ef183104b4fb9cc0ed89f30601726117796
+>>>>>>> 66f34bf782d960de3c9336516e1c4e5a0249d3a9

@@ -45,25 +45,28 @@ import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
 import com.mymed.android.myjam.R;
-import com.mymed.android.myjam.controller.ICallAttributes;
+import com.mymed.android.myjam.controller.CallContract;
+import com.mymed.android.myjam.controller.HttpCallHandler;
+import com.mymed.android.myjam.controller.CallContract.CallCode;
+import com.mymed.android.myjam.controller.HttpCall;
 import com.mymed.android.myjam.provider.MyJamContract;
 import com.mymed.android.myjam.provider.MyJamContract.Report;
 import com.mymed.android.myjam.provider.MyJamContract.Search;
 import com.mymed.android.myjam.provider.MyJamContract.SearchReports;
 import com.mymed.android.myjam.provider.MyJamContract.SearchResult;
-import com.mymed.android.myjam.service.MyJamCallService;
-import com.mymed.android.myjam.service.MyJamCallService.RequestCode;
+import com.mymed.android.myjam.service.CallService;
 
 import com.mymed.utils.GeoUtils;
 import com.mymed.utils.GlobalStateAndUtils;
 import com.mymed.utils.MyResultReceiver;
+import com.mymed.utils.MyResultReceiver.IReceiver;
 
 /**
  * Activity that permits to search reports.
  * @author iacopo
  *
  */
-public class SearchActivity extends AbstractLocatedActivity implements MyResultReceiver.Receiver, View.OnClickListener {
+public class SearchActivity extends AbstractLocatedActivity implements IReceiver, View.OnClickListener {
 	private static final String TAG = "SearchActivity";
 	
 	/** String used to access the set radius preference */
@@ -81,6 +84,7 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 	
 	/** Dialogs */
 	static final int DIALOG_NO_LOCATION_ID = 0;
+	static final int DIALOG_NO_REPORTS_ID = 1;
 	
 	private Handler mMessageQueueHandler = new Handler();
 	
@@ -173,13 +177,13 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 		});
 		mLastUpdateTextView = (TextView) findViewById(R.id.textViewSearchDate);
 		setDefaultKeyMode(DEFAULT_KEYS_SHORTCUT);
-		mResultReceiver = MyResultReceiver.getInstance();
+		mResultReceiver = MyResultReceiver.getInstance(this.getClass().getName(),this);
 		mSearchButton = (Button) findViewById(R.id.buttonSearch);
 		mInsertButton = (Button) findViewById(R.id.buttonInsertReport);
 		mMapButton = (Button) findViewById(R.id.buttonViewOnMap);
 		mMapButton.setOnClickListener(this);
 		if (mSearchId == Search.NEW_SEARCH){
-			mSearchButton.setEnabled(false);			
+			//mSearchButton.setEnabled(false);
 			mSearchButton.setOnClickListener(this);
 			mInsertButton.setOnClickListener(this);
 			mMapButton.setOnClickListener(this);
@@ -273,22 +277,25 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 				int lat = (int) (currLoc.getLatitude()*1E6);
 				int lon = (int) (currLoc.getLongitude()*1E6);
 		        Bundle bundle = new Bundle();
-		        bundle.putInt(ICallAttributes.LATITUDE, lat);
-		        bundle.putInt(ICallAttributes.LONGITUDE, lon);
-		        intent.putExtra(MyJamCallService.EXTRA_ATTRIBUTES, bundle);
+		        bundle.putInt(CallContract.LATITUDE, lat);
+		        bundle.putInt(CallContract.LONGITUDE, lon);
+		        intent.putExtra(CallService.EXTRA_ATTRIBUTES, bundle);
         		startActivityForResult(intent, INSERT_REPORT_REQ);
         	}
         	else{
         		showDialog(DIALOG_NO_LOCATION_ID);
         	}
 		}else if (v.equals(mMapButton)){
-    		Intent intent = new Intent(this,ViewOnMapActivity.class);
-    		Uri uri = getIntent().getData();
-    		String filter =  mSettings.getString(FILTER_PREFERENCE,"NONE");
-    		if (mSearchId == Search.NEW_SEARCH && !filter.equals("NONE"))
-    			uri = SearchReports.buildSearchUri(String.valueOf(mSearchId), filter);
-    		intent.setData(uri);
-    		startActivity(intent);
+			if (mAdapter.getCount()>0){
+				Intent intent = new Intent(this,ViewOnMapActivity.class);
+	    		Uri uri = getIntent().getData();
+	    		String filter =  mSettings.getString(FILTER_PREFERENCE,"NONE");
+	    		if (mSearchId == Search.NEW_SEARCH && !filter.equals("NONE"))
+	    			uri = SearchReports.buildSearchUri(String.valueOf(mSearchId), filter);
+	    		intent.setData(uri);
+	    		startActivity(intent);
+			}else
+				showDialog(DIALOG_NO_REPORTS_ID);
 		}
 	}
 	
@@ -305,30 +312,35 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 	}
 	
 	/**
-	 * Requests a search operation to the {@link MyJamCallService}.
+	 * Requests a search operation to the {@link CallService}.
 	 * @param lat		Latitude of the current position of the user.
 	 * @param lon		Longitude of the current position of the user.
 	 * @param radius	Radius of the search.
 	 * @param searchId	Identifier of the search, used to perform the query and show the right results.
 	 */
 	private void requestSearch(int searchId){
-		final Intent intent = new Intent(SearchActivity.this, MyJamCallService.class);
+		final Intent intent = new Intent(SearchActivity.this, CallService.class);
 		Location currLoc;
 		
 		if (mService != null && (currLoc = mService.getCurrentLocation())!=null){					
 			int lat = (int) (currLoc.getLatitude()*1E6);
 			int lon = (int) (currLoc.getLongitude()*1E6);
 			int radius = Integer.parseInt(mSettings.getString(RADIUS_PREFERENCE,"10000"));
-			intent.putExtra(MyJamCallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
-			intent.putExtra(MyJamCallService.EXTRA_REQUEST_CODE, RequestCode.SEARCH_REPORTS);
+			intent.putExtra(CallService.EXTRA_ACTIVITY_ID, this.getClass().getName());
+			intent.putExtra(CallService.EXTRA_REQUEST_CODE, CallCode.SEARCH_REPORTS);
+			intent.putExtra(CallService.EXTRA_PRIORITY_CODE, HttpCall.HIGH_PRIORITY);
+			intent.putExtra(CallService.EXTRA_NUMBER_ATTEMPTS, 1);
 			Bundle bundle = new Bundle();
-			bundle.putInt(ICallAttributes.LATITUDE, lat);
-			bundle.putInt(ICallAttributes.LONGITUDE, lon);
-			bundle.putInt(ICallAttributes.RADIUS, radius);
-			bundle.putInt(ICallAttributes.SEARCH_ID, searchId);
-			intent.putExtra(MyJamCallService.EXTRA_ATTRIBUTES, bundle);
+			bundle.putString(CallContract.ACCESS_TOKEN, GlobalStateAndUtils.getInstance(this).getAccessToken());
+			bundle.putInt(CallContract.LATITUDE, lat);
+			bundle.putInt(CallContract.LONGITUDE, lon);
+			bundle.putInt(CallContract.RADIUS, radius);
+			bundle.putInt(CallContract.SEARCH_ID, searchId);
+			intent.putExtra(CallService.EXTRA_ATTRIBUTES, bundle);
 			Log.d(TAG,"Intent sent: "+intent.toString());
 			startService(intent);
+			//The search button is disable while a search call is ongoing.
+			mSearchButton.setEnabled(false);
 		}		
 	}
 	
@@ -348,6 +360,7 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 	protected void onPause() {
 		super.onPause();
 		mResultReceiver.clearReceiver();
+		updateRefreshStatus(false);
 		//TODO Enable or disable search button.
 		getContentResolver().unregisterContentObserver(mSearchChangesObserver);
 		mMessageQueueHandler.removeCallbacks(mSearchRunnable);
@@ -361,6 +374,7 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 	@Override 
 	protected void onResume() {
 		super.onResume();
+		testToken();
 		String filter =  mSettings.getString(FILTER_PREFERENCE,"NONE");
 		Uri uri = getIntent().getData();
 		Cursor cursor = managedQuery(uri, SearchReportsQuery.PROJECTION, 
@@ -370,7 +384,8 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 		// Used to map notes entries from the database to views
 		mAdapter = new SearchListAdapter(this,cursor,true);
 		mList.setAdapter(mAdapter);
-		mResultReceiver.setReceiver(this);
+		MyResultReceiver resultReceiver = MyResultReceiver.getInstance(this.getClass().getName(),this);
+		resultReceiver.checkOngoingCalls();
 		getContentResolver().registerContentObserver(
 				uri,false, mSearchChangesObserver);
 		//TODO Enable or disable search button.
@@ -378,15 +393,22 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 				handleSearchButton(true);
 				postSearch();
 		}
-		if (!mResultReceiver.ismSyncing())
-			updateRefreshStatus(false);
-		
 		//** Starts a new thread to where the distance refresh is executed. */ 
 		thread = new HandlerThread(TAG);
 		thread.start();
 		mThreadLooper = thread.getLooper();
 		mRefreshDistanceHandler= new Handler(mThreadLooper);
 		mRefreshDistanceHandler.postDelayed(mRefreshDistanceRunnable, DISTANCE_UPDATE_TIME);
+	}
+	
+	/**
+	 * Check if a token is present on {@link GlobalStateAndutils}, if not sent the user back to {@link LoginActivity}
+	 */
+	private void testToken(){
+		if (GlobalStateAndUtils.getInstance(this)
+				.getAccessToken()==null){
+		        startActivity(new Intent(SearchActivity.this, LoginActivity.class));
+		}
 	}
 	
 	/** Checks the time of last search, if a search has been done at a time t greater then (actual_time - refresh_period) the search is executed immediately. */
@@ -516,13 +538,36 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
         	mDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
 				@Override
 				public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+					MyResultReceiver resultRec = MyResultReceiver.get();
+					int[] hpCallDetails;
 					if (keyCode == KeyEvent.KEYCODE_SEARCH && event.getRepeatCount() == 0) {
 						return true; // Pretend we processed it
+					}else if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0){
+						//The calls of LoginActivity are not stoppable. The dialog is dismiss only if for some
+						//odd reason the call is ended but the activity has not informed.
+						//if (MyResultReceiver.getInstance(this.getClass().getName(),SearchActivity.this).getOngoingHPCall()==null
+						if ((resultRec = MyResultReceiver.get()) == null){
+							mDialog.dismiss();
+							return true;
+						}								
+						if ((hpCallDetails = resultRec.getOngoingHPCall())==null 
+								&& mDialog!=null){
+							mDialog.dismiss();							
+							return true;
+						}else{
+							Intent intent = new Intent(SearchActivity.this, CallService.class);
+				    		intent.putExtra(CallService.EXTRA_ACTIVITY_ID, this.getClass().getName());
+				    		intent.putExtra(CallService.EXTRA_REQUEST_CODE, HttpCallHandler.INTERRUPT_CALL);
+				    		intent.putExtra(CallService.EXTRA_CALL_ID, hpCallDetails[0]);
+				    		startService(intent);
+				    		return true;
+						}
 					}
 					return false; // Any other keys are still processed as normal
 				}
 			});
         }else{
+        	//Enables the search button.
 			if (mDialog != null)
 				mDialog.dismiss();
         }
@@ -530,11 +575,16 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
     }
     
     protected Dialog onCreateDialog(int id) {
+    	int msgCode = Integer.MIN_VALUE;
         Dialog dialog;
         switch(id) {
         case DIALOG_NO_LOCATION_ID:
+        	msgCode = R.string.loc_not_available_dialog_message;
+        case DIALOG_NO_REPORTS_ID:
+        	if (msgCode==Integer.MIN_VALUE) 
+        		msgCode = R.string.no_reports_available_dialog_message;
     		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    		builder.setMessage(getResources().getString(R.string.loc_not_available_dialog_message))
+    		builder.setMessage(getResources().getString(msgCode))
     			.setCancelable(false)       	
     			.setTitle(R.string.dialog_title)
     			.setIcon(R.drawable.myjam_icon)
@@ -561,35 +611,7 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
         
         return false;
     }
-    
-
-	@Override
-	public void onReceiveResult(int resultCode, Bundle resultData) {
-		boolean mSyncing = false;
-		
-		switch (resultCode) {
-		case MyJamCallService.STATUS_RUNNING:
-			mSyncing = true;
-			break;
-		case MyJamCallService.STATUS_FINISHED: 
-			mSyncing = false;
-			Toast.makeText(this, getResources().getString(R.string.search_finished),Toast.LENGTH_LONG).show();
-			break;
-		case MyJamCallService.STATUS_ERROR:
-			// Error happened down in SyncService, show as toast.
-			mSyncing = false;
-			//
-			
-			String errMsg = resultData.getString(Intent.EXTRA_TEXT);
-			final String errorText = String.format(this.getResources().getString(R.string.toast_call_error, errMsg));
-			Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
-			break;
-		}
-
-	updateRefreshStatus(mSyncing);
-	}
-
-	
+    	
 	/**
 	 * Adapter that prepares the data for the List.
 	 * @author iacopo
@@ -630,4 +652,45 @@ public class SearchActivity extends AbstractLocatedActivity implements MyResultR
 
 	    }
     }
+
+
+	@Override
+	public void onUpdateProgressStatus(boolean state, int callCode, int callId) {
+		updateRefreshStatus(state);
+		if (!state && callCode!=-1)
+			mSearchButton.setEnabled(true);
+	}
+
+	@Override
+	public void onCallError(int callCode, int callId, int statusCode, String errorMessage,
+			int numAttempt, int maxAttempts) {
+		String errorText = String.format(this.getResources().getString(R.string.toast_call_error, errorMessage));
+		Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
+	}
+
+	@Override
+	public void onCallInterrupted(int callCode, int callId) {}
+
+	@Override
+	public void onCallSuccess(int callCode, int callId) {
+		int messageCode;
+		switch(callCode){
+		case CallCode.SEARCH_REPORTS:
+			messageCode = R.string.search_finished;
+			break;
+		case CallCode.INSERT_REPORT:
+			messageCode = R.string.report_inserted;
+			break;
+		case CallCode.INSERT_UPDATE:
+			messageCode = R.string.update_inserted;
+			break;
+		case CallCode.INSERT_REPORT_FEEDBACK:
+		case CallCode.INSERT_UPDATE_FEEDBACK:
+			messageCode = R.string.feedback_inserted;
+			break;
+		default:
+			return;
+		}
+		Toast.makeText(this, getResources().getString(messageCode),Toast.LENGTH_LONG).show();
+	}
 }

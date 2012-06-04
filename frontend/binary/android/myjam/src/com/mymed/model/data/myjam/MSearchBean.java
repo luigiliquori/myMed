@@ -9,12 +9,12 @@ import com.mymed.model.data.AbstractMBean;
  */
 public class MSearchBean extends AbstractMBean{
 	private String id;
-	private Long locationId;
-	private Integer latitude;
-	private Integer longitude;
+	private long locationId;
+	private int latitude;
+	private int longitude;
 	private String value;
-	private Integer distance;
-	private Long date;
+	private int distance;
+	private long date;
 	
 public MSearchBean(){};
 

@@ -90,13 +90,13 @@
     <url-pattern>/ReputationRequestHandler</url-pattern>
   </servlet-mapping>
 <<<<<<< HEAD
-</web-app>
-
-=======
   <resource-ref>
     <res-ref-name>mail/mymed.subscribe</res-ref-name>
     <res-type>javax.mail.Session</res-type>
     <res-auth>Application</res-auth>
   </resource-ref>
 </web-app>
->>>>>>> d6d61ef183104b4fb9cc0ed89f30601726117796
+=======
+</web-app>
+
+>>>>>>> 66f34bf782d960de3c9336516e1c4e5a0249d3a9

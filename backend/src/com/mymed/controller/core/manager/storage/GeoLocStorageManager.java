@@ -54,6 +54,7 @@ public class GeoLocStorageManager extends StorageManager implements IGeoLocStora
 
   private static final long A_THOUSAND = 1000L;
 
+
   private final CassandraWrapper wrapper;
 
   /**

@@ -10,10 +10,13 @@ import com.mymed.android.myjam.provider.MyJamContract.UpdatesRequest;
 import com.mymed.android.myjam.provider.MyJamContract.Report;
 
 import com.mymed.android.myjam.provider.MyJamContract.Update;
+import com.mymed.android.myjam.service.CallService;
 
-import com.mymed.android.myjam.service.MyJamCallService;
-import com.mymed.android.myjam.service.MyJamCallService.RequestCode;
-import com.mymed.android.myjam.controller.ICallAttributes;
+
+import com.mymed.android.myjam.controller.CallContract;
+import com.mymed.android.myjam.controller.HttpCall;
+import com.mymed.android.myjam.controller.CallContract.CallCode;
+import com.mymed.android.myjam.controller.HttpCallHandler;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -45,6 +48,7 @@ import com.mymed.model.data.myjam.MFeedBackBean;
 import com.mymed.model.data.myjam.MyJamTypes.ReportType;
 import com.mymed.utils.GeoUtils;
 import com.mymed.utils.GlobalStateAndUtils;
+import com.mymed.utils.MyResultReceiver.IReceiver;
 import com.mymed.utils.NotifyingAsyncQueryHandler;
 import com.mymed.utils.MyResultReceiver;
 
@@ -56,7 +60,7 @@ import com.mymed.utils.MyResultReceiver;
  *
  */
 public class ReportDetailsActivity extends AbstractLocatedActivity implements
-NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.OnClickListener{
+NotifyingAsyncQueryHandler.AsyncQueryListener, IReceiver, View.OnClickListener{
 	private static final String TAG = "ReportDetailsActivity";
 	
 	/** String used to access the set radius preference */
@@ -105,6 +109,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 	
     private String mReportId; /** The Id of the currently pointed report. */
     private String mUpdateId; /** The Id of the currently pointed update. */
+    private String mReportType; /** The type of the currently pointed report */
     
 	/** Flag used to force a refresh even if the time elapsed wouldn't be sufficient.*/
 	private boolean mForceRefreshFlag = false;
@@ -118,7 +123,7 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 		
 		mSettings = PreferenceManager.getDefaultSharedPreferences(this);
 		mUtils = GlobalStateAndUtils.getInstance(getApplicationContext());
-		mResultReceiver = MyResultReceiver.getInstance();
+		mResultReceiver = MyResultReceiver.getInstance(this.getClass().getName(),this);
 		mHandler = new NotifyingAsyncQueryHandler(ReportDetailsActivity.this
 				.getContentResolver(), this);
 		
@@ -174,19 +179,22 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 	@Override
 	public void onResume(){
 		super.onResume();
-		
-		mResultReceiver.setReceiver(this);
+		mInsertButton.setEnabled(false);
+		/** Initialize */
+		MyResultReceiver resultReceiver = MyResultReceiver.getInstance(this.getClass().getName(),this);
+		resultReceiver.checkOngoingCalls();
+		testToken();		
 		mHandler.setQueryListener(this);
-		/** Starts the report query. */
+		
+		/** Start the report query. */
 		mReportCursor = getContentResolver().query(getIntent().getData(), ReportQuery.PROJECTION, null, null, null);
 		/** If the pointed report is not present in the db then is requested. */
 		if (mReportCursor.moveToFirst()){
 			if (mReportCursor.getInt(ReportQuery.FLAG_COMPLETE)==0)	
 				requestReport();
-			if (mReportCursor.getString(ReportQuery.REPORT_TYPE).equals(ReportType.FIXED_SPEED_CAM.name()))
-				mInsertButton.setEnabled(false);
+			mReportType = mReportCursor.getString(ReportQuery.REPORT_TYPE);
 		}
-		/** This query is not asynchronous because before retrieving the updates, we want to know how many Updates are presents in the db*/
+		/** This query is not asynchronous. */
 		mUpdatesCursor = getContentResolver().query(Update.buildReportIdUri(mReportId)
 				, UpdateQuery.PROJECTION,null , null, Update.DEFAULT_SORT_ORDER);
 		if (mUpdatesCursor!=null){
@@ -206,9 +214,16 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 		getContentResolver().registerContentObserver(
 				Feedback.buildUpdateIdUri(null),
 					false, mUpdateFeedbacksChangesObserver);
-		
-		if (!mResultReceiver.ismSyncing())
-			updateRefreshStatus(false,null);
+	}
+	
+	/**
+	 * Check if a token is present on {@link GlobalStateAndutils}, if not sent the user back to {@link LoginActivity}
+	 */
+	private void testToken(){
+		if (GlobalStateAndUtils.getInstance(this)
+				.getAccessToken()==null){
+		        startActivity(new Intent(ReportDetailsActivity.this, LoginActivity.class));
+		}
 	}
 	
 	@Override
@@ -274,6 +289,8 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 		@Override
 		public void run() {
 			mDistance = refreshDistance();
+			if (!mReportType.equals(ReportType.FIXED_SPEED_CAM.name()))
+				mInsertButton.setEnabled(true);
 			mMessageQueueHandler.postDelayed(mRefreshDistance, 2000);
 		}
     };
@@ -282,12 +299,15 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
      * Sends an intent to {@link MyJamCallService} to receive a report.
      */
     private void requestReport(){
-		Intent intent = new Intent(ReportDetailsActivity.this, MyJamCallService.class);
-        intent.putExtra(MyJamCallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
-        intent.putExtra(MyJamCallService.EXTRA_REQUEST_CODE, RequestCode.GET_REPORT);
+    	final Intent intent = new Intent(ReportDetailsActivity.this, CallService.class);
+		intent.putExtra(CallService.EXTRA_ACTIVITY_ID, this.getClass().getName());
+		intent.putExtra(CallService.EXTRA_REQUEST_CODE, CallCode.GET_REPORT);
+		intent.putExtra(CallService.EXTRA_PRIORITY_CODE, HttpCall.HIGH_PRIORITY);
+		intent.putExtra(CallService.EXTRA_NUMBER_ATTEMPTS, 1);
         Bundle bundle = new Bundle();
-        bundle.putString(ICallAttributes.REPORT_ID, mReportId);
-        intent.putExtra(MyJamCallService.EXTRA_ATTRIBUTES, bundle);			
+        bundle.putString(CallContract.ACCESS_TOKEN, GlobalStateAndUtils.getInstance(this).getAccessToken());
+        bundle.putString(CallContract.REPORT_ID, mReportId);
+        intent.putExtra(CallService.EXTRA_ATTRIBUTES, bundle);			
         Log.d(TAG,"Intent sent: "+intent.toString());
         startService(intent);
     }
@@ -314,13 +334,16 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
             		lastTime = mUpdatesCursor.getLong(UpdateQuery.DATE);
             		mUpdatesCursor.moveToPosition(position);
             	}
-        		Intent intent = new Intent(ReportDetailsActivity.this, MyJamCallService.class);
-        	    intent.putExtra(MyJamCallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
-        	    intent.putExtra(MyJamCallService.EXTRA_REQUEST_CODE, RequestCode.GET_UPDATES);
+        		Intent intent = new Intent(ReportDetailsActivity.this, CallService.class);
+        		intent.putExtra(CallService.EXTRA_ACTIVITY_ID, this.getClass().getName());
+        		intent.putExtra(CallService.EXTRA_REQUEST_CODE, CallCode.GET_UPDATES);
+        		intent.putExtra(CallService.EXTRA_PRIORITY_CODE, HttpCall.HIGH_PRIORITY);
+        		intent.putExtra(CallService.EXTRA_NUMBER_ATTEMPTS, 1);
         	    Bundle bundle = new Bundle();
-        	    bundle.putString(ICallAttributes.REPORT_ID, mReportId);
-        	    bundle.putLong(ICallAttributes.START_TIME, lastTime);
-        	    intent.putExtra(MyJamCallService.EXTRA_ATTRIBUTES, bundle);			
+        	    bundle.putString(CallContract.ACCESS_TOKEN, GlobalStateAndUtils.getInstance(this).getAccessToken());
+        	    bundle.putString(CallContract.REPORT_ID, mReportId);
+        	    bundle.putLong(CallContract.START_TIME, lastTime);
+        	    intent.putExtra(CallService.EXTRA_ATTRIBUTES, bundle);			
         	    Log.d(TAG,"Intent sent: "+intent.toString());
         	    startService(intent);
         	}
@@ -347,12 +370,16 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 				args,null);
     	if (!cursor.moveToFirst() || forceRefresh){
         	/** Performs a request to receive the updates. */
-    		Intent intent = new Intent(ReportDetailsActivity.this, MyJamCallService.class);
-            intent.putExtra(MyJamCallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
-            intent.putExtra(MyJamCallService.EXTRA_REQUEST_CODE, code==REPORT?RequestCode.GET_REPORT_FEEDBACKS:RequestCode.GET_UPDATE_FEEDBACKS);
+    		Intent intent = new Intent(ReportDetailsActivity.this, CallService.class);
+    		intent.putExtra(CallService.EXTRA_ACTIVITY_ID, this.getClass().getName());
+    		intent.putExtra(CallService.EXTRA_REQUEST_CODE, CallCode.GET_UPDATES);
+    		intent.putExtra(CallService.EXTRA_PRIORITY_CODE, HttpCall.LOW_PRIORITY);
+    		intent.putExtra(CallService.EXTRA_NUMBER_ATTEMPTS, 3);
+            intent.putExtra(CallService.EXTRA_REQUEST_CODE, code==REPORT?CallCode.GET_REPORT_FEEDBACKS:CallCode.GET_UPDATE_FEEDBACKS);
             Bundle bundle = new Bundle();
-            bundle.putString(ICallAttributes.REPORT_ID, reportOrUpdateId);
-            intent.putExtra(MyJamCallService.EXTRA_ATTRIBUTES, bundle);			
+            bundle.putString(CallContract.ACCESS_TOKEN, GlobalStateAndUtils.getInstance(this).getAccessToken());
+            bundle.putString(CallContract.REPORT_ID, reportOrUpdateId);
+            intent.putExtra(CallService.EXTRA_ATTRIBUTES, bundle);			
             Log.d(TAG,"Intent sent: "+intent.toString());
             startService(intent);
     	}else
@@ -385,65 +412,6 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
         }
     };
 	
-	@Override
-	public void onReceiveResult(int resultCode, Bundle resultData) {
-		boolean mSyncing = false;
-		String dialogText = null;
-		final String[] types = getResources().getStringArray(R.array.type_obj);
-		
-		int reqCode = resultData.getInt(MyJamCallService.EXTRA_REQUEST_CODE);
-		switch (resultCode){
-			case MyJamCallService.STATUS_RUNNING:
-				/*
-				 * The Strings on the array "types" are on the same order of the request code corresponding request codes, 
-				 * index 0 corresponds to RequestCode.SEARCH_REPORTS.
-				 */
-				switch (reqCode){
-					case (RequestCode.GET_REPORT):
-						dialogText = String.format(getResources().getString(R.string.sync_msg, types[1]));
-						break;
-					case (RequestCode.GET_UPDATES):
-						dialogText = String.format(getResources().getString(R.string.sync_msg, types[2]));
-						break;
-					case (RequestCode.GET_REPORT_FEEDBACKS):
-						dialogText = String.format(getResources().getString(R.string.sync_msg, types[3]));
-						break;
-					case (RequestCode.GET_UPDATE_FEEDBACKS):
-						dialogText = String.format(getResources().getString(R.string.sync_msg, types[4]));
-						break;
-					case (RequestCode.SEARCH_REPORTS):
-						dialogText = getResources().getString(R.string.searching_reports_msg);
-						break;
-					case (RequestCode.INSERT_REPORT_FEEDBACK):
-					case (RequestCode.INSERT_UPDATE_FEEDBACK):
-						dialogText = getResources().getString(R.string.inserting_feedback); //TODO Change string.
-						
-				}
-				//Toast.makeText(this, searchText, Toast.LENGTH_SHORT).show();
-				Log.d(TAG,dialogText);
-				mSyncing = true;
-				break;
-			case MyJamCallService.STATUS_ERROR:
-				String errMsg = resultData.getString(Intent.EXTRA_TEXT);
-				final String errorText = String.format(this.getResources().getString(R.string.toast_call_error, errMsg));
-				Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
-				Log.d(TAG,errorText);
-				/** break has not been put intentionally, because there are operations that must be executed both in the cases (STATUS_ERROR 
-				 *  and STATUS_FINISHED)
-				 */
-			case MyJamCallService.STATUS_FINISHED:
-				mSyncing = false;
-				if  (resultCode == MyJamCallService.STATUS_FINISHED){
-					//Toast.makeText(this, getResources().getString(R.string.reception_finished),Toast.LENGTH_LONG).show();
-					/** Once is received the report never changes, then is not used a content observer, but the query is triggered here.  */
-					if (reqCode == RequestCode.GET_REPORT)
-						mHandler.startQuery(ReportQuery._TOKEN, Report.buildReportIdUri(mReportId), ReportQuery.PROJECTION);
-				}
-				break;
-		}
-		updateRefreshStatus(mSyncing,dialogText);
-	}
-	
 	/**
 	 * Makes appear and disappear the progress dialog.
 	 * @param refreshing 	If true then the dialog appear, 
@@ -453,13 +421,36 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
         if (refreshing){
         	if (message==null)
         		message = String.format(getResources().getString(R.string.sync_msg, ""));
+        	if (mDialog!=null)
+        		mDialog.dismiss();
         	mDialog = ProgressDialog.show(this, "", 
 					message, true);
          	mDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
 				@Override
 				public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+					MyResultReceiver resultRec = MyResultReceiver.get();
+					int[] hpCallDetails;
 					if (keyCode == KeyEvent.KEYCODE_SEARCH && event.getRepeatCount() == 0) {
 						return true; // Pretend we processed it
+					}else if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0){
+						//The calls of LoginActivity are not stoppable. The dialog is dismiss only if for some
+						//odd reason the call is ended but the activity has not informed.
+						if ((resultRec = MyResultReceiver.get()) == null){
+							mDialog.dismiss();
+							return true;
+						}								
+						if ((hpCallDetails = resultRec.getOngoingHPCall())==null 
+								&& mDialog!=null){
+							mDialog.dismiss();							
+							return true;
+						}else{
+							Intent intent = new Intent(ReportDetailsActivity.this, CallService.class);
+				    		intent.putExtra(CallService.EXTRA_ACTIVITY_ID, this.getClass().getName());
+				    		intent.putExtra(CallService.EXTRA_REQUEST_CODE, HttpCallHandler.INTERRUPT_CALL);
+				    		intent.putExtra(CallService.EXTRA_CALL_ID, hpCallDetails[0]);
+				    		startService(intent);
+				    		return true;
+						}
 					}
 					return false; // Any other keys are still processed as normal
 				}
@@ -473,6 +464,9 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 
 	@Override
 	protected void onLocServiceConnected() {
+		mDistance = refreshDistance();
+		if (!mReportType.equals(ReportType.FIXED_SPEED_CAM.name()))
+				mInsertButton.setEnabled(true);
 		mMessageQueueHandler.postDelayed(mRefreshDistance, 5000); //Refresh the distance every 5 seconds.
 	}
 
@@ -840,55 +834,6 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
     }
 	
 	/**
-	 * TODO Not used anymore.
-	 * @param code
-	 * @return
-	 */
-//	private Dialog createFeedbackDialog(final int code){
-//		final Dialog dialog = new Dialog(ReportDetailsActivity.this);
-//		dialog.requestWindowFeature(Window.FEATURE_LEFT_ICON);
-//		dialog.setContentView(R.layout.confirm_deny_dialog);
-//        dialog.setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.myjam_icon);
-//        dialog.setTitle(R.string.dialog_title);
-//        ((TextView) dialog.findViewById(R.id.textViewInsertFeedback)).setText(code==REPORT?
-//        		R.string.dialog_insert_report_feedback_text:R.string.dialog_insert_update_feedback_text);
-//        dialog.setCancelable(true);
-//        dialog.setOnShowListener(new OnShowListener(){
-//
-//			@Override
-//			public void onShow(final DialogInterface dialog) {
-//				final String reportId = mReportId;
-//				final String updateId = mUpdateId;
-//				if (reportId == null){
-//					Log.e(TAG, "createFeedbackDialog: reportId not set.");
-//					dialog.dismiss();
-//				}
-//				if (code == UPDATE && updateId == null){
-//					Log.e(TAG, "createFeedbackDialog: updateId not set.");
-//					dialog.dismiss();
-//				}
-//		    	((Dialog) dialog).findViewById(R.id.buttonConfirm).setOnClickListener(new OnClickListener(){
-//					@Override
-//					public void onClick(View v) {
-//						insertFeedback(code,reportId,updateId,CONFIRM);
-//						dialog.dismiss();			
-//					}
-//		    	});
-//		    	((Dialog) dialog).findViewById(R.id.buttonDeny).setOnClickListener(new OnClickListener(){
-//					@Override
-//					public void onClick(View v) {
-//						insertFeedback(code,reportId,updateId,DENY);
-//						dialog.dismiss();
-//					}
-//		    	});
-//				
-//			}
-//			
-//		});
-//    	return dialog;
-//	}
-	
-	/**
 	 * Prepares the feedback to be inserted.
 	 * @param code	REPORT or UPDATE
 	 * @param id	reportId or updateId
@@ -900,8 +845,10 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 			feedback.setUserId(GlobalStateAndUtils.getInstance(getApplicationContext()).getUserId());
 			feedback.setValue(value);
 			Bundle bundle = new Bundle();
-			bundle.putString(ICallAttributes.REPORT_ID, reportId);
-			bundle.putString(ICallAttributes.UPDATE_ID, updateId);
+			bundle.putString(CallContract.ACCESS_TOKEN, GlobalStateAndUtils.getInstance(this).getAccessToken());
+			bundle.putString(CallContract.REPORT_ID, reportId);
+			if (updateId!=null)
+				bundle.putString(CallContract.UPDATE_ID, updateId);
 			requestInsertFeedback(updateId == null?REPORT:UPDATE,bundle,feedback);
 		} catch (Exception e){
 			Toast.makeText(ReportDetailsActivity.this, "Wrong parameters.",Toast.LENGTH_LONG).show();
@@ -916,12 +863,15 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
 	 */
 	private void requestInsertFeedback(int code,Bundle bundle,
 			MFeedBackBean feedback) {
-		final Intent intent = new Intent(ReportDetailsActivity.this, MyJamCallService.class);
-		intent.putExtra(MyJamCallService.EXTRA_STATUS_RECEIVER, mResultReceiver);
-		intent.putExtra(MyJamCallService.EXTRA_REQUEST_CODE, code==REPORT?RequestCode.INSERT_REPORT_FEEDBACK:
-			RequestCode.INSERT_UPDATE_FEEDBACK);
-		intent.putExtra(MyJamCallService.EXTRA_OBJECT, feedback);
-		intent.putExtra(MyJamCallService.EXTRA_ATTRIBUTES, bundle);
+		final Intent intent = new Intent(ReportDetailsActivity.this, CallService.class);
+		intent.putExtra(CallService.EXTRA_ACTIVITY_ID, this.getClass().getName());
+		intent.putExtra(CallService.EXTRA_REQUEST_CODE, CallCode.GET_UPDATES);
+		intent.putExtra(CallService.EXTRA_PRIORITY_CODE, HttpCall.HIGH_PRIORITY);
+		intent.putExtra(CallService.EXTRA_NUMBER_ATTEMPTS, 3);
+		intent.putExtra(CallService.EXTRA_REQUEST_CODE, code==REPORT?CallCode.INSERT_REPORT_FEEDBACK:
+			CallCode.INSERT_UPDATE_FEEDBACK);
+		intent.putExtra(CallService.EXTRA_OBJECT, feedback);
+		intent.putExtra(CallService.EXTRA_ATTRIBUTES, bundle);
 		Log.d(TAG,"Intent sent: "+intent.toString());
 		startService(intent);	
 	}
@@ -973,4 +923,79 @@ NotifyingAsyncQueryHandler.AsyncQueryListener, MyResultReceiver.Receiver, View.O
         int USER_NAME = 3;
         int DATE = 4;
     }
+    
+	@Override
+	public void onUpdateProgressStatus(boolean state, int callCode, int callId) {
+		String dialogText = null;
+		final String[] types = getResources().getStringArray(R.array.type_obj);
+
+		switch (callCode){
+		case (CallCode.GET_REPORT):
+			dialogText = String.format(getResources().getString(R.string.sync_msg, types[1]));
+		break;
+		case (CallCode.GET_UPDATES):
+			dialogText = String.format(getResources().getString(R.string.sync_msg, types[2]));
+		break;
+		case (CallCode.GET_REPORT_FEEDBACKS):
+			dialogText = String.format(getResources().getString(R.string.sync_msg, types[3]));
+		break;
+		case (CallCode.GET_UPDATE_FEEDBACKS):
+			dialogText = String.format(getResources().getString(R.string.sync_msg, types[4]));
+		break;
+		case (CallCode.SEARCH_REPORTS):
+			dialogText = getResources().getString(R.string.searching_reports_msg);
+		break;
+		case (CallCode.INSERT_REPORT_FEEDBACK):
+		case (CallCode.INSERT_UPDATE_FEEDBACK):
+			dialogText = getResources().getString(R.string.inserting_feedback); //TODO Change string.
+
+		}
+		updateRefreshStatus(state,dialogText);
+	}
+
+	@Override
+	public void onCallError(int callCode, int callId, int statusCode, String errorMessage,
+			int numAttempt, int maxAttempts) {
+		final String errorText = String.format(this.getResources().getString(R.string.toast_call_error, errorMessage));
+		Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
+		Log.d(TAG,errorText);
+	}
+
+	@Override
+	public void onCallInterrupted(int callCode, int callId) {
+		Toast.makeText(this, "Call interrupted.", Toast.LENGTH_SHORT).show();
+	}
+
+	@Override
+	public void onCallSuccess(int callCode, int callId) {
+		/** Once is received the report never changes, then is not used a content observer, but the query is triggered here.  */
+		int messageCode;
+		switch(callCode){
+		case CallCode.LOG_IN:
+			messageCode = R.string.logged_in_msg;
+			break;
+		case CallCode.LOG_OUT:
+			messageCode = R.string.logged_out_msg;
+			break;
+		case CallCode.SEARCH_REPORTS:
+			messageCode = R.string.search_finished;
+			break;
+		case CallCode.INSERT_REPORT:
+			messageCode = R.string.report_inserted;
+			break;
+		case CallCode.INSERT_UPDATE:
+			messageCode = R.string.update_inserted;
+			break;
+		case CallCode.INSERT_REPORT_FEEDBACK:
+		case CallCode.INSERT_UPDATE_FEEDBACK:
+			messageCode = R.string.feedback_inserted;
+			break;
+		case CallCode.GET_REPORT:
+			mHandler.startQuery(ReportQuery._TOKEN, Report.buildReportIdUri(mReportId), ReportQuery.PROJECTION);
+			requestUpdates(true);
+		default:
+			return;
+		}
+		Toast.makeText(this, getResources().getString(messageCode),Toast.LENGTH_LONG).show();			
+	}
 }
