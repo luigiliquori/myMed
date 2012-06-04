@@ -446,7 +446,7 @@ public class CassandraQueryFacade {
             sliceRange.setFinish(new byte[0]);
             predicate.setSlice_range(sliceRange);
             final ColumnParent parent = new ColumnParent(nameOfColumnFamily);
-
+            
             // retrieving the value of the supplied key
             final List<ColumnOrSuperColumn> result = wrapper.get_slice(key, parent, predicate, ConsistencyLevel.ONE);
 

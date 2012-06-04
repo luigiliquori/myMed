@@ -57,8 +57,7 @@ class Home extends AbstractTemplate {
 							    	<a
 							    	href="/application/<?= $file ?>"
 							    	rel="external"
-							    	class="myIcon"><img alt="<?= $file ?>" src="application/<?= $file ?>/img/icon.png" width="50px" >
-							    	</a>
+							    	class="myIcon"><img alt="<?= $file ?>" src="application/<?= $file ?>/img/icon.png" width="50px" ></a>
 							    	<br>
 							    	<span style="font-size: 9pt; font-weight: bold;"><?= $file ?></span>
 						    	</div>

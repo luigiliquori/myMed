@@ -78,11 +78,25 @@ class DetailView extends MainView {
 		    	<?= $profile->lastName ?> - 
 		    	<?= $values['begin'] ?>
 		    </div>
+		    
+		   	<!-- REPUTATION -->
+	    	<?php
+	    	$request = new Request("ReputationRequestHandler", READ);
+	    	$request->addArgument("application",  APPLICATION_NAME);
+	    	$request->addArgument("producer",  $profile->id);
+	    	$request->addArgument("consumer",  $_SESSION['user']->id);
+	    	$responsejSon = $request->send();
+	    	$responseObject = json_decode($responsejSon);
+	    	$reputation = json_decode($responseObject->data->reputation);
+	    	?>
+		    <div>
+		    	<?= $responsejSon ?>
+		    </div>
 	    	
 	    	<!-- COMMENT -->
 	    	<div data-role="collapsible"  data-content-theme="d">
 	    		<h3>Comment</h3>
-	    		<?php if($_SESSION['user']->id == VISITOR_ID) {?>
+	    		<?php if(!USER_CONNECTED) {?>
 	    					<span>Please login before using this feature...</span>
 	    		<?php } else {
 			    	$request = new Request("FindRequestHandler", READ);
