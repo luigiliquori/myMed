@@ -190,13 +190,13 @@
 						<input name="predicates" value=<?= json_encode($detail) ?> type="hidden" />
 						<input name="user" value="<?= $_REQUEST['user'] ?>" type="hidden" />
 					</form>
-					<a href="" type="button" data-theme="r" data-icon="delete" onclick="$('#deleteForm').submit();" style="width:222px;float:right;">Supprimer cette fiche</a>
+					<a href="" type="button" data-theme="r" data-icon="delete" onclick="$('#deleteForm').submit();" style="width:270px;margin-left: auto; margin-right: auto">Supprimer ce document</a>
 					<?php 
 					}
 		
 					?>
 				
-					<a id="CommentButton" href="" type="button" data-icon="arrow-d" onclick="showComment();" style="width: 300px;margin-left: auto; margin-right: auto">Afficher les commentaires (<?= $totalCom ?>)</a>
+					<a id="CommentButton" href="" type="button" data-icon="arrow-d" onclick="showComment();" style="width: 300px;margin-left: auto; margin-right: auto;">Afficher les commentaires (<?= $totalCom ?>)</a>
 		
 					<div id="Comments" style="text-align: center;display: none;">
 						<ul data-role="listview" data-inset="true">
@@ -223,7 +223,7 @@
 										<input name="predicates" value=<?= json_encode($predicates) ?> type="hidden" />
 										<input name="user" value="<?= $value->publisherID ?>" type="hidden" />
 									</form>
-									<div style="display:inline; float:left; height:40px; line-height:40px;font-weight:lighter;"><?= $value->data ?></div>
+									<div style="display:block; float:left; height:40px; line-height:40px;font-weight:lighter;"><?= $value->data ?></div>
 					    			<div style="display:block;float:right;font-weight:lighter;"><b style="margin-right: 15px;"><?= $value->publisherName ?></b> le <?= $value->end ?>
 					    			<?php 
 									if ($_REQUEST['user'] == $_SESSION['user']->id){ //we can delete our comments
@@ -233,6 +233,7 @@
 									} 
 									?>
 									</div>
+									
 								</div>
 
 								</li>
