@@ -37,6 +37,58 @@
 	//debug("post l ".count($_POST));
 	//debug("get l ".count($_GET));
 	
+	$session = new stdClass(); $session->status = false;
+	
+	if (count($_POST) > 1){ // to authenticate
+	
+		if(!isset($_SESSION['user'])) {
+			$request = new Request("AuthenticationRequestHandler", READ);
+			$request->addArgument("login", $_REQUEST["login"]);
+			$request->addArgument("password", hash('sha512', $_REQUEST["password"]));
+	
+			$responsejSon = $request->send();
+			$responseObject = json_decode($responsejSon);
+			if($responseObject->status == 200) {
+				$_SESSION['accessToken'] = $responseObject->dataObject->accessToken;
+				//$_SESSION['user'] = $responseObject->dataObject->user;
+				$request = new Request("SessionRequestHandler", READ);
+				$request->addArgument("socialNetwork", "myMed");
+				$responsejSon = $request->send();
+				$session = json_decode($responsejSon);
+				if($session->status == 200) {
+					$_SESSION['user'] = $session->dataObject->user;
+					if(!isset($_SESSION['friends'])){
+						$_SESSION['friends'] = array();
+					}
+					//header("Location: ./");
+				}
+					
+			}else{
+				//header("Location: ./");
+			}
+	
+		}
+	} else { //try to see is we have a session ongoing
+		$request = new Request("SessionRequestHandler", READ);
+		if(isset($_REQUEST['accessToken'])){
+			$request->addArgument("socialNetwork", $_REQUEST['accessToken']);
+		} else {
+			$request->addArgument("socialNetwork", "myMed");
+		}
+		if(isset($_SESSION['accessToken'])) {
+		
+			$responsejSon = $request->send();
+			$session = json_decode($responsejSon);
+			if($session->status == 200) {
+				$_SESSION['user'] = $session->dataObject->user;
+				if(!isset($_SESSION['friends'])){
+					$_SESSION['friends'] = array();
+				}
+			}
+		}
+	}
+	
+	
 	$predicate = "";
 	$sub = false;
 	if (count($_GET) > 1){ // to subscribe for this result
@@ -55,6 +107,8 @@
 			$sub = true;
 		}
 	}
+	
+	
 	
 	$predicate = ""; 
 	$_GET["~"] = "";//we add ~ in predicates (tags in all texts) so we get all results by default
@@ -91,7 +145,7 @@
 			<div class="wrapper">
 				<div data-role="header" data-theme="b">
 					<h2>myEurope</h2>
-					<a href="option" data-icon="forward" class="ui-btn-right"> Options </a>
+					<a href=<?= $session->status==200?"option":"authenticate" ?> data-icon="forward" class="ui-btn-right"><?= $session->status==200?$_SESSION['user']->name:"Connexion" ?></a>
 				</div>
 				<div data-role="content">
 					<div style="text-align: center;">

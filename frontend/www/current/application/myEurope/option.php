@@ -104,6 +104,21 @@
 		$responseObject = json_decode($responsejSon);
 	}
 	
+	if (isset($_GET['logout'])){ // deconnect
+		$request = new Request("SessionRequestHandler", DELETE);
+		$request->addArgument("accessToken", $_SESSION['user']->session);
+		$request->addArgument("socialNetwork", $_SESSION['user']->socialNetworkName);
+		
+		session_destroy();
+		
+		$responsejSon = $request->send();
+		$responseObject = json_decode($responsejSon);
+		if($responseObject->status == 200) {
+			header("Location: ./search");
+		}
+	}
+	
+	
 	
 	$request = new Request("ProfileRequestHandler", READ);
 	$request->addArgument("id", $_SESSION["user"]->id);
@@ -162,6 +177,11 @@
 							<br /><br />
 							<a href="update" type="button" data-transition="flip" data-mini="true" data-icon="grid"
 							style="width: 200px; margin-right: auto; margin-left: auto;">Modifier</a>
+							<form action="#" id="deconnectForm">
+								<input name="logout" value="" type="hidden" />
+							</form>
+							<a href="" type="button" data-mini="true" data-icon="grid"
+							style="width: 200px; margin-right: auto; margin-left: auto;" onclick="$('#deconnectForm').submit();">Déconnecter</a>
 						</div>
 						​
 	
