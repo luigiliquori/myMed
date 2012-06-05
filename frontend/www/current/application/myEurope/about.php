@@ -14,7 +14,7 @@
 		<div data-role="page" id="About">
 			<div class="wrapper">
 				<div data-role="header" data-theme="b">
-					<a href="search" data-icon="back"> Home </a>
+					<a href="search" class="ui-btn-right" data-icon="arrow-r" data-transition="slide"> Home </a>
 					<h3>myEurope - about</h3>
 				</div>
 				<div data-role="content">

@@ -10,115 +10,21 @@
 	 * what it does:
 	 *  displays your profile
 	 *  
-	 *  if param email is present, it will attempt a profile update
-	 *  if param predicate is present it will attempt unsubscribe this user to this application and predicate
+	 *  you can update your profile
+	 *  you can unsubscribe this user to this application and some of your predicate that you subscribed earlier
 	 *  
 	 *  ex: yourPC/application/myEurope/option?application=myTemplate shows your profile and your subscription for myTemplate app
-	 *  
-	 *  if you are not satisfied with this doc, do it yourself
+
 	 */
 
 	//ob_start("ob_gzhandler");
 	require_once 'Template.class.php';
 	$template = new Template();
-
-	// DEBUG
-	//require_once('PhpConsole.php');
-	//PhpConsole::start();
-	
 	
 	require_once '../../lib/dasp/request/Request.class.php';
 	require_once '../../system/config.php';
 	session_start();
 	$application = isset($_REQUEST['application'])?$_REQUEST['application']:"myEurope";
-	
-	if (isset($_POST['email'])){ //we update the profile
-		require_once '../../lib/dasp/beans/MUserBean.class.php';
-		require_once '../../lib/dasp/beans/MAuthenticationBean.class.php';
-		if($_POST['password'] == ""){
-			$responseObject->error = "FAIL: password cannot be empty!";
-			return;
-		} else if($_POST['email'] == ""){
-			$responseObject->error = "FAIL: email cannot be empty!";
-			return;
-		}
-		// update the authentication
-		$mAuthenticationBean = new MAuthenticationBean();
-		$mAuthenticationBean->login =  $_SESSION['user']->email;
-		$mAuthenticationBean->user = $_SESSION['user']->id;
-		$mAuthenticationBean->password = hash('sha512', $_POST["password"]);
-		
-		$request = new Request("AuthenticationRequestHandler", UPDATE);
-		$request->addArgument("authentication", json_encode($mAuthenticationBean));
-		
-		$request->addArgument("oldLogin", $_SESSION['user']->email);
-		$request->addArgument("oldPassword", hash('sha512', $_POST["oldPassword"]));
-		
-		$responsejSon = $request->send();
-		$responseObject1 = json_decode($responsejSon);
-		
-		if($responseObject1->status != 200) {
-			echo json_encode($responseObject1);
-			return;
-		}
-		
-		// update the profile
-		$mUserBean = new MUserBean();
-		$mUserBean->id = $_SESSION['user']->id;
-		$mUserBean->firstName = $_POST["prenom"];
-		$mUserBean->lastName = $_POST["nom"];
-		$mUserBean->name = $_POST["prenom"] . " " . $_POST["nom"];
-		$mUserBean->email = $_POST["email"];
-		$mUserBean->login = $_POST["email"];
-		$mUserBean->birthday = $_POST["birthday"];
-		$mUserBean->profilePicture = $_POST["thumbnail"];
-		
-		// keep the session opened
-		$mUserBean->socialNetworkName = $_SESSION['user']->socialNetworkName;
-		$mUserBean->SocialNetworkID = $_SESSION['user']->socialNetworkID;
-		$mUserBean->SocialNetworkID = $_SESSION['accessToken'];
-		
-		$request = new Request("ProfileRequestHandler", UPDATE);
-		$request->addArgument("user", json_encode($mUserBean));
-		
-		$responsejSon = $request->send();
-		$responseObject = json_decode($responsejSon);
-		
-		if($responseObject->status == 200) {
-			$responseObject->success = true;
-		}
-		
-		$_SESSION['user'] = $responseObject->dataObject->profile;
-	}
-	
-	if (isset($_REQUEST['predicate'])){ // unsubscribe
-		$request = new Request("SubscribeRequestHandler", DELETE);
-		$request->addArgument("application", $application);
-		$request->addArgument("predicate", $_REQUEST['predicate']);
-		$request->addArgument("userID", $_REQUEST['userID'] );
-		if (isset($_REQUEST['accessToken']))
-			$request->addArgument('accessToken', $_REQUEST['accessToken']);
-		// ^  to be able to unsubscribe from emails to deconnected session but not deleted session (will fail in this case)
-		// I will see with Laurent if we can remove the token check for unsubscribe DELETE handler
-		$responsejSon = $request->send();
-		$responseObject = json_decode($responsejSon);
-	}
-	
-	if (isset($_GET['logout'])){ // deconnect
-		$request = new Request("SessionRequestHandler", DELETE);
-		$request->addArgument("accessToken", $_SESSION['user']->session);
-		$request->addArgument("socialNetwork", $_SESSION['user']->socialNetworkName);
-		
-		session_destroy();
-		
-		$responsejSon = $request->send();
-		$responseObject = json_decode($responsejSon);
-		if($responseObject->status == 200) {
-			header("Location: ./search");
-		}
-	}
-	
-	
 	
 	$request = new Request("ProfileRequestHandler", READ);
 	$request->addArgument("id", $_SESSION["user"]->id);
@@ -152,7 +58,7 @@
 		<div data-role="page" id="Home">
 			<div class="wrapper">
 				<div data-role="header" data-theme="b">
-					<a href="search" data-icon="back" data-ajax="false"> Retour </a>
+					<a href="search" data-icon="arrow-l" data-transition="slide" data-direction="reverse"> Retour </a>
 					<h2>myEurope - profil</h2>
 				</div>
 				<div data-role="content">
@@ -177,10 +83,10 @@
 							<br /><br />
 							<a href="update" type="button" data-transition="flip" data-mini="true" data-icon="grid"
 							style="width: 200px; margin-right: auto; margin-left: auto;">Modifier</a>
-							<form action="#" id="deconnectForm">
+							<form action="controller" id="deconnectForm" data-ajax="false">
 								<input name="logout" value="" type="hidden" />
 							</form>
-							<a href="" type="button" data-mini="true" data-icon="grid"
+							<a href="" type="button" data-mini="true" data-icon="gear"
 							style="width: 200px; margin-right: auto; margin-left: auto;" onclick="$('#deconnectForm').submit();">Déconnecter</a>
 						</div>
 						​
@@ -198,10 +104,16 @@
 							if($subscriptions->status == 200) {
 								$subscriptions = (array) $subscriptions->dataObject->subscriptions;
 								foreach( $subscriptions as $i => $value ){ 
+									$k = preg_split("/(nom|lib|cout|montant|date)/", $i ,0, PREG_SPLIT_DELIM_CAPTURE);
+									$s = array();
+									for ($i=1, $n=count($k)-1; $i<$n; $i+=2) {
+										$s[$k[$i]] = $k[$i+1];
+									}
 							?>
-							<li><a href=""> <?= $i ?>
-								<form action="#" method="post" id="deleteSubscriptionForm<?= $i ?>">
-									<input name="application" value='<?= $application ?>' type="hidden" /> <input name="predicate" value=<?= $i ?> type="hidden" />
+							<li><a href=""> <?= json_encode($s); ?>
+								<form action="controller" method="post" id="deleteSubscriptionForm<?= $i ?>">
+									<input name="application" value='<?= $application ?>' type="hidden" />
+									<input name="predicate" value=<?= $i ?> type="hidden" />
 									<input name="userID" value='<?= $_SESSION['user']->id ?>' type="hidden" />
 								</form> <a href="javascript://" data-icon="delete" data-theme="r" onclick="$('#deleteSubscriptionForm<?= $i ?>').submit();">Désabonnement</a>
 								</a>

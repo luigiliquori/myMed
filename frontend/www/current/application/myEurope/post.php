@@ -18,69 +18,6 @@
 	require_once 'Template.class.php';
 	$template = new Template();
 	
-	// DEBUG
-	//require_once('PhpConsole.php');
-	//PhpConsole::start();
-	//debug('boo '.dirname(__FILE__));
-	
-	require_once '../../lib/dasp/request/Request.class.php';
-	require_once '../../system/config.php';
-	session_start();
-	
-	function cmp($a, $b)
-	{
-		return strcmp($a->key, $b->key);
-	}
-	
-	$responseObject = new stdClass(); $responseObject->status = false;
-	
-	if (count($_POST)){ // to publish something
-		$predicates = Array();
-		$data = Array();
-		foreach( $_POST as $i => $value ){
-			if ( $i!='application' && $i[0]!='_' && ($value!='' || $i=='~') ){
-				$ontology = new stdClass();
-				$ontology->key = $i;
-				$ontology->value = $value;
-				//$ontology->ontologyID = isset($_POST['_'.$i])?$_POST['_'.$i]:0; // '_'.$i form fields contain the ontologyID of the value
-		
-				if(isset($_POST['_'.$i])){
-					array_push($data, $ontology);
-				}else{
-					array_push($predicates, $ontology);
-				}
-			}
-		}
-		
-		// the following is added in order to display easily results (@see search.php)
-		$preds = new stdClass();
-		foreach( $predicates as $v ){
-			$k = $v->key;
-			$preds->$k = $v->value;
-		}
-		$ontology = new stdClass();
-		$ontology->key = "data";
-		$ontology->value = json_encode($preds, JSON_FORCE_OBJECT);
-		array_push($data, $ontology);
-		
-		if (count($predicates)){
-			usort($predicates, "cmp"); // VERY important, to be able to delete the exact same predicates later
-			$data = array_merge($predicates, $data);
-			
-			$request = new Request("PublishRequestHandler", CREATE);
-			$request->addArgument("application", $_POST['application']);
-			$request->addArgument("predicate", json_encode($predicates));
-			
-			$request->addArgument("data", json_encode($data));
-			if(isset($_SESSION['user'])) {
-				$request->addArgument("user", json_encode($_SESSION['user']));
-			}
-			
-			$responsejSon = $request->send();
-			$responseObject = json_decode($responsejSon);
-		}
-	}
-	
 ?>
 
 	<head>
@@ -94,9 +31,10 @@
 					<h3>myEurope - insertion</h3>
 				</div>
 				<div data-role="content">
-					<?= ($responseObject->status==200)?"<div style='color:lightGreen;text-align:center;'>Contenu publié</div>":"" ?>
-					<form action="#" method="post" id="publishForm" >
+					<?= isset($_GET['ok'])?"<div style='color:lightGreen;text-align:center;'>Contenu publié</div>":"" ?>
+					<form action="controller" method="post" id="publishForm" data-ajax="false" >
 						<input name="application" value="myEurope" type="hidden" />
+						<input name="method" value='publish' type="hidden" />
 						<input name="_desc" value="4" type="hidden" />
 						<input name="~" value="" type="hidden" />
 						<div data-role="fieldcontain">
@@ -130,7 +68,7 @@
 								<label for="textinputp6"> Description: </label> <textarea id="textinputp6"  name="desc" placeholder="" value=""></textarea>
 							</fieldset>
 						</div>
-						<input type="submit" data-theme="g" value="Publier" />
+						<input type="submit" data-theme="g" value="Publier"/>
 					</form>
 					<div class="push"></div>
 				</div>

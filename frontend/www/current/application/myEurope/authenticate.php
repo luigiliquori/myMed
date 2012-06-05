@@ -15,12 +15,13 @@
 		<div data-role="page" id="Authenticate">
 			<div class="wrapper">
 				<div data-role="header" data-theme="b">
-					<a href="search" data-icon="back"> Retour </a>
+					<a href="search" data-icon="arrow-l" data-transition="slide" data-direction="reverse"> Retour </a>
 					<h3>myEurope - login</h3>
 				</div>
 				<div data-role="content">
 					<?= ($responseObject->status==200)?"<div style='color:lightGreen;text-align:center;'>Contenu publié</div>":"" ?>
-					<form action="search" method="post" id="loginForm" data-ajax=false>
+					<form action="controller" method="post" id="loginForm" data-ajax=false>
+						<input name="method" value="authenticate" type="hidden" />
 						<div data-role="fieldcontain">
 							<fieldset data-role="controlgroup">
 								<label for="textinputl1"> Login: </label> <input id="textinputl1"  name="login" placeholder="" value="" type="text" />

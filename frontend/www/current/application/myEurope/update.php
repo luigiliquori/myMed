@@ -4,10 +4,9 @@
 <?php
 
 	/*
-
 	 *  
 	 * what it does:
-	 *  update your profile, by sending the form back to option
+	 *  update your profile
 	 *  
 	 */
 
@@ -15,21 +14,11 @@
 	require_once 'Template.class.php';
 	$template = new Template();
 
-	// DEBUG
-	//require_once('PhpConsole.php');
-	//PhpConsole::start();
-
 	session_start();
 ?>
 
 	<head>
 		<?= $template->head(); ?>
-		<script type="text/javascript">
-	    	$(".ui-slider-handle .ui-btn-inner").live("mouseup", function() {
-		        // we can't update reputation from the profile
-		        $("#slider-0").val(25).slider("refresh");
-		    });
-		</script>
 	</head>
 
 
@@ -41,10 +30,11 @@
 					<h3>myEurope - MaJProfil</h3>
 				</div>
 				<div data-role="content">
-					<form action="option" method="post" id="updateForm">
+					<form action="controller" method="post" id="updateForm">
+						<input name="method" value="update" type="hidden" />
 						<div data-role="fieldcontain">
 							<fieldset data-role="controlgroup">
-								<label for="textinputu1"> Prénom: </label> <input id="textinputu1"  name="prenom" placeholder="" value="<?= $_SESSION['user']->firstName ?>" type="text" />
+								<label for="textinputu1"> Prénom: </label> <input id="textinputu1"  name="prenom" placeholder="" value='<?= $_SESSION['user']->firstName ?>' type="text" />
 							</fieldset>
 						</div>
 						<div data-role="fieldcontain">

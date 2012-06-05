@@ -37,7 +37,6 @@ class Template {
 				<img alt="Région PACA" src="media/logos/PACA" style="max-height:40px;max-width:100px;vertical-align: middle;" />
 				<img alt="Prefecture 06" src="media/logos/pref" style="max-height:40px;max-width:100px;vertical-align: middle;" />
 				<img alt="Inria" src="media/logos/inria.jpg" style="max-height:40px;max-width:100px;vertical-align: middle;" />
-				<a href="about" data-theme="b" type="button" data-icon="info" style="width:90px;float:right;margin-right:5px;margin-top:5px;">about</a>
 				<p style="margin: 8px;">"Ensemble par-delà les frontières"</p>
 			</div>
 		</div>
