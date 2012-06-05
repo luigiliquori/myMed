@@ -215,11 +215,15 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 
                 mailContent.append("<br/><br/>------<br/>L'&eacute;quipe myMed<br/><br/>");
                 mailContent.append("Cliquez <a href='");
-                mailContent.append(getServerProtocol());
-                mailContent.append(getServerURI());
-                mailContent.append("/application/jqm/unsubscribe.php?predicate=" + predicate + "&application="
-                                + application + "&userID=" + publisher.getId() + "&accessToken=" + accTok);
-                // TODO put unsubscribe.php in lib/dasp/request later
+                
+                String address = getServerProtocol() + getServerURI();
+                if (application != null) {
+                	address += "/application/" + application;
+                } 
+				address += "?predicate=" + predicate + "&application="
+						+ application + "&userID=" + publisher.getId()
+						+ "&accessToken=" + accTok;
+				mailContent.append(address);
                 mailContent.append("'>ici</a> si vous souhaitez vraiment vous d&eacute;sabonner");
 
                 mailContent.trimToSize();

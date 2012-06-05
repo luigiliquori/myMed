@@ -2,7 +2,8 @@
 <html>
 
 <?php
-
+require_once('PhpConsole.php');
+PhpConsole::start();
 	/*
 	 * usage:
 	 *  option?application=val1&param2=val2
@@ -103,19 +104,21 @@
 							<?php 
 							if($subscriptions->status == 200) {
 								$subscriptions = (array) $subscriptions->dataObject->subscriptions;
-								foreach( $subscriptions as $i => $value ){ 
-									$k = preg_split("/(nom|lib|cout|montant|date)/", $i ,0, PREG_SPLIT_DELIM_CAPTURE);
+								foreach( $subscriptions as $k => $value ){ 
+									$a = preg_split("/(nom|lib|cout|montant|date)/", $k ,0, PREG_SPLIT_DELIM_CAPTURE);
 									$s = array();
-									for ($i=1, $n=count($k)-1; $i<$n; $i+=2) {
-										$s[$k[$i]] = $k[$i+1];
+									for ($i=1, $n=count($a)-1; $i<$n; $i+=2) {
+										$s[$a[$i]] = $a[$i+1];
 									}
+									debug($k);
 							?>
 							<li><a href=""> <?= json_encode($s); ?>
-								<form action="controller" method="post" id="deleteSubscriptionForm<?= $i ?>">
+								<form action="controller" method="post" id="deleteSubscriptionForm<?= $k ?>">
 									<input name="application" value='<?= $application ?>' type="hidden" />
-									<input name="predicate" value=<?= $i ?> type="hidden" />
+									<input name="method" value='unsubscribe' type="hidden" />
+									<input name="predicate" value=<?= $k ?> type="hidden" />
 									<input name="userID" value='<?= $_SESSION['user']->id ?>' type="hidden" />
-								</form> <a href="javascript://" data-icon="delete" data-theme="r" onclick="$('#deleteSubscriptionForm<?= $i ?>').submit();">Désabonnement</a>
+								</form> <a href="javascript://" data-icon="delete" data-theme="r" onclick="$('#deleteSubscriptionForm<?= $k ?>').submit();">Désabonnement</a>
 								</a>
 							</li>
 								<?php 

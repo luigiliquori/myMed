@@ -1,8 +1,8 @@
 <?php
 
 // DEBUG
-//require_once('PhpConsole.php');
-//PhpConsole::start();
+require_once('PhpConsole.php');
+PhpConsole::start();
 
 	/*
 	 *
@@ -13,7 +13,7 @@
 	require_once('../../system/config.php');
 	session_start();
 	
-	//ini_set('display_errors', 1);
+	ini_set('display_errors', 1);
 	
 	if(isset($_GET['registration'])) { // registration account validation
 		$request = new Request("AuthenticationRequestHandler", CREATE);
@@ -39,6 +39,8 @@
 		if($responseObject->status == 200) {
 			header("Location: ./search");
 		}
+	} else if (isset($_GET['predicate'])){ // unsubscription by mail
+		$_POST['method'] = "unsubscribe";
 	}
 	
 	
@@ -131,6 +133,9 @@
 		// I will see with Laurent if we can remove the token check for unsubscribe DELETE handler
 		$responsejSon = $request->send();
 		$responseObject = json_decode($responsejSon);
+		if ($responseObject->status==200){
+			header("Location: ./option");
+		}
 		
 	} else if($_POST['method'] == "delete") { // to delete our text or comment
 		$request = new Request("PublishRequestHandler", DELETE);
