@@ -119,6 +119,7 @@
 ?>
 
 	<body>
+	
 		<div data-role="page" id="Option">
 			<div data-role="header" data-theme="e">
 				<a href="home.html" data-icon="back"> Back </a>
@@ -157,7 +158,7 @@
 				<hr />
 				<div style="text-align: center">
 					<h3>Mes souscriptions</h3>
-					<ul data-role="listview" data-filter="true" data-inset="true">
+					<ul data-role="listview" data-filter="true" data-inset="true" data-filter-placeholder="...">
 						<?php 
 						if($subscriptions->status == 200) {
 							$subscriptions = $subscriptions->dataObject->subscriptions;
@@ -167,7 +168,7 @@
 									<form action="#Option" method="post" id="deleteSubscriptionForm<?= $i ?>">
 										<input name="application" value=<?= $application ?> type="hidden" /> <input name="predicate" value=<?= $value ?> type="hidden" />
 										<input name="userID" value=<?= $_SESSION['user']->id ?> type="hidden" />
-									</form> <a href="javascript://" data-icon="delete" data-theme="r" onclick="$('#deleteSubscriptionForm<?= $i ?>').submit();">Unsub me</a>
+									</form> <a href="javascript://" data-icon="delete" data-theme="r" onclick="$('#deleteSubscriptionForm<?= $i ?>').submit();">Désabonnement</a>
 							</a>
 							</li>
 							<?php 
@@ -220,9 +221,15 @@
 							<label for="textinputu7"> Photo du profil (lien url): </label> <input id="textinputu7"  name="thumbnail" placeholder="" value="<?= $profile->profilePicture ?>" type="text" />
 						</fieldset>
 					</div>
-					<a href="" type="button" data-icon="gear" onclick="$('#updateForm').submit();" style="width:100px; margin-right: auto; margin-left: auto;">Ok</a>
+					<a href="" type="button" data-icon="gear" onclick="$('#updateForm').submit();" style="width:80px; margin-right: auto; margin-left: auto;">Ok</a>
 				</form>
 			</div>
 		</div>
+		<script type="text/javascript">
+    	$(".ui-slider-handle .ui-btn-inner").live("mouseup", function() {
+	        // we can't update reputation from the profile
+	        $("#slider-0").val(25).slider("refresh");
+	    });
+		</script>
 	</body>
 </html>

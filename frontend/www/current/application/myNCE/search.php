@@ -73,7 +73,7 @@
 			</div>
 			<div data-role="content">
 
-				<ul data-role="listview" data-filter="true" data-divider-theme="b" data-inset="true">
+				<ul data-role="listview" data-filter="true" data-divider-theme="b" data-inset="true" data-filter-placeholder="...">
 				<?php 
 					
 				if($res->status == 200) {
