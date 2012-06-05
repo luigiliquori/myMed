@@ -100,7 +100,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
      * @see IPubSubManager#create(String, String, MUserBean)
      */
     @Override
-    public final void create(final String application, final String predicate, final String subPredicate,
+    public final void create(String application, final String predicate, final String subPredicate,
                     final MUserBean publisher, final List<MDataBean> dataList) throws InternalBackEndException,
                     IOBackEndException {
         try {
@@ -218,7 +218,8 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
                 
                 String address = getServerProtocol() + getServerURI();
                 if (application != null) {
-                	address += "/application/" + application;
+                	// can we rename the folder myEuroCINAdmin in myEuroCIN_ADMIN to skip below hack
+                	address += "/application/" + (application.equals("myEuroCIN_ADMIN")?"myEuroCINAdmin":application);
                 } 
 				address += "?predicate=" + predicate + "&application="
 						+ application + "&userID=" + publisher.getId()
