@@ -78,8 +78,8 @@ public class CallManager {
               in.close();
             }    	
             SSLSocketFactory sslf = new SSLSocketFactory(mymedTrusted);
-            // Create and initialize scheme registry 
             SchemeRegistry schemeRegistry = new SchemeRegistry();
+            // Create and initialize scheme registry 
             schemeRegistry.register(
                     new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
             schemeRegistry.register(
