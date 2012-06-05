@@ -1,3 +1,18 @@
+/*
+ * Copyright 2012 POLITO 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+*/
 package com.mymed.controller.core.requesthandler;
 
 import java.io.IOException;
@@ -53,8 +68,7 @@ public class MyJamReportRequestHandler  extends AbstractRequestHandler implement
 	/* extends HttpServlet */
 	/* --------------------------------------------------------- */
 	@Override
-	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-	IOException {
+	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException{
 
 		JsonMessage message = new JsonMessage(200, this.getClass().getName());
 
@@ -119,7 +133,7 @@ public class MyJamReportRequestHandler  extends AbstractRequestHandler implement
 	 */
 	@Override
 	protected void doPost(final HttpServletRequest request, final HttpServletResponse response)
-			throws ServletException, IOException {
+			throws ServletException{
 		
 		JsonMessage message = new JsonMessage(200, this.getClass().getName());
 
@@ -165,6 +179,9 @@ public class MyJamReportRequestHandler  extends AbstractRequestHandler implement
 			LOGGER.debug("Error in doPost", e);
 			message.setStatus(500);
 			message.setDescription(e.getMessage());
+		}
+		catch (IOException e) {
+			//do nothing
 		} 
 
 		printJSonResponse(message, response);
@@ -175,7 +192,7 @@ public class MyJamReportRequestHandler  extends AbstractRequestHandler implement
 	 *      response)
 	 */
 	@Override
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException{
 		
 		JsonMessage message = new JsonMessage(200, this.getClass().getName());
 		
@@ -196,7 +213,8 @@ public class MyJamReportRequestHandler  extends AbstractRequestHandler implement
 				myJamManager.deleteReport(parameters.get("id"));
 				break;
 			}
-			super.doDelete(request, response);
+			//super.doDelete(request, response);
+			//removed CR as super class does not have method. this entire method could be cancelled imho
 		} catch (final AbstractMymedException e) { 
 			e.printStackTrace();
 			LOGGER.info("Error in doDelete");
