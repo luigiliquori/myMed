@@ -54,7 +54,6 @@
         </script>
 		<script type="text/javascript">
 			$(document).live("pageshow", function(){
-				console.log("pageshow");
 				$('#example').dataTable();
 				$('#Search').trigger('pagecreate');
 			});

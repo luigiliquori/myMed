@@ -2,8 +2,7 @@
 <html>
 
 <?php
-require_once('PhpConsole.php');
-PhpConsole::start();
+
 	/*
 	 * usage:
 	 *  option?application=val1&param2=val2
@@ -87,7 +86,7 @@ PhpConsole::start();
 							<form action="controller" id="deconnectForm" data-ajax="false">
 								<input name="logout" value="" type="hidden" />
 							</form>
-							<a href="" type="button" data-mini="true" data-icon="gear"
+							<a href="" type="button" data-mini="true" data-icon="delete"
 							style="width: 200px; margin-right: auto; margin-left: auto;" onclick="$('#deconnectForm').submit();">Déconnecter</a>
 						</div>
 						​
@@ -110,7 +109,6 @@ PhpConsole::start();
 									for ($i=1, $n=count($a)-1; $i<$n; $i+=2) {
 										$s[$a[$i]] = $a[$i+1];
 									}
-									debug($k);
 							?>
 							<li><a href=""> <?= json_encode($s); ?>
 								<form action="controller" method="post" id="deleteSubscriptionForm<?= $k ?>">

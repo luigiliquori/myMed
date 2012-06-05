@@ -1,8 +1,8 @@
 <?php
 
 // DEBUG
-require_once('PhpConsole.php');
-PhpConsole::start();
+//require_once('PhpConsole.php');
+//PhpConsole::start();
 
 	/*
 	 *
@@ -39,7 +39,7 @@ PhpConsole::start();
 		if($responseObject->status == 200) {
 			header("Location: ./search");
 		}
-	} else if (isset($_GET['predicate'])){ // unsubscription by mail
+	} else if (isset($_GET['userID'])){ // unsubscription by mail
 		$_POST['method'] = "unsubscribe";
 	}
 	
@@ -93,14 +93,14 @@ PhpConsole::start();
 			
 			$responsejSon = $request->send();
 			$responseObject = json_decode($responsejSon);
-			if ($responseObject->status==200){
-				if (isset($_POST['commentOn'])){
-					header("Location: ./detail?".$_SERVER['QUERY_STRING']);
-				}else{
-					header("Location: ./post?ok=1");
-				}
+			if (isset($_POST['commentOn'])) {
+				header("Location: ./detail?".$_SERVER['QUERY_STRING']);
 			} else {
-				header("Location: ./");
+				if ($responseObject->status==200){
+					header("Location: ./post?ok=1");
+				} else{
+					header("Location: ./");
+				}
 			}
 		}
 		
@@ -146,7 +146,7 @@ PhpConsole::start();
 		$responsejSon = $request->send();
 		$responseObject = json_decode($responsejSon);
 		if($responseObject->status == 200) {
-			header("Location: ./");
+			header("Location: ./#");
 		}
 		
 	} else if($_POST['method'] == "authenticate") {
