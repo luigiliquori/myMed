@@ -104,7 +104,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
      */
     @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-        final JsonMessage message = new JsonMessage(200, this.getClass().getName());
+        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
 
         try {
             final Map<String, String> parameters = getParameters(request);
@@ -191,7 +191,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
      */
     @Override
     protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-        final JsonMessage message = new JsonMessage(200, this.getClass().getName());
+        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
 
         try {
             final Map<String, String> parameters = getParameters(request);

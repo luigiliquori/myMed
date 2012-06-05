@@ -186,11 +186,11 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
                     }
                 }
             }*/
-            final Map<String, String> res = new HashMap<String, String>();
+
             final Map<byte[], byte[]> subscribers = storageManager.selectAll("Subscribees", application + predicate, false);
             for (final Entry<byte[], byte[]> entry : subscribers.entrySet()) {
             	final String key = Charset.forName(ENCODING).decode(ByteBuffer.wrap(entry.getKey())).toString();
-                final String val = Charset.forName(ENCODING).decode(ByteBuffer.wrap(entry.getValue())).toString();
+                //final String val = Charset.forName(ENCODING).decode(ByteBuffer.wrap(entry.getValue())).toString();
                 recipients.add(key.substring(6));
                 LOGGER.info("mail sent at: "+key.substring(6));
             }
