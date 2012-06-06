@@ -20,8 +20,7 @@
 				</div>
 				<div data-role="content">
 					<?= ($responseObject->status==200)?"<div style='color:lightGreen;text-align:center;'>Contenu publié</div>":"" ?>
-					<form action="controller" method="post" id="loginForm" data-ajax=false>
-						<input name="method" value="authenticate" type="hidden" />
+					<form action="search" method="post" id="loginForm">
 						<div data-role="fieldcontain">
 							<fieldset data-role="controlgroup">
 								<label for="textinputl1"> Login: </label> <input id="textinputl1"  name="login" placeholder="" value="" type="text" />

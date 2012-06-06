@@ -30,8 +30,7 @@
 					<h3>myEurope - MaJProfil</h3>
 				</div>
 				<div data-role="content">
-					<form action="controller" method="post" id="updateForm">
-						<input name="method" value="update" type="hidden" />
+					<form action="option" method="post" id="updateForm">
 						<div data-role="fieldcontain">
 							<fieldset data-role="controlgroup">
 								<label for="textinputu1"> Prénom: </label> <input id="textinputu1"  name="prenom" placeholder="" value='<?= $_SESSION['user']->firstName ?>' type="text" />

@@ -11,10 +11,6 @@ class Template {
         </title>
         <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
         <link rel="stylesheet" href="my.css" />
-        <style type="text/css">
-	      @import "media/css/demo_page.css";
-	      @import "media/css/demo_table.css";
-	    </style>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
         </script>
         <script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js">

@@ -25,6 +25,118 @@
 	require_once '../../system/config.php';
 	session_start();
 	$application = isset($_REQUEST['application'])?$_REQUEST['application']:"myEurope";
+
+	$msg = ""; //feedback text
+	
+	if (isset($_POST['email'])) { //profile update
+		require_once '../../lib/dasp/beans/MUserBean.class.php';
+		require_once '../../lib/dasp/beans/MAuthenticationBean.class.php';
+		$responseObject = new stdClass();
+		if($_POST['password'] == ""){
+			$responseObject->error = "FAIL: password cannot be empty!";
+			return;
+		} else if($_POST['email'] == ""){
+			$responseObject->error = "FAIL: email cannot be empty!";
+			return;
+		}
+		// update the authentication
+		$mAuthenticationBean = new MAuthenticationBean();
+		$mAuthenticationBean->login =  $_SESSION['user']->email;
+		$mAuthenticationBean->user = $_SESSION['user']->id;
+		$mAuthenticationBean->password = hash('sha512', $_POST["password"]);
+		
+		$request = new Request("AuthenticationRequestHandler", UPDATE);
+		$request->addArgument("authentication", json_encode($mAuthenticationBean));
+		
+		$request->addArgument("oldLogin", $_SESSION['user']->email);
+		$request->addArgument("oldPassword", hash('sha512', $_POST["oldPassword"]));
+		
+		$responsejSon = $request->send();
+		$responseObject1 = json_decode($responsejSon);
+		
+		if($responseObject1->status != 200) {
+			echo json_encode($responseObject1);
+			return;
+		}
+		
+		// update the profile
+		$mUserBean = new MUserBean();
+		$mUserBean->id = $_SESSION['user']->id;
+		$mUserBean->firstName = $_POST["prenom"];
+		$mUserBean->lastName = $_POST["nom"];
+		$mUserBean->name = $_POST["prenom"] . " " . $_POST["nom"];
+		$mUserBean->email = $_POST["email"];
+		$mUserBean->login = $_POST["email"];
+		$mUserBean->birthday = $_POST["birthday"];
+		$mUserBean->profilePicture = $_POST["thumbnail"];
+		
+		// keep the session opened
+		$mUserBean->socialNetworkName = $_SESSION['user']->socialNetworkName;
+		$mUserBean->SocialNetworkID = $_SESSION['user']->socialNetworkID;
+		$mUserBean->SocialNetworkID = $_SESSION['accessToken'];
+		
+		$request = new Request("ProfileRequestHandler", UPDATE);
+		$request->addArgument("user", json_encode($mUserBean));
+		
+		$responsejSon = $request->send();
+		$responseObject = json_decode($responsejSon);
+		
+		if($responseObject->status == 200) {
+			
+		}
+		$_SESSION['user'] = $responseObject->dataObject->profile;
+
+	} else if (isset($_POST['predicate'])){ // unsubscribe
+		$request = new Request("SubscribeRequestHandler", DELETE);
+		$request->addArgument("application", $_REQUEST['application']);
+		$request->addArgument("predicate", $_REQUEST['predicate']);
+		$request->addArgument("userID", $_REQUEST['userID'] );
+		if (isset($_REQUEST['accessToken']))
+			$request->addArgument('accessToken', $_REQUEST['accessToken']);
+		$responsejSon = $request->send();
+		$responseObject = json_decode($responsejSon);
+		if ($responseObject->status==200){
+			header("Location: ./option");
+		}
+	}
+	
+	if(isset($_GET['registration'])) { // registration account validation
+		$request = new Request("AuthenticationRequestHandler", CREATE);
+		$request->addArgument("accessToken", $_GET['accessToken']);
+			
+		$responsejSon = $request->send();
+		$responseObject = json_decode($responsejSon);
+		if($responseObject->status != 200) {
+			$msg = $responseObject->description;
+		} else {
+			header("Location: ./authenticate");
+		}
+		return;
+	} else if (isset($_GET['userID'])){ // unsubscription by mail
+		$request = new Request("SubscribeRequestHandler", DELETE);
+		$request->addArgument("application", $_REQUEST['application']);
+		$request->addArgument("predicate", $_REQUEST['predicate']);
+		$request->addArgument("userID", $_REQUEST['userID'] );
+		if (isset($_REQUEST['accessToken']))
+			$request->addArgument('accessToken', $_REQUEST['accessToken']);
+		$responsejSon = $request->send();
+		$responseObject = json_decode($responsejSon);
+		if ($responseObject->status==200){
+			$msg = "Vous êtes désabonné de cette recherche";
+		}
+	}else if (isset($_GET['logout'])){ // deconnect
+		$request = new Request("SessionRequestHandler", DELETE);
+		$request->addArgument("accessToken", $_SESSION['user']->session);
+		$request->addArgument("socialNetwork", $_SESSION['user']->socialNetworkName);
+	
+		session_destroy();
+	
+		$responsejSon = $request->send();
+		$responseObject = json_decode($responsejSon);
+		if($responseObject->status == 200) {
+			header("Location: ./");
+		}
+	}
 	
 	$request = new Request("ProfileRequestHandler", READ);
 	$request->addArgument("id", $_SESSION["user"]->id);
@@ -44,12 +156,6 @@
 
 	<head>
 		<?= $template->head(); ?>
-		<script type="text/javascript">
-	    	$(".ui-slider-handle .ui-btn-inner").live("mouseup", function() {
-		        // we can't update reputation from the profile
-		        $("#slider-0").val(25).slider("refresh");
-		    });
-		</script>
 	</head>
 
 
@@ -63,6 +169,7 @@
 				</div>
 				<div data-role="content">
 					<div style="position:relative;text-align: center;min-height: 280px;">
+						<div style='color:lightGreen;text-align:center;'><?= $msg ?></div>
 						<h3>Mon profil</h3>
 						<?php 
 						
@@ -79,12 +186,11 @@
 							<br /> date de naissance:
 							<?= $profile->birthday ?>
 							<br />
-							Réputation: <input type="range" name="slider" id="slider-0" value="25" min="0" max="100" data-highlight="true" data-mini="true" />
+							Réputation: <span style='color:lightRed;text-align:center;'>soon available...</span>
 							<br /><br />
 							<a href="update" type="button" data-transition="flip" data-mini="true" data-icon="grid"
 							style="width: 200px; margin-right: auto; margin-left: auto;">Modifier</a>
-							<form action="controller" id="deconnectForm" data-ajax="false">
-								<input name="logout" value="" type="hidden" />
+							<form action="option?logout" id="deconnectForm">
 							</form>
 							<a href="" type="button" data-mini="true" data-icon="delete"
 							style="width: 200px; margin-right: auto; margin-left: auto;" onclick="$('#deconnectForm').submit();">Déconnecter</a>
@@ -104,16 +210,16 @@
 							if($subscriptions->status == 200) {
 								$subscriptions = (array) $subscriptions->dataObject->subscriptions;
 								foreach( $subscriptions as $k => $value ){ 
-									$a = preg_split("/(nom|lib|cout|montant|date)/", $k ,0, PREG_SPLIT_DELIM_CAPTURE);
+									//prettify the subscription string:
+									/*$a = preg_split("/(nom|lib|cout|montant|date)/", $k ,0, PREG_SPLIT_DELIM_CAPTURE);
 									$s = array();
 									for ($i=1, $n=count($a)-1; $i<$n; $i+=2) {
 										$s[$a[$i]] = $a[$i+1];
-									}
+									}*/
 							?>
-							<li><a href=""> <?= json_encode($s); ?>
-								<form action="controller" method="post" id="deleteSubscriptionForm<?= $k ?>">
+							<li><a href=""> <?= $k /*json_encode($s);*/ ?>
+								<form action="#" method="post" id="deleteSubscriptionForm<?= $k ?>">
 									<input name="application" value='<?= $application ?>' type="hidden" />
-									<input name="method" value='unsubscribe' type="hidden" />
 									<input name="predicate" value=<?= $k ?> type="hidden" />
 									<input name="userID" value='<?= $_SESSION['user']->id ?>' type="hidden" />
 								</form> <a href="javascript://" data-icon="delete" data-theme="r" onclick="$('#deleteSubscriptionForm<?= $k ?>').submit();">Désabonnement</a>

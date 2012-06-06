@@ -26,6 +26,38 @@
 	session_start();
 	
 	$application = isset($_REQUEST['application'])?$_REQUEST['application']:"myEurope";
+		
+	if (count($_POST)) {
+		if(!isset($_SESSION['user'])) {
+			$request = new Request("AuthenticationRequestHandler", READ);
+			$request->addArgument("login", $_REQUEST["login"]);
+			$request->addArgument("password", hash('sha512', $_REQUEST["password"]));
+		
+			$responsejSon = $request->send();
+			$responseObject = json_decode($responsejSon);
+			if($responseObject->status == 200) {
+				$_SESSION['accessToken'] = $responseObject->dataObject->accessToken;
+				//$_SESSION['user'] = $responseObject->dataObject->user;
+				$request = new Request("SessionRequestHandler", READ);
+				$request->addArgument("socialNetwork", "myMed");
+				$responsejSon = $request->send();
+				$session = json_decode($responsejSon);
+				if($session->status == 200) {
+					$_SESSION['user'] = $session->dataObject->user;
+					if(!isset($_SESSION['friends'])){
+						$_SESSION['friends'] = array();
+					}
+				}
+		
+			} else{
+				//header("Location: ./search");
+			}
+		} else{
+			header("Location: ./option?please-logout-first");
+		}
+	}
+	
+	
 	
 	$sub = false;
 	
@@ -64,14 +96,6 @@
 ?>
 	<head>
 		<?= $template->head(); ?>
-		<script src="lib/jquery.dataTables.nightly.js">
-        </script>
-		<script type="text/javascript">
-			$(document).live("pageshow", function(){
-				$('#example').dataTable();
-				$('#Search').trigger('pagecreate');
-			});
-		</script>
 	</head>
 
 	<body>
@@ -83,60 +107,14 @@
 					<a href=<?= $_SESSION['user']?"option":"authenticate" ?> data-icon="arrow-r" class="ui-btn-right" data-transition="slide"><?= $_SESSION['user']?$_SESSION['user']->name:"Connexion" ?></a>
 				</div>
 				<div data-role="content">
-					<div style="text-align: center;">
+					<div style="text-align: center;">	
 					<br />
 					PROVENCE-ALPES-COTE D'AZUR : Rechercher un ou plusieurs projets cofinancés par l'Union européenne
 					</div>
 					<br />
-					<table width="100%" cellpadding="0" align="center" cellspacing="0" border="0" class="display" id="example">
-						<thead>
-							<tr>
-								<th>Nom de l'organisme bénéficiaire</th>
-								<th>Libellé du projet</th>
-								<th>Coût total du projet (en euros)</th>
-								<th>Montant du financement européen (en euros)</th>
-								<th>Date de clôture</th>
-								<th>Contact</th>	
-							</tr>
-						</thead>
-						<tbody>
-						<?php 
-							
-						if($res->status == 200) {
-							$res = $res->dataObject->results;
-							foreach( $res as $i => $value ){
-								$preds = json_decode($value->data);
-							?>
-							<tr id="tr_<?= $i ?>" class="gradeA" onmouseover="$(this).css('cursor','pointer');" onclick="$('#detailForm<?= $i ?>').submit();" data-transition="pop">
-								<td class="center"><?= $preds->nom ?></td>
-								<td class="center"><?= $preds->lib ?></td>
-								<td class="center"><?= $preds->cout ?></td>
-								<td class="center"><?= $preds->montant ?></td>
-								<td class="center"><?= $preds->date ?></td>
-								<td class="center">
-									<a href="mailto:<?= substr($value->publisherID, 6) ?>" target="_blank">mail</a>
-									<form action="detail" id="detailForm<?= $i ?>">
-										<input name="application" value='<?= $application ?>' type="hidden" />
-										<input name="predicate" value='<?= $value->predicate ?>' type="hidden" />
-										<input name="user" value='<?= $value->publisherID ?>' type="hidden" />
-									</form>
-								</td>
-							</tr>
-							<?php 
-							}
-						}
-					
-						?>
-						</tbody>
-					</table>
-					
-					<br /><br />
-					
-						
-					
-					<div data-role="collapsible" data-mini="true" style="width:80%;margin-right: auto; margin-left: auto;">
+					<div data-role="collapsible" data-collapsed="true" data-mini="true" style="width:80%;margin-right: auto; margin-left: auto;">
 						<h3>Recherche avancée</h3>
-						<form action="#" id="subscribeForm" data-ajax="false">
+						<form action="#" id="subscribeForm">
 							<div>
 							<input name="application" value='<?= $application ?>' type="hidden" />
 							<div data-role="fieldcontain" style="margin-left: auto;margin-right: auto;">
@@ -152,6 +130,33 @@
 							<a href="" type="button" data-icon="gear" onclick="$('#subscribeForm').submit();" style="width:280px;margin-left: auto;margin-right: auto;">rechercher</a></div>
 						</form>
 					</div>
+					
+					<a href="post" type="button" style="width: 80%; margin-right: auto; margin-left: auto;"> Soumettre un appel d'offre/ un appel à partenaires</a>
+					<br />
+					<ul data-role="listview" data-filter="true" data-inset="true" data-filter-placeholder="...">
+					<?php 	
+						if($res->status == 200) {
+							$res = $res->dataObject->results;
+							foreach( $res as $i => $value ){
+								$preds = json_decode($value->data);
+							?>
+							<li><a href="" onclick="$('#detailForm<?= $i ?>').submit();">
+								<?= $preds->nom ?>, <?= $preds->lib ?>, <?= $preds->cout ?>, <?= $preds->montant ?>, 
+								<?= $preds->date ?>
+								<form action="detail" method="post" id="detailForm<?= $i ?>">
+									<input name="application" value='<?= $application ?>' type="hidden" />
+										<input name="predicate" value='<?= $value->predicate ?>' type="hidden" />
+										<input name="user" value='<?= $value->publisherID ?>' type="hidden" />
+								</form>
+								</a>
+							</li>
+							<?php 
+							}
+						}
+					
+						?>
+					</ul>
+					<div style="float:right;"><?= count($res) ?> résultats</div><br />
 					<div class="push"></div>
 				</div>
 			</div>

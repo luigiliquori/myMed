@@ -37,13 +37,6 @@ input.ui-slider-input {
 .ui-li-link-alt .ui-btn {
 	margin-top: -14px;
 }
-.row {
-	vertical-align: middle;
-	display:table-cell;
-}
-.row img {
-	vertical-align: top;
-}
 
 .ui-select {
 	width:100px;

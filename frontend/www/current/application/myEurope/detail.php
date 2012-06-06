@@ -15,8 +15,6 @@
 	 *  you can delete either text (if we are the author) or our comment (only our comments not other's or change it if you want)
 	 */		
 
-
-
 	//ob_start("ob_gzhandler");
 	require_once 'Template.class.php';
 	$template = new Template();
@@ -28,6 +26,53 @@
 	function cmp($a, $b)
 	{
 		return strcmp($a->key, $b->key);
+	}
+	
+	$msg = ""; //feedback text
+	
+	if (isset($_POST['commentOn'])){ // we want to comment
+		$predicates = Array();
+		$data = Array();
+		foreach( $_POST as $i => $value ){
+			if ( $i!='application' && $i!='method' && $i[0]!='_' && ($value!='' || $i=='~') ){ //pred keys starting with _ are not included
+				$ontology = new stdClass();
+				$ontology->key = $i;
+				$ontology->value = $value;
+				//$ontology->ontologyID = isset($_POST['_'.$i])?$_POST['_'.$i]:0; // '_'.$i form fields contain the ontologyID of the value
+		
+				if(isset($_POST['_'.$i])){ // keys "_key" indicates if "key" is a predicate or a data
+					array_push($data, $ontology);
+				}else{
+					array_push($predicates, $ontology);
+				}
+			}
+		}
+		if (count($predicates)){
+			usort($predicates, "cmp"); // VERY important, to be able to delete the exact same predicates later
+			$data = array_merge($predicates, $data);
+		
+			$request = new Request("PublishRequestHandler", CREATE);
+			$request->addArgument("application", $_POST['application']);
+			$request->addArgument("predicate", json_encode($predicates));
+		
+			$request->addArgument("data", json_encode($data));
+			if(isset($_SESSION['user'])) {
+				$request->addArgument("user", json_encode($_SESSION['user']));
+			}
+			$responsejSon = $request->send();
+		}
+		
+	} else if (isset($_POST['predicates'])) { //delete text or comment
+		$request = new Request("PublishRequestHandler", DELETE);
+		$request->addArgument("application", $_POST['application']);
+		$request->addArgument("predicate", $_POST['predicates']);
+		$request->addArgument("user", json_encode($_SESSION['user']) );
+		
+		$responsejSon = $request->send();
+		$responseObject = json_decode($responsejSon);
+		if($responseObject->status == 200) {
+			$msg = "supprimé";
+		}
 	}
 	
 	$request = new Request("FindRequestHandler", READ);
@@ -56,17 +101,6 @@
 ?>
 	<head>
 		<?= $template->head(); ?>
-		<script type="text/javascript">
-	    	$(".ui-slider-handle .ui-btn-inner").live("mouseup", function() {
-		    <?php 
-				if ($_REQUEST['user'] == $_SESSION['user']->id){ //we can't update it's reputation
-				?>
-		        $("#slider-0").val(25).slider("refresh");
-		        <?php
-				} 
-			?>
-		    });
-		</script>
 	</head>
 
 	<body>
@@ -77,7 +111,7 @@
 					<h3>myEurope - détail</h3>
 				</div>
 	            <div data-role="content">
-		
+				<div style='color:lightGreen;text-align:center;'><?= $msg ?></div>
 				<?php
 			
 				if($profile->status == 200) {
@@ -114,7 +148,7 @@
 					<img style="float:right;text-align: center; max-height: 100px;opacity: 0.6;" src="<?= $profPic ?>" />
 					<b>Auteur</b>: <span style="left-margin:5px; color:DarkBlue; font-size:160%;"><?= $profile->name ?></span>
 					<br />
-					<b>Réputation</b>: <input type="range" name="slider" id="slider-0" value="25" min="0" max="100" data-highlight="true" data-mini="true" /> 
+					<b>Réputation</b>: <span style='color:lightRed;text-align:center;'>soon available...</span>
 					<br /><br /><br />
 					<b>Nom de l'organisme bénéficiaire:</b>&nbsp; <span style="left-margin:5px; color:DarkBlue; font-size:140%;"><?= $preds->nom ?></span><br />
 					<b>Libellé du projet:</b>&nbsp; <span style="left-margin:5px; color:DarkBlue; font-size:140%;"><?= $preds->lib ?></span><br />
@@ -134,9 +168,8 @@
 				<?php 
 				if ($_REQUEST['user'] == $_SESSION['user']->id){ //we can delete our own text
 					?>
-					<form action="controller" method="post" id="deleteForm">
+					<form action="#" method="post" id="deleteForm">
 						<input name="application" value='<?= $_REQUEST['application'] ?>' type="hidden" />
-						<input name="method" value='delete' type="hidden" />
 						<input name="predicates" value='<?= json_encode($detail) ?>' type="hidden" />
 						<input name="user" value='<?= $_REQUEST['user'] ?>' type="hidden" />
 					</form>
@@ -156,9 +189,8 @@
 				    		$comments = $comments->dataObject->results;
 					    	foreach($comments as $i => $value) { ?>
 				    		<li data-role="list-divider">
-				    			<form action="controller" method="post" id="deleteCommentForm<?= $i ?>">
+				    			<form action="#" method="post" id="deleteCommentForm<?= $i ?>">
 									<input name="application" value='<?= $_REQUEST['application'] ?>' type="hidden" />
-									<input name="method" value='delete' type="hidden" />
 									<?php 
 										$commentOn = new stdClass();
 										$commentOn->key = "commentOn";
@@ -201,9 +233,8 @@
 					<div id="Commenter" style="text-align: center;display: none;">
 						<div data-role="fieldcontain">
 							<fieldset data-role="controlgroup">
-								<form action='controller?<?= $_SERVER['QUERY_STRING'] ?>' method="post" id="commentForm">
+								<form action='#' method="post" id="commentForm">
 									<input name="application" value='<?= $_REQUEST['application'] ?>' type="hidden" />
-									<input name="method" value='publish' type="hidden" />
 									<input name="commentOn" value='<?= $_REQUEST['predicate'] ?>' type="hidden" />
 									<input name="end" value='<?= date("Y-m-d") . "T" . date("H:i:s") ?>' type="hidden" />
 									<input name="_data" value="" type="hidden" />

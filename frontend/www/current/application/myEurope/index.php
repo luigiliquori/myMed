@@ -1,11 +1,16 @@
 <?php
 	
 	//ob_start("ob_gzhandler");
-	if(isset($_GET['registration']) || isset($_GET['userID'])) { //registration confirmation or unsub, (from emails)
-		// registrattion validation
-		header("Location: ./controller?". $_SERVER['QUERY_STRING']);
-	} else {
+	session_start();
+
+	if (isset($_SESSION['user'])) {
 		header("Location: ./search". (strlen($_SERVER['QUERY_STRING'])?"?".$_SERVER['QUERY_STRING']:""));
+	} else if (isset($_GET['registration']) || (isset($_GET['userID']))) {
+		header("Location: ./option?".$_SERVER['QUERY_STRING']);
+	} else {
+		header("Location: ./authenticate");
 	}
+	
+	
 	
 ?>
