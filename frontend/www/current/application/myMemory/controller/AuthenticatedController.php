@@ -3,8 +3,8 @@
  * IMPORT ALL THE THINGS!
  */
 require_once '../../../lib/dasp/request/Request.class.php';
-require_once '../../../lib/dasp/beans/MUserBean.class.php';
-require_once '../../../lib/dasp/beans/MAuthenticationBean.class.php';
+//require_once '../../../lib/dasp/beans/MUserBean.class.php';
+//require_once '../../../lib/dasp/beans/MAuthenticationBean.class.php';
 //require_once '../../../lib/socialNetworkAPIs/SocialNetworkConnection.class.php';
 
 /**
@@ -39,8 +39,8 @@ class AuthenticatedController implements IRequestHandler {
 		// Check for user in session
 		if( !isset($_SESSION['user']) )
 		{
-			//TODO : create this view.
-			header("Refresh:0;url=../views/login.php");
+			//TODO : create this controller.
+			header("Refresh:0;url=/index.php?method=login");
 		}
 	}
 	
