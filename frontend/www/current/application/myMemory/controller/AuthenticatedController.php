@@ -39,8 +39,8 @@ class AuthenticatedController implements IRequestHandler {
 		// Check for user in session
 		if( !isset($_SESSION['user']) )
 		{
-			//TODO : create this view.
-			header("Refresh:0;url=../views/login.php");
+			//TODO : create this controller.
+			header("Refresh:0;url=/index.php?method=login");
 		}
 	}
 	
