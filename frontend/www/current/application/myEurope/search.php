@@ -133,10 +133,13 @@
 					
 					<a href="post" type="button" style="width: 80%; margin-right: auto; margin-left: auto;"> Soumettre un appel d'offre/ un appel à partenaires</a>
 					<br />
-					<ul data-role="listview" data-filter="true" data-inset="true" data-filter-placeholder="...">
 					<?php 	
 						if($res->status == 200) {
+						?>
+						<ul data-role="listview" data-filter="true" data-inset="true" data-filter-placeholder="...">
+						<?php
 							$res = $res->dataObject->results;
+							
 							foreach( $res as $i => $value ){
 								$preds = json_decode($value->data);
 							?>
@@ -152,11 +155,13 @@
 							</li>
 							<?php 
 							}
+							?>
+							</ul>
+							<div style="float:right;"><?= count($res) ?> résultats</div><br />
+						<?php	
 						}
-					
 						?>
-					</ul>
-					<div style="float:right;"><?= count($res) ?> résultats</div><br />
+
 					<div class="push"></div>
 				</div>
 			</div>
