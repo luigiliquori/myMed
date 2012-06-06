@@ -38,4 +38,4 @@
 			
 	</head>
 		
-<body onload="hideLoadingBar();">
+<body>

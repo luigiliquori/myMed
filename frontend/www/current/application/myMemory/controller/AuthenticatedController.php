@@ -21,8 +21,7 @@ class AuthenticatedController implements IRequestHandler {
 	private /*string*/ $success;
 	
 	
-	public function __construct(){
-		
+	public function __construct() {
 		$this->error	= false;
 		$this->success	= false;	
 	}
@@ -40,16 +39,11 @@ class AuthenticatedController implements IRequestHandler {
 		if( !isset($_SESSION['user']) )
 		{
 			//TODO : create this controller.
-			header("Refresh:0;url=/index.php?method=login");
+			header("Refresh:0;url=index.php?method=login");
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
+
 	/*
 	 * Getters
 	 */

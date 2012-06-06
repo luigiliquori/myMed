@@ -27,6 +27,8 @@ class MAbstractDataObject {
 	/** Returns a list of data beans */
 	public function toDataBeans() {
 		
+		
+		
 		$result = array();
 		
 		foreach	($this->_attributes as $key => $ontologyID) {
