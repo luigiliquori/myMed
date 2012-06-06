@@ -15,7 +15,7 @@ class RegistrationController implements IRequestHandler {
 	
 	
 	/**
-	 * (non-PHPdoc)
+	 * This will create a temporary Profile with the informations submited by POST and send a confirmation-email.
 	 * @see IRequestHandler::handleRequest()
 	 */
 	public /*String*/ function handleRequest() { 
@@ -96,7 +96,11 @@ class RegistrationController implements IRequestHandler {
 	}
 	
 	
-	
+	/**
+	 * 
+	 * Try to confirm the registration of a user by using the given accessToken 
+	 * @param String $accessToken
+	 */
 	public /*String*/ function confirmRegistration($accessToken) {
 		
 		/*
