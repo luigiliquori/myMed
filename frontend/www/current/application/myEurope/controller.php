@@ -1,8 +1,8 @@
 <?php
 
 // DEBUG
-//require_once('PhpConsole.php');
-//PhpConsole::start();
+require_once('PhpConsole.php');
+PhpConsole::start();
 
 	/*
 	 *
@@ -104,24 +104,6 @@
 			}
 		}
 		
-	} else if($_POST['method'] == "subscribe") {
-		ksort($_GET); // important to match a possible predicate, keys must be ordered
-		$predicate = "";
-		foreach( $_GET as $i => $value ){
-			if ( $i!='application' && $i!='method' && $i[0]!='_' && $value!=''){
-				$predicate .= $i . $value;
-			}
-		}
-		$request = new Request("SubscribeRequestHandler", CREATE);
-		$request->addArgument("application", $_REQUEST['application']);
-		$request->addArgument("predicate", $predicate);
-		$request->addArgument("user", json_encode($_SESSION['user']));
-		$responsejSon = $request->send();
-		$responseObject = json_decode($responsejSon);
-		if ($responseObject->status==200){
-			$sub = true;
-		}
-		
 	} else if($_POST['method'] == "unsubscribe") {
 		$request = new Request("SubscribeRequestHandler", DELETE);
 		$request->addArgument("application", $_REQUEST['application']);
@@ -129,8 +111,6 @@
 		$request->addArgument("userID", $_REQUEST['userID'] );
 		if (isset($_REQUEST['accessToken']))
 			$request->addArgument('accessToken', $_REQUEST['accessToken']);
-		// ^  to be able to unsubscribe from emails to deconnected session but not deleted session (will fail in this case)
-		// I will see with Laurent if we can remove the token check for unsubscribe DELETE handler
 		$responsejSon = $request->send();
 		$responseObject = json_decode($responsejSon);
 		if ($responseObject->status==200){

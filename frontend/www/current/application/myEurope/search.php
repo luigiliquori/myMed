@@ -32,9 +32,23 @@
 	//get all results
 
 	ksort($_GET); // important to match a possible predicate, keys must be ordered
+	$predicate = "";
+	if (count($_GET)) {
+		foreach( $_GET as $i => $value ){
+			if ( $i!='application' && $i!='method' && $i[0]!='_' && $value!=''){
+				$predicate .= $i . $value;
+			}
+		}
+		$request = new Request("SubscribeRequestHandler", CREATE);
+		$request->addArgument("application", $_REQUEST['application']);
+		$request->addArgument("predicate", $predicate);
+		$request->addArgument("user", json_encode($_SESSION['user']));
+		$responsejSon = $request->send();
+	}
 
-	$predicate = ""; 
 	$_GET["~"] = "";//we add ~ in predicates (tags in all texts) so we get all results tagged with ~
+	$predicate = "";
+	ksort($_GET);
 	foreach( $_GET as $i => $value ){
 		if ( $i!='application' && $i[0]!='_' && ($value!='' || $i=='~')){
 			$predicate .= $i . $value;
@@ -122,10 +136,9 @@
 					
 					<div data-role="collapsible" data-mini="true" style="width:80%;margin-right: auto; margin-left: auto;">
 						<h3>Recherche avancée</h3>
-						<form action="controller" id="subscribeForm">
+						<form action="#" id="subscribeForm" data-ajax="false">
 							<div>
 							<input name="application" value='<?= $application ?>' type="hidden" />
-							<input name="method" value='subscribe' type="hidden" />
 							<div data-role="fieldcontain" style="margin-left: auto;margin-right: auto;">
 								<fieldset data-role="controlgroup" >
 									<label for="textinputs1"> Nom de l'organisme bénéficiaire: </label> <input id="textinputs1"  name="nom" placeholder="" value="" type="text" />

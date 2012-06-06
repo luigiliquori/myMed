@@ -5,7 +5,7 @@
 		// registrattion validation
 		header("Location: ./controller?". $_SERVER['QUERY_STRING']);
 	} else {
-		header("Location: ./search?". $_SERVER['QUERY_STRING']);
+		header("Location: ./search". (strlen($_SERVER['QUERY_STRING'])?"?".$_SERVER['QUERY_STRING']:""));
 	}
 	
 ?>
