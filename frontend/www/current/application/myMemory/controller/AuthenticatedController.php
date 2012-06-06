@@ -3,8 +3,8 @@
  * IMPORT ALL THE THINGS!
  */
 require_once '../../../lib/dasp/request/Request.class.php';
-require_once '../../../lib/dasp/beans/MUserBean.class.php';
-require_once '../../../lib/dasp/beans/MAuthenticationBean.class.php';
+//require_once '../../../lib/dasp/beans/MUserBean.class.php';
+//require_once '../../../lib/dasp/beans/MAuthenticationBean.class.php';
 //require_once '../../../lib/socialNetworkAPIs/SocialNetworkConnection.class.php';
 
 /**
