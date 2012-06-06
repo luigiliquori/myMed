@@ -20,8 +20,8 @@ define('READ'		, 1);
 define('UPDATE'		, 2);
 define('DELETE'		, 3);
 
-require_once('PhpConsole.php');
-PhpConsole::start();
+// require_once('PhpConsole.php');
+// PhpConsole::start();
 
 
 /**
@@ -120,9 +120,7 @@ class Request {
 
 		$result = curl_exec($curl);
 //		debug($result);
-
-			echo '<script type="text/javascript">alert(\'' . $result . '\');</script>';
-
+// 		echo '<script type="text/javascript">alert(\'' . $result . '\');</script>';
 		return $result;
 	}
 }
