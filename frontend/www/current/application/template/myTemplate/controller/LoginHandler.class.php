@@ -85,7 +85,7 @@ class LoginHandler implements IRequestHandler {
 				$this->error = "FAIL: password cannot be empty!";
 				return;
 			}
-				
+			
 			$request = new Request("AuthenticationRequestHandler", READ);
 			$request->addArgument("login", $login);
 			$request->addArgument("password", $pass);

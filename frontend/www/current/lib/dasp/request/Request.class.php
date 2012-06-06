@@ -121,6 +121,7 @@ class Request {
 		$result = curl_exec($curl);
 //		debug($result);
 // 		echo '<script type="text/javascript">alert(\'' . $result . '\');</script>';
+
 		return $result;
 	}
 }

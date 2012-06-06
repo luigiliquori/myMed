@@ -27,7 +27,7 @@ class MExampleDataObject extends AbstractDataObject {
 	public function __construct() {
 		parent::__construct(array(
 			"attribute1"  => KEYWORD,
-			"attribute2" => TEXT));
+			"attribute2" =>  TEXT));
 	}
 	
 
