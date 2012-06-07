@@ -1,24 +1,7 @@
 <?php
-require_once '../../../lib/dasp/request/Request.class.php';
-//require_once '../../../lib/dasp/beans/MUserBean.class.php';
-//require_once '../../../lib/dasp/beans/MAuthenticationBean.class.php';
-//require_once '../../../lib/socialNetworkAPIs/SocialNetworkConnection.class.php';
 
+class LoginController extends AbstractController {
 
-class LoginController implements IRequestHandler {
-
-	private /*string*/ $error;
-	private /*string*/ $success;
-	//private /*SocialNetworkConnection*/ $socialNetworkConnection;
-
-
-	public function __construct() {
-		$this->error	= false;
-		$this->success	= false;
-		//$this->socialNetworkConnection = new SocialNetworkConnection();
-	}
-	
-	
 	/**
 	 * Create a session if the logins are correct
 	 * Returns nothing but populate $_SESSION['accessToken'] in case of success.
@@ -104,25 +87,5 @@ class LoginController implements IRequestHandler {
 		}
 		
 	}
-	
-	
-	
-	/**
-	 * Get the error
-	 * @return String
-	 */
-	public /*String*/ function getError(){
-		return $this->error;
-	}
-
-	/**
-	 * Get the success
-	 * @return String
-	 */
-	public /*String*/ function getSuccess(){
-		return $this->success;
-	}
-
-	
 }
 ?>

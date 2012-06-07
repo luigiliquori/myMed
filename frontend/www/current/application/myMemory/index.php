@@ -1,46 +1,108 @@
 <?php
-	// page compression
-	ob_start("ob_gzhandler");	
-	// for the magic_quotes
+
+	// ------------------------------------------------------------------------------------------------
+	// Init things
+	// ------------------------------------------------------------------------------------------------
+
+	// Page compression
+	ob_start("ob_gzhandler");
+		
+	// Debugging in Chrome
+	include('include/PhpConsole.php');
+	PhpConsole::start();
+	// For the magic_quotes
 	@set_magic_quotes_runtime(false);	
 	
-	// DEBUG
-	ini_set('display_errors', 1);
-	
+	// Start session
 	session_start();
 	
-	// GET ALL THE API KEYs AND ADDRESS
-	require_once dirname(__FILE__).'/../../../system/config.php';
+	// ------------------------------------------------------------------------------------------------
+	// Helpers
+	// ------------------------------------------------------------------------------------------------
 	
-	// IMPORT DICIONARY
-	require_once dirname(__FILE__).'/dictionary.php';
+	function add_path($path) {
+		if (!file_exists($path) OR (file_exists($path) && filetype($path) !== 'dir'))
+		{
+			trigger_error("Include path '{$path}' does not exists", E_USER_WARNING);
+			return;
+		}
+		set_include_path(get_include_path() . PATH_SEPARATOR . $path);
+	}
+	
+	// ---------------------------------------------------------------------
+	// 	 Constants
+	// ---------------------------------------------------------------------
 	
 	define('APPLICATION_NAME', "myMemory");
-	define('USER_CONNECTED', isset($_SESSION['user']));
+	define('APP_ROOT', __DIR__);
+	define('MYMED_ROOT', __DIR__ . '/../..');
 	
-	// CREATE THE HTML HEADER
-	require_once dirname(__FILE__).'/TemplateManager.class.php';
-	$template = new TemplateManager();
-	$template->getHeader();
+	// ------------------------------------------------------------------------------------------------
+	// Include
+	// ------------------------------------------------------------------------------------------------
 	
-	// IMPORTS ALL THE HANDLER
-	require_once dirname(__FILE__).'/controller/MyApplicationHandler.class.php';	$application = new MyApplicationHandler();
-	require_once dirname(__FILE__).'/controller/LoginHandler.class.php';			$login = new LoginHandler();
-	require_once dirname(__FILE__).'/controller/InscriptionHandler.class.php';		$inscription = new InscriptionHandler();
-	require_once dirname(__FILE__).'/controller/MenuHandler.class.php';				new MenuHandler();
+	// Set the paths
+	add_path(__DIR__ . '/include/');
+	add_path(__DIR__ . '/controllers/');
+	add_path(__DIR__ . '/views/');
+	add_path(__DIR__ . '/views/parts');
+	add_path(MYMED_ROOT . '/lib/dasp/beans');
+	add_path(MYMED_ROOT . '/lib/dasp/request');
 	
-	// IMPORTS ALL THE VIEWS	
-	require_once dirname(__FILE__).'/views/AbstractView.class.php';	
-	require_once dirname(__FILE__).'/views/home/MainView.class.php';
-	require_once dirname(__FILE__).'/views/home/ProfileView.class.php';			new ProfileView($login, $inscription);
-	require_once dirname(__FILE__).'/views/home/UpdateProfileView.class.php';	new UpdateProfileView();
-	require_once dirname(__FILE__).'/views/home/InscriptionView.class.php';		new InscriptionView();
-	require_once dirname(__FILE__).'/views/home/FindView.class.php';			new FindView($application);
-	require_once dirname(__FILE__).'/views/home/ResultView.class.php';			new ResultView($application);
-	require_once dirname(__FILE__).'/views/home/DetailView.class.php';			new DetailView($application);
-	require_once dirname(__FILE__).'/views/home/PublishView.class.php';			new PublishView($application);
+	// Get config
+	require_once MYMED_ROOT . '/system/config.php';
+	
+	// Set autoloadd
+	spl_autoload_register(function ($className) {
+		
+		foreach(array(".class.php", ".php") as $x) {
+			
+			foreach(explode(PATH_SEPARATOR, get_include_path()) as $path) {
+				$fname = $path . '/' . $className.$x;
+				if(@file_exists($fname)) {
+					require_once($fname);
+					return true;
+				}
+			}
+		}
+		error_log("Failed to find '$className' in " . get_include_path());
+		return false;
+	});
 
-	// CLOSE THE HTML PAGE
-	$template->getFooter();
+	
+	// ---------------------------------------------------------------------
+	// 	Main process
+	// ---------------------------------------------------------------------
+
+	// Get method, default is "main" 
+	$method = $_GET["method"];
+	if (empty($method)) {
+		$method = "main";
+	}
+	
+	// Search for a controller "/controllers/<Method>Controller.php"
+	$className = ucfirst($method) . "Controller";
+	$controllerPath = __DIR__ . '/controllers/'. $className . '.class.php';
+	
+	// Not mandatory
+	if (file_exists($controllerPath)){
+		
+		// Load it
+		require($controllerPath);
+		
+		// Create controller
+		$controller = new $className();
+			
+		
+	} else { // Backup to default controller 
+		$controller = new DefaultController();
+	}
+	
+	// Process the request
+	$res = $controller->handleRequest();
+	
+	// Search for the view "<Method>View.php"
+	// Mandatory
+	require(ucfirst($method) . "View.php");
 	
 ?>

@@ -1,18 +1,6 @@
 <?php 
-require_once '../../../lib/dasp/request/Request.class.php';
-require_once '../../../lib/dasp/beans/MUserBean.class.php';
-require_once '../../../lib/dasp/beans/MAuthenticationBean.class.php';
 
-class RegistrationController implements IRequestHandler {
-	
-	private /*string*/ $error;
-	private /*string*/ $success;
-	
-	public function __construct() {
-		$this->error	= false;
-		$this->success	= false;
-	}
-	
+class RegisterController extends AbstractController {
 	
 	/**
 	 * This will create a temporary Profile with the informations submited by POST and send a confirmation-email.
@@ -97,7 +85,6 @@ class RegistrationController implements IRequestHandler {
 	
 	
 	/**
-	 * 
 	 * Try to confirm the registration of a user by using the given accessToken 
 	 * @param String $accessToken
 	 */
@@ -122,16 +109,6 @@ class RegistrationController implements IRequestHandler {
 		}
 		
 	}
-	
-	
-	
-	
-	public /*String*/ function getError(){
-		return $this->error;
-	}
-	
-	public /*String*/ function getSuccess(){
-		return $this->success;
-	}
+
 }
 ?>

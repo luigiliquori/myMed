@@ -1,16 +1,6 @@
 <?php
-require_once '../../../lib/dasp/request/Request.class.php';
 
-class LogoutController implements IRequestHandler {
-
-	private /*string*/ $error;
-	private /*string*/ $success;
-
-
-	public function __construct() {
-		$this->error	= false;
-		$this->success	= false;
-	}
+class LogoutController extends AbstractController {
 
 	/**
 	 * Logout an User by destroying the frontend AND backend session
@@ -32,18 +22,10 @@ class LogoutController implements IRequestHandler {
 				
 			// DELETE FRONTEND SESSION
 			session_destroy();
-			if (isset($_SESSION['wrapper'])){
-				header("Refresh:0;url=".$_SESSION['wrapper']->getLogoutUrl());
-			}
-			header("Refresh:0;url=/application/" . APPLICATION_NAME);
+			
+			// Redirect to login
+			$this->redirectTo("showLogin");	
 	}
 
-	public /*String*/ function getError(){
-		return $this->error;
-	}
-
-	public /*String*/ function getSuccess(){
-		return $this->success;
-	}
 }
 ?>
