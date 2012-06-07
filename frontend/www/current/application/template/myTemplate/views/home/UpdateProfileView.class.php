@@ -37,7 +37,7 @@ class UpdateProfileView extends MainView {
 	 */
 	public /*String*/ function getContent() { ?>
 		<div data-role="content" style="padding: 10px;" data-theme="c">
-			<a href="#ProfileView" data-role="button" data-direction="reverse" data-inline="true"><?= $_SESSION['dictionary'][IT]["back"] ?></a><br /><br />
+			<a href="#ProfileView" data-role="button" data-direction="reverse" data-inline="true"><?= $_SESSION['dictionary'][LG]["back"] ?></a><br /><br />
 			
 			<!-- NOTIFICATION -->
 			<?php if(($error = $this->updateHandler->getError())) { ?>

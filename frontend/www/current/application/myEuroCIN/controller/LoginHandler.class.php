@@ -79,9 +79,9 @@ class LoginHandler implements IRequestHandler {
 					}
 				}
 
-			} else if(isset($_POST['singin'])) {
+			} else if(isset($_POST['signin'])) {
 
-				if($_POST['singin'] == "visitor") {
+				if($_POST['signin'] == "visitor") {
 					$login = "myEurocin_visitor@yopmail.com";
 					$pass = hash("sha512", "myEurocin_visitor");
 				} else {
@@ -105,10 +105,10 @@ class LoginHandler implements IRequestHandler {
 					$_SESSION['error'] = $responseObject->description;
 				} else {
 					$accessToken = $responseObject->data->accessToken;
-					echo "<form id='singinRedirectForm' name='singinRedirectForm' method='post'>";
+					echo "<form id='signinRedirectForm' name='signinRedirectForm' method='post'>";
 					echo "<input type='hidden' name='accessToken' value='" . $accessToken . "' />";
 					echo "</form>";
-					echo '<script type="text/javascript">document.singinRedirectForm.submit();</script>';
+					echo '<script type="text/javascript">document.signinRedirectForm.submit();</script>';
 				}
 
 			}
