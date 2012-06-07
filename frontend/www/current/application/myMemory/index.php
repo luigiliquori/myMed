@@ -10,6 +10,7 @@
 	// Debugging in Chrome
 	include('include/PhpConsole.php');
 	PhpConsole::start();
+	
 	// For the magic_quotes
 	@set_magic_quotes_runtime(false);	
 	
@@ -74,35 +75,22 @@
 	// 	Main process
 	// ---------------------------------------------------------------------
 
-	// Get method, default is "main" 
-	$method = $_GET["method"];
-	if (empty($method)) {
-		$method = "main";
+	// Get action, default is "main" 
+	$action = $_REQUEST["action"];
+	if (empty($action)) {
+		$action = "main";
 	}
 	
-	// Search for a controller "/controllers/<Method>Controller.php"
-	$className = ucfirst($method) . "Controller";
-	$controllerPath = __DIR__ . '/controllers/'. $className . '.class.php';
-	
-	// Not mandatory
-	if (file_exists($controllerPath)){
-		
-		// Load it
-		require($controllerPath);
-		
-		// Create controller
-		$controller = new $className();
-			
-		
-	} else { // Backup to default controller 
-		$controller = new DefaultController();
-	}
+	// Name/Path of view and controllers
+	$className = ucfirst($action) . "Controller";
+
+	// Create controller
+	$controller = new $className();
 	
 	// Process the request
-	$res = $controller->handleRequest();
+	$controller->handleRequest();
 	
-	// Search for the view "<Method>View.php"
-	// Mandatory
-	require(ucfirst($method) . "View.php");
+	// We should not reach that point (view already rendered by the controller) 
+	throw new Exception("${className}->handleRequest() should never return");
 	
 ?>

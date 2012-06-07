@@ -1,4 +1,3 @@
-<?php  $TITLE = "Toto" ?>
 <? include("header.php"); ?>
 <div>
 </div>

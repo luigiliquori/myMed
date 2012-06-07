@@ -122,6 +122,10 @@ class Request {
 //		debug($result);
 // 		echo '<script type="text/javascript">alert(\'' . $result . '\');</script>';
 
+		if ($result === false) {
+			throw new Exception("CURL Error : " . curl_error($curl));
+		}
+		
 		return $result;
 	}
 }

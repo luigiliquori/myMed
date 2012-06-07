@@ -3,7 +3,7 @@
 
 <head> 
 
-	<title><?= $TITLE ?></title> 
+	<title><?= empty($TITLE) ? APPLICATION_NAME : $TITLE ?></title> 
 			
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
@@ -19,6 +19,7 @@
 	
 	<!-- APP JS -->
 	<script src="../../system/javascript/common.js"></script>
+	<script src="javascript/app.js"></script>
 	
 	<!-- APP css -->
 	<link href="../../system/css/style.css" rel="stylesheet" />
@@ -39,3 +40,9 @@
 	</head>
 		
 <body>
+<? if (!empty($this->error)): ?>
+<div class="ui-bar ui-bar-e">
+	<h3>Error</h3>
+	<p><?= $this->error ?></p>
+</div>
+<? endif ?>

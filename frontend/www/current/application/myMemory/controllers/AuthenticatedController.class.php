@@ -16,12 +16,12 @@ class AuthenticatedController extends AbstractController {
 	 * @see IRequestHandler::handleRequest()
 	 */
 	public /*String*/ function handleRequest() {
-
+		
 		// Check for user in session
 		if( !isset($_SESSION['user']) )
 		{
 			// Redirect to "showLogin" view 
-			$this->redirectTo("showToto");
+			$this->redirectTo("login");
 		}
 	}
 }
