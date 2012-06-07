@@ -73,12 +73,12 @@ class Login extends AbstractTemplate {
 			<?php } ?>
 
 			<br />
-			<form action="#" method="post" name="singinForm" id="singinForm">
-				<input type="hidden" name="singin" value="1" />
+			<form action="#" method="post" name="signinForm" id="signinForm">
+				<input type="hidden" name="signin" value="1" />
 			    <input type="text" name="login" id="login" value="email"  data-theme="c"/><br />
 			    <input type="password" name="password" id="password" value="Mot de passe"  data-theme="c"/><br />
  			    <a href="#about">A propos</a><br />
- 			    <a href="#" onclick="document.singinForm.submit()" data-role="button" data-inline="true" data-theme="b">Connexion</a> 
+ 			    <a href="#" onclick="document.signinForm.submit()" data-role="button" data-inline="true" data-theme="b">Connexion</a> 
 			</form>
 			
 			<div class="innerContent" style="position: relative; top:50px; color: black;">

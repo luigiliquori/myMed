@@ -48,9 +48,11 @@ class StartInteraction extends Request {
 		parent::addArgument("start", $_POST['start']);
 		parent::addArgument("end", $_POST['end']);
 		parent::addArgument("predicate", $_POST['predicate']);
+		
 		if(isset($_POST['snooze'])){
 			parent::addArgument("snooze", $_POST['snooze']);
 		}
+		
 		// in case of "simple interaction"
 		if(isset($_POST['feedback'])){
 			parent::addArgument("feedback", $_POST['feedback']);
