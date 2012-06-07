@@ -27,9 +27,9 @@ div.ui-slider {
 	width: 150px;
 }
 
-input.ui-slider-input {
+/*input.ui-slider-input {
 	display: none;
-}
+}*/
 
 .ui-controlgroup-last {
 	vertical-align: top;

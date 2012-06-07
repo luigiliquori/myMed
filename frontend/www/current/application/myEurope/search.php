@@ -47,10 +47,12 @@
 					if(!isset($_SESSION['friends'])){
 						$_SESSION['friends'] = array();
 					}
+				} else {
+					header("Location: ./authenticate");
 				}
 		
 			} else{
-				//header("Location: ./search");
+				header("Location: ./authenticate");
 			}
 		} else{
 			header("Location: ./option?please-logout-first");
@@ -146,10 +148,10 @@
 							<li><a href="" onclick="$('#detailForm<?= $i ?>').submit();">
 								<?= $preds->nom ?>, <?= $preds->lib ?>, <?= $preds->cout ?>, <?= $preds->montant ?>, 
 								<?= $preds->date ?>
-								<form action="detail" method="post" id="detailForm<?= $i ?>">
+								<form action="detail" id="detailForm<?= $i ?>">
 									<input name="application" value='<?= $application ?>' type="hidden" />
-										<input name="predicate" value='<?= $value->predicate ?>' type="hidden" />
-										<input name="user" value='<?= $value->publisherID ?>' type="hidden" />
+									<input name="predicate" value="<?= urlencode($value->predicate) ?>" type="hidden" />
+									<input name="user" value='<?= $value->publisherID ?>' type="hidden" />
 								</form>
 								</a>
 							</li>
