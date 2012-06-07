@@ -94,7 +94,7 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
                     
                     
                     message.addData(JSON_REPUTATION, String.valueOf(reputation.getReputation()));
-                    message.addDataObject(JSON_REPUTATION, String.valueOf(reputation.getReputation()));
+                    message.addDataObject(JSON_REPUTATION, reputation);
                     break;
                 case DELETE :
                     break;

@@ -124,13 +124,18 @@
 								<label for="textinputp5"> Echéance: </label> <input id="textinputp5"  name="date" placeholder="" value="" type="date" />
 							</fieldset>
 						</div>
+						<div data-role="fieldcontain">
+							<fieldset data-role="controlgroup">
+								<label for="textinputp6"> Tags d'indexation de ce texte, séparés par un espaces: </label> <input id="textinputp6"  name="q" placeholder="" value="" type="text" />
+							</fieldset>
+						</div>
 						<hr>
 						<div data-role="fieldcontain">
 							<fieldset data-role="controlgroup">
-								<label for="textinputp6"> Description: </label> <textarea id="textinputp6"  name="desc" placeholder="" value=""></textarea>
+								<label for="textinputp7"> Description: </label> <textarea id="textinputp7"  name="desc" placeholder="" value=""></textarea>
 							</fieldset>
 						</div>
-						<input type="submit" data-theme="g" value="Publier"/>
+						<input type="submit" data-theme="g" value="Soumettre"/>
 					</form>
 					<div class="push"></div>
 				</div>

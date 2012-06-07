@@ -116,7 +116,7 @@
 	$reputation = 50;
 	if(isset($responseObject->dataObject->reputation)){
 		$i=0;
-		$reputation = $responseObject->dataObject->reputation * 100;
+		$reputation = round($responseObject->dataObject->reputation * 100);
 	}
 
 	
@@ -179,7 +179,7 @@
 					<form id="StartInteractionForm" action="#" method="post" name="StartInteractionForm" id="StartInteractionForm" enctype="multipart/form-data">
 						<input type="hidden" name="application" value="<?= $_REQUEST['application'] ?>" />
 						<input type="hidden" name="producer" value="<?= $_REQUEST['user'] ?>" />
-						<input type="hidden" name="consumer" value="<?= $_SESSION['user']->id ?>" />
+						<input type="hidden" name="consumer" value="hib" />
 						<input type="hidden" name="start" value="<?= time() ?>" />
 						<input type="hidden" name="end" value="<?= time() ?>" />
 						<input type="hidden" name="predicate" value="<?= $_REQUEST['predicate'] ?>" />
