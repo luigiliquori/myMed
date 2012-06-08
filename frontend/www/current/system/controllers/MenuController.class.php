@@ -1,6 +1,6 @@
 <?php
-require_once 'lib/dasp/request/Request.class.php';
-require_once 'lib/dasp/request/IRequestHandler.php';
+require_once MYMED_ROOT. 'lib/dasp/request/Request.class.php';
+require_once MYMED_ROOT. 'lib/dasp/request/IRequestHandler.php';
 
 /**
  *
@@ -8,7 +8,7 @@ require_once 'lib/dasp/request/IRequestHandler.php';
  * @author lvanni
  *
  */
-class MenuHandler implements IRequestHandler {
+class MenuController implements IRequestHandler {
 
 	/* --------------------------------------------------------- */
 	/* Attributes */

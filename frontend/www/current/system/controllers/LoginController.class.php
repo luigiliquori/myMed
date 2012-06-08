@@ -1,20 +1,17 @@
-<?php require_once 'lib/dasp/request/IRequestHandler.php'; ?>
-<?php require_once 'lib/dasp/request/Request.class.php'; ?>
-<?php require_once 'lib/dasp/beans/MUserBean.class.php'; ?>
-<?php require_once 'lib/dasp/beans/MAuthenticationBean.class.php'; ?>
+<?php 
+require_once MYMED_ROOT. 'lib/dasp/request/IRequestHandler.php';
+require_once MYMED_ROOT. 'lib/dasp/request/Request.class.php'; 
+require_once MYMED_ROOT. 'lib/dasp/beans/MUserBean.class.php';
+require_once MYMED_ROOT. 'lib/dasp/beans/MAuthenticationBean.class.php'; 
+require_once MYMED_ROOT. 'lib/socialNetworkAPIs/SocialNetworkConnection.class.php';
 
-<?php require_once 'lib/socialNetworkAPIs/SocialNetworkConnection.class.php'; ?>
-
-
-
-<?php
 /**
  *
  * Enter description here ...
  * @author lvanni
  *
  */
-class LoginHandler implements IRequestHandler {
+class LoginController implements IRequestHandler {
 
 	private /*string*/ $error;
 	private /*string*/ $success;

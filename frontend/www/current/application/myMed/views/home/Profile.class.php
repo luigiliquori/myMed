@@ -1,5 +1,8 @@
 <?php
 
+require_once MYMED_ROOT . 'system/controllers/MenuController.class.php';
+require_once MYMED_ROOT . 'system/controllers/UpdateProfileController.class.php';
+
 /**
  * 
  * Represent the template
@@ -16,6 +19,10 @@ class Profile extends Home {
 	 */
 	public function __construct() {
 		parent::__construct("profile");
+		$menuController = new MenuController();
+		$menuController->handleRequest();
+		$updateController = new UpdateProfileController();
+		$updateController->handleRequest();
 	}
 	
 	/* --------------------------------------------------------- */
@@ -27,6 +34,11 @@ class Profile extends Home {
 	public /*String*/ function getContent() { ?>
 		<!-- CONTENT -->
 		<div class="content" style="position: relative; left: 5%; width: 90%;">
+		
+			<!-- Disconnect -->
+			<form action="#" method="post" name="disconnectForm" id="disconnectForm">
+			<input type="hidden" name="disconnect" value="1" /></form>
+		
 			<!-- Profile -->
 			<div>
 				<h3>Profile</h3>
