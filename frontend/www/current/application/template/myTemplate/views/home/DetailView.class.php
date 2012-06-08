@@ -138,10 +138,10 @@ class DetailView extends MainView {
 			    	$responsejSon = $request->send();
 			    	$responseObject = json_decode($responsejSon);
 			    	if($responseObject->status == 200) {
-				    	foreach(json_decode($responseObject->data->results) as $controller) { ?>
-				    		<p><?= $controller->data ?></p>
-				    		<p><?= $controller->publisherName ?></p>
-				    		<p><?= $controller->begin ?></p>
+				    	foreach(json_decode($responseObject->data->results) as $comment) { ?>
+				    		<p><?= $comment->data ?></p>
+				    		<p><?= $comment->publisherName ?></p>
+				    		<p><?= $comment->begin ?></p>
 				    		<br /><br />
 				    	<?php } ?>
 					<?php } else { ?>
