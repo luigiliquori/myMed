@@ -46,6 +46,12 @@ input.ui-input-text, textarea.ui-input-text {
 	width: 98%;
 }
 
+#headerSearch .ui-slider-switch {
+	left: 5px;
+	position: absolute;
+	width: 150px;
+}
+
 
 /* Red button theme for JQuery Mobile
 * - Use data-theme="r" for red versions of the default JQuery Mobile Buttons.

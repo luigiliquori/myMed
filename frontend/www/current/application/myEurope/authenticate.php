@@ -1,26 +1,62 @@
-<!DOCTYPE html>
-<html>
-
 <?php
 
 	//ob_start("ob_gzhandler");
 	require_once 'Template.class.php';
 	$template = new Template();
+	$msg = ""; //feedback text
+	
+	if (count($_POST)) {
+		require_once '../../lib/dasp/request/Request.class.php';
+		require_once '../../system/config.php';
+		session_start();
+		
+		if(!isset($_SESSION['user'])) {
+			$request = new Request("AuthenticationRequestHandler", READ);
+			$request->addArgument("login", $_REQUEST["login"]);
+			$request->addArgument("password", hash('sha512', $_REQUEST["password"]));
+	
+			$responsejSon = $request->send();
+			$responseObject = json_decode($responsejSon);
+			if($responseObject->status == 200) {
+				$_SESSION['accessToken'] = $responseObject->dataObject->accessToken;
+				//$_SESSION['user'] = $responseObject->dataObject->user;
+				$request = new Request("SessionRequestHandler", READ);
+				$request->addArgument("socialNetwork", "myMed");
+				$responsejSon = $request->send();
+				$responseObject = json_decode($responsejSon);
+				if($responseObject->status == 200) {
+					$_SESSION['user'] = $responseObject->dataObject->user;
+					if(!isset($_SESSION['friends'])){
+						$_SESSION['friends'] = array();
+					}
+					header("Location: ./");
+				} else {
+					$msg = $responseObject->description;
+				}
+	
+			} else{
+				$msg = $responseObject->description;
+			}
+		} else{
+			header("Location: ./option?please-logout-first");
+		}
+	}
 	
 ?>
+
+<!DOCTYPE html>
+<html>
 	<head>
 		<?= $template->head(); ?>
 	</head>
-	<body>
 		<div data-role="page" id="Authenticate">
 			<div class="wrapper">
 				<div data-role="header" data-theme="b">
-					<a href="search" data-icon="arrow-l" data-transition="slide" data-direction="reverse"> Retour </a>
 					<h3>myEurope - login</h3>
 				</div>
 				<div data-role="content">
-					<?= ($responseObject->status==200)?"<div style='color:lightGreen;text-align:center;'>Contenu publié</div>":"" ?>
-					<form action="search" method="post" id="loginForm">
+					<div style='color:Red;text-align:center;'><?= $msg ?></div>
+					<form action="#" method="post" id="loginForm">
 						<div data-role="fieldcontain">
 							<fieldset data-role="controlgroup">
 								<label for="textinputl1"> Login: </label> <input id="textinputl1"  name="login" placeholder="" value="" type="text" />

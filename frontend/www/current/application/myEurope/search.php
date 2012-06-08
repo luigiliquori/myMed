@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html>
-
 <?php
 
 	/*
@@ -26,74 +23,30 @@
 	session_start();
 	
 	$application = isset($_REQUEST['application'])?$_REQUEST['application']:"myEurope";
-		
-	if (count($_POST)) {
-		if(!isset($_SESSION['user'])) {
-			$request = new Request("AuthenticationRequestHandler", READ);
-			$request->addArgument("login", $_REQUEST["login"]);
-			$request->addArgument("password", hash('sha512', $_REQUEST["password"]));
-		
-			$responsejSon = $request->send();
-			$responseObject = json_decode($responsejSon);
-			if($responseObject->status == 200) {
-				$_SESSION['accessToken'] = $responseObject->dataObject->accessToken;
-				//$_SESSION['user'] = $responseObject->dataObject->user;
-				$request = new Request("SessionRequestHandler", READ);
-				$request->addArgument("socialNetwork", "myMed");
-				$responsejSon = $request->send();
-				$session = json_decode($responsejSon);
-				if($session->status == 200) {
-					$_SESSION['user'] = $session->dataObject->user;
-					if(!isset($_SESSION['friends'])){
-						$_SESSION['friends'] = array();
-					}
-					header("Location: .");
-				} else {
-					header("Location: ./authenticate");
-				}
-		
-			} else{
-				header("Location: ./authenticate");
-			}
-		} else{
-			header("Location: ./option?please-logout-first");
-		}
-	}
 	
-	$sub = false;
-	
-	//get all results
-
-	/*ksort($_GET); // important to match a possible predicate, keys must be ordered
+	$res = null;
 	$predicate = "";
-	if (count($_GET)) {
-		foreach( $_GET as $i => $value ){
-			if ( $i!='application' && $i!='method' && $i[0]!='_' && $value!=''){
-				$predicate .= $i . $value;
-			}
+	if (isset($_GET['q'])){
+		$tags = preg_split('/[+]/', $_GET['q'], NULL, PREG_SPLIT_NO_EMPTY);
+		$p = array_unique(array_map('strtolower', $tags));
+		sort($p); //important
+		foreach( $p as $v ){ //do this for FindRequestHandler compatibility...
+			$predicate .= $v;
 		}
-		$request = new Request("SubscribeRequestHandler", CREATE);
+		
+		$request = new Request("FindRequestHandler", READ);
 		$request->addArgument("application", $application);
 		$request->addArgument("predicate", $predicate);
-		$request->addArgument("user", json_encode($_SESSION['user']));
 		$responsejSon = $request->send();
-		$sub = true;
-	}*/
-	
-	$tags = explode("+", $_GET['q']);
-	sort($tags); //important
-	$predicate = "";
-	foreach( $tags as $v ){ //do this for FindRequestHandler compatibility...
-		$predicate .= strtolower($v);
+		$res = json_decode($responsejSon);
+		
 	}
 
-	$request = new Request("FindRequestHandler", READ);
-	$request->addArgument("application", $application);
-	$request->addArgument("predicate", $predicate);
-	$responsejSon = $request->send();
-	$res = json_decode($responsejSon);
 	
 ?>
+
+<!DOCTYPE html>
+<html>
 	<head>
 		<?= $template->head(); ?>
 	</head>
@@ -101,14 +54,17 @@
 	<body>
 		<div data-role="page" id="Search">
 			<div class="wrapper">
-				<div data-role="header" data-theme="b">
-					<a href="about" data-theme="b" type="button" data-icon="info" data-transition="slide" data-direction="reverse">about</a>
+				<div data-role="header" data-theme="b" id="headerSearch">
+					<select data-theme="e" class="ui-btn-right" onchange="$.get('ajaxsubscribe.php', { code: $(this).val(), application: '<?= $application ?>' ,predicate: '<?= urlencode($predicate) ?>' } );" style="position: absolute;left: 5px;" name="slider" id="flip-a" data-role="slider" data-mini="true">
+						<option value="3">Non abonné</option>
+						<option value="0">Abonné</option>
+					</select>
 					<h2>myEurope</h2>
 					<a id="opt" href=<?= $_SESSION['user']?"option":"authenticate" ?> class="ui-btn-right" data-transition="slide"><?= $_SESSION['user']?$_SESSION['user']->name:"Connexion" ?></a>
 				</div>
 				<div data-role="content">	
-					<form action="search" id="subscribeForm">
-						<input name="q" placeholder="chercher un partenaire par mot clés" value="" data-type="search" style="width: 80%;"/>
+					<form action="search" id="subscribeForm" data-ajax="false">
+						<input id="searchBar" name="q" placeholder="chercher un partenaire par mot clés" data-type="search" style="width: 80%;"/>
 					</form>
 					<br />
 					<?php 	

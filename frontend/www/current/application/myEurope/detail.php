@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html>
-
 <?php
 
 	/*
@@ -66,6 +63,10 @@
 		$responseObject = json_decode($responsejSon);
 		if($responseObject->status == 200) {
 			$msg = "vote pris en compte";
+		} else if($responseObject->status == 409) {
+			$msg = "déjà voté";
+		} else if($responseObject->status == 500) {
+			$msg = "Vous ne pouvez voter pour vous-même";
 		}
 	}
 	
@@ -99,12 +100,17 @@
 	$responseObject = json_decode($responsejSon);
 	$reputation = 50;
 	if(isset($responseObject->dataObject->reputation)){
-		$i=0;
-		$reputation = round($responseObject->dataObject->reputation * 100);
+		$reputation = round($responseObject->dataObject->reputation->reputation * 100);
+		$nbOfRatings = $responseObject->dataObject->reputation->noOfRatings;
+		$likes = $responseObject->dataObject->reputation->reputation * $nbOfRatings;
+		$dislikes = $nbOfRatings - $likes;
 	}
 
 	
 ?>
+
+<!DOCTYPE html>
+<html>
 	<head>
 		<?= $template->head(); ?>
 	</head>
@@ -142,25 +148,32 @@
 					<div style="float:right;text-align:center;">
 						<img style="text-align: center; max-height: 100px;opacity: 0.6;" src="<?= $profPic ?>" /><br />
 						<b>Réputation</b>: 
-						<a data-role="button" data-icon="minus" data-iconpos="notext" data-inline="true" onclick="$('#feedback').val('0'); document.StartInteractionForm.submit();"></a>
+						<div style="display: inline-block;vertical-align: top;margin-top:-12px">
+							<a data-theme="r" data-role="button" data-icon="minus" data-iconpos="notext" data-inline="true" onclick="$('#feedback').val('0'); document.StartInteractionForm.submit();"></a>
+							<br />
+							<?= $dislikes ?>
+						</div>
 						<span id="author-rep"><?= $reputation ?>%</span>
-						<a data-role="button" data-icon="plus" data-iconpos="notext" data-inline="true" onclick="$('#feedback').val('1'); document.StartInteractionForm.submit();"></a>
+						<div style="display: inline-block;vertical-align: top;margin-top:-12px">
+							<a data-theme="g" data-role="button" data-icon="plus" data-iconpos="notext" data-inline="true" onclick="$('#feedback').val('1'); document.StartInteractionForm.submit();"></a>
+							<br />
+							<?= $likes ?>
+						</div>
 		    			
 					</div>
 					
 					<form id="StartInteractionForm" action="#" method="post" name="StartInteractionForm" id="StartInteractionForm" enctype="multipart/form-data">
 						<input type="hidden" name="application" value="<?= $_REQUEST['application'] ?>" />
 						<input type="hidden" name="producer" value="<?= $_REQUEST['user'] ?>" />
-						<input type="hidden" name="consumer" value="hib" />
+						<input type="hidden" name="consumer" value="<?= $_SESSION['user']->id ?>" />
 						<input type="hidden" name="start" value="<?= time() ?>" />
 						<input type="hidden" name="end" value="<?= time() ?>" />
 						<input type="hidden" name="predicate" value="<?= $_REQUEST['predicate'] ?>" />
 						<input type="hidden" name="feedback" value="" id="feedback"/>
 					</form>
 					
-					<b>Auteur</b>: <span style="left-margin:5px; color: #0060AA; font-size:160%;"><?= $profile->name ?></span>
-					<br />
-					<br /><br /><br />
+					<b>Auteur</b>: <a style="left-margin:10px; color: #0060AA; font-size:160%;" href="mailto:<?= $profile->email ?>"><?= $profile->name ?></a>
+					<br /><br />
 					<b>Nom de l'organisme bénéficiaire:</b>&nbsp; <span style="left-margin:5px; color: #0060AA; font-size:140%;"><?= $preds->nom ?></span><br />
 					<b>Libellé du projet:</b>&nbsp; <span style="left-margin:5px; color: #0060AA; font-size:140%;"><?= $preds->lib ?></span><br />
 					<br />

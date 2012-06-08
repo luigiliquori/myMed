@@ -1,6 +1,10 @@
 
 var map, marker, infowindow;
 
+var isSub = 3;
+
+var application="myEurope", predicate="";
+
 $(function() {  
 
 	/*map = new google.maps.Map(document.getElementById("map_canvas"), {
@@ -39,7 +43,37 @@ $(function() {
 			marker.setPosition(latlng);
 		});
 	});*/
+	
+	
+	
 });
+
+$("#Search").live("pageshow", function() {
+	var queryString = decodeURIComponent(location.search.substring(1));
+	var predicateString = decodeURIComponent(location.search.substring(1)).toLowerCase(); 
+	var key = queryString.split('&')[0].split('=');
+	var keypred = predicateString.split('&')[0].split('=');
+	var tags=[];
+	if (key.length > 1){ //q should be the only query key
+	    tags = keypred[1].split(/\+/g);
+	    $('#searchBar').val(key[1].replace(/\+/g, " "));
+	    tags = array_unique(tags).sort();
+	}
+	isSub = 3;
+	$.get('ajaxsubscribe.php', { 
+		code: 1, 
+		application: application ,
+		predicate: tags.join() 
+	}, function(data){
+		var res = JSON.parse(data);
+		if (res.sub)
+			isSub = 0;
+		$('#flip-a').val(isSub).slider('refresh');
+		console.log("__ "+isSub+" "+tags);
+	});
+	//console.log("__ "+isSub+" "+tags);
+});
+
 
 function displayPosition(position) {
 
@@ -68,7 +102,39 @@ function displayError(error) {
 
 
 function showComment() {
-	$('#CommentButton').fadeOut('slow');
+	$('#CommentButton').fadeOut('fast');
     $('#Comments').fadeIn('slow');
     $('#Commenter').fadeIn('slow');
 }
+
+function array_unique (inputArr) {
+	//credits php.js
+	
+    var key = '',
+        tmp_arr2 = [],
+        val = '';
+
+    var __array_search = function (needle, haystack) {
+        var fkey = '';
+        for (fkey in haystack) {
+            if (haystack.hasOwnProperty(fkey)) {
+                if ((haystack[fkey] + '') === (needle + '')) {
+                    return fkey;
+                }
+            }
+        }
+        return false;
+    };
+
+    for (key in inputArr) {
+        if (inputArr.hasOwnProperty(key)) {
+            val = inputArr[key];
+            if (false === __array_search(val, tmp_arr2) && val!="") {
+                tmp_arr2[key] = val;
+            }
+        }
+    }
+
+    return tmp_arr2;
+}
+

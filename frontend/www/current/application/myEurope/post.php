@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html>
-
 <?php
 
 	/*
@@ -24,12 +21,14 @@
 	
 	if (count($_POST)){ // to publish something
 		
-		$tags = preg_split('/ /', $_POST['q'], NULL, PREG_SPLIT_NO_EMPTY);
+		$tags = preg_split('/[ +]/', $_POST['q'], NULL, PREG_SPLIT_NO_EMPTY);
 		array_push($tags, '~'); //let's add this common tag for all texts, to easily retrieve all texts if necessary
-		sort($tags); //important
+		$p = array_unique(array_map('strtolower', $tags));
+		sort($p); //important
+		
 		$predicates=array();
-		foreach( $tags as $v ){ //do this for PubRequestHandler compatibility...
-			array_push($predicates, array("key"=>strtolower($v), "value"=>""));
+		foreach( $p as $v ){ //do this for PubRequestHandler compatibility...
+			array_push($predicates, array("key"=>$v, "value"=>""));
 		}
 		
 		$textdesc = array(
@@ -66,6 +65,8 @@
 	
 ?>
 
+<!DOCTYPE html>
+<html>
 	<head>
 		<?= $template->head(); ?>
 	</head>

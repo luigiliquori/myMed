@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html>
-
 <?php
 
 	/*
@@ -130,11 +127,10 @@
 		$request->addArgument("socialNetwork", $_SESSION['user']->socialNetworkName);
 	
 		session_destroy();
-	
 		$responsejSon = $request->send();
 		$responseObject = json_decode($responsejSon);
 		if($responseObject->status == 200) {
-			header("Location: ./");
+			header("Location: http://".$_SERVER['HTTP_HOST']); // go back to mymed
 		}
 	}
 	
@@ -154,6 +150,9 @@
 	}
 
 ?>
+
+<!DOCTYPE html>
+<html>
 
 	<head>
 		<?= $template->head(); ?>
@@ -191,13 +190,13 @@
 							<br /><br />
 							<a href="update" type="button" data-transition="flip" data-mini="true" data-icon="grid"
 							style="width: 200px; margin-right: auto; margin-left: auto;">Modifier</a>
-							<form action="option?logout" id="deconnectForm">
+							<form action="option" id="deconnectForm" data-ajax="false">
+								<input name="logout" type="hidden" />
 							</form>
 							<a href="" type="button" data-mini="true" data-icon="delete"
 							style="width: 200px; margin-right: auto; margin-left: auto;" onclick="$('#deconnectForm').submit();">Déconnecter</a>
 						</div>
-						​
-	
+
 					<?php 
 					}
 				?>

@@ -162,7 +162,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
             for (final MDataBean item : dataList) {
                 args.put("key", item.getKey().getBytes(ENCODING));
                 args.put("value", item.getValue().getBytes(ENCODING));
-                //args.put("ontologyID", item.getOntologyID().getBytes(ENCODING));
+                if (item.getOntologyID()!=null) args.put("ontologyID", item.getOntologyID().getBytes(ENCODING));
                 storageManager.insertSuperSlice(SC_DATA_LIST, application + subPredicate + publisher.getId(),
                                 item.getKey(), args);
                 args.clear();

@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html>
-
 <?php
 
 	//ob_start("ob_gzhandler");
@@ -52,6 +49,8 @@
 	}
 ?>
 
+<!DOCTYPE html>
+<html>
 	<head>
 		<?= $template->head(); ?>
 	</head>
