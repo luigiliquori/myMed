@@ -8,6 +8,8 @@ class LogoutController extends AbstractController {
 	 */
 	public /*void*/ function handleRequest() {
 	
+			debug("Logout !");
+		
 			// DELETE BACKEND SESSION
 			$request = new Request("SessionRequestHandler", DELETE);
 			$request->addArgument("accessToken", $_SESSION['user']->session);
@@ -24,7 +26,7 @@ class LogoutController extends AbstractController {
 			session_destroy();
 			
 			// Redirect to login
-			$this->redirectTo("showLogin");	
+			$this->redirectTo("login");	
 	}
 
 }

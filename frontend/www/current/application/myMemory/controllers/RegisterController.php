@@ -8,10 +8,8 @@ class RegisterController extends AbstractController {
 	 */
 	public /*String*/ function handleRequest() { 
 		
-		/*
-		 * First stage of registration : we receive a POST with all the informations of the user
-		 */
-		if(isset($_POST['inscription'])) {
+		// First stage of registration : we receive a POST with all the informations of the user
+		if ($_SERVER['REQUEST_METHOD'] == POST) {
 			
 			// Preconditions
 			if($_POST['password'] != $_POST['confirm']){
@@ -65,21 +63,20 @@ class RegisterController extends AbstractController {
 				$_SESSION['error'] = $responseObject->description;
 			} else {
 				$this->success = "Félicitation, Un email de confirmation vient de vous être envoyé!";
+				
 			}
+			
+			$this->renderView("login");
 		}
 		/*
 		 * Case where the user click the link on the e-mail to confirm registration
 		 */
-		else if ( isset($_GET['registration']) AND isset($_GET['accessToken']) )
-		{
+		else if ( isset($_GET['registration']) AND isset($_GET['accessToken']) ) {
 			// force to delete existing accessToken
 			unset($_SESSION['accessToken']);
 			
 			$this->confirmRegistration($_GET['accessToken']);
 		 
-		 /*
-		 else if (isset($_GET['inscription'])) {
-			$this->success = "Votre compte à bien été validé!";*/
 		} 
 	}
 	
@@ -103,10 +100,11 @@ class RegisterController extends AbstractController {
 		
 		// In case of errors...
 		if($responseObject->status != 200) {
-			$_SESSION['error'] = $responseObject->description;
+			$this->error = $responseObject->description;
 		} else {
 			$this->success = "Votre compte à bien été validé!";
 		}
+		$this->renderView("login");
 		
 	}
 
