@@ -44,7 +44,7 @@
 			array("key"=>"data", "value"=>json_encode($textdesc)),
 			array("key"=>"deleteme", "value"=>json_encode($predicates))
 		);
-		//$data = array_merge($predicates, $data);	
+		
 		$request = new Request("PublishRequestHandler", CREATE);
 		$request->addArgument("application", $_POST['application']);
 		$request->addArgument("predicate", json_encode($predicates));

@@ -31,8 +31,12 @@
 			array("key"=>"commentOn", "value"=>$_POST['commentOn']),
 			array("key"=>"end", "value"=>$_POST['end']),
 		);
-		$data = array(array("key"=>"data", "value"=>$_POST['data']));
-		//$data = array_merge($predicates, $data);
+		$data = array(
+			array("key"=>"data", "value"=>$_POST['data']),
+			array("key"=>"end", "value"=>$_POST['end']),
+			array("key"=>"deleteme", "value"=>json_encode($predicates))
+		);
+		
 		$request = new Request("PublishRequestHandler", CREATE);
 		$request->addArgument("application", $_POST['application']);
 		$request->addArgument("predicate", json_encode($predicates));
@@ -239,7 +243,6 @@
 									<input name="end" value='<?= date("Y-m-d") . "T" . date("H:i:s") ?>' type="hidden" />
 									<textarea name="data" id="textarea1" placeholder="" style="height: 22px;"></textarea>
 									<a href="" type="button" data-inline="true" data-mini=true data-iconpos="right" data-icon="check" onclick="$('#commentForm').submit();">Commenter</a>
-									
 								</form>
 							</fieldset>
 						</div>
