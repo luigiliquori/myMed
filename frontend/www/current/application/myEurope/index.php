@@ -25,16 +25,13 @@
 			<div class="wrapper">
 				<div data-role="header" data-theme="b">
 					<h2></h2>
-					<a href="about" data-theme="b" type="button" data-icon="info" data-transition="slide" data-direction="reverse">about</a>
-					<a href="post" type="button" data-icon="gear" class="ui-btn-right" style="position: absolute;left: 30%;right: 30%;width:20%;">Soumettre</a>
-					<a href=<?= $_SESSION['user']?"option":"authenticate" ?> data-icon="arrow-r" class="ui-btn-right" data-transition="slide"><?= $_SESSION['user']?$_SESSION['user']->name:"Connexion" ?></a>
+					<a href="about" data-theme="b" type="button" data-icon="info" data-transition="slide" data-direction="reverse" >about</a>
+					<a href="post" type="button" class="ui-btn-right" data-theme="d" style="position: absolute;left: 30%;width:30%;">Insérer</a>
+					<a id="opt" href=<?= $_SESSION['user']?"option":"authenticate" ?> class="ui-btn-right" data-transition="slide"><?= $_SESSION['user']?$_SESSION['user']->name:"Connexion" ?></a>
 				</div>
 				<div data-role="content">	
-					
-					
 					<div style="margin-top:3em; margin-bottom:auto;">
-					<h1 style="color:DarkBlue;text-align: center;">myEurope</h1>
-					<br />
+					<h1 style="color:DarkBlue;text-align: center;color: #0060AA;font-size:350%;">myEurope</h1>
 					<form action="search" id="subscribeForm">
 						<input name="q" placeholder="chercher un partenaire par mot clés" value="" data-type="search" style="width: 80%;"/>
 					</form>

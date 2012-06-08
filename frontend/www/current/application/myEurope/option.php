@@ -165,7 +165,7 @@
 		<div data-role="page" id="Home">
 			<div class="wrapper">
 				<div data-role="header" data-theme="b">
-					<a href="search" data-icon="arrow-l" data-transition="slide" data-direction="reverse"> Retour </a>
+					<a href="./" data-icon="home" data-iconpos="notext" data-transition="slide" data-direction="reverse"> Accueil </a>
 					<h2>myEurope - profil</h2>
 				</div>
 				<div data-role="content">
@@ -179,15 +179,15 @@
 							$profPic = ($profile->profilePicture) ? $profile->profilePicture : "http://graph.facebook.com//picture?type=large";
 						?>
 						<img style="float:right;text-align: center; max-height: 220px;opacity: 0.2;" src="<?= $profPic ?>" />
-						<div style="width: 40%;opacity: 1; position:absolute;top:30%;left:30%;z-index:1">
+						<div style="width: 60%;opacity: 1; position:absolute;top:30%;left:20%;z-index:1">
 							 nom:
-							<span style="left-margin:5px; color:DarkBlue; font-size:120%;"><?= $profile->firstName ?></span>
+							<span style="left-margin:5px; color: #0060AA; font-size:120%;"><?= $profile->firstName ?></span>
 							<br /> prénom:
-							<span style="left-margin:5px; color:DarkBlue; font-size:120%;"><?= $profile->lastName ?></span>
+							<span style="left-margin:5px; color: #0060AA; font-size:120%;"><?= $profile->lastName ?></span>
 							<br /> email:
-							<span style="left-margin:5px; color:DarkBlue; font-size:120%;"><?= $profile->email ?></span>
+							<span style="left-margin:5px; color: #0060AA; font-size:120%;"><?= $profile->email ?></span>
 							<br /> date de naissance:
-							<span style="left-margin:5px; color:DarkBlue; font-size:120%;"><?= $profile->birthday ?></span>
+							<span style="left-margin:5px; color: #0060AA; font-size:120%;"><?= $profile->birthday ?></span>
 							<br /><br />
 							<a href="update" type="button" data-transition="flip" data-mini="true" data-icon="grid"
 							style="width: 200px; margin-right: auto; margin-left: auto;">Modifier</a>
