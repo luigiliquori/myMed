@@ -18,10 +18,12 @@ class LoginController extends AbstractController {
 		
 			// Login and password should not be empty
 			if( empty($login) ){
-				$this->error = "FAIL: eMail cannot be empty!";
+				// TODO i18n
+				$this->error = "eMail cannot be empty!";
 				$this->renderView("login");
 			} else if( empty($pass) ){
-				$this->error = "FAIL: password cannot be empty!";
+				// TODO i18n
+				$this->error = "Password cannot be empty!";
 				$this->renderView("login");
 			}
 					
