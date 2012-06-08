@@ -1,7 +1,6 @@
 <?php
 
 require_once MYMED_ROOT . 'system/controllers/InscriptionController.class.php';
-require_once MYMED_ROOT . 'system/controllers/LoginController.class.php';
 
 /**
  * 
@@ -22,12 +21,11 @@ class Login extends AbstractView {
 	/**
 	 * Default constructor
 	 */
-	public function __construct() {
+	public function __construct($loginController) {
 		parent::__construct("loginView", "loginView");
 		$this->inscriptionController = new InscriptionController();
 		$this->inscriptionController->handleRequest();
-		$this->loginController = new LoginController();
-		$this->loginController->handleRequest();
+		$this->loginController = $loginController;
 	}
 	
 	/* --------------------------------------------------------- */
