@@ -23,9 +23,9 @@ That value is substituted at compile time using Ant! -->
 		<cassandra>
 			<ListenAddress>@address@</ListenAddress>
 			<!-- See the Cassandra configuration file at ../protocols/cassandra/cassandra/conf/cassandra.yaml -->
-			<StoragePort>0</StoragePort>
+			<StoragePort>4200</StoragePort>
 			<ThriftAddress>@address@</ThriftAddress>
-			<ThriftPort>0</ThriftPort>
+			<ThriftPort>4201</ThriftPort>
 		</cassandra>
 
 		<!-- P2P Info -->
