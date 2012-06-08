@@ -257,6 +257,8 @@ function clearMarkers() {
 function otherMarkers(index, type, lat, lon, rad) {
 	if (!markers[type][index]) { // create them if not exist
 		
+		// Classic async POI get, seems faster, (loading bar hides fast, and pois are then get and dropped on the map)
+		
 		$.get('POI.php', {
 			'application': $("#applicationName").val() + "Admin",
 			'type': type,
@@ -266,7 +268,7 @@ function otherMarkers(index, type, lat, lon, rad) {
 		}, function(data){
 			if ( (res = $.parseJSON(data)) != null){
 				var pois = res.dataObject.pois;
-				console.log("__"+res.dataObject.pois);
+				//console.log("__"+res.dataObject.pois); // remove it after before pushing MASTER, console.log fail on IE
 				markers[type][index] = [];
 				$.each(pois, function(i, poi) {
 					value = $.parseJSON(poi.value);
@@ -288,6 +290,45 @@ function otherMarkers(index, type, lat, lon, rad) {
 			}
 			
 		});
+
+		// async: false POI get: warning async:false will be deprecated in next jQuery version
+		// quote  "As of jQuery 1.8, the use of async: false is deprecated."
+		
+//		var res = $.ajax({
+//			url : "POI.php",
+//			data : {
+//				'application': $("#applicationName").val() + "Admin",
+//				'type': type,
+//				'latitude': lat || latitude,
+//				'longitude': lon || longitude,
+//				'radius': rad || $('#slider-radius').val()
+//			},
+//			async : false
+//		}).responseText;
+//
+//		if ((resJSON = $.parseJSON(res)) != null) {
+//			var pois = resJSON.dataObject.pois;
+//			//console.log("##"+resJSON.dataObject.pois); // remove it after before pushing MASTER, console.log fail on IE
+//			markers[type][index] = [];
+//			$.each(pois, function(i, poi) {
+//				value = $.parseJSON(poi.value);
+//				id = poi.id;
+//				iconAvailable = $('#poiIcon').val().split(",");
+//				if(iconAvailable.contains(type + '.png')){
+//					icon = 'system/templates/application/myRiviera/img/pois/' + type + '.png';
+//				} else {
+//					icon = null;
+//				}
+//				var marker = addMarker(new google.maps.LatLng(value.latitude,
+//						value.longitude), icon, value.title,
+//						"<p>Type: 	" + type + "</p>" + value.description, null, false, id);
+//				google.maps.event.addListener(marker, "click", function(e) {
+//					marker.ib.open(map, this);
+//				});
+//				markers[type][index].push(marker);
+//			});
+//		}
+		
 		
 	} else {// already existing, redrop them
 		for ( var i = 0; i < markers[type][index].length; i++) {
