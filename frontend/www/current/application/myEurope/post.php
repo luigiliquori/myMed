@@ -22,61 +22,44 @@
 	require_once '../../system/config.php';
 	session_start();
 	
-	function cmp($a, $b)
-	{
-		return strcmp($a->key, $b->key);
-	}
-	
 	if (count($_POST)){ // to publish something
-		$predicates = Array();
-		$data = Array();
-		foreach( $_POST as $i => $value ){
-			if ( $i!='application' && $i!='method' && $i[0]!='_' && ($value!='' || $i=='~') ){ //pred keys starting with _ are not included
-				$ontology = new stdClass();
-				$ontology->key = $i;
-				$ontology->value = $value;
-				//$ontology->ontologyID = isset($_POST['_'.$i])?$_POST['_'.$i]:0; // '_'.$i form fields contain the ontologyID of the value
 		
-				if(isset($_POST['_'.$i])){ // keys "_key" indicates if "key" is a predicate or a data
-					array_push($data, $ontology);
-				}else{
-					array_push($predicates, $ontology);
-				}
-			}
+		$tags = preg_split('/ /', $_POST['q'], NULL, PREG_SPLIT_NO_EMPTY);
+		array_push($tags, '~'); //let's add this common tag for all texts, to easily retrieve all texts if necessary
+		sort($tags); //important
+		$predicates=array();
+		foreach( $tags as $v ){ //do this for PubRequestHandler compatibility...
+			array_push($predicates, array("key"=>strtolower($v), "value"=>""));
 		}
-
-		// these line are added from default publish to be able to easily display predicates in result list (@see search)
-		$preds = new stdClass();
-		foreach( $predicates as $v ){
-			$k = $v->key;
-			$preds->$k = $v->value;
-		}
-		$ontology = new stdClass();
-		$ontology->key = "data";
-		$ontology->value = json_encode($preds);
-		array_push($data, $ontology);
-		//
 		
-		if (count($predicates)){
-			usort($predicates, "cmp"); // VERY important, to be able to delete the exact same predicates later
-			$data = array_merge($predicates, $data);
-				
-			$request = new Request("PublishRequestHandler", CREATE);
-			$request->addArgument("application", $_POST['application']);
-			$request->addArgument("predicate", json_encode($predicates));
-				
-			$request->addArgument("data", json_encode($data));
-			if(isset($_SESSION['user'])) {
-				$request->addArgument("user", json_encode($_SESSION['user']));
-			}
-				
-			$responsejSon = $request->send();
-			$responseObject = json_decode($responsejSon);
-
-			if ($responseObject->status==200){
-				header("Location: ./post?ok=1");
-			}
+		$textdesc = array(
+			"nom" => $_POST['nom'],
+			"lib" => $_POST['lib'],
+			"cout" => $_POST['cout'],
+			"montant" => $_POST['montant'],
+			"date" => $_POST['date']
+		);
+		$data = array(
+			array("key"=>"text", "value"=>$_POST['text']),
+			array("key"=>"data", "value"=>json_encode($textdesc)),
+			array("key"=>"deleteme", "value"=>json_encode($predicates))
+		);
+		//$data = array_merge($predicates, $data);	
+		$request = new Request("PublishRequestHandler", CREATE);
+		$request->addArgument("application", $_POST['application']);
+		$request->addArgument("predicate", json_encode($predicates));
+			
+		$request->addArgument("data", json_encode($data));
+		if(isset($_SESSION['user'])) {
+			$request->addArgument("user", json_encode($_SESSION['user']));
 		}
+			
+		$responsejSon = $request->send();
+		$responseObject = json_decode($responsejSon);
+
+		if ($responseObject->status==200){
+			header("Location: ./post?ok=1");
+		}	
 	}
 		
 	
@@ -90,15 +73,13 @@
 		<div data-role="page" id="Post">
 			<div class="wrapper">
 				<div data-role="header" data-theme="b">
-					<a href="search" data-icon="home" data-iconpos="notext"> Accueil </a>
+					<a href="./" data-icon="home" data-iconpos="notext"> Accueil </a>
 					<h3>myEurope - insertion</h3>
 				</div>
 				<div data-role="content">
 					<?= isset($_GET['ok'])?"<div style='color:lightGreen;text-align:center;'>Contenu publié</div>":"" ?>
 					<form action="#" method="post" id="publishForm" >
 						<input name="application" value="myEurope" type="hidden" />
-						<input name="_desc" value="4" type="hidden" />
-						<input name="~" value="" type="hidden" />
 						<div data-role="fieldcontain">
 							<fieldset data-role="controlgroup">
 								<label for="textinputp1"> Nom de l'organisme bénéficiaire: </label> <input id="textinputp1"  name="nom" placeholder="" value="" type="text" />
@@ -132,10 +113,10 @@
 						<hr>
 						<div data-role="fieldcontain">
 							<fieldset data-role="controlgroup">
-								<label for="textinputp7"> Description: </label> <textarea id="textinputp7"  name="desc" placeholder="" value=""></textarea>
+								<label for="textinputp7"> Description: </label> <textarea id="textinputp7"  name="text" placeholder="" value=""></textarea>
 							</fieldset>
 						</div>
-						<input type="submit" data-theme="g" value="Soumettre"/>
+						<input type="submit" data-theme="g" value="Insérer"/>
 					</form>
 					<div class="push"></div>
 				</div>

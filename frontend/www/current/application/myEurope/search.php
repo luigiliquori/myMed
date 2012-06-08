@@ -47,6 +47,7 @@
 					if(!isset($_SESSION['friends'])){
 						$_SESSION['friends'] = array();
 					}
+					header("Location: .");
 				} else {
 					header("Location: ./authenticate");
 				}
@@ -58,8 +59,6 @@
 			header("Location: ./option?please-logout-first");
 		}
 	}
-	
-	
 	
 	$sub = false;
 	
@@ -78,15 +77,14 @@
 		$request->addArgument("predicate", $predicate);
 		$request->addArgument("user", json_encode($_SESSION['user']));
 		$responsejSon = $request->send();
+		$sub = true;
 	}*/
-
-	$_GET["~"] = "";//we add ~ in predicates (tags in all texts) so we get all results tagged with ~
+	
+	$tags = explode("+", $_GET['q']);
+	sort($tags); //important
 	$predicate = "";
-	ksort($_GET);
-	foreach( $_GET as $i => $value ){
-		if ( $i!='application' && $i[0]!='_' && ($value!='' || $i=='~')){
-			$predicate .= $i . $value;
-		}
+	foreach( $tags as $v ){ //do this for FindRequestHandler compatibility...
+		$predicate .= strtolower($v);
 	}
 
 	$request = new Request("FindRequestHandler", READ);
@@ -106,7 +104,7 @@
 				<div data-role="header" data-theme="b">
 					<a href="about" data-theme="b" type="button" data-icon="info" data-transition="slide" data-direction="reverse">about</a>
 					<h2>myEurope</h2>
-					<a href=<?= $_SESSION['user']?"option":"authenticate" ?> data-icon="arrow-r" class="ui-btn-right" data-transition="slide"><?= $_SESSION['user']?$_SESSION['user']->name:"Connexion" ?></a>
+					<a id="opt" href=<?= $_SESSION['user']?"option":"authenticate" ?> class="ui-btn-right" data-transition="slide"><?= $_SESSION['user']?$_SESSION['user']->name:"Connexion" ?></a>
 				</div>
 				<div data-role="content">	
 					<form action="search" id="subscribeForm">
