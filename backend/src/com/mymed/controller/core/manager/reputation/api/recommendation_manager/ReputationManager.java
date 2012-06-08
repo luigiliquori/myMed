@@ -15,11 +15,16 @@ import com.mymed.model.data.reputation.MReputationBean;
  * @author piccolo
  */
 public class ReputationManager implements IReputationManager {
+	
+	
+	static final double DEFAULT_REPUTATION = 0.5;
+	static final int    DEFAULT_NB_VERDICTS = 0;
+	
     @Override
     public MReputationBean read(final IMymedRepId repEntityId) {
         final ReputationEntity re = ReputationEntity.getCreating(repEntityId.getPrimaryId());
         if (re == null) {
-            return null;
+            return new MReputationBean(DEFAULT_REPUTATION, DEFAULT_NB_VERDICTS);
         } else {
             return new MReputationBean(re.getReputation(), re.getNumberOfVerdicts());
         }

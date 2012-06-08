@@ -65,7 +65,7 @@
 	} else if (isset($_POST['predicates'])) { //delete text or comment
 		$request = new Request("PublishRequestHandler", DELETE);
 		$request->addArgument("application", $_POST['application']);
-		$request->addArgument("predicate", $_POST['predicates']);
+		$request->addArgument("predicate", urldecode($_POST['predicates']));
 		$request->addArgument("user", json_encode($_SESSION['user']) );
 		
 		$responsejSon = $request->send();
@@ -75,26 +75,48 @@
 		}
 	}
 	
+	if(isset($_POST['feedback'])) {
+		require_once '../../lib/dasp/request/StartInteraction.class.php';
+		$startInteraction = new StartInteraction();
+		$responsejSon = $startInteraction->send();
+		$responseObject = json_decode($responsejSon);
+		if($responseObject->status == 200) {
+			$msg = "vote pris en compte";
+		}
+	}
+	
 	$request = new Request("FindRequestHandler", READ);
 	$request->addArgument("application", $_REQUEST['application']);
-	$request->addArgument("predicate", $_REQUEST['predicate']);
-	$request->addArgument("user", $_REQUEST['user']);
+	$request->addArgument("predicate", urldecode($_GET['predicate']));
+	$request->addArgument("user", $_GET['user']);
 	$responsejSon = $request->send();
 	$detail = json_decode($responsejSon);
 	
 	$request = new Request("ProfileRequestHandler", READ);
-	$request->addArgument("id", $_REQUEST['user']);
+	$request->addArgument("id", $_GET['user']);
 	$responsejSon = $request->send();
 	$profile = json_decode($responsejSon);
 	
 	$request = new Request("FindRequestHandler", READ);
 	$request->addArgument("application", $_REQUEST['application']);
-	$request->addArgument("predicate", "commentOn" . $_REQUEST['predicate']);
+	$request->addArgument("predicate", "commentOn" . $_GET['predicate']);
 	$responsejSon = $request->send();
 	$comments = json_decode($responsejSon);
 	$totalCom = 0;
 	if($comments->status == 200) {
 		$totalCom = count($comments->dataObject->results);
+	}
+	
+	$request = new Request("ReputationRequestHandler", READ);
+	$request->addArgument("application",  $_REQUEST['application']);
+	$request->addArgument("producer",  $_GET['user']);
+	$request->addArgument("consumer",  $_SESSION['user']->id);
+	$responsejSon = $request->send();
+	$responseObject = json_decode($responsejSon);
+	$reputation = 50;
+	if(isset($responseObject->dataObject->reputation)){
+		$i=0;
+		$reputation = round($responseObject->dataObject->reputation * 100);
 	}
 
 	
@@ -145,20 +167,34 @@
 					
 					// Todo add a profile request on the publisher to get his reputation
 					?>
-					<img style="float:right;text-align: center; max-height: 100px;opacity: 0.6;" src="<?= $profPic ?>" />
+					<div style="float:right;text-align:center;">
+						<img style="text-align: center; max-height: 100px;opacity: 0.6;" src="<?= $profPic ?>" /><br />
+						<b>Réputation</b>: 
+						<a data-role="button" data-icon="minus" data-iconpos="notext" data-inline="true" onclick="$('#feedback').val('0'); document.StartInteractionForm.submit();"></a>
+						<span id="author-rep"><?= $reputation ?>%</span>
+						<a data-role="button" data-icon="plus" data-iconpos="notext" data-inline="true" onclick="$('#feedback').val('1'); document.StartInteractionForm.submit();"></a>
+		    			
+					</div>
+					
+					<form id="StartInteractionForm" action="#" method="post" name="StartInteractionForm" id="StartInteractionForm" enctype="multipart/form-data">
+						<input type="hidden" name="application" value="<?= $_REQUEST['application'] ?>" />
+						<input type="hidden" name="producer" value="<?= $_REQUEST['user'] ?>" />
+						<input type="hidden" name="consumer" value="hib" />
+						<input type="hidden" name="start" value="<?= time() ?>" />
+						<input type="hidden" name="end" value="<?= time() ?>" />
+						<input type="hidden" name="predicate" value="<?= $_REQUEST['predicate'] ?>" />
+						<input type="hidden" name="feedback" value="" id="feedback"/>
+					</form>
+					
 					<b>Auteur</b>: <span style="left-margin:5px; color:DarkBlue; font-size:160%;"><?= $profile->name ?></span>
 					<br />
-					<b>Réputation</b>: <span style='color:lightRed;text-align:center;'>soon available...</span>
 					<br /><br /><br />
 					<b>Nom de l'organisme bénéficiaire:</b>&nbsp; <span style="left-margin:5px; color:DarkBlue; font-size:140%;"><?= $preds->nom ?></span><br />
 					<b>Libellé du projet:</b>&nbsp; <span style="left-margin:5px; color:DarkBlue; font-size:140%;"><?= $preds->lib ?></span><br />
+					<br />
 					<b>Texte</b>:
 					<br /><br /><br />
-					<div id="detailstext"><?= $text ?>
-					
-					But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?
-					
-					</div>
+					<div id="detailstext"><?= $text ?></div>
 					<br />
 				<?php 
 				}
@@ -166,11 +202,12 @@
 				?>
 			
 				<?php 
-				if ($_REQUEST['user'] == $_SESSION['user']->id){ //we can delete our own text
+				
+				if ($_GET['user'] == $_SESSION['user']->id){ //we can delete our own text
 					?>
 					<form action="#" method="post" id="deleteForm">
 						<input name="application" value='<?= $_REQUEST['application'] ?>' type="hidden" />
-						<input name="predicates" value='<?= json_encode($detail) ?>' type="hidden" />
+						<input name="predicates" value='<?= urlencode(json_encode($detail)) ?>' type="hidden" />
 						<input name="user" value='<?= $_REQUEST['user'] ?>' type="hidden" />
 					</form>
 					<a href="" type="button" data-theme="r" data-icon="delete" onclick="$('#deleteForm').submit();" style="width:270px;margin-left: auto; margin-right: auto">Supprimer ce document</a>
@@ -189,7 +226,7 @@
 				    		$comments = $comments->dataObject->results;
 					    	foreach($comments as $i => $value) { ?>
 				    		<li data-role="list-divider">
-				    			<form action="#" method="post" id="deleteCommentForm<?= $i ?>">
+				    			<form action="detail?<?= $_SERVER['QUERY_STRING'] ?>" method="post" id="deleteCommentForm<?= $i ?>">
 									<input name="application" value='<?= $_REQUEST['application'] ?>' type="hidden" />
 									<?php 
 										$commentOn = new stdClass();
@@ -202,7 +239,7 @@
 										$end->ontologyID = 0;
 										$predicates=array($commentOn, $end);
 									?>
-									<input name="predicates" value='<?= json_encode($predicates) ?>' type="hidden" />
+									<input name="predicates" value='<?= urlencode(json_encode($predicates)) ?>' type="hidden" />
 									<input name="user" value='<?= $value->publisherID ?>' type="hidden" />
 								</form>
 				    			<?= $value->publisherName ?><span style="margin-left:15px;font-weight:lighter;"> le <?= $value->end ?></span>

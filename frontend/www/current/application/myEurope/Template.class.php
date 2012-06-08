@@ -5,7 +5,7 @@ class Template {
 	
 	public function head(){ ?>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=650" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>
         	myEurope
         </title>

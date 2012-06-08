@@ -69,7 +69,7 @@
 		$_SESSION['application'] = $_GET['application'];
 	}
 	if(isset($_SESSION['application']) && $_SESSION['application'] != "0"){
-		$templateManager->selectTemplate('application/' . $_SESSION['application']);
+		$templateManager->selectTemplate('application/myMed');
 	} else {
 		$templateManager->selectTemplate('application/myMed');
 	}

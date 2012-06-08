@@ -152,6 +152,7 @@
 	if($subscriptions->status == 200) {
 		$totalSub = count( (array) $subscriptions->dataObject->subscriptions);
 	}
+
 ?>
 
 	<head>
@@ -180,13 +181,13 @@
 						<img style="float:right;text-align: center; max-height: 220px;opacity: 0.2;" src="<?= $profPic ?>" />
 						<div style="width: 40%;opacity: 1; position:absolute;top:30%;left:30%;z-index:1">
 							 nom:
-							<?= $profile->firstName ?>
+							<span style="left-margin:5px; color:DarkBlue; font-size:120%;"><?= $profile->firstName ?></span>
 							<br /> prénom:
-							<?= $profile->lastName ?>
+							<span style="left-margin:5px; color:DarkBlue; font-size:120%;"><?= $profile->lastName ?></span>
+							<br /> email:
+							<span style="left-margin:5px; color:DarkBlue; font-size:120%;"><?= $profile->email ?></span>
 							<br /> date de naissance:
-							<?= $profile->birthday ?>
-							<br />
-							Réputation: <span style='color:lightRed;text-align:center;'>soon available...</span>
+							<span style="left-margin:5px; color:DarkBlue; font-size:120%;"><?= $profile->birthday ?></span>
 							<br /><br />
 							<a href="update" type="button" data-transition="flip" data-mini="true" data-icon="grid"
 							style="width: 200px; margin-right: auto; margin-left: auto;">Modifier</a>

@@ -79,7 +79,7 @@ class LoginHandler implements IRequestHandler {
 					}
 				}
 
-			} else if(isset($_POST['singin'])) {
+			} else if(isset($_POST['signin'])) {
 				// HANDLE MYMED AUTHENTICATION
 				// Preconditions
 				if($_POST['login'] == ""){
@@ -102,10 +102,10 @@ class LoginHandler implements IRequestHandler {
 				} else {
 					$accessToken = $responseObject->data->accessToken;
 					$url = $responseObject->data->url;
-					echo "<form id='singinRedirectForm' name='singinRedirectForm' method='post'>";
+					echo "<form id='signinRedirectForm' name='signinRedirectForm' method='post'>";
 					echo "<input type='hidden' name='accessToken' value='" . $accessToken . "' />";
 					echo "</form>";
-					echo '<script type="text/javascript">document.singinRedirectForm.submit();</script>';
+					echo '<script type="text/javascript">document.signinRedirectForm.submit();</script>';
 				}
 
 			}

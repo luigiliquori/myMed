@@ -53,32 +53,11 @@
 	
 	$_SESSION['dictionary'][IT]["requestSent"] = "La vostra richiesta è stata correttamente inviata. Un amministratore di myEuroCIN la controllerà e validerà.";
 	
-	$_SESSION['dictionary'][IT]["ontology0"] = "Titolo";
-	
-	$_SESSION['dictionary'][IT]["ontology1"] = "Località";
-	$_SESSION['dictionary'][IT]["Nazione"][0] = "Alessandria";
-	$_SESSION['dictionary'][IT]["Nazione"][1] = "Asti";
-	$_SESSION['dictionary'][IT]["Nazione"][2] = "Cuneo";
-	$_SESSION['dictionary'][IT]["Nazione"][3] = "Francia";
-	$_SESSION['dictionary'][IT]["Nazione"][4] = "Genova";
-	$_SESSION['dictionary'][IT]["Nazione"][5] = "Imperia";
-	$_SESSION['dictionary'][IT]["Nazione"][6] = "Savona";
-	
-	$_SESSION['dictionary'][IT]["ontology2"] = "Lingua";
-	$_SESSION['dictionary'][IT]["Ligua"][0] = "Italiano";
-	$_SESSION['dictionary'][IT]["Ligua"][1] = "Francese";
-	
-	$_SESSION['dictionary'][IT]["ontology3"] = "Categorie";
-	$_SESSION['dictionary'][IT]["Categorie"][0] = "Arte/Cultura";
-	$_SESSION['dictionary'][IT]["Categorie"][1] = "Natura";
-	$_SESSION['dictionary'][IT]["Categorie"][2] = "Tradizioni";
-	$_SESSION['dictionary'][IT]["Categorie"][3] = "Enogastronomia";
-	$_SESSION['dictionary'][IT]["Categorie"][4] = "Benessere";
-	$_SESSION['dictionary'][IT]["Categorie"][5] = "Storia";
-	$_SESSION['dictionary'][IT]["Categorie"][6] = "Religione";
-	$_SESSION['dictionary'][IT]["Categorie"][7] = "Escursioni/Sport";
-	
-	$_SESSION['dictionary'][IT]["ontology4"] = "Testo";
+	$_SESSION['dictionary'][IT]["ontology0"] = "Key1";
+	$_SESSION['dictionary'][IT]["ontology1"] = "Key2";
+	$_SESSION['dictionary'][IT]["ontology2"] = "Key3";
+	$_SESSION['dictionary'][IT]["ontology3"] = "Key4";
+	$_SESSION['dictionary'][IT]["ontology4"] = "Key5";
 	
 	$_SESSION['dictionary'][IT]["view5"] = "Admin";
 	
@@ -124,32 +103,11 @@ Les contenus de myEurocin sont consultables par les visiteurs, auxquels nous dem
 	
 	$_SESSION['dictionary'][FR]["requestSent"] = "Votre requête à bien été envoyé. Elle est maintenant en attente de validation par un administrateur de myEuroCIN.";
 	
-	$_SESSION['dictionary'][FR]["ontology0"] = "Titre";
-	
-	$_SESSION['dictionary'][FR]["ontology1"] = "Lieu";
-	$_SESSION['dictionary'][FR]["Nazione"][0] = "Alessandria";
-	$_SESSION['dictionary'][FR]["Nazione"][1] = "Asti";
-	$_SESSION['dictionary'][FR]["Nazione"][2] = "Cuneo";
-	$_SESSION['dictionary'][FR]["Nazione"][3] = "France";
-	$_SESSION['dictionary'][FR]["Nazione"][4] = "Genova";
-	$_SESSION['dictionary'][FR]["Nazione"][5] = "Imperia";
-	$_SESSION['dictionary'][FR]["Nazione"][6] = "Savona";
-	
-	$_SESSION['dictionary'][FR]["ontology2"] = "Langue";
-	$_SESSION['dictionary'][FR]["Ligua"][0] = "Italien";
-	$_SESSION['dictionary'][FR]["Ligua"][1] = "Français";
-	
-	$_SESSION['dictionary'][FR]["ontology3"] = "Categorie";
-	$_SESSION['dictionary'][FR]["Categorie"][0] = "Art/Culture";
-	$_SESSION['dictionary'][FR]["Categorie"][1] = "Nature";
-	$_SESSION['dictionary'][FR]["Categorie"][2] = "Traditions";
-	$_SESSION['dictionary'][FR]["Categorie"][3] = "Gastronomie";
-	$_SESSION['dictionary'][FR]["Categorie"][4] = "Bien-être";
-	$_SESSION['dictionary'][FR]["Categorie"][5] = "Histoire";
-	$_SESSION['dictionary'][FR]["Categorie"][6] = "Religion";
-	$_SESSION['dictionary'][FR]["Categorie"][7] = "Excursions/Sport";
-	
-	$_SESSION['dictionary'][FR]["ontology4"] = "Texte";
+	$_SESSION['dictionary'][FR]["ontology0"] = "Key1";
+	$_SESSION['dictionary'][FR]["ontology1"] = "Key2";
+	$_SESSION['dictionary'][FR]["ontology2"] = "Key3";
+	$_SESSION['dictionary'][FR]["ontology3"] = "Key4";
+	$_SESSION['dictionary'][FR]["ontology4"] = "Key5";
 	
 	$_SESSION['dictionary'][FR]["view5"] = "Admin";
 	

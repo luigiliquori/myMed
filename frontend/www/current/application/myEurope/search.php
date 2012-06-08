@@ -47,10 +47,12 @@
 					if(!isset($_SESSION['friends'])){
 						$_SESSION['friends'] = array();
 					}
+				} else {
+					header("Location: ./authenticate");
 				}
 		
 			} else{
-				//header("Location: ./search");
+				header("Location: ./authenticate");
 			}
 		} else{
 			header("Location: ./option?please-logout-first");
@@ -63,7 +65,7 @@
 	
 	//get all results
 
-	ksort($_GET); // important to match a possible predicate, keys must be ordered
+	/*ksort($_GET); // important to match a possible predicate, keys must be ordered
 	$predicate = "";
 	if (count($_GET)) {
 		foreach( $_GET as $i => $value ){
@@ -72,11 +74,11 @@
 			}
 		}
 		$request = new Request("SubscribeRequestHandler", CREATE);
-		$request->addArgument("application", $_REQUEST['application']);
+		$request->addArgument("application", $application);
 		$request->addArgument("predicate", $predicate);
 		$request->addArgument("user", json_encode($_SESSION['user']));
 		$responsejSon = $request->send();
-	}
+	}*/
 
 	$_GET["~"] = "";//we add ~ in predicates (tags in all texts) so we get all results tagged with ~
 	$predicate = "";
@@ -106,57 +108,45 @@
 					<h2>myEurope</h2>
 					<a href="post" data-theme="b" type="button" data-transition="slide" >Soumettre un appel d'offre/ un appel à partenaires</a>
 				</div>
-				<div data-role="content">
-				<br />
-					<ul data-role="listview" data-filter="true" data-inset="true" data-filter-placeholder="...">
+
+				<div data-role="content">	
+					<form action="search" id="subscribeForm">
+						<input name="q" placeholder="chercher un partenaire par mot clés" value="" data-type="search" style="width: 80%;"/>
+					</form>
+					<br />
 					<?php 	
 						if($res->status == 200) {
+						?>
+						<ul data-role="listview" data-filter="true" data-inset="true" data-filter-placeholder="filtrer parmi tous les résultats">
+						<?php
 							$res = $res->dataObject->results;
+							
 							foreach( $res as $i => $value ){
 								$preds = json_decode($value->data);
 							?>
 							<li><a href="" onclick="$('#detailForm<?= $i ?>').submit();">
 								<?= $preds->nom ?>, <?= $preds->lib ?>, <?= $preds->cout ?>, <?= $preds->montant ?>, 
 								<?= $preds->date ?>
-								<form action="detail" method="post" id="detailForm<?= $i ?>">
+								<form action="detail" id="detailForm<?= $i ?>">
 									<input name="application" value='<?= $application ?>' type="hidden" />
-										<input name="predicate" value='<?= $value->predicate ?>' type="hidden" />
-										<input name="user" value='<?= $value->publisherID ?>' type="hidden" />
+									<input name="predicate" value="<?= urlencode($value->predicate) ?>" type="hidden" />
+									<input name="user" value='<?= $value->publisherID ?>' type="hidden" />
 								</form>
 								</a>
 							</li>
 							<?php 
 							}
-						}
-					
+							?>
+							</ul>
+							<div style="float:right;"><?= count($res) ?> résultats</div><br />
+						<?php	
+						} else{
 						?>
-					</ul>
-					<div data-role="collapsible" data-collapsed="true">
-						<h3>Recherche avancée</h3>
-						<form action="#" id="subscribeForm">
-							<div>
-							<input name="application" value='<?= $application ?>' type="hidden" />
-							<div data-role="fieldcontain" style="margin-left: auto;margin-right: auto;">
-								<fieldset data-role="controlgroup" >
-									<label for="textinputs1"> Nom de l'organisme bénéficiaire: </label> <input id="textinputs1"  name="nom" placeholder="" value="" type="text" />
-								</fieldset>
-							</div>
-							<div data-role="fieldcontain" style="margin-left: auto;margin-right: auto;">
-								<fieldset data-role="controlgroup" >
-									<label for="textinputs2"> Libellé du projet: </label> <input id="textinputs2"  name="lib" placeholder="" value="" type="text" />
-								</fieldset>
-							</div>
-							<a href="" type="button" data-icon="gear" onclick="$('#subscribeForm').submit();" style="width:280px;margin-left: auto;margin-right: auto;">rechercher</a></div>
-						</form>
-					</div>
-					<?php $result_number = count($res); ?> 
-					<?php 	
-						if($result_number== 0) {
-					?>
-					<div style="float:left;">You have 0 résultats, please try recherche avancee</div><br />
-					<?php 	
+						Aucun résultats
+						<?php	
 						}
-					?>
+						?>
+
 					<div class="push"></div>
 				</div>
 			</div>

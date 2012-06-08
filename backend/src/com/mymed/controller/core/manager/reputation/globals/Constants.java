@@ -11,7 +11,7 @@ package com.mymed.controller.core.manager.reputation.globals;
 public class Constants {
     public static final String KEYSPACE = "Mymed";
     public static final int REPLICATION_FACTOR = 1;
-    public static final String CONFIGURATION_FILE_PATH = "/local/mymed/backend/conf/config.xml";
+//    public static final String CONFIGURATION_FILE_PATH = "/local/mymed/backend/conf/config.xml";
     public static final String DATA_MODEL_FILE_PATH = "/local/mymed/backend/conf/reputation-data-model.xml";
     public static final String DEFAULT_COMPARATOR = "primary_key.comparator.OrderByTimeVerdict";
     public static final String CASSANDRA_STRATEGY = "org.apache.cassandra.locator.SimpleStrategy";

@@ -4,37 +4,38 @@
  */
 package com.mymed.controller.core.manager.reputation.recommendation_manager;
 
-import com.mymed.controller.core.manager.reputation.api.recommendation_manager.ReputationManager;
-import com.mymed.controller.core.manager.reputation.api.recommendation_manager.IReputationAlgorithm;
-import com.mymed.controller.core.manager.reputation.api.recommendation_manager.VerdictManager;
-import com.mymed.controller.core.manager.reputation.api.mymed_ids.MymedAppId;
-import com.mymed.controller.core.manager.reputation.api.mymed_ids.MymedUserId;
-import com.mymed.controller.core.manager.reputation.api.mymed_ids.IMymedRepId;
-import com.mymed.controller.core.manager.reputation.api.mymed_ids.ReputationRole;
-import ch.qos.logback.classic.Level;
-import com.mymed.utils.MLogger;
-import com.mymed.model.data.reputation.MReputationBean;
-import java.io.File;
-import com.mymed.model.core.configuration.WrapperConfiguration;
-import com.mymed.controller.core.manager.reputation.globals.Constants;
-import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.controller.core.manager.reputation.db.facade.TransactionManager;
-import com.mymed.controller.core.manager.reputation.api.mymed_ids.MymedAppUserId;
-import com.mymed.model.core.wrappers.cassandra.api07.CassandraWrapper;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.Ignore;
-import static org.junit.Assert.*;
+
+import ch.qos.logback.classic.Level;
+
+import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.controller.core.manager.reputation.api.mymed_ids.IMymedRepId;
+import com.mymed.controller.core.manager.reputation.api.mymed_ids.MymedAppId;
+import com.mymed.controller.core.manager.reputation.api.mymed_ids.MymedAppUserId;
+import com.mymed.controller.core.manager.reputation.api.mymed_ids.MymedUserId;
+import com.mymed.controller.core.manager.reputation.api.mymed_ids.ReputationRole;
+import com.mymed.controller.core.manager.reputation.api.recommendation_manager.IReputationAlgorithm;
+import com.mymed.controller.core.manager.reputation.api.recommendation_manager.ReputationManager;
+import com.mymed.controller.core.manager.reputation.api.recommendation_manager.VerdictManager;
+import com.mymed.controller.core.manager.reputation.db.facade.TransactionManager;
+import com.mymed.controller.core.manager.reputation.globals.Constants;
+import com.mymed.controller.core.manager.storage.StorageManager;
+import com.mymed.model.core.configuration.WrapperConfiguration;
+import com.mymed.model.core.wrappers.cassandra.api07.CassandraWrapper;
+import com.mymed.model.data.reputation.MReputationBean;
+import com.mymed.utils.MLogger;
 
 /**
  *
  * @author peter
  */
-public class VerdictManagerTest {
+public class VerdictManagerTest extends StorageManager {
 
     final WrapperConfiguration conf;
     VerdictManager verdictManager;
@@ -43,7 +44,7 @@ public class VerdictManagerTest {
     final CassandraWrapper wrapper;
 
     public VerdictManagerTest() throws InternalBackEndException {
-        conf = new WrapperConfiguration(new File(Constants.CONFIGURATION_FILE_PATH));
+        conf = new WrapperConfiguration(CONFIG_FILE);
 
         listenAddress = conf.getCassandraListenAddress();
         thriftPort = conf.getThriftPort();

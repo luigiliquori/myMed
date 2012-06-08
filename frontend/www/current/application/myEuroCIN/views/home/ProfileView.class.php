@@ -55,7 +55,7 @@ class ProfileView extends MainView {
 					<a href="#login" onclick="document.disconnectForm.submit()" rel="external" data-role="button" data-theme="r"><?= $_SESSION['dictionary'][LG]["disconnect"] ?></a>
 				</div>
 			<?php } else { ?>
-				<form action="#ProfileView" method="post" name="singinForm" id="singinForm" Style="text-align: center;">
+				<form action="#ProfileView" method="post" name="signinForm" id="signinForm" Style="text-align: center;">
 					<h3><?= APPLICATION_NAME ?></h3>
 					
 					<!-- NOTIFICATION -->
@@ -74,10 +74,10 @@ class ProfileView extends MainView {
 						</div>
 					<?php } ?>
 					
-					<input type="hidden" name="singin" value="1" />
+					<input type="hidden" name="signin" value="1" />
 					<input type="text" name="login" id="login" value="email"  data-theme="c"/><br />
 					<input type="password" name="password" id="password" value="Mot de passe"  data-theme="c"/><br />
-					<a href="#" onclick="document.singinForm.submit()" data-role="button" data-inline="true" data-theme="c"><?= $_SESSION['dictionary'][LG]["connect"] ?></a><br />
+					<a href="#" onclick="document.signinForm.submit()" data-role="button" data-inline="true" data-theme="c"><?= $_SESSION['dictionary'][LG]["connect"] ?></a><br />
 					<a href="#InscriptionView" data-inline="true" data-theme="c"><?= $_SESSION['dictionary'][LG]["inscription"] ?></a>
 				</form>
 			<?php } ?>

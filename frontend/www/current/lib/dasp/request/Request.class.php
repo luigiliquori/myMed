@@ -20,8 +20,14 @@ define('READ'		, 1);
 define('UPDATE'		, 2);
 define('DELETE'		, 3);
 
+
 require_once('PhpConsole.php');
 PhpConsole::start();
+
+// require_once('PhpConsole.php');
+// PhpConsole::start();
+
+
 
 /**
  *
@@ -111,7 +117,10 @@ PhpConsole::start();ltipart;
 			curl_setopt($curl, CURLOPT_HTTPHEADER, $httpHeader);
 			curl_setopt($curl, CURLOPT_URL, $this->url.$this->ressource.'?'.http_build_query($this->arguments));
 		}
+
 		debug($this->url.$this->ressource.'?'.http_build_query($this->arguments));
+
+
 
 		// SSL CONNECTION
 		// TODO fix once we have the valid certificate!
@@ -120,8 +129,13 @@ PhpConsole::start();ltipart;
 		curl_setopt($curl, CURLOPT_CAINFO, "/etc/ssl/certs/mymed.crt"); // TO EXPORT FROM GLASSFISH!
 
 		$result = curl_exec($curl);
+
 		debug($result);
 // 				echo '<script type="text/javascript">alert(\'' . $result . '\');</script>';
+
+//		debug($result);
+// 		echo '<script type="text/javascript">alert(\'' . $result . '\');</script>';
+
 		return $result;
 	}
 }
