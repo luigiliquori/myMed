@@ -1,5 +1,4 @@
 <?php
-require_once 'system/templates/AbstractTemplate.class.php';
 
 /**
  * 
@@ -7,13 +6,13 @@ require_once 'system/templates/AbstractTemplate.class.php';
  * @author lvanni
  *
  */
-class Home extends AbstractTemplate {
+class Home extends AbstractView {
 	
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
 	protected /*String*/ $activeHeader;
-	protected /*String[]*/ $hiddenApplication = array("myNCE", "myBEN");
+	protected /*String[]*/ $hiddenApplication = array("myMed", "myNCE", "myBEN");
 	
 	/* --------------------------------------------------------- */
 	/* Constructors */

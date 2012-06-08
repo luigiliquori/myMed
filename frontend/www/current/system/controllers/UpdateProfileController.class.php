@@ -1,16 +1,15 @@
 <?php 
-require_once 'lib/dasp/request/Request.class.php';
-require_once 'lib/dasp/beans/MUserBean.class.php';
-require_once 'lib/dasp/beans/MAuthenticationBean.class.php';
-
-require_once 'lib/dasp/request/IRequestHandler.php';
+require_once MYMED_ROOT. 'lib/dasp/request/Request.class.php';
+require_once MYMED_ROOT. 'lib/dasp/beans/MUserBean.class.php';
+require_once MYMED_ROOT. 'lib/dasp/beans/MAuthenticationBean.class.php';
+require_once MYMED_ROOT. 'lib/dasp/request/IRequestHandler.php';
 
 /**
  * RequestHandler for the profile management
  * @author lvanni
  *
  */
-class UpdateProfileHandler implements IRequestHandler {
+class UpdateProfileController implements IRequestHandler {
 	
 	/* --------------------------------------------------------- */
 	/* Attributes */
