@@ -172,7 +172,6 @@ text-decoration: none;
 	border: 1px solid #56A00E;
 	background: 			#74b042;
 	color: 					#fff;
-	font-weight: bold;
 	text-shadow: 0 1px 1px #335413;	
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#74b042), to(#56A00E)); /* Saf4+, Chrome */
 	background-image: -webkit-linear-gradient(#74b042, #56A00E); /* Chrome 10+, Saf5.1+ */
@@ -189,6 +188,11 @@ text-decoration: none;
 	font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
 }
 
+.ui-bar-f h1, 
+.ui-bar-f h2, 
+.ui-bar-f h3 {
+	font-weight: bold;
+}
 .ui-bar-f,
 .ui-bar-f .ui-link-inherit {
 	color: 					#fff;

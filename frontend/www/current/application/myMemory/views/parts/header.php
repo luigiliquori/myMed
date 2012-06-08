@@ -40,15 +40,19 @@
 	</head>
 		
 <body>
+
 <? if (!empty($this->error)): ?>
-<div data-role="header" data-theme="e">
-	<h3>Error</h3>
+<div id="error-box" data-role="header" data-theme="e">
+	<h3><?= _("Error") ?></h3>
+	<a href="#error-box" data-icon="delete" data-action="close"><?= _("Close") ?></a>
 	<p><?= $this->error ?></p>
 </div>
 <? endif ?>
-<? if (true): ?>
-<div data-role="header" data-theme="f">
-	<h3></h3>
-	<p><?= "Génial" ?></p>
+
+<? if (!empty($this->success)): ?>
+<div id="success-box" data-role="header" data-theme="f">
+	<h3><?= _("Message") ?></h3>
+	<a href="#success-box" data-icon="delete" data-action="close"><?= _("Close") ?></a>
+	<p><?= $this->success ?></p>
 </div>
 <? endif ?>
