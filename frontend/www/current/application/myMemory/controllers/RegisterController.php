@@ -11,19 +11,19 @@ class RegisterController extends AbstractController {
 		// First stage of registration : we receive a POST with all the informations of the user
 		if ($_SERVER['REQUEST_METHOD'] == POST) {
 			
-			// Preconditions
+			// Preconditions TODO : i18n of error messages
 			if($_POST['password'] != $_POST['confirm']){
-				$this->error = "ERR: Mot de passe != confirmation";
-				return;
+				$this->error = "Mot de passe != confirmation";
 			} else if( empty($_POST['password']) ){
-				$this->error = "ERR: le mot de passe ne peut pas être vide.";
-				return;
+				$this->error = "Le mot de passe ne peut pas être vide.";
 			} else if( empty($_POST['email']) ){
-				$this->error = "ERR: l'email ne peut pas être vide.";
-				return;
+				$this->error = "L'email ne peut pas être vide.";
 			} else if(!$_POST['checkCondition']){
-				$this->error = "ERR: Vous devez accepter les conditions d'utilisation.";
-				return;
+				$this->error = "Vous devez accepter les conditions d'utilisation.";
+			}
+			
+			if (!empty($this->error)) {
+				$this->renderView("login");
 			}
 			
 			// create the new user
@@ -68,16 +68,23 @@ class RegisterController extends AbstractController {
 			
 			$this->renderView("login");
 		}
-		/*
-		 * Case where the user click the link on the e-mail to confirm registration
-		 */
-		else if ( isset($_GET['registration']) AND isset($_GET['accessToken']) ) {
-			// force to delete existing accessToken
+		
+		// Case where the user click the link on the e-mail to confirm registration 
+		else if (isset($_GET['registration']) AND isset($_GET['accessToken'])) {
+			
+			// Force to delete existing accessToken
 			unset($_SESSION['accessToken']);
 			
+			// Check the registration, and renders the login page
 			$this->confirmRegistration($_GET['accessToken']);
 		 
-		} 
+		} else {
+			
+		}
+		
+		// Render the login/register view 
+		$this->renderView("login");
+		
 	}
 	
 	
@@ -87,10 +94,8 @@ class RegisterController extends AbstractController {
 	 */
 	public /*String*/ function confirmRegistration($accessToken) {
 		
-		/*
-		 *  Building Authentication request
-		 *  This will confirm the temporary profile (if it exists)
-		 */
+		// Building Authentication request
+		// This will confirm the temporary profile (if it exists)
 		$request = new Request("AuthenticationRequestHandler", CREATE);
 		$request->addArgument("accessToken", $accessToken);
 		
@@ -102,7 +107,7 @@ class RegisterController extends AbstractController {
 		if($responseObject->status != 200) {
 			$this->error = $responseObject->description;
 		} else {
-			$this->success = "Votre compte à bien été validé!";
+			$this->success = "Votre compte à bien été validé. Vous pouvez vous loguer à présent";
 		}
 		$this->renderView("login");
 		

@@ -41,8 +41,14 @@
 		
 <body>
 <? if (!empty($this->error)): ?>
-<div class="ui-bar ui-bar-e">
+<div data-role="header" data-theme="e">
 	<h3>Error</h3>
 	<p><?= $this->error ?></p>
+</div>
+<? endif ?>
+<? if (true): ?>
+<div data-role="header" data-theme="f">
+	<h3></h3>
+	<p><?= "Génial" ?></p>
 </div>
 <? endif ?>
