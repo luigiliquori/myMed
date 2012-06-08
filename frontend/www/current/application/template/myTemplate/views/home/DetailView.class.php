@@ -43,10 +43,13 @@ class DetailView extends MainView {
 				$details = json_decode($this->handler->getSuccess());
 				$_SESSION[APPLICATION_NAME]['details'] = $details;
 				$user = $_POST['user'];
+				$predicate = $_POST['predicate'];
+				$_SESSION[APPLICATION_NAME]['details']['predicate'] = $predicate;
 				$_SESSION[APPLICATION_NAME]['details']['user'] = $user;
 			} else {
 				$details = $_SESSION[APPLICATION_NAME]['details'];
 				$user = $_SESSION[APPLICATION_NAME]['details']['user'];
+				$predicate = $_SESSION[APPLICATION_NAME]['details']['predicate'];
 			}
 			?>
 			<!-- TEXT -->
@@ -74,15 +77,59 @@ class DetailView extends MainView {
 	    		<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="30" height="30" style="position: absolute;">
 	    	<?php } ?>
 		    <div style="position: relative; top: 3px; left:35px; height: 30px;">
-		    	<?= $profile->firstName ?> 
-		    	<?= $profile->lastName ?> - 
-		    	<?= $values['begin'] ?>
+		    <?php 
+		    	echo $profile->firstName; 
+		    	echo $profile->lastName . "-"; 
+		    	echo $values['begin'];
+		    ?> 
 		    </div>
+		    
+		    <!-- Reputation -->
+		    <div>
+		    	<?php 
+		    	$request = new Request("ReputationRequestHandler", READ);
+		    	$request->addArgument("application",  APPLICATION_NAME);
+		    	$request->addArgument("producer",  $profile->id);
+		    	$request->addArgument("consumer",  $_SESSION['user']->id);
+		    	$responsejSon = $request->send();
+		    	$responseObject = json_decode($responsejSon);
+		    	if(isset($responseObject->dataObject->reputation)){
+			    	$i=0;
+			    	$reputation = $responseObject->dataObject->reputation * 100;
+			    	echo $reputation . "%";
+// 		    		while($i<$reputation){
+// 				    	echo "+";
+// 				    	$i+=20;
+// 			    	}
+// 		    		while($i<100){
+// 				    	echo "-";
+// 				    	$i+=20;
+// 			    	}
+		    	}
+		    	
+		    	?>
+		    	<?php $date = date("d/m/Y") ?>
+		    	<form id="StartInteractionForm" action="#DetailView" method="post" name="StartInteractionForm" id="StartInteractionForm" enctype="multipart/form-data">
+		    		<!-- Define the method to call -->
+					<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
+					<input type="hidden" name="method" value="startInteraction" />
+					<input type="hidden" name="producer" value="<?= $user ?>" />
+					<input type="hidden" name="consumer" value="<?= $_SESSION['user']->id ?>" />
+					<input type="hidden" name="start" value="<?= time() ?>" />
+					<input type="hidden" name="end" value="<?= time() ?>" />
+					<input type="hidden" name="predicate" value="<?= $predicate ?>" />
+					<input type="hidden" name="feedback" value="" id="feedback"/>
+		    	
+		    		<a data-role="button" data-icon="plus" data-iconpos="notext" data-inline="true" onclick="$('#feedback').val('1'); document.StartInteractionForm.submit();"></a>
+		    		<a data-role="button" data-icon="minus" data-iconpos="notext" data-inline="true" onclick="$('#feedback').val('0'); document.StartInteractionForm.submit();"></a>
+		    	</form>
+		    </div>
+		    
 	    	
 	    	<!-- COMMENT -->
 	    	<div data-role="collapsible"  data-content-theme="d">
 	    		<h3>Comment</h3>
-	    		<?php if($_SESSION['user']->id == VISITOR_ID) {?>
+	    		<?php if(!USER_CONNECTED) {?>
 	    					<span>Please login before using this feature...</span>
 	    		<?php } else {
 			    	$request = new Request("FindRequestHandler", READ);

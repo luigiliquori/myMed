@@ -41,8 +41,8 @@ abstract class AbstractLogin extends AbstractTemplate {
 		<div id="loginHeader" align="center">
 			<div id="loginHeaderContainer">
 				<?php $this->printLogo() ?>
-				<form action="#" method="post" name="singinForm" id="singinForm">
-					<input type="hidden" name="singin" value="1"/>
+				<form action="#" method="post" name="signinForm" id="signinForm">
+					<input type="hidden" name="signin" value="1"/>
 					<div data-role="fieldcontain">
 						<div id="loginEmail">
 							<label for="name">Adresse électronique:</label><br>
@@ -55,7 +55,7 @@ abstract class AbstractLogin extends AbstractTemplate {
 <!-- 						    <a href="#retrievePassword" >Mot de passe oublié ?</a> -->
 					    </div>
 					    <div id="loginConnexion">
-						    <a data-role="button" data-inline="true" onclick="document.singinForm.submit()">Connexion</a>
+						    <a data-role="button" data-inline="true" onclick="document.signinForm.submit()">Connexion</a>
 					    </div>
 					</div>	
 				</form>

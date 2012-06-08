@@ -4,52 +4,51 @@
  */
 package com.mymed.controller.core.manager.reputation.db.facade;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.lang.reflect.Field;
+import java.nio.ByteBuffer;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.apache.cassandra.thrift.ColumnOrSuperColumn;
+import org.apache.cassandra.thrift.Mutation;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Ignore;
+import org.junit.Test;
+
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.reputation.db.table.ICassandraPersistable;
 import com.mymed.controller.core.manager.reputation.db.table.Verdict;
 import com.mymed.controller.core.manager.reputation.globals.Constants;
+import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.core.configuration.WrapperConfiguration;
 import com.mymed.model.core.wrappers.cassandra.api07.CassandraWrapper;
 import com.mymed.utils.ClassType;
 import com.mymed.utils.MConverter;
 import com.mymed.utils.TimeUuid;
-import java.io.File;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.Ignore;
-import static org.junit.Assert.*;
-
-import org.apache.cassandra.thrift.ColumnOrSuperColumn;
-import org.apache.cassandra.thrift.ColumnParent;
-import org.apache.cassandra.thrift.ConsistencyLevel;
-import org.apache.cassandra.thrift.KeyRange;
-import org.apache.cassandra.thrift.KeySlice;
-import org.apache.cassandra.thrift.Mutation;
-import org.apache.cassandra.thrift.SlicePredicate;
-import org.apache.cassandra.thrift.SliceRange;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.nio.ByteBuffer;
-import java.util.Map;
 
 /**
  *
  * @author peter
  */
-public class CassandraQueryFacadeTest {
+public class CassandraQueryFacadeTest extends StorageManager {
 
     private CassandraWrapper wrapper = null;
     final String listenAddress;
     final int thriftPort;
 
     public CassandraQueryFacadeTest() {
-        final WrapperConfiguration conf = new WrapperConfiguration(new File(Constants.CONFIGURATION_FILE_PATH));
+        final WrapperConfiguration conf = new WrapperConfiguration(CONFIG_FILE);
 
         listenAddress = conf.getCassandraListenAddress();
         thriftPort = conf.getThriftPort();

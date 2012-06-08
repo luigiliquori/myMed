@@ -4,6 +4,7 @@ require_once '../../../lib/dasp/request/Find.class.php';
 require_once '../../../lib/dasp/request/Delete.class.php';
 require_once '../../../lib/dasp/request/GetDetail.class.php';
 require_once '../../../lib/dasp/request/Subscribe.class.php';
+require_once '../../../lib/dasp/request/StartInteraction.class.php';
 require_once '../../../lib/dasp/request/Request.class.php';
 
 /**

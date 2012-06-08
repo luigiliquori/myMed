@@ -9,6 +9,7 @@ import java.util.List;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.reputation.db.table.ICassandraPersistable;
 import com.mymed.controller.core.manager.reputation.globals.Constants;
+import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.core.configuration.WrapperConfiguration;
 import com.mymed.model.core.wrappers.cassandra.api07.CassandraWrapper;
 import com.mymed.utils.MLogger;
@@ -19,7 +20,7 @@ import org.apache.cassandra.thrift.ColumnOrSuperColumn;
  * TODO: Correggere gli errori di INRIA da questo TransactionManager
  * @author piccolo
  */
-public class TransactionManager {
+public class TransactionManager extends StorageManager {
 
   private CassandraQueryFacade queryFacade = null;
   private int numberOfAllowedConcurrentTransactions;
@@ -37,10 +38,11 @@ public class TransactionManager {
   }
 
   public static TransactionManager getInstance() throws InternalBackEndException {
-      final WrapperConfiguration conf = new WrapperConfiguration(new File(Constants.CONFIGURATION_FILE_PATH));
+      final WrapperConfiguration conf = new WrapperConfiguration(CONFIG_FILE);
 
       final String listenAddress = conf.getCassandraListenAddress();
       final int thriftPort = conf.getThriftPort();
+      
       final CassandraWrapper wrapper = new CassandraWrapper(listenAddress, thriftPort);
     if (instance == null) {
       instance = new TransactionManager(wrapper);
