@@ -1,8 +1,9 @@
 <?php 
-require_once '../../lib/dasp/request/Request.class.php';
-require_once '../../lib/dasp/beans/MUserBean.class.php';
-require_once '../../lib/dasp/beans/MAuthenticationBean.class.php';
-require_once '../../lib/socialNetworkAPIs/SocialNetworkConnection.class.php';
+require_once MYMED_ROOT. 'lib/dasp/request/IRequestHandler.php';
+require_once MYMED_ROOT. 'lib/dasp/request/Request.class.php'; 
+require_once MYMED_ROOT. 'lib/dasp/beans/MUserBean.class.php';
+require_once MYMED_ROOT. 'lib/dasp/beans/MAuthenticationBean.class.php'; 
+require_once MYMED_ROOT. 'lib/socialNetworkAPIs/SocialNetworkConnection.class.php';
 
 /**
  *
@@ -10,7 +11,7 @@ require_once '../../lib/socialNetworkAPIs/SocialNetworkConnection.class.php';
  * @author lvanni
  *
  */
-class LoginHandler implements IRequestHandler {
+class LoginController implements IRequestHandler {
 
 	private /*string*/ $error;
 	private /*string*/ $success;
@@ -24,7 +25,6 @@ class LoginHandler implements IRequestHandler {
 		$this->error	= false;
 		$this->success	= false;
 		$this->socialNetworkConnection = new SocialNetworkConnection();
-		$this->handleRequest();
 	}
 
 	/**
@@ -32,15 +32,18 @@ class LoginHandler implements IRequestHandler {
 	 * Enter description here ...
 	 */
 	public /*String*/ function handleRequest() {
+
 		if(isset($_POST['refreshUserSession'])) {
 			unset($_SESSION['user']);
+// 			echo '<script type="text/javascript">alert(\'refreshUserSession\');</script>';
 		}
 		
 		// Create or Refresh the user session
-		if(!isset($_SESSION['user']) || $_SESSION['user']->id == VISITOR_ID) {
-			
+		if(!isset($_SESSION['user'])) {
+
 			// LOGIN
 			if(isset($_GET['accessToken']) || isset($_POST['accessToken'])) {
+				
 				$accessToken = isset($_GET['accessToken']) ? $_GET['accessToken'] : $_POST['accessToken'];
 
 				if(isset($_GET['registration'])) {
@@ -54,11 +57,11 @@ class LoginHandler implements IRequestHandler {
 					if($responseObject->status != 200) {
 						$_SESSION['error'] = $responseObject->description;
 					} else {
-						header("Refresh:0;url=/application/" . APPLICATION_NAME . "?inscription=ok#ProfileView"); // REDIRECTION
+						header("Refresh:0;url=" . $url . "?inscription=ok"); // REDIRECTION
 					}
 				} else { // HANDLE LOGIN
 					$request = new Request("SessionRequestHandler", READ);
-					$_SESSION['accessToken'] = $accessToken;
+					$request->addArgument("accessToken", $accessToken);
 					if(isset($_GET['socialNetwork'])){
 						$request->addArgument("socialNetwork", $accessToken);
 					} else {
@@ -80,23 +83,20 @@ class LoginHandler implements IRequestHandler {
 				}
 
 			} else if(isset($_POST['signin'])) {
+				// HANDLE MYMED AUTHENTICATION
 
-				if($_POST['signin'] == "visitor") {
-					$login = "myEurocin_visitor@yopmail.com";
-					$pass = hash("sha512", "myEurocin_visitor");
-				} else {
-					if(($login = $_POST['login']) == ""){
-						$this->error = "FAIL: eMail cannot be empty!";
-						return;
-					} else if(($pass = hash("sha512", $_POST['password'])) == ""){
-						$this->error = "FAIL: password cannot be empty!";
-						return;
-					}
+				// Preconditions
+				if($_POST['login'] == ""){
+					$this->error = "FAIL: eMail cannot be empty!";
+					return;
+				} else if($_POST['password'] == ""){
+					$this->error = "FAIL: password cannot be empty!";
+					return;
 				}
 					
 				$request = new Request("AuthenticationRequestHandler", READ);
-				$request->addArgument("login", $login);
-				$request->addArgument("password", $pass);
+				$request->addArgument("login", $_POST["login"]);
+				$request->addArgument("password", hash('sha512', $_POST["password"]));
 					
 				$responsejSon = $request->send();
 				$responseObject = json_decode($responsejSon);
@@ -105,7 +105,8 @@ class LoginHandler implements IRequestHandler {
 					$_SESSION['error'] = $responseObject->description;
 				} else {
 					$accessToken = $responseObject->data->accessToken;
-					echo "<form id='signinRedirectForm' name='signinRedirectForm' method='post'>";
+					$url = $responseObject->data->url;
+					echo "<form id='signinRedirectForm' name='signinRedirectForm' method='post' action='" . $url . "'>";
 					echo "<input type='hidden' name='accessToken' value='" . $accessToken . "' />";
 					echo "</form>";
 					echo '<script type="text/javascript">document.signinRedirectForm.submit();</script>';

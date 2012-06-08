@@ -134,7 +134,7 @@ public class CassandraWrapper implements ICassandraWrapper {
             connection = (Connection) manager.checkOut(address, port);
             
             if (connection == null) {
-            	throw new InternalBackEndException("The backend is unable to connect to Cassandra");
+            	throw new InternalBackEndException("The backend is unable to connect to Cassandra on: " + address + ":" + port);
             }
             
             try {
