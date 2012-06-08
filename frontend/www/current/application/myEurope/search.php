@@ -102,37 +102,12 @@
 		<div data-role="page" id="Search">
 			<div class="wrapper">
 				<div data-role="header" data-theme="b">
-					<a href="about" data-theme="b" type="button" data-icon="info" data-transition="slide" data-direction="reverse">about</a>
+					<a href=<?= $_SESSION['user']?"option":"authenticate" ?> data-icon="arrow-r" class="ui-btn-left" data-transition="slide"><?= $_SESSION['user']?$_SESSION['user']->name:"Connexion" ?></a>
 					<h2>myEurope</h2>
-					<a href=<?= $_SESSION['user']?"option":"authenticate" ?> data-icon="arrow-r" class="ui-btn-right" data-transition="slide"><?= $_SESSION['user']?$_SESSION['user']->name:"Connexion" ?></a>
+					<a href="post" data-theme="b" type="button" data-transition="slide" >Soumettre un appel d'offre/ un appel à partenaires</a>
 				</div>
 				<div data-role="content">
-					<div style="text-align: center;">	
-					<br />
-					PROVENCE-ALPES-COTE D'AZUR : Rechercher un ou plusieurs projets cofinancés par l'Union européenne
-					</div>
-					<br />
-					<div data-role="collapsible" data-collapsed="true" data-mini="true" style="width:80%;margin-right: auto; margin-left: auto;">
-						<h3>Recherche avancée</h3>
-						<form action="#" id="subscribeForm">
-							<div>
-							<input name="application" value='<?= $application ?>' type="hidden" />
-							<div data-role="fieldcontain" style="margin-left: auto;margin-right: auto;">
-								<fieldset data-role="controlgroup" >
-									<label for="textinputs1"> Nom de l'organisme bénéficiaire: </label> <input id="textinputs1"  name="nom" placeholder="" value="" type="text" />
-								</fieldset>
-							</div>
-							<div data-role="fieldcontain" style="margin-left: auto;margin-right: auto;">
-								<fieldset data-role="controlgroup" >
-									<label for="textinputs2"> Libellé du projet: </label> <input id="textinputs2"  name="lib" placeholder="" value="" type="text" />
-								</fieldset>
-							</div>
-							<a href="" type="button" data-icon="gear" onclick="$('#subscribeForm').submit();" style="width:280px;margin-left: auto;margin-right: auto;">rechercher</a></div>
-						</form>
-					</div>
-					
-					<a href="post" type="button" style="width: 80%; margin-right: auto; margin-left: auto;"> Soumettre un appel d'offre/ un appel à partenaires</a>
-					<br />
+				<br />
 					<ul data-role="listview" data-filter="true" data-inset="true" data-filter-placeholder="...">
 					<?php 	
 						if($res->status == 200) {
@@ -156,7 +131,32 @@
 					
 						?>
 					</ul>
-					<div style="float:right;"><?= count($res) ?> résultats</div><br />
+					<div data-role="collapsible" data-collapsed="true">
+						<h3>Recherche avancée</h3>
+						<form action="#" id="subscribeForm">
+							<div>
+							<input name="application" value='<?= $application ?>' type="hidden" />
+							<div data-role="fieldcontain" style="margin-left: auto;margin-right: auto;">
+								<fieldset data-role="controlgroup" >
+									<label for="textinputs1"> Nom de l'organisme bénéficiaire: </label> <input id="textinputs1"  name="nom" placeholder="" value="" type="text" />
+								</fieldset>
+							</div>
+							<div data-role="fieldcontain" style="margin-left: auto;margin-right: auto;">
+								<fieldset data-role="controlgroup" >
+									<label for="textinputs2"> Libellé du projet: </label> <input id="textinputs2"  name="lib" placeholder="" value="" type="text" />
+								</fieldset>
+							</div>
+							<a href="" type="button" data-icon="gear" onclick="$('#subscribeForm').submit();" style="width:280px;margin-left: auto;margin-right: auto;">rechercher</a></div>
+						</form>
+					</div>
+					<?php $result_number = count($res); ?> 
+					<?php 	
+						if($result_number== 0) {
+					?>
+					<div style="float:left;">You have 0 résultats, please try recherche avancee</div><br />
+					<?php 	
+						}
+					?>
 					<div class="push"></div>
 				</div>
 			</div>
