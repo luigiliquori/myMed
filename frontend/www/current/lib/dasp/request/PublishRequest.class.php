@@ -63,7 +63,7 @@ class Publish extends Request {
 			$user = $responseObject->data->user;
 		} else {
 			// publisher = the current user
-			$user = json_encode($_SESSION['user']);
+			$user = json_encode($_SESSION['user']['id']);
 		}
 		
 		// PREDICATES
