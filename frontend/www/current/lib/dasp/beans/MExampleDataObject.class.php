@@ -19,15 +19,15 @@
  * Here is an example of a custom data object,
  * that is capable to transform itself to an array of MDataBean.
  */
-class MExampleDataObject extends AbstractDataObject {
+class MExampleDataObject extends MAbstractDataObject {
 	
-	public $attribute1;
+    public $attribute1;
 	public $attribute2;
 	
 	public function __construct() {
 		parent::__construct(array(
 			"attribute1"  => KEYWORD,
-			"attribute2" => TEXT));
+			"attribute2"  => TEXT));
 	}
 	
 

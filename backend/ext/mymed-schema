@@ -11,6 +11,7 @@
  * The 'RackUnawareStrategy' has been renamed into 'SimpleStrategy' from v0.7.
  * Also, the 'RackAwareStrategy' should have been renamed into 'NetworkTopologyStrategy'.
 */
+
 create keyspace Mymed with strategy_options = [{DC1:3, DC2:3}] and placement_strategy = 'org.apache.cassandra.locator.NetworkTopologyStrategy'; 
 
 /* Switch to the 'mymed' keyspace */

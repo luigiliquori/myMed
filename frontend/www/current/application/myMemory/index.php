@@ -1,34 +1,96 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title>myMemory</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1"> 
-		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
-		<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-		<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
-	</head>
+<?php
+
+	// ------------------------------------------------------------------------------------------------
+	// Init things
+	// ------------------------------------------------------------------------------------------------
+
+	// Page compression
+	ob_start("ob_gzhandler");
+		
+	// Debugging in Chrome
+	include('include/PhpConsole.php');
+	PhpConsole::start();
 	
-	<body>
-		<div data-role="page"> 
-			<div data-role="header" data-theme="b"><h1>myMemory</h1></div> 
-			<div data-role="content"><iframe src="http://docs.google.com/gview?url=http://mymed2.sophia.inria.fr/application/myMemory/myMemory.pdf&embedded=true" style="width:100%; height:800px;;" frameborder="0"></iframe></div> 
-			<div data-role="footer" data-theme="c">
-				<center>
-				<h4>myMed - INTERREG IV - Alcotra</h4>
-				<img alt="Alcotra" src="../../system/img/logos/alcotra"
-					style="width: 100px;" /> <img alt="Europe"
-					src="../../system/img/logos/europe" style="width: 50px;" /> <img
-					alt="Conseil Général 06" src="system/img/logos/cg06"
-					style="width: 100px; height: 30px;" /> <img alt="Regine Piemonte"
-					src="../../system/img/logos/regione" style="width: 100px;" /> <img
-					alt="Région PACA" src="../../system/img/logos/PACA" style="width: 100px;" />
-				<img alt="Prefecture 06" src="../../system/img/logos/pref"
-					style="width: 70px;" /> <img alt="Inria"
-					src="../../system/img/logos/inria.jpg" style="width: 100px;" />
-				<p>"Ensemble par-delà les frontières"</p>
-				</center>
-			</div> 
-		</div> 
-	</body>
-</html>
+	// For the magic_quotes
+	@set_magic_quotes_runtime(false);	
+	
+	// Start session
+	session_start();
+	
+	// ------------------------------------------------------------------------------------------------
+	// Helpers
+	// ------------------------------------------------------------------------------------------------
+	
+	function add_path($path) {
+		if (!file_exists($path) OR (file_exists($path) && filetype($path) !== 'dir'))
+		{
+			trigger_error("Include path '{$path}' does not exists", E_USER_WARNING);
+			return;
+		}
+		set_include_path(get_include_path() . PATH_SEPARATOR . $path);
+	}
+	
+	// ---------------------------------------------------------------------
+	// 	 Constants
+	// ---------------------------------------------------------------------
+	
+	define('APPLICATION_NAME', "myMemory");
+	define('APP_ROOT', __DIR__);
+	define('MYMED_ROOT', __DIR__ . '/../..');
+	
+	// ------------------------------------------------------------------------------------------------
+	// Include
+	// ------------------------------------------------------------------------------------------------
+	
+	// Set the paths
+	add_path(__DIR__ . '/include/');
+	add_path(__DIR__ . '/controllers/');
+	add_path(__DIR__ . '/views/');
+	add_path(__DIR__ . '/views/parts');
+	add_path(MYMED_ROOT . '/lib/dasp/beans');
+	add_path(MYMED_ROOT . '/lib/dasp/request');
+	
+	// Get config
+	require_once MYMED_ROOT . '/system/config.php';
+	
+	// Set autoloadd
+	spl_autoload_register(function ($className) {
+		
+		foreach(array(".class.php", ".php") as $x) {
+			
+			foreach(explode(PATH_SEPARATOR, get_include_path()) as $path) {
+				$fname = $path . '/' . $className.$x;
+				if(@file_exists($fname)) {
+					require_once($fname);
+					return true;
+				}
+			}
+		}
+		error_log("Failed to find '$className' in " . get_include_path());
+		return false;
+	});
+
+	
+	// ---------------------------------------------------------------------
+	// 	Main process
+	// ---------------------------------------------------------------------
+
+	// Get action, default is "main" 
+	$action = $_REQUEST["action"];
+	if (empty($action)) {
+		$action = "main";
+	}
+	
+	// Name/Path of view and controllers
+	$className = ucfirst($action) . "Controller";
+
+	// Create controller
+	$controller = new $className();
+	
+	// Process the request
+	$controller->handleRequest();
+	
+	// We should not reach that point (view already rendered by the controller) 
+	throw new Exception("${className}->handleRequest() should never return");
+	
+?>

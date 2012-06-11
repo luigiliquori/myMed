@@ -55,7 +55,6 @@ class ResultView extends MainView {
 						<li>
 							<!-- RESULT DETAILS -->
 							<form action="#DetailView" method="post" name="getDetailForm<?= $i ?>">
-								<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
 								<input type="hidden" name="method" value="getDetail" />
 								<input type="hidden" name="user" value="<?= $result->publisherID ?>" />
 								<input type="hidden" name="predicate" value="<?= $result->predicate ?>" />
