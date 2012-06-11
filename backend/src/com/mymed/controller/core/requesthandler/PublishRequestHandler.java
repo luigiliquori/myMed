@@ -29,8 +29,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import org.apache.commons.lang.StringUtils;
-
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
@@ -141,30 +139,38 @@ public class PublishRequestHandler extends AbstractRequestHandler {
                             bufferSubPredicate.append(element.getKey());
                             bufferSubPredicate.append(element.getValue());
                         }
+                        bufferSubPredicate.trimToSize();
+
+                        String data_id = parameters.get("id") != null?parameters.get("id"):bufferSubPredicate.toString();
 
                         // construct the Predicate => broadcast algorithm
-                        final int broadcastSize = (int) Math.pow(2, predicateListObject.size());
-                        for (int i = 1; i < broadcastSize; i++) {
-                            final StringBuffer bufferPredicate = new StringBuffer(150);
-                            int mask = i;
-                            int j = 0;
+                        int n, level; 
+                        level = n = predicateListObject.size();
+                        if (parameters.get("level") != null){
+                        	level = Integer.parseInt(parameters.get("level"));
+                        }
+                        LOGGER.info("deleting "+data_id+" with level: "+level);
+                        StringBuffer bufferPredicate = new StringBuffer(150);
+                        for (int k=1; k<=level; k++){
+                        	for (long i = (1 << k) - 1; (i >>> n) == 0; i = nextCombo(i)) {
+                        		bufferPredicate = new StringBuffer(150);
+                        		int mask = (int) i;
+                        		int j = 0;
 
-                            while (mask > 0) {
-                                if ((mask & 1) == 1) {
-                                    final MDataBean element = predicateListObject.get(j);
-                                    bufferPredicate.append(element.getKey());
-                                    bufferPredicate.append(element.getValue());
-                                }
-                                mask >>= 1;
-                                j++;
-                            }
-
-                            bufferPredicate.trimToSize();
-
-                            if (bufferPredicate.length() != 0) {
-                                pubsubManager.delete(application, bufferPredicate.toString(),
-                                                bufferSubPredicate.toString(), userBean);
-                            }
+                        		while (mask > 0) {
+                        			if ((mask & 1) == 1) {
+                        				bufferPredicate.append(predicateListObject.get(j).getKey());
+                        				bufferPredicate.append(predicateListObject.get(j).getValue());
+                        			}
+                        			mask >>= 1;
+                        			j++;
+                        		}
+                        		bufferPredicate.trimToSize();
+                        		if (bufferPredicate.length() != 0) {
+                        			pubsubManager.delete(application, bufferPredicate.toString(),
+                        					data_id, userBean);
+                        		}
+                        	}
                         }
 
                     } catch (final JsonSyntaxException e) {
@@ -201,7 +207,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            String application, predicateListJson, user, data, level, id = null;
+            String application, predicateListJson, user, data;
 
             if (code.equals(RequestCode.CREATE)) {
                 message.setMethod(JSON_CODE_CREATE);
@@ -223,48 +229,30 @@ public class PublishRequestHandler extends AbstractRequestHandler {
                     final List<MDataBean> predicateListObject = getGson().fromJson(predicateListJson, dataType);
 
                     // construct the subPredicate
+                    final StringBuffer bufferSubPredicate = new StringBuffer(150);
+                    for (final MDataBean element : predicateListObject) {
+                    	bufferSubPredicate.append(element.getKey());
+                    	bufferSubPredicate.append(element.getValue());
+                    }
 
-                    final String subPredicate = StringUtils.join(predicateListObject, "");
+                    bufferSubPredicate.trimToSize();
+                    
+                    String data_id = parameters.get("id") != null?parameters.get("id"):bufferSubPredicate.toString();
 
                     // construct the indexed rows => broadcast algorithm
+                  //n is the predicateList size, level the length of predicates rows (= n by default)
+                    int n, level; 
+                    level = n = predicateListObject.size();
+                    if (parameters.get("level") != null) {
+                    	level = Integer.parseInt(parameters.get("level"));
+                    }
+                    LOGGER.info("indexing "+data_id+" with level: "+level);
+                    StringBuffer bufferPredicate = new StringBuffer(150);
 
-                    if ((level = parameters.get("level")) != null){
-                    	LOGGER.info("indexing with max:"+level);
-                    	int lev = Integer.parseInt(level);
-                    	int n = predicateListObject.size();
-                    	StringBuffer bufferPredicate = new StringBuffer(150);
-                    	for (final MDataBean item : dataList) {
-                        	if (item.getKey().equals("id")) { // this data will be used as unique ID (content ID String)
-                        		id = item.getValue();
-                        		break;
-                        	}
-                        }
-                    	for (int k=1; k<=lev; k++){
-                			for (long i = (1 << k) - 1; (i >>> n) == 0; i = nextCombo(i)) {
-                				bufferPredicate = new StringBuffer(150);
-                				int mask = (int) i;
-    	                    	int j = 0;
-    	
-    	                    	while (mask > 0) {
-    	                    		if ((mask & 1) == 1) {
-    	                    			bufferPredicate.append(predicateListObject.get(j).toString());
-    	                    		}
-    	                    		mask >>= 1;
-    	                    		j++;
-    	                    	}
-    	                    	bufferPredicate.trimToSize();
-    	                    	if (bufferPredicate.length() != 0) {
-    	                    		pubsubManager.create(application, bufferPredicate.toString(),
-    	                    				(id != null)?id:subPredicate, userBean, dataList);
-    	                    	}
-                			}
-                		}
-
-                    } else {   
-                    	final int broadcastSize = (int) Math.pow(2, predicateListObject.size());
-	                    for (int i = 1; i < broadcastSize; i++) {
-	                    	final StringBuffer bufferPredicate = new StringBuffer(150);
-	                    	int mask = i;
+                	for (int k=1; k<=level; k++){
+            			for (long i = (1 << k) - 1; (i >>> n) == 0; i = nextCombo(i)) {
+            				bufferPredicate = new StringBuffer(150);
+            				int mask = (int) i;
 	                    	int j = 0;
 	
 	                    	while (mask > 0) {
@@ -277,10 +265,10 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 	                    	bufferPredicate.trimToSize();
 	                    	if (bufferPredicate.length() != 0) {
 	                    		pubsubManager.create(application, bufferPredicate.toString(),
-	                    				subPredicate, userBean, dataList);
+	                    				data_id, userBean, dataList);
 	                    	}
-	                    }
-                    }
+            			}
+            		}
                     
                 } catch (final JsonSyntaxException e) {
                     LOGGER.debug("Error in Json format", e);

@@ -52,6 +52,7 @@
 		$request->addArgument("predicate", json_encode($predicates));
 			
 		$request->addArgument("data", json_encode($data));
+		$request->addArgument("id", $_POST['id']);
 		$request->addArgument("level", 3);
 		if(isset($_SESSION['user'])) {
 			$request->addArgument("user", json_encode($_SESSION['user']));

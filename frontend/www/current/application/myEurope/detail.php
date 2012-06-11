@@ -47,6 +47,11 @@
 		$request = new Request("PublishRequestHandler", DELETE);
 		$request->addArgument("application", $_POST['application']);
 		$request->addArgument("predicate", urldecode($_POST['predicates']));
+		$request->addArgument("predicate", urldecode($_POST['predicates']));
+		if (isset($_POST['id'])) {
+			$request->addArgument("id", urldecode($_POST['id']));
+		}
+		$request->addArgument("level", 3); // this will be enough since we insert everything with level <=3
 		$request->addArgument("user", json_encode($_SESSION['user']) );
 		
 		$responsejSon = $request->send();
@@ -193,6 +198,7 @@
 					<form action="#" method="post" id="deleteForm">
 						<input name="application" value='<?= $_REQUEST['application'] ?>' type="hidden" />
 						<input name="predicates" value='<?= $deleteme ?>' type="hidden" />
+						<input name="id" value='<?= $_GET['predicate']?>' type="hidden" />
 						<input name="user" value='<?= $_REQUEST['user'] ?>' type="hidden" />
 					</form>
 					<a href="" type="button" data-theme="r" data-icon="delete" onclick="$('#deleteForm').submit();" style="width:270px;margin-left: auto; margin-right: auto">Supprimer ce document</a>
