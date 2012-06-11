@@ -18,6 +18,11 @@ class TemplateManager {
 			<!-- JQUERY  -->
 			<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
 			<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+			<script type="text/javascript">
+			$(document).bind("mobileinit", function(){
+			    $.mobile.loadingMessageTextVisible = true;
+			});
+			</script>
 			<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
 			
 			<!-- DateBox -->
@@ -51,9 +56,7 @@ class TemplateManager {
 			
 		</head>
 		
-		<body onload="hideLoadingBar();">
-		<!-- Loading dialog -->
-		<div id="loading" style="display:block;"><center><span>Chargement en cours...</span></center></div>
+		<body>
 		<!-- Disconnect form -->
 		<form action="?application='<?= APPLICATION_NAME ?>'" method="post" name="disconnectForm" id="disconnectForm">
 			<input type="hidden" name="disconnect" value="1" />

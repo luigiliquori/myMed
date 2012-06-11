@@ -182,23 +182,19 @@ class OptionView extends MyApplication {
 	
 			<!-- ABOUT -->
 			<div data-role="collapsible" data-collapsed="true" data-theme="d"
-				data-content-theme="c">
-				<h3>A propos</h3>
-				<h2>myRiviera v1.0 beta</h2>
-				<h3>myMed - INTERREG IV - Alcotra</h3>
-				<div class="innerContent">
-					<img alt="Alcotra" src="system/img/logos/alcotra"
-						style="width: 100px;" /> <img alt="Europe"
-						src="system/img/logos/europe" style="width: 50px;" /> <img
-						alt="Conseil Général 06" src="system/img/logos/cg06"
-						style="width: 100px;" /> <img alt="Regine Piemonte"
-						src="system/img/logos/regione" style="width: 100px;" /> <img
-						alt="Région PACA" src="system/img/logos/PACA" style="width: 100px;" />
-					<img alt="Prefecture 06" src="system/img/logos/pref"
-						style="width: 70px;" /> <img alt="Inria"
-						src="system/img/logos/inria" style="width: 100px;" />
-					<p>"Ensemble par-delà les frontières"</p>
-				</div>
+				data-content-theme="c" style="text-align: center;">
+
+					<h3>A propos</h3>
+					<h2>myRiviera v1.0 beta</h2>
+					<h4 style="margin: 10px;">myMed - INTERREG IV - Alcotra</h4>
+					<img alt="Alcotra" src="system/img/logos/alcotra" style="max-height:40px;max-width:100px;vertical-align: middle;" />
+					<img alt="Europe" src="system/img/logos/europe" style="max-height:40px;max-width:100px;vertical-align: middle;" />
+					<img alt="Conseil Général 06" src="system/img/logos/cg06" style="max-height:40px;max-width:100px;vertical-align: middle;" />
+					<img alt="Regine Piemonte" src="system/img/logos/regione" style="max-height:40px;max-width:100px;vertical-align: middle;" />
+					<img alt="Région PACA" src="system/img/logos/PACA" style="max-height:40px;max-width:100px;vertical-align: middle;" />
+					<img alt="Prefecture 06" src="system/img/logos/pref" style="max-height:40px;max-width:100px;vertical-align: middle;" />
+					<img alt="Inria" src="system/img/logos/inria.png" style="max-height:40px;max-width:100px;vertical-align: middle;" />
+					<h4>"Ensemble par-delà les frontières"</h4>
 			</div>
 		</div>
 	</div>
