@@ -175,7 +175,7 @@
 					<b>Auteur</b>: <a style="left-margin:10px; color: #0060AA; font-size:160%;" href="mailto:<?= $profile->email ?>"><?= $profile->name ?></a>
 					<br /><br />
 					<b>Nom de l'organisme bénéficiaire:</b>&nbsp; <span style="left-margin:5px; color: #0060AA; font-size:140%;"><?= $preds->nom ?></span><br />
-					<b>Libellé du projet:</b>&nbsp; <span style="left-margin:5px; color: #0060AA; font-size:140%;"><?= $preds->lib ?></span><br />
+					<b>Libellé du projet:</b>&nbsp; <span style="left-margin:5px; color: #0060AA; font-size:140%;"><?= $preds->id ?></span><br />
 					<br />
 					<b>Texte</b>:
 					<br /><br /><br />

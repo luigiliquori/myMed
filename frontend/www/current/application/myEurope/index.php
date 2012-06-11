@@ -29,10 +29,10 @@
 					<a id="opt" href=<?= $_SESSION['user']?"option":"authenticate" ?> class="ui-btn-right" data-transition="slide"><?= $_SESSION['user']?$_SESSION['user']->name:"Connexion" ?></a>
 				</div>
 				<div data-role="content">	
-					<div style="margin-top:3em; margin-bottom:auto;">
-					<h1 style="color:DarkBlue;text-align: center;color: #0060AA;font-size:350%;">myEurope</h1>
+					<div style="margin-top:2em; margin-bottom:auto;">
+					<h1 style="text-align: center;color: #0060AA;font-size:350%;">myEurope</h1>
 					<form action="search" id="subscribeForm">
-						<input name="q" placeholder="chercher un partenaire par mot clés" value="" data-type="search" style="width: 80%;"/>
+						<input name="q" placeholder="chercher un partenaire par mot clés" value="" data-type="search"/>
 					</form>
 					</div>
 					<div class="push"></div>

@@ -32,7 +32,7 @@ class Template {
 				<img alt="Regine Piemonte" src="media/logos/regione" style="max-height:40px;max-width:100px;vertical-align: middle;" />
 				<img alt="Région PACA" src="media/logos/PACA" style="max-height:40px;max-width:100px;vertical-align: middle;" />
 				<img alt="Prefecture 06" src="media/logos/pref" style="max-height:40px;max-width:100px;vertical-align: middle;" />
-				<img alt="Inria" src="media/logos/inria.jpg" style="max-height:40px;max-width:100px;vertical-align: middle;" />
+				<img alt="Inria" src="media/logos/inria.png" style="max-height:40px;max-width:100px;vertical-align: middle;" />
 				<p style="margin: 8px;">"Ensemble par-delà les frontières"</p>
 			</div>
 		</div>

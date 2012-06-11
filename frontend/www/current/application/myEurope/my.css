@@ -42,6 +42,11 @@ div.ui-slider {
 	width:100px;
 }
 
+.ui-li {
+	padding-top: 1px;
+	padding-bottom: 1px;
+}
+
 input.ui-input-text, textarea.ui-input-text {
 	width: 98%;
 }
@@ -51,6 +56,8 @@ input.ui-input-text, textarea.ui-input-text {
 	position: absolute;
 	width: 150px;
 }
+
+
 
 
 /* Red button theme for JQuery Mobile
@@ -75,15 +82,15 @@ input.ui-input-text, textarea.ui-input-text {
 
 .ui-btn-hover-r {
 	border: 1px solid #6E0000;
-	background: #B64B4B;
+	background: #d64B4B;
 	font-weight: bold;
 	color: #fff;
 	text-shadow: 0 -1px 1px #000;
-	background-image: -moz-linear-gradient(top, #D47272, #B64B4B);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #D47272),
-		color-stop(1, #B64B4B) );
+	background-image: -moz-linear-gradient(top, #e47272, #d64B4B);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #e47272),
+		color-stop(1, #d64B4B) );
 	-ms-filter:
-		"progid:DXImageTransform.Microsoft.gradient(startColorStr='#D47272', EndColorStr='#B64B4B')";
+		"progid:DXImageTransform.Microsoft.gradient(startColorStr='#e47272', EndColorStr='#d64B4B')";
 }
 
 .ui-btn-hover-r a.ui-link-inherit {
@@ -92,15 +99,15 @@ input.ui-input-text, textarea.ui-input-text {
 
 .ui-btn-down-r {
 	border: 1px solid #772222;
-	background: #C54E4E;
+	background: #e54E4E;
 	font-weight: bold;
 	color: #fff;
 	text-shadow: 0 -1px 1px #000;
-	background-image: -moz-linear-gradient(top, #9E3939, #C54E4E);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #9E3939),
-		color-stop(1, #C54E4E) );
+	background-image: -moz-linear-gradient(top, #bE3939, #C54E4E);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #bE3939),
+		color-stop(1, #e54E4E) );
 	-ms-filter:
-		"progid:DXImageTransform.Microsoft.gradient(startColorStr='#9E3939', EndColorStr='#C54E4E')";
+		"progid:DXImageTransform.Microsoft.gradient(startColorStr='#bE3939', EndColorStr='#e54E4E')";
 }
 
 .ui-btn-down-r a.ui-link-inherit {

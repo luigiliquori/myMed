@@ -12,7 +12,7 @@
 		
 		if(!isset($_SESSION['user'])) {
 			$request = new Request("AuthenticationRequestHandler", READ);
-			$request->addArgument("login", $_REQUEST["login"]);
+			$request->addArgument("login", trim(strtolower($_REQUEST["login"])));
 			$request->addArgument("password", hash('sha512', $_REQUEST["password"]));
 	
 			$responsejSon = $request->send();

@@ -27,13 +27,10 @@
 	$res = null;
 	$predicate = "";
 	if (isset($_GET['q'])){
-		$tags = preg_split('/[+]/', $_GET['q'], NULL, PREG_SPLIT_NO_EMPTY);
+		$tags = preg_split('/[ +]/', $_GET['q'], NULL, PREG_SPLIT_NO_EMPTY);
 		$p = array_unique(array_map('strtolower', $tags));
 		sort($p); //important
-		foreach( $p as $v ){ //do this for FindRequestHandler compatibility...
-			$predicate .= $v;
-		}
-		
+		$predicate = join("", array_slice($p, 0, 3)); // we use a broadcast level of 3 for myEurope see in post.php
 		$request = new Request("FindRequestHandler", READ);
 		$request->addArgument("application", $application);
 		$request->addArgument("predicate", $predicate);
@@ -42,6 +39,9 @@
 		
 	}
 
+	function is_subarray($q, $r){
+		return count(array_intersect( $q , $r)) == min(count($q), count($r));
+	}
 	
 ?>
 
@@ -59,27 +59,34 @@
 						<option value="3">Non abonné</option>
 						<option value="0">Abonné</option>
 					</select>
-					<h2>myEurope</h2>
+					<h2><a href="./" style="color:white; text-decoration:none;">myEurope</a></h2>
 					<a id="opt" href=<?= $_SESSION['user']?"option":"authenticate" ?> class="ui-btn-right" data-transition="slide"><?= $_SESSION['user']?$_SESSION['user']->name:"Connexion" ?></a>
 				</div>
 				<div data-role="content">	
-					<form action="search" id="subscribeForm" data-ajax="false">
-						<input id="searchBar" name="q" placeholder="chercher un partenaire par mot clés" data-type="search" style="width: 80%;"/>
+					<form action="search" id="subscribeForm" data-ajax="false" style="margin: 10px -10px 20px -10px;">
+						<input id="searchBar" name="q" placeholder="chercher un partenaire par mot clés" data-type="search" />
 					</form>
 					<br />
 					<?php 	
 						if($res->status == 200) {
 						?>
-						<ul data-role="listview" data-filter="true" data-inset="true" data-filter-placeholder="filtrer parmi tous les résultats">
+						<ul data-role="listview" data-filter="true" data-filter-placeholder="filtrer parmi tous les résultats">
 						<?php
 							$res = $res->dataObject->results;
-							
+
 							foreach( $res as $i => $value ){
-								$preds = json_decode($value->data);
+								$data = json_decode($value->data);
+
+								if (!is_subarray(array_slice($p, 3), json_decode($value->indexes))){
+									continue; //this item is filtered out, after level (=3)
+								}
+									
 							?>
-							<li><a href="" onclick="$('#detailForm<?= $i ?>').submit();">
-								<?= $preds->nom ?>, <?= $preds->lib ?>, <?= $preds->cout ?>, <?= $preds->montant ?>, 
-								<?= $preds->date ?>
+							<li><a href="" onclick="$('#detailForm<?= $i ?>').submit();" style="padding-top: 1px;padding-bottom: 1px;">
+								<h3><?= $data->nom ?>, <?= $data->id ?></h3>
+								<p><?= $data->cout ?>, <?= $data->montant ?></p>
+								<p class="ui-li-aside"><strong><?= $data->date ?></strong></p>
+								<p class="ui-li-aside" style="position: absolute;top: 60%;right: 14px;"><span><a style="color: #0060AA;" href="mailto:<?= substr($value->publisherID, 6) ?>"><?= substr($value->publisherID, 6) ?></a></span></p>
 								<form action="detail" id="detailForm<?= $i ?>">
 									<input name="application" value='<?= $application ?>' type="hidden" />
 									<input name="predicate" value="<?= urlencode($value->predicate) ?>" type="hidden" />
@@ -91,6 +98,7 @@
 							}
 							?>
 							</ul>
+							<br />
 							<div style="float:right;"><?= count($res) ?> résultats</div><br />
 						<?php	
 						} else{

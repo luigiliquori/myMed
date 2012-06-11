@@ -1,6 +1,5 @@
 <?php
 	session_start();
-
 	require_once '../../lib/dasp/request/Request.class.php';
 	require_once '../../system/config.php';
 	

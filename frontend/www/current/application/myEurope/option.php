@@ -209,6 +209,7 @@
 							<?php 
 							if($subscriptions->status == 200) {
 								$subscriptions = (array) $subscriptions->dataObject->subscriptions;
+								$i = 0;
 								foreach( $subscriptions as $k => $value ){ 
 									//prettify the subscription string:
 									/*$a = preg_split("/(nom|lib|cout|montant|date)/", $k ,0, PREG_SPLIT_DELIM_CAPTURE);
@@ -218,11 +219,11 @@
 									}*/
 							?>
 							<li><a href=""> <?= $k /*json_encode($s);*/ ?>
-								<form action="#" method="post" id="deleteSubscriptionForm<?= $k ?>">
+								<form action="#" method="post" id="deleteSubscriptionForm<?= $i ?>">
 									<input name="application" value='<?= $application ?>' type="hidden" />
 									<input name="predicate" value=<?= $k ?> type="hidden" />
 									<input name="userID" value='<?= $_SESSION['user']->id ?>' type="hidden" />
-								</form> <a href="javascript://" data-icon="delete" data-theme="r" onclick="$('#deleteSubscriptionForm<?= $k ?>').submit();">Désabonnement</a>
+								</form> <a href="javascript://" data-icon="delete" data-theme="r" onclick="$('#deleteSubscriptionForm<?= $i++ ?>').submit();">Désabonnement</a>
 								</a>
 							</li>
 								<?php 

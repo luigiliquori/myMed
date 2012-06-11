@@ -63,7 +63,7 @@ $("#Search").live("pageshow", function() {
 	$.get('ajaxsubscribe.php', { 
 		code: 1, 
 		application: application ,
-		predicate: tags.join() 
+		predicate: tags.join("") 
 	}, function(data){
 		var res = JSON.parse(data);
 		if (res.sub)

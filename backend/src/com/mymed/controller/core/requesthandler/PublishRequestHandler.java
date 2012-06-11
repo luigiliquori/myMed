@@ -29,6 +29,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
@@ -199,7 +201,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            String application, predicateListJson, user, data;
+            String application, predicateListJson, user, data, level, id = null;
 
             if (code.equals(RequestCode.CREATE)) {
                 message.setMethod(JSON_CODE_CREATE);
@@ -221,38 +223,65 @@ public class PublishRequestHandler extends AbstractRequestHandler {
                     final List<MDataBean> predicateListObject = getGson().fromJson(predicateListJson, dataType);
 
                     // construct the subPredicate
-                    final StringBuffer bufferSubPredicate = new StringBuffer(150);
-                    for (final MDataBean element : predicateListObject) {
-                        bufferSubPredicate.append(element.getKey());
-                        bufferSubPredicate.append(element.getValue());
-                    }
 
-                    bufferSubPredicate.trimToSize();
+                    final String subPredicate = StringUtils.join(predicateListObject, "");
 
-                    // construct the Predicate => broadcast algorithm
-                    final int broadcastSize = (int) Math.pow(2, predicateListObject.size());
-                    for (int i = 1; i < broadcastSize; i++) {
-                        final StringBuffer bufferPredicate = new StringBuffer(150);
-                        int mask = i;
-                        int j = 0;
+                    // construct the indexed rows => broadcast algorithm
 
-                        while (mask > 0) {
-                            if ((mask & 1) == 1) {
-                                final MDataBean element = predicateListObject.get(j);
-                                bufferPredicate.append(element.getKey());
-                                bufferPredicate.append(element.getValue());
-                            }
-                            mask >>= 1;
-                            j++;
+                    if ((level = parameters.get("level")) != null){
+                    	LOGGER.info("indexing with max:"+level);
+                    	int lev = Integer.parseInt(level);
+                    	int n = predicateListObject.size();
+                    	StringBuffer bufferPredicate = new StringBuffer(150);
+                    	for (final MDataBean item : dataList) {
+                        	if (item.getKey().equals("id")) { // this data will be used as unique ID (content ID String)
+                        		id = item.getValue();
+                        		break;
+                        	}
                         }
+                    	for (int k=1; k<=lev; k++){
+                			for (long i = (1 << k) - 1; (i >>> n) == 0; i = nextCombo(i)) {
+                				bufferPredicate = new StringBuffer(150);
+                				int mask = (int) i;
+    	                    	int j = 0;
+    	
+    	                    	while (mask > 0) {
+    	                    		if ((mask & 1) == 1) {
+    	                    			bufferPredicate.append(predicateListObject.get(j).toString());
+    	                    		}
+    	                    		mask >>= 1;
+    	                    		j++;
+    	                    	}
+    	                    	bufferPredicate.trimToSize();
+    	                    	if (bufferPredicate.length() != 0) {
+    	                    		pubsubManager.create(application, bufferPredicate.toString(),
+    	                    				(id != null)?id:subPredicate, userBean, dataList);
+    	                    	}
+                			}
+                		}
 
-                        bufferPredicate.trimToSize();
-
-                        if (bufferPredicate.length() != 0) {
-                            pubsubManager.create(application, bufferPredicate.toString(),
-                                            bufferSubPredicate.toString(), userBean, dataList);
-                        }
+                    } else {   
+                    	final int broadcastSize = (int) Math.pow(2, predicateListObject.size());
+	                    for (int i = 1; i < broadcastSize; i++) {
+	                    	final StringBuffer bufferPredicate = new StringBuffer(150);
+	                    	int mask = i;
+	                    	int j = 0;
+	
+	                    	while (mask > 0) {
+	                    		if ((mask & 1) == 1) {
+	                    			bufferPredicate.append(predicateListObject.get(j).toString());
+	                    		}
+	                    		mask >>= 1;
+	                    		j++;
+	                    	}
+	                    	bufferPredicate.trimToSize();
+	                    	if (bufferPredicate.length() != 0) {
+	                    		pubsubManager.create(application, bufferPredicate.toString(),
+	                    				subPredicate, userBean, dataList);
+	                    	}
+	                    }
                     }
+                    
                 } catch (final JsonSyntaxException e) {
                     LOGGER.debug("Error in Json format", e);
                     throw new InternalBackEndException("jSon format is not valid");
@@ -271,4 +300,11 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 
         printJSonResponse(message, response);
     }
+    
+    long nextCombo(long n) {
+		// moves to the next combination with the same number of 1 bits
+		long u = n & (-n);
+		long v = u + n;
+		return v + (((v ^ n) / u) >> 2);
+	}
 }

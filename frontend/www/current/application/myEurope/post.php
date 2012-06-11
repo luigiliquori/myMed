@@ -25,23 +25,26 @@
 		array_push($tags, '~'); //let's add this common tag for all texts, to easily retrieve all texts if necessary
 		$p = array_unique(array_map('strtolower', $tags));
 		sort($p); //important
-		
 		$predicates=array();
 		foreach( $p as $v ){ //do this for PubRequestHandler compatibility...
 			array_push($predicates, array("key"=>$v, "value"=>""));
 		}
+		$all = array_search('~', $p);
+		unset($p[$all]); // remove it 
 		
-		$textdesc = array(
+		$metadata = array(
 			"nom" => $_POST['nom'],
-			"lib" => $_POST['lib'],
+			"id" => $_POST['id'],
 			"cout" => $_POST['cout'],
 			"montant" => $_POST['montant'],
 			"date" => $_POST['date']
 		);
 		$data = array(
 			array("key"=>"text", "value"=>$_POST['text']),
-			array("key"=>"data", "value"=>json_encode($textdesc)),
-			array("key"=>"deleteme", "value"=>json_encode($predicates))
+			array("key"=>"id", "value"=>$_POST['id']), // data_id
+			array("key"=>"data", "value"=>json_encode($metadata)), // there to display more info on the result list
+			array("key"=>"deleteme", "value"=>json_encode($predicates)), // there to more easily remove this data
+			array("key"=>"indexes", "value"=>json_encode($p)), // array with all indexes for searching this data 
 		);
 		
 		$request = new Request("PublishRequestHandler", CREATE);
@@ -49,6 +52,7 @@
 		$request->addArgument("predicate", json_encode($predicates));
 			
 		$request->addArgument("data", json_encode($data));
+		$request->addArgument("level", 3);
 		if(isset($_SESSION['user'])) {
 			$request->addArgument("user", json_encode($_SESSION['user']));
 		}
@@ -60,8 +64,6 @@
 			header("Location: ./post?ok=1");
 		}	
 	}
-		
-	
 	
 ?>
 
@@ -88,7 +90,7 @@
 						</div>
 						<div data-role="fieldcontain">
 							<fieldset data-role="controlgroup">
-								<label for="textinputp2"> Libellé du projet: </label> <input id="textinputp2"  name="lib" placeholder="" value="" type="text" />
+								<label for="textinputp2"> Libellé du projet: </label> <input id="textinputp2"  name="id" placeholder="" value="" type="text" />
 							</fieldset>
 						</div>
 						<div data-role="fieldcontain">
