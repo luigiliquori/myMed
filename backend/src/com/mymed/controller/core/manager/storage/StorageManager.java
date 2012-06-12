@@ -128,21 +128,8 @@ public class StorageManager implements IStorageManager {
     return resultValue;
   }
 
-  /**
-   * Get the value of a column family
-   * 
-   * @param tableName
-   *          the name of the Table/ColumnFamily
-   * @param key
-   *          the ID of the entry
-   * @param columnName
-   *          the name of the column
-   * @return the value of the column
-   * @throws InternalBackEndException
-   * @throws IOBackEndException
-   */
   @Override
-  public Map<byte[], byte[]> selectAll(final String tableName, final String key, final Boolean reversed) throws InternalBackEndException,
+  public Map<byte[], byte[]> selectAll(final String tableName, final String key) throws InternalBackEndException,
       IOBackEndException {
 
     // read entire row
@@ -150,7 +137,21 @@ public class StorageManager implements IStorageManager {
     final SliceRange sliceRange = new SliceRange();
     sliceRange.setStart(new byte[0]);
     sliceRange.setFinish(new byte[0]);
-    if (reversed) sliceRange.setReversed(true);
+    predicate.setSlice_range(sliceRange);
+
+    return selectByPredicate(tableName, key, predicate);
+  }
+  
+  @Override
+  public Map<byte[], byte[]> selectAll(final String tableName, final String key, final String start, final int count, final Boolean reversed) throws InternalBackEndException,
+      IOBackEndException {
+
+    // read entire row
+    final SlicePredicate predicate = new SlicePredicate();
+    final SliceRange sliceRange = new SliceRange();
+    sliceRange.setStart(new byte[0]);
+    sliceRange.setFinish(new byte[0]);
+    sliceRange.setReversed(reversed);
     predicate.setSlice_range(sliceRange);
 
     return selectByPredicate(tableName, key, predicate);
@@ -198,6 +199,14 @@ public class StorageManager implements IStorageManager {
     }
 
     return sliceList;
+  }
+  
+  @Override
+  public List<Map<byte[], byte[]>> selectList(String tableName, String key,
+  		String start, int count, Boolean reversed)
+  		throws InternalBackEndException, IOBackEndException {
+  	// TODO Auto-generated method stub
+  	return null;
   }
 
   /**

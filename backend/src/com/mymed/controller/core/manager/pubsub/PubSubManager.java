@@ -179,7 +179,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 
             final List<String> recipients = new ArrayList<String>();
 
-            final Map<byte[], byte[]> subscribers = storageManager.selectAll(CF_SUBSCRIBEES, application + predicate, false);
+            final Map<byte[], byte[]> subscribers = storageManager.selectAll(CF_SUBSCRIBEES, application + predicate);
             for (final Entry<byte[], byte[]> entry : subscribers.entrySet()) {
             	final String key = Charset.forName(ENCODING).decode(ByteBuffer.wrap(entry.getKey())).toString();
                 //final String val = Charset.forName(ENCODING).decode(ByteBuffer.wrap(entry.getValue())).toString();
@@ -321,7 +321,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     public final Map<String, String> read(final String appuserid) throws InternalBackEndException, IOBackEndException {
 
         final Map<String, String> res = new HashMap<String, String>();
-        final Map<byte[], byte[]> predicates = storageManager.selectAll(CF_SUBSCRIBERS, appuserid, false);
+        final Map<byte[], byte[]> predicates = storageManager.selectAll(CF_SUBSCRIBERS, appuserid);
         for (final Entry<byte[], byte[]> entry : predicates.entrySet()) {
         	final String key = Charset.forName(ENCODING).decode(ByteBuffer.wrap(entry.getKey())).toString();
             final String val = Charset.forName(ENCODING).decode(ByteBuffer.wrap(entry.getValue())).toString();
@@ -358,6 +358,6 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
         // Remove subscriber member from subsribers list
         storageManager.removeColumn(CF_SUBSCRIBERS, application + user, predicate);
         // Remove subscriber member from predicates subscribed list
-        storageManager.removeColumn(CF_SUBSCRIBEES, application + predicate, "MYMED_"+user);
+        storageManager.removeColumn(CF_SUBSCRIBEES, application + predicate, user);
     }
 }
