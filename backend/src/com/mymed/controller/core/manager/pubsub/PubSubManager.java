@@ -268,9 +268,32 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     @Override
     public final List<Map<String, String>> read(final String application, final String predicate)
                     throws InternalBackEndException, IOBackEndException {
+    	
         final List<Map<String, String>> resList = new ArrayList<Map<String, String>>();
         final List<Map<byte[], byte[]>> subPredicateListMap = storageManager.selectList(SC_APPLICATION_CONTROLLER,
                         application + predicate);
+
+        for (final Map<byte[], byte[]> set : subPredicateListMap) {
+            if (set.size() > 3) { // do not return the memberList
+                final Map<String, String> resMap = new HashMap<String, String>();
+                for (final Entry<byte[], byte[]> entry : set.entrySet()) {
+                    resMap.put(MConverter.byteArrayToString(entry.getKey()),
+                                    MConverter.byteArrayToString(entry.getValue()));
+                }
+
+                resList.add(resMap);
+            }
+        }
+
+        return resList;
+    }
+    
+    @Override
+    public final List<Map<String, String>> read(final String application, final String predicate, final String start, final int count, final Boolean reversed)
+                    throws InternalBackEndException, IOBackEndException, UnsupportedEncodingException {
+        final List<Map<String, String>> resList = new ArrayList<Map<String, String>>();
+        final List<Map<byte[], byte[]>> subPredicateListMap = storageManager.selectList(SC_APPLICATION_CONTROLLER,
+                        application + predicate, start, count, reversed);
 
         for (final Map<byte[], byte[]> set : subPredicateListMap) {
             if (set.size() > 3) { // do not return the memberList

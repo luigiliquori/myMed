@@ -34,6 +34,8 @@
 		$request = new Request("FindRequestHandler", READ);
 		$request->addArgument("application", $application);
 		$request->addArgument("predicate", $predicate);
+		$request->addArgument("start", isset($_GET['start'])?$_GET['start']:"");
+		$request->addArgument("count", isset($_GET['count'])?$_GET['count']:10);
 		$responsejSon = $request->send();
 		$res = json_decode($responsejSon);
 		

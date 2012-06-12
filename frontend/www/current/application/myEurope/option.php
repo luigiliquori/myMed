@@ -111,11 +111,11 @@
 		return;
 	} else if (isset($_GET['userID'])){ // unsubscription by mail
 		$request = new Request("SubscribeRequestHandler", DELETE);
-		$request->addArgument("application", $_REQUEST['application']);
-		$request->addArgument("predicate", $_REQUEST['predicate']);
-		$request->addArgument("userID", $_REQUEST['userID'] );
-		if (isset($_REQUEST['accessToken']))
-			$request->addArgument('accessToken', $_REQUEST['accessToken']);
+		$request->addArgument("application", $_GET['application']);
+		$request->addArgument("predicate", $_GET['predicate']);
+		$request->addArgument("userID", $_GET['userID'] );
+		if (isset($_GET['accessToken']))
+			$request->addArgument('accessToken', $_GET['accessToken']);
 		$responsejSon = $request->send();
 		$responseObject = json_decode($responsejSon);
 		if ($responseObject->status==200){

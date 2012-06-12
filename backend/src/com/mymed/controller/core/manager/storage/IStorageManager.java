@@ -15,6 +15,7 @@
  */
 package com.mymed.controller.core.manager.storage;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
@@ -139,7 +140,7 @@ public interface IStorageManager {
      * @return the value of the column
      */
     Map<byte[], byte[]> selectAll(String tableName, String primaryKey, String start, int count, Boolean reversed) throws IOBackEndException,
-                    InternalBackEndException;
+                    InternalBackEndException, UnsupportedEncodingException;
 
     /**
      * Get the list of values of a Super Column Family
@@ -167,7 +168,7 @@ public interface IStorageManager {
      * @throws IOBackEndException
      */
     List<Map<byte[], byte[]>> selectList(final String tableName, final String key, String start, int count, Boolean reversed) throws InternalBackEndException,
-                    IOBackEndException;
+                    IOBackEndException, UnsupportedEncodingException;
 
     /**
      * Get the values of a range of columns

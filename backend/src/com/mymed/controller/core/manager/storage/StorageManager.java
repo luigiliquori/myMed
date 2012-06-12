@@ -144,13 +144,14 @@ public class StorageManager implements IStorageManager {
   
   @Override
   public Map<byte[], byte[]> selectAll(final String tableName, final String key, final String start, final int count, final Boolean reversed) throws InternalBackEndException,
-      IOBackEndException {
+      IOBackEndException, UnsupportedEncodingException {
 
     // read entire row
     final SlicePredicate predicate = new SlicePredicate();
     final SliceRange sliceRange = new SliceRange();
-    sliceRange.setStart(new byte[0]);
+    sliceRange.setStart(start.getBytes(ENCODING));
     sliceRange.setFinish(new byte[0]);
+    sliceRange.setCount(count);
     sliceRange.setReversed(reversed);
     predicate.setSlice_range(sliceRange);
 
@@ -202,11 +203,37 @@ public class StorageManager implements IStorageManager {
   }
   
   @Override
-  public List<Map<byte[], byte[]>> selectList(String tableName, String key,
-  		String start, int count, Boolean reversed)
-  		throws InternalBackEndException, IOBackEndException {
-  	// TODO Auto-generated method stub
-  	return null;
+  public List<Map<byte[], byte[]>> selectList(final String tableName, final String key,
+		  final String start, final int count, final Boolean reversed)
+  		throws InternalBackEndException, IOBackEndException, UnsupportedEncodingException {
+	
+	  // read entire row
+	  final SlicePredicate predicate = new SlicePredicate();
+	  final SliceRange sliceRange = new SliceRange();
+	  sliceRange.setStart(start.getBytes(ENCODING));
+	  sliceRange.setFinish(new byte[0]);
+	  sliceRange.setCount(count);
+	  sliceRange.setReversed(reversed);
+	  predicate.setSlice_range(sliceRange);
+
+	  final ColumnParent parent = new ColumnParent(tableName);
+	  final List<ColumnOrSuperColumn> results = getSlice(key, parent, predicate);
+
+	  final List<Map<byte[], byte[]>> sliceList = new ArrayList<Map<byte[], byte[]>>();
+
+	  for (final ColumnOrSuperColumn res : results) {
+		  if (res.isSetSuper_column()) {
+			  final Map<byte[], byte[]> slice = new HashMap<byte[], byte[]>();
+
+			  for (final Column column : res.getSuper_column().getColumns()) {
+				  slice.put(column.getName(), column.getValue());
+			  }
+
+			  sliceList.add(slice);
+		  }
+	  }
+
+	  return sliceList;
   }
 
   /**
