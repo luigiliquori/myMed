@@ -60,7 +60,7 @@ abstract class AbstractTemplate {
 		<script src="../../lib/jquery/datebox/jquery.mobile.datebox.min.js"></script>
 		<link href="../../lib/jquery/datebox/jquery.mobile.datebox.min.css" rel="stylesheet" />
 		
-		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&libraries=places"></script>
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?key='. Google_APP_SECRET .'&sensor=true&libraries=places"></script>
 		
 		<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox_packed.js"></script>
 
