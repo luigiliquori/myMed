@@ -45,6 +45,7 @@
 	// Set the paths
 	add_path(__DIR__ . '/include/');
 	add_path(__DIR__ . '/controllers/');
+	add_path(__DIR__ . '/models/');
 	add_path(__DIR__ . '/views/');
 	add_path(__DIR__ . '/views/parts');
 	add_path(MYMED_ROOT . '/lib/dasp/beans');
@@ -77,7 +78,7 @@
 
 	// Get action, default is "main" 
 	$action = $_REQUEST["action"];
-	if (empty($action)) {
+	if (!isset($action)) {
 		$action = "main";
 	}
 	

@@ -46,9 +46,8 @@
 	<p><?= $this->error ?></p>
 </div>
 <? endif ?>
-<? if (true): ?>
-<div data-role="header" data-theme="f">
-	<h3></h3>
-	<p><?= "Génial" ?></p>
+<? if (!empty($this->success)): ?>
+<div data-role="header" data-theme="e">
+	<h3><?= $this->success ?></h3>
 </div>
 <? endif ?>
