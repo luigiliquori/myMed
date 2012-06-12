@@ -5,13 +5,36 @@
 	android:layout_height="match_parent" 
 	android:background="#FFFFFF"
 	android:weightSum="100">
-	<ImageView 
-  		android:id="@+id/myMedLogo" 
-		android:src="@drawable/logo_mymed"
-		android:layout_width="wrap_content" 
-		android:layout_height="0dp" 
-		android:layout_weight="20"
-		android:layout_gravity="center_horizontal"/>
+	
+	    <LinearLayout
+	        android:id="@+id/linearLayoutImages"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	        android:weightSum="100" >
+
+      <ImageView
+          android:id="@+id/Alcotra"
+          android:layout_width="80dp"
+          android:layout_height="40dp"
+          android:layout_gravity="center"
+          android:src="@drawable/alcotra" />
+
+      <ImageView
+          android:id="@+id/myMedLogo"
+          android:layout_width="130dp"
+          android:layout_height="70dp"
+          android:layout_gravity="center"
+          android:src="@drawable/logo_mymed" />
+
+      <ImageView
+          android:id="@+id/Europe"
+          android:layout_width="80dp"
+          android:layout_height="40dp"
+          android:layout_gravity="center"
+          android:src="@drawable/europe" />
+
+    </LinearLayout>
 	<TextView 
     	android:id="@+id/textViewSignIn"
     	android:textAppearance="?android:attr/textAppearanceSmall" 
