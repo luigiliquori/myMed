@@ -56,7 +56,8 @@ abstract class AbstractTemplate {
 		echo '<link href="../../lib/jquery/datebox/jquery.mobile.datebox.min.css" rel="stylesheet" />';
 		
 		// LOAD GOOGLE MAP
-		echo '<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key='. Google_APP_SECRET .'&sensor=true&libraries=places"></script>';
+// 		echo '<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key='. Google_APP_SECRET .'&sensor=true&libraries=places"></script>';
+		echo '<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true&libraries=places"></script>';
 		echo '<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox_packed.js"></script>';
 	
 		// LOAD DASP JAVASCRIPT LIBRARY
