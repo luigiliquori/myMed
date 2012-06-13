@@ -34,7 +34,7 @@
 	if(!USER_CONNECTED){
 		if(!isset($_SESSION['error'])){
 			echo '<form action="#" method="post" name="signinForm" id="signinForm">';
-			echo '<input type="hidden" name="singin" value="visitor" />';
+			echo '<input type="hidden" name="signin" value="visitor" />';
 			echo '</form>';
 			echo '<script type="text/javascript">document.signinForm.submit();</script>';
 		} else {

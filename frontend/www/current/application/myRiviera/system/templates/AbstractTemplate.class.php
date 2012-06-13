@@ -67,7 +67,6 @@ abstract class AbstractTemplate {
 		<script src='../../lib/dasp/javascript/dasp.js'></script>
 		
 		<?php 
-		
 		// LOAD APPLICATION JAVASCRIPT
 		if ($handle = opendir("system/templates/application/" . APPLICATION_NAME . '/javascript')) {
 			while (false !== ($file = readdir($handle))) {
