@@ -15,8 +15,6 @@
  */
 package com.mymed.controller.core.requesthandler;
 
-import java.lang.reflect.Type;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -24,14 +22,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.pubsub.PubSubManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
-import com.mymed.model.data.application.MDataBean;
 import com.mymed.model.data.user.MUserBean;
 
 /**
@@ -63,7 +58,7 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
      */
     @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-        final JsonMessage message = new JsonMessage(200, this.getClass().getName());
+        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
 
         try {
             final Map<String, String> parameters = getParameters(request);
@@ -81,7 +76,7 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
                 	} else if((user = parameters.get(JSON_USERID)) == null){
 
                 	}
-                	final List<String> predicates = pubsubManager.read(application + user);
+                	final Map<String, String> predicates = pubsubManager.read(application + user);
                  	message.setDescription("Subscriptions found for Application: " + application + " User: " + user);
  		            LOGGER.info("Subscriptions found for Application: " + application + " User: " + user);
  		            message.addDataObject(JSON_SUBSCRIPTIONS, predicates);
@@ -120,7 +115,7 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
      */
     @Override
     protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-        final JsonMessage message = new JsonMessage(200, this.getClass().getName());
+        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
 
         try {
             final Map<String, String> parameters = getParameters(request);

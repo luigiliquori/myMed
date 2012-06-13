@@ -33,7 +33,7 @@ class StartInteraction extends Request {
 	/* --------------------------------------------------------- */
 	/* Constructors */
 	/* --------------------------------------------------------- */
-	public function __construct(/*IRequestHandler*/ $handler) {
+	public function __construct(/*IRequestHandler*/ $handler = null) {
 		parent::__construct("InteractionRequestHandler", UPDATE);
 		$this->handler	= $handler;
 	}
@@ -61,11 +61,14 @@ class StartInteraction extends Request {
 		$responsejSon = parent::send();
 		$responseObject = json_decode($responsejSon);
 
-		if($responseObject->status != 200) {
-			$this->handler->setError($responseObject->description);
-		} else {
-			$this->handler->setSuccess($responseObject->description);
+		if ($this->handler){
+			if($responseObject->status != 200) {
+				$this->handler->setError($responseObject->description);
+			} else {
+				$this->handler->setSuccess($responseObject->description);
+			}
 		}
+		
 
 		return $responsejSon;
 	}

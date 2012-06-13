@@ -24,8 +24,8 @@
 
 		
 		<?php
-	require_once('../../lib/dasp/request/Request.class.php');
-	require_once('../../system/config.php');
+	require_once('../../../lib/dasp/request/Request.class.php');
+	require_once('../../../system/config.php');
 	session_start();
 	
 	function cmp($a, $b)

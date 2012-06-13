@@ -110,7 +110,7 @@ public class POIRequestHandler extends AbstractRequestHandler {
      */
     @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-        final JsonMessage message = new JsonMessage(200, this.getClass().getName());
+        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
 
         try {
             // Get the parameters from the received request
@@ -163,7 +163,7 @@ public class POIRequestHandler extends AbstractRequestHandler {
      */
     @Override
     protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-        final JsonMessage message = new JsonMessage(200, this.getClass().getName());
+        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
 
         try {
             // GET THE PARAMETERS

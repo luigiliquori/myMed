@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 require_once dirname(__FILE__).'/Request.class.php';
-require_once dirname(__FILE__).'/../beans/DataBean.class.php';
+require_once dirname(dirname(__FILE__)) . '/beans/DataBean.php';
 require_once dirname(__FILE__).'/IRequestHandler.php';
 
 /**
@@ -63,7 +63,7 @@ class Publish extends Request {
 			$user = $responseObject->data->user;
 		} else {
 			// publisher = the current user
-			$user = json_encode($_SESSION['user']);
+			$user = json_encode($_SESSION['user']['id']);
 		}
 		
 		// PREDICATES

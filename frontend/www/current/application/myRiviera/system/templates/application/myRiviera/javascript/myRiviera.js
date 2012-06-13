@@ -33,6 +33,7 @@ var EndMarkerIcon = false;
 /* Initialize */
 /* --------------------------------------------------------- */
 function initialize() {
+	
 
 	// INITIALIZE DASP
 	setupDASP($("#userID").val(), $("#accessToken").val(),
@@ -123,7 +124,7 @@ function displayPosition(position) {
 
 		// focus on the position
 		if (focusOnCurrentPosition) {
-			focusOnLatLng(latlng);
+			focusOnLatLng(latlng || new google.maps.LatLng(43.774481, 7.49754));
 			focusOnCurrentPosition = false;
 		}
 	}
@@ -158,7 +159,11 @@ function displayPosition(position) {
 	
 	// print the marker around me
 	for ( var i = 0; i < filterArray.length; i++) {
-		pois = getMarkers2(latlng.lat(), latlng.lng(), filterArray[i], $('#slider-radius').val());
+		
+		
+		otherMarkers(0, filterArray[i], latlng.lat(), latlng.lng(), $('#slider-radius').val());
+		
+		/*pois = getMarkers2(latlng.lat(), latlng.lng(), filterArray[i], $('#slider-radius').val());
 		pois.type = filterArray[i];
 		$.each(pois, function(i, poi) {
 			value = $.parseJSON(poi.value);
@@ -168,8 +173,9 @@ function displayPosition(position) {
 			google.maps.event.addListener(marker, "click", function(e) {
 				marker.ib.open(map, this);
 			});
-		});
+		});*/
 	}
+	hideLoadingBar();
 }
 
 /**
@@ -248,28 +254,82 @@ function clearMarkers() {
  * @param type
  * @param index
  */
-function otherMarkers(index, type) {
+function otherMarkers(index, type, lat, lon, rad) {
 	if (!markers[type][index]) { // create them if not exist
-		pois = getMarkers2(steps[index].position.lat(), steps[index].position
-				.lng(), type, $('#slider-radius').val());
-		markers[type][index] = [];
-		$.each(pois, function(i, poi) {
-			value = $.parseJSON(poi.value);
-			id = poi.id;
-			iconAvailable = $('#poiIcon').val().split(",");
-			if(iconAvailable.contains(type + '.png')){
-				icon = 'system/templates/application/myRiviera/img/pois/' + type + '.png';
-			} else {
-				icon = null;
+		
+		// Classic async POI get, seems faster, (loading bar hides fast, and pois are then get and dropped on the map)
+		
+		$.get('POI.php', {
+			'application': $("#applicationName").val() + "Admin",
+			'type': type,
+			'latitude': lat || latitude,
+			'longitude': lon || longitude,
+			'radius': rad || $('#slider-radius').val()
+		}, function(data){
+			if ( (res = $.parseJSON(data)) != null){
+				var pois = res.dataObject.pois;
+				//console.log("__"+res.dataObject.pois); // remove it after before pushing MASTER, console.log fail on IE
+				markers[type][index] = [];
+				$.each(pois, function(i, poi) {
+					value = $.parseJSON(poi.value);
+					id = poi.id;
+					iconAvailable = $('#poiIcon').val().split(",");
+					if(iconAvailable.contains(type + '.png')){
+						icon = 'system/templates/application/myRiviera/img/pois/' + type + '.png';
+					} else {
+						icon = null;
+					}
+					var marker = addMarker(new google.maps.LatLng(value.latitude,
+							value.longitude), icon, value.title,
+							"<p>Type: 	" + type + "</p>" + value.description, null, false, id);
+					google.maps.event.addListener(marker, "click", function(e) {
+						marker.ib.open(map, this);
+					});
+					markers[type][index].push(marker);
+				});
 			}
-			var marker = addMarker(new google.maps.LatLng(value.latitude,
-					value.longitude), icon, value.title,
-					"<p>Type: 	" + type + "</p>" + value.description, null, false, id);
-			google.maps.event.addListener(marker, "click", function(e) {
-				marker.ib.open(map, this);
-			});
-			markers[type][index].push(marker);
+			
 		});
+
+		// async: false POI get: warning async:false will be deprecated in next jQuery version
+		// quote  "As of jQuery 1.8, the use of async: false is deprecated."
+		
+//		var res = $.ajax({
+//			url : "POI.php",
+//			data : {
+//				'application': $("#applicationName").val() + "Admin",
+//				'type': type,
+//				'latitude': lat || latitude,
+//				'longitude': lon || longitude,
+//				'radius': rad || $('#slider-radius').val()
+//			},
+//			async : false
+//		}).responseText;
+//
+//		if ((resJSON = $.parseJSON(res)) != null) {
+//			var pois = resJSON.dataObject.pois;
+//			//console.log("##"+resJSON.dataObject.pois); // remove it after before pushing MASTER, console.log fail on IE
+//			markers[type][index] = [];
+//			$.each(pois, function(i, poi) {
+//				value = $.parseJSON(poi.value);
+//				id = poi.id;
+//				iconAvailable = $('#poiIcon').val().split(",");
+//				if(iconAvailable.contains(type + '.png')){
+//					icon = 'system/templates/application/myRiviera/img/pois/' + type + '.png';
+//				} else {
+//					icon = null;
+//				}
+//				var marker = addMarker(new google.maps.LatLng(value.latitude,
+//						value.longitude), icon, value.title,
+//						"<p>Type: 	" + type + "</p>" + value.description, null, false, id);
+//				google.maps.event.addListener(marker, "click", function(e) {
+//					marker.ib.open(map, this);
+//				});
+//				markers[type][index].push(marker);
+//			});
+//		}
+		
+		
 	} else {// already existing, redrop them
 		for ( var i = 0; i < markers[type][index].length; i++) {
 			markers[type][index][i].setMap(map);

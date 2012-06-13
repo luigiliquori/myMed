@@ -70,7 +70,7 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
      */
     @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-        final JsonMessage message = new JsonMessage(200, this.getClass().getName());
+        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
 
         try {
             final Map<String, String> parameters = getParameters(request);
@@ -94,7 +94,7 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
                     
                     
                     message.addData(JSON_REPUTATION, String.valueOf(reputation.getReputation()));
-                    message.addDataObject(JSON_REPUTATION, String.valueOf(reputation.getReputation()));
+                    message.addDataObject(JSON_REPUTATION, reputation);
                     break;
                 case DELETE :
                     break;
@@ -119,7 +119,7 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
      */
     @Override
     protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-        final JsonMessage message = new JsonMessage(200, this.getClass().getName());
+        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
 
         try {
             final Map<String, String> parameters = getParameters(request);

@@ -19,7 +19,15 @@ use Mymed;
 
 /* Column families necessary for mymed as general structure */
 create column family Application with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
-create column family Subscriptions with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+
+/* NEW: in row: app+userID in col: predicates this user subscribed to*/
+create column family Subscribers with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+/* REPLACE UserList: in row: app+predicate in col: users that have subscriptions for this predicate (notified by mail for new content)*/
+create column family Subscribees with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+/* PROPOSITION: same structure as Subscribees,
+ this CF would be automatically filled for every search of users, col would have limited ttl, it would enable online notifications instead of mails, to have realtime feedback on your activity*/
+create column family Notifications with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+
 create column family Authentication with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 create column family Ontology with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 create column family OntologyType with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;

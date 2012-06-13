@@ -104,7 +104,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
      */
     @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-        final JsonMessage message = new JsonMessage(200, this.getClass().getName());
+        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
 
         try {
             final Map<String, String> parameters = getParameters(request);
@@ -139,30 +139,38 @@ public class PublishRequestHandler extends AbstractRequestHandler {
                             bufferSubPredicate.append(element.getKey());
                             bufferSubPredicate.append(element.getValue());
                         }
+                        bufferSubPredicate.trimToSize();
+
+                        String data_id = parameters.get("id") != null?parameters.get("id"):bufferSubPredicate.toString();
 
                         // construct the Predicate => broadcast algorithm
-                        final int broadcastSize = (int) Math.pow(2, predicateListObject.size());
-                        for (int i = 1; i < broadcastSize; i++) {
-                            final StringBuffer bufferPredicate = new StringBuffer(150);
-                            int mask = i;
-                            int j = 0;
+                        int n, level; 
+                        level = n = predicateListObject.size();
+                        if (parameters.get("level") != null){
+                        	level = Integer.parseInt(parameters.get("level"));
+                        }
+                        LOGGER.info("deleting "+data_id+" with level: "+level);
+                        StringBuffer bufferPredicate = new StringBuffer(150);
+                        for (int k=1; k<=level; k++){
+                        	for (long i = (1 << k) - 1; (i >>> n) == 0; i = nextCombo(i)) {
+                        		bufferPredicate = new StringBuffer(150);
+                        		int mask = (int) i;
+                        		int j = 0;
 
-                            while (mask > 0) {
-                                if ((mask & 1) == 1) {
-                                    final MDataBean element = predicateListObject.get(j);
-                                    bufferPredicate.append(element.getKey());
-                                    bufferPredicate.append(element.getValue());
-                                }
-                                mask >>= 1;
-                                j++;
-                            }
-
-                            bufferPredicate.trimToSize();
-
-                            if (bufferPredicate.length() != 0) {
-                                pubsubManager.delete(application, bufferPredicate.toString(),
-                                                bufferSubPredicate.toString(), userBean);
-                            }
+                        		while (mask > 0) {
+                        			if ((mask & 1) == 1) {
+                        				bufferPredicate.append(predicateListObject.get(j).getKey());
+                        				bufferPredicate.append(predicateListObject.get(j).getValue());
+                        			}
+                        			mask >>= 1;
+                        			j++;
+                        		}
+                        		bufferPredicate.trimToSize();
+                        		if (bufferPredicate.length() != 0) {
+                        			pubsubManager.delete(application, bufferPredicate.toString(),
+                        					data_id, userBean);
+                        		}
+                        	}
                         }
 
                     } catch (final JsonSyntaxException e) {
@@ -191,7 +199,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
      */
     @Override
     protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-        final JsonMessage message = new JsonMessage(200, this.getClass().getName());
+        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
 
         try {
             final Map<String, String> parameters = getParameters(request);
@@ -223,36 +231,45 @@ public class PublishRequestHandler extends AbstractRequestHandler {
                     // construct the subPredicate
                     final StringBuffer bufferSubPredicate = new StringBuffer(150);
                     for (final MDataBean element : predicateListObject) {
-                        bufferSubPredicate.append(element.getKey());
-                        bufferSubPredicate.append(element.getValue());
+                    	bufferSubPredicate.append(element.getKey());
+                    	bufferSubPredicate.append(element.getValue());
                     }
 
                     bufferSubPredicate.trimToSize();
+                    
+                    String data_id = parameters.get("id") != null?parameters.get("id"):bufferSubPredicate.toString();
 
-                    // construct the Predicate => broadcast algorithm
-                    final int broadcastSize = (int) Math.pow(2, predicateListObject.size());
-                    for (int i = 1; i < broadcastSize; i++) {
-                        final StringBuffer bufferPredicate = new StringBuffer(150);
-                        int mask = i;
-                        int j = 0;
-
-                        while (mask > 0) {
-                            if ((mask & 1) == 1) {
-                                final MDataBean element = predicateListObject.get(j);
-                                bufferPredicate.append(element.getKey());
-                                bufferPredicate.append(element.getValue());
-                            }
-                            mask >>= 1;
-                            j++;
-                        }
-
-                        bufferPredicate.trimToSize();
-
-                        if (bufferPredicate.length() != 0) {
-                            pubsubManager.create(application, bufferPredicate.toString(),
-                                            bufferSubPredicate.toString(), userBean, dataList);
-                        }
+                    // construct the indexed rows => broadcast algorithm
+                  //n is the predicateList size, level the length of predicates rows (= n by default)
+                    int n, level; 
+                    level = n = predicateListObject.size();
+                    if (parameters.get("level") != null) {
+                    	level = Integer.parseInt(parameters.get("level"));
                     }
+                    LOGGER.info("indexing "+data_id+" with level: "+level);
+                    StringBuffer bufferPredicate = new StringBuffer(150);
+
+                	for (int k=1; k<=level; k++){
+            			for (long i = (1 << k) - 1; (i >>> n) == 0; i = nextCombo(i)) {
+            				bufferPredicate = new StringBuffer(150);
+            				int mask = (int) i;
+	                    	int j = 0;
+	
+	                    	while (mask > 0) {
+	                    		if ((mask & 1) == 1) {
+	                    			bufferPredicate.append(predicateListObject.get(j).toString());
+	                    		}
+	                    		mask >>= 1;
+	                    		j++;
+	                    	}
+	                    	bufferPredicate.trimToSize();
+	                    	if (bufferPredicate.length() != 0) {
+	                    		pubsubManager.create(application, bufferPredicate.toString(),
+	                    				data_id, userBean, dataList);
+	                    	}
+            			}
+            		}
+                    
                 } catch (final JsonSyntaxException e) {
                     LOGGER.debug("Error in Json format", e);
                     throw new InternalBackEndException("jSon format is not valid");
@@ -271,4 +288,11 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 
         printJSonResponse(message, response);
     }
+    
+    long nextCombo(long n) {
+		// moves to the next combination with the same number of 1 bits
+		long u = n & (-n);
+		long v = u + n;
+		return v + (((v ^ n) / u) >> 2);
+	}
 }
