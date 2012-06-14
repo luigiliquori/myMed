@@ -27,6 +27,7 @@ import java.util.Map.Entry;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.AbstractManager;
+import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.data.application.MDataBean;
@@ -178,13 +179,16 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
             // SEND A MAIL TO THE SUBSCRIBERS
 
             final List<String> recipients = new ArrayList<String>();
-
+            
+            // use profileManager to retrieve email /sms/ tel ... or any subscribe mecanism
+            final ProfileManager profileManager = new ProfileManager(storageManager);
+            
             final Map<byte[], byte[]> subscribers = storageManager.selectAll(CF_SUBSCRIBEES, application + predicate);
             for (final Entry<byte[], byte[]> entry : subscribers.entrySet()) {
             	final String key = Charset.forName(ENCODING).decode(ByteBuffer.wrap(entry.getKey())).toString();
                 //final String val = Charset.forName(ENCODING).decode(ByteBuffer.wrap(entry.getValue())).toString();
-                recipients.add(key.substring(6));
-                LOGGER.info("mail sent at: "+key.substring(6));
+            	recipients.add(profileManager.read(key).getEmail());
+                LOGGER.info("subscription sent for: "+key);
             }
 
 
