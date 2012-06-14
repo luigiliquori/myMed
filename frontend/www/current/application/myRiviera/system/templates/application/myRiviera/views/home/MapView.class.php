@@ -36,7 +36,6 @@ class MapView extends MyApplication {
 			<h1><?= TARGET == "mobile" ? " " : APPLICATION_NAME ?></h1>
 		
 			<a href="#Option" class="ui-btn-right" data-icon="gear">Options</a>
-			
 			<!-- ITINERAIRE POPUP -->
 			<a href="#Search" data-icon="search" data-iconpos="right" class="ui-btn-left">Rechercher</a>
 			

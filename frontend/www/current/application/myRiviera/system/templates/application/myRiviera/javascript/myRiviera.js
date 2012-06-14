@@ -41,7 +41,7 @@ function initialize() {
 
 	// INITIALIZE DASP->MAP
 	setupDASPMap($("#applicationName").val() + "Map", displayPosition,
-			displayError, false);
+			displayError, true);
 
 	// autocompletes Google Maps Places API
 	if (useautocompletion) {
@@ -160,7 +160,7 @@ function displayPosition(position) {
 	// print the marker around me
 	for ( var i = 0; i < filterArray.length; i++) {
 		
-		otherMarkers(0, filterArray[i], latlng.lat(), latlng.lng(), $('#slider-radius').val());
+		otherMarkers(-1, filterArray[i], latlng.lat(), latlng.lng(), $('#slider-radius').val());
 		
 		/*pois = getMarkers2(latlng.lat(), latlng.lng(), filterArray[i], $('#slider-radius').val());
 		pois.type = filterArray[i];
@@ -266,7 +266,6 @@ function otherMarkers(index, type, lat, lon, rad) {
 		}, function(data){
 			if ( (res = $.parseJSON(data)) != null){
 				var pois = res.dataObject.pois;
-				console.log("__"+res.dataObject.pois); // remove it after before pushing MASTER, console.log fail on IE
 				markers[type][index] = [];
 				$.each(pois, function(i, poi) {
 					value = $.parseJSON(poi.value);
@@ -286,46 +285,7 @@ function otherMarkers(index, type, lat, lon, rad) {
 					markers[type][index].push(marker);
 				});
 			}
-			
 		});
-
-		// async: false POI get: warning async:false will be deprecated in next jQuery version
-		// quote  "As of jQuery 1.8, the use of async: false is deprecated."
-//		var res = $.ajax({
-//			url : "POI.php",
-//			data : {
-//				'application': $("#applicationName").val() + "Admin",
-//				'type': type,
-//				'latitude': lat || latitude,
-//				'longitude': lon || longitude,
-//				'radius': rad || $('#slider-radius').val()
-//			},
-//			async : false
-//		}).responseText;
-//
-//		if ((resJSON = $.parseJSON(res)) != null) {
-//			var pois = resJSON.dataObject.pois;
-//			//console.log("##"+resJSON.dataObject.pois); // remove it after before pushing MASTER, console.log fail on IE
-//			markers[type][index] = [];
-//			$.each(pois, function(i, poi) {
-//				value = $.parseJSON(poi.value);
-//				id = poi.id;
-//				iconAvailable = $('#poiIcon').val().split(",");
-//				if(iconAvailable.contains(type + '.png')){
-//					icon = 'system/templates/application/myRiviera/img/pois/' + type + '.png';
-//				} else {
-//					icon = null;
-//				}
-//				var marker = addMarker(new google.maps.LatLng(value.latitude,
-//						value.longitude), icon, value.title,
-//						"<p>Type: 	" + type + "</p>" + value.description, null, false, id);
-//				google.maps.event.addListener(marker, "click", function(e) {
-//					marker.ib.open(map, this);
-//				});
-//				markers[type][index].push(marker);
-//			});
-//		}
-		
 		
 	} else {// already existing, redrop them
 		for ( var i = 0; i < markers[type][index].length; i++) {
