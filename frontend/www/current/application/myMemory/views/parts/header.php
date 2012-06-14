@@ -42,17 +42,26 @@
 <body>
 
 <? if (!empty($this->error)): ?>
-<div id="error-box" data-role="header" data-theme="e">
+<div id="mm-error-box" data-role="navbar" data-theme="e" class="ui-bar-e error-box" >
 	<h3><?= _("Error") ?></h3>
-	<a href="#error-box" data-icon="delete" data-action="close"><?= _("Close") ?></a>
 	<p><?= $this->error ?></p>
+	<a href=".error-box" data-icon="delete" data-action="close"><?= _("Close") ?></a>
 </div>
 <? endif ?>
 
 <? if (!empty($this->success)): ?>
-<div id="success-box" data-role="header" data-theme="f">
+<div id="mm-success-box" data-role="navbar" data-theme="g" class="ui-bar-g success-box">
 	<h3><?= _("Message") ?></h3>
-	<a href="#success-box" data-icon="delete" data-action="close"><?= _("Close") ?></a>
 	<p><?= $this->success ?></p>
+	<a href=".success-box" data-icon="delete" data-action="close"><?= _("Close") ?></a>
 </div>
+<? endif ?>
+
+<? // Switch to active tab on load
+if (!empty($TAB)) :?>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$.mobile.changePage("#<?= $TAB ?>", {transition:"none"})
+	});
+</script>
 <? endif ?>

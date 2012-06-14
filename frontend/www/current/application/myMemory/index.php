@@ -69,7 +69,6 @@
 		error_log("Failed to find '$className' in " . get_include_path());
 		return false;
 	});
-
 	
 	// ---------------------------------------------------------------------
 	// 	Main process

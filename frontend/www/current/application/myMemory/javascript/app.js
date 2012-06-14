@@ -1,21 +1,36 @@
 
-// Handle javascript navbar
-$(document).delegate('[data-role="navbar"] a', 'click', function () {
-    $(this).addClass('ui-btn-active');
-    $('.tab').hide();
-    $($(this).attr('href')).show();
-    return true;
-});
 
-// Click on the default tab
 $(document).ready(function() {
-	// Click on all "default" button to click on load
-	$("[data-click-on-load]").each(function() {
-		$(this).click();
+	
+	// --------------------------------------------
+	// Copy error and info boxes to all headers
+	// --------------------------------------------
+	
+	// Error box
+	var errorBox = $("#mm-error-box");
+	if (errorBox.length == 1) {
+		$('[data-role="header"]').each(function() {
+			$(this).prepend(errorBox.clone().trigger("create"));
+		})
+		errorBox.hide();
+	}
+	
+	// Success box
+	var successBox = $("#mm-success-box");
+	if (successBox.length == 1) {
+		$('[data-role="header"]').each(function() {
+			$(this).prepend(successBox.clone().trigger("create"));
+			
+		})
+		successBox.hide();
+	}
+	
+	// Handle "close" buttons
+	$('[data-action="close"]').click(function () {
+	    var bars = $($(this).attr("href"));
+	    bars.hide();
+	    return false;
 	});
-})
 
-// Handle close buttons
-$(document).delegate('[data-action="close"]', 'click', function () {
-    $($(this).attr('href')).hide();
 });
+

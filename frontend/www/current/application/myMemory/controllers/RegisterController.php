@@ -9,7 +9,7 @@ class RegisterController extends AbstractController {
 	public /*String*/ function handleRequest() { 
 		
 		// First stage of registration : we receive a POST with all the informations of the user
-		if ($_SERVER['REQUEST_METHOD'] == POST) {
+		if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			
 			// Preconditions TODO : i18n of error messages
 			if($_POST['password'] != $_POST['confirm']){
