@@ -17,6 +17,7 @@
 		  <li>predicate</li>
 		  <li>data</li>
 		  <li>userID</li>
+		  <li>level*</li>
 		  <li>accessToken</li>
 		</ul>
 	</td>
@@ -49,6 +50,7 @@
 		  </div>
 		  ]
 		  </li>
+		  <li>level: (*optional) sets the level of broadcasting in the Index Table (default: predicate length)</li>
 		</ul>
 	</td>
   </tr>

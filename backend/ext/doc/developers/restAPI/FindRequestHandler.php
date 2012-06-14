@@ -41,12 +41,10 @@
 		  </li>
 		</ul>
 		<p>
-		start: indicates the starting point of your search, defaults to ""
-		indicate the last results.predicate of the previous search to continue searching from this point.
-		(*Optional parameter)
+		start: (*optional) sets the starting point of your search (default: "")<br />
+        pass it the last results.predicate of the previous search to continue searching from this point. 
 		</p><p>
-		count: size of the results returned, defaults to 100
-		(*Optional parameter)
+		count: (*optional) size of the results returned (default: 100)
 		</p>
 	</td>
   </tr>
