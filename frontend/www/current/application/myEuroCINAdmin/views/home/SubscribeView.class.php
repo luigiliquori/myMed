@@ -44,7 +44,7 @@ class SubscribeView extends MainView {
 		
 		$request = new Request("SubscribeRequestHandler", READ);
 		$request->addArgument("application", APPLICATION_NAME."_ADMIN");
-		$request->addArgument("userID", $_SESSION['user']->id);
+		$request->addArgument("userID", $_SESSION['user']->email);
 		
 		$responsejSon = $request->send();
 		$responseObject = json_decode($responsejSon);
