@@ -292,7 +292,7 @@ public abstract class AbstractRequestHandler extends HttpServlet {
      * @param message
      * @param response
      */
-    protected void printJSonResponse(final JsonMessage message, final HttpServletResponse response) {
+    protected void printJSonResponse(final JsonMessage<Object> message, final HttpServletResponse response) {
         response.setStatus(message.getStatus());
         responseText = message.toString();
         printResponse(response);

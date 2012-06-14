@@ -1,7 +1,7 @@
 <?php 
 require_once '../../../lib/dasp/request/PublishRequest.class.php';
-require_once '../../../lib/dasp/beans/DataBean.class.php';
-require_once '../../../lib/dasp/beans/OntologyBean.class.php';
+require_once '../../../lib/dasp/beans/DataBean.php';
+require_once '../../../lib/dasp/beans/OntologyBean.php';
 
 require_once '../../../lib/dasp/request/Find.class.php';
 require_once '../../../lib/dasp/request/Delete.class.php';

@@ -15,6 +15,7 @@
  */
 package com.mymed.controller.core.manager.storage;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
@@ -119,16 +120,27 @@ public interface IStorageManager {
     /**
      * Get the value of a Column family
      * 
-     * @param tableName
-     *            the name of the Table/ColumnFamily
-     * @param primaryKey
-     *            the ID of the entry
-     * @param columnName
-     *            the name of the column
-     * @return the value of the column
+     * @param tableName:  the name of the Table/ColumnFamily
+     * @param primaryKey: the ID of the entry
+     * @return List of columns
      */
     Map<byte[], byte[]> selectAll(String tableName, String primaryKey) throws IOBackEndException,
                     InternalBackEndException;
+    
+    /**
+     * Get the value of a Column family
+     * 
+     * @param tableName: the name of the Table/ColumnFamily
+     * @param primaryKey: the ID of the entry
+     * @param start: column name
+     * @param count: limit
+     * @param reversed: order
+     * @return List of columns
+     * @see http://wiki.apache.org/cassandra/API#SliceRange
+     * @return the value of the column
+     */
+    Map<byte[], byte[]> selectAll(String tableName, String primaryKey, String start, int count, Boolean reversed) throws IOBackEndException,
+                    InternalBackEndException, UnsupportedEncodingException;
 
     /**
      * Get the list of values of a Super Column Family
@@ -141,6 +153,22 @@ public interface IStorageManager {
      */
     List<Map<byte[], byte[]>> selectList(final String tableName, final String key) throws InternalBackEndException,
                     IOBackEndException;
+    
+    /**
+     * Get the list of values of a Super Column Family
+     * 
+     * @param tableName
+     * @param key
+     * @param start
+     * @param count 
+     * @param reversed
+     * @see http://wiki.apache.org/cassandra/API#SliceRange
+     * @return List of supercolumns
+     * @throws InternalBackEndException
+     * @throws IOBackEndException
+     */
+    List<Map<byte[], byte[]>> selectList(final String tableName, final String key, String start, int count, Boolean reversed) throws InternalBackEndException,
+                    IOBackEndException, UnsupportedEncodingException;
 
     /**
      * Get the values of a range of columns
