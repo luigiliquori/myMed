@@ -360,14 +360,14 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
      */
     @Override
     public final void delete(final String application, final String predicate, final String subPredicate,
-                    final MUserBean publisher) throws InternalBackEndException, IOBackEndException {
+                    final String publisherID) throws InternalBackEndException, IOBackEndException {
         // Remove publisher member
         storageManager.removeAll(CF_SUBSCRIBEES, application + subPredicate);
         // Remove the 1st level of data
         storageManager.removeSuperColumn(SC_APPLICATION_CONTROLLER, application + predicate,
-                        subPredicate + publisher.getId());
+                        subPredicate + publisherID);
         // Remove the 2nd level of data
-        storageManager.removeAll(SC_DATA_LIST, application + subPredicate + publisher.getId());
+        storageManager.removeAll(SC_DATA_LIST, application + subPredicate + publisherID);
         // Remove app model entry
         // storageManager.removeSuperColumn(SC_APPLICATION_MODEL, application, predicate + publisher.getId());
     }

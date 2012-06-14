@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.JsonSyntaxException;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.pubsub.PubSubManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.user.MUserBean;
@@ -46,9 +47,11 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
     private static final String JSON_SUBSCRIPTIONS = JSON.get("json.subscriptions");
 
     private final PubSubManager pubsubManager;
+    private ProfileManager profileManager;
 
-    public SubscribeRequestHandler() {
+    public SubscribeRequestHandler() throws InternalBackEndException {
         super();
+        profileManager = new ProfileManager();
         pubsubManager = new PubSubManager();
     }
 
@@ -134,8 +137,14 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
                 } else if (user == null) {
                     throw new InternalBackEndException("missing userID argument!");
                 }
+
+                MUserBean userBean;
                 try {
-                    final MUserBean userBean = getGson().fromJson(user, MUserBean.class);
+                	userBean = getGson().fromJson(user, MUserBean.class);
+                } catch (final JsonSyntaxException e) {
+                	userBean = profileManager.read(user);
+                }
+                try {
 
                     pubsubManager.create(application, predicate, userBean);
                     LOGGER.info("predicate subscribed: " + predicate);

@@ -34,6 +34,7 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.pubsub.PubSubManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.application.MDataBean;
@@ -57,10 +58,11 @@ public class PublishRequestHandler extends AbstractRequestHandler {
     private static final String JSON_PREDICATE = JSON.get("json.predicate");
 
     private final PubSubManager pubsubManager;
+    private ProfileManager profileManager;
 
-    public PublishRequestHandler() {
+    public PublishRequestHandler() throws InternalBackEndException {
         super();
-
+        profileManager = new ProfileManager();
         pubsubManager = new PubSubManager();
     }
 
@@ -114,7 +116,8 @@ public class PublishRequestHandler extends AbstractRequestHandler {
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
             final String application, predicateListJson, user;
             user = parameters.get(JSON_USERID) != null ? parameters.get(JSON_USERID) : parameters.get(JSON_USER);
-
+            String userID;
+            
             switch (code) {
                 case READ :
                     break;
@@ -127,9 +130,15 @@ public class PublishRequestHandler extends AbstractRequestHandler {
                     } else if (user == null) {
                         throw new InternalBackEndException("missing user argument!");
                     }
-
+                   
                     try {
-                        final MUserBean userBean = getGson().fromJson(user, MUserBean.class);
+                    	final MUserBean userBean = getGson().fromJson(user, MUserBean.class);
+                    	userID = userBean.getId();
+                    } catch (final JsonSyntaxException e) {
+                    	userID = user;
+                    }
+                    
+                    try {
                         final Type dataType = new TypeToken<List<MDataBean>>() {
                         }.getType();
                         final List<MDataBean> predicateListObject = getGson().fromJson(predicateListJson, dataType);
@@ -169,7 +178,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
                         		bufferPredicate.trimToSize();
                         		if (bufferPredicate.length() != 0) {
                         			pubsubManager.delete(application, bufferPredicate.toString(),
-                        					data_id, userBean);
+                        					data_id, userID);
                         		}
                         	}
                         }
@@ -223,8 +232,13 @@ public class PublishRequestHandler extends AbstractRequestHandler {
                     throw new InternalBackEndException("missing data argument!");
                 }
 
+                MUserBean userBean;
                 try {
-                    final MUserBean userBean = getGson().fromJson(user, MUserBean.class);
+                	userBean = getGson().fromJson(user, MUserBean.class);
+                } catch (final JsonSyntaxException e) {
+                	userBean = profileManager.read(user);
+                }
+                try {
                     final Type dataType = new TypeToken<List<MDataBean>>() {
                     }.getType();
                     final List<MDataBean> dataList = getGson().fromJson(data, dataType);
