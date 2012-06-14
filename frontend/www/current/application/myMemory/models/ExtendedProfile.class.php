@@ -142,7 +142,20 @@ class ExtendedProfile
 		
 	}
 	
-	public /*ExtendedProfileController*/ function getProfile(/*String*/ $user_id){
+	
+	/**
+	 * Retreive the ExtendedProfile of a user in the database
+	 * @param String $user_id
+	 * @return void. The result is put in the success of the Handled provided
+	 */
+	public static /*void*/ function getExtendedProfile(IRequestHandler $handler, $user){
+		
+		$predicate = "roleExtendedProfile";
+		
+		$find = new FindRequest($handler, $predicate, $user);
+		
+		$find->send();
+		
 		
 	}
 	

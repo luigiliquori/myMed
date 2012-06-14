@@ -87,12 +87,15 @@ class ExtendedProfileController extends AbstractController
 	}
 	
 	
-	public /*void*/ function showProfile(){
+	public /*void*/ function getExtendedProfile(){
 		
+		ExtendedProfile::getExtendedProfile($_SESSION['user']);
 	}
 	
-	public /*ExtendedProfile*/ function getExtendedProfile(){
-		
+	
+	public /*void*/ function showProfile(){
+
+		$this->renderView("ExtendedProfileDisplay");
 	}
 
 }

@@ -76,11 +76,9 @@
 	// 	Main process
 	// ---------------------------------------------------------------------
 
-	// Get action, default is "main" 
-	$action = $_REQUEST["action"];
-	if (!isset($action)) {
-		$action = "main";
-	}
+	// Get action, default is "main"
+	$action = isset($_REQUEST["action"]) ? $_REQUEST["action"] : "main";
+
 	
 	// Name/Path of view and controllers
 	$className = ucfirst($action) . "Controller";
