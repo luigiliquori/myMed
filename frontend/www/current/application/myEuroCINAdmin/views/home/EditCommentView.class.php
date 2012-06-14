@@ -57,16 +57,13 @@ class EditCommentView extends MainView {
     			<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="30" height="30" style="position: absolute;">
     		<?php }	?>
     		<div style="position: relative; top: 3px; left:35px; height: 30px;">
-		    	<a href="mailto:<?= $profile->email ?>" target="_blank">
-		    		<?= $profile->firstName ?> &nbsp;
-		    		<?= $profile->lastName ?> 
-		    	</a> &nbsp;
+		    	<?= $profile->firstName ?> 
+		    	<?= $profile->lastName ?> - 
 		    	<?= $values['begin'] ?>
 		    </div>
 		    <br />
 	
     	<?php } ?>
-	
 	
 		<form action="#CommentView" method="post" name="EditCommentForm" id="EditCommentForm" enctype="multipart/form-data">
 			<!-- Define the method to call -->
