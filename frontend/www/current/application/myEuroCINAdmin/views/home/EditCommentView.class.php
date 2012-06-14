@@ -57,8 +57,10 @@ class EditCommentView extends MainView {
     			<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="30" height="30" style="position: absolute;">
     		<?php }	?>
     		<div style="position: relative; top: 3px; left:35px; height: 30px;">
-		    	<?= $profile->firstName ?> 
-		    	<?= $profile->lastName ?> - 
+		    	<a href="mailto:<?= $profile->email ?>" target="_blank">
+		    		<?= $profile->firstName ?> &nbsp;
+		    		<?= $profile->lastName ?> 
+		    	</a> &nbsp;
 		    	<?= $values['begin'] ?>
 		    </div>
 		    <br />
