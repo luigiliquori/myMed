@@ -36,11 +36,38 @@ class EditArticleView extends MainView {
 	*/
 	private /*String*/ function getContentToValidate() { ?>
 	
+	
+		
+	    
+	
 		<!-- getValue -->
 		<?php $values = array(); ?>
 		<?php foreach(json_decode($this->handler->getSuccess()) as $details) {
 			$values[$details->key] = urldecode($details->value);
 		} ?>
+		
+		<!-- AUTHOR -->
+		
+    	<?php
+    	if(isset($_POST['user'])) {
+    		$request = new Request("ProfileRequestHandler", READ);
+    		$request->addArgument("id",  $_POST['user']);
+    		$responsejSon = $request->send();
+    		$responseObject = json_decode($responsejSon);
+    		$profile = json_decode($responseObject->data->user);
+    		if($profile->profilePicture != "") { ?>
+    			<img alt="thumbnail" src="<?= $profile->profilePicture ?>" width="30" height="30" style="position: absolute;">
+    		<?php } else { ?>
+    			<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="30" height="30" style="position: absolute;">
+    		<?php }	?>
+    		<div style="position: relative; top: 3px; left:35px; height: 30px;">
+		    	<?= $profile->firstName ?> 
+		    	<?= $profile->lastName ?> - 
+		    	<?= $values['begin'] ?>
+		    </div>
+		    <br />
+	
+    	<?php } ?>
 	
 		<form  action="#ArticleView" method="post" name="<?= APPLICATION_NAME ?>PublishForm" id="<?= APPLICATION_NAME ?>PublishForm" enctype="multipart/form-data">
 			<!-- Define the method to call -->

@@ -55,9 +55,7 @@ class CommentView extends MainView {
 							</form>
 							<a href="#" onclick="document.getCommentDetailForm<?= $i ?>.submit()">
 								<?= $controller->data ?>
-								<span class="ui-link" style="float:right;"><?= substr($controller->publisherID, 6) ?>
-									<a href="mailto:<?= substr($controller->publisherID, 6) ?>" target="_blank"><?= substr($controller->publisherID, 6) ?></a>
-								</span>
+								<span style="margin-right:10px;" class="ui-li-aside ui-link" ><?= $controller->publisherName ?></span>
 							</a>
 						</li>
 						<?php $i++ ?>
