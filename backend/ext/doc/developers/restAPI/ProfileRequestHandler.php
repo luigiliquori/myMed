@@ -33,7 +33,7 @@
     <td class="arguments">
 	    <ul>
 		  <li>code</li>
-		  <li>id</li>
+		  <li>userID</li>
 		  <li>accessToken</li>
 		</ul>
 	</td>
@@ -69,7 +69,7 @@
     <td class="arguments">
 	    <ul>
 		  <li>code</li>
-		  <li>id</li>
+		  <li>userID</li>
 		  <li>accessToken</li>
 		</ul>
 	</td>

@@ -66,7 +66,7 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            String application, predicate, user;
+            final String application, predicate, user;
             
             switch (code) {
                 case READ :
@@ -74,7 +74,7 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
                 	if ((application = parameters.get(JSON_APPLICATION)) == null) {
                 		throw new InternalBackEndException("missing application argument!");
                 	} else if((user = parameters.get(JSON_USERID)) == null){
-
+                		throw new InternalBackEndException("missing userID argument!");
                 	}
                 	final Map<String, String> predicates = pubsubManager.read(application + user);
                  	message.setDescription("Subscriptions found for Application: " + application + " User: " + user);
@@ -89,7 +89,7 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
                     } else if ((predicate = parameters.get(JSON_PREDICATE)) == null) {
                         throw new InternalBackEndException("missing predicate argument!");
                     } else if ((user = parameters.get(JSON_USERID)) == null) {
-                        throw new InternalBackEndException("missing user argument!");
+                        throw new InternalBackEndException("missing userID argument!");
                     }
 
                 	pubsubManager.delete(application, user, predicate);
@@ -123,15 +123,16 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            String application, predicate, user;
+            final String application, predicate, user;
+            user = parameters.get(JSON_USERID) != null ? parameters.get(JSON_USERID) : parameters.get(JSON_USER);
 
             if (code.equals(RequestCode.CREATE)) {
                 if ((application = parameters.get(JSON_APPLICATION)) == null) {
                     throw new InternalBackEndException("missing application argument!");
                 } else if ((predicate = parameters.get(JSON_PREDICATE)) == null) {
                     throw new InternalBackEndException("missing predicate argument!");
-                } else if ((user = parameters.get(JSON_USER)) == null) {
-                    throw new InternalBackEndException("missing user argument!");
+                } else if (user == null) {
+                    throw new InternalBackEndException("missing userID argument!");
                 }
                 try {
                     final MUserBean userBean = getGson().fromJson(user, MUserBean.class);

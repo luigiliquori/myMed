@@ -112,7 +112,8 @@ public class PublishRequestHandler extends AbstractRequestHandler {
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            String application, predicateListJson, user;
+            final String application, predicateListJson, user;
+            user = parameters.get(JSON_USERID) != null ? parameters.get(JSON_USERID) : parameters.get(JSON_USER);
 
             switch (code) {
                 case READ :
@@ -123,7 +124,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
                         throw new InternalBackEndException("missing application argument!");
                     } else if ((predicateListJson = parameters.get(JSON_PREDICATE)) == null) {
                         throw new InternalBackEndException("missing predicate argument!");
-                    } else if ((user = parameters.get(JSON_USER)) == null) {
+                    } else if (user == null) {
                         throw new InternalBackEndException("missing user argument!");
                     }
 
@@ -207,7 +208,8 @@ public class PublishRequestHandler extends AbstractRequestHandler {
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            String application, predicateListJson, user, data;
+            final String application, predicateListJson, user, data;
+            user = parameters.get(JSON_USERID) != null ? parameters.get(JSON_USERID) : parameters.get(JSON_USER);
 
             if (code.equals(RequestCode.CREATE)) {
                 message.setMethod(JSON_CODE_CREATE);
@@ -215,8 +217,8 @@ public class PublishRequestHandler extends AbstractRequestHandler {
                     throw new InternalBackEndException("missing application argument!");
                 } else if ((predicateListJson = parameters.get(JSON_PREDICATE)) == null) {
                     throw new InternalBackEndException("missing predicate argument!");
-                } else if ((user = parameters.get(JSON_USER)) == null) {
-                    throw new InternalBackEndException("missing user argument!");
+                } else if (user == null) {
+                    throw new InternalBackEndException("missing userID argument!");
                 } else if ((data = parameters.get(JSON_DATA)) == null) {
                     throw new InternalBackEndException("missing data argument!");
                 }
