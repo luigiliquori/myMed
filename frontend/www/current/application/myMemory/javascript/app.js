@@ -1,15 +1,13 @@
 
-// Handle javascript navbar
-$(document).delegate('[data-role="navbar"] a', 'click', function () {
-    $(this).addClass('ui-btn-active');
-    $('.tab').hide();
-    $($(this).attr('href')).show();
+
+$(document).ready(function() {
+		
+	// Handle "close" buttons
+	$('[data-action="close"]').click(function () {
+	    var bars = $($(this).attr("href"));
+	    bars.hide();
+	    return false;
+	});
+
 });
 
-// Click on the default tab
-$(document).ready(function() {
-	// Click on all "default" button to click on load
-	$("[data-click-on-load]").each(function() {
-		$(this).click();
-	});
-})

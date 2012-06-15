@@ -20,3 +20,6 @@ bundle.jar
 ./frontend/www/current/.buildpath
 *config.xml
 coverage.ec
+
+build
+backend/build

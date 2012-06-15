@@ -1,4 +1,5 @@
 <? include("header.php"); ?>
+<? include("notifications.php")?>
 <!--  Javascript that disables the submit button as long as the checkbox is not checked -->
 <script type="text/javascript">
 	$('#agreement').change(function() {

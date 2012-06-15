@@ -3,16 +3,19 @@
 
 	<!-- Login form -->
 	<form id="login" action="?action=login" method="post" data-ajax="false" class="tab" >
+
+			<input type="text" name="login" placeholder="Login" />
+			<input type="password" name="password" placeholder="Password" />
 	
-		<input type="text" name="login" placeholder="Login" />
-		<input type="password" name="password" placeholder="Password" />
+			<input type="submit" value="<?= _("Connection") ?>" data-theme="b" />
 	
-		<input type="submit" value="<?= _("Connection") ?>" />
+		</form>
+		
+	</div>
 	
-	</form>
-	
+
 	<!--  Register form -->
 	<a href="?action=register"  data-role="button"><?= _("Register") ?></a>
-	
+
 </div>
 <? include("footer.php"); ?>
