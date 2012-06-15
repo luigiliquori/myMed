@@ -16,8 +16,8 @@ public class Mobile extends Activity {
 	private ChromeWebClient chromeWebClient;
 
 	public static final String TAG = "*********MyMed";
-	public static final String MYMED_FRONTEND_URL = "http://mymed2.sophia.inria.fr";
-	public static final String MYMED_BACKEND_URL = "http://mymed2.sophia.inria.fr:8080/backend";
+	public static final String MYMED_FRONTEND_URL = "http://mymed20.sophia.inria.fr/application/myRiviera";
+	public static final String MYMED_BACKEND_URL = "http://mymed20.sophia.inria.fr:8080/backend";
 
 	public Mobile() {
 		this.webClient = new WebClient(this);

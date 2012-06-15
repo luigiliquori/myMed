@@ -52,7 +52,10 @@
 </div>
 <? endif ?>
 <? if (!empty($this->success)): ?>
-<div class="ui-bar ui-bar-e">
+<div class="ui-bar ui-bar-e" id="notification-success">
 	<h3><?= $this->success ?></h3>
+	<div style="float:right; margin-top:4px;">
+		<a href="#" data-role="button" data-icon="delete" data-iconpos="notext" onclick="$('#notification-success').fadeOut('fast');">Button</a>
+	</div>
 </div>
 <? endif ?>
