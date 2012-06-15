@@ -53,7 +53,7 @@
 	// Get config
 	require_once MYMED_ROOT . '/system/config.php';
 	
-	// Set autoloadd
+	// Set autoload
 	spl_autoload_register(function ($className) {
 		
 		foreach(array(".class.php", ".php") as $x) {
@@ -69,7 +69,6 @@
 		error_log("Failed to find '$className' in " . get_include_path());
 		return false;
 	});
-
 	
 	// ---------------------------------------------------------------------
 	// 	Main process
@@ -79,6 +78,11 @@
 	$action = $_REQUEST["action"];
 	if (empty($action)) {
 		$action = "main";
+	}
+	
+	// Hardcoded action "egister" if we have GET["register"]="ok" (link from confirmation email)
+	if ($_GET['registration'] == "ok") {
+		$action = "register";
 	}
 	
 	// Name/Path of view and controllers

@@ -9,7 +9,7 @@ class RegisterController extends AbstractController {
 	public /*String*/ function handleRequest() { 
 		
 		// First stage of registration : we receive a POST with all the informations of the user
-		if ($_SERVER['REQUEST_METHOD'] == POST) {
+		if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			
 			// Preconditions TODO : i18n of error messages
 			if($_POST['password'] != $_POST['confirm']){
@@ -22,11 +22,12 @@ class RegisterController extends AbstractController {
 				$this->error = "Vous devez accepter les conditions d'utilisation.";
 			}
 			
+			// Error to show => show the register view
 			if (!empty($this->error)) {
-				$this->renderView("login");
+				$this->renderView("register");
 			}
 			
-			// create the new user
+			// Create the new user
 			$mUserBean = new MUserBean();
 			$mUserBean->id = "MYMED_" . $_POST["email"];
 			$mUserBean->firstName = $_POST["prenom"];
@@ -60,13 +61,14 @@ class RegisterController extends AbstractController {
 			$responseObject = json_decode($responsejSon);
 
 			if($responseObject->status != 200) {
-				$_SESSION['error'] = $responseObject->description;
+				$this->error = $responseObject->description;
+				$this->renderView("register");
 			} else {
 				$this->success = "Félicitation, Un email de confirmation vient de vous être envoyé!";
-				
+				$this->renderView("login");
 			}
 			
-			$this->renderView("login");
+			
 		}
 		
 		// Case where the user click the link on the e-mail to confirm registration 
@@ -80,10 +82,13 @@ class RegisterController extends AbstractController {
 		 
 		} else {
 			
+			
+			$this->error = _("Erreur interne d'enrgistrement");
+			$this->renderView("register");
 		}
 		
-		// Render the login/register view 
-		$this->renderView("login");
+		// Render the register view 
+		$this->renderView("register");
 		
 	}
 	
@@ -107,7 +112,7 @@ class RegisterController extends AbstractController {
 		if($responseObject->status != 200) {
 			$this->error = $responseObject->description;
 		} else {
-			$this->success = "Votre compte à bien été validé. Vous pouvez vous loguer à présent";
+			$this->success = _("Votre compte à bien été validé. Vous pouvez vous loguer à présent");
 		}
 		$this->renderView("login");
 		

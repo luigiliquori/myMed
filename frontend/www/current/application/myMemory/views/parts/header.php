@@ -40,15 +40,28 @@
 	</head>
 		
 <body>
+
 <? if (!empty($this->error)): ?>
-<div data-role="header" data-theme="e">
-	<h3>Error</h3>
+<div id="mm-error-box" data-role="navbar" data-theme="e" class="ui-bar-e error-box" >
+	<h3><?= _("Error") ?></h3>
 	<p><?= $this->error ?></p>
+	<a href=".error-box" data-icon="delete" data-action="close"><?= _("Close") ?></a>
 </div>
 <? endif ?>
-<? if (true): ?>
-<div data-role="header" data-theme="f">
-	<h3></h3>
-	<p><?= "Génial" ?></p>
+
+<? if (!empty($this->success)): ?>
+<div id="mm-success-box" data-role="navbar" data-theme="g" class="ui-bar-g success-box">
+	<h3><?= _("Message") ?></h3>
+	<p><?= $this->success ?></p>
+	<a href=".success-box" data-icon="delete" data-action="close"><?= _("Close") ?></a>
 </div>
+<? endif ?>
+
+<? // Switch to active tab on load
+if (!empty($TAB)) :?>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$.mobile.changePage("#<?= $TAB ?>", {transition:"none"})
+	});
+</script>
 <? endif ?>
