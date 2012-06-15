@@ -60,7 +60,7 @@ class LoginController extends AbstractController {
 				debug("success");
 				
 				// Redirect to main page
-				$this->renderView("main");
+				$this->redirectTo("main");
 			}
 			
 			

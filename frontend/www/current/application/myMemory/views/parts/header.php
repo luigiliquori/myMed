@@ -18,12 +18,15 @@
 	<script src="../../lib/jquery/datebox/jquery.mobile.datebox.min.js"></script>
 	<link href="../../lib/jquery/datebox/jquery.mobile.datebox.min.css" rel="stylesheet" />
 	
+	<!-- MYMED JS -->
+	<script src="../myMed/javascript/common.js"></script>
 	<!-- APP JS -->
-	<script src="../../system/javascript/common.js"></script>
 	<script src="javascript/app.js"></script>
 	
+	<!-- MYMED css -->
+	<link href="../myMed/css/style.css" rel="stylesheet" />
 	<!-- APP css -->
-	<link href="../../system/css/style.css" rel="stylesheet" />
+	<link href="css/style.css" rel="stylesheet" />
 	
 	<!-- Google Analytics -->
 	<script type="text/javascript">
@@ -50,3 +53,4 @@
 		});
 	</script>
 <? endif ?>
+

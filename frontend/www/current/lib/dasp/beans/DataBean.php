@@ -41,14 +41,14 @@ class DataBean {
 		 */
 		
 		// At least 1 predicate and no more than 4 predicates
-		if ( count($predicates) < 1 || count($predicate) >4  )
+		if ( count($predicates) < 1 || count($predicates) >4  )
 			throw new Exception("Number of predicates should be between 1 and 4");
 		
 		// Check the validity of each ontology for predicate
 		foreach ($predicates as $p)
 		{
 			if ( !$this->isValidPredicate($p))
-				throw new Exception("Ontology is not valid for predicate");
+				throw new Exception("Ontology is not valid for predicate");	
 		}
 		
 		$this->predicates = $predicates;
