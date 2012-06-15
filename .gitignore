@@ -17,5 +17,6 @@ revision.location
 bundle.jar
 
 ./frontend/.buildpath
+./frontend/www/current/.buildpath
 *config.xml
 coverage.ec
