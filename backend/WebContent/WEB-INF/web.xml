@@ -53,7 +53,7 @@
     <description>Request handler for the publish mechanism.</description>
     <display-name>PublishRequestHandler</display-name>
     <servlet-name>PublishRequestHandler</servlet-name>
-    <servlet-class>com.mymed.controller.core.requesthandler.PublishRequestHandler</servlet-class>
+    <servlet-class>com.mymed.controller.core.requesthandler.matchmaking.PublishRequestHandler</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>PublishRequestHandler</servlet-name>
@@ -63,7 +63,7 @@
     <description>Request handler for the subscribe mechanism.</description>
     <display-name>SubscribeRequestHandler</display-name>
     <servlet-name>SubscribeRequestHandler</servlet-name>
-    <servlet-class>com.mymed.controller.core.requesthandler.SubscribeRequestHandler</servlet-class>
+    <servlet-class>com.mymed.controller.core.requesthandler.matchmaking.SubscribeRequestHandler</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>SubscribeRequestHandler</servlet-name>
@@ -73,7 +73,7 @@
     <description>Request handler for the find mechanism.</description>
     <display-name>FindRequestHandler</display-name>
     <servlet-name>FindRequestHandler</servlet-name>
-    <servlet-class>com.mymed.controller.core.requesthandler.FindRequestHandler</servlet-class>
+    <servlet-class>com.mymed.controller.core.requesthandler.matchmaking.FindRequestHandler</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>FindRequestHandler</servlet-name>
