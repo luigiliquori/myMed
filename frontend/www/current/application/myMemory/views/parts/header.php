@@ -43,14 +43,15 @@
 	</head>
 		
 <body>
+
 <? if (!empty($this->error)): ?>
-<div data-role="header" data-theme="e">
+<div class="ui-bar ui-bar-e">
 	<h3>Error</h3>
 	<p><?= $this->error ?></p>
 </div>
 <? endif ?>
 <? if (!empty($this->success)): ?>
-<div data-role="header" data-theme="e">
+<div class="ui-bar ui-bar-e">
 	<h3><?= $this->success ?></h3>
 </div>
 <? endif ?>

@@ -14,8 +14,7 @@
 	// For the magic_quotes
 	@set_magic_quotes_runtime(false);	
 	
-	// Start session
-	session_start();
+	
 	
 	// ------------------------------------------------------------------------------------------------
 	// Helpers
@@ -86,10 +85,13 @@
 	// Create controller
 	$controller = new $className();
 	
+	// Start session
+	session_start();
+	
 	// Process the request
 	$controller->handleRequest();
 	
 	// We should not reach that point (view already rendered by the controller) 
 	throw new Exception("${className}->handleRequest() should never return");
-	
+
 ?>

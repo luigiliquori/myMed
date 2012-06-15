@@ -1,0 +1,27 @@
+.ui-page {
+ 	background : none;
+ 	background-color : black;
+	color: white;
+	text-shadow: none;
+}
+
+
+.mymem-profile-grid {
+	width : 100%;
+	text-align : center;
+}
+
+.mymem-profile-block-a {
+	width : 20%;
+	display: inline-block;
+	vertical-align : middle;
+	text-align : left;
+	line-height : 2em;
+}
+
+.mymem-profile-block-b {
+	width : 70%;
+	display: inline-block;
+	vertical-align : middle;
+	text-align : left;
+}

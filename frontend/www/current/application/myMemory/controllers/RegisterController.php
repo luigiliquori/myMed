@@ -79,7 +79,7 @@ class RegisterController extends AbstractController {
 			$this->confirmRegistration($_GET['accessToken']);
 		 
 		} else {
-			
+			$this->renderView("Register");
 		}
 		
 		// Render the login/register view 

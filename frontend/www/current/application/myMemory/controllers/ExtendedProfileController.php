@@ -26,7 +26,7 @@ class ExtendedProfileController extends AbstractController
 		 */
 		if (isset($_POST["diseaseLevel"]))
 			$this->storeProfile();
-		else if (isset($_SESSION['ExtentedProfile']) AND !empty($_SESSION['ExtentedProfile']))
+		else if (isset($_SESSION['ExtendedProfile']) AND !empty($_SESSION['ExtendedProfile']))
 			$this->showProfile();
 		else
 			$this->renderView("ExtendedProfileForm");
@@ -58,14 +58,30 @@ class ExtendedProfileController extends AbstractController
 			);
 			/*
 			 * The First person to call is the caregiver, the last is the emergency services
+			 * The 2 slots in between are optionnals
 			 */
-			$callingList = array(
-			array("name" => $_POST["CareGiverName"], "phone" => $_POST["CareGiverPhone"]),
-			array("name" => $_POST["CL_name_1"], "phone" => $_POST["CL_phone_1"]),
-			array("name" => $_POST["CL_name_2"], "phone" => $_POST["CL_phone_2"]),
-			array("name" => "Emergency", "phone" => "112")
-			);
+			$callingList = array();
 			
+			$call1 = array("name" => $_POST["CareGiverName"], "phone" => $_POST["CareGiverPhone"]);
+			$call4 = array("name" => "Emergency", "phone" => "112");
+			
+			// Inserting Caregiver in first position
+			array_push($callingList, $call1);
+			
+			// If user filled the informations for the second calling slot, add it. If not, do nothing.
+			if(!empty($_POST["CL_name_1"]) AND !empty($_POST["CL_phone_1"])){
+				$call2 = array("name" => $_POST["CL_name_1"], "phone" => $_POST["CL_phone_1"]);
+				array_push($callingList, $call2);
+			}
+
+			// Same for slot 3
+			if(!empty($_POST["CL_name_2"]) AND !empty($_POST["CL_phone_2"])){
+				$call3 = array("name" => $_POST["CL_name_2"], "phone" => $_POST["CL_phone_2"]);
+				array_push($callingList, $call3);
+			}
+			
+			// Inserting Emergency in last position
+			array_push($callingList, $call4);
 			
 			$extendedProfile = new ExtendedProfile($_SESSION['user'], $diseaseLevel, $careGiver, $doctor, $callingList);
 			
