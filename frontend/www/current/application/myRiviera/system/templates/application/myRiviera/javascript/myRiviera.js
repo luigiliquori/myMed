@@ -32,8 +32,10 @@ var EndMarkerIcon = false;
 /* --------------------------------------------------------- */
 /* Initialize */
 /* --------------------------------------------------------- */
-function initialize() {
+
+//$("#Map").live("pageinit", initialize);
 	
+function initialize() {
 
 	// INITIALIZE DASP
 	setupDASP($("#userID").val(), $("#accessToken").val(),
@@ -41,7 +43,7 @@ function initialize() {
 
 	// INITIALIZE DASP->MAP
 	setupDASPMap($("#applicationName").val() + "Map", displayPosition,
-			displayError, true);
+			displayError, false);
 
 	// autocompletes Google Maps Places API
 	if (useautocompletion) {
@@ -77,16 +79,14 @@ function initialize() {
 	});
 
 	// initialize the filter for the markers
-	updateFilter();
+	initFilter();
 
 	resizeMap();
 
 }
 
 function resizeMap() {
-	$("#" + $("#applicationName").val() + "Map").height(
-			$("body").height() + 100);
-//	- $('body').find('div[data-role=header]').outerHeight());
+	$("#" + $("#applicationName").val() + "Map").height($("body").height() );
 }
 
 /**
@@ -124,7 +124,7 @@ function displayPosition(position) {
 
 		// focus on the position
 		if (focusOnCurrentPosition) {
-			focusOnLatLng(latlng || new google.maps.LatLng(43.774481, 7.49754));
+			focusOnLatLng(latlng || new google.maps.LatLng($("#userLat").val() || 43.774481, $("#userLng").val() || 7.49754));
 			focusOnCurrentPosition = false;
 		}
 	}
@@ -156,23 +156,9 @@ function displayPosition(position) {
 
 	// add the position to the popup
 	$('#depart').attr("placeholder", "Ma position");
-	
 	// print the marker around me
 	for ( var i = 0; i < filterArray.length; i++) {
-		
-		otherMarkers(-1, filterArray[i], latlng.lat(), latlng.lng(), $('#slider-radius').val());
-		
-		/*pois = getMarkers2(latlng.lat(), latlng.lng(), filterArray[i], $('#slider-radius').val());
-		pois.type = filterArray[i];
-		$.each(pois, function(i, poi) {
-			value = $.parseJSON(poi.value);
-			var marker = addMarker(new google.maps.LatLng(value.latitude,
-					value.longitude), 'system/templates/application/myRiviera/img/pois/' + pois.type + '.png', value.title,
-					"<p>Type: 	" + pois.type + "</p>" + value.description);
-			google.maps.event.addListener(marker, "click", function(e) {
-				marker.ib.open(map, this);
-			});
-		});*/
+		otherMarkers(0, filterArray[i], latlng.lat(), latlng.lng(), $('#slider-radius').val());
 	}
 	hideLoadingBar();
 }
@@ -188,7 +174,14 @@ function displayError(error) {
 			2 : 'Position indisponible',
 			3 : 'Requête expirée'
 	};
-	console.log("Erreur géolocalisation: " + errors[error.code]);
+	//console.log("Erreur géolocalisation: " + errors[error.code]);
+	// focus on the position
+	if (focusOnCurrentPosition) {
+		focusOnLatLng(new google.maps.LatLng($("#userLat").val() || 43.774481, $("#userLng").val() || 7.49754));
+		focusOnCurrentPosition = false;
+	}
+	
+	hideLoadingBar();
 
 	if (error.code == 3)
 		navigator.geolocation.getCurrentPosition(displayPosition, displayError);
@@ -204,6 +197,17 @@ function updateFilter() {
 	filterArray = [];
 	$("#" + currentApplication + "Filter input:checked").each(function(index) {
 		filterArray.push($(this).attr('id'));
+		//markers[$(this).attr('id')] = [];
+	});
+	/*$("#" + currentApplication + "Filter input:unchecked").each(function(index) {
+		markers[$(this).attr('id')] = [];
+	});*/
+}
+
+function initFilter() {
+	filterArray = [];
+	$("#" + currentApplication + "Filter input").each(function(index) {
+		filterArray.push($(this).attr('id'));
 		markers[$(this).attr('id')] = [];
 	});
 }
@@ -214,26 +218,28 @@ function updateFilter() {
  */
 function clearAll() {
 
-	clearMarkers();
+	updateFilter();
+	//clearMarkers();
 	for ( var i = 0; i < directionsDisplays.length; i++)
 		directionsDisplays[i].setMap(null);
 	pmarkers = [];
-	for (key in markers)
-		markers[key] = [];
+	for (key in markers) {
+		markers[key].splice(1, markers[key].length); // just keep current pos POI markers
+	}
 	directionsDisplays = [];
 	currentSegmentID = 0, prevSegmentID = 0;
 	$('#itineraireContent').html("");
 	updatezoom = true;
 }
 
-function clearMarkers() {
+/*function clearMarkers() {
 	for ( var i = 0; i < pmarkers.length && pmarkers[i]; i++) {
 		pmarkers[i].ib.close();
 		pmarkers[i].setMap(null);
 	}
 
 	for (key in markers) {
-		for ( var i=0 ; i < markers[key].length ; i++) {    
+		for ( var i=1 ; i < markers[key].length ; i++) {    
 			if(markers[key][i]) {
 				for ( var j=0 ; j< markers[key][i].length ; j++) {
 					if(markers[key][i][j]) {
@@ -244,8 +250,7 @@ function clearMarkers() {
 			}
 		}
 	}
-
-}
+}*/
 
 /**
  * 
@@ -256,41 +261,52 @@ function clearMarkers() {
 function otherMarkers(index, type, lat, lon, rad) {
 	if (!markers[type][index]) { // create them if not exist
 		
-		// Classic async POI get, seems faster, (loading bar hides fast, and pois are then get and dropped on the map)
-		$.get('POI.php', {
+		var params = {
 			'application': $("#applicationName").val() + "Admin",
 			'type': type,
 			'latitude': lat || steps[index].position.lat(),
 			'longitude': lon || steps[index].position.lng(),
-			'radius': rad || $('#slider-radius').val()
-		}, function(data){
-			if ( (res = $.parseJSON(data)) != null){
-				var pois = res.dataObject.pois;
-				markers[type][index] = [];
-				$.each(pois, function(i, poi) {
-					value = $.parseJSON(poi.value);
-					id = poi.id;
-					iconAvailable = $('#poiIcon').val().split(",");
-					if(iconAvailable.contains(type + '.png')){
-						icon = 'system/templates/application/myRiviera/img/pois/' + type + '.png';
-					} else {
-						icon = null;
-					}
-					var marker = addMarker(new google.maps.LatLng(value.latitude,
-							value.longitude), icon, value.title,
-							"<p>Type: 	" + type + "</p>" + value.description, null, false, id);
-					google.maps.event.addListener(marker, "click", function(e) {
-						marker.ib.open(map, this);
+			'radius': rad || $('#slider-radius').val(),
+			'accessToken': $("#accessToken").val(),
+			'code': 1
+		};
+
+		//getMarkers
+		//will do async write in markers[index], and on map
+		
+		// "http://mymed20.sophia.inria.fr:8080/backend/POIRequestHandler"
+		// "../../lib/dasp/request/POI.php"
+		$.ajax({
+			url: "../../backend/POIRequestHandler",
+			data: params,
+			dataType: "json",
+			success: function(data){
+				if ( data && data.dataObject.pois.length){
+					markers[type][index] = [];
+					$.each(data.dataObject.pois, function(i, poi) {
+						value = JSON.parse(poi.value);
+						id = poi.id;
+						iconAvailable = $('#poiIcon').val().split(",");
+						if(iconAvailable.contains(type + '.png')){
+							icon = 'system/templates/application/myRiviera/img/pois/' + type + '.png';
+						} else {
+							icon = null;
+						}
+						var marker = addMarker(new google.maps.LatLng(value.latitude,
+								value.longitude), icon, value.title,
+								"<p>Type: 	" + type + "</p>" + value.description, 0, false, id);
+						google.maps.event.addListener(marker, "click", function(e) {
+							marker.ib.open(map, this);
+						});
+						markers[type][index].push(marker);
 					});
-					markers[type][index].push(marker);
-				});
+				}
 			}
 		});
 		
 	} else {// already existing, redrop them
 		for ( var i = 0; i < markers[type][index].length; i++) {
 			markers[type][index][i].setMap(map);
-			markers[type][index][i].setAnimation(google.maps.Animation.DROP);
 		}
 	}
 
@@ -315,7 +331,7 @@ function otherMarkers(index, type, lat, lon, rad) {
 function positionMarker(index) {
 	if (!pmarkers[index]) { // create new marker
 		var marker = addMarker(steps[index].position, steps[index].icon,
-				steps[index].title, steps[index].desc);
+				steps[index].title, steps[index].desc, 1);
 		pmarkers[index] = marker;
 		google.maps.event.addListener(marker, "click", function(e) {
 			marker.ib.open(map, this);
@@ -349,19 +365,19 @@ function updateMarkers(index) {
 
 	showLoadingBar("Recherche de points d'interêts...");
 	// FOCUS ON POSITION
-	focusOnLatLng(steps[index].position);
+	focusOnLatLng(steps[index-1].position);
 
 	// ADD THE MARKER OF THE CURRENT SEGMENT
 	positionMarker(index);
 
 	currentSegmentID = index;
-	if (index < steps.length - 1)
+	if (index < steps.length )
 		$('#next-step').attr('onclick', 'updateMarkers(' + (index + 1) + ')');
-	if (index > 0)
+	if (index > 1)
 		$('#prev-step').attr('onclick', 'updateMarkers(' + (index - 1) + ')');
 
 	// ADD THE MARKERs CORRESPONDING TO ALL THE POIs AROUND THE SEGMENT
-	updateFilter();
+	//updateFilter();
 	for ( var i = 0; i < filterArray.length; i++) {
 		otherMarkers(index, filterArray[i]);
 	}
@@ -490,7 +506,7 @@ function calcRouteByCityway(result) {
 		content2 = (tripSegment.comment || '&nbsp;');
 		steps[i]['desc'] = content1 + '<br />' + content2;
 		
-		desc = $('<li style="padding:5px;"><img alt="no picture" src="' + icon + '" /><a href="#Map" onclick="updateMarkers('+ i+ ');"><p style="position: relative; left: -16px;">' + content1 + '<br />' + content2 + '</p></a></li>');
+		desc = $('<li style="padding:5px;"><img alt="no picture" src="' + icon + '" /><a href="#Map" onclick="updateMarkers('+ (i+1)+ ');"><p style="position: relative; left: -16px;">' + content1 + '<br />' + content2 + '</p></a></li>');
 
 		desc.appendTo($('#itineraireContent'));
 
@@ -591,7 +607,7 @@ function calcRouteByGoogle(printTrip) {
 								'desc' : content1 + '<br />' + content2
 						};
 
-						desc = $('<li style="padding:5px;"><img alt="no picture" src="' + icon + '" /><a href="#Map" onclick="updateMarkers('+ i+ ');"><p style="position: relative; left: -16px;">' + content1 + '<br />' + content2 + '</p></a></li>');
+						desc = $('<li style="padding:5px;"><img alt="no picture" src="' + icon + '" /><a href="#Map" onclick="updateMarkers('+ (i+1)+ ');"><p style="position: relative; left: -16px;">' + content1 + '<br />' + content2 + '</p></a></li>');
 						desc.appendTo($('#itineraireContent'));
 					}
 
@@ -630,7 +646,7 @@ function myRivieraShowTrip(start, end, icon) {
 
 	// SHOW ITINERAIRE
 	$("#itineraire, #steps, #prev-step").delay(1000).fadeIn("slow");
-	$('#next-step, #prev-step').attr('onclick', 'updateMarkers(0)');
+	$('#next-step, #prev-step').attr('onclick', 'updateMarkers(1)');
 	$('#next-step')
 	.click(
 			function() {

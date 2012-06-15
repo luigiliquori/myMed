@@ -58,7 +58,7 @@
 		$responseObject = json_decode($responsejSon);
 		
 		if($responseObject->status == 200) {
-			$_SESSION['position'] = json_decode($responseObject->data->position);
+			$_SESSION['position'] =  $responseObject->dataObject->position;
 		}
 	}
 	/* ----------------------------------------------------------------------------- */

@@ -36,6 +36,8 @@
 		echo "<input type='hidden' id='userID' value='" . $_SESSION['user']->id . "' />";
 		echo "<input type='hidden' id='applicationName' value='" . APPLICATION_NAME . "' />";
 		echo "<input type='hidden' id='accessToken' value='" . $_SESSION['accessToken'] . "' />";
+		echo "<input type='hidden' id='userLat' value='" . $_SESSION['position']->latitude . "' />";
+		echo "<input type='hidden' id='userLng' value='" . $_SESSION['position']->longitude . "' />";
 	
 	} else { // LOGIN PAGE OF THE APPLICATION ---------------------------
 	
