@@ -1,3 +1,4 @@
+<? include_once('utils.php'); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">  
 
@@ -41,27 +42,11 @@
 		
 <body>
 
-<? if (!empty($this->error)): ?>
-<div id="mm-error-box" data-role="navbar" data-theme="e" class="ui-bar-e error-box" >
-	<h3><?= _("Error") ?></h3>
-	<p><?= $this->error ?></p>
-	<a href=".error-box" data-icon="delete" data-action="close"><?= _("Close") ?></a>
-</div>
-<? endif ?>
-
-<? if (!empty($this->success)): ?>
-<div id="mm-success-box" data-role="navbar" data-theme="g" class="ui-bar-g success-box">
-	<h3><?= _("Message") ?></h3>
-	<p><?= $this->success ?></p>
-	<a href=".success-box" data-icon="delete" data-action="close"><?= _("Close") ?></a>
-</div>
-<? endif ?>
-
-<? // Switch to active tab on load
-if (!empty($TAB)) :?>
-<script type="text/javascript">
-	$(document).ready(function() {
-		$.mobile.changePage("#<?= $TAB ?>", {transition:"none"})
-	});
-</script>
+<? // ================== Switch to active tab on load ==========================================?>
+<? if (!empty($TAB)) :?>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$.mobile.changePage("#<?= $TAB ?>", {transition:"none"})
+		});
+	</script>
 <? endif ?>
