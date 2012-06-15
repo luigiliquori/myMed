@@ -16,7 +16,7 @@
 		  <li>application</li>
 		  <li>predicate</li>
 		  <li>data</li>
-		  <li>user</li>
+		  <li>userID</li>
 		  <li>accessToken</li>
 		</ul>
 	</td>
@@ -54,13 +54,13 @@
   </tr>
   <tr>
     <td class="handler">DELETE</td>
-    <td class="method">POST</td>
+    <td class="method">GET</td>
     <td class="arguments">
 	    <ul>
 		  <li>code</li>
 		  <li>application</li>
 		  <li>predicate</li>
-		  <li>user</li>
+		  <li>userID</li>
 		  <li>accessToken</li>
 		</ul>
 	</td>

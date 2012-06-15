@@ -1,8 +1,8 @@
 <?php
-	require_once('../../lib/dasp/request/Request.class.php');
-	require_once('../../system/config.php');
-	require_once '../../lib/dasp/beans/MUserBean.class.php';
-	require_once '../../lib/dasp/beans/MAuthenticationBean.class.php';
+	require_once('../../../lib/dasp/request/Request.class.php');
+	require_once('../../../system/config.php');
+	require_once '../../../lib/dasp/beans/MUserBean.class.php';
+	require_once '../../../lib/dasp/beans/MAuthenticationBean.class.php';
 	session_start();
 	
 	$responseObject = new stdClass(); $responseObject->success = false;

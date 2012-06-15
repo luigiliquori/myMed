@@ -73,9 +73,9 @@ public class InteractionManager extends AbstractManager implements IInteractionM
 		throw new IOBackEndException("Interaction already exist!", 409);
 	}
 
-	@Override
-	public MInteractionBean read(final String interactionID) throws InternalBackEndException, IOBackEndException {
-		final Map<byte[], byte[]> args = storageManager.selectAll(CF_INTERACTION, interactionID);
+  @Override
+  public MInteractionBean read(final String interactionID) throws InternalBackEndException, IOBackEndException {
+    final Map<byte[], byte[]> args = storageManager.selectAll(CF_INTERACTION, interactionID);
 
 		return (MInteractionBean) introspection(MInteractionBean.class, args);
 	}

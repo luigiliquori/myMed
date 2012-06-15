@@ -49,15 +49,15 @@ class SubscribeView extends MainView {
 		$responsejSon = $request->send();
 		$responseObject = json_decode($responsejSon);
 		if($responseObject->status == 200) {
-			$res = $responseObject->dataObject->subscriptions;
-			foreach( $res as $value ){
-				if (strrpos($value, "Linguafrancese") !== false){
+			$res = (array) $responseObject->dataObject->subscriptions;
+			foreach( $res as $i => $value ){
+				if (strrpos($i, "Linguafrancese") !== false){
 					$subFr = true;
 				}
-				if (strrpos($value, "Linguaitaliano") !== false){
+				if (strrpos($i, "Linguaitaliano") !== false){
 					$subIt = true;
 				}
-				if (strrpos($value, "commentGroup") !== false){
+				if (strrpos($i, "commentGroup") !== false){
 					$subCom = true;
 				}
 			}

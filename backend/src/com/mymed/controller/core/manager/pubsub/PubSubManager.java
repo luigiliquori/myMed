@@ -27,6 +27,7 @@ import java.util.Map.Entry;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.AbstractManager;
+import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.data.application.MDataBean;
@@ -57,6 +58,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     protected static final String DATA_ARG = "data";
     protected static final String BEGIN_ARG = "begin";
     protected static final String END_ARG = "end";
+    protected static final String INDEXES_ARG ="indexes";
 
     /**
      * The application controller super column.
@@ -69,14 +71,19 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     private static final String SC_APPLICATION_MODEL = COLUMNS.get("column.sc.application.model");
 
     /**
-     * The user list super column.
-     */
-    private static final String SC_USER_LIST = COLUMNS.get("column.sc.user.list");
-
-    /**
      * The data list super column.
      */
     private static final String SC_DATA_LIST = COLUMNS.get("column.sc.data.list");
+
+    /**
+     * The subscribees (users subscribed to a predicate) column family.
+     */
+    private static final String CF_SUBSCRIBEES = COLUMNS.get("column.cf.subscribees");
+    
+    /**
+    * The subscribers (predicates subscribed by a user) column family.
+    */
+   private static final String CF_SUBSCRIBERS = COLUMNS.get("column.cf.subscribers");
 
     /**
      * The 'user' column family.
@@ -100,7 +107,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
      * @see IPubSubManager#create(String, String, MUserBean)
      */
     @Override
-    public final void create(final String application, final String predicate, final String subPredicate,
+    public final void create(String application, final String predicate, final String subPredicate,
                     final MUserBean publisher, final List<MDataBean> dataList) throws InternalBackEndException,
                     IOBackEndException {
         try {
@@ -110,21 +117,17 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
             args.put("predicate", subPredicate.getBytes(ENCODING));
             storageManager.insertSuperSlice(SC_APPLICATION_CONTROLLER, application + predicate, MEMBER_LIST_KEY, args);
 
-            // STORE A NEW ENTRY IN THE UserList (PublisherList)
-            args.clear();
-            args.put("name", publisher.getName().getBytes(ENCODING));
-            args.put("user", publisher.getId().getBytes(ENCODING));
-            storageManager.insertSuperSlice(SC_USER_LIST, PUBLISHER_PREFIX + application + subPredicate,
-                            publisher.getId(), args);
-
             // STORE VALUES RELATED TO THE PREDICATE
             String data = "";
             String begin = Long.toString(System.currentTimeMillis());
             String end = "";
+            String indexes = "";
 
             for (final MDataBean item : dataList) {
                 if (item.getKey().equals(DATA_ARG)) {
                     data = item.getValue();
+                } else if (item.getKey().equals(INDEXES_ARG)) {
+                    indexes = item.getValue();
                 } else if (item.getKey().equals(BEGIN_ARG)) {
                     begin = item.getValue();
                 } else if (item.getKey().equals(END_ARG)) {
@@ -137,17 +140,26 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
             args.put("begin", begin.getBytes(ENCODING));
             args.put("end", end.getBytes(ENCODING));
             args.put("publisherID", publisher.getId().getBytes(ENCODING));
+            
+            //---should be removed as they are not updated along with profile ...
             args.put("publisherName", publisher.getName().getBytes(ENCODING));
             args.put("publisherProfilePicture",
                             (publisher.getProfilePicture() == null ? "" : publisher.getProfilePicture())
                                             .getBytes(ENCODING));
+            //---------
             args.put("publisherReputation",
                             (publisher.getReputation() == null ? "" : publisher.getReputation()).getBytes(ENCODING));
+            
+            
             args.put("data", data.getBytes(ENCODING));
             storageManager.insertSuperSlice(SC_APPLICATION_CONTROLLER, application + predicate, subPredicate
                             + publisher.getId(), args);
+            
+            args.put("indexes", indexes.getBytes(ENCODING));
+            storageManager.insertSuperSlice(SC_APPLICATION_CONTROLLER, application + predicate, subPredicate
+                            + publisher.getId(), args);
 
-            // STORE A NEW ENTRY IN THE ApplicationModel (use to retreive all the
+            // STORE A NEW ENTRY IN THE ApplicationModel (use to retrieve all the
             // predicate of a given application)
             args.clear();
             args.put(APPLICATION_CONTROLLER_ID, (application + predicate).getBytes(ENCODING));
@@ -158,7 +170,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
             for (final MDataBean item : dataList) {
                 args.put("key", item.getKey().getBytes(ENCODING));
                 args.put("value", item.getValue().getBytes(ENCODING));
-                args.put("ontologyID", item.getOntologyID().getBytes(ENCODING));
+                if (item.getOntologyID()!=null) args.put("ontologyID", item.getOntologyID().getBytes(ENCODING));
                 storageManager.insertSuperSlice(SC_DATA_LIST, application + subPredicate + publisher.getId(),
                                 item.getKey(), args);
                 args.clear();
@@ -167,21 +179,18 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
             // SEND A MAIL TO THE SUBSCRIBERS
 
             final List<String> recipients = new ArrayList<String>();
-
-            final List<Map<byte[], byte[]>> subscribers = storageManager.selectList(SC_USER_LIST, SUBSCRIBER_PREFIX
-                            + application + predicate);
-            for (final Map<byte[], byte[]> set : subscribers) {
-                for (final Entry<byte[], byte[]> entry : set.entrySet()) {
-                    final String key = Charset.forName(ENCODING).decode(ByteBuffer.wrap(entry.getKey())).toString();
-                    if ("user".equals(key)) {
-                        final String userID = Charset.forName(ENCODING).decode(ByteBuffer.wrap(entry.getValue()))
-                                        .toString();
-                        final byte[] emailByte = storageManager.selectColumn(CF_USER, userID, "email");
-                        final String email = Charset.forName(ENCODING).decode(ByteBuffer.wrap(emailByte)).toString();
-                        recipients.add(email);
-                    }
-                }
+            
+            // use profileManager to retrieve email /sms/ tel ... or any subscribe mecanism
+            final ProfileManager profileManager = new ProfileManager(storageManager);
+            
+            final Map<byte[], byte[]> subscribers = storageManager.selectAll(CF_SUBSCRIBEES, application + predicate);
+            for (final Entry<byte[], byte[]> entry : subscribers.entrySet()) {
+            	final String key = Charset.forName(ENCODING).decode(ByteBuffer.wrap(entry.getKey())).toString();
+                //final String val = Charset.forName(ENCODING).decode(ByteBuffer.wrap(entry.getValue())).toString();
+            	recipients.add(profileManager.read(key).getEmail());
+                LOGGER.info("subscription sent for: "+key);
             }
+
 
             // Format the mail
             // TODO move this somewhere else and handle translation of this email!
@@ -202,12 +211,17 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 
                 mailContent.append("<br/><br/>------<br/>L'&eacute;quipe myMed<br/><br/>");
                 mailContent.append("Cliquez <a href='");
-                mailContent.append(getServerProtocol());
-                mailContent.append(getServerURI());
-                mailContent.append("/application/jqm/unsubscribe.php?predicate=" + predicate + "&application="
-                                + application + "&userID=" + publisher.getId() + "&accessToken=" + accTok);
-                // TODO put unsubscribe.php in lib/dasp/request later
-                mailContent.append("'>ici</a> si vous souhaitez vraiment vous désabonner");
+                
+                String address = getServerProtocol() + getServerURI();
+                if (application != null) {
+                	// can we rename the folder myEuroCINAdmin in myEuroCIN_ADMIN to skip below hack
+                	address += "/application/" + (application.equals("myEuroCIN_ADMIN")?"myEuroCINAdmin":application);
+                } 
+				address += "?predicate=" + predicate + "&application="
+						+ application + "&userID=" + publisher.getId()
+						+ "&accessToken=" + accTok;
+				mailContent.append(address);
+                mailContent.append("'>ici</a> si vous souhaitez vraiment vous d&eacute;sabonner");
 
                 mailContent.trimToSize();
 
@@ -240,13 +254,10 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
             storageManager.insertSuperSlice(SC_APPLICATION_CONTROLLER, application + predicate, MEMBER_LIST_KEY, args);
 
             // STORE A NEW ENTRY IN THE UserList (SubscriberList)
-            args = new HashMap<String, byte[]>();
-            args.put("name", subscriber.getName().getBytes(ENCODING));
-            args.put("user", subscriber.getId().getBytes(ENCODING));
-            storageManager.insertSuperSlice(SC_USER_LIST, SUBSCRIBER_PREFIX + application + predicate,
-                            subscriber.getId(), args);
-
-            storageManager.insertColumn("Subscriptions", application + subscriber.getId(), predicate, new byte[0]);
+            storageManager.insertColumn(CF_SUBSCRIBEES, application + predicate, subscriber.getId(), 
+            		String.valueOf(System.currentTimeMillis()).getBytes(ENCODING));
+            storageManager.insertColumn(CF_SUBSCRIBERS, application + subscriber.getId(), predicate, 
+            		String.valueOf(System.currentTimeMillis()).getBytes(ENCODING));
 
         } catch (final UnsupportedEncodingException e) {
             LOGGER.debug(ERROR_ENCODING, ENCODING, e);
@@ -261,9 +272,32 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     @Override
     public final List<Map<String, String>> read(final String application, final String predicate)
                     throws InternalBackEndException, IOBackEndException {
+    	
         final List<Map<String, String>> resList = new ArrayList<Map<String, String>>();
         final List<Map<byte[], byte[]>> subPredicateListMap = storageManager.selectList(SC_APPLICATION_CONTROLLER,
                         application + predicate);
+
+        for (final Map<byte[], byte[]> set : subPredicateListMap) {
+            if (set.size() > 3) { // do not return the memberList
+                final Map<String, String> resMap = new HashMap<String, String>();
+                for (final Entry<byte[], byte[]> entry : set.entrySet()) {
+                    resMap.put(MConverter.byteArrayToString(entry.getKey()),
+                                    MConverter.byteArrayToString(entry.getValue()));
+                }
+
+                resList.add(resMap);
+            }
+        }
+
+        return resList;
+    }
+    
+    @Override
+    public final List<Map<String, String>> read(final String application, final String predicate, final String start, final int count, final Boolean reversed)
+                    throws InternalBackEndException, IOBackEndException, UnsupportedEncodingException {
+        final List<Map<String, String>> resList = new ArrayList<Map<String, String>>();
+        final List<Map<byte[], byte[]>> subPredicateListMap = storageManager.selectList(SC_APPLICATION_CONTROLLER,
+                        application + predicate, start, count, reversed);
 
         for (final Map<byte[], byte[]> set : subPredicateListMap) {
             if (set.size() > 3) { // do not return the memberList
@@ -311,15 +345,15 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
      * @see com.mymed.controller.core.manager.pubsub.IPubSubManager#read(java.lang.String)
      */
     @Override
-    public final List<String> read(final String appuserid) throws InternalBackEndException, IOBackEndException {
+    public final Map<String, String> read(final String appuserid) throws InternalBackEndException, IOBackEndException {
 
-        final List<String> res = new ArrayList<String>();
-        final Map<byte[], byte[]> predicates = storageManager.selectAll("Subscriptions", appuserid);
-        LOGGER.info("size: " + predicates.size());
+        final Map<String, String> res = new HashMap<String, String>();
+        final Map<byte[], byte[]> predicates = storageManager.selectAll(CF_SUBSCRIBERS, appuserid);
         for (final Entry<byte[], byte[]> entry : predicates.entrySet()) {
-            final String key = Charset.forName(ENCODING).decode(ByteBuffer.wrap(entry.getKey())).toString();
-            res.add(key);
-            LOGGER.info(key);
+        	final String key = Charset.forName(ENCODING).decode(ByteBuffer.wrap(entry.getKey())).toString();
+            final String val = Charset.forName(ENCODING).decode(ByteBuffer.wrap(entry.getValue())).toString();
+            res.put(key, val);
+            LOGGER.info(val);
         }
 
         return res;
@@ -330,14 +364,14 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
      */
     @Override
     public final void delete(final String application, final String predicate, final String subPredicate,
-                    final MUserBean publisher) throws InternalBackEndException, IOBackEndException {
+                    final String publisherID) throws InternalBackEndException, IOBackEndException {
         // Remove publisher member
-        storageManager.removeAll(SC_USER_LIST, PUBLISHER_PREFIX + application + subPredicate);
+        storageManager.removeAll(CF_SUBSCRIBEES, application + subPredicate);
         // Remove the 1st level of data
         storageManager.removeSuperColumn(SC_APPLICATION_CONTROLLER, application + predicate,
-                        subPredicate + publisher.getId());
+                        subPredicate + publisherID);
         // Remove the 2nd level of data
-        storageManager.removeAll(SC_DATA_LIST, application + subPredicate + publisher.getId());
+        storageManager.removeAll(SC_DATA_LIST, application + subPredicate + publisherID);
         // Remove app model entry
         // storageManager.removeSuperColumn(SC_APPLICATION_MODEL, application, predicate + publisher.getId());
     }
@@ -349,8 +383,8 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     public final void delete(final String application, final String user, final String predicate)
                     throws InternalBackEndException, IOBackEndException {
         // Remove subscriber member from subsribers list
-        storageManager.removeColumn("Subscriptions", application + user, predicate);
+        storageManager.removeColumn(CF_SUBSCRIBERS, application + user, predicate);
         // Remove subscriber member from predicates subscribed list
-        storageManager.removeSuperColumn(SC_USER_LIST, SUBSCRIBER_PREFIX + application + predicate, user);
+        storageManager.removeColumn(CF_SUBSCRIBEES, application + predicate, user);
     }
 }

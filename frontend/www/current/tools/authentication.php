@@ -1,7 +1,7 @@
-<?php require_once '../system/request/Request.class.php'; ?>
-<?php require_once '../system/handler/IRequestHandler.php'; ?>
-<?php require_once '../system/beans/MUserBean.class.php'; ?>
-<?php require_once '../system/beans/MAuthenticationBean.class.php'; ?>
+<?php require_once '../lib/dasp/request/Request.class.php'; ?>
+<?php require_once '../lib/dasp/handler/IRequestHandler.php'; ?>
+<?php require_once '../lib/dasp/beans/MUserBean.class.php'; ?>
+<?php require_once '../lib/dasp/beans/MAuthenticationBean.class.php'; ?>
 
 <?php 
 // Preconditions

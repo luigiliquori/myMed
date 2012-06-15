@@ -16,6 +16,8 @@
 		  <li>application</li>
 		  <li>predicate</li>
 		  <li>accessToken</li>
+		  <li>start*</li>
+		  <li>count*</li>
 		</ul>
 	</td>
 	<td class="response">
@@ -38,6 +40,14 @@
 		  }
 		  </li>
 		</ul>
+		<p>
+		start: indicates the starting point of your search, defaults to ""
+		indicate the last results.predicate of the previous search to continue searching from this point.
+		(*Optional parameter)
+		</p><p>
+		count: size of the results returned, defaults to 100
+		(*Optional parameter)
+		</p>
 	</td>
   </tr>
   <tr>
@@ -48,7 +58,7 @@
 		  <li>code</li>
 		  <li>application</li>
 		  <li>predicate</li>
-		  <li>user</li>
+		  <li>userID</li>
 		  <li>accessToken</li>
 		</ul>
 	</td>

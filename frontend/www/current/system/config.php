@@ -17,8 +17,6 @@
 	//Social Networks Keys
 	define('Facebook_APP_ID', '@facebookappid@');
 	define('Facebook_APP_SECRET', '@facebookappsecret@');
-	
-	//Social Networks Keys
 	define('Google_APP_SECRET', '@googleappsecret@');
 	
 	//CITYWAY Keys

@@ -46,22 +46,27 @@ abstract class AbstractTemplate {
 		// NAME OF THE APPLICATION
 		define('APPLICATION_NAME', $applicationName);
 	
-		// LOAD THE UI FRAMEWORK
-		echo '<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />';
-// 		echo '<link rel="stylesheet" href="../../lib/jquery/jquery.mobile.actionsheet.css" />';
-		echo '<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>';
-		echo '<script type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>';
-// 		echo '<script type="text/javascript" src="lib/jquery/jquery.mobile.actionsheet.js"></script>';
-		echo '<script src="../../lib/jquery/datebox/jquery.mobile.datebox.min.js"></script>';
-		echo '<link href="../../lib/jquery/datebox/jquery.mobile.datebox.min.css" rel="stylesheet" />';
+		?>
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
+
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+		<script type="text/javascript">
+		$(document).bind("mobileinit", function(){
+			$.mobile.loadingMessageTextVisible = true;
+		});
+		</script>
+		<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
+		<script src="../../lib/jquery/datebox/jquery.mobile.datebox.min.js"></script>
+		<link href="../../lib/jquery/datebox/jquery.mobile.datebox.min.css" rel="stylesheet" />
 		
-		// LOAD GOOGLE MAP
-		echo '<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key='. Google_APP_SECRET .'&sensor=true&libraries=places"></script>';
-		echo '<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox_packed.js"></script>';
-	
-		// LOAD DASP JAVASCRIPT LIBRARY
-		echo "<script src='../../lib/dasp/javascript/dasp.js'></script>";
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&libraries=places"></script>
 		
+		<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox_packed.js"></script>
+
+		<script src='../../lib/dasp/javascript/dasp.js'></script>
+		
+		<?php 
 		// LOAD APPLICATION JAVASCRIPT
 		if ($handle = opendir("system/templates/application/" . APPLICATION_NAME . '/javascript')) {
 			while (false !== ($file = readdir($handle))) {

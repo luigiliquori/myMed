@@ -41,6 +41,31 @@ class EditCommentView extends MainView {
 		<?php foreach(json_decode($this->handler->getSuccess()) as $details) {
 			$values[$details->key] = urldecode($details->value);
 		} ?>
+		
+		<!-- AUTHOR -->
+		
+    	<?php
+    	if(isset($_POST['user'])) {
+    		$request = new Request("ProfileRequestHandler", READ);
+    		$request->addArgument("id",  $_POST['user']);
+    		$responsejSon = $request->send();
+    		$responseObject = json_decode($responsejSon);
+    		$profile = json_decode($responseObject->data->user);
+    		if($profile->profilePicture != "") { ?>
+    			<img alt="thumbnail" src="<?= $profile->profilePicture ?>" width="30" height="30" style="position: absolute;">
+    		<?php } else { ?>
+    			<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="30" height="30" style="position: absolute;">
+    		<?php }	?>
+    		<div style="position: relative; top: 3px; left:35px; height: 30px;">
+		    	<a href="mailto:<?= $profile->email ?>" target="_blank">
+		    		<?= $profile->firstName ?> &nbsp;
+		    		<?= $profile->lastName ?> 
+		    	</a> &nbsp;
+		    	<?= $values['begin'] ?>
+		    </div>
+		    <br />
+	
+    	<?php } ?>
 	
 		<form action="#CommentView" method="post" name="EditCommentForm" id="EditCommentForm" enctype="multipart/form-data">
 			<!-- Define the method to call -->

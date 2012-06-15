@@ -37,14 +37,12 @@ function getFormatedDate(){
 	return day + "/" + month + "/" + year + ", " + hours + ":" + minutes + ":" + second;
 }
 
-function hideLoadingBar(){
-  //hide loading status...
-  loading = document.getElementById("loading");
-  loading.style.display='none';
+function hideLoadingBar() {
+	$.mobile.hidePageLoadingMsg();
 }
-function showLoadingBar(text){
-	//hide loading status...
-	$("#loading").html("<center><span>" + text + "</span></center>");
-	$("#loading").fadeIn("fast", function() { setTimeout(hideLoadingBar, 3000);}); 
+function showLoadingBar(text) {
+	$.mobile.showPageLoadingMsg("d", text);
+
+	setTimeout(hideLoadingBar, 3000); // make sure it stops one day
 }
 

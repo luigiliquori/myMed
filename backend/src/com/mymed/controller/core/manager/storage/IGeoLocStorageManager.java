@@ -142,7 +142,7 @@ public interface IGeoLocStorageManager extends IStorageManager {
      * @throws IOBackEndException
      * @throws InternalBackEndException
      */
-    Map<String, Map<byte[], byte[]>> selectAll(String tableName, List<String> primaryKeys) throws IOBackEndException,
+    Map<String, Map<byte[], byte[]>> selectAll(String tableName, List<String> primaryKeys, Boolean reversed) throws IOBackEndException,
                     InternalBackEndException;
 
     /**

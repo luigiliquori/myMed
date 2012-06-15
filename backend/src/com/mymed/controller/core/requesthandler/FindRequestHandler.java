@@ -15,6 +15,7 @@
  */
 package com.mymed.controller.core.requesthandler;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
@@ -68,7 +69,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
     @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
 
-        final JsonMessage message = new JsonMessage(200, this.getClass().getName());
+        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
 
         try {
             final Map<String, String> parameters = getParameters(request);
@@ -76,16 +77,20 @@ public class FindRequestHandler extends AbstractRequestHandler {
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            String application, predicate, user;
+            final String application, predicate, user;
 
             if (code == RequestCode.READ) {
-                message.setMethod(JSON_CODE_READ);
+              
+            	message.setMethod(JSON_CODE_READ);
                 if ((application = parameters.get(JSON_APPLICATION)) == null) {
                     throw new InternalBackEndException("missing application argument!");
                 } else if ((predicate = parameters.get(JSON_PREDICATE)) == null) {
                 	throw new InternalBackEndException("missing predicate argument!");
                 }
-                if ((user = parameters.get(JSON_USER)) != null) {
+               
+                user = parameters.get(JSON_USERID) != null ? parameters.get(JSON_USERID) : parameters.get(JSON_USER);
+               
+                if (user != null) { // GET DETAILS
                     final List<Map<String, String>> details = pubsubManager.read(application, predicate, user);
                     if (details.isEmpty()) {
                         throw new IOBackEndException("no results found!", 404);
@@ -96,16 +101,22 @@ public class FindRequestHandler extends AbstractRequestHandler {
                                     + predicate);
                     message.addData(JSON_DETAILS, getGson().toJson(details));
                     message.addDataObject(JSON_DETAILS, details);
+               
                 } else { // GET RESULTS
-                    final List<Map<String, String>> resList = pubsubManager.read(application, predicate);
+                	
+					String start = parameters.get("start") != null ? parameters.get("start") : "";
+					int count = parameters.get("count") != null ? Integer.parseInt(parameters.get("count")) : 100;
+                    final List<Map<String, String>> resList = pubsubManager.read(application, predicate, start, count, false);
                     if (resList.isEmpty()) {
                         throw new IOBackEndException("No reslult found for Application: " + application
                                         + " Predicate: " + predicate, 404);
                     }
                     message.setDescription("Results found for Application: " + application + " Predicate: " + predicate);
-                    LOGGER.info("Results found for Application: " + application + " Predicate: " + predicate);
+                    LOGGER.info("Results found for Application: " + application + " Predicate: " + predicate
+                    		+ " start: " + start + " count: " + count );
                     message.addData(JSON_RESULTS, getGson().toJson(resList));
                     message.addDataObject(JSON_RESULTS, resList);
+                    
                 }
             } else {
                 throw new InternalBackEndException("FindRequestHandler(" + code + ") not exist!");
@@ -114,7 +125,11 @@ public class FindRequestHandler extends AbstractRequestHandler {
             LOGGER.debug("Error in doGet operation", e);
             message.setStatus(e.getStatus());
             message.setDescription(e.getMessage());
-        }
+        } catch (UnsupportedEncodingException e) {
+        	LOGGER.debug("Error in doGet operation", e);
+            message.setStatus(404);
+            message.setDescription(e.getMessage());
+		}
 
         printJSonResponse(message, response);
     }
@@ -125,7 +140,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
      */
     @Override
     protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-        final JsonMessage message = new JsonMessage(200, this.getClass().getName());
+        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
 
         try {
             final Map<String, String> parameters = getParameters(request);

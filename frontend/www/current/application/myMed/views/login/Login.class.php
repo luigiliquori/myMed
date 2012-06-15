@@ -1,7 +1,6 @@
 <?php
 
 require_once MYMED_ROOT . 'system/controllers/InscriptionController.class.php';
-require_once MYMED_ROOT . 'system/controllers/LoginController.class.php';
 
 /**
  * 
@@ -22,12 +21,11 @@ class Login extends AbstractView {
 	/**
 	 * Default constructor
 	 */
-	public function __construct() {
+	public function __construct($loginController) {
 		parent::__construct("loginView", "loginView");
 		$this->inscriptionController = new InscriptionController();
 		$this->inscriptionController->handleRequest();
-		$this->loginController = new LoginController();
-		$this->loginController->handleRequest();
+		$this->loginController = $loginController;
 	}
 	
 	/* --------------------------------------------------------- */
@@ -63,16 +61,16 @@ class Login extends AbstractView {
 			}
 			if($handler->getError()) {
 				echo '<div id="loginError" style="color: red;">';
-					$handler->getError();
+				echo $handler->getError();
 				echo '</div>';
 			} else if(isset($_SESSION['error'])) {
 				echo '<div id="loginError" style="color: red;">';
-					$_SESSION['error'];
-					$_SESSION['error'] = null;
+				echo $_SESSION['error'];
 				echo '</div>';
+				$_SESSION['error'] = null;
 			} else if($handler->getSuccess()) {
 				echo '<div style="color: #12ff00;">';
-					 $handler->getSuccess();
+				echo $handler->getSuccess();
 				echo '</div>';
 			} 
 			?>

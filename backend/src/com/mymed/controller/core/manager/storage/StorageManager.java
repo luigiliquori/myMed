@@ -128,19 +128,6 @@ public class StorageManager implements IStorageManager {
     return resultValue;
   }
 
-  /**
-   * Get the value of a column family
-   * 
-   * @param tableName
-   *          the name of the Table/ColumnFamily
-   * @param key
-   *          the ID of the entry
-   * @param columnName
-   *          the name of the column
-   * @return the value of the column
-   * @throws InternalBackEndException
-   * @throws IOBackEndException
-   */
   @Override
   public Map<byte[], byte[]> selectAll(final String tableName, final String key) throws InternalBackEndException,
       IOBackEndException {
@@ -150,6 +137,22 @@ public class StorageManager implements IStorageManager {
     final SliceRange sliceRange = new SliceRange();
     sliceRange.setStart(new byte[0]);
     sliceRange.setFinish(new byte[0]);
+    predicate.setSlice_range(sliceRange);
+
+    return selectByPredicate(tableName, key, predicate);
+  }
+  
+  @Override
+  public Map<byte[], byte[]> selectAll(final String tableName, final String key, final String start, final int count, final Boolean reversed) throws InternalBackEndException,
+      IOBackEndException, UnsupportedEncodingException {
+
+    // read entire row
+    final SlicePredicate predicate = new SlicePredicate();
+    final SliceRange sliceRange = new SliceRange();
+    sliceRange.setStart(start.getBytes(ENCODING));
+    sliceRange.setFinish(new byte[0]);
+    sliceRange.setCount(count);
+    sliceRange.setReversed(reversed);
     predicate.setSlice_range(sliceRange);
 
     return selectByPredicate(tableName, key, predicate);
@@ -197,6 +200,40 @@ public class StorageManager implements IStorageManager {
     }
 
     return sliceList;
+  }
+  
+  @Override
+  public List<Map<byte[], byte[]>> selectList(final String tableName, final String key,
+		  final String start, final int count, final Boolean reversed)
+  		throws InternalBackEndException, IOBackEndException, UnsupportedEncodingException {
+	
+	  // read entire row
+	  final SlicePredicate predicate = new SlicePredicate();
+	  final SliceRange sliceRange = new SliceRange();
+	  sliceRange.setStart(start.getBytes(ENCODING));
+	  sliceRange.setFinish(new byte[0]);
+	  sliceRange.setCount(count);
+	  sliceRange.setReversed(reversed);
+	  predicate.setSlice_range(sliceRange);
+
+	  final ColumnParent parent = new ColumnParent(tableName);
+	  final List<ColumnOrSuperColumn> results = getSlice(key, parent, predicate);
+
+	  final List<Map<byte[], byte[]>> sliceList = new ArrayList<Map<byte[], byte[]>>();
+
+	  for (final ColumnOrSuperColumn res : results) {
+		  if (res.isSetSuper_column()) {
+			  final Map<byte[], byte[]> slice = new HashMap<byte[], byte[]>();
+
+			  for (final Column column : res.getSuper_column().getColumns()) {
+				  slice.put(column.getName(), column.getValue());
+			  }
+
+			  sliceList.add(slice);
+		  }
+	  }
+
+	  return sliceList;
   }
 
   /**
@@ -313,6 +350,7 @@ public class StorageManager implements IStorageManager {
     insert(key, parent, columnName, value);
   }
 
+
   /**
    * Update the value of a Super Column
    * 
@@ -352,20 +390,22 @@ public class StorageManager implements IStorageManager {
    *          the value updated
    * @throws InternalBackEndException
    */
+  
   private void insert(final String key, final ColumnParent parent, final String columnName, final byte[] value)
-      throws InternalBackEndException {
+	      throws InternalBackEndException {
 
-    final long timestamp = System.currentTimeMillis();
-    final ByteBuffer buffer = ByteBuffer.wrap(value);
-    final Column column = new Column(MConverter.stringToByteBuffer(columnName), buffer, timestamp);
+	    final long timestamp = System.currentTimeMillis();
+	    final ByteBuffer buffer = ByteBuffer.wrap(value);
+	    final Column column = new Column(MConverter.stringToByteBuffer(columnName), buffer, timestamp);
+	    LOGGER.info("Inserting column '{}' into '{}' with key '{}'", new Object[] {columnName, parent.getColumn_family(),
+	        key});
 
-    LOGGER.info("Inserting column '{}' into '{}' with key '{}'", new Object[] {columnName, parent.getColumn_family(),
-        key});
+	    wrapper.insert(key, parent, column, consistencyOnWrite);
 
-    wrapper.insert(key, parent, column, consistencyOnWrite);
+	    LOGGER.info("Column '{}' inserted", columnName);
+	  }
+  
 
-    LOGGER.info("Column '{}' inserted", columnName);
-  }
 
   /**
    * Insert a new entry in the database

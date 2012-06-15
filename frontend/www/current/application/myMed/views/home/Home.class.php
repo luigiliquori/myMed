@@ -12,7 +12,7 @@ class Home extends AbstractView {
 	/* Attributes */
 	/* --------------------------------------------------------- */
 	protected /*String*/ $activeHeader;
-	protected /*String[]*/ $hiddenApplication = array("myMed", "myNCE", "myBEN");
+	protected /*String[]*/ $hiddenApplication = array("myMed", "myNCE", "myBEN", "myTestApp");
 	
 	/* --------------------------------------------------------- */
 	/* Constructors */

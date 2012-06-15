@@ -50,6 +50,10 @@ public final class MDataBean extends AbstractMBean {
     public void setOntologyID(final String ontologyID) {
         this.ontologyID = ontologyID;
     }
+    
+    public String toString() {
+    	return key+value;
+    }
 
     /*
      * (non-Javadoc)
