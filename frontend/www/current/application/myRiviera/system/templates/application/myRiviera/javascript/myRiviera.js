@@ -76,6 +76,20 @@ function initialize() {
 
 		// refocus on lastest position
 		focusOnLatLng(currentPos);
+		
+		old = filterArray;
+		updateFilter();
+		for ( var i in array_diff(filterArray, old)) {
+			otherMarkers(currentSegmentID, filterArray[i], currentPos.lat(), currentPos.lng(), $('#slider-radius').val());
+		}
+		for ( var i in array_diff(old, filterArray)) {
+			for ( var j=0 ; j< markers[old[i]][currentSegmentID].length ; j++) {
+				//if(markers[key][i][j]) { //maybe necessary?
+					markers[old[i]][currentSegmentID][j].setMap(null);
+				//}
+			}
+		}
+		
 	});
 
 	// initialize the filter for the markers
@@ -147,9 +161,6 @@ function updateFilter() {
 		filterArray.push($(this).attr('id'));
 		//markers[$(this).attr('id')] = [];
 	});
-	/*$("#" + currentApplication + "Filter input:unchecked").each(function(index) {
-		markers[$(this).attr('id')] = [];
-	});*/
 }
 
 function initFilter() {
@@ -701,3 +712,5 @@ function changeEndMarkerIcon() {
 	EndMarkerIcon = true;
 	
 }
+
+
