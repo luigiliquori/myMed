@@ -37,20 +37,20 @@ class ExtendedProfile
 	 * must be under surveillance at any time. 
 	 * @var enum
 	 */
-	private /*enum*/ $diseaseLevel;
+	public /*enum*/ $diseaseLevel;
 	
 	/**
 	 * E-mail of the natural caregiver. Often a relative.
 	 * Could be replaced by a myMed User if needed.
 	 */
-	private /*Array*/ $careGiver;
+	public /*Array*/ $careGiver;
 	
 	/**
 	 * Informations about the attending doctor.
 	 * Currently an array with Name, email, and phone number.
 	 * Could be replaced by a myMed User if needed.
 	 */
-	private /*Array*/ $doctor;
+	public /*Array*/ $doctor;
 	
 	/**
 	 * Calling list of people to call/message in case of crisis.
@@ -60,7 +60,7 @@ class ExtendedProfile
 	 * This list is meant to be used in case of emergency and should not require long queries on
 	 * the database of even a internet connection at all.
 	 */
-	private /*Array*/ $callingList;
+	public /*Array*/ $callingList;
 	
 	
 	

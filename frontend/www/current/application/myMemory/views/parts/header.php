@@ -45,12 +45,14 @@
 		
 <body>
 
-<? // ================== Switch to active tab on load ==========================================?>
-<? if (!empty($TAB)) :?>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$.mobile.changePage("#<?= $TAB ?>", {transition:"none"})
-		});
-	</script>
+<? if (!empty($this->error)): ?>
+<div class="ui-bar ui-bar-e">
+	<h3>Error</h3>
+	<p><?= $this->error ?></p>
+</div>
 <? endif ?>
-
+<? if (!empty($this->success)): ?>
+<div class="ui-bar ui-bar-e">
+	<h3><?= $this->success ?></h3>
+</div>
+<? endif ?>

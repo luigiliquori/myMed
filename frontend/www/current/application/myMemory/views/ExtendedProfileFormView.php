@@ -10,7 +10,11 @@
 	});
 </script>
 
-
+<!-- Header -->
+<div data-role="header" data-position="inline">
+	<a href="?action=logout" rel="external" data-role="button" data-theme="r" class="ui-btn-left" data-icon="delete">Exit</a>
+	<h1>Profile</h1>
+</div>
 
 <div data-role="content" data-theme="a">
 	<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm">
@@ -18,7 +22,7 @@
 
 		<!-- LEVEL OF DISEASE -->
 		<div data-role="fieldcontain">
-			<fieldset data-role="controlgroup" data-type="horizontal">
+			<fieldset data-role="controlgroup">
 				<div role="heading" class="ui-controlgroup-label">Level of the disease :</div>
 				<div class="ui-controlgroup-controls">
 			     	<input type="radio" name="diseaseLevel" id="disease_low" value="1" checked="checked" />

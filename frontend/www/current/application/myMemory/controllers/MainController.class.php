@@ -29,8 +29,10 @@ class MainController extends AuthenticatedController {
 		
 		ExtendedProfile::getExtendedProfile($this, $_SESSION['user']->id);
 		
-		if (empty($this->success))
+		if (empty($this->success)){
+			$this->error = "";
 			$this->renderView("ExtendedProfileNeeded");
+		}
 		else {
 			
 			$responseArray = json_decode($this->success);

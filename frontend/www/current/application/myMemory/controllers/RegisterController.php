@@ -81,9 +81,7 @@ class RegisterController extends AbstractController {
 			$this->confirmRegistration($_GET['accessToken']);
 		 
 		} else {
-			
-			
-			$this->error = _("Erreur interne d'enrgistrement");
+			$this->error = _("Erreur interne d'enregistrement");
 			$this->renderView("register");
 		}
 		
