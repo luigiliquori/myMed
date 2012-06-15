@@ -29,6 +29,8 @@ var refreshRoadMap = false;
 
 var EndMarkerIcon = false;
 
+var radius;
+
 /* --------------------------------------------------------- */
 /* Initialize */
 /* --------------------------------------------------------- */
@@ -36,6 +38,9 @@ var EndMarkerIcon = false;
 //$("#Map").live("pageinit", initialize);
 	
 function initialize() {
+	
+	//get lastest position known of the user
+	getPosition();
 
 	// INITIALIZE DASP
 	setupDASP($("#userID").val(), $("#accessToken").val(),
@@ -75,18 +80,31 @@ function initialize() {
 		google.maps.event.trigger(map, 'resize');
 
 		// refocus on lastest position
-		focusOnLatLng(currentPos);
+		focusOnLatLng(pos);
 		
 		old = filterArray;
 		updateFilter();
+		
+		// if the user changed the POIS type, compute missing and hide others
 		for ( var i in array_diff(filterArray, old)) {
-			otherMarkers(currentSegmentID, filterArray[i], currentPos.lat(), currentPos.lng(), $('#slider-radius').val());
+			markers[filterArray[i]][currentSegmentID] = null;
+			otherMarkers(currentSegmentID, filterArray[i], pos.lat(), pos.lng(), $('#slider-radius').val());
 		}
 		for ( var i in array_diff(old, filterArray)) {
-			for ( var j=0 ; j< markers[old[i]][currentSegmentID].length ; j++) {
-				//if(markers[key][i][j]) { //maybe necessary?
-					markers[old[i]][currentSegmentID][j].setMap(null);
-				//}
+			if(markers[old[i]][currentSegmentID]) {
+				for ( var j=0 ; j< markers[old[i]][currentSegmentID].length ; j++) {
+					//if(markers[key][i][j]) { //maybe necessary?
+						markers[old[i]][currentSegmentID][j].setMap(null);
+					//}
+				}
+			}
+		}
+		// if the user changed the radius, recompute POIS
+		if ( $('#slider-radius').val() != radius){
+			radius=$('#slider-radius').val();
+			for ( var i in filterArray) {
+				markers[filterArray[i]][currentSegmentID] = null;
+				otherMarkers(currentSegmentID, filterArray[i], pos.lat(), pos.lng(), $('#slider-radius').val());
 			}
 		}
 		
@@ -109,6 +127,28 @@ function resizeMap() {
  * @param google.maps.LatLng latlng 
  */
 function displayPos(latlng) {
+	
+	// Store the position into cassandra
+	var geocoder = new google.maps.Geocoder();
+	geocoder.geocode({'latLng' : latlng }, function(results, status) {
+		if (status == google.maps.GeocoderStatus.OK) {
+			var address = results[0].formatted_address;
+			var position = {
+				'userID': $("#userID").val(),
+				'latitude': latlng.lat(),
+				'longitude': latlng.lng(),
+				'formattedAddress': address
+			}
+			var params = {
+				'userID': $("#userID").val(),
+				'position': JSON.stringify(position),
+				'accessToken': $("#accessToken").val(),
+				'code': 2,
+			};
+			updatePosition(params);
+		}
+	});
+	
 	// add position marker
 	if(currentPositionMarker == null) { // WATCH POSITION
 		// create current position marker
@@ -186,6 +226,7 @@ function clearAll() {
 		markers[key].splice(1, markers[key].length); // just keep current pos POI markers
 	}
 	directionsDisplays = [];
+	steps = [];
 	currentSegmentID = 0, prevSegmentID = 0;
 	$('#itineraireContent').html("");
 	updatezoom = true;
@@ -223,8 +264,8 @@ function otherMarkers(index, type, lat, lon, rad) {
 		var params = {
 			'application': $("#applicationName").val() + "Admin",
 			'type': type,
-			'latitude': lat || steps[index].position.lat(),
-			'longitude': lon || steps[index].position.lng(),
+			'latitude': lat || steps[index - 1].position.lat(),
+			'longitude': lon || steps[index - 1].position.lng(),
 			'radius': rad || $('#slider-radius').val(),
 			'accessToken': $("#accessToken").val(),
 			'code': 1
@@ -246,7 +287,7 @@ function otherMarkers(index, type, lat, lon, rad) {
 						value = JSON.parse(poi.value);
 						id = poi.id;
 						iconAvailable = $('#poiIcon').val().split(",");
-						if(iconAvailable.contains(type + '.png')){
+						if(iconAvailable.indexOf(type + '.png') > 0){
 							icon = 'system/templates/application/myRiviera/img/pois/' + type + '.png';
 						} else {
 							icon = null;
@@ -329,7 +370,7 @@ function updateMarkers(index) {
 	// ADD THE MARKER OF THE CURRENT SEGMENT
 	positionMarker(index);
 
-	currentSegmentID = index;
+	currentSegmentID = index; radius = $('#slider-radius').val();
 	if (index < steps.length )
 		$('#next-step').attr('onclick', 'updateMarkers(' + (index + 1) + ')');
 	if (index > 1)

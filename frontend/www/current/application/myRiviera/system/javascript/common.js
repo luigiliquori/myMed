@@ -1,15 +1,7 @@
 
 function array_diff (arr1) {
-    // Returns the entries of arr1 that have values which are not present in any of the others arguments.  
-    // 
-    // version: 1109.2015
-    // discuss at: http://phpjs.org/functions/array_diff
-    // +   original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
-    // +   improved by: Sanjoy Roy
-    // +    revised by: Brett Zamir (http://brett-zamir.me)
-    // *     example 1: array_diff(['Kevin', 'van', 'Zonneveld'], ['van', 'Zonneveld']);
-    // *     returns 1: {0:'Kevin'}
-    var retArr = {},
+    // taken from php.js, and modified return type
+    var retArr = [],
         argl = arguments.length,
         k1 = '',
         i = 1,
@@ -25,7 +17,7 @@ function array_diff (arr1) {
                     continue arr1keys;
                 }
             }
-            retArr[k1] = arr1[k1];
+            retArr.push(arr1[k1]);
         }
     }
  

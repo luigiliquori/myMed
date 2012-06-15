@@ -26,7 +26,9 @@ var currentApplication;
 var directionsService;
 var map;
 
-var currentPos;
+var currentPos; //user's geolocation
+var currentPlace; //user's String position
+var pos; //position in the itinary
 
 /* --------------------------------------------------------- */
 /* Setup Lib */
@@ -47,10 +49,11 @@ function setupDASP(id, at, app) {
 	currentApplication = app;
 
 	// EXTENDS Array - add contains method
-	Array.prototype.contains = function(aValue) {
+	/*Array.prototype.contains = function(aValue) {
 		if (this.toString().match(aValue))
 			return true;
-	};
+	};*/
+	// you do array.indexOf(item) > 0
 
 }
 
@@ -64,11 +67,10 @@ function setupDASP(id, at, app) {
  *            id of the map
  */
 function setupDASPMap(mapID, displayPosition, displayError, watchPosition) {
-
 	if (!map) {
 		directionsDisplay = new google.maps.DirectionsRenderer();
 		directionsService = new google.maps.DirectionsService();
-
+		
 		// init Map
 		showLoadingBar("chargement de la carte..."); 
 		map = new google.maps.Map(document.getElementById(mapID), {
@@ -108,8 +110,8 @@ function displayPosition(position) {
 //   xhr.open( "GET", "index.php?latitude=" + position.coords.latitude + "&longitude=" + position.coords.longitude,  true); 
 //   xhr.send(null); 
 	
-	// Store the position into cassandra
-	$.get("#", { latitude: latlng.lat(), longitude: latlng.lng() } );
+
+	//$.get("#", { latitude: latlng.lat(), longitude: latlng.lng() } );
 	
 	// if the accuracy is good enough, print a circle to show the area
 	// is use watchPosition instead of getCurrentPosition don't
@@ -195,7 +197,7 @@ function focusOnPosition(latitude, longitude) {
 function focusOnLatLng(position) {
 
 	// memorize the position
-	currentPos = position;
+	pos = position;
 
 	// focus on the position
 	map.setCenter(position);
@@ -282,5 +284,38 @@ function publishDASPRequest(formID) {
 		url : "#",
 		data : $("#" + formID).serialize(),
 		async : true
+	});
+}
+
+function getPosition(){
+	var params = {
+		'userID': $("#userID").val(),
+		'accessToken': $("#accessToken").val(),
+		'code': 1
+	};
+	
+	$.ajax({
+		url: "../../backend/PositionRequestHandler",
+		data: params,
+		dataType: "json",
+		success: function(data){
+			currentPos = new google.maps.LatLng(
+				data.dataObject.position.latitude,
+				data.dataObject.position.longitude
+			);
+			currentPlace = data.dataObject.position.formattedAddress;
+		}
+	});
+}
+
+function updatePosition(data){	
+	$.ajax({
+		url: "../../backend/PositionRequestHandler",
+		type: "POST",
+		data: data,
+		dataType: "json",
+		success: function(data){
+			
+		}
 	});
 }
