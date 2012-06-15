@@ -92,35 +92,17 @@ function resizeMap() {
 /**
  * Géoloc - ok
  * 
- * @param position
+ * @param google.maps.LatLng latlng 
  */
-function displayPosition(position) {
-
-	// reverse geocode
-	var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-//	var latlng = new google.maps.LatLng(43.774481, 7.49754);  // menton
-//	var latlng = new google.maps.LatLng(43.696036, 7.265592); // nice
-//	var latlng = new google.maps.LatLng(43.580418, 7.125102); // antibes
-//	var latlng = new google.maps.LatLng(43.87793, 7.449154);  // sospel
-//	var latlng = new google.maps.LatLng(43.7904171, 7.607139);  // vintimille
-//	var latlng = new google.maps.LatLng(43.757808, 7.473754);	// roquerbune
-	
-//   xhr.open( "GET", "index.php?latitude=" + position.coords.latitude + "&longitude=" + position.coords.longitude,  true); 
-//   xhr.send(null); 
-	
-	// Store the position into cassandra
-	$.get("#", { latitude: latlng.lat(), longitude: latlng.lng() } );
-	
+function displayPos(latlng) {
 	// add position marker
 	if(currentPositionMarker == null) { // WATCH POSITION
 		// create current position marker
-		currentPositionMarker = new google.maps.Marker({
-			map : map,
-			animation : google.maps.Animation.DROP,
-			icon : 'system/templates/application/myRiviera/img/position.png',
-			title : 'Départ\nMa position',
-			zIndex : -1
-		});
+		currentPositionMarker = addMarker(null, 
+				'system/templates/application/myRiviera/img/position.png',
+				'Départ\nMa position',
+				null, 
+				google.maps.Animation.DROP);
 
 		// focus on the position
 		if (focusOnCurrentPosition) {
@@ -128,32 +110,9 @@ function displayPosition(position) {
 			focusOnCurrentPosition = false;
 		}
 	}
+	
 	// set position of the currentPositionMarker
 	currentPositionMarker.setPosition(latlng);
-
-	// if the accuracy is good enough, print a circle to show the area
-	// is use watchPosition instead of getCurrentPosition don't
-	// forget to clear previous circle, using
-	// circle.setMap(null)
-	accuracy = position.coords.accuracy;
-	if (accuracy) {
-		if (circle) {
-			circle.setCenter(latlng);
-			circle.setRadius(accuracy);
-		} else {
-			circle = new google.maps.Circle({
-				strokeColor : "#0000ff",
-				strokeOpacity : 0.2,
-				strokeWeight : 2,
-				fillColor : "#0000ff",
-				fillOpacity : (accuracy < 500) ? 0.1 : 0,
-						map : map,
-						center : latlng,
-						radius : accuracy
-			});
-		}
-	}
-
 	// add the position to the popup
 	$('#depart').attr("placeholder", "Ma position");
 	// print the marker around me
@@ -165,26 +124,15 @@ function displayPosition(position) {
 
 /**
  * Géoloc - ko
- * 
- * @param error
  */
-function displayError(error) {
-	var errors = {
-			1 : 'Permission refusée',
-			2 : 'Position indisponible',
-			3 : 'Requête expirée'
-	};
-	//console.log("Erreur géolocalisation: " + errors[error.code]);
-	// focus on the position
+function displayErr() {
+	
+	// focus on lastest position known for this user
 	if (focusOnCurrentPosition) {
 		focusOnLatLng(new google.maps.LatLng($("#userLat").val() || 43.774481, $("#userLng").val() || 7.49754));
 		focusOnCurrentPosition = false;
 	}
 	
-	hideLoadingBar();
-
-	if (error.code == 3)
-		navigator.geolocation.getCurrentPosition(displayPosition, displayError);
 }
 
 /* --------------------------------------------------------- */
@@ -294,7 +242,7 @@ function otherMarkers(index, type, lat, lon, rad) {
 						}
 						var marker = addMarker(new google.maps.LatLng(value.latitude,
 								value.longitude), icon, value.title,
-								"<p>Type: 	" + type + "</p>" + value.description, 0, false, id);
+								"<p>Type: 	" + type + "</p>" + value.description, null, false, id);
 						google.maps.event.addListener(marker, "click", function(e) {
 							marker.ib.open(map, this);
 						});
@@ -330,8 +278,8 @@ function otherMarkers(index, type, lat, lon, rad) {
  */
 function positionMarker(index) {
 	if (!pmarkers[index]) { // create new marker
-		var marker = addMarker(steps[index].position, steps[index].icon,
-				steps[index].title, steps[index].desc, 1);
+		var marker = addMarker(steps[index - 1].position, steps[index - 1].icon,
+				steps[index - 1].title, steps[index - 1].desc, google.maps.Animation.DROP);
 		pmarkers[index] = marker;
 		google.maps.event.addListener(marker, "click", function(e) {
 			marker.ib.open(map, this);
