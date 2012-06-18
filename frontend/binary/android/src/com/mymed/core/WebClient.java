@@ -14,6 +14,7 @@ import org.apache.http.util.EntityUtils;
 
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -21,7 +22,6 @@ import android.webkit.WebViewClient;
 public class WebClient extends WebViewClient {
 
 	private Mobile activity;
-	private ProgressDialog progressDialog;
 
 	private static final int CREATE = 0;
 	private static final int READ = 1;
@@ -34,6 +34,9 @@ public class WebClient extends WebViewClient {
 
 	@Override
 	public void onPageStarted(WebView view, String url, Bitmap favicon) {
+		
+		//LinearLayout l = (LinearLayout) activity.findViewById(R.id.root) ;
+		view.setBackgroundColor(Color.argb(0, 0, 255, 200));
 		Log.v(Mobile.TAG, "*****************URL=" + url);
 		if(url.matches(".*mobile_binary::.*")){
 			Log.i(Mobile.TAG, "Receive a mobile API call");
@@ -87,19 +90,26 @@ public class WebClient extends WebViewClient {
 
 
 //	public void onLoadResource (WebView view, String url) {
-//		if (progressDialog == null && !url.matches(".*map.*")) {
-//			progressDialog = new ProgressDialog(activity);
-//			progressDialog.setMessage("Chargement en cours...");
-//			progressDialog.show();
+//		;
+//		if (activity.getProgressDialog() == null && !url.matches(".*map.*")) {
+//			ProgressDialog dialog = ProgressDialog.show(activity, "", "Chargement en cours...", true);
+//			activity.setProgressDialog(dialog);
 //		}
 //	}
 //
-//	public void onPageFinished(WebView view, String url) {
-//		if (progressDialog != null) {
-//			if (progressDialog.isShowing()) {
-//				progressDialog.dismiss();
-//				progressDialog = null;
+	public void onPageFinished(WebView view, String url) {
+		//Log.v(Mobile.TAG, ",,,,,,,,,, "+url);
+		if (url.matches(".*/application/myRiviera/")){
+			Log.v(Mobile.TAG, "pow");
+			//activity.getWebView().setBackgroundResource(R.id.web_engine);
+			//activity.getSwitcher().showPrevious();
+			
+		}
+		
+//		if (activity.getProgressDialog() != null) {
+//			if (activity.getProgressDialog().isShowing()) {
+//				activity.getProgressDialog().dismiss();
 //			}
 //		}
-//	}
+	}
 }

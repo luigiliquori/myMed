@@ -3,6 +3,7 @@ package com.mymed.core;
 import java.io.IOException;
 import java.util.List;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.hardware.Camera;
 import android.hardware.Camera.Size;
@@ -79,7 +80,8 @@ class Preview extends SurfaceView implements SurfaceHolder.Callback {
         return optimalSize;
     }
 
-    public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
+    @TargetApi(5)
+	public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
         // Now that the size is known, set up the camera parameters and begin
         // the preview.
         Camera.Parameters parameters = mCamera.getParameters();
