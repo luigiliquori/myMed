@@ -29,11 +29,18 @@ var refreshRoadMap = false;
 
 var EndMarkerIcon = false;
 
+var radius;
+
 /* --------------------------------------------------------- */
 /* Initialize */
 /* --------------------------------------------------------- */
+
+//$("#Map").live("pageinit", initialize);
+	
 function initialize() {
 	
+	//get lastest position known of the user
+	getPosition();
 
 	// INITIALIZE DASP
 	setupDASP($("#userID").val(), $("#accessToken").val(),
@@ -41,7 +48,7 @@ function initialize() {
 
 	// INITIALIZE DASP->MAP
 	setupDASPMap($("#applicationName").val() + "Map", displayPosition,
-			displayError, true);
+			displayError, false);
 
 	// autocompletes Google Maps Places API
 	if (useautocompletion) {
@@ -73,125 +80,116 @@ function initialize() {
 		google.maps.event.trigger(map, 'resize');
 
 		// refocus on lastest position
-		focusOnLatLng(currentPos);
+		focusOnLatLng(pos);
+		
+		old = filterArray;
+		updateFilter();
+		
+		// if the user changed the POIS type, compute missing and hide others
+		for ( var i in array_diff(filterArray, old)) {
+			markers[filterArray[i]][currentSegmentID] = null;
+			otherMarkers(currentSegmentID, filterArray[i], pos.lat(), pos.lng(), $('#slider-radius').val());
+		}
+		for ( var i in array_diff(old, filterArray)) {
+			if(markers[old[i]][currentSegmentID]) {
+				for ( var j=0 ; j< markers[old[i]][currentSegmentID].length ; j++) {
+					markers[old[i]][currentSegmentID][j].setMap(null);
+				}
+			}
+		}
+		// if the user changed the radius, recompute POIS
+		if ( $('#slider-radius').val() != radius){
+			radius=$('#slider-radius').val();
+			for ( var i in filterArray) {
+				if(markers[filterArray[i]][currentSegmentID]) {
+					for ( var j=0 ; j< markers[filterArray[i]][currentSegmentID].length ; j++) {
+						markers[filterArray[i]][currentSegmentID][j].setMap(null);
+					}
+				}
+				markers[filterArray[i]][currentSegmentID] = null;
+				otherMarkers(currentSegmentID, filterArray[i], pos.lat(), pos.lng(), $('#slider-radius').val());
+			}
+		}
+		
 	});
 
 	// initialize the filter for the markers
-	updateFilter();
+	initFilter();
 
 	resizeMap();
 
 }
 
 function resizeMap() {
-	$("#" + $("#applicationName").val() + "Map").height(
-			$("body").height() + 100);
-//	- $('body').find('div[data-role=header]').outerHeight());
+	$("#" + $("#applicationName").val() + "Map").height($("body").height() );
 }
 
 /**
  * Géoloc - ok
  * 
- * @param position
+ * @param google.maps.LatLng latlng 
  */
-function displayPosition(position) {
-
-	// reverse geocode
-	var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-//	var latlng = new google.maps.LatLng(43.774481, 7.49754);  // menton
-//	var latlng = new google.maps.LatLng(43.696036, 7.265592); // nice
-//	var latlng = new google.maps.LatLng(43.580418, 7.125102); // antibes
-//	var latlng = new google.maps.LatLng(43.87793, 7.449154);  // sospel
-//	var latlng = new google.maps.LatLng(43.7904171, 7.607139);  // vintimille
-//	var latlng = new google.maps.LatLng(43.757808, 7.473754);	// roquerbune
-	
-//   xhr.open( "GET", "index.php?latitude=" + position.coords.latitude + "&longitude=" + position.coords.longitude,  true); 
-//   xhr.send(null); 
+function displayPos(latlng) {
 	
 	// Store the position into cassandra
-	$.get("#", { latitude: latlng.lat(), longitude: latlng.lng() } );
+	var geocoder = new google.maps.Geocoder();
+	geocoder.geocode({'latLng' : latlng }, function(results, status) {
+		if (status == google.maps.GeocoderStatus.OK) {
+			var address = results[0].formatted_address;
+			var position = {
+				'userID': $("#userID").val(),
+				'latitude': latlng.lat(),
+				'longitude': latlng.lng(),
+				'formattedAddress': address
+			}
+			var params = {
+				'userID': $("#userID").val(),
+				'position': JSON.stringify(position),
+				'accessToken': $("#accessToken").val(),
+				'code': 2,
+			};
+			updatePosition(params);
+		}
+	});
 	
 	// add position marker
 	if(currentPositionMarker == null) { // WATCH POSITION
 		// create current position marker
-		currentPositionMarker = new google.maps.Marker({
-			map : map,
-			animation : google.maps.Animation.DROP,
-			icon : 'system/templates/application/myRiviera/img/position.png',
-			title : 'Départ\nMa position',
-			zIndex : -1
-		});
+		currentPositionMarker = addMarker(null, 
+				'system/templates/application/myRiviera/img/position.png',
+				'Départ\nMa position',
+				null, 
+				google.maps.Animation.DROP);
 
 		// focus on the position
 		if (focusOnCurrentPosition) {
-			focusOnLatLng(latlng || new google.maps.LatLng(43.774481, 7.49754));
+			focusOnLatLng(latlng || new google.maps.LatLng($("#userLat").val() || 43.774481, $("#userLng").val() || 7.49754));
 			focusOnCurrentPosition = false;
 		}
 	}
+	
 	// set position of the currentPositionMarker
 	currentPositionMarker.setPosition(latlng);
-
-	// if the accuracy is good enough, print a circle to show the area
-	// is use watchPosition instead of getCurrentPosition don't
-	// forget to clear previous circle, using
-	// circle.setMap(null)
-	accuracy = position.coords.accuracy;
-	if (accuracy) {
-		if (circle) {
-			circle.setCenter(latlng);
-			circle.setRadius(accuracy);
-		} else {
-			circle = new google.maps.Circle({
-				strokeColor : "#0000ff",
-				strokeOpacity : 0.2,
-				strokeWeight : 2,
-				fillColor : "#0000ff",
-				fillOpacity : (accuracy < 500) ? 0.1 : 0,
-						map : map,
-						center : latlng,
-						radius : accuracy
-			});
-		}
-	}
-
 	// add the position to the popup
 	$('#depart').attr("placeholder", "Ma position");
-	
 	// print the marker around me
 	for ( var i = 0; i < filterArray.length; i++) {
-		
-		otherMarkers(-1, filterArray[i], latlng.lat(), latlng.lng(), $('#slider-radius').val());
-		
-		/*pois = getMarkers2(latlng.lat(), latlng.lng(), filterArray[i], $('#slider-radius').val());
-		pois.type = filterArray[i];
-		$.each(pois, function(i, poi) {
-			value = $.parseJSON(poi.value);
-			var marker = addMarker(new google.maps.LatLng(value.latitude,
-					value.longitude), 'system/templates/application/myRiviera/img/pois/' + pois.type + '.png', value.title,
-					"<p>Type: 	" + pois.type + "</p>" + value.description);
-			google.maps.event.addListener(marker, "click", function(e) {
-				marker.ib.open(map, this);
-			});
-		});*/
+		otherMarkers(0, filterArray[i], latlng.lat(), latlng.lng(), $('#slider-radius').val());
 	}
 	hideLoadingBar();
 }
 
 /**
  * Géoloc - ko
- * 
- * @param error
  */
-function displayError(error) {
-	var errors = {
-			1 : 'Permission refusée',
-			2 : 'Position indisponible',
-			3 : 'Requête expirée'
-	};
-	console.log("Erreur géolocalisation: " + errors[error.code]);
-
-	if (error.code == 3)
-		navigator.geolocation.getCurrentPosition(displayPosition, displayError);
+function displayErr() {
+	
+	// focus on lastest position known for this user
+	if (focusOnCurrentPosition) {
+		focusOnLatLng(new google.maps.LatLng($("#userLat").val() || 43.774481, $("#userLng").val() || 7.49754));
+		focusOnCurrentPosition = false;
+	}
+	
 }
 
 /* --------------------------------------------------------- */
@@ -204,6 +202,14 @@ function updateFilter() {
 	filterArray = [];
 	$("#" + currentApplication + "Filter input:checked").each(function(index) {
 		filterArray.push($(this).attr('id'));
+		//markers[$(this).attr('id')] = [];
+	});
+}
+
+function initFilter() {
+	filterArray = [];
+	$("#" + currentApplication + "Filter input").each(function(index) {
+		filterArray.push($(this).attr('id'));
 		markers[$(this).attr('id')] = [];
 	});
 }
@@ -214,26 +220,29 @@ function updateFilter() {
  */
 function clearAll() {
 
+	updateFilter();
 	clearMarkers();
 	for ( var i = 0; i < directionsDisplays.length; i++)
 		directionsDisplays[i].setMap(null);
 	pmarkers = [];
-	for (key in markers)
-		markers[key] = [];
+//	for (key in markers) {
+//		markers[key].splice(1, markers[key].length); // just keep current pos POI markers
+//	}
 	directionsDisplays = [];
+	steps = [];
 	currentSegmentID = 0, prevSegmentID = 0;
 	$('#itineraireContent').html("");
 	updatezoom = true;
 }
 
 function clearMarkers() {
-	for ( var i = 0; i < pmarkers.length && pmarkers[i]; i++) {
+	for ( var i = 1; i < pmarkers.length && pmarkers[i]; i++) {
 		pmarkers[i].ib.close();
 		pmarkers[i].setMap(null);
 	}
 
 	for (key in markers) {
-		for ( var i=0 ; i < markers[key].length ; i++) {    
+		for ( var i=1 ; i < markers[key].length ; i++) {    
 			if(markers[key][i]) {
 				for ( var j=0 ; j< markers[key][i].length ; j++) {
 					if(markers[key][i][j]) {
@@ -244,7 +253,6 @@ function clearMarkers() {
 			}
 		}
 	}
-
 }
 
 /**
@@ -256,41 +264,52 @@ function clearMarkers() {
 function otherMarkers(index, type, lat, lon, rad) {
 	if (!markers[type][index]) { // create them if not exist
 		
-		// Classic async POI get, seems faster, (loading bar hides fast, and pois are then get and dropped on the map)
-		$.get('POI.php', {
+		var params = {
 			'application': $("#applicationName").val() + "Admin",
 			'type': type,
-			'latitude': lat || steps[index].position.lat(),
-			'longitude': lon || steps[index].position.lng(),
-			'radius': rad || $('#slider-radius').val()
-		}, function(data){
-			if ( (res = $.parseJSON(data)) != null){
-				var pois = res.dataObject.pois;
-				markers[type][index] = [];
-				$.each(pois, function(i, poi) {
-					value = $.parseJSON(poi.value);
-					id = poi.id;
-					iconAvailable = $('#poiIcon').val().split(",");
-					if(iconAvailable.contains(type + '.png')){
-						icon = 'system/templates/application/myRiviera/img/pois/' + type + '.png';
-					} else {
-						icon = null;
-					}
-					var marker = addMarker(new google.maps.LatLng(value.latitude,
-							value.longitude), icon, value.title,
-							"<p>Type: 	" + type + "</p>" + value.description, null, false, id);
-					google.maps.event.addListener(marker, "click", function(e) {
-						marker.ib.open(map, this);
+			'latitude': lat || steps[index - 1].position.lat(),
+			'longitude': lon || steps[index - 1].position.lng(),
+			'radius': rad || $('#slider-radius').val(),
+			'accessToken': $("#accessToken").val(),
+			'code': 1
+		};
+
+		//getMarkers
+		//will do async write in markers[index], and on map
+		
+		// "http://mymed20.sophia.inria.fr:8080/backend/POIRequestHandler"
+		// "../../lib/dasp/request/POI.php"
+		$.ajax({
+			url: "../../lib/dasp/request/POI.php",
+			data: params,
+			dataType: "json",
+			success: function(data){
+				if ( data && data.dataObject.pois.length){
+					markers[type][index] = [];
+					$.each(data.dataObject.pois, function(i, poi) {
+						value = JSON.parse(poi.value);
+						id = poi.id;
+						iconAvailable = $('#poiIcon').val().split(",");
+						if(iconAvailable.indexOf(type + '.png') > 0){
+							icon = 'system/templates/application/myRiviera/img/pois/' + type + '.png';
+						} else {
+							icon = null;
+						}
+						var marker = addMarker(new google.maps.LatLng(value.latitude,
+								value.longitude), icon, value.title,
+								"<p>Type: 	" + type + "</p>" + value.description, null, false, id);
+						google.maps.event.addListener(marker, "click", function(e) {
+							marker.ib.open(map, this);
+						});
+						markers[type][index].push(marker);
 					});
-					markers[type][index].push(marker);
-				});
+				}
 			}
 		});
 		
 	} else {// already existing, redrop them
 		for ( var i = 0; i < markers[type][index].length; i++) {
 			markers[type][index][i].setMap(map);
-			markers[type][index][i].setAnimation(google.maps.Animation.DROP);
 		}
 	}
 
@@ -314,8 +333,8 @@ function otherMarkers(index, type, lat, lon, rad) {
  */
 function positionMarker(index) {
 	if (!pmarkers[index]) { // create new marker
-		var marker = addMarker(steps[index].position, steps[index].icon,
-				steps[index].title, steps[index].desc);
+		var marker = addMarker(steps[index - 1].position, steps[index - 1].icon,
+				steps[index - 1].title, steps[index - 1].desc, google.maps.Animation.DROP);
 		pmarkers[index] = marker;
 		google.maps.event.addListener(marker, "click", function(e) {
 			marker.ib.open(map, this);
@@ -349,19 +368,19 @@ function updateMarkers(index) {
 
 	showLoadingBar("Recherche de points d'interêts...");
 	// FOCUS ON POSITION
-	focusOnLatLng(steps[index].position);
+	focusOnLatLng(steps[index-1].position);
 
 	// ADD THE MARKER OF THE CURRENT SEGMENT
 	positionMarker(index);
 
-	currentSegmentID = index;
-	if (index < steps.length - 1)
+	currentSegmentID = index; radius = $('#slider-radius').val();
+	if (index < steps.length )
 		$('#next-step').attr('onclick', 'updateMarkers(' + (index + 1) + ')');
-	if (index > 0)
+	if (index > 1)
 		$('#prev-step').attr('onclick', 'updateMarkers(' + (index - 1) + ')');
 
 	// ADD THE MARKERs CORRESPONDING TO ALL THE POIs AROUND THE SEGMENT
-	updateFilter();
+	//updateFilter();
 	for ( var i = 0; i < filterArray.length; i++) {
 		otherMarkers(index, filterArray[i]);
 	}
@@ -490,7 +509,7 @@ function calcRouteByCityway(result) {
 		content2 = (tripSegment.comment || '&nbsp;');
 		steps[i]['desc'] = content1 + '<br />' + content2;
 		
-		desc = $('<li style="padding:5px;"><img alt="no picture" src="' + icon + '" /><a href="#Map" onclick="updateMarkers('+ i+ ');"><p style="position: relative; left: -16px;">' + content1 + '<br />' + content2 + '</p></a></li>');
+		desc = $('<li style="padding:5px;"><img alt="no picture" src="' + icon + '" /><a href="#Map" onclick="updateMarkers('+ (i+1)+ ');"><p style="position: relative; left: -16px;">' + content1 + '<br />' + content2 + '</p></a></li>');
 
 		desc.appendTo($('#itineraireContent'));
 
@@ -591,7 +610,7 @@ function calcRouteByGoogle(printTrip) {
 								'desc' : content1 + '<br />' + content2
 						};
 
-						desc = $('<li style="padding:5px;"><img alt="no picture" src="' + icon + '" /><a href="#Map" onclick="updateMarkers('+ i+ ');"><p style="position: relative; left: -16px;">' + content1 + '<br />' + content2 + '</p></a></li>');
+						desc = $('<li style="padding:5px;"><img alt="no picture" src="' + icon + '" /><a href="#Map" onclick="updateMarkers('+ (i+1)+ ');"><p style="position: relative; left: -16px;">' + content1 + '<br />' + content2 + '</p></a></li>');
 						desc.appendTo($('#itineraireContent'));
 					}
 
@@ -630,7 +649,7 @@ function myRivieraShowTrip(start, end, icon) {
 
 	// SHOW ITINERAIRE
 	$("#itineraire, #steps, #prev-step").delay(1000).fadeIn("slow");
-	$('#next-step, #prev-step').attr('onclick', 'updateMarkers(0)');
+	$('#next-step, #prev-step').attr('onclick', 'updateMarkers(1)');
 	$('#next-step')
 	.click(
 			function() {
@@ -724,7 +743,7 @@ function validateIt() {
 						hideLoadingBar();
 					},
 					error : function(data) {
-						hideLoadingBar();
+//						hideLoadingBar();
 					}
 				});
 			} else {
@@ -737,3 +756,5 @@ function changeEndMarkerIcon() {
 	EndMarkerIcon = true;
 	
 }
+
+
