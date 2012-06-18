@@ -237,6 +237,7 @@ public class GeoLocationManager extends AbstractManager {
      */
     public MSearchBean read(final String applicationId, final String itemType, final long locationId,
                     final String itemId) throws InternalBackEndException, IOBackEndException {
+    	
         try {
             final String areaId = String.valueOf(Locator.getAreaId(locationId));
             final ExpColumnBean expCol = ((GeoLocStorageManager) storageManager).selectExpiringColumn(SC_LOCATION,
