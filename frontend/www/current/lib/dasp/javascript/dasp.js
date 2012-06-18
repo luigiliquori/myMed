@@ -48,13 +48,6 @@ function setupDASP(id, at, app) {
 	accessToken = at;
 	currentApplication = app;
 
-	// EXTENDS Array - add contains method
-	/*Array.prototype.contains = function(aValue) {
-		if (this.toString().match(aValue))
-			return true;
-	};*/
-	// you do array.indexOf(item) > 0
-
 }
 
 /* --------------------------------------------------------- */
@@ -67,12 +60,13 @@ function setupDASP(id, at, app) {
  *            id of the map
  */
 function setupDASPMap(mapID, displayPosition, displayError, watchPosition) {
+	
 	if (!map) {
+		
 		directionsDisplay = new google.maps.DirectionsRenderer();
 		directionsService = new google.maps.DirectionsService();
 		
 		// init Map
-		showLoadingBar("chargement de la carte..."); 
 		map = new google.maps.Map(document.getElementById(mapID), {
 			zoom : 16,
 			center : new google.maps.LatLng(43.7, 7.27),
@@ -96,80 +90,6 @@ function setupDASPMap(mapID, displayPosition, displayError, watchPosition) {
 		}
 	}
 }
-
-function displayPosition(position) {
-
-	var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-//	var latlng = new google.maps.LatLng(43.774481, 7.49754);  // menton
-//	var latlng = new google.maps.LatLng(43.696036, 7.265592); // nice
-//	var latlng = new google.maps.LatLng(43.580418, 7.125102); // antibes
-//	var latlng = new google.maps.LatLng(43.87793, 7.449154);  // sospel
-//	var latlng = new google.maps.LatLng(43.7904171, 7.607139);  // vintimille
-//	var latlng = new google.maps.LatLng(43.757808, 7.473754);	// roquerbune
-	
-//   xhr.open( "GET", "index.php?latitude=" + position.coords.latitude + "&longitude=" + position.coords.longitude,  true); 
-//   xhr.send(null); 
-	
-
-	//$.get("#", { latitude: latlng.lat(), longitude: latlng.lng() } );
-	
-	// if the accuracy is good enough, print a circle to show the area
-	// is use watchPosition instead of getCurrentPosition don't
-	// forget to clear previous circle, using
-	// circle.setMap(null)
-	accuracy = position.coords.accuracy;
-	if (accuracy) {
-		if (circle) {
-			circle.setCenter(latlng);
-			circle.setRadius(accuracy);
-		} else {
-			circle = new google.maps.Circle({
-				strokeColor : "#0000ff",
-				strokeOpacity : 0.2,
-				strokeWeight : 2,
-				fillColor : "#0000ff",
-				fillOpacity : (accuracy < 500) ? 0.1 : 0,
-						map : map,
-						center : latlng,
-						radius : accuracy
-			});
-		}
-	}
-	
-	//give hand to app
-	displayPos(latlng);
-}
-
-
-function displayError(error) {
-	//another try
-	if (error.code == 3) {
-		navigator.geolocation.getCurrentPosition(displayPosition, displayError);
-	} else {
-		//gives hand to app
-		displayErr();
-	}
-	
-}
-
-
-//google.maps.Map.prototype.markers = new Array();
-//
-//google.maps.Map.prototype.addMarker = function(marker) {
-//    this.markers[this.markers.length] = marker;
-//};
-//
-//google.maps.Map.prototype.getMarkers = function() {
-//    return this.markers
-//};
-//
-//google.maps.Map.prototype.clearMarkers = function() {
-//    for(var i=0; i<this.markers.length; i++){
-//        this.markers[i].setMap(null);
-//    }
-//    this.markers = new Array();
-//};
-
 
 /**
  * Zoom on the position define by the latitude and the longitude

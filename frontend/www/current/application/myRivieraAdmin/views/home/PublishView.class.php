@@ -38,9 +38,26 @@ class PublishView extends AbstractView {
 		<!-- CONTENT -->
 		<div class="content">
 		
-			<!-- TOOLs -->
-			<div data-role="collapsible" data-theme="a" data-content-theme="c" data-collapsed="true" Style="text-align: left;">
-			   <h3>Tools</h3>
+			<!--TEST -->
+			<div data-role="collapsible" data-theme="b" data-content-theme="c" data-collapsed="false" Style="text-align: left;">
+			    
+			    <h3>Afficher les points d'interêts</h3>
+			    
+			    <!-- MAP -->
+				<div id="myMap"></div><br />
+				
+				<form action="#" method="post" name="TestForm4" id="TestForm4" enctype="multipart/form-data">
+					Longitude: <input name="longitude" type="text" value="" data-inline="true" /><br />
+				    Latitude: <input name="latitude" type="text" value="" data-inline="true" /><br />
+				    Radius: <input name="radius" type="text" value="" data-inline="true" /><br />
+				    Type: <input name="type" type="text" value="" data-inline="true" /><br />
+				    <center><a href="#" data-role="button" onclick="document.TestForm4.submit()" rel="external" data-theme="g" data-inline="true">Afficher</a></center>	
+				</form>
+			</div>
+		
+			<!-- Convertion -->
+			<div data-role="collapsible" data-theme="b" data-content-theme="c" data-collapsed="true" Style="text-align: left;">
+			   <h3>Convertion LongLat/Adresse</h3>
 			   <form action="?application=<?= APPLICATION_NAME ?>" method="get" rel="external">
 				   	<?php 
 				 	  	$address = "";
@@ -62,12 +79,12 @@ class PublishView extends AbstractView {
 				   <input name="address" type="text" value="<?= $address ?>" /><br />
 				   Longitude: <input name="longitude" type="text" value="<?= $longitude ?>" data-inline="true" /><br />
 				   Latitude: <input name="latitude" type="text" value="<?= $latitude ?>" data-inline="true" /><br />
-				   <input type="submit" data-role="button" value="Convert" rel="external"/>
+				   <center><input type="submit" data-role="button" value="Convertion" rel="external"  data-theme="g" data-inline="true"/></center>
 			   </form>
 			</div>
 			
 			<!-- MYMED POIs 
-			<div data-role="collapsible" data-theme="a" data-content-theme="c" data-collapsed="true" Style="text-align: left;">
+			<div data-role="collapsible" data-theme="b" data-content-theme="c" data-collapsed="true" Style="text-align: left;">
 			   <h3>myMed POIs</h3>
 			   <div style="color: gray;">
 			   		<h4>Example:</h4>
@@ -87,8 +104,8 @@ class PublishView extends AbstractView {
 			
 		
 			<!-- CARF POIs -->
-			<div data-role="collapsible" data-theme="a" data-content-theme="c" data-collapsed="true" Style="text-align: left;">
-			    <h3>Add POIs</h3>
+			<div data-role="collapsible" data-theme="b" data-content-theme="c" data-collapsed="true" Style="text-align: left;">
+			    <h3>Ajouter points d'interêts</h3>
 			    <div style="color: gray;">
 			   		<h4>Example:</h4>
 					[<br/>
@@ -124,20 +141,9 @@ class PublishView extends AbstractView {
 				</form>
 			</div>
 			
-			<!--TEST -->
-			<div data-role="collapsible" data-theme="a" data-content-theme="c" data-collapsed="true" Style="text-align: left;">
-			    <h3>Tests</h3>
-				<form action="#" method="post" name="TestForm4" id="TestForm4" enctype="multipart/form-data">
-					Longitude: <input name="longitude" type="text" value="" data-inline="true" /><br />
-				    Latitude: <input name="latitude" type="text" value="" data-inline="true" /><br />
-				    Radius: <input name="radius" type="text" value="" data-inline="true" /><br />
-				    <a href="#" data-role="button" onclick="document.TestForm4.submit()" rel="external">Send</a>
-				</form>
-			</div>
-			
 			<!--SUBSCRIBE -->
-			<div data-role="collapsible" data-collapsed="true" data-theme="a" data-content-theme="c">
-				<h3>Subscribe</h3>
+			<div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="c">
+				<h3>S'abonner aux commentaires</h3>
 				<p>S'abonner aux commentaires de myRiviera:</p>
 				<form  action="#" method="post" name="<?= APPLICATION_NAME ?>SubscribeForm" id="<?= APPLICATION_NAME ?>SubscribeForm">
 					<!-- Define the method to call -->
