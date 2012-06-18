@@ -1,15 +1,25 @@
-
-function hideLoadingBar(){
-	//hide loading status...
-	loading = document.getElementById("loading");
-	loading.style.display='none';
+function initialize() {
+	// INITIALIZE DASP->MAP
+	setupDASPMap("myMap", displayPosition, displayError, false);
 }
 
-function showLoadingBar(text){
-	//hide loading status...
-	loading = document.getElementById("loading");
-	if(text) {
-		loading.innerHTML = "<center><span>" + text + "</span></center>";
-	}
-	loading.style.display = "block";
+function displayPosition(position) {
+	
+	var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+	
+	// create current position marker
+	new google.maps.Marker({
+		position : latlng,
+		title : "ma position",
+		icon : "img/position.png",
+		map : map
+	});
+
+	// focus on the position
+	focusOnLatLng(latlng);
+
+}
+
+function displayError(error) {
+
 }
