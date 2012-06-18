@@ -68,7 +68,6 @@ function hideLoadingBar() {
 }
 function showLoadingBar(text) {
 	$.mobile.showPageLoadingMsg("d", text);
-
-	setTimeout(hideLoadingBar, 3000); // make sure it stops one day
+	setTimeout(hideLoadingBar, 10000);
 }
 

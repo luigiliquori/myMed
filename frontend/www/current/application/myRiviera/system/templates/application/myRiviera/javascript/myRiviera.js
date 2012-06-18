@@ -280,7 +280,7 @@ function otherMarkers(index, type, lat, lon, rad) {
 		// "http://mymed20.sophia.inria.fr:8080/backend/POIRequestHandler"
 		// "../../lib/dasp/request/POI.php"
 		$.ajax({
-			url: "../../backend/POIRequestHandler",
+			url: "../../lib/dasp/request/POI.php",
 			data: params,
 			dataType: "json",
 			success: function(data){
@@ -743,7 +743,7 @@ function validateIt() {
 						hideLoadingBar();
 					},
 					error : function(data) {
-						hideLoadingBar();
+//						hideLoadingBar();
 					}
 				});
 			} else {
