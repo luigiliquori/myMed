@@ -246,7 +246,7 @@ function clearMarkers() {
 			if(markers[key][i]) {
 				for ( var j=0 ; j< markers[key][i].length ; j++) {
 					if(markers[key][i][j]) {
-						console.log(markers[key][i][j]);
+						//console.log(markers[key][i][j]);
 						markers[key][i][j].setMap(null);
 					}
 				}

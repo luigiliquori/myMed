@@ -2,7 +2,6 @@ package com.mymed.core;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.util.Log;
 import android.view.View;
 import android.webkit.GeolocationPermissions;
@@ -34,7 +33,10 @@ public class ChromeWebClient extends WebChromeClient {
 	
 	@Override
     public void onProgressChanged(WebView view, int newProgress) {
-		//Log.v(Mobile.TAG, ".."+newProgress);
+
+		ProgressBar bar = (ProgressBar) activity.findViewById(R.id.progressBar1);
+		//bar.setVisibility(View.VISIBLE);
+		bar.setProgress(newProgress);
     }
 
 	@TargetApi(5)

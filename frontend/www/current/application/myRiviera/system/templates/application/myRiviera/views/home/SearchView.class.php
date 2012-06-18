@@ -92,7 +92,7 @@ class SearchView extends MyApplication {
 	*/
 	public /*String*/ function getContent() { ?>
 		<div id="Itin" data-theme="c">
-			<form action="#" method="post" name="<?= APPLICATION_NAME ?>FindForm"
+			<form action="" name="<?= APPLICATION_NAME ?>FindForm"
 				id="<?= APPLICATION_NAME ?>FindForm">
 				<input type="hidden" name="application"	value="<?= APPLICATION_NAME ?>" /> 
 				<input type="hidden" name="method" value="find" /> 
@@ -100,12 +100,12 @@ class SearchView extends MyApplication {
 		
 				<!-- FROM -->
 				Départ :
-				<input data-theme="d" type="text" id="depart" name="Depart"/>
+				<input data-theme="d" type="text" id="depart" name="Depart" onsubmit="setTimeout(validateIt, 500);"/>
 				<br />
 				
 				<!-- TO -->
 				Arrivée :
-				<input data-theme="d" type="text" id="arrivee" name="Arrivee" />
+				<input data-theme="d" type="text" id="arrivee" name="Arrivee" onsubmit="setTimeout(validateIt, 500);"/>
 				<!-- FRIENDS -->
 				<?php if(isset($_SESSION['friends'])) {
 					$knownFriends =  array(); 

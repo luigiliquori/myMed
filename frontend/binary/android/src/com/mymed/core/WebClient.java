@@ -12,12 +12,14 @@ import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
-import android.app.ProgressDialog;
+import android.app.AlertDialog;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.util.Log;
+import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class WebClient extends WebViewClient {
 
@@ -35,8 +37,8 @@ public class WebClient extends WebViewClient {
 	@Override
 	public void onPageStarted(WebView view, String url, Bitmap favicon) {
 		
-		//LinearLayout l = (LinearLayout) activity.findViewById(R.id.root) ;
-		view.setBackgroundColor(Color.argb(0, 0, 255, 200));
+		((ProgressBar) activity.findViewById(R.id.progressBar1)).setVisibility(View.VISIBLE);
+		
 		Log.v(Mobile.TAG, "*****************URL=" + url);
 		if(url.matches(".*mobile_binary::.*")){
 			Log.i(Mobile.TAG, "Receive a mobile API call");
@@ -98,12 +100,11 @@ public class WebClient extends WebViewClient {
 //	}
 //
 	public void onPageFinished(WebView view, String url) {
-		//Log.v(Mobile.TAG, ",,,,,,,,,, "+url);
+		ProgressBar bar = (ProgressBar) activity.findViewById(R.id.progressBar1);
+		bar.setVisibility(View.GONE);
 		if (url.matches(".*/application/myRiviera/")){
-			Log.v(Mobile.TAG, "pow");
-			//activity.getWebView().setBackgroundResource(R.id.web_engine);
-			//activity.getSwitcher().showPrevious();
-			
+			Log.v(Mobile.TAG, "main page load");
+			((TextView) activity.findViewById(R.id.textView1)).setVisibility(View.GONE);	
 		}
 		
 //		if (activity.getProgressDialog() != null) {
@@ -111,5 +112,15 @@ public class WebClient extends WebViewClient {
 //				activity.getProgressDialog().dismiss();
 //			}
 //		}
+	}
+	
+	
+	@Override
+	public void onReceivedError(WebView view, int errorCode,
+			String description, String failingUrl) {
+
+		AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
+		alertDialog.setMessage("non connecté");
+		alertDialog.show();
 	}
 }
