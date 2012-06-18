@@ -15,7 +15,7 @@
 		  <li>code</li>
 		  <li>application</li>
 		  <li>predicate</li>
-		  <li>user</li>
+		  <li>userID</li>
 		  <li>accessToken</li>
 		</ul>
 	</td>
@@ -57,7 +57,7 @@
 		  <li>code</li>
 		  <li>application</li>
 		  <li>predicate</li>
-		  <li>user</li>
+		  <li>userID</li>
 		  <li>accessToken</li>
 		</ul>
 	</td>

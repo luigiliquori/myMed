@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.mymed.controller.core.requesthandler;
+package com.mymed.controller.core.requesthandler.matchmaking;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
@@ -28,6 +28,7 @@ import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.pubsub.PubSubManager;
+import com.mymed.controller.core.requesthandler.AbstractRequestHandler;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 
 /**
@@ -77,16 +78,20 @@ public class FindRequestHandler extends AbstractRequestHandler {
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            String application, predicate, user;
+            final String application, predicate, user;
 
             if (code == RequestCode.READ) {
-                message.setMethod(JSON_CODE_READ);
+              
+            	message.setMethod(JSON_CODE_READ);
                 if ((application = parameters.get(JSON_APPLICATION)) == null) {
                     throw new InternalBackEndException("missing application argument!");
                 } else if ((predicate = parameters.get(JSON_PREDICATE)) == null) {
                 	throw new InternalBackEndException("missing predicate argument!");
                 }
-                if ((user = parameters.get(JSON_USER)) != null) {
+               
+                user = parameters.get(JSON_USERID) != null ? parameters.get(JSON_USERID) : parameters.get(JSON_USER);
+               
+                if (user != null) { // GET DETAILS
                     final List<Map<String, String>> details = pubsubManager.read(application, predicate, user);
                     if (details.isEmpty()) {
                         throw new IOBackEndException("no results found!", 404);
@@ -97,6 +102,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
                                     + predicate);
                     message.addData(JSON_DETAILS, getGson().toJson(details));
                     message.addDataObject(JSON_DETAILS, details);
+               
                 } else { // GET RESULTS
                 	
 					String start = parameters.get("start") != null ? parameters.get("start") : "";
@@ -111,6 +117,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
                     		+ " start: " + start + " count: " + count );
                     message.addData(JSON_RESULTS, getGson().toJson(resList));
                     message.addDataObject(JSON_RESULTS, resList);
+                    
                 }
             } else {
                 throw new InternalBackEndException("FindRequestHandler(" + code + ") not exist!");

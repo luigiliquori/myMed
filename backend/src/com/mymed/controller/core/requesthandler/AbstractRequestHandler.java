@@ -297,6 +297,16 @@ public abstract class AbstractRequestHandler extends HttpServlet {
         responseText = message.toString();
         printResponse(response);
     }
+    /**
+     * 
+     * Prints JsonP response,
+     *  should be implemented on sinle handler carefully (security)
+     */
+    protected void printJSonResponse(final JsonMessage<Object> message, final HttpServletResponse response, final String callback) {
+        response.setStatus(message.getStatus());
+		responseText = callback + "(" + message.toString() + ");";
+        printResponse(response);
+    }
 
     /**
      * Check that the access token parameters has been provided, and verifies it.
@@ -334,7 +344,7 @@ public abstract class AbstractRequestHandler extends HttpServlet {
      */
     private void printResponse(final HttpServletResponse response) {
         if (responseText != null) {
-            response.setContentType("text/plain;charset=UTF-8");
+            response.setContentType("application/json;charset=UTF-8");
             PrintWriter out;
 
             try {

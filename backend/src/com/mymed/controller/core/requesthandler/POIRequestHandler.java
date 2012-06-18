@@ -112,6 +112,7 @@ public class POIRequestHandler extends AbstractRequestHandler {
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
         final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
 
+        String cb = null;
         try {
             // Get the parameters from the received request
             final Map<String, String> parameters = getParameters(request);
@@ -120,6 +121,7 @@ public class POIRequestHandler extends AbstractRequestHandler {
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
             String application, type, latitude, longitude, radius;
+            cb = parameters.get("callback");
 
             if (code == RequestCode.READ) {
                 message.setMethod(JSON_CODE_READ);
@@ -142,8 +144,8 @@ public class POIRequestHandler extends AbstractRequestHandler {
                                 convertDegreeToMicroDegree(latitude), convertDegreeToMicroDegree(longitude),
                                 Integer.parseInt(radius), true);
                 message.setDescription("POIs successfully read!");
-                final Gson gson = new Gson();
-                message.addData(JSON_POI, gson.toJson(pois));
+                //final Gson gson = new Gson();
+                //message.addData(JSON_POI, gson.toJson(pois)); //trying without to increase speed?
                 message.addDataObject(JSON_POI, pois);
             } else {
                 throw new InternalBackEndException("POIRequestHandler(" + code + ") not exist!");
@@ -154,7 +156,11 @@ public class POIRequestHandler extends AbstractRequestHandler {
             message.setDescription(e.getMessage());
         }
 
-        printJSonResponse(message, response);
+		if (cb == null) {
+			printJSonResponse(message, response);
+		} else {
+			printJSonResponse(message, response, cb);
+		}
     }
 
     /**
@@ -172,7 +178,8 @@ public class POIRequestHandler extends AbstractRequestHandler {
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            String application, type, user, longitude, latitude, value;
+            final String application, type, user, longitude, latitude, value;
+            user = parameters.get(JSON_USERID) != null ? parameters.get(JSON_USERID) : parameters.get(JSON_USER);
 
             if (code == RequestCode.CREATE) {
                 message.setMethod(JSON_CODE_CREATE);
@@ -182,8 +189,8 @@ public class POIRequestHandler extends AbstractRequestHandler {
                     throw new InternalBackEndException("missing application argument!");
                 } else if ((type = parameters.get(JSON_TYPE)) == null) {
                     throw new InternalBackEndException("missing type argument!");
-                } else if ((user = parameters.get(JSON_USER)) == null) {
-                    throw new InternalBackEndException("missing user argument!");
+                } else if (user == null) {
+                    throw new InternalBackEndException("missing userID argument!");
                 } else if ((longitude = parameters.get(JSON_LON)) == null) {
                     throw new InternalBackEndException("missing longitude argument!");
                 } else if ((latitude = parameters.get(JSON_LAT)) == null) {
