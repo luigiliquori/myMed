@@ -28,6 +28,11 @@
 	// IMPORTS ALL THE VIEWS
 	require_once dirname(__FILE__).'/views/AbstractView.class.php';	
 	if(USER_CONNECTED) {
+		// DEFINE ATTRIBUTES FOR THE JAVASCRIPT PART (AJAX CALL)
+		// TODO REMOVE THIS
+		echo "<input type='hidden' id='userID' value='" . $_SESSION['user']->id . "' />";
+		echo "<input type='hidden' id='applicationName' value='" . APPLICATION_NAME . "' />";
+		echo "<input type='hidden' id='accessToken' value='" . $_SESSION['accessToken'] . "' />";
 		require_once dirname(__FILE__).'/views/home/PublishView.class.php';		new PublishView();
 	} else {
 		require_once dirname(__FILE__).'/views/login/mobile/Login.class.php';	new Login($inscription);
