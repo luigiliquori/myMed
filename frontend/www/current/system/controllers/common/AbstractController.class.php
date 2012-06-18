@@ -24,6 +24,15 @@ abstract class AbstractController implements IRequestHandler {
 		exit();
 	}
 	
+	public /*void*/ function setError($message){
+		$this->error = $message;
+	}
+	
+	public /*void*/ function setSuccess($message){
+		$this->success = $message;
+	}
+	
+	
 	
 }
 

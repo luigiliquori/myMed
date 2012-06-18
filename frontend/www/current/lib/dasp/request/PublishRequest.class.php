@@ -24,7 +24,7 @@ require_once dirname(__FILE__).'/IRequestHandler.php';
  * @author lvanni
  *
  */
-class Publish extends Request {
+class PublishRequest extends Request {
 
 
 	private /*IRequestHandler*/ 	$handler;
@@ -63,7 +63,7 @@ class Publish extends Request {
 			$user = $responseObject->data->user;
 		} else {
 			// publisher = the current user
-			$user = json_encode($_SESSION['user']['id']);
+			$user = json_encode($_SESSION['user']);
 		}
 		
 		// PREDICATES
