@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html>
-
 <?php
 
 	/*
@@ -26,74 +23,32 @@
 	session_start();
 	
 	$application = isset($_REQUEST['application'])?$_REQUEST['application']:"myEurope";
-		
-	if (count($_POST)) {
-		if(!isset($_SESSION['user'])) {
-			$request = new Request("AuthenticationRequestHandler", READ);
-			$request->addArgument("login", $_REQUEST["login"]);
-			$request->addArgument("password", hash('sha512', $_REQUEST["password"]));
-		
-			$responsejSon = $request->send();
-			$responseObject = json_decode($responsejSon);
-			if($responseObject->status == 200) {
-				$_SESSION['accessToken'] = $responseObject->dataObject->accessToken;
-				//$_SESSION['user'] = $responseObject->dataObject->user;
-				$request = new Request("SessionRequestHandler", READ);
-				$request->addArgument("socialNetwork", "myMed");
-				$responsejSon = $request->send();
-				$session = json_decode($responsejSon);
-				if($session->status == 200) {
-					$_SESSION['user'] = $session->dataObject->user;
-					if(!isset($_SESSION['friends'])){
-						$_SESSION['friends'] = array();
-					}
-					header("Location: .");
-				} else {
-					header("Location: ./authenticate");
-				}
-		
-			} else{
-				header("Location: ./authenticate");
-			}
-		} else{
-			header("Location: ./option?please-logout-first");
-		}
-	}
 	
-	$sub = false;
-	
-	//get all results
-
-	/*ksort($_GET); // important to match a possible predicate, keys must be ordered
+	$res = null;
 	$predicate = "";
-	if (count($_GET)) {
-		foreach( $_GET as $i => $value ){
-			if ( $i!='application' && $i!='method' && $i[0]!='_' && $value!=''){
-				$predicate .= $i . $value;
-			}
-		}
-		$request = new Request("SubscribeRequestHandler", CREATE);
+	if (isset($_GET['q'])){
+		$tags = preg_split('/[ +]/', $_GET['q'], NULL, PREG_SPLIT_NO_EMPTY);
+		$p = array_unique(array_map('strtolower', $tags));
+		sort($p); //important
+		$predicate = join("", array_slice($p, 0, 3)); // we use a broadcast level of 3 for myEurope see in post.php
+		$request = new Request("FindRequestHandler", READ);
 		$request->addArgument("application", $application);
 		$request->addArgument("predicate", $predicate);
-		$request->addArgument("user", json_encode($_SESSION['user']));
+		$request->addArgument("start", isset($_GET['start'])?$_GET['start']:"");
+		$request->addArgument("count", isset($_GET['count'])?$_GET['count']:10);
 		$responsejSon = $request->send();
-		$sub = true;
-	}*/
-	
-	$tags = explode("+", $_GET['q']);
-	sort($tags); //important
-	$predicate = "";
-	foreach( $tags as $v ){ //do this for FindRequestHandler compatibility...
-		$predicate .= strtolower($v);
+		$res = json_decode($responsejSon);
+		
 	}
 
-	$request = new Request("FindRequestHandler", READ);
-	$request->addArgument("application", $application);
-	$request->addArgument("predicate", $predicate);
-	$responsejSon = $request->send();
-	$res = json_decode($responsejSon);
+	function is_subarray($q, $r){
+		return count(array_intersect( $q , $r)) == min(count($q), count($r));
+	}
 	
 ?>
+
+<!DOCTYPE html>
+<html>
 	<head>
 		<?= $template->head(); ?>
 	</head>
@@ -112,23 +67,30 @@
 				</div>
 
 				<div data-role="content">	
-					<form action="search" id="subscribeForm">
-						<input name="q" placeholder="chercher un partenaire par mot clés" value="" data-type="search" style="width: 80%;"/>
+					<form action="search" id="subscribeForm" data-ajax="false" style="margin: 10px -10px 20px -10px;">
+						<input id="searchBar" name="q" placeholder="chercher un partenaire par mot clés" data-type="search" />
 					</form>
 					<br />
 					<?php 	
 						if($res->status == 200) {
 						?>
-						<ul data-role="listview" data-filter="true" data-inset="true" data-filter-placeholder="filtrer parmi tous les résultats">
+						<ul data-role="listview" data-filter="true" data-filter-placeholder="filtrer parmi tous les résultats">
 						<?php
 							$res = $res->dataObject->results;
-							
+
 							foreach( $res as $i => $value ){
-								$preds = json_decode($value->data);
+								$data = json_decode($value->data);
+
+								if (!is_subarray(array_slice($p, 3), json_decode($value->indexes))){
+									continue; //this item is filtered out, after level (=3)
+								}
+									
 							?>
-							<li><a href="" onclick="$('#detailForm<?= $i ?>').submit();">
-								<?= $preds->nom ?>, <?= $preds->lib ?>, <?= $preds->cout ?>, <?= $preds->montant ?>, 
-								<?= $preds->date ?>
+							<li><a href="" onclick="$('#detailForm<?= $i ?>').submit();" style="padding-top: 1px;padding-bottom: 1px;">
+								<h3><?= $data->nom ?>, <?= $data->id ?></h3>
+								<p><?= $data->cout ?>, <?= $data->montant ?></p>
+								<p class="ui-li-aside"><strong><?= $data->date ?></strong></p>
+								<p class="ui-li-aside" style="position: absolute;top: 60%;right: 14px;"><span><a style="color: #0060AA;" href="mailto:<?= substr($value->publisherID, 6) ?>"><?= substr($value->publisherID, 6) ?></a></span></p>
 								<form action="detail" id="detailForm<?= $i ?>">
 									<input name="application" value='<?= $application ?>' type="hidden" />
 									<input name="predicate" value="<?= urlencode($value->predicate) ?>" type="hidden" />
@@ -140,6 +102,7 @@
 							}
 							?>
 							</ul>
+							<br />
 							<div style="float:right;"><?= count($res) ?> résultats</div><br />
 						<?php	
 						} else{

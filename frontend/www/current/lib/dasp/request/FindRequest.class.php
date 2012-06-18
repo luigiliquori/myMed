@@ -1,0 +1,72 @@
+<?php 
+/*
+ * Copyright 2012 INRIA
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+require_once dirname(__FILE__).'/Request.class.php';
+require_once dirname(dirname(__FILE__)) . '/beans/DataBean.php';
+require_once dirname(__FILE__).'/IRequestHandler.php';
+
+require_once('PhpConsole.php');
+PhpConsole::start();
+
+/**
+ *
+ * Find Request
+ * @author David Da Silva
+ *
+ */
+class FindRequest extends Request {
+	/* --------------------------------------------------------- */
+	/* Attributes */
+	/* --------------------------------------------------------- */
+	private /*IRequestHandler*/ $handler;
+	private /*String*/ $predicate;
+	private /*String*/ $user;
+
+	/* --------------------------------------------------------- */
+	/* Constructors */
+	/* --------------------------------------------------------- */
+	public function __construct(/*IRequestHandler*/ $handler, /*String*/$predicate,/*String*/ $user) {
+		parent::__construct("FindRequestHandler", READ);
+		$this->handler	= $handler;
+		$this->predicate = $predicate;
+		$this->user = $user;	
+	}
+
+	/* --------------------------------------------------------- */
+	/* Public methods */
+	/* --------------------------------------------------------- */
+	public /*string*/ function send() {
+
+
+		// Construct the requests
+		parent::addArgument("application", APPLICATION_NAME);
+		parent::addArgument("predicate", $this->predicate);
+		parent::addArgument("user", $this->user);
+
+		// Classical matching
+		//debug(json_encode($this->predicate));	
+		$responsejSon = parent::send();
+		$responseObject = json_decode($responsejSon);
+		if($responseObject->status != 200) {
+			$this->handler->setError($responseObject->description);
+		} else {
+			$this->handler->setSuccess($responseObject->data->details);
+		}
+
+		return $responsejSon;
+	}
+}
+?>

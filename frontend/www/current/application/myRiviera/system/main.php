@@ -1,6 +1,6 @@
 <?php
 	ob_start("ob_gzhandler");			// page compression
-	@set_magic_quotes_runtime(false);	// for the magic_quotes
+	//@set_magic_quotes_runtime(false);	// for the magic_quotes <- deprecated
 	
 	// DEBUG
 	ini_set('display_errors', 1);

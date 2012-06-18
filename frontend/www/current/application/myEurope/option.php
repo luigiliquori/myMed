@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html>
-
 <?php
 
 	/*
@@ -114,11 +111,11 @@
 		return;
 	} else if (isset($_GET['userID'])){ // unsubscription by mail
 		$request = new Request("SubscribeRequestHandler", DELETE);
-		$request->addArgument("application", $_REQUEST['application']);
-		$request->addArgument("predicate", $_REQUEST['predicate']);
-		$request->addArgument("userID", $_REQUEST['userID'] );
-		if (isset($_REQUEST['accessToken']))
-			$request->addArgument('accessToken', $_REQUEST['accessToken']);
+		$request->addArgument("application", $_GET['application']);
+		$request->addArgument("predicate", $_GET['predicate']);
+		$request->addArgument("userID", $_GET['userID'] );
+		if (isset($_GET['accessToken']))
+			$request->addArgument('accessToken', $_GET['accessToken']);
 		$responsejSon = $request->send();
 		$responseObject = json_decode($responsejSon);
 		if ($responseObject->status==200){
@@ -130,11 +127,10 @@
 		$request->addArgument("socialNetwork", $_SESSION['user']->socialNetworkName);
 	
 		session_destroy();
-	
 		$responsejSon = $request->send();
 		$responseObject = json_decode($responsejSon);
 		if($responseObject->status == 200) {
-			header("Location: ./");
+			header("Location: http://".$_SERVER['HTTP_HOST']); // go back to mymed
 		}
 	}
 	
@@ -154,6 +150,9 @@
 	}
 
 ?>
+
+<!DOCTYPE html>
+<html>
 
 	<head>
 		<?= $template->head(); ?>
@@ -191,13 +190,13 @@
 							<br /><br />
 							<a href="update" type="button" data-transition="flip" data-mini="true" data-icon="grid"
 							style="width: 200px; margin-right: auto; margin-left: auto;">Modifier</a>
-							<form action="option?logout" id="deconnectForm">
+							<form action="option" id="deconnectForm" data-ajax="false">
+								<input name="logout" type="hidden" />
 							</form>
 							<a href="" type="button" data-mini="true" data-icon="delete"
 							style="width: 200px; margin-right: auto; margin-left: auto;" onclick="$('#deconnectForm').submit();">Déconnecter</a>
 						</div>
-						​
-	
+
 					<?php 
 					}
 				?>
@@ -210,6 +209,7 @@
 							<?php 
 							if($subscriptions->status == 200) {
 								$subscriptions = (array) $subscriptions->dataObject->subscriptions;
+								$i = 0;
 								foreach( $subscriptions as $k => $value ){ 
 									//prettify the subscription string:
 									/*$a = preg_split("/(nom|lib|cout|montant|date)/", $k ,0, PREG_SPLIT_DELIM_CAPTURE);
@@ -219,11 +219,11 @@
 									}*/
 							?>
 							<li><a href=""> <?= $k /*json_encode($s);*/ ?>
-								<form action="#" method="post" id="deleteSubscriptionForm<?= $k ?>">
+								<form action="#" method="post" id="deleteSubscriptionForm<?= $i ?>">
 									<input name="application" value='<?= $application ?>' type="hidden" />
 									<input name="predicate" value=<?= $k ?> type="hidden" />
 									<input name="userID" value='<?= $_SESSION['user']->id ?>' type="hidden" />
-								</form> <a href="javascript://" data-icon="delete" data-theme="r" onclick="$('#deleteSubscriptionForm<?= $k ?>').submit();">Désabonnement</a>
+								</form> <a href="javascript://" data-icon="delete" data-theme="r" onclick="$('#deleteSubscriptionForm<?= $i++ ?>').submit();">Désabonnement</a>
 								</a>
 							</li>
 								<?php 

@@ -15,6 +15,7 @@
  */
 package com.mymed.controller.core.manager.pubsub;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
@@ -63,6 +64,22 @@ public interface IPubSubManager {
    */
   List<Map<String, String>> read(String application, String predicate) throws InternalBackEndException,
       IOBackEndException;
+  
+  /**
+   * @param application
+   *          the application responsible for this predicate
+   * @param predicate
+   *          the predicateID to read
+   * @param start
+   *           starting column
+   *  @param count
+   *           nb of columns
+   *  @param reversed
+   *           order         
+   * @return the list of the publisher who provide this predicate
+   */
+  List<Map<String, String>> read(String application, String predicate, String start, int count, Boolean reversed) throws InternalBackEndException,
+      IOBackEndException, UnsupportedEncodingException;
 
   /**
    * Get the DataList Entry related to application + predicate + userID.
@@ -83,7 +100,7 @@ public interface IPubSubManager {
    *
    * @param application
    * @param userID
-   * @return A List of predicates (strings)
+   * @return A List of predicates
    * @throws InternalBackEndException
    * @throws IOBackEndException
    */

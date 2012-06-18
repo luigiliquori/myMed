@@ -1,5 +1,5 @@
 <?php
-	define('DEBUG', true);
-	require('system/main.php');
+	define('MYMED_ROOT', __DIR__ . '/');
+	require('application/myMed/index.php');
 ?>
 

@@ -4,11 +4,13 @@ from mymed_backend_test import *
 
 # Settings
 BASE_URL="http://localhost:8080/backend"
-USER_ID="MYMED_foo.bar@gmail.com"
-PASSWORD="xxxx"
+USER_ID="MYMED_raphael.jolivet@gmail.com"
+PASSWORD="tddvdc"
 APP="MyTest"
 TOKEN='TOTO'
 
+def json_print(obj) :
+    print(json.dumps(obj, sort_keys=True, indent=4))
 
 # Init connection to backend
 initConnection(BASE_URL)
@@ -27,8 +29,10 @@ res = call(ProfileRH, READ, GET, {
     'accessToken' : TOKEN
 })
 
+res=json.loads(res['user'])
+json_print(res);
 
-user=res['user']
+user=json_decode(res['user'])
 
 # Predicate (tranformed into ontology)
 pred = keyOnt({'title': 'toto'})

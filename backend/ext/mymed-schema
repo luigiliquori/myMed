@@ -11,6 +11,7 @@
  * The 'RackUnawareStrategy' has been renamed into 'SimpleStrategy' from v0.7.
  * Also, the 'RackAwareStrategy' should have been renamed into 'NetworkTopologyStrategy'.
 */
+
 create keyspace Mymed with strategy_options = [{DC1:3, DC2:3}] and placement_strategy = 'org.apache.cassandra.locator.NetworkTopologyStrategy'; 
 
 /* Switch to the 'mymed' keyspace */
@@ -18,18 +19,6 @@ use Mymed;
 
 /* Column families necessary for mymed as general structure */
 create column family Application with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
-
-/* NEW: in row: app+userID in col: predicates this user subscribed to*/
-create column family Subscribers with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
-/* REPLACE UserList: in row: app+predicate in col: users that have subscriptions for this predicate (notified by mail for new content)*/
-create column family Subscribees with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
-/* NEW: in row: app+userID in col: users this user follows (notified by mail for new content)*/
-create column family Followers with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
-/* PROPOSITION: in row: app+predicate in col: users that have subscriptions for this predicate
- this CF would be automatically filled for every search of users, col would have limited ttl, it would enable online notifications instead if mails, to have realtime feedback on your activity*/
-create column family Notifications with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
-
-
 create column family Authentication with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 create column family Ontology with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 create column family OntologyType with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
@@ -37,6 +26,8 @@ create column family User with column_type = 'Standard' and comparator = 'UTF8Ty
 create column family Session with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 create column family Position with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 create column family Interaction with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+create column family Subscribers with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+create column family Subscribees with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 
 /* Super columns necessary for mymed as general structure */
 create column family ApplicationController with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';

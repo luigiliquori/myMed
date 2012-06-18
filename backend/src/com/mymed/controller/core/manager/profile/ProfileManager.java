@@ -87,7 +87,7 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
      */
     @Override
     public final MUserBean read(final String id) throws InternalBackEndException, IOBackEndException {
-        final Map<byte[], byte[]> args = storageManager.selectAll(CF_USER, id, false);
+        final Map<byte[], byte[]> args = storageManager.selectAll(CF_USER, id);
 
         if (args.isEmpty()) {
             LOGGER.info("User with FIELD_ID '{}' does not exists", id);

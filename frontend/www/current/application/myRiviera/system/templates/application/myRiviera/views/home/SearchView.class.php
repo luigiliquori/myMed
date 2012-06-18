@@ -220,8 +220,8 @@ class SearchView extends MyApplication {
 					</fieldset>
 					
 					<h3>Rayon de recherche</h3>
-					<input type="range" name="slider-radius" id="slider-radius" value="<?= TARGET == "mobile" ? "3" : "5" ?>00" min="100"
-					max="1000" data-theme="b" /> <span style="display: inline;">mètres</span>
+					<input type="range" name="slider-radius" id="slider-radius" value="<?= TARGET == "mobile" ? "5" : "7" ?>00" min="100"
+					max="1000" data-highlight="true" /> <span style="display: inline;">mètres</span>
 					
 					<h3>Type de Trajet Cityway</h3>
 					<div  id="cityway-search">
@@ -237,8 +237,8 @@ class SearchView extends MyApplication {
 							<input type="checkbox" name="checkbox" id="checkbox3" checked="checked" /><label for="checkbox3">Train</label>
 							<input type="checkbox" name="checkbox" id="checkbox4"	checked="checked" /><label for="checkbox4">Tram</label>
 							<input type="checkbox" name="checkbox" id="checkbox5" checked="checked" /><label for="checkbox5">Ter</label>
-							<input type="hidden" name="checkbox" id="checkbox17" checked="checked" /><label for="checkbox17">Nav_élec</label>
-							<input type="hidden" name="checkbox" id="checkbox19" checked="checked" /><label	for="checkbox19">Tgv</label>
+							<input type="hidden" name="checkbox" id="checkbox17" checked="checked" /><label style="display:none;" for="checkbox17">Nav_élec</label>
+							<input type="hidden" name="checkbox" id="checkbox19" checked="checked" /><label	style="display:none;" for="checkbox19">Tgv</label>
 						</fieldset>
 					</div>
 					

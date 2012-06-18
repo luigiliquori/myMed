@@ -15,6 +15,7 @@
  */
 package com.mymed.controller.core.requesthandler;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
@@ -97,13 +98,17 @@ public class FindRequestHandler extends AbstractRequestHandler {
                     message.addData(JSON_DETAILS, getGson().toJson(details));
                     message.addDataObject(JSON_DETAILS, details);
                 } else { // GET RESULTS
-                    final List<Map<String, String>> resList = pubsubManager.read(application, predicate);
+                	
+					String start = parameters.get("start") != null ? parameters.get("start") : "";
+					int count = parameters.get("count") != null ? Integer.parseInt(parameters.get("count")) : 100;
+                    final List<Map<String, String>> resList = pubsubManager.read(application, predicate, start, count, false);
                     if (resList.isEmpty()) {
                         throw new IOBackEndException("No reslult found for Application: " + application
                                         + " Predicate: " + predicate, 404);
                     }
                     message.setDescription("Results found for Application: " + application + " Predicate: " + predicate);
-                    LOGGER.info("Results found for Application: " + application + " Predicate: " + predicate);
+                    LOGGER.info("Results found for Application: " + application + " Predicate: " + predicate
+                    		+ " start: " + start + " count: " + count );
                     message.addData(JSON_RESULTS, getGson().toJson(resList));
                     message.addDataObject(JSON_RESULTS, resList);
                 }
@@ -114,7 +119,11 @@ public class FindRequestHandler extends AbstractRequestHandler {
             LOGGER.debug("Error in doGet operation", e);
             message.setStatus(e.getStatus());
             message.setDescription(e.getMessage());
-        }
+        } catch (UnsupportedEncodingException e) {
+        	LOGGER.debug("Error in doGet operation", e);
+            message.setStatus(404);
+            message.setDescription(e.getMessage());
+		}
 
         printJSonResponse(message, response);
     }
