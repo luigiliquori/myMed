@@ -195,6 +195,10 @@ class SearchView extends MyApplication {
 				<div data-role="collapsible" data-collapsed="true" data-theme="d" data-content-theme="c">
 					<h3>Options Avancées</h3>
 					
+					<h3>Rayon de recherche</h3>
+					<input type="range" name="slider-radius" id="slider-radius" value="<?= TARGET == "mobile" ? "5" : "10" ?>00" min="100"
+					max="5000" data-highlight="true" /> <span style="display: inline;">mètres</span>
+					
 					<h3>Points d'interêts</h3>
 					<div id="<?= APPLICATION_NAME ?>Filter" class="ui-grid-a">
 						<?php $i=0; ?>
@@ -218,10 +222,6 @@ class SearchView extends MyApplication {
 							<option value='1'>oui</option>
 						</select>
 					</fieldset>
-					
-					<h3>Rayon de recherche</h3>
-					<input type="range" name="slider-radius" id="slider-radius" value="<?= TARGET == "mobile" ? "5" : "10" ?>00" min="100"
-					max="5000" data-highlight="true" /> <span style="display: inline;">mètres</span>
 					
 					<h3>Type de Trajet Cityway</h3>
 					<div  id="cityway-search">

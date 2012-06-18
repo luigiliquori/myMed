@@ -93,9 +93,7 @@ function initialize() {
 		for ( var i in array_diff(old, filterArray)) {
 			if(markers[old[i]][currentSegmentID]) {
 				for ( var j=0 ; j< markers[old[i]][currentSegmentID].length ; j++) {
-					//if(markers[key][i][j]) { //maybe necessary?
-						markers[old[i]][currentSegmentID][j].setMap(null);
-					//}
+					markers[old[i]][currentSegmentID][j].setMap(null);
 				}
 			}
 		}
@@ -103,6 +101,11 @@ function initialize() {
 		if ( $('#slider-radius').val() != radius){
 			radius=$('#slider-radius').val();
 			for ( var i in filterArray) {
+				if(markers[filterArray[i]][currentSegmentID]) {
+					for ( var j=0 ; j< markers[filterArray[i]][currentSegmentID].length ; j++) {
+						markers[filterArray[i]][currentSegmentID][j].setMap(null);
+					}
+				}
 				markers[filterArray[i]][currentSegmentID] = null;
 				otherMarkers(currentSegmentID, filterArray[i], pos.lat(), pos.lng(), $('#slider-radius').val());
 			}
@@ -218,13 +221,13 @@ function initFilter() {
 function clearAll() {
 
 	updateFilter();
-	//clearMarkers();
+	clearMarkers();
 	for ( var i = 0; i < directionsDisplays.length; i++)
 		directionsDisplays[i].setMap(null);
 	pmarkers = [];
-	for (key in markers) {
-		markers[key].splice(1, markers[key].length); // just keep current pos POI markers
-	}
+//	for (key in markers) {
+//		markers[key].splice(1, markers[key].length); // just keep current pos POI markers
+//	}
 	directionsDisplays = [];
 	steps = [];
 	currentSegmentID = 0, prevSegmentID = 0;
@@ -232,8 +235,8 @@ function clearAll() {
 	updatezoom = true;
 }
 
-/*function clearMarkers() {
-	for ( var i = 0; i < pmarkers.length && pmarkers[i]; i++) {
+function clearMarkers() {
+	for ( var i = 1; i < pmarkers.length && pmarkers[i]; i++) {
 		pmarkers[i].ib.close();
 		pmarkers[i].setMap(null);
 	}
@@ -250,7 +253,7 @@ function clearAll() {
 			}
 		}
 	}
-}*/
+}
 
 /**
  * 
