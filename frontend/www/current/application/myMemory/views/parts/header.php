@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="../../lib/jquery/jquery.mobile-1.1.0.min.css" />
 	<script src="../../lib/jquery/jquery-1.6.4.min.js"></script>
 	<script src="../../lib/jquery/jquery.mobile-1.1.0.min.js"></script>
+	<script src="../../lib/dasp/javascript/dasp.js"></script>
 	
 	<!-- DateBox -->
 	<script src="../../lib/jquery/datebox/jquery.mobile.datebox.min.js"></script>
@@ -44,18 +45,3 @@
 	</head>
 		
 <body>
-
-<? if (!empty($this->error)): ?>
-<div class="ui-bar ui-bar-e">
-	<h3>Error</h3>
-	<p><?= $this->error ?></p>
-</div>
-<? endif ?>
-<? if (!empty($this->success)): ?>
-<div class="ui-bar ui-bar-e" id="notification-success">
-	<h3><?= $this->success ?></h3>
-	<div style="float:right; margin-top:4px;">
-		<a href="#" data-role="button" data-icon="delete" data-iconpos="notext" onclick="$('#notification-success').fadeOut('fast');">Button</a>
-	</div>
-</div>
-<? endif ?>
