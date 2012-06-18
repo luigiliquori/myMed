@@ -26,7 +26,9 @@ var currentApplication;
 var directionsService;
 var map;
 
-var currentPos;
+var currentPos; //user's geolocation
+var currentPlace; //user's String position
+var pos; //position in the itinary
 
 /* --------------------------------------------------------- */
 /* Setup Lib */
@@ -47,10 +49,11 @@ function setupDASP(id, at, app) {
 	currentApplication = app;
 
 	// EXTENDS Array - add contains method
-	Array.prototype.contains = function(aValue) {
+	/*Array.prototype.contains = function(aValue) {
 		if (this.toString().match(aValue))
 			return true;
-	};
+	};*/
+	// you do array.indexOf(item) > 0
 
 }
 
@@ -64,17 +67,18 @@ function setupDASP(id, at, app) {
  *            id of the map
  */
 function setupDASPMap(mapID, displayPosition, displayError, watchPosition) {
-
 	if (!map) {
 		directionsDisplay = new google.maps.DirectionsRenderer();
 		directionsService = new google.maps.DirectionsService();
-
+		
 		// init Map
 		showLoadingBar("chargement de la carte..."); 
 		map = new google.maps.Map(document.getElementById(mapID), {
 			zoom : 16,
 			center : new google.maps.LatLng(43.7, 7.27),
-			disableDefaultUI: true,
+			//disableDefaultUI: true,
+			mapTypeControl: false,
+			panControl: false,
 			mapTypeId : google.maps.MapTypeId.ROADMAP
 		});
 
@@ -82,7 +86,7 @@ function setupDASPMap(mapID, displayPosition, displayError, watchPosition) {
 		if (navigator.geolocation) {
 			if(watchPosition) {
 				navigator.geolocation.watchPosition(displayPosition, displayError,
-						{enableHighAccuracy : true, timeout: 5000, maximumAge: 0});
+						{ timeout: 60000, maximumAge: 0});
 			} else {
 				navigator.geolocation.getCurrentPosition(displayPosition, displayError,
 						{enableHighAccuracy : true, timeout: 5000, maximumAge: 0});
@@ -92,6 +96,62 @@ function setupDASPMap(mapID, displayPosition, displayError, watchPosition) {
 		}
 	}
 }
+
+function displayPosition(position) {
+
+	var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+//	var latlng = new google.maps.LatLng(43.774481, 7.49754);  // menton
+//	var latlng = new google.maps.LatLng(43.696036, 7.265592); // nice
+//	var latlng = new google.maps.LatLng(43.580418, 7.125102); // antibes
+//	var latlng = new google.maps.LatLng(43.87793, 7.449154);  // sospel
+//	var latlng = new google.maps.LatLng(43.7904171, 7.607139);  // vintimille
+//	var latlng = new google.maps.LatLng(43.757808, 7.473754);	// roquerbune
+	
+//   xhr.open( "GET", "index.php?latitude=" + position.coords.latitude + "&longitude=" + position.coords.longitude,  true); 
+//   xhr.send(null); 
+	
+
+	//$.get("#", { latitude: latlng.lat(), longitude: latlng.lng() } );
+	
+	// if the accuracy is good enough, print a circle to show the area
+	// is use watchPosition instead of getCurrentPosition don't
+	// forget to clear previous circle, using
+	// circle.setMap(null)
+	accuracy = position.coords.accuracy;
+	if (accuracy) {
+		if (circle) {
+			circle.setCenter(latlng);
+			circle.setRadius(accuracy);
+		} else {
+			circle = new google.maps.Circle({
+				strokeColor : "#0000ff",
+				strokeOpacity : 0.2,
+				strokeWeight : 2,
+				fillColor : "#0000ff",
+				fillOpacity : (accuracy < 500) ? 0.1 : 0,
+						map : map,
+						center : latlng,
+						radius : accuracy
+			});
+		}
+	}
+	
+	//give hand to app
+	displayPos(latlng);
+}
+
+
+function displayError(error) {
+	//another try
+	if (error.code == 3) {
+		navigator.geolocation.getCurrentPosition(displayPosition, displayError);
+	} else {
+		//gives hand to app
+		displayErr();
+	}
+	
+}
+
 
 //google.maps.Map.prototype.markers = new Array();
 //
@@ -137,7 +197,7 @@ function focusOnPosition(latitude, longitude) {
 function focusOnLatLng(position) {
 
 	// memorize the position
-	currentPos = position;
+	pos = position;
 
 	// focus on the position
 	map.setCenter(position);
@@ -147,66 +207,6 @@ function focusOnLatLng(position) {
 /* Marker methods */
 /* --------------------------------------------------------- */
 
-/**
- * Get the complete list of Marker around the position according to the radius
- * 
- * @param latitude
- *            latitude in degree
- * @param longitude
- *            longitude in degree
- * @param radius
- *            radius in meter
- */
-
-function getMarkers2(latitude, longitude, type, radius) {
-
-	var result = new Array();
-
-	var res = $.ajax({
-		url : "../../lib/dasp/request/POI.php",
-		data : {
-			'application': $("#applicationName").val() + "Admin",
-			'type': type,
-			'latitude': latitude,
-			'longitude': longitude,
-			'radius': radius
-		},
-		async : false
-	}).responseText;
-
-	if ((resJSON = $.parseJSON(res)) != null) {
-		if ((pois = $.parseJSON(resJSON.data.pois)) != null) {
-			result = result.concat(pois);
-		}
-	}
-	return result;
-}
-
-function getMarkers(latitude, longitude, type, radius) {
-
-	var result = new Array();
-	args = "code=1";
-	args += "&application=" + $("#applicationName").val() + "Admin";
-	args += "&type=" + type;
-	args += "&latitude=" + latitude;
-	args += "&longitude=" + longitude;
-	args += "&radius=" + radius;
-	args += "&accessToken=" + $("#accessToken").val();
-
-	var res = $.ajax({
-		url : "backend/POIRequestHandler",
-		dataType : 'json',
-		data : args,
-		async : false
-	}).responseText;
-
-	if ((resJSON = $.parseJSON(res)) != null) {
-		if ((pois = $.parseJSON(resJSON.data.pois)) != null) {
-			result = result.concat(pois);
-		}
-	}
-	return result;
-}
 
 /**
  * Add a marker on the map
@@ -220,33 +220,32 @@ function getMarkers(latitude, longitude, type, radius) {
  */
 function addMarker(position, icon, title, description, animation, isDraggable, id) {
 	
-	if(animation == null){
-		animation = google.maps.Animation.DROP;
-	}
 	var marker = new google.maps.Marker({
 		draggable : isDraggable,
-		animation : animation,
 		position : position,
+		animation: animation,
 		icon : icon,
 		title : title,
 		map : map
 	});
 
-	var boxText = document.createElement("div");
-	boxText.style.cssText = "background-color: white; padding: 5px; border: thin black solid; border-radius: 5px; color: black;";
-	boxText.innerHTML = 
-		'<h4 style=" margin-top: 2px; margin-bottom: 2px;">' + title + '</h4>' +
-		'<p style="text-align: justify; font-size: 12px;margin: 0;">' + description+ '</p>';
+	if (description){
+		var boxText = document.createElement("div");
+		boxText.style.cssText = "background-color: white; padding: 5px; border: thin black solid; border-radius: 5px; color: black;";
+		boxText.innerHTML = 
+			'<h4 style=" margin-top: 2px; margin-bottom: 2px;">' + title + '</h4>' +
+			'<p style="text-align: justify; font-size: 12px;margin: 0;">' + description+ '</p>';
 
-	var myOptions = {
-			content: boxText,
-			pixelOffset: new google.maps.Size(-200, -10),
-			boxStyle: {
-				opacity: 0.9,
-				width: "180px"
-			}
-	};
-	marker.ib = new InfoBox(myOptions);
+		var myOptions = {
+				content: boxText,
+				pixelOffset: new google.maps.Size(-200, -10),
+				boxStyle: {
+					opacity: 0.9,
+					width: "180px"
+				}
+		};
+		marker.ib = new InfoBox(myOptions);
+	}
 
 	return marker;
 }
@@ -285,5 +284,38 @@ function publishDASPRequest(formID) {
 		url : "#",
 		data : $("#" + formID).serialize(),
 		async : true
+	});
+}
+
+function getPosition(){
+	var params = {
+		'userID': $("#userID").val(),
+		'accessToken': $("#accessToken").val(),
+		'code': 1
+	};
+	
+	$.ajax({
+		url: "../../backend/PositionRequestHandler",
+		data: params,
+		dataType: "json",
+		success: function(data){
+			currentPos = new google.maps.LatLng(
+				data.dataObject.position.latitude,
+				data.dataObject.position.longitude
+			);
+			currentPlace = data.dataObject.position.formattedAddress;
+		}
+	});
+}
+
+function updatePosition(data){	
+	$.ajax({
+		url: "../../backend/PositionRequestHandler",
+		type: "POST",
+		data: data,
+		dataType: "json",
+		success: function(data){
+			
+		}
 	});
 }

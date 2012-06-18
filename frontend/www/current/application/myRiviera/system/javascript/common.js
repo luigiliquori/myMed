@@ -1,3 +1,29 @@
+
+function array_diff (arr1) {
+    // taken from php.js, and modified return type
+    var retArr = [],
+        argl = arguments.length,
+        k1 = '',
+        i = 1,
+        k = '',
+        arr = {};
+ 
+    arr1keys: for (k1 in arr1) {
+        for (i = 1; i < argl; i++) {
+            arr = arguments[i];
+            for (k in arr) {
+                if (arr[k] === arr1[k1]) {
+                    // If it reaches here, it was found in at least one array, so try next value
+                    continue arr1keys;
+                }
+            }
+            retArr.push(arr1[k1]);
+        }
+    }
+ 
+    return retArr;
+}
+
 function displayFrame(frame){
 	$('#' + frame).show("slow");
 }
