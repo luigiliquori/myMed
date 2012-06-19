@@ -17,7 +17,7 @@
 </div>
 
 <div data-role="content" data-theme="a">
-	<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm">
+	<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" data-ajax="false">
 
 
 		<!-- LEVEL OF DISEASE -->

@@ -57,7 +57,7 @@ class LoginController extends AbstractController {
 				// Set user into $_SESSION
 				$this->getUserFromSession();
 				
-				debug("success");
+				//debug("success");
 				
 				// Redirect to main page
 				$this->redirectTo("main");
