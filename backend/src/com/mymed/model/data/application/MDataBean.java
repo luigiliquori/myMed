@@ -19,6 +19,18 @@ import com.mymed.model.data.AbstractMBean;
  * @author Milo Casagrande
  */
 public final class MDataBean extends AbstractMBean {
+	
+	
+	/*  Ontology ID list */
+	public static final int KEYWORD = 0;
+	public static final int GPS     = 1;
+	public static final int ENUM    = 2;
+	public static final int DATE    = 3;
+	public static final int TEXT    = 4;
+	public static final int PICTURE = 5;
+	public static final int VIDEO   = 6;
+	public static final int AUDIO   = 7;
+	
     /**
      * Generated serial ID.
      */

@@ -22,7 +22,21 @@ import com.mymed.model.data.application.MDataBean;
  * limitations under the License.
  */
 public abstract class AbstractMatchMaking extends AbstractRequestHandler {
+	
 
+
+	/**
+	 * 
+	 * contructs all possible indexes between 1 and level from predicateListObject
+	 * 
+	 *  ex: [A, B, C] with level = 2 returns [A.toString(), B.toString(), C.toString(),
+	 *  				 A.toString()+B.toString(), A.toString()+C.toString(), B.toString()+C.toString()]
+	 * 
+	 * @param predicateListObject
+	 * @param level
+	 * @return result
+	 */
+	
 	public List<StringBuffer> getPredicate(final List<MDataBean> predicateListObject, final int level) {
 
 		List<StringBuffer> result = new ArrayList<StringBuffer>();
@@ -37,8 +51,7 @@ public abstract class AbstractMatchMaking extends AbstractRequestHandler {
 
 				while (mask > 0) {
 					if ((mask & 1) == 1) {
-						bufferPredicate.append(predicateListObject.get(j).getKey());
-						bufferPredicate.append(predicateListObject.get(j).getValue());
+						bufferPredicate.append(predicateListObject.get(j).toString());
 					}
 					mask >>= 1;
 					j++;
@@ -53,10 +66,22 @@ public abstract class AbstractMatchMaking extends AbstractRequestHandler {
 		return result;
 	}
 	
-    long nextCombo(long n) {
+    private long nextCombo(long n) {
 		// moves to the next combination with the same number of 1 bits
 		long u = n & (-n);
 		long v = u + n;
 		return v + (((v ^ n) / u) >> 2);
+	}
+    
+    
+    public List<MDataBean> getOntologyList(final List<MDataBean> predicateListObject, final int ontologyID) {
+
+    	List<MDataBean> result = new ArrayList<MDataBean>();
+		for (MDataBean item : predicateListObject) {
+			if (ontologyID == Integer.parseInt(item.getOntologyID())){
+				result.add(item);
+			}
+		}
+		return result;
 	}
 }
