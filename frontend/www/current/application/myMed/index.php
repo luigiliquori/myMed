@@ -22,7 +22,7 @@
 	set_include_path(get_include_path().PATH_SEPARATOR.MYMED_ROOT . '/application/myMed/');
 
 	// CHECK LOGIN
-	require_once MYMED_ROOT . 'system/controllers/LoginController.class.php';
+	require_once MYMED_ROOT . 'system/controllers/deprecated/LoginController.class.php';
 	$loginController = new LoginController();
 	$loginController->handleRequest();
 	define('USER_CONNECTED', isset($_SESSION['user']));

@@ -32,7 +32,7 @@ class PublishRequest extends Request {
 	private /*String*/				$publisher;
 
 
-	public function __construct(/*IRequestHandler*/ $handler, DataBean $dataBean, /*String*/ $publisher = NULL ) {
+	public function __construct(/*IRequestHandler*/ $handler, /** DataBean */ $dataBean, /*String*/ $publisher = NULL ) {
 		parent::__construct("PublishRequestHandler", CREATE);
 		$this->handler	= $handler;
 		$this->dataBean = $dataBean;
@@ -76,17 +76,18 @@ class PublishRequest extends Request {
 		parent::addArgument("user", $user);
 		parent::addArgument("predicate", $predicate);
 		parent::addArgument("data", $data);
-			
+		
 		$responsejSon = parent::send();
 		$responseObject = json_decode($responsejSon);
 			
-		if($responseObject->status != 200) {
-			$this->handler->setError($responseObject->description);
-		} else {
-			$this->handler->setSuccess("Request sent!");
-		}
+		if ($responseObject->status != 200) {
+			if (is_null($this->handler)) {
+				throw new Exception($responseObject->description);
+			} else {
+				$this->handler->setError($responseObject->description);
+			}
+		} 
 			
-		return $responsejSon;
-		}
+	}
 }
 ?>

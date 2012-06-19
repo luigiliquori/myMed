@@ -50,23 +50,31 @@ class FindRequest extends Request {
 	/* --------------------------------------------------------- */
 	public /*string*/ function send() {
 
-
 		// Construct the requests
 		parent::addArgument("application", APPLICATION_NAME);
 		parent::addArgument("predicate", $this->predicate);
 		parent::addArgument("user", $this->user);
 
 		// Classical matching
-		//debug(json_encode($this->predicate));	
 		$responsejSon = parent::send();
 		$responseObject = json_decode($responsejSon);
-		if($responseObject->status != 200) {
-			$this->handler->setError($responseObject->description);
+		
+		if ($responseObject->status != 200) { // Error
+			if (!is_null($this->handler)) {
+				$this->handler->setError($responseObject->description);
+			} else {
+				throw new Exception($responseObject->description);
+			}
 		} else {
-			$this->handler->setSuccess($responseObject->data->details);
+			if (!is_null($this->handler)) { // Success
+				
+				// Dirty !!
+				$this->handler->setSuccess($responseObject->data->details);
+			} 
+			
+			// Result
+			return $responseObject->data->details;
 		}
-
-		return $responsejSon;
 	}
 }
 ?>
