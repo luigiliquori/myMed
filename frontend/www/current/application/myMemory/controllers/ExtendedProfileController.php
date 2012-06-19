@@ -92,7 +92,7 @@ class ExtendedProfileController extends AbstractController
 			$this->renderView("ExtendedProfileForm");
 			else {
 				$this->success = "Complément de profil enregistré avec succès!";
-				$this->renderView("main");
+				$this->redirectTo("main");
 			}
 			
 		}
