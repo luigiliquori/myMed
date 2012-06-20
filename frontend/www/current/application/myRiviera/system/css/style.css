@@ -37,21 +37,8 @@ body {
 	vertical-align	: middle;
 }
 
-.ui-btn-text img {
-	position: absolute;
-}
 
-.ui-link-inherit {
-	position: relative;
-	left: 70px;
-	height: 40px;
-}
 
-.ui-icon img {
-	position: absolute;
-	right:-5px;
-	top:-5px;
-}
 
 .tabMask {
 	position: relative;
