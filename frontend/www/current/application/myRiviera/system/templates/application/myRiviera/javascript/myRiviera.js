@@ -46,6 +46,8 @@ function initialize() {
 	setupDASP($("#userID").val(), $("#accessToken").val(),
 			$("#applicationName").val());
 
+	showLoadingBar("chargement de la carte..."); 
+	
 	// INITIALIZE DASP->MAP
 	setupDASPMap($("#applicationName").val() + "Map", displayPosition,
 			displayError, false);
@@ -124,12 +126,40 @@ function resizeMap() {
 	$("#" + $("#applicationName").val() + "Map").height($("body").height() );
 }
 
-/**
- * Géoloc - ok
- * 
- * @param google.maps.LatLng latlng 
- */
-function displayPos(latlng) {
+function displayPosition(position) {
+
+	var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+//	var latlng = new google.maps.LatLng(43.774481, 7.49754);  // menton
+//	var latlng = new google.maps.LatLng(43.696036, 7.265592); // nice
+//	var latlng = new google.maps.LatLng(43.580418, 7.125102); // antibes
+//	var latlng = new google.maps.LatLng(43.87793, 7.449154);  // sospel
+//	var latlng = new google.maps.LatLng(43.7904171, 7.607139);  // vintimille
+//	var latlng = new google.maps.LatLng(43.757808, 7.473754);	// roquerbune
+	
+	//$.get("#", { latitude: latlng.lat(), longitude: latlng.lng() } );
+	
+	// if the accuracy is good enough, print a circle to show the area
+	// is use watchPosition instead of getCurrentPosition don't
+	// forget to clear previous circle, using
+	// circle.setMap(null)
+	accuracy = position.coords.accuracy;
+	if (accuracy) {
+		if (circle) {
+			circle.setCenter(latlng);
+			circle.setRadius(accuracy);
+		} else {
+			circle = new google.maps.Circle({
+				strokeColor : "#0000ff",
+				strokeOpacity : 0.2,
+				strokeWeight : 2,
+				fillColor : "#0000ff",
+				fillOpacity : (accuracy < 500) ? 0.1 : 0,
+						map : map,
+						center : latlng,
+						radius : accuracy
+			});
+		}
+	}
 	
 	// Store the position into cassandra
 	var geocoder = new google.maps.Geocoder();
@@ -179,18 +209,15 @@ function displayPos(latlng) {
 	hideLoadingBar();
 }
 
-/**
- * Géoloc - ko
- */
-function displayErr() {
-	
-	// focus on lastest position known for this user
+
+
+function displayError(error) {
 	if (focusOnCurrentPosition) {
 		focusOnLatLng(new google.maps.LatLng($("#userLat").val() || 43.774481, $("#userLng").val() || 7.49754));
 		focusOnCurrentPosition = false;
 	}
-	
 }
+
 
 /* --------------------------------------------------------- */
 /* public methods */
@@ -280,7 +307,7 @@ function otherMarkers(index, type, lat, lon, rad) {
 		// "http://mymed20.sophia.inria.fr:8080/backend/POIRequestHandler"
 		// "../../lib/dasp/request/POI.php"
 		$.ajax({
-			url: "../../backend/POIRequestHandler",
+			url: "../../lib/dasp/request/POI.php",
 			data: params,
 			dataType: "json",
 			success: function(data){
@@ -743,7 +770,7 @@ function validateIt() {
 						hideLoadingBar();
 					},
 					error : function(data) {
-						hideLoadingBar();
+//						hideLoadingBar();
 					}
 				});
 			} else {

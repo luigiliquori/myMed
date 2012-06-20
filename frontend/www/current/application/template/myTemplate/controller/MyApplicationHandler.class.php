@@ -74,7 +74,7 @@ class MyApplicationHandler implements IRequestHandler {
 				
 				
 				
-				$publish = new Publish($this, $dataBean);
+				$publish = new PublishRequest($this, $dataBean);
 				return $publish->send();
 			} else if($_POST['method'] == "subscribe") {
 				

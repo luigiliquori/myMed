@@ -67,6 +67,7 @@ public abstract class AbstractMatchMaking extends AbstractRequestHandler {
 		return result;
 	}
 	
+
     private long nextCombo(long n) {
     	// Gosper's hack, doesn't support level>= 64, there are other recursive functions to replace it without this limit
 		

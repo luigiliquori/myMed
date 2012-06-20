@@ -1,5 +1,5 @@
 <?php include("header.php")?>
-
+<? include("notifications.php")?>
 <div data-role="page" id="Home">
 	<div data-role="header" data-position="fullscreen">
 		<a href="index.php?action=login" class="homeButton ui-btn-left" data-transition="pop" >Log In</a>

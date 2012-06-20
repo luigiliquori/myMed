@@ -32,7 +32,7 @@
 		
 		//by ajax to do it after geolocation
 		
-		/*if(isset($_GET["latitude"]) && isset($_GET["longitude"])) {
+		if(isset($_GET["latitude"]) && isset($_GET["longitude"])) {
 			
 			$request = new Request("PositionRequestHandler", UPDATE);
 			$position = new MPositionBean();
@@ -50,10 +50,10 @@
 			$responsejSon = $request->send();
 			$responseObject = json_decode($responsejSon);
 			
-		}*/
+		}
 		
 		// GET THE LASTEST KNOWN POSITION OF THE USER: TODO move this part
-		/*$request = new Request("PositionRequestHandler", READ);
+		$request = new Request("PositionRequestHandler", READ);
 		$request->addArgument("userID", $_SESSION['user']->id);
 		$request->addArgument("accessToken", $_SESSION['accessToken']);
 		
@@ -62,7 +62,7 @@
 		
 		if($responseObject->status == 200) {
 			$_SESSION['position'] =  $responseObject->dataObject->position;
-		}*/
+		}
 	}
 	/* ----------------------------------------------------------------------------- */
 	

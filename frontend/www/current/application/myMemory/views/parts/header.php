@@ -1,3 +1,4 @@
+<? include_once('utils.php'); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">  
 
@@ -17,13 +18,23 @@
 	<script src="../../lib/jquery/datebox/jquery.mobile.datebox.min.js"></script>
 	<link href="../../lib/jquery/datebox/jquery.mobile.datebox.min.css" rel="stylesheet" />
 	
+	<!-- MYMED JS -->
+	<script src="../myMed/javascript/common.js"></script>
 	<!-- APP JS -->
-	<script src="../../system/javascript/common.js"></script>
 	<script src="javascript/app.js"></script>
 	
+	<!-- MYMED css -->
+	<link href="../myMed/css/style.css" rel="stylesheet" />
 	<!-- APP css -->
-	<link href="../../system/css/style.css" rel="stylesheet" />
+	<link href="css/style.css" rel="stylesheet" />
 	
+	<!-- GOOGLE MAP -->
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&libraries=places"></script>
+	<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox_packed.js"></script>
+	
+	<!-- DASP -->
+	<script src='../../lib/dasp/javascript/dasp.js'></script>
+
 	<!-- Google Analytics -->
 	<script type="text/javascript">
 	  var _gaq = _gaq || [];
@@ -40,28 +51,3 @@
 	</head>
 		
 <body>
-
-<? if (!empty($this->error)): ?>
-<div id="mm-error-box" data-role="navbar" data-theme="e" class="ui-bar-e error-box" >
-	<h3><?= _("Error") ?></h3>
-	<p><?= $this->error ?></p>
-	<a href=".error-box" data-icon="delete" data-action="close"><?= _("Close") ?></a>
-</div>
-<? endif ?>
-
-<? if (!empty($this->success)): ?>
-<div id="mm-success-box" data-role="navbar" data-theme="g" class="ui-bar-g success-box">
-	<h3><?= _("Message") ?></h3>
-	<p><?= $this->success ?></p>
-	<a href=".success-box" data-icon="delete" data-action="close"><?= _("Close") ?></a>
-</div>
-<? endif ?>
-
-<? // Switch to active tab on load
-if (!empty($TAB)) :?>
-<script type="text/javascript">
-	$(document).ready(function() {
-		$.mobile.changePage("#<?= $TAB ?>", {transition:"none"})
-	});
-</script>
-<? endif ?>

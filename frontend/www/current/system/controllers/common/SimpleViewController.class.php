@@ -14,12 +14,12 @@ abstract class SimpleViewController extends AuthenticatedController {
 		// Inherited authentication check
 		parent::handleRequest();
 		
-		// Build the action name
+		// Build the action name from the name of the controller
 		$actionName = get_class($this);
 		$actionName = str_replace("Controller", "", $actionName);
 		$actionName = lcfirst($actionName);
 		
-		// Render its view
+		// Render the corresponding view
 		$this->renderView($actionName);
 	}
 }
