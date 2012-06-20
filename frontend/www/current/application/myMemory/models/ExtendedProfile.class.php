@@ -148,15 +148,13 @@ class ExtendedProfile
 	 * @param String $user_id
 	 * @return void. The result is put in the success of the Handled provided
 	 */
-	public static /*void*/ function getExtendedProfile(IRequestHandler $handler, $user){
+	public static /* List of ontologies */ function getExtendedProfile(IRequestHandler $handler, $user){
 		
 		$predicate = "roleExtendedProfile";
 		
 		$find = new FindRequest($handler, $predicate, $user);
-		
-		$find->send();
-		
-		
+		return $find->send();
+			
 	}
 	
 	
