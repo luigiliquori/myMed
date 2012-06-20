@@ -119,6 +119,19 @@ function initialize() {
 	initFilter();
 
 	resizeMap();
+	
+	$('#depart').keyup(function(event) {
+		if (event.keyCode == 13) {
+			validateIt();
+			location.href="#Map";
+		}
+	});
+	$('#arrivee').keyup(function(event) {
+		if (event.keyCode == 13) {
+			validateIt();
+			location.href="#Map";
+		}
+	});
 
 }
 
@@ -171,11 +184,11 @@ function displayPosition(position) {
 				'latitude': latlng.lat(),
 				'longitude': latlng.lng(),
 				'formattedAddress': address
-			}
+			};
 			var params = {
-				'userID': $("#userID").val(),
+				//'userID': $("#userID").val(),
 				'position': JSON.stringify(position),
-				'accessToken': $("#accessToken").val(),
+				//'accessToken': $("#accessToken").val(),
 				'code': 2,
 			};
 			updatePosition(params);
@@ -297,17 +310,19 @@ function otherMarkers(index, type, lat, lon, rad) {
 			'latitude': lat || steps[index - 1].position.lat(),
 			'longitude': lon || steps[index - 1].position.lng(),
 			'radius': rad || $('#slider-radius').val(),
-			'accessToken': $("#accessToken").val(),
-			'code': 1
+			//'accessToken': $("#accessToken").val(),
+			//'code': 1
 		};
 
 		//getMarkers
 		//will do async write in markers[index], and on map
 		
-		// "http://mymed20.sophia.inria.fr:8080/backend/POIRequestHandler"
-		// "../../lib/dasp/request/POI.php"
+		// 3 possible ways
+		// direct: "../../backend/POIRequestHandler" put it with dapaType:"jsonp"
+		// direct: jsonp : "http://mymed.fr:8080/backend/POIRequestHandler" put it with dapaType:"jsonp"
+		// with a proxy: "../../lib/dasp/ajax/POI.php"
 		$.ajax({
-			url: "../../lib/dasp/request/POI.php",
+			url: "../../lib/dasp/ajax/POI.php",
 			data: params,
 			dataType: "json",
 			success: function(data){
@@ -536,7 +551,7 @@ function calcRouteByCityway(result) {
 		content2 = (tripSegment.comment || '&nbsp;');
 		steps[i]['desc'] = content1 + '<br />' + content2;
 		
-		desc = $('<li style="padding:5px;"><img alt="no picture" src="' + icon + '" /><a href="#Map" onclick="updateMarkers('+ (i+1)+ ');"><p style="position: relative; left: -16px;">' + content1 + '<br />' + content2 + '</p></a></li>');
+		desc = $('<li><img style="top: 5px;" alt="no picture" src="' + icon + '" /><a href="#Map" onclick="updateMarkers('+ (i+1)+ ');"><p style="position: relative; left: -16px;white-space:normal;margin-right:50px;">' + content1 + '<br />' + content2 + '</p></a></li>');
 
 		desc.appendTo($('#itineraireContent'));
 
@@ -637,7 +652,7 @@ function calcRouteByGoogle(printTrip) {
 								'desc' : content1 + '<br />' + content2
 						};
 
-						desc = $('<li style="padding:5px;"><img alt="no picture" src="' + icon + '" /><a href="#Map" onclick="updateMarkers('+ (i+1)+ ');"><p style="position: relative; left: -16px;">' + content1 + '<br />' + content2 + '</p></a></li>');
+						desc = $('<li"><img style="top: 5px;" alt="no picture" src="' + icon + '" /><a href="#Map" onclick="updateMarkers('+ (i+1)+ ');"><p style="position: relative; left: -16px;white-space:normal;margin-right:50px;">' + content1 + '<br />' + content2 + '</p></a></li>');
 						desc.appendTo($('#itineraireContent'));
 					}
 

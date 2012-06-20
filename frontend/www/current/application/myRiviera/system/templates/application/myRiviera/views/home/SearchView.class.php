@@ -100,12 +100,12 @@ class SearchView extends MyApplication {
 		
 				<!-- FROM -->
 				Départ :
-				<input data-theme="d" type="text" id="depart" name="Depart" onsubmit="setTimeout(validateIt, 500);"/>
+				<input data-theme="d" type="text" id="depart" name="Depart" />
 				<br />
 				
 				<!-- TO -->
 				Arrivée :
-				<input data-theme="d" type="text" id="arrivee" name="Arrivee" onsubmit="setTimeout(validateIt, 500);"/>
+				<input data-theme="d" type="text" id="arrivee" name="Arrivee" />
 				<!-- FRIENDS -->
 				<?php if(isset($_SESSION['friends'])) {
 					$knownFriends =  array(); 

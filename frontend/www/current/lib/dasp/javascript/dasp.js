@@ -26,9 +26,10 @@ var currentApplication;
 var directionsService;
 var map;
 
-var currentPos; //user's geolocation
+var currentPos; //user's google.maps.LatLng location 
 var currentPlace; //user's String position
-var pos; //position in the itinary
+
+var pos; //position in the itinary, should be moved to myRiviera
 
 /* --------------------------------------------------------- */
 /* Setup Lib */
@@ -209,13 +210,14 @@ function publishDASPRequest(formID) {
 
 function getPosition(){
 	var params = {
-		'userID': $("#userID").val(),
-		'accessToken': $("#accessToken").val(),
+		//'userID': $("#userID").val(),
+		//'accessToken': $("#accessToken").val(),
 		'code': 1
 	};
 	
 	$.ajax({
-		url: "../../backend/PositionRequestHandler",
+		//url: "../../backend/PositionRequestHandler",
+		url: "../../lib/dasp/ajax/Position",
 		data: params,
 		dataType: "json",
 		success: function(data){
@@ -230,7 +232,8 @@ function getPosition(){
 
 function updatePosition(data){	
 	$.ajax({
-		url: "../../backend/PositionRequestHandler",
+		//url: "../../backend/PositionRequestHandler",
+		url: "../../lib/dasp/ajax/Position",
 		type: "POST",
 		data: data,
 		dataType: "json",

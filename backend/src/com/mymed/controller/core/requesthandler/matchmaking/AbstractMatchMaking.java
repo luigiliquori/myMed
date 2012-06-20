@@ -35,7 +35,7 @@ public abstract class AbstractMatchMaking extends AbstractRequestHandler {
 	 * 
 	 * @param predicateListObject
 	 * @param level
-	 * @return result
+	 * @return List of StringBuffers
 	 */
 	
 	public List<StringBuffer> getPredicate(final List<MDataBean> predicateListObject, final int level) {
