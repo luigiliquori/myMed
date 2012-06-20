@@ -8,7 +8,7 @@ class LogoutController extends AbstractController {
 	 */
 	public /*void*/ function handleRequest() {
 	
-			debug("Logout !");
+			//debug("Logout !");
 		
 			// DELETE BACKEND SESSION
 			$request = new Request("SessionRequestHandler", DELETE);

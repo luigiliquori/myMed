@@ -1,26 +1,46 @@
 <? include("header.php"); ?>
 <? include("notifications.php")?>
-<script type="text/javascript">
 
+<div data-role="page" id="GoingBack">
+<script type="text/javascript">
+	$("#GoingBack").live('pageinit', function() {
+		initialize_map();
+
+		var testLatlng = new google.maps.LatLng("43.553532", "7.021980");
+
+	});
 </script>
 
 
-<div data-role="page" id="GoingBack">
 	<div data-role="header" data-position="inline">
-		<a href="?action=logout" rel="external" data-role="button" data-theme="r" class="ui-btn-left" data-icon="delete">Exit</a>
+		<a href="?action=main" data-rel="back" data-role="button" class="ui-btn-left" data-icon="back">Back</a>
 		<h1>MyMemory</h1>
 		<a href="?action=ExtendedProfile" data-role="button" data-icon="gear">Profile</a>
 	</div>
 	<div data-role="content" data-theme="a">
-		<div id="map_canvas" style="height:200px;"></div>
+		<div id="myMap"></div>
 		<br />
 		<ul data-role="listview" data-inset="true" >
 			<li data-icon="home" data-theme="b"><a href="#">Domicile</a></li>
-			<li><a href="#"><?= $_SESSION['ExtendedProfile']->callingList[0]["name"] ?></a></li>
-			<li><a href="#"><?= $_SESSION['ExtendedProfile']->callingList[1]["name"] ?></a></li>
-			<li><a href="#"><?= $_SESSION['ExtendedProfile']->callingList[2]["name"] ?></a></li>
-			<li data-icon="alert" data-theme="e"><a href="#"><?= $_SESSION['ExtendedProfile']->callingList[3]["name"] ?></a></li>
+			<?php
+			for($i = 0; $i < count($_SESSION['ExtendedProfile']->callingList); $i++ ) {
+				$last_arg =  'data-icon="alert" data-theme="e"';
+				
+				if($i == count($_SESSION['ExtendedProfile']->callingList) -1 ) {
+					echo "<li ".$last_arg.">";
+				}
+				else
+					echo "<li>";
+				
+				echo '<a href="#">';
+				echo $_SESSION['ExtendedProfile']->callingList[$i]["name"];
+				echo '</a></li>';
+				
+			}
+			?>
+			
 		</ul>
 	</div>
+	
+<? include("footer.php"); ?>	
 </div>
-<? include("footer.php"); ?>
