@@ -51,7 +51,7 @@ add_path(APP_ROOT . '/models/');
 add_path(APP_ROOT . '/views/');
 add_path(APP_ROOT . '/views/parts');
 add_path(MYMED_ROOT . '/lib/dasp/beans');
-add_path(MYMED_ROOT . '/system/controllers/common');
+add_path(MYMED_ROOT . '/system/controllers/');
 add_path(MYMED_ROOT . '/lib/dasp/request');
 
 // Get config
@@ -85,12 +85,9 @@ session_start();
 $action = isset($_REQUEST["action"]) ? $_REQUEST["action"] : "main";
 
 // Hardcoded action "register" if we have GET["register"]="ok" (link from confirmation email)
-if (isset($_GET['registration'])) {
-	if ($_GET['registration'] == "ok") {
-		$action = "register";
-	}	
+if (isset($_GET['registration']) && ($_GET['registration'] == "ok")) {
+	$action = "register";
 }
-
 
 // Name/Path of view and controllers
 $className = ucfirst($action) . "Controller";
