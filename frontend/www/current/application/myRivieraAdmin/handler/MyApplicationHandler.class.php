@@ -58,36 +58,24 @@ class MyApplicationHandler implements IRequestHandler {
 				}
 				
 			}
-		} else if(isset($_POST['longitude']) && isset($_POST['latitude']) && isset($_POST['radius'])){
-			$request = new Request("POIRequestHandler", READ);
+		} else if(isset($_POST['addPOI'])){
+			$request = new Request("POIRequestHandler", CREATE);
 			$request->addArgument("application", APPLICATION_NAME);
-			$request->addArgument("type", "Bibliotheque");
+			$request->addArgument("user", $_SESSION["user"]->id);
+			$request->addArgument("accessToken", $_SESSION["accessToken"]);
+
+			$request->addArgument("type", $_POST['type']);
 			$request->addArgument("longitude", $_POST['longitude']);
 			$request->addArgument("latitude", $_POST['latitude']);
-			$request->addArgument("radius", $_POST['radius']);
-			$request->addArgument("accessToken", $_SESSION["accessToken"]);
-			
-			$responsejSon = $request->send();
-			$responseObject = json_decode($responsejSon);
-			
-			if($responseObject->status == 200) {
-				echo '<script type="text/javascript">alert(\'' . json_encode($responseObject->data) . '\');</script>';
-			}
-			
-// 			$request = new Request("POIRequestHandler", READ);
-// 			$request->addArgument("application", APPLICATION_NAME);
-// 			$request->addArgument("type", "carf");
-// 			$request->addArgument("longitude", $_POST['longitude']);
-// 			$request->addArgument("latitude", $_POST['latitude']);
-// 			$request->addArgument("radius", $_POST['radius']);
-// 			$request->addArgument("accessToken", $_SESSION["accessToken"]);
-				
-// 			$responsejSon = $request->send();
-// 			$responseObject = json_decode($responsejSon);
-				
-// 			if($responseObject->status == 200) {
-// 				echo '<script type="text/javascript">alert(\'' . json_encode($responseObject->data) . '\');</script>';
-// 			}
+			$value = '{
+							"longitude" : "'. $_POST['longitude'] .'", 
+							"latitude" : "'. $_POST['latitude'] .'", 
+							"title" : "'. $_POST['title'] .'", 
+							"description" : "'. $_POST['description'] .'", 
+							"icon" : ""
+							}';
+			$request->addArgument("value", $value);
+			$request->send();
 		}
 	}
 	

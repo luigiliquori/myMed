@@ -15,10 +15,8 @@
 	define('APPLICATION_NAME', "myRivieraAdmin");
 	define('USER_CONNECTED', isset($_SESSION['user']));
 	
-	// CREATE THE HTML HEADER
-	require_once dirname(__FILE__).'/TemplateManager.class.php';
-	$template = new TemplateManager();
-	$template->getHeader();
+
+	include ('header.php');
 	
 	// IMPORTS ALL THE HANDLER
 	require_once dirname(__FILE__).'/handler/MyApplicationHandler.class.php';	new MyApplicationHandler();
@@ -30,12 +28,16 @@
 	// IMPORTS ALL THE VIEWS
 	require_once dirname(__FILE__).'/views/AbstractView.class.php';	
 	if(USER_CONNECTED) {
+		// DEFINE ATTRIBUTES FOR THE JAVASCRIPT PART (AJAX CALL)
+		// TODO REMOVE THIS
+		echo "<input type='hidden' id='userID' value='" . $_SESSION['user']->id . "' />";
+		echo "<input type='hidden' id='applicationName' value='" . APPLICATION_NAME . "' />";
+		echo "<input type='hidden' id='accessToken' value='" . $_SESSION['accessToken'] . "' />";
 		require_once dirname(__FILE__).'/views/home/PublishView.class.php';		new PublishView();
 	} else {
 		require_once dirname(__FILE__).'/views/login/mobile/Login.class.php';	new Login($inscription);
 	}
 	
-	// CLOSE THE HTML PAGE
-	$template->getFooter();
+	include ('footer.php');
 	
 ?>

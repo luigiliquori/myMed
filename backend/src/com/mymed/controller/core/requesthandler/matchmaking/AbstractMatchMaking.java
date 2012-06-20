@@ -23,6 +23,12 @@ import com.mymed.model.data.application.MDataBean;
  */
 public abstract class AbstractMatchMaking extends AbstractRequestHandler {
 
+	/**
+	 * 
+	 * @param predicateListObject
+	 * @param level
+	 * @return
+	 */
 	public List<StringBuffer> getPredicate(final List<MDataBean> predicateListObject, final int level) {
 
 		List<StringBuffer> result = new ArrayList<StringBuffer>();
@@ -53,7 +59,12 @@ public abstract class AbstractMatchMaking extends AbstractRequestHandler {
 		return result;
 	}
 	
-    long nextCombo(long n) {
+	/**
+	 * 
+	 * @param n
+	 * @return
+	 */
+    private long nextCombo(long n) {
 		// moves to the next combination with the same number of 1 bits
 		long u = n & (-n);
 		long v = u + n;

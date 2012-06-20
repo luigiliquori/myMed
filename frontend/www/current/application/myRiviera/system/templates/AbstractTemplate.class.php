@@ -57,8 +57,6 @@ abstract class AbstractTemplate {
 		});
 		</script>
 		<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
-		<script src="../../lib/jquery/datebox/jquery.mobile.datebox.min.js"></script>
-		<link href="../../lib/jquery/datebox/jquery.mobile.datebox.min.css" rel="stylesheet" />
 		
 		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&libraries=places"></script>
 		
@@ -75,7 +73,6 @@ abstract class AbstractTemplate {
 					}
 			    } 
 		}
-		echo '<script type="text/javascript">setTimeout("initialize()", 1000);</script>';
 		
 		// LOAD THE CSS OF THE APPLICATION
 		if ($handle = opendir("system/templates/application/" . APPLICATION_NAME . '/css')) {
