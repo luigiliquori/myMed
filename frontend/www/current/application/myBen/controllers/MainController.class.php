@@ -23,6 +23,8 @@ class MainController extends AuthenticatedController {
 			$this->fillObj($search);
 			$this->result = $search->find();
 			
+			$this->renderView("results");
+			
 		} else {
 			// Simply show the form
 		}
@@ -30,11 +32,12 @@ class MainController extends AuthenticatedController {
 		$this->renderView("main");
 	}
 	
-	// Fill object with POSt values
+	// Fill object with POST values
 	private function fillObj($obj) {
 		$obj->begin = $_POST['begin'];
 		$obj->end = $_POST['end'];
-		$obj->data = $_POST['data'];
+		$obj->wrapped1 = $_POST['wrapped1'];
+		$obj->wrapped2 = $_POST['wrapped2'];
 		
 		$obj->pred1 = $_POST['pred1'];
 		$obj->pred2 = $_POST['pred2'];

@@ -84,7 +84,7 @@ session_start();
 // Get action, default is "main"
 $action = isset($_REQUEST["action"]) ? $_REQUEST["action"] : "main";
 
-// Hardcoded action "egister" if we have GET["register"]="ok" (link from confirmation email)
+// Hardcoded action "register" if we have GET["register"]="ok" (link from confirmation email)
 if (isset($_GET['registration']) && ($_GET['registration'] == "ok")) {
 	$action = "register";
 }

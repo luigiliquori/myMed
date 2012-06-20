@@ -7,6 +7,9 @@
 	<h1><?= APPLICATION_NAME ?></h1>
 	
 	<a href="?action=logout" rel="external" data-role="button" data-theme="r">Quit</a>
+	
+	<? include("notifications.php")?>
+	
 </div>
 
-<? include("notifications.php")?>
+

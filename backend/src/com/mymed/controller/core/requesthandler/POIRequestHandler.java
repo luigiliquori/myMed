@@ -172,7 +172,8 @@ public class POIRequestHandler extends AbstractRequestHandler {
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            String application, type, user, longitude, latitude, value;
+            final String application, type, user, longitude, latitude, value;
+            user = parameters.get(JSON_USERID) != null ? parameters.get(JSON_USERID) : parameters.get(JSON_USER);
 
             if (code == RequestCode.CREATE) {
                 message.setMethod(JSON_CODE_CREATE);
@@ -182,8 +183,8 @@ public class POIRequestHandler extends AbstractRequestHandler {
                     throw new InternalBackEndException("missing application argument!");
                 } else if ((type = parameters.get(JSON_TYPE)) == null) {
                     throw new InternalBackEndException("missing type argument!");
-                } else if ((user = parameters.get(JSON_USER)) == null) {
-                    throw new InternalBackEndException("missing user argument!");
+                } else if (user == null) {
+                    throw new InternalBackEndException("missing userID argument!");
                 } else if ((longitude = parameters.get(JSON_LON)) == null) {
                     throw new InternalBackEndException("missing longitude argument!");
                 } else if ((latitude = parameters.get(JSON_LAT)) == null) {

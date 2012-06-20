@@ -61,16 +61,16 @@ class Login extends AbstractView {
 			}
 			if($handler->getError()) {
 				echo '<div id="loginError" style="color: red;">';
-					$handler->getError();
+				echo $handler->getError();
 				echo '</div>';
 			} else if(isset($_SESSION['error'])) {
 				echo '<div id="loginError" style="color: red;">';
-					$_SESSION['error'];
-					$_SESSION['error'] = null;
+				echo $_SESSION['error'];
 				echo '</div>';
+				$_SESSION['error'] = null;
 			} else if($handler->getSuccess()) {
 				echo '<div style="color: #12ff00;">';
-					 $handler->getSuccess();
+				echo $handler->getSuccess();
 				echo '</div>';
 			} 
 			?>

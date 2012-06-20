@@ -176,7 +176,7 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
         if ((userBean != null) && (authenticationBean != null)) {
             authenticationManager.create(userBean, authenticationBean);
             // delete pending tasks
-            pubSubManager.delete(APP_NAME, accessToken, accessToken, userBean);
+            pubSubManager.delete(APP_NAME, accessToken, accessToken, userBean.getId());
         }
     }
 }

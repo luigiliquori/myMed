@@ -10,12 +10,7 @@
 			<input type="submit" value="<?= _("Connection") ?>" data-theme="b" />
 	
 		</form>
-		
-	</div>
-	
-
 	<!--  Register form -->
 	<a href="?action=register"  data-role="button"><?= _("Register") ?></a>
-
 </div>
 <? include("footer.php"); ?>

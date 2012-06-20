@@ -56,6 +56,7 @@ class OptionView extends MyApplication {
 					<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="100">
 				<?php } ?>
 				<br />
+				<!-- <a onclick="capturePhoto();" type="button" data-theme="d">Prendre une photo</a>  -->
 				Prenom: <?= $_SESSION['user']->firstName ?><br />
 				Nom: <?= $_SESSION['user']->lastName ?><br />
 				Date de naissance: <?= $_SESSION['user']->birthday ?><br />

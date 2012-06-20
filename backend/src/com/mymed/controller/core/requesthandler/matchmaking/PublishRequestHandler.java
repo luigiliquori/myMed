@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.mymed.controller.core.requesthandler;
+package com.mymed.controller.core.requesthandler.matchmaking;
 
 import java.lang.reflect.Type;
 import java.net.URLDecoder;
@@ -34,7 +34,9 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.pubsub.PubSubManager;
+import com.mymed.controller.core.requesthandler.AbstractRequestHandler;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.application.MDataBean;
 import com.mymed.model.data.user.MUserBean;
@@ -44,7 +46,7 @@ import com.mymed.model.data.user.MUserBean;
  */
 @MultipartConfig
 @WebServlet("/PublishRequestHandler")
-public class PublishRequestHandler extends AbstractRequestHandler {
+public class PublishRequestHandler extends AbstractMatchMaking {
 
     /**
      * Generated serial ID.
@@ -57,10 +59,11 @@ public class PublishRequestHandler extends AbstractRequestHandler {
     private static final String JSON_PREDICATE = JSON.get("json.predicate");
 
     private final PubSubManager pubsubManager;
+    private ProfileManager profileManager;
 
-    public PublishRequestHandler() {
+    public PublishRequestHandler() throws InternalBackEndException {
         super();
-
+        profileManager = new ProfileManager();
         pubsubManager = new PubSubManager();
     }
 
@@ -112,8 +115,10 @@ public class PublishRequestHandler extends AbstractRequestHandler {
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            String application, predicateListJson, user;
-
+            final String application, predicateListJson, user;
+            user = parameters.get(JSON_USERID) != null ? parameters.get(JSON_USERID) : parameters.get(JSON_USER);
+            String userID;
+            
             switch (code) {
                 case READ :
                     break;
@@ -123,12 +128,18 @@ public class PublishRequestHandler extends AbstractRequestHandler {
                         throw new InternalBackEndException("missing application argument!");
                     } else if ((predicateListJson = parameters.get(JSON_PREDICATE)) == null) {
                         throw new InternalBackEndException("missing predicate argument!");
-                    } else if ((user = parameters.get(JSON_USER)) == null) {
+                    } else if (user == null) {
                         throw new InternalBackEndException("missing user argument!");
                     }
-
+                   
                     try {
-                        final MUserBean userBean = getGson().fromJson(user, MUserBean.class);
+                    	final MUserBean userBean = getGson().fromJson(user, MUserBean.class);
+                    	userID = userBean.getId();
+                    } catch (final JsonSyntaxException e) {
+                    	userID = user;
+                    }
+                    
+                    try {
                         final Type dataType = new TypeToken<List<MDataBean>>() {
                         }.getType();
                         final List<MDataBean> predicateListObject = getGson().fromJson(predicateListJson, dataType);
@@ -141,38 +152,19 @@ public class PublishRequestHandler extends AbstractRequestHandler {
                         }
                         bufferSubPredicate.trimToSize();
 
-                        String data_id = parameters.get("id") != null?parameters.get("id"):bufferSubPredicate.toString();
+                        String data_id = parameters.get("id") != null ? parameters.get("id") : bufferSubPredicate.toString();
 
-                        // construct the Predicate => broadcast algorithm
-                        int n, level; 
-                        level = n = predicateListObject.size();
+                        int level = predicateListObject.size();
                         if (parameters.get("level") != null){
                         	level = Integer.parseInt(parameters.get("level"));
                         }
+                        List<StringBuffer> predicates = getPredicate(predicateListObject, level);
+                        
                         LOGGER.info("deleting "+data_id+" with level: "+level);
-                        StringBuffer bufferPredicate = new StringBuffer(150);
-                        for (int k=1; k<=level; k++){
-                        	for (long i = (1 << k) - 1; (i >>> n) == 0; i = nextCombo(i)) {
-                        		bufferPredicate = new StringBuffer(150);
-                        		int mask = (int) i;
-                        		int j = 0;
-
-                        		while (mask > 0) {
-                        			if ((mask & 1) == 1) {
-                        				bufferPredicate.append(predicateListObject.get(j).getKey());
-                        				bufferPredicate.append(predicateListObject.get(j).getValue());
-                        			}
-                        			mask >>= 1;
-                        			j++;
-                        		}
-                        		bufferPredicate.trimToSize();
-                        		if (bufferPredicate.length() != 0) {
-                        			pubsubManager.delete(application, bufferPredicate.toString(),
-                        					data_id, userBean);
-                        		}
-                        	}
+                        for(StringBuffer predicate : predicates) {
+                        	pubsubManager.delete(application, predicate.toString(), data_id, userID);
                         }
-
+                        
                     } catch (final JsonSyntaxException e) {
                         throw new InternalBackEndException("jSon format is not valid");
                     } catch (final JsonParseException e) {
@@ -207,22 +199,29 @@ public class PublishRequestHandler extends AbstractRequestHandler {
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            String application, predicateListJson, user, data;
-
+            final String application, predicateListJson, user, data;
+            user = parameters.get(JSON_USERID) != null ? parameters.get(JSON_USERID) : parameters.get(JSON_USER);
+            
+            
             if (code.equals(RequestCode.CREATE)) {
                 message.setMethod(JSON_CODE_CREATE);
                 if ((application = parameters.get(JSON_APPLICATION)) == null) {
                     throw new InternalBackEndException("missing application argument!");
                 } else if ((predicateListJson = parameters.get(JSON_PREDICATE)) == null) {
                     throw new InternalBackEndException("missing predicate argument!");
-                } else if ((user = parameters.get(JSON_USER)) == null) {
-                    throw new InternalBackEndException("missing user argument!");
+                } else if (user == null) {
+                    throw new InternalBackEndException("missing userID argument!");
                 } else if ((data = parameters.get(JSON_DATA)) == null) {
                     throw new InternalBackEndException("missing data argument!");
                 }
 
+                MUserBean userBean;
                 try {
-                    final MUserBean userBean = getGson().fromJson(user, MUserBean.class);
+                	userBean = getGson().fromJson(user, MUserBean.class);
+                } catch (final JsonSyntaxException e) {
+                	userBean = profileManager.read(user);
+                }
+                try {
                     final Type dataType = new TypeToken<List<MDataBean>>() {
                     }.getType();
                     final List<MDataBean> dataList = getGson().fromJson(data, dataType);
@@ -239,36 +238,16 @@ public class PublishRequestHandler extends AbstractRequestHandler {
                     
                     String data_id = parameters.get("id") != null?parameters.get("id"):bufferSubPredicate.toString();
 
-                    // construct the indexed rows => broadcast algorithm
-                  //n is the predicateList size, level the length of predicates rows (= n by default)
-                    int n, level; 
-                    level = n = predicateListObject.size();
-                    if (parameters.get("level") != null) {
+                    int level = predicateListObject.size();
+                    if (parameters.get("level") != null){
                     	level = Integer.parseInt(parameters.get("level"));
                     }
-                    LOGGER.info("indexing "+data_id+" with level: "+level);
-                    StringBuffer bufferPredicate = new StringBuffer(150);
-
-                	for (int k=1; k<=level; k++){
-            			for (long i = (1 << k) - 1; (i >>> n) == 0; i = nextCombo(i)) {
-            				bufferPredicate = new StringBuffer(150);
-            				int mask = (int) i;
-	                    	int j = 0;
-	
-	                    	while (mask > 0) {
-	                    		if ((mask & 1) == 1) {
-	                    			bufferPredicate.append(predicateListObject.get(j).toString());
-	                    		}
-	                    		mask >>= 1;
-	                    		j++;
-	                    	}
-	                    	bufferPredicate.trimToSize();
-	                    	if (bufferPredicate.length() != 0) {
-	                    		pubsubManager.create(application, bufferPredicate.toString(),
-	                    				data_id, userBean, dataList);
-	                    	}
-            			}
-            		}
+                    List<StringBuffer> predicates = getPredicate(predicateListObject, level);
+                    
+                    LOGGER.info("deleting "+data_id+" with level: "+level);
+                    for(StringBuffer predicate : predicates) {
+                		pubsubManager.create(application, predicate.toString(),data_id, userBean, dataList);
+                    }
                     
                 } catch (final JsonSyntaxException e) {
                     LOGGER.debug("Error in Json format", e);
@@ -288,11 +267,4 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 
         printJSonResponse(message, response);
     }
-    
-    long nextCombo(long n) {
-		// moves to the next combination with the same number of 1 bits
-		long u = n & (-n);
-		long v = u + n;
-		return v + (((v ^ n) / u) >> 2);
-	}
 }
