@@ -48,7 +48,7 @@ class Home extends AbstractView {
 		<!-- CONTENT -->
 		<div class="content" data-role="content"> 
 			<div class="ui-grid-b" Style="padding: 10px;">
-				<?php if ($handle = opendir('application')) {
+				<?php if ($handle = opendir(MYMED_ROOT . '/application')) {
 						$column = "a";
 					    while (false !== ($file = readdir($handle))) {
 					    	if(preg_match("/my/", $file) && !preg_match("/Admin/", $file) && !in_array($file, $this->hiddenApplication)) { ?>

@@ -1,7 +1,7 @@
 <?php
 
-require_once MYMED_ROOT . 'system/controllers/MenuController.class.php';
-require_once MYMED_ROOT . 'system/controllers/UpdateProfileController.class.php';
+require_once MYMED_ROOT . 'system/controllers/deprecated/MenuController.class.php';
+require_once MYMED_ROOT . 'system/controllers/deprecated/UpdateProfileController.class.php';
 
 /**
  * 
