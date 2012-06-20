@@ -133,22 +133,21 @@ public class FindRequestHandler extends AbstractRequestHandler {
 					TreeMap<String, Map<String, String>> resMap;
 					
                     if (query !=null){
-                    	
                     	//perform a "range query" on AppController
                     	// ex: get all data with a price between 18.25 and 19.99
                     	
-                    	
-                    	// all rows to search on
+                    	// integer part of prices are indexed
                     	// ex: price18, price19
+                    	// stored in keys
                     	List<List<String>> keys = new ArrayList<List<String>>();
                     	
-                    	// start & finish columns on the bounding rows
+                    	// not indexable parts (cents) are used as bounds for the search
                     	// ex: 25 (cents) to 99 (cents)
                     	List<String[]> bounds = new ArrayList<String[]>();
                     	
                     	List<String> l;
                     	for (QueryBean item : query){
-							if ( (l=item.getGroups()).size() > 0){
+							if ( (l=item.getGroups()) != null){ //getGroups is not null for special ontologyIDs DATE, ENUM, GPS
 								keys.add(l);
 								bounds.add(new String[] {item.getValueStart(), item.getValueFinish()});
                     		}else{
@@ -166,9 +165,9 @@ public class FindRequestHandler extends AbstractRequestHandler {
                     	//constructs all possible rows for all groups found (can be price, date, and positions)
                     	constructRows(keys, new int[keys.size()], 0, rows);
                     	
-                    	if (bounds.size() == 0){ // no range queries to do
+                    	if (bounds.size() == 0){ // no range queries to do: classic Find version
                     		resMap = pubsubManager.read(application, rows, "", ""); //there is just one elt in rows
-                    	} else { //perform the first range query, then other one will filter
+                    	} else { //extended Find perform the first range query, then other one will filter
                     		String[] bound = bounds.remove(0);
                     		resMap = pubsubManager.read(application, rows, bound[0], bound[1]);
                     		while (bounds.size() > 0){ //filter
@@ -179,13 +178,13 @@ public class FindRequestHandler extends AbstractRequestHandler {
                     				String[] parts = key.split("\\+", 2);
                     				resMap.put(parts[parts.length-1], val);
                     			}
-                    			//now the Map is re-indexed on the new group values, do the corresponding slice on it
+                    			//now the Map is re-indexed on the new group values, do the corresponding (Java Map) slice on it
 								resMap = new TreeMap<String, Map<String, String>>(
 										resMap.subMap(bound[0], true, bound[1], true));
                     			
                     		}
                     	}
-                    	
+                    	// at the end add remaining values
                     	for ( Map<String, String> m : resMap.values()){
                     		resList.add(m);
                         }

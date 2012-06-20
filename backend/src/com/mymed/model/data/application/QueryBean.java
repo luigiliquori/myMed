@@ -48,9 +48,6 @@ public final class QueryBean extends AbstractMBean {
     
     private String key;
     
-    private String groupStart;
-    private String groupFinish;
-    
     private String valueStart;
     private String valueFinish;
     
@@ -87,39 +84,59 @@ public final class QueryBean extends AbstractMBean {
     	switch (ontId){
     	
     	case DATE:
-    		String[] start = groupStart.split("-");
-    		String[] end = groupStart.split("-");
-    		for (int i=Integer.parseInt(start[0]); i<Integer.parseInt(end[0]); i++){
-    			for (int j=Integer.parseInt(start[1]); j<Integer.parseInt(end[1]); j++){
-    				for (int k=Integer.parseInt(start[2]); k<Integer.parseInt(end[2]); k++){
-    					res.add(i+"-"+j+"-"+k);
-    				}
-    			}
-    		}
+    		
+    		// must follows the US format 2012-06-20, after put hours and seconds
+    		
+			String[] start = valueStart.split("-");
+			String[] end = valueFinish.split("-");
+			int[] startvalues = new int[3];
+			int[] endvalues = new int[3];
+			try {
+				for (int i = 0; i < 3; i++) {
+					startvalues[i] = Integer.parseInt(start[i]);
+					endvalues[i] = Integer.parseInt(end[i]);
+				}
+			} catch (NumberFormatException e) {
+				// TODO: handle exception
+			}
+
+			for (int i = startvalues[0]; i < endvalues[0]; i++) {
+				for (int j = startvalues[1]; j < endvalues[1]; j++) {
+					for (int k = startvalues[2]; k < endvalues[2]; k++) {
+						res.add(i + "-" + j + "-" + k);
+					}
+				}
+			}
     		
     		break;
     		
-    	default:
-    		int s = 0, f = 0;
-            try {
-            	s = Integer.parseInt(groupStart);
-        		f = Integer.parseInt(groupFinish);
-            } catch (NumberFormatException e) {
-    			// TODO: handle exception
-    		}
-    		
+		case ENUM:
+			int s = 0,
+			f = 0;
+			try {
+				s = Integer.parseInt(valueStart);
+				f = Integer.parseInt(valueFinish);
+			} catch (NumberFormatException e) {
+				// TODO: handle exception
+			}
+
 			for (int i = s; i < f; i++) {
-    			res.add(String.valueOf(i));
-    		}
-    		break;
+				res.add(String.valueOf(i));
+			}
+			break;
+    	default:
+    		return null;
+    		
     	}
+    	
+    	
     	
     	
     	return res;
     }
     
     public String toString(){
-		return key + groupStart;
+		return key + valueStart;
     }
 
 	public String getKey() {
@@ -128,22 +145,6 @@ public final class QueryBean extends AbstractMBean {
 
 	public void setKey(String key) {
 		this.key = key;
-	}
-
-	public String getGroupStart() {
-		return groupStart;
-	}
-
-	public void setGroupStart(String groupStart) {
-		this.groupStart = groupStart;
-	}
-
-	public String getGroupFinish() {
-		return groupFinish;
-	}
-
-	public void setGroupFinish(String groupFinish) {
-		this.groupFinish = groupFinish;
 	}
 
 	public String getValueStart() {
