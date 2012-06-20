@@ -20,9 +20,11 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import org.apache.cassandra.thrift.Column;
 import org.apache.cassandra.thrift.ColumnOrSuperColumn;
@@ -58,6 +60,8 @@ import com.mymed.utils.MLogger;
  * 
  */
 public class StorageManager implements IStorageManager {
+
+  public static final int maxNumColumns = 10000;
 
   private static final Logger LOGGER = MLogger.getLogger();
 
@@ -235,6 +239,8 @@ public class StorageManager implements IStorageManager {
 
 	  return sliceList;
   }
+  
+  
 
   /**
    * Get the values of a range of columns
@@ -574,6 +580,77 @@ public class StorageManager implements IStorageManager {
 
     LOGGER.info("Removed all columns in table '{}'", tableName);
   }
+  
+  
+  
+  
+  public Map<String, Map<String, String>> multiSelectList(final String tableName, final List<String> keys) throws IOBackEndException, InternalBackEndException {
+
+  	final SlicePredicate predicate = new SlicePredicate();
+	  final SliceRange sliceRange = new SliceRange();
+	  sliceRange.setCount(maxNumColumns); // TODO Maybe better split and perform several queries.
+	  predicate.setSlice_range(sliceRange);
+	  
+	  final ColumnParent parent = new ColumnParent(tableName);
+	  
+	  final Map<ByteBuffer, List<ColumnOrSuperColumn>> resultMap = wrapper.multiget_slice(keys, parent, 
+    		predicate, consistencyOnRead);
+
+    final List<ColumnOrSuperColumn> results = new ArrayList<ColumnOrSuperColumn>();
+
+    for (List<ColumnOrSuperColumn> l : resultMap.values()){
+    	results.addAll(l);
+    }
+    
+    final Map<String, Map<String, String>> sliceMap = new TreeMap<String, Map<String, String>>();
+
+	  for (final ColumnOrSuperColumn res : results) {
+		  if (res.isSetSuper_column()) {
+			  final Map<String, String> slice = new HashMap<String, String>();
+
+			  for (final Column column : res.getSuper_column().getColumns()) {
+				  slice.put(MConverter.byteArrayToString(column.getName()), 
+				  		MConverter.byteArrayToString(column.getValue()));
+			  }
+			  sliceMap.put(MConverter.byteArrayToString(res.getSuper_column().getName()), slice);
+		  }
+	  }
+
+	  return sliceMap;
+
+  }
+  
+  public Map<String, Map<String, String>> selectList(final String tableName, final String key,
+		  final String start, final String finish) throws UnsupportedEncodingException, InternalBackEndException, IOBackEndException {
+	
+	  // read entire row
+	  final SlicePredicate predicate = new SlicePredicate();
+	  final SliceRange sliceRange = new SliceRange();
+	  sliceRange.setStart(start.getBytes(ENCODING));
+	  sliceRange.setFinish(finish.getBytes(ENCODING));
+	  sliceRange.setCount(maxNumColumns); // TODO Maybe better split and perform several queries.
+	  predicate.setSlice_range(sliceRange);
+
+	  final ColumnParent parent = new ColumnParent(tableName);
+	  final List<ColumnOrSuperColumn> results = getSlice(key, parent, predicate);
+	  
+	  final Map<String, Map<String, String>> sliceMap = new TreeMap<String, Map<String, String>>();
+
+	  for (final ColumnOrSuperColumn res : results) {
+		  if (res.isSetSuper_column()) {
+			  final Map<String, String> slice = new HashMap<String, String>();
+
+			  for (final Column column : res.getSuper_column().getColumns()) {
+				  slice.put(MConverter.byteArrayToString(column.getName()), 
+				  		MConverter.byteArrayToString(column.getValue()));
+			  }
+			  sliceMap.put(MConverter.byteArrayToString(res.getSuper_column().getName()), slice);
+		  }
+	  }
+
+	  return sliceMap;
+  }
+
 
   /**
    * @return

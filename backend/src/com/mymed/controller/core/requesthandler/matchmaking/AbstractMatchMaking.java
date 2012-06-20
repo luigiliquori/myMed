@@ -32,6 +32,7 @@ public abstract class AbstractMatchMaking extends AbstractRequestHandler {
 	 *  ex: [A, B, C] with level = 2 returns [A.toString(), B.toString(), C.toString(),
 	 *  				 A.toString()+B.toString(), A.toString()+C.toString(), B.toString()+C.toString()]
 	 * 
+	 * 
 	 * @param predicateListObject
 	 * @param level
 	 * @return result
@@ -67,21 +68,13 @@ public abstract class AbstractMatchMaking extends AbstractRequestHandler {
 	}
 	
     private long nextCombo(long n) {
-		// moves to the next combination with the same number of 1 bits
+    	// Gosper's hack, doesn't support level>= 64, there are other recursive functions to replace it without this limit
+		
+    	// moves to the next combination (of n's bits) with the same number of 1 bits
+    	
 		long u = n & (-n);
 		long v = u + n;
 		return v + (((v ^ n) / u) >> 2);
 	}
-    
-    
-    public List<MDataBean> getOntologyList(final List<MDataBean> predicateListObject, final int ontologyID) {
 
-    	List<MDataBean> result = new ArrayList<MDataBean>();
-		for (MDataBean item : predicateListObject) {
-			if (ontologyID == Integer.parseInt(item.getOntologyID())){
-				result.add(item);
-			}
-		}
-		return result;
-	}
 }

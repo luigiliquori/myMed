@@ -33,14 +33,12 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.mymed.controller.core.exception.AbstractMymedException;
-import com.mymed.controller.core.exception.GeoLocationOutOfBoundException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.pubsub.PubSubManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.application.MDataBean;
 import com.mymed.model.data.user.MUserBean;
-import com.mymed.utils.locator.Locator;
 
 /**
  * Servlet implementation class PubSubRequestHandler
@@ -246,41 +244,13 @@ public class PublishRequestHandler extends AbstractMatchMaking {
                     	level = Integer.parseInt(parameters.get("level"));
                     }
                     
-                    /* store as indexes only keywords.
-                     * date, gps are managed another way
-                     * you don't need to store 43.121524, 7.12848421 as a row in your table, or 2012-08-07T14:36:47
-                     * because rows are not ordered, you will never find back those fine-grained values
-                     */
-                    
-                    List<MDataBean> keywords = getOntologyList( predicateListObject, MDataBean.KEYWORD);
-                    
-                    List<StringBuffer> predicates = getPredicate(keywords, level);
+                    /* store indexes for this data */
+
+                    List<StringBuffer> predicates = getPredicate(predicateListObject, level);
                     
                     LOGGER.info("indexing "+data_id+" with level: "+level);
                     for(StringBuffer predicate : predicates) {
                 		pubsubManager.create(application, predicate.toString(),data_id, userBean, dataList);
-                    }
-                    
-                    /* store positions  */
-                    List<MDataBean> positions = getOntologyList( predicateListObject, MDataBean.GPS);
-                    
-                    LOGGER.info("storing position index for "+data_id);
-                    for(MDataBean predicate : positions) {
-						int latitude = Integer.parseInt(predicate.getValue().split(",")[0]);
-						int longitude = Integer.parseInt(predicate.getValue().split(",")[1]);
-						final long locId = Locator.getLocationId(latitude, longitude);
-						final String areaId = String.valueOf(Locator.getAreaId(locId));
-                		pubsubManager.create(application, predicate.getKey() + areaId, 
-                				MDataBean.GPS+locId+"+"+data_id, userBean, dataList);
-                    }
-                    
-                    /* store dates  */
-                    List<MDataBean> dates = getOntologyList( predicateListObject, MDataBean.DATE);
-                    
-                    LOGGER.info("storing date index for "+data_id);
-                    for(MDataBean predicate : dates) {
-                		pubsubManager.create(application, predicate.getKey() + predicate.getValue().substring(0,10), //keeps day only
-                				MDataBean.DATE+predicate.getValue().substring(11)+"+"+data_id, userBean, dataList);
                     }
                     
                 } catch (final JsonSyntaxException e) {
@@ -289,11 +259,7 @@ public class PublishRequestHandler extends AbstractMatchMaking {
                 } catch (final JsonParseException e) {
                     LOGGER.debug("Error in parsing Json", e);
                     throw new InternalBackEndException(e.getMessage());
-                } catch (GeoLocationOutOfBoundException e) {
-					// TODO Auto-generated catch block
-                	LOGGER.debug("Error getting Positions", e);
-					e.printStackTrace();
-				}
+                }
             } else {
                 throw new InternalBackEndException("PublishRequestHandler(" + code + ") not exist!");
             }

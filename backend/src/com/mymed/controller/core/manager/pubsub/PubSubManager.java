@@ -22,12 +22,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.Map.Entry;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.AbstractManager;
 import com.mymed.controller.core.manager.profile.ProfileManager;
+import com.mymed.controller.core.manager.storage.GeoLocStorageManager;
 import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.data.application.MDataBean;
@@ -292,6 +294,8 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
         return resList;
     }
     
+ 
+    
     @Override
     public final List<Map<String, String>> read(final String application, final String predicate, final String start, final int count, final Boolean reversed)
                     throws InternalBackEndException, IOBackEndException, UnsupportedEncodingException {
@@ -313,6 +317,28 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 
         return resList;
     }
+    
+    public final TreeMap<String, Map<String, String>> read(final String application, final List<String> predicate, final String start, final String finish)
+    		throws InternalBackEndException, IOBackEndException, UnsupportedEncodingException {
+    	
+    	final TreeMap<String, Map<String, String>> resMap = new TreeMap<String, Map<String, String>>();
+
+    	if (predicate.size() == 1){
+    		resMap.putAll(storageManager.selectList(SC_APPLICATION_CONTROLLER, predicate.get(0), start, finish));
+    	}else if (predicate.size() == 2){
+    		resMap.putAll(storageManager.selectList(SC_APPLICATION_CONTROLLER, predicate.get(0), start, ""));
+    		resMap.putAll(storageManager.selectList(SC_APPLICATION_CONTROLLER, predicate.get(1), "", finish));
+    	} else {
+    		resMap.putAll(storageManager.selectList(SC_APPLICATION_CONTROLLER, predicate.remove(0), start, ""));
+    		resMap.putAll(storageManager.selectList(SC_APPLICATION_CONTROLLER, predicate.remove(predicate.size() - 1), "", finish));
+    		
+    		resMap.putAll(storageManager.multiSelectList(SC_APPLICATION_CONTROLLER, predicate));
+
+    	}
+
+    	return resMap;
+    }
+
 
     /*
      * The find mechanism: get more details.
