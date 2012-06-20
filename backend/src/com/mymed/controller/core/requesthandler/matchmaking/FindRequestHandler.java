@@ -133,7 +133,17 @@ public class FindRequestHandler extends AbstractRequestHandler {
 					TreeMap<String, Map<String, String>> resMap;
 					
                     if (query !=null){
+                    	
+                    	//perform a "range query" on AppController
+                    	// ex: get all data with a price between 18.25 and 19.99
+                    	
+                    	
+                    	// all rows to search on
+                    	// ex: price18, price19
                     	List<List<String>> keys = new ArrayList<List<String>>();
+                    	
+                    	// start & finish columns on the bounding rows
+                    	// ex: 25 (cents) to 99 (cents)
                     	List<String[]> bounds = new ArrayList<String[]>();
                     	
                     	List<String> l;
@@ -153,9 +163,10 @@ public class FindRequestHandler extends AbstractRequestHandler {
                     	l = new ArrayList<String>();
             			l.add(application);
                     	keys.add(0, l);
+                    	//constructs all possible rows for all groups found (can be price, date, and positions)
                     	constructRows(keys, new int[keys.size()], 0, rows);
                     	
-                    	if (bounds.size() == 0){ // no range queries
+                    	if (bounds.size() == 0){ // no range queries to do
                     		resMap = pubsubManager.read(application, rows, "", ""); //there is just one elt in rows
                     	} else { //perform the first range query, then other one will filter
                     		String[] bound = bounds.remove(0);
@@ -168,7 +179,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
                     				String[] parts = key.split("\\+", 2);
                     				resMap.put(parts[parts.length-1], val);
                     			}
-                    			//now the Map is sorted on bounds ontology values, do the slice on it
+                    			//now the Map is re-indexed on the new group values, do the corresponding slice on it
 								resMap = new TreeMap<String, Map<String, String>>(
 										resMap.subMap(bound[0], true, bound[1], true));
                     			
