@@ -57,13 +57,14 @@ class Find extends Request {
 			if($ontology->ontologyID < 4 && $ontology->value != "") {
 				// it's a predicate
 				$predicateArray[$numberOfPredicate++] = $ontology;
+				$predicate .= $ontology->key . $ontology->value;
 			}
 		}
-		$predicate = json_encode($predicateArray);
 
 		// Construct the requests
 		parent::addArgument("application", $_POST['application']);
-		parent::addArgument("predicate", $predicate);
+// 		parent::addArgument("predicate", $predicate); // DEPRECATED
+		parent::addArgument("predicateList", json_encode($predicateArray));
 		
 		$responsejSon = parent::send();
 		$responseObject = json_decode($responsejSon);

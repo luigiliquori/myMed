@@ -41,7 +41,7 @@ class Profile extends Home {
 		
 			<!-- Profile -->
 			<div>
-				<h3>Profile</h3>
+				<h3>Profil</h3>
 				<?php if($_SESSION['user']->profilePicture != "") { ?>
 					<img alt="thumbnail" src="<?= $_SESSION['user']->profilePicture ?>" width="100">
 				<?php } else { ?>

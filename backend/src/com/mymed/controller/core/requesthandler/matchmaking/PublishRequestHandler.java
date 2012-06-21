@@ -225,28 +225,24 @@ public class PublishRequestHandler extends AbstractMatchMaking {
                     final Type dataType = new TypeToken<List<MDataBean>>() {
                     }.getType();
                     final List<MDataBean> dataList = getGson().fromJson(data, dataType);
-                    final List<MDataBean> predicateListObject = getGson().fromJson(predicateListJson, dataType);
+                    final List<MDataBean> predicateList = getGson().fromJson(predicateListJson, dataType);
 
                     // construct the subPredicate
                     final StringBuffer bufferSubPredicate = new StringBuffer(150);
-                    for (final MDataBean element : predicateListObject) {
+                    for (final MDataBean element : predicateList) {
                     	bufferSubPredicate.append(element.getKey());
                     	bufferSubPredicate.append(element.getValue());
                     }
-
                     bufferSubPredicate.trimToSize();
                     
-                    String data_id = parameters.get("id") != null?parameters.get("id"):bufferSubPredicate.toString();
-
-                    int level = predicateListObject.size();
+                    int level = predicateList.size();
                     if (parameters.get("level") != null){
                     	level = Integer.parseInt(parameters.get("level"));
                     }
-                    List<StringBuffer> predicates = getPredicate(predicateListObject, level);
+                    List<StringBuffer> predicates = getPredicate(predicateList, level);
                     
-                    LOGGER.info("deleting "+data_id+" with level: "+level);
                     for(StringBuffer predicate : predicates) {
-                		pubsubManager.create(application, predicate.toString(),data_id, userBean, dataList);
+                		pubsubManager.create(application, predicate.toString(), bufferSubPredicate.toString(), userBean, dataList, predicateListJson);
                     }
                     
                 } catch (final JsonSyntaxException e) {

@@ -33,11 +33,10 @@ class Home extends AbstractView {
 	*/
 	public /*String*/ function getHeader() { ?>
 		<!-- HEADER -->
-		<div data-role="header"  data-theme="b">
-			<div data-role="controlgroup" data-type="horizontal" style="text-align: center;">
-				<a href="#home" data-transition="slide"  data-role="button" data-back="true" <?= $this->activeHeader == "home" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>Applications</a>
-				<a href="#profile" data-transition="slide"  data-role="button" <?= $this->activeHeader == "profile" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>Profile</a>
-			</div>
+		<div data-role="header" data-theme="b"  data-position="fixed">
+			<a href="#profile" data-icon="star">Partagez</a>
+			<h1>myMed</h1>
+			<a href="#About" data-icon="gear">Option</a>
 		</div>
 	<?php }
 	
@@ -73,31 +72,23 @@ class Home extends AbstractView {
 					    } 
 				} ?>
 			</div>
+			
+			<!-- LOGO -->
+			<?php include(MYMED_ROOT . 'system/views/logos.php'); ?>
+			
 		</div>
 	<?php }
 	
-	/**
-	* Get the FOOTER for jQuery Mobile
-	*/
-	public /*String*/ function getFooter() { ?>
-			<!-- HEADER -->
-			<div>
-				<center>
-					<h4>myMed - INTERREG IV - Alcotra</h4>
-					<img alt="Alcotra" src="/system/img/logos/alcotra"
-						style="width: 100px;" /> <img alt="Europe"
-						src="/system/img/logos/europe" style="width: 50px;" /> <img
-						alt="Conseil Général 06" src="/system/img/logos/cg06"
-						style="width: 100px; height: 30px;" /> <img alt="Regine Piemonte"
-						src="/system/img/logos/regione" style="width: 100px;" /> <img
-						alt="Région PACA" src="/system/img/logos/PACA" style="width: 100px;" />
-					<img alt="Prefecture 06" src="/system/img/logos/pref"
-						style="width: 70px;" /> <img alt="Inria"
-						src="/system/img/logos/inria.jpg" style="width: 100px;" />
-					<p>"Ensemble par-delà les frontières"</p>
-				</center>
+	protected /*void*/ function getFooter() { ?>
+		<div data-role="footer" data-position="fixed" data-theme="b">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#home" data-transition="none" data-back="true" data-icon="grid" <?= $this->activeHeader == "home" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>Applications</a></li>
+					<li><a href="#profile" data-transition="none" data-icon="profile" <?= $this->activeHeader == "profile" ? 'class="ui-btn-active ui-state-persist"' : ''; ?>>Profil</a></li>
+				</ul>
 			</div>
-		<?php }
+		</div>
+	<?php }
 	
 	/**
 	* Print the Template
