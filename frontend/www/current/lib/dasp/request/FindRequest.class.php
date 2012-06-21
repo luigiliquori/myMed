@@ -23,11 +23,14 @@ PhpConsole::start();
 
 /**
  *
- * Find Request
+ * Find Request.
+ * If "user" is provided, if fetches detail data for a specific puclication.
+ * Otherwise, it returns a list of publications.
  * @author David Da Silva
  *
  */
 class FindRequest extends Request {
+	
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
@@ -50,23 +53,44 @@ class FindRequest extends Request {
 	/* --------------------------------------------------------- */
 	public /*string*/ function send() {
 
-
 		// Construct the requests
 		parent::addArgument("application", APPLICATION_NAME);
 		parent::addArgument("predicate", $this->predicate);
-		parent::addArgument("user", $this->user);
-
+		
+		// User => Then get details
+		if (!empty($this->user)) {
+			parent::addArgument("user", $this->user);
+		}
+		
 		// Classical matching
-		//debug(json_encode($this->predicate));	
 		$responsejSon = parent::send();
 		$responseObject = json_decode($responsejSon);
-		if($responseObject->status != 200) {
-			$this->handler->setError($responseObject->description);
-		} else {
-			$this->handler->setSuccess($responseObject->data->details);
+		
+		if ($responseObject->status != 200) { // Error
+			
+			if (!is_null($this->handler)) {
+				$this->handler->setError($responseObject->description);
+			} else {
+				throw new Exception($responseObject->description);
+			}
+			
+		} else { // Success
+			
+			// Result (either list of results or details)
+			if (empty($this->user)) {
+				$result = $responseObject->dataObject->results;
+			} else {
+				$result = $responseObject->dataObject->details;
+			}
+			
+			if (!is_null($this->handler)) { 
+				// Set result in handler 			
+				// XXX: Dirty !!
+				$this->handler->setSuccess($result);
+			} 
+			
+			return $result;
 		}
-
-		return $responsejSon;
 	}
 }
 ?>

@@ -28,7 +28,7 @@
 class DataBean {
 
 	private /*OntologyBean[]*/ $predicates;
-	private /*OntologyBean[]*/	$datas;
+	private /*OntologyBean[]*/ $datas;
 
 
 	/**

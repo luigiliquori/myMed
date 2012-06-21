@@ -1,6 +1,6 @@
 <?php
 
-require_once MYMED_ROOT . 'system/controllers/InscriptionController.class.php';
+require_once MYMED_ROOT . 'system/controllers/deprecated/InscriptionController.class.php';
 
 /**
  * 
