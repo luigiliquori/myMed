@@ -20,6 +20,10 @@
 	require_once '../../system/config.php';
 	session_start();
 	
+	if (!isset($_SESSION['user'])) {
+		header("Location: ./authenticate");
+	}
+	
 	$msg = ""; //feedback text
 	
 	if (isset($_POST['commentOn'])){ // we want to comment

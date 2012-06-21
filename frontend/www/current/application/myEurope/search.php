@@ -22,6 +22,10 @@
 	require_once '../../system/config.php';
 	session_start();
 	
+	if (!isset($_SESSION['user'])) {
+		header("Location: ./authenticate");
+	}
+	
 	$application = isset($_REQUEST['application'])?$_REQUEST['application']:"myEurope";
 	
 	$res = null;

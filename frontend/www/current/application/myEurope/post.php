@@ -19,6 +19,10 @@
 	require_once '../../system/config.php';
 	session_start();
 	
+	if (!isset($_SESSION['user'])) {
+		header("Location: ./authenticate");
+	}
+	
 	if (count($_POST)){ // to publish something
 		
 		$tags = preg_split('/[ +]/', $_POST['q'], NULL, PREG_SPLIT_NO_EMPTY);

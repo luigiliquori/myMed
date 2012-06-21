@@ -8,6 +8,10 @@
 	
 	session_start();
 	
+	if (!isset($_SESSION['user'])) {
+		header("Location: ./authenticate");
+	}
+	
 	if (count($_POST)) {
 		require_once '../../lib/dasp/beans/MUserBean.class.php';
 		require_once '../../lib/dasp/beans/MAuthenticationBean.class.php';

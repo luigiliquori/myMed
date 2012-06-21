@@ -12,6 +12,10 @@
 	$template = new Template();
 
 	session_start();
+	
+	if (!isset($_SESSION['user'])) {
+		header("Location: ./authenticate");
+	}
 ?>
 
 <!DOCTYPE html>
