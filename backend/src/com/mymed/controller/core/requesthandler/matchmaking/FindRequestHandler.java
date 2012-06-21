@@ -95,19 +95,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
                     throw new InternalBackEndException("missing application argument!");
                 } else if ((predicate = parameters.get(JSON_PREDICATE)) == null) {
                 	throw new InternalBackEndException("missing predicate argument!");
-                } else if ((queryJson = parameters.get("predicateList")) != null) { //extended find (differents ontologyID)
-                	try{
-                    	final Type dataType = new TypeToken<List<QueryBean>>() {}.getType();
-                        query = getGson().fromJson(queryJson, dataType);
-    	            } catch (final JsonSyntaxException e) {
-    	                LOGGER.debug("Error in Json format", e);
-    	                throw new InternalBackEndException("jSon format is not valid");
-    	            } catch (final JsonParseException e) {
-    	                LOGGER.debug("Error in parsing Json", e);
-    	                throw new InternalBackEndException(e.getMessage());
-    	            }
                 }
-                
                
                 user = parameters.get(JSON_USERID) != null ? parameters.get(JSON_USERID) : parameters.get(JSON_USER);
                
@@ -127,74 +115,9 @@ public class FindRequestHandler extends AbstractRequestHandler {
                 	
 					String start = parameters.get("start") != null ? parameters.get("start") : "";
 					int count = parameters.get("count") != null ? Integer.parseInt(parameters.get("count")) : 100;
-					
-					
-					List<Map<String, String>> resList = new ArrayList<Map<String, String>>();
-					TreeMap<String, Map<String, String>> resMap;
-					
-                    if (query !=null){
-                    	//perform a "range query" on AppController
-                    	// ex: get all data with a price between 18.25 and 19.99
-                    	
-                    	// integer part of prices are indexed
-                    	// ex: price18, price19
-                    	// stored in keys
-                    	List<List<String>> keys = new ArrayList<List<String>>();
-                    	
-                    	// not indexable parts (cents) are used as bounds for the search
-                    	// ex: 25 (cents) to 99 (cents)
-                    	List<String[]> bounds = new ArrayList<String[]>();
-                    	
-                    	List<String> l;
-                    	for (QueryBean item : query){
-							if ( (l=item.getValues()) != null){ //getGroups is not null for special ontologyIDs DATE, ENUM, GPS
-								keys.add(l);
-								bounds.add(new String[] {item.getValueStart(), item.getValueEnd()});
-                    		}else{
-                    			l = new ArrayList<String>();
-                    			l.add(item.toString());
-                    			keys.add(l);
-                    		}
-                    	}
-                    	
-                    	List<String> rows = new ArrayList<String>();
-                    	
-                    	l = new ArrayList<String>();
-            			l.add(application);
-                    	keys.add(0, l);
-                    	//constructs all possible rows for all groups found (can be price, date, and positions)
-                    	constructRows(keys, new int[keys.size()], 0, rows);
-                    	
-                    	if (bounds.size() == 0){ // no range queries to do: classic Find version
-                    		resMap = pubsubManager.read(application, rows, "", ""); //there is just one elt in rows
-                    	} else { //extended Find perform the first range query, then other one will filter
-                    		String[] bound = bounds.remove(0);
-                    		resMap = pubsubManager.read(application, rows, bound[0], bound[1]);
-                    		while (bounds.size() > 0){ //filter
-                    			bound = bounds.remove(0);
-                    			// remove one layer of comparators
-                    			for (String key : resMap.keySet()){
-                    				Map<String, String> val = resMap.remove(key);
-                    				String[] parts = key.split("\\+", 2);
-                    				resMap.put(parts[parts.length-1], val);
-                    			}
-                    			//now the Map is re-indexed on the new group values, do the corresponding (Java Map) slice on it
-								resMap = new TreeMap<String, Map<String, String>>(
-										resMap.subMap(bound[0], true, bound[1], true));
-                    			
-                    		}
-                    	}
-                    	// at the end add remaining values
-                    	for ( Map<String, String> m : resMap.values()){
-                    		resList.add(m);
-                        }
-                    	
-                    } else {
-                    	resList = pubsubManager.read(application, predicate, start, count, false);
-                    }
-                    
-                    
-					
+
+					List<Map<String, String>> resList = pubsubManager.read(application, predicate, start, count, false);
+
                     if (resList.isEmpty()) {
                         throw new IOBackEndException("No reslult found for Application: " + application
                                         + " Predicate: " + predicate, 404);
