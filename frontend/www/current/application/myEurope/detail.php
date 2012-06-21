@@ -201,7 +201,7 @@
 						<input name="id" value='<?= $_GET['predicate']?>' type="hidden" />
 						<input name="user" value='<?= $_REQUEST['user'] ?>' type="hidden" />
 					</form>
-					<a href="" type="button" data-theme="r" data-icon="delete" onclick="$('#deleteForm').submit();" style="width:270px;margin-left: auto; margin-right: auto">Supprimer ce document</a>
+					<a href="" type="button" data-theme="r" data-icon="delete" onclick="$('#deleteForm').submit();" style="width:270px;margin-left: auto; margin-right: auto">Supprimer votre document</a>
 					<?php 
 					}
 		

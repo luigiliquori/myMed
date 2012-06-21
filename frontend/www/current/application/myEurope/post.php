@@ -86,7 +86,29 @@
 						<input name="application" value="myEurope" type="hidden" />
 						<div data-role="fieldcontain">
 							<fieldset data-role="controlgroup">
-								<label for="textinputp1"> Nom de l'organisme bénéficiaire: </label> <input id="textinputp1"  name="nom" placeholder="" value="" type="text" />
+								<label for="textinputp0"> Dépôt d'un appel : </label>
+								<select  id="textinputp0" data-role="slider" data-mini="true">
+									<option value="co">à partenaires</option>
+									<option value="offre">d'offre institutionnel</option>
+								</select>
+							</fieldset>
+						</div>
+						
+						
+						<div data-role="fieldcontain">
+							<fieldset data-role="controlgroup">
+								<label for="textinputp1"> Nom de l'organisme emetteur: </label> <input id="textinputp1"  name="nom" placeholder="" value="" type="text" />
+							</fieldset>
+							<fieldset id="test" data-role="controlgroup" data-type="horizontal" data-mini="true" style="position: absolute;right: 18%;top: 5px;" >
+						     	<input type="radio" name="radio-view" id="radio-view-a" value="Pacalabs" 
+						     	onclick="if($('#textinputp1').val().indexOf($(this).val())<=0){$('#textinputp1').val($('#textinputp1').val()+' '+$(this).val());}" />
+						     	<label for="radio-view-a">Pacalabs</label>
+						     	<input type="radio" name="radio-view" id="radio-view-b" value="Interreg" 
+						     	onclick="if($('#textinputp1').val().indexOf($(this).val())<=0){$('#textinputp1').val($('#textinputp1').val()+' '+$(this).val());}" />
+						     	<label for="radio-view-b">Interreg</label>
+						     	<input type="radio" name="radio-view" id="radio-view-c" value="Edu" 
+						     	onclick="if($('#textinputp1').val().indexOf($(this).val())<=0){$('#textinputp1').val($('#textinputp1').val()+' '+$(this).val());}" />
+						     	<label for="radio-view-c">Edu</label>
 							</fieldset>
 						</div>
 						<div data-role="fieldcontain">
@@ -96,17 +118,17 @@
 						</div>
 						<div data-role="fieldcontain">
 							<fieldset data-role="controlgroup">
-								<label for="textinputp3"> Coût total du projet (en euros): </label> <input id="textinputp3"  name="cout" placeholder="" value="" type="text" />
+								<label for="textinputp3"> Coût estimé du projet (en euros): </label> <input id="textinputp3"  name="cout" placeholder="" value="" type="text" />
 							</fieldset>
 						</div>
 						<div data-role="fieldcontain">
 							<fieldset data-role="controlgroup">
-								<label for="textinputp4"> Montant du financement européen (en euros): </label> <input id="textinputp4"  name="montant" placeholder="" value="" type="text" />
+								<label for="textinputp4"> Montant estimé du financement européen (en euros): </label> <input id="textinputp4"  name="montant" placeholder="" value="" type="text" />
 							</fieldset>
 						</div>
 						<div data-role="fieldcontain">
 							<fieldset data-role="controlgroup">
-								<label for="textinputp5"> Echéance: </label> <input id="textinputp5"  name="date" placeholder="" value="" type="date" />
+								<label for="textinputp5"> Date d'échéance: </label> <input id="textinputp5"  name="date" placeholder="" value="" type="date" />
 							</fieldset>
 						</div>
 						<div data-role="fieldcontain">

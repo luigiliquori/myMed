@@ -33,6 +33,13 @@
 					<h1 style="text-align: center;color: #0060AA;font-size:350%;">myEurope</h1>
 					<form action="search" id="subscribeForm">
 						<input name="q" placeholder="chercher un partenaire par mot clés" value="" data-type="search"/>
+						<input name="type" value="partenaires" type="hidden" />
+					</form>
+					<br />
+					<span style="margin:5px 15px;">ou</span>
+					<form action="search" id="subscribeForm2">
+						<input name="q" placeholder="chercher un appel d'offre par mot clés" value="" data-type="search"/>
+						<input name="type" value="offres" type="hidden" />
 					</form>
 					</div>
 					<div class="push"></div>

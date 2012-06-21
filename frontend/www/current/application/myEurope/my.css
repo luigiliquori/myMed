@@ -57,6 +57,10 @@ input.ui-input-text, textarea.ui-input-text {
 	width: 150px;
 }
 
+#publishForm .ui-slider-switch {
+	width: 30%;
+}
+
 
 
 
