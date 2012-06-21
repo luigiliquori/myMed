@@ -32,7 +32,7 @@ $(document).bind("pagechange", function(event, data) {
     
     switch(target.attr("id")) {
     	case "offres" :
-    		message("Un email est envoyé à Nice-Bénévolat avec les coordonnées / profil du nouveau bénévole");
+    		message("Un email est envoyé à Nice-Bénévolat avec les coordonnées / profil du nouveau bénévole.");
     		break;
     	case "association" :
     		message("Un email est envoyé à Nice Bénévolat avec les coordonnées de la nouvelle association");

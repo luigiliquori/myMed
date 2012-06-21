@@ -284,8 +284,9 @@
 	<div data-role="content">
 		<img src="img/mail_send.png" style="float:left;margin:20px" />
 		<p>
-			Merci, votre offre a été transmise à <b>Nice-Bénévolat</b>.<br/>
-			Nous vous contacterons dès que nous aurons trouvé un bénévole au profil adéquat.		
+			Merci, votre offre a été enregistrée et transmise à N bénévole(s) correspondant au profil.<br/>
+			Vous pouvez dés à present contacter <a href="http://www.nicebenevolat06.fr" target="_blank">Nice-Bénévolat</a> au <a href="tel:04 93 82 18 87">04 93 82 18 87</a><br />
+			Vous serez également averti dès qu'un bénévole postulera à cette annonce.<br />
 		</p>
 	</div>
 </div>
