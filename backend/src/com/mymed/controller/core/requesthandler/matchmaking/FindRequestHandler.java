@@ -16,6 +16,7 @@
 package com.mymed.controller.core.requesthandler.matchmaking;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
@@ -24,141 +25,158 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.pubsub.PubSubManager;
 import com.mymed.controller.core.requesthandler.AbstractRequestHandler;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
+import com.mymed.model.data.application.MDataBean;
 
 /**
  * Servlet implementation class PubSubRequestHandler
  */
-public class FindRequestHandler extends AbstractRequestHandler {
+public class FindRequestHandler extends AbstractMatchMaking {
 
-    /**
-     * Generated serial ID.
-     */
-    private static final long serialVersionUID = 4295832798531448329L;
+	/**
+	 * Generated serial ID.
+	 */
+	private static final long serialVersionUID = 4295832798531448329L;
 
-    /**
-     * JSON 'results' attribute.
-     */
-    private static final String JSON_RESULTS = JSON.get("json.results");
+	/**
+	 * JSON 'results' attribute.
+	 */
+	private static final String JSON_RESULTS = JSON.get("json.results");
 
-    /**
-     * JSON 'predicate' attribute.
-     */
-    private static final String JSON_PREDICATE = JSON.get("json.predicate");
+	/**
+	 * JSON 'predicate' attribute.
+	 */
+	private static final String JSON_PREDICATE = JSON.get("json.predicate");
 
-    /**
-     * JSON 'details' attribute.
-     */
-    private static final String JSON_DETAILS = JSON.get("json.details");
+	/**
+	 * JSON 'predicate' attribute.
+	 */
+	private static final String JSON_PREDICATE_LIST = JSON.get("json.predicate.list");
 
-    private final PubSubManager pubsubManager;
+	/**
+	 * JSON 'details' attribute.
+	 */
+	private static final String JSON_DETAILS = JSON.get("json.details");
 
-    public FindRequestHandler() {
-        super();
-        pubsubManager = new PubSubManager();
-    }
+	private final PubSubManager pubsubManager;
 
-    /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-     *      response)
-     */
-    @Override
-    protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
+	public FindRequestHandler() {
+		super();
+		pubsubManager = new PubSubManager();
+	}
 
-        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	@Override
+	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
 
-        try {
-            final Map<String, String> parameters = getParameters(request);
-            // Check the access token
-            checkToken(parameters);
+		final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
 
-            final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            final String application, predicate, user;
+		try {
+			final Map<String, String> parameters = getParameters(request);
+			// Check the access token
+			checkToken(parameters);
 
-            if (code == RequestCode.READ) {
-              
-            	message.setMethod(JSON_CODE_READ);
-                if ((application = parameters.get(JSON_APPLICATION)) == null) {
-                    throw new InternalBackEndException("missing application argument!");
-                } else if ((predicate = parameters.get(JSON_PREDICATE)) == null) {
-                	throw new InternalBackEndException("missing predicate argument!");
-                }
-               
-                user = parameters.get(JSON_USERID) != null ? parameters.get(JSON_USERID) : parameters.get(JSON_USER);
-               
-                if (user != null) { // GET DETAILS
-                    final List<Map<String, String>> details = pubsubManager.read(application, predicate, user);
-                    if (details.isEmpty()) {
-                        throw new IOBackEndException("no results found!", 404);
-                    }
-                    message.setDescription("Details found for Application: " + application + " User: " + user
-                                    + " Predicate: " + predicate);
-                    LOGGER.info("Details found for Application: " + application + " User: " + user + " Predicate: "
-                                    + predicate);
-                    message.addData(JSON_DETAILS, getGson().toJson(details));
-                    message.addDataObject(JSON_DETAILS, details);
-               
-                } else { // GET RESULTS
-                	
+			final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
+			String application, user, predicate, predicateList = null;
+
+			if (code == RequestCode.READ) {
+
+				message.setMethod(JSON_CODE_READ);
+				if ((application = parameters.get(JSON_APPLICATION)) == null) {
+					throw new InternalBackEndException("missing application argument!");
+				} else if ((predicate = parameters.get(JSON_PREDICATE)) == null && (predicateList = parameters.get(JSON_PREDICATE_LIST)) == null) {
+					throw new InternalBackEndException("missing predicate or predicateList argument!");
+				}
+
+				// argument is user(Deprecated) or userID
+				user = parameters.get(JSON_USERID) != null ? parameters.get(JSON_USERID) : parameters.get(JSON_USER);
+
+				if(predicateList != null) {
+					final Type dataType = new TypeToken<List<MDataBean>>() {}.getType();
+					final List<MDataBean> predicateListObject = getGson().fromJson(predicateList, dataType);
+					List<StringBuffer> predicates = getPredicate(predicateListObject, predicateListObject.size());
+					/* @Todo use an other parameter to choose the broadcast strategy */
+					predicate = predicates.get(predicates.size()-1).toString();
+				}
+
+				if (user != null) { // GET DETAILS
+					final List<Map<String, String>> details = pubsubManager.read(application, predicate, user);
+					if (details.isEmpty()) {
+						throw new IOBackEndException("no results found!", 404);
+					}
+					message.setDescription("Details found for Application: " + application + " User: " + user
+							+ " Predicate: " + predicate);
+					LOGGER.info("Details found for Application: " + application + " User: " + user + " Predicate: "
+							+ predicate);
+					message.addData(JSON_DETAILS, getGson().toJson(details));
+					message.addDataObject(JSON_DETAILS, details);
+
+				} else { // GET RESULTS
+
 					String start = parameters.get("start") != null ? parameters.get("start") : "";
 					int count = parameters.get("count") != null ? Integer.parseInt(parameters.get("count")) : 100;
-                    final List<Map<String, String>> resList = pubsubManager.read(application, predicate, start, count, false);
-                    if (resList.isEmpty()) {
-                        throw new IOBackEndException("No reslult found for Application: " + application
-                                        + " Predicate: " + predicate, 404);
-                    }
-                    message.setDescription("Results found for Application: " + application + " Predicate: " + predicate);
-                    LOGGER.info("Results found for Application: " + application + " Predicate: " + predicate
-                    		+ " start: " + start + " count: " + count );
-                    message.addData(JSON_RESULTS, getGson().toJson(resList));
-                    message.addDataObject(JSON_RESULTS, resList);
-                    
-                }
-            } else {
-                throw new InternalBackEndException("FindRequestHandler(" + code + ") not exist!");
-            }
-        } catch (final AbstractMymedException e) {
-            LOGGER.debug("Error in doGet operation", e);
-            message.setStatus(e.getStatus());
-            message.setDescription(e.getMessage());
-        } catch (UnsupportedEncodingException e) {
-        	LOGGER.debug("Error in doGet operation", e);
-            message.setStatus(404);
-            message.setDescription(e.getMessage());
+					final List<Map<String, String>> resList = pubsubManager.read(application, predicate, start, count, false);
+					if (resList.isEmpty()) {
+						throw new IOBackEndException("No reslult found for Application: " + application
+								+ " Predicate: " + predicate, 404);
+					}
+					message.setDescription("Results found for Application: " + application + " Predicate: " + predicate);
+					LOGGER.info("Results found for Application: " + application + " Predicate: " + predicate
+							+ " start: " + start + " count: " + count );
+					message.addData(JSON_RESULTS, getGson().toJson(resList));
+					message.addDataObject(JSON_RESULTS, resList);
+
+				}
+			} else {
+				throw new InternalBackEndException("FindRequestHandler(" + code + ") not exist!");
+			}
+		} catch (final AbstractMymedException e) {
+			LOGGER.debug("Error in doGet operation", e);
+			message.setStatus(e.getStatus());
+			message.setDescription(e.getMessage());
+		} catch (UnsupportedEncodingException e) {
+			LOGGER.debug("Error in doGet operation", e);
+			message.setStatus(404);
+			message.setDescription(e.getMessage());
 		}
 
-        printJSonResponse(message, response);
-    }
+		printJSonResponse(message, response);
+	}
 
-    /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-     *      response)
-     */
-    @Override
-    protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	@Override
+	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
+		final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
 
-        try {
-            final Map<String, String> parameters = getParameters(request);
-            // Check the access token
-            checkToken(parameters);
+		try {
+			final Map<String, String> parameters = getParameters(request);
+			// Check the access token
+			checkToken(parameters);
 
-            final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
+			final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
 
-            if (code != RequestCode.CREATE) {
-                throw new InternalBackEndException("FindRequestHandler(" + code + ") not exist!");
-            }
-        } catch (final AbstractMymedException e) {
-            LOGGER.debug("Error in doPost operation", e);
-            message.setStatus(e.getStatus());
-            message.setDescription(e.getMessage());
-        }
+			if (code != RequestCode.CREATE) {
+				throw new InternalBackEndException("FindRequestHandler(" + code + ") not exist!");
+			}
+		} catch (final AbstractMymedException e) {
+			LOGGER.debug("Error in doPost operation", e);
+			message.setStatus(e.getStatus());
+			message.setDescription(e.getMessage());
+		}
 
-        printJSonResponse(message, response);
-    }
+		printJSonResponse(message, response);
+	}
 }
