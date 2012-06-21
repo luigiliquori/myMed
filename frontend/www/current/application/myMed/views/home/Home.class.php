@@ -34,7 +34,7 @@ class Home extends AbstractView {
 	public /*String*/ function getHeader() { ?>
 		<!-- HEADER -->
 		<div data-role="header" data-theme="b"  data-position="fixed">
-			<a href="#profile" data-icon="star">Partagez</a>
+			<a href="#" data-rel="dialog" data-icon="star" onClick="printShareDialog();">Partagez</a>
 			<h1>myMed</h1>
 			<a href="#About" data-icon="gear">Option</a>
 		</div>
