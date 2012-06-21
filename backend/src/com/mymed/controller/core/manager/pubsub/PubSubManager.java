@@ -110,7 +110,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
      */
     @Override
     public final void create(String application, final String predicate, final String subPredicate,
-                    final MUserBean publisher, final List<MDataBean> dataList) throws InternalBackEndException,
+                    final MUserBean publisher, final List<MDataBean> dataList, final String predicateListJson) throws InternalBackEndException,
                     IOBackEndException {
         try {
             // STORE THE PUBLISHER
@@ -139,6 +139,9 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 
             args.clear();
             args.put("predicate", subPredicate.getBytes(ENCODING));
+            if(predicateListJson != null) {
+            	args.put("predicateListJson", predicateListJson.getBytes(ENCODING));
+            }
             args.put("begin", begin.getBytes(ENCODING));
             args.put("end", end.getBytes(ENCODING));
             args.put("publisherID", publisher.getId().getBytes(ENCODING));
@@ -148,10 +151,8 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
             args.put("publisherProfilePicture",
                             (publisher.getProfilePicture() == null ? "" : publisher.getProfilePicture())
                                             .getBytes(ENCODING));
-            //---------
             args.put("publisherReputation",
                             (publisher.getReputation() == null ? "" : publisher.getReputation()).getBytes(ENCODING));
-            
             
             args.put("data", data.getBytes(ENCODING));
             storageManager.insertSuperSlice(SC_APPLICATION_CONTROLLER, application + predicate, subPredicate

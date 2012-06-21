@@ -46,3 +46,11 @@ function showLoadingBar(text) {
 	setTimeout(hideLoadingBar, 3000); // make sure it stops one day
 }
 
+function printShareDialog() {
+	$('<div>').simpledialog2({
+	    mode: 'blank',
+	    headerText: 'Message',
+	    headerClose: true,
+	    blankContent : $("#hidden-sharethis")
+	  })
+}

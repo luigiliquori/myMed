@@ -123,7 +123,7 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
         final HashFunction hashFunc = new HashFunction(APP_NAME);
         final String accessToken = hashFunc.SHA1ToString(user.getLogin() + System.currentTimeMillis());
 
-        pubSubManager.create(APP_NAME, accessToken, accessToken, user, dataList);
+        pubSubManager.create(APP_NAME, accessToken, accessToken, user, dataList, null);
 
         final StringBuilder contentBuilder = new StringBuilder(250);
         // TODO add internationalization support

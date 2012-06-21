@@ -36,6 +36,7 @@ import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.pubsub.PubSubManager;
+import com.mymed.controller.core.requesthandler.AbstractRequestHandler;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.application.MDataBean;
 import com.mymed.model.data.user.MUserBean;
@@ -153,7 +154,6 @@ public class PublishRequestHandler extends AbstractMatchMaking {
 
                         String data_id = parameters.get("id") != null ? parameters.get("id") : bufferSubPredicate.toString();
 
-                        // construct indexes 
                         int level = predicateListObject.size();
                         if (parameters.get("level") != null){
                         	level = Integer.parseInt(parameters.get("level"));
@@ -225,32 +225,40 @@ public class PublishRequestHandler extends AbstractMatchMaking {
                     final Type dataType = new TypeToken<List<MDataBean>>() {
                     }.getType();
                     final List<MDataBean> dataList = getGson().fromJson(data, dataType);
-                    final List<MDataBean> predicateListObject = getGson().fromJson(predicateListJson, dataType);
+                    final List<MDataBean> predicateList = getGson().fromJson(predicateListJson, dataType);
 
                     // construct the subPredicate
                     final StringBuffer bufferSubPredicate = new StringBuffer(150);
-                    for (final MDataBean element : predicateListObject) {
+                    for (final MDataBean element : predicateList) {
                     	bufferSubPredicate.append(element.getKey());
                     	bufferSubPredicate.append(element.getValue());
                     }
-
                     bufferSubPredicate.trimToSize();
                     
-                    String data_id = parameters.get("id") != null?parameters.get("id"):bufferSubPredicate.toString();
-
-                    // construct indexes 
-                    int level = predicateListObject.size();
+					String data_id = parameters.get("id") != null ? parameters.get("id") : bufferSubPredicate.toString();
+					/*  
+					 * not nice for me to store Id as predicate.toString+user_id, I use many predicates, hidden ones, can even be too long for url.. error 414
+					 * have to create v2/pubreqhandler for this id param?
+					 * 
+					 * it's unique for me as I put the project submission title of a user
+					 * 
+					 * but use title+timestamp if you need
+					 * 
+					 * I wanted to store this id in predicate List but in this case it could really have conflicted 
+					 * 
+					 */
+				
+                    /* construct indexes */
+                    int level = predicateList.size();
                     if (parameters.get("level") != null){
                     	level = Integer.parseInt(parameters.get("level"));
                     }
+                    List<StringBuffer> predicates = getPredicate(predicateList, level);
                     
                     /* store indexes for this data */
-
-                    List<StringBuffer> predicates = getPredicate(predicateListObject, level);
-                    
                     LOGGER.info("indexing "+data_id+" with level: "+level);
                     for(StringBuffer predicate : predicates) {
-                		pubsubManager.create(application, predicate.toString(),data_id, userBean, dataList);
+                		pubsubManager.create(application, predicate.toString(), data_id, userBean, dataList, predicateListJson);
                     }
                     
                 } catch (final JsonSyntaxException e) {

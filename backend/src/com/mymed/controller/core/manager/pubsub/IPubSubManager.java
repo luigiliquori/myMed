@@ -40,7 +40,7 @@ public interface IPubSubManager {
    * @param publisher
    *          the user who insert the new predicate
    */
-  void create(String application, String predicate, String subPredicate, MUserBean publisher, List<MDataBean> dataList)
+  void create(String application, String predicate, String subPredicate, MUserBean publisher, List<MDataBean> dataList, String predicateListJson)
       throws InternalBackEndException, IOBackEndException;
 
   /**
