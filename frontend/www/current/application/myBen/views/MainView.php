@@ -235,9 +235,9 @@
 			
 			<div data-role="fieldcontain">
 				<fieldset data-role="controlgroup">
-    				<input type=checkbox id=b1 /><label for="b1">Ponctuel</label>
-					<input type=checkbox id=b2 checked="checked" /><label for="b2">Regulier</label>
-					<input type=checkbox id=b3 /><label for="b3">Urgence</label>
+    				<input type=radio name="choice1" id=bb1 /><label for="bb1">Ponctuel</label>
+					<input type=radio name="choice1" id=bb2 checked="checked" /><label for="bb2">Regulier</label>
+					<input type=radio name="choice1" id=bb3 /><label for="bb3">Urgence</label>
 				</fieldset>
 			</div>
 			
@@ -335,18 +335,19 @@
 			<b>Titre</b>: Collecte de vêtements<br/>
 			<b>Association</b>: Le Secours Populaire <a href="#" rel="external">via Nice Bénévolat</a><br/>
 			<b>Lieu</b>: Nice<br/>
-			<b>Compétences</b>: Animation / Communication
-			<b>Date</b>les merdi matin. 
+			<b>Compétences</b>: Animation / Communication<br/>
+			<b>Date</b>: Les mardi matin. 
 		</p>
 		
 		<div data-role="header" data-theme="c" >
 			<h4>Description</h4>
 		</div>
-		<p>
+		<p style="background-color:white">
 			Assurer la permanence de l'antenne de Nice.<br/>
 			Accueillir les donneurs et Collecter les vêtements,<br/> 
 			les trier et les mettre à disposition.<br/>
 		</p>
+
 		
 		<a href="#postuler" data-role="button" data-rel="dialog" data-theme="g" >Postuler</a>
 		

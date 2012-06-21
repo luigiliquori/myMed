@@ -2,7 +2,7 @@
 
 	<a href="javascript: history.go(-1)" data-role="button" data-icon="back">Back</a>
 	
-	<h1><?= "MyBénévolat" ?></h1>
+	<h1><a href="?"><?= "MyBénévolat" ?></a></h1>
 	
 	<a href="?action=logout" rel="external" data-role="button" data-theme="r" data-icon="delete">Quitter</a>
 	
