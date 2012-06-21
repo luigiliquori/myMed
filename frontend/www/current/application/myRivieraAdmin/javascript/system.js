@@ -56,14 +56,43 @@ function printMarkers(type, lon, lat, rad) {
 					value = JSON.parse(poi.value);
 					id = poi.id;
 					icon = null;
-					var marker = addMarker(new google.maps.LatLng(value.latitude,
-							value.longitude), icon, value.title,
-							"<p>Type: 	" + type + "</p>" + value.description, null, false, id);
+					// type
+					description = "<p>Type: 	" + type + "</p>";
+					// description
+					description += value.description;
+					// delete button;
+					description += "<br /><br /><a href='#' onClick='deleteMarker(\"" + value.latitude + "\", \"" + value.longitude + "\", \"" + poi.id + "\", \"" + type +"\")' data-role='button' data-theme='r' >Delete</a>";
+					var marker = addMarker(new google.maps.LatLng(value.latitude, value.longitude), icon, value.title, description, null, false, id);
 					google.maps.event.addListener(marker, "click", function(e) {
 						marker.ib.open(map, this);
 					});
 				});
 			}
+		},
+		error: function(data){
+			alert("error: " + data);
+		}
+	});
+	
+	focusOnPosition(lat, lon);
+}
+
+function deleteMarker(latitude, longitude, itemId, type) {
+	var params = {
+			'application': $("#applicationName").val(),
+			'type': type,
+			'latitude': latitude,
+			'longitude': longitude,
+			'itemId': itemId,
+			'accessToken': $("#accessToken").val()
+	};
+	
+	$.ajax({
+		url: "../../lib/dasp/request/POI.php",
+		data: params,
+		dataType: "json",
+		success: function(data){
+			alert("POI deleted");
 		},
 		error: function(data){
 			alert("error: " + data);
