@@ -4,7 +4,7 @@
 
 <head> 
 
-	<title><?= empty($TITLE) ? "My Bénévolat" : $TITLE ?></title> 
+	<title><?= empty($TITLE) ? APPLICATION_NAME : $TITLE ?></title> 
 			
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
@@ -18,10 +18,6 @@
 	<script src="../../lib/jquery/datebox/jquery.mobile.datebox.min.js"></script>
 	<link href="../../lib/jquery/datebox/jquery.mobile.datebox.min.css" rel="stylesheet" />
 	
-	<!--  SimpleDialog -->
-	<script src="../../lib/jquery/simpledialog/jquery.mobile.simpledialog2.min.js"></script>
-	<link href="../../lib/jquery/simpledialog/jquery.mobile.simpledialog.min.css" rel="stylesheet" />
-	
 	<!-- MYMED JS -->
 	<script src="../myMed/javascript/common.js"></script>
 	<!-- APP JS -->
@@ -29,7 +25,6 @@
 	
 	<!-- MYMED css -->
 	<link href="../myMed/css/style.css" rel="stylesheet" />
-	
 	<!-- APP css -->
 	<link href="css/style.css" rel="stylesheet" />
 	

@@ -27,22 +27,20 @@ class MainController extends AuthenticatedController {
 	 */
 	public /*void*/ function fetchExtendedProfile(){
 		
-		ExtendedProfile::getExtendedProfile($this, $_SESSION['user']->id);
+		$result = ExtendedProfile::getExtendedProfile($this, $_SESSION['user']->id);
 		
-		if (empty($this->success)){
+		if (empty($result)){
 			$this->error = "";
 			$this->renderView("ExtendedProfileNeeded");
 		}
 		else {
-			
-			$responseArray = json_decode($this->success);
-			
+				
 			$diseaseLevel = "";
 			$careGiver = "";
 			$doctor = "";
 			$callingList = "";
 			
-			foreach ($responseArray as $line){
+			foreach ($result as $line){
 				switch($line->key){
 					
 					case "callingList" :

@@ -1,15 +1,11 @@
 <div data-role="header">
 
-	<? if (!empty($this->user)) : ?>
-		<a href="#profile"><?= $this->user->name ?></a>
-	<? endif ?>
+	<a href="javascript: history.go(-1)" data-role="button" data-icon="back">Back</a>
 	
-	<h1><?= APPLICATION_NAME ?></h1>
+	<h1><?= "MyBénévolat" ?></h1>
 	
-	<a href="?action=logout" rel="external" data-role="button" data-theme="r">Quit</a>
+	<a href="?action=logout" rel="external" data-role="button" data-theme="r" data-icon="delete">Quitter</a>
 	
 	<? include("notifications.php")?>
 	
 </div>
-
-
