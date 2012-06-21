@@ -117,7 +117,10 @@ function focusOnPosition(latitude, longitude) {
  */
 function focusOnLatLng(position) {
 
-	// memorize the position
+	// make sure position not null
+	position= position || currentPos || new google.maps.LatLng(43.696036, 7.265592);
+	
+	// memorize the position in the cityway itinary // should be moved to riviera specific
 	pos = position;
 
 	// focus on the position
@@ -226,6 +229,11 @@ function getPosition(){
 				data.dataObject.position.longitude
 			);
 			currentPlace = data.dataObject.position.formattedAddress;
+			
+			if (focusOnCurrentPosition) {
+				focusOnLatLng(currentPos);
+				focusOnCurrentPosition = false;
+			}
 		}
 	});
 }

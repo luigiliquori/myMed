@@ -49,7 +49,7 @@ public final class QueryBean extends AbstractMBean {
     private String key;
     
     private String valueStart;
-    private String valueFinish;
+    private String valueEnd;
     
     private String ontologyID;
 
@@ -74,9 +74,10 @@ public final class QueryBean extends AbstractMBean {
         return 0;
     }
     
-    // a method to return all groups between groupStart and groupEnd
-    
-    public List<String> getGroups(){
+    /*
+     * a method to return all rows to be searched between value valueStart and valueFinish
+     */
+    public List<String> getValues(){
     	List<String> res = new ArrayList<String>();
     	
     	int ontId = Integer.parseInt(ontologyID);
@@ -86,19 +87,8 @@ public final class QueryBean extends AbstractMBean {
     	case DATE:
     		
     		// must follows the US format 2012-06-20, after put hours and seconds
-    		
-			String[] start = valueStart.split("-");
-			String[] end = valueFinish.split("-");
-			int[] startvalues = new int[3];
-			int[] endvalues = new int[3];
-			try {
-				for (int i = 0; i < 3; i++) {
-					startvalues[i] = Integer.parseInt(start[i]);
-					endvalues[i] = Integer.parseInt(end[i]);
-				}
-			} catch (NumberFormatException e) {
-				// TODO: handle exception
-			}
+			int[] startvalues = parseDate(valueStart);
+			int[] endvalues = parseDate(valueEnd);
 
 			for (int i = startvalues[0]; i < endvalues[0]; i++) {
 				for (int j = startvalues[1]; j < endvalues[1]; j++) {
@@ -112,15 +102,13 @@ public final class QueryBean extends AbstractMBean {
     		
 		case ENUM:
 			int s = 0,
-			f = 0;
+			e = 0;
 			try {
 				s = Integer.parseInt(valueStart);
-				f = Integer.parseInt(valueFinish);
-			} catch (NumberFormatException e) {
-				// TODO: handle exception
-			}
+				e = Integer.parseInt(valueEnd);
+			} catch (NumberFormatException er) {}
 
-			for (int i = s; i < f; i++) {
+			for (int i = s; i < e; i++) {
 				res.add(String.valueOf(i));
 			}
 			break;
@@ -129,12 +117,20 @@ public final class QueryBean extends AbstractMBean {
     		
     	}
     	
-    	
-    	
-    	
     	return res;
     }
     
+    private static int[] parseDate(String date) { // format yyyy-mm-dd
+    	int[] values = new int[3];
+    	String[] dateValues = date.split("-");
+    	for (int i = 0; i < 3  && i< dateValues.length; i++) {
+    		try {
+    			values[i] = Integer.parseInt(dateValues[i]);
+    		} catch (NumberFormatException e) {}
+    	}
+    	return values;
+    }
+
     public String toString(){
 		return key + valueStart;
     }
@@ -155,12 +151,12 @@ public final class QueryBean extends AbstractMBean {
 		this.valueStart = valueStart;
 	}
 
-	public String getValueFinish() {
-		return valueFinish;
+	public String getValueEnd() {
+		return valueEnd;
 	}
 
-	public void setValueFinish(String valueFinish) {
-		this.valueFinish = valueFinish;
+	public void setValueEnd(String valueEnd) {
+		this.valueEnd = valueEnd;
 	}
 
 	public String getOntologyID() {

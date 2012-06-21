@@ -38,9 +38,6 @@ var radius;
 //$("#Map").live("pageinit", initialize);
 	
 function initialize() {
-	
-	//get lastest position known of the user
-	getPosition();
 
 	// INITIALIZE DASP
 	setupDASP($("#userID").val(), $("#accessToken").val(),
@@ -206,7 +203,7 @@ function displayPosition(position) {
 
 		// focus on the position
 		if (focusOnCurrentPosition) {
-			focusOnLatLng(latlng || new google.maps.LatLng($("#userLat").val() || 43.774481, $("#userLng").val() || 7.49754));
+			focusOnLatLng(latlng );
 			focusOnCurrentPosition = false;
 		}
 	}
@@ -225,10 +222,12 @@ function displayPosition(position) {
 
 
 function displayError(error) {
-	if (focusOnCurrentPosition) {
-		focusOnLatLng(new google.maps.LatLng($("#userLat").val() || 43.774481, $("#userLng").val() || 7.49754));
-		focusOnCurrentPosition = false;
-	}
+	
+	//get lastest position known of the user
+	getPosition();
+	
+	
+	
 }
 
 

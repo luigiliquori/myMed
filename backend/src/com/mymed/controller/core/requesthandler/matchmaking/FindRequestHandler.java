@@ -147,9 +147,9 @@ public class FindRequestHandler extends AbstractRequestHandler {
                     	
                     	List<String> l;
                     	for (QueryBean item : query){
-							if ( (l=item.getGroups()) != null){ //getGroups is not null for special ontologyIDs DATE, ENUM, GPS
+							if ( (l=item.getValues()) != null){ //getGroups is not null for special ontologyIDs DATE, ENUM, GPS
 								keys.add(l);
-								bounds.add(new String[] {item.getValueStart(), item.getValueFinish()});
+								bounds.add(new String[] {item.getValueStart(), item.getValueEnd()});
                     		}else{
                     			l = new ArrayList<String>();
                     			l.add(item.toString());
