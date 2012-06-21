@@ -1,7 +1,10 @@
 <?php
-	session_start();
+
+//@TODO move that in dasp/ajax
+
 	require_once '../../lib/dasp/request/Request.class.php';
 	require_once '../../system/config.php';
+	session_start();
 	
 	if ($_GET['code'] == 0){
 		$request = new Request("SubscribeRequestHandler", CREATE);

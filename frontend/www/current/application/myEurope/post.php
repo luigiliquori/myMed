@@ -14,14 +14,10 @@
 	//ob_start("ob_gzhandler");
 	require_once 'Template.class.php';
 	$template = new Template();
+	$template->checkSession();
 	
 	require_once '../../lib/dasp/request/Request.class.php';
 	require_once '../../system/config.php';
-	session_start();
-	
-	if (!isset($_SESSION['user'])) {
-		header("Location: ./authenticate");
-	}
 	
 	if (count($_POST)){ // to publish something
 		
@@ -90,29 +86,32 @@
 						<input name="application" value="myEurope" type="hidden" />
 						<div data-role="fieldcontain">
 							<fieldset data-role="controlgroup">
-								<label for="textinputp0"> Dépôt d'un appel : </label>
+								<label for="textinputp0"> Dépôt d'une offre : </label>
 								<select  id="textinputp0" data-role="slider" data-mini="true">
-									<option value="co">à partenaires</option>
-									<option value="offre">d'offre institutionnel</option>
+									<option value="co">de partenariat</option>
+									<option value="offre">de projet institutionnel</option>
 								</select>
 							</fieldset>
 						</div>
 						
 						
 						<div data-role="fieldcontain">
+							<fieldset id="test" data-role="controlgroup" data-type="horizontal" data-mini="true"  >
+						     	<legend>Type d'offre:</legend>
+						     	<input type="radio" name="type" id="radio-view-a" value="Pacalabs" checked="checked"/>
+						     	<label for="radio-view-a">Pacalabs</label>
+						     	<input type="radio" name="type" id="radio-view-b" value="Interreg" />
+						     	<label for="radio-view-b">Interreg</label>
+						     	<input type="radio" name="type" id="radio-view-c" value="Edu" />
+						     	<label for="radio-view-c">Edu</label>
+						     	<input type="radio" name="type" id="radio-view-d" value="Autre" />
+						     	<label for="radio-view-d">Autre</label>
+							</fieldset>
+						</div>
+						
+						<div data-role="fieldcontain">
 							<fieldset data-role="controlgroup">
 								<label for="textinputp1"> Nom de l'organisme emetteur: </label> <input id="textinputp1"  name="nom" placeholder="" value="" type="text" />
-							</fieldset>
-							<fieldset id="test" data-role="controlgroup" data-type="horizontal" data-mini="true" style="position: absolute;right: 18%;top: 5px;" >
-						     	<input type="radio" name="radio-view" id="radio-view-a" value="Pacalabs" 
-						     	onclick="if($('#textinputp1').val().indexOf($(this).val())<=0){$('#textinputp1').val($('#textinputp1').val()+' '+$(this).val());}" />
-						     	<label for="radio-view-a">Pacalabs</label>
-						     	<input type="radio" name="radio-view" id="radio-view-b" value="Interreg" 
-						     	onclick="if($('#textinputp1').val().indexOf($(this).val())<=0){$('#textinputp1').val($('#textinputp1').val()+' '+$(this).val());}" />
-						     	<label for="radio-view-b">Interreg</label>
-						     	<input type="radio" name="radio-view" id="radio-view-c" value="Edu" 
-						     	onclick="if($('#textinputp1').val().indexOf($(this).val())<=0){$('#textinputp1').val($('#textinputp1').val()+' '+$(this).val());}" />
-						     	<label for="radio-view-c">Edu</label>
 							</fieldset>
 						</div>
 						<div data-role="fieldcontain">

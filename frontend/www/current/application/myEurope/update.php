@@ -10,12 +10,7 @@
 	//ob_start("ob_gzhandler");
 	require_once 'Template.class.php';
 	$template = new Template();
-
-	session_start();
-	
-	if (!isset($_SESSION['user'])) {
-		header("Location: ./authenticate");
-	}
+	$template->checkSession();
 ?>
 
 <!DOCTYPE html>
@@ -30,10 +25,29 @@
 			<div class="wrapper">
 				<div data-role="header" data-theme="b">
 					<a href="option" class="ui-btn-left" data-icon="back" data-transition="flip" data-direction="reverse"> Retour</a>
-					<h3>myEurope - MaJProfil</h3>
+					<h3>myEurope - Profil</h3>
 				</div>
 				<div data-role="content">
+				
 					<form action="option" method="post" id="updateForm">
+					
+						<div style='color:lightGreen;text-align:center;'><?= isset($_GET['extended'])?"Veuillez compléter votre profil, pour l'utilisation de myEurope":""?> </div>	
+	
+						<div data-role="fieldcontain">
+							<fieldset id="test" data-role="controlgroup" data-type="horizontal" data-mini="true"  >
+						     	<legend>Type d'institution:<?= isset($_GET['extended'])?" *":"" ?></legend>
+						     	<input type="radio" name="type" id="radio-view-a" value="Assoc/Entrp" checked="checked"/>
+						     	<label for="radio-view-a">Assoc/Entrp</label>
+						     	<input type="radio" name="type" id="radio-view-b" value="Mairie" />
+						     	<label for="radio-view-b">Mairie</label>
+						     	<input type="radio" name="type" id="radio-view-c" value="Com Urb" />
+						     	<label for="radio-view-c">Com Urb</label>
+						     	<input type="radio" name="type" id="radio-view-d" value="Etat" />
+						     	<label for="radio-view-d">Etat</label>
+						     	<input type="radio" name="type" id="radio-view-e" value="Région" />
+						     	<label for="radio-view-e">Région</label>
+							</fieldset>
+						</div>
 						<div data-role="fieldcontain">
 							<fieldset data-role="controlgroup">
 								<label for="textinputu1"> Prénom: </label> <input id="textinputu1"  name="prenom" placeholder="" value='<?= $_SESSION['user']->firstName ?>' type="text" />
@@ -51,12 +65,12 @@
 						</div>
 						<div data-role="fieldcontain">
 							<fieldset data-role="controlgroup">
-								<label for="textinputu4"> Ancien Password: </label> <input id="textinputu4"  name="oldPassword" placeholder="" value="" type="password" />
+								<label for="textinputu4"> Ancien Mot de passe: </label> <input id="textinputu4"  name="oldPassword" placeholder="" value="" type="password" />
 							</fieldset>
 						</div>
 						<div data-role="fieldcontain">
 							<fieldset data-role="controlgroup">
-								<label for="textinputu5"> Nouveau Password: </label> <input id="textinputu5"  name="password" placeholder="" value="" type="password" />
+								<label for="textinputu5"> Nouveau Mot de passe: </label> <input id="textinputu5"  name="password" placeholder="" value="" type="password" />
 							</fieldset>
 						</div>
 						<div data-role="fieldcontain">

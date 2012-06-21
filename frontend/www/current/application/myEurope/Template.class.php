@@ -2,6 +2,14 @@
 
 class Template {
 	
+	public function checkSession( $redirect = true ){
+		if(session_id() == '') {
+			session_start();
+		}
+		if ($redirect && !isset($_SESSION['user'])) {
+			header("Location: ./authenticate");
+		}
+	}
 	
 	public function head(){ ?>
         <meta charset="utf-8" />

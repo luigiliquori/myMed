@@ -17,14 +17,10 @@
 	//ob_start("ob_gzhandler");
 	require_once 'Template.class.php';
 	$template = new Template();
+	$template->checkSession();
 	
 	require_once '../../lib/dasp/request/Request.class.php';
 	require_once '../../system/config.php';
-	session_start();
-	
-	if (!isset($_SESSION['user'])) {
-		header("Location: ./authenticate");
-	}
 	
 	$application = isset($_REQUEST['application'])?$_REQUEST['application']:"myEurope";
 
@@ -87,6 +83,28 @@
 			
 		}
 		$_SESSION['user'] = $responseObject->dataObject->profile;
+		
+		//extended Profile (user's role)
+		$predicates = array(
+				array("key"=>"ext", "value"=>$_SESSION['user']->id)
+		);
+		
+		$permission = ( $_SESSION['user']->email=="cyril.auburtin@gmail.com" ||
+						  $_SESSION['user']->email=="other@gmail.com" )? 1 : 0;
+		
+		$_SESSION['user']->type = $_POST['type'];
+		$_SESSION['user']->permission = $permission;
+		
+		$data = array(
+				array("key"=>"data", "value"=>$_POST['type']),
+				array("key"=>"end", "value"=> $permission ),
+		);
+		$request = new Request("PublishRequestHandler", CREATE);
+		$request->addArgument("application", $application);
+		$request->addArgument("predicate", json_encode($predicates));
+		$request->addArgument("data", json_encode($data));
+		$request->addArgument("user", json_encode($_SESSION['user']));
+		$responsejSon = $request->send();
 
 	} else if (isset($_POST['predicate'])){ // unsubscribe
 		$request = new Request("SubscribeRequestHandler", DELETE);
@@ -130,19 +148,22 @@
 		$request = new Request("SessionRequestHandler", DELETE);
 		$request->addArgument("accessToken", $_SESSION['user']->session);
 		$request->addArgument("socialNetwork", $_SESSION['user']->socialNetworkName);
-	
+		
 		session_destroy();
 		$responsejSon = $request->send();
 		$responseObject = json_decode($responsejSon);
 		if($responseObject->status == 200) {
 			header("Location: http://".$_SERVER['HTTP_HOST']); // go back to mymed
+			//header("Location: ./");
 		}
 	}
 	
-	$request = new Request("ProfileRequestHandler", READ);
+	//not necessary it's already in session
+	/*$request = new Request("ProfileRequestHandler", READ);
 	$request->addArgument("id", $_SESSION["user"]->id);
 	$responsejSon = $request->send();
-	$profile = json_decode($responsejSon);
+	$profile = json_decode($responsejSon);*/
+	
 	
 	$request = new Request("SubscribeRequestHandler", READ);
 	$request->addArgument("application", $application);
@@ -177,21 +198,22 @@
 						<div style='color:lightGreen;text-align:center;'><?= $msg ?></div>
 						<h3>Mon profil</h3>
 						<?php 
-						
-						if($profile->status == 200) {
-							$profile = $profile->dataObject->user;
-							$profPic = ($profile->profilePicture) ? $profile->profilePicture : "http://graph.facebook.com//picture?type=large";
+							$profPic = ($_SESSION["user"]->profilePicture) ? $_SESSION["user"]->profilePicture : "http://graph.facebook.com//picture?type=large";
+							$perms = array( 0 => "Utilisateur", 1 => "Modérateur");
 						?>
 						<img style="float:right;text-align: center; max-height: 220px;opacity: 0.2;" src="<?= $profPic ?>" />
-						<div style="width: 60%;opacity: 1; position:absolute;top:30%;left:20%;z-index:1">
-							 nom:
-							<span style="left-margin:5px; color: #0060AA; font-size:120%;"><?= $profile->firstName ?></span>
-							<br /> prénom:
-							<span style="left-margin:5px; color: #0060AA; font-size:120%;"><?= $profile->lastName ?></span>
+						<div style="width: 60%;opacity: 1; position:absolute;top:20%;left:20%;z-index:1">
+							 
+							  Type d'institution représentée:
+							<span style="left-margin:5px; color: #0060AA; font-size:120%;"><?= $_SESSION["user"]->type ?></span>
+							<br />permission:
+							<span style="left-margin:5px; color: #0060AA; font-size:120%;"><?= $perms[$_SESSION["user"]->permission] ?></span>
+							<br />
+							<br />nom:
+							<span style="left-margin:5px; color: #0060AA; font-size:120%;"><?= $_SESSION["user"]->name ?></span>
 							<br /> email:
-							<span style="left-margin:5px; color: #0060AA; font-size:120%;"><?= $profile->email ?></span>
-							<br /> date de naissance:
-							<span style="left-margin:5px; color: #0060AA; font-size:120%;"><?= $profile->birthday ?></span>
+							<span style="left-margin:5px; color: #0060AA; font-size:120%;"><?= $_SESSION["user"]->email ?></span>
+							
 							<br /><br />
 							<a href="update" type="button" data-transition="flip" data-mini="true" data-icon="grid"
 							style="width: 200px; margin-right: auto; margin-left: auto;">Modifier</a>
@@ -202,9 +224,6 @@
 							style="width: 200px; margin-right: auto; margin-left: auto;" onclick="$('#deconnectForm').submit();">Déconnecter</a>
 						</div>
 
-					<?php 
-					}
-				?>
 					</div>
 					
 					<hr />

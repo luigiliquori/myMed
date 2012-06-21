@@ -17,10 +17,10 @@
 	//ob_start("ob_gzhandler");
 	require_once 'Template.class.php';
 	$template = new Template();
+	$template->checkSession();
 	
 	require_once '../../lib/dasp/request/Request.class.php';
 	require_once '../../system/config.php';
-	session_start();
 	
 	if (!isset($_SESSION['user'])) {
 		header("Location: ./authenticate");
@@ -68,11 +68,7 @@
 					<h2><a href="./" style="color:white; text-decoration:none;">myEurope</a></h2>
 					<a id="opt" href=<?= $_SESSION['user']?"option":"authenticate" ?> class="ui-btn-right" data-transition="slide"><?= $_SESSION['user']?$_SESSION['user']->name:"Connexion" ?></a>
 				</div>
-				<div data-role="content">	
-					<form action="search" id="subscribeForm" data-ajax="false" style="margin: 10px -10px 20px -10px;">
-						<input id="searchBar" name="q" placeholder="chercher un partenaire par mot clés" data-type="search" />
-					</form>
-					<br />
+				<div data-role="content">
 					<?php 	
 						if($res->status == 200) {
 						?>

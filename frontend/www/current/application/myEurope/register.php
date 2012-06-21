@@ -3,14 +3,10 @@
 	//ob_start("ob_gzhandler");
 	require_once 'Template.class.php';
 	$template = new Template();
+	$template->checkSession();
+	
 	require_once '../../lib/dasp/request/Request.class.php';
 	require_once '../../system/config.php';
-	
-	session_start();
-	
-	if (!isset($_SESSION['user'])) {
-		header("Location: ./authenticate");
-	}
 	
 	if (count($_POST)) {
 		require_once '../../lib/dasp/beans/MUserBean.class.php';

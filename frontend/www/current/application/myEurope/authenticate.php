@@ -3,12 +3,14 @@
 	//ob_start("ob_gzhandler");
 	require_once 'Template.class.php';
 	$template = new Template();
+	$template->checkSession( false );
+	
 	$msg = ""; //feedback text
 	
 	if (count($_POST)) {
 		require_once '../../lib/dasp/request/Request.class.php';
 		require_once '../../system/config.php';
-		session_start();
+		
 		
 		if(!isset($_SESSION['user'])) {
 			$request = new Request("AuthenticationRequestHandler", READ);
@@ -29,7 +31,20 @@
 					if(!isset($_SESSION['friends'])){
 						$_SESSION['friends'] = array();
 					}
-					header("Location: ./");
+
+					$request = new Request("FindRequestHandler", READ);
+					$request->addArgument("application", "myEurope");
+					$request->addArgument("predicate", "ext".$_SESSION['user']->id);
+					$responsejSon = $request->send();
+					$extProfile = json_decode($responsejSon);
+					if($extProfile->status == 200 && count($extProfile->dataObject->results) > 0 ) {
+						$_SESSION['user']->type = $extProfile->dataObject->results[0]->data;
+						$_SESSION['user']->permission = $extProfile->dataObject->results[0]->end;
+						header("Location: ./");
+					} else {
+						header("Location: ./update?extended");
+					}
+					
 				} else {
 					$msg = $responseObject->description;
 				}
@@ -40,7 +55,10 @@
 		} else{
 			header("Location: ./option?please-logout-first");
 		}
+		
+
 	}
+		
 	
 ?>
 
@@ -59,12 +77,12 @@
 					<form action="#" method="post" id="loginForm">
 						<div data-role="fieldcontain">
 							<fieldset data-role="controlgroup">
-								<label for="textinputl1"> Login: </label> <input id="textinputl1"  name="login" placeholder="" value="" type="text" />
+								<label for="textinputl1"> email: </label> <input id="textinputl1"  name="login" placeholder="" value="" type="text" />
 							</fieldset>
 						</div>
 						<div data-role="fieldcontain">
 							<fieldset data-role="controlgroup">
-								<label for="textinputl2"> Password: </label> <input id="textinputl2"  name="password" placeholder="" value="" type="password" />
+								<label for="textinputl2"> Mot de passe: </label> <input id="textinputl2"  name="password" placeholder="" value="" type="password" />
 							</fieldset>
 						</div>
 						<a href="" type="submit" onclick="$('#loginForm').submit();">Connecter</a>
