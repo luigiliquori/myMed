@@ -41,8 +41,6 @@ class MyApplicationHandler implements IRequestHandler {
 			$request->addArgument("userID", $_GET['userID'] );
 			if (isset($_GET['accessToken']))
 				$request->addArgument('accessToken', $_GET['accessToken']);
-			// ^  to be able to unsubscribe from emails to deconnected session but not deleted session (will fail in this case)
-			// I will see with Laurent if we can remove the token check for unsubscribe DELETE handler
 			$responsejSon = $request->send();
 			$responseObject = json_decode($responsejSon);
 			if ($responseObject->status==200){

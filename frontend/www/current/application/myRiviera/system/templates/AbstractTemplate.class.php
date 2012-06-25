@@ -62,14 +62,14 @@ abstract class AbstractTemplate {
 		
 		<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox_packed.js"></script>
 
-		<script src='../../lib/dasp/javascript/dasp.js'></script>
+		<script type="text/javascript" src='../../lib/dasp/javascript/dasp.js'></script>
 		
 		<?php 
 		// LOAD APPLICATION JAVASCRIPT
 		if ($handle = opendir("system/templates/application/" . APPLICATION_NAME . '/javascript')) {
 			while (false !== ($file = readdir($handle))) {
 				if($file != "." && $file != ".." && $file != ".DS_Store"){
-			    		echo '<script src="system/templates/application/' . APPLICATION_NAME . '/javascript/' . $file . '"></script>';
+			    		echo '<script type="text/javascript" src="system/templates/application/' . APPLICATION_NAME . '/javascript/' . $file . '"></script>';
 					}
 			    } 
 		}
