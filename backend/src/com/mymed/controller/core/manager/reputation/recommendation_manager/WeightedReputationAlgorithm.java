@@ -4,16 +4,16 @@
  */
 package com.mymed.controller.core.manager.reputation.recommendation_manager;
 
-import com.mymed.controller.core.manager.reputation.api.recommendation_manager.IReputationAlgorithm;
-import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.controller.core.manager.reputation.db.table.ReputationEntity;
-import com.mymed.controller.core.manager.reputation.db.table.Verdict;
-//import com.mymed.controller.core.manager.reputation.db.table.facade.DbTableAdapter;
-import com.mymed.controller.core.manager.reputation.db.table.VerdictQueries;
-import com.mymed.model.data.reputation.MReputationBean;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.controller.core.manager.reputation.api.recommendation_manager.IReputationAlgorithm;
+import com.mymed.controller.core.manager.reputation.db.table.ReputationEntity;
+import com.mymed.controller.core.manager.reputation.db.table.Verdict;
+import com.mymed.controller.core.manager.reputation.db.table.VerdictQueries;
+import com.mymed.model.data.reputation.MReputationBean;
 
 /**
  *

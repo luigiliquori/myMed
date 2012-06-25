@@ -11,17 +11,10 @@
 package com.mymed.model.data.application;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
-import com.mymed.controller.core.exception.GeoLocationOutOfBoundException;
-import com.mymed.controller.core.manager.storage.GeoLocStorageManager;
 import com.mymed.model.data.AbstractMBean;
 import com.mymed.utils.PubSub;
-import com.mymed.utils.MConverter;
-import com.mymed.utils.locator.Locator;
 
 /**
  * This class represent a predicate bean

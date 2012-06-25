@@ -97,6 +97,7 @@ class Publish extends Request {
 		parent::addArgument("application", $application);
 		parent::addArgument("user", $user);
 		parent::addArgument("predicate", $predicate);
+		echo '<script type="text/javascript">alert(\'' . $predicate . '\');</script>';
 		parent::addArgument("data", $data);
 			
 		$responsejSon = parent::send();

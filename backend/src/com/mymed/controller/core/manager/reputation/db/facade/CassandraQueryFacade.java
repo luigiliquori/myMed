@@ -32,7 +32,6 @@ import org.w3c.dom.NodeList;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.reputation.db.table.ICassandraPersistable;
 import com.mymed.controller.core.manager.reputation.globals.Constants;
-//import com.mymed.controller.core.manager.reputation.primary_key.VerdictId;
 import com.mymed.model.core.wrappers.cassandra.api07.CassandraWrapper;
 import com.mymed.utils.ClassType;
 import com.mymed.utils.MConverter;

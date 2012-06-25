@@ -6,15 +6,14 @@ package com.mymed.controller.core.manager.reputation.db.facade;
 
 import java.util.List;
 
+import org.apache.cassandra.thrift.ColumnOrSuperColumn;
+
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.reputation.db.table.ICassandraPersistable;
-import com.mymed.controller.core.manager.reputation.globals.Constants;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.core.configuration.WrapperConfiguration;
 import com.mymed.model.core.wrappers.cassandra.api07.CassandraWrapper;
 import com.mymed.utils.MLogger;
-import java.io.File;
-import org.apache.cassandra.thrift.ColumnOrSuperColumn;
 
 /**
  * TODO: Correggere gli errori di INRIA da questo TransactionManager

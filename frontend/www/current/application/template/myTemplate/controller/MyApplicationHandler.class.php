@@ -1,8 +1,9 @@
 <?php 
-require_once '../../../lib/dasp/request/PublishRequest.class.php';
-require_once '../../../lib/dasp/beans/DataBean.php';
-require_once '../../../lib/dasp/beans/OntologyBean.php';
+// require_once '../../../lib/dasp/request/PublishRequest.class.php';
+// require_once '../../../lib/dasp/beans/DataBean.php';
+// require_once '../../../lib/dasp/beans/OntologyBean.php';
 
+require_once '../../../lib/dasp/request/Publish.class.php';
 require_once '../../../lib/dasp/request/Find.class.php';
 require_once '../../../lib/dasp/request/Delete.class.php';
 require_once '../../../lib/dasp/request/GetDetail.class.php';
@@ -39,48 +40,9 @@ class MyApplicationHandler implements IRequestHandler {
 	public /*void*/ function handleRequest() { 
 		if(isset($_POST['method'])) {
 			if($_POST['method'] == "publish") {
-				
-				/*
-				 * Create a DataBean with all the POST datas
-				 */
-				
-				$predicates = array();
-				$datas = array();
-				$numberOfPredicate = 0;
-				$numberOfOntology = 0;
-				
-				
-				// construct the predicate + data
-				for($i=0 ; $i<$_POST['numberOfOntology'] ; $i++){
-				
-					/*OntologyBean*/ $ontology = json_decode(urldecode($_POST['ontology' . $i]));
-				
-					if(isset($_POST[$ontology->key])) {
-						$ontology->value = $_POST[$ontology->key];
-					}
-					
-				
-					// construct the predicate
-					if($ontology->ontologyID < 4 && $ontology->value != "") {
-						$predicates[$numberOfPredicate++] = $ontology;
-					}
-				
-					// construct the data
-					$datas[$numberOfOntology++] = $ontology;
-				}
-				
-				
-				$dataBean = new DataBean($predicates, $datas);
-				
-				
-				
-				$publish = new PublishRequest($this, $dataBean);
+				$publish = new Publish($this);
 				return $publish->send();
 			} else if($_POST['method'] == "subscribe") {
-				
-				
-				
-				
 				$subscribe = new Subscribe($this);
 				return $subscribe->send();
 			} else if($_POST['method'] == "find") {

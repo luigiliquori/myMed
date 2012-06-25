@@ -18,7 +18,6 @@ package com.mymed.controller.core.manager.storage;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.apache.cassandra.thrift.ConsistencyLevel;
 
