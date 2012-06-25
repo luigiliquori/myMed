@@ -130,7 +130,7 @@ class DetailView extends MainView {
 						<input type="hidden" name="ontology3" value="<?= urlencode(json_encode($dataBean)); ?>">
 						<br />
 						
-						<a href="#" data-role="button" onclick="document.CommentPublishForm.submit()" >Publicare</a>
+						<a href="#" data-role="button" onclick="document.CommentPublishForm.submit()" >Postare</a>
 					</form>
 				<?php } ?>
 			</div>
