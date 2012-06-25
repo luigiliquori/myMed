@@ -322,8 +322,6 @@ public class FindRequestHandler extends AbstractRequestHandler {
 				case UPDATE :
 					//update indexes
 					
-					// ~ -> ontID
-					
 					message.setMethod(JSON_CODE_UPDATE);
 
 	                try {
@@ -341,9 +339,9 @@ public class FindRequestHandler extends AbstractRequestHandler {
 	                    List<MDataBean> predicateListOld = new ArrayList<MDataBean>();
 	                    List<MDataBean> predicateListNew = new ArrayList<MDataBean>();
 	                    List<MDataBean> metadataList = new ArrayList<MDataBean>(); //not all data, just shown in appcontroller
+	                    // changed now metadata (data that are in app controller but not as predicate) have their own ontoID
 	                    
 	                    for (Entry<String, QueryBean> d : predicateMap.entrySet()){
-	                    	//LOGGER.info("! "+d.getKey()+","+d.getValue().getValueStart()+"?"+d.getValue().getValueEnd()+","+d.getValue().getOntologyID());
 	                    	
 	                    	if (d.getValue().getOntologyID() < PubSub.TEXT ) { /* re-index */
 	                    		predicateListOld.add( d.getValue().toDataBeanStart(d.getKey()) );
@@ -353,6 +351,8 @@ public class FindRequestHandler extends AbstractRequestHandler {
 	                    		metadataList.add( d.getValue().toDataBeanEnd(d.getKey()) );
 	                    	}
 	                    }
+	                    
+	                    metadataList.addAll(predicateListNew);
 	                    
 	                    LOGGER.info("update"+level);
 	                    
@@ -371,7 +371,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
 		                    	String s1 = PubSub.Index.toRowString(predicate);
 		                    	String s2 = PubSub.Index.toColString(predicate);
 		                    	LOGGER.info("____"+s1+" "+s2);
-		                		pubsubManager.createIndex(application, s1, s2, dataId, userBean, metadataList, predicateListNew);
+		                		pubsubManager.createIndex(application, s1, s2, dataId, userBean, metadataList);
 		                    }
 	                    }
 

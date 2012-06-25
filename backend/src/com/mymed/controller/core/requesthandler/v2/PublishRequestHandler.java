@@ -239,7 +239,8 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 	                    for(List<PubSub.Index> p : predicates) {
 	                    	String s1 = PubSub.Index.toRowString(p);
 	                    	String s2 = PubSub.Index.toColString(p);
-	                		pubsubManager.create(application, s1, s2, dataId, userBean, dataList, predicateList);
+	                		pubsubManager.createIndex(application, s1, s2, dataId, userBean, dataList);
+	                		pubsubManager.sendMail(application, s1, userBean, dataList);
 	                    }
                     }
 
