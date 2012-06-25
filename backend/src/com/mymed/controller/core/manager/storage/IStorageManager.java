@@ -68,12 +68,6 @@ public interface IStorageManager {
      */
     void insertSuperSlice(final String superTableName, final String key, final String superKey,
                     final Map<String, byte[]> args) throws IOBackEndException, InternalBackEndException;
-    
-    /**
-     * v2 version of insertSuperSlice
-     */
-    void insertSuperSlice2(final String superTableName, final String key, final String superKey,
-            		final Map<String, byte[]> args) throws IOBackEndException, InternalBackEndException;
 
     /**
      * Get the value of an entry column

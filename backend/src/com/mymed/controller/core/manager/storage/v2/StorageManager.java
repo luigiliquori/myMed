@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.mymed.controller.core.manager.storage;
+package com.mymed.controller.core.manager.storage.v2;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
@@ -38,6 +38,7 @@ import ch.qos.logback.classic.Logger;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.model.core.configuration.WrapperConfiguration;
 import com.mymed.model.core.wrappers.cassandra.api07.CassandraWrapper;
 import com.mymed.properties.IProperties;
@@ -474,40 +475,38 @@ public class StorageManager implements IStorageManager {
    * @throws InternalBackEndException
    * 
    */
-  @Override
   public void insertSuperSlice(final String superTableName, final String key, final String superKey,
-      final Map<String, byte[]> args) throws IOBackEndException, InternalBackEndException {
-    try {
-      final Map<String, Map<String, List<Mutation>>> mutationMap = new HashMap<String, Map<String, List<Mutation>>>();
-      final long timestamp = System.currentTimeMillis();
-      final Map<String, List<Mutation>> tableMap = new HashMap<String, List<Mutation>>();
-      final List<Mutation> sliceMutationList = new ArrayList<Mutation>(5);
+		  final Map<String, byte[]> args) throws IOBackEndException, InternalBackEndException {
+	  try {
+		  final Map<ByteBuffer, Map<String, List<Mutation>>> mutationMap = new HashMap<ByteBuffer, Map<String, List<Mutation>>>();
+		  final long timestamp = System.currentTimeMillis();
+		  final Map<String, List<Mutation>> tableMap = new HashMap<String, List<Mutation>>();
+		  final List<Mutation> sliceMutationList = new ArrayList<Mutation>();
 
-      tableMap.put(superTableName, sliceMutationList);
+		  tableMap.put(superTableName, sliceMutationList);
+		  
+		  final List<Column> columns = new ArrayList<Column>();
 
-      final Iterator<Entry<String, byte[]>> iterator = args.entrySet().iterator();
-      final List<Column> columns = new ArrayList<Column>();
+		  for (Entry<String, byte[]> entry : args.entrySet()){
+			  columns.add(new Column(MConverter.stringToByteBuffer(entry.getKey()), ByteBuffer.wrap(entry.getValue()),
+					  timestamp));
+		  }
 
-      while (iterator.hasNext()) {
-        final Entry<String, byte[]> entry = iterator.next();
-        columns.add(new Column(MConverter.stringToByteBuffer(entry.getKey()), ByteBuffer.wrap(entry.getValue()),
-            timestamp));
-      }
 
-      final Mutation mutation = new Mutation();
-      final SuperColumn superColumn = new SuperColumn(MConverter.stringToByteBuffer(superKey), columns);
-      mutation.setColumn_or_supercolumn(new ColumnOrSuperColumn().setSuper_column(superColumn));
-      sliceMutationList.add(mutation);
+		  final Mutation mutation = new Mutation();
+		  final SuperColumn superColumn = new SuperColumn(MConverter.stringToByteBuffer(superKey), columns);
+		  mutation.setColumn_or_supercolumn(new ColumnOrSuperColumn().setSuper_column(superColumn));
+		  sliceMutationList.add(mutation);
 
-      // Insertion in the map
-      mutationMap.put(key, tableMap);
+		  // Insertion in the map
+		  mutationMap.put(MConverter.stringToByteBuffer(key), tableMap);
 
-      wrapper.batch_mutate(mutationMap, consistencyOnWrite);
-    } catch (final InternalBackEndException e) {
-      throw new InternalBackEndException(e);
-    }
+		  wrapper.batchMutate(mutationMap, consistencyOnWrite);
+	  } catch (final InternalBackEndException e) {
+		  throw new InternalBackEndException(e);
+	  }
   }
-  
+
   /**
    * Remove a specific column defined by the columnName
    * 

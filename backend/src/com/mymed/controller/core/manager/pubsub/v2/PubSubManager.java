@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.mymed.controller.core.manager.pubsub;
+package com.mymed.controller.core.manager.pubsub.v2;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
@@ -29,8 +29,9 @@ import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.AbstractManager;
 import com.mymed.controller.core.manager.profile.ProfileManager;
+import com.mymed.controller.core.manager.pubsub.IPubSubManager;
 import com.mymed.controller.core.manager.storage.IStorageManager;
-import com.mymed.controller.core.manager.storage.StorageManager;
+import com.mymed.controller.core.manager.storage.v2.StorageManager;
 import com.mymed.model.data.application.MDataBean;
 import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.MConverter;
@@ -233,6 +234,126 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
         }
     }
     
+    public final void create(String application, final String predicate, final String colprefix, final String subPredicate,
+    		final MUserBean publisher, final List<MDataBean> dataList) throws InternalBackEndException,
+    		IOBackEndException {
+    	try {
+
+    		final Map<String, byte[]> args = new HashMap<String, byte[]>();
+    		
+    		// STORE VALUES RELATED TO THE PREDICATE
+    		String data = "";
+            String begin = Long.toString(System.currentTimeMillis());
+            String end = "";
+
+            for (final MDataBean item : dataList) {
+                if (item.getKey().equals(DATA_ARG)) {
+                    data = item.getValue();
+                } else if (item.getKey().equals(BEGIN_ARG)) {
+                    begin = item.getValue();
+                } else if (item.getKey().equals(END_ARG)) {
+                    end = item.getValue();
+                }
+            }
+   		
+	   		for ( MDataBean item : dataList) {
+	   			if (item.getOntologyID() < 4 || item.getOntologyID() >8)
+	   				args.put(item.getKey(), item.getValue().getBytes(ENCODING));
+	   		}
+	   		
+	   		args.put("predicate", subPredicate.getBytes(ENCODING));
+	   		args.put("begin", begin.getBytes(ENCODING));
+	   		args.put("end", end.getBytes(ENCODING));
+	   		args.put("publisherID", publisher.getId().getBytes(ENCODING));
+
+	   		//---should be removed as they are not updated along with profile ...
+	   		args.put("publisherName", publisher.getName().getBytes(ENCODING));
+	   		
+	   		args.put("data", data.getBytes(ENCODING));
+
+    		storageManager.insertSuperSlice(SC_APPLICATION_CONTROLLER, application + predicate, colprefix+subPredicate
+    				+ publisher.getId(), args);
+    		
+    		// UPDATE THE DATAs
+    		args.clear();
+    		
+    		for ( MDataBean item : dataList) {
+				args.put("key", item.getKey().getBytes(ENCODING));
+    			args.put("value", item.getValue().getBytes(ENCODING));
+    			args.put("ontologyID", String.valueOf(item.getOntologyID()).getBytes(ENCODING));
+    			storageManager.insertSuperSlice(SC_DATA_LIST, application + subPredicate + publisher.getId(),
+    					item.getKey(), args);
+    			args.clear();
+    			
+    		}
+
+    	} catch (final UnsupportedEncodingException e) {
+    		LOGGER.debug(ERROR_ENCODING, ENCODING, e);
+    		throw new InternalBackEndException(e.getMessage()); // NOPMD
+    	}
+    }
+    
+    public final void sendMail(String application, final String predicate, final MUserBean publisher, final List<MDataBean> dataList)
+    		throws InternalBackEndException, IOBackEndException {
+    	
+    	// SEND A MAIL TO THE SUBSCRIBERS
+
+    	final List<String> recipients = new ArrayList<String>();
+
+		final Map<byte[], byte[]> subscribers = storageManager.selectAll(CF_SUBSCRIBEES, application + predicate);
+		for (final Entry<byte[], byte[]> entry : subscribers.entrySet()) {
+			final String key = Charset.forName(ENCODING).decode(ByteBuffer.wrap(entry.getKey())).toString();
+			//final String val = Charset.forName(ENCODING).decode(ByteBuffer.wrap(entry.getValue())).toString();
+			recipients.add(profileManager.read(key).getEmail());
+			LOGGER.info("subscription sent for: "+key);
+		}
+
+
+		// Format the mail
+		// TODO move this somewhere else and handle translation of this email!
+		if (!recipients.isEmpty()) {
+			final byte[] accTokByte = storageManager.selectColumn(CF_USER, publisher.getId(), "session");
+			final String accTok = Charset.forName(ENCODING).decode(ByteBuffer.wrap(accTokByte)).toString();
+			final StringBuilder mailContent = new StringBuilder(400);
+			mailContent.append("Bonjour,<br/>De nouvelles informations sont arriv&eacute;es sur votre plateforme myMed.<br/>Application Concern&eacute;e: ");
+			mailContent.append(application);
+			mailContent.append("<br/>Predicate:<br/>");
+			
+			for ( MDataBean item : dataList) {
+				mailContent.append("&nbsp;&nbsp;-");
+				mailContent.append(item.getKey());
+				mailContent.append(": ");
+				mailContent.append(item.getValue());
+				mailContent.append("<br/>");
+			}
+
+			mailContent.append("<br/><br/>------<br/>L'&eacute;quipe myMed<br/><br/>");
+			mailContent.append("Cliquez <a href='");
+
+			String address = getServerProtocol() + getServerURI();
+			if (application != null) {
+				// can we rename the folder myEuroCINAdmin in myEuroCIN_ADMIN to skip below hack
+				address += "/application/" + (application.equals("myEuroCIN_ADMIN")?"myEuroCINAdmin":application);
+			} 
+			address += "?predicate=" + predicate + "&application="
+					+ application + "&userID=" + publisher.getId()
+					+ "&accessToken=" + accTok;
+			mailContent.append(address);
+			mailContent.append("'>ici</a> si vous souhaitez vraiment vous d&eacute;sabonner");
+
+			mailContent.trimToSize();
+
+			final MailMessage message = new MailMessage();
+			message.setSubject("myMed subscribe info: " + application);
+			message.setRecipients(recipients);
+			message.setText(mailContent.toString());
+
+			final Mail mail = new Mail(message, SubscribeMailSession.getInstance());
+			mail.send();
+		}
+    }
+
+
     /**
      * The subscribe mechanism.
      * 
@@ -255,7 +376,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
         }
     }
 
-    /**
+    /*
      * The find mechanism.
      * @see com.mymed.controller.core.manager.pubsub.IPubSubManager#read(java.lang.String, java.lang.String)
      */
@@ -283,10 +404,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     }
     
  
-    /**
-     * The find mechanism.
-     * @see com.mymed.controller.core.manager.pubsub.IPubSubManager#read(String, String, String, int, Boolean)
-     */
+    
     @Override
     public final List<Map<String, String>> read(final String application, final String predicate, final String start, final int count, final Boolean reversed)
                     throws InternalBackEndException, IOBackEndException, UnsupportedEncodingException {
@@ -309,10 +427,6 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
         return resList;
     }
     
-    /**
-     * The find mechanism.
-     * @see com.mymed.controller.core.manager.pubsub.IPubSubManager#read(String, String, String)
-     */
     public final TreeMap<String, Map<String, String>> read(final String application, final List<String> predicate, final String start, final String finish)
     		throws InternalBackEndException, IOBackEndException, UnsupportedEncodingException {
     	
@@ -324,7 +438,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     }
 
 
-    /**
+    /*
      * The find mechanism: get more details.
      * @see com.mymed.controller.core.manager.pubsub.IPubSubManager#read(java.lang.String, java.lang.String,
      * java.lang.String)
@@ -350,7 +464,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
         return resList;
     }
 
-    /**
+    /*
      * The find mechanism.
      * @see com.mymed.controller.core.manager.pubsub.IPubSubManager#read(java.lang.String)
      */

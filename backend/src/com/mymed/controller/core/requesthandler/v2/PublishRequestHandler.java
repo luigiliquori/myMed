@@ -37,7 +37,7 @@ import com.google.gson.reflect.TypeToken;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.profile.ProfileManager;
-import com.mymed.controller.core.manager.pubsub.PubSubManager;
+import com.mymed.controller.core.manager.pubsub.v2.PubSubManager;
 import com.mymed.controller.core.requesthandler.AbstractRequestHandler;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.application.MDataBean;
@@ -239,7 +239,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 	                    for(List<PubSub.Index> p : predicates) {
 	                    	String s1 = PubSub.Index.toRowString(p);
 	                    	String s2 = PubSub.Index.toColString(p);
-	                		pubsubManager.createIndex(application, s1, s2, dataId, userBean, dataList);
+	                		pubsubManager.create(application, s1, s2, dataId, userBean, dataList);
 	                		pubsubManager.sendMail(application, s1, userBean, dataList);
 	                    }
                     }

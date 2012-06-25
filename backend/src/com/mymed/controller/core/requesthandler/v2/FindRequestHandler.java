@@ -37,7 +37,7 @@ import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.profile.ProfileManager;
-import com.mymed.controller.core.manager.pubsub.PubSubManager;
+import com.mymed.controller.core.manager.pubsub.v2.PubSubManager;
 import com.mymed.controller.core.requesthandler.AbstractRequestHandler;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.application.MDataBean;
@@ -371,7 +371,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
 		                    	String s1 = PubSub.Index.toRowString(predicate);
 		                    	String s2 = PubSub.Index.toColString(predicate);
 		                    	LOGGER.info("____"+s1+" "+s2);
-		                		pubsubManager.createIndex(application, s1, s2, dataId, userBean, metadataList);
+		                		pubsubManager.create(application, s1, s2, dataId, userBean, metadataList);
 		                    }
 	                    }
 
