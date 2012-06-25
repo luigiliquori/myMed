@@ -22,7 +22,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Scanner;
 
 import javax.servlet.ServletException;
@@ -42,7 +41,6 @@ import com.mymed.controller.core.manager.pubsub.PubSubManager;
 import com.mymed.controller.core.requesthandler.AbstractRequestHandler;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.application.MDataBean;
-import com.mymed.model.data.application.QueryBean;
 import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.PubSub;
 

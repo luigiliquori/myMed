@@ -36,7 +36,6 @@ import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.pubsub.PubSubManager;
-import com.mymed.controller.core.requesthandler.AbstractRequestHandler;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.application.MDataBean;
 import com.mymed.model.data.user.MUserBean;
@@ -152,17 +151,15 @@ public class PublishRequestHandler extends AbstractMatchMaking {
                         }
                         bufferSubPredicate.trimToSize();
 
-                        String data_id = parameters.get("id") != null ? parameters.get("id") : bufferSubPredicate.toString();
-
                         int level = predicateListObject.size();
                         if (parameters.get("level") != null){
                         	level = Integer.parseInt(parameters.get("level"));
                         }
                         List<StringBuffer> predicates = getPredicate(predicateListObject, level);
                         
-                        LOGGER.info("deleting "+data_id+" with level: "+level);
+                        LOGGER.info("deleting "+bufferSubPredicate.toString()+" with level: "+level);
                         for(StringBuffer predicate : predicates) {
-                        	pubsubManager.delete(application, predicate.toString(), data_id, userID);
+                        	pubsubManager.delete(application, predicate.toString(), bufferSubPredicate.toString(), userID);
                         }
                         
                     } catch (final JsonSyntaxException e) {
@@ -235,19 +232,8 @@ public class PublishRequestHandler extends AbstractMatchMaking {
                     }
                     bufferSubPredicate.trimToSize();
                     
-					String data_id = parameters.get("id") != null ? parameters.get("id") : bufferSubPredicate.toString();
-					/*  
-					 * not nice for me to store Id as predicate.toString+user_id, I use many predicates, hidden ones, can even be too long for url.. error 414
-					 * have to create v2/pubreqhandler for this id param?
-					 * 
-					 * it's unique for me as I put the project submission title of a user
-					 * 
-					 * but use title+timestamp if you need
-					 * 
-					 * I wanted to store this id in predicate List but in this case it could really have conflicted 
-					 * 
-					 */
-				
+					bufferSubPredicate.toString();
+
                     /* construct indexes */
                     int level = predicateList.size();
                     if (parameters.get("level") != null){
@@ -256,11 +242,10 @@ public class PublishRequestHandler extends AbstractMatchMaking {
                     List<StringBuffer> predicates = getPredicate(predicateList, level);
                     
                     /* store indexes for this data */
-                    LOGGER.info("indexing "+data_id+" with level: "+level+" "+predicates.size());
+                    LOGGER.info("indexing "+bufferSubPredicate.toString()+" with level: "+level+", nb of rows:"+predicates.size());
                     
                     for(StringBuffer predicate : predicates) {
-                    	LOGGER.info("indexing "+data_id+" row: "+predicate.toString());
-                		pubsubManager.create(application, predicate.toString(), data_id, userBean, dataList, predicateListJson);
+                		pubsubManager.create(application, predicate.toString(), bufferSubPredicate.toString(), userBean, dataList, predicateListJson);
                     }
                     
                 } catch (final JsonSyntaxException e) {
