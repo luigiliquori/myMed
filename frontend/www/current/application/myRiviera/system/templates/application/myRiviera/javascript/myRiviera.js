@@ -550,7 +550,7 @@ function calcRouteByCityway(result) {
 		content2 = (tripSegment.comment || '&nbsp;');
 		steps[i]['desc'] = content1 + '<br />' + content2;
 		
-		desc = $('<li><img style="margin: 10px;display: inline-block;" alt="no picture" src="' + icon + '" /><a href="#Map" style="display:inline-block;vertical-align: top;margin-top: 5px;margin-right: 50px;" onclick="updateMarkers('+ (i+1)+ ');"><p style="white-space:normal;">' + content1 + '<br />' + content2 + '</p></a><br /></li>');
+		desc = $('<li><img style="margin: 10px;display: inline-block;" alt="no picture" src="' + icon + '" /><a href="#Map" style="width: 100%;display:inline-block;vertical-align: top;margin-top: 5px;" onclick="updateMarkers('+ (i+1)+ ');"><p style="white-space:normal;margin-right: 90px;">' + content1 + '<br />' + content2 + '</p></a><br /></li>');
 
 		desc.appendTo($('#itineraireContent'));
 
@@ -651,7 +651,7 @@ function calcRouteByGoogle(printTrip) {
 								'desc' : content1 + '<br />' + content2
 						};
 
-						desc = $('<li"><img style="margin: 10px;display: inline-block;" alt="no picture" src="' + icon + '" /><a href="#Map" style="display:inline-block;vertical-align: top;margin-top: 5px;margin-right: 50px;" onclick="updateMarkers('+ (i+1)+ ');"><p style="white-space:normal;">' + content1 + '<br />' + content2 + '</p></a><br /></li>');
+						desc = $('<li><img style="margin: 10px;display: inline-block;" alt="no picture" src="' + icon + '" /><a href="#Map" style="width: 100%;display:inline-block;vertical-align: top;margin-top: 5px;" onclick="updateMarkers('+ (i+1)+ ');"><p style="white-space:normal;margin-right: 90px;">' + content1 + '<br />' + content2 + '</p></a><br /></li>');
 						desc.appendTo($('#itineraireContent'));
 					}
 
