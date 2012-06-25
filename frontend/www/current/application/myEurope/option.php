@@ -15,7 +15,7 @@
 	 */
 
 	//ob_start("ob_gzhandler");
-	require_once 'Template.class.php';
+	require_once 'Template.php';
 	$template = new Template();
 	$template->checkSession();
 	
@@ -86,24 +86,24 @@
 		
 		//extended Profile (user's role)
 		$predicates = array(
-				array("key"=>"ext", "value"=>$_SESSION['user']->id)
+				array("key"=>"ext", "value"=>$_SESSION['user']->id, "ontologyID"=>0)
 		);
 		
 		$permission = ( $_SESSION['user']->email=="cyril.auburtin@gmail.com" ||
 						  $_SESSION['user']->email=="other@gmail.com" )? 1 : 0;
 		
-		$_SESSION['user']->type = $_POST['type'];
-		$_SESSION['user']->permission = $permission;
+		$_SESSION['userType'] = $_POST['type'];
+		$_SESSION['userPerm'] = $permission;
 		
 		$data = array(
-				array("key"=>"data", "value"=>$_POST['type']),
-				array("key"=>"end", "value"=> $permission ),
+				array("key"=>"data", "value"=>$_POST['type'], "ontologyID"=>4),
+				array("key"=>"end", "value"=> $permission, "ontologyID"=>4 ),
 		);
 		$request = new Request("PublishRequestHandler", CREATE);
 		$request->addArgument("application", $application);
 		$request->addArgument("predicate", json_encode($predicates));
 		$request->addArgument("data", json_encode($data));
-		$request->addArgument("user", json_encode($_SESSION['user']));
+		$request->addArgument("userID", $_SESSION['user']->id);
 		$responsejSon = $request->send();
 
 	} else if (isset($_POST['predicate'])){ // unsubscribe
@@ -205,9 +205,9 @@
 						<div style="width: 60%;opacity: 1; position:absolute;top:20%;left:20%;z-index:1">
 							 
 							  Type d'institution représentée:
-							<span style="left-margin:5px; color: #0060AA; font-size:120%;"><?= $_SESSION["user"]->type ?></span>
+							<span style="left-margin:5px; color: #0060AA; font-size:120%;"><?= $_SESSION["userType"] ?></span>
 							<br />permission:
-							<span style="left-margin:5px; color: #0060AA; font-size:120%;"><?= $perms[$_SESSION["user"]->permission] ?></span>
+							<span style="left-margin:5px; color: #0060AA; font-size:120%;"><?= $perms[$_SESSION["userPerm"]] ?></span>
 							<br />
 							<br />nom:
 							<span style="left-margin:5px; color: #0060AA; font-size:120%;"><?= $_SESSION["user"]->name ?></span>
@@ -220,7 +220,7 @@
 							<form action="option" id="deconnectForm" data-ajax="false">
 								<input name="logout" type="hidden" />
 							</form>
-							<a href="" type="button" data-mini="true" data-icon="delete"
+							<a href="" type="button" data-mini="true" data-icon="delete" data-ajax="false"
 							style="width: 200px; margin-right: auto; margin-left: auto;" onclick="$('#deconnectForm').submit();">Déconnecter</a>
 						</div>
 

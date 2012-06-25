@@ -1,6 +1,6 @@
 
 <?php
-	require_once 'Template.class.php';
+	require_once 'Template.php';
 	$template = new Template();
 ?>
 

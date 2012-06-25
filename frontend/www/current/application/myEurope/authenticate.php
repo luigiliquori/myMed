@@ -1,10 +1,9 @@
 <?php
 
 	//ob_start("ob_gzhandler");
-	require_once 'Template.class.php';
+	require_once 'Template.php';
 	$template = new Template();
 	$template->checkSession( false );
-	
 	$msg = ""; //feedback text
 	
 	if (count($_POST)) {
@@ -37,9 +36,9 @@
 					$request->addArgument("predicate", "ext".$_SESSION['user']->id);
 					$responsejSon = $request->send();
 					$extProfile = json_decode($responsejSon);
-					if($extProfile->status == 200 && count($extProfile->dataObject->results) > 0 ) {
-						$_SESSION['user']->type = $extProfile->dataObject->results[0]->data;
-						$_SESSION['user']->permission = $extProfile->dataObject->results[0]->end;
+					if($extProfile->status == 200 ) {
+						$_SESSION['userType'] = $extProfile->dataObject->results[0]->data;
+						$_SESSION['userPerm'] = $extProfile->dataObject->results[0]->end;
 						header("Location: ./");
 					} else {
 						header("Location: ./update?extended");
@@ -74,7 +73,7 @@
 				</div>
 				<div data-role="content">
 					<div style='color:Red;text-align:center;'><?= $msg ?></div>
-					<form action="#" method="post" id="loginForm">
+					<form action="authenticate" method="post" id="loginForm" data-ajax="false">
 						<div data-role="fieldcontain">
 							<fieldset data-role="controlgroup">
 								<label for="textinputl1"> email: </label> <input id="textinputl1"  name="login" placeholder="" value="" type="text" />

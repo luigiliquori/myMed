@@ -12,7 +12,7 @@
 	*/
 
 	//ob_start("ob_gzhandler");
-	require_once 'Template.class.php';
+	require_once 'Template.php';
 	$template = new Template();
 	$template->checkSession();
 	
@@ -24,38 +24,40 @@
 		$tags = preg_split('/[ +]/', $_POST['q'], NULL, PREG_SPLIT_NO_EMPTY);
 		array_push($tags, '~'); //let's add this common tag for all texts, to easily retrieve all texts if necessary
 		$p = array_unique(array_map('strtolower', $tags));
-		sort($p); //important
-		$predicates=array();
-		foreach( $p as $v ){ //do this for PubRequestHandler compatibility...
-			array_push($predicates, array("key"=>$v, "value"=>""));
-		}
-		$all = array_search('~', $p);
-		unset($p[$all]); // remove it 
+		
+		
+		//sort($p); //important
+
+// 		$all = array_search('~', $p);
+// 		unset($p[$all]); // remove it 
+
+		
 		
 		$metadata = array(
 			"nom" => $_POST['nom'],
 			"id" => $_POST['id'],
-			"cout" => $_POST['cout'],
 			"montant" => $_POST['montant'],
-			"date" => $_POST['date']
-		);
-		$data = array(
-			array("key"=>"text", "value"=>$_POST['text']),
-			array("key"=>"id", "value"=>$_POST['id']), // data_id
-			array("key"=>"data", "value"=>json_encode($metadata)), // there to display more info on the result list
-			array("key"=>"deleteme", "value"=>json_encode($predicates)), // there to more easily remove this data
-			array("key"=>"indexes", "value"=>json_encode($p)), // array with all indexes for searching this data 
 		);
 		
-		$request = new Request("PublishRequestHandler", CREATE);
+		$data = array();
+		
+		foreach( $p as $v ){ //do this for PubRequestHandler compatibility...
+			array_push($data, array("key"=>$v, "value"=>"", "ontologyID"=>0));
+		}
+		array_push($data, array("key"=>"cout", "value"=>$_POST['cout'], "ontologyID"=>2));
+		array_push($data, array("key"=>"date", "value"=>$_POST['date'], "ontologyID"=>3));
+		array_push($data, array("key"=>"text", "value"=>$_POST['text'], "ontologyID"=>4));
+		array_push($data, array("key"=>"data", "value"=>json_encode($metadata), "ontologyID"=>4));
+		// there to display more info on the result list
+		
+		$request = new Request("v2/PublishRequestHandler", CREATE);
 		$request->addArgument("application", $_POST['application']);
-		$request->addArgument("predicate", json_encode($predicates));
 			
 		$request->addArgument("data", json_encode($data));
 		$request->addArgument("id", $_POST['id']);
 		$request->addArgument("level", 3);
 		if(isset($_SESSION['user'])) {
-			$request->addArgument("user", json_encode($_SESSION['user']));
+			$request->addArgument("userID", $_SESSION['user']->id);
 		}
 			
 		$responsejSon = $request->send();

@@ -15,7 +15,7 @@
 	 */
 
 	//ob_start("ob_gzhandler");
-	require_once 'Template.class.php';
+	require_once 'Template.php';
 	$template = new Template();
 	$template->checkSession();
 	
@@ -33,21 +33,36 @@
 	if (isset($_GET['q'])){
 		$tags = preg_split('/[ +]/', $_GET['q'], NULL, PREG_SPLIT_NO_EMPTY);
 		$p = array_unique(array_map('strtolower', $tags));
-		sort($p); //important
-		$predicate = join("", array_slice($p, 0, 3)); // we use a broadcast level of 3 for myEurope see in post.php
-		$request = new Request("FindRequestHandler", READ);
+		//sort($p); //important
+		//$predicate = join("", array_slice($p, 0, 3)); // we use a broadcast level of 3 for myEurope see in post.php
+		
+		$request = new Request("v2/FindRequestHandler", READ);
 		$request->addArgument("application", $application);
-		$request->addArgument("predicate", $predicate);
-		$request->addArgument("start", isset($_GET['start'])?$_GET['start']:"");
-		$request->addArgument("count", isset($_GET['count'])?$_GET['count']:10);
+		
+		$predicateList=array();
+		foreach( $p as $v ){ //do this for PubRequestHandler compatibility...
+			$predicateList[$v] = array("valueStart"=>"", "valueEnd"=>"", "ontologyID"=>0);
+		}
+		
+		// @todo verify date format
+		if ($_GET['dateMin'] != "" || $_GET['dateMax'] != ""){
+			$predicateList["date"] = array("valueStart"=>$_GET['dateMin'], "valueEnd"=>$_GET['dateMax'], "ontologyID"=>3);
+		}
+		if ($_GET['rateMin'] != "" && $_GET['rateMax'] != ""){
+			$predicateList["cout"] = array("valueStart"=>$_GET['rateMin'], "valueEnd"=>$_GET['rateMax'], "ontologyID"=>2);
+		}
+
+		
+		$request->addArgument("predicateList", json_encode($predicateList));
+		//$request->addArgument("predicate", $predicate);
+		
+		//$request->addArgument("start", isset($_GET['start'])?$_GET['start']:"");
+		//$request->addArgument("count", isset($_GET['count'])?$_GET['count']:10);
 		$responsejSon = $request->send();
 		$res = json_decode($responsejSon);
 		
 	}
 
-	function is_subarray($q, $r){
-		return count(array_intersect( $q , $r)) == min(count($q), count($r));
-	}
 	
 ?>
 
@@ -79,16 +94,13 @@
 							foreach( $res as $i => $value ){
 								$data = json_decode($value->data);
 
-								if (!is_subarray(array_slice($p, 3), json_decode($value->indexes))){
-									continue; //this item is filtered out, after level (=3)
-								}
 									
 							?>
 							<li><a href="" onclick="$('#detailForm<?= $i ?>').submit();" style="padding-top: 1px;padding-bottom: 1px;">
 								<h3><?= $data->nom ?>, <?= $data->id ?></h3>
-								<p><?= $data->cout ?>, <?= $data->montant ?></p>
-								<p class="ui-li-aside"><strong><?= $data->date ?></strong></p>
-								<p class="ui-li-aside" style="position: absolute;top: 60%;right: 14px;"><span><a style="color: #0060AA;" href="mailto:<?= substr($value->publisherID, 6) ?>"><?= substr($value->publisherID, 6) ?></a></span></p>
+								<p><?= $value->cout ?>, <?= $data->montant ?></p>
+								<p class="ui-li-aside"><strong><?= $value->date ?></strong></p>
+								<p class="ui-li-aside" style="position: absolute;top: 60%;right: 37px;">publié par: <span style="left-margin:5px; color: #0060AA; font-size:120%;"><?= $value->publisherName ?></span></p>
 								<form action="detail" id="detailForm<?= $i ?>">
 									<input name="application" value='<?= $application ?>' type="hidden" />
 									<input name="predicate" value="<?= urlencode($value->predicate) ?>" type="hidden" />
