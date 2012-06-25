@@ -65,7 +65,6 @@ class Find extends Request {
 		parent::addArgument("application", $_POST['application']);
 // 		parent::addArgument("predicate", $predicate); // DEPRECATED
 		parent::addArgument("predicateList", json_encode($predicateArray));
-		echo '<script type="text/javascript">alert(\'' . json_encode($predicateArray) . '\');</script>';
 		
 		$responsejSon = parent::send();
 		$responseObject = json_decode($responsejSon);
