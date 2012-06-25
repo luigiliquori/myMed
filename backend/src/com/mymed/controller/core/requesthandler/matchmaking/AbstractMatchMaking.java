@@ -23,8 +23,16 @@ import com.mymed.model.data.application.MDataBean;
  */
 public abstract class AbstractMatchMaking extends AbstractRequestHandler {
 	
+    /**
+     * JSON 'predicate' attribute.
+     */
+    protected static final String JSON_NAMESPACE = JSON.get("json.namespapce");
 
-
+    
+    protected String getPrefix(String application, String namespace){
+    	return namespace != null ? application + ":" + namespace : application;
+    }
+    
 	/**
 	 * 
 	 * contructs all possible indexes between 1 and level from predicateListObject
@@ -37,8 +45,7 @@ public abstract class AbstractMatchMaking extends AbstractRequestHandler {
 	 * @param level
 	 * @return List of StringBuffers
 	 */
-	
-	public List<StringBuffer> getPredicate(final List<MDataBean> predicateListObject, final int level) {
+	protected List<StringBuffer> getPredicate(final List<MDataBean> predicateListObject, final int level) {
 
 		List<StringBuffer> result = new ArrayList<StringBuffer>();
 		int n = predicateListObject.size();

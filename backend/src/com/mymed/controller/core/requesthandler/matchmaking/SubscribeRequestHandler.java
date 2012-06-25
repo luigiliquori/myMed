@@ -34,7 +34,7 @@ import com.mymed.model.data.user.MUserBean;
 /**
  * Servlet implementation class PubSubRequestHandler
  */
-public class SubscribeRequestHandler extends AbstractRequestHandler {
+public class SubscribeRequestHandler extends AbstractMatchMaking {
     /**
      * Generated serial ID.
      */
@@ -70,7 +70,7 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            final String application, predicate, user;
+            final String application, predicate, user, namespace = parameters.get(JSON_NAMESPACE);
             
             switch (code) {
                 case READ :
@@ -80,7 +80,7 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
                 	} else if((user = parameters.get(JSON_USERID)) == null){
                 		throw new InternalBackEndException("missing userID argument!");
                 	}
-                	final Map<String, String> predicates = pubsubManager.read(application + user);
+                	final Map<String, String> predicates = pubsubManager.read(getPrefix(application, namespace) + user);
                  	message.setDescription("Subscriptions found for Application: " + application + " User: " + user);
  		            LOGGER.info("Subscriptions found for Application: " + application + " User: " + user);
  		            message.addDataObject(JSON_SUBSCRIPTIONS, predicates);
@@ -96,7 +96,7 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
                         throw new InternalBackEndException("missing userID argument!");
                     }
 
-                	pubsubManager.delete(application, user, predicate);
+                	pubsubManager.delete(getPrefix(application, namespace), user, predicate);
                 	LOGGER.info("subscription deleted: " + predicate +" for user: " + user);
                 	message.setDescription("subscription deleted: " + predicate +" for user: " + user);
                         
@@ -127,7 +127,7 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            final String application, predicate, user;
+            final String application, predicate, user, namespace = parameters.get(JSON_NAMESPACE);
             user = parameters.get(JSON_USERID) != null ? parameters.get(JSON_USERID) : parameters.get(JSON_USER);
 
             if (code.equals(RequestCode.CREATE)) {
@@ -147,7 +147,7 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
                 }
                 try {
 
-                    pubsubManager.create(application, predicate, userBean);
+                    pubsubManager.create(getPrefix(application, namespace), predicate, userBean);
                     LOGGER.info("predicate subscribed: " + predicate);
                     message.setDescription("predicate subscribed: " + predicate);
                 } catch (final JsonSyntaxException e) {

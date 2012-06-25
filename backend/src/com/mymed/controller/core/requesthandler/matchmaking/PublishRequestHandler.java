@@ -114,7 +114,7 @@ public class PublishRequestHandler extends AbstractMatchMaking {
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            final String application, predicateListJson, user;
+            final String application, predicateListJson, user, namespace = parameters.get(JSON_NAMESPACE);
             user = parameters.get(JSON_USERID) != null ? parameters.get(JSON_USERID) : parameters.get(JSON_USER);
             String userID;
             
@@ -159,7 +159,7 @@ public class PublishRequestHandler extends AbstractMatchMaking {
                         
                         LOGGER.info("deleting "+bufferSubPredicate.toString()+" with level: "+level);
                         for(StringBuffer predicate : predicates) {
-                        	pubsubManager.delete(application, predicate.toString(), bufferSubPredicate.toString(), userID);
+                        	pubsubManager.delete(getPrefix(application, namespace), predicate.toString(), bufferSubPredicate.toString(), userID);
                         }
                         
                     } catch (final JsonSyntaxException e) {
@@ -196,12 +196,15 @@ public class PublishRequestHandler extends AbstractMatchMaking {
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            final String application, predicateListJson, user, data;
+            final String application, predicateListJson, user, data, namespace = parameters.get(JSON_NAMESPACE);
+
+            // get userID
             user = parameters.get(JSON_USERID) != null ? parameters.get(JSON_USERID) : parameters.get(JSON_USER);
             
-            
             if (code.equals(RequestCode.CREATE)) {
-                message.setMethod(JSON_CODE_CREATE);
+                
+            	message.setMethod(JSON_CODE_CREATE);
+                
                 if ((application = parameters.get(JSON_APPLICATION)) == null) {
                     throw new InternalBackEndException("missing application argument!");
                 } else if ((predicateListJson = parameters.get(JSON_PREDICATE)) == null) {
@@ -210,7 +213,7 @@ public class PublishRequestHandler extends AbstractMatchMaking {
                     throw new InternalBackEndException("missing userID argument!");
                 } else if ((data = parameters.get(JSON_DATA)) == null) {
                     throw new InternalBackEndException("missing data argument!");
-                }
+                } 
 
                 MUserBean userBean;
                 try {
@@ -245,7 +248,7 @@ public class PublishRequestHandler extends AbstractMatchMaking {
                     LOGGER.info("indexing "+bufferSubPredicate.toString()+" with level: "+level+", nb of rows:"+predicates.size());
                     
                     for(StringBuffer predicate : predicates) {
-                		pubsubManager.create(application, predicate.toString(), bufferSubPredicate.toString(), userBean, dataList, predicateListJson);
+                		pubsubManager.create(getPrefix(application, namespace), predicate.toString(), bufferSubPredicate.toString(), userBean, dataList, predicateListJson);
                     }
                     
                 } catch (final JsonSyntaxException e) {

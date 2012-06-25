@@ -85,7 +85,7 @@ public class FindRequestHandler extends AbstractMatchMaking {
 			checkToken(parameters);
 
 			final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-			String application, user, predicate, predicateList = null;
+			String application, user, predicate, predicateList = null, namespace = parameters.get(JSON_NAMESPACE);
 
 			if (code == RequestCode.READ) {
 
@@ -108,7 +108,7 @@ public class FindRequestHandler extends AbstractMatchMaking {
 				}
 
 				if (user != null) { // GET DETAILS
-					final List<Map<String, String>> details = pubsubManager.read(application, predicate, user);
+					final List<Map<String, String>> details = pubsubManager.read(getPrefix(application, namespace), predicate, user);
 					if (details.isEmpty()) {
 						throw new IOBackEndException("no results found!", 404);
 					}
@@ -123,7 +123,7 @@ public class FindRequestHandler extends AbstractMatchMaking {
 
 					String start = parameters.get("start") != null ? parameters.get("start") : "";
 					int count = parameters.get("count") != null ? Integer.parseInt(parameters.get("count")) : 100;
-					final List<Map<String, String>> resList = pubsubManager.read(application, predicate, start, count, false);
+					final List<Map<String, String>> resList = pubsubManager.read(getPrefix(application, namespace), predicate, start, count, false);
 					if (resList.isEmpty()) {
 						throw new IOBackEndException("No reslult found for Application: " + application
 								+ " Predicate: " + predicate, 404);
