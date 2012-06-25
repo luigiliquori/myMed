@@ -473,6 +473,7 @@ public class StorageManager implements IStorageManager {
    *          All columnName and the their value
    * @throws ServiceManagerException
    * @throws InternalBackEndException
+   * 
    */
   @Override
   public void insertSuperSlice(final String superTableName, final String key, final String superKey,
@@ -506,6 +507,38 @@ public class StorageManager implements IStorageManager {
     } catch (final InternalBackEndException e) {
       throw new InternalBackEndException(e);
     }
+  }
+  
+  public void insertSuperSlice2(final String superTableName, final String key, final String superKey,
+		  final Map<String, byte[]> args) throws IOBackEndException, InternalBackEndException {
+	  try {
+		  final Map<ByteBuffer, Map<String, List<Mutation>>> mutationMap = new HashMap<ByteBuffer, Map<String, List<Mutation>>>();
+		  final long timestamp = System.currentTimeMillis();
+		  final Map<String, List<Mutation>> tableMap = new HashMap<String, List<Mutation>>();
+		  final List<Mutation> sliceMutationList = new ArrayList<Mutation>();
+
+		  tableMap.put(superTableName, sliceMutationList);
+		  
+		  final List<Column> columns = new ArrayList<Column>();
+
+		  for (Entry<String, byte[]> entry : args.entrySet()){
+			  columns.add(new Column(MConverter.stringToByteBuffer(entry.getKey()), ByteBuffer.wrap(entry.getValue()),
+					  timestamp));
+		  }
+
+
+		  final Mutation mutation = new Mutation();
+		  final SuperColumn superColumn = new SuperColumn(MConverter.stringToByteBuffer(superKey), columns);
+		  mutation.setColumn_or_supercolumn(new ColumnOrSuperColumn().setSuper_column(superColumn));
+		  sliceMutationList.add(mutation);
+
+		  // Insertion in the map
+		  mutationMap.put(MConverter.stringToByteBuffer(key), tableMap);
+
+		  wrapper.batchMutate(mutationMap, consistencyOnWrite);
+	  } catch (final InternalBackEndException e) {
+		  throw new InternalBackEndException(e);
+	  }
   }
 
   /**
@@ -584,10 +617,13 @@ public class StorageManager implements IStorageManager {
   
   
   
-  public Map<String, Map<String, String>> multiSelectList(final String tableName, final List<String> keys) throws IOBackEndException, InternalBackEndException {
+  public Map<String, Map<String, String>> multiSelectList(final String tableName, final List<String> keys, 
+		  final String start, final String finish) throws IOBackEndException, InternalBackEndException, UnsupportedEncodingException {
 
   	final SlicePredicate predicate = new SlicePredicate();
 	  final SliceRange sliceRange = new SliceRange();
+	  sliceRange.setStart(start.getBytes(ENCODING));
+	  sliceRange.setFinish(finish.getBytes(ENCODING));
 	  sliceRange.setCount(maxNumColumns); // TODO Maybe better split and perform several queries.
 	  predicate.setSlice_range(sliceRange);
 	  
@@ -597,8 +633,9 @@ public class StorageManager implements IStorageManager {
     		predicate, consistencyOnRead);
 
     final List<ColumnOrSuperColumn> results = new ArrayList<ColumnOrSuperColumn>();
-
+    
     for (List<ColumnOrSuperColumn> l : resultMap.values()){
+    	
     	results.addAll(l);
     }
     
@@ -620,37 +657,6 @@ public class StorageManager implements IStorageManager {
 
   }
   
-  public Map<String, Map<String, String>> selectList(final String tableName, final String key,
-		  final String start, final String finish) throws UnsupportedEncodingException, InternalBackEndException, IOBackEndException {
-	
-	  // read entire row
-	  final SlicePredicate predicate = new SlicePredicate();
-	  final SliceRange sliceRange = new SliceRange();
-	  sliceRange.setStart(start.getBytes(ENCODING));
-	  sliceRange.setFinish(finish.getBytes(ENCODING));
-	  sliceRange.setCount(maxNumColumns); // TODO Maybe better split and perform several queries.
-	  predicate.setSlice_range(sliceRange);
-
-	  final ColumnParent parent = new ColumnParent(tableName);
-	  final List<ColumnOrSuperColumn> results = getSlice(key, parent, predicate);
-	  
-	  final Map<String, Map<String, String>> sliceMap = new TreeMap<String, Map<String, String>>();
-
-	  for (final ColumnOrSuperColumn res : results) {
-		  if (res.isSetSuper_column()) {
-			  final Map<String, String> slice = new HashMap<String, String>();
-
-			  for (final Column column : res.getSuper_column().getColumns()) {
-				  slice.put(MConverter.byteArrayToString(column.getName()), 
-				  		MConverter.byteArrayToString(column.getValue()));
-			  }
-			  sliceMap.put(MConverter.byteArrayToString(res.getSuper_column().getName()), slice);
-		  }
-	  }
-
-	  return sliceMap;
-  }
-
 
   /**
    * @return

@@ -62,7 +62,7 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
     /**
      * The default ontology id.
      */
-    private static final String ONTOLOGY_ID = "0";
+    private static final int ONTOLOGY_ID = 0;
 
     private final IPubSubManager pubSubManager;
     private final IAuthenticationManager authenticationManager;
@@ -103,15 +103,11 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
         // PUBLISH A NEW REGISTATION PENDING TASK
         final List<MDataBean> dataList = new ArrayList<MDataBean>();
         try {
-            final MDataBean dataUser = new MDataBean();
-            dataUser.setKey(FIELD_USER);
-            dataUser.setOntologyID(ONTOLOGY_ID);
-            dataUser.setValue(gson.toJson(user));
+			final MDataBean dataUser = new MDataBean(FIELD_USER,
+					gson.toJson(user), ONTOLOGY_ID);
 
-            final MDataBean dataAuthentication = new MDataBean();
-            dataAuthentication.setKey(FIELD_AUTHENTICATION);
-            dataAuthentication.setOntologyID(ONTOLOGY_ID);
-            dataAuthentication.setValue(gson.toJson(authentication));
+			final MDataBean dataAuthentication = new MDataBean(FIELD_AUTHENTICATION, 
+					gson.toJson(authentication), ONTOLOGY_ID);
 
             dataList.add(dataUser);
             dataList.add(dataAuthentication);

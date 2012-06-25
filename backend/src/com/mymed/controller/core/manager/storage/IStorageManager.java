@@ -18,6 +18,7 @@ package com.mymed.controller.core.manager.storage;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.cassandra.thrift.ConsistencyLevel;
 
@@ -68,6 +69,12 @@ public interface IStorageManager {
      */
     void insertSuperSlice(final String superTableName, final String key, final String superKey,
                     final Map<String, byte[]> args) throws IOBackEndException, InternalBackEndException;
+    
+    /**
+     * v2 version of insertSuperSlice
+     */
+    void insertSuperSlice2(final String superTableName, final String key, final String superKey,
+            		final Map<String, byte[]> args) throws IOBackEndException, InternalBackEndException;
 
     /**
      * Get the value of an entry column
@@ -224,10 +231,8 @@ public interface IStorageManager {
      */
     void removeAll(String tableName, String key) throws InternalBackEndException;
     
-    public Map<String, Map<String, String>> multiSelectList(final String tableName, final List<String> keys) 
-    		throws IOBackEndException, InternalBackEndException ;
-    
-    public Map<String, Map<String, String>> selectList(final String tableName, final String key,
-  		  final String start, final String finish) 
-  		  		throws UnsupportedEncodingException, InternalBackEndException, IOBackEndException;
+    public Map<String, Map<String, String>> multiSelectList(final String tableName, final List<String> keys,
+    		final String start, final String finish) 
+    			throws IOBackEndException, InternalBackEndException, UnsupportedEncodingException ;
+
 }

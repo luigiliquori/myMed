@@ -67,7 +67,7 @@ public class FindRequestHandler extends AbstractMatchMaking {
 
 	private final PubSubManager pubsubManager;
 
-	public FindRequestHandler() {
+	public FindRequestHandler() throws InternalBackEndException {
 		super();
 		pubsubManager = new PubSubManager();
 	}

@@ -19,6 +19,7 @@ import java.util.Map;
 import com.mymed.controller.core.exception.GeoLocationOutOfBoundException;
 import com.mymed.controller.core.manager.storage.GeoLocStorageManager;
 import com.mymed.model.data.AbstractMBean;
+import com.mymed.utils.PubSub;
 import com.mymed.utils.MConverter;
 import com.mymed.utils.locator.Locator;
 
@@ -32,115 +33,45 @@ public final class QueryBean extends AbstractMBean {
      * Generated serial ID.
      */
     private static final long serialVersionUID = -2349418868650936378L;
-    
-    /*  Ontology ID list */
-    
-	public static final int KEYWORD = 0;
-	public static final int GPS     = 1;
-	public static final int ENUM    = 2;
-	public static final int DATE    = 3;
-	public static final int TEXT    = 4;
-	public static final int PICTURE = 5;
-	public static final int VIDEO   = 6;
-	public static final int AUDIO   = 7;
 	
 	/* attr */
-    
-    private String key;
     
     private String valueStart;
     private String valueEnd;
     
-    private String ontologyID;
+    private int ontologyID;
 
-    /*
-     * (non-Javadoc)
-     * @see com.mymed.model.data.AbstractMBean#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(final Object object) {
-        final boolean returnValue = true;
-        // TODO
-        return returnValue;
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see com.mymed.model.data.AbstractMBean#hashCode()
-     */
-    @Override
-    public int hashCode() {
-        // TODO
-        return 0;
-    }
     
     /*
      * a method to return all rows to be searched between value valueStart and valueFinish
      */
-    public List<String> getValues(){
-    	List<String> res = new ArrayList<String>();
-    	
-    	int ontId = Integer.parseInt(ontologyID);
-    	
-    	switch (ontId){
-    	
-    	case DATE:
-    		
-    		// must follows the US format 2012-06-20, after put hours and seconds
-			int[] startvalues = parseDate(valueStart);
-			int[] endvalues = parseDate(valueEnd);
+	public List<String> getRowIndexes(String key) {
+		List<String> res = new ArrayList<String>();
 
-			for (int i = startvalues[0]; i < endvalues[0]; i++) {
-				for (int j = startvalues[1]; j < endvalues[1]; j++) {
-					for (int k = startvalues[2]; k < endvalues[2]; k++) {
-						res.add(i + "-" + j + "-" + k);
-					}
-				}
-			}
-    		
-    		break;
-    		
-		case ENUM:
-			int s = 0,
-			e = 0;
-			try {
-				s = Integer.parseInt(valueStart);
-				e = Integer.parseInt(valueEnd);
-			} catch (NumberFormatException er) {}
+		//int ontId = Integer.parseInt(ontologyID);
 
-			for (int i = s; i < e; i++) {
-				res.add(String.valueOf(i));
-			}
+		switch (ontologyID) {
+
+		case PubSub.DATE:
+			res.addAll(PubSub.getDateRange(key, valueStart, valueEnd));
 			break;
-    	default:
-    		return null;
-    		
-    	}
-    	
-    	return res;
-    }
-    
-    private static int[] parseDate(String date) { // format yyyy-mm-dd
-    	int[] values = new int[3];
-    	String[] dateValues = date.split("-");
-    	for (int i = 0; i < 3  && i< dateValues.length; i++) {
-    		try {
-    			values[i] = Integer.parseInt(dateValues[i]);
-    		} catch (NumberFormatException e) {}
-    	}
-    	return values;
-    }
+		case PubSub.ENUM:
+			res.addAll(PubSub.getEnumRange(key, valueStart, valueEnd));
+			break;
+		default: // default, no range queries done = exact matchmaking
+			res.add(key + valueStart);
+			break;
+		}
 
-    public String toString(){
-		return key + valueStart;
-    }
-
-	public String getKey() {
-		return key;
+		return res;
 	}
-
-	public void setKey(String key) {
-		this.key = key;
+	
+	public MDataBean toDataBeanStart(String key) {
+		return new MDataBean(key, valueStart, ontologyID);
+	}
+	
+	public MDataBean toDataBeanEnd(String key) {
+		return new MDataBean(key, valueEnd, ontologyID);
 	}
 
 	public String getValueStart() {
@@ -159,12 +90,24 @@ public final class QueryBean extends AbstractMBean {
 		this.valueEnd = valueEnd;
 	}
 
-	public String getOntologyID() {
+	public int getOntologyID() {
 		return ontologyID;
 	}
 
-	public void setOntologyID(String ontologyID) {
+	public void setOntologyID(int ontologyID) {
 		this.ontologyID = ontologyID;
+	}
+
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 

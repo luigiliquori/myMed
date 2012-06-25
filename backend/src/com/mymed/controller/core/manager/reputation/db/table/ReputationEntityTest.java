@@ -65,6 +65,7 @@ public class ReputationEntityTest {
 
         Collection<ReputationEntity> all = instance.getAll();
         assertEquals(10, all.size());
+        
     }
 
 

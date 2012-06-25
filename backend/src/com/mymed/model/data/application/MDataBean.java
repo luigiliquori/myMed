@@ -18,17 +18,26 @@ import com.mymed.model.data.AbstractMBean;
  * @author lvanni
  * @author Milo Casagrande
  */
-public final class MDataBean extends AbstractMBean {
+public final class MDataBean extends AbstractMBean implements Comparable<MDataBean>{
 	
 
-    /**
+	/**
      * Generated serial ID.
      */
     private static final long serialVersionUID = 6788844723133324991L;
     private String key;
     private String value;
-    private String ontologyID;
-
+    /*
+     * Changed ontologyID String -> int
+     */
+    private int ontologyID;
+    
+    public MDataBean(String key, String value, int ontologyID) {
+		this.key = key;
+		this.value = value;
+		this.ontologyID = ontologyID;
+	}
+    
     public String getKey() {
         return key;
     }
@@ -45,11 +54,11 @@ public final class MDataBean extends AbstractMBean {
         this.value = value;
     }
 
-    public String getOntologyID() {
+    public int getOntologyID() {
         return ontologyID;
     }
 
-    public void setOntologyID(final String ontologyID) {
+    public void setOntologyID(final int ontologyID) {
         this.ontologyID = ontologyID;
     }
     
@@ -65,8 +74,8 @@ public final class MDataBean extends AbstractMBean {
     public int hashCode() {
         int result = 1;
         result = (PRIME * result) + (key == null ? 0 : key.hashCode());
-        result = (PRIME * result) + (ontologyID == null ? 0 : ontologyID.hashCode());
         result = (PRIME * result) + (value == null ? 0 : value.hashCode());
+        result = (PRIME * result) + String.valueOf(ontologyID).hashCode();
         return result;
     }
 
@@ -93,12 +102,8 @@ public final class MDataBean extends AbstractMBean {
         } else if (!key.equals(other.key)) {
             return false;
         }
-        if (ontologyID == null) {
-            if (other.ontologyID != null) {
-                return false;
-            }
-        } else if (!ontologyID.equals(other.ontologyID)) {
-            return false;
+        if (ontologyID != other.ontologyID){
+        	return false;
         }
         if (value == null) {
             if (other.value != null) {
@@ -109,4 +114,11 @@ public final class MDataBean extends AbstractMBean {
         }
         return true;
     }
+
+	@Override
+	public int compareTo(MDataBean o) {
+		
+		return this.key.compareTo(o.key);
+	}
+
 }
