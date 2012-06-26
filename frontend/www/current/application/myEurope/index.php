@@ -24,8 +24,10 @@ if (isset($_GET['registration']) || (isset($_GET['userID']))) {
 		<div class="wrapper">
 			<div data-role="header" data-theme="b">
 				<h2></h2>
-				<a href="about" data-theme="b" type="button" data-icon="info" data-transition="slide" data-direction="reverse">about</a> <a href="post"
-					type="button" class="ui-btn-right" data-theme="d" style="position: absolute; left: 40%; width: 20%;">Insérer</a> <a id="opt"
+				<a href="about" data-theme="b" type="button" data-icon="info" data-transition="slide" data-direction="reverse">about</a> 
+				
+				<a href="<?= $_SESSION['userPerm']>0?"post":"" ?>"
+					type="button" class="ui-btn-right" data-theme="d" style="position: absolute; left: 40%; width: 20%;">Insérer (restreint)</a> <a id="opt"
 					href=<?= $_SESSION['user']?"option":"authenticate" ?> class="ui-btn-right" data-transition="slide"><?= $_SESSION['user']?$_SESSION['user']->name:"Connexion" ?>
 				</a>
 			</div>

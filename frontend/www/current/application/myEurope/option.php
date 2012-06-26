@@ -82,8 +82,10 @@ if (isset($_POST['email'])) { //profile update
 	$_SESSION['user'] = $responseObject->dataObject->profile;
 
 	//extended Profile (user's role)
-	$permission = ( $_SESSION['user']->email=="cyril.auburtin@gmail.com" ||
-			$_SESSION['user']->email=="other@gmail.com" )? 1 : 0;
+	$permission = ( 
+			strpos($_SESSION['user']->email, "@inria.fr")>=0 ||
+			$_SESSION['user']->email=="other@mail.com" )
+	? 1 : 0;
 
 	$_SESSION['userType'] = $_POST['type'];
 	$_SESSION['userPerm'] = $permission;
