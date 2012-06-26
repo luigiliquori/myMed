@@ -15,6 +15,7 @@
  */
 package com.mymed.controller.core.manager;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -22,6 +23,8 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -267,5 +270,24 @@ public abstract class AbstractManager {
      */
     public String getServerProtocol() {
         return SERVER_PROTOCOL;
+    }
+    
+    /** Decode a byte array into a string, using the default encoding */
+    public String decode(byte[] value) {
+    	return Charset.forName(ENCODING).decode(ByteBuffer.wrap(value)).toString();
+    }
+    
+    /** Decode a byte array into a string, using the default encoding */
+    public byte[] encode(String value) {
+    	try {
+    		return value.getBytes(ENCODING);
+    	} catch (UnsupportedEncodingException e) {
+    		LOGGER.debug(ERROR_ENCODING, ENCODING, e);
+    		throw new InternalBackEndException(e.getMessage());
+    	}
+    }
+    
+    public byte[] encode(int value) {
+    	return this.encode(String.valueOf(value));
     }
 }

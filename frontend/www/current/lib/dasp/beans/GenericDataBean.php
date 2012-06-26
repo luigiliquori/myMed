@@ -108,11 +108,15 @@ abstract class GenericDataBean {
 
 		// Loop on registered attributes
 		foreach($this->_predicatesDef as $key => $ontologyID) {
-			array_push(
+			$value = $this->$key;
+			
+			if (!empty($value)) {
+				array_push(
 					$result,
 						
 					// Get the value of the corresponding attribute and create ontology bean
-					new OntologyBean($key, $this->$key, $ontologyID));
+					new OntologyBean($key, $value, $ontologyID));
+			}
 		}
 		return $result;
 	}
@@ -212,6 +216,8 @@ abstract class GenericDataBean {
 	 */
 	public /* <CurrentClass>[]  */ function find() {
 
+		debug("Predicate STR:" . $this->getPredicateStr());
+		
 		// Create a find request
 		$fr = new FindRequest(
 				null,

@@ -293,8 +293,13 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     	}
     }
     
-    public final void sendMail(String application, final String predicate, final MUserBean publisher, final List<MDataBean> dataList)
-    		throws InternalBackEndException, IOBackEndException {
+    public final void sendMail(
+            String application, 
+            final String predicate, 
+            final MUserBean publisher, 
+            final List<MDataBean> dataList)
+    		throws InternalBackEndException, IOBackEndException 
+    {
     	
     	// SEND A MAIL TO THE SUBSCRIBERS
 

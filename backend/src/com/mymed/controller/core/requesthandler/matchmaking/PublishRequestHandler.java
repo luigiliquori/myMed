@@ -40,6 +40,8 @@ import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.application.MDataBean;
 import com.mymed.model.data.user.MUserBean;
 
+import static com.mymed.utils.PubSub.*;
+
 /**
  * Servlet implementation class PubSubRequestHandler
  */
@@ -159,7 +161,7 @@ public class PublishRequestHandler extends AbstractMatchMaking {
                         
                         LOGGER.info("deleting "+bufferSubPredicate.toString()+" with level: "+level);
                         for(StringBuffer predicate : predicates) {
-                        	pubsubManager.delete(getPrefix(application, namespace), predicate.toString(), bufferSubPredicate.toString(), userID);
+                        	pubsubManager.delete(makePrefix(application, namespace), predicate.toString(), bufferSubPredicate.toString(), userID);
                         }
                         
                     } catch (final JsonSyntaxException e) {
@@ -248,15 +250,13 @@ public class PublishRequestHandler extends AbstractMatchMaking {
                     LOGGER.info("indexing "+bufferSubPredicate.toString()+" with level: "+level+", nb of rows:"+predicates.size());
                     
                     for(StringBuffer predicate : predicates) {
-                		pubsubManager.create(getPrefix(application, namespace), predicate.toString(), bufferSubPredicate.toString(), userBean, dataList, predicateListJson);
+                		pubsubManager.create(makePrefix(application, namespace), predicate.toString(), bufferSubPredicate.toString(), userBean, dataList, predicateListJson);
                     }
                     
                 } catch (final JsonSyntaxException e) {
-                    LOGGER.debug("Error in Json format", e);
-                    throw new InternalBackEndException("jSon format is not valid");
+                    throw new InternalBackEndException(e, "Error in Json format");
                 } catch (final JsonParseException e) {
-                    LOGGER.debug("Error in parsing Json", e);
-                    throw new InternalBackEndException(e.getMessage());
+                    throw new InternalBackEndException(e, "Error in Json format");
                 }
             } else {
                 throw new InternalBackEndException("PublishRequestHandler(" + code + ") not exist!");

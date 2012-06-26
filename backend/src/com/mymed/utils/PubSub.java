@@ -207,6 +207,22 @@ public class PubSub {
 		long v = u + n;
 		return v + (((v ^ n) / u) >> 2);
 	}
+    
+    /** Get application from a prefix "applicationID:namespace"  */
+    public static String extractApplication(String prefix) {
+        return prefix.split(":")[0];
+    }
+    
+    /** Get namespace (or null if none found) from a prefix "applicationID:namespace"  */
+    public static String extractNamespace(String prefix) {
+        String[] parts = prefix.split(":");
+        return (parts.length == 2) ? parts[1] : null;
+    }
+    
+    /** Make a prefix with an aplpication and optionnal namespace "application:namespace "*/
+    public static String makePrefix(String application, String namespace) {
+        return (namespace == null) ? application : (application + ':' + namespace);
+    }
 	
 
 }

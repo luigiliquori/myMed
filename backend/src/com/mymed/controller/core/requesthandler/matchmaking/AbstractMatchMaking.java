@@ -29,10 +29,6 @@ public abstract class AbstractMatchMaking extends AbstractRequestHandler {
     protected static final String JSON_NAMESPACE = JSON.get("json.namespapce");
 
     
-    protected String getPrefix(String application, String namespace){
-    	return namespace != null ? application + ":" + namespace : application;
-    }
-    
 	/**
 	 * 
 	 * contructs all possible indexes between 1 and level from predicateListObject
