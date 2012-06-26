@@ -49,16 +49,6 @@ public class FindRequestHandler extends AbstractMatchMaking {
 	private static final String JSON_RESULTS = JSON.get("json.results");
 
 	/**
-	 * JSON 'predicate' attribute.
-	 */
-	private static final String JSON_PREDICATE = JSON.get("json.predicate");
-
-	/**
-	 * JSON 'predicate' attribute.
-	 */
-	private static final String JSON_PREDICATE_LIST = JSON.get("json.predicate.list");
-
-	/**
 	 * JSON 'details' attribute.
 	 */
 	private static final String JSON_DETAILS = JSON.get("json.details");
