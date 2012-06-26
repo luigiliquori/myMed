@@ -22,38 +22,36 @@ $template->init();
 $application = isset($_REQUEST['application'])?$_REQUEST['application']:"myEurope";
 
 $res = null;
-$predicate = "";
+
 if (isset($_GET['q'])){
 	$tags = preg_split('/[ +]/', $_GET['q'], NULL, PREG_SPLIT_NO_EMPTY);
 	$p = array_unique(array_map('strtolower', $tags));
 	//sort($p); //important
 	//$predicate = join("", array_slice($p, 0, 3)); // we use a broadcast level of 3 for myEurope see in post.php
 
-	$request = new Request("v2/FindRequestHandler", READ);
-	$request->addArgument("application", $application);
+	// @todo verify date format
 
 	$predicateList=array();
-	foreach( $p as $v ){ //do this for PubRequestHandler compatibility...
+	foreach( $p as $v ){ //tags
 		$predicateList[$v] = array("valueStart"=>"", "valueEnd"=>"", "ontologyID"=>KEYWORD);
 	}
-
-	// @todo verify date format
-	if ($_GET['dateMin'] != "" || $_GET['dateMax'] != ""){
+	if ($_GET['dateMin'] != "" && $_GET['dateMax'] != ""){
 		$predicateList["date"] = array("valueStart"=>$_GET['dateMin'], "valueEnd"=>$_GET['dateMax'], "ontologyID"=>DATE);
 	}
 	if ($_GET['rateMin'] != "" && $_GET['rateMax'] != ""){
 		$predicateList["cout"] = array("valueStart"=>$_GET['rateMin'], "valueEnd"=>$_GET['rateMax'], "ontologyID"=>FLOAT);
 	}
 
-
+	$request = new Request("v2/FindRequestHandler", READ);
+	$request->addArgument("application", $application);
 	$request->addArgument("predicateList", json_encode($predicateList));
+	$request->addArgument("level", 3);
 	//$request->addArgument("predicate", $predicate);
 
 	//$request->addArgument("start", isset($_GET['start'])?$_GET['start']:"");
 	//$request->addArgument("count", isset($_GET['count'])?$_GET['count']:10);
 	$responsejSon = $request->send();
 	$res = json_decode($responsejSon);
-
 }
 
 
@@ -70,7 +68,7 @@ if (isset($_GET['q'])){
 		<div class="wrapper">
 			<div data-role="header" data-theme="b" id="headerSearch">
 				<select data-theme="e" class="ui-btn-right"
-					onchange="$.get('ajaxsubscribe.php', { code: $(this).val(), application: '<?= $application ?>' ,predicate: '<?= urlencode($predicate) ?>' } );"
+					onchange="$.get('../../lib/dasp/ajax/Position', { code: $(this).val(), application: '<?= $application ?>' ,predicate: '<?= urlencode($predicate) ?>' } );"
 					style="position: absolute; left: 5px;" name="slider" id="flip-a" data-role="slider" data-mini="true">
 					<option value="3">Non abonné</option>
 					<option value="0">Abonné</option>
@@ -89,7 +87,7 @@ if (isset($_GET['q'])){
 					<?php
 					$res = $res->dataObject->results;
 
-					foreach( $res as $i => $value ){	
+					foreach( $res as $i => $value ){
 						?>
 					<li><a href="" onclick="$('#detailForm<?= $i ?>').submit();" style="padding-top: 1px; padding-bottom: 1px;">
 							<h3>

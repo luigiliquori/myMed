@@ -1,5 +1,6 @@
 /*
  * Copyright 2012 INRIA 
+
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +31,10 @@ var currentPos; //user's google.maps.LatLng location
 var currentPlace; //user's String position
 
 var pos; //position in the itinary, should be moved to myRiviera
+
+/**
+ * @TODO rename that file map.js? 
+ */
 
 /* --------------------------------------------------------- */
 /* Setup Lib */

@@ -60,7 +60,7 @@ $("#Search").live("pageshow", function() {
 	    tags = array_unique(tags).sort();
 	}
 	isSub = 3;
-	$.get('ajaxsubscribe.php', { 
+	$.get('../../lib/dasp/ajax/Subscribe', { 
 		code: 1, 
 		application: application ,
 		predicate: tags.join("") 

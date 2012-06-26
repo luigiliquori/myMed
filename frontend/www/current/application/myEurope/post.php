@@ -31,7 +31,7 @@ if (count($_POST)){ // to publish something
 
 	$data = array();
 
-	foreach( $p as $v ){ // tags ontologies (KEYWORD with empty value, the are easy to search)
+	foreach( $p as $v ){ // tags ontologies array
 		array_push($data, array("key"=>$v, "value"=>"", "ontologyID"=>KEYWORD));
 	}
 
@@ -51,16 +51,21 @@ if (count($_POST)){ // to publish something
 		
 	$request->addArgument("data", json_encode($data));
 	$request->addArgument("userID", $_SESSION['user']->id);
-	$request->addArgument("id", $_POST['id']);
-	$request->addArgument("level", 3); //put min (3, $data)
+	$request->addArgument("id", $_POST['id']); //to overwrite predicate that would be date2012...rate.....etc
+	//one id can be submitted per user, resubmission overwrite
+	$request->addArgument("level", 3);
 	
+	
+	if ($_SESSION['userPerm']>0){
 		
-	$responsejSon = $request->send();
-	$responseObject = json_decode($responsejSon);
+		$responsejSon = $request->send();
+		$responseObject = json_decode($responsejSon);
 
-	if ($responseObject->status==200){
-		header("Location: ./post?ok=1");
+		if ($responseObject->status==200){
+			header("Location: ./post?ok=1");
+		}
 	}
+		
 }
 
 ?>
