@@ -18,6 +18,7 @@ package com.mymed.controller.core.requesthandler.v2;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -150,7 +151,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
 					// sort indexes
 					query = new TreeMap<String, QueryBean>(queryTmp);
 					
-					int level = 3; //by default
+					int level = 3;//query.size(); //by default, this should correspond or be less than the way the data is published
                     if (parameters.get("level") != null){
                     	level = Integer.parseInt(parameters.get("level"));
                     }
@@ -159,7 +160,12 @@ public class FindRequestHandler extends AbstractRequestHandler {
 					TreeMap<String, Map<String, String>> resMap;
 					
                     if (query !=null){
-
+                    	/**
+    					 * @todo what follows is dirty
+    					 *   - sorry, working to make it clearer
+    					 *   - put more things in the manager less in handler
+    					 */
+                    	
                     	//perform a "range query" on AppController
                     	// ex: get all data with a price between 18.25 and 19.99
                     	
@@ -233,20 +239,31 @@ public class FindRequestHandler extends AbstractRequestHandler {
                     		QueryBean item = query.get(keys.get(i));
                     		queryRows.add(item.getRowIndexes(keys.get(i)));
                     		
-                    		if (item.getValueEnd().length() > 0){
-                    			// uncap one layer of col prefixes
-                    			
+                    		if (item.getValueEnd().length() > 0){ //this tells if it's a range query, valueEnd is empty for match query
+                    			/* 
+                    			 *  uncap one layer of col prefixes
+                    			 *  
+                    			 *  either we do that or we could just loop through data and check
+                    			 *  if item.getValueStart() < keys.get(i) < item.getValueEnd()
+                    			 *   like in the else 
+                    			 *   
+                    			 *   but this method is more fun
+                    			 */
+       
                     			for (String key : resMap.keySet()){
                     				Map<String, String> val = resMap.remove(key);
                     				String[] parts = key.split("\\+", 2);
                     				resMap.put(parts[parts.length-1], val);
                     			}
-                    			//this tells if it's a range query
+                    			
                     			resMap = new TreeMap<String, Map<String, String>>(
 										resMap.subMap(item.getValueStart(), true, item.getValueEnd(), true));
                     			LOGGER.info("ext uncap above level "+resMap.size());
                     			
                     		} else {
+                    			/*
+                    			 * we remove items that doesn't match the query predicate
+                    			 */
                     			if (!PubSub.isPredicate(resMap, keys.get(i), item.getValueStart())){
                     				resMap.remove(keys.get(i));
                     			}
@@ -321,6 +338,9 @@ public class FindRequestHandler extends AbstractRequestHandler {
 			switch (code) {
 				case UPDATE :
 					//update indexes
+					/**
+					 * @todo put more things in the manager less in handler
+					 */
 					
 					message.setMethod(JSON_CODE_UPDATE);
 
@@ -331,19 +351,18 @@ public class FindRequestHandler extends AbstractRequestHandler {
 						dataId = parameters.get("id");
 					
 	                    /* construct indexes */
-	                    int level = 3;
+	                    int level = predicateMap.size();
 	                    if (parameters.get("level") != null){
 	                    	level = Integer.parseInt(parameters.get("level"));
 	                    }
 	                    
-	                    List<MDataBean> predicateListOld = new ArrayList<MDataBean>();
-	                    List<MDataBean> predicateListNew = new ArrayList<MDataBean>();
-	                    List<MDataBean> metadataList = new ArrayList<MDataBean>(); //not all data, just shown in appcontroller
-	                    // changed now metadata (data that are in app controller but not as predicate) have their own ontoID
+	                    List<MDataBean> predicateListOld = new ArrayList<MDataBean>(); //previous indexes
+	                    List<MDataBean> predicateListNew = new ArrayList<MDataBean>(); //new indexes
+	                    List<MDataBean> metadataList = new ArrayList<MDataBean>(); //other data that we want to also update in DataList
 	                    
 	                    for (Entry<String, QueryBean> d : predicateMap.entrySet()){
 	                    	
-	                    	if (d.getValue().getOntologyID() < PubSub.TEXT ) { /* re-index */
+	                    	if (d.getValue().getOntologyID() < PubSub.TEXT ) {
 	                    		predicateListOld.add( d.getValue().toDataBeanStart(d.getKey()) );
 	                    		predicateListNew.add( d.getValue().toDataBeanEnd(d.getKey()) );
 	  
@@ -353,12 +372,13 @@ public class FindRequestHandler extends AbstractRequestHandler {
 	                    }
 	                    
 	                    metadataList.addAll(predicateListNew);
-	                    
+	                    Collections.sort(predicateListNew);
+	                    Collections.sort(predicateListOld);
 	                    LOGGER.info("update"+level);
 	                    
 						for (int i = 1; i <= level; i++) {
-							List<List<PubSub.Index>> predicatesOld = PubSub.getPredicate(predicateListOld, i);
-							List<List<PubSub.Index>> predicatesNew = PubSub.getPredicate(predicateListNew, i);
+							List<List<PubSub.Index>> predicatesOld = PubSub.getComposites(predicateListOld, i);
+							List<List<PubSub.Index>> predicatesNew = PubSub.getComposites(predicateListNew, i);
 							/* store indexes for this data */
 		                    LOGGER.info("updating "+dataId+" with level: "+i+"."+predicatesNew.size()+"."+predicatesOld.size());
 		                    for(List<PubSub.Index> predicate : predicatesOld) {

@@ -1,18 +1,20 @@
-html, body, .ui-page {
-    height: 100%;
+html,body,.ui-page {
+	height: 100%;
 }
 
 .wrapper {
-    margin: 0 auto -120px;
-    min-height: 100%;
-    height: auto !important;
-    height: 100%;
+	margin: 0 auto -120px;
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
 }
-.footer{
-	height: 118px; 
+
+.footer {
+	height: 118px;
 }
+
 .push {
-    height: 118px; 
+	height: 118px;
 }
 
 .text-align-center {
@@ -30,16 +32,16 @@ div.ui-slider {
 /*input.ui-slider-input {
 	display: none;
 }*/
-
 .ui-controlgroup-last {
 	vertical-align: top;
 }
+
 .ui-li-link-alt .ui-btn {
 	margin-top: -14px;
 }
 
 .ui-select {
-	width:100px;
+	width: 100px;
 }
 
 .ui-li {
@@ -47,7 +49,7 @@ div.ui-slider {
 	padding-bottom: 1px;
 }
 
-input.ui-input-text, textarea.ui-input-text {
+input.ui-input-text,textarea.ui-input-text {
 	width: 98%;
 }
 
@@ -60,9 +62,6 @@ input.ui-input-text, textarea.ui-input-text {
 #publishForm .ui-slider-switch {
 	width: 30%;
 }
-
-
-
 
 /* Red button theme for JQuery Mobile
 * - Use data-theme="r" for red versions of the default JQuery Mobile Buttons.

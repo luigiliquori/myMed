@@ -29,6 +29,8 @@ public final class MDataBean extends AbstractMBean implements Comparable<MDataBe
     private String value;
     /*
      * Changed ontologyID String -> int
+     *  no pb if you want it back, gson works the same with \"ontologyID\": 4, or  \"ontologyID\": \"4\"
+     *  it's just useful to treat ontologyID cases
      */
     private int ontologyID;
     

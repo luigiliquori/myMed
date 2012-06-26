@@ -93,6 +93,8 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 
     final ProfileManager profileManager;
     
+    final Map<String, byte[]> args;
+    
     /**
      * Default constructor.
      * @throws InternalBackEndException 
@@ -104,6 +106,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     public PubSubManager(final IStorageManager storageManager) throws InternalBackEndException {
         super(storageManager);
         profileManager = new ProfileManager(storageManager);
+        args = new HashMap<String, byte[]>();
     }
 
     /**
@@ -115,123 +118,9 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     public final void create(String application, final String predicate, final String subPredicate,
                     final MUserBean publisher, final List<MDataBean> dataList, final String predicateListJson) throws InternalBackEndException,
                     IOBackEndException {
-        try {
-            // STORE THE PUBLISHER
-            final Map<String, byte[]> args = new HashMap<String, byte[]>();
-    		args.put("publisherList", (PUBLISHER_PREFIX + application + subPredicate).getBytes(ENCODING));
-    		args.put("predicate", subPredicate.getBytes(ENCODING));
-    		storageManager.insertSuperSlice(SC_APPLICATION_CONTROLLER, application + predicate, MEMBER_LIST_KEY, args);
-           
-            // STORE VALUES RELATED TO THE PREDICATE
-            String data = "";
-            String begin = Long.toString(System.currentTimeMillis());
-            String end = "";
+    	
+    	//redirect to the fun below for compat v1 -> v2
 
-            for (final MDataBean item : dataList) {
-                if (item.getKey().equals(DATA_ARG)) {
-                    data = item.getValue();
-                } else if (item.getKey().equals(BEGIN_ARG)) {
-                    begin = item.getValue();
-                } else if (item.getKey().equals(END_ARG)) {
-                    end = item.getValue();
-                }
-            }
-            args.clear();
-            args.put("predicate", subPredicate.getBytes(ENCODING));
-            if(predicateListJson != null) {
-            	args.put("predicateListJson", predicateListJson.getBytes(ENCODING));
-            }
-            args.put("begin", begin.getBytes(ENCODING));
-            args.put("end", end.getBytes(ENCODING));
-            args.put("publisherID", publisher.getId().getBytes(ENCODING));
-            
-            //---should be removed as they are not updated along with profile ...
-            args.put("publisherName", publisher.getName().getBytes(ENCODING));
-            args.put("publisherProfilePicture",
-                            (publisher.getProfilePicture() == null ? "" : publisher.getProfilePicture())
-                                            .getBytes(ENCODING));
-            args.put("publisherReputation",
-                            (publisher.getReputation() == null ? "" : publisher.getReputation()).getBytes(ENCODING));
-            
-            args.put("data", data.getBytes(ENCODING));
-            storageManager.insertSuperSlice(SC_APPLICATION_CONTROLLER, application + predicate, subPredicate
-                            + publisher.getId(), args);
-
-            // STORE A NEW ENTRY IN THE ApplicationModel (use to retrieve all the
-            // predicate of a given application)
-            args.clear();
-            args.put(APPLICATION_CONTROLLER_ID, (application + predicate).getBytes(ENCODING));
-            storageManager.insertSuperSlice(SC_APPLICATION_MODEL, application, predicate, args);
-
-            // STORE THE DATAs
-            args.clear();
-            for (final MDataBean item : dataList) {
-                args.put("key", item.getKey().getBytes(ENCODING));
-                args.put("value", item.getValue().getBytes(ENCODING));
-                args.put("ontologyID", String.valueOf(item.getOntologyID()).getBytes(ENCODING));
-                storageManager.insertSuperSlice(SC_DATA_LIST, application + subPredicate + publisher.getId(),
-                                item.getKey(), args);
-                args.clear();
-            }
-
-            // SEND A MAIL TO THE SUBSCRIBERS
-
-            final List<String> recipients = new ArrayList<String>();
-            
-            final Map<byte[], byte[]> subscribers = storageManager.selectAll(CF_SUBSCRIBEES, application + predicate);
-            for (final Entry<byte[], byte[]> entry : subscribers.entrySet()) {
-            	final String key = Charset.forName(ENCODING).decode(ByteBuffer.wrap(entry.getKey())).toString();
-                //final String val = Charset.forName(ENCODING).decode(ByteBuffer.wrap(entry.getValue())).toString();
-            	recipients.add(profileManager.read(key).getEmail());
-                LOGGER.info("____subscription sent for: "+key);
-            }
-
-
-            // Format the mail
-            // TODO move this somewhere else and handle translation of this email!
-            if (!recipients.isEmpty()) {
-                final byte[] accTokByte = storageManager.selectColumn(CF_USER, publisher.getId(), "session");
-                final String accTok = Charset.forName(ENCODING).decode(ByteBuffer.wrap(accTokByte)).toString();
-                final StringBuilder mailContent = new StringBuilder(400);
-                mailContent.append("Bonjour,<br/>De nouvelles informations sont arriv&eacute;es sur votre plateforme myMed.<br/>Application Concern&eacute;e: ");
-                mailContent.append(application);
-                mailContent.append("<br/>Predicate:<br/>");
-                for (final MDataBean item : dataList) {
-                    mailContent.append("&nbsp;&nbsp;-");
-                    mailContent.append(item.getKey());
-                    mailContent.append(": ");
-                    mailContent.append(item.getValue());
-                    mailContent.append("<br/>");
-                }
-
-                mailContent.append("<br/><br/>------<br/>L'&eacute;quipe myMed<br/><br/>");
-                mailContent.append("Cliquez <a href='");
-                
-                String address = getServerProtocol() + getServerURI();
-                if (application != null) {
-                	// can we rename the folder myEuroCINAdmin in myEuroCIN_ADMIN to skip below hack
-                	address += "/application/" + (application.equals("myEuroCIN_ADMIN")?"myEuroCINAdmin":application);
-                } 
-				address += "?predicate=" + predicate + "&application="
-						+ application + "&userID=" + publisher.getId()
-						+ "&accessToken=" + accTok;
-				mailContent.append(address);
-                mailContent.append("'>ici</a> si vous souhaitez vraiment vous d&eacute;sabonner");
-
-                mailContent.trimToSize();
-
-                final MailMessage message = new MailMessage();
-                message.setSubject("myMed subscribe info: " + application);
-                message.setRecipients(recipients);
-                message.setText(mailContent.toString());
-
-                final Mail mail = new Mail(message, SubscribeMailSession.getInstance());
-                mail.send();
-            }
-        } catch (final UnsupportedEncodingException e) {
-            LOGGER.debug(ERROR_ENCODING, ENCODING, e);
-            throw new InternalBackEndException(e.getMessage()); // NOPMD
-        }
     }
     
     public final void create(String application, final String predicate, final String colprefix, final String subPredicate,
@@ -239,42 +128,46 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     		IOBackEndException {
     	try {
 
-    		final Map<String, byte[]> args = new HashMap<String, byte[]>();
+    		args.clear();
     		
-    		// STORE VALUES RELATED TO THE PREDICATE
-    		String data = "";
-            String begin = Long.toString(System.currentTimeMillis());
-            String end = "";
-
-            for (final MDataBean item : dataList) {
-                if (item.getKey().equals(DATA_ARG)) {
-                    data = item.getValue();
-                } else if (item.getKey().equals(BEGIN_ARG)) {
-                    begin = item.getValue();
-                } else if (item.getKey().equals(END_ARG)) {
-                    end = item.getValue();
-                }
-            }
+    		/*
+    		 * Put all index data that 1) gives an insight off the indexed data before seeing it
+    		 *  2) enable to filter deeply see read (for the moment query filter is done in FindHandler, be moved to read soon)
+    		 */
    		
 	   		for ( MDataBean item : dataList) {
-	   			if (item.getOntologyID() < 4 || item.getOntologyID() >8)
+	   			if (item.getOntologyID() < 4 /*|| item.getOntologyID() == 8*/)
 	   				args.put(item.getKey(), item.getValue().getBytes(ENCODING));
 	   		}
 	   		
 	   		args.put("predicate", subPredicate.getBytes(ENCODING));
-	   		args.put("begin", begin.getBytes(ENCODING));
-	   		args.put("end", end.getBytes(ENCODING));
 	   		args.put("publisherID", publisher.getId().getBytes(ENCODING));
 
-	   		//---should be removed as they are not updated along with profile ...
+	   		//---publisherName at the moment he published it, beware that name was possibly updated since
 	   		args.put("publisherName", publisher.getName().getBytes(ENCODING));
-	   		
-	   		args.put("data", data.getBytes(ENCODING));
 
     		storageManager.insertSuperSlice(SC_APPLICATION_CONTROLLER, application + predicate, colprefix+subPredicate
     				+ publisher.getId(), args);
     		
-    		// UPDATE THE DATAs
+    		
+    		/*
+    		 * Put all info in data
+    		 */
+    		
+    		createData(application, subPredicate, publisher, dataList);
+
+
+    	} catch (final UnsupportedEncodingException e) {
+    		LOGGER.debug(ERROR_ENCODING, ENCODING, e);
+    		throw new InternalBackEndException(e.getMessage()); // NOPMD
+    	}
+    }
+    
+    public final void createData(String application, final String subPredicate,
+    		final MUserBean publisher, final List<MDataBean> dataList) throws InternalBackEndException,
+    		IOBackEndException {
+    	try {
+
     		args.clear();
     		
     		for ( MDataBean item : dataList) {

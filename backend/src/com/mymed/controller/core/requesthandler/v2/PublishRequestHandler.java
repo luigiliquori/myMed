@@ -119,6 +119,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
             final String application, predicateListJson, dataId, userId;
+            final List<MDataBean> predicateList;
             
             if ((application = parameters.get(JSON_APPLICATION)) == null) {
                 throw new InternalBackEndException("missing application argument!");
@@ -126,9 +127,22 @@ public class PublishRequestHandler extends AbstractRequestHandler {
                 throw new InternalBackEndException("missing predicate argument!");
             } else if ((userId = parameters.get(JSON_USERID)) == null) {
                 throw new InternalBackEndException("missing user argument!");
-            } else if ((dataId = parameters.get("id")) == null) {
-                throw new InternalBackEndException("missing id argument!");
             }
+            
+            try {
+                final Type dataType = new TypeToken<List<MDataBean>>() {}.getType();
+                predicateList = getGson().fromJson(predicateListJson, dataType);
+                Collections.sort(predicateList);
+            } catch (final JsonSyntaxException e) {
+                throw new InternalBackEndException("jSon format is not valid");
+            } catch (final JsonParseException e) {
+                throw new InternalBackEndException(e.getMessage());
+            }
+            int level = predicateList.size();
+            if (parameters.get("level") != null){
+            	level = Integer.parseInt(parameters.get("level"));
+            }
+            dataId = parameters.get("id") != null ? parameters.get("id") : PubSub.toString(predicateList);
             
             switch (code) {
                 case READ :
@@ -136,32 +150,16 @@ public class PublishRequestHandler extends AbstractRequestHandler {
                 case DELETE :
                     message.setMethod(JSON_CODE_DELETE);
                     
-                    try {
-                        final Type dataType = new TypeToken<List<MDataBean>>() {
-                        }.getType();
-                        final List<MDataBean> predicateList = getGson().fromJson(predicateListJson, dataType);
-                        Collections.sort(predicateList);
-                        		
-                        int level = 3;
-                        if (parameters.get("level") != null){
-                        	level = Integer.parseInt(parameters.get("level"));
+                    LOGGER.info("deleting "+dataId+" with level: "+level);
+                    for (int i = 1; i <= level; i++) {
+                    	List<List<PubSub.Index>> predicates = PubSub.getComposites(predicateList, i);
+    					/* store indexes for this data */
+                        //LOGGER.info("indexing "+data_id+" with level: "+i);
+                        for(List<PubSub.Index> predicate : predicates) {
+                    		pubsubManager.delete(application, PubSub.Index.toRowString(predicate), PubSub.Index.toColString(predicate)+dataId, userId);
                         }
-                        
-                        LOGGER.info("deleting "+dataId+" with level: "+level);
-                        for (int i = 1; i <= level; i++) {
-                        	List<List<PubSub.Index>> predicates = PubSub.getPredicate(predicateList, i);
-    						/* store indexes for this data */
-    	                    //LOGGER.info("indexing "+data_id+" with level: "+i);
-    	                    for(List<PubSub.Index> predicate : predicates) {
-    	                		pubsubManager.delete(application, PubSub.Index.toRowString(predicate), PubSub.Index.toColString(predicate)+dataId, userId);
-    	                    }
-                        }
-                        
-                    } catch (final JsonSyntaxException e) {
-                        throw new InternalBackEndException("jSon format is not valid");
-                    } catch (final JsonParseException e) {
-                        throw new InternalBackEndException(e.getMessage());
                     }
+                    
                     break;
                 default :
                     throw new InternalBackEndException("PublishRequestHandler(" + code + ") not exist!");
@@ -192,6 +190,9 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
             final String application, userId, data, dataId;
+			int level;
+			final List<MDataBean> predicateList, dataList;
+			
             
             if ((application = parameters.get(JSON_APPLICATION)) == null) {
                 throw new InternalBackEndException("missing application argument!");
@@ -200,57 +201,58 @@ public class PublishRequestHandler extends AbstractRequestHandler {
             } else if ((data = parameters.get(JSON_DATA)) == null) {
                 throw new InternalBackEndException("missing data argument!");
             }
+
+            try {
+                final Type dataType = new TypeToken<List<MDataBean>>() {}.getType();
+                dataList = getGson().fromJson(data, dataType);
+
+            } catch (final JsonSyntaxException e) {
+                LOGGER.debug("Error in Json format", e);
+                throw new InternalBackEndException("jSon format is not valid");
+            } catch (final JsonParseException e) {
+                LOGGER.debug("Error in parsing Json", e);
+                throw new InternalBackEndException(e.getMessage());
+            }
             
-            MUserBean userBean = profileManager.read(userId);
+            final MUserBean userBean = profileManager.read(userId);
             
+            /* split dataList between indexable data ("predicates in v1") and other data*/
+            predicateList = PubSub.getPredicate(dataList);
+            
+            level = predicateList.size();
+            if (parameters.get("level") != null){
+            	level = Integer.parseInt(parameters.get("level"));
+            }
+            
+            Collections.sort(predicateList); 
+            dataId = parameters.get("id") != null ? parameters.get("id") : PubSub.toString(predicateList);
+            LOGGER.info("in "+dataId+" with level: "+level+"."+predicateList.size());
 			switch (code) {
 
 			case CREATE:
 				message.setMethod(JSON_CODE_CREATE);
-                
 
-                try {
-                    final Type dataType = new TypeToken<List<MDataBean>>() {}.getType();
-                    final List<MDataBean> dataList = getGson().fromJson(data, dataType);
-  
-					dataId = parameters.get("id") != null ? parameters.get("id") : Long.toString(System.currentTimeMillis());
+                /* construct all composite indexes: all subsets of predicateList*/
 				
-                    /* construct indexes */
-                    int level = 3;
-                    if (parameters.get("level") != null){
-                    	level = Integer.parseInt(parameters.get("level"));
+				for (int i = 1; i <= level; i++) {
+					List<List<PubSub.Index>> predicates = PubSub.getComposites(predicateList, i);
+					/* store indexes for this data */
+                    LOGGER.info("indexing "+dataId+" with level: "+i+"."+predicates.size());
+                    for(List<PubSub.Index> p : predicates) {
+                    	String s1 = PubSub.Index.toRowString(p);
+                    	String s2 = PubSub.Index.toColString(p);
+                		pubsubManager.create(application, s1, s2, dataId, userBean, dataList);
+                		pubsubManager.sendMail(application, s1, userBean, dataList);
                     }
-                    
-                    /* split dataMap between indexable data ("predicates in v1") and other data*/
-                    final List<MDataBean> predicateList = new ArrayList<MDataBean>();
-                    
-                    for (MDataBean d : dataList){
-                    	//int ontID = PubSub.parseInt(d.getOntologyID());
-                    	if (d.getOntologyID() < PubSub.TEXT) {
-                    		predicateList.add(d);
-                    	}
-                    }
-                    Collections.sort(predicateList); 
-                    
-					for (int i = 1; i <= level; i++) {
-						List<List<PubSub.Index>> predicates = PubSub.getPredicate(predicateList, i);
-						/* store indexes for this data */
-	                    LOGGER.info("indexing "+dataId+" with level: "+i+"."+predicates.size());
-	                    for(List<PubSub.Index> p : predicates) {
-	                    	String s1 = PubSub.Index.toRowString(p);
-	                    	String s2 = PubSub.Index.toColString(p);
-	                		pubsubManager.create(application, s1, s2, dataId, userBean, dataList);
-	                		pubsubManager.sendMail(application, s1, userBean, dataList);
-	                    }
-                    }
-
-                } catch (final JsonSyntaxException e) {
-                    LOGGER.debug("Error in Json format", e);
-                    throw new InternalBackEndException("jSon format is not valid");
-                } catch (final JsonParseException e) {
-                    LOGGER.debug("Error in parsing Json", e);
-                    throw new InternalBackEndException(e.getMessage());
                 }
+
+				break;
+				
+			case UPDATE:
+				message.setMethod(JSON_CODE_UPDATE);
+				
+				LOGGER.info("updating "+dataId+" size "+dataList.size());
+				pubsubManager.createData(application, dataId, userBean, dataList);
 				
 				break;
 
