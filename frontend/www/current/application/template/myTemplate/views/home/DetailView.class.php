@@ -26,6 +26,9 @@ class DetailView extends MainView {
 	public function __construct($handler) {
 		$this->handler = $handler;
 		parent::__construct("DetailView");
+		if ($handler->getError()){
+			echo '<script type="text/javascript">alert(\'Interaction already exist!\');</script>';
+		}
 	}
 	
 	/* --------------------------------------------------------- */
@@ -89,10 +92,10 @@ class DetailView extends MainView {
 					<input type="hidden" name="start" value="<?= time() ?>" />
 					<input type="hidden" name="end" value="<?= time() ?>" />
 					<input type="hidden" name="predicate" value="<?= $predicate ?>" />
-					<input type="hidden" name="feedback" value="" id="feedback"/>
+					<input type="hidden" name="feedback" value="" id="Datafeedback"/>
 		    	
-		    		<a data-role="button" data-icon="plus" data-iconpos="notext" data-inline="true" onclick="$('#feedback').val('1'); document.StartDataInteractionForm.submit();"></a>
-		    		<a data-role="button" data-icon="minus" data-iconpos="notext" data-inline="true" onclick="$('#feedback').val('0'); document.StartDataInteractionForm.submit();"></a>
+		    		<a data-role="button" data-icon="plus" data-iconpos="notext" data-inline="true" onclick="$('#Datafeedback').val('1'); document.StartDataInteractionForm.submit();"></a>
+		    		<a data-role="button" data-icon="minus" data-iconpos="notext" data-inline="true" onclick="$('#Datafeedback').val('0'); document.StartDataInteractionForm.submit();"></a>
 		    	</form>
 			</div>
 			<br />
@@ -143,10 +146,10 @@ class DetailView extends MainView {
 					<input type="hidden" name="start" value="<?= time() ?>" />
 					<input type="hidden" name="end" value="<?= time() ?>" />
 					<input type="hidden" name="predicate" value="<?= $predicate ?>" />
-					<input type="hidden" name="feedback" value="" id="feedback"/>
+					<input type="hidden" name="feedback" value="" id="Producerfeedback"/>
 		    	
-		    		<a data-role="button" data-icon="plus" data-iconpos="notext" data-inline="true" onclick="$('#feedback').val('1'); document.StartProducerInteractionForm.submit();"></a>
-		    		<a data-role="button" data-icon="minus" data-iconpos="notext" data-inline="true" onclick="$('#feedback').val('0'); document.StartProducerInteractionForm.submit();"></a>
+		    		<a data-role="button" data-icon="plus" data-iconpos="notext" data-inline="true" onclick="$('#Producerfeedback').val('1'); document.StartProducerInteractionForm.submit();"></a>
+		    		<a data-role="button" data-icon="minus" data-iconpos="notext" data-inline="true" onclick="$('#Producerfeedback').val('0'); document.StartProducerInteractionForm.submit();"></a>
 		    	</form>
 		    </div>
 		    
