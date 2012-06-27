@@ -75,6 +75,32 @@ $("#Search").live("pageshow", function() {
 });
 
 
+$('#buying_slider_min').live("change", function() {
+	var min = parseInt($(this).val());
+	var max = parseInt($('#buying_slider_max').val());
+	if (min > max) {
+		$(this).val(max);
+		$(this).slider('refresh');
+	}
+});
+
+$('#buying_slider_max').live("change", function() {
+	var min = parseInt($('#buying_slider_min').val());
+	var max = parseInt($(this).val());
+
+	if (min > max) {
+		$(this).val(min);
+		$(this).slider('refresh');
+	}
+});
+
+$('#tagSearch').live("keyup", function(event) {
+	if (event.keyCode == 13) {
+		$('#searchForm').submit();
+	}
+});
+
+
 function displayPosition(position) {
 
 	var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);

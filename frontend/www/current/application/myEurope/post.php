@@ -35,7 +35,8 @@ if (count($_POST)){ // to publish something
 		array_push($data, array("key"=>$v, "value"=>"", "ontologyID"=>KEYWORD));
 	}
 
-	array_push($data, array("key"=>"cout", "value"=>isset($_POST['cout'])?$_POST['cout']:5, "ontologyID"=>FLOAT));
+	array_push($data, array("key"=>"rate", "value"=>isset($_POST['rate'])?(5-$_POST['rate']):0, "ontologyID"=>FLOAT));
+	array_push($data, array("key"=>"ndOfRates", "value"=>1, "ontologyID"=>TEXT));
 	
 	if (isset($_POST['date']))
 		array_push($data, array("key"=>"date", "value"=>$_POST['date'], "ontologyID"=>DATE));

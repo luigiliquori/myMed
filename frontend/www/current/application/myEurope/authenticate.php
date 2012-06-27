@@ -8,54 +8,51 @@ $msg = ""; //feedback text
 
 if (count($_POST)) {
 
-	if(!isset($_SESSION['user'])) {
-		$request = new Request("AuthenticationRequestHandler", READ);
-		$request->addArgument("login", trim(strtolower($_REQUEST["login"])));
-		$request->addArgument("password", hash('sha512', $_REQUEST["password"]));
+	$request = new Request("AuthenticationRequestHandler", READ);
+	$request->addArgument("login", trim(strtolower($_REQUEST["login"])));
+	$request->addArgument("password", hash('sha512', $_REQUEST["password"]));
 
+	$responsejSon = $request->send();
+	$responseObject = json_decode($responsejSon);
+	if($responseObject->status == 200) {
+		$_SESSION['accessToken'] = $responseObject->dataObject->accessToken;
+		//$_SESSION['user'] = $responseObject->dataObject->user;
+		$request = new Request("SessionRequestHandler", READ);
+		$request->addArgument("socialNetwork", "myMed");
 		$responsejSon = $request->send();
 		$responseObject = json_decode($responsejSon);
 		if($responseObject->status == 200) {
-			$_SESSION['accessToken'] = $responseObject->dataObject->accessToken;
-			//$_SESSION['user'] = $responseObject->dataObject->user;
-			$request = new Request("SessionRequestHandler", READ);
-			$request->addArgument("socialNetwork", "myMed");
-			$responsejSon = $request->send();
-			$responseObject = json_decode($responsejSon);
-			if($responseObject->status == 200) {
-				$_SESSION['user'] = $responseObject->dataObject->user;
-				if(!isset($_SESSION['friends'])){
-					$_SESSION['friends'] = array();
-				}
-
-				$request = new Request("v2/FindRequestHandler", READ);
-				$request->addArgument("application", "myEurope");
-				$request->addArgument("predicate", "ext");
-				$request->addArgument("user", $_SESSION['user']->id);
-				$responsejSon = $request->send();
-				$extProfile = json_decode($responsejSon);
-				if($extProfile->status == 200 ) {
-					foreach ($extProfile->dataObject->details as $v){
-						if ($v->key == "type")
-							$_SESSION['userType'] = $v->value;
-						else if ($v->key == "perm")
-							$_SESSION['userPerm'] = $v->value;
-					}
-					header("Location: ./");
-				} else {
-					header("Location: ./update?extended");
-				}
-					
-			} else {
-				$msg = $responseObject->description;
+			$_SESSION['user'] = $responseObject->dataObject->user;
+			if(!isset($_SESSION['friends'])){
+				$_SESSION['friends'] = array();
 			}
 
-		} else{
+			$request = new Request("v2/FindRequestHandler", READ);
+			$request->addArgument("application", "myEurope");
+			$request->addArgument("predicate", "ext");
+			$request->addArgument("user", $_SESSION['user']->id);
+			$responsejSon = $request->send();
+			$extProfile = json_decode($responsejSon);
+			if($extProfile->status == 200 ) {
+				foreach ($extProfile->dataObject->details as $v){
+					if ($v->key == "type")
+						$_SESSION['userType'] = $v->value;
+					else if ($v->key == "perm")
+						$_SESSION['userPerm'] = $v->value;
+				}
+				header("Location: ./");
+			} else {
+				header("Location: ./update?extended");
+			}
+				
+		} else {
 			$msg = $responseObject->description;
 		}
+
 	} else{
-		header("Location: ./option?please-logout-first");
+		$msg = $responseObject->description;
 	}
+
 
 
 }

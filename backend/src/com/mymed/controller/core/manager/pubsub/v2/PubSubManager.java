@@ -320,10 +320,10 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
         return resList;
     }
     
-    public final TreeMap<String, Map<String, String>> read(final String application, final List<String> predicate, final String start, final String finish)
+    public final Map<String, Map<String, String>> read(final String application, final List<String> predicate, final String start, final String finish)
     		throws InternalBackEndException, IOBackEndException, UnsupportedEncodingException {
     	
-    	final TreeMap<String, Map<String, String>> resMap = new TreeMap<String, Map<String, String>>();
+    	final Map<String, Map<String, String>> resMap = new TreeMap<String, Map<String, String>>();
 	
     	resMap.putAll(storageManager.multiSelectList(SC_APPLICATION_CONTROLLER, predicate, start, finish));
 

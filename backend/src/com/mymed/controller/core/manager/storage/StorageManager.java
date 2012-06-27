@@ -591,9 +591,8 @@ public class StorageManager implements IStorageManager {
 	  final SliceRange sliceRange = new SliceRange();
 	  sliceRange.setStart(start.getBytes(ENCODING));
 	  sliceRange.setFinish(finish.getBytes(ENCODING));
-	  sliceRange.setCount(maxNumColumns); // TODO Maybe better split and perform several queries.
+	  sliceRange.setCount(maxNumColumns); // TODO this val should depend on ontologyID
 	  predicate.setSlice_range(sliceRange);
-	  
 	  final ColumnParent parent = new ColumnParent(tableName);
 	  
 	  final Map<ByteBuffer, List<ColumnOrSuperColumn>> resultMap = wrapper.multiget_slice(keys, parent, 

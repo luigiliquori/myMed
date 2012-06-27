@@ -49,7 +49,7 @@ public final class QueryBean extends AbstractMBean {
 			res.addAll(PubSub.getDateRange(key, valueStart, valueEnd));
 			break;
 		case PubSub.FLOAT:
-			res.addAll(PubSub.getEnumRange(key, valueStart, valueEnd));
+			res.addAll(PubSub.getFloatRange(key, valueStart, valueEnd));
 			break;
 		default: // default, no range queries done = exact matchmaking
 			res.add(key + valueStart);

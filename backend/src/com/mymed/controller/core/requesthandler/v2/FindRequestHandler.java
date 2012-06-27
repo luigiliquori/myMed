@@ -157,7 +157,11 @@ public class FindRequestHandler extends AbstractRequestHandler {
                     }
                     
 					List<Map<String, String>> resList = new ArrayList<Map<String, String>>();
-					TreeMap<String, Map<String, String>> resMap;
+					/* resultMap for range query */
+					Map<String, Map<String, String>> resMap;
+					
+					/* temp Map used for successive range queries */
+					TreeMap<String, Map<String, String>> filterMap = new TreeMap<String, Map<String, String>>();
 					
                     if (query !=null){
                     	/**
@@ -190,7 +194,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
                     		QueryBean item = query.get(keys.get(i));
                     		queryRows.add(item.getRowIndexes(keys.get(i)));
                     		if (item.getValueEnd().length() != 0){
-                    			ranges.add(new String[]{item.getValueStart(), item.getValueEnd()});
+                    			ranges.add(new String[]{item.getValueStart(), item.getValueEnd()+"+"});
                     		}	
                     	}
                     	
@@ -201,34 +205,35 @@ public class FindRequestHandler extends AbstractRequestHandler {
                     	
                     	PubSub.constructRows(queryRows, new int[queryRows.size()], 0, rows);
                     	 
-                    	LOGGER.info("ext find rows: "+rows.size()+rows.get(0));
-                    	LOGGER.info("ext find ranges: "+ranges.toString());
+                    	LOGGER.info("ext find rows: "+rows.size()+" initial: "+rows.get(0));
+                    	LOGGER.info("ext find ranges: "+ranges.size());
                     	/* now loop for remaining range queries */
 
-                    	LOGGER.info("ext find "+i);
                     	if (ranges.size() != 0){
+                    		LOGGER.info("ext find DB ranges: "+ranges.get(0)[0]+"->"+ranges.get(0)[1]);
                     		String[] range = ranges.remove(0);
 							resMap = pubsubManager.read(application, rows, start != null ? start : range[0], range[1]);
                 		} else {
-                			LOGGER.info("ok");
                 			resMap = pubsubManager.read(application, rows, start != null ? start : "", ""); //there is just one elt in rows, should be equivalent to v1
                 		}
                     	
                     	/* finished filtering  for i <= level */
                     	while (ranges.size() != 0){ //filter
-                    		
+                    		LOGGER.info("ext find Filter ranges: "+ranges.get(0)[0]+"->"+ranges.get(0)[1]);
                     		String[] range = ranges.remove(0);
                 			// uncap one layer of comparators
+                    		
+                    		filterMap.clear();
                 			for (String key : resMap.keySet()){
-                				Map<String, String> val = resMap.remove(key);
+                				Map<String, String> val = resMap.get(key);
                 				String[] parts = key.split("\\+", 2);
-                				resMap.put(parts[parts.length-1], val);
+                				filterMap.put(parts[parts.length-1], val);
                 			}
                 			//now the Map is re-indexed on the new group values, do the corresponding (Java Map) slice on it
 							resMap = new TreeMap<String, Map<String, String>>(
-									resMap.subMap(range[0], true, range[1], true));
+									filterMap.subMap(range[0], true, range[1], true));
 							
-							LOGGER.info("ext uncap under level "+resMap.size());
+							LOGGER.info("ext uncap under level "+i+" "+resMap.size());
                 			
                 		}
                     	
@@ -249,15 +254,16 @@ public class FindRequestHandler extends AbstractRequestHandler {
                     			 *   
                     			 *   but this method is more fun
                     			 */
-       
+                    			
+                    			filterMap.clear();
                     			for (String key : resMap.keySet()){
-                    				Map<String, String> val = resMap.remove(key);
+                    				Map<String, String> val = resMap.get(key);
                     				String[] parts = key.split("\\+", 2);
-                    				resMap.put(parts[parts.length-1], val);
+                    				filterMap.put(parts[parts.length-1], val);
                     			}
                     			
                     			resMap = new TreeMap<String, Map<String, String>>(
-										resMap.subMap(item.getValueStart(), true, item.getValueEnd(), true));
+                    					filterMap.subMap(item.getValueStart(), true, item.getValueEnd(), true));
                     			LOGGER.info("ext uncap above level "+resMap.size());
                     			
                     		} else {

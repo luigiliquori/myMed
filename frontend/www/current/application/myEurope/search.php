@@ -39,7 +39,7 @@ if (isset($_GET['q'])){
 		$predicateList["date"] = array("valueStart"=>$_GET['dateMin'], "valueEnd"=>$_GET['dateMax'], "ontologyID"=>DATE);
 	}
 	if ($_GET['rateMin'] != "" && $_GET['rateMax'] != ""){
-		$predicateList["cout"] = array("valueStart"=>$_GET['rateMin'], "valueEnd"=>$_GET['rateMax'], "ontologyID"=>FLOAT);
+		$predicateList["rate"] = array("valueStart"=>5-$_GET['rateMax'], "valueEnd"=>5-$_GET['rateMin'], "ontologyID"=>FLOAT);
 	}
 
 	$request = new Request("v2/FindRequestHandler", READ);
@@ -89,12 +89,13 @@ if (isset($_GET['q'])){
 
 					foreach( $res as $i => $value ){
 						?>
-					<li><a href="" onclick="$('#detailForm<?= $i ?>').submit();" style="padding-top: 1px; padding-bottom: 1px;">
+					<li><a href="detail?id=<?=  urlencode($value->predicate) ?>&user=<?=  urlencode($value->publisherID) ?>&application=<?= urlencode($application) ?>" 
+					 style="padding-top: 1px; padding-bottom: 1px;">
 							<h3>
 								projet: <?= $value->predicate ?>
 							</h3>
 							<p>
-								réputation: <?= $value->cout ?>
+								réputation: <?= 5-$value->rate ?>
 							</p>
 							<p class="ui-li-aside">
 								<strong><?= $value->date ?> </strong>
@@ -102,10 +103,6 @@ if (isset($_GET['q'])){
 							<p class="ui-li-aside" style="position: absolute; top: 60%; right: 37px;">
 								publié par: <span style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $value->publisherName ?> </span>
 							</p>
-							<form action="detail" id="detailForm<?= $i ?>">
-								<input name="application" value='<?= $application ?>' type="hidden" /> <input name="predicate" value="<?= urlencode($value->predicate) ?>"
-									type="hidden" /> <input name="user" value='<?= $value->publisherID ?>' type="hidden" />
-							</form>
 					</a>
 					</li>
 					<?php 

@@ -582,47 +582,45 @@ public class StorageManager implements IStorageManager {
   
   
   
-  
-  public Map<String, Map<String, String>> multiSelectList(final String tableName, final List<String> keys, 
-		  final String start, final String finish) throws IOBackEndException, InternalBackEndException, UnsupportedEncodingException {
+	public Map<String, Map<String, String>> multiSelectList( final String tableName, final List<String> keys,
+			final String start, final String finish) throws IOBackEndException,	InternalBackEndException, UnsupportedEncodingException {
 
-  	final SlicePredicate predicate = new SlicePredicate();
-	  final SliceRange sliceRange = new SliceRange();
-	  sliceRange.setStart(start.getBytes(ENCODING));
-	  sliceRange.setFinish(finish.getBytes(ENCODING));
-	  sliceRange.setCount(maxNumColumns); // TODO Maybe better split and perform several queries.
-	  predicate.setSlice_range(sliceRange);
-	  
-	  final ColumnParent parent = new ColumnParent(tableName);
-	  
-	  final Map<ByteBuffer, List<ColumnOrSuperColumn>> resultMap = wrapper.multiget_slice(keys, parent, 
-    		predicate, consistencyOnRead);
+		final SlicePredicate predicate = new SlicePredicate();
+		final SliceRange sliceRange = new SliceRange();
+		sliceRange.setStart(start.getBytes(ENCODING));
+		sliceRange.setFinish(finish.getBytes(ENCODING));
+		sliceRange.setCount(maxNumColumns); // TODO this val should depend on ontologyID
+		predicate.setSlice_range(sliceRange);
 
-    final List<ColumnOrSuperColumn> results = new ArrayList<ColumnOrSuperColumn>();
-    
-    for (List<ColumnOrSuperColumn> l : resultMap.values()){
-    	
-    	results.addAll(l);
-    }
-    
-    final Map<String, Map<String, String>> sliceMap = new TreeMap<String, Map<String, String>>();
+		final ColumnParent parent = new ColumnParent(tableName);
 
-	  for (final ColumnOrSuperColumn res : results) {
-		  if (res.isSetSuper_column()) {
-			  final Map<String, String> slice = new HashMap<String, String>();
+		final Map<ByteBuffer, List<ColumnOrSuperColumn>> resultMap = wrapper
+				.multiget_slice(keys, parent, predicate, consistencyOnRead);
+		
+		final List<ColumnOrSuperColumn> results = new ArrayList<ColumnOrSuperColumn>();
 
-			  for (final Column column : res.getSuper_column().getColumns()) {
-				  slice.put(MConverter.byteArrayToString(column.getName()), 
-				  		MConverter.byteArrayToString(column.getValue()));
-			  }
-			  sliceMap.put(MConverter.byteArrayToString(res.getSuper_column().getName()), slice);
-		  }
-	  }
+		for (List<ColumnOrSuperColumn> l : resultMap.values()) {
+			results.addAll(l);
+		}
 
-	  return sliceMap;
+		final Map<String, Map<String, String>> sliceMap = new TreeMap<String, Map<String, String>>();
 
-  }
-  
+		for (final ColumnOrSuperColumn res : results) {
+			if (res.isSetSuper_column()) {
+				final Map<String, String> slice = new HashMap<String, String>();
+
+				for (final Column column : res.getSuper_column().getColumns()) {
+					slice.put(MConverter.byteArrayToString(column.getName()),
+							MConverter.byteArrayToString(column.getValue()));
+				}
+				sliceMap.put(MConverter.byteArrayToString(res.getSuper_column()
+						.getName()), slice);
+			}
+		}
+
+		return sliceMap;
+
+	}
 
   /**
    * @return

@@ -63,9 +63,36 @@ input.ui-input-text,textarea.ui-input-text {
 	width: 30%;
 }
 
+.dualSlider #buying_slider_min {
+	position: absolute;
+	left: 22%;
+	width:30px;
+}
+
+.dualSlider #buying_slider_max {
+	position: absolute;
+	left: 30%;
+	width:30px;
+}
+
+.dualSlider div.ui-slider {
+	position: absolute;
+	top: 10px;
+	left: 40%;
+} /* move both sliders - adressing 1st slider with CSS is hard */
+
+.dualSlider div:last-child {
+	position: absolute;
+}
+
+
+
+
 /* Red button theme for JQuery Mobile
 * - Use data-theme="r" for red versions of the default JQuery Mobile Buttons.
 ******************************************************************************************/
+	
+
 .ui-btn-up-r {
 	border: 1px solid #721414;
 	background: #AB2525;
@@ -79,9 +106,11 @@ input.ui-input-text,textarea.ui-input-text {
 		"progid:DXImageTransform.Microsoft.gradient(startColorStr='#C54E4E', EndColorStr='#AB2525')";
 }
 
+
 .ui-btn-up-r a.ui-link-inherit {
 	color: #fff;
 }
+
 
 .ui-btn-hover-r {
 	border: 1px solid #6E0000;

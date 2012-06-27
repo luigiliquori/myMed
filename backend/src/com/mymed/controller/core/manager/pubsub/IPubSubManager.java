@@ -82,6 +82,22 @@ public interface IPubSubManager {
       IOBackEndException, UnsupportedEncodingException;
 
   /**
+   * the extended read used in v2, for range queries
+   *  reads over rows in predicate, and in the column slice [start-finish]
+   * 
+   * @param application
+   * @param predicate
+   * @param start
+   * @param finish
+   * @return
+   * @throws InternalBackEndException
+   * @throws IOBackEndException
+   * @throws UnsupportedEncodingException
+   */
+  
+  Map<String, Map<String, String>> read(final String application, final List<String> predicate, final String start, final String finish)
+  		throws InternalBackEndException, IOBackEndException, UnsupportedEncodingException;
+  /**
    * Get the DataList Entry related to application + predicate + userID.
    * 
    * @param application
@@ -104,7 +120,6 @@ public interface IPubSubManager {
    * @throws InternalBackEndException
    * @throws IOBackEndException
    */
-  //TODO "put this method in a more appropriate place"
   
   Map<String, String> read(String user) throws InternalBackEndException,
 	IOBackEndException;

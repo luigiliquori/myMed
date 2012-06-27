@@ -25,7 +25,7 @@ $msg = ""; //feedback text
 
 $application = isset($_REQUEST['application'])?$_REQUEST['application']:"myEurope";
 
-$id = $_GET['predicate']; // data Id
+$id = $_GET['id']; // data Id
 
 $author = $_GET['user'];
 
@@ -87,8 +87,8 @@ if (isset($_POST['rateNew'])){
 	$detail = json_decode(urldecode($_POST['detail']));
 	$dataList=array();
 	foreach( $detail as $value ) {
-		if ($value->key=="cout"){
-			$dataList[$value->key] = array("valueStart"=>$value->value, "valueEnd"=>$_POST['rateNew'], "ontologyID"=>$value->ontologyID);
+		if ($value->key=="rate"){
+			$dataList[$value->key] = array("valueStart"=>$value->value, "valueEnd"=>5-$_POST['rateNew'], "ontologyID"=>$value->ontologyID);
 		} else {
 			$dataList[$value->key] = array("valueStart"=>$value->value, "valueEnd"=>$value->value, "ontologyID"=>$value->ontologyID);
 		}
@@ -113,7 +113,7 @@ if (isset($_POST['rateNew'])){
 
 $request = new Request("v2/FindRequestHandler", READ);
 $request->addArgument("application", $application);
-$request->addArgument("predicate", urldecode($_GET['predicate']));
+$request->addArgument("predicate", $id);
 $request->addArgument("user", $_GET['user']);
 $responsejSon = $request->send();
 $detail = json_decode($responsejSon);
@@ -125,7 +125,7 @@ $profile = json_decode($responsejSon);
 
 $request = new Request("FindRequestHandler", READ);
 $request->addArgument("application", $application);
-$request->addArgument("predicate", "commentOn" . $_GET['predicate']);
+$request->addArgument("predicate", "commentOn" . $id);
 $responsejSon = $request->send();
 $comments = json_decode($responsejSon);
 $totalCom = 0;
@@ -176,21 +176,24 @@ if(isset($responseObject->dataObject->reputation)){
 
 				if($detail->status == 200) {
 					$detail = $detail->dataObject->details;
+					
 					$text="";
 					foreach( $detail as $value ) {
 						if ($value->key=="text"){
 							$text = str_replace("\n", "<br />", $value->value);
+							unset($value);
 						} else if ($value->key=="data"){
 							$preds = json_decode($value->value);
-						} else if ($value->key=="cout"){
+						} else if ($value->key=="rate"){
 							$rate = json_decode($value->value);
 						}
 					}
-					array_filter($detail, "isPredicate"); // to $use details for delete
-		
+					$detail = array_values(array_filter($detail, "isPredicate")); // to use details for delete
+
+					
 					?>
 				<div style="float: right; text-align: center;">
-					<img style="text-align: center; max-height: 100px; opacity: 0.6;" src="<?= $profPic ?>" /><br /> <b>Réputation</b>:
+					<img style="text-align: center; max-height: 100px; opacity: 0.6;" src="<?= $profPic ?>" /><br /> <b>Réputation auteur</b>:
 					<div style="display: inline-block; vertical-align: top; margin-top: -12px">
 						<a data-theme="r" data-role="button" data-icon="minus" data-iconpos="notext" data-inline="true"
 							onclick="$('#feedback').val('0'); document.StartInteractionForm.submit();"></a> <br />
@@ -214,14 +217,13 @@ if(isset($responseObject->dataObject->reputation)){
 				<form id="StartInteractionForm" action="#" method="post" name="StartInteractionForm" id="StartInteractionForm" enctype="multipart/form-data">
 					<input type="hidden" name="application" value="<?= $application ?>" /> <input type="hidden" name="producer" value="<?= $_REQUEST['user'] ?>" /> <input
 						type="hidden" name="consumer" value="<?= $_SESSION['user']->id ?>" /> <input type="hidden" name="start" value="<?= time() ?>" /> <input
-						type="hidden" name="end" value="<?= time() ?>" /> <input type="hidden" name="predicate" value="<?= $_REQUEST['predicate'] ?>" /> <input
+						type="hidden" name="end" value="<?= time() ?>" /> <input type="hidden" name="predicate" value="<?= $id ?>" /> <input
 						type="hidden" name="feedback" value="" id="feedback" />
 				</form>
 
 				<b>Auteur</b>: <a style="left-margin: 10px; color: #0060AA; font-size: 160%;" href="mailto:<?= $profile->email ?>"><?= $profile->name ?> </a> <br />
-				<br /> <b>Nom de l'organisme bénéficiaire:</b>&nbsp; <span style="left-margin: 5px; color: #0060AA; font-size: 140%;"><?= $preds->nom ?> </span><br />
-				<b>Libellé du projet:</b>&nbsp; <span style="left-margin: 5px; color: #0060AA; font-size: 140%;"><?= $preds->id ?> </span><br /> <b>Réputation:</b>&nbsp;
-				<span style="left-margin: 5px; color: #0060AA; font-size: 140%;"><?= $rate ?> </span><br /> <br /> <b>Texte</b>: <br /> <br /> <br />
+				<br /> <b>Libellé du projet:</b>&nbsp; <span style="left-margin: 5px; color: #0060AA; font-size: 140%;"><?= $id ?> </span><br /> <b>Réputation projet:</b>&nbsp;
+				<span style="left-margin: 5px; color: #0060AA; font-size: 140%;"><?= 5-$rate ?> </span><br /> <br /> <b>Texte</b>: <br /> <br /> <br />
 				<div id="detailstext">
 					<?= $text ?>
 				</div>
@@ -240,7 +242,7 @@ if(isset($responseObject->dataObject->reputation)){
 					?>
 				<form action="#" method="post" id="deleteForm">
 					<input name="application" value='<?= $application ?>' type="hidden" /> <input name="predicates" value='<?= urlencode(json_encode($detail)) ?>'
-						type="hidden" /> <input name="id" value='<?= $_GET['predicate']?>' type="hidden" /> <input name="user" value='<?= $_REQUEST['user'] ?>'
+						type="hidden" /> <input name="id" value='<?= $id ?>' type="hidden" /> <input name="user" value='<?= $_REQUEST['user'] ?>'
 						type="hidden" />
 				</form>
 				<a href="" type="button" data-theme="r" data-icon="delete" onclick="$('#deleteForm').submit();"

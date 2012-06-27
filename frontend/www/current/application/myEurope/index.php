@@ -27,16 +27,16 @@ if (isset($_GET['registration']) || (isset($_GET['userID']))) {
 				<a href="about" data-theme="b" type="button" data-icon="info" data-transition="slide" data-direction="reverse">about</a> 
 				
 				<a href="<?= $_SESSION['userPerm']>0?"post":"" ?>"
-					type="button" class="ui-btn-right" data-theme="d" style="position: absolute; left: 40%; width: 20%;">Insérer (restreint)</a> <a id="opt"
+					type="button" class="ui-btn-right" data-theme="d" style="position: absolute; left: 40%; width: 20%;">Insérer (restreint à *@inria.fr)</a> <a id="opt"
 					href=<?= $_SESSION['user']?"option":"authenticate" ?> class="ui-btn-right" data-transition="slide"><?= $_SESSION['user']?$_SESSION['user']->name:"Connexion" ?>
 				</a>
 			</div>
 			<div data-role="content">
-				<div style="margin-top: 2em; margin-bottom: auto; text-align: center;">
-					<h1 style="color: #0060AA; font-size: 350%;">myEurope</h1>
+				<div style="margin-top: 2em; margin-bottom: auto;">
+					<h1 style="color: #0060AA; font-size: 350%; text-align: center;">myEurope</h1>
 					<form action="search" id="searchForm">
-						<input name="q" placeholder="chercher un partenaire ou une offre par mot clés" value="" data-type="search" /> <input name="type"
-							value="partenaires" type="hidden" /> <br /> <br /> <span style="margin: 5px 15px;">ou par ses catégories:</span>
+						<input name="q" placeholder="chercher un partenaire ou une offre par mot clés" value="" data-type="search" id="tagSearch"/> <input name="type"
+							value="partenaires" type="hidden" /> <br /> <br /> <span style="margin: 5px 15px;">ou par ses catégories:</span><br /><br />
 						<div data-role="fieldcontain">
 							<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
 								<legend>Type d'offre:</legend>
@@ -54,9 +54,25 @@ if (isset($_GET['registration']) || (isset($_GET['userID']))) {
 									id="checkbox-11" class="custom" /> <label for="checkbox-11">Métier3</label>
 							</fieldset>
 						</div>
-						<input name="dateMin" placeholder="Date min" value="2012-06-24" type="date" /> <input name="dateMax" placeholder="Date max" value="2012-07-24"
-							type="date" /> <input name="rateMin" placeholder="Rating min (0-5)" type="text" /> <input name="rateMax" placeholder="Rating max (0-5)"
-							type="text" />
+
+						<div data-role="fieldcontain">
+							<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+								<label for="textinputi1"> Date d'échéance (min/max): </label> <input id="textinputi1" name="dateMin" placeholder="Date min" data-inline="true"
+									value="2012-06-30" type="date" style="width: 150px;" /> <input name="dateMax" placeholder="Date max" data-inline="true" value="2012-07-30"
+									type="date" style="width: 150px;" />
+							</fieldset>
+						</div>
+						
+						<div data-role="fieldcontain">
+							<fieldset data-role="controlgroup" data-type="horizontal" class="dualSlider">
+								
+								<label for="buying_slider_min">Réputation (min/max)</label>
+								<input type="range" name="rateMax" id="buying_slider_max" placeholder="Rate max" value="5" min="0" max="5" data-mini="true" />
+								<input type="range" name="rateMin" id="buying_slider_min" placeholder="Rate min" value="" min="0" max="5" data-highlight="true" data-mini="true" />
+
+							</fieldset>
+						</div>
+
 					</form>
 
 				</div>
