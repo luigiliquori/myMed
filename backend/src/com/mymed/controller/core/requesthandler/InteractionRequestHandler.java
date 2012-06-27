@@ -97,7 +97,7 @@ public class InteractionRequestHandler extends AbstractRequestHandler {
             // Check the access token
             checkToken(parameters);
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            String application, producer, consumer, start, end, predicate, feedback;
+            String application, producer, consumer, start, end, predicate, feedback, state;
 
             if (code.equals(RequestCode.UPDATE)) {
                 if ((application = parameters.get(JSON_APPLICATION)) == null) {
@@ -112,6 +112,8 @@ public class InteractionRequestHandler extends AbstractRequestHandler {
                     throw new InternalBackEndException("missing end argument!");
                 } else if ((predicate = parameters.get("predicate")) == null) {
                     throw new InternalBackEndException("missing predicate argument!");
+                } else if ((state = parameters.get("state")) == null) {
+                	state = MInteractionBean.COMPLETED_STATE; // Default state
                 }
 
                 // verify consumer != producer
@@ -125,8 +127,10 @@ public class InteractionRequestHandler extends AbstractRequestHandler {
                 interaction.setApplication(application);
                 interaction.setProducer(producer);
                 interaction.setConsumer(consumer);
+                interaction.setPredicate(predicate);
                 interaction.setStart(Long.parseLong(start));
                 interaction.setEnd(Long.parseLong(end));
+                interaction.setState(state);
 
                 // ATOMIC INTERACTION
                 if ((feedback = parameters.get("feedback")) != null) {

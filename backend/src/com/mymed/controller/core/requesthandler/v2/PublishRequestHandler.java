@@ -17,7 +17,6 @@ package com.mymed.controller.core.requesthandler.v2;
 
 import java.lang.reflect.Type;
 import java.net.URLDecoder;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
