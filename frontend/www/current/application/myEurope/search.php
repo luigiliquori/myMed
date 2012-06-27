@@ -68,7 +68,7 @@ if (isset($_GET['q'])){
 		<div class="wrapper">
 			<div data-role="header" data-theme="b" id="headerSearch">
 				<select data-theme="e" class="ui-btn-right"
-					onchange="$.get('../../lib/dasp/ajax/Position', { code: $(this).val(), application: '<?= $application ?>' ,predicate: '<?= urlencode($predicate) ?>' } );"
+					onchange="$.get('../../lib/dasp/ajax/Subscribe', { code: $(this).val(), application: '<?= $application ?>' ,predicate: '<?= urlencode(join("", $p)) ?>' } );"
 					style="position: absolute; left: 5px;" name="slider" id="flip-a" data-role="slider" data-mini="true">
 					<option value="3">Non abonné</option>
 					<option value="0">Abonné</option>

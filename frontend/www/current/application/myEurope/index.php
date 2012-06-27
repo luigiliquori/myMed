@@ -35,8 +35,9 @@ if (isset($_GET['registration']) || (isset($_GET['userID']))) {
 				<div style="margin-top: 2em; margin-bottom: auto;">
 					<h1 style="color: #0060AA; font-size: 350%; text-align: center;">myEurope</h1>
 					<form action="search" id="searchForm">
-						<input name="q" placeholder="chercher un partenaire ou une offre par mot clés" value="" data-type="search" id="tagSearch"/> <input name="type"
-							value="partenaires" type="hidden" /> <br /> <br /> <span style="margin: 5px 15px;">ou par ses catégories:</span><br /><br />
+						<span style="margin: 5px 20px;">chercher un partenaire ou une offre par mot clés:</span><br /><br />
+						<input name="q" placeholder="" value="Europe " data-type="search" id="tagSearch"/> <input name="type"
+							value="partenaires" type="hidden" /> <br /> <br /> <span style="margin: 5px 20px;">ou par ses catégories:</span><br /><br />
 						<div data-role="fieldcontain">
 							<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
 								<legend>Type d'offre:</legend>
@@ -57,19 +58,21 @@ if (isset($_GET['registration']) || (isset($_GET['userID']))) {
 
 						<div data-role="fieldcontain">
 							<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-								<label for="textinputi1"> Date d'échéance (min/max): </label> <input id="textinputi1" name="dateMin" placeholder="Date min" data-inline="true"
-									value="2012-06-30" type="date" style="width: 150px;" /> <input name="dateMax" placeholder="Date max" data-inline="true" value="2012-07-30"
+								<label for="textinputi1"> Date d'échéance (min/max): </label>
+								<input id="textinputi1" name="dateMin" placeholder="2012-06-30" data-inline="true"
+									value="2012-06-30" type="date" style="width: 150px;" />
+								<input name="dateMax" placeholder="2012-07-30" data-inline="true" value=""
 									type="date" style="width: 150px;" />
 							</fieldset>
 						</div>
 						
 						<div data-role="fieldcontain">
-							<fieldset data-role="controlgroup" data-type="horizontal" class="dualSlider">
-								
-								<label for="buying_slider_min">Réputation (min/max)</label>
-								<input type="range" name="rateMax" id="buying_slider_max" placeholder="Rate max" value="5" min="0" max="5" data-mini="true" />
-								<input type="range" name="rateMin" id="buying_slider_min" placeholder="Rate min" value="" min="0" max="5" data-highlight="true" data-mini="true" />
-
+							<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+								<label for="textinputr1">Réputation (min/max)</label>
+								<input id="textinputr1" name="rateMin" placeholder="min" data-inline="true"
+									value="" type="text" style="width: 150px;" />
+								<input name="rateMax" placeholder="max" data-inline="true" value="5"
+									type="text" style="width: 150px;" />
 							</fieldset>
 						</div>
 

@@ -63,29 +63,6 @@ input.ui-input-text,textarea.ui-input-text {
 	width: 30%;
 }
 
-.dualSlider #buying_slider_min {
-	position: absolute;
-	left: 22%;
-	width:30px;
-}
-
-.dualSlider #buying_slider_max {
-	position: absolute;
-	left: 30%;
-	width:30px;
-}
-
-.dualSlider div.ui-slider {
-	position: absolute;
-	top: 10px;
-	left: 40%;
-} /* move both sliders - adressing 1st slider with CSS is hard */
-
-.dualSlider div:last-child {
-	position: absolute;
-}
-
-
 
 
 /* Red button theme for JQuery Mobile
