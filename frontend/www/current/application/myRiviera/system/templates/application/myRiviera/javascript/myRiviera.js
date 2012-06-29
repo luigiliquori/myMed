@@ -579,7 +579,9 @@ function calcRouteByCityway(result) {
 		}
 
 	}
-
+	
+	$("#ceparou06").show();
+	
 	// create jquerymobile styled elmts
 	$('.ui-page').trigger('create');
 
