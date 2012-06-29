@@ -146,7 +146,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 	   		//---publisherName at the moment he published it, beware that name was possibly updated since
 	   		args.put("publisherName", publisher.getName().getBytes(ENCODING));
 
-    		storageManager.insertSuperSlice(SC_APPLICATION_CONTROLLER, application + predicate, colprefix+subPredicate
+    		storageManager.insertSuperSlice(SC_APPLICATION_CONTROLLER, application + predicate, colprefix + subPredicate
     				+ publisher.getId(), args);
     		
     		
@@ -154,7 +154,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     		 * Put all info in data
     		 */
     		
-    		createData(application, subPredicate, publisher, dataList);
+    		//createData(application, subPredicate, publisher, dataList);
 
 
     	} catch (final UnsupportedEncodingException e) {
@@ -205,8 +205,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 		// Format the mail
 		// TODO move this somewhere else and handle translation of this email!
 		if (!recipients.isEmpty()) {
-			final byte[] accTokByte = storageManager.selectColumn(CF_USER, publisher.getId(), "session");
-			final String accTok = Charset.forName(ENCODING).decode(ByteBuffer.wrap(accTokByte)).toString();
+	
 			final StringBuilder mailContent = new StringBuilder(400);
 			mailContent.append("Bonjour,<br/>De nouvelles informations sont arriv&eacute;es sur votre plateforme myMed.<br/>Application Concern&eacute;e: ");
 			mailContent.append(application);
@@ -229,8 +228,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 				address += "/application/" + (application.equals("myEuroCIN_ADMIN")?"myEuroCINAdmin":application);
 			} 
 			address += "?predicate=" + predicate + "&application="
-					+ application + "&userID=" + publisher.getId()
-					+ "&accessToken=" + accTok;
+					+ application + "&userID=" + publisher.getId();
 			mailContent.append(address);
 			mailContent.append("'>ici</a> si vous souhaitez vraiment vous d&eacute;sabonner");
 
