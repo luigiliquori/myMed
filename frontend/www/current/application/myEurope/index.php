@@ -1,90 +1,76 @@
 <?php
 
 //ob_start("ob_gzhandler");
-
+error_reporting(E_ALL);
+ini_set('display_errors','On');
 require_once 'Template.php';
-$template = new Template();
-$template->init();
+Template::init();
+
+if (!isset($_SESSION['userPerm'])){
+	//complete your profile
+	header("Location: ./update?extended");
+}
 
 if (isset($_GET['registration']) || (isset($_GET['userID']))) {
 	header("Location: ./option?".$_SERVER['QUERY_STRING']);
 }
 
+$profileText = ($_SESSION["user"]->profilePicture) ? 
+''
+: $_SESSION['user']->name;
 
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-<?= $template->head(); ?>
+<?= Template::head(); ?>
 </head>
 
 <body>
 	<div data-role="page" id="Home">
 		<div class="wrapper">
-			<div data-role="header" data-theme="b">
-				<h2></h2>
+			<div data-role="header" data-theme="c" style="max-height: 38px;">
 				<a href="about" data-theme="b" type="button" data-icon="info" data-transition="slide" data-direction="reverse">about</a> 
+				<h2>
+					<a href="./" style="text-decoration: none;">myEurope</a>
+				</h2>
+				<?php 
+				if ($_SESSION['user']->profilePicture){
+				?>
+				<span><a href="option" data-transition="slide"><img class="ui-btn-right" style="max-height: 36px; top:1px" src="<?= $_SESSION["user"]->profilePicture ?>"
+				 alt="<?= $_SESSION['user']->name ?>" title="<?= $_SESSION['user']->name ?>"/></a></span>
+				<?php 
+				} else {
+				?>
+				<a href="option" class="ui-btn-right" data-transition="slide"><?= $_SESSION['user']->name ?></a>
+				<?php 
+				}
+				?>
 				
-				<a href="<?= $_SESSION['userPerm']>0?"post":"" ?>"
-					type="button" class="ui-btn-right" data-theme="d" style="position: absolute; left: 40%; width: 20%;">Insérer (restreint à *@inria.fr)</a> <a id="opt"
-					href=<?= $_SESSION['user']?"option":"authenticate" ?> class="ui-btn-right" data-transition="slide"><?= $_SESSION['user']?$_SESSION['user']->name:"Connexion" ?>
-				</a>
 			</div>
 			<div data-role="content">
-				<div style="margin-top: 2em; margin-bottom: auto;">
-					<h1 style="color: #0060AA; font-size: 350%; text-align: center;">myEurope</h1>
-					<form action="search" id="searchForm">
-						<span style="margin: 5px 20px;">chercher un partenaire ou une offre par mot clés:</span><br /><br />
-						<input name="q" placeholder="" value="Europe " data-type="search" id="tagSearch"/> <input name="type"
-							value="partenaires" type="hidden" /> <br /> <br /> <span style="margin: 5px 20px;">ou par ses catégories:</span><br /><br />
-						<div data-role="fieldcontain">
-							<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-								<legend>Type d'offre:</legend>
-								<input type="radio" name="type" id="checkbox-5" /> <label for="checkbox-5">Pacalabs</label> <input
-									type="radio" name="type" id="checkbox-6" /> <label for="checkbox-6">Interreg</label> <input
-									type="radio" name="type" id="checkbox-7" /> <label for="checkbox-7">Edu</label> <input type="radio" name="type" id="checkbox-8" /> <label
-									for="checkbox-8">Autre</label>
-							</fieldset>
-						</div>
-						<div data-role="fieldcontain">
-							<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-								<legend>Métier:</legend>
-								<input type="radio" name="metier" id="checkbox-9" class="custom" /> <label for="checkbox-9">Métier1</label> <input type="radio"
-									name="metier" id="checkbox-10" class="custom" /> <label for="checkbox-10">Métier2</label> <input type="radio" name="metier"
-									id="checkbox-11" class="custom" /> <label for="checkbox-11">Métier3</label>
-							</fieldset>
-						</div>
 
-						<div data-role="fieldcontain">
-							<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-								<label for="textinputi1"> Date d'échéance (min/max): </label>
-								<input id="textinputi1" name="dateMin" placeholder="2012-06-30" data-inline="true"
-									value="2012-06-30" type="date" style="width: 150px;" />
-								<input name="dateMax" placeholder="2012-07-30" data-inline="true" value=""
-									type="date" style="width: 150px;" />
-							</fieldset>
-						</div>
-						
-						<div data-role="fieldcontain">
-							<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-								<label for="textinputr1">Réputation (min/max)</label>
-								<input id="textinputr1" name="rateMin" placeholder="min" data-inline="true"
-									value="" type="text" style="width: 150px;" />
-								<input name="rateMax" placeholder="max" data-inline="true" value="5"
-									type="text" style="width: 150px;" />
-							</fieldset>
-						</div>
+				<br />
+				<a href="searchPartnerForm" type="button" data-theme="b" >Rechercher un partenaire</a>
+				
+				<a href="searchOfferForm" type="button" data-theme="b" >Rechercher une offre</a>
+				
+				<br />
 
-					</form>
+				<a href="postPartnershipForm" class="<?= $_SESSION['userPerm']>0?"":"ui-disabled" ?>"
+				type="button" data-theme="b" >Insérer un appel à partenaire</a>
 
-				</div>
-				<br /> <a href="" type="button" data-theme="g" data-mini="true" data-icon="search" onclick="$('#searchForm').submit();"
-					style="width: 200px; margin-right: auto; margin-left: auto;">Chercher</a>
+				<a href="postOfferForm" class="<?= $_SESSION['userPerm']>1?"":"ui-disabled" ?>"
+				type="button" data-theme="b" >Insérer une offre</a>
+
+				
+				
+					
 				<div class="push"></div>
 			</div>
 		</div>
-		<?= $template->credits(); ?>
+		<?= Template::credits(); ?>
 	</div>
 </body>
 </html>

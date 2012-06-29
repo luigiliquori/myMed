@@ -14,16 +14,16 @@
 
 //ob_start("ob_gzhandler");
 require_once 'Template.php';
-$template = new Template();
-$template->init();
+Template::init();
 
-function isPredicate($var) {
-	return($var->ontologyID < 4);
-}
+
+
 
 $msg = ""; //feedback text
 
-$application = isset($_REQUEST['application'])?$_REQUEST['application']:"myEurope";
+$application = $_GET['application'];
+
+$type = strstr($application, "myEurope", true); // get namespace {part or offer}
 
 $id = $_GET['id']; // data Id
 
@@ -153,15 +153,16 @@ if(isset($responseObject->dataObject->reputation)){
 <!DOCTYPE html>
 <html>
 <head>
-<?= $template->head(); ?>
+<?= Template::head(); ?>
 </head>
 
 <body>
 	<div data-role="page" id="Detail">
 		<div class="wrapper">
-			<div data-role="header" data-theme="b">
-				<a href="./" data-icon="home" data-iconpos="notext"> Accueil </a>
-				<h3>myEurope - détail</h3>
+			<div data-role="header" data-theme="c" style="max-height: 38px;">
+				<h2>
+					<a href="./" style="text-decoration: none;">myEurope</a>
+				</h2>
 			</div>
 			<div data-role="content">
 				<div style='color: lightGreen; text-align: center;'>
@@ -193,49 +194,45 @@ if(isset($responseObject->dataObject->reputation)){
 					
 					?>
 				<div style="float: right; text-align: center;">
-					<img style="text-align: center; max-height: 100px; opacity: 0.6;" src="<?= $profPic ?>" /><br /> <b>Réputation auteur</b>:
-					<div style="display: inline-block; vertical-align: top; margin-top: -12px">
-						<a data-theme="r" data-role="button" data-icon="minus" data-iconpos="notext" data-inline="true"
-							onclick="$('#feedback').val('0'); document.StartInteractionForm.submit();"></a> <br />
-						<?= $dislikes ?>
-					</div>
-					<span id="author-rep"><?= $reputation ?>%</span>
-					<div style="display: inline-block; vertical-align: top; margin-top: -12px">
-						<a data-theme="g" data-role="button" data-icon="plus" data-iconpos="notext" data-inline="true"
-							onclick="$('#feedback').val('1'); document.StartInteractionForm.submit();"></a> <br />
-						<?= $likes ?>
-					</div>
+					<img style="text-align: center; max-height: 100px; opacity: 0.6;" src="<?= $profPic ?>" /><br />
+					Auteur: <a style="left-margin: 10px; color: #0060AA; font-size: 120%;" href="mailto:<?= $profile->email ?>"><?= $profile->name ?> </a> <br />
+					Réputation :&nbsp;	<span style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= (1-$rate)*100 ?> </span><br />
+					Voter:
+					<a data-role="button" data-icon="star" data-iconpos="notext" data-inline="true" style="margin-right:1px; margin-left:1px;"
+							onclick="$('#feedback').val('0'); document.StartInteractionForm.submit();"></a>
+					<a data-role="button" data-icon="star" data-iconpos="notext" data-inline="true" style="margin-right:1px; margin-left:1px;"
+							onclick="$('#feedback').val('0.25'); document.StartInteractionForm.submit();"></a>
+					<a data-role="button" data-icon="star" data-iconpos="notext" data-inline="true" style="margin-right:1px; margin-left:1px;"
+							onclick="$('#feedback').val('0.5'); document.StartInteractionForm.submit();"></a>
+					<a data-role="button" data-icon="star" data-iconpos="notext" data-inline="true" style="margin-right:1px; margin-left:1px;"
+							onclick="$('#feedback').val('0.75'); document.StartInteractionForm.submit();"></a>
+					<a data-role="button" data-icon="star" data-iconpos="notext" data-inline="true" style="margin-right:1px; margin-left:1px;"
+							onclick="$('#feedback').val('1'); document.StartInteractionForm.submit();"></a>
 
-					<form action="#" method="post" id="rateForm">
-						<input name="detail" value='<?= urlencode(json_encode($detail)) ?>' type="hidden" /> <input name="rateNew" placeholder="New rating (0-5)"
-							type="text" data-mini="true" data-inline="true" style="width: 120px; display: inline-block;" /> <a style="vertical-align: bottom;" href=""
-							data-inline="true" type="button" data-theme="g" data-mini="true" data-icon="check" onclick="$('#rateForm').submit();">Rate</a>
-					</form>
 
 				</div>
 
 				<form id="StartInteractionForm" action="#" method="post" name="StartInteractionForm" id="StartInteractionForm" enctype="multipart/form-data">
-					<input type="hidden" name="application" value="<?= $application ?>" /> <input type="hidden" name="producer" value="<?= $_REQUEST['user'] ?>" /> <input
-						type="hidden" name="consumer" value="<?= $_SESSION['user']->id ?>" /> <input type="hidden" name="start" value="<?= time() ?>" /> <input
-						type="hidden" name="end" value="<?= time() ?>" /> <input type="hidden" name="predicate" value="<?= $id ?>" /> <input
-						type="hidden" name="feedback" value="" id="feedback" />
+					<input name="detail" value='<?= urlencode(json_encode($detail)) ?>' type="hidden" />
+					<input type="hidden" name="application" value="<?= $application ?>" />
+					<input type="hidden" name="producer" value="<?= $_REQUEST['user'] ?>" />
+					<input type="hidden" name="consumer" value="<?= $_SESSION['user']->id ?>" />
+					<input type="hidden" name="start" value="<?= time() ?>" />
+					<input type="hidden" name="end" value="<?= time() ?>" />
+					<input type="hidden" name="predicate" value="<?= $id ?>" />
+					<input type="hidden" name="feedback" value="" id="feedback" />
 				</form>
 
-				<b>Auteur</b>: <a style="left-margin: 10px; color: #0060AA; font-size: 160%;" href="mailto:<?= $profile->email ?>"><?= $profile->name ?> </a> <br />
-				<br /> <b>Libellé du projet:</b>&nbsp; <span style="left-margin: 5px; color: #0060AA; font-size: 140%;"><?= $id ?> </span><br /> <b>Réputation projet:</b>&nbsp;
-				<span style="left-margin: 5px; color: #0060AA; font-size: 140%;"><?= 5-$rate ?> </span><br /> <br /> <b>Texte</b>: <br /> <br /> <br />
+				
+				Libellé du projet: <span style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $id ?> </span><br /><br />
+				
+				Description: <br /> <br />
+				
 				<div id="detailstext">
 					<?= $text ?>
 				</div>
 				<br />
-				<?php 
-				}
-
-				?>
-
-
-
-
+				
 				<?php 
 
 				if ($_GET['user'] == $_SESSION['user']->id){ //we can delete our own text
@@ -245,16 +242,27 @@ if(isset($responseObject->dataObject->reputation)){
 						type="hidden" /> <input name="id" value='<?= $id ?>' type="hidden" /> <input name="user" value='<?= $_REQUEST['user'] ?>'
 						type="hidden" />
 				</form>
-				<a href="" type="button" data-theme="r" data-icon="delete" onclick="$('#deleteForm').submit();"
-					style="width: 270px; margin-left: auto; margin-right: auto">Supprimer votre document</a>
+				<a id="deleteTmp" href="" type="button" data-inline="true" data-mini="true" data-icon="delete" onclick="$('#deleteYes').fadeIn('slow');$('#deleteNo').fadeIn('slow');"
+					style="width: 150px;">Supprimer?</a>
+				<a id="deleteYes" href="" type="button" data-inline="true" data-mini="true" data-icon="check" onclick="$('#deleteForm').submit();"
+					style="width: 80px;display: none;">oui</a>
+				<a id="deleteNo" href="" type="button" data-inline="true" data-mini="true" data-icon="back" onclick="$('#deleteYes').fadeOut('slow');$('#deleteNo').fadeOut('slow');"
+					style="width: 80px;display: none;">non</a>
 				<?php 
 				}
 
 				?>
 
-				<a id="CommentButton" href="" type="button" data-icon="arrow-d" onclick="showComment();"
-					style="width: 300px; margin-left: auto; margin-right: auto;">Afficher les commentaires (<?= $totalCom ?>)
+				<a id="CommentButton" data-mini="true" href="" type="button" data-icon="arrow-d" onclick="showComment();"
+					style="width: 170px;">Commentaires (<?= $totalCom ?>)
 				</a>
+				
+				
+				<?php 
+				}
+				?>
+
+
 
 				<div id="Comments" style="text-align: center; display: none;">
 					<ul data-role="listview" data-inset="true" data-divider-theme="c">
@@ -312,7 +320,7 @@ if(isset($responseObject->dataObject->reputation)){
 				<div class="push"></div>
 			</div>
 		</div>
-		<?= $template->credits(); ?>
+		<?= Template::credits(); ?>
 	</div>
 </body>
 </html>

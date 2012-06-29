@@ -1,9 +1,11 @@
 <?php
 
 //ob_start("ob_gzhandler");
+error_reporting(E_ALL);
+ini_set('display_errors','On');
 require_once 'Template.php';
-$template = new Template();
-$template->init();
+Template::init(false);
+
 
 if (count($_POST)) {
 	require_once '../../lib/dasp/beans/MUserBean.class.php';
@@ -49,14 +51,16 @@ if (count($_POST)) {
 <!DOCTYPE html>
 <html>
 <head>
-<?= $template->head(); ?>
+<?= Template::head(); ?>
 </head>
 <body>
 	<div data-role="page" id="Register">
 		<div class="wrapper">
-			<div data-role="header" data-theme="b">
+			<div data-role="header" data-theme="c" style="max-height: 38px;">
 				<a href="search" data-icon="back" data-transition="flip" data-direction="reverse"> Retour </a>
-				<h3>myEurope - insertion</h3>
+				<h2>
+					<a href="./" style="text-decoration: none;">myEurope</a>
+				</h2>
 			</div>
 			<div data-role="content">
 				<?= isset($_GET['ok'])?"<div style='color:lightGreen;text-align:center;'>Compte créé, validez-le par mail</div>":"" ?>
@@ -87,7 +91,7 @@ if (count($_POST)) {
 				<div class="push"></div>
 			</div>
 		</div>
-		<?= $template->credits(); ?>
+		<?= Template::credits(); ?>
 	</div>
 </body>
 </html>

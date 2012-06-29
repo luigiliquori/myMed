@@ -50,15 +50,17 @@ $(function() {
 
 $("#Search").live("pageshow", function() {
 	var queryString = decodeURIComponent(location.search.substring(1));
-	var predicateString = decodeURIComponent(location.search.substring(1)).toLowerCase(); 
-	var key = queryString.split('&')[0].split('=');
-	var keypred = predicateString.split('&')[0].split('=');
+
+	var params = queryString.split('&');
+	
 	var tags=[];
-	if (key.length > 1){ //q should be the only query key
-	    tags = keypred[1].split(/\+/g);
-	    $('#searchBar').val(key[1].replace(/\+/g, " "));
-	    tags = array_unique(tags).sort();
+	for (i in params){
+		if (params[i].split('=')[1] == "on"){
+			tags.push(params[i].split('=')[0]);
+		}	
 	}
+	tags.sort();
+	
 	isSub = 3;
 	$.get('../../lib/dasp/ajax/Subscribe', { 
 		code: 1, 
@@ -74,25 +76,28 @@ $("#Search").live("pageshow", function() {
 	//console.log("__ "+isSub+" "+tags);
 });
 
-
-$('#buying_slider_min').live("change", function() {
-	var min = parseInt($(this).val());
-	var max = parseInt($('#buying_slider_max').val());
-	if (min > max) {
-		$(this).val(max);
-		$(this).slider('refresh');
-	}
+$("#Update").live("pagecreate", function() {
+	$('#updateForm').ajaxForm( { beforeSubmit: validate } ); 
 });
 
-$('#buying_slider_max').live("change", function() {
-	var min = parseInt($('#buying_slider_min').val());
-	var max = parseInt($(this).val());
+function validate(formData, jqForm, options) { 
+    // jqForm is a jQuery object which wraps the form DOM element 
+    // 
+    // To validate, we can access the DOM elements directly and return true 
+    // only if the values of both the username and password fields evaluate 
+    // to true 
+ 
+    var form = jqForm[0]; 
+    if (!form.email.value || !form.password.value) { 
+        alert('Veuillez remplir votre email et mot de passe'); 
+        return false; 
+    }
+    if ( form.oldPassword.value !== form.password.value) { 
+        alert('mot de passe non identiques'); 
+        return false; 
+    } 
+}
 
-	if (min > max) {
-		$(this).val(min);
-		$(this).slider('refresh');
-	}
-});
 
 $('#tagSearch').live("keyup", function(event) {
 	if (event.keyCode == 13) {
@@ -132,6 +137,7 @@ function showComment() {
     $('#Comments').fadeIn('slow');
     $('#Commenter').fadeIn('slow');
 }
+
 
 function array_unique (inputArr) {
 	//credits php.js

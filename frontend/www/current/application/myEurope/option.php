@@ -16,8 +16,7 @@
 
 //ob_start("ob_gzhandler");
 require_once 'Template.php';
-$template = new Template();
-$template->init();
+Template::init();
 
 $application = isset($_REQUEST['application'])?$_REQUEST['application']:"myEurope";
 
@@ -27,13 +26,7 @@ if (isset($_POST['email'])) { //profile update
 	require_once '../../lib/dasp/beans/MUserBean.class.php';
 	require_once '../../lib/dasp/beans/MAuthenticationBean.class.php';
 	$responseObject = new stdClass();
-	if($_POST['password'] == ""){
-		$responseObject->error = "FAIL: password cannot be empty!";
-		return;
-	} else if($_POST['email'] == ""){
-		$responseObject->error = "FAIL: email cannot be empty!";
-		return;
-	}
+
 	// update the authentication
 	$mAuthenticationBean = new MAuthenticationBean();
 	$mAuthenticationBean->login =  $_SESSION['user']->email;
@@ -50,7 +43,7 @@ if (isset($_POST['email'])) { //profile update
 	$responseObject1 = json_decode($responsejSon);
 
 	if($responseObject1->status != 200) {
-		echo json_encode($responseObject1);
+		$msg = json_encode($responseObject1);
 		return;
 	}
 
@@ -85,7 +78,7 @@ if (isset($_POST['email'])) { //profile update
 	$permission = ( 
 			strpos($_SESSION['user']->email, "@inria.fr")>=0 ||
 			$_SESSION['user']->email=="other@mail.com" )
-	? 1 : 0;
+	? 2 : 0;
 
 	$_SESSION['userType'] = $_POST['type'];
 	$_SESSION['userPerm'] = $permission;
@@ -142,17 +135,18 @@ if(isset($_GET['registration'])) { // registration account validation
 		$msg = "Vous êtes désabonné de cette recherche";
 	}
 }else if (isset($_GET['logout'])){ // deconnect
-	$request = new Request("SessionRequestHandler", DELETE);
+	/*$request = new Request("SessionRequestHandler", DELETE);
 	$request->addArgument("accessToken", $_SESSION['user']->session);
 	$request->addArgument("socialNetwork", $_SESSION['user']->socialNetworkName);
 
-	session_destroy();
+	//session_destroy();
 	$responsejSon = $request->send();
 	$responseObject = json_decode($responsejSon);
 	if($responseObject->status == 200) {
 		header("Location: http://".$_SERVER['HTTP_HOST']); // go back to mymed
 		//header("Location: ./");
-	}
+	}*/
+	header("Location: http://".$_SERVER['HTTP_HOST']); // go back to mymed
 }
 
 //not necessary it's already in session
@@ -178,7 +172,7 @@ if($subscriptions->status == 200) {
 <html>
 
 <head>
-<?= $template->head(); ?>
+<?= Template::head(); ?>
 </head>
 
 
@@ -186,22 +180,21 @@ if($subscriptions->status == 200) {
 
 	<div data-role="page" id="Home">
 		<div class="wrapper">
-			<div data-role="header" data-theme="b">
-				<a href="./" data-icon="home" data-iconpos="notext" data-transition="slide" data-direction="reverse"> Accueil </a>
-				<h2>myEurope - profil</h2>
+			<div data-role="header" data-theme="c" style="max-height: 38px;">
+				<h2>
+					<a href="./" style="text-decoration: none;" data-transition="slide" data-direction="reverse">myEurope</a>
+				</h2>
 			</div>
-			<div data-role="content">
-				<div style="position: relative; text-align: center; min-height: 280px;">
-					<div style='color: lightGreen; text-align: center;'>
-						<?= $msg ?>
-					</div>
+			<div data-role="content" style="text-align: center;">
+				
+					<span style='color: lightGreen;'><?= $msg ?></span>
+					
 					<h3>Mon profil</h3>
 					<?php 
 					$profPic = ($_SESSION["user"]->profilePicture) ? $_SESSION["user"]->profilePicture : "http://graph.facebook.com//picture?type=large";
-					$perms = array( 0 => "Utilisateur", 1 => "Modérateur");
+					$perms = array( 0 => "Utilisateur", 1 => "Modérateur", 2 => "Modérateur Européen");
 					?>
-					<img style="float: right; text-align: center; max-height: 220px; opacity: 0.2;" src="<?= $profPic ?>" />
-					<div style="width: 60%; opacity: 1; position: absolute; top: 20%; left: 20%; z-index: 1">
+					<img style="text-align: center; max-height: 120px; " src="<?= $profPic ?>" /><br />
 
 						Type d'institution représentée: <span style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $_SESSION["userType"] ?> </span> <br />permission:
 						<span style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $perms[$_SESSION["userPerm"]] ?> </span> <br /> <br />nom: <span
@@ -213,12 +206,12 @@ if($subscriptions->status == 200) {
 						</form>
 						<a href="" type="button" data-mini="true" data-icon="delete" data-ajax="false" style="width: 200px; margin-right: auto; margin-left: auto;"
 							onclick="$('#deconnectForm').submit();">Déconnecter</a>
-					</div>
+					
 
-				</div>
+			
 
 				<hr />
-				<div style="text-align: center;">
+				
 					<h3>
 						Mes souscriptions (
 						<?= $totalSub ?>
@@ -249,11 +242,11 @@ if($subscriptions->status == 200) {
 						}
 						?>
 					</ul>
-				</div>
+				
 				<div class="push"></div>
 			</div>
 		</div>
-		<?= $template->credits(); ?>
+		<?= Template::credits(); ?>
 	</div>
 </body>
 </html>

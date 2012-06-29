@@ -9,24 +9,28 @@
 
 //ob_start("ob_gzhandler");
 require_once 'Template.php';
-$template = new Template();
-$template->init();
+Template::init();
+
 
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-<?= $template->head(); ?>
+<?= Template::head(); ?>
+<script src="http://malsup.github.com/jquery.form.js">
+        </script>
 </head>
 
 
 <body>
 	<div data-role="page" id="Update">
 		<div class="wrapper">
-			<div data-role="header" data-theme="b">
+			<div data-role="header" data-theme="c" style="max-height: 38px;">
 				<a href="option" class="ui-btn-left" data-icon="back" data-transition="flip" data-direction="reverse"> Retour</a>
-				<h3>myEurope - Profil</h3>
+				<h2>
+					<a href="./" style="text-decoration: none;">myEurope</a>
+				</h2>
 			</div>
 			<div data-role="content">
 
@@ -68,12 +72,12 @@ $template->init();
 					</div>
 					<div data-role="fieldcontain">
 						<fieldset data-role="controlgroup">
-							<label for="textinputu4"> Ancien Mot de passe: </label> <input id="textinputu4" name="oldPassword" placeholder="" value="" type="password" />
+							<label for="textinputu4"> Mot de passe: </label> <input id="textinputu4" name="oldPassword" placeholder="" value="" type="password" />
 						</fieldset>
 					</div>
 					<div data-role="fieldcontain">
 						<fieldset data-role="controlgroup">
-							<label for="textinputu5"> Nouveau Mot de passe: </label> <input id="textinputu5" name="password" placeholder="" value="" type="password" />
+							<label for="textinputu5"> Confirmation: </label> <input id="textinputu5" name="password" placeholder="" value="" type="password" />
 						</fieldset>
 					</div>
 					<div data-role="fieldcontain">
@@ -93,7 +97,7 @@ $template->init();
 				<div class="push"></div>
 			</div>
 		</div>
-		<?= $template->credits(); ?>
+		<?= Template::credits(); ?>
 	</div>
 </body>
 </html>

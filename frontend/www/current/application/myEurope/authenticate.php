@@ -2,8 +2,8 @@
 
 //ob_start("ob_gzhandler");
 require_once 'Template.php';
-$template = new Template();
-$template->init( false );
+Template::init(false);
+
 $msg = ""; //feedback text
 
 if (count($_POST)) {
@@ -40,7 +40,7 @@ if (count($_POST)) {
 					else if ($v->key == "perm")
 						$_SESSION['userPerm'] = $v->value;
 				}
-				header("Location: ./");
+				header("Location: ./index?".(isset($_SESSION['redirect'])?$_SESSION['redirect']:""));
 			} else {
 				header("Location: ./update?extended");
 			}
@@ -63,12 +63,14 @@ if (count($_POST)) {
 <!DOCTYPE html>
 <html>
 <head>
-<?= $template->head(); ?>
+<?= Template::head(); ?>
 </head>
 <div data-role="page" id="Authenticate">
 	<div class="wrapper">
-		<div data-role="header" data-theme="b">
-			<h3>myEurope - login</h3>
+		<div data-role="header" data-theme="c" style="max-height: 38px;">
+			<h2>
+				<a href="./" style="text-decoration: none;">myEurope</a>
+			</h2>
 		</div>
 		<div data-role="content">
 			<div style='color: Red; text-align: center;'>
@@ -85,12 +87,13 @@ if (count($_POST)) {
 						<label for="textinputl2"> Mot de passe: </label> <input id="textinputl2" name="password" placeholder="" value="" type="password" />
 					</fieldset>
 				</div>
-				<a href="" type="submit" onclick="$('#loginForm').submit();">Connecter</a> <a href="register" type="button" data-transition="flip">Créer un compte</a>
+				<a href="" type="submit" onclick="$('#loginForm').submit();">Connecter</a>
+				<a href="register" type="button" data-transition="flip">Créer un compte</a>
 			</form>
 			<div class="push"></div>
 		</div>
 	</div>
-	<?= $template->credits(); ?>
+	<?= Template::credits(); ?>
 </div>
 </body>
 </html>

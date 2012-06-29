@@ -1,5 +1,6 @@
 html,body,.ui-page {
 	height: 100%;
+	color: #222222;
 }
 
 .wrapper {
@@ -65,113 +66,18 @@ input.ui-input-text,textarea.ui-input-text {
 
 
 
-/* Red button theme for JQuery Mobile
-* - Use data-theme="r" for red versions of the default JQuery Mobile Buttons.
-******************************************************************************************/
-	
-
-.ui-btn-up-r {
-	border: 1px solid #721414;
-	background: #AB2525;
-	font-weight: bold;
-	color: #fff;
-	text-shadow: 0 -1px 1px #000;
-	background-image: -moz-linear-gradient(top, #C54E4E, #AB2525);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #C54E4E),
-		color-stop(1, #AB2525) );
-	-ms-filter:
-		"progid:DXImageTransform.Microsoft.gradient(startColorStr='#C54E4E', EndColorStr='#AB2525')";
+.ui-body-d,
+.ui-overlay-d {
+	border: 1px solid 		#F7C9c2 /*{e-body-border}*/;
+	color: 					#222222 /*{e-body-color}*/;
+	text-shadow: 0 /*{e-body-shadow-x}*/ 1px /*{e-body-shadow-y}*/ 0 /*{e-body-shadow-radius}*/ 	#fff /*{e-body-shadow-color}*/;
+	background: 			#fff /*{e-body-background-color}*/;
+	background-image: -webkit-gradient(linear, left top, left bottom, from( #fafaff /*{e-body-background-start}*/), to( #f5f5ff /*{e-body-background-end}*/)); /* Saf4+, Chrome */
+	background-image: -webkit-linear-gradient( #fafaff /*{e-body-background-start}*/, #f5f5ff /*{e-body-background-end}*/); /* Chrome 10+, Saf5.1+ */
+	background-image:    -moz-linear-gradient( #fafaff /*{e-body-background-start}*/, #f5f5ff /*{e-body-background-end}*/); /* FF3.6 */
+	background-image:     -ms-linear-gradient( #fafaff /*{e-body-background-start}*/, #f5f5ff /*{e-body-background-end}*/); /* IE10 */
+	background-image:      -o-linear-gradient( #fafaff /*{e-body-background-start}*/, #f5f5ff /*{e-body-background-end}*/); /* Opera 11.10+ */
+	background-image:         linear-gradient( #fafaff /*{e-body-background-start}*/, #f5f5ff /*{e-body-background-end}*/);
 }
 
 
-.ui-btn-up-r a.ui-link-inherit {
-	color: #fff;
-}
-
-
-.ui-btn-hover-r {
-	border: 1px solid #6E0000;
-	background: #d64B4B;
-	font-weight: bold;
-	color: #fff;
-	text-shadow: 0 -1px 1px #000;
-	background-image: -moz-linear-gradient(top, #e47272, #d64B4B);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #e47272),
-		color-stop(1, #d64B4B) );
-	-ms-filter:
-		"progid:DXImageTransform.Microsoft.gradient(startColorStr='#e47272', EndColorStr='#d64B4B')";
-}
-
-.ui-btn-hover-r a.ui-link-inherit {
-	color: #fff;
-}
-
-.ui-btn-down-r {
-	border: 1px solid #772222;
-	background: #e54E4E;
-	font-weight: bold;
-	color: #fff;
-	text-shadow: 0 -1px 1px #000;
-	background-image: -moz-linear-gradient(top, #bE3939, #C54E4E);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #bE3939),
-		color-stop(1, #e54E4E) );
-	-ms-filter:
-		"progid:DXImageTransform.Microsoft.gradient(startColorStr='#bE3939', EndColorStr='#e54E4E')";
-}
-
-.ui-btn-down-r a.ui-link-inherit {
-	color: #fff;
-}
-
-.ui-btn-up-r,.ui-btn-hover-r,.ui-btn-down-r {
-	font-family: Helvetica, Arial, sans-serif;
-	text-decoration: none;
-}
-
-/* Green button theme for JQuery Mobile
-* - Use data-theme="g" for red versions of the default JQuery Mobile Buttons.
-******************************************************************************************/
-.ui-btn-up-g,.ui-btn-hover-g,.ui-btn-down-g {
-	color: white;
-	font-weight: bold;
-	text-decoration: none;
-}
-
-.ui-btn-up-g {
-	border: 1px solid #397114;
-	background: #5aab25;
-	text-shadow: 0 -1px 1px #397114;
-	background-image: -moz-linear-gradient(top, #7ec44f, #5aab25);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #87c45e),
-		color-stop(1, #619e39) );
-	-ms-filter:
-		"progid:DXImageTransform.Microsoft.gradient(startColorStr='#7ec44f', EndColorStr='#5aab25')";
-}
-
-.ui-btn-hover-g {
-	border: 1px solid #2c6e00;
-	background: #75b54a;
-	text-shadow: 0 -1px 1px #2a6901;
-	background-image: -moz-linear-gradient(top, #99d472, #75b54a);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #99d472),
-		color-stop(1, #75b54a) );
-	-ms-filter:
-		"progid:DXImageTransform.Microsoft.gradient(startColorStr='#99d472', EndColorStr='#75b54a')";
-}
-
-.ui-btn-down-g {
-	border: 1px solid #457823;
-	background: #7ec44f;
-	text-shadow: 0 -1px 1px #457823;
-	background-image: -moz-linear-gradient(top, #619e39, #7ec44f);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #619e39),
-		color-stop(1, #7ec44f) );
-	-ms-filter:
-		"progid:DXImageTransform.Microsoft.gradient(startColorStr='#619e39', EndColorStr='#7ec44f')";
-}
-
-.ui-btn-up-g,.ui-btn-hover-g,.ui-btn-down-g {
-	color: white;
-	font-weight: bold;
-	text-decoration: none;
-}
