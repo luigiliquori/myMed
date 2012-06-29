@@ -24,7 +24,7 @@ Template::init();
 				</h2>
 			</div>
 			<div data-role="content">
-				<h1 style=" font-size: 200%; color: #777; text-align: center;">Rechercher un partenaire:</h1>
+				<h1 style=" font-size: 200%; text-align: center;">Rechercher un partenaire:</h1>
 				<br />
 				<form action="search" id="searchForm">
 					

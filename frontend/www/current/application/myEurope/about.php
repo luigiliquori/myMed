@@ -14,7 +14,7 @@ Template::init();
 		<div class="wrapper">
 			<div data-role="header" data-theme="c" style="max-height: 38px;">
 				<h2>
-					<a href="./" style="text-decoration: none;">myEurope</a>
+					<a href="./" style="text-decoration: none;" data-transition="slide">myEurope</a>
 				</h2>
 			</div>
 			<div data-role="content">

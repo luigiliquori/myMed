@@ -46,17 +46,25 @@ if (isset($_GET['registration']) || (isset($_GET['userID']))) {
 			<div data-role="content">
 
 				<br />
-				<a href="searchPartnerForm" type="button" data-theme="b" >Rechercher un partenaire</a>
-				
-				<a href="searchOfferForm" type="button" data-theme="b" >Rechercher une offre</a>
+				<div data-role="controlgroup"  data-type="horizontal">
+					<a href="searchPartnerForm" type="button" data-theme="i" style="width:50%;">Rechercher<br /> un partenaire</a>
+					<a href="postPartnershipForm" style="width:49%;" class="<?= $_SESSION['userPerm']>0?"":"ui-disabled" ?>"
+					type="button" data-theme="i" >Insérer<br /> un appel à partenaire</a>
+				</div>
 				
 				<br />
+				<div data-role="controlgroup"  data-type="horizontal">
+					<a href="searchOfferForm" style="width:50%;" type="button" data-theme="b" >Rechercher<br /> une offre</a>
+					<a href="postOfferForm"  style="width:49%;" class="<?= $_SESSION['userPerm']>1?"":"ui-disabled" ?>"
+					type="button" data-theme="b" >Insérer<br /> une offre</a>
+				</div>
+				
+				
+				
 
-				<a href="postPartnershipForm" class="<?= $_SESSION['userPerm']>0?"":"ui-disabled" ?>"
-				type="button" data-theme="b" >Insérer un appel à partenaire</a>
+				
 
-				<a href="postOfferForm" class="<?= $_SESSION['userPerm']>1?"":"ui-disabled" ?>"
-				type="button" data-theme="b" >Insérer une offre</a>
+				
 					
 				<div class="push"></div>
 			</div>
