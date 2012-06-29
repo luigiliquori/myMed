@@ -4,12 +4,16 @@
 require_once 'Template.php';
 Template::init();
 
+define('APPLICATION_NAME', "myEurope");
+
 if (!isset($_SESSION['userPerm'])){
 	//complete your profile
 	header("Location: ./update?extended");
 }
 
-if (isset($_GET['registration']) || (isset($_GET['userID']))) {
+if (isset($_GET['registration'])) {
+	header("Location: ./authenticate?".$_SERVER['QUERY_STRING']);
+} else if (isset($_GET['userID'])) {
 	header("Location: ./option?".$_SERVER['QUERY_STRING']);
 }
 

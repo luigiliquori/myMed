@@ -76,27 +76,6 @@ $("#Search").live("pageshow", function() {
 	//console.log("__ "+isSub+" "+tags);
 });
 
-$("#Update").live("pagecreate", function() {
-	$('#updateForm').ajaxForm( { beforeSubmit: validate } ); 
-});
-
-function validate(formData, jqForm, options) { 
-    // jqForm is a jQuery object which wraps the form DOM element 
-    // 
-    // To validate, we can access the DOM elements directly and return true 
-    // only if the values of both the username and password fields evaluate 
-    // to true 
- 
-    var form = jqForm[0]; 
-    if (!form.email.value || !form.password.value) { 
-        alert('Veuillez remplir votre email et mot de passe'); 
-        return false; 
-    }
-    if ( form.oldPassword.value !== form.password.value) { 
-        alert('mot de passe non identiques'); 
-        return false; 
-    } 
-}
 
 
 $('#tagSearch').live("keyup", function(event) {

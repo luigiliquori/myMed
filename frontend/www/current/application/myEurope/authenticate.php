@@ -6,6 +6,19 @@ Template::init(false);
 
 $msg = ""; //feedback text
 
+if(isset($_GET['registration'])) { // registration account validation
+	$request = new Request("AuthenticationRequestHandler", CREATE);
+	$request->addArgument("accessToken", $_GET['accessToken']);
+
+	$responsejSon = $request->send();
+	$responseObject = json_decode($responsejSon);
+	if($responseObject->status != 200) {
+		$msg = "<span style='color: red; '>".$responseObject->description."</span>";
+	} else {
+		$msg = "<span style='color: lightgreen;'>Bienvenu sur myEurope, authentifiez-vous</span>";
+	}
+}
+
 if (count($_POST)) {
 
 	$request = new Request("AuthenticationRequestHandler", READ);
@@ -46,11 +59,11 @@ if (count($_POST)) {
 			}
 				
 		} else {
-			$msg = $responseObject->description;
+			$msg = "<span style='color: red; '>".$responseObject->description."</span>";
 		}
 
 	} else{
-		$msg = $responseObject->description;
+		$msg = "<span style='color: red; '>".$responseObject->description."</span>";
 	}
 
 
@@ -72,10 +85,9 @@ if (count($_POST)) {
 				<a href="./" style="text-decoration: none;">myEurope</a>
 			</h2>
 		</div>
-		<div data-role="content">
-			<div style='color: Red; text-align: center;'>
-				<?= $msg ?>
-			</div>
+		<div data-role="content" style='text-align: center;'>
+			
+			<?= $msg ?>
 			<form action="authenticate" method="post" id="loginForm" data-ajax="false">
 				<div data-role="fieldcontain">
 					<fieldset data-role="controlgroup">

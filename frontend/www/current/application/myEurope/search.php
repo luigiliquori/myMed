@@ -18,7 +18,6 @@
 require_once 'Template.php';
 Template::init();
 
-
 $res = null;
 
 if (count($_GET) > 0){

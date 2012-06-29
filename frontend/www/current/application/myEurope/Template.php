@@ -1,7 +1,8 @@
 <?php
 
 class Template {
-	
+
+	const APPLICATION_NAME = 'myEurope';
 	
 	public static function init(  $redirect = true ) {
 		
@@ -52,7 +53,7 @@ class Template {
 			style="max-height: 40px; max-width: 100px; vertical-align: middle;" /> <img alt="Prefecture 06" src="../../system/img/logos/pref"
 			style="max-height: 40px; max-width: 100px; vertical-align: middle;" /> <img alt="Inria" src="../../system/img/logos/inria.png"
 			style="max-height: 40px; max-width: 100px; vertical-align: middle;" />
-		<p style="margin: 8px;">"Ensemble par-delà les frontières"</p>
+		<p style="margin: 8px; font-weight: normal;">"Ensemble par-delà les frontières"</p>
 	</div>
 </div>
 
