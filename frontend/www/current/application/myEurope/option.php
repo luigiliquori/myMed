@@ -143,7 +143,6 @@ if(isset($_GET['registration'])) { // registration account validation
 	$responsejSon = $request->send();
 	$responseObject = json_decode($responsejSon);
 	if($responseObject->status == 200) {
-		header("Location: http://".$_SERVER['HTTP_HOST']); // go back to mymed
 		//header("Location: ./");
 	}*/
 	header("Location: http://".$_SERVER['HTTP_HOST']); // go back to mymed
@@ -205,7 +204,7 @@ if($subscriptions->status == 200) {
 							<input name="logout" type="hidden" />
 						</form>
 						<a href="" type="button" data-mini="true" data-icon="delete" data-ajax="false" style="width: 200px; margin-right: auto; margin-left: auto;"
-							onclick="$('#deconnectForm').submit();">Déconnecter</a>
+							onclick="$('#deconnectForm').submit();">Quitter</a>
 					
 
 			

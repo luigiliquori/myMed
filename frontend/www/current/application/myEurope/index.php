@@ -1,8 +1,6 @@
 <?php
 
 //ob_start("ob_gzhandler");
-error_reporting(E_ALL);
-ini_set('display_errors','On');
 require_once 'Template.php';
 Template::init();
 
@@ -14,10 +12,6 @@ if (!isset($_SESSION['userPerm'])){
 if (isset($_GET['registration']) || (isset($_GET['userID']))) {
 	header("Location: ./option?".$_SERVER['QUERY_STRING']);
 }
-
-$profileText = ($_SESSION["user"]->profilePicture) ? 
-''
-: $_SESSION['user']->name;
 
 ?>
 
@@ -63,9 +57,6 @@ $profileText = ($_SESSION["user"]->profilePicture) ?
 
 				<a href="postOfferForm" class="<?= $_SESSION['userPerm']>1?"":"ui-disabled" ?>"
 				type="button" data-theme="b" >Insérer une offre</a>
-
-				
-				
 					
 				<div class="push"></div>
 			</div>
