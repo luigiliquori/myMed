@@ -397,7 +397,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
 		                    	String s1 = PubSub.Index.toRowString(predicate);
 		                    	String s2 = PubSub.Index.toColString(predicate);
 		                    	LOGGER.info("____"+s1+" "+s2);
-		                		pubsubManager.create(application, s1, s2, dataId, userBean, metadataList);
+		                		pubsubManager.createIndex(application, s1, s2, dataId, userBean, metadataList);
 		                    }
 	                    }
 
@@ -408,6 +408,11 @@ public class FindRequestHandler extends AbstractRequestHandler {
 	                    LOGGER.debug("Error in parsing Json", e);
 	                    throw new InternalBackEndException(e.getMessage());
 	                }
+					
+					break;
+					
+				case DELETE :
+					
 					
 					break;
 					

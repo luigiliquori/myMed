@@ -123,7 +123,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 
     }
     
-    public final void create(String application, final String predicate, final String colprefix, final String subPredicate,
+    public final void createIndex(String application, final String predicate, final String colprefix, final String subPredicate,
     		final MUserBean publisher, final List<MDataBean> dataList) throws InternalBackEndException,
     		IOBackEndException {
     	try {
