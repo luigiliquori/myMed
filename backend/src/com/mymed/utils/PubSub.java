@@ -46,7 +46,7 @@ public class PubSub {
 	 * @return List of StringBuffers
 	 */
 	
-	public static List<List<Index>> getComposites(final List<MDataBean> predicateList, final int level) {
+	public static List<List<Index>> getIndex(final List<MDataBean> predicateList, final int level) {
 
 		List<List<Index>> result = new ArrayList<List<Index>>();
 		int n = predicateList.size();

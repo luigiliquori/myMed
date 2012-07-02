@@ -29,7 +29,7 @@ import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.AbstractManager;
 import com.mymed.controller.core.manager.profile.ProfileManager;
-import com.mymed.controller.core.manager.pubsub.IPubSubManager;
+import com.mymed.controller.core.manager.pubsub.v2.IPubSubManager;
 import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.controller.core.manager.storage.v2.StorageManager;
 import com.mymed.model.data.application.MDataBean;
@@ -114,25 +114,20 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
      * 
      * @see IPubSubManager#create(String, String, MUserBean)
      */
-    @Override
-    public final void create(String application, final String predicate, final String subPredicate,
-                    final MUserBean publisher, final List<MDataBean> dataList, final String predicateListJson) throws InternalBackEndException,
-                    IOBackEndException {
-    	
-    	//redirect to the fun below for compat v1 -> v2
-
-    }
+    
+    
+    /* v2 creates */
     
     public final void createIndex(String application, final String predicate, final String colprefix, final String subPredicate,
-    		final MUserBean publisher, final List<MDataBean> dataList) throws InternalBackEndException,
-    		IOBackEndException {
+    		final MUserBean publisher, final List<MDataBean> dataList) throws InternalBackEndException, IOBackEndException {
     	try {
 
     		args.clear();
     		
     		/*
-    		 * Put all index data that 1) gives an insight off the indexed data before seeing it
-    		 *  2) enable to filter deeply see read (for the moment query filter is done in FindHandler, be moved to read soon)
+    		 * Put all index data that enable to filter deeply 
+    		 * @see read FindRequestHandler#READ
+    		 *    , index filtering should be moved in this class soon, to free up handlers
     		 */
    		
 	   		for ( MDataBean item : dataList) {
@@ -140,7 +135,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 	   				args.put(item.getKey(), item.getValue().getBytes(ENCODING));
 	   		}
 	   		
-	   		args.put("predicate", subPredicate.getBytes(ENCODING));
+	   		args.put("predicate", subPredicate.getBytes(ENCODING)); // dataId pointer
 	   		args.put("publisherID", publisher.getId().getBytes(ENCODING));
 
 	   		//---publisherName at the moment he published it, beware that name was possibly updated since
@@ -148,14 +143,6 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 
     		storageManager.insertSuperSlice(SC_APPLICATION_CONTROLLER, application + predicate, colprefix + subPredicate
     				+ publisher.getId(), args);
-    		
-    		
-    		/*
-    		 * Put all info in data
-    		 */
-    		
-    		//createData(application, subPredicate, publisher, dataList);
-
 
     	} catch (final UnsupportedEncodingException e) {
     		LOGGER.debug(ERROR_ENCODING, ENCODING, e);
@@ -170,6 +157,16 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 
     		args.clear();
     		
+    		/*
+    		 * stores data
+    		 * 
+    		 *  row -> supercolName dataKey, cols: {"key": dataKey, "value": dataValue, "ontologyID": dataoOntologyID}
+    		 *  
+    		 *  'd like to move to:
+    		 *  row -> supercolName dataoOntologyID, cols: {dataKey1: dataValue1, dataKey2: dataValue2, ...}
+    		 *  makes more sense
+    		 */
+    		
     		for ( MDataBean item : dataList) {
 				args.put("key", item.getKey().getBytes(ENCODING));
     			args.put("value", item.getValue().getBytes(ENCODING));
@@ -177,7 +174,6 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     			storageManager.insertSuperSlice(SC_DATA_LIST, application + subPredicate + publisher.getId(),
     					item.getKey(), args);
     			args.clear();
-    			
     		}
 
     	} catch (final UnsupportedEncodingException e) {
@@ -186,7 +182,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     	}
     }
     
-    public final void sendMail(String application, final String predicate, final MUserBean publisher, final List<MDataBean> dataList)
+    public final void createMail(String application, final String predicate, final MUserBean publisher, final List<MDataBean> dataList)
     		throws InternalBackEndException, IOBackEndException {
     	
     	// SEND A MAIL TO THE SUBSCRIBERS
@@ -244,13 +240,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 		}
     }
 
-
-    /**
-     * The subscribe mechanism.
-     * 
-     * @see IPubSubManager#create(String, String, MUserBean)
-     */
-    @Override
+    /* @TODO rename it to createSubscription */
     public final void create(final String application, final String predicate, final MUserBean subscriber)
                     throws InternalBackEndException, IOBackEndException {
         try {
@@ -271,7 +261,6 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
      * The find mechanism.
      * @see com.mymed.controller.core.manager.pubsub.IPubSubManager#read(java.lang.String, java.lang.String)
      */
-    @Override
     public final List<Map<String, String>> read(final String application, final String predicate)
                     throws InternalBackEndException, IOBackEndException {
     	
@@ -296,7 +285,6 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     
  
     
-    @Override
     public final List<Map<String, String>> read(final String application, final String predicate, final String start, final int count, final Boolean reversed)
                     throws InternalBackEndException, IOBackEndException, UnsupportedEncodingException {
         final List<Map<String, String>> resList = new ArrayList<Map<String, String>>();
@@ -318,6 +306,14 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
         return resList;
     }
     
+    
+    /* v2 reads */
+
+    
+    /* 
+     * read RESULTS (indexes found)
+     *  @TODO rename to readIndex
+     */
     public final Map<String, Map<String, String>> read(final String application, final List<String> predicate, final String start, final String finish)
     		throws InternalBackEndException, IOBackEndException, UnsupportedEncodingException {
     	
@@ -330,11 +326,13 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 
 
     /*
-     * The find mechanism: get more details.
+     * read DATA
+     * 
      * @see com.mymed.controller.core.manager.pubsub.IPubSubManager#read(java.lang.String, java.lang.String,
      * java.lang.String)
+     * @TODO rename to readData
      */
-    @Override
+    
     public final List<Map<String, String>> read(final String application, final String predicate, final String userID)
                     throws InternalBackEndException, IOBackEndException {
 
@@ -356,10 +354,11 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     }
 
     /*
-     * The find mechanism.
+     * read SUBSCRIPTIONS
      * @see com.mymed.controller.core.manager.pubsub.IPubSubManager#read(java.lang.String)
+     * @TODO rename to readSubscription
      */
-    @Override
+
     public final Map<String, String> read(final String appuserid) throws InternalBackEndException, IOBackEndException {
 
         final Map<String, String> res = new HashMap<String, String>();
@@ -374,22 +373,15 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
         return res;
     }
 
-    /**
-     * @see IPubSubManager#delete(String * 3 + MUserBean)
-     */
-    @Override
-    public final void delete(final String application, final String predicate, final String subPredicate,
-                    final String publisherID) throws InternalBackEndException, IOBackEndException {
-        // Remove publisher member
-        storageManager.removeAll(CF_SUBSCRIBEES, application + predicate);
-        // Remove the 1st level of data
-        storageManager.removeSuperColumn(SC_APPLICATION_CONTROLLER, application + predicate,
-                        subPredicate + publisherID);
-        // Remove the 2nd level of data
-        storageManager.removeAll(SC_DATA_LIST, application + subPredicate + publisherID);
-        // Remove app model entry
-        // storageManager.removeSuperColumn(SC_APPLICATION_MODEL, application, predicate + publisher.getId());
-    }
+    
+    /* v2 deletes */
+    
+	public final void deleteData(final String application, final String subPredicate,
+			final String publisherID) throws InternalBackEndException, IOBackEndException {
+
+		storageManager.removeAll(SC_DATA_LIST, application + subPredicate + publisherID);
+
+	}
     
     public final void deleteIndex(final String application, final String predicate, final String subPredicate,
     		final String publisherID) throws InternalBackEndException, IOBackEndException {
@@ -398,15 +390,12 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     			subPredicate + publisherID);
     }
 
-    /**
-     * @see IPubSubManager#delete(String * 3)
-     */
-    @Override
-    public final void delete(final String application, final String user, final String predicate)
+    public final void deleteSubscription(final String application, final String user, final String predicate)
                     throws InternalBackEndException, IOBackEndException {
         // Remove subscriber member from subsribers list
         storageManager.removeColumn(CF_SUBSCRIBERS, application + user, predicate);
         // Remove subscriber member from predicates subscribed list
         storageManager.removeColumn(CF_SUBSCRIBEES, application + predicate, user);
     }
+	
 }
