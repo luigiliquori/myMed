@@ -1,4 +1,9 @@
 <?php
+
+/*
+ * Post controller
+ */
+
 error_reporting(E_ALL);
 ini_set('display_errors','On');
 
@@ -60,7 +65,7 @@ if (count($_POST)){ // to publish something
 
 		if ($responseObject->status==200){
 			if ($_POST['type']=="part"){
-				header("Location: ./search?".http_build_query(array_filter($_POST, "isTag")));
+				header("Location: ./search?".http_build_query(array_filter($_POST, "Template::isCheckbox")));
 			} else {
 				header("Location: ./");
 			}

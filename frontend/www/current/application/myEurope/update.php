@@ -1,10 +1,7 @@
 <?php
 
 /*
- *
-* what it does:
 *  update your profile
-*
 */
 
 //ob_start("ob_gzhandler");
@@ -13,7 +10,7 @@ Template::init();
 
 $msg="";
 
-if (isset($_POST['type'])) { //profile extended
+if (isset($_POST['type'])) {
 	//extended Profile (user's role)
 	
 	$permission = (
@@ -48,15 +45,19 @@ if (isset($_POST['email'])) { //profile update
 	require_once '../../lib/dasp/beans/MAuthenticationBean.class.php';
 
 	// update the authentication
-
-	if ( ($_POST["newPassword"] !=  $_POST["newPasswordConf"]) || $_POST["newPassword"] == ""){
+	$msg="";
+	if ( ($_POST["newPassword"] !=  $_POST["newPasswordConf"]) && $_POST["newPassword"] != "" ){
 		$msg = "mot de passes non identiques";
+	} else if ($_POST["newPassword"] == "") {
+		$msg = "";
+	} else {
+		$msg = "upd";
 	}
 
 	$mAuthenticationBean = new MAuthenticationBean();
 	$mAuthenticationBean->login =  $_SESSION['user']->email;
 	$mAuthenticationBean->user = $_SESSION['user']->id;
-	$mAuthenticationBean->password = hash('sha512', ($msg == "")?$_POST["oldPassword"]:$_POST["newPassword"]);
+	$mAuthenticationBean->password = hash('sha512', ($msg == "upd")?$_POST["newPassword"]:$_POST["oldPassword"]);
 
 	$request = new Request("AuthenticationRequestHandler", UPDATE);
 	$request->addArgument("authentication", json_encode($mAuthenticationBean));
@@ -66,7 +67,7 @@ if (isset($_POST['email'])) { //profile update
 
 	$responsejSon = $request->send();
 	$responseObject = json_decode($responsejSon);
-	$msg == "";
+	$msg = "";
 
 	if($responseObject->status != 200) {
 		$msg = $responseObject->description;

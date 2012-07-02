@@ -1,10 +1,10 @@
 <?php
 
-require_once '../request/Request.class.php';
+require_once '../request/Request.v2.php';
 require_once '../../../system/config.php';
 session_start();
 
-if ($_GET['code'] == 0){ 
+if ($_GET['code'] == CREATE){ 
 	/*
 	 * create subscription for user at this predicate
 	 */
@@ -15,7 +15,7 @@ if ($_GET['code'] == 0){
 	$responsejSon = $request->send();
 	echo $responsejSon;
 
-} else if ($_GET['code'] == 3 ){
+} else if ($_GET['code'] == DELETE ){
 	/*
 	 * remove it's subscription for that predicate
 	 */

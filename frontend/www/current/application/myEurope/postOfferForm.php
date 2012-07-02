@@ -95,7 +95,9 @@ Template::init();
 							<textarea style="min-height: 200px;" id="textinputp7" name="text" placeholder="" ></textarea>
 						</fieldset>
 					</div>
-					<input type="submit" data-theme="b" data-mini="true" value="Insérer" style="margin-right: auto; margin-left: auto;"/>
+					<div style="text-align: center;" >
+						<input type="submit" data-theme="b" data-inline="true" value="Insérer" />
+					</div>
 				</form>
 				<div class="push"></div>
 			</div>

@@ -1,17 +1,12 @@
 <?php
 
 /*
- * usage:
-*  option?application=val1&param2=val2
-*
-* what it does:
 *  displays your profile
 *
-*  you can update your profile
-*  you can unsubscribe this user to this application and some of your predicate that you subscribed earlier
+*  -> update your profile
+*  -> quit to mymed page
+*  -> unsubscribe to one of your subscriptions
 *
-*  ex: yourPC/application/myEurope/option?application=myTemplate shows your profile and your subscription for myTemplate app
-
 */
 
 
@@ -128,7 +123,7 @@ if($subscriptionsoffer->status == 200) {
 							style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $_SESSION["user"]->email ?> </span> <br /> <br />
 						<a href="update" type="button" data-transition="flip" data-mini="true" data-icon="grid" style="width: 200px; margin-right: auto; margin-left: auto;">Modifier</a>
 						
-						<a href="" type="button" data-mini="true" data-icon="delete" data-ajax="false" style="width: 200px; margin-right: auto; margin-left: auto;"
+						<a href="" type="button" data-mini="true" data-icon="delete" style="width: 200px; margin-right: auto; margin-left: auto;"
 							onclick="$('#deconnectForm').submit();">Quitter</a>
 						<form action="option" id="deconnectForm" data-ajax="false">
 							<input name="logout" type="hidden" />

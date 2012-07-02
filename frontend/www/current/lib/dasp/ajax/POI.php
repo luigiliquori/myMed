@@ -1,6 +1,6 @@
 <?php
 
-	require_once('../request/Request.class.php');
+	require_once('../request/Request.v2.php');
 	require_once('../../../system/config.php');
 
 	// READ

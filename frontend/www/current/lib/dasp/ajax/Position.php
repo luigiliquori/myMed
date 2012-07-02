@@ -1,9 +1,9 @@
 <?php
+
+	require_once('../request/Request.v2.php');
+	require_once('../../../system/config.php');
 	
-	require_once '../request/Request.class.php';
-	require_once '../../../system/config.php';
-	
-	if ($_GET['code'] == 2){
+	if (count($_POST) > 0){
 		$request = new Request("PositionRequestHandler", UPDATE);
 		session_start();
 		$request->addArgument("userID", $_SESSION['user']->id);
@@ -11,6 +11,7 @@
 		$responsejSon = $request->send();
 		session_write_close();
 		echo $responsejSon;
+		
 		
 	} else {
 		$request = new Request("PositionRequestHandler", READ);

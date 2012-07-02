@@ -89,10 +89,11 @@ Template::init();
 								<input name="rateMax" placeholder="max"  value="100" type="text" style="width:35%;" />
 							</fieldset>
 						</div>
-						
 					</div>
-					<input type="submit" data-theme="b" data-icon="search" data-mini="true" value="Chercher"/>
 					
+					<div style="text-align: center;" >
+						<input type="submit" data-theme="b" data-icon="search" data-inline="true" value="Chercher"/>
+					</div>
 				</form>
 				<div class="push"></div>
 			</div>

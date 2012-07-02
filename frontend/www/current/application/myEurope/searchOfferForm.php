@@ -7,7 +7,6 @@ require_once 'Template.php';
 Template::init();
 
 
-
 ?>
 
 <!DOCTYPE html>
@@ -86,7 +85,10 @@ Template::init();
 						</div>
 						
 					</div>
-					<input type="submit" data-theme="b" data-icon="search" data-mini="true" value="Chercher" style="margin-right: auto; margin-left: auto;"/>
+					
+					<div style="text-align: center;" >
+						<input type="submit" data-theme="b" data-icon="search" data-inline="true" value="Chercher"/>
+					</div>
 				</form>
 				<div class="push"></div>
 			</div>

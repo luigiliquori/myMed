@@ -40,12 +40,7 @@ if (count($_POST)) {
 				$_SESSION['friends'] = array();
 			}
 
-			$request = new Request("v2/FindRequestHandler", READ);
-			$request->addArgument("application", "myEurope");
-			$request->addArgument("predicate", "ext");
-			$request->addArgument("user", $_SESSION['user']->id);
-			$responsejSon = $request->send();
-			$extProfile = json_decode($responsejSon);
+			$extProfile = Template::fetchExtProfile();
 			if($extProfile->status == 200 ) {
 				foreach ($extProfile->dataObject->details as $v){
 					if ($v->key == "type")
@@ -81,26 +76,22 @@ if (count($_POST)) {
 <div data-role="page" id="Authenticate">
 	<div class="wrapper">
 		<div data-role="header" data-theme="c" style="max-height: 38px;">
-			<h2>
-				<a href="./" style="text-decoration: none;">myEurope</a>
-			</h2>
+			<div data-role="controlgroup" data-type="horizontal" style="text-align: center;">
+				<a href="register" type="button" data-inline="true" data-transition="flip" style="top:2px;">inscription</a>
+			</div>
 		</div>
 		<div data-role="content" style='text-align: center;'>
 			
 			<?= $msg ?>
+			<h1><?= Template::APPLICATION_NAME ?></h1>
+			<br />
 			<form action="authenticate" method="post" id="loginForm" data-ajax="false">
-				<div data-role="fieldcontain">
-					<fieldset data-role="controlgroup">
-						<label for="textinputl1"> email: </label> <input id="textinputl1" name="login" placeholder="" value="" type="text" />
-					</fieldset>
+
+				<input name="login" placeholder="email" value="" type="text" /><br />
+				<input name="password" placeholder="Mot de passe" value="" type="password" /><br />
+				<div style="text-align: center;" >
+					<input type="submit" data-theme="b" data-inline="true" value="Connexion"/>
 				</div>
-				<div data-role="fieldcontain">
-					<fieldset data-role="controlgroup">
-						<label for="textinputl2"> Mot de passe: </label> <input id="textinputl2" name="password" placeholder="" value="" type="password" />
-					</fieldset>
-				</div>
-				<a href="" type="submit" onclick="$('#loginForm').submit();">Connecter</a>
-				<a href="register" type="button" data-transition="flip">Créer un compte</a>
 			</form>
 			<div class="push"></div>
 		</div>

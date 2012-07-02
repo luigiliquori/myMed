@@ -1,33 +1,28 @@
 <?php
 
 /*
- *
-* usage:
 *  detail?application=val1&predicate=val2&user=val3
 *
-* what it does:
 *  display the data identified by predicate and user in the given application
 *
-*  you can post a comment on this data
-*  you can delete either text (if we are the author) or our comment (only our comments not other's or change it if you want)
+*  -> comment on this data
+*  -> delete text (if we are the author) 
+*  -> delete comment (only our comments not other's or change it if you want)(should be set it according to userPerm level)
 */
 
 //ob_start("ob_gzhandler");
 require_once 'Template.php';
 Template::init();
 
-
-
-
 $msg = ""; //feedback text
 
-$application = $_GET['application'];
+$application =  urldecode($_GET['application']);
 
-$type = strstr($application, "myEurope", true); // get namespace {part or offer}
+$type = substr($application, strlen(Template::APPLICATION_NAME)); // get namespace {part or offer}
 
-$id = $_GET['id']; // data Id
+$id = urldecode($_GET['id']); // data Id
 
-$author = $_GET['user'];
+$author =  urldecode($_GET['user']);
 
 if (isset($_POST['commentOn'])){ // we want to comment
 
@@ -68,9 +63,20 @@ if (isset($_POST['commentOn'])){ // we want to comment
 }
 
 if(isset($_POST['feedback'])) {
-	require_once '../../lib/dasp/request/StartInteraction.class.php';
-	$startInteraction = new StartInteraction();
-	$responsejSon = $startInteraction->send();
+	$request = new Request("InteractionRequestHandler", UPDATE);
+	$request->addArgument("application", $_POST['application']);
+	$request->addArgument("producer", $_POST['producer']);
+	$request->addArgument("consumer", $_POST['consumer']);
+	$request->addArgument("start", $_POST['start']);
+	$request->addArgument("end", $_POST['end']);
+	$request->addArgument("predicate", $_POST['predicate']);
+	if(isset($_POST['snooze'])){
+		$request->addArgument("snooze", $_POST['snooze']);
+	}
+	if(isset($_POST['feedback'])){
+		$request->addArgument("feedback", $_POST['feedback']);
+	}
+	$responsejSon = $request->send();
 	$responseObject = json_decode($responsejSon);
 	if($responseObject->status == 200) {
 		$msg = "vote pris en compte";
@@ -111,10 +117,10 @@ if (isset($_POST['rateNew'])){
 
 }
 
-$request = new Request("v2/FindRequestHandler", READ);
+$request = new Request("v2/PublishRequestHandler", READ);
 $request->addArgument("application", $application);
 $request->addArgument("predicate", $id);
-$request->addArgument("user", $_GET['user']);
+$request->addArgument("userID", $_GET['user']);
 $responsejSon = $request->send();
 $detail = json_decode($responsejSon);
 
@@ -189,7 +195,7 @@ if(isset($responseObject->dataObject->reputation)){
 							$rate = json_decode($value->value);
 						}
 					}
-					$detail = array_values(array_filter($detail, "isPredicate")); // to use details for delete
+					$detail = array_values(array_filter($detail, "Template::isPredicate")); // to use details for delete
 
 					
 					?>
@@ -212,7 +218,7 @@ if(isset($responseObject->dataObject->reputation)){
 
 				</div>
 
-				<form id="StartInteractionForm" action="#" method="post" name="StartInteractionForm" id="StartInteractionForm" enctype="multipart/form-data">
+				<form id="StartInteractionForm" action="#Detail" method="post" name="StartInteractionForm" id="StartInteractionForm" enctype="multipart/form-data">
 					<input name="detail" value='<?= urlencode(json_encode($detail)) ?>' type="hidden" />
 					<input type="hidden" name="application" value="<?= $application ?>" />
 					<input type="hidden" name="producer" value="<?= $_REQUEST['user'] ?>" />
@@ -309,8 +315,9 @@ if(isset($responseObject->dataObject->reputation)){
 					<div data-role="fieldcontain">
 						<fieldset data-role="controlgroup">
 							<form action='#' method="post" id="commentForm">
-								<input name="application" value='<?= $application ?>' type="hidden" /> <input name="commentOn" value='<?= $_REQUEST['predicate'] ?>'
-									type="hidden" /> <input name="end" value='<?= date("Y-m-d") . "T" . date("H:i:s") ?>' type="hidden" />
+								<input name="application" value='<?= $application ?>' type="hidden" />
+								<input name="commentOn" value='<?= $id ?>' type="hidden" />
+								<input name="end" value='<?= date("Y-m-d") . "T" . date("H:i:s") ?>' type="hidden" />
 								<textarea name="data" id="textarea1" placeholder="" style="height: 22px;"></textarea>
 								<a href="" type="button" data-inline="true" data-mini=true data-iconpos="right" data-icon="check" onclick="$('#commentForm').submit();">Commenter</a>
 							</form>

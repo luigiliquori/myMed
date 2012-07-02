@@ -6,7 +6,7 @@ class Template {
 	
 	public static function init(  $redirect = true ) {
 		
-		require_once '../../lib/dasp/request/Request.class.php';
+		require_once '../../lib/dasp/request/Request.v2.php';
 		require_once '../../system/config.php';
 		require_once '../../lib/dasp/beans/OntologyBean.php';
 		
@@ -18,6 +18,17 @@ class Template {
 			header("Location: ./authenticate");
 		}
 		
+	}
+	
+	public static function fetchExtProfile () {
+		
+		$request = new Request("v2/PublishRequestHandler", READ);
+		$request->addArgument("application", Template::APPLICATION_NAME);
+		$request->addArgument("predicate", "ext");
+		$request->addArgument("userID", $_SESSION['user']->id);
+		$responsejSon = $request->send();
+		return json_decode($responsejSon);
+		 
 	}
 
 
@@ -43,18 +54,16 @@ class Template {
 
 	public static function credits(){ ?>
 
-<div data-role="footer" data-theme="c" class="footer">
-	<div style="text-align: center;">
-		<h4 style="margin: 10px;">myMed - INTERREG IV - Alcotra</h4>
-		<img alt="Alcotra" src="../../system/img/logos/alcotra" style="max-height: 40px; max-width: 100px; vertical-align: middle;" /> <img alt="Europe"
-			src="../../system/img/logos/europe" style="max-height: 40px; max-width: 100px; vertical-align: middle;" /> <img alt="Conseil Général 06"
-			src="../../system/img/logos/cg06" style="max-height: 40px; max-width: 100px; vertical-align: middle;" /> <img alt="Regine Piemonte" src="../../system/img/logos/regione"
-			style="max-height: 40px; max-width: 100px; vertical-align: middle;" /> <img alt="Région PACA" src="../../system/img/logos/PACA"
-			style="max-height: 40px; max-width: 100px; vertical-align: middle;" /> <img alt="Prefecture 06" src="../../system/img/logos/pref"
-			style="max-height: 40px; max-width: 100px; vertical-align: middle;" /> <img alt="Inria" src="../../system/img/logos/inria.png"
-			style="max-height: 40px; max-width: 100px; vertical-align: middle;" />
-		<p style="margin: 8px; font-weight: normal;">"Ensemble par-delà les frontières"</p>
-	</div>
+<div class="footer" >
+	<h4  style="margin: 10px;">myMed - INTERREG IV - Alcotra</h4>
+	<img alt="Alcotra" src="/system/img/logos/alcotra" />
+	<img alt="Conseil Général 06" src="/system/img/logos/cg06" />
+	<img alt="Regine Piemonte" src="/system/img/logos/regione"/>
+	<img alt="Europe" src="/system/img/logos/europe" />
+	<img alt="Région PACA" src="/system/img/logos/PACA" />
+	<img alt="Prefecture 06" src="/system/img/logos/pref" />
+	<img alt="Inria" src="/system/img/logos/inria.png" />
+	<p style="margin: 8px; font-weight: normal;">"Ensemble par-delà les frontières"</p>
 </div>
 
 <?php }
@@ -64,7 +73,7 @@ class Template {
 		return($var->ontologyID < 4);
 	}
 
-	static function isTag($var) {
+	static function isCheckbox($var) {
 		return($var == "on");
 	}
 

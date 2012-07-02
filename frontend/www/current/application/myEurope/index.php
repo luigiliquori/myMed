@@ -4,11 +4,20 @@
 require_once 'Template.php';
 Template::init();
 
-define('APPLICATION_NAME', "myEurope");
-
 if (!isset($_SESSION['userPerm'])){
 	//complete your profile
-	header("Location: ./update?extended");
+	$extProfile = Template::fetchExtProfile();
+		
+	if($extProfile->status == 200 ) {
+		foreach ($extProfile->dataObject->details as $v){
+			if ($v->key == "type")
+				$_SESSION['userType'] = $v->value;
+			else if ($v->key == "perm")
+				$_SESSION['userPerm'] = $v->value;
+		}
+	} else {
+		header("Location: ./update?extended");
+	}
 }
 
 if (isset($_GET['registration'])) {
@@ -62,13 +71,6 @@ if (isset($_GET['registration'])) {
 					<a href="postOfferForm"  style="width:49%;" class="<?= $_SESSION['userPerm']>1?"":"ui-disabled" ?>"
 					type="button" data-theme="b" >Insérer<br /> une offre</a>
 				</div>
-				
-				
-				
-
-				
-
-				
 					
 				<div class="push"></div>
 			</div>

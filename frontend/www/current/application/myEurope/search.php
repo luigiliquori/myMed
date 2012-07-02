@@ -8,10 +8,7 @@
 *  list all data entries for the predicate built with params (other than application)
 *  (_* are also ignored)
 *
-*  you can subscribe+search for a specific set of predicates (recherche avancée)
-*    (the first input is just an jquery filter for the all results)
-*
-*  ex: yourPC/application/myEurope/search?application=myTemplate&keyword=2 (publish something on mytemplate with keyword 2)
+*  you can subscribe+search for a specific set of predicates
 */
 
 //ob_start("ob_gzhandler");
