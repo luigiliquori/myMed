@@ -38,7 +38,7 @@ class Login extends AbstractView {
 		<!-- HEADER -->
 		<div data-role="header" data-theme="b">
 			<div data-role="controlgroup" data-type="horizontal" style="text-align: center;">
-				<a href="#inscription" data-role="button" data-inline="true" >inscription</a>
+				<a href="#inscription" data-role="button" data-inline="true" style="top:2px;">inscription</a>
 			</div>
 		</div>		
 	<?php }

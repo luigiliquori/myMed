@@ -172,24 +172,18 @@ function displayPosition(position) {
 	}
 	
 	// Store the position into cassandra
+	var position = {
+		'userID': $("#userID").val(),
+		'latitude': latlng.lat(),
+		'longitude': latlng.lng(),
+		'formattedAddress': ''
+	};
 	var geocoder = new google.maps.Geocoder();
 	geocoder.geocode({'latLng' : latlng }, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) {
-			var address = results[0].formatted_address;
-			var position = {
-				'userID': $("#userID").val(),
-				'latitude': latlng.lat(),
-				'longitude': latlng.lng(),
-				'formattedAddress': address
-			};
-			var params = {
-				//'userID': $("#userID").val(),
-				'position': JSON.stringify(position),
-				//'accessToken': $("#accessToken").val(),
-				'code': 2,
-			};
-			updatePosition(params);
+			position.formattedAddress = results[0].formatted_address;
 		}
+		updatePosition({'position': JSON.stringify(position)});
 	});
 	
 	// add position marker
