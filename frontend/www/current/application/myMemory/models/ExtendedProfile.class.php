@@ -31,6 +31,15 @@ class ExtendedProfile
 	 * The ID of the myMed user to whom this ExtendedProfile is linked.
 	 */
 	public /*String*/ $user;
+	
+	
+	/**
+	 * 
+	 * The user home adress. (house)
+	 * @var String
+	 */
+	public /*String*/ $home;
+	
 	/**
 	 * Alzheimer level of the user.
 	 * LOW means occasional loss of memory, ADVANCED means that the user
@@ -40,14 +49,15 @@ class ExtendedProfile
 	public /*enum*/ $diseaseLevel;
 	
 	/**
-	 * E-mail of the natural caregiver. Often a relative.
+	 * Informations about the natural caregiver. Often a relative.
+	 * Name + address + email + phone
 	 * Could be replaced by a myMed User if needed.
 	 */
 	public /*Array*/ $careGiver;
 	
 	/**
 	 * Informations about the attending doctor.
-	 * Currently an array with Name, email, and phone number.
+	 * Currently an array with Name, address, email, and phone number.
 	 * Could be replaced by a myMed User if needed.
 	 */
 	public /*Array*/ $doctor;
@@ -55,7 +65,7 @@ class ExtendedProfile
 	/**
 	 * Calling list of people to call/message in case of crisis.
 	 * From 1 to 4, no duplicates, 1 means "called first" and 4 "called last".
-	 * Array of arrays. Each row contains an array of Name + phone Number
+	 * Array of arrays. Each row contains an array of Name + address + phone Number
 	 * Could be replaced by myMed users but NOT ADVISED :
 	 * This list is meant to be used in case of emergency and should not require long queries on
 	 * the database of even a internet connection at all.
@@ -64,13 +74,19 @@ class ExtendedProfile
 	
 	
 	
-	public function __construct(/*String*/ $user,/*enum*/ $diseaseLevel,/*Array*/ $careGiver, /*Array*/$doctor,/*Array*/ $callingList){
+	public function __construct(/*String*/ $user,/*String*/ $home ,/*enum*/ $diseaseLevel,/*Array*/ $careGiver, /*Array*/$doctor,/*Array*/ $callingList){
 		
 		// Check if user is defined
 		if (empty($user))
 			throw new Exception("User ID not defined.");
 		else 
 			$this->user = $user;
+		
+		//check the adress
+		if (empty($home))
+			throw new Exception("Adress must not be empty");
+		else
+			$this->home = $home;
 		
 		// check the diseaseLevel
 		if ($diseaseLevel < 1 OR $diseaseLevel > 3)
@@ -79,14 +95,14 @@ class ExtendedProfile
 			$this->diseaseLevel = $diseaseLevel;
 		
 		// check the careGiver
-		if (empty($careGiver) OR empty($careGiver["name"]) OR empty($careGiver["email"]))
+		if (empty($careGiver) OR empty($careGiver["name"]) OR empty($careGiver["address"]) OR empty($careGiver["email"]) OR empty($careGiver["phone"]))
 			throw new Exception("careGiver must not be empty");
 		else
 			$this->careGiver = $careGiver;
 		
 		
 		// check the doctor
-		if ( empty($doctor) OR empty($doctor["name"]) OR empty($doctor["email"]) OR empty($doctor["phone"]))
+		if ( empty($doctor) OR empty($doctor["name"]) OR empty($doctor["address"]) OR empty($doctor["email"]) OR empty($doctor["phone"]))
 			throw new Exception("Doctor must not be empty");
 		else		
 			$this->doctor = $doctor;
@@ -125,6 +141,7 @@ class ExtendedProfile
 		/*
 		 * Buid the datas Array
 		 */
+		$datas[] = new OntologyBean("home", json_encode($this->home));
 		$datas[] = new OntologyBean("diseaseLevel", $this->diseaseLevel); // TODO : Ontology_ID = ENUM?
 		$datas[] = new OntologyBean("careGiver", json_encode($this->careGiver));
 		$datas[] = new OntologyBean("doctor", json_encode($this->doctor));

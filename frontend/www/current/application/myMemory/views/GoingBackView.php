@@ -20,22 +20,25 @@
 	<div data-role="content" data-theme="a">
 		<div id="myMap"></div>
 		<br />
-		<ul data-role="listview" data-inset="true" >
-			<li data-icon="home" data-theme="b"><a href="#">Domicile</a></li>
+		<ul data-role="listview" class="ui-listview" data-theme="b" data-inset="true" >
+			<li data-icon="home" class="ui-btn ui-btn-icon-right ul-li-has-arrow ui-li" style="padding-bottom:1em;">
+				<a href="#" class="ui-link-inherit">
+				<h3 class="ui-li-heading">Domicile</h3>
+				<p class="ui-li-desc"><?= $_SESSION['ExtendedProfile']->home?></p>
+				</a>
+			</li>
 			<?php
-			for($i = 0; $i < count($_SESSION['ExtendedProfile']->callingList); $i++ ) {
-				$last_arg =  'data-icon="alert" data-theme="e"';
+			foreach($_SESSION['ExtendedProfile']->callingList as $data) {
+				if($data['name'] == "Emergency" ) continue;
+				?>
+				<li class="ui-btn ui-btn-icon-right ul-li-has-arrow ui-li" style="padding-bottom:1em;">
+					<a href="#">
+					<h3 class="ui-li-heading"><?= $data["name"]; ?></h3>
+					<p class="ui-li-desc"><?= $data['address']?></p>
+					</a>
+				</li>
 				
-				if($i == count($_SESSION['ExtendedProfile']->callingList) -1 ) {
-					echo "<li ".$last_arg.">";
-				}
-				else
-					echo "<li>";
-				
-				echo '<a href="#">';
-				echo $_SESSION['ExtendedProfile']->callingList[$i]["name"];
-				echo '</a></li>';
-				
+			<?php 	
 			}
 			?>
 			

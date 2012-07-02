@@ -20,6 +20,18 @@
 	<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" data-ajax="false">
 
 
+		<!-- HOME -->
+		<div data-role="fieldcontain">
+			<fieldset data-role="controlgroup">
+				<div role="heading" class="ui-controlgroup-label">Your personnal address :</div>
+				<div class="ui-controlgroup-controls">
+					<label for="home" class="ui-hidden-accessible">Address : </label>
+					<input type="text" name="home" name="home" value="" placeholder="Address"/>
+				</div>
+			</fieldset>
+		</div>
+		
+		
 		<!-- LEVEL OF DISEASE -->
 		<div data-role="fieldcontain">
 			<fieldset data-role="controlgroup">
@@ -45,6 +57,9 @@
 					<label for="CareGiverName" class="ui-hidden-accessible">Caregiver name : </label>
 					<input type="text" name="CareGiverName" name="CareGiverName" value="" placeholder="Caregiver name" />
 					
+					<label for="CareGiverAddress" class="ui-hidden-accessible">Caregiver address : </label>
+					<input type="text" name="CareGiverAddress" name="CareGiverAddress" value="" placeholder="Caregiver address"/>
+					
 					<label for="CareGiverEmail" class="ui-hidden-accessible">Caregiver e-mail : </label>
 					<input type="text" name="CareGiverEmail" name="CareGiverEmail" value="" placeholder="Caregiver e-mail"/>
 					
@@ -61,6 +76,9 @@
 				<div class="ui-controlgroup-controls">
 					<label for="DoctorName" class="ui-hidden-accessible">Doctor name : </label>
 					<input type="text" name="DoctorName" name="DoctorName" value="" placeholder="Doctor name"/>
+					
+					<label for="DoctorAddress" class="ui-hidden-accessible">Doctor address : </label>
+					<input type="text" name="DoctorAddress" name="DoctorAddress" value="" placeholder="Doctor address"/>
 					
 					<label for="DoctorEmail" class="ui-hidden-accessible">Doctor e-mail : </label>
 					<input type="text" name="DoctorEmail" name="DoctorEmail" value="" placeholder="Doctor e-mail"/>
@@ -84,6 +102,9 @@
 					<label for="CL_name_1" class="ui-hidden-accessible">Name : </label>
 					<input type="text" name="CL_name_1" name="CL_name_1" value="" placeholder="Name"/>
 					
+					<label for="CL_address_1" class="ui-hidden-accessible">Address : </label>
+					<input type="text" name="CL_address_1" name="CL_address_1" value="" placeholder="Address"/>
+					
 					<label for="CL_phone_1" class="ui-hidden-accessible">Phone number : </label>
 					<input type="text" name="CL_phone_1" name="CL_phone_1" value="" placeholder="Phone number"/>
 				</div>
@@ -94,6 +115,9 @@
 				<div class="ui-controlgroup-controls">
 					<label for="CL_name_2" class="ui-hidden-accessible">Name : </label>
 					<input type="text" name="CL_name_2" name="CL_name_2" value="" placeholder="Name"/>
+					
+					<label for="CL_address_2" class="ui-hidden-accessible">Address : </label>
+					<input type="text" name="CL_address_2" name="CL_address_2" value="" placeholder="Address"/>
 					
 					<label for="CL_phone_2" class="ui-hidden-accessible">Phone number : </label>
 					<input type="text" name="CL_phone_2" name="CL_phone_2" value="" placeholder="Phone number"/>

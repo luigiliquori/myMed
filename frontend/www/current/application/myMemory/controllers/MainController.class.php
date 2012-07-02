@@ -43,6 +43,9 @@ class MainController extends AuthenticatedController {
 			foreach ($result as $line){
 				switch($line->key){
 					
+					case "home" :
+						$home = json_decode($line->value, TRUE);
+						break;
 					case "callingList" :
 						$callingList = json_decode($line->value, TRUE);
 						break;
@@ -62,7 +65,7 @@ class MainController extends AuthenticatedController {
 				
 			}
 			
-			$extendedProfile = new ExtendedProfile($_SESSION['user']->id, $diseaseLevel, $careGiver, $doctor, $callingList);
+			$extendedProfile = new ExtendedProfile($_SESSION['user']->id, $home, $diseaseLevel, $careGiver, $doctor, $callingList);
 			$_SESSION['ExtendedProfile'] = $extendedProfile;
 			$this->success = "";
 			$this->renderView("Main");
