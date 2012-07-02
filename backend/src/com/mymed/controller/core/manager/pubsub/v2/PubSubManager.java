@@ -67,11 +67,6 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     private static final String SC_APPLICATION_CONTROLLER = COLUMNS.get("column.sc.application.controller");
 
     /**
-     * The application model super column.
-     */
-    private static final String SC_APPLICATION_MODEL = COLUMNS.get("column.sc.application.model");
-
-    /**
      * The data list super column.
      */
     private static final String SC_DATA_LIST = COLUMNS.get("column.sc.data.list");
@@ -85,11 +80,6 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     * The subscribers (predicates subscribed by a user) column family.
     */
    private static final String CF_SUBSCRIBERS = COLUMNS.get("column.cf.subscribers");
-
-    /**
-     * The 'user' column family.
-     */
-    private static final String CF_USER = COLUMNS.get("column.cf.user");
 
     final ProfileManager profileManager;
     
@@ -193,8 +183,13 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 		for (final Entry<byte[], byte[]> entry : subscribers.entrySet()) {
 			final String key = Charset.forName(ENCODING).decode(ByteBuffer.wrap(entry.getKey())).toString();
 			//final String val = Charset.forName(ENCODING).decode(ByteBuffer.wrap(entry.getValue())).toString();
-			recipients.add(profileManager.read(key).getEmail());
-			LOGGER.info("subscription sent for: "+key);
+        	MUserBean recipient = null;
+        	try {
+        		recipient = profileManager.read(key);
+        	} catch (IOBackEndException e){}
+        	if (recipient != null)	
+        		recipients.add(recipient.getEmail());
+            LOGGER.info("____subscription sent for: "+recipient.getEmail());
 		}
 
 

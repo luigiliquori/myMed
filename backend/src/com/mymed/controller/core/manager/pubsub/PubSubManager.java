@@ -85,11 +85,6 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     */
    private static final String CF_SUBSCRIBERS = COLUMNS.get("column.cf.subscribers");
 
-    /**
-     * The 'user' column family.
-     */
-    private static final String CF_USER = COLUMNS.get("column.cf.user");
-
     final ProfileManager profileManager;
     
     /**
@@ -181,16 +176,19 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
             for (final Entry<byte[], byte[]> entry : subscribers.entrySet()) {
             	final String key = Charset.forName(ENCODING).decode(ByteBuffer.wrap(entry.getKey())).toString();
                 //final String val = Charset.forName(ENCODING).decode(ByteBuffer.wrap(entry.getValue())).toString();
-            	recipients.add(profileManager.read(key).getEmail());
-                LOGGER.info("____subscription sent for: "+key);
+            	MUserBean recipient = null;
+            	try {
+            		recipient = profileManager.read(key);
+            	} catch (IOBackEndException e){}
+            	if (recipient != null)	
+            		recipients.add(recipient.getEmail());
+                LOGGER.info("____subscription sent for: "+recipient.getEmail());
             }
 
 
             // Format the mail
             // TODO move this somewhere else and handle translation of this email!
             if (!recipients.isEmpty()) {
-                final byte[] accTokByte = storageManager.selectColumn(CF_USER, publisher.getId(), "session");
-                final String accTok = Charset.forName(ENCODING).decode(ByteBuffer.wrap(accTokByte)).toString();
                 final StringBuilder mailContent = new StringBuilder(400);
                 mailContent.append("Bonjour,<br/>De nouvelles informations sont arriv&eacute;es sur votre plateforme myMed.<br/>Application Concern&eacute;e: ");
                 mailContent.append(application);
@@ -212,8 +210,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
                 	address += "/application/" + (application.equals("myEuroCIN_ADMIN")?"myEuroCINAdmin":application);
                 } 
 				address += "?predicate=" + predicate + "&application="
-						+ application + "&userID=" + publisher.getId()
-						+ "&accessToken=" + accTok;
+						+ application + "&userID=" + publisher.getId();
 				mailContent.append(address);
                 mailContent.append("'>ici</a> si vous souhaitez vraiment vous d&eacute;sabonner");
 
