@@ -250,7 +250,13 @@ public class PublishRequestHandler extends AbstractMatchMaking {
                     LOGGER.info("indexing "+bufferSubPredicate.toString()+" with level: "+level+", nb of rows:"+predicates.size());
                     
                     for(StringBuffer predicate : predicates) {
-                		pubsubManager.create(makePrefix(application, namespace), predicate.toString(), bufferSubPredicate.toString(), userBean, dataList, predicateListJson);
+                		pubsubManager.create(
+                		        makePrefix(application, namespace), 
+                		        predicate.toString(), 
+                		        bufferSubPredicate.toString(), 
+                		        userBean, 
+                		        dataList, 
+                		        predicateListJson);
                     }
                     
                 } catch (final JsonSyntaxException e) {

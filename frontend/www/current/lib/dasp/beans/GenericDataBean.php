@@ -56,23 +56,23 @@ abstract class GenericDataBean {
 	 * Therefore, by using the data field as a container, we can obtain
 	 * all the predicates (and any additional attribute) in the result of the "search" API.
 	 */
-	private $_data = null;
+	protected $_data = null;
 
 	/**
 	 * Acts as an ID for the object.
 	 * If not set, the predicate string is computed from the current values of the predicate attributes.
 	 * This value is automatically set if the object is fechted from a "find" query.
 	 */
-	private $_predicateStr;
+	protected $_predicateStr = array();
 
 	/** Array of attributeName => ontologyID. The values are retrieved from the corresponding atribute : $this->$key */
-	private  $_predicatesDef;
+	protected  $_predicatesDef = array();
 
 	/** Array of attributeName => ontologyID. The values are retrieved from the corresponding atribute : $this->$key */
-	private  $_dataDef;
+	protected  $_dataDef = array();
 
 	/** Array of attributes names to be wrapped / unwrapped into the "data" user field stored in the ApplicationController SCF */
-	private  $_wrapDef;
+	protected  $_wrapDef = array();
 
 	// ---------------------------------------------------------------------
 	// 	Constructor
@@ -108,6 +108,7 @@ abstract class GenericDataBean {
 
 		// Loop on registered attributes
 		foreach($this->_predicatesDef as $key => $ontologyID) {
+			
 			$value = $this->$key;
 			
 			if (!empty($value)) {
@@ -132,11 +133,13 @@ abstract class GenericDataBean {
 
 		// Loop on registered attributes
 		foreach($this->_dataDef as $key => $ontologyID) {
-			array_push(
+			if (!empty($value)) {
+				array_push(
 					$result,
 						
 					// Get the value of the coresponding attribute and create ontology bean
 					new OntologyBean($key, $this->$key, $ontologyID));
+			}
 		}
 
 		// Add extra fields as ontologies
@@ -178,7 +181,6 @@ abstract class GenericDataBean {
 
 		// Store predicates and extra attributes to wrap in the object
 		$attrs = array_merge(array_keys($this->_predicatesDef), $this->_wrapDef);
-		debug(print_r($attrs, true));
 		foreach($attrs as $attr) {
 			$obj->$attr = $this->$attr;
 		}
@@ -216,8 +218,6 @@ abstract class GenericDataBean {
 	 */
 	public /* <CurrentClass>[]  */ function find() {
 
-		debug("Predicate STR:" . $this->getPredicateStr());
-		
 		// Create a find request
 		$fr = new FindRequest(
 				null,

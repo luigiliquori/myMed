@@ -15,21 +15,19 @@
  */
 package com.mymed.controller.core.manager.pubsub;
 
+import static com.mymed.utils.PubSub.extractApplication;
+import static com.mymed.utils.PubSub.extractNamespace;
+import static java.util.Arrays.asList;
+
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
-import java.nio.ByteBuffer;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
-
-import org.apache.cassandra.cli.CliParser.newColumnFamily_return;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -44,12 +42,10 @@ import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.data.application.MDataBean;
 import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.MConverter;
+import com.mymed.utils.MiscUtils;
 import com.mymed.utils.mail.Mail;
 import com.mymed.utils.mail.MailMessage;
 import com.mymed.utils.mail.SubscribeMailSession;
-import static com.mymed.utils.PubSub.*;
-import static com.mymed.utils.MiscUtils.*; 
-import static java.util.Arrays.asList;
 
 /**
  * The pub/sub mechanism manager.
@@ -92,6 +88,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
      * The subscribees (users subscribed to a predicate) column family.
      */
     private static final String CF_SUBSCRIBEES = COLUMNS.get("column.cf.subscribees");
+    
 
     /**
      * The subscribers (predicates subscribed by a user) column family.
@@ -185,23 +182,35 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
             args.put("key", encode(item.getKey()));
             args.put("value", encode(item.getValue()));
             args.put("ontologyID", encode(item.getOntologyID()));
-            storageManager.insertSuperSlice(SC_DATA_LIST, prefix + subPredicate + publisher.getId(),
-                    item.getKey(), args);
+            storageManager.insertSuperSlice(
+                    SC_DATA_LIST, prefix + subPredicate + publisher.getId(),
+                    item.getKey(), 
+                    args);
             args.clear();
         }
         
         // Prepare a map of key=>val to represent the publication for the mail 
         HashMap<String, String> publicationMap = new HashMap<String, String>();
         {
-            Gson gson = new Gson();
+            final List<MDataBean> ontologyList = new ArrayList<MDataBean>();
             
-            // Transform predicateListJson to list of ontologies (XXX Should have been done by the caller) 
-            final Type dataType = new TypeToken<List<MDataBean>>() {}.getType();
-            final List<MDataBean> ontologyList = gson.fromJson(predicateListJson, dataType);
+            // Add predicate beans
+            if (predicateListJson != null) {
+                // Transform predicateListJson to list of ontologies (XXX Should have been done by the caller) 
+                Gson gson = new Gson();
+                final Type dataType = new TypeToken<List<MDataBean>>() {}.getType();
+                ontologyList.addAll((List<MDataBean>)gson.fromJson(predicateListJson, dataType));      
+            }
+            
+            // Add Data Beans 
             ontologyList.addAll(dataList);
-
-            // Trasform list of ontologies to map<String, String>
+            
+            // Transform list of ontologies to map<String, String>
             for (MDataBean dataBean : ontologyList) {
+                // Dont set empty values
+                if (MiscUtils.empty(dataBean.getValue())) continue;
+                 
+                
                 publicationMap.put(dataBean.getKey(), dataBean.getValue());
             }
             
@@ -237,6 +246,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
      *  @param namespace Namespace, may be null. Equivalent to a "table name" 
      *  @param publication Object published (Data + Predicate) 
      *  @param recipients List of recipients 
+     *  @param predicate The concatened predicate
      */
     private void sendEmails(     
             MUserBean publisher,
@@ -253,17 +263,17 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
         HashMap<String, Object> data = new HashMap<String, Object>(); 
         
         // Build URL of the application
-        String url = getServerProtocol() + getServerURI();
-        if (applicationID != null) {
+        String url = getServerProtocol() + getServerURI() + "/";
+        //if (applicationID != null) {
             // can we rename the folder myEuroCINAdmin in myEuroCIN_ADMIN to skip below hack
-            url += "/application/" + (applicationID.equals("myEuroCIN_ADMIN") ? "myEuroCINAdmin" : applicationID);
-        } 
+            // url += "/application/" + (applicationID.equals("myEuroCIN_ADMIN") ? "myEuroCINAdmin" : applicationID);
+        //} 
         
         // Set data map
         data.put("base_url", url);
         data.put("application", applicationID);
         data.put("publisher", publisher);
-        data.put("post", publication);
+        data.put("publication", publication);
 
         // Loop on recipients
         for (MUserBean recipient : recipients) {
@@ -310,20 +320,23 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
      * @see IPubSubManager#create(String, String, MUserBean)
      */
     @Override
-    public final void create(final String application, final String predicate, final MUserBean subscriber)
-            throws InternalBackEndException, IOBackEndException {
-        try {
-
-            // STORE A NEW ENTRY IN THE UserList (SubscriberList)
-            storageManager.insertColumn(CF_SUBSCRIBEES, application + predicate, subscriber.getId(), 
-                    String.valueOf(System.currentTimeMillis()).getBytes(ENCODING));
-            storageManager.insertColumn(CF_SUBSCRIBERS, application + subscriber.getId(), predicate, 
-                    String.valueOf(System.currentTimeMillis()).getBytes(ENCODING));
-
-        } catch (final UnsupportedEncodingException e) {
-            LOGGER.debug(ERROR_ENCODING, ENCODING, e);
-            throw new InternalBackEndException(e.getMessage()); // NOPMD
-        }
+    public final void create(
+            final String application, 
+            final String predicate, 
+            final MUserBean subscriber)
+    throws InternalBackEndException, IOBackEndException 
+    {
+        // STORE A NEW ENTRY IN THE UserList (SubscriberList)
+        storageManager.insertColumn(
+                CF_SUBSCRIBEES, 
+                application + predicate, 
+                subscriber.getId(), 
+                encode(String.valueOf(System.currentTimeMillis())));
+        storageManager.insertColumn(
+                CF_SUBSCRIBERS, 
+                application + subscriber.getId(), 
+                predicate, 
+                encode(String.valueOf(System.currentTimeMillis())));
     }
 
     /**

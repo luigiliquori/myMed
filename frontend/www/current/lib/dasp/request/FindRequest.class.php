@@ -18,8 +18,6 @@ require_once dirname(__FILE__).'/Request.class.php';
 require_once dirname(dirname(__FILE__)) . '/beans/DataBean.php';
 require_once dirname(__FILE__).'/IRequestHandler.php';
 
-require_once('PhpConsole.php');
-PhpConsole::start();
 
 /**
  *
@@ -80,7 +78,7 @@ class FindRequest extends Request {
 			if (empty($this->user)) { // Get objects matching predicates 
 				
 				if ($responseObject->status == 404) {
-					// Empty list of results is ok
+					// Empty list for results is ok
 					$result = array();
 				} else {
 					$result = $responseObject->dataObject->results;

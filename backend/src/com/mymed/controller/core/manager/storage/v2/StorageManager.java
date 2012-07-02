@@ -17,6 +17,7 @@ package com.mymed.controller.core.manager.storage.v2;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -620,7 +621,46 @@ public class StorageManager implements IStorageManager {
 	  }
 
 	  return sliceMap;
+  }
+  
+  @Override public Map<String, String> selectAllStr(
+          String tableName, 
+          String primaryKey)
+  throws IOBackEndException, InternalBackEndException 
+  {
+      // Prepare output
+      HashMap<String, String> result = new HashMap<String, String>();
+      
+      // Call the Map<byte[], byte[]> version
+      Map<byte[], byte[]> map = this.selectAll(tableName, primaryKey);
+      
+      // Transform into map of strings
+      for (Entry<byte[], byte[]> entry : map.entrySet()) {
+          result.put(decode(entry.getKey()), decode(entry.getValue()));
+      } 
+      return result;
+  }
+  
+  // ---------------------------------------------------------------------------
+  // Decode / Encode strings
+  // ---------------------------------------------------------------------------
 
+  /** Decode a byte array into a string, using the default encoding */
+  public String decode(byte[] value) {
+      return Charset.forName(ENCODING).decode(ByteBuffer.wrap(value)).toString();
+  }
+  
+  /** Decode a byte array into a string, using the default encoding */
+  public byte[] encode(String value) {
+      try {
+          return value.getBytes(ENCODING);
+      } catch (UnsupportedEncodingException e) {
+          throw new InternalBackEndException(e, "Error while encoding");
+      }
+  }
+  
+  public byte[] encode(int value) {
+      return this.encode(String.valueOf(value));
   }
   
 

@@ -99,10 +99,6 @@ public abstract class AbstractManager {
      */
     protected static final IProperties FIELDS = PROPERTIES.getManager(PropType.FIELDS);
 
-    /**
-     * Default encoding.
-     */
-    protected static final String ENCODING = GENERAL.get("general.string.encoding");
 
     /**
      * This is the URL address of the server, necessary for configuring data across all the backend. If nothing has been
@@ -272,22 +268,22 @@ public abstract class AbstractManager {
         return SERVER_PROTOCOL;
     }
     
+    // ---------------------------------------------------------------------------
+    // Helpers to encode / decode elements with the storage manager
+    // ---------------------------------------------------------------------------
+    
     /** Decode a byte array into a string, using the default encoding */
     public String decode(byte[] value) {
-    	return Charset.forName(ENCODING).decode(ByteBuffer.wrap(value)).toString();
+        return this.storageManager.decode(value);
     }
     
     /** Decode a byte array into a string, using the default encoding */
     public byte[] encode(String value) {
-    	try {
-    		return value.getBytes(ENCODING);
-    	} catch (UnsupportedEncodingException e) {
-    		LOGGER.debug(ERROR_ENCODING, ENCODING, e);
-    		throw new InternalBackEndException(e.getMessage());
-    	}
+        return this.storageManager.encode(value);
     }
     
     public byte[] encode(int value) {
-    	return this.encode(String.valueOf(value));
+        return this.storageManager.encode(value);
     }
+
 }

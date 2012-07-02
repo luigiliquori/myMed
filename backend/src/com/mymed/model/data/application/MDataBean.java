@@ -10,6 +10,7 @@
  */
 package com.mymed.model.data.application;
 
+import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.model.data.AbstractMBean;
 
 /**
@@ -29,10 +30,13 @@ public final class MDataBean extends AbstractMBean implements Comparable<MDataBe
     private String value;
     /*
      * Changed ontologyID String -> int
+     *  no pb if you want it back, gson works the same with \"ontologyID\": 4, or  \"ontologyID\": \"4\"
+     *  it's just useful to treat ontologyID cases
      */
     private int ontologyID;
     
     public MDataBean(String key, String value, int ontologyID) {
+        if (value == null) throw new InternalBackEndException("Null value for ontology '%s'", key);
 		this.key = key;
 		this.value = value;
 		this.ontologyID = ontologyID;
@@ -47,10 +51,12 @@ public final class MDataBean extends AbstractMBean implements Comparable<MDataBe
     }
 
     public String getValue() {
+        if (value == null) throw new InternalBackEndException("Null value for ontology '%s'", key);
         return value;
     }
 
     public void setValue(final String value) {
+        if (value == null) throw new InternalBackEndException("Null value for ontology '%s'", key);
         this.value = value;
     }
 

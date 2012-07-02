@@ -64,8 +64,9 @@ public final class Mail {
      * Sends the email to the recipients.
      * <p>
      * A single message is sent for each recipients in the recipients list.
+     * Synchronous send.
      */
-    public void send() {
+    public void sendSync() {
         final Session session = mailSession.get();
 
         if (session != null) {
@@ -104,6 +105,11 @@ public final class Mail {
                 LOGGER.debug("Problem creating or sending the email message", ex); // NOPMD
             }
         }
+    }
+    
+    /** Asynchronous sending of a mail. add it to a queue, processed by another thread */
+    public void send() {
+        MailQueue.getInstance().enqeueMail(this);
     }
 
     /**

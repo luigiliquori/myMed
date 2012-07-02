@@ -82,7 +82,7 @@ class PublishRequest extends Request {
 			
 		if ($responseObject->status != 200) {
 			if (is_null($this->handler)) {
-				throw new Exception($responseObject->description);
+				throw new Exception("Error in PublishRequest: " . $responseObject->description);
 			} else {
 				$this->handler->setError($responseObject->description);
 			}

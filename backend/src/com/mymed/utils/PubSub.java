@@ -13,6 +13,13 @@ import org.apache.commons.lang.time.DateFormatUtils;
 
 import com.mymed.model.data.application.MDataBean;
 
+/**
+ * Utils methods for pub sub managers
+ * 
+ * @author auburtic
+ *
+ */
+
 public class PubSub {
 	
 	/*  Ontology ID list */
@@ -25,9 +32,11 @@ public class PubSub {
 	public static final int PICTURE = 5;
 	public static final int VIDEO   = 6;
 	public static final int AUDIO   = 7;
+	public static final int FLOAT   = -1;
+	
 	/**
 	 * 
-	 * contructs all possible set of indexes with level terms from predicateMap
+	 * contructs all possible set of indexes with level terms from predicateList
 	 * 
 	 *  ex: [A, B, C] with level = 2 returns [A, B], [A, C], [B, C]
 	 * 
@@ -37,7 +46,7 @@ public class PubSub {
 	 * @return List of StringBuffers
 	 */
 	
-	public static List<List<Index>> getPredicate(final List<MDataBean> predicateList, final int level) {
+	public static List<List<Index>> getComposites(final List<MDataBean> predicateList, final int level) {
 
 		List<List<Index>> result = new ArrayList<List<Index>>();
 		int n = predicateList.size();
@@ -55,8 +64,8 @@ public class PubSub {
 					//int ontID = parseInt(d.getOntologyID());
 					
 					if ( d.getOntologyID() == DATE ){
-						indexes.add( new Index(d.getKey()+d.getValue().substring(0, 10), d.getValue()));
-					} else if ( d.getOntologyID() == ENUM ){
+						indexes.add( new Index(d.getKey()+d.getValue().substring(0, Math.min(10, d.getValue().length())), d.getValue()));
+					} else if ( d.getOntologyID() == FLOAT ){
 						indexes.add(new Index(d.getKey()+d.getValue().substring(0, d.getValue().indexOf(".")), d.getValue()));
 					} else{
 						indexes.add(new Index(d.getKey()+d.getValue(), ""));
@@ -74,11 +83,20 @@ public class PubSub {
 		return result;
 	}
 
-	
-	public static class Index{ /* simple class to distinguish which part an ontology will be indexed in rows, when not all, the other part must be prefixed in col*/
+	/*
+	 * class to distinguish which part of an ontology will be indexed in rows,
+	 *    in pubsub v1 ontology.value is in row (appended to ontology.key) and nothing is in column
+	 *    in pubsub v2 it depends on ontology.ontologyID
+	 */
+	public static class Index{ 
 		
 		String row; /* part of a String Index appended in row name */
 		String col; /* part prepended in col name */
+		
+		/*
+		 * for ENUM (multiple) we need to use list of rows and
+		 *  constructRows(indexlistrows, new int[indexlistrows.size()], 0, rows)
+		 */
 		
 		Index(String row, String col) {
 			this.row = row;
@@ -103,7 +121,6 @@ public class PubSub {
 	        return s;
 	    }
 	}	
-	
 
     public static void constructRows(List<List<String>> data, int[] pos, int n, List<String> res) {
 	    if (n == pos.length) {
@@ -127,12 +144,33 @@ public class PubSub {
 		}
 		return false;
 	}
+    
+    public static List<MDataBean> getPredicate(List<MDataBean> data){
+    	List<MDataBean> predicate = new ArrayList<MDataBean>();
+        for (MDataBean d : data){
+        	if (d.getOntologyID() < TEXT) {
+        		predicate.add(d);
+        	}
+        }
+        return predicate;
+	}
+    
+    public static String toString(List<MDataBean> data){
+    	StringBuffer str = new StringBuffer();
+        for (MDataBean d : data){
+        	str.append(d.toString());
+        }
+        return str.toString();
+	}
+    
+    
 	
-    /*
-     * DATE
+    /**
+     * DATE ontology ID
      *    yyyy-mm-dd is indexed in rows
      *    if there is hours, minutes.. this value is prefixed in column to allow it's auto sorting
-     * 
+     *    
+     * @TODO use timestamp long instead 
      */
     
     public static List<String> getDateRange(String key, String t1, String t2){
@@ -159,7 +197,7 @@ public class PubSub {
     
     
    /*
-    * ENUM
+    * FLOAT ontology ID
     *    integer part is indexed in rows
     *    if there is a floating part the value is prefixed in column to allow it's auto sorting
     * [2.33 - 5.6] -> [2, 3, 4, 5]
@@ -181,14 +219,7 @@ public class PubSub {
     
     //-----------------
     
-    public static int[] parseDate(String date) { // format yyyy-mm-dd
-    	int[] values = new int[3];
-    	String[] dateValues = date.split("-");
-    	for (int i = 0; i < 3  && i< dateValues.length; i++) {
-    		values[i] = parseInt(dateValues[i]);
-    	}
-    	return values;
-    }
+
     
     public static int parseInt(String s){
     	int i = 0;
@@ -208,20 +239,35 @@ public class PubSub {
 		return v + (((v ^ n) / u) >> 2);
 	}
     
+    /** Get application from a prefix "applicationID<separator>namespace"  */
+    public static String extractApplication(String prefix, String separator) {
+        return prefix.split(separator)[0];
+    }
+    
     /** Get application from a prefix "applicationID:namespace"  */
     public static String extractApplication(String prefix) {
-        return prefix.split(":")[0];
+        return extractApplication(prefix, ":");
+    }
+    
+    /** Get namespace (or null if none found) from a prefix "applicationID<separator>namespace"  */
+    public static String extractNamespace(String prefix, String separator) {
+        String[] parts = prefix.split(separator);
+        return (parts.length == 2) ? parts[1] : null;
     }
     
     /** Get namespace (or null if none found) from a prefix "applicationID:namespace"  */
     public static String extractNamespace(String prefix) {
-        String[] parts = prefix.split(":");
-        return (parts.length == 2) ? parts[1] : null;
+        return extractNamespace(prefix, ":");
     }
     
-    /** Make a prefix with an aplpication and optionnal namespace "application:namespace "*/
+    /** Make a prefix with an aplpication and optionnal namespace "application<separator>namespace "*/
+    public static String makePrefix(String application, String namespace, String separator) {
+        return (namespace == null) ? application : (application + separator + namespace);
+    }
+    
+    /** Make a prefix with an aplpication and optionnal namespace "application<separator>namespace "*/
     public static String makePrefix(String application, String namespace) {
-        return (namespace == null) ? application : (application + ':' + namespace);
+        return makePrefix(application, namespace, ":");
     }
 	
 
