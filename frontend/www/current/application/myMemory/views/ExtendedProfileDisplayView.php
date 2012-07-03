@@ -1,18 +1,10 @@
 <? include("header.php"); ?>
-<!--  Javascript that disables the submit button as long as the checkbox is not checked -->
-<script type="text/javascript">
-	$('#agreement').change(function() {
-		if (this.checked)
-			$('#submitButton').button('enable');
-		else
-			$('#submitButton').button('disable');
-	});
-</script>
-
+<? include("notifications.php")?>
 <!-- Header -->
 <div data-role="header" data-position="inline">
 	<a href="#" data-rel="back" data-role="button"  data-icon="back">Back</a>
 	<h1>Profile</h1>
+	<a href="?action=ExtendedProfile&edit=false" data-rel="dialog" data-transition="pop" data-role="button" data-theme="b" data-icon="gear">Edit</a>
 </div>
 
 <div data-role="content" data-theme="a">

@@ -35,38 +35,7 @@ class MainController extends AuthenticatedController {
 		}
 		else {
 				
-			$diseaseLevel = "";
-			$careGiver = "";
-			$doctor = "";
-			$callingList = "";
-			
-			foreach ($result as $line){
-				switch($line->key){
-					
-					case "home" :
-						$home = json_decode($line->value, TRUE);
-						break;
-					case "callingList" :
-						$callingList = json_decode($line->value, TRUE);
-						break;
-					case "careGiver" :
-						$careGiver = json_decode($line->value, TRUE);
-						break;
-					case "doctor" :
-						$doctor = json_decode($line->value, TRUE);
-						break;
-					case "diseaseLevel" :
-						$diseaseLevel = json_decode($line->value, TRUE);
-						break;
-				}
-				if ($line->key ="callingList"){
-						
-				}
-				
-			}
-			
-			$extendedProfile = new ExtendedProfile($_SESSION['user']->id, $home, $diseaseLevel, $careGiver, $doctor, $callingList);
-			$_SESSION['ExtendedProfile'] = $extendedProfile;
+			$_SESSION['ExtendedProfile'] = $result;
 			$this->success = "";
 			$this->renderView("Main");
 		}

@@ -13,9 +13,9 @@
 
 
 	<div data-role="header" data-position="inline">
-		<a href="?action=main" data-rel="back" data-role="button" class="ui-btn-left" data-icon="back">Back</a>
+		<a href="?action=main" data-rel="back" data-role="button" class="ui-btn-left" data-icon="back" >Back</a>
 		<h1>MyMemory</h1>
-		<a href="?action=ExtendedProfile" data-role="button" data-icon="gear">Profile</a>
+		<a href="?action=ExtendedProfile" data-role="button" data-icon="gear" >Profile</a>
 	</div>
 	<div data-role="content" data-theme="a">
 		<div id="myMap"></div>

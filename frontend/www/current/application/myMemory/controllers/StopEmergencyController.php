@@ -8,6 +8,8 @@ class StopEmergencyController extends AuthenticatedController {
 	 */
 	public /*void*/ function handleRequest(){
 		
+		parent::handleRequest();
+		
 		/*
 		 * Determine the dehaviour :
 		 * POST data ->  Store the profile

@@ -1,5 +1,5 @@
 <? include("header.php"); ?>
-
+<? include("notifications.php")?>
 <!-- Header -->
 <div data-role="header" data-position="inline">
 	<a href="?action=logout" rel="external" data-role="button" data-theme="r" class="ui-btn-left" data-icon="delete">Exit</a>

@@ -11,25 +11,29 @@
  * @author David Da Silva
  * 
  */
-class ExtendedProfileController extends AbstractController
+class ExtendedProfileController extends AuthenticatedController
 {
 	/**
 	 * @see IRequestHandler::handleRequest()
 	 */
 	public /*void*/ function handleRequest(){
 		
+		parent::handleRequest();
 		/*
 		 * Determine the dehaviour :
 		 * POST data ->  Store the profile
 		 * No Post but ExtendedProfile in session -> show profile
 		 * Nothing -> show the form to fill the profile
 		 */
-		if (isset($_POST["diseaseLevel"]))
+
+		if (isset($_POST["form"]))
 			$this->storeProfile();
+		else if (isset($_GET['edit']) OR isset($_POST['sudo']))
+			$this->editProfile();
 		else if (isset($_SESSION['ExtendedProfile']) AND !empty($_SESSION['ExtendedProfile']))
 			$this->showProfile();
 		else
-			$this->renderView("ExtendedProfileForm");
+			$this->renderView("ExtendedProfileCreate");
 		
 	}
 	
@@ -91,24 +95,94 @@ class ExtendedProfileController extends AbstractController
 			$extendedProfile->storeProfile($this);
 			
 			
-			if (!empty($this->error))
-			$this->renderView("ExtendedProfileForm");
+			if (!empty($this->error)){
+				if ($_POST['form'] == 'create')
+					$this->renderView("ExtendedProfileCreate");
+				else
+					$this->renderView("ExtendedProfileEdit");
+			}
+				
 			else {
 				$this->success = "Complément de profil enregistré avec succès!";
+				
+				/*
+				 * If it was an edit, reload the ExtendedProfile in the $_SESSION
+				 */
+				if ($_POST['form'] == 'edit')
+					$_SESSION['ExtendedProfile'] = ExtendedProfile::getExtendedProfile($this, $_SESSION['user']->id);
+
 				$this->redirectTo("main");
 			}
 			
 		}
 		else{
 			$this->error .= "Agreement needed for the geotagging";
-			$this->renderView("ExtendedProfileForm");
+			if ($_POST['form'] == 'create')
+				$this->renderView("ExtendedProfileCreate");
+			else
+				$this->renderView("ExtendedProfileEdit");
 		}
 	}
 	
-	
-	public /*void*/ function getExtendedProfile(){
+	/**
+	 * Edit the extended profile.
+	 * In order to édit it, the user is asked to enter his password, like a SUDO permission.
+	 * This prevent the user from editing critical informations
+	 */
+	public /*void*/ function editProfile(){
 		
-		ExtendedProfile::getExtendedProfile($_SESSION['user']);
+		/*
+		 * If the password iis valid, the accessToken should be in the url
+		 */
+		if($_GET['edit'] == 'true' )
+		{
+			/*
+			 * Checking the password
+			 */
+			if( isset($_POST['sudo'])){ // edit = true AND sudo posted
+				
+				$pass	= hash("sha512", $_POST['password']);
+				
+				// Building the Authentication request
+				$request = new Request("AuthenticationRequestHandler", READ);
+				$request->addArgument("login", $_SESSION['user']->login);
+				$request->addArgument("password", $pass);
+				
+				// Sending request
+				$responsejSon = $request->send();
+					
+				$responseObject = json_decode($responsejSon);
+				
+				// In case of errors
+				if($responseObject->status != 200) {
+				
+					// Save the error
+					$this->error = "Error, wrong password";
+					$this->redirectTo("main");
+				
+				} else { // edit = true AND sudo posted AND password valid
+				
+					// Everything went fine, we have now an accessToken in the session
+					$_SESSION['accessToken'] = $responseObject->dataObject->accessToken;
+					$get_url = array(
+								"edit" => "true"
+					);
+					
+					// redirect to the editForm of ExtendedProfile
+					$this->redirectTo("ExtendedProfile", $get_url);
+				}
+				
+			}// /isset sudo
+			else { // edit = true AND no sudo
+				$this->renderView("ExtendedProfileEdit");
+			}
+			
+			
+		} // if edit = false
+		else{
+			$this->renderView("ExtendedProfileSudoDialog");
+		}
+		
 	}
 	
 	

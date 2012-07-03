@@ -10,9 +10,22 @@ abstract class AbstractController implements IRequestHandler {
 		$this->success	= false;
 	}
 	
-	/** Generate a HTTP redirect to the given action and exit */
-	public function redirectTo($action) {
-		header("Refresh:0;url=/application/".APPLICATION_NAME."/index.php?action=$action");
+	/** 
+	 * Generate a HTTP redirect to the given action and exit
+	 * Optionnal argument for passing GET vars
+	 */
+	public function redirectTo($action, array $vars=null) {
+		if(isset($vars)){
+			$get_line = "";
+			foreach($vars as $key=>$value){
+				$get_line .= '&' . $key . '=' . $value;
+			}
+			header('Refresh:0;url=/application/'.APPLICATION_NAME.'/index.php?action=' . $action . $get_line);
+		}
+		else{
+			header('Refresh:0;url=/application/'.APPLICATION_NAME.'/index.php?action='.$action);
+		}
+			
 		exit();
 	}
 	

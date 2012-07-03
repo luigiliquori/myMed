@@ -18,7 +18,7 @@
 
 <div data-role="content" data-theme="a">
 	<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" data-ajax="false">
-
+		<input type="hidden" name="form" value="create" />
 
 		<!-- HOME -->
 		<div data-role="fieldcontain">
@@ -130,7 +130,7 @@
 		<input type="checkbox" name="agreement" id="agreement" />
 		<label for="agreement">I understand that this application needs to geotag me in case of emergency and I therefore give my consent.</label>
 		
-		<input type="submit" data-role="button" id="submitButton" value="Save" disabled="true" data-theme="b"/>
+		<input type="submit" data-role="button" id="submitButton" name="create" value="Save" disabled="true" data-theme="b"/>
 	</form>
 </div>
 <? include("footer.php"); ?>

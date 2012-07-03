@@ -163,15 +163,46 @@ class ExtendedProfile
 	/**
 	 * Retreive the ExtendedProfile of a user in the database
 	 * @param String $user_id
-	 * @return void. The result is put in the success of the Handled provided
+	 * @return ExtendedProfile
 	 */
-	public static /* List of ontologies */ function getExtendedProfile(IRequestHandler $handler, $user){
+	public static /* ExtendedProfile */ function getExtendedProfile(IRequestHandler $handler, $user){
 		
 		$predicate = "roleExtendedProfile";
 		
 		$find = new FindRequest($handler, $predicate, $user);
-		return $find->send();
-			
+		$result = $find->send();
+		
+		if (empty($result))
+			return null;
+		
+		$home = "";
+		$diseaseLevel = "";
+		$careGiver = "";
+		$doctor = "";
+		$callingList = "";
+		
+		
+		foreach ($result as $line){
+			switch($line->key){
+					
+				case "home" :
+					$home = json_decode($line->value, TRUE);
+					break;
+				case "callingList" :
+					$callingList = json_decode($line->value, TRUE);
+					break;
+				case "careGiver" :
+					$careGiver = json_decode($line->value, TRUE);
+					break;
+				case "doctor" :
+					$doctor = json_decode($line->value, TRUE);
+					break;
+				case "diseaseLevel" :
+					$diseaseLevel = json_decode($line->value, TRUE);
+					break;
+			}
+		}
+		return new ExtendedProfile($user, $home, $diseaseLevel, $careGiver, $doctor, $callingList);			
 	}
 	
 	
