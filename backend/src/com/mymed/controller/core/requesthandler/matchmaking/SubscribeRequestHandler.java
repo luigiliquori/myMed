@@ -15,6 +15,8 @@
  */
 package com.mymed.controller.core.requesthandler.matchmaking;
 
+import java.lang.reflect.Type;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -23,13 +25,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.pubsub.PubSubManager;
-import com.mymed.controller.core.requesthandler.AbstractRequestHandler;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
+import com.mymed.model.data.application.MDataBean;
 import com.mymed.model.data.user.MUserBean;
+import static com.mymed.utils.PubSub.makePrefix;
 
 /**
  * Servlet implementation class PubSubRequestHandler
@@ -70,7 +74,7 @@ public class SubscribeRequestHandler extends AbstractMatchMaking {
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            final String application, predicate, user, namespace = parameters.get(JSON_NAMESPACE);
+            String application, predicate, predicateList = null, user, namespace = parameters.get(JSON_NAMESPACE);
             
             switch (code) {
                 case READ :
@@ -80,7 +84,7 @@ public class SubscribeRequestHandler extends AbstractMatchMaking {
                 	} else if((user = parameters.get(JSON_USERID)) == null){
                 		throw new InternalBackEndException("missing userID argument!");
                 	}
-                	final Map<String, String> predicates = pubsubManager.read(getPrefix(application, namespace) + user);
+                	final Map<String, String> predicates = pubsubManager.read(makePrefix(application, namespace) + user);
                  	message.setDescription("Subscriptions found for Application: " + application + " User: " + user);
  		            LOGGER.info("Subscriptions found for Application: " + application + " User: " + user);
  		            message.addDataObject(JSON_SUBSCRIPTIONS, predicates);
@@ -90,13 +94,21 @@ public class SubscribeRequestHandler extends AbstractMatchMaking {
                 	message.setMethod(JSON_CODE_DELETE);
                 	if ((application = parameters.get(JSON_APPLICATION)) == null) {
                         throw new InternalBackEndException("missing application argument!");
-                    } else if ((predicate = parameters.get(JSON_PREDICATE)) == null) {
-                        throw new InternalBackEndException("missing predicate argument!");
+                	} else if ((predicate = parameters.get(JSON_PREDICATE)) == null && (predicateList = parameters.get(JSON_PREDICATE_LIST)) == null) {
+    					throw new InternalBackEndException("missing predicate or predicateList argument!");
                     } else if ((user = parameters.get(JSON_USERID)) == null) {
                         throw new InternalBackEndException("missing userID argument!");
                     }
+                	
+                	 if(predicateList != null) {
+     					final Type dataType = new TypeToken<List<MDataBean>>() {}.getType();
+     					final List<MDataBean> predicateListObject = getGson().fromJson(predicateList, dataType);
+     					List<StringBuffer> predList = getPredicate(predicateListObject, predicateListObject.size());
+     					/* @Todo use an other parameter to choose the broadcast strategy */
+     					predicate = predList.get(predList.size()-1).toString();
+     				}
 
-                	pubsubManager.delete(getPrefix(application, namespace), user, predicate);
+                	pubsubManager.delete(makePrefix(application, namespace), user, predicate);
                 	LOGGER.info("subscription deleted: " + predicate +" for user: " + user);
                 	message.setDescription("subscription deleted: " + predicate +" for user: " + user);
                         
@@ -127,17 +139,25 @@ public class SubscribeRequestHandler extends AbstractMatchMaking {
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            final String application, predicate, user, namespace = parameters.get(JSON_NAMESPACE);
+            String application, predicate, predicateList = null, user, namespace = parameters.get(JSON_NAMESPACE);
             user = parameters.get(JSON_USERID) != null ? parameters.get(JSON_USERID) : parameters.get(JSON_USER);
 
             if (code.equals(RequestCode.CREATE)) {
                 if ((application = parameters.get(JSON_APPLICATION)) == null) {
                     throw new InternalBackEndException("missing application argument!");
-                } else if ((predicate = parameters.get(JSON_PREDICATE)) == null) {
-                    throw new InternalBackEndException("missing predicate argument!");
+                } else if ((predicate = parameters.get(JSON_PREDICATE)) == null && (predicateList = parameters.get(JSON_PREDICATE_LIST)) == null) {
+					throw new InternalBackEndException("missing predicate or predicateList argument!");
                 } else if (user == null) {
                     throw new InternalBackEndException("missing userID argument!");
                 }
+                
+                if(predicateList != null) {
+					final Type dataType = new TypeToken<List<MDataBean>>() {}.getType();
+					final List<MDataBean> predicateListObject = getGson().fromJson(predicateList, dataType);
+					List<StringBuffer> predicates = getPredicate(predicateListObject, predicateListObject.size());
+					/* @Todo use an other parameter to choose the broadcast strategy */
+					predicate = predicates.get(predicates.size()-1).toString();
+				}
 
                 MUserBean userBean;
                 try {
@@ -147,7 +167,7 @@ public class SubscribeRequestHandler extends AbstractMatchMaking {
                 }
                 try {
 
-                    pubsubManager.create(getPrefix(application, namespace), predicate, userBean);
+                    pubsubManager.create(makePrefix(application, namespace), predicate, userBean);
                     LOGGER.info("predicate subscribed: " + predicate);
                     message.setDescription("predicate subscribed: " + predicate);
                 } catch (final JsonSyntaxException e) {

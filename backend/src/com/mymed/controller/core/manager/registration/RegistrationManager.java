@@ -98,8 +98,12 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
      * com.mymed.model.data.session.MAuthenticationBean, java.lang.String)
      */
     @Override
-    public void create(final MUserBean user, final MAuthenticationBean authentication, final String application)
-                    throws AbstractMymedException {
+    public void create(
+            final MUserBean user, 
+            final MAuthenticationBean authentication, 
+            final String application)
+    throws AbstractMymedException
+    {
         // PUBLISH A NEW REGISTATION PENDING TASK
         final List<MDataBean> dataList = new ArrayList<MDataBean>();
         try {
@@ -119,7 +123,13 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
         final HashFunction hashFunc = new HashFunction(APP_NAME);
         final String accessToken = hashFunc.SHA1ToString(user.getLogin() + System.currentTimeMillis());
 
-        pubSubManager.create(APP_NAME, accessToken, accessToken, user, dataList, null);
+        pubSubManager.create(
+                APP_NAME, 
+                accessToken, 
+                accessToken, 
+                user, 
+                dataList, 
+                null);
 
         final StringBuilder contentBuilder = new StringBuilder(250);
         // TODO add internationalization support

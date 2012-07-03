@@ -240,6 +240,37 @@ public class PubSub {
 		long v = u + n;
 		return v + (((v ^ n) / u) >> 2);
 	}
+    
+    /** Get application from a prefix "applicationID<separator>namespace"  */
+    public static String extractApplication(String prefix, String separator) {
+        return prefix.split(separator)[0];
+    }
+    
+    /** Get application from a prefix "applicationID:namespace"  */
+    public static String extractApplication(String prefix) {
+        return extractApplication(prefix, ":");
+    }
+    
+    /** Get namespace (or null if none found) from a prefix "applicationID<separator>namespace"  */
+    public static String extractNamespace(String prefix, String separator) {
+        String[] parts = prefix.split(separator);
+        return (parts.length == 2) ? parts[1] : null;
+    }
+    
+    /** Get namespace (or null if none found) from a prefix "applicationID:namespace"  */
+    public static String extractNamespace(String prefix) {
+        return extractNamespace(prefix, ":");
+    }
+    
+    /** Make a prefix with an aplpication and optionnal namespace "application<separator>namespace "*/
+    public static String makePrefix(String application, String namespace, String separator) {
+        return (namespace == null) ? application : (application + separator + namespace);
+    }
+    
+    /** Make a prefix with an aplpication and optionnal namespace "application<separator>namespace "*/
+    public static String makePrefix(String application, String namespace) {
+        return makePrefix(application, namespace, ":");
+    }
 	
 
 }

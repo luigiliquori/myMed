@@ -27,11 +27,17 @@ public abstract class AbstractMatchMaking extends AbstractRequestHandler {
      * JSON 'predicate' attribute.
      */
     protected static final String JSON_NAMESPACE = JSON.get("json.namespapce");
-
     
-    protected String getPrefix(String application, String namespace){
-    	return namespace != null ? application + ":" + namespace : application;
-    }
+	/**
+	 * JSON 'predicate' attribute.
+	 */
+    protected static final String JSON_PREDICATE = JSON.get("json.predicate");
+
+	/**
+	 * JSON 'predicate' attribute.
+	 */
+    protected static final String JSON_PREDICATE_LIST = JSON.get("json.predicate.list");
+
     
 	/**
 	 * 

@@ -15,6 +15,7 @@
  */
 package com.mymed.controller.core.manager;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -22,6 +23,8 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -96,10 +99,6 @@ public abstract class AbstractManager {
      */
     protected static final IProperties FIELDS = PROPERTIES.getManager(PropType.FIELDS);
 
-    /**
-     * Default encoding.
-     */
-    protected static final String ENCODING = GENERAL.get("general.string.encoding");
 
     /**
      * This is the URL address of the server, necessary for configuring data across all the backend. If nothing has been
@@ -268,4 +267,23 @@ public abstract class AbstractManager {
     public String getServerProtocol() {
         return SERVER_PROTOCOL;
     }
+    
+    // ---------------------------------------------------------------------------
+    // Helpers to encode / decode elements with the storage manager
+    // ---------------------------------------------------------------------------
+    
+    /** Decode a byte array into a string, using the default encoding */
+    public String decode(byte[] value) {
+        return this.storageManager.decode(value);
+    }
+    
+    /** Decode a byte array into a string, using the default encoding */
+    public byte[] encode(String value) {
+        return this.storageManager.encode(value);
+    }
+    
+    public byte[] encode(int value) {
+        return this.storageManager.encode(value);
+    }
+
 }

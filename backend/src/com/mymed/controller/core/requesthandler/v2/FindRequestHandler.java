@@ -390,7 +390,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
 							String s1 = PubSub.Index.toRowString(p);
 							String s2 = PubSub.Index.toColString(p);
 							LOGGER.info("____" + s1 + " " + s2);
-							pubsubManager.createIndex(application, s1, s2, dataId, userBean, predicateListNew);
+							pubsubManager.createIndex(application, s1, s2, dataId, userBean, predicateListNew, null);
 						}
 					}
 

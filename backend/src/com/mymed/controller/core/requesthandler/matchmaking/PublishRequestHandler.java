@@ -15,6 +15,8 @@
  */
 package com.mymed.controller.core.requesthandler.matchmaking;
 
+import static com.mymed.utils.PubSub.makePrefix;
+
 import java.lang.reflect.Type;
 import java.net.URLDecoder;
 import java.util.HashMap;
@@ -35,7 +37,7 @@ import com.google.gson.reflect.TypeToken;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.profile.ProfileManager;
-import com.mymed.controller.core.manager.pubsub.PubSubManager;
+import com.mymed.controller.core.manager.pubsub.v2.PubSubManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.application.MDataBean;
 import com.mymed.model.data.user.MUserBean;
@@ -57,8 +59,8 @@ public class PublishRequestHandler extends AbstractMatchMaking {
      */
     private static final String JSON_PREDICATE = JSON.get("json.predicate");
 
-    private final PubSubManager pubsubManager;
-    private ProfileManager profileManager;
+    protected PubSubManager pubsubManager;
+    protected ProfileManager profileManager;
 
     public PublishRequestHandler() throws InternalBackEndException {
         super();
@@ -159,7 +161,7 @@ public class PublishRequestHandler extends AbstractMatchMaking {
                         
                         LOGGER.info("deleting "+bufferSubPredicate.toString()+" with level: "+level);
                         for(StringBuffer predicate : predicates) {
-                        	pubsubManager.delete(getPrefix(application, namespace), predicate.toString(), bufferSubPredicate.toString(), userID);
+                        	pubsubManager.delete(makePrefix(application, namespace), predicate.toString(), bufferSubPredicate.toString(), userID);
                         }
                         
                     } catch (final JsonSyntaxException e) {
@@ -222,8 +224,9 @@ public class PublishRequestHandler extends AbstractMatchMaking {
                 	userBean = profileManager.read(user);
                 }
                 try {
-                    final Type dataType = new TypeToken<List<MDataBean>>() {
-                    }.getType();
+                    
+                    // Parse Data & Predicate lists JSON 
+                    final Type dataType = new TypeToken<List<MDataBean>>() {}.getType();
                     final List<MDataBean> dataList = getGson().fromJson(data, dataType);
                     final List<MDataBean> predicateList = getGson().fromJson(predicateListJson, dataType);
 
@@ -248,15 +251,19 @@ public class PublishRequestHandler extends AbstractMatchMaking {
                     LOGGER.info("indexing "+bufferSubPredicate.toString()+" with level: "+level+", nb of rows:"+predicates.size());
                     
                     for(StringBuffer predicate : predicates) {
-                		pubsubManager.create(getPrefix(application, namespace), predicate.toString(), bufferSubPredicate.toString(), userBean, dataList, predicateListJson);
+                		pubsubManager.create(
+                		        makePrefix(application, namespace),
+                		        predicate.toString(), 
+                		        bufferSubPredicate.toString(),
+                		        userBean,
+                		        dataList,
+                		        predicateList);
                     }
                     
                 } catch (final JsonSyntaxException e) {
-                    LOGGER.debug("Error in Json format", e);
-                    throw new InternalBackEndException("jSon format is not valid");
+                    throw new InternalBackEndException(e, "Error in Json format");
                 } catch (final JsonParseException e) {
-                    LOGGER.debug("Error in parsing Json", e);
-                    throw new InternalBackEndException(e.getMessage());
+                    throw new InternalBackEndException(e, "Error in Json format");
                 }
             } else {
                 throw new InternalBackEndException("PublishRequestHandler(" + code + ") not exist!");

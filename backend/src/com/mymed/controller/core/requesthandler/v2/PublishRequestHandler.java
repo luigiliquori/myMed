@@ -48,7 +48,7 @@ import com.mymed.utils.PubSub;
  */
 @MultipartConfig
 @WebServlet("/v2/PublishRequestHandler")
-public class PublishRequestHandler extends AbstractRequestHandler {
+public class PublishRequestHandler extends com.mymed.controller.core.requesthandler.matchmaking.PublishRequestHandler {
 
     /**
      * Generated serial ID.
@@ -64,47 +64,13 @@ public class PublishRequestHandler extends AbstractRequestHandler {
     
     private static final String JSON_PREDICATE_LIST = JSON.get("json.predicate.list");
 
-    private final PubSubManager pubsubManager;
-    private final ProfileManager profileManager;
-
     public PublishRequestHandler() throws InternalBackEndException {
         super();
         profileManager = new ProfileManager();
         pubsubManager = new PubSubManager();
     }
 
-    /*
-     * (non-Javadoc)
-     * @see com.mymed.controller.core.requesthandler.AbstractRequestHandler#getParameters
-     * (javax.servlet.http.HttpServletRequest)
-     */
-    @Override
-    protected Map<String, String> getParameters(final HttpServletRequest request) throws AbstractMymedException {
 
-        if ( !request.getContentType().matches("multipart/form-data.*")) {
-            return super.getParameters(request);
-        }
-
-        final Map<String, String> parameters = new HashMap<String, String>();
-
-        try {
-            for (final Part part : request.getParts()) {
-                final String key = part.getName();
-                final Scanner s = new Scanner(part.getInputStream());
-                final String value = URLDecoder.decode(s.nextLine(), ENCODING);
-                parameters.put(key, value);
-            }
-        } catch (final Exception e) {
-            LOGGER.debug("Error retrieving arguments", e);
-            throw new InternalBackEndException("Error in getting arguments");
-        }
-
-        if (!parameters.containsKey(JSON_CODE)) {
-            throw new InternalBackEndException("code argument is missing!");
-        }
-
-        return parameters;
-    }
 
     /*
      * (non-Javadoc)
@@ -275,7 +241,9 @@ public class PublishRequestHandler extends AbstractRequestHandler {
                     for(List<PubSub.Index> p : predicates) {
                     	String s1 = PubSub.Index.toRowString(p);
                     	String s2 = PubSub.Index.toColString(p);
-                		pubsubManager.createIndex(application, s1, s2, dataId, userBean, dataList);
+                    	
+                    	// TODO Add the predicate list
+                		pubsubManager.createIndex(application, s1, s2, dataId, userBean, dataList, null);
                 		pubsubManager.createMail(application, s1, userBean, dataList);
                     }
                 }

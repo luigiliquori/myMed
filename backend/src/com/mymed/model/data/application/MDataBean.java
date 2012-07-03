@@ -10,6 +10,7 @@
  */
 package com.mymed.model.data.application;
 
+import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.model.data.AbstractMBean;
 
 /**
@@ -35,6 +36,7 @@ public final class MDataBean extends AbstractMBean implements Comparable<MDataBe
     private int ontologyID;
     
     public MDataBean(String key, String value, int ontologyID) {
+        if (value == null) throw new InternalBackEndException("Null value for ontology '%s'", key);
 		this.key = key;
 		this.value = value;
 		this.ontologyID = ontologyID;
@@ -49,10 +51,12 @@ public final class MDataBean extends AbstractMBean implements Comparable<MDataBe
     }
 
     public String getValue() {
+        if (value == null) throw new InternalBackEndException("Null value for ontology '%s'", key);
         return value;
     }
 
     public void setValue(final String value) {
+        if (value == null) throw new InternalBackEndException("Null value for ontology '%s'", key);
         this.value = value;
     }
 
