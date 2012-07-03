@@ -230,13 +230,4 @@ public interface IStorageManager {
     public Map<String, Map<String, String>> multiSelectList(final String tableName, final List<String> keys,
     		final String start, final String finish) 
     			throws IOBackEndException, InternalBackEndException, UnsupportedEncodingException;
-    
-    /** Decode a byte array into a string, using the default encoding */
-    public String decode(byte[] value);
-    
-    /** Decode a byte array into a string, using the default encoding */
-    public byte[] encode(String value);
-    
-    public byte[] encode(int value);
-
 }

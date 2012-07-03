@@ -31,6 +31,7 @@ import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.controller.core.manager.storage.v2.StorageManager;
 import com.mymed.model.data.application.MDataBean;
 import com.mymed.model.data.user.MUserBean;
+import static com.mymed.utils.MiscUtils.*;
 
 /**
  * The pub/sub mechanism manager.

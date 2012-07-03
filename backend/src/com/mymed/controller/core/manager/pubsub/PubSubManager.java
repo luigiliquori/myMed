@@ -44,6 +44,8 @@ import com.mymed.utils.mail.Mail;
 import com.mymed.utils.mail.MailMessage;
 import com.mymed.utils.mail.SubscribeMailSession;
 
+import static com.mymed.utils.MiscUtils.*;
+
 /**
  * The pub/sub mechanism manager.
  * 

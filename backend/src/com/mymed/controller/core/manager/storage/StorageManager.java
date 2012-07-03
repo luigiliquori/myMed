@@ -17,7 +17,6 @@ package com.mymed.controller.core.manager.storage;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -34,7 +33,7 @@ import org.apache.cassandra.thrift.Mutation;
 import org.apache.cassandra.thrift.SlicePredicate;
 import org.apache.cassandra.thrift.SliceRange;
 import org.apache.cassandra.thrift.SuperColumn;
-
+import static com.mymed.utils.MiscUtils.*;
 import ch.qos.logback.classic.Logger;
 
 import com.mymed.controller.core.exception.IOBackEndException;
@@ -68,7 +67,7 @@ public class StorageManager implements IStorageManager {
     private static final PropertiesManager PROPERTIES = PropertiesManager.getInstance();
     protected static final IProperties GENERAL = PROPERTIES.getManager(PropType.GENERAL);
 
-    protected static final String _ENCODING = GENERAL.get("general.string.encoding");
+    public static final String ENCODING = GENERAL.get("general.string.encoding");
     protected static final String CONFIG_FILE = GENERAL.get("general.config.file");
 
     protected CassandraWrapper wrapper;
@@ -696,29 +695,5 @@ public class StorageManager implements IStorageManager {
         } 
         return result;
     }
-    
-    // ---------------------------------------------------------------------------
-    // Encode / Decode
-    // ---------------------------------------------------------------------------
-    
-    /** Decode a byte array into a string, using the default encoding */
-    public String decode(byte[] value) {
-        return Charset.forName(_ENCODING).decode(ByteBuffer.wrap(value)).toString();
-    }
-    
-    /** Decode a byte array into a string, using the default encoding */
-    public byte[] encode(String value) {
-        if (value == null) return null;
-        try {
-            return value.getBytes(_ENCODING);
-        } catch (UnsupportedEncodingException e) {
-            throw new InternalBackEndException(e, "Error while encoding");
-        }
-    }
-
-    public byte[] encode(int value) {
-        return this.encode(String.valueOf(value));
-    }
-
 
 }
