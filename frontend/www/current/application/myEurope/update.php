@@ -148,7 +148,8 @@ if (isset($_POST['email'])) { //profile update
 							<input type="radio" name="type" id="radio-view-d" value="Etat" <?= $_SESSION['userType']=="Etat"?"checked='checked'":"" ?> /><label for="radio-view-d">Etat</label>
 							<input type="radio" name="type" id="radio-view-e" value="Région" <?= $_SESSION['userType']=="Région"?"checked='checked'":"" ?> /> <label for="radio-view-e">Région</label>
 						</fieldset>
-						<a href="" type="button" data-icon="check" onclick="$('#updateExtForm').submit();" data-mini="true" data-inline="true" >Ok</a>
+						<a href="" type="button" data-icon="check" onclick="$('#updateExtForm').submit();" data-mini="true"
+						style="position: absolute;top: -4px;right: 16%;" >Modifer</a>
 					</div>
 				</form>
 				<?php 
@@ -201,7 +202,7 @@ if (isset($_POST['email'])) { //profile update
 						</fieldset>
 					</div>
 					
-					<a href="" type="button" data-icon="gear" onclick="$('#updateForm').submit();" style="width: 90px; margin-right: auto; margin-left: auto;">Ok</a>
+					<a href="" type="button" data-icon="gear" onclick="$('#updateForm').submit();" style="width: 121px; margin-right: auto; margin-left: auto;">Modifier</a>
 				</form>
 				<?php 
 				}
