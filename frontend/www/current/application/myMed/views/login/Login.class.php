@@ -38,7 +38,7 @@ class Login extends AbstractView {
 		<!-- HEADER -->
 		<div data-role="header" data-theme="b">
 			<div data-role="controlgroup" data-type="horizontal" style="text-align: center;">
-				<a href="#inscription" data-role="button" data-inline="true" >inscription</a>
+				<a href="#inscription" data-role="button" data-inline="true" style="top:2px;">inscription</a>
 			</div>
 		</div>		
 	<?php }
@@ -78,8 +78,8 @@ class Login extends AbstractView {
 			<br />
 			<form action="#" method="post" name="signinForm" id="signinForm">
 				<input type="hidden" name="signin" value="1" />
-			    <input type="text" name="login" id="login" value="email"  data-theme="c"/><br />
-			    <input type="password" name="password" id="password" value="Mot de passe"  data-theme="c"/><br />
+			    <input type="text" name="login" id="login" placeholder="email"  data-theme="c"/><br />
+			    <input type="password" name="password" id="password" placeholder="Mot de passe"  data-theme="c"/><br />
 				<a href="http://www-sop.inria.fr/lognet/MYMED/" target="blank">A propos</a><br />
  			    <a href="#" onclick="document.signinForm.submit()" data-role="button" data-inline="true" data-theme="b" rel="external">Connexion</a>
 			</form>

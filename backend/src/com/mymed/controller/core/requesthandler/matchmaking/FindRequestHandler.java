@@ -15,6 +15,8 @@
  */
 package com.mymed.controller.core.requesthandler.matchmaking;
 
+import static com.mymed.utils.PubSub.makePrefix;
+
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.List;
@@ -32,6 +34,7 @@ import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.pubsub.PubSubManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.application.MDataBean;
+import com.mymed.utils.PubSub;
 
 /**
  * Servlet implementation class PubSubRequestHandler
@@ -98,7 +101,7 @@ public class FindRequestHandler extends AbstractMatchMaking {
 				}
 
 				if (user != null) { // GET DETAILS
-					final List<Map<String, String>> details = pubsubManager.read(getPrefix(application, namespace), predicate, user);
+					final List<Map<String, String>> details = pubsubManager.read(makePrefix(application, namespace), predicate, user);
 					if (details.isEmpty()) {
 						throw new IOBackEndException("no results found!", 404);
 					}
@@ -113,7 +116,7 @@ public class FindRequestHandler extends AbstractMatchMaking {
 
 					String start = parameters.get("start") != null ? parameters.get("start") : "";
 					int count = parameters.get("count") != null ? Integer.parseInt(parameters.get("count")) : 100;
-					final List<Map<String, String>> resList = pubsubManager.read(getPrefix(application, namespace), predicate, start, count, false);
+					final List<Map<String, String>> resList = pubsubManager.read(makePrefix(application, namespace), predicate, start, count, false);
 					if (resList.isEmpty()) {
 						throw new IOBackEndException("No reslult found for Application: " + application
 								+ " Predicate: " + predicate, 404);

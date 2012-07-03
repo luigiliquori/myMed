@@ -24,7 +24,7 @@ public class Mobile extends Activity {
 	
 
 	public static final String TAG = "*********MyMed";
-	public static final String MYMED_FRONTEND_URL = "http://mymed.fr/application/myRiviera";
+	public static final String MYMED_FRONTEND_URL = "http://mymed.fr";
 	public static final String MYMED_BACKEND_URL = "http://mymed.fr:8080/backend";
 
 	public Mobile() {

@@ -10,7 +10,7 @@ class MainController extends AuthenticatedController {
 	public function handleRequest() {
 		
 		parent::handleRequest();
-		
+			
 		if (isset($_REQUEST['method']) && $_REQUEST['method'] == "Publish") {
 			
 			// -- Publish

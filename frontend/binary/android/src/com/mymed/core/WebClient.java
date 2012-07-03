@@ -102,7 +102,7 @@ public class WebClient extends WebViewClient {
 	public void onPageFinished(WebView view, String url) {
 		ProgressBar bar = (ProgressBar) activity.findViewById(R.id.progressBar1);
 		bar.setVisibility(View.GONE);
-		if (url.matches(".*/application/myRiviera/")){
+		if (url.matches(".*/application/"+activity.getString(R.string.app_name)+"/") || url.matches(".*mymed.fr/")){
 			Log.v(Mobile.TAG, "main page load");
 			((TextView) activity.findViewById(R.id.textView1)).setVisibility(View.GONE);	
 		}

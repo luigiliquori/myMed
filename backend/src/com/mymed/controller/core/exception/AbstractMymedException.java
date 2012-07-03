@@ -21,34 +21,39 @@ package com.mymed.controller.core.exception;
  * 
  * @author lvanni
  */
-public abstract class AbstractMymedException extends Exception {
+public abstract class AbstractMymedException extends RuntimeException {
 
-  /* --------------------------------------------------------- */
-  /* Attributes */
-  /* --------------------------------------------------------- */
-  private static final long serialVersionUID = 1L;
-  /** the status returned by the http server */
-  private final int status;
-  private final String message;
+    /* --------------------------------------------------------- */
+    /* Attributes */
+    /* --------------------------------------------------------- */
+    private static final long serialVersionUID = 1L;
+    /** the status returned by the http server */
+    private int status = 500;
+    private final String message;
 
-  /* --------------------------------------------------------- */
-  /* Constructors */
-  /* --------------------------------------------------------- */
-  public AbstractMymedException(final int status, final String message) {
-    super();
-    this.status = status;
-    this.message = message;
-  }
+    /* --------------------------------------------------------- */
+    /* Constructors */
+    /* --------------------------------------------------------- */
+    public AbstractMymedException(final int status, final String message) {
+        super(message);
+        this.status = status;
+        this.message = message;
+    }
 
-  /* --------------------------------------------------------- */
-  /* Public methods */
-  /* --------------------------------------------------------- */
-  public int getStatus() {
-    return status;
-  }
+    public AbstractMymedException(Throwable cause, String message) {
+        super(message, cause);
+        this.message = message;
+    }
 
-  @Override
-  public String getMessage() {
-    return message;
-  }
+    /* --------------------------------------------------------- */
+    /* Public methods */
+    /* --------------------------------------------------------- */
+    public int getStatus() {
+        return status;
+    }
+
+    @Override
+    public String getMessage() {
+        return message;
+    }
 }

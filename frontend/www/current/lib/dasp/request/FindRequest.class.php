@@ -18,8 +18,6 @@ require_once dirname(__FILE__).'/Request.class.php';
 require_once dirname(dirname(__FILE__)) . '/beans/DataBean.php';
 require_once dirname(__FILE__).'/IRequestHandler.php';
 
-require_once('PhpConsole.php');
-PhpConsole::start();
 
 /**
  *
@@ -30,7 +28,7 @@ PhpConsole::start();
  *
  */
 class FindRequest extends Request {
-	
+
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
@@ -45,7 +43,7 @@ class FindRequest extends Request {
 		parent::__construct("FindRequestHandler", READ);
 		$this->handler	= $handler;
 		$this->predicate = $predicate;
-		$this->user = $user;	
+		$this->user = $user;
 	}
 
 	/* --------------------------------------------------------- */
@@ -56,41 +54,56 @@ class FindRequest extends Request {
 		// Construct the requests
 		parent::addArgument("application", APPLICATION_NAME);
 		parent::addArgument("predicate", $this->predicate);
-		
+
 		// User => Then get details
 		if (!empty($this->user)) {
 			parent::addArgument("user", $this->user);
 		}
-		
+
 		// Classical matching
 		$responsejSon = parent::send();
 		$responseObject = json_decode($responsejSon);
-		
-		if ($responseObject->status != 200) { // Error
-			
+
+		if ($responseObject->status != 200 && $responseObject->status != 404) { // Error
+				
 			if (!is_null($this->handler)) {
 				$this->handler->setError($responseObject->description);
 			} else {
 				throw new Exception($responseObject->description);
 			}
-			
+				
 		} else { // Success
-			
+				
 			// Result (either list of results or details)
-			if (empty($this->user)) {
-				$result = $responseObject->dataObject->results;
-			} else {
-				$result = $responseObject->dataObject->details;
-			}
+			if (empty($this->user)) { // Get objects matching predicates 
+				
+				if ($responseObject->status == 404) {
+					// Empty list for results is ok
+					$result = array();
+				} else {
+					$result = $responseObject->dataObject->results;
+				}
+
+			} else { // Get details for one object
+				
+				// There shouldn't be empty results
+				if ($responseObject->status == 404) {
+					throw new Exception("No publication found for predicate:$this->predicate User:$this->user");
+				} else {
+					$result = $responseObject->dataObject->details;
+				}
+				
+			} // End of "get list of objects"  
+		
+		} // End of "Success"
 			
-			if (!is_null($this->handler)) { 
-				// Set result in handler 			
-				// XXX: Dirty !!
-				$this->handler->setSuccess($result);
-			} 
-			
-			return $result;
+		if (!is_null($this->handler)) {
+			// Set result in handler
+			// XXX: Dirty !!
+			$this->handler->setSuccess($result);
 		}
+			
+		return $result;
 	}
 }
 ?>

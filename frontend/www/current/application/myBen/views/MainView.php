@@ -5,6 +5,10 @@
 	<? include("header-bar.php") ?>
 	
 	<div data-role="content">
+		<p style="font-size:large">
+			Ceci est votre première connection.<br/>
+			Pour vous enregistrer, merci de choisir votre profil.
+		</p>
 		<a href="#benevole" rel="external" data-role="button" data-theme="b" class="mm-big-button">Bénévole</a>
 		<a href="#association-register" rel="external" data-role="button" data-theme="e" class="mm-big-button">Association</a>	
 	</div>

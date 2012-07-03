@@ -46,7 +46,7 @@ public class PubSub {
 	 * @return List of StringBuffers
 	 */
 	
-	public static List<List<Index>> getComposites(final List<MDataBean> predicateList, final int level) {
+	public static List<List<Index>> getIndex(final List<MDataBean> predicateList, final int level) {
 
 		List<List<Index>> result = new ArrayList<List<Index>>();
 		int n = predicateList.size();
@@ -61,12 +61,13 @@ public class PubSub {
 			while (mask > 0) {
 				if ((mask & 1) == 1) {
 					MDataBean d = predicateList.get(j);
+									
 					//int ontID = parseInt(d.getOntologyID());
 					
-					if ( d.getOntologyID() == DATE ){
+					if ( d.getOntologyID() == DATE ){	
 						indexes.add( new Index(d.getKey()+d.getValue().substring(0, Math.min(10, d.getValue().length())), d.getValue()));
 					} else if ( d.getOntologyID() == FLOAT ){
-						indexes.add(new Index(d.getKey()+d.getValue().substring(0, d.getValue().indexOf(".")), d.getValue()));
+						indexes.add(new Index(d.getKey()+new Float(d.getValue()).intValue(), d.getValue()));
 					} else{
 						indexes.add(new Index(d.getKey()+d.getValue(), ""));
 					}
@@ -202,10 +203,11 @@ public class PubSub {
     *    if there is a floating part the value is prefixed in column to allow it's auto sorting
     * [2.33 - 5.6] -> [2, 3, 4, 5]
     */
-    public static List<String> getEnumRange(String key, String v1, String v2){
+    public static List<String> getFloatRange(String key, String v1, String v2){
     	List<String> res = new ArrayList<String>();
-		int a = parseInt(v1.split("\\.")[0]);
-		int b = parseInt(v2.split("\\.")[0]);
+    	
+		int a = new Float(v1).intValue();
+		int b = new Float(v2).intValue();
 		for (int i = a; i <= b; i++) {
 			res.add(key + String.valueOf(i));
 		}
@@ -238,6 +240,37 @@ public class PubSub {
 		long v = u + n;
 		return v + (((v ^ n) / u) >> 2);
 	}
+    
+    /** Get application from a prefix "applicationID<separator>namespace"  */
+    public static String extractApplication(String prefix, String separator) {
+        return prefix.split(separator)[0];
+    }
+    
+    /** Get application from a prefix "applicationID:namespace"  */
+    public static String extractApplication(String prefix) {
+        return extractApplication(prefix, ":");
+    }
+    
+    /** Get namespace (or null if none found) from a prefix "applicationID<separator>namespace"  */
+    public static String extractNamespace(String prefix, String separator) {
+        String[] parts = prefix.split(separator);
+        return (parts.length == 2) ? parts[1] : null;
+    }
+    
+    /** Get namespace (or null if none found) from a prefix "applicationID:namespace"  */
+    public static String extractNamespace(String prefix) {
+        return extractNamespace(prefix, ":");
+    }
+    
+    /** Make a prefix with an aplpication and optionnal namespace "application<separator>namespace "*/
+    public static String makePrefix(String application, String namespace, String separator) {
+        return (namespace == null) ? application : (application + separator + namespace);
+    }
+    
+    /** Make a prefix with an aplpication and optionnal namespace "application<separator>namespace "*/
+    public static String makePrefix(String application, String namespace) {
+        return makePrefix(application, namespace, ":");
+    }
 	
 
 }
