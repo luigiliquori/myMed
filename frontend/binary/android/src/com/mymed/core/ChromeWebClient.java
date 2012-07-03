@@ -3,7 +3,6 @@ package com.mymed.core;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.util.Log;
-import android.view.View;
 import android.webkit.GeolocationPermissions;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
