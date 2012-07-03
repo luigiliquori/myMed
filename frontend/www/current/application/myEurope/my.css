@@ -1,28 +1,30 @@
 html,body,.ui-page {
 	height: 100%;
+	color: #555;
+	background-image: url("img/background.jpg");
+	background-size: 100% 100%;
 }
 
 .wrapper {
-	margin: 0 auto -120px;
+	margin: 0 auto -113px;
 	min-height: 100%;
 	height: auto !important;
 	height: 100%;
 }
 
 .footer {
-	height: 118px;
-}
-
-.push {
-	height: 118px;
-}
-
-.text-align-center {
+	height: 85px;
 	text-align: center;
 }
 
-.text-align-right {
-	text-align: right;
+.footer img {
+	max-height: 35px;
+	max-width: 80px;
+	vertical-align: middle;
+}
+
+.push {
+	height: 85px;
 }
 
 div.ui-slider {
@@ -63,109 +65,77 @@ input.ui-input-text,textarea.ui-input-text {
 	width: 30%;
 }
 
-/* Red button theme for JQuery Mobile
-* - Use data-theme="r" for red versions of the default JQuery Mobile Buttons.
-******************************************************************************************/
-.ui-btn-up-r {
-	border: 1px solid #721414;
-	background: #AB2525;
+
+.ui-body-d,
+.ui-overlay-d {
+	border: 1px solid 		#d7e9ef ;
+	color: 					#222222 ;
+	text-shadow: 0  1px  0  #fff ;
+	background: 			#fff ;
+	background-image: -webkit-gradient(linear, left top, left bottom, from( #fafaff ), to( #f5f5ff )); /* Saf4+, Chrome */
+	background-image: -webkit-linear-gradient( #fafaff , #f5f5ff ); /* Chrome 10+, Saf5.1+ */
+	background-image:    -moz-linear-gradient( #fafaff , #f5f5ff ); /* FF3.6 */
+	background-image:     -ms-linear-gradient( #fafaff , #f5f5ff ); /* IE10 */
+	background-image:      -o-linear-gradient( #fafaff , #f5f5ff ); /* Opera 11.10+ */
+	background-image:         linear-gradient( #fafaff , #f5f5ff );
+}
+
+/* */
+
+
+.ui-btn-up-i {
+	border: 1px solid 		#044062;
+	background: 			#396b9e;
 	font-weight: bold;
-	color: #fff;
-	text-shadow: 0 -1px 1px #000;
-	background-image: -moz-linear-gradient(top, #C54E4E, #AB2525);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #C54E4E),
-		color-stop(1, #AB2525) );
-	-ms-filter:
-		"progid:DXImageTransform.Microsoft.gradient(startColorStr='#C54E4E', EndColorStr='#AB2525')";
+	color: 					#fff;
+	text-shadow: 0  1px  1px  #194b7e ;
+	background-image: -webkit-gradient(linear, left top, left bottom, from( #6490C5 ), to( #5070B8 )); /* Saf4+, Chrome */
+	background-image: -webkit-linear-gradient( #6490C5, #5070B8  ); /* Chrome 10+, Saf5.1+ */
+	background-image:    -moz-linear-gradient( #6490C5, #5070B8 ); /* FF3.6 */
+	background-image:     -ms-linear-gradient( #6490C5, #5070B8); /* IE10 */
+	background-image:      -o-linear-gradient( #6490C5, #5070B8 ); /* Opera 11.10+ */
+	background-image:         linear-gradient( #6490C5, #5070B8 );
 }
 
-.ui-btn-up-r a.ui-link-inherit {
-	color: #fff;
+.ui-btn-up-i a.ui-link-inherit {
+	color: 					#fff /*{b-bup-color}*/;
 }
-
-.ui-btn-hover-r {
-	border: 1px solid #6E0000;
-	background: #d64B4B;
+.ui-btn-hover-i {
+	border: 1px solid 		#044062 /*{b-bhover-border}*/;
+	background: 			#396b9e /*{b-bhover-background-color}*/;
 	font-weight: bold;
-	color: #fff;
-	text-shadow: 0 -1px 1px #000;
-	background-image: -moz-linear-gradient(top, #e47272, #d64B4B);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #e47272),
-		color-stop(1, #d64B4B) );
-	-ms-filter:
-		"progid:DXImageTransform.Microsoft.gradient(startColorStr='#e47272', EndColorStr='#d64B4B')";
+	color: 					#fff /*{b-bhover-color}*/;
+	text-shadow: 0  1px  1px  #194b7e ;
+	background-image: -webkit-gradient(linear, left top, left bottom, from( #74a0d5 ), to( #6080c8 )); /* Saf4+, Chrome */
+	background-image: -webkit-linear-gradient( #74a0d5, #6080c8 ); /* Chrome 10+, Saf5.1+ */
+	background-image:    -moz-linear-gradient( #74a0d5, #6080c8  ); /* FF3.6 */
+	background-image:     -ms-linear-gradient( #74a0d5, #6080c8 ); /* IE10 */
+	background-image:      -o-linear-gradient( #74a0d5, #6080c8 ); /* Opera 11.10+ */
+	background-image:         linear-gradient( #74a0d5, #6080c8  );
 }
-
-.ui-btn-hover-r a.ui-link-inherit {
-	color: #fff;
+.ui-btn-hover-i a.ui-link-inherit {
+	color: 					#fff /*{b-bhover-color}*/;
 }
-
-.ui-btn-down-r {
-	border: 1px solid #772222;
-	background: #e54E4E;
+.ui-btn-down-i {
+	border: 1px solid 		#044062;
+	background: 			#396b9e;
 	font-weight: bold;
-	color: #fff;
-	text-shadow: 0 -1px 1px #000;
-	background-image: -moz-linear-gradient(top, #bE3939, #C54E4E);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #bE3939),
-		color-stop(1, #e54E4E) );
-	-ms-filter:
-		"progid:DXImageTransform.Microsoft.gradient(startColorStr='#bE3939', EndColorStr='#e54E4E')";
+	color: 					#fff;
+	text-shadow: 0  1px  1px  #194b7e ;
+	background-image: -webkit-gradient(linear, left top, left bottom, from( #5480b5 ), to( #4060a8 )); /* Saf4+, Chrome */
+	background-image: -webkit-linear-gradient( #5480b5, #4060a8  ); /* Chrome 10+, Saf5.1+ */
+	background-image:    -moz-linear-gradient( #5480b5, #4060a8 ); /* FF3.6 */
+	background-image:     -ms-linear-gradient( #5480b5, #4060a8); /* IE10 */
+	background-image:      -o-linear-gradient( #5480b5, #4060a8 ); /* Opera 11.10+ */
+	background-image:         linear-gradient( #5480b5, #4060a8 );
 }
-
-.ui-btn-down-r a.ui-link-inherit {
-	color: #fff;
+.ui-btn-down-i a.ui-link-inherit {
+	color: 					#fff /*{b-bdown-color}*/;
 }
-
-.ui-btn-up-r,.ui-btn-hover-r,.ui-btn-down-r {
-	font-family: Helvetica, Arial, sans-serif;
+.ui-btn-up-i,
+.ui-btn-hover-i,
+.ui-btn-down-i {
+	font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
 	text-decoration: none;
 }
 
-/* Green button theme for JQuery Mobile
-* - Use data-theme="g" for red versions of the default JQuery Mobile Buttons.
-******************************************************************************************/
-.ui-btn-up-g,.ui-btn-hover-g,.ui-btn-down-g {
-	color: white;
-	font-weight: bold;
-	text-decoration: none;
-}
-
-.ui-btn-up-g {
-	border: 1px solid #397114;
-	background: #5aab25;
-	text-shadow: 0 -1px 1px #397114;
-	background-image: -moz-linear-gradient(top, #7ec44f, #5aab25);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #87c45e),
-		color-stop(1, #619e39) );
-	-ms-filter:
-		"progid:DXImageTransform.Microsoft.gradient(startColorStr='#7ec44f', EndColorStr='#5aab25')";
-}
-
-.ui-btn-hover-g {
-	border: 1px solid #2c6e00;
-	background: #75b54a;
-	text-shadow: 0 -1px 1px #2a6901;
-	background-image: -moz-linear-gradient(top, #99d472, #75b54a);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #99d472),
-		color-stop(1, #75b54a) );
-	-ms-filter:
-		"progid:DXImageTransform.Microsoft.gradient(startColorStr='#99d472', EndColorStr='#75b54a')";
-}
-
-.ui-btn-down-g {
-	border: 1px solid #457823;
-	background: #7ec44f;
-	text-shadow: 0 -1px 1px #457823;
-	background-image: -moz-linear-gradient(top, #619e39, #7ec44f);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #619e39),
-		color-stop(1, #7ec44f) );
-	-ms-filter:
-		"progid:DXImageTransform.Microsoft.gradient(startColorStr='#619e39', EndColorStr='#7ec44f')";
-}
-
-.ui-btn-up-g,.ui-btn-hover-g,.ui-btn-down-g {
-	color: white;
-	font-weight: bold;
-	text-decoration: none;
-}

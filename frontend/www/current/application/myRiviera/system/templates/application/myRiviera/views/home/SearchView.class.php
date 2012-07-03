@@ -223,7 +223,7 @@ class SearchView extends MyApplication {
 						</select>
 					</fieldset>
 					
-					<h3>Type de Trajet Cityway</h3>
+					<h3>Type de Trajet</h3>
 					<div  id="cityway-search">
 						<fieldset data-role="controlgroup" >
 							<input type="radio" name="radio-choice" id="radio-choice1" value="fastest" checked="checked" />
@@ -245,11 +245,16 @@ class SearchView extends MyApplication {
 				</div>
 		
 				<!-- SUBMIT - ToDO validate before submit-->
-				<center>
+				
 					<a href="#Map" id="trouver" data-role="button" rel="external"
-						data-icon="search" data-theme="b" data-inline="true"
-						onclick="setTimeout(validateIt, 500);">Rechercher</a>
-				</center>
+						data-icon="search" data-theme="b"
+						onclick="setTimeout(validateIt, 500);" style="margin:auto;width:150px;">Rechercher</a>
+				
+				
+	
+				<a href="http://www.ceparou06.fr/"><img alt="ceparou 06" src="system/img/logos/ceparou06.png" style="max-height:35px;max-width:100px;float: right;margin-top: -40px;" /></a>
+				
+				
 		
 			</form>
 		</div>

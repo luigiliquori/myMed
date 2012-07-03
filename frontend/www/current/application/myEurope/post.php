@@ -1,148 +1,79 @@
 <?php
 
 /*
- *
-* usage:
-*  post
-*
-* what it does:
-*  display the form for posting new content: IMPORTANT this view should be reserved to special users
-*
-*
-*/
+ * Post controller
+ */
 
-//ob_start("ob_gzhandler");
+error_reporting(E_ALL);
+ini_set('display_errors','On');
+
 require_once 'Template.php';
-$template = new Template();
-$template->init();
+
+Template::init();
+
 
 if (count($_POST)){ // to publish something
 
-	$tags = preg_split('/[ +]/', $_POST['q'], NULL, PREG_SPLIT_NO_EMPTY);
+	//$tags = preg_split('/[ +]/', $_POST['q'], NULL, PREG_SPLIT_NO_EMPTY);
 	//array_push($tags, '~'); //let's add this common tag for all texts, to easily retrieve all texts if necessary
-	$p = array_unique(array_map('strtolower', $tags));
+	//$p = array_unique(array_map('strtolower', $tags));
 
 
 	//sort($p); //important
 
 	// 		$all = array_search('~', $p);
 	// 		unset($p[$all]); // remove it
+	
 
 
 	$data = array();
 
-	foreach( $p as $v ){ // tags ontologies array
-		array_push($data, array("key"=>$v, "value"=>"", "ontologyID"=>KEYWORD));
+// 	foreach( $p as $v ){ // tags ontologies array
+// 		array_push($data, array("key"=>$v, "value"=>"", "ontologyID"=>KEYWORD));
+// 	}
+	
+	foreach( $_POST as $i=>$v ){
+		if ($v == "on"){
+			array_push($data, array("key"=>$i, "value"=>"", "ontologyID"=>KEYWORD));
+		}
 	}
 
-	array_push($data, array("key"=>"cout", "value"=>isset($_POST['cout'])?$_POST['cout']:5, "ontologyID"=>FLOAT));
+	array_push($data, array("key"=>"rate", "value"=>0, "ontologyID"=>FLOAT));
+	array_push($data, array("key"=>"nbOfRates", "value"=>1, "ontologyID"=>TEXT));
 	
 	if (isset($_POST['date']))
 		array_push($data, array("key"=>"date", "value"=>$_POST['date'], "ontologyID"=>DATE));
-	if (isset($_POST['type']))
-		array_push($data, array("key"=>"type", "value"=>$_POST['type'], "ontologyID"=>KEYWORD));
-	if (isset($_POST['offre']))
-		array_push($data, array("key"=>"offre", "value"=>$_POST['offre'], "ontologyID"=>KEYWORD));
+
 	if (isset($_POST['text']))
 		array_push($data, array("key"=>"text", "value"=>$_POST['text'], "ontologyID"=>TEXT));
 
 	$request = new Request("v2/PublishRequestHandler", CREATE);
-	$request->addArgument("application", $_POST['application']);
-		
+	$request->addArgument("application", $_POST['application'].$_POST['type']); //application + namespace {offer , part}
+
 	$request->addArgument("data", json_encode($data));
 	$request->addArgument("userID", $_SESSION['user']->id);
-	$request->addArgument("id", $_POST['id']); //to overwrite predicate that would be date2012...rate.....etc
-	//one id can be submitted per user, resubmission overwrite
+	if (!isset($_POST['id'])){
+		$_POST['id'] = "Projet".date("Y-m-d");
+	}
+	$request->addArgument("id", $_POST['id']); 
 	$request->addArgument("level", 3);
-	
-	
-	if ($_SESSION['userPerm']>0){
-		
+
+	if ($_POST['type']=="part" && $_SESSION['userPerm']>0 || $_POST['type']=="offer" && $_SESSION['userPerm']>1){
+
 		$responsejSon = $request->send();
 		$responseObject = json_decode($responsejSon);
 
 		if ($responseObject->status==200){
-			header("Location: ./post?ok=1");
+			if ($_POST['type']=="part"){
+				header("Location: ./search?".http_build_query(array_filter($_POST, "Template::isCheckbox")));
+			} else {
+				header("Location: ./");
+			}
 		}
 	}
-		
+
 }
 
+
+
 ?>
-
-<!DOCTYPE html>
-<html>
-<head>
-<?= $template->head(); ?>
-</head>
-<body>
-	<div data-role="page" id="Post">
-		<div class="wrapper">
-			<div data-role="header" data-theme="b">
-				<a href="./" data-icon="home" data-iconpos="notext"> Accueil </a>
-				<h3>myEurope - insertion</h3>
-			</div>
-			<div data-role="content">
-				<?= isset($_GET['ok'])?"<div style='color:lightGreen;text-align:center;'>Contenu publié</div>":"" ?>
-				<form action="#" method="post" id="publishForm">
-					<input name="application" value="myEurope" type="hidden" />
-					<div data-role="fieldcontain">
-						<fieldset data-role="controlgroup">
-							<label for="textinputp0"> Dépôt d'une offre : </label> <select name="offre" id="textinputp0" data-role="slider" data-mini="true">
-								<option value="part">de partenariat</option>
-								<option value="inst">de projet institutionnel</option>
-							</select>
-						</fieldset>
-					</div>
-
-
-					<div data-role="fieldcontain">
-						<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-							<legend>Type d'offre:</legend>
-							<input type="radio" name="type" id="checkbox-5" /> <label for="checkbox-5">Pacalabs</label> <input type="radio" name="type" id="checkbox-6" />
-							<label for="checkbox-6">Interreg</label> <input type="radio" name="type" id="checkbox-7" /> <label for="checkbox-7">Edu</label> <input
-								type="radio" name="type" id="checkbox-8" /> <label for="checkbox-8">Autre</label>
-						</fieldset>
-					</div>
-
-					<div data-role="fieldcontain">
-						<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-							<legend>Domaines métier concernés:</legend>
-								<input type="radio" name="metier" id="checkbox-9" class="custom" /> <label for="checkbox-9">Métier1</label> <input type="radio"
-									name="metier" id="checkbox-10" class="custom" /> <label for="checkbox-10">Métier2</label> <input type="radio" name="metier"
-									id="checkbox-11" class="custom" /> <label for="checkbox-11">Métier3</label>
-						</fieldset>
-					</div>
-
-					<div data-role="fieldcontain">
-						<fieldset data-role="controlgroup">
-							<label for="textinputp2"> Libellé du projet: </label> <input id="textinputp2" name="id" placeholder="" value="projet1" type="text" />
-						</fieldset>
-					</div>
-					<div data-role="fieldcontain">
-						<fieldset data-role="controlgroup">
-							<label for="textinputp5"> Date d'échéance: </label> <input id="textinputp5" name="date" placeholder="" value="2012-07-15" type="date" />
-						</fieldset>
-					</div>
-					<div data-role="fieldcontain">
-						<fieldset data-role="controlgroup">
-							<label for="textinputp6"> Mots clés: </label> <input id="textinputp6" name="q" placeholder="..."
-								value="Europe " type="text" />
-						</fieldset>
-					</div>
-					<hr>
-					<div data-role="fieldcontain">
-						<fieldset data-role="controlgroup">
-							<label for="textinputp7"> Contenu: </label>
-							<textarea style="min-height: 200px;" id="textinputp7" name="text" placeholder="" value=""></textarea>
-						</fieldset>
-					</div>
-					<input type="submit" data-theme="g" value="Insérer" />
-				</form>
-				<div class="push"></div>
-			</div>
-		</div>
-		<?= $template->credits(); ?>
-	</div>
-</body>
-</html>

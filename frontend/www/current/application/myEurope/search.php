@@ -8,38 +8,43 @@
 *  list all data entries for the predicate built with params (other than application)
 *  (_* are also ignored)
 *
-*  you can subscribe+search for a specific set of predicates (recherche avancée)
-*    (the first input is just an jquery filter for the all results)
-*
-*  ex: yourPC/application/myEurope/search?application=myTemplate&keyword=2 (publish something on mytemplate with keyword 2)
+*  you can subscribe+search for a specific set of predicates
 */
 
 //ob_start("ob_gzhandler");
 require_once 'Template.php';
-$template = new Template();
-$template->init();
-
-$application = isset($_REQUEST['application'])?$_REQUEST['application']:"myEurope";
+Template::init();
 
 $res = null;
 
-if (isset($_GET['q'])){
-	$tags = preg_split('/[ +]/', $_GET['q'], NULL, PREG_SPLIT_NO_EMPTY);
-	$p = array_unique(array_map('strtolower', $tags));
+if (count($_GET) > 0){
+	//$tags = preg_split('/[ +]/', $_GET['q'], NULL, PREG_SPLIT_NO_EMPTY);
+	//$p = array_unique(array_map('strtolower', $tags));
 	//sort($p); //important
 	//$predicate = join("", array_slice($p, 0, 3)); // we use a broadcast level of 3 for myEurope see in post.php
 
 	// @todo verify date format
+	
+	$application = "myEurope".$_GET['type'];
 
 	$predicateList=array();
-	foreach( $p as $v ){ //tags
-		$predicateList[$v] = array("valueStart"=>"", "valueEnd"=>"", "ontologyID"=>KEYWORD);
+	$p=array();
+// 	foreach( $p as $v ){ //tags
+// 		$predicateList[$v] = array("valueStart"=>"", "valueEnd"=>"", "ontologyID"=>KEYWORD);
+// 	}
+
+	foreach( $_GET as $i=>$v ){
+		if ($v == "on"){
+			$predicateList[$i] = array("valueStart"=>"", "valueEnd"=>"", "ontologyID"=>KEYWORD);
+			array_push($p, $i);
+		}
 	}
+	
 	if ($_GET['dateMin'] != "" && $_GET['dateMax'] != ""){
 		$predicateList["date"] = array("valueStart"=>$_GET['dateMin'], "valueEnd"=>$_GET['dateMax'], "ontologyID"=>DATE);
 	}
 	if ($_GET['rateMin'] != "" && $_GET['rateMax'] != ""){
-		$predicateList["cout"] = array("valueStart"=>$_GET['rateMin'], "valueEnd"=>$_GET['rateMax'], "ontologyID"=>FLOAT);
+		$predicateList["rate"] = array("valueStart"=>1-$_GET['rateMax'], "valueEnd"=>1-$_GET['rateMin'], "ontologyID"=>FLOAT);
 	}
 
 	$request = new Request("v2/FindRequestHandler", READ);
@@ -60,52 +65,59 @@ if (isset($_GET['q'])){
 <!DOCTYPE html>
 <html>
 <head>
-<?= $template->head(); ?>
+<?= Template::head(); ?>
 </head>
 
 <body>
 	<div data-role="page" id="Search">
 		<div class="wrapper">
-			<div data-role="header" data-theme="b" id="headerSearch">
-				<select data-theme="e" class="ui-btn-right"
-					onchange="$.get('../../lib/dasp/ajax/Position', { code: $(this).val(), application: '<?= $application ?>' ,predicate: '<?= urlencode($predicate) ?>' } );"
+			<div data-role="header" data-theme="c" style="max-height: 38px;" id="headerSearch">
+				<select class="ui-btn-right" data-theme="e"
+					onchange="$.get('../../lib/dasp/ajax/Subscribe', { code: $(this).val(), application: '<?= $application ?>' ,predicate: '<?= urlencode(join("", $p)) ?>' } );"
 					style="position: absolute; left: 5px;" name="slider" id="flip-a" data-role="slider" data-mini="true">
 					<option value="3">Non abonné</option>
 					<option value="0">Abonné</option>
 				</select>
 				<h2>
-					<a href="./" style="color: white; text-decoration: none;">myEurope</a>
+					<a href="./" style="text-decoration: none;">myEurope</a>
 				</h2>
-				<a id="opt" href=<?= $_SESSION['user']?"option":"authenticate" ?> class="ui-btn-right" data-transition="slide"><?= $_SESSION['user']?$_SESSION['user']->name:"Connexion" ?>
-				</a>
+				
 			</div>
 			<div data-role="content">
 				<?php 	
 				if($res->status == 200) {
 					?>
-				<ul data-role="listview" data-filter="true" data-filter-placeholder="filtrer parmi tous les résultats">
+				<ul data-role="listview" data-filter="true" data-filter-placeholder="filtrer parmi les résultats">
 					<?php
 					$res = $res->dataObject->results;
 
 					foreach( $res as $i => $value ){
+
+						$metiers = array();
+						$regions = array();
+						foreach ( (array) $value as $k=>$v){
+							if (strpos($k, "met") === 0 ){
+								array_push($metiers, $k);
+							} else if (strpos($k, "reg") === 0 ) {
+								array_push($regions, $k);
+							}
+						}
+
 						?>
-					<li><a href="" onclick="$('#detailForm<?= $i ?>').submit();" style="padding-top: 1px; padding-bottom: 1px;">
+					<li><a href="detail?id=<?=  urlencode($value->predicate) ?>&user=<?=  urlencode($value->publisherID) ?>&application=<?= urlencode($application) ?>" 
+					 style="padding-top: 1px; padding-bottom: 1px;">
 							<h3>
 								projet: <?= $value->predicate ?>
 							</h3>
 							<p>
-								réputation: <?= $value->cout ?>
+								réputation: <?= (1-$value->rate) *100 ?>
 							</p>
+							<p style="font-weight:lighter;"> métiers: <?= join(", ",$metiers) ?>...
+							 régions: <?= join(", ", $regions) ?>... </p>
 							<p class="ui-li-aside">
-								<strong><?= $value->date ?> </strong>
+								publié par: <span style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $value->publisherName ?> </span> le <strong><?= $value->date ?> </strong>
 							</p>
-							<p class="ui-li-aside" style="position: absolute; top: 60%; right: 37px;">
-								publié par: <span style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $value->publisherName ?> </span>
-							</p>
-							<form action="detail" id="detailForm<?= $i ?>">
-								<input name="application" value='<?= $application ?>' type="hidden" /> <input name="predicate" value="<?= urlencode($value->predicate) ?>"
-									type="hidden" /> <input name="user" value='<?= $value->publisherID ?>' type="hidden" />
-							</form>
+
 					</a>
 					</li>
 					<?php 
@@ -129,7 +141,7 @@ if (isset($_GET['q'])){
 				<div class="push"></div>
 			</div>
 		</div>
-		<?= $template->credits(); ?>
+		<?= Template::credits(); ?>
 	</div>
 </body>
 </html>

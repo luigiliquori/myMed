@@ -217,18 +217,12 @@ function publishDASPRequest(formID) {
 }
 
 function getPosition(){
-	var params = {
-		//'userID': $("#userID").val(),
-		//'accessToken': $("#accessToken").val(),
-		'code': 1
-	};
 	
 	$.ajax({
 		//url: "../../backend/PositionRequestHandler",
-		url: "../../lib/dasp/ajax/Position",
-		data: params,
-		dataType: "json",
+		url: "../../lib/dasp/ajax/Position.php",
 		success: function(data){
+			data = JSON.parse(data);
 			currentPos = new google.maps.LatLng(
 				data.dataObject.position.latitude,
 				data.dataObject.position.longitude
@@ -243,15 +237,14 @@ function getPosition(){
 	});
 }
 
-function updatePosition(data){	
+function updatePosition(params){	
 	$.ajax({
 		//url: "../../backend/PositionRequestHandler",
-		url: "../../lib/dasp/ajax/Position",
+		url: "../../lib/dasp/ajax/Position.php",
 		type: "POST",
-		data: data,
-		dataType: "json",
+		data: params,
 		success: function(data){
-			
+			console.log(data);
 		}
 	});
 }

@@ -46,6 +46,7 @@ class DetailsView extends MyApplication {
 	<div data-role="content">
 		<div id="itineraire">
 			<!-- <ul id="itineraireContent" data-role="listview" data-theme="c" ></ul>  -->
+			<a id="ceparou06" style="position: absolute;bottom: -40px;right: 20px;z-index: 10;" href="http://www.ceparou06.fr/"><img alt="ceparou 06" src="system/img/logos/ceparou06.png" style="max-height:35px;max-width:100px;" /></a>
 		</div>
 	</div>
 	
