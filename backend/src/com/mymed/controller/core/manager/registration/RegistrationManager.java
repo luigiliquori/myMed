@@ -132,8 +132,9 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
                 null);
 
         final StringBuilder contentBuilder = new StringBuilder(250);
+        
         // TODO add internationalization support
-        contentBuilder.append("Bienvenu sur myMed.<br /><br />Pour finaliser votre inscription allez sur <a href='");
+        contentBuilder.append("Bienvenue sur myMed.<br /><br />Pour finaliser votre inscription allez sur <a href='");
         String address = getServerProtocol() + getServerURI();
         if (application != null) {
         	address += "/application/" + application;
@@ -145,7 +146,7 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
         contentBuilder.trimToSize();
 
         final MailMessage message = new MailMessage();
-        message.setSubject("Bienvenu sur myMed");
+        message.setSubject("Bienvenue sur myMed");
         message.setRecipient(user.getEmail());
         message.setText(contentBuilder.toString());
 

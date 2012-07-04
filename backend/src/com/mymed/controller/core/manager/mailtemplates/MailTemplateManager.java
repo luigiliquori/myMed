@@ -133,6 +133,8 @@ public class MailTemplateManager extends AbstractManager {
         String key = PubSub.makePrefix(applicationID, namespace, "#");
         key += "-" + language; 
         
+        LOGGER.info("Searching for mail template in cassandra. key={}", key);
+        
         // Try to get it from cassandra
         Map<String, String> map = this.storageManager.selectAllStr(CF_MAILTEMPLATES, key);
         

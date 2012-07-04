@@ -269,6 +269,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
         data.put("application", applicationID);
         data.put("publisher", publisher);
         data.put("publication", publicationMap);
+        data.put("predicate", predicate);
 
         // Loop on recipients
         for (MUserBean recipient : recipients) {
