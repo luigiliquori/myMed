@@ -7,7 +7,7 @@ Template::init(false);
 $msg = ""; //feedback text
 
 if(isset($_GET['registration'])) { // registration account validation
-	$request = new Request("AuthenticationRequestHandler", CREATE);
+	$request = new Request("v2/AuthenticationRequestHandler", CREATE);
 	$request->addArgument("accessToken", $_GET['accessToken']);
 
 	$responsejSon = $request->send();
@@ -21,7 +21,7 @@ if(isset($_GET['registration'])) { // registration account validation
 
 if (count($_POST)) {
 
-	$request = new Request("AuthenticationRequestHandler", READ);
+	$request = new Request("v2/AuthenticationRequestHandler", READ);
 	$request->addArgument("login", trim(strtolower($_REQUEST["login"])));
 	$request->addArgument("password", hash('sha512', $_REQUEST["password"]));
 

@@ -33,7 +33,7 @@ if (count($_POST)) {
 		$mAuthenticationBean->password = hash('sha512', $_REQUEST["password"]);
 		
 		// register the new account
-		$request = new Request("AuthenticationRequestHandler", CREATE);
+		$request = new Request("v2/AuthenticationRequestHandler", CREATE);
 		$request->addArgument("authentication", json_encode($mAuthenticationBean));
 		$request->addArgument("user", json_encode($mUserBean));
 		$request->addArgument("application", $_REQUEST['application']);

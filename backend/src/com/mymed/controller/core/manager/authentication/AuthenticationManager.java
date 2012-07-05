@@ -17,6 +17,7 @@ package com.mymed.controller.core.manager.authentication;
 
 import java.util.Map;
 
+import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.AbstractManager;
@@ -80,7 +81,7 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
             }
         }
 
-        throw new IOBackEndException("The login already exist!", ERROR_CONFLICT);
+        throw new IOBackEndException("The login already exist", ERROR_CONFLICT);
     }
 
     /**
@@ -118,4 +119,17 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
         storageManager.insertSlice(CF_AUTHENTICATION,
                         com.mymed.utils.MConverter.byteArrayToString(authMap.get(FIELD_LOGIN)), authMap);
     }
+
+	@Override
+	public void create(MUserBean user, MAuthenticationBean authentication,
+			String application) throws AbstractMymedException {
+		// @see v2
+		
+	}
+
+	@Override
+	public void read(String accessToken) throws AbstractMymedException {
+		// @see v2
+		
+	}
 }

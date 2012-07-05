@@ -393,24 +393,6 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
         return resList;
     }
 
-    /**
-     * The find mechanism.
-     * @see com.mymed.controller.core.manager.pubsub.IPubSubManager#read(String, String, String)
-     */
-    public final TreeMap<String, Map<String, String>> read(
-            final String application, 
-            final List<String> predicate, 
-            final String start, 
-            final String finish)
-     throws InternalBackEndException, IOBackEndException, UnsupportedEncodingException 
-     {
-
-        final TreeMap<String, Map<String, String>> resMap = new TreeMap<String, Map<String, String>>();
-
-        resMap.putAll(storageManager.multiSelectList(SC_APPLICATION_CONTROLLER, predicate, start, finish));
-
-        return resMap;
-    }
 
 
     /**
@@ -466,12 +448,13 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
      * @see IPubSubManager#delete(String * 3 + MUserBean)
      */
     @Override
-    public final void delete(
+    public void delete(
             final String application, 
             final String predicate, 
             final String subPredicate,
             final String publisherID) throws InternalBackEndException, IOBackEndException 
     {
+
         // Remove publisher member
         storageManager.removeAll(
                 CF_SUBSCRIBEES, 
@@ -492,23 +475,12 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
         // storageManager.removeSuperColumn(SC_APPLICATION_MODEL, application, predicate + publisher.getId());
     }
 
-    public void deleteIndex(
-            final String application, 
-            final String predicate, 
-            final String subPredicate,
-            final String publisherID) throws InternalBackEndException, IOBackEndException 
-    {
-        storageManager.removeSuperColumn(
-                SC_APPLICATION_CONTROLLER, 
-                application + predicate,
-                subPredicate + publisherID);
-    }
 
     /**
      * @see IPubSubManager#delete(String * 3)
      */
     @Override
-    public final void delete(
+    public void delete(
             final String application, 
             final String user, 
             final String predicate) throws InternalBackEndException, IOBackEndException 

@@ -8,6 +8,7 @@ class ExampleObject extends GenericDataBean {
 	public $pred1;
 	public $pred2;
 	public $pred3;
+	public $date;
 	
 	/** 
 	 * Some fields, not part of predicates, but wrapped in "_data" 
@@ -33,6 +34,12 @@ class ExampleObject extends GenericDataBean {
 				array(
 						"pred1" => KEYWORD,
 						"pred2" => GPS,
+						"pred3" => DATE),
+				
+				// Predicate attributes
+				array(
+						"pred1" => "Date de création",
+						"pred2" => "Date de fin",
 						"pred3" => DATE),
 				
 				// Data attributes 

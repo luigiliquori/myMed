@@ -97,7 +97,7 @@ class Request {
 		}
 
 		if($this->method == CREATE || $this->method == UPDATE
-				 || ($this->ressource == "AuthenticationRequestHandler" && $this->method == READ)
+				 || ($this->ressource == "v2/AuthenticationRequestHandler" && $this->method == READ)
 				 || $this->ressource == "v2/FindRequestHandler" ){
 			// POST REQUEST
 			curl_setopt($curl, CURLOPT_HTTPHEADER, $httpHeader);

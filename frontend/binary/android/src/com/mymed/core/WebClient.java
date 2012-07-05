@@ -104,7 +104,9 @@ public class WebClient extends WebViewClient {
 		bar.setVisibility(View.GONE);
 		if (url.matches(".*/application/"+activity.getString(R.string.app_name)+"/") || url.matches(".*mymed.fr/")){
 			Log.v(Mobile.TAG, "main page load");
-			((TextView) activity.findViewById(R.id.textView1)).setVisibility(View.GONE);	
+			((TextView) activity.findViewById(R.id.textView1)).setVisibility(View.GONE);
+			activity.findViewById(R.id.imageView1).setVisibility(View.GONE);
+			activity.findViewById(R.id.imageView2).setVisibility(View.GONE);
 		}
 		
 //		if (activity.getProgressDialog() != null) {
