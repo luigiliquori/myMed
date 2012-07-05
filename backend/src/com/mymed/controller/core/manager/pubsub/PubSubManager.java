@@ -185,7 +185,6 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
             args.clear();
         }
         
-  
         // Send emails
         this.sendEmails( 
                 prefix,
@@ -467,23 +466,41 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
      * @see IPubSubManager#delete(String * 3 + MUserBean)
      */
     @Override
-    public final void delete(final String application, final String predicate, final String subPredicate,
-            final String publisherID) throws InternalBackEndException, IOBackEndException {
+    public final void delete(
+            final String application, 
+            final String predicate, 
+            final String subPredicate,
+            final String publisherID) throws InternalBackEndException, IOBackEndException 
+    {
         // Remove publisher member
-        storageManager.removeAll(CF_SUBSCRIBEES, application + predicate);
+        storageManager.removeAll(
+                CF_SUBSCRIBEES, 
+                application + predicate);
+        
         // Remove the 1st level of data
-        storageManager.removeSuperColumn(SC_APPLICATION_CONTROLLER, application + predicate,
+        storageManager.removeSuperColumn(
+                SC_APPLICATION_CONTROLLER, 
+                application + predicate,
                 subPredicate + publisherID);
+        
         // Remove the 2nd level of data
-        storageManager.removeAll(SC_DATA_LIST, application + subPredicate + publisherID);
+        storageManager.removeAll(
+                SC_DATA_LIST, 
+                application + subPredicate + publisherID);
+        
         // Remove app model entry
         // storageManager.removeSuperColumn(SC_APPLICATION_MODEL, application, predicate + publisher.getId());
     }
 
-    public void deleteIndex(final String application, final String predicate, final String subPredicate,
-            final String publisherID) throws InternalBackEndException, IOBackEndException {
-
-        storageManager.removeSuperColumn(SC_APPLICATION_CONTROLLER, application + predicate,
+    public void deleteIndex(
+            final String application, 
+            final String predicate, 
+            final String subPredicate,
+            final String publisherID) throws InternalBackEndException, IOBackEndException 
+    {
+        storageManager.removeSuperColumn(
+                SC_APPLICATION_CONTROLLER, 
+                application + predicate,
                 subPredicate + publisherID);
     }
 
@@ -491,8 +508,11 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
      * @see IPubSubManager#delete(String * 3)
      */
     @Override
-    public final void delete(final String application, final String user, final String predicate)
-            throws InternalBackEndException, IOBackEndException {
+    public final void delete(
+            final String application, 
+            final String user, 
+            final String predicate) throws InternalBackEndException, IOBackEndException 
+    {
         // Remove subscriber member from subsribers list
         storageManager.removeColumn(CF_SUBSCRIBERS, application + user, predicate);
         // Remove subscriber member from predicates subscribed list

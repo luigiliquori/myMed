@@ -128,9 +128,13 @@ public class SubscribeRequestHandler extends AbstractMatchMaking {
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
      *      response)
+     * Create a subscription
      */
     @Override
-    protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
+    protected void doPost(
+            final HttpServletRequest request, 
+            final HttpServletResponse response) throws ServletException {
+        
         final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
 
         try {
@@ -151,7 +155,7 @@ public class SubscribeRequestHandler extends AbstractMatchMaking {
                     throw new InternalBackEndException("missing userID argument!");
                 }
                 
-                if(predicateList != null) {
+                if (predicateList != null) {
 					final Type dataType = new TypeToken<List<MDataBean>>() {}.getType();
 					final List<MDataBean> predicateListObject = getGson().fromJson(predicateList, dataType);
 					List<StringBuffer> predicates = getPredicate(predicateListObject, predicateListObject.size());
