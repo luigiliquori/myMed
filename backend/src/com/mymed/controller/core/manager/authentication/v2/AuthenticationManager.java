@@ -1,4 +1,19 @@
-package com.mymed.controller.core.manager.registration.v2;
+/*
+ * Copyright 2012 INRIA
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.mymed.controller.core.manager.authentication.v2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,12 +23,10 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.controller.core.manager.authentication.AuthenticationManager;
-import com.mymed.controller.core.manager.authentication.IAuthenticationManager;
 import com.mymed.controller.core.manager.pubsub.v2.IPubSubManager;
 import com.mymed.controller.core.manager.pubsub.v2.PubSubManager;
 import com.mymed.controller.core.manager.storage.IStorageManager;
-import com.mymed.controller.core.manager.storage.v2.StorageManager;
+import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.data.application.MDataBean;
 import com.mymed.model.data.session.MAuthenticationBean;
 import com.mymed.model.data.user.MUserBean;
@@ -21,11 +34,14 @@ import com.mymed.utils.HashFunction;
 import com.mymed.utils.PubSub;
 
 /**
- * Handles the user registrations in myMed.
+ * The manager for the authentication bean
  * 
+ * @author lvanni
+ * @author Milo Casagrande
  */
+public class AuthenticationManager extends com.mymed.controller.core.manager.authentication.AuthenticationManager {
 
-public class RegistrationManager extends com.mymed.controller.core.manager.registration.RegistrationManager {
+
     /**
      * The general name of the application responsible for registering a user.
      */
@@ -50,33 +66,26 @@ public class RegistrationManager extends com.mymed.controller.core.manager.regis
      * The 'value' field.
      */
     private static final String FIELD_VALUE = FIELDS.get("field.value");
-
-    /**
-     * The default ontology id.
-     */
-    private static final int ONTOLOGY_ID = 0;
-
-    private final IPubSubManager pubSubManager;
-    private final IAuthenticationManager authenticationManager;
-    private final Gson gson;
     
-    public RegistrationManager() throws InternalBackEndException {
-        this(new StorageManager());
-    }
+    
+    private final IPubSubManager pubSubManager;
+    private final Gson gson;
 
     /**
      * Default constructor.
      * 
-     * @param storageManager
      * @throws InternalBackEndException
      */
-    public RegistrationManager(final IStorageManager storageManager) throws InternalBackEndException {
-        super(storageManager);
+    public AuthenticationManager() throws InternalBackEndException {
+        this(new StorageManager());
+    }
 
+    public AuthenticationManager(final IStorageManager storageManager) throws InternalBackEndException {
+        super(storageManager);
         pubSubManager = new PubSubManager();
-        authenticationManager = new AuthenticationManager();
         gson = new Gson();
     }
+
     @Override
     public void create(
             final MUserBean user, 
@@ -88,10 +97,10 @@ public class RegistrationManager extends com.mymed.controller.core.manager.regis
         final List<MDataBean> dataList = new ArrayList<MDataBean>();
         try {
 			final MDataBean dataUser = new MDataBean(FIELD_USER,
-					gson.toJson(user), ONTOLOGY_ID);
+					gson.toJson(user), PubSub.TEXT);
 
 			final MDataBean dataAuthentication = new MDataBean(FIELD_AUTHENTICATION, 
-					gson.toJson(authentication), ONTOLOGY_ID);
+					gson.toJson(authentication), PubSub.TEXT);
 
             dataList.add(dataUser);
             dataList.add(dataAuthentication);
@@ -132,14 +141,6 @@ public class RegistrationManager extends com.mymed.controller.core.manager.regis
         /* trigger confirmation mail send with its content  */        
         pubSubManager.sendEmails(APP_NAME, accessToken + "conf", publisher, dataList);
         
-
-        /*final MailMessage message = new MailMessage();
-        message.setSubject("Bienvenu sur myMed");
-        message.setRecipient(user.getEmail());
-        message.setText(contentBuilder.toString());
-
-        final Mail mail = new Mail(message, SubscribeMailSession.getInstance());
-        mail.send();*/
     }
 
     /*
@@ -172,11 +173,12 @@ public class RegistrationManager extends com.mymed.controller.core.manager.regis
 
         // register the new user
         if ((userBean != null) && (authenticationBean != null)) {
-            authenticationManager.create(userBean, authenticationBean);
+            create(userBean, authenticationBean);
             // delete pending tasks
             pubSubManager.delete(APP_NAME, accessToken);
         } else {
         	LOGGER.debug("account creation failed");
         }
     }
+
 }

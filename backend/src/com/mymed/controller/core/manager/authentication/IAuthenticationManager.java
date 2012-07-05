@@ -15,6 +15,7 @@
 */
 package com.mymed.controller.core.manager.authentication;
 
+import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.model.data.session.MAuthenticationBean;
@@ -50,4 +51,35 @@ public interface IAuthenticationManager {
 	 * @throws InternalBackEndException
 	 */
 	void update(String id, MAuthenticationBean authentication) throws InternalBackEndException, IOBackEndException;
+
+
+	
+	
+	
+	
+	/*
+	 * Comes from RegistrationManager 
+	 */
+	/**
+	 * available in v2
+	 * 
+	 * creates a temporary account, wating for email validation
+	 * 
+	 * @param user
+	 * @param authentication
+	 * @throws AbstractMymedException
+	 */
+	void create(MUserBean user, MAuthenticationBean authentication,
+			String application) throws AbstractMymedException;
+
+	/**
+	 * available in v2
+	 * 
+	 * will validate the account from confirmation email link
+	 * 
+	 * @param accessToken
+	 * @throws AbstractMymedException
+	 */
+	void read(String accessToken) throws AbstractMymedException;
+	
 }
