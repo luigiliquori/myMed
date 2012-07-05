@@ -80,7 +80,7 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
             }
         }
 
-        throw new IOBackEndException("The login already exist!", ERROR_CONFLICT);
+        throw new IOBackEndException("The login already exist", ERROR_CONFLICT);
     }
 
     /**

@@ -51,6 +51,7 @@ public interface IStorageManager {
      */
     void insertSlice(String tableName, String primaryKey, Map<String, byte[]> args) throws IOBackEndException,
                     InternalBackEndException;
+    
 
     /**
      * Insert a new entry in the database

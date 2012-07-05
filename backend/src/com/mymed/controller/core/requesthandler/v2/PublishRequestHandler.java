@@ -16,19 +16,15 @@
 package com.mymed.controller.core.requesthandler.v2;
 
 import java.lang.reflect.Type;
-import java.net.URLDecoder;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
@@ -145,7 +141,7 @@ public class PublishRequestHandler extends com.mymed.controller.core.requesthand
 					/* store indexes for this data */
 					// LOGGER.info("indexing "+data_id+" with level: "+i);
 					for (List<PubSub.Index> p : predicates) {
-						pubsubManager.deleteIndex(application,
+						pubsubManager.delete(application,
 								PubSub.Index.toRowString(p),
 								PubSub.Index.toColString(p) + dataId,
 								userId);
@@ -153,7 +149,7 @@ public class PublishRequestHandler extends com.mymed.controller.core.requesthand
 				}
 				
 				/* deletes data */
-				pubsubManager.deleteData(application, dataId, userId);
+				pubsubManager.delete(application, dataId + userId);
 
 				break;
 			default:
@@ -243,12 +239,12 @@ public class PublishRequestHandler extends com.mymed.controller.core.requesthand
                     	String s2 = PubSub.Index.toColString(p);
                     	
                     	// TODO Add the predicate list
-                		pubsubManager.createIndex(application, s1, s2, dataId, userBean, dataList, null);
-                		pubsubManager.createMail(application, s1, userBean, dataList);
+                		pubsubManager.create(application, s1, s2, dataId, userBean, dataList, null);
+                		pubsubManager.sendEmails(application, s1, userBean, dataList);
                     }
                 }
 				
-				pubsubManager.createData(application, dataId, userBean, dataList);
+				pubsubManager.create(application, dataId, userId, dataList);
 
 				break;
 				
@@ -256,7 +252,8 @@ public class PublishRequestHandler extends com.mymed.controller.core.requesthand
 				message.setMethod(JSON_CODE_UPDATE);
 				
 				LOGGER.info("creating/updating "+dataId+" size "+dataList.size());
-				pubsubManager.createData(application, dataId, userBean, dataList);
+				pubsubManager.create(application, dataId, userId, dataList);
+				pubsubManager.sendEmails(application, dataId, userBean, dataList);
 				
 				break;
 
@@ -273,5 +270,10 @@ public class PublishRequestHandler extends com.mymed.controller.core.requesthand
         }
 
         printJSonResponse(message, response);
+        
+        /*
+         * @TODO should create mails there? (after response sent)
+         */
+        
     }
 }

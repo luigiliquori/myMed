@@ -59,7 +59,7 @@ if (isset($_POST['email'])) { //profile update
 	$mAuthenticationBean->user = $_SESSION['user']->id;
 	$mAuthenticationBean->password = hash('sha512', ($msg == "upd")?$_POST["newPassword"]:$_POST["oldPassword"]);
 
-	$request = new Request("AuthenticationRequestHandler", UPDATE);
+	$request = new Request("v2/AuthenticationRequestHandler", UPDATE);
 	$request->addArgument("authentication", json_encode($mAuthenticationBean));
 
 	$request->addArgument("oldLogin", $_SESSION['user']->email);

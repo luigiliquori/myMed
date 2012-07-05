@@ -77,7 +77,7 @@ if (isset($_GET['registration'])) {
 				?>
 				<br /><br />
 				<div style="width:45%;margin-left: auto;margin-right: auto;text-align:center;">
-				(*) Accès restreint, aux logins *@inria.fr en phase béta<br />
+				(*) Accès restreint, aux logins *@inria.fr en phase alpha<br />
 				Veuillez <a href="mailto:mymeddev@gmail.com">nous contacter</a>, pour obtenir la permission de publier:
 				
 <!-- 				<form action="post"> -->
