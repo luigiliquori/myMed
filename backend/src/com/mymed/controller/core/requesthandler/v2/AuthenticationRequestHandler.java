@@ -27,12 +27,10 @@ import com.google.gson.JsonSyntaxException;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.controller.core.manager.authentication.AuthenticationManager;
+import com.mymed.controller.core.manager.authentication.v2.AuthenticationManager;
 import com.mymed.controller.core.manager.authentication.IAuthenticationManager;
 import com.mymed.controller.core.manager.profile.IProfileManager;
 import com.mymed.controller.core.manager.profile.ProfileManager;
-import com.mymed.controller.core.manager.registration.IRegistrationManager;
-import com.mymed.controller.core.manager.registration.v2.RegistrationManager;
 import com.mymed.controller.core.manager.session.ISessionManager;
 import com.mymed.controller.core.manager.session.SessionManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
@@ -55,7 +53,6 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
     private IAuthenticationManager authenticationManager;
     private ISessionManager sessionManager;
     private IProfileManager profileManager;
-    private IRegistrationManager registrationManager;
 
     /**
      * JSON 'login' attribute.
@@ -92,7 +89,6 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
             authenticationManager = new AuthenticationManager();
             sessionManager = new SessionManager();
             profileManager = new ProfileManager();
-            registrationManager = new RegistrationManager();
         } catch (final InternalBackEndException e) {
             LOGGER.debug("AuthenticationManager not accessible!", e);
             throw new ServletException("AuthenticationManager is not accessible because: " + e.getMessage()); // NOPMD
@@ -157,7 +153,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
                     // Finalize the registration
                     String accessToken = parameters.get(JSON_ACCESS_TKN);
                     if (accessToken != null) {
-                        registrationManager.read(accessToken);
+                    	authenticationManager.read(accessToken);
                         message.setDescription("user profile created");
                     } else if (authentication == null) {
                         throw new InternalBackEndException("authentication argument missing!");
@@ -182,7 +178,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
                                                 authenticationBean.getPassword());
                             } catch (final IOBackEndException loginTestException) {
                                 if (loginTestException.getStatus() == 404) { // the login does not exist
-                                    registrationManager.create(userBean, authenticationBean, application);
+                                	authenticationManager.create(userBean, authenticationBean, application);
                                     LOGGER.info("registration email sent");
                                     message.setDescription("registration email sent");
                                     loginAlreadyExist = false;
