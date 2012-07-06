@@ -19,6 +19,7 @@ Template::init();
 	<div data-role="page" id="SearchOffer">
 		<div class="wrapper">
 			<div data-role="header" data-theme="c" style="max-height: 38px;">
+				<a data-icon="back" data-rel="back">Retour</a>
 				<h2>
 					<a href="./" style="text-decoration: none;">myEurope</a>
 				</h2>
@@ -74,15 +75,33 @@ Template::init();
 					<div data-role="collapsible" data-mini="true">
 						<h3>Recherche avancée</h3>
 						
-						<div data-role="fieldcontain" >
-							<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-								<label for="textinputi1">Date d'échéance: </label>
-								<input id="textinputi1" name="dateMin" placeholder="date min" data-inline="true"
-									value="" type="date" style="width: 35%;" />
-								<input name="dateMax" placeholder="date max" data-inline="true" value="2012-09-30"
-									type="date" style="width: 35%;" />
-							</fieldset>
-						</div>
+						<div data-role="fieldcontain" id="dateselect">
+						   <label for="select-choice-1">Entre les dates:</label>
+						   <select name="dateMin" id="select-choice-1"  data-mini="true">
+						    <option>Date min</option>
+						   <?php 
+							for ($y=2012; $y<2017; $y++){
+								for ($m=1; $m<13; $m++){
+									?>
+									 <option <?= ($y==2012 && $m==7)?'selected="selected"':'' ?>><?= $y.'-'.$m.'-1' ?></option>
+									 <?php   		
+								}
+							}
+						   ?>
+						   </select>
+						   <select name="dateMax" id="select-choice-1"  data-mini="true">
+						    <option>Date max</option>
+						   <?php 
+							for ($y=2012; $y<2017; $y++){
+								for ($m=1; $m<13; $m++){
+									?>
+									 <option><?= $y.'-'.$m.'-1' ?></option>
+									 <?php   		
+								}
+							}
+						   ?>
+						   </select>
+						</div>	
 						
 					</div>
 					

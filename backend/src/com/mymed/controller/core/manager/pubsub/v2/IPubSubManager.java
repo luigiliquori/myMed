@@ -91,7 +91,7 @@ public interface IPubSubManager extends com.mymed.controller.core.manager.pubsub
 	
 	
 	
-	public void sendEmails(  
+	public void sendEmailsToSubscribers(  
             String application,          
             String predicate,
             MUserBean publisher,

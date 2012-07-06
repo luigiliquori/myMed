@@ -1,5 +1,6 @@
 <?php
 
+define('APP_ROOT', __DIR__);
 //ob_start("ob_gzhandler");
 require_once 'Template.php';
 Template::init();
@@ -38,7 +39,7 @@ if (isset($_GET['registration'])) {
 	<div data-role="page" id="Home">
 		<div class="wrapper">
 			<div data-role="header" data-theme="c" style="max-height: 38px;">
-				<a href="about" data-theme="b" type="button" data-icon="info" data-transition="slide" data-direction="reverse">about</a> 
+				<a href="http://<?= $_SERVER['HTTP_HOST'] ?>" data-icon="home" data-rel="back">Quitter</a>
 				<h2>
 					<a href="./" style="text-decoration: none;">myEurope</a>
 				</h2>

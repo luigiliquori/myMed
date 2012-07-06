@@ -19,6 +19,7 @@ Template::init();
 	<div data-role="page" id="SearchPartner"  data-theme="d">
 		<div class="wrapper">
 			<div data-role="header" data-theme="c" style="max-height: 38px;">
+				<a data-icon="back" data-rel="back">Retour</a>
 				<h2>
 					<a href="./" style="text-decoration: none;">myEurope</a>
 				</h2>
@@ -74,19 +75,41 @@ Template::init();
 					<div data-role="collapsible" data-mini="true" data-content-theme="d">
 						<h3>Recherche avancée</h3>
 						
-						<div data-role="fieldcontain">
-							<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-								<label for="textinputi1">Date d'échéance: </label>
-								<input id="textinputi1" name="dateMin" placeholder="date min" style="width:35%;" value="" type="date" style="width:35%;"/>
-								<input name="dateMax" placeholder="date max" style="width:35%;" value="2012-09-30" type="date" style="width:35%;" />
-							</fieldset>
-						</div>		
+						<div data-role="fieldcontain" id="dateselect">
+						   <label for="select-choice-1">Entre les dates:</label>
+						   <select name="dateMin" id="select-choice-1"  data-mini="true">
+						    <option value="0">Date min</option>
+						   <?php 
+							for ($y=2012; $y<2017; $y++){
+								for ($m=1; $m<13; $m++){
+									?>
+									 <option <?= ($y==2012 && $m==7)?'selected="selected"':'' ?>><?= $y.'-'.$m.'-1' ?></option>
+									 <?php   		
+								}
+							}
+						   ?>
+						   </select>
+						   <select name="dateMax" id="select-choice-1"  data-mini="true">
+						    <option value="0">Date max</option>
+						   <?php 
+							for ($y=2012; $y<2017; $y++){
+								for ($m=1; $m<13; $m++){
+									?>
+									 <option><?= $y.'-'.$m.'-1' ?></option>
+									 <?php   		
+								}
+							}
+						   ?>
+						   </select>
+						</div>	
 						
 						<div data-role="fieldcontain">
-							<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" >
-								<label for="textinputr1">Evaluation:</label>
-								<input id="textinputr1" name="rateMin" placeholder="min" style="width:35%;" value="" type="text" />
-								<input name="rateMax" placeholder="max"  value="100" type="text" style="width:35%;" />
+							<fieldset id="test2" data-role="controlgroup" data-type="horizontal" data-mini="true">
+								<legend>Trier par Réputation:</legend>
+								<select data-theme="b" data-mini="true" name="rate" data-role="slider">
+									<option value="0">Non</option>
+									<option value="1">Oui</option>
+								</select>
 							</fieldset>
 						</div>
 					</div>

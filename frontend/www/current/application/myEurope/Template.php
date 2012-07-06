@@ -1,11 +1,19 @@
 <?php
 
 class Template {
-
+	
+	
+	
 	const APPLICATION_NAME = 'myEurope';
 	
 	public static function init(  $redirect = true ) {
 		
+		if (!defined('APP_ROOT')) {
+			define('APP_ROOT', __DIR__);
+		}
+		if (!defined('APP_URL')) {
+			define('APP_URL', $_SERVER['HTTP_HOST'].'/application/'.Template::APPLICATION_NAME);
+		}
 		require_once '../../lib/dasp/request/Request.v2.php';
 		require_once '../../system/config.php';
 		require_once '../../lib/dasp/beans/OntologyBean.php';
@@ -14,7 +22,9 @@ class Template {
 			session_start();
 		}
 		if ($redirect && !isset($_SESSION['user'])) {
-			$_SESSION['redirect'] = $_SERVER['QUERY_STRING'];
+			if (!strpos($_SERVER['REQUEST_URI'], "extended") !==false){
+				$_SESSION['redirect'] = '.'.substr($_SERVER['REQUEST_URI'], strlen('/application/'.Template::APPLICATION_NAME));
+			}
 			header("Location: ./authenticate");
 		}
 		

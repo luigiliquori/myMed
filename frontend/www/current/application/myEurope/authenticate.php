@@ -47,8 +47,8 @@ if (count($_POST)) {
 						$_SESSION['userType'] = $v->value;
 					else if ($v->key == "perm")
 						$_SESSION['userPerm'] = $v->value;
-				}
-				header("Location: ./index?".(isset($_SESSION['redirect'])?$_SESSION['redirect']:""));
+				};
+				header("Location: ".(isset($_SESSION['redirect'])?$_SESSION['redirect']:"./index"));
 			} else {
 				header("Location: ./update?extended");
 			}

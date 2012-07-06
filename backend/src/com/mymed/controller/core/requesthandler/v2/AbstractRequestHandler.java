@@ -15,6 +15,10 @@
  */
 package com.mymed.controller.core.requesthandler.v2;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 
 public abstract class AbstractRequestHandler extends com.mymed.controller.core.requesthandler.AbstractRequestHandler {
     /**
@@ -25,6 +29,5 @@ public abstract class AbstractRequestHandler extends com.mymed.controller.core.r
 	/**
      * Serial version ID.
      */
-
 
 }

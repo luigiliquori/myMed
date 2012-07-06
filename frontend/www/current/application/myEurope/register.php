@@ -62,7 +62,8 @@ if (count($_POST)) {
 	<div data-role="page" id="Register">
 		<div class="wrapper">
 			<div data-role="header" data-theme="c" style="max-height: 38px;">
-				<a href="search" data-icon="back" data-transition="flip" data-direction="reverse"> Retour </a>
+				<a data-icon="back" data-rel="back">Retour</a>
+<!-- 				<a href="search" data-icon="back" data-transition="flip" data-direction="reverse"> Retour </a> -->
 				<h2>
 					<a href="./" style="text-decoration: none;">myEurope</a>
 				</h2>

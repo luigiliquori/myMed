@@ -15,6 +15,13 @@
  */
 package com.mymed.controller.core.requesthandler.v2;
 
+import static com.mymed.utils.PubSub.constructRows;
+import static com.mymed.utils.PubSub.getIndex;
+import static com.mymed.utils.PubSub.isPredicate;
+import static com.mymed.utils.PubSub.join;
+import static com.mymed.utils.PubSub.Index.joinCols;
+import static com.mymed.utils.PubSub.Index.joinRows;
+
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -43,7 +50,7 @@ import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.application.MDataBean;
 import com.mymed.model.data.application.QueryBean;
 import com.mymed.model.data.user.MUserBean;
-import com.mymed.utils.PubSub;
+import com.mymed.utils.PubSub.Index;
 
 @MultipartConfig
 @WebServlet("/v2/FindRequestHandler")
@@ -121,6 +128,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@SuppressWarnings("serial")
 	@Override
 	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
 		final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
@@ -236,7 +244,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
                 	
                 	List<String> rows = new ArrayList<String>();
                 	
-                	PubSub.constructRows(queryRows, new int[queryRows.size()], 0, rows);
+                	constructRows(queryRows, new int[queryRows.size()], 0, rows);
                 	 
                 	LOGGER.info("ext find rows: "+rows.size()+" initial: "+rows.get(0));
                 	LOGGER.info("ext find ranges: "+ranges.size());
@@ -302,7 +310,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
                 			/*
                 			 * we remove items that doesn't match the query predicate
                 			 */
-                			if (!PubSub.isPredicate(resMap, keys.get(i), item.getValueStart())){
+                			if (!isPredicate(resMap, keys.get(i), item.getValueStart())){
                 				resMap.remove(keys.get(i));
                 			}
                 			LOGGER.info("ext find  filter by predicate "+resMap.size());
@@ -362,33 +370,33 @@ public class FindRequestHandler extends AbstractRequestHandler {
 					List<MDataBean> predicateListNew = new ArrayList<MDataBean>();
 
 					for (Entry<String, QueryBean> d : predicateMap.entrySet()) {
-						predicateListOld.add(d.getValue().toDataBeanStart(
+						predicateListOld.add(d.getValue().getStart(
 								d.getKey()));
-						predicateListNew.add(d.getValue().toDataBeanEnd(
+						predicateListNew.add(d.getValue().getEnd(
 								d.getKey()));
 					}
 
 					Collections.sort(predicateListNew);
 					Collections.sort(predicateListOld);
 					
-					dataId = parameters.get("id") != null ? parameters.get("id") : PubSub.toString(predicateListOld);
+					dataId = parameters.get("id") != null ? parameters.get("id") : join(predicateListOld);
 					LOGGER.info("update" + level);
-
+					
 					for (int i = 1; i <= level; i++) {
-						List<List<PubSub.Index>> predicatesOld = PubSub.getIndex(predicateListOld, i);
-						List<List<PubSub.Index>> predicatesNew = PubSub.getIndex(predicateListNew, i);
+						List<List<Index>> predicatesOld = getIndex(predicateListOld, i);
+						List<List<Index>> predicatesNew = getIndex(predicateListNew, i);
 						/* store indexes for this data */
 						LOGGER.info("updating " + dataId + " with level: " + i
 								+ "." + predicatesNew.size() + "." + predicatesOld.size());
-						for (List<PubSub.Index> p : predicatesOld) {
-							String s1 = PubSub.Index.toRowString(p);
-							String s2 = PubSub.Index.toColString(p);
+						for (List<Index> p : predicatesOld) {
+							String s1 = joinRows(p);
+							String s2 = joinCols(p);
 							LOGGER.info("__" + s1 + " " + s2);
 							pubsubManager.delete(application, s1, s2 + dataId, user);
 						}
-						for (List<PubSub.Index> p : predicatesNew) {
-							String s1 = PubSub.Index.toRowString(p);
-							String s2 = PubSub.Index.toColString(p);
+						for (List<Index> p : predicatesNew) {
+							String s1 = joinRows(p);
+							String s2 = joinCols(p);
 							LOGGER.info("____" + s1 + " " + s2);
 							pubsubManager.create(application, s1, s2, dataId, userBean, predicateListNew, null);
 						}

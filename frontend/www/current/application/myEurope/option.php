@@ -46,6 +46,7 @@ if (isset($_POST['predicate'])){ // unsubscribe
 	$request->addArgument("socialNetwork", $_SESSION['user']->socialNetworkName);
 
 	session_destroy();
+	unset($_SESSION['redirect']);
 	$responsejSon = $request->send();
 	$responseObject = json_decode($responsejSon);
 	if($responseObject->status == 200) {
@@ -102,6 +103,7 @@ if($subscriptionsoffer->status == 200) {
 	<div data-role="page" id="Home">
 		<div class="wrapper">
 			<div data-role="header" data-theme="c" style="max-height: 38px;">
+				<a data-icon="back" data-rel="back" data-transition="slide" data-direction="reverse">Retour</a>
 				<h2>
 					<a href="./" style="text-decoration: none;" data-transition="slide" data-direction="reverse">myEurope</a>
 				</h2>
@@ -124,7 +126,7 @@ if($subscriptionsoffer->status == 200) {
 						<a href="update" type="button" data-transition="flip" data-mini="true" data-icon="grid" style="width: 200px; margin-right: auto; margin-left: auto;">Modifier</a>
 						
 						<a href="" type="button" data-mini="true" data-icon="delete" style="width: 200px; margin-right: auto; margin-left: auto;"
-							onclick="$('#deconnectForm').submit();">Quitter</a>
+							onclick="$('#deconnectForm').submit();">Déconnecter</a>
 						<form action="option" id="deconnectForm" data-ajax="false">
 							<input name="logout" type="hidden" />
 						</form>

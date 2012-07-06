@@ -19,6 +19,7 @@ Template::init();
 	<div data-role="page" id="PostOffer">
 		<div class="wrapper">
 			<div data-role="header" data-theme="c" style="max-height: 38px;">
+				<a data-icon="back" data-rel="back">Retour</a>
 				<h2>
 					<a href="./" style="text-decoration: none;">myEurope</a>
 				</h2>

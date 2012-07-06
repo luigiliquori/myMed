@@ -104,7 +104,7 @@ public class PubSub {
 			this.col = col;
 		}
 		
-		public static String toRowString(List<Index> predicate){
+		public static String joinRows(List<Index> predicate){
 			String s="";
 	        for (Index i : predicate){
 				s += i.row;
@@ -112,7 +112,7 @@ public class PubSub {
 	        return s;
 		}
 		
-		public static String toColString(List<Index> predicate){
+		public static String joinCols(List<Index> predicate){
 	        String s="";
 	        for (Index i : predicate){
 	        	if (i.col.length() != 0){
@@ -146,7 +146,7 @@ public class PubSub {
 		return false;
 	}
     
-    public static List<MDataBean> getPredicate(List<MDataBean> data){
+    public static List<MDataBean> getIndexData(List<MDataBean> data){
     	List<MDataBean> predicate = new ArrayList<MDataBean>();
         for (MDataBean d : data){
         	if (d.getOntologyID() < TEXT) {
@@ -156,7 +156,7 @@ public class PubSub {
         return predicate;
 	}
     
-    public static String toString(List<MDataBean> data){
+    public static String join(List<MDataBean> data){
     	StringBuffer str = new StringBuffer();
         for (MDataBean d : data){
         	str.append(d.toString());

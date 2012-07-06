@@ -42,8 +42,8 @@ div.ui-slider {
 	margin-top: -14px;
 }
 
-.ui-select {
-	width: 100px;
+#dateselect .ui-select:not(label) {
+	width: 120px;
 }
 
 .ui-li {
@@ -56,9 +56,9 @@ input.ui-input-text,textarea.ui-input-text {
 }
 
 #headerSearch .ui-slider-switch {
-	left: 5px;
+	right: -15px;
 	position: absolute;
-	width: 150px;
+	width: 100px;
 }
 
 #publishForm .ui-slider-switch {

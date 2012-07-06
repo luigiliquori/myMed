@@ -15,6 +15,8 @@
  */
 package com.mymed.controller.core.manager.authentication.v2;
 
+import static com.mymed.utils.PubSub.TEXT;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +33,6 @@ import com.mymed.model.data.application.MDataBean;
 import com.mymed.model.data.session.MAuthenticationBean;
 import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.HashFunction;
-import com.mymed.utils.PubSub;
 
 /**
  * The manager for the authentication bean
@@ -97,10 +98,10 @@ public class AuthenticationManager extends com.mymed.controller.core.manager.aut
         final List<MDataBean> dataList = new ArrayList<MDataBean>();
         try {
 			final MDataBean dataUser = new MDataBean(FIELD_USER,
-					gson.toJson(user), PubSub.TEXT);
+					gson.toJson(user), TEXT);
 
 			final MDataBean dataAuthentication = new MDataBean(FIELD_AUTHENTICATION, 
-					gson.toJson(authentication), PubSub.TEXT);
+					gson.toJson(authentication), TEXT);
 
             dataList.add(dataUser);
             dataList.add(dataAuthentication);
@@ -133,13 +134,13 @@ public class AuthenticationManager extends com.mymed.controller.core.manager.aut
         contentBuilder.trimToSize();
         
         
-        MDataBean mailContent = new MDataBean("myMed", contentBuilder.toString(), PubSub.TEXT);
+        MDataBean mailContent = new MDataBean("myMed", contentBuilder.toString(), TEXT);
         dataList.add(mailContent);
         MUserBean publisher = new MUserBean();
         publisher.setName("myMed");
         
-        /* trigger confirmation mail send with its content  */        
-        pubSubManager.sendEmails(APP_NAME, accessToken + "conf", publisher, dataList);
+        /* trigger confirmation mail send with its content  */  
+        pubSubManager.sendEmailsToSubscribers(APP_NAME, accessToken + "conf", publisher, dataList);
         
     }
 
@@ -176,6 +177,8 @@ public class AuthenticationManager extends com.mymed.controller.core.manager.aut
             create(userBean, authenticationBean);
             // delete pending tasks
             pubSubManager.delete(APP_NAME, accessToken);
+            pubSubManager.delete(APP_NAME, accessToken + "conf");
+            pubSubManager.delete(APP_NAME, userBean.getId(), accessToken + "conf");
         } else {
         	LOGGER.debug("account creation failed");
         }

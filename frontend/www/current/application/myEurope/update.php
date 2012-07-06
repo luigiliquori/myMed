@@ -123,17 +123,18 @@ if (isset($_POST['email'])) { //profile update
 	<div data-role="page" id="Update">
 		<div class="wrapper">
 			<div data-role="header" data-theme="c" style="max-height: 38px;">
-				<a href="option" class="ui-btn-left" data-icon="back" data-transition="flip" data-direction="reverse"> Retour</a>
+				<a data-icon="back" data-rel="back" data-transition="flip" data-direction="reverse">Retour</a>
 				<h2>
 					<a href="./" style="text-decoration: none;">myEurope</a>
 				</h2>
+				<a data-icon="check" data-theme="b" class="ui-btn-right" data-mini="true" onclick="$('#updateForm').submit();">Enregistrer</a>
 			</div>
 			<div data-role="content">
 
-				<form action="update" method="post" id="updateExtForm" >
+				<form action="update" method="post" id="updateForm" >
 
 					<div style='color: lightGreen; text-align: center;'>
-						<?= $msg ?><?= isset($_GET['extended'])?" Veuillez compléter votre profil, pour l'utilisation de myEurope":""?>
+						<?= $msg ?><?= isset($_GET['extended'])?" Veuillez compléter et enregistrer votre profil, pour l'utilisation de myEurope":""?>
 					</div>
 
 					<div data-role="fieldcontain">
@@ -148,14 +149,11 @@ if (isset($_POST['email'])) { //profile update
 							<input type="radio" name="type" id="radio-view-d" value="Etat" <?= $_SESSION['userType']=="Etat"?"checked='checked'":"" ?> /><label for="radio-view-d">Etat</label>
 							<input type="radio" name="type" id="radio-view-e" value="Région" <?= $_SESSION['userType']=="Région"?"checked='checked'":"" ?> /> <label for="radio-view-e">Région</label>
 						</fieldset>
-						<a href="" type="button" data-icon="check" onclick="$('#updateExtForm').submit();" data-mini="true"
-						style="position: absolute;top: -4px;right: 16%;" >Modifer</a>
 					</div>
-				</form>
-				<?php 
-				if (!isset($_GET['extended'])) {
-				?>
-				<form action="update" method="post" id="updateForm" >
+					<?php 
+					if (!isset($_GET['extended'])) {
+					?>
+
 					<div data-role="fieldcontain">
 						<fieldset data-role="controlgroup">
 							<label for="textinputu1"> Prénom: </label> <input id="textinputu1" name="prenom" placeholder="" value='<?= $_SESSION['user']->firstName ?>'
@@ -181,7 +179,14 @@ if (isset($_POST['email'])) { //profile update
 					</div>
 					<div data-role="fieldcontain">
 						<fieldset data-role="controlgroup">
-							<label for="textinputu51"> Changez de mot de passe?: (laissez vide sinon) </label> <input id="textinputu51" name="newPassword" placeholder="" value="" type="password" />
+							<label for="textinputu7"> Avatar (lien url): </label> <input id="textinputu7" name="thumbnail" placeholder=""
+								value='<?= $_SESSION['user']->profilePicture ?>' type="text" />
+						</fieldset>
+					</div>
+					<br />
+					<div data-role="fieldcontain">
+						<fieldset data-role="controlgroup">
+							<label for="textinputu51"> Changez de mot de passe? </label> <input id="textinputu51" name="newPassword" placeholder="" value="" type="password" />
 						</fieldset>
 					</div>
 					<div data-role="fieldcontain">
@@ -189,20 +194,6 @@ if (isset($_POST['email'])) { //profile update
 							<label for="textinputu52"> Confirmation du nouveau mot de passe: </label> <input id="textinputu52" name="newPasswordConf" placeholder="" value="" type="password" />
 						</fieldset>
 					</div>
-					<div data-role="fieldcontain">
-						<fieldset data-role="controlgroup">
-							<label for="textinputu6"> Date de naissance: </label> <input id="textinputu6" name="birthday" placeholder=""
-								value='<?= $_SESSION['user']->birthday ?>' type="date" />
-						</fieldset>
-					</div>
-					<div data-role="fieldcontain">
-						<fieldset data-role="controlgroup">
-							<label for="textinputu7"> Avatar (lien url): </label> <input id="textinputu7" name="thumbnail" placeholder=""
-								value='<?= $_SESSION['user']->profilePicture ?>' type="text" />
-						</fieldset>
-					</div>
-					
-					<a href="" type="button" data-icon="gear" onclick="$('#updateForm').submit();" style="width: 121px; margin-right: auto; margin-left: auto;">Modifier</a>
 				</form>
 				<?php 
 				}

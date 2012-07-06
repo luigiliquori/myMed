@@ -25,7 +25,7 @@ if (count($_GET) > 0){
 
 	// @todo verify date format
 	
-	$application = "myEurope".$_GET['type'];
+	$application = Template::APPLICATION_NAME.$_GET['type'];
 
 	$predicateList=array();
 	$p=array();
@@ -40,11 +40,12 @@ if (count($_GET) > 0){
 		}
 	}
 	
-	if ($_GET['dateMin'] != "" && $_GET['dateMax'] != ""){
+	if ($_GET['dateMin'] != 0 && $_GET['dateMax'] != 0){
+		
 		$predicateList["date"] = array("valueStart"=>$_GET['dateMin'], "valueEnd"=>$_GET['dateMax'], "ontologyID"=>DATE);
 	}
-	if ($_GET['rateMin'] != "" && $_GET['rateMax'] != ""){
-		$predicateList["rate"] = array("valueStart"=>1-$_GET['rateMax'], "valueEnd"=>1-$_GET['rateMin'], "ontologyID"=>FLOAT);
+	if ($_GET['rate'] == 1){
+		$predicateList["rate"] = array("valueStart"=>0, "valueEnd"=>5, "ontologyID"=>FLOAT);
 	}
 
 	$request = new Request("v2/FindRequestHandler", READ);
@@ -72,15 +73,16 @@ if (count($_GET) > 0){
 	<div data-role="page" id="Search">
 		<div class="wrapper">
 			<div data-role="header" data-theme="c" style="max-height: 38px;" id="headerSearch">
-				<select class="ui-btn-right" data-theme="e"
-					onchange="$.get('../../lib/dasp/ajax/Subscribe', { code: $(this).val(), application: '<?= $application ?>' ,predicate: '<?= urlencode(join("", $p)) ?>' } );"
-					style="position: absolute; left: 5px;" name="slider" id="flip-a" data-role="slider" data-mini="true">
-					<option value="3">Non abonné</option>
-					<option value="0">Abonné</option>
-				</select>
+				<a data-icon="back" data-rel="back">Retour</a>
 				<h2>
 					<a href="./" style="text-decoration: none;">myEurope</a>
 				</h2>
+				<select data-theme="b" data-mini="true"
+					onchange="$.get('../../lib/dasp/ajax/Subscribe', { code: $(this).val(), application: '<?= $application ?>' ,predicate: '<?= urlencode(join("", $p)) ?>' } );"
+					 name="slider" id="flip-a" data-role="slider">
+					<option value="3">Souscrire</option>
+					<option value="0">Désabonner</option>
+				</select>
 				
 			</div>
 			<div data-role="content">
