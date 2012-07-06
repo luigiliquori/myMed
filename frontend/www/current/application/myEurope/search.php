@@ -41,8 +41,7 @@ if (count($_GET) > 0){
 	}
 	
 	if ($_GET['dateMin'] != 0 && $_GET['dateMax'] != 0){
-		
-		$predicateList["date"] = array("valueStart"=>$_GET['dateMin'], "valueEnd"=>$_GET['dateMax'], "ontologyID"=>DATE);
+		$predicateList["date"] = array("valueStart"=>strtotime($_GET['dateMin']), "valueEnd"=>strtotime($_GET['dateMax']), "ontologyID"=>DATE);
 	}
 	if ($_GET['rate'] == 1){
 		$predicateList["rate"] = array("valueStart"=>0, "valueEnd"=>5, "ontologyID"=>FLOAT);
@@ -117,7 +116,7 @@ if (count($_GET) > 0){
 							<p style="font-weight:lighter;"> métiers: <?= join(", ",$metiers) ?>...
 							 régions: <?= join(", ", $regions) ?>... </p>
 							<p class="ui-li-aside">
-								publié par: <span style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $value->publisherName ?> </span> échéance: <strong><?= $value->date ?> </strong>
+								publié par: <span style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $value->publisherName ?> </span> échéance: <strong><?= date("Y-m-d h:i:s", $value->date) ?> </strong>
 							</p>
 
 					</a>

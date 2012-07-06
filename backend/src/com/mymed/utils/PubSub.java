@@ -11,6 +11,7 @@ import java.util.Map.Entry;
 
 import org.apache.commons.lang.time.DateFormatUtils;
 
+import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.model.data.application.MDataBean;
 
 /**
@@ -33,6 +34,9 @@ public class PubSub {
 	public static final int VIDEO   = 6;
 	public static final int AUDIO   = 7;
 	public static final int FLOAT   = -1;
+
+
+	private final static long interval =  60 * 60 * 24; // 1 day in s
 	
 	/**
 	 * 
@@ -64,8 +68,9 @@ public class PubSub {
 									
 					//int ontID = parseInt(d.getOntologyID());
 					
-					if ( d.getOntologyID() == DATE ){	
-						indexes.add( new Index(d.getKey()+d.getValue().substring(0, Math.min(10, d.getValue().length())), d.getValue()));
+					if ( d.getOntologyID() == DATE ){
+						long t = parseLong(d.getValue());
+						indexes.add(new Index(d.getKey() + (t - t % interval), d.getValue()));
 					} else if ( d.getOntologyID() == FLOAT ){
 						indexes.add(new Index(d.getKey()+new Float(d.getValue()).intValue(), d.getValue()));
 					} else{
@@ -165,30 +170,21 @@ public class PubSub {
 	}
     
     
-	
     /**
      * DATE ontology ID
-     *    yyyy-mm-dd is indexed in rows
-     *    if there is hours, minutes.. this value is prefixed in column to allow it's auto sorting
-     *    
-     * @TODO use timestamp long instead 
+     *    get Range of rows to search between t1 and t2 
+     *    (universal timestamps in seconds)
      */
-    
+
     public static List<String> getDateRange(String key, String t1, String t2){
     	List<String> res = new ArrayList<String>();
-    	DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-    	Date startDate = null, endDate = null;
-		try {
-			startDate = (Date)formatter.parse(t1);
-			endDate = (Date)formatter.parse(t2);
-		} catch (ParseException e) {} 
-		if (startDate != null && endDate != null){
-			long interval = 1000 * 60 * 60 * 24; // 1 hour in millis
-	    	long endTime =endDate.getTime() ; // create your endtime here, possibly using Calendar or Date
-	    	long curTime = startDate.getTime();
+    	long startTime = parseLong(t1);
+    	long endTime = parseLong(t2);
+
+		if (startTime != 0 && endTime != 0){
+	    	long curTime = startTime - startTime % interval; //init with first day at 0h:00:00
 	    	while (curTime <= endTime) {
-	    		Date d  = new Date(curTime);
-	    		res.add(key + DateFormatUtils.format(d, "yyyy-MM-dd"));
+	    		res.add(key + curTime);
 	    		curTime += interval;
 	    	}
 		}
@@ -221,16 +217,6 @@ public class PubSub {
     
     //-----------------
     
-
-    
-    public static int parseInt(String s){
-    	int i = 0;
-    	try {
-			i = Integer.parseInt(s);
-		} catch (NumberFormatException e) {} 
-    	return i;
-    }
-    
     private static long nextCombo(long n) {
     	// Gosper's hack, doesn't support level>= 64, there are other recursive functions to replace it without this limit
 		
@@ -240,6 +226,15 @@ public class PubSub {
 		long v = u + n;
 		return v + (((v ^ n) / u) >> 2);
 	}
+    
+	public static long parseLong(String s) {
+		try {
+			return Long.parseLong(s);
+		} catch (NumberFormatException e) {
+			throw new InternalBackEndException(e);
+		}
+	}
+    	    
     
     /** Get application from a prefix "applicationID<separator>namespace"  */
     public static String extractApplication(String prefix, String separator) {

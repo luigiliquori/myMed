@@ -41,8 +41,14 @@ if (count($_POST)){ // to publish something
 	array_push($data, array("key"=>"rate", "value"=>0, "ontologyID"=>FLOAT));
 	array_push($data, array("key"=>"nbOfRates", "value"=>1, "ontologyID"=>TEXT));
 	
-	if (isset($_POST['date']))
-		array_push($data, array("key"=>"date", "value"=>$_POST['date'], "ontologyID"=>DATE));
+	if (isset($_POST['date'])) {
+		if (strtotime($_POST['date']) !== false){
+			array_push($data, array("key"=>"date", "value"=>strtotime($_POST['date']), "ontologyID"=>DATE));
+		} else {
+			
+		}
+	}
+		
 
 	if (isset($_POST['text']))
 		array_push($data, array("key"=>"text", "value"=>$_POST['text'], "ontologyID"=>TEXT));
@@ -65,7 +71,7 @@ if (count($_POST)){ // to publish something
 
 		if ($responseObject->status==200){
 			if ($_POST['type']=="part"){
-				header("Location: ./search?".http_build_query(array_filter($_POST, "Template::isCheckbox")));
+				header("Location: ./search?type=part&".http_build_query(array_filter($_POST, "Template::isCheckbox")));
 			} else {
 				header("Location: ./");
 			}

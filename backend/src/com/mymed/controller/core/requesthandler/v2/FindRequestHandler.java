@@ -230,8 +230,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
 
                 	List<String> keys  = new ArrayList<String>(query.keySet());
                 	
-                	for (; i<keys.size() && i<=level; i++){
-                		LOGGER.info("ext find_ "+i);
+                	for (; i < keys.size() && i < level; i++){
                 		QueryBean item = query.get(keys.get(i));
                 		queryRows.add(item.getRowIndexes(keys.get(i)));
                 		if (item.getValueEnd().length() != 0){
@@ -279,7 +278,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
                 	
                 	/* filter resMap for remaining query items above level */
                 	
-                	for (; i<keys.size() && i<=level; i++){
+                	for (; i<keys.size(); i++){
                 		LOGGER.info("ext find__ "+i);
                 		QueryBean item = query.get(keys.get(i));
                 		queryRows.add(item.getRowIndexes(keys.get(i)));

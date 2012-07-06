@@ -74,7 +74,7 @@ if (isset($_GET['registration'])) {
 				</div>
 				
 				<?php 
-				if ($_SESSION['userPerm']<=0){
+				if ($_SESSION['userPerm']==0){
 				?>
 				<br /><br />
 				<div style="width:45%;margin-left: auto;margin-right: auto;text-align:center;">
