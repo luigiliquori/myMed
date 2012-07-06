@@ -18,6 +18,7 @@ package com.mymed.controller.core.requesthandler.v2;
 import static com.mymed.utils.PubSub.getIndex;
 import static com.mymed.utils.PubSub.getIndexData;
 import static com.mymed.utils.PubSub.join;
+import static com.mymed.utils.PubSub.makePrefix;
 import static com.mymed.utils.PubSub.Index.joinCols;
 import static com.mymed.utils.PubSub.Index.joinRows;
 
@@ -60,6 +61,7 @@ public class PublishRequestHandler extends com.mymed.controller.core.requesthand
     /**
      * JSON 'predicate' attribute.
      */
+    
     private static final String JSON_PREDICATE = JSON.get("json.predicate");
     
     private static final String JSON_DETAILS = JSON.get("json.details");
@@ -187,7 +189,7 @@ public class PublishRequestHandler extends com.mymed.controller.core.requesthand
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            final String application, userId, data, dataId;
+            final String application, userId, data, dataId, namespace = parameters.get(JSON_NAMESPACE);
 			int level;
 			final List<MDataBean> predicateList, dataList;
 			
@@ -245,12 +247,12 @@ public class PublishRequestHandler extends com.mymed.controller.core.requesthand
                     	String s2 = joinCols(p);
                     	
                     	// TODO Add the predicate list
-                		pubsubManager.create(application, s1, s2, dataId, userBean, dataList, null);
+                		pubsubManager.create(makePrefix(application, namespace), s1, s2, dataId, userBean, dataList, null);
                 		pubsubManager.sendEmailsToSubscribers(application, s1, userBean, dataList);
                     }
                 }
 				
-				pubsubManager.create(application, dataId, userId, dataList);
+				pubsubManager.create(makePrefix(application, namespace), dataId, userId, dataList);
 
 				break;
 				
@@ -258,7 +260,7 @@ public class PublishRequestHandler extends com.mymed.controller.core.requesthand
 				message.setMethod(JSON_CODE_UPDATE);
 				
 				LOGGER.info("creating/updating "+dataId+" size "+dataList.size());
-				pubsubManager.create(application, dataId, userId, dataList);
+				pubsubManager.create(makePrefix(application, namespace), dataId, userId, dataList);
 				pubsubManager.sendEmailsToSubscribers(application, dataId, userBean, dataList);
 				
 				break;

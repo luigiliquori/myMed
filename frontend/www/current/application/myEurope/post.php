@@ -54,7 +54,8 @@ if (count($_POST)){ // to publish something
 		array_push($data, array("key"=>"text", "value"=>$_POST['text'], "ontologyID"=>TEXT));
 
 	$request = new Request("v2/PublishRequestHandler", CREATE);
-	$request->addArgument("application", $_POST['application'].$_POST['type']); //application + namespace {offer , part}
+	$request->addArgument("application", $_POST['application']);
+	$request->addArgument("namespace", $_POST['type']);
 
 	$request->addArgument("data", json_encode($data));
 	$request->addArgument("userID", $_SESSION['user']->id);

@@ -18,7 +18,7 @@ $msg = ""; //feedback text
 
 $application =  urldecode($_GET['application']);
 
-$type = substr($application, strlen(Template::APPLICATION_NAME)); // get namespace {part or offer}
+list($app, $type) = explode(":", $application);
 
 $id = urldecode($_GET['id']); // data Id
 
@@ -231,9 +231,9 @@ if(isset($responseObject->dataObject->reputation)){
 				</form>
 
 				
-				Libellé du projet: <span style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $id ?> </span><br /><br />
+				<b>Libellé du projet</b>b>: <span style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $id ?> </span><br /><br />
 				
-				Description: <br /> <br />
+				<b>Description</b>: <br /> <br />
 				
 				<div id="detailstext">
 					<?= $text ?>
