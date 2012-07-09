@@ -39,10 +39,14 @@ class FindRequest extends Request {
 	/* --------------------------------------------------------- */
 	/* Constructors */
 	/* --------------------------------------------------------- */
-	public function __construct(/*IRequestHandler*/ $handler, /*String*/$predicate,/*String*/ $user) {
+	public function __construct(
+		/*IRequestHandler*/ $handler, 
+		 /* DDataBean[] */ $predicateList,
+		 /*String*/ $user) 
+	{
 		parent::__construct("FindRequestHandler", READ);
 		$this->handler	= $handler;
-		$this->predicate = $predicate;
+		$this->predicateList = $predicateList;
 		$this->user = $user;
 	}
 
@@ -53,7 +57,7 @@ class FindRequest extends Request {
 
 		// Construct the requests
 		parent::addArgument("application", APPLICATION_NAME);
-		parent::addArgument("predicate", $this->predicate);
+		parent::addArgument("predicateList", json_encode($this->predicateList));
 
 		// User => Then get details
 		if (!empty($this->user)) {

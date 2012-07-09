@@ -15,6 +15,8 @@
  */
 package com.mymed.controller.core.requesthandler.v2;
 
+import static com.mymed.utils.GsonUtils.gson;
+
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -166,11 +168,11 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
                     } else {
                         // Launch the registration procedure
                         try {
-                            final MUserBean userBean = getGson().fromJson(user, MUserBean.class);
+                            final MUserBean userBean = gson.fromJson(user, MUserBean.class);
                             userBean.setSocialNetworkID(SOCIAL_NET_ID);
                             userBean.setSocialNetworkName(SOCIAL_NET_NAME);
 
-                            final MAuthenticationBean authenticationBean = getGson().fromJson(authentication,
+                            final MAuthenticationBean authenticationBean = gson.fromJson(authentication,
                                             MAuthenticationBean.class);
 
                             LOGGER.info("Trying to create a new user:\n {}", userBean.toString());
@@ -246,7 +248,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
                         throw new InternalBackEndException("oldPassword argument missing!");
                     } else {
                         try {
-                            final MAuthenticationBean authenticationBean = getGson().fromJson(authentication,
+                            final MAuthenticationBean authenticationBean = gson.fromJson(authentication,
                                             MAuthenticationBean.class);
 
                             // verify the oldPassword

@@ -35,9 +35,9 @@ public final class MDataBean extends AbstractMBean implements Comparable<MDataBe
      *  no pb if you want it back, gson works the same with \"ontologyID\": 4, or  \"ontologyID\": \"4\"
      *  it's just useful to treat ontologyID cases
      */
-    private int ontologyID;
+    private MOntologyID ontologyID;
     
-    public MDataBean(String key, String value, int ontologyID) {
+    public MDataBean(String key, String value, MOntologyID ontologyID) {
         if (value == null) throw new InternalBackEndException("Null value for ontology '%s'", key);
 		this.key = key;
 		this.value = value;
@@ -66,11 +66,11 @@ public final class MDataBean extends AbstractMBean implements Comparable<MDataBe
         this.value = value;
     }
 
-    public int getOntologyID() {
+    public MOntologyID getOntologyID() {
         return ontologyID;
     }
 
-    public void setOntologyID(final int ontologyID) {
+    public void setOntologyID(final MOntologyID ontologyID) {
         this.ontologyID = ontologyID;
     }
     

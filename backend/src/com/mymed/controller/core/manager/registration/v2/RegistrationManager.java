@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.mymed.controller.core.manager.registration.v2;
 
-import static com.mymed.utils.PubSub.TEXT;
+import static com.mymed.model.data.application.MOntologyID.TEXT;
 import static java.util.Arrays.asList;
 
 import java.util.ArrayList;
@@ -46,6 +47,7 @@ import com.mymed.utils.HashFunction;
 import com.mymed.utils.mail.Mail;
 import com.mymed.utils.mail.MailMessage;
 import com.mymed.utils.mail.SubscribeMailSession;
+
 
 /**
  * The manager for the authentication bean
@@ -134,10 +136,12 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
         final String accessToken = hashFunc.SHA1ToString(user.getLogin() + System.currentTimeMillis());
         
         /* pub account infos */
+
         pubSubManager.create(application + "#pendingReg", accessToken, "", dataList);
 
         /* send confirmation mail   */  
         sendRegistrationEmail( application, user, accessToken);
+
         
     }
     

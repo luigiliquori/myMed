@@ -10,8 +10,7 @@
  */
 package com.mymed.model.data.application;
 
-import static com.mymed.utils.PubSub.DATE;
-import static com.mymed.utils.PubSub.FLOAT;
+
 import static com.mymed.utils.PubSub.getDateRange;
 import static com.mymed.utils.PubSub.getFloatRange;
 
@@ -36,7 +35,7 @@ public final class QueryBean extends AbstractMBean {
     private String valueStart;
     private String valueEnd;
     
-    private int ontologyID;
+    private MOntologyID ontologyID;
 
     
     /*
@@ -87,11 +86,11 @@ public final class QueryBean extends AbstractMBean {
 		this.valueEnd = valueEnd;
 	}
 
-	public int getOntologyID() {
+	public MOntologyID getOntologyID() {
 		return ontologyID;
 	}
 
-	public void setOntologyID(int ontologyID) {
+	public void setOntologyID(MOntologyID ontologyID) {
 		this.ontologyID = ontologyID;
 	}
 

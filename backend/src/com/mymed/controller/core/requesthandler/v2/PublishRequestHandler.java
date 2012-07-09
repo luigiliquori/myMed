@@ -15,6 +15,8 @@
  */
 package com.mymed.controller.core.requesthandler.v2;
 
+
+import static com.mymed.utils.GsonUtils.gson;
 import static com.mymed.utils.PubSub.getIndex;
 import static com.mymed.utils.PubSub.getIndexData;
 import static com.mymed.utils.PubSub.join;
@@ -45,6 +47,7 @@ import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.application.MDataBean;
 import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.PubSub.Index;
+
 
 /**
  * Servlet implementation class PubSubRequestHandler
@@ -129,7 +132,8 @@ public class PublishRequestHandler extends com.mymed.controller.core.requesthand
 				/* tries to delete the indexes to the data if any */
 				try {
 	                final Type dataType = new TypeToken<List<MDataBean>>() {}.getType();
-	                predicateList = getGson().fromJson(predicateListJson, dataType);
+	                predicateList = gson.fromJson(predicateListJson, dataType);
+
 	            } catch (final JsonSyntaxException e) {
 	                throw new InternalBackEndException("jSon format is not valid");
 	            } catch (final JsonParseException e) {
@@ -204,7 +208,7 @@ public class PublishRequestHandler extends com.mymed.controller.core.requesthand
 
             try {
                 final Type dataType = new TypeToken<List<MDataBean>>() {}.getType();
-                dataList = getGson().fromJson(data, dataType);
+                dataList = gson.fromJson(data, dataType);
 
             } catch (final JsonSyntaxException e) {
                 LOGGER.debug("Error in Json format", e);

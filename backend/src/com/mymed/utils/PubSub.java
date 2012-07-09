@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.model.data.application.MDataBean;
+import com.mymed.model.data.application.MOntologyID;
 
 /**
  * Utils methods for pub sub managers
@@ -35,6 +36,7 @@ public class PubSub {
 	
 	public static final int maxNumColumns = 10000; // arbitrary max number of cols read in a slice, to overrides 100 by default
 	
+
 	/**
 	 * 
 	 * contructs all possible set of indexes with level terms from predicateList
@@ -65,10 +67,10 @@ public class PubSub {
 									
 					//int ontID = parseInt(d.getOntologyID());
 					
-					if ( d.getOntologyID() == DATE ){
+					if ( d.getOntologyID().getValue() == DATE ){
 						long t = parseLong(d.getValue());
 						indexes.add(new Index(d.getKey() + (t - t % interval), d.getValue()));
-					} else if ( d.getOntologyID() == FLOAT ){
+					} else if ( d.getOntologyID().getValue() == FLOAT ){
 						Float value = new Float(d.getValue());
 						indexes.add(new Index(d.getKey()+value.intValue(), pad(value)));
 					} else{
@@ -152,7 +154,7 @@ public class PubSub {
     public static List<MDataBean> getIndexData(List<MDataBean> data){
     	List<MDataBean> predicate = new ArrayList<MDataBean>();
         for (MDataBean d : data){
-        	if (d.getOntologyID() < TEXT) {
+        	if (d.getOntologyID().getValue() < MOntologyID.TEXT.getValue()) {
         		predicate.add(d);
         	}
         }

@@ -1,12 +1,14 @@
 package com.mymed.controller.core.manager.registration;
 
+import static com.mymed.model.data.application.MOntologyID.KEYWORD;
+import static com.mymed.utils.GsonUtils.gson;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.NotImplementedException;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
@@ -18,6 +20,7 @@ import com.mymed.controller.core.manager.pubsub.PubSubManager;
 import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.data.application.MDataBean;
+import com.mymed.model.data.application.MOntologyID;
 import com.mymed.model.data.session.MAuthenticationBean;
 import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.HashFunction;
@@ -64,11 +67,10 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
     /**
      * The default ontology id.
      */
-    private static final int ONTOLOGY_ID = 0;
+    private static final MOntologyID ONTOLOGY_ID = KEYWORD;
 
     private final IPubSubManager pubSubManager;
     private final IAuthenticationManager authenticationManager;
-    private final Gson gson;
 
     /**
      * Default constructor.
@@ -87,10 +89,8 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
      */
     public RegistrationManager(final IStorageManager storageManager) throws InternalBackEndException {
         super(storageManager);
-
         pubSubManager = new PubSubManager();
         authenticationManager = new AuthenticationManager();
-        gson = new Gson();
     }
 
     /*
