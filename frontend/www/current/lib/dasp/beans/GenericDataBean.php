@@ -221,7 +221,7 @@ abstract class GenericDataBean {
 		// Create a find request
 		$fr = new FindRequest(
 				null,
-				$this->getPredicateStr(),
+				$this->getPredicates(),
 				null);
 
 		// Get a list of result
@@ -281,7 +281,7 @@ abstract class GenericDataBean {
 		// Create a find request
 		$fr = new FindRequest(
 				null,
-				$this->getPredicateStr(),
+				$this->getPredicates(),
 				$this->publisherID);
 
 		// Get a list of result
