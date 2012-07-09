@@ -87,7 +87,7 @@ if (count($_POST)) {
 		
 		<?= $msg ?>
 		<h1><?= Template::APPLICATION_NAME ?></h1>
-		<?php echo _('title'); ?>
+		<?php echo _('title').'<br />'; ?>
 		<br />
 		<form action="authenticate" method="post" id="loginForm" data-ajax="false">
 
