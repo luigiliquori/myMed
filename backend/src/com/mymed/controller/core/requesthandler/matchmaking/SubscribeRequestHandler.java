@@ -15,6 +15,9 @@
  */
 package com.mymed.controller.core.requesthandler.matchmaking;
 
+import static com.mymed.utils.GsonUtils.gson;
+import static com.mymed.utils.PubSub.makePrefix;
+
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +36,6 @@ import com.mymed.controller.core.manager.pubsub.PubSubManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.application.MDataBean;
 import com.mymed.model.data.user.MUserBean;
-import static com.mymed.utils.PubSub.makePrefix;
 
 /**
  * Servlet implementation class PubSubRequestHandler
@@ -100,12 +102,16 @@ public class SubscribeRequestHandler extends AbstractMatchMaking {
                         throw new InternalBackEndException("missing userID argument!");
                     }
                 	
-                	 if(predicateList != null) {
+                	 if (predicateList != null) {
      					final Type dataType = new TypeToken<List<MDataBean>>() {}.getType();
-     					final List<MDataBean> predicateListObject = getGson().fromJson(predicateList, dataType);
-     					List<StringBuffer> predList = getPredicate(predicateListObject, predicateListObject.size());
-     					/* @Todo use an other parameter to choose the broadcast strategy */
-     					predicate = predList.get(predList.size()-1).toString();
+     					final List<MDataBean> predicateListObject = gson.fromJson(predicateList, dataType);
+     					List<String> predList = getPredicate(
+     					        predicateListObject, 
+     					        predicateListObject.size(),
+     					        predicateListObject.size());
+     					
+     					// Sub predicate
+     					predicate = getSubPredicate(predicateListObject);
      				}
 
                 	pubsubManager.delete(makePrefix(application, namespace), user, predicate);
@@ -157,15 +163,19 @@ public class SubscribeRequestHandler extends AbstractMatchMaking {
                 
                 if (predicateList != null) {
 					final Type dataType = new TypeToken<List<MDataBean>>() {}.getType();
-					final List<MDataBean> predicateListObject = getGson().fromJson(predicateList, dataType);
-					List<StringBuffer> predicates = getPredicate(predicateListObject, predicateListObject.size());
-					/* @Todo use an other parameter to choose the broadcast strategy */
-					predicate = predicates.get(predicates.size()-1).toString();
+					final List<MDataBean> predicateListObject = gson.fromJson(predicateList, dataType);
+					List<String> predicates = getPredicate(
+					        predicateListObject, 
+					        predicateListObject.size(),
+					        predicateListObject.size());
+					
+					// Sub predicate
+					predicate = getSubPredicate(predicateListObject);
 				}
 
                 MUserBean userBean;
                 try {
-                	userBean = getGson().fromJson(user, MUserBean.class);
+                	userBean = gson.fromJson(user, MUserBean.class);
                 } catch (final JsonSyntaxException e) {
                 	userBean = profileManager.read(user);
                 }

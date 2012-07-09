@@ -1,5 +1,9 @@
 package com.mymed.utils;
 
+import static com.mymed.model.data.application.MOntologyID.DATE;
+import static com.mymed.model.data.application.MOntologyID.FLOAT;
+import static com.mymed.model.data.application.MOntologyID.TEXT;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,18 +25,6 @@ import com.mymed.model.data.application.MDataBean;
  */
 
 public class PubSub {
-	
-	/*  Ontology ID list */
-    
-	public static final int KEYWORD = 0;
-	public static final int GPS     = 1;
-	public static final int ENUM    = 2;
-	public static final int DATE    = 3;
-	public static final int TEXT    = 4;
-	public static final int PICTURE = 5;
-	public static final int VIDEO   = 6;
-	public static final int AUDIO   = 7;
-	public static final int FLOAT   = -1;
 	
 	/**
 	 * 
@@ -149,7 +141,7 @@ public class PubSub {
     public static List<MDataBean> getPredicate(List<MDataBean> data){
     	List<MDataBean> predicate = new ArrayList<MDataBean>();
         for (MDataBean d : data){
-        	if (d.getOntologyID() < TEXT) {
+        	if (d.getOntologyID().getValue() < TEXT.getValue()) {
         		predicate.add(d);
         	}
         }

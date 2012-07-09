@@ -15,10 +15,10 @@
 */
 package com.mymed.controller.core.requesthandler.message;
 
+import static com.mymed.utils.GsonUtils.gson;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import com.google.gson.Gson;
 
 /**
  * Represent the message/notification for the frontend
@@ -79,7 +79,7 @@ public class JsonMessage<T> {
    */
   @Override
   public String toString() {
-    return new Gson().toJson(this);
+    return gson.toJson(this);
   }
 
   /* --------------------------------------------------------- */

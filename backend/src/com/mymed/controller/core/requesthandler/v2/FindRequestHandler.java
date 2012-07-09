@@ -15,6 +15,8 @@
  */
 package com.mymed.controller.core.requesthandler.v2;
 
+import static com.mymed.utils.GsonUtils.gson;
+
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -43,6 +45,7 @@ import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.application.MDataBean;
 import com.mymed.model.data.application.QueryBean;
 import com.mymed.model.data.user.MUserBean;
+import com.mymed.utils.GsonUtils;
 import com.mymed.utils.PubSub;
 
 @MultipartConfig
@@ -160,7 +163,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
 				//retrieve query params
 				try{
                 	final Type dataType = new TypeToken<Map<String, QueryBean>>() {}.getType();
-                	queryTmp = getGson().fromJson(predicateList, dataType);
+                	queryTmp = gson.fromJson(predicateList, dataType);
 	            } catch (final JsonSyntaxException e) {
 	                LOGGER.debug("Error in Json format", e);
 	                throw new InternalBackEndException("jSon format is not valid");
@@ -346,7 +349,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
 				try {
 					final Type dataType = new TypeToken<Map<String, QueryBean>>() {
 					}.getType();
-					final Map<String, QueryBean> predicateMap = getGson()
+					final Map<String, QueryBean> predicateMap = gson
 							.fromJson(predicateList, dataType);
 
 					/* construct indexes */

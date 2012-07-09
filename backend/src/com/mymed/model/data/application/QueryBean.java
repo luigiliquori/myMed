@@ -10,6 +10,7 @@
  */
 package com.mymed.model.data.application;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public final class QueryBean extends AbstractMBean {
     private String valueStart;
     private String valueEnd;
     
-    private int ontologyID;
+    private MOntologyID ontologyID;
 
     
     /*
@@ -45,10 +46,10 @@ public final class QueryBean extends AbstractMBean {
 
 		switch (ontologyID) {
 
-		case PubSub.DATE:
+		case DATE:
 			res.addAll(PubSub.getDateRange(key, valueStart, valueEnd));
 			break;
-		case PubSub.FLOAT:
+		case FLOAT:
 			res.addAll(PubSub.getFloatRange(key, valueStart, valueEnd));
 			break;
 		default: // default, no range queries done = exact matchmaking
@@ -83,11 +84,11 @@ public final class QueryBean extends AbstractMBean {
 		this.valueEnd = valueEnd;
 	}
 
-	public int getOntologyID() {
+	public MOntologyID getOntologyID() {
 		return ontologyID;
 	}
 
-	public void setOntologyID(int ontologyID) {
+	public void setOntologyID(MOntologyID ontologyID) {
 		this.ontologyID = ontologyID;
 	}
 

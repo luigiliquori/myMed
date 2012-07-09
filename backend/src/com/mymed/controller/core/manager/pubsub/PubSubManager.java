@@ -25,9 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.TreeMap;
 
-import com.google.gson.Gson;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.AbstractManager;
@@ -43,6 +41,8 @@ import com.mymed.utils.MiscUtils;
 import com.mymed.utils.mail.Mail;
 import com.mymed.utils.mail.MailMessage;
 import com.mymed.utils.mail.SubscribeMailSession;
+import static com.mymed.utils.GsonUtils.gson;
+
 
 import static com.mymed.utils.MiscUtils.*;
 
@@ -148,7 +148,6 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
         args.clear();
         args.put("predicate", encode(subPredicate));
         if (predicateList != null) {
-            Gson gson = new Gson();
             args.put("predicateListJson", encode(gson.toJson(predicateList)));
         }
         args.put("begin", encode(begin));
@@ -177,7 +176,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
         for (final MDataBean item : dataList) {
             args.put("key", encode(item.getKey()));
             args.put("value", encode(item.getValue()));
-            args.put("ontologyID", encode(item.getOntologyID()));
+            args.put("ontologyID", encode(item.getOntologyID().getValue()));
             storageManager.insertSuperSlice(
                     SC_DATA_LIST, prefix + subPredicate + publisher.getId(),
                     item.getKey(), 

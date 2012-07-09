@@ -15,6 +15,7 @@
  */
 package com.mymed.controller.core.manager.pubsub.v2;
 
+import static com.mymed.model.data.application.MOntologyID.TEXT;
 import static com.mymed.utils.PubSub.extractApplication;
 import static com.mymed.utils.PubSub.extractNamespace;
 import static java.util.Arrays.asList;
@@ -93,7 +94,7 @@ public class PubSubManager extends com.mymed.controller.core.manager.pubsub.PubS
          */
 
         for ( MDataBean item : predicateList) {
-            if (item.getOntologyID() < 4 /*|| item.getOntologyID() == 8*/)
+            if (item.getOntologyID().getValue() < TEXT.getValue() /*|| item.getOntologyID() == 8*/)
                 args.put(item.getKey(), encode(item.getValue()));
         }
 
