@@ -63,8 +63,6 @@ import com.mymed.utils.MLogger;
  */
 public class StorageManager implements IStorageManager {
 
-    public static final int maxNumColumns = 10000;
-
     protected static final Logger LOGGER = MLogger.getLogger();
 
     private static final PropertiesManager PROPERTIES = PropertiesManager.getInstance();
@@ -663,7 +661,8 @@ public class StorageManager implements IStorageManager {
 	        String tableName,
 			List<String> keys, 
 			String start, 
-			String finish) 
+			String finish,
+			int count) 
 	{
   	     throw new NotImplementedException();	
 	}  

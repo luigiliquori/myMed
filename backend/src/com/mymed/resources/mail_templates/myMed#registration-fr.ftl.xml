@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+This is a mail template.
+"subject" and "body" content should be written with FreeMarker syntax.
+The following variables are available in the templates :
+   * base_url : "http://host:port/"
+   * application : ApplicationID
+   * publisher : The publisher (MUserBean)
+   * recipient : The suscriber (MuserBean)
+   * publication : The object published, with all data and predicates as attributes.
+   * predicate : Predicat de recherche
+-->
+<mail-template>
+
+    <subject>[${application}] Inscription</subject>
+
+    <body><![CDATA[
+        Bonjour ${recipient.name},<br/>
+        <br/>
+        
+        Bienvenue sur myMed.<br /><br />Pour finaliser votre inscription allez sur
+       
+       <a href="${publication.link}">${publication.link}</a>
+		<br/>
+       
+        --<br/>
+    
+        ${publisher.name}
+       
+]]></body>
+</mail-template>

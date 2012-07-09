@@ -229,6 +229,6 @@ public interface IStorageManager {
     void removeAll(String tableName, String key) throws InternalBackEndException;
     
     public Map<String, Map<String, String>> multiSelectList(final String tableName, final List<String> keys,
-    		final String start, final String finish) 
+    		final String start, final String finish, final int count) 
     			throws IOBackEndException, InternalBackEndException, UnsupportedEncodingException;
 }

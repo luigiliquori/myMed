@@ -114,33 +114,29 @@ public class AuthenticationManager extends com.mymed.controller.core.manager.aut
         final String accessToken = hashFunc.SHA1ToString(user.getLogin() + System.currentTimeMillis());
         
         /* pub account infos */
-        pubSubManager.create(APP_NAME, accessToken, "", dataList);
+        pubSubManager.create(APP_NAME + "#pending", accessToken, "", dataList);
         
         /* sub to confirmation mail */
-        pubSubManager.create(APP_NAME, accessToken + "conf", user.getId());
+        pubSubManager.create(APP_NAME + "#registration", accessToken, user.getId());
         
         dataList.clear();
-        final StringBuilder contentBuilder = new StringBuilder(250);
+
         // TODO add internationalization support
-        contentBuilder.append("Bienvenu sur myMed.<br /><br />Pour finaliser votre inscription allez sur <a href='");
+        
         String address = getServerProtocol() + getServerURI();
         if (application != null) {
         	address += "/application/" + application;
         } 
         address += "?registration=ok&accessToken=" + accessToken;
-        contentBuilder.append(address);
-        contentBuilder.append("'>"+address+"</a>");
-
-        contentBuilder.trimToSize();
         
-        
-        MDataBean mailContent = new MDataBean("myMed", contentBuilder.toString(), TEXT);
+        MDataBean mailContent = new MDataBean("link", address, TEXT);
         dataList.add(mailContent);
         MUserBean publisher = new MUserBean();
         publisher.setName("myMed");
+        publisher.setEmail("mymeddev@gmail.com");
         
         /* trigger confirmation mail send with its content  */  
-        pubSubManager.sendEmailsToSubscribers(APP_NAME, accessToken + "conf", publisher, dataList);
+        pubSubManager.sendEmailsToSubscribers(APP_NAME + "#registration", accessToken, publisher, dataList);
         
     }
 
@@ -151,9 +147,8 @@ public class AuthenticationManager extends com.mymed.controller.core.manager.aut
     @Override
     public void read(final String accessToken) throws AbstractMymedException {
         // Retrieve the user profile
-        final List<Map<String, String>> list = pubSubManager.read(APP_NAME, accessToken, ""); //read temporary data used for pending registration
+        final List<Map<String, String>> list = pubSubManager.read(APP_NAME + "#pending", accessToken, ""); //read temporary data used for pending registration
         if (list.size() == 0){
-        	LOGGER.debug("account registration not found");
             throw new InternalBackEndException("account registration not found");
     	}
         MUserBean userBean = null;
@@ -176,9 +171,9 @@ public class AuthenticationManager extends com.mymed.controller.core.manager.aut
         if ((userBean != null) && (authenticationBean != null)) {
             create(userBean, authenticationBean);
             // delete pending tasks
-            pubSubManager.delete(APP_NAME, accessToken);
-            pubSubManager.delete(APP_NAME, accessToken + "conf");
-            pubSubManager.delete(APP_NAME, userBean.getId(), accessToken + "conf");
+			pubSubManager.delete(APP_NAME + "#pending", accessToken);
+            pubSubManager.delete(APP_NAME + "#registration", accessToken);
+            pubSubManager.delete(APP_NAME + "#registration", userBean.getId(), accessToken);
         } else {
         	LOGGER.debug("account creation failed");
         }

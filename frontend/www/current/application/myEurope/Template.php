@@ -18,8 +18,16 @@ class Template {
 		require_once '../../system/config.php';
 		require_once '../../lib/dasp/beans/OntologyBean.php';
 		
+		$lang = "fr_FR";
+		if (isset($_GET['lang'])) $lang = $_GET['lang'];
+		putenv("LC_ALL=$lang");
+		setlocale(LC_ALL, $lang);
+		bindtextdomain("messages", "locale");
+		bind_textdomain_codeset('messages', 'UTF-8');
+		textdomain("messages");
+		
 		if(session_id() == '') {
-			session_start();
+			session_start();			
 		}
 		if ($redirect && !isset($_SESSION['user'])) {
 			if (!strpos($_SERVER['REQUEST_URI'], "extended") !==false){
@@ -37,8 +45,42 @@ class Template {
 		$request->addArgument("predicate", "ext");
 		$request->addArgument("userID", $_SESSION['user']->id);
 		$responsejSon = $request->send();
+		return json_decode($responsejSon); 
+	}
+	
+	
+	public static function updateDataReputation ( $detail, $dataRep, $application, $id, $author ) {
+		//construct data queryBean
+		$dataList=array();
+		foreach( $detail as $value ) {
+			if ($value->key=="rate"){
+				$dataList[$value->key] = array("valueStart"=>$value->value, "valueEnd"=> 100-$dataRep, "ontologyID"=>$value->ontologyID);
+			} else {
+				$dataList[$value->key] = array("valueStart"=>$value->value, "valueEnd"=>$value->value, "ontologyID"=>$value->ontologyID);
+			}
+		}
+		
+		$request = new Request("v2/FindRequestHandler", UPDATE);
+		$request->addArgument("application", $application);
+		$request->addArgument("predicateList", json_encode($dataList));
+		
+		$request->addArgument("id", $id);
+		$request->addArgument("level", 3); // this will be enough since we insert everything with level <=3
+		$request->addArgument("userID", $author );
+		
+		$responsejSon = $request->send();
+		
+		
+		$dataList=array();
+		array_push($dataList, array("key"=>"rate", "value"=> 100-$dataRep, "ontologyID"=>FLOAT));
+		$request = new Request("v2/PublishRequestHandler", UPDATE);
+		$request->addArgument("application", $application);
+		$request->addArgument("data", json_encode($dataList));
+		$request->addArgument("id", $id);
+		$request->addArgument("userID", $author );
+		
+		$responsejSon = $request->send();
 		return json_decode($responsejSon);
-		 
 	}
 
 

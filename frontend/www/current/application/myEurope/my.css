@@ -1,7 +1,8 @@
 html,body,.ui-page {
-	height: 100%;
 	background-image: url("img/background.jpg");
-	background-size: 100% 100%;
+	background-size: contain;
+	background-color: white;
+	background-repeat:no-repeat;
 	text-shadow: none;
 }
 
@@ -13,8 +14,11 @@ html,body,.ui-page {
 }
 
 .footer {
-	height: 85px;
+	position: absolute;
 	text-align: center;
+	bottom: 0;
+	right: 0;
+	left: 0;
 }
 
 .footer img {

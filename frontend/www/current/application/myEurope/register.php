@@ -14,6 +14,9 @@ if (count($_POST)) {
 	if ( $_POST["password"] == ""){
 		$msg = "<span style='color: red; '>mot de passe vide</span>";
 	}
+	if ( $_POST["password"] != $_POST["passwordConf"]){
+		$msg = "<span style='color: red; '>mot de passe mal confirmé</span>";
+	}
 	
 	if ($msg == ""){
 		$mUserBean = new MUserBean();
@@ -60,42 +63,44 @@ if (count($_POST)) {
 </head>
 <body>
 	<div data-role="page" id="Register">
-		<div class="wrapper">
-			<div data-role="header" data-theme="c" style="max-height: 38px;">
-				<a data-icon="back" data-rel="back">Retour</a>
+		<div data-role="header" data-theme="c" style="max-height: 38px;">
+			<a data-icon="back" data-rel="back">Retour</a>
 <!-- 				<a href="search" data-icon="back" data-transition="flip" data-direction="reverse"> Retour </a> -->
-				<h2>
-					<a href="./" style="text-decoration: none;">myEurope</a>
-				</h2>
-			</div>
-			<div data-role="content" style="text-align:center;">
-				<?= $msg ?>
-				<form action="#" method="post" id="registerForm">
-					<input name="application" value="myEurope" type="hidden" />
-					<div data-role="fieldcontain">
-						<fieldset data-role="controlgroup">
-							<label for="textinputr1"> Prénom: </label> <input id="textinputr1" name="prenom" placeholder="" value="" type="text" />
-						</fieldset>
-					</div>
-					<div data-role="fieldcontain">
-						<fieldset data-role="controlgroup">
-							<label for="textinputr2"> Nom: </label> <input id="textinputr2" name="nom" placeholder="" value="" type="text" />
-						</fieldset>
-					</div>
-					<div data-role="fieldcontain">
-						<fieldset data-role="controlgroup">
-							<label for="textinputr3"> eMail: </label> <input id="textinputr3" name="email" placeholder="" value="" type="email" />
-						</fieldset>
-					</div>
-					<div data-role="fieldcontain">
-						<fieldset data-role="controlgroup">
-							<label for="textinputr4"> Mot de passe: </label> <input id="textinputr4" name="password" placeholder="" value="" type="password" />
-						</fieldset>
-					</div>
-					<a href="" type="submit" onclick="$('#registerForm').submit();">Créer</a>
-				</form>
-				<div class="push"></div>
-			</div>
+			<h2>
+				<a href="./" style="text-decoration: none;">myEurope</a>
+			</h2>
+		</div>
+		<div data-role="content" style="text-align:center;">
+			<?= $msg ?>
+			<form action="#" method="post" id="registerForm">
+				<input name="application" value="myEurope" type="hidden" />
+				<div data-role="fieldcontain">
+					<fieldset data-role="controlgroup">
+						<label for="textinputr1"> Prénom: </label> <input id="textinputr1" name="prenom" placeholder="" value="" type="text" />
+					</fieldset>
+				</div>
+				<div data-role="fieldcontain">
+					<fieldset data-role="controlgroup">
+						<label for="textinputr2"> Nom: </label> <input id="textinputr2" name="nom" placeholder="" value="" type="text" />
+					</fieldset>
+				</div>
+				<div data-role="fieldcontain">
+					<fieldset data-role="controlgroup">
+						<label for="textinputr3"> eMail: </label> <input id="textinputr3" name="email" placeholder="" value="" type="email" />
+					</fieldset>
+				</div>
+				<div data-role="fieldcontain">
+					<fieldset data-role="controlgroup">
+						<label for="textinputr4"> Mot de passe: </label> <input id="textinputr4" name="password" placeholder="" value="" type="password" />
+					</fieldset>
+				</div>
+				<div data-role="fieldcontain">
+					<fieldset data-role="controlgroup">
+						<label for="textinputr5"> Confirmation: </label> <input id="textinputr5" name="passwordConf" placeholder="" value="" type="password" />
+					</fieldset>
+				</div>
+				<a href="" type="submit" onclick="$('#registerForm').submit();">Créer</a>
+			</form>
 		</div>
 		<?= Template::credits(); ?>
 	</div>

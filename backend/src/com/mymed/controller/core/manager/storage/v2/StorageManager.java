@@ -17,23 +17,18 @@ package com.mymed.controller.core.manager.storage.v2;
 
 import static com.mymed.utils.MiscUtils.encode;
 
-import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import org.apache.cassandra.thrift.Column;
 import org.apache.cassandra.thrift.ColumnOrSuperColumn;
 import org.apache.cassandra.thrift.ColumnParent;
-import org.apache.cassandra.thrift.Mutation;
 import org.apache.cassandra.thrift.SlicePredicate;
 import org.apache.cassandra.thrift.SliceRange;
-import org.apache.cassandra.thrift.SuperColumn;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
@@ -78,19 +73,20 @@ public class StorageManager extends
 				conf.getThriftPort());
 	}
 
-
+	@Override
 	public Map<String, Map<String, String>> multiSelectList(
 			final String tableName, 
 			final List<String> keys,
 			final String start, 
-			final String finish) throws IOBackEndException,InternalBackEndException 
+			final String finish,
+			final int count) throws IOBackEndException,InternalBackEndException 
 	{
 
 		final SlicePredicate predicate = new SlicePredicate();
 		final SliceRange sliceRange = new SliceRange();
 		sliceRange.setStart(encode(start));
 		sliceRange.setFinish(encode(finish));
-		sliceRange.setCount(maxNumColumns); // TODO Maybe better split and
+		sliceRange.setCount(count); // TODO Maybe better split and
 											// perform several queries.
 		predicate.setSlice_range(sliceRange);
 

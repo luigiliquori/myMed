@@ -169,11 +169,12 @@ public class PubSubManager extends com.mymed.controller.core.manager.pubsub.PubS
             final String application, 
             final List<String> predicate, 
             final String start, 
-            final String finish)
+            final String finish,
+            final int count)
                     throws InternalBackEndException, IOBackEndException, UnsupportedEncodingException 
     {
     	final Map<String, Map<String, String>> resMap = new TreeMap<String, Map<String, String>>();
-    	resMap.putAll(storageManager.multiSelectList(SC_APPLICATION_CONTROLLER, predicate, start, finish));
+    	resMap.putAll(storageManager.multiSelectList(SC_APPLICATION_CONTROLLER, predicate, start, finish, count));
     	return resMap;
     }
     

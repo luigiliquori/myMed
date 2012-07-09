@@ -91,7 +91,7 @@ public class PublishRequestHandler extends com.mymed.controller.core.requesthand
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            final String application, predicate;
+            final String application, predicate, namespace = parameters.get(JSON_NAMESPACE);
 			String predicateListJson = null;
 			final String dataId, userId;
             final List<MDataBean> predicateList;
@@ -110,7 +110,7 @@ public class PublishRequestHandler extends com.mymed.controller.core.requesthand
 				
 				// Get DATA (details)
 				final List<Map<String, String>> details = pubsubManager.read(
-						application, predicate, userId);
+						makePrefix(application, namespace), predicate, userId);
 				if (details.isEmpty()) {
 					throw new IOBackEndException("no results found!", 404);
 				}
@@ -149,7 +149,7 @@ public class PublishRequestHandler extends com.mymed.controller.core.requesthand
 					/* store indexes for this data */
 					// LOGGER.info("indexing "+data_id+" with level: "+i);
 					for (List<Index> p : predicates) {
-						pubsubManager.delete(application,
+						pubsubManager.delete(makePrefix(application, namespace),
 								joinRows(p),
 								joinCols(p) + dataId,
 								userId);
@@ -248,7 +248,7 @@ public class PublishRequestHandler extends com.mymed.controller.core.requesthand
                     	
                     	// TODO Add the predicate list
                 		pubsubManager.create(makePrefix(application, namespace), s1, s2, dataId, userBean, dataList, null);
-                		pubsubManager.sendEmailsToSubscribers(application, s1, userBean, dataList);
+                		pubsubManager.sendEmailsToSubscribers(makePrefix(application, namespace), s1, userBean, dataList);
                     }
                 }
 				
@@ -261,7 +261,7 @@ public class PublishRequestHandler extends com.mymed.controller.core.requesthand
 				
 				LOGGER.info("creating/updating "+dataId+" size "+dataList.size());
 				pubsubManager.create(makePrefix(application, namespace), dataId, userId, dataList);
-				pubsubManager.sendEmailsToSubscribers(application, dataId, userBean, dataList);
+				pubsubManager.sendEmailsToSubscribers(makePrefix(application, namespace), dataId, userBean, dataList);
 				
 				break;
 

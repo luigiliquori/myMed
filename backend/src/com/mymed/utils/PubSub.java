@@ -1,15 +1,10 @@
 package com.mymed.utils;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import org.apache.commons.lang.time.DateFormatUtils;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.model.data.application.MDataBean;
@@ -37,6 +32,8 @@ public class PubSub {
 
 
 	private final static long interval =  60 * 60 * 24; // 1 day in s
+	
+	public static final int maxNumColumns = 10000; // arbitrary max number of cols read in a slice, to overrides 100 by default
 	
 	/**
 	 * 
@@ -72,7 +69,8 @@ public class PubSub {
 						long t = parseLong(d.getValue());
 						indexes.add(new Index(d.getKey() + (t - t % interval), d.getValue()));
 					} else if ( d.getOntologyID() == FLOAT ){
-						indexes.add(new Index(d.getKey()+new Float(d.getValue()).intValue(), d.getValue()));
+						Float value = new Float(d.getValue());
+						indexes.add(new Index(d.getKey()+value.intValue(), pad(value)));
 					} else{
 						indexes.add(new Index(d.getKey()+d.getValue(), ""));
 					}
@@ -202,9 +200,9 @@ public class PubSub {
     public static List<String> getFloatRange(String key, String v1, String v2){
     	List<String> res = new ArrayList<String>();
     	
-		int a = new Float(v1).intValue();
-		int b = new Float(v2).intValue();
-		for (int i = a; i <= b; i++) {
+		int i1 = new Float(v1).intValue();
+		int i2 = new Float(v2).intValue();
+		for (int i = i1; i <= i2; i++) {
 			res.add(key + String.valueOf(i));
 		}
 		return res;
@@ -233,6 +231,11 @@ public class PubSub {
 		} catch (NumberFormatException e) {
 			throw new InternalBackEndException(e);
 		}
+	}
+	
+	/** Pads float numbers to have a 2 characters integer part, for utf-8 sorting */
+	public static String pad(float value){
+		return new DecimalFormat("00." + String.valueOf(value).replaceAll(".", "#")).format(value);
 	}
     	    
     

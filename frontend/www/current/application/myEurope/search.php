@@ -44,7 +44,7 @@ if (count($_GET) > 0){
 		$predicateList["date"] = array("valueStart"=>strtotime($_GET['dateMin']), "valueEnd"=>strtotime($_GET['dateMax']), "ontologyID"=>DATE);
 	}
 	if ($_GET['rate'] == 1){
-		$predicateList["rate"] = array("valueStart"=>0, "valueEnd"=>5, "ontologyID"=>FLOAT);
+		$predicateList["rate"] = array("valueStart"=>0, "valueEnd"=>999, "ontologyID"=>FLOAT);
 	}
 
 	$request = new Request("v2/FindRequestHandler", READ);
@@ -70,79 +70,75 @@ if (count($_GET) > 0){
 
 <body>
 	<div data-role="page" id="Search">
-		<div class="wrapper">
-			<div data-role="header" data-theme="c" style="max-height: 38px;" id="headerSearch">
-				<a data-icon="back" data-rel="back">Retour</a>
-				<h2>
-					<a href="./" style="text-decoration: none;">myEurope</a>
-				</h2>
-				<select data-theme="b" data-mini="true"
-					onchange="$.get('../../lib/dasp/ajax/Subscribe', { code: $(this).val(), application: '<?= $application ?>' ,predicate: '<?= urlencode(join("", $p)) ?>' } );"
-					 name="slider" id="flip-a" data-role="slider">
-					<option value="3">Souscrire</option>
-					<option value="0">Désabonner</option>
-				</select>
-				
-			</div>
-			<div data-role="content">
-				<?php 	
-				if($res->status == 200) {
-					?>
-				<ul data-role="listview" data-filter="true" data-filter-placeholder="filtrer parmi les résultats">
-					<?php
-					$res = $res->dataObject->results;
+		<div data-role="header" data-theme="c" style="max-height: 38px;" id="headerSearch">
+			<a data-icon="back" data-rel="back">Retour</a>
+			<h2>
+				<a href="./" style="text-decoration: none;">myEurope</a>
+			</h2>
+			<select data-theme="b" data-mini="true"
+				onchange="$.get('../../lib/dasp/ajax/Subscribe', { code: $(this).val(), application: '<?= $application ?>' ,predicate: '<?= urlencode(join("", $p)) ?>' } );"
+				 name="slider" id="flip-a" data-role="slider">
+				<option value="3">Souscrire</option>
+				<option value="0">Désabonner</option>
+			</select>
+			
+		</div>
+		<div data-role="content">
+			<?php 	
+			if($res->status == 200) {
+				?>
+			<ul data-role="listview" data-filter="true" data-filter-placeholder="filtrer parmi les résultats">
+				<?php
+				$res = $res->dataObject->results;
 
-					foreach( $res as $i => $value ){
+				foreach( $res as $i => $value ){
 
-						$metiers = array();
-						$regions = array();
-						foreach ( (array) $value as $k=>$v){
-							if (strpos($k, "met") === 0 ){
-								array_push($metiers, $k);
-							} else if (strpos($k, "reg") === 0 ) {
-								array_push($regions, $k);
-							}
+					$metiers = array();
+					$regions = array();
+					foreach ( (array) $value as $k=>$v){
+						if (strpos($k, "met") === 0 ){
+							array_push($metiers, $k);
+						} else if (strpos($k, "reg") === 0 ) {
+							array_push($regions, $k);
 						}
-
-						?>
-					<li><a href="detail?id=<?=  urlencode($value->predicate) ?>&user=<?=  urlencode($value->publisherID) ?>&application=<?= urlencode($application) ?>" 
-					 style="padding-top: 1px; padding-bottom: 1px;">
-							<h3>
-								projet: <?= $value->predicate ?>
-							</h3>
-							<p>
-								réputation: <?= (1-$value->rate) *100 ?>
-							</p>
-							<p style="font-weight:lighter;"> métiers: <?= join(", ",$metiers) ?>...
-							 régions: <?= join(", ", $regions) ?>... </p>
-							<p class="ui-li-aside">
-								publié par: <span style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $value->publisherName ?> </span> échéance: <strong><?= date("Y-m-d h:i:s", $value->date) ?> </strong>
-							</p>
-
-					</a>
-					</li>
-					<?php 
 					}
+
 					?>
-				</ul>
-				<br />
-				<div style="float: right;">
-					<?= count($res) ?>
-					résultats
-				</div>
-				<br />
-				<?php	
-				} else{
-					?>
-				Aucun résultats
-				<?php	
+				<li><a href="detail?id=<?=  urlencode($value->predicate) ?>&user=<?=  urlencode($value->publisherID) ?>&application=<?= urlencode($application) ?>" 
+				 style="padding-top: 1px; padding-bottom: 1px;">
+						<h3>
+							projet: <?= $value->predicate ?>
+						</h3>
+						<p>
+							réputation: <?= 100 - $value->rate ?>
+						</p>
+						<p style="font-weight:lighter;"> métiers: <?= join(", ",$metiers) ?>...
+						 régions: <?= join(", ", $regions) ?>... </p>
+						<p class="ui-li-aside">
+							publié par: <span style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $value->publisherName ?> </span> échéance: <strong><?= date("Y-m-d h:i:s", $value->date) ?> </strong>
+						</p>
+
+				</a>
+				</li>
+				<?php 
 				}
 				?>
-
-				<div class="push"></div>
+			</ul>
+			<br />
+			<div style="float: right;">
+				<?= count($res) ?>
+				résultats
 			</div>
+			<br />
+			<?php	
+			} else{
+				?>
+			Aucun résultats
+			<?php	
+			}
+			?>
+
 		</div>
-		<?= Template::credits(); ?>
 	</div>
 </body>
 </html>

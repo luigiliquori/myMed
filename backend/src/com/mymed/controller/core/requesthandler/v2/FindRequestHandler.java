@@ -19,6 +19,7 @@ import static com.mymed.utils.PubSub.constructRows;
 import static com.mymed.utils.PubSub.getIndex;
 import static com.mymed.utils.PubSub.isPredicate;
 import static com.mymed.utils.PubSub.join;
+import static com.mymed.utils.PubSub.maxNumColumns;
 import static com.mymed.utils.PubSub.Index.joinCols;
 import static com.mymed.utils.PubSub.Index.joinRows;
 
@@ -248,12 +249,18 @@ public class FindRequestHandler extends AbstractRequestHandler {
                 	LOGGER.info("ext find rows: "+rows.size()+" initial: "+rows.get(0));
                 	LOGGER.info("ext find ranges: "+ranges.size());
 
+                	/* 
+                	 * cnt: If the query is "simple" (doesn't require post filtering) we can directly apply the count parameter
+                	 * else we need to get enough results (all for rows)
+                	 */
+					int cnt = (ranges.size() > 1 || keys.size() > level) ? maxNumColumns : count;
+					
                 	if (ranges.size() != 0){
                 		LOGGER.info("ext find DB ranges: "+ranges.get(0)[0]+"->"+ranges.get(0)[1]);
                 		String[] range = ranges.remove(0);
-						resMap = pubsubManager.read(application, rows, start != null ? start : range[0], range[1]);
+						resMap = pubsubManager.read(application, rows, start != null ? start : range[0], range[1], cnt);
             		} else {
-            			resMap = pubsubManager.read(application, rows, start != null ? start : "", ""); //there is just one elt in rows, equivalent to v1
+            			resMap = pubsubManager.read(application, rows, start != null ? start : "", "", cnt); //there is just one elt in rows, equivalent to v1
             		}
                 	/* now loop for remaining range queries */
                 	
@@ -330,7 +337,8 @@ public class FindRequestHandler extends AbstractRequestHandler {
 				LOGGER.info("Results found for Application: " + application + " Predicate: " + predicateList.toString()
 						+ " start: " + start + " count: " + count );
 				
-				message.addDataObject(JSON_RESULTS, resList);
+				/* returns resList with count parameter applied */
+				message.addDataObject(JSON_RESULTS, resList.subList(0, Math.min(resList.size(), count)));
 
 
 				break;

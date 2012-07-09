@@ -26,7 +26,7 @@ public abstract class AbstractMatchMaking extends AbstractRequestHandler {
     /**
      * JSON 'predicate' attribute.
      */
-    protected static final String JSON_NAMESPACE = JSON.get("json.namespapce");
+    protected static final String JSON_NAMESPACE = JSON.get("json.namespace");
     
 	/**
 	 * JSON 'predicate' attribute.
