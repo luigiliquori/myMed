@@ -13,26 +13,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.mymed.controller.core.manager.authentication.v2;
+package com.mymed.controller.core.manager.registration.v2;
 
 import static com.mymed.utils.PubSub.TEXT;
+import static java.util.Arrays.asList;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.lang.NotImplementedException;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.controller.core.manager.AbstractManager;
+import com.mymed.controller.core.manager.authentication.AuthenticationManager;
+import com.mymed.controller.core.manager.authentication.IAuthenticationManager;
+import com.mymed.controller.core.manager.mailtemplates.MailTemplate;
+import com.mymed.controller.core.manager.mailtemplates.MailTemplateManager;
 import com.mymed.controller.core.manager.pubsub.v2.IPubSubManager;
 import com.mymed.controller.core.manager.pubsub.v2.PubSubManager;
+import com.mymed.controller.core.manager.registration.IRegistrationManager;
 import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.data.application.MDataBean;
 import com.mymed.model.data.session.MAuthenticationBean;
 import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.HashFunction;
+import com.mymed.utils.mail.Mail;
+import com.mymed.utils.mail.MailMessage;
+import com.mymed.utils.mail.SubscribeMailSession;
 
 /**
  * The manager for the authentication bean
@@ -40,7 +53,7 @@ import com.mymed.utils.HashFunction;
  * @author lvanni
  * @author Milo Casagrande
  */
-public class AuthenticationManager extends com.mymed.controller.core.manager.authentication.AuthenticationManager {
+public class RegistrationManager extends AbstractManager implements IRegistrationManager {
 
 
     /**
@@ -70,6 +83,8 @@ public class AuthenticationManager extends com.mymed.controller.core.manager.aut
     
     
     private final IPubSubManager pubSubManager;
+    private final IAuthenticationManager authenticationManager;
+    protected MailTemplateManager mailTemplateManager;
     private final Gson gson;
 
     /**
@@ -77,17 +92,22 @@ public class AuthenticationManager extends com.mymed.controller.core.manager.aut
      * 
      * @throws InternalBackEndException
      */
-    public AuthenticationManager() throws InternalBackEndException {
+    public RegistrationManager() throws InternalBackEndException {
         this(new StorageManager());
     }
 
-    public AuthenticationManager(final IStorageManager storageManager) throws InternalBackEndException {
+    public RegistrationManager(final IStorageManager storageManager) throws InternalBackEndException {
         super(storageManager);
         pubSubManager = new PubSubManager();
+        authenticationManager = new AuthenticationManager();
+        mailTemplateManager = new MailTemplateManager(storageManager);
         gson = new Gson();
     }
 
     @Override
+    /**
+     * v2
+     */
     public void create(
             final MUserBean user, 
             final MAuthenticationBean authentication, 
@@ -114,40 +134,28 @@ public class AuthenticationManager extends com.mymed.controller.core.manager.aut
         final String accessToken = hashFunc.SHA1ToString(user.getLogin() + System.currentTimeMillis());
         
         /* pub account infos */
-        pubSubManager.create(APP_NAME + "#pending", accessToken, "", dataList);
-        
-        /* sub to confirmation mail */
-        pubSubManager.create(APP_NAME + "#registration", accessToken, user.getId());
-        
-        dataList.clear();
+        pubSubManager.create(application + "#pendingReg", accessToken, "", dataList);
 
-        // TODO add internationalization support
-        
-        String address = getServerProtocol() + getServerURI();
-        if (application != null) {
-        	address += "/application/" + application;
-        } 
-        address += "?registration=ok&accessToken=" + accessToken;
-        
-        MDataBean mailContent = new MDataBean("link", address, TEXT);
-        dataList.add(mailContent);
-        MUserBean publisher = new MUserBean();
-        publisher.setName("myMed");
-        publisher.setEmail("mymeddev@gmail.com");
-        
-        /* trigger confirmation mail send with its content  */  
-        pubSubManager.sendEmailsToSubscribers(APP_NAME + "#registration", accessToken, publisher, dataList);
+        /* send confirmation mail   */  
+        sendRegistrationEmail( application, user, accessToken);
         
     }
+    
+	@Override
+	public void read(String accessToken) throws AbstractMymedException {
 
-    /*
+		throw new NotImplementedException();	
+	}
+
+    /**
+     * v2
      * (non-Javadoc)
      * @see com.mymed.controller.core.manager.registration.IRegistrationManager#read(java.lang.String)
      */
-    @Override
-    public void read(final String accessToken) throws AbstractMymedException {
+   
+    public void read( final String application, final String accessToken) throws AbstractMymedException {
         // Retrieve the user profile
-        final List<Map<String, String>> list = pubSubManager.read(APP_NAME + "#pending", accessToken, ""); //read temporary data used for pending registration
+        final List<Map<String, String>> list = pubSubManager.read(application + "#pendingReg", accessToken, ""); //read temporary data used for pending registration
         if (list.size() == 0){
             throw new InternalBackEndException("account registration not found");
     	}
@@ -169,14 +177,68 @@ public class AuthenticationManager extends com.mymed.controller.core.manager.aut
 
         // register the new user
         if ((userBean != null) && (authenticationBean != null)) {
-            create(userBean, authenticationBean);
+        	authenticationManager.create(userBean, authenticationBean);
             // delete pending tasks
 			pubSubManager.delete(APP_NAME + "#pending", accessToken);
-            pubSubManager.delete(APP_NAME + "#registration", accessToken);
-            pubSubManager.delete(APP_NAME + "#registration", userBean.getId(), accessToken);
+			
         } else {
         	LOGGER.debug("account creation failed");
         }
     }
+    
+    /** send registration mail, uses myMed#registration-XX.ftl.xml template */
+    public void sendRegistrationEmail( String application, MUserBean recipient,  String accessToken ) {
+        
+        // Prepare HashMap of object for FreeMarker template
+        HashMap<String, Object> data = new HashMap<String, Object>(); 
+        
+        // Build URL of the application
+        String url = getServerProtocol() + getServerURI() + "/";
+        //if (applicationID != null) {
+            // can we rename the folder myEuroCINAdmin in myEuroCIN_ADMIN to skip below hack
+            // url += "/application/" + (applicationID.equals("myEuroCIN_ADMIN") ? "myEuroCINAdmin" : applicationID);
+        //} 
+        
+        // Set data map
+        data.put("base_url", url);
+        data.put("application", application);
+        data.put("accessToken", accessToken);
+
+            
+        // Update the current recipient in the data map
+        data.put("recipient", recipient);
+        
+        // Get the prefered language of the user
+        String language = recipient.getLang();
+        
+        // Get the mail template from the manager
+        MailTemplate template = this.mailTemplateManager.getTemplate(
+                "myMed", 
+                "registration", 
+                language);
+        
+        // Render the template
+        String subject = template.renderSubject(data);
+        String body = template.renderBody(data);
+        
+        // Create the mail
+        final MailMessage message = new MailMessage();
+        message.setSubject(subject);
+        message.setRecipients(asList(recipient.getEmail()));
+        message.setText(body);
+
+        // Send it
+        final Mail mail = new Mail(
+                message, 
+                SubscribeMailSession.getInstance());
+        mail.send();
+        
+        LOGGER.info(String.format("Mail sent to '%s' with title '%s' for registration", 
+                recipient.getEmail(), 
+                subject));
+
+    }
+
+
 
 }

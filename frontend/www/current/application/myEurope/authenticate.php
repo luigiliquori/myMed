@@ -12,6 +12,7 @@ $msg = ""; //feedback text
 if(isset($_GET['registration'])) { // registration account validation
 	$request = new Request("v2/AuthenticationRequestHandler", CREATE);
 	$request->addArgument("accessToken", $_GET['accessToken']);
+	$request->addArgument("application", $_GET['application']);
 
 	$responsejSon = $request->send();
 	$responseObject = json_decode($responsejSon);
@@ -52,6 +53,7 @@ if (count($_POST)) {
 						$_SESSION['userPerm'] = $v->value;
 				};
 				header("Location: ".(isset($_SESSION['redirect'])?$_SESSION['redirect']:"./index"));
+				unset($_SESSION['redirect']);
 			} else {
 				header("Location: ./update?extended");
 			}
@@ -85,7 +87,7 @@ if (count($_POST)) {
 		
 		<?= $msg ?>
 		<h1><?= Template::APPLICATION_NAME ?></h1>
-		<?php echo $lang['title']; ?>
+		<?php echo _('title'); ?>
 		<br />
 		<form action="authenticate" method="post" id="loginForm" data-ajax="false">
 

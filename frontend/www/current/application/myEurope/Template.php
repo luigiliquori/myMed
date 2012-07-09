@@ -18,6 +18,7 @@ class Template {
 		require_once '../../system/config.php';
 		require_once '../../lib/dasp/beans/OntologyBean.php';
 		
+		// Init gettext() locales
 		$lang = "fr_FR";
 		if (isset($_GET['lang'])) $lang = $_GET['lang'];
 		putenv("LC_ALL=$lang");

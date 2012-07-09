@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.NotImplementedException;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.mymed.controller.core.exception.AbstractMymedException;
@@ -186,4 +188,11 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
             pubSubManager.delete(APP_NAME, accessToken, accessToken, userBean.getId());
         }
     }
+
+	@Override
+	public void read(String application, String accessToken)
+			throws AbstractMymedException {
+		
+		throw new NotImplementedException();	
+	}
 }

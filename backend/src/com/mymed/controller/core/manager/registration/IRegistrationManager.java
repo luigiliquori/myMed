@@ -24,4 +24,8 @@ public interface IRegistrationManager {
    * @throws AbstractMymedException
    */
   void read(String accessToken) throws AbstractMymedException;
+  
+  
+  /** v2 */
+  void read(String application, String accessToken) throws AbstractMymedException;
 }

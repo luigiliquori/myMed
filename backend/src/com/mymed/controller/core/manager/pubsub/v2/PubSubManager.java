@@ -35,6 +35,7 @@ import com.mymed.controller.core.manager.storage.v2.StorageManager;
 import com.mymed.model.data.application.MDataBean;
 import com.mymed.model.data.user.MUserBean;
 import static com.mymed.utils.MiscUtils.*;
+
 import com.mymed.utils.MiscUtils;
 import com.mymed.utils.mail.Mail;
 import com.mymed.utils.mail.MailMessage;
@@ -248,13 +249,7 @@ public class PubSubManager extends com.mymed.controller.core.manager.pubsub.PubS
                 MUserBean recipient = null;
                 try {
                     recipient = profileManager.read(decode(entry.getKey()));
-                } catch (IOBackEndException e) {
-                } finally {
-                	recipient = new MUserBean();
-                	recipient.setEmail(decode(entry.getKey()).substring("MYMED_".length()));
-                	recipient.setName(decode(entry.getKey()).substring("MYMED_".length()));
-                	recipient.setLang("fr");
-                }
+                } catch (IOBackEndException e) {}
                 if (recipient != null) {
                     recipients.add(recipient);
                 }
