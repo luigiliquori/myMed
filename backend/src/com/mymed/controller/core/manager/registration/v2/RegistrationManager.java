@@ -57,12 +57,6 @@ import com.mymed.utils.mail.SubscribeMailSession;
  */
 public class RegistrationManager extends AbstractManager implements IRegistrationManager {
 
-
-    /**
-     * The general name of the application responsible for registering a user.
-     */
-    private static final String APP_NAME = GENERAL.get("general.social.network.app");
-
     /**
      * The 'user' field.
      */
@@ -132,12 +126,12 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
         }
 
         // We use the APP_NAME as the epsilon for the hash function
-        final HashFunction hashFunc = new HashFunction(APP_NAME);
+        final HashFunction hashFunc = new HashFunction(application);
         final String accessToken = hashFunc.SHA1ToString(user.getLogin() + System.currentTimeMillis());
         
         /* pub account infos */
 
-        pubSubManager.create(application + "#pendingReg", accessToken, "", dataList);
+        pubSubManager.create(application + ":pendingReg", accessToken, "", dataList);
 
         /* send confirmation mail   */  
         sendRegistrationEmail( application, user, accessToken);
@@ -159,7 +153,7 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
    
     public void read( final String application, final String accessToken) throws AbstractMymedException {
         // Retrieve the user profile
-        final List<Map<String, String>> list = pubSubManager.read(application + "#pendingReg", accessToken, ""); //read temporary data used for pending registration
+        final List<Map<String, String>> list = pubSubManager.read(application + ":pendingReg", accessToken, ""); //read temporary data used for pending registration
         if (list.size() == 0){
             throw new InternalBackEndException("account registration not found");
     	}
@@ -183,7 +177,18 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
         if ((userBean != null) && (authenticationBean != null)) {
         	authenticationManager.create(userBean, authenticationBean);
             // delete pending tasks
-			pubSubManager.delete(APP_NAME + "#pending", accessToken);
+			pubSubManager.delete(application + ":pending", accessToken);
+			
+			/*
+			 * by default we alert subscribers to (application):new that there is a newcomer
+			 * 
+			 *  @TODO see how to parametrize it
+			 */
+			List<MDataBean> dataList = new ArrayList<MDataBean>();
+			dataList.add(new MDataBean("new user:", userBean.getEmail(), TEXT));
+			pubSubManager.sendEmailsToSubscribers(application + ":new", "user", userBean, dataList);
+			
+			
 			
         } else {
         	LOGGER.debug("account creation failed");

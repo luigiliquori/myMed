@@ -54,6 +54,11 @@ public final class QueryBean extends AbstractMBean {
 		case FLOAT:
 			res.addAll(getFloatRange(key, valueStart, valueEnd));
 			break;
+		case ENUM:
+			String[] values = valueStart.split("-");
+			for (String v : values)
+				res.add(key + v);
+			break;
 		default: // default, no range queries done = exact matchmaking
 			res.add(key + valueStart);
 			break;

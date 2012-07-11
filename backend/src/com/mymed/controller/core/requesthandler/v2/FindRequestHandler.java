@@ -289,7 +289,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
                 	/* filter resMap for remaining query items above level */
                 	
                 	for (; i<keys.size(); i++){
-                		LOGGER.info("ext find__ "+i);
+                		LOGGER.info("ext find__ "+i+" size:"+resMap.size());
                 		QueryBean item = query.get(keys.get(i));
                 		queryRows.add(item.getRowIndexes(keys.get(i)));
                 		
@@ -318,11 +318,15 @@ public class FindRequestHandler extends AbstractRequestHandler {
                 		} else {
                 			/*
                 			 * we remove items that doesn't match the query predicate
+                			 * 
+                			 * bad, must loop over resMap
                 			 */
-                			if (!isPredicate(resMap, keys.get(i), item.getValueStart())){
-                				resMap.remove(keys.get(i));
+                			for (Entry<String, Map<String, String>> el : resMap.entrySet()) {
+                				if (!isPredicate(el.getValue(), keys.get(i), item.getValueStart()))
+                					resMap.remove(el.getKey());
                 			}
-                			LOGGER.info("ext find  filter by predicate "+resMap.size());
+
+                			LOGGER.info("ext find filter by predicate "+resMap.size()+" "+ keys.get(i));
                 		}
                 	}
                 	

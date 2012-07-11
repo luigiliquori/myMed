@@ -32,7 +32,7 @@ public class PubSub {
 	public static final int FLOAT   = -1;
 
 
-	private final static long interval =  60 * 60 * 24; // 1 day in s
+	public final static long interval =  60 * 60 * 24; // 1 day in s
 	
 	public static final int maxNumColumns = 10000; // arbitrary max number of cols read in a slice, to overrides 100 by default
 	
@@ -49,32 +49,49 @@ public class PubSub {
 	 * @return List of StringBuffers
 	 */
 	
-	public static List<List<Index>> getIndex(final List<MDataBean> predicateList, final int level) {
+	public static List<List<Index>> getIndex(
+			final List<MDataBean> predicateList, final int level) {
 
 		List<List<Index>> result = new ArrayList<List<Index>>();
 		int n = predicateList.size();
-		
-		List<Index> indexes;
+
+		//List<Index> indexes;
+		List<List<Index>> indexes;
 
 		for (long i = (1 << level) - 1; (i >>> n) == 0; i = nextCombo(i)) {
 			int mask = (int) i;
 			int j = 0;
-			indexes = new ArrayList<Index>();
-			
+			//indexes = new ArrayList<Index>();
+			indexes = new ArrayList<List<Index>>();
+			indexes.add(new ArrayList<Index>());
+
 			while (mask > 0) {
 				if ((mask & 1) == 1) {
 					MDataBean d = predicateList.get(j);
-									
-					//int ontID = parseInt(d.getOntologyID());
-					
-					if ( d.getOntologyID().getValue() == DATE ){
+					switch (d.getOntologyID().getValue()) {
+					case DATE:
 						long t = parseLong(d.getValue());
-						indexes.add(new Index(d.getKey() + (t - t % interval), d.getValue()));
-					} else if ( d.getOntologyID().getValue() == FLOAT ){
+						for (List<Index> l : indexes)
+							l.add(new Index(d.getKey() + (t - t % interval), d.getValue()));
+						break;
+					case FLOAT:
 						Float value = new Float(d.getValue());
-						indexes.add(new Index(d.getKey()+value.intValue(), pad(value)));
-					} else{
-						indexes.add(new Index(d.getKey()+d.getValue(), ""));
+						for (List<Index> l : indexes)
+							l.add(new Index(d.getKey() + value.intValue(), pad(value)));
+						break;
+					case KEYWORD:
+						for (List<Index> l : indexes)
+							l.add(new Index(d.getKey() + d.getValue(), ""));
+						break;
+					case ENUM:
+						String[] values = d.getValue().split("-");
+						for (List<Index> l : indexes)
+							for (String v : values)
+								l.add(new Index(d.getKey() + v, ""));
+						break;
+					case GPS:
+						// @TODO like date
+						break;
 					}
 				}
 				mask >>= 1;
@@ -82,7 +99,8 @@ public class PubSub {
 			}
 
 			if (indexes.size() != 0) {
-				result.add(indexes);
+				//result.add(indexes);
+				result.addAll(indexes);
 			}
 		}
 
@@ -126,6 +144,10 @@ public class PubSub {
 	        }
 	        return s;
 	    }
+		
+		public String toString(){
+			return row+":"+col;
+		}
 	}	
 
     public static void constructRows(List<List<String>> data, int[] pos, int n, List<String> res) {
@@ -142,9 +164,9 @@ public class PubSub {
 	    }
 	}
     
-    public static boolean isPredicate(Map<String, Map<String, String>> map, String key, String value) {
-		for (Entry<String, Map<String, String>> el : map.entrySet()) {
-			if (value.equals(el.getValue().get(key))) {
+    public static boolean isPredicate( Map<String, String> map, String key, String value) {
+		for (Entry<String, String> el : map.entrySet()) {
+			if (value.equals(el.getValue())) {
 				return true;
 			}
 		}

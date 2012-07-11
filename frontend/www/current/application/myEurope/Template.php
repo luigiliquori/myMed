@@ -19,12 +19,14 @@ class Template {
 		require_once '../../lib/dasp/beans/OntologyBean.php';
 		
 		// Init gettext() locales
-		$lang='fr_FR.utf8';
+		
+		$langcode = explode(";", $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+		$langcode = explode(",", $langcode['0']);
+		$locale = $langcode['0'].'.utf8';
 		$filename = 'myEurope';
-		putenv("LC_ALL=$lang");
-		setlocale(LC_ALL, $lang);
-		bindtextdomain($filename, './../../locale');
-		bind_textdomain_codeset($filename, "UTF-8");
+		putenv("LC_ALL=$locale");
+		setlocale(LC_ALL, $locale);
+		bindtextdomain($filename, './../../lang');
 		textdomain($filename);
 				
 		if(session_id() == '') {

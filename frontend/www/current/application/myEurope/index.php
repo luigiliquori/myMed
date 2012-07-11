@@ -73,6 +73,13 @@ if (isset($_GET['registration'])) {
 				type="button" data-theme="b" >Insérer<br /> une offre<?= $_SESSION['userPerm']>1?"":" (*)" ?></a>
 			</div>
 			
+			<br />
+			<div data-role="controlgroup"  data-type="horizontal">
+				<a href="searchInfoForm" style="width:50%;" type="button" data-theme="c" >S'informer</a>
+				<a href="postInfoForm"  style="width:49%;"
+				type="button" data-theme="c" >Insérer une information</a>
+			</div>
+			
 			<?php 
 			if ($_SESSION['userPerm']==0){
 			?>

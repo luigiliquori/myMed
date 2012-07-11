@@ -10,8 +10,6 @@
  */
 package com.mymed.model.data.application;
 
-import java.util.List;
-
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.model.data.AbstractMBean;
 
@@ -50,10 +48,6 @@ public final class MDataBean extends AbstractMBean implements Comparable<MDataBe
 
     public void setKey(final String key) {
         this.key = key;
-    }
-    
-    public List<String> getEnumValue() {
-    	return null;
     }
 
     public String getValue() {

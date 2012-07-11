@@ -25,7 +25,7 @@ if (count($_GET) > 0){
 
 	// @todo verify date format
 	
-	$application = Template::APPLICATION_NAME.':'.$_GET['type'];
+	$application = Template::APPLICATION_NAME.$_GET['type'];
 
 	$predicateList=array();
 	$p=array();

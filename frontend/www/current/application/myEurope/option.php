@@ -65,26 +65,40 @@ if($profile->status == 200) {
 }
 
 $totalSub = 0;
-
-$request = new Request("SubscribeRequestHandler", READ);
-$request->addArgument("application", Template::APPLICATION_NAME."part");
-$request->addArgument("userID", $_SESSION['user']->id);
-$responsejSon = $request->send();
-$subscriptionspart = json_decode($responsejSon);
-if($subscriptionspart->status == 200) {
-	$subscriptionspart = (array) $subscriptionspart->dataObject->subscriptions;
-	$totalSub += count($subscriptionspart);
+if (!isset($_GET["application"])){
+	$request = new Request("SubscribeRequestHandler", READ);
+	$request->addArgument("application", Template::APPLICATION_NAME.":part");
+	$request->addArgument("userID", $_SESSION['user']->id);
+	$responsejSon = $request->send();
+	$subscriptionspart = json_decode($responsejSon);
+	if($subscriptionspart->status == 200) {
+		$subscriptionspart = (array) $subscriptionspart->dataObject->subscriptions;
+		$totalSub += count($subscriptionspart);
+	}
+	
+	$request = new Request("SubscribeRequestHandler", READ);
+	$request->addArgument("application", Template::APPLICATION_NAME.":offer");
+	$request->addArgument("userID", $_SESSION['user']->id);
+	$responsejSon = $request->send();
+	$subscriptionsoffer = json_decode($responsejSon);
+	if($subscriptionsoffer->status == 200) {
+		$subscriptionsoffer = (array) $subscriptionsoffer->dataObject->subscriptions;
+		$totalSub += count($subscriptionsoffer);
+	}
+} else {
+	$request = new Request("SubscribeRequestHandler", READ);
+	$request->addArgument("application", $_GET["application"]);
+	$request->addArgument("userID", $_SESSION['user']->id);
+	$responsejSon = $request->send();
+	$subscriptionspart = json_decode($responsejSon);
+	if($subscriptionspart->status == 200) {
+		$subscriptionspart = (array) $subscriptionspart->dataObject->subscriptions;
+		$totalSub += count($subscriptionspart);
+	}
 }
 
-$request = new Request("SubscribeRequestHandler", READ);
-$request->addArgument("application", Template::APPLICATION_NAME."offer");
-$request->addArgument("userID", $_SESSION['user']->id);
-$responsejSon = $request->send();
-$subscriptionsoffer = json_decode($responsejSon);
-if($subscriptionsoffer->status == 200) {
-	$subscriptionsoffer = (array) $subscriptionsoffer->dataObject->subscriptions;
-	$totalSub += count($subscriptionsoffer);
-}
+
+
 
 	
 
@@ -138,7 +152,7 @@ if($subscriptionsoffer->status == 200) {
 				Mes souscriptions (<?= $totalSub ?>)
 			</h3>
 			<ul data-role="listview" data-inset="true" data-filter-placeholder="...">
-				<li data-role="list-divider" data-mini="true">Partenaires</li>
+				<li data-role="list-divider" data-mini="true"><?= isset($_GET["application"])?$_GET["application"]:"Partenaires" ?></li>
 				<?php 
 					$i = 0;
 					foreach( $subscriptionspart as $k => $value ){
@@ -161,7 +175,7 @@ if($subscriptionsoffer->status == 200) {
 				?>
 			</ul>
 			<ul data-role="listview" data-inset="true" data-filter-placeholder="...">
-				<li data-role="list-divider" data-mini="true">Offres</li>
+				<li data-role="list-divider" data-mini="true"><?= isset($_GET["application"])?"":"Offres" ?></li>
 				<?php 
 					foreach( $subscriptionsoffer as $k => $value ){
 						//prettify the subscription string:

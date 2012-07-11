@@ -28,7 +28,7 @@ Template::init();
 			<br />
 			<form action="search" id="searchForm">
 				
-				<input type="hidden" name="type" value="part" />
+				<input type="hidden" name="type" value=":part" />
 				
 				<div data-role="fieldcontain">
 					<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
