@@ -44,3 +44,15 @@
 	padding: 0;
 	border: thin black solid;
 }
+
+#itineraire{
+	text-align: left;
+}
+
+#steps {
+	position: absolute;
+	top: 50px;
+	width: 100%;
+	text-align: center;
+	display: none;
+}

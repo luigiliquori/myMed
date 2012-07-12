@@ -6,9 +6,6 @@
 	$("#NeedHelp").live('pageinit', function() {
 		initialize_map();
 
-		var testLatlng = new google.maps.LatLng("43.553532", "7.021980");
-		var marker = addMarker(testLatlng, "img/position.png", "Domicile", "Mon chez moi!", google.maps.Animation.DROP, false, "maison");
-		marker.setMap(map);
 	});
 </script>
 

@@ -2,7 +2,7 @@
 <? include("notifications.php")?>
 <!-- Header -->
 <div data-role="header" data-position="inline">
-	<a href="#" data-rel="back" data-role="button"  data-icon="back">Back</a>
+	<a href="?action=main" data-role="button"  data-icon="back">Back</a>
 	<h1>Profile</h1>
 	<a href="?action=ExtendedProfile&edit=false" data-rel="dialog" data-transition="pop" data-role="button" data-theme="b" data-icon="gear">Edit</a>
 </div>

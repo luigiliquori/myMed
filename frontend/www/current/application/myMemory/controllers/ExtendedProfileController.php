@@ -103,15 +103,18 @@ class ExtendedProfileController extends AuthenticatedController
 			}
 				
 			else {
-				$this->success = "Complément de profil enregistré avec succès!";
 				
 				/*
 				 * If it was an edit, reload the ExtendedProfile in the $_SESSION
 				 */
-				if ($_POST['form'] == 'edit')
+				if ($_POST['form'] == 'edit'){
 					$_SESSION['ExtendedProfile'] = ExtendedProfile::getExtendedProfile($this, $_SESSION['user']->id);
-
-				$this->redirectTo("main");
+					$this->success = "Complément de profil modifié avec succès!";
+					$this->renderview("ExtendedProfileDisplay");
+				}
+					
+				$this->success = "Complément de profil enregistré avec succès!";
+				$this->renderView("main");
 			}
 			
 		}
@@ -158,7 +161,7 @@ class ExtendedProfileController extends AuthenticatedController
 				
 					// Save the error
 					$this->error = "Error, wrong password";
-					$this->redirectTo("main");
+					$this->renderView("ExtendedProfileDisplay");
 				
 				} else { // edit = true AND sudo posted AND password valid
 				

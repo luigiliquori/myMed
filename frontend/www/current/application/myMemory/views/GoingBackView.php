@@ -7,6 +7,8 @@
 		initialize_map();
 
 		var testLatlng = new google.maps.LatLng("43.553532", "7.021980");
+		var marker = addMarker(testLatlng, "img/position.png", "Domicile", "Mon chez moi!", google.maps.Animation.DROP, false, "maison");
+		marker.setMap(map);
 
 	});
 </script>
@@ -22,28 +24,37 @@
 		<br />
 		<ul data-role="listview" class="ui-listview" data-theme="b" data-inset="true" >
 			<li data-icon="home" class="ui-btn ui-btn-icon-right ul-li-has-arrow ui-li" style="padding-bottom:1em;">
-				<a href="#" class="ui-link-inherit">
+				<a href="?action=itineraire" class="ui-link-inherit" onclick="goingBack(document.getElementById('address_home').innerHTML)">
 				<h3 class="ui-li-heading">Domicile</h3>
-				<p class="ui-li-desc"><?= $_SESSION['ExtendedProfile']->home?></p>
+				<p class="ui-li-desc" id="address_home" ><?= $_SESSION['ExtendedProfile']->home?></p>
 				</a>
 			</li>
 			<?php
+			$i = 0;
 			foreach($_SESSION['ExtendedProfile']->callingList as $data) {
 				if($data['name'] == "Emergency" ) continue;
 				?>
 				<li class="ui-btn ui-btn-icon-right ul-li-has-arrow ui-li" style="padding-bottom:1em;">
-					<a href="#">
+					<a href="?action=itineraire" class="ui-link-inherit" onclick="goingBack(document.getElementById('address<?= $i ?>').innerHTML)">
 					<h3 class="ui-li-heading"><?= $data["name"]; ?></h3>
-					<p class="ui-li-desc"><?= $data['address']?></p>
+					<?= '<p class="ui-li-desc" id="address'.$i.'" >'. $data['address'] . '</p>'; ?>
 					</a>
 				</li>
 				
-			<?php 	
+			<?php
+			$i++; 	
 			}
 			?>
 			
 		</ul>
 	</div>
+	
+	
+
+<input type='hidden' id='userID' value='<?= $_SESSION['user']->id ?>' />
+<input type='hidden' id='applicationName' value='myMemory' />
+<input type='hidden' id='accessToken' value='<?= $_SESSION['accessToken'] ?>' />
+
 	
 <? include("footer.php"); ?>	
 </div>

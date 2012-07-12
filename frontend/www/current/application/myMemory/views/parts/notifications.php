@@ -7,8 +7,7 @@
  */
 if (!empty($this->error)): ?>
 <div class="ui-bar ui-bar-e" id="notification-error">
-	<h3>Error</h3>
-	<p><?= $this->error ?></p>
+	<h3><?= $this->error ?></h3>
 	<div style="float:right; margin-top:4px;">
 		<a href="#" data-role="button" data-icon="delete" data-iconpos="notext" onclick="$('#notification-error').fadeOut('fast');">Button</a>
 	</div>
