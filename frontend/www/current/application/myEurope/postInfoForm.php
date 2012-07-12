@@ -45,7 +45,7 @@ $('#select_choice_03').live("change", function() {
 			</h2>
 		</div>
 		<div data-role="content">
-			<h1 style=" font-size: 200%; text-align: center;">Publier info sur un programme:</h1>
+			<h1 style=" font-size: 200%; text-align: center;">Commentez votre expérience sur myEurope:</h1>
 			<br />
 			<form action="" method="post" id="publishForm">
 				<input name="application" value="myEurope" type="hidden" />

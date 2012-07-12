@@ -131,19 +131,20 @@ if (!isset($_GET["application"])){
 			$perms = array( 0 => "Utilisateur", 1 => "Modérateur", 2 => "Modérateur Européen");
 			?>
 			<img style="text-align: center; max-height: 120px; " src="<?= $profPic ?>" /><br />
-
-			Type d'institution représentée: <span style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $_SESSION["userType"] ?> </span> <br />permission:
-			<span style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $perms[$_SESSION["userPerm"]] ?> </span> <br /> <br />nom: <span
-				style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $_SESSION["user"]->name ?> </span> <br /> email: <span
-				style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $_SESSION["user"]->email ?> </span> <br /> <br />
-			<a href="update" type="button" data-transition="flip" data-mini="true" data-icon="grid" style="width: 200px; margin-right: auto; margin-left: auto;">Modifier</a>
 			
-			<a href="" type="button" data-mini="true" data-icon="delete" style="width: 200px; margin-right: auto; margin-left: auto;"
-				onclick="$('#deconnectForm').submit();">Déconnecter</a>
-			<form action="option" id="deconnectForm" data-ajax="false">
-				<input name="logout" type="hidden" />
-			</form>
-
+			<div style="text-align: left; max-width:300px; margin:auto;">
+				Type d'institution représentée: <span style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $_SESSION["userType"] ?> </span> <br />permission:
+				<span style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $perms[$_SESSION["userPerm"]] ?> </span> <br /> <br />nom: <span
+					style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $_SESSION["user"]->name ?> </span> <br /> email: <span
+					style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $_SESSION["user"]->email ?> </span> <br /> <br />
+				<a href="update" type="button" data-transition="flip" data-mini="true" data-icon="grid" style="width: 200px; margin-right: auto; margin-left: auto;">Modifier</a>
+				
+				<a href="" type="button" data-mini="true" data-icon="delete" style="width: 200px; margin-right: auto; margin-left: auto;"
+					onclick="$('#deconnectForm').submit();">Déconnecter</a>
+				<form action="option" id="deconnectForm" data-ajax="false">
+					<input name="logout" type="hidden" />
+				</form>
+			</div>
 		
 
 			<hr />
@@ -198,6 +199,7 @@ if (!isset($_GET["application"])){
 			</ul>
 
 		</div>
+		<?= Template::footer(2); ?>
 	</div>
 </body>
 </html>

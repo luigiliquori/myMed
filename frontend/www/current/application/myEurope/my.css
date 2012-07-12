@@ -6,6 +6,10 @@ html,body,.ui-page {
 	text-shadow: none;
 }
 
+.ui-icon-profile {
+	background-image: url("img/profile.png");
+}
+
 .wrapper {
 	margin: 0 auto -113px;
 	min-height: 100%;
@@ -14,11 +18,12 @@ html,body,.ui-page {
 }
 
 .footer {
-	position: absolute;
 	text-align: center;
+	/*position: absolute;
+	
 	bottom: 0;
 	right: 0;
-	left: 0;
+	left: 0;*/
 }
 
 .footer img {
@@ -141,5 +146,27 @@ input.ui-input-text,textarea.ui-input-text {
 .ui-btn-down-i {
 	font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
 	text-decoration: none;
+}
+
+
+.ui-btn-active {
+	border: 1px solid 		#ccc ;
+	background: 			#eee ;
+	font-weight: bold;
+	color: 					#222 ;
+	cursor: pointer;
+	text-shadow: 0  1px  0  #ffffff ;
+	text-decoration: none;
+	background-image: -webkit-gradient(linear, left top, left bottom, from( #efefef), to( #e1e1e1 ));
+	background-image: -webkit-linear-gradient( #efefef , #e1e1e1 );
+	background-image:    -moz-linear-gradient( #efefef , #e1e1e1 );
+	background-image:     -ms-linear-gradient( #efefef , #e1e1e1 );
+	background-image:      -o-linear-gradient( #efefef , #e1e1e1 );
+	background-image:         linear-gradient( #efefef , #e1e1e1 );
+	font-family: Helvetica, Arial, sans-serif ;
+}
+
+.ui-btn-active a.ui-link-inherit {
+	color: 					#2F3E46 /*{global-active-color}*/;
 }
 

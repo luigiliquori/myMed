@@ -10,13 +10,18 @@ $msg="";
 if (count($_POST)) {
 	require_once '../../lib/dasp/beans/MUserBean.class.php';
 	require_once '../../lib/dasp/beans/MAuthenticationBean.class.php';
+	var_dump($_POST);
 	
 	if ( $_POST["password"] == ""){
-		$msg = "<span style='color: red; '>mot de passe vide</span>";
+		$msg = "<span style='color: red; text-align:center;'>mot de passe vide</span>";
 	}
 	if ( $_POST["password"] != $_POST["passwordConf"]){
-		$msg = "<span style='color: red; '>mot de passe mal confirmé</span>";
+		$msg = "<span style='color: red; text-align:center;'>mot de passe mal confirmé</span>";
 	}
+	if ( $_POST["checkCondition"] == ""){
+		$msg = "<span style='color: red;text-align:center; '>Veuillez accepter les conditions d'utilisation</span>";
+	}
+
 	
 	if ($msg == ""){
 		$mUserBean = new MUserBean();
@@ -47,9 +52,9 @@ if (count($_POST)) {
 		$responseObject = json_decode($responsejSon);
 		
 		if($responseObject->status == 200) {
-			$msg="<span style='color: lightgreen;'>Compte créé, validez-le par mail</span>";
+			$msg="<span style='color: lightgreen;text-align:center;'>Compte myMed créé, validez-le par mail</span>";
 		} else {
-			$msg="<span style='color: red; '>".$responseObject->description."</span>";
+			$msg="<span style='color: red; text-align:center;'>".$responseObject->description."</span>";
 		}
 	}
 	
@@ -67,10 +72,10 @@ if (count($_POST)) {
 			<a data-icon="back" data-rel="back">Retour</a>
 <!-- 				<a href="search" data-icon="back" data-transition="flip" data-direction="reverse"> Retour </a> -->
 			<h2>
-				<a href="./" style="text-decoration: none;">myEurope</a>
+				<a href="./" style="text-decoration: none;">myMed.myEurope</a>
 			</h2>
 		</div>
-		<div data-role="content" style="text-align:center;">
+		<div data-role="content">
 			<?= $msg ?>
 			<form action="#" method="post" id="registerForm">
 				<input name="application" value="myEurope" type="hidden" />
@@ -99,10 +104,19 @@ if (count($_POST)) {
 						<label for="textinputr5"> Confirmation: </label> <input id="textinputr5" name="passwordConf" placeholder="" value="" type="password" />
 					</fieldset>
 				</div>
-				<a href="" type="submit" onclick="$('#registerForm').submit();">Créer</a>
+				<div style="text-align:center;">
+					<span style="display: inline-block;"><input id="service-term" type="checkbox" name="checkCondition" style="left: 0;"/></span>
+					<span style="display: inline-block;padding-left: 15px;vertical-align: middle;">
+						J'accepte les 
+						<a href="../../application/myRiviera/system/templates/application/myRiviera/doc/CONDITIONS_GENERALES_MyMed_version1_FR.pdf" rel="external">conditions d'utilisation</a>
+	<!-- 					I accept  -->
+	<!-- 					<a href="system/templates/application/myRiviera/doc/CONDITIONS_GENERALES_MyMed_version1_EN.pdf" rel="external">the general terms and conditions</a> -->
+					</span><br />
+					<input type="submit" data-theme="b" data-inline="true" value="Valider" />
+				</div>
 			</form>
 		</div>
-		<?= Template::credits(); ?>
+		<?= Template::footer(); ?>
 	</div>
 </body>
 </html>

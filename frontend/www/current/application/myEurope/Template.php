@@ -20,14 +20,21 @@ class Template {
 		
 		// Init gettext() locales
 		
-		$langcode = explode(";", $_SERVER['HTTP_ACCEPT_LANGUAGE']);
-		$langcode = explode(",", $langcode['0']);
-		$locale = $langcode['0'].'.utf8';
+		//$langcode = explode(";", $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+		// = explode(",", $langcode['0']);
+		
+		if (strpos($_SERVER['HTTP_ACCEPT_LANGUAGE'], "it") === false){
+			$locale = 'fr_FR.utf8';
+		}else{
+			$locale = 'it_IT.utf8';
+		}
+
 		$filename = 'myEurope';
 		putenv("LC_ALL=$locale");
 		setlocale(LC_ALL, $locale);
 		bindtextdomain($filename, './../../lang');
 		textdomain($filename);
+		bind_textdomain_codeset($filename, 'UTF-8');
 				
 		if(session_id() == '') {
 			session_start();			
@@ -72,24 +79,26 @@ class Template {
 		$request->addArgument("userID", $author );
 		
 		$responsejSon = $request->send();
-		
-		
-		$dataList=array();
-		array_push($dataList, array("key"=>"rate", "value"=> 100-$dataRep, "ontologyID"=>FLOAT));
-		$request = new Request("v2/PublishRequestHandler", UPDATE);
-		$request->addArgument("application", $application);
-		$request->addArgument("data", json_encode($dataList));
-		$request->addArgument("id", $id);
-		$request->addArgument("userID", $author );
-		
-		$responsejSon = $request->send();
-		return json_decode($responsejSon);
+		$responseObject = json_decode($responsejSon);
+		if($responseObject->status == 200) {
+			$dataList=array();
+			array_push($dataList, array("key"=>"rate", "value"=> 100-$dataRep, "ontologyID"=>FLOAT));
+			$request = new Request("v2/PublishRequestHandler", UPDATE);
+			$request->addArgument("application", $application);
+			$request->addArgument("data", json_encode($dataList));
+			$request->addArgument("id", $id);
+			$request->addArgument("userID", $author );
+			
+			$responsejSon = $request->send();
+			return json_decode($responsejSon);
+		}
+		return $responseObject;
 	}
 
 
 	public static function head(){ ?>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 <title>myEurope</title>
 <link rel="stylesheet"
 	href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
@@ -121,6 +130,20 @@ class Template {
 	<p style="margin: 8px; font-weight: normal;">"Ensemble par-delà les frontières"</p>
 </div>
 
+<?php }
+
+
+public static function footer( $i = 1 ){ ?>
+
+<div data-role="footer" data-theme="d" data-position="fixed">
+	<div data-role="navbar" data-theme="c">
+		<ul>
+			<li><a href="about" data-theme="c" <?= $i == 0?"class='ui-btn-active ui-state-persist'":"" ?>><?= _('About') ?></a></li>
+			<li><a href="./"data-theme="c" <?= $i == 1?"class='ui-btn-active ui-state-persist'":"" ?>><?= _('Menu') ?></a></li>
+			<li><a href="option" data-theme="c" data-transition="slide" <?= $i == 2?"class='ui-btn-active ui-state-persist'":"" ?>><?= _('Profile') ?></a></li>
+		</ul>
+	</div>
+</div>
 <?php }
 
 

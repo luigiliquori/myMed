@@ -10,17 +10,36 @@ Template::init();
 <?= Template::head(); ?>
 </head>
 <body>
-	<div data-role="page" id="About" >
-		<div data-role="header" data-theme="c" style="max-height: 38px;">
-			<h2>
-				<a href="./" style="text-decoration: none;" data-transition="slide">myEurope</a>
-			</h2>
-		</div>
-		<div data-role="content">
-			<iframe src="http://docs.google.com/gview?url=http://mymed2.sophia.inria.fr/application/myEurope/myEurope.pdf&embedded=true"
-				style="width: 100%; height: 800px;" frameborder="0"></iframe>
-		</div>
-		<?= Template::credits(); ?>
+
+<div id="About" data-role="page">
+<!-- HEADER -->
+	<div id="header" data-role="header" data-theme="c" style="max-height: 38px;">
+		<a data-icon="back" data-rel="back">Retour</a>
+		<h2>
+			<a href="" style="text-decoration: none;"><?= _('About') ?></a>
+		</h2>
 	</div>
+
+	<!-- CONTENT -->
+	<div data-role="content">
+	<h1 style="text-align: center;"><?= Template::APPLICATION_NAME ?></h1>
+		<p>
+		<?= _("AboutContent") ?>
+		</p>
+		<div class="footer" >
+			<h4  style="margin: 10px;">myMed - INTERREG IV - Alcotra</h4>
+			<img alt="Alcotra" src="/system/img/logos/alcotra" />
+			<img alt="Conseil Général 06" src="/system/img/logos/cg06" />
+			<img alt="Regine Piemonte" src="/system/img/logos/regione"/>
+			<img alt="Europe" src="/system/img/logos/europe" />
+			<img alt="Région PACA" src="/system/img/logos/PACA" />
+			<img alt="Prefecture 06" src="/system/img/logos/pref" />
+			<img alt="Inria" src="/system/img/logos/inria.png" />
+			<p style="margin: 8px; font-weight: normal;">"Ensemble par-delà les frontières"</p>
+		</div>
+	</div>
+	<?= Template::footer(0); ?>
+</div>	
+
 </body>
 </html>

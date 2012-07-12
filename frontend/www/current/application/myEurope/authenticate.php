@@ -80,25 +80,26 @@ if (count($_POST)) {
 <div data-role="page" id="Authenticate">
 	<div data-role="header" data-theme="c" style="max-height: 38px;">
 		<div data-role="controlgroup" data-type="horizontal" style="text-align: center;">
-			<a href="register" type="button" data-inline="true" data-transition="flip" style="top:2px;">inscription</a>
+			<a href="register" type="button" data-inline="true" data-transition="flip" style="top:2px;">inscription via myMed</a>
 		</div>
 	</div>
 	<div data-role="content" style='text-align: center;'>
 		
 		<?= $msg ?>
 		<h1><?= Template::APPLICATION_NAME ?></h1>
-		<?php echo _('title').'<br />'; ?>
 		<br />
 		<form action="authenticate" method="post" id="loginForm" data-ajax="false">
 
 			<input name="login" placeholder="email" value="" type="text" /><br />
 			<input name="password" placeholder="Mot de passe" value="" type="password" /><br />
+			
 			<div style="text-align: center;" >
-				<input type="submit" data-theme="b" data-inline="true" value="Connexion"/>
+				<input type="submit"  data-inline="true" data-theme="b" value="Connexion"/><br />
+				<a href="#About" type="button" data-inline="true" ><?= _('About') ?></a>
 			</div>
 		</form>
 	</div>
-	<?= Template::credits(); ?>
+	<?= Template::footer(); ?>
 </div>
 </body>
 </html>
