@@ -76,7 +76,8 @@ public interface IPubSubManager extends com.mymed.controller.core.manager.pubsub
             final String application, 
             final List<String> predicate, 
             final String start, 
-            final String finish)
+            final String finish,
+            final int count)
                     throws InternalBackEndException, IOBackEndException, UnsupportedEncodingException ;
 	
 	
@@ -91,7 +92,7 @@ public interface IPubSubManager extends com.mymed.controller.core.manager.pubsub
 	
 	
 	
-	public void sendEmails(  
+	public void sendEmailsToSubscribers(  
             String application,          
             String predicate,
             MUserBean publisher,

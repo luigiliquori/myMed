@@ -55,31 +55,4 @@ public interface IAuthenticationManager {
 
 	
 	
-	
-	
-	/*
-	 * Comes from RegistrationManager 
-	 */
-	/**
-	 * available in v2
-	 * 
-	 * creates a temporary account, wating for email validation
-	 * 
-	 * @param user
-	 * @param authentication
-	 * @throws AbstractMymedException
-	 */
-	void create(MUserBean user, MAuthenticationBean authentication,
-			String application) throws AbstractMymedException;
-
-	/**
-	 * available in v2
-	 * 
-	 * will validate the account from confirmation email link
-	 * 
-	 * @param accessToken
-	 * @throws AbstractMymedException
-	 */
-	void read(String accessToken) throws AbstractMymedException;
-	
 }

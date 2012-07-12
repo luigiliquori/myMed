@@ -33,7 +33,6 @@ var application="myEurope", predicate="";
 });*/
 
 
-
 $('#tagSearch').live("keyup", function(event) {
 	if (event.keyCode == 13) {
 		$('#searchForm').submit();

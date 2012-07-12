@@ -15,7 +15,15 @@
  */
 package com.mymed.controller.core.requesthandler.v2;
 
+
 import static com.mymed.utils.GsonUtils.gson;
+import static com.mymed.utils.PubSub.constructRows;
+import static com.mymed.utils.PubSub.getIndex;
+import static com.mymed.utils.PubSub.isPredicate;
+import static com.mymed.utils.PubSub.join;
+import static com.mymed.utils.PubSub.maxNumColumns;
+import static com.mymed.utils.PubSub.Index.joinCols;
+import static com.mymed.utils.PubSub.Index.joinRows;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
@@ -45,8 +53,8 @@ import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.application.MDataBean;
 import com.mymed.model.data.application.QueryBean;
 import com.mymed.model.data.user.MUserBean;
-import com.mymed.utils.GsonUtils;
-import com.mymed.utils.PubSub;
+import com.mymed.utils.PubSub.Index;
+
 
 @MultipartConfig
 @WebServlet("/v2/FindRequestHandler")
@@ -124,6 +132,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@SuppressWarnings("serial")
 	@Override
 	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
 		final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
@@ -225,8 +234,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
 
                 	List<String> keys  = new ArrayList<String>(query.keySet());
                 	
-                	for (; i<keys.size() && i<=level; i++){
-                		LOGGER.info("ext find_ "+i);
+                	for (; i < keys.size() && i < level; i++){
                 		QueryBean item = query.get(keys.get(i));
                 		queryRows.add(item.getRowIndexes(keys.get(i)));
                 		if (item.getValueEnd().length() != 0){
@@ -239,17 +247,23 @@ public class FindRequestHandler extends AbstractRequestHandler {
                 	
                 	List<String> rows = new ArrayList<String>();
                 	
-                	PubSub.constructRows(queryRows, new int[queryRows.size()], 0, rows);
+                	constructRows(queryRows, new int[queryRows.size()], 0, rows);
                 	 
                 	LOGGER.info("ext find rows: "+rows.size()+" initial: "+rows.get(0));
                 	LOGGER.info("ext find ranges: "+ranges.size());
 
+                	/* 
+                	 * cnt: If the query is "simple" (doesn't require post filtering) we can directly apply the count parameter
+                	 * else we need to get enough results (all for rows)
+                	 */
+					int cnt = (ranges.size() > 1 || keys.size() > level) ? maxNumColumns : count;
+					
                 	if (ranges.size() != 0){
                 		LOGGER.info("ext find DB ranges: "+ranges.get(0)[0]+"->"+ranges.get(0)[1]);
                 		String[] range = ranges.remove(0);
-						resMap = pubsubManager.read(application, rows, start != null ? start : range[0], range[1]);
+						resMap = pubsubManager.read(application, rows, start != null ? start : range[0], range[1], cnt);
             		} else {
-            			resMap = pubsubManager.read(application, rows, start != null ? start : "", ""); //there is just one elt in rows, equivalent to v1
+            			resMap = pubsubManager.read(application, rows, start != null ? start : "", "", cnt); //there is just one elt in rows, equivalent to v1
             		}
                 	/* now loop for remaining range queries */
                 	
@@ -274,8 +288,8 @@ public class FindRequestHandler extends AbstractRequestHandler {
                 	
                 	/* filter resMap for remaining query items above level */
                 	
-                	for (; i<keys.size() && i<=level; i++){
-                		LOGGER.info("ext find__ "+i);
+                	for (; i<keys.size(); i++){
+                		LOGGER.info("ext find__ "+i+" size:"+resMap.size());
                 		QueryBean item = query.get(keys.get(i));
                 		queryRows.add(item.getRowIndexes(keys.get(i)));
                 		
@@ -304,11 +318,15 @@ public class FindRequestHandler extends AbstractRequestHandler {
                 		} else {
                 			/*
                 			 * we remove items that doesn't match the query predicate
+                			 * 
+                			 * bad, must loop over resMap
                 			 */
-                			if (!PubSub.isPredicate(resMap, keys.get(i), item.getValueStart())){
-                				resMap.remove(keys.get(i));
+                			for (Entry<String, Map<String, String>> el : resMap.entrySet()) {
+                				if (!isPredicate(el.getValue(), keys.get(i), item.getValueStart()))
+                					resMap.remove(el.getKey());
                 			}
-                			LOGGER.info("ext find  filter by predicate "+resMap.size());
+
+                			LOGGER.info("ext find filter by predicate "+resMap.size()+" "+ keys.get(i));
                 		}
                 	}
                 	
@@ -326,7 +344,8 @@ public class FindRequestHandler extends AbstractRequestHandler {
 				LOGGER.info("Results found for Application: " + application + " Predicate: " + predicateList.toString()
 						+ " start: " + start + " count: " + count );
 				
-				message.addDataObject(JSON_RESULTS, resList);
+				/* returns resList with count parameter applied */
+				message.addDataObject(JSON_RESULTS, resList.subList(0, Math.min(resList.size(), count)));
 
 
 				break;
@@ -365,33 +384,33 @@ public class FindRequestHandler extends AbstractRequestHandler {
 					List<MDataBean> predicateListNew = new ArrayList<MDataBean>();
 
 					for (Entry<String, QueryBean> d : predicateMap.entrySet()) {
-						predicateListOld.add(d.getValue().toDataBeanStart(
+						predicateListOld.add(d.getValue().getStart(
 								d.getKey()));
-						predicateListNew.add(d.getValue().toDataBeanEnd(
+						predicateListNew.add(d.getValue().getEnd(
 								d.getKey()));
 					}
 
 					Collections.sort(predicateListNew);
 					Collections.sort(predicateListOld);
 					
-					dataId = parameters.get("id") != null ? parameters.get("id") : PubSub.toString(predicateListOld);
+					dataId = parameters.get("id") != null ? parameters.get("id") : join(predicateListOld);
 					LOGGER.info("update" + level);
-
+					
 					for (int i = 1; i <= level; i++) {
-						List<List<PubSub.Index>> predicatesOld = PubSub.getIndex(predicateListOld, i);
-						List<List<PubSub.Index>> predicatesNew = PubSub.getIndex(predicateListNew, i);
+						List<List<Index>> predicatesOld = getIndex(predicateListOld, i);
+						List<List<Index>> predicatesNew = getIndex(predicateListNew, i);
 						/* store indexes for this data */
 						LOGGER.info("updating " + dataId + " with level: " + i
 								+ "." + predicatesNew.size() + "." + predicatesOld.size());
-						for (List<PubSub.Index> p : predicatesOld) {
-							String s1 = PubSub.Index.toRowString(p);
-							String s2 = PubSub.Index.toColString(p);
+						for (List<Index> p : predicatesOld) {
+							String s1 = joinRows(p);
+							String s2 = joinCols(p);
 							LOGGER.info("__" + s1 + " " + s2);
 							pubsubManager.delete(application, s1, s2 + dataId, user);
 						}
-						for (List<PubSub.Index> p : predicatesNew) {
-							String s1 = PubSub.Index.toRowString(p);
-							String s2 = PubSub.Index.toColString(p);
+						for (List<Index> p : predicatesNew) {
+							String s1 = joinRows(p);
+							String s2 = joinCols(p);
 							LOGGER.info("____" + s1 + " " + s2);
 							pubsubManager.create(application, s1, s2, dataId, userBean, predicateListNew, null);
 						}

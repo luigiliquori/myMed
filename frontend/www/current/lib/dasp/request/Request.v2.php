@@ -84,6 +84,9 @@ class Request {
 		}
 
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		if (defined('APP_URL')) {
+			curl_setopt($curl, CURLOPT_REFERER, APP_URL);
+		}
 		if($this->multipart){
 			$httpHeader = array('Content-Type:multipart/form-data');
 		} else {

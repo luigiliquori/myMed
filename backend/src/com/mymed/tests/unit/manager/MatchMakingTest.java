@@ -16,18 +16,17 @@
  */
 package com.mymed.tests.unit.manager;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 import com.mymed.controller.core.requesthandler.matchmaking.AbstractMatchMaking;
 import com.mymed.model.data.application.MDataBean;
 import com.mymed.model.data.application.MOntologyID;
-
-import static com.mymed.model.data.application.MOntologyID.*;
-import static com.mymed.utils.PubSub.*;
 
 /**
  * @author rjolivet
@@ -70,9 +69,9 @@ public class MatchMakingTest {
     @Test public void testCombiPredicate() {
         
         List<MDataBean> pred = ontologies(
-                "A", "a", TEXT,
-                "B", "b1|b2", ENUM, // Enum field should be split with '|'
-                "C", "c1|c2", TEXT // Text field shouldn't be split with '|' 
+                "A", "a", MOntologyID.TEXT,
+                "B", "b1|b2", MOntologyID.ENUM, // Enum field should be split with '|'
+                "C", "c1|c2", MOntologyID.TEXT // Text field shouldn't be split with '|' 
                 );
         
         List<String> combi = combi(pred, 3);
