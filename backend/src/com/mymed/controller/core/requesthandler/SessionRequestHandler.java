@@ -15,6 +15,8 @@
  */
 package com.mymed.controller.core.requesthandler;
 
+import static com.mymed.utils.GsonUtils.gson;
+
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -29,6 +31,7 @@ import com.mymed.controller.core.manager.session.SessionManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.session.MSessionBean;
 import com.mymed.model.data.user.MUserBean;
+import com.mymed.utils.GsonUtils;
 
 /**
  * Servlet implementation class SessionRequestHandler
@@ -86,7 +89,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
                     final MSessionBean session = sessionManager.read(accessToken);
                     message.setDescription("Session avaible");
                     final MUserBean userBean = profileManager.read(session.getUser());
-                    message.addData(JSON_USER, getGson().toJson(userBean));
+                    message.addData(JSON_USER, gson.toJson(userBean));
                     message.addDataObject(JSON_USER, userBean);
                     break;
                 case DELETE :

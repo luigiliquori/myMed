@@ -13,13 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.mymed.controller.core.requesthandler;
+package com.mymed.controller.core.requesthandler.v2;
 
 import static com.mymed.utils.GsonUtils.gson;
 
 import java.util.Map;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,12 +29,10 @@ import com.google.gson.JsonSyntaxException;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.controller.core.manager.authentication.AuthenticationManager;
+import com.mymed.controller.core.manager.authentication.v2.AuthenticationManager;
 import com.mymed.controller.core.manager.authentication.IAuthenticationManager;
 import com.mymed.controller.core.manager.profile.IProfileManager;
 import com.mymed.controller.core.manager.profile.ProfileManager;
-import com.mymed.controller.core.manager.registration.IRegistrationManager;
-import com.mymed.controller.core.manager.registration.RegistrationManager;
 import com.mymed.controller.core.manager.session.ISessionManager;
 import com.mymed.controller.core.manager.session.SessionManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
@@ -46,17 +45,17 @@ import com.mymed.utils.HashFunction;
 /**
  * Servlet implementation class AuthenticationRequestHandler
  */
+@WebServlet("/v2/AuthenticationRequestHandler")
 public class AuthenticationRequestHandler extends AbstractRequestHandler {
 
     /**
      * Generated serial ID.
      */
-    private static final long serialVersionUID = 8762837510508354508L;
+    private static final long serialVersionUID = 8762837510508354509L;
 
     private IAuthenticationManager authenticationManager;
     private ISessionManager sessionManager;
     private IProfileManager profileManager;
-    private IRegistrationManager registrationManager;
 
     /**
      * JSON 'login' attribute.
@@ -67,11 +66,6 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
      * JSON 'password' attribute.
      */
     private static final String JSON_PASSWORD = JSON.get("json.password");
-
-    /**
-     * JSON 'warning' attribute.
-     */
-    private static final String JSON_WARNING = JSON.get("json.warning");
 
     /**
      * JSON 'authentication' attribute.
@@ -98,7 +92,6 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
             authenticationManager = new AuthenticationManager();
             sessionManager = new SessionManager();
             profileManager = new ProfileManager();
-            registrationManager = new RegistrationManager();
         } catch (final InternalBackEndException e) {
             LOGGER.debug("AuthenticationManager not accessible!", e);
             throw new ServletException("AuthenticationManager is not accessible because: " + e.getMessage()); // NOPMD
@@ -118,25 +111,10 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
             final Map<String, String> parameters = getParameters(request);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            final String login = parameters.get(JSON_LOGIN);
-            final String password = parameters.get(JSON_PASSWORD);
 
             switch (code) {
                 case READ :
-                    message.setMethod(JSON_CODE_READ);
-                    if (login == null) {
-                        throw new InternalBackEndException("login argument missing!");
-                    } else if (password == null) {
-                        throw new InternalBackEndException("password argument missing!");
-                    } else {
-                        message.addData(JSON_WARNING, "METHOD DEPRECATED - POST method should be used instead of GET!");
-                        message.addDataObject(JSON_WARNING, "METHOD DEPRECATED - POST method should be used instead of GET!");
-                        final MUserBean userBean = authenticationManager.read(login, password);
-                        message.setDescription("Successfully authenticated");
-                        message.addData(JSON_USER, gson.toJson(userBean));
-                        message.addDataObject(JSON_USER, userBean);
-                    }
-                    break;
+                	throw new InternalBackEndException(" -> doPost READ...");
                 case DELETE :
                     throw new InternalBackEndException("not implemented yet...");
                 default :
@@ -178,7 +156,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
                     // Finalize the registration
                     String accessToken = parameters.get(JSON_ACCESS_TKN);
                     if (accessToken != null) {
-                        registrationManager.read(accessToken);
+                    	authenticationManager.read(accessToken);
                         message.setDescription("user profile created");
                     } else if (authentication == null) {
                         throw new InternalBackEndException("authentication argument missing!");
@@ -203,7 +181,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
                                                 authenticationBean.getPassword());
                             } catch (final IOBackEndException loginTestException) {
                                 if (loginTestException.getStatus() == 404) { // the login does not exist
-                                    registrationManager.create(userBean, authenticationBean, application);
+                                	authenticationManager.create(userBean, authenticationBean, application);
                                     LOGGER.info("registration email sent");
                                     message.setDescription("registration email sent");
                                     loginAlreadyExist = false;
@@ -228,7 +206,6 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
                         final MUserBean userBean = authenticationManager.read(login, password);
                         message.setDescription("Successfully authenticated");
                         // TODO Remove this parameter
-                        message.addData(JSON_USER, gson.toJson(userBean));
                         message.addDataObject(JSON_USER, userBean);
 
                         final MSessionBean sessionBean = new MSessionBean();
@@ -255,9 +232,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 
                         urlBuffer.trimToSize();
 
-                        message.addData("url", urlBuffer.toString());
                         message.addDataObject("url", urlBuffer.toString());
-                        message.addData(JSON_ACCESS_TKN, accessToken);
                         message.addDataObject(JSON_ACCESS_TKN, accessToken);
                     }
                     break;

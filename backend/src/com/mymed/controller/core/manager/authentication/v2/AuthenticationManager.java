@@ -1,37 +1,49 @@
-package com.mymed.controller.core.manager.registration;
+/*
+ * Copyright 2012 INRIA
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.mymed.controller.core.manager.authentication.v2;
 
-import static com.mymed.model.data.application.MOntologyID.KEYWORD;
+import static com.mymed.model.data.application.MOntologyID.TEXT;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.controller.core.manager.AbstractManager;
-import com.mymed.controller.core.manager.authentication.AuthenticationManager;
-import com.mymed.controller.core.manager.authentication.IAuthenticationManager;
-import com.mymed.controller.core.manager.pubsub.IPubSubManager;
-import com.mymed.controller.core.manager.pubsub.PubSubManager;
+import com.mymed.controller.core.manager.pubsub.v2.IPubSubManager;
+import com.mymed.controller.core.manager.pubsub.v2.PubSubManager;
 import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.data.application.MDataBean;
-import com.mymed.model.data.application.MOntologyID;
 import com.mymed.model.data.session.MAuthenticationBean;
 import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.HashFunction;
-import com.mymed.utils.mail.Mail;
-import com.mymed.utils.mail.MailMessage;
-import com.mymed.utils.mail.SubscribeMailSession;
 import static com.mymed.utils.GsonUtils.gson;
 
 /**
- * Handles the user registrations in myMed.
+ * The manager for the authentication bean
  * 
  * @author lvanni
+ * @author Milo Casagrande
  */
-public class RegistrationManager extends AbstractManager implements IRegistrationManager {
+public class AuthenticationManager extends com.mymed.controller.core.manager.authentication.AuthenticationManager {
+
+
     /**
      * The general name of the application responsible for registering a user.
      */
@@ -48,11 +60,6 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
     private static final String FIELD_AUTHENTICATION = FIELDS.get("field.authentication");
 
     /**
-     * The 'publisherID' field.
-     */
-    private static final String FIELD_PUBLISHER_ID = FIELDS.get("field.publisher.id");
-
-    /**
      * The 'key' field.
      */
     private static final String FIELD_KEY = FIELDS.get("field.key");
@@ -61,42 +68,25 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
      * The 'value' field.
      */
     private static final String FIELD_VALUE = FIELDS.get("field.value");
-
-    /**
-     * The default ontology id.
-     */
-    private static final MOntologyID ONTOLOGY_ID = KEYWORD;
-
+    
+    
     private final IPubSubManager pubSubManager;
-    private final IAuthenticationManager authenticationManager;
+
 
     /**
      * Default constructor.
      * 
      * @throws InternalBackEndException
      */
-    public RegistrationManager() throws InternalBackEndException {
+    public AuthenticationManager() throws InternalBackEndException {
         this(new StorageManager());
     }
 
-    /**
-     * Default constructor.
-     * 
-     * @param storageManager
-     * @throws InternalBackEndException
-     */
-    public RegistrationManager(final IStorageManager storageManager) throws InternalBackEndException {
+    public AuthenticationManager(final IStorageManager storageManager) throws InternalBackEndException {
         super(storageManager);
         pubSubManager = new PubSubManager();
-        authenticationManager = new AuthenticationManager();
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * com.mymed.controller.core.manager.registration.IRegistrationManager#create(com.mymed.model.data.user.MUserBean,
-     * com.mymed.model.data.session.MAuthenticationBean, java.lang.String)
-     */
     @Override
     public void create(
             final MUserBean user, 
@@ -108,10 +98,10 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
         final List<MDataBean> dataList = new ArrayList<MDataBean>();
         try {
 			final MDataBean dataUser = new MDataBean(FIELD_USER,
-					gson.toJson(user), ONTOLOGY_ID);
+					gson.toJson(user), TEXT);
 
 			final MDataBean dataAuthentication = new MDataBean(FIELD_AUTHENTICATION, 
-					gson.toJson(authentication), ONTOLOGY_ID);
+					gson.toJson(authentication), TEXT);
 
             dataList.add(dataUser);
             dataList.add(dataAuthentication);
@@ -122,36 +112,36 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
         // We use the APP_NAME as the epsilon for the hash function
         final HashFunction hashFunc = new HashFunction(APP_NAME);
         final String accessToken = hashFunc.SHA1ToString(user.getLogin() + System.currentTimeMillis());
-
-        pubSubManager.create(
-                APP_NAME, 
-                accessToken, 
-                accessToken, 
-                user, 
-                dataList, 
-                null);
-
-        final StringBuilder contentBuilder = new StringBuilder(250);
         
+        /* pub account infos */
+        pubSubManager.create(APP_NAME, accessToken, "", dataList);
+        
+        /* sub to confirmation mail */
+        pubSubManager.create(APP_NAME, accessToken + "conf", user.getId());
+        
+        dataList.clear();
+        final StringBuilder contentBuilder = new StringBuilder(250);
         // TODO add internationalization support
-        contentBuilder.append("Bienvenue sur myMed.<br /><br />Pour finaliser votre inscription allez sur <a href='");
+        contentBuilder.append("Bienvenu sur myMed.<br /><br />Pour finaliser votre inscription allez sur <a href='");
         String address = getServerProtocol() + getServerURI();
         if (application != null) {
         	address += "/application/" + application;
         } 
         address += "?registration=ok&accessToken=" + accessToken;
         contentBuilder.append(address);
-        contentBuilder.append("'>"+address+"</a><br /><br />------<br />L'&eacute;quipe myMed");
+        contentBuilder.append("'>"+address+"</a>");
 
         contentBuilder.trimToSize();
-
-        final MailMessage message = new MailMessage();
-        message.setSubject("Bienvenue sur myMed");
-        message.setRecipient(user.getEmail());
-        message.setText(contentBuilder.toString());
-
-        final Mail mail = new Mail(message, SubscribeMailSession.getInstance());
-        mail.send();
+        
+        
+        MDataBean mailContent = new MDataBean("myMed", contentBuilder.toString(), TEXT);
+        dataList.add(mailContent);
+        MUserBean publisher = new MUserBean();
+        publisher.setName("myMed");
+        
+        /* trigger confirmation mail send with its content  */        
+        pubSubManager.sendEmails(APP_NAME, accessToken + "conf", publisher, dataList);
+        
     }
 
     /*
@@ -161,13 +151,16 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
     @Override
     public void read(final String accessToken) throws AbstractMymedException {
         // Retrieve the user profile
-        final String userID = pubSubManager.read(APP_NAME, accessToken).get(0).get(FIELD_PUBLISHER_ID);
-        final List<Map<String, String>> dataList = pubSubManager.read(APP_NAME, accessToken, userID);
+        final List<Map<String, String>> list = pubSubManager.read(APP_NAME, accessToken, ""); //read temporary data used for pending registration
+        if (list.size() == 0){
+        	LOGGER.debug("account registration not found");
+            throw new InternalBackEndException("account registration not found");
+    	}
         MUserBean userBean = null;
         MAuthenticationBean authenticationBean = null;
 
         try {
-            for (final Map<String, String> dataEntry : dataList) {
+            for (final Map<String, String> dataEntry : list) {
                 if (dataEntry.get(FIELD_KEY).equals(FIELD_USER)) {
                     userBean = gson.fromJson(dataEntry.get(FIELD_VALUE), MUserBean.class);
                 } else if (dataEntry.get(FIELD_KEY).equals(FIELD_AUTHENTICATION)) {
@@ -181,9 +174,12 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
 
         // register the new user
         if ((userBean != null) && (authenticationBean != null)) {
-            authenticationManager.create(userBean, authenticationBean);
+            create(userBean, authenticationBean);
             // delete pending tasks
-            pubSubManager.delete(APP_NAME, accessToken, accessToken, userBean.getId());
+            pubSubManager.delete(APP_NAME, accessToken);
+        } else {
+        	LOGGER.debug("account creation failed");
         }
     }
+
 }

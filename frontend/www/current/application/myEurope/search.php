@@ -115,7 +115,7 @@ if (count($_GET) > 0){
 							<p style="font-weight:lighter;"> métiers: <?= join(", ",$metiers) ?>...
 							 régions: <?= join(", ", $regions) ?>... </p>
 							<p class="ui-li-aside">
-								publié par: <span style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $value->publisherName ?> </span> le <strong><?= $value->date ?> </strong>
+								publié par: <span style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $value->publisherName ?> </span> échéance: <strong><?= $value->date ?> </strong>
 							</p>
 
 					</a>

@@ -15,10 +15,13 @@
  */
 package com.mymed.controller.core.requesthandler.matchmaking;
 
+import static com.mymed.utils.GsonUtils.gson;
 import static com.mymed.utils.PubSub.makePrefix;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +37,6 @@ import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.pubsub.PubSubManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.application.MDataBean;
-import com.mymed.utils.PubSub;
 
 /**
  * Servlet implementation class PubSubRequestHandler
@@ -68,8 +70,11 @@ public class FindRequestHandler extends AbstractMatchMaking {
 	 *      response)
 	 */
 	@Override
-	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-
+	protected void doGet(
+	        final HttpServletRequest request, 
+	        final HttpServletResponse response) 
+	                throws ServletException 
+	{
 		final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
 
 		try {
@@ -80,7 +85,7 @@ public class FindRequestHandler extends AbstractMatchMaking {
 			final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
 			String application, user, predicate, predicateList = null, namespace = parameters.get(JSON_NAMESPACE);
 
-			if (code == RequestCode.READ) {
+			if (code == RequestCode.READ) { 
 
 				message.setMethod(JSON_CODE_READ);
 				if ((application = parameters.get(JSON_APPLICATION)) == null) {
@@ -92,12 +97,23 @@ public class FindRequestHandler extends AbstractMatchMaking {
 				// argument is user(Deprecated) or userID
 				user = parameters.get(JSON_USERID) != null ? parameters.get(JSON_USERID) : parameters.get(JSON_USER);
 
-				if(predicateList != null) {
+				// If a predicate list is given, then we may generate more then one predicate
+				// with ENUM="cat1|cat2|cat3" types
+				List<String> predicates = new ArrayList<String>();
+				
+				if (predicateList != null) {
 					final Type dataType = new TypeToken<List<MDataBean>>() {}.getType();
-					final List<MDataBean> predicateListObject = getGson().fromJson(predicateList, dataType);
-					List<StringBuffer> predicates = getPredicate(predicateListObject, predicateListObject.size());
-					/* @Todo use an other parameter to choose the broadcast strategy */
-					predicate = predicates.get(predicates.size()-1).toString();
+					final List<MDataBean> predicateListObject = gson.fromJson(predicateList, dataType);
+					predicates = getPredicate(
+					        predicateListObject, 
+					        predicateListObject.size(),
+					        predicateListObject.size());
+					
+					// Generate the sub predicate
+					predicate = getSubPredicate(predicateListObject);
+				} else {
+				    // Only one predicate
+				    predicates.add(predicate); 
 				}
 
 				if (user != null) { // GET DETAILS
@@ -109,22 +125,36 @@ public class FindRequestHandler extends AbstractMatchMaking {
 							+ " Predicate: " + predicate);
 					LOGGER.info("Details found for Application: " + application + " User: " + user + " Predicate: "
 							+ predicate);
-					message.addData(JSON_DETAILS, getGson().toJson(details));
+					message.addData(JSON_DETAILS, gson.toJson(details));
 					message.addDataObject(JSON_DETAILS, details);
 
 				} else { // GET RESULTS
 
+				    // Result options
 					String start = parameters.get("start") != null ? parameters.get("start") : "";
 					int count = parameters.get("count") != null ? Integer.parseInt(parameters.get("count")) : 100;
-					final List<Map<String, String>> resList = pubsubManager.read(makePrefix(application, namespace), predicate, start, count, false);
+					
+					// Set of results (to avoid duplicates)
+					final LinkedHashSet<Map<String, String>> resList = new LinkedHashSet<Map<String,String>>(); 
+				
+					// Loop on all predicates
+					for (String pred : predicates) {
+					    resList.addAll(pubsubManager.read(
+					        makePrefix(application, namespace), 
+					        pred, 
+					        start, count, 
+					        false));
+					}
+					
 					if (resList.isEmpty()) {
-						throw new IOBackEndException("No reslult found for Application: " + application
+						throw new IOBackEndException(
+						        "No result found for Application: " + application
 								+ " Predicate: " + predicate, 404);
 					}
 					message.setDescription("Results found for Application: " + application + " Predicate: " + predicate);
 					LOGGER.info("Results found for Application: " + application + " Predicate: " + predicate
 							+ " start: " + start + " count: " + count );
-					message.addData(JSON_RESULTS, getGson().toJson(resList));
+					message.addData(JSON_RESULTS, gson.toJson(resList));
 					message.addDataObject(JSON_RESULTS, resList);
 
 				}

@@ -267,23 +267,5 @@ public abstract class AbstractManager {
     public String getServerProtocol() {
         return SERVER_PROTOCOL;
     }
-    
-    // ---------------------------------------------------------------------------
-    // Helpers to encode / decode elements with the storage manager
-    // ---------------------------------------------------------------------------
-    
-    /** Decode a byte array into a string, using the default encoding */
-    public String decode(byte[] value) {
-        return this.storageManager.decode(value);
-    }
-    
-    /** Decode a byte array into a string, using the default encoding */
-    public byte[] encode(String value) {
-        return this.storageManager.encode(value);
-    }
-    
-    public byte[] encode(int value) {
-        return this.storageManager.encode(value);
-    }
 
 }

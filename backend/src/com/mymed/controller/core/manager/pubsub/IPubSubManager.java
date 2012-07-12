@@ -50,7 +50,7 @@ public interface IPubSubManager {
                   throws InternalBackEndException, IOBackEndException;
 
   /**
-   * Insert a new Predicate in the dataBase - SUBSCRIBE.
+   *  SUBSCRIBE
    * 
    * @param application
    * @param predicate
@@ -61,7 +61,7 @@ public interface IPubSubManager {
   void create(
           String application, 
           String predicate, 
-          MUserBean publisher) 
+          MUserBean subscriber) 
                   throws InternalBackEndException, IOBackEndException;
 
   /**
@@ -97,26 +97,6 @@ public interface IPubSubManager {
           Boolean reversed) 
                   throws InternalBackEndException, IOBackEndException, UnsupportedEncodingException;
 
-  /**
-   * the extended read used in v2, for range queries
-   *  reads over rows in predicate, and in the column slice [start-finish]
-   * 
-   * @param application
-   * @param predicate
-   * @param start
-   * @param finish
-   * @return
-   * @throws InternalBackEndException
-   * @throws IOBackEndException
-   * @throws UnsupportedEncodingException
-   */
-  
-  Map<String, Map<String, String>> read(
-          final String application, 
-          final List<String> predicate, 
-          final String start, 
-          final String finish)
-                  throws InternalBackEndException, IOBackEndException, UnsupportedEncodingException;
   
   /**
    * Get the DataList Entry related to application + predicate + userID.

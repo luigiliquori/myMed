@@ -1,6 +1,10 @@
 package com.mymed.utils;
 
 import java.io.InputStream;
+import static com.mymed.controller.core.manager.storage.StorageManager.ENCODING;
+import java.io.UnsupportedEncodingException;
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
 
@@ -29,6 +33,29 @@ public class MiscUtils {
         InputStream is = MiscUtils.class.getClassLoader().getResourceAsStream(resURL);
         if (is==null) throw new InternalBackEndException("Resource '%s' not found", resURL);
         return isToStr(is);
+    }
+    
+    // ---------------------------------------------------------------------------
+    // Encode / Decode
+    // ---------------------------------------------------------------------------
+    
+    /** Decode a byte array into a string, using the default encoding */
+    public static String decode(byte[] value) {
+        return Charset.forName(ENCODING).decode(ByteBuffer.wrap(value)).toString();
+    }
+    
+    /** Decode a byte array into a string, using the default encoding */
+    public static byte[] encode(String value) {
+        if (value == null) return null;
+        try {
+            return value.getBytes(ENCODING);
+        } catch (UnsupportedEncodingException e) {
+            throw new InternalBackEndException(e, "Error while encoding");
+        }
+    }
+
+    public static byte[] encode(int value) {
+        return encode(String.valueOf(value));
     }
     
 }

@@ -19,7 +19,7 @@ class SampleModel extends GenericDataBean {
 		
 		// Declare predicate attributes
 		$this->_predicatesDef = array(
-				"pred1" => KEYWORD,
+				"pred1" => ENUM,
 				"pred2" => GPS,
 				"pred3" => DATE);
 		

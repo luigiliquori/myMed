@@ -25,9 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.TreeMap;
 
-import com.google.gson.Gson;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.AbstractManager;
@@ -43,6 +41,10 @@ import com.mymed.utils.MiscUtils;
 import com.mymed.utils.mail.Mail;
 import com.mymed.utils.mail.MailMessage;
 import com.mymed.utils.mail.SubscribeMailSession;
+import static com.mymed.utils.GsonUtils.gson;
+
+
+import static com.mymed.utils.MiscUtils.*;
 
 /**
  * The pub/sub mechanism manager.
@@ -146,7 +148,6 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
         args.clear();
         args.put("predicate", encode(subPredicate));
         if (predicateList != null) {
-            Gson gson = new Gson();
             args.put("predicateListJson", encode(gson.toJson(predicateList)));
         }
         args.put("begin", encode(begin));
@@ -175,7 +176,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
         for (final MDataBean item : dataList) {
             args.put("key", encode(item.getKey()));
             args.put("value", encode(item.getValue()));
-            args.put("ontologyID", encode(item.getOntologyID()));
+            args.put("ontologyID", encode(item.getOntologyID().getValue()));
             storageManager.insertSuperSlice(
                     SC_DATA_LIST, prefix + subPredicate + publisher.getId(),
                     item.getKey(), 
@@ -183,7 +184,6 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
             args.clear();
         }
         
-  
         // Send emails
         this.sendEmails( 
                 prefix,
@@ -267,6 +267,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
         data.put("application", applicationID);
         data.put("publisher", publisher);
         data.put("publication", publicationMap);
+        data.put("predicate", predicate);
 
         // Loop on recipients
         for (MUserBean recipient : recipients) {
@@ -391,24 +392,6 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
         return resList;
     }
 
-    /**
-     * The find mechanism.
-     * @see com.mymed.controller.core.manager.pubsub.IPubSubManager#read(String, String, String)
-     */
-    public final TreeMap<String, Map<String, String>> read(
-            final String application, 
-            final List<String> predicate, 
-            final String start, 
-            final String finish)
-     throws InternalBackEndException, IOBackEndException, UnsupportedEncodingException 
-     {
-
-        final TreeMap<String, Map<String, String>> resMap = new TreeMap<String, Map<String, String>>();
-
-        resMap.putAll(storageManager.multiSelectList(SC_APPLICATION_CONTROLLER, predicate, start, finish));
-
-        return resMap;
-    }
 
 
     /**
@@ -464,32 +447,43 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
      * @see IPubSubManager#delete(String * 3 + MUserBean)
      */
     @Override
-    public final void delete(final String application, final String predicate, final String subPredicate,
-            final String publisherID) throws InternalBackEndException, IOBackEndException {
+    public void delete(
+            final String application, 
+            final String predicate, 
+            final String subPredicate,
+            final String publisherID) throws InternalBackEndException, IOBackEndException 
+    {
+
         // Remove publisher member
-        storageManager.removeAll(CF_SUBSCRIBEES, application + predicate);
+        storageManager.removeAll(
+                CF_SUBSCRIBEES, 
+                application + predicate);
+        
         // Remove the 1st level of data
-        storageManager.removeSuperColumn(SC_APPLICATION_CONTROLLER, application + predicate,
+        storageManager.removeSuperColumn(
+                SC_APPLICATION_CONTROLLER, 
+                application + predicate,
                 subPredicate + publisherID);
+        
         // Remove the 2nd level of data
-        storageManager.removeAll(SC_DATA_LIST, application + subPredicate + publisherID);
+        storageManager.removeAll(
+                SC_DATA_LIST, 
+                application + subPredicate + publisherID);
+        
         // Remove app model entry
         // storageManager.removeSuperColumn(SC_APPLICATION_MODEL, application, predicate + publisher.getId());
     }
 
-    public void deleteIndex(final String application, final String predicate, final String subPredicate,
-            final String publisherID) throws InternalBackEndException, IOBackEndException {
-
-        storageManager.removeSuperColumn(SC_APPLICATION_CONTROLLER, application + predicate,
-                subPredicate + publisherID);
-    }
 
     /**
      * @see IPubSubManager#delete(String * 3)
      */
     @Override
-    public final void delete(final String application, final String user, final String predicate)
-            throws InternalBackEndException, IOBackEndException {
+    public void delete(
+            final String application, 
+            final String user, 
+            final String predicate) throws InternalBackEndException, IOBackEndException 
+    {
         // Remove subscriber member from subsribers list
         storageManager.removeColumn(CF_SUBSCRIBERS, application + user, predicate);
         // Remove subscriber member from predicates subscribed list

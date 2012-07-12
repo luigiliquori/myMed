@@ -19,6 +19,16 @@ $USERID="";
 include(MYMED_ROOT . '/system/common/init.php');
 include("classes/test-utils.php");
 add_path(__DIR__ . "/classes");
+assert_options(ASSERT_ACTIVE, 1);
+assert_options(ASSERT_WARNING, 0);
+function my_assert_handler($file, $line, $code)
+{
+	echo("Assert failed. line $line: \"$code\"\n");
+	exit;
+}
+
+// Configuration de la méthode de callback
+assert_options(ASSERT_CALLBACK, 'my_assert_handler');
 
 // ---------------------------------------------------------------------
 // Login
@@ -40,7 +50,7 @@ $_SESSION['user'] = json_decode($res->data->user);
 $obj = new SampleModel(); 
 $obj->begin="begin";
 $obj->end="end";
-$obj->pred1="TOTO";
+$obj->pred1="cat1|cat2|cat3";
 $obj->pred2="TATA";
 $obj->data1="TOTO";
 $obj->wrapped1 = "Wrapped";
@@ -51,7 +61,7 @@ $obj->publish();
 // Get it back
 $obj->publisherID = $_SESSION['user']->id;
 $results = $obj->find();
-assert(sizeof($results) == 1);
+assert('sizeof($results) == 1');
 $result = $results[0];
 
 // At this point, the predicate should be equal

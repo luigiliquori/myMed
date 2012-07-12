@@ -15,6 +15,7 @@
  */
 package com.mymed.controller.core.requesthandler.matchmaking;
 
+import static com.mymed.utils.GsonUtils.gson;
 import static com.mymed.utils.PubSub.makePrefix;
 
 import java.lang.reflect.Type;
@@ -41,6 +42,7 @@ import com.mymed.controller.core.manager.pubsub.v2.PubSubManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.application.MDataBean;
 import com.mymed.model.data.user.MUserBean;
+import com.mymed.utils.GsonUtils;
 
 /**
  * Servlet implementation class PubSubRequestHandler
@@ -134,7 +136,7 @@ public class PublishRequestHandler extends AbstractMatchMaking {
                     }
                    
                     try {
-                    	final MUserBean userBean = getGson().fromJson(user, MUserBean.class);
+                    	final MUserBean userBean = gson.fromJson(user, MUserBean.class);
                     	userID = userBean.getId();
                     } catch (final JsonSyntaxException e) {
                     	userID = user;
@@ -143,7 +145,7 @@ public class PublishRequestHandler extends AbstractMatchMaking {
                     try {
                         final Type dataType = new TypeToken<List<MDataBean>>() {
                         }.getType();
-                        final List<MDataBean> predicateListObject = getGson().fromJson(predicateListJson, dataType);
+                        final List<MDataBean> predicateListObject = gson.fromJson(predicateListJson, dataType);
 
                         // construct the subPredicate
                         final StringBuffer bufferSubPredicate = new StringBuffer(150);
@@ -157,11 +159,15 @@ public class PublishRequestHandler extends AbstractMatchMaking {
                         if (parameters.get("level") != null){
                         	level = Integer.parseInt(parameters.get("level"));
                         }
-                        List<StringBuffer> predicates = getPredicate(predicateListObject, level);
+                        
+                        // Generate list of predicates
+                        List<String> predicates = getPredicate(
+                                predicateListObject, 
+                                1, level);
                         
                         LOGGER.info("deleting "+bufferSubPredicate.toString()+" with level: "+level);
-                        for(StringBuffer predicate : predicates) {
-                        	pubsubManager.delete(makePrefix(application, namespace), predicate.toString(), bufferSubPredicate.toString(), userID);
+                        for(String predicate : predicates) {
+                        	pubsubManager.delete(makePrefix(application, namespace), predicate, bufferSubPredicate.toString(), userID);
                         }
                         
                     } catch (final JsonSyntaxException e) {
@@ -219,7 +225,7 @@ public class PublishRequestHandler extends AbstractMatchMaking {
 
                 MUserBean userBean;
                 try {
-                	userBean = getGson().fromJson(user, MUserBean.class);
+                	userBean = gson.fromJson(user, MUserBean.class);
                 } catch (final JsonSyntaxException e) {
                 	userBean = profileManager.read(user);
                 }
@@ -227,8 +233,8 @@ public class PublishRequestHandler extends AbstractMatchMaking {
                     
                     // Parse Data & Predicate lists JSON 
                     final Type dataType = new TypeToken<List<MDataBean>>() {}.getType();
-                    final List<MDataBean> dataList = getGson().fromJson(data, dataType);
-                    final List<MDataBean> predicateList = getGson().fromJson(predicateListJson, dataType);
+                    final List<MDataBean> dataList = gson.fromJson(data, dataType);
+                    final List<MDataBean> predicateList = gson.fromJson(predicateListJson, dataType);
 
                     // construct the subPredicate
                     final StringBuffer bufferSubPredicate = new StringBuffer(150);
@@ -237,23 +243,24 @@ public class PublishRequestHandler extends AbstractMatchMaking {
                     	bufferSubPredicate.append(element.getValue());
                     }
                     bufferSubPredicate.trimToSize();
-                    
-					bufferSubPredicate.toString();
 
                     /* construct indexes */
                     int level = predicateList.size();
                     if (parameters.get("level") != null){
                     	level = Integer.parseInt(parameters.get("level"));
                     }
-                    List<StringBuffer> predicates = getPredicate(predicateList, level);
+                    List<String> predicates = getPredicate(
+                            predicateList, 
+                            1, 
+                            level);
                     
                     /* store indexes for this data */
                     LOGGER.info("indexing "+bufferSubPredicate.toString()+" with level: "+level+", nb of rows:"+predicates.size());
                     
-                    for(StringBuffer predicate : predicates) {
+                    for(String predicate : predicates) {
                 		pubsubManager.create(
                 		        makePrefix(application, namespace),
-                		        predicate.toString(), 
+                		        predicate, 
                 		        bufferSubPredicate.toString(),
                 		        userBean,
                 		        dataList,

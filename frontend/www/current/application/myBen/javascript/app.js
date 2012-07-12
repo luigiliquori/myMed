@@ -21,11 +21,30 @@ $(document).ready(function() {
 	    return false;
 	});
 	
-
-
+	// Handle all/none checkboxes
+	$('[data-check-all]').change(function() {
+			
+		// Get the selector
+		selector = $(this).attr("data-check-all");
+		var checked = $(this).is(':checked');
+		
+		// Loop on selected elements
+		$(selector).each(function() {
+			
+			// Check/uncheck all
+			if (checked) {
+				$(this).attr('checked', 'checked');
+			} else {
+				$(this).removeAttr('checked');
+			}
+			$(this).checkboxradio("refresh");
+		})
+		
+	}) 
+	
 });
 
-// Hook on page load
+// Hook on page load => Show some messages
 $(document).bind("pagechange", function(event, data) {
 	
     var target = data.toPage;

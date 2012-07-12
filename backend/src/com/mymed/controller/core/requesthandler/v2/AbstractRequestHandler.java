@@ -16,11 +16,6 @@
 package com.mymed.controller.core.requesthandler.v2;
 
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-
 public abstract class AbstractRequestHandler extends com.mymed.controller.core.requesthandler.AbstractRequestHandler {
     /**
 	 * 
@@ -30,24 +25,6 @@ public abstract class AbstractRequestHandler extends com.mymed.controller.core.r
 	/**
      * Serial version ID.
      */
-
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest ,
-     * javax.servlet.http.HttpServletResponse)
-     */
-    @Override
-    protected abstract void doGet(final HttpServletRequest request, final HttpServletResponse response)
-                    throws ServletException;
-
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest ,
-     * javax.servlet.http.HttpServletResponse)
-     */
-    @Override
-    protected abstract void doPost(final HttpServletRequest request, final HttpServletResponse response)
-                    throws ServletException;
 
 
 }

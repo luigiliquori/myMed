@@ -15,16 +15,17 @@
  */
 package com.mymed.controller.core.manager.storage;
 
+import static com.mymed.utils.MiscUtils.decode;
+import static com.mymed.utils.MiscUtils.encode;
+
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.TreeMap;
 
 import org.apache.cassandra.thrift.Column;
 import org.apache.cassandra.thrift.ColumnOrSuperColumn;
@@ -34,6 +35,7 @@ import org.apache.cassandra.thrift.Mutation;
 import org.apache.cassandra.thrift.SlicePredicate;
 import org.apache.cassandra.thrift.SliceRange;
 import org.apache.cassandra.thrift.SuperColumn;
+import org.apache.commons.lang.NotImplementedException;
 
 import ch.qos.logback.classic.Logger;
 
@@ -63,12 +65,12 @@ public class StorageManager implements IStorageManager {
 
     public static final int maxNumColumns = 10000;
 
-    private static final Logger LOGGER = MLogger.getLogger();
+    protected static final Logger LOGGER = MLogger.getLogger();
 
     private static final PropertiesManager PROPERTIES = PropertiesManager.getInstance();
     protected static final IProperties GENERAL = PROPERTIES.getManager(PropType.GENERAL);
 
-    protected static final String _ENCODING = GENERAL.get("general.string.encoding");
+    public static final String ENCODING = GENERAL.get("general.string.encoding");
     protected static final String CONFIG_FILE = GENERAL.get("general.config.file");
 
     protected CassandraWrapper wrapper;
@@ -467,7 +469,7 @@ public class StorageManager implements IStorageManager {
             final String tableName, 
             final String primaryKey, 
             final Map<String, byte[]> args)
-                    throws InternalBackEndException 
+                    throws InternalBackEndException
     {
         try {
             final Map<String, Map<String, List<Mutation>>> mutationMap = new HashMap<String, Map<String, List<Mutation>>>();
@@ -602,48 +604,6 @@ public class StorageManager implements IStorageManager {
     }
 
 
-    public Map<String, Map<String, String>> multiSelectList(
-            final String tableName, 
-            final List<String> keys, 
-            final String start, 
-            final String finish) 
-                    throws IOBackEndException, InternalBackEndException, UnsupportedEncodingException
-    {
-
-        final SlicePredicate predicate = new SlicePredicate();
-        final SliceRange sliceRange = new SliceRange();
-        sliceRange.setStart(encode(start));
-        sliceRange.setFinish(encode(finish));
-        sliceRange.setCount(maxNumColumns); // TODO this val should depend on ontologyID
-        predicate.setSlice_range(sliceRange);
-        final ColumnParent parent = new ColumnParent(tableName);
-
-        final Map<ByteBuffer, List<ColumnOrSuperColumn>> resultMap = wrapper.multiget_slice(keys, parent, 
-                predicate, consistencyOnRead);
-
-        final List<ColumnOrSuperColumn> results = new ArrayList<ColumnOrSuperColumn>();
-
-        for (List<ColumnOrSuperColumn> l : resultMap.values()){
-            results.addAll(l);
-        }
-
-        final Map<String, Map<String, String>> sliceMap = new TreeMap<String, Map<String, String>>();
-
-        for (final ColumnOrSuperColumn res : results) {
-            if (res.isSetSuper_column()) {
-                final Map<String, String> slice = new HashMap<String, String>();
-
-                for (final Column column : res.getSuper_column().getColumns()) {
-                    slice.put(MConverter.byteArrayToString(column.getName()), 
-                            MConverter.byteArrayToString(column.getValue()));
-                }
-                sliceMap.put(MConverter.byteArrayToString(res.getSuper_column().getName()), slice);
-            }
-        }
-
-        return sliceMap;
-
-   }
 
 
     /**
@@ -696,29 +656,16 @@ public class StorageManager implements IStorageManager {
         } 
         return result;
     }
-    
-    // ---------------------------------------------------------------------------
-    // Encode / Decode
-    // ---------------------------------------------------------------------------
-    
-    /** Decode a byte array into a string, using the default encoding */
-    public String decode(byte[] value) {
-        return Charset.forName(_ENCODING).decode(ByteBuffer.wrap(value)).toString();
-    }
-    
-    /** Decode a byte array into a string, using the default encoding */
-    public byte[] encode(String value) {
-        if (value == null) return null;
-        try {
-            return value.getBytes(_ENCODING);
-        } catch (UnsupportedEncodingException e) {
-            throw new InternalBackEndException(e, "Error while encoding");
-        }
-    }
-
-    public byte[] encode(int value) {
-        return this.encode(String.valueOf(value));
-    }
 
 
+  	@Override
+	public Map<String, Map<String, String>> multiSelectList(
+	        String tableName,
+			List<String> keys, 
+			String start, 
+			String finish) 
+	{
+  	     throw new NotImplementedException();	
+	}  
+    
 }

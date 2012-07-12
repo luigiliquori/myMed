@@ -15,6 +15,8 @@
  */
 package com.mymed.controller.core.requesthandler.v2;
 
+import static com.mymed.utils.GsonUtils.gson;
+
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -43,6 +45,7 @@ import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.application.MDataBean;
 import com.mymed.model.data.application.QueryBean;
 import com.mymed.model.data.user.MUserBean;
+import com.mymed.utils.GsonUtils;
 import com.mymed.utils.PubSub;
 
 @MultipartConfig
@@ -160,7 +163,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
 				//retrieve query params
 				try{
                 	final Type dataType = new TypeToken<Map<String, QueryBean>>() {}.getType();
-                	queryTmp = getGson().fromJson(predicateList, dataType);
+                	queryTmp = gson.fromJson(predicateList, dataType);
 	            } catch (final JsonSyntaxException e) {
 	                LOGGER.debug("Error in Json format", e);
 	                throw new InternalBackEndException("jSon format is not valid");
@@ -346,7 +349,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
 				try {
 					final Type dataType = new TypeToken<Map<String, QueryBean>>() {
 					}.getType();
-					final Map<String, QueryBean> predicateMap = getGson()
+					final Map<String, QueryBean> predicateMap = gson
 							.fromJson(predicateList, dataType);
 
 					/* construct indexes */
@@ -384,13 +387,13 @@ public class FindRequestHandler extends AbstractRequestHandler {
 							String s1 = PubSub.Index.toRowString(p);
 							String s2 = PubSub.Index.toColString(p);
 							LOGGER.info("__" + s1 + " " + s2);
-							pubsubManager.deleteIndex(application, s1, s2 + dataId, user);
+							pubsubManager.delete(application, s1, s2 + dataId, user);
 						}
 						for (List<PubSub.Index> p : predicatesNew) {
 							String s1 = PubSub.Index.toRowString(p);
 							String s2 = PubSub.Index.toColString(p);
 							LOGGER.info("____" + s1 + " " + s2);
-							pubsubManager.createIndex(application, s1, s2, dataId, userBean, predicateListNew, null);
+							pubsubManager.create(application, s1, s2, dataId, userBean, predicateListNew, null);
 						}
 					}
 
