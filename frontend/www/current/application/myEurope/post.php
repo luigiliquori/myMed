@@ -28,53 +28,65 @@ if (count($_POST)){ // to publish something
 
 	$data = array();
 
-// 	foreach( $p as $v ){ // tags ontologies array
-// 		array_push($data, array("key"=>$v, "value"=>"", "ontologyID"=>KEYWORD));
-// 	}
+	$metiers = array();
+	$regions = array();
 	
 	foreach( $_POST as $i=>$v ){
 		if ($v == "on"){
-			array_push($data, array("key"=>$i, "value"=>"", "ontologyID"=>KEYWORD));
+			if ( strpos($i, "met") === 0){
+				array_push($metiers, $i);
+			} else if  ( strpos($i, "reg") === 0){
+				array_push($regions, $i);
+			}
 		}
+	}
+	if (count($metiers)){
+		array_push($data, new DataBean("met", ENUM, $metiers));
+	}
+	
+	if (count($regions)){
+		array_push($data, new DataBean("reg", ENUM, $regions));
+	}
+	
+	if (isset($_POST['offre'])){
+		array_push($data, new DataBean("offre", KEYWORD, array($_POST['offre'])));
 	}
 	
 	if (isset($_POST['date'])) {
 		if (strtotime($_POST['date']) !== false){
-			array_push($data, array("key"=>"date", "value"=>strtotime($_POST['date']), "ontologyID"=>DATE));
+			array_push($data, new DataBean("date", DATE, array(strtotime($_POST['date']))));
 		} else {
 			
 		}
 	}
-		
-
+	
 	if (isset($_POST['text']))
-		array_push($data, array("key"=>"text", "value"=>$_POST['text'], "ontologyID"=>TEXT));
+		array_push($data, new DataBean("text", TEXT, array($_POST['text'])));
 
 	$request = new Request("v2/PublishRequestHandler", CREATE);
-	$request->addArgument("application", $_POST['application']);
-	$request->addArgument("namespace", $_POST['type']);
+	$request->addArgument("application", Template::APPLICATION_NAME);
+	$request->addArgument("namespace", $_POST['type']); //."temp"
 
 	$request->addArgument("data", json_encode($data));
-	$request->addArgument("userID", $_SESSION['user']->id);
+	$request->addArgument("user", $_SESSION['user']->id);
+	
 	if (!isset($_POST['id'])){
 		$_POST['id'] = "Projet".date("Y-m-d");
+	} else {
+		$request->addArgument("id", $_POST['id']); 
 	}
-	$request->addArgument("id", $_POST['id']); 
-	$request->addArgument("level", 3);
 
-	if ($_POST['type']=="part" && $_SESSION['userPerm']>0 || $_POST['type']=="offer" && $_SESSION['userPerm']>1){
+	$responsejSon = $request->send();
+	$responseObject = json_decode($responsejSon);
 
-		$responsejSon = $request->send();
-		$responseObject = json_decode($responsejSon);
-
-		if ($responseObject->status==200){
-			if ($_POST['type']=="part"){
-				header("Location: ./search?type=part&".http_build_query(array_filter($_POST, "Template::isCheckbox")));
-			} else {
-				header("Location: ./");
-			}
+	if ($responseObject->status==200){
+		if ($_POST['type']=="part"){
+			header("Location: ./search?type=part&".http_build_query(array_filter($_POST, "Template::isCheckbox")));
+		} else {
+			header("Location: ./");
 		}
 	}
+	
 
 }
 

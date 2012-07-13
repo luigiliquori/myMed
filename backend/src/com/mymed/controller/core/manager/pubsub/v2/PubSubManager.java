@@ -15,7 +15,8 @@
  */
 package com.mymed.controller.core.manager.pubsub.v2;
 
-import static com.mymed.model.data.application.MOntologyID.TEXT;
+import static com.mymed.utils.MiscUtils.decode;
+import static com.mymed.utils.MiscUtils.encode;
 import static com.mymed.utils.PubSub.extractApplication;
 import static com.mymed.utils.PubSub.extractNamespace;
 import static java.util.Arrays.asList;
@@ -28,15 +29,15 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
+import com.google.gson.Gson;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.mailtemplates.MailTemplate;
 import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.controller.core.manager.storage.v2.StorageManager;
-import com.mymed.model.data.application.MDataBean;
+import com.mymed.model.data.application.DataBean;
+import com.mymed.model.data.application.SimpleDataBean;
 import com.mymed.model.data.user.MUserBean;
-import static com.mymed.utils.MiscUtils.*;
-
 import com.mymed.utils.MiscUtils;
 import com.mymed.utils.mail.Mail;
 import com.mymed.utils.mail.MailMessage;
@@ -46,12 +47,13 @@ import com.mymed.utils.mail.SubscribeMailSession;
 /**
  * The pub/sub mechanism manager.
  * 
- * @author lvanni
  */
 public class PubSubManager extends com.mymed.controller.core.manager.pubsub.PubSubManager implements IPubSubManager {
 
     final Map<String, byte[]> args;
-
+    
+    private final Gson gson;// 
+   
     /**
      * Default constructor.
      * @throws InternalBackEndException 
@@ -67,6 +69,7 @@ public class PubSubManager extends com.mymed.controller.core.manager.pubsub.PubS
     {
     	super(storageManager);
         args = new HashMap<String, byte[]>();
+        gson = new Gson();
     }
 
     /**
@@ -75,76 +78,64 @@ public class PubSubManager extends com.mymed.controller.core.manager.pubsub.PubS
      * @see IPubSubManager#create(String, String, MUserBean)
      */
   
-    /* v2 create index */
-    public final void create(
-            String application, 
-            final String predicate, 
-            final String colprefix, 
-            final String subPredicate,
-    		final MUserBean publisher, 
-    		final List<MDataBean> predicateList,
-    		final List<MDataBean> dataList) 
-    		        throws InternalBackEndException, IOBackEndException 
-    {
-        args.clear();
+	/* v2 create index */
+	public final void create(String application,
+			final String predicate,
+			final String colprefix,
+			final String subPredicate,
+			final MUserBean publisher,
+			final List<DataBean> dataList)
+					throws InternalBackEndException, IOBackEndException {
+		args.clear();
+		
+		/*put metadata Databeans (type DATA), the only ones that are stores in results Lists */
 
-        /*
-         * Put all index data that enable to filter deeply 
-         * @see read FindRequestHandler#READ
-         *    , index filtering should be moved in this class soon, to free up handlers
-         */
+		for (DataBean item : dataList) {
+			args.put(item.getKey(), encode(gson.toJson(item.getValue())));
+		}
 
-        for ( MDataBean item : predicateList) {
-            if (item.getOntologyID().getValue() < TEXT.getValue() /*|| item.getOntologyID() == 8*/)
-                args.put(item.getKey(), encode(item.getValue()));
-        }
+		args.put("id", encode(subPredicate)); // dataId pointer
+		args.put("publisherID", encode(publisher.getId()));
 
-        args.put("predicate", encode(subPredicate)); // dataId pointer
-        args.put("publisherID", encode(publisher.getId()));
+		// ---publisherName at the moment he published it, beware that name was
+		// possibly updated since
+		args.put("publisherName", encode(publisher.getName()));
 
-        //---publisherName at the moment he published it, beware that name was possibly updated since
-        args.put("publisherName", encode(publisher.getName()));
+		storageManager
+				.insertSuperSlice(SC_APPLICATION_CONTROLLER, application
+						+ predicate,
+						colprefix + subPredicate, args);
 
-        storageManager.insertSuperSlice(
-                SC_APPLICATION_CONTROLLER, 
-                application + predicate, 
-                colprefix + subPredicate + publisher.getId(), 
-                args);
-
-
-    }
+	}
     
-    /* v2 create data */
-    public final void create(
-            String application, 
-            final String subPredicate,
-    		final String publisher, 
-    		final List<MDataBean> dataList) 
-    		        throws InternalBackEndException, IOBackEndException 
-    {
-    		args.clear();
-    		
-    		/*
-    		 * stores data
-    		 * 
-    		 *  row -> supercolName dataKey, cols: {"key": dataKey, "value": dataValue, "ontologyID": dataoOntologyID}
-    		 *  
-    		 *  'd like to move to:
-    		 *  row -> supercolName dataoOntologyID, cols: {dataKey1: dataValue1, dataKey2: dataValue2, ...}
-    		 *  makes more sense
-    		 */
-    		
-    		for ( MDataBean item : dataList) {
-				args.put("key", encode(item.getKey()));
-    			args.put("value", encode(item.getValue()));
-    			args.put("ontologyID", encode(String.valueOf(item.getOntologyID())));
-    			storageManager.insertSuperSlice(
-    			        SC_DATA_LIST, 
-    			        application + subPredicate + publisher,
-    					item.getKey(), args);
-    			args.clear();
-    		}
-    }
+	/* v2 create data */
+	public final void create(
+			String application,
+			final String subPredicate,
+			final List<DataBean> dataList)
+					throws InternalBackEndException, IOBackEndException {
+		args.clear();
+
+		/*
+		 * stores data
+		 * 
+		 * row -> supercolName dataKey, cols: {"key": dataKey, "value":
+		 * dataValue, "ontologyID": dataoOntologyID}
+		 * 
+		 * 'd like to move to: row -> supercolName dataoOntologyID, cols:
+		 * {dataKey1: dataValue1, dataKey2: dataValue2, ...} makes more sense
+		 */
+
+		for (DataBean item : dataList) {
+			args.put("key", encode(item.getKey()));
+			args.put("type", encode(item.getType().getValue()));
+			args.put("value", encode(gson.toJson(item.getValue())));
+			
+			storageManager.insertSuperSlice(SC_DATA_LIST, application
+					+ subPredicate, item.getKey(), args);
+			args.clear();
+		}
+	}
     
     @Override 
     public void create(
@@ -171,14 +162,37 @@ public class PubSubManager extends com.mymed.controller.core.manager.pubsub.PubS
             final String application, 
             final List<String> predicate, 
             final String start, 
-            final String finish,
-            final int count)
+            final String finish)
                     throws InternalBackEndException, IOBackEndException, UnsupportedEncodingException 
     {
     	final Map<String, Map<String, String>> resMap = new TreeMap<String, Map<String, String>>();
-    	resMap.putAll(storageManager.multiSelectList(SC_APPLICATION_CONTROLLER, predicate, start, finish, count));
+    	resMap.putAll(storageManager.multiSelectList(SC_APPLICATION_CONTROLLER, predicate, start, finish));
     	return resMap;
     }
+    
+    /**
+     * get details v2
+     * @see com.mymed.controller.core.manager.pubsub.IPubSubManager#read(java.lang.String, java.lang.String,
+     * java.lang.String)
+     */
+
+	@Override
+	public List<DataBean> read_(
+			final String application,
+			final String predicate)
+					throws InternalBackEndException, IOBackEndException {
+
+		final List<Map<byte[], byte[]>> list = storageManager.selectList(
+				SC_DATA_LIST, application + predicate);
+		final List<DataBean> resList = new ArrayList<DataBean>();
+		for (final Map<byte[], byte[]> set : list) {
+	        final SimpleDataBean d = (SimpleDataBean) introspection(SimpleDataBean.class, set);
+	        
+	        resList.add(d.toDataBean());
+		}
+		return resList;
+	}
+	
     
     /* v2 deletes */
 	public final void delete(
@@ -221,23 +235,23 @@ public class PubSubManager extends com.mymed.controller.core.manager.pubsub.PubS
             String application,          
             String predicate,
             MUserBean publisher,
-            List<MDataBean> dataList) 
+            List<DataBean> dataList) 
     {
         
         // Prepare a map of key=>val to represent the publication for the mail 
         HashMap<String, String> publicationMap = new HashMap<String, String>();
         {
-            final List<MDataBean> ontologyList = new ArrayList<MDataBean>();
+            final List<DataBean> ontologyList = new ArrayList<DataBean>();
             
             // Add Data Beans 
             ontologyList.addAll(dataList);
             
             // Transform list of ontologies to map<String, String>
-            for (MDataBean dataBean : ontologyList) {
+            for (DataBean dataBean : ontologyList) {
                 // Dont set empty values
-                if (MiscUtils.empty(dataBean.getValue())) continue;
+                if (MiscUtils.empty(dataBean.getValue().get(0))) continue;
 
-                publicationMap.put(dataBean.getKey(), dataBean.getValue());
+                publicationMap.put(dataBean.getKey(), dataBean.getValue().get(0));
             }
             
         }

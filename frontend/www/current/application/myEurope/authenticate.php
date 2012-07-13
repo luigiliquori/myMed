@@ -40,21 +40,25 @@ if (count($_POST)) {
 		$responseObject = json_decode($responsejSon);
 		if($responseObject->status == 200) {
 			$_SESSION['user'] = $responseObject->dataObject->user;
-			if(!isset($_SESSION['friends'])){
-				$_SESSION['friends'] = array();
-			}
-
-			$extProfile = Template::fetchExtProfile();
+			
+			
+			$_SESSION['profile'] = new stdClass(); //@TODO create profile class
+			$extProfile = Template::fetchMyProfile();
+			
 			if($extProfile->status == 200 ) {
 				foreach ($extProfile->dataObject->details as $v){
-					if ($v->key == "type")
-						$_SESSION['userType'] = $v->value;
-					else if ($v->key == "perm")
-						$_SESSION['userPerm'] = $v->value;
+					if ($v->key == "role")
+						$_SESSION['profile']->role = $v->value[0];
+					else if ($v->key == "permission")
+						$_SESSION['profile']->permission = $v->value[0];
 				};
+				
 				header("Location: ".(isset($_SESSION['redirect'])?$_SESSION['redirect']:"./index"));
 				unset($_SESSION['redirect']);
 			} else {
+				
+				
+				
 				header("Location: ./updateExtended?new");
 			}
 				

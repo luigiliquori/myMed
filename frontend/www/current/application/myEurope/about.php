@@ -46,12 +46,12 @@ Template::init(false);
 		</div>
 	</div>
 	<?php 
-	if ($_SESSION['userPerm']>0){
+	if ($_SESSION['profile']->permission){
 	?>
 	<div data-role="footer" data-theme="c" data-position="fixed">
 		<div data-role="navbar" data-theme="c" data-iconpos="left">
 			<ul>
-				<li><a href="admin" data-icon="gear" data-transition="slidefade">Admin</a></li>
+				<li><a href="admin" data-icon="gear" rel="external" data-transition="slidefade">Admin</a></li>
 			</ul>
 		</div>
 	</div>

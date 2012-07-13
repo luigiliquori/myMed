@@ -31,7 +31,6 @@ Template::init();
 			</h1>
 			<br />
 			<form action="post" method="post" id="publishForm">
-				<input name="application" value="myEurope" type="hidden" />
 				
 				<input type="hidden" name="type" value="offer" />
 				

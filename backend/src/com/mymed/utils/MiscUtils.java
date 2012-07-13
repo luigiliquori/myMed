@@ -1,10 +1,13 @@
 package com.mymed.utils;
 
-import java.io.InputStream;
 import static com.mymed.controller.core.manager.storage.StorageManager.ENCODING;
+
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
 
@@ -14,6 +17,11 @@ public class MiscUtils {
     /** Null or empty string ? */
     public static boolean empty(String val) {
         return (val == null) || (val.length() == 0);
+    }
+    
+    /** Null or empty array of strings ? */
+    public static boolean empty(List<String> list) {
+        return (list == null) || (list.size() == 0);
     } 
     
     /** Read input stream into a String 
@@ -56,6 +64,15 @@ public class MiscUtils {
 
     public static byte[] encode(int value) {
         return encode(String.valueOf(value));
+    }
+    
+    
+    //---
+
+	public static ArrayList<String> singleton( String v) {
+		ArrayList<String> l = new ArrayList<String>();
+		l.add(v);
+		return l;
     }
     
 }

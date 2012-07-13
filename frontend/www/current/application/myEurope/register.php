@@ -110,8 +110,8 @@ if (count($_POST)) {
 					</fieldset>
 				</div>
 				<div style="text-align:center;">
-					<span style="display: inline-block;"><input id="service-term" type="checkbox" name="checkCondition" style="left: 0;"/></span>
-					<span style="display: inline-block;padding-left: 15px;vertical-align: middle;">
+					<span style="display: inline-block;vertical-align: middle;"><input id="service-term" type="checkbox" name="checkCondition" style="left: 0;"/></span>
+					<span style="display: inline-block;padding-left: 15px;">
 						J'accepte les 
 						<a href="../../application/myRiviera/system/templates/application/myRiviera/doc/CONDITIONS_GENERALES_MyMed_version1_FR.pdf" rel="external">conditions d'utilisation</a>
 	<!-- 					I accept  -->

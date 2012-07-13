@@ -3,11 +3,9 @@ package com.mymed.utils;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.model.data.application.MDataBean;
+import com.mymed.model.data.application.DataBean;
 import com.mymed.model.data.application.MOntologyID;
 
 /**
@@ -19,235 +17,195 @@ import com.mymed.model.data.application.MOntologyID;
 
 public class PubSub {
 	
-	/*  Ontology ID list */
-    
-	public static final int KEYWORD = 0;
-	public static final int GPS     = 1;
-	public static final int ENUM    = 2;
-	public static final int DATE    = 3;
-	public static final int TEXT    = 4;
-	public static final int PICTURE = 5;
-	public static final int VIDEO   = 6;
-	public static final int AUDIO   = 7;
-	public static final int FLOAT   = -1;
-
-
-	public final static long interval =  60 * 60 * 24; // 1 day in s
-	
-	public static final int maxNumColumns = 10000; // arbitrary max number of cols read in a slice, to overrides 100 by default
-	
 
 	/**
 	 * 
-	 * contructs all possible set of indexes with level terms from predicateList
+	 * generate all possible set of indexes from lists
 	 * 
-	 *  ex: [A, B, C] with level = 2 returns [A, B], [A, C], [B, C]
+	 * [A, B, (c1, c2, c3)] ->
+	 * [A], [B], [c1], [c2], [c3], [A,B], [A, c1] ...
 	 * 
-	 * 
-	 * @param predicateMap
-	 * @param level
-	 * @return List of StringBuffers
 	 */
 	
-	public static List<List<Index>> getIndex(
-			final List<MDataBean> predicateList, final int level) {
+	public static List<List<Index>> generateIndexes(final List<Index> indexes,
+			final List<List<Index>> enums) {
 
 		List<List<Index>> result = new ArrayList<List<Index>>();
-		int n = predicateList.size();
+		int broadcastSize = (int) Math.pow(2, indexes.size());
 
-		//List<Index> indexes;
-		List<List<Index>> indexes;
+		List<Index> cur;
 
-		for (long i = (1 << level) - 1; (i >>> n) == 0; i = nextCombo(i)) {
-			int mask = (int) i;
+		/*
+		 * generate all combinatorics from indexes 2^indexes.size()
+		 */
+
+		for (int i = 0; i < broadcastSize; i++) {
+			int mask = i;
 			int j = 0;
-			//indexes = new ArrayList<Index>();
-			indexes = new ArrayList<List<Index>>();
-			indexes.add(new ArrayList<Index>());
+			cur = new ArrayList<Index>();
 
 			while (mask > 0) {
 				if ((mask & 1) == 1) {
-					MDataBean d = predicateList.get(j);
-					switch (d.getOntologyID().getValue()) {
-					case DATE:
-						long t = parseLong(d.getValue());
-						for (List<Index> l : indexes)
-							l.add(new Index(d.getKey() + (t - t % interval), d.getValue()));
-						break;
-					case FLOAT:
-						Float value = new Float(d.getValue());
-						for (List<Index> l : indexes)
-							l.add(new Index(d.getKey() + value.intValue(), pad(value)));
-						break;
-					case KEYWORD:
-						for (List<Index> l : indexes)
-							l.add(new Index(d.getKey() + d.getValue(), ""));
-						break;
-					case ENUM:
-						String[] values = d.getValue().split("-");
-						for (List<Index> l : indexes)
-							for (String v : values)
-								l.add(new Index(d.getKey() + v, ""));
-						break;
-					case GPS:
-						// @TODO like date
-						break;
-					}
+					cur.add(indexes.get(j));
 				}
 				mask >>= 1;
 				j++;
 			}
-
 			if (indexes.size() != 0) {
-				//result.add(indexes);
-				result.addAll(indexes);
+				result.add(cur);
 			}
 		}
+
+		/*
+		 * multiply the Index generated with all enum possiblities, so
+		 * 2^indexes.size() * (enum.get(0).size()+1) * (enum.get(1).size()+1)
+		 * ...
+		 * 
+		 * note ENUMs are treated after other types, the find must comply to
+		 * this order
+		 */
+
+		List<List<Index>> _result;
+
+		for (List<Index> li : enums) {
+			_result = new ArrayList<List<Index>>(result);
+			for (Index i : li) {
+				for (List<Index> r : _result) {
+					List<Index> _r = new ArrayList<Index>(r);
+					_r.add(i);
+					result.add(_r);
+				}
+			}
+		}
+
+		/*
+		 * remove empty item
+		 */
+		result.remove(new ArrayList<Index>());
 
 		return result;
 	}
-
-	/*
-	 * class to distinguish which part of an ontology will be indexed in rows,
-	 *    in pubsub v1 ontology.value is in row (appended to ontology.key) and nothing is in column
-	 *    in pubsub v2 it depends on ontology.ontologyID
+    
+	/**
+	 * Its counter-part
+	 * 
+	 * generate all possible rows to search against given range of indexes
+	 * 
+	 * [(a1, a2, a3), (b1, b2), (c1, c2, c3)] ->
+	 * [a1b1c1], [a1b1c2], [a1b1c3], [a1b2c1], ...
+	 * 
 	 */
-	public static class Index{ 
-		
-		String row; /* part of a String Index appended in row name */
-		String col; /* part prepended in col name */
-		
-		/*
-		 * for ENUM (multiple) we need to use list of rows and
-		 *  constructRows(indexlistrows, new int[indexlistrows.size()], 0, rows)
-		 */
-		
-		Index(String row, String col) {
-			this.row = row;
-			this.col = col;
-		}
-		
-		public static String joinRows(List<Index> predicate){
-			String s="";
-	        for (Index i : predicate){
-				s += i.row;
-	        }
-	        return s;
-		}
-		
-		public static String joinCols(List<Index> predicate){
-	        String s="";
-	        for (Index i : predicate){
-	        	if (i.col.length() != 0){
-	        		s += i.col + "+";
-	        	}
-	        }
-	        return s;
-	    }
-		
-		public String toString(){
-			return row+":"+col;
-		}
-	}	
-
-    public static void constructRows(List<List<String>> data, int[] pos, int n, List<String> res) {
-	    if (n == pos.length) {
+    
+    public static void generateRows(List<List<String>> li, int[] pos, int i, List<String> res) {
+	    if (i == pos.length) {
 	        StringBuilder b = new StringBuilder();
-	        for (int i = 0 ; i != pos.length ; i++) {
-	            b.append(data.get(i).get(pos[i]));
+	        for (int j = 0 ; j < pos.length ; j++) {
+	            b.append(li.get(j).get(pos[j]));
 	        }
 	        res.add(b.toString());
 	    } else {
-	        for (pos[n] = 0 ; pos[n] != data.get(n).size() ; pos[n]++) {
-	        	constructRows(data, pos, n+1, res);
+	        for (pos[i] = 0 ; pos[i] < li.get(i).size() ; pos[i]++) {
+	        	generateRows(li, pos, i+1, res);
 	        }
 	    }
 	}
     
-    public static boolean isPredicate( Map<String, String> map, String key, String value) {
-		for (Entry<String, String> el : map.entrySet()) {
-			if (value.equals(el.getValue())) {
-				return true;
+    
+    
+    // ----message-getters----
+    
+    @SuppressWarnings("serial")
+	public static List<List<String>> getRows(List<DataBean> data) {
+		List<List<String>> res = new ArrayList<List<String>>();
+
+		for (final DataBean d : data) {
+			switch (d.getType()){
+			case DATE:
+				res.add(getDateRange(d.getKey(), Long.parseLong(d.getValue().get(0)), Long.parseLong(d.getValue().get(1))));
+				break;
+			case FLOAT:
+				res.add(getFloatRange(d.getKey(), Float.parseFloat(d.getValue().get(0)), Float.parseFloat(d.getValue().get(1))));
+				break;
+			case ENUM:
+				for (int k = 0; k < d.getValue().size(); k++) {
+					d.getValue().set(k, d.getKey() + d.getValue().get(k));
+				}
+				res.add(d.getValue());
+				break;
+			case KEYWORD:
+				res.add(new ArrayList<String>() {{ add(d.getKey() + d.getValue().get(0));}});
+				break;
 			}
 		}
-		return false;
-	}
-    
-    public static List<MDataBean> getIndexData(List<MDataBean> data){
-    	List<MDataBean> predicate = new ArrayList<MDataBean>();
-        for (MDataBean d : data){
-        	if (d.getOntologyID().getValue() < MOntologyID.TEXT.getValue()) {
-        		predicate.add(d);
-        	}
-        }
-        return predicate;
-	}
-    
-    public static String join(List<MDataBean> data){
-    	StringBuffer str = new StringBuffer();
-        for (MDataBean d : data){
-        	str.append(d.toString());
-        }
-        return str.toString();
-	}
-    
-    
-    /**
-     * DATE ontology ID
-     *    get Range of rows to search between t1 and t2 
-     *    (universal timestamps in seconds)
-     */
-
-    public static List<String> getDateRange(String key, String t1, String t2){
-    	List<String> res = new ArrayList<String>();
-    	long startTime = parseLong(t1);
-    	long endTime = parseLong(t2);
-
-		if (startTime != 0 && endTime != 0){
-	    	long curTime = startTime - startTime % interval; //init with first day at 0h:00:00
-	    	while (curTime <= endTime) {
-	    		res.add(key + curTime);
-	    		curTime += interval;
-	    	}
-		}
-    	
 		return res;
-    }
-    
-    
-   /*
-    * FLOAT ontology ID
-    *    integer part is indexed in rows
-    *    if there is a floating part the value is prefixed in column to allow it's auto sorting
-    * [2.33 - 5.6] -> [2, 3, 4, 5]
-    */
-    public static List<String> getFloatRange(String key, String v1, String v2){
-    	List<String> res = new ArrayList<String>();
-    	
-		int i1 = new Float(v1).intValue();
-		int i2 = new Float(v2).intValue();
-		for (int i = i1; i <= i2; i++) {
-			res.add(key + String.valueOf(i));
+	}
+    public static List<List<String>> getRanges(List<DataBean> data) {
+		List<List<String>> res = new ArrayList<List<String>>();
+
+		for (final DataBean d : data) {
+			switch (d.getType()) {
+			case DATE:
+			case FLOAT:
+				List<String> l = new ArrayList<String>();
+				l.add(d.getValue().get(0).toString());
+				l.add(d.getValue().get(1).toString());
+				res.add(l);
+				break;
+			}
 		}
 		return res;
-    }
-    
-    
-    
-    
-    
-    
-    //-----------------
-    
-    private static long nextCombo(long n) {
-    	// Gosper's hack, doesn't support level>= 64, there are other recursive functions to replace it without this limit
-		
-    	// moves to the next combination (of n's bits) with the same number of 1 bits
-    	
-		long u = n & (-n);
-		long v = u + n;
-		return v + (((v ^ n) / u) >> 2);
 	}
+	
+	public static List<Index> getIndexes(List<DataBean> data) {
+		List<Index> res = new ArrayList<Index>();
+
+		for (final DataBean d : data) {
+			switch (d.getType()) {
+			case DATE:
+				Long t = Long.parseLong(d.getValue().get(0));
+				res.add(new Index(d.getKey() + (t - t % interval), padDate(t)));
+				break;
+			case FLOAT:
+				res.add(new Index(d.getKey() + d.getValue().get(0).split("\\.")[0], padFloat(d.getValue().get(0))));
+				break;
+			case KEYWORD:
+				res.add(new Index(d.getKey() + d.getValue().get(0), ""));
+				break;
+			}
+		}
+		return res;
+	}
+	
+	public static List<List<Index>> getIndexesEnums(List<DataBean> data) {
+		List<List<Index>> res = new ArrayList<List<Index>>();
+		List<Index> en;
+		for (final DataBean d : data) {
+			switch (d.getType()) {
+			case ENUM:
+				en = new ArrayList<Index>();
+				for (String s : d.getValue()) {
+					en.add(new Index(d.getKey() + s, ""));
+				}
+				res.add(en);
+				break;
+			}
+		}
+		return res;
+	}
+    
+	public static List<DataBean> subList(List<DataBean> data, MOntologyID type) {
+		List<DataBean> res = new ArrayList<DataBean>();
+		for (final DataBean d : data) {
+			if (d.getType() == type) {
+				res.add(d);
+			}
+		}
+		return res;
+	}
+    
+    
+    
+    //-----generic-utils-----------
     
 	public static long parseLong(String s) {
 		try {
@@ -257,11 +215,106 @@ public class PubSub {
 		}
 	}
 	
-	/** Pads float numbers to have a 2 characters integer part, for utf-8 sorting */
-	public static String pad(float value){
-		return new DecimalFormat("00." + String.valueOf(value).replaceAll(".", "#")).format(value);
+	public static float parseFloat(String s) {
+		try {
+			return Float.parseFloat(s);
+		} catch (NumberFormatException e) {
+			throw new InternalBackEndException(e);
+		}
 	}
-    	    
+	
+	/*
+     * DATE type
+     *    get Range of rows to search between v1 and v2 
+     *    (universal timestamps in seconds)
+     */
+	
+	public final static long interval =  60 * 60 * 24 * 7; // 1 week in s
+
+	public static List<String> getDateRange(String key, long v1, long v2){
+		List<String> res = new ArrayList<String>();
+
+		if (v1 != 0 && v2 != 0){
+	    	long curTime = v1 - v1 % interval; //init with first day at 0h:00:00
+	    	while (curTime <= v2) {
+	    		res.add(key + curTime);
+	    		curTime += interval;
+	    	}
+		}
+		
+		return res;
+	}
+    
+    
+   /*
+    * FLOAT type
+    *    integer part is indexed in rows
+    *    et Range of rows to search between v1 and v2 
+    * [2.33 - 5.6] -> [2, 3, 4, 5]
+    */
+    public static List<String> getFloatRange(String key, Float v1, Float v2){
+    	List<String> res = new ArrayList<String>();  	
+		int i1 = v1.intValue();
+		int i2 = v2.intValue();
+		for (int i = i1; i <= i2; i++) {
+			res.add(key + String.valueOf(i));
+		}
+		return res;
+    }
+	
+    /** Pads float numbers to have a 2 characters integer part, for utf-8 sorting */
+   	public static String padFloat(String value){
+	    String[] p = value.split("\\.");
+	    if (2 == p.length){
+	        return String.format("%04d.%s", Integer.parseInt(p[0]), p[1]);
+	    }
+	    return String.format("%04d", Integer.parseInt(p[0]));
+   	}
+   	
+   	/** Pads date timestamps in seconds over 10 digits  */
+   	public static String padDate(Long value){
+   		return new DecimalFormat("0000000000").format(value);
+   	}
+ 
+   	/**  simple class to split which part of an index is in row, and which (if any) prefixed in column name */
+	public static class Index {
+
+		String row; /* part of an index appended in row name for Partitionning */
+		String col; /* part prepended in col name for Sorting */
+
+		public Index(String row, String col) {
+			this.row = row;
+			this.col = col;
+		}
+
+		public static String joinRows(List<Index> predicate) {
+			String s = "";
+			for (Index i : predicate) {
+				s += i.row;
+			}
+			return s;
+		}
+
+		public static String joinCols(List<Index> predicate) {
+			String s = "";
+			for (Index i : predicate) {
+				s += i.col.length() > 0 ? i.col + "+" : "";
+			}
+			return s;
+		}
+
+		public String toString() {
+			return row + ":" + col;
+		}
+	}  
+	
+	public static String join(List<DataBean> data) {
+		StringBuffer str = new StringBuffer();
+		for (DataBean d : data) {
+			str.append(d.toString());
+		}
+		return str.toString();
+	}
     
     /** Get application from a prefix "applicationID<separator>namespace"  */
     public static String extractApplication(String prefix, String separator) {

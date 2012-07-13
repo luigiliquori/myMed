@@ -21,7 +21,7 @@ import java.util.Map;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.model.data.application.MDataBean;
+import com.mymed.model.data.application.DataBean;
 import com.mymed.model.data.user.MUserBean;
 
 public interface IPubSubManager extends com.mymed.controller.core.manager.pubsub.IPubSubManager {
@@ -39,8 +39,7 @@ public interface IPubSubManager extends com.mymed.controller.core.manager.pubsub
             final String colprefix, 
             final String subPredicate,
     		final MUserBean publisher, 
-    		final List<MDataBean> predicateList,
-    		final List<MDataBean> dataList) 
+    		final List<DataBean> dataList) 
     		        throws InternalBackEndException, IOBackEndException ;
 	
 	/**
@@ -51,8 +50,7 @@ public interface IPubSubManager extends com.mymed.controller.core.manager.pubsub
 	public void create(
             String application, 
             final String subPredicate,
-    		final String publisher, 
-    		final List<MDataBean> dataList) 
+    		final List<DataBean> dataList) 
     		        throws InternalBackEndException, IOBackEndException ;
 	
 	/**
@@ -76,10 +74,15 @@ public interface IPubSubManager extends com.mymed.controller.core.manager.pubsub
             final String application, 
             final List<String> predicate, 
             final String start, 
-            final String finish,
-            final int count)
+            final String finish)
                     throws InternalBackEndException, IOBackEndException, UnsupportedEncodingException ;
 	
+	
+	/**
+	 * get details v2: return val modified
+	 */
+	List<DataBean> read_(String application, String predicate)
+			throws InternalBackEndException, IOBackEndException;
 	
 	/**
 	 * delete Data
@@ -96,6 +99,6 @@ public interface IPubSubManager extends com.mymed.controller.core.manager.pubsub
             String application,          
             String predicate,
             MUserBean publisher,
-            List<MDataBean> dataList);
+            List<DataBean> dataList);
 	
 }

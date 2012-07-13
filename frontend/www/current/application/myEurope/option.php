@@ -111,6 +111,7 @@ if (!isset($_GET["application"])){
 					<li><a href="http://<?= $_SERVER['HTTP_HOST'] ?>" type="button" rel="external" data-icon="delete">myMed</a></li>
 					<li><a href="about" data-icon="info" data-transition="slidefade" data-direction="reverse"><?= _('About') ?></a></li>
 					<li><a href="./" data-icon="home" data-transition="slidefade" data-direction="reverse"><?= _('Home') ?></a></li>
+					<li><a href="share" rel="external" data-icon="plus" data-transition="slidefade" data-direction="reverse"> Partager</a></li>
 					<li><a href="option" data-icon="profile" data-transition="slidefade" class="ui-btn-active ui-state-persist" ><?= _('Profil') ?></a></li>
 				</ul>
 			</div>
@@ -123,7 +124,8 @@ if (!isset($_GET["application"])){
 			<h3 style="text-align:center;">
 				<a href="" style="text-decoration: none;">Mon profil</a>
 			</h3>
-			<?php 
+			<?php
+			
 			$profPic = ($_SESSION["user"]->profilePicture) ? $_SESSION["user"]->profilePicture : "http://graph.facebook.com//picture?type=large";
 			$perms = array( 0 => "Utilisateur", 1 => "Modérateur", 2 => "Modérateur Européen");
 			?>
@@ -131,8 +133,8 @@ if (!isset($_GET["application"])){
 			
 			<div style="text-align: left; max-width:400px; margin:auto;">
 			
-				Type d'institution représentée: <span style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $_SESSION["userType"] ?> </span> <br />
-				Niveau de permission:	<span style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $perms[$_SESSION["userPerm"]] ?> </span> <br /> <br />
+				Type d'institution représentée: <span style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $_SESSION['profile']->role ?> </span> <br />
+				Niveau de permission:	<span style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $perms[$_SESSION['profile']->permission] ?> </span> <br /> <br />
 				nom: <span	style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $_SESSION["user"]->name ?> </span> <br />
 				email: <span style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $_SESSION["user"]->email ?> </span> <br /> <br />
 				
@@ -179,12 +181,12 @@ if (!isset($_GET["application"])){
 
 		</div>
 		<?php 
-		if ($_SESSION['userPerm']>0){
+		if ($_SESSION['profile']->permission>0){
 		?>
 		<div data-role="footer" data-theme="c" data-position="fixed">
 			<div data-role="navbar" data-theme="c" data-iconpos="left">
 				<ul>
-					<li><a href="admin" data-icon="gear" data-transition="slidefade">Admin</a></li>
+					<li><a href="admin" data-icon="gear" rel="external" data-transition="slidefade">Admin</a></li>
 				</ul>
 			</div>
 		</div>

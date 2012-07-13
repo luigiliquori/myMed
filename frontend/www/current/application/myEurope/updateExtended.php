@@ -10,7 +10,7 @@ Template::init();
 
 $msg="";
 
-if (isset($_POST['type'])) {
+if (isset($_POST['role'])) {
 	//extended Profile (user's role)
 	
 	$permission = (
@@ -18,24 +18,27 @@ if (isset($_POST['type'])) {
 			$_SESSION['user']->email=="other@mail.com" )
 			? 2 : 2;
 
-	$data = array(
-			array("key"=>"ext", "value"=>$_SESSION['user']->id, "ontologyID"=>0),
-			array("key"=>"type", "value"=>$_POST['type'], "ontologyID"=>4),
-			array("key"=>"perm", "value"=> $permission, "ontologyID"=>4 ),
-	);
-	$request = new Request("v2/PublishRequestHandler", UPDATE);
+	$data = array();	
+	array_push($data, new DataBean("all", KEYWORD, array("")));
+	array_push($data, new DataBean("id", TEXT, array($_SESSION['user']->id)));
+	array_push($data, new DataBean("role", TEXT, array($_POST['role'])));
+	array_push($data, new DataBean("permission", TEXT, array($permission)));
+	
+	$request = new Request("v2/PublishRequestHandler", CREATE);
 	$request->addArgument("application", Template::APPLICATION_NAME);
+	$request->addArgument("namespace", "users");
 
 	$request->addArgument("data", json_encode($data));
-	$request->addArgument("userID", $_SESSION['user']->id);
-	$request->addArgument("id", "ext");
+	$request->addArgument("user", $_SESSION['user']->id);
+	$request->addArgument("id", $_SESSION['user']->id);
 	$responsejSon = $request->send();
 	$responseObject = json_decode($responsejSon);
 	if($responseObject->status != 200) {
 		$msg = $responseObject->description;
 	} else {
-		$_SESSION['userType'] = $_POST['type'];
-		$_SESSION['userPerm'] = $permission;
+		$_SESSION['profile'] = array();
+		$_SESSION['profile']->role = $_POST['role'];
+		$_SESSION['profile']->permission = $permission;
 		header("Location: ./");
 	}
 }
@@ -51,6 +54,10 @@ if (isset($_POST['type'])) {
 
 
 <body>
+<?php 
+var_dump($responseObject);
+
+?>
 	<div data-role="page" id="Association" data-theme="d">
 		<div data-role="header" data-theme="c" data-position="fixed">
 			<div data-role="navbar" data-theme="c"  data-iconpos="left">
@@ -62,7 +69,7 @@ if (isset($_POST['type'])) {
 		</div>
 		<div data-role="content">
 			<h2>Profile myEurope</h2>
-			<form action="updateExtended" method="post" id="updateExtendedForm" >
+			<form action="updateExtended" method="post" id="updateExtendedForm" data-ajax="false">
 
 				<div style='color: lightGreen; text-align: center;'>
 					<?= $msg ?><?= isset($_GET['new'])?" Veuillez compléter et enregistrer votre profil, pour l'utilisation de myEurope":""?>
@@ -77,7 +84,7 @@ if (isset($_POST['type'])) {
 						<li><a href="./updateExtended#Région">Région</a></li>
 					</ul>
 				</div>
-				<input type="hidden" name="type" value="Association" />
+				<input type="hidden" name="role" value="Association" />
 
 				
 				<div data-role="fieldcontain">
@@ -139,7 +146,7 @@ if (isset($_POST['type'])) {
 						<li><a href="./updateExtended#Région">Région</a></li>
 					</ul>
 				</div>
-				<input type="hidden" name="type" value="Entreprise" />
+				<input type="hidden" name="role" value="Entreprise" />
 
 				
 				<div data-role="fieldcontain">
@@ -201,7 +208,7 @@ if (isset($_POST['type'])) {
 						<li><a href="./updateExtended#Région">Région</a></li>
 					</ul>
 				</div>
-				<input type="hidden" name="type" value="EtabPublic" />
+				<input type="hidden" name="role" value="EtabPublic" />
 
 				
 				<div data-role="fieldcontain">
@@ -263,7 +270,7 @@ if (isset($_POST['type'])) {
 						<li><a href="./updateExtended#Région">Région</a></li>
 					</ul>
 				</div>
-				<input type="hidden" name="type" value="Mairie" />
+				<input type="hidden" name="role" value="Mairie" />
 
 			
 				<div data-role="fieldcontain">
@@ -314,7 +321,7 @@ if (isset($_POST['type'])) {
 						<li><a href="./updateExtended#Région" class="ui-btn-active ui-state-persist">Région</a></li>
 					</ul>
 				</div>
-				<input type="hidden" name="type" value="Région" />
+				<input type="hidden" name="role" value="Région" />
 
 				<div data-role="fieldcontain">
 					<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">

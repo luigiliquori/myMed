@@ -661,8 +661,7 @@ public class StorageManager implements IStorageManager {
 	        String tableName,
 			List<String> keys, 
 			String start, 
-			String finish,
-			int count) 
+			String finish) 
 	{
   	     throw new NotImplementedException();	
 	}  

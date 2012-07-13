@@ -17,16 +17,17 @@
 package com.mymed.controller.core.manager.registration.v2;
 
 import static com.mymed.model.data.application.MOntologyID.TEXT;
+import static com.mymed.utils.MiscUtils.singleton;
 import static java.util.Arrays.asList;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.NotImplementedException;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
@@ -40,7 +41,7 @@ import com.mymed.controller.core.manager.pubsub.v2.PubSubManager;
 import com.mymed.controller.core.manager.registration.IRegistrationManager;
 import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
-import com.mymed.model.data.application.MDataBean;
+import com.mymed.model.data.application.DataBean;
 import com.mymed.model.data.session.MAuthenticationBean;
 import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.HashFunction;
@@ -66,17 +67,6 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
      * The 'authentication' field.
      */
     private static final String FIELD_AUTHENTICATION = FIELDS.get("field.authentication");
-
-    /**
-     * The 'key' field.
-     */
-    private static final String FIELD_KEY = FIELDS.get("field.key");
-
-    /**
-     * The 'value' field.
-     */
-    private static final String FIELD_VALUE = FIELDS.get("field.value");
-    
     
     private final IPubSubManager pubSubManager;
     private final IAuthenticationManager authenticationManager;
@@ -97,10 +87,10 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
         pubSubManager = new PubSubManager();
         authenticationManager = new AuthenticationManager();
         mailTemplateManager = new MailTemplateManager(storageManager);
-        gson = new Gson();
+        gson = new GsonBuilder().serializeNulls().create();
     }
 
-    @Override
+	@Override
     /**
      * v2
      */
@@ -111,14 +101,15 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
     throws AbstractMymedException
     {
         // PUBLISH A NEW REGISTATION PENDING TASK
-        final List<MDataBean> dataList = new ArrayList<MDataBean>();
+        final List<DataBean> dataList = new ArrayList<DataBean>();
         try {
-			final MDataBean dataUser = new MDataBean(FIELD_USER,
-					gson.toJson(user), TEXT);
+			final DataBean dataUser = new DataBean(TEXT, FIELD_USER,
+					singleton(gson.toJson(user)));
 
-			final MDataBean dataAuthentication = new MDataBean(FIELD_AUTHENTICATION, 
-					gson.toJson(authentication), TEXT);
-
+			final DataBean dataAuthentication = new DataBean(TEXT,
+					FIELD_AUTHENTICATION,
+					singleton(gson.toJson(authentication)));
+			
             dataList.add(dataUser);
             dataList.add(dataAuthentication);
         } catch (final JsonSyntaxException e) {
@@ -131,7 +122,7 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
         
         /* pub account infos */
 
-        pubSubManager.create(application + ":pendingReg", accessToken, "", dataList);
+        pubSubManager.create(application + ":pendingAccount", accessToken, dataList);
 
         /* send confirmation mail   */  
         sendRegistrationEmail( application, user, accessToken);
@@ -152,8 +143,8 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
      */
    
     public void read( final String application, final String accessToken) throws AbstractMymedException {
-        // Retrieve the user profile
-        final List<Map<String, String>> list = pubSubManager.read(application + ":pendingReg", accessToken, ""); //read temporary data used for pending registration
+        // Retrieve the user profile, temporary data used for pending registration
+        final List<DataBean> list = pubSubManager.read_(application + ":pendingAccount", accessToken);
         if (list.size() == 0){
             throw new InternalBackEndException("account registration not found");
     	}
@@ -161,11 +152,11 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
         MAuthenticationBean authenticationBean = null;
 
         try {
-            for (final Map<String, String> dataEntry : list) {
-                if (dataEntry.get(FIELD_KEY).equals(FIELD_USER)) {
-                    userBean = gson.fromJson(dataEntry.get(FIELD_VALUE), MUserBean.class);
-                } else if (dataEntry.get(FIELD_KEY).equals(FIELD_AUTHENTICATION)) {
-                    authenticationBean = gson.fromJson(dataEntry.get(FIELD_VALUE), MAuthenticationBean.class);
+            for (final DataBean dataEntry : list) {
+                if (dataEntry.getKey().equals(FIELD_USER)) {
+                    userBean = gson.fromJson(dataEntry.getValue().get(0), MUserBean.class);
+                } else if (dataEntry.getKey().equals(FIELD_AUTHENTICATION)) {
+                    authenticationBean = gson.fromJson(dataEntry.getValue().get(0), MAuthenticationBean.class);
                 }
             }
         } catch (final JsonSyntaxException e) {
@@ -177,18 +168,7 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
         if ((userBean != null) && (authenticationBean != null)) {
         	authenticationManager.create(userBean, authenticationBean);
             // delete pending tasks
-			pubSubManager.delete(application + ":pending", accessToken);
-			
-			/*
-			 * by default we alert subscribers to (application):new that there is a newcomer
-			 * 
-			 *  @TODO see how to parametrize it
-			 */
-			List<MDataBean> dataList = new ArrayList<MDataBean>();
-			dataList.add(new MDataBean("new user:", userBean.getEmail(), TEXT));
-			pubSubManager.sendEmailsToSubscribers(application + ":new", "user", userBean, dataList);
-			
-			
+			pubSubManager.delete(application + ":pendingAccount", accessToken);	
 			
         } else {
         	LOGGER.debug("account creation failed");

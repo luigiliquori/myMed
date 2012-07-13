@@ -24,37 +24,48 @@ if (count($_GET) > 0){
 	//$predicate = join("", array_slice($p, 0, 3)); // we use a broadcast level of 3 for myEurope see in post.php
 
 	// @todo verify date format
-	
-	$application = Template::APPLICATION_NAME.$_GET['type'];
 
-	$predicateList=array();
+	$data=array();
 	$p=array();
 // 	foreach( $p as $v ){ //tags
 // 		$predicateList[$v] = array("valueStart"=>"", "valueEnd"=>"", "ontologyID"=>KEYWORD);
 // 	}
 
+	$metiers = array();
+	$regions = array();
+
 	foreach( $_GET as $i=>$v ){
 		if ($v == "on"){
-			$predicateList[$i] = array("valueStart"=>"", "valueEnd"=>"", "ontologyID"=>KEYWORD);
-			array_push($p, $i);
+			if ( strpos($i, "met") === 0){
+				array_push($metiers, $i);
+			} else if  ( strpos($i, "reg") === 0){
+				array_push($regions, $i);
+			}	
 		}
 	}
+	if (count($metiers)){
+		array_push($data, new DataBean("met", ENUM, $metiers));
+	}
+	
+	if (count($regions)){
+		array_push($data, new DataBean("reg", ENUM, $regions));
+	}
+	
+	if (isset($_GET['offre'])){
+		array_push($data, new DataBean("offre", KEYWORD, array($_GET['offre'])));
+	}
+	
+	sort($p);
 	
 	if ($_GET['dateMin'] != 0 && $_GET['dateMax'] != 0){
-		$predicateList["date"] = array("valueStart"=>strtotime($_GET['dateMin']), "valueEnd"=>strtotime($_GET['dateMax']), "ontologyID"=>DATE);
-	}
-	if ($_GET['rate'] == 1){
-
+		array_push($data, new DataBean("date", DATE, array(strtotime($_GET['dateMin']), strtotime($_GET['dateMax']))));
 	}
 
 	$request = new Request("v2/FindRequestHandler", READ);
-	$request->addArgument("application", $application);
-	$request->addArgument("predicateList", json_encode($predicateList));
-	$request->addArgument("level", 3);
-	//$request->addArgument("predicate", $predicate);
+	$request->addArgument("application", Template::APPLICATION_NAME);
+	$request->addArgument("namespace", $_GET['namespace']);
+	$request->addArgument("data", json_encode($data));
 
-	//$request->addArgument("start", isset($_GET['start'])?$_GET['start']:"");
-	//$request->addArgument("count", isset($_GET['count'])?$_GET['count']:10);
 	$responsejSon = $request->send();
 	$res = json_decode($responsejSon);
 }
@@ -71,29 +82,32 @@ if (count($_GET) > 0){
 <body>
 	<div data-role="page" id="Search" data-theme="d">
 		<div data-role="header" data-theme="c" data-position="fixed">
-			<div data-role="navbar" data-theme="c"  data-iconpos="left" style="width: 50%;">
+			<div data-role="navbar" data-theme="c"  data-iconpos="left">
 				<ul>
 					<li><a data-rel="back" data-icon="back">Retour</a></li>	
 					<li><a href="./"  data-icon="home"><?= _('Home') ?></a></li>				
 				</ul>
-				<div id="headerSearch2">
-					<select data-theme="b" data-mini="true" name="slider2" id="flip-a2" data-role="slider"
-						onchange="">
-						<option value="3">Trier par rep</option>
-						<option value="0">Trier alpha</option>
-					</select>
-				</div>
-				<div id="headerSearch">
-					<select data-theme="b" data-mini="true" name="slider" id="flip-a" data-role="slider"
-						onchange="$.get('../../lib/dasp/ajax/Subscribe', { code: $(this).val(), application: '<?= $application ?>' ,predicate: '<?= urlencode(join("", $p)) ?>' } );">
-						<option value="3">Souscrire</option>
-						<option value="0">Désabonner</option>
-					</select>
-				</div>
 			</div>
 		</div>
 
 		<div data-role="content">
+			
+			<select data-theme="b" data-mini="true" name="slider2" id="flip-a2" data-role="slider"
+				onchange="">
+				<option value="3">Trier par rep</option>
+				<option value="0">Trier alpha</option>
+			</select>
+		
+		
+			<select data-theme="b" data-mini="true" name="slider" id="flip-a" data-role="slider"
+				onchange="$.get('../../lib/dasp/ajax/Subscribe', { code: $(this).val(), application: '<?= Template::APPLICATION_NAME ?>' ,predicate: '<?= urlencode(join("", $p)) ?>' } );">
+				<option value="3">Souscrire</option>
+				<option value="0">Désabonner</option>
+			</select>
+			
+			
+			<br /><br /><br />
+
 			<?php 	
 			if($res->status == 200) {
 				?>
@@ -118,7 +132,7 @@ if (count($_GET) > 0){
 					}
 
 					?>
-				<li><a href="detail?id=<?=  urlencode($value->predicate) ?>&user=<?=  urlencode($value->publisherID) ?>&application=<?= urlencode($application) ?>" 
+				<li><a href="detail?id=<?=  urlencode($value->id) ?>&user=<?=  urlencode($value->publisherID) ?>&namespace=<?= urlencode($_GET['namespace']) ?>" 
 				 style="padding-top: 1px; padding-bottom: 1px;">
 						<h3>
 							projet: <?= $value->predicate ?>

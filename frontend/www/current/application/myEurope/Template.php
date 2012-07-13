@@ -16,7 +16,7 @@ class Template {
 		}
 		require_once '../../lib/dasp/request/Request.v2.php';
 		require_once '../../system/config.php';
-		require_once '../../lib/dasp/beans/OntologyBean.php';
+		require_once '../../lib/dasp/beans/DataBean.v2.php';
 		
 		// Init gettext() locales
 		
@@ -51,12 +51,16 @@ class Template {
 		
 	}
 	
-	public static function fetchExtProfile () {
+	public static function fetchMyProfile () {
+		
+		if(!isset($_SESSION['profile'])){
+			$_SESSION['profile'] = array();
+		}
 		
 		$request = new Request("v2/PublishRequestHandler", READ);
 		$request->addArgument("application", Template::APPLICATION_NAME);
-		$request->addArgument("predicate", "ext");
-		$request->addArgument("userID", $_SESSION['user']->id);
+		$request->addArgument("namespace", "users");
+		$request->addArgument("id", $_SESSION['user']->id);
 		$responsejSon = $request->send();
 		return json_decode($responsejSon); 
 	}
@@ -82,12 +86,12 @@ class Template {
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 <title>myEurope</title>
 <link rel="stylesheet"
-	href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
+	href="http://jquerymobile.com/test/css/themes/default/jquery.mobile.css" />
 <link rel="stylesheet" href="my.css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
         </script>
 
-<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js">
+<script src="http://jquerymobile.com/test/js/jquery.mobile.js">
         </script>
 
 <script src="app.js">
@@ -136,7 +140,7 @@ public static function footer( $i = 1 ){ ?>
 
 
 	static function isPredicate($var) {
-		return($var->ontologyID < 4);
+		return($var->type < 4);
 	}
 
 	static function isCheckbox($var) {

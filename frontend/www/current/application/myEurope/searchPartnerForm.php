@@ -32,15 +32,15 @@ Template::init();
 			<br />
 			<form action="search" id="searchForm">
 				
-				<input type="hidden" name="type" value=":part" />
+				<input type="hidden" name="namespace" value="part" />
 				
 				<div data-role="fieldcontain">
 					<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
 						<legend>Type d'offre:</legend>
-						<input type="checkbox" name="pacalabs" id="checkbox-01" /> <label for="checkbox-01">Pacalabs</label>
-						<input type="checkbox" name="interreg" id="checkbox-02" /> <label for="checkbox-02">Interreg</label>
-						<input type="checkbox" name="edu" id="checkbox-03" /> <label for="checkbox-03">Edu</label>
-						<input type="checkbox" name="autre" id="checkbox-04" /> <label for="checkbox-04">Autre</label>
+						<input type="radio" name="offre" value="pacalabs" id="checkbox-01" /> <label for="checkbox-01">Pacalabs</label>
+						<input type="radio" name="offre" value="interreg" id="checkbox-02" /> <label for="checkbox-02">Interreg</label>
+						<input type="radio" name="offre" value="edu" id="checkbox-03" /> <label for="checkbox-03">Edu</label>
+						<input type="radio" name="offre" value="autre" id="checkbox-04" /> <label for="checkbox-04">Autre</label>
 
 					</fieldset>
 				</div>

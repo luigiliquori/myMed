@@ -1,372 +1,382 @@
 package com.mymed.tests.unit.manager;
 
-import static com.mymed.tests.unit.manager.PubSubTests.getDateRange;
-import static com.mymed.tests.unit.manager.PubSubTests.getFloatRange;
-import static com.mymed.tests.unit.manager.PubSubTests.interval;
-import static com.mymed.tests.unit.manager.PubSubTests.padDate;
-import static com.mymed.tests.unit.manager.PubSubTests.padFloat;
+import static com.mymed.model.data.application.MOntologyID.*;
+
+
+import static com.mymed.utils.PubSub.*;
+import static com.mymed.utils.PubSub.Index.joinCols;
+import static com.mymed.utils.PubSub.Index.joinRows;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.LoggerFactory;
 
+import ch.qos.logback.classic.Logger;
+
+import com.google.gson.GsonBuilder;
+import com.mymed.controller.core.exception.IOBackEndException;
+import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.controller.core.manager.authentication.AuthenticationManager;
+import com.mymed.controller.core.manager.geolocation.GeoLocationManager;
+import com.mymed.controller.core.manager.interaction.InteractionManager;
+import com.mymed.controller.core.manager.profile.ProfileManager;
+import com.mymed.controller.core.manager.pubsub.v2.PubSubManager;
+import com.mymed.controller.core.manager.reputation.api.recommendation_manager.ReputationManager;
+import com.mymed.controller.core.manager.session.SessionManager;
+import com.mymed.controller.core.manager.storage.StorageManager;
+import com.mymed.model.core.configuration.WrapperConfiguration;
+import com.mymed.model.data.application.DataBean;
+import com.mymed.model.data.application.MDataBean;
+import com.mymed.model.data.application.MOntologyID;
 import com.mymed.model.data.session.MSessionBean;
-import com.mymed.tests.unit.manager.PubSubTests.Index;
+import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.GsonUtils;
+import com.mymed.utils.PubSub;
+import com.mymed.utils.PubSub.Index;
 
-public class PubSubTests {
+public class PubSubTests extends TestValues {
 	
-	/**
-	 * Utils
-	 */
 	
-	public final static long interval =  60 * 60 * 24; // 1 day in s
-	
-	public static List<String> getDateRange(String key, long t1, long t2){
-		List<String> res = new ArrayList<String>();
+	final static Logger LOGGER = (Logger) LoggerFactory.getLogger(PubSubTests.class);
 
-		if (t1 != 0 && t2 != 0){
-	    	long curTime = t1 - t1 % interval; //init with first day at 0h:00:00
-	    	while (curTime <= t2) {
-	    		res.add(key + curTime);
-	    		curTime += interval;
-	    	}
+	protected PubSubManager pubsubManager;
+	private MUserBean userBean;
+	private final String date = "1971-01-01";
+	private List<DataBean> dataList;
+	private String dataId = "mydata";
+
+	private String application = "myTest";
+
+	private String namespace = "fake";
+
+	private ArrayList<String> range(final String... args) {
+		ArrayList<String> result = new ArrayList<String>();
+		for (String s : args) {
+			result.add(s);
 		}
-		
-		return res;
-	}
-    public static List<String> getFloatRange(String key, Float v1, Float v2){
-    	List<String> res = new ArrayList<String>();  	
-		int i1 = v1.intValue();
-		int i2 = v2.intValue();
-		for (int i = i1; i <= i2; i++) {
-			res.add(key + String.valueOf(i));
-		}
-		return res;
-    }
-    
-    /** Pads float numbers to have a 2 characters integer part, for utf-8 sorting */
-	public static String padFloat(float value){
-		return new DecimalFormat("00." + String.valueOf(value).replaceAll(".", "#")).format(value);
-	}
-	
-	/** Pads date timestamps in seconds over 10 digits  */
-	public static String padDate(long value){
-		return new DecimalFormat("0000000000").format(value);
-	}
-    
-	/**  simple class to split which part of an index is in row, and which (if any) prefixed in column name */
-	public static class Index {
-
-		String row; /* part of a String Index appended in row name */
-		String col; /* part prepended in col name */
-
-		Index(String row, String col) {
-			this.row = row;
-			this.col = col;
-		}
-
-		public static String joinRows(List<Index> predicate) {
-			String s = "";
-			for (Index i : predicate) {
-				s += i.row;
-			}
-			return s;
-		}
-
-		public static String joinCols(List<Index> predicate) {
-			String s = "";
-			for (Index i : predicate) {
-				s += i.col.length() > 0 ? i.col + "+" : "";
-			}
-			return s;
-		}
-
-		public String toString() {
-			return row + ":" + col;
-		}
-	}
-
-    public static List<List<Index>> constructIndexes(
-			final List<Index> indexes, final List<List<Index>> enums) {
-
-		List<List<Index>> result = new ArrayList<List<Index>>();
-		int broadcastSize = (int) Math.pow(2, indexes.size());
-
-		List<Index> cur;
-		
-		/*
-		 * generate all combinatorics from indexes 2^indexes.size()
-		 */
-		
-		for (int i = 0; i < broadcastSize; i++) {
-			int mask = i;
-			int j = 0;
-			cur = new ArrayList<Index>();
-
-			while (mask > 0) {
-				if ((mask & 1) == 1) {
-					cur.add(indexes.get(j));
-				}
-				mask >>= 1;
-				j++;
-			}
-			if (indexes.size() != 0) {
-				result.add(cur);
-			}
-		}
-		
-		/*
-		 * multiply the Index generated with all enum possiblities, 
-		 * so 2^indexes.size() * (enum.get(0).size()+1) * (enum.get(1).size()+1) ...
-		 * 
-		 * note ENUMs are treated after other types, the find must comply to this order
-		 */
-		
-		List<List<Index>> _result;
-		
-		for (List<Index> li : enums){
-			_result = new ArrayList<List<Index>>(result);
-			for (Index i : li){
-				for (List<Index> r : _result){
-					List<Index> _r = new ArrayList<Index>(r);
-					_r.add(i);
-					result.add(_r);
-				}
-			}
-		}
-		
-		/*
-		 * remove empty item
-		 */
-		result.remove(new ArrayList<Index>());
-		
 		return result;
 	}
     
-    public static void constructRows(List<List<String>> li, int[] pos, int i, List<String> res) {
-	    if (i == pos.length) {
-	        StringBuilder b = new StringBuilder();
-	        for (int j = 0 ; j < pos.length ; j++) {
-	            b.append(li.get(j).get(pos[j]));
-	        }
-	        res.add(b.toString());
-	    } else {
-	        for (pos[i] = 0 ; pos[i] < li.get(i).size() ; pos[i]++) {
-	        	constructRows(li, pos, i+1, res);
-	        }
-	    }
+	@Before
+	public void setUp() throws InternalBackEndException {
+		// storageManager = new StorageManager(new WrapperConfiguration(new
+		// File(CONF_FILE)));
+		pubsubManager = new PubSubManager();
+
+		userBean = new MUserBean();
+		userBean.setId(USER_ID);
+		userBean.setBirthday(date);
+		userBean.setSocialNetworkID(NAME);
+		userBean.setBuddyList(BUDDY_LST_ID);
+		userBean.setEmail(EMAIL);
+		userBean.setFirstName(FIRST_NAME);
+		userBean.setGender(GENDER);
+		userBean.setHometown(HOMETOWN);
+		userBean.setLastName(LAST_NAME);
+		userBean.setLink(LINK);
+		userBean.setName(LOGIN);
+		userBean.setSession(SESSION_ID);
+		userBean.setInteractionList(INTERACTION_LST_ID);
+		userBean.setLastConnection(CAL_INSTANCE.getTimeInMillis());
+		userBean.setReputation(REPUTATION_ID);
+		userBean.setSubscribtionList(SUBSCRIPTION_LST_ID);
+
 	}
     
 	@Test
-	public void testConstructPub() {
-		
-		String postJson = "{\"test\":12,\"ENUM\":{\"enum\":[1341783296,1341973211, \"toto\"], \"autreEnum\":[\"titi\",\"tonton\", \"tata\"]},\"DATE\":{\"date\":999999999},\"FLOAT\":{\"rate\":18.4},\"KEYWORD\":{\"europe\":\"paris\",\"type\":\"métier1\"}}";
+	public void testCreateData() {
+		try {
+			DataBean d1 = new DataBean(KEYWORD, "test1", range(""));
+			DataBean d2 = new DataBean(ENUM, "test2", range("kk2", "kk3", "kk4"));
+			DataBean d3 = new DataBean(FLOAT, "test3", range("22.2222"));
+			DataBean d4 = new DataBean(DATE, "somedate", range("999999999"));
+			DataBean d5 = new DataBean(TEXT, "text1", range("........."));
+			dataList = new ArrayList<DataBean>();
+			dataList.add(d1);
+			dataList.add(d2);
+			dataList.add(d3);
+			dataList.add(d4);
+			dataList.add(d5);
+			
+			List<Index> indexesWithoutEnums = getIndexes(dataList);
+			List<List<Index>> indexesEnums = getIndexesEnums(dataList);
+			List<List<Index>> lli = generateIndexes(indexesWithoutEnums, indexesEnums);
 
-    	Post p =  GsonUtils.gson.fromJson( postJson , Post.class);
-		p.init();
-    	System.out.println(p);
-    	
-    	List<List<Index>> lli = constructIndexes(p.getIndexes(), p.getEnums());
-    	
-    	for (List<Index> li : lli){
-    		System.out.println(li);
-    	}
-    	System.out.println(" nb of rows to Post: "+lli.size());
-    	
-		assertEquals("nb of rows is ok\n", lli.size(), (int) Math.pow(2, 4)*4*4-1);
-						/* 2^ raw indexes size * (enum size+1) * (otherenumsize +1) - empty  */
+			for (List<Index> li : lli) {
+				String s1 = joinRows(li);
+				String s2 = joinCols(li);
 
-	}
-
-	@Test
-	public void testConstructFind() {
-		
-		String reqJson = "{\"test\":12,\"ENUM\":{\"enum\":[1341783296,\"toto\"], \"autreEnum\":[\"titi\",\"tonton\", \"tata\"]},\"FLOAT\":{\"rate\":[4,18.4]},\"KEYWORD\":{\"europe\":\"\",\"type\":\"métier1\"}}";
-    	Req r =  GsonUtils.gson.fromJson( reqJson , Req.class);
-    	r.init();
-    	List<List<String>> queryRows = r.getRows();
-    	
-    	System.out.println();
-    	for (List<String> li : queryRows){
-    		System.out.println(li);
-    	}
-    	
-    	List<String> rows = new ArrayList<String>();
-    	constructRows(queryRows, new int[queryRows.size()], 0, rows);
-    	System.out.println();
-    	System.out.println(rows);
-    	System.out.println(" nb of rows to Req: "+rows.size());
-    	System.out.println(r.getCols());
-    	System.out.println(" nb of cols range to slice: "+r.getCols().size());
-    	
-		assertEquals(" nb of rows to find is ok\n", rows.size(), 90);
-			/* (18-4+1=15)rate slice range * (3)enum range * (2)enum range   */
-		
-		assertEquals(" nb of cols to find between range limits is ok\n", r.getCols().size(), 1);
-
-	}
-	
-	/**
-	 * @param args
-	 */
-	public static void main(String args[]) {
-		
-	}
-	
-}
-
-
-
-
-
-
-class Post extends Message<String, List<String>, Long, Float>{
-
-	/**
-	 * List of pure match Indexes (! ENUM)
-	 * @return
-	 */
-	public List<Index> getIndexes() {
-		List<Index> res = new ArrayList<Index>();
-
-		for (final Entry<String, Long> e : DATE.entrySet()) {
-			long t = e.getValue();
-			res.add(new Index(e.getKey() + (t - t % interval), padDate(t)));
-		}
-
-		for (final Entry<String, Float> e : FLOAT.entrySet()) {
-			res.add(new Index(e.getKey() + e.getValue().intValue(), padFloat(e.getValue())));
-		}
-
-		for (final Entry<String, String> e : KEYWORD.entrySet()) {
-			res.add(new Index(e.getKey() + e.getValue(), ""));
-		}
-
-		return res;
-	}
-
-	/**
-	 * List of enums categories
-	 * @return
-	 */
-	public List<List<Index>> getEnums() {
-		List<List<Index>> res = new ArrayList<List<Index>>();
-		
-		List<Index> en;
-		for (final Entry<String, List<String>> e : ENUM.entrySet()) {
-			en = new ArrayList<Index>();
-			for (String s : e.getValue()) {
-				en.add(new Index(e.getKey() + s, ""));
+				pubsubManager.create(makePrefix(application, namespace), s1,
+						s2, dataId, userBean,
+						PubSub.subList(dataList, MOntologyID.DATA));
+				pubsubManager.sendEmailsToSubscribers(
+						makePrefix(application, namespace), s1, userBean,
+						dataList);
 			}
-			res.add(en);
+
+			/* creates data */
+			pubsubManager.create(makePrefix(application, namespace), dataId, dataList);
+
+		} catch (final Exception ex) {
+			fail(ex.getMessage());
 		}
-		
-		return res;
 	}
+    
+	
+
+    @Test
+    public void testFindData() {
+      try {
+    	  
+    	  	dataList = new ArrayList<DataBean>();
+			dataList.add(new DataBean(KEYWORD, "test1", range("")));
+			dataList.add(new DataBean(ENUM, "test2", range("kk3")));
+					
+			Map<String, Map<String, String>> resMap = null;
+			List<List<String>> rowslists = getRows(dataList);
+			rowslists.add(0, range(makePrefix(application, namespace)));
+
+			List<String> rows = new ArrayList<String>();
+
+			generateRows(rowslists, new int[rowslists.size()], 0, rows);
+
+			LOGGER.info("ext find rows: " + rows.size() + " initial: "
+					+ rows.get(0));
+
+			List<List<String>> ranges = getRanges(dataList);
+			
+			if (ranges.size() != 0){
+				LOGGER.info("ext find DB ranges: "+ranges.get(0).get(0)+"->"+ranges.get(0).get(1));
+				List<String> range = ranges.remove(0);
+				resMap = pubsubManager.read(application, rows, range.get(0), range.get(1));
+
+			} else {
+				resMap = pubsubManager.read(application, rows, "", ""); //there is just one elt in rows, equivalent to v1
+			}
+			
+			List<Map<String, String>> resList = new ArrayList<Map<String, String>>();
+			for ( Map<String, String> m : resMap.values()){
+				resList.add(m);
+		    }
+			
+			LOGGER.info("ext find results : {}", resList);
+			
+			if (resList.size() > 0){
+				final List<Map<String, String>> details = pubsubManager.read(
+						makePrefix(application, namespace), resList.get(0).get("id"), resList.get(0).get("publisherID"));
+				
+				
+				for (Map<String, String> spcols : details){
+					LOGGER.info("ext find first details : {}", spcols);
+		    	}
+			}	
+
+		} catch (final Exception ex) {
+			LOGGER.info("ext err : {}", ex);
+			fail(ex.getMessage());
+		}
+	}
+    
+    
+	@Test
+	public void testDeleteData() {
+		try {
+
+			dataList = new ArrayList<DataBean>();
+			DataBean d1 = new DataBean(KEYWORD, "test1", range(""));
+			DataBean d2 = new DataBean(ENUM, "test2", range("kk2", "kk3", "kk4"));
+			DataBean d3 = new DataBean(FLOAT, "test3", range("22.2222"));
+			DataBean d4 = new DataBean(DATE, "somedate", range("999999999"));
+			DataBean d5 = new DataBean(TEXT, "text1", range("useless because not used in delete"));
+			dataList.add(d1);
+			dataList.add(d2);
+			dataList.add(d3);
+			dataList.add(d4);
+			dataList.add(d5);
+
+			List<Index> indexesWithoutEnums = getIndexes(dataList);
+			List<List<Index>> indexesEnums = getIndexesEnums(dataList);
+			List<List<Index>> lli = generateIndexes(indexesWithoutEnums,
+					indexesEnums);
+
+			for (List<Index> li : lli) {
+				String s1 = joinRows(li);
+				String s2 = joinCols(li);
+				pubsubManager.delete(makePrefix(application, namespace), s1, s2
+						+ dataId, userBean.getId());
+			}
+
+			/* deletes data */
+			pubsubManager.delete(makePrefix(application, namespace), dataId
+					+ userBean.getId());
+
+		} catch (final Exception ex) {
+			fail(ex.getMessage());
+		}
+	}
+
+    
+//	@Test
+//	public void testPUB() {
+//		LOGGER.info("PUB:");
+//		
+//		String postJson = 
+//				"{\"test\":12,\"data\":[{\"key\":\"cat1\",\"type\":2,\"value\":[1341783296,1341973211,\"toto\"]},{\"key\":\"autreCat\",\"type\":2,\"value\":[\"titi\",\"tonton\",\"tata\"]},{\"key\":\"date\",\"type\":3,\"value\":[999999999]},{\"key\":\"rate\",\"type\":-1,\"value\":[18.4]},{\"key\":\"europe\",\"type\":0,\"value\":[\"paris\"]},{\"key\":\"type\",\"type\":0,\"value\":[\"métier1\"]}]}";
+//				
+//			  //"{\"test\":12,\"ENUM\":{\"cat1\":[1341783296,1341973211, \"toto\"], \"autreCat\":[\"titi\",\"tonton\", \"tata\"]},\"DATE\":{\"date\":999999999},\"FLOAT\":{\"rate\":18.4},\"KEYWORD\":{\"europe\":\"paris\",\"type\":\"métier1\"}}";
+//
+//    	Message p =  GsonUtils.gson.fromJson( postJson , Message.class);
+//
+//    	LOGGER.info(p.toString());
+//    	
+//    	List<List<Index>> lli = generateIndexes(getIndexes(p.data), getIndexesEnums(p.data));
+//    	LOGGER.info("--------- List of {} Indexes generated: ", lli.size());
+//    	/*for (List<Index> li : lli){
+//    		LOGGER.info(li.toString());
+//    	}*/
+//    	LOGGER.info(lli.get(0).toString());
+//    	LOGGER.info(lli.get(1).toString());
+//    	LOGGER.info(lli.get(2).toString());
+//    	LOGGER.info(lli.get(3).toString());
+//    	LOGGER.info("...");
+//		assertEquals("nb of rows is ok", lli.size(), (int) Math.pow(2, 4) * 4 * 4 - 1);
+//		/* 2^ (DATE+KEYWORD+GPS+FLOAT)sizes * (ENUM1 size+1) * (ENUM2 size +1) - 1  */
+//
+//	}
+//
+//	@Test
+//	public void testFIND() {
+//
+//		LOGGER.info("FIND: ");
+//		String reqJson = 
+//			"{\"test\":12,\"data\":[{\"key\":\"enum\",\"type\":2,\"value\":[1341783296,\"toto\"]},{\"key\":\"autreEnum\",\"type\":2,\"value\":[\"titi\",\"tonton\",\"tata\"]},{\"key\":\"rate\",\"type\":-1,\"value\":[4,18.4]},{\"key\":\"europe\",\"type\":0,\"value\":[\"\"]},{\"key\":\"type\",\"type\":0,\"value\":[\"métier1\"]}]}";
+//				
+//		  //"{\"test\":12,\"ENUM\":{\"enum\":[1341783296,\"toto\"], \"autreEnum\":[\"titi\",\"tonton\", \"tata\"]},\"FLOAT\":{\"rate\":[4,18.4]},\"KEYWORD\":{\"europe\":\"\",\"type\":\"métier1\"}}";
+//		Message r =  GsonUtils.gson.fromJson( reqJson , Message.class);
+//
+//    	List<List<String>> rowslists = getRows(r.data);
+//    	LOGGER.info(r.toString());
+//    	/*for (List<String> li : queryRows){
+//    		LOGGER.info(li.toString());
+//    	}*/
+//    	
+//    	List<String> rows = new ArrayList<String>();
+//    	generateRows(rowslists, new int[rowslists.size()], 0, rows);
+//    	LOGGER.info(" List of {} keys to search: {} ", rows.size(), rows.toString());
+//    	LOGGER.info(" List of {} ranges to search: {}", getRanges(r.data).size(), getRanges(r.data).toString());
+//    	
+//		assertEquals(" nb of rows to find is ok", rows.size(), 90);
+//	    /* (18-4+1=15) FLOAT rate slice range * (3) ENUM enum range * (2) ENUM enum range * (1) KEYWORD ranges  */
+//		
+//		assertEquals(" nb of cols to find between range limits is ok", getRanges(r.data).size(), 1);
+//		/* only DATE, FLOAT, GPS are partitionned  */
+//
+//	}
+	
 	
 }
 
-
-class Req extends Message<String, List<String>, List<Long>, List<Float>>{
-
-	/**
-	 * List of composite rows
-	 * @return
-	 */
+class Message{
+	int code;
+	String application;
+	List<DataBean> data;
+	
+	
+	/*
+	@SuppressWarnings("serial")
 	public List<List<String>> getRows() {
 		List<List<String>> res = new ArrayList<List<String>>();
 
-		for (final Entry<String, List<Long>> e : DATE.entrySet()) {
-			res.add(getDateRange(e.getKey(), e.getValue().get(0), e.getValue().get(1)));
-		}
-
-		for (final Entry<String, List<Float>> e : FLOAT.entrySet()) {
-			res.add(getFloatRange(e.getKey(), e.getValue().get(0), e.getValue().get(1)));
-		}
-
-		for (final Entry<String, List<String>> e : ENUM.entrySet()) {
-			for (int k = 0; k < e.getValue().size(); k++) {
-				e.getValue().set(k, e.getKey() + e.getValue().get(k));
+		for (final DataBean d : data) {
+			switch (d.getType()){
+			case DATE:
+				res.add(getDateRange(d.getKey(), Long.parseLong(d.getValue().get(0)), Long.parseLong(d.getValue().get(1))));
+				break;
+			case FLOAT:
+				res.add(getFloatRange(d.getKey(), Float.parseFloat(d.getValue().get(0)), Float.parseFloat(d.getValue().get(1))));
+				break;
+			case ENUM:
+				for (int k = 0; k < d.getValue().size(); k++) {
+					d.getValue().set(k, d.getKey() + d.getValue().get(k));
+				}
+				res.add(d.getValue());
+				break;
+			case KEYWORD:
+				res.add(new ArrayList<String>() {{ add(d.getKey() + d.getValue().get(0));}});
+				break;
 			}
-			res.add(e.getValue());
 		}
-		for (final Entry<String, String> e : KEYWORD.entrySet()) {
-			res.add(new ArrayList<String>() {{ add(e.getKey() + e.getValue());}});
-		}
-
 		return res;
 	}
 	
-	/**
-	 * List of [start, end] pairs for DATE, FLOAT and GPS types
-	 * @return
-	 */
-	
-	public List<List<String>> getCols() {
+	public List<List<String>> getRanges() {
 		List<List<String>> res = new ArrayList<List<String>>();
 
-		for (final Entry<String, List<Long>> e : DATE.entrySet()) {
-			List<String> l = new ArrayList<String>();
-			l.add(e.getValue().get(0).toString());
-			l.add(e.getValue().get(1).toString());
-			res.add(l);
+		for (final DataBean d : data) {
+			switch (d.getType()) {
+			case DATE:
+			case FLOAT:
+				List<String> l = new ArrayList<String>();
+				l.add(d.getValue().get(0).toString());
+				l.add(d.getValue().get(1).toString());
+				res.add(l);
+				break;
+			}
 		}
-
-		for (final Entry<String, List<Float>> e : FLOAT.entrySet()) {
-			List<String> l = new ArrayList<String>();
-			l.add(e.getValue().get(0).toString());
-			l.add(e.getValue().get(1).toString());
-			res.add(l);
-		}
-
 		return res;
 	}
 	
-}
+	public List<Index> getIndexes() {
+		List<Index> res = new ArrayList<Index>();
 
-
-abstract class Message<K, E, D, F>{
-	int code;
-	String application;
-	
-	Map<String, K> KEYWORD;
-	Map<String, E> ENUM;
-	Map<String, D> DATE;
-	Map<String, F> FLOAT;
-	
-	public void init() {
-		if (DATE == null)
-			DATE = new HashMap<String, D>();
-		if (KEYWORD == null)
-			KEYWORD = new HashMap<String, K>();
-		if (FLOAT == null)
-			FLOAT = new HashMap<String, F>();
-		if (ENUM == null)
-			ENUM = new HashMap<String, E>();
+		for (final DataBean d : data) {
+			switch (d.getType()) {
+			case DATE:
+				long t = Long.parseLong(d.getValue().get(0));
+				res.add(new Index(d.getKey() + (t - t % interval), padDate(t)));
+				break;
+			case FLOAT:
+				float f = Float.parseFloat(d.getValue().get(0));
+				res.add(new Index(d.getKey() + (int) f, padFloat(f)));
+				break;
+			case KEYWORD:
+				res.add(new Index(d.getKey() + d.getValue().get(0), ""));
+				break;
+			}
+		}
+		return res;
 	}
 	
+	public List<List<Index>> getIndexesEnums() {
+		List<List<Index>> res = new ArrayList<List<Index>>();
+		List<Index> en;
+		for (final DataBean d : data) {
+			switch (d.getType()) {
+			case ENUM:
+				en = new ArrayList<Index>();
+				for (String s : d.getValue()) {
+					en.add(new Index(d.getKey() + s, ""));
+				}
+				res.add(en);
+				break;
+			}
+		}
+		return res;
+	}
+	*/
+	
 	public String toString(){
-		
-		return   code
-				+"\n"
-				+application
-				+"\n"
-				+"DATE:"+DATE.toString()
-				+"\n"
-				+"FLOAT:"+FLOAT.toString()
-				+"\n"
-				+"KEYWORD:"+KEYWORD.toString()
-				+"\n"
-				+"ENUM:"+ENUM.toString();
-		
+		return  "\n" + new GsonBuilder().setPrettyPrinting().create().toJson(this);
 	}
 	
 }

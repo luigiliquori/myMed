@@ -5,16 +5,17 @@ define('APP_ROOT', __DIR__);
 require_once 'Template.php';
 Template::init();
 
-if (!isset($_SESSION['userPerm'])){
+if (!isset($_SESSION['profile'])){
+	$_SESSION['profile'] = new stdClass(); //@TODO create profile class
 	//complete your profile
-	$extProfile = Template::fetchExtProfile();
+	$extProfile = Template::fetchMyProfile();
 		
 	if($extProfile->status == 200 ) {
 		foreach ($extProfile->dataObject->details as $v){
-			if ($v->key == "type")
-				$_SESSION['userType'] = $v->value;
-			else if ($v->key == "perm")
-				$_SESSION['userPerm'] = $v->value;
+			if ($v->key == "role")
+				$_SESSION['profile']->role = $v->value[0];
+			else if ($v->key == "permission")
+				$_SESSION['profile']->permission = $v->value[0];
 		}
 	} else {
 		header("Location: ./update?extended");
@@ -42,25 +43,17 @@ if (isset($_GET['registration'])) {
 <body>
 	<div data-role="page" id="Home">
 		<div data-role="header" data-theme="c" data-position="fixed">
-			<div data-role="navbar" data-theme="c" data-iconpos="left">
+			<div data-role="navbar" data-theme="d" data-iconpos="left">
 				<ul>
 					<li><a href="http://<?= $_SERVER['HTTP_HOST'] ?>" type="button" rel="external" data-icon="delete" data-iconpos="notext">myMed</a></li>
 					<li><a href="about" data-transition="slidefade" data-icon="info" data-direction="reverse"><?= _('About') ?></a></li>
-					<li><a onclick="$('#shareThis_').hide();" href=""  data-icon="home" class="ui-btn-active ui-state-persist"><?= _('Home') ?></a></li>
-					<li><a onclick="$('#shareThis_').toggle();" data-icon="plus"> Partager</a>
-					</li>
+					<li><a href=""  data-icon="home" class="ui-btn-active ui-state-persist"><?= _('Home') ?></a></li>
+					<li><a href="share" rel="external" data-icon="plus" data-transition="slidefade"> Partager</a></li>
 					<li><a href="option" data-icon="profile" data-transition="slidefade"><?= _('Profil') ?></a></li>
 				</ul>
 			</div>
 		</div>
 		<div data-role="content">
-			<div id="shareThis_" style="position:absolute;top:16px;right:21%;z-index: 70000;opacity: .7;display:none;">
-				<span class="st_googleplus_large"></span>
-				<span class="st_facebook_large"></span>
-				<span class="st_twitter_large"></span>
-				<span class="st_sharethis_large"></span>
-				<span class="st_email_large"></span>
-			</div>
 			<h1 style="text-align:center;">
 				<a href="#" style="text-decoration: none;"><?= Template::APPLICATION_NAME ?></a>
 			</h1>
@@ -71,7 +64,7 @@ if (isset($_GET['registration'])) {
 			</h3>
 			<div data-role="controlgroup"  data-type="horizontal">
 				<a href="searchPartnerForm" type="button" data-theme="d" style="width:50%;">Rechercher</a>
-				<a href="postPartnershipForm" style="width:49%;" type="button" data-theme="c">Insérer</a>
+				<a href="postPartnershipForm" style="width:49%;" type="button" data-theme="d">Insérer</a>
 			</div>
 
 			<br />
@@ -79,9 +72,9 @@ if (isset($_GET['registration'])) {
 				<a href="#" style="text-decoration: none;">Informations: ...</a>
 			</h3>
 			<div data-role="controlgroup"  data-type="horizontal">
-				<a href="searchInfoForm" style="width:50%;" type="button" data-theme="c" >Programmes</a>
+				<a href="searchInfoForm" style="width:50%;" type="button"  data-theme="d">Programmes</a>
 				<a href="postInfoForm"  style="width:49%;"
-				type="button" data-theme="c" >Commentaires</a>
+				type="button"  data-theme="d">Commentaires</a>
 			</div>
 
 		</div>
@@ -89,12 +82,12 @@ if (isset($_GET['registration'])) {
 
 
 		<?php 
-		if ($_SESSION['userPerm']>0){
+		if ($_SESSION['profile']->permission > 0){
 		?>
 		<div data-role="footer" data-theme="c" data-position="fixed">
 			<div data-role="navbar" data-theme="c" data-iconpos="left">
 				<ul>
-					<li><a href="admin" data-icon="gear" data-transition="slidefade">Admin</a></li>
+					<li><a href="admin" data-icon="gear" rel="external" data-theme="d" data-transition="slidefade">Admin</a></li>
 				</ul>
 			</div>
 		</div>

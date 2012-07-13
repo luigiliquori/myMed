@@ -16,9 +16,7 @@ Template::init();
 
 $msg = ""; //feedback text
 
-$application =  urldecode($_GET['application']);
-
-list($app, $type) = explode(":", $application);
+$namespace =  urldecode($_GET['namespace']);
 
 $id = urldecode($_GET['id']); // data Id
 
@@ -37,7 +35,7 @@ if (isset($_POST['commentOn'])){ // we want to comment
 	);
 
 	$request = new Request("PublishRequestHandler", CREATE);
-	$request->addArgument("application", $application);
+	$request->addArgument("application", Template::APPLICATION_NAME);
 	$request->addArgument("predicate", json_encode($predicates));
 	$request->addArgument("data", json_encode($data));
 	if(isset($_SESSION['user'])) {
@@ -47,7 +45,7 @@ if (isset($_POST['commentOn'])){ // we want to comment
 
 } else if (isset($_POST['predicates'])) { //delete text or comment
 	$request = new Request("v2/PublishRequestHandler", DELETE);
-	$request->addArgument("application", $application);
+	$request->addArgument("application", Template::APPLICATION_NAME);
 	$request->addArgument("predicateList", urldecode($_POST['predicates']));
 	if (isset($_POST['id'])) {
 		$request->addArgument("id", $id);
@@ -64,7 +62,7 @@ if (isset($_POST['commentOn'])){ // we want to comment
 
 if(isset($_GET['feedback'])) {
 	$request = new Request("InteractionRequestHandler", UPDATE);
-	$request->addArgument("application", $application);
+	$request->addArgument("application", Template::APPLICATION_NAME);
 	$request->addArgument("producer", $author);
 	$request->addArgument("consumer", $_SESSION['user']->id );
 	$request->addArgument("start", $_GET['start']);
@@ -100,9 +98,10 @@ if(isset($_GET['feedback'])) {
 
 
 $request = new Request("v2/PublishRequestHandler", READ);
-$request->addArgument("application", $application);
-$request->addArgument("predicate", $id);
-$request->addArgument("userID", $author);
+$request->addArgument("application", Template::APPLICATION_NAME);
+$request->addArgument("namespace", $namespace);
+$request->addArgument("id", $id);
+$request->addArgument("user", $author);
 $responsejSon = $request->send();
 $detail = json_decode($responsejSon);
 
@@ -112,7 +111,7 @@ $responsejSon = $request->send();
 $profile = json_decode($responsejSon);
 
 $request = new Request("FindRequestHandler", READ);
-$request->addArgument("application", $application);
+$request->addArgument("application", Template::APPLICATION_NAME);
 $request->addArgument("predicate", "commentOn" . $id);
 $responsejSon = $request->send();
 $comments = json_decode($responsejSon);
@@ -122,7 +121,7 @@ if($comments->status == 200) {
 }
 
 $request = new Request("ReputationRequestHandler", READ);
-$request->addArgument("application",  $application);
+$request->addArgument("application",  Template::APPLICATION_NAME);
 $request->addArgument("producer",  $author);
 $request->addArgument("consumer",  $_SESSION['user']->id);
 $responsejSon = $request->send();
@@ -136,7 +135,7 @@ if(isset($responseObject->dataObject->reputation)){
 }
 
 $request = new Request("ReputationRequestHandler", READ);
-$request->addArgument("application",  $application);
+$request->addArgument("application",  Template::APPLICATION_NAME);
 $request->addArgument("producer",  $id);
 $request->addArgument("consumer",  $_SESSION['user']->id);
 $responsejSon = $request->send();
@@ -184,19 +183,17 @@ if(isset($responseObject->dataObject->reputation)){
 				$text="";
 				foreach( $detail as $value ) {
 					if ($value->key=="text"){
-						$text = str_replace("\n", "<br />", $value->value);
-						unset($value);
-					} else if ($value->key=="data"){
-						$preds = json_decode($value->value);
-					} else if ($value->key=="rate"){
-						$rate = json_decode($value->value);
+						$text = str_replace("\n", "<br />", $value->value[0]);
+						//unset($value);
+					} else if ($value->key=="offre"){
+						$rate = $value->value[0];
 					}
 				}
 				$detail = array_values(array_filter($detail, "Template::isPredicate")); // to use details for delete
 
 				/*if ( (100-$rate) != $dataRep ){
 					echo 'bioooo';
-					Template::updateDataReputation($detail, $dataRep, $application, $id, $author );
+					Template::updateDataReputation($detail, $dataRep, Template::APPLICATION_NAME, $id, $author );
 				}*/
 				
 				?>
@@ -205,7 +202,7 @@ if(isset($responseObject->dataObject->reputation)){
 			<form id="StartInteractionForm" action="detail" name="StartInteractionForm" id="StartInteractionForm">
 				<input type="hidden" name="id" value="<?= $id ?>" />
 				<input type="hidden" name="user" value="<?= $author ?>" />
-				<input type="hidden" name="application" value="<?= $application ?>" />
+				<input type="hidden" name="application" value="<?= Template::APPLICATION_NAME ?>" />
 				<input type="hidden" name="start" value="<?= time() ?>" />
 				<input type="hidden" name="end" value="<?= time() ?>" />
 				<input type="hidden" name="feedback" value="" id="feedback" />
@@ -217,10 +214,11 @@ if(isset($responseObject->dataObject->reputation)){
 			<div id="detailstext">
 				<?= $text ?>
 			</div>
-
+			<br />
+			<hr>
 			<div data-role="fieldcontain" >
 				<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-					<legend><b>Voter</b>:</legend>
+					<legend>Voter:</legend>
 					<a data-role="button" data-icon="star" data-iconpos="notext" data-inline="true" style="margin-right:1px; margin-left:1px;"
 						onclick="$('#feedback').val('0.2'); document.StartInteractionForm.submit();"></a>
 					<a data-role="button" data-icon="star" data-iconpos="notext" data-inline="true" style="margin-right:1px; margin-left:1px;"
@@ -235,7 +233,7 @@ if(isset($responseObject->dataObject->reputation)){
 			</div>
 			<div data-role="fieldcontain" >
 				<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-					<legend><b>Auteur</b>:</legend>
+					<legend>Auteur:</legend>
 					<img style="vertical-align: middle; max-height: 40px; opacity: 0.6;" src="http://graph.facebook.com//picture?type=large">
 					&nbsp;<a style="color: #0060AA; font-size: 120%;" href="mailto:cyrila.uburtin@gmail.com" class="ui-link">gfn gf </a> 
 					&nbsp;Réputation: <span style="left-margin: 5px; color: #0060AA; font-size: 120%;">80 </span>
@@ -247,7 +245,7 @@ if(isset($responseObject->dataObject->reputation)){
 			if ($author == $_SESSION['user']->id){ //we can delete our own text
 				?>
 			<form action="#" method="post" id="deleteForm">
-				<input name="application" value='<?= $application ?>' type="hidden" /> <input name="predicates" value='<?= urlencode(json_encode($detail)) ?>'
+				<input name="application" value='<?= Template::APPLICATION_NAME ?>' type="hidden" /> <input name="predicates" value='<?= urlencode(json_encode($detail)) ?>'
 					type="hidden" /> <input name="id" value='<?= $id ?>' type="hidden" /> <input name="user" value='<?= $_REQUEST['user'] ?>'
 					type="hidden" />
 			</form>
@@ -282,7 +280,7 @@ if(isset($responseObject->dataObject->reputation)){
 				    	foreach($comments as $i => $value) { ?>
 					<li data-role="list-divider">
 						<form action="detail?<?= $_SERVER['QUERY_STRING'] ?>" method="post" id="deleteCommentForm<?= $i ?>">
-							<input name="application" value='<?= $application ?>' type="hidden" />
+							<input name="application" value='<?= Template::APPLICATION_NAME ?>' type="hidden" />
 							<?php 
 							$predicates = array(
 									array("key"=>"commentOn", "value"=>$_REQUEST['predicate'], "ontologyID"=>0),
@@ -318,7 +316,7 @@ if(isset($responseObject->dataObject->reputation)){
 				<div data-role="fieldcontain">
 					<fieldset data-role="controlgroup">
 						<form action='#' method="post" id="commentForm">
-							<input name="application" value='<?= $application ?>' type="hidden" />
+							<input name="application" value='<?= Template::APPLICATION_NAME ?>' type="hidden" />
 							<input name="commentOn" value='<?= $id ?>' type="hidden" />
 							<input name="end" value='<?= date("Y-m-d") . "T" . date("H:i:s") ?>' type="hidden" />
 							<textarea name="data" id="textarea1" placeholder="" style="height: 22px;"></textarea>

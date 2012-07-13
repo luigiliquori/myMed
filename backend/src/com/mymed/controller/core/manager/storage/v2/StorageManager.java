@@ -45,15 +45,14 @@ import com.mymed.utils.MConverter;
  * data source. The DAO manages the connection with the data source to obtain
  * and store data.
  * 
- * @author lvanni
- * 
  */
 public class StorageManager extends
 		com.mymed.controller.core.manager.storage.StorageManager {
 
+    public final int maxNumColumns = 10000; // arbitrary max number of cols, overrides default's 100
+
 	/**
-	 * Default Constructor: will create a ServiceManger on top of a Cassandra
-	 * Wrapper
+	 * Default Constructor: will create a ServiceManager on top of a DB Wrapper
 	 */
 	public StorageManager() {
 		this(new WrapperConfiguration(CONFIG_FILE));
@@ -75,19 +74,15 @@ public class StorageManager extends
 
 	@Override
 	public Map<String, Map<String, String>> multiSelectList(
-			final String tableName, 
-			final List<String> keys,
-			final String start, 
-			final String finish,
-			final int count) throws IOBackEndException,InternalBackEndException 
-	{
+			final String tableName, final List<String> keys,
+			final String start, final String finish) throws IOBackEndException,
+			InternalBackEndException {
 
 		final SlicePredicate predicate = new SlicePredicate();
 		final SliceRange sliceRange = new SliceRange();
 		sliceRange.setStart(encode(start));
 		sliceRange.setFinish(encode(finish));
-		sliceRange.setCount(count); // TODO Maybe better split and
-											// perform several queries.
+		sliceRange.setCount(maxNumColumns);
 		predicate.setSlice_range(sliceRange);
 
 		final ColumnParent parent = new ColumnParent(tableName);
