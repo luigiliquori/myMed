@@ -55,7 +55,7 @@ if (count($_POST)) {
 				header("Location: ".(isset($_SESSION['redirect'])?$_SESSION['redirect']:"./index"));
 				unset($_SESSION['redirect']);
 			} else {
-				header("Location: ./update?extended");
+				header("Location: ./updateExtended?new");
 			}
 				
 		} else {
@@ -78,15 +78,22 @@ if (count($_POST)) {
 <?= Template::head(); ?>
 </head>
 <div data-role="page" id="Authenticate">
-	<div data-role="header" data-theme="c" style="max-height: 38px;">
-		<div data-role="controlgroup" data-type="horizontal" style="text-align: center;">
-			<a href="register" type="button" data-inline="true" data-transition="flip" style="top:2px;">inscription via myMed</a>
+	<div data-role="header" data-theme="c" data-position="fixed">
+		<div data-role="navbar" data-theme="c"  data-iconpos="left">
+			<ul>
+				<li><a href="http://<?= $_SERVER['HTTP_HOST'] ?>" type="button" rel="external" data-icon="delete" data-iconpos="notext">myMed</a></li>
+				<li><a href="about" data-icon="info"  data-transition="slidefade" data-direction="reverse"><?= _('About') ?></a></li>
+				<li><a href="" data-icon="home"  class="ui-btn-active ui-state-persist"><?= _('Home') ?></a></li>
+				<li><a href="register" data-transition="flip">inscription via myMed</a></li>
+			</ul>
 		</div>
 	</div>
 	<div data-role="content" style='text-align: center;'>
 		
 		<?= $msg ?>
-		<h1><?= Template::APPLICATION_NAME ?></h1>
+		<h1 style="text-align:center;">
+			<a href="./" style="text-decoration: none;"><?= Template::APPLICATION_NAME ?></a>
+		</h1>
 		<br />
 		<form action="authenticate" method="post" id="loginForm" data-ajax="false">
 
@@ -95,11 +102,9 @@ if (count($_POST)) {
 			
 			<div style="text-align: center;" >
 				<input type="submit"  data-inline="true" data-theme="b" value="Connexion"/><br />
-				<a href="#About" type="button" data-inline="true" ><?= _('About') ?></a>
 			</div>
 		</form>
 	</div>
-	<?= Template::footer(); ?>
 </div>
 </body>
 </html>

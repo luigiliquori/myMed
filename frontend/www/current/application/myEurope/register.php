@@ -68,15 +68,20 @@ if (count($_POST)) {
 </head>
 <body>
 	<div data-role="page" id="Register">
-		<div data-role="header" data-theme="c" style="max-height: 38px;">
-			<a data-icon="back" data-rel="back">Retour</a>
-<!-- 				<a href="search" data-icon="back" data-transition="flip" data-direction="reverse"> Retour </a> -->
-			<h2>
-				<a href="./" style="text-decoration: none;">myMed.myEurope</a>
-			</h2>
+		<div data-role="header" data-theme="c" data-position="fixed">
+			<div data-role="navbar" data-theme="c"  data-iconpos="left">
+				<ul>
+					<li><a data-rel="back" data-transition="flip" data-direction="reverse" data-icon="back">Retour</a></li>
+					<li><a href="option" data-icon="check" data-theme="b" data-mini="true" onclick="$('#registerForm').submit();">Valider</a></li>
+				</ul>
+			</div>
 		</div>
+
 		<div data-role="content">
 			<?= $msg ?>
+			<h2 style="text-align:center;">
+				<a href="" style="text-decoration: none;">Inscription à myMed</a>
+			</h2>
 			<form action="#" method="post" id="registerForm">
 				<input name="application" value="myEurope" type="hidden" />
 				<div data-role="fieldcontain">
@@ -112,11 +117,10 @@ if (count($_POST)) {
 	<!-- 					I accept  -->
 	<!-- 					<a href="system/templates/application/myRiviera/doc/CONDITIONS_GENERALES_MyMed_version1_EN.pdf" rel="external">the general terms and conditions</a> -->
 					</span><br />
-					<input type="submit" data-theme="b" data-inline="true" value="Valider" />
+					<div style="display:none;"><input type="submit" data-theme="b" data-inline="true" value="Valider" /></div>
 				</div>
 			</form>
 		</div>
-		<?= Template::footer(); ?>
 	</div>
 </body>
 </html>

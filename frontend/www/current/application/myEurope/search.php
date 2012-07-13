@@ -44,7 +44,7 @@ if (count($_GET) > 0){
 		$predicateList["date"] = array("valueStart"=>strtotime($_GET['dateMin']), "valueEnd"=>strtotime($_GET['dateMax']), "ontologyID"=>DATE);
 	}
 	if ($_GET['rate'] == 1){
-		$predicateList["rate"] = array("valueStart"=>0, "valueEnd"=>999, "ontologyID"=>FLOAT);
+
 	}
 
 	$request = new Request("v2/FindRequestHandler", READ);
@@ -69,20 +69,30 @@ if (count($_GET) > 0){
 </head>
 
 <body>
-	<div data-role="page" id="Search">
-		<div data-role="header" data-theme="c" style="max-height: 38px;" id="headerSearch">
-			<a data-icon="back" data-rel="back">Retour</a>
-			<h2>
-				<a href="./" style="text-decoration: none;">myEurope</a>
-			</h2>
-			<select data-theme="b" data-mini="true"
-				onchange="$.get('../../lib/dasp/ajax/Subscribe', { code: $(this).val(), application: '<?= $application ?>' ,predicate: '<?= urlencode(join("", $p)) ?>' } );"
-				 name="slider" id="flip-a" data-role="slider">
-				<option value="3">Souscrire</option>
-				<option value="0">Désabonner</option>
-			</select>
-			
+	<div data-role="page" id="Search" data-theme="d">
+		<div data-role="header" data-theme="c" data-position="fixed">
+			<div data-role="navbar" data-theme="c"  data-iconpos="left" style="width: 50%;">
+				<ul>
+					<li><a data-rel="back" data-icon="back">Retour</a></li>	
+					<li><a href="./"  data-icon="home"><?= _('Home') ?></a></li>				
+				</ul>
+				<div id="headerSearch2">
+					<select data-theme="b" data-mini="true" name="slider2" id="flip-a2" data-role="slider"
+						onchange="">
+						<option value="3">Trier par rep</option>
+						<option value="0">Trier alpha</option>
+					</select>
+				</div>
+				<div id="headerSearch">
+					<select data-theme="b" data-mini="true" name="slider" id="flip-a" data-role="slider"
+						onchange="$.get('../../lib/dasp/ajax/Subscribe', { code: $(this).val(), application: '<?= $application ?>' ,predicate: '<?= urlencode(join("", $p)) ?>' } );">
+						<option value="3">Souscrire</option>
+						<option value="0">Désabonner</option>
+					</select>
+				</div>
+			</div>
 		</div>
+
 		<div data-role="content">
 			<?php 	
 			if($res->status == 200) {
@@ -90,6 +100,10 @@ if (count($_GET) > 0){
 			<ul data-role="listview" data-filter="true" data-filter-placeholder="filtrer parmi les résultats">
 				<?php
 				$res = $res->dataObject->results;
+				
+				if ($_GET['rate'] == 1){
+					//sort res by rate
+				}
 
 				foreach( $res as $i => $value ){
 

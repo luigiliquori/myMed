@@ -62,41 +62,40 @@ if (isset($_POST['commentOn'])){ // we want to comment
 	}
 }
 
-if(isset($_POST['feedback'])) {
+if(isset($_GET['feedback'])) {
 	$request = new Request("InteractionRequestHandler", UPDATE);
 	$request->addArgument("application", $application);
 	$request->addArgument("producer", $author);
 	$request->addArgument("consumer", $_SESSION['user']->id );
-	$request->addArgument("start", $_POST['start']);
-	$request->addArgument("end", $_POST['end']);
+	$request->addArgument("start", $_GET['start']);
+	$request->addArgument("end", $_GET['end']);
 	$request->addArgument("predicate", $id);
-	if(isset($_POST['snooze'])){
-		$request->addArgument("snooze", $_POST['snooze']);
-	}
-	if(isset($_POST['feedback'])){
-		$request->addArgument("feedback", $_POST['feedback']);
+	$request->addArgument("feedback", $_GET['feedback']);
+	if(isset($_GET['snooze'])){
+		$request->addArgument("snooze", $_GET['snooze']);
 	}
 	$responsejSon = $request->send();
 	$responseObject = json_decode($responsejSon);
 	if($responseObject->status == 200) {
 		$msg = "vote pris en compte";
+		
+		$request->addArgument("producer", $id);
+		$responsejSon = $request->send();
+		$responseObject = json_decode($responsejSon);
+		if($responseObject->status == 200) {
+			$msg .= "<br />vote pour ce contenu pris en compte";
+		} else if($responseObject->status == 409) {
+			$msg .= "<br />déjà voté";
+		} else if($responseObject->status == 500) {
+			$msg .= "<br />Vous ne pouvez voter pour vore contenu";
+		}
+		
 	} else if($responseObject->status == 409) {
 		$msg = "déjà voté";
 	} else if($responseObject->status == 500) {
 		$msg = "Vous ne pouvez voter pour vous-même";
 	}
-
-	$request->addArgument("producer", $id);
-
-	$responsejSon = $request->send();
-	$responseObject = json_decode($responsejSon);
-	if($responseObject->status == 200) {
-		$msg .= "<br />vote pour ce contenu pris en compte";
-	} else if($responseObject->status == 409) {
-		$msg .= "<br />déjà voté";
-	} else if($responseObject->status == 500) {
-		$msg .= "<br />Vous ne pouvez voter pour vous-même";
-	}
+	
 }
 
 
@@ -156,17 +155,22 @@ if(isset($responseObject->dataObject->reputation)){
 </head>
 
 <body>
-	<div data-role="page" id="Detail">
-		<div data-role="header" data-theme="c" style="max-height: 38px;">
-			<a data-icon="back" data-rel="back">Retour</a>
-			<h2>
-				<a href="./" style="text-decoration: none;">myEurope</a>
-			</h2>
+	<div data-role="page" id="Detail" data-theme="d">
+		<div data-role="header" data-theme="c" data-position="fixed">
+			<div data-role="navbar" data-theme="c"  data-iconpos="left">
+				<ul>
+					<li><a data-rel="back" data-icon="back">Retour</a></li>
+					<li><a href="./"  data-icon="home"><?= _('Home') ?></a></li>			
+				</ul>
+			</div>
 		</div>
 		<div data-role="content">
 			<div style='color: lightGreen; text-align: center;'>
 				<?= $msg ?>
 			</div>
+			<h2 style="text-align: center;">
+				<a href="" style="text-decoration: none;"><?= $id ?></a>
+			</h2>
 			<?php
 				
 			if($profile->status == 200) {
@@ -190,48 +194,53 @@ if(isset($responseObject->dataObject->reputation)){
 				}
 				$detail = array_values(array_filter($detail, "Template::isPredicate")); // to use details for delete
 
-				if ( (100-$rate) != $dataRep ){
+				/*if ( (100-$rate) != $dataRep ){
 					echo 'bioooo';
 					Template::updateDataReputation($detail, $dataRep, $application, $id, $author );
-				}
+				}*/
 				
 				?>
-			<div style="float: right; text-align: center;">
-				<img style="text-align: center; max-height: 100px; opacity: 0.6;" src="<?= $profPic ?>" /><br />
-				Auteur: <a style="left-margin: 10px; color: #0060AA; font-size: 120%;" href="mailto:<?= $profile->email ?>"><?= $profile->name ?> </a> <br />
-				Réputation de l'auteur:&nbsp;	<span style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $authorRep ?> </span><br />
-				Réputation du projet:&nbsp;	<span style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $dataRep ?> </span><br />
-				Voter:
-				<a data-role="button" data-icon="star" data-iconpos="notext" data-inline="true" style="margin-right:1px; margin-left:1px;"
-						onclick="$('#feedback').val('0.2'); document.StartInteractionForm.submit();"></a>
-				<a data-role="button" data-icon="star" data-iconpos="notext" data-inline="true" style="margin-right:1px; margin-left:1px;"
-						onclick="$('#feedback').val('0.4'); document.StartInteractionForm.submit();"></a>
-				<a data-role="button" data-icon="star" data-iconpos="notext" data-inline="true" style="margin-right:1px; margin-left:1px;"
-						onclick="$('#feedback').val('0.6'); document.StartInteractionForm.submit();"></a>
-				<a data-role="button" data-icon="star" data-iconpos="notext" data-inline="true" style="margin-right:1px; margin-left:1px;"
-						onclick="$('#feedback').val('0.8'); document.StartInteractionForm.submit();"></a>
-				<a data-role="button" data-icon="star" data-iconpos="notext" data-inline="true" style="margin-right:1px; margin-left:1px;"
-						onclick="$('#feedback').val('1'); document.StartInteractionForm.submit();"></a>
+			
 
-
-			</div>
-
-			<form id="StartInteractionForm" action="#Detail" method="post" name="StartInteractionForm" id="StartInteractionForm">
-				<input name="detail" value='<?= urlencode(json_encode($detail)) ?>' type="hidden" />
+			<form id="StartInteractionForm" action="detail" name="StartInteractionForm" id="StartInteractionForm">
+				<input type="hidden" name="id" value="<?= $id ?>" />
+				<input type="hidden" name="user" value="<?= $author ?>" />
+				<input type="hidden" name="application" value="<?= $application ?>" />
 				<input type="hidden" name="start" value="<?= time() ?>" />
 				<input type="hidden" name="end" value="<?= time() ?>" />
 				<input type="hidden" name="feedback" value="" id="feedback" />
 			</form>
 
 			
-			<b>Libellé du projet</b>: <span style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $id ?> </span><br /><br />
-			
-			<b>Description</b>: <br /> <br />
+			<br /> <br />
 			
 			<div id="detailstext">
 				<?= $text ?>
 			</div>
-			<br />
+
+			<div data-role="fieldcontain" >
+				<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+					<legend><b>Voter</b>:</legend>
+					<a data-role="button" data-icon="star" data-iconpos="notext" data-inline="true" style="margin-right:1px; margin-left:1px;"
+						onclick="$('#feedback').val('0.2'); document.StartInteractionForm.submit();"></a>
+					<a data-role="button" data-icon="star" data-iconpos="notext" data-inline="true" style="margin-right:1px; margin-left:1px;"
+							onclick="$('#feedback').val('0.4'); document.StartInteractionForm.submit();"></a>
+					<a data-role="button" data-icon="star" data-iconpos="notext" data-inline="true" style="margin-right:1px; margin-left:1px;"
+							onclick="$('#feedback').val('0.6'); document.StartInteractionForm.submit();"></a>
+					<a data-role="button" data-icon="star" data-iconpos="notext" data-inline="true" style="margin-right:1px; margin-left:1px;"
+							onclick="$('#feedback').val('0.8'); document.StartInteractionForm.submit();"></a>
+					<a data-role="button" data-icon="star" data-iconpos="notext" data-inline="true" style="margin-right:1px; margin-left:1px;"
+							onclick="$('#feedback').val('1'); document.StartInteractionForm.submit();"></a>
+				</fieldset>
+			</div>
+			<div data-role="fieldcontain" >
+				<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+					<legend><b>Auteur</b>:</legend>
+					<img style="vertical-align: middle; max-height: 40px; opacity: 0.6;" src="http://graph.facebook.com//picture?type=large">
+					&nbsp;<a style="color: #0060AA; font-size: 120%;" href="mailto:cyrila.uburtin@gmail.com" class="ui-link">gfn gf </a> 
+					&nbsp;Réputation: <span style="left-margin: 5px; color: #0060AA; font-size: 120%;">80 </span>
+				</fieldset>
+			</div>
 			
 			<?php 
 

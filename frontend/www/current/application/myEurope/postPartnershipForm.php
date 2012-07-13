@@ -16,15 +16,19 @@ Template::init();
 </head>
 
 <body>
-	<div data-role="page" id="PostPartner"  data-theme="d" >
-		<div data-role="header" data-theme="c" style="max-height: 38px;">
-			<a data-icon="back" data-rel="back">Retour</a>
-			<h2>
-				<a href="./" style="text-decoration: none;">myEurope</a>
-			</h2>
+	<div data-role="page" id="PostPartner" data-theme="d" >
+		<div data-role="header" data-theme="c" data-position="fixed">
+			<div data-role="navbar" data-theme="c"  data-iconpos="left">
+				<ul>
+					<li><a data-rel="back" data-icon="back">Retour</a></li>
+					<li><a data-icon="gear" data-theme="b" onclick="$('#publishForm').submit();">Envoyer</a></li>
+				</ul>
+			</div>
 		</div>
 		<div data-role="content">
-			<h1 style=" font-size: 200%; text-align: center;">Publier un appel à partenaires:</h1>
+			<h1 style="text-align:center;">
+				<a href="" style="text-decoration: none;">Publier un appel à partenaires:</a>
+			</h1>
 			<br />
 			<form action="post" method="post" id="publishForm">
 				<input name="application" value="myEurope" type="hidden" />
@@ -95,9 +99,9 @@ Template::init();
 						<textarea style="min-height: 200px;" id="textinputp7" name="text" placeholder="" ></textarea>
 					</fieldset>
 				</div>
-				<div style="text-align: center;" >
-					<input type="submit" data-theme="b"  data-inline="true" value="Insérer" />
-				</div>
+<!-- 				<div style="text-align: center;" > -->
+<!-- 					<input type="submit" data-theme="b"  data-inline="true" value="Insérer" /> -->
+<!-- 				</div> -->
 			</form>
 		</div>
 	</div>

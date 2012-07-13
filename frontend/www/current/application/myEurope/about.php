@@ -1,7 +1,7 @@
 
 <?php
 require_once 'Template.php';
-Template::init();
+Template::init(false);
 ?>
 
 <!DOCTYPE html>
@@ -10,21 +10,28 @@ Template::init();
 <?= Template::head(); ?>
 </head>
 <body>
-
+<?= $_SERVER['HTTP_ACCEPT_LANGUAGE'] ?>
 <div id="About" data-role="page">
-<!-- HEADER -->
-	<div id="header" data-role="header" data-theme="c" style="max-height: 38px;">
-		<a data-icon="back" data-rel="back">Retour</a>
-		<h2>
-			<a href="" style="text-decoration: none;"><?= _('About') ?></a>
-		</h2>
+	<div data-role="header" data-theme="c" data-position="fixed">
+		<div data-role="navbar" data-theme="c" data-iconpos="left">
+			<ul>
+				<li><a href="http://<?= $_SERVER['HTTP_HOST'] ?>" type="button" rel="external" data-icon="delete" data-iconpos="notext">myMed</a></li>
+				<li><a href="about" data-icon="info" class="ui-btn-active ui-state-persist"><?= _('About') ?></a></li>
+				<li><a href="./"  data-icon="home" data-transition="slidefade"><?= _('Home') ?></a></li>
+			</ul>
+		</div>
 	</div>
 
 	<!-- CONTENT -->
 	<div data-role="content">
-	<h1 style="text-align: center;"><?= Template::APPLICATION_NAME ?></h1>
+		<h1 style="text-align:center;">
+			<a href="./" style="text-decoration: none;"><?= Template::APPLICATION_NAME ?></a>
+		</h1>
 		<p>
 		<?= _("AboutContent") ?>
+		</p>
+		<p style="text-align:center;">
+			<a href="mailto:mymeddev@gmail.com" data-role="button" data-inline="true" data-mini="true">contact</a>
 		</p>
 		<div class="footer" >
 			<h4  style="margin: 10px;">myMed - INTERREG IV - Alcotra</h4>
@@ -38,7 +45,20 @@ Template::init();
 			<p style="margin: 8px; font-weight: normal;">"Ensemble par-delà les frontières"</p>
 		</div>
 	</div>
-	<?= Template::footer(0); ?>
+	<?php 
+	if ($_SESSION['userPerm']>0){
+	?>
+	<div data-role="footer" data-theme="c" data-position="fixed">
+		<div data-role="navbar" data-theme="c" data-iconpos="left">
+			<ul>
+				<li><a href="admin" data-icon="gear" data-transition="slidefade">Admin</a></li>
+			</ul>
+		</div>
+	</div>
+	
+	<?php 
+	}
+	?>
 </div>	
 
 </body>

@@ -22,11 +22,14 @@ class Template {
 		
 		//$langcode = explode(";", $_SERVER['HTTP_ACCEPT_LANGUAGE']);
 		// = explode(",", $langcode['0']);
+		$s = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'],0 ,2);
 		
-		if (strpos($_SERVER['HTTP_ACCEPT_LANGUAGE'], "it") === false){
+		if ($s == "fr"){
 			$locale = 'fr_FR.utf8';
-		}else{
+		} else if ($s == "it"){
 			$locale = 'it_IT.utf8';
+		} else {
+			$locale = 'en_US.utf8';
 		}
 
 		$filename = 'myEurope';
@@ -60,39 +63,17 @@ class Template {
 	
 	
 	public static function updateDataReputation ( $detail, $dataRep, $application, $id, $author ) {
-		//construct data queryBean
-		$dataList=array();
-		foreach( $detail as $value ) {
-			if ($value->key=="rate"){
-				$dataList[$value->key] = array("valueStart"=>$value->value, "valueEnd"=> 100-$dataRep, "ontologyID"=>$value->ontologyID);
-			} else {
-				$dataList[$value->key] = array("valueStart"=>$value->value, "valueEnd"=>$value->value, "ontologyID"=>$value->ontologyID);
-			}
-		}
-		
+	
 		$request = new Request("v2/FindRequestHandler", UPDATE);
 		$request->addArgument("application", $application);
-		$request->addArgument("predicateList", json_encode($dataList));
+		$request->addArgument("predicateList", json_encode($detail));
 		
 		$request->addArgument("id", $id);
 		$request->addArgument("level", 3); // this will be enough since we insert everything with level <=3
 		$request->addArgument("userID", $author );
 		
 		$responsejSon = $request->send();
-		$responseObject = json_decode($responsejSon);
-		if($responseObject->status == 200) {
-			$dataList=array();
-			array_push($dataList, array("key"=>"rate", "value"=> 100-$dataRep, "ontologyID"=>FLOAT));
-			$request = new Request("v2/PublishRequestHandler", UPDATE);
-			$request->addArgument("application", $application);
-			$request->addArgument("data", json_encode($dataList));
-			$request->addArgument("id", $id);
-			$request->addArgument("userID", $author );
-			
-			$responsejSon = $request->send();
-			return json_decode($responsejSon);
-		}
-		return $responseObject;
+		return json_decode($responsejSon);
 	}
 
 
@@ -114,6 +95,12 @@ class Template {
 
 <!--     	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"> -->
 <!--     	</script> -->
+
+<link rel="stylesheet" href="my.css" />
+<script src="app.js">
+        </script>
+        
+        
 <?php }
 
 	public static function credits(){ ?>
@@ -123,7 +110,7 @@ class Template {
 	<img alt="Alcotra" src="/system/img/logos/alcotra" />
 	<img alt="Conseil Général 06" src="/system/img/logos/cg06" />
 	<img alt="Regine Piemonte" src="/system/img/logos/regione"/>
-	<img alt="Europe" src="/system/img/logos/europe" />
+	<img alt="Europe" src="/system/img/logos/europe" style="max-height: 70px;max-width: 120px;"/>
 	<img alt="Région PACA" src="/system/img/logos/PACA" />
 	<img alt="Prefecture 06" src="/system/img/logos/pref" />
 	<img alt="Inria" src="/system/img/logos/inria.png" />
@@ -131,6 +118,7 @@ class Template {
 </div>
 
 <?php }
+
 
 
 public static function footer( $i = 1 ){ ?>

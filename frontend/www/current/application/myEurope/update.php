@@ -10,37 +10,7 @@ Template::init();
 
 $msg="";
 
-if (isset($_POST['type'])) {
-	//extended Profile (user's role)
-	
-	$permission = (
-			strpos($_SESSION['user']->email, "@inria.fr") !== false ||
-			$_SESSION['user']->email=="other@mail.com" )
-			? 2 : 2;
-
-	$data = array(
-			array("key"=>"ext", "value"=>$_SESSION['user']->id, "ontologyID"=>0),
-			array("key"=>"type", "value"=>$_POST['type'], "ontologyID"=>4),
-			array("key"=>"perm", "value"=> $permission, "ontologyID"=>4 ),
-	);
-	$request = new Request("v2/PublishRequestHandler", UPDATE);
-	$request->addArgument("application", Template::APPLICATION_NAME);
-
-	$request->addArgument("data", json_encode($data));
-	$request->addArgument("userID", $_SESSION['user']->id);
-	$request->addArgument("id", "ext");
-	$responsejSon = $request->send();
-	$responseObject = json_decode($responsejSon);
-	if($responseObject->status != 200) {
-		$msg = $responseObject->description;
-	} else {
-		$_SESSION['userType'] = $_POST['type'];
-		$_SESSION['userPerm'] = $permission;
-		header("Location: ./");
-	}
-}
-
-if (isset($_POST['email'])) { //profile update
+if (isset($_POST['oldPassword'])) { //profile update
 	require_once '../../lib/dasp/beans/MUserBean.class.php';
 	require_once '../../lib/dasp/beans/MAuthenticationBean.class.php';
 
@@ -120,13 +90,14 @@ if (isset($_POST['email'])) { //profile update
 
 
 <body>
-	<div data-role="page" id="Update">
-		<div data-role="header" data-theme="c" style="max-height: 38px;">
-			<a data-icon="back" data-rel="back" data-transition="flip" data-direction="reverse">Retour</a>
-			<h2>
-				<a href="./" style="text-decoration: none;">myEurope</a>
-			</h2>
-			<a data-icon="check" data-theme="b" class="ui-btn-right" data-mini="true" onclick="$('#updateForm').submit();">Enregistrer</a>
+	<div data-role="page" id="Update"  data-theme="d">
+		<div data-role="header" data-theme="c" data-position="fixed">
+			<div data-role="navbar" data-theme="c"  data-iconpos="left">
+				<ul>
+					<li><a data-rel="back" data-transition="flip" data-direction="reverse" data-icon="back">Retour</a></li>
+					<li><a data-icon="check" data-theme="b" data-mini="true" onclick="$('#updateForm').submit();">Enregistrer</a></li>
+				</ul>
+			</div>
 		</div>
 		<div data-role="content">
 
@@ -135,23 +106,6 @@ if (isset($_POST['email'])) { //profile update
 				<div style='color: lightGreen; text-align: center;'>
 					<?= $msg ?><?= isset($_GET['extended'])?" Veuillez compléter et enregistrer votre profil, pour l'utilisation de myEurope":""?>
 				</div>
-
-				<div data-role="fieldcontain">
-					<fieldset id="test" data-role="controlgroup" data-type="horizontal" data-mini="true">
-						<legend>
-							Type d'institution:
-							<?= isset($_GET['extended'])?" *":"" ?>
-						</legend>
-						<input type="radio" name="type" id="radio-view-a" value="Assoc/Entrp" <?= ($_SESSION['userType']=="Assoc/Entrp" ||isset($_GET['extended'])) ?"checked='checked'":"" ?> /> <label for="radio-view-a">Assoc/Entrp</label>
-						<input type="radio" name="type" id="radio-view-b" value="Mairie" <?= $_SESSION['userType']=="Mairie"?"checked='checked'":"" ?> /> <label for="radio-view-b">Mairie</label>
-						<input type="radio" name="type"id="radio-view-c" value="Com Urb" <?= $_SESSION['userType']=="Com Urb"?"checked='checked'":"" ?> /> <label for="radio-view-c">Com Urb</label>
-						<input type="radio" name="type" id="radio-view-d" value="Etat" <?= $_SESSION['userType']=="Etat"?"checked='checked'":"" ?> /><label for="radio-view-d">Etat</label>
-						<input type="radio" name="type" id="radio-view-e" value="Région" <?= $_SESSION['userType']=="Région"?"checked='checked'":"" ?> /> <label for="radio-view-e">Région</label>
-					</fieldset>
-				</div>
-				<?php 
-				if (!isset($_GET['extended'])) {
-				?>
 
 				<div data-role="fieldcontain">
 					<fieldset data-role="controlgroup">
@@ -194,10 +148,6 @@ if (isset($_POST['email'])) { //profile update
 					</fieldset>
 				</div>
 			</form>
-			<?php 
-			}
-			?>
-			<div class="push"></div>
 		</div>
 	</div>
 </body>
