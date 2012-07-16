@@ -15,7 +15,10 @@ class SampleModel extends GenericDataBean {
 	// 	Constructor
 	// ---------------------------------------------------------------------
 	
-	function __construct($predicate = null) {
+	function __construct() {
+		
+		// Namespace
+		$this->NAMESPACE = "SampleModel";
 		
 		// Declare predicate attributes
 		$this->_predicatesDef = array(
@@ -31,7 +34,6 @@ class SampleModel extends GenericDataBean {
 		
 		// Declare wrapped attributes
 		$this->_wrapDef = array("wrapped1", "wrapped2");
-		$this->_predicateStr = null;
 	}
 	
 }
