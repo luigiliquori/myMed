@@ -1,6 +1,6 @@
 <div data-role="header">
 
-	<a href="javascript: history.go(-1)" data-role="button" data-icon="back">Back</a>
+	<a href="javascript: history.go(-1)" data-role="button" data-icon="back">Retour</a>
 	
 	<h1><a href="?"><?= "MyBénévolat" ?></a></h1>
 	

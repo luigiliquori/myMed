@@ -1,5 +1,12 @@
 <?php
 
+// Evaluate and compare two PHP expressions
+function assertEqual($a, $b) {
+	if ($a != $b) {
+		throw new Exception("Assert equal failed: $a != $b");
+	}
+}
+
 // compare fields of two objects
 function assertObjectsEqual($a, $b) {
 	

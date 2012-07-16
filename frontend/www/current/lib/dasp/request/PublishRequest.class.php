@@ -30,13 +30,20 @@ class PublishRequest extends Request {
 	private /*IRequestHandler*/ 	$handler;
 	private /*DataBean*/			$dataBean;
 	private /*String*/				$publisher;
+	private /* Namespace */			$namespace;
 
 
-	public function __construct(/*IRequestHandler*/ $handler, /** DataBean */ $dataBean, /*String*/ $publisher = NULL ) {
+	public function __construct(
+		/* IRequestHandler*/ $handler, 
+	 	/* DataBean */ $dataBean, 
+	 	/* String*/ $publisher = null,
+		/* String */ $namespace = null) 
+	{
 		parent::__construct("PublishRequestHandler", CREATE);
 		$this->handler	= $handler;
 		$this->dataBean = $dataBean;
 		$this->publisher = $publisher;
+		$this->namespace = $namespace;
 		
 		$this->setMultipart(true);
 		
@@ -50,8 +57,7 @@ class PublishRequest extends Request {
 		 * Build the request
 		 */
 		
-		// APPLICATION
-		$application = APPLICATION_NAME;
+
 		
 		// USER
 		/* If the publisher isn't the current user, fetch the profile */
@@ -72,7 +78,12 @@ class PublishRequest extends Request {
 		$data = json_encode($this->dataBean->getDatas());
 
 			
-		parent::addArgument("application", $application);
+		// Construct the requests
+		if ($this->namespace == null) {
+			parent::addArgument("application", APPLICATION_NAME);
+		} else {
+			parent::addArgument("application", APPLICATION_NAME . ":$this->namespace");
+		}
 		parent::addArgument("user", $user);
 		parent::addArgument("predicate", $predicate);
 		parent::addArgument("data", $data);

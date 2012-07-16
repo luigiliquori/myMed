@@ -1,6 +1,9 @@
 <? include_once('utils.php'); ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">  
+<!doctype html>
+<html 
+ lang="fr"
+ <? if (defined("DEMO")) print 'manifest="cache.manifest"' ?>
+> 
 
 <head> 
 
@@ -17,6 +20,9 @@
 	<!-- DateBox -->
 	<script src="../../lib/jquery/datebox/jquery.mobile.datebox.min.js"></script>
 	<link href="../../lib/jquery/datebox/jquery.mobile.datebox.min.css" rel="stylesheet" />
+	
+	<!-- Keyfilter  -->
+	<script src="../../lib/jquery/jquery.keyfilter.js" ></script>
 	
 	<!--  SimpleDialog -->
 	<script src="../../lib/jquery/simpledialog/jquery.mobile.simpledialog2.min.js"></script>
