@@ -320,22 +320,33 @@ function needHelp(){
 	+ $('#current_lng').val();
 	alert(data_string);
 	*/
-	$.ajax({
-		type : "POST",
-		url : "sendmail.ajax.php",
-		data : "email=" +$('#num1')[0].innerHTML+ "&username="
-		+ $('#username').val() + "&current_street=" 
-		+ $('#current_street').val() + "&current_lat="
-		+ $('#current_lat').val() + "&current_lng="
-		+ $('#current_lng').val(),
-		success : function(data) {
-			retour = JSON.parse(data);
-			//alert(retour.success);
-			alert(data);
-		},
-		error : function(data) {
-		}
-	});
+	howmany = $('#howmany').val();
 	
+	for (i=1; i<=howmany; i++){
+		
+		numero = "#num" + i;
+		alert("envoi du mail pour " + numero);
+		
+		setTimeout(function(){
+									$.ajax({
+										type : "POST",
+										url : "sendmail.ajax.php",
+										data : "email=" +$(numero)[0].innerHTML+ "&username="
+										+ $('#username').val() + "&current_street=" 
+										+ $('#current_street').val() + "&current_lat="
+										+ $('#current_lat').val() + "&current_lng="
+										+ $('#current_lng').val(),
+										success : function(data) {
+											retour = JSON.parse(data);
+											//alert(retour.success);
+											alert(data);
+										},
+										error : function(data) {
+										}
+									});
+								}, 5000);
+		
+	}// for
 	
-}
+}// needHelp
+

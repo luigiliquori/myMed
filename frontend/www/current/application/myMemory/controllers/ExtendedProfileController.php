@@ -70,8 +70,8 @@ class ExtendedProfileController extends AuthenticatedController
 			$callingList = array();
 			
 			$call1 = array("name" => $_POST["CareGiverName"], "address" => $_POST["CareGiverAddress"], "phone" => $_POST["CareGiverPhone"]);
-			$call4 = array("name" => "Emergency", "address" => "" , "phone" => "112");
-			
+			//$call4 = array("name" => "Emergency", "address" => "" , "phone" => "112");
+			//TODO : uncomment this
 			// Inserting Caregiver in first position
 			array_push($callingList, $call1);
 			
@@ -88,8 +88,8 @@ class ExtendedProfileController extends AuthenticatedController
 			}
 			
 			// Inserting Emergency in last position
-			array_push($callingList, $call4);
-			
+			//array_push($callingList, $call4);
+			//TODO uncomment this
 			$extendedProfile = new ExtendedProfile($_SESSION['user'], $home, $diseaseLevel, $careGiver, $doctor, $callingList);
 			
 			$extendedProfile->storeProfile($this);
