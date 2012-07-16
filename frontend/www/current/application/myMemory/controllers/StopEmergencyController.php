@@ -21,6 +21,7 @@ class StopEmergencyController extends AuthenticatedController {
 			if($_GET["confirm"] == "ok")
 			{
 				//TODO : stop emergency
+				$_SESSION['emergency'] = false;
 				$this->redirectTo("main");
 			}
 		}

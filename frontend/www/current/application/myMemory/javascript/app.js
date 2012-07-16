@@ -311,3 +311,31 @@ function calcRouteByCityway(result) {
 	});
 }
 
+
+function needHelp(){
+	/*
+	alert("Ajax call for " + $('#num1')[0].innerHTML);
+	data_string = "email=" +$('#num1')[0].innerHTML+ "&current_street=" + $('#current_street').val() + "&current_lat="
+	+ $('#current_lat').val() + "&current_lng="
+	+ $('#current_lng').val();
+	alert(data_string);
+	*/
+	$.ajax({
+		type : "POST",
+		url : "sendmail.ajax.php",
+		data : "email=" +$('#num1')[0].innerHTML+ "&username="
+		+ $('#username').val() + "&current_street=" 
+		+ $('#current_street').val() + "&current_lat="
+		+ $('#current_lat').val() + "&current_lng="
+		+ $('#current_lng').val(),
+		success : function(data) {
+			retour = JSON.parse(data);
+			//alert(retour.success);
+			alert(data);
+		},
+		error : function(data) {
+		}
+	});
+	
+	
+}

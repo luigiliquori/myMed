@@ -47,6 +47,7 @@ class FindRequest extends Request {
 		parent::__construct("FindRequestHandler", READ);
 		$this->handler	= $handler;
 		$this->predicateList = $predicateList;
+		$this->predicate = $predicateList;
 		$this->user = $user;
 	}
 
@@ -57,8 +58,9 @@ class FindRequest extends Request {
 
 		// Construct the requests
 		parent::addArgument("application", APPLICATION_NAME);
-		parent::addArgument("predicateList", json_encode($this->predicateList));
-
+		//parent::addArgument("predicateList", json_encode($this->predicateList));
+		parent::addArgument("predicate", $this->predicateList);
+		
 		// User => Then get details
 		if (!empty($this->user)) {
 			parent::addArgument("user", $this->user);
