@@ -36,10 +36,10 @@ if (isset($_POST['role'])) {
 	if($responseObject->status != 200) {
 		$msg = $responseObject->description;
 	} else {
-		$_SESSION['profile'] = array();
+		$_SESSION['profile'] = new stdClass(); //@TODO create profile class
 		$_SESSION['profile']->role = $_POST['role'];
 		$_SESSION['profile']->permission = $permission;
-		header("Location: ./");
+		//header("Location: ./");
 	}
 }
 
@@ -131,7 +131,7 @@ var_dump($responseObject);
 		</div>
 		<div data-role="content">
 			<h2 style="text-align: center;">Profil myEurope</h2>
-			<form action="updateExtended" method="post" id="updateExtendedForm" >
+			<form action="updateExtended" method="post" id="updateExtendedForm"  data-ajax="false">
 
 				<div style='color: lightGreen; text-align: center;'>
 					<?= $msg ?><?= isset($_GET['new'])?" Veuillez compléter et enregistrer votre profil, pour l'utilisation de myEurope":""?>
@@ -193,7 +193,7 @@ var_dump($responseObject);
 		</div>
 		<div data-role="content">
 			<h2>Profile myEurope</h2>
-			<form action="updateExtended" method="post" id="updateExtendedForm" >
+			<form action="updateExtended" method="post" id="updateExtendedForm"  data-ajax="false">
 
 				<div style='color: lightGreen; text-align: center;'>
 					<?= $msg ?><?= isset($_GET['new'])?" Veuillez compléter et enregistrer votre profil, pour l'utilisation de myEurope":""?>
@@ -255,7 +255,7 @@ var_dump($responseObject);
 		</div>
 		<div data-role="content">
 			<h2>Profile myEurope</h2>
-			<form action="updateExtended" method="post" id="updateExtendedForm" >
+			<form action="updateExtended" method="post" id="updateExtendedForm" data-ajax="false">
 
 				<div style='color: lightGreen; text-align: center;'>
 					<?= $msg ?><?= isset($_GET['new'])?" Veuillez compléter et enregistrer votre profil, pour l'utilisation de myEurope":""?>
@@ -306,7 +306,7 @@ var_dump($responseObject);
 		</div>
 		<div data-role="content">
 			<h2>Profile myEurope</h2>
-			<form action="updateExtended" method="post" id="updateExtendedForm" >
+			<form action="updateExtended" method="post" id="updateExtendedForm"  data-ajax="false">
 
 				<div style='color: lightGreen; text-align: center;'>
 					<?= $msg ?><?= isset($_GET['new'])?" Veuillez compléter et enregistrer votre profil, pour l'utilisation de myEurope":""?>

@@ -41,12 +41,12 @@ public class MailTemplateManager extends com.mymed.controller.core.manager.mailt
     /**
      *  Get a template for a specific application, namespace and language.
      *  The manager searches successively for :
-     *  * Template in Cassandra, with <applicationID>, <namespace>, <lang>, <version>
+     *  * Template in Cassandra, with <applicationID>, <namespace>, <lang>
      *  * Template in Cassandra, with <applicationID>, <namespace>, <default-lang>
-     *  * Template in WAR resources : mail-templates/<applicationID>#<namespace>-<lang>.flt.xml 
-     *  * Template in WAR resources : mail-templates/<applicationID>#<namespace>-<default-lang>.flt.xml 
-     *  * Template in WAR resources : default-<lang>.flt.xml
-     *  * Template in WAR resources : default-<default-lang>.flt.xml 
+     *  * Template in WAR resources : mail-templates/<applicationID>#<namespace>-<lang>-<version>.flt.xml 
+     *  * Template in WAR resources : mail-templates/<applicationID>#<namespace>-<default-lang>-<version>.flt.xml 
+     *  * Template in WAR resources : default-<lang>-<version>.flt.xml
+     *  * Template in WAR resources : default-<default-lang>-<version>.flt.xml 
      */
     public MailTemplate getTemplate(
             String applicationID,
@@ -77,10 +77,11 @@ public class MailTemplateManager extends com.mymed.controller.core.manager.mailt
         // Still not found ??
         if (res == null) {
             throw new InternalBackEndException(
-                    "No template found for appId:%s, ns:%s, lang:%s, default-lang:%s", 
+                    "No template found for appId:%s, ns:%s, lang:%s, default-lang:%s, version:%s", 
                     applicationID,
                     namespace,
                     language,
+                    version,
                     DEFAULT_LANG);
         }
         
