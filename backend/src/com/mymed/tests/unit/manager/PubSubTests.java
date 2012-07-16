@@ -1,18 +1,12 @@
 package com.mymed.tests.unit.manager;
 
 import static com.mymed.model.data.application.MOntologyID.*;
-
-
+import static com.mymed.utils.GsonUtils.gson;
 import static com.mymed.utils.PubSub.*;
-import static com.mymed.utils.PubSub.Index.joinCols;
 import static com.mymed.utils.PubSub.Index.joinRows;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static com.mymed.utils.PubSub.Index.joinCols;
+import static org.junit.Assert.*;
 
-import java.io.File;
-import java.io.UnsupportedEncodingException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -24,42 +18,27 @@ import org.slf4j.LoggerFactory;
 import ch.qos.logback.classic.Logger;
 
 import com.google.gson.GsonBuilder;
-import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.controller.core.manager.authentication.AuthenticationManager;
-import com.mymed.controller.core.manager.geolocation.GeoLocationManager;
-import com.mymed.controller.core.manager.interaction.InteractionManager;
-import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.pubsub.v2.PubSubManager;
-import com.mymed.controller.core.manager.reputation.api.recommendation_manager.ReputationManager;
-import com.mymed.controller.core.manager.session.SessionManager;
-import com.mymed.controller.core.manager.storage.StorageManager;
-import com.mymed.model.core.configuration.WrapperConfiguration;
 import com.mymed.model.data.application.DataBean;
-import com.mymed.model.data.application.MDataBean;
-import com.mymed.model.data.application.MOntologyID;
-import com.mymed.model.data.session.MSessionBean;
 import com.mymed.model.data.user.MUserBean;
-import com.mymed.utils.GsonUtils;
-import com.mymed.utils.PubSub;
-import com.mymed.utils.PubSub.Index;
 
 public class PubSubTests extends TestValues {
 	
 	
 	final static Logger LOGGER = (Logger) LoggerFactory.getLogger(PubSubTests.class);
 
-	protected PubSubManager pubsubManager;
-	private MUserBean userBean;
-	private final String date = "1971-01-01";
-	private List<DataBean> dataList;
-	private String dataId = "mydata";
+	protected static PubSubManager pubsubManager;
+	private static MUserBean userBean;
+	private static final String date = "1971-01-01";
+	private static List<DataBean> dataList;
+	private static String dataId = "mydata";
 
-	private String application = "myTest";
+	private static String application = "myTest";
 
-	private String namespace = "fake";
+	private static String namespace = "fake";
 
-	private ArrayList<String> range(final String... args) {
+	private static ArrayList<String> range(final String... args) {
 		ArrayList<String> result = new ArrayList<String>();
 		for (String s : args) {
 			result.add(s);
@@ -118,7 +97,7 @@ public class PubSubTests extends TestValues {
 
 				pubsubManager.create(makePrefix(application, namespace), s1,
 						s2, dataId, userBean,
-						PubSub.subList(dataList, MOntologyID.DATA));
+						subList(dataList, DATA));
 				pubsubManager.sendEmailsToSubscribers(
 						makePrefix(application, namespace), s1, userBean,
 						dataList);
@@ -212,13 +191,11 @@ public class PubSubTests extends TestValues {
 			for (List<Index> li : lli) {
 				String s1 = joinRows(li);
 				String s2 = joinCols(li);
-				pubsubManager.delete(makePrefix(application, namespace), s1, s2
-						+ dataId, userBean.getId());
+				pubsubManager.delete(makePrefix(application, namespace), s1, s2 + dataId, null);
 			}
 
 			/* deletes data */
-			pubsubManager.delete(makePrefix(application, namespace), dataId
-					+ userBean.getId());
+			pubsubManager.delete(makePrefix(application, namespace), dataId);
 
 		} catch (final Exception ex) {
 			fail(ex.getMessage());
@@ -226,65 +203,68 @@ public class PubSubTests extends TestValues {
 	}
 
     
-//	@Test
-//	public void testPUB() {
-//		LOGGER.info("PUB:");
-//		
-//		String postJson = 
-//				"{\"test\":12,\"data\":[{\"key\":\"cat1\",\"type\":2,\"value\":[1341783296,1341973211,\"toto\"]},{\"key\":\"autreCat\",\"type\":2,\"value\":[\"titi\",\"tonton\",\"tata\"]},{\"key\":\"date\",\"type\":3,\"value\":[999999999]},{\"key\":\"rate\",\"type\":-1,\"value\":[18.4]},{\"key\":\"europe\",\"type\":0,\"value\":[\"paris\"]},{\"key\":\"type\",\"type\":0,\"value\":[\"métier1\"]}]}";
-//				
-//			  //"{\"test\":12,\"ENUM\":{\"cat1\":[1341783296,1341973211, \"toto\"], \"autreCat\":[\"titi\",\"tonton\", \"tata\"]},\"DATE\":{\"date\":999999999},\"FLOAT\":{\"rate\":18.4},\"KEYWORD\":{\"europe\":\"paris\",\"type\":\"métier1\"}}";
-//
-//    	Message p =  GsonUtils.gson.fromJson( postJson , Message.class);
-//
-//    	LOGGER.info(p.toString());
-//    	
-//    	List<List<Index>> lli = generateIndexes(getIndexes(p.data), getIndexesEnums(p.data));
-//    	LOGGER.info("--------- List of {} Indexes generated: ", lli.size());
-//    	/*for (List<Index> li : lli){
-//    		LOGGER.info(li.toString());
-//    	}*/
-//    	LOGGER.info(lli.get(0).toString());
-//    	LOGGER.info(lli.get(1).toString());
-//    	LOGGER.info(lli.get(2).toString());
-//    	LOGGER.info(lli.get(3).toString());
-//    	LOGGER.info("...");
-//		assertEquals("nb of rows is ok", lli.size(), (int) Math.pow(2, 4) * 4 * 4 - 1);
-//		/* 2^ (DATE+KEYWORD+GPS+FLOAT)sizes * (ENUM1 size+1) * (ENUM2 size +1) - 1  */
-//
-//	}
-//
-//	@Test
-//	public void testFIND() {
-//
-//		LOGGER.info("FIND: ");
-//		String reqJson = 
-//			"{\"test\":12,\"data\":[{\"key\":\"enum\",\"type\":2,\"value\":[1341783296,\"toto\"]},{\"key\":\"autreEnum\",\"type\":2,\"value\":[\"titi\",\"tonton\",\"tata\"]},{\"key\":\"rate\",\"type\":-1,\"value\":[4,18.4]},{\"key\":\"europe\",\"type\":0,\"value\":[\"\"]},{\"key\":\"type\",\"type\":0,\"value\":[\"métier1\"]}]}";
-//				
-//		  //"{\"test\":12,\"ENUM\":{\"enum\":[1341783296,\"toto\"], \"autreEnum\":[\"titi\",\"tonton\", \"tata\"]},\"FLOAT\":{\"rate\":[4,18.4]},\"KEYWORD\":{\"europe\":\"\",\"type\":\"métier1\"}}";
-//		Message r =  GsonUtils.gson.fromJson( reqJson , Message.class);
-//
-//    	List<List<String>> rowslists = getRows(r.data);
-//    	LOGGER.info(r.toString());
-//    	/*for (List<String> li : queryRows){
-//    		LOGGER.info(li.toString());
-//    	}*/
-//    	
-//    	List<String> rows = new ArrayList<String>();
-//    	generateRows(rowslists, new int[rowslists.size()], 0, rows);
-//    	LOGGER.info(" List of {} keys to search: {} ", rows.size(), rows.toString());
-//    	LOGGER.info(" List of {} ranges to search: {}", getRanges(r.data).size(), getRanges(r.data).toString());
-//    	
-//		assertEquals(" nb of rows to find is ok", rows.size(), 90);
-//	    /* (18-4+1=15) FLOAT rate slice range * (3) ENUM enum range * (2) ENUM enum range * (1) KEYWORD ranges  */
-//		
-//		assertEquals(" nb of cols to find between range limits is ok", getRanges(r.data).size(), 1);
-//		/* only DATE, FLOAT, GPS are partitionned  */
-//
-//	}
+	@Test
+	public void testPUB() {
+		LOGGER.info(" testPUB message:");
+		
+		String postJson = 
+				"{\"test\":12,\"data\":[{\"key\":\"cat1\",\"type\":2,\"value\":[1341783296,1341973211,\"toto\"]},{\"key\":\"autreCat\",\"type\":2,\"value\":[\"titi\",\"tonton\",\"tata\"]},{\"key\":\"date\",\"type\":3,\"value\":[999999999]},{\"key\":\"rate\",\"type\":-1,\"value\":[18.4]},{\"key\":\"europe\",\"type\":0,\"value\":[\"paris\"]},{\"key\":\"type\",\"type\":0,\"value\":[\"métier1\"]}]}";
+				
+			  //"{\"test\":12,\"ENUM\":{\"cat1\":[1341783296,1341973211, \"toto\"], \"autreCat\":[\"titi\",\"tonton\", \"tata\"]},\"DATE\":{\"date\":999999999},\"FLOAT\":{\"rate\":18.4},\"KEYWORD\":{\"europe\":\"paris\",\"type\":\"métier1\"}}";
+
+    	Message p =  gson.fromJson( postJson , Message.class);
+
+    	LOGGER.info(p.toString());
+    	
+    	List<List<Index>> lli = generateIndexes(getIndexes(p.data), getIndexesEnums(p.data));
+    	LOGGER.info("--------- List of {} Indexes generated: ", lli.size());
+    	/*for (List<Index> li : lli){
+    		LOGGER.info(li.toString());
+    	}*/
+    	LOGGER.info(lli.get(0).toString());
+    	LOGGER.info(lli.get(1).toString());
+    	LOGGER.info(lli.get(2).toString());
+    	LOGGER.info(lli.get(3).toString());
+    	LOGGER.info("...");
+		assertEquals("nb of rows is ok", lli.size(), (int) Math.pow(2, 4) * 4 * 4 - 1);
+		/* 2^ (DATE+KEYWORD+GPS+FLOAT)sizes * (ENUM1 size+1) * (ENUM2 size +1) - 1  */
+
+	}
+
+	@Test
+	public void testFIND() {
+
+		LOGGER.info(" testFIND message: ");
+		String reqJson = 
+			"{\"test\":12,\"data\":[{\"key\":\"enum\",\"type\":2,\"value\":[1341783296,\"toto\"]},{\"key\":\"autreEnum\",\"type\":2,\"value\":[\"titi\",\"tonton\",\"tata\"]},{\"key\":\"rate\",\"type\":-1,\"value\":[4,18.4]},{\"key\":\"europe\",\"type\":0,\"value\":[\"\"]},{\"key\":\"type\",\"type\":0,\"value\":[\"métier1\"]}]}";
+				
+		  //"{\"test\":12,\"ENUM\":{\"enum\":[1341783296,\"toto\"], \"autreEnum\":[\"titi\",\"tonton\", \"tata\"]},\"FLOAT\":{\"rate\":[4,18.4]},\"KEYWORD\":{\"europe\":\"\",\"type\":\"métier1\"}}";
+		Message r =  gson.fromJson( reqJson , Message.class);
+
+    	List<List<String>> rowslists = getRows(r.data);
+    	LOGGER.info(r.toString());
+    	/*for (List<String> li : queryRows){
+    		LOGGER.info(li.toString());
+    	}*/
+    	
+    	List<String> rows = new ArrayList<String>();
+    	generateRows(rowslists, new int[rowslists.size()], 0, rows);
+    	LOGGER.info(" List of {} keys to search: {} ", rows.size(), rows.toString());
+    	LOGGER.info(" List of {} ranges to search: {}", getRanges(r.data).size(), getRanges(r.data).toString());
+    	
+		assertEquals(" nb of rows to find is ok", rows.size(), 90);
+	    /* (18-4+1=15) FLOAT rate slice range * (3) ENUM enum range * (2) ENUM enum range * (1) KEYWORD ranges  */
+		
+		assertEquals(" nb of cols to find between range limits is ok", getRanges(r.data).size(), 1);
+		/* only DATE, FLOAT, GPS are partitionned  */
+
+	}
 	
 	
 }
+
+
+
 
 class Message{
 	int code;

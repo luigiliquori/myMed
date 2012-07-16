@@ -18,7 +18,7 @@ Template::init();
 </head>
 
 <body>
-	<div data-role="page" id="Home">
+	<div data-role="page" id="Home" data-theme="c">
 		<div data-role="header" data-theme="c" data-position="fixed">
 			<div data-role="navbar" data-theme="d" data-iconpos="left">
 				<ul>

@@ -74,21 +74,20 @@ input.ui-input-text,textarea.ui-input-text {
 	width: 30%;
 }
 
-
+/*
 .ui-body-d,
 .ui-overlay-d {
 	border: 1px solid 		#d7e9ef ;
 	color: 					#222222 ;
 	text-shadow: 0  1px  0  #fff ;
 	background: 			#fff ;
-	background-image: -webkit-gradient(linear, left top, left bottom, from( #fafaff ), to( #f5f5ff )); /* Saf4+, Chrome */
-	background-image: -webkit-linear-gradient( #fafaff , #f5f5ff ); /* Chrome 10+, Saf5.1+ */
-	background-image:    -moz-linear-gradient( #fafaff , #f5f5ff ); /* FF3.6 */
-	background-image:     -ms-linear-gradient( #fafaff , #f5f5ff ); /* IE10 */
-	background-image:      -o-linear-gradient( #fafaff , #f5f5ff ); /* Opera 11.10+ */
-	background-image:         linear-gradient( #fafaff , #f5f5ff );
+	background-image: -webkit-gradient(linear, left top, left bottom, from( #fcfcff ), to( #f5f5f9 )); 
+	background-image: -webkit-linear-gradient( #fcfcff , #f5f5f9 ); 
+	background-image:     -ms-linear-gradient( #fcfcff , #f5f5f9 ); 
+	background-image:      -o-linear-gradient( #fcfcff , #f5f5f9 ); 
+	background-image:         linear-gradient( #fcfcff , #f5f5f9 );
 }
-
+*/
 
 /*.ui-btn-active {
 	border: 1px solid 		#ccc ;

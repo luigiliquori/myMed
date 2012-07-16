@@ -41,7 +41,7 @@ if (isset($_GET['registration'])) {
 </head>
 
 <body>
-	<div data-role="page" id="Home">
+	<div data-role="page" id="Home" data-theme="d">
 		<div data-role="header" data-theme="c" data-position="fixed">
 			<div data-role="navbar" data-theme="d" data-iconpos="left">
 				<ul>
@@ -57,24 +57,23 @@ if (isset($_GET['registration'])) {
 			<h1 style="text-align:center;">
 				<a href="#" style="text-decoration: none;"><?= Template::APPLICATION_NAME ?></a>
 			</h1>
-			
-			<br />
+
 			<h3 style="text-align:center;">
-				<a href="#" style="text-decoration: none;">Partenariats: ...</a>
+				<a href="#" style="text-decoration: none;">Partenariats:</a>
 			</h3>
 			<div data-role="controlgroup"  data-type="horizontal">
-				<a href="searchPartnerForm" type="button" data-theme="d" style="width:50%;">Rechercher</a>
-				<a href="postPartnershipForm" style="width:49%;" type="button" data-theme="d">Insérer</a>
+				<a href="searchPartnerForm" type="button" data-theme="d" style="width:50%;"><br />Rechercher<br />&nbsp;</a>
+				<a href="postPartnershipForm" style="width:49%;" type="button" data-theme="d"><br />Insérer<br />&nbsp;</a>
 			</div>
 
 			<br />
 			<h3 style="text-align:center;">
-				<a href="#" style="text-decoration: none;">Informations: ...</a>
+				<a href="#" style="text-decoration: none;">Informations:</a>
 			</h3>
 			<div data-role="controlgroup"  data-type="horizontal">
-				<a href="searchInfoForm" style="width:50%;" type="button"  data-theme="d">Programmes</a>
+				<a href="searchInfoForm" style="width:50%;" type="button"  data-theme="d"><br />Programmes<br />&nbsp;</a>
 				<a href="postInfoForm"  style="width:49%;"
-				type="button"  data-theme="d">Commentaires</a>
+				type="button"  data-theme="d"><br />Commentaires<br />&nbsp;</a>
 			</div>
 
 		</div>

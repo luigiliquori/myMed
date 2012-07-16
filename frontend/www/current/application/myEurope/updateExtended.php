@@ -9,6 +9,7 @@ require_once 'Template.php';
 Template::init();
 
 $msg="";
+$i=0;
 
 if (isset($_POST['role'])) {
 	//extended Profile (user's role)
@@ -39,7 +40,7 @@ if (isset($_POST['role'])) {
 		$_SESSION['profile'] = new stdClass(); //@TODO create profile class
 		$_SESSION['profile']->role = $_POST['role'];
 		$_SESSION['profile']->permission = $permission;
-		//header("Location: ./");
+		header("Location: ./");
 	}
 }
 
@@ -63,13 +64,13 @@ var_dump($responseObject);
 			<div data-role="navbar" data-theme="c"  data-iconpos="left">
 				<ul>
 					<li><a href="./option" data-transition="flip" data-direction="reverse" data-icon="back">Retour</a></li>
-					<li><a href="option" data-icon="check" data-theme="b" data-mini="true" onclick="$('#updateExtendedForm').submit();">Enregistrer</a></li>
+					<li><a href="option" data-icon="check" data-theme="b" data-mini="true" onclick="$('#updateExtendedForm<?= ++$i ?>').submit();">Enregistrer</a></li>
 				</ul>
 			</div>
 		</div>
 		<div data-role="content">
 			<h2>Profile myEurope</h2>
-			<form action="updateExtended" method="post" id="updateExtendedForm" data-ajax="false">
+			<form action="updateExtended" method="post" id="updateExtendedForm<?= $i ?>">
 
 				<div style='color: lightGreen; text-align: center;'>
 					<?= $msg ?><?= isset($_GET['new'])?" Veuillez compléter et enregistrer votre profil, pour l'utilisation de myEurope":""?>
@@ -125,13 +126,13 @@ var_dump($responseObject);
 			<div data-role="navbar" data-theme="c"  data-iconpos="left">
 				<ul>
 					<li><a data-rel="back" data-transition="flip" data-direction="reverse" data-icon="back">Retour</a></li>
-					<li><a href="option" data-icon="check" data-theme="b" data-mini="true" onclick="$('#updateExtendedForm').submit();">Enregistrer</a></li>
+					<li><a href="option" data-icon="check" data-theme="b" data-mini="true" onclick="$('#updateExtendedForm<?= ++$i ?>').submit();">Enregistrer</a></li>
 				</ul>
 			</div>
 		</div>
 		<div data-role="content">
 			<h2 style="text-align: center;">Profil myEurope</h2>
-			<form action="updateExtended" method="post" id="updateExtendedForm"  data-ajax="false">
+			<form action="updateExtended" method="post" id="updateExtendedForm<?= $i ?>" >
 
 				<div style='color: lightGreen; text-align: center;'>
 					<?= $msg ?><?= isset($_GET['new'])?" Veuillez compléter et enregistrer votre profil, pour l'utilisation de myEurope":""?>
@@ -187,13 +188,13 @@ var_dump($responseObject);
 			<div data-role="navbar" data-theme="c"  data-iconpos="left">
 				<ul>
 					<li><a data-rel="back" data-transition="flip" data-direction="reverse" data-icon="back">Retour</a></li>
-					<li><a href="option" data-icon="check" data-theme="b" data-mini="true" onclick="$('#updateExtendedForm').submit();">Enregistrer</a></li>
+					<li><a href="option" data-icon="check" data-theme="b" data-mini="true" onclick="$('#updateExtendedForm<?= ++$i ?>').submit();">Enregistrer</a></li>
 				</ul>
 			</div>
 		</div>
 		<div data-role="content">
 			<h2>Profile myEurope</h2>
-			<form action="updateExtended" method="post" id="updateExtendedForm"  data-ajax="false">
+			<form action="updateExtended" method="post" id="updateExtendedForm<?= $i ?>">
 
 				<div style='color: lightGreen; text-align: center;'>
 					<?= $msg ?><?= isset($_GET['new'])?" Veuillez compléter et enregistrer votre profil, pour l'utilisation de myEurope":""?>
@@ -249,14 +250,13 @@ var_dump($responseObject);
 			<div data-role="navbar" data-theme="c"  data-iconpos="left">
 				<ul>
 					<li><a data-rel="back" data-transition="flip" data-direction="reverse" data-icon="back">Retour</a></li>
-					<li><a data-icon="check" data-theme="b" data-mini="true" onclick="$('#updateExtendedForm').submit();">Enregistrer</a></li>
+					<li><a id="buttonmai" data-icon="check" data-theme="b" data-mini="true" onclick="$('#updateExtendedForm<?= ++$i ?>').submit();">Enregistrer</a></li>
 				</ul>
 			</div>
 		</div>
 		<div data-role="content">
 			<h2>Profile myEurope</h2>
-			<form action="updateExtended" method="post" id="updateExtendedForm" data-ajax="false">
-
+			<form action="updateExtended" method="post" id="updateExtendedForm<?= $i ?>">
 				<div style='color: lightGreen; text-align: center;'>
 					<?= $msg ?><?= isset($_GET['new'])?" Veuillez compléter et enregistrer votre profil, pour l'utilisation de myEurope":""?>
 				</div>
@@ -295,18 +295,20 @@ var_dump($responseObject);
 			</form>
 		</div>
 	</div>
-		<div data-role="page" id="Région">
+	
+	
+	<div data-role="page" id="Région">
 		<div data-role="header" data-theme="c" data-position="fixed">
 			<div data-role="navbar" data-theme="c"  data-iconpos="left">
 				<ul>
 					<li><a data-rel="back" data-transition="flip" data-direction="reverse" data-icon="back">Retour</a></li>
-					<li><a href="option" data-icon="check" data-theme="b" data-mini="true" onclick="$('#updateExtendedForm').submit();">Enregistrer</a></li>
+					<li><a data-icon="check" data-theme="b" data-mini="true" onclick="$('#updateExtendedForm<?= ++$i ?>').submit();">Enregistrer</a></li>
 				</ul>
 			</div>
 		</div>
 		<div data-role="content">
 			<h2>Profile myEurope</h2>
-			<form action="updateExtended" method="post" id="updateExtendedForm"  data-ajax="false">
+			<form action="updateExtended" method="post" id="updateExtendedForm<?= $i ?>" >
 
 				<div style='color: lightGreen; text-align: center;'>
 					<?= $msg ?><?= isset($_GET['new'])?" Veuillez compléter et enregistrer votre profil, pour l'utilisation de myEurope":""?>

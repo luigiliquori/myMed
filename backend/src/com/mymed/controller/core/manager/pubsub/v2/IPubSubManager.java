@@ -92,9 +92,8 @@ public interface IPubSubManager {
 	 * @param predicate
 	 *            The predicate to delete
 	 */
-	void delete(String application, String predicate, String subPredicate,
-			String publisherID) throws InternalBackEndException,
-			IOBackEndException;
+	void delete(String application, String predicate, String subPredicate, String publisherID)
+			throws InternalBackEndException, IOBackEndException;
 
 	/**
 	 * Delete an existing predicate in Subscribers CF, you seem to like multiple

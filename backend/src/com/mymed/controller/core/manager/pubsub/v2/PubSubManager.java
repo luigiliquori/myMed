@@ -247,11 +247,10 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
             final String application, 
             final String predicate, 
             final String subPredicate,
-    		final String publisherID) 
+            final String publisherID) 
     		        throws InternalBackEndException, IOBackEndException 
     {
-    	storageManager.removeSuperColumn(SC_APPLICATION_CONTROLLER, application + predicate,
-    			subPredicate + publisherID);
+		storageManager.removeSuperColumn(SC_APPLICATION_CONTROLLER, application + predicate, subPredicate);
     }
 	
 	@Override
