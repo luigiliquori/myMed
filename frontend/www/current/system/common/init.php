@@ -12,10 +12,14 @@ ob_start("ob_gzhandler");
 	require('PhpConsole.php');
 	PhpConsole::start();
 //} else {
-//	function debug($msg) {
+//	function debug($msg) {		
 //		error_log($msg);
 //	}
 //}
+
+function debug_r($obj) {
+	debug(print_r($obj, true));
+}
 
 // For the magic_quotes
 ini_set("magic_quotes_runtime", 0);

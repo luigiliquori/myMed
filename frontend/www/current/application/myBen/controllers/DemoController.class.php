@@ -1,0 +1,5 @@
+<? 
+class DemoController extends SimpleViewController {
+}
+
+?>

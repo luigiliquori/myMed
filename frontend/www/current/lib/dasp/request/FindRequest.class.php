@@ -22,7 +22,7 @@ require_once dirname(__FILE__).'/IRequestHandler.php';
 /**
  *
  * Find Request.
- * If "user" is provided, if fetches detail data for a specific puclication.
+ * If "user" is provided, if fetches detail data for a specific publication.
  * Otherwise, it returns a list of publications.
  * @author David Da Silva
  *
@@ -35,19 +35,22 @@ class FindRequest extends Request {
 	private /*IRequestHandler*/ $handler;
 	private /*String*/ $predicate;
 	private /*String*/ $user;
+	private $namespace;
 
-	/* --------------------------------------------------------- */
-	/* Constructors */
-	/* --------------------------------------------------------- */
+	/** 
+	 * Constructor
+	 */
 	public function __construct(
 		/*IRequestHandler*/ $handler, 
-		 /* DDataBean[] */ $predicateList,
-		 /*String*/ $user) 
+		/* DDataBean[] */ $predicateList,
+	    /* String*/ $user,
+		/* String*/ $namespace = null) 
 	{
 		parent::__construct("FindRequestHandler", READ);
 		$this->handler	= $handler;
 		$this->predicateList = $predicateList;
 		$this->user = $user;
+		$this->namespace = $namespace;
 	}
 
 	/* --------------------------------------------------------- */
@@ -56,9 +59,19 @@ class FindRequest extends Request {
 	public /*string*/ function send() {
 
 		// Construct the requests
-		parent::addArgument("application", APPLICATION_NAME);
-		parent::addArgument("predicateList", json_encode($this->predicateList));
-
+		if ($this->namespace == null) {
+			parent::addArgument("application", APPLICATION_NAME);
+		} else {
+			parent::addArgument("application", APPLICATION_NAME . ":$this->namespace");
+		}
+		
+		// Backward compatibility with plain concatenate predicate
+		if (gettype($this->predicateList) == "string") {
+			parent::addArgument("predicate", $this->predicateList);
+		} else {
+			parent::addArgument("predicateList", json_encode($this->predicateList));
+		}
+		
 		// User => Then get details
 		if (!empty($this->user)) {
 			parent::addArgument("user", $this->user);
@@ -67,7 +80,7 @@ class FindRequest extends Request {
 		// Classical matching
 		$responsejSon = parent::send();
 		$responseObject = json_decode($responsejSon);
-
+	
 		if ($responseObject->status != 200 && $responseObject->status != 404) { // Error
 				
 			if (!is_null($this->handler)) {
