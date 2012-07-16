@@ -40,11 +40,14 @@ public class GsonUtils {
     // ---------------------------------------------------------------------------
     
     public static Gson gson;
-    static{
-        // Init gson
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.registerTypeAdapter(MOntologyID.class, new MOntologyIDAdapter());
-        gson = gsonBuilder.create();
+    static{     
+        gson = 
+                new GsonBuilder().
+                registerTypeAdapter(
+                        MOntologyID.class, 
+                        new MOntologyIDAdapter())
+                .setPrettyPrinting()
+                .create();    
     }
     
     /** Custom serializer/deserialize for MOntologyID from/to int */
