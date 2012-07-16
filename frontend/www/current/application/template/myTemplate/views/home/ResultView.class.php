@@ -39,7 +39,7 @@ class ResultView extends MainView {
 		
 			<a href="#FindView" data-role="button" data-direction="reverse" data-inline="true"><?= $_SESSION['dictionary'][LG]["back"] ?></a><br /><br />
 			
-			<?php if(isset($_POST['method']) && $_POST['method'] == "find" &&  $this->handler->getError()) { ?>
+			<?php if(isset($_POST['method']) && $_POST['method'] == "find" && $this->handler->getError()) { ?>
 				<h3><?= $_SESSION['dictionary'][IT]["noResult"] ?></h3>
 			<?php } else { ?>
 				<ul data-role="listview" data-filter="true" data-theme="c" data-dividertheme="a" >
@@ -55,6 +55,7 @@ class ResultView extends MainView {
 						<li>
 							<!-- RESULT DETAILS -->
 							<form action="#DetailView" method="post" name="getDetailForm<?= $i ?>">
+								<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
 								<input type="hidden" name="method" value="getDetail" />
 								<input type="hidden" name="user" value="<?= $result->publisherID ?>" />
 								<input type="hidden" name="predicate" value="<?= $result->predicate ?>" />

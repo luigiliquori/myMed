@@ -1,6 +1,6 @@
 <?php
 
-class LogoutController extends AbstractController {
+class LogoutController extends AuthenticatedController {
 
 	/**
 	 * Logout an User by destroying the frontend AND backend session
@@ -10,6 +10,8 @@ class LogoutController extends AbstractController {
 	
 			//debug("Logout !");
 		
+			parent::handleRequest();
+			
 			// DELETE BACKEND SESSION
 			$request = new Request("SessionRequestHandler", DELETE);
 			$request->addArgument("accessToken", $_SESSION['user']->session);

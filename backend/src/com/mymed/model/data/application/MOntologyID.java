@@ -19,6 +19,9 @@ package com.mymed.model.data.application;
 /**
  *  Ontology IDs
  *  @author rjolivet
+ *  
+ *  @ToDO rename to OntologyType
+ *  ontologID -> unique hash for ontologies
  */
 public enum MOntologyID {
     

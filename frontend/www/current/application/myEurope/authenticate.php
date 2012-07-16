@@ -3,12 +3,16 @@
 //ob_start("ob_gzhandler");
 require_once 'Template.php';
 Template::init(false);
+if (isset($_SESSION['user'])){ // we should not be there
+	header("Location: ./");
+}
 
 $msg = ""; //feedback text
 
 if(isset($_GET['registration'])) { // registration account validation
 	$request = new Request("v2/AuthenticationRequestHandler", CREATE);
 	$request->addArgument("accessToken", $_GET['accessToken']);
+	$request->addArgument("application", $_GET['application']);
 
 	$responsejSon = $request->send();
 	$responseObject = json_decode($responsejSon);
@@ -47,8 +51,9 @@ if (count($_POST)) {
 						$_SESSION['userType'] = $v->value;
 					else if ($v->key == "perm")
 						$_SESSION['userPerm'] = $v->value;
-				}
-				header("Location: ./index?".(isset($_SESSION['redirect'])?$_SESSION['redirect']:""));
+				};
+				header("Location: ".(isset($_SESSION['redirect'])?$_SESSION['redirect']:"./index"));
+				unset($_SESSION['redirect']);
 			} else {
 				header("Location: ./update?extended");
 			}
@@ -62,7 +67,6 @@ if (count($_POST)) {
 	}
 
 
-
 }
 
 
@@ -74,27 +78,25 @@ if (count($_POST)) {
 <?= Template::head(); ?>
 </head>
 <div data-role="page" id="Authenticate">
-	<div class="wrapper">
-		<div data-role="header" data-theme="c" style="max-height: 38px;">
-			<div data-role="controlgroup" data-type="horizontal" style="text-align: center;">
-				<a href="register" type="button" data-inline="true" data-transition="flip" style="top:2px;">inscription</a>
-			</div>
+	<div data-role="header" data-theme="c" style="max-height: 38px;">
+		<div data-role="controlgroup" data-type="horizontal" style="text-align: center;">
+			<a href="register" type="button" data-inline="true" data-transition="flip" style="top:2px;">inscription</a>
 		</div>
-		<div data-role="content" style='text-align: center;'>
-			
-			<?= $msg ?>
-			<h1><?= Template::APPLICATION_NAME ?></h1>
-			<br />
-			<form action="authenticate" method="post" id="loginForm" data-ajax="false">
+	</div>
+	<div data-role="content" style='text-align: center;'>
+		
+		<?= $msg ?>
+		<h1><?= Template::APPLICATION_NAME ?></h1>
+		<?php echo _('title').'<br />'; ?>
+		<br />
+		<form action="authenticate" method="post" id="loginForm" data-ajax="false">
 
-				<input name="login" placeholder="email" value="" type="text" /><br />
-				<input name="password" placeholder="Mot de passe" value="" type="password" /><br />
-				<div style="text-align: center;" >
-					<input type="submit" data-theme="b" data-inline="true" value="Connexion"/>
-				</div>
-			</form>
-			<div class="push"></div>
-		</div>
+			<input name="login" placeholder="email" value="" type="text" /><br />
+			<input name="password" placeholder="Mot de passe" value="" type="password" /><br />
+			<div style="text-align: center;" >
+				<input type="submit" data-theme="b" data-inline="true" value="Connexion"/>
+			</div>
+		</form>
 	</div>
 	<?= Template::credits(); ?>
 </div>

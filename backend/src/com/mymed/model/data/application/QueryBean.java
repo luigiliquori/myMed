@@ -11,11 +11,13 @@
 package com.mymed.model.data.application;
 
 
+import static com.mymed.utils.PubSub.getDateRange;
+import static com.mymed.utils.PubSub.getFloatRange;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import com.mymed.model.data.AbstractMBean;
-import com.mymed.utils.PubSub;
 
 /**
  * This class represent a predicate bean
@@ -47,10 +49,15 @@ public final class QueryBean extends AbstractMBean {
 		switch (ontologyID) {
 
 		case DATE:
-			res.addAll(PubSub.getDateRange(key, valueStart, valueEnd));
+			res.addAll(getDateRange(key, valueStart, valueEnd));
 			break;
 		case FLOAT:
-			res.addAll(PubSub.getFloatRange(key, valueStart, valueEnd));
+			res.addAll(getFloatRange(key, valueStart, valueEnd));
+			break;
+		case ENUM:
+			String[] values = valueStart.split("-");
+			for (String v : values)
+				res.add(key + v);
 			break;
 		default: // default, no range queries done = exact matchmaking
 			res.add(key + valueStart);
@@ -60,11 +67,11 @@ public final class QueryBean extends AbstractMBean {
 		return res;
 	}
 	
-	public MDataBean toDataBeanStart(String key) {
+	public MDataBean getStart(String key) {
 		return new MDataBean(key, valueStart, ontologyID);
 	}
 	
-	public MDataBean toDataBeanEnd(String key) {
+	public MDataBean getEnd(String key) {
 		return new MDataBean(key, valueEnd, ontologyID);
 	}
 

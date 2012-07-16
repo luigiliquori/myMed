@@ -120,16 +120,5 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
                         com.mymed.utils.MConverter.byteArrayToString(authMap.get(FIELD_LOGIN)), authMap);
     }
 
-	@Override
-	public void create(MUserBean user, MAuthenticationBean authentication,
-			String application) throws AbstractMymedException {
-		// @see v2
-		
-	}
 
-	@Override
-	public void read(String accessToken) throws AbstractMymedException {
-		// @see v2
-		
-	}
 }

@@ -15,7 +15,14 @@
  */
 package com.mymed.controller.core.requesthandler.v2;
 
+
 import static com.mymed.utils.GsonUtils.gson;
+import static com.mymed.utils.PubSub.getIndex;
+import static com.mymed.utils.PubSub.getIndexData;
+import static com.mymed.utils.PubSub.join;
+import static com.mymed.utils.PubSub.makePrefix;
+import static com.mymed.utils.PubSub.Index.joinCols;
+import static com.mymed.utils.PubSub.Index.joinRows;
 
 import java.lang.reflect.Type;
 import java.util.Collections;
@@ -39,8 +46,8 @@ import com.mymed.controller.core.manager.pubsub.v2.PubSubManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.application.MDataBean;
 import com.mymed.model.data.user.MUserBean;
-import com.mymed.utils.GsonUtils;
-import com.mymed.utils.PubSub;
+import com.mymed.utils.PubSub.Index;
+
 
 /**
  * Servlet implementation class PubSubRequestHandler
@@ -57,6 +64,7 @@ public class PublishRequestHandler extends com.mymed.controller.core.requesthand
     /**
      * JSON 'predicate' attribute.
      */
+    
     private static final String JSON_PREDICATE = JSON.get("json.predicate");
     
     private static final String JSON_DETAILS = JSON.get("json.details");
@@ -86,7 +94,7 @@ public class PublishRequestHandler extends com.mymed.controller.core.requesthand
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            final String application, predicate;
+            final String application, predicate, namespace = parameters.get(JSON_NAMESPACE);
 			String predicateListJson = null;
 			final String dataId, userId;
             final List<MDataBean> predicateList;
@@ -105,7 +113,7 @@ public class PublishRequestHandler extends com.mymed.controller.core.requesthand
 				
 				// Get DATA (details)
 				final List<Map<String, String>> details = pubsubManager.read(
-						application, predicate, userId);
+						makePrefix(application, namespace), predicate, userId);
 				if (details.isEmpty()) {
 					throw new IOBackEndException("no results found!", 404);
 				}
@@ -125,28 +133,29 @@ public class PublishRequestHandler extends com.mymed.controller.core.requesthand
 				try {
 	                final Type dataType = new TypeToken<List<MDataBean>>() {}.getType();
 	                predicateList = gson.fromJson(predicateListJson, dataType);
-	                Collections.sort(predicateList);
+
 	            } catch (final JsonSyntaxException e) {
 	                throw new InternalBackEndException("jSon format is not valid");
 	            } catch (final JsonParseException e) {
 	                throw new InternalBackEndException(e.getMessage());
 	            }
+				Collections.sort(predicateList);
 	            int level = predicateList.size();
 	            if (parameters.get("level") != null){
 	            	level = Integer.parseInt(parameters.get("level"));
 	            }
-	            dataId = parameters.get("id") != null ? parameters.get("id") : PubSub.toString(predicateList);
+	            dataId = parameters.get("id") != null ? parameters.get("id") : join(predicateList);
 
 				LOGGER.info("deleting " + dataId + " with level: " + level);
 				for (int i = 1; i <= level; i++) {
-					List<List<PubSub.Index>> predicates = PubSub.getIndex(
+					List<List<Index>> predicates = getIndex(
 							predicateList, i);
 					/* store indexes for this data */
 					// LOGGER.info("indexing "+data_id+" with level: "+i);
-					for (List<PubSub.Index> p : predicates) {
-						pubsubManager.delete(application,
-								PubSub.Index.toRowString(p),
-								PubSub.Index.toColString(p) + dataId,
+					for (List<Index> p : predicates) {
+						pubsubManager.delete(makePrefix(application, namespace),
+								joinRows(p),
+								joinCols(p) + dataId,
 								userId);
 					}
 				}
@@ -184,7 +193,7 @@ public class PublishRequestHandler extends com.mymed.controller.core.requesthand
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            final String application, userId, data, dataId;
+            final String application, userId, data, dataId, namespace = parameters.get(JSON_NAMESPACE);
 			int level;
 			final List<MDataBean> predicateList, dataList;
 			
@@ -212,7 +221,7 @@ public class PublishRequestHandler extends com.mymed.controller.core.requesthand
             final MUserBean userBean = profileManager.read(userId);
             
             /* split dataList between indexable data ("predicates in v1") and other data*/
-            predicateList = PubSub.getPredicate(dataList);
+            predicateList = getIndexData(dataList);
             
             level = predicateList.size();
             if (parameters.get("level") != null){
@@ -220,7 +229,7 @@ public class PublishRequestHandler extends com.mymed.controller.core.requesthand
             }
             
             Collections.sort(predicateList); 
-            dataId = parameters.get("id") != null ? parameters.get("id") : PubSub.toString(predicateList);
+            dataId = parameters.get("id") != null ? parameters.get("id") : join(predicateList);
             LOGGER.info("in "+dataId+" with level: "+level+"."+predicateList.size());
 			switch (code) {
 
@@ -234,20 +243,20 @@ public class PublishRequestHandler extends com.mymed.controller.core.requesthand
 				 */
  
 				for (int i = 1; i <= level; i++) {
-					List<List<PubSub.Index>> predicates = PubSub.getIndex(predicateList, i);
+					List<List<Index>> predicates = getIndex(predicateList, i);
 					/* store indexes for this data */
                     LOGGER.info("indexing "+dataId+" with level: "+i+"."+predicates.size());
-                    for(List<PubSub.Index> p : predicates) {
-                    	String s1 = PubSub.Index.toRowString(p);
-                    	String s2 = PubSub.Index.toColString(p);
+                    for(List<Index> p : predicates) {
+                    	String s1 = joinRows(p);
+                    	String s2 = joinCols(p);
                     	
                     	// TODO Add the predicate list
-                		pubsubManager.create(application, s1, s2, dataId, userBean, dataList, null);
-                		pubsubManager.sendEmails(application, s1, userBean, dataList);
+                		pubsubManager.create(makePrefix(application, namespace), s1, s2, dataId, userBean, dataList, null);
+                		pubsubManager.sendEmailsToSubscribers(makePrefix(application, namespace), s1, userBean, dataList);
                     }
                 }
 				
-				pubsubManager.create(application, dataId, userId, dataList);
+				pubsubManager.create(makePrefix(application, namespace), dataId, userId, dataList);
 
 				break;
 				
@@ -255,8 +264,8 @@ public class PublishRequestHandler extends com.mymed.controller.core.requesthand
 				message.setMethod(JSON_CODE_UPDATE);
 				
 				LOGGER.info("creating/updating "+dataId+" size "+dataList.size());
-				pubsubManager.create(application, dataId, userId, dataList);
-				pubsubManager.sendEmails(application, dataId, userBean, dataList);
+				pubsubManager.create(makePrefix(application, namespace), dataId, userId, dataList);
+				pubsubManager.sendEmailsToSubscribers(makePrefix(application, namespace), dataId, userBean, dataList);
 				
 				break;
 

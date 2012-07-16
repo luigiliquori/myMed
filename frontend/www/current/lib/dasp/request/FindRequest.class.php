@@ -49,6 +49,7 @@ class FindRequest extends Request {
 		parent::__construct("FindRequestHandler", READ);
 		$this->handler	= $handler;
 		$this->predicateList = $predicateList;
+		$this->predicate = $predicateList;
 		$this->user = $user;
 		$this->namespace = $namespace;
 	}
@@ -59,6 +60,7 @@ class FindRequest extends Request {
 	public /*string*/ function send() {
 
 		// Construct the requests
+
 		if ($this->namespace == null) {
 			parent::addArgument("application", APPLICATION_NAME);
 		} else {
@@ -71,6 +73,7 @@ class FindRequest extends Request {
 		} else {
 			parent::addArgument("predicateList", json_encode($this->predicateList));
 		}
+
 		
 		// User => Then get details
 		if (!empty($this->user)) {

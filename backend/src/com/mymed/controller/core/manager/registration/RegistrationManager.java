@@ -1,10 +1,13 @@
 package com.mymed.controller.core.manager.registration;
 
 import static com.mymed.model.data.application.MOntologyID.KEYWORD;
+import static com.mymed.utils.GsonUtils.gson;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.lang.NotImplementedException;
 
 import com.google.gson.JsonSyntaxException;
 import com.mymed.controller.core.exception.AbstractMymedException;
@@ -24,7 +27,6 @@ import com.mymed.utils.HashFunction;
 import com.mymed.utils.mail.Mail;
 import com.mymed.utils.mail.MailMessage;
 import com.mymed.utils.mail.SubscribeMailSession;
-import static com.mymed.utils.GsonUtils.gson;
 
 /**
  * Handles the user registrations in myMed.
@@ -186,4 +188,11 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
             pubSubManager.delete(APP_NAME, accessToken, accessToken, userBean.getId());
         }
     }
+
+	@Override
+	public void read(String application, String accessToken)
+			throws AbstractMymedException {
+		
+		throw new NotImplementedException();	
+	}
 }

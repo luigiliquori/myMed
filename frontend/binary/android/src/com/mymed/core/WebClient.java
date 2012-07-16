@@ -117,12 +117,12 @@ public class WebClient extends WebViewClient {
 	}
 	
 	
-	@Override
-	public void onReceivedError(WebView view, int errorCode,
-			String description, String failingUrl) {
-
-		AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
-		alertDialog.setMessage("non connecté");
-		alertDialog.show();
-	}
+//	@Override
+//	public void onReceivedError(WebView view, int errorCode,
+//			String description, String failingUrl) {
+//
+//		AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
+//		alertDialog.setMessage("non connecté");
+//		alertDialog.show();
+//	}
 }

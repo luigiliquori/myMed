@@ -8,6 +8,8 @@ class StopEmergencyController extends AuthenticatedController {
 	 */
 	public /*void*/ function handleRequest(){
 		
+		parent::handleRequest();
+		
 		/*
 		 * Determine the dehaviour :
 		 * POST data ->  Store the profile
@@ -19,6 +21,7 @@ class StopEmergencyController extends AuthenticatedController {
 			if($_GET["confirm"] == "ok")
 			{
 				//TODO : stop emergency
+				$_SESSION['emergency'] = false;
 				$this->redirectTo("main");
 			}
 		}
