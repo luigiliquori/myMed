@@ -36,12 +36,6 @@ class ExampleObject extends GenericDataBean {
 						"pred2" => GPS,
 						"pred3" => DATE),
 				
-				// Predicate attributes
-				array(
-						"pred1" => "Date de création",
-						"pred2" => "Date de fin",
-						"pred3" => DATE),
-				
 				// Data attributes 
 				array(
 						"data1" => TEXT,

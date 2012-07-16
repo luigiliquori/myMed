@@ -1,4 +1,9 @@
 <? 
+	// Parameters of the template
+	// * $PREFIX_ID : (String) [Optional] Prefix for element IDs (to prevent conflicts in case of several forms (several pages) in the same HTML file.
+	// * 
+
+
 	// Alias
  	$profile = $this->profileAssociation; 
 ?>
