@@ -32,13 +32,15 @@ import java.util.TreeMap;
 import com.google.gson.Gson;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.controller.core.manager.AbstractManager;
 import com.mymed.controller.core.manager.mailtemplates.MailTemplate;
+import com.mymed.controller.core.manager.mailtemplates.v2.MailTemplateManager;
+import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.controller.core.manager.storage.v2.StorageManager;
 import com.mymed.model.data.application.DataBean;
 import com.mymed.model.data.application.SimpleDataBean;
 import com.mymed.model.data.user.MUserBean;
-import com.mymed.utils.MiscUtils;
 import com.mymed.utils.mail.Mail;
 import com.mymed.utils.mail.MailMessage;
 import com.mymed.utils.mail.SubscribeMailSession;
@@ -48,7 +50,31 @@ import com.mymed.utils.mail.SubscribeMailSession;
  * The pub/sub mechanism manager.
  * 
  */
-public class PubSubManager extends com.mymed.controller.core.manager.pubsub.PubSubManager implements IPubSubManager {
+public class PubSubManager extends AbstractManager implements IPubSubManager {
+	
+	 /**
+     * The application controller super column.
+     */
+    protected static final String SC_APPLICATION_CONTROLLER = COLUMNS.get("column.sc.application.controller");
+
+    /**
+     * The data list super column.
+     */
+    protected static final String SC_DATA_LIST = COLUMNS.get("column.sc.data.list");
+
+    /**
+     * The subscribees (users subscribed to a predicate) column family.
+     */
+    protected static final String CF_SUBSCRIBEES = COLUMNS.get("column.cf.subscribees");
+    
+
+    /**
+     * The subscribers (predicates subscribed by a user) column family.
+     */
+    protected static final String CF_SUBSCRIBERS = COLUMNS.get("column.cf.subscribers");
+    
+    protected ProfileManager profileManager;
+    protected MailTemplateManager mailTemplateManager;
 
     final Map<String, byte[]> args;
     
@@ -70,6 +96,8 @@ public class PubSubManager extends com.mymed.controller.core.manager.pubsub.PubS
     	super(storageManager);
         args = new HashMap<String, byte[]>();
         gson = new Gson();
+        profileManager = new ProfileManager(storageManager);
+        mailTemplateManager = new MailTemplateManager(storageManager);
     }
 
     /**
@@ -137,7 +165,7 @@ public class PubSubManager extends com.mymed.controller.core.manager.pubsub.PubS
 		}
 	}
     
-    @Override 
+    @Override
     public void create(
             final String application, 
             final String predicate, 
@@ -156,28 +184,10 @@ public class PubSubManager extends com.mymed.controller.core.manager.pubsub.PubS
                 predicate, 
                 encode(String.valueOf(System.currentTimeMillis())));
     }
- 
     
-    public final Map<String, Map<String, String>> read(
-            final String application, 
-            final List<String> predicate, 
-            final String start, 
-            final String finish)
-                    throws InternalBackEndException, IOBackEndException, UnsupportedEncodingException 
-    {
-    	final Map<String, Map<String, String>> resMap = new TreeMap<String, Map<String, String>>();
-    	resMap.putAll(storageManager.multiSelectList(SC_APPLICATION_CONTROLLER, predicate, start, finish));
-    	return resMap;
-    }
-    
-    /**
-     * get details v2
-     * @see com.mymed.controller.core.manager.pubsub.IPubSubManager#read(java.lang.String, java.lang.String,
-     * java.lang.String)
-     */
-
+    /** read details */
 	@Override
-	public List<DataBean> read_(
+	public List<DataBean> read(
 			final String application,
 			final String predicate)
 					throws InternalBackEndException, IOBackEndException {
@@ -191,6 +201,35 @@ public class PubSubManager extends com.mymed.controller.core.manager.pubsub.PubS
 	        resList.add(d.toDataBean());
 		}
 		return resList;
+	}
+	
+	/** read results */
+	@Override
+	public final Map<String, Map<String, String>> read(
+			final String application, final List<String> predicate,
+			final String start, final String finish)
+			throws InternalBackEndException, IOBackEndException, UnsupportedEncodingException {
+		final Map<String, Map<String, String>> resMap = new TreeMap<String, Map<String, String>>();
+		resMap.putAll(storageManager.multiSelectList(SC_APPLICATION_CONTROLLER,
+				predicate, start, finish));
+		return resMap;
+	}
+	
+	/** reads Subscriptions */
+	@Override
+	public Map<String, String> read(String app_user)
+			throws InternalBackEndException, IOBackEndException {
+
+        final Map<String, String> res = new HashMap<String, String>();
+        final Map<byte[], byte[]> predicates = storageManager.selectAll(CF_SUBSCRIBERS, app_user);
+        for (final Entry<byte[], byte[]> entry : predicates.entrySet()) {
+            final String key = decode(entry.getKey());
+            final String val = decode(entry.getValue());
+            res.put(key, val);
+            LOGGER.info("__"+app_user +" is subscribed to "+ key);
+        }
+
+        return res;
 	}
 	
     
@@ -231,30 +270,16 @@ public class PubSubManager extends com.mymed.controller.core.manager.pubsub.PubS
 	
 	
 	
+	
+	
+	
+	
 	public void sendEmailsToSubscribers(  
             String application,          
             String predicate,
             MUserBean publisher,
             List<DataBean> dataList) 
     {
-        
-        // Prepare a map of key=>val to represent the publication for the mail 
-        HashMap<String, String> publicationMap = new HashMap<String, String>();
-        {
-            final List<DataBean> ontologyList = new ArrayList<DataBean>();
-            
-            // Add Data Beans 
-            ontologyList.addAll(dataList);
-            
-            // Transform list of ontologies to map<String, String>
-            for (DataBean dataBean : ontologyList) {
-                // Dont set empty values
-                if (MiscUtils.empty(dataBean.getValue().get(0))) continue;
-
-                publicationMap.put(dataBean.getKey(), dataBean.getValue().get(0));
-            }
-            
-        }
         
         // Built list of recipients
         final List<MUserBean> recipients = new ArrayList<MUserBean>();
@@ -288,7 +313,7 @@ public class PubSubManager extends com.mymed.controller.core.manager.pubsub.PubS
         // Set data map
         data.put("base_url", url);
         data.put("application", applicationID);
-        data.put("publication", publicationMap);
+        data.put("publication", dataList);
         data.put("publisher", publisher );
 
         // Loop on recipients

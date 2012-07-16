@@ -172,12 +172,12 @@ public class PubSubTests extends TestValues {
 			LOGGER.info("ext find results : {}", resList);
 			
 			if (resList.size() > 0){
-				final List<Map<String, String>> details = pubsubManager.read(
-						makePrefix(application, namespace), resList.get(0).get("id"), resList.get(0).get("publisherID"));
+				final List<DataBean> details = pubsubManager.read(
+						makePrefix(application, namespace), resList.get(0).get("id"));
 				
 				
-				for (Map<String, String> spcols : details){
-					LOGGER.info("ext find first details : {}", spcols);
+				for (DataBean d : details){
+					LOGGER.info("ext find first details : {}", d);
 		    	}
 			}	
 

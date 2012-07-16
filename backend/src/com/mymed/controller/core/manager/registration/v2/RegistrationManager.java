@@ -35,7 +35,7 @@ import com.mymed.controller.core.manager.AbstractManager;
 import com.mymed.controller.core.manager.authentication.AuthenticationManager;
 import com.mymed.controller.core.manager.authentication.IAuthenticationManager;
 import com.mymed.controller.core.manager.mailtemplates.MailTemplate;
-import com.mymed.controller.core.manager.mailtemplates.MailTemplateManager;
+import com.mymed.controller.core.manager.mailtemplates.v2.MailTemplateManager;
 import com.mymed.controller.core.manager.pubsub.v2.IPubSubManager;
 import com.mymed.controller.core.manager.pubsub.v2.PubSubManager;
 import com.mymed.controller.core.manager.registration.IRegistrationManager;
@@ -144,7 +144,7 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
    
     public void read( final String application, final String accessToken) throws AbstractMymedException {
         // Retrieve the user profile, temporary data used for pending registration
-        final List<DataBean> list = pubSubManager.read_(application + ":pendingAccount", accessToken);
+        final List<DataBean> list = pubSubManager.read(application + ":pendingAccount", accessToken);
         if (list.size() == 0){
             throw new InternalBackEndException("account registration not found");
     	}
@@ -204,7 +204,8 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
         MailTemplate template = this.mailTemplateManager.getTemplate(
                 "myMed", 
                 "registration", 
-                language);
+                language,
+                "v2");
         
         // Render the template
         String subject = template.renderSubject(data);

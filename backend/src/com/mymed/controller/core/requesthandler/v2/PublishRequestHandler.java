@@ -57,12 +57,20 @@ import com.mymed.utils.PubSub.Index;
  */
 @MultipartConfig
 @WebServlet("/v2/PublishRequestHandler")
-public class PublishRequestHandler extends com.mymed.controller.core.requesthandler.matchmaking.PublishRequestHandler {
+public class PublishRequestHandler extends AbstractRequestHandler {
 
     /**
      * Generated serial ID.
      */
     private static final long serialVersionUID = 7612306539244045439L;
+    
+    /**
+     * JSON 'predicate' attribute.
+     */
+    protected static final String JSON_NAMESPACE = JSON.get("json.namespace");
+
+    protected PubSubManager pubsubManager;
+    protected ProfileManager profileManager;
 
     /**
      * JSON 'predicate' attribute.
@@ -106,7 +114,7 @@ public class PublishRequestHandler extends com.mymed.controller.core.requesthand
 				message.setMethod(JSON_CODE_READ);
 				
 				// Get DATA (details)
-				final List<DataBean> details = pubsubManager.read_(
+				final List<DataBean> details = pubsubManager.read(
 						makePrefix(application, namespace), predicate);
 				if (details.isEmpty()) {
 					throw new IOBackEndException("no results found!", 404);
