@@ -40,11 +40,17 @@ public interface IPubSubManager {
    * @param publisher
    *          the user who insert the new predicate
    */
-  void create(String application, String predicate, String subPredicate, MUserBean publisher, List<MDataBean> dataList)
-      throws InternalBackEndException, IOBackEndException;
+  void create(
+          String application, 
+          String predicate, 
+          String subPredicate, 
+          MUserBean publisher, 
+          List<MDataBean> dataList, 
+          List<MDataBean> predicateList)
+                  throws InternalBackEndException, IOBackEndException;
 
   /**
-   * Insert a new Predicate in the dataBase - SUBSCRIBE.
+   *  SUBSCRIBE
    * 
    * @param application
    * @param predicate
@@ -52,8 +58,11 @@ public interface IPubSubManager {
    * @throws InternalBackEndException
    * @throws IOBackEndException
    */
-  void create(String application, String predicate, MUserBean publisher) throws InternalBackEndException,
-      IOBackEndException;
+  void create(
+          String application, 
+          String predicate, 
+          MUserBean subscriber) 
+                  throws InternalBackEndException, IOBackEndException;
 
   /**
    * @param application
@@ -62,8 +71,10 @@ public interface IPubSubManager {
    *          the predicateID to read
    * @return the list of the publisher who provide this predicate
    */
-  List<Map<String, String>> read(String application, String predicate) throws InternalBackEndException,
-      IOBackEndException;
+  List<Map<String, String>> read(
+          String application, 
+          String predicate) 
+                  throws InternalBackEndException, IOBackEndException;
   
   /**
    * @param application
@@ -78,9 +89,15 @@ public interface IPubSubManager {
    *           order         
    * @return the list of the publisher who provide this predicate
    */
-  List<Map<String, String>> read(String application, String predicate, String start, int count, Boolean reversed) throws InternalBackEndException,
-      IOBackEndException, UnsupportedEncodingException;
+  List<Map<String, String>> read(
+          String application, 
+          String predicate, 
+          String start, 
+          int count, 
+          Boolean reversed) 
+                  throws InternalBackEndException, IOBackEndException, UnsupportedEncodingException;
 
+  
   /**
    * Get the DataList Entry related to application + predicate + userID.
    * 
@@ -91,8 +108,11 @@ public interface IPubSubManager {
    * @throws InternalBackEndException
    * @throws IOBackEndException
    */
-  List<Map<String, String>> read(String application, String predicate, String userID) throws InternalBackEndException,
-      IOBackEndException;
+  List<Map<String, String>> read(
+          String application, 
+          String predicate, 
+          String userID) 
+                  throws InternalBackEndException, IOBackEndException;
   
   
   /**
@@ -104,10 +124,9 @@ public interface IPubSubManager {
    * @throws InternalBackEndException
    * @throws IOBackEndException
    */
-  //TODO "put this method in a more appropriate place"
   
-  Map<String, String> read(String user) throws InternalBackEndException,
-	IOBackEndException;
+  Map<String, String> read(String user) 
+          throws InternalBackEndException, IOBackEndException;
 
   /**
    * Delete an existing predicate
@@ -117,7 +136,12 @@ public interface IPubSubManager {
    * @param predicate
    *          The predicate to delete
    */
-  void delete(String application, String predicate, String subPredicate, String publisherID)  throws InternalBackEndException, IOBackEndException;
+  void delete(
+          String application, 
+          String predicate, 
+          String subPredicate, 
+          String publisherID) 
+                  throws InternalBackEndException, IOBackEndException;
   
   /**
    * Delete an existing predicate in Subscribers CF, you seem to like multiple functions with same names and different arguments so here's a new one
@@ -129,6 +153,10 @@ public interface IPubSubManager {
    * @param predicate
    *          The predicate subscription pattern to delete from the row
    */
-  void delete(String application, String user, String predicate)  throws InternalBackEndException, IOBackEndException;
+  void delete(
+          String application, 
+          String user, 
+          String predicate)  
+                  throws InternalBackEndException, IOBackEndException;
 
 }

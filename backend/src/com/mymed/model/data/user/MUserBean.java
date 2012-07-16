@@ -16,6 +16,7 @@
 package com.mymed.model.data.user;
 
 import com.mymed.model.data.AbstractMBean;
+import static com.mymed.utils.MiscUtils.*;
 
 /**
  * This class represent an user profile
@@ -27,6 +28,8 @@ public final class MUserBean extends AbstractMBean {
      * Generated serial ID.
      */
     private static final long serialVersionUID = 7136653831584880254L;
+    
+    private static final String DEFAULT_LANG = "fr";
 
     /**
      * ID := SOCIALNETWORKNAME_SOCIALNETWORKID<br>
@@ -70,6 +73,9 @@ public final class MUserBean extends AbstractMBean {
 
     /** TO MANAGE THE DIFFERENT PERMISSIONS */
     private String groups = null;
+    
+    /** Prefered language: "fr", "en", "it", ... */
+    private String lang = null;
 
     /* --------------------------------------------------------- */
     /* Constructors */
@@ -522,5 +528,20 @@ public final class MUserBean extends AbstractMBean {
     public void setGroups(final String groups) {
         this.groups = groups;
     }
+
+	/**
+	 * @return Prefered language : "fr", "en", "it"
+	 */
+	public String getLang() {
+	    if (empty(this.lang)) return DEFAULT_LANG;
+		return lang;
+	}
+
+	/**
+	 * @param Prefered language : "fr", "en", "it"
+	 */
+	public void setLang(String lang) {
+		this.lang = lang;
+	}
 
 }

@@ -2,4 +2,5 @@
 <resources>
     <string name="hello">Hello World, Mobile!</string>
     <string name="app_name">myMed</string>
+    <string name="loading_msg">Chargement en cours de myMed &#8230;</string>
 </resources>

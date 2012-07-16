@@ -15,6 +15,11 @@
  */
 package com.mymed.controller.core.requesthandler.matchmaking;
 
+import static com.mymed.utils.GsonUtils.gson;
+import static com.mymed.utils.PubSub.makePrefix;
+
+import java.lang.reflect.Type;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -23,18 +28,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.pubsub.PubSubManager;
-import com.mymed.controller.core.requesthandler.AbstractRequestHandler;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
+import com.mymed.model.data.application.MDataBean;
 import com.mymed.model.data.user.MUserBean;
 
 /**
  * Servlet implementation class PubSubRequestHandler
  */
-public class SubscribeRequestHandler extends AbstractRequestHandler {
+public class SubscribeRequestHandler extends AbstractMatchMaking {
     /**
      * Generated serial ID.
      */
@@ -70,7 +76,7 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            final String application, predicate, user;
+            String application, predicate, predicateList = null, user, namespace = parameters.get(JSON_NAMESPACE);
             
             switch (code) {
                 case READ :
@@ -80,7 +86,7 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
                 	} else if((user = parameters.get(JSON_USERID)) == null){
                 		throw new InternalBackEndException("missing userID argument!");
                 	}
-                	final Map<String, String> predicates = pubsubManager.read(application + user);
+                	final Map<String, String> predicates = pubsubManager.read(makePrefix(application, namespace) + user);
                  	message.setDescription("Subscriptions found for Application: " + application + " User: " + user);
  		            LOGGER.info("Subscriptions found for Application: " + application + " User: " + user);
  		            message.addDataObject(JSON_SUBSCRIPTIONS, predicates);
@@ -90,13 +96,25 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
                 	message.setMethod(JSON_CODE_DELETE);
                 	if ((application = parameters.get(JSON_APPLICATION)) == null) {
                         throw new InternalBackEndException("missing application argument!");
-                    } else if ((predicate = parameters.get(JSON_PREDICATE)) == null) {
-                        throw new InternalBackEndException("missing predicate argument!");
+                	} else if ((predicate = parameters.get(JSON_PREDICATE)) == null && (predicateList = parameters.get(JSON_PREDICATE_LIST)) == null) {
+    					throw new InternalBackEndException("missing predicate or predicateList argument!");
                     } else if ((user = parameters.get(JSON_USERID)) == null) {
                         throw new InternalBackEndException("missing userID argument!");
                     }
+                	
+                	 if (predicateList != null) {
+     					final Type dataType = new TypeToken<List<MDataBean>>() {}.getType();
+     					final List<MDataBean> predicateListObject = gson.fromJson(predicateList, dataType);
+     					List<String> predList = getPredicate(
+     					        predicateListObject, 
+     					        predicateListObject.size(),
+     					        predicateListObject.size());
+     					
+     					// Sub predicate
+     					predicate = getSubPredicate(predicateListObject);
+     				}
 
-                	pubsubManager.delete(application, user, predicate);
+                	pubsubManager.delete(makePrefix(application, namespace), user, predicate);
                 	LOGGER.info("subscription deleted: " + predicate +" for user: " + user);
                 	message.setDescription("subscription deleted: " + predicate +" for user: " + user);
                         
@@ -116,9 +134,13 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
      *      response)
+     * Create a subscription
      */
     @Override
-    protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
+    protected void doPost(
+            final HttpServletRequest request, 
+            final HttpServletResponse response) throws ServletException {
+        
         final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
 
         try {
@@ -127,27 +149,39 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            final String application, predicate, user;
+            String application, predicate, predicateList = null, user, namespace = parameters.get(JSON_NAMESPACE);
             user = parameters.get(JSON_USERID) != null ? parameters.get(JSON_USERID) : parameters.get(JSON_USER);
 
             if (code.equals(RequestCode.CREATE)) {
                 if ((application = parameters.get(JSON_APPLICATION)) == null) {
                     throw new InternalBackEndException("missing application argument!");
-                } else if ((predicate = parameters.get(JSON_PREDICATE)) == null) {
-                    throw new InternalBackEndException("missing predicate argument!");
+                } else if ((predicate = parameters.get(JSON_PREDICATE)) == null && (predicateList = parameters.get(JSON_PREDICATE_LIST)) == null) {
+					throw new InternalBackEndException("missing predicate or predicateList argument!");
                 } else if (user == null) {
                     throw new InternalBackEndException("missing userID argument!");
                 }
+                
+                if (predicateList != null) {
+					final Type dataType = new TypeToken<List<MDataBean>>() {}.getType();
+					final List<MDataBean> predicateListObject = gson.fromJson(predicateList, dataType);
+					List<String> predicates = getPredicate(
+					        predicateListObject, 
+					        predicateListObject.size(),
+					        predicateListObject.size());
+					
+					// Sub predicate
+					predicate = getSubPredicate(predicateListObject);
+				}
 
                 MUserBean userBean;
                 try {
-                	userBean = getGson().fromJson(user, MUserBean.class);
+                	userBean = gson.fromJson(user, MUserBean.class);
                 } catch (final JsonSyntaxException e) {
                 	userBean = profileManager.read(user);
                 }
                 try {
 
-                    pubsubManager.create(application, predicate, userBean);
+                    pubsubManager.create(makePrefix(application, namespace), predicate, userBean);
                     LOGGER.info("predicate subscribed: " + predicate);
                     message.setDescription("predicate subscribed: " + predicate);
                 } catch (final JsonSyntaxException e) {

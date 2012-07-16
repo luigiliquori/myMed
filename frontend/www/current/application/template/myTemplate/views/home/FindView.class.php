@@ -40,21 +40,28 @@ class FindView extends MainView {
 			<form action="#ResultView" method="post" name="FindForm" id="FindForm" enctype="multipart/form-data">
 				<!-- Define the method to call -->
 				<input type="hidden" name="method" value="find" />
+				<input type="hidden" name="numberOfOntology" value="3" />
 				<br />
 				
 				<!-- Key1 -->
 				<span><?= $_SESSION['dictionary'][LG]["ontology0"] ?> :</span>
 				<input type="text" name="data" value="" />
+				<?php $dataBean = new MDataBean("data", null, KEYWORD); ?>
+				<input type="hidden" name="ontology0" value="<?= urlencode(json_encode($dataBean)); ?>">
 				<br />
 				
 				<!-- Key2 -->
 				<span><?= $_SESSION['dictionary'][LG]["ontology1"] ?> :</span>
 				<input type="text" name="key2" value="" />
+				<?php $dataBean = new MDataBean("key2", null, KEYWORD); ?>
+				<input type="hidden" name="ontology1" value="<?= urlencode(json_encode($dataBean)); ?>">
 				<br />
 				
 				<!-- Key3 -->
 				<span><?= $_SESSION['dictionary'][LG]["ontology2"] ?> :</span>
 				<input type="text" name="key3" value="" />
+				<?php $dataBean = new MDataBean("key3", null, KEYWORD); ?>
+				<input type="hidden" name="ontology2" value="<?= urlencode(json_encode($dataBean)); ?>">
 				<br />
 				
 				<center><a href="#" data-role="button" onclick="document.FindForm.submit()" data-inline="true" data-icon="search"><?= $_SESSION['dictionary'][LG]["view2"] ?></a></center>

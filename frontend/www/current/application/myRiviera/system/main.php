@@ -28,7 +28,7 @@
 	/* ----------------------------------------------------------------------------- */
 	// TODO - MOVE THIS PART
 	// Try to get th position && Store the position of the user
-	if(USER_CONNECTED) {
+	/*if(USER_CONNECTED) {
 		
 		//by ajax to do it after geolocation
 		
@@ -63,7 +63,7 @@
 		if($responseObject->status == 200) {
 			$_SESSION['position'] =  $responseObject->dataObject->position;
 		}
-	}
+	}*/
 	/* ----------------------------------------------------------------------------- */
 	
 	// Select the template & call it

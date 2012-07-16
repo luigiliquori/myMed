@@ -51,9 +51,7 @@ class TemplateManager {
 			
 		</head>
 		
-		<body onload="hideLoadingBar();">
-		<!-- Loading dialog -->
-		<div id="loading" style="display:block;"><center><span>Chargement en cours...</span></center></div>
+		<body>
 		<!-- Disconnect form -->
 		<form action="?application='<?= APPLICATION_NAME ?>'" method="post" name="disconnectForm" id="disconnectForm">
 			<input type="hidden" name="disconnect" value="1" />

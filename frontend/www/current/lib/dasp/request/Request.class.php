@@ -74,8 +74,8 @@ class Request {
 	}
 
 	public /*Boolean*/ function setMultipart($multipart = false) {
-		$this->multipart = $murequire_once('PhpConsole.php');
-PhpConsole::start();ltipart;
+		$this->multipart = $multipart;
+
 	}
 
 	public /*Boolean*/ function isMultipart() {

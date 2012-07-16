@@ -16,6 +16,7 @@
 */
 
 /* OntologyID (predicate) */
+define('FLOAT'		,-1);
 define('KEYWORD'	, 0);
 define('GPS'		, 1);
 define('ENUM'		, 2);
@@ -25,6 +26,7 @@ define('TEXT'		, 4);
 define('PICTURE'	, 5);
 define('VIDEO'		, 6);
 define('AUDIO'		, 7);
+
 
 /**
  * Represente an ontology in the myMed model

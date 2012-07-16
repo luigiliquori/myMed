@@ -42,6 +42,7 @@
 		$profile = new Profile();
 		$profile->printTemplate();
 		include('views/dialog/updateProfile.php');
+		include('views/dialog/share.php');
 		
 	} else { // LOGIN PAGE ---------------------------
 		

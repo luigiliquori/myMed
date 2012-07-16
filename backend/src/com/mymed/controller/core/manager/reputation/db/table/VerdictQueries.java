@@ -5,15 +5,16 @@
 
 package com.mymed.controller.core.manager.reputation.db.table;
 
-import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.controller.core.manager.reputation.db.facade.TransactionManager;
-import com.mymed.controller.core.manager.reputation.db.table.Verdict;
-import com.mymed.utils.MConverter;
-import com.mymed.utils.TimeUuid;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.cassandra.thrift.ColumnOrSuperColumn;
+
+import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.controller.core.manager.reputation.db.facade.TransactionManager;
+import com.mymed.utils.MConverter;
+import com.mymed.utils.TimeUuid;
 
 /**
  * This class performs some queries to return verdicts.

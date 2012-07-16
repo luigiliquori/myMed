@@ -16,6 +16,7 @@
 			<ul>
 				<li>code</li>
 				<li>application</li>
+				<li>namespace*</li>
 				<li>predicate</li>
 				<li>data</li>
 				<li>userID</li>
@@ -51,6 +52,7 @@
 					</div> ]
 				</li>
 				<li>level: (*optional) sets the level of broadcasting in the Index Table (default: predicate length)</li>
+				<li>namespace: (*optional) set a prefix to the keys stored into the database</li>
 			</ul>
 		</td>
 	</tr>
@@ -61,6 +63,7 @@
 			<ul>
 				<li>code</li>
 				<li>application</li>
+				<li>namespace*</li>
 				<li>predicate</li>
 				<li>userID</li>
 				<li>accessToken</li>
@@ -82,6 +85,7 @@
 						},<br /> ...
 					</div> ]
 				</li>
+				<li>namespace: (*optional) set a prefix to the keys stored into the database</li>
 			</ul>
 		</td>
 	</tr>

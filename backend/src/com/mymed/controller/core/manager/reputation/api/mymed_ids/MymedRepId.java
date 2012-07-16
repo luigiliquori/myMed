@@ -5,8 +5,9 @@
 
 package com.mymed.controller.core.manager.reputation.api.mymed_ids;
 
-import com.mymed.controller.core.manager.reputation.globals.PKConstants;
 import java.util.ArrayList;
+
+import com.mymed.controller.core.manager.reputation.globals.PKConstants;
 
 
 /**

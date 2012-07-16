@@ -60,6 +60,14 @@
 	display:none;
 }
 
+.ui-header .ui-title {
+	margin: .6em 30% .6em;
+}
+
+.ui-li-divider, .ui-li-static {
+	padding: 1px 15px;
+}
+
 .poiContent {
 	font-family: Helvetica, Arial, sans-serif;
     text-decoration: none;

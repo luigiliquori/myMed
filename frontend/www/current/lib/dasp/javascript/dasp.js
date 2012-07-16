@@ -1,5 +1,6 @@
 /*
  * Copyright 2012 INRIA 
+
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,9 +27,14 @@ var currentApplication;
 var directionsService;
 var map;
 
-var currentPos; //user's geolocation
+var currentPos; //user's google.maps.LatLng location 
 var currentPlace; //user's String position
-var pos; //position in the itinary
+
+var pos; //position in the itinary, should be moved to myRiviera
+
+/**
+ * @TODO rename that file map.js? 
+ */
 
 /* --------------------------------------------------------- */
 /* Setup Lib */
@@ -116,7 +122,10 @@ function focusOnPosition(latitude, longitude) {
  */
 function focusOnLatLng(position) {
 
-	// memorize the position
+	// make sure position not null
+	position= position || currentPos || new google.maps.LatLng(43.696036, 7.265592);
+	
+	// memorize the position in the cityway itinary // should be moved to riviera specific
 	pos = position;
 
 	// focus on the position
@@ -208,34 +217,34 @@ function publishDASPRequest(formID) {
 }
 
 function getPosition(){
-	var params = {
-		'userID': $("#userID").val(),
-		'accessToken': $("#accessToken").val(),
-		'code': 1
-	};
 	
 	$.ajax({
-		url: "../../backend/PositionRequestHandler",
-		data: params,
-		dataType: "json",
+		//url: "../../backend/PositionRequestHandler",
+		url: "../../lib/dasp/ajax/Position.php",
 		success: function(data){
+			data = JSON.parse(data);
 			currentPos = new google.maps.LatLng(
 				data.dataObject.position.latitude,
 				data.dataObject.position.longitude
 			);
 			currentPlace = data.dataObject.position.formattedAddress;
+			
+			if (focusOnCurrentPosition) {
+				focusOnLatLng(currentPos);
+				focusOnCurrentPosition = false;
+			}
 		}
 	});
 }
 
-function updatePosition(data){	
+function updatePosition(params){	
 	$.ajax({
-		url: "../../backend/PositionRequestHandler",
+		//url: "../../backend/PositionRequestHandler",
+		url: "../../lib/dasp/ajax/Position.php",
 		type: "POST",
-		data: data,
-		dataType: "json",
+		data: params,
 		success: function(data){
-			
+			console.log(data);
 		}
 	});
 }

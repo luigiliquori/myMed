@@ -51,6 +51,7 @@ public interface IStorageManager {
      */
     void insertSlice(String tableName, String primaryKey, Map<String, byte[]> args) throws IOBackEndException,
                     InternalBackEndException;
+    
 
     /**
      * Insert a new entry in the database
@@ -126,6 +127,9 @@ public interface IStorageManager {
      */
     Map<byte[], byte[]> selectAll(String tableName, String primaryKey) throws IOBackEndException,
                     InternalBackEndException;
+    
+    Map<String, String> selectAllStr(String tableName, String primaryKey) throws IOBackEndException,
+    InternalBackEndException;
     
     /**
      * Get the value of a Column family
@@ -223,4 +227,8 @@ public interface IStorageManager {
      * @throws InternalBackEndException
      */
     void removeAll(String tableName, String key) throws InternalBackEndException;
+    
+    public Map<String, Map<String, String>> multiSelectList(final String tableName, final List<String> keys,
+    		final String start, final String finish) 
+    			throws IOBackEndException, InternalBackEndException, UnsupportedEncodingException;
 }

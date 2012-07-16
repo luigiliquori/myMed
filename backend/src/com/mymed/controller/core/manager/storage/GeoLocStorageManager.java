@@ -34,6 +34,7 @@ import org.apache.cassandra.thrift.Mutation;
 import org.apache.cassandra.thrift.SlicePredicate;
 import org.apache.cassandra.thrift.SliceRange;
 import org.apache.cassandra.thrift.SuperColumn;
+import static com.mymed.utils.MiscUtils.*;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
@@ -177,15 +178,20 @@ public class GeoLocStorageManager extends StorageManager implements IGeoLocStora
   }
 
   @Override
-  public void insertColumn(final String tableName, final String primaryKey, final String columnName, final byte[] value)
-      throws InternalBackEndException {
-    try {
-      insertColumn(tableName, primaryKey, columnName.getBytes(ENCODING), value);
-    } catch (final UnsupportedEncodingException e) {
-      e.printStackTrace();
-      throw new InternalBackEndException("UnsupportedEncodingException with\n" + "\t- columnFamily = " + tableName
-          + "\n" + "\t- key = " + primaryKey + "\n" + "\t- columnName = " + columnName + "\n");
-    }
+  public void insertColumn(
+          final String tableName, 
+          final String primaryKey, 
+          final String columnName, 
+          final byte[] value)
+                  throws InternalBackEndException 
+  {
+
+      insertColumn(
+              tableName, 
+              primaryKey, 
+              encode(columnName), 
+              value);
+   
   }
 
   @Override
@@ -203,18 +209,25 @@ public class GeoLocStorageManager extends StorageManager implements IGeoLocStora
   }
 
   @Override
-  public void insertSuperColumn(final String tableName, final String primaryKey, final String superColumn,
-      final String columnName, final byte[] value) throws InternalBackEndException {
+  public void insertSuperColumn(
+          final String tableName, 
+          final String primaryKey, 
+          final String superColumn,
+          final String columnName, 
+          final byte[] value) 
+                  throws InternalBackEndException 
+  {
 
     final long timestamp = A_THOUSAND * System.currentTimeMillis();
-    try {
-      insertExpiringColumn(tableName, primaryKey, superColumn.getBytes(), columnName.getBytes(ENCODING), value,
-          timestamp, 0);
-    } catch (final UnsupportedEncodingException e) {
-      e.printStackTrace();
-      throw new InternalBackEndException("UnsupportedEncodingException with\n" + "\t- columnFamily = " + tableName
-          + "\n" + "\t- key = " + primaryKey + "\n" + "\t- columnName = " + columnName + "\n");
-    }
+
+      insertExpiringColumn(
+              tableName, 
+              primaryKey, 
+              superColumn.getBytes(), 
+              encode(columnName), 
+              value,
+              timestamp, 
+              0);
   }
 
   @Override

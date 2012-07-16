@@ -12,16 +12,18 @@ import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
-import android.app.ProgressDialog;
+import android.app.AlertDialog;
 import android.graphics.Bitmap;
 import android.util.Log;
+import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class WebClient extends WebViewClient {
 
 	private Mobile activity;
-	private ProgressDialog progressDialog;
 
 	private static final int CREATE = 0;
 	private static final int READ = 1;
@@ -34,6 +36,9 @@ public class WebClient extends WebViewClient {
 
 	@Override
 	public void onPageStarted(WebView view, String url, Bitmap favicon) {
+		
+		((ProgressBar) activity.findViewById(R.id.progressBar1)).setVisibility(View.VISIBLE);
+		
 		Log.v(Mobile.TAG, "*****************URL=" + url);
 		if(url.matches(".*mobile_binary::.*")){
 			Log.i(Mobile.TAG, "Receive a mobile API call");
@@ -87,19 +92,37 @@ public class WebClient extends WebViewClient {
 
 
 //	public void onLoadResource (WebView view, String url) {
-//		if (progressDialog == null && !url.matches(".*map.*")) {
-//			progressDialog = new ProgressDialog(activity);
-//			progressDialog.setMessage("Chargement en cours...");
-//			progressDialog.show();
+//		;
+//		if (activity.getProgressDialog() == null && !url.matches(".*map.*")) {
+//			ProgressDialog dialog = ProgressDialog.show(activity, "", "Chargement en cours...", true);
+//			activity.setProgressDialog(dialog);
 //		}
 //	}
 //
-//	public void onPageFinished(WebView view, String url) {
-//		if (progressDialog != null) {
-//			if (progressDialog.isShowing()) {
-//				progressDialog.dismiss();
-//				progressDialog = null;
+	public void onPageFinished(WebView view, String url) {
+		ProgressBar bar = (ProgressBar) activity.findViewById(R.id.progressBar1);
+		bar.setVisibility(View.GONE);
+		if (url.matches(".*/application/"+activity.getString(R.string.app_name)+"/") || url.matches(".*mymed.fr/")){
+			Log.v(Mobile.TAG, "main page load");
+			((TextView) activity.findViewById(R.id.textView1)).setVisibility(View.GONE);
+			activity.findViewById(R.id.imageView1).setVisibility(View.GONE);
+			activity.findViewById(R.id.imageView2).setVisibility(View.GONE);
+		}
+		
+//		if (activity.getProgressDialog() != null) {
+//			if (activity.getProgressDialog().isShowing()) {
+//				activity.getProgressDialog().dismiss();
 //			}
 //		}
-//	}
+	}
+	
+	
+	@Override
+	public void onReceivedError(WebView view, int errorCode,
+			String description, String failingUrl) {
+
+		AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
+		alertDialog.setMessage("non connecté");
+		alertDialog.show();
+	}
 }

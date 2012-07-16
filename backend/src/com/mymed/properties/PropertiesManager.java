@@ -87,7 +87,9 @@ public class PropertiesManager {
 
       try {
         in = this.getClass().getClassLoader().getResourceAsStream(fileName);
-        properties.load(in);
+        if (in != null) {
+            properties.load(in);
+        }
       } catch (final FileNotFoundException ex) {
         // We should never, ever, ever get here!
         MLogger.getLogger().debug("Impossible to find '{}' properties file in the PATH", fileName, ex);

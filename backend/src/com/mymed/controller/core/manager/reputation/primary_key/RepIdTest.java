@@ -5,17 +5,21 @@
 
 package com.mymed.controller.core.manager.reputation.primary_key;
 
-import com.mymed.controller.core.manager.reputation.api.mymed_ids.MymedAppId;
-import com.mymed.controller.core.manager.reputation.api.mymed_ids.MymedUserId;
-import com.mymed.controller.core.manager.reputation.api.mymed_ids.MymedAppUserId;
-import com.mymed.controller.core.manager.reputation.api.mymed_ids.ReputationRole;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import com.mymed.controller.core.manager.reputation.api.mymed_ids.MymedAppId;
+import com.mymed.controller.core.manager.reputation.api.mymed_ids.MymedAppUserId;
+import com.mymed.controller.core.manager.reputation.api.mymed_ids.MymedUserId;
+import com.mymed.controller.core.manager.reputation.api.mymed_ids.ReputationRole;
 
 /**
  *

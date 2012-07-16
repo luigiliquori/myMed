@@ -184,16 +184,11 @@ public abstract class AbstractRequestHandler extends HttpServlet {
         }
     }
 
-    /** Google library to handle jSon request */
-    private Gson gson;
-
     /** The response/feedback printed */
     private String responseText = null;
 
     protected AbstractRequestHandler() {
         super();
-
-        gson = new Gson();
 
         // Set a default global URI to be used by the backend, if we cannot get the host name
         // we fallback to use localhost.
@@ -361,13 +356,6 @@ public abstract class AbstractRequestHandler extends HttpServlet {
         }
     }
 
-    public Gson getGson() {
-        return gson;
-    }
-
-    public void setGson(final Gson gson) {
-        this.gson = gson;
-    }
 
     public String getResponseText() {
         return responseText;

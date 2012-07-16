@@ -42,6 +42,15 @@ $(function() {
 <script src="/lib/jquery/datebox/jquery.mobile.datebox.min.js"></script>
 <link href="/lib/jquery/datebox/jquery.mobile.datebox.min.css" rel="stylesheet" />
 
+<!-- Share this -->
+<script type="text/javascript">var switchTo5x=true;</script>
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher: "f0ca88be-be8a-427a-983a-f670821d7ad2"}); </script>
+
+<!--  SimpleDialog -->
+<script src="../../lib/jquery/simpledialog/jquery.mobile.simpledialog2.min.js"></script>
+<link href="../../lib/jquery/simpledialog/jquery.mobile.simpledialog.min.css" rel="stylesheet" />
+
 </head>
 
 <body onload="hideLoadingBar();">

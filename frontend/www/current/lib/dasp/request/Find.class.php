@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  * Copyright 2012 INRIA
 *
@@ -63,42 +63,16 @@ class Find extends Request {
 
 		// Construct the requests
 		parent::addArgument("application", $_POST['application']);
-
-		if(isset($_POST['broadcast'])){		// Broadcast predicate algorithm
-			$result = array();
-			for($i=1 ; $i<pow(2, $numberOfPredicate) ; $i++){
-				$mask = $i;
-				$predicate = "";
-				$j = 0;
-				while($mask > 0){
-					if($mask&1 == 1){
-						$predicate .= $predicateArray[$j]->key . $predicateArray[$j]->value;
-					}
-					$mask >>= 1;
-					$j++;
-				}
-				if($predicate != ""){
-					parent::addArgument("predicate", $predicate);
-						
-					$responsejSon = parent::send();
-					$responseObject = json_decode($responsejSon);
-						
-					if($responseObject->status == 200) {
-						$result = array_merge($result, json_decode($responseObject->data->results));
-					}
-				}
-			}
-			$this->handler->setSuccess(json_encode($result));
-		} else {		// Classical matching
-			parent::addArgument("predicate", $predicate);
-				
-			$responsejSon = parent::send();
-			$responseObject = json_decode($responsejSon);
-			if($responseObject->status != 200) {
-				$this->handler->setError($responseObject->description);
-			} else {
-				$this->handler->setSuccess($responseObject->data->results);
-			}
+// 		parent::addArgument("predicate", $predicate); // DEPRECATED
+		parent::addArgument("predicateList", json_encode($predicateArray));
+		
+		$responsejSon = parent::send();
+		$responseObject = json_decode($responsejSon);
+		
+		if($responseObject->status != 200) {
+			$this->handler->setError($responseObject->description);
+		} else {
+			$this->handler->setSuccess($responseObject->data->results);
 		}
 
 		return $responsejSon;

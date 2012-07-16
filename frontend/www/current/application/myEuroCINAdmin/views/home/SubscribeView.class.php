@@ -53,11 +53,9 @@ class SubscribeView extends MainView {
 			foreach( $res as $i => $value ){
 				if (strrpos($i, "Linguafrancese") !== false){
 					$subFr = true;
-				}
-				if (strrpos($i, "Linguaitaliano") !== false){
+				} else if (strrpos($i, "Linguaitaliano") !== false){
 					$subIt = true;
-				}
-				if (strrpos($i, "commentGroup") !== false){
+				} else if (strrpos($i, "commentGroup") !== false){
 					$subCom = true;
 				}
 			}

@@ -38,9 +38,6 @@ var radius;
 //$("#Map").live("pageinit", initialize);
 	
 function initialize() {
-	
-	//get lastest position known of the user
-	getPosition();
 
 	// INITIALIZE DASP
 	setupDASP($("#userID").val(), $("#accessToken").val(),
@@ -119,6 +116,19 @@ function initialize() {
 	initFilter();
 
 	resizeMap();
+	
+	$('#depart').keyup(function(event) {
+		if (event.keyCode == 13) {
+			validateIt();
+			location.href="#Map";
+		}
+	});
+	$('#arrivee').keyup(function(event) {
+		if (event.keyCode == 13) {
+			validateIt();
+			location.href="#Map";
+		}
+	});
 
 }
 
@@ -162,24 +172,18 @@ function displayPosition(position) {
 	}
 	
 	// Store the position into cassandra
+	var position = {
+		'userID': $("#userID").val(),
+		'latitude': latlng.lat(),
+		'longitude': latlng.lng(),
+		'formattedAddress': ''
+	};
 	var geocoder = new google.maps.Geocoder();
 	geocoder.geocode({'latLng' : latlng }, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) {
-			var address = results[0].formatted_address;
-			var position = {
-				'userID': $("#userID").val(),
-				'latitude': latlng.lat(),
-				'longitude': latlng.lng(),
-				'formattedAddress': address
-			}
-			var params = {
-				'userID': $("#userID").val(),
-				'position': JSON.stringify(position),
-				'accessToken': $("#accessToken").val(),
-				'code': 2,
-			};
-			updatePosition(params);
+			position.formattedAddress = results[0].formatted_address;
 		}
+		updatePosition({'position': JSON.stringify(position)});
 	});
 	
 	// add position marker
@@ -193,7 +197,7 @@ function displayPosition(position) {
 
 		// focus on the position
 		if (focusOnCurrentPosition) {
-			focusOnLatLng(latlng || new google.maps.LatLng($("#userLat").val() || 43.774481, $("#userLng").val() || 7.49754));
+			focusOnLatLng(latlng );
 			focusOnCurrentPosition = false;
 		}
 	}
@@ -212,10 +216,12 @@ function displayPosition(position) {
 
 
 function displayError(error) {
-	if (focusOnCurrentPosition) {
-		focusOnLatLng(new google.maps.LatLng($("#userLat").val() || 43.774481, $("#userLng").val() || 7.49754));
-		focusOnCurrentPosition = false;
-	}
+	
+	//get lastest position known of the user
+	getPosition();
+	
+	
+	
 }
 
 
@@ -273,7 +279,7 @@ function clearMarkers() {
 			if(markers[key][i]) {
 				for ( var j=0 ; j< markers[key][i].length ; j++) {
 					if(markers[key][i][j]) {
-						console.log(markers[key][i][j]);
+						//console.log(markers[key][i][j]);
 						markers[key][i][j].setMap(null);
 					}
 				}
@@ -297,17 +303,19 @@ function otherMarkers(index, type, lat, lon, rad) {
 			'latitude': lat || steps[index - 1].position.lat(),
 			'longitude': lon || steps[index - 1].position.lng(),
 			'radius': rad || $('#slider-radius').val(),
-			'accessToken': $("#accessToken").val(),
-			'code': 1
+			//'accessToken': $("#accessToken").val(),
+			//'code': 1
 		};
 
 		//getMarkers
 		//will do async write in markers[index], and on map
 		
-		// "http://mymed20.sophia.inria.fr:8080/backend/POIRequestHandler"
-		// "../../lib/dasp/request/POI.php"
+		// 3 possible ways
+		// direct: "../../backend/POIRequestHandler" put it with dapaType:"jsonp"
+		// direct: jsonp : "http://mymed.fr:8080/backend/POIRequestHandler" put it with dapaType:"jsonp"
+		// with a proxy: "../../lib/dasp/ajax/POI.php"
 		$.ajax({
-			url: "../../lib/dasp/request/POI.php",
+			url: "../../lib/dasp/ajax/POI.php",
 			data: params,
 			dataType: "json",
 			success: function(data){
@@ -536,7 +544,7 @@ function calcRouteByCityway(result) {
 		content2 = (tripSegment.comment || '&nbsp;');
 		steps[i]['desc'] = content1 + '<br />' + content2;
 		
-		desc = $('<li style="padding:5px;"><img alt="no picture" src="' + icon + '" /><a href="#Map" onclick="updateMarkers('+ (i+1)+ ');"><p style="position: relative; left: -16px;">' + content1 + '<br />' + content2 + '</p></a></li>');
+		desc = $('<li><img style="margin: 10px;display: inline-block;" alt="no picture" src="' + icon + '" /><a href="#Map" style="width: 100%;display:inline-block;vertical-align: top;margin-top: 5px;" onclick="updateMarkers('+ (i+1)+ ');"><p style="white-space:normal;margin-right: 90px;">' + content1 + '<br />' + content2 + '</p></a><br /></li>');
 
 		desc.appendTo($('#itineraireContent'));
 
@@ -565,7 +573,9 @@ function calcRouteByCityway(result) {
 		}
 
 	}
-
+	
+	$("#ceparou06").show();
+	
 	// create jquerymobile styled elmts
 	$('.ui-page').trigger('create');
 
@@ -637,7 +647,7 @@ function calcRouteByGoogle(printTrip) {
 								'desc' : content1 + '<br />' + content2
 						};
 
-						desc = $('<li style="padding:5px;"><img alt="no picture" src="' + icon + '" /><a href="#Map" onclick="updateMarkers('+ (i+1)+ ');"><p style="position: relative; left: -16px;">' + content1 + '<br />' + content2 + '</p></a></li>');
+						desc = $('<li><img style="margin: 10px;display: inline-block;" alt="no picture" src="' + icon + '" /><a href="#Map" style="width: 100%;display:inline-block;vertical-align: top;margin-top: 5px;" onclick="updateMarkers('+ (i+1)+ ');"><p style="white-space:normal;margin-right: 90px;">' + content1 + '<br />' + content2 + '</p></a><br /></li>');
 						desc.appendTo($('#itineraireContent'));
 					}
 

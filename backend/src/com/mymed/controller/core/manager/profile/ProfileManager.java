@@ -15,6 +15,9 @@
  */
 package com.mymed.controller.core.manager.profile;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Map;
 
 import com.mymed.controller.core.exception.IOBackEndException;

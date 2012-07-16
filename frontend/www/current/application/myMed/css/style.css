@@ -5,6 +5,10 @@
 	text-shadow: none;
 }
 
+.ui-icon-profile {
+	background-image: url("../img/profile.png");
+}
+
 #loading {
 	position: absolute;
 	left:0px;
@@ -59,6 +63,12 @@
 .tabMask {
 	position: relative;
 	height: 80px;	
+}
+
+.logos img {
+	max-height: 35px;
+	max-width: 80px;
+	vertical-align: middle;
 }
 
 

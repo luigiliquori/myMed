@@ -33,7 +33,7 @@ class LoginController extends AbstractController {
 			$request->addArgument("login", $login);
 			$request->addArgument("password", $pass);
 			
-			// argument code filled by Request
+			// Argument code filled by Request
 			
 			// Sending request
 			$responsejSon = $request->send();
