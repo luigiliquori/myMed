@@ -27,9 +27,6 @@ html,body,.ui-page {
 }
 
 .footer img {
-	opacity: 0.8;
-	max-height: 35px;
-	max-width: 80px;
 	vertical-align: middle;
 }
 
@@ -67,7 +64,7 @@ input.ui-input-text,textarea.ui-input-text {
 
 #Search .ui-slider-switch {
 	min-width: 150px;
-	float: right;
+	/*float: right;*/
 }
 
 #publishForm .ui-slider-switch {

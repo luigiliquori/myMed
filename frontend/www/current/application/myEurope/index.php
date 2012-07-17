@@ -62,8 +62,8 @@ if (isset($_GET['registration'])) {
 				<a href="#" style="text-decoration: none;">Partenariats:</a>
 			</h3>
 			<div data-role="controlgroup"  data-type="horizontal">
-				<a href="searchPartnerForm" type="button" data-theme="d" style="width:50%;"><br />Rechercher<br />&nbsp;</a>
-				<a href="postPartnershipForm" style="width:49%;" type="button" data-theme="d"><br />Insérer<br />&nbsp;</a>
+				<a href="searchPartnerForm" type="button" data-theme="e" style="width:50%;"><br />Rechercher<br />&nbsp;</a>
+				<a href="postPartnershipForm" style="width:49%;" type="button" data-theme="e"><br />Insérer<br />&nbsp;</a>
 			</div>
 
 			<br />

@@ -111,19 +111,39 @@ class Template {
 
 <div class="footer" >
 	<h4  style="margin: 10px;">myMed - INTERREG IV - Alcotra</h4>
-	<img alt="Alcotra" src="/system/img/logos/alcotra" />
-	<img alt="Conseil Général 06" src="/system/img/logos/cg06" />
-	<img alt="Regine Piemonte" src="/system/img/logos/regione"/>
+	<img alt="Alcotra" src="/system/img/logos/alcotra" style="max-height: 35px;max-width: 80px;"/>
+	<img alt="Conseil Général 06" src="/system/img/logos/cg06" style="max-height: 35px;max-width: 80px;"/>
+	<img alt="Regine Piemonte" src="/system/img/logos/regione" style="max-height: 35px;max-width: 80px;"/>
 	<img alt="Europe" src="/system/img/logos/europe" style="max-height: 70px;max-width: 120px;"/>
-	<img alt="Région PACA" src="/system/img/logos/PACA" />
-	<img alt="Prefecture 06" src="/system/img/logos/pref" />
-	<img alt="Inria" src="/system/img/logos/inria.png" />
+	<img alt="Région PACA" src="/system/img/logos/PACA" style="max-height: 35px;max-width: 80px;"/>
+	<img alt="Prefecture 06" src="/system/img/logos/pref" style="max-height: 35px;max-width: 80px;"/>
+	<img alt="Inria" src="/system/img/logos/inria.png" style="max-height: 35px;max-width: 80px;"/>
 	<p style="margin: 8px; font-weight: normal;">"Ensemble par-delà les frontières"</p>
 </div>
 
 <?php }
 
-
+public static function updatePhoto( $url) {
+	$mUserBean = new MUserBean();
+	$mUserBean->id = $_SESSION['user']->id;
+	$mUserBean->firstName = $_SESSION['user']->firstName;
+	$mUserBean->lastName = $_SESSION['user']->lastName;
+	$mUserBean->name = $mUserBean->firstName . " " . $mUserBean->lastName;
+	$mUserBean->email = $_SESSION['user']->email;
+	$mUserBean->login = $_SESSION['user']->email;
+	$mUserBean->profilePicture = $url;
+	
+	// keep the session opened
+	$mUserBean->socialNetworkName = $_SESSION['user']->socialNetworkName;
+	$mUserBean->SocialNetworkID = $_SESSION['user']->socialNetworkID;
+	$mUserBean->SocialNetworkID = $_SESSION['accessToken'];
+	
+	$request = new Request("ProfileRequestHandler", UPDATE);
+	$request->addArgument("user", json_encode($mUserBean));
+	
+	$responsejSon = $request->send();
+	return json_decode($responsejSon); 
+}
 
 public static function footer( $i = 1 ){ ?>
 

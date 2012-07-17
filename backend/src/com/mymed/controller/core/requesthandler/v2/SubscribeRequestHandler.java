@@ -16,14 +16,11 @@
 package com.mymed.controller.core.requesthandler.v2;
 
 import static com.mymed.utils.GsonUtils.gson;
-import static com.mymed.utils.MiscUtils.singleton;
-import static com.mymed.utils.PubSub.generateRows;
-import static com.mymed.utils.PubSub.getRows;
 import static com.mymed.utils.PubSub.makePrefix;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,6 +39,8 @@ import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.pubsub.v2.PubSubManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.application.DataBean;
+import com.mymed.utils.PubSub;
+import com.mymed.utils.PubSub.Index;
 
 /**
  * Servlet implementation class PubSubRequestHandler
@@ -160,13 +159,17 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
         	Collections.sort(query);
 
         	LOGGER.info("in ."+query.size());
-             
-        	List<List<String>> rowslists = getRows(query);
-        	rowslists.add(0, singleton(makePrefix(application, namespace))); //application(+namespace) prefix
         	
-        	List<String> rows = new ArrayList<String>();
+        	LinkedHashMap<String, List<Index>> indexes = PubSub.formatIndexes(query);
+			
+			List<Index> combi = PubSub.getPredicate(indexes, query.size(), query.size());
         	
-        	generateRows(rowslists, new int[rowslists.size()], 0, rows);
+			String prefix = makePrefix(application, namespace);
+        	for (Index i : combi) {
+        		i.row = prefix + i.row;
+        	}
+        	
+        	List<String> rows = PubSub.Index.getRows(combi);
         	 
         	LOGGER.info("sub rows: "+rows.size()+" initial: "+rows.get(0));
             

@@ -53,6 +53,11 @@ if (isset($_POST['predicate'])){ // unsubscribe
 		header("Location: ./");
 	}
 	//header("Location: http://".$_SERVER['HTTP_HOST']); // go back to mymed
+} else if (isset($_POST['url'])){ // photo
+	$responseObject = Template::updatePhoto($_POST['url']);
+	if($responseObject->status == 200) {
+		$msg = "photo mise à jour";
+	}
 }
 
 //not necessary it's already in session
@@ -141,7 +146,7 @@ if (!isset($_GET["application"])){
 				<div style="text-align: center;" >
 					<a href="update" type="button" data-inline="true" data-transition="flip" data-mini="true">Modifier son profil myMed</a><br />
 					<a href="updateExtended" type="button" data-inline="true" rel="external" data-transition="flip" data-mini="true" >Modifier son profil myEurope</a><br />
-					
+					<a href="#popupLogin" data-rel="popup" data-role="button" data-mini="true" data-inline="true">Modifier son logo</a><br />
 					<a type="button" data-mini="true" data-icon="delete" data-inline="true"
 						onclick="$('#deconnectForm').submit();">Déconnecter</a>
 				</div>
@@ -149,7 +154,17 @@ if (!isset($_GET["application"])){
 					<input name="logout" type="hidden" />
 				</form>
 			</div>
-		
+
+			<div data-role="popup" id="popupLogin" data-overlay-theme="b" data-theme="c" class="ui-corner-all">
+				<form action="./option" method="post">
+					<div style="padding: 10px 20px;">
+						<h3>Insérer un lien:</h3>
+						<input type="text" name="url" value="" placeholder="url" />
+						<button type="submit" data-theme="b">ok</button>
+					</div>
+				</form>
+			</div>
+
 
 			<hr />
 			

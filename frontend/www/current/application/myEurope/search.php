@@ -92,19 +92,22 @@ if (count($_GET) > 0){
 
 		<div data-role="content">
 			
+			<div  style="display:inline-block;width:49%;">
+			<label for="flip-a2">Trier par:</label>
 			<select data-theme="b" data-mini="true" name="slider2" id="flip-a2" data-role="slider"
 				onchange="">
-				<option value="3">Trier par rep</option>
-				<option value="0">Trier alpha</option>
+				<option value="3">réputation</option>
+				<option value="0">alphabétiquement</option>
 			</select>
-		
-		
-			<select data-theme="b" data-mini="true" name="slider" id="flip-a" data-role="slider"
+			</div>
+		<div style="display:inline-block;width:49%;">
+				<label for="flip-a">Si un nouveau contenu correspond à cette recherche:</label>
+			<select data-theme="e" data-mini="true" name="slider" id="flip-a" data-role="slider"
 				onchange="$.get('../../lib/dasp/ajax/Subscribe', { code: $(this).val(), application: '<?= Template::APPLICATION_NAME ?>' ,predicate: '<?= urlencode(join("", $p)) ?>' } );">
 				<option value="3">Souscrire</option>
 				<option value="0">Désabonner</option>
 			</select>
-			
+			</div>
 			
 			<br /><br /><br />
 
@@ -161,7 +164,7 @@ if (count($_GET) > 0){
 			<?php	
 			} else{
 				?>
-			Aucun résultats
+			Votre recherche à abouti a aucun résultat.
 			<?php	
 			}
 			?>

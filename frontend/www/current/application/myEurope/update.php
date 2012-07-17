@@ -130,12 +130,6 @@ if (isset($_POST['oldPassword'])) { //profile update
 						<label for="textinputu4"> Mot de passe: </label> <input id="textinputu4" name="oldPassword" placeholder="" value="" type="password" />
 					</fieldset>
 				</div>
-				<div data-role="fieldcontain">
-					<fieldset data-role="controlgroup">
-						<label for="textinputu7"> Avatar (lien url): </label> <input id="textinputu7" name="thumbnail" placeholder=""
-							value='<?= $_SESSION['user']->profilePicture ?>' type="text" />
-					</fieldset>
-				</div>
 				<br />
 				<div data-role="fieldcontain">
 					<fieldset data-role="controlgroup">

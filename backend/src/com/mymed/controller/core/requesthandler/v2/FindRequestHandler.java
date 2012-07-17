@@ -17,16 +17,13 @@ package com.mymed.controller.core.requesthandler.v2;
 
 
 import static com.mymed.utils.GsonUtils.gson;
-import static com.mymed.utils.MiscUtils.singleton;
-import static com.mymed.utils.PubSub.generateRows;
-import static com.mymed.utils.PubSub.getRanges;
-import static com.mymed.utils.PubSub.getRows;
 import static com.mymed.utils.PubSub.makePrefix;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -47,6 +44,8 @@ import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.pubsub.v2.PubSubManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.application.DataBean;
+import com.mymed.utils.PubSub;
+import com.mymed.utils.PubSub.Index;
 
 
 @MultipartConfig
@@ -170,17 +169,21 @@ public class FindRequestHandler extends AbstractRequestHandler {
 				TreeMap<String, Map<String, String>> filterMap = new TreeMap<String, Map<String, String>>();
             	
             	/* generate the ROWS to search */
+				
+				LinkedHashMap<String, List<Index>> indexes = PubSub.formatIndexes(query);
+				
+				List<Index> combi = PubSub.getPredicate(indexes, query.size(), query.size());
             	
-            	List<List<String>> rowslists = getRows(query);
-            	rowslists.add(0, singleton(makePrefix(application, namespace))); //application(+namespace) prefix
+				String prefix = makePrefix(application, namespace);
+            	for (Index i : combi) {
+            		i.row = prefix + i.row;
+            	}
             	
-            	List<String> rows = new ArrayList<String>();
+            	LOGGER.info("ext find rows: "+combi.size()+" initial: "+combi.get(0));
             	
-            	generateRows(rowslists, new int[rowslists.size()], 0, rows);
-            	 
-            	LOGGER.info("ext find rows: "+rows.size()+" initial: "+rows.get(0));
+            	List<List<String>> ranges = PubSub.getRanges(query);
             	
-            	List<List<String>> ranges = getRanges(query);
+            	List<String> rows = PubSub.Index.getRows(combi);
             	
             	LOGGER.info("ext find ranges: "+ranges.size());
             	

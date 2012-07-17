@@ -17,17 +17,13 @@ package com.mymed.controller.core.requesthandler.v2;
 
 
 import static com.mymed.utils.GsonUtils.gson;
-import static com.mymed.utils.PubSub.generateIndexes;
-import static com.mymed.utils.PubSub.getIndexes;
-import static com.mymed.utils.PubSub.getIndexesEnums;
 import static com.mymed.utils.PubSub.join;
 import static com.mymed.utils.PubSub.makePrefix;
 import static com.mymed.utils.PubSub.subList;
-import static com.mymed.utils.PubSub.Index.joinCols;
-import static com.mymed.utils.PubSub.Index.joinRows;
 
 import java.lang.reflect.Type;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,6 +45,7 @@ import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.application.DataBean;
 import com.mymed.model.data.application.MOntologyID;
 import com.mymed.model.data.user.MUserBean;
+import com.mymed.utils.PubSub;
 import com.mymed.utils.PubSub.Index;
 
 
@@ -190,9 +187,12 @@ public class PublishRequestHandler extends AbstractRequestHandler {
             
             LOGGER.info("in "+dataId+"."+dataList.size());
             
-            List<Index> indexesWithoutEnums = getIndexes(dataList);
-			List<List<Index>> lli, indexesEnums = getIndexesEnums(dataList);
-            
+            LinkedHashMap<String, List<Index>> indexes = PubSub.formatIndexes(dataList);
+			
+			List<Index> combi = PubSub.getPredicate(indexes, 1, dataList.size());
+        	
+        	LOGGER.info("ext find rows: "+combi.size()+" initial: "+combi.get(0));
+
 			switch (code) {
 
 			case CREATE:
@@ -204,17 +204,13 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 				 *  @see PubSub.getIndex
 				 */
 				
-				lli = generateIndexes(indexesWithoutEnums, indexesEnums);
-				
-				for(List<Index> li : lli) {
-					String s1 = joinRows(li);
-                	String s2 = joinCols(li);
+				for (Index i : combi) {
                 	
 					pubsubManager
-							.create(makePrefix(application, namespace), s1, s2,
+							.create(makePrefix(application, namespace), i.row, i.col,
 									dataId, subList(dataList, MOntologyID.DATA));
 					pubsubManager.sendEmailsToSubscribers(
-							makePrefix(application, namespace), s1, userBean,
+							makePrefix(application, namespace), i.row, userBean,
 							dataList);
 				}
 				
@@ -235,14 +231,10 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 				message.setMethod(JSON_CODE_DELETE);
 				LOGGER.info("deleting " + dataId );
 				
-				lli = generateIndexes(indexesWithoutEnums, indexesEnums);
-				
-				for(List<Index> li : lli) {
-					String s1 = joinRows(li);
-                	String s2 = joinCols(li);
+				for (Index i : combi) {
                 	pubsubManager.delete(
 							makePrefix(application, namespace),
-							s1, s2 + dataId, userId);
+							i.row, i.col + dataId, userId);
 				}
 				
 				/* deletes data*/
