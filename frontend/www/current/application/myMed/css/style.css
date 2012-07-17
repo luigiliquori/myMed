@@ -20,6 +20,7 @@
 	z-index: 99;
 	opacity: 0.7;
 }
+
 #loading span {
 	position: relative;
 	top: 100px;
@@ -40,6 +41,7 @@
 	width		: 930px;
 	border-top	: solid 1px #B0C0E1;
 }
+
 #footer img {
 	vertical-align	: middle;
 }
