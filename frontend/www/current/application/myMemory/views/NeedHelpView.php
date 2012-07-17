@@ -18,9 +18,6 @@
 	<div data-role="content" data-theme="a">
 		<input type="hidden" id="username" value="<?=$_SESSION['user']->name; ?>" />
 		<input type="hidden" id="howmany" value="<?= sizeof($_SESSION['ExtendedProfile']->callingList); ?>" />
-		<input type="hidden" id="current_street" value="32 Rue Jean Jaurès, Cannes, France" />
-		<input type="hidden" id="current_lat" value="43.55353" />
-		<input type="hidden" id="current_lng" value="7.02199" />
 		<div id="myMap"></div>
 		<br />
 		<div>
