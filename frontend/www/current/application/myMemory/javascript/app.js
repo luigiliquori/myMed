@@ -70,14 +70,7 @@ function goingBack(address){
 	
 	// starting point
 	start = currentPositionMarker.getPosition();
-	
-	// ending point
-	
-	
-	
-	//geocoder.geocode({'address' : address}, wtf_function());
-	
-	
+
 	
 	
 	geocoder.geocode({'address' : address}, function(results, status) {
@@ -313,29 +306,30 @@ function calcRouteByCityway(result) {
 
 
 function needHelp(){
-	/*
-	alert("Ajax call for " + $('#num1')[0].innerHTML);
-	data_string = "email=" +$('#num1')[0].innerHTML+ "&current_street=" + $('#current_street').val() + "&current_lat="
-	+ $('#current_lat').val() + "&current_lng="
-	+ $('#current_lng').val();
-	alert(data_string);
-	*/
+
 	howmany = $('#howmany').val();
+
+	// Google GeoCoder
+	var geocoder = new google.maps.Geocoder();
+	var pos = currentPositionMarker.getPosition();
 	
-	for (i=1; i<=howmany; i++){
-		
-		numero = "#num" + i;
-		alert("envoi du mail pour " + numero);
-		
-		setTimeout(function(){
+	geocoder.geocode({'location' : pos }, function(results, status) {
+		if (status == google.maps.GeocoderStatus.OK) {
+
+			address = results[0].formatted_address;
+
+			for (i=1; i<=howmany; i++){
+				
+				numero = "#num" + i;
+				setTimeout(function(){
 									$.ajax({
 										type : "POST",
 										url : "sendmail.ajax.php",
 										data : "email=" +$(numero)[0].innerHTML+ "&username="
 										+ $('#username').val() + "&current_street=" 
-										+ $('#current_street').val() + "&current_lat="
-										+ $('#current_lat').val() + "&current_lng="
-										+ $('#current_lng').val(),
+										+ address + "&current_lat="
+										+ currentPositionMarker.getPosition().lat() + "&current_lng="
+										+ currentPositionMarker.getPosition().lng(),
 										success : function(data) {
 											retour = JSON.parse(data);
 											//alert(retour.success);
@@ -345,8 +339,12 @@ function needHelp(){
 										}
 									});
 								}, 5000);
+				
+			}// for
+		}//if
+	});//geocoder
 		
-	}// for
+			
 	
 }// needHelp
 
