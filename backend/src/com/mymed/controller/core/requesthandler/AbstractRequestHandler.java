@@ -33,7 +33,6 @@ import javax.servlet.http.Part;
 
 import ch.qos.logback.classic.Logger;
 
-import com.google.gson.Gson;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
@@ -132,6 +131,11 @@ public abstract class AbstractRequestHandler extends HttpServlet {
      * JSON 'application' attribute.
      */
     protected static final String JSON_APPLICATION = JSON.get("json.application");
+    
+    /**
+     * JSON 'predicate' attribute.
+     */
+    protected static final String JSON_NAMESPACE = JSON.get("json.namespace");
 
     /**
      * JSON 'create' value.

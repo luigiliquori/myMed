@@ -22,8 +22,8 @@ if (isset($_POST['role'])) {
 	$data = array();	
 	array_push($data, new DataBean("all", KEYWORD, array("")));
 	array_push($data, new DataBean("id", TEXT, array($_SESSION['user']->id)));
-	array_push($data, new DataBean("role", TEXT, array($_POST['role'])));
-	array_push($data, new DataBean("permission", TEXT, array($permission)));
+	array_push($data, new DataBean("role", DATA, array($_POST['role'])));
+	array_push($data, new DataBean("permission", DATA, array($permission)));
 	
 	$request = new Request("v2/PublishRequestHandler", CREATE);
 	$request->addArgument("application", Template::APPLICATION_NAME);
@@ -334,7 +334,7 @@ var_dump($responseObject);
 						<input type="radio" name="name" id="radio-view-b" value="Piémont" /> <label for="radio-view-b">Piémont</label>
 						<input type="radio" name="name"id="radio-view-c" value="Ligurie" /> <label for="radio-view-c">Ligurie</label>
 						<input type="radio" name="name" id="radio-view-d" value="Vallée d'Aoste" /><label for="radio-view-d">Vallée d'Aoste</label>
-						<input type="radio" name="name" id="radio-view-d" value="Vallée d'Aoste" /><label for="radio-view-d">Rhône-Alpes</label>
+						<input type="radio" name="name" id="radio-view-e" value="Rhône-Alpes" /><label for="radio-view-e">Rhône-Alpes</label>
 					</fieldset>
 				</div>
 				<div data-role="fieldcontain">

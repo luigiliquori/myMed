@@ -78,7 +78,8 @@ public class PubSubTests extends TestValues {
 			DataBean d1 = new DataBean(KEYWORD, "test1", range(""));
 			DataBean d2 = new DataBean(ENUM, "test2", range("kk2", "kk3", "kk4"));
 			DataBean d3 = new DataBean(FLOAT, "test3", range("22.2222"));
-			DataBean d4 = new DataBean(DATE, "somedate", range("999999999"));
+			DataBean d4 = new DataBean(ENUM, "test4", range("kk6", "kk7", "kk8", "kk9"));
+			//DataBean d4 = new DataBean(DATE, "somedate", range("999999999"));
 			DataBean d5 = new DataBean(TEXT, "text1", range("........."));
 			dataList = new ArrayList<DataBean>();
 			dataList.add(d1);
@@ -96,8 +97,7 @@ public class PubSubTests extends TestValues {
 				String s2 = joinCols(li);
 
 				pubsubManager.create(makePrefix(application, namespace), s1,
-						s2, dataId, userBean,
-						subList(dataList, DATA));
+						s2, dataId, subList(dataList, DATA));
 				pubsubManager.sendEmailsToSubscribers(
 						makePrefix(application, namespace), s1, userBean,
 						dataList);
@@ -148,7 +148,7 @@ public class PubSubTests extends TestValues {
 				resList.add(m);
 		    }
 			
-			LOGGER.info("ext find results : {}", resList);
+			LOGGER.info("ext find {} results : {}", resList.size(), resList);
 			
 			if (resList.size() > 0){
 				final List<DataBean> details = pubsubManager.read(
@@ -175,7 +175,8 @@ public class PubSubTests extends TestValues {
 			DataBean d1 = new DataBean(KEYWORD, "test1", range(""));
 			DataBean d2 = new DataBean(ENUM, "test2", range("kk2", "kk3", "kk4"));
 			DataBean d3 = new DataBean(FLOAT, "test3", range("22.2222"));
-			DataBean d4 = new DataBean(DATE, "somedate", range("999999999"));
+			//DataBean d4 = new DataBean(DATE, "somedate", range("999999999"));
+			DataBean d4 = new DataBean(ENUM, "test4", range("kk6", "kk7", "kk8", "kk9"));
 			DataBean d5 = new DataBean(TEXT, "text1", range("useless because not used in delete"));
 			dataList.add(d1);
 			dataList.add(d2);

@@ -571,9 +571,8 @@ public class StorageManager implements IStorageManager {
             final String key, final String columnName) 
                   throws InternalBackEndException 
     {
-        final String columnFamily = tableName;
         final long timestamp = System.currentTimeMillis();
-        final ColumnPath columnPath = new ColumnPath(columnFamily);
+        final ColumnPath columnPath = new ColumnPath(tableName);
         columnPath.setColumn(encode(columnName));
 
         wrapper.remove(key, columnPath, timestamp, consistencyOnWrite);

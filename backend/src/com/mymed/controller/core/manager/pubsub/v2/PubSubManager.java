@@ -34,7 +34,7 @@ import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.AbstractManager;
 import com.mymed.controller.core.manager.mailtemplates.MailTemplate;
-import com.mymed.controller.core.manager.mailtemplates.v2.MailTemplateManager;
+import com.mymed.controller.core.manager.mailtemplates.MailTemplateManager;
 import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.controller.core.manager.storage.v2.StorageManager;
@@ -110,29 +110,30 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 	public final void create(String application,
 			final String predicate,
 			final String colprefix,
-			final String subPredicate,
-			final MUserBean publisher,
+			final String id,
 			final List<DataBean> dataList)
 					throws InternalBackEndException, IOBackEndException {
 		args.clear();
 		
+		/*put id of the data*/
+		args.put("id", encode(id));
+		
 		/*put metadata Databeans (type DATA), the only ones that are stores in results Lists */
-
 		for (DataBean item : dataList) {
 			args.put(item.getKey(), encode(gson.toJson(item.getValue())));
 		}
 
-		args.put("id", encode(subPredicate)); // dataId pointer
-		args.put("publisherID", encode(publisher.getId()));
+		
+		//args.put("publisherID", encode(publisher.getId()));
 
 		// ---publisherName at the moment he published it, beware that name was
 		// possibly updated since
-		args.put("publisherName", encode(publisher.getName()));
+		//args.put("publisherName", encode(publisher.getName()));
 
 		storageManager
 				.insertSuperSlice(SC_APPLICATION_CONTROLLER, application
 						+ predicate,
-						colprefix + subPredicate, args);
+						colprefix + id, args);
 
 	}
     
@@ -256,8 +257,8 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 	@Override
     public final void delete(
             final String application, 
-            final String user, 
-            final String predicate)
+            final String predicate, 
+            final String user)
                     throws InternalBackEndException, IOBackEndException 
     {
         // Remove subscriber member from subsribers list

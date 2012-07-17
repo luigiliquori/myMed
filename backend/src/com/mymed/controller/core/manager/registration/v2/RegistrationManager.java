@@ -35,7 +35,7 @@ import com.mymed.controller.core.manager.AbstractManager;
 import com.mymed.controller.core.manager.authentication.AuthenticationManager;
 import com.mymed.controller.core.manager.authentication.IAuthenticationManager;
 import com.mymed.controller.core.manager.mailtemplates.MailTemplate;
-import com.mymed.controller.core.manager.mailtemplates.v2.MailTemplateManager;
+import com.mymed.controller.core.manager.mailtemplates.MailTemplateManager;
 import com.mymed.controller.core.manager.pubsub.v2.IPubSubManager;
 import com.mymed.controller.core.manager.pubsub.v2.PubSubManager;
 import com.mymed.controller.core.manager.registration.IRegistrationManager;
@@ -204,8 +204,7 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
         MailTemplate template = this.mailTemplateManager.getTemplate(
                 "myMed", 
                 "registration", 
-                language,
-                "v2");
+                language);
         
         // Render the template
         String subject = template.renderSubject(data);

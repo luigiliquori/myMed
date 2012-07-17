@@ -53,8 +53,8 @@ public class MailTemplateManager extends AbstractManager {
      *  * Template in Cassandra, with <applicationID>, <namespace>, <default-lang>
      *  * Template in WAR resources : mail-templates/<applicationID>#<namespace>-<lang>.flt.xml 
      *  * Template in WAR resources : mail-templates/<applicationID>#<namespace>-<default-lang>.flt.xml 
-     *  * Template in WAR resources : default-<lang>.flt.xml
-     *  * Template in WAR resources : default-<default-lang>.flt.xml 
+     *  * Template in WAR resources : mail-templates/default-<lang>.flt.xml
+     *  * Template in WAR resources : mail-templates/default-<default-lang>.flt.xml 
      */
     public MailTemplate getTemplate(
             String applicationID,

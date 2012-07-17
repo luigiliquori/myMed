@@ -63,11 +63,6 @@ public class PublishRequestHandler extends AbstractRequestHandler {
      * Generated serial ID.
      */
     private static final long serialVersionUID = 7612306539244045439L;
-    
-    /**
-     * JSON 'predicate' attribute.
-     */
-    protected static final String JSON_NAMESPACE = JSON.get("json.namespace");
 
     protected PubSubManager pubsubManager;
     protected ProfileManager profileManager;
@@ -215,9 +210,12 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 					String s1 = joinRows(li);
                 	String s2 = joinCols(li);
                 	
-                	pubsubManager.create(makePrefix(application, namespace), s1, s2, dataId, userBean, 
-                			subList(dataList, MOntologyID.DATA));
-            		pubsubManager.sendEmailsToSubscribers(makePrefix(application, namespace), s1, userBean, dataList);
+					pubsubManager
+							.create(makePrefix(application, namespace), s1, s2,
+									dataId, subList(dataList, MOntologyID.DATA));
+					pubsubManager.sendEmailsToSubscribers(
+							makePrefix(application, namespace), s1, userBean,
+							dataList);
 				}
 				
 				/* creates data */
@@ -230,7 +228,6 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 				
 				LOGGER.info("creating/updating "+dataId+" size "+dataList.size());
 				pubsubManager.create(makePrefix(application, namespace), dataId, dataList);
-				pubsubManager.sendEmailsToSubscribers(makePrefix(application, namespace), dataId, userBean, dataList);
 				
 				break;
 				

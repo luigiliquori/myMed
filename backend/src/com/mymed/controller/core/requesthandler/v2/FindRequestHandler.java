@@ -17,6 +17,7 @@ package com.mymed.controller.core.requesthandler.v2;
 
 
 import static com.mymed.utils.GsonUtils.gson;
+import static com.mymed.utils.MiscUtils.singleton;
 import static com.mymed.utils.PubSub.generateRows;
 import static com.mymed.utils.PubSub.getRanges;
 import static com.mymed.utils.PubSub.getRows;
@@ -60,11 +61,6 @@ public class FindRequestHandler extends AbstractRequestHandler {
 	 * Generated serial ID.
 	 */
 	private static final long serialVersionUID = 4295832798531448329L;
-
-	/**
-     * JSON 'predicate' attribute.
-     */
-    protected static final String JSON_NAMESPACE = JSON.get("json.namespace");
     
 	/**
 	 * JSON 'results' attribute.
@@ -123,7 +119,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	@SuppressWarnings("serial")
+
 	@Override
 	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
 		final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
@@ -176,7 +172,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
             	/* generate the ROWS to search */
             	
             	List<List<String>> rowslists = getRows(query);
-            	rowslists.add(0, new ArrayList<String>()  {{add(makePrefix(application, namespace));}}); //application(+namespace) prefix
+            	rowslists.add(0, singleton(makePrefix(application, namespace))); //application(+namespace) prefix
             	
             	List<String> rows = new ArrayList<String>();
             	
@@ -227,6 +223,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
 				LOGGER.info("Results found for Application: " + application + " Predicate: " + dataList.toString());
 
 				message.addDataObject(JSON_RESULTS, resList);
+				
 				break;
 			
 //			case UPDATE:

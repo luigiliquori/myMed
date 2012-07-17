@@ -31,18 +31,16 @@ public interface IPubSubManager {
 	 */
 
 	void create(String application, final String predicate,
-			final String colprefix, final String subPredicate,
-			final MUserBean publisher, final List<DataBean> dataList)
-			throws InternalBackEndException, IOBackEndException;
+			final String colprefix, final String id, final List<DataBean> dataList)
+					throws InternalBackEndException, IOBackEndException;
 
 	/**
 	 * 
 	 * create Data
 	 */
 
-	void create(String application, final String subPredicate,
-			final List<DataBean> dataList) throws InternalBackEndException,
-			IOBackEndException;
+	void create(String application, final String subPredicate, final List<DataBean> dataList)
+			throws InternalBackEndException, IOBackEndException;
 
 	/**
 	 * subscribe v2
