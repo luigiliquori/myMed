@@ -7,40 +7,54 @@
 		initialize_map();
 
 		var testLatlng = new google.maps.LatLng("43.553532", "7.021980");
+		var marker = addMarker(testLatlng, "img/position.png", "Domicile", "Mon chez moi!", google.maps.Animation.DROP, false, "maison");
+		marker.setMap(map);
 
 	});
 </script>
 
 
 	<div data-role="header" data-position="inline">
-		<a href="?action=main" data-rel="back" data-role="button" class="ui-btn-left" data-icon="back">Back</a>
+		<a href="?action=main" data-rel="back" data-role="button" class="ui-btn-left" data-icon="back" >Back</a>
 		<h1>MyMemory</h1>
-		<a href="?action=ExtendedProfile" data-role="button" data-icon="gear">Profile</a>
+		<a href="?action=ExtendedProfile" data-role="button" data-icon="gear" >Profile</a>
 	</div>
 	<div data-role="content" data-theme="a">
 		<div id="myMap"></div>
 		<br />
-		<ul data-role="listview" data-inset="true" >
-			<li data-icon="home" data-theme="b"><a href="#">Domicile</a></li>
+		<ul data-role="listview" class="ui-listview" data-theme="b" data-inset="true" >
+			<li data-icon="home" class="ui-btn ui-btn-icon-right ul-li-has-arrow ui-li" style="padding-bottom:1em;">
+				<a href="?action=itineraire" class="ui-link-inherit" onclick="goingBack(document.getElementById('address_home').innerHTML)">
+				<h3 class="ui-li-heading">Domicile</h3>
+				<p class="ui-li-desc" id="address_home" ><?= $_SESSION['ExtendedProfile']->home?></p>
+				</a>
+			</li>
 			<?php
-			for($i = 0; $i < count($_SESSION['ExtendedProfile']->callingList); $i++ ) {
-				$last_arg =  'data-icon="alert" data-theme="e"';
+			$i = 0;
+			foreach($_SESSION['ExtendedProfile']->callingList as $data) {
+				if($data['name'] == "Emergency" ) continue;
+				?>
+				<li class="ui-btn ui-btn-icon-right ul-li-has-arrow ui-li" style="padding-bottom:1em;">
+					<a href="?action=itineraire" class="ui-link-inherit" onclick="goingBack(document.getElementById('address<?= $i ?>').innerHTML)">
+					<h3 class="ui-li-heading"><?= $data["name"]; ?></h3>
+					<?= '<p class="ui-li-desc" id="address'.$i.'" >'. $data['address'] . '</p>'; ?>
+					</a>
+				</li>
 				
-				if($i == count($_SESSION['ExtendedProfile']->callingList) -1 ) {
-					echo "<li ".$last_arg.">";
-				}
-				else
-					echo "<li>";
-				
-				echo '<a href="#">';
-				echo $_SESSION['ExtendedProfile']->callingList[$i]["name"];
-				echo '</a></li>';
-				
+			<?php
+			$i++; 	
 			}
 			?>
 			
 		</ul>
 	</div>
+	
+	
+
+<input type='hidden' id='userID' value='<?= $_SESSION['user']->id ?>' />
+<input type='hidden' id='applicationName' value='myMemory' />
+<input type='hidden' id='accessToken' value='<?= $_SESSION['accessToken'] ?>' />
+
 	
 <? include("footer.php"); ?>	
 </div>

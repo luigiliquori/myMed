@@ -28,6 +28,8 @@
  */
 include("OntologyBean.php");
 
+define("ENUM_SEPARATOR", "|");
+
 abstract class GenericDataBean {
 
 	// -- Public fields
@@ -40,6 +42,9 @@ abstract class GenericDataBean {
 	public $publisherID = null;
 
 	// -- Private fields
+
+	/** If set, used as namespace in the application id : "<AppID>:<NameSpace>" */
+	protected $NAMESPACE = null;
 
 	/**
 	 * This field corresponds to the user data field stored in the ApplicationController SCF.
@@ -108,17 +113,18 @@ abstract class GenericDataBean {
 
 		// Loop on registered attributes
 		foreach($this->_predicatesDef as $key => $ontologyID) {
-			
+
 			$value = $this->$key;
-			
+
 			if (!empty($value)) {
 				array_push(
-					$result,
-						
-					// Get the value of the corresponding attribute and create ontology bean
-					new OntologyBean($key, $value, $ontologyID));
+						$result,
+
+						// Get the value of the corresponding attribute and create ontology bean
+						$this->getOntology($key, $ontologyID));
 			}
 		}
+			
 		return $result;
 	}
 
@@ -133,12 +139,12 @@ abstract class GenericDataBean {
 
 		// Loop on registered attributes
 		foreach($this->_dataDef as $key => $ontologyID) {
-			if (!empty($value)) {
+			if (!empty($this->$key)) {
 				array_push(
-					$result,
-						
-					// Get the value of the coresponding attribute and create ontology bean
-					new OntologyBean($key, $this->$key, $ontologyID));
+						$result,
+
+						// Get the value of the coresponding attribute and create ontology bean
+						$this->getOntology($key, $ontologyID));
 			}
 		}
 
@@ -166,6 +172,30 @@ abstract class GenericDataBean {
 		}
 	}
 
+	/** 
+	 * Populate all attributes from request arguments. 
+	 * Fail if the request does not contain it all. 
+	 */
+	public function populateFromRequest($except=array()) {
+		// List of declared fields
+		$fields = array_merge(
+				array_keys($this->_predicatesDef),
+				array_keys($this->_dataDef),
+				$this->_wrapDef);
+		
+		// Loop on fields
+		foreach($fields as $field) {		
+			if (in_array($field, $except)) continue;
+			
+			if (array_key_exists($field, $_REQUEST)) {
+				// Set it
+				$this->$field = $_REQUEST[$field];
+			} else {
+				throw new Exception("Argument '$field' missing in request");
+			}	
+		}
+	}
+	
 	// ---------------------------------------------------------------------
 	// Private methods
 	// ---------------------------------------------------------------------
@@ -179,16 +209,13 @@ abstract class GenericDataBean {
 		// Object to wrap
 		$obj = new stdClass();
 
-		// Store predicates and extra attributes to wrap in the object
-		$attrs = array_merge(array_keys($this->_predicatesDef), $this->_wrapDef);
-		foreach($attrs as $attr) {
+		// Store extra attributes to wrap in the object
+		foreach($this->_wrapDef as $attr) {
 			$obj->$attr = $this->$attr;
 		}
 
 		// Transform to json and store it into "_data"
 		$this->_data = json_encode($obj);
-
-		
 	}
 
 	/**
@@ -201,11 +228,38 @@ abstract class GenericDataBean {
 		$obj = json_decode($this->_data);
 
 		// Put data into object attributes
-		$attrs = array_merge(array_keys($this->_predicatesDef), $this->_wrapDef);
-		foreach($attrs as $attr) {
+		foreach($this->_wrapDef as $attr) {
 			$this->$attr = $obj->$attr;
 		}
 
+	}
+
+	/** Encode to ontology value */
+	private function getOntology($key, $ontologyID) {
+
+		// Get value
+		$value = $this->$key;
+
+		// For enum, transform array to "|" separated string
+		if ($ontologyID == ENUM) {
+			if (gettype($value) == "array") {
+				$value = implode(ENUM_SEPARATOR, $value);
+			}
+		}
+
+		return new OntologyBean($key, $value, $ontologyID);
+	}
+
+	private function setOntology($key, $value, $ontologyID) {
+
+		// For enum, "|" separated string to array
+		if ($ontologyID == ENUM) {
+			$value = explode(ENUM_SEPARATOR, $value);
+			if (sizeof($value) == 1) $value = $value[0];
+		}
+
+		// Set the value
+		$this->$key = $value;
 	}
 
 	// ---------------------------------------------------------------------
@@ -222,7 +276,8 @@ abstract class GenericDataBean {
 		$fr = new FindRequest(
 				null,
 				$this->getPredicates(),
-				null);
+				null,
+				$this->NAMESPACE);
 
 		// Get a list of result
 		$items = $fr->send();
@@ -232,26 +287,33 @@ abstract class GenericDataBean {
 
 		// Loop on results
 		foreach($items as $item) {
-				
+
 			// Create new instance of same class
 			$obj = new $className();
-				
-			// Copy the search query
-			// TODO Get it from the backend
-			foreach($this->_predicatesDef as $key => $ontID) {
-				$obj->$key = $this->$key;
-			}
-				
+
 			// Fill with the results
 			$obj->begin = $item->begin;
 			$obj->end   = $item->end;
 			$obj->publisherID = $item->publisherID;
 			$obj->_data  = $item->data;
-			$obj->_predicateStr = $item->predicate;
-				
+			$obj->_predicateStr = $item->predicate; // the ID of the object
+
+			// Unwrap predicate list
+			$preds = json_decode($item->predicateListJson);
+
+			// Put predicates into object attributes
+			foreach($preds as $pred) {
+				$key = $pred->key;
+				// Key registered ?
+				if (! key_exists($key, $this->_predicatesDef)) {
+					throw new Exception("Key '$pred->key' not defined in list of predicates");
+				}
+				$obj->setOntology($key, $pred->value, $pred->ontologyID);
+			}
+
 			// Unwrapp "data"
 			$obj->unwrapData();
-				
+
 			array_push($res, $obj);
 		}
 
@@ -263,7 +325,22 @@ abstract class GenericDataBean {
 	 */
 	public function publish() {
 		$this->wrapData();
-		$pr = new PublishRequest(null, $this, $this->publisherID);
+		$pr = new PublishRequest(
+				null,
+				$this,
+				$this->publisherID,
+				$this->NAMESPACE);
+		$pr->send();
+	}
+	
+	/**
+	 * Delete the entity
+	 */
+	public function delete() {
+		$pr = new DeleteRequest(
+				$this->publisherID,
+				$this->getPredicates(),
+				$this->NAMESPACE);
 		$pr->send();
 	}
 
@@ -282,16 +359,17 @@ abstract class GenericDataBean {
 		$fr = new FindRequest(
 				null,
 				$this->getPredicates(),
-				$this->publisherID);
+				$this->publisherID,
+				$this->NAMESPACE);
 
 		// Get a list of result
 		$res = $fr->send();
 
 		// Loop on details
 		foreach($res as $item) {
-				
+
 			$key = $item->key;
-				
+
 			// Check that the details are registered in the "model"
 			if ($key == "data") {
 				$key = "_data"; // Put "data" into "_data"
@@ -300,18 +378,18 @@ abstract class GenericDataBean {
 			} else if (!key_exists($key, $this->_dataDef)) {
 				$classname = get_class($this);
 				throw new Exception(
-						"Key '$key' returned as details by the backend, but not defined in ${classname}->dataDef");
-		}
-			
-		// Set it
-		$this->$key = $item->value;
-			
-	} // End of loop on details
+						"Key '$key' returned as details by the backend, but not defined in $classname->dataDef");
+			}
 
-	// Unwrap "_data"
-	$this->unwrapData();
+			// Set it
+			$this->setOntology($key, $item->value, $item->ontologyID);
 
-}
+		} // End of loop on details
+
+		// Unwrap "_data"
+		$this->unwrapData();
+
+	}
 
 }
 ?>

@@ -109,7 +109,7 @@ public class FindRequestHandler extends AbstractMatchMaking {
 					        predicateListObject.size(),
 					        predicateListObject.size());
 					
-					// Generate the sub predicate
+					// Generate the sub predicate = the ID of the data
 					predicate = getSubPredicate(predicateListObject);
 				} else {
 				    // Only one predicate

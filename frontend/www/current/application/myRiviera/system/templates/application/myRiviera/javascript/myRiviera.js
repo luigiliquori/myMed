@@ -723,10 +723,12 @@ function validateIt() {
 	} else {
 		endmarker.setIcon('system/templates/application/myRiviera/img/end.png');
 	}
+
 	// Validate the starting point
 	geocoder.geocode({'address' : $('#depart').val()}, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) { // use the position define by the user 
 			start = results[0].geometry.location;
+
 		} else if($('#depart').val() == "") { // use the current position
 			start = currentPositionMarker.getPosition();
 		} else { // Error with the position define by the user 

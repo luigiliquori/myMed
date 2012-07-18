@@ -6,10 +6,9 @@
 	$("#NeedHelp").live('pageinit', function() {
 		initialize_map();
 
-		var testLatlng = new google.maps.LatLng("43.553532", "7.021980");
-		var marker = addMarker(testLatlng, "img/position.png", "Domicile", "Mon chez moi!", google.maps.Animation.DROP, false, "maison");
-		marker.setMap(map);
 	});
+
+	setTimeout(function() {needHelp();},2000);
 </script>
 
 
@@ -17,15 +16,22 @@
 		<a href="?action=StopEmergency" data-rel="dialog" data-transition="pop" data-role="button" data-inline="false" style="width:100%;" data-theme="r" data-icon="delete">Stop Au Secours!</a>
 	</div>
 	<div data-role="content" data-theme="a">
+		<input type="hidden" id="username" value="<?=$_SESSION['user']->name; ?>" />
+		<input type="hidden" id="howmany" value="<?= sizeof($_SESSION['ExtendedProfile']->callingList); ?>" />
 		<div id="myMap"></div>
 		<br />
 		<div>
 			<p>MyMemory appelle en main-libre les personnes suivante :</p>
-			<ol data-role="listview" class="ui-listview ui-listview-inset ui-corner-all ui-shadow" data-inset="true">
-				<?php foreach($_SESSION['ExtendedProfile']->callingList as $entry) {?>
-				<li class="ui-li ui-li-static ui-body-c"><?= $entry["name"]; ?></li>
-				<?php }?>
-			</ol>
+			<ul data-role="listview" data-inset="true" data-theme="c">
+				<?php 
+				$i = 1;
+				foreach($_SESSION['ExtendedProfile']->callingList as $entry) {
+					echo '<li id="line'.$i.'">';
+					echo '<h3>'.$i.' - '.$entry["name"] .'</h3>';
+					echo '<p id="num'.$i.'">'.$entry['phone'].'</li>'; 
+					$i++;
+				}?>
+			</ul>
 			<p>Parlez devant le micro SVP!</p>
 		</div>
 	</div>

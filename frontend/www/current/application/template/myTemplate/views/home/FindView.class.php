@@ -40,6 +40,7 @@ class FindView extends MainView {
 			<form action="#ResultView" method="post" name="FindForm" id="FindForm" enctype="multipart/form-data">
 				<!-- Define the method to call -->
 				<input type="hidden" name="method" value="find" />
+				<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
 				<input type="hidden" name="numberOfOntology" value="3" />
 				<br />
 				
