@@ -64,8 +64,6 @@ class LoginController extends AbstractController {
 				$this->redirectTo("main");
 			}
 			
-			
-			
 		} else { // Not a POST request : Simply show the login form 
 			
 			$this->renderView("login");

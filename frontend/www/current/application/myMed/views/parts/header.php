@@ -10,23 +10,23 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
 	
 	<!-- JQUERY  -->
-	<link rel="stylesheet" href="../../lib/jquery/jquery.mobile-1.1.0.min.css" />
-	<script src="../../lib/jquery/jquery-1.6.4.min.js"></script>
-	<script src="../../lib/jquery/jquery.mobile-1.1.0.min.js"></script>
+	<link rel="stylesheet" href="<?= MYMED_ROOT ?>lib/jquery/jquery.mobile-1.1.0.min.css" />
+	<script src="<?= MYMED_ROOT ?>/lib/jquery/jquery-1.6.4.min.js"></script>
+	<script src="<?= MYMED_ROOT ?>/lib/jquery/jquery.mobile-1.1.0.min.js"></script>
 	
 	<!-- DateBox -->
-	<script src="../../lib/jquery/datebox/jquery.mobile.datebox.min.js"></script>
-	<link href="../../lib/jquery/datebox/jquery.mobile.datebox.min.css" rel="stylesheet" />
+	<script src="<?= MYMED_ROOT ?>/lib/jquery/datebox/jquery.mobile.datebox.min.js"></script>
+	<link href="<?= MYMED_ROOT ?>/lib/jquery/datebox/jquery.mobile.datebox.min.css" rel="stylesheet" />
 	
 	<!--  SimpleDialog -->
-	<script src="../../lib/jquery/simpledialog/jquery.mobile.simpledialog2.min.js"></script>
-	<link href="../../lib/jquery/simpledialog/jquery.mobile.simpledialog.min.css" rel="stylesheet" />
+	<script src="<?= MYMED_ROOT ?>/lib/jquery/simpledialog/jquery.mobile.simpledialog2.min.js"></script>
+	<link href="<?= MYMED_ROOT ?>/lib/jquery/simpledialog/jquery.mobile.simpledialog.min.css" rel="stylesheet" />
 	
 	<!-- APP JS -->
-	<script src="javascript/app.js"></script>
+	<script src="<?= APP_ROOT ?>/javascript/app.js"></script>
 	
 	<!-- APP css -->
-	<link href="css/style.css" rel="stylesheet" />
+	<link href="<?= APP_ROOT ?>/css/style.css" rel="stylesheet" />
 	
 	<!-- Google Analytics -->
 	<script type="text/javascript">
@@ -48,7 +48,7 @@
 			
 	</head>
 		
-<body>
+<body onload="hideLoadingBar()">
 
 <? // ================== Switch to active tab on load ==========================================?>
 <? if (!empty($TAB)) :?>

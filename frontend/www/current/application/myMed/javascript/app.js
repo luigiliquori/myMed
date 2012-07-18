@@ -8,6 +8,8 @@ $(document).ready(function() {
 	    return false;
 	});
 
+	showLoadingBar("chargement en cours...");
+	
 });
 
 function printShareDialog() {
@@ -17,4 +19,12 @@ function printShareDialog() {
 	    headerClose: true,
 	    blankContent : $("#hidden-sharethis")
 	  })
+}
+
+function hideLoadingBar() {
+	$.mobile.hidePageLoadingMsg();
+}
+function showLoadingBar(text) {
+	$.mobile.showPageLoadingMsg("d", text);
+	setTimeout(hideLoadingBar, 10000);
 }

@@ -7,8 +7,8 @@
 		<h3><?= _("Error") ?></h3>
 		<p><?= $this->error ?></p>
 		
-		<div style="float:right; margin-top:4px;">
-			<a href=".error-box" data-role="button" data-icon="delete" data-iconpos="notext" data-action="close" >Button</a>
+		<div style="position: relative; float:right; margin-top:4px;">
+			<a href=".error-box" data-role="button" data-icon="delete" data-iconpos="notext" data-action="close" >Fermer</a>
 		</div>
 	</div>
 <? endif ?>
