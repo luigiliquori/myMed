@@ -40,12 +40,33 @@ abstract class AbstractController implements IRequestHandler {
 		exit();
 	}
 	
+	/**
+	 * Call another controller 
+	 */
+	public function forward($action, $method=null, $args =	array()) {
+		
+		// Override $_GET method with arguments
+		foreach($args as $key => $val) {
+			$_GET[$key] = $val;
+			$_POST[$key] = $val;
+		}
+		
+		// Call another controller
+		callController($action, $method);
+	}
+	
 	public /*void*/ function setError($message){
 		$this->error = $message;
 	}
 	
 	public /*void*/ function setSuccess($message){
 		$this->success = $message;
+	}
+	
+	
+	/** Default method called after each request*/
+	public function defaultMethod() {
+		// Should be overridden for controller that use the "method" parameter 
 	}
 	
 	

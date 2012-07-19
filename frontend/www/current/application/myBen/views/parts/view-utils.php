@@ -2,6 +2,8 @@
 
 // Global prefix for "id"
 $PREFIX_ID="";
+$READ_ONLY=false;
+
 
 /**
  *  Generates a navbar of tabs with appropriate transitions (left / right).
@@ -39,22 +41,21 @@ function tabs($tabs, $activeTab) {
 } 
 
 /** Generates a checkbox to check/uncheck all items of same name */
-function checkox_all($name) {
+function checkbox_all($name) {
+	global $READ_ONLY;
+	if ($READ_ONLY) return;
 	?> 
 	<div data-role="fieldcontain">
 		<fieldset data-role="controlgroup">
-			<input type="checkbox" id="<?= $name ?>-all"  data-mini="true" data-check-all="<?= $name ?>[]" />
+			<input 
+				type="checkbox" 
+				id="<?= $name ?>-all"  
+				data-mini="true" 
+				data-check-all="<?= $name ?>[]" />
 			<label for="<?= $name ?>-all" >Tout / aucun</label>
 		</fieldset>
 	</div>
 	<?
-}
-
-
-/** Build URL */
-function url($action, $args=array()) {
-	$args["action"] = $action;
-	return "?" . http_build_query($args);
 }
 
 /** Generate checkboxes */
@@ -63,7 +64,7 @@ function checkboxes(
 		$options,  /** Map of key=>label */
 		$selection = array()) /** Array of selected keys, or "<all>" */
 {
-	global $PREFIX_ID;
+	global $PREFIX_ID, $READ_ONLY;
 	
 	// Selection "<all>" => Select all
 	if ($selection == "<all>") {
@@ -77,14 +78,25 @@ function checkboxes(
 	if (is_string($selection)) $selection = array($selection);
 	
 	?>
-
-		
+	
 	<div data-role="fieldcontain">
 		<fieldset data-role="controlgroup">
 		<? foreach ($options as $key => $label) : ?>
-			<input type="checkbox" id="<?= $PREFIX_ID.$name."-".$key?>" <? if (in_array($key, $selection)) echo 'checked="checked"' ?> name="<?= $name ?>[]" value="<?= $key ?>"/>
-			<label for="<?= $PREFIX_ID.$name."-".$key?>"><?= $label ?></label>
+			<? if ($READ_ONLY) :  ?>
+				<? if (!in_array($key, $selection)) continue ?>
+				<div id="<?= $PREFIX_ID.$name."-".$key?>" ><b><?= $label ?></b></div>
+			<? else : ?>
+				<input 
+					type="checkbox" 
+					id="<?= $PREFIX_ID.$name."-".$key?>" 
+					<? if (in_array($key, $selection)) echo 'checked="checked"' ?> 
+					name="<?= $name ?>[]" 
+					value="<?= $key ?>"/>
+				<label for="<?= $PREFIX_ID.$name."-".$key?>"><?= $label ?></label>
+			<? endif ?>
+			
 		<? endforeach ?>
+		
 		</fieldset>
 	</div>
 	<?
@@ -98,7 +110,7 @@ function radiobuttons(
 		$legend="",  /** String label to show */
 		$horizontal = false) 
 {
-	global $PREFIX_ID; ?>
+	global $PREFIX_ID, $READ_ONLY; ?>
 		
 	
 	<div data-role="fieldcontain">
@@ -121,18 +133,20 @@ function input(
 		$value = "",
 		$placeholder = "")
 {
-	global $PREFIX_ID;
+	global $PREFIX_ID, $READ_ONLY;
 	?>
 	<div data-role="fieldcontain">
 		<label for="<?= $PREFIX_ID . $name ?>"><?= $label ?></label>
 		<? if ($type == "textarea" ) : ?>
 			<textarea 
 				name="<?= $name ?>"
+				<? if ($READ_ONLY) print "disabled='disabled'"?>
 				id="<?= $PREFIX_ID . $name ?>"
 				placeholder="<?= $placeholder ?>"
 			><?= $value ?></textarea>
 		<? else: ?>
 			<input 
+				<? if ($READ_ONLY) print "disabled='disabled'" ?>
 				type="<?= $type ?>" 
 				name="<?= $name ?>" 
 				id="<?= $PREFIX_ID . $name ?>" 
@@ -143,21 +157,53 @@ function input(
 	<?
 }
 
+
 /** Generate checkboxes */
-function multi_select(
+function select(
 		$name,     /** Form input name */
+		$label,
 		$options,  /** Map of key=>label */
 		$selection,/** Array, the selected items */
-		$legend="" /** String label to show **/)
+		$multiple=false)
 {
-	?>
-	<select name="<?= $name ?>" data-native-menu="false" multiple="multiple" size="4">
-			<option><?= $legend ?></option>
-			<? foreach ($options as $key => $label) : ?>
-				<option <? if ($key == $selection) echo 'checked="checked"' ?>  value="<?= $key ?>"><?= $label ?></option>		
-			<? endforeach ?>
-	</select>
+	global $PREFIX_ID, $READ_ONLY;
 	
+	// Selection "<all>" => Select all
+	if ($selection == "<all>") {
+		$selection = array_keys($options);
+	}
+	
+	// Null ? => empty array
+	if ($selection == null) $selection = array();
+	
+	// Single selection ? => <String> to [<String>]
+	if (is_string($selection)) $selection = array($selection);
+	
+	?>
+	<div data-role="fieldcontain">
+		<label for="<?= $PREFIX_ID . $name ?>"><?= $label ?></label>
+		<? if ($READ_ONLY) : ?>
+			
+			<? foreach($selection as $key): ?>
+				<input 
+					id="<?= $PREFIX_ID . $name ?>"
+					type="text" 
+					disabled="disabled" 
+					value="<?= $options[$key] ?>" />
+			<? endforeach ?>
+			
+		<? else: ?>
+			<select 
+				id="<?= $PREFIX_ID . $name ?>" 
+				name="<?= $name ?>" 
+				<?= ($multiple) ? "multiple='multiple'" :"" ?>
+				?>>
+				<? foreach ($options as $key => $label) : ?>
+					<option <? if (in_array($key, $selection)) echo 'checked="checked"' ?>  value="<?= $key ?>"><?= $label ?></option>		
+				<? endforeach ?>
+			</select>
+		<? endif ?>
+	</div>
 	<?
 }
  

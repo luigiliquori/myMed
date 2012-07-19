@@ -1,10 +1,8 @@
 <? 
-
 //
 // This view shows both the login and register forms, with two tabs
 //
 include("header.php"); ?>
-
 
 <div data-role="page" id="switch">
 
@@ -29,7 +27,7 @@ include("header.php"); ?>
 	</div>
 	
 </div>
-	
+<?=  $MODE="create" ?>	
 <div data-role="page" id="benevole" >	
 
 	<? include("header-bar.php") ?>

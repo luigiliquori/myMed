@@ -19,6 +19,7 @@ import static com.mymed.utils.GsonUtils.gson;
 import static com.mymed.utils.PubSub.makePrefix;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -149,28 +150,36 @@ public class SubscribeRequestHandler extends AbstractMatchMaking {
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            String application, predicate, predicateList = null, user, namespace = parameters.get(JSON_NAMESPACE);
+            String application, singlePredicate, predicateList = null, user, namespace = parameters.get(JSON_NAMESPACE);
             user = parameters.get(JSON_USERID) != null ? parameters.get(JSON_USERID) : parameters.get(JSON_USER);
 
             if (code.equals(RequestCode.CREATE)) {
                 if ((application = parameters.get(JSON_APPLICATION)) == null) {
                     throw new InternalBackEndException("missing application argument!");
-                } else if ((predicate = parameters.get(JSON_PREDICATE)) == null && (predicateList = parameters.get(JSON_PREDICATE_LIST)) == null) {
+                } else if ((singlePredicate = parameters.get(JSON_PREDICATE)) == null && (predicateList = parameters.get(JSON_PREDICATE_LIST)) == null) {
 					throw new InternalBackEndException("missing predicate or predicateList argument!");
                 } else if (user == null) {
                     throw new InternalBackEndException("missing userID argument!");
                 }
                 
+                
+                // If predicates are given as a list, there might several predicates generated.
+                // For example in case of ENUM values
+                List<String> predicates;
+                
+                // List of predicates
                 if (predicateList != null) {
 					final Type dataType = new TypeToken<List<MDataBean>>() {}.getType();
 					final List<MDataBean> predicateListObject = gson.fromJson(predicateList, dataType);
-					List<String> predicates = getPredicate(
+					predicates = getPredicate(
 					        predicateListObject, 
 					        predicateListObject.size(),
 					        predicateListObject.size());
 					
-					// Sub predicate
-					predicate = getSubPredicate(predicateListObject);
+				} else {			    
+				    // Single predicate
+				    predicates = new ArrayList<String>();
+				    predicates.add(singlePredicate);
 				}
 
                 MUserBean userBean;
@@ -181,9 +190,16 @@ public class SubscribeRequestHandler extends AbstractMatchMaking {
                 }
                 try {
 
-                    pubsubManager.create(makePrefix(application, namespace), predicate, userBean);
-                    LOGGER.info("predicate subscribed: " + predicate);
-                    message.setDescription("predicate subscribed: " + predicate);
+                    // Subscribe to all predicates
+                    StringBuffer description = new StringBuffer();
+                    for (String predicate : predicates) {
+                        pubsubManager.create(
+                                makePrefix(application, namespace), 
+                                predicate, 
+                                userBean);
+                        description.append(predicate + ", ");
+                    }
+                    message.setDescription("predicates subscribed: " + description.toString());
                 } catch (final JsonSyntaxException e) {
                     throw new InternalBackEndException("jSon format is not valid");
                 }

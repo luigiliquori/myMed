@@ -15,7 +15,7 @@ class AuthenticatedController extends AbstractController {
 	 * If the user is not authenticated, it redirects to the login page.
 	 * @see IRequestHandler::handleRequest()
 	 */
-	public /*String*/ function handleRequest() {
+	public /* String */ function handleRequest() {
 		
 		// Check for user in session
 		if( !isset($_SESSION['user']) ) {

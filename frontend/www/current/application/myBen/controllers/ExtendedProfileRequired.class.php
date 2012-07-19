@@ -1,12 +1,27 @@
 <?php 
 
 define("EXTENDED_PROFILE", "extendedProfile");
+define("BENEVOLE", "benevole");
+define("ASSOCIATION", "association");
+define("NICE_BENEVOLAT", "nice_benevolat");
+
 
 /** Class that requires the user to fill out extended profile */
 class ExtendedProfileRequired extends AuthenticatedController {
 	
-	// The extended profile
-	protected $extendedProfile;
+	/** 
+	 *  @var $extendedProfile GenericDataBean 
+	 *  The extended profile
+	 */
+	public $extendedProfile = null;
+	
+	/** "benevole" or "association" or "nice_benevolat" */
+	public $profileType;
+	
+	
+	public function __construct__($profileType) {
+		$this->profileType = $profileType;
+	}
 	
 	public /*String*/ function handleRequest() {
 		
@@ -34,13 +49,12 @@ class ExtendedProfileRequired extends AuthenticatedController {
 				// Create empty profiles
 				$this->profileBenevole = new ProfileBenevole(); 
 				$this->profileBenevole->disponibilites = array_keys(CategoriesDisponibilites::$values);
-				$this->profileBenevole->mobilite = array_keys(CategoriesMobilite::$values);
 				$this->profileBenevole->missions = array_keys(CategoriesMissions::$values);
 				
 				$this->profileAssociation = new ProfileAssociation();
 				$this->profileAssociation->missions = array_keys(CategoriesMissions::$values);
 				
-				$this->renderView("fillProfile");
+				$this->renderView("createProfile");
 					
 			} else {
 					
@@ -55,9 +69,6 @@ class ExtendedProfileRequired extends AuthenticatedController {
 		
 		// Set it in the controller
 		$this->extendedProfile = $_SESSION[EXTENDED_PROFILE];
-		
-		// Ok
-		debug_r($this->extendedProfile);
 		
 	}
 }

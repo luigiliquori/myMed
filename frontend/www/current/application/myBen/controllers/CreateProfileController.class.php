@@ -1,14 +1,14 @@
 <? 
 
 /** Called after filling extended profile */
-class FillProfileController extends AuthenticatedController {
+class CreateProfileController extends AuthenticatedController {
 	
 	public function handleRequest() {
 		
 		// Authentication required
 		parent::handleRequest();
 		
-		// type of profile
+		// Type of profile
 		$type = $_REQUEST['type'];
 		
 		// Switch on profile type
@@ -36,8 +36,8 @@ class FillProfileController extends AuthenticatedController {
 		// Save it
 		$profile->publish();
 		
-		$this->redirectTo("main");
-		
+		// View
+		$this->redirectTo("main"); 
 	}
 }
 

@@ -1,8 +1,19 @@
 <? 
-	// Alias
- 	$profile = $this->profileBenevole; 
+// Parameters of the template :
+// * $PREFIX_ID : (String) [Optional] Prefix for element IDs (to prevent conflicts in case of several forms (several pages) in the same HTML file.
+// * $MODE : "create" or "update"
+
+// Alias
+$profile = $this->profileBenevole; 
+
+if ($MODE == "create") {
+	$url = url("createProfile", array("type" => "benevole"));
+} else {
+	$url = url("editProfile", array("type" => "benevole"));
+}
+
 ?>
-<form data-role="content" method="post" data-ajax="false" action="<?= url("fillProfile", array("type"=>"benevole")) ?>" >
+<form data-role="content" method="post" data-ajax="false" action="<?= $url ?>" >
 
 	<div data-role="header" data-theme="b">
 		<h3>Informations personnelles</h3>
@@ -31,11 +42,11 @@
 	<div data-role="header" data-theme="b">
 		<h3>Compétences</h3>
 	</div>
+	<? checkbox_all("competences"); ?>
+	<? checkboxes("competences", CategoriesCompetences::$values, $profile->competences); ?>
 	<div data-theme="b" data-validate="competences[]" data-validate-min="1" data-validate-max="4" >
 		<b>Vous devez sélectionner de 1 à 4 compétences.</b>
 	</div>
-	<? checkox_all("competences"); ?>
-	<? checkboxes("competences", CategoriesCompetences::$values, $profile->competences); ?>
 	
 	<div data-role="header" data-theme="b">
 		<h3>Types de missions souhaitées</h3>
@@ -43,7 +54,7 @@
 	<div data-theme="b" data-validate="missions[]" data-validate-min="1" >
 		Vous devez sélectionner au moins 1 type de missions.
 	</div>
-	<? checkox_all("missions"); ?>
+	<? checkbox_all("missions"); ?>
 	<? checkboxes("missions", CategoriesMissions::$values, $profile->missions); ?>
 	
 	<div data-role="header" data-theme="b">
@@ -52,8 +63,8 @@
 	<div data-theme="b" data-validate="mobilite[]" data-validate-min="1" >
 		Vous devez sélectionner au moins un secteur de mobilité.
 	</div>
-	<? checkox_all("mobilite"); ?>
-	<? checkboxes("mobilite", CategoriesMobilite::$values, $profile->mobilite); ?>
+	<? checkbox_all("mobilite"); ?>
+	<? checkboxes("mobilite", CategoriesMobilite::$values_no_undef, $profile->mobilite); ?>
 
 	<div data-role="header" data-theme="b">
 		<h3>Disponibilités (quartiers de nice)</h3>
@@ -61,12 +72,12 @@
 	<div data-theme="b" data-validate="disponibilites[]" data-validate-min="1" >
 		Vous devez sélectionner au moins un créneau de disponibilités.
 	</div>
-	<? checkox_all("disponibilites"); ?>
+	<? checkbox_all("disponibilites"); ?>
 	<? checkboxes("disponibilites", CategoriesDisponibilites::$values, $profile->disponibilites); ?>
 
-	<input data-theme="e" type="checkbox" name="alert" value="true" id="alert" checked="checked" />
-	<label for="alert" data-theme="e">Prévenez moi par email en cas de futures offres correspondantes.</label>
+	<input data-theme="e" type="checkbox" name="subscribe" value="true" id="subscribe" <? if (is_true($profile->subscribe)) print "checked='checked'"?> />
+	<label for="subscribe" data-theme="e">Prévenez moi par email en cas de futures offres correspondantes.</label>
 	
-	<input type=submit name="submit" data-role="button" data-theme="g" value="Enregister mon profil" />
+	<input type=submit name="submit" data-role="button" data-theme="g" value="<?= ($MODE == "create") ? "Créer" : "Enregistrer"?> le profil" />
 
 </form>
