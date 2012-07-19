@@ -3,15 +3,15 @@
 //
 // This view shows both the login and register forms, with two tabs
 //
-include("header.php"); ?>
+require_once("header.php"); ?>
 
 <div data-role="page" id="login">
 
 	<div data-role="header" data-theme="b">
 		
 		<a href="http://www-sop.inria.fr/lognet/MYMED/" target="blank" data-icon="info" data-iconpos="right" class="ui-btn-right">A propos</a>
-		<span class="ui-title" />
-		<? include("notifications.php")?>
+		<span class="ui-title"></span>
+		<? require_once("notifications.php")?>
 		
 	</div>
 	
@@ -35,6 +35,6 @@ include("header.php"); ?>
 	
 </div>
 	
-<? include("RegisterView.php"); ?>
+<? require_once("RegisterView.php"); ?>
 
-<? include("footer.php"); ?>
+<? require_once("footer.php"); ?>

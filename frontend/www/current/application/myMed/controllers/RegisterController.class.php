@@ -83,7 +83,6 @@ class RegisterController extends AbstractController {
 		 
 		} else {
 			
-			
 			$this->error = _("Erreur interne d'enrgistrement");
 			$this->renderView("register");
 		}

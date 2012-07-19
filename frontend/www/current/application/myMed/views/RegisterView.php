@@ -1,10 +1,12 @@
 
+<? require_once("header.php"); ?>
+
 <div data-role="page" id="register" >	
 
 	<div data-role="header" data-theme="b">
 		<h1>Création d'un compte</h1>
 		<a href="#login" data-role="button" data-inline="true" data-icon="arrow-l">Retour</a>
-		<? include("notifications.php")?>
+		<? require_once("notifications.php")?>
 	</div>
 
 	<div data-role="content">
@@ -41,10 +43,14 @@
 				</span><br />
 				
 				<center>
-				<a data-role="button" onclick="document.inscriptionForm.submit()" data-theme="b" data-inline="true">Valider</a>
+					<input type="submit" data-role="button" data-theme="b" data-inline="true" value="Valider" />
 				</center>
 		
 		</form>
 	</div>
 	
 </div>
+
+<? require_once("LoginView.php"); ?>
+
+<? require_once("footer.php"); ?>
