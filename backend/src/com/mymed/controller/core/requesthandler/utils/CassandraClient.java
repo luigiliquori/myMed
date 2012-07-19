@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.mymed.controller.core.requesthandler.debug;
+package com.mymed.controller.core.requesthandler.utils;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,7 +55,8 @@ import com.mymed.utils.MLogger;
 /**
  * @author lvanni
  */
-public class DebugConsole extends AbstractRequestHandler {
+@WebServlet("/CassandraClient")
+public class CassandraClient extends AbstractRequestHandler {
     private static final long serialVersionUID = 1L;
 
     /** Cassandra debug operations */
@@ -94,7 +96,7 @@ public class DebugConsole extends AbstractRequestHandler {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DebugConsole() {
+    public CassandraClient() {
         super();
         // Default value
         address = "138.96.242.2";

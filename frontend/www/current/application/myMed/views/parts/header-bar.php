@@ -1,3 +1,6 @@
+<div data-role="header" data-theme="b">
+		
+	<a href="#" data-rel="dialog" data-icon="star" onClick="printShareDialog();">Partagez</a>
 	<div style="display: none;">
 		<div id="hidden-sharethis">
 			<span class='st_facebook_large' displayText='Facebook'></span>
@@ -6,3 +9,8 @@
 			<span class='st_email_large' displayText='Email'></span>
 		</div>
 	</div> 
+	<h1><?= APPLICATION_NAME ?></h1>
+<!-- 	<a href="#About" data-icon="gear">Option</a> -->
+	<? include("notifications.php")?>
+	
+</div>

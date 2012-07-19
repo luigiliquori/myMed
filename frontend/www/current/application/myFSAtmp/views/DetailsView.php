@@ -1,8 +1,6 @@
 <? include("header.php"); ?>
 
 <div data-role="page">
-
-	<? include("header-bar.php") ?>
 	
 	<div data-role="content" >
 		<b>Author</b> : <?= $this->result->publisherID ?><br/>

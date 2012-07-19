@@ -10,6 +10,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
 	
 	<!-- JQUERY  -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="../../lib/jquery/jquery.mobile-1.1.0.min.css" />
 	<script src="../../lib/jquery/jquery-1.6.4.min.js"></script>
 	<script src="../../lib/jquery/jquery.mobile-1.1.0.min.js"></script>
@@ -24,7 +25,7 @@
 	<script src="javascript/app.js"></script>
 	
 	<!-- MYMED css -->
-	<link href="../myMed/css/style.css" rel="stylesheet" />
+
 	<!-- APP css -->
 	<link href="css/style.css" rel="stylesheet" />
 	

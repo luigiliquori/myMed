@@ -20,10 +20,13 @@ abstract class AbstractController implements IRequestHandler {
 			foreach($vars as $key=>$value){
 				$get_line .= '&' . $key . '=' . $value;
 			}
-			header('Refresh:0;url=/application/'.APPLICATION_NAME.'/index.php?action=' . $action . $get_line);
+			printf('<script>location.href="/application/'.APPLICATION_NAME.'/index.php?action='.$action.$get_line.'"</script>');
+			//header('Refresh:0;url=/application/'.APPLICATION_NAME.'/index.php?action=' . $action . $get_line);
 		}
 		else{
-			header('Refresh:0;url=/application/'.APPLICATION_NAME.'/index.php?action='.$action);
+			debug("redirectiiiiing!");
+			printf('<script>location.href="/application/'.APPLICATION_NAME.'/index.php?action='.$action.'"</script>');
+			//header('Refresh:0;url=/application/'.APPLICATION_NAME.'/index.php?action='.$action);
 		}
 			
 		exit();

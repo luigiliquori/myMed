@@ -101,11 +101,35 @@ class ExtendedProfile
 	 */
 	public static /* List of ontologies */ function getExtendedProfile(IRequestHandler $handler, $user){
 		
+		
+		
 		$predicate = "roleExtendedProfile";
 		
 		$find = new FindRequest($handler, $predicate, $user);
-		return $find->send();
+		$result = $find->send();
+		
+		if (empty($result))
+			return null;
+		
+		
+		$companyName = "";
+		$doctor = "";
 			
+		foreach ($result as $line){
+			switch($line->key){
+					
+				case "doctor" :
+					$doctor = json_decode($line->value, TRUE);
+					break;
+				case "companyName" :
+					$companyName = json_decode($line->value, TRUE);
+					break;
+			}
+		
+		}
+			
+		return new ExtendedProfile($user, $companyName, $doctor);
+		
 	}
 	
 	

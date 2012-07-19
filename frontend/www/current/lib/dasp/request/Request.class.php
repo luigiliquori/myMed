@@ -118,10 +118,15 @@ class Request {
 			curl_setopt($curl, CURLOPT_URL, $this->url.$this->ressource.'?'.http_build_query($this->arguments));
 		}
 
+<<<<<<< HEAD
 		debug($this->url.$this->ressource.'?'.http_build_query($this->arguments));
 
 
 
+=======
+// 		echo '<script type="text/javascript">alert(\'' . $this->url.$this->ressource.'?'.http_build_query($this->arguments) . '\');</script>';
+		
+>>>>>>> 9248f62354e724fc6c2da66409cba5b5b86cf143
 		// SSL CONNECTION
 		// TODO fix once we have the valid certificate!
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);

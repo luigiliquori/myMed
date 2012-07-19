@@ -6,44 +6,56 @@
  */
 class PublishController extends AuthenticatedController {
 	
-
+	
+// 	$debugtxt  =  "<pre>CONTROLLLLLEEEEEEEEEEEEEERRR";
+// 	$debugtxt  .= var_export($this->result, TRUE);
+// 	$debugtxt .= "</pre>";
+// 	debug($debugtxt);
+	
 	public function handleRequest() {
-		
+	
 		parent::handleRequest();
-		
+			
 		if (isset($_REQUEST['method']) && $_REQUEST['method'] == "Publish") {
-			
+				
 			// -- Publish
-
-			
+			$debugtxt  =  "<pre>CONTROLLLLLEEEEEEEEEEEEEERRR";
+			$debugtxt  .= var_export($_SESSION, TRUE);
+			$debugtxt .= "</pre>";
+			debug($debugtxt);
+				
 			$obj = new PublishObject();
-			
+				
 			// Fill the object
 			$this->fillObj($obj);
 			$obj->publish();
 			
-			$this->success = "Published !";
-			
-		} elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Search") {
-			
+			$this->result = $obj;
+			$this->result->publisherID = $_SESSION['user'];
+			$this->renderView("details");
+				
+		}	elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Search") {
+	
 			// -- Search
+			$this->search();	
+		} 
+		else {
+				
+			// -- Show the form
+		}
+	
+		$this->renderView("publish");
+	}
+	
+	public function search() {
+	
+			// -- Search
+	
 			$search = new PublishObject();
 			$this->fillObj($search);
 			$this->result = $search->find();
-			
-			$debugtxt  =  "<pre>CONTROLLLLLEEEEEEEEEEEEEERRR";
-			$debugtxt  .= var_export($this->result, TRUE);
-			$debugtxt .= "</pre>";
-			debug($debugtxt);
-			
-			$this->renderView("results");
-			
-		} else {
-			
-			// -- Show the form
-		}
-
-		$this->renderView("publish");
+	
+			$this->renderView("search");
 	}
 	
 	// Fill object with POST values
@@ -52,16 +64,17 @@ class PublishController extends AuthenticatedController {
 		$obj->end = $_POST['end'];
 		$obj->wrapped1 = $_POST['wrapped1'];
 		$obj->wrapped2 = $_POST['wrapped2'];
-		
+	
 		$obj->pred1 = "FSApublication";
-// 		$obj->pred2 = $_POST['pred2'];
-// 		$obj->pred3 = $_POST['pred3'];
-		
+		$obj->pred2 = $_POST['pred2'];
+		$obj->pred3 = $_POST['pred3'];
+	
 		$obj->data1 = $_POST['data1'];
 		$obj->data2 = $_POST['data2'];
 		$obj->data3 = $_POST['data3'];
-		
+	
 	}
+	
  	
 }
 ?>

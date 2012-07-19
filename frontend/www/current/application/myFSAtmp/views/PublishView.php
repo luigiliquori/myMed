@@ -1,16 +1,4 @@
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=650" />
-<title>
-myFSA
-</title>
-<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
-</script>
-<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js">
-</script>
-</head>
-<body>
+<? include("header.php"); ?>
 <div data-role="page" id="PublishView">
 <div class="wrapper">
 <div data-role="header" data-theme="b">
@@ -19,11 +7,11 @@ myFSA
 </div>
 <div data-role="content">
 <!-- tutaj halo-->
-		<form action="index.php?action=publish" method="POST" data-ajax="false">
+			<form action="index.php?action=publish" method="POST" data-ajax="false">
 			
-			<!--<input type="text" name="pred1" placeholder="pred1"/>
-			  <input type="text" name="pred2" placeholder="pred2"/>
-			<input type="text" name="pred3" placeholder="pred3"/>-->
+<!-- 			<input type="text" name="pred1" placeholder="pred1"/> -->
+			<input type="text" name="pred2" placeholder="pred2"/>
+			<input type="text" name="pred3" placeholder="pred3"/>
 			
 			<br/>
 			

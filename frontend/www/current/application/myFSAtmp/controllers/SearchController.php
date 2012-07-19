@@ -1,4 +1,4 @@
-// <?php
+<?php
 
 // /**
 //  *This class extends the default myMed user profile, common to every applications, with a profile specific
