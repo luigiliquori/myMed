@@ -170,10 +170,15 @@ class ExtendedProfile
 		$predicate = "roleExtendedProfile";
 		
 		$find = new FindRequest($handler, $predicate, $user);
-		$result = $find->send();
 		
-		if (empty($result))
+		try{
+			$result = $find->send();
+		}
+		catch(Exception $e){
+			// Typical Exception raised : No publication found
+			// which means the user don't have a ExtendedProfile yet
 			return null;
+		}
 		
 		$home = "";
 		$diseaseLevel = "";
