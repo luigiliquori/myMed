@@ -45,7 +45,7 @@ class LoginController extends AbstractController {
 				
 				// Save the error
 				$this->error = $responseObject->description;
-				debug("error");	
+				//debug("error");	
 					
 				// Show the login form
 				$this->renderView("login");
@@ -58,7 +58,7 @@ class LoginController extends AbstractController {
 				// Set user into $_SESSION
 				$this->getUserFromSession();
 				
-				debug("success");
+				//debug("success");
 				
 				// Redirect to main page
 				$this->redirectTo("main");
