@@ -46,7 +46,7 @@
 				    		<img alt="<?= $file ?>" src="../../application/<?= $file ?>/img/icon.png" class="ui-li-icon" />
 					    	<a href="/application/<?= $file ?>?action=extendedProfile" rel="external" class="myIcon">
 					    	<div Style="position: absolute; right: 78px">
-					    	<select id="flip-<?= $file ?>" name="flip-<?= $file ?>" id="flip-<?= $file ?>" data-role="slider" data-mini="true" onChange="SetCookie('<?= $file ?>Status', $('#flip-<?= $file ?>').val())">
+					    	<select id="flip-<?= $file ?>" name="flip-<?= $file ?>" id="flip-<?= $file ?>" data-role="slider" data-mini="true" onChange="SetCookie('<?= $file ?>Status', $('#flip-<?= $file ?>').val(), 365)">
 								<option value="off" <?= isset($_COOKIE[$file.'Status']) &&  $_COOKIE[$file.'Status'] == "off" ? "selected='selected'" : "" ?>>Off</option>
 								<option value="on" <?= (isset($_COOKIE[$file.'Status']) &&  $_COOKIE[$file.'Status'] == "on") || !isset($_COOKIE[$file.'Status']) ? "selected='selected'" : "" ?>>On</option>
 							</select> 
