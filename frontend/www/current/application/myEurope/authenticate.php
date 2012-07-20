@@ -2,7 +2,7 @@
 
 //ob_start("ob_gzhandler");
 require_once 'Template.php';
-Template::init(false);
+Template::init();
 if (isset($_SESSION['user'])){ // we should not be there
 	header("Location: ./");
 }
@@ -19,7 +19,7 @@ if(isset($_GET['registration'])) { // registration account validation
 	if($responseObject->status != 200) {
 		$msg = "<span style='color: red; '>".$responseObject->description."</span>";
 	} else {
-		$msg = "<span style='color: lightgreen;'>Bienvenu sur myEurope, authentifiez-vous</span>";
+		$msg = "<span style='color: lightgreen;'>Bienvenue sur myEurope, authentifiez-vous</span>";
 	}
 }
 
@@ -48,9 +48,9 @@ if (count($_POST)) {
 			if($extProfile->status == 200 ) {
 				foreach ($extProfile->dataObject->details as $v){
 					if ($v->key == "role")
-						$_SESSION['profile']->role = $v->value[0];
+						$_SESSION['profile']->role = $v->value;
 					else if ($v->key == "permission")
-						$_SESSION['profile']->permission = $v->value[0];
+						$_SESSION['profile']->permission = $v->value;
 				};
 				
 				header("Location: ".(isset($_SESSION['redirect'])?$_SESSION['redirect']:"./index"));
@@ -87,8 +87,7 @@ if (count($_POST)) {
 			<ul>
 				<li><a href="http://<?= $_SERVER['HTTP_HOST'] ?>" type="button" rel="external" data-icon="delete" data-iconpos="notext">myMed</a></li>
 				<li><a href="about" data-icon="info"  data-transition="slidefade" data-direction="reverse"><?= _('About') ?></a></li>
-				<li><a href="" data-icon="home"  class="ui-btn-active ui-state-persist"><?= _('Home') ?></a></li>
-				<li><a href="register" data-transition="flip">inscription via myMed</a></li>
+				<li><a href="register" data-icon="grid" data-transition="flip">inscription via myMed</a></li>
 			</ul>
 		</div>
 	</div>
@@ -102,7 +101,7 @@ if (count($_POST)) {
 		<form action="authenticate" method="post" id="loginForm" data-ajax="false">
 
 			<input name="login" placeholder="email" value="" type="text" /><br />
-			<input name="password" placeholder="Mot de passe" value="" type="password" /><br />
+			<input name="password" placeholder="<?= _("password") ?>" value="" type="password" /><br />
 			
 			<div style="text-align: center;" >
 				<input type="submit"  data-inline="true" data-theme="b" value="Connexion"/><br />

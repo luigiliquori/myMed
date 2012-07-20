@@ -28,6 +28,8 @@ html,body,.ui-page {
 
 .footer img {
 	vertical-align: middle;
+	max-height: 30px;
+	max-width: 70px;
 }
 
 .push {
@@ -67,8 +69,23 @@ input.ui-input-text,textarea.ui-input-text {
 	/*float: right;*/
 }
 
+.mySlider .ui-slider-switch {
+	min-width: 350px;
+}
+
+@media all and (min-width: 450px){
+	.myCheck {width: 78%;}
+}
+
 #publishForm .ui-slider-switch {
 	width: 30%;
+}
+
+.ui-focus,
+.ui-btn:focus {
+	-moz-box-shadow: inset 0px 0px 0px 		#387bbe , 0px 0px 0px 	#387bbe ;
+	-webkit-box-shadow: inset 0px 0px 0px 	#387bbe , 0px 0px 0px 	#387bbe ;
+	box-shadow: inset 0px 0px 0px 			#387bbe , 0px 0px 0px 	#387bbe ;
 }
 
 /*

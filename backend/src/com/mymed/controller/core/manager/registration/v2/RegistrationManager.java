@@ -17,7 +17,6 @@
 package com.mymed.controller.core.manager.registration.v2;
 
 import static com.mymed.model.data.application.MOntologyID.TEXT;
-import static com.mymed.utils.MiscUtils.singleton;
 import static java.util.Arrays.asList;
 
 import java.util.ArrayList;
@@ -104,11 +103,11 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
         final List<DataBean> dataList = new ArrayList<DataBean>();
         try {
 			final DataBean dataUser = new DataBean(TEXT, FIELD_USER,
-					singleton(gson.toJson(user)));
+					gson.toJson(user));
 
 			final DataBean dataAuthentication = new DataBean(TEXT,
 					FIELD_AUTHENTICATION,
-					singleton(gson.toJson(authentication)));
+					gson.toJson(authentication));
 			
             dataList.add(dataUser);
             dataList.add(dataAuthentication);
@@ -154,9 +153,9 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
         try {
             for (final DataBean dataEntry : list) {
                 if (dataEntry.getKey().equals(FIELD_USER)) {
-                    userBean = gson.fromJson(dataEntry.getValue().get(0), MUserBean.class);
+                    userBean = gson.fromJson(dataEntry.getValue(), MUserBean.class);
                 } else if (dataEntry.getKey().equals(FIELD_AUTHENTICATION)) {
-                    authenticationBean = gson.fromJson(dataEntry.getValue().get(0), MAuthenticationBean.class);
+                    authenticationBean = gson.fromJson(dataEntry.getValue(), MAuthenticationBean.class);
                 }
             }
         } catch (final JsonSyntaxException e) {

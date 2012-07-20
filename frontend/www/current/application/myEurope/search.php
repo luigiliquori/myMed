@@ -14,6 +14,7 @@
 //ob_start("ob_gzhandler");
 require_once 'Template.php';
 Template::init();
+Template::checksession();
 
 $res = null;
 
@@ -24,8 +25,9 @@ if (count($_GET) > 0){
 	//$predicate = join("", array_slice($p, 0, 3)); // we use a broadcast level of 3 for myEurope see in post.php
 
 	// @todo verify date format
-
-	$data=array();
+	$namespace = $_GET['namespace'];
+	unset($_GET['namespace']);
+	$index=array();
 	$p=array();
 // 	foreach( $p as $v ){ //tags
 // 		$predicateList[$v] = array("valueStart"=>"", "valueEnd"=>"", "ontologyID"=>KEYWORD);
@@ -35,6 +37,7 @@ if (count($_GET) > 0){
 	$regions = array();
 
 	foreach( $_GET as $i=>$v ){
+		array_push($p, new DataBean($i, KEYWORD, array($v)));
 		if ($v == "on"){
 			if ( strpos($i, "met") === 0){
 				array_push($metiers, $i);
@@ -44,27 +47,25 @@ if (count($_GET) > 0){
 		}
 	}
 	if (count($metiers)){
-		array_push($data, new DataBean("met", ENUM, $metiers));
+		array_push($index, new DataBean("met", ENUM, $metiers));
 	}
 	
 	if (count($regions)){
-		array_push($data, new DataBean("reg", ENUM, $regions));
+		array_push($index, new DataBean("reg", ENUM, $regions));
 	}
 	
 	if (isset($_GET['offre'])){
-		array_push($data, new DataBean("offre", KEYWORD, array($_GET['offre'])));
+		array_push($index, new DataBean("offre", KEYWORD, array($_GET['offre'])));
 	}
 	
-	sort($p);
-	
 	if ($_GET['dateMin'] != 0 && $_GET['dateMax'] != 0){
-		array_push($data, new DataBean("date", DATE, array(strtotime($_GET['dateMin']), strtotime($_GET['dateMax']))));
+		array_push($index, new DataBean("date", DATE, array(strtotime($_GET['dateMin']), strtotime($_GET['dateMax']))));
 	}
 
 	$request = new Request("v2/FindRequestHandler", READ);
 	$request->addArgument("application", Template::APPLICATION_NAME);
-	$request->addArgument("namespace", $_GET['namespace']);
-	$request->addArgument("data", json_encode($data));
+	$request->addArgument("namespace", $namespace);
+	$request->addArgument("index", json_encode($index));
 
 	$responsejSon = $request->send();
 	$res = json_decode($responsejSon);
@@ -85,7 +86,7 @@ if (count($_GET) > 0){
 			<div data-role="navbar" data-theme="c"  data-iconpos="left">
 				<ul>
 					<li><a data-rel="back" data-icon="back">Retour</a></li>	
-					<li><a href="./"  data-icon="home"><?= _('Home') ?></a></li>				
+					<li><a href="home"  data-icon="home"><?= _('Home') ?></a></li>				
 				</ul>
 			</div>
 		</div>
@@ -97,13 +98,13 @@ if (count($_GET) > 0){
 			<select data-theme="b" data-mini="true" name="slider2" id="flip-a2" data-role="slider"
 				onchange="">
 				<option value="3">réputation</option>
-				<option value="0">alphabétiquement</option>
+				<option value="0">nom</option>
 			</select>
 			</div>
 		<div style="display:inline-block;width:49%;">
-				<label for="flip-a">Si un nouveau contenu correspond à cette recherche:</label>
+			<label for="flip-a">Si un nouveau contenu correspond à cette recherche:</label>
 			<select data-theme="e" data-mini="true" name="slider" id="flip-a" data-role="slider"
-				onchange="$.get('../../lib/dasp/ajax/Subscribe', { code: $(this).val(), application: '<?= Template::APPLICATION_NAME ?>' ,predicate: '<?= urlencode(join("", $p)) ?>' } );">
+				onchange="$.get('../../lib/dasp/ajax/Subscribe', { code: $(this).val(), application: '<?= Template::APPLICATION_NAME ?>' ,namespace: '<?= $namespace ?>' ,data: '<?= urlencode(json_encode($p)) ?>' } );">
 				<option value="3">Souscrire</option>
 				<option value="0">Désabonner</option>
 			</select>
@@ -135,7 +136,7 @@ if (count($_GET) > 0){
 					}
 
 					?>
-				<li><a href="detail?id=<?=  urlencode($value->id) ?>&user=<?=  urlencode($value->publisherID) ?>&namespace=<?= urlencode($_GET['namespace']) ?>" 
+				<li><a href="detail?id=<?=  urlencode($value->id) ?>&user=<?=  urlencode($value->publisherID) ?>&namespace=<?= urlencode($namespace) ?>" 
 				 style="padding-top: 1px; padding-bottom: 1px;">
 						<h3>
 							projet: <?= $value->predicate ?>
@@ -164,7 +165,7 @@ if (count($_GET) > 0){
 			<?php	
 			} else{
 				?>
-			Votre recherche à abouti a aucun résultat.
+			Votre recherche n'a abouti à aucun résultat.
 			<?php	
 			}
 			?>

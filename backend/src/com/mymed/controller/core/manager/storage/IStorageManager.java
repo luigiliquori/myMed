@@ -227,4 +227,9 @@ public interface IStorageManager {
     public Map<String, Map<String, String>> multiSelectList(final String tableName, final List<String> keys,
     		final String start, final String finish) 
     			throws IOBackEndException, InternalBackEndException, UnsupportedEncodingException;
+
+
+	Map<String, String> selectSuperColumn(String tableName, String key,
+			String columnName) throws InternalBackEndException,
+			IOBackEndException;
 }

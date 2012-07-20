@@ -28,6 +28,7 @@ import com.mymed.controller.core.manager.reputation.api.recommendation_manager.V
 import com.mymed.controller.core.manager.reputation.recommendation_manager.AverageReputationAlgorithm;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.data.interaction.MInteractionBean;
+import com.mymed.utils.MiscUtils;
 
 /**
  * Manage the reputation of a user
@@ -86,11 +87,8 @@ public class InteractionManager extends AbstractManager implements
 
 			// ADD THE INTERACTION TO THE PRODUCER INTERACTION LIST
 			final Map<String, byte[]> args = new HashMap<String, byte[]>();
-			try {
-				args.put(interaction.getConsumer() + interaction.getPredicate(), interaction.getState().getBytes(ENCODING));
-			} catch (UnsupportedEncodingException e1) {
-				throw new InternalBackEndException(e1);
-			}
+			args.put(interaction.getConsumer() + interaction.getPredicate(), MiscUtils.encode(interaction.getState()));
+
 		} else {
 			throw new IOBackEndException("Interaction already exist!", 409);
 		}

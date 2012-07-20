@@ -12,24 +12,29 @@ The following variables are available in the templates :
 -->
 <mail-template>
 
-    <subject>[MyMed/${application}] Nouvelle publication</subject>
+    <subject>[MyMed/${application}] Nouvel utilisateur inscrit</subject>
 
     <body><![CDATA[
         Bonjour ${recipient.name},<br/>
         <br/>
         
-        Une nouvelle publication est disponible sur la plateforme MyMed.<br/>
-        Application : ${application}<br/>
+        Un nouvel utilisateur vient de s'inscrire sur ${application}<br/>
         <br/>
         
-        Auteur : ${publisher.name}<br/>
-        Publication :
+        Nom : ${publisher.name}<br/>
+        Données :
         <ul>
             <#list publication as item>
                 <li><b>${item.key}</b> : ${item.value!'N/A'}</li>
             </#list>
         </ul>
         
+        Prenez contact avec celui-ci afin de confirmer son identité puis autoriser son entrée sur ${application} 
+        en vous rendant sur 
+        <a href="${base_url}application/${application}/admin">
+	        	${base_url}application/${application}/admin
+	        </a>
+	    <br/>
         --<br/>
     
         L'équipe MyMed<br/>

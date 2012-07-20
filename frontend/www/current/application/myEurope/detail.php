@@ -13,6 +13,7 @@
 //ob_start("ob_gzhandler");
 require_once 'Template.php';
 Template::init();
+Template::checksession();
 
 $msg = ""; //feedback text
 
@@ -46,7 +47,8 @@ if (isset($_POST['commentOn'])){ // we want to comment
 } else if (isset($_POST['predicates'])) { //delete text or comment
 	$request = new Request("v2/PublishRequestHandler", DELETE);
 	$request->addArgument("application", Template::APPLICATION_NAME);
-	$request->addArgument("predicateList", urldecode($_POST['predicates']));
+	$request->addArgument("namespace", $namespace);
+	//$request->addArgument("predicateList", urldecode($_POST['predicates']));
 	if (isset($_POST['id'])) {
 		$request->addArgument("id", $id);
 	}
@@ -245,9 +247,10 @@ if(isset($responseObject->dataObject->reputation)){
 			if ($author == $_SESSION['user']->id){ //we can delete our own text
 				?>
 			<form action="#" method="post" id="deleteForm">
-				<input name="application" value='<?= Template::APPLICATION_NAME ?>' type="hidden" /> <input name="predicates" value='<?= urlencode(json_encode($detail)) ?>'
-					type="hidden" /> <input name="id" value='<?= $id ?>' type="hidden" /> <input name="user" value='<?= $_REQUEST['user'] ?>'
-					type="hidden" />
+				<input name="application" value='<?= Template::APPLICATION_NAME ?>' type="hidden" />
+				<input name="predicates" value='<?= urlencode(json_encode($detail)) ?>' type="hidden" />
+				<input name="id" value='<?= $id ?>' type="hidden" />
+				<input name="user" value='<?= $_REQUEST['user'] ?>' type="hidden" />
 			</form>
 			<a id="deleteTmp" href="" type="button" data-inline="true" data-mini="true" data-icon="delete" onclick="$('#deleteYes').fadeIn('slow');$('#deleteNo').fadeIn('slow');"
 				style="width: 150px;">Supprimer?</a>

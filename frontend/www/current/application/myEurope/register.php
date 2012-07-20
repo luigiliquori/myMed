@@ -3,14 +3,13 @@
 //ob_start("ob_gzhandler");
 
 require_once 'Template.php';
-Template::init(false);
+Template::init();
 
 $msg="";
 
 if (count($_POST)) {
 	require_once '../../lib/dasp/beans/MUserBean.class.php';
 	require_once '../../lib/dasp/beans/MAuthenticationBean.class.php';
-	var_dump($_POST);
 	
 	if ( $_POST["password"] == ""){
 		$msg = "<span style='color: red; text-align:center;'>mot de passe vide</span>";
@@ -72,7 +71,7 @@ if (count($_POST)) {
 			<div data-role="navbar" data-theme="c"  data-iconpos="left">
 				<ul>
 					<li><a data-rel="back" data-transition="flip" data-direction="reverse" data-icon="back">Retour</a></li>
-					<li><a href="option" data-icon="check" data-theme="b" data-mini="true" onclick="$('#registerForm').submit();">Valider</a></li>
+					<li><a data-icon="check" data-theme="b" data-mini="true" onclick="$('#registerForm').submit();">Valider</a></li>
 				</ul>
 			</div>
 		</div>

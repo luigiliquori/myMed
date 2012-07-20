@@ -10,13 +10,15 @@
  */
 package com.mymed.model.data.application;
 
+import java.util.ArrayList;
+
 import com.mymed.model.data.AbstractMBean;
 
 /**
  * datum bean
  *   -> MDataBean + QueryBean
  */
-public final class DataBean extends AbstractMBean implements Comparable<DataBean> {
+public final class IndexBean extends AbstractMBean implements Comparable<IndexBean> {
 	
 	/**
 	 * 
@@ -25,10 +27,10 @@ public final class DataBean extends AbstractMBean implements Comparable<DataBean
 	
 	private MOntologyID type;
 	private String key;
-	private String value;
+	private ArrayList<String> value;
 	
 
-	public DataBean(MOntologyID type, String key, String value) {
+	public IndexBean(MOntologyID type, String key, ArrayList<String> value) {
 		this.type = type;
 		this.key = key;
 		this.value = value;
@@ -52,11 +54,11 @@ public final class DataBean extends AbstractMBean implements Comparable<DataBean
 	}
 	
 
-	public String getValue() {
+	public ArrayList<String> getValue() {
 		return value;
 	}
 
-	public void setValue(String value) {
+	public void setValue(ArrayList<String> value) {
 		this.value = value;
 	}
 
@@ -68,7 +70,7 @@ public final class DataBean extends AbstractMBean implements Comparable<DataBean
 	}
 
 	@Override
-	public int compareTo(DataBean o) {
+	public int compareTo(IndexBean o) {
 
 		return this.key.compareTo(o.key);
 	}

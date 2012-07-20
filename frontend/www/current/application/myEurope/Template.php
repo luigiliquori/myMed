@@ -6,7 +6,7 @@ class Template {
 	
 	const APPLICATION_NAME = 'myEurope';
 	
-	public static function init(  $redirect = true ) {
+	public static function init() {
 		
 		if (!defined('APP_ROOT')) {
 			define('APP_ROOT', __DIR__);
@@ -18,12 +18,15 @@ class Template {
 		require_once '../../system/config.php';
 		require_once '../../lib/dasp/beans/DataBean.v2.php';
 		
-		// Init gettext() locales
+		if(session_id() == '') {
+			session_start();
+		}
 		
-		//$langcode = explode(";", $_SERVER['HTTP_ACCEPT_LANGUAGE']);
-		// = explode(",", $langcode['0']);
-		$s = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'],0 ,2);
-		
+		if (isset($_SESSION['user'], $_SESSION['user']->lang)) {
+			$s = $_SESSION['user']->lang;
+		} else {
+			$s = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'],0 ,2);
+		}
 		if ($s == "fr"){
 			$locale = 'fr_FR.utf8';
 		} else if ($s == "it"){
@@ -38,18 +41,19 @@ class Template {
 		bindtextdomain($filename, './../../lang');
 		textdomain($filename);
 		bind_textdomain_codeset($filename, 'UTF-8');
-				
-		if(session_id() == '') {
-			session_start();			
-		}
-		if ($redirect && !isset($_SESSION['user'])) {
-			if (!strpos($_SERVER['REQUEST_URI'], "extended") !==false){
+		
+	}
+	
+	public static function checksession() {
+		if (!isset($_SESSION['user'])) {
+			if (!strpos($_SERVER['REQUEST_URI'], "Extended") !==false){
 				$_SESSION['redirect'] = '.'.substr($_SERVER['REQUEST_URI'], strlen('/application/'.Template::APPLICATION_NAME));
 			}
 			header("Location: ./authenticate");
 		}
-		
 	}
+	
+	
 	
 	public static function fetchMyProfile () {
 		
@@ -87,22 +91,21 @@ class Template {
 <title>myEurope</title>
 <link rel="stylesheet"
 	href="http://jquerymobile.com/test/css/themes/default/jquery.mobile.css" />
-<link rel="stylesheet" href="my.css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
         </script>
 
 <script src="http://jquerymobile.com/test/js/jquery.mobile.js">
         </script>
 
-<script src="app.js">
-        </script>
-
 <!--     	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"> -->
 <!--     	</script> -->
 
-<link rel="stylesheet" href="my.css" />
+
+<link rel="stylesheet" href="app.css" />
 <script src="app.js">
         </script>
+        
+        
         
         
 <?php }
@@ -111,39 +114,19 @@ class Template {
 
 <div class="footer" >
 	<h4  style="margin: 10px;">myMed - INTERREG IV - Alcotra</h4>
-	<img alt="Alcotra" src="/system/img/logos/alcotra" style="max-height: 35px;max-width: 80px;"/>
-	<img alt="Conseil Général 06" src="/system/img/logos/cg06" style="max-height: 35px;max-width: 80px;"/>
-	<img alt="Regine Piemonte" src="/system/img/logos/regione" style="max-height: 35px;max-width: 80px;"/>
-	<img alt="Europe" src="/system/img/logos/europe" style="max-height: 70px;max-width: 120px;"/>
-	<img alt="Région PACA" src="/system/img/logos/PACA" style="max-height: 35px;max-width: 80px;"/>
-	<img alt="Prefecture 06" src="/system/img/logos/pref" style="max-height: 35px;max-width: 80px;"/>
-	<img alt="Inria" src="/system/img/logos/inria.png" style="max-height: 35px;max-width: 80px;"/>
+	<img alt="Alcotra" src="/system/img/logos/alcotra" />
+	<img alt="Conseil Général 06" src="/system/img/logos/cg06"/>
+	<img alt="Regine Piemonte" src="/system/img/logos/regione"/>
+	<img alt="Europe" src="/system/img/logos/europe"/>
+	<img alt="Région PACA" src="/system/img/logos/PACA"/>
+	<img alt="Prefecture 06" src="/system/img/logos/pref"/>
+	<img alt="Inria" src="/system/img/logos/inria.png"/>
 	<p style="margin: 8px; font-weight: normal;">"Ensemble par-delà les frontières"</p>
 </div>
 
 <?php }
 
-public static function updatePhoto( $url) {
-	$mUserBean = new MUserBean();
-	$mUserBean->id = $_SESSION['user']->id;
-	$mUserBean->firstName = $_SESSION['user']->firstName;
-	$mUserBean->lastName = $_SESSION['user']->lastName;
-	$mUserBean->name = $mUserBean->firstName . " " . $mUserBean->lastName;
-	$mUserBean->email = $_SESSION['user']->email;
-	$mUserBean->login = $_SESSION['user']->email;
-	$mUserBean->profilePicture = $url;
-	
-	// keep the session opened
-	$mUserBean->socialNetworkName = $_SESSION['user']->socialNetworkName;
-	$mUserBean->SocialNetworkID = $_SESSION['user']->socialNetworkID;
-	$mUserBean->SocialNetworkID = $_SESSION['accessToken'];
-	
-	$request = new Request("ProfileRequestHandler", UPDATE);
-	$request->addArgument("user", json_encode($mUserBean));
-	
-	$responsejSon = $request->send();
-	return json_decode($responsejSon); 
-}
+
 
 public static function footer( $i = 1 ){ ?>
 

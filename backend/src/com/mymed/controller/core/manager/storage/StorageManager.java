@@ -128,6 +128,8 @@ public class StorageManager implements IStorageManager {
 
         return resultValue;
     }
+    
+  
 
     @Override
     public Map<byte[], byte[]> selectAll(
@@ -662,7 +664,14 @@ public class StorageManager implements IStorageManager {
 			String start, 
 			String finish) 
 	{
-  	     throw new NotImplementedException();	
+  	     throw new NotImplementedException();
+	}
+
+	@Override
+	public Map<String, String> selectSuperColumn(String tableName, String key,
+			String columnName) throws InternalBackEndException,
+			IOBackEndException {
+		throw new NotImplementedException();
 	}  
     
 }

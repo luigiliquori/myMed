@@ -13,6 +13,7 @@
 //ob_start("ob_gzhandler");
 require_once 'Template.php';
 Template::init();
+Template::checksession();
 
 $msg = ""; //feedback text
 
@@ -53,11 +54,6 @@ if (isset($_POST['predicate'])){ // unsubscribe
 		header("Location: ./");
 	}
 	//header("Location: http://".$_SERVER['HTTP_HOST']); // go back to mymed
-} else if (isset($_POST['url'])){ // photo
-	$responseObject = Template::updatePhoto($_POST['url']);
-	if($responseObject->status == 200) {
-		$msg = "photo mise à jour";
-	}
 }
 
 //not necessary it's already in session
@@ -106,24 +102,44 @@ if (!isset($_GET["application"])){
 <?= Template::head(); ?>
 </head>
 
-
 <body>
-
-	<div data-role="page" id="Home">
+	<div data-role="page" id="Option">
+		<div data-role="popup" id="popupShare3" data-overlay-theme="b" data-theme="c" class="ui-corner-all">
+			<div style="text-align:center;">
+				<span class="st_googleplus_large"></span>
+				<span class="st_facebook_large"></span>
+				<span class="st_twitter_large"></span>
+				<span class="st_sharethis_large"></span>
+				<span class="st_email_large"></span>
+			</div>
+		</div>
 		<div data-role="header" data-theme="c" data-position="fixed">
-			<div data-role="navbar" data-theme="c" data-iconpos="left">
+			<div data-role="navbar" data-theme="d" data-iconpos="left">
 				<ul>
-					<li><a href="http://<?= $_SERVER['HTTP_HOST'] ?>" type="button" rel="external" data-icon="delete">myMed</a></li>
+					<li><a href="http://<?= $_SERVER['HTTP_HOST'] ?>" type="button" rel="external" data-icon="delete" data-iconpos="notext">myMed</a></li>
 					<li><a href="about" data-icon="info" data-transition="slidefade" data-direction="reverse"><?= _('About') ?></a></li>
-					<li><a href="./" data-icon="home" data-transition="slidefade" data-direction="reverse"><?= _('Home') ?></a></li>
-					<li><a href="share" rel="external" data-icon="plus" data-transition="slidefade" data-direction="reverse"> Partager</a></li>
-					<li><a href="option" data-icon="profile" data-transition="slidefade" class="ui-btn-active ui-state-persist" ><?= _('Profil') ?></a></li>
+					<li><a href="home"  data-icon="home" data-transition="slidefade" data-direction="reverse"><?= _('Home') ?></a></li>
+					<li><a href="#popupShare3" data-icon="star" data-rel="popup">Partager</a></li>
+					<li><a href="option" data-icon="profile" class="ui-btn-active ui-state-persist"><?= _('Profil') ?></a></li>
 				</ul>
 			</div>
 		</div>
+		<?php 
+		if ($_SESSION['profile']->permission > 1){
+		?>
+		<div data-role="footer" data-theme="c" data-position="fixed">
+			<div data-role="navbar" data-theme="c" data-iconpos="left">
+				<ul>
+					<li><a href="admin" data-icon="gear" rel="external" data-theme="d" data-transition="slidefade">Admin</a></li>
+				</ul>
+			</div>
+		</div>
+		<?php 
+		}
+		?>
 
 		<div data-role="content" style="text-align: center;">
-		
+
 			<span style='color: lightGreen;'><?= $msg ?></span>
 			
 			<h3 style="text-align:center;">
@@ -144,11 +160,19 @@ if (!isset($_GET["application"])){
 				email: <span style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $_SESSION["user"]->email ?> </span> <br /> <br />
 				
 				<div style="text-align: center;" >
-					<a href="update" type="button" data-inline="true" data-transition="flip" data-mini="true">Modifier son profil myMed</a><br />
-					<a href="updateExtended" type="button" data-inline="true" rel="external" data-transition="flip" data-mini="true" >Modifier son profil myEurope</a><br />
-					<a href="#popupLogin" data-rel="popup" data-role="button" data-mini="true" data-inline="true">Modifier son logo</a><br />
-					<a type="button" data-mini="true" data-icon="delete" data-inline="true"
-						onclick="$('#deconnectForm').submit();">Déconnecter</a>
+				<a href="#popupLogin" data-icon="arrow-r" data-rel="popup" data-role="button" data-mini="true" data-inline="true">Editer mon logo</a><br />
+					<a href="update" data-icon="arrow-r" type="button" data-inline="true" data-transition="flip" data-mini="true">profil myMed</a><br />
+					<a href="updateExtended" data-icon="arrow-r" type="button" data-inline="true" rel="external" data-transition="flip" data-mini="true" >profil myEurope</a><br />
+					
+					<div style="display: inline-block;">
+						<fieldset data-role="controlgroup" data-mini="true" data-type="horizontal">
+							<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-a" value="fr" <?= $_SESSION["user"]->lang == "fr"?"checked='checked'":"" ?>/>
+							<label for="radio-view-a">Français</label>
+							<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-e" value="it" <?= $_SESSION["user"]->lang == "it"?"checked='checked'":"" ?>/>
+							<label for="radio-view-e">Italien</label>
+						</fieldset>
+					</div><br />
+					<a type="button" data-mini="true" data-icon="delete" data-inline="true" onclick="$('#deconnectForm').submit();">Déconnecter</a>
 				</div>
 				<form action="option" id="deconnectForm" data-ajax="false">
 					<input name="logout" type="hidden" />
@@ -156,11 +180,11 @@ if (!isset($_GET["application"])){
 			</div>
 
 			<div data-role="popup" id="popupLogin" data-overlay-theme="b" data-theme="c" class="ui-corner-all">
-				<form action="./option" method="post">
+				<form>
 					<div style="padding: 10px 20px;">
 						<h3>Insérer un lien:</h3>
-						<input type="text" name="url" value="" placeholder="url" />
-						<button type="submit" data-theme="b">ok</button>
+						<input type="text" name="url" id="photoUrl" value="" placeholder="url" />
+						<button type="submit" data-theme="b" onclick="updateProfile('profilePicture', $('#photoUrl').val());">ok</button>
 					</div>
 				</form>
 			</div>
@@ -195,20 +219,6 @@ if (!isset($_GET["application"])){
 			</ul>
 
 		</div>
-		<?php 
-		if ($_SESSION['profile']->permission>0){
-		?>
-		<div data-role="footer" data-theme="c" data-position="fixed">
-			<div data-role="navbar" data-theme="c" data-iconpos="left">
-				<ul>
-					<li><a href="admin" data-icon="gear" rel="external" data-transition="slidefade">Admin</a></li>
-				</ul>
-			</div>
-		</div>
-		
-		<?php 
-		}
-		?>
 	</div>
 </body>
 </html>

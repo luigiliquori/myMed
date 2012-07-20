@@ -10,6 +10,7 @@ ini_set('display_errors','On');
 require_once 'Template.php';
 
 Template::init();
+Template::checksession();
 
 
 if (count($_POST)){ // to publish something
@@ -27,6 +28,7 @@ if (count($_POST)){ // to publish something
 
 
 	$data = array();
+	$index = array();
 
 	$metiers = array();
 	$regions = array();
@@ -41,32 +43,34 @@ if (count($_POST)){ // to publish something
 		}
 	}
 	if (count($metiers)){
-		array_push($data, new DataBean("met", ENUM, $metiers));
+		array_push($index, new DataBean("met", ENUM, $metiers));
 	}
 	
 	if (count($regions)){
-		array_push($data, new DataBean("reg", ENUM, $regions));
+		array_push($index, new DataBean("reg", ENUM, $regions));
 	}
 	
 	if (isset($_POST['offre'])){
-		array_push($data, new DataBean("offre", KEYWORD, array($_POST['offre'])));
+		array_push($index, new DataBean("offre", KEYWORD, array($_POST['offre'])));
 	}
 	
 	if (isset($_POST['date'])) {
 		if (strtotime($_POST['date']) !== false){
-			array_push($data, new DataBean("date", DATE, array(strtotime($_POST['date']))));
+			array_push($index, new DataBean("date", DATE, array(strtotime($_POST['date']))));
 		} else {
 			
 		}
 	}
 	
-	if (isset($_POST['text']))
+	if (isset($_POST['text'])) {
 		array_push($data, new DataBean("text", TEXT, array($_POST['text'])));
+	}
 
 	$request = new Request("v2/PublishRequestHandler", CREATE);
 	$request->addArgument("application", Template::APPLICATION_NAME);
 	$request->addArgument("namespace", $_POST['type']); //."temp"
 
+	$request->addArgument("index", json_encode($index));
 	$request->addArgument("data", json_encode($data));
 	$request->addArgument("user", $_SESSION['user']->id);
 	

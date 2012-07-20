@@ -30,8 +30,12 @@ public interface IPubSubManager {
 	 * create indexes
 	 */
 
-	void create(String application, final String predicate,
-			final String colprefix, final String id, final List<DataBean> dataList)
+	void create(
+			String application,
+			String predicate,
+			String colprefix,
+			String id,
+			List<DataBean> dataList)
 					throws InternalBackEndException, IOBackEndException;
 
 	/**
@@ -39,7 +43,7 @@ public interface IPubSubManager {
 	 * create Data
 	 */
 
-	void create(String application, final String subPredicate, final List<DataBean> dataList)
+	void create(String application, String subPredicate, List<DataBean> dataList)
 			throws InternalBackEndException, IOBackEndException;
 
 	/**
@@ -52,9 +56,15 @@ public interface IPubSubManager {
 	
 
 	/**
-	 * reads Data: return val modified
+	 * reads all Data (return val modified from v1)
 	 */
 	List<DataBean> read(String application, String predicate)
+			throws InternalBackEndException, IOBackEndException;
+	
+	/**
+	 * reads @name field in Data
+	 */
+	String read( String application, String predicate, String name )
 			throws InternalBackEndException, IOBackEndException;
 
 	/**
@@ -62,10 +72,15 @@ public interface IPubSubManager {
 	 * the extended read used in v2, for range queries
 	 * reads over rows in predicate, and in the column slice [start-finish]
 	 */
-	public Map<String, Map<String, String>> read(final String application,
-			final List<String> predicate, final String start,
-			final String finish) throws InternalBackEndException,
-			IOBackEndException, UnsupportedEncodingException;
+	Map<String, Map<String, String>> read(
+			String application,
+			List<String> predicate,
+			String start,
+			String finish) 
+					throws InternalBackEndException, IOBackEndException, UnsupportedEncodingException;
+	
+	
+	
 	
 	
 	/**
@@ -79,7 +94,7 @@ public interface IPubSubManager {
 	 * delete Data
 	 */
 
-	void delete(final String application, final String subPredicate)
+	void delete(String application, String subPredicate)
 			throws InternalBackEndException, IOBackEndException;
 
 	/**

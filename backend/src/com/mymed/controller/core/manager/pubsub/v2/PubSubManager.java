@@ -29,7 +29,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
-import com.google.gson.Gson;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.AbstractManager;
@@ -77,8 +76,6 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     protected MailTemplateManager mailTemplateManager;
 
     final Map<String, byte[]> args;
-    
-    private final Gson gson;// 
    
     /**
      * Default constructor.
@@ -95,7 +92,6 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     {
     	super(storageManager);
         args = new HashMap<String, byte[]>();
-        gson = new Gson();
         profileManager = new ProfileManager(storageManager);
         mailTemplateManager = new MailTemplateManager(storageManager);
     }
@@ -120,7 +116,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 		
 		/*put metadata Databeans (type DATA), the only ones that are stores in results Lists */
 		for (DataBean item : dataList) {
-			args.put(item.getKey(), encode(gson.toJson(item.getValue())));
+			args.put(item.getKey(), encode(item.getValue()));
 		}
 
 		
@@ -158,7 +154,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 		for (DataBean item : dataList) {
 			args.put("key", encode(item.getKey()));
 			args.put("type", encode(item.getType().getValue()));
-			args.put("value", encode(gson.toJson(item.getValue())));
+			args.put("value", encode(item.getValue()));
 			
 			storageManager.insertSuperSlice(SC_DATA_LIST, application
 					+ subPredicate, item.getKey(), args);
@@ -204,6 +200,19 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 		return resList;
 	}
 	
+	/** read detail 1-item*/
+	@Override
+	public String read(
+			final String application,
+			final String predicate,
+			final String name )
+					throws InternalBackEndException, IOBackEndException {
+
+		final Map<String, String> map = storageManager.selectSuperColumn(SC_DATA_LIST, application + predicate, name);
+		
+		return map.get("value");
+	}
+	
 	/** read results */
 	@Override
 	public final Map<String, Map<String, String>> read(
@@ -216,7 +225,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 		return resMap;
 	}
 	
-	/** reads Subscriptions */
+	/** reads Subscriptions for a user*/
 	@Override
 	public Map<String, String> read(String app_user)
 			throws InternalBackEndException, IOBackEndException {
@@ -308,7 +317,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
         //if (applicationID != null) {
             // can we rename the folder myEuroCINAdmin in myEuroCIN_ADMIN to skip below hack
             // url += "/application/" + (applicationID.equals("myEuroCIN_ADMIN") ? "myEuroCINAdmin" : applicationID);
-        //} 
+        //}
         
         // Set data map
         data.put("base_url", url);

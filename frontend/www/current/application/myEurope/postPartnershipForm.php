@@ -5,6 +5,7 @@
 
 require_once 'Template.php';
 Template::init();
+Template::checksession();
 
 
 ?>
@@ -13,6 +14,11 @@ Template::init();
 <html>
 <head>
 <?= Template::head(); ?>
+	<!-- CLEeditor -->
+    <link rel="stylesheet" type="text/css" href="../../lib/jquery/CLEeditor/jquery.cleditor.css" />
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/javascript" src="../../lib/jquery/CLEeditor/jquery.cleditor.min.js"></script>
+    <script type="text/javascript" src="../../lib/jquery/CLEeditor/startCLE.js"> </script>
 </head>
 
 <body>
@@ -26,78 +32,70 @@ Template::init();
 			</div>
 		</div>
 		<div data-role="content">
-			<h1 style="text-align:center;">
-				<a href="" style="text-decoration: none;">Publier un appel à partenaires:</a>
-			</h1>
-			<br />
+			<h3 style="text-align:center;">
+				<a href="" style="text-decoration: none;">Déposer une offre de partenariat:</a>
+			</h3>
 			<form action="post" method="post" id="publishForm">
 				
 				<input type="hidden" name="type" value="part" />
 				
 				<div data-role="fieldcontain">
-					<fieldset data-role="controlgroup">
-						<label for="textinputp2"> Libellé du projet/consortium: </label> <input id="textinputp2" data-mini="true" name="id" placeholder="" value="projet1" type="text" />
-					</fieldset>
+				 	<fieldset data-role="controlgroup">
+						<legend>Thèmes:</legend>
+						<input type="checkbox" name="theme1" id="checkbox-1a"/>
+						<label for="checkbox-1a">Education, culture & sport</label>
+	
+						<input type="checkbox" name="theme2" id="checkbox-2a"/>
+						<label for="checkbox-2a">Emploi, affaires sociales & égalité des chances</label>
+						
+						<input type="checkbox" name="theme3" id="checkbox-3a"/>
+						<label for="checkbox-3a">Entreprises & innovation</label>
+	
+						<input type="checkbox" name="theme4" id="checkbox-4a"/>
+						<label for="checkbox-4a">Environnement, énergie & transports</label>
+						
+						<input type="checkbox" name="theme5" id="checkbox-5a" />
+						<label for="checkbox-5a">Agriculture</label>
+	
+						<input type="checkbox" name="theme6" id="checkbox-6a" />
+						<label for="checkbox-6a">Pêche</label>
+						
+						<input type="checkbox" name="theme7" id="checkbox-7a" />
+						<label for="checkbox-7a">Cohésion économique et sociale</label>
+	
+						<input type="checkbox" name="theme8" id="checkbox-8a" />
+						<label for="checkbox-8a">Recherche</label>
+						
+						<input type="checkbox" name="theme9" id="checkbox-9a" />
+						<label for="checkbox-9a">Santé & protection des consommateurs</label>
+						
+				    </fieldset>
 				</div>
 				
 				<div data-role="fieldcontain">
-					<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-						<legend>Type d'offre:</legend>
-						<input type="radio" name="offre" value="pacalabs" id="checkbox-01" /> <label for="checkbox-01">Pacalabs</label>
-						<input type="radio" name="offre" value="interreg" id="checkbox-02" /> <label for="checkbox-02">Interreg</label>
-						<input type="radio" name="offre" value="edu" id="checkbox-03" /> <label for="checkbox-03">Edu</label>
-						<input type="radio" name="offre" value="autre" id="checkbox-04" /> <label for="checkbox-04">Autre</label>
+				 	<fieldset data-role="controlgroup">
+						<legend>Pays:</legend>
+						<input type="checkbox" name="reg1" id="checkbox-1a"/>
+						<label for="checkbox-1a">France</label>
+	
+						<input type="checkbox" name="reg2" id="checkbox-2a"/>
+						<label for="checkbox-2a">Italie</label>
+						
+				    </fieldset>
+				</div>
 
-					</fieldset>
-				</div>
-				
 				<div data-role="fieldcontain">
-					<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-						<legend>Région/Etat concernés:</legend>
-						<input type="checkbox" name="reg1" id="checkbox-1"/> <label for="checkbox-1">Région1</label>
-						<input type="checkbox" name="reg2" id="checkbox-2"/> <label for="checkbox-2">Région2</label>
-						<input type="checkbox" name="reg3" id="checkbox-3"/> <label for="checkbox-3">Région3</label>
-						<input type="checkbox" name="reg4" id="checkbox-4"/> <label for="checkbox-4">Région4</label>
-						<input type="checkbox" name="reg5" id="checkbox-5"/> <label for="checkbox-5">Région5</label>
-						<input type="checkbox" name="reg6" id="checkbox-6"/> <label for="checkbox-6">Région6</label>
-						<input type="checkbox" name="reg7" id="checkbox-7"/> <label for="checkbox-7">Région7</label>
-						<input type="checkbox" name="reg8" id="checkbox-8"/> <label for="checkbox-8">Région8</label>
-						<input type="checkbox" name="reg9" id="checkbox-9"/> <label for="checkbox-9">Région9</label>
-					</fieldset>
+					<label for="search">Insérer des mots clés:</label>
+					<input type="search" name="q" id="search" value="projet test" />
 				</div>
-				
-				<div data-role="fieldcontain">
-					<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-						<legend>Métiers concernés:</legend>
-						<input type="checkbox" name="met1" id="checkbox-11"/> <label for="checkbox-11">Métier1</label>
-						<input type="checkbox" name="met2" id="checkbox-12"/> <label for="checkbox-12">Métier2</label>
-						<input type="checkbox" name="met3" id="checkbox-13"/> <label for="checkbox-13">Métier3</label>
-						<input type="checkbox" name="met4" id="checkbox-14"/> <label for="checkbox-14">Métier4</label>
-						<input type="checkbox" name="met5" id="checkbox-15"/> <label for="checkbox-15">Métier5</label>
-						<input type="checkbox" name="met6" id="checkbox-16"/> <label for="checkbox-16">Métier6</label>
-						<input type="checkbox" name="met7" id="checkbox-17"/> <label for="checkbox-17">Métier7</label>
-						<input type="checkbox" name="met8" id="checkbox-18"/> <label for="checkbox-18">Métier8</label>
-						<input type="checkbox" name="met9" id="checkbox-19"/> <label for="checkbox-19">Métier9</label>
-					</fieldset>
-				</div>
-				
 
+				<div data-role="fieldcontain">
+					<label for="search">Contenu:</label>
 					
-				<div data-role="fieldcontain">
-					<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-						<label for="textinputi1">Date d'échéance: </label>
-						<input id="textinputi1" name="date" placeholder="date" data-inline="true"
-							value="2012-07-30" type="date" />
-					</fieldset>
-				</div>		
-
-				<hr>
-				<div data-role="fieldcontain">
-					<fieldset data-role="controlgroup">
-						<label for="textinputp7"> Contenu: </label>
-						<textarea style="min-height: 200px;" id="textinputp7" name="text" placeholder="" ></textarea>
-					</fieldset>
 				</div>
+
+				<textarea id="CLEeditor" name="text"></textarea>
+
 <!-- 				<div style="text-align: center;" > -->
 <!-- 					<input type="submit" data-theme="b"  data-inline="true" value="Insérer" /> -->
 <!-- 				</div> -->

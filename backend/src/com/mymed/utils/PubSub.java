@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.model.data.application.DataBean;
+import com.mymed.model.data.application.IndexBean;
 import com.mymed.model.data.application.MOntologyID;
 
 /**
@@ -21,13 +22,13 @@ public class PubSub {
 	 */
 
 	public static LinkedHashMap<String, List<Index>> formatIndexes(
-			List<DataBean> data) {
+			List<IndexBean> data) {
 
 		LinkedHashMap<String, List<Index>> map = new LinkedHashMap<String, List<Index>>();
 
 		List<Index> li;
 
-		for (final DataBean d : data) {
+		for (final IndexBean d : data) {
 
 			li = new ArrayList<Index>();
 
@@ -282,10 +283,10 @@ public class PubSub {
 		return new DecimalFormat("0000000000").format(value);
 	}
 
-	public static List<List<String>> getRanges(List<DataBean> data) {
+	public static List<List<String>> getRanges(List<IndexBean> data) {
 		List<List<String>> res = new ArrayList<List<String>>();
 
-		for (final DataBean d : data) {
+		for (final IndexBean d : data) {
 			switch (d.getType()) {
 			case DATE:
 			case FLOAT:
@@ -404,6 +405,8 @@ public class PubSub {
 		// Gosper's hack, Integer version (level must be < 32)
 		// moves to the next combination (of n's bits) with the same number of 1
 		// bits
+		if (n == 0) 
+			return Integer.MAX_VALUE;
 
 		int u = n & (-n);
 		int v = u + n;

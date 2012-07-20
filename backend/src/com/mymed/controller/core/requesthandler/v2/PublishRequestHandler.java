@@ -17,11 +17,10 @@ package com.mymed.controller.core.requesthandler.v2;
 
 
 import static com.mymed.utils.GsonUtils.gson;
-import static com.mymed.utils.PubSub.join;
 import static com.mymed.utils.PubSub.makePrefix;
 import static com.mymed.utils.PubSub.subList;
 
-import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -43,6 +42,7 @@ import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.pubsub.v2.PubSubManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.application.DataBean;
+import com.mymed.model.data.application.IndexBean;
 import com.mymed.model.data.application.MOntologyID;
 import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.PubSub;
@@ -93,35 +93,68 @@ public class PublishRequestHandler extends AbstractRequestHandler {
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            final String application, predicate, namespace = parameters.get(JSON_NAMESPACE);
+            final String application, dataId, namespace = parameters.get(JSON_NAMESPACE);
             
             if ((application = parameters.get(JSON_APPLICATION)) == null) {
                 throw new InternalBackEndException("missing application argument!");
-            } else if ((predicate = parameters.get("id")) == null ) {
+            } else if ((dataId = parameters.get("id")) == null ) {
 				throw new InternalBackEndException("missing id argument!");
 			}
             
-            switch (code) {
+            String prefix = makePrefix(application, namespace);
+            
+			switch (code) {
 			case READ:
 				message.setMethod(JSON_CODE_READ);
-				
+
 				// Get DATA (details)
-				final List<DataBean> details = pubsubManager.read(
-						makePrefix(application, namespace), predicate);
+				final List<DataBean> details = pubsubManager.read(prefix, dataId);
 				if (details.isEmpty()) {
 					throw new IOBackEndException("no results found!", 404);
 				}
 				message.setDescription("Details found for Application: "
-						+ application + " Predicate: "
-						+ predicate);
+						+ application + " Predicate: " + dataId);
 				LOGGER.info("Details found for Application: " + application
-						+ " Predicate: " + predicate);
+						+ " Predicate: " + dataId);
 
 				message.addDataObject(JSON_DETAILS, details);
 				break;
 				
 			case DELETE:
-				
+
+				message.setMethod(JSON_CODE_DELETE);
+				LOGGER.info("deleting " + dataId);
+				String index = pubsubManager.read(prefix, dataId, "_index");
+
+				List<IndexBean> indexList = new ArrayList<IndexBean>();
+				try {
+					indexList = gson.fromJson(index,
+							new TypeToken<List<IndexBean>>() {}.getType());
+				} catch (final JsonSyntaxException e) {
+					LOGGER.debug("Error in Json format", e);
+					throw new InternalBackEndException(
+							"jSon format is not valid");
+				} catch (final JsonParseException e) {
+					LOGGER.debug("Error in parsing Json", e);
+					throw new InternalBackEndException(e.getMessage());
+				}
+				Collections.sort(indexList);
+
+				LOGGER.info(" deleting  " + dataId + "." + indexList.size());
+
+				LinkedHashMap<String, List<Index>> indexes = PubSub
+						.formatIndexes(indexList);
+
+				List<Index> combi = PubSub.getPredicate(indexes, 0,
+						indexList.size());
+				for (Index i : combi) {
+					pubsubManager.delete(makePrefix(application, namespace),
+							i.row, i.col + dataId, null);
+				}
+
+				/* deletes data */
+				pubsubManager
+						.delete(makePrefix(application, namespace), dataId);
 
 				break;
 			default:
@@ -153,22 +186,28 @@ public class PublishRequestHandler extends AbstractRequestHandler {
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            final String application, userId, data, dataId, namespace = parameters.get(JSON_NAMESPACE);
-			final List<DataBean> dataList;
+            final String 
+            	application = parameters.get(JSON_APPLICATION), 
+            	data = parameters.get(JSON_DATA),
+            	index = parameters.get("index"),
+            	dataId = parameters.get("id"),
+            	userId = parameters.get(JSON_USER), 
+            	namespace = parameters.get(JSON_NAMESPACE);
 			
-            
-            if ((application = parameters.get(JSON_APPLICATION)) == null) {
+			
+            if (application == null) {
                 throw new InternalBackEndException("missing application argument!");
-            } else if ((userId = parameters.get(JSON_USER)) == null) {
-                throw new InternalBackEndException("missing user argument!");
-            } else if ((data = parameters.get(JSON_DATA)) == null) {
-                throw new InternalBackEndException("missing data argument!");
             }
+            List<IndexBean> indexList = new ArrayList<IndexBean>();
+            List<DataBean> dataList = new ArrayList<DataBean>();
 
             try {
-                final Type dataType = new TypeToken<List<DataBean>>() {}.getType();
-                dataList = gson.fromJson(data, dataType);
-
+            	if (data != null){
+	                dataList = gson.fromJson(data, new TypeToken<List<DataBean>>() {}.getType());
+            	}
+            	if (index != null){
+            		indexList = gson.fromJson(index, new TypeToken<List<IndexBean>>() {}.getType());
+            	}
             } catch (final JsonSyntaxException e) {
                 LOGGER.debug("Error in Json format", e);
                 throw new InternalBackEndException("jSon format is not valid");
@@ -177,68 +216,64 @@ public class PublishRequestHandler extends AbstractRequestHandler {
                 throw new InternalBackEndException(e.getMessage());
             }
             
-            final MUserBean userBean = profileManager.read(userId);
-
             Collections.sort(dataList);
-            
-            dataId = parameters.get("id") != null
-            	? parameters.get("id") // v2
-            	: join(dataList) + userBean.getId(); //v1
-            
+            Collections.sort(indexList);
+           
             LOGGER.info("in "+dataId+"."+dataList.size());
             
-            LinkedHashMap<String, List<Index>> indexes = PubSub.formatIndexes(dataList);
+            LinkedHashMap<String, List<Index>> indexes = PubSub.formatIndexes(indexList);
 			
-			List<Index> combi = PubSub.getPredicate(indexes, 1, dataList.size());
+			List<Index> combi = PubSub.getPredicate(indexes, 0, dataList.size());
         	
         	LOGGER.info("ext find rows: "+combi.size()+" initial: "+combi.get(0));
+        	
+        	String prefix = makePrefix(application, namespace);
 
 			switch (code) {
 
 			case CREATE:
 				message.setMethod(JSON_CODE_CREATE);
-				
+
 				/*
-				 * construct all composite indexes* under level length: 
-				 *  *->all subsets of predicateList
-				 *  @see PubSub.getIndex
+				 * construct all composite indexes* under level length: *->all subsets of predicateList
+				 * 
+				 * @see PubSub.getIndex
 				 */
-				
-				for (Index i : combi) {
-                	
-					pubsubManager
-							.create(makePrefix(application, namespace), i.row, i.col,
-									dataId, subList(dataList, MOntologyID.DATA));
-					pubsubManager.sendEmailsToSubscribers(
-							makePrefix(application, namespace), i.row, userBean,
-							dataList);
+
+				if (userId == null) {
+					throw new InternalBackEndException("missing user argument!");
 				}
-				
+				final MUserBean userBean = profileManager.read(userId);
+
+				for (Index i : combi) {
+					pubsubManager.create(prefix, i.row, i.col, dataId,
+							subList(dataList, MOntologyID.DATA));
+					pubsubManager.sendEmailsToSubscribers(prefix, i.row,
+							userBean, dataList);
+				}
+
+				/*
+				 * add indexes as a data, the only way to remove all the indexes
+				 * later if necessary
+				 */
+				dataList.add(new DataBean(MOntologyID.TEXT, "_index", gson
+						.toJson(indexList)));
 				/* creates data */
-				pubsubManager.create(makePrefix(application, namespace), dataId, dataList);
+				pubsubManager.create(prefix, dataId, dataList);
 
 				break;
 				
 			case UPDATE:
 				message.setMethod(JSON_CODE_UPDATE);
-				
-				LOGGER.info("creating/updating "+dataId+" size "+dataList.size());
-				pubsubManager.create(makePrefix(application, namespace), dataId, dataList);
-				
-				break;
-				
-			case DELETE:
-				message.setMethod(JSON_CODE_DELETE);
-				LOGGER.info("deleting " + dataId );
-				
+
+				LOGGER.info("updating data " + dataId + " size " + dataList.size());
 				for (Index i : combi) {
-                	pubsubManager.delete(
-							makePrefix(application, namespace),
-							i.row, i.col + dataId, userId);
+					pubsubManager.create(prefix, i.row, i.col, dataId,
+							subList(dataList, MOntologyID.DATA));
 				}
-				
-				/* deletes data*/
-				pubsubManager.delete(makePrefix(application, namespace), dataId + userId);
+
+				/* creates data */
+				pubsubManager.create(prefix, dataId, dataList);
 				
 				break;
 
@@ -254,11 +289,6 @@ public class PublishRequestHandler extends AbstractRequestHandler {
             message.setDescription(e.getMessage());
         }
 
-        printJSonResponse(message, response);
-        
-        /*
-         * @TODO should create mails there? (after response sent)
-         */
-        
+        printJSonResponse(message, response);    
     }
 }

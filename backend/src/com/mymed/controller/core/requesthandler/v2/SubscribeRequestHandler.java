@@ -38,7 +38,7 @@ import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.pubsub.v2.PubSubManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
-import com.mymed.model.data.application.DataBean;
+import com.mymed.model.data.application.IndexBean;
 import com.mymed.utils.PubSub;
 import com.mymed.utils.PubSub.Index;
 
@@ -134,7 +134,7 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
             String application, data, user, namespace = parameters.get(JSON_NAMESPACE);
-            final List<DataBean> query;
+            final List<IndexBean> query;
             
             if ((application = parameters.get(JSON_APPLICATION)) == null) {
                 throw new InternalBackEndException("missing application argument!");
@@ -145,7 +145,7 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
             }
             
             try {
-                final Type dataType = new TypeToken<List<DataBean>>() {}.getType();
+                final Type dataType = new TypeToken<List<IndexBean>>() {}.getType();
                 query = gson.fromJson(data, dataType);
 
             } catch (final JsonSyntaxException e) {
@@ -164,11 +164,6 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
 			
 			List<Index> combi = PubSub.getPredicate(indexes, query.size(), query.size());
         	
-			String prefix = makePrefix(application, namespace);
-        	for (Index i : combi) {
-        		i.row = prefix + i.row;
-        	}
-        	
         	List<String> rows = PubSub.Index.getRows(combi);
         	 
         	LOGGER.info("sub rows: "+rows.size()+" initial: "+rows.get(0));
@@ -179,6 +174,10 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
             	message.setMethod(JSON_CODE_CREATE);
             	
             	for (String key : rows) {
+            		if (key.equals("")){
+            			LOGGER.info("-------- key is empty: using _ as key for a general sub in this application+namespace");
+            			key = "_";
+            		}
             		pubsubManager.create(makePrefix(application, namespace), key, user);
             	}
 
@@ -190,6 +189,10 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
             	message.setMethod(JSON_CODE_DELETE);
 
             	for (String key : rows) {
+            		if (key.equals("")){
+            			LOGGER.info("-------- key is empty using: _ as key for stating you are sub to all in this applicationnamespace");
+            			key = "_";
+            		}
             		pubsubManager.delete(makePrefix(application, namespace), key, user);
             	}
 

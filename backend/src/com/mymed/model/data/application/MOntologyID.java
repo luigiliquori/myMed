@@ -42,8 +42,16 @@ public enum MOntologyID {
         this.value = value;
     }
 
+    private MOntologyID() {
+    	this(0);
+	}
     
-    public int getValue() {
+    private MOntologyID(String value) {
+    	this(Integer.parseInt(value));
+	}
+
+
+	public int getValue() {
         return value;
     }
     

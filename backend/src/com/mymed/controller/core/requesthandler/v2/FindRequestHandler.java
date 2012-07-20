@@ -43,7 +43,7 @@ import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.pubsub.v2.PubSubManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
-import com.mymed.model.data.application.DataBean;
+import com.mymed.model.data.application.IndexBean;
 import com.mymed.utils.PubSub;
 import com.mymed.utils.PubSub.Index;
 
@@ -96,10 +96,6 @@ public class FindRequestHandler extends AbstractRequestHandler {
 			final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
 
 			switch (code) {
-			
-//			case DELETE:
-//				//could put here index removal, but total removal is done in pub delete, or index change is done below in update
-//				break;
 				
 			default :
 				throw new InternalBackEndException("FindRequestHandler(" + code + ") not exist!");
@@ -124,117 +120,129 @@ public class FindRequestHandler extends AbstractRequestHandler {
 		final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
 
 		try {
-			
+
 			final Map<String, String> parameters = getParameters(request);
 			// Check the access token
 			checkToken(parameters);
 
-			final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-			
-			final String application, dataList, namespace = parameters.get(JSON_NAMESPACE);
-			final List<DataBean> query;
-			
-            if ((application = parameters.get(JSON_APPLICATION)) == null) {
-                throw new InternalBackEndException("missing application argument!");
-            } else if ((dataList = parameters.get(JSON_DATA)) == null) {
-				throw new InternalBackEndException("missing predicate or predicateList argument!");
+			final RequestCode code = REQUEST_CODE_MAP.get(parameters
+					.get(JSON_CODE));
+
+			final String application, dataList, namespace = parameters
+					.get(JSON_NAMESPACE);
+			final List<IndexBean> query;
+
+			if ((application = parameters.get(JSON_APPLICATION)) == null) {
+				throw new InternalBackEndException(
+						"missing application argument!");
+			} else if ((dataList = parameters.get("index")) == null) {
+				throw new InternalBackEndException(
+						"missing predicate or predicateList argument!");
 			}
-			
-          //retrieve query params
-			try{
-            	final Type dataType = new TypeToken<List<DataBean>>() {}.getType();
-            	query = gson.fromJson(dataList, dataType);
-            } catch (final JsonSyntaxException e) {
-                LOGGER.debug("Error in Json format", e);
-                throw new InternalBackEndException("jSon format is not valid");
-            } catch (final JsonParseException e) {
-                LOGGER.debug("Error in parsing Json", e);
-                throw new InternalBackEndException(e.getMessage());
-            }
+
+			// retrieve query params
+			try {
+				final Type dataType = new TypeToken<List<IndexBean>>() {}.getType();
+				query = gson.fromJson(dataList, dataType);
+			} catch (final JsonSyntaxException e) {
+				LOGGER.debug("Error in Json format", e);
+				throw new InternalBackEndException("jSon format is not valid");
+			} catch (final JsonParseException e) {
+				LOGGER.debug("Error in parsing Json", e);
+				throw new InternalBackEndException(e.getMessage());
+			}
 			// sort indexes
 			Collections.sort(query);
+
+			/* generate the ROWS to search */
+
+			LinkedHashMap<String, List<Index>> indexes = PubSub
+					.formatIndexes(query);
+
+			List<Index> combi = PubSub.getPredicate(indexes, query.size(), query.size());
 			
 			switch (code) {
 			
+			
 			case READ :
 				message.setMethod(JSON_CODE_READ);
-  
-                /* final result list sent in response */
+
+				/* final result list sent in response */
 				List<Map<String, String>> resList = new ArrayList<Map<String, String>>();
-				
+
 				/* resultMap for range query */
 				Map<String, Map<String, String>> resMap;
-				
+
 				/* temporary Map used for successive range queries */
 				TreeMap<String, Map<String, String>> filterMap = new TreeMap<String, Map<String, String>>();
-            	
-            	/* generate the ROWS to search */
-				
-				LinkedHashMap<String, List<Index>> indexes = PubSub.formatIndexes(query);
-				
-				List<Index> combi = PubSub.getPredicate(indexes, query.size(), query.size());
-            	
+
 				String prefix = makePrefix(application, namespace);
-            	for (Index i : combi) {
-            		i.row = prefix + i.row;
-            	}
-            	
-            	LOGGER.info("ext find rows: "+combi.size()+" initial: "+combi.get(0));
-            	
-            	List<List<String>> ranges = PubSub.getRanges(query);
-            	
-            	List<String> rows = PubSub.Index.getRows(combi);
-            	
-            	LOGGER.info("ext find ranges: "+ranges.size());
-            	
-            	if (ranges.size() != 0){
-            		LOGGER.info("ext find DB ranges: "+ranges.get(0).get(0)+"->"+ranges.get(0).get(1));
-            		List<String> range = ranges.remove(0);
-					resMap = pubsubManager.read(application, rows, range.get(0), range.get(1));
-        		} else {
-        			resMap = pubsubManager.read(application, rows, "", ""); //there is just one elt in rows, equivalent to v1
-        		}
-            	
-            	while (ranges.size() != 0){ //filter stuff
-            		LOGGER.info("ext find Filter ranges: "+ranges.get(0).get(0)+"->"+ranges.get(0).get(1));
-            		List<String> range = ranges.remove(0);
-        			// uncap one layer of comparators
-            		
-            		filterMap.clear();
-        			for (String key : resMap.keySet()){
-        				Map<String, String> val = resMap.get(key);
-        				String[] parts = key.split("\\+", 2);
-        				filterMap.put(parts[parts.length-1], val);
-        			}
-        			//now the Map is re-indexed on the new group values, do the corresponding (Java Map) slice on it
+				for (Index i : combi) {
+					i.row = prefix + i.row;
+				}
+
+				LOGGER.info("ext find rows: " + combi.size() + " initial: "
+						+ combi.get(0));
+
+				List<List<String>> ranges = PubSub.getRanges(query);
+
+				List<String> rows = PubSub.Index.getRows(combi);
+
+				LOGGER.info("ext find ranges: " + ranges.size());
+
+				if (ranges.size() != 0) {
+					LOGGER.info("ext find DB ranges: " + ranges.get(0).get(0)
+							+ "->" + ranges.get(0).get(1));
+					List<String> range = ranges.remove(0);
+					resMap = pubsubManager.read(application, rows,
+							range.get(0), range.get(1));
+				} else {
+					/*
+					 * there is just one elt in rows, equivalent to v1
+					 */
+					resMap = pubsubManager.read(application, rows, "", "");
+				}
+
+				while (ranges.size() != 0) { // filter stuff
+					LOGGER.info("ext find Filter ranges: "
+							+ ranges.get(0).get(0) + "->"
+							+ ranges.get(0).get(1));
+					List<String> range = ranges.remove(0);
+					// uncap one layer of comparators
+
+					filterMap.clear();
+					for (String key : resMap.keySet()) {
+						Map<String, String> val = resMap.get(key);
+						String[] parts = key.split("\\+", 2);
+						filterMap.put(parts[parts.length - 1], val);
+					}
+					// now the Map is re-indexed on the new group values, do the
+					// corresponding (Java Map) slice on it
 					resMap = new TreeMap<String, Map<String, String>>(
-							filterMap.subMap(range.get(0), true, range.get(1), true));
-					
-					LOGGER.info("ext uncap .. "+resMap.size());
-        		}
-            	
-            	/* at the end, get values */
-            	for ( Map<String, String> m : resMap.values()){
-            		resList.add(m);
-                }
+							filterMap.subMap(range.get(0), true, range.get(1),
+									true));
+
+					LOGGER.info("ext uncap .. " + resMap.size());
+				}
+
+				/* at the end, get values */
+				for (Map<String, String> m : resMap.values()) {
+					resList.add(m);
+				}
 
 				if (resList.isEmpty()) {
-					throw new IOBackEndException("No reslult found for Application: " + application
-							+ " Predicate: " + dataList.toString(), 404);
+					throw new IOBackEndException(
+							"No reslult found for Application: " + application
+									+ " Predicate: " + dataList.toString(), 404);
 				}
-				message.setDescription("Results found for Application: " + application + " Predicate: " + dataList.toString());
-				LOGGER.info("Results found for Application: " + application + " Predicate: " + dataList.toString());
+				message.setDescription("Results found for Application: "
+						+ application + " Predicate: " + dataList.toString());
+				LOGGER.info("Results found for Application: " + application
+						+ " Predicate: " + dataList.toString());
 
 				message.addDataObject(JSON_RESULTS, resList);
-				
-				break;
-			
-//			case UPDATE:
-//				message.setMethod(JSON_CODE_UPDATE);
-//				// update indexes
-//
-//				break;
 
+				break;
 					
 				default :
                     throw new InternalBackEndException("FindRequestHandler(" + code + ") not exist!");

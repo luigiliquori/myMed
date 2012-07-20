@@ -10,13 +10,6 @@
  */
 package com.mymed.model.data.application;
 
-import static com.mymed.utils.GsonUtils.gson;
-import static com.mymed.utils.MiscUtils.singleton;
-
-import java.util.ArrayList;
-
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonSyntaxException;
 import com.mymed.model.data.AbstractMBean;
 
 /**
@@ -42,21 +35,11 @@ public final class SimpleDataBean extends AbstractMBean {
     }
     
 
-	@SuppressWarnings("unchecked")
 	public DataBean toDataBean(){
 
-		ArrayList<String> l = null;
-		try {
-			l = gson.fromJson(value, ArrayList.class);
-		} catch (final JsonSyntaxException e) {
-			LOGGER.debug("v1 format", e);
-			l = singleton(value);
-		} catch (final JsonParseException e) {
-			LOGGER.debug("Error in parsing Json", e);
-		}
-		return new DataBean(MOntologyID.fromInt(Integer.parseInt(type)), key, l);
+		return new DataBean(MOntologyID.fromInt(Integer.parseInt(type)), key, value);
     }
-
+	
 	public SimpleDataBean(String type, String key, String value) {
 		this.type = type;
 		this.key = key;

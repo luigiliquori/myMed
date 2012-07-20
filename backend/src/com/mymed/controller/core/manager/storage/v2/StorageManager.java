@@ -27,14 +27,17 @@ import java.util.TreeMap;
 import org.apache.cassandra.thrift.Column;
 import org.apache.cassandra.thrift.ColumnOrSuperColumn;
 import org.apache.cassandra.thrift.ColumnParent;
+import org.apache.cassandra.thrift.ColumnPath;
 import org.apache.cassandra.thrift.SlicePredicate;
 import org.apache.cassandra.thrift.SliceRange;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.model.core.configuration.WrapperConfiguration;
 import com.mymed.model.core.wrappers.cassandra.api07.CassandraWrapper;
 import com.mymed.utils.MConverter;
+import com.mymed.utils.MiscUtils;
 
 /**
  * This class represent the DAO pattern: Access to data varies depending on the
@@ -113,5 +116,29 @@ public class StorageManager extends
 
 		return sliceMap;
 	}
+	
+	@Override
+    public Map<String, String> selectSuperColumn(
+            final String tableName, 
+            final String key, 
+            final String columnName) throws InternalBackEndException, IOBackEndException 
+    {
+
+    	Map<String, String> resultValue = new HashMap<String, String>();
+
+        final ColumnPath colPathName = new ColumnPath(tableName);
+        colPathName.setSuper_column(encode(columnName));
+
+        LOGGER.info("Selecting column '{}' from table '{}' with key '{}'", new Object[] {columnName, tableName, key});
+
+        List<Column> l = wrapper.get(key, colPathName, IStorageManager.consistencyOnRead).getSuper_column().getColumns();
+        for (Column c : l){
+        	resultValue.put(MiscUtils.decode(c.getName()), MiscUtils.decode(c.getValue()));
+        }
+
+        LOGGER.info("Column selection performed");
+
+        return resultValue;
+    }
 
 }

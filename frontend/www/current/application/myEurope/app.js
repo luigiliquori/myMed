@@ -36,7 +36,46 @@ var application="myEurope", predicate="";
 });
 */
 
+$("#SearchPartner").live("pagecreate", function() {
+	$('#checkbox-all').click(function() {
+		if ($(this).is(':checked')){
+			$('#themecheckboxes input[type=checkbox]').attr('checked', 'checked').checkboxradio('refresh');
+		} else {
+			$('#themecheckboxes input[type=checkbox]').removeAttr('checked').checkboxradio('refresh');
+		}
+	});
+});
 
+$("#Home").live("pagecreate", function() {
+	var switchTo5x=true;
+	$.getScript("http://w.sharethis.com/button/buttons.js", function(){
+		stLight.options({publisher: "5d7eff17-98e8-4621-83ba-6cb27a46dd05"});
+	});
+});
+
+$("#Option").live("pagecreate", function() {
+	var switchTo5x=true;
+	$.getScript("http://w.sharethis.com/button/buttons.js", function(){
+		stLight.options({publisher: "5d7eff17-98e8-4621-83ba-6cb27a46dd05"});
+	});
+});
+$("#About").live("pagecreate", function() {
+	var switchTo5x=true;
+	$.getScript("http://w.sharethis.com/button/buttons.js", function(){
+		stLight.options({publisher: "5d7eff17-98e8-4621-83ba-6cb27a46dd05"});
+	});
+});
+
+function updateProfile(k, v) {
+	
+	var data = {};
+	data[k] = v;
+	
+	$.get('../../lib/dasp/ajax/Profile.php', data, function(res){
+		console.log(res);
+		//var response = JSON.parse(res);
+	});
+}
 
 $('#tagSearch').live("keyup", function(event) {
 	if (event.keyCode == 13) {

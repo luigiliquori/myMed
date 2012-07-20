@@ -7,6 +7,7 @@
 //ob_start("ob_gzhandler");
 require_once 'Template.php';
 Template::init();
+Template::checksession();
 
 $msg="";
 
@@ -109,7 +110,7 @@ if (isset($_POST['oldPassword'])) { //profile update
 
 				<div data-role="fieldcontain">
 					<fieldset data-role="controlgroup">
-						<label for="textinputu1"> Prénom: </label> <input id="textinputu1" name="prenom" placeholder="" value='<?= $_SESSION['user']->firstName ?>'
+						<label for="textinputu1"> <?= _('Prénom') ?>: </label> <input id="textinputu1" name="prenom" placeholder="" value='<?= $_SESSION['user']->firstName ?>'
 							type="text" />
 					</fieldset>
 				</div>
