@@ -1,6 +1,5 @@
-<div data-role="header" data-theme="b">
+<div data-role="header" data-theme="b" data-position="fixed">
 		
-	<a href="#" data-rel="dialog" data-icon="star" onClick="printShareDialog();">Partagez</a>
 	<div style="display: none;">
 		<div id="hidden-sharethis">
 			<span class='st_facebook_large' displayText='Facebook'></span>

@@ -8,10 +8,9 @@
 	
 		<div class="ui-grid-b" Style="padding: 10px;">
 			<?php if ($handle = opendir(MYMED_ROOT . '/application')) {
-				$hiddenApplication = array("myMed", "myNCE", "myBEN", "myTestApp", "myMed_old");
 				$column = "a";
 			    while (false !== ($file = readdir($handle))) {
-			    	if(preg_match("/my/", $file) && !preg_match("/Admin/", $file) && !in_array($file, $hiddenApplication)) { ?>
+			    	if(preg_match("/my/", $file) && !preg_match("/Admin/", $file) && !in_array($file, $this->hiddenApplication)) { ?>
 				    	<div class="ui-block-<?= $column ?>">
 					    	<a
 					    	href="/application/<?= $file ?>"
@@ -33,16 +32,19 @@
 			    } 
 			} ?>
 		</div>
+		
+		<div Style="height: 900px;"></div>
 			
-		<div data-role="footer" data-position="fixed" data-theme="b">
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#home" data-transition="none" data-back="true" data-icon="grid" class="ui-btn-active ui-state-persist">Applications</a></li>
-					<li><a href="#profile" data-transition="none" data-icon="profile">Profil</a></li>
-				</ul>
-			</div>
+	</div>
+	
+	<div data-role="footer" data-position="fixed" data-theme="b">
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#home" data-transition="none" data-back="true" data-icon="grid" class="ui-btn-active ui-state-persist">Applications</a></li>
+				<li><a href="#profile" data-transition="none" data-icon="profile">Profil</a></li>
+				<li><a href="#" data-rel="dialog" data-icon="star" onClick="printShareDialog();">Partagez</a></li>
+			</ul>
 		</div>
-			
 	</div>
 
 </div>
