@@ -87,9 +87,9 @@ abstract class GenericDataBean {
 	 * Describe the list of attributes of the class, and their types (ontology id)
 	 */
 	public function __construct(
-			array $predicatesDef /** Array of attributeName => ontologyId */,
-			array $dataDef      /** Array of attributeName => ontologyId */,
-			array $wrapDef = null /** Array of attribute names to be wrapped into "_data" in addition to predicates */,
+			array $predicatesDef, /** Array of attributeName => ontologyId */
+			array $dataDef,      /** Array of attributeName => ontologyId */
+			array $wrapDef = null, /** Array of attribute names to be wrapped into "_data" in addition to predicates */
 			$predicateStr = null /** Optional: Predicate string (ID) */)
 	{
 		$this->_predicatesDef = $predicatesDef;
@@ -110,7 +110,7 @@ abstract class GenericDataBean {
 	public /*OntologyBean[]*/ function getPredicates() {
 
 		$result = array();
-
+	
 		// Loop on registered attributes
 		foreach($this->_predicatesDef as $key => $ontologyID) {
 
@@ -334,6 +334,17 @@ abstract class GenericDataBean {
 	}
 	
 	/**
+	 *  Register to the predicates of this object
+	 */
+	public function subscribe() {
+		$pr = new SubscribeRequest(
+				null, // The current user is used 
+				$this->getPredicates(), 
+				$this->NAMESPACE);
+		$pr->send();
+	}
+	
+	/**
 	 * Delete the entity
 	 */
 	public function delete() {
@@ -358,7 +369,7 @@ abstract class GenericDataBean {
 		// Create a find request
 		$fr = new FindRequest(
 				null,
-				$this->getPredicates(),
+				$this->getPredicateStr(),
 				$this->publisherID,
 				$this->NAMESPACE);
 

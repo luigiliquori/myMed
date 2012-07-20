@@ -26,51 +26,33 @@ require_once dirname(__FILE__).'/IRequestHandler.php';
  */
 class PublishRequest extends Request {
 
-
-	private /*IRequestHandler*/ 	$handler;
-	private /*DataBean*/			$dataBean;
-	private /*String*/				$publisher;
+	private /* IRequestHandler */ 	$handler;
+	private /* DataBean  */	    	$dataBean;
+	private /* String    */			$userID;
 	private /* Namespace */			$namespace;
-
 
 	public function __construct(
 		/* IRequestHandler*/ $handler, 
 	 	/* DataBean */ $dataBean, 
-	 	/* String*/ $publisher = null,
+	 	/* String*/ $userID = null,
 		/* String */ $namespace = null) 
 	{
 		parent::__construct("PublishRequestHandler", CREATE);
-		$this->handler	= $handler;
-		$this->dataBean = $dataBean;
-		$this->publisher = $publisher;
+		$this->handler	 = $handler;
+		$this->dataBean  = $dataBean;
+		$this->userID    = $userID;
 		$this->namespace = $namespace;
-		
 		$this->setMultipart(true);
-		
 	}
 
 	/* --------------------------------------------------------- */
 	/* Public methods */
 	/* --------------------------------------------------------- */
 	public /*void*/ function send() {		
-		/*
-		 * Build the request
-		 */
-		
-
-		
-		// USER
-		/* If the publisher isn't the current user, fetch the profile */
-		if( !empty($this->publisher) ) {
-			$request = new Request("ProfileRequestHandler", READ);
-			$request->addArgument("id",  $this->publisher);
-			$responsejSon = $request->send();
-			$responseObject = json_decode($responsejSon);
-			$user = $responseObject->data->user;
-		} else {
-			// publisher = the current user
-			$user = json_encode($_SESSION['user']);
-		}
+		// Build the request
+		if (empty($this->userID)) {
+			$this->userID = $_SESSION['user']->id;
+		} 
 		
 		// PREDICATES
 		$predicate = json_encode($this->dataBean->getPredicates());
@@ -84,7 +66,7 @@ class PublishRequest extends Request {
 		} else {
 			parent::addArgument("application", APPLICATION_NAME . ":$this->namespace");
 		}
-		parent::addArgument("user", $user);
+		parent::addArgument("user", $this->userID);
 		parent::addArgument("predicate", $predicate);
 		parent::addArgument("data", $data);
 		

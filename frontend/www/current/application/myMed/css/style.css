@@ -1,5 +1,5 @@
 .ui-page {
- 	background-image: url("../img/background.jpg");
+ 	background-image: url("../img/background.png");
 	background-size: 100% 100%; 
 	color: black;
 	text-shadow: none;
@@ -20,6 +20,7 @@
 	z-index: 99;
 	opacity: 0.7;
 }
+
 #loading span {
 	position: relative;
 	top: 100px;
@@ -32,6 +33,16 @@
 	padding: 10px;
 }
 
+.content h3 {
+	font-style: italic;
+	color: #588fbe;
+}
+
+.content p {
+	 text-align: left;
+	 color: #313131;
+}
+
 #footer {
 	position: relative;
 	top: 115%;
@@ -40,6 +51,7 @@
 	width		: 930px;
 	border-top	: solid 1px #B0C0E1;
 }
+
 #footer img {
 	vertical-align	: middle;
 }
@@ -64,13 +76,11 @@
 	position: relative;
 	height: 80px;	
 }
-/*
-.logos img {
-	max-height: 35px;
-	max-width: 80px;
-	vertical-align: middle;
+
+.logos h4{
+	color: #313131;
 }
-*/
+
 
 
 /* Red button theme for JQuery Mobile

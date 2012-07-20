@@ -31,7 +31,6 @@ import com.mymed.controller.core.manager.session.SessionManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.session.MSessionBean;
 import com.mymed.model.data.user.MUserBean;
-import com.mymed.utils.GsonUtils;
 
 /**
  * Servlet implementation class SessionRequestHandler

@@ -24,6 +24,7 @@ if (count($_GET) > 0){
 	//sort($p); //important
 	//$predicate = join("", array_slice($p, 0, 3)); // we use a broadcast level of 3 for myEurope see in post.php
 
+
 	// @todo verify date format
 	$namespace = $_GET['namespace'];
 	unset($_GET['namespace']);

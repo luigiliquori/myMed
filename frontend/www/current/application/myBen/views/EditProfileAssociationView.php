@@ -4,6 +4,7 @@
 
 	<? require("header-bar.php") ?>
 
+	<?  $MODE="edit" ?>
 	<? require('ProfileAssociationForm.php') ?>
 	
 </div>

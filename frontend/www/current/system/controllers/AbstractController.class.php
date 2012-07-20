@@ -20,10 +20,13 @@ abstract class AbstractController implements IRequestHandler {
 			foreach($vars as $key=>$value){
 				$get_line .= '&' . $key . '=' . $value;
 			}
-			header('Refresh:0;url=/application/'.APPLICATION_NAME.'/index.php?action=' . $action . $get_line);
+			printf('<script>location.href="/application/'.APPLICATION_NAME.'/index.php?action='.$action.$get_line.'"</script>');
+			//header('Refresh:0;url=/application/'.APPLICATION_NAME.'/index.php?action=' . $action . $get_line);
 		}
 		else{
-			header('Refresh:0;url=/application/'.APPLICATION_NAME.'/index.php?action='.$action);
+			debug("redirectiiiiing!");
+			printf('<script>location.href="/application/'.APPLICATION_NAME.'/index.php?action='.$action.'"</script>');
+			//header('Refresh:0;url=/application/'.APPLICATION_NAME.'/index.php?action='.$action);
 		}
 			
 		exit();
@@ -37,12 +40,33 @@ abstract class AbstractController implements IRequestHandler {
 		exit();
 	}
 	
+	/**
+	 * Call another controller 
+	 */
+	public function forward($action, $method=null, $args =	array()) {
+		
+		// Override $_GET method with arguments
+		foreach($args as $key => $val) {
+			$_GET[$key] = $val;
+			$_POST[$key] = $val;
+		}
+		
+		// Call another controller
+		callController($action, $method);
+	}
+	
 	public /*void*/ function setError($message){
 		$this->error = $message;
 	}
 	
 	public /*void*/ function setSuccess($message){
 		$this->success = $message;
+	}
+	
+	
+	/** Default method called after each request*/
+	public function defaultMethod() {
+		// Should be overridden for controller that use the "method" parameter 
 	}
 	
 	

@@ -1,8 +1,18 @@
 <? 
-	// Alias
- 	$profile = $this->profileAssociation; 
+// Parameters of the template :
+// * $PREFIX_ID : (String) [Optional] Prefix for element IDs (to prevent conflicts in case of several forms (several pages) in the same HTML file.
+// * $MODE : "create" or "update"
+
+// Alias
+$profile = $this->profileAssociation;
+if ($MODE == "create") {
+	$url = url("createProfile", array("type" => "association"));
+} else {
+	$url = url("editProfile", array("type" => "association"));
+}
+
 ?>
-<form data-role="content" method="post" data-ajax="false" action="<?= url("fillProfile", array("type"=>"association")) ?>" >
+<form data-role="content" method="post" data-ajax="false" action="<?= $url ?>" >
 
 	<p>
 		Merci de remplir la fiche de l'association. 
@@ -29,7 +39,7 @@
 	<div data-theme="b" data-validate="competences[]" data-validate-min="1" data-validate-max="4" >
 		<b>Vous devez sélectionner de 1 à 4 compétences.</b>
 	</div>
-	<? checkox_all("competences"); ?>
+	<? checkbox_all("competences"); ?>
 	<? checkboxes("competences", CategoriesCompetences::$values, $profile->competences); ?>
 	
 	<div data-role="header" data-theme="b">
@@ -38,9 +48,9 @@
 	<div data-theme="b" data-validate="missions[]" data-validate-min="1" >
 		Vous devez sélectionner au moins 1 type de missions.
 	</div>
-	<? checkox_all("missions"); ?>
+	<? checkbox_all("missions"); ?>
 	<? checkboxes("missions", CategoriesMissions::$values, $profile->missions); ?>
 	
-	<input type=submit name="submit" data-role="button" data-theme="g" value="Enregistrer le profil" />
+	<input type=submit name="submit" data-role="button" data-theme="g" value="<?= ($MODE == "create") ? "Créer" : "Enregistrer"?> le profil" />
 
 </form>
