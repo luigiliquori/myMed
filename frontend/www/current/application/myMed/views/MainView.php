@@ -10,7 +10,9 @@
 			<?php if ($handle = opendir(MYMED_ROOT . '/application')) {
 				$column = "a";
 			    while (false !== ($file = readdir($handle))) {
-			    	if(preg_match("/my/", $file) && !preg_match("/Admin/", $file) && !in_array($file, $this->hiddenApplication)) { ?>
+			    	if(preg_match("/my/", $file) && !preg_match("/Admin/", $file) && 
+			    	!in_array($file, $this->hiddenApplication) && 
+			    	((isset($_COOKIE[$file.'Status']) && $_COOKIE[$file.'Status'] == "on") || !isset($_COOKIE[$file.'Status']))) { ?>
 				    	<div class="ui-block-<?= $column ?>">
 					    	<a
 					    	href="/application/<?= $file ?>"
@@ -33,8 +35,6 @@
 			} ?>
 		</div>
 		
-		<div Style="height: 900px;"></div>
-			
 	</div>
 	
 	<div data-role="footer" data-position="fixed" data-theme="b">
