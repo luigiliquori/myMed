@@ -5,8 +5,7 @@
 
 	<div data-role="header" data-theme="b">
 		<h1>Création d'un compte</h1>
-		<a href="#login" data-role="button" data-inline="true" data-icon="arrow-l">Retour</a>
-		<? require_once("notifications.php")?>
+		<? include("notifications.php"); ?>
 	</div>
 
 	<div data-role="content">
@@ -47,6 +46,16 @@
 				</center>
 		
 		</form>
+	</div>
+	
+	<div data-role="footer" data-position="fixed" data-theme="b">
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#login" data-transition="none" data-back="true" data-icon="home">Connexion</a></li>
+				<li><a href="#register" data-transition="none" data-back="true" data-icon="grid"  class="ui-btn-active ui-state-persist">Inscription</a></li>
+				<li><a href="#about" data-transition="none" data-icon="info">A propos</a></li>
+			</ul>
+		</div>
 	</div>
 	
 </div>

@@ -72,4 +72,5 @@ spl_autoload_register('autoload');
 // ------------------------------------------------------------------------------------------------
 
 require_once MYMED_ROOT . '/system/config.php';
+require_once MYMED_ROOT . '/system/common/common-utils.php';
 

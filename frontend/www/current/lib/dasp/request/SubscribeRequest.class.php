@@ -1,4 +1,4 @@
-<?php
+<?php 
 /*
  * Copyright 2012 INRIA
 *
@@ -15,65 +15,64 @@
 * limitations under the License.
 */
 require_once dirname(__FILE__).'/Request.class.php';
-require_once dirname(__FILE__).'/../beans/DataBean.php';
-require_once dirname(__FILE__).'/IRequestHandler.php';
+require_once dirname(dirname(__FILE__)) . '/beans/DataBean.php';
 
 /**
  *
- * Request Handler for deletion
+ * Request Handler for the tabBarMenu
  * @author lvanni
  *
  */
-class DeleteRequest extends Request {
-
-	/* --------------------------------------------------------- */
-	/* Attributes */
-	/* --------------------------------------------------------- */
-	private $userID;
-	private $predicateList;
-	private $namespace;
+class SubscribeRequest extends Request {
+	
+	// Attributes
+	private /** String */     $userID;
+	private /** DataBean[] */ $predicateList;
+	private /** String*/      $namespace;
 
 	/* --------------------------------------------------------- */
 	/* Constructors */
 	/* --------------------------------------------------------- */
 	public function __construct(
-			$userID, 
-			$predicateList, 
-			$namespace=null) 
+			/** String */     $userID,
+			/** DataBean[] */ $predicateList,
+			/** String*/      $namespace) 
 	{
-		parent::__construct("PublishRequestHandler", DELETE);
+		parent::__construct("SubscribeRequestHandler", CREATE);
+		$this->userId = $userID;
 		$this->predicateList = $predicateList;
-		$this->userID = $userID;
-		$this->namespace = $namespace; 
+		$this->namespace = $namespace;
 	}
 
 	/* --------------------------------------------------------- */
 	/* Public methods */
 	/* --------------------------------------------------------- */
 	public /*void*/ function send() {
-
-		// Construct the requests
+		
+		// Default userID => current one
+		if (empty($this->userID)) {
+			$this->userID = $_SESSION['user']->id;
+		}
+		parent::addArgument("userID", $this->userID);
+		
+		// Application/namespace
 		if ($this->namespace == null) {
 			parent::addArgument("application", APPLICATION_NAME);
 		} else {
 			parent::addArgument("application", APPLICATION_NAME . ":$this->namespace");
 		}
-		
-		if (empty($this->userID)) {
-			throw new Exception("UserID not set in delete request");
-		}
-		
-		parent::addArgument("userID", $this->userID);
-		parent::addArgument("predicate", json_encode($this->predicateList));
+
+		// Predicate
+		parent::addArgument("predicateList", json_encode($this->predicateList));
 		
 		$responsejSon = parent::send();
 		$responseObject = json_decode($responsejSon);
-		
-		// Error
+
 		if ($responseObject->status != 200) {
-			throw new Exception($responseObject->description);
+			throw new Exception("Error in SubscribeRequest: " . $responseObject->description);
 		}
-			
+
+		return $responseObject;
 	}
 }
 ?>

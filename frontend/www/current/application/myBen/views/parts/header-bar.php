@@ -4,7 +4,9 @@
 	
 	<h1><a href="?"><?= "MyBénévolat" ?></a></h1>
 	
-	<a href="?action=logout" rel="external" data-role="button" data-theme="r" data-icon="delete">Quitter</a>
+	<? if (isset($this->user)) : ?>
+	<a href="<?= url("editProfile") ?>" rel="external" data-role="button" data-theme="g" data-icon="gear"><?= $this->user->name ?></a>
+	<? endif ?>
 	
 	<? include("notifications.php")?>
 	

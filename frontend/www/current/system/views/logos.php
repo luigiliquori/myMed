@@ -19,5 +19,4 @@
 	<img alt="Région PACA" src="/system/img/logos/PACA" />
 	<img alt="Prefecture 06" src="/system/img/logos/pref" />
 	<img alt="Inria" src="/system/img/logos/inria.png" />
-	<p>"Ensemble par-delà les frontières"</p>
 </div>

@@ -29,17 +29,34 @@
 		<ul data-role="listview">
 			
 			<li  data-role="list-divider" >Informations générales</li>
-			<li><img alt="eMail: " src="<?= APP_ROOT ?>/img/email_icon.png" class="ui-li-icon" /><a href="#updateProfile"><?= $_SESSION['user']->email ?></a></li>
-			<li><img alt="Date de naissance: " src="<?= APP_ROOT ?>/img/birthday_icon.png" class="ui-li-icon"/><a href="#updateProfile"><?= $_SESSION['user']->birthday ?></a></li>
+			<li>
+				<img alt="eMail: " src="<?= APP_ROOT ?>/img/email_icon.png" class="ui-li-icon" />
+				<a href="#updateProfile">Email<p><?= $_SESSION['user']->email ?></p></a>
+			</li>
+			<li>
+				<img alt="Date de naissance: " src="<?= APP_ROOT ?>/img/birthday_icon.png" class="ui-li-icon"/>
+				<a href="#updateProfile">Date de naissance<p><?= $_SESSION['user']->birthday ?></p></a>
+			</li>
 			
 			<li  data-role="list-divider" >Profil étendu</li>
 			<?php if ($handle = opendir(MYMED_ROOT . '/application')) {
-				$testApplication = array("myBen", "myFSA", "myMemory");
 			    while (false !== ($file = readdir($handle))) {
-			    	if(preg_match("/my/", $file) && !preg_match("/Admin/", $file) && in_array($file, $testApplication)) { ?>
+			    	if(preg_match("/my/", $file) && !preg_match("/Admin/", $file) && !in_array($file, $this->hiddenApplication)) { ?>
 				    	<li>
 				    		<img alt="<?= $file ?>" src="../../application/<?= $file ?>/img/icon.png" class="ui-li-icon" />
-					    	<a href="/application/<?= $file ?>?action=extendedProfile" rel="external" class="myIcon"><?= $file ?></a>
+					    	<a href="/application/<?= $file ?>?action=extendedProfile" rel="external" class="myIcon">
+					    	<div Style="position: absolute; right: 78px">
+					    	<select id="flip-<?= $file ?>" name="flip-<?= $file ?>" id="flip-<?= $file ?>" data-role="slider" data-mini="true" onChange="SetCookie('<?= $file ?>Status', $('#flip-<?= $file ?>').val(), 365)">
+								<option value="off" <?= isset($_COOKIE[$file.'Status']) &&  $_COOKIE[$file.'Status'] == "off" ? "selected='selected'" : "" ?>>Off</option>
+								<option value="on" <?= (isset($_COOKIE[$file.'Status']) &&  $_COOKIE[$file.'Status'] == "on") || !isset($_COOKIE[$file.'Status']) ? "selected='selected'" : "" ?>>On</option>
+							</select> 
+							</div>
+					    	<?= $file ?>
+					    	<div Style="position: relative; width: 100px; height: 20px;">
+					    		<div Style="position: absolute; width: <?= $this->reputation[$file] ?>px; height: 20px; top:0px; left:0px;  background-color: #ffe400;"></div>
+					    		<img alt="rep" src="<?= APP_ROOT ?>/img/rep.png" />
+					    	</div>
+					    	</a>
 				    	</li>
 				    <?php } 
 			    } 
@@ -103,6 +120,7 @@
 			<ul>
 				<li><a href="#home" data-transition="none" data-back="true" data-icon="grid">Applications</a></li>
 				<li><a href="#profile" data-transition="none" data-icon="profile"  class="ui-btn-active ui-state-persist">Profil</a></li>
+				<li><a href="#" data-rel="dialog" data-icon="star" onClick="printShareDialog();">Partagez</a></li>
 			</ul>
 		</div>
 	</div>

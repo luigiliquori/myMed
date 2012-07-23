@@ -23,7 +23,7 @@ if (count($_GET) > 0){
 	//sort($p); //important
 	//$predicate = join("", array_slice($p, 0, 3)); // we use a broadcast level of 3 for myEurope see in post.php
 
-	// @todo verify date format
+	// @todo verify date format 
 	
 	$application = Template::APPLICATION_NAME.$_GET['type'];
 

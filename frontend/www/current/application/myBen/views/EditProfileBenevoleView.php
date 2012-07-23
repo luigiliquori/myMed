@@ -1,9 +1,10 @@
-<? include("header.php"); ?>
+<? require("header.php"); ?>
 
 <div data-role="page"  >	
 
-	<? include("header-bar.php") ?>
+	<? require("header-bar.php") ?>
 
-	<? include('ProfileBenevoleForm.php') ?>
+	<?  $MODE="edit" ?>
+	<? require('ProfileBenevoleForm.php') ?>
 	
 </div>

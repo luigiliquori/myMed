@@ -20,13 +20,7 @@ define('READ'		, 1);
 define('UPDATE'		, 2);
 define('DELETE'		, 3);
 
-// require_once('PhpConsole.php');
-// PhpConsole::start();
 
-
-/**
- *
- */
 class Request {
 
 	/* --------------------------------------------------------- */
