@@ -1,6 +1,7 @@
 package com.mymed.core;
 
 import java.net.URLDecoder;
+import java.util.Currency;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -13,7 +14,9 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.sax.StartElementListener;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
@@ -44,14 +47,25 @@ public class WebClient extends WebViewClient {
 			Log.i(Mobile.TAG, "Receive a mobile API call");
 			String params[] = url.split("::");
 			if(params.length >= 2) {
+				/*
+				 * Logout
+				 */
 				if(params[1].equals("logout")){
 					Log.i(Mobile.TAG, "Logout");
 					activity.getWebView().loadUrl(Mobile.MYMED_FRONTEND_URL + "?disconnect=1");
-				}else if(params[1].equals("choose_picture")){
+				}
+				/*
+				 * Camera
+				 */
+				else if(params[1].equals("choose_picture")){
 						Log.i(Mobile.TAG, "choose_picture");
 						Preview mPreview = new Preview(activity);
 						activity.setContentView(mPreview);
-				} else if(params[1].equals("publish")){
+				}
+				/*
+				 * Publish
+				 */
+				else if(params[1].equals("publish")){
 					Log.i(Mobile.TAG, "publish");
 					if(params.length == 7) {
 						// CRAFT THE POST REQUEST
@@ -81,7 +95,24 @@ public class WebClient extends WebViewClient {
 					} else {
 						Log.w(Mobile.TAG, "Argument missing! ");
 					}
-				} else {
+				}
+				/*
+				 * phonecalls
+				 */
+				else if (params[1].equals("call")){
+					Log.i(Mobile.TAG, "call");	// Logs
+					
+					
+					Intent myIntent = new Intent(activity, CallActivity.class);
+					activity.startActivity(myIntent);
+					
+
+					
+					
+					
+					
+				}
+				else {
 					Log.w(Mobile.TAG, "Unknown Method: " + params[1]);
 				}
 			} else {
@@ -102,12 +133,12 @@ public class WebClient extends WebViewClient {
 	public void onPageFinished(WebView view, String url) {
 		ProgressBar bar = (ProgressBar) activity.findViewById(R.id.progressBar1);
 		bar.setVisibility(View.GONE);
-		if (url.matches(".*/application/"+activity.getString(R.string.app_name)+"/") || url.matches(".*mymed.fr/")){
+//		if (url.matches(".*/application/"+activity.getString(R.string.app_name)+"/") || url.matches(".*mymed.fr/")){
 			Log.v(Mobile.TAG, "main page load");
 			((TextView) activity.findViewById(R.id.textView1)).setVisibility(View.GONE);
 			activity.findViewById(R.id.imageView1).setVisibility(View.GONE);
 			activity.findViewById(R.id.imageView2).setVisibility(View.GONE);
-		}
+//		}
 		
 //		if (activity.getProgressDialog() != null) {
 //			if (activity.getProgressDialog().isShowing()) {
