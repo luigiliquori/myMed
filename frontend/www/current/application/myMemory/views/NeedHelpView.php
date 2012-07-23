@@ -8,7 +8,8 @@
 
 	});
 
-	setTimeout(function() {needHelp();},2000);
+	//setTimeout(function() {needHelp();},2000);
+	//setTimeout(function() {location.href="#/mobile_binary::call";},1000);
 </script>
 
 
@@ -26,9 +27,10 @@
 				<?php 
 				$i = 1;
 				foreach($_SESSION['ExtendedProfile']->callingList as $entry) {
+					echo '<a href="mobile_binary::call">';
 					echo '<li id="line'.$i.'">';
 					echo '<h3>'.$i.' - '.$entry["name"] .'</h3>';
-					echo '<p id="num'.$i.'">'.$entry['phone'].'</li>'; 
+					echo '<p id="num'.$i.'">'.$entry['phone'].'</a></li>'; 
 					$i++;
 				}?>
 			</ul>
