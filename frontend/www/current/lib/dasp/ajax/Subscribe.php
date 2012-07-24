@@ -1,6 +1,6 @@
 <?php
 
-require_once '../request/Request.v2.php';
+require_once '../request/Requestv2.php';
 require_once '../../../system/config.php';
 session_start();
 
@@ -15,7 +15,7 @@ if ($_GET['code'] == CREATE){
 	
 	
 	
-	$request = new Request("v2/SubscribeRequestHandler", CREATE);
+	$request = new Requestv2("v2/SubscribeRequestHandler", CREATE);
 	$request->addArgument("application", $_GET['application']);
 	$request->addArgument("namespace", $_GET['namespace']);
 	$request->addArgument("user", $_SESSION['user']->id);
@@ -27,7 +27,7 @@ if ($_GET['code'] == CREATE){
 	/*
 	 * remove it's subscription for that predicate
 	 */
-	$request = new Request("v2/SubscribeRequestHandler", DELETE);
+	$request = new Requestv2("v2/SubscribeRequestHandler", DELETE);
 	$request->addArgument("application", $_GET['application']);
 	$request->addArgument("predicate", urldecode($_GET['predicate']));
 	$request->addArgument("user", $_SESSION['user']->id );
@@ -38,7 +38,7 @@ if ($_GET['code'] == CREATE){
 	/*
 	 * answer {"sub": true} if user is subscribed for this predicate
 	 */
-	$request = new Request("v2/SubscribeRequestHandler", READ);
+	$request = new Requestv2("v2/SubscribeRequestHandler", READ);
 	$request->addArgument("application", $_GET['application']);
 	$request->addArgument("namespace", $_GET['namespace']);
 	$request->addArgument("user", $_SESSION['user']->id);

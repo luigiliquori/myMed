@@ -34,7 +34,7 @@ public enum MOntologyID {
     VIDEO(6),
     AUDIO(7),
     FLOAT(-1),
-    DATA(8); //Type for data that are present in Index List, but are neither index nor data (unhack "data" key)
+    METADATA(8); //Type for data that are present in Index List, but are neither index nor data (unhack "data" key)
     
     private int value;
     

@@ -8,7 +8,7 @@ $(document).ready(function() {
 	    return false;
 	});
 
-	showLoadingBar("chargement en cours...");
+	//showLoadingBar("chargement en cours...");
 	
 });
 

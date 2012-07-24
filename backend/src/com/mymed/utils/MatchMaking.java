@@ -8,14 +8,13 @@ import java.util.List;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.model.data.application.DataBean;
 import com.mymed.model.data.application.IndexBean;
-import com.mymed.model.data.application.MOntologyID;
 
 /**
  * Utils methods for pubsub managers
  * 
  */
 
-public class PubSub {
+public class MatchMaking {
 
 	/*
 	 * preformat the received request
@@ -146,7 +145,6 @@ public class PubSub {
 
 			// List of keys, in their order of apparence
 			// final String keys[] = this.map.keySet().toArray(new String[] {});
-			// System.out.println("Expanded keys : {}"+ keys);
 
 			// Buffer of all possibilities
 			final List<Index> result = new ArrayList<Index>();
@@ -187,21 +185,23 @@ public class PubSub {
 
 	} // End of class CombiLine
 
+	
+	
+	
 	// -----generic-utils-----------
 
-	public static List<DataBean> subList(List<DataBean> data, MOntologyID type) {
-		List<DataBean> res = new ArrayList<DataBean>();
-		for (final DataBean d : data) {
-			if (d.getType() == type) {
-				res.add(d);
-			}
-		}
-		return res;
-	}
 
 	public static long parseLong(String s) {
 		try {
 			return Long.parseLong(s);
+		} catch (NumberFormatException e) {
+			throw new InternalBackEndException(e);
+		}
+	}
+	
+	public static int parseInt(String s) {
+		try {
+			return Integer.parseInt(s);
 		} catch (NumberFormatException e) {
 			throw new InternalBackEndException(e);
 		}
@@ -250,8 +250,8 @@ public class PubSub {
 		String[] t1strs = t1.split("\\.");
 		String[] t2strs = t2.split("\\.");
 
-		int t1int = Integer.parseInt(t1strs[0]);
-		int t2int = Integer.parseInt(t2strs[0]);
+		int t1int = parseInt(t1strs[0]);
+		int t2int = parseInt(t2strs[0]);
 
 		String t1str = t1strs.length == 1 ? String.format("%04d", t1int)
 				: String.format("%04d.%s", t1int, t1strs[1]);
@@ -272,10 +272,10 @@ public class PubSub {
 	 */
 	public static String padFloat(String... strings) {
 		if (2 == strings.length) {
-			return String.format("%04d.%s", Integer.parseInt(strings[0]),
+			return String.format("%04d.%s", parseInt(strings[0]),
 					strings[1]);
 		}
-		return String.format("%04d", Integer.parseInt(strings[0]));
+		return String.format("%04d", parseInt(strings[0]));
 	}
 
 	/** Pads date timestamps in seconds over 10 digits */

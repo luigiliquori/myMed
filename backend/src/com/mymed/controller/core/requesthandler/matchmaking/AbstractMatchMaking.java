@@ -8,9 +8,7 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import com.mymed.controller.core.requesthandler.AbstractRequestHandler;
-import com.mymed.model.data.application.DataBean;
 import com.mymed.model.data.application.MDataBean;
-import com.mymed.utils.PubSub.Index;
 
 /*
  * Copyright 2012 INRIA

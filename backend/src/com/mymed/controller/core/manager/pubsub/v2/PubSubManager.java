@@ -17,8 +17,8 @@ package com.mymed.controller.core.manager.pubsub.v2;
 
 import static com.mymed.utils.MiscUtils.decode;
 import static com.mymed.utils.MiscUtils.encode;
-import static com.mymed.utils.PubSub.extractApplication;
-import static com.mymed.utils.PubSub.extractNamespace;
+import static com.mymed.utils.MatchMaking.extractApplication;
+import static com.mymed.utils.MatchMaking.extractNamespace;
 import static java.util.Arrays.asList;
 
 import java.io.UnsupportedEncodingException;
@@ -37,8 +37,6 @@ import com.mymed.controller.core.manager.mailtemplates.MailTemplateManager;
 import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.controller.core.manager.storage.v2.StorageManager;
-import com.mymed.model.data.application.DataBean;
-import com.mymed.model.data.application.SimpleDataBean;
 import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.mail.Mail;
 import com.mymed.utils.mail.MailMessage;
@@ -57,9 +55,9 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     protected static final String SC_APPLICATION_CONTROLLER = COLUMNS.get("column.sc.application.controller");
 
     /**
-     * The data list super column.
+     * The data table.
      */
-    protected static final String SC_DATA_LIST = COLUMNS.get("column.sc.data.list");
+    protected static final String CF_DATA = COLUMNS.get("column.cf.data");
 
     /**
      * The subscribees (users subscribed to a predicate) column family.
@@ -74,9 +72,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     
     protected ProfileManager profileManager;
     protected MailTemplateManager mailTemplateManager;
-
-    final Map<String, byte[]> args;
-   
+    
     /**
      * Default constructor.
      * @throws InternalBackEndException 
@@ -91,7 +87,6 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
             throws InternalBackEndException 
     {
     	super(storageManager);
-        args = new HashMap<String, byte[]>();
         profileManager = new ProfileManager(storageManager);
         mailTemplateManager = new MailTemplateManager(storageManager);
     }
@@ -107,29 +102,14 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 			final String predicate,
 			final String colprefix,
 			final String id,
-			final List<DataBean> dataList)
+			final Map<String, String> metadata)
 					throws InternalBackEndException, IOBackEndException {
-		args.clear();
-		
-		/*put id of the data*/
-		args.put("id", encode(id));
-		
-		/*put metadata Databeans (type DATA), the only ones that are stores in results Lists */
-		for (DataBean item : dataList) {
-			args.put(item.getKey(), encode(item.getValue()));
-		}
 
-		
-		//args.put("publisherID", encode(publisher.getId()));
-
-		// ---publisherName at the moment he published it, beware that name was
-		// possibly updated since
-		//args.put("publisherName", encode(publisher.getName()));
-
-		storageManager
-				.insertSuperSlice(SC_APPLICATION_CONTROLLER, application
-						+ predicate,
-						colprefix + id, args);
+		storageManager.insertSuperSliceStr(
+				SC_APPLICATION_CONTROLLER,
+				application	+ predicate,
+				colprefix + id,
+				metadata);
 
 	}
     
@@ -137,29 +117,19 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 	public final void create(
 			String application,
 			final String subPredicate,
-			final List<DataBean> dataList)
+			final Map<String, String> dataList)
 					throws InternalBackEndException, IOBackEndException {
-		args.clear();
 
 		/*
 		 * stores data
 		 * 
-		 * row -> supercolName dataKey, cols: {"key": dataKey, "value":
-		 * dataValue, "ontologyID": dataoOntologyID}
-		 * 
-		 * 'd like to move to: row -> supercolName dataoOntologyID, cols:
-		 * {dataKey1: dataValue1, dataKey2: dataValue2, ...} makes more sense
+		 * in CF Data
 		 */
+		storageManager.insertSliceStr(
+				CF_DATA,
+				application + subPredicate,
+				dataList);
 
-		for (DataBean item : dataList) {
-			args.put("key", encode(item.getKey()));
-			args.put("type", encode(item.getType().getValue()));
-			args.put("value", encode(item.getValue()));
-			
-			storageManager.insertSuperSlice(SC_DATA_LIST, application
-					+ subPredicate, item.getKey(), args);
-			args.clear();
-		}
 	}
     
     @Override
@@ -184,20 +154,15 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     
     /** read details */
 	@Override
-	public List<DataBean> read(
+	public Map<String, String> read(
 			final String application,
 			final String predicate)
 					throws InternalBackEndException, IOBackEndException {
 
-		final List<Map<byte[], byte[]>> list = storageManager.selectList(
-				SC_DATA_LIST, application + predicate);
-		final List<DataBean> resList = new ArrayList<DataBean>();
-		for (final Map<byte[], byte[]> set : list) {
-	        final SimpleDataBean d = (SimpleDataBean) introspection(SimpleDataBean.class, set);
-	        
-	        resList.add(d.toDataBean());
-		}
-		return resList;
+		
+		final Map<String, String> map = storageManager.selectAllStr(CF_DATA, application + predicate);
+		
+		return map;
 	}
 	
 	/** read detail 1-item*/
@@ -208,9 +173,8 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 			final String name )
 					throws InternalBackEndException, IOBackEndException {
 
-		final Map<String, String> map = storageManager.selectSuperColumn(SC_DATA_LIST, application + predicate, name);
-		
-		return map.get("value");
+		final Map<String, String> map = read(application, predicate);
+		return map.get(name);
 	}
 	
 	/** read results */
@@ -249,7 +213,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 	        final String subPredicate)
 			        throws InternalBackEndException, IOBackEndException 
 	{
-		storageManager.removeAll(SC_DATA_LIST, application + subPredicate);
+		storageManager.removeAll(CF_DATA, application + subPredicate);
 	}
     
 	@Override
@@ -278,16 +242,13 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 	
 	
 	
-	
-	
-	
-	
+
 	
 	public void sendEmailsToSubscribers(  
             String application,          
             String predicate,
-            MUserBean publisher,
-            List<DataBean> dataList) 
+            Map<String, String> details,
+            MUserBean publisher) 
     {
         
         // Built list of recipients
@@ -318,11 +279,11 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
             // can we rename the folder myEuroCINAdmin in myEuroCIN_ADMIN to skip below hack
             // url += "/application/" + (applicationID.equals("myEuroCIN_ADMIN") ? "myEuroCINAdmin" : applicationID);
         //}
-        
+
         // Set data map
         data.put("base_url", url);
         data.put("application", applicationID);
-        data.put("publication", dataList);
+        data.put("publication", details);
         data.put("publisher", publisher );
 
         // Loop on recipients
@@ -335,6 +296,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
             String language = recipient.getLang();
             
             // Get the mail template from the manager
+            
             MailTemplate template = this.mailTemplateManager.getTemplate(
                     applicationID, 
                     namespace, 

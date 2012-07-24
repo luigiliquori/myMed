@@ -23,7 +23,7 @@ define('DATE'		, 3);
 define('FLOAT'		, -1);
 
 /* OntologyType  (metadata) */
-define('DATA'		, 8);
+define('METADATA'		, 8);
 
 /* OntologyType  (real data) */
 define('TEXT'		, 4);
@@ -35,15 +35,15 @@ define('AUDIO'		, 7);
 /**
  * Represents an atomic Data in myMed model
  */
-class DataBean {
+class DataBeanv2 {
 
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
 	
-	public /*String*/		$key;
-	public /*int*/			$type;
-	public /*String[]*/		$value;
+	public /*String*/		    	$key;
+	public /*int*/		  	    	$type;
+	public /*String or String[]*/   $value;
 
 
 	/* --------------------------------------------------------- */

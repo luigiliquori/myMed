@@ -1,12 +1,15 @@
 .ui-page {
  	background-image: url("../img/background.png");
 	background-size: 100% 100%; 
-	color: black;
 	text-shadow: none;
 }
 
 .ui-icon-profile {
 	background-image: url("../img/profile.png");
+}
+
+.ui-icon-thumb {
+	background-image: url("../img/thumb.png");
 }
 
 #loading {
@@ -60,11 +63,11 @@
 	position: absolute;
 }
 
-.ui-link-inherit {
+/*.ui-link-inherit {
 	position: relative;
 	left: 70px;
 	height: 40px;
-}
+} WTF */
 
 .ui-icon img {
 	position: absolute;

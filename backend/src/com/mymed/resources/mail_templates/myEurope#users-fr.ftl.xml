@@ -18,21 +18,24 @@ The following variables are available in the templates :
         Bonjour ${recipient.name},<br/>
         <br/>
         
-        Un nouvel utilisateur vient de s'inscrire sur ${application}<br/>
-        <br/>
-        
-        Nom : ${publisher.name}<br/>
-        Données :
+        Un nouvel utilisateur: 
+        <#if publisher??>
+        	${publisher.name}, <a href="mailto:${publisher.email}">${publisher.email}</a>
+        <#else>
+        	non précisé
+        </#if>
+        vient de s'inscrire sur ${application}<br/>
+        Informations :
         <ul>
-            <#list publication as item>
-                <li><b>${item.key}</b> : ${item.value!'N/A'}</li>
-            </#list>
+            <#list publication?keys as key>
+				<li>${key} = ${publication[key]!'N/A'}</li>
+			</#list>
         </ul>
         
-        Prenez contact avec celui-ci afin de confirmer son identité puis autoriser son entrée sur ${application} 
-        en vous rendant sur 
-        <a href="${base_url}application/${application}/admin">
-	        	${base_url}application/${application}/admin
+        Prenez contact avec celui-ci afin de confirmer son identité puis autoriser sa participation à ${application} 
+        en vous rendant sur l'interface Admin:
+        <a href="${base_url}application/${application}/?action=Admin">
+	        	${base_url}application/${application}/?action=Admin
 	        </a>
 	    <br/>
         --<br/>

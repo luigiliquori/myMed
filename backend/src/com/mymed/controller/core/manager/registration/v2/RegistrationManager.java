@@ -99,7 +99,10 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
             final String application)
     throws AbstractMymedException
     {
-        // PUBLISH A NEW REGISTATION PENDING TASK
+		
+		throw new NotImplementedException();
+		
+  /*      // PUBLISH A NEW REGISTATION PENDING TASK
         final List<DataBean> dataList = new ArrayList<DataBean>();
         try {
 			final DataBean dataUser = new DataBean(TEXT, FIELD_USER,
@@ -119,13 +122,15 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
         final HashFunction hashFunc = new HashFunction(application);
         final String accessToken = hashFunc.SHA1ToString(user.getLogin() + System.currentTimeMillis());
         
-        /* pub account infos */
+        // pub account infos
 
-        pubSubManager.create(application + ":pendingAccount", accessToken, dataList);
-
-        /* send confirmation mail   */  
+        //
+        //pubSubManager.create(application + ":pendingAccount", accessToken, dataList);
+        
+        
+        // send confirmation mail   
         sendRegistrationEmail( application, user, accessToken);
-
+*/
         
     }
     
@@ -143,7 +148,10 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
    
     public void read( final String application, final String accessToken) throws AbstractMymedException {
         // Retrieve the user profile, temporary data used for pending registration
-        final List<DataBean> list = pubSubManager.read(application + ":pendingAccount", accessToken);
+    	
+    	throw new NotImplementedException();
+    	
+       /* final List<DataBean> list = pubSubManager.read(application + ":pendingAccount", accessToken);
         if (list.size() == 0){
             throw new InternalBackEndException("account registration not found");
     	}
@@ -171,7 +179,7 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
 			
         } else {
         	LOGGER.debug("account creation failed");
-        }
+        }*/
     }
     
     /** send registration mail, uses myMed#registration-XX.ftl.xml template */

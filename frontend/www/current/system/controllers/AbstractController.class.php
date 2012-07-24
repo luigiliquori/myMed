@@ -12,21 +12,24 @@ abstract class AbstractController implements IRequestHandler {
 	
 	/** 
 	 * Generate a HTTP redirect to the given action and exit
-	 * Optionnal argument for passing GET vars
+	 * Optional argument for passing GET vars
+	 * Optional arg for passing url hash '#aa'
 	 */
-	public function redirectTo($action, array $vars=null) {
+	public function redirectTo($action, array $vars=null, $hash='') {
+		
 		if(isset($vars)){
 			$get_line = "";
 			foreach($vars as $key=>$value){
 				$get_line .= '&' . $key . '=' . $value;
 			}
-			printf('<script>location.href="/application/'.APPLICATION_NAME.'/index.php?action='.$action.$get_line.'"</script>');
+			//printf('<script>location.href="/application/'.APPLICATION_NAME.'/index.php?action='.$action.$get_line.'"</script>');
 			//header('Refresh:0;url=/application/'.APPLICATION_NAME.'/index.php?action=' . $action . $get_line);
+			header('Location: ./?action=' . $action . $get_line . $hash);
 		}
 		else{
-			debug("redirectiiiiing!");
-			printf('<script>location.href="/application/'.APPLICATION_NAME.'/index.php?action='.$action.'"</script>');
+			//printf('<script>location.href="/application/'.APPLICATION_NAME.'/index.php?action='.$action.'"</script>');
 			//header('Refresh:0;url=/application/'.APPLICATION_NAME.'/index.php?action='.$action);
+			header('Location: ./?action=' . $action . $hash);
 		}
 			
 		exit();

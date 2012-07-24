@@ -22,12 +22,18 @@ The following variables are available in the templates :
         Application : ${application}<br/>
         <br/>
         
-        Auteur : ${publisher.name}<br/>
+        Auteur :
+        <#if publisher??>
+        	${publisher.name}, <a href="mailto:${publisher.email}">${publisher.email}</a>
+        <#else>
+        	non précisé
+        </#if>
+        vient de s'inscrire sur ${application}<br/>
         Publication :
         <ul>
-            <#list publication as item>
-                <li><b>${item.key}</b> : ${item.value!'N/A'}</li>
-            </#list>
+            <#list publication?keys as key>
+				<li>${key} = ${publication[key]!'N/A'}</li>
+			</#list>
         </ul>
         
         --<br/>

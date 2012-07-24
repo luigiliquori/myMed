@@ -51,7 +51,7 @@ if (count($_POST)) {
 						$_SESSION['profile']->role = $v->value;
 					else if ($v->key == "permission")
 						$_SESSION['profile']->permission = $v->value;
-				};
+				}
 				
 				header("Location: ".(isset($_SESSION['redirect'])?$_SESSION['redirect']:"./index"));
 				unset($_SESSION['redirect']);

@@ -1,18 +1,14 @@
 <?php
 
+// ---------------------------------------------------------------------
+// Constants
+// ---------------------------------------------------------------------
+
+define('APPLICATION_NAME', "myEurope");
 define('APP_ROOT', __DIR__);
-//ob_start("ob_gzhandler");
-require_once 'Template.php';
-Template::init();
+define('MYMED_ROOT', __DIR__ . '/../..');
 
-if (isset($_GET['registration'])) {
-	header("Location: ./authenticate?".$_SERVER['QUERY_STRING']);
-} else if (isset($_GET['userID'])) {
-	//header("Location: ./option?".$_SERVER['QUERY_STRING']);
-} else {
-	header("Location: ./home");
-}
-
-
+// Include main controller : Dispatches actions to individual controllers
+include(MYMED_ROOT . '/system/controllers/index-controller.php')
 
 ?>

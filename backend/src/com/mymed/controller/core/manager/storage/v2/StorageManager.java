@@ -15,23 +15,27 @@
  */
 package com.mymed.controller.core.manager.storage.v2;
 
+import static com.mymed.utils.MiscUtils.decode;
 import static com.mymed.utils.MiscUtils.encode;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import org.apache.cassandra.thrift.Column;
 import org.apache.cassandra.thrift.ColumnOrSuperColumn;
 import org.apache.cassandra.thrift.ColumnParent;
 import org.apache.cassandra.thrift.ColumnPath;
+import org.apache.cassandra.thrift.Mutation;
 import org.apache.cassandra.thrift.SlicePredicate;
 import org.apache.cassandra.thrift.SliceRange;
+import org.apache.cassandra.thrift.SuperColumn;
 
-import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.model.core.configuration.WrapperConfiguration;
@@ -77,9 +81,11 @@ public class StorageManager extends
 
 	@Override
 	public Map<String, Map<String, String>> multiSelectList(
-			final String tableName, final List<String> keys,
-			final String start, final String finish) throws IOBackEndException,
-			InternalBackEndException {
+			final String tableName,
+			final List<String> keys,
+			final String start,
+			final String finish)
+					throws InternalBackEndException {
 
 		final SlicePredicate predicate = new SlicePredicate();
 		final SliceRange sliceRange = new SliceRange();
@@ -106,11 +112,9 @@ public class StorageManager extends
 				final Map<String, String> slice = new HashMap<String, String>();
 
 				for (final Column column : res.getSuper_column().getColumns()) {
-					slice.put(MConverter.byteArrayToString(column.getName()),
-							MConverter.byteArrayToString(column.getValue()));
+					slice.put(decode(column.getName()),	decode(column.getValue()));
 				}
-				sliceMap.put(MConverter.byteArrayToString(res.getSuper_column()
-						.getName()), slice);
+				sliceMap.put(decode(res.getSuper_column().getName()), slice);
 			}
 		}
 
@@ -121,7 +125,7 @@ public class StorageManager extends
     public Map<String, String> selectSuperColumn(
             final String tableName, 
             final String key, 
-            final String columnName) throws InternalBackEndException, IOBackEndException 
+            final String columnName) throws InternalBackEndException 
     {
 
     	Map<String, String> resultValue = new HashMap<String, String>();
@@ -140,5 +144,129 @@ public class StorageManager extends
 
         return resultValue;
     }
+	
+	
+	@Override public void insertStr(
+            final String key, 
+            final ColumnParent parent, 
+            final String columnName,
+            final String value)
+                    throws InternalBackEndException 
+    {
+        final long timestamp = System.currentTimeMillis();
+        final ByteBuffer buffer = ByteBuffer.wrap(encode(value));
+        final Column column = new Column(MConverter.stringToByteBuffer(columnName), buffer, timestamp);
+        LOGGER.info("Inserting column '{}' into '{}' with key '{}'", new Object[] {columnName, parent.getColumn_family(),
+                key});
+        wrapper.insert(key, parent, column, consistencyOnWrite);
+
+        LOGGER.info("Column '{}' inserted", columnName);
+    }
+	
+    @Override public void insertSliceStr(
+			final String tableName,
+			final String primaryKey,
+			final Map<String, String> args) 
+					throws InternalBackEndException {
+		try {
+			final Map<String, Map<String, List<Mutation>>> mutationMap = new HashMap<String, Map<String, List<Mutation>>>();
+			final long timestamp = System.currentTimeMillis();
+			final Map<String, List<Mutation>> tableMap = new HashMap<String, List<Mutation>>();
+			final List<Mutation> sliceMutationList = new ArrayList<Mutation>(5);
+
+			tableMap.put(tableName, sliceMutationList);
+
+			final Iterator<Entry<String, String>> iterator = args.entrySet()
+					.iterator();
+			while (iterator.hasNext()) {
+				final Entry<String, String> entry = iterator.next();
+
+				final Mutation mutation = new Mutation();
+				mutation.setColumn_or_supercolumn(new ColumnOrSuperColumn()
+						.setColumn(new Column(MConverter
+								.stringToByteBuffer(entry.getKey()), ByteBuffer
+								.wrap(encode(entry.getValue())), timestamp)));
+
+				sliceMutationList.add(mutation);
+			}
+
+			// Insertion in the map
+			mutationMap.put(primaryKey, tableMap);
+
+			LOGGER.info(
+					"Performing a batch_mutate on table '{}' with key '{}'",
+					tableName, primaryKey);
+
+			wrapper.batch_mutate(mutationMap, consistencyOnWrite);
+		} catch (final InternalBackEndException e) {
+			LOGGER.debug("Insert slice in table '{}' failed", tableName, e);
+			throw new InternalBackEndException("InsertSlice failed."); // NOPMD
+		}
+
+		LOGGER.info("batch_mutate performed correctly");
+	}
+	
+	@Override public Map<String, String> selectAllStr(
+			String tableName,
+			String key)
+					throws InternalBackEndException {
+		
+		// Prepare output
+		HashMap<String, String> slice = new HashMap<String, String>();
+
+		final SlicePredicate predicate = new SlicePredicate();
+		final SliceRange sliceRange = new SliceRange();
+		sliceRange.setStart(new byte[0]);
+		sliceRange.setFinish(new byte[0]);
+		predicate.setSlice_range(sliceRange);
+		final ColumnParent parent = new ColumnParent(tableName);
+		final List<ColumnOrSuperColumn> results = wrapper.get_slice(key,
+				parent, predicate, consistencyOnRead);
+
+		LOGGER.info("Select slice from column family '{}' with key '{}'",
+				parent.getColumn_family(), key);
+
+		for (final ColumnOrSuperColumn res : results) {
+			final Column col = res.getColumn();
+			slice.put(decode(col.getName()), decode(col.getValue()));
+		}
+		return slice;
+	}
+	
+	@Override public void insertSuperSliceStr(
+			final String superTableName,
+			final String key,
+			final String superKey,
+			final Map<String, String> args) 
+					throws InternalBackEndException {
+		try {
+			final Map<String, Map<String, List<Mutation>>> mutationMap = new HashMap<String, Map<String, List<Mutation>>>();
+			final long timestamp = System.currentTimeMillis();
+			final Map<String, List<Mutation>> tableMap = new HashMap<String, List<Mutation>>();
+			final List<Mutation> sliceMutationList = new ArrayList<Mutation>(5);
+
+			tableMap.put(superTableName, sliceMutationList);
+
+			final List<Column> columns = new ArrayList<Column>();
+
+			for (Entry<String, String> entry : args.entrySet()) {
+				columns.add(new Column(ByteBuffer.wrap(encode(entry.getKey())),
+						ByteBuffer.wrap(encode(entry.getValue())), timestamp));
+			}
+
+			final Mutation mutation = new Mutation();
+			final SuperColumn superColumn = new SuperColumn(ByteBuffer.wrap(encode(superKey)), columns);
+			mutation.setColumn_or_supercolumn(new ColumnOrSuperColumn().setSuper_column(superColumn));
+			sliceMutationList.add(mutation);
+
+			// Insertion in the map
+			mutationMap.put(key, tableMap);
+
+			wrapper.batch_mutate(mutationMap, consistencyOnWrite);
+
+		} catch (final InternalBackEndException e) {
+			throw new InternalBackEndException(e);
+		}
+	}
 
 }

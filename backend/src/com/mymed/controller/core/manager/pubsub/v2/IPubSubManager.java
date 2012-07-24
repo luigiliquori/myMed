@@ -21,7 +21,6 @@ import java.util.Map;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.model.data.application.DataBean;
 import com.mymed.model.data.user.MUserBean;
 
 public interface IPubSubManager {
@@ -35,7 +34,7 @@ public interface IPubSubManager {
 			String predicate,
 			String colprefix,
 			String id,
-			List<DataBean> dataList)
+			Map<String, String> metadata)
 					throws InternalBackEndException, IOBackEndException;
 
 	/**
@@ -43,7 +42,7 @@ public interface IPubSubManager {
 	 * create Data
 	 */
 
-	void create(String application, String subPredicate, List<DataBean> dataList)
+	void create(String application, String subPredicate, Map<String, String> dataList)
 			throws InternalBackEndException, IOBackEndException;
 
 	/**
@@ -58,7 +57,7 @@ public interface IPubSubManager {
 	/**
 	 * reads all Data (return val modified from v1)
 	 */
-	List<DataBean> read(String application, String predicate)
+	Map<String, String> read(String application, String predicate)
 			throws InternalBackEndException, IOBackEndException;
 	
 	/**
@@ -123,6 +122,7 @@ public interface IPubSubManager {
 			throws InternalBackEndException, IOBackEndException;
 
 	void sendEmailsToSubscribers(String application, String predicate,
-			MUserBean publisher, List<DataBean> dataList);
+			Map<String, String> details,
+			MUserBean publisher);
 
 }

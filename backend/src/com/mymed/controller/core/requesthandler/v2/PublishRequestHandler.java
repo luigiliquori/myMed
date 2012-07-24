@@ -17,11 +17,13 @@ package com.mymed.controller.core.requesthandler.v2;
 
 
 import static com.mymed.utils.GsonUtils.gson;
-import static com.mymed.utils.PubSub.makePrefix;
-import static com.mymed.utils.PubSub.subList;
+import static com.mymed.utils.MatchMaking.makePrefix;
+import static com.mymed.utils.MatchMaking.parseInt;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,12 +43,10 @@ import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.pubsub.v2.PubSubManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
-import com.mymed.model.data.application.DataBean;
 import com.mymed.model.data.application.IndexBean;
-import com.mymed.model.data.application.MOntologyID;
 import com.mymed.model.data.user.MUserBean;
-import com.mymed.utils.PubSub;
-import com.mymed.utils.PubSub.Index;
+import com.mymed.utils.MatchMaking;
+import com.mymed.utils.MatchMaking.Index;
 
 
 /**
@@ -63,6 +63,9 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 
     protected PubSubManager pubsubManager;
     protected ProfileManager profileManager;
+    
+    private Type indexType;
+    private Type dataType;
 
     /**
      * JSON 'predicate' attribute.
@@ -74,6 +77,9 @@ public class PublishRequestHandler extends AbstractRequestHandler {
         super();
         profileManager = new ProfileManager();
         pubsubManager = new PubSubManager();
+        
+        indexType = new TypeToken<List<IndexBean>>() {}.getType();
+        dataType = new TypeToken<Map<String, String>>() {}.getType();
     }
 
 
@@ -108,7 +114,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 				message.setMethod(JSON_CODE_READ);
 
 				// Get DATA (details)
-				final List<DataBean> details = pubsubManager.read(prefix, dataId);
+				final Map<String, String> details = pubsubManager.read(prefix, dataId);
 				if (details.isEmpty()) {
 					throw new IOBackEndException("no results found!", 404);
 				}
@@ -142,10 +148,10 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 
 				LOGGER.info(" deleting  " + dataId + "." + indexList.size());
 
-				LinkedHashMap<String, List<Index>> indexes = PubSub
+				LinkedHashMap<String, List<Index>> indexes = MatchMaking
 						.formatIndexes(indexList);
 
-				List<Index> combi = PubSub.getPredicate(indexes, 0,
+				List<Index> combi = MatchMaking.getPredicate(indexes, 0,
 						indexList.size());
 				for (Index i : combi) {
 					pubsubManager.delete(makePrefix(application, namespace),
@@ -189,25 +195,30 @@ public class PublishRequestHandler extends AbstractRequestHandler {
             final String 
             	application = parameters.get(JSON_APPLICATION), 
             	data = parameters.get(JSON_DATA),
+            	metadata = parameters.get("metadata"),
             	index = parameters.get("index"),
             	dataId = parameters.get("id"),
-            	userId = parameters.get(JSON_USER), 
-            	namespace = parameters.get(JSON_NAMESPACE);
-			
+            	namespace = parameters.get(JSON_NAMESPACE),
+            	min = parameters.get("min"),
+            	max = parameters.get("max");
+            
+            List<IndexBean> indexList = new ArrayList<IndexBean>();
+            Map<String, String> mdataMap = new HashMap<String, String>();
+			Map<String, String> dataMap = new HashMap<String, String>();
 			
             if (application == null) {
                 throw new InternalBackEndException("missing application argument!");
+            } else if (dataId == null) {
+                throw new InternalBackEndException("missing id argument!");
             }
-            List<IndexBean> indexList = new ArrayList<IndexBean>();
-            List<DataBean> dataList = new ArrayList<DataBean>();
-
+            
             try {
-            	if (data != null){
-	                dataList = gson.fromJson(data, new TypeToken<List<DataBean>>() {}.getType());
-            	}
-            	if (index != null){
-            		indexList = gson.fromJson(index, new TypeToken<List<IndexBean>>() {}.getType());
-            	}
+            	if (data != null)
+	                dataMap = gson.fromJson(data, dataType);
+            	if (metadata != null)
+	                mdataMap = gson.fromJson(metadata, dataType);
+            	if (index != null)
+            		indexList = gson.fromJson(index, indexType);
             } catch (final JsonSyntaxException e) {
                 LOGGER.debug("Error in Json format", e);
                 throw new InternalBackEndException("jSon format is not valid");
@@ -216,19 +227,24 @@ public class PublishRequestHandler extends AbstractRequestHandler {
                 throw new InternalBackEndException(e.getMessage());
             }
             
-            Collections.sort(dataList);
             Collections.sort(indexList);
            
-            LOGGER.info("in "+dataId+"."+dataList.size());
+            LOGGER.info("in "+dataId+"."+dataMap.size()+"."+indexList.size());
             
-            LinkedHashMap<String, List<Index>> indexes = PubSub.formatIndexes(indexList);
+            LinkedHashMap<String, List<Index>> indexes = MatchMaking.formatIndexes(indexList);
 			
-			List<Index> combi = PubSub.getPredicate(indexes, 0, dataList.size());
+			List<Index> combi = MatchMaking.getPredicate(
+					indexes, 
+					min!=null?parseInt(min):0,
+					max!=null?parseInt(max):indexList.size());
         	
         	LOGGER.info("ext find rows: "+combi.size()+" initial: "+combi.get(0));
         	
         	String prefix = makePrefix(application, namespace);
-
+        	
+			/* make sure to put dataId pointer */
+			mdataMap.put("id", dataId);
+			
 			switch (code) {
 
 			case CREATE:
@@ -239,41 +255,41 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 				 * 
 				 * @see PubSub.getIndex
 				 */
-
-				if (userId == null) {
-					throw new InternalBackEndException("missing user argument!");
-				}
-				final MUserBean userBean = profileManager.read(userId);
-
+				
+				// look if the content is signed
+		        MUserBean publisher = null;
+		        if (dataMap.containsKey("user")){
+		        	publisher = profileManager.read(dataMap.get("user"));
+		        }
+				
 				for (Index i : combi) {
-					pubsubManager.create(prefix, i.row, i.col, dataId,
-							subList(dataList, MOntologyID.DATA));
-					pubsubManager.sendEmailsToSubscribers(prefix, i.row,
-							userBean, dataList);
+					
+					pubsubManager.create(prefix, i.row, i.col, dataId, mdataMap);
+					
+					pubsubManager.sendEmailsToSubscribers(prefix, i.row, dataMap, publisher);
 				}
 
 				/*
 				 * add indexes as a data, the only way to remove all the indexes
 				 * later if necessary
 				 */
-				dataList.add(new DataBean(MOntologyID.TEXT, "_index", gson
-						.toJson(indexList)));
+				dataMap.put("_index", gson.toJson(indexList));
+				
 				/* creates data */
-				pubsubManager.create(prefix, dataId, dataList);
+				pubsubManager.create(prefix, dataId, dataMap);
 
 				break;
 				
 			case UPDATE:
 				message.setMethod(JSON_CODE_UPDATE);
 
-				LOGGER.info("updating data " + dataId + " size " + dataList.size());
+				LOGGER.info("updating data " + dataId + " size " + dataMap.size());
 				for (Index i : combi) {
-					pubsubManager.create(prefix, i.row, i.col, dataId,
-							subList(dataList, MOntologyID.DATA));
+					pubsubManager.create(prefix, i.row, i.col, dataId, mdataMap);
 				}
 
 				/* creates data */
-				pubsubManager.create(prefix, dataId, dataList);
+				pubsubManager.create(prefix, dataId, dataMap);
 				
 				break;
 

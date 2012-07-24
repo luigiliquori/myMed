@@ -16,7 +16,7 @@
 package com.mymed.controller.core.requesthandler.v2;
 
 import static com.mymed.utils.GsonUtils.gson;
-import static com.mymed.utils.PubSub.makePrefix;
+import static com.mymed.utils.MatchMaking.makePrefix;
 
 import java.lang.reflect.Type;
 import java.util.Collections;
@@ -39,8 +39,8 @@ import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.pubsub.v2.PubSubManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.application.IndexBean;
-import com.mymed.utils.PubSub;
-import com.mymed.utils.PubSub.Index;
+import com.mymed.utils.MatchMaking;
+import com.mymed.utils.MatchMaking.Index;
 
 /**
  * Servlet implementation class PubSubRequestHandler
@@ -160,11 +160,11 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
 
         	LOGGER.info("in ."+query.size());
         	
-        	LinkedHashMap<String, List<Index>> indexes = PubSub.formatIndexes(query);
+        	LinkedHashMap<String, List<Index>> indexes = MatchMaking.formatIndexes(query);
 			
-			List<Index> combi = PubSub.getPredicate(indexes, query.size(), query.size());
+			List<Index> combi = MatchMaking.getPredicate(indexes, query.size(), query.size());
         	
-        	List<String> rows = PubSub.Index.getRows(combi);
+        	List<String> rows = MatchMaking.Index.getRows(combi);
         	 
         	LOGGER.info("sub rows: "+rows.size()+" initial: "+rows.get(0));
             

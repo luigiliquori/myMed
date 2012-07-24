@@ -28,7 +28,8 @@ create column family Position with column_type = 'Standard' and comparator = 'UT
 create column family Interaction with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 create column family Subscribers with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 create column family Subscribees with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
-create column family MailTemplates with column_type = 'Standard' and comparator = 'UTF8Type' and column_metadata = [{column_name: 'subject', validation_class: 'UTF8Type'}, {column_name: 'body', validation_class: 'UTF8Type'}] and comment = 'Column family storing mail templates, with key="appID:ns:lang"';
+create column family MailTemplates with column_type = 'Standard' and comparator = 'UTF8Type' and column_metadata = [{column_name: 'subject', validation_class: 'UTF8Type'}, {column_name: 'body', validation_class: 'UTF8Type'}] and comment = 'Column family storing mail templates, with key="appID:ns:lang"' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+create column family Data with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 
 /* Super columns necessary for mymed as general structure */
 create column family ApplicationController with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';

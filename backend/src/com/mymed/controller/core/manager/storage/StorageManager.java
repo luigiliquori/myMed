@@ -504,6 +504,8 @@ public class StorageManager implements IStorageManager {
         LOGGER.info("batch_mutate performed correctly");
                     }
 
+
+
     /**
      * Insert a new entry in the database
      * 
@@ -671,6 +673,25 @@ public class StorageManager implements IStorageManager {
 	public Map<String, String> selectSuperColumn(String tableName, String key,
 			String columnName) throws InternalBackEndException,
 			IOBackEndException {
+		throw new NotImplementedException();
+	}
+
+	@Override
+	public void insertStr(String key, ColumnParent parent, String columnName,
+			String value) throws InternalBackEndException {
+		throw new NotImplementedException();
+	}
+
+	@Override
+	public void insertSliceStr(String tableName, String primaryKey,
+			Map<String, String> args) throws InternalBackEndException {
+		throw new NotImplementedException();	
+	}
+
+	@Override
+	public void insertSuperSliceStr(String superTableName, String key,
+			String superKey, Map<String, String> args)
+			throws InternalBackEndException {
 		throw new NotImplementedException();
 	}  
     

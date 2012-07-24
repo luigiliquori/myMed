@@ -3,6 +3,10 @@ var isSub = 3;
 
 var application="myEurope", predicate="";
 
+$('label a').click(function(e){
+    e.stopPropagation()
+});
+
 /*$("#Search").live("pageshow", function() {
 	var queryString = decodeURIComponent(location.search.substring(1));
 
@@ -36,7 +40,7 @@ var application="myEurope", predicate="";
 });
 */
 
-$("#SearchPartner").live("pagecreate", function() {
+$("#search").live("pagecreate", function() {
 	$('#checkbox-all').click(function() {
 		if ($(this).is(':checked')){
 			$('#themecheckboxes input[type=checkbox]').attr('checked', 'checked').checkboxradio('refresh');

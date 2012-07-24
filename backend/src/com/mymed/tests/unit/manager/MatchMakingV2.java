@@ -2,12 +2,13 @@ package com.mymed.tests.unit.manager;
 
 import static com.mymed.model.data.application.MOntologyID.*;
 import static com.mymed.utils.GsonUtils.gson;
-import static com.mymed.utils.PubSub.makePrefix;
+import static com.mymed.utils.MatchMaking.makePrefix;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,21 +27,22 @@ import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.pubsub.v2.PubSubManager;
 import com.mymed.model.data.application.DataBean;
 import com.mymed.model.data.application.IndexBean;
-import com.mymed.model.data.application.MOntologyID;
 import com.mymed.model.data.user.MUserBean;
-import com.mymed.utils.PubSub;
-import com.mymed.utils.PubSub.Index;
+import com.mymed.utils.MatchMaking;
+import com.mymed.utils.MatchMaking.Index;
 
-public class PubSubTests extends TestValues {
+public class MatchMakingV2 extends TestValues {
 	
 	
-	final static Logger LOGGER = (Logger) LoggerFactory.getLogger(PubSubTests.class);
+	final static Logger LOGGER = (Logger) LoggerFactory.getLogger(MatchMakingV2.class);
 
 	protected static PubSubManager pubsubManager;
 	private static MUserBean userBean;
 	private static final String date = "1971-01-01";
 	private static List<IndexBean> indexList;
-	private static List<DataBean> dataList;
+	
+	private static Map<String, String> dataList;
+	
 	private static String dataId = "mydata";
 
 	private static String application = "myTest";
@@ -77,17 +79,12 @@ public class PubSubTests extends TestValues {
 //		List<Index> combi = PubSub.getPredicate(indexes, 0, 0);
 //		
 //		List<String> rows = PubSub.Index.getRows(combi);
-//		if (rows.get(0).equals("")){
-//			System.out.println(" >>>0");
-//		}
 //		
 //		String prefix = makePrefix(application, namespace);
 //    	for (Index i : combi) {
 //    		i.row = prefix + i.row;
 //    	}
 //
-//    	System.out.println(" >>> Expanded rows :"+ rows.size()+" " +rows);
-//		System.out.println(" >>> Expanded combis :"+ combi.size()+" " +combi);
 //		
 //	}
 
@@ -118,125 +115,151 @@ public class PubSubTests extends TestValues {
 
 	}
     
-//	@Test
-//	public void testCreateData() {
-//		try {
-//			IndexBean d1 = new IndexBean(KEYWORD, "test1", range(""));
-//			IndexBean d2 = new IndexBean(ENUM, "test2", range("kk2", "kk3", "kk4"));
-//			IndexBean d3 = new IndexBean(FLOAT, "test3", range("22.2222"));
-//			IndexBean d4 = new IndexBean(ENUM, "test4", range("kk6", "kk7", "kk8", "kk9"));
-//			//DataBean d4 = new DataBean(DATE, "somedate", range("999999999"));
-//			
-//			indexList = new ArrayList<IndexBean>();
-//			indexList.add(d1);
-//			indexList.add(d2);
-//			indexList.add(d3);
-//			indexList.add(d4);
-//			
-//			dataList = new ArrayList<DataBean>();
-//			DataBean d5 = new DataBean(TEXT, "text1", ".........");
-//			dataList.add(d5);
-//			
-//			LinkedHashMap<String, List<Index>> indexes = PubSub.formatIndexes(indexList);
-//			
-//			List<Index> combi = PubSub.getPredicate(indexes, 0, indexList.size());
-//			
-//			
-//	    	
-//	    	for (Index i : combi) {
-//				pubsubManager
-//						.create(makePrefix(application, namespace), i.row, i.col,
-//								dataId, PubSub.subList(dataList, MOntologyID.DATA));
-//				pubsubManager.sendEmailsToSubscribers(
-//						makePrefix(application, namespace), i.row, userBean,
-//						dataList);
-//			}
-//			
-//			/* add indexes as a data, the only way to remove all the indexes later if necessary*/
-//			dataList.add(new DataBean(MOntologyID.TEXT, "_index", gson.toJson(indexList)));
-//			/* creates data */
-//			pubsubManager.create(makePrefix(application, namespace), dataId, dataList);
-//
-//		} catch (final Exception ex) {
-//			fail(ex.getMessage());
-//		}
-//	}
-//    
-//	
-//
-//    @Test
-//	public void testFindData() {
-//		try {
-//
-//			indexList = new ArrayList<IndexBean>();
-//			indexList.add(new IndexBean(KEYWORD, "test1", range("")));
-//			indexList.add(new IndexBean(ENUM, "test2", range("kk3")));
-//
-//			LinkedHashMap<String, List<Index>> indexes = PubSub
-//					.formatIndexes(indexList);
-//
-//			List<Index> combi = PubSub.getPredicate(indexes, indexList.size(),
-//					indexList.size());
-//
-//			List<Map<String, String>> resList = new ArrayList<Map<String, String>>();
-//
-//			/* resultMap for range query */
-//			Map<String, Map<String, String>> resMap;
-//
-//			String prefix = makePrefix(application, namespace);
-//			for (Index i : combi) {
-//				i.row = prefix + i.row;
-//			}
-//
-//			LOGGER.info("ext find rows: " + combi.size() + " initial: "
-//					+ combi.get(0));
-//
-//			List<List<String>> ranges = PubSub.getRanges(indexList);
-//
-//			List<String> rows = PubSub.Index.getRows(combi);
-//
-//			LOGGER.info("ext find ranges: " + ranges.size());
-//			
-//			if (ranges.size() != 0) {
-//				LOGGER.info("ext find DB ranges: " + ranges.get(0).get(0)
-//						+ "->" + ranges.get(0).get(1));
-//				List<String> range = ranges.remove(0);
-//				resMap = pubsubManager.read(application, rows,
-//						range.get(0), range.get(1));
-//			} else {
-//				resMap = pubsubManager.read(application, rows, "", "");
-//			}
-//			
-//			resList = new ArrayList<Map<String, String>>();
-//			for ( Map<String, String> m : resMap.values()){
-//				resList.add(m);
-//		    }
-//			
-//			LOGGER.info("ext find {} results : {}", resList.size(), resList);
-//			
-//			if (resList.size() > 0){
-//				final List<DataBean> details = pubsubManager.read(
-//						makePrefix(application, namespace), resList.get(0).get("id"));
-//				
-//				
-//				for (DataBean d : details){
-//					LOGGER.info("ext find first details : {}", d);
-//		    	}
-//				
-//				assertEquals(details.get(0), new DataBean(TEXT, "text1", "........."));
-//			}	
-//
-//		} catch (final Exception ex) {
-//			LOGGER.info("ext err : {}", ex);
-//			fail(ex.getMessage());
-//		}
-//	}
+	@Test
+	public void testCreateData() {
+		try {
+			IndexBean d1 = new IndexBean(KEYWORD, "test1", range(""));
+			IndexBean d2 = new IndexBean(ENUM, "test2", range("kk2", "kk3", "kk4"));
+			IndexBean d3 = new IndexBean(FLOAT, "test3", range("22.2222"));
+			IndexBean d4 = new IndexBean(ENUM, "test4", range("kk6", "kk7", "kk8", "kk9"));
+			//DataBean d4 = new DataBean(DATE, "somedate", range("999999999"));
+			
+			indexList = new ArrayList<IndexBean>();
+			indexList.add(d1);
+			indexList.add(d2);
+			indexList.add(d3);
+			indexList.add(d4);
+			
+			dataList = new HashMap<String, String>();
+			dataList.put("text1", ".........");
+			
+			LinkedHashMap<String, List<Index>> indexes = MatchMaking.formatIndexes(indexList);
+			
+			List<Index> combi = MatchMaking.getPredicate(indexes, 0, indexList.size());
+			
+			
+	    	
+	    	for (Index i : combi) {
+				pubsubManager
+						.create(makePrefix(application, namespace), i.row, i.col,
+								dataId, new HashMap<String, String>());
+				/*pubsubManager.sendEmailsToSubscribers(
+						makePrefix(application, namespace), i.row,
+						dataList);*/
+			}
+			
+			/* add indexes as a data, the only way to remove all the indexes later if necessary*/
+	    	dataList.put("_index", gson.toJson(indexList));
+			/* creates data */
+			pubsubManager.create(makePrefix(application, namespace), dataId, dataList);
+
+		} catch (final Exception ex) {
+			fail(ex.getMessage());
+		}
+	}
+    
+	
+
+    @Test
+	public void testFindData() {
+		try {
+
+			indexList = new ArrayList<IndexBean>();
+			indexList.add(new IndexBean(KEYWORD, "test1", range("")));
+			indexList.add(new IndexBean(ENUM, "test2", range("kk3")));
+
+			LinkedHashMap<String, List<Index>> indexes = MatchMaking
+					.formatIndexes(indexList);
+
+			List<Index> combi = MatchMaking.getPredicate(indexes, indexList.size(),
+					indexList.size());
+
+			List<Map<String, String>> resList = new ArrayList<Map<String, String>>();
+
+			/* resultMap for range query */
+			Map<String, Map<String, String>> resMap;
+
+			String prefix = makePrefix(application, namespace);
+			for (Index i : combi) {
+				i.row = prefix + i.row;
+			}
+
+			LOGGER.info("ext find rows: " + combi.size() + " initial: "
+					+ combi.get(0));
+
+			List<List<String>> ranges = MatchMaking.getRanges(indexList);
+
+			List<String> rows = MatchMaking.Index.getRows(combi);
+
+			LOGGER.info("ext find ranges: " + ranges.size());
+			
+			if (ranges.size() != 0) {
+				LOGGER.info("ext find DB ranges: " + ranges.get(0).get(0)
+						+ "->" + ranges.get(0).get(1));
+				List<String> range = ranges.remove(0);
+				resMap = pubsubManager.read(application, rows,
+						range.get(0), range.get(1));
+			} else {
+				resMap = pubsubManager.read(application, rows, "", "");
+			}
+			
+			resList = new ArrayList<Map<String, String>>();
+			for ( Map<String, String> m : resMap.values()){
+				resList.add(m);
+		    }
+			
+			LOGGER.info("ext find {} results : {}", resList.size(), resList);
+			
+			if (resList.size() > 0){
+				final Map<String, String> details = pubsubManager.read(
+						makePrefix(application, namespace), resList.get(0).get("id"));
+				
+				LOGGER.info("ext find first details : {}", details);
+				
+				assertEquals(details.get("text1"), ".........");
+			}	
+
+		} catch (final Exception ex) {
+			LOGGER.info("ext err : {}", ex);
+			fail(ex.getMessage());
+		}
+	}
     
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
 		pubsubManager = new PubSubManager();
+//		IndexBean d1 = new IndexBean(KEYWORD, "test1", range(""));
+//		IndexBean d2 = new IndexBean(ENUM, "test2", range("kk2", "kk3", "kk4"));
+//		IndexBean d3 = new IndexBean(FLOAT, "test3", range("22.2222"));
+//		IndexBean d4 = new IndexBean(ENUM, "test4", range("kk6", "kk7", "kk8", "kk9"));
+//		//DataBean d4 = new DataBean(DATE, "somedate", range("999999999"));
+//		
+//		indexList = new ArrayList<IndexBean>();
+//		indexList.add(d1);
+//		indexList.add(d2);
+//		indexList.add(d3);
+//		indexList.add(d4);
+//		
+//		dataList = new HashMap<String, String>();
+//		dataList.put("text1", ".........");
+//		
+//		LinkedHashMap<String, List<Index>> indexes = MatchMaking.formatIndexes(indexList);
+//		
+//		List<Index> combi = MatchMaking.getPredicate(indexes, 0, indexList.size());
+//		
+//		
+//    	
+//    	for (Index i : combi) {
+//			pubsubManager
+//					.create(makePrefix(application, namespace), i.row, i.col,
+//							dataId, new HashMap<String, String>());
+//			pubsubManager.sendEmailsToSubscribers(
+//					makePrefix(application, namespace), i.row,
+//					dataList);
+//		}
 		
+		System.out.println(makePrefix(application, namespace) + " "+dataId+" ");
 		
 		String index = pubsubManager.read(makePrefix(application, namespace), dataId, "_index");
 
@@ -256,10 +279,10 @@ public class PubSubTests extends TestValues {
 
 		LOGGER.info(" deleting  " + dataId + "." + indexList.size());
 
-		LinkedHashMap<String, List<Index>> indexes = PubSub
+		LinkedHashMap<String, List<Index>> indexes = MatchMaking
 				.formatIndexes(indexList);
 
-		List<Index> combi = PubSub.getPredicate(indexes, 0,
+		List<Index> combi = MatchMaking.getPredicate(indexes, 0,
 				indexList.size());
 		for (Index i : combi) {
 			pubsubManager.delete(makePrefix(application, namespace),
@@ -292,10 +315,10 @@ public class PubSubTests extends TestValues {
 //
 //			LOGGER.info(" deleting  " + dataId + "." + indexList.size());
 //
-//			LinkedHashMap<String, List<Index>> indexes = PubSub
+//			LinkedHashMap<String, List<Index>> indexes = MatchMaking
 //					.formatIndexes(indexList);
 //
-//			List<Index> combi = PubSub.getPredicate(indexes, 0,
+//			List<Index> combi = MatchMaking.getPredicate(indexes, 0,
 //					indexList.size());
 //			for (Index i : combi) {
 //				pubsubManager.delete(makePrefix(application, namespace),

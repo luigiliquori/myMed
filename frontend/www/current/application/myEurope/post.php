@@ -62,8 +62,10 @@ if (count($_POST)){ // to publish something
 		}
 	}
 	
+	array_push($data, new DataBean("author", DATA, $_SESSION['user']->id));
+	
 	if (isset($_POST['text'])) {
-		array_push($data, new DataBean("text", TEXT, array($_POST['text'])));
+		array_push($data, new DataBean("text", TEXT, $_POST['text']));
 	}
 
 	$request = new Request("v2/PublishRequestHandler", CREATE);
@@ -75,17 +77,17 @@ if (count($_POST)){ // to publish something
 	$request->addArgument("user", $_SESSION['user']->id);
 	
 	if (!isset($_POST['id'])){
-		$_POST['id'] = "Projet".date("Y-m-d");
-	} else {
-		$request->addArgument("id", $_POST['id']); 
+		$_POST['id'] = time()."+".$_SESSION['user']->id;
 	}
+	
+	$request->addArgument("id", $_POST['id']); 
 
 	$responsejSon = $request->send();
 	$responseObject = json_decode($responsejSon);
 
 	if ($responseObject->status==200){
 		if ($_POST['type']=="part"){
-			header("Location: ./search?type=part&".http_build_query(array_filter($_POST, "Template::isCheckbox")));
+			header("Location: ./search?namespace=part&".http_build_query(array_filter($_POST, "Template::isCheckbox")));
 		} else {
 			header("Location: ./");
 		}

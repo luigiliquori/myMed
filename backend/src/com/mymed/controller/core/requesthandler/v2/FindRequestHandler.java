@@ -17,7 +17,8 @@ package com.mymed.controller.core.requesthandler.v2;
 
 
 import static com.mymed.utils.GsonUtils.gson;
-import static com.mymed.utils.PubSub.makePrefix;
+import static com.mymed.utils.MatchMaking.makePrefix;
+import static com.mymed.utils.MatchMaking.parseInt;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
@@ -44,8 +45,8 @@ import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.pubsub.v2.PubSubManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.application.IndexBean;
-import com.mymed.utils.PubSub;
-import com.mymed.utils.PubSub.Index;
+import com.mymed.utils.MatchMaking;
+import com.mymed.utils.MatchMaking.Index;
 
 
 @MultipartConfig
@@ -73,10 +74,13 @@ public class FindRequestHandler extends AbstractRequestHandler {
 	public static final int maxNumColumns = 10000; // arbitrary max number of cols, to overrides default's 100 
 
 	private final PubSubManager pubsubManager;
+	
+	private Type indexType;
 
 	public FindRequestHandler() throws InternalBackEndException {
 		super();
 		pubsubManager = new PubSubManager();
+		indexType = new TypeToken<List<IndexBean>>() {}.getType();
 	}
 
 	/**
@@ -128,22 +132,24 @@ public class FindRequestHandler extends AbstractRequestHandler {
 			final RequestCode code = REQUEST_CODE_MAP.get(parameters
 					.get(JSON_CODE));
 
-			final String application, dataList, namespace = parameters
-					.get(JSON_NAMESPACE);
-			final List<IndexBean> query;
+			final String 
+				application,
+				index = parameters.get("index"), 
+				namespace = parameters.get(JSON_NAMESPACE),
+				min = parameters.get("min"),
+				max = parameters.get("max");
+			
+			List<IndexBean> query = new ArrayList<IndexBean>();
 
 			if ((application = parameters.get(JSON_APPLICATION)) == null) {
 				throw new InternalBackEndException(
 						"missing application argument!");
-			} else if ((dataList = parameters.get("index")) == null) {
-				throw new InternalBackEndException(
-						"missing predicate or predicateList argument!");
 			}
 
 			// retrieve query params
 			try {
-				final Type dataType = new TypeToken<List<IndexBean>>() {}.getType();
-				query = gson.fromJson(dataList, dataType);
+				if (index != null)
+					query = gson.fromJson(index, indexType);
 			} catch (final JsonSyntaxException e) {
 				LOGGER.debug("Error in Json format", e);
 				throw new InternalBackEndException("jSon format is not valid");
@@ -156,13 +162,15 @@ public class FindRequestHandler extends AbstractRequestHandler {
 
 			/* generate the ROWS to search */
 
-			LinkedHashMap<String, List<Index>> indexes = PubSub
+			LinkedHashMap<String, List<Index>> indexes = MatchMaking
 					.formatIndexes(query);
 
-			List<Index> combi = PubSub.getPredicate(indexes, query.size(), query.size());
+			List<Index> combi = MatchMaking.getPredicate(
+					indexes, 
+					min!=null?parseInt(min):query.size(),
+					max!=null?parseInt(max):query.size());
 			
 			switch (code) {
-			
 			
 			case READ :
 				message.setMethod(JSON_CODE_READ);
@@ -184,9 +192,9 @@ public class FindRequestHandler extends AbstractRequestHandler {
 				LOGGER.info("ext find rows: " + combi.size() + " initial: "
 						+ combi.get(0));
 
-				List<List<String>> ranges = PubSub.getRanges(query);
+				List<List<String>> ranges = MatchMaking.getRanges(query);
 
-				List<String> rows = PubSub.Index.getRows(combi);
+				List<String> rows = MatchMaking.Index.getRows(combi);
 
 				LOGGER.info("ext find ranges: " + ranges.size());
 
@@ -233,12 +241,12 @@ public class FindRequestHandler extends AbstractRequestHandler {
 				if (resList.isEmpty()) {
 					throw new IOBackEndException(
 							"No reslult found for Application: " + application
-									+ " Predicate: " + dataList.toString(), 404);
+									+ " Predicate: " + index, 404);
 				}
 				message.setDescription("Results found for Application: "
-						+ application + " Predicate: " + dataList.toString());
+						+ application + " Predicate: " + index);
 				LOGGER.info("Results found for Application: " + application
-						+ " Predicate: " + dataList.toString());
+						+ " Predicate: " + index);
 
 				message.addDataObject(JSON_RESULTS, resList);
 

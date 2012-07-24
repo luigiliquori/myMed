@@ -123,7 +123,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 
 			switch (code) {
 			case READ:
-				throw new InternalBackEndException(" -> doPost READ...");
+				throw new InternalBackEndException(" do Post READ...");
 			case DELETE:
 				throw new InternalBackEndException("not implemented yet...");
 			default:
