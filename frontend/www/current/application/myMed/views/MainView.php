@@ -5,6 +5,30 @@
 	<? include("header-bar.php"); ?>
 	
 	<div data-role="content" class="content">
+		 
+		<div data-role="collapsible" data-mini="true" data-content-theme="c" Style="position: relative; top: -20px;">
+		    <h3>Plus d'applications</h3>
+			<ul data-role="listview" data-filter="true"  data-mini="true">
+				<?php if ($handle = opendir(MYMED_ROOT . '/application')) {
+				    while (false !== ($file = readdir($handle))) {
+				    	if(preg_match("/my/", $file) && !preg_match("/Admin/", $file) && !in_array($file, $this->hiddenApplication)) { ?>
+					    	<li>
+					    		<img alt="<?= $file ?>" src="../../application/<?= $file ?>/img/icon.png" class="ui-li-icon" />
+						    	<a href="#" class="myIcon">
+						    	<div Style="position: absolute; right: 40px">
+						    	<select id="flip-<?= $file ?>" name="flip-<?= $file ?>" id="flip-<?= $file ?>" data-role="slider" data-mini="true" onChange="SetCookie('<?= $file ?>Status', $('#flip-<?= $file ?>').val(), 365);  window.location.reload()">
+									<option value="off" <?= isset($_COOKIE[$file.'Status']) &&  $_COOKIE[$file.'Status'] == "off" ? "selected='selected'" : "" ?>>Off</option>
+									<option value="on" <?= (isset($_COOKIE[$file.'Status']) &&  $_COOKIE[$file.'Status'] == "on") || !isset($_COOKIE[$file.'Status']) ? "selected='selected'" : "" ?>>On</option>
+								</select> 
+								</div>
+						    	<?= $file ?>
+						    	</a>
+					    	</li>
+					    <?php } 
+				    } 
+				} ?>
+			</ul>
+		</div>
 	
 		<div class="ui-grid-b" Style="padding: 10px;">
 			<?php if ($handle = opendir(MYMED_ROOT . '/application')) {
@@ -42,7 +66,7 @@
 			<ul>
 				<li><a href="#home" data-transition="none" data-back="true" data-icon="grid" class="ui-btn-active ui-state-persist">Applications</a></li>
 				<li><a href="#profile" data-transition="none" data-icon="profile">Profil</a></li>
-				<li><a href="#" data-rel="dialog" data-icon="star" onClick="printShareDialog();">Partagez</a></li>
+				<li><a href="#" data-rel="dialog" data-icon="star" onClick="printDialog('hidden-sharethis', 'Partagez');">Partagez</a></li>
 			</ul>
 		</div>
 	</div>
