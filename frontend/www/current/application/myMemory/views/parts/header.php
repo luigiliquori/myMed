@@ -19,7 +19,7 @@
 	<link href="../../lib/jquery/datebox/jquery.mobile.datebox.min.css" rel="stylesheet" />
 	
 	<!-- MYMED JS -->
-	<script src="../myMed/javascript/common.js"></script>
+	<script src="../myMed/javascript/app.js"></script>
 	<!-- APP JS -->
 	<script src="javascript/app.js"></script>
 	

@@ -32,7 +32,7 @@ function callController($action, $method=null) {
 // Start session
 session_start();
 
-debug_r("toto");
+
 
 // Get action, default is "main"
 $action = isset($_REQUEST["action"]) ? $_REQUEST["action"] : "main";

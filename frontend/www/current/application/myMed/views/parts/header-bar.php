@@ -7,9 +7,10 @@
 			<span class='st_linkedin_large' displayText='LinkedIn'></span>
 			<span class='st_email_large' displayText='Email'></span>
 		</div>
-	</div> 
+	</div>
+	
 	<h1><?= APPLICATION_NAME ?></h1>
-<!-- 	<a href="#About" data-icon="gear">Option</a> -->
+	
 	<? include("notifications.php")?>
 	
 </div>

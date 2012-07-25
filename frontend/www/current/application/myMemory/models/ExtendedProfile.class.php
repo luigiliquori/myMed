@@ -65,7 +65,7 @@ class ExtendedProfile
 	/**
 	 * Calling list of people to call/message in case of crisis.
 	 * From 1 to 4, no duplicates, 1 means "called first" and 4 "called last".
-	 * Array of arrays. Each row contains an array of Name + address + phone Number
+	 * Array of arrays. Each row contains an array of Name + address + email + phone Number
 	 * Could be replaced by myMed users but NOT ADVISED :
 	 * This list is meant to be used in case of emergency and should not require long queries on
 	 * the database of even a internet connection at all.
@@ -115,7 +115,7 @@ class ExtendedProfile
 			
 			foreach($callingList as $line)
 			{
-				if ( empty($line["name"]) OR empty($line["phone"]) )
+				if ( empty($line["name"]) OR empty($line["email"]) OR empty($line["phone"]) )
 					throw new Exception("Calling list element is empty");
 			}
 		}

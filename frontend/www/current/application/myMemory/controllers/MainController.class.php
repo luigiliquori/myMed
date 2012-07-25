@@ -4,6 +4,15 @@ class MainController extends AuthenticatedController {
 	public /*void*/ function handleRequest(){
 		
 		parent::handleRequest();
+		
+		/*
+		 * Detect if the user is using a mobile device.
+		 * This application will have different dehaviours for mobile.
+		 */
+		$m = new Mobile_Detect();
+		//$_SESSION['isMobile'] = $m->isMobile();
+		$_SESSION['isMobile'] = true;
+		
 		/*
 		 * Try to get the User ExtendedProfile if it exist
 		 * ExtendedProfile stored in the $_SESSION while using the app
