@@ -3,8 +3,10 @@
     android:apiKey="04qwKOXEXMRPQxrgdbf8J88T8WO7RYG7xW3edeg"
     android:apiKey="04qwKOXEXMRNQHx1O-06kdWHQwFhygZpvWKO6dQ" pc Monica
     android:apiKey="04qwKOXEXMRNYfoMv_CkrMZDqG-JoxaoS_-6RAw" mymed38
+    android:apiKey="0PQknXJaWUHIgdDUq2wZw1Ulb-XZOgAKRX8we0Q" mymed38 user claudio
     apiKey for release
-    android:apiKey="04qwKOXEXMRM1y5A9fTdpDMjNSYiZXCLh1sbkgQ"
+    android:apiKey="04qwKOXEXMRM1y5A9fTdpDMjNSYiZXCLh1sbkgQ" IACOPO
+    android:apiKey="0PQknXJaWUHKBobwiLQHefWIKoGUfQD_eQhDyZQ" claudiorossi
 -->
 <com.google.android.maps.MapView
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -12,5 +14,5 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:clickable="true"  
-    android:apiKey="04qwKOXEXMRNYfoMv_CkrMZDqG-JoxaoS_-6RAw"
+    android:apiKey="0PQknXJaWUHKBobwiLQHefWIKoGUfQD_eQhDyZQ"
 />

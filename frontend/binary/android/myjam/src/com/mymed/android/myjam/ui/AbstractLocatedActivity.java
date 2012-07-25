@@ -7,8 +7,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.provider.Settings;
 import android.util.Log;
 
 import com.mymed.android.myjam.service.LocationService;
@@ -83,6 +85,7 @@ public abstract class AbstractLocatedActivity extends Activity{
   	  	filter.addAction(LocationService.LOCATION_ACTION);
 		registerReceiver(locationUpdateReceiver,filter);
 	}
+	
 	
 	/**
 	 * Called when the LocationService is connected.

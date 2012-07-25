@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Binder;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,6 +21,7 @@ import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.SystemClock;
+import android.provider.Settings;
 import android.util.Log;
 /**
  * 
@@ -105,10 +107,31 @@ public class LocationService extends Service implements LocationListener{
 			Log.d(TAG, "GPS provider available.");
 		}
 		else{
-			Log.d(TAG, "GPS provider unavailable.");	
+			Log.d(TAG, "GPS provider unavailable.");
+			//toggleGPS(true); //CR 2012
 		}	
 	}
 
+	/**
+	 * Toggle GPS ON: hack! - CR 2012
+	 */
+	private void toggleGPS(boolean enable) {
+	    String provider = Settings.Secure.getString(getContentResolver(), 
+	        Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+
+	    if(provider.contains("gps") == enable) {
+	        return; // the GPS is already in the requested state
+	    }
+
+	    final Intent poke = new Intent();
+	    poke.setClassName("com.android.settings", 
+	        "com.android.settings.widget.SettingsAppWidgetProvider");
+	    poke.addCategory(Intent.CATEGORY_ALTERNATIVE);
+	    poke.setData(Uri.parse("3"));
+	    Context context = getApplicationContext();
+	    context.sendBroadcast(poke);
+	}
+	
 	@Override
 	public void onDestroy(){
 		super.onDestroy();
