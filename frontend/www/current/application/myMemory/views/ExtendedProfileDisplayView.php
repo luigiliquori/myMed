@@ -50,7 +50,12 @@
 				<h3># <?= $callingSlot?></h3>
 				<div class="mymem-profile-grid">
 					<div class="mymem-profile-block-a"><h3><?= $data['name']?></h3></div>
+					<div class="mymem-profile-block-b"></div>
+					<div class="mymem-profile-block-a">Phone :</div>
 					<div class="mymem-profile-block-b"><a href="tel:<?= $data['phone']?>" data-role="button" data-theme="b"><?= $data['phone']?></a></div>
+					
+					<div class="mymem-profile-block-a">E-mail :</div>
+					<div class="mymem-profile-block-b"><a href="mail:<?= $data['email']?>" data-role="button" data-theme="b"><?= $data['email']?></a></div>
 					
 					<?php if (!empty($data['address'])) {?> 
 					<div class="mymem-profile-block-a">Address :</div>

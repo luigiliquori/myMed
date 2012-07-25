@@ -8,8 +8,13 @@
 
 	});
 
-	//setTimeout(function() {needHelp();},2000);
-	//setTimeout(function() {location.href="#/mobile_binary::call";},1000);
+	<?php
+	if (!$_SESSION['isMobile'])
+		echo 'setTimeout(function() {needHelp();},2000);';
+	else
+		echo 'setTimeout(function() {location.href="#/mobile_binary::call";},1000);';
+	?>
+
 </script>
 
 
@@ -22,19 +27,50 @@
 		<div id="myMap"></div>
 		<br />
 		<div>
+		<?php
+		/*
+		 * In case of mobile device.
+		 */
+		if ($_SESSION['isMobile']) {?>
 			<p>MyMemory appelle en main-libre les personnes suivante :</p>
 			<ul data-role="listview" data-inset="true" data-theme="c">
 				<?php 
 				$i = 1;
 				foreach($_SESSION['ExtendedProfile']->callingList as $entry) {
-					echo '<a href="mobile_binary::call">';
 					echo '<li id="line'.$i.'">';
+					echo '<a href="mobile_binary::call">';
 					echo '<h3>'.$i.' - '.$entry["name"] .'</h3>';
-					echo '<p id="num'.$i.'">'.$entry['phone'].'</a></li>'; 
+					echo '<p id="num'.$i.'">'.$entry['phone'].'</p>';
+					echo '</a>';
+					echo '</li>'; 
 					$i++;
 				}?>
 			</ul>
 			<p>Parlez devant le micro SVP!</p>
+		<?php }
+		/*
+		 * In case of desktop
+		 */
+		else {?>
+		
+			<p>MyMemory envoie une alerte par e-mail aux personnes suivantes :</p>
+			<ul data-role="listview" data-inset="true" data-theme="c">
+			<?php
+			$i = 1;
+			foreach($_SESSION['ExtendedProfile']->callingList as $entry) {
+				echo '<li id="line'.$i.'">';
+				echo '<h3>'.$i.' - '.$entry["name"] .'</h3>';
+				echo '<p id="mail'.$i.'">'.$entry['email'].'</p>';
+				echo '</li>';
+				$i++;
+			}?>
+			</ul>
+			<p>Les alertes sont envoyées. Restez où vous êtes!</p>
+
+		
+		<?php 	
+		}
+		?>
 		</div>
 	</div>
 <? include("footer.php"); ?>	
