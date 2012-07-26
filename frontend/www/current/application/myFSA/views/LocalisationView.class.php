@@ -24,7 +24,7 @@ class LocalisationView {
 			<a href="#" data-icon="star" data-theme="b" ></a>
 		</li>
         <li>
-			<a href="#" data-theme="b"><img src="css/images/profile_icon.gif"></a>
+			<a href="#" data-theme="b"></a>
         </li>
         <li>
 			<a href="#" data-icon="delete" data-theme="b" ></a>
@@ -68,7 +68,7 @@ class LocalisationView {
 			<a href="#" data-icon="star" data-theme="b" ></a>
 		</li>
         <li>
-			<a href="#" data-theme="b"><img src="css/images/profile_icon.gif"></a>
+			<a href="#" data-theme="b"></a>
         </li>
         <li>
 			<a href="#" data-icon="delete" data-theme="b" ></a>
@@ -293,7 +293,7 @@ class LocalisationView {
 			<a href="#" data-icon="star" data-theme="b" ></a>
 		</li>
         <li>
-			<a href="#" data-theme="b"><img src="css/images/profile_icon.gif"></a>
+			<a href="#" data-theme="b"></a>
         </li>
         <li>
 			<a href="#" data-icon="delete" data-theme="b" ></a>
