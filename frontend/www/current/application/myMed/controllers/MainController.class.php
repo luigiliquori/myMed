@@ -6,7 +6,8 @@
  */
 class MainController extends AuthenticatedController {
 
-	public $hiddenApplication = array("myMed", "myNCE", "myBEN", "myTestApp", "myMed_old");
+	public $hiddenApplication = array("myMed", "myNCE", "myBEN", "myTestApp", "myMed_old", "myOldEurope");
+	public $bootstrapApplication = array("myRiviera", "myFSA", "myEurope", "myMemory", "myBen", "myEuroCIN");
 	public $reputation = array();
 
 	public function handleRequest() {

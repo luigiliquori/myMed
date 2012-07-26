@@ -43,7 +43,7 @@
 			    while (false !== ($file = readdir($handle))) {
 			    	if(preg_match("/my/", $file) && !preg_match("/Admin/", $file) && 
 			    	!in_array($file, $this->hiddenApplication) && 
-			    	((isset($_COOKIE[$file.'Status']) && $_COOKIE[$file.'Status'] == "on") || !isset($_COOKIE[$file.'Status']))) { ?>
+			    	((isset($_COOKIE[$file.'Status']) && $_COOKIE[$file.'Status'] == "on") || (!isset($_COOKIE[$file.'Status'])) && in_array($file, $this->bootstrapApplication))) { ?>
 				    	<li data-icon="delete">
 				    		
 				    		<img alt="<?= $file ?>" src="../../application/<?= $file ?>/img/icon.png" class="ui-li-icon" />

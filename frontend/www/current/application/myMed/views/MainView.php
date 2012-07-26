@@ -17,8 +17,8 @@
 						    	<a href="#" class="myIcon">
 						    	<div Style="position: absolute; right: 40px">
 						    	<select id="flip-<?= $file ?>" name="flip-<?= $file ?>" id="flip-<?= $file ?>" data-role="slider" data-mini="true" onChange="SetCookie('<?= $file ?>Status', $('#flip-<?= $file ?>').val(), 365);  window.location.reload()">
-									<option value="off" <?= isset($_COOKIE[$file.'Status']) &&  $_COOKIE[$file.'Status'] == "off" ? "selected='selected'" : "" ?>>Off</option>
-									<option value="on" <?= (isset($_COOKIE[$file.'Status']) &&  $_COOKIE[$file.'Status'] == "on") || !isset($_COOKIE[$file.'Status']) ? "selected='selected'" : "" ?>>On</option>
+									<option value="off" <?=(isset($_COOKIE[$file.'Status']) &&  $_COOKIE[$file.'Status'] == "off") || !isset($_COOKIE[$file.'Status']) ? "selected='selected'" : "" ?>>Off</option>
+									<option value="on" <?= (isset($_COOKIE[$file.'Status']) &&  $_COOKIE[$file.'Status'] == "on") || in_array($file, $this->bootstrapApplication) ? "selected='selected'" : "" ?>>On</option>
 								</select> 
 								</div>
 						    	<?= $file ?>
@@ -36,7 +36,7 @@
 			    while (false !== ($file = readdir($handle))) {
 			    	if(preg_match("/my/", $file) && !preg_match("/Admin/", $file) && 
 			    	!in_array($file, $this->hiddenApplication) && 
-			    	((isset($_COOKIE[$file.'Status']) && $_COOKIE[$file.'Status'] == "on") || !isset($_COOKIE[$file.'Status']))) { ?>
+			    	((isset($_COOKIE[$file.'Status']) && $_COOKIE[$file.'Status'] == "on") || (!isset($_COOKIE[$file.'Status'])) && in_array($file, $this->bootstrapApplication))) { ?>
 				    	<div class="ui-block-<?= $column ?>">
 					    	<a
 					    	href="/application/<?= $file ?>"
