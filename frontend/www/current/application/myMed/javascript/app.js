@@ -45,4 +45,4 @@ function SetCookie (name, value, days) {
 		((path==null) ? "" : ("; path="+path))+
 		((domain==null) ? "" : ("; domain="+domain))+
 		((secure==true) ? "; secure" : "");
-}
+}  
