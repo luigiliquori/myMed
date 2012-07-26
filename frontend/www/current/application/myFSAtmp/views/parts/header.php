@@ -8,7 +8,10 @@
 			
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
-	
+	<!-- tmp -->
+	    <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/jquery.mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.mobile/1.1.0/jquery.mobile-1.1.0.min.js"> </script>
+	<!-- endtmp -->
 	<!-- JQUERY  -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="../../lib/jquery/jquery.mobile-1.1.0.min.css" />
@@ -20,7 +23,7 @@
 	<link href="../../lib/jquery/datebox/jquery.mobile.datebox.min.css" rel="stylesheet" />
 	
 	<!-- MYMED JS -->
-	<script src="../myMed/javascript/common.js"></script>
+	<script src="../myMed/javascript/app.js"></script>
 	<!-- APP JS -->
 	<script src="javascript/app.js"></script>
 	

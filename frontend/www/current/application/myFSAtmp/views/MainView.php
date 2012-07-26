@@ -1,14 +1,16 @@
 <? include("header.php"); ?>
-
-<!-- Header -->
-<div data-role="header" data-position="inline">
-	<a href="?action=logout" rel="external" data-role="button" data-theme="r" class="ui-btn-left" data-icon="delete">Exit</a>
-	<h1>MyMemory</h1>
-	<a href="?action=ExtendedProfile" data-role="button" data-icon="gear">Profile</a>
+<div data-role="page" data-theme="a">
+<div data-role="header" data-theme="a">
+<a data-rel="back" data-role="button"  data-icon="back">Back</a>
+<h3>myFSA</h3>
 </div>
-<div>
-<a href="?action=GoingBack" rel="external" data-role="button" data-theme="a" class="mymed-big-button" data-icon="home">Je rentre chez moi !</a>
-<a href="?action=NeedHelp" rel="external" data-role="button" data-theme="r" class="mymed-big-button" data-icon="alert">Au secours !</a>
+ <div data-role="content" style="padding: 15px" data-ajax="false">
+	<a data-ajax="false" href="?action=Localisate" type="button" data-transition="slide" >Localisate</a>
+	<a data-role="button" data-transition="fade" href="?action=Publish">Publish</a>
+	<form action="index.php?action=publish" method="POST" data-ajax="false">
+	<input type="submit" name="method" value="Search" />
+	</form>
+	
 </div>
-
 <? include("footer.php"); ?>
+</div>

@@ -1,28 +1,16 @@
-<?php
-	$debug = true;
-	//$debug = false;
-	
-	
-	
-	if($debug){
-?>
-<!-- 					<div data-role="footer" data-theme="c" class="footer"> 
-					<div style="text-align: center;">
-										</div> -->
-
-
-<!-- 					</div> -->
-<div data-role="collapsible-set" data-theme="b" data-content-theme="c">
-			<div data-role="collapsible">
-				<h3>$_SESSION</h3>
-				<pre>
-				<?php print_r($_SESSION)?>
-				</pre>
-			</div>			
-		</div>		
-
-<?php 
-	}
-?>
-	</body>
-</html>
+<div data-role="navbar" data-iconpos="top" data-theme="b" >
+ 	<ul>
+		<li>
+			<a href="?action=main" data-icon="home" data-theme="b" ></a>
+		</li>
+		<li>
+			<a href="#page1" data-icon="star" data-theme="b" ></a>
+		</li>
+        <li>
+			<a href="?action=ExtendedProfile" data-theme="b"><img src="css/images/profile_icon.gif"></a>
+        </li>
+        <li>
+			<a href="../../index.php" data-icon="delete" data-theme="b" ></a>
+		</li>
+	</ul>
+</div>

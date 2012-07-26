@@ -1,8 +1,8 @@
 <? include("header.php"); ?>
-<div data-role="page" id="PublishView">
+<div data-role="page" id="PublishView" data-theme="a">
 <div class="wrapper">
-<div data-role="header" data-theme="b">
-<a data-theme="b" data-rel="back" data-role="button"  data-icon="back">Back</a>
+<div data-role="header" data-theme="a">
+<a data-theme="a" data-rel="back" data-role="button"  data-icon="back" >Back</a>
 <h3>myFSA</h3>
 </div>
 <div data-role="content">
@@ -10,7 +10,39 @@
 			<form action="index.php?action=publish" method="POST" data-ajax="false">
 			
 <!-- 			<input type="text" name="pred1" placeholder="pred1"/> -->
-			<input type="text" name="pred2" placeholder="pred2"/>
+			    <div data-role="fieldcontain">
+                    <label for="selectmenu1">
+                        cathegory:
+                    </label>
+                    <select name="pred2" id="selectmenu1">
+                        <option value="evenement">
+                            Evénement
+                        </option>
+                        <option value="actualite">
+                            Actualité
+                        </option>
+                        <option value="Offre d’emploi">
+                            Offre d’emploi
+                        </option>
+                        <option value="Offre de stage">
+                            Offre de stage
+                        </option>
+                         <option value="Location bureaux">
+                            Location bureaux
+                         </option>
+                         <option value="Partenariats">
+                            Partenariats
+                         </option>
+                         <option value="Organisme">
+                            Organisme
+                         </option>
+                         <option value="Visite d’entreprise">
+                            Visite d’entreprise
+                         </option>
+                    </select>
+                </div>
+			
+<!-- 		<input type="text" name="pred2" placeholder="pred2"/> -->
 			<input type="text" name="pred3" placeholder="pred3"/>
 			
 			<br/>
@@ -30,11 +62,11 @@
 			<input type="text" name="data3" placeholder="data3"/>
 			
 			<input type="submit" name="method" value="Publish"/>
-			<input type="submit" name="method" value="Search" />
+			<!--<input type="submit" name="method" value="Search" />-->
 			
 		</form>
 <!-- tutaj koniec ehehe -->
-					<div class="push"></div>
+	<div class="push"></div>
 				</div>
 			</div>
 			<div data-role="footer" data-theme="c" class="footer">
@@ -42,6 +74,7 @@
 				
 			</div>
 		</div>
+<? include("footer.php"); ?>
 		</div>
 	</body>
 </html>
