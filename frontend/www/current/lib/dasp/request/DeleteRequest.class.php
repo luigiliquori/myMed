@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 require_once dirname(__FILE__).'/Request.class.php';
-require_once dirname(__FILE__).'/../beans/MDataBean.class.php';
+require_once dirname(__FILE__).'/../beans/DataBean.php';
 require_once dirname(__FILE__).'/IRequestHandler.php';
 
 /**
@@ -36,30 +36,21 @@ class DeleteRequest extends Request {
 	/* --------------------------------------------------------- */
 	/* Constructors */
 	/* --------------------------------------------------------- */
-	public function __construct($userID, $predicateList, $namespace=null) {
+	public function __construct(
+			$userID, 
+			$predicateList, 
+			$namespace=null) 
+	{
 		parent::__construct("PublishRequestHandler", DELETE);
 		$this->predicateList = $predicateList;
 		$this->userID = $userID;
-		$this->namespace = $namespace;
+		$this->namespace = $namespace; 
 	}
 
 	/* --------------------------------------------------------- */
 	/* Public methods */
 	/* --------------------------------------------------------- */
 	public /*void*/ function send() {
-		$predicateArray;
-
-		// Construct the requests
-		if(isset($_POST['publisher'])) {
-			$request = new Request("ProfileRequestHandler", READ);
-			$request->addArgument("id",  $_POST['publisher']);
-			$responsejSon = $request->send();
-			$responseObject = json_decode($responsejSon);
-			$user = $responseObject->data->user;
-		} else {
-			$user = json_encode($_SESSION['user']);
-		}
-		$predicate = json_encode($predicateArray);
 
 		// Construct the requests
 		if ($this->namespace == null) {
@@ -67,9 +58,14 @@ class DeleteRequest extends Request {
 		} else {
 			parent::addArgument("application", APPLICATION_NAME . ":$this->namespace");
 		}
+		
+		if (empty($this->userID)) {
+			throw new Exception("UserID not set in delete request");
+		}
+		
 		parent::addArgument("userID", $this->userID);
 		parent::addArgument("predicate", json_encode($this->predicateList));
-			
+		
 		$responsejSon = parent::send();
 		$responseObject = json_decode($responsejSon);
 		

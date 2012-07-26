@@ -42,9 +42,10 @@ class LoginController extends AbstractController {
 			// In case of errors
 			if($responseObject->status != 200) {
 				
-				// Save the error
-				$this->error = $responseObject->description;
-				debug("error");	
+				if ($responseObject->status == 404) {
+					// Set the error
+					$this->setError($responseObject->description);
+				}
 					
 				// Show the login form
 				$this->renderView("login");

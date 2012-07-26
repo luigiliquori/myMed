@@ -334,6 +334,17 @@ abstract class GenericDataBean {
 	}
 	
 	/**
+	 *  Register to the predicates of this object
+	 */
+	public function subscribe() {
+		$pr = new SubscribeRequest(
+				null, // The current user is used 
+				$this->getPredicates(), 
+				$this->NAMESPACE);
+		$pr->send();
+	}
+	
+	/**
 	 * Delete the entity
 	 */
 	public function delete() {

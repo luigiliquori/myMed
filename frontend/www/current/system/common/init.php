@@ -46,6 +46,7 @@ add_path(APP_ROOT . '/views/parts');
 add_path(MYMED_ROOT . '/lib/dasp/beans');
 add_path(MYMED_ROOT . '/system/controllers/');
 add_path(MYMED_ROOT . '/lib/dasp/request');
+add_path(MYMED_ROOT . '/lib/php-mobile-detect');
 
 // Set autoload
 function autoload($className) {
@@ -72,4 +73,5 @@ spl_autoload_register('autoload');
 // ------------------------------------------------------------------------------------------------
 
 require_once MYMED_ROOT . '/system/config.php';
+require_once MYMED_ROOT . '/system/common/common-utils.php';
 

@@ -320,12 +320,12 @@ function needHelp(){
 
 			for (i=1; i<=howmany; i++){
 				
-				numero = "#num" + i;
+				mail = "#mail" + i;
 				setTimeout(function(){
 									$.ajax({
 										type : "POST",
 										url : "sendmail.ajax.php",
-										data : "email=" +$(numero)[0].innerHTML+ "&username="
+										data : "email=" +$(mail)[0].innerHTML+ "&username="
 										+ $('#username').val() + "&current_street=" 
 										+ address + "&current_lat="
 										+ currentPositionMarker.getPosition().lat() + "&current_lng="

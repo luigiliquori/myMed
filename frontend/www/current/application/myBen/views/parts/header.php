@@ -1,4 +1,4 @@
-<? include_once('utils.php'); ?>
+<? include_once('view-utils.php'); ?>
 <!doctype html>
 <html 
  lang="fr"

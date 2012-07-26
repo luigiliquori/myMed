@@ -42,7 +42,6 @@ import com.mymed.controller.core.manager.pubsub.v2.PubSubManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.application.MDataBean;
 import com.mymed.model.data.user.MUserBean;
-import com.mymed.utils.GsonUtils;
 
 /**
  * Servlet implementation class PubSubRequestHandler
