@@ -84,12 +84,14 @@ include("header.php"); ?>
 			<label for="password" ><?= _("Mot de passe (confirmation)") ?></label>
 			<input type="password" name="confirm" id="confirm" />
 			<br/>
-				
-			<fieldset data-role="controlgroup" style="display: inline-block;">
-	    		<input id="service-term" type="checkbox" name="checkCondition" data-mini="true"/>
-				<label for="service-term" >&nbsp;</label>
-			</fieldset>		
-			J'accepte les <a data-inline="true" href="http://" rel="external" ><?= _("Conditions d'utilisation") ?></a>
+			
+			<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 13px;"/>
+			<span style="position: relative; left: 50px;">
+				J'accepte les 
+				<a href="<?= MYMED_ROOT ?>/application/myMed/conds" rel="external">conditions d'utilisation</a> / 
+				I accept 
+				<a href="<?= MYMED_ROOT ?>/application/myMed/conds" rel="external">the general terms and conditions</a>
+			</span><br />
     		
 			<br/>
 			

@@ -5,7 +5,7 @@
 <!-- Header -->
 <div data-role="header" data-theme="c" data-position="fixed">
 	<? tabs_3(
-			Profil,
+			"Profil",
 			"Valider",
 			"document.ExtendedProfileForm.submit();",
 			"check") ?>

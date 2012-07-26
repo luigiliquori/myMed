@@ -16,9 +16,9 @@ class SearchController extends AuthenticatedController {
 		foreach( $_GET as $i=>$v ){
 			if ($v == "on"){
 				if ( strpos($i, "theme") === 0){
-					array_push($themes, substr($i, count("theme")));
+					array_push($themes, substr($i, strlen("theme")));
 				} else if  ( strpos($i, "reg") === 0){
-					array_push($regs, substr($i, count("reg")));
+					array_push($regs, substr($i, strlen("reg")));
 				}
 			}
 		}
@@ -28,6 +28,11 @@ class SearchController extends AuthenticatedController {
 		
 		if (count($regs)){
 			array_push($index, new DataBeanv2("reg", ENUM, $regs));
+		}
+		$tags = preg_split('/[ +]/', $_GET['q'], NULL, PREG_SPLIT_NO_EMPTY);
+		$p = array_unique(array_map('strtolower', $tags));
+		if (count($p)){
+			array_push($this->index, new DataBeanv2("tags", ENUM, $p));
 		}
 		
 		debug("search on.. ".$_GET['namespace']);

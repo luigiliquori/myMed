@@ -131,11 +131,14 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 				message.setMethod(JSON_CODE_DELETE);
 				LOGGER.info("deleting " + dataId);
 				String index = pubsubManager.read(prefix, dataId, "_index");
-
+				
+				LOGGER.info(" trying to delete  " + dataId + "." + index);
 				List<IndexBean> indexList = new ArrayList<IndexBean>();
 				try {
 					indexList = gson.fromJson(index,
 							new TypeToken<List<IndexBean>>() {}.getType());
+					LOGGER.info(" get _index : {} ", indexList);
+					Collections.sort(indexList);
 				} catch (final JsonSyntaxException e) {
 					LOGGER.debug("Error in Json format", e);
 					throw new InternalBackEndException(
@@ -144,6 +147,12 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 					LOGGER.debug("Error in parsing Json", e);
 					throw new InternalBackEndException(e.getMessage());
 				}
+				
+				if (indexList == null){
+					LOGGER.info(" indexes not found or null ", indexList);
+					indexList = new ArrayList<IndexBean>();
+				}
+
 				Collections.sort(indexList);
 
 				LOGGER.info(" deleting  " + dataId + "." + indexList.size());

@@ -36,7 +36,7 @@ class PublishRequestv2 extends Requestv2 {
 	private /* int  */	        	$max;
 	
 	public function __construct(
-		$handler, $namespace=null, $id, $data=null, $index=null, $min=null, $max=null, $metadata=null )
+		$handler, $namespace=null, $id, $data=null, $index=null, $metadata=null, $min=null, $max=null )
 	{
 		parent::__construct("v2/PublishRequestHandler", CREATE);
 		$this->handler	 = $handler;

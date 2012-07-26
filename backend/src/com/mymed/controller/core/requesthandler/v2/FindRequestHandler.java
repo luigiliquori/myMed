@@ -21,7 +21,6 @@ import static com.mymed.utils.MatchMaking.makePrefix;
 import static com.mymed.utils.MatchMaking.parseInt;
 
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -38,7 +37,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;

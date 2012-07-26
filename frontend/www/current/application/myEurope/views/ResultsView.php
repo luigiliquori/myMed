@@ -9,7 +9,6 @@
 	
 	<div data-role="content" >
 	
-	
 		<ul data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="filtrer parmi les résultats">
 			
 			<select data-theme="c" data-mini="true" name="slider2" id="flip-a2" data-role="slider"
@@ -33,7 +32,7 @@
 			<? foreach($this->result as $item) : ?>
 				<li>
 					<a href="./?action=details&namespace=<?= $_GET['namespace'] ?>&id=<?= urlencode($item->id) ?>" data-ajax="false">		
-						<b>...</b> : <?= print_r($item) ?><br/>
+						<span style="font-weight: lighter;">Offre publiée par </span>  <?= $item->user ?> <span style="font-weight: lighter;">(26/07/2012), réputation </span> 100% <span style="font-weight: lighter;">, id# </span><?= $item->id ?>
  					</a>
 				</li>
 			<? endforeach ?>

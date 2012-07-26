@@ -16,6 +16,11 @@
 	padding-bottom: 1px;
 }
 
+.ui-li-desc {
+	white-space: normal;
+	font-size: 13px;
+}
+
 #results .ui-slider-switch {
 	min-width: 47%;
 }

@@ -174,10 +174,7 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
             	message.setMethod(JSON_CODE_CREATE);
             	
             	for (String key : rows) {
-            		if (key.equals("")){
-            			LOGGER.info("-------- key is empty: using _ as key for a general sub in this application+namespace");
-            			key = "_";
-            		}
+            		
             		pubsubManager.create(makePrefix(application, namespace), key, user);
             	}
 
@@ -189,10 +186,7 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
             	message.setMethod(JSON_CODE_DELETE);
 
             	for (String key : rows) {
-            		if (key.equals("")){
-            			LOGGER.info("-------- key is empty using: _ as key for stating you are sub to all in this applicationnamespace");
-            			key = "_";
-            		}
+            		
             		pubsubManager.delete(makePrefix(application, namespace), key, user);
             	}
 

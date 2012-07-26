@@ -28,8 +28,8 @@ function tab_bar_white($activeTab) {
 	<div data-role="content" style="text-align:center;">
 		<h3 class="ui-link">Partenariats:</h3>
 		<div data-role="controlgroup"  data-type="horizontal">
-			<a href="#search" type="button" data-theme="e" style="width:50%;"><br />Rechercher un partenariat<br />&nbsp;</a>
-			<a href="#post" style="width:49%;" type="button" data-theme="e" rel="external"><br />Déposer une offre de partenariat<br />&nbsp;</a>
+			<a href="#search" type="button" data-theme="e" style="width:50%;"><br />Rechercher une offre<br />&nbsp;</a>
+			<a href="#post" style="width:49%;" type="button" data-theme="e" rel="external"><br />Déposer une offre<br />&nbsp;</a>
 		</div>
 		
 		<h3 class="ui-link">Informations:</h3>
@@ -58,8 +58,11 @@ function tab_bar_white($activeTab) {
 	</div>
 
 	<div data-role="content" >
-		...........<br />
-		Rôle: <?= $_SESSION['myEuropeProfile']->role ?>
+		<br />
+		Rôle: <?= $_SESSION['myEuropeProfile']->role ?><br />
+		activité: <?= $_SESSION['myEuropeProfile']->activity ?><br />
+		Email: <?= $_SESSION['myEuropeProfile']->email ?><br />
+		Adresse: <?= $_SESSION['myEuropeProfile']->address ?><br />
 		<br />
 		<a type="button" data-mini="true" href="?action=ExtendedProfile&edit=false" data-inline="true" data-theme="c" data-icon="gear">Modifer</a>
 	
@@ -130,19 +133,19 @@ function tab_bar_white($activeTab) {
 	<div data-role="content">
 
 
-		<b>Selectionnez parmi les partenaires vus:</b><br/>
+		<b>Selectionnez parmi les offres de partenaires vus:</b><br/>
 
 		<input type="checkbox" name="pr1" id="checkbox-5a" />
-		<label for="checkbox-5a">Projet1 <a href="">70%</a>, auteur: Test1 <a>50%</a><a style="float:right;" href="./?action=details&id=21">Lien</a></label>
+		<label for="checkbox-5a">Offre1 <a href="">100%</a><a style="float:right;" href="./?action=details&id=21">Lien vers l'offre</a></label>
 		
 		<input type="checkbox" name="pr2" id="checkbox-6a" />
-		<label for="checkbox-6a">Projet2 <a href="">90%</a>, auteur: Test1 <a>50%</a><a style="float:right;" href="./?action=details&id=21">Lien</a></label>
+		<label for="checkbox-6a">Offre4 <a href="">90%</a><a style="float:right;" href="./?action=details&id=21">Lien vers l'offre</a></label>
 		
 		<input type="checkbox" name="pr3" id="checkbox-7a"/>
-		<label for="checkbox-7a">Projet3 <a href="">100%</a>, auteur:  Test6 <a>60%</a><a style="float:right;" href="./?action=details&id=21">Lien</a><span></label>
+		<label for="checkbox-7a">Offre3 <a href="">80%</a><a style="float:right;" href="./?action=details&id=21">Lien vers l'offre</a><span></label>
 
 		<input type="checkbox" name="pr4" id="checkbox-8a" />
-		<label for="checkbox-8a">Projet4 <a href="">75%</a>, auteur:  Test4 <a>80%</a><a style="float:right;" href="./?action=details&id=21">Lien</a></label>
+		<label for="checkbox-8a">Offre2 <a href="">75%</a><a style="float:right;" href="./?action=details&id=21">Lien vers l'offre</a></label>
 	
 	    <a type="button" data-mini="true" data-inline="true" id="clearRepButton">Effacer</a><br /><br />
         <b>Notez-les:</b>&nbsp;&nbsp;
@@ -157,6 +160,9 @@ function tab_bar_white($activeTab) {
 			id="rep75">75</a>
 		<a data-role="button" data-iconpos="top" data-mini="true" data-icon="star" data-inline="true" style="margin-right:1px; margin-left:1px;"
 			id="rep100">100</a>
+			
+		<br /><br />
+		<a type="button" data-ajax="false" data-mini="true" data-inline="true" href="?action=search&namespace=part">Voir les offres les mieux notées</a><br /><br />
 
 	</div>
 </div>
@@ -234,6 +240,7 @@ function tab_bar_white($activeTab) {
 </div>
 
 <div data-role="page" id="post">
+	
 	<div data-role="header" data-theme="c" data-position="fixed">
 		<? tabs_2click(
 				"Insérer une offre",
@@ -301,50 +308,78 @@ function tab_bar_white($activeTab) {
 	</div>
 </div>
 
-<div data-role="page" id="infos">
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_2(
-				$_SESSION['user']->name,
-				"?action=extendedProfile",
-				"profile") ?>
-	</div>
-	<div data-role="header" data-theme="c" style="max-height: 38px;">
-		<a data-rel="back" data-ajax="false" data-icon="back">Retour</a>
-		<h1>Informations</h1>
-		<a href="?action=extendedProfile"><?= $this->user->name ?></a>
-	</div>
-	
-	<div data-role="content">
-		infos page @sarah
-	</div>
-</div>
-
 <div data-role="page" id="blogAlcotra">
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_2(
-				$_SESSION['user']->name,
-				"?action=extendedProfile",
-				"profile") ?>
+		<div data-role="navbar" data-theme="d" data-iconpos="left"> 
+	      	<ul>
+	      		<li><a href="./" data-icon="back">Retour</a></li>
+	      		<li><a href="?action=extendedProfile" rel="external" data-icon="profile"><?= $_SESSION['user']->name ?></a></li>
+	      	</ul>
+      	</div>
 	</div>
 	
 	<div data-role="content">
-		Blog Alcotra TODO
+		<h3 class="ui-link" style="text-align: center;">Blog Alcotra</h3>
+		<ul data-role="listview" data-theme="d" data-inset="true">
+			<li>
+				<h3>myEurope Team</h3>
+				<p><strong>Bienvenue à tous</strong></p>
+				<p>Blog porte sur les orientations du programme Alcotra 2014-2020 <br />
+				voir <a href="#alcotra">#alcotra</a> pour les infos détaillées</p>
+				<p class="ui-li-aside"><strong>8:24</strong> 25/7/2012</p>
+			</li>
+			<li>
+				<h3>Stephen Weber</h3>
+				<p><strong>Demo Planning</strong></p>
+				<p>..............................................................<br />
+				Preum's</p>
+				<p class="ui-li-aside"><strong>19:18</strong> 25/7/2012</p>
+			</li>
+		</ul>
+
+		
+		<br />
+		Répondre:<textarea></textarea>
+		<input type="submit" data-theme="b"  data-mini="true" data-inline="true" value="Publier" />
 	</div>
 </div>
 
 <div data-role="page" id="blogTest">
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_2(
-				$_SESSION['user']->name,
-				"?action=extendedProfile",
-				"profile") ?>
+		<div data-role="navbar" data-theme="d" data-iconpos="left"> 
+	      	<ul>
+	      		<li><a href="./" data-icon="back">Retour</a></li>
+	      		<li><a href="?action=extendedProfile" rel="external" data-icon="profile"><?= $_SESSION['user']->name ?></a></li>
+	      	</ul>
+      	</div>
 	</div>
 	
 	<div data-role="content">
-		Blog bétas testeurs TODO
+		<h3 class="ui-link" style="text-align: center;">Blog bétas testeurs</h3>
+		<ul data-role="listview" data-theme="d" data-inset="true">
+			<li>
+				<h3>myEurope Team</h3>
+				<p><strong>Bienvenue à tous</strong></p>
+				<p>Ce blog est destiné à collecter diverses remarques, et BUGs dans l'application myEurope</p>
+				<p class="ui-li-aside"><strong>8:24</strong> 25/7/2012</p>
+			</li>
+			<li>
+				<h3>Stephen Weber</h3>
+				<p><strong>Demo Planning</strong></p>
+				<p>..............................................................<br />
+				Preum's</p>
+				<p class="ui-li-aside"><strong>19:18</strong> 25/7/2012</p>
+			</li>
+		</ul
+
+		
+		<br />
+		Répondre:<textarea></textarea>
+		<input type="submit" data-theme="b"  data-mini="true" data-inline="true" value="Publier" />
+		
 	</div>
 </div>
 
-
+<? include("infos.php"); ?>
 
 <? include("footer.php"); ?>

@@ -1,7 +1,6 @@
 <? include("header.php"); ?>
 <? include("notifications.php")?>
 
-<? $this->redirectTo("main", null, "#profile"); ?>
 
 
 
@@ -16,8 +15,13 @@
 
 <div data-role="content" >
 	
+	<? if (isset($this->profile)) :?>
+		Rôle: <?= $this->profile->role ?><br />
+		activité: <?= $this->profile->activity ?><br />
+		Email: <?= $this->profile->email ?><br />
+		Adresse: <?= $this->profile->address ?><br />
+	<? endif ?>
 	
-	Rôle: <?= $_SESSION['myEuropeProfile']->role ?>
 	
 </div>
 <? include("footer.php"); ?>

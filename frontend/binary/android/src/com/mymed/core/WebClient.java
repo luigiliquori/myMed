@@ -102,12 +102,13 @@ public class WebClient extends WebViewClient {
 	public void onPageFinished(WebView view, String url) {
 		ProgressBar bar = (ProgressBar) activity.findViewById(R.id.progressBar1);
 		bar.setVisibility(View.GONE);
-		if (url.matches(".*/application/"+activity.getString(R.string.app_name)+"/") || url.matches(".*mymed.fr/")){
-			Log.v(Mobile.TAG, "main page load");
+		Log.w(Mobile.TAG, url);
+		//if (url.matches(".*/application/"+activity.getString(R.string.app_name)+"/") || url.matches(".*.fr/")){
+			
 			((TextView) activity.findViewById(R.id.textView1)).setVisibility(View.GONE);
 			activity.findViewById(R.id.imageView1).setVisibility(View.GONE);
 			activity.findViewById(R.id.imageView2).setVisibility(View.GONE);
-		}
+		//}
 		
 //		if (activity.getProgressDialog() != null) {
 //			if (activity.getProgressDialog().isShowing()) {

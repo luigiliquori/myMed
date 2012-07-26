@@ -86,11 +86,14 @@
 			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
 			<br/>
 				
-			<fieldset data-role="controlgroup" style="display: inline-block;">
-	    		<input id="service-term" type="checkbox" name="checkCondition" data-mini="true"/>
-				<label for="service-term" >&nbsp;</label>
-			</fieldset>		
-			J'accepte les <a data-inline="true" href="http://" rel="external" ><?= _("Conditions d'utilisation de myEurope") ?></a>
+			<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 13px;"/>
+			<span style="position: relative; left: 50px;">
+				J'accepte les 
+				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a> / 
+				I accept 
+				<a href="<?= APP_ROOT ?>/conds" rel="external">the general terms and conditions</a>
+			</span><br />
+			
 			<div style="text-align: center;" >
 				<input type="submit" data-inline="true" data-role="button" value="Valider"/>
 			</div>
@@ -131,11 +134,13 @@
 			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
 			<br/>
 				
-			<fieldset data-role="controlgroup" style="display: inline-block;">
-	    		<input id="service-term" type="checkbox" name="checkCondition" data-mini="true"/>
-				<label for="service-term" >&nbsp;</label>
-			</fieldset>		
-			J'accepte les <a data-inline="true" href="http://" rel="external" ><?= _("Conditions d'utilisation de myEurope") ?></a>
+			<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 13px;"/>
+			<span style="position: relative; left: 50px;">
+				J'accepte les 
+				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a> / 
+				I accept 
+				<a href="<?= APP_ROOT ?>/conds" rel="external">the general terms and conditions</a>
+			</span><br />
 			<div style="text-align: center;" >
 				<input type="submit" data-inline="true" data-role="button" value="Valider"/>
 			</div>
@@ -173,11 +178,13 @@
 			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
 			<br/>
 				
-			<fieldset data-role="controlgroup" style="display: inline-block;">
-	    		<input id="service-term" type="checkbox" name="checkCondition" data-mini="true"/>
-				<label for="service-term" >&nbsp;</label>
-			</fieldset>		
-			J'accepte les <a data-inline="true" href="http://" rel="external" ><?= _("Conditions d'utilisation de myEurope") ?></a>
+			<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 13px;"/>
+			<span style="position: relative; left: 50px;">
+				J'accepte les 
+				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a> / 
+				I accept 
+				<a href="<?= APP_ROOT ?>/conds" rel="external">the general terms and conditions</a>
+			</span><br />
 			<div style="text-align: center;" >
 				<input type="submit" data-inline="true" data-role="button" value="Valider"/>
 			</div>
@@ -212,11 +219,13 @@
 			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
 			<br/>
 				
-			<fieldset data-role="controlgroup" style="display: inline-block;">
-	    		<input id="service-term" type="checkbox" name="checkCondition" data-mini="true"/>
-				<label for="service-term" >&nbsp;</label>
-			</fieldset>		
-			J'accepte les <a data-inline="true" href="http://" rel="external" ><?= _("Conditions d'utilisation de myEurope") ?></a>
+			<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 13px;"/>
+			<span style="position: relative; left: 50px;">
+				J'accepte les 
+				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a> / 
+				I accept 
+				<a href="<?= APP_ROOT ?>/conds" rel="external">the general terms and conditions</a>
+			</span><br />
 			<div style="text-align: center;" >
 				<input type="submit" data-inline="true" data-role="button" value="Valider"/>
 			</div>
@@ -263,11 +272,13 @@
 			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
 			<br/>
 				
-			<fieldset data-role="controlgroup" style="display: inline-block;">
-	    		<input id="service-term" type="checkbox" name="checkCondition" data-mini="true"/>
-				<label for="service-term" >&nbsp;</label>
-			</fieldset>		
-			J'accepte les <a data-inline="true" href="http://" rel="external" ><?= _("Conditions d'utilisation de myEurope") ?></a>
+			<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 13px;"/>
+			<span style="position: relative; left: 50px;">
+				J'accepte les 
+				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a> / 
+				I accept 
+				<a href="<?= APP_ROOT ?>/conds" rel="external">the general terms and conditions</a>
+			</span><br />
 			<div style="text-align: center;" >
 				<input type="submit" data-inline="true" data-role="button" value="Valider"/>
 			</div>
@@ -318,11 +329,13 @@
 			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
 			<br/>
 				
-			<fieldset data-role="controlgroup" style="display: inline-block;">
-	    		<input id="service-term" type="checkbox" name="checkCondition" data-mini="true"/>
-				<label for="service-term" >&nbsp;</label>
-			</fieldset>		
-			J'accepte les <a data-inline="true" href="http://" rel="external" ><?= _("Conditions d'utilisation de myEurope") ?></a>
+			<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 13px;"/>
+			<span style="position: relative; left: 50px;">
+				J'accepte les 
+				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a> / 
+				I accept 
+				<a href="<?= APP_ROOT ?>/conds" rel="external">the general terms and conditions</a>
+			</span><br />
 			<div style="text-align: center;" >
 				<input type="submit" data-inline="true" data-role="button" value="Valider"/>
 			</div>

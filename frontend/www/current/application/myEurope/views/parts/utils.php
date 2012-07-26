@@ -104,7 +104,7 @@ function tabs($tabs, $activeTab) {
    	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
    	<ul>
    		<li><a data-rel="back" data-ajax="false" data-icon="back">Retour</a></li>
-   		<li><a><?= _($title) ?></a></li>
+   		<li><a class="ui-disabled"><?= _($title) ?></a></li>
    		<li><a href="<?= $url ?>" rel="external" data-icon="<?= $icon ?>"><?= _($button) ?></a></li>
    	</ul>
    	</div> <?
@@ -146,7 +146,7 @@ function tabs($tabs, $activeTab) {
       	?>
             	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
             	<ul>
-            		<li><a data-rel="back" data-ajax="false" data-icon="back">Retour</a></li>
+            		<li><a href="./" data-icon="back">Retour</a></li>
             		<li><a onclick="<?= $url ?>" rel="external" data-icon="<?= $icon ?>"><?= _($title) ?></a></li>
             	</ul>
             	</div> <?
@@ -184,6 +184,7 @@ Ces échanges d'information seront utiles aux élus français ainsi qu'à leurs 
 les habitants des régions françaises et ceux des régions italiennes limitrophes. Ce qui favorisera l'organisation d'activités transfrontalières
 (partenariat de projets européens, coopérations dans différents domaines …).
 </div>
+<img src="img/logos" style="max-width:460px;"/>
 <?
        }
  

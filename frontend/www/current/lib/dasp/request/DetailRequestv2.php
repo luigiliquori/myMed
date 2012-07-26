@@ -87,7 +87,7 @@ class DetailRequestv2 extends Requestv2 {
 		
 		} // End of "Success"
 			
-		if (!is_null($this->handler)) {
+		if (!is_null($this->handler) && isset($result)) {
 			// Set result in handler
 			// XXX: Dirty !!
 			$this->handler->setSuccess($result);

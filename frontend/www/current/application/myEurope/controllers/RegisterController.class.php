@@ -30,12 +30,13 @@ class RegisterController extends AbstractController {
 			
 			// Create the new user
 			$mUserBean = new MUserBean();
-			$mUserBean->id = "MYMED_" . $_POST["email"];
+			$email = trim(strtolower($_POST["email"]));
+			$mUserBean->id = "MYMED_" . $email;
 			$mUserBean->firstName = $_POST["prenom"];
 			$mUserBean->lastName = $_POST["nom"];
 			$mUserBean->name = $_POST["prenom"] . " " . $_POST["nom"];
-			$mUserBean->email = $_POST["email"];
-			$mUserBean->login = $_POST["email"];
+			$mUserBean->email = $email;
+			$mUserBean->login = $email;
 			$mUserBean->birthday = $_POST["birthday"];
 			$mUserBean->profilePicture = $_POST["thumbnail"];
 			

@@ -30,7 +30,7 @@ class LoginController extends AbstractController {
 			
 			// Building the Authentication request
 			$request = new Requestv2("v2/AuthenticationRequestHandler", READ);
-			$request->addArgument("login", $login);
+			$request->addArgument("login", trim(strtolower($login)));
 			$request->addArgument("password", $pass);
 			
 			// Argument code filled by Request

@@ -16,6 +16,12 @@ class ExtendedProfileController extends AuthenticatedController
 	/**
 	 * @see IRequestHandler::handleRequest()
 	 */
+	
+	/**
+	 * id of the profile
+	 */
+	public $id;
+	
 	public /*void*/ function handleRequest(){
 		
 		parent::handleRequest();
@@ -30,6 +36,9 @@ class ExtendedProfileController extends AuthenticatedController
 			$this->storeProfile();
 		else if (isset($_GET['edit']))
 			$this->editProfile();
+		else if (isset($_GET['id'])){
+			$this->showOtherProfile($_GET['id']);
+		}
 		else if (isset($_SESSION['myEuropeProfile']))
 			$this->showProfile();
 		else
@@ -49,10 +58,15 @@ class ExtendedProfileController extends AuthenticatedController
 		//$extendedProfile = new ExtendedProfile($_SESSION['user'], $home, $diseaseLevel, $careGiver, $doctor, $callingList);
 		
 		//$extendedProfile->storeProfile($this);
+		
+		debug($_SESSION['user']->email);
+		
 		$permission = (
-				strpos($_SESSION['user']->email, "@inria.fr") !== false ||
-				$_SESSION['user']->email=="bredasarah@gmail.com" )
-				? 2 : 0;
+			(strpos($_SESSION['user']->email, "@inria.fr") !== false)
+			|| $_SESSION['user']->email=="bredasarah@gmail.com" 
+			|| $_SESSION['user']->email=="myalpmed@gmail.com"
+		)? 2 : 0;
+				
 		
 		$_POST['permission'] = $permission;
 		$_POST['user'] = $_SESSION['user']->id;
@@ -104,12 +118,30 @@ class ExtendedProfileController extends AuthenticatedController
 	
 	public /*void*/ function showOtherProfile($id){
 	
+		$find = new DetailRequestv2($this, "users", $id);
+			
+		try{
+			$result = $find->send();
+		}
+		catch(Exception $e){
+			//return null;
+		}
+		
+		if (!empty($result)){
+		
+			$this->profile = new ExtendedProfile($result);
+			$this->success = "";
+		}
+		
 		$this->renderView("ExtendedProfileDisplay");
+		
 	}
 	
 	public /*void*/ function showProfile(){
 
 		$this->redirectTo("Main", null, "#profile");
 	}
+	
+
 
 }

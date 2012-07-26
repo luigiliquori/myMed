@@ -145,11 +145,13 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
                 application + predicate, 
                 subscriber, 
                 encode(String.valueOf(System.currentTimeMillis())));
+        
         storageManager.insertColumn(
                 CF_SUBSCRIBERS, 
                 application + subscriber, 
-                predicate, 
+                (predicate.length() == 0) ? "_" : predicate, 
                 encode(String.valueOf(System.currentTimeMillis())));
+        /* _ temp prefix to avoid empty predicates (for global namespace subscriptions) */
     }
     
     /** read details */
@@ -173,7 +175,9 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 			final String name )
 					throws InternalBackEndException, IOBackEndException {
 
+		LOGGER.info("read {} {}", application, predicate +" name:" +name);
 		final Map<String, String> map = read(application, predicate);
+		LOGGER.info("found {}", map);
 		return map.get(name);
 	}
 	
@@ -235,7 +239,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
                     throws InternalBackEndException, IOBackEndException 
     {
         // Remove subscriber member from subsribers list
-        storageManager.removeColumn(CF_SUBSCRIBERS, application + user, predicate);
+        storageManager.removeColumn(CF_SUBSCRIBERS, application + user, (predicate.length() == 0) ? "_" : predicate);
         // Remove subscriber member from predicates subscribed list
         storageManager.removeColumn(CF_SUBSCRIBEES, application + predicate, user);
     }

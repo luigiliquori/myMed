@@ -12,6 +12,9 @@ class AdminController extends ExtendedProfileRequired {
 			if (isset($_POST["perm"])){
 				$this->updatePermission();
 			}
+			if (isset($_GET["rm"])){
+				$this->delProfile();
+			}
 
 			
 			$find = new FindRequestv2($this, "users");
@@ -51,6 +54,16 @@ class AdminController extends ExtendedProfileRequired {
 		$publish->send();
 	
 
+	}
+	
+	public /*void*/ function delProfile(){
+	
+	
+		$publish = new PublishRequestv2($this, "users", $_GET['id']);
+		$publish->setMethod(DELETE);
+		$publish->send();
+	
+	
 	}
 	
 }

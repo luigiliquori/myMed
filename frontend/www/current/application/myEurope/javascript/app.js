@@ -3,7 +3,7 @@ var isSub = 3;
 
 var application="myEurope", predicate="";
 
-$('label a').click(function(e){
+$('label').click(function(e){
     e.stopPropagation()
 });
 
