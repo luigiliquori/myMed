@@ -8,10 +8,15 @@ include("header.php"); ?>
 <div data-role="page" id="login">
 
 	<? include("header-bar.php") ?>
-	<h3>Liste des annonces</h3>
+	
 	
 	<div data-role="content">
-		<ul data-role="listview" data-theme="g">
+	
+		<div data-role="header" data-theme="e" >
+			<h3>Liste des annonces</h3>
+		</div>
+		
+		<ul data-role="listview" data-theme="d" data-inset="true">
 			<?  foreach ($this->annonces as $annonce) : ?>
 				<li>
 					<a 	data-ajax="false"
@@ -21,6 +26,7 @@ include("header.php"); ?>
 				</li>
 			<? endforeach ?>
 		</ul>
+		
 	</div>
 	
 </div>

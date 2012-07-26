@@ -20,6 +20,13 @@ include("header.php"); ?>
 		 	data-theme="b"
 		 	data-ajax="false" >Poster une annonce</a>
 		
+		<a 	href="<?= url("listAnnonces") ?>" 
+		 	style="text-align:left" 
+		 	data-role="button" 
+		 	data-icon="arrow-r" 
+		 	data-theme="b"
+		 	data-ajax="false" >Gérer les annonces / candidatures</a>
+		
 		
 	</div>
 </div>

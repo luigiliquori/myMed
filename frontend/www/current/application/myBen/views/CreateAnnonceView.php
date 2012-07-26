@@ -14,11 +14,11 @@ $annonce = $this->annonce;
 
 	<? include("header-bar.php") ?>
 	
-	<form data-role="content" action="<?= url("annonce:doCreate") ?>" data-ajax="false" method="post" >
+	<div data-theme="e" data-role="header" class="left" >
+		<h3>Création d'une annonce</h3>
+	</div>
 	
-		<div data-role="header" data-theme="b">
-			<h3>Description de l'annonce</h3>
-		</div>
+	<form data-role="content" action="<?= url("annonce:doCreate") ?>" data-ajax="false" method="post" >
 		
 		<? require("AnnonceForm.php") ?>
 	

@@ -235,7 +235,7 @@ public class PublishRequestHandler extends AbstractMatchMaking {
                     final List<MDataBean> dataList = gson.fromJson(data, dataType);
                     final List<MDataBean> predicateList = gson.fromJson(predicateListJson, dataType);
 
-                    // construct the subPredicate
+                    // Construct the subPredicate
                     final StringBuffer bufferSubPredicate = new StringBuffer(150);
                     for (final MDataBean element : predicateList) {
                     	bufferSubPredicate.append(element.getKey());
@@ -243,7 +243,7 @@ public class PublishRequestHandler extends AbstractMatchMaking {
                     }
                     bufferSubPredicate.trimToSize();
 
-                    /* construct indexes */
+                    // Construct indexes 
                     int level = predicateList.size();
                     if (parameters.get("level") != null){
                     	level = Integer.parseInt(parameters.get("level"));
@@ -253,10 +253,10 @@ public class PublishRequestHandler extends AbstractMatchMaking {
                             1, 
                             level);
                     
-                    /* store indexes for this data */
+                    // Store indexes for this data 
                     LOGGER.info("indexing "+bufferSubPredicate.toString()+" with level: "+level+", nb of rows:"+predicates.size());
                     
-                    for(String predicate : predicates) {
+                    for (String predicate : predicates) {
                 		pubsubManager.create(
                 		        makePrefix(application, namespace),
                 		        predicate, 

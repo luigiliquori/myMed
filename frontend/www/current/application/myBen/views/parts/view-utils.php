@@ -40,6 +40,11 @@ function tabs($tabs, $activeTab) {
 	</div> <?
 } 
 
+/** Output <tag>="<tag>" if the cobdition is true */
+function bool_tag($tag, $condition) {
+	if ($condition) print "$tag=\"$tag\"";
+}
+
 /** Generates a checkbox to check/uncheck all items of same name */
 function checkbox_all($name) {
 	global $READ_ONLY;
@@ -84,12 +89,12 @@ function checkboxes(
 		<? foreach ($options as $key => $label) : ?>
 			<? if ($READ_ONLY) :  ?>
 				<? if (!in_array($key, $selection)) continue ?>
-				<div id="<?= $PREFIX_ID.$name."-".$key?>" ><b><?= $label ?></b></div>
+				<div class="readonly-input" id="<?= $PREFIX_ID.$name."-".$key?>" ><?= $label ?></div>
 			<? else : ?>
 				<input 
 					type="checkbox" 
 					id="<?= $PREFIX_ID.$name."-".$key?>" 
-					<? if (in_array($key, $selection)) echo 'checked="checked"' ?> 
+					<? bool_tag('checked', in_array($key, $selection)) ?> 
 					name="<?= $name ?>[]" 
 					value="<?= $key ?>"/>
 				<label for="<?= $PREFIX_ID.$name."-".$key?>"><?= $label ?></label>
@@ -102,7 +107,7 @@ function checkboxes(
 	<?
 }
 
-/** Generate checkboxes */
+/** Generate radio button */
 function radiobuttons(
 		$name,     /** Form input name */
 		$options,  /** Map of key=>label */
@@ -118,8 +123,18 @@ function radiobuttons(
 			<legend><?= $legend ?></legend>
 
 			<? foreach ($options as $key => $label) : ?>
-				<input type="radio" id="<?= $PREFIX_ID.$name."-".$key?>" <? if ($key == $selection) echo 'checked="checked"' ?> name="<?= $name ?>" value="<?= $key ?>"/>
-				<label for="<?= $PREFIX_ID.$name."-".$key?>"><?= $label ?></label>
+				<? if ($READ_ONLY) :  ?>
+					<? if ($key != $selection) continue ?>
+					<div class="readonly-input" id="<?= $PREFIX_ID.$name."-".$key?>" ><?= $label ?></div>
+				<? else: ?>
+					<input 
+						type="radio" 
+						id="<?= $PREFIX_ID.$name."-".$key?>" 
+						<? bool_tag('checked', $key == $selection) ?> 
+						name="<?= $name ?>" 
+						value="<?= $key ?>"/>
+					<label for="<?= $PREFIX_ID.$name."-".$key?>"><?= $label ?></label>
+				<? endif ?>
 			<? endforeach ?>
 		</fieldset>
 	</div>
@@ -134,25 +149,37 @@ function input(
 		$placeholder = "")
 {
 	global $PREFIX_ID, $READ_ONLY;
+	$id = $PREFIX_ID . $name;
 	?>
 	<div data-role="fieldcontain">
-		<label for="<?= $PREFIX_ID . $name ?>"><?= $label ?></label>
-		<? if ($type == "textarea" ) : ?>
-			<textarea 
-				name="<?= $name ?>"
-				<? if ($READ_ONLY) print "disabled='disabled'"?>
-				id="<?= $PREFIX_ID . $name ?>"
-				placeholder="<?= $placeholder ?>"
-			><?= $value ?></textarea>
+		<label for="<?= $id ?>"><?= $label ?></label>
+		<? if ($READ_ONLY) :?>
+			<span class="readonly-input" id="<?= $id ?>" >
+				<? if ($type == "email"): ?>
+					<a href="mailto:<?= $value ?>"><?= $value ?></a>
+				<? elseif ($type == "tel"): ?>
+					<a href="tel:<?= $value ?>"><?= $value ?></a>
+				<? else: ?>
+					<?= $value ?>
+				<? endif ?>
+			</span>
 		<? else: ?>
-			<input 
-				<? if ($READ_ONLY) print "disabled='disabled'" ?>
-				type="<?= $type ?>" 
-				name="<?= $name ?>" 
-				id="<?= $PREFIX_ID . $name ?>" 
-				value="<?= $value ?>" 
-				placeholder="<?= $placeholder ?>" />
-		<? endif?>
+			<? if ($type == "textarea" ) : ?>
+				<textarea 
+					name="<?= $name ?>"
+					id="<?= $id ?>"
+					placeholder="<?= $placeholder ?>"
+				><?= $value ?></textarea>
+			<? else: ?>
+				<input 
+					type="<?= $type ?>" 
+					<? if ($type == "date") print 'data-role="datebox" data-options=\'{"mode":"datebox"}\'' ?>
+					name="<?= $name ?>" 
+					id="<?= $id ?>" 
+					value="<?= $value ?>" 
+					placeholder="<?= $placeholder ?>" />
+			<? endif ?>
+		<? endif ?>
 	</div>
 	<?
 }
@@ -193,15 +220,20 @@ function select(
 			<? endforeach ?>
 			
 		<? else: ?>
-			<select 
+		
+			<select
 				id="<?= $PREFIX_ID . $name ?>" 
 				name="<?= $name ?>" 
-				<?= ($multiple) ? "multiple='multiple'" :"" ?>
-				?>>
+				<? bool_tag("multiple", $multiple) ?> >
 				<? foreach ($options as $key => $label) : ?>
-					<option <? if (in_array($key, $selection)) echo 'checked="checked"' ?>  value="<?= $key ?>"><?= $label ?></option>		
+					<option
+						<? bool_tag('selected', in_array($key, $selection)) ?>  
+						value="<?= $key ?>">
+						<?= $label ?>
+					</option>	
 				<? endforeach ?>
 			</select>
+			
 		<? endif ?>
 	</div>
 	<?

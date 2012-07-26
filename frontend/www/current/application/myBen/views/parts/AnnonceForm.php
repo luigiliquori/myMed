@@ -1,4 +1,8 @@
 
+<div data-theme="b" data-role="header" >
+	<h3>Description de l'annonce</h3>
+</div>
+
 <? input("text", "titre", "Titre", $annonce->titre) ?>
 <div data-theme="b" data-validate="titre" data-validate-non-empty >
 	Le titre est vide.
@@ -24,5 +28,5 @@
 <? select("quartier", "Quartier", CategoriesMobilite::$values, $annonce->quartier); ?>
 
 <? select("typeMission", "Type de mission", CategoriesMissions::$values, $annonce->typeMission) ?>
-<? input("date", "begin", "Début", $annonce->begin) ?>
-<? input("date", "end"  , "Fin",   $annonce->end) ?>
+<? input("date", "begin", "Date de parution", $annonce->begin) ?>
+<? input("date", "end"  , "Date de fin",   $annonce->end) ?>

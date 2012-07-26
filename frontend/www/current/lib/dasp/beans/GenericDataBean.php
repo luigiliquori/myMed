@@ -295,6 +295,7 @@ abstract class GenericDataBean {
 			$obj->begin = $item->begin;
 			$obj->end   = $item->end;
 			$obj->publisherID = $item->publisherID;
+			$obj->publisherName = $item->publisherName;
 			$obj->_data  = $item->data;
 			$obj->_predicateStr = $item->predicate; // the ID of the object
 
@@ -400,6 +401,14 @@ abstract class GenericDataBean {
 		// Unwrap "_data"
 		$this->unwrapData();
 
+	}
+	
+	/** Fetch the whole User profile information from the publisher id */
+	function getPublisher() {
+		$rh = new ProfileRequest($this->publisherID);
+		$res = $rh->send();
+
+		return $res;
 	}
 
 }

@@ -4,7 +4,14 @@
 
 	<? require("header-bar.php") ?>
 
-	<?  $MODE="edit" ?>
-	<? require('ProfileAssociationForm.php') ?>
+	<form data-role="content" method="post" data-ajax="false" 
+		action="<?= url("extendedProfile:update", array("type" => "association")) ?>" >
+		
+		<? require('ProfileAssociationForm.php') ?>
+	
+		<input type=submit name="submit" data-role="button" data-theme="g" 
+			value="Mettre à jour le profil" />
+
+	</form>
 	
 </div>

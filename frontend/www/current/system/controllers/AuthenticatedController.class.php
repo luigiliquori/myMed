@@ -10,6 +10,9 @@
  */
 class AuthenticatedController extends AbstractController {
 
+	/** The complete user */
+	public $User;
+	
 	/**
 	 * Handle the request.
 	 * If the user is not authenticated, it redirects to the login page.

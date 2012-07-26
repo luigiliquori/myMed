@@ -7,9 +7,7 @@ class LogoutController extends AbstractController {
 	 * @see IRequestHandler::handleRequest()
 	 */
 	public /*void*/ function handleRequest() {
-	
-			debug("Logout !");
-		
+			
 			// DELETE BACKEND SESSION
 			$request = new Request("SessionRequestHandler", DELETE);
 			$request->addArgument("accessToken", $_SESSION['user']->session);

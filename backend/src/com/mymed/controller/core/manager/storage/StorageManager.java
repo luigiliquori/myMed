@@ -526,6 +526,13 @@ public class StorageManager implements IStorageManager {
                     throws IOBackEndException, InternalBackEndException 
     {
         try {
+            
+            LOGGER.info(String.format("Inserting into SCF %s key:%s superKey:%s nbArgs:%d",
+                    superTableName,
+                    key,
+                    superKey,
+                    args.size()));
+            
             final Map<String, Map<String, List<Mutation>>> mutationMap = new HashMap<String, Map<String, List<Mutation>>>();
             final long timestamp = System.currentTimeMillis();
             final Map<String, List<Mutation>> tableMap = new HashMap<String, List<Mutation>>();

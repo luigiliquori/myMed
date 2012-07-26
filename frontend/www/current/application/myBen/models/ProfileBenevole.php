@@ -57,20 +57,25 @@ class ProfileBenevole extends GenericDataBean {
 	}
 	
 	/** 
+	 * 	Return the annonce query corresponding to the criterias of this benevole.
+	 * 	@return Annonce 
+	 */
+	public function getAnnonceQuery() {
+		$annonce = new Annonce();
+		$annonce->competences = $this->competences;
+		// $annonce->typeMission = $this->missions;
+		$annonce->quartier = $this->mobilite;
+		return $annonce;
+	}
+	
+	/** 
 	 *  If subscription is activated, subscribe to announces before publishing the new profile
 	 */
 	public function publish() {
 		
-		// Subscribe to "annonces" with the same infos
+		// Subscribe to "annonces" corresponding to the criterias
 		if (is_true($this->subscribe)) {
-			
-			// Dummy announce to subscribe to
-			$annonce = new Annonce();
-			$annonce->competences = $this->competences;
-			$annonce->typeMission = $this->missions;
-			$annonce->quartier = $this->mobilite;
-			
-			$annonce->subscribe();
+			$this->getAnnonceQuery()->subscribe();
 		}
 		
 		parent::publish();
@@ -93,6 +98,27 @@ class ProfileBenevole extends GenericDataBean {
 			array_push($this->mobilite, "undef");
 		}
 			
+	}
+	
+	// ----------------------------------------------------------------------
+	// Static methods
+	// ----------------------------------------------------------------------
+	
+	/** @return ProfileBenevole */
+	public static function getFromUserID($userID) {
+		$query = new ProfileBenevole();
+		$query->userID = $userID;
+		
+		$res = $query->find();
+		
+		if (sizeof($res) != 1) {
+			throw new InternalError(
+					"Expected 1 benevole profile with id=$userID, but got" . sizeof($res));
+		}
+		
+		$res[0]->getDetails();
+		
+		return $res[0];
 	}
 	
 	

@@ -22,6 +22,9 @@ class Annonce extends GenericDataBean {
 	/** Key:ENUM:mobilite */
 	public $quartier;
 	
+	/** Key:promue/not promue */
+	public $promue = false;
+	
 	/** Data */
 	public $titre;
 	public $description;
@@ -40,6 +43,7 @@ class Annonce extends GenericDataBean {
 		// Predicates (keys)
 		$this->_predicatesDef = array(
 				"id" => KEYWORD,
+				"promue" => KEYWORD,
 				"associationID" => KEYWORD,
 				"competences" => ENUM,
 				"typeMission" => ENUM,
@@ -47,6 +51,30 @@ class Annonce extends GenericDataBean {
 		
 		// Data attributes
 		$this->_wrapDef = array("titre", "description", "begin", "end");
+		
+	}
+	
+	// ---------------------------------------------------------------------
+	// Helpers
+	// ---------------------------------------------------------------------
+	
+	/** Retrieve all candidatures */
+	public function getCandidatures() {
+		
+		// Build a query to get them all 
+		$candidatureQuery = new Candidature();
+		$candidatureQuery->annonceID = $this->id;
+		
+		// Find all 
+		$candidatures = $candidatureQuery->find();
+		
+		return $candidatures;
+	}
+	
+	/** Retrieve all candidatures */
+	public function getAssociation() {
+	
+		return ExtendedProfileRequired::getExtendedProfile($this->associationID);
 		
 	}
 	

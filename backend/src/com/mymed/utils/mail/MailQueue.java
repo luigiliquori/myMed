@@ -29,19 +29,14 @@ public class MailQueue extends Thread {
 
     // ---------------------------------------------------------------------------
     // Constants
-    // ---------------------------------------------------------------------------
-    
+    // ---------------------------------------------------------------------------   
     static private final Logger LOGGER = MLogger.getLogger();
     
     // ---------------------------------------------------------------------------
     // Singleton
     // ---------------------------------------------------------------------------
-    static private MailQueue instance = null;   
+    static private MailQueue instance = new MailQueue();   
     static public MailQueue getInstance() {
-        if (instance == null) {
-            instance = new MailQueue();
-
-        }
         return instance;
     }
     

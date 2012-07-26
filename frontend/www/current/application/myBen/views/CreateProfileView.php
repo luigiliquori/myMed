@@ -27,13 +27,25 @@ include("header.php"); ?>
 	</div>
 	
 </div>
-<?=  $MODE="create" ?>	
+
 <div data-role="page" id="benevole" >	
 
 	<? include("header-bar.php") ?>
 	<? global $PREFIX_ID; $PREFIX_ID="bene-" ?>
+	
+	<p>
+		Merci de remplir vos critères de recherche pour trouver des offres de bénévolat.
+	</p>
+		
+	<form data-role="content" method="post" data-ajax="false" 
+		action="<?= url("extendedProfile:create", array("type" => "benevole")) ?>" >
+		
+		<? include('ProfileBenevoleForm.php') ?>
+	
+		<input type=submit name="submit" data-role="button" data-theme="g" 
+			value="Créer le profil" />
 
-	<? include('ProfileBenevoleForm.php') ?>
+	</form>
 	
 </div>
 
@@ -42,8 +54,19 @@ include("header.php"); ?>
 	<? include("header-bar.php") ?>
 	<? global $PREFIX_ID; $PREFIX_ID="asso-" ?>
 	
-	<? include('ProfileAssociationForm.php') ?>
+	<p>
+		Merci de remplir la fiche de l'association. 
+	</p>
 	
+	<form data-role="content" method="post" data-ajax="false" 
+		action="<?= url("extendedProfile:create", array("type" => "association")) ?>" >
+	
+		<? include('ProfileAssociationForm.php') ?>
+		
+		<input type=submit name="submit" data-role="button" data-theme="g" 
+			value="Créer le profil" />
+
+	</form>
 
 </div>
 

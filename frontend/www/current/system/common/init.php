@@ -40,11 +40,13 @@ function add_path($path) {
 // Set the paths
 add_path(APP_ROOT . '/include/');
 add_path(APP_ROOT . '/controllers/');
+add_path(APP_ROOT . '/controllers/abstract');
 add_path(APP_ROOT . '/models/');
 add_path(APP_ROOT . '/views/');
 add_path(APP_ROOT . '/views/parts');
 add_path(MYMED_ROOT . '/lib/dasp/beans');
 add_path(MYMED_ROOT . '/system/controllers/');
+add_path(MYMED_ROOT . '/system/common/');
 add_path(MYMED_ROOT . '/lib/dasp/request');
 
 // Set autoload

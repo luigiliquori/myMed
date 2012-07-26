@@ -22,8 +22,7 @@ function is_true($value) {
  *  For example :
  *  * url("profile:create") => "?action=profile&method=create"
  *  * url("profile", array("foo" => "bar")) => "?action=profile&foo=bar"
- * 
- * */
+ */
 function url($action, $args=array()) {
 	$parts = explode(":", $action);
 	$args["action"] = $parts[0];
