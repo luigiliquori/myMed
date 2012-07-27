@@ -23,7 +23,6 @@
 	
 	<!-- APP JS -->
 	<script src="<?= APP_ROOT ?>/javascript/app.js"></script>
-	   
 	<!-- APP css -->
 	<link href="<?= APP_ROOT ?>/css/style.css" rel="stylesheet" />
 	
