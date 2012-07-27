@@ -17,7 +17,6 @@ package com.mymed.controller.core.manager.authentication;
 
 import java.util.Map;
 
-import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.AbstractManager;

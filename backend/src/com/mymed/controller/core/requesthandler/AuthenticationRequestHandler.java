@@ -174,11 +174,16 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
             switch (code) {
                 case CREATE :
                     message.setMethod(JSON_CODE_CREATE);
-
-                    // Finalize the registration
                     String accessToken = parameters.get(JSON_ACCESS_TKN);
                     if (accessToken != null) {
-                        registrationManager.read(accessToken);
+                        // Force to create a new user (authentication+user+accessToken)
+                        if(authentication != null && user != null) {
+                        	authenticationManager.create(gson.fromJson(user, MUserBean.class), gson.fromJson(authentication,
+                                            MAuthenticationBean.class));
+                        } else {
+                           	// finalize registration
+                            registrationManager.read(accessToken);
+                        }
                         message.setDescription("user profile created");
                     } else if (authentication == null) {
                         throw new InternalBackEndException("authentication argument missing!");
