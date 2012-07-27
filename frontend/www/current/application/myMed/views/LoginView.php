@@ -9,7 +9,7 @@ require_once("header.php"); ?>
 
 	<div data-role="header" data-theme="b">
 		
-		<h1>Bienvenu</h1>
+		<h1>Bienvenue</h1>
 		<? include("notifications.php"); ?>
 	</div>
 	

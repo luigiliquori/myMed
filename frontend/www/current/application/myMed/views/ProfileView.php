@@ -26,41 +26,43 @@
 		
 		<br /><br />
 		
-		<ul data-role="listview">
+		<ul data-role="listview"  data-mini="true">
 			
 			<li  data-role="list-divider" >Informations générales</li>
-			<li>
+			<li data-icon="refresh">
 				<img alt="eMail: " src="<?= APP_ROOT ?>/img/email_icon.png" class="ui-li-icon" />
 				<a href="#updateProfile">Email<p><?= $_SESSION['user']->email ?></p></a>
 			</li>
-			<li>
+			<li data-icon="refresh">
 				<img alt="Date de naissance: " src="<?= APP_ROOT ?>/img/birthday_icon.png" class="ui-li-icon"/>
 				<a href="#updateProfile">Date de naissance<p><?= $_SESSION['user']->birthday ?></p></a>
 			</li>
 			
-			<li  data-role="list-divider" >Profil étendu</li>
-			<?php if ($handle = opendir(MYMED_ROOT . '/application')) {
-			    while (false !== ($file = readdir($handle))) {
-			    	if(preg_match("/my/", $file) && !preg_match("/Admin/", $file) && !in_array($file, $this->hiddenApplication)) { ?>
-				    	<li>
-				    		<img alt="<?= $file ?>" src="../../application/<?= $file ?>/img/icon.png" class="ui-li-icon" />
-					    	<a href="/application/<?= $file ?>?action=extendedProfile" rel="external" class="myIcon">
-					    	<div Style="position: absolute; right: 78px">
-					    	<select id="flip-<?= $file ?>" name="flip-<?= $file ?>" id="flip-<?= $file ?>" data-role="slider" data-mini="true" onChange="SetCookie('<?= $file ?>Status', $('#flip-<?= $file ?>').val(), 365)">
-								<option value="off" <?= isset($_COOKIE[$file.'Status']) &&  $_COOKIE[$file.'Status'] == "off" ? "selected='selected'" : "" ?>>Off</option>
-								<option value="on" <?= (isset($_COOKIE[$file.'Status']) &&  $_COOKIE[$file.'Status'] == "on") || !isset($_COOKIE[$file.'Status']) ? "selected='selected'" : "" ?>>On</option>
-							</select> 
-							</div>
-					    	<?= $file ?>
+			<li  data-role="list-divider" >Mes applications</li>
+			<?php foreach ($this->applicationList as $applicationName) { ?>
+				<?php if ($this->applicationStatus[$applicationName] == "on") { ?>
+					<li data-icon="delete">
+			    		<img alt="<?= $applicationName ?>" src="../../application/<?= $applicationName ?>/img/icon.png" class="ui-li-icon" />
+				    	
+				    	<a href="#" onclick="printDialog('hidden-<? $applicationName ?>DialogBox', '<?= $applicationName ?>');">
+					    	<?= $applicationName ?>
 					    	<div Style="position: relative; width: 100px; height: 20px;">
-					    		<div Style="position: absolute; width: <?= $this->reputation[$file] ?>px; height: 20px; top:0px; left:0px;  background-color: #ffe400;"></div>
+					    		<div Style="position: absolute; width: <?= $this->reputation[$applicationName] ?>px; height: 20px; top:0px; left:0px;  background-color: #ffe400;"></div>
 					    		<img alt="rep" src="<?= APP_ROOT ?>/img/rep.png" />
 					    	</div>
-					    	</a>
-				    	</li>
-				    <?php } 
-			    } 
-			} ?>
+				    	</a>
+				    	
+			    		<div style="display: none;">
+							<div id="hidden-<? $applicationName ?>DialogBox">
+								<a href="#" data-role="button" data-theme="r" data-icon="delete">Effacer le profil étendu</a>
+								<a href="#" onclick="SetCookie('<?= $applicationName ?>Status', 'off', 365); window.location.reload()" data-role="button" data-theme="b" data-icon="minus">Désactiver l'application</a>
+								<hr />
+								<a href="?action=main" data-role="button" data-theme="c" data-ajax="false">Annuler</a>
+							</div>
+						</div> 
+			    	</li>
+			    <?php } 
+		    } ?>
 			
 			<li data-role="list-divider">Réseau social</li>
 			<li><p>
@@ -120,7 +122,7 @@
 			<ul>
 				<li><a href="#home" data-transition="none" data-back="true" data-icon="grid">Applications</a></li>
 				<li><a href="#profile" data-transition="none" data-icon="profile"  class="ui-btn-active ui-state-persist">Profil</a></li>
-				<li><a href="#" data-rel="dialog" data-icon="star" onClick="printShareDialog();">Partagez</a></li>
+				<li><a href="#" data-rel="dialog" data-icon="star" onClick="printDialog('hidden-sharethis', 'Partagez');">Partagez</a></li>
 			</ul>
 		</div>
 	</div>

@@ -12,12 +12,13 @@ $(document).ready(function() {
 	
 });
 
-function printShareDialog() {
+function printDialog(elt, title) {
 	$('<div>').simpledialog2({
+		method: 'open',
 	    mode: 'blank',
-	    headerText: 'Message',
+	    headerText: title,
 	    headerClose: true,
-	    blankContent : $("#hidden-sharethis")
+	    blankContent : $("#" + elt)
 	  })
 }
 
@@ -44,4 +45,4 @@ function SetCookie (name, value, days) {
 		((path==null) ? "" : ("; path="+path))+
 		((domain==null) ? "" : ("; domain="+domain))+
 		((secure==true) ? "; secure" : "");
-}
+}  
