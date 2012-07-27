@@ -19,7 +19,7 @@ if ($_GET['code'] == CREATE){
 	$request->addArgument("application", $_GET['application']);
 	$request->addArgument("namespace", $_GET['namespace']);
 	$request->addArgument("user", $_SESSION['user']->id);
-	$request->addArgument("data", urldecode($_GET['data']));
+	$request->addArgument("index", $_GET['index']);
 	$responsejSon = $request->send();
 	echo $responsejSon;
 
@@ -29,8 +29,9 @@ if ($_GET['code'] == CREATE){
 	 */
 	$request = new Requestv2("v2/SubscribeRequestHandler", DELETE);
 	$request->addArgument("application", $_GET['application']);
-	$request->addArgument("predicate", urldecode($_GET['predicate']));
+	$request->addArgument("namespace", $_GET['namespace']);
 	$request->addArgument("user", $_SESSION['user']->id );
+	$request->addArgument("index", $_GET['index']);
 	$responsejSon = $request->send();
 	echo $responsejSon;
 

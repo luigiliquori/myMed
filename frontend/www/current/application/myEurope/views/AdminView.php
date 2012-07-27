@@ -60,7 +60,7 @@ function tab_bar_white($activeTab) {
 	<div data-role="content">
 		<ul data-role="listview" data-theme="d" data-filter="true" data-filter-placeholder="filtrer parmi les résultats">
 			<li data-role="list-divider" data-mini="true">Pending</li>
-			<li><a href="detail?id=&user=&application=" 
+			<li><a href="?action=detail&namespace=partPending&id=&user=" 
 			 style="padding-top: 1px; padding-bottom: 1px;">
 					<h3>
 						projet21

@@ -100,7 +100,6 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 	/* v2 create index */
 	public final void create(String application,
 			final String predicate,
-			final String colprefix,
 			final String id,
 			final Map<String, String> metadata)
 					throws InternalBackEndException, IOBackEndException {
@@ -108,7 +107,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 		storageManager.insertSuperSliceStr(
 				SC_APPLICATION_CONTROLLER,
 				application	+ predicate,
-				colprefix + id,
+				id,
 				metadata);
 
 	}
@@ -136,7 +135,8 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     public void create(
             final String application, 
             final String predicate, 
-            final String subscriber)
+            final String subscriber,
+            final String desc)
     throws InternalBackEndException, IOBackEndException 
     {
         // STORE A NEW ENTRY IN THE UserList (SubscriberList)
@@ -144,13 +144,13 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
                 CF_SUBSCRIBEES, 
                 application + predicate, 
                 subscriber, 
-                encode(String.valueOf(System.currentTimeMillis())));
+                encode(desc));
         
         storageManager.insertColumn(
                 CF_SUBSCRIBERS, 
                 application + subscriber, 
                 (predicate.length() == 0) ? "_" : predicate, 
-                encode(String.valueOf(System.currentTimeMillis())));
+                encode(desc));
         /* _ temp prefix to avoid empty predicates (for global namespace subscriptions) */
     }
     
@@ -198,16 +198,16 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 	public Map<String, String> read(String app_user)
 			throws InternalBackEndException, IOBackEndException {
 
-        final Map<String, String> res = new HashMap<String, String>();
-        final Map<byte[], byte[]> predicates = storageManager.selectAll(CF_SUBSCRIBERS, app_user);
-        for (final Entry<byte[], byte[]> entry : predicates.entrySet()) {
-            final String key = decode(entry.getKey());
-            final String val = decode(entry.getValue());
-            res.put(key, val);
-            LOGGER.info("__"+app_user +" is subscribed to "+ key);
-        }
+        final Map<String, String> map = storageManager.selectAllStr(CF_SUBSCRIBERS, app_user);
+        LOGGER.info("__"+app_user +" is subscribed to {}", map);
+        return map;
+	}
+	
+	public String readSubEntry(String app_user, String key)
+			throws InternalBackEndException, IOBackEndException {
 
-        return res;
+		final Map<String, String> map = storageManager.selectAllStr(CF_SUBSCRIBERS, app_user);
+        return map.get(key);
 	}
 	
     
@@ -258,11 +258,11 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
         // Built list of recipients
         final List<MUserBean> recipients = new ArrayList<MUserBean>();
         {
-            final Map<byte[], byte[]> subscribers = storageManager.selectAll(CF_SUBSCRIBEES, application + predicate);
-            for (final Entry<byte[], byte[]> entry : subscribers.entrySet()) {
+            final Map<String, String> subscribers = storageManager.selectAllStr(CF_SUBSCRIBEES, application + predicate);
+            for (final Entry<String, String> entry : subscribers.entrySet()) {
                 MUserBean recipient = null;
                 try {
-                    recipient = profileManager.read(decode(entry.getKey()));
+                    recipient = profileManager.read(entry.getKey());
                 } catch (IOBackEndException e) {}
                 if (recipient != null) {
                     recipients.add(recipient);

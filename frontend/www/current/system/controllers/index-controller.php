@@ -32,7 +32,7 @@ function callController($action, $method=null) {
 // Start session
 session_start();
 
-debug_r("toto");
+
 
 /*if (isset($_SESSION['user'], $_SESSION['user']->lang))
 	$s = $_SESSION['user']->lang;

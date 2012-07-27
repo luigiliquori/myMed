@@ -1,5 +1,4 @@
 <? include("header.php"); ?>
-<? include("notifications.php")?>
 
 
 
@@ -11,6 +10,7 @@
 			"Modifer",
 			"?action=ExtendedProfile&edit=false",
 			"gear") ?>
+	<? include("notifications.php")?>
 </div>
 
 <div data-role="content" >

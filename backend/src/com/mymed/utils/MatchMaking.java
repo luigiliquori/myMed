@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import org.apache.commons.lang.NotImplementedException;
+
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.model.data.application.DataBean;
 import com.mymed.model.data.application.IndexBean;
 
 /**
@@ -20,37 +21,38 @@ public class MatchMaking {
 	 * preformat the received request
 	 */
 
-	public static LinkedHashMap<String, List<Index>> formatIndexes(
+	public static LinkedHashMap<String, List<String>> formatIndexes(
 			List<IndexBean> data) {
 
-		LinkedHashMap<String, List<Index>> map = new LinkedHashMap<String, List<Index>>();
+		LinkedHashMap<String, List<String>> map = new LinkedHashMap<String, List<String>>();
 
-		List<Index> li;
+		List<String> li;
 
 		for (final IndexBean d : data) {
 
-			li = new ArrayList<Index>();
+			li = new ArrayList<String>();
 
 			switch (d.getType()) {
 			case DATE:
-				Long t1 = Long.parseLong(d.getValue().get(0));
+				throw new NotImplementedException(); //refactoring for subscriptions
+				/*Long t1 = Long.parseLong(d.getValue().get(0));
 				Long t2 = d.getValue().size() > 1 ? Long.parseLong(d.getValue()
 						.get(1)) : t1;
 
 				li.addAll(getDateRange(t1, t2));
-				break;
+				break;*/
 			case FLOAT:
-				String s1 = d.getValue().get(0);
+				throw new NotImplementedException();
+				/*String s1 = d.getValue().get(0);
 				String s2 = d.getValue().size() > 1 ? d.getValue().get(1) : s1;
 				li.addAll(getFloatRange(s1, s2));
-				break;
+				break;*/
 			case KEYWORD:
-				li.add(new Index(d.getValue().get(0), ""));
+				li.add( d.getValue().get(0));
 				break;
 			case ENUM:
-				for (String s : d.getValue()) {
-					li.add(new Index(s, ""));
-				}
+		
+				li.addAll(d.getValue());		
 				break;
 			}
 
@@ -59,52 +61,52 @@ public class MatchMaking {
 		return map;
 	}
 
-	static public List<Index> getPredicate(
-			final LinkedHashMap<String, List<Index>> indexes,
-			final int minLevel, final int maxLevel) {
+	static public List<IndexRow> getPredicate(
+			final LinkedHashMap<String, List<String>> indexes,
+			final int minLevel,
+	        final int maxLevel) {
 
 		int n = indexes.size();
 		final String keys[] = indexes.keySet().toArray(new String[] {});
 
-		List<Index> result = new ArrayList<Index>();
+		List<IndexRow> result = new ArrayList<IndexRow>();
 		List<String> rows;
 
 		CombiLine combiLine = new CombiLine(indexes);
 
-		// Loop on number of predicates
-		for (int k = minLevel; k <= maxLevel; k++) {
-
+	
+		for (int k=minLevel; k<=maxLevel; k++) {
 			// Loop on all possiblities for this number of predicates
 			for (int i = (1 << k) - 1; (i >>> n) == 0; i = nextCombo(i)) {
-
+	
 				// Create one combi line
-
+	
 				// create emtry keyset
 				rows = new ArrayList<String>();
-
+	
 				int mask = i;
 				int j = 0;
-
+	
 				// Loop on DataBean
 				while (mask > 0) {
-
+	
 					// Add it ?
 					if ((mask & 1) == 1) {
-
+	
 						// Add one or several values to the combi line fot this
 						// key
-
+	
 						rows.add(keys[j]);
-
+	
 					}
 					mask >>= 1;
 					j++;
 				} // End of loop on data beans
-
+	
 				// Expand the current combi line
 				result.addAll(combiLine.expand(rows));
-
-			} // End of loop on possibilities for this number of predicates
+			}
+	
 
 		} // Loop on number of predicates
 
@@ -120,11 +122,11 @@ public class MatchMaking {
 	 */
 	static private class CombiLine {
 
-		private LinkedHashMap<String, List<Index>> map = new LinkedHashMap<String, List<Index>>();
+		private LinkedHashMap<String, List<String>> map = new LinkedHashMap<String, List<String>>();
 
 		// map is global, expand() use it with a specific keySet
 
-		public CombiLine(LinkedHashMap<String, List<Index>> map) {
+		public CombiLine(LinkedHashMap<String, List<String>> map) {
 			super();
 			this.map = map;
 		}
@@ -138,46 +140,49 @@ public class MatchMaking {
 		 */
 
 		// Expand a list of all predicates
-		public List<Index> expand(final List<String> rows) {
+		public List<IndexRow> expand(final List<String> rows) {
 
 			// Show state of combi before expanding
 			// LOGGER.info("CombiLine: {}", this.map.toString());
 
 			// List of keys, in their order of apparence
 			// final String keys[] = this.map.keySet().toArray(new String[] {});
-
+			
 			// Buffer of all possibilities
-			final List<Index> result = new ArrayList<Index>();
+			final List<IndexRow> result = new ArrayList<IndexRow>();
 
 			// Dummy anynomous class for inner method
 			new Object() {
 
 				// Recursive method to generate predicates
-				public void predicatesRec(Index prefix, int keyIdx) {
+				public void predicatesRec(IndexRow prefix, int keyIdx) {
 
 					// Reached end of combi line
 					if (keyIdx == rows.size()) {
 						result.add(prefix);
+						//System.out.println("prefix :"+ prefix + " . "+keyIdx+ " . "+result);
 						return;
 					}
 
 					// Get key/vals
 					String key = rows.get(keyIdx);
-					List<Index> values = CombiLine.this.map.get(key);
+					List<String> values = CombiLine.this.map.get(key);
 
 					// Loop on values
 					for (int i = 0; i < values.size(); i++) {
 						// Recursive call. Add "keyval"
-						this.predicatesRec(
-								new Index(prefix.row + key + values.get(i).row,
-										prefix.col + values.get(i).col),
-								keyIdx + 1);
+						
+						IndexRow l = new IndexRow(prefix);
+						l.add(new Index(key, values.get(i)));
+						
+						
+						this.predicatesRec( l, keyIdx + 1);
 					}
 
 				}
 
 				// Init the recursion
-			}.predicatesRec(new Index("", ""), 0);
+			}.predicatesRec(new IndexRow(), 0);
 
 			return result;
 
@@ -234,7 +239,7 @@ public class MatchMaking {
 				curTime += interval;
 			}
 			if (res.size() > 1) {
-				res.get(res.size() - 1).col = padDate(t2);
+				res.get(res.size() - 1).val = padDate(t2);
 			}
 		}
 
@@ -262,7 +267,7 @@ public class MatchMaking {
 			res.add(new Index(i + "", t1str));
 		}
 		if (res.size() > 1) {
-			res.get(res.size() - 1).col = t2str;
+			res.get(res.size() - 1).val = t2str;
 		}
 		return res;
 	}
@@ -303,57 +308,78 @@ public class MatchMaking {
 	}
 
 	/**
-	 * simple class to split which part of an index is in row, and which (if
-	 * any) prefixed in column name
+	 * simple class representing a (Key, Value) pair
 	 */
 	public static class Index {
 
-		public String row; /*
-							 * part of an index appended in row name for
-							 * Partitionning
-							 */
-		public String col; /* part prepended in col name for Sorting */
+		public String key, val;
 
-		public Index(String row, String col) {
-			this.row = row;
-			this.col = col;
+		public Index(String key, String val) {
+			this.key = key;
+			this.val = val;
 		}
 
-		public static String joinRows(List<Index> predicate) {
+		public static String join(List<Index> predicate) {
 			String s = "";
 			for (Index i : predicate) {
-				s += i.row;
+				s += i;
 			}
 			return s;
-		}
-
-		public static String joinCols(List<Index> predicate) {
-			String s = "";
-			for (Index i : predicate) {
-				s += i.col.length() > 0 ? i.col + "+" : "";
-			}
-			return s;
-		}
-		
-		public static List<String> getRows(List<Index> predicate) {
-			List<String> l = new ArrayList<String>();
-			for (Index i : predicate) {
-				l.add(i.row);
-			}
-			return l;
 		}
 
 		public String toString() {
-			return row + ":" + col;
+			return join("");
+		}
+		
+		public String join(String sep) {
+			return key + sep + val;
 		}
 	}
-
-	public static String join(List<DataBean> data) {
-		StringBuffer str = new StringBuffer();
-		for (DataBean d : data) {
-			str.append(d.toString());
+	
+	@SuppressWarnings("serial")
+	public static class IndexRow extends ArrayList<Index> {
+		
+		
+		public IndexRow(IndexRow prefix) {
+			super(prefix);
 		}
-		return str.toString();
+
+		public IndexRow() {
+			super();
+		}
+		
+		public String toString() {
+			return join("");
+		}
+		
+		public String join(String sep) {
+			String res = "";
+			for (Index i : this){
+				res+=i.join(sep);
+			}
+			return res;
+		}
+
+		public static List<String> getRows(List<IndexRow> l) {
+			List<String> res = new ArrayList<String>();
+			for (IndexRow i : l) {
+				res.add(i.toString());
+			}
+			return res;
+		}
+		
+		public List<IndexBean> getIndexes(List<IndexBean> l) {
+			List<IndexBean> res = new ArrayList<IndexBean>();
+			for (Index i : this) {
+				for (IndexBean j : l){
+					if (j.getKey().equals(i.key) && !res.contains(j)){
+						res.add(j);
+						break;
+					}
+				}
+			}
+			return res;
+		}
 	}
 
 	/** Get application from a prefix "applicationID<separator>namespace" */

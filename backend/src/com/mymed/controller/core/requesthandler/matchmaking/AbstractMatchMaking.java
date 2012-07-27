@@ -82,10 +82,7 @@ public abstract class AbstractMatchMaking extends AbstractRequestHandler {
             
             // List of keys, in their order of apparence
             final String keys[] = this.map.keySet().toArray(new String[]{});
-            //System.out.println("Expanded keys : {}"+ keys);
-            for (Entry<String, List<String>> l : this.map.entrySet()){
-            	System.out.println("Expanded> "+ l.getKey() + "->"+l.getValue() );
-            }
+            
             // Buffer of all possibilities
             final List<String> result = new ArrayList<String>();
                         
@@ -98,7 +95,6 @@ public abstract class AbstractMatchMaking extends AbstractRequestHandler {
                     // Reached end of combi line 
                     if (keyIdx == keys.length) {
                         result.add(prefix);
-                        System.out.println("Expanded done :"+ keyIdx + " "+result);
                         return; 
                     }
                    
@@ -121,7 +117,6 @@ public abstract class AbstractMatchMaking extends AbstractRequestHandler {
             }.predicatesRec("", 0);
             
             LOGGER.info("Expanded combis : {}", result);
-            System.out.println("Expanded combis :"+ result);
             return result;
         
         } // End of #expand()
@@ -192,14 +187,12 @@ public abstract class AbstractMatchMaking extends AbstractRequestHandler {
 					    } else { // Add simple value for the key
 					        combiLine.put(dataBean.getKey(), dataBean.getValue());  
 					    }
-					    System.out.println("Add > "+ dataBean.getKey() );
 					}
 					mask >>= 1;
 					j++;
 				} // End of loop on data beans
 				
 				// Expand the current combi line
-				System.out.println("Expanded level : "+ k);
 				result.addAll(combiLine.expand());
 				
 				
