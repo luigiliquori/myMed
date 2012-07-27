@@ -165,7 +165,7 @@ function tabs($tabs, $activeTab) {
             
        function about(){
        	?>
-<div style="text-align: left;margin:20px;">
+<div style="text-align: justify;margin:20px;">
 	<b>MyEurope</b> est un réseau social s'appuyant sur le méta-réseau social myMed, à disposition des mairies, des institutions, des élus ou encore des
 	réalités économiques (industrielles, touristiques…) du territoire de la région française du Sud-Est (PACA, Rhône-Alpes) et des trois régions
 	italiennes du Nord Ouest de l'Italie, (Ligurie, Piémont, Vallée d'Aoste), c'est-à-dire des territoires éligibles au programme Alcotra (Alpes Latines

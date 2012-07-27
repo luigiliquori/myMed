@@ -45,6 +45,7 @@ import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.application.IndexBean;
 import com.mymed.utils.MatchMaking;
 import com.mymed.utils.MatchMaking.Index;
+import com.mymed.utils.MatchMaking.IndexRow;
 
 
 @MultipartConfig
@@ -72,13 +73,10 @@ public class FindRequestHandler extends AbstractRequestHandler {
 	public static final int maxNumColumns = 10000; // arbitrary max number of cols, to overrides default's 100 
 
 	private final PubSubManager pubsubManager;
-	
-	private Type indexType;
 
 	public FindRequestHandler() throws InternalBackEndException {
 		super();
 		pubsubManager = new PubSubManager();
-		indexType = new TypeToken<List<IndexBean>>() {}.getType();
 	}
 
 	/**
@@ -139,10 +137,9 @@ public class FindRequestHandler extends AbstractRequestHandler {
 			
 			List<IndexBean> query = new ArrayList<IndexBean>();
 
-			if ((application = parameters.get(JSON_APPLICATION)) == null) {
+			if ((application = parameters.get(JSON_APPLICATION)) == null)
 				throw new InternalBackEndException(
 						"missing application argument!");
-			}
 
 			// retrieve query params
 			try {
@@ -160,10 +157,10 @@ public class FindRequestHandler extends AbstractRequestHandler {
 
 			/* generate the ROWS to search */
 
-			LinkedHashMap<String, List<Index>> indexes = MatchMaking
+			LinkedHashMap<String, List<String>> indexes = MatchMaking
 					.formatIndexes(query);
 
-			List<Index> combi = MatchMaking.getPredicate(
+			List<IndexRow> combi = MatchMaking.getPredicate(
 					indexes, 
 					min!=null?parseInt(min):query.size(),
 					max!=null?parseInt(max):query.size());
@@ -183,8 +180,8 @@ public class FindRequestHandler extends AbstractRequestHandler {
 				TreeMap<String, Map<String, String>> filterMap = new TreeMap<String, Map<String, String>>();
 
 				String prefix = makePrefix(application, namespace);
-				for (Index i : combi) {
-					i.row = prefix + i.row;
+				for (IndexRow r : combi) {
+					r.add(0, new Index(prefix, ""));
 				}
 
 				LOGGER.info("ext find rows: " + combi.size() + " initial: "
@@ -192,7 +189,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
 
 				List<List<String>> ranges = MatchMaking.getRanges(query);
 
-				List<String> rows = MatchMaking.Index.getRows(combi);
+				List<String> rows = IndexRow.getRows(combi);
 
 				LOGGER.info("ext find ranges: " + ranges.size());
 

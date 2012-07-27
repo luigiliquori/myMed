@@ -34,9 +34,9 @@ function tab_bar_white($activeTab) {
 		
 		<h3 class="ui-link">Informations:</h3>
 		<div data-role="controlgroup"  data-type="horizontal">
-			<a href="#infos" style="width:33%;" type="button"  data-theme="d"><br />S'informer sur les programmes 2014-2020<br />&nbsp;</a>
+			<a href="#infos" style="width:33%;" type="button"  data-theme="d"><br />S'informer <span style="font-weight: lighter;">sur les programmes 2014-2020</span><br />&nbsp;</a>
 			<a href="#blogAlcotra"  style="width:33%;"
-			type="button"  data-theme="d"><br />Blog sur la préparation du futur programme Alcotra 2014-2020<br />&nbsp;</a>
+			type="button"  data-theme="d"><br />Blog Alcotra<span style="font-weight: lighter;">: futur programme 2014-2020</span><br />&nbsp;</a>
 			<a href="#blogTest"  style="width:33%;"
 			type="button"  data-theme="d"><br />Blog béta testeurs<br />&nbsp;</a>
 		</div>
@@ -73,9 +73,11 @@ function tab_bar_white($activeTab) {
 		<span> Langue: </span>&nbsp;&nbsp;
 		<fieldset data-role="controlgroup" data-mini="true" data-type="horizontal" style="display:inline-block;vertical-align: middle;">
 			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-a" value="fr" <?= $_SESSION["user"]->lang == "fr"?"checked='checked'":"" ?>/>
-			<label for="radio-view-a">Français</label>
-			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-e" value="it" <?= $_SESSION["user"]->lang == "it"?"checked='checked'":"" ?>/>
-			<label for="radio-view-e">Italien</label>
+			<label for="radio-view-a"><?= _('Français') ?></label>
+			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-b" value="it" <?= $_SESSION["user"]->lang == "it"?"checked='checked'":"" ?>/>
+			<label for="radio-view-b"><?= _('Italien') ?></label>
+			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-e" value="en" <?= $_SESSION["user"]->lang == "en"?"checked='checked'":"" ?>/>
+			<label for="radio-view-e"><?= _('Anglais') ?></label>
 		</fieldset>
 	</div>
 </div>
@@ -94,16 +96,6 @@ function tab_bar_white($activeTab) {
 				<a href="./?action=Admin" data-ajax="false" type="button" data-inline="true" data-theme="g">Accéder</a>
 			<? } ?>
 		</div>
-	</div>
-</div>
-
-<div data-role="page" id="about">
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tab_bar_white("about") ?>
-	</div>
-	<div data-role="content">
-		<br />
-		<?= _(about()) ?>
 	</div>
 </div>
 

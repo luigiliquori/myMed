@@ -77,14 +77,33 @@ public final class IndexBean extends AbstractMBean implements Comparable<IndexBe
 
 	@Override
 	public int hashCode() {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = 1;
+		result = (PRIME * result) + String.valueOf(type).hashCode();
+        result = (PRIME * result) + (key == null ? 0 : key.hashCode());
+        result = (PRIME * result) + (value == null ? 0 : value.hashCode());
+        return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		// TODO Auto-generated method stub
-		return false;
+		if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof IndexBean)) {
+            return false;
+        }
+        final IndexBean other = (IndexBean) obj;
+        if (key == null) {
+            if (other.key != null) {
+                return false;
+            }
+        } else if (!key.equals(other.key)) {
+            return false;
+        }
+        return true;
 	}
 
 }

@@ -83,7 +83,7 @@ public abstract class AbstractRequestHandler extends HttpServlet {
      * This is the URL address of the server, necessary for configuring data across all the backend. If nothing has been
      * set at compile time, the default value is an empty string.
      */
-    private static final String DEFAULT_SERVER_URI = PROPERTIES.getManager(PropType.GENERAL).get("general.server.uri");
+    protected static final String DEFAULT_SERVER_URI = PROPERTIES.getManager(PropType.GENERAL).get("general.server.uri");
 
     /**
      * This is the server URI as to be used in the backend.
@@ -93,7 +93,7 @@ public abstract class AbstractRequestHandler extends HttpServlet {
     /**
      * The protocol used for communications. This is the default value provided via the properties.
      */
-    private static final String DEFAULT_SERVER_PROTOCOL = PROPERTIES.getManager(PropType.GENERAL).get(
+    protected static final String DEFAULT_SERVER_PROTOCOL = PROPERTIES.getManager(PropType.GENERAL).get(
                     "general.server.protocol");
 
     /**

@@ -20,7 +20,6 @@ import static com.mymed.utils.GsonUtils.gson;
 import static com.mymed.utils.MatchMaking.makePrefix;
 import static com.mymed.utils.MatchMaking.parseInt;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -46,7 +45,7 @@ import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.application.IndexBean;
 import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.MatchMaking;
-import com.mymed.utils.MatchMaking.Index;
+import com.mymed.utils.MatchMaking.IndexRow;
 
 
 /**
@@ -63,9 +62,6 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 
     protected PubSubManager pubsubManager;
     protected ProfileManager profileManager;
-    
-    private Type indexType;
-    private Type dataType;
 
     /**
      * JSON 'predicate' attribute.
@@ -77,9 +73,6 @@ public class PublishRequestHandler extends AbstractRequestHandler {
         super();
         profileManager = new ProfileManager();
         pubsubManager = new PubSubManager();
-        
-        indexType = new TypeToken<List<IndexBean>>() {}.getType();
-        dataType = new TypeToken<Map<String, String>>() {}.getType();
     }
 
 
@@ -101,11 +94,10 @@ public class PublishRequestHandler extends AbstractRequestHandler {
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
             final String application, dataId, namespace = parameters.get(JSON_NAMESPACE);
             
-            if ((application = parameters.get(JSON_APPLICATION)) == null) {
+            if ((application = parameters.get(JSON_APPLICATION)) == null)
                 throw new InternalBackEndException("missing application argument!");
-            } else if ((dataId = parameters.get("id")) == null ) {
+            else if ((dataId = parameters.get("id")) == null )
 				throw new InternalBackEndException("missing id argument!");
-			}
             
             String prefix = makePrefix(application, namespace);
             
@@ -157,14 +149,14 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 
 				LOGGER.info(" deleting  " + dataId + "." + indexList.size());
 
-				LinkedHashMap<String, List<Index>> indexes = MatchMaking
+				LinkedHashMap<String, List<String>> indexes = MatchMaking
 						.formatIndexes(indexList);
 
-				List<Index> combi = MatchMaking.getPredicate(indexes, 0,
+				List<IndexRow> combi = MatchMaking.getPredicate(indexes, 0,
 						indexList.size());
-				for (Index i : combi) {
+				for (IndexRow i : combi) {
 					pubsubManager.delete(makePrefix(application, namespace),
-							i.row, i.col + dataId, null);
+							i.toString(), dataId, null);
 				}
 
 				/* deletes data */
@@ -215,11 +207,10 @@ public class PublishRequestHandler extends AbstractRequestHandler {
             Map<String, String> mdataMap = new HashMap<String, String>();
 			Map<String, String> dataMap = new HashMap<String, String>();
 			
-            if (application == null) {
+            if (application == null)
                 throw new InternalBackEndException("missing application argument!");
-            } else if (dataId == null) {
+            else if (dataId == null)
                 throw new InternalBackEndException("missing id argument!");
-            }
             
             try {
             	if (data != null)
@@ -240,9 +231,9 @@ public class PublishRequestHandler extends AbstractRequestHandler {
            
             LOGGER.info("in "+dataId+"."+dataMap.size()+"."+indexList.size());
             
-            LinkedHashMap<String, List<Index>> indexes = MatchMaking.formatIndexes(indexList);
+            LinkedHashMap<String, List<String>> indexes = MatchMaking.formatIndexes(indexList);
 			
-			List<Index> combi = MatchMaking.getPredicate(
+			List<IndexRow> combi = MatchMaking.getPredicate(
 					indexes, 
 					min!=null?parseInt(min):0,
 					max!=null?parseInt(max):indexList.size());
@@ -271,11 +262,11 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 		        	publisher = profileManager.read(dataMap.get("user"));
 		        }
 				
-				for (Index i : combi) {
+				for (IndexRow i : combi) {
 					
-					pubsubManager.create(prefix, i.row, i.col, dataId, mdataMap);
+					pubsubManager.create(prefix, i.toString(), dataId, mdataMap);
 					
-					pubsubManager.sendEmailsToSubscribers(prefix, i.row, dataMap, publisher);
+					pubsubManager.sendEmailsToSubscribers(prefix, i.toString(), dataMap, publisher);
 				}
 
 				/*
@@ -293,8 +284,8 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 				message.setMethod(JSON_CODE_UPDATE);
 
 				LOGGER.info("updating data " + dataId + " size " + dataMap.size());
-				for (Index i : combi) {
-					pubsubManager.create(prefix, i.row, i.col, dataId, mdataMap);
+				for (IndexRow i : combi) {
+					pubsubManager.create(prefix, i.toString(), dataId, mdataMap);
 				}
 
 				/* creates data */

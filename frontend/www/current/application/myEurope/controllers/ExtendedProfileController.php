@@ -59,16 +59,38 @@ class ExtendedProfileController extends AuthenticatedController
 		
 		//$extendedProfile->storeProfile($this);
 		
+		
+		if ($POST['from']=="create"){
+			$permission = (
+					(strpos($_SESSION['user']->email, "@inria.fr") !== false)
+					|| $_SESSION['user']->email=="bredasarah@gmail.com"
+					|| $_SESSION['user']->email=="myalpmed@gmail.com"
+			)? 2 : 0;
+			$_POST['permission'] = $permission;
+			
+		} else { //check password
+			$pass	= hash("sha512", $_POST['password']);
+			if( empty($pass) ){
+				// TODO i18n
+				$this->error = "Password cannot be empty!";
+				$this->renderView("ExtendedProfileEdit");
+			}
+			$request = new Requestv2("v2/AuthenticationRequestHandler", READ);
+			$request->addArgument("login", $_SESSION['user']->login);
+			$request->addArgument("password", $pass);	
+			$responsejSon = $request->send();
+			$responseObject = json_decode($responsejSon);
+			
+			if($responseObject->status != 200) {
+				$this->error = $responseObject->description;
+				debug("error");	
+				$this->renderView("ExtendedProfileEdit");
+			}
+		}
+
 		debug($_SESSION['user']->email);
 		
-		$permission = (
-			(strpos($_SESSION['user']->email, "@inria.fr") !== false)
-			|| $_SESSION['user']->email=="bredasarah@gmail.com" 
-			|| $_SESSION['user']->email=="myalpmed@gmail.com"
-		)? 2 : 0;
-				
 		
-		$_POST['permission'] = $permission;
 		$_POST['user'] = $_SESSION['user']->id;
 		
 		// we clear these ones

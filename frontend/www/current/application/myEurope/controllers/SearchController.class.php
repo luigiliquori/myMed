@@ -4,11 +4,13 @@
 
 class SearchController extends AuthenticatedController {
 	
+	public $index;
+	
 	public function handleRequest() {
 		
 		parent::handleRequest();
 		
-		$index=array();
+		$this->index=array();
 
 		$themes = array();
 		$regs = array();
@@ -23,11 +25,11 @@ class SearchController extends AuthenticatedController {
 			}
 		}
 		if (count($themes)){
-			array_push($index, new DataBeanv2("theme", ENUM, $themes));
+			array_push($this->index, new DataBeanv2("theme", ENUM, $themes));
 		}
 		
 		if (count($regs)){
-			array_push($index, new DataBeanv2("reg", ENUM, $regs));
+			array_push($this->index, new DataBeanv2("reg", ENUM, $regs));
 		}
 		$tags = preg_split('/[ +]/', $_GET['q'], NULL, PREG_SPLIT_NO_EMPTY);
 		$p = array_unique(array_map('strtolower', $tags));
@@ -36,7 +38,7 @@ class SearchController extends AuthenticatedController {
 		}
 		
 		debug("search on.. ".$_GET['namespace']);
-		$find = new FindRequestv2($this, $_GET['namespace'], $index);
+		$find = new FindRequestv2($this, $_GET['namespace'], $this->index);
 			
 		try{
 			$result = $find->send();

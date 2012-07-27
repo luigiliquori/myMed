@@ -18,7 +18,7 @@
 			</select>
 			
 			<select data-theme="e"  data-mini="true" name="slider" id="flip-a" data-role="slider"
-				onchange="$.get('../../lib/dasp/ajax/Subscribe', { code: $(this).val(), application: '<?= APPLICATION_NAME ?>' ,namespace: '<?= $_GET['namespace'] ?>' ,data: '' } );">
+				onchange="$.get('../../lib/dasp/ajax/Subscribe', { code: $(this).val(), application: '<?= APPLICATION_NAME ?>' ,namespace: '<?= $_GET['namespace'] ?>' ,index: '<?= json_encode($this->index) ?>' } );">
 				<option value="3">Souscrire aux futurs contenus correspondant à cette recherche</option>
 				<option value="0">Désabonner</option>
 			</select>

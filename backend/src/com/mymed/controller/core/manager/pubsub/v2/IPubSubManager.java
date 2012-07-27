@@ -32,7 +32,6 @@ public interface IPubSubManager {
 	void create(
 			String application,
 			String predicate,
-			String colprefix,
 			String id,
 			Map<String, String> metadata)
 					throws InternalBackEndException, IOBackEndException;
@@ -49,7 +48,7 @@ public interface IPubSubManager {
 	 * subscribe v2
 	 * 
 	 */
-	void create(String application, String predicate, String subscriber)
+	void create(String application, String predicate, String subscriber, String index)
 			throws InternalBackEndException, IOBackEndException;
 
 	
