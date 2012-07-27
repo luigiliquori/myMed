@@ -14,9 +14,13 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.AudioManager;
+import android.net.Uri;
 import android.sax.StartElementListener;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
@@ -100,14 +104,21 @@ public class WebClient extends WebViewClient {
 				 * phonecalls
 				 */
 				else if (params[1].equals("call")){
-					Log.i(Mobile.TAG, "call");	// Logs
-					
-					
-					Intent myIntent = new Intent(activity, CallActivity.class);
-					activity.startActivity(myIntent);
-					
 
 					
+					int numberOfCalls = params.length -1;
+
+					
+					Intent callIntent = new Intent(Intent.ACTION_CALL);
+					callIntent.setData(Uri.parse("tel:"+params[2]));
+					
+					// Turn the speaker On
+					AudioManager audioManager = (AudioManager)activity.getSystemService(Context.AUDIO_SERVICE);
+					audioManager.setSpeakerphoneOn(true);
+					
+					CallReceiver callReceiver = new CallReceiver();
+					// Make the call
+					activity.startActivity(callIntent);
 					
 					
 					
