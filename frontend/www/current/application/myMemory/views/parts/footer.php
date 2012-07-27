@@ -1,6 +1,6 @@
 <?php
-	$debug = true;
-	//$debug = false;
+	//$debug = true;
+	$debug = false;
 	
 	
 	
