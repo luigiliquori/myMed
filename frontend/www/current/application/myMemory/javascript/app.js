@@ -305,13 +305,14 @@ function calcRouteByCityway(result) {
 }
 
 
-function needHelp(){
+function sendEmailsAlerts(){
 
 	howmany = $('#howmany').val();
 
 	// Google GeoCoder
 	var geocoder = new google.maps.Geocoder();
 	var pos = currentPositionMarker.getPosition();
+
 	
 	geocoder.geocode({'location' : pos }, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) {
@@ -331,16 +332,16 @@ function needHelp(){
 										+ currentPositionMarker.getPosition().lat() + "&current_lng="
 										+ currentPositionMarker.getPosition().lng(),
 										success : function(data) {
-											retour = JSON.parse(data);
-											//alert(retour.success);
-											alert(data);
+
 										},
 										error : function(data) {
+											alert("erreur dans l'envoi des messages");
 										}
 									});
 								}, 5000);
 				
 			}// for
+			alert("Messages envoyés!");
 		}//if
 	});//geocoder
 		

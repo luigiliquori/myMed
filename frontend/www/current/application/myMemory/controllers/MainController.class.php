@@ -10,8 +10,8 @@ class MainController extends AuthenticatedController {
 		 * This application will have different dehaviours for mobile.
 		 */
 		$m = new Mobile_Detect();
-		//$_SESSION['isMobile'] = $m->isMobile();
-		$_SESSION['isMobile'] = true;
+		$_SESSION['isMobile'] = $m->isMobile();
+		//$_SESSION['isMobile'] = true;
 		
 		/*
 		 * Try to get the User ExtendedProfile if it exist
