@@ -56,7 +56,8 @@ public class WebClient extends WebViewClient {
 				 */
 				if(params[1].equals("logout")){
 					Log.i(Mobile.TAG, "Logout");
-					activity.finish();
+					boolean res = activity.moveTaskToBack(true);
+					Log.i(Mobile.TAG, "Moved task : " + res);
 				}
 				/*
 				 * phonecalls
