@@ -11,7 +11,6 @@
 			<h3>Plus d'applications</h3>
 			<ul data-role="listview" data-filter="true" data-mini="true">
 
-
 			<?php foreach ($this->applicationList as $applicationName) {  ?>
 				<li><img alt="<?= $applicationName ?>"
 					src="../../application/<?= $applicationName ?>/img/icon.png"

@@ -50,9 +50,15 @@ class LoginController extends AbstractController {
 				$responseObject = json_decode($responsejSon);
 				
 			}
-		
-			// In case of errors
-			if($responseObject->status != 200) {
+			
+			// wrong password
+			if($responseObject->status == 403) {
+				$this->error = "Mot de pass incorrect! <a href='?action=resetPassword&login=" . urlencode($login) . "' rel='external'>Pertes identifiants?</a>";
+					
+				// Show the login form
+				$this->renderView("login");
+			
+			} else if($responseObject->status != 200) {
 
 				// Save the error
 				$this->error = $responseObject->description;

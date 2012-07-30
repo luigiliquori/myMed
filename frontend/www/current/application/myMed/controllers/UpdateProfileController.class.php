@@ -18,6 +18,12 @@ class UpdateProfileController extends AbstractController {
 			$this->error = "FAIL: email cannot be empty!";
 		}
 		
+		// Error to show => show the register view
+		if (!empty($this->error)) {
+			$this->renderView("register");
+			return;
+		}
+		
 		// update the authentication
 		$mAuthenticationBean = new MAuthenticationBean();
 		$mAuthenticationBean->login =  $_SESSION['user']->email;
