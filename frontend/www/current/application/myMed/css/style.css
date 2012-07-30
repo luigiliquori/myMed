@@ -63,11 +63,11 @@
 	position: absolute;
 }
 
-/*.ui-link-inherit {
+.ui-link-inherit {
 	position: relative;
 	left: 70px;
 	height: 40px;
-} WTF */
+} 
 
 .ui-icon img {
 	position: absolute;
