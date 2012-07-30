@@ -240,7 +240,7 @@ function getPosition(){
 function updatePosition(params){	
 	$.ajax({
 		//url: "../../backend/PositionRequestHandler",
-		url: "../../lib/dasp/ajax/Position.php",
+		url: "../../../lib/dasp/ajax/Position.php",
 		type: "POST",
 		data: params,
 		success: function(data){

@@ -1,0 +1,4 @@
+ant clean
+ant backend -Daddress=127.0.0.1
+cp build/lib/mymed_backend.war /local/glassfish3/glassfish/domains/domain1/autodeploy
+ant frontend -Dbackend=127.0.0.1:8080 -Dprotocol=http -Dkeys=/local/keys.properties

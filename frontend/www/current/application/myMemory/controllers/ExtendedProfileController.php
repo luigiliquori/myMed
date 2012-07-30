@@ -69,21 +69,21 @@ class ExtendedProfileController extends AuthenticatedController
 			 */
 			$callingList = array();
 			
-			$call1 = array("name" => $_POST["CareGiverName"], "address" => $_POST["CareGiverAddress"], "phone" => $_POST["CareGiverPhone"]);
-			//$call4 = array("name" => "Emergency", "address" => "" , "phone" => "112");
-			//TODO : uncomment this
+			$call1 = array("name" => $_POST["CareGiverName"], "address" => $_POST["CareGiverAddress"], "email" => $_POST["CareGiverEmail"], "phone" => $_POST["CareGiverPhone"]);
+			//$call4 = array("name" => "Emergency", "address" => "" , "email" => "", "phone" => "112");
+			//TODO uncomment emergency
 			// Inserting Caregiver in first position
 			array_push($callingList, $call1);
 			
 			// If user filled the informations for the second calling slot, add it. If not, do nothing.
-			if(!empty($_POST["CL_name_1"]) AND !empty($_POST["CL_phone_1"])){
-				$call2 = array("name" => $_POST["CL_name_1"], "address" => $_POST["CL_address_1"], "phone" => $_POST["CL_phone_1"]);
+			if(!empty($_POST["CL_name_1"]) AND !empty($_POST["CL_email_1"]) AND !empty($_POST["CL_phone_1"])){
+				$call2 = array("name" => $_POST["CL_name_1"], "address" => $_POST["CL_address_1"], "email" => $_POST["CL_email_1"], "phone" => $_POST["CL_phone_1"]);
 				array_push($callingList, $call2);
 			}
 
 			// Same for slot 3
-			if(!empty($_POST["CL_name_2"]) AND !empty($_POST["CL_phone_2"])){
-				$call3 = array("name" => $_POST["CL_name_2"], "address" => $_POST["CL_address_2"], "phone" => $_POST["CL_phone_2"]);
+			if(!empty($_POST["CL_name_2"]) AND !empty($_POST["CL_email_1"]) AND !empty($_POST["CL_phone_2"])){
+				$call3 = array("name" => $_POST["CL_name_2"], "address" => $_POST["CL_address_2"], "email" => $_POST["CL_email_2"], "phone" => $_POST["CL_phone_2"]);
 				array_push($callingList, $call3);
 			}
 			
