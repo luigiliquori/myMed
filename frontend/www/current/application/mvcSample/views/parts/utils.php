@@ -22,7 +22,7 @@ function tabs($tabs, $activeTab) {
 				data-theme="b" 
 				<?= ($reverse) ? 'data-direction="reverse"' : '' ?>
 				<?= ($activeTab == $id) ? 'class="ui-btn-active ui-state-persist"' : '' ?> >
-				<?= $label ?>
+				<?= _($label) ?>
 			</a>
 		</li><? 
 		

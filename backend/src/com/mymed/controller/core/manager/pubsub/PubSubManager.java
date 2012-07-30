@@ -15,8 +15,8 @@
  */
 package com.mymed.controller.core.manager.pubsub;
 
-import static com.mymed.utils.PubSub.extractApplication;
-import static com.mymed.utils.PubSub.extractNamespace;
+import static com.mymed.utils.MatchMaking.extractApplication;
+import static com.mymed.utils.MatchMaking.extractNamespace;
 import static java.util.Arrays.asList;
 
 import java.io.UnsupportedEncodingException;

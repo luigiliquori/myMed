@@ -13,12 +13,11 @@
 //ob_start("ob_gzhandler");
 require_once 'Template.php';
 Template::init();
+Template::checksession();
 
 $msg = ""; //feedback text
 
-$application =  urldecode($_GET['application']);
-
-list($app, $type) = explode(":", $application);
+$namespace =  urldecode($_GET['namespace']);
 
 $id = urldecode($_GET['id']); // data Id
 
@@ -37,7 +36,7 @@ if (isset($_POST['commentOn'])){ // we want to comment
 	);
 
 	$request = new Request("PublishRequestHandler", CREATE);
-	$request->addArgument("application", $application);
+	$request->addArgument("application", Template::APPLICATION_NAME);
 	$request->addArgument("predicate", json_encode($predicates));
 	$request->addArgument("data", json_encode($data));
 	if(isset($_SESSION['user'])) {
@@ -47,8 +46,9 @@ if (isset($_POST['commentOn'])){ // we want to comment
 
 } else if (isset($_POST['predicates'])) { //delete text or comment
 	$request = new Request("v2/PublishRequestHandler", DELETE);
-	$request->addArgument("application", $application);
-	$request->addArgument("predicateList", urldecode($_POST['predicates']));
+	$request->addArgument("application", Template::APPLICATION_NAME);
+	$request->addArgument("namespace", $namespace);
+	//$request->addArgument("predicateList", urldecode($_POST['predicates']));
 	if (isset($_POST['id'])) {
 		$request->addArgument("id", $id);
 	}
@@ -62,48 +62,48 @@ if (isset($_POST['commentOn'])){ // we want to comment
 	}
 }
 
-if(isset($_POST['feedback'])) {
+if(isset($_GET['feedback'])) {
 	$request = new Request("InteractionRequestHandler", UPDATE);
-	$request->addArgument("application", $application);
+	$request->addArgument("application", Template::APPLICATION_NAME);
 	$request->addArgument("producer", $author);
 	$request->addArgument("consumer", $_SESSION['user']->id );
-	$request->addArgument("start", $_POST['start']);
-	$request->addArgument("end", $_POST['end']);
+	$request->addArgument("start", $_GET['start']);
+	$request->addArgument("end", $_GET['end']);
 	$request->addArgument("predicate", $id);
-	if(isset($_POST['snooze'])){
-		$request->addArgument("snooze", $_POST['snooze']);
-	}
-	if(isset($_POST['feedback'])){
-		$request->addArgument("feedback", $_POST['feedback']);
+	$request->addArgument("feedback", $_GET['feedback']);
+	if(isset($_GET['snooze'])){
+		$request->addArgument("snooze", $_GET['snooze']);
 	}
 	$responsejSon = $request->send();
 	$responseObject = json_decode($responsejSon);
 	if($responseObject->status == 200) {
 		$msg = "vote pris en compte";
+		
+		$request->addArgument("producer", $id);
+		$responsejSon = $request->send();
+		$responseObject = json_decode($responsejSon);
+		if($responseObject->status == 200) {
+			$msg .= "<br />vote pour ce contenu pris en compte";
+		} else if($responseObject->status == 409) {
+			$msg .= "<br />déjà voté";
+		} else if($responseObject->status == 500) {
+			$msg .= "<br />Vous ne pouvez voter pour vore contenu";
+		}
+		
 	} else if($responseObject->status == 409) {
 		$msg = "déjà voté";
 	} else if($responseObject->status == 500) {
 		$msg = "Vous ne pouvez voter pour vous-même";
 	}
-
-	$request->addArgument("producer", $id);
-
-	$responsejSon = $request->send();
-	$responseObject = json_decode($responsejSon);
-	if($responseObject->status == 200) {
-		$msg .= "<br />vote pour ce contenu pris en compte";
-	} else if($responseObject->status == 409) {
-		$msg .= "<br />déjà voté";
-	} else if($responseObject->status == 500) {
-		$msg .= "<br />Vous ne pouvez voter pour vous-même";
-	}
+	
 }
 
 
 $request = new Request("v2/PublishRequestHandler", READ);
-$request->addArgument("application", $application);
-$request->addArgument("predicate", $id);
-$request->addArgument("userID", $author);
+$request->addArgument("application", Template::APPLICATION_NAME);
+$request->addArgument("namespace", $namespace);
+$request->addArgument("id", $id);
+$request->addArgument("user", $author);
 $responsejSon = $request->send();
 $detail = json_decode($responsejSon);
 
@@ -113,7 +113,7 @@ $responsejSon = $request->send();
 $profile = json_decode($responsejSon);
 
 $request = new Request("FindRequestHandler", READ);
-$request->addArgument("application", $application);
+$request->addArgument("application", Template::APPLICATION_NAME);
 $request->addArgument("predicate", "commentOn" . $id);
 $responsejSon = $request->send();
 $comments = json_decode($responsejSon);
@@ -123,7 +123,7 @@ if($comments->status == 200) {
 }
 
 $request = new Request("ReputationRequestHandler", READ);
-$request->addArgument("application",  $application);
+$request->addArgument("application",  Template::APPLICATION_NAME);
 $request->addArgument("producer",  $author);
 $request->addArgument("consumer",  $_SESSION['user']->id);
 $responsejSon = $request->send();
@@ -137,7 +137,7 @@ if(isset($responseObject->dataObject->reputation)){
 }
 
 $request = new Request("ReputationRequestHandler", READ);
-$request->addArgument("application",  $application);
+$request->addArgument("application",  Template::APPLICATION_NAME);
 $request->addArgument("producer",  $id);
 $request->addArgument("consumer",  $_SESSION['user']->id);
 $responsejSon = $request->send();
@@ -156,17 +156,22 @@ if(isset($responseObject->dataObject->reputation)){
 </head>
 
 <body>
-	<div data-role="page" id="Detail">
-		<div data-role="header" data-theme="c" style="max-height: 38px;">
-			<a data-icon="back" data-rel="back">Retour</a>
-			<h2>
-				<a href="./" style="text-decoration: none;">myEurope</a>
-			</h2>
+	<div data-role="page" id="Detail" data-theme="d">
+		<div data-role="header" data-theme="c" data-position="fixed">
+			<div data-role="navbar" data-theme="c"  data-iconpos="left">
+				<ul>
+					<li><a data-rel="back" data-icon="back">Retour</a></li>
+					<li><a href="./"  data-icon="home"><?= _('Home') ?></a></li>			
+				</ul>
+			</div>
 		</div>
 		<div data-role="content">
 			<div style='color: lightGreen; text-align: center;'>
 				<?= $msg ?>
 			</div>
+			<h2 style="text-align: center;">
+				<a href="" style="text-decoration: none;"><?= $id ?></a>
+			</h2>
 			<?php
 				
 			if($profile->status == 200) {
@@ -180,67 +185,72 @@ if(isset($responseObject->dataObject->reputation)){
 				$text="";
 				foreach( $detail as $value ) {
 					if ($value->key=="text"){
-						$text = str_replace("\n", "<br />", $value->value);
-						unset($value);
-					} else if ($value->key=="data"){
-						$preds = json_decode($value->value);
-					} else if ($value->key=="rate"){
-						$rate = json_decode($value->value);
+						$text = str_replace("\n", "<br />", $value->value[0]);
+						//unset($value);
+					} else if ($value->key=="offre"){
+						$rate = $value->value[0];
 					}
 				}
 				$detail = array_values(array_filter($detail, "Template::isPredicate")); // to use details for delete
 
-				if ( (100-$rate) != $dataRep ){
+				/*if ( (100-$rate) != $dataRep ){
 					echo 'bioooo';
-					Template::updateDataReputation($detail, $dataRep, $application, $id, $author );
-				}
+					Template::updateDataReputation($detail, $dataRep, Template::APPLICATION_NAME, $id, $author );
+				}*/
 				
 				?>
-			<div style="float: right; text-align: center;">
-				<img style="text-align: center; max-height: 100px; opacity: 0.6;" src="<?= $profPic ?>" /><br />
-				Auteur: <a style="left-margin: 10px; color: #0060AA; font-size: 120%;" href="mailto:<?= $profile->email ?>"><?= $profile->name ?> </a> <br />
-				Réputation de l'auteur:&nbsp;	<span style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $authorRep ?> </span><br />
-				Réputation du projet:&nbsp;	<span style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $dataRep ?> </span><br />
-				Voter:
-				<a data-role="button" data-icon="star" data-iconpos="notext" data-inline="true" style="margin-right:1px; margin-left:1px;"
-						onclick="$('#feedback').val('0.2'); document.StartInteractionForm.submit();"></a>
-				<a data-role="button" data-icon="star" data-iconpos="notext" data-inline="true" style="margin-right:1px; margin-left:1px;"
-						onclick="$('#feedback').val('0.4'); document.StartInteractionForm.submit();"></a>
-				<a data-role="button" data-icon="star" data-iconpos="notext" data-inline="true" style="margin-right:1px; margin-left:1px;"
-						onclick="$('#feedback').val('0.6'); document.StartInteractionForm.submit();"></a>
-				<a data-role="button" data-icon="star" data-iconpos="notext" data-inline="true" style="margin-right:1px; margin-left:1px;"
-						onclick="$('#feedback').val('0.8'); document.StartInteractionForm.submit();"></a>
-				<a data-role="button" data-icon="star" data-iconpos="notext" data-inline="true" style="margin-right:1px; margin-left:1px;"
-						onclick="$('#feedback').val('1'); document.StartInteractionForm.submit();"></a>
+			
 
-
-			</div>
-
-			<form id="StartInteractionForm" action="#Detail" method="post" name="StartInteractionForm" id="StartInteractionForm">
-				<input name="detail" value='<?= urlencode(json_encode($detail)) ?>' type="hidden" />
+			<form id="StartInteractionForm" action="detail" name="StartInteractionForm" id="StartInteractionForm">
+				<input type="hidden" name="id" value="<?= $id ?>" />
+				<input type="hidden" name="user" value="<?= $author ?>" />
+				<input type="hidden" name="application" value="<?= Template::APPLICATION_NAME ?>" />
 				<input type="hidden" name="start" value="<?= time() ?>" />
 				<input type="hidden" name="end" value="<?= time() ?>" />
 				<input type="hidden" name="feedback" value="" id="feedback" />
 			</form>
 
 			
-			<b>Libellé du projet</b>: <span style="left-margin: 5px; color: #0060AA; font-size: 120%;"><?= $id ?> </span><br /><br />
-			
-			<b>Description</b>: <br /> <br />
+			<br /> <br />
 			
 			<div id="detailstext">
 				<?= $text ?>
 			</div>
 			<br />
+			<hr>
+			<div data-role="fieldcontain" >
+				<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+					<legend>Voter:</legend>
+					<a data-role="button" data-icon="star" data-iconpos="notext" data-inline="true" style="margin-right:1px; margin-left:1px;"
+						onclick="$('#feedback').val('0.2'); document.StartInteractionForm.submit();"></a>
+					<a data-role="button" data-icon="star" data-iconpos="notext" data-inline="true" style="margin-right:1px; margin-left:1px;"
+							onclick="$('#feedback').val('0.4'); document.StartInteractionForm.submit();"></a>
+					<a data-role="button" data-icon="star" data-iconpos="notext" data-inline="true" style="margin-right:1px; margin-left:1px;"
+							onclick="$('#feedback').val('0.6'); document.StartInteractionForm.submit();"></a>
+					<a data-role="button" data-icon="star" data-iconpos="notext" data-inline="true" style="margin-right:1px; margin-left:1px;"
+							onclick="$('#feedback').val('0.8'); document.StartInteractionForm.submit();"></a>
+					<a data-role="button" data-icon="star" data-iconpos="notext" data-inline="true" style="margin-right:1px; margin-left:1px;"
+							onclick="$('#feedback').val('1'); document.StartInteractionForm.submit();"></a>
+				</fieldset>
+			</div>
+			<div data-role="fieldcontain" >
+				<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+					<legend>Auteur:</legend>
+					<img style="vertical-align: middle; max-height: 40px; opacity: 0.6;" src="http://graph.facebook.com//picture?type=large">
+					&nbsp;<a style="color: #0060AA; font-size: 120%;" href="mailto:cyrila.uburtin@gmail.com" class="ui-link">gfn gf </a> 
+					&nbsp;Réputation: <span style="left-margin: 5px; color: #0060AA; font-size: 120%;">80 </span>
+				</fieldset>
+			</div>
 			
 			<?php 
 
 			if ($author == $_SESSION['user']->id){ //we can delete our own text
 				?>
 			<form action="#" method="post" id="deleteForm">
-				<input name="application" value='<?= $application ?>' type="hidden" /> <input name="predicates" value='<?= urlencode(json_encode($detail)) ?>'
-					type="hidden" /> <input name="id" value='<?= $id ?>' type="hidden" /> <input name="user" value='<?= $_REQUEST['user'] ?>'
-					type="hidden" />
+				<input name="application" value='<?= Template::APPLICATION_NAME ?>' type="hidden" />
+				<input name="predicates" value='<?= urlencode(json_encode($detail)) ?>' type="hidden" />
+				<input name="id" value='<?= $id ?>' type="hidden" />
+				<input name="user" value='<?= $_REQUEST['user'] ?>' type="hidden" />
 			</form>
 			<a id="deleteTmp" href="" type="button" data-inline="true" data-mini="true" data-icon="delete" onclick="$('#deleteYes').fadeIn('slow');$('#deleteNo').fadeIn('slow');"
 				style="width: 150px;">Supprimer?</a>
@@ -273,7 +283,7 @@ if(isset($responseObject->dataObject->reputation)){
 				    	foreach($comments as $i => $value) { ?>
 					<li data-role="list-divider">
 						<form action="detail?<?= $_SERVER['QUERY_STRING'] ?>" method="post" id="deleteCommentForm<?= $i ?>">
-							<input name="application" value='<?= $application ?>' type="hidden" />
+							<input name="application" value='<?= Template::APPLICATION_NAME ?>' type="hidden" />
 							<?php 
 							$predicates = array(
 									array("key"=>"commentOn", "value"=>$_REQUEST['predicate'], "ontologyID"=>0),
@@ -309,7 +319,7 @@ if(isset($responseObject->dataObject->reputation)){
 				<div data-role="fieldcontain">
 					<fieldset data-role="controlgroup">
 						<form action='#' method="post" id="commentForm">
-							<input name="application" value='<?= $application ?>' type="hidden" />
+							<input name="application" value='<?= Template::APPLICATION_NAME ?>' type="hidden" />
 							<input name="commentOn" value='<?= $id ?>' type="hidden" />
 							<input name="end" value='<?= date("Y-m-d") . "T" . date("H:i:s") ?>' type="hidden" />
 							<textarea name="data" id="textarea1" placeholder="" style="height: 22px;"></textarea>

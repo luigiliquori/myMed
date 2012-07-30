@@ -70,12 +70,13 @@ public class MatchMakingTest {
         
         List<MDataBean> pred = ontologies(
                 "A", "a", MOntologyID.TEXT,
-                "B", "b1|b2", MOntologyID.ENUM, // Enum field should be split with '|'
-                "C", "c1|c2", MOntologyID.TEXT // Text field shouldn't be split with '|' 
+                "B", "b", MOntologyID.ENUM, 
+                "C", "c", MOntologyID.TEXT, 
+                "D", "d", MOntologyID.TEXT 
                 );
         
-        List<String> combi = combi(pred, 3);
-        
+        List<String> combi = combi(pred, 4);
+        System.out.println("Expanded combis :"+ combi.size()+" " +combi);
         assertEquals(
                 list(
                         "Aa",

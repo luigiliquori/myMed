@@ -17,7 +17,6 @@ package com.mymed.controller.core.manager.interaction;
 
 import static com.mymed.utils.MiscUtils.encode;
 
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +29,6 @@ import com.mymed.controller.core.manager.reputation.api.recommendation_manager.V
 import com.mymed.controller.core.manager.reputation.recommendation_manager.AverageReputationAlgorithm;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.data.interaction.MInteractionBean;
-import com.mymed.utils.MiscUtils;
 
 /**
  * Manage the reputation of a user

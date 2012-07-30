@@ -16,16 +16,22 @@
 package com.mymed.controller.core.requesthandler.v2;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
+import com.google.gson.reflect.TypeToken;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.model.data.application.IndexBean;
 
 
 public abstract class AbstractRequestHandler extends com.mymed.controller.core.requesthandler.AbstractRequestHandler {
@@ -35,8 +41,39 @@ public abstract class AbstractRequestHandler extends com.mymed.controller.core.r
 	private static final long serialVersionUID = 5219022603572550553L;
 
 	/**
-     * Serial version ID.
-     */
+	 * Type of the index parameter
+	 */
+	protected Type indexType;
+	
+	/**
+	 * Type of the index parameter
+	 */
+	protected Type dataType;
+	
+	protected AbstractRequestHandler() {
+        super();
+
+        // Set a default global URI to be used by the backend, if we cannot get the host name
+        // we fallback to use localhost.
+        if ("".equals(DEFAULT_SERVER_URI)) {
+            try {
+                SERVER_URI = InetAddress.getLocalHost().getCanonicalHostName();
+            } catch (final UnknownHostException ex) {
+                LOGGER.debug("Error retrieving host name of the machine, falling back to 'localhost'", ex);
+                SERVER_URI = "localhost"; // NOPMD
+            }
+        } else {
+            SERVER_URI = DEFAULT_SERVER_URI;
+        }
+
+        // We do not trust what users write on the command line
+        SERVER_PROTOCOL = DEFAULT_SERVER_PROTOCOL.split(":")[0] + "://";
+        
+        // init handlers deserialization Types
+        indexType = new TypeToken<List<IndexBean>>() {}.getType();
+        dataType = new TypeToken<Map<String, String>>() {}.getType();
+    }
+	
 	
 	@Override
     protected Map<String, String> getParameters(final HttpServletRequest request) throws AbstractMymedException {

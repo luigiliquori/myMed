@@ -15,9 +15,9 @@
  */
 package com.mymed.controller.core.manager.profile;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+
+import static com.mymed.utils.MiscUtils.encode;
+
 import java.util.Map;
 
 import com.mymed.controller.core.exception.IOBackEndException;
@@ -109,6 +109,11 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
         LOGGER.info("Updating user with FIELD_ID '{}'", user.getId());
         // create(user) will replace the current values of the user...
         return create(user);
+    }
+    
+    public final void update(final String id, final String key, final String value) throws InternalBackEndException, IOBackEndException {
+        LOGGER.info("Updating user {} with FIELDS '{}'", id, key+"->"+value);
+        storageManager.insertColumn(CF_USER, id, key, encode(value));
     }
 
     /**
