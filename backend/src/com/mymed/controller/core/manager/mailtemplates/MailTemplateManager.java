@@ -1,6 +1,8 @@
 package com.mymed.controller.core.manager.mailtemplates;
 
 
+import static com.mymed.utils.MatchMaking.makePrefix;
+
 import java.io.InputStream;
 import java.util.Map;
 
@@ -8,7 +10,6 @@ import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.AbstractManager;
 import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.controller.core.manager.storage.v2.StorageManager;
-import com.mymed.utils.PubSub;
 
 /** Store mail templates in the backend */
 public class MailTemplateManager extends AbstractManager {
@@ -53,8 +54,8 @@ public class MailTemplateManager extends AbstractManager {
      *  * Template in Cassandra, with <applicationID>, <namespace>, <default-lang>
      *  * Template in WAR resources : mail-templates/<applicationID>#<namespace>-<lang>.flt.xml 
      *  * Template in WAR resources : mail-templates/<applicationID>#<namespace>-<default-lang>.flt.xml 
-     *  * Template in WAR resources : default-<lang>.flt.xml
-     *  * Template in WAR resources : default-<default-lang>.flt.xml 
+     *  * Template in WAR resources : mail-templates/default-<lang>.flt.xml
+     *  * Template in WAR resources : mail-templates/default-<default-lang>.flt.xml 
      */
     public MailTemplate getTemplate(
             String applicationID,
@@ -103,7 +104,7 @@ public class MailTemplateManager extends AbstractManager {
             String language) 
     {
         // Build Prefix = application#namespace
-        String prefix = PubSub.makePrefix(applicationID, namespace, "#");
+        String prefix = makePrefix(applicationID, namespace, "#");
         
         // Build filename
         String resPath = String.format(
@@ -130,7 +131,7 @@ public class MailTemplateManager extends AbstractManager {
             String language)
     {
         // Build key "<appID>[#<ns>]-<lang>"
-        String key = PubSub.makePrefix(applicationID, namespace, "#");
+        String key = makePrefix(applicationID, namespace, "#");
         key += "-" + language; 
         
         LOGGER.info("Searching for mail template in cassandra. key={}", key);

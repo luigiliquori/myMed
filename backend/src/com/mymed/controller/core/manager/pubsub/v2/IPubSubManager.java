@@ -21,81 +21,107 @@ import java.util.Map;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.model.data.application.MDataBean;
 import com.mymed.model.data.user.MUserBean;
 
-public interface IPubSubManager extends com.mymed.controller.core.manager.pubsub.IPubSubManager {
+public interface IPubSubManager {
 
-	
-	/* new in v2 */
-	
 	/**
-	 *  create indexes 
+	 * create indexes
 	 */
-  
-	public void create(
-            String application, 
-            final String predicate, 
-            final String colprefix, 
-            final String subPredicate,
-    		final MUserBean publisher, 
-    		final List<MDataBean> predicateList,
-    		final List<MDataBean> dataList) 
-    		        throws InternalBackEndException, IOBackEndException ;
-	
+
+	void create(
+			String application,
+			String predicate,
+			String id,
+			Map<String, String> metadata)
+					throws InternalBackEndException, IOBackEndException;
+
 	/**
-	 *  
-	 * create Data 
+	 * 
+	 * create Data
 	 */
-	
-	public void create(
-            String application, 
-            final String subPredicate,
-    		final String publisher, 
-    		final List<MDataBean> dataList) 
-    		        throws InternalBackEndException, IOBackEndException ;
-	
+
+	void create(String application, String subPredicate, Map<String, String> dataList)
+			throws InternalBackEndException, IOBackEndException;
+
 	/**
 	 * subscribe v2
 	 * 
 	 */
-	  void create(
-	          String application, 
-	          String predicate, 
-	          String subscriber) 
-	                  throws InternalBackEndException, IOBackEndException;
+	void create(String application, String predicate, String subscriber, String index)
+			throws InternalBackEndException, IOBackEndException;
+
+	
+
+	/**
+	 * reads all Data (return val modified from v1)
+	 */
+	Map<String, String> read(String application, String predicate)
+			throws InternalBackEndException, IOBackEndException;
 	
 	/**
-	 * 
+	 * reads @name field in Data
+	 */
+	String read( String application, String predicate, String name )
+			throws InternalBackEndException, IOBackEndException;
+
+	/**
+	 * reads results
 	 * the extended read used in v2, for range queries
 	 * reads over rows in predicate, and in the column slice [start-finish]
-	 * 
 	 */
-	
-	public Map<String, Map<String, String>> read(
-            final String application, 
-            final List<String> predicate, 
-            final String start, 
-            final String finish,
-            final int count)
-                    throws InternalBackEndException, IOBackEndException, UnsupportedEncodingException ;
+	Map<String, Map<String, String>> read(
+			String application,
+			List<String> predicate,
+			String start,
+			String finish) 
+					throws InternalBackEndException, IOBackEndException, UnsupportedEncodingException;
 	
 	
+	
+	
+	
+	/**
+	 * Get the Subscriptions Entry related to application + user
+	 */
+
+	Map<String, String> read(String user) throws InternalBackEndException,
+			IOBackEndException;
+
 	/**
 	 * delete Data
 	 */
 
-	public void delete(
-	        final String application, 
-	        final String subPredicate)
-			        throws InternalBackEndException, IOBackEndException ;
-	
-	
-	
-	public void sendEmailsToSubscribers(  
-            String application,          
-            String predicate,
-            MUserBean publisher,
-            List<MDataBean> dataList);
-	
+	void delete(String application, String subPredicate)
+			throws InternalBackEndException, IOBackEndException;
+
+	/**
+	 * Delete an existing predicate
+	 * 
+	 * @param application
+	 *            the application responsible for this predicate
+	 * @param predicate
+	 *            The predicate to delete
+	 */
+	void delete(String application, String predicate, String subPredicate, String publisherID)
+			throws InternalBackEndException, IOBackEndException;
+
+	/**
+	 * Delete an existing predicate in Subscribers CF, you seem to like multiple
+	 * functions with same names and different arguments so here's a new one
+	 * 
+	 * @param application
+	 *            the application responsible for this predicate
+	 * @param user
+	 *            the user that has an ongoing subscription
+	 * @param predicate
+	 *            The predicate subscription pattern to delete from the row
+	 */
+	void delete(String application, String user, String predicate)
+			throws InternalBackEndException, IOBackEndException;
+
+	void sendEmailsToSubscribers(String application, String predicate,
+			Map<String, String> details,
+			MUserBean publisher);
+
 }

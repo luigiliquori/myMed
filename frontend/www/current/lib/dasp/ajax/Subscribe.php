@@ -1,17 +1,25 @@
 <?php
 
-require_once '../request/Request.v2.php';
+require_once '../request/Requestv2.php';
 require_once '../../../system/config.php';
 session_start();
+
+
+$data=array();
+
 
 if ($_GET['code'] == CREATE){ 
 	/*
 	 * create subscription for user at this predicate
 	 */
-	$request = new Request("SubscribeRequestHandler", CREATE);
+	
+	
+	
+	$request = new Requestv2("v2/SubscribeRequestHandler", CREATE);
 	$request->addArgument("application", $_GET['application']);
-	$request->addArgument("predicate", urldecode($_GET['predicate']));
-	$request->addArgument("user", json_encode($_SESSION['user']));
+	$request->addArgument("namespace", $_GET['namespace']);
+	$request->addArgument("user", $_SESSION['user']->id);
+	$request->addArgument("index", $_GET['index']);
 	$responsejSon = $request->send();
 	echo $responsejSon;
 
@@ -19,10 +27,11 @@ if ($_GET['code'] == CREATE){
 	/*
 	 * remove it's subscription for that predicate
 	 */
-	$request = new Request("SubscribeRequestHandler", DELETE);
+	$request = new Requestv2("v2/SubscribeRequestHandler", DELETE);
 	$request->addArgument("application", $_GET['application']);
-	$request->addArgument("predicate", urldecode($_GET['predicate']));
-	$request->addArgument("userID", $_SESSION['user']->id );
+	$request->addArgument("namespace", $_GET['namespace']);
+	$request->addArgument("user", $_SESSION['user']->id );
+	$request->addArgument("index", $_GET['index']);
 	$responsejSon = $request->send();
 	echo $responsejSon;
 
@@ -30,9 +39,10 @@ if ($_GET['code'] == CREATE){
 	/*
 	 * answer {"sub": true} if user is subscribed for this predicate
 	 */
-	$request = new Request("SubscribeRequestHandler", READ);
+	$request = new Requestv2("v2/SubscribeRequestHandler", READ);
 	$request->addArgument("application", $_GET['application']);
-	$request->addArgument("userID", $_SESSION['user']->id);
+	$request->addArgument("namespace", $_GET['namespace']);
+	$request->addArgument("user", $_SESSION['user']->id);
 
 	$responsejSon = $request->send();
 	$subscriptions = json_decode($responsejSon);

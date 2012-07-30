@@ -264,7 +264,7 @@ public class GeoLocStorageManager extends StorageManager implements IGeoLocStora
   }
 
   @Override
-  public Map<String, Map<byte[], byte[]>> selectAll(final String tableName, final List<String> primaryKeys, final Boolean reversed)
+  public Map<String, Map<byte[], byte[]>> selectAll(final String tableName, final List<String> primaryKeys)
       throws IOBackEndException, InternalBackEndException {
     // read entire row
     final SlicePredicate predicate = new SlicePredicate();

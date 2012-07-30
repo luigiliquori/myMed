@@ -33,7 +33,8 @@ public enum MOntologyID {
     PICTURE(5),    
     VIDEO(6),
     AUDIO(7),
-    FLOAT(-1);
+    FLOAT(-1),
+    METADATA(8); //Type for data that are present in Index List, but are neither index nor data (unhack "data" key)
     
     private int value;
     
@@ -41,8 +42,16 @@ public enum MOntologyID {
         this.value = value;
     }
 
+    private MOntologyID() {
+    	this(0);
+	}
     
-    public int getValue() {
+    private MOntologyID(String value) {
+    	this(Integer.parseInt(value));
+	}
+
+
+	public int getValue() {
         return value;
     }
     

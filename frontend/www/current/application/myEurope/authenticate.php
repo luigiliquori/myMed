@@ -2,7 +2,7 @@
 
 //ob_start("ob_gzhandler");
 require_once 'Template.php';
-Template::init(false);
+Template::init();
 if (isset($_SESSION['user'])){ // we should not be there
 	header("Location: ./");
 }
@@ -19,7 +19,7 @@ if(isset($_GET['registration'])) { // registration account validation
 	if($responseObject->status != 200) {
 		$msg = "<span style='color: red; '>".$responseObject->description."</span>";
 	} else {
-		$msg = "<span style='color: lightgreen;'>Bienvenu sur myEurope, authentifiez-vous</span>";
+		$msg = "<span style='color: lightgreen;'>Bienvenue sur myEurope, authentifiez-vous</span>";
 	}
 }
 
@@ -40,22 +40,26 @@ if (count($_POST)) {
 		$responseObject = json_decode($responsejSon);
 		if($responseObject->status == 200) {
 			$_SESSION['user'] = $responseObject->dataObject->user;
-			if(!isset($_SESSION['friends'])){
-				$_SESSION['friends'] = array();
-			}
-
-			$extProfile = Template::fetchExtProfile();
+			
+			
+			$_SESSION['profile'] = new stdClass(); //@TODO create profile class
+			$extProfile = Template::fetchMyProfile();
+			
 			if($extProfile->status == 200 ) {
 				foreach ($extProfile->dataObject->details as $v){
-					if ($v->key == "type")
-						$_SESSION['userType'] = $v->value;
-					else if ($v->key == "perm")
-						$_SESSION['userPerm'] = $v->value;
-				};
+					if ($v->key == "role")
+						$_SESSION['profile']->role = $v->value;
+					else if ($v->key == "permission")
+						$_SESSION['profile']->permission = $v->value;
+				}
+				
 				header("Location: ".(isset($_SESSION['redirect'])?$_SESSION['redirect']:"./index"));
 				unset($_SESSION['redirect']);
 			} else {
-				header("Location: ./update?extended");
+				
+				
+				
+				header("Location: ./updateExtended?new");
 			}
 				
 		} else {
@@ -78,27 +82,32 @@ if (count($_POST)) {
 <?= Template::head(); ?>
 </head>
 <div data-role="page" id="Authenticate">
-	<div data-role="header" data-theme="c" style="max-height: 38px;">
-		<div data-role="controlgroup" data-type="horizontal" style="text-align: center;">
-			<a href="register" type="button" data-inline="true" data-transition="flip" style="top:2px;">inscription</a>
+	<div data-role="header" data-theme="c" data-position="fixed">
+		<div data-role="navbar" data-theme="c"  data-iconpos="left">
+			<ul>
+				<li><a href="http://<?= $_SERVER['HTTP_HOST'] ?>" type="button" rel="external" data-icon="delete" data-iconpos="notext">myMed</a></li>
+				<li><a href="about" data-icon="info"  data-transition="slidefade" data-direction="reverse"><?= _('About') ?></a></li>
+				<li><a href="register" data-icon="grid" data-transition="flip">inscription via myMed</a></li>
+			</ul>
 		</div>
 	</div>
 	<div data-role="content" style='text-align: center;'>
 		
 		<?= $msg ?>
-		<h1><?= Template::APPLICATION_NAME ?></h1>
-		<?php echo _('title').'<br />'; ?>
+		<h1 style="text-align:center;">
+			<a href="./" style="text-decoration: none;"><?= Template::APPLICATION_NAME ?></a>
+		</h1>
 		<br />
 		<form action="authenticate" method="post" id="loginForm" data-ajax="false">
 
 			<input name="login" placeholder="email" value="" type="text" /><br />
-			<input name="password" placeholder="Mot de passe" value="" type="password" /><br />
+			<input name="password" placeholder="<?= _("password") ?>" value="" type="password" /><br />
+			
 			<div style="text-align: center;" >
-				<input type="submit" data-theme="b" data-inline="true" value="Connexion"/>
+				<input type="submit"  data-inline="true" data-theme="b" value="Connexion"/><br />
 			</div>
 		</form>
 	</div>
-	<?= Template::credits(); ?>
 </div>
 </body>
 </html>

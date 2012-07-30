@@ -22,7 +22,7 @@ $datas = array();
 $dataBean = new DataBean($predicates, $datas);
 
 // Build the request
-$delete = new DeleteRequest($_SESSION['user']->id, $predicateList)
+$delete = new DeleteRequest($_SESSION['user']->id, $predicateList);
 $publish = new PublishRequest(/* DELETE */3, null, $dataBean);
 $publish->send();
 

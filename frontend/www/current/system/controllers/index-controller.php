@@ -33,6 +33,28 @@ function callController($action, $method=null) {
 session_start();
 
 
+/*if (isset($_SESSION['user'], $_SESSION['user']->lang))
+	$s = $_SESSION['user']->lang;
+else
+	$s = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'],0 ,2);
+switch ($s) {
+	case 'fr':
+		$locale = 'fr_FR.utf8';
+		break;
+	case 'it':
+		$locale = 'it_IT.utf8';
+		break;
+	default:
+		$locale = 'en_US.utf8';
+		break;
+}
+
+$filename = 'dict';
+putenv("LC_ALL=$locale");
+setlocale(LC_ALL, $locale);
+bindtextdomain($filename, MYMED_ROOT.'/lang');
+textdomain($filename);
+bind_textdomain_codeset($filename, 'UTF-8');*/
 
 // Get action, default is "main"
 $action = isset($_REQUEST["action"]) ? $_REQUEST["action"] : "main";

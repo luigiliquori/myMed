@@ -207,7 +207,13 @@ class ExtendedProfile
 					break;
 			}
 		}
-		return new ExtendedProfile($user, $home, $diseaseLevel, $careGiver, $doctor, $callingList);			
+		
+		try{
+			return new ExtendedProfile($user, $home, $diseaseLevel, $careGiver, $doctor, $callingList);
+		}
+		catch(Exception $e){
+			return false;
+		}			
 	}
 	
 	

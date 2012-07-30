@@ -14,6 +14,7 @@
 //ob_start("ob_gzhandler");
 require_once 'Template.php';
 Template::init();
+Template::checksession();
 
 $res = null;
 
@@ -23,38 +24,50 @@ if (count($_GET) > 0){
 	//sort($p); //important
 	//$predicate = join("", array_slice($p, 0, 3)); // we use a broadcast level of 3 for myEurope see in post.php
 
-	// @todo verify date format 
-	
-	$application = Template::APPLICATION_NAME.$_GET['type'];
 
-	$predicateList=array();
+	// @todo verify date format
+	$namespace = $_GET['namespace'];
+	unset($_GET['namespace']);
+	$index=array();
 	$p=array();
 // 	foreach( $p as $v ){ //tags
 // 		$predicateList[$v] = array("valueStart"=>"", "valueEnd"=>"", "ontologyID"=>KEYWORD);
 // 	}
 
+	$metiers = array();
+	$regions = array();
+
 	foreach( $_GET as $i=>$v ){
+		array_push($p, new DataBean($i, KEYWORD, array($v)));
 		if ($v == "on"){
-			$predicateList[$i] = array("valueStart"=>"", "valueEnd"=>"", "ontologyID"=>KEYWORD);
-			array_push($p, $i);
+			if ( strpos($i, "met") === 0){
+				array_push($metiers, $i);
+			} else if  ( strpos($i, "reg") === 0){
+				array_push($regions, $i);
+			}	
 		}
+	}
+	if (count($metiers)){
+		array_push($index, new DataBean("met", ENUM, $metiers));
+	}
+	
+	if (count($regions)){
+		array_push($index, new DataBean("reg", ENUM, $regions));
+	}
+	
+	if (isset($_GET['offre'])){
+		array_push($index, new DataBean("offre", KEYWORD, array($_GET['offre'])));
 	}
 	
 	if ($_GET['dateMin'] != 0 && $_GET['dateMax'] != 0){
-		$predicateList["date"] = array("valueStart"=>strtotime($_GET['dateMin']), "valueEnd"=>strtotime($_GET['dateMax']), "ontologyID"=>DATE);
-	}
-	if ($_GET['rate'] == 1){
-		$predicateList["rate"] = array("valueStart"=>0, "valueEnd"=>999, "ontologyID"=>FLOAT);
+		array_push($index, new DataBean("date", DATE, array(strtotime($_GET['dateMin']), strtotime($_GET['dateMax']))));
 	}
 
 	$request = new Request("v2/FindRequestHandler", READ);
-	$request->addArgument("application", $application);
-	$request->addArgument("predicateList", json_encode($predicateList));
-	$request->addArgument("level", 3);
-	//$request->addArgument("predicate", $predicate);
+	$request->addArgument("application", Template::APPLICATION_NAME);
+	$request->addArgument("namespace", $namespace);
+	$request->addArgument("index", json_encode($index));
 
-	//$request->addArgument("start", isset($_GET['start'])?$_GET['start']:"");
-	//$request->addArgument("count", isset($_GET['count'])?$_GET['count']:10);
 	$responsejSon = $request->send();
 	$res = json_decode($responsejSon);
 }
@@ -69,27 +82,47 @@ if (count($_GET) > 0){
 </head>
 
 <body>
-	<div data-role="page" id="Search">
-		<div data-role="header" data-theme="c" style="max-height: 38px;" id="headerSearch">
-			<a data-icon="back" data-rel="back">Retour</a>
-			<h2>
-				<a href="./" style="text-decoration: none;">myEurope</a>
-			</h2>
-			<select data-theme="b" data-mini="true"
-				onchange="$.get('../../lib/dasp/ajax/Subscribe', { code: $(this).val(), application: '<?= $application ?>' ,predicate: '<?= urlencode(join("", $p)) ?>' } );"
-				 name="slider" id="flip-a" data-role="slider">
+	<div data-role="page" id="Search" data-theme="d">
+		<div data-role="header" data-theme="c" data-position="fixed">
+			<div data-role="navbar" data-theme="c"  data-iconpos="left">
+				<ul>
+					<li><a data-rel="back" data-icon="back">Retour</a></li>	
+					<li><a href="home"  data-icon="home"><?= _('Home') ?></a></li>				
+				</ul>
+			</div>
+		</div>
+
+		<div data-role="content">
+			
+			<div  style="display:inline-block;width:49%;">
+			<label for="flip-a2">Trier par:</label>
+			<select data-theme="b" data-mini="true" name="slider2" id="flip-a2" data-role="slider"
+				onchange="">
+				<option value="3">réputation</option>
+				<option value="0">nom</option>
+			</select>
+			</div>
+		<div style="display:inline-block;width:49%;">
+			<label for="flip-a">Si un nouveau contenu correspond à cette recherche:</label>
+			<select data-theme="e" data-mini="true" name="slider" id="flip-a" data-role="slider"
+				onchange="$.get('../../lib/dasp/ajax/Subscribe', { code: $(this).val(), application: '<?= Template::APPLICATION_NAME ?>' ,namespace: '<?= $namespace ?>' ,data: '<?= urlencode(json_encode($p)) ?>' } );">
 				<option value="3">Souscrire</option>
 				<option value="0">Désabonner</option>
 			</select>
+			</div>
 			
-		</div>
-		<div data-role="content">
+			<br /><br /><br />
+
 			<?php 	
 			if($res->status == 200) {
 				?>
 			<ul data-role="listview" data-filter="true" data-filter-placeholder="filtrer parmi les résultats">
 				<?php
 				$res = $res->dataObject->results;
+				
+				if ($_GET['rate'] == 1){
+					//sort res by rate
+				}
 
 				foreach( $res as $i => $value ){
 
@@ -104,7 +137,7 @@ if (count($_GET) > 0){
 					}
 
 					?>
-				<li><a href="detail?id=<?=  urlencode($value->predicate) ?>&user=<?=  urlencode($value->publisherID) ?>&application=<?= urlencode($application) ?>" 
+				<li><a href="detail?id=<?=  urlencode($value->id) ?>&user=<?=  urlencode($value->publisherID) ?>&namespace=<?= urlencode($namespace) ?>" 
 				 style="padding-top: 1px; padding-bottom: 1px;">
 						<h3>
 							projet: <?= $value->predicate ?>
@@ -133,7 +166,7 @@ if (count($_GET) > 0){
 			<?php	
 			} else{
 				?>
-			Aucun résultats
+			Votre recherche n'a abouti à aucun résultat.
 			<?php	
 			}
 			?>
