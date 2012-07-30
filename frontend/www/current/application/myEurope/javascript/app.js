@@ -3,7 +3,7 @@ var isSub = 3;
 
 var application="myEurope", predicate="";
 
-$('label').click(function(e){
+$('#themecheckboxes label').click(function(e){
     e.stopPropagation()
 });
 
@@ -51,19 +51,6 @@ $("#search").live("pagecreate", function() {
 });
 
 $("#Home").live("pagecreate", function() {
-	var switchTo5x=true;
-	$.getScript("http://w.sharethis.com/button/buttons.js", function(){
-		stLight.options({publisher: "5d7eff17-98e8-4621-83ba-6cb27a46dd05"});
-	});
-});
-
-$("#Option").live("pagecreate", function() {
-	var switchTo5x=true;
-	$.getScript("http://w.sharethis.com/button/buttons.js", function(){
-		stLight.options({publisher: "5d7eff17-98e8-4621-83ba-6cb27a46dd05"});
-	});
-});
-$("#About").live("pagecreate", function() {
 	var switchTo5x=true;
 	$.getScript("http://w.sharethis.com/button/buttons.js", function(){
 		stLight.options({publisher: "5d7eff17-98e8-4621-83ba-6cb27a46dd05"});
