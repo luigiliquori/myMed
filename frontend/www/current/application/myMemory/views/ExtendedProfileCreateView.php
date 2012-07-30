@@ -105,6 +105,9 @@
 					<label for="CL_address_1" class="ui-hidden-accessible">Address : </label>
 					<input type="text" name="CL_address_1" name="CL_address_1" value="" placeholder="Address"/>
 					
+					<label for="CL_email_1" class="ui-hidden-accessible">E-Mail : </label>
+					<input type="text" name="CL_email_1" name="CL_email_1" value="" placeholder="e-mail"/>
+					
 					<label for="CL_phone_1" class="ui-hidden-accessible">Phone number : </label>
 					<input type="text" name="CL_phone_1" name="CL_phone_1" value="" placeholder="Phone number"/>
 				</div>
@@ -118,6 +121,9 @@
 					
 					<label for="CL_address_2" class="ui-hidden-accessible">Address : </label>
 					<input type="text" name="CL_address_2" name="CL_address_2" value="" placeholder="Address"/>
+					
+					<label for="CL_email_2" class="ui-hidden-accessible">E-Mail : </label>
+					<input type="text" name="CL_email_2" name="CL_email_2" value="" placeholder="e-mail"/>
 					
 					<label for="CL_phone_2" class="ui-hidden-accessible">Phone number : </label>
 					<input type="text" name="CL_phone_2" name="CL_phone_2" value="" placeholder="Phone number"/>

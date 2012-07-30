@@ -95,10 +95,12 @@
 					// case where there is 2 persons
 					$p2_name	= $_SESSION['ExtendedProfile']->callingList['2']['name'];
 					$p2_address = $_SESSION['ExtendedProfile']->callingList['2']['address'];
+					$p2_email	= $_SESSION['ExtendedProfile']->callingList['2']['email'];
 					$p2_phone	= $_SESSION['ExtendedProfile']->callingList['2']['phone'];
 				}
 				$p1_name	= $_SESSION['ExtendedProfile']->callingList['1']['name'];
 				$p1_address = $_SESSION['ExtendedProfile']->callingList['1']['address'];
+				$p1_email	= $_SESSION['ExtendedProfile']->callingList['1']['email'];
 				$p1_phone	= $_SESSION['ExtendedProfile']->callingList['1']['phone'];
 				
 			}
@@ -114,6 +116,9 @@
 					<label for="CL_address_1" class="ui-hidden-accessible">Address : </label>
 					<input type="text" name="CL_address_1" name="CL_address_1" value="<?php if(isset($p1_address)) echo $p1_address;?>" placeholder="Address"/>
 					
+					<label for="CL_email_1" class="ui-hidden-accessible">E-Mail : </label>
+					<input type="text" name="CL_email_1" name="CL_email_1" value="<?php if(isset($p1_email)) echo $p1_email;?>" placeholder="e-mail"/>
+					
 					<label for="CL_phone_1" class="ui-hidden-accessible">Phone number : </label>
 					<input type="text" name="CL_phone_1" name="CL_phone_1" value="<?php if(isset($p1_phone)) echo $p1_phone;?>" placeholder="Phone number"/>
 				</div>
@@ -127,6 +132,9 @@
 					
 					<label for="CL_address_2" class="ui-hidden-accessible">Address : </label>
 					<input type="text" name="CL_address_2" name="CL_address_2" value="<?php if(isset($p2_address)) echo $p2_address;?>" placeholder="Address"/>
+					
+					<label for="CL_email_2" class="ui-hidden-accessible">E-Mail : </label>
+					<input type="text" name="CL_email_2" name="CL_email_2" value="<?php if(isset($p2_email)) echo $p2_email;?>" placeholder="e-mail"/>
 					
 					<label for="CL_phone_2" class="ui-hidden-accessible">Phone number : </label>
 					<input type="text" name="CL_phone_2" name="CL_phone_2" value="<?php if(isset($p2_phone)) echo $p2_phone;?>" placeholder="Phone number"/>

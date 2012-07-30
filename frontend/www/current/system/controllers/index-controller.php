@@ -33,7 +33,6 @@ function callController($action, $method=null) {
 session_start();
 
 
-
 /*if (isset($_SESSION['user'], $_SESSION['user']->lang))
 	$s = $_SESSION['user']->lang;
 else

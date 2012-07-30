@@ -17,7 +17,6 @@ class NeedHelpController extends AuthenticatedController {
 		 * 
 		 */
 		
-		
 		// For test only : notification by e-mail
 /*		
 		$mail = new EmailNotification("m3phistos@gmail.com", 

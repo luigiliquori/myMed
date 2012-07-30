@@ -15,6 +15,7 @@
  */
 package com.mymed.controller.core.manager.profile;
 
+
 import static com.mymed.utils.MiscUtils.encode;
 
 import java.util.Map;
