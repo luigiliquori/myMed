@@ -5,7 +5,7 @@
 	<div data-role="header" data-theme="c" data-position="fixed">
 		<div data-role="navbar" data-theme="d" data-iconpos="left"> 
   			<ul>
-  				<li><a href="?action=logout" rel="external" data-icon="back"><?= _('Quitter') ?></a></li>
+  				<li><a href="?action=logout" rel="external" data-icon="back"><?= _('<?= _("Exit") ?>') ?></a></li>
   				<li><a href="./" rel="external" data-icon="<?= APPLICATION_NAME ?>"><?= APPLICATION_NAME ?></a></li>
   				<li><a href="?action=extendedProfile" rel="external" data-icon="profile"><?= $_SESSION['user']->name ?></a></li>
   			</ul>

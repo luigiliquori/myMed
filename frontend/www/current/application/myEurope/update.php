@@ -95,7 +95,7 @@ if (isset($_POST['oldPassword'])) { //profile update
 		<div data-role="header" data-theme="c" data-position="fixed">
 			<div data-role="navbar" data-theme="c"  data-iconpos="left">
 				<ul>
-					<li><a data-rel="back" data-transition="flip" data-direction="reverse" data-icon="back">Retour</a></li>
+					<li><a data-rel="back" data-transition="flip" data-direction="reverse" data-icon="back"><?= _("Back") ?></a></li>
 					<li><a data-icon="check" data-theme="b" data-mini="true" onclick="$('#updateForm').submit();">Enregistrer</a></li>
 				</ul>
 			</div>

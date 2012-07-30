@@ -14,7 +14,7 @@ function tabs($tabs, $activeTab) {
 	?> 	
 	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
 	<ul>
-		<li><a href="?action=logout" rel="external" data-icon="back">Quitter</a></li>
+		<li><a href="?action=logout" rel="external" data-icon="back"><?= _("Exit") ?></a></li>
 		<? foreach ($tabs as $id => $label) { ?>
 		<li>
 			<a 
@@ -42,7 +42,7 @@ function tabs($tabs, $activeTab) {
  	?>
   	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
   	<ul>
-  		<li><a href="../../" rel="external" data-icon="back">Quitter</a></li>
+  		<li><a href="../../" rel="external" data-icon="back"><?= _("Exit") ?></a></li>
   		<? foreach ($tabs as $id => $v) { ?>
   		<li>
   			<a 
@@ -103,7 +103,7 @@ function tabs($tabs, $activeTab) {
   	?>
    	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
    	<ul>
-   		<li><a data-rel="back" data-ajax="false" data-icon="back">Retour</a></li>
+   		<li><a data-rel="back" data-ajax="false" data-icon="back"><?= _("Back") ?></a></li>
    		<li><a class="ui-disabled"><?= _($title) ?></a></li>
    		<li><a href="<?= $url ?>" rel="external" data-icon="<?= $icon ?>"><?= _($button) ?></a></li>
    	</ul>
@@ -119,7 +119,7 @@ function tabs($tabs, $activeTab) {
    	?>
    		<div data-role="navbar" data-theme="d" data-iconpos="left"> 
         	<ul>
-            	<li><a data-rel="back" data-ajax="false" data-icon="back">Retour</a></li>
+            	<li><a data-rel="back" data-ajax="false" data-icon="back"><?= _("Back") ?></a></li>
             	<li><a href="<?= $url ?>" rel="external" data-icon="<?= $icon ?>"><?= _($button) ?></a></li>
             	<li><a class="ui-disabled"><?= _($title) ?></a></li>
             </ul>
@@ -133,7 +133,7 @@ function tabs($tabs, $activeTab) {
    	?>
       	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
       	<ul>
-      		<li><a data-rel="back" data-ajax="false" data-icon="back">Retour</a></li>
+      		<li><a data-rel="back" data-ajax="false" data-icon="back"><?= _("Back") ?></a></li>
       		<li><a href="<?= $url ?>" rel="external" data-icon="<?= $icon ?>"><?= _($title) ?></a></li>
       	</ul>
       	</div> <?
@@ -146,7 +146,7 @@ function tabs($tabs, $activeTab) {
       	?>
             	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
             	<ul>
-            		<li><a href="./" data-icon="back">Retour</a></li>
+            		<li><a href="./" data-icon="back"><?= _("Back") ?></a></li>
             		<li><a onclick="<?= $url ?>" rel="external" data-icon="<?= $icon ?>"><?= _($title) ?></a></li>
             	</ul>
             	</div> <?
@@ -156,7 +156,7 @@ function tabs($tabs, $activeTab) {
       	?>
             	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
             	<ul>
-            		<li><a data-rel="back" data-ajax="false" data-icon="back">Retour</a></li>
+            		<li><a data-rel="back" data-ajax="false" data-icon="back"><?= _("Back") ?></a></li>
             		<li><a class="ui-disabled"><?= _($title) ?></a></li>
             	</ul>
             	</div> <?

@@ -8,13 +8,13 @@ session_start();
 $data=array();
 
 
-if ($_GET['code'] == CREATE){ 
+if ($_GET['code'] == CREATE){
 	/*
 	 * create subscription for user at this predicate
-	 */
-	
-	
-	
+	*/
+
+
+
 	$request = new Requestv2("v2/SubscribeRequestHandler", CREATE);
 	$request->addArgument("application", $_GET['application']);
 	$request->addArgument("namespace", $_GET['namespace']);
@@ -26,7 +26,7 @@ if ($_GET['code'] == CREATE){
 } else if ($_GET['code'] == DELETE ){
 	/*
 	 * remove it's subscription for that predicate
-	 */
+	*/
 	$request = new Requestv2("v2/SubscribeRequestHandler", DELETE);
 	$request->addArgument("application", $_GET['application']);
 	$request->addArgument("namespace", $_GET['namespace']);
@@ -38,7 +38,7 @@ if ($_GET['code'] == CREATE){
 } else {
 	/*
 	 * answer {"sub": true} if user is subscribed for this predicate
-	 */
+	*/
 	$request = new Requestv2("v2/SubscribeRequestHandler", READ);
 	$request->addArgument("application", $_GET['application']);
 	$request->addArgument("namespace", $_GET['namespace']);

@@ -90,11 +90,11 @@ function tab_bar_white($activeTab) {
 	<div data-role="content">
 		<br />
 		<div style="text-align:center;">
-			<span>Page réservée aux utilisateurs Admin</span><br />
+			<span><?= _('Restricted page for admins') ?>Page réservée aux utilisateurs Admin</span><br />
 			<? if ($_SESSION['myEuropeProfile']->permission<=1) {?>
-				<a href="#home" type="button" data-inline="true" data-theme="r" data-icon="back">Retour</a>
+				<a href="#home" type="button" data-inline="true" data-theme="r" data-icon="back"><?= _('Back') ?><?= _("Back") ?></a>
 			<? } else { ?>
-				<a href="./?action=Admin" data-ajax="false" type="button" data-inline="true" data-theme="g">Accéder</a>
+				<a href="./?action=Admin" data-ajax="false" type="button" data-inline="true" data-theme="g"><?= _('Access') ?>Accéder</a>
 			<? } ?>
 		</div>
 	</div>
@@ -308,7 +308,7 @@ function tab_bar_white($activeTab) {
 	<div data-role="header" data-theme="c" data-position="fixed">
 		<div data-role="navbar" data-theme="d" data-iconpos="left"> 
 	      	<ul>
-	      		<li><a href="./" data-icon="back">Retour</a></li>
+	      		<li><a href="./" data-icon="back"><?= _("Back") ?></a></li>
 	      		<li><a href="?action=extendedProfile" rel="external" data-icon="profile"><?= $_SESSION['user']->name ?></a></li>
 	      	</ul>
       	</div>
@@ -344,7 +344,7 @@ function tab_bar_white($activeTab) {
 	<div data-role="header" data-theme="c" data-position="fixed">
 		<div data-role="navbar" data-theme="d" data-iconpos="left"> 
 	      	<ul>
-	      		<li><a href="./" data-icon="back">Retour</a></li>
+	      		<li><a href="./" data-icon="back"><?= _("Back") ?></a></li>
 	      		<li><a href="?action=extendedProfile" rel="external" data-icon="profile"><?= $_SESSION['user']->name ?></a></li>
 	      	</ul>
       	</div>

@@ -15,10 +15,9 @@
  */
 package com.mymed.controller.core.manager.pubsub.v2;
 
-import static com.mymed.utils.MiscUtils.decode;
-import static com.mymed.utils.MiscUtils.encode;
 import static com.mymed.utils.MatchMaking.extractApplication;
 import static com.mymed.utils.MatchMaking.extractNamespace;
+import static com.mymed.utils.MiscUtils.encode;
 import static java.util.Arrays.asList;
 
 import java.io.UnsupportedEncodingException;
@@ -177,7 +176,6 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 
 		LOGGER.info("read {} {}", application, predicate +" name:" +name);
 		final Map<String, String> map = read(application, predicate);
-		LOGGER.info("found {}", map);
 		return map.get(name);
 	}
 	

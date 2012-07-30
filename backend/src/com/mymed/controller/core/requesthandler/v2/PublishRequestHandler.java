@@ -130,7 +130,6 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 					indexList = gson.fromJson(index,
 							new TypeToken<List<IndexBean>>() {}.getType());
 					LOGGER.info(" get _index : {} ", indexList);
-					Collections.sort(indexList);
 				} catch (final JsonSyntaxException e) {
 					LOGGER.debug("Error in Json format", e);
 					throw new InternalBackEndException(

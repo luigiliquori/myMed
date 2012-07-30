@@ -29,17 +29,17 @@ include("header.php"); ?>
 		<!-- Login form -->
 		<form  data-role="content" action="index.php?action=login" method="post" data-ajax="false" >
 	
-			<input type="text" name="login" placeholder="Login" />
-			<input type="password" name="password" placeholder="Password" />
+			<input type="text" name="login" placeholder="<?= _("Email") ?>" />
+			<input type="password" name="password" placeholder="<?= _("Password") ?>" />
 			<div style="text-align: center;" >
-				<input type="submit" value="<?= _("Connection") ?>" data-inline="true" data-theme="b" />
+				<input type="submit" value="<?= _("Log In") ?>" data-inline="true" data-theme="b" />
 			</div>
 			<div style="text-align: center;" >
 				<br />
 				<select data-theme="c" data-mini="true" name="slider" id="flip-d" data-role="slider"
 					onchange="if ($(this).val()==1){$('#AboutContent').fadeOut('slow');} else {$('#AboutContent').fadeIn('slow')};">
-					<option value="1"><?= _("A propos") ?></option>
-					<option value="0"><?= _("A propos") ?></option>
+					<option value="1"><?= _("About") ?></option>
+					<option value="0"><?= _("About") ?></option>
 				</select>
 				<div id="AboutContent" style="display:none;">
 					<?= _(about()) ?>

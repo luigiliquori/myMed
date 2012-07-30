@@ -76,7 +76,7 @@ if (isset($_POST['role'])) {
 		<div data-role="header" data-theme="c" data-position="fixed">
 			<div data-role="navbar" data-theme="c" data-mini="true"  data-iconpos="left">
 				<ul>
-					<li><a href="option" data-icon="back">Retour</a></li>
+					<li><a href="option" data-icon="back"><?= _("Back") ?></a></li>
 					<li><a data-icon="check" data-theme="b" onclick="$('#updateExtendedForm<?= ++$i ?>').submit();">Enregistrer</a></li>
 				</ul>
 			</div>
@@ -154,7 +154,7 @@ if (isset($_POST['role'])) {
 		<div data-role="header" data-theme="c" data-position="fixed">
 			<div data-role="navbar" data-theme="c" data-mini="true"  data-iconpos="left">
 				<ul>
-					<li><a href="option" data-icon="back">Retour</a></li>
+					<li><a href="option" data-icon="back"><?= _("Back") ?></a></li>
 					<li><a data-icon="check" data-theme="b" onclick="$('#updateExtendedForm<?= ++$i ?>').submit();">Enregistrer</a></li>
 				</ul>
 			</div>
@@ -232,7 +232,7 @@ if (isset($_POST['role'])) {
 		<div data-role="header" data-theme="c" data-position="fixed">
 			<div data-role="navbar" data-theme="c" data-mini="true"  data-iconpos="left">
 				<ul>
-					<li><a href="option" data-icon="back">Retour</a></li>
+					<li><a href="option" data-icon="back"><?= _("Back") ?></a></li>
 					<li><a data-icon="check" data-theme="b" onclick="$('#updateExtendedForm<?= ++$i ?>').submit();">Enregistrer</a></li>
 				</ul>
 			</div>
@@ -303,7 +303,7 @@ if (isset($_POST['role'])) {
 		<div data-role="header" data-theme="c" data-position="fixed">
 			<div data-role="navbar" data-theme="c" data-mini="true"  data-iconpos="left">
 				<ul>
-					<li><a href="option" data-icon="back">Retour</a></li>
+					<li><a href="option" data-icon="back"><?= _("Back") ?></a></li>
 					<li><a data-icon="check" data-theme="b" onclick="$('#updateExtendedForm<?= ++$i ?>').submit();">Enregistrer</a></li>
 				</ul>
 			</div>
@@ -370,7 +370,7 @@ if (isset($_POST['role'])) {
 		<div data-role="header" data-theme="c" data-position="fixed">
 			<div data-role="navbar" data-theme="c" data-mini="true"  data-iconpos="left">
 				<ul>
-					<li><a href="option" data-icon="back">Retour</a></li>
+					<li><a href="option" data-icon="back"><?= _("Back") ?></a></li>
 					<li><a data-icon="check" data-theme="b" onclick="$('#updateExtendedForm<?= ++$i ?>').submit();">Enregistrer</a></li>
 				</ul>
 			</div>
@@ -443,7 +443,7 @@ if (isset($_POST['role'])) {
 		<div data-role="header" data-theme="c" data-position="fixed">
 			<div data-role="navbar" data-theme="c" data-mini="true"  data-iconpos="left">
 				<ul>
-					<li><a href="option" data-icon="back">Retour</a></li>
+					<li><a href="option" data-icon="back"><?= _("Back") ?></a></li>
 					<li><a data-icon="check" data-theme="b" onclick="$('#updateExtendedForm<?= ++$i ?>').submit();">Enregistrer</a></li>
 				</ul>
 			</div>

@@ -42,6 +42,7 @@ session_start();
  *  use poEdit to fill the *.po
  *  at the end open with poEdit the global messages.po and catalog>update from pot file and select your .po
  */
+
 if (isset($_SESSION['user'], $_SESSION['user']->lang))
 	$s = $_SESSION['user']->lang;
 else
@@ -59,6 +60,7 @@ switch ($s) {
 }
 
 $filename = 'messages';
+
 putenv("LC_ALL=$locale");
 setlocale(LC_ALL, $locale);
 bindtextdomain($filename, MYMED_ROOT.'/lang');

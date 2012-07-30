@@ -21,7 +21,7 @@ Template::checksession();
 		<div data-role="header" data-theme="c" data-position="fixed">
 			<div data-role="navbar" data-theme="c"  data-iconpos="left">
 				<ul>
-					<li><a data-rel="back" data-icon="back">Retour</a></li>
+					<li><a data-rel="back" data-icon="back"><?= _("Back") ?></a></li>
 					<li><a data-icon="search" data-theme="b" onclick="$('#searchForm').submit();">Chercher</a></li>
 				</ul>
 			</div>
