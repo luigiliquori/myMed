@@ -42,7 +42,7 @@ function tabs($tabs, $activeTab) {
  	?>
   	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
   	<ul>
-  		<li><a href="?action=logout" rel="external" data-icon="back">Quitter</a></li>
+  		<li><a href="../../" rel="external" data-icon="back">Quitter</a></li>
   		<? foreach ($tabs as $id => $v) { ?>
   		<li>
   			<a 

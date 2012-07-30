@@ -35,11 +35,11 @@ function tab_bar_white($activeTab) {
 		<h3 class="ui-link">Informations:</h3>
 		
 			<a href="#infos" style="width:30%;min-width:180px;" class="wrap"
-			type="button" data-inline="true" data-theme="d">S'informer <span style="font-weight: lighter;">sur les programmes 2014-2020</span></a>
+			type="button" data-inline="true" data-theme="d">S'informer<span style="font-weight: lighter;"> sur les programmes 2014-2020</span></a>
 			<a href="#blogAlcotra"  style="width:30%;min-width:180px;" class="wrap"
-			type="button"  data-theme="d" data-inline="true">Blog Alcotra<span style="font-weight: lighter;">: futur programme 2014-2020</span></a>
+			type="button"  data-theme="d" data-inline="true">Alcotra Blog<span style="font-weight: lighter;"> 2014-2020</span></a>
 			<a href="#blogTest"  style="width:30%;min-width:180px;" class="wrap"
-			type="button"  data-theme="d" data-inline="true">Blog béta testeurs</a>
+			type="button"  data-theme="d" data-inline="true">Beta testers Blog</a>
 		
 		<br /><br />
 		<select data-theme="c" data-mini="true" name="slider" id="flip-d" data-role="slider"
@@ -74,11 +74,11 @@ function tab_bar_white($activeTab) {
 		<span> Langue: </span>&nbsp;&nbsp;
 		<fieldset data-role="controlgroup" data-mini="true" data-type="horizontal" style="display:inline-block;vertical-align: middle;">
 			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-a" value="fr" <?= $_SESSION["user"]->lang == "fr"?"checked='checked'":"" ?>/>
-			<label for="radio-view-a"><?= _('Français') ?></label>
+			<label for="radio-view-a"><?= _('French') ?></label>
 			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-b" value="it" <?= $_SESSION["user"]->lang == "it"?"checked='checked'":"" ?>/>
-			<label for="radio-view-b"><?= _('Italien') ?></label>
+			<label for="radio-view-b"><?= _('Italian') ?></label>
 			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-e" value="en" <?= $_SESSION["user"]->lang == "en"?"checked='checked'":"" ?>/>
-			<label for="radio-view-e"><?= _('Anglais') ?></label>
+			<label for="radio-view-e"><?= _('English') ?></label>
 		</fieldset>
 	</div>
 </div>
