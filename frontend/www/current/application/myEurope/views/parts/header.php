@@ -10,9 +10,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
 	
 	<!-- JQUERY  -->
-	<link rel="stylesheet" href="../../lib/jquery/jquery.mobile-1.1.0.min.css" />
-	<script src="../../lib/jquery/jquery-1.6.4.min.js"></script>
-	<script src="../../lib/jquery/jquery.mobile-1.1.0.min.js"></script>
+	<link rel="stylesheet" href="../../lib/jquery/jquery.mobile-test.css" />
+	<script src="../../lib/jquery/jquery-1.7.1.min.js"></script>
+	<script src="../../lib/jquery/jquery.mobile-test.js"></script>
 	
 	<!-- add This or Share This -->
 	<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
@@ -24,7 +24,7 @@
 	<script src="javascript/app.js"></script>
 	
 	<!-- MYMED css -->
-	<link href="../myMed/css/style.css" rel="stylesheet" />
+	<link href="../../system/css/common.css" rel="stylesheet" />
 	<!-- APP css -->
 	<link href="css/app.css" rel="stylesheet" />
 	
