@@ -260,6 +260,8 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 		        MUserBean publisher = null;
 		        if (dataMap.containsKey("user")){
 		        	publisher = profileManager.read(dataMap.get("user"));
+		        } else if (mdataMap.containsKey("user")){
+		        	publisher = profileManager.read(mdataMap.get("user"));
 		        }
 				
 				for (IndexRow i : combi) {

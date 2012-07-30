@@ -29,18 +29,19 @@ function tab_bar_white($activeTab) {
 		<h3 class="ui-link">Partenariats:</h3>
 		<div data-role="controlgroup"  data-type="horizontal">
 			<a href="#search" type="button" data-theme="e" style="width:50%;"><br />Rechercher une offre<br />&nbsp;</a>
-			<a href="#post" style="width:49%;" type="button" data-theme="e" rel="external"><br />Déposer une offre<br />&nbsp;</a>
+			<a href="#post" type="button" data-theme="e" style="width:49%;" rel="external"><br />Déposer une offre<br />&nbsp;</a>
 		</div>
 		
 		<h3 class="ui-link">Informations:</h3>
-		<div data-role="controlgroup"  data-type="horizontal">
-			<a href="#infos" style="width:33%;" type="button"  data-theme="d"><br />S'informer <span style="font-weight: lighter;">sur les programmes 2014-2020</span><br />&nbsp;</a>
-			<a href="#blogAlcotra"  style="width:33%;"
-			type="button"  data-theme="d"><br />Blog Alcotra<span style="font-weight: lighter;">: futur programme 2014-2020</span><br />&nbsp;</a>
-			<a href="#blogTest"  style="width:33%;"
-			type="button"  data-theme="d"><br />Blog béta testeurs<br />&nbsp;</a>
-		</div>
-		<br />
+		
+			<a href="#infos" style="width:30%;min-width:180px;" class="wrap"
+			type="button" data-inline="true" data-theme="d">S'informer <span style="font-weight: lighter;">sur les programmes 2014-2020</span></a>
+			<a href="#blogAlcotra"  style="width:30%;min-width:180px;" class="wrap"
+			type="button"  data-theme="d" data-inline="true">Blog Alcotra<span style="font-weight: lighter;">: futur programme 2014-2020</span></a>
+			<a href="#blogTest"  style="width:30%;min-width:180px;" class="wrap"
+			type="button"  data-theme="d" data-inline="true">Blog béta testeurs</a>
+		
+		<br /><br />
 		<select data-theme="c" data-mini="true" name="slider" id="flip-d" data-role="slider"
 			onchange="if ($(this).val()==1){$('#AboutContent').fadeOut('slow');} else {$('#AboutContent').fadeIn('slow')};">
 			<option value="1"><?= _("A propos") ?></option>
@@ -125,20 +126,23 @@ function tab_bar_white($activeTab) {
 	<div data-role="content">
 
 
-		<b>Selectionnez parmi les offres de partenaires vus:</b><br/>
-
-		<input type="checkbox" name="pr1" id="checkbox-5a" />
-		<label for="checkbox-5a">Offre1 <a href="">100%</a><a style="float:right;" href="./?action=details&id=21">Lien vers l'offre</a></label>
-		
-		<input type="checkbox" name="pr2" id="checkbox-6a" />
-		<label for="checkbox-6a">Offre4 <a href="">90%</a><a style="float:right;" href="./?action=details&id=21">Lien vers l'offre</a></label>
-		
-		<input type="checkbox" name="pr3" id="checkbox-7a"/>
-		<label for="checkbox-7a">Offre3 <a href="">80%</a><a style="float:right;" href="./?action=details&id=21">Lien vers l'offre</a><span></label>
-
-		<input type="checkbox" name="pr4" id="checkbox-8a" />
-		<label for="checkbox-8a">Offre2 <a href="">75%</a><a style="float:right;" href="./?action=details&id=21">Lien vers l'offre</a></label>
+		<fieldset data-role="controlgroup" id="themecheckboxes">
+			<legend><b>Selectionnez parmi les offres de partenaires vus:</b></legend>
 	
+
+			<input type="checkbox" name="pr1" id="checkbox-5a" />
+			<label for="checkbox-5a">Offre1 <a href="">100%</a><a style="float:right;" href="./?action=details&id=21">Lien vers l'offre</a></label>
+			
+			<input type="checkbox" name="pr2" id="checkbox-6a" />
+			<label for="checkbox-6a">Offre4 <a href="">90%</a><a style="float:right;" href="./?action=details&id=21">Lien vers l'offre</a></label>
+			
+			<input type="checkbox" name="pr3" id="checkbox-7a"/>
+			<label for="checkbox-7a">Offre3 <a href="">80%</a><a style="float:right;" href="./?action=details&id=21">Lien vers l'offre</a><span></label>
+	
+			<input type="checkbox" name="pr4" id="checkbox-8a" />
+			<label for="checkbox-8a">Offre2 <a href="">75%</a><a style="float:right;" href="./?action=details&id=21">Lien vers l'offre</a></label>
+		</fieldset>
+		
 	    <a type="button" data-mini="true" data-inline="true" id="clearRepButton">Effacer</a><br /><br />
         <b>Notez-les:</b>&nbsp;&nbsp;
         
