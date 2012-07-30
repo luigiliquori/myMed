@@ -9,10 +9,28 @@
 	});
 
 	<?php
-	if (!$_SESSION['isMobile'])
-		echo 'setTimeout(function() {needHelp();},2000);';
+	if ($_SESSION['isMobile']){
+		
+		$str_numbers = '';
+		// Récupération des numéros a appeler
+		$k = count($_SESSION['ExtendedProfile']->callingList);
+		for($i=0; $i < $k; $i++) {
+			$str_numbers .= $_SESSION['ExtendedProfile']->callingList[$i]['phone'];
+			if ($i != $k-1) $str_numbers .= '::';
+		}	
+		
+		
+		
+		echo 'setTimeout(function() {location.href="/application/'.APPLICATION_NAME.'/index.php?action=callEnded&mobile_binary::call::'.$str_numbers.'";},5000);';
+	}	
 	else
-		echo 'setTimeout(function() {location.href="#/mobile_binary::call";},1000);';
+		echo 'setTimeout(function() {sendEmailsAlerts();},2000);';
+	
+	
+	
+	
+	
+	
 	?>
 
 </script>
@@ -38,7 +56,7 @@
 				$i = 1;
 				foreach($_SESSION['ExtendedProfile']->callingList as $entry) {
 					echo '<li id="line'.$i.'">';
-					echo '<a href="mobile_binary::call">';
+					echo '<a id="call'.$i.'"href="index.php?action=callEnded&mobile_binary::call" >';
 					echo '<h3>'.$i.' - '.$entry["name"] .'</h3>';
 					echo '<p id="num'.$i.'">'.$entry['phone'].'</p>';
 					echo '</a>';

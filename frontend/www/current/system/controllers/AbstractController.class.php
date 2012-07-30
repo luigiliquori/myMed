@@ -27,6 +27,7 @@ abstract class AbstractController implements IRequestHandler {
 			header('Location: ./?action=' . $action . $get_line . $hash);
 		}
 		else{
+
 			//printf('<script>location.href="/application/'.APPLICATION_NAME.'/index.php?action='.$action.'"</script>');
 			//header('Refresh:0;url=/application/'.APPLICATION_NAME.'/index.php?action='.$action);
 			header('Location: ./?action=' . $action . $hash);
