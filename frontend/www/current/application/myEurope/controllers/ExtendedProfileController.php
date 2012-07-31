@@ -60,7 +60,7 @@ class ExtendedProfileController extends AuthenticatedController
 		//$extendedProfile->storeProfile($this);
 		
 		
-		if ($POST['from']=="create"){
+		if ($POST['form']=="create"){
 			$permission = (
 					(strpos($_SESSION['user']->email, "@inria.fr") !== false)
 					|| $_SESSION['user']->email=="bredasarah@gmail.com"
