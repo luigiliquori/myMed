@@ -32,8 +32,10 @@ class ExtendedProfileController extends AuthenticatedController
 		 * Nothing -> show the form to fill the profile
 		 */
 
-		if (isset($_POST["form"]))
+		if (isset($_POST["form"])){
 			$this->storeProfile();
+		}
+			
 		else if (isset($_GET['edit']))
 			$this->editProfile();
 		else if (isset($_GET['id'])){
@@ -60,7 +62,8 @@ class ExtendedProfileController extends AuthenticatedController
 		//$extendedProfile->storeProfile($this);
 		
 		
-		if ($POST['form']=="create"){
+		
+		if ($_POST['form']=="create"){
 			$permission = (
 					(strpos($_SESSION['user']->email, "@inria.fr") !== false)
 					|| $_SESSION['user']->email=="bredasarah@gmail.com"

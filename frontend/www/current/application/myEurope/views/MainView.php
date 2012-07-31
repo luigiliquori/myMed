@@ -74,19 +74,11 @@ function tab_bar_white($activeTab) {
 		<span> Langue: </span>&nbsp;&nbsp;
 		<fieldset data-role="controlgroup" data-mini="true" data-type="horizontal" style="display:inline-block;vertical-align: middle;">
 			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-a" value="fr" <?= $_SESSION["user"]->lang == "fr"?"checked='checked'":"" ?>/>
-<<<<<<< HEAD
-			<label for="radio-view-a"><?= _('Français') ?></label>
-			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-b" value="it" <?= $_SESSION["user"]->lang == "it"?"checked='checked'":"" ?>/>
-			<label for="radio-view-b"><?= _('Italien') ?></label>
-			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-e" value="en" <?= $_SESSION["user"]->lang == "en"?"checked='checked'":"" ?>/>
-			<label for="radio-view-e"><?= _('Anglais') ?></label>
-=======
 			<label for="radio-view-a"><?= _('French') ?></label>
 			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-b" value="it" <?= $_SESSION["user"]->lang == "it"?"checked='checked'":"" ?>/>
 			<label for="radio-view-b"><?= _('Italian') ?></label>
 			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-e" value="en" <?= $_SESSION["user"]->lang == "en"?"checked='checked'":"" ?>/>
 			<label for="radio-view-e"><?= _('English') ?></label>
->>>>>>> 5cd6dfc7fc0aea85791d61cf72e8d10e6362dd41
 		</fieldset>
 	</div>
 </div>

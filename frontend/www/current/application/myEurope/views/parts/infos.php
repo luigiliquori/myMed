@@ -433,3 +433,4 @@
 			dans tous les secteur, &nbsp;conform&eacute;ment aux objectifs de la nouvelle Strat&eacute;gie Europe 2020.</p>
 		<p>Autre grande ligne de cette nouvelle p&eacute;riode de programmation&nbsp;: le d&eacute;veloppement urbain durable.&nbsp;</p>
 	</div>
+</div>
