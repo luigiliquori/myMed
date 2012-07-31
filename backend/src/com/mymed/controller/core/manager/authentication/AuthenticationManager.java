@@ -110,7 +110,7 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
     @Override
     public final MUserBean read(final String login, final String password) throws InternalBackEndException,
                     IOBackEndException {
-
+    	
         final Map<byte[], byte[]> args = storageManager.selectAll(CF_AUTHENTICATION, login);
         final MAuthenticationBean authentication = (MAuthenticationBean) introspection(MAuthenticationBean.class, args);
 
@@ -135,6 +135,7 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
 		final MAuthenticationBean authentication = (MAuthenticationBean) introspection(
 				MAuthenticationBean.class, args);
 		
+
 		return authentication;
 	}
 
