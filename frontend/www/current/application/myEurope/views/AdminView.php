@@ -3,8 +3,8 @@
 <?
 function tab_bar_white($activeTab) {
 	tabs_white_back(array(
-			"users" => array("Utilisateurs", "profile"),
-			"contents" => array("Contenus", "grid")
+			"users" => array("Users", "profile"),
+			"contents" => array("Content", "grid")
 		),
 		$activeTab);
 } 
@@ -19,15 +19,15 @@ function tab_bar_white($activeTab) {
 	<div data-role="content" style="text-align:center;">
 	
 		<p style="text-align:center;">
-			[0-]: Nouvel utilisateur en attente de validation <br />
-			[1]: utilisateur normal <br />
-			[2+]: admin
+			[<span style="color:red;">0</span>-]: <?= _("New user waiting for validation") ?><br />
+			[<span style="color:red;">1</span>]:  <?= _("Normal user") ?> <br />
+			[<span style="color:red;">2</span>+]: <?= _("Admin") ?>
 		</p>
 		
 		
 		<input id="user_permission" name="permission" value="" type="hidden" />
 		<input id="user_id" name="id" value="" type="hidden" />
-		<ul data-role="listview" data-inset="true" data-filter-placeholder="...">
+		<ul data-role="listview" data-inset="true" data-filter-placeholder="<?= _("Filter results") ?>">
 		<? foreach( $this->users as $i => $item ){ ?>
 			<li>
 				<form action="?action=Admin" method="post" id="userUpForm<?= $i ?>" data-ajax="false">
@@ -58,12 +58,12 @@ function tab_bar_white($activeTab) {
 		<? tab_bar_white("contents") ?>
 	</div>
 	<div data-role="content">
-		<ul data-role="listview" data-theme="d" data-filter="true" data-filter-placeholder="filtrer parmi les résultats">
+		<ul data-role="listview" data-theme="d" data-filter="true" data-filter-placeholder="<?= _("Filter results") ?>">
 			<li data-role="list-divider" data-mini="true">Pending</li>
 			<li><a href="?action=detail&namespace=partPending&id=&user=" 
 			 style="padding-top: 1px; padding-bottom: 1px;">
 					<h3>
-						projet21
+						offre21
 					</h3>
 					<p style="font-weight:lighter;"> ......... </p>
 					<p class="ui-li-aside">

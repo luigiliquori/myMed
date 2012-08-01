@@ -7,7 +7,7 @@ function tab_bar_white($activeTab) {
 	tabs_white(array(
 			"share" => array("Partagez", "plus"),
 			"home" => array("myEurope", "myEurope"),
-			"rep" => array("Reputation Area", "star"),
+			"admin" => array("Admin", "gear"),
 			"profile" => array("Profil", "profile"),
 		),
 		$activeTab);
@@ -17,13 +17,6 @@ function tab_bar_white($activeTab) {
 <div data-role="page" id="home">
 	<div data-role="header" data-theme="c" data-position="fixed">
 		<? tab_bar_white("home") ?>
-	</div>
-	<div data-role="footer" data-theme="c" data-position="fixed">
-		<div data-role="navbar" data-theme="c" data-iconpos="left">
-			<ul>
-				<li><a href="#admin" data-icon="gear">Admin</a></li>
-			</ul>
-		</div>
 	</div>
 	<div data-role="content" style="text-align:center;">
 		<h3 class="ui-link">Partenariats:</h3>
@@ -48,7 +41,7 @@ function tab_bar_white($activeTab) {
 			<option value="0"><?= _("A propos") ?></option>
 		</select>
 		<div id="AboutContent" style="display:none;">
-			<?= _(about()) ?>
+			<?= about(); ?>
 		</div>
 	</div>
 </div>
@@ -56,6 +49,7 @@ function tab_bar_white($activeTab) {
 <div data-role="page" id="profile">
 	<div data-role="header" data-theme="c" data-position="fixed">
 		<? tab_bar_white("profile") ?>
+		<? include("notifications.php")?>
 	</div>
 
 	<div data-role="content" >
@@ -64,13 +58,17 @@ function tab_bar_white($activeTab) {
 		activité: <?= $_SESSION['myEuropeProfile']->activity ?><br />
 		Email: <?= $_SESSION['myEuropeProfile']->email ?><br />
 		Adresse: <?= $_SESSION['myEuropeProfile']->address ?><br />
-		<br />
-		<a type="button" data-mini="true" href="?action=ExtendedProfile&edit=false" data-inline="true" data-theme="c" data-icon="gear">Modifer</a>
-	
-		<br />
 		
+		<a type="button" data-mini="true" href="?action=ExtendedProfile&edit=false" data-inline="true" data-theme="c" data-icon="grid">Modifer</a>
 		<br />
+		<br />
+		Réputation: 
+		<? for($i=20; $i<=100; $i+=20) : ?>
+			<a data-theme="<?= ($_SESSION['myEuropeRep']['rep'] >= $i)?'e':'c' ?>" data-role="button" data-iconpos="notext" data-icon="star" data-inline="true" style="margin-right:1px; margin-left:1px;"></a>
+		<? endfor ?>
+		(<?= $_SESSION['myEuropeRep']['plus'] ?>+ <?= $_SESSION['myEuropeRep']['minus'] ?>-)
 		
+		<br /><br />
 		<span> Langue: </span>&nbsp;&nbsp;
 		<fieldset data-role="controlgroup" data-mini="true" data-type="horizontal" style="display:inline-block;vertical-align: middle;">
 			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-a" value="fr" <?= $_SESSION["user"]->lang == "fr"?"checked='checked'":"" ?>/>
@@ -80,6 +78,8 @@ function tab_bar_white($activeTab) {
 			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-e" value="en" <?= $_SESSION["user"]->lang == "en"?"checked='checked'":"" ?>/>
 			<label for="radio-view-e"><?= _('English') ?></label>
 		</fieldset>
+		
+		
 	</div>
 </div>
 
@@ -90,11 +90,11 @@ function tab_bar_white($activeTab) {
 	<div data-role="content">
 		<br />
 		<div style="text-align:center;">
-			<span><?= _('Restricted page for admins') ?>Page réservée aux utilisateurs Admin</span><br />
+			<span><?= _('Restricted page for admins') ?></span><br />
 			<? if ($_SESSION['myEuropeProfile']->permission<=1) {?>
 				<a href="#home" type="button" data-inline="true" data-theme="r" data-icon="back"><?= _('Back') ?><?= _("Back") ?></a>
 			<? } else { ?>
-				<a href="./?action=Admin" data-ajax="false" type="button" data-inline="true" data-theme="g"><?= _('Access') ?>Accéder</a>
+				<a href="./?action=Admin" data-ajax="false" type="button" data-inline="true" data-theme="g"><?= _('Access') ?></a>
 			<? } ?>
 		</div>
 	</div>

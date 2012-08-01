@@ -5,7 +5,7 @@
 	<div data-role="header" data-theme="c" data-position="fixed">
 		<div data-role="navbar" data-theme="d" data-iconpos="left"> 
   			<ul>
-  				<li><a href="?action=logout" rel="external" data-icon="back"><?= _('<?= _("Exit") ?>') ?></a></li>
+  				<li><a href="?action=logout" rel="external" data-icon="back"><?= _("Exit") ?></a></li>
   				<li><a href="?action=extendedProfile" rel="external" data-icon="profile"><?= $_SESSION['user']->name ?></a></li>
   			</ul>
   		</div>

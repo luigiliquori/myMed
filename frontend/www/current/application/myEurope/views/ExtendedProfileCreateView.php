@@ -7,7 +7,7 @@
 	</div>
 	<div data-role="content" style="text-align:center;">
 		<br /><br />
-		Langue:<br />
+		Choisissez votre langue:<br />
 		<fieldset data-role="controlgroup" data-type="horizontal" style="display:inline-block;vertical-align: middle;">
 			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-a" value="fr" <?= $_SESSION["user"]->lang == "fr"?"checked='checked'":"" ?>/>
 			<label for="radio-view-a">Français</label>

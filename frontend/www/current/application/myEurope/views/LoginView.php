@@ -42,7 +42,7 @@ include("header.php"); ?>
 					<option value="0"><?= _("About") ?></option>
 				</select>
 				<div id="AboutContent" style="display:none;">
-					<?= _(about()) ?>
+					<?= about(); ?>
 				</div>
 			</div>
 			
@@ -65,23 +65,23 @@ include("header.php"); ?>
 		<!--  Register form -->
 		<form data-role="content" action="index.php?action=register" method="post" data-ajax="false" class="compact">
 		
-			<label for="prenom"><?= _("Prénom") ?></label>
+			<label for="prenom"><?= _("first name") ?></label>
 			<input id="prenom" type="text" name="prenom" value="" />
 			<br/>
 			
-			<label for="nom"><?= _("Nom") ?></label>
+			<label for="nom"><?= _("last name") ?></label>
 			<input id="nom" type="text" name="nom" value="" />
 			<br/>
 			
-			<label for="email" ><?= _("eMail") ?></label>
+			<label for="email" ><?= _("Email") ?></label>
 			<input type="text" id="email" name="email" value="" />
 			<br/>
 			
-			<label for="password" ><?= _("Mot de passe") ?></label>
+			<label for="password" ><?= _("Password") ?></label>
 			<input type="password" name="password" />
 			<br/>
 			
-			<label for="password" ><?= _("Mot de passe (confirmation)") ?></label>
+			<label for="password" ><?= _("Password (confirmation)") ?></label>
 			<input type="password" name="confirm" id="confirm" />
 			<br/>
 			
@@ -96,7 +96,7 @@ include("header.php"); ?>
 			<br/>
 			
 			<div style="text-align: center;" >
-				<input type="submit" value="<?= _("Valider") ?>" data-inline="true" data-theme="b" />
+				<input type="submit" value="<?= _("Validate") ?>" data-inline="true" data-theme="b" />
 			</div>
 		</form>
 	</div>

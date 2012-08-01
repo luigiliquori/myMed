@@ -3,9 +3,9 @@ var isSub = 3;
 
 var application="myEurope", predicate="";
 
-$('#themecheckboxes label').click(function(e){
+/*$('label').click(function(e){
     e.stopPropagation()
-});
+});/*
 
 /*$("#Search").live("pageshow", function() {
 	var queryString = decodeURIComponent(location.search.substring(1));

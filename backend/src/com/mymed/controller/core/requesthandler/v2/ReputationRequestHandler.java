@@ -45,11 +45,6 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
     private static final String JSON_REPUTATION = JSON.get("json.reputation");
 
     /**
-     * The JSON 'consumer' attribute.
-     */
-    //private static final String JSON_CONSUMER = JSON.get("json.consumer");
-
-    /**
      * The JSON 'producer' attribute.
      */
     private static final String JSON_PRODUCER = JSON.get("json.producer");
@@ -79,8 +74,7 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
             final String 
             	application = parameters.get(JSON_APPLICATION), 
-            	producer = parameters.get(JSON_PRODUCER)/*, 
-            	consumer = parameters.get(JSON_CONSUMER)*/;
+            	producer = parameters.get(JSON_PRODUCER);
 
             switch (code) {
                 case READ :

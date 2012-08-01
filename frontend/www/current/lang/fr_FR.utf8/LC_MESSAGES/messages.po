@@ -7,28 +7,93 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-30 13:18+0200\n"
-"PO-Revision-Date: 2012-07-30 13:19+0100\n"
+"POT-Creation-Date: 2012-08-01 11:41+0200\n"
+"PO-Revision-Date: 2012-08-01 11:42+0100\n"
 "Last-Translator: cyril <cyril.auburtin@inria.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../../../application/myEurope/views/MainView.php:47
-#: ../../../application/myEurope/views/MainView.php:48
+#: ../../../application/myEurope/views/MainView.php:40
+#: ../../../application/myEurope/views/MainView.php:41
 msgid "A propos"
 msgstr ""
 
-#: ../../../application/myEurope/views/MainView.php:77
+#: ../../../application/myEurope/views/MainView.php:75
 msgid "French"
 msgstr "Français"
 
-#: ../../../application/myEurope/views/MainView.php:79
+#: ../../../application/myEurope/views/MainView.php:77
 msgid "Italian"
 msgstr "Italien"
 
-#: ../../../application/myEurope/views/MainView.php:81
+#: ../../../application/myEurope/views/MainView.php:79
 msgid "English"
 msgstr "Anglais"
+
+#: ../../../application/myEurope/views/MainView.php:93
+msgid "Restricted page for admins"
+msgstr "Page réservée aux Administrateurs"
+
+#: ../../../application/myEurope/views/MainView.php:95
+#: ../../../application/myEurope/views/MainView.php:311
+#: ../../../application/myEurope/views/MainView.php:347
+#: ../../../application/myEurope/views/parts/utils.php:106
+#: ../../../application/myEurope/views/parts/utils.php:122
+#: ../../../application/myEurope/views/parts/utils.php:136
+#: ../../../application/myEurope/views/parts/utils.php:149
+#: ../../../application/myEurope/views/parts/utils.php:159
+msgid "Back"
+msgstr "Retour"
+
+#: ../../../application/myEurope/views/MainView.php:97
+msgid "Access"
+msgstr "Accéder"
+
+#: ../../../application/myEurope/views/LoginView.php:32
+#: ../../../application/myEurope/views/LoginView.php:76
+msgid "Email"
+msgstr ""
+
+#: ../../../application/myEurope/views/LoginView.php:33
+#: ../../../application/myEurope/views/LoginView.php:80
+msgid "Password"
+msgstr "Mot de passe"
+
+#: ../../../application/myEurope/views/LoginView.php:35
+msgid "Log In"
+msgstr "Connection"
+
+#: ../../../application/myEurope/views/LoginView.php:41
+#: ../../../application/myEurope/views/LoginView.php:42
+msgid "About"
+msgstr "A propos"
+
+#: ../../../application/myEurope/views/LoginView.php:68
+msgid "first name"
+msgstr ""
+
+#: ../../../application/myEurope/views/LoginView.php:72
+msgid "last name"
+msgstr ""
+
+#: ../../../application/myEurope/views/LoginView.php:84
+msgid "Password (confirmation)"
+msgstr ""
+
+#: ../../../application/myEurope/views/LoginView.php:99
+msgid "Validate"
+msgstr "Valider"
+
+#: ../../../application/myEurope/views/ExtendedProfileEditView.php:39
+msgid "Mot de passe"
+msgstr ""
+
+#: ../../../application/myEurope/views/PublishSuccessView.php:8
+#: ../../../application/myEurope/views/WaitingForAcceptView.php:8
+#: ../../../application/myEurope/views/parts/utils.php:17
+#: ../../../application/myEurope/views/parts/utils.php:45
+msgid "Exit"
+msgstr "Quitter"
 

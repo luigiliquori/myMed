@@ -11,7 +11,7 @@
  * @author David Da Silva
  * 
  */
-class ExtendedProfileController extends AuthenticatedController
+class ExtendedProfileController extends ExtendedProfileRequired
 {
 	/**
 	 * @see IRequestHandler::handleRequest()
@@ -72,6 +72,7 @@ class ExtendedProfileController extends AuthenticatedController
 			$_POST['permission'] = $permission;
 			
 		} else { //check password
+			$_POST['permission'] = $_SESSION['myEuropeProfile']->permission;//let's not lose the permission
 			$pass	= hash("sha512", $_POST['password']);
 			if( empty($pass) ){
 				// TODO i18n
@@ -97,11 +98,13 @@ class ExtendedProfileController extends AuthenticatedController
 		$_POST['user'] = $_SESSION['user']->id;
 		
 		// we clear these ones
+		$edit = ($_POST['form'] == "edit");
 		unset($_POST['form']);
 		unset($_POST['checkCondition']);
 
 		// and publish $_POST
 		$publish = new PublishRequestv2($this, "users", $_SESSION['user']->id, $_POST);
+		$publish->setMethod(UPDATE);
 		$publish->send();
 		
 		if (!empty($this->error)){
@@ -113,19 +116,24 @@ class ExtendedProfileController extends AuthenticatedController
 			
 		else {
 			
+			$_SESSION['myEuropeProfile'] = (object) $_POST;
+			
 			$this->success = "Complément de profil enregistré avec succès!";
-			$_SESSION['myEuropeProfile']->permission = $permission;
+			
 			//..
 			
 			/*
 			 * If it was an edit, reload the ExtendedProfile in the $_SESSION
 			 */
-			if ($_POST['form'] == 'edit'){
-				$this->renderview("ExtendedProfileDisplay");
+			if ($edit){
+				$this->redirectTo("Main", null, "#profile");
+			} else {
+				$_SESSION['myEuropeProfile']->permission = $permission;
+				if ($permission <= 0)
+					$this->renderView("WaitingForAccept");
+				$this->renderView("main");
 			}
-			if ($permission <= 0)
-				$this->renderView("WaitingForAccept");
-			$this->renderView("main");
+			
 		}
 	
 	}
@@ -154,8 +162,10 @@ class ExtendedProfileController extends AuthenticatedController
 		
 		if (!empty($result)){
 		
-			$this->profile = new ExtendedProfile($result);
+			$this->profile = (object) $result;
 			$this->success = "";
+			
+			$this->reputation = $this->fetchReputation($id);
 		}
 		
 		$this->renderView("ExtendedProfileDisplay");
