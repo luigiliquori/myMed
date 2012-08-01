@@ -146,7 +146,8 @@ function input(
 		$name,
 		$label,		
 		$value = "",
-		$placeholder = "")
+		$placeholder = "", 
+		$mandatory = false)
 {
 	global $PREFIX_ID, $READ_ONLY;
 	$id = $PREFIX_ID . $name;
@@ -159,6 +160,8 @@ function input(
 					<a href="mailto:<?= $value ?>"><?= $value ?></a>
 				<? elseif ($type == "tel"): ?>
 					<a href="tel:<?= $value ?>"><?= $value ?></a>
+				<? elseif ($type == "url"): ?>
+					<a href="<?= $value ?>"><?= $value ?></a>
 				<? else: ?>
 					<?= $value ?>
 				<? endif ?>
@@ -173,11 +176,16 @@ function input(
 			<? else: ?>
 				<input 
 					type="<?= $type ?>" 
-					<? if ($type == "date") print 'data-role="datebox" data-options=\'{"mode":"datebox"}\'' ?>
+					<? if ($type == "date") print 'data-role="datebox" data-options=\'{"mode":"datebox", "useFocus": true}\'' ?>
 					name="<?= $name ?>" 
 					id="<?= $id ?>" 
 					value="<?= $value ?>" 
 					placeholder="<?= $placeholder ?>" />
+			<? endif ?>
+			<? if ($mandatory) :?>
+			<div data-validate="<?= $name ?>" data-validate-non-empty >
+				Le champ <?= $label ?> est obligatoire.
+			</div>
 			<? endif ?>
 		<? endif ?>
 	</div>
@@ -206,23 +214,20 @@ function select(
 	// Single selection ? => <String> to [<String>]
 	if (is_string($selection)) $selection = array($selection);
 	
+	$id = $PREFIX_ID . $name;
+	
 	?>
 	<div data-role="fieldcontain">
-		<label for="<?= $PREFIX_ID . $name ?>"><?= $label ?></label>
+		<label for="<?= $id ?>"><?= $label ?></label>
 		<? if ($READ_ONLY) : ?>
-			
 			<? foreach($selection as $key): ?>
-				<input 
-					id="<?= $PREFIX_ID . $name ?>"
-					type="text" 
-					disabled="disabled" 
-					value="<?= $options[$key] ?>" />
+				<span class="readonly-input" id="<?= $id ?>">
+					<?= $options[$key] ?>
+				</span>
 			<? endforeach ?>
-			
-		<? else: ?>
-		
+		<? else: ?>	
 			<select
-				id="<?= $PREFIX_ID . $name ?>" 
+				id="<?= $id ?>" 
 				name="<?= $name ?>" 
 				<? bool_tag("multiple", $multiple) ?> >
 				<? foreach ($options as $key => $label) : ?>
@@ -232,11 +237,84 @@ function select(
 						<?= $label ?>
 					</option>	
 				<? endforeach ?>
-			</select>
-			
+			</select>		
 		<? endif ?>
 	</div>
 	<?
 }
+
+
+/** Display filters in top of lists
+ * @param $action Action to redirect to
+ * @param $filters array("filterID" => filterLabel)
+ * @param $currFilter Current active filter ID */
+function filters(
+		$action, 
+		$currFilter,
+		$filters) 
+{
+	foreach($filters as $filterID => $label) : ?>
+		<a data-role="button" data-mini="true" data-theme="d" data-inline="true"
+			<? if ($currFilter == $filterID) echo 'class="ui-btn-active"' ?>
+			href="<?= url($action, array('filter' => $filterID)) ?>" >
+			<?= $label ?>
+		</a>
+	<? endforeach;
+}
+
+/** Show one header bar with an optionnal breadcrumb 
+ * @param $breadcrumb Array of "Label" => "URL". Use null as URL to prevent displaying link */
+function header_bar($breadcrumb = array()) {
+	global $ERROR, $SUCCESS;
+	
+	?>
+	<div data-role="header">
+	
+	<a href="javascript: history.go(-1)" data-role="button" data-icon="back">Retour</a>
+	
+	<h1><a href="?"><?= "MyBénévolat" ?></a></h1>
+		
+		<? if (isset($_SESSION['user'])) : ?>
+			<a href="<?= url("ExtendedProfile:show") ?>" rel="external" data-role="button" data-theme="g" data-icon="person"><?= $_SESSION['user']->name ?></a>
+		<? endif ?>
+		
+		<? if (!empty($ERROR)): ?>
+		<div class="ui-bar ui-bar-e" id="notification-error">
+			<h3><?= $ERROR ?></h3>
+			<div style="float:right; margin-top:4px;">
+				<a href="#" data-role="button" data-icon="delete" data-iconpos="notext" onclick="$('#notification-error').slideUp('fast');">Button</a>
+			</div>
+		</div>
+		<? endif ?>
+		
+		<? if (!empty($SUCCESS)): ?>
+		<div class="ui-bar ui-bar-e" id="notification-success">
+			<h3><?= $SUCCESS ?></h3>
+			<div style="float:right; margin-top:4px;">
+				<a href="#" data-role="button" data-icon="delete" data-iconpos="notext" onclick="$('#notification-success').slideUp('fast');">Button</a>
+			</div>
+		</div>
+		<? endif ?>
+				
+	</div>
+	
+	<? if (sizeof($breadcrumb) != 0) : ?>
+		<div data-role="header" data-theme="e" class="left" >
+			<h3>
+			<? $lastLabel = end(array_keys($breadcrumb)) ?>
+			<? foreach($breadcrumb as $label => $url): ?>
+				<? if ($url != null) :?>
+					<a href="<?= $url ?>"><?= $label ?></a> 
+				<? else: ?>
+					<?= $label ?>
+				<? endif ?>
+				<? if ($label != $lastLabel) : ?>
+					&raquo;
+				<? endif ?>
+			<? endforeach ?>			
+			</h3>
+		</div>
+	<? endif ?>
+<?
+}
  
-?>

@@ -23,7 +23,7 @@ class Annonce extends GenericDataBean {
 	public $quartier;
 	
 	/** Key:promue/not promue */
-	public $promue = false;
+	public $promue;
 	
 	/** Data */
 	public $titre;
@@ -42,12 +42,12 @@ class Annonce extends GenericDataBean {
 		
 		// Predicates (keys)
 		$this->_predicatesDef = array(
-				"id" => KEYWORD,
-				"promue" => KEYWORD,
-				"associationID" => KEYWORD,
-				"competences" => ENUM,
-				"typeMission" => ENUM,
-				"quartier" => ENUM);
+			"id" => KEYWORD,
+			"promue" => KEYWORD,
+			"associationID" => KEYWORD,
+			"competences" => ENUM,
+			"typeMission" => ENUM,
+			"quartier" => ENUM);
 		
 		// Data attributes
 		$this->_wrapDef = array("titre", "description", "begin", "end");
@@ -76,6 +76,37 @@ class Annonce extends GenericDataBean {
 	
 		return ExtendedProfileRequired::getExtendedProfile($this->associationID);
 		
+	}
+	
+	/** Is this event passed ? */
+	public function isPassed() {
+		
+		if (empty($this->end)) return false;
+		
+		// End date
+		$date = DateTime::createFromFormat(
+				DATE_FORMAT, 
+				$this->end);
+		
+		$today = new DateTime('today');
+		
+		return $today > $date;
+		
+	}
+	
+	// ---------------------------------------------------------------------
+	// Overriden methods
+	// ---------------------------------------------------------------------
+	
+	/** Promue is false by default */
+	public function publish() {
+		
+		// No "promue" ? => false by default
+		if ($this->promue == null) {
+			$this->promue = "false";
+		}
+		
+		parent::publish();
 	}
 	
 	

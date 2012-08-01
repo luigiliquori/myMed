@@ -1,63 +1,42 @@
-<? 
+<?
 
 /**
  *  This controller shows the search/publish form and receives "search" and "publish" queries.
  *  It renders the views "main" or "results".
  */
 class MainController extends AuthenticatedController {
-	
+
+	public $hiddenApplication = array("myMed", "myNCE", "myBEN", "myTestApp", "myMed_old");
+	public $reputation = array();
 
 	public function handleRequest() {
-		
-		parent::handleRequest();
-			
-		if (isset($_REQUEST['method']) && $_REQUEST['method'] == "Publish") {
-			
-			// -- Publish
-			
-			
-			$obj = new ExampleObject();
-			
-			// Fill the object
-			$this->fillObj($obj);
-			$obj->publish();
-			
-			$this->success = "Published !";
-			
-		} elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Search") {
-			
-			// -- Search
-			
-			$search = new ExampleObject();
-			$this->fillObj($search);
-			$this->result = $search->find();
-			
-			$this->renderView("results");
-			
-		} else {
-			
-			// -- Show the form
-		}
 
+		parent::handleRequest();
+
+		// Get the reputation of the user in each the application
+		if ($handle = opendir(MYMED_ROOT . '/application')) {
+			while (false !== ($file = readdir($handle))) {
+				if(preg_match("/my/", $file) && !preg_match("/Admin/", $file) && !in_array($file, $this->hiddenApplication)) {
+					// REPUTATION
+					$request = new Request("ReputationRequestHandler", READ);
+					$request->addArgument("application",  $file);
+					$request->addArgument("producer",  $_SESSION['user']->id);				// Reputation of data
+					$request->addArgument("consumer",  $_SESSION['user']->id);
+					
+					$responsejSon = $request->send();
+					$responseObject = json_decode($responsejSon);
+					
+					if(isset($responseObject->data->reputation)){
+						$i=0;
+						$value = json_decode($responseObject->data->reputation);
+						$this->reputation[$file] = $value * 100;
+					}
+				}
+			}
+		}
 		$this->renderView("main");
 	}
-	
-	// Fill object with POST values
-	private function fillObj($obj) {
-		$obj->begin = $_POST['begin'];
-		$obj->end = $_POST['end'];
-		$obj->wrapped1 = $_POST['wrapped1'];
-		$obj->wrapped2 = $_POST['wrapped2'];
-		
-		$obj->pred1 = $_POST['pred1'];
-		$obj->pred2 = $_POST['pred2'];
-		$obj->pred3 = $_POST['pred3'];
-		
-		$obj->data1 = $_POST['data1'];
-		$obj->data2 = $_POST['data2'];
-		$obj->data3 = $_POST['data3'];
-		
-	}
- 	
+
+
 }
 ?>

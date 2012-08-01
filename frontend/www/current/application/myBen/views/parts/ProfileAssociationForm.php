@@ -4,7 +4,10 @@
 // * $MODE : "create" or "update"
 
 // Alias
-$profile = $this->profileAssociation; ?>
+$profile = $this->_extendedProfile;  ?>
+
+<? $TYPE = ASSOCIATION ?>
+<? include('RegisterForm.php') ?>
 
 <div data-role="header" data-theme="b">
 	<h3>Information administratives</h3>
@@ -17,7 +20,7 @@ $profile = $this->profileAssociation; ?>
 
 <? input("text", "siret", "N° SIRET", $profile->siret) ?>
 
-<? input("text", "site", "Site web", $profile->site, "http://...") ?>
+<? input("url", "site", "Site web", $profile->site, "http://...") ?>
 
 <? input("textarea", "adresse", "Adresse postale", $profile->adresse) ?>
 
@@ -31,7 +34,7 @@ $profile = $this->profileAssociation; ?>
 <? checkboxes("competences", CategoriesCompetences::$values, $profile->competences); ?>
 
 <div data-role="header" data-theme="b">
-	<h3>Types de missions souhaitées</h3>
+	<h3>Types de missions proposées</h3>
 </div>
 <div data-theme="b" data-validate="missions[]" data-validate-min="1" >
 	Vous devez sélectionner au moins 1 type de missions.

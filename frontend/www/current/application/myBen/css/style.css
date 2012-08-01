@@ -18,6 +18,9 @@
 	margin-top : 1em;
 }
 
+.mm-left {
+	text-align: left;
+}
 
 .readonly-input {
 	margin-left:10px;
@@ -29,6 +32,19 @@
 	font-weight: bold;
 }
 
+
+/* Tags */
+.mm-tag {
+	font-size:smaller;
+	padding : 5px;
+	margin-left:10px;
+	border-radius:5px;
+	-moz-border-radius:5px;
+}
+
+.mm-warn {
+	background-color : #fbee88;
+}
 
 
 /* Page */

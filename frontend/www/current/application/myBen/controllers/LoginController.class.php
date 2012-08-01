@@ -1,76 +1,66 @@
 <?php
 
-class LoginController extends AbstractController {
+// TODO: Should be a common controller in /system/controllers/
+class LoginController extends GuestOrUserController {
 
-	/**
-	 * Create a session if the logins are correct
-	 * Returns nothing but populate $_SESSION['accessToken'] in case of success.
-	 * @see IRequestHandler::handleRequest()
-	 */
-	public /*String*/ function handleRequest() {
-		
-		/* Typical login : we received a POST with login and password */
-		if ($_SERVER['REQUEST_METHOD'] == 'POST') { 
-		
-			// Get arguments 
-			$login	= $_POST['login'];
-			$pass	= hash("sha512", $_POST['password']);
-		
-			// Login and password should not be empty
-			if( empty($login) ){
-				// TODO i18n
-				$this->error = "eMail cannot be empty!";
-				$this->renderView("login");
-			} else if( empty($pass) ){
-				// TODO i18n
-				$this->error = "Password cannot be empty!";
-				$this->renderView("login");
-			}
-					
-			// Building the Authentication request
-			$request = new Request("AuthenticationRequestHandler", READ);
-			$request->addArgument("login", $login);
-			$request->addArgument("password", $pass);
-			
-			// argument code filled by Request
-			
-			// Sending request
-			$responsejSon = $request->send();
-			
-			$responseObject = json_decode($responsejSon);
-		
-			// In case of errors
-			if($responseObject->status != 200) {
-				
-				if ($responseObject->status == 404) {
-					// Set the error
-					$this->setError($responseObject->description);
-				}
-					
-				// Show the login form
-				$this->renderView("login");
-				
-			} else {
-				
-				// Everything went fine, we have now an accessToken in the session
-				$_SESSION['accessToken'] = $responseObject->dataObject->accessToken;
-				
-				// Set user into $_SESSION
-				$this->getUserFromSession();
-				
-				debug("success");
-				
-				// Redirect to main page
-				$this->redirectTo("main");
-			}
-			
-			
-			
-		} else { // Not a POST request : Simply show the login form 
-			
+	/** Default action : show the login form */
+	public function defaultMethod() {
+		$this->renderView("login");
+	}
+	
+	/** Login form submitted */
+	public function doLogin() {
+
+		// Get arguments 
+		$login	= $_POST['login'];
+		$pass	= hash("sha512", $_POST['password']);
+	
+		// Login and password should not be empty
+		if( empty($login) ){
+			// TODO i18n
+			$this->error = "eMail cannot be empty!";
 			$this->renderView("login");
-			
+		} else if( empty($pass) ){
+			// TODO i18n
+			$this->error = "Password cannot be empty!";
+			$this->renderView("login");
 		}
+				
+		// Building the Authentication request
+		$request = new Request("AuthenticationRequestHandler", READ);
+		$request->addArgument("login", $login);
+		$request->addArgument("password", $pass);
+		
+		// Argument code filled by Request
+		
+		// Sending request
+		$responsejSon = $request->send();
+		
+		$responseObject = json_decode($responsejSon);
+	
+		// In case of errors
+		if($responseObject->status != 200) {
+			$this->error = $responseObject->description;
+			$this->renderView("login");
+		}
+		
+		// Everything went fine, we have now an accessToken in the session
+		$this->setToken($responseObject->dataObject->accessToken);
+			
+		// Set user into $_SESSION
+		$this->getUserFromSession();
+		
+		// Get the extended profile
+		$this->setExtendedProfile(ExtendedProfileRequired::getExtendedProfile($this->user->id));
+		
+		// Benevole ? => Register to subscriptions
+		// XXX Bad : Should be done once only
+		if ($this->extendedProfile instanceof ProfileBenevole && (is_true($this->extendedProfile->subscribe))) {
+			$this->extendedProfile->getAnnonceQuery()->subscribe();
+		}
+		
+		// Redirect to main page
+		$this->redirectTo("main");
 
 	}
 
@@ -95,8 +85,10 @@ class LoginController extends AbstractController {
 		if($responseObject->status != 200) {
 			$_SESSION['error'] = $responseObject->description;
 		} else {
+			
 			// Everything went fine, we now have an USER in our session
-			$_SESSION['user'] = json_decode($responseObject->data->user);
+			$this->setUser(json_decode($responseObject->data->user));
+			
 			if( !isset($_SESSION['friends']) ){
 				$_SESSION['friends'] = array();
 			}

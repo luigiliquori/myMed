@@ -2,10 +2,25 @@
 
 <div data-role="page"  >	
 
-	<? require("header-bar.php") ?>
+	<?
+	// Build breadcrumb
+	$bc = array("Accueil" => url("main"));
+	
+	// Own profile ?
+	if ($this->_extendedProfile->userID == $this->user->id) {
+		$bc['Mon Profil'] = url("extendedProfile:show");
+	} else {	
+		$bc["Associations"] = url("listAssociations");
+		$bc[$this->_user->name] = url("extendedProfile:show", array("id" => $this->_user->id));
+	}
+	
+	$bc["Édition"] = null;
+	
+	// header bar
+	header_bar($bc); ?>
 
 	<form data-role="content" method="post" data-ajax="false" 
-		action="<?= url("extendedProfile:update", array("type" => "association")) ?>" >
+		action="<?= url("extendedProfile:update", array("id" => $this->_extendedProfile->userID)) ?>" >
 		
 		<? require('ProfileAssociationForm.php') ?>
 	

@@ -4,29 +4,24 @@
 // * $MODE : "create" or "update"
 
 // Alias
-$profile = $this->profileBenevole;  ?>
+$profile = $this->_extendedProfile;  ?>
+
+<? $TYPE = BENEVOLE ?>
+<? include('RegisterForm.php') ?>
 
 <div data-role="header" data-theme="b">
 	<h3>Informations personnelles</h3>
 </div>
 
-<? input("tel", "tel", "Téléphone", $profile->tel, "00 00 00 00 00") ?>
-<div data-theme="b" data-validate="tel" data-validate-non-empty >
-	Vous devez renseigner votre téléphone.
-</div>
+<? input("tel", "tel", "Téléphone", $profile->tel, "00 00 00 00 00", true) ?>
 
-<? input("date", "dateNaissance", "Date de naissance", $profile->dateNaissance) ?>
-<div data-theme="b" data-validate="dateNaissance" data-validate-non-empty >
-	Vous devez renseigner votre date de naissance
-</div>
-	
 <? radiobuttons("sexe", CategoriesSexe::$values, $profile->sexe, "Sexe", true) ?>
-<div data-theme="b" data-validate="sexe" data-validate-non-empty >
+<div data-validate="sexe" data-validate-non-empty >
 	Vous devez renseigner votre sexe.
 </div>
 
 <? radiobuttons("situation", CategoriesSituation::$values, $profile->situation, "Situation professionelle") ?>
-<div data-theme="b" data-validate="situation" data-validate-non-empty >
+<div data-validate="situation" data-validate-non-empty >
 	Vous devez renseigner votre situation professionelle.
 </div>
 

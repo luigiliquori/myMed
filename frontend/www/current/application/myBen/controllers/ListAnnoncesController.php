@@ -1,42 +1,85 @@
 <?
+
+define("ANN_MINE", "mine");
+define("ANN_ALL", "all");
+define("ANN_VALID", "valid");
+define("ANN_PAST", "past");
+define("ANN_CRITERIA", "criteres");
+
 class ListAnnoncesController extends ExtendedProfileRequired {
 		
 	/** @var Annonce[] */
 	public $annonces;
+	public $filter = ANN_VALID;
 	
 	/** Processed when argument "method" is missing */
 	function defaultMethod() {
 		
+		// Get the filter
+		if (in_request('filter')) {
+			
+			$this->filter = $_REQUEST['filter'];
+			
+		} else if ($this->extendedProfile instanceof ProfileBenevole) {
+	
+			// By default, benevoles show their requests
+			$this->filter = ANN_CRITERIA;
+			
+		} else if (
+				$this->extendedProfile instanceof ProfileAssociation && 
+				!($this->extendedProfile instanceof ProfileNiceBenevolat))
+		{
+			// For associations, default filter is their annonces
+			$this->filter = ANN_MINE;
+		}
+		
 		// Build a query
 		$annonceQuery = new Annonce();
 		
-		debug_r($this->extendedProfile);
+		// Select all 
+		// XXX hack : Select all types of missions
+		$annonceQuery->quartier = array_keys(CategoriesMobilite::$values);
 		
-		if ($this->extendedProfile instanceof ProfileNiceBenevolat) {
-			
-			// Nice benevolat => Select all 
-			// XXX hack : Select all types of missions
-			$annonceQuery->quartier = array_keys(CategoriesMobilite::$values);
-			
-		} elseif ($this->extendedProfile instanceof ProfileAssociation) {
-	
-			// If logged as an association, show the list of annonces for this association
-			$annonceQuery->associationID = $this->extendedProfile->userID;
-			
-		} elseif ($this->extendedProfile instanceof ProfileBenevole) {
+		// Search the criterias of a benevole
+		if ($this->extendedProfile instanceof ProfileBenevole && $this->filter == ANN_CRITERIA) {
 			
 			// Filter the annonces to the ones corresponding to the query
 			$annonceQuery = $this->extendedProfile->getAnnonceQuery();
 			
-		} else {
-			throw new InternalError("Should not happen");
+		} 
+		
+		// For an association, search the annonces created by them
+		if ($this->filter == ANN_MINE) {	
+			// Filter the annonces to the ones corresponding to the query
+			$annonceQuery->associationID = $this->extendedProfile->userID;		
+		}
+				
+		if ($this->filter == ANN_VALID) {
+			$annonceQuery->promue = "false";
 		}
 		
-		// Search the corersponding annonces
+		// Search the corresponding annonces
 		$this->annonces = $annonceQuery->find();
+		
+		// Filter the active/past ones
+		$this->annonces = array_filter($this->annonces, array($this, "filter"));
 		
 		$this->renderView("listAnnonces");
 		
+	}
+	
+	/** Filter method */
+	function filter($annonce) {
+		if ($this->filter == ANN_ALL) return true;
+		$res = ($annonce->isPassed() || is_true($annonce->promue));
+		if ($this->filter != ANN_PAST) $res = !$res;
+		return $res;
+	}
+	
+	/** Can you post new annonces ? */
+	function canPost() {
+		return (($this->extendedProfile instanceof ProfileNiceBenevolat) || 
+			($this->extendedProfile instanceof ProfileAssociation));
 	}
 
 

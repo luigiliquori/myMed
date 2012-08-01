@@ -1,17 +1,15 @@
 <?php
 
 /**
- * 
  * This class will verify, before handling any request, that the user is authenticated.
  * Requests that need an authenticated user should inhérit from this.
  * 
  * @author David Da Silva
- *
  */
 class AuthenticatedController extends AbstractController {
 
 	/** The complete user */
-	public $User;
+	public $user;
 	
 	/**
 	 * Handle the request.

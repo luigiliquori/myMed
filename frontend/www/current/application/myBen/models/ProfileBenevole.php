@@ -1,14 +1,11 @@
 <?php
 
 /** Profile for an association */
-class ProfileBenevole extends GenericDataBean {
+class ProfileBenevole extends AbstractProfile {
 	
 	// ------------------------------------------------
 	// Attributes
 	// ------------------------------------------------
-	
-	/** Key : User id */
-	public $userID;
 	
 	/** Key:ENUM:competences */
 	public $competences;
@@ -25,7 +22,6 @@ class ProfileBenevole extends GenericDataBean {
 	/** Data */
 	public $tel;
 	public $sexe;
-	public $dateNaissance;
 	public $situation;
 	public $subscribe = true;
 	
@@ -48,11 +44,13 @@ class ProfileBenevole extends GenericDataBean {
 		// Data attributes
 		$this->_dataDef = array(
 				"tel" => KEYWORD,
-				"dateNaissance" => DATE,
 				"sexe" => ENUM,
 				"disponibilites" => ENUM,
 				"situation" => ENUM,
 				"subscribe" => KEYWORD);
+		
+		// Wraped
+		$this->_wrapDef = array("name");
 		
 	}
 	
@@ -72,14 +70,7 @@ class ProfileBenevole extends GenericDataBean {
 	 *  If subscription is activated, subscribe to announces before publishing the new profile
 	 */
 	public function publish() {
-		
-		// Subscribe to "annonces" corresponding to the criterias
-		if (is_true($this->subscribe)) {
-			$this->getAnnonceQuery()->subscribe();
-		}
-		
 		parent::publish();
-		
 	}
 	
 	/** @Override */

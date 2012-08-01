@@ -389,8 +389,7 @@ abstract class GenericDataBean {
 				// Don' t check these, there are two custom attributes not listed in the "definition"
 			} else if (!key_exists($key, $this->_dataDef)) {
 				$classname = get_class($this);
-				throw new Exception(
-						"Key '$key' returned as details by the backend, but not defined in $classname->dataDef");
+				trigger_error("Key '$key' returned as details by the backend, but not defined in ${classname}->dataDef");
 			}
 
 			// Set it
@@ -405,10 +404,13 @@ abstract class GenericDataBean {
 	
 	/** Fetch the whole User profile information from the publisher id */
 	function getPublisher() {
-		$rh = new ProfileRequest($this->publisherID);
-		$res = $rh->send();
-
-		return $res;
+		// Cache the result
+		if (!isset($this->publisher)) {
+			$rh = new ProfileRequest($this->publisherID);
+			$this->publisher = $rh->send();
+		}
+		
+		return $this->publisher;
 	}
 
 }

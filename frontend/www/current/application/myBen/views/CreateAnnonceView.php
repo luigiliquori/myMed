@@ -1,22 +1,15 @@
-<? 
-
-//
-// This view shows both the login and register forms, with two tabs
-//
-include("header.php");
-
+<? include("header.php");
 /** @var $annonce Annonce */
 $annonce = $this->annonce;
-
 ?>
 
 <div data-role="page">
 
-	<? include("header-bar.php") ?>
-	
-	<div data-theme="e" data-role="header" class="left" >
-		<h3>Création d'une annonce</h3>
-	</div>
+	<? header_bar(array(
+			"Accueil" => url("main"),
+			"Annonces" => url("listAnnonces"),
+			"Création" => null)) ?>
+
 	
 	<form data-role="content" action="<?= url("annonce:doCreate") ?>" data-ajax="false" method="post" >
 		

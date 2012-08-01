@@ -25,8 +25,7 @@ class AnnonceController extends ExtendedProfileRequired {
 		}
 		
 		// Take first one
-		$this->annonce = $res[0];
-		
+		$this->annonce = $res[0];		
 	}
 	
 	function hasWriteAccess() {
@@ -44,37 +43,87 @@ class AnnonceController extends ExtendedProfileRequired {
 		if (!$this->hasWriteAccess()) throw new UserError("Vous n'avez pas les droits d'écriture sur cete annonce");
 	}
 	
+	
+	/** Populate from request */
+	function populateAnnonce() {
+		
+		// Set the associationID
+		if ($this->extendedProfile instanceof ProfileNiceBenevolat) {
+				
+			// For NiceBenevolat, we chose from a list of associations
+			$this->annonce->associationID = $_REQUEST['associationID'];
+				
+		} else {
+				
+			// Otherwise the assocation is the publisher
+			$this->annonce->associationID = $this->extendedProfile->userID;
+		}
+		
+		// Populate attributes
+		$this->annonce->populateFromRequest(array("associationID", "id","promue"));
+		
+	}
+	
 	// ----------------------------------------------------------------------
 	// Action handlers
 	// ----------------------------------------------------------------------
 	
+	/** Common request handler, called before custom methods */
+	function handleRequest() {
+		parent::handleRequest();
+		
+		// For NiceBenevolat, we need all the associations in a list assoId => assoName
+		if ($this->extendedProfile instanceof ProfileNiceBenevolat) {
+				
+			// Fetch all valid associations
+			$req = new ProfileAssociation();
+			$req->valid = "true";
+				
+			$this->associations = array();
+			$assos = $req->find();
+			foreach ($assos as $asso) {
+				$this->associations[$asso->userID] = $asso->name;
+			}
+
+			// Add Nice Bénévolat
+			$this->associations[ProfileNiceBenevolat::$USERID] = "Nice Bénévolat";
+
+			// Sort them 
+			asort($this->associations, SORT_STRING | SORT_FLAG_CASE);
+			
+			// Add empty option
+			$this->associations =array_merge(
+					array("" => "-- Choisir --"),
+					$this->associations);
+		}
+	} 
+	
 	/** Creation of a new announce => show the form */
 	function create()  {
 		
-		// TODO Check if association is trusted
-		ProfileAssociationRequired::check();
+		// Require a validated association 
+		ProfileAssociationValidRequired::check();
 		
 		// Dummy empty annonce
 		$this->annonce = new Annonce();
 		$this->annonce->competences = $this->extendedProfile->competences;
 		$this->annonce->begin = date(DATE_FORMAT);
 		$this->renderView("createAnnonce");
+		
 	}
 	
 	/** Creation of a new "annonce" => form has been submitted */
 	function doCreate()  {
 		
-		// TODO Check if association is trusted
-		ProfileAssociationRequired::check();
+		// Require a validated association 
+		ProfileAssociationValidRequired::check();
 		
+		// Create a new annonce with uniq id
 		$this->annonce = new Annonce();
 		$this->annonce->id = uniqid();
 		
-		// Set the associationID
-		$this->annonce->associationID = $this->extendedProfile->userID;
-		
-		// Populate attributes 
-		$this->annonce->populateFromRequest(array("associationID", "id","promue"));
+		// Populate from request
+		$this->populateAnnonce();
 		
 		// Publish this announce	
 		$this->annonce->publish();
@@ -82,16 +131,16 @@ class AnnonceController extends ExtendedProfileRequired {
 		// Succes message
 		$this->setSuccess("Votre annonce a bien été publiée");
 		
-		// Show a list of annonces
-		$this->redirectTo("listAnnonces");
+		// Show the new annonce
+		$this->forwardTo("annonce:details", array("id" => $this->annonce->id));
 
 	}
 	
 	/** Delete one annonce */
 	function delete()  {
 	
-		// TODO Check if association is trusted
-		ProfileAssociationRequired::check();
+		// Require a validated association 
+		ProfileAssociationValidRequired::check();
 	
 		// Get the annonce
 		$this->fetchAnnonce();
@@ -136,8 +185,8 @@ class AnnonceController extends ExtendedProfileRequired {
 	/** Edit one announce (show form) */
 	function edit()  {
 			
-		// TODO Check if association is trusted
-		ProfileAssociationRequired::check();
+		// Require a validated association 
+		ProfileAssociationValidRequired::check();
 	
 		// Get annonce
 		$this->fetchAnnonce();
@@ -153,8 +202,8 @@ class AnnonceController extends ExtendedProfileRequired {
 	/** Details of one announce */
 	function doEdit()  {
 		
-		// TODO Check if association is trusted
-		ProfileAssociationRequired::check();
+		// Require a validated association 
+		ProfileAssociationValidRequired::check();
 	
 		// Get the annonce
 		$this->fetchAnnonce();
@@ -162,13 +211,13 @@ class AnnonceController extends ExtendedProfileRequired {
 		// We should have write access to this annonce
 		$this->checkWriteAccess();
 		
-		// Delete it
+		// Delete old version
 		$this->annonce->delete();
 	
-		// Populate the fields
-		$this->annonce->populateFromRequest(array("associationID", "id", "promue"));
+		// Populate from request
+		$this->populateAnnonce();
 		
-		// Publish it
+		// Publish new one
 		$this->annonce->publish();
 		
 		// Success
@@ -181,8 +230,8 @@ class AnnonceController extends ExtendedProfileRequired {
 	/** Promote the annonce */
 	function promote()  {
 	
-		// TODO Check if association is trusted
-		ProfileAssociationRequired::check();
+		// Require a validated association 
+		ProfileAssociationValidRequired::check();
 	
 		// Get the annonce
 		$this->fetchAnnonce();

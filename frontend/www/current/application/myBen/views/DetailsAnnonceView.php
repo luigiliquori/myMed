@@ -1,21 +1,14 @@
-<? 
-
-//
-// This view shows both the login and register forms, with two tabs
-//
-include("header.php"); 
-$annonce = $this->annonce;
-
+<?  include("header.php"); 
+    $annonce = $this->annonce;
 ?>
 
 <div data-role="page" >
 
-	<? include("header-bar.php") ?>
-
-	<div data-role="header" data-theme="e" class="left" >
-		<h3>Details de l'annonce "<?= $annonce->titre ?>"</h3>
-	</div>
-	
+	<? header_bar(array(
+			"Accueil" => url("main"),
+			"Annonces" => url("listAnnonces"),
+			$annonce->titre => null)) ?>
+			
 	<div data-role="content">
 
 		<? if ($this->hasWriteAccess()) :  ?>
@@ -30,7 +23,7 @@ $annonce = $this->annonce;
 			</a>
 		<? endif ?>
 		
-		<? if ($this->extendedProfile instanceof ProfileBenevole && (!$annonce->promue)) :?>
+		<? if ($this->extendedProfile instanceof ProfileBenevole && (!is_true($annonce->promue))) :?>
 			<a data-ajax="false" data-role="button" data-theme="e" data-icon="check" data-inline="true"
 				href="<?= url("candidature:create", array("annonceID" => $annonce->id)) ?>">
 				Postuler
@@ -55,14 +48,13 @@ $annonce = $this->annonce;
 		</form>
 		
 		<? if ($this->hasWriteAccess()) :  	 		
-			$candidatures = $annonce->getCandidatures(); 
-		 	if (sizeof($candidatures) > 0) : ?>
-		 	
+			$candidatures = $annonce->getCandidatures(); ?>
 			 	<div data-role="header" data-theme="b">
 			 		<h3>Candidatures</h3>
 			 	</div>
-			 	
-	
+			 <? if (sizeof($candidatures) == 0) : ?>
+			 	<p>Aucune candidature</p>
+			 <? elseif ($this->extendedProfile instanceof PorfileNiceBenevolat) : ?>  	 
 			 	<ul data-role="listview" data-theme="d" data-inset="true">
 			 		<? foreach($candidatures as $candidature) : ?>
 			 			<li><a href="<?= url("candidature:view", array("id" => $candidature->id)) ?>">
@@ -71,8 +63,12 @@ $annonce = $this->annonce;
 			 			</a></li>
 			 		<? endforeach ?>
 			 	</ul>
-		 	
-		 	<? endif;
+			 <? else: ?>
+			 	<p>
+			 		Il y a actuellement <?= sizeof($candidatures) ?> candidatures pour cette annonce.<br/>
+			 		Contactez Nice Bénévolat pour en savoir davantage.
+			 	</p>
+			 <? endif;
 		endif ?>
 	</div>
 	

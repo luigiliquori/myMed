@@ -28,6 +28,13 @@ abstract class AbstractController implements IRequestHandler {
 	public function renderView($view) {			
 		$view = ucfirst($view);
 		$viewPath = APP_ROOT . "/views/${view}View.php";
+		
+		// Set ERROR and SUCCESS
+		global $ERROR; 
+		$ERROR = $this->error;
+		global $SUCCESS; 
+		$SUCCESS = $this->success;
+		
 		require($viewPath);
 		exit();
 	}
@@ -38,8 +45,6 @@ abstract class AbstractController implements IRequestHandler {
 	 * @param $action "action:method"
 	 */
 	public function forwardTo($action, $args = array()) {
-		
-		debug_r($args);
 		
 		// Override $_GET method with arguments
 		foreach($args as $key => $val) {

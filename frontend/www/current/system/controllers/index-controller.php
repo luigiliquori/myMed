@@ -3,7 +3,7 @@
 require(__DIR__ . "/../common/init.php");
 
 // ---------------------------------------------------------------------
-// Call a controller (reused in AsbtractController#forward)
+// Call a controller (reused in AbstractController#forward)
 // ---------------------------------------------------------------------
 function callController(
 		$action, 
@@ -57,8 +57,6 @@ if (isset($_GET['registration']) && ($_GET['registration'] == "ok")) {
 }
 
 $method = (in_request("method")) ? $_REQUEST['method'] : null;
-
-debug_r($action);
 
 // Call the methods of the controller
 callController($action, $method);

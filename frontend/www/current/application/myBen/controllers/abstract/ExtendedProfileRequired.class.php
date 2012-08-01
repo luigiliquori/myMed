@@ -1,9 +1,10 @@
 <?php 
 
-define("EXTENDED_PROFILE", "extendedProfile");
-define("BENEVOLE", "Bénévole");
-define("ASSOCIATION", "Association");
-define("NICE_BENEVOLAT", "Nice Bénévolat");
+define("BENEVOLE", "benevole");
+define("ASSOCIATION", "association");
+define("NICE_BENEVOLAT", "nice_benevolat");
+
+include_once("GuestOrUserController.php");
 
 /** Class that requires the user to fill out extended profile */
 class ExtendedProfileRequired extends AuthenticatedController {
@@ -35,8 +36,8 @@ class ExtendedProfileRequired extends AuthenticatedController {
 
 			// Nothing found => redirect to create profile form
 			if ($extProfile == null) {
-					
-				$this->createProfile();
+				
+				$this->forwardTo("extendedProfile:create");
 					
 			} else {
 					
@@ -67,7 +68,7 @@ class ExtendedProfileRequired extends AuthenticatedController {
 	/** Get an extended profile from a user ID */
 	static public function getExtendedProfile($id) {
 		
-		// Nice Benevolat
+		// Hard coded : Nice Benevolat
 		if ($id == ProfileNiceBenevolat::$USERID) {
 			return ProfileNiceBenevolat::getInstance();	
 		}
@@ -92,21 +93,7 @@ class ExtendedProfileRequired extends AuthenticatedController {
 		
 		return $result[0];
 	}
-	
-	/** Show the create form */
-	public function createProfile() {
-		
-		// Create empty profiles
-		$this->profileBenevole = new ProfileBenevole();
-		$this->profileBenevole->disponibilites = array_keys(CategoriesDisponibilites::$values);
-		$this->profileBenevole->missions = array_keys(CategoriesMissions::$values);
-		$this->profileAssociation = new ProfileAssociation();
-		$this->profileAssociation->missions = array_keys(CategoriesMissions::$values);
-		
-		// Show the view  
-		$this->renderView("createProfile");
-	}
-	
+
 	/** Extended profile found of wront type */
 	public function wrongProfileType() {		
 		if ($this->extendedProfile instanceof ProfileBenevole) {
