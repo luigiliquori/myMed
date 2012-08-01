@@ -180,16 +180,16 @@ public class FindRequestHandler extends AbstractRequestHandler {
 				TreeMap<String, Map<String, String>> filterMap = new TreeMap<String, Map<String, String>>();
 
 				String prefix = makePrefix(application, namespace);
-				for (IndexRow r : combi) {
-					r.add(0, new Index(prefix, ""));
-				}
-
-				LOGGER.info("ext find rows: " + combi.size() + " initial: "
-						+ combi.get(0));
 
 				List<List<String>> ranges = MatchMaking.getRanges(query);
 
-				List<String> rows = IndexRow.getRows(combi);
+				for (IndexRow r : combi)
+					r.add(0, new Index("", prefix));
+				
+				List<String> rows = IndexRow.getVals(combi);
+				
+				LOGGER.info("ext find rows: " + combi.size() + " initial: "
+						+ rows.get(0));
 
 				LOGGER.info("ext find ranges: " + ranges.size());
 

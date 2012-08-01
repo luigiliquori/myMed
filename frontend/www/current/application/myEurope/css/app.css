@@ -3,6 +3,14 @@
 	background-image: url("../img/myEurope.png");
 }
 
+.ui-icon-up {
+	background-image: url("../img/up.png");
+}
+
+.ui-icon-down {
+	background-image: url("../img/down.png");
+}
+
 .ui-controlgroup-last {
 	vertical-align: top;
 }
@@ -14,6 +22,14 @@
 .ui-li {
 	padding-top: 1px;
 	padding-bottom: 1px;
+}
+
+.ui-icon-down{
+	background-color: #eee;
+}
+
+.ui-icon-up{
+	background-color: #eee;
 }
 
 .ui-li-desc {

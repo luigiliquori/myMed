@@ -1,19 +1,12 @@
 <?php
-
 require_once '../request/Requestv2.php';
 require_once '../../../system/config.php';
 session_start();
-
-
-$data=array();
-
 
 if ($_GET['code'] == CREATE){
 	/*
 	 * create subscription for user at this predicate
 	*/
-
-
 
 	$request = new Requestv2("v2/SubscribeRequestHandler", CREATE);
 	$request->addArgument("application", $_GET['application']);
@@ -58,7 +51,6 @@ if ($_GET['code'] == CREATE){
 		}
 		echo json_encode($res);
 	}
-
 }
 
 ?>

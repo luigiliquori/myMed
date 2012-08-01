@@ -20,9 +20,9 @@ class PublishController extends AuthenticatedController {
 		foreach( $_POST as $i=>$v ){
 			if ($v == "on"){
 				if ( strpos($i, "theme") === 0){
-					array_push($themes, substr($i, strlen("theme")));
+					array_push($themes, $i);
 				} else if  ( strpos($i, "reg") === 0){
-					array_push($regs, substr($i, strlen("reg")));
+					array_push($regs, $i);
 				}
 			}
 		}
@@ -47,7 +47,7 @@ class PublishController extends AuthenticatedController {
 		
 		$metadata = array(
 				/* @todo more stuff here */
-				"user" => $_SESSION['user']->id,
+				"user" => $_SESSION['user']->id
 			);
 		
 		$publish = new PublishRequestv2($this, $this->namespace, time()."+".$_SESSION['user']->id, $data, $index, $metadata);

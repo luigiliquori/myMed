@@ -18,9 +18,9 @@ class SearchController extends AuthenticatedController {
 		foreach( $_GET as $i=>$v ){
 			if ($v == "on"){
 				if ( strpos($i, "theme") === 0){
-					array_push($themes, substr($i, strlen("theme")));
+					array_push($themes, $i);
 				} else if  ( strpos($i, "reg") === 0){
-					array_push($regs, substr($i, strlen("reg")));
+					array_push($regs, $i);
 				}
 			}
 		}

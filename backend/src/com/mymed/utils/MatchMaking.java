@@ -48,12 +48,13 @@ public class MatchMaking {
 				li.addAll(getFloatRange(s1, s2));
 				break;*/
 			case KEYWORD:
-				li.add( d.getValue().get(0));
+				li.addAll( d.getValue().subList(0, d.getValue().size()>0?1:0));
 				break;
 			case ENUM:
 		
 				li.addAll(d.getValue());		
 				break;
+						
 			}
 
 			map.put(d.getKey(), li);
@@ -212,9 +213,9 @@ public class MatchMaking {
 		}
 	}
 
-	public static float parseFloat(String s) {
+	public static double parseDouble(String s) {
 		try {
-			return Float.parseFloat(s);
+			return Double.parseDouble(s);
 		} catch (NumberFormatException e) {
 			throw new InternalBackEndException(e);
 		}
@@ -364,6 +365,22 @@ public class MatchMaking {
 			List<String> res = new ArrayList<String>();
 			for (IndexRow i : l) {
 				res.add(i.toString());
+			}
+			return res;
+		}
+		
+		public String vals() {
+			String res = "";
+			for (Index i : this){
+				res+=i.val;
+			}
+			return res;
+		}
+		
+		public static List<String> getVals(List<IndexRow> l) {
+			List<String> res = new ArrayList<String>();
+			for (IndexRow i : l) {
+				res.add(i.vals());
 			}
 			return res;
 		}

@@ -11,14 +11,14 @@ session_start();
 
 
 $request = new Requestv2("InteractionRequestHandler", UPDATE);
-
 $request->addArgument("consumer", $_SESSION['user']->id );
+
+$request->addArgument("start", time() );
+$request->addArgument("end", time() );
 
 /*
  * feedback
  * predicate
- * end
- * start
  * producer
  * application
  */

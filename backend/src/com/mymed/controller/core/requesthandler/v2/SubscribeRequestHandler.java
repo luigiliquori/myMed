@@ -217,7 +217,7 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
 
 						pubsubManager.create(
 								prefix,
-								i.toString(), user,
+								i.vals(), user,
 								gson.toJson(i.getIndexes(query)));
 					}
             		
@@ -243,7 +243,7 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
             	List<IndexRow> combi = MatchMaking.getPredicate(
     					indexes, 0, query.size());
 				for (IndexRow i : combi) {
-					pubsubManager.delete(prefix,i.toString(), user);
+					pubsubManager.delete(prefix, i.vals(), user);
 				}
                     
 				LOGGER.info("  deleted subscriptions for {}: {} ", user, subJson);

@@ -15,7 +15,13 @@
 			<br />
 		 	<br />
 		 	<a href="?action=extendedProfile&id=<?= $this->details->user ?>" rel="external" type="button" data-inline="true" data-mini="true"> Profil de l'auteur </a>
-		
+			
+			<a type="button" data-theme="g" data-icon="up" data-iconpos="notext" data-inline="true"
+			onclick="rate(1, '<?= $this->id ?>', '<?= $this->details->user ?>');"></a>
+			<a type="button" data-theme="r" data-icon="down" data-iconpos="notext" data-inline="true"
+			onclick="rate(0, '<?= $this->id ?>', '<?= $this->details->user ?>');"></a>
+			
+			
 			<? if ($this->details->user == $_SESSION['user']->id) :?>
 				<br />
 				<br />

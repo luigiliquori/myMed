@@ -43,12 +43,36 @@ var application="myEurope", predicate="";
 $("#search").live("pagecreate", function() {
 	$('#checkbox-all').click(function() {
 		if ($(this).is(':checked')){
-			$('#themecheckboxes input[type=checkbox]').attr('checked', 'checked').checkboxradio('refresh');
+			$('#themecheckboxes input[type=checkbox]').attr('checked', 'checked').checkboxradio();
+			$('#themecheckboxes input[type=checkbox]').checkboxradio('refresh');
 		} else {
-			$('#themecheckboxes input[type=checkbox]').removeAttr('checked').checkboxradio('refresh');
+			$('#themecheckboxes input[type=checkbox]').removeAttr('checked').checkboxradio();
+			$('#themecheckboxes input[type=checkbox]').checkboxradio('refresh');
 		}
 	});
 });
+
+function toggleSub(code, application, namespace, index) {
+	$.get('../../lib/dasp/ajax/Subscribe', {
+		code : code,
+		application : application,
+		namespace : namespace,
+		index : decodeURIComponent(index)
+	}, function(data) {
+		console.log(data);
+	});
+}
+
+function rate(feedback, id, user) {
+	$.get('../../lib/dasp/ajax/Interaction', {
+		application : application,
+		predicate : id,
+		producer : user,
+		feedback : feedback
+	}, function(data) {
+		console.log(data);
+	});
+}
 
 $("#Home").live("pagecreate", function() {
 	var switchTo5x=true;

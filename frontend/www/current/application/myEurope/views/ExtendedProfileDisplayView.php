@@ -8,7 +8,7 @@
 	<? tabs_3(
 			"Profil",
 			"Ajouter aux contacts",
-			"?action=ExtendedProfile&add=<?= $this->profile->user ?>",
+			"#",//"?action=ExtendedProfile&add=". $this->profile->user ,
 			"check") ?>
 	<? include("notifications.php")?>
 </div>
@@ -24,8 +24,9 @@
 		Réputation: 
 		<? for($i=20; $i<=100; $i+=20) : ?>
 			<a data-theme="<?= ($this->reputation['rep'] >= $i)?'e':'c' ?>" data-role="button" data-iconpos="notext" data-icon="star" data-inline="true" style="margin-right:1px; margin-left:1px;"></a>
-		<? endfor ?>
-		(<?= $this->reputation['plus'] ?>+ <?= $this->reputation['minus'] ?>-)
+		<? endfor ?>&nbsp;&nbsp;
+		<?= $this->reputation['up'] ?> <img src="./img/up.png" style="height: 22px;vertical-align: middle;"/>
+		<?= $this->reputation['down'] ?> <img src="./img/down.png" style="height: 22px;vertical-align: middle;"/>
 		
 	<? endif ?>
 	

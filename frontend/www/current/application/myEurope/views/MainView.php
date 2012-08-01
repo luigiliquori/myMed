@@ -65,8 +65,9 @@ function tab_bar_white($activeTab) {
 		Réputation: 
 		<? for($i=20; $i<=100; $i+=20) : ?>
 			<a data-theme="<?= ($_SESSION['myEuropeRep']['rep'] >= $i)?'e':'c' ?>" data-role="button" data-iconpos="notext" data-icon="star" data-inline="true" style="margin-right:1px; margin-left:1px;"></a>
-		<? endfor ?>
-		(<?= $_SESSION['myEuropeRep']['plus'] ?>+ <?= $_SESSION['myEuropeRep']['minus'] ?>-)
+		<? endfor ?>&nbsp;&nbsp;
+		<?= $_SESSION['myEuropeRep']['up'] ?> <img src="./img/up.png" style="height: 22px;vertical-align: middle;"/>
+		<?= $_SESSION['myEuropeRep']['down'] ?> <img src="./img/down.png" style="height: 22px;vertical-align: middle;"/>
 		
 		<br /><br />
 		<span> Langue: </span>&nbsp;&nbsp;

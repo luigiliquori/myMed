@@ -17,9 +17,7 @@
 	<!-- add This or Share This -->
 	<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
 	<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-500da6e72a4d4d2d"></script>
-	
-	<!-- MYMED JS -->
-	<script src="../myMed/javascript/app.js"></script>
+
 	<!-- APP JS -->
 	<script src="javascript/app.js"></script>
 	

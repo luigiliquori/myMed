@@ -265,7 +265,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 				
 				for (IndexRow i : combi) {
 					
-					pubsubManager.create(prefix, i.toString(), dataId, mdataMap);
+					pubsubManager.create(prefix, i.vals(), dataId, mdataMap);
 					
 					pubsubManager.sendEmailsToSubscribers(prefix, i.toString(), dataMap, publisher);
 				}
@@ -278,6 +278,8 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 				
 				/* creates data */
 				pubsubManager.create(prefix, dataId, dataMap);
+				
+				pubsubManager.sendEmailsToSubscribers(prefix, dataId, dataMap, publisher);
 
 				break;
 				
@@ -286,7 +288,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 
 				LOGGER.info("updating data " + dataId + " size " + dataMap.size());
 				for (IndexRow i : combi) {
-					pubsubManager.create(prefix, i.toString(), dataId, mdataMap);
+					pubsubManager.create(prefix, i.vals(), dataId, mdataMap);
 				}
 
 				/* creates data */

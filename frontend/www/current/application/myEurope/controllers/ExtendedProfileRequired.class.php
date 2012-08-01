@@ -68,8 +68,8 @@ class ExtendedProfileRequired extends AuthenticatedController {
 		return array(
 				"rep" => round($rep * 100),
 				"nbOfRatings" => $nb,
-				"plus" => $rep * $nb,
-				"minus" => $nb - $rep * $nb
+				"up" => $rep * $nb,
+				"down" => $nb - $rep * $nb
 		);
 
 	
