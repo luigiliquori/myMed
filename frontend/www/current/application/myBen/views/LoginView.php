@@ -9,7 +9,7 @@
 		<!-- Login form -->
 		<form  data-role="content" action="<?= url("login:doLogin") ?>" method="post" data-ajax="false" >
 	
-			<input type="text" name="login" placeholder="Login" />
+			<input type="text" name="login" placeholder="Login (email)" />
 			<input type="password" name="password" placeholder="Password" />
 	
 			<div class="ui-grid-a">

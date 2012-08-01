@@ -7,7 +7,7 @@ define("NICE_BENEVOLAT", "nice_benevolat");
 include_once("GuestOrUserController.php");
 
 /** Class that requires the user to fill out extended profile */
-class ExtendedProfileRequired extends AuthenticatedController {
+class ExtendedProfileRequired extends GuestOrUserController {
 	
 	/** 
 	 *  @var $extendedProfile GenericDataBean 
@@ -31,13 +31,20 @@ class ExtendedProfileRequired extends AuthenticatedController {
 		// Look for extended profile is SESSION
 		if (!array_key_exists(EXTENDED_PROFILE, $_SESSION)) {
 
+			
 			// Get the extended profile
-			$extProfile = ExtendedProfileRequired::getExtendedProfile($this->user->id);
+			if ($this->user != null) {
+				$extProfile = ExtendedProfileRequired::getExtendedProfile($this->user->id);
+			}
 
 			// Nothing found => redirect to create profile form
-			if ($extProfile == null) {
+			if ($this->user == null || $extProfile == null) {
 				
-				$this->forwardTo("extendedProfile:create");
+				$this->error = "Pour cette action, vous avez besoin d'un compte myBénévolat";
+				if ($this->profileType != null) {
+					$this->error .= " de type $this->profileType";
+				}
+				$this->forwardTo("extendedProfile:create", array("type" => $this->profileType));
 					
 			} else {
 					

@@ -6,7 +6,7 @@ define('ACCESS_TOKEN', 'accessToken');
 define('EXTENDED_PROFILE', "extendedProfile");
 
 // Guest user/token
-define("GUEST_USERID", "MYMED_raphael.jolivet+guest@gmail.com");
+define("GUEST_USERID", "MYMED_mb-guest@yopmail.com");
 define("GUEST_TOKEN", APPLICATION_NAME . ":guest");
 
 /**

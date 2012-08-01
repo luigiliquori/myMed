@@ -337,9 +337,9 @@ abstract class GenericDataBean {
 	/**
 	 *  Register to the predicates of this object
 	 */
-	public function subscribe() {
+	public function subscribe($userID = null) {
 		$pr = new SubscribeRequest(
-				null, // The current user is used 
+				$userID, // The current user ID is used by default
 				$this->getPredicates(), 
 				$this->NAMESPACE);
 		$pr->send();

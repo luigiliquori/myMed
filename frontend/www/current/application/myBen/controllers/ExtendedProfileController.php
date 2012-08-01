@@ -407,12 +407,28 @@ class ExtendedProfileController extends GuestOrUserController {
 		// Delete the extended profile
 		$this->_extendedProfile->delete();
 		
+		// Delete MyMed Profile
+		/*$rq = new Request("ProfileRequestHandler", DELETE);
+		$rq->addArgument("userID", $this->_user->id);
+		$rq->send();
+		
+		$res = json_decode($rq->send());
+		
+		// Error ?
+		if ($res->status != 200) {
+			throw new InternalError($res->description);
+		}*/
+		
 		// Remove it from SESSION (if editing the current user)
-		if (!in_request("id")) {
+		if ($this->user->id == $this->user->_id) {
 			unset($_SESSION[EXTENDED_PROFILE]);
 		}
 		
-		$this->redirectTo("main");
+		if ($this->_extendedProfile instanceof ProfileBenevole) {
+			$this->redirectTo("listBenevoles");
+		} else {
+			$this->redirectTo("listAssociations");
+		}
 	}
 
 	/** View the profile */
@@ -447,6 +463,12 @@ class ExtendedProfileController extends GuestOrUserController {
 		$this->_extendedProfile->delete();
 		$this->_extendedProfile->valid = "true";
 		$this->_extendedProfile->publish();
+		
+		// Publish the validation so that the association is notified
+		$validation = new ValidationAssociation();
+		$validation->associationID = $this->_extendedProfile->userID;
+		$validation->valid = true;
+		$validation->publish();
 		
 		// Fill success message
 		$this->setSuccess("Association validée");

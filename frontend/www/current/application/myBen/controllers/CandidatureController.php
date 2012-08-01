@@ -1,5 +1,5 @@
 <?
-class CandidatureController extends ExtendedProfileRequired {
+class CandidatureController extends GuestOrUserController {
 		
 	/** @var Candidature */
 	public $candidature;
@@ -47,6 +47,7 @@ class CandidatureController extends ExtendedProfileRequired {
 	/** Details of one candidature */
 	function view()  {
 	
+		// Only associations can view that
 		ProfileAssociationRequired::check();
 		
 		// Id of the annonce

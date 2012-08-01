@@ -23,7 +23,10 @@
 			</a>
 		<? endif ?>
 		
-		<? if ($this->extendedProfile instanceof ProfileBenevole && (!is_true($annonce->promue))) :?>
+		<? if ((($this->extendedProfile == null) || 
+				($this->extendedProfile instanceof ProfileBenevole)) 
+				&& 
+				(!is_true($annonce->promue))) :?>
 			<a data-ajax="false" data-role="button" data-theme="e" data-icon="check" data-inline="true"
 				href="<?= url("candidature:create", array("annonceID" => $annonce->id)) ?>">
 				Postuler

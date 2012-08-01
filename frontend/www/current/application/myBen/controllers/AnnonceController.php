@@ -1,5 +1,5 @@
 <?
-class AnnonceController extends ExtendedProfileRequired {
+class AnnonceController extends GuestOrUserController {
 		
 	/** @var Annonce */
 	public $annonce;
@@ -72,6 +72,9 @@ class AnnonceController extends ExtendedProfileRequired {
 	function handleRequest() {
 		parent::handleRequest();
 		
+		// We need a token
+		$this->getToken();
+		
 		// For NiceBenevolat, we need all the associations in a list assoId => assoName
 		if ($this->extendedProfile instanceof ProfileNiceBenevolat) {
 				
@@ -127,6 +130,11 @@ class AnnonceController extends ExtendedProfileRequired {
 		
 		// Publish this announce	
 		$this->annonce->publish();
+		
+		// Make nice benevolat be notified of future canditatures
+		$req = new Candidature();
+		$req->annonceID = $this->annonce->id;
+		$req->subscribe(ProfileNiceBenevolat::$USERID);
 		
 		// Succes message
 		$this->setSuccess("Votre annonce a bien été publiée");

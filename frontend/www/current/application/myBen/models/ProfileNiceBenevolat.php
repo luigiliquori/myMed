@@ -4,7 +4,7 @@
 class ProfileNiceBenevolat extends ProfileAssociation {
 	
 	/** Hardcoded user id for Nice benevolat */
-	static public $USERID = "MYMED_raphael.jolivet+nicebenevolat@gmail.com"; 
+	static public $USERID = "MYMED_nice-benevolat@yopmail.com"; 
 	
 	/** @var $instance ProfileNiceBenevolat */
 	static private $instance;

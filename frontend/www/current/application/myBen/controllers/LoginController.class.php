@@ -57,6 +57,12 @@ class LoginController extends GuestOrUserController {
 		// XXX Bad : Should be done once only
 		if ($this->extendedProfile instanceof ProfileBenevole && (is_true($this->extendedProfile->subscribe))) {
 			$this->extendedProfile->getAnnonceQuery()->subscribe();
+		} elseif ($this->extendedProfile instanceof ProfileAssociation) {
+			
+			// Suscribe to association validation
+			$query = new ValidationAssociation();
+			$query->associationID = $this->user->id;
+			$query->subscribe();
 		}
 		
 		// Redirect to main page

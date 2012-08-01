@@ -275,7 +275,15 @@ function header_bar($breadcrumb = array()) {
 	<h1><a href="?"><?= "MyBénévolat" ?></a></h1>
 		
 		<? if (isset($_SESSION['user'])) : ?>
-			<a href="<?= url("ExtendedProfile:show") ?>" rel="external" data-role="button" data-theme="g" data-icon="person"><?= $_SESSION['user']->name ?></a>
+			<a rel="external" data-role="button" data-theme="g" data-icon="person" 
+				href="<?= url("ExtendedProfile:show") ?>" >
+				<?= $_SESSION['user']->name ?>
+			</a>
+		<? else: ?>
+			<a rel="external" data-role="button" data-theme="g" data-icon="power" 
+				href="<?= url("login") ?>" >
+				Se connecter
+			</a>
 		<? endif ?>
 		
 		<? if (!empty($ERROR)): ?>

@@ -12,7 +12,7 @@
 	
 	/** define the backend's URL'*/
 	define('MOBILE_PARAMETER_SEPARATOR', '::');
-	define('BACKEND_URL', '@backendurl@');
+	define('BACKEND_URL', 'http://138.96.242.18:8080/backend/');
 	
 	//Social Networks Keys
 	define('Facebook_APP_ID', '@facebookappid@');

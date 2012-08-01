@@ -40,7 +40,7 @@
 				href="<?= url("extendedProfile:edit", array("id" => $this->_extendedProfile->userID)) ?>">
 				Éditer
 			</a>
-			
+					
 			<? if (($this->extendedProfile instanceof ProfileNiceBenevolat) && 
 				($this->_extendedProfile instanceof ProfileAssociation) && 
 				(! is_true($this->_extendedProfile->valid))) :
@@ -48,6 +48,13 @@
 				<a data-ajax="false" data-role="button" data-theme="g" data-icon="check" data-inline="true"
 					href="<?= url("extendedProfile:validate", array("id" => $this->_extendedProfile->userID)) ?>">
 					Valider cette association
+				</a>
+			<? endif ?>
+
+			<? if ($this->extendedProfile instanceof ProfileNiceBenevolat): ?>	
+				<a data-ajax="false" data-role="button" data-theme="r" data-icon="delete" data-inline="true"
+					href="<?= url("extendedProfile:delete", array("id" => $this->_extendedProfile->userID)) ?>">
+					Supprimer
 				</a>
 			<? endif ?>
 			

@@ -6,7 +6,7 @@ define("ANN_VALID", "valid");
 define("ANN_PAST", "past");
 define("ANN_CRITERIA", "criteres");
 
-class ListAnnoncesController extends ExtendedProfileRequired {
+class ListAnnoncesController extends GuestOrUserController {
 		
 	/** @var Annonce[] */
 	public $annonces;
@@ -14,6 +14,9 @@ class ListAnnoncesController extends ExtendedProfileRequired {
 	
 	/** Processed when argument "method" is missing */
 	function defaultMethod() {
+		
+		// We need a token (guest one maybe)
+		$this->getToken();
 		
 		// Get the filter
 		if (in_request('filter')) {

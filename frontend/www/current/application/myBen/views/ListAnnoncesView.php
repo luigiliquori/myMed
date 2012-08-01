@@ -22,6 +22,28 @@ $filters[ANN_ALL] = "toutes";
 	
 	<div data-role="content">
 	
+	
+		<? if (!isset($this->user)) : ?>
+			<p>
+				Bonjour,<br/>
+				<br/>
+				Bienvenue sur <strong>MyBénévolat</strong>, le service de mise en relation des bénévoles et des associations, dans Nice et sa région via <strong>Nice Bénévolat</strong>.<br/>
+				<br/>
+					Vous êtes une association ? Vous vous recherchez des bénévoles ? <br/>
+						<a 
+							data-role="button" class="mm-left" data-theme="e" data-inline="true"
+							href="<? url("ExtendedProfile:create", array("type" => "association")) ?>">
+							Créez un compte "association" et déposez des offres
+						</a>
+						<br/>
+						Vous êtes un particulier et souhaitez offrir votre temps libre ? <br/>
+						<a  data-role="button" class="mm-left" data-theme="g" data-inline="true"
+							href="<? url("ExtendedProfile:create", array("type" => "benevole")) ?>">
+							Créez un compte "bénévole" pour répondre aux offres
+						</a>
+			</p>
+		<? endif ?>
+	
 		<? if ($this->canPost()) : ?>
 			<a data-inline="true"data-role="button" data-icon="add" data-theme="g"	data-ajax="false"
 				href="<?= url("annonce:create") ?>" >
@@ -51,18 +73,34 @@ $filters[ANN_ALL] = "toutes";
 				<li>
 					<a 	data-ajax="false"
 						href="<?= url("annonce:details", array("id" => $annonce->id)) ?>">
-						<?= $annonce->titre ?>
-						<? if (is_true($annonce->promue)) : ?>
-							<span class="mm-tag mm-warn" >déjà promue</span>
-						<? endif ?>
-						<? if ($annonce->isPassed()) : ?>
-							<span class="mm-tag mm-warn" >passée</span>
-						<? endif ?>
-						<p class="ui-li-aside">
-							<b>Parution:</b> <?= $annonce->begin ?>
-							<? if (!empty($annonce->end)) : ?>
+						
+						<h3>
+							<?= $annonce->titre ?>
+							<? if (is_true($annonce->promue)) : ?>
+								<span class="mm-tag mm-warn" >déjà promue</span>
+							<? endif ?>
+							<? if ($annonce->isPassed()) : ?>
+								<span class="mm-tag mm-warn" >passée</span>
+							<? endif ?>			
+						</h3>
+						
+						<p>
+							<? if (!empty($annonce->quartier)) : ?>				
+								<strong>Lieu: </strong>
+								<?= CategoriesMobilite::$values[$annonce->quartier] ?>
 								<br/>
+							<? endif ?>
+							
+							<strong>Compétences: </strong>
+							<? foreach($annonce->competences as $competence): ?>
+								<?= CategoriesCompetences::$values[$competence] ?>,
+							<? endforeach ?>
+							<br/>
+							
+							<b>Parution:</b> <?= $annonce->begin ?><br/>
+							<? if (!empty($annonce->end)) : ?>
 								<b>Fin:</b> <?= $annonce->end ?>
+								<br/>
 							<? endif ?>
 						</p>
 					</a>

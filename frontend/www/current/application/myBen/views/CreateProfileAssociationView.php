@@ -1,4 +1,4 @@
-<? include("header.php"); ?>
+<? include("header.php") ?>
 
 <div data-role="page" id="association" >	
 
@@ -6,9 +6,13 @@
 	
 	<form data-role="content" method="post" data-ajax="false" 
 		action="<?= url("extendedProfile:doCreate", array("type" => ASSOCIATION)) ?>" >
-
+				
 		<p>
-		Merci de remplir la fiche de l'association. 
+			<? if (!isset($this->extendedProfile)) :?>
+			Vous avez déjà un compte association ?
+			<a href="<?= url("login") ?>">connectez vous</a><br/>
+			<? endif ?>
+			Merci de remplir la fiche de l'association.
 		</p>
 		
 		<? include('ProfileAssociationForm.php') ?>
@@ -20,4 +24,4 @@
 
 </div>
 
-<? include("footer.php"); ?>
+<? include("footer.php") ?>
