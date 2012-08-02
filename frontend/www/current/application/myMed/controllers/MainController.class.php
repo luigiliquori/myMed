@@ -12,6 +12,9 @@ class MainController extends AuthenticatedController {
 	public function handleRequest() {
 
 		parent::handleRequest();
+		
+		// Set the flag
+		$_SESSION["launchpad"] = true;
 
 		// Get the reputation of the user in each the application
 		if ($handle = opendir(MYMED_ROOT . '/application')) {

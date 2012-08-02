@@ -25,7 +25,7 @@ require_once("header.php"); ?>
  		    <input type="submit" data-role="button" data-inline="true" data-theme="b" value="Connexion" />
 		</form>
 		<br /><br />
-		<img alt="Alcotra" src="<?= MYMED_ROOT ?>/system/img/logos/alcotra" />
+		<img alt="Alcotra" src="<?= MYMED_URL_ROOT ?>/system/img/logos/alcotra.png" />
 		<br />
 		<i>"Ensemble par-delà les frontières"</i>
 		

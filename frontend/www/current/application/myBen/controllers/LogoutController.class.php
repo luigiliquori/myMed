@@ -7,7 +7,15 @@ class LogoutController extends AbstractController {
 	 * @see IRequestHandler::handleRequest()
 	 */
 	public /*void*/ function handleRequest() {
-			
+		
+		// Did we pass by the launchpad ?
+		if (isset($_SESSION["launchpad"])) {
+				
+			// Go back to launchpad
+			$this->redirectTo("/");
+				
+		} else {
+
 			// DELETE BACKEND SESSION
 			$request = new Request("SessionRequestHandler", DELETE);
 			$request->addArgument("accessToken", $_SESSION['user']->session);
@@ -15,16 +23,18 @@ class LogoutController extends AbstractController {
 
 			$responsejSon = $request->send();
 			$responseObject = json_decode($responsejSon);
-				
+
 			if($responseObject->status != 200) {
 				$this->error = $responseObject->description;
 			}
-				
+
 			// DELETE FRONTEND SESSION
 			session_destroy();
+				
+			// Go to root of application
+			$this->redirectTo("main");
+		}
 			
-			// Redirect to login
-			$this->redirectTo("main");	
 	}
 
 }

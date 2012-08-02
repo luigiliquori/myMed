@@ -6,8 +6,6 @@ define("MODE_CREATE", "create");
 define("MODE_EDIT", "edit");
 define("MODE_SHOW", "show");
 
-
-
 /** 
  *  Handle creation/update and deletion of profile
  */
@@ -150,7 +148,7 @@ class ExtendedProfileController extends GuestOrUserController {
 		if ($this->mode == MODE_CREATE) {
 			
 			// Not already logged
-			if ($this->user == null) {
+			if ($this->getUserType() == USER_GUEST) {
 				
 				// Create new user with authentication
 				if (empty($_POST['password']) ) {
@@ -181,7 +179,7 @@ class ExtendedProfileController extends GuestOrUserController {
 			} else {
 				
 				// Only NiceBenevolat can create other users
-				if ($this->user->id != ProfileNiceBenevolat::$USERID) {
+				if ($this->getUserType() != USER_NICE_BENEVOLAT) {
 					throw new UserError("Seul Nice Bénévolat peut créer de nouveaux utilisateurs");
 				} 
 				
@@ -288,17 +286,26 @@ class ExtendedProfileController extends GuestOrUserController {
 	/** Do create an extended profile */
 	function doCreate() {
 		
-		$this->mode = MODE_CREATE;
-				
-	 	// Create the myMed profile
-		$res = $this->updateMyMedProfile();
-		
-		// Type of profile
+		// Type of requested profile
 		$type = $_REQUEST['type'];
 		
-		// Error ? Show profile form again
-		if (!$res) {	
-			$this->renderView("createProfile" . ucfirst($type));
+		$this->mode = MODE_CREATE;
+				
+		// Do not create mymed profile for already registered MYMED users (and not Nice Benevolat)
+		if ($this->getUserType() != USER_MYMED) { 
+		
+	 		// Create the myMed profile
+			$res = $this->updateMyMedProfile();
+	
+			// Error ? Show profile form again
+			if (!$res) {	
+				$this->renderView("createProfile" . ucfirst($type));
+			}
+		} else {
+			
+			// The user to fill is the current logged user
+			$this->_user = $this->user;
+			
 		}
 	 	
 		// Switch on profile type
@@ -429,6 +436,14 @@ class ExtendedProfileController extends GuestOrUserController {
 		} else {
 			$this->redirectTo("listAssociations");
 		}
+	}
+	
+	/** Used for testing, for cleaning extended profiles manually */
+	function deleteExt() {
+		// Fetch the extended profile
+		$this->_extendedProfile = ExtendedProfileRequired::getExtendedProfile($_REQUEST["id"]);
+		$this->_extendedProfile->delete();
+		throw new Exception("Ok");
 	}
 
 	/** View the profile */

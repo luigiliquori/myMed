@@ -3,6 +3,11 @@ $user = $this->_user;
 global $READ_ONLY;
 ?>
 
+<? 
+// Do not show this part for MyMed users that only need to fill extended profiles
+if ($this->getUserType() != USER_MYMED) :
+?>
+
 <div data-role="header" data-theme="b">
 	<h3>Profil MyMed</h3>
 </div>
@@ -20,6 +25,8 @@ global $READ_ONLY;
 <? if ($this->mode == MODE_CREATE && $this->user == null) : ?>
 	<? input("password", "password", "Mot de passe", "", "", true) ?>
 	<? input("password", "confirm", "Mot de passe (confirmation)", "", "", true) ?>
+<? endif ?>
+
 <? endif ?>
 
 

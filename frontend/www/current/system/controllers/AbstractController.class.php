@@ -16,9 +16,11 @@ abstract class AbstractController implements IRequestHandler {
 	 */
 	public function redirectTo($action, array $vars=array()) {
 		$url = url($action, $vars);
-		debug("url:" . $url);
 		
-		printf('<script>location.href="/application/'. APPLICATION_NAME . '/index.php' . $url . '"</script>');
+		if ($url[0] != '/') {
+			$url = "/application/". APPLICATION_NAME . "/index.php" . $url;
+		}
+		printf("<script>location.href='$url'</script>");
 		//header('Refresh:0;url=/application/'.APPLICATION_NAME.'/index.php?action=' . $action . $get_line);
 			
 		exit();

@@ -23,25 +23,25 @@ $filters[ANN_ALL] = "toutes";
 	<div data-role="content">
 	
 	
-		<? if (!isset($this->user)) : ?>
-			<p>
+		<? if (!isset($this->extendedProfile)) : ?>
+			<div class="mm-welcome"><p>
 				Bonjour,<br/>
 				<br/>
 				Bienvenue sur <strong>MyBénévolat</strong>, le service de mise en relation des bénévoles et des associations, dans Nice et sa région via <strong>Nice Bénévolat</strong>.<br/>
 				<br/>
 					Vous êtes une association ? Vous vous recherchez des bénévoles ? <br/>
 						<a 
-							data-role="button" class="mm-left" data-theme="e" data-inline="true"
-							href="<? url("ExtendedProfile:create", array("type" => "association")) ?>">
-							Créez un compte "association" et déposez des offres
+							data-role="button" class="mm-left" data-theme="e" data-inline="true" data-ajax="false"
+							href="<?= url("ExtendedProfile:create", array("type" => "association")) ?>">
+							Créez un compte "association" et déposez vos offres
 						</a>
 						<br/>
 						Vous êtes un particulier et souhaitez offrir votre temps libre ? <br/>
-						<a  data-role="button" class="mm-left" data-theme="g" data-inline="true"
-							href="<? url("ExtendedProfile:create", array("type" => "benevole")) ?>">
+						<a  data-role="button" class="mm-left" data-theme="g" data-inline="true" data-ajax="false"
+							href="<?= url("ExtendedProfile:create", array("type" => "benevole")) ?>">
 							Créez un compte "bénévole" pour répondre aux offres
 						</a>
-			</p>
+			</p></div>
 		<? endif ?>
 	
 		<? if ($this->canPost()) : ?>
@@ -64,7 +64,7 @@ $filters[ANN_ALL] = "toutes";
 			<a  
 				data-role="button" 
 				data-inline="true"
-				href="<?= url("listAssociations", array("filter" => ANN_ALL)) ?>" >
+				href="<?= url("listAnnonces", array("filter" => ANN_ALL)) ?>" >
 				Afficher toutes les annonces
 			</a>
 		<? else : ?>

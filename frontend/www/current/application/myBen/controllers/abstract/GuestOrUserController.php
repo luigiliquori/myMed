@@ -9,6 +9,13 @@ define('EXTENDED_PROFILE', "extendedProfile");
 define("GUEST_USERID", "MYMED_mb-guest@yopmail.com");
 define("GUEST_TOKEN", APPLICATION_NAME . ":guest");
 
+// types of users
+define('USER_GUEST', 'guest');
+define('USER_MYMED', 'mymed');
+define('USER_NICE_BENEVOLAT', 'nice_benevolat');
+define('USER_BENEVOLE', 'benevole');
+define('USER_ASSOCIATION', 'association');
+
 /**
  *  This controller fetches user, extendedProfile and token information from the 
  *  SESSION and brings it to the attributes.
@@ -45,6 +52,16 @@ class GuestOrUserController extends AbstractController {
 		
 		if (isset($_SESSION[EXTENDED_PROFILE])) {
 			$this->extendedProfile = $_SESSION[EXTENDED_PROFILE];
+		} else {
+			
+			if (isset($this->user)) {
+				// Try to fetch an extended profile (for a MyMed user comming from the launchpad)
+				$profile = ExtendedProfileRequired::getExtendedProfile($this->user->id);
+				if ($profile != null) {
+					$this->extendedProfile = $profile;
+					$_SESSION[EXTENDED_PROFILE] = $profile;
+				}
+			}
 		}
 	}
 	
@@ -75,6 +92,23 @@ class GuestOrUserController extends AbstractController {
 		return $_SESSION[ACCESS_TOKEN];
 		
 	}
+	
+	/** 
+	 *  Get user type.
+	 *  @return USER_GUEST : Not logged
+	 *          USER_MYMED : Logged but no extended profile 
+	 *          USER_BENEVOLE : Logged with benevole extended profile
+	 *          USER_ASSOCIATION : Logged with association extended profile
+	 *          USER_NICE_BENEVOLAT : Logged with nice benvolat extended profile
+	 */
+	public function getUserType() {
+		if (!isset($this->user)) return USER_GUEST;
+		if (!isset($this->extendedProfile)) return USER_MYMED;
+		if ($this->user->id == ProfileNiceBenevolat::$USERID) return USER_NICE_BENEVOLAT;
+		if ($this->extendedProfile instanceof ProfileBenevole) return USER_BENEVOLE;
+		return USER_ASSOCIATION;
+	}
+	
 	
 	// ---------------------------------------------------------------------
 	// Setters

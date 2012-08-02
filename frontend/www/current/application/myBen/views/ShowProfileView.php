@@ -31,7 +31,11 @@
 		<? if ($this->_extendedProfile->userID == $this->user->id) : ?>
 			<a data-ajax="false" data-role="button" data-theme="r" data-icon="power" data-inline="true"
 				href="<?= url("logout") ?>">
-				Se délogguer
+				<? if (isset($_SESSION['launchpad'])) : ?>
+					Quitter
+				<? else: ?>
+					Se délogguer
+				<? endif ?>
 			</a>
 		<? endif ?>
 		

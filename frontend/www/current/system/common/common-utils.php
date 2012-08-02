@@ -24,6 +24,8 @@ function is_true($value) {
  *  * url("profile", array("foo" => "bar")) => "?action=profile&foo=bar"
  */
 function url($action, $args=array()) {
+	// Real path
+	if ($action[0] == '/') return $action;
 	$parts = explode(":", $action);
 	$args["action"] = $parts[0];
 	if (sizeof($parts) > 1) $args["method"] = $parts[1];
