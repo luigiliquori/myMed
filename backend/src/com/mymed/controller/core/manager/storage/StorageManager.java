@@ -128,7 +128,7 @@ public class StorageManager implements IStorageManager {
 
 		return resultValue;
 			}
-	
+
 	public byte[] _selectSuperColumn(String tableName, String key,
 			String columnName, String superColumn) throws InternalBackEndException,
 			IOBackEndException {
@@ -314,385 +314,388 @@ public class StorageManager implements IStorageManager {
 			final SlicePredicate predicate) 
 					throws InternalBackEndException, IOBackEndException 
 					{
+		if(!key.equals("")) {
+			final ColumnParent parent = new ColumnParent(columnFamily);
 
-		final ColumnParent parent = new ColumnParent(columnFamily);
-		
-        final List<ColumnOrSuperColumn> results = getSlice(key, parent, predicate);
+			final List<ColumnOrSuperColumn> results = getSlice(key, parent, predicate);
 
-        final Map<byte[], byte[]> slice = new HashMap<byte[], byte[]>(results.size());
+			final Map<byte[], byte[]> slice = new HashMap<byte[], byte[]>(results.size());
 
-        for (final ColumnOrSuperColumn res : results) {
-            final Column col = res.getColumn();
-			if(col != null) {
-            slice.put(col.getName(), col.getValue());
-        }
+			for (final ColumnOrSuperColumn res : results) {
+				final Column col = res.getColumn();
+				if(col != null) {
+					slice.put(col.getName(), col.getValue());
+				}
+			}
+
+			return slice;
+		} else {
+			return new HashMap<byte[], byte[]>();
+		}
+					}
+
+	/**
+	 * Retrieve the slice.
+	 * 
+	 * @throws InternalBackEndException
+	 * @throws IOBackEndException
+	 */
+	private List<ColumnOrSuperColumn> getSlice(
+			final String key, 
+			final ColumnParent parent, 
+			final SlicePredicate predicate)
+					throws InternalBackEndException, IOBackEndException 
+					{
+
+		LOGGER.info("Selecting slice from column family '{}' with key '{}'", parent.getColumn_family(), key);
+
+		final List<ColumnOrSuperColumn> slice = wrapper.get_slice(key, parent, predicate, consistencyOnRead);
+
+		LOGGER.info("Slice selection completed");
+
+		return slice;
+					}
+
+	/**
+	 * Count columns in record
+	 * 
+	 * @param key
+	 * @param parent
+	 * @return
+	 * @throws InternalBackEndException
+	 */
+	@Override
+	public int countColumns(
+			final String tableName, 
+			final String key) 
+					throws InternalBackEndException 
+					{
+
+		final ColumnParent parent = new ColumnParent(tableName);
+		LOGGER.info("Selecting slice from column family '{}' with key '{}'", parent.getColumn_family(), key);
+
+		final SlicePredicate predicate = new SlicePredicate();
+		final SliceRange sliceRange = new SliceRange();
+		sliceRange.setStart(new byte[0]);
+		sliceRange.setFinish(new byte[0]);
+		predicate.setSlice_range(sliceRange);
+		final int count = wrapper.get_count(key, parent, predicate, consistencyOnRead);
+
+		LOGGER.info("Slice selection completed");
+		return count;
+					}
+
+	/**
+	 * Update the value of a Simple Column
+	 * 
+	 * @param tableName
+	 *          the name of the Table/ColumnFamily
+	 * @param key
+	 *          the ID of the entry
+	 * @param columnName
+	 *          the name of the column
+	 * @param value
+	 *          the value updated
+	 * @return true is the value is updated, false otherwise
+	 * @throws InternalBackEndException
+	 */
+	@Override
+	public void insertColumn(
+			final String tableName, 
+			final String key, 
+			final String columnName, 
+			final byte[] value)
+					throws InternalBackEndException 
+					{
+
+		final ColumnParent parent = new ColumnParent(tableName);
+
+		insert(key, parent, columnName, value);
+					}
+
+
+	/**
+	 * Update the value of a Super Column
+	 * 
+	 * @param tableName
+	 *          the name of the Table/ColumnFamily
+	 * @param key
+	 *          the ID of the entry
+	 * @param superColumn
+	 *          the ID of the superColumn
+	 * @param columnName
+	 *          the name of the column
+	 * @param value
+	 *          the value updated
+	 * @return true is the value is updated, false otherwise
+	 * @throws InternalBackEndException
+	 */
+	@Override
+	public void insertSuperColumn(
+			final String tableName, 
+			final String key, 
+			final String superColumn,
+			final String columnName, 
+			final byte[] value) 
+					throws InternalBackEndException 
+					{
+		final ColumnParent parent = new ColumnParent(tableName);
+		parent.setSuper_column(MConverter.stringToByteBuffer(superColumn));
+		insert(key, parent, columnName, value);
+					}
+
+	/**
+	 * Perform the real insert operation
+	 * 
+	 * @param key
+	 *          the ID of the entry
+	 * @param parent
+	 *          the ColumParent
+	 * @param columnName
+	 *          the name of the column
+	 * @param value
+	 *          the value updated
+	 * @throws InternalBackEndException
+	 */
+
+	private void insert(
+			final String key, 
+			final ColumnParent parent, 
+			final String columnName, final byte[] value)
+					throws InternalBackEndException 
+					{
+		final long timestamp = System.currentTimeMillis();
+		final ByteBuffer buffer = ByteBuffer.wrap(value);
+		final Column column = new Column(MConverter.stringToByteBuffer(columnName), buffer, timestamp);
+		LOGGER.info("Inserting column '{}' into '{}' with key '{}'", new Object[] {columnName, parent.getColumn_family(),
+				key});
+		wrapper.insert(key, parent, column, consistencyOnWrite);
+
+		LOGGER.info("Column '{}' inserted", columnName);
+					}
+
+
+
+	/**
+	 * Insert a new entry in the database
+	 * 
+	 * @param tableName
+	 *          the name of the Table/ColumnFamily
+	 * @param key
+	 *          the ID of the entry
+	 * @param args
+	 *          All columnName and the their value
+	 * @throws InternalBackEndException
+	 */
+	@Override
+	public void insertSlice(
+			final String tableName, 
+			final String primaryKey, 
+			final Map<String, byte[]> args)
+					throws InternalBackEndException
+					{
+		try {
+			final Map<String, Map<String, List<Mutation>>> mutationMap = new HashMap<String, Map<String, List<Mutation>>>();
+			final long timestamp = System.currentTimeMillis();
+			final Map<String, List<Mutation>> tableMap = new HashMap<String, List<Mutation>>();
+			final List<Mutation> sliceMutationList = new ArrayList<Mutation>(5);
+
+			tableMap.put(tableName, sliceMutationList);
+
+			final Iterator<Entry<String, byte[]>> iterator = args.entrySet().iterator();
+			while (iterator.hasNext()) {
+				final Entry<String, byte[]> entry = iterator.next();
+
+				final Mutation mutation = new Mutation();
+				mutation.setColumn_or_supercolumn(new ColumnOrSuperColumn().setColumn(new Column(MConverter
+						.stringToByteBuffer(entry.getKey()), ByteBuffer.wrap(entry.getValue()), timestamp)));
+
+				sliceMutationList.add(mutation);
+			}
+
+			// Insertion in the map
+			mutationMap.put(primaryKey, tableMap);
+
+			LOGGER.info("Performing a batch_mutate on table '{}' with key '{}'", tableName, primaryKey);
+
+			wrapper.batch_mutate(mutationMap, consistencyOnWrite);
+		} catch (final InternalBackEndException e) {
+			LOGGER.debug("Insert slice in table '{}' failed", tableName, e);
+			throw new InternalBackEndException("InsertSlice failed."); // NOPMD
 		}
 
-        return slice;
-    }
-
-    /**
-     * Retrieve the slice.
-     * 
-     * @throws InternalBackEndException
-     * @throws IOBackEndException
-     */
-    private List<ColumnOrSuperColumn> getSlice(
-            final String key, 
-            final ColumnParent parent, 
-            final SlicePredicate predicate)
-                    throws InternalBackEndException, IOBackEndException 
-    {
-
-        LOGGER.info("Selecting slice from column family '{}' with key '{}'", parent.getColumn_family(), key);
-
-        final List<ColumnOrSuperColumn> slice = wrapper.get_slice(key, parent, predicate, consistencyOnRead);
-
-        LOGGER.info("Slice selection completed");
-
-        return slice;
-    }
-
-    /**
-     * Count columns in record
-     * 
-     * @param key
-     * @param parent
-     * @return
-     * @throws InternalBackEndException
-     */
-    @Override
-    public int countColumns(
-            final String tableName, 
-            final String key) 
-                    throws InternalBackEndException 
-    {
-
-        final ColumnParent parent = new ColumnParent(tableName);
-        LOGGER.info("Selecting slice from column family '{}' with key '{}'", parent.getColumn_family(), key);
-
-        final SlicePredicate predicate = new SlicePredicate();
-        final SliceRange sliceRange = new SliceRange();
-        sliceRange.setStart(new byte[0]);
-        sliceRange.setFinish(new byte[0]);
-        predicate.setSlice_range(sliceRange);
-        final int count = wrapper.get_count(key, parent, predicate, consistencyOnRead);
-
-        LOGGER.info("Slice selection completed");
-        return count;
-    }
-
-    /**
-     * Update the value of a Simple Column
-     * 
-     * @param tableName
-     *          the name of the Table/ColumnFamily
-     * @param key
-     *          the ID of the entry
-     * @param columnName
-     *          the name of the column
-     * @param value
-     *          the value updated
-     * @return true is the value is updated, false otherwise
-     * @throws InternalBackEndException
-     */
-    @Override
-    public void insertColumn(
-            final String tableName, 
-            final String key, 
-            final String columnName, 
-            final byte[] value)
-                    throws InternalBackEndException 
-    {
-
-        final ColumnParent parent = new ColumnParent(tableName);
-
-        insert(key, parent, columnName, value);
-    }
-
-
-    /**
-     * Update the value of a Super Column
-     * 
-     * @param tableName
-     *          the name of the Table/ColumnFamily
-     * @param key
-     *          the ID of the entry
-     * @param superColumn
-     *          the ID of the superColumn
-     * @param columnName
-     *          the name of the column
-     * @param value
-     *          the value updated
-     * @return true is the value is updated, false otherwise
-     * @throws InternalBackEndException
-     */
-    @Override
-    public void insertSuperColumn(
-            final String tableName, 
-            final String key, 
-            final String superColumn,
-            final String columnName, 
-            final byte[] value) 
-                    throws InternalBackEndException 
-    {
-        final ColumnParent parent = new ColumnParent(tableName);
-        parent.setSuper_column(MConverter.stringToByteBuffer(superColumn));
-        insert(key, parent, columnName, value);
-    }
-
-    /**
-     * Perform the real insert operation
-     * 
-     * @param key
-     *          the ID of the entry
-     * @param parent
-     *          the ColumParent
-     * @param columnName
-     *          the name of the column
-     * @param value
-     *          the value updated
-     * @throws InternalBackEndException
-     */
-
-    private void insert(
-            final String key, 
-            final ColumnParent parent, 
-            final String columnName, final byte[] value)
-                    throws InternalBackEndException 
-    {
-        final long timestamp = System.currentTimeMillis();
-        final ByteBuffer buffer = ByteBuffer.wrap(value);
-        final Column column = new Column(MConverter.stringToByteBuffer(columnName), buffer, timestamp);
-        LOGGER.info("Inserting column '{}' into '{}' with key '{}'", new Object[] {columnName, parent.getColumn_family(),
-                key});
-        wrapper.insert(key, parent, column, consistencyOnWrite);
-
-        LOGGER.info("Column '{}' inserted", columnName);
-    }
+		LOGGER.info("batch_mutate performed correctly");
+					}
 
 
 
-    /**
-     * Insert a new entry in the database
-     * 
-     * @param tableName
-     *          the name of the Table/ColumnFamily
-     * @param key
-     *          the ID of the entry
-     * @param args
-     *          All columnName and the their value
-     * @throws InternalBackEndException
-     */
-    @Override
-    public void insertSlice(
-            final String tableName, 
-            final String primaryKey, 
-            final Map<String, byte[]> args)
-                    throws InternalBackEndException
-    {
-        try {
-            final Map<String, Map<String, List<Mutation>>> mutationMap = new HashMap<String, Map<String, List<Mutation>>>();
-            final long timestamp = System.currentTimeMillis();
-            final Map<String, List<Mutation>> tableMap = new HashMap<String, List<Mutation>>();
-            final List<Mutation> sliceMutationList = new ArrayList<Mutation>(5);
+	/**
+	 * Insert a new entry in the database
+	 * 
+	 * @param superTableName
+	 *          the name of the Table/SuperColumnFamily
+	 * @param key
+	 *          the ID of the entry
+	 * @param superKey
+	 *          the ID of the entry in the SuperColumnFamily
+	 * @param args
+	 *          All columnName and the their value
+	 * @throws ServiceManagerException
+	 * @throws InternalBackEndException
+	 * 
+	 */
+	@Override
+	public void insertSuperSlice(
+			final String superTableName, 
+			final String key, 
+			final String superKey,
+			final Map<String, byte[]> args) 
+					throws IOBackEndException, InternalBackEndException 
+					{
+		try {
 
-            tableMap.put(tableName, sliceMutationList);
+			LOGGER.info(String.format("Inserting into SCF %s key:%s superKey:%s nbArgs:%d",
+					superTableName,
+					key,
+					superKey,
+					args.size()));
 
-            final Iterator<Entry<String, byte[]>> iterator = args.entrySet().iterator();
-            while (iterator.hasNext()) {
-                final Entry<String, byte[]> entry = iterator.next();
+			final Map<String, Map<String, List<Mutation>>> mutationMap = new HashMap<String, Map<String, List<Mutation>>>();
+			final long timestamp = System.currentTimeMillis();
+			final Map<String, List<Mutation>> tableMap = new HashMap<String, List<Mutation>>();
+			final List<Mutation> sliceMutationList = new ArrayList<Mutation>(5);
 
-                final Mutation mutation = new Mutation();
-                mutation.setColumn_or_supercolumn(new ColumnOrSuperColumn().setColumn(new Column(MConverter
-                        .stringToByteBuffer(entry.getKey()), ByteBuffer.wrap(entry.getValue()), timestamp)));
-
-                sliceMutationList.add(mutation);
-            }
-
-            // Insertion in the map
-            mutationMap.put(primaryKey, tableMap);
-
-            LOGGER.info("Performing a batch_mutate on table '{}' with key '{}'", tableName, primaryKey);
-
-            wrapper.batch_mutate(mutationMap, consistencyOnWrite);
-        } catch (final InternalBackEndException e) {
-            LOGGER.debug("Insert slice in table '{}' failed", tableName, e);
-            throw new InternalBackEndException("InsertSlice failed."); // NOPMD
-        }
-
-        LOGGER.info("batch_mutate performed correctly");
-                    }
+			tableMap.put(superTableName, sliceMutationList);
 
 
+			final List<Column> columns = new ArrayList<Column>();
 
-    /**
-     * Insert a new entry in the database
-     * 
-     * @param superTableName
-     *          the name of the Table/SuperColumnFamily
-     * @param key
-     *          the ID of the entry
-     * @param superKey
-     *          the ID of the entry in the SuperColumnFamily
-     * @param args
-     *          All columnName and the their value
-     * @throws ServiceManagerException
-     * @throws InternalBackEndException
-     * 
-     */
-    @Override
-    public void insertSuperSlice(
-            final String superTableName, 
-            final String key, 
-            final String superKey,
-            final Map<String, byte[]> args) 
-                    throws IOBackEndException, InternalBackEndException 
-    {
-        try {
-            
-            LOGGER.info(String.format("Inserting into SCF %s key:%s superKey:%s nbArgs:%d",
-                    superTableName,
-                    key,
-                    superKey,
-                    args.size()));
-            
-            final Map<String, Map<String, List<Mutation>>> mutationMap = new HashMap<String, Map<String, List<Mutation>>>();
-            final long timestamp = System.currentTimeMillis();
-            final Map<String, List<Mutation>> tableMap = new HashMap<String, List<Mutation>>();
-            final List<Mutation> sliceMutationList = new ArrayList<Mutation>(5);
+			for (Entry<String, byte[]> entry : args.entrySet()){
+				columns.add(new Column(MConverter.stringToByteBuffer(entry.getKey()), ByteBuffer.wrap(entry.getValue()),
+						timestamp));
+			}
 
-            tableMap.put(superTableName, sliceMutationList);
+			final Mutation mutation = new Mutation();
+			final SuperColumn superColumn = new SuperColumn(MConverter.stringToByteBuffer(superKey), columns);
+			mutation.setColumn_or_supercolumn(new ColumnOrSuperColumn().setSuper_column(superColumn));
+			sliceMutationList.add(mutation);
 
-            
-            final List<Column> columns = new ArrayList<Column>();
+			// Insertion in the map
+			mutationMap.put(key, tableMap);
 
-            for (Entry<String, byte[]> entry : args.entrySet()){
-                columns.add(new Column(MConverter.stringToByteBuffer(entry.getKey()), ByteBuffer.wrap(entry.getValue()),
-                        timestamp));
-            }
+			wrapper.batch_mutate(mutationMap, consistencyOnWrite);
 
-            final Mutation mutation = new Mutation();
-            final SuperColumn superColumn = new SuperColumn(MConverter.stringToByteBuffer(superKey), columns);
-            mutation.setColumn_or_supercolumn(new ColumnOrSuperColumn().setSuper_column(superColumn));
-            sliceMutationList.add(mutation);
+		} catch (final InternalBackEndException e) {
+			throw new InternalBackEndException(e);
+		}
+					}
 
-            // Insertion in the map
-            mutationMap.put(key, tableMap);
-
-            wrapper.batch_mutate(mutationMap, consistencyOnWrite);
-            
-        } catch (final InternalBackEndException e) {
-            throw new InternalBackEndException(e);
-        }
-    }
-
-    /**
-     * Remove a specific column defined by the columnName
-     * 
-     * @param keyspace
-     * @param columnFamily
-     * @param key
-     * @param columnName
-     * @throws InternalBackEndException
-     */
-    @Override
-    public void removeColumn(
-            final String tableName, 
-            final String key, final String columnName) 
-                  throws InternalBackEndException 
-    {
-        final long timestamp = System.currentTimeMillis();
+	/**
+	 * Remove a specific column defined by the columnName
+	 * 
+	 * @param keyspace
+	 * @param columnFamily
+	 * @param key
+	 * @param columnName
+	 * @throws InternalBackEndException
+	 */
+	@Override
+	public void removeColumn(
+			final String tableName, 
+			final String key, final String columnName) 
+					throws InternalBackEndException 
+					{
+		final long timestamp = System.currentTimeMillis();
 		final ColumnPath columnPath = new ColumnPath(tableName);
-        columnPath.setColumn(encode(columnName));
+		columnPath.setColumn(encode(columnName));
 
-        wrapper.remove(key, columnPath, timestamp, consistencyOnWrite);
-    }
+		wrapper.remove(key, columnPath, timestamp, consistencyOnWrite);
+					}
 
-    /**
-     * 
-     * @param tableName
-     * @param key
-     * @param superColumnName
-     * @throws InternalBackEndException
-     */
-    @Override
-    public void removeSuperColumn(
-            final String tableName, 
-            final String key, 
-            final String superColumnName)
-                    throws InternalBackEndException 
-    {
-        final String columnFamily = tableName;
-        final long timestamp = System.currentTimeMillis();
-        final ColumnPath columnPath = new ColumnPath(columnFamily);
-        columnPath.setSuper_column(encode(superColumnName));
+	/**
+	 * 
+	 * @param tableName
+	 * @param key
+	 * @param superColumnName
+	 * @throws InternalBackEndException
+	 */
+	@Override
+	public void removeSuperColumn(
+			final String tableName, 
+			final String key, 
+			final String superColumnName)
+					throws InternalBackEndException 
+					{
+		final String columnFamily = tableName;
+		final long timestamp = System.currentTimeMillis();
+		final ColumnPath columnPath = new ColumnPath(columnFamily);
+		columnPath.setSuper_column(encode(superColumnName));
 
-        wrapper.remove(key, columnPath, timestamp, consistencyOnWrite);
-    }
+		wrapper.remove(key, columnPath, timestamp, consistencyOnWrite);
+					}
 
-    /**
-     * @return
-     */
-    public CassandraWrapper getWrapper() {
-        return wrapper;
-    }
+	/**
+	 * @return
+	 */
+	public CassandraWrapper getWrapper() {
+		return wrapper;
+	}
 
-    /**
-     * Remove an entry in the columnFamily
-     * 
-     * @param keyspace
-     * @param columnFamily
-     * @param key
-     * @throws InternalBackEndException
-     */
-    @Override
-    public void removeAll(
-            final String tableName, 
-            final String key) 
-                    throws InternalBackEndException 
-    {
+	/**
+	 * Remove an entry in the columnFamily
+	 * 
+	 * @param keyspace
+	 * @param columnFamily
+	 * @param key
+	 * @throws InternalBackEndException
+	 */
+	@Override
+	public void removeAll(
+			final String tableName, 
+			final String key) 
+					throws InternalBackEndException 
+					{
 
-        final String columnFamily = tableName;
-        final long timestamp = System.currentTimeMillis();
-        final ColumnPath columnPath = new ColumnPath(columnFamily);
+		final String columnFamily = tableName;
+		final long timestamp = System.currentTimeMillis();
+		final ColumnPath columnPath = new ColumnPath(columnFamily);
 
-        LOGGER.info("Remove all columns in table '{}' with key '{}'", tableName, key);
+		LOGGER.info("Remove all columns in table '{}' with key '{}'", tableName, key);
 
-        wrapper.remove(key, columnPath, timestamp, consistencyOnWrite);
+		wrapper.remove(key, columnPath, timestamp, consistencyOnWrite);
 
-        LOGGER.info("Removed all columns in table '{}'", tableName); 
-    }
+		LOGGER.info("Removed all columns in table '{}'", tableName); 
+					}
 
-    @Override public Map<String, String> selectAllStr(
-            String tableName, 
-            String primaryKey)
-                    throws IOBackEndException, InternalBackEndException 
-    {
-        // Prepare output
-        HashMap<String, String> result = new HashMap<String, String>();
+	@Override public Map<String, String> selectAllStr(
+			String tableName, 
+			String primaryKey)
+					throws IOBackEndException, InternalBackEndException 
+					{
+		// Prepare output
+		HashMap<String, String> result = new HashMap<String, String>();
 
-        // Call the Map<byte[], byte[]> version
-        Map<byte[], byte[]> map = this.selectAll(tableName, primaryKey);
+		// Call the Map<byte[], byte[]> version
+		Map<byte[], byte[]> map = this.selectAll(tableName, primaryKey);
 
-        // Transform into map of strings
-        for (Entry<byte[], byte[]> entry : map.entrySet()) {
-            result.put(decode(entry.getKey()), decode(entry.getValue()));
-        } 
-        return result;
-    }
+		// Transform into map of strings
+		for (Entry<byte[], byte[]> entry : map.entrySet()) {
+			result.put(decode(entry.getKey()), decode(entry.getValue()));
+		} 
+		return result;
+					}
 
 
-  	@Override
+	@Override
 	public Map<String, Map<String, String>> multiSelectList(
-	        String tableName,
+			String tableName,
 			List<String> keys, 
 			String start, 
 			String finish) 
-	{
-  	     throw new NotImplementedException();	
-	}  
-    
+			{
+		throw new NotImplementedException();	
+			}  
+
 	@Override
 	public Map<String, String> selectSuperColumn(String tableName, String key,
 			String columnName) throws InternalBackEndException,
