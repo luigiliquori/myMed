@@ -48,7 +48,8 @@ class PublishRequest extends Request {
 	/* --------------------------------------------------------- */
 	/* Public methods */
 	/* --------------------------------------------------------- */
-	public /*void*/ function send() {		
+	public /*void*/ function send() {	
+
 		// Build the request
 		if (empty($this->userID)) {
 			$this->userID = $_SESSION['user']->id;
