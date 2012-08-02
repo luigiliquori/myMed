@@ -31,6 +31,7 @@ class Request {
 	private /*BackendRequest_*/			$method;
 	private /*Array<string,string>*/	$arguments	= Array();
 	private /*Boolean>*/				$multipart;
+	private /*Boolean */                $useAccessToken = true;
 
 	/* --------------------------------------------------------- */
 	/* Constructors */
@@ -70,6 +71,11 @@ class Request {
 	public /*Boolean*/ function isMultipart() {
 		return $this->multipart;
 	}
+	
+	/** Set to false to avoid using access token in $_SESSION */
+	public function setUseAccessToken($val) {
+		$this->useAccessToken = $val;
+	}
 
 	public /*string*/ function send() {
 		$curl	= curl_init();
@@ -86,7 +92,7 @@ class Request {
 		$this->arguments['code'] = $this->method;
 
 		// Token for security - to access to the API
-		if(isset($_SESSION['accessToken'])) {
+		if($this->useAccessToken && isset($_SESSION['accessToken'])) {
 			$this->arguments['accessToken'] = $_SESSION['accessToken'];
 		}
 
@@ -106,9 +112,9 @@ class Request {
 			curl_setopt($curl, CURLOPT_HTTPHEADER, $httpHeader);
 			curl_setopt($curl, CURLOPT_URL, $this->url.$this->ressource.'?'.http_build_query($this->arguments));
 		}
-		
-// 		echo $this->url.$this->ressource.'?' . http_build_query($this->arguments);
 
+// 		echo $this->url.$this->ressource.'?' . http_build_query($this->arguments);
+		
 		// SSL CONNECTION
 		// TODO fix once we have the valid certificate!
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
@@ -120,8 +126,14 @@ class Request {
 //		debug($result);
 // 		echo '<script type="text/javascript">alert(\'' . $result . '\');</script>';
 
+		$info = curl_getinfo($curl);
+		
+		$status = $info['http_code'];
+		
 		if ($result === false) {
 			throw new Exception("CURL Error : " . curl_error($curl));
+		} else if ($status >= 500 && $status < 600) {
+			throw new Exception("Request error : Status " . $status. "\n" . $result);
 		}
 		
 		return $result;

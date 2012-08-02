@@ -181,7 +181,7 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
             throw new InternalBackEndException("User/Authentication jSon format is not valid"); // NOPMD
         }
 
-        // register the new user
+        // Register the new user
         if ((userBean != null) && (authenticationBean != null)) {
             authenticationManager.create(userBean, authenticationBean);
             // delete pending tasks

@@ -38,6 +38,9 @@ class MainController extends AuthenticatedController {
 	public function handleRequest() {
 
 		parent::handleRequest();
+		
+		// Set the flag
+		$_SESSION["launchpad"] = true;
 
 		// Get the reputation of the user in each the application
 		if ($handle = opendir(MYMED_ROOT . '/application')) {
@@ -48,10 +51,10 @@ class MainController extends AuthenticatedController {
 					$request->addArgument("application",  $file);
 					$request->addArgument("producer",  $_SESSION['user']->id);				// Reputation of data
 					$request->addArgument("consumer",  $_SESSION['user']->id);
-						
+					
 					$responsejSon = $request->send();
 					$responseObject = json_decode($responsejSon);
-						
+					
 					if(isset($responseObject->data->reputation)){
 						$i=0;
 						$value = json_decode($responseObject->data->reputation);

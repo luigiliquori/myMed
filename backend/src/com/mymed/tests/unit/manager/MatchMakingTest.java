@@ -70,13 +70,16 @@ public class MatchMakingTest {
         
         List<MDataBean> pred = ontologies(
                 "A", "a", MOntologyID.TEXT,
-                "B", "b", MOntologyID.ENUM, 
-                "C", "c", MOntologyID.TEXT, 
-                "D", "d", MOntologyID.TEXT 
+                "B", "b1|b2", MOntologyID.ENUM, // Enum field should be split with '|'
+                "C", "c1|c2", MOntologyID.TEXT // Text field shouldn't be split with '|' 
                 );
         
-        List<String> combi = combi(pred, 4);
-        System.out.println("Expanded combis :"+ combi.size()+" " +combi);
+        
+        // ---------------------------------------------------------------------------
+        // Level = 3
+        // ---------------------------------------------------------------------------
+        List<String> combi = combi(pred, 3);
+        
         assertEquals(
                 list(
                         "Aa",
@@ -87,6 +90,14 @@ public class MatchMakingTest {
                         "Bb1Cc1|c2", "Bb2Cc1|c2",
                         "AaBb1Cc1|c2", "AaBb2Cc1|c2"),
                 combi);
+        
+        // ---------------------------------------------------------------------------
+        // Level = 1
+        // ---------------------------------------------------------------------------
+        
+        combi = combi(pred, 1);
+        
+        assertEquals(list("Aa", "Bb1", "Bb2", "Cc1|c2"), combi);
         
     }
 }

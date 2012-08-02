@@ -1,6 +1,6 @@
 <?php 
 
-class RegisterController extends AbstractController {
+class RegisterController extends GuestOrUserController {
 	
 	/**
 	 * This will create a temporary Profile with the informations submited by POST and send a confirmation-email.
@@ -66,9 +66,7 @@ class RegisterController extends AbstractController {
 			} else {
 				$this->success = "Félicitation, Un email de confirmation vient de vous être envoyé!";
 				$this->renderView("login");
-			}
-			
-			
+			}	
 		}
 		
 		// Case where the user click the link on the e-mail to confirm registration 
@@ -81,7 +79,6 @@ class RegisterController extends AbstractController {
 			$this->confirmRegistration($_GET['accessToken']);
 		 
 		} else {
-			
 			
 			$this->error = _("Erreur interne d'enrgistrement");
 			$this->renderView("register");
@@ -109,12 +106,16 @@ class RegisterController extends AbstractController {
 		$responseObject = json_decode($responsejSon);
 		
 		// In case of errors...
-		if($responseObject->status != 200) {
+		if ($responseObject->status != 200) {
 			$this->error = $responseObject->description;
-		} else {
-			$this->success = _("Votre compte à bien été validé. Vous pouvez vous loguer à présent");
+			$this->renderView("login");
 		}
-		$this->renderView("login");
+			
+		// Success message
+		$this->success = _("Votre compte a été validé. Vous pouvez maintenant vous connecter.");
+		
+		// Go back to main view
+		$this->forwardTo("login");
 		
 	}
 

@@ -12,11 +12,11 @@ require_once("header.php"); ?>
 		<span class="ui-title"></span>
 		<? include("notifications.php"); ?>
 	</div>
-
+	
 	<div data-role="content"  class="content">
 	
 		<img alt="myMed" src="<?= APP_ROOT ?>/img/logo-mymed-250c.png" width="200" />
-		
+	
 		<form action="?action=login" method="post" data-ajax="false">
 			<input type="hidden" name="signin" value="1" />
 		    <input type="text" name="login" id="login" placeholder="email"  data-theme="c"/><br />
@@ -24,7 +24,7 @@ require_once("header.php"); ?>
  		    <input type="submit" data-role="button" data-inline="true" data-theme="b" value="Connexion" />
 		</form>
 		<br /><br />
-		<img alt="Alcotra" src="<?= MYMED_ROOT ?>/system/img/logos/alcotra" />
+		<img alt="Alcotra" src="<?= MYMED_URL_ROOT ?>/system/img/logos/alcotra.png" />
 		<br />
 		<i>"Ensemble par-delà les frontières"</i>
 		
