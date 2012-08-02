@@ -1,5 +1,4 @@
 <?php
-	define('FAIL_ON_BACKEND_ERROR', true);
 	define('APPLICATION_NAME', "myMed");
 	define('APP_ROOT', 'application/myMed');
 	define('MYMED_ROOT', __DIR__);
