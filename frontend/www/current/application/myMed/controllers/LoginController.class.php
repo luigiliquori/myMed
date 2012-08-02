@@ -76,7 +76,7 @@ class LoginController extends AbstractController {
 				$this->getUserFromSession();
 				
 				// FIX THE LOGIN TO LOWER CASE IF IT'S NEEDED
-				if (strtolower($login) != login) {
+				if (strtolower($login) != $login) {
 					// create the authentication
 					$mAuthenticationBean = new MAuthenticationBean();
 					$mAuthenticationBean->login =  strtolower($login); // LOWER CASE LOGIN
