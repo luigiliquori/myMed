@@ -262,21 +262,32 @@ public class PublishRequestHandler extends AbstractMatchMaking {
 					// Store indexes for this data 
 					LOGGER.info("indexing "+bufferSubPredicate.toString()+" with level: "+level+", nb of rows:"+predicates.size());
 
-					// ASCYN EXEC - Broadcast
-//					new Thread(new Runnable() {
-//						@Override
-//						public void run() {
-							for (String predicate : predicates) {
-								pubsubManager.create(
-										makePrefix(application, namespace),
-										predicate, 
-										bufferSubPredicate.toString(),
-										userBean,
-										dataList,
-										predicateList);
-							}
-//						}
-//					}).start();
+					//  Broadcast
+					for (final String predicate : predicates) {
+						// ASCYN EXEC
+						if (parameters.get(JSON_ASYNCEXEC) != null) {
+							new Thread(new Runnable() {
+								@Override
+								public void run() {
+										pubsubManager.create(
+												makePrefix(application, namespace),
+												predicate, 
+												bufferSubPredicate.toString(),
+												userBean,
+												dataList,
+												predicateList);
+									}
+							}).start();
+						} else {
+							pubsubManager.create(
+									makePrefix(application, namespace),
+									predicate, 
+									bufferSubPredicate.toString(),
+									userBean,
+									dataList,
+									predicateList);
+						}
+					}
 
 					// ASCYN EXEC - update statistics
 					new Thread(new Runnable() {
