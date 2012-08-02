@@ -24,6 +24,9 @@ function debug_r($obj) {
 // For the magic_quotes
 ini_set("magic_quotes_runtime", 0);
 
+// Throw exception when backend fails with 5XX errors
+define('FAIL_ON_BACKEND_ERROR', true);
+
 // ------------------------------------------------------------------------------------------------
 // Set Autoload
 // ------------------------------------------------------------------------------------------------
