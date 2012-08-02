@@ -273,6 +273,7 @@ public class PublishRequestHandler extends AbstractMatchMaking {
                     // update statistics
                     statisticsManager.update(application, PUBLISH_ARG);
                     
+                    
                 } catch (final JsonSyntaxException e) {
                     throw new InternalBackEndException(e, "Error in Json format");
                 } catch (final JsonParseException e) {

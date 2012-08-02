@@ -3,7 +3,7 @@
 require_once ('jpgraph/jpgraph.php');
 require_once ('jpgraph/jpgraph_line.php');
 
-define('NB_LOOP', 10);
+define('NB_LOOP', isset($_REQUEST['iter']) ? $_REQUEST['iter'] : '10');
 
 // ---------------------------------------------------------------------
 // TESTs
@@ -14,7 +14,7 @@ function /*float*/ test($method, $color, $credential, $graph) {
 	$lastY = 0;
 	
 	for($i=0 ; $i < NB_LOOP ; $i++) {
-		$y = file_get_contents("http://" . $_SERVER['SERVER_ADDR'] . "/tests/stressTest/TestRequest.php?" .
+		$y = file_get_contents("http://" . $_SERVER['SERVER_ADDR'] . "/tests/stress/TestRequest.php?" .
 		"method=" . $method .
 		"&pred1=a" . $i . 
 		"&pred2=b" . $i . 
@@ -77,7 +77,7 @@ $graph->xaxis->SetTickLabels($xaxis);
 $graph->xgrid->SetColor('#E3E3E3');
 
 // GET THE CREDENTIALs
-$credential = json_decode(file_get_contents("http://" . $_SERVER['SERVER_ADDR'] . "/tests/stressTest/TestRequest.php?method=Initialize"));
+$credential = json_decode(file_get_contents("http://" . $_SERVER['SERVER_ADDR'] . "/tests/stress/TestRequest.php?method=Initialize"));
 
 // PUBLISH_TEST
 $publishCounter = test("Publish", "#B22222", $credential, $graph);
@@ -88,7 +88,7 @@ $findCounter = test("Find", "#6495ED", $credential, $graph);
 $graph->legend->SetFrameWeight(1);
 
 // Output line
-$graph->Stroke();
+echo $graph->Stroke();
 
 // echo "Pubilsh average time: " . $publishCounter/NB_LOOP;
 // echo "<br />";

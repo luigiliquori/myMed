@@ -6,8 +6,8 @@ define('APPLICATION_NAME', 'stressTest');
 define('USER_ID', 'myStressTest@mymed.com');
 define('ACCESS_TOKEN', hash('sha512', 'myStressTest@mymed.com'));
 
-require(MYMED_ROOT . 'system/common/init.php');
-require(MYMED_ROOT . 'tests/stressTest/TestObject.class.php');
+require(MYMED_ROOT 		. 'system/common/init.php');
+require(MYMED_ROOT 		. 'tests/stress/TestObject.class.php');
 require_once MYMED_ROOT . '/system/config.php';
 require_once MYMED_ROOT . '/system/common/common-utils.php';
 
@@ -70,10 +70,14 @@ if (isset($_REQUEST['method']) && $_REQUEST['method'] == "Initialize") {
 	$obj = new TestObject();
 	fillObj($obj);
 	try {
-		$startTime = microtime();
+		$startTime = microtime(true);
 		$obj->publish();
-		$endTime = microtime();
-		echo abs($endTime - $startTime);
+		$endTime = microtime(true);
+		if($endTime >= $startTime) {
+			echo $endTime - $startTime;
+		} else {
+			throw new Exception("Time measurement not valid!");
+		}
 	} catch (Exception $e) {
 		echo -1;
 	}
@@ -84,10 +88,14 @@ if (isset($_REQUEST['method']) && $_REQUEST['method'] == "Initialize") {
 	$search = new TestObject();
 	fillObj($search);
 	try {
-		$startTime = microtime();
+		$startTime = microtime(true);
 		$resArray = $search->find();
-		$endTime = microtime();
-		echo abs($endTime - $startTime);
+		$endTime = microtime(true);
+		if($endTime >= $startTime) {
+			echo $endTime - $startTime;
+		} else {
+			throw new Exception("Time measurement not valid!");
+		}
 	} catch (Exception $e) {
 		echo -1;
 	}
