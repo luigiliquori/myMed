@@ -48,6 +48,7 @@ import com.mymed.properties.PropType;
 import com.mymed.properties.PropertiesManager;
 import com.mymed.utils.MConverter;
 import com.mymed.utils.MLogger;
+import com.mymed.utils.MiscUtils;
 
 /**
  * This class represent the DAO pattern: Access to data varies depending on the
@@ -128,6 +129,8 @@ public class StorageManager implements IStorageManager {
 
         return resultValue;
     }
+
+
 
     @Override
     public Map<byte[], byte[]> selectAll(
@@ -296,15 +299,17 @@ public class StorageManager implements IStorageManager {
     {
 
         final ColumnParent parent = new ColumnParent(columnFamily);
+		
         final List<ColumnOrSuperColumn> results = getSlice(key, parent, predicate);
 
         final Map<byte[], byte[]> slice = new HashMap<byte[], byte[]>(results.size());
 
         for (final ColumnOrSuperColumn res : results) {
             final Column col = res.getColumn();
-
+			if(col != null) {
             slice.put(col.getName(), col.getValue());
         }
+		}
 
         return slice;
     }
@@ -502,6 +507,8 @@ public class StorageManager implements IStorageManager {
         LOGGER.info("batch_mutate performed correctly");
                     }
 
+
+
     /**
      * Insert a new entry in the database
      * 
@@ -578,9 +585,8 @@ public class StorageManager implements IStorageManager {
             final String key, final String columnName) 
                   throws InternalBackEndException 
     {
-        final String columnFamily = tableName;
         final long timestamp = System.currentTimeMillis();
-        final ColumnPath columnPath = new ColumnPath(columnFamily);
+		final ColumnPath columnPath = new ColumnPath(tableName);
         columnPath.setColumn(encode(columnName));
 
         wrapper.remove(key, columnPath, timestamp, consistencyOnWrite);
@@ -607,9 +613,6 @@ public class StorageManager implements IStorageManager {
 
         wrapper.remove(key, columnPath, timestamp, consistencyOnWrite);
     }
-
-
-
 
     /**
      * @return
@@ -668,10 +671,47 @@ public class StorageManager implements IStorageManager {
 	        String tableName,
 			List<String> keys, 
 			String start, 
-			String finish,
-			int count) 
+			String finish) 
 	{
   	     throw new NotImplementedException();	
 	}  
     
+	@Override
+	public Map<String, String> selectSuperColumn(String tableName, String key,
+			String columnName) throws InternalBackEndException,
+			IOBackEndException {
+		final List<ByteBuffer> columnNamesToByte = new ArrayList<ByteBuffer>();
+		columnNamesToByte.add(MConverter.stringToByteBuffer(columnName));
+
+		final SlicePredicate predicate = new SlicePredicate();
+		predicate.setColumn_names(columnNamesToByte);
+
+		Map<String, String> result = new HashMap<String, String>();
+		Map<byte[],byte[]> map = selectByPredicate(tableName, key, predicate);
+		for (Entry<byte[], byte[]> entry : map.entrySet()) {
+			result.put(decode(entry.getKey()), decode(entry.getValue()));
+		}
+		
+		return result;
+	}
+
+	@Override
+	public void insertStr(String key, ColumnParent parent, String columnName,
+			String value) throws InternalBackEndException {
+		throw new NotImplementedException();
+	}
+
+	@Override
+	public void insertSliceStr(String tableName, String primaryKey,
+			Map<String, String> args) throws InternalBackEndException {
+		throw new NotImplementedException();	
+	}
+
+	@Override
+	public void insertSuperSliceStr(String superTableName, String key,
+			String superKey, Map<String, String> args)
+					throws InternalBackEndException {
+		throw new NotImplementedException();
+	}  
+
 }

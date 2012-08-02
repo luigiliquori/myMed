@@ -16,7 +16,7 @@
 package com.mymed.controller.core.requesthandler.matchmaking;
 
 import static com.mymed.utils.GsonUtils.gson;
-import static com.mymed.utils.PubSub.makePrefix;
+import static com.mymed.utils.MatchMaking.makePrefix;
 
 import java.lang.reflect.Type;
 import java.net.URLDecoder;
@@ -38,7 +38,8 @@ import com.google.gson.reflect.TypeToken;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.profile.ProfileManager;
-import com.mymed.controller.core.manager.pubsub.v2.PubSubManager;
+import com.mymed.controller.core.manager.pubsub.PubSubManager;
+import com.mymed.controller.core.manager.statistics.StatisticsManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.application.MDataBean;
 import com.mymed.model.data.user.MUserBean;
@@ -62,11 +63,14 @@ public class PublishRequestHandler extends AbstractMatchMaking {
 
     protected PubSubManager pubsubManager;
     protected ProfileManager profileManager;
+    protected StatisticsManager statisticsManager;
+	protected static final String PUBLISH_ARG = "pub";
 
     public PublishRequestHandler() throws InternalBackEndException {
         super();
         profileManager = new ProfileManager();
         pubsubManager = new PubSubManager();
+        statisticsManager = new StatisticsManager();
     }
 
     /*
@@ -265,6 +269,9 @@ public class PublishRequestHandler extends AbstractMatchMaking {
                 		        dataList,
                 		        predicateList);
                     }
+                    
+                    // update statistics
+                    statisticsManager.update(application, PUBLISH_ARG);
                     
                 } catch (final JsonSyntaxException e) {
                     throw new InternalBackEndException(e, "Error in Json format");

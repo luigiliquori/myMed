@@ -46,7 +46,7 @@ public class GsonUtils {
                 registerTypeAdapter(
                         MOntologyID.class, 
                         new MOntologyIDAdapter())
-                .setPrettyPrinting()
+                //.setPrettyPrinting()
                 .create();    
     }
     

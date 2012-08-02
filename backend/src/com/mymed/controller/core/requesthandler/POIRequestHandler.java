@@ -156,7 +156,7 @@ public class POIRequestHandler extends AbstractRequestHandler {
                                 Integer.parseInt(radius), true);
                 message.setDescription("POIs successfully read!");
                 //final Gson gson = new Gson();
-                //message.addData(JSON_POI, gson.toJson(pois)); //trying without to increase speed?
+                //message.addData(JSON_POI, gson.toJson(pois));
                 message.addDataObject(JSON_POI, pois);
             } else if (code == RequestCode.DELETE) {
             	if ((application = parameters.get(JSON_APPLICATION)) == null) {

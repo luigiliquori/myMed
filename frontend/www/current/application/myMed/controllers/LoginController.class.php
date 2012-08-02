@@ -39,10 +39,27 @@ class LoginController extends AbstractController {
 			$responsejSon = $request->send();
 			
 			$responseObject = json_decode($responsejSon);
-		
-			// In case of errors
-			if($responseObject->status != 200) {
+			
+			// the login doesn't exist
+			if($responseObject->status == 404) {
+				// try in lowercase
+				$request->addArgument("login", strtolower($login));
 				
+				// Sending request
+				$responsejSon = $request->send();
+				$responseObject = json_decode($responsejSon);
+				
+			}
+			
+			// wrong password
+			if($responseObject->status == 403) {
+				$this->error = "Mot de pass incorrect! <a href='?action=resetPassword&login=" . urlencode($login) . "' rel='external'>Pertes identifiants?</a>";
+					
+				// Show the login form
+				$this->renderView("login");
+			
+			} else if($responseObject->status != 200) {
+
 				// Save the error
 				$this->error = $responseObject->description;
 				//debug("error");	
@@ -58,7 +75,23 @@ class LoginController extends AbstractController {
 				// Set user into $_SESSION
 				$this->getUserFromSession();
 				
-				//debug("success");
+				// FIX THE LOGIN TO LOWER CASE IF IT'S NEEDED
+				if (strtolower($login) != login) {
+					// create the authentication
+					$mAuthenticationBean = new MAuthenticationBean();
+					$mAuthenticationBean->login =  strtolower($login); // LOWER CASE LOGIN
+					$mAuthenticationBean->user = $_SESSION['user']->id;
+					$mAuthenticationBean->password = hash('sha512', $_POST["password"]);
+					
+					$request = new Request("AuthenticationRequestHandler", CREATE);
+					$request->addArgument("authentication", json_encode($mAuthenticationBean));
+					$request->addArgument("user", json_encode($_SESSION['user']));
+					$request->addArgument("application", APPLICATION_NAME);
+						
+					// Sending request => Force to create a new account
+					$responsejSon = $request->send();
+					$responseObject = json_decode($responsejSon);
+				}
 				
 				// Redirect to main page
 				$this->redirectTo("main");

@@ -6,8 +6,34 @@
  */
 class MainController extends AuthenticatedController {
 
-	public $hiddenApplication = array("myMed", "myNCE", "myBEN", "myTestApp", "myMed_old");
+	public static $hiddenApplication = array("myMed", "myNCE", "myBEN", "myTestApp", "myMed_old", "myOldEurope");
+	public static $bootstrapApplciation = array("myRiviera", "myFSA", "myEurope", "myMemory", "myBen", "myEuroCIN");
+	
+	public $applicationList = array();
+	public $applicationStatus = array();
+
 	public $reputation = array();
+
+	public function __construct() {
+		
+		// get all the application in MYMED_ROOT . '/application
+		if ($handle = opendir(MYMED_ROOT . '/application')) {
+			while (false !== ($file = readdir($handle))) {
+				if(preg_match("/my/", $file) && !preg_match("/Admin/", $file) && !in_array($file, self::$hiddenApplication)) {
+					array_push($this->applicationList, $file);
+					$this->applicationStatus[$file] = "on"; // default status
+				}
+			}
+		}
+
+		// set the status of the applications
+		foreach ($this->applicationList as $app){
+			if((isset($_COOKIE[$app.'Status']) &&  $_COOKIE[$app.'Status'] == "off") || !in_array($app, self::$bootstrapApplciation)) {
+				$this->applicationStatus[$app] = "off";
+			}
+		}
+		
+	}
 
 	public function handleRequest() {
 

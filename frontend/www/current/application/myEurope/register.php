@@ -3,7 +3,7 @@
 //ob_start("ob_gzhandler");
 
 require_once 'Template.php';
-Template::init(false);
+Template::init();
 
 $msg="";
 
@@ -12,11 +12,15 @@ if (count($_POST)) {
 	require_once '../../lib/dasp/beans/MAuthenticationBean.class.php';
 	
 	if ( $_POST["password"] == ""){
-		$msg = "<span style='color: red; '>mot de passe vide</span>";
+		$msg = "<span style='color: red; text-align:center;'>mot de passe vide</span>";
 	}
 	if ( $_POST["password"] != $_POST["passwordConf"]){
-		$msg = "<span style='color: red; '>mot de passe mal confirmé</span>";
+		$msg = "<span style='color: red; text-align:center;'>mot de passe mal confirmé</span>";
 	}
+	if ( $_POST["checkCondition"] == ""){
+		$msg = "<span style='color: red;text-align:center; '>Veuillez accepter les conditions d'utilisation</span>";
+	}
+
 	
 	if ($msg == ""){
 		$mUserBean = new MUserBean();
@@ -47,9 +51,9 @@ if (count($_POST)) {
 		$responseObject = json_decode($responsejSon);
 		
 		if($responseObject->status == 200) {
-			$msg="<span style='color: lightgreen;'>Compte créé, validez-le par mail</span>";
+			$msg="<span style='color: lightgreen;text-align:center;'>Compte myMed créé, validez-le par mail</span>";
 		} else {
-			$msg="<span style='color: red; '>".$responseObject->description."</span>";
+			$msg="<span style='color: red; text-align:center;'>".$responseObject->description."</span>";
 		}
 	}
 	
@@ -63,15 +67,20 @@ if (count($_POST)) {
 </head>
 <body>
 	<div data-role="page" id="Register">
-		<div data-role="header" data-theme="c" style="max-height: 38px;">
-			<a data-icon="back" data-rel="back">Retour</a>
-<!-- 				<a href="search" data-icon="back" data-transition="flip" data-direction="reverse"> Retour </a> -->
-			<h2>
-				<a href="./" style="text-decoration: none;">myEurope</a>
-			</h2>
+		<div data-role="header" data-theme="c" data-position="fixed">
+			<div data-role="navbar" data-theme="c"  data-iconpos="left">
+				<ul>
+					<li><a data-rel="back" data-transition="flip" data-direction="reverse" data-icon="back"><?= _("Back") ?></a></li>
+					<li><a data-icon="check" data-theme="b" data-mini="true" onclick="$('#registerForm').submit();">Valider</a></li>
+				</ul>
+			</div>
 		</div>
-		<div data-role="content" style="text-align:center;">
+
+		<div data-role="content">
 			<?= $msg ?>
+			<h2 style="text-align:center;">
+				<a href="" style="text-decoration: none;">Inscription à myMed</a>
+			</h2>
 			<form action="#" method="post" id="registerForm">
 				<input name="application" value="myEurope" type="hidden" />
 				<div data-role="fieldcontain">
@@ -99,10 +108,18 @@ if (count($_POST)) {
 						<label for="textinputr5"> Confirmation: </label> <input id="textinputr5" name="passwordConf" placeholder="" value="" type="password" />
 					</fieldset>
 				</div>
-				<a href="" type="submit" onclick="$('#registerForm').submit();">Créer</a>
+				<div style="text-align:center;">
+					<span style="display: inline-block;vertical-align: middle;"><input id="service-term" type="checkbox" name="checkCondition" style="left: 0;"/></span>
+					<span style="display: inline-block;padding-left: 15px;">
+						J'accepte les 
+						<a href="../../application/myRiviera/system/templates/application/myRiviera/doc/CONDITIONS_GENERALES_MyMed_version1_FR.pdf" rel="external">conditions d'utilisation</a>
+	<!-- 					I accept  -->
+	<!-- 					<a href="system/templates/application/myRiviera/doc/CONDITIONS_GENERALES_MyMed_version1_EN.pdf" rel="external">the general terms and conditions</a> -->
+					</span><br />
+					<div style="display:none;"><input type="submit" data-theme="b" data-inline="true" value="Valider" /></div>
+				</div>
 			</form>
 		</div>
-		<?= Template::credits(); ?>
 	</div>
 </body>
 </html>

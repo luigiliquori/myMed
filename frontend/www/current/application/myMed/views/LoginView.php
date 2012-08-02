@@ -8,15 +8,14 @@ require_once("header.php"); ?>
 <div data-role="page" id="login">
 
 	<div data-role="header" data-theme="b">
-		
-		<h1>Bienvenue</h1>
+		<div Style="text-align: center; position: relative; top: 15px;"> Réseau Social Transfrontalier </div>
+		<span class="ui-title"></span>
 		<? include("notifications.php"); ?>
 	</div>
 	
 	<div data-role="content"  class="content">
 	
-		<img alt="myMed" src="img/logo-mymed-250c.png" />
-		<h3> Réseau Social Transfrontalier </h3>
+		<img alt="myMed" src="<?= APP_ROOT ?>/img/logo-mymed-250c.png" width="200" />
 	
 		<form action="?action=login" method="post" data-ajax="false">
 			<input type="hidden" name="signin" value="1" />

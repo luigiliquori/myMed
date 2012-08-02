@@ -65,6 +65,7 @@ class Request {
 
 	public /*Boolean*/ function setMultipart($multipart = false) {
 		$this->multipart = $multipart;
+
 	}
 
 	public /*Boolean*/ function isMultipart() {
@@ -112,7 +113,7 @@ class Request {
 			curl_setopt($curl, CURLOPT_URL, $this->url.$this->ressource.'?'.http_build_query($this->arguments));
 		}
 
-// 		echo '<script type="text/javascript">alert(\'' . $this->url.$this->ressource.'?'.http_build_query($this->arguments) . '\');</script>';
+// 		echo $this->url.$this->ressource.'?' . http_build_query($this->arguments);
 		
 		// SSL CONNECTION
 		// TODO fix once we have the valid certificate!
@@ -121,6 +122,7 @@ class Request {
 		curl_setopt($curl, CURLOPT_CAINFO, "/etc/ssl/certs/mymed.crt"); // TO EXPORT FROM GLASSFISH!
 
 		$result = curl_exec($curl);
+
 //		debug($result);
 // 		echo '<script type="text/javascript">alert(\'' . $result . '\');</script>';
 

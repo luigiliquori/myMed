@@ -14,7 +14,7 @@
 			
 			<br />
 			
-			<div Style="position: absolute; top:50px; left: 120px; font-weight: bold; font-size: 14pt; text-align: center;">
+			<div Style="position: absolute; top:50px; left: 100px; font-weight: bold; font-size: 14pt; text-align: center;">
 				<?= $_SESSION['user']->firstName ?> <?= $_SESSION['user']->lastName ?> <br /><br />
 				<div data-role="controlgroup" data-mini="true"  data-type="horizontal">
 					<a href="#updateProfile" data-role="button" data-inline="true" data-theme="b" data-icon="refresh">mise à jour</a>
@@ -39,35 +39,30 @@
 			</li>
 			
 			<li  data-role="list-divider" >Mes applications</li>
-			<?php if ($handle = opendir(MYMED_ROOT . '/application')) {
-			    while (false !== ($file = readdir($handle))) {
-			    	if(preg_match("/my/", $file) && !preg_match("/Admin/", $file) && 
-			    	!in_array($file, $this->hiddenApplication) && 
-			    	((isset($_COOKIE[$file.'Status']) && $_COOKIE[$file.'Status'] == "on") || !isset($_COOKIE[$file.'Status']))) { ?>
-				    	<li data-icon="delete">
-				    		
-				    		<img alt="<?= $file ?>" src="../../application/<?= $file ?>/img/icon.png" class="ui-li-icon" />
-					    	
-					    	<a href="#" onclick="printDialog('hidden-<? $file ?>DialogBox', '<?= $file ?>');">
-						    	<?= $file ?>
-						    	<div Style="position: relative; width: 100px; height: 20px;">
-						    		<div Style="position: absolute; width: <?= $this->reputation[$file] ?>px; height: 20px; top:0px; left:0px;  background-color: #ffe400;"></div>
-						    		<img alt="rep" src="<?= APP_ROOT ?>/img/rep.png" />
-						    	</div>
-					    	</a>
-					    	
-				    		<div style="display: none;">
-								<div id="hidden-<? $file ?>DialogBox">
-									<a href="#" data-role="button" data-theme="r" data-icon="delete">Effacer le profil étendu</a>
-									<a href="#" onclick="SetCookie('<?= $file ?>Status', 'off', 365); window.location.reload()" data-role="button" data-theme="b" data-icon="minus">Désactiver l'application</a>
-									<hr />
-									<a href="?action=main" data-role="button" data-theme="c" data-ajax="false">Annuler</a>
-								</div>
-							</div> 
-				    	</li>
-				    <?php } 
-			    } 
-			} ?>
+			<?php foreach ($this->applicationList as $applicationName) { ?>
+				<?php if ($this->applicationStatus[$applicationName] == "on") { ?>
+					<li data-icon="delete">
+			    		<img alt="<?= $applicationName ?>" src="../../application/<?= $applicationName ?>/img/icon.png" class="ui-li-icon" />
+				    	
+				    	<a href="#" onclick="printDialog('hidden-<? $applicationName ?>DialogBox', '<?= $applicationName ?>');">
+					    	<?= $applicationName ?>
+					    	<div Style="position: relative; width: 100px; height: 20px;">
+					    		<div Style="position: absolute; width: <?= $this->reputation[$applicationName] ?>px; height: 20px; top:0px; left:0px;  background-color: #ffe400;"></div>
+					    		<img alt="rep" src="<?= APP_ROOT ?>/img/rep.png" />
+					    	</div>
+				    	</a>
+				    	
+			    		<div style="display: none;">
+							<div id="hidden-<? $applicationName ?>DialogBox">
+								<a href="#" data-role="button" data-theme="r" data-icon="delete">Effacer le profil étendu</a>
+								<a href="#" onclick="SetCookie('<?= $applicationName ?>Status', 'off', 365); window.location.reload()" data-role="button" data-theme="b" data-icon="minus">Désactiver l'application</a>
+								<hr />
+								<a href="?action=main" data-role="button" data-theme="c" data-ajax="false">Annuler</a>
+							</div>
+						</div> 
+			    	</li>
+			    <?php } 
+		    } ?>
 			
 			<li data-role="list-divider">Réseau social</li>
 			<li><p>

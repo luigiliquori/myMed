@@ -33,7 +33,6 @@ import javax.servlet.http.Part;
 
 import ch.qos.logback.classic.Logger;
 
-import com.google.gson.Gson;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
@@ -84,7 +83,7 @@ public abstract class AbstractRequestHandler extends HttpServlet {
      * This is the URL address of the server, necessary for configuring data across all the backend. If nothing has been
      * set at compile time, the default value is an empty string.
      */
-    private static final String DEFAULT_SERVER_URI = PROPERTIES.getManager(PropType.GENERAL).get("general.server.uri");
+    protected static final String DEFAULT_SERVER_URI = PROPERTIES.getManager(PropType.GENERAL).get("general.server.uri");
 
     /**
      * This is the server URI as to be used in the backend.
@@ -94,7 +93,7 @@ public abstract class AbstractRequestHandler extends HttpServlet {
     /**
      * The protocol used for communications. This is the default value provided via the properties.
      */
-    private static final String DEFAULT_SERVER_PROTOCOL = PROPERTIES.getManager(PropType.GENERAL).get(
+    protected static final String DEFAULT_SERVER_PROTOCOL = PROPERTIES.getManager(PropType.GENERAL).get(
                     "general.server.protocol");
 
     /**
@@ -132,6 +131,11 @@ public abstract class AbstractRequestHandler extends HttpServlet {
      * JSON 'application' attribute.
      */
     protected static final String JSON_APPLICATION = JSON.get("json.application");
+    
+    /**
+     * JSON 'predicate' attribute.
+     */
+    protected static final String JSON_NAMESPACE = JSON.get("json.namespace");
 
     /**
      * JSON 'create' value.
