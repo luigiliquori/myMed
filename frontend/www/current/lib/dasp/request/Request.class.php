@@ -39,7 +39,15 @@ class Request {
 	public function __construct(/*string*/ $ressource, /*BackendRequest_*/ $method=READ) {
 		$this->ressource	= $ressource;
 		$this->method		= $method;
-		$this->url			= BACKEND_URL;
+		
+		
+		$backend_url = BACKEND_URL;
+		if ($backend_url[0] == '@') {
+			// BAckend_URL not set in config
+			$this->url = "http://" . $_SERVER['SERVER_ADDR'] . ':8080/backend/';
+		} else {
+			$this->url			= BACKEND_URL;
+		}
 		$this->multipart	= false;
 	}
 
@@ -133,7 +141,9 @@ class Request {
 		if ($result === false) {
 			throw new Exception("CURL Error : " . curl_error($curl));
 		} else if ($status >= 500 && $status < 600) {
-			throw new Exception("Request error : Status " . $status. "\n" . $result);
+			if (defined('FAIL_ON_BACKEND_ERROR')) {
+				throw new Exception("Request error : Status " . $status. "\n" . $result);
+			}
 		}
 		
 		return $result;
