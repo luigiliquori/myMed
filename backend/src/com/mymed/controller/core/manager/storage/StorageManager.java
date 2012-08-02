@@ -48,7 +48,6 @@ import com.mymed.properties.PropType;
 import com.mymed.properties.PropertiesManager;
 import com.mymed.utils.MConverter;
 import com.mymed.utils.MLogger;
-import com.mymed.utils.MiscUtils;
 
 /**
  * This class represent the DAO pattern: Access to data varies depending on the
@@ -129,6 +128,24 @@ public class StorageManager implements IStorageManager {
 
 		return resultValue;
 			}
+	
+	public byte[] _selectSuperColumn(String tableName, String key,
+			String columnName, String superColumn) throws InternalBackEndException,
+			IOBackEndException {
+		byte[] resultValue;
+
+		final ColumnPath colPathName = new ColumnPath(tableName);
+		colPathName.setColumn(encode(columnName));
+		colPathName.setSuper_column(encode(superColumn));
+
+		LOGGER.info("Selecting Super column '{}' from column '{}' from table '{}' with key '{}'", new Object[] {superColumn, columnName, tableName, key});
+
+		resultValue = wrapper.get(key, colPathName, IStorageManager.consistencyOnRead).getColumn().getValue();
+
+		LOGGER.info("SuperColumn selection performed");
+
+		return resultValue;
+	}
 
 
 
@@ -673,19 +690,8 @@ public class StorageManager implements IStorageManager {
 	public Map<String, String> selectSuperColumn(String tableName, String key,
 			String columnName) throws InternalBackEndException,
 			IOBackEndException {
-		final List<ByteBuffer> columnNamesToByte = new ArrayList<ByteBuffer>();
-		columnNamesToByte.add(MConverter.stringToByteBuffer(columnName));
-
-		final SlicePredicate predicate = new SlicePredicate();
-		predicate.setColumn_names(columnNamesToByte);
-
-		Map<String, String> result = new HashMap<String, String>();
-		Map<byte[],byte[]> map = selectByPredicate(tableName, key, predicate);
-		for (Entry<byte[], byte[]> entry : map.entrySet()) {
-			result.put(decode(entry.getKey()), decode(entry.getValue()));
-		}
-		
-		return result;
+		// TODO Auto-generated method stub
+		throw new NotImplementedException();
 	}
 
 	@Override

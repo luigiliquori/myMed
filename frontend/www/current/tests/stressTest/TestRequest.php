@@ -75,7 +75,7 @@ if (isset($_REQUEST['method']) && $_REQUEST['method'] == "Initialize") {
 		$endTime = microtime();
 		echo abs($endTime - $startTime);
 	} catch (Exception $e) {
-		echo $e;
+		echo -1;
 	}
 
 } else if(isset($_REQUEST['method']) && $_REQUEST['method'] == "Find") {
@@ -89,7 +89,7 @@ if (isset($_REQUEST['method']) && $_REQUEST['method'] == "Initialize") {
 		$endTime = microtime();
 		echo abs($endTime - $startTime);
 	} catch (Exception $e) {
-		echo $e;
+		echo -1;
 	}
 }
 

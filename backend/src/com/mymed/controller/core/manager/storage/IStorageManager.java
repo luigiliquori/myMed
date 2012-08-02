@@ -84,6 +84,20 @@ public interface IStorageManager {
      */
     byte[] selectColumn(String tableName, String primaryKey, String columnName) throws IOBackEndException,
                     InternalBackEndException;
+    
+    /**
+     * 
+     * @param tableName
+     * @param key
+     * @param columnName
+     * @param superColumn
+     * @return
+     * @throws InternalBackEndException
+     * @throws IOBackEndException
+     */
+    byte[] _selectSuperColumn(String tableName, String key,
+			String columnName, String superColumn) throws InternalBackEndException,
+			IOBackEndException;
 
     /**
      * Update the value of a Simple Column

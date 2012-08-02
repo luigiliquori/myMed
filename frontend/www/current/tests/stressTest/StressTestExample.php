@@ -11,19 +11,33 @@ define('NB_LOOP', 10);
 function /*float*/ test($method, $color, $credential, $graph) {
 	$counter = 0;
 	$yaxis = array();
+	$lastY = 0;
+	
 	for($i=0 ; $i < NB_LOOP ; $i++) {
 		$y = file_get_contents("http://" . $_SERVER['SERVER_ADDR'] . "/tests/stressTest/TestRequest.php?" .
 		"method=" . $method .
 		"&pred1=a" . $i . 
 		"&pred2=b" . $i . 
 		"&pred3=c" . $i . 
-		"&data=tes" .
+		"&data=test" .
 		"&userID=" . $credential->userID . 
 		"&accessToken=" . $credential->accessToken);
 	
+		if ($y == -1) { // backend error
+			continue;
+		}
+		
+		// remove noise
+		if($lastY != 0 && $y > $lastY*3) {
+			$y = $lastY;
+		} else {
+			$lastY = $y;
+		}
+		
 		$counter += $y;
 		array_push($yaxis, round($y*100));
 	}
+	
 	// Create the line
 	$p1 = new LinePlot($yaxis);
 	$graph->Add($p1);
@@ -57,7 +71,7 @@ $graph->xgrid->Show();
 $graph->xgrid->SetLineStyle("solid");
 $xaxis = array();
 for($i=0 ; $i < NB_LOOP ; $i++) {
-	array_push($xaxis, 'Test' . $i);
+	array_push($xaxis, 't' . $i);
 }
 $graph->xaxis->SetTickLabels($xaxis);
 $graph->xgrid->SetColor('#E3E3E3');
