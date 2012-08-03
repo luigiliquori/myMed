@@ -255,4 +255,13 @@ public interface IStorageManager {
 			String superKey,
 			Map<String, String> args) 
 					throws InternalBackEndException;
+	
+	/** v2 fast indexes insertion */
+	void insertSuperSliceListStr(
+			String superTableName,
+			List<String> keys,
+			String superKey,
+			Map<String, String> args) 
+					throws InternalBackEndException;
+	
 }

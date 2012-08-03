@@ -268,5 +268,42 @@ public class StorageManager extends
 			throw new InternalBackEndException(e);
 		}
 	}
+	
+	@Override public void insertSuperSliceListStr(
+			final String superTableName,
+			final List<String> keys,
+			final String superKey,
+			final Map<String, String> args) 
+					throws InternalBackEndException {
+		try {
+			final Map<String, Map<String, List<Mutation>>> mutationMap = new HashMap<String, Map<String, List<Mutation>>>();
+			final long timestamp = System.currentTimeMillis();
+			final Map<String, List<Mutation>> tableMap = new HashMap<String, List<Mutation>>();
+			final List<Mutation> sliceMutationList = new ArrayList<Mutation>(5);
+
+			tableMap.put(superTableName, sliceMutationList);
+
+			final List<Column> columns = new ArrayList<Column>();
+
+			for (Entry<String, String> entry : args.entrySet()) {
+				columns.add(new Column(ByteBuffer.wrap(encode(entry.getKey())),
+						ByteBuffer.wrap(encode(entry.getValue())), timestamp));
+			}
+
+			final Mutation mutation = new Mutation();
+			final SuperColumn superColumn = new SuperColumn(ByteBuffer.wrap(encode(superKey)), columns);
+			mutation.setColumn_or_supercolumn(new ColumnOrSuperColumn().setSuper_column(superColumn));
+			sliceMutationList.add(mutation);
+
+			// Insertion in the map
+			for (String key : keys)
+				mutationMap.put(key, tableMap);
+
+			wrapper.batch_mutate(mutationMap, consistencyOnWrite);
+
+		} catch (final InternalBackEndException e) {
+			throw new InternalBackEndException(e);
+		}
+	}
 
 }

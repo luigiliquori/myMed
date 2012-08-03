@@ -45,6 +45,7 @@ import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.application.IndexBean;
 import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.MatchMaking;
+import com.mymed.utils.MatchMaking.Index;
 import com.mymed.utils.MatchMaking.IndexRow;
 
 
@@ -239,6 +240,11 @@ public class PublishRequestHandler extends AbstractRequestHandler {
         	
         	String prefix = makePrefix(application, namespace);
         	
+        	for (IndexRow r : combi)
+				r.add(0, new Index("", prefix));
+			
+			List<String> rows = IndexRow.getVals(combi);
+        	
 			/* make sure to put dataId pointer */
 			mdataMap.put("id", dataId);
 			
@@ -260,12 +266,12 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 		        } else if (mdataMap.containsKey("user")){
 		        	publisher = profileManager.read(mdataMap.get("user"));
 		        }
-				
+		        
+		        pubsubManager.create(rows, dataId, mdataMap);
+		        
+		        //@TODO thread this, with static thread or initialized with this handler
 				for (IndexRow i : combi) {
-					
-					pubsubManager.create(prefix, i.vals(), dataId, mdataMap);
-					
-					pubsubManager.sendEmailsToSubscribers(prefix, i.toString(), dataMap, publisher);
+					pubsubManager.sendEmailsToSubscribers(prefix, i.vals(), dataMap, publisher);
 				}
 
 				/*
@@ -285,9 +291,6 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 				message.setMethod(JSON_CODE_UPDATE);
 
 				LOGGER.info("updating data " + dataId + " size " + dataMap.size());
-				for (IndexRow i : combi) {
-					pubsubManager.create(prefix, i.vals(), dataId, mdataMap);
-				}
 
 				/* creates data */
 				pubsubManager.create(prefix, dataId, dataMap);

@@ -693,6 +693,14 @@ public class StorageManager implements IStorageManager {
 			String superKey, Map<String, String> args)
 			throws InternalBackEndException {
 		throw new NotImplementedException();
-	}  
+	}
+
+	@Override
+	public void insertSuperSliceListStr(String superTableName,
+			List<String> keys, String superKey, Map<String, String> args)
+			throws InternalBackEndException {
+		throw new NotImplementedException();
+
+	}
     
 }

@@ -30,8 +30,7 @@ public interface IPubSubManager {
 	 */
 
 	void create(
-			String application,
-			String predicate,
+			List<String> predicates,
 			String id,
 			Map<String, String> metadata)
 					throws InternalBackEndException, IOBackEndException;

@@ -96,16 +96,16 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
      * @see IPubSubManager#create(String, String, MUserBean)
      */
   
-	/* v2 create index */
-	public final void create(String application,
-			final String predicate,
+	/* v2 create indexes */
+	public final void create(
+			final List<String> predicates,
 			final String id,
 			final Map<String, String> metadata)
 					throws InternalBackEndException, IOBackEndException {
 
-		storageManager.insertSuperSliceStr(
+		storageManager.insertSuperSliceListStr(
 				SC_APPLICATION_CONTROLLER,
-				application	+ predicate,
+				predicates,
 				id,
 				metadata);
 
@@ -256,7 +256,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
         // Built list of recipients
         final List<MUserBean> recipients = new ArrayList<MUserBean>();
         {
-            final Map<String, String> subscribers = storageManager.selectAllStr(CF_SUBSCRIBEES, application + predicate);
+            final Map<String, String> subscribers = storageManager.selectAllStr(CF_SUBSCRIBEES, predicate);
             for (final Entry<String, String> entry : subscribers.entrySet()) {
                 MUserBean recipient = null;
                 try {
