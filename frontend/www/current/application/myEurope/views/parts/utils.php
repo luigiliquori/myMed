@@ -1,6 +1,18 @@
 <?php 
 
 
+
+$themeedu = array("education", "jeunesse");
+$themeemp = array("emploi", "social");
+$themeent = array("entreprise", "innovation");
+$themeenv = array("environnement", "énergie", "transport");
+$themeagr = array("agriculture", "rural");
+$themepec = array("pêche", "nature");
+$themecoh = array("social", "transfontalier", "interreg");
+$themerec = array("recherche", "science");
+$themesan = array("santé", "consommation");
+
+
 /**
  *  Generates a navbar of tabs with appropriate transitions (left / right).
  *  $tabs : An array of "<tabId>" => "<Label>"
@@ -42,7 +54,7 @@ function tabs($tabs, $activeTab) {
  	?>
   	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
   	<ul>
-  		<li><a href="http://<?= MYMED_URL ?>" rel="external" data-icon="back"><?= _("Exit") ?></a></li>
+  		<li><a href="/application/myMed" rel="external" data-icon="back"><?= _("Exit") ?></a></li>
   		<? foreach ($tabs as $id => $v) { ?>
   		<li>
   			<a 
@@ -134,7 +146,7 @@ function tabs($tabs, $activeTab) {
       	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
       	<ul>
       		<li><a data-rel="back" data-ajax="false" data-icon="back"><?= _("Back") ?></a></li>
-      		<li><a href="<?= $url ?>" rel="external" data-icon="<?= $icon ?>"><?= _($title) ?></a></li>
+      		<li><a href="<?= $url ?>" rel="external" data-icon="<?= $icon ?>" class="ui-disabled"><?= _($title) ?></a></li>
       	</ul>
       	</div> <?
       }
@@ -175,7 +187,7 @@ function tabs($tabs, $activeTab) {
 
 <ul>
 	<li>Aider, à travers le mécanisme de « Matchmaking » de myMed, à mettre en communs des idées mais aussi des moyens afin de pouvoir soumettre un
-		projet Interreg Alcotra, Med ou d'obtenir des financements provenant de l'Europe (crédits FEDER…).</li>
+		projet Interreg Alcotra, Med ou d'obtenir des financements provenant de l'Europe (crédits FEDER …).</li>
 	<li>Echanger des pratiques et des intérêts communs transfrontaliers dans le domaine du montage de projet</li>
 	<li>Informer des différents appels d'offres de projets européens les personnes inscrites au réseau social</li>
 </ul>

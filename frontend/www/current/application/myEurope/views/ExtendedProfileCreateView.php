@@ -31,7 +31,6 @@
 	</div>
 	<div data-role="content">
 		<p>
-		
 		Bonjour,<br/>
 			<br/>
 			C'est la première fois que vous venez sur myEurope.<br/>
@@ -46,8 +45,8 @@
 				<li><a href="#Mairie">Mairie </a></li>
 				<li><a href="#Région">Région</a></li>
 				<li><a href="#Département">Département</a></li>
+				<li><a href="#Autre">... Autre</a></li>
 			</ul> 
-		
 		</p>	
 	</div>
 	
@@ -85,17 +84,17 @@
 			<label for="textinputu6"> Téléphone: </label>
 			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
 			<br/>
+			<textarea id="desc" name="desc" placeholder="description, commentaires"></textarea>
+			<br/>
 				
 			<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 13px;"/>
 			<span style="position: relative; left: 50px;">
 				J'accepte les 
-				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a> / 
-				I accept 
-				<a href="<?= APP_ROOT ?>/conds" rel="external">the general terms and conditions</a>
+				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a>
 			</span><br />
 			
 			<div style="text-align: center;" >
-				<input type="submit" data-inline="true" data-role="button" value="Valider"/>
+				<input type="submit" data-inline="true" data-role="button" data-icon="check" value="Valider"/>
 			</div>
 		</form>
 	</div>
@@ -133,16 +132,16 @@
 			<label for="textinputu6"> Téléphone: </label>
 			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
 			<br/>
+			<textarea id="desc" name="desc" placeholder="description, commentaires"></textarea>
+			<br/>
 				
 			<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 13px;"/>
 			<span style="position: relative; left: 50px;">
 				J'accepte les 
-				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a> / 
-				I accept 
-				<a href="<?= APP_ROOT ?>/conds" rel="external">the general terms and conditions</a>
+				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a>
 			</span><br />
 			<div style="text-align: center;" >
-				<input type="submit" data-inline="true" data-role="button" value="Valider"/>
+				<input type="submit" data-inline="true" data-role="button" data-icon="check" value="Valider"/>
 			</div>
 		</form>
 	</div>
@@ -177,16 +176,16 @@
 			<label for="textinputu6"> Téléphone: </label>
 			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
 			<br/>
+			<textarea id="desc" name="desc" placeholder="description, commentaires"></textarea>
+			<br/>
 				
 			<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 13px;"/>
 			<span style="position: relative; left: 50px;">
 				J'accepte les 
-				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a> / 
-				I accept 
-				<a href="<?= APP_ROOT ?>/conds" rel="external">the general terms and conditions</a>
+				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a>
 			</span><br />
 			<div style="text-align: center;" >
-				<input type="submit" data-inline="true" data-role="button" value="Valider"/>
+				<input type="submit" data-inline="true" data-role="button" data-icon="check" value="Valider"/>
 			</div>
 		</form>
 	</div>
@@ -218,16 +217,16 @@
 			<label for="textinputu6"> Téléphone: </label>
 			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
 			<br/>
+			<textarea id="desc" name="desc" placeholder="description, commentaires"></textarea>
+			<br/>
 				
 			<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 13px;"/>
 			<span style="position: relative; left: 50px;">
 				J'accepte les 
-				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a> / 
-				I accept 
-				<a href="<?= APP_ROOT ?>/conds" rel="external">the general terms and conditions</a>
+				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a>
 			</span><br />
 			<div style="text-align: center;" >
-				<input type="submit" data-inline="true" data-role="button" value="Valider"/>
+				<input type="submit" data-inline="true" data-role="button" data-icon="check" value="Valider"/>
 			</div>
 		</form>
 	</div>
@@ -271,16 +270,16 @@
 			<label for="textinputu6"> Téléphone: </label>
 			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
 			<br/>
+			<textarea id="desc" name="desc" placeholder="description, commentaires"></textarea>
+			<br/>
 				
 			<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 13px;"/>
 			<span style="position: relative; left: 50px;">
 				J'accepte les 
-				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a> / 
-				I accept 
-				<a href="<?= APP_ROOT ?>/conds" rel="external">the general terms and conditions</a>
+				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a>
 			</span><br />
 			<div style="text-align: center;" >
-				<input type="submit" data-inline="true" data-role="button" value="Valider"/>
+				<input type="submit" data-inline="true" data-role="button" data-icon="check" value="Valider"/>
 			</div>
 		</form>
 	</div>
@@ -328,21 +327,67 @@
 			<label for="textinputu6"> Téléphone: </label>
 			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
 			<br/>
+			<textarea id="desc" name="desc" placeholder="description, commentaires"></textarea>
+			<br/>
 				
 			<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 13px;"/>
 			<span style="position: relative; left: 50px;">
 				J'accepte les 
-				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a> / 
-				I accept 
-				<a href="<?= APP_ROOT ?>/conds" rel="external">the general terms and conditions</a>
+				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a>
 			</span><br />
 			<div style="text-align: center;" >
-				<input type="submit" data-inline="true" data-role="button" value="Valider"/>
+				<input type="submit" data-inline="true" data-role="button" data-icon="check" value="Valider"/>
 			</div>
 		</form>
 	</div>
 </div>
 
+<div data-role="page" id="Autre" >
+	<div data-role="header" data-theme="c" data-position="fixed">
+		<? tabs_3(
+				APPLICATION_NAME,
+				"Valider",
+				"$('#ExtendedProfileForm').submit();",
+				"check") ?>
+	</div>
+
+	<div data-role="content">
+		<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" data-ajax="false" class="compact">
+			<input type="hidden" name="form" value="create" />
+			<input type="hidden" name="role" value="Autre" />
+			
+			<label for="textinputu1"> Nom: </label>
+			<input id="textinputu1" name="name" placeholder="" value='' type="text" />
+			
+			<label for="textinputu2"> Activité exercée: </label>
+			<input id="textinputu2" name="activity" placeholder="" value='' type="text" />
+			
+			<input id="textinputu3" name="siret" placeholder="" value='' type="hidden" />
+			
+			<label for="textinputu4"> Adresse: </label>
+			<input id="textinputu4" name="address" placeholder="" value=''type="text" />
+
+			<label for="textinputu5"> Email: </label>
+			<input id="textinputu5" name="email" placeholder="" value='' type="email" />
+			
+			<label for="textinputu6"> Téléphone: </label>
+			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
+			<br/>
+			<textarea id="desc" name="desc" placeholder="description, commentaires"></textarea>
+			<br/>
+				
+			<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 13px;"/>
+			<span style="position: relative; left: 50px;">
+				J'accepte les 
+				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a>
+			</span><br />
+			
+			<div style="text-align: center;" >
+				<input type="submit" data-inline="true" data-role="button" data-icon="check" value="Valider"/>
+			</div>
+		</form>
+	</div>
+</div>
 
 
 <? include("footer.php"); ?>

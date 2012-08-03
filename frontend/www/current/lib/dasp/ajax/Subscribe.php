@@ -12,7 +12,10 @@ if ($_GET['code'] == CREATE){
 	$request->addArgument("application", $_GET['application']);
 	$request->addArgument("namespace", $_GET['namespace']);
 	$request->addArgument("user", $_SESSION['user']->id);
-	$request->addArgument("index", $_GET['index']);
+	if (isset( $_GET['id']))
+		$request->addArgument("id", $_GET['id']);
+	else
+		$request->addArgument("index", $_GET['index']);
 	$responsejSon = $request->send();
 	echo $responsejSon;
 

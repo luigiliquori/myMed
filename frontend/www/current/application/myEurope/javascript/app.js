@@ -52,11 +52,12 @@ $("#search").live("pagecreate", function() {
 	});
 });
 
-function toggleSub(code, application, namespace, index) {
+function toggleSub(code, application, namespace, id, index) {
 	$.get('../../lib/dasp/ajax/Subscribe', {
 		code : code,
 		application : application,
 		namespace : namespace,
+		id : id,
 		index : decodeURIComponent(index)
 	}, function(data) {
 		console.log(data);

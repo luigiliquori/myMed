@@ -54,10 +54,11 @@ function tab_bar_white($activeTab) {
 
 	<div data-role="content" >
 		<br />
-		Rôle: <?= $_SESSION['myEuropeProfile']->role ?><br />
-		activité: <?= $_SESSION['myEuropeProfile']->activity ?><br />
-		Email: <?= $_SESSION['myEuropeProfile']->email ?><br />
-		Adresse: <?= $_SESSION['myEuropeProfile']->address ?><br />
+		<span class="label">Rôle:</span> <?= $_SESSION['myEuropeProfile']->role ?><br />
+		<span class="label">activité:</span> <?= $_SESSION['myEuropeProfile']->activity ?><br />
+		<span class="label">Email:</span> <?= $_SESSION['myEuropeProfile']->email ?><br />
+		<span class="label">Adresse:</span> <?= $_SESSION['myEuropeProfile']->address ?><br />
+		<span class="label">Description:</span> <?= $_SESSION['myEuropeProfile']->desc ?><br />
 		
 		<a type="button" data-mini="true" href="?action=ExtendedProfile&edit=false" data-inline="true" data-theme="c" data-icon="grid">Modifer</a>
 		<br />
@@ -187,48 +188,50 @@ function tab_bar_white($activeTab) {
 				<input type="checkbox" id="checkbox-all" />
 				<label for="checkbox-all">Tous</label>
 				
-				<input type="checkbox" name="themeedu" id="checkbox-1a"/>
+				<input type="checkbox" name="education" id="checkbox-1a"/>
 				<label for="checkbox-1a">Education, culture & sport</label>
 
-				<input type="checkbox" name="themeemp" id="checkbox-2a"/>
+				<input type="checkbox" name="social" id="checkbox-2a"/>
 				<label for="checkbox-2a">Emploi, affaires sociales & égalité des chances</label>
 				
-				<input type="checkbox" name="themeent" id="checkbox-3a"/>
+				<input type="checkbox" name="entreprise" id="checkbox-3a"/>
 				<label for="checkbox-3a">Entreprises & innovation</label>
 
-				<input type="checkbox" name="themeenv" id="checkbox-4a"/>
+				<input type="checkbox" name="envoronnement" id="checkbox-4a"/>
 				<label for="checkbox-4a">Environnement, énergie & transports</label>
 				
-				<input type="checkbox" name="themeagr" id="checkbox-5a" />
+				<input type="checkbox" name="agriculture" id="checkbox-5a" />
 				<label for="checkbox-5a">Agriculture</label>
 
-				<input type="checkbox" name="themepec" id="checkbox-6a" />
+				<input type="checkbox" name="peche" id="checkbox-6a" />
 				<label for="checkbox-6a">Pêche</label>
 				
-				<input type="checkbox" name="themesoc" id="checkbox-7a"/>
+				<input type="checkbox" name="transfontalier" id="checkbox-7a"/>
 				<label for="checkbox-7a">Cohésion économique et sociale</label>
 
-				<input type="checkbox" name="themerec" id="checkbox-8a" />
+				<input type="checkbox" name="recherche" id="checkbox-8a" />
 				<label for="checkbox-8a">Recherche</label>
 				
-				<input type="checkbox" name="themesan" id="checkbox-9a" />
+				<input type="checkbox" name="santé" id="checkbox-9a" />
 				<label for="checkbox-9a">Santé & protection des consommateurs</label>
 				
 		    </fieldset>
+		    <input type="search" name="themes" id="text" placeholder="autres mots clés" value="" />
+		    
 			<br />
 		 	<fieldset data-role="controlgroup">
 				<legend><b>Pays:</b></legend>
-				<input type="checkbox" name="regfr" id="checkbox-1a" checked="checked"/>
-				<label for="checkbox-1a">France</label>
+				<input type="checkbox" name="france" id="checkbox-1b" checked="checked"/>
+				<label for="checkbox-1b">France</label>
 
-				<input type="checkbox" name="regit" id="checkbox-2a"/>
-				<label for="checkbox-2a">Italie</label>
+				<input type="checkbox" name="italy" id="checkbox-2b"/>
+				<label for="checkbox-2b">Italie</label>
 				
 		    </fieldset>
+		    
+		    <input type="search" name="places" id="text" placeholder="autres lieux" value="" /> 
 			<br />
-			<label for="search"><b>ou Mots clés:</b></label>
-			<input type="search" name="q" id="search" value="projet test" />
-			<br />
+
 			<div style="text-align: center;" >
 				<input type="submit" data-theme="b" data-icon="search" data-inline="true" value="Chercher"/>
 			</div>
@@ -242,7 +245,7 @@ function tab_bar_white($activeTab) {
 		<? tabs_2click(
 				"Insérer une offre",
 				"$('#publishForm').submit();",
-				"gear") ?>
+				"check") ?>
 	</div>
 
 	<div data-role="content">
@@ -251,55 +254,61 @@ function tab_bar_white($activeTab) {
 			<input type="hidden" name="action" value="Publish" />
 			<input type="hidden" name="namespace" value="part" />
 			
-		 	<fieldset data-role="controlgroup">
+				
+		    
+			
+			<fieldset data-role="controlgroup">
 				<legend><b>Thèmes:</b></legend>
-				<input type="checkbox" name="themeedu" id="checkbox-1a"/>
+								
+				<input type="checkbox" name="education" id="checkbox-1a"/>
 				<label for="checkbox-1a">Education, culture & sport</label>
 
-				<input type="checkbox" name="themeemp" id="checkbox-2a"/>
+				<input type="checkbox" name="social" id="checkbox-2a"/>
 				<label for="checkbox-2a">Emploi, affaires sociales & égalité des chances</label>
 				
-				<input type="checkbox" name="themeent" id="checkbox-3a"/>
+				<input type="checkbox" name="entreprise" id="checkbox-3a"/>
 				<label for="checkbox-3a">Entreprises & innovation</label>
 
-				<input type="checkbox" name="themeenv" id="checkbox-4a"/>
+				<input type="checkbox" name="envoronnement" id="checkbox-4a"/>
 				<label for="checkbox-4a">Environnement, énergie & transports</label>
 				
-				<input type="checkbox" name="themeagr" id="checkbox-5a" />
+				<input type="checkbox" name="agriculture" id="checkbox-5a" />
 				<label for="checkbox-5a">Agriculture</label>
 
-				<input type="checkbox" name="themepec" id="checkbox-6a" />
+				<input type="checkbox" name="peche" id="checkbox-6a" />
 				<label for="checkbox-6a">Pêche</label>
 				
-				<input type="checkbox" name="themesoc" id="checkbox-7a"/>
+				<input type="checkbox" name="transfontalier" id="checkbox-7a"/>
 				<label for="checkbox-7a">Cohésion économique et sociale</label>
 
-				<input type="checkbox" name="themerec" id="checkbox-8a" />
+				<input type="checkbox" name="recherche" id="checkbox-8a" />
 				<label for="checkbox-8a">Recherche</label>
 				
-				<input type="checkbox" name="themesan" id="checkbox-9a" />
+				<input type="checkbox" name="santé" id="checkbox-9a" />
 				<label for="checkbox-9a">Santé & protection des consommateurs</label>
 				
 		    </fieldset>
+		    <input type="search" name="themes" id="text" placeholder="autres mots clés" value="" />
+		    
 			<br />
 		 	<fieldset data-role="controlgroup">
 				<legend><b>Pays:</b></legend>
-				<input type="checkbox" name="regfr" id="checkbox-1a" checked="checked"/>
-				<label for="checkbox-1a">France</label>
+				<input type="checkbox" name="france" id="checkbox-1b" checked="checked"/>
+				<label for="checkbox-1b">France</label>
 
-				<input type="checkbox" name="regit" id="checkbox-2a"/>
-				<label for="checkbox-2a">Italie</label>
+				<input type="checkbox" name="italy" id="checkbox-2b"/>
+				<label for="checkbox-2b">Italie</label>
 				
 		    </fieldset>
+		    
+		    <input type="search" name="places" id="text" placeholder="autres lieux" value="" /> 
 			<br />
-			<label for="search"><b>ou Mots clés:</b></label>
-			<input type="search" name="q" id="search" value="projet test" />
 
 			<label for="textContent"><b>Contenu:</b></label>
 			<textarea id="CLEeditor" id="textContent" name="text"></textarea>
 
 			<div style="text-align: center;" >
-				<input type="submit" data-theme="b"  data-inline="true" value="Insérer" />
+				<input type="submit" data-theme="b"  data-inline="true" data-icon="check" value="Insérer" />
 			</div>
 		</form>
 	</div>

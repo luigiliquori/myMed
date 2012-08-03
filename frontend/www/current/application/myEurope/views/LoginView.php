@@ -88,9 +88,7 @@ include("header.php"); ?>
 			<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 13px;"/>
 			<span style="position: relative; left: 50px;">
 				J'accepte les 
-				<a href="<?= MYMED_ROOT ?>/application/myMed/conds" rel="external">conditions d'utilisation</a> / 
-				I accept 
-				<a href="<?= MYMED_ROOT ?>/application/myMed/conds" rel="external">the general terms and conditions</a>
+				<a href="<?= MYMED_ROOT ?>/application/myMed/conds" rel="external">conditions d'utilisation</a>
 			</span><br />
     		
 			<br/>

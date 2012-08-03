@@ -14,36 +14,38 @@ class PublishController extends AuthenticatedController {
 		debug('namespace ->  '.$this->namespace);
 		$index=array();
 		
+		$placesAll = array("france", "italy");
 		$themes = array();
-		$regs = array();
-		
+		$places = array();
+
 		foreach( $_POST as $i=>$v ){
 			if ($v == "on"){
-				if ( strpos($i, "theme") === 0){
+				if ( in_array($i, $placesAll)){
+					array_push($places, $i);
+				} else {
 					array_push($themes, $i);
-				} else if  ( strpos($i, "reg") === 0){
-					array_push($regs, $i);
 				}
 			}
 		}
+		
+		$p = preg_split('/[ +]/', $_POST['themes'], NULL, PREG_SPLIT_NO_EMPTY);
+		$p = array_map('strtolower', $p);
+		$themes = array_unique(array_merge($themes, $p));
 		if (count($themes)){
-			array_push($index, new DataBeanv2("theme", ENUM, $themes));
+			array_push($index, new DataBeanv2("themes", ENUM, $themes));
 		}
 		
-		if (count($regs)){
-			array_push($index, new DataBeanv2("reg", ENUM, $regs));
-		}
-		
-		$tags = preg_split('/[ +]/', $_POST['q'], NULL, PREG_SPLIT_NO_EMPTY);
-		$p = array_unique(array_map('strtolower', $tags));
-		if (count($p)){
-			array_push($index, new DataBeanv2("tags", ENUM, $p));
+		$p = preg_split('/[ +]/', $_POST['places'], NULL, PREG_SPLIT_NO_EMPTY);
+		$p = array_map('strtolower', $p);
+		$places = array_unique(array_merge($places, $p));
+		if (count($places)){
+			array_push($index, new DataBeanv2("places", ENUM, $places));
 		}
 
 		$data = array(
-					"user" => $_SESSION['user']->id,
-					"text" => isset($_POST['text'])?$_POST['text']:"contenu vide"
-				);
+				"user" => $_SESSION['user']->id,
+				"text" => isset($_POST['text'])?$_POST['text']:"contenu vide"
+			);
 		
 		$metadata = array(
 				/* @todo more stuff here */

@@ -37,6 +37,11 @@
 	font-size: 13px;
 }
 
+.label {
+	color: #888;
+	font-style: italic;
+}
+
 #results .ui-slider-switch {
 	min-width: 47%;
 }

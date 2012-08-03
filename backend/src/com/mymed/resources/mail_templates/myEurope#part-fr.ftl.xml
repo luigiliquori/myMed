@@ -12,7 +12,7 @@ The following variables are available in the templates :
 -->
 <mail-template>
 
-    <subject>[MyMed/${application}] Nouvelle publication</subject>
+    <subject>[${application}] Nouvelle publication</subject>
 
     <body><![CDATA[
         Bonjour ${recipient.name},<br/>
@@ -38,7 +38,7 @@ The following variables are available in the templates :
         
         --<br/>
     
-        L'équipe MyMed<br/>
+        L'équipe myMed<br/>
         Cliquez <a href="${base_url}application/${application}/?index=&user=${recipient.id}">ici</a> pour vous désabonner.
 ]]></body>
 </mail-template>

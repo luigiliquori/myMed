@@ -154,13 +154,11 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 				List<IndexRow> combi = MatchMaking.getPredicate(indexes, 0,
 						indexList.size());
 				for (IndexRow i : combi) {
-					pubsubManager.delete(makePrefix(application, namespace),
-							i.toString(), dataId, null);
+					pubsubManager.delete(prefix, i.vals(), dataId, null);
 				}
 
 				/* deletes data */
-				pubsubManager
-						.delete(makePrefix(application, namespace), dataId);
+				pubsubManager.delete(prefix, dataId);
 
 				break;
 			default:
@@ -279,7 +277,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 				/* creates data */
 				pubsubManager.create(prefix, dataId, dataMap);
 				
-				pubsubManager.sendEmailsToSubscribers(prefix, dataId, dataMap, publisher);
+				//pubsubManager.sendEmailsToSubscribers(prefix, dataId, dataMap, publisher);
 
 				break;
 				
@@ -293,6 +291,8 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 
 				/* creates data */
 				pubsubManager.create(prefix, dataId, dataMap);
+				
+				pubsubManager.sendEmailsToSubscribers(prefix, dataId, dataMap, null);
 				
 				break;
 

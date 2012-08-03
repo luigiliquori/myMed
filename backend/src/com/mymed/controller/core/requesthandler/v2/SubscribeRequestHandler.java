@@ -93,6 +93,8 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
         	else if(user == null)
         		throw new InternalBackEndException("missing user argument!");
             
+            String prefix = makePrefix(application, namespace);
+            
 			switch (code) {
 			case READ:
 				message.setMethod(JSON_CODE_READ);
@@ -100,15 +102,13 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
 				 * read subs of this user
 				 */
 				if (dataId != null){
-					String sub = pubsubManager.readSubEntry(makePrefix(application, namespace) 
-							+ user, dataId);
+					String sub = pubsubManager.readSubEntry(prefix + user, dataId);
 					message.setDescription("Subscriptions found for Application: " 
 							+ application + " User: " + user);
 					LOGGER.info("Subscriptions found for Application: "+ application + " User: " + user);
 					message.addDataObject(JSON_SUBSCRIPTIONS, sub);
 				} else {
-					final Map<String, String> predicates = pubsubManager.read(makePrefix(application, namespace) 
-						+ user);
+					final Map<String, String> predicates = pubsubManager.read(prefix + user);
 					
 					message.setDescription("Subscriptions found for Application: " 
 							+ application + " User: " + user);
@@ -117,6 +117,31 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
 				}
 				
 				break;
+				
+			case DELETE:
+            	message.setMethod(JSON_CODE_DELETE);
+            	
+            	if (dataId == null)
+            		throw new InternalBackEndException("missing id argument!");
+            
+            	String subJson = pubsubManager.readSubEntry(prefix + user, dataId);
+            	List<IndexBean> query = new ArrayList<IndexBean>();
+            	
+            	if (subJson != null)
+            		query = gson.fromJson(subJson, indexType);
+            	
+            	LOGGER.info("in ."+query.size());
+            	LinkedHashMap<String, List<String>> indexes = MatchMaking.formatIndexes(query);	
+            	List<IndexRow> combi = MatchMaking.getPredicate(
+    					indexes, 0, query.size());
+				for (IndexRow i : combi) {
+					pubsubManager.delete(prefix, i.vals(), user);
+				}
+                    
+				LOGGER.info("  deleted subscriptions for {}: {} ", user, subJson);
+                message.setDescription("subscription deleted: " + subJson +" for user: " + user);
+
+            	break;
 
 			default:
 				throw new InternalBackEndException(
@@ -226,31 +251,7 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
             	}
 
             	break;
-            	
-            case DELETE:
-            	message.setMethod(JSON_CODE_DELETE);
-            	
-            	if (dataId == null)
-            		throw new InternalBackEndException("missing id argument!");
-            
-            	String subJson = pubsubManager.readSubEntry(prefix + user, dataId);
-            	
-            	if (subJson != null)
-            		query = gson.fromJson(subJson, indexType);
-            	
-            	LOGGER.info("in ."+query.size());
-            	LinkedHashMap<String, List<String>> indexes = MatchMaking.formatIndexes(query);	
-            	List<IndexRow> combi = MatchMaking.getPredicate(
-    					indexes, 0, query.size());
-				for (IndexRow i : combi) {
-					pubsubManager.delete(prefix, i.vals(), user);
-				}
-                    
-				LOGGER.info("  deleted subscriptions for {}: {} ", user, subJson);
-                message.setDescription("subscription deleted: " + subJson +" for user: " + user);
-
-            	break;
-            	
+            		
 
 			default:
 				throw new InternalBackEndException("SubscribeRequestHandler.doPost(" + code + ") not exist!");

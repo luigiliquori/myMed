@@ -16,7 +16,7 @@
 				<option value="0">Trier par nom de partenaire</option>
 			</select>
 			<select data-theme="e" data-mini="true" name="slider" id="flip-a" data-role="slider"
-				onchange="toggleSub($(this).val(), '<?= APPLICATION_NAME ?>', '<?= $_GET['namespace'] ?>', '<?= urlencode(json_encode($this->index)) ?>');">
+				onchange="toggleSub($(this).val(), '<?= APPLICATION_NAME ?>', '<?= $_GET['namespace'] ?>', '<?= $_GET['id'] ?>','<?= urlencode(json_encode($this->index)) ?>');">
 				<option value="3">Souscrire aux futurs contenus correspondant à cette recherche</option>
 				<option value="0">Désabonner</option>
 			</select>

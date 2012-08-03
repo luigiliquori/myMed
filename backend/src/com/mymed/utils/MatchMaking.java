@@ -54,6 +54,9 @@ public class MatchMaking {
 		
 				li.addAll(d.getValue());		
 				break;
+			case GPS:
+
+				break;
 						
 			}
 

@@ -23,41 +23,47 @@ require_once dirname(__FILE__).'/IRequestHandler.php';
  * @author lvanni
  *
  */
-class Reputation extends Requestv2 {
+class Reputationv2 extends Requestv2 {
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
 	private /*IRequestHandler*/ $handler;
+	private $id;
 
 	/* --------------------------------------------------------- */
 	/* Constructors */
 	/* --------------------------------------------------------- */
-	public function __construct() {
+	public function __construct(/*String*/ $id) {
 		parent::__construct("v2/ReputationRequestHandler", READ);
+		$this->id = $id;
 	}
 
 	/* --------------------------------------------------------- */
 	/* Public methods */
 	/* --------------------------------------------------------- */
-	public /*String*/ function getReputation(/*String*/ $application, /*String*/ $producer, /*String*/ $consumer = null){
-		parent::addArgument("application", $application);
-		parent::addArgument("producer", $producer);
-		parent::addArgument("consumer", $consumer);
+	public /*String*/ function send(){
+		parent::addArgument("application", APPLICATION_NAME);
+		parent::addArgument("producer", $this->id);
 
 		$responsejSon = parent::send();
 		$responseObject = json_decode($responsejSon);
 
-		if($responseObject->status == 200) {
-			return $responseObject->dataObject->reputation;
-		} else {
-			if (!is_null($this->handler)) {
-				$this->handler->setError($responseObject->description);
-			} else {
-				throw new Exception($responseObject->description);
-			}
-		}
+		$rep = 1;
+		$nb = 0;
 
-		return null;
+		if($responseObject->status == 200) {
+			$rep = $responseObject->dataObject->reputation->reputation;
+			$nb = $responseObject->dataObject->reputation->noOfRatings;
+		} else if (!is_null($this->handler)) 
+			$this->handler->setError($responseObject->description);
+
+		return array(
+				"rep" => round($rep * 100),
+				"nbOfRatings" => $nb,
+				"up" => $rep * $nb,
+				"down" => $nb - $rep * $nb
+		);
+
 	}
 }
 ?>

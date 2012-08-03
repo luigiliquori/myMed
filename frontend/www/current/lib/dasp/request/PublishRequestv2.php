@@ -32,7 +32,7 @@ class PublishRequestv2 extends Requestv2 {
 	private /* array    */			$data;
 	private /* array    */			$metadata;
 	private /* array  */	    	$index;
-	private /* int  */	         	$min;
+	public /* int  */	         	$min;
 	private /* int  */	        	$max;
 	
 	public function __construct(

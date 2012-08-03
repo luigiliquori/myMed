@@ -159,6 +159,8 @@ public class FindRequestHandler extends AbstractRequestHandler {
 
 			LinkedHashMap<String, List<String>> indexes = MatchMaking
 					.formatIndexes(query);
+			
+			LOGGER.info("indexes: {} ", indexes );
 
 			List<IndexRow> combi = MatchMaking.getPredicate(
 					indexes, 
@@ -188,8 +190,7 @@ public class FindRequestHandler extends AbstractRequestHandler {
 				
 				List<String> rows = IndexRow.getVals(combi);
 				
-				LOGGER.info("ext find rows: " + combi.size() + " initial: "
-						+ rows.get(0));
+				LOGGER.info("ext find rows {}", rows.size());
 
 				LOGGER.info("ext find ranges: " + ranges.size());
 

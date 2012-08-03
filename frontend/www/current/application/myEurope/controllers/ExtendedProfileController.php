@@ -11,7 +11,7 @@
  * @author David Da Silva
  * 
  */
-class ExtendedProfileController extends ExtendedProfileRequired
+class ExtendedProfileController extends AuthenticatedController
 {
 	/**
 	 * @see IRequestHandler::handleRequest()
@@ -125,13 +125,15 @@ class ExtendedProfileController extends ExtendedProfileRequired
 			/*
 			 * If it was an edit, reload the ExtendedProfile in the $_SESSION
 			 */
+			
 			if ($edit){
 				$this->redirectTo("Main", null, "#profile");
 			} else {
 				$_SESSION['myEuropeProfile']->permission = $permission;
 				if ($permission <= 0)
 					$this->renderView("WaitingForAccept");
-				$this->renderView("main");
+				else
+					$this->renderView("main");
 			}
 			
 		}
@@ -165,7 +167,9 @@ class ExtendedProfileController extends ExtendedProfileRequired
 			$this->profile = (object) $result;
 			$this->success = "";
 			
-			$this->reputation = $this->fetchReputation($id);
+			$rep =  new Reputationv2($id);
+			$this->reputation = $rep->send();
+
 		}
 		
 		$this->renderView("ExtendedProfileDisplay");
