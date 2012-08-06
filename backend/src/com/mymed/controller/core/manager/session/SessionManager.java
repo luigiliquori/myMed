@@ -75,11 +75,6 @@ public class SessionManager extends AbstractManager implements ISessionManager {
     LOGGER.info("Creating new session with ID '{}' for user '{}'", sessionBean.getId(), sessionBean.getUser());
     storageManager.insertSlice(CF_SESSION, sessionBean.getId(), sessionBean.getAttributeToMap());
 
-    final ProfileManager profileManager = new ProfileManager(storageManager);
-    final MUserBean user = profileManager.read(sessionBean.getUser());
-
-    user.setSession(sessionBean.getId());
-    profileManager.update(user);
   }
 
   /**

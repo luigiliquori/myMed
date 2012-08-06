@@ -37,6 +37,7 @@ import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.pubsub.PubSubManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.application.MDataBean;
+import com.mymed.utils.PublicationSet;
 
 /**
  * Servlet implementation class PubSubRequestHandler
@@ -135,7 +136,7 @@ public class FindRequestHandler extends AbstractMatchMaking {
 					int count = parameters.get("count") != null ? Integer.parseInt(parameters.get("count")) : 100;
 					
 					// Set of results (to avoid duplicates)
-					final LinkedHashSet<Map<String, String>> resList = new LinkedHashSet<Map<String,String>>(); 
+					final PublicationSet resList = new PublicationSet(); 
 				
 					// Loop on all predicates
 					for (String pred : predicates) {

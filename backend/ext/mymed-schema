@@ -39,6 +39,8 @@ create column family DataList with column_type = 'Super' and comparator = 'UTF8T
 create column family OntologyList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family UserList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family Location with column_type = 'Super' and comparator = 'LongType' and comment = 'A column family with supercolumns, whose column names are Longs (8 bytes)';
+create column family Statistics with column_type = 'Super' and comparator = 'LongType' and subcomparator = 'UTF8Type';
+
 
 /* Reputation colums */
 create column family ReputationEntity with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;

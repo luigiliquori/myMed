@@ -1,9 +1,6 @@
 <? include_once('view-utils.php'); ?>
 <!doctype html>
-<html 
- lang="fr"
- <? if (defined("DEMO")) print 'manifest="cache.manifest"' ?>
-> 
+<html lang="fr" <? if (defined("DEMO")) print 'manifest="cache.manifest"' ?>> 
 
 <head> 
 
@@ -14,12 +11,17 @@
 	
 	<!-- JQUERY  -->
 	<link rel="stylesheet" href="../../lib/jquery/jquery.mobile-1.1.0.min.css" />
-	<script src="../../lib/jquery/jquery-1.6.4.min.js"></script>
+	<script src="../../lib/jquery/jquery-1.7.2.min.js"></script>
 	<script src="../../lib/jquery/jquery.mobile-1.1.0.min.js"></script>
 	
+	<!--  Extra icons for jquery -->
+	<link rel="stylesheet" href="../../lib/jquery/extra-icons/jqm-icon-pack-2.0-original.css" />
+	
 	<!-- DateBox -->
-	<script src="../../lib/jquery/datebox/jquery.mobile.datebox.min.js"></script>
-	<link href="../../lib/jquery/datebox/jquery.mobile.datebox.min.css" rel="stylesheet" />
+	<script src="../../lib/jquery/datebox/jqm-datebox-1.1.0.core.min.js"></script>
+	<script src="../../lib/jquery/datebox/jqm-datebox-1.1.0.comp.datebox.min.js"></script>
+	<script src="../../lib/jquery/datebox/jquery.mobile.datebox.i18n.fr.utf8.js"></script>
+	<link href="../../lib/jquery/datebox/jqm-datebox-1.1.0.min.css" rel="stylesheet" />
 	
 	<!-- Keyfilter  -->
 	<script src="../../lib/jquery/jquery.keyfilter.js" ></script>
@@ -30,11 +32,12 @@
 	
 	<!-- MYMED JS -->
 	<script src="../myMed/javascript/common.js"></script>
+	
 	<!-- APP JS -->
 	<script src="javascript/app.js"></script>
 	
 	<!-- MYMED css -->
-	<link href="../myMed/css/style.css" rel="stylesheet" />
+	<!-- <link href="../myMed/css/style.css" rel="stylesheet" /> -->
 	
 	<!-- APP css -->
 	<link href="css/style.css" rel="stylesheet" />

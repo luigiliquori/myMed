@@ -136,12 +136,18 @@ public class SessionRequestHandler extends AbstractRequestHandler {
                         throw new InternalBackEndException("userID argument missing!");
                     }
 
-                    final MUserBean userBean = profileManager.read(userID);
+                    // Uncomment this to increase the security (check if the user exist else => 404)
+//                  final MUserBean userBean = profileManager.read(userID);
+//                  userBean.setSession(accessToken);
+//                  profileManager.update(userBean);
 
                     // Create a new session
                     final MSessionBean sessionBean = new MSessionBean();
                     sessionBean.setIp(request.getRemoteAddr());
-                    sessionBean.setUser(userBean.getId());
+                    
+//                    sessionBean.setUser(userBean.getId());
+                    sessionBean.setUser(userID);
+                    
                     sessionBean.setCurrentApplications("");
                     sessionBean.setP2P(false);
                     sessionBean.setTimeout(System.currentTimeMillis());
@@ -149,18 +155,12 @@ public class SessionRequestHandler extends AbstractRequestHandler {
                     sessionBean.setId(accessToken);
                     sessionManager.create(sessionBean);
 
-                    // Update the profile with the new session
-                    userBean.setSession(accessToken);
-                    profileManager.update(userBean);
-
                     message.setDescription("session created");
                     LOGGER.info("Session {} created -> LOGIN", accessToken);
 
                     final StringBuffer urlBuffer = new StringBuffer(250);
                     urlBuffer.append(SERVER_PROTOCOL);
                     urlBuffer.append(SERVER_URI);
-                    urlBuffer.append("?socialNetwork=");
-                    urlBuffer.append(userBean.getSocialNetworkName());
                     urlBuffer.trimToSize();
 
                     message.addData("url", urlBuffer.toString());
