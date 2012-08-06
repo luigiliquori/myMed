@@ -13,13 +13,13 @@ class RegisterController extends GuestOrUserController {
 			
 			// Preconditions TODO : i18n of error messages
 			if($_POST['password'] != $_POST['confirm']){
-				$this->error = "Mot de passe != confirmation";
+				$this->error = _("Mot de passe != confirmation");
 			} else if( empty($_POST['password']) ){
-				$this->error = "Le mot de passe ne peut pas être vide.";
+				$this->error = _("Le mot de passe ne peut pas être vide.");
 			} else if( empty($_POST['email']) ){
-				$this->error = "L'email ne peut pas être vide.";
+				$this->error = _("L'email ne peut pas être vide.");
 			} else if(!$_POST['checkCondition']){
-				$this->error = "Vous devez accepter les conditions d'utilisation.";
+				$this->error = _("Vous devez accepter les conditions d'utilisation.");
 			}
 			
 			// Error to show => show the register view
@@ -64,7 +64,7 @@ class RegisterController extends GuestOrUserController {
 				$this->error = $responseObject->description;
 				$this->renderView("register");
 			} else {
-				$this->success = "Félicitation, Un email de confirmation vient de vous être envoyé!";
+				$this->success = _("Félicitation, Un email de confirmation vient de vous être envoyé!");
 				$this->renderView("login");
 			}	
 		}
@@ -80,7 +80,7 @@ class RegisterController extends GuestOrUserController {
 		 
 		} else {
 			
-			$this->error = _("Erreur interne d'enrgistrement");
+			$this->error = _("Erreur interne d'enregistrement");
 			$this->renderView("register");
 		}
 		

@@ -21,7 +21,7 @@ $annonce = $this->annonce;
 		<? require("AnnonceForm.php") ?>
 	
 		<input type=submit name="submit" data-role="button" data-theme="g" 
-			value="Enregistrer les modifications" />
+			value="<?= _("Enregistrer les modifications") ?>" />
 		
 	</form>
 

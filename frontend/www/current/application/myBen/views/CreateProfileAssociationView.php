@@ -9,16 +9,17 @@
 				
 		<p>
 			<? if (!isset($this->extendedProfile)) :?>
-			Vous avez déjà un compte association ?
-			<a href="<?= url("login") ?>">connectez vous</a><br/>
+			    <?= _("Vous avez déjà un compte association ?") ?>
+			    <a href="<?= url("login") ?>">
+                    <?= _("connectez vous") ?>
+                </a><br/>
 			<? endif ?>
-			Merci de remplir la fiche de l'association.
+			<?= _("Merci de remplir la fiche de l'association.") ?>
 		</p>
 		
 		<? include('ProfileAssociationForm.php') ?>
 		
-		<input type=submit name="submit" data-role="button" data-theme="g" 
-			value="Créer le profil" />
+		<? wizard_footbar(_("Créer le profil")) ?>
 
 	</form>
 

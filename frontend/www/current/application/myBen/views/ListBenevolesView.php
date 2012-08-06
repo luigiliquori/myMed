@@ -3,27 +3,27 @@
 <div data-role="page" id="login">
 
 	<? header_bar(array(
-			"Accueil" => url("main"),
-			"Bénévoles" => null)) ?>
+			_("Accueil") => url("main"),
+			_("Bénévoles") => null)) ?>
 	
 	<div data-role="content">
 	
 		<? if ($this->extendedProfile instanceof ProfileNiceBenevolat) : ?>
 			<a data-inline="true"data-role="button" data-icon="add" data-theme="g"	data-ajax="false"
 				href="<?= url("extendedProfile:create", array("type" => BENEVOLE)) ?>" >
-				Ajouter un bénévole
+				<?= _("Ajouter un bénévole") ?>
 			</a>
 		<? endif?>
 	
 		<div data-role="header" data-theme="e" >
 			<h3>
-				Liste des bénévoles
+				<?= _("Liste des bénévoles") ?>
 			</h3>
 		</div>
 		
 		<? if (sizeof($this->benevoles) == 0) : ?>
 			<p>
-				Aucun bénévole à afficher avec ces critères
+				<?= _("Aucun bénévole à afficher avec ces critères") ?>
 			</p>
 			<a  data-role="button" 
 				data-inline="true"

@@ -103,12 +103,12 @@ class ExtendedProfileController extends GuestOrUserController {
 	
 	function requireReadAccess() {
 		if (!$this->hasReadAccess()) throw new UserError(
-				"Vous n'avez pas le droit d'accéder à ce profil");
+				_("Vous n'avez pas le droit d'accéder à ce profil"));
 	}
 	
 	function requireWriteAccess() {
 		if (!$this->hasWriteAcces()) throw new UserError(
-				"Vous n'avez pas le droit de modifier ce profil");
+				_("Vous n'avez pas le droit de modifier ce profil"));
 	}
 	
 	/**
@@ -119,7 +119,7 @@ class ExtendedProfileController extends GuestOrUserController {
 	
 		// Preconditions TODO : i18n of error messages
 		if (empty($_POST['email']) ){
-			$this->error = "L'email ne peut pas être vide.";	
+			$this->error = _("L'email ne peut pas être vide.");	
 			return false;	
 		}
 		
@@ -152,15 +152,15 @@ class ExtendedProfileController extends GuestOrUserController {
 				
 				// Create new user with authentication
 				if (empty($_POST['password']) ) {
-					$this->error = "Le mot de passe est vide";
+					$this->error = _("Le mot de passe est vide");
 					return false;
 				}
 				if (empty($_POST['confirm']) ) {
-					$this->error = "Le mot de passe de confirmation est vide";
+					$this->error = _("Le mot de passe de confirmation est vide");
 					return false;
 				}
 				if ($_POST['confirm'] != $_POST['password']) {
-					$this->error = "Le mot de passe et le mot de passe de confirmation sont différents";
+					$this->error = _("Le mot de passe et le mot de passe de confirmation sont différents");
 					return false;
 				}
 							
@@ -180,7 +180,7 @@ class ExtendedProfileController extends GuestOrUserController {
 				
 				// Only NiceBenevolat can create other users
 				if ($this->getUserType() != USER_NICE_BENEVOLAT) {
-					throw new UserError("Seul Nice Bénévolat peut créer de nouveaux utilisateurs");
+					throw new UserError(_("Seul Nice Bénévolat peut créer de nouveaux utilisateurs"));
 				} 
 				
 				// Create new profile without authentication
@@ -351,11 +351,11 @@ class ExtendedProfileController extends GuestOrUserController {
 		
 		if ($this->user == null) {
 			// New user created a profile
-			$this->success = "Félicitation, votre profil a été créé. Allez voir vos mail pour l'activer.";
+			$this->success = _("Félicitation, votre profil a été créé. Allez voir vos mail pour l'activer.");
 			$this->forwardTo("login");
 		} else {
 			// Nice benevolat created a ghost profiles
-			$this->success = "Profil correctement créé";
+			$this->success = _("Profil correctement créé");
 			$this->forwardTo("extendedProfile:show", array("id" => $this->_user->id));
 		}
 	}
@@ -466,12 +466,12 @@ class ExtendedProfileController extends GuestOrUserController {
 		
 		// Only Nice Benevolat can validate an association
 		if (!$this->extendedProfile instanceof ProfileNiceBenevolat) {
-			throw new UserError("Vous n'avez pas les droits de valider cette association");
+			throw new UserError(_("Vous n'avez pas les droits de valider cette association"));
 		}
 		
 		// Only an association can be validated
 		if (!$this->_extendedProfile instanceof ProfileAssociation) {
-			throw new UserError("Ceci n'est pas une association");
+			throw new UserError(_("Ceci n'est pas une association"));
 		}
 		
 		// Update the "valid" field
@@ -486,7 +486,7 @@ class ExtendedProfileController extends GuestOrUserController {
 		$validation->publish();
 		
 		// Fill success message
-		$this->setSuccess("Association validée");
+		$this->setSuccess(_("Association validée"));
 		
 		// Show the "view" form again
 		$this->show();	

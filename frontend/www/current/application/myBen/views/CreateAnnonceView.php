@@ -6,9 +6,9 @@ $annonce = $this->annonce;
 <div data-role="page">
 
 	<? header_bar(array(
-			"Accueil" => url("main"),
-			"Annonces" => url("listAnnonces"),
-			"Création" => null)) ?>
+			_("Accueil") => url("main"),
+			_("Annonces") => url("listAnnonces"),
+			_("Création") => null)) ?>
 
 	
 	<form data-role="content" action="<?= url("annonce:doCreate") ?>" data-ajax="false" method="post" >

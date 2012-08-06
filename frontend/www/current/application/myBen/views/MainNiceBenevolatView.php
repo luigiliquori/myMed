@@ -6,24 +6,24 @@
 	
 	<div data-role="content">
 	
-		<p>Bonjour <strong>Nice Bénévolat</strong>, que voulez vous faire ?</p>
+		<p><?= _("Bonjour <strong>Nice Bénévolat</strong>, que voulez vous faire ?") ?></p>
 		
 		<a data-role="button" class="mm-left" data-icon="arrow-r" 
 		   data-theme="e" data-ajax="false" 
 		   href="<?= url("listAnnonces") ?>">
-		 	Gérer les annonces / candidatures
+		 	<?= _("Gérer les annonces / candidatures") ?>
 		</a>
 		 	
 		<a data-role="button" class="mm-left" data-icon="arrow-r" 
 		   data-theme="e" data-ajax="false"
 			href="<?= url("listAssociations") ?>">
-			Gérer les associations
+			<?= _("Gérer les associations") ?>
 		</a>
 		
 		<a data-role="button" class="mm-left" data-icon="arrow-r" 
 		   data-theme="e" data-ajax="false"
 			href="<?= url("listBenevoles") ?>">
-			Gérer les bénévoles
+			<?= _("Gérer les bénévoles") ?>
 		</a>
 	</div>
 </div>

@@ -9,17 +9,18 @@
 		
 		<p>
 			<? if (!isset($this->extendedProfile)) :?>
-			Vous avez déjà un compte bénévole ?
-			<a href="<?= url("login") ?>">connectez vous</a><br/>
+			    <?= _("Vous avez déjà un compte bénévole ?") ?>
+			    <a href="<?= url("login") ?>">
+                    <?= _("connectez vous") ?>
+                </a><br/>
 			<? endif ?>
-			Merci de remplir votre profil.
+		    <?= _("Merci de remplir votre profil.") ?>
 		</p>
 		
 		<? include('ProfileBenevoleForm.php') ?>
 	
-		<input type=submit name="submit" data-role="button" data-theme="g" 
-			value="Créer le profil" />
-
+		<? wizard_footbar(_("Créer le profil")) ?>
+		
 	</form>
 	
 </div>

@@ -57,7 +57,7 @@ function checkbox_all($name) {
 				id="<?= $name ?>-all"  
 				data-mini="true" 
 				data-check-all="<?= $name ?>[]" />
-			<label for="<?= $name ?>-all" >Tout / aucun</label>
+			<label for="<?= $name ?>-all" ><?= _("Tout / aucun") ?></label>
 		</fieldset>
 	</div>
 	<?
@@ -184,7 +184,7 @@ function input(
 			<? endif ?>
 			<? if ($mandatory) :?>
 			<div data-validate="<?= $name ?>" data-validate-non-empty >
-				Le champ <?= $label ?> est obligatoire.
+				<?= sprintf(_("Le champ %s est obligatoire."), $label) ?>
 			</div>
 			<? endif ?>
 		<? endif ?>
@@ -265,14 +265,15 @@ function filters(
 /** Show one header bar with an optionnal breadcrumb 
  * @param $breadcrumb Array of "Label" => "URL". Use null as URL to prevent displaying link */
 function header_bar($breadcrumb = array()) {
-	global $ERROR, $SUCCESS;
+	global $ERROR, $SUCCESS; ?>
 	
-	?>
 	<div data-role="header">
 	
-	<a href="javascript: history.go(-1)" data-role="button" data-icon="back">Retour</a>
+		<a href="javascript: history.go(-1)" data-role="button" data-icon="back">Retour</a>
 	
-	<h1><a href="?"><?= "MyBénévolat" ?></a></h1>
+		<h1><a href="/application/<?= APPLICATION_NAME ?>">
+			<?= "MyBénévolat" ?>
+		</a></h1>
 		
 		<? if (isset($_SESSION['user'])) : ?>
 			<a rel="external" data-role="button" data-theme="g" data-icon="person" 
@@ -282,7 +283,7 @@ function header_bar($breadcrumb = array()) {
 		<? else: ?>
 			<a rel="external" data-role="button" data-theme="g" data-icon="power" 
 				href="<?= url("login") ?>" >
-				Se connecter
+				<?= _("Se connecter") ?>
 			</a>
 		<? endif ?>
 		
@@ -325,4 +326,28 @@ function header_bar($breadcrumb = array()) {
 	<? endif ?>
 <?
 }
- 
+
+/** Dumps a wizard footbar for forms, with a previous/next/commit buttons. */
+function wizard_footbar($commit_label) { ?>
+<div data-role="footer" id="wizard" data-position="fixed">
+	<div data-role="navbar">
+	<ul>
+		<li>
+			<a href="#" id="wizard-previous" data-icon="arrow-l" data-theme="e">
+				<?= _("Précédent") ?>
+			</a>
+		</li>
+		<li>
+			<a href="#" id="wizard-next" data-icon="arrow-r" data-theme="e">
+				<?= _("Suivant") ?>
+			</a>
+			<a href="#" data-role="submit" id="wizard-end" data-icon="check" data-theme="g">
+				<?= $commit_label ?>
+			</a> 
+		</li>
+	</ul>
+	</div>
+</div>
+<?	
+}
+

@@ -36,7 +36,7 @@ class CandidatureController extends GuestOrUserController {
 		$this->candidature->publish();
 		
 		// Confirmation
-		$this->setSuccess("Votre candidature a été enregistrée");
+		$this->setSuccess(_("Votre candidature a été enregistrée"));
 		
 		// Go back to the announce
 		$this->forwardTo("annonce:details", array("id" => $this->candidature->annonceID));

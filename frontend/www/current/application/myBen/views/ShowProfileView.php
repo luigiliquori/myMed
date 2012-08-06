@@ -8,15 +8,15 @@
 	// Own profile ?
 	if ($this->_extendedProfile->userID == $this->user->id) {
 		
-		$bc['Mon Profil'] = null;
+		$bc[_('Mon Profil')] = null;
 		
 	} else {
 		
 		// Benevoles or Associations
 		if ($this->_extendedProfile instanceof ProfileAssociation) {
-			$bc["Associations"] = url("listAssociations");
+			$bc[_("Associations")] = url("listAssociations");
 		} else {
-			$bc["Benevoles"] = url("listBenevoles");
+			$bc[_("Benevoles")] = url("listBenevoles");
 		}
 		$bc[$this->_user->name] = null;	
 	}
@@ -32,9 +32,9 @@
 			<a data-ajax="false" data-role="button" data-theme="r" data-icon="power" data-inline="true"
 				href="<?= url("logout") ?>">
 				<? if (isset($_SESSION['launchpad'])) : ?>
-					Quitter
+					<?= _("Quitter") ?>
 				<? else: ?>
-					Se délogguer
+					<?= _("Se délogguer") ?>
 				<? endif ?>
 			</a>
 		<? endif ?>
@@ -42,7 +42,7 @@
 		<? if (!$this->_extendedProfile instanceof ProfileNiceBenevolat): ?>			
 			<a data-ajax="false" data-role="button" data-theme="e" data-icon="edit" data-inline="true"
 				href="<?= url("extendedProfile:edit", array("id" => $this->_extendedProfile->userID)) ?>">
-				Éditer
+				<?= _("Éditer") ?>
 			</a>
 					
 			<? if (($this->extendedProfile instanceof ProfileNiceBenevolat) && 
@@ -51,14 +51,14 @@
 			?>
 				<a data-ajax="false" data-role="button" data-theme="g" data-icon="check" data-inline="true"
 					href="<?= url("extendedProfile:validate", array("id" => $this->_extendedProfile->userID)) ?>">
-					Valider cette association
+					<?= _("Valider cette association") ?>
 				</a>
 			<? endif ?>
 
 			<? if ($this->extendedProfile instanceof ProfileNiceBenevolat): ?>	
 				<a data-ajax="false" data-role="button" data-theme="r" data-icon="delete" data-inline="true"
 					href="<?= url("extendedProfile:delete", array("id" => $this->_extendedProfile->userID)) ?>">
-					Supprimer
+					<?= _("Supprimer") ?>
 				</a>
 			<? endif ?>
 			
