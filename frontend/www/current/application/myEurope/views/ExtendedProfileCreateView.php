@@ -4,6 +4,7 @@
 <div data-role="page">
 	<div data-role="header" data-theme="c" data-position="fixed">
 		<? tabs_2(APPLICATION_NAME) ?>
+		<? include("notifications.php")?>
 	</div>
 	<div data-role="content" style="text-align:center;">
 		<br /><br />

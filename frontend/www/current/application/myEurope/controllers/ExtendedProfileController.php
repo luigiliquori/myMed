@@ -61,9 +61,17 @@ class ExtendedProfileController extends AuthenticatedController
 		
 		//$extendedProfile->storeProfile($this);
 		
+		$edit = ($_POST['form'] == "edit");
 		
+		if(!$_POST['checkCondition']){
+			$this->error = "Vous devez accepter les conditions d'utilisation.";
+			if (!$edit)
+				$this->renderView("ExtendedProfileCreate");
+			else
+				$this->renderView("ExtendedProfileEdit");
+		}
 		
-		if ($_POST['form']=="create"){
+		if (!$edit){
 			$permission = (
 					(strpos($_SESSION['user']->email, "@inria.fr") !== false)
 					|| $_SESSION['user']->email=="bredasarah@gmail.com"
@@ -98,17 +106,15 @@ class ExtendedProfileController extends AuthenticatedController
 		$_POST['user'] = $_SESSION['user']->id;
 		
 		// we clear these ones
-		$edit = ($_POST['form'] == "edit");
 		unset($_POST['form']);
 		unset($_POST['checkCondition']);
 
 		// and publish $_POST
 		$publish = new PublishRequestv2($this, "users", $_SESSION['user']->id, $_POST);
-		$publish->setMethod(UPDATE);
 		$publish->send();
 		
 		if (!empty($this->error)){
-			if ($_POST['form'] == 'create')
+			if (!$edit)
 				$this->renderView("ExtendedProfileCreate");
 			else
 				$this->renderView("ExtendedProfileEdit");

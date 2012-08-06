@@ -26,6 +26,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -39,6 +41,7 @@ import com.google.gson.reflect.TypeToken;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.controller.core.manager.mailtemplates.MailDispatcher;
 import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.pubsub.v2.PubSubManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
@@ -63,6 +66,9 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 
     protected PubSubManager pubsubManager;
     protected ProfileManager profileManager;
+    
+    private final int MAIL_EXECUTOR_SIZE = 10;
+    private ExecutorService mail_executor;
 
     /**
      * JSON 'predicate' attribute.
@@ -74,6 +80,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
         super();
         profileManager = new ProfileManager();
         pubsubManager = new PubSubManager();
+        mail_executor = Executors.newFixedThreadPool(MAIL_EXECUTOR_SIZE);
     }
 
 
@@ -267,13 +274,25 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 		        	publisher = profileManager.read(mdataMap.get("user"));
 		        }
 		        
+		        // data insertion on main Thread
 		        pubsubManager.create(rows, dataId, mdataMap);
 		        
-		        //@TODO thread this, with static thread or initialized with this handler
-				for (String i : rows) {
-					pubsubManager.sendEmailsToSubscribers(prefix, i, dataMap, publisher);
-				}
-
+				// mails are threaded
+		        
+		        //old way
+//		        for (String i : rows) {
+//					pubsubManager.sendEmailsToSubscribers(prefix, i, dataMap, publisher);
+//				}
+		        
+		        //test way
+//		        new Thread(
+//		        	new MailDispatcher(application, namespace, rows, dataMap, publisher)
+//		        ).start();
+		        
+		        //prod way
+		        mail_executor.execute(new MailDispatcher(application, namespace, rows, dataMap, publisher));
+		        
+		        
 				/*
 				 * add indexes as a data, the only way to remove all the indexes
 				 * later if necessary

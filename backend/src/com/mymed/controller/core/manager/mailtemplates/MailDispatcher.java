@@ -53,7 +53,7 @@ public class MailDispatcher extends AbstractManager implements Runnable {
     public MailDispatcher(
 		final String application,
 		final String namespace,
-		final String url,
+		final List<String> predicates,
 		final Map<String, String> details,
 		final MUserBean publisher) 
             throws InternalBackEndException 
@@ -63,9 +63,10 @@ public class MailDispatcher extends AbstractManager implements Runnable {
 
         this.application = application;
         this.namespace = namespace;
+        this.predicates = predicates;
         
         // Set data map
-        data.put("base_url", url);
+        data.put("base_url", getServerProtocol()+getServerURI()+"/");
         data.put("application", application);
         data.put("publication", details);
         data.put("publisher", publisher );
@@ -132,8 +133,6 @@ public class MailDispatcher extends AbstractManager implements Runnable {
 	        } // End of loop on recipients 
 			
 		}
-		
-
 		
 	}
 
