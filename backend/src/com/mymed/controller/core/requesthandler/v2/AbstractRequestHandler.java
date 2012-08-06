@@ -50,6 +50,8 @@ public abstract class AbstractRequestHandler extends com.mymed.controller.core.r
 	 */
 	protected Type dataType;
 	
+	protected Type xType;
+	
 	protected AbstractRequestHandler() {
         super();
 
@@ -72,6 +74,7 @@ public abstract class AbstractRequestHandler extends com.mymed.controller.core.r
         // init handlers deserialization Types
         indexType = new TypeToken<List<IndexBean>>() {}.getType();
         dataType = new TypeToken<Map<String, String>>() {}.getType();
+        xType = new TypeToken<Map<String, List<String>>>() {}.getType();
     }
 	
 	

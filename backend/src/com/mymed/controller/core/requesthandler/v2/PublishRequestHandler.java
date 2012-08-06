@@ -68,7 +68,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
      * JSON 'predicate' attribute.
      */
     
-    private static final String JSON_DETAILS = JSON.get("json.details");
+    protected static final String JSON_DETAILS = JSON.get("json.details");
 
     public PublishRequestHandler() throws InternalBackEndException {
         super();
@@ -270,8 +270,8 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 		        pubsubManager.create(rows, dataId, mdataMap);
 		        
 		        //@TODO thread this, with static thread or initialized with this handler
-				for (IndexRow i : combi) {
-					pubsubManager.sendEmailsToSubscribers(prefix, i.vals(), dataMap, publisher);
+				for (String i : rows) {
+					pubsubManager.sendEmailsToSubscribers(prefix, i, dataMap, publisher);
 				}
 
 				/*

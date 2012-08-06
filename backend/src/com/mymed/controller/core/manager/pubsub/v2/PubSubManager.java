@@ -247,7 +247,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 
 	
 	public void sendEmailsToSubscribers(  
-            String application,          
+            String application,       
             String predicate,
             Map<String, String> details,
             MUserBean publisher) 

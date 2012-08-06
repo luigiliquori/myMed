@@ -59,20 +59,20 @@ public class FindRequestHandler extends AbstractRequestHandler {
 	/**
 	 * Generated serial ID.
 	 */
-	private static final long serialVersionUID = 4295832798531448329L;
+	protected static final long serialVersionUID = 4295832798531448329L;
     
 	/**
 	 * JSON 'results' attribute.
 	 */
-	private static final String JSON_RESULTS = JSON.get("json.results");
+	protected static final String JSON_RESULTS = JSON.get("json.results");
 
 	/**
 	 * JSON 'details' attribute.
 	 */
 	
-	public static final int maxNumColumns = 10000; // arbitrary max number of cols, to overrides default's 100 
+	protected static final int maxNumColumns = 10000; // arbitrary max number of cols, to overrides default's 100 
 
-	private final PubSubManager pubsubManager;
+	protected final PubSubManager pubsubManager;
 
 	public FindRequestHandler() throws InternalBackEndException {
 		super();

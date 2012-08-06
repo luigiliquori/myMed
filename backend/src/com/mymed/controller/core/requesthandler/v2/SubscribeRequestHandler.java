@@ -59,9 +59,9 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
      * JSON 'predicate' attribute.
      */
     
-    private static final String JSON_SUBSCRIPTIONS = JSON.get("json.subscriptions");
+    protected static final String JSON_SUBSCRIPTIONS = JSON.get("json.subscriptions");
 
-    private final PubSubManager pubsubManager;
+    protected final PubSubManager pubsubManager;
 
     public SubscribeRequestHandler() throws InternalBackEndException {
         super();
