@@ -15,16 +15,12 @@ abstract class AbstractController implements IRequestHandler {
 	 * Optional argument for passing GET vars
 	 * Optional arg for passing url hash '#aa'
 	 */
-	public function redirectTo($action, array $vars=array(), $hash="") {
-		$url = url($action, $vars);
+	public function redirectTo($action, $vars=array(), $hash="") {
 		
-		if ($url[0] != '/') {
-			$url = "/application/". APPLICATION_NAME . "/index.php" . $url;
-		}
-
-		$url.= $hash;
-
-		printf("<script>location.href='$url'</script>");
+		$url = count($vars) != 0 ? '&'. http_build_query($vars) : '';
+		
+		header('Location: ./?action=' . $action . $url . $hash);
+		//printf("<script>location.href='$url'</script>");
 		//header('Refresh:0;url=/application/'.APPLICATION_NAME.'/index.php?action=' . $action . $get_line);
 
 			

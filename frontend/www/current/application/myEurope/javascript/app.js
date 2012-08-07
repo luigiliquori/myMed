@@ -75,11 +75,15 @@ function rate(feedback, id, user) {
 	});
 }
 
-$("#Home").live("pagecreate", function() {
-	var switchTo5x=true;
-	$.getScript("http://w.sharethis.com/button/buttons.js", function(){
-		stLight.options({publisher: "5d7eff17-98e8-4621-83ba-6cb27a46dd05"});
+$("#share").live("pagecreate", function() {
+	
+	$.getScript("http://w.sharethis.com/gallery/shareegg/shareegg.js", function(){
+		$.getScript("http://w.sharethis.com/button/buttons.js", function(){
+			stlib.shareEgg.createEgg('shareThisShareEgg', ['googleplus','sharethis','facebook','twitter','linkedin','email'], {title:'myEurope',url:'http://www.mymed.fr/myEurope',theme:'shareegg'});
+			stLight.options({publisher: "5d7eff17-98e8-4621-83ba-6cb27a46dd05", onhover:false});
+		});
 	});
+
 });
 
 function updateProfile(k, v) {

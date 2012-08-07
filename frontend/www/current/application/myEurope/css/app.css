@@ -34,7 +34,7 @@
 
 .ui-li-desc {
 	white-space: normal;
-	font-size: 13px;
+	font-size: 14px;
 }
 
 .label {
@@ -48,6 +48,11 @@
 
 .ui-slider-switch {
 	min-width: 100px;
+}
+
+.blog .ui-li-heading{
+	margin-top: 0;
+	margin-bottom: 1em;
 }
 
 .mySlider .ui-slider-switch {

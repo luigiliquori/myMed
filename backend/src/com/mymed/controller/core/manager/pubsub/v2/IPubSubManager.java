@@ -87,11 +87,17 @@ public interface IPubSubManager {
 	Map<String, String> read(String user) throws InternalBackEndException,
 			IOBackEndException;
 
+	
 	/**
-	 * delete Data
+	 * deletes all Data row
 	 */
-
-	void delete(String application, String subPredicate)
+	void delete(String id)
+			throws InternalBackEndException, IOBackEndException;
+	
+	/**
+	 * deletes just a Data Field
+	 */
+	void delete(String id, String field)
 			throws InternalBackEndException, IOBackEndException;
 
 	/**

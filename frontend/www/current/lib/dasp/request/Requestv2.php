@@ -56,6 +56,10 @@ class Requestv2 {
 		}
 		
 	}
+	
+	public /*void*/ function setArguments(/*array*/ $args) {
+		$this->arguments = $args;
+	}
 
 	public /*void*/ function removeArgument(/*string*/ $name) {
 		unset($this->arguments[$name]);
@@ -98,7 +102,7 @@ class Requestv2 {
 
 		if($this->method == CREATE || $this->method == UPDATE
 				 || ($this->ressource == "v2/AuthenticationRequestHandler" && $this->method == READ)
-				 || $this->ressource == "v2/FindRequestHandler" ){
+				 || $this->ressource == "v2/FindRequestHandler"){
 			// POST REQUEST
 			curl_setopt($curl, CURLOPT_HTTPHEADER, $httpHeader);
 			curl_setopt($curl, CURLOPT_URL, $this->url.$this->ressource);

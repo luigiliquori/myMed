@@ -64,7 +64,9 @@ class DetailRequestv2 extends Requestv2 {
 
 		// Classical matching
 		$responsejSon = parent::send();
+		
 		$responseObject = json_decode($responsejSon);
+		
 		if ($responseObject->status != 200 && $responseObject->status != 404) { // Error
 				
 			if (!is_null($this->handler)) {
@@ -95,5 +97,6 @@ class DetailRequestv2 extends Requestv2 {
 			
 		return $result;
 	}
+
 }
 ?>

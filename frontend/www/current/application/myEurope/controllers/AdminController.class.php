@@ -61,7 +61,6 @@ class AdminController extends ExtendedProfileRequired {
 	
 		$publish = new PublishRequestv2($this, "users", $_GET['id']);
 		$publish->setMethod(DELETE);
-		$publish->min = 1; // don't need to reindex
 		$publish->send();
 	
 	

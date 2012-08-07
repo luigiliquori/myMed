@@ -37,7 +37,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
@@ -100,11 +99,15 @@ public class PublishRequestHandler extends AbstractRequestHandler {
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            final String application, dataId, namespace = parameters.get(JSON_NAMESPACE);
+			final String 
+				application = parameters.get(JSON_APPLICATION),
+				dataId = parameters.get("id"),
+				namespace = parameters.get(JSON_NAMESPACE),
+				dataField = parameters.get("field");
             
-            if ((application = parameters.get(JSON_APPLICATION)) == null)
+            if (application == null)
                 throw new InternalBackEndException("missing application argument!");
-            else if ((dataId = parameters.get("id")) == null )
+            else if (dataId == null )
 				throw new InternalBackEndException("missing id argument!");
             
             String prefix = makePrefix(application, namespace);
@@ -129,44 +132,49 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 			case DELETE:
 
 				message.setMethod(JSON_CODE_DELETE);
-				LOGGER.info("deleting " + dataId);
-				String index = pubsubManager.read(prefix, dataId, "_index");
-				
-				LOGGER.info(" trying to delete  " + dataId + "." + index);
-				List<IndexBean> indexList = new ArrayList<IndexBean>();
-				try {
-					indexList = gson.fromJson(index,
-							new TypeToken<List<IndexBean>>() {}.getType());
-					LOGGER.info(" get _index : {} ", indexList);
-				} catch (final JsonSyntaxException e) {
-					LOGGER.debug("Error in Json format", e);
-					throw new InternalBackEndException(
-							"jSon format is not valid");
-				} catch (final JsonParseException e) {
-					LOGGER.debug("Error in parsing Json", e);
-					throw new InternalBackEndException(e.getMessage());
+				if (dataField != null) {
+					LOGGER.info("deleting " + dataId+" > "+dataField);
+					/* deletes data */
+					pubsubManager.delete(prefix + dataId, dataField);
+					
+				} else {
+					LOGGER.info("deleting " + dataId);
+					String index = pubsubManager.read(prefix, dataId, "_index");
+
+					LOGGER.info(" trying to delete  " + dataId + "." + index);
+					List<IndexBean> indexList = new ArrayList<IndexBean>();
+					try {
+						indexList = gson.fromJson(index, indexType);
+						LOGGER.info(" get _index : {} ", indexList);
+					} catch (final JsonSyntaxException e) {
+						LOGGER.debug("Error in Json format", e);
+						throw new InternalBackEndException("jSon format is not valid");
+					} catch (final JsonParseException e) {
+						LOGGER.debug("Error in parsing Json", e);
+						throw new InternalBackEndException(e.getMessage());
+					}
+
+					if (indexList == null) {
+						LOGGER.info(" indexes not found or null ", indexList);
+						indexList = new ArrayList<IndexBean>();
+					}
+
+					Collections.sort(indexList);
+
+					LOGGER.info(" deleting  " + dataId + "." + indexList.size());
+
+					LinkedHashMap<String, List<String>> indexes = MatchMaking
+							.formatIndexes(indexList);
+
+					List<IndexRow> combi = MatchMaking.getPredicate(indexes, 0,
+							indexList.size());
+					for (IndexRow i : combi) {
+						pubsubManager.delete(prefix, i.vals(), dataId, null);
+					}
+
+					/* deletes data */
+					pubsubManager.delete(prefix + dataId);
 				}
-				
-				if (indexList == null){
-					LOGGER.info(" indexes not found or null ", indexList);
-					indexList = new ArrayList<IndexBean>();
-				}
-
-				Collections.sort(indexList);
-
-				LOGGER.info(" deleting  " + dataId + "." + indexList.size());
-
-				LinkedHashMap<String, List<String>> indexes = MatchMaking
-						.formatIndexes(indexList);
-
-				List<IndexRow> combi = MatchMaking.getPredicate(indexes, 0,
-						indexList.size());
-				for (IndexRow i : combi) {
-					pubsubManager.delete(prefix, i.vals(), dataId, null);
-				}
-
-				/* deletes data */
-				pubsubManager.delete(prefix, dataId);
 
 				break;
 			default:

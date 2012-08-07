@@ -6,8 +6,7 @@ require_once('../../../system/config.php');
 $request = new Requestv2("v2/PublishRequestHandler", DELETE);
 session_start();
 
-foreach ($_POST as $k => $v)
-	$request->addArgument($k, $v);
+$request->setArguments($_GET);
 
 $request->addArgument('accessToken', 'fb59ac1476cddb835c613732d394fe3b905ef786'); //for demo
 $responsejSon = $request->send();

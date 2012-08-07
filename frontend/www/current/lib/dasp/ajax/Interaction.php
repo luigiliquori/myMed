@@ -11,6 +11,7 @@ session_start();
 
 
 $request = new Requestv2("InteractionRequestHandler", UPDATE);
+$request->setArguments($_GET);
 $request->addArgument("consumer", $_SESSION['user']->id );
 
 $request->addArgument("start", time() );
@@ -22,8 +23,7 @@ $request->addArgument("end", time() );
  * producer
  * application
  */
-foreach ($_GET as $k => $v)
-	$request->addArgument($k, $v);
+
 
 $responsejSon = $request->send();
 session_write_close();

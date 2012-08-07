@@ -211,11 +211,19 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     
     /* v2 deletes */
 	public final void delete(
-	        final String application, 
-	        final String subPredicate)
+	        final String id)
 			        throws InternalBackEndException, IOBackEndException 
 	{
-		storageManager.removeAll(CF_DATA, application + subPredicate);
+		storageManager.removeAll(CF_DATA, id);
+	}
+	
+	/* v2 deletes */
+	public final void delete(
+	        final String id, 
+	        final String field)
+			        throws InternalBackEndException, IOBackEndException 
+	{
+		storageManager.removeColumn(CF_DATA, id, field);
 	}
     
 	@Override

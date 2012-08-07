@@ -133,7 +133,7 @@ class ExtendedProfileController extends AuthenticatedController
 			 */
 			
 			if ($edit){
-				$this->redirectTo("Main", null, "#profile");
+				$this->redirectTo("Main", array(), "#profile");
 			} else {
 				$_SESSION['myEuropeProfile']->permission = $permission;
 				if ($permission <= 0)
@@ -184,7 +184,7 @@ class ExtendedProfileController extends AuthenticatedController
 	
 	public /*void*/ function showProfile(){
 
-		$this->redirectTo("Main", null, "#profile");
+		$this->redirectTo("Main", array(), "#profile");
 	}
 	
 

@@ -29,9 +29,9 @@ function tab_bar_white($activeTab) {
 		
 			<a href="#infos" style="width:30%;min-width:180px;" class="wrap"
 			type="button" data-inline="true" data-theme="d">S'informer<span style="font-weight: lighter;"> sur les programmes 2014-2020</span></a>
-			<a href="#blogAlcotra"  style="width:30%;min-width:180px;" class="wrap"
+			<a href="?action=Blog&blog=alcotra"  style="width:30%;min-width:180px;" class="wrap"
 			type="button"  data-theme="d" data-inline="true">Alcotra Blog<span style="font-weight: lighter;"> 2014-2020</span></a>
-			<a href="#blogTest"  style="width:30%;min-width:180px;" class="wrap"
+			<a href="?action=Blog&blog=testers" style="width:30%;min-width:180px;" class="wrap"
 			type="button"  data-theme="d" data-inline="true">Beta testers Blog</a>
 		
 		<br /><br />
@@ -94,7 +94,7 @@ function tab_bar_white($activeTab) {
 		<div style="text-align:center;">
 			<span><?= _('Restricted page for admins') ?></span><br />
 			<? if ($_SESSION['myEuropeProfile']->permission<=1) {?>
-				<a href="#home" type="button" data-inline="true" data-theme="r" data-icon="back"><?= _('Back') ?><?= _("Back") ?></a>
+				<a href="#home" type="button" data-inline="true" data-theme="r" data-icon="back"><?= _('Back') ?></a>
 			<? } else { ?>
 				<a href="./?action=Admin" data-ajax="false" type="button" data-inline="true" data-theme="g"><?= _('Access') ?></a>
 			<? } ?>
@@ -107,16 +107,10 @@ function tab_bar_white($activeTab) {
 		<? tab_bar_white("share") ?>
 	</div>
 	<div data-role="content" style="text-align:center;">
-		
-			Partagez <?= APPLICATION_NAME ?>:<br /><br />
-			<div class="addthis_toolbox addthis_floating_style addthis_32x32_style" style="position:relative; margin: auto; background: transparent;">
-				
-				<a class="addthis_button_google_plusone_share"></a>
-				<a class="addthis_button_preferred_1"></a>
-				<a class="addthis_button_preferred_2"></a>
-				<a class="addthis_button_preferred_3"></a>
-				<a class="addthis_button_compact"></a>
-			</div>
+	
+			<br /><br />
+			<span>Partagez <?= APPLICATION_NAME ?>:</span>
+			<div id='shareThisShareEgg' class='shareEgg' style="display: inline-block;vertical-align: middle;"></div>
 		</div>
 	</div>
 </div>
