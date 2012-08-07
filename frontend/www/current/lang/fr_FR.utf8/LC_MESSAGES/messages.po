@@ -7,93 +7,382 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-01 11:41+0200\n"
-"PO-Revision-Date: 2012-08-01 11:42+0100\n"
+"POT-Creation-Date: 2012-08-07 20:47+0200\n"
+"PO-Revision-Date: 2012-08-07 21:12+0100\n"
 "Last-Translator: cyril <cyril.auburtin@inria.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../../../application/myEurope/views/MainView.php:40
-#: ../../../application/myEurope/views/MainView.php:41
-msgid "A propos"
-msgstr ""
+#: MainView.php:8
+#: MainView.php:112
+msgid "Share"
+msgstr "Partager"
 
-#: ../../../application/myEurope/views/MainView.php:75
-msgid "French"
-msgstr "Français"
+#: MainView.php:10
+#: AdminView.php:24
+msgid "Admin"
+msgstr "Admin"
 
-#: ../../../application/myEurope/views/MainView.php:77
-msgid "Italian"
-msgstr "Italien"
+#: MainView.php:11
+#: ExtendedProfileDisplayView.php:9
+msgid "Profile"
+msgstr "Profil"
 
-#: ../../../application/myEurope/views/MainView.php:79
-msgid "English"
-msgstr "Anglais"
+#: MainView.php:22
+msgid "Partnership"
+msgstr "Partenariat"
 
-#: ../../../application/myEurope/views/MainView.php:93
-msgid "Restricted page for admins"
-msgstr "Page réservée aux Administrateurs"
+#: MainView.php:24
+#: MainView.php:167
+msgid "Search a partner"
+msgstr "Rechercher une offre"
 
-#: ../../../application/myEurope/views/MainView.php:95
-#: ../../../application/myEurope/views/MainView.php:311
-#: ../../../application/myEurope/views/MainView.php:347
-#: ../../../application/myEurope/views/parts/utils.php:106
-#: ../../../application/myEurope/views/parts/utils.php:122
-#: ../../../application/myEurope/views/parts/utils.php:136
-#: ../../../application/myEurope/views/parts/utils.php:149
-#: ../../../application/myEurope/views/parts/utils.php:159
-msgid "Back"
-msgstr "Retour"
+#: MainView.php:25
+#: MainView.php:240
+msgid "Insert an offer"
+msgstr "Déposer une offre "
 
-#: ../../../application/myEurope/views/MainView.php:97
-msgid "Access"
-msgstr "Accéder"
+#: MainView.php:28
+msgid "Infomations"
+msgstr "Informations"
 
-#: ../../../application/myEurope/views/LoginView.php:32
-#: ../../../application/myEurope/views/LoginView.php:76
-msgid "Email"
-msgstr ""
+#: MainView.php:31
+msgid "About European programs"
+msgstr "S'informer sur les programmes"
 
-#: ../../../application/myEurope/views/LoginView.php:33
-#: ../../../application/myEurope/views/LoginView.php:80
-msgid "Password"
-msgstr "Mot de passe"
+#: MainView.php:33
+#: BlogAlcotraView.php:16
+msgid "Alcotra Blog"
+msgstr "Blog Alcotra"
 
-#: ../../../application/myEurope/views/LoginView.php:35
-msgid "Log In"
-msgstr "Connection"
+#: MainView.php:35
+#: BlogTestersView.php:15
+msgid "Beta Testers Blog"
+msgstr "Blog Beta testeurs"
 
-#: ../../../application/myEurope/views/LoginView.php:41
-#: ../../../application/myEurope/views/LoginView.php:42
+#: MainView.php:40
+#: MainView.php:41
+#: LoginView.php:41
+#: LoginView.php:42
 msgid "About"
 msgstr "A propos"
 
-#: ../../../application/myEurope/views/LoginView.php:68
+#: MainView.php:57
+#: ExtendedProfileDisplayView.php:19
+#: ExtendedProfileEditView.php:18
+msgid "Role"
+msgstr "Rôle"
+
+#: MainView.php:58
+#: ExtendedProfileDisplayView.php:20
+msgid "Activity"
+msgstr "Activité"
+
+#: MainView.php:59
+#: LoginView.php:32
+#: LoginView.php:76
+#: ExtendedProfileDisplayView.php:21
+#: ExtendedProfileCreateView.php:79
+#: ExtendedProfileCreateView.php:127
+#: ExtendedProfileCreateView.php:171
+#: ExtendedProfileCreateView.php:212
+#: ExtendedProfileCreateView.php:265
+#: ExtendedProfileCreateView.php:368
+#: ExtendedProfileEditView.php:33
+#: AdminView.php:6
+msgid "Email"
+msgstr ""
+
+#: MainView.php:60
+#: ExtendedProfileCreateView.php:124
+#: ExtendedProfileEditView.php:30
+msgid "Address"
+msgstr "Adresse"
+
+#: MainView.php:61
+#: ExtendedProfileDisplayView.php:23
+#: ExtendedProfileEditView.php:39
+msgid "Description"
+msgstr "Description"
+
+#: MainView.php:77
+#: ExtendedProfileCreateView.php:14
+msgid "French"
+msgstr "Français"
+
+#: MainView.php:79
+#: ExtendedProfileCreateView.php:16
+msgid "Italian"
+msgstr "Italien"
+
+#: MainView.php:81
+#: ExtendedProfileCreateView.php:18
+msgid "English"
+msgstr "Anglais"
+
+#: MainView.php:95
+msgid "Restricted page for admins"
+msgstr "Page réservée aux admins"
+
+#: MainView.php:97
+#: MainView.php:315
+#: MainView.php:351
+#: BlogAlcotraView.php:8
+#: BlogTestersView.php:8
+#: parts/utils.php:118
+#: parts/utils.php:134
+#: parts/utils.php:148
+#: parts/utils.php:161
+#: parts/utils.php:171
+msgid "Back"
+msgstr "Retour"
+
+#: MainView.php:99
+msgid "Access"
+msgstr "Accéder"
+
+#: MainView.php:180
+msgid "Themes"
+msgstr "Thématiques"
+
+#: MainView.php:183
+msgid "All"
+msgstr "Tout"
+
+#: LoginView.php:12
+#: LoginView.php:35
+msgid "Log In"
+msgstr "Connexion"
+
+#: LoginView.php:13
+msgid "Registration"
+msgstr "Réputation"
+
+#: LoginView.php:33
+#: LoginView.php:80
+msgid "Password"
+msgstr "Mot de passe"
+
+#: LoginView.php:68
 msgid "first name"
-msgstr ""
+msgstr "Prénom"
 
-#: ../../../application/myEurope/views/LoginView.php:72
+#: LoginView.php:72
 msgid "last name"
-msgstr ""
+msgstr "Nom"
 
-#: ../../../application/myEurope/views/LoginView.php:84
+#: LoginView.php:84
 msgid "Password (confirmation)"
-msgstr ""
+msgstr "Mot de passe (confirmation)"
 
-#: ../../../application/myEurope/views/LoginView.php:99
+#: LoginView.php:97
+#: ExtendedProfileDisplayView.php:22
+#: ExtendedProfileCreateView.php:384
+#: ExtendedProfileEditView.php:24
+#: ExtendedProfileEditView.php:47
 msgid "Validate"
 msgstr "Valider"
 
-#: ../../../application/myEurope/views/ExtendedProfileEditView.php:39
+#: DetailsView.php:6
+msgid "Details for the offer"
+msgstr "Détails de l'offre"
+
+#: ExtendedProfileDisplayView.php:10
+msgid "Add to contacts"
+msgstr "Ajouter aux contacts"
+
+#: ExtendedProfileDisplayView.php:25
+msgid "Reputation"
+msgstr "Réputation"
+
+#: ExtendedProfileCreateView.php:11
+msgid "Select your language"
+msgstr "Choisissez votre langue"
+
+#: ExtendedProfileCreateView.php:22
+msgid "Next"
+msgstr "Suivant"
+
+#: ExtendedProfileCreateView.php:35
+msgid ""
+"Hello<br/>,<br/>This is your first time on myEurope.<br/>\n"
+"\t\t\t\t Please fill in your profile <br/>\n"
+"\t\t\tYou are ?<br/> "
+msgstr ""
+"Bonjour<br/>,<br/>C'est la première fois que vous venez sur myEurope.<br/>\n"
+"\t\t\t\t Merci de renseigner votre profil <br/>\n"
+"\t\t\tVous êtes ?<br/> "
+
+#: ExtendedProfileCreateView.php:40
+msgid "Association"
+msgstr ""
+
+#: ExtendedProfileCreateView.php:41
+msgid "Company"
+msgstr "Entreprise"
+
+#: ExtendedProfileCreateView.php:42
+msgid "State-owned enterprise"
+msgstr "Etablissement public"
+
+#: ExtendedProfileCreateView.php:43
+msgid "Town hall"
+msgstr "Mairie"
+
+#: ExtendedProfileCreateView.php:44
+msgid "Region"
+msgstr "Région"
+
+#: ExtendedProfileCreateView.php:45
+msgid "Department"
+msgstr "Département"
+
+#: ExtendedProfileCreateView.php:46
+msgid "Other"
+msgstr "Autre"
+
+#: ExtendedProfileCreateView.php:67
+msgid "Association Name"
+msgstr "Nom de l'association"
+
+#: ExtendedProfileCreateView.php:82
+#: ExtendedProfileCreateView.php:130
+#: ExtendedProfileCreateView.php:174
+#: ExtendedProfileCreateView.php:215
+#: ExtendedProfileCreateView.php:268
+#: ExtendedProfileCreateView.php:325
+#: ExtendedProfileCreateView.php:371
+#: ExtendedProfileEditView.php:36
+msgid "Phone"
+msgstr "Téléphone"
+
+#: ExtendedProfileCreateView.php:115
+msgid "Company name"
+msgstr "Entreprise"
+
+#: ExtendedProfileCreateView.php:118
+msgid "Commercial activity"
+msgstr "Activité commerciale"
+
+#: ExtendedProfileCreateView.php:121
+#: ExtendedProfileEditView.php:27
+msgid "Siret"
+msgstr "Siret"
+
+#: ExtendedProfileCreateView.php:322
+msgid "EMail"
+msgstr ""
+
+#: ExtendedProfileEditView.php:21
+msgid "Name"
+msgstr "Nom"
+
+#: ExtendedProfileEditView.php:43
 msgid "Mot de passe"
 msgstr ""
 
-#: ../../../application/myEurope/views/PublishSuccessView.php:8
-#: ../../../application/myEurope/views/WaitingForAcceptView.php:8
-#: ../../../application/myEurope/views/parts/utils.php:17
-#: ../../../application/myEurope/views/parts/utils.php:45
+#: PublishSuccessView.php:8
+#: WaitingForAcceptView.php:8
+#: parts/utils.php:29
+#: parts/utils.php:57
 msgid "Exit"
 msgstr "Quitter"
+
+#: PublishSuccessView.php:17
+msgid "Your partnership offer has been successfully published on"
+msgstr "Votre offre de partenariat a été publiée avec succès"
+
+#: PublishSuccessView.php:21
+msgid "See similar offers"
+msgstr "Voir les offres similaires"
+
+#: WaitingForAcceptView.php:16
+msgid ""
+"<b>Congratulations!</b> Your profile has been sent to myEurope team  \n"
+"\t\t\t<a href='mailto:myAlpMed@gmail.com' type='button' data-inline='true' data-mini='true'><?= APPLICATION_NAME ?></a>\t\t\n"
+"\t\t\tfor validation"
+msgstr "Félicitations! Votre profil a été envoyé à l'équipe de myEurope pour validation"
+
+#: AdminView.php:7
+msgid "Content"
+msgstr "Contenu"
+
+#: AdminView.php:22
+msgid "New user waiting for validation"
+msgstr "Nouvel utilisateur en attente de validation"
+
+#: AdminView.php:23
+msgid "Normal user"
+msgstr "Utilisateur normal"
+
+#: AdminView.php:30
+#: AdminView.php:61
+msgid "Filter results"
+msgstr "Filtrer les résultats"
+
+#: AdminView.php:45
+msgid "Increase"
+msgstr ""
+
+#: BlogAlcotraView.php:19
+msgid "Theme1"
+msgstr "Thème1"
+
+#: BlogAlcotraView.php:20
+msgid "Theme2"
+msgstr "Thème2"
+
+#: BlogAlcotraView.php:21
+msgid "Theme3"
+msgstr "Thème3"
+
+#: BlogAlcotraView.php:22
+msgid "Theme4"
+msgstr "Thème4"
+
+#: BlogAlcotraView.php:23
+msgid "Theme5"
+msgstr "Thème5"
+
+#: BlogAlcotraView.php:34
+#: BlogTestersView.php:23
+msgid "delete"
+msgstr "Supprimer"
+
+#: BlogAlcotraView.php:42
+#: BlogAlcotraView.php:43
+#: BlogTestersView.php:31
+#: BlogTestersView.php:32
+msgid "reply"
+msgstr "Répondre"
+
+#: ResultsView.php:5
+msgid "Results"
+msgstr "Résultats"
+
+#: ResultsView.php:11
+msgid "filter"
+msgstr "filtrer"
+
+#: ResultsView.php:14
+msgid "Sort by date"
+msgstr "Trier par date"
+
+#: ResultsView.php:15
+msgid "Sort by partner"
+msgstr "Trier par partenaire"
+
+#: ResultsView.php:19
+msgid "Subscribe to this search"
+msgstr "Souscrire aux futurs résultats"
+
+#: ResultsView.php:20
+msgid "Unsubscribe"
+msgstr "Se désabonner"
+
+#: ResultsView.php:25
+msgid "Your search didn't match any result."
+msgstr "Votre recherche n'a abouti à aucun résultat."
 

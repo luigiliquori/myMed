@@ -322,7 +322,8 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 				/* creates data */
 				pubsubManager.create(prefix, dataId, dataMap);
 				
-				pubsubManager.sendEmailsToSubscribers(prefix, dataId, dataMap, null);
+				if (dataMap.containsKey("_notify"))
+					pubsubManager.sendEmailsToSubscribers(prefix, dataId, dataMap, null);
 				
 				break;
 

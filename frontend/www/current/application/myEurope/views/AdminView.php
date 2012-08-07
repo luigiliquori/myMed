@@ -3,8 +3,8 @@
 <?
 function tab_bar_white($activeTab) {
 	tabs_white_back(array(
-			"users" => array("Users", "profile"),
-			"contents" => array("Content", "grid")
+			"users" => array(_("Email"), "profile"),
+			"contents" => array(_("Content"), "grid")
 		),
 		$activeTab);
 } 
@@ -42,7 +42,7 @@ function tab_bar_white($activeTab) {
 				
 				<a href=""> <?= $item->id ?> <span style="color:red;"><?= $item->permission ?></span> </a>
 				<a data-icon="minus" onclick="$('#userDownForm<?= $i ?>').submit();" data-iconpos="notext" data-inline="true" data-role="button" style="position:absolute; top:0; right:42px;"> Diminuer</a>
-	        	<a data-icon="plus" onclick="$('#userUpForm<?= $i ?>').submit();" data-theme="e">Augmenter</a> 
+	        	<a data-icon="plus" onclick="$('#userUpForm<?= $i ?>').submit();" data-theme="e"><?= _('Increase') ?></a> 
 
 			</li>
 		<? } ?>		

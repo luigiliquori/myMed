@@ -6,8 +6,8 @@
 <!-- Header -->
 <div data-role="header" data-theme="c" data-position="fixed">
 	<? tabs_3(
-			"Profil",
-			"Ajouter aux contacts",
+			_('Profile'),
+			_('Add to contacts'),
 			"?action=ExtendedProfile&id=". $this->profile->user ,
 			"check") ?>
 	<? include("notifications.php")?>
@@ -16,13 +16,13 @@
 <div data-role="content" >
 	
 	<? if (isset($this->profile)) :?>
-		<span class="label">Rôle:</span> <?= $this->profile->role ?><br />
-		<span class="label">activité:</span> <?= $this->profile->activity ?><br />
-		<span class="label">Email:</span> <?= $this->profile->email ?><br />
-		<span class="label">Adresse:</span> <?= $this->profile->address ?><br />
-		<span class="label">Description:</span> <?= $this->profile->desc ?><br />
+		<span class="label"><?= _('Role') ?>:</span> <?= $this->profile->role ?><br />
+		<span class="label"><?= _('Activity') ?>:</span> <?= $this->profile->activity ?><br />
+		<span class="label"><?= _('Email') ?>:</span> <?= $this->profile->email ?><br />
+		<span class="label"><?= _('Validate') ?>:</span> <?= $this->profile->address ?><br />
+		<span class="label"><?= _('Description') ?>:</span> <?= $this->profile->desc ?><br />
 		<br /><br />
-		Réputation: 
+		<?= _('Reputation') ?>: 
 		<? for($i=20; $i<=100; $i+=20) : ?>
 			<a data-theme="<?= ($this->reputation['rep'] >= $i)?'e':'c' ?>" data-role="button" data-iconpos="notext" data-icon="star" data-inline="true" style="margin-right:1px; margin-left:1px;"></a>
 		<? endfor ?>&nbsp;&nbsp;

@@ -92,7 +92,8 @@ function updateProfile(k, v) {
 	data[k] = v;
 	
 	$.get('../../lib/dasp/ajax/Profile.php', data, function(res){
-		console.log(res);
+		location.reload(0);
+		//console.log(res);
 		//var response = JSON.parse(res);
 	});
 }

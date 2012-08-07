@@ -12,7 +12,7 @@
 	</div>
 
 	<div data-role="content">
-		<h3 class="ui-link" style="text-align: center;">Blog bétas testeurs</h3>
+		<h3 class="ui-link" style="text-align: center;"><?= _('Beta Testers Blog') ?></h3>
 		<ul data-role="listview" class="blog" data-inset="true" data-theme="d" data-filter="true" data-filter-placeholder="">
 			<? foreach($this->messages as $k => $v) : ?>
 			<? $pieces = explode("_", $k, 3); ?>
@@ -25,11 +25,11 @@
 			<? endforeach ?>
 		</ul>
 		<br />
-		<form method="post" action="?action=Blog&blog=<?= $this->blog ?>" data-ajax="false">
+		<form method="post" action="?action=Blog&blog=<?= $this->blog ?>">
 			<input type="hidden" name="action" value="Blog" />
 			<input type="hidden" name="blog" value="<?= $this->blog ?>" />
-			Répondre:<textarea name="text"></textarea>
-			<input type="submit" data-theme="b" data-mini="true" data-inline="true" value="Poster" />
+			<textarea name="text"></textarea>
+			<input type="submit" data-theme="b" data-mini="true" data-inline="true" value="<?= _('reply') ?>" />
 		</form>
 		 
 	</div>

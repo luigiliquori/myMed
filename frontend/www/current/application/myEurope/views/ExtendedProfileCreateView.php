@@ -8,18 +8,18 @@
 	</div>
 	<div data-role="content" style="text-align:center;">
 		<br /><br />
-		Choisissez votre langue:<br />
+		<?= _("Select your language") ?>:<br />
 		<fieldset data-role="controlgroup" data-type="horizontal" style="display:inline-block;vertical-align: middle;">
 			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-a" value="fr" <?= $_SESSION["user"]->lang == "fr"?"checked='checked'":"" ?>/>
-			<label for="radio-view-a">Français</label>
+			<label for="radio-view-a"><?= _("French") ?></label>
 			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-b" value="it" <?= $_SESSION["user"]->lang == "it"?"checked='checked'":"" ?>/>
-			<label for="radio-view-b">Italiano</label>
+			<label for="radio-view-b"><?= _("Italian") ?></label>
 			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-e" value="en" <?= $_SESSION["user"]->lang == "en"?"checked='checked'":"" ?>/>
-			<label for="radio-view-e">English</label>
+			<label for="radio-view-e"><?= _("English") ?></label>
 		</fieldset>
 		<br />
 		<div style="text-align: center;" >
-			<a href="#role" type="button" data-inline="true" data-icon="arrow-r" data-theme="b" data-transition="slide">Suivant</a>
+			<a href="#role" type="button" data-inline="true" data-icon="arrow-r" data-theme="b" data-transition="slide"><?= _("Next") ?></a>
 		</div>
 		
 	</div>
@@ -32,21 +32,18 @@
 	</div>
 	<div data-role="content">
 		<p>
-		Bonjour,<br/>
-			<br/>
-			C'est la première fois que vous venez sur myEurope.<br/>
-			Merci de renseigner votre profil.<br/>
-			<br/>
-			Vous êtes ?<br/>
-			<br/>
+		<?= _("Hello<br/>,<br/>This is your first time on myEurope.<br/>
+				 Please fill in your profile <br/>
+			You are ?<br/> ") ?>
+
 			<ul data-role="listview" data-inset="true">
-				<li><a href="#Association">Association</a></li>
-				<li><a href="#Entreprise">Entreprise</a></li>
-				<li><a href="#EtabPublic">Etablissement public</a></li>
-				<li><a href="#Mairie">Mairie </a></li>
-				<li><a href="#Région">Région</a></li>
-				<li><a href="#Département">Département</a></li>
-				<li><a href="#Autre">... Autre</a></li>
+				<li><a href="#Association"><?= _("Association") ?></a></li>
+				<li><a href="#Entreprise"><?= _("Company") ?></a></li>
+				<li><a href="#EtabPublic"><?= _("State-owned enterprise") ?></a></li>
+				<li><a href="#Mairie"><?= _("Town hall") ?> </a></li>
+				<li><a href="#Région"><?= _("Region") ?></a></li>
+				<li><a href="#Département"><?= _("Department") ?></a></li>
+				<li><a href="#Autre">... <?= _("Other") ?></a></li>
 			</ul> 
 		</p>	
 	</div>
@@ -57,7 +54,7 @@
 	<div data-role="header" data-theme="c" data-position="fixed">
 		<? tabs_3(
 				APPLICATION_NAME,
-				"Valider",
+				"<?= _('Validate') ?>",
 				"$('#ExtendedProfileForm').submit();",
 				"check") ?>
 	</div>
@@ -67,7 +64,7 @@
 			<input type="hidden" name="form" value="create" />
 			<input type="hidden" name="role" value="Association" />
 			
-			<label for="textinputu1"> Nom de l'association: </label>
+			<label for="textinputu1"><?= _('Association Name') ?>: </label>
 			<input id="textinputu1" name="name" placeholder="" value='' type="text" />
 			
 			<label for="textinputu2"> Domaine d'action: </label>
@@ -79,10 +76,10 @@
 			<label for="textinputu4"> Adresse: </label>
 			<input id="textinputu4" name="address" placeholder="" value=''type="text" />
 
-			<label for="textinputu5"> Email: </label>
+			<label for="textinputu5"> <?= _('Email') ?>: </label>
 			<input id="textinputu5" name="email" placeholder="" value='' type="email" />
 			
-			<label for="textinputu6"> Téléphone: </label>
+			<label for="textinputu6"> <?= _('Phone') ?>: </label>
 			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
 			<br/>
 			<textarea id="desc" name="desc" placeholder="description, commentaires"></textarea>
@@ -115,22 +112,22 @@
 			<input type="hidden" name="form" value="create" />
 			<input type="hidden" name="role" value="Entreprise" />
 			
-			<label for="textinputu1"> Nom de l'entreprise: </label>
+			<label for="textinputu1"> <?= _('Company name') ?>: </label>
 			<input id="textinputu1" name="name" placeholder="" value='' type="text" />
 			
-			<label for="textinputu2"> Activité commerciale: </label>
+			<label for="textinputu2"> <?= _('Commercial activity') ?>: </label>
 			<input id="textinputu2" name="activity" placeholder="" value='' type="text" />
 			
-			<label for="textinputu3"> N°SIRET: </label>
+			<label for="textinputu3"> <?= _('Siret') ?>: </label>
 			<input id="textinputu3" name="siret" placeholder="" value='' type="text" />
 			
-			<label for="textinputu4"> Adresse: </label>
+			<label for="textinputu4"> <?= _('Address') ?>: </label>
 			<input id="textinputu4" name="address" placeholder="" value=''type="text" />
 
-			<label for="textinputu5"> Email: </label>
+			<label for="textinputu5"> <?= _('Email') ?>: </label>
 			<input id="textinputu5" name="email" placeholder="" value='' type="email" />
 			
-			<label for="textinputu6"> Téléphone: </label>
+			<label for="textinputu6"> <?= _('Phone') ?>: </label>
 			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
 			<br/>
 			<textarea id="desc" name="desc" placeholder="description, commentaires"></textarea>
@@ -171,10 +168,10 @@
 			<label for="textinputu4"> Adresse: </label>
 			<input id="textinputu4" name="address" placeholder="" value=''type="text" />
 
-			<label for="textinputu5"> Email: </label>
+			<label for="textinputu5"> <?= _('Email') ?>: </label>
 			<input id="textinputu5" name="email" placeholder="" value='' type="email" />
 			
-			<label for="textinputu6"> Téléphone: </label>
+			<label for="textinputu6"> <?= _('Phone') ?>: </label>
 			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
 			<br/>
 			<textarea id="desc" name="desc" placeholder="description, commentaires"></textarea>
@@ -212,10 +209,10 @@
 			<label for="textinputu4"> Adresse: </label>
 			<input id="textinputu4" name="address" placeholder="" value=''type="text" />
 
-			<label for="textinputu5"> Email: </label>
+			<label for="textinputu5"> <?= _('Email') ?>: </label>
 			<input id="textinputu5" name="email" placeholder="" value='' type="email" />
 			
-			<label for="textinputu6"> Téléphone: </label>
+			<label for="textinputu6"> <?= _('Phone') ?>: </label>
 			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
 			<br/>
 			<textarea id="desc" name="desc" placeholder="description, commentaires"></textarea>
@@ -265,10 +262,10 @@
 			<label for="textinputu4"> Adresse: </label>
 			<input id="textinputu4" name="address" placeholder="" value=''type="text" />
 
-			<label for="textinputu5"> Email: </label>
+			<label for="textinputu5"> <?= _('Email') ?>: </label>
 			<input id="textinputu5" name="email" placeholder="" value='' type="email" />
 			
-			<label for="textinputu6"> Téléphone: </label>
+			<label for="textinputu6"> <?= _('Phone') ?>: </label>
 			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
 			<br/>
 			<textarea id="desc" name="desc" placeholder="description, commentaires"></textarea>
@@ -322,10 +319,10 @@
 			<label for="textinputu4"> Adresse: </label>
 			<input id="textinputu4" name="address" placeholder="" value=''type="text" />
 
-			<label for="textinputu5"> Email: </label>
+			<label for="textinputu5"> <?= _('EMail') ?>: </label>
 			<input id="textinputu5" name="email" placeholder="" value='' type="email" />
 			
-			<label for="textinputu6"> Téléphone: </label>
+			<label for="textinputu6"> <?= _('Phone') ?>: </label>
 			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
 			<br/>
 			<textarea id="desc" name="desc" placeholder="description, commentaires"></textarea>
@@ -368,10 +365,10 @@
 			<label for="textinputu4"> Adresse: </label>
 			<input id="textinputu4" name="address" placeholder="" value=''type="text" />
 
-			<label for="textinputu5"> Email: </label>
+			<label for="textinputu5"> <?= _('Email') ?>: </label>
 			<input id="textinputu5" name="email" placeholder="" value='' type="email" />
 			
-			<label for="textinputu6"> Téléphone: </label>
+			<label for="textinputu6"> <?= _('Phone') ?>: </label>
 			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
 			<br/>
 			<textarea id="desc" name="desc" placeholder="description, commentaires"></textarea>
@@ -384,7 +381,7 @@
 			</span><br />
 			
 			<div style="text-align: center;" >
-				<input type="submit" data-inline="true" data-role="button" data-icon="check" value="Valider"/>
+				<input type="submit" data-inline="true" data-role="button" data-icon="check" value="<?= _('Validate') ?>"/>
 			</div>
 		</form>
 	</div>

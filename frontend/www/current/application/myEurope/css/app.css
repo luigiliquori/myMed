@@ -35,10 +35,11 @@
 .ui-li-desc {
 	white-space: normal;
 	font-size: 14px;
+	margin-bottom: 0;
 }
 
 .label {
-	color: #888;
+	color: #777;
 	font-style: italic;
 }
 
@@ -47,7 +48,7 @@
 }
 
 .ui-slider-switch {
-	min-width: 100px;
+	min-width: 140px;
 }
 
 .blog .ui-li-heading{
@@ -71,8 +72,19 @@
 	white-space: normal;
 }
 
+.mainTab {
+	color: #20AAEE;
+}
+
+.ui-btn-active .mainTab {
+	color: yellow;
+}
+
 .ui-btn-up-e:visited, .ui-btn-up-e a.ui-link-inherit {
 color: #333 /*{e-bup-color}*/;
+}
+.ui-btn-up-c:visited, .ui-btn-up-e a.ui-link-inherit {
+color: #354a60 /*{e-bup-color}*/;
 }
 
 .ui-btn-active {

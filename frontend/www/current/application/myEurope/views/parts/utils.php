@@ -34,7 +34,7 @@ function tabs($tabs, $activeTab) {
 				data-transition="slide" 
 				<?= ($reverse) ? 'data-direction="reverse"' : '' ?>
 				<?= ($activeTab == $id) ? 'class="ui-btn-active ui-state-persist"' : '' ?> >
-				<?= _($label) ?>
+				<?= $label ?>
 			</a>
 		</li><? 
 		
@@ -63,7 +63,7 @@ function tabs($tabs, $activeTab) {
   				data-icon="<?= $v[1] ?>" 
   				<?= ($reverse) ? 'data-direction="reverse"' : '' ?>
   				<?= ($activeTab == $id) ? 'class="ui-btn-active ui-state-persist"' : '' ?> >
-  				<?= _($v[0]) ?>
+  				<?= $v[0] ?>
   			</a>
   		</li><? 
   		
@@ -92,7 +92,7 @@ function tabs($tabs, $activeTab) {
  				data-icon="<?= $v[1] ?>" 
  				<?= ($reverse) ? 'data-direction="reverse"' : '' ?>
  				<?= ($activeTab == $id) ? 'class="ui-btn-active ui-state-persist"' : '' ?> >
- 				<?= _($v[0]) ?>
+ 				<?= $v[0] ?>
  			</a>
  		</li><? 
  		
@@ -116,8 +116,8 @@ function tabs($tabs, $activeTab) {
    	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
    	<ul>
    		<li><a data-rel="back" data-ajax="false" data-icon="back"><?= _("Back") ?></a></li>
-   		<li><a class="ui-disabled"><?= _($title) ?></a></li>
-   		<li><a href="<?= $url ?>" rel="external" data-icon="<?= $icon ?>"><?= _($button) ?></a></li>
+   		<li><a class="ui-disabled"><?= $title ?></a></li>
+   		<li><a href="<?= $url ?>" rel="external" data-icon="<?= $icon ?>"><?= $button ?></a></li>
    	</ul>
    	</div> <?
    }
@@ -132,8 +132,8 @@ function tabs($tabs, $activeTab) {
    		<div data-role="navbar" data-theme="d" data-iconpos="left"> 
         	<ul>
             	<li><a data-rel="back" data-ajax="false" data-icon="back"><?= _("Back") ?></a></li>
-            	<li><a href="<?= $url ?>" rel="external" data-icon="<?= $icon ?>"><?= _($button) ?></a></li>
-            	<li><a class="ui-disabled"><?= _($title) ?></a></li>
+            	<li><a href="<?= $url ?>" rel="external" data-icon="<?= $icon ?>"><?= $button ?></a></li>
+            	<li><a class="ui-disabled"><?= $title ?></a></li>
             </ul>
         </div> <?
       }
@@ -146,7 +146,7 @@ function tabs($tabs, $activeTab) {
       	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
       	<ul>
       		<li><a data-rel="back" data-ajax="false" data-icon="back"><?= _("Back") ?></a></li>
-      		<li><a href="<?= $url ?>" rel="external" data-icon="<?= $icon ?>" class="ui-disabled"><?= _($title) ?></a></li>
+      		<li><a href="<?= $url ?>" rel="external" data-icon="<?= $icon ?>" class="ui-disabled"><?= $title ?></a></li>
       	</ul>
       	</div> <?
       }
@@ -159,7 +159,7 @@ function tabs($tabs, $activeTab) {
             	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
             	<ul>
             		<li><a href="./" data-icon="back"><?= _("Back") ?></a></li>
-            		<li><a onclick="<?= $url ?>" rel="external" data-icon="<?= $icon ?>"><?= _($title) ?></a></li>
+            		<li><a onclick="<?= $url ?>" rel="external" data-icon="<?= $icon ?>"><?= $title ?></a></li>
             	</ul>
             	</div> <?
             }
@@ -169,7 +169,7 @@ function tabs($tabs, $activeTab) {
             	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
             	<ul>
             		<li><a data-rel="back" data-ajax="false" data-icon="back"><?= _("Back") ?></a></li>
-            		<li><a class="ui-disabled"><?= _($title) ?></a></li>
+            		<li><a class="ui-disabled"><?= $title ?></a></li>
             	</ul>
             	</div> <?
         }

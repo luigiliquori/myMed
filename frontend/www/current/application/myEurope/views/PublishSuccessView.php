@@ -14,9 +14,11 @@
 
 	<div data-role="content" >
 		<br />
-		Votre offre de partenariat est publiée sur <?= APPLICATION_NAME ?>,<br /><br />
+		<?= _("Your partnership offer has been successfully published on") ?>
+		 <?= APPLICATION_NAME ?>,
+		 <br /><br />
 		
-		<a href="?action=search<?= $this->req ?>" data-ajax="false" type="button" data-inline="true"> Voir les offres similaires </a><br />
+		<a href="?action=search<?= $this->req ?>" data-ajax="false" type="button" data-inline="true"> <?= _("See similar offers") ?> </a><br />
 		 
 	</div>
 </div>

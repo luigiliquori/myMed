@@ -13,7 +13,7 @@
 
 	
 	<div data-role="content">
-		<h3 class="ui-link" style="text-align: center;">Blog Alcotra</h3>
+		<h3 class="ui-link" style="text-align: center;"><?= _('Alcotra Blog') ?></h3>
 		<div data-role="navbar" data-theme="e" data-iconpos="left"> 
 			<ul>
 				<li><a href="" class="ui-btn-active ui-state-persist"><?= _("Theme1") ?></a></li>
@@ -36,11 +36,11 @@
 			<? endforeach ?>
 		</ul>
 		<br />
-		<form method="post" action="?action=Blog&blog=<?= $this->blog ?>" data-ajax="false">
+		<form method="post" action="?action=Blog&blog=<?= $this->blog ?>">
 			<input type="hidden" name="action" value="Blog" />
 			<input type="hidden" name="blog" value="<?= $this->blog ?>" />
-			Répondre:<textarea name="text"></textarea>
-			<input type="submit" data-theme="b" data-mini="true" data-inline="true" value="Poster" />
+			<textarea name="text"></textarea>
+			<input type="submit" data-theme="b" data-mini="true" data-inline="true" value="<?= _('reply') ?>" />
 		</form>
 		 
 	</div>

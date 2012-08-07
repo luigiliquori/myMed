@@ -5,10 +5,10 @@
 <?
 function tab_bar_white($activeTab) {
 	tabs_white(array(
-			"share" => array("Partagez", "plus"),
-			"home" => array("myEurope", "myEurope"),
-			"admin" => array("Admin", "gear"),
-			"profile" => array("Profil", "profile"),
+			"share" => array(_('Share'), "plus"),
+			"home" => array('<span class="mainTab">'.APPLICATION_NAME.'</span>', "myEurope"),
+			"admin" => array(_('Admin'), "gear"),
+			"profile" => array(_('Profile'), "profile"),
 		),
 		$activeTab);
 } 
@@ -19,26 +19,26 @@ function tab_bar_white($activeTab) {
 		<? tab_bar_white("home") ?>
 	</div>
 	<div data-role="content" style="text-align:center;">
-		<h3 class="ui-link">Partenariats:</h3>
+		<h3 class="ui-link"><?= _('Partnership') ?>:</h3>
 		<div data-role="controlgroup"  data-type="horizontal">
-			<a href="#search" type="button" data-theme="e" style="width:50%;"><br />Rechercher une offre<br />&nbsp;</a>
-			<a href="#post" type="button" data-theme="e" style="width:49%;" rel="external"><br />Déposer une offre<br />&nbsp;</a>
+			<a href="#search" type="button" data-theme="b" style="width:50%;"><br /><span style="color: yellow;"><?= _('Search a partner') ?></span><br />&nbsp;</a>
+			<a href="#post" type="button" data-theme="b" style="width:49%;" rel="external"><br /><span style="color: yellow;"><?= _('Insert an offer') ?></span><br />&nbsp;</a>
 		</div>
 		
-		<h3 class="ui-link">Informations:</h3>
+		<h3 class="ui-link"><?= _('Infomations') ?>:</h3>
 		
 			<a href="#infos" style="width:30%;min-width:180px;" class="wrap"
-			type="button" data-inline="true" data-theme="d">S'informer<span style="font-weight: lighter;"> sur les programmes 2014-2020</span></a>
+			type="button" data-inline="true" data-theme="d"><?= _('About European programs') ?><span style="font-weight: lighter;"> 2014-2020</span></a>
 			<a href="?action=Blog&blog=alcotra"  style="width:30%;min-width:180px;" class="wrap"
-			type="button"  data-theme="d" data-inline="true">Alcotra Blog<span style="font-weight: lighter;"> 2014-2020</span></a>
+			type="button"  data-theme="d" data-inline="true"><?= _('Alcotra Blog') ?><span style="font-weight: lighter;"> 2014-2020</span></a>
 			<a href="?action=Blog&blog=testers" style="width:30%;min-width:180px;" class="wrap"
-			type="button"  data-theme="d" data-inline="true">Beta testers Blog</a>
+			type="button"  data-theme="d" data-inline="true"><?= _('Beta Testers Blog') ?></a>
 		
 		<br /><br />
 		<select data-theme="c" data-mini="true" name="slider" id="flip-d" data-role="slider"
 			onchange="if ($(this).val()==1){$('#AboutContent').fadeOut('slow');} else {$('#AboutContent').fadeIn('slow')};">
-			<option value="1"><?= _("A propos") ?></option>
-			<option value="0"><?= _("A propos") ?></option>
+			<option value="1"><?= _("About") ?></option>
+			<option value="0"><?= _("About") ?></option>
 		</select>
 		<div id="AboutContent" style="display:none;">
 			<?= about(); ?>
@@ -54,11 +54,11 @@ function tab_bar_white($activeTab) {
 
 	<div data-role="content" >
 		<br />
-		<span class="label">Rôle:</span> <?= $_SESSION['myEuropeProfile']->role ?><br />
-		<span class="label">activité:</span> <?= $_SESSION['myEuropeProfile']->activity ?><br />
-		<span class="label">Email:</span> <?= $_SESSION['myEuropeProfile']->email ?><br />
-		<span class="label">Adresse:</span> <?= $_SESSION['myEuropeProfile']->address ?><br />
-		<span class="label">Description:</span> <?= $_SESSION['myEuropeProfile']->desc ?><br />
+		<span class="label"><?= _("Role") ?>:</span> <?= $_SESSION['myEuropeProfile']->role ?><br />
+		<span class="label"><?= _("Activity") ?>:</span> <?= $_SESSION['myEuropeProfile']->activity ?><br />
+		<span class="label"><?= _("Email") ?>:</span> <?= $_SESSION['myEuropeProfile']->email ?><br />
+		<span class="label"><?= _("Address") ?>:</span> <?= $_SESSION['myEuropeProfile']->address ?><br />
+		<span class="label"><?= _("Description") ?>:</span> <?= $_SESSION['myEuropeProfile']->desc ?><br />
 		
 		<a type="button" data-mini="true" href="?action=ExtendedProfile&edit=false" data-inline="true" data-theme="c" data-icon="grid">Modifer</a>
 		<br />
@@ -109,7 +109,7 @@ function tab_bar_white($activeTab) {
 	<div data-role="content" style="text-align:center;">
 	
 			<br /><br />
-			<span>Partagez <?= APPLICATION_NAME ?>:</span>
+			<span><?= _("Share") ?> <?= APPLICATION_NAME ?>:</span>
 			<div id='shareThisShareEgg' class='shareEgg' style="display: inline-block;vertical-align: middle;"></div>
 		</div>
 	</div>
@@ -164,7 +164,7 @@ function tab_bar_white($activeTab) {
 
 	<div data-role="header" data-theme="c" data-position="fixed">
 		<? tabs_2click(
-				"Chercher un partenaire",
+				_('Search a partner'),
 				"$('#searchForm').submit();",
 				"search") ?>
 	</div>
@@ -177,10 +177,10 @@ function tab_bar_white($activeTab) {
 			
 	
 		 	<fieldset data-role="controlgroup" id="themecheckboxes">
-				<legend><b>Thèmes:</b></legend>
+				<legend><b><?= _('Themes') ?>:</b></legend>
 				
 				<input type="checkbox" id="checkbox-all" />
-				<label for="checkbox-all">Tous</label>
+				<label for="checkbox-all"><?= _('All') ?></label>
 				
 				<input type="checkbox" name="education" id="checkbox-1a"/>
 				<label for="checkbox-1a">Education, culture & sport</label>
@@ -237,7 +237,7 @@ function tab_bar_white($activeTab) {
 	
 	<div data-role="header" data-theme="c" data-position="fixed">
 		<? tabs_2click(
-				"Insérer une offre",
+				_('Insert an offer'),
 				"$('#publishForm').submit();",
 				"check") ?>
 	</div>

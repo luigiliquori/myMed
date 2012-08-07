@@ -13,8 +13,10 @@
 	
 	<div data-role="content">
 	<br />
-	<b>Félicitation!</b> Votre profil a été envoyé à l'équipe <a href="mailto:myAlpMed@gmail.com" type="button" data-inline="true" data-mini="true"><?= APPLICATION_NAME ?></a> pour validation.<br />
-	<br />
+	<?= _("<b>Congratulations!</b> Your profile has been sent to myEurope team  
+			<a href='mailto:myAlpMed@gmail.com' type='button' data-inline='true' data-mini='true'><?= APPLICATION_NAME ?></a>		
+			for validation") ?>
+	<br /><br />
 	</div>
 
 </div>

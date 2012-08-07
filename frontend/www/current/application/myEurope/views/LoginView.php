@@ -9,8 +9,8 @@ include("header.php"); ?>
  /** Definition of the Login / Register tabs */
  function tab_bar($activeTab) {
  	tabs(array(
- 			"login" => "Login",
- 			"register" => "Inscription"), 
+ 			"login" =>  _('Log In') ,
+ 			"register" => _('Registration')), 
  		$activeTab);
  }
  

@@ -33,7 +33,7 @@ class BlogController extends AuthenticatedController {
 			$k = time()."_".$_SESSION['user']->id;
 			
 			$data = array(
-					$k => isset($_POST['text'])?urlencode($_POST['text']):urlencode("contenu vide")
+					$k => isset($_POST['text'])?urlencode(nl2br($_POST['text'])):urlencode("...")
 				);
 			
 			$publish = new PublishRequestv2($this, "blogs", $this->blog, $data);
