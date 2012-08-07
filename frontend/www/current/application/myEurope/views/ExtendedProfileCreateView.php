@@ -1,5 +1,4 @@
 <? include("header.php"); ?>
-<? include("notifications.php")?>
 
 <div data-role="page">
 	<div data-role="header" data-theme="c" data-position="fixed">

@@ -83,9 +83,7 @@
 .ui-btn-up-e:visited, .ui-btn-up-e a.ui-link-inherit {
 color: #333 /*{e-bup-color}*/;
 }
-.ui-btn-up-c:visited, .ui-btn-up-e a.ui-link-inherit {
-color: #354a60 /*{e-bup-color}*/;
-}
+
 
 .ui-btn-active {
 	border: 1px solid 		#2373a5 /*{global-active-border}*/;
