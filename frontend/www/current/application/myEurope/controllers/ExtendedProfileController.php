@@ -82,6 +82,7 @@ class ExtendedProfileController extends AuthenticatedController
 		} else { //check password
 			$_POST['permission'] = $_SESSION['myEuropeProfile']->permission;//let's not lose the permission
 			$pass	= hash("sha512", $_POST['password']);
+			unset($_POST['password']);
 			if( empty($pass) ){
 				// TODO i18n
 				$this->error = "Password cannot be empty!";
@@ -110,7 +111,10 @@ class ExtendedProfileController extends AuthenticatedController
 		unset($_POST['checkCondition']);
 
 		// and publish $_POST
-		$publish = new PublishRequestv2($this, "users", $_SESSION['user']->id, $_POST);
+		$publish =  new MatchMakingRequestv2("v2/PublishRequestHandler", CREATE, 
+				array("id"=>$_SESSION['user']->id, "data"=>json_encode($_POST)),
+				 "users", $this);
+		
 		$publish->send();
 		
 		if (!empty($this->error)){
@@ -159,7 +163,8 @@ class ExtendedProfileController extends AuthenticatedController
 	
 	public /*void*/ function showOtherProfile($id){
 	
-		$find = new DetailRequestv2($this, "users", $id);
+		$find = new MatchMakingRequestv2("v2/PublishRequestHandler", READ, array("id"=>$id),
+				 "users", $this);
 			
 		try{
 			$result = $find->send();
@@ -184,6 +189,7 @@ class ExtendedProfileController extends AuthenticatedController
 	
 	public /*void*/ function showProfile(){
 
+		debug("there");
 		$this->redirectTo("Main", array(), "#profile");
 	}
 	

@@ -6,7 +6,7 @@
 		<div data-role="navbar" data-theme="d" data-iconpos="left"> 
 	      	<ul>
 	      		<li><a href="./" data-icon="back"><?= _("Back") ?></a></li>
-	      		<li><a href="?action=extendedProfile" data-icon="profile"><?= $_SESSION['user']->name ?></a></li>
+	      		<li><a href="?action=extendedProfile" data-icon="profile" rel="external"><?= $_SESSION['user']->name ?></a></li>
 	      	</ul>
       	</div>
 	</div>
@@ -35,7 +35,7 @@
 			<input type="submit" data-theme="b" data-mini="true" data-inline="true" value="<?= _('reply') ?>" />
 		</form>
 		 
-		 <div data-role="popup" id="deletePopup" class="ui-content" data-overlay-theme="b" data-theme="d" data-corners="false">
+		 <div data-role="popup" id="deletePopup" class="ui-content" data-overlay-theme="b" data-theme="d">
 			<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 			Are you sure?<br />
 			<a id="deleteYes" data-role="button" data-theme="d" data-icon="delete" data-inline="true">Yes</a>

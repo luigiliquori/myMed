@@ -27,9 +27,10 @@ class ExtendedProfileRequired extends AuthenticatedController {
 	public /*void*/ function fetchExtendedProfile(){
 		
 		$rep =  new Reputationv2($_SESSION['user']->id);
-		$_SESSION['myEuropeRep'] = $rep->send();
+		$myrep = $rep->send();
 		
-		$find = new DetailRequestv2($this, "users", $_SESSION['user']->id);
+		$find = new MatchMakingRequestv2("v2/PublishRequestHandler", READ, array("id"=>$_SESSION['user']->id),
+				"users", $this);
 			
 		try{
 			$result = $find->send();
@@ -43,10 +44,10 @@ class ExtendedProfileRequired extends AuthenticatedController {
 			$this->renderView("ExtendedProfileCreate");
 		}
 		else {
-		
-			debug_r($result);
+
 			$_SESSION['myEuropeProfile'] = (object) $result;
 			$this->success = "";
+			$_SESSION['myEuropeProfile']->reputation = $myrep;
 			
 			if ($_SESSION['myEuropeProfile']->permission <= 0)
 				$this->renderView("WaitingForAccept");

@@ -77,7 +77,7 @@ function tabs($tabs, $activeTab) {
   	</ul>
   	
   	</div>
-  	<div data-role="popup" id="shareThis" class="ui-content" data-overlay-theme="b" data-theme="d" data-corners="false">
+  	<div data-role="popup" id="shareThis" class="ui-content" data-overlay-theme="b" data-theme="d" style="padding:5px;">
 		<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 		<span class='st_googleplus' displayText='Google +'></span>
 		<span class='st_sharethis' displayText='ShareThis'></span>
@@ -94,7 +94,7 @@ function tabs($tabs, $activeTab) {
  	?>
  	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
  	<ul>
- 		<li><a href="./" data-ajax="false" data-icon="back"><?= APPLICATION_NAME ?></a></li>
+ 		<li><a href="./" rel="external" data-icon="back"><?= APPLICATION_NAME ?></a></li>
  		<? foreach ($tabs as $id => $v) { ?>
  		<li>
  			<a 
@@ -126,7 +126,7 @@ function tabs($tabs, $activeTab) {
   	?>
    	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
    	<ul>
-   		<li><a data-rel="back" data-ajax="false" data-icon="back"><?= _("Back") ?></a></li>
+   		<li><a data-rel="back" data-icon="back"><?= _("Back") ?></a></li>
    		<li><a class="ui-disabled"><?= $title ?></a></li>
    		<li><a href="<?= $url ?>" rel="external" data-icon="<?= $icon ?>"><?= $button ?></a></li>
    	</ul>
@@ -142,7 +142,7 @@ function tabs($tabs, $activeTab) {
    	?>
    		<div data-role="navbar" data-theme="d" data-iconpos="left"> 
         	<ul>
-            	<li><a data-rel="back" data-ajax="false" data-icon="back"><?= _("Back") ?></a></li>
+            	<li><a data-rel="back" data-icon="back"><?= _("Back") ?></a></li>
             	<li><a href="<?= $url ?>" rel="external" data-icon="<?= $icon ?>"><?= $button ?></a></li>
             	<li><a class="ui-disabled"><?= $title ?></a></li>
             </ul>
@@ -156,7 +156,7 @@ function tabs($tabs, $activeTab) {
    	?>
       	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
       	<ul>
-      		<li><a data-rel="back" data-ajax="false" data-icon="back"><?= _("Back") ?></a></li>
+      		<li><a data-rel="back" data-icon="back"><?= _("Back") ?></a></li>
       		<li><a href="<?= $url ?>" rel="external" data-icon="<?= $icon ?>" class="ui-disabled"><?= $title ?></a></li>
       	</ul>
       	</div> <?
@@ -169,7 +169,7 @@ function tabs($tabs, $activeTab) {
       	?>
             	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
             	<ul>
-            		<li><a href="./" data-icon="back"><?= _("Back") ?></a></li>
+            		<li><a href="./" rel="external" data-icon="back"><?= _("Back") ?></a></li>
             		<li><a onclick="<?= $url ?>" rel="external" data-icon="<?= $icon ?>"><?= $title ?></a></li>
             	</ul>
             	</div> <?
@@ -179,7 +179,7 @@ function tabs($tabs, $activeTab) {
       	?>
             	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
             	<ul>
-            		<li><a data-rel="back" data-ajax="false" data-icon="back"><?= _("Back") ?></a></li>
+            		<li><a data-rel="back" data-icon="back"><?= _("Back") ?></a></li>
             		<li><a class="ui-disabled"><?= $title ?></a></li>
             	</ul>
             	</div> <?
@@ -210,5 +210,95 @@ les habitants des régions françaises et ceux des régions italiennes limitroph
 <img src="img/logos" style="max-width:460px;"/>
 <?
        }
- 
-?>
+       
+       
+	function printProfile($profile, $id="", $user="", $isAuthor=true){
+       	switch($profile->role){
+       		
+       		default:
+       			?>
+
+				<ul data-role="listview" data-inset="true" data-theme="d" style="margin-top: 2px;">
+					<li>
+						<h2>
+							<?= $profile->name ?> <?=$isAuthor ? "<span style='font-weight: lighter;'>"._("(partnership creator)")."</span>" : "" ?> <span style="font-style: italic;color: #36C;">+<?= $profile->reputation['up'] ?></span> 
+						</h2>
+						<p>
+							<?= _("role") ?>: <strong style="color:#444;"><?= $profile->role ?></strong>
+						</p>
+						<p>
+							<strong style="color:#444;"><?= $profile->activity ?></strong>
+						</p>
+						<p>
+							<img src="./img/mail-send.png" style="height: 22px;vertical-align: bottom;"/>
+							<?=
+							(empty($profile->email)?" ": _("email").": <a href='mailto:".$profile->email."'>".$profile->email."</a>")." - ".
+							(empty($profile->phone)?" ":_("phone").": <a href='tel:".$profile->phone."'>".$profile->phone."</a>")." - ".
+							(empty($profile->address)?" ":_("address").": ".$profile->address)
+							?>
+						</p>
+						<br />
+						<p>
+							<?= empty($profile->desc)?" ":$profile->desc ?>
+						</p>
+						<p class="ui-li-aside">
+							<a href="" data-role="button" data-theme="d" data-mini="true" data-inline="true" style="font-style: italic; color: #36C;"
+							onclick="rate(1, '<?= $id ?>', '<?= $user ?>');">+1</a>
+						</p> 
+					</li>
+				</ul>
+				
+				<?
+				break;
+		}
+       	 
+	}
+	
+	
+	function printMyProfile($profile, $rep = 0){
+		switch($profile->role){
+			 
+			default:
+				?>
+	
+					<ul data-role="listview" data-inset="true" data-theme="d">
+						<li>
+							<h3>
+								<?= $profile->name ?> <span style="font-style: italic;color: #36C;">+<?= $profile->reputation['up'] ?></span>
+							</h3>
+							<p>
+								<strong style="color:#444;"><?= $profile->activity ?></strong>
+							</p>
+							<br />
+							<p style="margin-right: 40px;">
+								<img src="./img/mail-send.png" style="height: 22px;vertical-align: bottom;"/>
+								<?=
+								(empty($profile->email)?" ": _("email").": <a href='mailto:".$profile->email."'>".$profile->email."</a>")." - ".
+								(empty($profile->phone)?" ":_("phone").": <a href='tel:".$profile->phone."'>".$profile->phone."</a>")." - ".
+								(empty($profile->address)?" ":_("address").": ".$profile->address)
+								?>
+							</p>
+							<br />
+							<p>
+								<?= empty($profile->desc)?" ":$profile->desc ?>
+							</p>
+							<br />
+							<p>
+								<?= _('Active partnerships') ?>:
+							</p>
+							<p style="position:absolute; right: 1px; top: 40px;">
+								<a type="button" data-mini="true" href="?action=ExtendedProfile&edit=false" data-inline="true" data-theme="d" data-icon="grid"><?= _('edit') ?></a>
+							</p>
+							<p class="ui-li-aside">
+								<?= _("role") ?>: <strong style="color:#444;"><?= $profile->role ?></strong>
+							</p>
+						</li>
+					</ul>
+					
+					<?
+					break;
+			}
+	       	 
+		}
+
+       ?>

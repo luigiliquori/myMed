@@ -41,7 +41,9 @@ class SearchController extends AuthenticatedController {
 		}
 
 		debug("search on.. ".$_GET['namespace']);
-		$find = new FindRequestv2($this, $_GET['namespace'], $this->index);
+		
+		$find = new MatchMakingRequestv2("v2/FindRequestHandler", READ, array("index"=>json_encode($this->index)),
+				$_GET['namespace'], $this);
 			
 		try{
 			$result = $find->send();

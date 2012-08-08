@@ -55,24 +55,6 @@ function tab_bar_white($activeTab) {
 
 	<div data-role="content" >
 		<br />
-		<span class="label"><?= _("Role") ?>:</span> <?= $_SESSION['myEuropeProfile']->role ?><br />
-		<span class="label"><?= _("Activity") ?>:</span> <?= $_SESSION['myEuropeProfile']->activity ?><br />
-		<span class="label"><?= _("Email") ?>:</span> <?= $_SESSION['myEuropeProfile']->email ?><br />
-		<span class="label"><?= _("Address") ?>:</span> <?= $_SESSION['myEuropeProfile']->address ?><br />
-		<span class="label"><?= _("Description") ?>:</span> <?= $_SESSION['myEuropeProfile']->desc ?><br />
-		
-		<a type="button" data-mini="true" href="?action=ExtendedProfile&edit=false" data-inline="true" data-theme="c" data-icon="grid">Modifer</a>
-		<br />
-		<br />
-		Réputation: 
-		<? for($i=20; $i<=100; $i+=20) : ?>
-			<a data-theme="<?= ($_SESSION['myEuropeRep']['rep'] >= $i)?'e':'c' ?>" data-role="button" data-iconpos="notext" data-icon="star" data-inline="true" style="margin-right:1px; margin-left:1px;"></a>
-		<? endfor ?>&nbsp;&nbsp;
-		<?= $_SESSION['myEuropeRep']['up'] ?> <img src="./img/up.png" style="height: 22px;vertical-align: middle;"/>
-		<?= $_SESSION['myEuropeRep']['down'] ?> <img src="./img/down.png" style="height: 22px;vertical-align: middle;"/>
-		
-		<br /><br />
-		<span> Langue: </span>&nbsp;&nbsp;
 		<fieldset data-role="controlgroup" data-mini="true" data-type="horizontal" style="display:inline-block;vertical-align: middle;">
 			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-a" value="fr" <?= $_SESSION["user"]->lang == "fr"?"checked='checked'":"" ?>/>
 			<label for="radio-view-a"><?= _('French') ?></label>
@@ -82,7 +64,9 @@ function tab_bar_white($activeTab) {
 			<label for="radio-view-e"><?= _('English') ?></label>
 		</fieldset>
 		
-		
+		<br />
+		<?= printMyProfile($_SESSION['myEuropeProfile']) ?>
+
 	</div>
 </div>
 

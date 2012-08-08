@@ -31,17 +31,18 @@ class Requestv2 {
 	private /*string*/					$url;
 	private /*string*/					$ressource;
 	private /*BackendRequest_*/			$method;
-	private /*Array<string,string>*/	$arguments	= Array();
+	private /*Array<string,string>*/	$arguments;
 	private /*Boolean>*/				$multipart;
 
 	/* --------------------------------------------------------- */
 	/* Constructors */
 	/* --------------------------------------------------------- */
-	public function __construct(/*string*/ $ressource, /*BackendRequest_*/ $method=READ) {
+	public function __construct(/*string*/ $ressource, /*BackendRequest_*/ $method=READ, $data= array()) {
 		$this->ressource	= $ressource;
 		$this->method		= $method;
 		$this->url			= BACKEND_URL;
 		$this->multipart	= false;
+		$this->arguments    = $data;
 	}
 
 	/* --------------------------------------------------------- */
@@ -102,7 +103,7 @@ class Requestv2 {
 
 		if($this->method == CREATE || $this->method == UPDATE
 				 || ($this->ressource == "v2/AuthenticationRequestHandler" && $this->method == READ)
-				 || $this->ressource == "v2/FindRequestHandler"){
+				 || strpos($this->ressource, "/FindRequestHandler") !== false){
 			// POST REQUEST
 			curl_setopt($curl, CURLOPT_HTTPHEADER, $httpHeader);
 			curl_setopt($curl, CURLOPT_URL, $this->url.$this->ressource);

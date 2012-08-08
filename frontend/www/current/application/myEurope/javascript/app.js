@@ -72,6 +72,10 @@ function rate(feedback, id, user) {
 		feedback : feedback
 	}, function(data) {
 		console.log(data);
+		var response = JSON.parse(data);
+		alert(response.description);
+		location.reload(0);
+		
 	});
 }
 
@@ -84,7 +88,7 @@ $("#home").live("pagecreate", function() {
 
 	$("#shareThis").bind({
 		popupafterclose: function(event, ui) {
-			setTimeout(function(){$("#shareThisButton").blur();},200)
+			setTimeout(function(){$("#shareThisButton").blur();},100)
 		}
 	});
 });

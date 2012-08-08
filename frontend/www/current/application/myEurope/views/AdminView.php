@@ -59,20 +59,7 @@ function tab_bar_white($activeTab) {
 	</div>
 	<div data-role="content">
 		<ul data-role="listview" data-theme="d" data-filter="true" data-filter-placeholder="<?= _("Filter results") ?>">
-			<li data-role="list-divider" data-mini="true">Pending</li>
-			<li><a href="?action=detail&namespace=partPending&id=&user=" 
-			 style="padding-top: 1px; padding-bottom: 1px;">
-					<h3>
-						offre21
-					</h3>
-					<p style="font-weight:lighter;"> ......... </p>
-					<p class="ui-li-aside">
-						publié par: <span style="left-margin: 5px; color: #0060AA; font-size: 120%;">......</span> échéance: <strong>...</strong>
-					</p>
-
-			</a>
-			</li>
-			<li data-role="list-divider" data-mini="true" data-theme="c">Validated</li>
+			
 		</ul>
 	</div>
 </div>

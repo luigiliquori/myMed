@@ -52,7 +52,10 @@ class PublishController extends AuthenticatedController {
 				"user" => $_SESSION['user']->id
 			);
 		
-		$publish = new PublishRequestv2($this, $this->namespace, time()."+".$_SESSION['user']->id, $data, $index, $metadata);
+		$publish = new MatchMakingRequestv2("v2/PublishRequestHandler", CREATE,
+				array("id"=>time()."+".$_SESSION['user']->id, "data"=>json_encode($data), "index"=>json_encode($index), "metadata"=>json_encode($metadata)),
+				$this->namespace, $this);
+		
 		$publish->send();
 		
 		if (!empty($this->error)){

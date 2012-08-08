@@ -19,7 +19,8 @@ class DetailsController extends AuthenticatedController {
 		
 		debug('details of '.$this->id);
 		
-		$req = new DetailRequestv2($this, $_GET['namespace'], $this->id);
+		$req = new MatchMakingRequestv2("v2/PublishRequestHandler", READ, array("id"=>$this->id),
+				$_GET['namespace'], $this);
 		
 		try{
 			$this->details = $req->send();
@@ -30,9 +31,12 @@ class DetailsController extends AuthenticatedController {
 			$this->details->text = "Contenu effacé par l'auteur";
 		}
 
-		if (isset($this->details))
+		if (isset($this->details)){
+			if (isset($this->details->user)){
+				$this->details->authorProfile = $this->getProfile($this->details->user);
+			}
 			$this->renderView("details");
-		else
+		} else
 			$this->redirect("search");
 		// @todo errors
 		
@@ -44,13 +48,37 @@ class DetailsController extends AuthenticatedController {
 	public /*void*/ function delData(){
 	
 	
-		$publish = new PublishRequestv2($this, $_GET['namespace'], $_GET['id']);
+		$publish = new MatchMakingRequestv2("v2/PublishRequestHandler", DELETE, array("id"=>$_GET['id']),
+				$_GET['namespace'], $this);
 		
 		debug('trying to delete '.$_GET['namespace']."..".$_GET['id']);
-		
-		$publish->setMethod(DELETE);
+
 		$publish->send();
 	
+	
+	}
+	
+	public /*void*/ function getProfile($id){
+	
+		$find = new MatchMakingRequestv2("v2/PublishRequestHandler", READ, array("id"=>$id),
+				"users", $this);
+			
+		try{
+			$result = $find->send();
+		}
+		catch(Exception $e){
+			//return null;
+		}
+	
+		if (!empty($result)){
+	
+			$profile = (object) $result;	
+			$rep =  new Reputationv2($id);
+			$profile->reputation = $rep->send();
+			debug_r($profile);
+			return $profile;
+		}
+		return null;
 	
 	}
 }

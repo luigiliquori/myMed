@@ -12,24 +12,21 @@
 		 
 		 
 		<? if (isset($this->details->user)) :?>
-			<br />
-		 	<br />
-		 	<a href="?action=extendedProfile&id=<?= $this->details->user ?>" rel="external" type="button" data-inline="true" data-mini="true"> Profil de l'auteur </a>
-			
-			<a type="button" data-theme="g" data-icon="up" data-iconpos="notext" data-inline="true"
-			onclick="rate(1, '<?= $this->id ?>', '<?= $this->details->user ?>');"></a>
-			<a type="button" data-theme="r" data-icon="down" data-iconpos="notext" data-inline="true"
-			onclick="rate(0, '<?= $this->id ?>', '<?= $this->details->user ?>');"></a>
-			
+			<br /><br />
+			<span style="font-size: 14px;"> <?= _('Partners list') ?>:</span>
+			<? if (isset($this->details->authorProfile)) :?>
+				<?= printProfile($this->details->authorProfile, $this->id, $this->details->user) ?>
+			<? endif ?>
 			
 			<? if ($this->details->user == $_SESSION['user']->id) :?>
-				<br />
-				<br />
-				<a href="?action=Details&id=<?= urlencode($this->id) ?>&namespace=<?= $_GET['namespace'] ?>" rel="external" type="button" data-inline="true" data-mini="true"> Editer mon offre </a>
-				<br />
-				<br />
-				<a href="?action=Details&rm=&id=<?= urlencode($this->id) ?>&namespace=<?= $_GET['namespace'] ?>" rel="external" type="button" data-inline="true" data-mini="true"> Supprimer mon offre </a>
-			<? endif ?>		
+
+				<a href="?action=Details&id=<?= urlencode($this->id) ?>&namespace=<?= $_GET['namespace'] ?>" rel="external" type="button" data-inline="true" data-mini="true">  <?= _("Edit my offer") ?> </a>
+
+				<a href="?action=Details&rm=&id=<?= urlencode($this->id) ?>&namespace=<?= $_GET['namespace'] ?>" rel="external" type="button" data-inline="true" data-mini="true" style="float:right;">  <?= _("Delete my offer") ?> </a>
+			
+			<? else :?>
+				<a href="?action=Details&test=&id=<?= $this->details->user ?>&namespace=<?= $_GET['namespace'] ?>" rel="external" type="button" data-inline="true" data-mini="true" data-icon="check"> <?= _("Partnership request") ?> </a>
+			<? endif ?>
 		<? endif ?>
 		
 		 

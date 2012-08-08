@@ -14,11 +14,10 @@ class BlogController extends AuthenticatedController {
 		
 		if (isset($_GET["rm"])){
 			
-			$request = new Requestv2("v2/PublishRequestHandler", DELETE);
-			$request->addArgument("application", APPLICATION_NAME);
-			$request->addArgument("namespace", "blogs");
-			$request->addArgument("id", $this->blog);
-			$request->addArgument("field", $_GET['field']);
+			$request = new MatchMakingRequestv2("v2/PublishRequestHandler", DELETE,
+					array("id"=>$this->blog, "field"=>$_GET['field']),
+					"blogs", $this);
+			
 			$request->send();
 		}
 
@@ -36,11 +35,15 @@ class BlogController extends AuthenticatedController {
 					$k => isset($_POST['text'])?urlencode(nl2br($_POST['text'])):urlencode("...")
 				);
 			
-			$publish = new PublishRequestv2($this, "blogs", $this->blog, $data);
+			$publish = new MatchMakingRequestv2("v2/PublishRequestHandler", CREATE,
+					array("id"=>$this->blog, "data"=>json_encode($data)),
+				 	"blogs", $this);
+
 			$publish->send();
 		}
 		
-		$find = new DetailRequestv2($this, "blogs", $this->blog, true);
+		$find = new MatchMakingRequestv2("v2/PublishRequestHandler", READ, array("id"=>$this->blog),
+				"blogs", $this);
 			
 		try{
 			$this->messages = $find->send();
@@ -50,7 +53,6 @@ class BlogController extends AuthenticatedController {
 		}
 		if (isset($this->messages)){
 			unset($this->messages->_index);
-			debug_r($this->messages);
 			$this->messages = (array) $this->messages;
 			krsort($this->messages);
 		} else { //it's empty

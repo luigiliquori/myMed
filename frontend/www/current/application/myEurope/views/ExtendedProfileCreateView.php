@@ -76,7 +76,7 @@
 			<input id="textinputu4" name="address" placeholder="" value=''type="text" />
 
 			<label for="textinputu5"> <?= _('Email') ?>: </label>
-			<input id="textinputu5" name="email" placeholder="" value='' type="email" />
+			<input id="textinputu5" name="email" placeholder="" value='<?= $_SESSION['user']->email ?>' type="email" />
 			
 			<label for="textinputu6"> <?= _('Phone') ?>: </label>
 			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
@@ -124,7 +124,7 @@
 			<input id="textinputu4" name="address" placeholder="" value=''type="text" />
 
 			<label for="textinputu5"> <?= _('Email') ?>: </label>
-			<input id="textinputu5" name="email" placeholder="" value='' type="email" />
+			<input id="textinputu5" name="email" placeholder="" value='<?= $_SESSION['user']->email ?>' type="email" />
 			
 			<label for="textinputu6"> <?= _('Phone') ?>: </label>
 			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
@@ -168,7 +168,7 @@
 			<input id="textinputu4" name="address" placeholder="" value=''type="text" />
 
 			<label for="textinputu5"> <?= _('Email') ?>: </label>
-			<input id="textinputu5" name="email" placeholder="" value='' type="email" />
+			<input id="textinputu5" name="email" placeholder="" value='<?= $_SESSION['user']->email ?>' type="email" />
 			
 			<label for="textinputu6"> <?= _('Phone') ?>: </label>
 			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
@@ -209,7 +209,7 @@
 			<input id="textinputu4" name="address" placeholder="" value=''type="text" />
 
 			<label for="textinputu5"> <?= _('Email') ?>: </label>
-			<input id="textinputu5" name="email" placeholder="" value='' type="email" />
+			<input id="textinputu5" name="email" placeholder="" value='<?= $_SESSION['user']->email ?>' type="email" />
 			
 			<label for="textinputu6"> <?= _('Phone') ?>: </label>
 			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
@@ -262,7 +262,7 @@
 			<input id="textinputu4" name="address" placeholder="" value=''type="text" />
 
 			<label for="textinputu5"> <?= _('Email') ?>: </label>
-			<input id="textinputu5" name="email" placeholder="" value='' type="email" />
+			<input id="textinputu5" name="email" placeholder="" value='<?= $_SESSION['user']->email ?>' type="email" />
 			
 			<label for="textinputu6"> <?= _('Phone') ?>: </label>
 			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
@@ -318,8 +318,8 @@
 			<label for="textinputu4"> Adresse: </label>
 			<input id="textinputu4" name="address" placeholder="" value=''type="text" />
 
-			<label for="textinputu5"> <?= _('EMail') ?>: </label>
-			<input id="textinputu5" name="email" placeholder="" value='' type="email" />
+			<label for="textinputu5"> <?= _('Email') ?>: </label>
+			<input id="textinputu5" name="email" placeholder="" value='<?= $_SESSION['user']->email ?>' type="email" />
 			
 			<label for="textinputu6"> <?= _('Phone') ?>: </label>
 			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
@@ -365,7 +365,7 @@
 			<input id="textinputu4" name="address" placeholder="" value=''type="text" />
 
 			<label for="textinputu5"> <?= _('Email') ?>: </label>
-			<input id="textinputu5" name="email" placeholder="" value='' type="email" />
+			<input id="textinputu5" name="email" placeholder="" value='<?= $_SESSION['user']->email ?>' type="email" />
 			
 			<label for="textinputu6"> <?= _('Phone') ?>: </label>
 			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
