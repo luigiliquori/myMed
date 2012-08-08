@@ -12,47 +12,62 @@ abstract class AbstractController implements IRequestHandler {
 	
 	/** 
 	 * Generate a HTTP redirect to the given action and exit
-	 * Optionnal argument for passing GET vars
+	 * Optional argument for passing GET vars
+	 * Optional arg for passing url hash '#aa'
 	 */
-	public function redirectTo($action, array $vars=null) {
-		if(isset($vars)){
-			$get_line = "";
-			foreach($vars as $key=>$value){
-				$get_line .= '&' . $key . '=' . $value;
-			}
-			printf('<script>location.href="/application/'.APPLICATION_NAME.'/index.php?action='.$action.$get_line.'"</script>');
-			//header('Refresh:0;url=/application/'.APPLICATION_NAME.'/index.php?action=' . $action . $get_line);
+	public function redirectTo($action, array $vars=array(), $hash="") {
+		$url = url($action, $vars);
+		
+		if ($url[0] != '/') {
+			$url = "/application/". APPLICATION_NAME . "/index.php" . $url;
 		}
-		else{
-			
-			printf('<script>location.href="/application/'.APPLICATION_NAME.'/index.php?action='.$action.'"</script>');
-			//header('Refresh:0;url=/application/'.APPLICATION_NAME.'/index.php?action='.$action);
-		}
+
+		$url.= $hash;
+
+		printf("<script>location.href='$url'</script>");
+		//header('Refresh:0;url=/application/'.APPLICATION_NAME.'/index.php?action=' . $action . $get_line);
+
 			
 		exit();
 	}
 	
-	/** Renders a view by including it, and exit */
+	/** Renders a view by including its file, and exit */
 	public function renderView($view) {			
 		$view = ucfirst($view);
 		$viewPath = APP_ROOT . "/views/${view}View.php";
+		
+		// Set ERROR and SUCCESS
+		global $ERROR; 
+		$ERROR = $this->error;
+		global $SUCCESS; 
+		$SUCCESS = $this->success;
+		
 		require($viewPath);
 		exit();
 	}
 	
 	/**
-	 * Call another controller 
+	 * Call another controller.
+	 * forward the status and error.
+	 * @param $action "action:method"
 	 */
-	public function forward($action, $method=null, $args =	array()) {
+	public function forwardTo($action, $args = array()) {
 		
 		// Override $_GET method with arguments
 		foreach($args as $key => $val) {
 			$_GET[$key] = $val;
 			$_POST[$key] = $val;
+			$_REQUEST[$key] = $val;
 		}
 		
+		$parts = explode(":", $action);
+		$action = $parts[0];
+		
+		$method = null;
+		if (sizeof($parts) > 1) $method = $parts[1];
+		
 		// Call another controller
-		callController($action, $method);
+		callController($action, $method, $this->success, $this->error);
 	}
 	
 	public /*void*/ function setError($message){
@@ -63,6 +78,13 @@ abstract class AbstractController implements IRequestHandler {
 		$this->success = $message;
 	}
 	
+	
+	// Handlers
+
+	/** No action by default */
+	public function handleRequest() {
+		
+	}
 	
 	/** Default method called after each request*/
 	public function defaultMethod() {

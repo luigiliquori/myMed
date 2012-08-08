@@ -32,7 +32,7 @@ limitations under the License.
   Milo Casagrande milo.casagrande@inria.fr, 2011
  -->
 <!-- Set debug to 'true' to turn it on, it will print information on the stdout. Set it to 'off' to suppress -->
-<configuration debug="true" scan="true" scanPeriod="5 minutes">
+<configuration debug="false" scan="true" scanPeriod="5 minutes">
   <contextName>myMed</contextName>
   <property name="LOG_DIR" value="/var/log/mymed"/>
   <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">

@@ -74,6 +74,10 @@ public class MatchMakingTest {
                 "C", "c1|c2", MOntologyID.TEXT // Text field shouldn't be split with '|' 
                 );
         
+        
+        // ---------------------------------------------------------------------------
+        // Level = 3
+        // ---------------------------------------------------------------------------
         List<String> combi = combi(pred, 3);
         
         assertEquals(
@@ -86,6 +90,14 @@ public class MatchMakingTest {
                         "Bb1Cc1|c2", "Bb2Cc1|c2",
                         "AaBb1Cc1|c2", "AaBb2Cc1|c2"),
                 combi);
+        
+        // ---------------------------------------------------------------------------
+        // Level = 1
+        // ---------------------------------------------------------------------------
+        
+        combi = combi(pred, 1);
+        
+        assertEquals(list("Aa", "Bb1", "Bb2", "Cc1|c2"), combi);
         
     }
 }

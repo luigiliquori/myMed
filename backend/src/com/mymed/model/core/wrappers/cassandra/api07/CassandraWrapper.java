@@ -298,7 +298,7 @@ public class CassandraWrapper implements ICassandraWrapper {
             try {
                 result = getClient().get_slice(keyToBuffer, parent, predicate, level);
             } catch (final InvalidRequestException ex) {
-                throw new InternalBackEndException(ex);
+            	ex.printStackTrace();
             } catch (final UnavailableException ex) {
                 throw new InternalBackEndException(ex);
             } catch (final TException ex) {

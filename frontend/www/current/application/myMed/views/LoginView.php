@@ -8,15 +8,14 @@ require_once("header.php"); ?>
 <div data-role="page" id="login">
 
 	<div data-role="header" data-theme="b">
-		
-		<h1>Bienvenue</h1>
+		<div Style="text-align: center; position: relative; top: 15px;"> Réseau Social Transfrontalier </div>
+		<span class="ui-title"></span>
 		<? include("notifications.php"); ?>
 	</div>
 	
 	<div data-role="content"  class="content">
 	
-		<img alt="myMed" src="img/logo-mymed-250c.png" />
-		<h3> Réseau Social Transfrontalier </h3>
+		<img alt="myMed" src="<?= APP_ROOT ?>/img/logo-mymed-250c.png" width="200" />
 	
 		<form action="?action=login" method="post" data-ajax="false">
 			<input type="hidden" name="signin" value="1" />
@@ -25,9 +24,11 @@ require_once("header.php"); ?>
  		    <input type="submit" data-role="button" data-inline="true" data-theme="b" value="Connexion" />
 		</form>
 		<br /><br />
-		<img alt="Alcotra" src="<?= MYMED_ROOT ?>/system/img/logos/alcotra" />
+		<img alt="Alcotra" src="<?= MYMED_URL_ROOT ?>/system/img/logos/alcotra.png" />
 		<br />
 		<i>"Ensemble par-delà les frontières"</i>
+		<br /><br />
+		<img alt="Alcotra" src="<?= MYMED_URL_ROOT ?>/system/img/logos/europe.jpg" />
 		
 	</div>
 	

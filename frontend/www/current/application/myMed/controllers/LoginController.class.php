@@ -50,9 +50,15 @@ class LoginController extends AbstractController {
 				$responseObject = json_decode($responsejSon);
 				
 			}
-		
-			// In case of errors
-			if($responseObject->status != 200) {
+			
+			// wrong password
+			if($responseObject->status == 403) {
+				$this->error = "Mot de pass incorrect! <a href='?action=resetPassword&login=" . urlencode($login) . "' rel='external'>Pertes identifiants?</a>";
+					
+				// Show the login form
+				$this->renderView("login");
+			
+			} else if($responseObject->status != 200) {
 
 				// Save the error
 				$this->error = $responseObject->description;
@@ -70,7 +76,7 @@ class LoginController extends AbstractController {
 				$this->getUserFromSession();
 				
 				// FIX THE LOGIN TO LOWER CASE IF IT'S NEEDED
-				if (strtolower($login) != login) {
+				if (strtolower($login) != $login) {
 					// create the authentication
 					$mAuthenticationBean = new MAuthenticationBean();
 					$mAuthenticationBean->login =  strtolower($login); // LOWER CASE LOGIN

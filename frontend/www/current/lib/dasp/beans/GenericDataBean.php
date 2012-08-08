@@ -295,6 +295,7 @@ abstract class GenericDataBean {
 			$obj->begin = $item->begin;
 			$obj->end   = $item->end;
 			$obj->publisherID = $item->publisherID;
+			$obj->publisherName = $item->publisherName;
 			$obj->_data  = $item->data;
 			$obj->_predicateStr = $item->predicate; // the ID of the object
 
@@ -336,9 +337,9 @@ abstract class GenericDataBean {
 	/**
 	 *  Register to the predicates of this object
 	 */
-	public function subscribe() {
+	public function subscribe($userID = null) {
 		$pr = new SubscribeRequest(
-				null, // The current user is used 
+				$userID, // The current user ID is used by default
 				$this->getPredicates(), 
 				$this->NAMESPACE);
 		$pr->send();
@@ -388,8 +389,7 @@ abstract class GenericDataBean {
 				// Don' t check these, there are two custom attributes not listed in the "definition"
 			} else if (!key_exists($key, $this->_dataDef)) {
 				$classname = get_class($this);
-				throw new Exception(
-						"Key '$key' returned as details by the backend, but not defined in $classname->dataDef");
+				trigger_error("Key '$key' returned as details by the backend, but not defined in ${classname}->dataDef");
 			}
 
 			// Set it
@@ -400,6 +400,17 @@ abstract class GenericDataBean {
 		// Unwrap "_data"
 		$this->unwrapData();
 
+	}
+	
+	/** Fetch the whole User profile information from the publisher id */
+	function getPublisher() {
+		// Cache the result
+		if (!isset($this->publisher)) {
+			$rh = new ProfileRequest($this->publisherID);
+			$this->publisher = $rh->send();
+		}
+		
+		return $this->publisher;
 	}
 
 }

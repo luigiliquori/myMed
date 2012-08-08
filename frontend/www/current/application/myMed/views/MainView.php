@@ -11,7 +11,6 @@
 			<h3>Plus d'applications</h3>
 			<ul data-role="listview" data-filter="true" data-mini="true">
 
-
 			<?php foreach ($this->applicationList as $applicationName) {  ?>
 				<li><img alt="<?= $applicationName ?>"
 					src="../../application/<?= $applicationName ?>/img/icon.png"
@@ -38,7 +37,7 @@
 					<div class="ui-block-<?= $column ?>">
 						<a href="/application/<?= $applicationName ?>" rel="external" class="myIcon"><img
 							alt="<?= $applicationName ?>"
-							src="../../application/<?= $applicationName ?>/img/icon.png" width="50px"> </a>
+							src="../../application/<?= $applicationName ?>/img/icon.png" width="50px"></a>
 						<br> <span style="font-size: 9pt; font-weight: bold;"><?= $applicationName ?> </span>
 					</div>
 					<?php 
@@ -53,7 +52,7 @@
 				}   	 
 			} ?>
 		</div>
-
+		
 	</div>
 
 	<div data-role="footer" data-position="fixed" data-theme="b">
