@@ -30,6 +30,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.AbstractManager;
@@ -212,7 +215,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 	{
 
 		// Prepare a map of key=>val to represent the publication for the mail 
-		HashMap<String, String> publicationMap = new HashMap<String, String>();
+		HashMap<String, Object> publicationMap = new HashMap<String, Object>();
 		{
 			final List<MDataBean> ontologyList = new ArrayList<MDataBean>();
 
@@ -229,10 +232,28 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 				// Dont set empty values
 				if (MiscUtils.empty(dataBean.getValue())) continue;
 
-				publicationMap.put(dataBean.getKey(), dataBean.getValue());
-			}
+				// Unwrapp wrapped object in the "data" field into root publicationMap
+				if (dataBean.getKey().equals("data") && dataBean.getValue().startsWith("{")) {
+				    
+				    // Parse the embedded json object
+				    JSONObject obj = (JSONObject) JSONValue.parse(dataBean.getValue());
+				    
+				    // Copy each field into the publicationMap
+				    for (Object keyObj: obj.keySet()) {
+				        String key = (String) keyObj;
+				        Object val = obj.get(key);
+				        
+				        if (val instanceof String) publicationMap.put(key, val);
 
-		}
+				    } // End of loop on fields of unwrapped object
+				
+				} else { // Standard value (not wrapped 'data' object)
+				    publicationMap.put(dataBean.getKey(), dataBean.getValue());
+				}
+				
+			} // End of loop on ontologies 
+
+		} // End of "prepare a hashmap"
 
 		// Built list of recipients
 		final List<MUserBean> recipients = new ArrayList<MUserBean>();
