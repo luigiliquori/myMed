@@ -5,25 +5,25 @@
 <?
 function tab_bar_white($activeTab) {
 	tabs_white(array(
-			"share" => array(_('Share'), "plus"),
-			"home" => array('<span class="mainTab">'.APPLICATION_NAME.'</span>', "myEurope"),
+			//"share" => array(_('Share'), "plus"),
+			"home" => array(APPLICATION_NAME, "myEurope"),
 			"admin" => array(_('Admin'), "gear"),
 			"profile" => array(_('Profile'), "profile"),
 		),
 		$activeTab);
 } 
 ?>
-
+		
 <div data-role="page" id="home">
 	<div data-role="header" data-theme="c" data-position="fixed">
 		<? tab_bar_white("home") ?>
 	</div>
 	<div data-role="content" style="text-align:center;">
 		<h3 class="ui-link"><?= _('Partnership') ?>:</h3>
-		<div data-role="controlgroup"  data-type="horizontal">
-			<a href="#search" type="button" data-theme="b" style="width:50%;"><br /><span style="color: yellow;"><?= _('Search a partner') ?></span><br />&nbsp;</a>
-			<a href="#post" type="button" data-theme="b" style="width:49%;" rel="external"><br /><span style="color: yellow;"><?= _('Insert an offer') ?></span><br />&nbsp;</a>
-		</div>
+		
+		<a href="#search" type="button" data-theme="e" style="width:45%;" data-inline="true"><?= _('Search a partner') ?></a>
+		<a href="#post" type="button" data-theme="e" style="width:45%;" rel="external" data-inline="true"><?= _('Insert an offer') ?></a>
+		
 		
 		<h3 class="ui-link"><?= _('Infomations') ?>:</h3>
 		
@@ -43,6 +43,7 @@ function tab_bar_white($activeTab) {
 		<div id="AboutContent" style="display:none;">
 			<?= about(); ?>
 		</div>
+		
 	</div>
 </div>
 
@@ -94,7 +95,7 @@ function tab_bar_white($activeTab) {
 		<div style="text-align:center;">
 			<span><?= _('Restricted page for admins') ?></span><br />
 			<? if ($_SESSION['myEuropeProfile']->permission<=1) {?>
-				<a href="#home" type="button" data-inline="true" data-theme="r" data-icon="back"><?= _('Back') ?></a>
+				<a href="#home" type="button" data-inline="true" data-theme="e" data-icon="back"><?= _('Back') ?></a>
 			<? } else { ?>
 				<a href="./?action=Admin" data-ajax="false" type="button" data-inline="true" data-theme="g"><?= _('Access') ?></a>
 			<? } ?>

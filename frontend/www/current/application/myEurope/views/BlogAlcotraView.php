@@ -31,7 +31,10 @@
 				<h3><?= $pieces[2] ?>:</h3>
 				<p><?= urldecode($v) ?></p>
 				<p class="ui-li-aside"><strong><?= date('d/m/Y', $pieces[0]) ?></strong> <?=  date('H:i:s', $pieces[0]) ?></p>
-				<span><a href="?action=Blog&blog=<?= $this->blog ?>&field=<?= $k ?>&rm=" style="position:absolute;right:5px;bottom:5px;"><?= _('delete') ?></a></span>
+				<span>
+				<a href="#deletePopup" data-role="button" data-rel="popup" data-position-to="origin" 
+				onclick="$('#deleteYes').attr('href', '?action=Blog&blog=<?= $this->blog ?>&field=<?= $k ?>&rm=');" data-theme="d" data-icon="delete" data-iconpos="notext" style="position:absolute;right:1px;bottom:-5px;"><?= _('delete') ?></a>
+				</span>
 			</li>
 			<? endforeach ?>
 		</ul>
@@ -42,7 +45,12 @@
 			<textarea name="text"></textarea>
 			<input type="submit" data-theme="b" data-mini="true" data-inline="true" value="<?= _('reply') ?>" />
 		</form>
-		 
+		 <div data-role="popup" id="deletePopup" class="ui-content" data-overlay-theme="b" data-theme="d" data-corners="false">
+			<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+			Are you sure?<br />
+			<a id="deleteYes" data-role="button" data-theme="d" data-icon="delete" data-inline="true">Yes</a>
+			<a data-rel="back" data-role="button" data-theme="d" data-icon="delete" data-inline="true">No</a>
+		</div>
 	</div>
 </div>
 

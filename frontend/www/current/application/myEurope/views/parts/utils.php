@@ -55,6 +55,7 @@ function tabs($tabs, $activeTab) {
   	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
   	<ul>
   		<li><a href="/application/myMed" rel="external" data-icon="back"><?= _("Exit") ?></a></li>
+  		<li><a href="#shareThis" id="shareThisButton" data-icon="thumb" data-inline="true" data-rel="popup" data-position-to="origin"><?= _("Share") ?></a></li>
   		<? foreach ($tabs as $id => $v) { ?>
   		<li>
   			<a 
@@ -74,7 +75,17 @@ function tabs($tabs, $activeTab) {
   
   	?> 
   	</ul>
-  	</div> <?
+  	
+  	</div>
+  	<div data-role="popup" id="shareThis" class="ui-content" data-overlay-theme="b" data-theme="d" data-corners="false">
+		<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+		<span class='st_googleplus' displayText='Google +'></span>
+		<span class='st_sharethis' displayText='ShareThis'></span>
+		<span class='st_facebook' displayText='Facebook'></span>
+		<span class='st_twitter' displayText='Tweet'></span>
+		<span class='st_linkedin' displayText='LinkedIn'></span>
+		<span class='st_email' displayText='Email'></span>
+	</div> <?
    } 
  
  function tabs_white_back($tabs, $activeTab) {
