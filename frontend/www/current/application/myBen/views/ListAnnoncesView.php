@@ -3,7 +3,7 @@
 // Prepare filters
 $filters = array();
 if ($this->extendedProfile instanceof ProfileBenevole) {
-	$filters[ANN_CRITERIA] = "mes critères";
+	$filters[ANN_CRITERIA] = _("mes critères");
 }
 if ($this->extendedProfile instanceof ProfileAssociation && !($this->extendedProfile instanceof ProfileNiceBenevolat)) {
 	$filters[ANN_MINE] = $this->extendedProfile->name;
@@ -21,8 +21,7 @@ $filters[ANN_ALL] = _("toutes");
 			_("Annonces") => null)) ?>
 	
 	<div data-role="content">
-	
-	
+
 		<? if (!isset($this->extendedProfile)) : ?>
 			<div class="mm-welcome"><p>
 				<?= _("Bonjour,") ?><br/>
@@ -37,7 +36,7 @@ $filters[ANN_ALL] = _("toutes");
 							<?= _("Créez un compte 'association' et déposez vos offres") ?>
 						</a>
 						<br/>
-						Vous êtes un particulier et souhaitez offrir votre temps libre ? <br/>
+						<?= _("Vous êtes un particulier et souhaitez offrir votre temps libre ?") ?><br/>
 						<a  data-role="button" class="mm-left" data-theme="g" data-inline="true" data-ajax="false"
 							href="<?= url("ExtendedProfile:create", array("type" => "benevole")) ?>">
 						    <?= _("Créez un compte 'bénévole' pour répondre aux offres") ?>

@@ -23,18 +23,21 @@
 			</a>
 		<? endif ?>
 		
-		<? if ((($this->extendedProfile == null) || 
-				($this->extendedProfile instanceof ProfileBenevole)) 
-				&& 
-				(!is_true($annonce->promue))) :?>
-			<a data-ajax="false" data-role="button" data-theme="e" data-icon="check" data-inline="true"
-				href="<?= url("candidature:create", array("annonceID" => $annonce->id)) ?>">
-				<?= _("Postuler") ?>
-			</a>
+		<? if (($this->extendedProfile == null) || // Guest
+				($this->extendedProfile instanceof ProfileBenevole)): // Benevole ?>
+			<? if (is_true($annonce->promue)) : ?>
+			<? elseif (is_true($annonce->isPassed())): ?>
+				<span class="mm-tag mm-warn"><?= _("Annonce passée") ?></span>	
+			<? else: ?>
+				<a data-ajax="false" data-role="button" data-theme="e" data-icon="check" data-inline="true"
+					href="<?= url("candidature:create", array("annonceID" => $annonce->id)) ?>">
+						<?= _("Postuler") ?>
+				</a>
+			<? endif ?>
 		<? endif ?>
 		
 		<? if (is_true($annonce->promue)) : ?>
-			<div><?= _("Annonce déjà promue") ?></div>	
+			<span class="mm-tag mm-warn"><?= _("Annonce déjà promue") ?></span>	
 		<? else: ?>
 			<? if ($this->hasWriteAccess()) : ?>
 				<a data-ajax="false" data-role="button" data-theme="e" data-icon="check" data-inline="true"
@@ -44,7 +47,6 @@
 			<? endif ?>
 		<? endif ?>
 		
-	
 		<form target="#" >
 			<? global $READ_ONLY; $READ_ONLY=true; ?>
 			<? require("AnnonceForm.php"); ?>

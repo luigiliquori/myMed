@@ -25,6 +25,7 @@
 			href="<?= url("listBenevoles") ?>">
 			<?= _("Gérer les bénévoles") ?>
 		</a>
+		
 	</div>
 </div>
 	

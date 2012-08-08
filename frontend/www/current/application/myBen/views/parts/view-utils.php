@@ -265,16 +265,25 @@ function filters(
 /** Show one header bar with an optionnal breadcrumb 
  * @param $breadcrumb Array of "Label" => "URL". Use null as URL to prevent displaying link */
 function header_bar($breadcrumb = array()) {
-	global $ERROR, $SUCCESS; ?>
+	global $ERROR, $SUCCESS, $LANG; ?>
 	
 	<div data-role="header">
 	
 		<a href="javascript: history.go(-1)" data-role="button" data-icon="back">Retour</a>
 	
-		<h1><a href="/application/<?= APPLICATION_NAME ?>">
-			<?= "MyBénévolat" ?>
-		</a></h1>
+		<h1>
+			<a href="/application/<?= APPLICATION_NAME ?>" >
+				<?= "MyBénévolat" ?>
+			</a>
+			<? if (!isset($_SESSION['user'])): ?>
+			<a href="#lang-chooser" data-rel="dialog" data-role="button" >
+				<img src="../../../system/img/flags/<?= $LANG ?>.png">
+				<?= $LANG ?>
+			</a>
+			<? endif ?>
 		
+		</h1>
+
 		<? if (isset($_SESSION['user'])) : ?>
 			<a rel="external" data-role="button" data-theme="g" data-icon="person" 
 				href="<?= url("ExtendedProfile:show") ?>" >
@@ -304,7 +313,7 @@ function header_bar($breadcrumb = array()) {
 			</div>
 		</div>
 		<? endif ?>
-				
+						
 	</div>
 	
 	<? if (sizeof($breadcrumb) != 0) : ?>
@@ -333,6 +342,9 @@ function wizard_footbar($commit_label) { ?>
 	<div data-role="navbar">
 	<ul>
 		<li>
+			<a href="#" id="wizard-start" data-rel="back" data-icon="delete" data-theme="r">
+				<?= _("Annuler") ?>
+			</a>
 			<a href="#" id="wizard-previous" data-icon="arrow-l" data-theme="e">
 				<?= _("Précédent") ?>
 			</a>

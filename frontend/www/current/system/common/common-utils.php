@@ -18,17 +18,32 @@ function is_true($value) {
 // View utils (views)
 // ---------------------------------------------------------------------
 
-/** Build an URL with "<action>[:<method>]".
+/** 
+ *  Build an URL with "<action>[:<method>]".
  *  For example :
  *  * url("profile:create") => "?action=profile&method=create"
  *  * url("profile", array("foo" => "bar")) => "?action=profile&foo=bar"
+ *  If action begins with "/", it is considered as absolute path 
+ *  instead of action.
+ *  If action == "<self>", all current GET parameters are copied and merged with supplied "$args".
  */
 function url($action, $args=array()) {
+	global $ACTION;
+	
 	// Real path
 	if ($action[0] == '/') return $action;
-	$parts = explode(":", $action);
-	$args["action"] = $parts[0];
-	if (sizeof($parts) > 1) $args["method"] = $parts[1];
+		
+	// Same action
+	if ($action == "<self>") { 
+		$args = array_merge($_GET, $args);
+	} else {
+		// Action:method
+		$parts = explode(":", $action);
+		$args["action"] = $parts[0];
+		if (sizeof($parts) > 1) $args["method"] = $parts[1];
+	}
+	
+	// Build url
 	return "?" . http_build_query($args);
 }
 

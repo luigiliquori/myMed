@@ -30,11 +30,11 @@
 	<script src="../../lib/jquery/simpledialog/jquery.mobile.simpledialog2.min.js"></script>
 	<link href="../../lib/jquery/simpledialog/jquery.mobile.simpledialog.min.css" rel="stylesheet" />
 	
-	<!-- MYMED JS -->
-	<!-- <script src="../myMed/javascript/common.js"></script> -->
-	
 	<!-- Localization -->
-	<script src="javascript/localization.js.php"></script>
+	<script type="text/javascript">
+		msg={};
+		msg.FORM_ERROR = "<?= _("Il y a des erreurs dans le formulaire, merci de les corriger.") ?>";
+	</script>
 	
 	<!-- APP JS -->
 	<script src="javascript/app.js"></script>
@@ -70,4 +70,6 @@
 		});
 	</script>
 <? endif ?>
+
+
 

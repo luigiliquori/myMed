@@ -28,6 +28,13 @@ if ($this->getUserType() != USER_MYMED) :
 		<? input("password", "password", _("Mot de passe"), "", "", true) ?>
 		<? input("password", "confirm", _("Mot de passe (confirmation)"), "", "", true) ?>
 	<? endif ?>
+	
+	<? radiobuttons("lang", array(
+			"fr" => "<img src='../../../system/img/flags/fr.png' /> Français",
+			"en" => "<img src='../../../system/img/flags/en.png' /> English",
+			"it" => "<img src='../../../system/img/flags/it.png' /> Italiano" ), 
+			$user->lang, _("Langue")) 
+	?>
 
 </div><? // End of #wizard-page div ?>
 

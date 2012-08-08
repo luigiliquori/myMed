@@ -7,7 +7,7 @@
 $profile = $this->_extendedProfile;  ?>
 
 <? $TYPE = ASSOCIATION ?>
-<? include('RegisterForm.php') ?>
+<? include('ProfileMyMedForm.php') ?>
 
 <div data-role="wizard-page" id="info-admin" >
 

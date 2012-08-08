@@ -7,7 +7,7 @@
 $profile = $this->_extendedProfile;  ?>
 
 <? $TYPE = BENEVOLE ?>
-<? include('RegisterForm.php') ?>
+<? include('ProfileMyMedForm.php') ?>
 
 <div data-role="wizard-page" id="perso-info">
 	
@@ -24,7 +24,7 @@ $profile = $this->_extendedProfile;  ?>
 	
 	<? radiobuttons("situation", CategoriesSituation::$values, $profile->situation, _("Situation professionelle")) ?>
 	<div data-validate="situation" data-validate-non-empty >
-	    <?= _("	Vous devez renseigner votre situation professionelle.") ?>
+	    <?= _("Vous devez renseigner votre situation professionelle.") ?>
 	</div>
 	
 </div>
