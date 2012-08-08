@@ -40,9 +40,14 @@ public abstract class AbstractMatchMaking extends AbstractRequestHandler {
     protected static final String JSON_PREDICATE = JSON.get("json.predicate");
 
 	/**
-	 * JSON 'predicate' attribute.
+	 * JSON 'predicateList' attribute.
 	 */
     protected static final String JSON_PREDICATE_LIST = JSON.get("json.predicate.list");
+    
+    /**
+     * JSON 'asyncexec' attribute.
+     */
+    protected static final String JSON_ASYNCEXEC = JSON.get("json.asyncexec");
 
    
     /** 

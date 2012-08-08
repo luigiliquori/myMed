@@ -30,14 +30,16 @@ class Publish extends Request {
 	/* Attributes */
 	/* --------------------------------------------------------- */
 	private /*IRequestHandler*/ $handler;
+	private /*boolean*/ $asyncexec;
 
 	/* --------------------------------------------------------- */
 	/* Constructors */
 	/* --------------------------------------------------------- */
-	public function __construct(/*IRequestHandler*/ $handler) {
+	public function __construct(/*IRequestHandler*/ $handler, $asyncexec = false) {
 		parent::__construct("PublishRequestHandler", CREATE);
 		$this->handler	= $handler;
 		$this->setMultipart(true);
+		$this->asyncexec = $asyncexec;
 	}
 
 	/* --------------------------------------------------------- */
@@ -98,6 +100,9 @@ class Publish extends Request {
 		parent::addArgument("user", $user);
 		parent::addArgument("predicate", $predicate);
 		parent::addArgument("data", $data);
+		if($this->asyncexec) {
+			parent::addArgument("asyncexec", $this->asyncexec);
+		}
 			
 		$responsejSon = parent::send();
 		$responseObject = json_decode($responsejSon);

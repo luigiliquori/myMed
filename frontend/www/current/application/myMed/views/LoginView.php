@@ -27,6 +27,8 @@ require_once("header.php"); ?>
 		<img alt="Alcotra" src="<?= MYMED_URL_ROOT ?>/system/img/logos/alcotra.png" />
 		<br />
 		<i>"Ensemble par-delà les frontières"</i>
+		<br /><br />
+		<img alt="Alcotra" src="<?= MYMED_URL_ROOT ?>/system/img/logos/europe.jpg" />
 		
 	</div>
 	

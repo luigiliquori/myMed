@@ -38,13 +38,14 @@
 				<a href="#updateProfile">Date de naissance<p><?= $_SESSION['user']->birthday ?></p></a>
 			</li>
 			
-			<li  data-role="list-divider" >Mes applications</li>
+			<li  data-role="list-divider" >Profils étendus</li>
 			<?php foreach ($this->applicationList as $applicationName) { ?>
 				<?php if ($this->applicationStatus[$applicationName] == "on") { ?>
-					<li data-icon="delete">
+					<li data-icon="refresh">
 			    		<img alt="<?= $applicationName ?>" src="../../application/<?= $applicationName ?>/img/icon.png" class="ui-li-icon" />
 				    	
-				    	<a href="#" onclick="printDialog('hidden-<? $applicationName ?>DialogBox', '<?= $applicationName ?>');">
+				    	<!-- <a href="#" onclick="printDialog('hidden-<? $applicationName ?>DialogBox', '<?= $applicationName ?>');">  -->
+				    	<a href="<?= MYMED_ROOT ?>application/<?= $applicationName ?>/index.php?action=extendedProfile">
 					    	<?= $applicationName ?>
 					    	<div Style="position: relative; width: 100px; height: 20px;">
 					    		<div Style="position: absolute; width: <?= $this->reputation[$applicationName] ?>px; height: 20px; top:0px; left:0px;  background-color: #ffe400;"></div>
@@ -52,6 +53,7 @@
 					    	</div>
 				    	</a>
 				    	
+				    	<!-- 
 			    		<div style="display: none;">
 							<div id="hidden-<? $applicationName ?>DialogBox">
 								<a href="#" data-role="button" data-theme="r" data-icon="delete">Effacer le profil étendu</a>
@@ -60,6 +62,7 @@
 								<a href="?action=main" data-role="button" data-theme="c" data-ajax="false">Annuler</a>
 							</div>
 						</div> 
+						 -->
 			    	</li>
 			    <?php } 
 		    } ?>
