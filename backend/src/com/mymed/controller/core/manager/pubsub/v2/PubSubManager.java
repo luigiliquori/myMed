@@ -227,6 +227,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
     		        throws InternalBackEndException, IOBackEndException 
     {
 		storageManager.removeSuperColumn(SC_APPLICATION_CONTROLLER, application + predicate, subPredicate);
+		delete(application, subPredicate);
     }
 	
 	@Override

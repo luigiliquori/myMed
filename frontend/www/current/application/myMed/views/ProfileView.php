@@ -2,7 +2,7 @@
 
 	<? include("header-bar.php"); ?>
 	
-	<div data-role="content" class="content">
+	<div data-role="content">
 	
 		<div Style="text-align: left;">
 			
@@ -43,26 +43,18 @@
 				<?php if ($this->applicationStatus[$applicationName] == "on") { ?>
 					<li data-icon="refresh">
 			    		<img alt="<?= $applicationName ?>" src="../../application/<?= $applicationName ?>/img/icon.png" class="ui-li-icon" />
-				    	
-				    	<!-- <a href="#" onclick="printDialog('hidden-<? $applicationName ?>DialogBox', '<?= $applicationName ?>');">  -->
-				    	<a href="<?= MYMED_ROOT ?>application/<?= $applicationName ?>/index.php?action=extendedProfile">
-					    	<?= $applicationName ?>
-					    	<div Style="position: relative; width: 100px; height: 20px;">
-					    		<div Style="position: absolute; width: <?= $this->reputation[$applicationName] ?>px; height: 20px; top:0px; left:0px;  background-color: #ffe400;"></div>
-					    		<img alt="rep" src="<?= APP_ROOT ?>/img/rep.png" />
-					    	</div>
-				    	</a>
-				    	
-				    	<!-- 
-			    		<div style="display: none;">
-							<div id="hidden-<? $applicationName ?>DialogBox">
-								<a href="#" data-role="button" data-theme="r" data-icon="delete">Effacer le profil étendu</a>
-								<a href="#" onclick="SetCookie('<?= $applicationName ?>Status', 'off', 365); window.location.reload()" data-role="button" data-theme="b" data-icon="minus">Désactiver l'application</a>
-								<hr />
-								<a href="?action=main" data-role="button" data-theme="c" data-ajax="false">Annuler</a>
-							</div>
-						</div> 
-						 -->
+					    	<a href="<?= MYMED_ROOT ?>application/<?= $applicationName ?>/index.php?action=extendedProfile">
+						    	<?= $applicationName ?>
+						    	<div Style="position: relative; left: 0px;">
+							    	<?php for($i=1 ; $i <= 5 ; $i++) { ?>
+							    		<?php if($i*20-20 < $this->reputation[$applicationName] ) { ?>
+							    			<img alt="rep" src="<?= APP_ROOT ?>/img/yellowStar.png" width="10" Style="left: <?= $i ?>0px;" />
+							    		<?php } else { ?>
+							    			<img alt="rep" src="<?= APP_ROOT ?>/img/grayStar.png" width="10" Style="left: <?= $i ?>0px;"/>
+							    		<?php } ?>
+							    	<? } ?>
+						    	</div>
+					    	</a>
 			    	</li>
 			    <?php } 
 		    } ?>
@@ -120,12 +112,12 @@
 		
 	</div>
 	
-	<div data-role="footer" data-position="fixed" data-theme="b">
+	<div data-role="footer" data-position="fixed" data-theme="a">
 		<div data-role="navbar">
 			<ul>
 				<li><a href="#home" data-transition="none" data-back="true" data-icon="grid">Applications</a></li>
 				<li><a href="#profile" data-transition="none" data-icon="profile"  class="ui-btn-active ui-state-persist">Profil</a></li>
-				<li><a href="#" data-rel="dialog" data-icon="star" onClick="printDialog('hidden-sharethis', 'Partagez');">Partagez</a></li>
+				<li><a href="#store" data-transition="none" data-icon="star">Store</a></li>
 			</ul>
 		</div>
 	</div>

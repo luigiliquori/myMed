@@ -28,7 +28,7 @@ class MainController extends AuthenticatedController {
 
 		// set the status of the applications
 		foreach ($this->applicationList as $app){
-			if((isset($_COOKIE[$app.'Status']) &&  $_COOKIE[$app.'Status'] == "off") || !in_array($app, self::$bootstrapApplciation)) {
+			if((isset($_COOKIE[$app.'Status']) &&  $_COOKIE[$app.'Status'] == "off") || (!isset($_COOKIE[$app.'Status']) && !in_array($app, self::$bootstrapApplciation))) {
 				$this->applicationStatus[$app] = "off";
 			}
 		}

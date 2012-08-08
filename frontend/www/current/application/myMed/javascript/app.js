@@ -1,4 +1,4 @@
-
+var cpt = 1;
 $(document).ready(function() {
 		
 	// Handle "close" buttons
@@ -46,3 +46,23 @@ function SetCookie (name, value, days) {
 		((domain==null) ? "" : ("; domain="+domain))+
 		((secure==true) ? "; secure" : "");
 }  
+
+function nextScreenshot() {
+	$("#screenshot" + cpt).hide();
+	if (cpt==3) {
+		cpt=1;
+	} else {
+		cpt++;
+	}
+	$("#screenshot" + cpt).fadeIn();
+}
+
+function prevScreenshot() {
+	$("#screenshot" + cpt).hide();
+	if (cpt==1) {
+		cpt=3;
+	} else {
+		cpt--;
+	}
+	$("#screenshot" + cpt).fadeIn();
+}
