@@ -50,48 +50,81 @@ class ExtendedProfileController extends AuthenticatedController
 			$home = $_POST['home'];
 			$diseaseLevel = $_POST['diseaseLevel'];
 			
-			$careGiver = array (
-						"name" => $_POST["CareGiverName"],
-						"address" => $_POST["CareGiverAddress"],
-						"email" => $_POST["CareGiverEmail"],
-						"phone" => $_POST["CareGiverPhone"]
-						);
+			try{
+				$careGiver = new Contact("caregiver",
+										$_POST["CareGiverNickname"], 
+										$_POST["CareGiverFirstname"], 
+										$_POST["CareGiverLastname"], 
+										$_POST["CareGiverAddress"], 
+										$_POST["CareGiverEmail"], 
+										$_POST["CareGiverPhone"]);
+			}
+			catch(Exception $e){
+				$this->error .= "Error for the CareGiver :" + $e->getMessage();
+				return;
+			}
+
 			
-			$doctor = array(
-						"name" => $_POST["DoctorName"],
-						"address" => $_POST["DoctorAddress"],
-						"email" => $_POST["DoctorEmail"],
-						"phone" => $_POST["DoctorPhone"]
-			);
+			try{
+				$doctor = new Contact("doctor",
+									$_POST["DoctorNickname"], 
+									$_POST["DoctorFirstname"], 
+									$_POST["DoctorLastname"], 
+									$_POST["DoctorAddress"], 
+									$_POST["DoctorEmail"], 
+									$_POST["DoctorPhone"]);
+			}
+			catch(Exception $e){
+				$this->error .= "Error for the Doctor :" + $e->getMessage();
+				return;
+			}
+			
+
 			/*
 			 * The First person to call is the caregiver, the last is the emergency services
 			 * The 2 slots in between are optionnals
 			 */
 			$callingList = array();
 			
-			$call1 = array("name" => $_POST["CareGiverName"], "address" => $_POST["CareGiverAddress"], "email" => $_POST["CareGiverEmail"], "phone" => $_POST["CareGiverPhone"]);
-			//$call4 = array("name" => "Emergency", "address" => "" , "email" => "", "phone" => "112");
-			//TODO uncomment emergency
-			$call4 = array("name" => "Emergency", "address" => "-" , "email" => "-", "phone" => "-");
+			$call1 = $careGiver;
 			// Inserting Caregiver in first position
 			array_push($callingList, $call1);
 			
+			
+			
 			// If user filled the informations for the second calling slot, add it. If not, do nothing.
-			if(!empty($_POST["CL_name_1"]) AND !empty($_POST["CL_email_1"]) AND !empty($_POST["CL_phone_1"])){
-				$call2 = array("name" => $_POST["CL_name_1"], "address" => $_POST["CL_address_1"], "email" => $_POST["CL_email_1"], "phone" => $_POST["CL_phone_1"]);
+			if(!empty($_POST["CL_Nickname_1"]) AND !empty($_POST["CL_email_1"]) AND !empty($_POST["CL_phone_1"])){
+				$call2 = new Contact("buddy", 
+									$_POST["CL_Nickname_1"], 
+									$_POST["CL_Firstname_1"], 
+									$_POST["CL_Lastname_1"], 
+									$_POST["CL_address_1"], 
+									$_POST["CL_email_1"], 
+									$_POST["CL_phone_1"]);
 				array_push($callingList, $call2);
 			}
 
 			// Same for slot 3
-			if(!empty($_POST["CL_name_2"]) AND !empty($_POST["CL_email_1"]) AND !empty($_POST["CL_phone_2"])){
-				$call3 = array("name" => $_POST["CL_name_2"], "address" => $_POST["CL_address_2"], "email" => $_POST["CL_email_2"], "phone" => $_POST["CL_phone_2"]);
+			if(!empty($_POST["CL_Nickname_2"]) AND !empty($_POST["CL_email_2"]) AND !empty($_POST["CL_phone_2"])){
+				$call3 = new Contact("buddy",
+				$_POST["CL_Nickname_2"],
+				$_POST["CL_Firstname_2"],
+				$_POST["CL_Lastname_2"],
+				$_POST["CL_address_2"],
+				$_POST["CL_email_2"],
+				$_POST["CL_phone_2"]);
 				array_push($callingList, $call3);
 			}
 			
+			
+			
+			
+			//$call4 = array("name" => "Emergency", "address" => "" , "email" => "", "phone" => "112"); //TODO uncomment emergency
+			$call4 = new Contact("emergency", "Emergency", "none", "none", "none", "none", "none");
 			// Inserting Emergency in last position
 			array_push($callingList, $call4);
 
-			$extendedProfile = new ExtendedProfile($_SESSION['user'], $home, $diseaseLevel, $careGiver, $doctor, $callingList);
+			$extendedProfile = new ExtendedProfile($_SESSION['user']->id, $home, $diseaseLevel, $careGiver, $doctor, $callingList);
 			
 			$extendedProfile->storeProfile($this);
 			
@@ -114,8 +147,9 @@ class ExtendedProfileController extends AuthenticatedController
 					$this->renderview("ExtendedProfileDisplay");
 				}
 					
-				$this->success = "Complément de profil enregistré avec succès!";
-				$this->renderView("main");
+				//$this->success = "Complément de profil enregistré avec succès!";
+				//$_SESSION['ExtendedProfile'] = $extendedProfile;
+				$this->redirectTo("main");
 			}
 			
 		}

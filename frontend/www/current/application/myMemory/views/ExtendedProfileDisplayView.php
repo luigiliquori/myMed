@@ -18,26 +18,26 @@
 			<p class="ui-li-desc">Level of the disease : <strong><?= $_SESSION['ExtendedProfile']->diseaseLevel?></strong></p>
 		</li>
 		<li class="ui-li ui-li-static ui-body-a">
-			<h3 class="ui-li-heading">Caregiver : <?= $_SESSION['ExtendedProfile']->careGiver['name']?></h3>
+			<h3 class="ui-li-heading">Caregiver : <?= $_SESSION['ExtendedProfile']->careGiver->nickname?></h3>
 				<div class="mymem-profile-grid">
 					<div class="mymem-profile-block-a">Phone :</div>
-					<div class="mymem-profile-block-b"><a href="tel:<?= $_SESSION['ExtendedProfile']->careGiver['phone']?>" data-role="button" data-theme="b"><?= $_SESSION['ExtendedProfile']->careGiver['phone']?></a></div>
+					<div class="mymem-profile-block-b"><a href="tel:<?= $_SESSION['ExtendedProfile']->careGiver->phone?>" data-role="button" data-theme="b"><?= $_SESSION['ExtendedProfile']->careGiver->phone?></a></div>
 					<div class="mymem-profile-block-a">Address :</div>
-					<div class="mymem-profile-block-b" data-role="button" style="text-align:center;" data-theme="b"><?= $_SESSION['ExtendedProfile']->careGiver['address']?></div>
+					<div class="mymem-profile-block-b" data-role="button" style="text-align:center;" data-theme="b"><?= $_SESSION['ExtendedProfile']->careGiver->address?></div>
 					<div class="mymem-profile-block-a">E-mail :</div>
-					<div class="mymem-profile-block-b"><a href="mailto:<?= $_SESSION['ExtendedProfile']->careGiver['email']?>" data-role="button" data-theme="b"><?= $_SESSION['ExtendedProfile']->careGiver['email']?></a></div>
+					<div class="mymem-profile-block-b"><a href="mailto:<?= $_SESSION['ExtendedProfile']->careGiver->email?>" data-role="button" data-theme="b"><?= $_SESSION['ExtendedProfile']->careGiver->email?></a></div>
 				</div>
 		</li>
 		
 		<li class="ui-li ui-li-static ui-body-a">
-			<h3 class="ui-li-heading">Doctor : <?= $_SESSION['ExtendedProfile']->doctor['name']?></h3>
+			<h3 class="ui-li-heading">Doctor : <?= $_SESSION['ExtendedProfile']->doctor->nickname?></h3>
 			<div class="mymem-profile-grid">
 					<div class="mymem-profile-block-a">Phone :</div>
-					<div class="mymem-profile-block-b"><a href="tel:<?= $_SESSION['ExtendedProfile']->doctor['phone']?>" data-role="button" data-theme="b"><?= $_SESSION['ExtendedProfile']->doctor['phone']?></a></div>
+					<div class="mymem-profile-block-b"><a href="tel:<?= $_SESSION['ExtendedProfile']->doctor->phone?>" data-role="button" data-theme="b"><?= $_SESSION['ExtendedProfile']->doctor->phone?></a></div>
 					<div class="mymem-profile-block-a">Address :</div>
-					<div class="mymem-profile-block-b" data-role="button" style="text-align:center;" data-theme="b"><?= $_SESSION['ExtendedProfile']->doctor['address']?></div>
+					<div class="mymem-profile-block-b" data-role="button" style="text-align:center;" data-theme="b"><?= $_SESSION['ExtendedProfile']->doctor->address?></div>
 					<div class="mymem-profile-block-a">E-mail :</div>
-					<div class="mymem-profile-block-b"><a href="mailto:<?= $_SESSION['ExtendedProfile']->doctor['email']?>" data-role="button" data-theme="b"><?= $_SESSION['ExtendedProfile']->doctor['email']?></a></div>
+					<div class="mymem-profile-block-b"><a href="mailto:<?= $_SESSION['ExtendedProfile']->doctor->email?>" data-role="button" data-theme="b"><?= $_SESSION['ExtendedProfile']->doctor->email?></a></div>
 			</div>
 		</li>
 		
@@ -49,17 +49,17 @@
 			<div data-role="collapsible">
 				<h3># <?= $callingSlot?></h3>
 				<div class="mymem-profile-grid">
-					<div class="mymem-profile-block-a"><h3><?= $data['name']?></h3></div>
+					<div class="mymem-profile-block-a"><h3><?= $data->nickname?></h3></div>
 					<div class="mymem-profile-block-b"></div>
 					<div class="mymem-profile-block-a">Phone :</div>
-					<div class="mymem-profile-block-b"><a href="tel:<?= $data['phone']?>" data-role="button" data-theme="b"><?= $data['phone']?></a></div>
+					<div class="mymem-profile-block-b"><a href="tel:<?= $data->phone?>" data-role="button" data-theme="b"><?= $data->phone?></a></div>
 					
 					<div class="mymem-profile-block-a">E-mail :</div>
-					<div class="mymem-profile-block-b"><a href="mail:<?= $data['email']?>" data-role="button" data-theme="b"><?= $data['email']?></a></div>
+					<div class="mymem-profile-block-b"><a href="mail:<?= $data->email?>" data-role="button" data-theme="b"><?= $data->email?></a></div>
 					
-					<?php if (!empty($data['address'])) {?> 
+					<?php if (!empty($data->address)) {?> 
 					<div class="mymem-profile-block-a">Address :</div>
-					<div class="mymem-profile-block-b" style="text-align:center;" data-role="button" data-theme="b"><?= $data['address']?></div>
+					<div class="mymem-profile-block-b" style="text-align:center;" data-role="button" data-theme="b"><?= $data->address?></div>
 					<?php }?>
 				</div>
 			</div>

@@ -54,8 +54,14 @@
 			<fieldset data-role="controlgroup">
 				<div role="heading" class="ui-controlgroup-label">Your personnal Caregiver :</div>
 				<div class="ui-controlgroup-controls">
-					<label for="CareGiverName" class="ui-hidden-accessible">Caregiver name : </label>
-					<input type="text" name="CareGiverName" name="CareGiverName" value="" placeholder="Caregiver name" />
+					<label for="CareGiverFirstname" class="ui-hidden-accessible">Caregiver Firstname : </label>
+					<input type="text" name="CareGiverFirstname" name="CareGiverFirstname" value="" placeholder="Caregiver firstname" />
+					
+					<label for="CareGiverLastname" class="ui-hidden-accessible">Caregiver Lastname : </label>
+					<input type="text" name="CareGiverLastname" name="CareGiverLastname" value="" placeholder="Caregiver lastname" />
+					
+					<label for="CareGiverNickname" class="ui-hidden-accessible">Caregiver Nickname : </label>
+					<input type="text" name="CareGiverNickname" name="CareGiverNickname" value="" placeholder="Caregiver nickname" />
 					
 					<label for="CareGiverAddress" class="ui-hidden-accessible">Caregiver address : </label>
 					<input type="text" name="CareGiverAddress" name="CareGiverAddress" value="" placeholder="Caregiver address"/>
@@ -74,8 +80,14 @@
 			<fieldset data-role="controlgroup">
 				<div role="heading" class="ui-controlgroup-label">Your doctor :</div>
 				<div class="ui-controlgroup-controls">
-					<label for="DoctorName" class="ui-hidden-accessible">Doctor name : </label>
-					<input type="text" name="DoctorName" name="DoctorName" value="" placeholder="Doctor name"/>
+					<label for="DoctorFirstname" class="ui-hidden-accessible">Doctor Firstname : </label>
+					<input type="text" name="DoctorFirstname" name="DoctorFirstname" value="" placeholder="Doctor firstname" />
+					
+					<label for="DoctorLastname" class="ui-hidden-accessible">Doctor Lastname : </label>
+					<input type="text" name="DoctorLastname" name="DoctorLastname" value="" placeholder="Doctor lastname" />
+					
+					<label for="DoctorNickname" class="ui-hidden-accessible">Doctor Nickname : </label>
+					<input type="text" name="DoctorNickname" name="DoctorNickname" value="" placeholder="Doctor nickname" />
 					
 					<label for="DoctorAddress" class="ui-hidden-accessible">Doctor address : </label>
 					<input type="text" name="DoctorAddress" name="DoctorAddress" value="" placeholder="Doctor address"/>
@@ -95,12 +107,17 @@
 		You can fill another 2 persons that will be called in between. This is not mandatory.</p>
 		
 		
-		<div data-role="collapsible-set" data-theme="b" data-content-theme="c">
 			<div data-role="collapsible">
 				<h3>Second person to call</h3>
 				<div class="ui-controlgroup-controls">
-					<label for="CL_name_1" class="ui-hidden-accessible">Name : </label>
-					<input type="text" name="CL_name_1" name="CL_name_1" value="" placeholder="Name"/>
+					<label for="CL_Firstname_1" class="ui-hidden-accessible">Firstname : </label>
+					<input type="text" name="CL_Firstname_1" name="CL_Firstname_1" value="" placeholder="Firstname" />
+					
+					<label for="CL_Lastname_1" class="ui-hidden-accessible">Lastname : </label>
+					<input type="text" name="CL_Lastname_1" name="CL_Lastname_1" value="" placeholder="Lastname" />
+					
+					<label for="CL_Nickname_1" class="ui-hidden-accessible">Nickname : </label>
+					<input type="text" name="CL_Nickname_1" name="CL_Nickname_1" value="" placeholder="Nickname" />
 					
 					<label for="CL_address_1" class="ui-hidden-accessible">Address : </label>
 					<input type="text" name="CL_address_1" name="CL_address_1" value="" placeholder="Address"/>
@@ -116,8 +133,14 @@
 			<div data-role="collapsible">
 				<h3>Third person to call</h3>
 				<div class="ui-controlgroup-controls">
-					<label for="CL_name_2" class="ui-hidden-accessible">Name : </label>
-					<input type="text" name="CL_name_2" name="CL_name_2" value="" placeholder="Name"/>
+					<label for="CL_Firstname_2" class="ui-hidden-accessible">Firstname : </label>
+					<input type="text" name="CL_Firstname_2" name="CL_Firstname_2" value="" placeholder="Firstname" />
+					
+					<label for="CL_Lastname_2" class="ui-hidden-accessible">Lastname : </label>
+					<input type="text" name="CL_Lastname_2" name="CL_Lastname_2" value="" placeholder="Lastname" />
+					
+					<label for="CL_Nickname_2" class="ui-hidden-accessible">Nickname : </label>
+					<input type="text" name="CL_Nickname_2" name="CL_Nickname_2" value="" placeholder="Nickname" />
 					
 					<label for="CL_address_2" class="ui-hidden-accessible">Address : </label>
 					<input type="text" name="CL_address_2" name="CL_address_2" value="" placeholder="Address"/>
@@ -130,7 +153,6 @@
 				</div>
 			</div>
 			
-		</div>
 		
 		<!-- Agreements  -->
 		<input type="checkbox" name="agreement" id="agreement" />
