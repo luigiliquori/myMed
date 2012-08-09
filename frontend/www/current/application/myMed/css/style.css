@@ -33,7 +33,7 @@
 
 .content {
 	text-align: center;
-	padding: 10px;
+	padding: 0px;
 }
 
 .content h3 {
@@ -45,6 +45,14 @@
 	 text-align: left;
 	 color: #313131;
 }
+
+.myScreenshot {
+	display: none;
+	position: relative;
+	width: 250px;
+	height: 400px;
+}
+
 
 #footer {
 	position: relative;
