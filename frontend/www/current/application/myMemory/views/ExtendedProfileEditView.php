@@ -3,11 +3,11 @@
 
 
 <!-- Header -->
-<div data-role="header" data-position="inline">
-	<a href="?action=ExtendedProfile" data-role="button"  data-icon="back">Back</a>
-	<h1>Profile</h1>
-	<a href="" data-role="button" data-theme="b" data-icon="check" onclick='document.ExtendedProfileForm.submit();'>Save</a>
-</div>
+<!-- <div data-role="header" data-position="inline"> -->
+<!-- 	<a href="?action=ExtendedProfile" data-role="button"  data-icon="back">Back</a> -->
+<!-- 	<h1>Profile</h1> -->
+<!-- 	<a href="" data-role="button" data-theme="b" data-icon="check" onclick='document.ExtendedProfileForm.submit();'>Save</a> -->
+<!-- </div> -->
 
 <div data-role="content" data-theme="a">
 	<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" data-ajax="false">
@@ -171,7 +171,18 @@
 			
 		</div>
 		<input type="hidden" name="agreement" value="true" />
-		<input type="submit" data-role="button" id="submitButton"  value="Save" data-theme="b"/>
 	</form>
+</div>
+
+<div data-role="footer" data-position="fixed">
+	<div data-role="navbar" data-iconpos="top" >
+		<ul>
+			
+			
+			<li><a href="?action=main" data-icon="back" ><?= _('Cancel'); ?></a></li>
+			<li><a href="" data-theme="b" data-icon="check" onclick='document.ExtendedProfileForm.submit();'><?= _('Save')?></a></li>
+			
+		</ul>
+	</div>
 </div>
 <? include("footer.php"); ?>

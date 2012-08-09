@@ -143,7 +143,8 @@ class ExtendedProfileController extends AuthenticatedController
 				 */
 				if ($_POST['form'] == 'edit'){
 					$_SESSION['ExtendedProfile'] = ExtendedProfile::getExtendedProfile($this, $_SESSION['user']->id);
-					$this->success = "Complément de profil modifié avec succès!";
+					//$this->success = "Complément de profil modifié avec succès!";
+					$this->success = "";
 					$this->renderview("ExtendedProfileDisplay");
 				}
 					

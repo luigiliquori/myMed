@@ -1,11 +1,11 @@
 <? include("header.php"); ?>
 <? include("notifications.php")?>
 <!-- Header -->
-<div data-role="header" data-position="inline">
-	<a href="?action=main" data-role="button"  data-icon="back">Back</a>
-	<h1>Profile</h1>
-	<a href="?action=ExtendedProfile&edit=false" data-rel="dialog" data-transition="pop" data-role="button" data-theme="b" data-icon="gear">Edit</a>
-</div>
+<!-- <div data-role="header" data-position="inline"> -->
+<!-- 	<a href="?action=main" data-role="button"  data-icon="back">Back</a> -->
+<!-- 	<h1>Profile</h1> -->
+<!-- 	<a href="?action=ExtendedProfile&edit=false" data-rel="dialog" data-transition="pop" data-role="button" data-theme="b" data-icon="gear">Edit</a> -->
+<!-- </div> -->
 
 <div data-role="content" data-theme="a">
 	
@@ -47,7 +47,7 @@
 			<?php foreach($_SESSION['ExtendedProfile']->callingList as $callingSlot=>$data) {?>
 			
 			<div data-role="collapsible">
-				<h3># <?= $callingSlot?></h3>
+				<h3><?= _('callingslot'.$callingSlot);?></h3>
 				<div class="mymem-profile-grid">
 					<div class="mymem-profile-block-a"><h3><?= $data->nickname?></h3></div>
 					<div class="mymem-profile-block-b"></div>
@@ -63,14 +63,21 @@
 					<?php }?>
 				</div>
 			</div>
-			<?php }?>
-			
-			
-			
-			
+			<?php }?>			
 		</li>
-		
 	</ul>
-	
 </div>
+
+<div data-role="footer" data-position="fixed">
+	<div data-role="navbar" data-iconpos="top" >
+		<ul>
+			
+			
+			<li><a href="?action=main" data-icon="back" ><?= _('Back'); ?></a></li>
+			<li><a href="?action=ExtendedProfile&edit=false" data-rel="dialog" data-transition="pop" data-icon="gear" data-theme="b"><?= _('Edit'); ?></a></li>
+			
+		</ul>
+	</div>
+</div>
+
 <? include("footer.php"); ?>

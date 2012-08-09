@@ -16,11 +16,11 @@
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&libraries=places"></script>
 <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox_packed.js"></script>
 
-	<div data-role="header" data-position="inline">
-		<a href="?action=main" data-rel="back" data-role="button" class="ui-btn-left" data-icon="back" >Back</a>
-		<h1>MyMemory</h1>
-		<a href="?action=ExtendedProfile" data-role="button" data-icon="gear" >Profile</a>
-	</div>
+<!-- 	<div data-role="header" data-position="inline"> -->
+<!-- 		<a href="?action=main" data-rel="back" data-role="button" class="ui-btn-left" data-icon="back" >Back</a> -->
+<!-- 		<h1>MyMemory</h1> -->
+<!-- 		<a href="?action=ExtendedProfile" data-role="button" data-icon="gear" >Profile</a> -->
+<!-- 	</div> -->
 	<div data-role="content" data-theme="a">
 		<div id="myMap"></div>
 		<br />
@@ -57,6 +57,14 @@
 <input type='hidden' id='applicationName' value='myMemory' />
 <input type='hidden' id='accessToken' value='<?= $_SESSION['accessToken'] ?>' />
 
-	
+<div data-role="footer" data-position="fixed">
+	<div data-role="navbar" data-iconpos="top" >
+		<ul>
+			<li><a href="?action=main" data-icon="back" ><?= _('Back'); ?></a></li>
+			<li><a href="?action=ExtendedProfile" data-icon="profile" ><?= _('Profile'); ?></a></li>
+			
+		</ul>
+	</div>
+</div>	
 <? include("footer.php"); ?>	
 </div>
