@@ -16,27 +16,6 @@ class MainController extends AuthenticatedController {
 
 	public function __construct() {
 		
-		// get all the application in MYMED_ROOT . '/application
-		if ($handle = opendir(MYMED_ROOT . '/application')) {
-			while (false !== ($file = readdir($handle))) {
-				if(preg_match("/my/", $file) && !preg_match("/Admin/", $file) && !in_array($file, self::$hiddenApplication)) {
-					array_push($this->applicationList, $file);
-				}
-			}
-		}
-		
-		$extentedProfile = ExtendedProfile::getExtendedProfile($this, $_SESSION['user']->id);
-		// setup the extendedProfile if needed
-		if($extentedProfile == null){
-			$extentedProfile = new ExtendedProfile($_SESSION['user']->id, self::$bootstrapApplication);
-			$extentedProfile->storeProfile($this);
-		} 
-		// set the status of the applications
-		$this->resetApplicationStatus();
-		foreach ($extentedProfile->applicationList as $app){
-			$this->applicationStatus[$app] = "on";
-		}
-		
 	}
 	
 	function resetApplicationStatus(){
@@ -49,6 +28,28 @@ class MainController extends AuthenticatedController {
 	public function handleRequest() {
 
 		parent::handleRequest();
+		
+		// get all the application in MYMED_ROOT . '/application
+		if ($handle = opendir(MYMED_ROOT . '/application')) {
+			while (false !== ($file = readdir($handle))) {
+				if(preg_match("/my/", $file) && !preg_match("/Admin/", $file) && !in_array($file, self::$hiddenApplication)) {
+					array_push($this->applicationList, $file);
+				}
+			}
+		}
+		
+		$extentedProfile = ExtendedProfile::getExtendedProfile($this, $_SESSION['user']->id);
+		$this->setSuccess(null);
+		// setup the extendedProfile if needed
+		if($extentedProfile == null){
+			$extentedProfile = new ExtendedProfile($_SESSION['user']->id, self::$bootstrapApplication);
+			$extentedProfile->storeProfile($this);
+		}
+		// set the status of the applications
+		$this->resetApplicationStatus();
+		foreach ($extentedProfile->applicationList as $app){
+			$this->applicationStatus[$app] = "on";
+		}
 		
 		// Set the flag
 		$_SESSION["launchpad"] = true;
