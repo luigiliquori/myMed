@@ -57,14 +57,14 @@
 <input type='hidden' id='applicationName' value='myMemory' />
 <input type='hidden' id='accessToken' value='<?= $_SESSION['accessToken'] ?>' />
 
-<div data-role="footer" data-position="fixed">
+<div data-role="footer" data-id="myFooter" data-position="fixed">
 	<div data-role="navbar" data-iconpos="top" >
 		<ul>
-			<li><a href="?action=main" data-icon="back" ><?= _('Back'); ?></a></li>
+			<li><a href="?action=main" data-icon="home"><?= _('Homescreen') ?></a></li>
 			<li><a href="?action=ExtendedProfile" data-icon="profile" ><?= _('Profile'); ?></a></li>
-			
+			<li><a href="#" data-icon="star" ><?= _('Social'); ?></a></li>	
 		</ul>
 	</div>
-</div>	
+</div>
 <? include("footer.php"); ?>	
 </div>

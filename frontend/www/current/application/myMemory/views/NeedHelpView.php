@@ -38,9 +38,9 @@
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&libraries=places"></script>
 <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox_packed.js"></script>
 
-<!-- 	<div class="ui-bar"> -->
-<!-- 		<a href="?action=StopEmergency" data-rel="dialog" data-transition="pop" data-role="button" data-inline="false" style="width:100%;" data-theme="r" data-icon="delete">Stop Au Secours!</a>-->
-<!-- 	</div> -->
+ 	<div class="ui-bar">
+ 		<a href="?action=StopEmergency" data-rel="dialog" data-transition="pop" data-role="button" data-inline="false" style="width:100%;" data-theme="r" data-icon="delete">Stop Au Secours!</a>
+ 	</div>
 	<div data-role="content" data-theme="a">
 		<input type="hidden" id="username" value="<?=$_SESSION['user']->name; ?>" />
 		<input type="hidden" id="howmany" value="<?= sizeof($_SESSION['ExtendedProfile']->callingList); ?>" />
@@ -94,11 +94,12 @@
 		</div>
 	</div>
 	
-<div data-role="footer" data-position="fixed">
+<div data-role="footer" data-id="myFooter" data-position="fixed">
 	<div data-role="navbar" data-iconpos="top" >
 		<ul>
-			<li><a href="?action=StopEmergency" data-rel="dialog" data-transition="pop" data-icon="delete" data-theme="r"><?= _('Stop Emergency'); ?></a></li>
-			
+			<li><a href="?action=main" data-icon="home"><?= _('Homescreen') ?></a></li>
+			<li><a href="?action=ExtendedProfile" data-icon="profile" ><?= _('Profile'); ?></a></li>
+			<li><a href="#" data-icon="star" ><?= _('Social'); ?></a></li>	
 		</ul>
 	</div>
 </div>

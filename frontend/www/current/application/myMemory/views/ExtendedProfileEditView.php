@@ -4,9 +4,9 @@
 
 <!-- Header -->
 <!-- <div data-role="header" data-position="inline"> -->
-<!-- 	<a href="?action=ExtendedProfile" data-role="button"  data-icon="back">Back</a> -->
-<!-- 	<h1>Profile</h1> -->
-<!-- 	<a href="" data-role="button" data-theme="b" data-icon="check" onclick='document.ExtendedProfileForm.submit();'>Save</a> -->
+<!--  	<a href="?action=ExtendedProfile" data-role="button"  data-icon="back"><?// _('Cancel') ?></a>-->
+<!--  	<h1></h1> -->
+<!-- 	<a href="" data-role="button" data-theme="b" data-icon="check" onclick='document.ExtendedProfileForm.submit();'><?// _('Save') ?></a>-->
 <!-- </div> -->
 
 <div data-role="content" data-theme="a">
@@ -171,17 +171,17 @@
 			
 		</div>
 		<input type="hidden" name="agreement" value="true" />
+		<input type="submit" data-role="button" id="submitButton"  value="<?= _('Save') ?>" data-theme="b"/>
+		<a href="?action=ExtendedProfile" data-role="button"  data-icon="back"><?= _('Cancel') ?></a>
 	</form>
 </div>
 
-<div data-role="footer" data-position="fixed">
+<div data-role="footer" data-id="myFooter" data-position="fixed">
 	<div data-role="navbar" data-iconpos="top" >
 		<ul>
-			
-			
-			<li><a href="?action=main" data-icon="back" ><?= _('Cancel'); ?></a></li>
-			<li><a href="" data-theme="b" data-icon="check" onclick='document.ExtendedProfileForm.submit();'><?= _('Save')?></a></li>
-			
+			<li><a href="?action=main" data-icon="home"><?= _('Homescreen') ?></a></li>
+			<li><a href="?action=ExtendedProfile" data-icon="profile" class="ui-btn-active"><?= _('Profile'); ?></a></li>
+			<li><a href="#" data-icon="star" ><?= _('Social'); ?></a></li>	
 		</ul>
 	</div>
 </div>

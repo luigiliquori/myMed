@@ -1,10 +1,10 @@
 <? include("header.php"); ?>
 <? include("notifications.php")?>
 <div id="RoadSheet" data-role="page">
-<!-- 	<div data-role="header" data-theme="a"> -->
-<!-- 		<h1>Feuille de route</h1> -->
-<!-- 		<a href="?action=main" data-role="button" class="ui-btn-left" data-icon="back" >Back</a> -->
-<!-- 	</div> -->
+ 	<div data-role="header" data-theme="a">
+		<h1>Feuille de route</h1>
+ 		<a href="?action=GoingBack" data-role="button" class="ui-btn-left" data-icon="back" ><?= _('Back') ?></a>
+ 	</div>
 	<div data-role="content" class="ui-content" role="main">
 		<div id="itineraire">
 			<ul id="itineraireContent" data-role="listview" data-theme="c" ></ul>
@@ -13,12 +13,12 @@
 	</div>
 </div>
 
-<div data-role="footer" data-position="fixed">
+<div data-role="footer" data-id="myFooter" data-position="fixed">
 	<div data-role="navbar" data-iconpos="top" >
 		<ul>
-			<li><a href="?action=GoingBack" data-icon="back" ><?= _('Back'); ?></a></li>
+			<li><a href="?action=main" data-icon="home"><?= _('Homescreen') ?></a></li>
 			<li><a href="?action=ExtendedProfile" data-icon="profile" ><?= _('Profile'); ?></a></li>
-			
+			<li><a href="#" data-icon="star" ><?= _('Social'); ?></a></li>	
 		</ul>
 	</div>
 </div>

@@ -1,11 +1,22 @@
 <? include("header.php"); ?>
 <? include("notifications.php")?>
+<!--  Javascript that disables the submit button as long as the checkbox is not checked -->
+<script type="text/javascript">
+	$('#agreement').change(function() {
+		if (this.checked)
+			$('#submitButton').button('enable');
+		else
+			$('#submitButton').button('disable');
+	});
+</script>
+
+
 
 <!-- Header -->
-<!-- <div data-role="header" data-position="inline"> -->
-<!-- 	<a href="?action=logout" rel="external" data-role="button" data-theme="r" class="ui-btn-left" data-icon="delete">Exit</a> -->
-<!-- 	<h1>Profile</h1> -->
-<!-- </div> -->
+ <div data-role="header" data-position="inline">
+ 	<a href="?action=logout" rel="external" data-role="button" data-theme="r" class="ui-btn-left" data-icon="delete"><?= _('Exit') ?></a>
+ 	<h1></h1>
+</div>
 
 <div data-role="content" data-theme="a">
 	<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" data-ajax="false">
@@ -148,23 +159,8 @@
 		<!-- Agreements  -->
 		<input type="checkbox" name="agreement" id="agreement" />
 		<label for="agreement">I understand that this application needs to geotag me in case of emergency and I therefore give my consent.</label>
-		
+		<input type="submit" data-role="button" id="submitButton" name="create" value="<?= _('Save') ?>" disabled="true" data-theme="b"/>
 		
 	</form>
-</div>
-
-<div data-role="footer" data-position="fixed">
-	<div data-role="navbar" data-iconpos="top" >
-		<ul>
-		
-		<li><a href="" data-theme="b" data-icon="check" onclick='document.ExtendedProfileForm.submit();'><?= _('Save')?></a></li>
-	<?php 
-	if ($_SESSION['isMobile'])
-		echo '<li><a href="../../index.php?mobile_binary::logout" rel="external" data-icon="delete">'._('Exit').'</a></li>';
-	else 
-		echo '<li><a href="../../index.php" rel="external" data-icon="delete">'._('Exit').'</a></li>';
-	?>	
-		</ul>
-	</div>
 </div>
 <? include("footer.php"); ?>
