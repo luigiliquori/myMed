@@ -30,21 +30,8 @@ function showLoadingBar(text) {
 	setTimeout(hideLoadingBar, 10000);
 }
 
-function SetCookie (name, value, days) {
-	
-	var argv=SetCookie.arguments;
-	var argc=SetCookie.arguments.length;
-	var expires = new Date();
-	expires.setTime(expires.getTime()+(days*24*60*60*1000));
-	var path=(argc > 3) ? argv[3] : null;
-	var domain=(argc > 4) ? argv[4] : null;
-	var secure=(argc > 5) ? argv[5] : false;
-	
-	document.cookie=name+"="+escape(value)+
-		((expires==null) ? "" : ("; expires="+expires.toGMTString()))+
-		((path==null) ? "" : ("; path="+path))+
-		((domain==null) ? "" : ("; domain="+domain))+
-		((secure==true) ? "; secure" : "");
+function SetApplicationStatus(application, status) {
+	$(location).attr('href', "?action=main&applicationStore=" + application + "&status=" + status);
 }  
 
 function nextScreenshot() {

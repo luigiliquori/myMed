@@ -121,7 +121,6 @@ class ExtendedProfile
 		}
 		$this->callingList = $callingList;
 		
-		
 	}
 	
 	
@@ -153,9 +152,6 @@ class ExtendedProfile
 		// Build the request
 		$publish = new PublishRequest($handler, $dataBean);
 		$publish->send();
-		
-		
-		
 		
 	}
 	

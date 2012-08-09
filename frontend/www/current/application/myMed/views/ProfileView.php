@@ -16,10 +16,7 @@
 			
 			<div Style="position: absolute; top:50px; left: 100px; font-weight: bold; font-size: 14pt; text-align: center;">
 				<?= $_SESSION['user']->firstName ?> <?= $_SESSION['user']->lastName ?> <br /><br />
-				<div data-role="controlgroup" data-mini="true"  data-type="horizontal">
-					<a href="#updateProfile" data-role="button" data-inline="true" data-theme="b" data-icon="refresh">mise à jour</a>
-					<a href="?action=logout" data-inline="true" rel="external" data-role="button" data-theme="r" >Deconnexion</a>
-				</div>
+				<a href="#updateProfile" data-role="button" data-inline="true" data-theme="b" data-icon="refresh" data-mini="true">mise à jour</a>
 			</div>
 			
 		</div>

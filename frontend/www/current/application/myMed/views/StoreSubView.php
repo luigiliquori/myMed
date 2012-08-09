@@ -6,19 +6,20 @@
 		
 		<?php if(isset($_REQUEST["applicationStore"])) { ?>
 		
+		
 			<div Style="height:600px; width:100%; background-color: lightgray; position: absolute; top:0px; left:0px; opacity:0.5;"></div>
 		
 			<img alt="<?= $_REQUEST["applicationStore"] ?>" src="../../application/<?= $_REQUEST["applicationStore"] ?>/img/icon.png" Style="position: absolute; width: 50px;">
 			<div Style="position: relative; top:15px; left: 60px;"><b><?= $_REQUEST["applicationStore"] ?></b></div>
 			
 			<div Style="position: absolute; right: 20px">
-				<select id="flip-<?= $applicationName ?>" name="flip-<?= $applicationName ?>"
-					id="flip-<?= $applicationName ?>" data-role="slider" data-mini="true"
-					onChange="SetCookie('<?= $applicationName ?>Status', $('#flip-<?= $applicationName ?>').val(), 365);  window.location.reload()">
+				<select id="flip-<?= $_REQUEST["applicationStore"] ?>" name="flip-<?= $_REQUEST["applicationStore"] ?>"
+					id="flip-<?= $_REQUEST["applicationStore"] ?>" data-role="slider" data-mini="true"
+					onChange="SetApplicationStatus('<?= $_REQUEST["applicationStore"] ?>', $('#flip-<?= $_REQUEST["applicationStore"] ?>').val());">
 					<option value="off"
-					<?= $this->applicationStatus[$applicationName] == "off" ? "selected='selected'" : "" ?>>Off</option>
+					<?= $this->applicationStatus[$_REQUEST["applicationStore"]] == "off" ? "selected='selected'" : "" ?>>Off</option>
 					<option value="on"
-					<?= $this->applicationStatus[$applicationName] == "on"  ? "selected='selected'" : "" ?>>On</option>
+					<?= $this->applicationStatus[$_REQUEST["applicationStore"]] == "on"  ? "selected='selected'" : "" ?>>On</option>
 				</select>
 			</div>
 			
