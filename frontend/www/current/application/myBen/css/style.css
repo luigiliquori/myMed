@@ -25,7 +25,8 @@
 }
 
 .mm-left {
-	text-align: left;
+	text-align: left !important;
+	margin-left: 1em !important;
 }
 
 .readonly-input {

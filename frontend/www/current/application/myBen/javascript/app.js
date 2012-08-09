@@ -34,15 +34,6 @@ function errorMessage(msg) {
 function debug(msg) {
 	console.log(msg);
 }
-//-------------------------------------------------------------------
-// Global initializations
-//-------------------------------------------------------------------
-
-$(document).ready(function() {
-	
-
-	
-}); // End of global initializations
 
 // -------------------------------------------------------------------
 // Form validation function
@@ -125,12 +116,42 @@ function validateForm(elt) {
 	
 } // End of form validation function 
 
+
+//-------------------------------------------------------------------
+// Init made before JQuery mobile init the page 
+//-------------------------------------------------------------------
+
+// Page switch handler
+$('[data-role=page]').live("pagebeforecreate", function() {
+
+// Current page
+var page = $(this);
+var id = page.attr("id");
+
+// "data-if-small" attributes : Device reponsive design
+$('[data-if-small]', page).each(function()  {
+	
+	// Not for big screen
+	if ($("body").width() > 798) return; 
+	
+	// Attribute contain an expressino like "name:value"
+	var expr = $(this).attr("data-if-small");
+	var parts = expr.split(":");
+	
+	// Set the attribute 
+	$(this).attr(parts[0], parts[1]);
+
+});
+	
+});
+
+
 // -------------------------------------------------------------------
 // Initialization made on each page show
 // -------------------------------------------------------------------
 
 //Dictionnary of already initialized pages
-gInitialized = {}
+gShowInitialized = {};
 
 // Page switch handler
 $('[data-role=page]').live("pagebeforeshow", function() {
@@ -138,10 +159,10 @@ $('[data-role=page]').live("pagebeforeshow", function() {
 // Current page
 var page = $(this);
 var id = page.attr("id");
-	
+
 // Don't initialize twice
-if (id in gInitialized) return;
-gInitialized[id] = true;
+if (id in gShowInitialized) return;
+gShowInitialized[id] = true;
 
 // Handle "close" buttons
 $('[data-action="close"]', page).click(function () {
@@ -169,6 +190,8 @@ $('[data-check-all]', page).each(function() {
 	if (allChecked) $(this).attr('checked', 'checked').checkboxradio("refresh");
 	
 });
+
+
 
 //Init wizard (wizard pages switch)
 $("#wizard", page).each(function() {

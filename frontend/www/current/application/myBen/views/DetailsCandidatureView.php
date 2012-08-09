@@ -5,19 +5,15 @@ $candidature = $this->candidature;
 $annonce = $candidature->getAnnonce();
 $candidat = $candidature->getPublisher();
 $profCandidat = ProfileBenevole::getFromUserID($candidature->publisherID);
-debug_r($profCandidat);
+
 ?>
 
 <div data-role="page">
 
-	<? include("header-bar.php") ?>
-	
-	<div data-theme="e" data-role="header" class="left" >
-		<h3>
-            <?= _("Candidature pour l'annonce") ?>
-            "<?= $annonce->titre ?>"
-        </h3>
-	</div>
+	<? header_bar(array(
+			_("Annonces") => url("listAnnonces"),
+			$annonce->titre => url("annonce:details", array("id" => $annonce->id)),
+			_("Candidature de " . $candidature->publisherName) => null)) ?>
 	
 	<? global $READ_ONLY; $READ_ONLY=true ?>
 	<form data-role="content" action="#" >

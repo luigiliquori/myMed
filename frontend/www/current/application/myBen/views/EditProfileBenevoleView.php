@@ -4,7 +4,7 @@
 
 	<?
 	// Build breadcrumb
-	$bc = array(_("Accueil") => url("main"));
+	$bc = array();
 	
 	// Own profile ?
 	if ($this->_extendedProfile->userID == $this->user->id) {

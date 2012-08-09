@@ -7,7 +7,11 @@ $annonce = $candidature->getAnnonce();
 
 <div data-role="page">
 
-	<? include("header-bar.php") ?>
+
+	<? header_bar(array(
+			_("Annonces") => url("listAnnonces"),
+			$annonce->titre => url("annonce:details", array("id" => $annonce->id)),
+			_("Candidater") => null)) ?>
 	
 	<div data-theme="e" data-role="header" class="left" >
 		<h3><?= sprintf(_("Réponse à l'annonce '%s'"), $annonce->titre) ?></h3>

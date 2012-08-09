@@ -139,7 +139,11 @@ class ExtendedProfileController extends GuestOrUserController {
 			$this->_user->lastName = $_POST["lastName"];
 		}
 		
-		$this->_user->lang = $_POST["lang"];
+		// Update lang
+		if (isset($_POST['lang'])) {
+			$this->_user->lang = $_POST["lang"];
+		}
+		
 		$this->_user->firstName = $_POST["firstName"];
 		$this->_user->name = $this->_user->firstName . " " . $this->_user->lastName;
 		if (in_request("birthday")) {

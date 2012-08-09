@@ -5,7 +5,6 @@
 <div data-role="page" >
 
 	<? header_bar(array(
-			_("Accueil") => url("main"),
 			_("Annonces") => url("listAnnonces"),
 			$annonce->titre => null)) ?>
 			

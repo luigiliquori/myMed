@@ -3,7 +3,6 @@
 <div data-role="page" id="login">
 
 	<? header_bar(array(
-			_("Accueil") => url("main"),
 			_("Bénévoles") => null)) ?>
 	
 	<div data-role="content">

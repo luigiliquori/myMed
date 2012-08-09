@@ -116,8 +116,7 @@ function radiobuttons(
 		$horizontal = false) 
 {
 	global $PREFIX_ID, $READ_ONLY; ?>
-		
-	
+
 	<div data-role="fieldcontain">
 		<fieldset data-role="controlgroup" <? if ($horizontal) print 'data-type="horizontal" '?>>
 			<legend><?= $legend ?></legend>
@@ -265,36 +264,59 @@ function filters(
 /** Show one header bar with an optionnal breadcrumb 
  * @param $breadcrumb Array of "Label" => "URL". Use null as URL to prevent displaying link */
 function header_bar($breadcrumb = array()) {
-	global $ERROR, $SUCCESS, $LANG; ?>
-	
-	<div data-role="header">
-	
-		<a href="javascript: history.go(-1)" data-role="button" data-icon="back">Retour</a>
-	
-		<h1>
-			<a href="/application/<?= APPLICATION_NAME ?>" >
-				<?= "MyBénévolat" ?>
-			</a>
-			<? if (!isset($_SESSION['user'])): ?>
-			<a href="#lang-chooser" data-rel="dialog" data-role="button" >
-				<img src="../../../system/img/flags/<?= $LANG ?>.png">
-				<?= $LANG ?>
-			</a>
-			<? endif ?>
-		
-		</h1>
+	global $ERROR, $SUCCESS, $LANG;
 
-		<? if (isset($_SESSION['user'])) : ?>
-			<a rel="external" data-role="button" data-theme="g" data-icon="person" 
-				href="<?= url("ExtendedProfile:show") ?>" >
-				<?= $_SESSION['user']->name ?>
-			</a>
-		<? else: ?>
-			<a rel="external" data-role="button" data-theme="g" data-icon="power" 
-				href="<?= url("login") ?>" >
-				<?= _("Se connecter") ?>
-			</a>
-		<? endif ?>
+	// add "Nice Benevolat" as home in the breadcrumb
+	$breadcrumb = array_merge(
+			array("myBénévolat" => url('main')), 
+			$breadcrumb);
+?>
+	
+	<div data-role="header" data-theme="b" >
+		
+			<h3 class="mm-left">
+			<? if (sizeof($breadcrumb) != 0) : ?>
+				<? $lastLabel = end(array_keys($breadcrumb)) ?>
+				<? foreach($breadcrumb as $label => $url): ?>
+					<? if ($url != null) :?>
+						<a style="color:white !important" href="<?= $url ?>" ><?= $label ?></a> 
+					<? else: ?> 
+						<?= $label ?>
+					<? endif ?>
+					<? if ($label != $lastLabel) : ?>
+						&raquo;
+				<? endif ?>
+				<? endforeach ?>			
+			<? endif ?>
+			</h3>
+		
+			<div data-role="controlgroup" data-type="horizontal" class="ui-btn-right" >
+			<? if (isset($_SESSION['user'])) : ?>
+				<a  rel="external" data-role="button" data-theme="g" 
+					data-icon="person" 
+					data-if-small="data-iconpos:notext" 
+					title="<?= $_SESSION['user']->name ?>"
+					href="<?= url("ExtendedProfile:show") ?>" >
+					<?= $_SESSION['user']->name ?>
+				</a>
+				<a  data-ajax="false" data-role="button" data-theme="r" data-icon="power" 
+					data-if-small="data-iconpos:notext" 
+					href="<?= url("logout") ?>"
+					title="<?= _("Exit") ?>">
+					<?= _("Exit") ?>
+					</a>
+			<? else: ?>
+				<a href="#lang-chooser" data-rel="dialog" data-role="button" >
+					<img src="../../../system/img/flags/<?= $LANG ?>.png">
+					<?= $LANG ?>
+				</a>
+				<a rel="external" data-role="button" data-theme="g" data-icon="power" 
+					href="<?= url("login") ?>" >
+					<?= _("Se connecter") ?>
+				</a>
+			<? endif ?>
+
+		</div>
 		
 		<? if (!empty($ERROR)): ?>
 		<div class="ui-bar ui-bar-e" id="notification-error">
@@ -313,26 +335,10 @@ function header_bar($breadcrumb = array()) {
 			</div>
 		</div>
 		<? endif ?>
+		
 						
 	</div>
 	
-	<? if (sizeof($breadcrumb) != 0) : ?>
-		<div data-role="header" data-theme="e" class="left" >
-			<h3>
-			<? $lastLabel = end(array_keys($breadcrumb)) ?>
-			<? foreach($breadcrumb as $label => $url): ?>
-				<? if ($url != null) :?>
-					<a href="<?= $url ?>"><?= $label ?></a> 
-				<? else: ?>
-					<?= $label ?>
-				<? endif ?>
-				<? if ($label != $lastLabel) : ?>
-					&raquo;
-				<? endif ?>
-			<? endforeach ?>			
-			</h3>
-		</div>
-	<? endif ?>
 <?
 }
 

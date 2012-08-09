@@ -10,7 +10,6 @@ $annonce = $this->annonce;
 <div data-role="page" >
 
 	<? header_bar(array(
-			_("Accueil") => url("main"),
 			_("Annonces") => url("listAnnonces"),
 			$annonce->titre => url("annonce:details", array("id" => $annonce->id)),
 			_("Edition") => null)) ?>

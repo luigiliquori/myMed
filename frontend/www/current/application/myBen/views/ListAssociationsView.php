@@ -3,7 +3,6 @@
 <div data-role="page" id="login">
 
 	<? header_bar(array(
-			_("Accueil") => url("main"),
 			_("Associations") => null)) ?>
 	
 	<div data-role="content">
@@ -16,15 +15,18 @@
 		<? endif?>
 	
 		<div data-role="header" data-theme="e" >
-			<h3>
-				<?= _("Liste des associations") ?>
-				<? filters(
+			<div style="display:inline-block">
+				<div style="display:inline-block">
+					<h3 style="margin-left:1em"><?= _("Liste des associations") ?></h3>
+				</div>
+				<div style="display:inline-block">
+					<? filters(
 						"listAssociations", $this->filter,
 						array(
 							ASS_ALL => _("toutes"),
-							ASS_INVALID => _("à valider")))
-				?>
-			</h3>
+							ASS_INVALID => _("à valider"))) ?>
+				</div>
+			</div>
 		</div>
 		
 		<? if (sizeof($this->associations) == 0) : ?>

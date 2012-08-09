@@ -6,17 +6,17 @@
 		
 		<div data-role="content">
 			<ul data-role="listview" >
-				<li><a href="<?= url("<self>", array("lang" => "fr")); ?>">
+				<li><a data-ajax="false" href="<?= url("<self>", array("lang" => "fr")); ?>">
 					<img src="../../../system/img/flags/fr.png" class="ui-li-icon" >
 					Français
 				</a></li>
 				
-				<li><a href="<?= url("<self>", array("lang" => "en")); ?>">
+				<li><a data-ajax="false" href="<?= url("<self>", array("lang" => "en")); ?>">
 					<img src="../../../system/img/flags/en.png" class="ui-li-icon" >
 					English	
 				</a></li>
 				
-				<li><a href="<?= url("<self>", array("lang" => "it")); ?>">
+				<li><a data-ajax="false" href="<?= url("<self>", array("lang" => "it")); ?>">
 					<img src="../../../system/img/flags/it.png" class="ui-li-icon" >
 					Italiano
 				</a></li>

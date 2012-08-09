@@ -3,7 +3,7 @@
 
 	<? 
 	// Build breadcrumb
-	$bc = array("Accueil" => url("main"));
+	$bc = array();
 		
 	// Own profile ?
 	if ($this->_extendedProfile->userID == $this->user->id) {
@@ -16,7 +16,7 @@
 		if ($this->_extendedProfile instanceof ProfileAssociation) {
 			$bc[_("Associations")] = url("listAssociations");
 		} else {
-			$bc[_("Benevoles")] = url("listBenevoles");
+			$bc[_("Bénévoles")] = url("listBenevoles");
 		}
 		$bc[$this->_user->name] = null;	
 	}
@@ -27,19 +27,14 @@
 	?>
 	
 	<form data-role="content" method="post" action="#" >
-
-		<? if ($this->_extendedProfile->userID == $this->user->id) : ?>
-			<a data-ajax="false" data-role="button" data-theme="r" data-icon="power" data-inline="true"
-				href="<?= url("logout") ?>">
-				<? if (isset($_SESSION['launchpad'])) : ?>
-					<?= _("Quitter") ?>
-				<? else: ?>
-					<?= _("Se délogguer") ?>
-				<? endif ?>
-			</a>
-		<? endif ?>
+	
+		<? if ($this->_extendedProfile instanceof ProfileNiceBenevolat): ?>
 		
-		<? if (!$this->_extendedProfile instanceof ProfileNiceBenevolat): ?>			
+			<h3>
+				<?= _("Le profil de Nice Bénévolat ne peut être changé.") ?>
+			<h3>
+			
+		<? else: ?>		
 			<a data-ajax="false" data-role="button" data-theme="e" data-icon="edit" data-inline="true"
 				href="<?= url("extendedProfile:edit", array("id" => $this->_extendedProfile->userID)) ?>">
 				<?= _("Éditer") ?>

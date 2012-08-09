@@ -29,12 +29,17 @@ if ($this->getUserType() != USER_MYMED) :
 		<? input("password", "confirm", _("Mot de passe (confirmation)"), "", "", true) ?>
 	<? endif ?>
 	
-	<? radiobuttons("lang", array(
-			"fr" => "<img src='../../../system/img/flags/fr.png' /> Français",
-			"en" => "<img src='../../../system/img/flags/en.png' /> English",
-			"it" => "<img src='../../../system/img/flags/it.png' /> Italiano" ), 
-			$user->lang, _("Langue")) 
-	?>
+	<? if ($this->getUserType() != USER_NICE_BENEVOLAT): ?>
+		<? radiobuttons("lang", array(
+				"fr" => "<img src='../../../system/img/flags/fr.png' /> Français",
+				"en" => "<img src='../../../system/img/flags/en.png' /> English",
+				"it" => "<img src='../../../system/img/flags/it.png' /> Italiano" ), 
+				$user->lang, _("Langue")) 
+		?>
+		<div data-validate="lang" data-validate-non-empty >
+			<?= _("Vous devez choisir une langue.") ?>
+		</div>
+	<? endif ?>
 
 </div><? // End of #wizard-page div ?>
 

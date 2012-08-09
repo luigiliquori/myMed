@@ -5,9 +5,6 @@ $filters = array();
 if ($this->extendedProfile instanceof ProfileBenevole) {
 	$filters[ANN_CRITERIA] = _("mes critères");
 }
-if ($this->extendedProfile instanceof ProfileAssociation && !($this->extendedProfile instanceof ProfileNiceBenevolat)) {
-	$filters[ANN_MINE] = $this->extendedProfile->name;
-}
 
 $filters[ANN_VALID] = _("valides");
 $filters[ANN_PAST] = _("passées / promues");
@@ -17,7 +14,6 @@ $filters[ANN_ALL] = _("toutes");
 <div data-role="page" id="login">
 
 	<? header_bar(array(
-			_("Accueil") => url("main"),
 			_("Annonces") => null)) ?>
 	
 	<div data-role="content">
@@ -52,9 +48,15 @@ $filters[ANN_ALL] = _("toutes");
 		<? endif?>
 	
 		<div data-role="header" data-theme="e" >
-			<h3><?= _("Liste des annonces") ?>
-			<? filters("listAnnonces", $this->filter, $filters) ?>
-			</h3>	
+				<div style="display:inline-block"><h3 style="margin-left:1em">
+					<?= _("Liste des annonces") ?>
+					<? if ($this->getUserType() == USER_ASSOCIATION): ?>
+						<?= _("de") . " " . $this->extendedProfile->name ?>
+					<? endif ?>
+				</h3></div>
+				<div style="display:inline-block">
+					<? filters("listAnnonces", $this->filter, $filters) ?>
+				</div>
 		</div>
 		
 		<? if (sizeof($this->annonces) == 0) : ?>
