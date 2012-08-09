@@ -47,8 +47,14 @@
 			<fieldset data-role="controlgroup">
 				<div role="heading" class="ui-controlgroup-label">Your personnal Caregiver :</div>
 				<div class="ui-controlgroup-controls">
-					<label for="CareGiverName" class="ui-hidden-accessible">Caregiver name : </label>
-					<input type="text" name="CareGiverName" name="CareGiverName" value="<?= $_SESSION['ExtendedProfile']->careGiver->name ?>" placeholder="Caregiver name" />
+					<label for="CareGiverFirstname" class="ui-hidden-accessible">Caregiver Firstname : </label>
+					<input type="text" name="CareGiverFirstname" name="CareGiverFirstname" value="<?= $_SESSION['ExtendedProfile']->careGiver->firstname ?>" placeholder="Caregiver firstname" />
+					
+					<label for="CareGiverLastname" class="ui-hidden-accessible">Caregiver Lastname : </label>
+					<input type="text" name="CareGiverLastname" name="CareGiverLastname" value="<?= $_SESSION['ExtendedProfile']->careGiver->lastname ?>" placeholder="Caregiver lastname" />
+					
+					<label for="CareGiverNickname" class="ui-hidden-accessible">Caregiver Nickname : </label>
+					<input type="text" name="CareGiverNickname" name="CareGiverNickname" value="<?= $_SESSION['ExtendedProfile']->careGiver->nickname ?>" placeholder="Caregiver nickname" />
 					
 					<label for="CareGiverAddress" class="ui-hidden-accessible">Caregiver address : </label>
 					<input type="text" name="CareGiverAddress" name="CareGiverAddress" value="<?= $_SESSION['ExtendedProfile']->careGiver->address ?>" placeholder="Caregiver address"/>
@@ -67,8 +73,14 @@
 			<fieldset data-role="controlgroup">
 				<div role="heading" class="ui-controlgroup-label">Your doctor :</div>
 				<div class="ui-controlgroup-controls">
-					<label for="DoctorName" class="ui-hidden-accessible">Doctor name : </label>
-					<input type="text" name="DoctorName" name="DoctorName" value="<?= $_SESSION['ExtendedProfile']->doctor->name ?>" placeholder="Doctor name"/>
+					<label for="DoctorFirstname" class="ui-hidden-accessible">Doctor Firstname : </label>
+					<input type="text" name="DoctorFirstname" name="DoctorFirstname" value="<?= $_SESSION['ExtendedProfile']->doctor->firstname ?>" placeholder="Doctor firstname" />
+					
+					<label for="DoctorLastname" class="ui-hidden-accessible">Doctor Lastname : </label>
+					<input type="text" name="DoctorLastname" name="DoctorLastname" value="<?= $_SESSION['ExtendedProfile']->doctor->lastname ?>" placeholder="Doctor lastname" />
+					
+					<label for="DoctorNickname" class="ui-hidden-accessible">Doctor Nickname : </label>
+					<input type="text" name="DoctorNickname" name="DoctorNickname" value="<?= $_SESSION['ExtendedProfile']->doctor->nickname ?>" placeholder="Doctor nickname" />
 					
 					<label for="DoctorAddress" class="ui-hidden-accessible">Doctor address : </label>
 					<input type="text" name="DoctorAddress" name="DoctorAddress" value="<?= $_SESSION['ExtendedProfile']->doctor->address ?>" placeholder="Doctor address"/>
@@ -93,15 +105,19 @@
 			if ($callingList_lenght > 2){
 				if($callingList_lenght == 4){
 					// case where there is 2 persons
-					$p2_name	= $_SESSION['ExtendedProfile']->callingList['2']->name;
-					$p2_address = $_SESSION['ExtendedProfile']->callingList['2']->address;
-					$p2_email	= $_SESSION['ExtendedProfile']->callingList['2']->email;
-					$p2_phone	= $_SESSION['ExtendedProfile']->callingList['2']->phone;
+					$p2_firstname	= $_SESSION['ExtendedProfile']->callingList['2']->firstname;
+					$p2_lastname	= $_SESSION['ExtendedProfile']->callingList['2']->lastname;
+					$p2_nickname	= $_SESSION['ExtendedProfile']->callingList['2']->nickname;
+					$p2_address 	= $_SESSION['ExtendedProfile']->callingList['2']->address;
+					$p2_email		= $_SESSION['ExtendedProfile']->callingList['2']->email;
+					$p2_phone		= $_SESSION['ExtendedProfile']->callingList['2']->phone;
 				}
-				$p1_name	= $_SESSION['ExtendedProfile']->callingList['1']->name;
-				$p1_address = $_SESSION['ExtendedProfile']->callingList['1']->address;
-				$p1_email	= $_SESSION['ExtendedProfile']->callingList['1']->email;
-				$p1_phone	= $_SESSION['ExtendedProfile']->callingList['1']->phone;
+				$p1_firstname	= $_SESSION['ExtendedProfile']->callingList['1']->firstname;
+				$p1_lastname	= $_SESSION['ExtendedProfile']->callingList['1']->lastname;
+				$p1_nickname	= $_SESSION['ExtendedProfile']->callingList['1']->nickname;
+				$p1_address 	= $_SESSION['ExtendedProfile']->callingList['1']->address;
+				$p1_email		= $_SESSION['ExtendedProfile']->callingList['1']->email;
+				$p1_phone		= $_SESSION['ExtendedProfile']->callingList['1']->phone;
 				
 			}
 		
@@ -110,8 +126,14 @@
 		<div data-role="collapsible">
 			<h3>Second person to call</h3>
 			<div class="ui-controlgroup-controls">
-				<label for="CL_name_1" class="ui-hidden-accessible">Name : </label>
-				<input type="text" name="CL_name_1" name="CL_name_1" value="<?php if(isset($p1_name)) echo $p1_name;?>" placeholder="Name"/>
+				<label for="CL_Firstname_1" class="ui-hidden-accessible">Firstname : </label>
+				<input type="text" name="CL_Firstname_1" name="CL_Firstname_1" value="<?php if(isset($p1_firstname)) echo $p1_firstname;?>" placeholder="Firstname" />
+				
+				<label for="CL_Lastname_1" class="ui-hidden-accessible">Lastname : </label>
+				<input type="text" name="CL_Lastname_1" name="CL_Lastname_1" value="<?php if(isset($p1_lastname)) echo $p1_lastname;?>" placeholder="Lastname" />
+				
+				<label for="CL_Nickname_1" class="ui-hidden-accessible">Nickname : </label>
+				<input type="text" name="CL_Nickname_1" name="CL_Nickname_1" value="<?php if(isset($p1_nickname)) echo $p1_nickname;?>" placeholder="Nickname" />
 				
 				<label for="CL_address_1" class="ui-hidden-accessible">Address : </label>
 				<input type="text" name="CL_address_1" name="CL_address_1" value="<?php if(isset($p1_address)) echo $p1_address;?>" placeholder="Address"/>
@@ -127,8 +149,14 @@
 			<div data-role="collapsible">
 				<h3>Third person to call</h3>
 				<div class="ui-controlgroup-controls">
-					<label for="CL_name_2" class="ui-hidden-accessible">Name : </label>
-					<input type="text" name="CL_name_2" name="CL_name_2" value="<?php if(isset($p2_name)) echo $p2_name;?>" placeholder="Name"/>
+					<label for="CL_Firstname_2" class="ui-hidden-accessible">Firstname : </label>
+					<input type="text" name="CL_Firstname_2" name="CL_Firstname_2" value="<?php if(isset($p2_firstname)) echo $p2_firstname;?>" placeholder="Firstname" />
+				
+					<label for="CL_Lastname_2" class="ui-hidden-accessible">Lastname : </label>
+					<input type="text" name="CL_Lastname_2" name="CL_Lastname_2" value="<?php if(isset($p2_lastname)) echo $p2_lastname;?>" placeholder="Lastname" />
+				
+					<label for="CL_Nickname_2" class="ui-hidden-accessible">Nickname : </label>
+					<input type="text" name="CL_Nickname_2" name="CL_Nickname_2" value="<?php if(isset($p2_nickname)) echo $p2_nickname;?>" placeholder="Nickname" />
 					
 					<label for="CL_address_2" class="ui-hidden-accessible">Address : </label>
 					<input type="text" name="CL_address_2" name="CL_address_2" value="<?php if(isset($p2_address)) echo $p2_address;?>" placeholder="Address"/>

@@ -12,7 +12,9 @@
 
 	});
 </script>
-
+<!-- GOOGLE MAP -->
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&libraries=places"></script>
+<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox_packed.js"></script>
 
 	<div data-role="header" data-position="inline">
 		<a href="?action=main" data-rel="back" data-role="button" class="ui-btn-left" data-icon="back" >Back</a>
@@ -32,12 +34,12 @@
 			<?php
 			$i = 0;
 			foreach($_SESSION['ExtendedProfile']->callingList as $data) {
-				if($data['name'] == "Emergency" ) continue;
+				if($data->type == "emergency" ) continue;
 				?>
 				<li class="ui-btn ui-btn-icon-right ul-li-has-arrow ui-li" style="padding-bottom:1em;">
 					<a href="?action=itineraire" class="ui-link-inherit" onclick="goingBack(document.getElementById('address<?= $i ?>').innerHTML)">
-					<h3 class="ui-li-heading"><?= $data["name"]; ?></h3>
-					<?= '<p class="ui-li-desc" id="address'.$i.'" >'. $data['address'] . '</p>'; ?>
+					<h3 class="ui-li-heading"><?= $data->nickname; ?></h3>
+					<?= '<p class="ui-li-desc" id="address'.$i.'" >'. $data->address . '</p>'; ?>
 					</a>
 				</li>
 				

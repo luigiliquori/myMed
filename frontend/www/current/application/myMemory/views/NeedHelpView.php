@@ -15,7 +15,7 @@
 		// Récupération des numéros a appeler
 		$k = count($_SESSION['ExtendedProfile']->callingList);
 		for($i=0; $i < $k; $i++) {
-			$str_numbers .= $_SESSION['ExtendedProfile']->callingList[$i]['phone'];
+			$str_numbers .= $_SESSION['ExtendedProfile']->callingList[$i]->phone;
 			if ($i != $k-1) $str_numbers .= '::';
 		}	
 		
@@ -34,7 +34,9 @@
 	?>
 
 </script>
-
+<!-- GOOGLE MAP -->
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&libraries=places"></script>
+<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox_packed.js"></script>
 
 	<div class="ui-bar">
 		<a href="?action=StopEmergency" data-rel="dialog" data-transition="pop" data-role="button" data-inline="false" style="width:100%;" data-theme="r" data-icon="delete">Stop Au Secours!</a>
@@ -57,8 +59,8 @@
 				foreach($_SESSION['ExtendedProfile']->callingList as $entry) {
 					echo '<li id="line'.$i.'">';
 					echo '<a id="call'.$i.'"href="index.php?action=callEnded&mobile_binary::call" >';
-					echo '<h3>'.$i.' - '.$entry["name"] .'</h3>';
-					echo '<p id="num'.$i.'">'.$entry['phone'].'</p>';
+					echo '<h3>'.$i.' - '.$entry->nickname .'</h3>';
+					echo '<p id="num'.$i.'">'.$entry->phone.'</p>';
 					echo '</a>';
 					echo '</li>'; 
 					$i++;
@@ -77,8 +79,8 @@
 			$i = 1;
 			foreach($_SESSION['ExtendedProfile']->callingList as $entry) {
 				echo '<li id="line'.$i.'">';
-				echo '<h3>'.$i.' - '.$entry["name"] .'</h3>';
-				echo '<p id="mail'.$i.'">'.$entry['email'].'</p>';
+				echo '<h3>'.$i.' - '.$entry->nickname .'</h3>';
+				echo '<p id="mail'.$i.'">'.$entry->email.'</p>';
 				echo '</li>';
 				$i++;
 			}?>
