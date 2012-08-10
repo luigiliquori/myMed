@@ -40,7 +40,7 @@
 				<?php if ($this->applicationStatus[$applicationName] == "on") { ?>
 					<li data-icon="refresh">
 			    		<img alt="<?= $applicationName ?>" src="../../application/<?= $applicationName ?>/img/icon.png" class="ui-li-icon" />
-					    	<a href="<?= MYMED_ROOT ?>application/<?= $applicationName ?>/index.php?action=extendedProfile">
+					    	<a href="<?= APP_ROOT ?>/../<?= $applicationName ?>/index.php?action=extendedProfile">
 						    	<?= $applicationName ?>
 						    	<div Style="position: relative; left: 0px;">
 							    	<?php for($i=1 ; $i <= 5 ; $i++) { ?>
