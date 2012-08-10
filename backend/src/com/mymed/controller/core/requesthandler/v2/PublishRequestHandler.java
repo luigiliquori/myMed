@@ -263,6 +263,14 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 			/* make sure to put dataId pointer */
 			mdataMap.put("id", dataId);
 			
+			// look if the content is signed
+	        MUserBean publisher = null;
+	        if (dataMap.containsKey("user")){
+	        	publisher = profileManager.read(dataMap.get("user"));
+	        } else if (mdataMap.containsKey("user")){
+	        	publisher = profileManager.read(mdataMap.get("user"));
+	        }
+			
 			switch (code) {
 
 			case CREATE:
@@ -273,14 +281,6 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 				 * 
 				 * @see PubSub.getIndex
 				 */
-				
-				// look if the content is signed
-		        MUserBean publisher = null;
-		        if (dataMap.containsKey("user")){
-		        	publisher = profileManager.read(dataMap.get("user"));
-		        } else if (mdataMap.containsKey("user")){
-		        	publisher = profileManager.read(mdataMap.get("user"));
-		        }
 		        
 		        // data insertion on main Thread
 		        pubsubManager.create(rows, dataId, mdataMap);
@@ -322,8 +322,10 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 				/* creates data */
 				pubsubManager.create(prefix, dataId, dataMap);
 				
-				if (dataMap.containsKey("_notify"))
-					pubsubManager.sendEmailsToSubscribers(prefix, dataId, dataMap, null);
+				if (dataMap.containsKey("_notify")){
+					dataMap.remove("_notify");
+					pubsubManager.sendEmailsToSubscribers(prefix, dataId, dataMap, publisher);
+				}
 				
 				break;
 

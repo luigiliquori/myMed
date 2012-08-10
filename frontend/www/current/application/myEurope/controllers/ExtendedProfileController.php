@@ -63,15 +63,11 @@ class ExtendedProfileController extends AuthenticatedController
 		
 		$edit = ($_POST['form'] == "edit");
 		
-		if(!$_POST['checkCondition']){
-			$this->error = "Vous devez accepter les conditions d'utilisation.";
-			if (!$edit)
-				$this->renderView("ExtendedProfileCreate");
-			else
-				$this->renderView("ExtendedProfileEdit");
-		}
-		
 		if (!$edit){
+			if(!$_POST['checkCondition']){
+				$this->error = "Vous devez accepter les conditions d'utilisation.";
+				$this->renderView("ExtendedProfileCreate");
+			}
 			$permission = (
 					(strpos($_SESSION['user']->email, "@inria.fr") !== false)
 					|| $_SESSION['user']->email=="bredasarah@gmail.com"
@@ -80,7 +76,7 @@ class ExtendedProfileController extends AuthenticatedController
 			$_POST['permission'] = $permission;
 			
 		} else { //check password
-			$_POST['permission'] = $_SESSION['myEuropeProfile']->permission;//let's not lose the permission
+			
 			$pass	= hash("sha512", $_POST['password']);
 			unset($_POST['password']);
 			if( empty($pass) ){
@@ -99,6 +95,10 @@ class ExtendedProfileController extends AuthenticatedController
 				debug("error");	
 				$this->renderView("ExtendedProfileEdit");
 			}
+			
+			$_POST['permission'] = $_SESSION['myEuropeProfile']->permission;//let's not lose the permission
+			$myrep = $_SESSION['myEuropeProfile']->reputation; //and reputation
+			$prts = $_SESSION['myEuropeProfile']->partnerships; //and reputation
 		}
 
 		debug($_SESSION['user']->email);
@@ -137,9 +137,13 @@ class ExtendedProfileController extends AuthenticatedController
 			 */
 			
 			if ($edit){
+				$_SESSION['myEuropeProfile']->reputation = $myrep;
+				$_SESSION['myEuropeProfile']->partnerships = $prts;
+				
 				$this->redirectTo("Main", array(), "#profile");
 			} else {
 				$_SESSION['myEuropeProfile']->permission = $permission;
+				
 				if ($permission <= 0)
 					$this->renderView("WaitingForAccept");
 				else

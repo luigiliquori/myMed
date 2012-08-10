@@ -44,10 +44,17 @@ class ExtendedProfileRequired extends AuthenticatedController {
 			$this->renderView("ExtendedProfileCreate");
 		}
 		else {
-
+			//organize projects
+			$partnerships = array();
+			foreach ($result as $k=>$v){
+				if (strpos($k, "part") === 0){
+					array_push($partnerships, $v);
+				}
+			}
 			$_SESSION['myEuropeProfile'] = (object) $result;
 			$this->success = "";
 			$_SESSION['myEuropeProfile']->reputation = $myrep;
+			$_SESSION['myEuropeProfile']->partnerships = $partnerships;
 			
 			if ($_SESSION['myEuropeProfile']->permission <= 0)
 				$this->renderView("WaitingForAccept");

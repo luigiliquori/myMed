@@ -26,9 +26,9 @@
 		<br />
 		<ul data-role="listview" class="blog" data-inset="true" data-theme="d" data-filter="true" data-filter-placeholder="">
 			<? foreach($this->messages as $k => $v) : ?>
-			<? $pieces = explode("_", $k, 3); ?>
+			<? $pieces = explode("^", $k, 2); ?>
 			<li>
-				<h3><?= $pieces[2] ?>:</h3>
+				<h3><?= getUser($pieces[1]) ?>:</h3>
 				<p><?= urldecode($v) ?></p>
 				<p class="ui-li-aside"><strong><?= date('d/m/Y', $pieces[0]) ?></strong> <?=  date('H:i:s', $pieces[0]) ?></p>
 				<span>

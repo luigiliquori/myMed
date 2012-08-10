@@ -52,6 +52,22 @@ $("#search").live("pagecreate", function() {
 	});
 });
 
+function sortBy( i ){
+	
+	var lis = $('#matchinglist li');
+	if (0 == i) {
+		lis.sort(function(a, b){
+		    return $(a).attr('data-time') < $(b).attr('data-time') ? 1 : -1;
+		});
+	} else {
+		lis.sort(function(a, b){
+		    return $(a).attr('data-id') > $(b).attr('data-id') ? 1 : -1;
+		});
+	}
+	$('#matchinglist').html(lis);
+	$('#matchinglist').listview('refresh');
+}
+
 function toggleSub(code, application, namespace, id, index) {
 	$.get('../../lib/dasp/ajax/Subscribe', {
 		code : code,
@@ -74,7 +90,7 @@ function rate(feedback, id, user) {
 		console.log(data);
 		var response = JSON.parse(data);
 		alert(response.description);
-		location.reload(0);
+		//location.reload(0);
 		
 	});
 }

@@ -23,7 +23,7 @@ include("header.php"); ?>
 		<!-- Tabs -->
 		<div data-role="header" data-theme="c" data-position="fixed">
 			<? tab_bar("login") ?>
-			<? include("notifications.php")?>
+			<? include("notifications.php"); ?>
 		</div>
 
 		<!-- Login form -->
@@ -59,7 +59,6 @@ include("header.php"); ?>
 		<!-- Tabs -->
 		<div data-role="header" data-theme="c" data-position="fixed">
 			<? tab_bar("register") ?>
-			<? include("notifications.php")?>
 		</div>
 
 		<!--  Register form -->

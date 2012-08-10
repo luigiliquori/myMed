@@ -17,6 +17,7 @@ function tab_bar_white($activeTab) {
 <div data-role="page" id="home">
 	<div data-role="header" data-theme="c" data-position="fixed">
 		<? tab_bar_white("home") ?>
+		<? include("notifications.php"); ?>
 	</div>
 	<div data-role="content" style="text-align:center;">
 		<h3 class="ui-link"><?= _('Partnership') ?>:</h3>
@@ -35,14 +36,19 @@ function tab_bar_white($activeTab) {
 			type="button"  data-theme="d" data-inline="true"><?= _('Beta Testers Blog') ?></a>
 		
 		<br /><br />
-		<select data-theme="c" data-mini="true" name="slider" id="flip-d" data-role="slider"
-			onchange="if ($(this).val()==1){$('#AboutContent').fadeOut('slow');} else {$('#AboutContent').fadeIn('slow')};">
-			<option value="1"><?= _("About") ?></option>
-			<option value="0"><?= _("About") ?></option>
-		</select>
-		<div id="AboutContent" style="display:none;">
+		LOGOS<br />
+		
+		<div data-role="collapsible" data-mini="true" data-inline="true">
+			<h3 style="margin:auto;width:136px;"><?= _("About") ?></h3>
 			<?= about(); ?>
 		</div>
+		
+		<span class='st_googleplus_large' displayText='Google +'></span>
+		<span class='st_facebook_large' displayText='Facebook'></span>
+		<span class='st_twitter_large' displayText='Tweet'></span>
+		<span class='st_sharethis_large' displayText='ShareThis'></span>
+		
+		
 		
 	</div>
 </div>
@@ -50,7 +56,6 @@ function tab_bar_white($activeTab) {
 <div data-role="page" id="profile">
 	<div data-role="header" data-theme="c" data-position="fixed">
 		<? tab_bar_white("profile") ?>
-		<? include("notifications.php")?>
 	</div>
 
 	<div data-role="content" >
@@ -237,10 +242,10 @@ function tab_bar_white($activeTab) {
 		    
 			
 			<fieldset data-role="controlgroup">
-				<legend><b>Thèmes:</b></legend>
+				<legend><b><?= _('Themes') ?>:</b></legend>
 								
 				<input type="checkbox" name="education" id="checkbox-1a"/>
-				<label for="checkbox-1a">Education, culture & sport</label>
+				<label for="checkbox-1a"><?= _('Education') ?> <?= _('Culture') ?> <?= _('Sport') ?></label>
 
 				<input type="checkbox" name="social" id="checkbox-2a"/>
 				<label for="checkbox-2a">Emploi, affaires sociales & égalité des chances</label>
@@ -267,13 +272,13 @@ function tab_bar_white($activeTab) {
 				<label for="checkbox-9a">Santé & protection des consommateurs</label>
 				
 		    </fieldset>
-		    <input type="search" name="themes" id="text" placeholder="autres mots clés" value="" />
+		    <input type="search" name="themes" id="text" placeholder="autres mots clés séparés par un espace ou +" value="" />
 		    
 			<br />
 		 	<fieldset data-role="controlgroup">
-				<legend><b>Pays:</b></legend>
-				<input type="checkbox" name="france" id="checkbox-1b" checked="checked"/>
-				<label for="checkbox-1b">France</label>
+				<legend><b><?= _('Areas') ?>:</b></legend>
+				<input type="checkbox" name="Alpes-Maritimes" id="checkbox-1b" checked="checked"/>
+				<label for="checkbox-1b">Alpes-Maritimes</label>
 
 				<input type="checkbox" name="italy" id="checkbox-2b"/>
 				<label for="checkbox-2b">Italie</label>
@@ -324,7 +329,7 @@ function tab_bar_white($activeTab) {
 
 		
 		<br />
-		Répondre:<textarea></textarea>
+		Poster:<textarea></textarea>
 		<input type="submit" data-theme="b"  data-mini="true" data-inline="true" value="Publier" />
 	</div>
 </div>
@@ -359,7 +364,7 @@ function tab_bar_white($activeTab) {
 
 		
 		<br />
-		Répondre:<textarea></textarea>
+		Poster:<textarea></textarea>
 		<input type="submit" data-theme="b"  data-mini="true" data-inline="true" value="Publier" />
 		
 	</div>

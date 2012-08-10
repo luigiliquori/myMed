@@ -29,7 +29,9 @@ class BlogController extends AuthenticatedController {
 // 				}
 // 			}
 			
-			$k = time()."_".$_SESSION['user']->id;
+			$k = time()."^".$_SESSION['user']->id;
+			
+			debug($k);
 			
 			$data = array(
 					$k => isset($_POST['text'])?urlencode(nl2br($_POST['text'])):urlencode("...")

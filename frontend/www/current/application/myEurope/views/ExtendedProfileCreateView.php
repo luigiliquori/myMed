@@ -3,7 +3,7 @@
 <div data-role="page">
 	<div data-role="header" data-theme="c" data-position="fixed">
 		<? tabs_2(APPLICATION_NAME) ?>
-		<? include("notifications.php")?>
+		<? include("notifications.php"); ?>
 	</div>
 	<div data-role="content" style="text-align:center;">
 		<br /><br />
@@ -31,7 +31,7 @@
 	</div>
 	<div data-role="content">
 		<p>
-		<?= _("Hello<br/>,<br/>This is your first time on myEurope.<br/>
+		<?= _("Hello,<br/><br/>This is your first time on myEurope.<br/>
 				 Please fill in your profile <br/>
 			You are ?<br/> ") ?>
 

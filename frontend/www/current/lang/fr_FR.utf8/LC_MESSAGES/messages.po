@@ -7,147 +7,110 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-07 20:47+0200\n"
-"PO-Revision-Date: 2012-08-08 17:09+0100\n"
+"POT-Creation-Date: 2012-08-10 10:32+0200\n"
+"PO-Revision-Date: 2012-08-10 10:37+0100\n"
 "Last-Translator: cyril <cyril.auburtin@inria.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: MainView.php:8
-#: MainView.php:112
-msgid "Share"
-msgstr "Partager"
-
 #: MainView.php:10
-#: AdminView.php:24
+#: AdminView.php:25
 msgid "Admin"
 msgstr "Admin"
 
 #: MainView.php:11
-#: ExtendedProfileDisplayView.php:9
+#: ExtendedProfileDisplayView.php:6
+#: ExtendedProfileEditView.php:6
 msgid "Profile"
 msgstr "Profil"
 
-#: MainView.php:22
+#: MainView.php:23
 msgid "Partnership"
 msgstr "Partenariat"
 
-#: MainView.php:24
-#: MainView.php:167
+#: MainView.php:25
+#: MainView.php:162
 msgid "Search a partner"
 msgstr "Rechercher une offre"
 
-#: MainView.php:25
-#: MainView.php:240
+#: MainView.php:26
+#: MainView.php:235
 msgid "Insert an offer"
 msgstr "Déposer une offre "
 
-#: MainView.php:28
+#: MainView.php:29
 msgid "Infomations"
 msgstr "Informations"
 
-#: MainView.php:31
+#: MainView.php:32
 msgid "About European programs"
 msgstr "S'informer sur les programmes"
 
-#: MainView.php:33
+#: MainView.php:34
 #: BlogAlcotraView.php:16
 msgid "Alcotra Blog"
 msgstr "Blog Alcotra"
 
-#: MainView.php:35
+#: MainView.php:36
 #: BlogTestersView.php:15
 msgid "Beta Testers Blog"
 msgstr "Blog Beta testeurs"
 
-#: MainView.php:40
 #: MainView.php:41
+#: MainView.php:42
 #: LoginView.php:41
 #: LoginView.php:42
 msgid "About"
 msgstr "A propos"
 
-#: MainView.php:57
-#: ExtendedProfileDisplayView.php:19
-#: ExtendedProfileEditView.php:18
-msgid "Role"
-msgstr "Rôle"
+#: MainView.php:44
+#: MainView.php:107
+msgid "Share"
+msgstr "Partager"
 
-#: MainView.php:58
-#: ExtendedProfileDisplayView.php:20
-msgid "Activity"
-msgstr "Activité"
-
-#: MainView.php:59
-#: LoginView.php:32
-#: LoginView.php:76
-#: ExtendedProfileDisplayView.php:21
-#: ExtendedProfileCreateView.php:79
-#: ExtendedProfileCreateView.php:127
-#: ExtendedProfileCreateView.php:171
-#: ExtendedProfileCreateView.php:212
-#: ExtendedProfileCreateView.php:265
-#: ExtendedProfileCreateView.php:368
-#: ExtendedProfileEditView.php:33
-#: AdminView.php:6
-msgid "Email"
-msgstr ""
-
-#: MainView.php:60
-#: ExtendedProfileCreateView.php:124
-#: ExtendedProfileEditView.php:30
-msgid "Address"
-msgstr "Adresse"
-
-#: MainView.php:61
-#: ExtendedProfileDisplayView.php:23
-#: ExtendedProfileEditView.php:39
-msgid "Description"
-msgstr "Description"
-
-#: MainView.php:77
-#: ExtendedProfileCreateView.php:14
+#: MainView.php:70
+#: ExtendedProfileCreateView.php:13
 msgid "French"
 msgstr "Français"
 
-#: MainView.php:79
-#: ExtendedProfileCreateView.php:16
+#: MainView.php:72
+#: ExtendedProfileCreateView.php:15
 msgid "Italian"
 msgstr "Italien"
 
-#: MainView.php:81
-#: ExtendedProfileCreateView.php:18
+#: MainView.php:74
+#: ExtendedProfileCreateView.php:17
 msgid "English"
 msgstr "Anglais"
 
-#: MainView.php:95
+#: MainView.php:90
 msgid "Restricted page for admins"
 msgstr "Page réservée aux admins"
 
-#: MainView.php:97
-#: MainView.php:315
-#: MainView.php:351
+#: MainView.php:92
+#: MainView.php:310
+#: MainView.php:346
 #: BlogAlcotraView.php:8
 #: BlogTestersView.php:8
-#: parts/utils.php:118
-#: parts/utils.php:134
-#: parts/utils.php:148
-#: parts/utils.php:161
-#: parts/utils.php:171
+#: parts/utils.php:114
+#: parts/utils.php:130
+#: parts/utils.php:144
+#: parts/utils.php:157
+#: parts/utils.php:167
 msgid "Back"
 msgstr "Retour"
 
-#: MainView.php:99
+#: MainView.php:94
 msgid "Access"
 msgstr "Accéder"
 
-#: MainView.php:180
+#: MainView.php:175
 msgid "Themes"
 msgstr "Thématiques"
 
-#: MainView.php:183
+#: MainView.php:178
 msgid "All"
 msgstr "Tout"
 
@@ -158,135 +121,192 @@ msgstr "Connexion"
 
 #: LoginView.php:13
 msgid "Registration"
-msgstr "Réputation"
+msgstr "Inscription"
+
+#: LoginView.php:32
+#: LoginView.php:75
+#: ExtendedProfileDisplayView.php:18
+#: ExtendedProfileCreateView.php:78
+#: ExtendedProfileCreateView.php:126
+#: ExtendedProfileCreateView.php:170
+#: ExtendedProfileCreateView.php:211
+#: ExtendedProfileCreateView.php:264
+#: ExtendedProfileCreateView.php:321
+#: ExtendedProfileCreateView.php:367
+#: ExtendedProfileEditView.php:47
+msgid "Email"
+msgstr ""
 
 #: LoginView.php:33
-#: LoginView.php:80
+#: LoginView.php:79
 msgid "Password"
 msgstr "Mot de passe"
 
-#: LoginView.php:68
+#: LoginView.php:67
 msgid "first name"
 msgstr "Prénom"
 
-#: LoginView.php:72
+#: LoginView.php:71
 msgid "last name"
 msgstr "Nom"
 
-#: LoginView.php:84
+#: LoginView.php:83
 msgid "Password (confirmation)"
 msgstr "Mot de passe (confirmation)"
 
-#: LoginView.php:97
-#: ExtendedProfileDisplayView.php:22
-#: ExtendedProfileCreateView.php:384
-#: ExtendedProfileEditView.php:24
-#: ExtendedProfileEditView.php:47
+#: LoginView.php:96
+#: ExtendedProfileDisplayView.php:19
+#: ExtendedProfileCreateView.php:383
+#: ExtendedProfileEditView.php:7
+#: ExtendedProfileEditView.php:61
 msgid "Validate"
 msgstr "Valider"
 
 #: DetailsView.php:6
-msgid "Details for the offer"
+#, fuzzy
+msgid "Partnership details"
+msgstr "Partenariat"
+
+#: DetailsView.php:17
+#, fuzzy
+msgid "Partners"
+msgstr "Partenariat"
+
+#: DetailsView.php:28
+msgid "Edit my offer"
+msgstr ""
+
+#: DetailsView.php:30
+#, fuzzy
+msgid "Delete my offer"
 msgstr "Détails de l'offre"
 
-#: ExtendedProfileDisplayView.php:10
+#: DetailsView.php:33
+#, fuzzy
+msgid "Partnership request"
+msgstr "Partenariat"
+
+#: ExtendedProfileDisplayView.php:7
 msgid "Add to contacts"
 msgstr "Ajouter aux contacts"
 
-#: ExtendedProfileDisplayView.php:25
+#: ExtendedProfileDisplayView.php:16
+#: ExtendedProfileEditView.php:18
+msgid "Role"
+msgstr "Rôle"
+
+#: ExtendedProfileDisplayView.php:17
+#: ExtendedProfileEditView.php:38
+msgid "Activity"
+msgstr "Activité"
+
+#: ExtendedProfileDisplayView.php:20
+#: ExtendedProfileEditView.php:53
+msgid "Description"
+msgstr "Description"
+
+#: ExtendedProfileDisplayView.php:22
 msgid "Reputation"
 msgstr "Réputation"
 
-#: ExtendedProfileCreateView.php:11
+#: ExtendedProfileCreateView.php:10
 msgid "Select your language"
 msgstr "Choisissez votre langue"
 
-#: ExtendedProfileCreateView.php:22
+#: ExtendedProfileCreateView.php:21
 msgid "Next"
 msgstr "Suivant"
 
-#: ExtendedProfileCreateView.php:35
+#: ExtendedProfileCreateView.php:34
 msgid ""
-"Hello<br/>,<br/>This is your first time on myEurope.<br/>\n"
+"Hello,<br/><br/>This is your first time on myEurope.<br/>\n"
 "\t\t\t\t Please fill in your profile <br/>\n"
 "\t\t\tYou are ?<br/> "
 msgstr ""
-"Bonjour<br/>,<br/>C'est la première fois que vous venez sur myEurope.<br/>\n"
+"Bonjour,<br/><br/>C'est la première fois que vous venez sur myEurope.<br/>\n"
 "\t\t\t\t Merci de renseigner votre profil <br/>\n"
 "\t\t\tVous êtes ?<br/> "
 
-#: ExtendedProfileCreateView.php:40
+#: ExtendedProfileCreateView.php:39
+#: ExtendedProfileEditView.php:20
 msgid "Association"
 msgstr ""
 
-#: ExtendedProfileCreateView.php:41
+#: ExtendedProfileCreateView.php:40
+#: ExtendedProfileEditView.php:22
 msgid "Company"
 msgstr "Entreprise"
 
-#: ExtendedProfileCreateView.php:42
+#: ExtendedProfileCreateView.php:41
+#: ExtendedProfileEditView.php:24
 msgid "State-owned enterprise"
 msgstr "Etablissement public"
 
-#: ExtendedProfileCreateView.php:43
+#: ExtendedProfileCreateView.php:42
+#: ExtendedProfileEditView.php:26
 msgid "Town hall"
 msgstr "Mairie"
 
-#: ExtendedProfileCreateView.php:44
+#: ExtendedProfileCreateView.php:43
+#: ExtendedProfileEditView.php:28
 msgid "Region"
 msgstr "Région"
 
-#: ExtendedProfileCreateView.php:45
+#: ExtendedProfileCreateView.php:44
+#: ExtendedProfileEditView.php:30
 msgid "Department"
 msgstr "Département"
 
-#: ExtendedProfileCreateView.php:46
+#: ExtendedProfileCreateView.php:45
+#: ExtendedProfileEditView.php:32
 msgid "Other"
 msgstr "Autre"
 
-#: ExtendedProfileCreateView.php:67
+#: ExtendedProfileCreateView.php:66
 msgid "Association Name"
 msgstr "Nom de l'association"
 
-#: ExtendedProfileCreateView.php:82
-#: ExtendedProfileCreateView.php:130
-#: ExtendedProfileCreateView.php:174
-#: ExtendedProfileCreateView.php:215
-#: ExtendedProfileCreateView.php:268
-#: ExtendedProfileCreateView.php:325
-#: ExtendedProfileCreateView.php:371
-#: ExtendedProfileEditView.php:36
+#: ExtendedProfileCreateView.php:81
+#: ExtendedProfileCreateView.php:129
+#: ExtendedProfileCreateView.php:173
+#: ExtendedProfileCreateView.php:214
+#: ExtendedProfileCreateView.php:267
+#: ExtendedProfileCreateView.php:324
+#: ExtendedProfileCreateView.php:370
+#: ExtendedProfileEditView.php:50
 msgid "Phone"
 msgstr "Téléphone"
 
-#: ExtendedProfileCreateView.php:115
+#: ExtendedProfileCreateView.php:114
 msgid "Company name"
 msgstr "Entreprise"
 
-#: ExtendedProfileCreateView.php:118
+#: ExtendedProfileCreateView.php:117
 msgid "Commercial activity"
 msgstr "Activité commerciale"
 
-#: ExtendedProfileCreateView.php:121
-#: ExtendedProfileEditView.php:27
+#: ExtendedProfileCreateView.php:120
+#: ExtendedProfileEditView.php:41
 msgid "Siret"
 msgstr "Siret"
 
-#: ExtendedProfileCreateView.php:322
-msgid "EMail"
-msgstr ""
+#: ExtendedProfileCreateView.php:123
+#: ExtendedProfileEditView.php:44
+msgid "Address"
+msgstr "Adresse"
 
-#: ExtendedProfileEditView.php:21
+#: ExtendedProfileEditView.php:35
 msgid "Name"
 msgstr "Nom"
 
-#: ExtendedProfileEditView.php:43
+#: ExtendedProfileEditView.php:57
 msgid "Mot de passe"
 msgstr ""
 
 #: PublishSuccessView.php:8
 #: WaitingForAcceptView.php:8
-#: parts/utils.php:29
-#: parts/utils.php:57
+#: parts/utils.php:25
+#: parts/utils.php:53
 msgid "Exit"
 msgstr "Quitter"
 
@@ -305,24 +325,29 @@ msgid ""
 "\t\t\tfor validation"
 msgstr "Félicitations! Votre profil a été envoyé à l'équipe de myEurope pour validation"
 
+#: AdminView.php:6
+msgid "Users"
+msgstr ""
+
 #: AdminView.php:7
-msgid "Content"
+#, fuzzy
+msgid "Contents"
 msgstr "Contenu"
 
-#: AdminView.php:22
+#: AdminView.php:23
 msgid "New user waiting for validation"
 msgstr "Nouvel utilisateur en attente de validation"
 
-#: AdminView.php:23
+#: AdminView.php:24
 msgid "Normal user"
 msgstr "Utilisateur normal"
 
-#: AdminView.php:30
-#: AdminView.php:61
+#: AdminView.php:31
+#: AdminView.php:62
 msgid "Filter results"
 msgstr "Filtrer les résultats"
 
-#: AdminView.php:45
+#: AdminView.php:46
 msgid "Increase"
 msgstr ""
 
@@ -346,15 +371,14 @@ msgstr "Thème4"
 msgid "Theme5"
 msgstr "Thème5"
 
-#: BlogAlcotraView.php:34
-#: BlogTestersView.php:23
+#: BlogAlcotraView.php:36
+#: BlogTestersView.php:25
+#: parts/utils.php:235
 msgid "delete"
 msgstr "Supprimer"
 
-#: BlogAlcotraView.php:42
-#: BlogAlcotraView.php:43
-#: BlogTestersView.php:31
-#: BlogTestersView.php:32
+#: BlogAlcotraView.php:46
+#: BlogTestersView.php:35
 msgid "reply"
 msgstr "Répondre"
 
@@ -363,26 +387,68 @@ msgid "Results"
 msgstr "Résultats"
 
 #: ResultsView.php:11
+#, fuzzy
+msgid "Sort by"
+msgstr "Trier par date"
+
+#: ResultsView.php:13
+#, fuzzy
+msgid "partner"
+msgstr "Partenariat"
+
+#: ResultsView.php:14
+#, fuzzy
+msgid "date"
+msgstr "Valider"
+
+#: ResultsView.php:21
+#: ResultsView.php:22
+#, fuzzy
+msgid "Subscribe"
+msgstr "Se désabonner"
+
+#: ResultsView.php:27
 msgid "filter"
 msgstr "filtrer"
 
-#: ResultsView.php:14
-msgid "Sort by date"
-msgstr "Trier par date"
-
-#: ResultsView.php:15
-msgid "Sort by partner"
-msgstr "Trier par partenaire"
-
-#: ResultsView.php:19
-msgid "Subscribe to this search"
-msgstr "Souscrire aux futurs résultats"
-
-#: ResultsView.php:20
-msgid "Unsubscribe"
-msgstr "Se désabonner"
-
-#: ResultsView.php:25
+#: ResultsView.php:31
 msgid "Your search didn't match any result."
 msgstr "Votre recherche n'a abouti à aucun résultat."
+
+#: parts/utils.php:212
+#: parts/utils.php:286
+#, fuzzy
+msgid "role"
+msgstr "Rôle"
+
+#: parts/utils.php:220
+#: parts/utils.php:264
+msgid "email"
+msgstr ""
+
+#: parts/utils.php:221
+#: parts/utils.php:265
+#, fuzzy
+msgid "phone"
+msgstr "Téléphone"
+
+#: parts/utils.php:222
+#: parts/utils.php:266
+#, fuzzy
+msgid "address"
+msgstr "Adresse"
+
+#: parts/utils.php:275
+#, fuzzy
+msgid "Active partnerships"
+msgstr "Partenariat"
+
+#: parts/utils.php:283
+msgid "edit"
+msgstr ""
+
+#~ msgid "Sort by partner"
+#~ msgstr "Trier par partenaire"
+#~ msgid "Subscribe to this search"
+#~ msgstr "Souscrire aux futurs résultats"
 

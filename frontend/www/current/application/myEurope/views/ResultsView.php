@@ -3,22 +3,28 @@
 <div data-role="page" id="results">
 	<div data-role="header" data-theme="c" data-position="fixed">
 		<? tabs_3empty(_("Results")) ?>
-		<? include("notifications.php")?>
 	</div>
 
 	<div data-role="content">
 
-		<ul data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="<?= _("filter") ?>">
-
-			<select data-theme="c" data-mini="true" name="slider2" id="flip-a2" data-role="slider" onchange="">
-				<option value="3"><?= _("Sort by date") ?></option>
-				<option value="0"><?= _("Sort by partner") ?></option>
+		<div data-role="fieldcontain" style="display:inline-block;">
+			<label for="flip-a2"><?= _("Sort by") ?>:</label>
+			<select data-theme="e" data-mini="true" name="slider2" id="flip-a2" data-role="slider" onchange="sortBy($(this).val());">
+				<option value="3"><?= _("partner") ?></option>
+				<option value="0"><?= _("date") ?></option>
 			</select>
+		</div>
+		
+		<div data-role="fieldcontain" style="float: right;">
 			<select data-theme="e" data-mini="true" name="slider" id="flip-a" data-role="slider"
 				onchange="toggleSub($(this).val(), '<?= APPLICATION_NAME ?>', '<?= $_GET['namespace'] ?>', '<?= isset($_GET['id'])?$_GET['id']:'' ?>','<?= urlencode(json_encode($this->index)) ?>');">
-				<option value="3"><?= _("Subscribe to this search") ?></option>
-				<option value="0"><?= _("Unsubscribe") ?></option>
+				<option value="3"><?= _("Subscribe") ?></option>
+				<option value="0"><?= _("Subscribe") ?></option>
 			</select>
+		</div>
+		
+		
+		<ul id="matchinglist" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="<?= _("filter") ?>" style="clear:both;">
 
 			<? if (count($this->result) == 0) :?>
 			<li>
@@ -27,8 +33,10 @@
 			<? endif ?>
 
 			<? foreach($this->result as $item) : ?>
-			<li><a href="./?action=details&namespace=<?= $_GET['namespace'] ?>&id=<?= urlencode($item->id) ?>" data-ajax="false"><span
-					style="font-weight: lighter;">Offre publiée par </span> <?= $item->user ?> <span style="font-weight: lighter;"> (26/07/2012)</span>
+			
+			<li data-id="<?= getUser($item->user) ?>" data-time="<?= $item->time ?>">
+			<a href="?action=details&namespace=<?= $_GET['namespace'] ?>&id=<?= urlencode($item->id) ?>" data-ajax="false"><span
+					style="font-weight: lighter;">Offre publiée par </span> <?= getUser($item->user) ?> <span style="font-weight: lighter;"> (<?= date('d/m/Y', $item->time) ?> <?=  date('H:i:s', $item->time) ?>)</span>
 				</a>
 			</li>
 			<? endforeach ?>

@@ -35,6 +35,11 @@
 .ui-li-desc {
 	white-space: normal;
 	font-size: 14px;
+	clear: both;
+}
+
+.ui-li-aside{
+	width: 30%;
 }
 
 .label {
@@ -42,9 +47,10 @@
 	font-style: italic;
 }
 
-#results .ui-slider-switch {
+/*#results .ui-slider-switch {
 	min-width: 47%;
-}
+	margin-bottom: 10px;
+}*/
 
 .ui-slider-switch {
 	min-width: 140px;

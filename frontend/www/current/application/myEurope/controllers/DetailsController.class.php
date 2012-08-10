@@ -1,9 +1,6 @@
 <? 
 class DetailsController extends AuthenticatedController {
 	
-	public $id;
-	public $details;
-	
 	public function handleRequest() {
 		
 		
@@ -12,6 +9,9 @@ class DetailsController extends AuthenticatedController {
 		
 		if (isset($_GET["rm"])){
 			$this->delData();
+		}
+		if (isset($_GET["partnerRequest"])){
+			$this->addTempPartner();
 		}
 		 
 		$this->id = $_GET['id'];
@@ -33,8 +33,17 @@ class DetailsController extends AuthenticatedController {
 
 		if (isset($this->details)){
 			if (isset($this->details->user)){
-				$this->details->authorProfile = $this->getProfile($this->details->user);
+				$this->details->userProfile = $this->getProfile($this->details->user);
 			}
+			$this->partnersProfiles = array();
+			$a = (array) $this->details;
+			foreach ($a as $k => $v){
+				if (strpos($k, "tempPartner") === 0){
+					$p = $this->getProfile($v);
+					array_push($this->partnersProfiles, $p);
+				}
+			}
+			
 			$this->renderView("details");
 		} else
 			$this->redirect("search");
@@ -56,6 +65,16 @@ class DetailsController extends AuthenticatedController {
 		$publish->send();
 	
 	
+	}
+	
+	public /*void*/ function addTempPartner(){
+		$data = array(
+			"tempPartner".$_SESSION['user']->id=>$_SESSION['user']->id
+		);
+		$publish = new MatchMakingRequestv2("v2/PublishRequestHandler", UPDATE, array("id"=>$_GET['id'], "data"=>json_encode($data) ),
+				$_GET['namespace'], $this);
+	
+		$publish->send();
 	}
 	
 	public /*void*/ function getProfile($id){

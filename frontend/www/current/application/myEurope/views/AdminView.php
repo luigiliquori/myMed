@@ -3,8 +3,8 @@
 <?
 function tab_bar_white($activeTab) {
 	tabs_white_back(array(
-			"users" => array(_("Email"), "profile"),
-			"contents" => array(_("Content"), "grid")
+			"users" => array(_("Users"), "profile"),
+			"contents" => array(_("Contents"), "grid")
 		),
 		$activeTab);
 } 
@@ -14,6 +14,7 @@ function tab_bar_white($activeTab) {
 
 	<div data-role="header" data-theme="c" data-position="fixed">
 		<? tab_bar_white("users") ?>
+		<? include("notifications.php"); ?>
 	</div>
 	
 	<div data-role="content" style="text-align:center;">
@@ -40,7 +41,7 @@ function tab_bar_white($activeTab) {
 					
 				</form>
 				
-				<a href=""> <?= $item->id ?> <span style="color:red;"><?= $item->permission ?></span> </a>
+				<a href=""> <?= getUser($item->id) ?> <span style="color:red;"><?= $item->permission ?></span> </a>
 				<a data-icon="minus" onclick="$('#userDownForm<?= $i ?>').submit();" data-iconpos="notext" data-inline="true" data-role="button" style="position:absolute; top:0; right:42px;"> Diminuer</a>
 	        	<a data-icon="plus" onclick="$('#userUpForm<?= $i ?>').submit();" data-theme="e"><?= _('Increase') ?></a> 
 

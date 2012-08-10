@@ -52,8 +52,10 @@ class PublishController extends AuthenticatedController {
 				"user" => $_SESSION['user']->id
 			);
 		
+		$partId = time()."^".$_SESSION['user']->id;
+		
 		$publish = new MatchMakingRequestv2("v2/PublishRequestHandler", CREATE,
-				array("id"=>time()."+".$_SESSION['user']->id, "data"=>json_encode($data), "index"=>json_encode($index), "metadata"=>json_encode($metadata)),
+				array("id"=>$partId, "data"=>json_encode($data), "index"=>json_encode($index), "metadata"=>json_encode($metadata)),
 				$this->namespace, $this);
 		
 		$publish->send();
@@ -62,6 +64,17 @@ class PublishController extends AuthenticatedController {
 			debug("post err");
 			$this->renderView("Main", "post");
 		} else {
+			
+			// put this project in our profile
+			$publish = new MatchMakingRequestv2("v2/PublishRequestHandler", UPDATE,
+					array("id"=>$_SESSION['user']->id, "data"=>json_encode(array("part".$partId=>$partId))),
+				 	"users", $this);
+			
+			$publish->send();
+			//push it in session
+			array_push($_SESSION['myEuropeProfile']->partnerships, array("part".$partId=>$partId));
+			
+			
 			//redirect to search with the indexes
 			unset($_POST['text']);
 			unset($_POST['action']);

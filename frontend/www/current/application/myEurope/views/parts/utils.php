@@ -1,16 +1,12 @@
 <?php 
 
 
-
-$themeedu = array("education", "jeunesse");
-$themeemp = array("emploi", "social");
-$themeent = array("entreprise", "innovation");
-$themeenv = array("environnement", "énergie", "transport");
-$themeagr = array("agriculture", "rural");
-$themepec = array("pêche", "nature");
-$themecoh = array("social", "transfontalier", "interreg");
-$themerec = array("recherche", "science");
-$themesan = array("santé", "consommation");
+function getUser($id){
+	if (strpos($id, "MYMED_") === 0)
+		return substr($id, 6);
+	else
+		return "User #".$id;
+}
 
 
 /**
@@ -54,8 +50,7 @@ function tabs($tabs, $activeTab) {
  	?>
   	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
   	<ul>
-  		<li><a href="/application/myMed" rel="external" data-icon="back"><?= _("Exit") ?></a></li>
-  		<li><a href="#shareThis" id="shareThisButton" data-icon="thumb" data-inline="true" data-rel="popup" data-position-to="origin"><?= _("Share") ?></a></li>
+  		<li><a href="/application/myMed" data-ajax="false" data-icon="back"><?= _("Exit") ?></a></li>
   		<? foreach ($tabs as $id => $v) { ?>
   		<li>
   			<a 
@@ -75,17 +70,7 @@ function tabs($tabs, $activeTab) {
   
   	?> 
   	</ul>
-  	
-  	</div>
-  	<div data-role="popup" id="shareThis" class="ui-content" data-overlay-theme="b" data-theme="d" style="padding:5px;">
-		<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-		<span class='st_googleplus' displayText='Google +'></span>
-		<span class='st_sharethis' displayText='ShareThis'></span>
-		<span class='st_facebook' displayText='Facebook'></span>
-		<span class='st_twitter' displayText='Tweet'></span>
-		<span class='st_linkedin' displayText='LinkedIn'></span>
-		<span class='st_email' displayText='Email'></span>
-	</div> <?
+  	</div> <?
    } 
  
  function tabs_white_back($tabs, $activeTab) {
@@ -188,31 +173,33 @@ function tabs($tabs, $activeTab) {
             
        function about(){
        	?>
-<div style="text-align: justify;margin:20px;">
-	<b>MyEurope</b> est un réseau social s'appuyant sur le méta-réseau social myMed, à disposition des mairies, des institutions, des élus ou encore des
-	réalités économiques (industrielles, touristiques…) du territoire de la région française du Sud-Est (PACA, Rhône-Alpes) et des trois régions
-	italiennes du Nord Ouest de l'Italie, (Ligurie, Piémont, Vallée d'Aoste), c'est-à-dire des territoires éligibles au programme Alcotra (Alpes Latines
-	Coopération Transfrontalière France-Italie). L'application permettra aux mairies de l'Eurorégion Alpes-Méditerranée (MedAlp) de trouver des
-	partenaires, bien évidemment inscrits au réseau myEurope, au sein de l'interregion afin de pouvoir monter ensemble des projets communs, dans le cadre
-	de différents programmes européens : Interreg Alcotra, de Med, FP7 etc … <br /> <br /> Les objectifs principaux de myEurope sont donc les suivants :
-
-<ul>
-	<li>Aider, à travers le mécanisme de « Matchmaking » de myMed, à mettre en communs des idées mais aussi des moyens afin de pouvoir soumettre un
-		projet Interreg Alcotra, Med ou d'obtenir des financements provenant de l'Europe (crédits FEDER …).</li>
-	<li>Echanger des pratiques et des intérêts communs transfrontaliers dans le domaine du montage de projet</li>
-	<li>Informer des différents appels d'offres de projets européens les personnes inscrites au réseau social</li>
-</ul>
-<br />
-Ces échanges d'information seront utiles aux élus français ainsi qu'à leurs homologues italiens afin de pouvoir instaurer un contact permanent entre
-les habitants des régions françaises et ceux des régions italiennes limitrophes. Ce qui favorisera l'organisation d'activités transfrontalières
-(partenariat de projets européens, coopérations dans différents domaines …).
+<div style="text-align: justify;margin-left:20px;margin-right:20px;">
+	<p>
+		<b>MyEurope</b> est un réseau social s'appuyant sur le méta-réseau social myMed, à disposition des mairies, des institutions, des élus ou encore des
+		réalités économiques (industrielles, touristiques…) du territoire de la région française du Sud-Est (PACA, Rhône-Alpes) et des trois régions
+		italiennes du Nord Ouest de l'Italie, (Ligurie, Piémont, Vallée d'Aoste), c'est-à-dire des territoires éligibles au programme Alcotra (Alpes Latines
+		Coopération Transfrontalière France-Italie). L'application permettra aux mairies de l'Eurorégion Alpes-Méditerranée (MedAlp) de trouver des
+		partenaires, bien évidemment inscrits au réseau myEurope, au sein de l'interregion afin de pouvoir monter ensemble des projets communs, dans le cadre
+		de différents programmes européens : Interreg Alcotra, de Med, FP7 etc … <br /> <br /> Les objectifs principaux de myEurope sont donc les suivants :
+	</p>
+	<ul>
+		<li>Aider, à travers le mécanisme de « Matchmaking » de myMed, à mettre en communs des idées mais aussi des moyens afin de pouvoir soumettre un
+			projet Interreg Alcotra, Med ou d'obtenir des financements provenant de l'Europe (crédits FEDER …).</li>
+		<li>Echanger des pratiques et des intérêts communs transfrontaliers dans le domaine du montage de projet</li>
+		<li>Informer des différents appels d'offres de projets européens les personnes inscrites au réseau social</li>
+	</ul>
+	</p>
+	<p>
+	Ces échanges d'information seront utiles aux élus français ainsi qu'à leurs homologues italiens afin de pouvoir instaurer un contact permanent entre
+	les habitants des régions françaises et ceux des régions italiennes limitrophes. Ce qui favorisera l'organisation d'activités transfrontalières
+	(partenariat de projets européens, coopérations dans différents domaines …).
+	</p>
 </div>
-<img src="img/logos" style="max-width:460px;"/>
 <?
        }
        
        
-	function printProfile($profile, $id="", $user="", $isAuthor=true){
+	function printProfile($profile, $id=""){
        	switch($profile->role){
        		
        		default:
@@ -221,7 +208,7 @@ les habitants des régions françaises et ceux des régions italiennes limitroph
 				<ul data-role="listview" data-inset="true" data-theme="d" style="margin-top: 2px;">
 					<li>
 						<h2>
-							<?= $profile->name ?> <?=$isAuthor ? "<span style='font-weight: lighter;'>"._("(partnership creator)")."</span>" : "" ?> <span style="font-style: italic;color: #36C;">+<?= $profile->reputation['up'] ?></span> 
+							<?= $profile->name ?>  <a style="font-style: italic;">+<?= $profile->reputation['up'] ?></a> 
 						</h2>
 						<p>
 							<?= _("role") ?>: <strong style="color:#444;"><?= $profile->role ?></strong>
@@ -242,12 +229,15 @@ les habitants des régions françaises et ceux des régions italiennes limitroph
 							<?= empty($profile->desc)?" ":$profile->desc ?>
 						</p>
 						<p class="ui-li-aside">
-							<a href="" data-role="button" data-theme="d" data-mini="true" data-inline="true" style="font-style: italic; color: #36C;"
-							onclick="rate(1, '<?= $id ?>', '<?= $user ?>');">+1</a>
+							<a href="" data-role="button" data-theme="c" data-mini="true" data-inline="true" style="font-style: italic;color:blue;"
+							onclick="rate(1, '<?= $id ?>', '<?= $profile->user ?>');">+1</a>
 						</p> 
+						<span>
+						<a href="#deletePopup" data-role="button" data-rel="popup" class="fooh" data-position-to="origin" 
+						onclick="$('#deleteYes').attr('href', '?action=');" data-theme="d" data-icon="delete" data-iconpos="notext" style="position:absolute;right:1px;bottom:-5px;"><?= _('delete') ?></a>
+						</span>
 					</li>
 				</ul>
-				
 				<?
 				break;
 		}
@@ -264,13 +254,13 @@ les habitants des régions françaises et ceux des régions italiennes limitroph
 					<ul data-role="listview" data-inset="true" data-theme="d">
 						<li>
 							<h3>
-								<?= $profile->name ?> <span style="font-style: italic;color: #36C;">+<?= $profile->reputation['up'] ?></span>
+								<?= $profile->name ?> <a style="font-style: italic;">+<?= $profile->reputation['up'] ?></a>
 							</h3>
 							<p>
 								<strong style="color:#444;"><?= $profile->activity ?></strong>
 							</p>
 							<br />
-							<p style="margin-right: 40px;">
+							<p>
 								<img src="./img/mail-send.png" style="height: 22px;vertical-align: bottom;"/>
 								<?=
 								(empty($profile->email)?" ": _("email").": <a href='mailto:".$profile->email."'>".$profile->email."</a>")." - ".
@@ -285,8 +275,13 @@ les habitants des régions françaises et ceux des régions italiennes limitroph
 							<br />
 							<p>
 								<?= _('Active partnerships') ?>:
+								<ul>
+								<? foreach($profile->partnerships as $item) : ?>
+									<li></ul><a href="?action=details&id=<?= $item ?>&namespace=part"><?= $item ?></a></li>
+								<? endforeach ?>
+								</ul>
 							</p>
-							<p style="position:absolute; right: 1px; top: 40px;">
+							<p style="position:absolute; right: 1px; top: 50px;">
 								<a type="button" data-mini="true" href="?action=ExtendedProfile&edit=false" data-inline="true" data-theme="d" data-icon="grid"><?= _('edit') ?></a>
 							</p>
 							<p class="ui-li-aside">

@@ -53,6 +53,13 @@ class SearchController extends AuthenticatedController {
 		}
 
 		$this->success = "";
+		
+		foreach($result as $item){
+			$pieces = preg_split("/[\^\+]/", $item->id ); /*= explode("^", $k, 2);*/
+			$item->time = $pieces[0];
+		}
+
+		
 		// Give this to the view
 		$this->result = $result;
 		$this->suggestions = array();
