@@ -31,6 +31,7 @@ class Request {
 	private /*BackendRequest_*/			$method;
 	private /*Array<string,string>*/	$arguments	= Array();
 	private /*Boolean>*/				$multipart;
+	private /*Boolean */                $useAccessToken = true;
 
 	/* --------------------------------------------------------- */
 	/* Constructors */
@@ -38,7 +39,15 @@ class Request {
 	public function __construct(/*string*/ $ressource, /*BackendRequest_*/ $method=READ) {
 		$this->ressource	= $ressource;
 		$this->method		= $method;
-		$this->url			= BACKEND_URL;
+		
+		
+		$backend_url = BACKEND_URL;
+		if ($backend_url[0] == '@') {
+			// BAckend_URL not set in config
+			$this->url = "http://" . $_SERVER['SERVER_ADDR'] . ':8080/backend/';
+		} else {
+			$this->url			= BACKEND_URL;
+		}
 		$this->multipart	= false;
 	}
 
@@ -70,6 +79,11 @@ class Request {
 	public /*Boolean*/ function isMultipart() {
 		return $this->multipart;
 	}
+	
+	/** Set to false to avoid using access token in $_SESSION */
+	public function setUseAccessToken($val) {
+		$this->useAccessToken = $val;
+	}
 
 	public /*string*/ function send() {
 		$curl	= curl_init();
@@ -86,7 +100,7 @@ class Request {
 		$this->arguments['code'] = $this->method;
 
 		// Token for security - to access to the API
-		if(isset($_SESSION['accessToken'])) {
+		if($this->useAccessToken && isset($_SESSION['accessToken'])) {
 			$this->arguments['accessToken'] = $_SESSION['accessToken'];
 		}
 
@@ -107,10 +121,8 @@ class Request {
 			curl_setopt($curl, CURLOPT_URL, $this->url.$this->ressource.'?'.http_build_query($this->arguments));
 		}
 
-		//debug($this->url.$this->ressource.'?'.http_build_query($this->arguments));
-
-
-
+// 		echo $this->url.$this->ressource.'?' . http_build_query($this->arguments);
+		
 		// SSL CONNECTION
 		// TODO fix once we have the valid certificate!
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
@@ -119,15 +131,19 @@ class Request {
 
 		$result = curl_exec($curl);
 
-		//debug($result);
-// 				echo '<script type="text/javascript">alert(\'' . $result . '\');</script>';
-
 //		debug($result);
 // 		echo '<script type="text/javascript">alert(\'' . $result . '\');</script>';
 
-
+		$info = curl_getinfo($curl);
+		
+		$status = $info['http_code'];
+		
 		if ($result === false) {
 			throw new Exception("CURL Error : " . curl_error($curl));
+		} else if ($status >= 500 && $status < 600) {
+			if (defined('FAIL_ON_BACKEND_ERROR')) {
+				throw new Exception("Request error : Status " . $status. "\n" . $result);
+			}
 		}
 		
 		return $result;

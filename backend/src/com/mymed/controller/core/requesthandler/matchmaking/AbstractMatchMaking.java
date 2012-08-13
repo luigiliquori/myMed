@@ -5,6 +5,7 @@ import static com.mymed.model.data.application.MOntologyID.ENUM;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import com.mymed.controller.core.requesthandler.AbstractRequestHandler;
 import com.mymed.model.data.application.MDataBean;
@@ -39,9 +40,14 @@ public abstract class AbstractMatchMaking extends AbstractRequestHandler {
     protected static final String JSON_PREDICATE = JSON.get("json.predicate");
 
 	/**
-	 * JSON 'predicate' attribute.
+	 * JSON 'predicateList' attribute.
 	 */
     protected static final String JSON_PREDICATE_LIST = JSON.get("json.predicate.list");
+    
+    /**
+     * JSON 'asyncexec' attribute.
+     */
+    protected static final String JSON_ASYNCEXEC = JSON.get("json.asyncexec");
 
    
     /** 
@@ -116,7 +122,6 @@ public abstract class AbstractMatchMaking extends AbstractRequestHandler {
             }.predicatesRec("", 0);
             
             LOGGER.info("Expanded combis : {}", result);
-            
             return result;
         
         } // End of #expand()
@@ -131,6 +136,9 @@ public abstract class AbstractMatchMaking extends AbstractRequestHandler {
         }
         return buff.toString();
     }
+    
+    
+    
     
 	/**
 	 * 

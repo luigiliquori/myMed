@@ -9,21 +9,20 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
 	
 	<!-- JQUERY  -->
-	<link rel="stylesheet" href="<?= MYMED_ROOT ?>lib/jquery/jquery.mobile-1.1.0.min.css" />
-	<script src="<?= MYMED_ROOT ?>/lib/jquery/jquery-1.6.4.min.js"></script>
-	<script src="<?= MYMED_ROOT ?>/lib/jquery/jquery.mobile-1.1.0.min.js"></script>
+	<link rel="stylesheet" href="<?= MYMED_URL_ROOT ?>lib/jquery/jquery.mobile-1.1.0.min.css" />
+	<script src="<?= MYMED_URL_ROOT ?>/lib/jquery/jquery-1.6.4.min.js"></script>
+	<script src="<?= MYMED_URL_ROOT ?>/lib/jquery/jquery.mobile-1.1.0.min.js"></script>
 	
 	<!-- DateBox -->
-	<script src="<?= MYMED_ROOT ?>/lib/jquery/datebox/jquery.mobile.datebox.min.js"></script>
-	<link href="<?= MYMED_ROOT ?>/lib/jquery/datebox/jquery.mobile.datebox.min.css" rel="stylesheet" />
+	<script src="<?= MYMED_URL_ROOT ?>/lib/jquery/datebox/jquery.mobile.datebox.min.js"></script>
+	<link href="<?= MYMED_URL_ROOT ?>/lib/jquery/datebox/jquery.mobile.datebox.min.css" rel="stylesheet" />
 	
 	<!--  SimpleDialog -->
-	<script src="<?= MYMED_ROOT ?>/lib/jquery/simpledialog/jquery.mobile.simpledialog2.min.js"></script>
-	<link href="<?= MYMED_ROOT ?>/lib/jquery/simpledialog/jquery.mobile.simpledialog.min.css" rel="stylesheet" />
+	<script src="<?= MYMED_URL_ROOT ?>/lib/jquery/simpledialog/jquery.mobile.simpledialog2.min.js"></script>
+	<link href="<?= MYMED_URL_ROOT ?>/lib/jquery/simpledialog/jquery.mobile.simpledialog.min.css" rel="stylesheet" />
 	
 	<!-- APP JS -->
 	<script src="<?= APP_ROOT ?>/javascript/app.js"></script>
-	   
 	<!-- APP css -->
 	<link href="<?= APP_ROOT ?>/css/style.css" rel="stylesheet" />
 	
@@ -45,7 +44,7 @@
 	<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
 	<script type="text/javascript">stLight.options({publisher: "f0ca88be-be8a-427a-983a-f670821d7ad2"}); </script>
 			
-</head>
+	</head>
 		
 <body onload="hideLoadingBar()">
 

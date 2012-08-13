@@ -1,0 +1,2 @@
+myMemory is a mobile application designed to help people with Alzheimer's disease.
+It can help them find their way home, call their caregivers for help in case of emergency or even act as an alarm if the person wanders too far from home.

@@ -50,31 +50,24 @@ class ExtendedProfile
 	
 	/**
 	 * Informations about the natural caregiver. Often a relative.
-	 * Name + address + email + phone
-	 * Could be replaced by a myMed User if needed.
 	 */
-	public /*Array*/ $careGiver;
+	public /*Contact*/ $careGiver;
 	
 	/**
 	 * Informations about the attending doctor.
-	 * Currently an array with Name, address, email, and phone number.
-	 * Could be replaced by a myMed User if needed.
 	 */
-	public /*Array*/ $doctor;
+	public /*Contact*/ $doctor;
 	
 	/**
 	 * Calling list of people to call/message in case of crisis.
 	 * From 1 to 4, no duplicates, 1 means "called first" and 4 "called last".
-	 * Array of arrays. Each row contains an array of Name + address + email + phone Number
-	 * Could be replaced by myMed users but NOT ADVISED :
-	 * This list is meant to be used in case of emergency and should not require long queries on
-	 * the database of even a internet connection at all.
+	 * Array of Contact Objects.
 	 */
-	public /*Array*/ $callingList;
+	public /*Array<Contact>*/ $callingList;
 	
 	
 	
-	public function __construct(/*String*/ $user,/*String*/ $home ,/*enum*/ $diseaseLevel,/*Array*/ $careGiver, /*Array*/$doctor,/*Array*/ $callingList){
+	public function __construct(/*String*/ $user,/*String*/ $home ,/*enum*/ $diseaseLevel,/*Contact*/ $careGiver, /*Contact*/$doctor,/*Array<Contact>*/ $callingList){
 		
 		// Check if user is defined
 		if (empty($user))
@@ -82,9 +75,9 @@ class ExtendedProfile
 		else 
 			$this->user = $user;
 		
-		//check the adress
+		//check the address
 		if (empty($home))
-			throw new Exception("Adress must not be empty");
+			throw new Exception("Address must not be empty");
 		else
 			$this->home = $home;
 		
@@ -95,14 +88,14 @@ class ExtendedProfile
 			$this->diseaseLevel = $diseaseLevel;
 		
 		// check the careGiver
-		if (empty($careGiver) OR empty($careGiver["name"]) OR empty($careGiver["address"]) OR empty($careGiver["email"]) OR empty($careGiver["phone"]))
+		if (empty($careGiver))
 			throw new Exception("careGiver must not be empty");
 		else
 			$this->careGiver = $careGiver;
 		
 		
 		// check the doctor
-		if ( empty($doctor) OR empty($doctor["name"]) OR empty($doctor["address"]) OR empty($doctor["email"]) OR empty($doctor["phone"]))
+		if ( empty($doctor) )
 			throw new Exception("Doctor must not be empty");
 		else		
 			$this->doctor = $doctor;
@@ -111,16 +104,8 @@ class ExtendedProfile
 		// check the callingList
 		if ( empty($callingList) )
 			throw new Exception("Calling list must not be empty");
-		else {
-			
-			foreach($callingList as $line)
-			{
-				if ( empty($line["name"]) OR empty($line["email"]) OR empty($line["phone"]) )
-					throw new Exception("Calling list element is empty");
-			}
-		}
-		$this->callingList = $callingList;
-		
+		else
+			$this->callingList = $callingList;
 		
 	}
 	
@@ -154,9 +139,6 @@ class ExtendedProfile
 		$publish = new PublishRequest($handler, $dataBean);
 		$publish->send();
 		
-		
-		
-		
 	}
 	
 	
@@ -182,32 +164,65 @@ class ExtendedProfile
 		
 		$home = "";
 		$diseaseLevel = "";
-		$careGiver = "";
-		$doctor = "";
-		$callingList = "";
+		$careGiver_raw = "";
+		$doctor_raw = "";
+		$callingList_raw = "";
+		$callingList = array();
 		
-		
+
 		foreach ($result as $line){
 			switch($line->key){
 					
 				case "home" :
-					$home = json_decode($line->value, TRUE);
+					$home = json_decode($line->value);
 					break;
 				case "callingList" :
-					$callingList = json_decode($line->value, TRUE);
+					$callingList_raw = json_decode($line->value);
 					break;
 				case "careGiver" :
-					$careGiver = json_decode($line->value, TRUE);
+					$careGiver_raw = json_decode($line->value);
 					break;
 				case "doctor" :
-					$doctor = json_decode($line->value, TRUE);
+					$doctor_raw = json_decode($line->value);
 					break;
 				case "diseaseLevel" :
-					$diseaseLevel = json_decode($line->value, TRUE);
+					$diseaseLevel = json_decode($line->value);
 					break;
 			}
 		}
-		return new ExtendedProfile($user, $home, $diseaseLevel, $careGiver, $doctor, $callingList);			
+		
+		try{
+			$careGiver = new Contact("caregiver", 
+									$careGiver_raw->nickname, 
+									$careGiver_raw->firstname, 
+									$careGiver_raw->lastname, 
+									$careGiver_raw->address, 
+									$careGiver_raw->email, 
+									$careGiver_raw->phone);
+			
+			$doctor = new Contact("doctor", 
+									$doctor_raw->nickname, 
+									$doctor_raw->firstname, 
+									$doctor_raw->lastname,
+									$doctor_raw->address,
+									$doctor_raw->email,
+									$doctor_raw->phone);
+			
+			foreach($callingList_raw as $line){
+				$callingList[] = new Contact("buddy", 
+											$line->nickname, 
+											$line->firstname, 
+											$line->lastname,
+											$line->address, 
+											$line->email, 
+											$line->phone);
+			}
+			
+			return new ExtendedProfile($user, $home, $diseaseLevel, $careGiver, $doctor, $callingList);
+		}
+		catch(Exception $e){
+			return false;
+		}			
 	}
 	
 	

@@ -8,7 +8,7 @@
 	
 		<ul data-role="listview" >
 		
-			<li data-role="list-divider">Results</li1>
+			<li data-role="list-divider">Results</li>
 			
 			<? if (count($this->result) == 0) :?>
 			<li>

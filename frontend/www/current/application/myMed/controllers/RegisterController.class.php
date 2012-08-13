@@ -26,6 +26,7 @@ class RegisterController extends AbstractController {
 			// Error to show => show the register view
 			if (!empty($this->error)) {
 				$this->renderView("register");
+				return;
 			}
 			
 			// Create the new user

@@ -28,10 +28,6 @@
 	<!-- APP css -->
 	<link href="css/style.css" rel="stylesheet" />
 	
-	<!-- GOOGLE MAP -->
-	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&libraries=places"></script>
-	<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox_packed.js"></script>
-	
 	<!-- DASP -->
 	<script src='../../lib/dasp/javascript/dasp.js'></script>
 

@@ -18,34 +18,17 @@ include("header.php"); ?>
 			<br/>
 			Vous êtes ?<br/>
 			<br/>
-			<ul data-role="listview" >
-				<li><a href="#benevole">Un bénévole</a></li>
-				<li><a href="#association">Une association</a></li>
-			</ul> 			
+			<a data-role="button" data-theme="e" class="mm-left" data-ajax="false"
+				href="<?= url('extendedProfile:create', array("type" => BENEVOLE)) ?>">
+				Un bénévole
+			</a>
+			<a data-role="button" data-theme="e" class="mm-left" data-ajax="false"
+				href="<?= url('extendedProfile:create', array("type" => ASSOCIATION))?>">
+				Une association
+			</a>		
 		</p>
 		
 	</div>
-	
 </div>
-<?=  $MODE="create" ?>	
-<div data-role="page" id="benevole" >	
-
-	<? include("header-bar.php") ?>
-	<? global $PREFIX_ID; $PREFIX_ID="bene-" ?>
-
-	<? include('ProfileBenevoleForm.php') ?>
-	
-</div>
-
-<div data-role="page" id="association" >	
-
-	<? include("header-bar.php") ?>
-	<? global $PREFIX_ID; $PREFIX_ID="asso-" ?>
-	
-	<? include('ProfileAssociationForm.php') ?>
-	
-
-</div>
-
 
 <? include("footer.php"); ?>

@@ -47,12 +47,12 @@
 		</form>
 	</div>
 		
-	<div data-role="footer" data-position="fixed" data-theme="b">
+	<div data-role="footer" data-position="fixed" data-theme="a">
 		<div data-role="navbar">
 			<ul>
 				<li><a href="#home" data-transition="none" data-back="true" data-icon="grid">Applications</a></li>
 				<li><a href="#profile" data-transition="none" data-icon="profile"  class="ui-btn-active ui-state-persist">Profil</a></li>
-				<li><a href="#" data-rel="dialog" data-icon="star" onClick="printShareDialog();">Partagez</a></li>
+				<li><a href="#store" data-transition="none" data-icon="star">Store</a></li>
 			</ul>
 		</div>
 	</div>

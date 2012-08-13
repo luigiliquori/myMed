@@ -19,6 +19,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.cassandra.thrift.ColumnParent;
 import org.apache.cassandra.thrift.ConsistencyLevel;
 
 import com.mymed.controller.core.exception.IOBackEndException;
@@ -83,6 +84,20 @@ public interface IStorageManager {
      */
     byte[] selectColumn(String tableName, String primaryKey, String columnName) throws IOBackEndException,
                     InternalBackEndException;
+    
+    /**
+     * 
+     * @param tableName
+     * @param key
+     * @param columnName
+     * @param superColumn
+     * @return
+     * @throws InternalBackEndException
+     * @throws IOBackEndException
+     */
+    byte[] _selectSuperColumn(String tableName, String key,
+			String columnName, String superColumn) throws InternalBackEndException,
+			IOBackEndException;
 
     /**
      * Update the value of a Simple Column
@@ -220,15 +235,38 @@ public interface IStorageManager {
 
     /**
      * Remove an entry in the columnFamily
-     * 
-     * @param keyspace
-     * @param columnFamily
-     * @param key
-     * @throws InternalBackEndException
      */
     void removeAll(String tableName, String key) throws InternalBackEndException;
     
+    
     public Map<String, Map<String, String>> multiSelectList(final String tableName, final List<String> keys,
-    		final String start, final String finish, final int count) 
+    		final String start, final String finish) 
     			throws IOBackEndException, InternalBackEndException, UnsupportedEncodingException;
+
+
+	Map<String, String> selectSuperColumn(String tableName, String key,
+			String columnName) throws InternalBackEndException,
+			IOBackEndException;
+	
+	/** v2 */
+	void insertStr(
+            String key, 
+            ColumnParent parent, 
+            String columnName,
+            String value)
+                    throws InternalBackEndException;
+	/** v2 */
+	void insertSliceStr(
+			String tableName,
+			String primaryKey,
+			Map<String, String> args) 
+					throws InternalBackEndException;
+	
+	/** v2 */
+	void insertSuperSliceStr(
+			String superTableName,
+			String key,
+			String superKey,
+			Map<String, String> args) 
+					throws InternalBackEndException;
 }

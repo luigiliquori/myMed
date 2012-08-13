@@ -5,6 +5,7 @@ $.fn.hasAttr = function(name) {
 };
 
 
+// Display a message in a dialog box
 function message(msg) {
 	$('<div>').simpledialog2({
 	    mode: 'blank',
@@ -17,6 +18,7 @@ function message(msg) {
 	  })
 } 
 
+// Display an error message in a dialog box
 function errorMessage(msg) {
 	$('<div>').simpledialog2({
 	    mode: 'blank',
@@ -28,19 +30,20 @@ function errorMessage(msg) {
 	  })
 } 
 
+
 function debug(msg) {
 	console.log(msg);
 }
 
-// Dictionnary of already initliazed pages
+// Dictionnary of already initialized pages
 gInitialized = {}
 
-// Intialization made on each page 
+// Initialization made on each page 
 $('[data-role=page]').live("pagebeforeshow", function() {
 	
 	var page = $(this);
 	var id = page.attr("id");
-	
+		
 	// Don't initialize twice
 	if (id in gInitialized) return;
 	gInitialized[id] = true;

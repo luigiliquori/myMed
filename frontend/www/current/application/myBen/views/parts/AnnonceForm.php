@@ -1,13 +1,18 @@
 
-<? input("text", "titre", "Titre", $annonce->titre) ?>
-<div data-theme="b" data-validate="titre" data-validate-non-empty >
-	Le titre est vide.
+<div data-theme="b" data-role="header" >
+	<h3>Description de l'annonce</h3>
 </div>
 
-<? input("textarea", "description", "Description", $annonce->description) ?>
-<div data-theme="b" data-validate="description" data-validate-non-empty >
-	La description est vide.
+<? if ($this->extendedProfile instanceof ProfileNiceBenevolat) : ?>
+	<? select("associationID", "Association", $this->associations, $annonce->associationID); ?>
+	<div data-theme="b" data-validate="associationID" data-validate-non-empty >
+	Vous devez choisir une association.
 </div>
+<? endif ?>
+
+<? input("text", "titre", "Titre", $annonce->titre, "", true) ?>
+
+<? input("textarea", "description", "Description", $annonce->description, "", true) ?>
 
 <div data-role="header" data-theme="b">
 	<h3>Compétences requises</h3>
@@ -21,8 +26,9 @@
 <div data-role="header" data-theme="b">
 	<h3>Informations pratiques</h3>
 </div>
-<? select("quartier", "Quartier", CategoriesMobilite::$values, $annonce->quartier); ?>
 
+<? select("quartier", "Quartier", CategoriesMobilite::$values, $annonce->quartier); ?>
 <? select("typeMission", "Type de mission", CategoriesMissions::$values, $annonce->typeMission) ?>
-<? input("date", "begin", "Début", $annonce->begin) ?>
-<? input("date", "end"  , "Fin",   $annonce->end) ?>
+
+<? input("date", "begin", "Date de parution", $annonce->begin) ?>
+<? input("date", "end"  , "Date de fin",   $annonce->end) ?>

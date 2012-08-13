@@ -36,9 +36,9 @@
 				<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 13px;"/>
 				<span style="position: relative; left: 50px;">
 					J'accepte les 
-					<a href="<?= MYMED_ROOT ?>/application/myRiviera/system/templates/application/myRiviera/doc/CONDITIONS_GENERALES_MyMed_version1_FR.pdf" rel="external">conditions d'utilisation</a> / 
+					<a href="<?= MYMED_URL_ROOT ?>/application/myRiviera/system/templates/application/myRiviera/doc/CONDITIONS_GENERALES_MyMed_version1_FR.pdf" rel="external">conditions d'utilisation</a> / 
 					I accept 
-					<a href="<?= MYMED_ROOT ?>/application/myRiviera/system/templates/application/myRiviera/doc/CONDITIONS_GENERALES_MyMed_version1_EN.pdf" rel="external">the general terms and conditions</a>
+					<a href="<?= MYMED_URL_ROOT ?>/application/myRiviera/system/templates/application/myRiviera/doc/CONDITIONS_GENERALES_MyMed_version1_EN.pdf" rel="external">the general terms and conditions</a>
 				</span><br />
 				
 				<center>
@@ -48,7 +48,7 @@
 		</form>
 	</div>
 	
-	<div data-role="footer" data-position="fixed" data-theme="b">
+	<div data-role="footer" data-position="fixed" data-theme="a">
 		<div data-role="navbar">
 			<ul>
 				<li><a href="#login" data-transition="none" data-back="true" data-icon="home">Connexion</a></li>

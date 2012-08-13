@@ -1,12 +1,15 @@
 .ui-page {
  	background-image: url("../img/background.png");
 	background-size: 100% 100%; 
-	color: black;
 	text-shadow: none;
 }
 
 .ui-icon-profile {
 	background-image: url("../img/profile.png");
+}
+
+.ui-icon-thumb {
+	background-image: url("../img/thumb.png");
 }
 
 #loading {
@@ -30,7 +33,7 @@
 
 .content {
 	text-align: center;
-	padding: 10px;
+	padding: 0px;
 }
 
 .content h3 {
@@ -42,6 +45,14 @@
 	 text-align: left;
 	 color: #313131;
 }
+
+.myScreenshot {
+	display: none;
+	position: relative;
+	width: 250px;
+	height: 400px;
+}
+
 
 #footer {
 	position: relative;
@@ -64,7 +75,7 @@
 	position: relative;
 	left: 70px;
 	height: 40px;
-}
+} 
 
 .ui-icon img {
 	position: absolute;

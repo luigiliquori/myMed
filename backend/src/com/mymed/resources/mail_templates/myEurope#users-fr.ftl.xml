@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+This is a mail template.
+"subject" and "body" content should be written with FreeMarker syntax.
+The following variables are available in the templates :
+   * base_url : "http://host:port/"
+   * application : ApplicationID
+   * publisher : The publisher (MUserBean)
+   * recipient : The suscriber (MuserBean)
+   * publication : The object published, with all data and predicates as attributes.
+   * predicate : Predicat 
+-->
+<mail-template>
+
+    <subject>[MyMed/${application}] Nouvel utilisateur inscrit</subject>
+
+    <body><![CDATA[
+        Bonjour ${recipient.name},<br/>
+        <br/>
+        
+        Un nouvel utilisateur: 
+        <#if publisher??>
+        	${publisher.name}, <a href="mailto:${publisher.email}">${publisher.email}</a>
+        <#else>
+        	non précisé
+        </#if>
+        vient de s'inscrire sur ${application}<br/>
+        Informations :
+        <ul>
+            <#list publication?keys as key>
+				<li>${key} = ${publication[key]!'N/A'}</li>
+			</#list>
+        </ul>
+        
+        Prenez contact avec celui-ci afin de confirmer son identité puis autoriser sa participation à ${application} 
+        en vous rendant sur l'interface Admin:
+        <a href="${base_url}application/${application}/?action=Admin">
+	        	${base_url}application/${application}/?action=Admin
+	        </a>
+	    <br/>
+        --<br/>
+    
+        L'équipe MyMed<br/>
+        Cliquez <a href="${base_url}application/${application}/?index=&user=${recipient.id}">ici</a> pour vous désabonner.
+]]></body>
+</mail-template>

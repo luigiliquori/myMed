@@ -11,7 +11,7 @@ ob_start("ob_gzhandler");
 //if (php_sapi_name() != "cli") {
 	require('PhpConsole.php');
 	PhpConsole::start();
-//} else {
+// } else {
 //	function debug($msg) {		
 //		error_log($msg);
 //	}
@@ -23,6 +23,9 @@ function debug_r($obj) {
 
 // For the magic_quotes
 ini_set("magic_quotes_runtime", 0);
+
+// Throw exception when backend fails with 5XX errors
+define('FAIL_ON_BACKEND_ERROR', true);
 
 // ------------------------------------------------------------------------------------------------
 // Set Autoload
@@ -40,12 +43,14 @@ function add_path($path) {
 // Set the paths
 add_path(APP_ROOT . '/include/');
 add_path(APP_ROOT . '/controllers/');
+add_path(APP_ROOT . '/controllers/abstract');
 add_path(APP_ROOT . '/models/');
 add_path(APP_ROOT . '/views/');
 add_path(APP_ROOT . '/views/parts');
 add_path(MYMED_ROOT . '/lib/dasp/beans');
-add_path(MYMED_ROOT . '/system/controllers/');
 add_path(MYMED_ROOT . '/lib/dasp/request');
+add_path(MYMED_ROOT . '/system/controllers/');
+add_path(MYMED_ROOT . '/system/common/');
 add_path(MYMED_ROOT . '/lib/php-mobile-detect');
 
 // Set autoload
