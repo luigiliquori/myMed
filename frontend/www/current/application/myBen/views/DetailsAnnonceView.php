@@ -5,8 +5,7 @@
 <div data-role="page" >
 
 	<? header_bar(array(
-			"Accueil" => url("main"),
-			"Annonces" => url("listAnnonces"),
+			_("Annonces") => url("listAnnonces"),
 			$annonce->titre => null)) ?>
 			
 	<div data-role="content">
@@ -14,37 +13,39 @@
 		<? if ($this->hasWriteAccess()) :  ?>
 			<a data-ajax="false" data-role="button" data-theme="g" data-icon="edit" data-inline="true"
 				href="<?= url("annonce:edit", array("id" => $annonce->id)) ?>">
-				Éditer
+				<?= _("Éditer") ?>
 			</a>
 		
 			<a data-ajax="false" data-role="button" data-theme="r"data-icon="delete" data-inline="true"
 				href="<?= url("annonce:delete", array("id" => $annonce->id)) ?>">
-				Supprimer
+				<?= _("Supprimer") ?>
 			</a>
 		<? endif ?>
 		
-		<? if ((($this->extendedProfile == null) || 
-				($this->extendedProfile instanceof ProfileBenevole)) 
-				&& 
-				(!is_true($annonce->promue))) :?>
-			<a data-ajax="false" data-role="button" data-theme="e" data-icon="check" data-inline="true"
-				href="<?= url("candidature:create", array("annonceID" => $annonce->id)) ?>">
-				Postuler
-			</a>
-		<? endif ?>
-		
-		<? if (is_true($annonce->promue)) : ?>
-			<div>Annonce déjà promue</div>	
-		<? else: ?>
-			<? if ($this->hasWriteAccess()) : ?>
+		<? if (($this->extendedProfile == null) || // Guest
+				($this->extendedProfile instanceof ProfileBenevole)): // Benevole ?>
+			<? if (is_true($annonce->promue)) : ?>
+			<? elseif (is_true($annonce->isPassed())): ?>
+				<span class="mm-tag mm-warn"><?= _("Annonce passée") ?></span>	
+			<? else: ?>
 				<a data-ajax="false" data-role="button" data-theme="e" data-icon="check" data-inline="true"
-					href="<?= url("annonce:promote", array("id" => $annonce->id)) ?>">
-					Marquer comme promue
+					href="<?= url("candidature:create", array("annonceID" => $annonce->id)) ?>">
+						<?= _("Postuler") ?>
 				</a>
 			<? endif ?>
 		<? endif ?>
 		
-	
+		<? if (is_true($annonce->promue)) : ?>
+			<span class="mm-tag mm-warn"><?= _("Annonce déjà promue") ?></span>	
+		<? else: ?>
+			<? if ($this->hasWriteAccess()) : ?>
+				<a data-ajax="false" data-role="button" data-theme="e" data-icon="check" data-inline="true"
+					href="<?= url("annonce:promote", array("id" => $annonce->id)) ?>">
+					<?= _("Marquer comme promue") ?>
+				</a>
+			<? endif ?>
+		<? endif ?>
+		
 		<form target="#" >
 			<? global $READ_ONLY; $READ_ONLY=true; ?>
 			<? require("AnnonceForm.php"); ?>
@@ -53,11 +54,11 @@
 		<? if ($this->hasWriteAccess()) :  	 		
 			$candidatures = $annonce->getCandidatures(); ?>
 			 	<div data-role="header" data-theme="b">
-			 		<h3>Candidatures</h3>
+			 		<h3><?= _("Candidatures") ?></h3>
 			 	</div>
 			 <? if (sizeof($candidatures) == 0) : ?>
-			 	<p>Aucune candidature</p>
-			 <? elseif ($this->extendedProfile instanceof PorfileNiceBenevolat) : ?>  	 
+			 	<p><?= _("Aucune candidature") ?></p>
+			 <? elseif ($this->extendedProfile instanceof ProfileNiceBenevolat) : ?>  	 
 			 	<ul data-role="listview" data-theme="d" data-inset="true">
 			 		<? foreach($candidatures as $candidature) : ?>
 			 			<li><a href="<?= url("candidature:view", array("id" => $candidature->id)) ?>">
@@ -68,8 +69,8 @@
 			 	</ul>
 			 <? else: ?>
 			 	<p>
-			 		Il y a actuellement <?= sizeof($candidatures) ?> candidatures pour cette annonce.<br/>
-			 		Contactez Nice Bénévolat pour en savoir davantage.
+			 		<?= sprintf(_("Il y a actuellement %d candidatures pour cette annonce."), sizeof($candidatures)) ?><br/>
+			 		<?= _("Contactez Nice Bénévolat pour en savoir davantage.") ?>
 			 	</p>
 			 <? endif;
 		endif ?>

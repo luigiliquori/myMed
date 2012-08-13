@@ -87,16 +87,17 @@ abstract class GenericDataBean {
 	 * Describe the list of attributes of the class, and their types (ontology id)
 	 */
 	public function __construct(
-			array $predicatesDef, /** Array of attributeName => ontologyId */
-			array $dataDef,      /** Array of attributeName => ontologyId */
-			array $wrapDef = null, /** Array of attribute names to be wrapped into "_data" in addition to predicates */
+			array $predicatesDef = array(), /** Array of attributeName => ontologyId */
+			array $dataDef = array(),      /** Array of attributeName => ontologyId */
+			array $wrapDef = array(), /** Array of attribute names to be wrapped into "_data" in addition to predicates */
 			$predicateStr = null /** Optional: Predicate string (ID) */)
 	{
 		$this->_predicatesDef = $predicatesDef;
 		$this->_dataDef = $dataDef;
-		$this->_wrapDef = is_null($wrapDef) ? array() : $wrapDef;
+		$this->_wrapDef = $wrapDef;
 		$this->_predicateStr = $predicateStr;
 	}
+	
 
 	// ---------------------------------------------------------------------
 	// 	Getters

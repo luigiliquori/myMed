@@ -77,7 +77,6 @@ public class StatisticsManager extends AbstractManager {
 			}
 
 			count++;
-			System.out.println("*********** COUNT : " + count);
 
 			// update
 			final Map<String, byte[]> args = new HashMap<String, byte[]>();

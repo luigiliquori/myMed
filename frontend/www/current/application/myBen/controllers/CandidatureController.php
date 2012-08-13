@@ -12,6 +12,31 @@ class CandidatureController extends GuestOrUserController {
 		
 		// Get the annonce
 		$annonceID = $_REQUEST['annonceID'];
+		$req = new Annonce();
+		$req->id = $annonceID;
+		$res = $req->find();
+		$annonce = $res[0];
+		
+		// Check if annonce is passed
+		if ($annonce->isPassed()) {
+			$this->setError("Annonce passée : vous ne pouvez pas candidater");
+			$this->forwardTo("Annonce:details", array("id" => $annonceID));
+		}
+		if (is_true($annonce->promue)) {
+			$this->setError("Annonce promue : vous ne pouvez pas candidater");
+			$this->forwardTo("Annonce:details", array("id" => $annonceID));
+		}
+		
+		// Search for other responses for same offer/guy
+		$req = new Candidature();
+		$req->annonceID = $annonceID;
+		$res = $req->find();
+		foreach($res as $candidature) {
+			if ($candidature->publisherID == $this->user->id) {
+				$this->setError("Vous avez déjà répondu à cette annonce");
+				$this->forwardTo("Annonce:details", array("id" => $annonceID));
+			}
+		}
 		
 		// Create empty candidature
 		$this->candidature = new Candidature();
@@ -26,17 +51,17 @@ class CandidatureController extends GuestOrUserController {
 		
 		// Only benevoles can postulate
 		ProfileBenevoleRequired::check();
+		
 		$this->candidature = new Candidature();
 		$this->candidature->id = uniqid();
 		$this->candidature->begin = date(DATE_FORMAT);
 		
 		// Populate all from request except "id" 
 		$this->candidature->populateFromRequest(array("id"));
-		
 		$this->candidature->publish();
 		
 		// Confirmation
-		$this->setSuccess("Votre candidature a été enregistrée");
+		$this->setSuccess(_("Votre candidature a été enregistrée"));
 		
 		// Go back to the announce
 		$this->forwardTo("annonce:details", array("id" => $this->candidature->annonceID));

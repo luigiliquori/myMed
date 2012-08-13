@@ -1,0 +1,803 @@
+# MyBenevolat translation texts.
+# Copyright (C) 2012
+# This file is distributed under the same license as the MyMed package.
+# Raphael Jolivet, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-08-06 15:38+0200\n"
+"PO-Revision-Date: 2012-08-06 16:15+0100\n"
+"Last-Translator: Raphael JOLIVET <raphael.jolivet@inria.fr>\n"
+"Language-Team: lognet <lognet@inria.fr>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: en\n"
+"X-Poedit-Country: US\n"
+
+#: javascript/localization.js.php:4
+msgid "Il y a des erreurs dans le formulaire, merci de les corriger."
+msgstr ""
+
+#: controllers/LoginController.class.php:21
+msgid "L'email ne peut pas être vide"
+msgstr ""
+
+#: controllers/LoginController.class.php:25
+msgid "Le mot de passe ne peut pas être vide"
+msgstr ""
+
+#: controllers/CandidatureController.php:39
+msgid "Votre candidature a été enregistrée"
+msgstr ""
+
+#: controllers/ExtendedProfileController.php:106
+msgid "Vous n'avez pas le droit d'accéder à ce profil"
+msgstr ""
+
+#: controllers/ExtendedProfileController.php:111
+msgid "Vous n'avez pas le droit de modifier ce profil"
+msgstr ""
+
+#: controllers/ExtendedProfileController.php:122
+#: controllers/RegisterController.class.php:20
+msgid "L'email ne peut pas être vide."
+msgstr ""
+
+#: controllers/ExtendedProfileController.php:155
+msgid "Le mot de passe est vide"
+msgstr ""
+
+#: controllers/ExtendedProfileController.php:159
+msgid "Le mot de passe de confirmation est vide"
+msgstr ""
+
+#: controllers/ExtendedProfileController.php:163
+msgid "Le mot de passe et le mot de passe de confirmation sont différents"
+msgstr ""
+
+#: controllers/ExtendedProfileController.php:183
+msgid "Seul Nice Bénévolat peut créer de nouveaux utilisateurs"
+msgstr ""
+
+#: controllers/ExtendedProfileController.php:354
+msgid "Félicitation, votre profil a été créé. Allez voir vos mail pour l'activer."
+msgstr ""
+
+#: controllers/ExtendedProfileController.php:358
+msgid "Profil correctement créé"
+msgstr ""
+
+#: controllers/ExtendedProfileController.php:469
+msgid "Vous n'avez pas les droits de valider cette association"
+msgstr ""
+
+#: controllers/ExtendedProfileController.php:474
+msgid "Ceci n'est pas une association"
+msgstr ""
+
+#: controllers/ExtendedProfileController.php:489
+msgid "Association validée"
+msgstr ""
+
+#: controllers/NiceBenevolatAdminController.class.php:30
+msgid "Compte NiceBenevolat correctement activé"
+msgstr ""
+
+#: controllers/RegisterController.class.php:16
+msgid "Mot de passe != confirmation"
+msgstr ""
+
+#: controllers/RegisterController.class.php:18
+msgid "Le mot de passe ne peut pas être vide."
+msgstr ""
+
+#: controllers/RegisterController.class.php:22
+msgid "Vous devez accepter les conditions d'utilisation."
+msgstr ""
+
+#: controllers/RegisterController.class.php:67
+msgid "Félicitation, Un email de confirmation vient de vous être envoyé!"
+msgstr ""
+
+#: controllers/RegisterController.class.php:83
+msgid "Erreur interne d'enregistrement"
+msgstr ""
+
+#: controllers/RegisterController.class.php:115
+msgid "Votre compte a été validé. Vous pouvez maintenant vous connecter."
+msgstr ""
+
+#: controllers/abstract/ExtendedProfileRequired.class.php:43
+msgid "Pour cette action, vous avez besoin d'un compte myBénévolat"
+msgstr ""
+
+#: controllers/abstract/ExtendedProfileRequired.class.php:45
+msgid " de type "
+msgstr ""
+
+#: controllers/AnnonceController.php:43
+msgid "Vous n'avez pas les droits d'écriture sur cette annonce"
+msgstr ""
+
+#: controllers/AnnonceController.php:91
+msgid "Nice Bénévolat"
+msgstr ""
+
+#: controllers/AnnonceController.php:98
+msgid "-- Choisir --"
+msgstr ""
+
+#: controllers/AnnonceController.php:139
+msgid "Votre annonce a bien été publiée"
+msgstr ""
+
+#: controllers/AnnonceController.php:162
+msgid "Annonce supprimée"
+msgstr ""
+
+#: controllers/AnnonceController.php:231
+#: controllers/AnnonceController.php:259
+msgid "Annonce mise à jour"
+msgstr ""
+
+#: views/DetailsCandidatureView.php:17
+msgid "Candidature pour l'annonce"
+msgstr ""
+
+#: views/DetailsCandidatureView.php:26
+msgid "Candidat"
+msgstr ""
+
+#: views/DetailsCandidatureView.php:37
+msgid "Voir le profil complet"
+msgstr ""
+
+#: views/DetailsCandidatureView.php:41
+msgid "Candidature"
+msgstr ""
+
+#: views/CreateProfileBenevoleView.php:12
+msgid "Vous avez déjà un compte bénévole ?"
+msgstr ""
+
+#: views/CreateProfileBenevoleView.php:14
+#: views/CreateProfileAssociationView.php:14
+msgid "connectez vous"
+msgstr ""
+
+#: views/CreateProfileBenevoleView.php:17
+msgid "Merci de remplir votre profil."
+msgstr ""
+
+#: views/CreateProfileBenevoleView.php:22
+#: views/CreateProfileAssociationView.php:22
+msgid "Créer le profil"
+msgstr ""
+
+#: views/EditProfileBenevoleView.php:7
+#: views/ListAnnoncesView.php:20
+#: views/EditProfileAssociationView.php:7
+#: views/ListBenevolesView.php:6
+#: views/ListAssociationsView.php:6
+#: views/DetailsAnnonceView.php:8
+#: views/CreateAnnonceView.php:9
+msgid "Accueil"
+msgstr ""
+
+#: views/EditProfileBenevoleView.php:11
+#: views/ShowProfileView.php:11
+#: views/EditProfileAssociationView.php:11
+msgid "Mon Profil"
+msgstr ""
+
+#: views/EditProfileBenevoleView.php:13
+#: views/ShowProfileView.php:19
+msgid "Benevoles"
+msgstr ""
+
+#: views/EditProfileBenevoleView.php:17
+#: views/EditProfileAssociationView.php:17
+msgid "Édition"
+msgstr ""
+
+#: views/EditProfileBenevoleView.php:29
+#: views/EditProfileAssociationView.php:29
+msgid "Mettre à jour le profil"
+msgstr ""
+
+#: views/CreateProfileView.php:14
+#: views/ListAnnoncesView.php:28
+msgid "Bonjour,"
+msgstr ""
+
+#: views/CreateProfileView.php:16
+msgid "C'est la première fois que vous venez sur MyBénévolat."
+msgstr ""
+
+#: views/CreateProfileView.php:17
+msgid "Merci de renseigner votre profil."
+msgstr ""
+
+#: views/CreateProfileView.php:19
+msgid "Vous êtes ?"
+msgstr ""
+
+#: views/CreateProfileView.php:23
+msgid "Un bénévole"
+msgstr ""
+
+#: views/CreateProfileView.php:27
+msgid "Une association"
+msgstr ""
+
+#: views/ShowProfileView.php:17
+#: views/EditProfileAssociationView.php:13
+#: views/ListAssociationsView.php:7
+msgid "Associations"
+msgstr ""
+
+#: views/ShowProfileView.php:35
+msgid "Quitter"
+msgstr ""
+
+#: views/ShowProfileView.php:37
+#: views/WrongProfileTypeView.php:28
+msgid "Se délogguer"
+msgstr ""
+
+#: views/ShowProfileView.php:45
+#: views/DetailsAnnonceView.php:17
+msgid "Éditer"
+msgstr ""
+
+#: views/ShowProfileView.php:54
+msgid "Valider cette association"
+msgstr ""
+
+#: views/ShowProfileView.php:61
+#: views/DetailsAnnonceView.php:22
+msgid "Supprimer"
+msgstr ""
+
+#: views/ErrorView.php:9
+msgid "Retour"
+msgstr ""
+
+#: views/CreateProfileAssociationView.php:12
+msgid "Vous avez déjà un compte association ?"
+msgstr ""
+
+#: views/CreateProfileAssociationView.php:17
+msgid "Merci de remplir la fiche de l'association."
+msgstr ""
+
+#: views/ListAnnoncesView.php:12
+msgid "valides"
+msgstr ""
+
+#: views/ListAnnoncesView.php:13
+msgid "passées / promues"
+msgstr ""
+
+#: views/ListAnnoncesView.php:14
+#: views/ListAssociationsView.php:24
+msgid "toutes"
+msgstr ""
+
+#: views/ListAnnoncesView.php:21
+#: views/DetailsAnnonceView.php:9
+#: views/CreateAnnonceView.php:10
+msgid "Annonces"
+msgstr ""
+
+#: views/ListAnnoncesView.php:30
+msgid "Bienvenue sur <strong>MyBénévolat</strong>,"
+msgstr ""
+
+#: views/ListAnnoncesView.php:31
+msgid "le service de mise en relation des bénévoles et des associations, dans Nice et sa région via <strong>Nice Bénévolat</strong>."
+msgstr ""
+
+#: views/ListAnnoncesView.php:33
+msgid "\tVous êtes une association ? Vous vous recherchez des bénévoles ?"
+msgstr ""
+
+#: views/ListAnnoncesView.php:37
+msgid "Créez un compte 'association' et déposez vos offres"
+msgstr ""
+
+#: views/ListAnnoncesView.php:43
+msgid "Créez un compte 'bénévole' pour répondre aux offres"
+msgstr ""
+
+#: views/ListAnnoncesView.php:51
+msgid "Poster une annonce"
+msgstr ""
+
+#: views/ListAnnoncesView.php:56
+msgid "Liste des annonces"
+msgstr "List of announces"
+
+#: views/ListAnnoncesView.php:63
+msgid "Aucune annonce à afficher avec ces critères"
+msgstr ""
+
+#: views/ListAnnoncesView.php:69
+msgid "Afficher toutes les annonces"
+msgstr ""
+
+#: views/ListAnnoncesView.php:81
+msgid "déjà promue"
+msgstr ""
+
+#: views/ListAnnoncesView.php:84
+msgid "passée"
+msgstr ""
+
+#: views/ListAnnoncesView.php:95
+#: views/parts/ProfileAssociationForm.php:33
+#: views/parts/ProfileBenevoleForm.php:35
+msgid "Compétences"
+msgstr ""
+
+#: views/ListAnnoncesView.php:101
+msgid "Parution"
+msgstr ""
+
+#: views/ListAnnoncesView.php:103
+msgid "Fin"
+msgstr ""
+
+#: views/parts/AnnonceForm.php:3
+msgid "Description de l'annonce"
+msgstr ""
+
+#: views/parts/AnnonceForm.php:7
+msgid "Association"
+msgstr ""
+
+#: views/parts/AnnonceForm.php:9
+msgid "Vous devez choisir une association."
+msgstr ""
+
+#: views/parts/AnnonceForm.php:13
+msgid "Titre"
+msgstr ""
+
+#: views/parts/AnnonceForm.php:15
+msgid "Description"
+msgstr ""
+
+#: views/parts/AnnonceForm.php:18
+msgid "<h3>Compétences requises</h3>"
+msgstr ""
+
+#: views/parts/AnnonceForm.php:27
+msgid "Informations pratiques"
+msgstr ""
+
+#: views/parts/AnnonceForm.php:30
+msgid "Quartier"
+msgstr ""
+
+#: views/parts/AnnonceForm.php:31
+msgid "Type de mission"
+msgstr ""
+
+#: views/parts/AnnonceForm.php:33
+msgid "Date de parution"
+msgstr ""
+
+#: views/parts/AnnonceForm.php:34
+msgid "Date de fin"
+msgstr ""
+
+#: views/parts/ProfileAssociationForm.php:15
+msgid "Information administratives"
+msgstr ""
+
+#: views/parts/ProfileAssociationForm.php:20
+msgid "Vous devez renseigner le téléphone de l'association."
+msgstr ""
+
+#: views/parts/ProfileAssociationForm.php:23
+msgid "N° SIRET"
+msgstr ""
+
+#: views/parts/ProfileAssociationForm.php:25
+msgid "Site web"
+msgstr ""
+
+#: views/parts/ProfileAssociationForm.php:27
+msgid "Adresse postale"
+msgstr ""
+
+#: views/parts/ProfileAssociationForm.php:36
+#: views/parts/ProfileBenevoleForm.php:40
+msgid "Vous devez sélectionner de 1 à 4 compétences."
+msgstr ""
+
+#: views/parts/ProfileAssociationForm.php:42
+msgid "Types de missions proposées"
+msgstr ""
+
+#: views/parts/ProfileAssociationForm.php:45
+msgid "\tVous devez sélectionner au moins 1 type de missions."
+msgstr ""
+
+#: views/parts/RegisterForm.php:14
+msgid "Profil MyMed"
+msgstr ""
+
+#: views/parts/RegisterForm.php:17
+msgid "Nom de l'association"
+msgstr ""
+
+#: views/parts/RegisterForm.php:17
+msgid "Prénom"
+msgstr ""
+
+#: views/parts/RegisterForm.php:21
+msgid "Nom"
+msgstr ""
+
+#: views/parts/RegisterForm.php:22
+msgid "Date de naissance"
+msgstr ""
+
+#: views/parts/RegisterForm.php:25
+msgid "email"
+msgstr ""
+
+#: views/parts/RegisterForm.php:28
+msgid "Mot de passe"
+msgstr ""
+
+#: views/parts/RegisterForm.php:29
+msgid "Mot de passe (confirmation)"
+msgstr ""
+
+#: views/parts/view-utils.php:60
+msgid "Tout / aucun"
+msgstr ""
+
+#: views/parts/view-utils.php:187
+#, php-format
+msgid "Le champ %s est obligatoire."
+msgstr ""
+
+#: views/parts/view-utils.php:286
+#: views/LoginView.php:17
+msgid "Se connecter"
+msgstr ""
+
+#: views/parts/view-utils.php:337
+msgid "Précédent"
+msgstr ""
+
+#: views/parts/view-utils.php:342
+msgid "Suivant"
+msgstr ""
+
+#: views/parts/ProfileBenevoleForm.php:15
+msgid "Informations personnelles"
+msgstr ""
+
+#: views/parts/ProfileBenevoleForm.php:18
+msgid "Téléphone"
+msgstr ""
+
+#: views/parts/ProfileBenevoleForm.php:22
+msgid "Vous devez renseigner votre sexe."
+msgstr ""
+
+#: views/parts/ProfileBenevoleForm.php:25
+msgid "Situation professionelle"
+msgstr ""
+
+#: views/parts/ProfileBenevoleForm.php:27
+msgid "\tVous devez renseigner votre situation professionelle."
+msgstr ""
+
+#: views/parts/ProfileBenevoleForm.php:48
+msgid "Types de missions souhaitées"
+msgstr ""
+
+#: views/parts/ProfileBenevoleForm.php:57
+msgid "Mobilité (quartiers de nice)"
+msgstr ""
+
+#: views/parts/ProfileBenevoleForm.php:60
+msgid "Vous devez sélectionner au moins un secteur de mobilité."
+msgstr ""
+
+#: views/parts/ProfileBenevoleForm.php:70
+msgid "Disponibilités"
+msgstr ""
+
+#: views/parts/ProfileBenevoleForm.php:73
+msgid "Vous devez sélectionner au moins un créneau de disponibilités."
+msgstr ""
+
+#: views/parts/ProfileBenevoleForm.php:79
+msgid "Prévenez moi par email en cas de futures offres correspondantes."
+msgstr ""
+
+#: views/CreateCandidatureView.php:13
+#, php-format
+msgid "Réponse à l'annonce '%s'"
+msgstr ""
+
+#: views/CreateCandidatureView.php:20
+msgid "Message"
+msgstr ""
+
+#: views/CreateCandidatureView.php:22
+msgid "Poster la candidature"
+msgstr ""
+
+#: views/LoginView.php:21
+msgid "Créer un compte"
+msgstr ""
+
+#: views/ListBenevolesView.php:7
+msgid "Bénévoles"
+msgstr ""
+
+#: views/ListBenevolesView.php:14
+msgid "Ajouter un bénévole"
+msgstr ""
+
+#: views/ListBenevolesView.php:20
+msgid "Liste des bénévoles"
+msgstr ""
+
+#: views/ListBenevolesView.php:26
+msgid "Aucun bénévole à afficher avec ces critères"
+msgstr ""
+
+#: views/ListAssociationsView.php:14
+msgid "Ajouter une association"
+msgstr ""
+
+#: views/ListAssociationsView.php:20
+msgid "Liste des associations"
+msgstr ""
+
+#: views/ListAssociationsView.php:25
+#: views/ListAssociationsView.php:47
+msgid "à valider"
+msgstr ""
+
+#: views/ListAssociationsView.php:32
+msgid "Aucune association à afficher avec ces critères"
+msgstr ""
+
+#: views/ListAssociationsView.php:37
+msgid "Afficher toutes les associations"
+msgstr ""
+
+#: views/DetailsAnnonceView.php:32
+msgid "Postuler"
+msgstr ""
+
+#: views/DetailsAnnonceView.php:37
+msgid "Annonce déjà promue"
+msgstr ""
+
+#: views/DetailsAnnonceView.php:42
+msgid "Marquer comme promue"
+msgstr ""
+
+#: views/DetailsAnnonceView.php:56
+msgid "Candidatures"
+msgstr ""
+
+#: views/DetailsAnnonceView.php:59
+msgid "Aucune candidature"
+msgstr ""
+
+#: views/DetailsAnnonceView.php:71
+#, php-format
+msgid "Il y a actuellement %d candidatures pour cette annonce."
+msgstr ""
+
+#: views/DetailsAnnonceView.php:72
+msgid "Contactez Nice Bénévolat pour en savoir davantage."
+msgstr ""
+
+#: views/WrongProfileTypeView.php:16
+msgid "Mauvais type the compt"
+msgstr ""
+
+#: views/WrongProfileTypeView.php:20
+msgid "Vous êtes loggué avec un compte"
+msgstr ""
+
+#: views/WrongProfileTypeView.php:21
+msgid "mais cette action nécéssite un compte"
+msgstr ""
+
+#: views/WrongProfileTypeView.php:23
+msgid "Merci de vous logguer avec un autre compte ou de créer un nouveau profil"
+msgstr ""
+
+#: views/CreateAnnonceView.php:11
+msgid "Création"
+msgstr ""
+
+#: views/EditAnnonceView.php:24
+msgid "Enregistrer les modifications"
+msgstr ""
+
+#: views/MainNiceBenevolatView.php:9
+msgid "Bonjour <strong>Nice Bénévolat</strong>, que voulez vous faire ?"
+msgstr ""
+
+#: views/MainNiceBenevolatView.php:14
+msgid "Gérer les annonces / candidatures"
+msgstr "Manage offers"
+
+#: views/MainNiceBenevolatView.php:20
+msgid "Gérer les associations"
+msgstr "Manage associations"
+
+#: views/MainNiceBenevolatView.php:26
+msgid "Gérer les bénévoles"
+msgstr ""
+
+#: models/CategoriesMobilite.php:6
+msgid "-- Non défini --"
+msgstr ""
+
+#: models/CategoriesMobilite.php:7
+msgid "Plaine et coteaux "
+msgstr ""
+
+#: models/CategoriesMobilite.php:8
+msgid "Collines niçoises "
+msgstr ""
+
+#: models/CategoriesMobilite.php:9
+msgid "Trois collines "
+msgstr ""
+
+#: models/CategoriesMobilite.php:10
+msgid "Rives du Paillon "
+msgstr ""
+
+#: models/CategoriesMobilite.php:11
+msgid "Est littoral "
+msgstr ""
+
+#: models/CategoriesMobilite.php:12
+msgid "Nord centre ville "
+msgstr ""
+
+#: models/CategoriesMobilite.php:13
+msgid "Coeur de ville "
+msgstr ""
+
+#: models/CategoriesMobilite.php:14
+msgid "Ouest littoral"
+msgstr ""
+
+#: models/CategoriesSexe.php:6
+msgid "Homme"
+msgstr ""
+
+#: models/CategoriesSexe.php:7
+msgid "Femme"
+msgstr ""
+
+#: models/CategoriesDisponibilites.php:5
+msgid "Semaine, en journée"
+msgstr ""
+
+#: models/CategoriesDisponibilites.php:6
+msgid "Semaine, le soir"
+msgstr ""
+
+#: models/CategoriesDisponibilites.php:7
+msgid "WE, en journée"
+msgstr ""
+
+#: models/CategoriesDisponibilites.php:8
+msgid "WE, le soir"
+msgstr ""
+
+#: models/CategoriesCompetences.php:5
+msgid "Accompagnement (social professionnel)"
+msgstr ""
+
+#: models/CategoriesCompetences.php:6
+msgid "Accueil / Orientation"
+msgstr ""
+
+#: models/CategoriesCompetences.php:7
+msgid "Administration - Direction - Management"
+msgstr ""
+
+#: models/CategoriesCompetences.php:8
+msgid "Alphabétisation - Formation - Enseignement - Soutien scolaire"
+msgstr ""
+
+#: models/CategoriesCompetences.php:9
+msgid "Animation"
+msgstr ""
+
+#: models/CategoriesCompetences.php:10
+msgid "Communication"
+msgstr ""
+
+#: models/CategoriesCompetences.php:11
+msgid "Comptabilité gestion"
+msgstr ""
+
+#: models/CategoriesCompetences.php:12
+msgid "Distribution Collecte"
+msgstr ""
+
+#: models/CategoriesCompetences.php:13
+msgid "Ecoute"
+msgstr ""
+
+#: models/CategoriesCompetences.php:14
+msgid "Informatique, Internet"
+msgstr ""
+
+#: models/CategoriesCompetences.php:15
+msgid "Juridique"
+msgstr ""
+
+#: models/CategoriesCompetences.php:16
+msgid "Logistique - Conseil - Secrétariat - Administration courante"
+msgstr ""
+
+#: models/CategoriesCompetences.php:17
+msgid "Travaux (manuels et techniques)"
+msgstr ""
+
+#: models/CategoriesCompetences.php:18
+msgid "Visite domicile"
+msgstr ""
+
+#: models/CategoriesCompetences.php:19
+msgid "Visite hôpital"
+msgstr ""
+
+#: models/CategoriesCompetences.php:20
+msgid "Visite prison"
+msgstr ""
+
+#: models/CategoriesMissions.php:5
+msgid "Ponctuel"
+msgstr ""
+
+#: models/CategoriesMissions.php:6
+msgid "Régulier"
+msgstr ""
+
+#: models/CategoriesMissions.php:7
+msgid "Urgence"
+msgstr ""
+
+#: models/CategoriesSituation.php:5
+msgid "Actif"
+msgstr ""
+
+#: models/CategoriesSituation.php:6
+msgid "Sans emploi"
+msgstr ""
+
+#: models/CategoriesSituation.php:7
+msgid "Retraité"
+msgstr ""
+
+#: models/CategoriesSituation.php:8
+msgid "Etudiant"
+msgstr ""
+

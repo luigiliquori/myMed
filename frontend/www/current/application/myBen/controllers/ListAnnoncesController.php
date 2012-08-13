@@ -1,6 +1,5 @@
 <?
 
-define("ANN_MINE", "mine");
 define("ANN_ALL", "all");
 define("ANN_VALID", "valid");
 define("ANN_PAST", "past");
@@ -28,13 +27,7 @@ class ListAnnoncesController extends GuestOrUserController {
 			// By default, benevoles show their requests
 			$this->filter = ANN_CRITERIA;
 			
-		} else if (
-				$this->extendedProfile instanceof ProfileAssociation && 
-				!($this->extendedProfile instanceof ProfileNiceBenevolat))
-		{
-			// For associations, default filter is their annonces
-			$this->filter = ANN_MINE;
-		}
+		} 
 		
 		// Build a query
 		$annonceQuery = new Annonce();
@@ -51,8 +44,8 @@ class ListAnnoncesController extends GuestOrUserController {
 			
 		} 
 		
-		// For an association, search the annonces created by them
-		if ($this->filter == ANN_MINE) {	
+		// For an association, search only the annonces created by them
+		if ($this->getUserType() == USER_ASSOCIATION) {	
 			// Filter the annonces to the ones corresponding to the query
 			$annonceQuery->associationID = $this->extendedProfile->userID;		
 		}

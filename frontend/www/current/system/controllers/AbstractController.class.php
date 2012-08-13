@@ -18,12 +18,32 @@ abstract class AbstractController implements IRequestHandler {
 	public function redirectTo($action, $vars=array(), $hash="") {
 		
 		$url = url($action, $vars);
-		
-		header('Location: ./' .  $url . $hash);
+		$url .= $hash;
+
+		//header('Location: ./' .  $url . $hash);
 		//printf("<script>location.href='$url'</script>");
 		//header('Refresh:0;url=/application/'.APPLICATION_NAME.'/index.php?action=' . $action . $get_line);
 
-			
+		?>
+		<html>
+			<head>
+				<!-- HTML reload (for data-ajax=false) -->
+				<script>
+					location.href='<?= $url ?>'
+				</script>
+			</head>
+			<body>
+				<!-- Change page : JQueryMobile redirect -->
+				<div data-role="page" id="redirect">
+					<script>
+						$.mobile.changePage('<?= $url ?>');
+					</script>
+				</div>
+			</body>
+		</html>
+		<?
+
+		//header('Refresh:0;url=/application/'.APPLICATION_NAME.'/index.php?action=' . $action . $get_line)
 		exit();
 	}
 	

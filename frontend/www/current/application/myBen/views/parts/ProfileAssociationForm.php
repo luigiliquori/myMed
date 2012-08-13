@@ -7,37 +7,44 @@
 $profile = $this->_extendedProfile;  ?>
 
 <? $TYPE = ASSOCIATION ?>
-<? include('RegisterForm.php') ?>
+<? include('ProfileMyMedForm.php') ?>
 
-<div data-role="header" data-theme="b">
-	<h3>Information administratives</h3>
+<div data-role="wizard-page" id="info-admin" >
+
+	<div data-role="header" data-theme="b">
+		<h3><?= _("Information administratives") ?></h3>
+	</div>
+	
+	<? input("tel", "tel", "Téléphone", $profile->tel, "00 00 00 00 00") ?>
+	<div data-theme="b" data-validate="tel" data-validate-non-empty >
+		<?= _("Vous devez renseigner le téléphone de l'association.") ?>
+	</div>
+	
+	<? input("text", "siret", _("N° SIRET"), $profile->siret) ?>
+	
+	<? input("url", "site", _("Site web"), $profile->site, "http://...") ?>
+	
+	<? input("textarea", "adresse", _("Adresse postale"), $profile->adresse) ?>
+
 </div>
 
-<? input("tel", "tel", "Téléphone", $profile->tel, "00 00 00 00 00") ?>
-<div data-theme="b" data-validate="tel" data-validate-non-empty >
-	Vous devez renseigner le téléphone de l'association.
+<div data-role="wizard-page" id="competences-missions" >
+	<div data-role="header" data-theme="b">
+		<h3><?= _("Compétences") ?></h3>
+	</div>
+	<div data-theme="b" data-validate="competences[]" data-validate-min="1" data-validate-max="4" >
+		<b><?= _("Vous devez sélectionner de 1 à 4 compétences.") ?></b>
+	</div>
+	<? checkbox_all("competences"); ?>
+	<? checkboxes("competences", CategoriesCompetences::$values, $profile->competences); ?>
+	
+	<div data-role="header" data-theme="b">
+		<h3><?= _("Types de missions proposées") ?></h3>
+	</div>
+	<div data-theme="b" data-validate="missions[]" data-validate-min="1" >
+	    <?= _("	Vous devez sélectionner au moins 1 type de missions.") ?>
+	</div>
+	<? checkbox_all("missions"); ?>
+	<? checkboxes("missions", CategoriesMissions::$values, $profile->missions); ?>
+	
 </div>
-
-<? input("text", "siret", "N° SIRET", $profile->siret) ?>
-
-<? input("url", "site", "Site web", $profile->site, "http://...") ?>
-
-<? input("textarea", "adresse", "Adresse postale", $profile->adresse) ?>
-
-<div data-role="header" data-theme="b">
-	<h3>Compétences</h3>
-</div>
-<div data-theme="b" data-validate="competences[]" data-validate-min="1" data-validate-max="4" >
-	<b>Vous devez sélectionner de 1 à 4 compétences.</b>
-</div>
-<? checkbox_all("competences"); ?>
-<? checkboxes("competences", CategoriesCompetences::$values, $profile->competences); ?>
-
-<div data-role="header" data-theme="b">
-	<h3>Types de missions proposées</h3>
-</div>
-<div data-theme="b" data-validate="missions[]" data-validate-min="1" >
-	Vous devez sélectionner au moins 1 type de missions.
-</div>
-<? checkbox_all("missions"); ?>
-<? checkboxes("missions", CategoriesMissions::$values, $profile->missions); ?>
