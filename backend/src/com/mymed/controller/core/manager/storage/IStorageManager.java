@@ -85,6 +85,9 @@ public interface IStorageManager {
     byte[] selectColumn(String tableName, String primaryKey, String columnName) throws IOBackEndException,
                     InternalBackEndException;
     
+    String selectColumnStr(String tableName, String primaryKey, String columnName) throws IOBackEndException,
+    InternalBackEndException;
+    
     /**
      * 
      * @param tableName
@@ -241,7 +244,7 @@ public interface IStorageManager {
     
     public Map<String, Map<String, String>> multiSelectList(final String tableName, final List<String> keys,
     		final String start, final String finish) 
-    			throws IOBackEndException, InternalBackEndException, UnsupportedEncodingException;
+    			throws IOBackEndException, InternalBackEndException;
 
 
 	Map<String, String> selectSuperColumn(String tableName, String key,

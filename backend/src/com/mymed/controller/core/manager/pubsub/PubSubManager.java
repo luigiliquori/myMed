@@ -16,8 +16,8 @@
 package com.mymed.controller.core.manager.pubsub;
 
 import static com.mymed.utils.GsonUtils.gson;
-import static com.mymed.utils.MatchMaking.extractApplication;
-import static com.mymed.utils.MatchMaking.extractNamespace;
+import static com.mymed.utils.MiscUtils.extractApplication;
+import static com.mymed.utils.MiscUtils.extractNamespace;
 import static com.mymed.utils.MiscUtils.decode;
 import static com.mymed.utils.MiscUtils.encode;
 import static java.util.Arrays.asList;

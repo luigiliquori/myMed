@@ -17,10 +17,9 @@ package com.mymed.controller.core.requesthandler.v2;
 
 
 import static com.mymed.utils.GsonUtils.gson;
-import static com.mymed.utils.MatchMaking.makePrefix;
+import static com.mymed.utils.MiscUtils.makePrefix;
 import static com.mymed.utils.MatchMaking.parseInt;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -198,13 +197,13 @@ public class FindRequestHandler extends AbstractRequestHandler {
 					LOGGER.info("ext find DB ranges: " + ranges.get(0).get(0)
 							+ "->" + ranges.get(0).get(1));
 					List<String> range = ranges.remove(0);
-					resMap = pubsubManager.read(application, rows,
+					resMap = pubsubManager.read(rows,
 							range.get(0), range.get(1));
 				} else {
 					/*
 					 * there is just one elt in rows, equivalent to v1
 					 */
-					resMap = pubsubManager.read(application, rows, "", "");
+					resMap = pubsubManager.read(rows, "", "");
 				}
 
 				while (ranges.size() != 0) { // filter stuff
@@ -255,10 +254,6 @@ public class FindRequestHandler extends AbstractRequestHandler {
 		} catch (final AbstractMymedException e) {
 			LOGGER.debug("Error in doPost operation", e);
 			message.setStatus(e.getStatus());
-			message.setDescription(e.getMessage());
-		} catch (UnsupportedEncodingException e) {
-			LOGGER.debug("Error in doGet operation", e);
-			message.setStatus(404);
 			message.setDescription(e.getMessage());
 		}
 

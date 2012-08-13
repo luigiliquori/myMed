@@ -76,6 +76,8 @@ public final class MUserBean extends AbstractMBean {
     
     /** Prefered language: "fr", "en", "it", ... */
     private String lang = null;
+    
+    private transient String mailTemplate; // to simplify mailDispatcher
 
     /* --------------------------------------------------------- */
     /* Constructors */
@@ -542,6 +544,14 @@ public final class MUserBean extends AbstractMBean {
 	 */
 	public void setLang(String lang) {
 		this.lang = lang;
+	}
+
+	public String getMailTemplate() {
+		return mailTemplate;
+	}
+
+	public void setMailTemplate(String mailTemplate) {
+		this.mailTemplate = mailTemplate;
 	}
 
 }

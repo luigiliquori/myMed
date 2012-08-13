@@ -2,7 +2,7 @@ package com.mymed.tests.unit.manager;
 
 import static com.mymed.model.data.application.MOntologyID.*;
 import static com.mymed.utils.GsonUtils.gson;
-import static com.mymed.utils.MatchMaking.makePrefix;
+import static com.mymed.utils.MiscUtils.makePrefix;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 

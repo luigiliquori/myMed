@@ -31,6 +31,7 @@ import javax.servlet.http.Part;
 import com.google.gson.reflect.TypeToken;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.model.data.application.DataBean;
 import com.mymed.model.data.application.IndexBean;
 
 
@@ -51,6 +52,7 @@ public abstract class AbstractRequestHandler extends com.mymed.controller.core.r
 	protected Type dataType;
 	
 	protected Type xType;
+	protected Type predicateType;
 	
 	protected AbstractRequestHandler() {
         super();
@@ -75,6 +77,7 @@ public abstract class AbstractRequestHandler extends com.mymed.controller.core.r
         indexType = new TypeToken<List<IndexBean>>() {}.getType();
         dataType = new TypeToken<Map<String, String>>() {}.getType();
         xType = new TypeToken<Map<String, List<String>>>() {}.getType();
+        predicateType = new TypeToken<List<DataBean>>() {}.getType();
     }
 	
 	

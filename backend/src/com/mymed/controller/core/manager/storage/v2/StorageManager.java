@@ -36,6 +36,7 @@ import org.apache.cassandra.thrift.SlicePredicate;
 import org.apache.cassandra.thrift.SliceRange;
 import org.apache.cassandra.thrift.SuperColumn;
 
+import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.model.core.configuration.WrapperConfiguration;
@@ -304,6 +305,18 @@ public class StorageManager extends
 		} catch (final InternalBackEndException e) {
 			throw new InternalBackEndException(e);
 		}
+	}
+	
+	
+	@Override
+	public String selectColumnStr(String tableName, String key,
+			String columnName) throws IOBackEndException,
+			InternalBackEndException {
+		
+		final ColumnPath colPathName = new ColumnPath(tableName);
+		colPathName.setColumn(encode(columnName));
+		byte[] resultValue = wrapper.get(key, colPathName, IStorageManager.consistencyOnRead).getColumn().getValue();
+		return decode(resultValue);
 	}
 
 }

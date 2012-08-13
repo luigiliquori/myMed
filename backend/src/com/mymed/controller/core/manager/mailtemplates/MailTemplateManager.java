@@ -1,7 +1,7 @@
 package com.mymed.controller.core.manager.mailtemplates;
 
 
-import static com.mymed.utils.MatchMaking.makePrefix;
+import static com.mymed.utils.MiscUtils.makePrefix;
 
 import java.io.InputStream;
 import java.util.Map;

@@ -15,12 +15,11 @@
  */
 package com.mymed.controller.core.manager.pubsub.v2;
 
-import static com.mymed.utils.MatchMaking.extractApplication;
-import static com.mymed.utils.MatchMaking.extractNamespace;
+import static com.mymed.utils.MiscUtils.extractApplication;
+import static com.mymed.utils.MiscUtils.extractNamespace;
 import static com.mymed.utils.MiscUtils.encode;
 import static java.util.Arrays.asList;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -135,7 +134,8 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
             final String application, 
             final String predicate, 
             final String subscriber,
-            final String desc)
+            final String desc,
+            final String mailTemplate)
     throws InternalBackEndException, IOBackEndException 
     {
         // STORE A NEW ENTRY IN THE UserList (SubscriberList)
@@ -143,12 +143,12 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
                 CF_SUBSCRIBEES, 
                 application + predicate, 
                 subscriber, 
-                encode(desc));
+                encode(mailTemplate));
         
         storageManager.insertColumn(
                 CF_SUBSCRIBERS, 
                 application + subscriber, 
-                (predicate.length() == 0) ? "_" : predicate, 
+                (predicate.length() == 0) ? "ALL" : predicate, 
                 encode(desc));
         /* _ temp prefix to avoid empty predicates (for global namespace subscriptions) */
     }
@@ -182,9 +182,9 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 	/** read results */
 	@Override
 	public final Map<String, Map<String, String>> read(
-			final String application, final List<String> predicate,
+			final List<String> predicate,
 			final String start, final String finish)
-			throws InternalBackEndException, IOBackEndException, UnsupportedEncodingException {
+			throws InternalBackEndException, IOBackEndException{
 		final Map<String, Map<String, String>> resMap = new TreeMap<String, Map<String, String>>();
 		resMap.putAll(storageManager.multiSelectList(SC_APPLICATION_CONTROLLER,
 				predicate, start, finish));
@@ -245,7 +245,7 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
                     throws InternalBackEndException, IOBackEndException 
     {
         // Remove subscriber member from subsribers list
-        storageManager.removeColumn(CF_SUBSCRIBERS, application + user, (predicate.length() == 0) ? "_" : predicate);
+        storageManager.removeColumn(CF_SUBSCRIBERS, application + user, (predicate.length() == 0) ? "ALL" : predicate);
         // Remove subscriber member from predicates subscribed list
         storageManager.removeColumn(CF_SUBSCRIBEES, application + predicate, user);
     }

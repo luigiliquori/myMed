@@ -17,7 +17,7 @@ package com.mymed.controller.core.requesthandler.v2;
 
 
 import static com.mymed.utils.GsonUtils.gson;
-import static com.mymed.utils.MatchMaking.makePrefix;
+import static com.mymed.utils.MiscUtils.makePrefix;
 import static com.mymed.utils.MatchMaking.parseInt;
 
 import java.util.ArrayList;
@@ -298,7 +298,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 //		        ).start();
 		        
 		        //prod way
-		        mail_executor.execute(new MailDispatcher(application, namespace, rows, dataMap, publisher));
+		        mail_executor.execute(new MailDispatcher(application, rows, dataMap, publisher));
 		        
 		        
 				/*

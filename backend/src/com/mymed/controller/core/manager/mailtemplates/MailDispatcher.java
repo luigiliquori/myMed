@@ -1,8 +1,9 @@
 package com.mymed.controller.core.manager.mailtemplates;
 
+import static com.mymed.utils.MiscUtils.extractApplication;
+import static com.mymed.utils.MiscUtils.extractNamespace;
 import static java.util.Arrays.asList;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +29,7 @@ public class MailDispatcher extends AbstractManager implements Runnable {
 	
 	List<String> predicates;
 	
-	String application, namespace;
+	String application;
 	
 	HashMap<String, Object> data;
 	
@@ -52,7 +53,6 @@ public class MailDispatcher extends AbstractManager implements Runnable {
     
     public MailDispatcher(
 		final String application,
-		final String namespace,
 		final List<String> predicates,
 		final Map<String, String> details,
 		final MUserBean publisher) 
@@ -62,7 +62,6 @@ public class MailDispatcher extends AbstractManager implements Runnable {
     	data = new HashMap<String, Object>();
 
         this.application = application;
-        this.namespace = namespace;
         this.predicates = predicates;
         
         // Set data map
@@ -79,7 +78,7 @@ public class MailDispatcher extends AbstractManager implements Runnable {
 		
 		for (String predicate : predicates) {
 			
-			final List<MUserBean> recipients = new ArrayList<MUserBean>();
+			Map<String, MUserBean> recipients = new HashMap<String, MUserBean>();
 	        {
 	            final Map<String, String> subscribers = storageManager.selectAllStr(CF_SUBSCRIBEES, predicate);
 	            for (final Entry<String, String> entry : subscribers.entrySet()) {
@@ -88,13 +87,14 @@ public class MailDispatcher extends AbstractManager implements Runnable {
 	                    recipient = profileManager.read(entry.getKey());
 	                } catch (IOBackEndException e) {}
 	                if (recipient != null) {
-	                    recipients.add(recipient);
+	                	recipient.setMailTemplate(entry.getValue());
+	                    recipients.put(entry.getKey(), recipient);
 	                }
 	            }
 	        }
 	        
 	        // Loop on recipients
-	        for (MUserBean recipient : recipients) {
+	        for (MUserBean recipient : recipients.values()) {
 	            
 	            // Update the current recipient in the data map
 	            data.put("recipient", recipient);
@@ -103,10 +103,12 @@ public class MailDispatcher extends AbstractManager implements Runnable {
 	            String language = recipient.getLang();
 	            
 	            // Get the mail template from the manager
+	            String app = extractApplication(recipient.getMailTemplate());
+	            String namespace = extractNamespace(recipient.getMailTemplate());
 	            
 	            MailTemplate template = this.mailTemplateManager.getTemplate(
-	                    this.application, 
-	                    this.namespace, 
+	            		app, 
+	                    namespace, 
 	                    language);
 	            
 	            // Render the template

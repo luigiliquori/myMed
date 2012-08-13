@@ -16,7 +16,7 @@
 package com.mymed.controller.core.requesthandler.matchmaking;
 
 import static com.mymed.utils.GsonUtils.gson;
-import static com.mymed.utils.MatchMaking.makePrefix;
+import static com.mymed.utils.MiscUtils.makePrefix;
 
 import java.lang.reflect.Type;
 import java.net.URLDecoder;

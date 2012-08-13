@@ -47,7 +47,7 @@ public interface IPubSubManager {
 	 * subscribe v2
 	 * 
 	 */
-	void create(String application, String predicate, String subscriber, String index)
+	void create(String application, String predicate, String subscriber, String index, String mailTemplate)
 			throws InternalBackEndException, IOBackEndException;
 
 	
@@ -70,7 +70,6 @@ public interface IPubSubManager {
 	 * reads over rows in predicate, and in the column slice [start-finish]
 	 */
 	Map<String, Map<String, String>> read(
-			String application,
 			List<String> predicate,
 			String start,
 			String finish) 

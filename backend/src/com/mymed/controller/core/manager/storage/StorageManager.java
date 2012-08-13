@@ -730,5 +730,12 @@ public class StorageManager implements IStorageManager {
 		throw new NotImplementedException();
 
 	}
+
+	@Override
+	public String selectColumnStr(String tableName, String key,
+			String columnName) throws IOBackEndException,
+			InternalBackEndException {
+		throw new NotImplementedException();
+	}
     
 }

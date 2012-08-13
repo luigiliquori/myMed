@@ -339,7 +339,7 @@ function tab_bar_white($activeTab) {
 		<div data-role="navbar" data-theme="d" data-iconpos="left"> 
 	      	<ul>
 	      		<li><a href="./" data-icon="back"><?= _("Back") ?></a></li>
-	      		<li><a href="?action=extendedProfile" rel="external" data-icon="profile"><?= $_SESSION['user']->name ?></a></li>
+	      		<li><a href="?action=extendedProfile" data-transition="slide" data-icon="profile"><?= $_SESSION['user']->name ?></a></li>
 	      	</ul>
       	</div>
 	</div>
