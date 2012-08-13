@@ -1,0 +1,97 @@
+/*
+ * Copyright 2012 INRIA
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.mymed.controller.core.manager.data;
+
+import java.io.UnsupportedEncodingException;
+import java.util.List;
+import java.util.Map;
+
+import com.mymed.controller.core.exception.IOBackEndException;
+import com.mymed.controller.core.exception.InternalBackEndException;
+
+public interface IDataManager {
+
+	/**
+	 * create indexes
+	 */
+
+	void create(
+			List<String> predicates,
+			String id,
+			Map<String, String> metadatas)
+					throws InternalBackEndException, IOBackEndException;
+
+	/**
+	 * 
+	 * create Data
+	 */
+
+	void create(String id, Map<String, String> datas)
+			throws InternalBackEndException, IOBackEndException;
+
+	
+
+	/**
+	 * reads all Data (return val modified from v1)
+	 */
+	Map<String, String> read(String id)
+			throws InternalBackEndException, IOBackEndException;
+	
+	/**
+	 * reads @name field in Data
+	 */
+	String read(String id, String key )
+			throws InternalBackEndException, IOBackEndException;
+
+	/**
+	 * reads results
+	 * the extended read used in v2, for range queries
+	 * reads over rows in predicate, and in the column slice [start-finish]
+	 */
+	Map<String, Map<String, String>> read(
+			List<String> predicate,
+			String start,
+			String finish) 
+					throws InternalBackEndException, IOBackEndException, UnsupportedEncodingException;
+	
+	
+	
+	
+	/**
+	 * deletes all Data row
+	 */
+	void delete(String id)
+			throws InternalBackEndException, IOBackEndException;
+	
+	/**
+	 * deletes just a Data Field
+	 */
+	void delete(String id, String key)
+			throws InternalBackEndException, IOBackEndException;
+
+	/**
+	 * Delete an existing predicate
+	 * 
+	 * @param application
+	 *            the application responsible for this predicate
+	 * @param predicate
+	 *            The predicate to delete
+	 */
+	void delete(String application, String predicate, String id)
+			throws InternalBackEndException, IOBackEndException;
+
+
+}
