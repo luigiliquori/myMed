@@ -9,8 +9,8 @@ ob_start("ob_gzhandler");
 
 // Debugging in Chrome. Not in CLI mode 
 //if (php_sapi_name() != "cli") {
-	require('PhpConsole.php');
-	PhpConsole::start();
+require('PhpConsole.php');
+PhpConsole::start();
 // } else {
 //	function debug($msg) {		
 //		error_log($msg);
@@ -72,7 +72,6 @@ function autoload($className) {
 }
 
 spl_autoload_register('autoload');
-
 // ------------------------------------------------------------------------------------------------
 // Global Config
 // ------------------------------------------------------------------------------------------------

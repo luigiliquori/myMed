@@ -5,6 +5,7 @@
 // ---------------------------------------------------------------------
 
 define('APPLICATION_NAME', "myBen");
+define('APPLICATION_LABEL', "myBénévolat");
 define('APP_ROOT', __DIR__);
 define('MYMED_ROOT', __DIR__ . '/../..');
 define('DATE_FORMAT', "d/m/Y");

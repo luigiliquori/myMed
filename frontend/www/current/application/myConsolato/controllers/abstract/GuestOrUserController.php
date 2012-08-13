@@ -6,15 +6,13 @@ define('ACCESS_TOKEN', 'accessToken');
 define('EXTENDED_PROFILE', "extendedProfile");
 
 // Guest user/token
-define("GUEST_USERID", "MYMED_mb-guest@yopmail.com");
+define("GUEST_USERID", "MYMED_mc-guest@yopmail.com");
 define("GUEST_TOKEN", APPLICATION_NAME . ":guest");
 
 // types of users
 define('USER_GUEST', 'guest');
 define('USER_MYMED', 'mymed');
-define('USER_NICE_BENEVOLAT', 'nice_benevolat');
-define('USER_BENEVOLE', 'benevole');
-define('USER_ASSOCIATION', 'association');
+define('USER_MYCONSOLATO', 'myConsolato');
 
 /**
  *  This controller fetches user, extendedProfile and token information from the 
@@ -56,11 +54,11 @@ class GuestOrUserController extends AbstractController {
 			
 			if (isset($this->user)) {
 				// Try to fetch an extended profile (for a MyMed user comming from the launchpad)
-				$profile = ExtendedProfileRequired::getExtendedProfile($this->user->id);
-				if ($profile != null) {
-					$this->extendedProfile = $profile;
-					$_SESSION[EXTENDED_PROFILE] = $profile;
-				}
+				//$profile = ExtendedProfileRequired::getExtendedProfile($this->user->id);
+				//if ($profile != null) {
+				//	$this->extendedProfile = $profile;
+				//	$_SESSION[EXTENDED_PROFILE] = $profile;
+				//}
 			}
 		}
 	}
@@ -88,7 +86,9 @@ class GuestOrUserController extends AbstractController {
 			$_SESSION[ACCESS_TOKEN] = $res->data->accessToken;
 			
 		}
+		
 		return $_SESSION[ACCESS_TOKEN];
+		
 	}
 	
 	/** 
@@ -102,9 +102,7 @@ class GuestOrUserController extends AbstractController {
 	public function getUserType() {
 		if (!isset($this->user)) return USER_GUEST;
 		if (!isset($this->extendedProfile)) return USER_MYMED;
-		if ($this->user->id == ProfileNiceBenevolat::$USERID) return USER_NICE_BENEVOLAT;
-		if ($this->extendedProfile instanceof ProfileBenevole) return USER_BENEVOLE;
-		return USER_ASSOCIATION;
+		return USER_MYCONSOLATO;
 	}
 	
 	

@@ -29,8 +29,29 @@ function callController(
 
 		if ($method == null) $method = "defaultMethod";
 
+		// ---------------------------------------------
+		// Use introspection to fill out parameters
+		// ---------------------------------------------
+		$ref = new ReflectionClass($controller);
+		$refMethod = $ref->getMethod($method);
+		$refParams = $refMethod->getParameters();
+		$params = array();
+		foreach($refParams as $refParam) {
+			$name = $refParam->getName();
+			$pos = $refParam->getPosition();
+			if (isset($_REQUEST[$name])) {
+				$val = $_REQUEST[$name];
+			} else {
+				if (!$refParam->isOptional() ) {
+					trigger_error("Mandatory parameter $name not found in request for action $action:$method", E_USER_WARNING);
+				}
+				$val = null;
+			}
+			$params[$pos] = $val;
+		}
+		
 		// Call the methods
-		$controller->$method();
+		$refMethod->invokeArgs($controller, $params);
 
 		// We should not reach that point (view already rendered by the controller)
 		throw new InternalError("${className}:  #handleRequest() followed by ${method}() should never return");
@@ -39,7 +60,7 @@ function callController(
 		debug_r($e);
 		$controller->setError($e->getMessage());
 		$controller->renderView("error");
-	} 
+	}
 }
 
 // ---------------------------------------------------------------------

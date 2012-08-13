@@ -4,7 +4,8 @@
 // Constants
 // ---------------------------------------------------------------------
 
-define('APPLICATION_NAME', "myBen");
+define('APPLICATION_NAME', "myConsolato");
+define('APPLICATION_LABEL', "myConsolato");
 define('APP_ROOT', __DIR__);
 define('MYMED_ROOT', __DIR__ . '/../..');
 define('DATE_FORMAT', "d/m/Y");
@@ -14,7 +15,11 @@ require(MYMED_ROOT . '/system/controllers/index-controller.php');
 
 // Use the application specific locales
 textdomain(APPLICATION_NAME);
-_textdomain(APPLICATION_NAME); // for PHPGetText
+
+// Support for php-gettext
+if (PHP_GETTEXT) {
+	_textdomain(APPLICATION_NAME);
+}
 
 // Call the main controller
 main_controller();
