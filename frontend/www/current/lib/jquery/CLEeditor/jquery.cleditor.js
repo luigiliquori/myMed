@@ -23,7 +23,7 @@
     // Define the defaults used for all new cleditor instances
     defaultOptions: {
       width:        "100%", // width not including margins, borders or padding
-      //height:       "100%", // height not including margins, borders or padding
+      height:       "auto", // height not including margins, borders or padding
       controls:     // controls to add to the toolbar
                     "bold italic underline strikethrough subscript superscript | font size " +
                     "style | color highlight removeformat | bullets numbering | outdent " +
@@ -46,7 +46,7 @@
                     [["Paragraph", "<p>"], ["Header 1", "<h1>"], ["Header 2", "<h2>"],
                     ["Header 3", "<h3>"],  ["Header 4","<h4>"],  ["Header 5","<h5>"],
                     ["Header 6","<h6>"]],
-      useCSS:       false, // use CSS to style HTML when possible (not supported in ie)
+      useCSS:       true, // use CSS to style HTML when possible (not supported in ie)
       docType:      // Document type contained within the editor
                     '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">',
       docCSSFile:   // CSS file used to style the document contained within the editor

@@ -60,8 +60,22 @@ class LoginController extends AbstractController {
 				
 				debug("success");
 				
-				// Redirect to main page
-				$this->redirectTo("main");
+				if (isset($_SESSION['redirect'])){
+					
+					$page = $_SESSION['redirect'];
+					unset($_SESSION['redirect']);
+					
+					debug("login redirect ".$page);
+					$this->redirectTo($page);
+					
+				}else{
+					debug("login main");
+					// Redirect to main page
+					$this->redirectTo("main");
+				}
+						
+				
+				
 			}
 			
 			

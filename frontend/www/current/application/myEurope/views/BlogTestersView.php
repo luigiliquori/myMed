@@ -1,4 +1,7 @@
 <? include("header.php"); ?>
+<link rel="stylesheet" type="text/css" href="../../lib/jquery/CLEeditor/jquery.cleditor.css" />
+<script type="text/javascript" src="../../lib/jquery/CLEeditor/jquery.cleditor.js"></script>
+<script type="text/javascript" src="../../lib/jquery/CLEeditor/startCLE.js"> </script>
 
 <div data-role="page">
 
@@ -16,35 +19,61 @@
 		<h3 class="ui-link" style="text-align: center;"><?= _('Beta Testers Blog') ?></h3>
 		<ul data-role="listview" class="blog" data-inset="true" data-theme="d" data-filter="true" data-filter-placeholder="">
 			<? foreach($this->messages as $k => $v) : ?>
-			<?  $pieces = explode("^", $k); $c = count($pieces);?>
-			<li <?= $c>3 ? "style='margin-left:".(2*($c-2))."%;'":"" ?>>
-				<p><?= urldecode($v) ?></p>
-				<p style="margin-top:.5em;"><a href="?action=ExtendedProfile&id=<?= $pieces[$c-1] ?>"><?= getUser($pieces[$c-1]) ?></a> <?= date('d/m/Y H:i:s', $pieces[$c-2]) ?></p>
+			<?  $pieces = explode("^", $k); $v=json_decode($v); ?>
+			<li>
+				<h1><?= $v->title ?></h1>
+				<p><?= $v->text ?></p>
+				<p style="margin-top:.5em;"><a href="?action=ExtendedProfile&id=<?= $pieces[1] ?>"><?= getUser($pieces[1]) ?></a> <?= date('d/m/Y H:i:s', $pieces[0]) ?></p>
 				
-				<div style="position:absolute;right:3px;bottom:-1px;" data-role="controlgroup" data-type="horizontal" data-mini="true">	
-					<a href="" data-role="button" onclick="$(this).parents('li').children('form').toggle();" data-mini="true"><?= _('Reply') ?></a>
-					<a href="#deleteTestersPopup" data-role="button" data-rel="popup" data-position-to="origin" 
-					onclick="$('#deleteTestersYes').attr('href', '?action=Blog&blog=<?= $this->blog ?>&field=<?= $k ?>&rm=');" data-icon="arrow-d" data-iconpos="notext"><?= _('delete') ?></a>
+
+				<div style="position:absolute;right:6px;top:2px;" data-role="controlgroup" data-type="horizontal" data-mini="true">	
+					<a href="#deleteTestersPopup" data-role="button" data-rel="popup" data-position-to="origin" data-inline="true"
+						onclick="$('#deleteField').val('<?= $k ?>');" data-icon="arrow-d" data-iconpos="notext"><?= _('plus') ?></a>
 				</div>
-				<form method="post" action="?action=Blog&blog=<?= $this->blog ?>" style="text-align:right;display:none;">
-					<input type="hidden" name="replyTo" value="<?= $k ?>"/>
-					<textarea name="text" placeholder=""></textarea>
-					<input type="submit" data-theme="b" data-mini="true" data-inline="true" value="<?= _('Post') ?>" />
-				</form>
+				
+				<div data-role="collapsible" data-mini="true" data-inline="true" style="margin-bottom: -.5em;">
+					<h3 style="margin:auto;margin-left: 0;width:136px;"><?= count($this->comments[$k])." "._("comments") ?></h3>
+					<? foreach($this->comments[$k] as $ki => $vi) : ?>
+						<?  $piecesi = explode("^", $ki);?>
+						<div>
+							<p style="margin-top:.5em;margin-bottom:0"><?= urldecode($vi->text) ?></p>
+							<p style="margin-top:.5em;display:inline-block;"><a href="?action=ExtendedProfile&id=<?= $piecesi[1] ?>"><?= getUser($piecesi[1]) ?></a> <?= date('d/m/Y H:i:s', $piecesi[0]) ?></p>
+							<a href="#deleteTestersPopup" data-role="button" data-rel="popup" data-position-to="origin" data-inline="true"
+								onclick="$('#deleteField').val('<?= $k."^reply^".$ki ?>');" data-icon="arrow-d" data-iconpos="notext"><?= _('plus') ?></a>
+						</div>
+					<? endforeach ?>
+					<form method="post" action="?action=Blog&blog=<?= $this->blog ?>" style="text-align:right;">
+						<input type="hidden" name="replyTo" value="<?= $k ?>"/>
+						<textarea name="text" placeholder=""></textarea>
+						<input type="submit" data-mini="true" data-inline="true" value="<?= _('Reply') ?>" />
+					</form>
+				</div>
+				
+				
 			</li>
 			<? endforeach ?>
 		</ul>
 		<br />
-		<form method="post" action="?action=Blog&blog=<?= $this->blog ?>" style="text-align:right;">
-			<textarea name="text" placeholder="<?= _('Respond to the blog >>>>>>html editor') ?>"></textarea>
-			<input type="submit" data-theme="b" data-mini="true" data-inline="true" value="<?= _('Post') ?>" />
-		</form>
+		<div data-role="collapsible" data-mini="true" data-inline="true" style="margin-bottom: -.5em;">
+			<h3 style="margin:auto;margin-left: 0;width:136px;"><?= _('Respond') ?></h3>
+			<form method="post" action="?action=Blog&blog=<?= $this->blog ?>"  style="text-align:right;">
+				<input type="text" name="title" placeholder="<?= _('title') ?>" data-mini="true" data-inline="true" value="" />
+				
+				<textarea id="CLEeditor" id="textBlog" name="text"></textarea>
+				<input type="submit" data-theme="b" data-mini="true" data-inline="true" value="<?= _('Post') ?>" />
+			</form>
+		</div>
+		
 		 
 		 <div data-role="popup" id="deleteTestersPopup" style="padding:5px;" data-overlay-theme="b" data-theme="d">
-			<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 			<a data-role="button" style="color:blue;font-style: italic;" data-icon="plus" data-mini="true" onclick="var id=$('#deleteYes').attr('href');rate(1, id);">+1</a>
-			<a id="deleteTestersYes" data-role="button" data-theme="d" data-icon="delete" data-mini="true">remove</a>
+			<a onclick="$('#deleteMessageForm').submit();" data-role="button" data-theme="d" data-icon="delete" data-mini="true">remove</a>
 		</div>
+		
+		<form method="post" id="deleteMessageForm" action="?action=Blog&blog=<?= $this->blog ?>" style="display:none;">
+			<input type="hidden" id="deleteField" name="field" value=""/>
+			<input type="hidden" name="rm" value=""/>
+		</form>
 		 
 	</div>
 </div>

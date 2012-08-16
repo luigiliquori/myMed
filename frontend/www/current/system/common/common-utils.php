@@ -66,6 +66,12 @@ function getUser($id){
 		return "User#".$id;
 }
 
+/** returns true when $haystack contains substring $needle **/
+function strcontain($haystack,$needle){
+	$pos = strpos($haystack,$needle);
+	return $pos !== false;
+}
+
 /** Generate nice  element for title : div[data-role="header"]/h3 */
 function title_bar($title) {
 ?>

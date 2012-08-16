@@ -21,6 +21,7 @@ class AuthenticatedController extends AbstractController {
 		// Check for user in session
 		if( !isset($_SESSION['user']) ) {
 			// Redirect to "showLogin" view 
+			$_SESSION['redirect'] = substr($_SERVER['REQUEST_URI'], strlen('/application/'.APPLICATION_NAME.'/'));
 			$this->redirectTo("login");
 		} else {
 			$this->user = $_SESSION['user'];

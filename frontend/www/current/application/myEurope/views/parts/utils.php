@@ -171,24 +171,26 @@ function tabs($tabs, $activeTab) {
        	?>
 <div style="text-align: justify;margin-left:20px;margin-right:20px;">
 	<p>
-		<b>MyEurope</b> est un réseau social s'appuyant sur le méta-réseau social myMed, à disposition des mairies, des institutions, des élus ou encore des
-		réalités économiques (industrielles, touristiques…) du territoire de la région française du Sud-Est (PACA, Rhône-Alpes) et des trois régions
-		italiennes du Nord Ouest de l'Italie, (Ligurie, Piémont, Vallée d'Aoste), c'est-à-dire des territoires éligibles au programme Alcotra (Alpes Latines
-		Coopération Transfrontalière France-Italie). L'application permettra aux mairies de l'Eurorégion Alpes-Méditerranée (MedAlp) de trouver des
-		partenaires, bien évidemment inscrits au réseau myEurope, au sein de l'interregion afin de pouvoir monter ensemble des projets communs, dans le cadre
-		de différents programmes européens : Interreg Alcotra, de Med, FP7 etc … <br /> <br /> Les objectifs principaux de myEurope sont donc les suivants :
-	</p>
-	<ul>
-		<li>Aider, à travers le mécanisme de « Matchmaking » de myMed, à mettre en communs des idées mais aussi des moyens afin de pouvoir soumettre un
-			projet Interreg Alcotra, Med ou d'obtenir des financements provenant de l'Europe (crédits FEDER …).</li>
-		<li>Echanger des pratiques et des intérêts communs transfrontaliers dans le domaine du montage de projet</li>
-		<li>Informer des différents appels d'offres de projets européens les personnes inscrites au réseau social</li>
-	</ul>
-	</p>
+	<?=
+		_("<b>MyEurope</b> is a social network which is based on the meta-social network <em>myMed</em>, available for City Halls, institutions or economic realities (industrial, tourism industry...) of the French South-East areas (PACA, Rhone-Alpes) and the three Italian North-Western Regions (Liguria, Piemonte, Valle d'Aosta), i.e. the areas eligible to the Alcotra Program.")
+	?>
+	</p>	
 	<p>
-	Ces échanges d'information seront utiles aux élus français ainsi qu'à leurs homologues italiens afin de pouvoir instaurer un contact permanent entre
-	les habitants des régions françaises et ceux des régions italiennes limitrophes. Ce qui favorisera l'organisation d'activités transfrontalières
-	(partenariat de projets européens, coopérations dans différents domaines …).
+	<?=
+		_("This \"sociapp\" will help the City Hall of the Alps-Mediterranean Euroregion to find partners, among those who joined the social network, in order to create projects together, within European Programs.
+	The main targets of <em>myMed</em> are :
+	<ul>
+		<li>Help, through the mechanism of myMed's \"matchmaking\", to gather ideas and resources for European project submission or obtain European funds.</li>
+		<li>Exchange practices and common cross-border interests in the area of European project creation.</li>
+		<li>Inform users about different European calls.</li>
+	</ul>")
+	?>
+	</p>
+	
+	<p>
+	<?=
+		_("These information exchanges will be useful to French elected representatives and their Italian counterparts in order to establish a permanent contact between French and Italian people. It will result in a better organization of cross-border activity.")
+	?>	
 	</p>
 </div>
 <?

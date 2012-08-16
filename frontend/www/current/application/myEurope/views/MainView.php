@@ -1,6 +1,6 @@
 <? include("header.php"); ?>
 <link rel="stylesheet" type="text/css" href="../../lib/jquery/CLEeditor/jquery.cleditor.css" />
-<script type="text/javascript" src="../../lib/jquery/CLEeditor/jquery.cleditor.min.js"></script>
+<script type="text/javascript" src="../../lib/jquery/CLEeditor/jquery.cleditor.js"></script>
 <script type="text/javascript" src="../../lib/jquery/CLEeditor/startCLE.js"> </script>
 <?
 function tab_bar_white($activeTab) {
@@ -173,31 +173,29 @@ function tab_bar_white($activeTab) {
 				<label for="checkbox-all"><?= _('All') ?></label>
 				
 				<input type="checkbox" name="education" id="checkbox-1a"/>
-				<label for="checkbox-1a">Education, culture & sport</label>
+				<label for="checkbox-1a"><?= _("Education, culture & sport") ?></label>
 
 				<input type="checkbox" name="social" id="checkbox-2a"/>
-				<label for="checkbox-2a">Emploi, affaires sociales & égalité des chances</label>
+				<label for="checkbox-2a"><?= _("Work") ?></label>
 				
 				<input type="checkbox" name="entreprise" id="checkbox-3a"/>
-				<label for="checkbox-3a">Entreprises & innovation</label>
+				<label for="checkbox-3a"><?= _("Enterprises, Innovation") ?></label>
 
-				<input type="checkbox" name="envoronnement" id="checkbox-4a"/>
-				<label for="checkbox-4a">Environnement, énergie & transports</label>
+				<input type="checkbox" name="environnement" id="checkbox-4a"/>
+				<label for="checkbox-4a"><?= _("Environment, energy & transport") ?></label>
 				
 				<input type="checkbox" name="agriculture" id="checkbox-5a" />
-				<label for="checkbox-5a">Agriculture</label>
+				<label for="checkbox-5a"><?= _("Agriculture") ?></label>
 
 				<input type="checkbox" name="peche" id="checkbox-6a" />
-				<label for="checkbox-6a">Pêche</label>
+				<label for="checkbox-6a"><?= _("Fishing") ?></label>
 				
 				<input type="checkbox" name="transfontalier" id="checkbox-7a"/>
-				<label for="checkbox-7a">Cohésion économique et sociale</label>
+				<label for="checkbox-7a"><?= _("Research") ?></label>
 
 				<input type="checkbox" name="recherche" id="checkbox-8a" />
-				<label for="checkbox-8a">Recherche</label>
-				
-				<input type="checkbox" name="santé" id="checkbox-9a" />
-				<label for="checkbox-9a">Santé & protection des consommateurs</label>
+				<label for="checkbox-8a"><?= _("Health and Consumer Protection") ?></label>
+
 				
 		    </fieldset>
 		    <input type="search" name="themes" id="text" placeholder="autres mots clés" value="" />
