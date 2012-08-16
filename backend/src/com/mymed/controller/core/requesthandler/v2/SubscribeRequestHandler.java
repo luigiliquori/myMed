@@ -36,7 +36,7 @@ import com.mymed.controller.core.manager.subscription.SubscriptionManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.application.DataBean;
 import com.mymed.utils.MatchMakingv2;
-import com.mymed.utils.MatchMakingv2.CombiLine;
+import com.mymed.utils.CombiLine;
 import com.mymed.utils.MiscUtils;
 
 /**

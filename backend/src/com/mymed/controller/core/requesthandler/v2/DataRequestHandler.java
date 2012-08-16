@@ -42,10 +42,10 @@ import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.application.DataBean;
 import com.mymed.model.data.user.MUserBean;
+import com.mymed.utils.CombiLine;
 import com.mymed.utils.HashFunction;
 import com.mymed.utils.MatchMakingv2;
 import com.mymed.utils.MiscUtils;
-import com.mymed.utils.MatchMakingv2.CombiLine;
 
 /**
  * Servlet implementation class PubSubRequestHandler
@@ -251,7 +251,8 @@ public class DataRequestHandler extends AbstractRequestHandler {
 					:"",
 				data = parameters.get(JSON_DATA),
 				metadata = parameters.get("metadata"),
-				predicates = parameters.get("predicates");
+				predicates = parameters.get("predicates"),
+				lengthMax = parameters.get("lengthMax");
 				
 			Map<String, String> metas = new HashMap<String, String>();
 			Map<String, String> datas = new HashMap<String, String>();
@@ -279,7 +280,7 @@ public class DataRequestHandler extends AbstractRequestHandler {
 
 			LOGGER.info("keywords: {} ", xpreds);
 
-			List<String> rows = new CombiLine(xpreds).expand();
+			List<String> rows = new CombiLine(xpreds, lengthMax).expand();
 			MatchMakingv2.prefix(application, rows);
 
 			/* make sure to put an id pointer */

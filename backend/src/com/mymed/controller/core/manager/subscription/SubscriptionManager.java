@@ -65,18 +65,14 @@ public class SubscriptionManager extends AbstractManager implements
 			final String subscriber,
 			final String desc,
 			final String mailTemplate)
-					throws InternalBackEndException,
-			IOBackEndException {
+					throws InternalBackEndException, IOBackEndException {
 		// STORE A NEW ENTRY IN THE UserList (SubscriberList)
 		storageManager.insertColumn(CF_SUBSCRIBEES, application + predicate,
 				subscriber, encode(mailTemplate));
 
 		storageManager.insertColumn(CF_SUBSCRIBERS, application + subscriber,
 				(predicate.length() == 0) ? "ALL" : predicate, encode(desc));
-		/*
-		 * _ temp prefix to avoid empty predicates (for global namespace
-		 * subscriptions)
-		 */
+
 	}
 
 	/** reads Subscriptions for a user */
@@ -88,7 +84,8 @@ public class SubscriptionManager extends AbstractManager implements
 		LOGGER.info("^^^" + appUser + " is subscribed to {}", map);
 		return map;
 	}
-
+	
+	@Override
 	public String read(String appUser, String key)
 			throws InternalBackEndException, IOBackEndException {
 

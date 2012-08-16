@@ -51,15 +51,13 @@ public interface IDataManager {
 			throws InternalBackEndException, IOBackEndException;
 	
 	/**
-	 * reads @name field in Data
+	 * reads @param key column in Data
 	 */
 	String read(String id, String key )
 			throws InternalBackEndException, IOBackEndException;
 
 	/**
-	 * reads results
-	 * the extended read used in v2, for range queries
-	 * reads over rows in predicate, and in the column slice [start-finish]
+	 * reads results for the given predicate rows
 	 */
 	Map<String, Map<String, String>> read(
 			List<String> predicate,
@@ -71,13 +69,13 @@ public interface IDataManager {
 	
 	
 	/**
-	 * deletes all Data row
+	 * deletes all Data @param id row
 	 */
 	void delete(String id)
 			throws InternalBackEndException, IOBackEndException;
 	
 	/**
-	 * deletes just a Data Field
+	 * deletes just the @param key column in Data @param id row
 	 */
 	void delete(String id, String key)
 			throws InternalBackEndException, IOBackEndException;

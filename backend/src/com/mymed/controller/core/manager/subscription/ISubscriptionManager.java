@@ -36,7 +36,7 @@ public interface ISubscriptionManager {
 	 * Get the Subscriptions Entry related to application + user
 	 */
 
-	Map<String, String> read(String user) throws InternalBackEndException,
+	Map<String, String> read(String appUser) throws InternalBackEndException,
 			IOBackEndException;
 
 	String read(String appUser, String key)
