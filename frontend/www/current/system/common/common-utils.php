@@ -58,6 +58,14 @@ function bool_tag($tag, $condition) {
 	if ($condition) print "$tag=\"$tag\"";
 }
 
+/** prettyprint id of a user **/
+function getUser($id){
+	if (strpos($id, "MYMED_") === 0)
+		return substr($id, 6);
+	else
+		return "User#".$id;
+}
+
 /** Generate nice  element for title : div[data-role="header"]/h3 */
 function title_bar($title) {
 ?>

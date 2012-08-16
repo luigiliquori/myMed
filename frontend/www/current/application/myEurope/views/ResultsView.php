@@ -7,22 +7,22 @@
 
 	<div data-role="content">
 
-		<div data-role="fieldcontain" style="display:inline-block;">
-			<label for="flip-a2"><?= _("Sort by") ?>:</label>
-			<select data-theme="e" data-mini="true" name="slider2" id="flip-a2" data-role="slider" onchange="sortBy($(this).val());">
-				<option value="3"><?= _("partner") ?></option>
-				<option value="0"><?= _("date") ?></option>
-			</select>
-		</div>
+		<div style="margin-bottom: 16px;">
+		<label for="radio-group1"><?= _("Sort by") ?>:</label>
+		<fieldset id="radio-group1" data-role="controlgroup" data-mini="true" data-type="horizontal" style="display:inline-block;vertical-align: middle;">
+			<input onclick="sortBy($(this).val());" type="radio" name="name" id="radio-view-t" value="title" checked='checked'/>
+			<label for="radio-view-t"><?= _("title") ?></label>
+			<input onclick="sortBy($(this).val());" type="radio" name="name" id="radio-view-a"value="partner"/>
+			<label for="radio-view-a"><?= _("partner") ?></label>
+			<input data-theme="d" onclick="sortBy($(this).val());" type="radio" name="name" id="radio-view-b" value="date" />
+			<label for="radio-view-b"><?= _("date") ?></label>
+			<input onclick="sortBy($(this).val());" type="radio" name="name" id="radio-view-e" value="reputation" />
+			<label for="radio-view-e"><?= _("reputation") ?></label>
+		</fieldset>
 		
-		<div data-role="fieldcontain" style="float: right;">
-			<select data-theme="e" data-mini="true" name="slider" id="flip-a" data-role="slider"
-				onchange="toggleSub($(this).val(), '<?= APPLICATION_NAME ?>', '<?= $_GET['namespace'] ?>', '<?= isset($_GET['id'])?$_GET['id']:'' ?>','<?= urlencode(json_encode($this->index)) ?>');">
-				<option value="3"><?= _("Subscribe") ?></option>
-				<option value="0"><?= _("Subscribe") ?></option>
-			</select>
+		<a type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="alert" style="float: right;"
+		onclick="subscribe('<?= APPLICATION_NAME ?>', '<?= $_GET['namespace'] ?>', '<?= isset($_GET['id'])?$_GET['id']:null ?>','<?= urlencode(json_encode($this->index)) ?>'); $(this).addClass('ui-disabled');"><?= _("Subscribe") ?></a>
 		</div>
-		
 		
 		<ul id="matchinglist" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="<?= _("filter") ?>" style="clear:both;">
 

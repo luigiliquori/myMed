@@ -6,7 +6,7 @@
 		<div data-role="navbar" data-theme="d" data-iconpos="left"> 
 	      	<ul>
 	      		<li><a href="./" data-icon="back"><?= _("Back") ?></a></li>
-	      		<li><a href="?action=extendedProfile" data-icon="profile" rel="external"><?= $_SESSION['user']->name ?></a></li>
+	      		<li><a href="?action=extendedProfile" data-icon="profile"><?= $_SESSION['user']->name ?></a></li>
 	      	</ul>
       	</div>
 	</div>
@@ -39,7 +39,7 @@
 			<? endforeach ?>
 		</ul>
 		<br />
-		<form method="post" action="?action=Blog&blog=<?= $this->blog ?>">
+		<form method="post" action="?action=Blog&blog=<?= $this->blog ?>" style="text-align:right;">
 			<input type="hidden" name="action" value="Blog" />
 			<input type="hidden" name="blog" value="<?= $this->blog ?>" />
 			<textarea name="text"></textarea>

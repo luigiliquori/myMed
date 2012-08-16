@@ -34,14 +34,12 @@ include("header.php"); ?>
 			<div style="text-align: center;" >
 				<input type="submit" value="<?= _("Log In") ?>" data-inline="true" data-theme="b" />
 			</div>
+			
 			<div style="text-align: center;" >
-				<br />
-				<select data-theme="c" data-mini="true" name="slider" id="flip-d" data-role="slider"
-					onchange="if ($(this).val()==1){$('#AboutContent').fadeOut('slow');} else {$('#AboutContent').fadeIn('slow')};">
-					<option value="1"><?= _("About") ?></option>
-					<option value="0"><?= _("About") ?></option>
-				</select>
-				<div id="AboutContent" style="display:none;">
+				<br /><br />
+				LOGOS<br />
+				<div data-role="collapsible" data-mini="true" data-inline="true">
+					<h3 style="margin:auto;width:136px;"><?= _("About") ?></h3>
 					<?= about(); ?>
 				</div>
 			</div>

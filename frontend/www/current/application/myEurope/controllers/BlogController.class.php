@@ -14,11 +14,15 @@ class BlogController extends AuthenticatedController {
 		
 		if (isset($_GET["rm"])){
 			
+			
 			$request = new MatchMakingRequestv2("v2/PublishRequestHandler", DELETE,
 					array("id"=>$this->blog, "field"=>$_GET['field']),
 					"blogs", $this);
 			
 			$request->send();
+			
+			unset($_GET["rm"]);
+			unset($_GET["field"]);
 		}
 
 		if (count($_POST)){
@@ -28,14 +32,19 @@ class BlogController extends AuthenticatedController {
 					
 // 				}
 // 			}
-			
-			$k = time()."^".$_SESSION['user']->id;
+
+			$k="";
+			if (isset($_POST['replyTo']))
+				$k = $_POST['replyTo']."^";
 			
 			debug($k);
+			
+			$k = $k.time()."^".$_SESSION['user']->id;
 			
 			$data = array(
 					$k => isset($_POST['text'])?urlencode(nl2br($_POST['text'])):urlencode("...")
 				);
+
 			
 			$publish = new MatchMakingRequestv2("v2/PublishRequestHandler", CREATE,
 					array("id"=>$this->blog, "data"=>json_encode($data)),
@@ -56,7 +65,7 @@ class BlogController extends AuthenticatedController {
 		if (isset($this->messages)){
 			unset($this->messages->_index);
 			$this->messages = (array) $this->messages;
-			krsort($this->messages);
+			uksort($this->messages, array($this,"cmp"));
 		} else { //it's empty
 			$this->messages = new stdClass();
 		}
@@ -71,6 +80,25 @@ class BlogController extends AuthenticatedController {
 				break;
 		}
 		//$this->redirectTo("Main", null, "#blogTest");
+	}
+	
+	
+	function cmp($a, $b){
+		$a = explode('^', $a);
+		$b = explode('^', $b);
+		return $this->arr_cmp($a, $b);
+	}
+	
+	function arr_cmp($a, $b){
+		$c = min (count($a), count($b));
+		for ($i=0; $i<$c; $i++){
+			if ($a[$i]!=$b[$i])
+				return $a[$i]<$b[$i];
+		}
+		if (count($b) > $c)
+			return -1;
+		else
+			return 1;
 	}
 }
 ?>

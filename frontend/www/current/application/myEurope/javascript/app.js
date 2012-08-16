@@ -55,32 +55,42 @@ $("#search").live("pagecreate", function() {
 function sortBy( i ){
 	
 	var lis = $('#matchinglist li');
-	if (0 == i) {
-		lis.sort(function(a, b){
-		    return $(a).attr('data-time') < $(b).attr('data-time') ? 1 : -1;
-		});
-	} else {
+	switch(i){
+	case "partner":
 		lis.sort(function(a, b){
 		    return $(a).attr('data-id') > $(b).attr('data-id') ? 1 : -1;
 		});
+		break;
+	case "date":
+		lis.sort(function(a, b){
+		    return $(a).attr('data-time') < $(b).attr('data-time') ? 1 : -1;
+		});
+		break;
 	}
 	$('#matchinglist').html(lis);
 	$('#matchinglist').listview('refresh');
 }
 
-function toggleSub(code, application, namespace, id, index) {
+function subscribe(application, namespace, id, index) {
 	$.get('../../lib/dasp/ajax/Subscribe', {
-		code : code,
+		code : 0,
 		application : application,
 		namespace : namespace,
 		id : id,
 		index : decodeURIComponent(index)
 	}, function(data) {
 		console.log(data);
+		var response = JSON.parse(data);
+		$('#notification-success h3').text(response.description);
+		$('#notification-success').show();
 	});
 }
 
 function rate(feedback, id, user) {
+	
+	if (user == undefined)
+		user = id;
+	
 	$.get('../../lib/dasp/ajax/Interaction', {
 		application : application,
 		predicate : id,
@@ -89,7 +99,8 @@ function rate(feedback, id, user) {
 	}, function(data) {
 		console.log(data);
 		var response = JSON.parse(data);
-		alert(response.description);
+		$('#notification-success h3').text(response.description);
+		$('#notification-success').show();
 		//location.reload(0);
 		
 	});

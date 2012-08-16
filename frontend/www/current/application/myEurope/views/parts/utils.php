@@ -1,12 +1,7 @@
 <?php 
 
 
-function getUser($id){
-	if (strpos($id, "MYMED_") === 0)
-		return substr($id, 6);
-	else
-		return "User #".$id;
-}
+
 
 
 /**
@@ -50,7 +45,8 @@ function tabs($tabs, $activeTab) {
  	?>
   	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
   	<ul>
-  		<li><a href="/application/myMed" data-ajax="false" data-icon="back"><?= _("Exit") ?></a></li>
+  		<li><a href="/application/myMed" data-icon="back"><?= _("Exit") ?></a></li>
+  		<li><a href="/application/myMed" data-ajax="false" data-icon="back"><?= _("ajaxfalse") ?></a></li>
   		<? foreach ($tabs as $id => $v) { ?>
   		<li>
   			<a 
@@ -79,7 +75,7 @@ function tabs($tabs, $activeTab) {
  	?>
  	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
  	<ul>
- 		<li><a href="./" rel="external" data-icon="back"><?= APPLICATION_NAME ?></a></li>
+ 		<li><a href="./" data-icon="back"><?= APPLICATION_NAME ?></a></li>
  		<? foreach ($tabs as $id => $v) { ?>
  		<li>
  			<a 
@@ -128,7 +124,7 @@ function tabs($tabs, $activeTab) {
    		<div data-role="navbar" data-theme="d" data-iconpos="left"> 
         	<ul>
             	<li><a data-rel="back" data-icon="back"><?= _("Back") ?></a></li>
-            	<li><a href="<?= $url ?>" rel="external" data-icon="<?= $icon ?>"><?= $button ?></a></li>
+            	<li><a href="<?= $url ?>" data-icon="<?= $icon ?>"><?= $button ?></a></li>
             	<li><a class="ui-disabled"><?= $title ?></a></li>
             </ul>
         </div> <?
@@ -142,7 +138,7 @@ function tabs($tabs, $activeTab) {
       	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
       	<ul>
       		<li><a data-rel="back" data-icon="back"><?= _("Back") ?></a></li>
-      		<li><a href="<?= $url ?>" rel="external" data-icon="<?= $icon ?>" class="ui-disabled"><?= $title ?></a></li>
+      		<li><a href="<?= $url ?>" data-icon="<?= $icon ?>" class="ui-disabled"><?= $title ?></a></li>
       	</ul>
       	</div> <?
       }
@@ -154,8 +150,8 @@ function tabs($tabs, $activeTab) {
       	?>
             	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
             	<ul>
-            		<li><a href="./" rel="external" data-icon="back"><?= _("Back") ?></a></li>
-            		<li><a onclick="<?= $url ?>" rel="external" data-icon="<?= $icon ?>"><?= $title ?></a></li>
+            		<li><a href="./" data-icon="back"><?= _("Back") ?></a></li>
+            		<li><a onclick="<?= $url ?>" data-icon="<?= $icon ?>"><?= $title ?></a></li>
             	</ul>
             	</div> <?
             }
@@ -208,13 +204,13 @@ function tabs($tabs, $activeTab) {
 				<ul data-role="listview" data-inset="true" data-theme="d" style="margin-top: 2px;">
 					<li>
 						<h2>
-							<?= $profile->name ?>  <a style="font-style: italic;">+<?= $profile->reputation['up'] ?></a> 
+							<?= $profile->name ?> 
 						</h2>
 						<p>
 							<?= _("role") ?>: <strong style="color:#444;"><?= $profile->role ?></strong>
 						</p>
 						<p>
-							<strong style="color:#444;"><?= $profile->activity ?></strong>
+							<strong style="color:#444;"><?= (empty($profile->activity)?" ":$profile->activity) ?></strong>
 						</p>
 						<p>
 							<img src="./img/mail-send.png" style="height: 22px;vertical-align: bottom;"/>
@@ -228,14 +224,12 @@ function tabs($tabs, $activeTab) {
 						<p>
 							<?= empty($profile->desc)?" ":$profile->desc ?>
 						</p>
-						<p class="ui-li-aside">
-							<a href="" data-role="button" data-theme="c" data-mini="true" data-inline="true" style="font-style: italic;color:blue;"
-							onclick="rate(1, '<?= $id ?>', '<?= $profile->user ?>');">+1</a>
-						</p> 
-						<span>
-						<a href="#deletePopup" data-role="button" data-rel="popup" class="fooh" data-position-to="origin" 
-						onclick="$('#deleteYes').attr('href', '?action=');" data-theme="d" data-icon="delete" data-iconpos="notext" style="position:absolute;right:1px;bottom:-5px;"><?= _('delete') ?></a>
-						</span>
+						
+						<div class="ui-li-aside" data-role="controlgroup" style="width:auto;" data-type="horizontal" data-mini="true">
+							<a data-role="button" style="color:gray;" data-icon="minus" onclick="rate(0, '<?= $id ?>', '<?= $profile->user ?>');"><?= $profile->reputation['down'] ?></a>
+							<a data-role="button" style="color:blue;" data-icon="plus" onclick="rate(1, '<?= $id ?>', '<?= $profile->user ?>');"><?= $profile->reputation['up'] ?></a>
+						</div>
+						
 					</li>
 				</ul>
 				<?
@@ -250,15 +244,21 @@ function tabs($tabs, $activeTab) {
 			 
 			default:
 				?>
-	
 					<ul data-role="listview" data-inset="true" data-theme="d">
 						<li>
 							<h3>
-								<?= $profile->name ?> <a style="font-style: italic;">+<?= $profile->reputation['up'] ?></a>
+								<?= $profile->name ?>
 							</h3>
 							<p>
-								<strong style="color:#444;"><?= $profile->activity ?></strong>
+								<?= _("role") ?>: <strong style="color:#444;"><?= $profile->role ?></strong>
 							</p>
+							<p>
+								<strong style="color:#444;"><?= (empty($profile->activity)?" ":$profile->activity) ?></strong>
+							</p>
+							<div class="ui-li-aside" data-role="controlgroup" style="width:auto;" data-type="horizontal" data-mini="true">
+								<a class="ui-disabled" data-role="button" style="color:gray;" data-icon="minus" ><?= $profile->reputation['down'] ?></a>
+								<a class="ui-disabled" data-role="button" style="color:blue;" data-icon="plus" ><?= $profile->reputation['up'] ?></a>
+							</div>
 							<br />
 							<p>
 								<img src="./img/mail-send.png" style="height: 22px;vertical-align: bottom;"/>
@@ -281,11 +281,8 @@ function tabs($tabs, $activeTab) {
 								<? endforeach ?>
 								</ul>
 							</p>
-							<p style="position:absolute; right: 1px; top: 50px;">
+							<p style="position:absolute; right: 10px; top: 60px;">
 								<a type="button" data-mini="true" href="?action=ExtendedProfile&edit=false" data-inline="true" data-theme="d" data-icon="grid"><?= _('edit') ?></a>
-							</p>
-							<p class="ui-li-aside">
-								<?= _("role") ?>: <strong style="color:#444;"><?= $profile->role ?></strong>
 							</p>
 						</li>
 					</ul>

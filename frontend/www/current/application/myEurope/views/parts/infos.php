@@ -2,10 +2,10 @@
 	<div data-role="header" data-theme="c" data-position="fixed">
 		<div data-role="navbar" data-theme="d" data-iconpos="left">
 			<ul>
-				<li><a href="./" rel="external" data-icon="back"><?= _("Back") ?>
+				<li><a href="./" data-icon="back"><?= _("Back") ?>
 				</a>
 				</li>
-				<li><a href="?action=extendedProfile" rel="external" data-icon="profile"><?= $_SESSION['user']->name ?>
+				<li><a href="?action=extendedProfile" data-icon="profile"><?= $_SESSION['user']->name ?>
 				</a>
 				</li>
 			</ul>

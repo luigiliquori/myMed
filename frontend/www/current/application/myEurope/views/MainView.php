@@ -42,7 +42,7 @@ function tab_bar_white($activeTab) {
 			<h3 style="margin:auto;width:136px;"><?= _("About") ?></h3>
 			<?= about(); ?>
 		</div>
-		
+		<br />
 		<span class='st_googleplus_large' displayText='Google +'></span>
 		<span class='st_facebook_large' displayText='Facebook'></span>
 		<span class='st_twitter_large' displayText='Tweet'></span>

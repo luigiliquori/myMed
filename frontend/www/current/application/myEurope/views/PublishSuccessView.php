@@ -6,8 +6,8 @@
 		<div data-role="navbar" data-theme="d" data-iconpos="left"> 
   			<ul>
   				<li><a href="?action=logout" rel="external" data-icon="back"><?= _("Exit") ?></a></li>
-  				<li><a href="./" rel="external" data-icon="<?= APPLICATION_NAME ?>"><?= APPLICATION_NAME ?></a></li>
-  				<li><a href="?action=extendedProfile" rel="external" data-icon="profile"><?= $_SESSION['user']->name ?></a></li>
+  				<li><a href="./" data-icon="<?= APPLICATION_NAME ?>"><?= APPLICATION_NAME ?></a></li>
+  				<li><a href="?action=extendedProfile" data-icon="profile"><?= $_SESSION['user']->name ?></a></li>
   			</ul>
   		</div>
 	</div>

@@ -29,7 +29,7 @@ abstract class AbstractController implements IRequestHandler {
 			<head>
 				<!-- HTML reload (for data-ajax=false) -->
 				<script>
-					location.href='<?= $url ?>'
+					location.href='<?= "./".$url ?>'
 				</script>
 			</head>
 			<body>

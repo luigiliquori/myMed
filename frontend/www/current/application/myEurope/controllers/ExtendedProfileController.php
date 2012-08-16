@@ -179,11 +179,12 @@ class ExtendedProfileController extends AuthenticatedController
 		
 		if (!empty($result)){
 		
+			$this->id = $id;
 			$this->profile = (object) $result;
 			$this->success = "";
 			
 			$rep =  new Reputationv2($id);
-			$this->reputation = $rep->send();
+			$this->profile->reputation = $rep->send();
 
 		}
 		

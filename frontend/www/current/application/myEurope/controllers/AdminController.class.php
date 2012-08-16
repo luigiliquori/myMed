@@ -1,8 +1,6 @@
 <? 
 class AdminController extends ExtendedProfileRequired {
 	
-	public $users;
-	
 	public /*void*/ function handleRequest(){
 		
 		parent::handleRequest();
@@ -35,13 +33,21 @@ class AdminController extends ExtendedProfileRequired {
 				$req->setArguments(array("id"=>$item->id));
 				try{
 					$res = $req->send();
-					if (isset($res, $res->permission))
-						$result[$i]->permission = $res->permission;
+					if (isset($res)){
+						$result[$i]->profile = $res;
+						$rep =  new Reputationv2($item->id);
+						$result[$i]->profile->reputation = $rep->send();
+					}
+						
 				} catch(Exception $e){}
 				
 			}
 			// Give this to the view
 			$this->users = $result;
+			
+			$this->blocked = array_filter($result, array($this,"isBlocked"));
+			$this->normals = array_filter($result, array($this,"isNormal"));
+			$this->admins = array_filter($result, array($this,"isAdmin"));
 			
 			$this->renderView("admin");
 			
@@ -68,6 +74,18 @@ class AdminController extends ExtendedProfileRequired {
 		
 		$publish->send();
 	
+	}
+	
+	public function isBlocked($var){
+		return($var->profile->permission <= 0);
+	}
+	
+	public function isNormal($var){
+		return($var->profile->permission == 1);
+	}
+	
+	public function isAdmin($var){
+		return($var->profile->permission > 1);
 	}
 	
 }
