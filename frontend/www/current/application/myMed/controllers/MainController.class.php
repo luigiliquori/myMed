@@ -7,7 +7,7 @@
 class MainController extends AuthenticatedController {
 
 	public static $hiddenApplication = array("myMed", "myNCE", "myBEN", "myTestApp", "myMed_old", "myOldEurope");
-	public static $bootstrapApplciation = array("myRiviera", "myFSA", "myEurope", "myMemory", "myBen", "myEuroCIN");
+	public static $bootstrapApplication = array("myRiviera", "myFSA", "myEurope", "myMemory", "myBen", "myEuroCIN");
 	
 	public $applicationList = array();
 	public $applicationStatus = array();
@@ -16,28 +16,40 @@ class MainController extends AuthenticatedController {
 
 	public function __construct() {
 		
-		// get all the application in MYMED_ROOT . '/application
-		if ($handle = opendir(MYMED_ROOT . '/application')) {
-			while (false !== ($file = readdir($handle))) {
-				if(preg_match("/my/", $file) && !preg_match("/Admin/", $file) && !in_array($file, self::$hiddenApplication)) {
-					array_push($this->applicationList, $file);
-					$this->applicationStatus[$file] = "on"; // default status
-				}
-			}
+	}
+	
+	function resetApplicationStatus(){
+		$this->applicationStatus = array();
+		foreach($this->applicationList as $app) {
+			$this->applicationStatus[$app] = "off";
 		}
-
-		// set the status of the applications
-		foreach ($this->applicationList as $app){
-			if((isset($_COOKIE[$app.'Status']) &&  $_COOKIE[$app.'Status'] == "off") || !in_array($app, self::$bootstrapApplciation)) {
-				$this->applicationStatus[$app] = "off";
-			}
-		}
-		
 	}
 
 	public function handleRequest() {
 
 		parent::handleRequest();
+		
+		// get all the application in MYMED_ROOT . '/application
+		if ($handle = opendir(MYMED_ROOT . '/application')) {
+			while (false !== ($file = readdir($handle))) {
+				if(preg_match("/my/", $file) && !preg_match("/Admin/", $file) && !in_array($file, self::$hiddenApplication)) {
+					array_push($this->applicationList, $file);
+				}
+			}
+		}
+		
+		$extentedProfile = ExtendedProfile::getExtendedProfile($this, $_SESSION['user']->id);
+		$this->setSuccess(null);
+		// setup the extendedProfile if needed
+		if($extentedProfile == null){
+			$extentedProfile = new ExtendedProfile($_SESSION['user']->id, self::$bootstrapApplication);
+			$extentedProfile->storeProfile($this);
+		}
+		// set the status of the applications
+		$this->resetApplicationStatus();
+		foreach ($extentedProfile->applicationList as $app){
+			$this->applicationStatus[$app] = "on";
+		}
 		
 		// Set the flag
 		$_SESSION["launchpad"] = true;
@@ -63,6 +75,39 @@ class MainController extends AuthenticatedController {
 				}
 			}
 		}
+		
+		// Set the applicationList of the user
+		if(isset($_REQUEST['applicationStore']) && isset($_REQUEST['status'])) {
+			$extentedProfile = ExtendedProfile::getExtendedProfile($this, $_SESSION['user']->id);
+			$appList = $extentedProfile->applicationList;
+			$i=0;
+			print_r($extentedProfile->applicationList);
+			while ($i < sizeof($appList)) {
+				if($appList[$i] == $_REQUEST['applicationStore']){
+					if($_REQUEST['status'] == "off") {
+						unset($appList[$i]);
+						$this->setSuccess("L'application " . $_REQUEST['applicationStore'] . " est maintenant désactivée");
+					} else {
+						break;
+					}
+				}
+				$i++;
+			}
+			if($i==sizeof($appList) && $_REQUEST['status'] == "on") {
+				array_push($appList, $_REQUEST['applicationStore']);
+				$this->setSuccess("L'application " . $_REQUEST['applicationStore'] . " est maintenant activée");
+			}
+			$extentedProfile = new ExtendedProfile($_SESSION['user']->id, $appList);
+			$extentedProfile->storeProfile($this);
+			
+			// set the status of the applications
+			$this->resetApplicationStatus();
+			foreach ($extentedProfile->applicationList as $app){
+				$this->applicationStatus[$app] = "on";
+			}
+			
+		}
+		
 		$this->renderView("main");
 	}
 

@@ -18,7 +18,6 @@ class MainController extends AuthenticatedController {
 		 * ExtendedProfile stored in the $_SESSION while using the app
 		 */
 		if( !isset($_SESSION['ExtendedProfile'])){
-			
 			$this->fetchExtendedProfile();
 
 		}
