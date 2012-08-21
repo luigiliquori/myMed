@@ -17,7 +17,7 @@ class InstitutionCategoryController extends InstitutionNodeController {
 	// Actions
 	// ---------------------------------------------------------------------
 	
-	/** Show the root cateogry by default */
+	/** Show the root category by default */
 	public function defaultMethod() {
 		$this->show("root");
 	}

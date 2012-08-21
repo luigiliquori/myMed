@@ -138,7 +138,7 @@ bind_textdomain_codeset(GLOBAL_MESSAGES, 'UTF-8');
 // This is a pure PHP implementation of gettext that does not reply on system installed locales.
 // It loads the same .mo files, and he's easier to debug :(You can put your debug logs in gettext.inc and gettext.php)
 // However, if you want to use that, you should use __() instead of _(). Make a massive search / replace for that
-define('PHP_GETTEXT', false); // Set to true to enable
+define('PHP_GETTEXT', false); // Set to true to enable php-gettext
 
 if (PHP_GETTEXT) {
 	require(__DIR__ . "./../common/gettext/gettext.inc");
