@@ -1,19 +1,13 @@
 <div data-role="page" id="infos">
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<div data-role="navbar" data-theme="d" data-iconpos="left">
-			<ul>
-				<li><a href="./" data-icon="back"><?= _("Back") ?>
-				</a>
-				</li>
-				<li><a href="?action=extendedProfile" data-icon="profile"><?= $_SESSION['user']->name ?>
-				</a>
-				</li>
-			</ul>
-		</div>
+		<? tabs_3(
+				"Informations",
+				$_SESSION['user']->name) ?>
 	</div>
 
 	<div data-role="content">
-		<br /> <b>Programmes de coopération</b> dont peuvent bénéficier les territoires de l'Eurorégion Alpes-Méditerranée :
+		<br />
+		<b>Programmes de coopération</b> dont peuvent bénéficier les territoires de l'Eurorégion Alpes-Méditerranée :
 
 		<ul data-role="listview" data-inset="true">
 			<li><a href="#alcotra">Programme transfrontalier Alcotra </a>
