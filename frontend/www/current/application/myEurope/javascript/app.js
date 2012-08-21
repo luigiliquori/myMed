@@ -209,16 +209,20 @@ function setCommentForm(comment, post, votesUp, votesDown){
 	$('#commentPopup a:eq(2) .ui-btn-text').text(votesDown);
 }
 function setReplyForm(){
-	$('#replyTo').val($('#deleteField').val());
+	
 	if (!$('#'+$('#deleteField').val()).next().is('form')){
 		var clone=$('#commentForm'+$('#deleteRm').val()).clone();
+		clone.find('#replyTo').val($('#deleteField').val());
+		clone.css({"margin-left":"15px", "margin-right":"15px"});
 		$('#'+$('#deleteField').val()).next().show();
 		clone.focusout(function(){
 			setTimeout(function(){clone.hide()}, 500);
 		});
 		
-	}else
+	}else{
+		$('#'+$('#deleteField').val()).next().show();
 		return;
+	}
 	
 	if ($('#deleteRm').val() == '')
 		$('#comments'+$('#deleteField').val()).closest('div[data-role=collapsible]').trigger('expand');

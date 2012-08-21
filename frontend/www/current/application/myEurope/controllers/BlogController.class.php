@@ -78,7 +78,7 @@ class BlogController extends ExtendedProfileRequired {
 			}
 			uasort($this->messages, array($this, "timeCmp"));
 			
-			debug_r($this->messages);
+			
 
 			$rep =  new Reputationv2(array_keys($this->messages));
 			$repArr = $rep->send();
@@ -108,7 +108,7 @@ class BlogController extends ExtendedProfileRequired {
 					
 					uasort($this->comments[$k], array($this, "repCmp"));
 					
-					//debug_r($this->comments[$k]);
+					debug_r($this->comments[$k]);
 					
 				}
 			}

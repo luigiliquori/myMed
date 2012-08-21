@@ -31,7 +31,7 @@ function tab_bar_white($activeTab) {
 			<a href="?action=Blog&blog=alcotra" style="width:30%;min-width:240px;" class="wrap"
 			type="button"  data-theme="d" data-inline="true"><?= _('Alcotra Blog') ?><span style="font-weight: lighter;"> 2014-2020</span></a>
 			<a href="?action=Blog&blog=myEurope" style="width:30%;min-width:240px;" class="wrap"
-			type="button"  data-theme="d" data-inline="true"><?= _('Beta Testers Blog') ?></a>
+			type="button" data-theme="d" data-inline="true"><?= _('Beta Testers Blog') ?></a>
 		
 		<div data-role="collapsible" data-mini="true" data-inline="true">
 			<h3 style="margin:auto;width:136px;"><?= _("About") ?></h3>
