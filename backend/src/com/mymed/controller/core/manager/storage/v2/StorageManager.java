@@ -79,6 +79,22 @@ public class StorageManager extends
 		wrapper = new CassandraWrapper(conf.getCassandraListenAddress(),
 				conf.getThriftPort());
 	}
+	
+	@Override
+	public Map<ByteBuffer, List<ColumnOrSuperColumn>> batch_read(final String tableName,
+			final List<String> keys)throws InternalBackEndException {
+		
+		final SlicePredicate predicate = new SlicePredicate();
+		final SliceRange sliceRange = new SliceRange();
+		sliceRange.setStart(new byte[0]);
+		sliceRange.setFinish(new byte[0]);
+		sliceRange.setCount(maxNumColumns);
+		predicate.setSlice_range(sliceRange);
+
+		final ColumnParent parent = new ColumnParent(tableName);
+		
+		return wrapper.multiget_slice(keys, parent, predicate, consistencyOnRead);
+	}
 
 	@Override
 	public Map<String, Map<String, String>> multiSelectList(

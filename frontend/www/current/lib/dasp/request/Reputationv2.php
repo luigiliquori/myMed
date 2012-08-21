@@ -43,26 +43,45 @@ class Reputationv2 extends Requestv2 {
 	/* --------------------------------------------------------- */
 	public /*String*/ function send(){
 		parent::addArgument("application", APPLICATION_NAME);
-		parent::addArgument("producer", $this->id);
+		if ( is_array($this->id))
+			parent::addArgument("producers", json_encode($this->id));
+		else
+			parent::addArgument("producer", $this->id);
 
 		$responsejSon = parent::send();
 		$responseObject = json_decode($responsejSon);
 
 		$rep = 1;
 		$nb = 0;
-
-		if($responseObject->status == 200) {
-			$rep = $responseObject->dataObject->reputation->reputation;
-			$nb = $responseObject->dataObject->reputation->noOfRatings;
-		} else if (!is_null($this->handler)) 
+		
+		if($responseObject->status != 200) {
 			$this->handler->setError($responseObject->description);
-
-		return array(
-				"rep" => round($rep * 100),
-				"nbOfRatings" => $nb,
-				"up" => $rep * $nb,
-				"down" => $nb - $rep * $nb
-		);
+		} else {
+			if ( !is_array($this->id)){
+				$rep = $responseObject->dataObject->reputation->reputation;
+				$nb = $responseObject->dataObject->reputation->numberOfVerdicts;
+			
+				return array(
+						"rep" => round($rep * 100),
+						"nbOfRatings" => $nb,
+						"up" => $rep * $nb,
+						"down" => $nb - $rep * $nb
+				);
+			} else {
+				$res = array();
+				foreach ($responseObject->dataObject->reputation as $k=>$v){
+					$res[$k] = array(
+							"rep" => round($v->reputation * 100),
+							"nbOfRatings" => $v->numberOfVerdicts,
+							"up" => $v->reputation * $v->numberOfVerdicts,
+							"down" => $v->numberOfVerdicts - $v->reputation * $v->numberOfVerdicts
+					);
+				}
+				return $res;
+			}
+		
+		}
+		
 
 	}
 }

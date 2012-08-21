@@ -3,6 +3,8 @@ var isSub = 3;
 
 var application="myEurope", predicate="";
 
+var commenters = {};
+
 /*$('label').click(function(e){
     e.stopPropagation()
 });/*
@@ -139,6 +141,106 @@ $('#tagSearch').live("keyup", function(event) {
 	}
 });
 
+$("#BlogTesters").live("pagecreate", function() {
+	$(this).find('a.comments').live('click', function(){
+
+		var me = $(this).closest('div');
+		if (me.is('.root') || me.attr('data-reply')==me.prev().attr('id'))
+			return;
+			
+    	var father = $('#'+me.attr('data-reply'));
+		var clone = father.clone();
+		
+		me.before(clone);
+		me.animate({'margin-left':'20px'}, 200);
+	
+	});
+});
+
+function indent(el){
+	var me = '#'+el.closest('div').attr('id');
+	var father = '#'+el.closest('div').attr('data-reply');
+	console.log(me+":"+$(me).css('margin-left')+" "+father+":"+$(father).css('margin-left'));
+	
+	/**if (parseInt($(father).css('margin-left'), 10)>=0 && parseInt($(me).css('margin-left'))- parseInt($(father).css('margin-left'))<=20){	
+		$(me).css('margin-left', '+=20px');
+	
+		$(father).css('margin-left', '-=20px');
+	}
+	
+	else if (parseInt($(father).css('margin-left'), 10)<0 ){	
+		$(me).css('margin-left', '+=20px');
+		$(father).css('margin-left', '+=20px');
+	}*/
+	
+	if (parseInt($(me).css('margin-left'))- parseInt($(father).css('margin-left'))<20){	
+		$(me).css('margin-left', '+=20px');
+
+	}
+
+	console.log(me+":"+$(me).css('margin-left')+" "+father+":"+$(father).css('margin-left'));
+	console.log("..");
+		
+	$(father).append($(me));
+}
+
+function show(el){
+	var me = el.closest('li');
+	if ( me.attr('replyTo')==me.prev().attr('id')){
+		me.animate({'margin-left':'50px'}, 200);
+		return;
+	}
+		
+		
+	var father = $('#'+me.attr('replyTo'));
+	var clone = father.clone();
+	
+	me.before(clone);
+	me.animate({'margin-left':'50px'}, 200);
+	me.closest('ul').listview('refresh');
+}
+
+
+
+function setCommentForm(comment, post, votesUp, votesDown){
+	$('#deleteField').val(comment);
+	$('#deleteRm').val(post);
+	$('#commentPopup a:eq(1) .ui-btn-text').text(votesUp);
+	$('#commentPopup a:eq(2) .ui-btn-text').text(votesDown);
+}
+function setReplyForm(){
+	$('#replyTo').val($('#deleteField').val());
+	if (!$('#'+$('#deleteField').val()).next().is('form')){
+		var clone=$('#commentForm'+$('#deleteRm').val()).clone();
+		$('#'+$('#deleteField').val()).next().show();
+		clone.focusout(function(){
+			setTimeout(function(){clone.hide()}, 500);
+		});
+		
+	}else
+		return;
+	
+	if ($('#deleteRm').val() == '')
+		$('#comments'+$('#deleteField').val()).closest('div[data-role=collapsible]').trigger('expand');
+	else
+		$('#'+$('#deleteField').val()).after(clone);
+	//$('#commentForm'+$('#deleteRm').val()+' textarea').focus();
+}
+
+$("#Blog").live("pagecreate", function() {	
+	$('.comment').each(function(index, value) { 
+		var usr = $(value).attr('user');
+		console.log(usr);
+		if (!commenters.hasOwnProperty(usr))
+			commenters[usr] = 'http://lorempixel.com/30/30/';
+		
+		$(value).find('img').attr('src', commenters[usr]);
+	});
+});
+
+$("#Blog").live("pageshow", function() {
+	$('div[data-role=collapsible]:first').trigger('expand');
+});
 
 function showComment() {
 	$('#CommentButton').fadeOut('fast');

@@ -16,9 +16,11 @@
 package com.mymed.controller.core.manager.storage;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.ByteBuffer;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.cassandra.thrift.ColumnOrSuperColumn;
 import org.apache.cassandra.thrift.ColumnParent;
 import org.apache.cassandra.thrift.ConsistencyLevel;
 
@@ -241,6 +243,9 @@ public interface IStorageManager {
      */
     void removeAll(String tableName, String key) throws InternalBackEndException;
     
+    
+    Map<ByteBuffer, List<ColumnOrSuperColumn>> batch_read(final String tableName,
+			final List<String> keys)throws InternalBackEndException;
     
     public Map<String, Map<String, String>> multiSelectList(final String tableName, final List<String> keys,
     		final String start, final String finish) 

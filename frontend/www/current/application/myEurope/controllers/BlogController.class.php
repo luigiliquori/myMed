@@ -1,8 +1,6 @@
 <? 
 
-//require_once dirname(__FILE__) . '/../../../lib/dasp/beans/DataBeanv2.php';
-
-class BlogController extends AuthenticatedController {
+class BlogController extends ExtendedProfileRequired {
 	
 	public $blog; // the id of the blog
 	
@@ -14,31 +12,48 @@ class BlogController extends AuthenticatedController {
 
 		if (count($_POST)){
 			
-			$k="";
-			
 			if (isset($_POST["rm"])){
+				$id = $this->blog;
+				if (!empty($_POST["rm"]))
+					$id .= "comments".$_POST['rm'];
+				
 				$request = new MatchMakingRequestv2("v2/PublishRequestHandler", DELETE,
-						array("id"=>$this->blog, "field"=>$_POST['field']),
+						array("id"=>$id, "field"=>$_POST['field']),
 						"blogs", $this);
 					
 				$request->send();
 					
 			}else{
 				
-				if (isset($_POST['replyTo']))
-					$k = $_POST['replyTo']."^reply^";
-	
-				$k = $k.time()."^".$_SESSION['user']->id;
+				$id = $this->blog;
+				$t = time();
+				$k = hash("crc32", $t.$_SESSION['user']->id);
 				
-				$data = array(
-					$k => json_encode(array(
-							"title"=>isset($_POST['text'])?$_POST['title']:"...",
-							"text"=>isset($_POST['text'])?nl2br($_POST['text']):"..."
-						))
-				);
-	
+				if (isset($_POST['commentTo'])){ // a comment
+					
+					$id .= "comments".$_POST['commentTo'];
+					$data = array(
+							$k => json_encode(array(
+									"time"=>$t,
+									"user"=>$_SESSION['user']->id,
+									"replyTo"=>$_POST['replyTo'],
+									"text"=>nl2br($_POST['text'])
+							))
+					);
+					
+				} else { // a blog message
+					$data = array(
+							$k => json_encode(array(
+									"time"=>$t,
+									"user"=>$_SESSION['user']->id,
+									"title"=>$_POST['title'],
+									"text"=>nl2br($_POST['text'])
+							))
+					);
+				}
+
 				$publish = new MatchMakingRequestv2("v2/PublishRequestHandler", UPDATE,
-						array("id"=>$this->blog, "data"=>json_encode($data)),
+						array("id"=>$id, "data"=>json_encode($data)),
 					 	"blogs", $this);
 	
 				$publish->send();
@@ -58,39 +73,66 @@ class BlogController extends AuthenticatedController {
 		if (isset($res)){
 			
 			$this->messages = array();
+			foreach ($res as $k=>$v){
+				$this->messages[$k] = json_decode($v, true);
+			}
+			uasort($this->messages, array($this, "timeCmp"));
+			
+			debug_r($this->messages);
+
+			$rep =  new Reputationv2(array_keys($this->messages));
+			$repArr = $rep->send();
+			$this->messages = array_replace_recursive($this->messages, $repArr);
+			
 			$this->comments = array();
 			
+			$req = new MatchMakingRequestv2("v2/PublishRequestHandler", READ, null,
+					"blogs", $this);
+			
 			foreach($res as $k => $v){
-				$pieces = preg_split("/\^reply\^/", $k);
-				if (!isset($this->comments[$pieces[0]]))
-					$this->comments[$pieces[0]] = array();
-				if(count($pieces)>1)
-					$this->comments[$pieces[0]][$pieces[1]] = $v;
-				else 
-					$this->messages[$pieces[0]] = $v;
+				
+				$req->setArguments(array("id"=>$this->blog."comments".$k));
+				try{
+					$r = $req->send();
+				} catch(Exception $e){}
+				
+				if (isset($r)){
+					$this->comments[$k] = array();
 					
+					foreach ($r as $ki=>$vi){
+						$this->comments[$k][$ki] = json_decode($vi, true);
+					}
+					$rep =  new Reputationv2(array_keys($this->comments[$k]));
+					$repArr = $rep->send();
+					$this->comments[$k] = array_replace_recursive($repArr, $this->comments[$k]);
+					
+					uasort($this->comments[$k], array($this, "repCmp"));
+					
+					//debug_r($this->comments[$k]);
+					
+				}
 			}
 			
- 			foreach ($this->comments as $k=>$v)
- 				krsort($this->comments[$k]);
- 			krsort($this->messages);
- 			debug_r($this->messages);
- 			debug_r($this->comments);
-			
 		} else { //it's empty
-			$this->messages = new stdClass();
+			$this->messages = array();
 		}
 			
 		switch ($this->blog){
-			case 'testers':default:
-				$this->renderView("BlogTesters");
+			case 'tests':default:
+				$this->renderView("Blogs");
 				break;
 				
-			case 'alcotra':
-				$this->renderView("BlogAlcotra");
-				break;
 		}
-		//$this->redirectTo("Main", null, "#blogTest");
+	}
+	
+	public function timeCmp($a, $b){
+		return  $a['time'] < $b['time'];
+	}
+	
+	public function repCmp($a, $b){
+		if ($a['up']-$a['down'] == $b['up']-$b['down'])
+			return $this->timeCmp($a, $b);
+		return  $a['up']-$a['down'] < $b['up']-$b['down'];
 	}
 	
 }

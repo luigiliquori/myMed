@@ -2,19 +2,12 @@
 
 <!-- Header -->
 <div data-role="header" data-theme="c" data-position="fixed">
-	<? tabs_3(
-			_('Profile'),
-			_('Add to contacts'),
-			"?action=ExtendedProfile&id=". $this->profile->user ,
-			"check") ?>
+	<? tabs_2empty(getUser($item->id)) ?>
 	<? include("notifications.php"); ?>
 </div>
 
 <div data-role="content" >
-	
-	<?= printProfile($this->profile,
-						 $this->id) ?>
-	
-	
+
+	<?= printProfile($item->profile) ?>
 </div>
 <? include("footer.php"); ?>

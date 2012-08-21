@@ -54,6 +54,8 @@ public abstract class AbstractRequestHandler extends com.mymed.controller.core.r
 	protected Type xType;
 	protected Type predicateType;
 	
+	protected Type listType;
+	
 	protected AbstractRequestHandler() {
         super();
 
@@ -78,6 +80,7 @@ public abstract class AbstractRequestHandler extends com.mymed.controller.core.r
         dataType = new TypeToken<Map<String, String>>() {}.getType();
         xType = new TypeToken<Map<String, List<String>>>() {}.getType();
         predicateType = new TypeToken<List<DataBean>>() {}.getType();
+        
     }
 	
 	

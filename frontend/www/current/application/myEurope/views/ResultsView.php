@@ -35,7 +35,7 @@
 			<? foreach($this->result as $item) : ?>
 			
 			<li data-id="<?= getUser($item->user) ?>" data-time="<?= $item->time ?>">
-			<a href="?action=details&namespace=<?= $_GET['namespace'] ?>&id=<?= urlencode($item->id) ?>" data-ajax="false"><span
+			<a href="?action=details&namespace=<?= $_GET['namespace'] ?>&id=<?= urlencode($item->id) ?>"><span
 					style="font-weight: lighter;">Offre publiée par </span> <?= getUser($item->user) ?> <span style="font-weight: lighter;"> (<?= date('d/m/Y', $item->time) ?> <?=  date('H:i:s', $item->time) ?>)</span>
 				</a>
 			</li>
@@ -44,7 +44,7 @@
 			<? if (!empty($this->suggestions)) :?>
 			<li data-role="list-divider">Suggestions:</li>
 			<? foreach($this->suggestions as $item) : ?>
-			<li><a href="./?action=details&namespace=<?= $_GET['namespace'] ?>&id=<?= urlencode($item->id) ?>" data-ajax="false"> <b>...</b> : <?= print_r($item) ?><br />
+			<li><a href="./?action=details&namespace=<?= $_GET['namespace'] ?>&id=<?= urlencode($item->id) ?>"> <b>...</b> : <?= print_r($item) ?><br />
 			</a>
 			</li>
 			<? endforeach ?>

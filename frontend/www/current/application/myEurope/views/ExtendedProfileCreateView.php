@@ -59,7 +59,7 @@
 	</div>
 
 	<div data-role="content">
-		<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" data-ajax="false" class="compact">
+		<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" class="compact">
 			<input type="hidden" name="form" value="create" />
 			<input type="hidden" name="role" value="Association" />
 			
@@ -107,7 +107,7 @@
 	</div>
 
 	<div data-role="content">
-		<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" data-ajax="false" class="compact">
+		<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" class="compact">
 			<input type="hidden" name="form" value="create" />
 			<input type="hidden" name="role" value="Entreprise" />
 			
@@ -154,7 +154,7 @@
 	</div>
 
 	<div data-role="content">
-		<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" data-ajax="false" class="compact">
+		<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" class="compact">
 			<input type="hidden" name="form" value="create" />
 			<input type="hidden" name="role" value="EtabPublic" />
 			
@@ -198,7 +198,7 @@
 	</div>
 
 	<div data-role="content">
-		<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" data-ajax="false" class="compact">
+		<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" class="compact">
 			<input type="hidden" name="form" value="create" />
 			<input type="hidden" name="role" value="Mairie" />
 			
@@ -239,7 +239,7 @@
 	</div>
 
 	<div data-role="content">
-		<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" data-ajax="false" class="compact">
+		<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" class="compact">
 			<input type="hidden" name="form" value="create" />
 			<input type="hidden" name="role" value="Région" />
 			
@@ -292,7 +292,7 @@
 	</div>
 
 	<div data-role="content">
-		<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" data-ajax="false" class="compact">
+		<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" class="compact">
 			<input type="hidden" name="form" value="create" />
 			<input type="hidden" name="role" value="Département" />
 			
@@ -349,7 +349,7 @@
 	</div>
 
 	<div data-role="content">
-		<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" data-ajax="false" class="compact">
+		<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" class="compact">
 			<input type="hidden" name="form" value="create" />
 			<input type="hidden" name="role" value="Autre" />
 			

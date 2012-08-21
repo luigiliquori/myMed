@@ -45,8 +45,7 @@ function tabs($tabs, $activeTab) {
  	?>
   	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
   	<ul>
-  		<li><a href="/application/myMed" data-icon="back"><?= _("Exit") ?></a></li>
-  		<li><a href="/application/myMed" data-ajax="false" data-icon="back"><?= _("ajaxfalse") ?></a></li>
+  		<li><a href="/application/myMed" data-ajax="false" data-icon="back"><?= _("Exit") ?></a></li>
   		<? foreach ($tabs as $id => $v) { ?>
   		<li>
   			<a 
@@ -75,7 +74,7 @@ function tabs($tabs, $activeTab) {
  	?>
  	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
  	<ul>
- 		<li><a href="./" data-icon="back"><?= APPLICATION_NAME ?></a></li>
+ 		<li><a href="./" data-icon="back" rel="external"><?= APPLICATION_NAME ?></a></li>
  		<? foreach ($tabs as $id => $v) { ?>
  		<li>
  			<a 
@@ -107,9 +106,9 @@ function tabs($tabs, $activeTab) {
   	?>
    	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
    	<ul>
-   		<li><a data-rel="back" data-icon="back"><?= _("Back") ?></a></li>
-   		<li><a class="ui-disabled"><?= $title ?></a></li>
-   		<li><a href="<?= $url ?>" rel="external" data-icon="<?= $icon ?>"><?= $button ?></a></li>
+   		<li><a data-rel="back" data-icon="back" data-theme="d"><?= _("Back") ?></a></li>
+   		<li><a class="ui-btn-active"><?= $title ?></a></li>
+   		<li><a href="<?= $url ?>" data-theme="d" data-icon="<?= $icon ?>"><?= $button ?></a></li>
    	</ul>
    	</div> <?
    }
@@ -123,9 +122,9 @@ function tabs($tabs, $activeTab) {
    	?>
    		<div data-role="navbar" data-theme="d" data-iconpos="left"> 
         	<ul>
-            	<li><a data-rel="back" data-icon="back"><?= _("Back") ?></a></li>
-            	<li><a href="<?= $url ?>" data-icon="<?= $icon ?>"><?= $button ?></a></li>
-            	<li><a class="ui-disabled"><?= $title ?></a></li>
+            	<li><a data-rel="back" data-icon="back" rel="external" data-theme="d"><?= _("Back") ?></a></li>
+            	<li><a href="<?= $url ?>" data-theme="d" rel="external"  data-icon="<?= $icon ?>"><?= $button ?></a></li>
+            	<li><a class="ui-btn-active" ><?= $title ?></a></li>
             </ul>
         </div> <?
       }
@@ -137,8 +136,8 @@ function tabs($tabs, $activeTab) {
    	?>
       	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
       	<ul>
-      		<li><a data-rel="back" data-icon="back"><?= _("Back") ?></a></li>
-      		<li><a href="<?= $url ?>" data-icon="<?= $icon ?>" class="ui-disabled"><?= $title ?></a></li>
+      		<li><a data-rel="back" data-icon="back" data-theme="d"><?= _("Back") ?></a></li>
+      		<li><a href="<?= $url ?>" data-icon="<?= $icon ?>" class="ui-btn-active"><?= $title ?></a></li>
       	</ul>
       	</div> <?
       }
@@ -150,8 +149,8 @@ function tabs($tabs, $activeTab) {
       	?>
             	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
             	<ul>
-            		<li><a href="./" data-icon="back"><?= _("Back") ?></a></li>
-            		<li><a onclick="<?= $url ?>" data-icon="<?= $icon ?>"><?= $title ?></a></li>
+            		<li><a href="./" data-icon="back" data-theme="d"><?= _("Back") ?></a></li>
+            		<li><a onclick="<?= $url ?>" data-theme="d" data-icon="<?= $icon ?>"><?= $title ?></a></li>
             	</ul>
             	</div> <?
             }
@@ -160,8 +159,8 @@ function tabs($tabs, $activeTab) {
       	?>
             	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
             	<ul>
-            		<li><a data-rel="back" data-icon="back"><?= _("Back") ?></a></li>
-            		<li><a class="ui-disabled"><?= $title ?></a></li>
+            		<li><a data-rel="back" data-icon="back" rel="external"  data-theme="d"><?= _("Back") ?></a></li>
+            		<li><a class="ui-btn-active"><?= $title ?></a></li>
             	</ul>
             	</div> <?
         }
@@ -172,13 +171,13 @@ function tabs($tabs, $activeTab) {
 <div style="text-align: justify;margin-left:20px;margin-right:20px;">
 	<p>
 	<?=
-		_("<b>MyEurope</b> is a social network which is based on the meta-social network <em>myMed</em>, available for City Halls, institutions or economic realities (industrial, tourism industry...) of the French South-East areas (PACA, Rhone-Alpes) and the three Italian North-Western Regions (Liguria, Piemonte, Valle d'Aosta), i.e. the areas eligible to the Alcotra Program.")
+		_("<b>MyEurope</b> is a social network which is based on the meta-social network <b><em>myMed</em></b>, available for City Halls, institutions or economic realities (industrial, tourism industry...) of the French South-East areas (PACA, Rhone-Alpes) and the three Italian North-Western Regions (Liguria, Piemonte, Valle d'Aosta), i.e. the areas eligible to the Alcotra Program.")
 	?>
 	</p>	
 	<p>
 	<?=
 		_("This \"sociapp\" will help the City Hall of the Alps-Mediterranean Euroregion to find partners, among those who joined the social network, in order to create projects together, within European Programs.
-	The main targets of <em>myMed</em> are :
+	The main targets of <b><em>myMed</em></b> are :
 	<ul>
 		<li>Help, through the mechanism of myMed's \"matchmaking\", to gather ideas and resources for European project submission or obtain European funds.</li>
 		<li>Exchange practices and common cross-border interests in the area of European project creation.</li>
@@ -254,6 +253,11 @@ function tabs($tabs, $activeTab) {
 							<p>
 								<?= _("role") ?>: <strong style="color:#444;"><?= $profile->role ?></strong>
 							</p>
+							<? if (!empty($profile->siret)): ?>
+							<p>
+								<?= _("n° SIRET") ?>: <strong style="color:#444;"><?= $profile->siret ?></strong>
+							</p>
+							<? endif ?>
 							<p>
 								<strong style="color:#444;"><?= (empty($profile->activity)?" ":$profile->activity) ?></strong>
 							</p>
@@ -282,9 +286,6 @@ function tabs($tabs, $activeTab) {
 									<li></ul><a href="?action=details&id=<?= $item ?>&namespace=part"><?= $item ?></a></li>
 								<? endforeach ?>
 								</ul>
-							</p>
-							<p style="position:absolute; right: 10px; top: 60px;">
-								<a type="button" data-mini="true" href="?action=ExtendedProfile&edit=false" data-inline="true" data-theme="d" data-icon="grid"><?= _('edit') ?></a>
 							</p>
 						</li>
 					</ul>

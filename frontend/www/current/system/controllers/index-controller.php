@@ -124,7 +124,7 @@ putenv("LC_ALL=$LOCALE");
 setlocale(LC_ALL, $LOCALE);
 
 // Global domain name
-define('GLOBAL_MESSAGES', 'global');
+define('GLOBAL_MESSAGES', 'messages');
 
 // Define domain "<APPLICATION_NAME>"
 bindtextdomain(APPLICATION_NAME, APP_ROOT.'/lang');

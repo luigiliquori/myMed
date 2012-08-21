@@ -15,6 +15,10 @@
  */
 package com.mymed.controller.core.requesthandler.v2;
 
+import static com.mymed.utils.GsonUtils.gson;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -22,13 +26,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.reputation.api.mymed_ids.MymedAppUserId;
 import com.mymed.controller.core.manager.reputation.api.mymed_ids.ReputationRole;
-import com.mymed.controller.core.manager.reputation.api.recommendation_manager.ReputationManager;
+import com.mymed.controller.core.manager.reputation.ReputationManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.reputation.MReputationBean;
+import com.mymed.model.data.reputation.MReputationEntity;
 /**
  * Servlet implementation class ReputationRequestHandler
  */
@@ -54,6 +62,7 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
     public ReputationRequestHandler() throws ServletException {
         super();
         reputationManager = new ReputationManager();
+        listType = new TypeToken<List<String>>() {}.getType();
     }
 
     /*
@@ -74,19 +83,44 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
             final String 
             	application = parameters.get(JSON_APPLICATION), 
-            	producer = parameters.get(JSON_PRODUCER);
+            	producer = parameters.get(JSON_PRODUCER),
+            	producers = parameters.get("producers");
 
             switch (code) {
                 case READ :
                     if (application == null)
                         throw new InternalBackEndException("missing application argument!");
-                    else if (producer == null)
-                        throw new InternalBackEndException("missing producer argument!");
                     
-                    final MymedAppUserId user = new MymedAppUserId(application, producer, ReputationRole.Producer);
-                    final MReputationBean reputation = reputationManager.read(user);
 
-                    message.addDataObject(JSON_REPUTATION, reputation);
+                    if (producer != null){
+                    	final MymedAppUserId user = new MymedAppUserId(application, producer, ReputationRole.Producer);
+                        final MReputationEntity reputation = reputationManager.read(user);
+
+                        message.addDataObject(JSON_REPUTATION, reputation);
+                    } else if(producers != null){
+                    	List<String> prods = new ArrayList<String>();
+                    	try {
+                    		prods = gson.fromJson(producers, listType);
+            			} catch (final JsonSyntaxException e) {
+            				LOGGER.debug("Error in Json format", e);
+            				throw new InternalBackEndException("jSon format is not valid");
+            			} catch (final JsonParseException e) {
+            				LOGGER.debug("Error in parsing Json", e);
+            				throw new InternalBackEndException(e.getMessage());
+            			}
+                    	List<MymedAppUserId> repIds = new ArrayList<MymedAppUserId>();
+                    	for (String p : prods)
+                    		repIds.add(new MymedAppUserId(application, p, ReputationRole.Producer));
+                    	
+                        final Map<String, MReputationEntity> reputationMap = reputationManager.read(repIds);
+
+                        message.addDataObject(JSON_REPUTATION, reputationMap);
+                    	
+                    } else {
+                    	throw new InternalBackEndException("missing producer(s) argument!");
+                    }
+                        
+
                     break;
                 case DELETE :
                     break;

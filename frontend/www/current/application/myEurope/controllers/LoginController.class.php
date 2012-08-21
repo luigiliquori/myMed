@@ -60,7 +60,7 @@ class LoginController extends AbstractController {
 				
 				debug("success");
 				
-				if (isset($_SESSION['redirect'])){
+				if (!empty($_SESSION['redirect'])){
 					
 					$page = $_SESSION['redirect'];
 					unset($_SESSION['redirect']);

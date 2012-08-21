@@ -10,9 +10,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
 	
 	<!-- JQUERY  -->
-	<link rel="stylesheet" href="../../lib/jquery/jquery.mobile-test.css" />
-	<script src="../../lib/jquery/jquery-1.7.1.min.js"></script>
-	<script src="../../lib/jquery/jquery.mobile-test.js"></script>
+	<link rel="stylesheet" href="../../lib/jquery/jquery.mobile.css" />
+	<script src="../../lib/jquery/jquery-1.7.2.min.js"></script>
+	<script src="../../lib/jquery/jquery.mobile.js"></script>
+	
+	<!-- CLE  -->
+	<link rel="stylesheet" type="text/css" href="../../lib/jquery/CLEeditor/jquery.cleditor.css" />
+	<script type="text/javascript" src="../../lib/jquery/CLEeditor/jquery.cleditor.js"></script>
+	<script type="text/javascript" src="../../lib/jquery/CLEeditor/startCLE.js"> </script>
 	
 	<!-- APP JS -->
 	<script src="javascript/app.js"></script>

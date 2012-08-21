@@ -35,8 +35,6 @@ class AdminController extends ExtendedProfileRequired {
 					$res = $req->send();
 					if (isset($res)){
 						$result[$i]->profile = $res;
-						$rep =  new Reputationv2($item->id);
-						$result[$i]->profile->reputation = $rep->send();
 					}
 						
 				} catch(Exception $e){}

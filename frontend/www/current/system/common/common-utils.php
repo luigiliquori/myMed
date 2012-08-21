@@ -31,8 +31,9 @@ function url($action, $args=array()) {
 	global $ACTION;
 	
 	// Real path
-	if ($action[0] == '/') return $action;
-		
+
+	if ($action[0] == '/' || $action[0] == '?' || $action[0] == '.' || strpos($action, "index.php") === 0 ) return $action;
+	
 	// Same action
 	if ($action == "<self>") { 
 		$args = array_merge($_GET, $args);
@@ -60,10 +61,8 @@ function bool_tag($tag, $condition) {
 
 /** prettyprint id of a user **/
 function getUser($id){
-	if (strpos($id, "MYMED_") === 0)
-		return substr($id, 6);
-	else
-		return "User#".$id;
+	$p = preg_split("/(MYMED_|@)/", $id, NULL, PREG_SPLIT_NO_EMPTY);
+	return str_replace('.', ' ', $p[0]);
 }
 
 /** returns true when $haystack contains substring $needle **/

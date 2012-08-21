@@ -27,7 +27,7 @@ include("header.php"); ?>
 		</div>
 
 		<!-- Login form -->
-		<form  data-role="content" action="index.php?action=login" method="post" data-ajax="false" >
+		<form  data-role="content" action="index.php?action=login" method="post">
 	
 			<input type="text" name="login" placeholder="<?= _("Email") ?>" />
 			<input type="password" name="password" placeholder="<?= _("Password") ?>" />
@@ -60,7 +60,7 @@ include("header.php"); ?>
 		</div>
 
 		<!--  Register form -->
-		<form data-role="content" action="index.php?action=register" method="post" data-ajax="false" class="compact">
+		<form data-role="content" action="index.php?action=register" method="post" class="compact">
 		
 			<label for="prenom"><?= _("first name") ?></label>
 			<input id="prenom" type="text" name="prenom" value="" />

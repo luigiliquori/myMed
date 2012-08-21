@@ -5,7 +5,7 @@
 	<div data-role="header" data-theme="c" data-position="fixed">
 		<div data-role="navbar" data-theme="d" data-iconpos="left"> 
   			<ul>
-  				<li><a href="/application/myMed" data-icon="back"><?= _("Exit") ?></a></li>
+  				<li><a href="/application/myMed" data-ajax="false" data-icon="back"><?= _("Exit") ?></a></li>
   				<li><a href="?action=extendedProfile" data-icon="profile"><?= $_SESSION['user']->name ?></a></li>
   			</ul>
   		</div>
@@ -17,7 +17,7 @@
 			<a href='mailto:myAlpMed@gmail.com' type='button' data-inline='true' data-mini='true'><?= APPLICATION_NAME ?></a>		
 			for validation") ?>
 	<br /><br />
-	>>alpha testers automatically admins: *@inria.fr, breadasarah@gmail.com
+	>>alpha testers automatically admins: *@inria.fr, breadasarah@gmail.com, luigi.liquori@gmail.com, myalpmed@gmail.com
 	</div>
 
 </div>

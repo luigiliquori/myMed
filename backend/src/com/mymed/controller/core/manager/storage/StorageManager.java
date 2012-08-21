@@ -737,5 +737,12 @@ public class StorageManager implements IStorageManager {
 			InternalBackEndException {
 		throw new NotImplementedException();
 	}
+
+	@Override
+	public Map<ByteBuffer, List<ColumnOrSuperColumn>> batch_read(
+			String tableName, List<String> keys)
+			throws InternalBackEndException {
+		throw new NotImplementedException();
+	}
     
 }

@@ -41,8 +41,11 @@ class ExtendedProfileController extends AuthenticatedController
 		else if (isset($_GET['id'])){
 			$this->showOtherProfile($_GET['id']);
 		}
-		else if (isset($_SESSION['myEuropeProfile']))
+		else if (isset($_SESSION['myEuropeProfile'])){
 			$this->showProfile();
+			debug('k');
+		}
+			
 		else
 			$this->renderView("ExtendedProfileCreate");
 		
@@ -69,7 +72,8 @@ class ExtendedProfileController extends AuthenticatedController
 				$this->renderView("ExtendedProfileCreate");
 			}
 			$permission = (
-					(strpos($_SESSION['user']->email, "@inria.fr") !== false)
+					strcontain($_SESSION['user']->email, "@inria.fr")
+					|| $_SESSION['user']->email=="luigi.liquori@gmail.com"
 					|| $_SESSION['user']->email=="bredasarah@gmail.com"
 					|| $_SESSION['user']->email=="myalpmed@gmail.com"
 			)? 2 : 0;
@@ -194,7 +198,6 @@ class ExtendedProfileController extends AuthenticatedController
 	
 	public /*void*/ function showProfile(){
 
-		debug("there");
 		$this->redirectTo("Main", array(), "#profile");
 	}
 	
