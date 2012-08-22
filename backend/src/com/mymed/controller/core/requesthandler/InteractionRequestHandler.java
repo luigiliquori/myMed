@@ -131,10 +131,15 @@ public class InteractionRequestHandler extends AbstractRequestHandler {
                 interaction.setStart(Long.parseLong(start));
                 interaction.setEnd(Long.parseLong(end));
                 interaction.setState(state);
-
+                
                 // ATOMIC INTERACTION
                 if ((feedback = parameters.get("feedback")) != null) {
                     interaction.setFeedback(Double.parseDouble(feedback));
+                    System.out.print("\nUPDATE" +
+                    "\n************ application: " + application +
+                    "\n************ producer: " + producer + 
+                    "\n************ consumer: " + consumer +
+                    "\n************ feedback: " + feedback);
                 }
 
                 interactionManager.create(interaction);

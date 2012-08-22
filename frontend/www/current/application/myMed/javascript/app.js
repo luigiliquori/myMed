@@ -8,7 +8,7 @@ $(document).ready(function() {
 	    return false;
 	});
 
-	//showLoadingBar("chargement en cours...");
+	showLoadingBar("chargement en cours...");
 	
 });
 
@@ -31,7 +31,7 @@ function showLoadingBar(text) {
 }
 
 function SetApplicationStatus(application, status) {
-	$(location).attr('href', "?action=main&applicationStore=" + application + "&status=" + status);
+	$(location).attr('href', "?action=store&applicationStore=" + application + "&status=" + status);
 }  
 
 function nextScreenshot() {
