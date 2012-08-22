@@ -176,7 +176,7 @@ function tab_bar_white($activeTab) {
 			<input type="hidden" name="namespace" value="part" />
 			
 			<br />
-			<label for="tags"><?= _("Keywords") ?></label>
+			<label for="tags"><b><?= _("Keywords") ?>:</b></label>
 			<input type="search" name="themes" id="tags" placeholder="mots clés (séparés par un espace ou +)" value="" />
 	
 		 	<fieldset data-role="controlgroup" id="themecheckboxes">

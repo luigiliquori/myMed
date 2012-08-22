@@ -73,13 +73,12 @@ function sortBy( i ){
 	$('#matchinglist').listview('refresh');
 }
 
-function subscribe(application, namespace, id, index) {
+function subscribe(application, mailTemplate, index) {
 	$.get('../../lib/dasp/ajax/Subscribe', {
 		code : 0,
 		application : application,
-		namespace : namespace,
-		id : id,
-		index : decodeURIComponent(index)
+		mailTemplate: mailTemplate,
+		predicates : decodeURIComponent(index)
 	}, function(data) {
 		console.log(data);
 		var response = JSON.parse(data);

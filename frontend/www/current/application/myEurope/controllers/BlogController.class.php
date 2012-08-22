@@ -108,8 +108,6 @@ class BlogController extends ExtendedProfileRequired {
 					
 					uasort($this->comments[$k], array($this, "repCmp"));
 					
-					debug_r($this->comments[$k]);
-					
 				}
 			}
 			

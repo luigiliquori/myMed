@@ -21,7 +21,7 @@
 		</fieldset>
 		
 		<a type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="alert" style="float: right;"
-		onclick="subscribe('<?= APPLICATION_NAME ?>', '<?= $_GET['namespace'] ?>', '<?= isset($_GET['id'])?$_GET['id']:null ?>','<?= urlencode(json_encode($this->index)) ?>'); $(this).addClass('ui-disabled');"><?= _("Subscribe") ?></a>
+		onclick="subscribe('<?= APPLICATION_NAME ?>', '<?= $_GET['namespace'] ?>','<?= urlencode(json_encode($this->index)) ?>'); $(this).addClass('ui-disabled');"><?= _("Subscribe") ?></a>
 		</div>
 		
 		<ul id="matchinglist" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="<?= _("filter") ?>" style="clear:both;">

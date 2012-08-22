@@ -39,6 +39,6 @@ The following variables are available in the templates :
         --<br/>
     
         L'équipe myMed<br/>
-        Cliquez <a href="${base_url}application/${application}/?index=&user=${recipient.id}">ici</a> pour vous désabonner.
+        Cliquez <a href="${base_url}application/${application}/?action=unsubscribe&id=${predicate}">ici</a> pour vous désabonner.
 ]]></body>
 </mail-template>

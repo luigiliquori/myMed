@@ -98,6 +98,7 @@ public class MailDispatcher extends AbstractManager implements Runnable {
 	            
 	            // Update the current recipient in the data map
 	            data.put("recipient", recipient);
+	            data.put("predicate", predicate);  // to put the Unsubscribe link to themail sent
 	            
 	            // Get the prefered language of the user
 	            String language = recipient.getLang();

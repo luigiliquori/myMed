@@ -1,7 +1,4 @@
 <? include("header.php"); ?>
-<link rel="stylesheet" type="text/css" href="../../lib/jquery/CLEeditor/jquery.cleditor.css" />
-<script type="text/javascript" src="../../lib/jquery/CLEeditor/jquery.cleditor.js"></script>
-<script type="text/javascript" src="../../lib/jquery/CLEeditor/startCLE.js"> </script>
 
 <div data-role="page" id="BlogTesters">
 

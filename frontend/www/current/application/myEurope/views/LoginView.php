@@ -27,7 +27,7 @@ include("header.php"); ?>
 		</div>
 
 		<!-- Login form -->
-		<form  data-role="content" action="index.php?action=login" method="post">
+		<form  data-role="content" action="index.php?action=login" data-ajax="false" method="post">
 	
 			<input type="text" name="login" placeholder="<?= _("Email") ?>" />
 			<input type="password" name="password" placeholder="<?= _("Password") ?>" />

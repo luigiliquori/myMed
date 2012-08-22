@@ -20,6 +20,8 @@ function tab_bar_white($activeTab) {
 	
 		
 		
+		<a type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="alert" style="float: right;"
+		onclick="subscribe('<?= APPLICATION_NAME ?>:users', '<?= APPLICATION_NAME ?>#users','<?= urlencode(json_encode(array())) ?>'); $(this).addClass('ui-disabled');"><?= _("Subscribe") ?></a>
 		
 		<input id="user_permission" name="permission" value="" type="hidden" />
 		<input id="user_id" name="id" value="" type="hidden" />

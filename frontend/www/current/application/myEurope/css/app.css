@@ -97,6 +97,10 @@
 	white-space: normal;
 }
 
+.ui-collapsible-set{
+	margin: 0
+}
+
 .ui-btn-up-e:visited, .ui-btn-up-e a.ui-link-inherit {
 	color: #333 /*{e-bup-color}*/;
 }

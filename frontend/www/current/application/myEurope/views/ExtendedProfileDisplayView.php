@@ -1,13 +1,14 @@
 <? include("header.php"); ?>
 
-<!-- Header -->
-<div data-role="header" data-theme="c" data-position="fixed">
-	<? tabs_2empty(getUser($item->id)) ?>
-	<? include("notifications.php"); ?>
-</div>
-
-<div data-role="content" >
-
-	<?= printProfile($item->profile) ?>
+<div data-role="page">
+	<div data-role="header" data-theme="c" data-position="fixed">
+		<? tabs_2empty(getUser($this->id)) ?>
+		<? include("notifications.php"); ?>
+	</div>
+	
+	<div data-role="content" >
+	
+		<?= printProfile($this->profile, $this->id) ?>
+	</div>
 </div>
 <? include("footer.php"); ?>

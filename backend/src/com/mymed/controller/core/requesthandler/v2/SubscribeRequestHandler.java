@@ -241,7 +241,7 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
 					}
 
 					LOGGER.info(" created subscriptions for {}: {} ", user, preds);
-					message.setDescription("subscription created: " + predicates
+					message.setDescription("subscription created: " + application + predicates
 							+ " for user: " + user);
 				}
 
