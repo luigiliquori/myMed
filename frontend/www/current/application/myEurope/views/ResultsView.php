@@ -21,7 +21,7 @@
 		</fieldset>
 		
 		<a type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="alert" style="float: right;"
-		onclick="subscribe('<?= APPLICATION_NAME ?>', '<?= $_GET['namespace'] ?>','<?= urlencode(json_encode($this->index)) ?>'); $(this).addClass('ui-disabled');"><?= _("Subscribe") ?></a>
+		onclick="subscribe('<?= APPLICATION_NAME ?>:part', '<?= APPLICATION_NAME.'#'.$_GET['namespace'] ?>','<?= urlencode(json_encode($this->index)) ?>'); $(this).addClass('ui-disabled');"><?= _("Subscribe") ?></a>
 		</div>
 		
 		<ul id="matchinglist" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="<?= _("filter") ?>" style="clear:both;">
@@ -34,9 +34,9 @@
 
 			<? foreach($this->result as $item) : ?>
 			
-			<li data-id="<?= getUser($item->user) ?>" data-time="<?= $item->time ?>">
+			<li data-id="<?= prettyprintUser($item->user) ?>" data-time="<?= $item->time ?>">
 			<a href="?action=details&namespace=<?= $_GET['namespace'] ?>&id=<?= urlencode($item->id) ?>"><span
-					style="font-weight: lighter;">Offre publiée par </span> <?= getUser($item->user) ?> <span style="font-weight: lighter;"> (<?= date('d/m/Y', $item->time) ?> <?=  date('H:i:s', $item->time) ?>)</span>
+					style="font-weight: lighter;">Offre publiée par </span> <?= prettyprintUser($item->user) ?> <span style="font-weight: lighter;"> (<?= date('d/m/Y', $item->time) ?> <?=  date('H:i:s', $item->time) ?>)</span>
 				</a>
 			</li>
 			<? endforeach ?>

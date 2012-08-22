@@ -73,12 +73,12 @@ function sortBy( i ){
 	$('#matchinglist').listview('refresh');
 }
 
-function subscribe(application, mailTemplate, index) {
+function subscribe(application, mailTemplate, predicates) {
 	$.get('../../lib/dasp/ajax/Subscribe', {
 		code : 0,
 		application : application,
 		mailTemplate: mailTemplate,
-		predicates : decodeURIComponent(index)
+		predicates : decodeURIComponent(predicates)
 	}, function(data) {
 		console.log(data);
 		var response = JSON.parse(data);
@@ -86,6 +86,13 @@ function subscribe(application, mailTemplate, index) {
 		$('#notification-success').show();
 	});
 }
+
+$(".loadCLE").live("expand", function(e) {
+	if($(e.target).data('oneclicked')!='yes'){
+		console.log("expand");
+	}
+	$(e.target).data('oneclicked','yes');
+});
 
 function rate(feedback, id, user) {
 	
@@ -230,17 +237,9 @@ function setReplyForm(){
 	//$('#commentForm'+$('#deleteRm').val()+' textarea').focus();
 }
 
-$("#Blog").live("pagecreate", function() {	
-	$('.comment').each(function(index, value) { 
-		var usr = $(value).attr('user');
-		console.log(usr);
-		if (!commenters.hasOwnProperty(usr))
-			commenters[usr] = 'http://lorempixel.com/30/30/';
-		
-		$(value).find('img').attr('src', commenters[usr]);
-	});
-});
-
+function expand() {
+	$('#Blog div[data-role=collapsible]:first').trigger('expand');
+}
 $("#Blog").live("pageshow", function() {
 	$('div[data-role=collapsible]:first').trigger('expand');
 });
@@ -249,5 +248,85 @@ function showComment() {
 	$('#CommentButton').fadeOut('fast');
     $('#Comments').fadeIn('slow');
     $('#Commenter').fadeIn('slow');
+}
+
+function profile(user){
+	$.get('../../lib/dasp/ajax/ExtendedProfile', {
+		id : user,
+	}, function(res) {
+		//console.log(res);
+		$('#popupInfo').html(res);
+		$('#popupInfo').trigger('create');
+		$('#popupInfo').popup('open');
+	});
+}
+
+function commentAdd(blog, commentTo){
+
+	var replyTo = $('#deleteField').val() || 0;
+	
+	var text = $('#'+replyTo).next('form').find('textarea').val();
+	if (replyTo == 0)
+		text = $('#comments'+commentTo).next('form').find('textarea').val();
+
+	
+	
+	$.post('../../lib/dasp/ajax/PublishComment', {
+		application: application+":blogs",
+		id: blog+"comments"+commentTo,
+		replyTo: replyTo,
+		text: text
+	}, function(res) {
+		console.log(res);
+		var response = JSON.parse(res);
+		if (response.status == 200){//insert the comment
+
+var li =			
+'<li class="comment" id="'+response.field+'" replyTo="'+replyTo+'" user="'+response.userh+'"'+
+(replyTo!=0 ?
+' style="margin-left:50px;"'
+:'')+">"+
+'<a style="min-height: 15px;padding-left: 60px;">'+
+	'<img src="http://www.gravatar.com/avatar/'+response.userh+'?s=128&d=identicon&r=PG" style="width: 30px;left:16px;top:4px;"/>'+
+	'<span style="position: absolute;font-size:13px;font-weight:bold;left: 2px;top: 13px;"></span>'+
+	'<p>'+text+
+	(replyTo!=0 ?
+	' &ndash; in reply of <span class="ui-link" onclick="show($(this));">'+$('#'+replyTo+' .ui-link:last').text() +'\'s comment</span>'
+	:'')+
+	' &ndash; <span class="ui-link"onclick="profile(\''+response.user+'\');" >'+prettyprintUser(response.user)+'</span> <time>'+response.time+'</time></p>'+
+'</a><a href="#commentPopup" data-rel="popup" data-position-to="origin" onclick="setCommentForm(\''+response.field+'\', \''+commentTo+'\', 0, 0);">options</a>'+
+'</li>';
+
+if (replyTo == 0)
+	$('#comments'+commentTo).prepend(li);
+else
+	$('#'+replyTo).after(li);
+$('#comments'+commentTo).listview('refresh');
+			
+		}
+	});
+}
+
+function commentRm(blog, commentTo, field){
+	
+	$.get('../../lib/dasp/ajax/Delete', {
+		application: application+":blogs",
+		id : blog+"comments"+commentTo,
+		field: field
+	}, function(res) {
+		console.log(res);
+		var response = JSON.parse(res);
+		if (response.status == 200){//insert the comment
+
+$('#'+field).remove();
+$('#comments'+commentTo).listview('refresh');
+$('#commentPopup').popup( "close" );
+			
+		}
+	});
+}
+
+function prettyprintUser(id){
+	return id.split(/(MYMED_|@)/)[2].replace('.', ' ');
 }
 

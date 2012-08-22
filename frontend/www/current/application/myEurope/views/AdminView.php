@@ -40,7 +40,7 @@ function tab_bar_white($activeTab) {
 					
 				</form>
 				
-				<a href="?action=ExtendedProfile&id=<?= $item->id ?>"> <?= getUser($item->id) ?> <span style="color:red;"><?= $item->profile->permission ?></span> </a>
+				<a href="?action=ExtendedProfile&id=<?= $item->id ?>"> <?= prettyprintUser($item->id) ?> <span style="color:red;"><?= $item->profile->permission ?></span> </a>
 				<a data-icon="minus" onclick="$('#userDownForm<?= $i ?>').submit();" data-iconpos="notext" data-inline="true" data-role="button" style="position:absolute; top:0; right:42px;"> Diminuer</a>
 	        	<a data-icon="plus" onclick="$('#userUpForm<?= $i ?>').submit();" data-theme="e"><?= _('Increase') ?></a> 
 
@@ -62,7 +62,7 @@ function tab_bar_white($activeTab) {
 					
 				</form>
 				
-				<a href="?action=ExtendedProfile&id=<?= $item->id ?>"> <?= getUser($item->id) ?> <span style="color:red;"><?= $item->profile->permission ?></span> </a>
+				<a href="?action=ExtendedProfile&id=<?= $item->id ?>"> <?= prettyprintUser($item->id) ?> <span style="color:red;"><?= $item->profile->permission ?></span> </a>
 				<a data-icon="minus" onclick="$('#userDownForm<?= $i ?>').submit();" data-iconpos="notext" data-inline="true" data-role="button" style="position:absolute; top:0; right:42px;"> Diminuer</a>
 	        	<a data-icon="plus" onclick="$('#userUpForm<?= $i ?>').submit();" data-theme="e"><?= _('Increase') ?></a> 
 
@@ -84,7 +84,7 @@ function tab_bar_white($activeTab) {
 					
 				</form>
 				
-				<a href="?action=ExtendedProfile&id=<?= $item->id ?>"> <?= getUser($item->id) ?> <span style="color:red;"><?= $item->profile->permission ?></span> </a>
+				<a href="?action=ExtendedProfile&id=<?= $item->id ?>"> <?= prettyprintUser($item->id) ?> <span style="color:red;"><?= $item->profile->permission ?></span> </a>
 				<a data-icon="minus" onclick="$('#userDownForm<?= $i ?>').submit();" data-iconpos="notext" data-inline="true" data-role="button" style="position:absolute; top:0; right:42px;"> Diminuer</a>
 	        	<a data-icon="plus" onclick="$('#userUpForm<?= $i ?>').submit();" data-theme="e"><?= _('Increase') ?></a> 
 

@@ -22,7 +22,7 @@
 <div data-role="collapsible-set" data-theme="d" data-content-theme="d">
 	<? $first=true; foreach($this->messages as $k=>$v) : ?>
 	<div data-role="collapsible">
-		<h2><?= $v['title'] ?> &ndash; <a onclick="$.mobile.changePage('?action=ExtendedProfile&id=<?= $v['user'] ?>');"><?= getUser($v['user']) ?></a></h2>
+		<h2><?= $v['title'] ?> &ndash; <a onclick="$.mobile.changePage('?action=ExtendedProfile&id=<?= $v['user'] ?>');"><?= prettyprintUser($v['user']) ?></a></h2>
 		<ul data-role="listview" data-theme="d" data-divider-theme="d">
 			<li>
 				<h3><?= $v['title'] ?></h3>
@@ -37,27 +37,15 @@
 				<div data-role="collapsible" data-mini="true" data-inset="false">
 					<h2 style="width:165px;"><?= count($this->comments[$k]) ?> <?= _("comments") ?></h2>
 					<ul data-role="listview" id="<?= 'comments'.$k ?>" data-split-icon="gear" data-split-theme="d">
-						<? foreach($this->comments[$k] as $ki=>$vi) : ?>
-						<li class="comment" id="<?= $ki ?>" replyTo="<?= $vi['replyTo'] ?>" user="<?= hash("crc32",$vi['user']) ?>"><a style="min-height: 15px;padding-left: 60px;">
-							
-							<img src="" style="left:16px;top:4px;"/>
-							<? $userName = getUser($vi['user']); ?>
-							<span style="position: absolute;font-size:13px;font-weight:bold;left: 2px;top: 13px;"><?= $vi['nbOfRatings']>0? (int) $vi['up']-$vi['down']:"" ?></span>
-							<p> <?= $vi['text'] ?>
-							<? if($vi['replyTo']!==0 && isset($this->comments[$k][$vi['replyTo']])) : ?>
-							 &ndash; in reply of <span class="ui-link" onclick="show($(this));"><?= getUser($this->comments[$k][$vi['replyTo']]['user']) ?>'s comment</span>
-							<? endif ?>
-							 &ndash; <span class="ui-link" onclick="$.mobile.changePage('?action=ExtendedProfile&id=<?= $vi['user'] ?>');"><?= $userName ?></span> <time><?= date('j/n/y G:i', $vi['time']) ?></time></p>
-							</a><a href="#commentPopup" data-rel="popup" data-position-to="origin" onclick="setCommentForm('<?= $ki ?>', '<?= $k ?>', '<?= $vi['up'] ?>', '<?= $vi['down'] ?>');">options
-						</a></li>
-						<? endforeach ?>
+						<?= comments($this->comments[$k], $k) ?>
 					</ul>
 					<form method="post" id="<?= 'commentForm'.$k ?>" action="?action=Blog&blog=<?= $this->blog ?>" style="text-align:right;padding-top: 10px;">
 						<input type="hidden" name="commentTo" value="<?= $k ?>"/>
 						<input type="hidden" id="replyTo" name="replyTo" value="0"/>
 						<textarea name="text" placeholder="add a comment" onfocus="$('.replyButton').show();"></textarea>
 						<div style="display: none;" class="replyButton">
-							<input type="submit" data-mini="true" data-inline="true" value="<?= _('Reply') ?>" />
+							<a type="button" data-inline="true" data-mini="true" data-inline="true" 
+							onclick="commentAdd('<?= $this->blog ?>', '<?= $k ?>', $('#replyTo').val(), $(this).closest('textarea').val())" ><?= _('Reply') ?></a>
 						</div>
 					</form>
 				</div>
@@ -69,7 +57,7 @@
 </div>
 		
 		<br />
-		<div data-role="collapsible" data-mini="true" data-inline="true" style="margin-bottom: -.5em;">
+		<div data-role="collapsible" class="loadCLE" data-mini="true" data-inline="true" style="margin-bottom: -.5em;">
 			<h3 style="margin:auto;margin-left: 0;width:165px;"><?= _('New Message') ?></h3>
 			<form method="post" action="?action=Blog&blog=<?= $this->blog ?>"  style="text-align:right;">
 				<input type="text" name="title" placeholder="<?= _('title') ?>" data-mini="true" data-inline="true" value="" />
@@ -78,13 +66,17 @@
 				<input type="submit" data-theme="b" data-mini="true" data-inline="true" value="<?= _('Post') ?>" />
 			</form>
 		</div>
+		
+		<div data-role="popup" id="popupInfo" data-theme="c" style="padding:10px;max-width:350px;">
+          <p>Here is a <strong>tiny popup</strong> being used like a tooltip. The text will wrap to multiple lines as needed.</p>
+		</div>
 
 		<div data-role="popup" id="commentPopup" data-theme="none">
 			<div data-role="controlgroup" data-mini="true">
 				<a onclick="setReplyForm();" data-rel="back" data-icon="forward" data-role="button" data-theme="d" data-mini="true">reply</a>
 				<a data-role="button" data-icon="thumb" onclick="var id=$('#deleteField').val();rate(1, id);">12</a>
 				<a data-role="button" style="color:gray;" data-icon="minus" onclick="var id=$('#deleteField').val();rate(0, id);">5</a>
-				<a onclick="$('#deleteMessageForm').submit();" data-role="button" data-theme="d" data-icon="delete" data-mini="true">remove</a>
+				<a onclick="if($('#deleteRm').val()==''){$('#deleteMessageForm').submit();}else{commentRm('<?= $this->blog ?>', $('#deleteRm').val(), $('#deleteField').val());}" data-role="button" data-theme="d" data-icon="delete" data-mini="true">remove</a>
 			</div>
 		</div>
 		

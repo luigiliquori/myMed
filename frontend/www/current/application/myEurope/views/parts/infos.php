@@ -1,8 +1,12 @@
 <div data-role="page" id="infos">
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_3(
-				"Informations",
-				$_SESSION['user']->name) ?>
+		<div data-role="navbar" data-theme="d" data-iconpos="left"> 
+	   	<ul>
+	   		<li><a data-rel="back" data-icon="back" data-theme="d"><?= _("Back") ?></a></li>
+	   		<li><a class="ui-btn-active" data-icon="info"><?= _("Informations") ?></a></li>
+	   		<li><a href="?action=extendedProfile" data-theme="d" data-icon="profile"><?= $_SESSION['user']->name ?></a></li>
+	   	</ul>
+	   	</div>
 	</div>
 
 	<div data-role="content">

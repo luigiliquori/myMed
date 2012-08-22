@@ -60,7 +60,7 @@ function bool_tag($tag, $condition) {
 }
 
 /** prettyprint id of a user **/
-function getUser($id){
+function prettyprintUser($id){
 	$p = preg_split("/(MYMED_|@)/", $id, NULL, PREG_SPLIT_NO_EMPTY);
 	return str_replace('.', ' ', $p[0]);
 }
@@ -78,6 +78,30 @@ function title_bar($title) {
 		<h3><?= $title ?></h3>
 	</div>
 <?
+}
+
+
+/** Generates a comment */
+function comments(
+		$arr, //array of comments
+		$container  // id of the container
+	) {
+	foreach ($arr as $id=>$v):
+		$h=hash("crc32",$v['user']);
+	?>
+<li class="comment" id="<?= $id ?>" replyTo="<?= $v['replyTo'] ?>" user="<?= $h ?>">
+	<a style="min-height: 15px;padding-left: 60px;">
+		<img src="http://www.gravatar.com/avatar/<?= $h ?>?s=128&d=identicon&r=PG" style="width: 30px;left:16px;top:4px;"/>
+		<span style="position: absolute;font-size:13px;font-weight:bold;left: 2px;top: 13px;"><?= ($v['up']==0 && $v['down']==0)?"":$v['up'] - $v['down'] ?></span>
+		<p> <?= $v['text'] ?> 
+		<? if($v['replyTo']!="0") : ?>
+		 &ndash; in reply of <span class="ui-link" onclick="show($(this));"><?= prettyprintUser($arr[$v['replyTo']]['user']) ?>'s comment</span>
+		<? endif ?>
+		 &ndash; <span class="ui-link" onclick="profile('<?= $v['user'] ?>')"><?= prettyprintUser($v['user'] ) ?></span> <time><?= date('j/n/y G:i', $v['time'] ) ?></time></p>
+	</a><a href="#commentPopup" data-rel="popup" data-position-to="origin" onclick="setCommentForm('<?= $id ?>', '<?= $container ?>', '<?= $v['up'] ?>', '<?= $v['down']  ?>');">options</a>
+</li>
+	<?
+	endforeach;
 }
 
 /** Generates a checkbox to check/uncheck all items of same input name */

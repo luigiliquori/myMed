@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-16 14:11+0200\n"
-"PO-Revision-Date: 2012-08-22 11:42+0100\n"
+"PO-Revision-Date: 2012-08-22 14:19+0100\n"
 "Last-Translator: cyril <cyril.auburtin@inria.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -50,7 +50,7 @@ msgstr "S'informer sur les programmes"
 #: MainView.php:34
 #: BlogAlcotraView.php:16
 msgid "Alcotra Blog"
-msgstr "Blog Alcotra 2014-2020"
+msgstr "Blog Alcotra"
 
 #: MainView.php:36
 #: BlogTestersView.php:16
@@ -96,7 +96,7 @@ msgstr "Retour"
 
 #: MainView.php:89
 msgid "Access"
-msgstr "Accès"
+msgstr "Accéder"
 
 #: MainView.php:102
 msgid "Share"
@@ -166,7 +166,7 @@ msgstr "Connexion"
 
 #: LoginView.php:13
 msgid "Registration"
-msgstr "Enregistrement"
+msgstr "Inscription"
 
 #: LoginView.php:32
 #: LoginView.php:73

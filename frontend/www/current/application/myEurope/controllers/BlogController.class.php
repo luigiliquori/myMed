@@ -47,7 +47,7 @@ class BlogController extends ExtendedProfileRequired {
 									"time"=>$t,
 									"user"=>$_SESSION['user']->id,
 									"title"=>$_POST['title'],
-									"text"=>nl2br($_POST['text'])
+									"text"=>$_POST['text']
 							))
 					);
 				}
@@ -82,6 +82,7 @@ class BlogController extends ExtendedProfileRequired {
 
 			$rep =  new Reputationv2(array_keys($this->messages));
 			$repArr = $rep->send();
+			
 			$this->messages = array_replace_recursive($this->messages, $repArr);
 			
 			$this->comments = array();
@@ -107,6 +108,8 @@ class BlogController extends ExtendedProfileRequired {
 					$this->comments[$k] = array_replace_recursive($repArr, $this->comments[$k]);
 					
 					uasort($this->comments[$k], array($this, "repCmp"));
+					
+					debug_r($this->comments[$k]);
 					
 				}
 			}

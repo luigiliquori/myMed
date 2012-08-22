@@ -1,5 +1,5 @@
 <? 
-class UnsubscribeRequired extends AuthenticatedController {
+class UnsubscribeController extends AuthenticatedController {
 	
 	public /*void*/ function handleRequest(){
 		

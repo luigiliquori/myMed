@@ -110,7 +110,8 @@ public class DataRequestHandler extends AbstractRequestHandler {
 				application = parameters.containsKey(JSON_APPLICATION)?
 					parameters.get(JSON_APPLICATION)
 					:"",
-				id = parameters.get("id");
+				id = parameters.get("id"),
+				field = parameters.get("field");
 
 			switch (code) {
 			case READ:
@@ -176,7 +177,14 @@ public class DataRequestHandler extends AbstractRequestHandler {
 				if (id == null)
 					throw new InternalBackEndException("missing id argument!");
 
-				LOGGER.info("deleting " + id);
+				
+				LOGGER.info("deleting " + application + id);
+				
+				if (field != null){
+					dataManager.delete(application + id, field);
+					break;
+				}
+				
 				String xpredicates = dataManager.read(application + id, "xpredicates");
 
 				LOGGER.info(" trying to delete  " + id + "." + xpredicates);
@@ -207,7 +215,7 @@ public class DataRequestHandler extends AbstractRequestHandler {
 				}
 
 				/* deletes data */
-				dataManager.delete(id);
+				dataManager.delete(application + id);
 
 				break;
 			default:
@@ -245,10 +253,12 @@ public class DataRequestHandler extends AbstractRequestHandler {
 
 			final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
 			
+			String id = parameters.get("id");
 			final String
 				application = parameters.containsKey(JSON_APPLICATION)?
 					parameters.get(JSON_APPLICATION)
 					:"",
+				user = parameters.get(JSON_USER),
 				data = parameters.get(JSON_DATA),
 				metadata = parameters.get("metadata"),
 				predicates = parameters.get("predicates"),
@@ -284,31 +294,25 @@ public class DataRequestHandler extends AbstractRequestHandler {
 			MatchMakingv2.prefix(application, rows);
 
 			/* make sure to put an id pointer */
-			if (!metas.containsKey("id")) {
+			if (id == null) {
 				final HashFunction h = new HashFunction(SOCIAL_NET_NAME);
-				metas.put(
-						"id",
-						System.currentTimeMillis()
-								+ h.SHA1ToString(metas.toString()));
+				id = h.SHA1ToString(System.currentTimeMillis() + metas.toString());
 			}
 
-			LOGGER.info("in " + metas.get("id") + "." + datas.size() + "."
+			LOGGER.info("in " + id + "." + datas.size() + "."
 					+ xpreds.size());
 
 			// look if the content is signed
 			MUserBean publisher = null;
-			if (datas.containsKey("user")) {
-				publisher = profileManager.read(datas.get("user"));
-			} else if (metas.containsKey("user")) {
-				publisher = profileManager.read(metas.get("user"));
-			}
+			if (user != null)
+				publisher = profileManager.read(user);
 
 			switch (code) {
 
 			case CREATE:
 				message.setMethod(JSON_CODE_CREATE);
 
-				dataManager.create(rows, metas.get("id"), metas);
+				dataManager.create(rows, id, metas);
 
 				mail_executor.execute(new MailDispatcher(
 						application,
@@ -319,25 +323,30 @@ public class DataRequestHandler extends AbstractRequestHandler {
 				datas.put("xpredicates", gson.toJson(xpreds));
 
 				/* creates data */
-				dataManager.create(application + metas.get("id"), datas);
+				dataManager.create(application + id, datas);
 
 				break;
 
 			case UPDATE:
 				message.setMethod(JSON_CODE_UPDATE);
 
-				if (!datas.containsKey("id"))
+				if (id == null)
 					throw new InternalBackEndException("missing id argument!");
+				
+				// @TODO put id out of data
 
-				LOGGER.info("updating data " + datas.get("id") + " size "
+				LOGGER.info("updating data " + id + " size "
 						+ datas.size());
 
 				/* creates data */
-				dataManager.create(application + datas.get("id"), datas);
+				dataManager.create(application + id, datas);
 
+				if (datas.containsKey("_noNotification"))
+					break;
+				
 				mail_executor.execute(new MailDispatcher(
 						application,
-						MiscUtils.singleton(datas.get("id")),
+						MiscUtils.singleton(id),
 						datas,
 						publisher));
 

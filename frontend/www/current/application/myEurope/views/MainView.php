@@ -28,25 +28,26 @@ function tab_bar_white($activeTab) {
 		
 			<a href="#infos" style="width:30%;min-width:240px;" class="wrap"
 			type="button" data-inline="true" data-theme="d"><?= _('About European programs') ?><span style="font-weight: lighter;"> 2014-2020</span></a>
-			<a href="?action=Blog&blog=alcotra" style="width:30%;min-width:240px;" class="wrap"
+			<a href="?action=Blog&blog=Alcotra" onclick="expand();" style="width:30%;min-width:240px;" class="wrap"
 			type="button"  data-theme="d" data-inline="true"><?= _('Alcotra Blog') ?><span style="font-weight: lighter;"> 2014-2020</span></a>
-			<a href="?action=Blog&blog=myEurope" style="width:30%;min-width:240px;" class="wrap"
+			<a href="?action=Blog&blog=myEurope" onclick="setTimeout(function(){expand();}, 200);" style="width:30%;min-width:240px;" class="wrap"
 			type="button" data-theme="d" data-inline="true"><?= _('Beta Testers Blog') ?></a>
 		
-		<div data-role="collapsible" data-mini="true" data-inline="true">
+		<div data-role="collapsible" data-mini="true" data-inline="true" style="margin-top:30px;">
 			<h3 style="margin:auto;width:136px;"><?= _("About") ?></h3>
 			<?= about(); ?>
 		</div>
 		<div class="myLogos">
 			<img alt="Alcotra" src="../../system/img/logos/fullsize/alcotra" />
-			<img alt="Europe" src="../../system/img/logos/fullsize/EU" />
+			<img alt="Europe" src="../../system/img/logos/fullsize/EU" style="opacity:.5;"/>
 			<img alt="myMed" src="../../system/img/logos/mymed" />
 		</div>
 		
-		<div style="opacity:0.7;margin-top:100px;">
-			<span class='st_googleplus_large' displayText='Google +'></span>
-			<span class='st_facebook_large' displayText='Facebook'></span>
-			<span class='st_twitter_large' displayText='Tweet'></span>
+		<div class="social">
+			<span class="ui-link"  style="margin-right:10px;vertical-align: 50%;"><?= _('Follow us on') ?>:</span>
+			<a href="https://plus.google.com/u/0/101253244628163302593/posts" target="_blank" style="margin-right:5px;"><img src="../../system/img/social/googleplus_32.png" alt="myEurope on Google+"></a>
+			<a href="http://www.facebook.com/pages/myEurope/274577279309326" target="_blank" style="margin-right:5px;"><img src="../../system/img/social/facebook_32.png" alt="myEurope on Facebook"></a>
+			<a href="https://twitter.com/my_europe" target="_blank"><img src="../../system/img/social/twitter_32.png" alt="myEurope on Twitter"></a>
 		</div>
 		
 		
@@ -342,7 +343,7 @@ function tab_bar_white($activeTab) {
 				<input type="checkbox" name="education" id="checkbox-1a"/>
 				<label for="checkbox-1a"><?= _("Education, culture & sport") ?></label>
 
-				<input type="checkbox" name="social" id="checkbox-2a"/>
+				<input type="checkbox" name="travail" id="checkbox-2a"/>
 				<label for="checkbox-2a"><?= _("Work") ?></label>
 				
 				<input type="checkbox" name="entreprise" id="checkbox-3a"/>
@@ -357,10 +358,10 @@ function tab_bar_white($activeTab) {
 				<input type="checkbox" name="peche" id="checkbox-6a" />
 				<label for="checkbox-6a"><?= _("Fishing") ?></label>
 				
-				<input type="checkbox" name="transfontalier" id="checkbox-7a"/>
+				<input type="checkbox" name="recherche" id="checkbox-7a"/>
 				<label for="checkbox-7a"><?= _("Research") ?></label>
 
-				<input type="checkbox" name="recherche" id="checkbox-8a" />
+				<input type="checkbox" name="santé" id="checkbox-8a" />
 				<label for="checkbox-8a"><?= _("Health and Consumer Protection") ?></label>
 				
 		    </fieldset>

@@ -31,7 +31,7 @@ public class CombiLine {
 	public CombiLine(LinkedHashMap<String, List<String>> map, String lengthMaxStr) {
 		super();
 		this.map = map;
-		this.lengthMax = MatchMakingv2.parseInt(lengthMaxStr);
+		this.lengthMax = lengthMaxStr!=null?MatchMakingv2.parseInt(lengthMaxStr):map.size();
 	}
 
 	// Add a value fot this key.

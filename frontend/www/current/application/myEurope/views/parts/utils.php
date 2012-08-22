@@ -227,8 +227,8 @@ function tabs($tabs, $activeTab) {
 						</p>
 						
 						<div class="ui-li-aside" data-role="controlgroup" style="width:auto;" data-type="horizontal" data-mini="true">
-							<a data-role="button" style="color:gray;" data-icon="minus" onclick="rate(0, '<?= $id ?>', '<?= $profile->user ?>');"><?= $profile->reputation['down'] ?></a>
-							<a data-role="button" style="color:blue;" data-icon="plus" onclick="rate(1, '<?= $id ?>', '<?= $profile->user ?>');"><?= $profile->reputation['up'] ?></a>
+							<a data-role="button" data-theme="d" style="color:gray;" data-icon="minus" onclick="rate(0, '<?= $id ?>', '<?= $profile->user ?>');"><?= $profile->reputation['down'] ?></a>
+							<a data-role="button" data-theme="d" style="color:blue;" data-icon="plus" onclick="rate(1, '<?= $id ?>', '<?= $profile->user ?>');"><?= $profile->reputation['up'] ?></a>
 						</div>
 						
 					</li>
