@@ -52,6 +52,8 @@ add_path(MYMED_ROOT . '/lib/dasp/request');
 add_path(MYMED_ROOT . '/system/controllers/');
 add_path(MYMED_ROOT . '/system/common/');
 add_path(MYMED_ROOT . '/lib/php-mobile-detect');
+add_path(MYMED_ROOT . '/lib/socialNetworkAPIs');
+add_path(MYMED_ROOT . '/lib/socialNetworkAPIs/facebook/src/');
 
 // Set autoload
 function autoload($className) {

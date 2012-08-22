@@ -13,6 +13,10 @@
 	<script src="<?= MYMED_URL_ROOT ?>/lib/jquery/jquery-1.6.4.min.js"></script>
 	<script src="<?= MYMED_URL_ROOT ?>/lib/jquery/jquery.mobile-1.1.0.min.js"></script>
 	
+	<!-- jQuery icons pack -->
+	<link href="<?= MYMED_URL_ROOT ?>/lib/jquery/jQuery-Mobile-Icon-Pack/original/jqm-icon-pack-2.0-original.css" rel="stylesheet" />
+	<link href="<?= MYMED_URL_ROOT ?>/lib/jquery/jQuery-Mobile-Icon-Pack/font-awesome/jqm-icon-pack-2.1.2-fa.css" rel="stylesheet" />
+	
 	<!-- DateBox -->
 	<script src="<?= MYMED_URL_ROOT ?>/lib/jquery/datebox/jquery.mobile.datebox.min.js"></script>
 	<link href="<?= MYMED_URL_ROOT ?>/lib/jquery/datebox/jquery.mobile.datebox.min.css" rel="stylesheet" />
