@@ -17,10 +17,9 @@ class BlogController extends ExtendedProfileRequired {
 				if (!empty($_POST["rm"]))
 					$id .= "comments".$_POST['rm'];
 				
-				$request = new MatchMakingRequestv2("v2/PublishRequestHandler", DELETE,
-						array("id"=>$id, "field"=>$_POST['field']),
-						"blogs", $this);
-					
+				$request = new SimpleRequestv2(
+						array("application"=>APPLICATION_NAME.":blogs", "id"=>$id, "field"=>$_POST['field']),
+						"v2/DataRequestHandler", DELETE, $this);
 				$request->send();
 					
 			}else{
@@ -52,17 +51,16 @@ class BlogController extends ExtendedProfileRequired {
 					);
 				}
 
-				$publish = new MatchMakingRequestv2("v2/PublishRequestHandler", UPDATE,
-						array("id"=>$id, "data"=>json_encode($data)),
-					 	"blogs", $this);
-	
+				$publish = new SimpleRequestv2(
+						array("application"=>APPLICATION_NAME.":blogs", "id"=>$id, "data"=>json_encode($data)),
+						"v2/DataRequestHandler", UPDATE, $this);
 				$publish->send();
 			}
 			
 		}
 		
-		$find = new MatchMakingRequestv2("v2/PublishRequestHandler", READ, array("id"=>$this->blog),
-				"blogs", $this);
+		$find = new SimpleRequestv2(array("application"=>APPLICATION_NAME.":blogs", "id"=>$this->blog),
+				"v2/DataRequestHandler", READ, $this);
 			
 		try{
 			$res = $find->send();
@@ -70,10 +68,10 @@ class BlogController extends ExtendedProfileRequired {
 		catch(Exception $e){
 			//return null;
 		}
-		if (isset($res)){
+		if (isset($res->details)){
 			
 			$this->messages = array();
-			foreach ($res as $k=>$v){
+			foreach ($res->details as $k=>$v){
 				$this->messages[$k] = json_decode($v, true);
 			}
 			uasort($this->messages, array($this, "timeCmp"));
@@ -87,12 +85,12 @@ class BlogController extends ExtendedProfileRequired {
 			
 			$this->comments = array();
 			
-			$req = new MatchMakingRequestv2("v2/PublishRequestHandler", READ, null,
-					"blogs", $this);
+			$req = new SimpleRequestv2(array("application"=>APPLICATION_NAME.":blogs"),
+					"v2/DataRequestHandler", READ, $this);
 			
-			foreach($res as $k => $v){
+			foreach($res->details as $k => $v){
 				
-				$req->setArguments(array("id"=>$this->blog."comments".$k));
+				$req->addArguments(array("id"=>$this->blog."comments".$k));
 				try{
 					$r = $req->send();
 				} catch(Exception $e){}
@@ -100,7 +98,7 @@ class BlogController extends ExtendedProfileRequired {
 				if (isset($r)){
 					$this->comments[$k] = array();
 					
-					foreach ($r as $ki=>$vi){
+					foreach ($r->details as $ki=>$vi){
 						$this->comments[$k][$ki] = json_decode($vi, true);
 					}
 					$rep =  new Reputationv2(array_keys($this->comments[$k]));
@@ -108,8 +106,6 @@ class BlogController extends ExtendedProfileRequired {
 					$this->comments[$k] = array_replace_recursive($repArr, $this->comments[$k]);
 					
 					uasort($this->comments[$k], array($this, "repCmp"));
-					
-					debug_r($this->comments[$k]);
 					
 				}
 			}

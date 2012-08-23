@@ -17,7 +17,7 @@
 			<a href='mailto:myAlpMed@gmail.com' type='button' data-inline='true' data-mini='true'><?= APPLICATION_NAME ?></a>		
 			for validation") ?>
 	<br /><br />
-	>>alpha testers automatically admins: *@inria.fr, breadasarah@gmail.com, luigi.liquori@gmail.com, myalpmed@gmail.com
+	>>alpha testers automatically admins: *@inria.fr, bredasarah@gmail.com, luigi.liquori@gmail.com, myalpmed@gmail.com
 	</div>
 
 </div>

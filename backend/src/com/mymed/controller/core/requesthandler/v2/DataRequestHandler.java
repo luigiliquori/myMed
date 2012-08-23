@@ -298,6 +298,7 @@ public class DataRequestHandler extends AbstractRequestHandler {
 				final HashFunction h = new HashFunction(SOCIAL_NET_NAME);
 				id = h.SHA1ToString(System.currentTimeMillis() + metas.toString());
 			}
+			metas.put("id", id);
 
 			LOGGER.info("in " + id + "." + datas.size() + "."
 					+ xpreds.size());

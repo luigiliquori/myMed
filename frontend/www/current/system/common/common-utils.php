@@ -91,7 +91,7 @@ function comments(
 	?>
 <li class="comment" id="<?= $id ?>" replyTo="<?= $v['replyTo'] ?>" user="<?= $h ?>">
 	<a style="min-height: 15px;padding-left: 60px;">
-		<img src="http://www.gravatar.com/avatar/<?= $h ?>?s=128&d=identicon&r=PG" style="width: 30px;left:16px;top:4px;"/>
+		<img src="http://www.gravatar.com/avatar/<?= $h ?>?s=128&d=identicon&r=PG" style="width: 30px;left:20px;top:4px;"/>
 		<span style="position: absolute;font-size:13px;font-weight:bold;left: 2px;top: 13px;"><?= ($v['up']==0 && $v['down']==0)?"":$v['up'] - $v['down'] ?></span>
 		<p> <?= $v['text'] ?> 
 		<? if($v['replyTo']!="0") : ?>

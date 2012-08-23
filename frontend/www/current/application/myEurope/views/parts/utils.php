@@ -255,7 +255,7 @@ function tabs($tabs, $activeTab) {
 							</p>
 							<? if (!empty($profile->siret)): ?>
 							<p>
-								<?= _("n° SIRET") ?>: <strong style="color:#444;"><?= $profile->siret ?></strong>
+								<?= _("SIRET") ?>: <strong style="color:#444;"><?= $profile->siret ?></strong>
 							</p>
 							<? endif ?>
 							<p>
@@ -279,14 +279,9 @@ function tabs($tabs, $activeTab) {
 								<?= empty($profile->desc)?" ":$profile->desc ?>
 							</p>
 							<br />
-							<p>
-								<?= _('Active partnerships') ?>:
-								<ul>
-								<? foreach($profile->partnerships as $item) : ?>
-									<li></ul><a href="?action=details&id=<?= $item ?>&namespace=part"><?= $item ?></a></li>
-								<? endforeach ?>
-								</ul>
-							</p>
+							<? foreach($profile->partnerships as $item) :?>
+								<li><p><?= _('Active partnership') ?>: #<a href="?action=details&id=<?= $item ?>&namespace=part"><?= substr($item, 0, 3) ?></a></p></li>
+							<? endforeach ?>
 						</li>
 					</ul>
 					

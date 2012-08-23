@@ -10,7 +10,7 @@
 	</div>
 	
 	<div data-role="content">
-		<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" class="compact">
+		<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" data-ajax="false" class="compact">
 			<input type="hidden" name="form" value="edit" />
 	
 			<fieldset id="textinputu0" data-role="controlgroup" data-mini="true" data-type="horizontal" style="display:inline-block;vertical-align: middle;">
@@ -31,6 +31,8 @@
 				<label for="radio-view-i"><?= _('Other') ?></label>
 			</fieldset>
 				
+			<input type="hidden" name="role" value="<?= $_SESSION['myEuropeProfile']->role ?>" />
+			
 			<label for="textinputu1"> <?= _('Name') ?>: </label>
 			<input id="textinputu1" name="name" placeholder="" value='<?= $_SESSION['myEuropeProfile']->name ?>' type="text" />
 			

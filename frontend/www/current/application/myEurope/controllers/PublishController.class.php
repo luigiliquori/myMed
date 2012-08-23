@@ -2,22 +2,22 @@
 
 //require_once dirname(__FILE__) . '/../../../lib/dasp/beans/DataBeanv2.php';
 
-$themesall = array(
-		"education",
-		"travail",
-		"entreprise",
-		"environnement",
-		"agriculture",
-		"peche",
-		"recherche",
-		"santé"
-		);
+
 
 class PublishController extends AuthenticatedController {
 	
 	public $namespace;
 	
-	
+	public $themesall = array(
+			"education",
+			"travail",
+			"entreprise",
+			"environnement",
+			"agriculture",
+			"peche",
+			"recherche",
+			"santé"
+	);
 	
 	public function handleRequest() {
 		
@@ -27,13 +27,12 @@ class PublishController extends AuthenticatedController {
 		debug('namespace ->  '.$this->namespace);
 		$index=array();
 		
-		global $themesall;
 		$themes = array();
 		$places = array();
 
 		foreach( $_POST as $i=>$v ){
 			if ($v == "on"){
-				if ( in_array($i, $themesall)){
+				if ( in_array($i, $this->themesall)){
 					array_push($themes, $i);
 				} else {
 					array_push($places, $i);
@@ -41,15 +40,15 @@ class PublishController extends AuthenticatedController {
 			}
 		}
 		
-		array_push($index, new DataBeanv2("themes", ENUM, $themes));
+		array_push($index, new DataBeanv2("themes", ENUM, "|".join("|",$themes)));
 
-		array_push($index, new DataBeanv2("places", ENUM, $places));
+		array_push($index, new DataBeanv2("places", ENUM, "|".join("|",$places)));
 		
 		$p = preg_split('/[ ,+:-]/', $_POST['title'], NULL, PREG_SPLIT_NO_EMPTY);
 		$p = array_map('strtolower', $p);
 		$p = array_filter($p, array($this, "smallWords"));
 		$p = array_unique($p);
-		array_push($index, new DataBeanv2("keyword", ENUM, $p));
+		array_push($index, new DataBeanv2("keyword", ENUM, "|".join("|",$p)));
 		
 		$t = time();
 		
@@ -69,9 +68,9 @@ class PublishController extends AuthenticatedController {
 		
 		$id = hash("md5", $t.$_SESSION['user']->id);
 		
-		$publish = new MatchMakingRequestv2("v2/PublishRequestHandler", CREATE,
-				array("id"=>$id, "data"=>json_encode($data), "index"=>json_encode($index), "metadata"=>json_encode($metadata)),
-				$this->namespace, $this);
+		$publish = new SimpleRequestv2(
+				array("application"=>APPLICATION_NAME.":".$this->namespace, "id"=>$id, "data"=>json_encode($data), "predicates"=>json_encode($index), "metadata"=>json_encode($metadata)),
+				"v2/DataRequestHandler", CREATE, $this);
 		
 		$publish->send();
 		
@@ -81,13 +80,13 @@ class PublishController extends AuthenticatedController {
 		} else {
 			
 			// put this project in our profile
-			$publish = new MatchMakingRequestv2("v2/PublishRequestHandler", UPDATE,
+			$publish = new SimpleRequestv2(
 					array("id"=>$_SESSION['user']->id, "data"=>json_encode(array("part".$id=>$id))),
-				 	"users", $this);
+					"v2/DataRequestHandler", UPDATE, $this);
 			
 			$publish->send();
 			//push it in session
-			array_push($_SESSION['myEuropeProfile']->partnerships, array("part".$id=>$id));
+			array_push($_SESSION['myEuropeProfile']->partnerships, $id);
 			
 			
 			//redirect to search with the indexes

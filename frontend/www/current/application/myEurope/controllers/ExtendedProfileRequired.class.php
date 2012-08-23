@@ -29,29 +29,30 @@ class ExtendedProfileRequired extends AuthenticatedController {
 		$rep =  new Reputationv2($_SESSION['user']->id);
 		$myrep = $rep->send();
 		
-		$find = new MatchMakingRequestv2("v2/PublishRequestHandler", READ, array("id"=>$_SESSION['user']->id),
-				"users", $this);
+		$find = new SimpleRequestv2(array("application"=>APPLICATION_NAME.":users", "id"=>$_SESSION['user']->id),
+				"v2/DataRequestHandler", READ, $this);
 			
 		try{
-			$result = $find->send();
+			$res = $find->send();
 		}
 		catch(Exception $e){
 			//return null;
 		}
 		
-		if (empty($result)){
+		if (empty($res->details)){
 			$this->error = "";
+			debug("wow");
 			$this->renderView("ExtendedProfileCreate");
 		}
 		else {
 			//organize projects
 			$partnerships = array();
-			foreach ($result as $k=>$v){
+			foreach ($res->details as $k=>$v){
 				if (strpos($k, "part") === 0){
 					array_push($partnerships, $v);
 				}
 			}
-			$_SESSION['myEuropeProfile'] = (object) $result;
+			$_SESSION['myEuropeProfile'] = $res->details;
 			$this->success = "";
 			$_SESSION['myEuropeProfile']->reputation = $myrep;
 			$_SESSION['myEuropeProfile']->partnerships = $partnerships;

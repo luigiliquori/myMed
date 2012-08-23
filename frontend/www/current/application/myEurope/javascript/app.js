@@ -3,8 +3,6 @@ var isSub = 3;
 
 var application="myEurope", predicate="";
 
-var commenters = {};
-
 /*$('label').click(function(e){
     e.stopPropagation()
 });/*
@@ -82,14 +80,17 @@ function subscribe(application, mailTemplate, predicates) {
 	}, function(data) {
 		console.log(data);
 		var response = JSON.parse(data);
-		$('#notification-success h3').text(response.description);
-		$('#notification-success').show();
+		$('#results #notification-success h3').text(response.description);
+		$('#results #notification-success').show();
 	});
 }
 
 $(".loadCLE").live("expand", function(e) {
 	if($(e.target).data('oneclicked')!='yes'){
 		console.log("expand");
+		$.getScript("../../lib/jquery/CLEeditor/jquery.cleditor.js", function(){
+			$.getScript("../../lib/jquery/CLEeditor/startCLE.js");
+		});
 	}
 	$(e.target).data('oneclicked','yes');
 });
@@ -107,8 +108,8 @@ function rate(feedback, id, user) {
 	}, function(data) {
 		console.log(data);
 		var response = JSON.parse(data);
-		$('#notification-success h3').text(response.description);
-		$('#notification-success').show();
+		$('#Blog #notification-success h3').text(response.description);
+		$('#Blog #notification-success').show();
 		//location.reload(0);
 		
 	});
@@ -252,6 +253,7 @@ function showComment() {
 
 function profile(user){
 	$.get('../../lib/dasp/ajax/ExtendedProfile', {
+		application: application+":users",
 		id : user,
 	}, function(res) {
 		//console.log(res);
@@ -287,7 +289,7 @@ var li =
 ' style="margin-left:50px;"'
 :'')+">"+
 '<a style="min-height: 15px;padding-left: 60px;">'+
-	'<img src="http://www.gravatar.com/avatar/'+response.userh+'?s=128&d=identicon&r=PG" style="width: 30px;left:16px;top:4px;"/>'+
+	'<img src="http://www.gravatar.com/avatar/'+response.userh+'?s=128&d=identicon&r=PG" style="width: 30px;left:20px;top:4px;"/>'+
 	'<span style="position: absolute;font-size:13px;font-weight:bold;left: 2px;top: 13px;"></span>'+
 	'<p>'+text+
 	(replyTo!=0 ?

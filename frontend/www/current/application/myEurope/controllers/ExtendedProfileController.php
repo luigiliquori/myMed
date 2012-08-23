@@ -65,7 +65,7 @@ class ExtendedProfileController extends AuthenticatedController
 		//$extendedProfile->storeProfile($this);
 		
 		$edit = ($_POST['form'] == "edit");
-		
+		debug_r($_POST);
 		if (!$edit){
 			if(!$_POST['checkCondition']){
 				$this->error = "Vous devez accepter les conditions d'utilisation.";
@@ -103,6 +103,7 @@ class ExtendedProfileController extends AuthenticatedController
 			$_POST['permission'] = $_SESSION['myEuropeProfile']->permission;//let's not lose the permission
 			$myrep = $_SESSION['myEuropeProfile']->reputation; //and reputation
 			$prts = $_SESSION['myEuropeProfile']->partnerships; //and reputation
+			$_POST['_noNotification'] = "1";
 		}
 
 		debug($_SESSION['user']->email);
@@ -115,9 +116,9 @@ class ExtendedProfileController extends AuthenticatedController
 		unset($_POST['checkCondition']);
 
 		// and publish $_POST
-		$publish =  new MatchMakingRequestv2("v2/PublishRequestHandler", CREATE, 
-				array("id"=>$_SESSION['user']->id, "data"=>json_encode($_POST)),
-				 "users", $this);
+		$publish =  new SimpleRequestv2(
+				array("application"=>APPLICATION_NAME.":users", "id"=>$_SESSION['user']->id, "data"=>json_encode($_POST)),
+				"v2/DataRequestHandler", $edit?UPDATE:CREATE, $this);
 		
 		$publish->send();
 		
@@ -139,6 +140,8 @@ class ExtendedProfileController extends AuthenticatedController
 			/*
 			 * If it was an edit, reload the ExtendedProfile in the $_SESSION
 			 */
+			
+			debug_r($_SESSION['myEuropeProfile']);
 			
 			if ($edit){
 				$_SESSION['myEuropeProfile']->reputation = $myrep;
@@ -171,20 +174,20 @@ class ExtendedProfileController extends AuthenticatedController
 	
 	public /*void*/ function showOtherProfile($id){
 	
-		$find = new MatchMakingRequestv2("v2/PublishRequestHandler", READ, array("id"=>$id),
-				 "users", $this);
+		$find = new SimpleRequestv2(array("application"=>APPLICATION_NAME.":users", "id"=>$id),
+				"v2/DataRequestHandler", READ, $this);
 			
 		try{
-			$result = $find->send();
+			$res = $find->send();
 		}
 		catch(Exception $e){
 			//return null;
 		}
 		
-		if (!empty($result)){
+		if (!empty($res->details)){
 		
 			$this->id = $id;
-			$this->profile = (object) $result;
+			$this->profile = $res->details;
 			$this->success = "";
 			
 			$rep =  new Reputationv2($id);

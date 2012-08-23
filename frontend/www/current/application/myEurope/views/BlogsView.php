@@ -22,7 +22,7 @@
 <div data-role="collapsible-set" data-theme="d" data-content-theme="d">
 	<? $first=true; foreach($this->messages as $k=>$v) : ?>
 	<div data-role="collapsible">
-		<h2><?= $v['title'] ?> &ndash; <a onclick="$.mobile.changePage('?action=ExtendedProfile&id=<?= $v['user'] ?>');"><?= prettyprintUser($v['user']) ?></a></h2>
+		<h2><?= $v['title'] ?> &ndash; <a onclick="profile('<?= $v['user'] ?>');"><?= prettyprintUser($v['user']) ?></a></h2>
 		<ul data-role="listview" data-theme="d" data-divider-theme="d">
 			<li>
 				<h3><?= $v['title'] ?></h3>

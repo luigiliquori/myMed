@@ -19,11 +19,11 @@ class DetailsController extends AuthenticatedController {
 		
 		debug('details of '.$this->id);
 		
-		$req = new MatchMakingRequestv2("v2/PublishRequestHandler", READ, array("id"=>$this->id),
-				$_GET['namespace'], $this);
+		$req = new SimpleRequestv2( array("application"=>APPLICATION_NAME.":".$_GET['namespace'],"id"=>$this->id),
+				"v2/DataRequestHandler", READ, $this);
 		
 		try{
-			$this->details = $req->send();
+			$res = $req->send();
 		}
 		catch(Exception $e){
 			//return null;
@@ -31,8 +31,8 @@ class DetailsController extends AuthenticatedController {
 			$this->details->text = "Contenu effacé par l'auteur";
 		}
 
-		if (isset($this->details)){
-			
+		if (isset($res->details)){
+			$this->details = $res->details;
 			$rep =  new Reputationv2($this->id);
 			$this->reputation = $rep->send();
 			
@@ -50,7 +50,8 @@ class DetailsController extends AuthenticatedController {
 			
 			$this->renderView("details");
 		} else
-			$this->redirect("search");
+			$this->renderView("details");
+			//$this->redirectTo("search");
 		// @todo errors
 		
 		// Render the view
@@ -61,8 +62,8 @@ class DetailsController extends AuthenticatedController {
 	public /*void*/ function delData(){
 	
 	
-		$publish = new MatchMakingRequestv2("v2/PublishRequestHandler", DELETE, array("id"=>$_GET['id']),
-				$_GET['namespace'], $this);
+		$publish = new SimpleRequestv2(array("application"=>APPLICATION_NAME.":".$_GET['namespace'],"id"=>$_GET['id']),
+				"v2/DataRequestHandler", DELETE, $this);
 		
 		debug('trying to delete '.$_GET['namespace']."..".$_GET['id']);
 
@@ -75,16 +76,17 @@ class DetailsController extends AuthenticatedController {
 		$data = array(
 			"tempPartner".$_SESSION['user']->id=>$_SESSION['user']->id
 		);
-		$publish = new MatchMakingRequestv2("v2/PublishRequestHandler", UPDATE, array("id"=>$_GET['id'], "data"=>json_encode($data) ),
-				$_GET['namespace'], $this);
+		$publish = new SimpleRequestv2( 
+				array("application"=>APPLICATION_NAME.":".$_GET['namespace'],"id"=>$_GET['id'], "data"=>json_encode($data) ),
+				"v2/DataRequestHandler", UPDATE, $this);
 	
 		$publish->send();
 	}
 	
 	public /*void*/ function getProfile($id){
 	
-		$find = new MatchMakingRequestv2("v2/PublishRequestHandler", READ, array("id"=>$id),
-				"users", $this);
+		$find = new SimpleRequestv2( array("application"=>APPLICATION_NAME.":users","id"=>$id),
+				"v2/DataRequestHandler", READ, $this);
 			
 		try{
 			$result = $find->send();
@@ -95,7 +97,7 @@ class DetailsController extends AuthenticatedController {
 	
 		if (!empty($result)){
 	
-			$profile = (object) $result;	
+			$profile = $result->details;	
 			$rep =  new Reputationv2($id);
 			$profile->reputation = $rep->send();
 			debug_r($profile);

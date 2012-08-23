@@ -58,8 +58,8 @@ class Requestv2 {
 		
 	}
 	
-	public /*void*/ function setArguments(/*array*/ $args) {
-		$this->arguments = $args;
+	public /*void*/ function addArguments(/*array*/ $args) {
+		$this->arguments = array_replace_recursive($this->arguments, $args);
 	}
 
 	public /*void*/ function removeArgument(/*string*/ $name) {

@@ -87,7 +87,7 @@
 	margin: 10px;
 	position: fixed;
 	bottom: 0;
-	right: 10%;
+	right: 10px;
 }
 
 @media all and (max-width: 480px){

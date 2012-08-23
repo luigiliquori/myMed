@@ -34,9 +34,9 @@
 
 			<? foreach($this->result as $item) : ?>
 			
-			<li data-id="<?= prettyprintUser($item->user) ?>" data-time="<?= $item->time ?>">
+			<li data-id="<?= prettyprintUser($item->user) ?>" data-time="<?= $item->time ?>" data-title="<?= $item->title ?>">
 			<a href="?action=details&namespace=<?= $_GET['namespace'] ?>&id=<?= urlencode($item->id) ?>"><span
-					style="font-weight: lighter;">Offre publiée par </span> <?= prettyprintUser($item->user) ?> <span style="font-weight: lighter;"> (<?= date('d/m/Y', $item->time) ?> <?=  date('H:i:s', $item->time) ?>)</span>
+					class="ui-link"><?= $item->title ?> </span>, <?= prettyprintUser($item->user) ?> <span style="font-weight: lighter;"> (<?= date('j/n/y G:i', $item->time) ?>)</span>
 				</a>
 			</li>
 			<? endforeach ?>

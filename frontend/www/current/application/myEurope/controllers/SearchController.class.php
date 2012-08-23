@@ -6,68 +6,75 @@ class SearchController extends AuthenticatedController {
 	
 	public $index;
 	
+	public $themesall = array(
+			"education",
+			"travail",
+			"entreprise",
+			"environnement",
+			"agriculture",
+			"peche",
+			"recherche",
+			"santé"
+	);
+	
 	public function handleRequest() {
 		
 		parent::handleRequest();
 		
 		$this->index=array();
 
-		$placesAll = array("france", "italy");
+		global $themesall;
 		$themes = array();
 		$places = array();
 		
 		foreach( $_GET as $i=>$v ){
 			if ($v == "on"){
-				if ( in_array($i, $placesAll)){
-					array_push($places, $i);
-				} else {
+				if ( in_array($i, $this->themesall)){
 					array_push($themes, $i);
+				} else {
+					array_push($places, $i);
 				}
 			}
 		}
 		
-		$p = preg_split('/[ +]/', $_GET['themes'], NULL, PREG_SPLIT_NO_EMPTY);
-		$p = array_map('strtolower', $p);
-		$themes = array_unique(array_merge($themes, $p));
-		if (count($themes)){
-			array_push($this->index, new DataBeanv2("themes", ENUM, $themes));
-		}
+		array_push($this->index, new DataBeanv2("themes", ENUM, join("|",$themes)));
 		
-		$p = preg_split('/[ +]/', $_GET['places'], NULL, PREG_SPLIT_NO_EMPTY);
+		array_push($this->index, new DataBeanv2("places", ENUM, join("|",$places)));
+		
+		$p = preg_split('/[ ,+:-]/', $_GET['keywords'], NULL, PREG_SPLIT_NO_EMPTY);
 		$p = array_map('strtolower', $p);
-		$places = array_unique(array_merge($places, $p));
-		if (count($places)){
-			array_push($this->index, new DataBeanv2("places", ENUM, $places));
-		}
+		$p = array_filter($p, array($this, "smallWords"));
+		$p = array_unique($p);
+		array_push($this->index, new DataBeanv2("keyword", ENUM, join("|",$p)));
+	
 
 		debug("search on.. ".$_GET['namespace']);
 		
-		$find = new MatchMakingRequestv2("v2/FindRequestHandler", READ, array("index"=>json_encode($this->index)),
-				$_GET['namespace'], $this);
-			
+		
+		$find = new SimpleRequestv2(array("application"=>APPLICATION_NAME.":".$_GET['namespace'], "predicates"=>json_encode($this->index)),
+				"v2/DataRequestHandler", READ, $this);
+		
 		try{
-			$result = $find->send();
+			$res = $find->send();
 		}
 		catch(Exception $e){
 			//return null;
 		}
 
 		$this->success = "";
-		
-		foreach($result as $item){
-			$pieces = preg_split("/[\^\+]/", $item->id ); /*= explode("^", $k, 2);*/
-			$item->time = $pieces[0];
-		}
 
+		$this->result = $res->results;
 		
-		// Give this to the view
-		$this->result = $result;
 		$this->suggestions = array();
 		
 		// Render the view			
 		$this->renderView("Results");
 		
 
+	}
+	
+	function smallWords($w){
+		return strlen($w) > 2;
 	}
 }
 ?>
