@@ -33,19 +33,19 @@
 
 				<a href="?action=Details&id=<?= urlencode($this->id) ?>&namespace=<?= $_GET['namespace'] ?>" type="button" data-inline="true" data-mini="true">  <?= _("Edit my offer") ?> </a>
 
-				<a href="?action=Details&rm=&id=<?= urlencode($this->id) ?>&namespace=<?= $_GET['namespace'] ?>" type="button" data-inline="true" data-mini="true" style="float:right;">  <?= _("Delete my offer") ?> </a>
+				<a href="#deletePopup" data-role="button" data-rel="popup" data-inline="true" data-mini="true" style="float:right;">  <?= _("Delete my offer") ?> </a>
 			
 			<? else :?>
 				<a href="?action=Details&partnerRequest=&id=<?= urlencode($this->id) ?>&namespace=<?= $_GET['namespace'] ?>" type="button" data-inline="true" data-mini="true" data-icon="check"> <?= _("Partnership request") ?> </a>
 			<? endif ?>
 		<? endif ?>
 		
-		 <div data-role="popup" id="deletePopup" class="ui-content" data-overlay-theme="b" data-theme="d">
+		 <div data-role="popup" id="deletePopup" class="ui-content" data-overlay-theme="e" data-theme="d">
 			<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-			Are you sure?<br />
-			<a id="deleteYes" data-role="button" data-theme="d" data-icon="delete" data-inline="true">Yes</a>
-			<a data-rel="back" data-role="button" data-theme="d" data-icon="delete" data-inline="true">No</a>
+			<?= _('Sure?') ?><br />
+			<a href="?action=Details&rm=&id=<?= urlencode($this->id) ?>&namespace=<?= $_GET['namespace'] ?>" data-role="button" data-theme="d" data-icon="delete" data-inline="true">Yes</a>
 		</div>
+		
 	</div>
 </div>
 

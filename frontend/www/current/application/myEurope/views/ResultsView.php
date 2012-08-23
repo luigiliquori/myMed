@@ -36,7 +36,7 @@
 			
 			<li data-id="<?= prettyprintUser($item->user) ?>" data-time="<?= $item->time ?>" data-title="<?= $item->title ?>">
 			<a href="?action=details&namespace=<?= $_GET['namespace'] ?>&id=<?= urlencode($item->id) ?>"><span
-					class="ui-link"><?= $item->title ?> </span>, <?= prettyprintUser($item->user) ?> <span style="font-weight: lighter;"> (<?= date('j/n/y G:i', $item->time) ?>)</span>
+					class="ui-link"><?= $item->title ?> </span> &ndash; <span style="font-weight: lighter;"><?= prettyprintUser($item->user) ?>  (<?= date('j/n/y G:i', $item->time) ?>)</span>
 				</a>
 			</li>
 			<? endforeach ?>
