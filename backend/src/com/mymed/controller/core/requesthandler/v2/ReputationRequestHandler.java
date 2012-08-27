@@ -31,11 +31,10 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.controller.core.manager.reputation.ReputationManager;
 import com.mymed.controller.core.manager.reputation.api.mymed_ids.MymedAppUserId;
 import com.mymed.controller.core.manager.reputation.api.mymed_ids.ReputationRole;
-import com.mymed.controller.core.manager.reputation.ReputationManager;
-import com.mymed.controller.core.requesthandler.message.JsonMessage;
-import com.mymed.model.data.reputation.MReputationBean;
+import com.mymed.controller.core.requesthandler.message.JsonMessageOut;
 import com.mymed.model.data.reputation.MReputationEntity;
 /**
  * Servlet implementation class ReputationRequestHandler
@@ -74,7 +73,7 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
      */
     @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
+        final JsonMessageOut<Object> message = new JsonMessageOut<Object>(200, this.getClass().getName());
 
         try {
             final Map<String, String> parameters = getParameters(request);
@@ -145,7 +144,7 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
      */
     @Override
     protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
+        final JsonMessageOut<Object> message = new JsonMessageOut<Object>(200, this.getClass().getName());
 
         try {
             final Map<String, String> parameters = getParameters(request);

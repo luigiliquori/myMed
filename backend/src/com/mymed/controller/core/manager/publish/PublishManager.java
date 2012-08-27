@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.mymed.controller.core.manager.data;
+package com.mymed.controller.core.manager.publish;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -30,7 +30,7 @@ import com.mymed.model.data.user.MUserBean;
  * The pub/sub mechanism manager.
  * 
  */
-public class DataManager extends AbstractManager implements IDataManager {
+public class PublishManager extends AbstractManager implements IPublishManager {
 
 	/**
 	 * The application controller super column.
@@ -48,11 +48,11 @@ public class DataManager extends AbstractManager implements IDataManager {
 	 * 
 	 * @throws InternalBackEndException
 	 */
-	public DataManager() throws InternalBackEndException {
+	public PublishManager() throws InternalBackEndException {
 		this(new StorageManager());
 	}
 
-	public DataManager(final IStorageManager storageManager)
+	public PublishManager(final IStorageManager storageManager)
 			throws InternalBackEndException {
 		super(storageManager);
 	}
@@ -60,7 +60,7 @@ public class DataManager extends AbstractManager implements IDataManager {
 	/**
 	 * Publish mechanism.
 	 * 
-	 * @see IDataManager#create(String, String, MUserBean)
+	 * @see IPublishManager#create(String, String, MUserBean)
 	 */
 
 	/* v2 create indexes */

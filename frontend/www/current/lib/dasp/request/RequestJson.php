@@ -15,10 +15,11 @@
 * limitations under the License.
 */
 
+
 /**
  *
  */
-class Requestv2 {
+class RequestJson {
 
 	/* --------------------------------------------------------- */
 	/* Attributes */
@@ -26,35 +27,37 @@ class Requestv2 {
 	private /*string*/					$url;
 	private /*string*/					$ressource;
 	private /*BackendRequest_*/			$method;
-	private /*Array<string,string>*/	$arguments;
+	private /*Array<string,string>*/	$arguments	= array();
 	private /*Boolean>*/				$multipart;
+	private /* IRequestHandler */      	$handler;
 
 	/* --------------------------------------------------------- */
 	/* Constructors */
 	/* --------------------------------------------------------- */
-	public function __construct(/*string*/ $ressource, /*BackendRequest_*/ $method=READ, $data= array()) {
-		$this->ressource	= $ressource;
-		$this->method		= $method;
+	public function __construct(
+			$handler=null,
+			$data= array(),
+			$method=READ,
+			$ressource = "v2/PublishRequestHandler") {
 		$this->url			= BACKEND_URL;
 		$this->multipart	= false;
+		$this->handler	    = $handler;
 		$this->arguments    = $data;
+		$this->method		= $method;
+		$this->ressource	= $ressource;
 	}
 
 	/* --------------------------------------------------------- */
 	/* public methods */
 	/* --------------------------------------------------------- */
-	public /*void*/ function addArgument(/*string*/ $name, /*string*/ $value) {
-		// 		$this->arguments["$name"] = urlencode(strtolower($value));
-		if($this->multipart){
-			$this->arguments[$name] = urlencode($value);
-		} else {
-			$this->arguments[$name] = $value; //httpbuildquery already encodes
-		}
-		
+	public /*void*/ function addArgument(/*string*/ $name, /*string*/ $value) {		
+		$this->arguments[$name] = $value;
 	}
-	
 	public /*void*/ function addArguments(/*array*/ $args) {
 		$this->arguments = array_replace_recursive($this->arguments, $args);
+	}
+	public /*void*/ function hasArgument(/*string*/ $name) {
+		return isset($this->arguments[$name]);
 	}
 
 	public /*void*/ function removeArgument(/*string*/ $name) {
@@ -84,11 +87,7 @@ class Requestv2 {
 		}
 
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-		if($this->multipart){
-			$httpHeader = array('Content-Type:multipart/form-data');
-		} else {
-			$httpHeader = array('Content-Type:application/x-www-form-urlencoded');
-		}
+		
 		$this->arguments['code'] = $this->method;
 
 		// Token for security - to access to the API
@@ -96,25 +95,14 @@ class Requestv2 {
 			$this->arguments['accessToken'] = $_SESSION['accessToken'];
 		}
 
-		if($this->method == CREATE || $this->method == UPDATE
-				 || ($this->ressource == "v2/AuthenticationRequestHandler" && $this->method == READ)
-				 || strpos($this->ressource, "/FindRequestHandler") !== false){
-			// POST REQUEST
-			curl_setopt($curl, CURLOPT_HTTPHEADER, $httpHeader);
-			curl_setopt($curl, CURLOPT_URL, $this->url.$this->ressource);
-			curl_setopt($curl, CURLOPT_POST, true);
-			if($this->multipart){
-				curl_setopt($curl, CURLOPT_POSTFIELDS, $this->arguments);
-			} else {
-				curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($this->arguments));
-			}
-				
-		} else {
-			// GET REQUEST
-			curl_setopt($curl, CURLOPT_HTTPHEADER, $httpHeader);
-			curl_setopt($curl, CURLOPT_URL, $this->url.$this->ressource.'?'.http_build_query($this->arguments));
-		}
-		
+
+		// POST REQUEST
+		curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+		curl_setopt($curl, CURLOPT_URL, $this->url.$this->ressource);
+		curl_setopt($curl, CURLOPT_POST, true);
+
+		curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($this->arguments));
+
 		// SSL CONNECTION
 		// TODO fix once we have the valid certificate!
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
@@ -128,7 +116,20 @@ class Requestv2 {
 			throw new Exception("CURL Error : " . curl_error($curl));
 		}
 		
-		return $result;
+		$obj = json_decode($result);
+		
+		if(!isset($obj)) // IOBackendException catch has been removed in v2
+			throw new Exception("No results found!");
+		
+		if ($obj->status != 200 /*&& $obj->status != 404*/ && !is_null($this->handler)) { // Error
+			$this->handler->setError($obj->description);
+			throw new Exception("No results found");
+		
+		} else if(isset($obj->dataObject))// Success
+			return $obj->dataObject;
+		else
+			return null;
+
 	}
 }
 ?>

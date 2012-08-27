@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.mymed.controller.core.manager.subscription;
+package com.mymed.controller.core.manager.subscribe;
 
 import static com.mymed.utils.MiscUtils.encode;
 
@@ -29,8 +29,8 @@ import com.mymed.controller.core.manager.storage.v2.StorageManager;
  * The pub/sub mechanism manager.
  * 
  */
-public class SubscriptionManager extends AbstractManager implements
-		ISubscriptionManager {
+public class SubscribeManager extends AbstractManager implements
+		ISubscribeManager {
 
 	/**
 	 * The subscribees (users subscribed to a predicate) column family.
@@ -49,11 +49,11 @@ public class SubscriptionManager extends AbstractManager implements
 	 * 
 	 * @throws InternalBackEndException
 	 */
-	public SubscriptionManager() throws InternalBackEndException {
+	public SubscribeManager() throws InternalBackEndException {
 		this(new StorageManager());
 	}
 
-	public SubscriptionManager(final IStorageManager storageManager)
+	public SubscribeManager(final IStorageManager storageManager)
 			throws InternalBackEndException {
 		super(storageManager);
 	}

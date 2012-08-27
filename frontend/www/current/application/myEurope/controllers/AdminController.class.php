@@ -14,9 +14,7 @@ class AdminController extends ExtendedProfileRequired {
 				$this->delProfile();
 			}
 
-			$find = new SimpleRequestv2(
-					array("application"=>APPLICATION_NAME.":users", "predicates"=>json_encode(array())),
-					"v2/DataRequestHandler", READ, $this);
+			$find = new RequestJson($this, array("application"=>APPLICATION_NAME.":users", "predicates"=>array()));
 				
 			try{
 				$res = $find->send();
@@ -28,8 +26,7 @@ class AdminController extends ExtendedProfileRequired {
 			$this->success = "";
 			//fetch other infos
 
-			$req = new SimpleRequestv2(array("application"=>APPLICATION_NAME.":users"),
-					"v2/DataRequestHandler", READ, $this);
+			$req = new RequestJson($this, array("application"=>APPLICATION_NAME.":users"));
 			
 			foreach( $result as $i => $item ){
 				$req->addArguments(array("id"=>$item->id));
@@ -58,9 +55,9 @@ class AdminController extends ExtendedProfileRequired {
 	public /*void*/ function updatePermission(){
 	
 
-		$publish =  new SimpleRequestv2(
-				array("application"=>APPLICATION_NAME.":users", "id"=>$_POST['id'], "data"=>json_encode(array("permission" => $_POST['perm'], "_notify"=>1))),
-				"v2/DataRequestHandler", UPDATE, $this);
+		$publish =  new RequestJson($this,
+				array("application"=>APPLICATION_NAME.":users", "id"=>$_POST['id'], "data"=>array("permission" => $_POST['perm'], "_notify"=>1)),
+				UPDATE);
 		
 		$publish->send();
 
@@ -69,9 +66,9 @@ class AdminController extends ExtendedProfileRequired {
 	public /*void*/ function delProfile(){
 	
 	
-		$publish = new SimpleRequestv2(
+		$publish = new RequestJson($this,
 				array("application"=>APPLICATION_NAME.":users","id"=>$_GET['id']),
-				"v2/DataRequestHandler", DELETE, $this);
+				DELETE);
 		
 		$publish->send();
 	

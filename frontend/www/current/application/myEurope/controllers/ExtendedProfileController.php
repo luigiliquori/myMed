@@ -116,9 +116,8 @@ class ExtendedProfileController extends AuthenticatedController
 		unset($_POST['checkCondition']);
 
 		// and publish $_POST
-		$publish =  new SimpleRequestv2(
-				array("application"=>APPLICATION_NAME.":users", "id"=>$_SESSION['user']->id, "data"=>json_encode($_POST)),
-				"v2/DataRequestHandler", $edit?UPDATE:CREATE, $this);
+		$publish =  new RequestJson($this, array("application"=>APPLICATION_NAME.":users", "id"=>$_SESSION['user']->id, "data"=>$_POST),
+				$edit?UPDATE:CREATE);
 		
 		$publish->send();
 		
@@ -174,8 +173,7 @@ class ExtendedProfileController extends AuthenticatedController
 	
 	public /*void*/ function showOtherProfile($id){
 	
-		$find = new SimpleRequestv2(array("application"=>APPLICATION_NAME.":users", "id"=>$id),
-				"v2/DataRequestHandler", READ, $this);
+		$find = new RequestJson($this, array("application"=>APPLICATION_NAME.":users", "id"=>$id));
 			
 		try{
 			$res = $find->send();

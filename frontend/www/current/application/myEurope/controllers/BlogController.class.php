@@ -17,9 +17,9 @@ class BlogController extends ExtendedProfileRequired {
 				if (!empty($_POST["rm"]))
 					$id .= "comments".$_POST['rm'];
 				
-				$request = new SimpleRequestv2(
+				$request = new RequestJson($this,
 						array("application"=>APPLICATION_NAME.":blogs", "id"=>$id, "field"=>$_POST['field']),
-						"v2/DataRequestHandler", DELETE, $this);
+						DELETE);
 				$request->send();
 					
 			}else{
@@ -51,16 +51,15 @@ class BlogController extends ExtendedProfileRequired {
 					);
 				}
 
-				$publish = new SimpleRequestv2(
+				$publish = new RequestJson($this,
 						array("application"=>APPLICATION_NAME.":blogs", "id"=>$id, "data"=>json_encode($data)),
-						"v2/DataRequestHandler", UPDATE, $this);
+						UPDATE);
 				$publish->send();
 			}
 			
 		}
 		
-		$find = new SimpleRequestv2(array("application"=>APPLICATION_NAME.":blogs", "id"=>$this->blog),
-				"v2/DataRequestHandler", READ, $this);
+		$find = new RequestJson($this, array("application"=>APPLICATION_NAME.":blogs", "id"=>$this->blog));
 			
 		try{
 			$res = $find->send();
@@ -85,8 +84,7 @@ class BlogController extends ExtendedProfileRequired {
 			
 			$this->comments = array();
 			
-			$req = new SimpleRequestv2(array("application"=>APPLICATION_NAME.":blogs"),
-					"v2/DataRequestHandler", READ, $this);
+			$req = new RequestJson($this, array("application"=>APPLICATION_NAME.":blogs"));
 			
 			foreach($res->details as $k => $v){
 				
@@ -95,8 +93,8 @@ class BlogController extends ExtendedProfileRequired {
 					$r = $req->send();
 				} catch(Exception $e){}
 				
-				if (isset($r)){
-					$this->comments[$k] = array();
+				$this->comments[$k] = array();
+				if (isset($r->details)){
 					
 					foreach ($r->details as $ki=>$vi){
 						$this->comments[$k][$ki] = json_decode($vi, true);

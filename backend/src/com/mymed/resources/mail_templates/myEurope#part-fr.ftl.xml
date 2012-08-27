@@ -18,8 +18,10 @@ The following variables are available in the templates :
         Bonjour ${recipient.name},<br/>
         <br/>
         
-        Une nouvelle publication est disponible sur la plateforme MyMed.<br/>
-        Application : ${application}<br/>
+        Une nouvelle publication est disponible sur ${application} 
+        <#if publication['id']??>
+        	<a href="${base_url}application/${application}/?action=details&id=${publication['id']}&namespace=part">${base_url}application/${application}/?action=details&id=${predicate}&namespace=part</a><br/>
+        </#if>
         <br/>
         
         Auteur :
@@ -28,17 +30,18 @@ The following variables are available in the templates :
         <#else>
         	non précisé
         </#if>
-        vient de s'inscrire sur ${application}<br/>
-        Publication :
+        <br/>
         <ul>
             <#list publication?keys as key>
-				<li>${key} = ${publication[key]!'N/A'}</li>
+            	<#if key != 'text' &&  key != 'id' &&  key != 'time' &&  key != 'user'>
+					<li>${key} = ${publication[key]}</li>
+				</#if>
 			</#list>
         </ul>
         
         --<br/>
     
         L'équipe myMed<br/>
-        Cliquez <a href="${base_url}application/${application}/?action=unsubscribe&id=${predicate}">ici</a> pour vous désabonner.
+        Cliquez <a href="${base_url}application/${application}/?action=unsubscribe&id=${predicate}&application=${namespace}">ici</a> pour vous désabonner.
 ]]></body>
 </mail-template>

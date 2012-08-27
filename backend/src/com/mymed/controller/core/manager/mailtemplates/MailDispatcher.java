@@ -1,6 +1,7 @@
 package com.mymed.controller.core.manager.mailtemplates;
 
 import static com.mymed.utils.MiscUtils.extractApplication;
+import static com.mymed.utils.MiscUtils.extractId;
 import static com.mymed.utils.MiscUtils.extractNamespace;
 import static java.util.Arrays.asList;
 
@@ -66,7 +67,7 @@ public class MailDispatcher extends AbstractManager implements Runnable {
         
         // Set data map
         data.put("base_url", getServerProtocol()+getServerURI()+"/");
-        data.put("application", application);
+        data.put("namespace", application);
         data.put("publication", details);
         data.put("publisher", publisher );
     }
@@ -98,7 +99,7 @@ public class MailDispatcher extends AbstractManager implements Runnable {
 	            
 	            // Update the current recipient in the data map
 	            data.put("recipient", recipient);
-	            data.put("predicate", predicate);  // to put the Unsubscribe link to themail sent
+	            data.put("predicate", extractId(predicate, application));  // to put the Unsubscribe link
 	            
 	            // Get the prefered language of the user
 	            String language = recipient.getLang();
@@ -106,6 +107,8 @@ public class MailDispatcher extends AbstractManager implements Runnable {
 	            // Get the mail template from the manager
 	            String app = extractApplication(recipient.getMailTemplate());
 	            String namespace = extractNamespace(recipient.getMailTemplate());
+	            
+	            data.put("application", app);
 	            
 	            MailTemplate template = this.mailTemplateManager.getTemplate(
 	            		app, 

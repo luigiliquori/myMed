@@ -29,8 +29,7 @@ class ExtendedProfileRequired extends AuthenticatedController {
 		$rep =  new Reputationv2($_SESSION['user']->id);
 		$myrep = $rep->send();
 		
-		$find = new SimpleRequestv2(array("application"=>APPLICATION_NAME.":users", "id"=>$_SESSION['user']->id),
-				"v2/DataRequestHandler", READ, $this);
+		$find = new RequestJson($this, array("application"=>APPLICATION_NAME.":users", "id"=>$_SESSION['user']->id));
 			
 		try{
 			$res = $find->send();

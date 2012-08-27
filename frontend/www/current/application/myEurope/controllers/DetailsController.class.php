@@ -16,11 +16,8 @@ class DetailsController extends AuthenticatedController {
 		 
 		$this->id = $_GET['id'];
 		$this->text = "description vide";
-		
-		debug('details of '.$this->id);
-		
-		$req = new SimpleRequestv2( array("application"=>APPLICATION_NAME.":".$_GET['namespace'],"id"=>$this->id),
-				"v2/DataRequestHandler", READ, $this);
+
+		$req = new RequestJson( $this, array("application"=>APPLICATION_NAME.":".$_GET['namespace'],"id"=>$this->id));
 		
 		try{
 			$res = $req->send();
@@ -40,14 +37,14 @@ class DetailsController extends AuthenticatedController {
 				$this->details->userProfile = $this->getProfile($this->details->user);
 			}
 			$this->partnersProfiles = array();
-			$a = (array) $this->details;
-			foreach ($a as $k => $v){
+
+			foreach ($this->details as $k => $v){
 				if (strpos($k, "tempPartner") === 0){
 					$p = $this->getProfile($v);
 					array_push($this->partnersProfiles, $p);
 				}
 			}
-			
+			debug_r($this->details);
 			$this->renderView("details");
 		} else
 			$this->renderView("details");
@@ -60,10 +57,8 @@ class DetailsController extends AuthenticatedController {
 	
 	
 	public /*void*/ function delData(){
-	
-	
-		$publish = new SimpleRequestv2(array("application"=>APPLICATION_NAME.":".$_GET['namespace'],"id"=>$_GET['id']),
-				"v2/DataRequestHandler", DELETE, $this);
+		
+		$publish = new RequestJson($this, array("application"=>APPLICATION_NAME.":".$_GET['namespace'],"id"=>$_GET['id']), DELETE);
 		
 		debug('trying to delete '.$_GET['namespace']."..".$_GET['id']);
 
@@ -76,17 +71,16 @@ class DetailsController extends AuthenticatedController {
 		$data = array(
 			"tempPartner".$_SESSION['user']->id=>$_SESSION['user']->id
 		);
-		$publish = new SimpleRequestv2( 
+		$publish = new RequestJson( $this, 
 				array("application"=>APPLICATION_NAME.":".$_GET['namespace'],"id"=>$_GET['id'], "data"=>json_encode($data) ),
-				"v2/DataRequestHandler", UPDATE, $this);
+				UPDATE);
 	
 		$publish->send();
 	}
 	
 	public /*void*/ function getProfile($id){
 	
-		$find = new SimpleRequestv2( array("application"=>APPLICATION_NAME.":users","id"=>$id),
-				"v2/DataRequestHandler", READ, $this);
+		$find = new RequestJson( $this, array("application"=>APPLICATION_NAME.":users","id"=>$id));
 			
 		try{
 			$result = $find->send();

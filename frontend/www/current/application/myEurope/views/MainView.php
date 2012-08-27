@@ -111,7 +111,7 @@ function tab_bar_white($activeTab) {
 	</div>
 	
 	<div data-role="content">
-		<form action="./" id="searchForm">
+		<form action="./" id="searchForm" data-ajax="false">
 		
 			<input type="hidden" name="action" value="Search" />
 			<input type="hidden" name="namespace" value="part" />
@@ -129,7 +129,7 @@ function tab_bar_white($activeTab) {
 				<input type="checkbox" name="education" id="checkbox-1a"/>
 				<label for="checkbox-1a"><?= _("Education, culture & sport") ?></label>
 
-				<input type="checkbox" name="social" id="checkbox-2a"/>
+				<input type="checkbox" name="travail" id="checkbox-2a"/>
 				<label for="checkbox-2a"><?= _("Work") ?></label>
 				
 				<input type="checkbox" name="entreprise" id="checkbox-3a"/>
@@ -144,10 +144,10 @@ function tab_bar_white($activeTab) {
 				<input type="checkbox" name="peche" id="checkbox-6a" />
 				<label for="checkbox-6a"><?= _("Fishing") ?></label>
 				
-				<input type="checkbox" name="transfontalier" id="checkbox-7a"/>
+				<input type="checkbox" name="recherche" id="checkbox-7a"/>
 				<label for="checkbox-7a"><?= _("Research") ?></label>
 
-				<input type="checkbox" name="recherche" id="checkbox-8a" />
+				<input type="checkbox" name="santé" id="checkbox-8a" />
 				<label for="checkbox-8a"><?= _("Health and Consumer Protection") ?></label>
 
 				

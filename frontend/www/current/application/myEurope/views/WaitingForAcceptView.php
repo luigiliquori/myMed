@@ -14,10 +14,10 @@
 	<div data-role="content">
 	<br />
 	<?= _("<b>Congratulations!</b> Your profile has been sent to myEurope team  
-			<a href='mailto:myAlpMed@gmail.com' type='button' data-inline='true' data-mini='true'><?= APPLICATION_NAME ?></a>		
+			<a href='mailto:myEuropeDev@gmail.com'>myEuropeDev+Sarah@gmail.com</a>		
 			for validation") ?>
-	<br /><br />
-	>>alpha testers automatically admins: *@inria.fr, bredasarah@gmail.com, luigi.liquori@gmail.com, myalpmed@gmail.com
+	<br /><br /><br /><br />
+	<em>alpha testers automatically admins: *@inria.fr, bredasarah@gmail.com, luigi.liquori@gmail.com, myalpmed@gmail.com</em>
 	</div>
 
 </div>

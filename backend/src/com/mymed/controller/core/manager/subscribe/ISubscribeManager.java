@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.mymed.controller.core.manager.subscription;
+package com.mymed.controller.core.manager.subscribe;
 
 import java.util.Map;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 
-public interface ISubscriptionManager {
+public interface ISubscribeManager {
 
 	
 	/**

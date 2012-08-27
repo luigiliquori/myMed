@@ -9,8 +9,14 @@ class UnsubscribeController extends AuthenticatedController {
 		 * ExtendedProfile stored in the $_SESSION while using the app
 		 */
 		
-		$req =  new Subscribev2(DELETE, $_GET, $this);
-		$this->res = $req->send();
+		unset($_GET['action']);
+		$req =  new RequestJson($this, $_GET, DELETE, "v2/SubscribeRequestHandler");
+		$req->addArgument("user", $_SESSION['user']->id);
+		try{
+			$this->res = $req->send();
+		} catch(Exception $e){
+			
+		}
 		
 		$this->renderView("Unsubscribe");
 			

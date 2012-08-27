@@ -104,6 +104,12 @@ public class MiscUtils {
 	public static String extractNamespace(String prefix) {
 		return extractNamespace(prefix, ":");
 	}
+	
+	public static String extractId(String s, String namespace){
+		return s.indexOf(namespace) == 0?
+				s.substring(namespace.length()):
+					s;
+	}
 
 	/**
 	 * Make a prefix with an aplpication and optionnal namespace

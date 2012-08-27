@@ -36,10 +36,10 @@ import com.google.gson.JsonSyntaxException;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.controller.core.manager.data.DataManager;
 import com.mymed.controller.core.manager.mailtemplates.MailDispatcher;
 import com.mymed.controller.core.manager.profile.ProfileManager;
-import com.mymed.controller.core.requesthandler.message.JsonMessage;
+import com.mymed.controller.core.manager.publish.PublishManager;
+import com.mymed.controller.core.requesthandler.message.JsonMessageOut;
 import com.mymed.model.data.application.DataBean;
 import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.CombiLine;
@@ -66,7 +66,7 @@ public class DataRequestHandler extends AbstractRequestHandler {
 
 	// private int INDEX_ONLY = 1; // to delete only indexes, not data
 
-	protected DataManager dataManager;
+	protected PublishManager dataManager;
 	protected ProfileManager profileManager;
 
 	private final int MAIL_EXECUTOR_SIZE = 10;
@@ -81,7 +81,7 @@ public class DataRequestHandler extends AbstractRequestHandler {
 	public DataRequestHandler() throws InternalBackEndException {
 		super();
 		profileManager = new ProfileManager();
-		dataManager = new DataManager();
+		dataManager = new PublishManager();
 		mail_executor = Executors.newFixedThreadPool(MAIL_EXECUTOR_SIZE);
 	}
 
@@ -96,7 +96,7 @@ public class DataRequestHandler extends AbstractRequestHandler {
 	@Override
 	protected void doGet(final HttpServletRequest request,
 			final HttpServletResponse response) throws ServletException {
-		final JsonMessage<Object> message = new JsonMessage<Object>(200, this
+		final JsonMessageOut<Object> message = new JsonMessageOut<Object>(200, this
 				.getClass().getName());
 
 		try {
@@ -243,7 +243,7 @@ public class DataRequestHandler extends AbstractRequestHandler {
 	@Override
 	protected void doPost(final HttpServletRequest request,
 			final HttpServletResponse response) throws ServletException {
-		final JsonMessage<Object> message = new JsonMessage<Object>(200, this
+		final JsonMessageOut<Object> message = new JsonMessageOut<Object>(200, this
 				.getClass().getName());
 
 		try {

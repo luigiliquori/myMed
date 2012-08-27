@@ -18,7 +18,7 @@ include("header.php"); ?>
 
 <div data-role="page" id="login">
 	
-	<div data-role="content">
+	<div data-role="content" style="text-align: center;">
 	
 		<!-- Tabs -->
 		<div data-role="header" data-theme="c" data-position="fixed">
@@ -29,18 +29,21 @@ include("header.php"); ?>
 		<!-- Login form -->
 		<form  data-role="content" action="index.php?action=login" data-ajax="false" method="post">
 	
-			<input type="text" name="login" placeholder="<?= _("Email") ?>" />
-			<input type="password" name="password" placeholder="<?= _("Password") ?>" />
-			<div style="text-align: center;" >
-				<input type="submit" value="<?= _("Log In") ?>" data-inline="true" data-theme="b" />
+			<div style="margin-top: 10%;" >
+				<input type="text" name="login" placeholder="<?= _("Email") ?>" />
+				<input type="password" name="password" placeholder="<?= _("Password") ?>" />
+				<input type="submit" value="<?= _("Log In") ?>" data-inline="true" class="ui-btn-active ui-state-persist" />
 			</div>
 			
-			<div style="text-align: center;" >
-				<br /><br />
-				LOGOS<br />
+			<div style="margin-top: 10%;" >
 				<div data-role="collapsible" data-mini="true" data-inline="true">
 					<h3 style="margin:auto;width:136px;"><?= _("About") ?></h3>
 					<?= about(); ?>
+				</div>
+				<div class="myLogos">
+					<img alt="Alcotra" src="../../system/img/logos/fullsize/alcotra" />
+					<img alt="Europe" src="../../system/img/logos/fullsize/EU" style="opacity:.5;"/>
+					<img alt="myMed" src="../../system/img/logos/mymed" />
 				</div>
 			</div>
 			

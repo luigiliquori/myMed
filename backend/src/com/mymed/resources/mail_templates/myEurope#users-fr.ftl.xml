@@ -18,17 +18,13 @@ The following variables are available in the templates :
         Bonjour ${recipient.name},<br/>
         <br/>
         
-        Un nouvel utilisateur: 
-        <#if publisher??>
-        	${publisher.name}, <a href="mailto:${publisher.email}">${publisher.email}</a>
-        <#else>
-        	non précisé
-        </#if>
-        vient de s'inscrire sur ${application}<br/>
+        Un nouvel utilisateur vient de s'inscrire sur ${application}<br/>
         Informations :
         <ul>
             <#list publication?keys as key>
-				<li>${key} = ${publication[key]!'N/A'}</li>
+            	<#if key != 'keywords'>
+					<li>${key} = ${publication[key]!'N/A'}</li>
+				</#if>
 			</#list>
         </ul>
         
@@ -41,6 +37,6 @@ The following variables are available in the templates :
         --<br/>
     
         L'équipe myMed<br/>
-        Cliquez <a href="${base_url}application/${application}/?action=unsubscribe&id=${predicate}">ici</a> pour vous désabonner.
+        Cliquez <a href="${base_url}application/${application}/?action=unsubscribe&application=${namespace}&id=${predicate}">ici</a> pour vous désabonner.
 ]]></body>
 </mail-template>

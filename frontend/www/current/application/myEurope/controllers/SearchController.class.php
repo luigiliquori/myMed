@@ -50,20 +50,21 @@ class SearchController extends AuthenticatedController {
 
 		debug("search on.. ".$_GET['namespace']);
 		
-		
-		$find = new SimpleRequestv2(array("application"=>APPLICATION_NAME.":".$_GET['namespace'], "predicates"=>json_encode($this->index)),
-				"v2/DataRequestHandler", READ, $this);
+		$find = new RequestJson($this,
+				array("application"=>APPLICATION_NAME.":".$_GET['namespace'], "predicates"=>$this->index));
 		
 		try{
 			$res = $find->send();
 		}
 		catch(Exception $e){
 			//return null;
+			$this->result = array();
 		}
-
+		
 		$this->success = "";
 
-		$this->result = $res->results;
+		if (isset($res))
+			$this->result = $res->results;
 		
 		$this->suggestions = array();
 		

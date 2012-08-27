@@ -3,7 +3,7 @@
 <div data-role="page">
 
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_3empty(_('Partnership details') ." ".$this->id) ?>
+		<? tabs_3empty($this->details->title) ?>
 		<? include("notifications.php"); ?>
 	</div>
 

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.mymed.controller.core.manager.data;
+package com.mymed.controller.core.manager.publish;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.Map;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 
-public interface IDataManager {
+public interface IPublishManager {
 
 	/**
 	 * create indexes

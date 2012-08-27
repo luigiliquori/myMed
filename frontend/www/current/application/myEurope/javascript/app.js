@@ -72,11 +72,11 @@ function sortBy( i ){
 }
 
 function subscribe(application, mailTemplate, predicates) {
-	$.get('../../lib/dasp/ajax/Subscribe', {
-		code : 0,
+	$.post('../../lib/dasp/ajax/Subscribe', {
+		//code : 0,
 		application : application,
 		mailTemplate: mailTemplate,
-		predicates : decodeURIComponent(predicates)
+		predicates : predicates
 	}, function(data) {
 		console.log(data);
 		var response = JSON.parse(data);
@@ -281,7 +281,7 @@ function commentAdd(blog, commentTo){
 	}, function(res) {
 		console.log(res);
 		var response = JSON.parse(res);
-		if (response.status == 200){//insert the comment
+		if (response != null){//insert the comment
 
 var li =			
 '<li class="comment" id="'+response.field+'" replyTo="'+replyTo+'" user="'+response.userh+'"'+
@@ -318,7 +318,7 @@ function commentRm(blog, commentTo, field){
 	}, function(res) {
 		console.log(res);
 		var response = JSON.parse(res);
-		if (response.status == 200){//insert the comment
+		if (response != null){//insert the comment
 
 $('#'+field).remove();
 $('#comments'+commentTo).listview('refresh');

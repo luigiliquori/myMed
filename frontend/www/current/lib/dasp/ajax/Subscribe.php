@@ -1,14 +1,21 @@
 <?php
-require_once '../request/Requestv2.php';
+require_once('../request/RequestJson.php');
+require_once('../../../system/config.php');
+
+$request = new RequestJson(null, $_POST, CREATE, "v2/SubscribeRequestHandler");
+
 session_start();
 
-
-$request = new Requestv2("v2/SubscribeRequestHandler", $_GET['code'], $_GET);
 $request->addArgument("user", $_SESSION['user']->id);
+if (!$request->hasArgument("predicates"))
+	$request->addArgument("predicates", array());
+	
 $responsejSon = $request->send();
 
-$subscriptions = json_decode($responsejSon);
-$res = array("sub"=>false);
+echo json_encode($responsejSon);
+
+
+/*$res = array("sub"=>false);
 if($subscriptions->status == 200) {
 	if (isset($subscriptions->dataObject->subscriptions)){
 		$subscriptions = (array) $subscriptions->dataObject->subscriptions;
@@ -24,7 +31,7 @@ if($subscriptions->status == 200) {
 		echo json_encode(array("success"=>true));
 	}
 	
-}
+}*/
 
 
 ?>

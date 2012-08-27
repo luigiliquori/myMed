@@ -58,7 +58,7 @@ public class CombiLine {
 			public void predicatesRec(String prefix, int keyIdx, int count) {
 
 				// Reached end of combi line
-				if (keyIdx == keys.length || count -1 == CombiLine.this.lengthMax) {
+				if (keyIdx == keys.length || count - 1 == CombiLine.this.lengthMax) {
 					result.add(prefix);
 					return;
 				}
@@ -66,7 +66,7 @@ public class CombiLine {
 				// Get key/vals
 				String key = keys[keyIdx];
 				List<String> values = CombiLine.this.map.get(key);
-
+				
 				// Loop on values
 				for (int i = 0; i < values.size(); i++) {
 					// Recursive call. Add "keyval"
@@ -74,7 +74,7 @@ public class CombiLine {
 					if ("".equals(values.get(i)))
 						this.predicatesRec( prefix, keyIdx + 1, count);
 					else
-						this.predicatesRec( prefix + key + values.get(i), keyIdx + 1, ++count);
+						this.predicatesRec( prefix + key + values.get(i), keyIdx + 1, count + 1);
 					
 				}
 

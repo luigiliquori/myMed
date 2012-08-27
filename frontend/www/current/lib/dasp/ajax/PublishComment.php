@@ -1,15 +1,11 @@
 <?php
 
-require_once('../request/Requestv2.php');
+require_once('../request/RequestJson.php');
 require_once('../../../system/config.php');
 
 
-$request = new Requestv2("v2/DataRequestHandler", UPDATE);
+$request = new RequestJson(null, $_POST, UPDATE);
 session_start();
-
-$request->addArgument('application', $_POST['application']);
-
-$request->addArgument('id', $_POST['id']);
 
 $t = time();
 $k = hash("crc32", $t.$_SESSION['user']->id);
@@ -21,20 +17,20 @@ $data = array(
 				"text"=>$_POST['text']
 		))
 );
-$request->addArgument('data', json_encode($data));
+$request->addArgument('data', $data);
 
-$responsejSon = $request->send();
+$response = $request->send();
+
+if (isset($response)) {
+	$response->field = $k;
+	$response->user = $_SESSION['user']->id;
+	$response->userh = hash("crc32",$response->user);
+	$response->time = date('j/n/y G:i', $t);
+}
+
 session_write_close();
 
-$responseObject = json_decode($responsejSon);
-
-if ($responseObject->status == 200) {
-	$responseObject->field = $k;
-	$responseObject->user = $_SESSION['user']->id;
-	$responseObject->userh = hash("crc32",$responseObject->user);
-	$responseObject->time = date('j/n/y G:i', $t);
-}
-echo json_encode($responseObject);
+echo json_encode($response);
 
 
 ?>

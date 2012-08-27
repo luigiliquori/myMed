@@ -17,7 +17,7 @@ package com.mymed.controller.core.requesthandler.v2;
 
 import static com.mymed.utils.GsonUtils.gson;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,16 +27,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
- 
+
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
-import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.controller.core.manager.subscription.SubscriptionManager;
-import com.mymed.controller.core.requesthandler.message.JsonMessage;
-import com.mymed.model.data.application.DataBean;
-import com.mymed.utils.MatchMakingv2;
+import com.mymed.controller.core.manager.subscribe.SubscribeManager;
+import com.mymed.controller.core.requesthandler.message.JsonMessageIn;
+import com.mymed.controller.core.requesthandler.message.JsonMessageOut;
 import com.mymed.utils.CombiLine;
+import com.mymed.utils.MatchMakingv2;
 import com.mymed.utils.MiscUtils;
 
 /**
@@ -56,112 +55,13 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
 
 	protected static final String JSON_SUBSCRIPTIONS = JSON.get("json.subscriptions");
 
-	protected final SubscriptionManager subscriptionManager;
+	protected final SubscribeManager subscriptionManager;
 
 	public SubscribeRequestHandler() throws InternalBackEndException {
 		super();
-		subscriptionManager = new SubscriptionManager();
+		subscriptionManager = new SubscribeManager();
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	@Override
-	protected void doGet(final HttpServletRequest request,
-			final HttpServletResponse response) throws ServletException {
-		final JsonMessage<Object> message = new JsonMessage<Object>(200, this
-				.getClass().getName());
-
-		try {
-			final Map<String, String> parameters = getParameters(request);
-			// Check the access token
-			checkToken(parameters);
-
-			final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-			String 
-				application = parameters.containsKey(JSON_APPLICATION)?
-					parameters.get(JSON_APPLICATION)
-					:"",
-				id = parameters.get("id"),
-				user = parameters.get(JSON_USER);
-
-			if (user == null)
-				throw new InternalBackEndException("missing user argument!");
-
-			switch (code) {
-			case READ:
-				message.setMethod(JSON_CODE_READ);
-				/*
-				 * read subs of this user
-				 */
-				if (id != null) {
-					String sub = subscriptionManager.read(application + user, id);
-					message.setDescription("Subscriptions found for Application: "
-							+ application + " User: " + user);
-					LOGGER.info("Subscriptions found for Application: "
-							+ application + " User: " + user);
-					message.addDataObject(JSON_SUBSCRIPTIONS, sub);
-				} else {
-					final Map<String, String> predicates = subscriptionManager.read(application + user);
-
-					message.setDescription("Subscriptions found for Application: "
-							+ application + " User: " + user);
-					LOGGER.info("Subscriptions found for Application: "
-							+ application + " User: " + user);
-					message.addDataObject(JSON_SUBSCRIPTIONS, predicates);
-				}
-
-				break;
-
-			case DELETE:
-				message.setMethod(JSON_CODE_DELETE);
-
-				if (id == null)
-					throw new InternalBackEndException("missing id argument!");
-
-				String xpredicates = subscriptionManager.read(application + user, id);
-				LinkedHashMap<String, List<String>> xpreds = new LinkedHashMap<String, List<String>>();
-
-				if (xpredicates != null){
-					try {
-						xpreds = gson.fromJson(xpredicates, xType);
-					} catch (final JsonSyntaxException e) {
-						LOGGER.debug("Error in Json format", e);
-						throw new InternalBackEndException("jSon format is not valid");
-					} catch (final JsonParseException e) {
-						LOGGER.debug("Error in parsing Json", e);
-						throw new InternalBackEndException(e.getMessage());
-					}
-				}
-
-				LOGGER.info("in ." + xpreds.size());
-
-				List<String> rows = new CombiLine(xpreds).expand();
-
-				for (String i : rows) {
-					subscriptionManager.delete(application, i, user);
-				}
-
-				LOGGER.info("  deleted subscriptions for {}: {} ", user, xpredicates);
-				message.setDescription("subscription deleted: " + xpredicates
-						+ " for user: " + user);
-
-				break;
-
-			default:
-				throw new InternalBackEndException(
-						"SubscribeRequestHandler.doGet(" + code
-								+ ") not exist!");
-			}
-		} catch (final AbstractMymedException e) {
-			LOGGER.debug("Error in doGet operation", e);
-			message.setStatus(e.getStatus());
-			message.setDescription(e.getMessage());
-		}
-
-		printJSonResponse(message, response);
-	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -169,97 +69,133 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
 	 */
 	@Override
 	protected void doPost(final HttpServletRequest request,
-			final HttpServletResponse response) throws ServletException {
+			final HttpServletResponse response) throws ServletException, JsonSyntaxException, JsonParseException, IOException {
 
-		final JsonMessage<Object> message = new JsonMessage<Object>(200, this
+		final JsonMessageOut<Object> out = new JsonMessageOut<Object>(200, this
 				.getClass().getName());
+		
+		JsonMessageIn in = gson.fromJson(request.getReader(), JsonMessageIn.class);
+		
+		validateToken(in.getAccessToken());
+		
+		final RequestCode code = REQUEST_CODE_MAP.get(in.getCode());
 
-		try {
-			final Map<String, String> parameters = getParameters(request);
-			// Check the access token
-			checkToken(parameters);
+		if (in.getUser() == null)
+			throw new InternalBackEndException("missing user argument!");
 
-			final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-			
-			final String 
-				application = parameters.containsKey(JSON_APPLICATION)?
-					parameters.get(JSON_APPLICATION)
-					:"",
-				user = parameters.get(JSON_USER),
-				id = parameters.get("id"),
-				predicates = parameters.get("predicates"),
-				mailTemplate = parameters.get("mailTemplate");
+		final String application = in.getApplication()!=null?
+				in.getApplication()
+				:"";
+		String id = in.getId();
+		
+		switch (code) {
 
-			if (user == null)
-				throw new InternalBackEndException("missing user argument!");
-
-			List<DataBean> preds = new ArrayList<DataBean>();
+		case CREATE:
+			out.setMethod(JSON_CODE_CREATE);
 
 			
-			
-			switch (code) {
+			if (id != null) {
+				/* we want to subscribe to a data changes */
+				LinkedHashMap<String, List<String>> xpreds = new LinkedHashMap<String, List<String>>();
+				xpreds.put(id, MiscUtils.singleton(id));
+				
+				subscriptionManager.create(application, id, in.getUser(), gson.toJson(xpreds), in.getMailTemplate());
 
-			case CREATE:
-				message.setMethod(JSON_CODE_CREATE);
+				LOGGER.info(" created subscriptions for {}: {} ", in.getUser(), id);
+				out.setDescription("subscription created: " + id
+						+ " for user: " + in.getUser()+" with template "+ in.getMailTemplate());
 
-				if (id != null) {
-					/* we want to subscribe to a data changes */
-					LinkedHashMap<String, List<String>> xpreds = new LinkedHashMap<String, List<String>>();
-					xpreds.put(id, MiscUtils.singleton(id));
-					
-					subscriptionManager.create(application, id, user, gson.toJson(xpreds), mailTemplate);
+			} else if (in.getPredicates() != null){
+				/* we want to subscribe to keywords/ categories ... */
 
-					LOGGER.info(" created subscriptions for {}: {} ", user, id);
-					message.setDescription("subscription created: " + id
-							+ " for user: " + user);
+				LOGGER.info("in ." + in.getPredicates().size());
 
-				} else if (predicates != null){
-					/* we want to subscribe to keywords/ categories ... */
-					
-					// retrieve query params
-					try {
-						preds = gson.fromJson(predicates, predicateType);
-					} catch (final JsonSyntaxException e) {
-						LOGGER.debug("Error in Json format", e);
-						throw new InternalBackEndException("jSon format is not valid");
-					} catch (final JsonParseException e) {
-						LOGGER.debug("Error in parsing Json", e);
-						throw new InternalBackEndException(e.getMessage());
-					}
+				LinkedHashMap<String, List<String>> keywords = MatchMakingv2.format(in.getPredicates());
 
-					LOGGER.info("in ." + preds.size());
+				LOGGER.info("indexes: {} ", keywords);
+				List<String> rows = new CombiLine(keywords).expand();
 
-					LinkedHashMap<String, List<String>> xpreds = MatchMakingv2.format(preds);
+				String v = gson.toJson(keywords);
 
-					LOGGER.info("indexes: {} ", xpreds);
-					List<String> rows = new CombiLine(xpreds).expand();
-					
-					String v = gson.toJson(xpreds);
-
-					for (String i : rows) {
-						subscriptionManager.create(application, i, user, v, mailTemplate);
-					}
-
-					LOGGER.info(" created subscriptions for {}: {} ", user, preds);
-					message.setDescription("subscription created: " + application + predicates
-							+ " for user: " + user);
+				for (String i : rows) {
+					subscriptionManager.create(application, i, in.getUser(), v, in.getMailTemplate());
 				}
 
-				break;
-
-			default:
-				throw new InternalBackEndException(
-						"SubscribeRequestHandler.doPost(" + code
-								+ ") not exist!");
-
+				LOGGER.info(" created subscriptions for {}: {} ", in.getUser(), in.getPredicates());
+				out.setDescription("subscription created: " + application + in.getPredicates()
+						+ " for user: " + in.getUser()+" with template "+ in.getMailTemplate());
 			}
 
-		} catch (final AbstractMymedException e) {
-			LOGGER.debug("Error in doPost operation", e);
-			message.setStatus(e.getStatus());
-			message.setDescription(e.getMessage());
+			break;
+		case READ:
+			out.setMethod(JSON_CODE_READ);
+			/*
+			 * read subs of this user
+			 */
+			if (id != null) {
+				String sub = subscriptionManager.read(application + in.getUser(), id);
+				out.setDescription("Subscriptions found for Application: "
+						+ application + " User: " + in.getUser());
+				LOGGER.info("Subscriptions found for Application: "
+						+ application + " User: " + in.getUser());
+				out.addDataObject(JSON_SUBSCRIPTIONS, sub);
+			} else {
+				final Map<String, String> predicates = subscriptionManager.read(application + in.getUser());
+
+				out.setDescription("Subscriptions found for Application: "
+						+ application + " User: " + in.getUser());
+				LOGGER.info("Subscriptions found for Application: "
+						+ application + " User: " + in.getUser());
+				out.addDataObject(JSON_SUBSCRIPTIONS, predicates);
+			}
+
+			break;
+
+		case DELETE:
+			out.setMethod(JSON_CODE_DELETE);
+
+			if (id == null)
+				id = "ALL";
+
+			LOGGER.info("in ." + application + in.getUser() +" . "  +id);
+			String keywordsStr = subscriptionManager.read(application + in.getUser(), id);
+			LinkedHashMap<String, List<String>> keywords = new LinkedHashMap<String, List<String>>();
+
+			if (keywordsStr != null){
+				keywords = gson.fromJson(keywordsStr, xType);
+			}
+
+			LOGGER.info("in ." + keywords.size());
+
+			List<String> rows = new CombiLine(keywords).expand();
+
+			for (String i : rows) {
+				subscriptionManager.delete(application, i, in.getUser());
+			}
+
+			LOGGER.info("  deleted subscriptions for {}: {} ", in.getUser()+id, keywords);
+			out.setDescription("subscription deleted: " + keywords +" id "+ id
+					+ " for user: " + in.getUser());
+
+			break;
+
+		default:
+			throw new InternalBackEndException(
+					"SubscribeRequestHandler.doPost(" + code
+							+ ") not exist!");
+
 		}
 
-		printJSonResponse(message, response);
+		printJSonResponse(out, response);
+	}
+	
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	@Override
+	protected void doGet(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException {
+		throw new InternalBackEndException("SubscribeRequestHandler.doGet() not exist!");
 	}
 }

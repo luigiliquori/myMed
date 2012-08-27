@@ -54,7 +54,6 @@ class PublishController extends AuthenticatedController {
 		
 		$data = array(
 				"title" => $_POST['title'],
-				"user" => $_SESSION['user']->id,
 				"time"=>$t,
 				"text" => isset($_POST['text'])?$_POST['text']:"contenu vide"
 			);
@@ -68,9 +67,9 @@ class PublishController extends AuthenticatedController {
 		
 		$id = hash("md5", $t.$_SESSION['user']->id);
 		
-		$publish = new SimpleRequestv2(
-				array("application"=>APPLICATION_NAME.":".$this->namespace, "id"=>$id, "data"=>json_encode($data), "predicates"=>json_encode($index), "metadata"=>json_encode($metadata)),
-				"v2/DataRequestHandler", CREATE, $this);
+		$publish = new RequestJson($this, 
+				array("application"=>APPLICATION_NAME.":".$this->namespace, "id"=>$id, "user"=>$_SESSION['user']->id, "data"=>$data, "predicates"=>$index, "metadata"=>$metadata),
+				CREATE);
 		
 		$publish->send();
 		
@@ -80,9 +79,9 @@ class PublishController extends AuthenticatedController {
 		} else {
 			
 			// put this project in our profile
-			$publish = new SimpleRequestv2(
-					array("id"=>$_SESSION['user']->id, "data"=>json_encode(array("part".$id=>$id))),
-					"v2/DataRequestHandler", UPDATE, $this);
+			$publish = new RequestJson( $this,
+					array("id"=>$_SESSION['user']->id, "data"=>array("part".$id=>$id)),
+					UPDATE);
 			
 			$publish->send();
 			//push it in session

@@ -67,9 +67,9 @@ public class MatchMakingV2 extends TestValues {
 		indexes.add(new DataBean("app", "test", MOntologyID.ENUM));
 
 		//indexes.add(new DataBean("Pos", "43.54545|7.1224", MOntologyID.GPS));
-		indexes.add(new DataBean("A", "a6", MOntologyID.ENUM));
-		indexes.add(new DataBean("B", "|b1", MOntologyID.ENUM));
-		//indexes.add(new DataBean("C", "|c4", MOntologyID.ENUM));
+		indexes.add(new DataBean("A", "a5|a6", MOntologyID.ENUM));
+		indexes.add(new DataBean("B", "b0|b1", MOntologyID.ENUM));
+		indexes.add(new DataBean("C", "clothes", MOntologyID.ENUM));
 		//indexes.add(new DataBean("D", "|d0", MOntologyID.ENUM));
 		
 		LinkedHashMap<String, List<String>> keywords = MatchMakingv2.format(indexes);
@@ -78,7 +78,7 @@ public class MatchMakingV2 extends TestValues {
 		LOGGER.info("indexes: {} ", indexes );
 		LOGGER.info("keywords: {} ", keywords );
 		
-		List<String> rows = new CombiLine(keywords, "2").expand();
+		List<String> rows = new CombiLine(keywords).expand();
 		MatchMakingv2.prefix(application, rows);
 		
 		LOGGER.info("rows {}: {}",rows.size(), rows);

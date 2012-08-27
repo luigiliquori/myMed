@@ -1,6 +1,6 @@
 <?php
 
-require_once('../request/SimpleRequestv2.php');
+require_once('../request/RequestJson.php');
 require_once('../request/Reputationv2.php');
 require_once('../../../system/config.php');
 
@@ -8,7 +8,7 @@ include_once('../../../application/myEurope/views/parts/utils.php');
 
 session_start();
 
-$request = new SimpleRequestv2($_GET);
+$request = new RequestJson(null, $_GET);
 
 $res = $request->send();
 if (!empty($res)){

@@ -83,7 +83,6 @@ public abstract class AbstractRequestHandler extends com.mymed.controller.core.r
         
     }
 	
-	
 	@Override
     protected Map<String, String> getParameters(final HttpServletRequest request) throws AbstractMymedException {
         // see multipart/form-data Request
