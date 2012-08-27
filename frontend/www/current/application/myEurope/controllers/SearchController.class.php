@@ -22,30 +22,30 @@ class SearchController extends AuthenticatedController {
 		parent::handleRequest();
 		
 		$this->index=array();
-
-		global $themesall;
-		$themes = array();
-		$places = array();
 		
+		$this->themes = array();
+		$this->places = array();
+		
+		debug_r($_GET);
 		foreach( $_GET as $i=>$v ){
 			if ($v == "on"){
 				if ( in_array($i, $this->themesall)){
-					array_push($themes, $i);
+					array_push($this->themes, $i);
 				} else {
-					array_push($places, $i);
+					array_push($this->places, $i);
 				}
 			}
 		}
 		
-		array_push($this->index, new DataBeanv2("themes", ENUM, join("|",$themes)));
+		array_push($this->index, new DataBeanv2("themes", ENUM, join("|",$this->themes)));
 		
-		array_push($this->index, new DataBeanv2("places", ENUM, join("|",$places)));
-		
+		array_push($this->index, new DataBeanv2("places", ENUM, join("|",$this->places)));
+
 		$p = preg_split('/[ ,+:-]/', $_GET['keywords'], NULL, PREG_SPLIT_NO_EMPTY);
 		$p = array_map('strtolower', $p);
 		$p = array_filter($p, array($this, "smallWords"));
-		$p = array_unique($p);
-		array_push($this->index, new DataBeanv2("keyword", ENUM, join("|",$p)));
+		$this->p = array_unique($p);
+		array_push($this->index, new DataBeanv2("keyword", ENUM, join("|",$this->p)));
 	
 
 		debug("search on.. ".$_GET['namespace']);

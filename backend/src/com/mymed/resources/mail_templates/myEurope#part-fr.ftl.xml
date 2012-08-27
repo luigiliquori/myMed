@@ -12,32 +12,28 @@ The following variables are available in the templates :
 -->
 <mail-template>
 
-    <subject>[${application}] Nouvelle publication</subject>
+    <subject>[${application}] Nouvel appel à partenaires</subject>
 
     <body><![CDATA[
         Bonjour ${recipient.name},<br/>
         <br/>
         
-        Une nouvelle publication est disponible sur ${application} 
+        Une nouvel appel à partenaires est disponible sur ${application} 
         <#if publication['id']??>
         	<a href="${base_url}application/${application}/?action=details&id=${publication['id']}&namespace=part">${base_url}application/${application}/?action=details&id=${predicate}&namespace=part</a><br/>
         </#if>
         <br/>
         
-        Auteur :
+        Auteur:
         <#if publisher??>
         	${publisher.name}, <a href="mailto:${publisher.email}">${publisher.email}</a>
         <#else>
         	non précisé
         </#if>
         <br/>
-        <ul>
-            <#list publication?keys as key>
-            	<#if key != 'text' &&  key != 'id' &&  key != 'time' &&  key != 'user'>
-					<li>${key} = ${publication[key]}</li>
-				</#if>
-			</#list>
-        </ul>
+        Titre: ${publication['title']!'N/A'}
+        <br/>
+        Mot-clés: ${publication['keywords']!'N/A'}
         
         --<br/>
     

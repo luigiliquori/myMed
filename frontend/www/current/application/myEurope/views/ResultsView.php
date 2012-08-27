@@ -9,7 +9,7 @@
 
 		<div style="margin-bottom: 16px;">
 		<label for="radio-group1"><?= _("Sort by") ?>:</label>
-		<fieldset id="radio-group1" data-role="controlgroup" data-mini="true" data-type="horizontal" style="display:inline-block;vertical-align: middle;">
+		<fieldset id="radio-group1" data-role="controlgroup" data-mini="true" data-type="horizontal" style="display:inline-block;">
 			<input onclick="sortBy($(this).val());" type="radio" name="name" id="radio-view-t" value="title" checked='checked'/>
 			<label for="radio-view-t"><?= _("title") ?></label>
 			<input onclick="sortBy($(this).val());" type="radio" name="name" id="radio-view-a"value="partner"/>
@@ -20,8 +20,14 @@
 			<label for="radio-view-e"><?= _("reputation") ?></label>
 		</fieldset>
 		
-		<a type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="alert" style="float: right;"
+		<div style="float: right;">
+		<label for="subscribeButton" >
+		<?= _('Themes:').' <em>'.(empty($this->themes)?_('ALL'):join(", ",$this->themes)).'</em>, '.
+		_('Places:').' <em>'.(empty($this->places)?_('ALL'):join(", ",$this->places)).'</em>, '.
+		_('Keywords:').' <em>'.(empty($this->p)?_('ALL'):join(", ",$this->p)).'</em>' ?>:</label>
+		<a id="subscribeButton" type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="alert"
 		onclick='subscribe("<?= APPLICATION_NAME ?>:part", "<?= APPLICATION_NAME.":".$_GET['namespace'] ?>", <?= json_encode($this->index) ?>); $(this).addClass("ui-disabled");'><?= _("Subscribe") ?></a>
+		</div>
 		</div>
 		
 		<ul id="matchinglist" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="<?= _("filter") ?>" style="clear:both;">
