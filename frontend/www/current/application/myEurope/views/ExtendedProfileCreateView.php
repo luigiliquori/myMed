@@ -354,7 +354,7 @@
 			<input type="hidden" name="role" value="Autre" />
 			
 			<label for="textinputu1"> Nom: </label>
-			<input id="textinputu1" name="name" placeholder="" value='' type="text" />
+			<input id="textinputu1" name="name" placeholder="" value='<?= $_SESSION['user']->name ?>' type="text" />
 			
 			<label for="textinputu2"> Activité exercée: </label>
 			<input id="textinputu2" name="activity" placeholder="" value='' type="text" />

@@ -9,15 +9,15 @@ class PublishController extends AuthenticatedController {
 	public $namespace;
 	
 	public $themesall = array(
-			"education",
-			"travail",
-			"entreprise",
-			"environnement",
-			"agriculture",
-			"peche",
-			"recherche",
-			"santé"
-	);
+				"education",
+				"travail",
+				"entreprise",
+				"environnement",
+				"agriculture",
+				"peche",
+				"recherche",
+				"santé"
+			);
 	
 	public function handleRequest() {
 		

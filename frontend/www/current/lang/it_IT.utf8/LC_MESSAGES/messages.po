@@ -7,238 +7,127 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-16 14:11+0200\n"
-"PO-Revision-Date: 2012-08-22 14:16+0100\n"
+"POT-Creation-Date: 2012-08-28 17:16+0200\n"
+"PO-Revision-Date: 2012-08-28 17:17+0100\n"
 "Last-Translator: cyril <cyril.auburtin@inria.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: MainView.php:10
-msgid "Admin"
+#: ../controllers/DetailsController.class.php:84
+#, fuzzy
+msgid "Partnership request sent"
+msgstr "Partenariato richiesto"
+
+#: ../controllers/DetailsController.class.php:105
+msgid "Partnerships added"
 msgstr ""
 
-#: MainView.php:11
-#: ExtendedProfileDisplayView.php:6
-#: ExtendedProfileEditView.php:6
-msgid "Profile"
-msgstr "Profilo"
+#: AdminView.php:6
+msgid "Users"
+msgstr "Utenti"
 
-#: MainView.php:23
-msgid "Partnership"
-msgstr "Partenariato"
+#: AdminView.php:24
+#: ResultsView.php:29
+msgid "Subscribe"
+msgstr "Abbonarsi"
 
-#: MainView.php:25
-#: MainView.php:157
-msgid "Search a partner"
-msgstr "Trovare un'offerta"
+#: AdminView.php:29
+msgid "New users waiting for validation"
+msgstr "Nuovo utente in attesa di validazione "
 
-#: MainView.php:26
-#: MainView.php:228
-msgid "Insert an offer"
-msgstr "Sottomettere un'offerta"
+#: AdminView.php:45
+#: AdminView.php:67
+#: AdminView.php:89
+msgid "Increase"
+msgstr "Aumentare"
 
-#: MainView.php:29
-msgid "Infomations"
-msgstr "Informazioni"
+#: AdminView.php:51
+msgid "Normal users"
+msgstr "Utente normale "
 
-#: MainView.php:32
-msgid "About European programs"
-msgstr "Informarsi sui programmi"
-
-#: MainView.php:34
-#: BlogAlcotraView.php:16
-msgid "Alcotra Blog"
+#: AdminView.php:73
+msgid "Admins"
 msgstr ""
 
-#: MainView.php:36
-#: BlogTestersView.php:16
-msgid "Beta Testers Blog"
-msgstr ""
-
-#: MainView.php:42
-#: LoginView.php:42
-msgid "About"
-msgstr "A proposito"
-
-#: MainView.php:65
-#: ExtendedProfileCreateView.php:13
-msgid "French"
-msgstr "Francese"
-
-#: MainView.php:67
-#: ExtendedProfileCreateView.php:15
-msgid "Italian"
-msgstr "Italiano"
-
-#: MainView.php:69
-#: ExtendedProfileCreateView.php:17
-msgid "English"
-msgstr "Inglese"
-
-#: MainView.php:85
-msgid "Restricted page for admins"
-msgstr "Pagina riservata agli admins"
-
-#: MainView.php:87
-#: MainView.php:303
-#: MainView.php:339
-#: BlogAlcotraView.php:8
-#: BlogTestersView.php:8
-#: parts/utils.php:110
-#: parts/utils.php:126
-#: parts/utils.php:140
-#: parts/utils.php:153
-#: parts/utils.php:163
+#: BlogsView.php:8
+#: MainView.php:96
+#: PublishSuccessView.php:8
+#: parts/utils.php:109
+#: parts/utils.php:125
+#: parts/utils.php:139
+#: parts/utils.php:152
+#: parts/utils.php:162
 msgid "Back"
 msgstr "Indietro"
 
-#: MainView.php:89
-msgid "Access"
-msgstr "Accesso"
-
-#: MainView.php:102
-msgid "Share"
-msgstr "Condividere"
-
-#: MainView.php:170
-#: MainView.php:243
-msgid "Themes"
-msgstr "Tematiche"
-
-#: MainView.php:173
-msgid "All"
-msgstr "Tutto"
-
-#: MainView.php:176
-msgid "Education, culture & sport"
-msgstr "Educazione, cultura & sport"
-
-#: MainView.php:179
-msgid "Work"
-msgstr "Impiego"
-
-#: MainView.php:182
-msgid "Enterprises, Innovation"
-msgstr "Imprese, innovazione"
-
-#: MainView.php:185
-msgid "Environment, energy & transport"
-msgstr "Ambiente, energia & trasporto"
-
-#: MainView.php:188
-msgid "Agriculture"
-msgstr "Agricoltura"
-
-#: MainView.php:191
-msgid "Fishing"
-msgstr "Pesca"
-
-#: MainView.php:194
-msgid "Research"
-msgstr "Ricerca"
-
-#: MainView.php:197
-msgid "Health and Consumer Protection"
-msgstr "Salute e tutela dei consumatori"
-
-#: MainView.php:246
-msgid "Education"
-msgstr "Educazione"
-
-#: MainView.php:246
-msgid "Culture"
-msgstr "Cultura"
-
-#: MainView.php:246
-msgid "Sport"
-msgstr "Sport"
-
-#: MainView.php:277
-msgid "Areas"
-msgstr "Zone geografiche"
-
-#: LoginView.php:12
-#: LoginView.php:35
-msgid "Log In"
-msgstr "Connessione"
-
-#: LoginView.php:13
-msgid "Registration"
-msgstr "Registrazione"
-
-#: LoginView.php:32
-#: LoginView.php:73
-#: ExtendedProfileCreateView.php:78
-#: ExtendedProfileCreateView.php:126
-#: ExtendedProfileCreateView.php:170
-#: ExtendedProfileCreateView.php:211
-#: ExtendedProfileCreateView.php:264
-#: ExtendedProfileCreateView.php:321
-#: ExtendedProfileCreateView.php:367
-#: ExtendedProfileEditView.php:47
-msgid "Email"
+#: BlogsView.php:19
+msgid "Blog"
 msgstr ""
 
-#: LoginView.php:33
-#: LoginView.php:77
-msgid "Password"
-msgstr ""
+#: BlogsView.php:38
+msgid "comments"
+msgstr "Commenti"
 
-#: LoginView.php:65
-msgid "first name"
-msgstr "Nome"
+#: BlogsView.php:48
+msgid "Reply"
+msgstr "Rispondi "
 
-#: LoginView.php:69
-msgid "last name"
-msgstr "Cognome"
+#: BlogsView.php:61
+msgid "New Message"
+msgstr "Nuovo messaggio"
 
-#: LoginView.php:81
-msgid "Password (confirmation)"
-msgstr "Password (conferma)"
+#: BlogsView.php:63
+#: MainView.php:406
+#: ResultsView.php:14
+msgid "title"
+msgstr "Titolo"
 
-#: LoginView.php:94
-#: ExtendedProfileCreateView.php:383
-#: ExtendedProfileEditView.php:7
-#: ExtendedProfileEditView.php:61
-msgid "Validate"
-msgstr "Validare"
-
-#: DetailsView.php:6
-msgid "Partnership details"
-msgstr "Dettagli partenariato"
+#: BlogsView.php:66
+msgid "Post"
+msgstr "Postare"
 
 #: DetailsView.php:23
 msgid "Partners"
 msgstr "Partner"
 
-#: DetailsView.php:34
-msgid "Edit my offer"
-msgstr "Pubblicare la mia offerta"
-
-#: DetailsView.php:36
+#: DetailsView.php:33
 msgid "Delete my offer"
 msgstr "Cancellare la mia offerta"
 
-#: DetailsView.php:39
+#: DetailsView.php:35
 msgid "Partnership request"
 msgstr "Partenariato richiesto"
 
-#: ExtendedProfileDisplayView.php:7
-msgid "Add to contacts"
-msgstr "Aggiungere ai contatti"
+#: DetailsView.php:41
+msgid "Sure?"
+msgstr ""
 
 #: ExtendedProfileCreateView.php:10
 msgid "Select your language"
 msgstr "Lingua"
+
+#: ExtendedProfileCreateView.php:13
+#: MainView.php:72
+msgid "French"
+msgstr "Francese"
+
+#: ExtendedProfileCreateView.php:15
+#: MainView.php:74
+msgid "Italian"
+msgstr "Italiano"
+
+#: ExtendedProfileCreateView.php:17
+#: MainView.php:76
+msgid "English"
+msgstr "Inglese"
 
 #: ExtendedProfileCreateView.php:21
 msgid "Next"
 msgstr "Avanti"
 
 #: ExtendedProfileCreateView.php:34
-#, fuzzy
 msgid ""
 "Hello,<br/><br/>This is your first time on myEurope.<br/>\n"
 "\t\t\t\t Please fill in your profile <br/>\n"
@@ -249,43 +138,58 @@ msgstr ""
 "\t\t\tProfilo utente ?<br/> "
 
 #: ExtendedProfileCreateView.php:39
-#: ExtendedProfileEditView.php:20
+#: ExtendedProfileEditView.php:19
 msgid "Association"
 msgstr "Associazione"
 
 #: ExtendedProfileCreateView.php:40
-#: ExtendedProfileEditView.php:22
+#: ExtendedProfileEditView.php:21
 msgid "Company"
 msgstr "Azienda"
 
 #: ExtendedProfileCreateView.php:41
-#: ExtendedProfileEditView.php:24
+#: ExtendedProfileEditView.php:23
 msgid "State-owned enterprise"
 msgstr "Ente pubblico"
 
 #: ExtendedProfileCreateView.php:42
-#: ExtendedProfileEditView.php:26
+#: ExtendedProfileEditView.php:25
 msgid "Town hall"
 msgstr "Comune"
 
 #: ExtendedProfileCreateView.php:43
-#: ExtendedProfileEditView.php:28
+#: ExtendedProfileEditView.php:27
 msgid "Region"
 msgstr "Regione"
 
 #: ExtendedProfileCreateView.php:44
-#: ExtendedProfileEditView.php:30
+#: ExtendedProfileEditView.php:29
 msgid "Department"
 msgstr "Provincia"
 
 #: ExtendedProfileCreateView.php:45
-#: ExtendedProfileEditView.php:32
+#: ExtendedProfileEditView.php:31
+#: MainView.php:241
+#: MainView.php:391
 msgid "Other"
 msgstr "Altro"
 
 #: ExtendedProfileCreateView.php:66
 msgid "Association Name"
 msgstr "Nome dell'associazione"
+
+#: ExtendedProfileCreateView.php:78
+#: ExtendedProfileCreateView.php:126
+#: ExtendedProfileCreateView.php:170
+#: ExtendedProfileCreateView.php:211
+#: ExtendedProfileCreateView.php:264
+#: ExtendedProfileCreateView.php:321
+#: ExtendedProfileCreateView.php:367
+#: ExtendedProfileEditView.php:48
+#: LoginView.php:33
+#: LoginView.php:76
+msgid "Email"
+msgstr ""
 
 #: ExtendedProfileCreateView.php:81
 #: ExtendedProfileCreateView.php:129
@@ -294,7 +198,7 @@ msgstr "Nome dell'associazione"
 #: ExtendedProfileCreateView.php:267
 #: ExtendedProfileCreateView.php:324
 #: ExtendedProfileCreateView.php:370
-#: ExtendedProfileEditView.php:50
+#: ExtendedProfileEditView.php:51
 msgid "Phone"
 msgstr "Telefono"
 
@@ -307,41 +211,212 @@ msgid "Commercial activity"
 msgstr "Attività commerciale"
 
 #: ExtendedProfileCreateView.php:120
-#: ExtendedProfileEditView.php:41
+#: ExtendedProfileEditView.php:42
 msgid "Siret"
 msgstr "Partita IVA"
 
 #: ExtendedProfileCreateView.php:123
-#: ExtendedProfileEditView.php:44
+#: ExtendedProfileEditView.php:45
 msgid "Address"
 msgstr "Indirizzo"
 
-#: ExtendedProfileEditView.php:18
+#: ExtendedProfileCreateView.php:383
+#: ExtendedProfileEditView.php:6
+#: ExtendedProfileEditView.php:62
+#: LoginView.php:97
+msgid "Validate"
+msgstr "Validare"
+
+#: ExtendedProfileEditView.php:5
+#: MainView.php:9
+msgid "Profile"
+msgstr "Profilo"
+
+#: ExtendedProfileEditView.php:17
+#: parts/utils.php:211
+#: parts/utils.php:260
 msgid "Role"
 msgstr "Ruolo"
 
-#: ExtendedProfileEditView.php:35
+#: ExtendedProfileEditView.php:36
 msgid "Name"
 msgstr "Nome"
 
-#: ExtendedProfileEditView.php:38
+#: ExtendedProfileEditView.php:39
 msgid "Activity"
 msgstr "Attività"
 
-#: ExtendedProfileEditView.php:53
+#: ExtendedProfileEditView.php:54
+#: MainView.php:405
 msgid "Description"
 msgstr "Descrizione"
 
-#: ExtendedProfileEditView.php:57
+#: ExtendedProfileEditView.php:58
 msgid "Mot de passe"
 msgstr ""
 
-#: PublishSuccessView.php:8
-#: WaitingForAcceptView.php:8
-#: parts/utils.php:20
-#: parts/utils.php:48
-msgid "Exit"
-msgstr "Esci"
+#: LoginView.php:12
+#: LoginView.php:35
+msgid "Log In"
+msgstr "Connessione"
+
+#: LoginView.php:13
+msgid "Registration"
+msgstr "Registrazione"
+
+#: LoginView.php:34
+#: LoginView.php:80
+msgid "Password"
+msgstr "Password"
+
+#: LoginView.php:40
+#: MainView.php:37
+msgid "About"
+msgstr "A proposito"
+
+#: LoginView.php:68
+msgid "first name"
+msgstr "Nome"
+
+#: LoginView.php:72
+msgid "last name"
+msgstr "Cognome"
+
+#: LoginView.php:84
+msgid "Password (confirmation)"
+msgstr "Password (conferma)"
+
+#: MainView.php:8
+msgid "Admin"
+msgstr ""
+
+#: MainView.php:21
+msgid "Partnership"
+msgstr "Partenariato"
+
+#: MainView.php:23
+#: MainView.php:108
+msgid "Search a partner"
+msgstr "Trovare un'offerta"
+
+#: MainView.php:24
+#: MainView.php:268
+msgid "Insert an offer"
+msgstr "Sottomettere un'offerta"
+
+#: MainView.php:27
+msgid "Infomations"
+msgstr "Informazioni"
+
+#: MainView.php:30
+msgid "About European programs"
+msgstr "Informarsi sui programmi "
+
+#: MainView.php:32
+msgid "Alcotra Blog"
+msgstr ""
+
+#: MainView.php:34
+msgid "Beta Testers Blog"
+msgstr "Beta tester Blog"
+
+#: MainView.php:80
+msgid "Edit my profile"
+msgstr "Pubblicare la mia offerta "
+
+#: MainView.php:81
+msgid "Log Out"
+msgstr "Deconnessione"
+
+#: MainView.php:94
+msgid "Restricted page for admins"
+msgstr "Pagina riservata agli admins"
+
+#: MainView.php:98
+msgid "Access"
+msgstr "Accesso"
+
+#: MainView.php:120
+#: ResultsView.php:27
+msgid "Keywords"
+msgstr "Parole chiave"
+
+#: MainView.php:124
+#: MainView.php:281
+#: ResultsView.php:25
+msgid "Themes"
+msgstr "Tematiche"
+
+#: MainView.php:127
+#: MainView.php:160
+#: ResultsView.php:25
+#: ResultsView.php:26
+#: ResultsView.php:27
+msgid "All"
+msgstr "Tutto"
+
+#: MainView.php:130
+#: MainView.php:284
+msgid "Education, culture & sport"
+msgstr "Educazione, cultura e sport"
+
+#: MainView.php:133
+#: MainView.php:287
+msgid "Work"
+msgstr "Impiego"
+
+#: MainView.php:136
+#: MainView.php:290
+msgid "Enterprises, Innovation"
+msgstr "Imprese, innovazione"
+
+#: MainView.php:139
+#: MainView.php:293
+msgid "Environment, energy & transport"
+msgstr "Ambiente, energia e trasporto"
+
+#: MainView.php:142
+#: MainView.php:296
+msgid "Agriculture"
+msgstr "Agricoltura"
+
+#: MainView.php:145
+#: MainView.php:299
+msgid "Fishing"
+msgstr "Pesca"
+
+#: MainView.php:148
+#: MainView.php:302
+msgid "Research"
+msgstr "Ricerca"
+
+#: MainView.php:151
+#: MainView.php:305
+msgid "Health and Consumer Protection"
+msgstr "Salute e tutela dei consumatori"
+
+#: MainView.php:157
+#: MainView.php:310
+msgid "Areas"
+msgstr "Zone geografiche"
+
+#: MainView.php:166
+#: MainView.php:316
+msgid "France"
+msgstr "Francia"
+
+#: MainView.php:207
+#: MainView.php:357
+msgid "Italy"
+msgstr "Italia"
+
+#: MainView.php:258
+msgid "Search"
+msgstr "Ricerca "
+
+#: MainView.php:410
+msgid "Insert"
+msgstr ""
 
 #: PublishSuccessView.php:17
 msgid "Your partnership offer has been successfully published on"
@@ -351,90 +426,6 @@ msgstr "La Sua offerta di partenariato è stata pubblicata con successo"
 msgid "See similar offers"
 msgstr "Vedere le offerte simili"
 
-#: WaitingForAcceptView.php:16
-msgid ""
-"<b>Congratulations!</b> Your profile has been sent to myEurope team  \n"
-"\t\t\t<a href='mailto:myAlpMed@gmail.com' type='button' data-inline='true' data-mini='true'><?= APPLICATION_NAME ?></a>\t\t\n"
-"\t\t\tfor validation"
-msgstr ""
-"<b>Congratulazioni!</b> Il Suo profilo è stato inviato a myEurope  \n"
-"\t\t\t<a href='mailto:myAlpMed@gmail.com' type='button' data-inline='true' data-mini='true'><?= APPLICATION_NAME ?></a>\t\t\n"
-"\t\t\tper essere validato"
-
-#: AdminView.php:6
-msgid "Users"
-msgstr "Utenti"
-
-#: AdminView.php:27
-#, fuzzy
-msgid "New users waiting for validation"
-msgstr "Nuovo utente in attesa di validazione"
-
-#: AdminView.php:43
-#: AdminView.php:65
-#: AdminView.php:87
-msgid "Increase"
-msgstr "Estendi la ricerca"
-
-#: AdminView.php:49
-#, fuzzy
-msgid "Normal users"
-msgstr "Utente normale"
-
-#: AdminView.php:71
-msgid "Admins"
-msgstr ""
-
-#: BlogAlcotraView.php:19
-msgid "Theme1"
-msgstr "Tema1"
-
-#: BlogAlcotraView.php:20
-msgid "Theme2"
-msgstr "Tema2"
-
-#: BlogAlcotraView.php:21
-msgid "Theme3"
-msgstr "Tema3"
-
-#: BlogAlcotraView.php:22
-msgid "Theme4"
-msgstr "Tema4"
-
-#: BlogAlcotraView.php:23
-msgid "Theme5"
-msgstr "Tema5"
-
-#: BlogAlcotraView.php:36
-msgid "delete"
-msgstr "Cancella"
-
-#: BlogAlcotraView.php:46
-msgid "reply"
-msgstr "Rispondi"
-
-#: BlogTestersView.php:28
-#: BlogTestersView.php:39
-msgid "plus"
-msgstr ""
-
-#: BlogTestersView.php:32
-msgid "comments"
-msgstr "Commenti"
-
-#: BlogTestersView.php:45
-#, fuzzy
-msgid "Reply"
-msgstr "Rispondi"
-
-#: BlogTestersView.php:55
-msgid "Respond to the blog >>>>>>html editor"
-msgstr "Rispondi"
-
-#: BlogTestersView.php:56
-msgid "Post"
-msgstr ""
-
 #: ResultsView.php:5
 msgid "Results"
 msgstr "Risultati"
@@ -442,10 +433,6 @@ msgstr "Risultati"
 #: ResultsView.php:11
 msgid "Sort by"
 msgstr "Seleziona per"
-
-#: ResultsView.php:14
-msgid "title"
-msgstr "Titolo"
 
 #: ResultsView.php:16
 msgid "partner"
@@ -456,34 +443,53 @@ msgid "date"
 msgstr "Data"
 
 #: ResultsView.php:20
-#, fuzzy
 msgid "reputation"
-msgstr "Reputazione"
+msgstr "Reputazione "
 
-#: ResultsView.php:24
-msgid "Subscribe"
-msgstr "Sottoscrivere"
+#: ResultsView.php:26
+msgid "Places"
+msgstr ""
 
-#: ResultsView.php:27
+#: ResultsView.php:33
 msgid "filter"
 msgstr "Filtrare"
 
-#: ResultsView.php:31
+#: ResultsView.php:37
 msgid "Your search didn't match any result."
 msgstr "La Sua ricerca non ha dato alcun risultato"
 
-#: parts/utils.php:49
-msgid "ajaxfalse"
+#: UnsubscribeView.php:13
+msgid "Unsubscribed"
+msgstr "Disabbonarsi"
+
+#: UnsubscribeView.php:15
+msgid "You were not subscribed to these keywords"
 msgstr ""
 
-#: parts/utils.php:175
-msgid "<b>MyEurope</b> is a social network which is based on the meta-social network <em>myMed</em>, available for City Halls, institutions or economic realities (industrial, tourism industry...) of the French South-East areas (PACA, Rhone-Alpes) and the three Italian North-Western Regions (Liguria, Piemonte, Valle d'Aosta), i.e. the areas eligible to the Alcotra Program."
+#: WaitingForAcceptView.php:8
+#: parts/utils.php:20
+#: parts/utils.php:48
+msgid "Exit"
+msgstr "Esci"
+
+#: WaitingForAcceptView.php:16
+msgid ""
+"<b>Congratulations!</b> Your profile has been sent to myEurope team  \n"
+"\t\t\t<a href='mailto:myEuropeDev@gmail.com'>myEuropeDev+Sarah@gmail.com</a>\t\t\n"
+"\t\t\tfor validation"
+msgstr ""
+"<b>Congratulazioni!</b> Il Suo profilo è stato inviato a myEurope  \n"
+"\t\t\t<a href='mailto:myAlpMed@gmail.com' type='button' data-inline='true' data-mini='true'><?= APPLICATION_NAME ?></a>\t\t\n"
+"\t\t\tper essere validato "
+
+#: parts/utils.php:174
+msgid "<b>MyEurope</b> is a social network which is based on the meta-social network <b><em>myMed</em></b>, available for City Halls, institutions or economic realities (industrial, tourism industry...) of the French South-East areas (PACA, Rhone-Alpes) and the three Italian North-Western Regions (Liguria, Piemonte, Valle d'Aosta), i.e. the areas eligible to the Alcotra Program."
 msgstr "<b>MyEurope</b> è una rete sociale che si appoggia al meta-social network <em>myMed</em>, a disposizione dei sindaci, delle istituzioni, degli esponenti politici nonché delle realtà economiche (industriali, turistiche...) del territorio della regione francese del sud est (PACA, Rhône-Alpes) e delle tre regioni italiane del nord ovest (Piemonte, Liguria, Valle d'Aosta), ovvero dei territori ammessi al programma Alcotra (Alpi Latine Cooperazione Transfrontaliera Francia-Italia)."
 
-#: parts/utils.php:180
+#: parts/utils.php:179
 msgid ""
 "This \"sociapp\" will help the City Hall of the Alps-Mediterranean Euroregion to find partners, among those who joined the social network, in order to create projects together, within European Programs.\n"
-"\tThe main targets of <em>myMed</em> are :\n"
+"\tThe main targets of <b><em>myMed</em></b> are :\n"
 "\t<ul>\n"
 "\t\t<li>Help, through the mechanism of myMed's \"matchmaking\", to gather ideas and resources for European project submission or obtain European funds.</li>\n"
 "\t\t<li>Exchange practices and common cross-border interests in the area of European project creation.</li>\n"
@@ -496,42 +502,77 @@ msgstr ""
 "\t\t<li>Aiutare attraverso il meccanismo di « Matchmaking » di myMed a mettere in comune delle idee ma anche delle risorse cosi  da poter sottomettere un progetto Interreg-Alcotra Med oppure ottenere dei finanziamenti europei (crediti FESR...).</li>\n"
 "\t\t<li>Scambiare delle pratiche e degli interessi comuni transfrontalieri per quanto riguarda il montaggio dei progetti.</li>\n"
 "\t\t<li>Informare le persone iscritte alla rete sociale riguardo le differenti gare d'appalto dei progetti europei.</li>\n"
-"\t</ul>\t"
+"\t</ul>\t "
 
-#: parts/utils.php:192
+#: parts/utils.php:191
 msgid "These information exchanges will be useful to French elected representatives and their Italian counterparts in order to establish a permanent contact between French and Italian people. It will result in a better organization of cross-border activity."
 msgstr "Questi scambi d'informazione saranno utili ai rappresentanti delle istituzioni francesi cosi come ai loro omologhi italiani per poter instaurare un contatto permanente tra gli abitanti delle regioni francesi e italiane limitrofe, cosa che favorirà l'organizzazione delle attività transfrontaliere (partenariato di progetti europei, cooperazioni in differenti ambiti …)."
 
-#: parts/utils.php:212
-#: parts/utils.php:255
-msgid "role"
-msgstr "ruolo"
-
-#: parts/utils.php:220
-#: parts/utils.php:268
+#: parts/utils.php:219
+#: parts/utils.php:279
 msgid "email"
 msgstr ""
 
-#: parts/utils.php:221
-#: parts/utils.php:269
-#, fuzzy
+#: parts/utils.php:220
+#: parts/utils.php:280
 msgid "phone"
-msgstr "Telefono"
+msgstr "tel"
 
-#: parts/utils.php:222
-#: parts/utils.php:270
-#, fuzzy
+#: parts/utils.php:221
+#: parts/utils.php:281
 msgid "address"
-msgstr "Indirizzo"
+msgstr "Indirizzo "
 
-#: parts/utils.php:279
-msgid "Active partnerships"
+#: parts/utils.php:256
+msgid "Id"
+msgstr ""
+
+#: parts/utils.php:264
+msgid "SIRET"
+msgstr "PARTITA IVA"
+
+#: parts/utils.php:290
+msgid "Active partnership"
 msgstr "Partenariato attivo"
 
-#: parts/utils.php:287
-msgid "edit"
-msgstr "Modificare"
-
+#~ msgid "Themes:"
+#~ msgstr "Tematiche "
+#~ msgid "Keywords:"
+#~ msgstr "Parole chiave  "
+#~ msgid "Partnership details"
+#~ msgstr "Dettagli partenariato"
+#~ msgid "Edit my offer"
+#~ msgstr "Pubblicare la mia offerta"
+#~ msgid "role"
+#~ msgstr "ruolo"
+#~ msgid "Share"
+#~ msgstr "Condividere"
+#~ msgid "Education"
+#~ msgstr "Educazione"
+#~ msgid "Culture"
+#~ msgstr "Cultura"
+#~ msgid "Sport"
+#~ msgstr "Sport"
+#~ msgid "Add to contacts"
+#~ msgstr "Aggiungere ai contatti"
+#~ msgid "Theme1"
+#~ msgstr "Tema1"
+#~ msgid "Theme2"
+#~ msgstr "Tema2"
+#~ msgid "Theme3"
+#~ msgstr "Tema3"
+#~ msgid "Theme4"
+#~ msgstr "Tema4"
+#~ msgid "Theme5"
+#~ msgstr "Tema5"
+#~ msgid "delete"
+#~ msgstr "Cancella"
+#~ msgid "reply"
+#~ msgstr "Rispondi"
+#~ msgid "Respond to the blog >>>>>>html editor"
+#~ msgstr "Rispondi"
+#~ msgid "edit"
+#~ msgstr "Modificare"
 #~ msgid "Filter results"
 #~ msgstr "Filtrare i risultati"
 

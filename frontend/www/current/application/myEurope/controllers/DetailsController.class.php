@@ -3,8 +3,6 @@ class DetailsController extends AuthenticatedController {
 	
 	public function handleRequest() {
 		
-		
-		
 		parent::handleRequest();
 		
 		$this->id = $_GET['id'];
@@ -15,6 +13,8 @@ class DetailsController extends AuthenticatedController {
 		if (isset($_GET["partnerRequest"])){
 			$this->addTempPartner();
 		}
+		
+		// put
 		if (isset($_GET["accept"])){
 			$this->addPartner();
 		}

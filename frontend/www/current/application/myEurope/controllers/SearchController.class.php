@@ -7,15 +7,15 @@ class SearchController extends AuthenticatedController {
 	public $index;
 	
 	public $themesall = array(
-			"education",
-			"travail",
-			"entreprise",
-			"environnement",
-			"agriculture",
-			"peche",
-			"recherche",
-			"santé"
-	);
+				"education",
+				"travail",
+				"entreprise",
+				"environnement",
+				"agriculture",
+				"peche",
+				"recherche",
+				"santé"
+			);
 	
 	public function handleRequest() {
 		

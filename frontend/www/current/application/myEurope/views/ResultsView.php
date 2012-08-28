@@ -22,9 +22,9 @@
 		
 		<div style="float: right;">
 		<label for="subscribeButton" >
-		<?= _('Themes:').' <em>'.(empty($this->themes)?_('ALL'):join(", ",$this->themes)).'</em>, '.
-		_('Places:').' <em>'.(empty($this->places)?_('ALL'):join(", ",$this->places)).'</em>, '.
-		_('Keywords:').' <em>'.(empty($this->p)?_('ALL'):join(", ",$this->p)).'</em>' ?>:</label>
+		<?= _('Themes').': <em>'.(empty($this->themes)?_('All'):join(", ",$this->themes)).'</em>, '.
+		_('Places').': <em>'.(empty($this->places)?_('All'):join(", ",$this->places)).'</em>, '.
+		_('Keywords').': <em>'.(empty($this->p)?_('All'):join(", ",$this->p)).'</em>' ?>:</label>
 		<a id="subscribeButton" type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="alert"
 		onclick='subscribe("<?= APPLICATION_NAME ?>:part", "<?= APPLICATION_NAME.":".$_GET['namespace'] ?>", <?= json_encode($this->index) ?>); $(this).addClass("ui-disabled");'><?= _("Subscribe") ?></a>
 		</div>
