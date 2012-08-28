@@ -1,4 +1,4 @@
-package com.mymed.core;
+package com.app.myeurope;
 
 import java.io.IOException;
 import java.util.List;

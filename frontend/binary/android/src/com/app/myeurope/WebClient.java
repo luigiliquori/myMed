@@ -1,4 +1,4 @@
-package com.mymed.core;
+package com.app.myeurope;
 
 import java.net.URLDecoder;
 import java.util.Currency;
@@ -12,6 +12,8 @@ import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+
+import com.app.myeurope.R;
 
 import android.app.AlertDialog;
 import android.content.Context;

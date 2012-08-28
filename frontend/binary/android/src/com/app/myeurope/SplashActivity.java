@@ -1,4 +1,6 @@
-package com.mymed.core;
+package com.app.myeurope;
+
+import com.app.myeurope.R;
 
 import android.app.Activity;
 import android.content.Intent;

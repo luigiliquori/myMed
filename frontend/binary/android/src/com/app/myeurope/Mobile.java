@@ -1,4 +1,6 @@
-package com.mymed.core;
+package com.app.myeurope;
+
+import com.app.myeurope.R;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -23,8 +25,8 @@ public class Mobile extends Activity {
 	
 
 	public static final String TAG = "*********MyMed";
-	public static final String MYMED_FRONTEND_URL = "http://mymed220.sophia.inria.fr";
-	public static final String MYMED_BACKEND_URL = "http://mymed220.sophia.inria.fr:8080/backend";
+	public static final String MYMED_FRONTEND_URL = "http://mymed20.sophia.inria.fr/application/myEurope";
+	public static final String MYMED_BACKEND_URL = "http://mymed20.sophia.inria.fr:8080/backend";
 
 	public Mobile() {
 		this.webClient = new WebClient(this);
