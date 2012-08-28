@@ -56,7 +56,7 @@ class AdminController extends ExtendedProfileRequired {
 	
 
 		$publish =  new RequestJson($this,
-				array("application"=>APPLICATION_NAME.":users", "id"=>$_POST['id'], "data"=>array("permission" => $_POST['perm'], "_notify"=>1)),
+				array("application"=>APPLICATION_NAME.":users", "id"=>$_POST['id'], "data"=>array("permission" => $_POST['perm'])),
 				UPDATE);
 		
 		$publish->send();

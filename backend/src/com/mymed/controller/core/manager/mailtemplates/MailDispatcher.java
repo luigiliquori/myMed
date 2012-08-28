@@ -131,7 +131,7 @@ public class MailDispatcher extends AbstractManager implements Runnable {
 	                    SubscribeMailSession.getInstance());
 	            mail.send();
 	            
-	            LOGGER.info(String.format("Mail sent to '%s' with title '%s' for predicate '%s'", 
+	            LOGGER.info(String.format(">>>>>>>>>>>>>>>>>>>>>>>Mail sent to '%s' with title '%s' for predicate '%s'", 
 	                    recipient.getEmail(), 
 	                    subject,
 	                    predicate));

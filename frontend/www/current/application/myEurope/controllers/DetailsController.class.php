@@ -7,14 +7,18 @@ class DetailsController extends AuthenticatedController {
 		
 		parent::handleRequest();
 		
+		$this->id = $_GET['id'];
+		
 		if (isset($_GET["rm"])){
 			$this->delData();
 		}
 		if (isset($_GET["partnerRequest"])){
 			$this->addTempPartner();
 		}
-		 
-		$this->id = $_GET['id'];
+		if (isset($_GET["accept"])){
+			$this->addPartner();
+		}
+		
 		$this->text = "description vide";
 
 		$req = new RequestJson( $this, array("application"=>APPLICATION_NAME.":".$_GET['namespace'],"id"=>$this->id));
@@ -39,7 +43,7 @@ class DetailsController extends AuthenticatedController {
 			$this->partnersProfiles = array();
 
 			foreach ($this->details as $k => $v){
-				if (strpos($k, "tempPartner") === 0){
+				if (strpos($k, "partner") === 0){
 					$p = $this->getProfile($v);
 					array_push($this->partnersProfiles, $p);
 				}
@@ -72,10 +76,33 @@ class DetailsController extends AuthenticatedController {
 			"tempPartner".$_SESSION['user']->id=>$_SESSION['user']->id
 		);
 		$publish = new RequestJson( $this, 
-				array("application"=>APPLICATION_NAME.":".$_GET['namespace'],"id"=>$_GET['id'], "data"=>json_encode($data) ),
+				array("application"=>APPLICATION_NAME.":".$_GET['namespace'],"id"=>$_GET['id'], "user"=> $_SESSION['user']->id, "user"=>$_SESSION['user']->id, "data"=>$data ),
 				UPDATE);
 	
 		$publish->send();
+		if (empty($this->error))
+			$this->success = _("Partnership request sent");
+	}
+	
+	public /*void*/ function addPartner(){
+
+		$publish = new RequestJson( $this,
+				array("application"=>APPLICATION_NAME.":".$_GET['namespace'],"id"=>$this->id, "field"=>"tempPartner".$_GET["accept"] ),
+				DELETE);
+		$publish->send();
+		
+		$publish = new RequestJson( $this,
+				array("application"=>APPLICATION_NAME.":".$_GET['namespace'],"id"=>$this->id, "user"=>"noNotification", "data"=>array("partner".$_GET["accept"]=>$_GET["accept"]) ),
+				UPDATE);
+		$publish->send();
+		
+		$publish = new RequestJson( $this,
+				array("application"=>APPLICATION_NAME.":users", "id"=>$_GET["accept"], "data"=>array("part".$this->id=>$this->id) ),
+				UPDATE);
+		$publish->send();
+		
+		if (empty($this->error))
+			$this->success = _("Partnerships added");
 	}
 	
 	public /*void*/ function getProfile($id){

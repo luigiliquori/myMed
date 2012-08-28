@@ -16,15 +16,12 @@
 	
 	<!-- CLE  -->
 	<link rel="stylesheet" type="text/css" href="../../lib/jquery/CLEeditor/jquery.cleditor.css" />
-	<script type="text/javascript" src="../../lib/jquery/CLEeditor/jquery.cleditor.js"></script>
-	<script type="text/javascript" src="../../lib/jquery/CLEeditor/startCLE.js"> </script>
 	
 	<!-- APP JS -->
 	<script src="javascript/app.js"></script>
 	
 	<!-- MYMED css -->
 	<link href="../../system/css/common.css" rel="stylesheet" />
-	<link media="screen" type="text/css" rel="stylesheet" href="http://w.sharethis.com/gallery/shareegg/shareegg.css"></link>
 	<!-- APP css -->
 	<link href="css/app.css" rel="stylesheet" />
 	

@@ -129,7 +129,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 
 			// look if the content is signed
 			if (in.getUser() != null){
-				in.getData().put("user", in.getUser()); 
+				in.getData().put("user", in.getUser());
 				publisher = profileManager.read(in.getUser());
 			}
 				
@@ -211,44 +211,42 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 			keywords = MatchMakingv2.format(in.getPredicates());
 
 			LOGGER.info("keywords: {} ", keywords);
+			
+			if (in.getField() != null && in.getLengthMax() != null){  // Experimental feature, not used atm
+				dataManager.update(in.getApplication() + id, in.getField(), in.getLengthMax());
+				break;
+			}
 
 			rows = new CombiLine(keywords).expand();
 			MatchMakingv2.prefix(in.getApplication(), rows);
 
-			/* make sure to put an id pointer */
-			if (id == null) {
-				final HashFunction h = new HashFunction(SOCIAL_NET_NAME);
-				id = h.SHA1ToString(System.currentTimeMillis() + in.getMetadata().toString());
-			}
-			in.getMetadata().put("id", id);
-
 			LOGGER.info("in " + id + "." + in.getData().size() + "."
-					+ keywords.size());
-
-			// look if the content is signed
-			if (in.getUser() != null)
-				publisher = profileManager.read(in.getUser());
+					+ keywords.size()+ "." + rows);
 
 			if (id == null)
 				throw new InternalBackEndException("missing id argument!");
-			
-			// @TODO put id out of data
 
 			LOGGER.info("updating data " + id + " size "
 					+ in.getData().size());
 
 			/* creates data */
 			dataManager.create(in.getApplication() + id, in.getData());
-
-			if (in.getData().containsKey("_noNotification"))
-				break;
 			
-			mail_executor.execute(new MailDispatcher(
-					in.getApplication(),
-					MiscUtils.singleton(id),
-					in.getData(),
-					publisher));
+			
+			if ("noNotification".equals(in.getUser())){ // don't use subscriptions
+				LOGGER.info(">>>>>>>>>  no Notification ");
+				break;
+			} else if (in.getUser() != null) // look if the content is signed
+				publisher = profileManager.read(in.getUser());
 
+			LOGGER.info(">>>>>>>>>  notifying subscribers ");
+				
+			mail_executor.execute(new MailDispatcher(
+				in.getApplication(),
+				MiscUtils.singleton(in.getApplication() + id),
+				in.getData(),
+				publisher));
+			
 			break;
 			
 		case DELETE:
@@ -267,7 +265,11 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 				break;
 			}
 			
-			String keywordsStr = dataManager.read(in.getApplication() + id, "keywords");
+			String keywordsStr = "[]";
+			try{
+				keywordsStr = dataManager.read(in.getApplication() + id, "keywords");
+			}catch(IOBackEndException e){}
+			
 
 			LOGGER.info(" trying to delete  " + id + "." + keywordsStr);
 

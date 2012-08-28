@@ -80,12 +80,17 @@ class PublishController extends AuthenticatedController {
 			
 			// put this project in our profile
 			$publish = new RequestJson( $this,
-					array("id"=>$_SESSION['user']->id, "data"=>array("part".$id=>$id)),
+					array("application"=>APPLICATION_NAME.":users", "id"=>$_SESSION['user']->id, "user"=>"noNotification", "data"=>array("part".$id=>$id)),
 					UPDATE);
 			
 			$publish->send();
 			//push it in session
 			array_push($_SESSION['myEuropeProfile']->partnerships, $id);
+			
+			$subscribe = new RequestJson( $this,
+					array("application"=>APPLICATION_NAME.":".$this->namespace, "id"=>$id, "user"=> $_SESSION['user']->id, "mailTemplate"=>APPLICATION_NAME.":profileMyParts"),
+					CREATE, "v2/SubscribeRequestHandler");
+			$subscribe->send();
 			
 			
 			//redirect to search with the indexes

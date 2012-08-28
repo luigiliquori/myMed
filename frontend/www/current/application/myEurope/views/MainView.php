@@ -67,7 +67,7 @@ function tab_bar_white($activeTab) {
 		<br />
 		<?= printMyProfile($_SESSION['myEuropeProfile']) ?>
 
-		<fieldset data-role="controlgroup" style="display:inline-block">
+		<fieldset data-role="controlgroup" style="display:inline-block;width: 50%;">
 			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-a" value="fr" <?= $_SESSION["user"]->lang == "fr"?"checked='checked'":"" ?>/>
 			<label for="radio-view-a"><?= _('French') ?></label>
 			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-b" value="it" <?= $_SESSION["user"]->lang == "it"?"checked='checked'":"" ?>/>
@@ -76,10 +76,10 @@ function tab_bar_white($activeTab) {
 			<label for="radio-view-e"><?= _('English') ?></label>
 		</fieldset>
 		<br />
-		<div data-role="controlgroup" style="display:inline-block">
-			<a type="button" href="?action=ExtendedProfile&edit=false"  data-theme="d" data-icon="grid"><?= _('Edit my profile') ?></a>
-			<a data-role="button" href="?action=logout" rel="external" data-icon="delete"><?= _('Log Out') ?></a>
-		</div>
+		<fieldset data-role="controlgroup" style="display:inline-block;width: 50%;">
+			<a type="button" href="?action=ExtendedProfile&edit=false"  data-theme="d" data-icon="grid" style="text-align: left;"><?= _('Edit my profile') ?></a>
+			<a data-role="button" href="?action=logout" rel="external" data-icon="delete" style="text-align: left;"><?= _('Log Out') ?></a>
+		</fieldset>
 		
 	</div>
 </div>
@@ -255,7 +255,7 @@ function tab_bar_white($activeTab) {
 			<br />
 
 			<div style="text-align: center;" >
-				<input type="submit" data-theme="b" data-icon="search" data-inline="true" value="Chercher"/>
+				<input type="submit" class="ui-btn-active ui-state-persist" data-icon="search" data-inline="true" value="<?=_('Search') ?>"/>
 			</div>
 		</form>
 	</div>
@@ -407,7 +407,7 @@ function tab_bar_white($activeTab) {
 			<textarea id="CLEeditor" id="textContent" name="text"></textarea>
 
 			<div style="text-align: center;" >
-				<input type="submit" data-theme="b"  data-inline="true" data-icon="check" value="Insérer" />
+				<input type="submit" class="ui-btn-active ui-state-persist"  data-inline="true" data-icon="check" value="<?=_('Insert') ?>" />
 			</div>
 		</form>
 	</div>

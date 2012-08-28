@@ -65,7 +65,13 @@ class ExtendedProfileController extends AuthenticatedController
 		//$extendedProfile->storeProfile($this);
 		
 		$edit = ($_POST['form'] == "edit");
-		debug_r($_POST);
+		
+		debug($_SESSION['user']->email);
+		
+		// we clear these ones
+		unset($_POST['form']);
+		unset($_POST['checkCondition']);
+		
 		if (!$edit){
 			if(!$_POST['checkCondition']){
 				$this->error = "Vous devez accepter les conditions d'utilisation.";
@@ -78,6 +84,12 @@ class ExtendedProfileController extends AuthenticatedController
 					|| $_SESSION['user']->email=="myalpmed@gmail.com"
 			)? 2 : 0;
 			$_POST['permission'] = $permission;
+			
+			$_POST['user'] = $_SESSION['user']->id;
+			
+			$publish =  new RequestJson($this,
+					array("application"=>APPLICATION_NAME.":users", "id"=>$_SESSION['user']->id, "data"=>$_POST),
+					CREATE);
 			
 		} else { //check password
 			
@@ -103,22 +115,13 @@ class ExtendedProfileController extends AuthenticatedController
 			$_POST['permission'] = $_SESSION['myEuropeProfile']->permission;//let's not lose the permission
 			$myrep = $_SESSION['myEuropeProfile']->reputation; //and reputation
 			$prts = $_SESSION['myEuropeProfile']->partnerships; //and reputation
-			$_POST['_noNotification'] = "1";
+			
+			$publish =  new RequestJson($this,
+					array("application"=>APPLICATION_NAME.":users", "id"=>$_SESSION['user']->id, "user"=>"noNotification", "data"=>$_POST),
+					UPDATE);
 		}
-
-		debug($_SESSION['user']->email);
 		
-		
-		$_POST['user'] = $_SESSION['user']->id;
-		
-		// we clear these ones
-		unset($_POST['form']);
-		unset($_POST['checkCondition']);
-
-		// and publish $_POST
-		$publish =  new RequestJson($this, array("application"=>APPLICATION_NAME.":users", "id"=>$_SESSION['user']->id, "data"=>$_POST),
-				$edit?UPDATE:CREATE);
-		
+		// and send publish
 		$publish->send();
 		
 		if (!empty($this->error)){
@@ -149,6 +152,12 @@ class ExtendedProfileController extends AuthenticatedController
 				$this->redirectTo("Main", array(), "#profile");
 			} else {
 				$_SESSION['myEuropeProfile']->permission = $permission;
+				
+				//subscribe to our profile changes (permission change - partnership req accepted)
+				$subscribe = new RequestJson( $this,
+						array("application"=>APPLICATION_NAME.":users", "id"=>$_SESSION['user']->id, "user"=> $_SESSION['user']->id, "mailTemplate"=>APPLICATION_NAME.":profile"),
+						CREATE, "v2/SubscribeRequestHandler");
+				$subscribe->send();
 				
 				if ($permission <= 0)
 					$this->renderView("WaitingForAccept");

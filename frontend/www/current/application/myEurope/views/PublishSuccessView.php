@@ -18,7 +18,7 @@
 		 <?= APPLICATION_NAME ?>,
 		 <br /><br />
 		
-		<a href="?action=search<?= $this->req ?>" type="button" data-inline="true"> <?= _("See similar offers") ?> </a><br />
+		<a href="?action=search<?= $this->req ?>" rel="external" type="button" data-inline="true"> <?= _("See similar offers") ?> </a><br />
 		 
 	</div>
 </div>

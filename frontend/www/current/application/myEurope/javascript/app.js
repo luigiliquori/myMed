@@ -3,6 +3,8 @@ var isSub = 3;
 
 var application="myEurope", predicate="";
 
+var isCLELoaded = false;
+
 /*$('label').click(function(e){
     e.stopPropagation()
 });/*
@@ -35,10 +37,15 @@ var application="myEurope", predicate="";
 	//console.log("__ "+isSub+" "+tags);
 });*/
 
-/*$("#Home").live("pagecreate", function() {
-
+$("#post").live("pagecreate", function() {
+	if(!isCLELoaded){
+		$.getScript("../../lib/jquery/CLEeditor/jquery.cleditor.js", function(){
+			console.log("CLE loaded");
+			$("#CLEeditor").cleditor({useCSS:true})[0].focus();
+		});
+	}
+	isCLELoaded = true;
 });
-*/
 
 $("#search").live("pagecreate", function() {
 	$('#checkbox-all').click(function() {
@@ -86,13 +93,13 @@ function subscribe(application, mailTemplate, predicates) {
 }
 
 $(".loadCLE").live("expand", function(e) {
-	if($(e.target).data('oneclicked')!='yes'){
-		console.log("expand");
+	if(!isCLELoaded){
 		$.getScript("../../lib/jquery/CLEeditor/jquery.cleditor.js", function(){
-			$.getScript("../../lib/jquery/CLEeditor/startCLE.js");
+			console.log("CLE loaded");
+			$("#CLEeditor").cleditor({useCSS:true})[0].focus();
 		});
 	}
-	$(e.target).data('oneclicked','yes');
+	isCLELoaded = true;
 });
 
 function rate(feedback, id, user) {
@@ -114,21 +121,6 @@ function rate(feedback, id, user) {
 		
 	});
 }
-
-$("#home").live("pagecreate", function() {
-
-	var switchTo5x=false;
-	$.getScript("http://w.sharethis.com/button/buttons.js", function(){
-		stLight.options({publisher: "5d7eff17-98e8-4621-83ba-6cb27a46dd05", onhover:false});
-	});
-
-	$("#shareThis").bind({
-		popupafterclose: function(event, ui) {
-			setTimeout(function(){$("#shareThisButton").blur();},100)
-		}
-	});
-});
-
 
 function updateProfile(k, v) {
 	

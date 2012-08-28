@@ -205,10 +205,10 @@ function tabs($tabs, $activeTab) {
 				<ul data-role="listview" data-inset="true" data-theme="d" style="margin-top: 2px;">
 					<li>
 						<h2>
-							<?= $profile->name ?> 
+							<?= $profile->name ?>
 						</h2>
 						<p>
-							<?= _("role") ?>: <strong style="color:#444;"><?= $profile->role ?></strong>
+							<?= _("Role") ?>: <strong style="color:#444;"><?= $profile->role ?></strong>
 						</p>
 						<p>
 							<strong style="color:#444;"><?= (empty($profile->activity)?" ":$profile->activity) ?></strong>
@@ -225,7 +225,7 @@ function tabs($tabs, $activeTab) {
 						<p>
 							<?= empty($profile->desc)?" ":$profile->desc ?>
 						</p>
-						
+
 						<div class="ui-li-aside" data-role="controlgroup" style="width:auto;" data-type="horizontal" data-mini="true">
 							<a data-role="button" data-theme="d" style="color:gray;" data-icon="minus" onclick="rate(0, '<?= $id ?>', '<?= $profile->user ?>');"><?= $profile->reputation['down'] ?></a>
 							<a data-role="button" data-theme="d" style="color:blue;" data-icon="plus" onclick="rate(1, '<?= $id ?>', '<?= $profile->user ?>');"><?= $profile->reputation['up'] ?></a>
@@ -248,10 +248,16 @@ function tabs($tabs, $activeTab) {
 					<ul data-role="listview" data-inset="true" data-theme="d">
 						<li>
 							<h3>
-								<?= $profile->name ?>
+								<?= $profile->name ?> 
+								<span class="ui-disabled" style="margin-left: 1em;font-size: 14px;"><?= prettyprintId($profile->user) ?></span> 
 							</h3>
+							<? if (prettyprintId($profile->user) != $profile->email): ?>
 							<p>
-								<?= _("role") ?>: <strong style="color:#444;"><?= $profile->role ?></strong>
+								<?= _("Id") ?>: <strong style="color:#444;"><?= prettyprintId($profile->user) ?></strong>
+							</p>
+							<? endif ?>
+							<p>
+								<?= _("Role") ?>: <strong style="color:#444;"><?= $profile->role ?></strong>
 							</p>
 							<? if (!empty($profile->siret)): ?>
 							<p>
@@ -261,6 +267,7 @@ function tabs($tabs, $activeTab) {
 							<p>
 								<strong style="color:#444;"><?= (empty($profile->activity)?" ":$profile->activity) ?></strong>
 							</p>
+							
 							<div class="ui-li-aside" data-role="controlgroup" style="width:auto;" data-type="horizontal" data-mini="true">
 								<a class="ui-disabled" data-role="button" style="color:gray;" data-icon="minus" ><?= $profile->reputation['down'] ?></a>
 								<a class="ui-disabled" data-role="button" style="color:blue;" data-icon="plus" ><?= $profile->reputation['up'] ?></a>

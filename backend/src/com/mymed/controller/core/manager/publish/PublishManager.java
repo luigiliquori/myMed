@@ -15,6 +15,8 @@
  */
 package com.mymed.controller.core.manager.publish;
 
+import static com.mymed.utils.MiscUtils.encode;
+
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -121,6 +123,11 @@ public class PublishManager extends AbstractManager implements IPublishManager {
 				predicate, start, finish));
 		return resMap;
 	}
+	
+	public final void update(final String id, final String key, final String value) throws InternalBackEndException, IOBackEndException {
+        LOGGER.info("Updating data {} with FIELDS '{}'", id, key+"->"+value);
+        storageManager.insertColumn(CF_DATA, id, key, encode(value));
+    }
 
 	/* v2 deletes */
 	public final void delete(final String id) throws InternalBackEndException,

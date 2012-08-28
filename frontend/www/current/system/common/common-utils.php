@@ -65,6 +65,12 @@ function prettyprintUser($id){
 	return str_replace('.', ' ', $p[0]);
 }
 
+/** prettyprint id of a user **/
+function prettyprintId($id){
+	$p = preg_split("/MYMED_/", $id, NULL, PREG_SPLIT_NO_EMPTY);
+	return $p[0];
+}
+
 /** returns true when $haystack contains substring $needle **/
 function strcontain($haystack,$needle){
 	$pos = strpos($haystack,$needle);

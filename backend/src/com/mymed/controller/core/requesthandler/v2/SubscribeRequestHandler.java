@@ -96,10 +96,10 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
 			
 			if (id != null) {
 				/* we want to subscribe to a data changes */
-				LinkedHashMap<String, List<String>> xpreds = new LinkedHashMap<String, List<String>>();
-				xpreds.put(id, MiscUtils.singleton(id));
+				LinkedHashMap<String, List<String>> keywords = new LinkedHashMap<String, List<String>>();
+				keywords.put(id, MiscUtils.singleton(id));
 				
-				subscriptionManager.create(application, id, in.getUser(), gson.toJson(xpreds), in.getMailTemplate());
+				subscriptionManager.create(application, id, in.getUser(), gson.toJson(keywords), in.getMailTemplate());
 
 				LOGGER.info(" created subscriptions for {}: {} ", in.getUser(), id);
 				out.setDescription("subscription created: " + id

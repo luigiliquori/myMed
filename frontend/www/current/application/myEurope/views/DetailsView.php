@@ -30,11 +30,7 @@
 			<? endforeach ?>
 			<br />
 			<? if ($this->details->user == $_SESSION['user']->id) :?>
-
-				<a href="?action=Details&id=<?= urlencode($this->id) ?>&namespace=<?= $_GET['namespace'] ?>" type="button" data-inline="true" data-mini="true">  <?= _("Edit my offer") ?> </a>
-
 				<a href="#deletePopup" data-role="button" data-rel="popup" data-inline="true" data-mini="true" style="float:right;">  <?= _("Delete my offer") ?> </a>
-			
 			<? else :?>
 				<a href="?action=Details&partnerRequest=&id=<?= urlencode($this->id) ?>&namespace=<?= $_GET['namespace'] ?>" type="button" data-inline="true" data-mini="true" data-icon="check"> <?= _("Partnership request") ?> </a>
 			<? endif ?>
