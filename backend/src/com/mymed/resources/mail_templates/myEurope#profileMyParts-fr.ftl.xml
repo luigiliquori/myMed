@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+This is a mail template.
+"subject" and "body" content should be written with FreeMarker syntax.
+The following variables are available in the templates :
+   * base_url : "http://host:port/"
+   * application : ApplicationID
+   * publisher : The publisher (MUserBean)
+   * recipient : The suscriber (MuserBean)
+   * publication : The object published, with all data and predicates as attributes.
+   * predicate : Predicat 
+-->
+<mail-template>
+
+    <subject>[${application}] Partenariat</subject>
+
+    <body><![CDATA[
+        Bonjour ${recipient.name},<br/>
+        <br/>
+        L'utilisateur 
+        <#if publisher??>
+        	${publisher.name}, <a href="mailto:${publisher.email}">${publisher.email}</a>
+        <#else>
+        	non précisé
+        </#if>
+        demande à joindre votre <a href="${base_url}application/${application}/?action=Details&namespace=part&id=${predicate}">appel à partenaire</a> <br/>
+        <br />
+        <br />
+        <br />
+        <#if publisher??>
+      		<a href="${base_url}application/${application}/?action=Details&namespace=part&id=${predicate}&accept=${publisher.id}">Pour accepter cette demande, cliquez ce lien</a>
+      	 </#if>
+      	<br />
+       
+        --<br/>
+    
+        L'équipe myMed<br/>
+        Cliquez <a href="${base_url}application/${application}/?action=unsubscribe&application=${namespace}&id=${predicate}">ici</a> pour vous désabonner.
+]]></body>
+</mail-template>

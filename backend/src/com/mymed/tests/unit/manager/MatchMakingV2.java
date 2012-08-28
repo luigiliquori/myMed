@@ -21,9 +21,8 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.controller.core.manager.pubsub.v2.PubSubManager;
+import com.mymed.controller.core.manager.publish.PublishManager;
 import com.mymed.model.data.application.DataBean;
-import com.mymed.model.data.application.IndexBean;
 import com.mymed.model.data.application.MOntologyID;
 import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.MatchMakingv2;
@@ -34,7 +33,7 @@ public class MatchMakingV2 extends TestValues {
 	
 	final static Logger LOGGER = (Logger) LoggerFactory.getLogger(MatchMakingV2.class);
 
-	protected static PubSubManager pubsubManager;
+	protected static PublishManager publishManager;
 	private static MUserBean userBean;
 	private static final String date = "1971-01-01";
 	
@@ -45,9 +44,6 @@ public class MatchMakingV2 extends TestValues {
 	private static String application = "myTest";
 
 	private static String namespace = "fake";
-	
-
-	private static List<IndexBean> indexList;
 	
 
 
@@ -97,7 +93,7 @@ public class MatchMakingV2 extends TestValues {
 	public void setUp() throws InternalBackEndException {
 		// storageManager = new StorageManager(new WrapperConfiguration(new
 		// File(CONF_FILE)));
-		pubsubManager = new PubSubManager();
+		publishManager = new PublishManager();
 
 		userBean = new MUserBean();
 		userBean.setId(USER_ID);
@@ -144,13 +140,13 @@ public class MatchMakingV2 extends TestValues {
 			metas.put("id", dataId);
 	    	
 	    
-			pubsubManager.create(rows, dataId, metas);
+			publishManager.create(rows, dataId, metas);
 
 			/* add indexes as a data, the only way to remove all the indexes later if necessary*/
 			
 	    	dataList.put("predicates", gson.toJson(keywords));
 			/* creates data */
-			pubsubManager.create("AZERTY", dataId, dataList);
+	    	publishManager.create("AZERTY"+ dataId, dataList);
 
 		} catch (final Exception ex) {
 			fail(ex.getMessage());
@@ -181,15 +177,15 @@ public class MatchMakingV2 extends TestValues {
 			LOGGER.info("ext find rows: " + rows);
 			
 			
-			resMap = pubsubManager.read(rows, "", "");
+			resMap = publishManager.read(rows, "", "");
 			
 			List<Map<String, String>> resList = new ArrayList<Map<String,String>>(resMap.values()); 
 			
 			LOGGER.info("ext find {} results : {}", resList.size(), resList);
 			
 			if (resList.size() > 0){
-				final Map<String, String> details = pubsubManager.read(
-						"AZERTY", resList.get(0).get("id"));
+				final Map<String, String> details = publishManager.read(
+						"AZERTY"+ resList.get(0).get("id"));
 				
 				LOGGER.info("ext find first details : {}", details);
 				
@@ -206,7 +202,7 @@ public class MatchMakingV2 extends TestValues {
 	@Test
 	public void testDeleteData() {
 		try {
-			String index = pubsubManager.read("AZERTY", dataId, "predicates");
+			String index = publishManager.read("AZERTY"+ dataId, "predicates");
 
 			LinkedHashMap<String, List<String>> keywords = new LinkedHashMap<String, List<String>>();
 			try {
@@ -229,7 +225,7 @@ public class MatchMakingV2 extends TestValues {
 			MatchMakingv2.prefix("AZERTY", rows);
 
 			for (String i : rows) {
-				pubsubManager.delete("", i, dataId, null);
+				publishManager.delete("", i, dataId);
 			}
 
 			/* deletes data */

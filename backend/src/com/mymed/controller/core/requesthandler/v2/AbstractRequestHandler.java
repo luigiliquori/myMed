@@ -32,7 +32,6 @@ import com.google.gson.reflect.TypeToken;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.model.data.application.DataBean;
-import com.mymed.model.data.application.IndexBean;
 
 
 public abstract class AbstractRequestHandler extends com.mymed.controller.core.requesthandler.AbstractRequestHandler {
@@ -41,18 +40,14 @@ public abstract class AbstractRequestHandler extends com.mymed.controller.core.r
 	 */
 	private static final long serialVersionUID = 5219022603572550553L;
 
-	/**
-	 * Type of the index parameter
-	 */
-	protected Type indexType;
 	
-	/**
-	 * Type of the index parameter
-	 */
+	/** Type of the data parameter */
 	protected Type dataType;
 	
-	protected Type xType;
+	/** Type of the predicate parameter */
 	protected Type predicateType;
+	/** Type of the predicate parameter formatted */
+	protected Type xType;
 	
 	protected Type listType;
 	
@@ -76,10 +71,10 @@ public abstract class AbstractRequestHandler extends com.mymed.controller.core.r
         SERVER_PROTOCOL = DEFAULT_SERVER_PROTOCOL.split(":")[0] + "://";
         
         // init handlers deserialization Types
-        indexType = new TypeToken<List<IndexBean>>() {}.getType();
         dataType = new TypeToken<Map<String, String>>() {}.getType();
-        xType = new TypeToken<Map<String, List<String>>>() {}.getType();
+        
         predicateType = new TypeToken<List<DataBean>>() {}.getType();
+        xType = new TypeToken<Map<String, List<String>>>() {}.getType();
         
     }
 	
