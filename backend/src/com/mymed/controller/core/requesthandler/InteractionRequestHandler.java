@@ -69,10 +69,23 @@ public class InteractionRequestHandler extends AbstractRequestHandler {
             // Check the access token
             checkToken(parameters);
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
+            
+            String application, producer, consumer;
 
             switch (code) {
                 case READ :
                 case DELETE :
+                	 if ((application = parameters.get(JSON_APPLICATION)) == null)
+                         throw new InternalBackEndException("missing application argument!");
+                     else if ((producer = parameters.get("producer")) == null)
+                         throw new InternalBackEndException("missing producer argument!");
+                     else if ((consumer = parameters.get("consumer")) == null)
+                         throw new InternalBackEndException("missing consumer argument!");
+                     
+                     interactionManager.delete(application + producer + consumer);
+                     message.setDescription("interaction deleted!");
+                	
+                	
                 default :
                     throw new InternalBackEndException("InteractionManager.doGet(" + code + ") not exist!");
             }
@@ -97,7 +110,7 @@ public class InteractionRequestHandler extends AbstractRequestHandler {
             // Check the access token
             checkToken(parameters);
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            String application, producer, consumer, start, end, predicate, feedback, state;
+            String application, producer, consumer, start, end, predicate="", feedback, state;
 
             if (code.equals(RequestCode.UPDATE)) {
                 if ((application = parameters.get(JSON_APPLICATION)) == null) {
@@ -110,11 +123,12 @@ public class InteractionRequestHandler extends AbstractRequestHandler {
                     throw new InternalBackEndException("missing start argument!");
                 } else if ((end = parameters.get("end")) == null) {
                     throw new InternalBackEndException("missing end argument!");
-                } else if ((predicate = parameters.get("predicate")) == null) {
-                    throw new InternalBackEndException("missing predicate argument!");
                 } else if ((state = parameters.get("state")) == null) {
                 	state = MInteractionBean.COMPLETED_STATE; // Default state
-                }
+                } else if ((predicate = parameters.get("predicate")) == null) {
+                	predicate = "";
+                    //throw new InternalBackEndException("missing predicate argument!");
+                } 
 
                 // verify consumer != producer
                 if (consumer.equals(producer)) {
@@ -135,7 +149,7 @@ public class InteractionRequestHandler extends AbstractRequestHandler {
                 // ATOMIC INTERACTION
                 if ((feedback = parameters.get("feedback")) != null) {
                     interaction.setFeedback(Double.parseDouble(feedback));
-                    System.out.print("\nUPDATE" +
+                    LOGGER.info("\nUPDATE" +
                     "\n************ application: " + application +
                     "\n************ producer: " + producer + 
                     "\n************ consumer: " + consumer +

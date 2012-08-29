@@ -86,6 +86,7 @@ public class InteractionManager extends AbstractManager implements
 			}
 
 			// ADD THE INTERACTION TO THE PRODUCER INTERACTION LIST
+			// yes cool you add it and what after?
 			final Map<String, byte[]> args = new HashMap<String, byte[]>();
 			args.put(interaction.getConsumer() + interaction.getPredicate(), encode(interaction.getState()));
 		} else {

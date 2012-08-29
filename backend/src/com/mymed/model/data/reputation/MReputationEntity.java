@@ -14,6 +14,9 @@ public class MReputationEntity extends AbstractMBean {
 	 */
 	private boolean dirty;
 	
+	/** true is you consumer have already voted on that Id @see ReputationManager */
+	private transient boolean rated; 
+	
 
 	public MReputationEntity() {
 		super();
@@ -58,6 +61,14 @@ public class MReputationEntity extends AbstractMBean {
 
 	public void setDirty(boolean dirty) {
 		this.dirty = dirty;
+	}
+
+	public boolean isRated() {
+		return rated;
+	}
+
+	public void setRated(boolean rated) {
+		this.rated = rated;
 	}
 
 	/*

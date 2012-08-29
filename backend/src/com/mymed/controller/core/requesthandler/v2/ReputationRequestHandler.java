@@ -55,6 +55,7 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
      * The JSON 'producer' attribute.
      */
     private static final String JSON_PRODUCER = JSON.get("json.producer");
+    private static final String JSON_CONSUMER = JSON.get("json.consumer");
 
     private final ReputationManager reputationManager;
 
@@ -83,7 +84,8 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
             final String 
             	application = parameters.get(JSON_APPLICATION), 
             	producer = parameters.get(JSON_PRODUCER),
-            	producers = parameters.get("producers");
+            	producers = parameters.get("producers"),
+            	consumer = parameters.get(JSON_CONSUMER);
 
             switch (code) {
                 case READ :
@@ -93,7 +95,7 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
 
                     if (producer != null){
                     	final MymedAppUserId user = new MymedAppUserId(application, producer, ReputationRole.Producer);
-                        final MReputationEntity reputation = reputationManager.read(user);
+                        final MReputationEntity reputation = reputationManager.read(user, consumer);
 
                         message.addDataObject(JSON_REPUTATION, reputation);
                     } else if(producers != null){
@@ -111,7 +113,7 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
                     	for (String p : prods)
                     		repIds.add(new MymedAppUserId(application, p, ReputationRole.Producer));
                     	
-                        final Map<String, MReputationEntity> reputationMap = reputationManager.read(repIds);
+                        final Map<String, MReputationEntity> reputationMap = reputationManager.read(repIds, consumer);
 
                         message.addDataObject(JSON_REPUTATION, reputationMap);
                     	
