@@ -70,13 +70,13 @@ class ExtendedProfileController extends AuthenticatedController
 		
 		// we clear these ones
 		unset($_POST['form']);
-		unset($_POST['checkCondition']);
 		
 		if (!$edit){
 			if(!$_POST['checkCondition']){
 				$this->error = "Vous devez accepter les conditions d'utilisation.";
 				$this->renderView("ExtendedProfileCreate");
 			}
+			unset($_POST['checkCondition']);
 			$permission = (
 					strcontain($_SESSION['user']->email, "@inria.fr")
 					|| $_SESSION['user']->email=="luigi.liquori@gmail.com"

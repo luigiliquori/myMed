@@ -18,7 +18,7 @@ include("header.php"); ?>
 
 <div data-role="page" id="login">
 	
-	<div data-role="content" style="text-align: center;">
+	<div data-role="content">
 	
 		<!-- Tabs -->
 		<div data-role="header" data-theme="c" data-position="fixed">
@@ -27,15 +27,19 @@ include("header.php"); ?>
 		</div>
 
 		<!-- Login form -->
-		<form  data-role="content" action="index.php?action=login" data-ajax="false" method="post">
+		<form data-role="content" action="index.php?action=login" data-ajax="false" method="post">
 	
-			<div style="margin-top: 10%;" >
-				<input type="text" name="login" placeholder="<?= _("Email") ?>" />
-				<input type="password" name="password" placeholder="<?= _("Password") ?>" />
-				<input type="submit" value="<?= _("Log In") ?>" data-inline="true" class="ui-btn-active ui-state-persist" />
+			<div style="margin-top: 10%;" class="compact">
+				<label for="login" ><?= _("Email") ?></label>
+				<input type="text" id="login" data-inline="true" name="login" placeholder="<?= _("Email") ?>" />
+				<label for="password" style="margin-top:5px;"><?= _("Password") ?></label>
+				<input type="password" id="password" name="password" placeholder="<?= _("Password") ?>" />
+				<div data-role="controlgroup" style="width:auto;text-align: center;" data-type="horizontal">
+					<input type="submit" value="<?= _("Log In") ?>" data-inline="true" class="ui-btn-active ui-state-persist" />
+				</div>
 			</div>
 			
-			<div style="margin-top: 10%;" >
+			<div style="margin-top: 10%; text-align: center;" >
 				<div data-role="collapsible" data-mini="true" data-inline="true">
 					<h3 style="margin:auto;width:136px;"><?= _("About") ?></h3>
 					<?= about(); ?>

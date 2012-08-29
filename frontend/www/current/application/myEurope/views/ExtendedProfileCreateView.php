@@ -18,7 +18,7 @@
 		</fieldset>
 		<br />
 		<div style="text-align: center;" >
-			<a href="#role" type="button" data-inline="true" data-icon="arrow-r" data-theme="b" data-transition="slide"><?= _("Next") ?></a>
+			<a href="#role" type="button" data-inline="true" data-icon="arrow-r" data-transition="slide"><?= _("Next") ?></a>
 		</div>
 		
 	</div>
@@ -51,9 +51,9 @@
 
 <div data-role="page" id="Association" >
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_3(
+		<? tabs_3click(
 				APPLICATION_NAME,
-				"<?= _('Validate') ?>",
+				_('Validate'),
 				"$('#ExtendedProfileForm').submit();",
 				"check") ?>
 	</div>
@@ -99,9 +99,9 @@
 
 <div data-role="page" id="Entreprise" >
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_3(
+		<? tabs_3click(
 				APPLICATION_NAME,
-				"Valider",
+				_('Validate'),
 				"$('#ExtendedProfileForm').submit();",
 				"check") ?>
 	</div>
@@ -146,9 +146,9 @@
 
 <div data-role="page" id="EtabPublic" >
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_3(
+		<? tabs_3click(
 				APPLICATION_NAME,
-				"Valider",
+				_('Validate'),
 				"$('#ExtendedProfileForm').submit();",
 				"check") ?>
 	</div>
@@ -190,9 +190,9 @@
 
 <div data-role="page" id="Mairie" >
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_3(
+		<? tabs_3click(
 				APPLICATION_NAME,
-				"Valider",
+				_('Validate'),
 				"$('#ExtendedProfileForm').submit();",
 				"check") ?>
 	</div>
@@ -231,9 +231,9 @@
 
 <div data-role="page" id="Région" >
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_3(
+		<? tabs_3click(
 				APPLICATION_NAME,
-				"Valider",
+				_('Validate'),
 				"$('#ExtendedProfileForm').submit();",
 				"check") ?>
 	</div>
@@ -284,9 +284,9 @@
 
 <div data-role="page" id="Département" >
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_3(
+		<? tabs_3click(
 				APPLICATION_NAME,
-				"Valider",
+				_('Validate'),
 				"$('#ExtendedProfileForm').submit();",
 				"check") ?>
 	</div>
@@ -341,9 +341,9 @@
 
 <div data-role="page" id="Autre" >
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_3(
+		<? tabs_3click(
 				APPLICATION_NAME,
-				"Valider",
+				_('Validate'),
 				"$('#ExtendedProfileForm').submit();",
 				"check") ?>
 	</div>

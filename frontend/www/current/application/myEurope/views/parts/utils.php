@@ -113,6 +113,22 @@ function tabs($tabs, $activeTab) {
    	</div> <?
    }
    
+   function tabs_3click(
+   		$title,
+   		$button,
+   		$url = "?action=extendedProfile",
+   		$icon = "profile") {
+   
+   	?>
+      	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
+      	<ul>
+      		<li><a data-rel="back" data-icon="back" data-theme="d"><?= _("Back") ?></a></li>
+      		<li><a class="ui-btn-active"><?= $title ?></a></li>
+      		<li><a onclick="<?= $url ?>" data-theme="d" data-icon="<?= $icon ?>"><?= $button ?></a></li>
+      	</ul>
+      	</div> <?
+      }
+   
    function tabs_3empty(
    		$title,
    		$button = APPLICATION_NAME,
@@ -248,8 +264,7 @@ function tabs($tabs, $activeTab) {
 					<ul data-role="listview" data-inset="true" data-theme="d">
 						<li>
 							<h3>
-								<?= $profile->name ?> 
-								<span class="ui-disabled" style="margin-left: 1em;font-size: 14px;"><?= prettyprintId($profile->user) ?></span> 
+								<?= $profile->name ?>
 							</h3>
 							<? if (prettyprintId($profile->user) != $profile->email): ?>
 							<p>
