@@ -25,6 +25,7 @@ public class MyJamId {
 	private static short LONG_BYTESIZE = 8;
 	private static short CHAR_BYTESIZE = 2;
 	private static char SEPARATOR_CHAR = '_';
+	//private static char SEPARATOR_CHAR = '#'; //CR 2012
 	
 	/**
 	 * Public constructor.
