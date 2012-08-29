@@ -180,6 +180,76 @@ function tabs($tabs, $activeTab) {
             	</ul>
             	</div> <?
         }
+        
+        function profileForm($shortRole, $role) {
+        ?>
+<div data-role="page" id="<?= $shortRole ?>" >
+	<div data-role="header" data-theme="c" data-position="fixed">
+		<? tabs_3click(
+				APPLICATION_NAME,
+				_('Validate'),
+				"$('#ExtendedProfileForm').submit();",
+				"check") ?>
+	</div>
+
+	<div data-role="content">
+		<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm">
+			<input type="hidden" name="form" value="create" />
+			<input type="hidden" name="role" value="<?= $role ?>" />
+			
+			<h3 class="ui-link"><?= $role ?></h3>
+			
+			<label for="textinputu1"><?= _('Organization or Company Name') ?>: </label>
+			<input id="textinputu1" name="name" placeholder="" value='' type="text" />
+			
+			<label for="textinputu2"> Domaine d'action: </label>
+			<input id="textinputu2" name="activity" placeholder="" value='' type="text" />
+			
+			<label for="textinputu4"> <?= _('Address') ?>: </label>
+			<input id="textinputu4" name="address" placeholder="" value='' type="text" />
+			
+			<div data-role="fieldcontain">
+			<label for="area">Territoire d'action:</label>
+			<fieldset id="area" data-role="controlgroup">
+				<input type="radio" name="area" id="radio-view-a" value="local" checked="checked"/> <label for="radio-view-a">local</label>
+				<input type="radio" name="area" id="radio-view-b" value="départemental" <?= $shortRole=="Département"?'checked="checked"':'' ?>/> <label for="radio-view-b">départemental</label>
+				<input type="radio" name="area" id="radio-view-c" value="régional" <?= $shortRole=="Région"?'checked="checked"':'' ?>/> <label for="radio-view-c">régional</label>
+				<input type="radio" name="area" id="radio-view-d" value="national" /> <label for="radio-view-d">national</label>
+				<input type="radio" name="area" id="radio-view-e" value="international" /><label for="radio-view-e">international</label>
+			</fieldset>
+			</div>
+			
+			<div data-role="fieldcontain">
+			<label for="type">Type de territoire:</label>
+			<fieldset id="type" data-role="controlgroup">
+				<input type="checkbox" name="type-urbain" id="check-view-a" value="urbain" checked="checked"/> <label for="check-view-a">urbain</label>
+				<input type="checkbox" name="type-rural" id="check-view-b" value="rural" /> <label for="check-view-b">rural</label>
+				<input type="checkbox" name="type-montagnard" id="check-view-c" value="montagnard" /> <label for="check-view-c">montagnard</label>
+				<input type="checkbox" name="type-maritime" id="check-view-d" value="maritime" /> <label for="check-view-d">maritime</label>
+			</fieldset>
+			</div>
+						
+			<label for="textinputu6"> <?= _('Phone') ?>: </label>
+			<input id="textinputu6" name="phone" placeholder="" value='' type="tel" />
+			
+			<label for="desc"> <?= _('Description') ?>: </label>
+			<textarea id="desc" name="desc" placeholder="description, commentaires"></textarea>
+			<br/>
+				
+			<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 8px;"/>
+			<span style="position: relative; left: 50px;">
+				J'accepte les 
+				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a>
+			</span><br />
+			
+			<div style="text-align: center;" >
+				<input type="submit" data-inline="true" data-role="button" data-icon="check" value="Valider"/>
+			</div>
+		</form>
+	</div>
+</div>
+        <?
+        }
             
             
        function about(){

@@ -10,7 +10,7 @@
 	</div>
 	
 	<div data-role="content">
-		<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" data-ajax="false" class="compact">
+		<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" data-ajax="false">
 			<input type="hidden" name="form" value="edit" />
 	
 			<fieldset id="textinputu0" data-role="controlgroup" data-mini="true" data-type="horizontal" style="display:inline-block;vertical-align: middle;">

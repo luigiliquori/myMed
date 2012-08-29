@@ -22,7 +22,7 @@ The following variables are available in the templates :
         Informations :
         <ul>
             <#list publication?keys as key>
-            	<#if key != 'keywords'>
+            	<#if key != 'keywords' && key != 'id' && key != 'user'>
 					<li><b>${key}</b>: ${publication[key]!'N/A'}</li>
 				</#if>
 			</#list>

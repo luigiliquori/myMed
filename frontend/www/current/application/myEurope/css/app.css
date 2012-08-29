@@ -94,12 +94,12 @@
 	 .myLogos img:first-child{ zoom: 90%; }
 }
 
-@media all and (min-width: 450px){
+/*@media all and (min-width: 450px){
 	.myCheck {width: 78%;}
-}
+}*/
 
-.compact label.ui-input-text, .compact input.ui-input-text, .compact textarea.ui-input-text {
-	margin: 0;
+label.ui-input-text{
+	margin-bottom: -.6em;
 }
 
 .wrap span {

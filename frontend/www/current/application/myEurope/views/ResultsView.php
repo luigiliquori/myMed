@@ -14,7 +14,7 @@
 			<label for="radio-view-t"><?= _("title") ?></label>
 			<input onclick="sortBy($(this).val());" type="radio" name="name" id="radio-view-a"value="partner"/>
 			<label for="radio-view-a"><?= _("partner") ?></label>
-			<input data-theme="d" onclick="sortBy($(this).val());" type="radio" name="name" id="radio-view-b" value="date" />
+			<input onclick="sortBy($(this).val());" type="radio" name="name" id="radio-view-b" value="date" />
 			<label for="radio-view-b"><?= _("date") ?></label>
 			<input onclick="sortBy($(this).val());" type="radio" name="name" id="radio-view-e" value="reputation" />
 			<label for="radio-view-e"><?= _("reputation") ?></label>

@@ -9,7 +9,7 @@ include("header.php"); ?>
  /** Definition of the Login / Register tabs */
  function tab_bar($activeTab) {
  	tabs(array(
- 			"login" =>  _('Log In') ,
+ 			"login" =>  APPLICATION_NAME,
  			"register" => _('Registration')), 
  		$activeTab);
  }
@@ -29,7 +29,7 @@ include("header.php"); ?>
 		<!-- Login form -->
 		<form data-role="content" action="index.php?action=login" data-ajax="false" method="post">
 	
-			<div style="margin-top: 10%;" class="compact">
+			<div style="margin-top: 10%;">
 				<label for="login" ><?= _("Email") ?></label>
 				<input type="text" id="login" data-inline="true" name="login" placeholder="<?= _("Email") ?>" />
 				<label for="password" style="margin-top:5px;"><?= _("Password") ?></label>
@@ -67,29 +67,25 @@ include("header.php"); ?>
 		</div>
 
 		<!--  Register form -->
-		<form data-role="content" action="index.php?action=register" method="post" class="compact">
+		<form data-role="content" action="index.php?action=register" method="post">
 		
 			<label for="prenom"><?= _("first name") ?></label>
 			<input id="prenom" type="text" name="prenom" value="" />
-			<br/>
 			
 			<label for="nom"><?= _("last name") ?></label>
 			<input id="nom" type="text" name="nom" value="" />
-			<br/>
 			
 			<label for="email" ><?= _("Email") ?></label>
 			<input type="text" id="email" name="email" value="" />
-			<br/>
 			
 			<label for="password" ><?= _("Password") ?></label>
-			<input type="password" name="password" />
+			<input type="password" id="password" name="password" />
+			
+			<label for="confirm" ><?= _("Password (confirmation)") ?></label>
+			<input type="password" id="confirm" name="confirm" />
 			<br/>
 			
-			<label for="password" ><?= _("Password (confirmation)") ?></label>
-			<input type="password" name="confirm" id="confirm" />
-			<br/>
-			
-			<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 13px;"/>
+			<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 8px;"/>
 			<span style="position: relative; left: 50px;">
 				J'accepte les 
 				<a href="<?= MYMED_ROOT ?>/application/myMed/conds" rel="external">conditions d'utilisation</a>

@@ -2,7 +2,7 @@
 
 <div data-role="page">
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_2(APPLICATION_NAME) ?>
+		<? tabs_3(APPLICATION_NAME, $_SESSION['user']->name) ?>
 		<? include("notifications.php"); ?>
 	</div>
 	<div data-role="content" style="text-align:center;">
@@ -25,366 +25,52 @@
 	
 </div>
 
+<?
+
+$cats = array(
+		"Association, coopérative, mutuelle",
+		"Entreprise privée",
+		"Chambre consulaire, groupement professionnel",
+		"Université, organisme de recherche",
+		"Commune, intercommunalité (communauté de communes, agglomération, métropole), autre établissement public communal ou intercommunal",
+		"Département, établissement public départemental",
+		"Région, établissement public régional",
+		"Service de l’Etat, établissement public de l’Etat",
+		"Autre établissement ou groupement public",
+		"Autre"
+		);
+
+$shortCats = array_map("short", $cats);
+
+function short($w){
+	$pieces = preg_split("/[^a-zA-Z0-9_é]/", $w);
+	return $pieces[0].(count($pieces)>1?strlen($pieces[1])>2?$pieces[1]:'':'');
+}
+
+?>
+
 <div data-role="page" id="role">
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_2(APPLICATION_NAME) ?>
+		<? tabs_3(APPLICATION_NAME, $_SESSION['user']->name) ?>
 	</div>
 	<div data-role="content">
 		<p>
 		<?= _("Hello,<br/><br/>This is your first time on myEurope.<br/>
 				 Please fill in your profile <br/>
 			You are ?<br/> ") ?>
-
-			<ul data-role="listview" data-inset="true">
-				<li><a href="#Association"><?= _("Association") ?></a></li>
-				<li><a href="#Entreprise"><?= _("Company") ?></a></li>
-				<li><a href="#EtabPublic"><?= _("State-owned enterprise") ?></a></li>
-				<li><a href="#Mairie"><?= _("Town hall") ?> </a></li>
-				<li><a href="#Région"><?= _("Region") ?></a></li>
-				<li><a href="#Département"><?= _("Department") ?></a></li>
-				<li><a href="#Autre">... <?= _("Other") ?></a></li>
-			</ul> 
-		</p>	
+		</p>
+		<ul data-role="listview" data-inset="true">
+		<? foreach (range(0, count($cats)-1) as $i) :?>
+			<li><a href="#<?= $shortCats[$i] ?>"><?= $cats[$i] ?></a></li>
+		<? endforeach ?>
+		</ul> 
 	</div>
 	
 </div>
 
-<div data-role="page" id="Association" >
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_3click(
-				APPLICATION_NAME,
-				_('Validate'),
-				"$('#ExtendedProfileForm').submit();",
-				"check") ?>
-	</div>
-
-	<div data-role="content">
-		<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" class="compact">
-			<input type="hidden" name="form" value="create" />
-			<input type="hidden" name="role" value="Association" />
-			
-			<label for="textinputu1"><?= _('Association Name') ?>: </label>
-			<input id="textinputu1" name="name" placeholder="" value='' type="text" />
-			
-			<label for="textinputu2"> Domaine d'action: </label>
-			<input id="textinputu2" name="activity" placeholder="" value='' type="text" />
-			
-			<label for="textinputu3"> N°SIRET: </label>
-			<input id="textinputu3" name="siret" placeholder="" value='' type="text" />
-			
-			<label for="textinputu4"> Adresse: </label>
-			<input id="textinputu4" name="address" placeholder="" value=''type="text" />
-
-			<label for="textinputu5"> <?= _('Email') ?>: </label>
-			<input id="textinputu5" name="email" placeholder="" value='<?= $_SESSION['user']->email ?>' type="email" />
-			
-			<label for="textinputu6"> <?= _('Phone') ?>: </label>
-			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
-			<br/>
-			<textarea id="desc" name="desc" placeholder="description, commentaires"></textarea>
-			<br/>
-				
-			<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 13px;"/>
-			<span style="position: relative; left: 50px;">
-				J'accepte les 
-				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a>
-			</span><br />
-			
-			<div style="text-align: center;" >
-				<input type="submit" data-inline="true" data-role="button" data-icon="check" value="Valider"/>
-			</div>
-		</form>
-	</div>
-</div>
-
-<div data-role="page" id="Entreprise" >
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_3click(
-				APPLICATION_NAME,
-				_('Validate'),
-				"$('#ExtendedProfileForm').submit();",
-				"check") ?>
-	</div>
-
-	<div data-role="content">
-		<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" class="compact">
-			<input type="hidden" name="form" value="create" />
-			<input type="hidden" name="role" value="Entreprise" />
-			
-			<label for="textinputu1"> <?= _('Company name') ?>: </label>
-			<input id="textinputu1" name="name" placeholder="" value='' type="text" />
-			
-			<label for="textinputu2"> <?= _('Commercial activity') ?>: </label>
-			<input id="textinputu2" name="activity" placeholder="" value='' type="text" />
-			
-			<label for="textinputu3"> <?= _('Siret') ?>: </label>
-			<input id="textinputu3" name="siret" placeholder="" value='' type="text" />
-			
-			<label for="textinputu4"> <?= _('Address') ?>: </label>
-			<input id="textinputu4" name="address" placeholder="" value=''type="text" />
-
-			<label for="textinputu5"> <?= _('Email') ?>: </label>
-			<input id="textinputu5" name="email" placeholder="" value='<?= $_SESSION['user']->email ?>' type="email" />
-			
-			<label for="textinputu6"> <?= _('Phone') ?>: </label>
-			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
-			<br/>
-			<textarea id="desc" name="desc" placeholder="description, commentaires"></textarea>
-			<br/>
-				
-			<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 13px;"/>
-			<span style="position: relative; left: 50px;">
-				J'accepte les 
-				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a>
-			</span><br />
-			<div style="text-align: center;" >
-				<input type="submit" data-inline="true" data-role="button" data-icon="check" value="Valider"/>
-			</div>
-		</form>
-	</div>
-</div>
-
-<div data-role="page" id="EtabPublic" >
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_3click(
-				APPLICATION_NAME,
-				_('Validate'),
-				"$('#ExtendedProfileForm').submit();",
-				"check") ?>
-	</div>
-
-	<div data-role="content">
-		<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" class="compact">
-			<input type="hidden" name="form" value="create" />
-			<input type="hidden" name="role" value="EtabPublic" />
-			
-			<label for="textinputu1"> Nom de l’établissement: </label>
-			<input id="textinputu1" name="name" placeholder="" value='' type="text" />
-			
-			<label for="textinputu2"> Type d’établissement: </label>
-			<input id="textinputu2" name="activity" placeholder="" value='' type="text" />
-			
-			<label for="textinputu4"> Adresse: </label>
-			<input id="textinputu4" name="address" placeholder="" value=''type="text" />
-
-			<label for="textinputu5"> <?= _('Email') ?>: </label>
-			<input id="textinputu5" name="email" placeholder="" value='<?= $_SESSION['user']->email ?>' type="email" />
-			
-			<label for="textinputu6"> <?= _('Phone') ?>: </label>
-			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
-			<br/>
-			<textarea id="desc" name="desc" placeholder="description, commentaires"></textarea>
-			<br/>
-				
-			<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 13px;"/>
-			<span style="position: relative; left: 50px;">
-				J'accepte les 
-				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a>
-			</span><br />
-			<div style="text-align: center;" >
-				<input type="submit" data-inline="true" data-role="button" data-icon="check" value="Valider"/>
-			</div>
-		</form>
-	</div>
-</div>
-
-<div data-role="page" id="Mairie" >
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_3click(
-				APPLICATION_NAME,
-				_('Validate'),
-				"$('#ExtendedProfileForm').submit();",
-				"check") ?>
-	</div>
-
-	<div data-role="content">
-		<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" class="compact">
-			<input type="hidden" name="form" value="create" />
-			<input type="hidden" name="role" value="Mairie" />
-			
-			<label for="textinputu1"> Ville/Commune: </label>
-			<input id="textinputu1" name="name" placeholder="" value='' type="text" />
-			
-			<label for="textinputu4"> Adresse: </label>
-			<input id="textinputu4" name="address" placeholder="" value=''type="text" />
-
-			<label for="textinputu5"> <?= _('Email') ?>: </label>
-			<input id="textinputu5" name="email" placeholder="" value='<?= $_SESSION['user']->email ?>' type="email" />
-			
-			<label for="textinputu6"> <?= _('Phone') ?>: </label>
-			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
-			<br/>
-			<textarea id="desc" name="desc" placeholder="description, commentaires"></textarea>
-			<br/>
-				
-			<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 13px;"/>
-			<span style="position: relative; left: 50px;">
-				J'accepte les 
-				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a>
-			</span><br />
-			<div style="text-align: center;" >
-				<input type="submit" data-inline="true" data-role="button" data-icon="check" value="Valider"/>
-			</div>
-		</form>
-	</div>
-</div>
-
-<div data-role="page" id="Région" >
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_3click(
-				APPLICATION_NAME,
-				_('Validate'),
-				"$('#ExtendedProfileForm').submit();",
-				"check") ?>
-	</div>
-
-	<div data-role="content">
-		<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" class="compact">
-			<input type="hidden" name="form" value="create" />
-			<input type="hidden" name="role" value="Région" />
-			
-			<div data-role="fieldcontain" class="mySlider">
-				<label for="flip-a2">Vous êtes:</label>
-				<select data-theme="b" name="activity" id="flip-a2" data-role="slider"
-					onchange="">
-					<option value="cr">Conseil Régional</option>
-					<option value="pr">Préfecture de Région</option>
-				</select>
-			</div>
-			<div data-role="fieldcontain">
-				<fieldset data-role="controlgroup"  class="myCheck">
-					<input type="radio" name="name" id="radio-view-a" value="PACA" /> <label for="radio-view-a">PACA</label>
-					<input type="radio" name="name" id="radio-view-e" value="Rhône-Alpes" /><label for="radio-view-e">Rhône-Alpes</label>
-				</fieldset>
-			</div>
-			
-			<label for="textinputu4"> Adresse: </label>
-			<input id="textinputu4" name="address" placeholder="" value=''type="text" />
-
-			<label for="textinputu5"> <?= _('Email') ?>: </label>
-			<input id="textinputu5" name="email" placeholder="" value='<?= $_SESSION['user']->email ?>' type="email" />
-			
-			<label for="textinputu6"> <?= _('Phone') ?>: </label>
-			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
-			<br/>
-			<textarea id="desc" name="desc" placeholder="description, commentaires"></textarea>
-			<br/>
-				
-			<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 13px;"/>
-			<span style="position: relative; left: 50px;">
-				J'accepte les 
-				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a>
-			</span><br />
-			<div style="text-align: center;" >
-				<input type="submit" data-inline="true" data-role="button" data-icon="check" value="Valider"/>
-			</div>
-		</form>
-	</div>
-</div>
-
-<div data-role="page" id="Département" >
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_3click(
-				APPLICATION_NAME,
-				_('Validate'),
-				"$('#ExtendedProfileForm').submit();",
-				"check") ?>
-	</div>
-
-	<div data-role="content">
-		<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" class="compact">
-			<input type="hidden" name="form" value="create" />
-			<input type="hidden" name="role" value="Département" />
-			
-			<div data-role="fieldcontain" class="mySlider">
-				<label for="flip-a2">Vous êtes:</label>
-				<select data-theme="b" name="activity" id="flip-a2" data-role="slider"
-					onchange="">
-					<option value="cg">Conseil Général</option>
-					<option value="pd">Préfecture de Département</option>
-				</select>
-			</div>
-			<div data-role="fieldcontain">
-				<fieldset data-role="controlgroup" class="myCheck">
-
-					<input type="radio" name="name" id="radio-view-a" value="Alpes-Maritimes" /> <label for="radio-view-a">Alpes-Maritimes</label>
-					<input type="radio" name="name" id="radio-view-b" value="Alpes de Haute-Provence" /> <label for="radio-view-b">Alpes de Haute-Provence</label>
-					<input type="radio" name="name" id="radio-view-c" value="Hautes-Alpes" /> <label for="radio-view-c">Hautes-Alpes</label>
-					<input type="radio" name="name" id="radio-view-d" value="Savoie" /> <label for="radio-view-d">Savoie</label>
-					<input type="radio" name="name" id="radio-view-e" value="Haute-Savoie" /><label for="radio-view-e">Haute-Savoie</label>
-				</fieldset>
-			</div>
-			
-			<label for="textinputu4"> Adresse: </label>
-			<input id="textinputu4" name="address" placeholder="" value=''type="text" />
-
-			<label for="textinputu5"> <?= _('Email') ?>: </label>
-			<input id="textinputu5" name="email" placeholder="" value='<?= $_SESSION['user']->email ?>' type="email" />
-			
-			<label for="textinputu6"> <?= _('Phone') ?>: </label>
-			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
-			<br/>
-			<textarea id="desc" name="desc" placeholder="description, commentaires"></textarea>
-			<br/>
-				
-			<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 13px;"/>
-			<span style="position: relative; left: 50px;">
-				J'accepte les 
-				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a>
-			</span><br />
-			<div style="text-align: center;" >
-				<input type="submit" data-inline="true" data-role="button" data-icon="check" value="Valider"/>
-			</div>
-		</form>
-	</div>
-</div>
-
-<div data-role="page" id="Autre" >
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_3click(
-				APPLICATION_NAME,
-				_('Validate'),
-				"$('#ExtendedProfileForm').submit();",
-				"check") ?>
-	</div>
-
-	<div data-role="content">
-		<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" class="compact">
-			<input type="hidden" name="form" value="create" />
-			<input type="hidden" name="role" value="Autre" />
-			
-			<label for="textinputu1"> Nom: </label>
-			<input id="textinputu1" name="name" placeholder="" value='<?= $_SESSION['user']->name ?>' type="text" />
-			
-			<label for="textinputu2"> Activité exercée: </label>
-			<input id="textinputu2" name="activity" placeholder="" value='' type="text" />
-			
-			<input id="textinputu3" name="siret" placeholder="" value='' type="hidden" />
-			
-			<label for="textinputu4"> Adresse: </label>
-			<input id="textinputu4" name="address" placeholder="" value=''type="text" />
-
-			<label for="textinputu5"> <?= _('Email') ?>: </label>
-			<input id="textinputu5" name="email" placeholder="" value='<?= $_SESSION['user']->email ?>' type="email" />
-			
-			<label for="textinputu6"> <?= _('Phone') ?>: </label>
-			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
-			<br/>
-			<textarea id="desc" name="desc" placeholder="description, commentaires"></textarea>
-			<br/>
-				
-			<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 13px;"/>
-			<span style="position: relative; left: 50px;">
-				J'accepte les 
-				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a>
-			</span><br />
-			
-			<div style="text-align: center;" >
-				<input type="submit" data-inline="true" data-role="button" data-icon="check" value="<?= _('Validate') ?>"/>
-			</div>
-		</form>
-	</div>
-</div>
+<? foreach (range(0, count($cats)-1) as $i) :?>
+	<?= profileForm($shortCats[$i], $cats[$i]) ?>
+<? endforeach ?>
 
 
 <? include("footer.php"); ?>

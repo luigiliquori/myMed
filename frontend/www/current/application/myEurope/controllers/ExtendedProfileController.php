@@ -86,7 +86,8 @@ class ExtendedProfileController extends AuthenticatedController
 			$_POST['permission'] = $permission;
 			
 			$_POST['user'] = $_SESSION['user']->id;
-			
+			$_POST['email'] = $_SESSION['user']->email;
+			debug_r($_POST);
 			$publish =  new RequestJson($this,
 					array("application"=>APPLICATION_NAME.":users", "id"=>$_SESSION['user']->id, "data"=>$_POST),
 					CREATE);
