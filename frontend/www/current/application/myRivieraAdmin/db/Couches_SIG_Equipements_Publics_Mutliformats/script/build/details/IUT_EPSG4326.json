@@ -1,7 +1,0 @@
-{
-"type": "FeatureCollection",
-"features": [
-{ "type": "Feature", "properties": { "Type": "IUT_EPSG4326", "Nom": "IUT", "Description": "Institut universitaire de technologie Nice-Côte d'Azur, site de Menton, université de Nice Sophia-Antipolis", "Adresse": "Chemin du Collège 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.500920, 43.777657 ] } }
-
-]
-}

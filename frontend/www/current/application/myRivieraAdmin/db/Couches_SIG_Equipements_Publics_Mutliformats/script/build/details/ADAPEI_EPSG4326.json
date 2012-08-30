@@ -1,7 +1,0 @@
-{
-"type": "FeatureCollection",
-"features": [
-{ "type": "Feature", "properties": { "Type": "ADAPEI_EPSG4326", "Nom": "ADAPEI", "Description": "04 93 28 46 12", "Adresse": "20 rue des Soeurs Munet 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.492455, 43.774314 ] } }
-
-]
-}
