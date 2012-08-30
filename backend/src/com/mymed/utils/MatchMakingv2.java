@@ -1,5 +1,6 @@
 package com.mymed.utils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -100,6 +101,13 @@ public class MatchMakingv2{
 			l.set(i, s + l.get(i));
 		}
 		return l;
+	}
+	
+	public static List<String> prefix2(String s, List<String> l){
+		List<String> res = new ArrayList<String>();
+		for (String i : l)
+			res.add(s + i);
+		return res;
 	}
 	
 	

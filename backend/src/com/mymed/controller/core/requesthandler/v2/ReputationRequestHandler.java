@@ -62,7 +62,6 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
     public ReputationRequestHandler() throws ServletException {
         super();
         reputationManager = new ReputationManager();
-        listType = new TypeToken<List<String>>() {}.getType();
     }
 
     /*

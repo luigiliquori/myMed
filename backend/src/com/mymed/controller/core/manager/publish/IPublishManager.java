@@ -15,7 +15,6 @@
  */
 package com.mymed.controller.core.manager.publish;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +44,7 @@ public interface IPublishManager {
 	
 
 	/**
-	 * reads all Data (return val modified from v1)
+	 * reads details of a data (return val modified from v1)
 	 */
 	Map<String, String> read(String id)
 			throws InternalBackEndException, IOBackEndException;
@@ -55,6 +54,16 @@ public interface IPublishManager {
 	 */
 	String read(String id, String key )
 			throws InternalBackEndException, IOBackEndException;
+	
+	/**
+	 * reads details of a list of id's, Beware don't confuse with read(
+			List<String> predicate,
+			String start,
+			String finish) 
+		just differs with arguments
+	 */
+	Map<String, Map<String, String>> read(List<String> ids)
+			throws InternalBackEndException, IOBackEndException;
 
 	/**
 	 * reads results for the given predicate rows
@@ -63,7 +72,7 @@ public interface IPublishManager {
 			List<String> predicate,
 			String start,
 			String finish) 
-					throws InternalBackEndException, IOBackEndException, UnsupportedEncodingException;
+					throws InternalBackEndException, IOBackEndException;
 	
 	
 	

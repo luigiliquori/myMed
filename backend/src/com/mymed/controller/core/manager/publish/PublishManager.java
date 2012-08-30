@@ -100,13 +100,19 @@ public class PublishManager extends AbstractManager implements IPublishManager {
 
 		return map;
 	}
-
-	/** read detail 1-item */
+	/* 1-item */
 	@Override
 	public String read(final String id, final String key)
 			throws InternalBackEndException, IOBackEndException {
 
 		return storageManager.selectColumnStr(CF_DATA, id, key);
+	}
+	/* more than 1 row */
+	@Override
+	public Map<String, Map<String, String>> read(List<String> ids)
+			throws InternalBackEndException, IOBackEndException {
+		
+		return storageManager.multiSelectList(CF_DATA, ids, "", "");
 	}
 
 	/** read results */

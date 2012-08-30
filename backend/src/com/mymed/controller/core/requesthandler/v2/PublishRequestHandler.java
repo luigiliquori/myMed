@@ -157,17 +157,29 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 			
 			if (id != null) {
 				// Get DATA (details)
-				final Map<String, String> details = dataManager.read(in.getApplication() + id);
-				if (details.isEmpty()){
-					out.setStatus(404);
-					out.setDescription("No results found!");
-					break;
-				}
-				
-				out.setDescription("Details found for predicate: " + id);
-				LOGGER.info("Details found for predicate: " + id);
+				if (id.startsWith("[")){ //we've a list of ids coming
+					List<String> ids = gson.fromJson(id, listType);
+					ids = prefix(in.getApplication(), ids);
+					final Map<String, Map<String, String>> details = dataManager.read(ids); 
+					
+					out.setDescription("Details found for predicate: " + id);
+					LOGGER.info("Details found for predicate: " + id);
 
-				out.addDataObject(JSON_DETAILS, details);
+					out.addDataObject(JSON_DETAILS, details);
+					
+				} else { //read a simple row id
+					final Map<String, String> details = dataManager.read(in.getApplication() + id);
+					if (details.isEmpty()){
+						out.setStatus(404);
+						out.setDescription("No results found!");
+						break;
+					}
+					out.setDescription("Details found for predicate: " + id);
+					LOGGER.info("Details found for predicate: " + id);
+
+					out.addDataObject(JSON_DETAILS, details);
+				}
+
 			} else if (in.getPredicates() != null) {
 
 				/* generate the ROWS to search */

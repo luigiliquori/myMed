@@ -76,6 +76,8 @@ public abstract class AbstractRequestHandler extends com.mymed.controller.core.r
         predicateType = new TypeToken<List<DataBean>>() {}.getType();
         xType = new TypeToken<Map<String, List<String>>>() {}.getType();
         
+        listType = new TypeToken<List<String>>() {}.getType();
+        
     }
 	
 	@Override
