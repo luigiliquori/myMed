@@ -9,6 +9,8 @@ include_once('../../../application/myEurope/views/parts/utils.php');
 session_start();
 
 $request = new RequestJson(null, $_GET);
+if ($request->hasArgument('application'))
+	$request->addArgument('application', $_GET['application'].":users");
 
 $res = $request->send();
 if (!empty($res)){
@@ -19,7 +21,7 @@ if (!empty($res)){
 
 session_write_close();
 
-printProfile($res->details, $_GET['id']);
+printProfile($res->details);
 
 // echo json_encode($res);
 

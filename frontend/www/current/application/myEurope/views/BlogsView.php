@@ -74,8 +74,8 @@
 		<div data-role="popup" id="commentPopup" data-theme="none">
 			<div data-role="controlgroup" data-mini="true">
 				<a onclick="setReplyForm();" data-rel="back" data-icon="forward" data-role="button" data-theme="d" data-mini="true">reply</a>
-				<a data-role="button" data-icon="thumb" onclick="var id=$('#deleteField').val();rate(1, id);">12</a>
-				<a data-role="button" style="color:gray;" data-icon="minus" onclick="var id=$('#deleteField').val();rate(0, id);">5</a>
+				<a data-role="button" data-icon="thumb" onclick="var id=$('#deleteField').val();rate(1, id, user);">12</a>
+				<a data-role="button" style="color:gray;" data-icon="minus" onclick="var id=$('#deleteField').val();rate(0, id, user);">5</a>
 				<a onclick="if($('#deleteRm').val()==''){$('#deleteMessageForm').submit();}else{commentRm('<?= $this->blog ?>', $('#deleteRm').val(), $('#deleteField').val());}" data-role="button" data-theme="d" data-icon="delete" data-mini="true">remove</a>
 			</div>
 		</div>

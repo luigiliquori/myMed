@@ -15,7 +15,7 @@ public class MReputationEntity extends AbstractMBean {
 	private boolean dirty;
 	
 	/** true is you consumer have already voted on that Id @see ReputationManager */
-	private transient boolean rated; 
+	private boolean rated; 
 	
 
 	public MReputationEntity() {

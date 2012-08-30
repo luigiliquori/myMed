@@ -10,8 +10,8 @@
 	<div data-role="content" >
 	
 		<div class="ui-li-aside" data-role="controlgroup" style="width:auto;" data-type="horizontal" data-mini="true">
-			<a data-role="button" style="color:gray;" data-icon="minus" onclick="rate(0, '<?= $this->id ?>', '<?= $this->id ?>');"><?= $this->reputation['down'] ?></a>
-			<a data-role="button" style="color:blue;" data-icon="plus" onclick="rate(1, '<?= $this->id ?>', '<?= $this->id ?>');"><?= $this->reputation['up'] ?></a>
+			<a data-role="button" style="color:gray;" data-icon="minus" onclick="rate(0, '<?= $this->id ?>');"><?= $this->reputation['down'] ?></a>
+			<a data-role="button" style="color:blue;" data-icon="plus" onclick="rate(1, '<?= $this->id ?>');"><?= $this->reputation['up'] ?></a>
 		</div>
 		
 		<?= $this->details->text ?>

@@ -102,19 +102,21 @@ $(".loadCLE").live("expand", function(e) {
 	isCLELoaded = true;
 });
 
-function rate(feedback, id, user) {
+function rate(feedback, id, usr) {
 	
-	if (user == undefined)
-		user = id;
-	
-	$.get('../../lib/dasp/ajax/Interaction', {
-		application : application,
-		predicate : id,
-		producer : user,
-		feedback : feedback
-	}, function(data) {
-		console.log(data);
-		var response = JSON.parse(data);
+	var data = {
+			application : application,
+			producer : id,
+			feedback : feedback
+		};
+	/*if (usr != undefined){
+		data['producer'] = usr;
+		data['predicate'] = id;
+	}*/
+	console.log(data);
+	$.get('../../lib/dasp/ajax/Interaction', data, function(res) {
+		console.log(res);
+		var response = JSON.parse(res);
 		$('#Blog #notification-success h3').text(response.description);
 		$('#Blog #notification-success').show();
 		//location.reload(0);
@@ -199,14 +201,13 @@ function show(el){
 	me.closest('ul').listview('refresh');
 }
 
-
-
-function setCommentForm(comment, post, votesUp, votesDown){
+function setCommentForm(comment, post, votesUp, votesDown, usr){
 	$('#deleteField').val(comment);
 	$('#deleteRm').val(post);
 	$('#commentPopup a:eq(1) .ui-btn-text').text(votesUp);
 	$('#commentPopup a:eq(2) .ui-btn-text').text(votesDown);
 }
+
 function setReplyForm(){
 	
 	if (!$('#'+$('#deleteField').val()).next().is('form')){
@@ -245,7 +246,7 @@ function showComment() {
 
 function profile(user){
 	$.get('../../lib/dasp/ajax/ExtendedProfile', {
-		application: application+":users",
+		application: application,
 		id : user,
 	}, function(res) {
 		//console.log(res);
@@ -288,7 +289,7 @@ var li =
 	' &ndash; in reply of <span class="ui-link" onclick="show($(this));">'+$('#'+replyTo+' .ui-link:last').text() +'\'s comment</span>'
 	:'')+
 	' &ndash; <span class="ui-link"onclick="profile(\''+response.user+'\');" >'+prettyprintUser(response.user)+'</span> <time>'+response.time+'</time></p>'+
-'</a><a href="#commentPopup" data-rel="popup" data-position-to="origin" onclick="setCommentForm(\''+response.field+'\', \''+commentTo+'\', 0, 0);">options</a>'+
+'</a><a href="#commentPopup" data-rel="popup" data-position-to="origin" onclick="setCommentForm(\''+response.field+'\', \''+commentTo+'\', 0, 0, \''+response.user+'\');">options</a>'+
 '</li>';
 
 if (replyTo == 0)

@@ -104,7 +104,7 @@ function comments(
 		 &ndash; in reply of <span class="ui-link" onclick="show($(this));"><?= prettyprintUser($arr[$v['replyTo']]['user']) ?>'s comment</span>
 		<? endif ?>
 		 &ndash; <span class="ui-link" onclick="profile('<?= $v['user'] ?>')"><?= prettyprintUser($v['user'] ) ?></span> <time><?= date('j/n/y G:i', $v['time'] ) ?></time></p>
-	</a><a href="#commentPopup" data-rel="popup" data-position-to="origin" onclick="setCommentForm('<?= $id ?>', '<?= $container ?>', '<?= $v['up'] ?>', '<?= $v['down']  ?>');">options</a>
+	</a><a href="#commentPopup" data-rel="popup" data-position-to="origin" onclick="setCommentForm('<?= $id ?>', '<?= $container ?>', '<?= $v['up'] ?>', '<?= $v['down']  ?>', '<?= $v['user'] ?>');">options</a>
 </li>
 	<?
 	endforeach;

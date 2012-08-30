@@ -15,11 +15,8 @@ import com.mymed.controller.core.manager.AbstractManager;
 import com.mymed.controller.core.manager.reputation.api.mymed_ids.MymedAppUserId;
 import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.controller.core.manager.storage.v2.StorageManager;
-import com.mymed.model.data.interaction.MInteractionBean;
 import com.mymed.model.data.reputation.MReputationEntity;
-import com.mymed.model.data.session.MAuthenticationBean;
 import com.mymed.utils.MConverter;
-import com.mymed.utils.MiscUtils;
 
 public class ReputationManager extends AbstractManager{
 	
@@ -36,6 +33,9 @@ public class ReputationManager extends AbstractManager{
 	
 	public MReputationEntity read(final MymedAppUserId key, String consumer){
 		final Map<byte[], byte[]> args = storageManager.selectAll("ReputationEntity", key.getPrimaryId());
+		
+		LOGGER.info(" >>rep>> {}", key.getPrimaryId());
+		
 		MReputationEntity reputationEntity = (MReputationEntity) introspection(MReputationEntity.class, args);
 		
 		String[] pieces = key.getPrimaryId().split("\\|");
@@ -45,6 +45,7 @@ public class ReputationManager extends AbstractManager{
     	reputationEntity.setRated(false);
 		
 		final Map<byte[], byte[]> existingInteractionMap = storageManager.selectAll(CF_INTERACTION, pieces[1]+pieces[2]+consumer);
+		
 		if (existingInteractionMap.size() > 0)
 			reputationEntity.setRated(true);
 		
@@ -57,6 +58,8 @@ public class ReputationManager extends AbstractManager{
 		for (MymedAppUserId id : keys){
 			keysStr.add(id.getPrimaryId());
 		}
+		
+		LOGGER.info(" >>reps>> {}", keysStr);
 		
 		Map<ByteBuffer, List<ColumnOrSuperColumn>> map = storageManager.batch_read("ReputationEntity", keysStr);
 		
@@ -82,13 +85,15 @@ public class ReputationManager extends AbstractManager{
         	}
         		
         }
-
-		map = storageManager.batch_read(CF_INTERACTION, keysStr);
+        List<String> itrkeys = new ArrayList<String>(interactionToProducer.keySet());
+        LOGGER.info(" >>>> {}", interactionToProducer);
+		map = storageManager.batch_read(CF_INTERACTION, itrkeys);
 		for (Entry<ByteBuffer, List<ColumnOrSuperColumn>> entry : map.entrySet()) {
-
-			String key = MConverter.byteBufferToString(entry.getKey());
 			
-			if (interactionToProducer.containsKey(key))
+			String key = MConverter.byteBufferToString(entry.getKey());
+			Map<byte[], byte[]> args = MConverter.columnsToMap(entry.getValue());
+			LOGGER.info(" >> {} with {}", key, args.size());
+			if (args.size() > 0)
 				res.get(interactionToProducer.get(key)).setRated(true);
 		}
 		

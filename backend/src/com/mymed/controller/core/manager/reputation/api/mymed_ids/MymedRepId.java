@@ -39,6 +39,11 @@ public class MymedRepId implements IMymedRepId{
 
     protected String primaryId;
     protected ArrayList<String> allIds = new ArrayList<String>(8);
+    
+    protected static final String AppUserPrefix = "00";  ///  app/user combinations
+    protected static final String AppPrefix = "01";  /// just app related
+    protected static final String UserPrefix = "02";  /// just person related
+    protected static final String SystemPrefix = "03"; /// for system use only
 
     @Override
     public ArrayList<String> getEntityIds() {
@@ -91,11 +96,6 @@ public class MymedRepId implements IMymedRepId{
     protected static String MakeSystemId(String uniqueId) {
         return SystemPrefix + PKConstants.SEPARATOR_CHAR + uniqueId;
     }
-
-    protected static final String AppUserPrefix = "00";  ///  app/user combinations
-    protected static final String AppPrefix = "01";  /// just app related
-    protected static final String UserPrefix = "02";  /// just person related
-    protected static final String SystemPrefix = "03"; /// for system use only
 
 
 }

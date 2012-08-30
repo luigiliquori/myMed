@@ -52,7 +52,7 @@ class BlogController extends ExtendedProfileRequired {
 				}
 
 				$publish = new RequestJson($this,
-						array("application"=>APPLICATION_NAME.":blogs", "id"=>$id, "data"=>json_encode($data)),
+						array("application"=>APPLICATION_NAME.":blogs", "id"=>$id, "data"=>$data),
 						UPDATE);
 				$publish->send();
 			}

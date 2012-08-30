@@ -42,7 +42,8 @@ class Reputationv2 extends Requestv2 {
 	/* Public methods */
 	/* --------------------------------------------------------- */
 	public /*String*/ function send(){
-		parent::addArgument("application", APPLICATION_NAME);
+		parent::addArgument("application", isset($_GET['application'])?$_GET['application']:APPLICATION_NAME);
+		parent::addArgument("consumer", $_SESSION['user']->id );
 		if ( is_array($this->id))
 			parent::addArgument("producers", json_encode($this->id));
 		else
