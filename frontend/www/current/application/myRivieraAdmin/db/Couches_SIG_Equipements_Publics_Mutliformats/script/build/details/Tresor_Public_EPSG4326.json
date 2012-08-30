@@ -1,9 +1,0 @@
-{
-"type": "FeatureCollection",
-"features": [
-{ "type": "Feature", "properties": { "Type": "Tresor_Public_EPSG4326", "Nom": "Trésor Public", "Description": "", "Adresse": "8 avenue Jean Médecin 06380 SOSPEL", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.446163, 43.878020 ] } }
-,
-{ "type": "Feature", "properties": { "Type": "Tresor_Public_EPSG4326", "Nom": "Perception municipale de Menton", "Description": "", "Adresse": "Le Triton 5 rue Victor Hugo 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.495297, 43.774066 ] } }
-
-]
-}
