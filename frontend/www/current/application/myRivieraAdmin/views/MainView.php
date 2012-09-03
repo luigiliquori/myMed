@@ -50,8 +50,8 @@
 			
 			<div data-role="collapsible" data-theme="d" data-content-theme="c" data-collapsed="true" Style="text-align: left;">
 			    <h3>Avancé</h3>
-			    <div style="color: gray;">
-			   		<h4>Example:</h4>
+			    <div data-role="collapsible" data-theme="a" data-content-theme="c" data-collapsed="true" Style="text-align: left; color: gray;">
+			   		<h3>Example CARF:</h3>
 					[<br/>
 					{<br/>
 					"type": "FeatureCollection",<br/>
@@ -77,6 +77,26 @@
 					]<br/>
 					}<br/>
 					]<br/>
+			   </div>
+			   <div data-role="collapsible" data-theme="a" data-content-theme="c" data-collapsed="true" Style="text-align: left; color: gray;">
+			   		<h3>Example Pays Paillons:</h3>
+					[<br/>
+						<span Style="position: relative; left: 20px;">{<br /></span>
+							<span Style="position: relative; left: 50px;">"Type":"Adresses_Utiles_ Services",<br /></span>
+							<span Style="position: relative; left: 50px;">"SousType":"Eglises",<br /></span>
+							<span Style="position: relative; left: 50px;">"Nom":"Eglise Saint Laurent",<br /></span>
+							<span Style="position: relative; left: 50px;">"Description":"L'église de style baroque a été entièrement remaniée en 1804. On peut y admirer de magnifiques statues de la Vierge à l’Enfant datant du XVème siècle ainsi qu'une statue en bois de Saint Sébastien datant de 1620. Sur le même parvis, se trouve la chapelle Sainte-Croix des Pénitents Blancs.",<br /></span>
+							<span Style="position: relative; left: 50px;">"Adresse":"Rue de l'Eglise 06390 Berre les Alpes",<br /></span>
+							<span Style="position: relative; left: 50px;">"E-mail":null,<br /></span>
+							<span Style="position: relative; left: 50px;">"Link":null,<br /></span>
+							<span Style="position: relative; left: 50px;">"IdMedia":null,<br /></span>
+							<span Style="position: relative; left: 50px;">"ComUrbaine":"Pays des Paillons",<br /></span>
+							<span Style="position: relative; left: 50px;">"Latitude":43.830392,<br /></span>
+							<span Style="position: relative; left: 50px;">"Longitude":7.329479,<br /></span>
+							<span Style="position: relative; left: 50px;">"Altitude":null<br /></span>
+							<span Style="position: relative; left: 50px;">},<br /></span>
+							<span Style="position: relative; left: 50px;">...<br /></span>
+			   		]<br/>
 			   </div>
 				<form action="#" method="post" name="TestForm3_Bis" id="TestForm3_Bis" enctype="multipart/form-data">
 					<input type="hidden" name="poisrc" value="carf" />

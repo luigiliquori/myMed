@@ -79,11 +79,12 @@ function printMarkers(type, lon, lat, rad) {
 
 function deleteMarker(latitude, longitude, itemId, type) {
 	var params = {
+			'delete' : true,
 			'application': $("#applicationName").val(),
 			'type': type,
 			'latitude': latitude,
 			'longitude': longitude,
-			'itemId': itemId,
+			'itemId': itemId.replace(/\+/g, '%20'),
 			'accessToken': $("#accessToken").val()
 	};
 	
