@@ -32,10 +32,7 @@ class TemplateManager {
 		<head> 
 		<title>myMed | Réseaux Social Transfrontalier</title> 
 		
-		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-		<?php if(TARGET == "mobile") { ?>
-			<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
-		<?php }?>
+		<meta charset="utf-8"  name="viewport" content="width=device-width, initial-scale=1" />
 		
 		<!-- Google Analytics -->
 		<script type="text/javascript">
@@ -58,8 +55,7 @@ class TemplateManager {
 		
 		</head>
 		
-		<body onload="hideLoadingBar();">
-		<div id="loading" style="display:<?= TARGET == "desktop" ? "none" : "block" ?>;"><center><span>Chargement en cours...</span></center></div>
+		<body onload="initialize();">
 	<?php }
 	
 	/**

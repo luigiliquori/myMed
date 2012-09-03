@@ -18,6 +18,10 @@
 	margin-top: -14px;
 }
 
+.logos {
+	text-align: center;
+}
+
 /* Red button theme for JQuery Mobile
 * - Use data-theme="r" for red versions of the default JQuery Mobile Buttons.
 ******************************************************************************************/

@@ -23,19 +23,27 @@ package com.mymed.controller.core.exception;
  */
 public class InternalBackEndException extends AbstractMymedException {
 
-  /* --------------------------------------------------------- */
-  /* Attributes */
-  /* --------------------------------------------------------- */
-  private static final long serialVersionUID = 1L;
+    /* --------------------------------------------------------- */
+    /* Attributes */
+    /* --------------------------------------------------------- */
+    private static final long serialVersionUID = 1L;
 
-  /* --------------------------------------------------------- */
-  /* Constructors */
-  /* --------------------------------------------------------- */
-  public InternalBackEndException(final String message) {
-    super(500, message);
-  }
+    /* --------------------------------------------------------- */
+    /* Constructors */
+    /* --------------------------------------------------------- */
+    public InternalBackEndException(final String message) {
+        super(500, message);
+    }
+    
+    public InternalBackEndException(final String message, Object ... args) {
+        this(String.format(message, args));
+    }
+    
+    public InternalBackEndException(final Exception e) {
+        super(e, e.getMessage());
+    }
 
-  public InternalBackEndException(final Exception e) {
-    super(500, e.toString());
-  }
+    public InternalBackEndException(final Exception e, final String message) {
+        super(e, message);
+    }
 }

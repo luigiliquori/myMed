@@ -33,6 +33,16 @@ public interface IAuthenticationManager {
 	MUserBean create(MUserBean user, MAuthenticationBean authentication) throws InternalBackEndException,
 	        IOBackEndException;
 
+
+	/**
+	 * create simple authentication
+	 * 
+	 * @param key
+	 * @param authentication
+	 */
+	void create(String key, MAuthenticationBean authentication)
+			throws InternalBackEndException, IOBackEndException;
+
 	/**
 	 * authentication
 	 * 
@@ -42,6 +52,15 @@ public interface IAuthenticationManager {
 	 * @throws InternalBackEndException
 	 */
 	MUserBean read(String login, String password) throws InternalBackEndException, IOBackEndException;
+	
+	
+	/**
+	 * authentication simple read
+	 * 
+	 * @param key
+	 * @return MAuthenticationBean
+	 */
+	MAuthenticationBean read(String key) throws InternalBackEndException, IOBackEndException;
 
 	/**
 	 * update myMed user profile : Authentication Table (password)
@@ -50,4 +69,19 @@ public interface IAuthenticationManager {
 	 * @throws InternalBackEndException
 	 */
 	void update(String id, MAuthenticationBean authentication) throws InternalBackEndException, IOBackEndException;
+
+	/**
+	 * simple delete
+	 * @param key
+	 */
+	void delete(String key) throws InternalBackEndException, IOBackEndException;
+	
+	/**
+	 * Sends mail before validating the account
+	 * @param application
+	 * @param recipient
+	 * @param accessToken
+	 */
+	void sendRegistrationEmail( String application, MUserBean recipient,  String accessToken );
+	
 }

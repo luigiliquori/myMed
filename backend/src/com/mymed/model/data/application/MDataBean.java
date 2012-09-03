@@ -10,6 +10,7 @@
  */
 package com.mymed.model.data.application;
 
+import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.model.data.AbstractMBean;
 
 /**
@@ -18,15 +19,29 @@ import com.mymed.model.data.AbstractMBean;
  * @author lvanni
  * @author Milo Casagrande
  */
-public final class MDataBean extends AbstractMBean {
-    /**
+public final class MDataBean extends AbstractMBean implements Comparable<MDataBean>{
+	
+
+	/**
      * Generated serial ID.
      */
     private static final long serialVersionUID = 6788844723133324991L;
     private String key;
     private String value;
-    private String ontologyID;
-
+    /*
+     * Changed ontologyID String -> int
+     *  no pb if you want it back, gson works the same with \"ontologyID\": 4, or  \"ontologyID\": \"4\"
+     *  it's just useful to treat ontologyID cases
+     */
+    private MOntologyID ontologyID;
+    
+    public MDataBean(String key, String value, MOntologyID ontologyID) {
+        if (value == null) throw new InternalBackEndException("Null value for ontology '%s'", key);
+		this.key = key;
+		this.value = value;
+		this.ontologyID = ontologyID;
+	}
+    
     public String getKey() {
         return key;
     }
@@ -36,19 +51,25 @@ public final class MDataBean extends AbstractMBean {
     }
 
     public String getValue() {
+        if (value == null) throw new InternalBackEndException("Null value for ontology '%s'", key);
         return value;
     }
 
     public void setValue(final String value) {
+        if (value == null) throw new InternalBackEndException("Null value for ontology '%s'", key);
         this.value = value;
     }
 
-    public String getOntologyID() {
+    public MOntologyID getOntologyID() {
         return ontologyID;
     }
 
-    public void setOntologyID(final String ontologyID) {
+    public void setOntologyID(final MOntologyID ontologyID) {
         this.ontologyID = ontologyID;
+    }
+    
+    public String toString() {
+    	return key+value;
     }
 
     /*
@@ -59,8 +80,8 @@ public final class MDataBean extends AbstractMBean {
     public int hashCode() {
         int result = 1;
         result = (PRIME * result) + (key == null ? 0 : key.hashCode());
-        result = (PRIME * result) + (ontologyID == null ? 0 : ontologyID.hashCode());
         result = (PRIME * result) + (value == null ? 0 : value.hashCode());
+        result = (PRIME * result) + String.valueOf(ontologyID).hashCode();
         return result;
     }
 
@@ -87,12 +108,8 @@ public final class MDataBean extends AbstractMBean {
         } else if (!key.equals(other.key)) {
             return false;
         }
-        if (ontologyID == null) {
-            if (other.ontologyID != null) {
-                return false;
-            }
-        } else if (!ontologyID.equals(other.ontologyID)) {
-            return false;
+        if (ontologyID != other.ontologyID){
+        	return false;
         }
         if (value == null) {
             if (other.value != null) {
@@ -103,4 +120,11 @@ public final class MDataBean extends AbstractMBean {
         }
         return true;
     }
+
+	@Override
+	public int compareTo(MDataBean o) {
+		
+		return this.key.compareTo(o.key);
+	}
+
 }

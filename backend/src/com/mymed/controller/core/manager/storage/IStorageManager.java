@@ -15,9 +15,11 @@
  */
 package com.mymed.controller.core.manager.storage;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.cassandra.thrift.ColumnParent;
 import org.apache.cassandra.thrift.ConsistencyLevel;
 
 import com.mymed.controller.core.exception.IOBackEndException;
@@ -50,6 +52,7 @@ public interface IStorageManager {
      */
     void insertSlice(String tableName, String primaryKey, Map<String, byte[]> args) throws IOBackEndException,
                     InternalBackEndException;
+    
 
     /**
      * Insert a new entry in the database
@@ -81,6 +84,20 @@ public interface IStorageManager {
      */
     byte[] selectColumn(String tableName, String primaryKey, String columnName) throws IOBackEndException,
                     InternalBackEndException;
+    
+    /**
+     * 
+     * @param tableName
+     * @param key
+     * @param columnName
+     * @param superColumn
+     * @return
+     * @throws InternalBackEndException
+     * @throws IOBackEndException
+     */
+    byte[] _selectSuperColumn(String tableName, String key,
+			String columnName, String superColumn) throws InternalBackEndException,
+			IOBackEndException;
 
     /**
      * Update the value of a Simple Column
@@ -119,16 +136,30 @@ public interface IStorageManager {
     /**
      * Get the value of a Column family
      * 
-     * @param tableName
-     *            the name of the Table/ColumnFamily
-     * @param primaryKey
-     *            the ID of the entry
-     * @param columnName
-     *            the name of the column
-     * @return the value of the column
+     * @param tableName:  the name of the Table/ColumnFamily
+     * @param primaryKey: the ID of the entry
+     * @return List of columns
      */
     Map<byte[], byte[]> selectAll(String tableName, String primaryKey) throws IOBackEndException,
                     InternalBackEndException;
+    
+    Map<String, String> selectAllStr(String tableName, String primaryKey) throws IOBackEndException,
+    InternalBackEndException;
+    
+    /**
+     * Get the value of a Column family
+     * 
+     * @param tableName: the name of the Table/ColumnFamily
+     * @param primaryKey: the ID of the entry
+     * @param start: column name
+     * @param count: limit
+     * @param reversed: order
+     * @return List of columns
+     * @see http://wiki.apache.org/cassandra/API#SliceRange
+     * @return the value of the column
+     */
+    Map<byte[], byte[]> selectAll(String tableName, String primaryKey, String start, int count, Boolean reversed) throws IOBackEndException,
+                    InternalBackEndException, UnsupportedEncodingException;
 
     /**
      * Get the list of values of a Super Column Family
@@ -141,6 +172,22 @@ public interface IStorageManager {
      */
     List<Map<byte[], byte[]>> selectList(final String tableName, final String key) throws InternalBackEndException,
                     IOBackEndException;
+    
+    /**
+     * Get the list of values of a Super Column Family
+     * 
+     * @param tableName
+     * @param key
+     * @param start
+     * @param count 
+     * @param reversed
+     * @see http://wiki.apache.org/cassandra/API#SliceRange
+     * @return List of supercolumns
+     * @throws InternalBackEndException
+     * @throws IOBackEndException
+     */
+    List<Map<byte[], byte[]>> selectList(final String tableName, final String key, String start, int count, Boolean reversed) throws InternalBackEndException,
+                    IOBackEndException, UnsupportedEncodingException;
 
     /**
      * Get the values of a range of columns
@@ -188,11 +235,38 @@ public interface IStorageManager {
 
     /**
      * Remove an entry in the columnFamily
-     * 
-     * @param keyspace
-     * @param columnFamily
-     * @param key
-     * @throws InternalBackEndException
      */
     void removeAll(String tableName, String key) throws InternalBackEndException;
+    
+    
+    public Map<String, Map<String, String>> multiSelectList(final String tableName, final List<String> keys,
+    		final String start, final String finish) 
+    			throws IOBackEndException, InternalBackEndException, UnsupportedEncodingException;
+
+
+	Map<String, String> selectSuperColumn(String tableName, String key,
+			String columnName) throws InternalBackEndException,
+			IOBackEndException;
+	
+	/** v2 */
+	void insertStr(
+            String key, 
+            ColumnParent parent, 
+            String columnName,
+            String value)
+                    throws InternalBackEndException;
+	/** v2 */
+	void insertSliceStr(
+			String tableName,
+			String primaryKey,
+			Map<String, String> args) 
+					throws InternalBackEndException;
+	
+	/** v2 */
+	void insertSuperSliceStr(
+			String superTableName,
+			String key,
+			String superKey,
+			Map<String, String> args) 
+					throws InternalBackEndException;
 }

@@ -1,11 +1,13 @@
 package com.mymed.core;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.util.Log;
 import android.webkit.GeolocationPermissions;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.widget.ProgressBar;
 
 public class ChromeWebClient extends WebChromeClient {
 
@@ -26,7 +28,17 @@ public class ChromeWebClient extends WebChromeClient {
 		result.confirm();
 		return true;
 	}
+	
+	
+	@Override
+    public void onProgressChanged(WebView view, int newProgress) {
 
+		ProgressBar bar = (ProgressBar) activity.findViewById(R.id.progressBar1);
+		//bar.setVisibility(View.VISIBLE);
+		bar.setProgress(newProgress);
+    }
+
+	@TargetApi(5)
 	public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
 		callback.invoke(origin, true, false);
 	}

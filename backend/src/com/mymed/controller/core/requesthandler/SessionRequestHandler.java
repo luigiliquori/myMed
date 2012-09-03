@@ -15,6 +15,8 @@
  */
 package com.mymed.controller.core.requesthandler;
 
+import static com.mymed.utils.GsonUtils.gson;
+
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -64,7 +66,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
      */
     @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-        final JsonMessage message = new JsonMessage(200, this.getClass().getName());
+        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
 
         try {
             final Map<String, String> parameters = getParameters(request);
@@ -86,7 +88,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
                     final MSessionBean session = sessionManager.read(accessToken);
                     message.setDescription("Session avaible");
                     final MUserBean userBean = profileManager.read(session.getUser());
-                    message.addData(JSON_USER, getGson().toJson(userBean));
+                    message.addData(JSON_USER, gson.toJson(userBean));
                     message.addDataObject(JSON_USER, userBean);
                     break;
                 case DELETE :
@@ -115,7 +117,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
      */
     @Override
     protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-        final JsonMessage message = new JsonMessage(200, this.getClass().getName());
+        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
 
         try {
             final Map<String, String> parameters = getParameters(request);
@@ -134,12 +136,18 @@ public class SessionRequestHandler extends AbstractRequestHandler {
                         throw new InternalBackEndException("userID argument missing!");
                     }
 
-                    final MUserBean userBean = profileManager.read(userID);
+                    // Uncomment this to increase the security (check if the user exist else => 404)
+//                  final MUserBean userBean = profileManager.read(userID);
+//                  userBean.setSession(accessToken);
+//                  profileManager.update(userBean);
 
                     // Create a new session
                     final MSessionBean sessionBean = new MSessionBean();
                     sessionBean.setIp(request.getRemoteAddr());
-                    sessionBean.setUser(userBean.getId());
+                    
+//                    sessionBean.setUser(userBean.getId());
+                    sessionBean.setUser(userID);
+                    
                     sessionBean.setCurrentApplications("");
                     sessionBean.setP2P(false);
                     sessionBean.setTimeout(System.currentTimeMillis());
@@ -147,18 +155,12 @@ public class SessionRequestHandler extends AbstractRequestHandler {
                     sessionBean.setId(accessToken);
                     sessionManager.create(sessionBean);
 
-                    // Update the profile with the new session
-                    userBean.setSession(accessToken);
-                    profileManager.update(userBean);
-
                     message.setDescription("session created");
                     LOGGER.info("Session {} created -> LOGIN", accessToken);
 
                     final StringBuffer urlBuffer = new StringBuffer(250);
                     urlBuffer.append(SERVER_PROTOCOL);
                     urlBuffer.append(SERVER_URI);
-                    urlBuffer.append("?socialNetwork=");
-                    urlBuffer.append(userBean.getSocialNetworkName());
                     urlBuffer.trimToSize();
 
                     message.addData("url", urlBuffer.toString());

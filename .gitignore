@@ -19,3 +19,8 @@ bundle.jar
 ./frontend/.buildpath
 *config.xml
 coverage.ec
+build
+backend/build
+backend/src/com/mymed/tests/lib/
+backend/src/com/mymed/tests/results/
+general.properties

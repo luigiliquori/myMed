@@ -15,6 +15,8 @@
 */
 package com.mymed.controller.core.requesthandler;
 
+import static com.mymed.utils.GsonUtils.gson;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -96,14 +98,14 @@ public class MyJamReportRequestHandler  extends AbstractRequestHandler implement
 					// Diameter in m.
 					int rad = Integer.parseInt(radius);
 					List<MSearchBean> resultList = myJamManager.searchReports(lat, lon, rad);
-					message.addData("search_reports", this.getGson().toJson(resultList));
+					message.addData("search_reports", gson.toJson(resultList));
 				}else if ((reportId = parameters.get(ID)) != null){
 					id = MyMedId.parseString(reportId);	//This conversion is done only to check the syntax of the id.
 					MReportBean reportInfo = myJamManager.getReport(id.toString());
-					message.addData("report", this.getGson().toJson(reportInfo));
+					message.addData("report", gson.toJson(reportInfo));
 				}else if ((userId = parameters.get(USER_ID)) != null){
 					List<String> activeRepId = myJamManager.getActiveReport(userId);
-					message.addData("active_reports", this.getGson().toJson(activeRepId));
+					message.addData("active_reports", gson.toJson(activeRepId));
 				}else
 					throw new InternalBackEndException("missing parameter, bad request!");
 				break;
@@ -156,10 +158,10 @@ public class MyJamReportRequestHandler  extends AbstractRequestHandler implement
 					int lat = Integer.parseInt(latitude);
 					int lon = Integer.parseInt(longitude);
 					content = MConverter.convertStreamToString(request.getInputStream(),request.getContentLength());
-					MReportBean report = this.getGson().fromJson(content, MReportBean.class);
+					MReportBean report = gson.fromJson(content, MReportBean.class);
 					MyJamTypeValidator.validate(report);
 					MReportBean res = myJamManager.insertReport(report,lat,lon);
-					message.addData("report", this.getGson().toJson(res));
+					message.addData("report", gson.toJson(res));
 				}else
 					throw new InternalBackEndException("missing parameter, bad request!");
 				break;

@@ -15,6 +15,8 @@
  */
 package com.mymed.controller.core.requesthandler;
 
+import static com.mymed.utils.GsonUtils.gson;
+
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -29,6 +31,7 @@ import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.position.PositionManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.user.MPositionBean;
+import com.mymed.utils.GsonUtils;
 
 /**
  * Servlet implementation class PositionRequestHandler
@@ -72,7 +75,7 @@ public class PositionRequestHandler extends AbstractRequestHandler {
      */
     @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-        final JsonMessage message = new JsonMessage(200, this.getClass().getName());
+        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
 
         try {
             final Map<String, String> parameters = getParameters(request);
@@ -89,7 +92,7 @@ public class PositionRequestHandler extends AbstractRequestHandler {
             if (code.equals(RequestCode.READ)) {
                 message.setMethod(JSON_CODE_READ);
                 final MPositionBean position = positionManager.read(userID);
-                message.addData(JSON_POSITION, getGson().toJson(position));
+                message.addData(JSON_POSITION, gson.toJson(position));
                 message.addDataObject(JSON_POSITION, position);
             } else {
                 throw new InternalBackEndException("PositionRequestHandler.doGet(" + code + ") not exist!");
@@ -109,7 +112,7 @@ public class PositionRequestHandler extends AbstractRequestHandler {
      */
     @Override
     protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-        final JsonMessage message = new JsonMessage(200, this.getClass().getName());
+        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
 
         try {
             final Map<String, String> parameters = getParameters(request);
@@ -126,7 +129,7 @@ public class PositionRequestHandler extends AbstractRequestHandler {
             if (code.equals(RequestCode.UPDATE)) {
                 message.setMethod(JSON_CODE_UPDATE);
                 try {
-                    final MPositionBean positionBean = getGson().fromJson(position, MPositionBean.class);
+                    final MPositionBean positionBean = gson.fromJson(position, MPositionBean.class);
                     LOGGER.info("Trying to update position:\n {}", positionBean.toString());
                     positionManager.update(positionBean);
                     message.setDescription("Position updated!");

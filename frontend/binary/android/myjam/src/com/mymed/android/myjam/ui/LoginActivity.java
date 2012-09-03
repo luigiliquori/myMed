@@ -302,7 +302,7 @@ public class LoginActivity extends Activity implements IReceiver {
 		intent.putExtra(CallService.EXTRA_PRIORITY_CODE, HttpCall.HIGH_PRIORITY);
 		intent.putExtra(CallService.EXTRA_NUMBER_ATTEMPTS, 1);
         Bundle bundle = new Bundle();
-        bundle.putString(CallContract.ID, "MYMED_"+login); //CR 2012
+        //bundle.putString(CallContract.ID, "MYMED_"+login); //CR 2012
         bundle.putString(CallContract.LOGIN, login);
         bundle.putString(CallContract.PASSWORD, pwd);
         intent.putExtra(CallService.EXTRA_ATTRIBUTES, bundle);

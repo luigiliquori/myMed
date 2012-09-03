@@ -15,6 +15,8 @@
 */
 package com.mymed.controller.core.requesthandler;
 
+import static com.mymed.utils.GsonUtils.gson;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -89,7 +91,7 @@ public class MyJamFeedbackRequestHandler  extends AbstractRequestHandler  implem
 				if ((id = parameters.get(ID)) != null){
 					MyMedId reportOfUpdateId = MyMedId.parseString(id);
 					List<MFeedBackBean> feedbacksList = myJamManager.getFeedbacks(reportOfUpdateId.toString());
-					message.addData("feedbacks", this.getGson().toJson(feedbacksList));
+					message.addData("feedbacks", gson.toJson(feedbacksList));
 				}else
 					throw new InternalBackEndException("missing parameter, bad request!");
 
@@ -139,10 +141,10 @@ public class MyJamFeedbackRequestHandler  extends AbstractRequestHandler  implem
 					if (updateId!=null)
 						MyMedId.parseString(updateId);
 					content = MConverter.convertStreamToString(request.getInputStream(),request.getContentLength());
-					MFeedBackBean feedback =  this.getGson().fromJson(content, MFeedBackBean.class);
+					MFeedBackBean feedback =  gson.fromJson(content, MFeedBackBean.class);
 					MyJamTypeValidator.validate(feedback);
 					MFeedBackBean res = myJamManager.insertFeedback(id,updateId, feedback);
-					message.addData("feedback", this.getGson().toJson(res));
+					message.addData("feedback", gson.toJson(res));
 				}else
 					throw new InternalBackEndException("missing parameter, bad request!");
 				break;

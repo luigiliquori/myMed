@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+This is a mail template.
+"subject" and "body" content should be written with FreeMarker syntax.
+The following variables are available in the templates :
+   * base_url : "http://host:port/"
+   * application : ApplicationID
+   * publisher : The publisher (MUserBean)
+   * recipient : The suscriber (MuserBean)
+   * accessToken : accessToken of pending account.
+-->
+<mail-template>
+
+    <subject><![CDATA[
+        <#if application??>
+			[${application}]
+		<#else>
+			[myMed]
+		</#if>
+		Inscription
+        
+    ]]></subject>
+
+    <body><![CDATA[
+        Bonjour ${recipient.name},<br/>
+        <br/>
+        
+        Bienvenue sur myMed.<br /><br />Pour finaliser votre inscription allez sur
+        
+        <#if application??>
+			<a href="${base_url}application/${application}/?registration=ok&application=${application}&accessToken=${accessToken}">
+	        	${base_url}application/${application}/?registration=ok&application=${application}&accessToken=${accessToken}
+	        </a>
+	    <#else>
+	    	<a href="${base_url}?registration=ok&accessToken=${accessToken}">
+	        	${base_url}application/${application}/?registration=ok&accessToken=${accessToken}
+	        </a>
+		</#if>
+        
+		<br/>
+       
+        --<br/>
+    
+        <a href="mailto:mymeddev@gmail.com">myMed</a> <br /> projet Europ&eacute;en Alcotra Interreg-IV
+       
+]]></body>
+</mail-template>

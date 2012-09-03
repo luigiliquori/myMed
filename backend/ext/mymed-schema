@@ -26,7 +26,6 @@ use Mymed;
 
 /* Column families necessary for mymed as general structure */
 create column family Application with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
-create column family Subscriptions with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 create column family Authentication with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 create column family Ontology with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 create column family OntologyType with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
@@ -34,6 +33,10 @@ create column family User with column_type = 'Standard' and comparator = 'UTF8Ty
 create column family Session with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 create column family Position with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 create column family Interaction with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+create column family Subscribers with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+create column family Subscribees with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+create column family MailTemplates with column_type = 'Standard' and comparator = 'UTF8Type' and column_metadata = [{column_name: 'subject', validation_class: 'UTF8Type'}, {column_name: 'body', validation_class: 'UTF8Type'}] and comment = 'Column family storing mail templates, with key="appID:ns:lang"' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+create column family Data with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 
 /* Super columns necessary for mymed as general structure */
 create column family ApplicationController with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
@@ -43,6 +46,13 @@ create column family DataList with column_type = 'Super' and comparator = 'UTF8T
 create column family OntologyList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family UserList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family Location with column_type = 'Super' and comparator = 'LongType' and comment = 'A column family with supercolumns, whose column names are Longs (8 bytes)';
+create column family Statistics with column_type = 'Super' and comparator = 'LongType' and subcomparator = 'UTF8Type';
+
+
+/* Reputation colums */
+create column family ReputationEntity with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+create column family VerdictsTimeOrdered with column_type = 'Standard' and comparator = 'TimeUUIDType' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+create column family Verdict with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 
 /* MyJam related columns */
 create column family Report with column_type = 'Standard' and column_metadata = [{column_name: 'user', validation_class: 'UTF8Type'}, {column_name: 'type', validation_class: 'UTF8Type'}, {column_name: 'transit', validation_class: 'UTF8Type'}, {column_name: 'traffic_flow', validation_class: 'UTF8Type'}, {column_name: 'comment', validation_class: 'UTF8Type'}] and comment = 'A column family to store the details of the reports and the updates.';
@@ -50,8 +60,3 @@ create column family ActiveReport with column_type = 'Standard' and comparator =
 create column family ReportUpdate with column_type = 'Standard' and comparator = 'com.mymed.id.MyMedIdType' and comment = 'A column family used as an index, to bind a report with its updates.';
 create column family UserReport with column_type = 'Standard' and comparator = 'com.mymed.id.MyMedIdType' and comment = 'A column family used as an index to bind users with reports and updates.';
 create column family Feedback with column_type = 'Standard' and comparator = 'UTF8Type' and comment = 'A column family used to store the feedbacks associated to the reports or the updates.';
-
-/* Reputation colums */
-create column family ReputationEntity with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
-create column family VerdictsTimeOrdered with column_type = 'Standard' and comparator = 'TimeUUIDType' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
-create column family Verdict with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;

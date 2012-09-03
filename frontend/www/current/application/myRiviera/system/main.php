@@ -1,6 +1,6 @@
 <?php
 	ob_start("ob_gzhandler");			// page compression
-	@set_magic_quotes_runtime(false);	// for the magic_quotes
+	//@set_magic_quotes_runtime(false);	// for the magic_quotes <- deprecated
 	
 	// DEBUG
 	ini_set('display_errors', 1);
@@ -28,7 +28,10 @@
 	/* ----------------------------------------------------------------------------- */
 	// TODO - MOVE THIS PART
 	// Try to get th position && Store the position of the user
-	if(USER_CONNECTED) {
+	/*if(USER_CONNECTED) {
+		
+		//by ajax to do it after geolocation
+		
 		if(isset($_GET["latitude"]) && isset($_GET["longitude"])) {
 			
 			$request = new Request("PositionRequestHandler", UPDATE);
@@ -58,9 +61,9 @@
 		$responseObject = json_decode($responsejSon);
 		
 		if($responseObject->status == 200) {
-			$_SESSION['position'] = json_decode($responseObject->data->position);
+			$_SESSION['position'] =  $responseObject->dataObject->position;
 		}
-	}
+	}*/
 	/* ----------------------------------------------------------------------------- */
 	
 	// Select the template & call it

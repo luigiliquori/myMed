@@ -16,16 +16,19 @@
 */
 class MAbstractDataObject {
 	
-	// Array of "attribute-name" => ONTOLGY_ID  
+	/** Array of "attribute-name" => ONTOLOGY_ID */  
 	private $_attributes;
 	
+	/** Constructor : should be overriden and provide the description of attributes as array of "attribute-name" => ONTOLOGY_ID */
 	public function __construct($attributes) {
 		$this->_attributes = $attributes;
 	}
 	
 	/** Returns a list of data beans */
 	public function toDataBeans() {
+		
 		$result = array();
+		
 		foreach	($this->_attributes as $key => $ontologyID) {
 			
 			// Create a data bean

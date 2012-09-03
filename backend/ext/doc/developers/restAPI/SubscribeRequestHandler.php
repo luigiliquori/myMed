@@ -14,8 +14,9 @@
 	    <ul>
 		  <li>code</li>
 		  <li>application</li>
+		  <li>namespace*</li>
 		  <li>predicate</li>
-		  <li>user</li>
+		  <li>userID</li>
 		  <li>accessToken</li>
 		</ul>
 	</td>
@@ -25,8 +26,20 @@
 		</ul>
 	</td>
 	<td class="doc">
-		<p>predicate: "key1value1key2value2"</p>
-		<p>user: userBean object (json)</p>
+		<ul>
+			<li>predicate: "key1value1key2value2"</li>
+			<li class="json">predicateList : [<br />
+				<div>
+					{
+					<div>key : "",</div>
+					<div>value : "",</div>
+					<div>ontologyID : ""</div>
+					},<br /> ...
+				</div> ]
+			</li>
+			<li>user: userBean object (json)</li>
+			<li>namespace: (*optional) set a prefix to the keys stored into the database</li>
+		 </ul>
 	</td>
   </tr>
   <tr>
@@ -56,15 +69,28 @@
 	    <ul>
 		  <li>code</li>
 		  <li>application</li>
+		  <li>namespace*</li>
 		  <li>predicate</li>
-		  <li>user</li>
+		  <li>userID</li>
 		  <li>accessToken</li>
 		</ul>
 	</td>
 	<td class="response"></td>
 	<td class="doc">
-		<p>predicate: "key1value1key2value2"</p>
-		<p>user: ID de l'utilisateur</p>
+		<ul>
+			<li>predicate: "key1value1key2value2"</li>
+			<li class="json">predicateList : [<br />
+				<div>
+					{
+					<div>key : "",</div>
+					<div>value : "",</div>
+					<div>ontologyID : ""</div>
+					},<br /> ...
+				</div> ]
+			</li>
+			<li>user: ID de l'utilisateur</li>
+			<li>namespace: (*optional) set a prefix to the keys stored into the database</li>
+		</ul>
 	</td>
   </tr>
 </table>

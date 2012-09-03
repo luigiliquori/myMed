@@ -36,7 +36,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
     <property name="properties.dir"      location="${src.dir}/properties"/>
     <property name="resources.dir"       location="${src.dir}/resources"/>
     <property name="java.dir"            location="/usr/share/java"/>
-    <property name="junit.dir"           location="/usr/share/junit"/>
+    <property name="junit.dir"           location="/usr/share/ant/lib"/>
     <property name="coverage.dir"        location="${results.dir}/coverage" />
     <property name="glassfish.dir"       location="/local/glassfish3/glassfish/"/>
     <property name="src.compile.dir"     location="${controller.dir}:${model.dir}:${utils.dir}:${properties.dir}"/>
@@ -77,7 +77,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
         <pathelement location="${instrumented.dir}"/>
         <pathelement location="${build.dir}"/>
         <pathelement location="${conf.dir}"/>
-        <pathelement location="${junit.dir}/junit.jar"/>
+        <pathelement location="${junit.dir}/ant-junit.jar"/>
         <pathelement location="."/>
         <fileset dir="${java.dir}">
             <include name="**/*.jar"/>

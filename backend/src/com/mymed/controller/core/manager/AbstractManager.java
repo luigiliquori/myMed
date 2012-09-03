@@ -96,10 +96,6 @@ public abstract class AbstractManager {
      */
     protected static final IProperties FIELDS = PROPERTIES.getManager(PropType.FIELDS);
 
-    /**
-     * Default encoding.
-     */
-    protected static final String ENCODING = GENERAL.get("general.string.encoding");
 
     /**
      * This is the URL address of the server, necessary for configuring data across all the backend. If nothing has been
@@ -268,4 +264,5 @@ public abstract class AbstractManager {
     public String getServerProtocol() {
         return SERVER_PROTOCOL;
     }
+
 }

@@ -18,27 +18,27 @@
 									<th>Key</th>
 									<th>Value</th>
 								</tr>
-								<tr>
-									<td>memberList</td>
-									<td>
-										<table>
-											<tbody>
-												<tr>
-													<th>Key</th>
-													<th>Value</th>
-												</tr>
-												<tr>
-													<td>publisherList</td>
-													<td class="userListID">USER_LIST_ID</td>
-												</tr>
-												<tr>
-													<td>subscriberlist</td>
-													<td class="userListID">USER_LIST_ID</td>
-												</tr>
-											</tbody>
-										</table>
-									</td>
-								</tr>
+<!-- 								<tr> -->
+<!-- 									<td>memberList</td> -->
+<!-- 									<td> -->
+<!-- 										<table> -->
+<!-- 											<tbody> -->
+<!-- 												<tr> -->
+<!-- 													<th>Key</th> -->
+<!-- 													<th>Value</th> -->
+<!-- 												</tr> -->
+<!-- 												<tr> -->
+<!-- 													<td>publisherList</td> -->
+<!-- 													<td class="userListID">USER_LIST_ID</td> -->
+<!-- 												</tr> -->
+<!-- 												<tr> -->
+<!-- 													<td>subscriberlist</td> -->
+<!-- 													<td class="userListID">USER_LIST_ID</td> -->
+<!-- 												</tr> -->
+<!-- 											</tbody> -->
+<!-- 										</table> -->
+<!-- 									</td> -->
+<!-- 								</tr> -->
 								<tr>
 									<td>SUB_PREDICATE_ID+USER_ID</td>
 									<td>

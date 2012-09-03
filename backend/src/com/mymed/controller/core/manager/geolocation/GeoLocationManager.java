@@ -108,7 +108,7 @@ public class GeoLocationManager extends AbstractManager {
             searchBean.setId(id.toString());
             searchBean.setLocationId(locId);
             searchBean.setLatitude(latitude);
-            searchBean.setLatitude(longitude);
+            searchBean.setLongitude(longitude);
             searchBean.setValue(value);
             searchBean.setDate(timestamp);
             /** If the TTL has been specified, the expiration time is set on the bean. */
@@ -237,6 +237,7 @@ public class GeoLocationManager extends AbstractManager {
      */
     public MSearchBean read(final String applicationId, final String itemType, final long locationId,
                     final String itemId) throws InternalBackEndException, IOBackEndException {
+    	
         try {
             final String areaId = String.valueOf(Locator.getAreaId(locationId));
             final ExpColumnBean expCol = ((GeoLocStorageManager) storageManager).selectExpiringColumn(SC_LOCATION,

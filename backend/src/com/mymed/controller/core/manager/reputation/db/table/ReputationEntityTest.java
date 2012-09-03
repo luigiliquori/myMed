@@ -5,14 +5,17 @@
 
 package com.mymed.controller.core.manager.reputation.db.table;
 
-import com.mymed.controller.core.manager.reputation.db.facade.TransactionManager;
+import static org.junit.Assert.assertEquals;
+
 import java.util.Collection;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import com.mymed.controller.core.manager.reputation.db.facade.TransactionManager;
 
 /**
  *
@@ -65,6 +68,7 @@ public class ReputationEntityTest {
 
         Collection<ReputationEntity> all = instance.getAll();
         assertEquals(10, all.size());
+        
     }
 
 

@@ -101,7 +101,7 @@ def call(handler, request, method, args) :
         print("Handler:%s\nRequest:%s\nMethod:%s\nArgs:%s" % (handler, request, method, args))
         raise Exception('Service error. Status:%s, Message:%s' % (status, desc)) 
 
-    return body['data']
+    return body['dataObject']
 
 # Transform to inline predicate {'key':'toto', 'value':'titi', 'ontology':0} => "tototiti"
 def inlinePred(predOnt) :

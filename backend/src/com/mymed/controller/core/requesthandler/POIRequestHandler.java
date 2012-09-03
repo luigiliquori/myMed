@@ -24,12 +24,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.mymed.controller.core.exception.AbstractMymedException;
+import com.mymed.controller.core.exception.GeoLocationOutOfBoundException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.geolocation.GeoLocationManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.model.data.geolocation.MSearchBean;
+import com.mymed.utils.locator.Locator;
 
 /**
  * Servlet implementation class POIRequestHandler
@@ -65,6 +66,16 @@ public class POIRequestHandler extends AbstractRequestHandler {
      * JSON 'radius' attribute.
      */
     private static final String JSON_RADIUS = JSON.get("json.radius");
+    
+    /**
+     * JSON 'type' attribute.
+     */
+    private static final String JSON_LOCATION_ID = JSON.get("json.locationId");
+    
+    /**
+     * JSON 'type' attribute.
+     */
+    private static final String JSON_ITEM_ID = JSON.get("json.itemId");
 
     private final GeoLocationManager geoLocationManager;
 
@@ -110,8 +121,9 @@ public class POIRequestHandler extends AbstractRequestHandler {
      */
     @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-        final JsonMessage message = new JsonMessage(200, this.getClass().getName());
+        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
 
+        String cb = null;
         try {
             // Get the parameters from the received request
             final Map<String, String> parameters = getParameters(request);
@@ -119,7 +131,8 @@ public class POIRequestHandler extends AbstractRequestHandler {
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            String application, type, latitude, longitude, radius;
+            String application, type, latitude, longitude, radius, itemId;
+            cb = parameters.get("callback");
 
             if (code == RequestCode.READ) {
                 message.setMethod(JSON_CODE_READ);
@@ -142,9 +155,27 @@ public class POIRequestHandler extends AbstractRequestHandler {
                                 convertDegreeToMicroDegree(latitude), convertDegreeToMicroDegree(longitude),
                                 Integer.parseInt(radius), true);
                 message.setDescription("POIs successfully read!");
-                final Gson gson = new Gson();
-                message.addData(JSON_POI, gson.toJson(pois));
+                //final Gson gson = new Gson();
+                //message.addData(JSON_POI, gson.toJson(pois));
                 message.addDataObject(JSON_POI, pois);
+            } else if (code == RequestCode.DELETE) {
+            	if ((application = parameters.get(JSON_APPLICATION)) == null) {
+                    throw new InternalBackEndException("missing application argument!");
+                } else if ((type = parameters.get(JSON_TYPE)) == null) {
+                    throw new InternalBackEndException("missing type argument!");
+                } else if ((itemId = parameters.get(JSON_ITEM_ID)) == null) {
+                    throw new InternalBackEndException("missing itemId argument!");
+                } else if ((longitude = parameters.get(JSON_LON)) == null) {
+                    throw new InternalBackEndException("missing longitude argument!");
+                } else if ((latitude = parameters.get(JSON_LAT)) == null) {
+                    throw new InternalBackEndException("missing latitude argument!");
+                }
+            	
+            	// DELETE THE POI
+            	geoLocationManager.delete(application, type, Locator.getLocationId(convertDegreeToMicroDegree(latitude), convertDegreeToMicroDegree(longitude)), itemId);
+            	
+            	message.setDescription("POIs successfully deleted!");
+            	
             } else {
                 throw new InternalBackEndException("POIRequestHandler(" + code + ") not exist!");
             }
@@ -152,9 +183,13 @@ public class POIRequestHandler extends AbstractRequestHandler {
             LOGGER.debug("Error in doGet operation", e);
             message.setStatus(e.getStatus());
             message.setDescription(e.getMessage());
-        }
+        } catch (GeoLocationOutOfBoundException e) {
+        	 LOGGER.debug("Error in doGet operation", e);
+             message.setStatus(500);
+             message.setDescription(e.getMessage());
+		}
 
-        printJSonResponse(message, response);
+		printJSonResponse(message, response);
     }
 
     /**
@@ -163,7 +198,7 @@ public class POIRequestHandler extends AbstractRequestHandler {
      */
     @Override
     protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-        final JsonMessage message = new JsonMessage(200, this.getClass().getName());
+        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
 
         try {
             // GET THE PARAMETERS
@@ -172,7 +207,8 @@ public class POIRequestHandler extends AbstractRequestHandler {
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            String application, type, user, longitude, latitude, value;
+            final String application, type, user, longitude, latitude, value;
+            user = parameters.get(JSON_USERID) != null ? parameters.get(JSON_USERID) : parameters.get(JSON_USER);
 
             if (code == RequestCode.CREATE) {
                 message.setMethod(JSON_CODE_CREATE);
@@ -182,8 +218,8 @@ public class POIRequestHandler extends AbstractRequestHandler {
                     throw new InternalBackEndException("missing application argument!");
                 } else if ((type = parameters.get(JSON_TYPE)) == null) {
                     throw new InternalBackEndException("missing type argument!");
-                } else if ((user = parameters.get(JSON_USER)) == null) {
-                    throw new InternalBackEndException("missing user argument!");
+                } else if (user == null) {
+                    throw new InternalBackEndException("missing userID argument!");
                 } else if ((longitude = parameters.get(JSON_LON)) == null) {
                     throw new InternalBackEndException("missing longitude argument!");
                 } else if ((latitude = parameters.get(JSON_LAT)) == null) {
@@ -197,6 +233,7 @@ public class POIRequestHandler extends AbstractRequestHandler {
                                 convertDegreeToMicroDegree(longitude), value, 0);
 
                 message.setDescription("POIs successfully created!");
+                
             } else {
                 throw new InternalBackEndException("POIRequestHandler(" + code + ") not exist!");
             }

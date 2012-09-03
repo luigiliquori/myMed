@@ -4,11 +4,13 @@ from mymed_backend_test import *
 
 # Settings
 BASE_URL="http://localhost:8080/backend"
-USER_ID="MYMED_foo.bar@gmail.com"
-PASSWORD="xxxx"
+USER_ID="MYMED_raphael.jolivet@gmail.com"
+PASSWORD="tddvdc"
 APP="MyTest"
 TOKEN='TOTO'
 
+def json_print(obj) :
+    print(json.dumps(obj, sort_keys=True, indent=4))
 
 # Init connection to backend
 initConnection(BASE_URL)
@@ -27,15 +29,46 @@ res = call(ProfileRH, READ, GET, {
     'accessToken' : TOKEN
 })
 
-
 user=res['user']
+
+# Update lang
+#del user['lang']
+#user['hometown']="Antibes"
+
+# Post profile
+#call(ProfileRH, CREATE, POST, {
+#    'user' : user,
+#    'accessToken' : TOKEN
+#})
+
+
+# JSON 
 
 # Predicate (tranformed into ontology)
 pred = keyOnt({'title': 'toto'})
 
+# Suscribe 
+res=call(SubscribeRH, CREATE, POST, {
+    'userID'      : USER_ID, 
+    'accessToken' : TOKEN,
+    'application' : APP,
+    'predicate': inlinePred(pred),
+    'data'         : pred + textOnt( # Data = pred + ontology(data)
+        {
+            'text':'content'})
+})
+
+res=call(SubscribeRH, READ, GET, {
+    'userID'      : USER_ID, 
+    'accessToken' : TOKEN,
+    'application' : APP,
+})
+
+json_print(res)
+
 # Publish 
 res=call(PublishRH, CREATE, POST, {
-    'user'        : user, 
+    'userID'        : USER_ID, 
     'accessToken' : TOKEN,
     'application' : APP,
     'predicate'   : pred,
@@ -43,6 +76,11 @@ res=call(PublishRH, CREATE, POST, {
         {
             'text':'content'})
 })
+
+json_print(res)
+
+# STOP
+sys.exit()
 
 # Update
 res=call(PublishRH, CREATE, POST, {

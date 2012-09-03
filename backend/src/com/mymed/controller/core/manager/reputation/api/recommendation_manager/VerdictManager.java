@@ -4,17 +4,17 @@
  */
 package com.mymed.controller.core.manager.reputation.api.recommendation_manager;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.controller.core.manager.reputation.api.mymed_ids.IMymedRepId;
 import com.mymed.controller.core.manager.reputation.db.facade.TransactionManager;
 import com.mymed.controller.core.manager.reputation.db.table.ReputationEntity;
 import com.mymed.controller.core.manager.reputation.db.table.Verdict;
-import com.mymed.controller.core.manager.reputation.api.mymed_ids.IMymedRepId;
 import com.mymed.model.data.reputation.MReputationBean;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * This class contains methods allowing the application level to store feedbacks

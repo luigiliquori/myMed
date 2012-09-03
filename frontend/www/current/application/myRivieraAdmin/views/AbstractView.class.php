@@ -32,7 +32,7 @@ abstract class AbstractView {
 	*/
 	public /*String*/ function getHeader() { ?>
 		<!-- HEADER -->
-		<div data-role="header" data-theme="a">
+		<div data-role="header" data-theme="b">
 			<a href="#login" onclick="document.disconnectForm.submit()" rel="external" data-role="button" data-theme="r">Deconnexion</a>
 			<h1><?= APPLICATION_NAME ?></h1>
 		</div>
@@ -52,7 +52,7 @@ abstract class AbstractView {
 	* Print the Template
 	*/
 	public /*String*/ function printTemplate() { ?>
-		<div id="<?= $this->id ?>" data-role="page" data-theme="a">
+		<div id="<?= $this->id ?>" data-role="page" data-theme="b">
 			<?php  $this->getHeader(); ?>
 			<?php $this->getContent(); ?>
 			<?php $this->getFooter(); ?>

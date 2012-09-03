@@ -138,7 +138,7 @@ public class CassandraWrapper implements ICassandraWrapper {
             }
             
             try {
-                LOGGER.info("Setting keyspace to '{}'", KEYSPACE);
+                //LOGGER.info("Setting keyspace to '{}'", KEYSPACE);
                 connection.getClient().set_keyspace(KEYSPACE);
             } catch (final InvalidRequestException ex) {
                 LOGGER.debug("Error setting the keyspace '{}'", KEYSPACE, ex);
@@ -298,7 +298,7 @@ public class CassandraWrapper implements ICassandraWrapper {
             try {
                 result = getClient().get_slice(keyToBuffer, parent, predicate, level);
             } catch (final InvalidRequestException ex) {
-                throw new InternalBackEndException(ex);
+            	ex.printStackTrace();
             } catch (final UnavailableException ex) {
                 throw new InternalBackEndException(ex);
             } catch (final TException ex) {

@@ -4,9 +4,10 @@
  */
 package com.mymed.controller.core.manager.reputation.recommendation_manager;
 
+import java.util.ArrayList;
+
 import com.mymed.controller.core.manager.reputation.api.recommendation_manager.IReputationAlgorithm;
 import com.mymed.controller.core.manager.reputation.db.table.VerdictQueries;
-import java.util.ArrayList;
 import com.mymed.model.data.reputation.MReputationBean;
 
 /**

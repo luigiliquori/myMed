@@ -15,7 +15,7 @@
 		  <li>code</li>
 		  <li>application</li>
 		  <li>type</li>
-		  <li>user</li>
+		  <li>userID</li>
 		  <li>latitude</li>
 		  <li>longitude</li>
 		  <li>value</li>

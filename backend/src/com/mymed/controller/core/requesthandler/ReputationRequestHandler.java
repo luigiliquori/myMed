@@ -70,7 +70,7 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
      */
     @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-        final JsonMessage message = new JsonMessage(200, this.getClass().getName());
+        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
 
         try {
             final Map<String, String> parameters = getParameters(request);
@@ -88,13 +88,17 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
                     } else if ((consumer = parameters.get(JSON_CONSUMER)) == null) {
                         throw new InternalBackEndException("missing consumer argument!");
                     }
+                    System.out.print("\nREAD" +
+                    "\n************ application: " + application +
+                    "\n************ producer: " + producer + 
+                    "\n************ consumer: " + consumer);
                     final MymedAppUserId user = new MymedAppUserId(application, producer, ReputationRole.Producer);
                     final MReputationBean reputation = reputationManager.read(user);
                     
                     
                     
                     message.addData(JSON_REPUTATION, String.valueOf(reputation.getReputation()));
-                    message.addDataObject(JSON_REPUTATION, String.valueOf(reputation.getReputation()));
+                    message.addDataObject(JSON_REPUTATION, reputation);
                     break;
                 case DELETE :
                     break;
@@ -119,7 +123,7 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
      */
     @Override
     protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-        final JsonMessage message = new JsonMessage(200, this.getClass().getName());
+        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
 
         try {
             final Map<String, String> parameters = getParameters(request);

@@ -1,6 +1,7 @@
 package com.mymed.core;
 
 import java.net.URLDecoder;
+import java.util.Currency;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -12,16 +13,24 @@ import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
-import android.app.ProgressDialog;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.AudioManager;
+import android.net.Uri;
+import android.sax.StartElementListener;
+import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class WebClient extends WebViewClient {
 
 	private Mobile activity;
-	private ProgressDialog progressDialog;
 
 	private static final int CREATE = 0;
 	private static final int READ = 1;
@@ -34,19 +43,33 @@ public class WebClient extends WebViewClient {
 
 	@Override
 	public void onPageStarted(WebView view, String url, Bitmap favicon) {
+		
+		((ProgressBar) activity.findViewById(R.id.progressBar1)).setVisibility(View.VISIBLE);
+		
 		Log.v(Mobile.TAG, "*****************URL=" + url);
 		if(url.matches(".*mobile_binary::.*")){
 			Log.i(Mobile.TAG, "Receive a mobile API call");
 			String params[] = url.split("::");
 			if(params.length >= 2) {
+				/*
+				 * Logout
+				 */
 				if(params[1].equals("logout")){
 					Log.i(Mobile.TAG, "Logout");
 					activity.getWebView().loadUrl(Mobile.MYMED_FRONTEND_URL + "?disconnect=1");
-				}else if(params[1].equals("choose_picture")){
+				}
+				/*
+				 * Camera
+				 */
+				else if(params[1].equals("choose_picture")){
 						Log.i(Mobile.TAG, "choose_picture");
 						Preview mPreview = new Preview(activity);
 						activity.setContentView(mPreview);
-				} else if(params[1].equals("publish")){
+				}
+				/*
+				 * Publish
+				 */
+				else if(params[1].equals("publish")){
 					Log.i(Mobile.TAG, "publish");
 					if(params.length == 7) {
 						// CRAFT THE POST REQUEST
@@ -76,7 +99,32 @@ public class WebClient extends WebViewClient {
 					} else {
 						Log.w(Mobile.TAG, "Argument missing! ");
 					}
-				} else {
+				}
+				/*
+				 * phonecalls
+				 */
+				else if (params[1].equals("call")){
+
+
+					int numberOfCalls = params.length -1;
+
+					
+//					Intent callIntent = new Intent(Intent.ACTION_CALL);
+//					callIntent.setData(Uri.parse("tel:"+params[2]));
+//					
+//					// Turn the speaker On
+//					AudioManager audioManager = (AudioManager)activity.getSystemService(Context.AUDIO_SERVICE);
+//					audioManager.setSpeakerphoneOn(true);
+//
+//					
+//					CallReceiver callReceiver = new CallReceiver();
+//					// Make the call
+//					activity.startActivity(callIntent);
+					
+					
+					
+				}
+				else {
 					Log.w(Mobile.TAG, "Unknown Method: " + params[1]);
 				}
 			} else {
@@ -87,19 +135,38 @@ public class WebClient extends WebViewClient {
 
 
 //	public void onLoadResource (WebView view, String url) {
-//		if (progressDialog == null && !url.matches(".*map.*")) {
-//			progressDialog = new ProgressDialog(activity);
-//			progressDialog.setMessage("Chargement en cours...");
-//			progressDialog.show();
+//		;
+//		if (activity.getProgressDialog() == null && !url.matches(".*map.*")) {
+//			ProgressDialog dialog = ProgressDialog.show(activity, "", "Chargement en cours...", true);
+//			activity.setProgressDialog(dialog);
 //		}
 //	}
 //
-//	public void onPageFinished(WebView view, String url) {
-//		if (progressDialog != null) {
-//			if (progressDialog.isShowing()) {
-//				progressDialog.dismiss();
-//				progressDialog = null;
+	public void onPageFinished(WebView view, String url) {
+		ProgressBar bar = (ProgressBar) activity.findViewById(R.id.progressBar1);
+		bar.setVisibility(View.GONE);
+		Log.w(Mobile.TAG, url);
+		//if (url.matches(".*/application/"+activity.getString(R.string.app_name)+"/") || url.matches(".*.fr/")){
+			
+			((TextView) activity.findViewById(R.id.textView1)).setVisibility(View.GONE);
+			activity.findViewById(R.id.imageView1).setVisibility(View.GONE);
+			activity.findViewById(R.id.imageView2).setVisibility(View.GONE);
+		//}
+		
+//		if (activity.getProgressDialog() != null) {
+//			if (activity.getProgressDialog().isShowing()) {
+//				activity.getProgressDialog().dismiss();
 //			}
 //		}
+	}
+	
+	
+//	@Override
+//	public void onReceivedError(WebView view, int errorCode,
+//			String description, String failingUrl) {
+//
+//		AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
+//		alertDialog.setMessage("non connecté");
+//		alertDialog.show();
 //	}
 }

@@ -1,16 +1,9 @@
 
-function hideLoadingBar(){
-	//hide loading status...
-	loading = document.getElementById("loading");
-	loading.style.display='none';
+function hideLoadingBar() {
+	$.mobile.hidePageLoadingMsg();
 }
+function showLoadingBar(text) {
+	$.mobile.showPageLoadingMsg("d", text);
 
-function showLoadingBar(text){
-	//hide loading status...
-	loading = document.getElementById("loading");
-	if(text) {
-		loading.innerHTML = "<center><span>" + text + "</span></center>";
-	}
-	loading.style.display = "block";
+	setTimeout(hideLoadingBar, 3000); // make sure it stops one day
 }
-

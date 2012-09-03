@@ -12,7 +12,7 @@
 	 	<?php 
 	 	$socialNetworkConnection =  new SocialNetworkConnection();
 	 	foreach($socialNetworkConnection->getWrappers() as $wrapper) {
-	 		echo "<a href='" . $wrapper->getLoginUrl() . "' onClick='showLoadingBar(\"redirecton en cours...\")'>" . $wrapper->getSocialNetworkButton() . "</a>";
+	 		echo "<a href='" . $wrapper->getLoginUrl() . "' onClick='showLoadingBar(\"redirection en cours...\")'>" . $wrapper->getSocialNetworkButton() . "</a>";
 	 	}
 	 	?>
 	    

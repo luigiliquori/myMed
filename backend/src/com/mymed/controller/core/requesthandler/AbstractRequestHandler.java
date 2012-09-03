@@ -33,7 +33,6 @@ import javax.servlet.http.Part;
 
 import ch.qos.logback.classic.Logger;
 
-import com.google.gson.Gson;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
@@ -84,7 +83,7 @@ public abstract class AbstractRequestHandler extends HttpServlet {
      * This is the URL address of the server, necessary for configuring data across all the backend. If nothing has been
      * set at compile time, the default value is an empty string.
      */
-    private static final String DEFAULT_SERVER_URI = PROPERTIES.getManager(PropType.GENERAL).get("general.server.uri");
+    protected static final String DEFAULT_SERVER_URI = PROPERTIES.getManager(PropType.GENERAL).get("general.server.uri");
 
     /**
      * This is the server URI as to be used in the backend.
@@ -94,7 +93,7 @@ public abstract class AbstractRequestHandler extends HttpServlet {
     /**
      * The protocol used for communications. This is the default value provided via the properties.
      */
-    private static final String DEFAULT_SERVER_PROTOCOL = PROPERTIES.getManager(PropType.GENERAL).get(
+    protected static final String DEFAULT_SERVER_PROTOCOL = PROPERTIES.getManager(PropType.GENERAL).get(
                     "general.server.protocol");
 
     /**
@@ -132,6 +131,11 @@ public abstract class AbstractRequestHandler extends HttpServlet {
      * JSON 'application' attribute.
      */
     protected static final String JSON_APPLICATION = JSON.get("json.application");
+    
+    /**
+     * JSON 'predicate' attribute.
+     */
+    protected static final String JSON_NAMESPACE = JSON.get("json.namespace");
 
     /**
      * JSON 'create' value.
@@ -184,16 +188,11 @@ public abstract class AbstractRequestHandler extends HttpServlet {
         }
     }
 
-    /** Google library to handle jSon request */
-    private Gson gson;
-
     /** The response/feedback printed */
     private String responseText = null;
 
     protected AbstractRequestHandler() {
         super();
-
-        gson = new Gson();
 
         // Set a default global URI to be used by the backend, if we cannot get the host name
         // we fallback to use localhost.
@@ -292,9 +291,19 @@ public abstract class AbstractRequestHandler extends HttpServlet {
      * @param message
      * @param response
      */
-    protected void printJSonResponse(final JsonMessage message, final HttpServletResponse response) {
+    protected void printJSonResponse(final JsonMessage<Object> message, final HttpServletResponse response) {
         response.setStatus(message.getStatus());
         responseText = message.toString();
+        printResponse(response);
+    }
+    /**
+     * 
+     * Prints JsonP response,
+     *  should be implemented on sinle handler carefully (security)
+     */
+    protected void printJSonResponse(final JsonMessage<Object> message, final HttpServletResponse response, final String callback) {
+        response.setStatus(message.getStatus());
+		responseText = callback + "(" + message.toString() + ");";
         printResponse(response);
     }
 
@@ -334,7 +343,7 @@ public abstract class AbstractRequestHandler extends HttpServlet {
      */
     private void printResponse(final HttpServletResponse response) {
         if (responseText != null) {
-            response.setContentType("text/plain;charset=UTF-8");
+            response.setContentType("application/json;charset=UTF-8");
             PrintWriter out;
 
             try {
@@ -351,13 +360,6 @@ public abstract class AbstractRequestHandler extends HttpServlet {
         }
     }
 
-    public Gson getGson() {
-        return gson;
-    }
-
-    public void setGson(final Gson gson) {
-        this.gson = gson;
-    }
 
     public String getResponseText() {
         return responseText;

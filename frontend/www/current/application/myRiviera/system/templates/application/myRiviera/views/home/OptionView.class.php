@@ -56,6 +56,7 @@ class OptionView extends MyApplication {
 					<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="100">
 				<?php } ?>
 				<br />
+				<!-- <a onclick="capturePhoto();" type="button" data-theme="d">Prendre une photo</a>  -->
 				Prenom: <?= $_SESSION['user']->firstName ?><br />
 				Nom: <?= $_SESSION['user']->lastName ?><br />
 				Date de naissance: <?= $_SESSION['user']->birthday ?><br />
@@ -160,7 +161,7 @@ class OptionView extends MyApplication {
 					Bouton Rechercher, au dessus de la carte
 				</h3>
 				<p>Ce bouton permet la recherche d'itinéraire via les transports publics, nous utilisons l'API 
-					<a href="http://www.cityway.fr">Cityway</a> , en cas d'échec vous serez redirigé
+					<a href="http://www.ceparou06.fr/">Ceparou06</a> , en cas d'échec vous serez redirigé
 					vers un itinéraire Google Maps classique.</p>
 				<h3>Points d'intérêts</h3>
 				<p>Ils désignent les types d'établissements, d'évênements que vous souhaitez
@@ -182,23 +183,19 @@ class OptionView extends MyApplication {
 	
 			<!-- ABOUT -->
 			<div data-role="collapsible" data-collapsed="true" data-theme="d"
-				data-content-theme="c">
-				<h3>A propos</h3>
-				<h2>myRiviera v1.0 beta</h2>
-				<h3>myMed - INTERREG IV - Alcotra</h3>
-				<div class="innerContent">
-					<img alt="Alcotra" src="system/img/logos/alcotra"
-						style="width: 100px;" /> <img alt="Europe"
-						src="system/img/logos/europe" style="width: 50px;" /> <img
-						alt="Conseil Général 06" src="system/img/logos/cg06"
-						style="width: 100px;" /> <img alt="Regine Piemonte"
-						src="system/img/logos/regione" style="width: 100px;" /> <img
-						alt="Région PACA" src="system/img/logos/PACA" style="width: 100px;" />
-					<img alt="Prefecture 06" src="system/img/logos/pref"
-						style="width: 70px;" /> <img alt="Inria"
-						src="system/img/logos/inria" style="width: 100px;" />
-					<p>"Ensemble par-delà les frontières"</p>
-				</div>
+				data-content-theme="c" style="text-align: center;">
+
+					<h3>A propos</h3>
+					<h2>myRiviera v1.0 beta</h2>
+					<h4 style="margin: 10px;">myMed - INTERREG IV - Alcotra</h4>
+					<img alt="Alcotra" src="system/img/logos/alcotra" style="max-height:40px;max-width:100px;vertical-align: middle;" />
+					<img alt="Europe" src="system/img/logos/europe" style="max-height:40px;max-width:100px;vertical-align: middle;" />
+					<img alt="Conseil Général 06" src="system/img/logos/cg06" style="max-height:40px;max-width:100px;vertical-align: middle;" />
+					<img alt="Regine Piemonte" src="system/img/logos/regione" style="max-height:40px;max-width:100px;vertical-align: middle;" />
+					<img alt="Région PACA" src="system/img/logos/PACA" style="max-height:40px;max-width:100px;vertical-align: middle;" />
+					<img alt="Prefecture 06" src="system/img/logos/pref" style="max-height:40px;max-width:100px;vertical-align: middle;" />
+					<img alt="Inria" src="system/img/logos/inria.png" style="max-height:40px;max-width:100px;vertical-align: middle;" />
+					<h4>"Ensemble par-delà les frontières"</h4>
 			</div>
 		</div>
 	</div>

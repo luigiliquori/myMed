@@ -1,10 +1,14 @@
 package com.mymed.controller.core.manager.registration;
 
+import static com.mymed.model.data.application.MOntologyID.KEYWORD;
+import static com.mymed.utils.GsonUtils.gson;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.google.gson.Gson;
+import org.apache.commons.lang.NotImplementedException;
+
 import com.google.gson.JsonSyntaxException;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
@@ -16,6 +20,7 @@ import com.mymed.controller.core.manager.pubsub.PubSubManager;
 import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.controller.core.manager.storage.StorageManager;
 import com.mymed.model.data.application.MDataBean;
+import com.mymed.model.data.application.MOntologyID;
 import com.mymed.model.data.session.MAuthenticationBean;
 import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.HashFunction;
@@ -62,11 +67,10 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
     /**
      * The default ontology id.
      */
-    private static final String ONTOLOGY_ID = "0";
+    private static final MOntologyID ONTOLOGY_ID = KEYWORD;
 
     private final IPubSubManager pubSubManager;
     private final IAuthenticationManager authenticationManager;
-    private final Gson gson;
 
     /**
      * Default constructor.
@@ -85,10 +89,8 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
      */
     public RegistrationManager(final IStorageManager storageManager) throws InternalBackEndException {
         super(storageManager);
-
         pubSubManager = new PubSubManager();
         authenticationManager = new AuthenticationManager();
-        gson = new Gson();
     }
 
     /*
@@ -98,20 +100,20 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
      * com.mymed.model.data.session.MAuthenticationBean, java.lang.String)
      */
     @Override
-    public void create(final MUserBean user, final MAuthenticationBean authentication, final String application)
-                    throws AbstractMymedException {
+    public void create(
+            final MUserBean user, 
+            final MAuthenticationBean authentication, 
+            final String application)
+    throws AbstractMymedException
+    {
         // PUBLISH A NEW REGISTATION PENDING TASK
         final List<MDataBean> dataList = new ArrayList<MDataBean>();
         try {
-            final MDataBean dataUser = new MDataBean();
-            dataUser.setKey(FIELD_USER);
-            dataUser.setOntologyID(ONTOLOGY_ID);
-            dataUser.setValue(gson.toJson(user));
+			final MDataBean dataUser = new MDataBean(FIELD_USER,
+					gson.toJson(user), ONTOLOGY_ID);
 
-            final MDataBean dataAuthentication = new MDataBean();
-            dataAuthentication.setKey(FIELD_AUTHENTICATION);
-            dataAuthentication.setOntologyID(ONTOLOGY_ID);
-            dataAuthentication.setValue(gson.toJson(authentication));
+			final MDataBean dataAuthentication = new MDataBean(FIELD_AUTHENTICATION, 
+					gson.toJson(authentication), ONTOLOGY_ID);
 
             dataList.add(dataUser);
             dataList.add(dataAuthentication);
@@ -123,23 +125,30 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
         final HashFunction hashFunc = new HashFunction(APP_NAME);
         final String accessToken = hashFunc.SHA1ToString(user.getLogin() + System.currentTimeMillis());
 
-        pubSubManager.create(APP_NAME, accessToken, accessToken, user, dataList);
+        pubSubManager.create(
+                APP_NAME, 
+                accessToken, 
+                accessToken, 
+                user, 
+                dataList, 
+                null);
 
         final StringBuilder contentBuilder = new StringBuilder(250);
+        
         // TODO add internationalization support
-        contentBuilder.append("Bienvenu sur myMed.<br/><br/>Pour finaliser votre inscription allez sur <a href='");
+        contentBuilder.append("Bienvenue sur myMed.<br /><br />Pour finaliser votre inscription allez sur <a href='");
         String address = getServerProtocol() + getServerURI();
         if (application != null) {
         	address += "/application/" + application;
         } 
         address += "?registration=ok&accessToken=" + accessToken;
         contentBuilder.append(address);
-        contentBuilder.append("'>"+address+"</a><br/><br/>------<br/>L'&eacute;quipe myMed");
+        contentBuilder.append("'>"+address+"</a><br /><br />------<br />L'&eacute;quipe myMed");
 
         contentBuilder.trimToSize();
 
         final MailMessage message = new MailMessage();
-        message.setSubject("Bienvenu sur myMed");
+        message.setSubject("Bienvenue sur myMed");
         message.setRecipient(user.getEmail());
         message.setText(contentBuilder.toString());
 
@@ -172,11 +181,18 @@ public class RegistrationManager extends AbstractManager implements IRegistratio
             throw new InternalBackEndException("User/Authentication jSon format is not valid"); // NOPMD
         }
 
-        // register the new user
+        // Register the new user
         if ((userBean != null) && (authenticationBean != null)) {
             authenticationManager.create(userBean, authenticationBean);
             // delete pending tasks
-            pubSubManager.delete(APP_NAME, accessToken, accessToken, userBean);
+            pubSubManager.delete(APP_NAME, accessToken, accessToken, userBean.getId());
         }
     }
+
+	@Override
+	public void read(String application, String accessToken)
+			throws AbstractMymedException {
+		
+		throw new NotImplementedException();	
+	}
 }

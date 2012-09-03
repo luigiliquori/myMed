@@ -1,9 +1,10 @@
 package com.mymed.controller.core.manager.reputation.db.table;
 
-import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.controller.core.manager.reputation.db.facade.TransactionManager;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.controller.core.manager.reputation.db.facade.TransactionManager;
 /**
  * 
  * A Verdict encapsulated the information of a vote.

@@ -33,6 +33,22 @@ class MyApplicationHandler implements IRequestHandler {
 	/* Public methods */
 	/* --------------------------------------------------------- */
 	public /*void*/ function handleRequest() { 
+		
+		if (isset($_GET['predicate'])) { // HANDLE unsubscription from mail
+			$request = new Request("SubscribeRequestHandler", DELETE);
+			$request->addArgument("application", $_GET['application']);
+			$request->addArgument("predicate", $_GET['predicate']);
+			$request->addArgument("userID", $_GET['userID'] );
+			if (isset($_GET['accessToken']))
+				$request->addArgument('accessToken', $_GET['accessToken']);
+			$responsejSon = $request->send();
+			$responseObject = json_decode($responsejSon);
+			if ($responseObject->status==200){
+				header("Refresh:0;url=/application/" . APPLICATION_NAME."Admin#SubscribeView");
+			}
+		}
+		
+		
 		if(isset($_POST['method'])) {
 			if($_POST['method'] == "publish") {
 				$delete = new Delete($this);
