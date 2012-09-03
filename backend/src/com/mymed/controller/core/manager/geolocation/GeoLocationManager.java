@@ -102,6 +102,7 @@ public class GeoLocationManager extends AbstractManager {
 
             long timestamp = System.currentTimeMillis();
             final MyMedId id = new MyMedId(Character.toLowerCase(itemType.charAt(0)), timestamp, userLogin);
+            
 
             /** Create a MSearchBean instance to be returned. */
             final MSearchBean searchBean = new MSearchBean();
@@ -283,7 +284,7 @@ public class GeoLocationManager extends AbstractManager {
      */
     public void delete(final String applicationId, final String itemType, final long locationId, final String itemId)
                     throws InternalBackEndException, IOBackEndException {
-
+    	
         try {
             final String areaId = String.valueOf(Locator.getAreaId(locationId));
             final MyMedId id = MyMedId.parseString(itemId);
