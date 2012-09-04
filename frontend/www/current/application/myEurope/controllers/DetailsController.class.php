@@ -1,5 +1,9 @@
 <? 
+require_once 'profile-utils.php';
+
 class DetailsController extends AuthenticatedController {
+	
+	public $delete = false;
 	
 	public function handleRequest() {
 		
@@ -27,27 +31,46 @@ class DetailsController extends AuthenticatedController {
 			$res = $req->send();
 		}
 		catch(Exception $e){
-			//return null;
 			$this->details=new StdClass();
 			$this->details->text = "Contenu effacé par l'auteur";
 		}
 
 		if (isset($res->details)){
 			$this->details = $res->details;
-			$rep =  new Reputationv2($this->id);
+			$rep =  new Reputationv2($this, $this->details->user, $this->id);
 			$this->reputation = $rep->send();
 			
 			if (isset($this->details->user)){
-				$this->details->userProfile = $this->getProfile($this->details->user);
+				$this->details->userProfile = getProfilefromUser($this, $this->details->user);
+				
+				if ($this->delete){
+					$request = new RequestJson($this,
+							array("application"=>APPLICATION_NAME.":profiles", "id"=>$this->details->partner, "field"=>"part_".$this->id),
+							DELETE);
+					$request->send();
+				}
 			}
+
 			$this->partnersProfiles = array();
 
 			foreach ($this->details as $k => $v){
-				if (strpos($k, "partner") === 0){
-					$p = $this->getProfile($v);
+				if (strpos($k, "user_") === 0){
+					$p = getProfilefromUser($this, $v);
 					array_push($this->partnersProfiles, $p);
 				}
 			}
+			
+			if ($this->delete){
+				$request = new RequestJson($this,
+						array("application"=>APPLICATION_NAME.":profiles", "id"=>"", "field"=>"part_".$this->id),
+						DELETE);
+				
+				foreach ($this->partnersProfiles as $v){
+					$req->addArguments(array("id"=>$v->id));
+					$request->send();
+				}
+			}
+			
 			debug_r($this->details);
 			$this->renderView("details");
 		} else
@@ -67,7 +90,9 @@ class DetailsController extends AuthenticatedController {
 		debug('trying to delete '.$_GET['namespace']."..".$_GET['id']);
 
 		$publish->send();
-	
+		
+		//delete from partners profiles after read
+		$this->delete = true;
 	
 	}
 	
@@ -92,12 +117,12 @@ class DetailsController extends AuthenticatedController {
 		$publish->send();
 		
 		$publish = new RequestJson( $this,
-				array("application"=>APPLICATION_NAME.":".$_GET['namespace'],"id"=>$this->id, "user"=>"noNotification", "data"=>array("partner".$_GET["accept"]=>$_GET["accept"]) ),
+				array("application"=>APPLICATION_NAME.":".$_GET['namespace'],"id"=>$this->id, "user"=>"noNotification", "data"=>array("user_".$_GET["accept"]=>$_GET["accept"]) ),
 				UPDATE);
 		$publish->send();
 		
 		$publish = new RequestJson( $this,
-				array("application"=>APPLICATION_NAME.":users", "id"=>$_GET["accept"], "data"=>array("part".$this->id=>$this->id) ),
+				array("application"=>APPLICATION_NAME.":profiles", "id"=>$_GET["accept"], "data"=>array("part_".$this->id=>$this->id) ),
 				UPDATE);
 		$publish->send();
 		
@@ -105,27 +130,6 @@ class DetailsController extends AuthenticatedController {
 			$this->success = _("Partnerships added");
 	}
 	
-	public /*void*/ function getProfile($id){
 	
-		$find = new RequestJson( $this, array("application"=>APPLICATION_NAME.":users","id"=>$id));
-			
-		try{
-			$result = $find->send();
-		}
-		catch(Exception $e){
-			//return null;
-		}
-	
-		if (!empty($result)){
-	
-			$profile = $result->details;	
-			$rep =  new Reputationv2($id);
-			$profile->reputation = $rep->send();
-			debug_r($profile);
-			return $profile;
-		}
-		return null;
-	
-	}
 }
 ?>

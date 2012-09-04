@@ -1,4 +1,7 @@
 <? 
+
+require_once 'profile-utils.php';
+
 class ExtendedProfileRequired extends AuthenticatedController {
 	
 	public /*void*/ function handleRequest(){
@@ -8,60 +11,87 @@ class ExtendedProfileRequired extends AuthenticatedController {
 		 * Try to get the User ExtendedProfile if it exist
 		 * ExtendedProfile stored in the $_SESSION while using the app
 		 */
-		if (!array_key_exists('myEuropeProfile', $_SESSION)) {
+		if (!array_key_exists('myEurope', $_SESSION)) {
 
 			$this->fetchExtendedProfile();
 		}
-		else if ($_SESSION['myEuropeProfile']->permission <= 0)
+		else if ($_SESSION['myEurope']->permission <= 0)
 			$this->renderView("WaitingForAccept");
 		
 	}
 	
+	
+	public $cats = array(
+			"Association - Coopérative - Mutuelle"=>"",
+			"Entreprise privée"=>"",
+			"Chambre consulaire - Groupement professionnel"=>"",
+			"Université - Recherche"=>"",
+			"Mairie - établissement public communal ou intercommunal"=>"",
+			"Département - établissement public départemental"=>"",
+			"Région - établissement public régional"=>"",
+			"Service de l’Etat - établissement public de l’Etat"=>"",
+			"Autre établissement ou groupement public"=>"",
+			"Autre"=>""
+	);
+	
 	/**
-	 * Fetch the user extendedProfile by using the static method getExtendedProfile of the class ExtendedProfile.
-	 * In case the profile is found, it is stored in$_SESSION['ExtendedProfile'] and the Main view is called.
-	 * Else, the ExtendedProfileNeeded viex is called.
-	 * @param implicit : use the current User Id stored in the session.
-	 * @see ExtendedProfile::getExtendedProfile()
+	 * 
+	 * @return multitype:unknown
 	 */
 	public /*void*/ function fetchExtendedProfile(){
-		
-		$rep =  new Reputationv2($_SESSION['user']->id);
-		$myrep = $rep->send();
 		
 		$find = new RequestJson($this, array("application"=>APPLICATION_NAME.":users", "id"=>$_SESSION['user']->id));
 			
 		try{
 			$res = $find->send();
 		}
-		catch(Exception $e){
-			//return null;
-		}
+		catch(Exception $e){}
 		
 		if (empty($res->details)){
 			$this->error = "";
 			debug("wow");
+
+			$find = new RequestJson($this, array("application"=>APPLICATION_NAME.":profiles", "predicates"=>array()));
+			
+			try{
+				$res = $find->send();
+			}
+			catch(Exception $e){}
+			if (isset($res)){
+				debug('there');
+				function filterArray($array, $value){
+					$result = array();
+					foreach($array as $item) {
+						if ($item->role == $value) {
+							$result[] = $item;
+						}
+					}
+				
+					return $result;
+				}
+				foreach($this->cats as $k=>$v){
+					$this->cats[$k] = filterArray($res->results, $k);
+				}
+			}
+			
 			$this->renderView("ExtendedProfileCreate");
 		}
 		else {
-			//organize projects
-			$partnerships = array();
-			foreach ($res->details as $k=>$v){
-				if (strpos($k, "part") === 0){
-					array_push($partnerships, $v);
-				}
-			}
-			$_SESSION['myEuropeProfile'] = $res->details;
-			$this->success = "";
-			$_SESSION['myEuropeProfile']->reputation = $myrep;
-			$_SESSION['myEuropeProfile']->partnerships = $partnerships;
 			
-			if ($_SESSION['myEuropeProfile']->permission <= 0)
+			$_SESSION['myEurope'] = $res->details;
+			$this->success = "";
+			
+			$profile = getProfile($this, $_SESSION['myEurope']->profile);
+			if (!empty($profile))
+				$_SESSION['myEuropeProfile'] =$profile;
+			else
+				$this->renderView("ExtendedProfileCreate");
+			
+			if ($_SESSION['myEurope']->permission <= 0)
 				$this->renderView("WaitingForAccept");
 			$this->renderView("Main");
 		}
 	}
-	
-	
+
 }
 ?>

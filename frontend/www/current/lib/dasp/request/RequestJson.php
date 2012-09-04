@@ -95,7 +95,6 @@ class RequestJson {
 			$this->arguments['accessToken'] = $_SESSION['accessToken'];
 		}
 
-
 		// POST REQUEST
 		curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 		curl_setopt($curl, CURLOPT_URL, $this->url.$this->ressource);
@@ -121,7 +120,7 @@ class RequestJson {
 		if(!isset($obj)) // IOBackendException catch has been removed in v2
 			throw new Exception("No results found!");
 		
-		if ($obj->status != 200 /*&& $obj->status != 404*/ && !is_null($this->handler)) { // Error
+		if ($obj->status != 200 && $obj->status != 404 && !is_null($this->handler)) { // Error
 			$this->handler->setError($obj->description);
 			throw new Exception("No results found");
 		

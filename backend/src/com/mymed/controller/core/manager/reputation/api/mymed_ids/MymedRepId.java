@@ -80,7 +80,7 @@ public class MymedRepId implements IMymedRepId{
                 PKConstants.SEPARATOR_CHAR + ability;
     }
 
-    protected static String MakeAppId(String appId) {
+    public static String MakeAppId(String appId) {
         return AppPrefix + PKConstants.SEPARATOR_CHAR + appId;
     }
 
@@ -89,7 +89,7 @@ public class MymedRepId implements IMymedRepId{
                 + appUniqueId;
     }
 
-    protected static String MakeUserId(String personId) {
+    public static String MakeUserId(String personId) {
         return UserPrefix + PKConstants.SEPARATOR_CHAR + personId;
     }
 

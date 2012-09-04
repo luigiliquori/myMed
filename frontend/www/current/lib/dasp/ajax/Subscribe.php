@@ -12,6 +12,8 @@ if (!$request->hasArgument("predicates"))
 	
 $responsejSon = $request->send();
 
+$responsejSon->description = _("Subscribed to ").$_POST['application']." ".$_POST['predicates'];
+
 echo json_encode($responsejSon);
 
 

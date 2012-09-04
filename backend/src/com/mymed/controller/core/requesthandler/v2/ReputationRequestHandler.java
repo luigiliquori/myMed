@@ -28,12 +28,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.reputation.ReputationManager;
-import com.mymed.controller.core.manager.reputation.api.mymed_ids.MymedAppUserId;
-import com.mymed.controller.core.manager.reputation.api.mymed_ids.ReputationRole;
 import com.mymed.controller.core.requesthandler.message.JsonMessageOut;
 import com.mymed.model.data.reputation.MReputationEntity;
 /**
@@ -81,26 +78,26 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
             checkToken(parameters);
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
             final String 
-            	application = parameters.get(JSON_APPLICATION), 
+            	id = parameters.get("id"), 
             	producer = parameters.get(JSON_PRODUCER),
-            	producers = parameters.get("producers"),
+            	ids = parameters.get("ids"),//many ids
             	consumer = parameters.get(JSON_CONSUMER);
 
             switch (code) {
                 case READ :
-                    if (application == null)
-                        throw new InternalBackEndException("missing application argument!");
-                    
+//                    if (producer == null)
+//                        throw new InternalBackEndException("missing producer argument!");
 
-                    if (producer != null){
-                    	final MymedAppUserId user = new MymedAppUserId(application, producer, ReputationRole.Producer);
-                        final MReputationEntity reputation = reputationManager.read(user, consumer);
+                    if(id != null){
+                    	
+                        final MReputationEntity reputation = reputationManager.read(id, producer, consumer);
 
                         message.addDataObject(JSON_REPUTATION, reputation);
-                    } else if(producers != null){
+                    	
+                    } else if(ids != null){
                     	List<String> prods = new ArrayList<String>();
                     	try {
-                    		prods = gson.fromJson(producers, listType);
+                    		prods = gson.fromJson(ids, listType);
             			} catch (final JsonSyntaxException e) {
             				LOGGER.debug("Error in Json format", e);
             				throw new InternalBackEndException("jSon format is not valid");
@@ -108,16 +105,16 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
             				LOGGER.debug("Error in parsing Json", e);
             				throw new InternalBackEndException(e.getMessage());
             			}
-                    	List<MymedAppUserId> repIds = new ArrayList<MymedAppUserId>();
-                    	for (String p : prods)
-                    		repIds.add(new MymedAppUserId(application, p, ReputationRole.Producer));
                     	
-                        final Map<String, MReputationEntity> reputationMap = reputationManager.read(repIds, consumer);
+                        final Map<String, MReputationEntity> reputationMap = reputationManager.read(prods, producer, consumer);
 
                         message.addDataObject(JSON_REPUTATION, reputationMap);
                     	
                     } else {
-                    	throw new InternalBackEndException("missing producer(s) argument!");
+                    	
+                    	final MReputationEntity reputation = reputationManager.read(producer, consumer);
+
+                        message.addDataObject(JSON_REPUTATION, reputation);
                     }
                         
 

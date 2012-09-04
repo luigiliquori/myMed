@@ -3,6 +3,7 @@
 <div data-role="page" id="results">
 	<div data-role="header" data-theme="c" data-position="fixed">
 		<? tabs_3empty(_("Results")) ?>
+		<? include("notifications.php"); ?>
 	</div>
 
 	<div data-role="content">
@@ -26,7 +27,7 @@
 		_('Places').': <em>'.(empty($this->places)?_('All'):join(", ",$this->places)).'</em>, '.
 		_('Keywords').': <em>'.(empty($this->p)?_('All'):join(", ",$this->p)).'</em>' ?>:</label>
 		<a id="subscribeButton" type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="alert"
-		onclick='subscribe("<?= APPLICATION_NAME ?>:part", "<?= APPLICATION_NAME.":".$_GET['namespace'] ?>", <?= json_encode($this->index) ?>); $(this).addClass("ui-disabled");'><?= _("Subscribe") ?></a>
+		onclick='subscribe($(this), "<?= APPLICATION_NAME ?>:part", "<?= APPLICATION_NAME.":".$_GET['namespace'] ?>", <?= json_encode($this->index) ?>); $(this).addClass("ui-disabled");'><?= _("Subscribe") ?></a>
 		</div>
 		</div>
 		
@@ -40,7 +41,7 @@
 
 			<? foreach($this->result as $item) : ?>
 			
-			<li data-id="<?= prettyprintUser($item->user) ?>" data-time="<?= $item->time ?>" data-title="<?= $item->title ?>">
+			<li data-id="<?= prettyprintUser($item->user) ?>" data-partner="<?= $item->partner ?>" data-time="<?= $item->time ?>" data-title="<?= $item->title ?>">
 			<a href="?action=details&namespace=<?= $_GET['namespace'] ?>&id=<?= urlencode($item->id) ?>"><span
 					class="ui-link"><?= $item->title ?> </span> &ndash; <span style="font-weight: lighter;"><?= prettyprintUser($item->user) ?>  (<?= date('j/n/y G:i', $item->time) ?>)</span>
 				</a>

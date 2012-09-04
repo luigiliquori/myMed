@@ -1,9 +1,6 @@
 <?php 
 
 
-
-
-
 /**
  *  Generates a navbar of tabs with appropriate transitions (left / right).
  *  $tabs : An array of "<tabId>" => "<Label>"
@@ -18,14 +15,15 @@ function tabs($tabs, $activeTab) {
 	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
 	<ul>
 		<li><a href="?action=logout" rel="external" data-icon="back"><?= _("Exit") ?></a></li>
-		<? foreach ($tabs as $id => $label) { ?>
+		<? foreach ($tabs as $id => $v) { ?>
 		<li>
 			<a 
 				href="#<?= $id ?>"    
 				data-transition="slide" 
+				data-icon="<?= $v[1] ?>" 
 				<?= ($reverse) ? 'data-direction="reverse"' : '' ?>
 				<?= ($activeTab == $id) ? 'class="ui-btn-active ui-state-persist"' : '' ?> >
-				<?= $label ?>
+				<?= $v[0] ?>
 			</a>
 		</li><? 
 		
@@ -124,7 +122,7 @@ function tabs($tabs, $activeTab) {
       	<ul>
       		<li><a data-rel="back" data-icon="back" data-theme="d"><?= _("Back") ?></a></li>
       		<li><a class="ui-btn-active"><?= $title ?></a></li>
-      		<li><a onclick="<?= $url ?>" data-theme="d" data-icon="<?= $icon ?>"><?= $button ?></a></li>
+      		<li><a onclick="<?= $url ?>" data-theme="d" data-icon="<?= $icon ?>" rel="external"><?= $button ?></a></li>
       	</ul>
       	</div> <?
       }
@@ -171,84 +169,14 @@ function tabs($tabs, $activeTab) {
             	</div> <?
             }
       
-      function tabs_2empty($title) {
+      function tabs_2empty($title, $icon="") {
       	?>
             	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
             	<ul>
             		<li><a data-rel="back" data-icon="back" rel="external"  data-theme="d"><?= _("Back") ?></a></li>
-            		<li><a class="ui-btn-active"><?= $title ?></a></li>
+            		<li><a class="ui-btn-active" data-icon="<?= $icon ?>"><?= $title ?></a></li>
             	</ul>
             	</div> <?
-        }
-        
-        function profileForm($shortRole, $role) {
-        ?>
-<div data-role="page" id="<?= $shortRole ?>" >
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_3click(
-				APPLICATION_NAME,
-				_('Validate'),
-				"$('#ExtendedProfileForm').submit();",
-				"check") ?>
-	</div>
-
-	<div data-role="content">
-		<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm">
-			<input type="hidden" name="form" value="create" />
-			<input type="hidden" name="role" value="<?= $role ?>" />
-			
-			<h3 class="ui-link"><?= $role ?></h3>
-			
-			<label for="textinputu1"><?= _('Organization or Company Name') ?>: </label>
-			<input id="textinputu1" name="name" placeholder="" value='' type="text" />
-			
-			<label for="textinputu2"> Domaine d'action: </label>
-			<input id="textinputu2" name="activity" placeholder="" value='' type="text" />
-			
-			<label for="textinputu4"> <?= _('Address') ?>: </label>
-			<input id="textinputu4" name="address" placeholder="" value='' type="text" />
-			
-			<div data-role="fieldcontain">
-			<label for="area">Territoire d'action:</label>
-			<fieldset id="area" data-role="controlgroup">
-				<input type="radio" name="area" id="radio-view-a" value="local" checked="checked"/> <label for="radio-view-a">local</label>
-				<input type="radio" name="area" id="radio-view-b" value="départemental" <?= $shortRole=="Département"?'checked="checked"':'' ?>/> <label for="radio-view-b">départemental</label>
-				<input type="radio" name="area" id="radio-view-c" value="régional" <?= $shortRole=="Région"?'checked="checked"':'' ?>/> <label for="radio-view-c">régional</label>
-				<input type="radio" name="area" id="radio-view-d" value="national" /> <label for="radio-view-d">national</label>
-				<input type="radio" name="area" id="radio-view-e" value="international" /><label for="radio-view-e">international</label>
-			</fieldset>
-			</div>
-			
-			<div data-role="fieldcontain">
-			<label for="type">Type de territoire:</label>
-			<fieldset id="type" data-role="controlgroup">
-				<input type="checkbox" name="type-urbain" id="check-view-a" value="urbain" checked="checked"/> <label for="check-view-a">urbain</label>
-				<input type="checkbox" name="type-rural" id="check-view-b" value="rural" /> <label for="check-view-b">rural</label>
-				<input type="checkbox" name="type-montagnard" id="check-view-c" value="montagnard" /> <label for="check-view-c">montagnard</label>
-				<input type="checkbox" name="type-maritime" id="check-view-d" value="maritime" /> <label for="check-view-d">maritime</label>
-			</fieldset>
-			</div>
-						
-			<label for="textinputu6"> <?= _('Phone') ?>: </label>
-			<input id="textinputu6" name="phone" placeholder="" value='' type="tel" />
-			
-			<label for="desc"> <?= _('Description') ?>: </label>
-			<textarea id="desc" name="desc" placeholder="description, commentaires"></textarea>
-			<br/>
-				
-			<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 8px;"/>
-			<span style="position: relative; left: 50px;">
-				J'accepte les 
-				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a>
-			</span><br />
-			
-			<div style="text-align: center;" >
-				<input type="submit" data-inline="true" data-role="button" data-icon="check" value="Valider"/>
-			</div>
-		</form>
-	</div>
-</div>
-        <?
         }
             
             
@@ -277,6 +205,11 @@ function tabs($tabs, $activeTab) {
 		_("These information exchanges will be useful to French elected representatives and their Italian counterparts in order to establish a permanent contact between French and Italian people. It will result in a better organization of cross-border activity.")
 	?>	
 	</p>
+</div>
+<div class="logos" style="text-align: center;">
+	<img alt="Alcotra" src="../../system/img/logos/fullsize/alcotra" style="width: 100px;"/>
+	<img alt="Europe" src="../../system/img/logos/fullsize/EU" style="width: 80px;"/>
+	<img alt="myMed" src="../../system/img/logos/mymed" />
 </div>
 <?
        }
@@ -311,13 +244,15 @@ function tabs($tabs, $activeTab) {
 						<p>
 							<?= empty($profile->desc)?" ":$profile->desc ?>
 						</p>
-
-						<div class="ui-li-aside" data-role="controlgroup" style="width:auto;" data-type="horizontal" data-mini="true">
-							<a data-role="button" data-theme="d" style="color:gray;" data-icon="minus" onclick="rate(0, '<?= $profile->user ?>');"><?= $profile->reputation['down'] ?></a>
-							<a data-role="button" data-theme="d" style="color:blue;" data-icon="plus" onclick="rate(1, '<?= $profile->user ?>');"><?= $profile->reputation['up'] ?></a>
-						</div>
-						
+						<p class="ui-li-aside">
+							réputation: <a href="#reppopup" style="font-size: 16px;" title="<?= $profile->reputation['up'] ?> votes +, <?= $profile->reputation['down'] ?> votes -"><?= $profile->reputation['up'] - $profile->reputation['down'] ?></a>
+						</p>
+						<br />
+							
 					</li>
+					<? foreach($profile->users as $item) :?>
+						<li><p><img src="http://www.gravatar.com/avatar/<?= hash("crc32b",$item) ?>?s=128&d=identicon&r=PG" style="width: 30px;vertical-align: middle;padding-right: 10px;"/><a href="mailto:<?= prettyprintId($item) ?>"><?= prettyprintId($item) ?></a> <?= $item==$_SESSION['user']->id?_("(You)"):"" ?></p></li>
+					<? endforeach ?>
 				</ul>
 				<?
 				break;
@@ -326,7 +261,7 @@ function tabs($tabs, $activeTab) {
 	}
 	
 	
-	function printMyProfile($profile, $rep = 0){
+	function printMyProfile($profile){
 		switch($profile->role){
 			 
 			default:
@@ -336,27 +271,17 @@ function tabs($tabs, $activeTab) {
 							<h3>
 								<?= $profile->name ?>
 							</h3>
-							<? if (prettyprintId($profile->user) != $profile->email): ?>
-							<p>
-								<?= _("Id") ?>: <strong style="color:#444;"><?= prettyprintId($profile->user) ?></strong>
-							</p>
-							<? endif ?>
 							<p>
 								<?= _("Role") ?>: <strong style="color:#444;"><?= $profile->role ?></strong>
 							</p>
-							<? if (!empty($profile->siret)): ?>
-							<p>
-								<?= _("SIRET") ?>: <strong style="color:#444;"><?= $profile->siret ?></strong>
-							</p>
-							<? endif ?>
+							<?= debug_r($profile) ?>
 							<p>
 								<strong style="color:#444;"><?= (empty($profile->activity)?" ":$profile->activity) ?></strong>
 							</p>
 							
-							<div class="ui-li-aside" data-role="controlgroup" style="width:auto;" data-type="horizontal" data-mini="true">
-								<a class="ui-disabled" data-role="button" style="color:gray;" data-icon="minus" ><?= $profile->reputation['down'] ?></a>
-								<a class="ui-disabled" data-role="button" style="color:blue;" data-icon="plus" ><?= $profile->reputation['up'] ?></a>
-							</div>
+							<p class="ui-li-aside">
+								réputation: <a href="#reppopup" style="font-size: 16px;" title="<?= $profile->reputation['up'] ?> votes +, <?= $profile->reputation['down'] ?> votes -"><?= $profile->reputation['up'] - $profile->reputation['down'] ?></a>
+							</p>
 							<br />
 							<p>
 								<img src="./img/mail-send.png" style="height: 22px;vertical-align: bottom;"/>
@@ -371,10 +296,10 @@ function tabs($tabs, $activeTab) {
 								<?= empty($profile->desc)?" ":$profile->desc ?>
 							</p>
 							<br />
-							<? foreach($profile->partnerships as $item) :?>
-								<li><p><?= _('Active partnership') ?>: #<a href="?action=details&id=<?= $item ?>&namespace=part"><?= substr($item, 0, 3) ?></a></p></li>
-							<? endforeach ?>
 						</li>
+						<? foreach($profile->users as $item) :?>
+							<li><p><img src="http://www.gravatar.com/avatar/<?= hash("crc32b",$item) ?>?s=128&d=identicon&r=PG" style="width: 30px;vertical-align: middle;padding-right: 10px;"/><a href="mailto:<?= prettyprintId($item) ?>"><?= prettyprintId($item) ?></a> <?= $item==$_SESSION['user']->id?_("(You)"):"" ?></p></li>
+						<? endforeach ?>
 					</ul>
 					
 					<?

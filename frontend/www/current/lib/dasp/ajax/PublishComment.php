@@ -3,12 +3,16 @@
 require_once('../request/RequestJson.php');
 require_once('../../../system/config.php');
 
+include_once('../../../system/common/common-utils.php');
+
+$userCommented = $_POST['userCommented'];
+unset($_POST['userCommented']);
 
 $request = new RequestJson(null, $_POST, UPDATE);
 session_start();
 
 $t = time();
-$k = hash("crc32", $t.$_SESSION['user']->id);
+$k = hash("crc32b", $t.$_SESSION['user']->id);
 $data = array(
 		$k => json_encode(array(
 				"time"=>$t,
@@ -19,18 +23,20 @@ $data = array(
 );
 $request->addArgument('data', $data);
 
-$response = $request->send();
+$res = (array) $request->send();
 
-if (isset($response)) {
-	$response->field = $k;
-	$response->user = $_SESSION['user']->id;
-	$response->userh = hash("crc32",$response->user);
-	$response->time = date('j/n/y G:i', $t);
+if (isset($res)) {
+	$_POST['user'] = $_SESSION['user']->id;
+	$_POST['time'] = $t;
+	$_POST['up']=0;
+	$_POST['down']=0;
 }
 
 session_write_close();
 
-echo json_encode($response);
+comment($k, $_POST, $userCommented);
+
+//echo json_encode($response);
 
 
 ?>

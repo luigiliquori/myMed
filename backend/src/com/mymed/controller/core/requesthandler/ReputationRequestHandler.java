@@ -88,10 +88,10 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
                     } else if ((consumer = parameters.get(JSON_CONSUMER)) == null) {
                         throw new InternalBackEndException("missing consumer argument!");
                     }
-                    System.out.print("\nREAD" +
-                    "\n************ application: " + application +
-                    "\n************ producer: " + producer + 
-                    "\n************ consumer: " + consumer);
+                    LOGGER.info("\nREAD" +
+                    "************ application: " + application +
+                    "************ producer: " + producer + 
+                    "************ consumer: " + consumer);
                     final MymedAppUserId user = new MymedAppUserId(application, producer, ReputationRole.Producer);
                     final MReputationBean reputation = reputationManager.read(user);
                     

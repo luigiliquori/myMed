@@ -3,7 +3,7 @@ var isSub = 3;
 
 var application="myEurope", predicate="";
 
-var isCLELoaded = false;
+var isCLEpost = false, isCLEblog = false;
 
 /*$('label').click(function(e){
     e.stopPropagation()
@@ -38,13 +38,13 @@ var isCLELoaded = false;
 });*/
 
 $("#post").live("pagecreate", function() {
-	if(!isCLELoaded){
+	if(!isCLEpost){
 		$.getScript("../../lib/jquery/CLEeditor/jquery.cleditor.js", function(){
 			console.log("CLE loaded");
 			$("#CLEeditor").cleditor({useCSS:true})[0].focus();
 		});
 	}
-	isCLELoaded = true;
+	isCLEpost = true;
 });
 
 $("#search").live("pagecreate", function() {
@@ -59,13 +59,18 @@ $("#search").live("pagecreate", function() {
 	});
 });
 
+$("#home").live("pageshow", function() {
+	$('#searchButton').addClass('ui-btn-active');
+	$('#postButton').addClass('ui-btn-active');
+});
+
 function sortBy( i ){
 	
 	var lis = $('#matchinglist li');
 	switch(i){
 	case "partner":
 		lis.sort(function(a, b){
-		    return $(a).attr('data-id') > $(b).attr('data-id') ? 1 : -1;
+		    return $(a).attr('data-partner') > $(b).attr('data-partner') ? 1 : -1;
 		});
 		break;
 	case "date":
@@ -73,52 +78,59 @@ function sortBy( i ){
 		    return $(a).attr('data-time') < $(b).attr('data-time') ? 1 : -1;
 		});
 		break;
+	case "title":
+		lis.sort(function(a, b){
+		    return $(a).attr('data-title') < $(b).attr('data-title') ? 1 : -1;
+		});
+		break;
 	}
 	$('#matchinglist').html(lis);
 	$('#matchinglist').listview('refresh');
 }
 
-function subscribe(application, mailTemplate, predicates) {
+function subscribe(el, application, mailTemplate, predicates) {
+	var page = el.parents('[data-role=page]').attr('id');
 	$.post('../../lib/dasp/ajax/Subscribe', {
 		//code : 0,
 		application : application,
 		mailTemplate: mailTemplate,
 		predicates : predicates
-	}, function(data) {
-		console.log(data);
-		var response = JSON.parse(data);
-		$('#results #notification-success h3').text(response.description);
-		$('#results #notification-success').show();
+	}, function(res) {
+		console.log(res);
+		var response = JSON.parse(res);
+		$('#'+page+' #notification-success h3').text(response.description);
+		$('#'+page+' #notification-success').show();
 	});
 }
 
+$("#Blog").live("pageshow", function() {
+	isCLEblog = false;
+});
+
 $(".loadCLE").live("expand", function(e) {
-	if(!isCLELoaded){
+	if(!isCLEblog){
 		$.getScript("../../lib/jquery/CLEeditor/jquery.cleditor.js", function(){
 			console.log("CLE loaded");
 			$("#CLEeditor").cleditor({useCSS:true})[0].focus();
 		});
 	}
-	isCLELoaded = true;
+	isCLEblog = true;
 });
 
-function rate(feedback, id, usr) {
-	
+function rate(el, id, usr, feedback) {
+	var page = el.parents('[data-role=page]').attr('id');
 	var data = {
-			application : application,
-			producer : id,
+			application : id,
+			producer : usr,
 			feedback : feedback
 		};
-	/*if (usr != undefined){
-		data['producer'] = usr;
-		data['predicate'] = id;
-	}*/
+	
 	console.log(data);
 	$.get('../../lib/dasp/ajax/Interaction', data, function(res) {
 		console.log(res);
 		var response = JSON.parse(res);
-		$('#Blog #notification-success h3').text(response.description);
-		$('#Blog #notification-success').show();
+		$('#'+page+' #notification-success h3').text(response.description);
+		$('#'+page+' #notification-success').show();
 		//location.reload(0);
 		
 	});
@@ -142,48 +154,10 @@ $('#tagSearch').live("keyup", function(event) {
 	}
 });
 
-$("#BlogTesters").live("pagecreate", function() {
-	$(this).find('a.comments').live('click', function(){
 
-		var me = $(this).closest('div');
-		if (me.is('.root') || me.attr('data-reply')==me.prev().attr('id'))
-			return;
-			
-    	var father = $('#'+me.attr('data-reply'));
-		var clone = father.clone();
-		
-		me.before(clone);
-		me.animate({'margin-left':'20px'}, 200);
-	
-	});
-});
+// ---------- blogs ----------
 
-function indent(el){
-	var me = '#'+el.closest('div').attr('id');
-	var father = '#'+el.closest('div').attr('data-reply');
-	console.log(me+":"+$(me).css('margin-left')+" "+father+":"+$(father).css('margin-left'));
-	
-	/**if (parseInt($(father).css('margin-left'), 10)>=0 && parseInt($(me).css('margin-left'))- parseInt($(father).css('margin-left'))<=20){	
-		$(me).css('margin-left', '+=20px');
-	
-		$(father).css('margin-left', '-=20px');
-	}
-	
-	else if (parseInt($(father).css('margin-left'), 10)<0 ){	
-		$(me).css('margin-left', '+=20px');
-		$(father).css('margin-left', '+=20px');
-	}*/
-	
-	if (parseInt($(me).css('margin-left'))- parseInt($(father).css('margin-left'))<20){	
-		$(me).css('margin-left', '+=20px');
-
-	}
-
-	console.log(me+":"+$(me).css('margin-left')+" "+father+":"+$(father).css('margin-left'));
-	console.log("..");
-		
-	$(father).append($(me));
-}
+var blog="", field="", rm="";
 
 function show(el){
 	var me = el.closest('li');
@@ -201,47 +175,21 @@ function show(el){
 	me.closest('ul').listview('refresh');
 }
 
-function setCommentForm(comment, post, votesUp, votesDown, usr){
-	$('#deleteField').val(comment);
-	$('#deleteRm').val(post);
-	$('#commentPopup a:eq(1) .ui-btn-text').text(votesUp);
-	$('#commentPopup a:eq(2) .ui-btn-text').text(votesDown);
+var blog="", field="", rm="";
+
+function setIds(el){
+	var ids = el.parents('li');
+	field = $(ids[0]);
+	rm = ids.length >1? $(ids[1]): "";
 }
 
-function setReplyForm(){
-	
-	if (!$('#'+$('#deleteField').val()).next().is('form')){
-		var clone=$('#commentForm'+$('#deleteRm').val()).clone();
-		clone.find('#replyTo').val($('#deleteField').val());
-		clone.css({"margin-left":"15px", "margin-right":"15px"});
-		$('#'+$('#deleteField').val()).next().show();
-		clone.focusout(function(){
-			setTimeout(function(){clone.hide()}, 500);
-		});
-		
-	}else{
-		$('#'+$('#deleteField').val()).next().show();
-		return;
-	}
-	
-	if ($('#deleteRm').val() == '')
-		$('#comments'+$('#deleteField').val()).closest('div[data-role=collapsible]').trigger('expand');
+function reply(el){
+	setIds(el);
+	var form = $('#comment'+field.attr('id'));
+	if (rm=="")
+		form.parent().trigger("expand");
 	else
-		$('#'+$('#deleteField').val()).after(clone);
-	//$('#commentForm'+$('#deleteRm').val()+' textarea').focus();
-}
-
-function expand() {
-	$('#Blog div[data-role=collapsible]:first').trigger('expand');
-}
-$("#Blog").live("pageshow", function() {
-	$('div[data-role=collapsible]:first').trigger('expand');
-});
-
-function showComment() {
-	$('#CommentButton').fadeOut('fast');
-    $('#Comments').fadeIn('slow');
-    $('#Commenter').fadeIn('slow');
+		form.show();
 }
 
 function profile(user){
@@ -256,66 +204,56 @@ function profile(user){
 	});
 }
 
-function commentAdd(blog, commentTo){
+function commentAdd(el){
 
-	var replyTo = $('#deleteField').val() || 0;
+	setIds(el);
+	var replyTo = rm==""?"":field.attr('id');
 	
-	var text = $('#'+replyTo).next('form').find('textarea').val();
-	if (replyTo == 0)
-		text = $('#comments'+commentTo).next('form').find('textarea').val();
+	var text = el.prev('textarea').val();
+	var post = rm==""?field:rm;
 
-	
+	console.log(replyTo+" "+text);
+	var userCommented = replyTo!=""?field.find('.user-sig').text():"";
 	
 	$.post('../../lib/dasp/ajax/PublishComment', {
 		application: application+":blogs",
-		id: blog+"comments"+commentTo,
+		id: blog+"comments"+post.attr('id'),
 		replyTo: replyTo,
+		userCommented: userCommented,
 		text: text
-	}, function(res) {
-		console.log(res);
-		var response = JSON.parse(res);
-		if (response != null){//insert the comment
-
-var li =			
-'<li class="comment" id="'+response.field+'" replyTo="'+replyTo+'" user="'+response.userh+'"'+
-(replyTo!=0 ?
-' style="margin-left:50px;"'
-:'')+">"+
-'<a style="min-height: 15px;padding-left: 60px;">'+
-	'<img src="http://www.gravatar.com/avatar/'+response.userh+'?s=128&d=identicon&r=PG" style="width: 30px;left:20px;top:4px;"/>'+
-	'<span style="position: absolute;font-size:13px;font-weight:bold;left: 2px;top: 13px;"></span>'+
-	'<p>'+text+
-	(replyTo!=0 ?
-	' &ndash; in reply of <span class="ui-link" onclick="show($(this));">'+$('#'+replyTo+' .ui-link:last').text() +'\'s comment</span>'
-	:'')+
-	' &ndash; <span class="ui-link"onclick="profile(\''+response.user+'\');" >'+prettyprintUser(response.user)+'</span> <time>'+response.time+'</time></p>'+
-'</a><a href="#commentPopup" data-rel="popup" data-position-to="origin" onclick="setCommentForm(\''+response.field+'\', \''+commentTo+'\', 0, 0, \''+response.user+'\');">options</a>'+
-'</li>';
-
-if (replyTo == 0)
-	$('#comments'+commentTo).prepend(li);
-else
-	$('#'+replyTo).after(li);
-$('#comments'+commentTo).listview('refresh');
+	}, function(li) {
+		console.log(li);
+		if (li != null){//insert the comment
+			var ul = rm == ""?field.find('ul'):field.closest('ul');
+			if (replyTo != "")
+				field.after(li);
+			else
+				ul.prepend(li);
 			
+			$(li).find('.comment').trigger('create');
+			ul.listview('refresh');
 		}
 	});
 }
 
-function commentRm(blog, commentTo, field){
-	
+function commentRm(){
+	if (rm==""){
+		$.mobile.changePage('?action=Blog&blog='+blog+'&field='+field.attr("id"));
+		return;
+	}
+		
 	$.get('../../lib/dasp/ajax/Delete', {
 		application: application+":blogs",
-		id : blog+"comments"+commentTo,
-		field: field
+		id : blog+"comments"+rm.attr('id'),
+		field: field.attr('id')
 	}, function(res) {
 		console.log(res);
 		var response = JSON.parse(res);
 		if (response != null){//insert the comment
 
-$('#'+field).remove();
-$('#comments'+commentTo).listview('refresh');
-$('#commentPopup').popup( "close" );
+			field.remove();
+			field.closest('ul').listview('refresh');
+			$('#deletePopup').popup( "close" );
 			
 		}
 	});

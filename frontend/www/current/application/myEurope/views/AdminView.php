@@ -21,7 +21,7 @@ function tab_bar_white($activeTab) {
 		
 		
 		<a type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="alert" style="float: right;"
-		onclick='subscribe("<?= APPLICATION_NAME ?>:users", "<?= APPLICATION_NAME ?>:users", []); $(this).addClass("ui-disabled");'><?= _("Subscribe") ?></a>
+		onclick='subscribe($(this), "<?= APPLICATION_NAME ?>:users", "<?= APPLICATION_NAME ?>:users", []); $(this).addClass("ui-disabled");'><?= _("Subscribe") ?></a>
 		
 		<input id="user_permission" name="permission" value="" type="hidden" />
 		<input id="user_id" name="id" value="" type="hidden" />
@@ -31,18 +31,17 @@ function tab_bar_white($activeTab) {
 		<? foreach( $this->blocked as $i => $item ) : ?>
 			<li>
 				<form action="?action=Admin" method="post" id="userUpForm<?= $i ?>">
-					<input type="hidden" name="perm" value="<?= $item->profile->permission + 1 ?>" />
+					<input type="hidden" name="perm" value="<?= $item->permission + 1 ?>" />
 					<input type="hidden" name="id" value="<?= $item->id ?>" />
 				</form>
 				<form action="?action=Admin" method="post" id="userDownForm<?= $i ?>">
-					<input type="hidden" name="perm" value="<?= $item->profile->permission - 1 ?>" />
+					<input type="hidden" name="perm" value="<?= $item->permission - 1 ?>" />
 					<input type="hidden" name="id" value="<?= $item->id ?>" />
-					
 				</form>
 				
-				<a href="?action=ExtendedProfile&id=<?= $item->id ?>"> <?= prettyprintUser($item->id) ?> <span style="color:red;"><?= $item->profile->permission ?></span> </a>
-				<a data-icon="minus" onclick="$('#userDownForm<?= $i ?>').submit();" data-iconpos="notext" data-inline="true" data-role="button" style="position:absolute; top:0; right:42px;"> Diminuer</a>
-	        	<a data-icon="plus" onclick="$('#userUpForm<?= $i ?>').submit();" data-theme="e"><?= _('Increase') ?></a> 
+				<a href="?action=ExtendedProfile&id=<?= $item->profile ?>"> <?= $item->email ?></a>
+				<a rel="external" data-icon="minus" href="?action=Admin&id=<?= $item->id ?>&perm=<?= $item->permission - 1 ?>" data-iconpos="notext" data-inline="true" data-role="button" style="position:absolute; top:0; right:42px;"><?= $item->permission ?></a>
+	        	<a rel="external" data-icon="plus" href="?action=Admin&id=<?= $item->id ?>&perm=<?= $item->permission + 1 ?>" data-theme="e"><?= $item->permission ?></a> 
 
 			</li>
 		<? endforeach ?>
@@ -53,19 +52,19 @@ function tab_bar_white($activeTab) {
 		<? foreach( $this->normals as $i => $item ) : ?>
 			<li>
 				<form action="?action=Admin" method="post" id="userUpForm<?= $i ?>">
-					<input type="hidden" name="perm" value="<?= $item->profile->permission + 1 ?>" />
+					<input type="hidden" name="perm" value="<?= $item->permission + 1 ?>" />
 					<input type="hidden" name="id" value="<?= $item->id ?>" />
 				</form>
 				<form action="?action=Admin" method="post" id="userDownForm<?= $i ?>">
-					<input type="hidden" name="perm" value="<?= $item->profile->permission - 1 ?>" />
+					<input type="hidden" name="perm" value="<?= $item->permission - 1 ?>" />
 					<input type="hidden" name="id" value="<?= $item->id ?>" />
 					
 				</form>
 				
-				<a href="?action=ExtendedProfile&id=<?= $item->id ?>"> <?= prettyprintUser($item->id) ?> <span style="color:red;"><?= $item->profile->permission ?></span> </a>
-				<a data-icon="minus" onclick="$('#userDownForm<?= $i ?>').submit();" data-iconpos="notext" data-inline="true" data-role="button" style="position:absolute; top:0; right:42px;"> Diminuer</a>
-	        	<a data-icon="plus" onclick="$('#userUpForm<?= $i ?>').submit();" data-theme="e"><?= _('Increase') ?></a> 
-
+				<a href="?action=ExtendedProfile&id=<?= $item->profile ?>"> <?= $item->email ?></span></a>
+				<a rel="external" data-icon="minus" href="?action=Admin&id=<?= $item->id ?>&perm=<?= $item->permission - 1 ?>" data-iconpos="notext" data-inline="true" data-role="button" style="position:absolute; top:0; right:42px;"><?= $item->permission ?></a>
+	        	<a rel="external" data-icon="plus" href="?action=Admin&id=<?= $item->id ?>&perm=<?= $item->permission + 1 ?>" data-theme="e"><?= $item->permission ?></a> 
+				
 			</li>
 		<? endforeach ?>	
 		</ul>
@@ -75,18 +74,19 @@ function tab_bar_white($activeTab) {
 		<? foreach( $this->admins as $i => $item ) : ?>
 			<li>
 				<form action="?action=Admin" method="post" id="userUpForm<?= $i ?>">
-					<input type="hidden" name="perm" value="<?= $item->profile->permission + 1 ?>" />
+					<input type="hidden" name="perm" value="<?= $item->permission + 1 ?>" />
 					<input type="hidden" name="id" value="<?= $item->id ?>" />
 				</form>
 				<form action="?action=Admin" method="post" id="userDownForm<?= $i ?>">
-					<input type="hidden" name="perm" value="<?= $item->profile->permission - 1 ?>" />
+					<input type="hidden" name="perm" value="<?= $item->permission - 1 ?>" />
 					<input type="hidden" name="id" value="<?= $item->id ?>" />
 					
 				</form>
 				
-				<a href="?action=ExtendedProfile&id=<?= $item->id ?>"> <?= prettyprintUser($item->id) ?> <span style="color:red;"><?= $item->profile->permission ?></span> </a>
-				<a data-icon="minus" onclick="$('#userDownForm<?= $i ?>').submit();" data-iconpos="notext" data-inline="true" data-role="button" style="position:absolute; top:0; right:42px;"> Diminuer</a>
-	        	<a data-icon="plus" onclick="$('#userUpForm<?= $i ?>').submit();" data-theme="e"><?= _('Increase') ?></a> 
+				<a href="?action=ExtendedProfile&id=<?= $item->profile ?>"> <?= $item->email ?></span></a>
+				<a rel="external" data-icon="minus" href="?action=Admin&id=<?= $item->id ?>&perm=<?= $item->permission - 1 ?>" data-iconpos="notext" data-inline="true" data-role="button" style="position:absolute; top:0; right:42px;"><?= $item->permission ?></a>
+	        	<a rel="external" data-icon="plus" href="?action=Admin&id=<?= $item->id ?>&perm=<?= $item->permission + 1 ?>" data-theme="e"><?= $item->permission ?></a> 
+				
 
 			</li>
 		<? endforeach ?>	

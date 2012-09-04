@@ -31,7 +31,7 @@
 					<h3 style="margin:auto;margin-left: 0;width:136px;"><?= count($this->comments[$k])." "._("comments") ?></h3>
 					<? foreach($this->comments[$k] as $ki => $vi) : ?>
 						<?  $piecesi = explode("^", $ki);$vi=json_decode($vi);$piecesj = explode("^", $vi->replyTo); ?>
-						<div id="<?= hash("crc32",$ki) ?>" data-reply="<?= hash("crc32",$vi->replyTo) ?>" <?= empty($vi->replyTo)?'class="root"':'' ?>>
+						<div id="<?= hash("md5",$ki) ?>" data-reply="<?= hash("md5",$vi->replyTo) ?>" <?= empty($vi->replyTo)?'class="root"':'' ?>>
 							<p style="margin-top:.5em;margin-bottom:-.4em;"><?= $vi->text ?></p>
 							<p style="margin-top:.5em;display:inline-block;"><a href="?action=ExtendedProfile&id=<?= $piecesi[1] ?>"><?= getUser($piecesi[1]) ?></a> 
 							<? if(!empty($vi->replyTo)) : ?>
@@ -39,7 +39,7 @@
 							<? endif ?>
 							 <?= date('j/n/y G:i', $piecesi[0]) ?></p>
 							<a href="#deleteTestersPopup2" data-role="button" data-rel="popup" data-position-to="origin" data-inline="true"
-								onclick="$('#deleteField').val('<?= $ki ?>');$('#deleteRm').val('<?= $k ?>');$('#deleteFieldhash').val('<?= hash("crc32",$ki) ?>');" data-icon="arrow-d" data-iconpos="notext"><?= _('plus') ?></a>
+								onclick="$('#deleteField').val('<?= $ki ?>');$('#deleteRm').val('<?= $k ?>');$('#deleteFieldhash').val('<?= hash("md5",$ki) ?>');" data-icon="arrow-d" data-iconpos="notext"><?= _('plus') ?></a>
 							<span style="color:blue;font-style: italic;">+0</span>
 							<form method="post" action="?action=Blog&blog=<?= $this->blog ?>" style="text-align:right;display: none;">
 								<input type="hidden" name="commentTo" value="<?= $k ?>"/>

@@ -20,9 +20,6 @@ abstract class AbstractController implements IRequestHandler {
 		$url = url($action, $vars);
 		$url .= $hash;
 
-		//header('Location: ./' .  $url . $hash);
-		//printf("<script>location.href='$url'</script>");
-		//header('Refresh:0;url=/application/'.APPLICATION_NAME.'/index.php?action=' . $action . $get_line);
 		debug($url);
 		?>
 		<html>
@@ -42,8 +39,6 @@ abstract class AbstractController implements IRequestHandler {
 			</body>
 		</html>
 		<?
-
-		//header('Refresh:0;url=/application/'.APPLICATION_NAME.'/index.php?action=' . $action . $get_line)
 		exit();
 	}
 	

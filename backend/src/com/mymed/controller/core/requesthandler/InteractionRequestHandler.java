@@ -110,7 +110,7 @@ public class InteractionRequestHandler extends AbstractRequestHandler {
             // Check the access token
             checkToken(parameters);
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            String application, producer, consumer, start, end, predicate="", feedback, state;
+            String application, producer, consumer, start, end, predicate = "", feedback, state;
 
             if (code.equals(RequestCode.UPDATE)) {
                 if ((application = parameters.get(JSON_APPLICATION)) == null) {
@@ -127,8 +127,8 @@ public class InteractionRequestHandler extends AbstractRequestHandler {
                 	state = MInteractionBean.COMPLETED_STATE; // Default state
                 } else if ((predicate = parameters.get("predicate")) == null) {
                 	predicate = "";
-                    //throw new InternalBackEndException("missing predicate argument!");
-                } 
+                	//throw new InternalBackEndException("missing predicate argument!");
+                }   
 
                 // verify consumer != producer
                 if (consumer.equals(producer)) {
@@ -149,11 +149,12 @@ public class InteractionRequestHandler extends AbstractRequestHandler {
                 // ATOMIC INTERACTION
                 if ((feedback = parameters.get("feedback")) != null) {
                     interaction.setFeedback(Double.parseDouble(feedback));
-                    LOGGER.info("\nUPDATE" +
-                    "\n************ application: " + application +
-                    "\n************ producer: " + producer + 
-                    "\n************ consumer: " + consumer +
-                    "\n************ feedback: " + feedback);
+                    LOGGER.info("UPDATE" +
+                    "************ application: " + application +
+                    " producer: " + producer +
+                    " predicate: " + predicate +
+                    " consumer: " + consumer +
+                    " feedback: " + feedback);
                 }
 
                 interactionManager.create(interaction);

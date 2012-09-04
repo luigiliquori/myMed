@@ -1,9 +1,5 @@
 <? 
 
-//require_once dirname(__FILE__) . '/../../../lib/dasp/beans/DataBeanv2.php';
-
-
-
 class PublishController extends AuthenticatedController {
 	
 	public $namespace;
@@ -55,6 +51,8 @@ class PublishController extends AuthenticatedController {
 		$data = array(
 				"title" => $_POST['title'],
 				"time"=>$t,
+				"user" => $_SESSION['user']->id,
+				"partner" => $_SESSION['myEurope']->profile,
 				"text" => isset($_POST['text'])?$_POST['text']:"contenu vide"
 			);
 		
@@ -62,7 +60,8 @@ class PublishController extends AuthenticatedController {
 				/* @todo more stuff here */
 				"title" => $_POST['title'],
 				"time"=>$t,
-				"user" => $_SESSION['user']->id
+				"user" => $_SESSION['user']->id,
+				"partner" => $_SESSION['myEurope']->profile,
 			);
 		
 		$id = hash("md5", $t.$_SESSION['user']->id);
@@ -80,7 +79,7 @@ class PublishController extends AuthenticatedController {
 			
 			// put this project in our profile
 			$publish = new RequestJson( $this,
-					array("application"=>APPLICATION_NAME.":users", "id"=>$_SESSION['user']->id, "user"=>"noNotification", "data"=>array("part".$id=>$id)),
+					array("application"=>APPLICATION_NAME.":profiles", "id"=>$_SESSION['myEurope']->profile, "user"=>"noNotification", "data"=>array("part_".$id=>$id)),
 					UPDATE);
 			
 			$publish->send();

@@ -10,53 +10,50 @@ class BlogController extends ExtendedProfileRequired {
 
 		$this->blog = $_REQUEST['blog'];
 
-		if (count($_POST)){
+		if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 			
-			if (isset($_POST["rm"])){
-				$id = $this->blog;
-				if (!empty($_POST["rm"]))
-					$id .= "comments".$_POST['rm'];
+			$id = $this->blog;
+			$t = time();
+			$k = hash("crc32b", $t.$_SESSION['user']->id);
+			
+			if (isset($_POST['commentTo'])){ // a comment
 				
-				$request = new RequestJson($this,
-						array("application"=>APPLICATION_NAME.":blogs", "id"=>$id, "field"=>$_POST['field']),
-						DELETE);
-				$request->send();
-					
-			}else{
+				$id .= "comments".$_POST['commentTo'];
+				$data = array(
+						$k => json_encode(array(
+								"time"=>$t,
+								"user"=>$_SESSION['user']->id,
+								"replyTo"=>$_POST['replyTo'],
+								"text"=>nl2br($_POST['text'])
+						))
+				);
 				
-				$id = $this->blog;
-				$t = time();
-				$k = hash("crc32", $t.$_SESSION['user']->id);
-				
-				if (isset($_POST['commentTo'])){ // a comment
-					
-					$id .= "comments".$_POST['commentTo'];
-					$data = array(
-							$k => json_encode(array(
-									"time"=>$t,
-									"user"=>$_SESSION['user']->id,
-									"replyTo"=>$_POST['replyTo'],
-									"text"=>nl2br($_POST['text'])
-							))
-					);
-					
-				} else { // a blog message
-					$data = array(
-							$k => json_encode(array(
-									"time"=>$t,
-									"user"=>$_SESSION['user']->id,
-									"title"=>$_POST['title'],
-									"text"=>$_POST['text']
-							))
-					);
-				}
-
-				$publish = new RequestJson($this,
-						array("application"=>APPLICATION_NAME.":blogs", "id"=>$id, "data"=>$data),
-						UPDATE);
-				$publish->send();
+			} else { // a blog message
+				$data = array(
+						$k => json_encode(array(
+								"time"=>$t,
+								"user"=>$_SESSION['user']->id,
+								"title"=>$_POST['title'],
+								"text"=>$_POST['text']
+						))
+				);
 			}
+
+			$publish = new RequestJson($this,
+					array("application"=>APPLICATION_NAME.":blogs", "id"=>$id, "data"=>$data),
+					UPDATE);
+			$publish->send();
+
+		} else if (isset($_GET["field"])){
+			$id = $this->blog;
+			if (!empty($_POST["rm"])) // if rm is not empty rm is the blog post Id, and field the comment id
+				$id .= "comments".$_POST['rm'];
 			
+			$request = new RequestJson($this,
+					array("application"=>APPLICATION_NAME.":blogs", "id"=>$id, "field"=>$_GET['field']),
+					DELETE);
+			$request->send();
+				
 		}
 		
 		$find = new RequestJson($this, array("application"=>APPLICATION_NAME.":blogs", "id"=>$this->blog));
@@ -77,7 +74,7 @@ class BlogController extends ExtendedProfileRequired {
 			
 			
 
-			$rep =  new Reputationv2(array_keys($this->messages));
+			$rep =  new Reputationv2($this, null, array_keys($this->messages));
 			$repArr = $rep->send();
 			
 			$this->messages = array_replace_recursive($this->messages, $repArr);
@@ -99,7 +96,7 @@ class BlogController extends ExtendedProfileRequired {
 					foreach ($r->details as $ki=>$vi){
 						$this->comments[$k][$ki] = json_decode($vi, true);
 					}
-					$rep =  new Reputationv2(array_keys($this->comments[$k]));
+					$rep =  new Reputationv2($this, null, array_keys($this->comments[$k]));
 					$repArr = $rep->send();
 					$this->comments[$k] = array_replace_recursive($repArr, $this->comments[$k]);
 					

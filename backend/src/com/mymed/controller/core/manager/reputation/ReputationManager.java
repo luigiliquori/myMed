@@ -9,10 +9,9 @@ import java.util.Map.Entry;
 
 import org.apache.cassandra.thrift.ColumnOrSuperColumn;
 
-import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.AbstractManager;
-import com.mymed.controller.core.manager.reputation.api.mymed_ids.MymedAppUserId;
+import com.mymed.controller.core.manager.reputation.api.mymed_ids.MymedRepId;
 import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.controller.core.manager.storage.v2.StorageManager;
 import com.mymed.model.data.reputation.MReputationEntity;
@@ -31,43 +30,36 @@ public class ReputationManager extends AbstractManager{
 		super(storageManager);
 	}
 	
-	public MReputationEntity read(final MymedAppUserId key, String consumer){
-		final Map<byte[], byte[]> args = storageManager.selectAll("ReputationEntity", key.getPrimaryId());
-		
-		LOGGER.info(" >>rep>> {}", key.getPrimaryId());
-		
+	public MReputationEntity read(String producer, String consumer){
+		final Map<byte[], byte[]> args = storageManager.selectAll("ReputationEntity", MymedRepId.MakeUserId(producer));
+		LOGGER.info(" >>rep of user  >> {}", producer);
 		MReputationEntity reputationEntity = (MReputationEntity) introspection(MReputationEntity.class, args);
-		
-		String[] pieces = key.getPrimaryId().split("\\|");
-    	if (pieces.length<=2)
-    		throw new IOBackEndException("can't parse the fucking elts of uid", 501);
-    	
-    	reputationEntity.setRated(false);
-		
-		final Map<byte[], byte[]> existingInteractionMap = storageManager.selectAll(CF_INTERACTION, pieces[1]+pieces[2]+consumer);
-		
-		if (existingInteractionMap.size() > 0)
-			reputationEntity.setRated(true);
-		
 		return reputationEntity;
 	}
 	
-	public Map<String, MReputationEntity> read(final List<MymedAppUserId> keys, String consumer){
+	public MReputationEntity read(String id, String producer, String consumer){
+		final Map<byte[], byte[]> args = storageManager.selectAll("ReputationEntity", MymedRepId.MakeAppId(id));
+		LOGGER.info(" >>rep of >> {}", id);
+		MReputationEntity reputationEntity = (MReputationEntity) introspection(MReputationEntity.class, args);
+    	reputationEntity.setRated(false);
+		final Map<byte[], byte[]> existingInteractionMap = storageManager.selectAll(CF_INTERACTION, id+producer+consumer);
+		if (existingInteractionMap.size() > 0)
+			reputationEntity.setRated(true);
+		return reputationEntity;
+	}
+	
+	public Map<String, MReputationEntity> read(final List<String> ids, String producer, String consumer){
 		
 		List<String> keysStr = new ArrayList<String>();
-		for (MymedAppUserId id : keys){
-			keysStr.add(id.getPrimaryId());
+		for (String id : ids){
+			keysStr.add(MymedRepId.MakeAppId(id));
 		}
-		
-		LOGGER.info(" >>reps>> {}", keysStr);
-		
+		LOGGER.info(" >>reps>> {}", ids);
 		Map<ByteBuffer, List<ColumnOrSuperColumn>> map = storageManager.batch_read("ReputationEntity", keysStr);
-		
 		Map<String, MReputationEntity> res = new HashMap<String, MReputationEntity>();
 
 		// prepare a list of interaction Id's to checks of we have voted on them
-        keysStr.clear();
-        final Map<String, String> interactionToProducer = new HashMap<String, String>();
+        final Map<String, String> interactionToId = new HashMap<String, String>();
         
         for (Entry<ByteBuffer, List<ColumnOrSuperColumn>> entry : map.entrySet()){
         	
@@ -79,14 +71,12 @@ public class ReputationManager extends AbstractManager{
         	reputationEntity.setRated(false);
         	
         	String[] pieces = key.split("\\|");
-        	if (pieces.length>2){
-        		res.put(pieces[2], reputationEntity);
-        		interactionToProducer.put(pieces[1]+pieces[2]+consumer, pieces[2]);
-        	}
+        	res.put(pieces[1], reputationEntity);
+        	interactionToId.put(pieces[1]+producer+consumer, pieces[1]);
         		
         }
-        List<String> itrkeys = new ArrayList<String>(interactionToProducer.keySet());
-        LOGGER.info(" >>>> {}", interactionToProducer);
+        List<String> itrkeys = new ArrayList<String>(interactionToId.keySet());
+        LOGGER.info(" >>>> {}", interactionToId);
 		map = storageManager.batch_read(CF_INTERACTION, itrkeys);
 		for (Entry<ByteBuffer, List<ColumnOrSuperColumn>> entry : map.entrySet()) {
 			
@@ -94,7 +84,7 @@ public class ReputationManager extends AbstractManager{
 			Map<byte[], byte[]> args = MConverter.columnsToMap(entry.getValue());
 			LOGGER.info(" >> {} with {}", key, args.size());
 			if (args.size() > 0)
-				res.get(interactionToProducer.get(key)).setRated(true);
+				res.get(interactionToId.get(key)).setRated(true);
 		}
 		
         

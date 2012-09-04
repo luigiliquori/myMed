@@ -126,22 +126,21 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 
 			LOGGER.info("in " + id + "." + in.getData().size() + "."
 					+ keywords.size());
-
-			// look if the content is signed
-			if (in.getUser() != null){
-				in.getData().put("user", in.getUser());
-				publisher = profileManager.read(in.getUser());
-			}
-				
-
-			dataManager.create(rows, id, in.getMetadata());
-
 			
+			dataManager.create(rows, id, in.getMetadata());
 
 			in.getData().put("keywords", gson.toJson(keywords));
 
 			/* creates data */
 			dataManager.create(in.getApplication() + id, in.getData());
+			
+			if ("noNotification".equals(in.getUser())){ // don't use subscriptions
+				LOGGER.info(">>>>>>>>>  no Notification ");
+				break;
+			} else if (in.getUser() != null){ // look if the content is signed
+				in.getData().put("user", in.getUser());
+				publisher = profileManager.read(in.getUser());
+			}
 			
 			in.getData().put("id", id); // just for having publication link in mails
 			mail_executor.execute(new MailDispatcher(
@@ -213,31 +212,30 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 			break;
 
 		
-
 		case UPDATE:
 			out.setMethod(JSON_CODE_UPDATE);
 
 			in.init();
 			LOGGER.info("predicates: {} ", in.getPredicates());
-			/* generate the ROWS to search */
-			keywords = MatchMakingv2.format(in.getPredicates());
-
-			LOGGER.info("keywords: {} ", keywords);
 			
-			if (in.getField() != null && in.getLengthMax() != null){  // Experimental feature, not used atm
-				dataManager.update(in.getApplication() + id, in.getField(), in.getLengthMax());
-				break;
-			}
-
-			rows = new CombiLine(keywords).expand();
-			MatchMakingv2.prefix(in.getApplication(), rows);
-
-			LOGGER.info("in " + id + "." + in.getData().size() + "."
-					+ keywords.size()+ "." + rows);
-
 			if (id == null)
 				throw new InternalBackEndException("missing id argument!");
+			
+			if (in.getMetadata().size()>0){
+				/* generate the ROWS to search */
+				keywords = MatchMakingv2.format(in.getPredicates());
 
+				LOGGER.info("keywords: {} ", keywords);
+	
+				rows = new CombiLine(keywords).expand();
+				MatchMakingv2.prefix(in.getApplication(), rows);
+				LOGGER.info("in " + id + "." + in.getMetadata().size() + "."
+					+ keywords.size()+ "." + rows);
+				
+				dataManager.create(rows, id, in.getMetadata());
+			}
+			
+	
 			LOGGER.info("updating data " + id + " size "
 					+ in.getData().size());
 

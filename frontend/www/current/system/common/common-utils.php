@@ -88,26 +88,30 @@ function title_bar($title) {
 
 
 /** Generates a comment */
-function comments(
-		$arr, //array of comments
-		$container  // id of the container
-	) {
-	foreach ($arr as $id=>$v):
-		$h=hash("crc32",$v['user']);
-	?>
-<li class="comment" id="<?= $id ?>" replyTo="<?= $v['replyTo'] ?>" user="<?= $h ?>">
-	<a style="min-height: 15px;padding-left: 60px;">
-		<img src="http://www.gravatar.com/avatar/<?= $h ?>?s=128&d=identicon&r=PG" style="width: 30px;left:20px;top:4px;"/>
-		<span style="position: absolute;font-size:13px;font-weight:bold;left: 2px;top: 13px;"><?= ($v['up']==0 && $v['down']==0)?"":$v['up'] - $v['down'] ?></span>
-		<p> <?= $v['text'] ?> 
-		<? if($v['replyTo']!="0") : ?>
-		 &ndash; in reply of <span class="ui-link" onclick="show($(this));"><?= prettyprintUser($arr[$v['replyTo']]['user']) ?>'s comment</span>
+function comment(
+		$id, //comment id
+		$v,  // comment content
+		$userCommented
+	) {?>
+<li id="<?= $id ?>" replyTo="<?= $v['replyTo'] ?>">
+		<p style="display: inline-block;"><b><?= $v['up'] - $v['down'] ?></b>
+		<a class="vote-up-off inline" onclick="rate($(this), $(this).parents('li').attr('id'), '<?= $v['user'] ?>', 1);" title="<?= $v['up'] ?> up votes (click again to undo)">up vote</a>
+		<a class="vote-down-off inline" onclick="rate($(this), $(this).parents('li').attr('id'), '<?= $v['user'] ?>', 0);" title="<?= $v['down']?> down votes, (click again to undo)">down vote</a>
+		 &nbsp; <?= $v['text'] ?>
+		<? if(!empty($userCommented)) : ?>
+		 &ndash; in reply of <span class="ui-link" <?= $userCommented!=-1?'onclick="show($(this));"':'' ?>><?= $userCommented!=-1?prettyprintUser($userCommented)."'s comment":'deleted comment' ?></span>
 		<? endif ?>
-		 &ndash; <span class="ui-link" onclick="profile('<?= $v['user'] ?>')"><?= prettyprintUser($v['user'] ) ?></span> <time><?= date('j/n/y G:i', $v['time'] ) ?></time></p>
-	</a><a href="#commentPopup" data-rel="popup" data-position-to="origin" onclick="setCommentForm('<?= $id ?>', '<?= $container ?>', '<?= $v['up'] ?>', '<?= $v['down']  ?>', '<?= $v['user'] ?>');">options</a>
+		 &ndash; <span class="ui-link user-sig" onclick="$.mobile.changePage('?action=extendedProfile&user=<?= $v['user'] ?>', { transition: 'slidedown'})"><?= prettyprintUser($v['user'] ) ?></span> <time><?= date('j/n/y G:i', $v['time'] ) ?></time>
+		  <a href="" onclick="reply($(this));">reply</a>
+		  <a href="#deletePopup" data-rel="popup" data-position-to="origin" onclick="setIds($(this));" class="delete-icon" title=""></a>
+		 </p>
+		 <div id="<?= 'comment'.$id ?>" class='comment' style='margin-top: 30px;display: none;'>
+			<textarea name="text" placeholder="add a comment" onfocus="setIds($(this));$(this).next().toggle();" onfocusout="var me=$(this);setTimeout(function(){me.next().hide();me.parent().hide();}, 500);"></textarea>
+			<a style="display: none;" type="button" data-inline="true" data-mini="true" data-inline="true" 
+				onclick="commentAdd($(this));" ><?= _('Reply') ?></a>
+		</div>
 </li>
 	<?
-	endforeach;
 }
 
 /** Generates a checkbox to check/uncheck all items of same input name */

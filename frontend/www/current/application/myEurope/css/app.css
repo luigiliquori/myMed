@@ -63,43 +63,92 @@
 	margin-bottom: 1em;
 }
 
+.comment{
+	text-align:right;
+}
 
 #profile .ui-slider-switch {
 	
 }
 
-.myLogos{
-	text-align: center;
-	margin-left:-40px;
-	margin-top: 20px;
+#spacer{
+	height: 100px;
 }
-.myLogos img{
-	max-height:60px;
-	max-width:110px;
-	vertical-align: middle;
-}
-.myLogos img:first-child{
-	margin-right: 10px;
+.logos{
+	margin: 15px;
 }
 
 .social{
+	border-top:1px solid transparent;
+	width: 97%;
 	opacity:0.7;
-	margin: 10px;
 	position: fixed;
 	bottom: 0;
-	right: 10px;
+	/*right: 10px;*/
 }
 
-@media all and (max-width: 480px){
-	 .myLogos img:first-child{ zoom: 90%; }
+.logos > img{
+	margin: 10px 10%;
+	vertical-align: middle;
 }
+
+@media all and (max-width: 600px){
+	 .logos > img {margin: 5px 10px;}
+	 .social {position: relative;textalign:center;}
+	 #spacer {height: 0; margin-bottom: -20px;}
+}
+
+.vote-up-off,.vote-up-on,.vote-down-off,.vote-down-on, .delete-icon {
+	cursor: pointer;
+	text-indent: -9999em;
+	font-size: 1px;
+	display: block;
+	margin: 0 auto;
+	width: 17px;
+	height: 18px;
+	background-image: url('/system/img/sprites.png');
+	background-repeat: no-repeat;
+	overflow: hidden;
+}
+.inline{
+	display: inline-block;
+	vertical-align: middle;
+}
+.vote-up-off{
+	background-position: 0px -32px;
+}
+.vote-up-off:hover, .vote-up-on{
+	background-position: 0px -2px;
+}
+.vote-down-off{
+	background-position: 0px -14px;
+}
+.vote-down-off:hover, .vote-down-on{
+	background-position: 0px -44px;
+}
+
+.delete-icon{
+	background-position: 0px -77px;
+	display: inline-block;
+	vertical-align: text-top;
+}
+.delete-icon:hover{
+	background-position: 0px -60px;
+}
+
 
 /*@media all and (min-width: 450px){
 	.myCheck {width: 78%;}
 }*/
 
-label.ui-input-text{
+/*label.ui-input-text{
 	margin-bottom: -.6em;
+}*/
+.rate {
+	width: 32px;
+	position: absolute;
+	right: 15px;
+	top: .7em;
 }
 
 .wrap span {

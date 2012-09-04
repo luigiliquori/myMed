@@ -12,13 +12,13 @@ The following variables are available in the templates :
 -->
 <mail-template>
 
-    <subject>[${application}] Nouvel appel à partenaires</subject>
+    <subject>[${application}] Nouvel appel &agrave; partenaires</subject>
 
     <body><![CDATA[
         Bonjour ${recipient.name},<br/>
         <br/>
         
-        Une nouvel appel à partenaires est disponible sur ${application} 
+        Une nouvel appel &agrave; partenaires est disponible sur ${application} 
         <#if publication['id']??>
         	<a href="${base_url}application/${application}/?action=details&id=${publication['id']}&namespace=part">${base_url}application/${application}/?action=details&id=${predicate}&namespace=part</a><br/>
         </#if>
@@ -28,16 +28,16 @@ The following variables are available in the templates :
         <#if publisher??>
         	${publisher.name}, <a href="mailto:${publisher.email}">${publisher.email}</a>
         <#else>
-        	non précisé
+        	non pr&eacute;cis&eacute;
         </#if>
         <br/>
         Titre: ${publication['title']!'N/A'}
         <br/>
-        Mot-clés: ${publication['keywords']!'N/A'}
+        Mot-cl&eacute;s: ${publication['keywords']!'N/A'}
         
         --<br/>
     
-        L'équipe myMed<br/>
-        Cliquez <a href="${base_url}application/${application}/?action=unsubscribe&id=${predicate}&application=${namespace}">ici</a> pour vous désabonner.
+        L'&eacute;quipe myMed<br/>
+        Cliquez <a href="${base_url}application/${application}/?action=unsubscribe&id=${predicate}&application=${namespace}">ici</a> pour vous d&eacute;sabonner.
 ]]></body>
 </mail-template>

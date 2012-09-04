@@ -9,8 +9,8 @@ include("header.php"); ?>
  /** Definition of the Login / Register tabs */
  function tab_bar($activeTab) {
  	tabs(array(
- 			"login" =>  APPLICATION_NAME,
- 			"register" => _('Registration')), 
+ 			"login" =>  array(APPLICATION_NAME, "myEurope"),
+ 			"register" => array(_('Registration'), "grid")), 
  		$activeTab);
  }
  
@@ -28,30 +28,28 @@ include("header.php"); ?>
 
 		<!-- Login form -->
 		<form data-role="content" action="index.php?action=login" data-ajax="false" method="post">
-	
-			<div style="margin-top: 10%;">
+			
+			<div data-role="fieldcontain">
 				<label for="login" ><?= _("Email") ?></label>
-				<input type="text" id="login" data-inline="true" name="login" placeholder="<?= _("Email") ?>" />
-				<label for="password" style="margin-top:5px;"><?= _("Password") ?></label>
-				<input type="password" id="password" name="password" placeholder="<?= _("Password") ?>" />
-				<div data-role="controlgroup" style="width:auto;text-align: center;" data-type="horizontal">
-					<input type="submit" value="<?= _("Log In") ?>" data-inline="true" class="ui-btn-active ui-state-persist" />
-				</div>
+				<input type="text" id="login" name="login" placeholder="em@il" />
 			</div>
-			
-			<div style="margin-top: 10%; text-align: center;" >
-				<div data-role="collapsible" data-mini="true" data-inline="true">
-					<h3 style="margin:auto;width:136px;"><?= _("About") ?></h3>
-					<?= about(); ?>
-				</div>
-				<div class="myLogos">
-					<img alt="Alcotra" src="../../system/img/logos/fullsize/alcotra" />
-					<img alt="Europe" src="../../system/img/logos/fullsize/EU" style="opacity:.5;"/>
-					<img alt="myMed" src="../../system/img/logos/mymed" />
-				</div>
+			<div data-role="fieldcontain">
+				<label for="password"><?= _("Password") ?></label>
+				<input type="password" id="password" name="password" placeholder="*****" />
 			</div>
-			
+			<div data-role="controlgroup" style="width:auto;text-align: center;" data-type="horizontal">
+				<input type="submit" value="<?= _("Log In") ?>" data-inline="true" class="ui-btn-active ui-state-persist" />
+			</div>
 		</form>
+			
+		<div style="text-align: center;" >
+			<div data-role="collapsible" data-mini="true" data-inline="true">
+				<h3 style="margin:auto;width:136px;"><?= _("About") ?></h3>
+				<?= about(); ?>
+			</div>
+		</div>
+			
+		
 		
 	</div>
 	

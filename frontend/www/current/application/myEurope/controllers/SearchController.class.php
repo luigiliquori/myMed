@@ -56,17 +56,19 @@ class SearchController extends AuthenticatedController {
 		try{
 			$res = $find->send();
 		}
-		catch(Exception $e){
-			//return null;
-			$this->result = array();
-		}
-		
+		catch(Exception $e){}
+		$this->result = array();
 		$this->success = "";
 
-		if (isset($res))
-			$this->result = $res->results;
+		if (isset($res->results))
+			$this->result = (array) $res->results;
 		
 		$this->suggestions = array();
+		function addvaluelashes($o){
+			return addslashes($o->value);
+		}
+		
+		$this->index = array_map("addvaluelashes", $this->index); //for ajax subscribe
 		
 		// Render the view			
 		$this->renderView("Results");
@@ -77,5 +79,7 @@ class SearchController extends AuthenticatedController {
 	function smallWords($w){
 		return strlen($w) > 2;
 	}
+	
+	
 }
 ?>

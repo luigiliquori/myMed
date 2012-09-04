@@ -28,13 +28,16 @@ class Reputationv2 extends Requestv2 {
 	/* Attributes */
 	/* --------------------------------------------------------- */
 	private /*IRequestHandler*/ $handler;
+	private $producer;
 	private $id;
 
 	/* --------------------------------------------------------- */
 	/* Constructors */
 	/* --------------------------------------------------------- */
-	public function __construct(/*String*/ $id) {
+	public function __construct($handler, $producer = null, $id = null) {
 		parent::__construct("v2/ReputationRequestHandler", READ);
+		$this->handler = $handler;
+		$this->producer = $producer;
 		$this->id = $id;
 	}
 
@@ -44,10 +47,14 @@ class Reputationv2 extends Requestv2 {
 	public /*String*/ function send(){
 		parent::addArgument("application", isset($_GET['application'])?$_GET['application']:APPLICATION_NAME);
 		parent::addArgument("consumer", $_SESSION['user']->id );
-		if ( is_array($this->id))
-			parent::addArgument("producers", json_encode($this->id));
-		else
-			parent::addArgument("producer", $this->id);
+		parent::addArgument("producer", $this->producer );
+		if (!empty($this->id)){
+			if ( is_array($this->id))
+				parent::addArgument("ids", json_encode($this->id));
+			else
+				parent::addArgument("id", $this->id);
+		}
+		
 
 		$responsejSon = parent::send();
 		$responseObject = json_decode($responsejSon);
@@ -66,7 +73,8 @@ class Reputationv2 extends Requestv2 {
 						"rep" => round($rep * 100),
 						"nbOfRatings" => $nb,
 						"up" => $rep * $nb,
-						"down" => $nb - $rep * $nb
+						"down" => $nb - $rep * $nb,
+						"rated" => $responseObject->dataObject->reputation->rated
 				);
 			} else {
 				$res = array();
@@ -75,7 +83,8 @@ class Reputationv2 extends Requestv2 {
 							"rep" => round($v->reputation * 100),
 							"nbOfRatings" => $v->numberOfVerdicts,
 							"up" => $v->reputation * $v->numberOfVerdicts,
-							"down" => $v->numberOfVerdicts - $v->reputation * $v->numberOfVerdicts
+							"down" => $v->numberOfVerdicts - $v->reputation * $v->numberOfVerdicts,
+							"rated" => $v->rated
 					);
 				}
 				return $res;

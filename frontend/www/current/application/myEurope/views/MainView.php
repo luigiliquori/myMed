@@ -4,6 +4,7 @@
 function tab_bar_white($activeTab) {
 	tabs_white(array(
 			//"share" => array(_('Share'), "plus"),
+			"about" => array(_("About"), "info"),
 			"home" => array(APPLICATION_NAME, "myEurope"),
 			"admin" => array(_('Admin'), "gear"),
 			"profile" => array(_('Profile'), "profile"),
@@ -18,41 +19,29 @@ function tab_bar_white($activeTab) {
 		<? include("notifications.php"); ?>
 	</div>
 	<div data-role="content" style="text-align:center;">
-		<h3 class="ui-link"><?= _('Partnership') ?>:</h3>
 		
-		<a href="#search" type="button" class="ui-btn-active ui-state-persist" style="width:45%;min-width:240px;" data-inline="true"><?= _('Search a partner') ?></a>
-		<a href="#post" type="button" class="ui-btn-active ui-state-persist" style="width:45%;min-width:240px;" data-inline="true"><?= _('Insert an offer') ?></a>
-		
-		
-		<h3 class="ui-link"><?= _('Infomations') ?>:</h3>
-		
-			<a href="#infos" style="width:30%;min-width:240px;" class="wrap"
-			type="button" data-inline="true" data-theme="d"><?= _('About European programs') ?><span style="font-weight: lighter;"> 2014-2020</span></a>
-			<a href="?action=Blog&blog=Alcotra" onclick="expand();" style="width:30%;min-width:240px;" class="wrap"
-			type="button"  data-theme="d" data-inline="true"><?= _('Alcotra Blog') ?><span style="font-weight: lighter;"> 2014-2020</span></a>
-			<a href="?action=Blog&blog=myEurope" onclick="setTimeout(function(){expand();}, 200);" style="width:30%;min-width:240px;" class="wrap"
-			type="button" data-theme="d" data-inline="true"><?= _('Beta Testers Blog') ?></a>
-		
-		<div data-role="collapsible" data-mini="true" data-inline="true" style="margin-top:30px;">
-			<h3 style="margin:auto;width:136px;"><?= _("About") ?></h3>
-			<?= about(); ?>
+		<div data-role="fieldcontain" style="padding-top: 5%;padding-bottom: 5%;">
+			<a href="#search" id="searchButton" type="button" class="ui-btn-active ui-state-persist" style="width:45%;min-width:250px;" data-inline="true"><?= _('Search a partnership offer') ?></a>
+			<a href="#post" id="postButton" type="button" class="ui-btn-active" style="width:45%;min-width:250px;" data-inline="true"><?= _('Insert a partnership offer') ?></a>
 		</div>
-		<div class="myLogos">
-			<img alt="Alcotra" src="../../system/img/logos/fullsize/alcotra" />
-			<img alt="Europe" src="../../system/img/logos/fullsize/EU" style="opacity:.5;"/>
+
+		<div data-role="fieldcontain" >
+			<a href="#infos" style="width:30%;min-width:250px;" class="wrap"
+			type="button" data-inline="true" data-theme="d"><?= _('About European programs') ?><span style="font-weight: lighter;"> 2014-2020</span></a>
+			<a href="?action=Blog&blog=Alcotra" onclick="expand();" style="width:30%;min-width:250px;" class="wrap"
+			type="button"  data-theme="d" data-inline="true"><?= _('Alcotra Blog') ?><span style="font-weight: lighter;"> 2014-2020</span></a>
+			<a href="?action=Blog&blog=myEurope" rel="external" onclick="setTimeout(function(){expand();}, 200);" style="width:30%;min-width:250px;" class="wrap"
+			type="button" data-theme="d" data-inline="true"><?= _('Beta Testers Blog') ?></a>
+		</div>
+		
+		<div id="spacer">
+		</div>
+		<div class="social logos">
+			<img alt="Alcotra" src="../../system/img/logos/fullsize/alcotra" style="width: 100px;"/>
+			<img alt="Europe" src="../../system/img/logos/fullsize/EU" style="width: 80px;"/>
 			<img alt="myMed" src="../../system/img/logos/mymed" />
 		</div>
-		<div style="height:50px;">
-		</div>
-		<div class="social">
-			<a href="https://plus.google.com/u/0/101253244628163302593/posts" target="_blank" style="margin-right:5px;"><img src="../../system/img/social/googleplus_32.png" alt="myEurope on Google+"></a>
-			<a href="http://www.facebook.com/pages/myEurope/274577279309326" target="_blank" style="margin-right:5px;"><img src="../../system/img/social/facebook_32.png" alt="myEurope on Facebook"></a>
-			<a href="https://twitter.com/my_europe" target="_blank"><img src="../../system/img/social/twitter_32.png" alt="myEurope on Twitter"></a>
-		</div>
-		
-		
-		
-		
+
 	</div>
 </div>
 
@@ -62,9 +51,6 @@ function tab_bar_white($activeTab) {
 	</div>
 
 	<div data-role="content" style="text-align:center;">
-
-		
-		<br />
 		<?= printMyProfile($_SESSION['myEuropeProfile']) ?>
 
 		<fieldset data-role="controlgroup" style="display:inline-block;width: 50%;">
@@ -78,9 +64,27 @@ function tab_bar_white($activeTab) {
 		<br />
 		<fieldset data-role="controlgroup" style="display:inline-block;width: 50%;">
 			<a type="button" href="?action=ExtendedProfile&edit=false"  data-theme="d" data-icon="grid" style="text-align: left;"><?= _('Edit my profile') ?></a>
+		</fieldset>
+		<fieldset data-role="controlgroup" style="display:inline-block;width: 50%;">
 			<a data-role="button" href="?action=logout" rel="external" data-icon="delete" style="text-align: left;"><?= _('Log Out') ?></a>
 		</fieldset>
 		
+	</div>
+</div>
+
+<div data-role="page" id="about">
+	<div data-role="header" data-theme="c" data-position="fixed">
+		<? tab_bar_white("about") ?>
+	</div>
+	<div data-role="content">
+		<br />
+		<div style="text-align: center;">
+			<a href="https://plus.google.com/u/0/101253244628163302593/posts" target="_blank" style="padding-left:10px;"><img src="../../system/img/social/googleplus_32" alt="myEurope on Google+"></a>
+			<a href="http://www.facebook.com/pages/myEurope/274577279309326" target="_blank" style="padding-left:20px;"><img src="../../system/img/social/facebook_32" alt="myEurope on Facebook"></a>
+			<a href="https://twitter.com/my_europe" target="_blank" style="padding-left:20px;"><img src="../../system/img/social/twitter_32" alt="myEurope on Twitter"></a>
+		</div>
+		<br />
+		<?= about() ?>
 	</div>
 </div>
 
@@ -92,8 +96,8 @@ function tab_bar_white($activeTab) {
 		<br />
 		<div style="text-align:center;">
 			<span><?= _('Restricted page for admins') ?></span><br />
-			<? if ($_SESSION['myEuropeProfile']->permission<=1) {?>
-				<a href="#home" type="button" data-inline="true" data-theme="e" data-icon="back"><?= _('Back') ?></a>
+			<? if ($_SESSION['myEurope']->permission<=1) {?>
+				<a data-rel="back" data-icon="back" type="button" data-inline="true" data-theme="e"><?= _('Back') ?></a>
 			<? } else { ?>
 				<a href="./?action=Admin" type="button" data-inline="true" data-theme="g"><?= _('Access') ?></a>
 			<? } ?>
@@ -117,11 +121,10 @@ function tab_bar_white($activeTab) {
 			<input type="hidden" name="namespace" value="part" />
 			
 			<br />
-			<label for="keywords"><b><?= _("Keywords") ?>:</b></label>
-			<input type="search" name="keywords" id="keywords" placeholder="mots clés" value="" />
-	
+			
+			<div data-role="fieldcontain">
 		 	<fieldset data-role="controlgroup" id="themecheckboxes">
-				<legend><b><?= _('Themes') ?>:</b></legend>
+				<legend><?= _('Themes') ?>:</legend>
 				
 				<input type="checkbox" id="checkbox-all" />
 				<label for="checkbox-all"><?= _('All') ?></label>
@@ -152,18 +155,18 @@ function tab_bar_white($activeTab) {
 
 				
 		    </fieldset>
-
+		    </div>
+			<div data-role="fieldcontain">
 		 	<fieldset data-role="controlgroup">
-				<legend><b><?= _('Areas') ?>:</b></legend>
-				
-				<input type="checkbox" id="checkbox-all2" />
-				<label for="checkbox-all2"><?= _('All') ?></label>
-				
+				<legend><?= _('Areas') ?>:</legend>
+
 				<div data-role="collapsible-set">
 				
 				
 					<div data-role="collapsible">
 						<h3><?= _("France") ?></h3>
+						<input type="checkbox" id="checkbox-all2" />
+						<label for="checkbox-all2"><?= _('All') ?></label>
 						
 						<input type="checkbox" name="Ain" id="checkbox-10b"/>
 						<label for="checkbox-10b">Ain</label>
@@ -205,6 +208,8 @@ function tab_bar_white($activeTab) {
 					</div>
 					<div data-role="collapsible">
 						<h3><?= _("Italy") ?></h3>
+						<input type="checkbox" id="checkbox-all2" />
+						<label for="checkbox-all2"><?= _('All') ?></label>
 						
 						<input type="checkbox" name="Alessandria" id="checkbox-21b"/>
 						<label for="checkbox-21b">Alessandria</label>
@@ -251,6 +256,27 @@ function tab_bar_white($activeTab) {
 				</div>
 				
 		    </fieldset>
+		    </div>
+		    <div data-role="fieldcontain">
+				<label for="textinputp1"><?= _('keywords') ?>: </label>
+				<input id="textinputp1" name="keywords" placeholder="<?= _('separated by a space, comma, plus') ?>" value='' type="text" />
+			</div>
+		    <div data-role="fieldcontain">
+				<label for="area" class="select"><?= _("Call") ?>:</label>
+				<select name="area" id="area">
+					<option value=""></option>
+					<option value="local">Alcotra</option>
+				</select>
+			</div>
+			<div data-role="fieldcontain">
+			<fieldset data-role="controlgroup">
+				<legend><?= _('Category of partners') ?>:</legend>
+								
+				<input type="checkbox" name="xx" id="checkbox-1c"/>
+				<label for="checkbox-1c">Association - Coopérative - Mutuelle</label>
+				
+		    </fieldset>
+		    </div>
 
 			<br />
 
@@ -276,9 +302,9 @@ function tab_bar_white($activeTab) {
 			<input type="hidden" name="action" value="Publish" />
 			<input type="hidden" name="namespace" value="part" />
 			
-
+			<div data-role="fieldcontain">
 			<fieldset data-role="controlgroup">
-				<legend><b><?= _('Themes') ?>:</b></legend>
+				<legend><?= _('Themes') ?>:</legend>
 								
 				<input type="checkbox" name="education" id="checkbox-1a"/>
 				<label for="checkbox-1a"><?= _("Education, culture & sport") ?></label>
@@ -305,9 +331,11 @@ function tab_bar_white($activeTab) {
 				<label for="checkbox-8a"><?= _("Health and Consumer Protection") ?></label>
 				
 		    </fieldset>
-
+		    </div>
+		    
+			<div data-role="fieldcontain">
 		 	<fieldset data-role="controlgroup">
-				<legend><b><?= _('Areas') ?>:</b></legend>
+				<legend><?= _('Areas') ?>:</legend>
 				
 				<div data-role="collapsible-set">
 				
@@ -399,11 +427,24 @@ function tab_bar_white($activeTab) {
 				
 				
 				</div>
-				
 		    </fieldset>
-
-			<label for="textContent"><b><?= _('Description') ?>:</b></label>
-			<input type="text" name="title" placeholder="<?= _('title') ?>" data-mini="true" data-inline="true" value="" />
+		    </div>
+		    
+			<div data-role="fieldcontain">
+				<label for="textinputp1"><?= _('keywords') ?>: </label>
+				<input id="textinputp1" name="keywords" placeholder="<?= _('separated by a space, comma, plus') ?>" value='' type="text" />
+			</div>
+			<div data-role="fieldcontain">
+				<label for="textinputp1"><?= _('title') ?>: </label>
+				<input id="textinputp1" name="title" placeholder="<?= _("partnership or project name") ?>" value='' type="text" />
+			</div>
+			<div data-role="fieldcontain">
+				<label for="area" class="select"><?= _("Call") ?>:</label>
+				<select name="area" id="area">
+					<option value=""></option>
+					<option value="local">Alcotra</option>
+				</select>
+			</div>
 			<textarea id="CLEeditor" id="textContent" name="text"></textarea>
 
 			<div style="text-align: center;" >
