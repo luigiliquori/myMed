@@ -13,7 +13,7 @@ require(dirname(__FILE__) . '/../../../system/config.php');
 
 
 // -----------RS READ
-
+_("Association - Coopérative - Mutuelle");
 $req = new Requestv2("v2/ReputationRequestHandler");
 //$req->addArgument("producer", "toto"); 
 $req->addArgument("id", "Test12"); 

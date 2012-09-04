@@ -106,8 +106,8 @@ function comment(
 		  <a href="#deletePopup" data-rel="popup" data-position-to="origin" onclick="setIds($(this));" class="delete-icon" title=""></a>
 		 </p>
 		 <div id="<?= 'comment'.$id ?>" class='comment' style='margin-top: 30px;display: none;'>
-			<textarea name="text" placeholder="add a comment" onfocus="setIds($(this));$(this).next().toggle();" onfocusout="var me=$(this);setTimeout(function(){me.next().hide();me.parent().hide();}, 500);"></textarea>
-			<a style="display: none;" type="button" data-inline="true" data-mini="true" data-inline="true" 
+			<textarea name="text" placeholder="add a comment" onfocusout="var me=$(this);setTimeout(function(){me.parent().hide();}, 500);"></textarea>
+			<a type="button" data-inline="true" data-mini="true" data-inline="true" 
 				onclick="commentAdd($(this));" ><?= _('Reply') ?></a>
 		</div>
 </li>

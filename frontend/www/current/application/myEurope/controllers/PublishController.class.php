@@ -1,19 +1,8 @@
 <? 
 
-class PublishController extends AuthenticatedController {
+class PublishController extends ExtendedProfileRequired {
 	
 	public $namespace;
-	
-	public $themesall = array(
-				"education",
-				"travail",
-				"entreprise",
-				"environnement",
-				"agriculture",
-				"peche",
-				"recherche",
-				"santé"
-			);
 	
 	public function handleRequest() {
 		
@@ -40,7 +29,12 @@ class PublishController extends AuthenticatedController {
 
 		array_push($index, new DataBeanv2("places", ENUM, "|".join("|",$places)));
 		
-		$p = preg_split('/[ ,+:-]/', $_POST['title'], NULL, PREG_SPLIT_NO_EMPTY);
+		array_push($index, new DataBeanv2("cats", ENUM, "|".$_POST['cat']));
+		
+		if ($_POST['call']!="")
+			array_push($this->index, new DataBeanv2("call", ENUM, $_POST['call']));
+		
+		$p = preg_split('/[ ,+:-]/', $_POST['keywords'], NULL, PREG_SPLIT_NO_EMPTY);
 		$p = array_map('strtolower', $p);
 		$p = array_filter($p, array($this, "smallWords"));
 		$p = array_unique($p);
@@ -87,7 +81,7 @@ class PublishController extends AuthenticatedController {
 			array_push($_SESSION['myEuropeProfile']->partnerships, $id);
 			
 			$subscribe = new RequestJson( $this,
-					array("application"=>APPLICATION_NAME.":".$this->namespace, "id"=>$id, "user"=> $_SESSION['user']->id, "mailTemplate"=>APPLICATION_NAME.":profileMyParts"),
+					array("application"=>APPLICATION_NAME.":".$this->namespace, "id"=>$id, "user"=> $_SESSION['user']->id, "mailTemplate"=>APPLICATION_NAME.":profileParts"),
 					CREATE, "v2/SubscribeRequestHandler");
 			$subscribe->send();
 			

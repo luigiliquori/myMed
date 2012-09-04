@@ -56,9 +56,11 @@ class DetailsController extends AuthenticatedController {
 			foreach ($this->details as $k => $v){
 				if (strpos($k, "user_") === 0){
 					$p = getProfilefromUser($this, $v);
-					array_push($this->partnersProfiles, $p);
+					$this->partnersProfiles[$p->id]= $p;
 				}
 			}
+			if (isset($this->details->userProfile))
+				unset($this->partnersProfiles[$this->details->userProfile->id]);
 			
 			if ($this->delete){
 				$request = new RequestJson($this,

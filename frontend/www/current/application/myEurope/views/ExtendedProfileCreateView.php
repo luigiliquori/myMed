@@ -27,11 +27,14 @@
 
 <div data-role="page" id="profiles">
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_3(
-				APPLICATION_NAME,
-				_('Create a new profile'),
-				"#new",
-				"grid") ?>
+
+		<div data-role="navbar" data-theme="d" data-iconpos="left"> 
+	   	<ul>
+	   		<li><a href="/application/myMed" data-ajax="false" data-icon="back"><?= _("Exit") ?></a></li>
+	   		<li><a class="ui-btn-active"><?= APPLICATION_NAME ?></a></li>
+	   		<li><a href=""#new"" data-theme="d" data-icon="grid"><?= _('Create a new profile') ?></a></li>
+	   	</ul>
+	   	</div>
 	</div>
 	<div data-role="content">
 		<p>

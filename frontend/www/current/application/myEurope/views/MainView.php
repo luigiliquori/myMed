@@ -28,9 +28,9 @@ function tab_bar_white($activeTab) {
 		<div data-role="fieldcontain" >
 			<a href="#infos" style="width:30%;min-width:250px;" class="wrap"
 			type="button" data-inline="true" data-theme="d"><?= _('About European programs') ?><span style="font-weight: lighter;"> 2014-2020</span></a>
-			<a href="?action=Blog&blog=Alcotra" onclick="expand();" style="width:30%;min-width:250px;" class="wrap"
+			<a href="?action=Blog&blog=Alcotra" style="width:30%;min-width:250px;" class="wrap"
 			type="button"  data-theme="d" data-inline="true"><?= _('Alcotra Blog') ?><span style="font-weight: lighter;"> 2014-2020</span></a>
-			<a href="?action=Blog&blog=myEurope" rel="external" onclick="setTimeout(function(){expand();}, 200);" style="width:30%;min-width:250px;" class="wrap"
+			<a href="?action=Blog&blog=myEurope" rel="external" style="width:30%;min-width:250px;" class="wrap"
 			type="button" data-theme="d" data-inline="true"><?= _('Beta Testers Blog') ?></a>
 		</div>
 		
@@ -124,34 +124,37 @@ function tab_bar_white($activeTab) {
 			
 			<div data-role="fieldcontain">
 		 	<fieldset data-role="controlgroup" id="themecheckboxes">
-				<legend><?= _('Themes') ?>:</legend>
+				<legend><?= _('Offer Themes') ?>:</legend>
 				
 				<input type="checkbox" id="checkbox-all" />
 				<label for="checkbox-all"><?= _('All') ?></label>
 				
 				<input type="checkbox" name="education" id="checkbox-1a"/>
-				<label for="checkbox-1a"><?= _("Education, culture & sport") ?></label>
+				<label for="checkbox-1a"><?= _("Education, culture and sport") ?></label>
 
 				<input type="checkbox" name="travail" id="checkbox-2a"/>
-				<label for="checkbox-2a"><?= _("Work") ?></label>
+				<label for="checkbox-2a"><?= _("Work and training") ?></label>
 				
 				<input type="checkbox" name="entreprise" id="checkbox-3a"/>
-				<label for="checkbox-3a"><?= _("Enterprises, Innovation") ?></label>
-
+				<label for="checkbox-3a"><?= _("Enterprises, Research and Innovation") ?></label>
+				
 				<input type="checkbox" name="environnement" id="checkbox-4a"/>
-				<label for="checkbox-4a"><?= _("Environment, energy & transport") ?></label>
+				<label for="checkbox-4a"><?= _("Environment, Energies and Risk") ?></label>
+				
+				<input type="checkbox" name="recherche" id="checkbox-7a"/>
+				<label for="checkbox-7a"><?= _("Transport, Facilities and Zoning") ?></label>
+
+				<input type="checkbox" name="santé" id="checkbox-8a" />
+				<label for="checkbox-8a"><?= _("Health and Consumer Protection") ?></label>
+				
+				<input type="checkbox" name="social" id="checkbox-9a" />
+				<label for="checkbox-9a"><?= _("Social Affairs") ?></label>
 				
 				<input type="checkbox" name="agriculture" id="checkbox-5a" />
 				<label for="checkbox-5a"><?= _("Agriculture") ?></label>
 
 				<input type="checkbox" name="peche" id="checkbox-6a" />
-				<label for="checkbox-6a"><?= _("Fishing") ?></label>
-				
-				<input type="checkbox" name="recherche" id="checkbox-7a"/>
-				<label for="checkbox-7a"><?= _("Research") ?></label>
-
-				<input type="checkbox" name="santé" id="checkbox-8a" />
-				<label for="checkbox-8a"><?= _("Health and Consumer Protection") ?></label>
+				<label for="checkbox-6a"><?= _("Fishing") ?></label>			
 
 				
 		    </fieldset>
@@ -250,6 +253,10 @@ function tab_bar_white($activeTab) {
 						
 						<input type="checkbox" name="Suisse" id="checkbox-24b"/>
 						<label for="checkbox-24b">Suisse</label>
+						
+						<input type="checkbox" name="Corse" id="checkbox-25b"/>
+						<label for="checkbox-25b">Corse</label>
+						
 					</div>
 				
 				
@@ -257,26 +264,31 @@ function tab_bar_white($activeTab) {
 				
 		    </fieldset>
 		    </div>
-		    <div data-role="fieldcontain">
-				<label for="textinputp1"><?= _('keywords') ?>: </label>
-				<input id="textinputp1" name="keywords" placeholder="<?= _('separated by a space, comma, plus') ?>" value='' type="text" />
-			</div>
-		    <div data-role="fieldcontain">
-				<label for="area" class="select"><?= _("Call") ?>:</label>
-				<select name="area" id="area">
-					<option value=""></option>
-					<option value="local">Alcotra</option>
-				</select>
-			</div>
 			<div data-role="fieldcontain">
 			<fieldset data-role="controlgroup">
-				<legend><?= _('Category of partners') ?>:</legend>
-								
-				<input type="checkbox" name="xx" id="checkbox-1c"/>
-				<label for="checkbox-1c">Association - Coopérative - Mutuelle</label>
-				
+				<legend><?= _('Category of searched partners') ?>:</legend>
+				<? foreach($this->cats as $i=>$item) :?>
+					<input type="checkbox" name="<?= $item ?>" id="checkbox-c<?= $item ?>"/>
+					<label for="checkbox-c<?= $item ?>"><?= $i ?></label>
+				<? endforeach ?>
 		    </fieldset>
 		    </div>
+		      <div data-role="fieldcontain">
+				<label for="call" class="select"><?= _("Programme concerné par l'offre") ?>:</label>
+				<select name="call" id="call">
+					<option value=""><?= _("proposition libre") ?></option>
+					<option value="Alcotra">Alcotra</option>
+					<option value="Med">Med</option>
+					<option value="Alpin"><?= _("Alpin Space") ?></option>
+					<option value="IEVP">IEVP CT MED</option>
+					<option value="Interreg">Interreg IV C</option>
+					<option value="Maritime"><?= _("Italy-France Maritime") ?></option>
+				</select>
+			</div>
+		    <div data-role="fieldcontain">
+				<label for="textinputs1"><?= _('keywords') ?>: </label>
+				<input id="textinputs1" name="keywords" placeholder="<?= _('separated by a space, comma, plus') ?>" value='' type="text" />
+			</div>
 
 			<br />
 
@@ -301,34 +313,39 @@ function tab_bar_white($activeTab) {
 				
 			<input type="hidden" name="action" value="Publish" />
 			<input type="hidden" name="namespace" value="part" />
+			<?= debug_r($this->cats[$_SESSION['myEuropeProfile']->role]); ?>
+			<input type="hidden" name="cat" value="<?= $_SESSION['myEuropeProfile']->role ?>" />
 			
 			<div data-role="fieldcontain">
 			<fieldset data-role="controlgroup">
 				<legend><?= _('Themes') ?>:</legend>
 								
 				<input type="checkbox" name="education" id="checkbox-1a"/>
-				<label for="checkbox-1a"><?= _("Education, culture & sport") ?></label>
+				<label for="checkbox-1a"><?= _("Education, culture and sport") ?></label>
 
 				<input type="checkbox" name="travail" id="checkbox-2a"/>
-				<label for="checkbox-2a"><?= _("Work") ?></label>
+				<label for="checkbox-2a"><?= _("Work and training") ?></label>
 				
 				<input type="checkbox" name="entreprise" id="checkbox-3a"/>
-				<label for="checkbox-3a"><?= _("Enterprises, Innovation") ?></label>
-
+				<label for="checkbox-3a"><?= _("Enterprises, Research and Innovation") ?></label>
+				
 				<input type="checkbox" name="environnement" id="checkbox-4a"/>
-				<label for="checkbox-4a"><?= _("Environment, energy & transport") ?></label>
+				<label for="checkbox-4a"><?= _("Environment, Energies and Risk") ?></label>
+				
+				<input type="checkbox" name="recherche" id="checkbox-7a"/>
+				<label for="checkbox-7a"><?= _("Transport, Facilities and Zoning") ?></label>
+
+				<input type="checkbox" name="santé" id="checkbox-8a" />
+				<label for="checkbox-8a"><?= _("Health and Consumer Protection") ?></label>
+				
+				<input type="checkbox" name="social" id="checkbox-9a" />
+				<label for="checkbox-9a"><?= _("Social Affairs") ?></label>
 				
 				<input type="checkbox" name="agriculture" id="checkbox-5a" />
 				<label for="checkbox-5a"><?= _("Agriculture") ?></label>
 
 				<input type="checkbox" name="peche" id="checkbox-6a" />
-				<label for="checkbox-6a"><?= _("Fishing") ?></label>
-				
-				<input type="checkbox" name="recherche" id="checkbox-7a"/>
-				<label for="checkbox-7a"><?= _("Research") ?></label>
-
-				<input type="checkbox" name="santé" id="checkbox-8a" />
-				<label for="checkbox-8a"><?= _("Health and Consumer Protection") ?></label>
+				<label for="checkbox-6a"><?= _("Fishing") ?></label>	
 				
 		    </fieldset>
 		    </div>
@@ -423,27 +440,39 @@ function tab_bar_white($activeTab) {
 						
 						<input type="checkbox" name="Suisse" id="checkbox-24b"/>
 						<label for="checkbox-24b">Suisse</label>
+						
+						<input type="checkbox" name="Corse" id="checkbox-25b"/>
+						<label for="checkbox-25b">Corse</label>
 					</div>
 				
 				
 				</div>
 		    </fieldset>
 		    </div>
+		    <div data-role="fieldcontain">
+				<label for="call" class="select"><?= _("Programme concerné par l'offre") ?>:</label>
+				<select name="call" id="call">
+					<option value=""><?= _("proposition libre") ?></option>
+					<option value="Alcotra">Alcotra</option>
+					<option value="Med">Med</option>
+					<option value="Alpin"><?= _("Alpin Space") ?></option>
+					<option value="IEVP">IEVP CT MED</option>
+					<option value="Interreg">Interreg IV C</option>
+					<option value="Maritime"><?= _("Italy-France Maritime") ?></option>
+				</select>
+			</div>
 		    
 			<div data-role="fieldcontain">
-				<label for="textinputp1"><?= _('keywords') ?>: </label>
+				<label for="textinputp1"><?= _('Keywords') ?>: </label>
 				<input id="textinputp1" name="keywords" placeholder="<?= _('separated by a space, comma, plus') ?>" value='' type="text" />
 			</div>
 			<div data-role="fieldcontain">
-				<label for="textinputp1"><?= _('title') ?>: </label>
-				<input id="textinputp1" name="title" placeholder="<?= _("partnership or project name") ?>" value='' type="text" />
+				<label for="textinputp2"><?= _('Date of expiration') ?>: </label>
+				<input id="textinputp2" name="date" placeholder="<?= _('date in format year-month-day') ?>" value='' type="date" />
 			</div>
 			<div data-role="fieldcontain">
-				<label for="area" class="select"><?= _("Call") ?>:</label>
-				<select name="area" id="area">
-					<option value=""></option>
-					<option value="local">Alcotra</option>
-				</select>
+				<label for="textinputp3"><?= _('Title') ?>: </label>
+				<input id="textinputp3" name="title" placeholder="<?= _("partnership or project name") ?>" value='' type="text" />
 			</div>
 			<textarea id="CLEeditor" id="textContent" name="text"></textarea>
 

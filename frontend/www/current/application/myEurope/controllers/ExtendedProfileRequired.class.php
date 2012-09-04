@@ -22,16 +22,28 @@ class ExtendedProfileRequired extends AuthenticatedController {
 	
 	
 	public $cats = array(
-			"Association - Coopérative - Mutuelle"=>"",
-			"Entreprise privée"=>"",
-			"Chambre consulaire - Groupement professionnel"=>"",
-			"Université - Recherche"=>"",
-			"Mairie - établissement public communal ou intercommunal"=>"",
-			"Département - établissement public départemental"=>"",
-			"Région - établissement public régional"=>"",
-			"Service de l’Etat - établissement public de l’Etat"=>"",
-			"Autre établissement ou groupement public"=>"",
-			"Autre"=>""
+			"Association - Coopérative - Mutuelle"=>"Assoc",
+			"Entreprise privée"=>"Entr",
+			"Chambre consulaire - Groupement professionnel"=>"Chamb",
+			"Université - Recherche"=>"Univ",
+			"Commune, intercommunalité - établissement public communal ou intercommunal"=>"Comm",
+			"Département - établissement public départemental"=>"Dep",
+			"Région - établissement public régional"=>"Reg",
+			"Service de l’Etat - établissement public de l’Etat"=>"Serv",
+			"Autre établissement ou groupement public"=>"AutreEt",
+			"Autre"=>"Autre"
+	);
+	
+	public $thems = array(
+			"education",
+			"travail",
+			"entreprise",
+			"environnement",
+			"recherche",
+			"santé",
+			"social",
+			"agriculture",
+			"peche"
 	);
 	
 	/**

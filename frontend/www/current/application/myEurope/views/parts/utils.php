@@ -221,7 +221,7 @@ function tabs($tabs, $activeTab) {
        		default:
        			?>
 
-				<ul data-role="listview" data-inset="true" data-theme="d" style="margin-top: 2px;">
+				<ul data-role="listview" data-divider-theme="c" data-inset="true" data-theme="d" style="margin-top: 2px;">
 					<li>
 						<h2>
 							<?= $profile->name ?>
@@ -250,6 +250,9 @@ function tabs($tabs, $activeTab) {
 						<br />
 							
 					</li>
+					<? if( count($profile->users)>0) :?>
+						<li data-role="list-divider"><?= _("Members list") ?></li>
+					<? endif ?>
 					<? foreach($profile->users as $item) :?>
 						<li><p><img src="http://www.gravatar.com/avatar/<?= hash("crc32b",$item) ?>?s=128&d=identicon&r=PG" style="width: 30px;vertical-align: middle;padding-right: 10px;"/><a href="mailto:<?= prettyprintId($item) ?>"><?= prettyprintId($item) ?></a> <?= $item==$_SESSION['user']->id?_("(You)"):"" ?></p></li>
 					<? endforeach ?>
@@ -266,7 +269,7 @@ function tabs($tabs, $activeTab) {
 			 
 			default:
 				?>
-					<ul data-role="listview" data-inset="true" data-theme="d">
+					<ul data-role="listview" data-divider-theme="c" data-inset="true" data-theme="d">
 						<li>
 							<h3>
 								<?= $profile->name ?>
@@ -297,6 +300,9 @@ function tabs($tabs, $activeTab) {
 							</p>
 							<br />
 						</li>
+						<? if( count($profile->users)>0) :?>
+							<li data-role="list-divider"><?= _("Members list") ?></li>
+						<? endif ?>
 						<? foreach($profile->users as $item) :?>
 							<li><p><img src="http://www.gravatar.com/avatar/<?= hash("crc32b",$item) ?>?s=128&d=identicon&r=PG" style="width: 30px;vertical-align: middle;padding-right: 10px;"/><a href="mailto:<?= prettyprintId($item) ?>"><?= prettyprintId($item) ?></a> <?= $item==$_SESSION['user']->id?_("(You)"):"" ?></p></li>
 						<? endforeach ?>

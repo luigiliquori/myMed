@@ -35,7 +35,7 @@ include("header.php"); ?>
 			</div>
 			<div data-role="fieldcontain">
 				<label for="password"><?= _("Password") ?></label>
-				<input type="password" id="password" name="password" placeholder="*****" />
+				<input type="password" id="password" name="password" placeholder="" />
 			</div>
 			<div data-role="controlgroup" style="width:auto;text-align: center;" data-type="horizontal">
 				<input type="submit" value="<?= _("Log In") ?>" data-inline="true" class="ui-btn-active ui-state-persist" />

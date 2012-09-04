@@ -21,8 +21,8 @@
 		
 <div data-role="collapsible-set" data-theme="d" data-content-theme="d">
 	<? $first=true; foreach($this->messages as $k=>$v) : ?>
-	<div data-role="collapsible" <?= ($first||$first=false)?'data-collapsed="false"':'' ?>>
-		<h2><?= $v['title'] ?></h2>
+	<div data-role="collapsible" <? if($first){echo('data-collapsed="false"');$first=false;} ?>>
+		<h2><?= $v['title'] ?><time style="font-weight: lighter; font-size: 14px; letter-spacing: 1px; float: right;"><?= date('j/n/y', $v['time']) ?></time></h2>
 		<ul data-role="listview" data-theme="d" data-divider-theme="d">
 			<li id="<?= $k ?>">
 				<div style="position: absolute;">
@@ -39,8 +39,8 @@
 				<div data-role="collapsible" data-mini="true" data-inset="false">
 					<h2 style="width:165px;"><?= count($this->comments[$k]) ?> <?= _("comments") ?></h2>
 					<div id="<?= 'comment'.$k ?>" class='comment' style="margin-bottom: 15px;">
-						<textarea name="text" placeholder="add a comment" onfocus="setIds($(this));$(this).next().toggle();" onfocusout="var me=$(this);setTimeout(function(){me.next().hide();}, 500);"></textarea>
-						<a style="display: none;" type="button" data-inline="true" data-mini="true" data-inline="true" 
+						<textarea name="text" placeholder="add a comment"></textarea>
+						<a type="button" data-inline="true" data-mini="true" data-inline="true" 
 							onclick="commentAdd($(this));" ><?= _('Reply') ?></a>
 					</div>
 					<ul data-role="listview" data-split-icon="gear" data-split-theme="d">
