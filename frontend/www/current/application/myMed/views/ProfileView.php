@@ -40,7 +40,7 @@
 				<?php if ($this->applicationStatus[$applicationName] == "on") { ?>
 					<li data-icon="refresh">
 			    		<img alt="<?= $applicationName ?>" src="../../application/<?= $applicationName ?>/img/icon.png" class="ui-li-icon" />
-					    	<a href="<?= APP_ROOT ?>/../<?= $applicationName ?>/index.php?action=extendedProfile">
+					    	<a href="<?= APP_ROOT ?>/../<?= $applicationName ?>/index.php?action=extendedProfile" rel="external">
 						    	<?= $applicationName ?>
 						    	<div Style="position: relative; left: 0px;">
 							    	<?php for($i=1 ; $i <= 5 ; $i++) { ?>
@@ -65,7 +65,7 @@
 		
 	</div>
 	
-	<div data-role="footer" data-position="fixed" data-theme="a">
+	<div data-role="footer" data-position="fixed" data-theme="b">
 		<div data-role="navbar">
 			<ul>
 				<li><a href="#home" data-transition="none" data-back="true" data-icon="grid">Applications</a></li>

@@ -53,3 +53,14 @@ function prevScreenshot() {
 	}
 	$("#screenshot" + cpt).fadeIn();
 }
+function updateProfile(k, v) {
+	
+	var data = {};
+	data[k] = v;
+	
+	$.get('../../lib/dasp/ajax/Profile.php', data, function(res){
+		//location.reload(0);
+		//console.log(res);
+		//var response = JSON.parse(res);
+	});
+}

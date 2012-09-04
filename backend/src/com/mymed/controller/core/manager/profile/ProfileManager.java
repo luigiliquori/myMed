@@ -24,7 +24,7 @@ import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.AbstractManager;
 import com.mymed.controller.core.manager.storage.IStorageManager;
-import com.mymed.controller.core.manager.storage.StorageManager;
+import com.mymed.controller.core.manager.storage.v2.StorageManager;
 import com.mymed.model.data.user.MUserBean;
 
 /**
@@ -109,6 +109,11 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
         LOGGER.info("Updating user with FIELD_ID '{}'", user.getId());
         // create(user) will replace the current values of the user...
         return create(user);
+    }
+    
+    public final void update(final String id, final Map<String, String> map) throws InternalBackEndException, IOBackEndException {
+    	
+        storageManager.insertSliceStr(CF_USER, id, map);
     }
     
     public final void update(final String id, final String key, final String value) throws InternalBackEndException, IOBackEndException {

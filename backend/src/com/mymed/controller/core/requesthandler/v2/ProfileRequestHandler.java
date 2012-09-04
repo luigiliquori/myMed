@@ -159,10 +159,10 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
                 case UPDATE :
                     message.setMethod(JSON_CODE_UPDATE);
                     try {
-                        MUserBean userBean = gson.fromJson(user, MUserBean.class);
-                        LOGGER.info("Trying to update user:\n {}", userBean.toString());
-                        userBean = profileManager.update(userBean);
-                        message.addDataObject(JSON_PROFILE, userBean);
+                        Map<String, String> userFields = gson.fromJson(user, dataType);
+                        LOGGER.info("Trying to update user:\n {}", userFields);
+                        profileManager.update(userFields.get("id"), userFields);
+                        //message.addDataObject(JSON_PROFILE, userBean);
                         message.setDescription("User updated!");
                         LOGGER.info("User updated!");
                     } catch (final JsonSyntaxException e) {
