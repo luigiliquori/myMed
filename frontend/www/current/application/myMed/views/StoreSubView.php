@@ -36,8 +36,8 @@
 					<img id="screenshot3" alt="<?= $_REQUEST["applicationStore"] ?>" src="<?= APP_ROOT . "/../" . $_REQUEST["applicationStore"] . "/doc/screenshot3.png" ?>" class="myScreenshot" />
 					<br /><br />
 					<div data-role="controlgroup" data-type="horizontal">
-						<a href="#" onclick="prevScreenshot()" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-inline="true">left</a>
-						<a href="#" onclick="nextScreenshot()" data-role="button" data-icon="arrow-r" data-iconpos="notext" data-inline="true">right</a>
+						<a href="#" onclick="prevScreenshot()" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-inline="true"></a>
+						<a href="#" onclick="nextScreenshot()" data-role="button" data-icon="arrow-r" data-iconpos="notext" data-inline="true"></a>
 					</div>
 				</center>
 				
@@ -71,7 +71,7 @@
 			
 	</div>
 	
-	<div data-role="footer" data-position="fixed" data-theme="b">
+	<div data-role="footer" data-position="fixed" data-theme="a">
 		<div data-role="navbar">
 			<ul>
 				<li><a href="#home" data-transition="none" data-back="true" data-icon="grid">Applications</a></li>
