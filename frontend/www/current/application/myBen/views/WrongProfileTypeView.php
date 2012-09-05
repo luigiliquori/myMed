@@ -13,19 +13,19 @@ $annonce = $this->annonce;
 	<div data-role="content" >
 	
 		<div data-theme="e" data-role="header" >
-			<h3>Mauvais type the compte</h3>
+			<h3><?= _("Mauvais type the compt") ?>e</h3>
 		</div>
 	
 		<p>
-			Vous êtes loggué avec un compte "<?= $this->actualProfileType ?>",
-			mais cette action nécéssite un compte "<?= $this->profileType ?>".
+			<?= _("Vous êtes loggué avec un compte") ?> "<?= $this->actualProfileType ?>",
+		    <?= _("mais cette action nécéssite un compte") ?> "<?= $this->profileType ?>".
 			<br/>
-			Merci de vous logguer avec un autre compte ou de créer un nouveau profile :
+			<?= _("Merci de vous logguer avec un autre compte ou de créer un nouveau profil") ?>e :
 			
 		</p>
 		
 		<a data-role="button" data-icon="delete" data-theme="b"
-				href="<?= url("logout") ?>">Se délogguer</a>
+				href="<?= url("logout") ?>"><?= _("Se délogguer") ?></a>
 	</div>
 	
 	

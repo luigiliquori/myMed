@@ -16,7 +16,7 @@
 package com.mymed.controller.core.requesthandler.matchmaking;
 
 import static com.mymed.utils.GsonUtils.gson;
-import static com.mymed.utils.MatchMaking.makePrefix;
+import static com.mymed.utils.MiscUtils.makePrefix;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
@@ -35,7 +35,7 @@ import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.pubsub.PubSubManager;
-import com.mymed.controller.core.requesthandler.message.JsonMessage;
+import com.mymed.controller.core.requesthandler.message.JsonMessageOut;
 import com.mymed.model.data.application.MDataBean;
 import com.mymed.utils.PublicationSet;
 
@@ -76,7 +76,7 @@ public class FindRequestHandler extends AbstractMatchMaking {
 	        final HttpServletResponse response) 
 	                throws ServletException 
 	{
-		final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
+		final JsonMessageOut<Object> message = new JsonMessageOut<Object>(200, this.getClass().getName());
 
 		try {
 			final Map<String, String> parameters = getParameters(request);
@@ -181,7 +181,7 @@ public class FindRequestHandler extends AbstractMatchMaking {
 	 */
 	@Override
 	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-		final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
+		final JsonMessageOut<Object> message = new JsonMessageOut<Object>(200, this.getClass().getName());
 
 		try {
 			final Map<String, String> parameters = getParameters(request);

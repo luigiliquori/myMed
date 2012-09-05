@@ -15,14 +15,15 @@ function tabs($tabs, $activeTab) {
 	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
 	<ul>
 		<li><a href="?action=logout" rel="external" data-icon="back"><?= _("Exit") ?></a></li>
-		<? foreach ($tabs as $id => $label) { ?>
+		<? foreach ($tabs as $id => $v) { ?>
 		<li>
 			<a 
 				href="#<?= $id ?>"    
 				data-transition="slide" 
+				data-icon="<?= $v[1] ?>" 
 				<?= ($reverse) ? 'data-direction="reverse"' : '' ?>
 				<?= ($activeTab == $id) ? 'class="ui-btn-active ui-state-persist"' : '' ?> >
-				<?= _($label) ?>
+				<?= $v[0] ?>
 			</a>
 		</li><? 
 		
@@ -42,7 +43,7 @@ function tabs($tabs, $activeTab) {
  	?>
   	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
   	<ul>
-  		<li><a href="../../" rel="external" data-icon="back"><?= _("Exit") ?></a></li>
+  		<li><a href="/application/myMed" data-ajax="false" data-icon="back"><?= _("Exit") ?></a></li>
   		<? foreach ($tabs as $id => $v) { ?>
   		<li>
   			<a 
@@ -51,7 +52,7 @@ function tabs($tabs, $activeTab) {
   				data-icon="<?= $v[1] ?>" 
   				<?= ($reverse) ? 'data-direction="reverse"' : '' ?>
   				<?= ($activeTab == $id) ? 'class="ui-btn-active ui-state-persist"' : '' ?> >
-  				<?= _($v[0]) ?>
+  				<?= $v[0] ?>
   			</a>
   		</li><? 
   		
@@ -71,7 +72,7 @@ function tabs($tabs, $activeTab) {
  	?>
  	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
  	<ul>
- 		<li><a href="./" data-ajax="false" data-icon="back"><?= APPLICATION_NAME ?></a></li>
+ 		<li><a href="./" data-icon="back" rel="external"><?= APPLICATION_NAME ?></a></li>
  		<? foreach ($tabs as $id => $v) { ?>
  		<li>
  			<a 
@@ -80,7 +81,7 @@ function tabs($tabs, $activeTab) {
  				data-icon="<?= $v[1] ?>" 
  				<?= ($reverse) ? 'data-direction="reverse"' : '' ?>
  				<?= ($activeTab == $id) ? 'class="ui-btn-active ui-state-persist"' : '' ?> >
- 				<?= _($v[0]) ?>
+ 				<?= $v[0] ?>
  			</a>
  		</li><? 
  		
@@ -103,12 +104,28 @@ function tabs($tabs, $activeTab) {
   	?>
    	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
    	<ul>
-   		<li><a data-rel="back" data-ajax="false" data-icon="back"><?= _("Back") ?></a></li>
-   		<li><a class="ui-disabled"><?= _($title) ?></a></li>
-   		<li><a href="<?= $url ?>" rel="external" data-icon="<?= $icon ?>"><?= _($button) ?></a></li>
+   		<li><a data-rel="back" data-icon="back" data-theme="d"><?= _("Back") ?></a></li>
+   		<li><a class="ui-btn-active"><?= $title ?></a></li>
+   		<li><a href="<?= $url ?>" data-theme="d" data-icon="<?= $icon ?>"><?= $button ?></a></li>
    	</ul>
    	</div> <?
    }
+   
+   function tabs_3click(
+   		$title,
+   		$button,
+   		$url = "?action=extendedProfile",
+   		$icon = "profile") {
+   
+   	?>
+      	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
+      	<ul>
+      		<li><a data-rel="back" data-icon="back" data-theme="d"><?= _("Back") ?></a></li>
+      		<li><a class="ui-btn-active"><?= $title ?></a></li>
+      		<li><a onclick="<?= $url ?>" data-theme="d" data-icon="<?= $icon ?>" rel="external"><?= $button ?></a></li>
+      	</ul>
+      	</div> <?
+      }
    
    function tabs_3empty(
    		$title,
@@ -119,9 +136,9 @@ function tabs($tabs, $activeTab) {
    	?>
    		<div data-role="navbar" data-theme="d" data-iconpos="left"> 
         	<ul>
-            	<li><a data-rel="back" data-ajax="false" data-icon="back"><?= _("Back") ?></a></li>
-            	<li><a href="<?= $url ?>" rel="external" data-icon="<?= $icon ?>"><?= _($button) ?></a></li>
-            	<li><a class="ui-disabled"><?= _($title) ?></a></li>
+            	<li><a data-rel="back" data-icon="back" rel="external" data-theme="d"><?= _("Back") ?></a></li>
+            	<li><a href="<?= $url ?>" data-theme="d" rel="external"  data-icon="<?= $icon ?>"><?= $button ?></a></li>
+            	<li><a class="ui-btn-active" ><?= $title ?></a></li>
             </ul>
         </div> <?
       }
@@ -133,8 +150,8 @@ function tabs($tabs, $activeTab) {
    	?>
       	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
       	<ul>
-      		<li><a data-rel="back" data-ajax="false" data-icon="back"><?= _("Back") ?></a></li>
-      		<li><a href="<?= $url ?>" rel="external" data-icon="<?= $icon ?>"><?= _($title) ?></a></li>
+      		<li><a data-rel="back" data-icon="back" data-theme="d"><?= _("Back") ?></a></li>
+      		<li><a href="<?= $url ?>" data-icon="<?= $icon ?>" class="ui-btn-active"><?= $title ?></a></li>
       	</ul>
       	</div> <?
       }
@@ -146,18 +163,18 @@ function tabs($tabs, $activeTab) {
       	?>
             	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
             	<ul>
-            		<li><a href="./" data-icon="back"><?= _("Back") ?></a></li>
-            		<li><a onclick="<?= $url ?>" rel="external" data-icon="<?= $icon ?>"><?= _($title) ?></a></li>
+            		<li><a href="./" data-icon="back" data-theme="d"><?= _("Back") ?></a></li>
+            		<li><a onclick="<?= $url ?>" data-theme="d" data-icon="<?= $icon ?>"><?= $title ?></a></li>
             	</ul>
             	</div> <?
             }
       
-      function tabs_2empty($title) {
+      function tabs_2empty($title, $icon="") {
       	?>
             	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
             	<ul>
-            		<li><a data-rel="back" data-ajax="false" data-icon="back"><?= _("Back") ?></a></li>
-            		<li><a class="ui-disabled"><?= _($title) ?></a></li>
+            		<li><a data-rel="back" data-icon="back" rel="external"  data-theme="d"><?= _("Back") ?></a></li>
+            		<li><a class="ui-btn-active" data-icon="<?= $icon ?>"><?= $title ?></a></li>
             	</ul>
             	</div> <?
         }
@@ -165,27 +182,136 @@ function tabs($tabs, $activeTab) {
             
        function about(){
        	?>
-<div style="text-align: justify;margin:20px;">
-	<b>MyEurope</b> est un réseau social s'appuyant sur le méta-réseau social myMed, à disposition des mairies, des institutions, des élus ou encore des
-	réalités économiques (industrielles, touristiques…) du territoire de la région française du Sud-Est (PACA, Rhône-Alpes) et des trois régions
-	italiennes du Nord Ouest de l'Italie, (Ligurie, Piémont, Vallée d'Aoste), c'est-à-dire des territoires éligibles au programme Alcotra (Alpes Latines
-	Coopération Transfrontalière France-Italie). L'application permettra aux mairies de l'Eurorégion Alpes-Méditerranée (MedAlp) de trouver des
-	partenaires, bien évidemment inscrits au réseau myEurope, au sein de l'interregion afin de pouvoir monter ensemble des projets communs, dans le cadre
-	de différents programmes européens : Interreg Alcotra, de Med, FP7 etc … <br /> <br /> Les objectifs principaux de myEurope sont donc les suivants :
-
-<ul>
-	<li>Aider, à travers le mécanisme de « Matchmaking » de myMed, à mettre en communs des idées mais aussi des moyens afin de pouvoir soumettre un
-		projet Interreg Alcotra, Med ou d'obtenir des financements provenant de l'Europe (crédits FEDER…).</li>
-	<li>Echanger des pratiques et des intérêts communs transfrontaliers dans le domaine du montage de projet</li>
-	<li>Informer des différents appels d'offres de projets européens les personnes inscrites au réseau social</li>
-</ul>
-<br />
-Ces échanges d'information seront utiles aux élus français ainsi qu'à leurs homologues italiens afin de pouvoir instaurer un contact permanent entre
-les habitants des régions françaises et ceux des régions italiennes limitrophes. Ce qui favorisera l'organisation d'activités transfrontalières
-(partenariat de projets européens, coopérations dans différents domaines …).
+<div style="text-align: justify;margin-left:20px;margin-right:20px;">
+	<p>
+	<?=
+		_("<b>MyEurope</b> is a social network which is based on the meta-social network <b><em>myMed</em></b>, available for City Halls, institutions or economic realities (industrial, tourism industry...) of the French South-East areas (PACA, Rhone-Alpes) and the three Italian North-Western Regions (Liguria, Piemonte, Valle d'Aosta), i.e. the areas eligible to the Alcotra Program.")
+	?>
+	</p>	
+	<p>
+	<?=
+		_("This \"sociapp\" will help the City Hall of the Alps-Mediterranean Euroregion to find partners, among those who joined the social network, in order to create projects together, within European Programs.
+	The main targets of <b><em>myMed</em></b> are :
+	<ul>
+		<li>Help, through the mechanism of myMed's \"matchmaking\", to gather ideas and resources for European project submission or obtain European funds.</li>
+		<li>Exchange practices and common cross-border interests in the area of European project creation.</li>
+		<li>Inform users about different European calls.</li>
+	</ul>")
+	?>
+	</p>
+	
+	<p>
+	<?=
+		_("These information exchanges will be useful to French elected representatives and their Italian counterparts in order to establish a permanent contact between French and Italian people. It will result in a better organization of cross-border activity.")
+	?>	
+	</p>
 </div>
-<img src="img/logos" style="max-width:460px;"/>
+<div class="logos" style="text-align: center;">
+	<img alt="Alcotra" src="../../system/img/logos/fullsize/alcotra" style="width: 100px;"/>
+	<img alt="Europe" src="../../system/img/logos/fullsize/EU" style="width: 80px;"/>
+	<img alt="myMed" src="../../system/img/logos/mymed" />
+</div>
 <?
        }
- 
-?>
+       
+       
+	function printProfile($profile){
+       	switch($profile->role){
+       		
+       		default:
+       			?>
+
+				<ul data-role="listview" data-divider-theme="c" data-inset="true" data-theme="d" style="margin-top: 2px;">
+					<li>
+						<h2>
+							<?= $profile->name ?>
+						</h2>
+						<p>
+							<?= _("Role") ?>: <strong style="color:#444;"><?= $profile->role ?></strong>
+						</p>
+						<p>
+							<strong style="color:#444;"><?= (empty($profile->activity)?" ":$profile->activity) ?></strong>
+						</p>
+						<p>
+							<img src="./img/mail-send.png" style="height: 22px;vertical-align: bottom;"/>
+							<?=
+							(empty($profile->email)?" ": _("email").": <a href='mailto:".$profile->email."'>".$profile->email."</a>")." - ".
+							(empty($profile->phone)?" ":_("phone").": <a href='tel:".$profile->phone."'>".$profile->phone."</a>")." - ".
+							(empty($profile->address)?" ":_("address").": ".$profile->address)
+							?>
+						</p>
+						<br />
+						<p>
+							<?= empty($profile->desc)?" ":$profile->desc ?>
+						</p>
+						<p class="ui-li-aside">
+							réputation: <a href="#reppopup" style="font-size: 16px;" title="<?= $profile->reputation['up'] ?> votes +, <?= $profile->reputation['down'] ?> votes -"><?= $profile->reputation['up'] - $profile->reputation['down'] ?></a>
+						</p>
+						<br />
+							
+					</li>
+					<? if( count($profile->users)>0) :?>
+						<li data-role="list-divider"><?= _("Members list") ?></li>
+					<? endif ?>
+					<? foreach($profile->users as $item) :?>
+						<li><p><img src="http://www.gravatar.com/avatar/<?= hash("crc32b",$item) ?>?s=128&d=identicon&r=PG" style="width: 30px;vertical-align: middle;padding-right: 10px;"/><a href="mailto:<?= prettyprintId($item) ?>"><?= prettyprintId($item) ?></a> <?= $item==$_SESSION['user']->id?_("(You)"):"" ?></p></li>
+					<? endforeach ?>
+				</ul>
+				<?
+				break;
+		}
+       	 
+	}
+	
+	
+	function printMyProfile($profile){
+		switch($profile->role){
+			 
+			default:
+				?>
+					<ul data-role="listview" data-divider-theme="c" data-inset="true" data-theme="d">
+						<li>
+							<h3>
+								<?= $profile->name ?>
+							</h3>
+							<p>
+								<?= _("Role") ?>: <strong style="color:#444;"><?= $profile->role ?></strong>
+							</p>
+							<?= debug_r($profile) ?>
+							<p>
+								<strong style="color:#444;"><?= (empty($profile->activity)?" ":$profile->activity) ?></strong>
+							</p>
+							
+							<p class="ui-li-aside">
+								réputation: <a href="#reppopup" style="font-size: 16px;" title="<?= $profile->reputation['up'] ?> votes +, <?= $profile->reputation['down'] ?> votes -"><?= $profile->reputation['up'] - $profile->reputation['down'] ?></a>
+							</p>
+							<br />
+							<p>
+								<img src="./img/mail-send.png" style="height: 22px;vertical-align: bottom;"/>
+								<?=
+								(empty($profile->email)?" ": _("email").": <a href='mailto:".$profile->email."'>".$profile->email."</a>")." - ".
+								(empty($profile->phone)?" ":_("phone").": <a href='tel:".$profile->phone."'>".$profile->phone."</a>")." - ".
+								(empty($profile->address)?" ":_("address").": ".$profile->address)
+								?>
+							</p>
+							<br />
+							<p>
+								<?= empty($profile->desc)?" ":$profile->desc ?>
+							</p>
+							<br />
+						</li>
+						<? if( count($profile->users)>0) :?>
+							<li data-role="list-divider"><?= _("Members list") ?></li>
+						<? endif ?>
+						<? foreach($profile->users as $item) :?>
+							<li><p><img src="http://www.gravatar.com/avatar/<?= hash("crc32b",$item) ?>?s=128&d=identicon&r=PG" style="width: 30px;vertical-align: middle;padding-right: 10px;"/><a href="mailto:<?= prettyprintId($item) ?>"><?= prettyprintId($item) ?></a> <?= $item==$_SESSION['user']->id?_("(You)"):"" ?></p></li>
+						<? endforeach ?>
+					</ul>
+					
+					<?
+					break;
+			}
+	       	 
+		}
+
+       ?>

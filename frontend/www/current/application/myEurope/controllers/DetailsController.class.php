@@ -1,39 +1,83 @@
 <? 
+require_once 'profile-utils.php';
+
 class DetailsController extends AuthenticatedController {
 	
-	public $id;
-	public $details;
+	public $delete = false;
 	
 	public function handleRequest() {
 		
-		
-		
 		parent::handleRequest();
+		
+		$this->id = $_GET['id'];
 		
 		if (isset($_GET["rm"])){
 			$this->delData();
 		}
-		 
-		$this->id = $_GET['id'];
+		if (isset($_GET["partnerRequest"])){
+			$this->addTempPartner();
+		}
+		
+		// put
+		if (isset($_GET["accept"])){
+			$this->addPartner();
+		}
+		
 		$this->text = "description vide";
-		
-		debug('details of '.$this->id);
-		
-		$req = new DetailRequestv2($this, $_GET['namespace'], $this->id);
+
+		$req = new RequestJson( $this, array("application"=>APPLICATION_NAME.":".$_GET['namespace'],"id"=>$this->id));
 		
 		try{
-			$this->details = $req->send();
+			$res = $req->send();
 		}
 		catch(Exception $e){
-			//return null;
 			$this->details=new StdClass();
 			$this->details->text = "Contenu effacé par l'auteur";
 		}
 
-		if (isset($this->details))
+		if (isset($res->details)){
+			$this->details = $res->details;
+			$rep =  new Reputationv2($this, $this->details->user, $this->id);
+			$this->reputation = $rep->send();
+			
+			if (isset($this->details->user)){
+				$this->details->userProfile = getProfilefromUser($this, $this->details->user);
+				
+				if ($this->delete){
+					$request = new RequestJson($this,
+							array("application"=>APPLICATION_NAME.":profiles", "id"=>$this->details->partner, "field"=>"part_".$this->id),
+							DELETE);
+					$request->send();
+				}
+			}
+
+			$this->partnersProfiles = array();
+
+			foreach ($this->details as $k => $v){
+				if (strpos($k, "user_") === 0){
+					$p = getProfilefromUser($this, $v);
+					$this->partnersProfiles[$p->id]= $p;
+				}
+			}
+			if (isset($this->details->userProfile))
+				unset($this->partnersProfiles[$this->details->userProfile->id]);
+			
+			if ($this->delete){
+				$request = new RequestJson($this,
+						array("application"=>APPLICATION_NAME.":profiles", "id"=>"", "field"=>"part_".$this->id),
+						DELETE);
+				
+				foreach ($this->partnersProfiles as $v){
+					$req->addArguments(array("id"=>$v->id));
+					$request->send();
+				}
+			}
+			
+			debug_r($this->details);
 			$this->renderView("details");
-		else
-			$this->redirect("search");
+		} else
+			$this->renderView("details");
+			//$this->redirectTo("search");
 		// @todo errors
 		
 		// Render the view
@@ -42,16 +86,52 @@ class DetailsController extends AuthenticatedController {
 	
 	
 	public /*void*/ function delData(){
-	
-	
-		$publish = new PublishRequestv2($this, $_GET['namespace'], $_GET['id']);
+		
+		$publish = new RequestJson($this, array("application"=>APPLICATION_NAME.":".$_GET['namespace'],"id"=>$_GET['id']), DELETE);
 		
 		debug('trying to delete '.$_GET['namespace']."..".$_GET['id']);
-		
-		$publish->setMethod(DELETE);
+
 		$publish->send();
-	
+		
+		//delete from partners profiles after read
+		$this->delete = true;
 	
 	}
+	
+	public /*void*/ function addTempPartner(){
+		$data = array(
+			"tempPartner".$_SESSION['user']->id=>$_SESSION['user']->id
+		);
+		$publish = new RequestJson( $this, 
+				array("application"=>APPLICATION_NAME.":".$_GET['namespace'],"id"=>$_GET['id'], "user"=> $_SESSION['user']->id, "user"=>$_SESSION['user']->id, "data"=>$data ),
+				UPDATE);
+	
+		$publish->send();
+		if (empty($this->error))
+			$this->success = _("Partnership request sent");
+	}
+	
+	public /*void*/ function addPartner(){
+
+		$publish = new RequestJson( $this,
+				array("application"=>APPLICATION_NAME.":".$_GET['namespace'],"id"=>$this->id, "field"=>"tempPartner".$_GET["accept"] ),
+				DELETE);
+		$publish->send();
+		
+		$publish = new RequestJson( $this,
+				array("application"=>APPLICATION_NAME.":".$_GET['namespace'],"id"=>$this->id, "user"=>"noNotification", "data"=>array("user_".$_GET["accept"]=>$_GET["accept"]) ),
+				UPDATE);
+		$publish->send();
+		
+		$publish = new RequestJson( $this,
+				array("application"=>APPLICATION_NAME.":profiles", "id"=>$_GET["accept"], "data"=>array("part_".$this->id=>$this->id) ),
+				UPDATE);
+		$publish->send();
+		
+		if (empty($this->error))
+			$this->success = _("Partnerships added");
+	}
+	
+	
 }
 ?>

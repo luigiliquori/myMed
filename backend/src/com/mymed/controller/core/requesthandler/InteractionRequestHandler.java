@@ -27,7 +27,7 @@ import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.interaction.IInteractionManager;
 import com.mymed.controller.core.manager.interaction.InteractionManager;
-import com.mymed.controller.core.requesthandler.message.JsonMessage;
+import com.mymed.controller.core.requesthandler.message.JsonMessageOut;
 import com.mymed.model.data.interaction.MInteractionBean;
 
 /**
@@ -62,17 +62,30 @@ public class InteractionRequestHandler extends AbstractRequestHandler {
      */
     @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
+        final JsonMessageOut<Object> message = new JsonMessageOut<Object>(200, this.getClass().getName());
 
         try {
             final Map<String, String> parameters = getParameters(request);
             // Check the access token
             checkToken(parameters);
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
+            
+            String application, producer, consumer;
 
             switch (code) {
                 case READ :
                 case DELETE :
+                	 if ((application = parameters.get(JSON_APPLICATION)) == null)
+                         throw new InternalBackEndException("missing application argument!");
+                     else if ((producer = parameters.get("producer")) == null)
+                         throw new InternalBackEndException("missing producer argument!");
+                     else if ((consumer = parameters.get("consumer")) == null)
+                         throw new InternalBackEndException("missing consumer argument!");
+                     
+                     interactionManager.delete(application + producer + consumer);
+                     message.setDescription("interaction deleted!");
+                	
+                	
                 default :
                     throw new InternalBackEndException("InteractionManager.doGet(" + code + ") not exist!");
             }
@@ -90,14 +103,14 @@ public class InteractionRequestHandler extends AbstractRequestHandler {
      */
     @Override
     protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
+        final JsonMessageOut<Object> message = new JsonMessageOut<Object>(200, this.getClass().getName());
 
         try {
             final Map<String, String> parameters = getParameters(request);
             // Check the access token
             checkToken(parameters);
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            String application, producer, consumer, start, end, predicate, feedback, state;
+            String application, producer, consumer, start, end, predicate = "", feedback, state;
 
             if (code.equals(RequestCode.UPDATE)) {
                 if ((application = parameters.get(JSON_APPLICATION)) == null) {
@@ -110,11 +123,12 @@ public class InteractionRequestHandler extends AbstractRequestHandler {
                     throw new InternalBackEndException("missing start argument!");
                 } else if ((end = parameters.get("end")) == null) {
                     throw new InternalBackEndException("missing end argument!");
-                } else if ((predicate = parameters.get("predicate")) == null) {
-                    throw new InternalBackEndException("missing predicate argument!");
                 } else if ((state = parameters.get("state")) == null) {
                 	state = MInteractionBean.COMPLETED_STATE; // Default state
-                }
+                } else if ((predicate = parameters.get("predicate")) == null) {
+                	predicate = "";
+                	//throw new InternalBackEndException("missing predicate argument!");
+                }   
 
                 // verify consumer != producer
                 if (consumer.equals(producer)) {
@@ -135,11 +149,12 @@ public class InteractionRequestHandler extends AbstractRequestHandler {
                 // ATOMIC INTERACTION
                 if ((feedback = parameters.get("feedback")) != null) {
                     interaction.setFeedback(Double.parseDouble(feedback));
-                    System.out.print("\nUPDATE" +
-                    "\n************ application: " + application +
-                    "\n************ producer: " + producer + 
-                    "\n************ consumer: " + consumer +
-                    "\n************ feedback: " + feedback);
+                    LOGGER.info("UPDATE" +
+                    "************ application: " + application +
+                    " producer: " + producer +
+                    " predicate: " + predicate +
+                    " consumer: " + consumer +
+                    " feedback: " + feedback);
                 }
 
                 interactionManager.create(interaction);

@@ -7,5 +7,7 @@
 	// Include main controller : Dispatches actions to individual controllers
 	include(MYMED_ROOT . '/system/controllers/index-controller.php');
 
+	main_controller();
+	
 ?>
 

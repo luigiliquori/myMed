@@ -16,7 +16,7 @@
 	
 	<h1><?= APPLICATION_NAME ?></h1>
 	
-	<a href="?action=logout" data-inline="true" rel="external" data-role="button" data-theme="r" data-icon="power" data-iconpos="notext" class="ui-btn-right">Deconnexion</a>
+	<a href="?action=logout" data-inline="true" rel="external" data-role="button" data-icon="delete" data-theme="r" data-icon="power" class="ui-btn-right">Déconnexion</a>
 	
 	<? include("notifications.php")?>
 	

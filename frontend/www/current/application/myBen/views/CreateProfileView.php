@@ -11,20 +11,20 @@ include("header.php"); ?>
 	<div data-role="content">
 
 		<p>
-			Bonjour,<br/>
+			<?= _("Bonjour,") ?><br/>
 			<br/>
-			C'est la première fois que vous venez sur MyBénévolat.<br/>
-			Merci de renseigner votre profil.<br/>
+			<?= _("C'est la première fois que vous venez sur MyBénévolat.") ?><br/>
+			<?= _("Merci de renseigner votre profil.") ?><br/>
 			<br/>
-			Vous êtes ?<br/>
+		    <?= _("Vous êtes ?") ?><br/>
 			<br/>
 			<a data-role="button" data-theme="e" class="mm-left" data-ajax="false"
 				href="<?= url('extendedProfile:create', array("type" => BENEVOLE)) ?>">
-				Un bénévole
+				<?= _("Un bénévole") ?>
 			</a>
 			<a data-role="button" data-theme="e" class="mm-left" data-ajax="false"
 				href="<?= url('extendedProfile:create', array("type" => ASSOCIATION))?>">
-				Une association
+                <?= _("Une association") ?>
 			</a>		
 		</p>
 		

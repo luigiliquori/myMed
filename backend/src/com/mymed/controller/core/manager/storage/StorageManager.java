@@ -721,6 +721,28 @@ public class StorageManager implements IStorageManager {
 			String superKey, Map<String, String> args)
 					throws InternalBackEndException {
 		throw new NotImplementedException();
-	}  
+	}
 
+	@Override
+	public void insertSuperSliceListStr(String superTableName,
+			List<String> keys, String superKey, Map<String, String> args)
+			throws InternalBackEndException {
+		throw new NotImplementedException();
+
+	}
+
+	@Override
+	public String selectColumnStr(String tableName, String key,
+			String columnName) throws IOBackEndException,
+			InternalBackEndException {
+		throw new NotImplementedException();
+	}
+
+	@Override
+	public Map<ByteBuffer, List<ColumnOrSuperColumn>> batch_read(
+			String tableName, List<String> keys)
+			throws InternalBackEndException {
+		throw new NotImplementedException();
+	}
+    
 }

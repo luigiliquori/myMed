@@ -1,8 +1,6 @@
 <? 
 
-//require_once dirname(__FILE__) . '/../../../lib/dasp/beans/DataBeanv2.php';
-
-class PublishController extends AuthenticatedController {
+class PublishController extends ExtendedProfileRequired {
 	
 	public $namespace;
 	
@@ -15,48 +13,79 @@ class PublishController extends AuthenticatedController {
 		$index=array();
 		
 		$themes = array();
-		$regs = array();
-		
+		$places = array();
+
 		foreach( $_POST as $i=>$v ){
 			if ($v == "on"){
-				if ( strpos($i, "theme") === 0){
-					array_push($themes, substr($i, strlen("theme")));
-				} else if  ( strpos($i, "reg") === 0){
-					array_push($regs, substr($i, strlen("reg")));
+				if ( in_array($i, $this->themesall)){
+					array_push($themes, $i);
+				} else {
+					array_push($places, $i);
 				}
 			}
 		}
-		if (count($themes)){
-			array_push($index, new DataBeanv2("theme", ENUM, $themes));
-		}
 		
-		if (count($regs)){
-			array_push($index, new DataBeanv2("reg", ENUM, $regs));
-		}
-		
-		$tags = preg_split('/[ +]/', $_POST['q'], NULL, PREG_SPLIT_NO_EMPTY);
-		$p = array_unique(array_map('strtolower', $tags));
-		if (count($p)){
-			array_push($index, new DataBeanv2("tags", ENUM, $p));
-		}
+		array_push($index, new DataBeanv2("themes", ENUM, "|".join("|",$themes)));
 
+		array_push($index, new DataBeanv2("places", ENUM, "|".join("|",$places)));
+		
+		array_push($index, new DataBeanv2("cats", ENUM, "|".$_POST['cat']));
+		
+		if ($_POST['call']!="")
+			array_push($this->index, new DataBeanv2("call", ENUM, $_POST['call']));
+		
+		$p = preg_split('/[ ,+:-]/', $_POST['keywords'], NULL, PREG_SPLIT_NO_EMPTY);
+		$p = array_map('strtolower', $p);
+		$p = array_filter($p, array($this, "smallWords"));
+		$p = array_unique($p);
+		array_push($index, new DataBeanv2("keyword", ENUM, "|".join("|",$p)));
+		
+		$t = time();
+		
 		$data = array(
-					"user" => $_SESSION['user']->id,
-					"text" => isset($_POST['text'])?$_POST['text']:"contenu vide"
-				);
+				"title" => $_POST['title'],
+				"time"=>$t,
+				"user" => $_SESSION['user']->id,
+				"partner" => $_SESSION['myEurope']->profile,
+				"text" => isset($_POST['text'])?$_POST['text']:"contenu vide"
+			);
 		
 		$metadata = array(
 				/* @todo more stuff here */
+				"title" => $_POST['title'],
+				"time"=>$t,
 				"user" => $_SESSION['user']->id,
+				"partner" => $_SESSION['myEurope']->profile,
 			);
 		
-		$publish = new PublishRequestv2($this, $this->namespace, time()."+".$_SESSION['user']->id, $data, $index, $metadata);
+		$id = hash("md5", $t.$_SESSION['user']->id);
+		
+		$publish = new RequestJson($this, 
+				array("application"=>APPLICATION_NAME.":".$this->namespace, "id"=>$id, "user"=>$_SESSION['user']->id, "data"=>$data, "predicates"=>$index, "metadata"=>$metadata),
+				CREATE);
+		
 		$publish->send();
 		
 		if (!empty($this->error)){
 			debug("post err");
 			$this->renderView("Main", "post");
 		} else {
+			
+			// put this project in our profile
+			$publish = new RequestJson( $this,
+					array("application"=>APPLICATION_NAME.":profiles", "id"=>$_SESSION['myEurope']->profile, "user"=>"noNotification", "data"=>array("part_".$id=>$id)),
+					UPDATE);
+			
+			$publish->send();
+			//push it in session
+			array_push($_SESSION['myEuropeProfile']->partnerships, $id);
+			
+			$subscribe = new RequestJson( $this,
+					array("application"=>APPLICATION_NAME.":".$this->namespace, "id"=>$id, "user"=> $_SESSION['user']->id, "mailTemplate"=>APPLICATION_NAME.":profileParts"),
+					CREATE, "v2/SubscribeRequestHandler");
+			$subscribe->send();
+			
+			
 			//redirect to search with the indexes
 			unset($_POST['text']);
 			unset($_POST['action']);
@@ -72,6 +101,10 @@ class PublishController extends AuthenticatedController {
 			//$this->redirectTo("search", $_POST);
 			//$this->renderView("Main", "post");
 		}
+	}
+	
+	function smallWords($w){
+		return strlen($w) > 2;
 	}
 }
 ?>

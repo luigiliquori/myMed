@@ -36,6 +36,7 @@ import org.apache.cassandra.thrift.SlicePredicate;
 import org.apache.cassandra.thrift.SliceRange;
 import org.apache.cassandra.thrift.SuperColumn;
 
+import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.model.core.configuration.WrapperConfiguration;
@@ -77,6 +78,22 @@ public class StorageManager extends
 		super();
 		wrapper = new CassandraWrapper(conf.getCassandraListenAddress(),
 				conf.getThriftPort());
+	}
+	
+	@Override
+	public Map<ByteBuffer, List<ColumnOrSuperColumn>> batch_read(final String tableName,
+			final List<String> keys)throws InternalBackEndException {
+		
+		final SlicePredicate predicate = new SlicePredicate();
+		final SliceRange sliceRange = new SliceRange();
+		sliceRange.setStart(new byte[0]);
+		sliceRange.setFinish(new byte[0]);
+		sliceRange.setCount(maxNumColumns);
+		predicate.setSlice_range(sliceRange);
+
+		final ColumnParent parent = new ColumnParent(tableName);
+		
+		return wrapper.multiget_slice(keys, parent, predicate, consistencyOnRead);
 	}
 
 	@Override
@@ -267,6 +284,55 @@ public class StorageManager extends
 		} catch (final InternalBackEndException e) {
 			throw new InternalBackEndException(e);
 		}
+	}
+	
+	@Override public void insertSuperSliceListStr(
+			final String superTableName,
+			final List<String> keys,
+			final String superKey,
+			final Map<String, String> args) 
+					throws InternalBackEndException {
+		try {
+			final Map<String, Map<String, List<Mutation>>> mutationMap = new HashMap<String, Map<String, List<Mutation>>>();
+			final long timestamp = System.currentTimeMillis();
+			final Map<String, List<Mutation>> tableMap = new HashMap<String, List<Mutation>>();
+			final List<Mutation> sliceMutationList = new ArrayList<Mutation>(5);
+
+			tableMap.put(superTableName, sliceMutationList);
+
+			final List<Column> columns = new ArrayList<Column>();
+
+			for (Entry<String, String> entry : args.entrySet()) {
+				columns.add(new Column(ByteBuffer.wrap(encode(entry.getKey())),
+						ByteBuffer.wrap(encode(entry.getValue())), timestamp));
+			}
+
+			final Mutation mutation = new Mutation();
+			final SuperColumn superColumn = new SuperColumn(ByteBuffer.wrap(encode(superKey)), columns);
+			mutation.setColumn_or_supercolumn(new ColumnOrSuperColumn().setSuper_column(superColumn));
+			sliceMutationList.add(mutation);
+
+			// Insertion in the map
+			for (String key : keys)
+				mutationMap.put(key, tableMap);
+
+			wrapper.batch_mutate(mutationMap, consistencyOnWrite);
+
+		} catch (final InternalBackEndException e) {
+			throw new InternalBackEndException(e);
+		}
+	}
+	
+	
+	@Override
+	public String selectColumnStr(String tableName, String key,
+			String columnName) throws IOBackEndException,
+			InternalBackEndException {
+		
+		final ColumnPath colPathName = new ColumnPath(tableName);
+		colPathName.setColumn(encode(columnName));
+		byte[] resultValue = wrapper.get(key, colPathName, IStorageManager.consistencyOnRead).getColumn().getValue();
+		return decode(resultValue);
 	}
 
 }

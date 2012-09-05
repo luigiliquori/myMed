@@ -34,8 +34,12 @@ class DeleteRequest extends Request {
 	private $namespace;
 
 	/* --------------------------------------------------------- */
-	/* Constructors */
+	/* Constructors
 	/* --------------------------------------------------------- */
+	
+	/**
+	 * @param $predicateList MDataBean[] 
+	 */
 	public function __construct(
 			$userID, 
 			$predicateList, 

@@ -1,40 +1,44 @@
-
-
-
 <div data-role="page" id="infos">
 	<div data-role="header" data-theme="c" data-position="fixed">
 		<div data-role="navbar" data-theme="d" data-iconpos="left"> 
-	      	<ul>
-	      		<li><a href="./" rel="external" data-icon="back"><?= _("Back") ?></a></li>
-	      		<li><a href="?action=extendedProfile" rel="external" data-icon="profile"><?= $_SESSION['user']->name ?></a></li>
-	      	</ul>
-      	</div>
+	   	<ul>
+	   		<li><a data-rel="back" data-icon="back" data-theme="d"><?= _("Back") ?></a></li>
+	   		<li><a class="ui-btn-active" data-icon="info"><?= _("Informations") ?></a></li>
+	   		<li><a href="?action=extendedProfile" data-theme="d" data-icon="profile"><?= $_SESSION['user']->name ?></a></li>
+	   	</ul>
+	   	</div>
 	</div>
-	
+
 	<div data-role="content">
 		<br />
-		Les <b>programmes Transfontaliers</b> ciblés par l'application myEurope:
-		
+		<b>Programmes de coopération</b> dont peuvent bénéficier les territoires de l'Eurorégion Alpes-Méditerranée :
+
 		<ul data-role="listview" data-inset="true">
-			<li><a href="#alcotra">Programme transfrontalier Alcotra </a></li>
-			<li ><a href="#MED">Programme transnational MED</a></li>
-			<li><a href="#Espace Alpin">Programme transnational Espace Alpin</a></li>
-			<li><a href="#IEVP">Programme transfrontalier IEVP CT MED</a></li>
-			<li><a href="#Interreg">Programme interrégional Interreg IV C</a></li>
+			<li><a href="#alcotra">Programme transfrontalier Alcotra </a>
+			</li>
+			<li><a href="#MED">Programme transnational MED</a>
+			</li>
+			<li><a href="#Espace Alpin">Programme transnational Espace Alpin</a>
+			</li>
+			<li><a href="#IEVP">Programme transfrontalier IEVP CT MED</a>
+			</li>
+			<li><a href="#Interreg">Programme interrégional Interreg IV C</a>
+			</li>
 		</ul>
-		<br>
-		Les programmes-cadres :
+		<br> Programme-cadre :
 		<ul data-role="listview" data-inset="true">
-			<li><a href="#Recherche">7e programme-cadre de Recherche et de Développement </a></li>
-			<li ><a href="#Compétitivité">Programme-cadre pour la Compétitivité et l'innovation</a></li>	
+			<li><a href="#Recherche">Horizon 2020-Le Programme Cadre pour la Recherche et l'Innovation </a>
+			</li>
 		</ul>
-		<br>
-		Les fonds structurels européens :
+		<br> Fonds structurels européens :
 		<ul data-role="listview" data-inset="true">
-			<li><a href="#FEDER">Programme opérationnel FEDER </a></li>
-			<li ><a href="#FSE">Programme opérationnel FSE</a></li>
-			<li ><a href="#FEADER">Programme de développement Rural Hexagonal</a></li>
-		</ul> 
+			<li><a href="#FEDER">Programme opérationnel FEDER </a>
+			</li>
+			<li><a href="#FSE">Programme opérationnel FSE</a>
+			</li>
+			<li><a href="#FEADER">Programme de développement Rural Hexagonal FEADER</a>
+			</li>
+		</ul>
 	</div>
 </div>
 
@@ -110,10 +114,11 @@
 			d&rsquo;infrastructures d&rsquo;&eacute;ducation et de formation.</p>
 		<p>&nbsp;</p>
 		<p>
-			Pour plus d&rsquo;informations&nbsp;: <a href="http://www.interreg-alcotra.org/">http://www.interreg-alcotra.org/</a>
+			Pour plus d&rsquo;informations&nbsp;: <a href="http://www.interreg-alcotra.org/">Site officiel du Programme</a>
 		</p>
 		<p>
-			FAQ&nbsp;: <a data-theme="b" data-inline="true" data-mini="true" href="http://www.interreg-alcotra.org/2007-2013/?pg=faq&amp;lang=fr#q_0_1">http://www.interreg-alcotra.org/2007-2013/?pg=faq&amp;lang=fr#q_0_1</a>
+			FAQ&nbsp;: <a data-theme="b" data-inline="true" data-mini="true" href="http://www.interreg-alcotra.org/2007-2013/?pg=faq&amp;lang=fr#q_0_1">FAQ
+				Alcotra</a>
 		</p>
 
 
@@ -143,7 +148,7 @@
 		<h3>
 			<u>Les enjeux :</u>
 		</h3>
-		&nbsp; Axe 1&nbsp;: Innovation
+		Axe 1&nbsp;: Innovation
 		</p>
 		<p>Axe 2&nbsp;: Environnement</p>
 		<p>Axe 3&nbsp;: Accessibilit&eacute; du territoire</p>
@@ -162,16 +167,13 @@
 		<h3>Qui peut participer&nbsp;?</h3>
 
 		R&eacute;gions, villes, Centres de recherches, universit&eacute;s, associations &agrave; but non lucratif etc. Vous trouverez plus
-		d&rsquo;informations dans les documents officiels du programme <a href="http://www.programmemed.eu/">http://www.programmemed.eu/</a>
+		d&rsquo;informations dans les documents officiels du programme. <br> <a href="http://www.programmemed.eu/">Site officiel du Programme</a>
 		<h3>
 			<u>Prochaine p&eacute;riode de programmation 2014-2020 :</u>
 		</h3>
-		&nbsp; Les priorit&eacute;s seront donn&eacute;es &agrave; la <strong>croissance </strong>et &agrave; l&rsquo;<strong>emploi </strong>(Strat&eacute;gie
-		&laquo;&nbsp;Europe 2020) <br> Pour plus d&rsquo;informations&nbsp;: <a
-			href="http://www.programmemed.eu/a-propos-du-programme/prochaine-periode-de-programmation-2014-2020.html">http://www.programmemed.eu/a-propos-du-programme/prochaine-periode-de-programmation-2014-2020.html</a>
-		</p>
-		<p>
-			FAQ&nbsp;: <a data-theme="b" data-inline="true" data-mini="true" href="http://www.interreg-alcotra.org/2007-2013/?pg=faq&amp;lang=fr#q_0_1">http://www.interreg-alcotra.org/2007-2013/?pg=faq&amp;lang=fr#q_0_1</a>
+		Les priorit&eacute;s seront donn&eacute;es &agrave; la <strong>croissance </strong>et &agrave; l&rsquo;<strong>emploi </strong>(Strat&eacute;gie
+		&laquo;&nbsp;Europe 2020). <br> Pour plus d&rsquo;informations&nbsp;: <a
+			href="http://www.programmemed.eu/a-propos-du-programme/prochaine-periode-de-programmation-2014-2020.html">Dernières actualités période 2014-2020</a>
 		</p>
 
 
@@ -201,7 +203,7 @@
 		<h3>
 			<u>Les enjeux :</u>
 		</h3>
-		&nbsp; Priorit&eacute; 1&nbsp;: Comp&eacute;titivit&eacute; et attractivit&eacute; du territoire
+		Priorit&eacute; 1&nbsp;: Comp&eacute;titivit&eacute; et attractivit&eacute; du territoire
 		</p>
 		<p>Priorit&eacute; 2&nbsp;: Accessibilit&eacute;, transports et connexion des r&eacute;seaux</p>
 		<p>Priorit&eacute; 3&nbsp;: Environnement et pr&eacute;vention des risques&nbsp; &nbsp;
@@ -231,7 +233,9 @@
 		</p>
 		<p>Vous trouverez une liste non-exhaustive des b&eacute;n&eacute;ficiaires sur le Programme Officiel&nbsp;:</p>
 		<p>
-			<a href="http://www.rhone.gouv.fr/automne_modules_files/standard/public/p367_f2d31dbf423d278f71c8b38757efe63f20080131_OP_FR.pdf">http://www.rhone.gouv.fr/automne_modules_files/standard/public/p367_f2d31dbf423d278f71c8b38757efe63f20080131_OP_FR.pdf</a>
+			<a
+				href="http://www.europe-en-paca.eu/fileadmin/documents/Europe-en-PACA_Cooperation-territoriale/Espace-Alpin/Europe-en-PACA_PO-ESPACE-ALPIN-2007-2013.pdf">Programme
+				Officiel</a>
 		</p>
 		<p>&nbsp;</p>
 		<p>
@@ -241,14 +245,15 @@
 			<u>Nouvelle p&eacute;riode de programmation 2014-2020&nbsp;:</u>
 		</h3>
 		</p>
-		<p>L&rsquo;avenir de la politique de Coh&eacute;sion se discute et se pr&eacute;pare actuellement</p>
+		<p>L&rsquo;avenir de la politique de Coh&eacute;sion se discute et se pr&eacute;pare actuellement.</p>
 		<p>
 			Pour plus d&rsquo;informations&nbsp;: <a
-				href="http://www.alpine-space.eu/about-the-programme/debating-the-future/cohesion-policy-2014-2020/further-information-on-cohesion-policy-2014-2020/">http://www.alpine-space.eu/about-the-programme/debating-the-future/cohesion-policy-2014-2020/further-information-on-cohesion-policy-2014-2020/</a>
+				href="http://www.alpine-space.eu/about-the-programme/debating-the-future/cohesion-policy-2014-2020/further-information-on-cohesion-policy-2014-2020/">Dernières
+				actualités période 2014-2020</a>
 		</p>
 		<p>&nbsp;</p>
 		<p>
-			Pour plus d&rsquo;informations&nbsp;: <a href="http://www.alpinespace.org/">http://www.alpinespace.org/</a>
+			Pour plus d&rsquo;informations&nbsp;: <a href="http://www.alpinespace.org/">Site officiel du Programme</a>
 		</p>
 
 
@@ -266,8 +271,8 @@
 	<div data-role="content">
 		<span><h3>
 				<u>Objectif du programme :</u>
-			</h3> </span>&nbsp; <span>&laquo;&nbsp;Contribuer &agrave; promouvoir le processus de coop&eacute;ration durable et harmonieuse au niveau du Bassin
-			de la M&eacute;diterran&eacute;e en traitant les d&eacute;fis communs et en valorisant ses potentialit&eacute;s endog&egrave;nes&nbsp;&raquo;.</span>
+			</h3> </span> <span>&laquo;Contribuer &agrave; promouvoir le processus de coop&eacute;ration durable et harmonieuse au niveau du Bassin de la
+			M&eacute;diterran&eacute;e en traitant les d&eacute;fis communs et en valorisant ses potentialit&eacute;s endog&egrave;nes&nbsp;&raquo;.</span>
 		</p>
 		<p>&nbsp;</p>
 		<p>
@@ -295,7 +300,7 @@
 				</h3> </span>
 		</p>
 		<p>
-			<span><h3>Les territoires &eacute;ligibles :</h3> </span>&nbsp; <span>14 pays participants dont la France et l&rsquo;Italie</span>
+			<span><h3>Les territoires &eacute;ligibles :</h3> </span><span>14 pays, dont la France et l&rsquo;Italie, participent actuellement au Programme.</span>
 		</p>
 		<p>&nbsp;
 		
@@ -306,17 +311,17 @@
 		</p>
 		<p>
 			<span>Les b&eacute;n&eacute;ficiaires peuvent &ecirc;tre des autorit&eacute;s publiques, locales et r&eacute;gionales, des ONG, des agences de
-				d&eacute;veloppement, des universit&eacute;s et organismes de recherche, des acteurs priv&eacute;s locaux et r&eacute;gionaux</span>
+				d&eacute;veloppement, des universit&eacute;s et organismes de recherche, des acteurs priv&eacute;s locaux et r&eacute;gionaux.</span>
 		</p>
 		<p>
-			<span>Pour plus d&rsquo;informations&nbsp;: </span><a href="http://www.enpicbcmed.eu/" target="_blank">http://www.enpicbcmed.eu/</a>
+			<span>Pour plus d&rsquo;informations&nbsp;: </span><a href="http://www.enpicbcmed.eu/" target="_blank">Site officiel du Programme</a>
 		</p>
 		<p>&nbsp;</p>
 		<p>
 			<span><h3>
 					<u>Pour plus d&rsquo;informations sur la nouvelle p&eacute;riode de programmation 2014-2020 :</u>
-				</h3> </span>&nbsp; &nbsp;&nbsp;<a href="http://padil.ong-tn.org/dernieres-actualites/perspectives-futures-des-programmes-ievp-ct.html"><strong>http://padil.ong-tn.org/dernieres-actualites/perspectives-futures-des-programmes-ievp-ct.html</strong>
-			</a>
+				</h3> </span>&nbsp;<a href="http://padil.ong-tn.org/dernieres-actualites/perspectives-futures-des-programmes-ievp-ct.html"><strong>Dernières
+					actualités période 2014-2020</strong> </a>
 		</p>
 		</p>
 	</div>
@@ -334,8 +339,8 @@
 		<h3>
 			<u>Objectif du programme :</u>
 		</h3>
-		&nbsp; &laquo;&nbsp;Favoriser les &eacute;changes et transferts d&rsquo;exp&eacute;rience afin de d&eacute;velopper conjointement des approches et
-		des instruments qui am&eacute;liorent l&rsquo;efficacit&eacute; de la politique de d&eacute;veloppement r&eacute;gional et contribue &agrave; la
+		&laquo; Favoriser les &eacute;changes et transferts d&rsquo;exp&eacute;rience afin de d&eacute;velopper conjointement des approches et des
+		instruments qui am&eacute;liorent l&rsquo;efficacit&eacute; de la politique de d&eacute;veloppement r&eacute;gional et contribue &agrave; la
 		modernisation &eacute;conomique&nbsp;&raquo;
 		</p>
 		<p>
@@ -344,7 +349,7 @@
 		<h3>
 			<u>Les enjeux :</u>
 		</h3>
-		&nbsp; Priorit&eacute; 1&nbsp;: Innovation et &eacute;conomie de la connaissance
+		Priorit&eacute; 1&nbsp;: Innovation et &eacute;conomie de la connaissance
 		</p>
 		<p>Priorit&eacute; 2&nbsp;: Environnement et pr&eacute;vention des risques
 		
@@ -353,16 +358,16 @@
 			<u>Les b&eacute;n&eacute;ficiaires :</u>
 		</h3>
 		<h3>Les territoires &eacute;ligibles :</h3>
-		&nbsp; Pays de l&rsquo;Union europ&eacute;enne ainsi que la Suisse et la Norv&egrave;ge
+		Pays de l&rsquo;Union europ&eacute;enne ainsi que la Suisse et la Norv&egrave;ge.
 		</p>
 		<p>
 		
 		
 		<h3>Qui peut participer ?</h3>
-		&nbsp; Des organismes publics
+		Essentiellement des organismes publics.
 		</p>
 		<p>
-			Pour plus d&rsquo;informations &nbsp;<a href="http://www.interreg4c.eu/"><strong>http://www.interreg4c.eu</strong> </a>
+			Pour plus d&rsquo;informations &nbsp;<a href="http://www.interreg4c.eu/"><strong>Site officiel du Programme</strong> </a>
 		</p>
 
 
@@ -377,25 +382,40 @@
 				"profile") ?>
 	</div>
 	<div data-role="content">
-		Pour plus d&rsquo;informations <a href="http://cordis.europa.eu/fp7/home_fr.html">http://cordis.europa.eu/fp7/home_fr.html</a>
+		<h3>
+			<u>Budget global pour la p&eacute;riode 2014-2020 :</u>
+		</h3>
+		&nbsp;80 milliards d&rsquo;euros &nbsp;
+		<h3>
+			<u>Objectif du Programme :</u>
+		</h3>
+		Le programme Horizon 2020 d&eacute;finira, pour la p&eacute;riode 2014-2020, les orientations de Recherche et d&rsquo;Innovation soutenues par la
+		Commission europ&eacute;enne.
+		</p>
+		<p>
+			Il succ&eacute;dera aux actuels Programmes Cadre de la Recherche (7<sup>E</sup> PCRD), Programme Cadre pour la Comp&eacute;titivit&eacute; et
+			l&rsquo;Innovation (CIP) et Institut Europ&eacute;en de Technologie.
+		</p>
+		<p>&nbsp;</p>
+		<p>
+		
+		
+		<h3>
+			<u>Les enjeux :</u>
+		</h3>
+		Priorit&eacute; 1&nbsp;: L&rsquo;excellence scientifique
+		</p>
+		<p>Priorit&eacute; 2&nbsp;: Le leadership industriel</p>
+		<p>Priorit&eacute; 3&nbsp;: Les d&eacute;fis soci&eacute;taux&nbsp;</p>
+
+		<a href="http://ec.europa.eu/research/horizon2020/index_en.cfm?pg=home&video=none">Pour plus d'informations sur le nouveau Programme</strong>
+		</a>
+
+
 
 	</div>
 </div>
 
-<div data-role="page" id="Compétitivité">
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<div data-role="navbar" data-theme="c" data-iconpos="left">
-			<ul>
-				<li><a data-rel="back" data-icon="back"><?= _("Back") ?></a></li>
-				<li><a data-icon="search" data-theme="b" onclick="$('#searchForm').submit();">Chercher</a></li>
-			</ul>
-		</div>
-	</div>
-	<div data-role="content">
-
-		Pour plus d&#39;informations <a href="http://ec.europa.eu/cip/index_fr.htm">http://ec.europa.eu/cip/index_fr.htm</a>
-	</div>
-</div>
 <div data-role="page" id="FEDER">
 	<div data-role="header" data-theme="c" data-position="fixed">
 		<? tabs_2(
@@ -405,10 +425,10 @@
 	</div>
 	<div data-role="content">
 		<h3>
-			<u>La mission du FEDER :&nbsp;(Fond Europ&eacute;en de d&eacute;veloppement R&eacute;gional)</u>
+			<u>Mission du FEDER &nbsp;(Fond Europ&eacute;en de d&eacute;veloppement R&eacute;gional) :</u>
 		</h3>
-		&nbsp; Contribuer financi&egrave;rement au renforcement de la coh&eacute;sion &eacute;conomique, sociale et territoriale en r&eacute;duisant les
-		disparit&eacute;s r&eacute;gionales
+		Contribuer financi&egrave;rement au renforcement de la coh&eacute;sion &eacute;conomique, sociale et territoriale en r&eacute;duisant les
+		disparit&eacute;s r&eacute;gionales.
 		</p>
 		<p>&nbsp;</p>
 		<p>
@@ -417,8 +437,8 @@
 		<h3>
 			<u>Les actions du FEDER :</u>
 		</h3>
-		&nbsp; Ses actions se concentrent autour des priorit&eacute;s suivantes&nbsp;: comp&eacute;titivit&eacute;, innovation, cr&eacute;ation
-		d&rsquo;emplois durables et une croissance respectueuse de l&rsquo;environnement.
+		Ses actions se concentrent autour des priorit&eacute;s suivantes&nbsp;: comp&eacute;titivit&eacute;, innovation, cr&eacute;ation d&rsquo;emplois
+		durables et une croissance respectueuse de l&rsquo;environnement.
 		</p>
 		<p>
 			Il cofinance &eacute;galement les trois nouveaux objectifs de la politique r&eacute;gionale&nbsp;: &laquo;&nbsp;<b>Convergence</b>&nbsp;&raquo;,
@@ -426,11 +446,95 @@
 				europ&eacute;enne&nbsp;&raquo</b>.
 		</p>
 		<p>&nbsp;</p>
-		<p>
-			<strong><u>Prochaine p&eacute;riode de programmation 2014-2020 :</u> </strong>&nbsp;
-		</p>
+		<h3>
+			<u>Prochaine p&eacute;riode de programmation 2014-2020 :</u>
+		</h3>
 		<p>L&rsquo;orientation g&eacute;n&eacute;rale de cette nouvelle p&eacute;riode de programmation &nbsp;pr&eacute;voit une &eacute;conomie-bas carbone
 			dans tous les secteur, &nbsp;conform&eacute;ment aux objectifs de la nouvelle Strat&eacute;gie Europe 2020.</p>
 		<p>Autre grande ligne de cette nouvelle p&eacute;riode de programmation&nbsp;: le d&eacute;veloppement urbain durable.&nbsp;</p>
+
+		Pour plus d'informations <a href="http://www.europe-en-france.gouv.fr/Configuration-Generale-Pages-secondaires/FEDER"><strong>Présentation du FEDER</strong>
+		</a>
+	</div>
+</div>
+
+<div data-role="page" id="FSE">
+	<div data-role="header" data-theme="c" data-position="fixed">
+		<? tabs_2(
+				$_SESSION['user']->name,
+				"?action=extendedProfile",
+				"profile") ?>
+
+	</div>
+	<div data-role="content">
+
+		<h3>
+			<u>Mission du FSE (Fonds Social Européen):</u>&nbsp;
+		</h3>
+		Le FSE vise &agrave; soutenir l&rsquo;emploi dans les Etats membres, mais aussi &agrave; promouvoir la coh&eacute;sion &eacute;conomique et sociale.
+		&nbsp;
+
+		<p>
+		
+		
+		<h3>
+			<u>Les actions financ&eacute;es :</u>&nbsp;
+		</h3>
+		&middot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Augmenter la capacit&eacute; d&rsquo;adaptation des travailleurs et des entreprises
+		</p>
+		<p>&middot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Am&eacute;liorer l&rsquo;acc&egrave;s &agrave; l&rsquo;emploi et l&rsquo;insertion
+			durable sur le march&eacute; du travail</p>
+		<p>&middot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Renforcer l&rsquo;inclusion sociale des personnes d&eacute;favoris&eacute;es</p>
+		<p>&middot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Renforcer le capital humain</p>
+		<p>&middot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Promouvoir les partenariats, pactes et initiatives entre les parties prenantes
+			concern&eacute;es aux niveaux national, r&eacute;gional, local et transnational</p>
+		<p>&nbsp;</p>
+		<p>
+		
+		
+		<h3>
+			<u>FSE 2014-2020</u>&nbsp;:
+		</h3>
+		<a href="http://ec.europa.eu/esf/main.jsp?catId=62&amp;langId=fr">Pour plus d'informations sur la prochaine période de programmation 2014-2020</a>
+		</p>
+		<p>
+			<u>A savoir</u> : le niveau de financement du FSE est <b>variable</b> d&rsquo;une r&eacute;gion &agrave; l&rsquo;autre et d&eacute;pend de sa
+			richesse relative.
+		
+		
+		</h3>
+		<br> Pour plus d&rsquo;informations <a href="http://www.fse.gouv.fr/">Site officiel du FSE</a></br>
+		</p>
+
+	</div>
+</div>
+
+<div data-role="page" id="FEADER">
+	<div data-role="header" data-theme="c" data-position="fixed">
+		<? tabs_2(
+				$_SESSION['user']->name,
+				"?action=extendedProfile",
+				"profile") ?>
+	</div>
+	<div data-role="content">
+		<h3>
+			<u>Mission du FEADER (Fonds Europ&eacute;en Agricole pour le D&eacute;veloppement Rural) : </u>
+		</h3>
+		Contribuer &agrave; la promotion du d&eacute;veloppement rural durable dans l&rsquo;ensemble de la Communaut&eacute;.
+		<h3>
+			<u>Trois objectifs principaux</u>&nbsp;:
+		</h3>
+		&middot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Am&eacute;liorer la comp&eacute;titivit&eacute; de l&rsquo;agriculture et de la
+		sylviculture par un soutien &agrave; la restructuration, au d&eacute;veloppement et &agrave; l&rsquo;innovation
+		</p>
+		<p>&middot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Am&eacute;liorer l&rsquo;environnement et l&rsquo;espace rural par un soutien &agrave;
+			la gestion des terres</p>
+		<p>&middot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Am&eacute;liorer la qualit&eacute; de vie en milieu rural et la promotion de la
+			diversification des activit&eacute;s &eacute;conomiques</p>
+		<p>
+			<br> Pour plus d&rsquo;informations <a href="http://europa.eu/legislation_summaries/agriculture/general_framework/l60032_fr.htm">Présentation du
+				FEADER</a>
+		</p>
+
 	</div>
 </div>

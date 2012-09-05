@@ -35,7 +35,7 @@ import com.mymed.controller.core.manager.profile.IProfileManager;
 import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.session.ISessionManager;
 import com.mymed.controller.core.manager.session.SessionManager;
-import com.mymed.controller.core.requesthandler.message.JsonMessage;
+import com.mymed.controller.core.requesthandler.message.JsonMessageOut;
 import com.mymed.model.data.session.MAuthenticationBean;
 import com.mymed.model.data.session.MSessionBean;
 import com.mymed.model.data.user.MUserBean;
@@ -112,7 +112,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 	@Override
 	public void doGet(final HttpServletRequest request,
 			final HttpServletResponse response) throws ServletException {
-		final JsonMessage<Object> message = new JsonMessage<Object>(200, this
+		final JsonMessageOut<Object> message = new JsonMessageOut<Object>(200, this
 				.getClass().getName());
 
 		try {
@@ -150,7 +150,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 	@Override
 	public void doPost(final HttpServletRequest request,
 			final HttpServletResponse response) throws ServletException {
-		final JsonMessage<Object> message = new JsonMessage<Object>(200, this
+		final JsonMessageOut<Object> message = new JsonMessageOut<Object>(200, this
 				.getClass().getName());
 
 		try {

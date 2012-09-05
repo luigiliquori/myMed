@@ -1,13 +1,11 @@
 package com.mymed.tests.unit.manager;
 
-import static com.mymed.model.data.application.MOntologyID.*;
 import static com.mymed.utils.GsonUtils.gson;
-import static com.mymed.utils.MatchMaking.makePrefix;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import java.util.Collections;
+
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -19,27 +17,25 @@ import org.slf4j.LoggerFactory;
 
 import ch.qos.logback.classic.Logger;
 
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.controller.core.manager.pubsub.v2.PubSubManager;
-import com.mymed.model.data.application.IndexBean;
+import com.mymed.controller.core.manager.publish.PublishManager;
+import com.mymed.model.data.application.DataBean;
+import com.mymed.model.data.application.MOntologyID;
 import com.mymed.model.data.user.MUserBean;
-import com.mymed.utils.MatchMaking;
-import com.mymed.utils.MatchMaking.Index;
-import com.mymed.utils.MatchMaking.IndexRow;
+import com.mymed.utils.MatchMakingv2;
+import com.mymed.utils.CombiLine;
 
 public class MatchMakingV2 extends TestValues {
 	
 	
 	final static Logger LOGGER = (Logger) LoggerFactory.getLogger(MatchMakingV2.class);
 
-	protected static PubSubManager pubsubManager;
+	protected static PublishManager publishManager;
 	private static MUserBean userBean;
 	private static final String date = "1971-01-01";
-	private static List<IndexBean> indexList;
 	
 	private static Map<String, String> dataList;
 	
@@ -48,6 +44,8 @@ public class MatchMakingV2 extends TestValues {
 	private static String application = "myTest";
 
 	private static String namespace = "fake";
+	
+
 
 	private static ArrayList<String> range(final String... args) {
 		ArrayList<String> result = new ArrayList<String>();
@@ -56,43 +54,46 @@ public class MatchMakingV2 extends TestValues {
 		}
 		return result;
 	}
+	
+	public static void main(String[] args) {
+		LOGGER.info(" testCombi: ");
 
-//	@Test
-//	public void testCombi() {
-//
-//		LOGGER.info(" testCombi: ");
-//		IndexBean d1 = new IndexBean(KEYWORD, "A", range("a"));
-//		IndexBean d2 = new IndexBean(ENUM, "B", range("b1", "b2", "b3"));
-//		//IndexBean d3 = new IndexBean(FLOAT, "C", range("22.2222"));
-//		IndexBean d4 = new IndexBean(ENUM, "C", range("c6", "c7", "c8", "c9"));
-//		//DataBean d4 = new DataBean(DATE, "somedate", range("999999999"));
-//		//DataBean d5 = new DataBean(TEXT, "text1", range("........."));
-//		indexList = new ArrayList<IndexBean>();
-//		indexList.add(d1);
-//		indexList.add(d2);
-//		//indexList.add(d3);
-//		indexList.add(d4);
-//		//dataList.add(d5);
-//		
-//		LinkedHashMap<String, List<String>> indexes = MatchMaking.formatIndexes(indexList);
-//		LOGGER.info("indexes: {} ", indexes );
-//		List<IndexRow> combi = MatchMaking.getPredicate(indexes, 0, indexes.size());
-//		
-//		LOGGER.info("ext find rows: " + combi.size() );
-//
-//		LOGGER.info("combi : {} ", combi );
-//		
-//		
-//		String prefix = makePrefix(application, namespace);
-//		
-//	}
+		List<DataBean> indexes = new ArrayList<DataBean>();
+		
+		indexes.add(new DataBean("app", "test", MOntologyID.ENUM));
 
-    
+		//indexes.add(new DataBean("Pos", "43.54545|7.1224", MOntologyID.GPS));
+		indexes.add(new DataBean("A", "a5|a6", MOntologyID.ENUM));
+		indexes.add(new DataBean("B", "b0|b1", MOntologyID.ENUM));
+		indexes.add(new DataBean("C", "clothes", MOntologyID.ENUM));
+		//indexes.add(new DataBean("D", "|d0", MOntologyID.ENUM));
+		
+		LinkedHashMap<String, List<String>> keywords = MatchMakingv2.format(indexes);
+
+		
+		LOGGER.info("indexes: {} ", indexes );
+		LOGGER.info("keywords: {} ", keywords );
+		
+		List<String> rows = new CombiLine(keywords).expand();
+		MatchMakingv2.prefix(application, rows);
+		
+		LOGGER.info("rows {}: {}",rows.size(), rows);
+
+
+	}
+
+	@Test
+	public void testCombi() {
+
+
+		
+	}
+	
 	@Before
 	public void setUp() throws InternalBackEndException {
 		// storageManager = new StorageManager(new WrapperConfiguration(new
 		// File(CONF_FILE)));
-		pubsubManager = new PubSubManager();
+		publishManager = new PublishManager();
 
 		userBean = new MUserBean();
 		userBean.setId(USER_ID);
@@ -117,37 +118,35 @@ public class MatchMakingV2 extends TestValues {
 	@Test
 	public void testCreateData() {
 		try {
-			IndexBean d1 = new IndexBean(KEYWORD, "A", range("a"));
-			IndexBean d2 = new IndexBean(ENUM, "B", range("b1", "b2", "b3"));
-			IndexBean d4 = new IndexBean(ENUM, "C", range("c6", "c7", "c8", "c9"));
-			indexList = new ArrayList<IndexBean>();
-			indexList.add(d1);
-			indexList.add(d2);
-			indexList.add(d4);
+			
+			List<DataBean> indexes = new ArrayList<DataBean>();
+			
+			indexes.add(new DataBean("1", "43.54545|7.1224", MOntologyID.GPS));
+			indexes.add(new DataBean("2", "|a6|a7|a8", MOntologyID.ENUM));
 			
 			dataList = new HashMap<String, String>();
 			dataList.put("text1", ".........");
+
+			LinkedHashMap<String, List<String>> keywords = MatchMakingv2.format(indexes);
+
+			LOGGER.info("keywords: {} ", keywords );
 			
-			LinkedHashMap<String, List<String>> indexes = MatchMaking.formatIndexes(indexList);
-			
-			List<IndexRow> combi = MatchMaking.getPredicate(indexes, 0, indexList.size());
+			List<String> rows = new CombiLine(keywords).expand();
+			MatchMakingv2.prefix("AZERTY", rows);
+
+			LOGGER.info("rows {} ", rows );
 			
 			Map<String , String> metas = new HashMap<String, String>();
 			metas.put("id", dataId);
 	    	
-	    	for (IndexRow i : combi) {
-				pubsubManager
-						.create(makePrefix(application, namespace), i.toString(),
-								dataId, metas);
-				/*pubsubManager.sendEmailsToSubscribers(
-						makePrefix(application, namespace), i.row,
-						dataList);*/
-			}
-			
+	    
+			publishManager.create(rows, dataId, metas);
+
 			/* add indexes as a data, the only way to remove all the indexes later if necessary*/
-	    	dataList.put("_index", gson.toJson(indexList));
+			
+	    	dataList.put("predicates", gson.toJson(keywords));
 			/* creates data */
-			pubsubManager.create(makePrefix(application, namespace), dataId, dataList);
+	    	publishManager.create("AZERTY"+ dataId, dataList);
 
 		} catch (final Exception ex) {
 			fail(ex.getMessage());
@@ -160,59 +159,37 @@ public class MatchMakingV2 extends TestValues {
 	public void testFindData() {
 		try {
 
-			indexList = new ArrayList<IndexBean>();
-			indexList.add(new IndexBean(ENUM, "B", range("b2", "b3")));
-			indexList.add(new IndexBean(ENUM, "C", range("c9", "c10")));
+			List<DataBean> indexes = new ArrayList<DataBean>();
+			
+			indexes.add(new DataBean("1", "43.54541|7.1224|43.5458|7.1225", MOntologyID.GPS));
+			indexes.add(new DataBean("2", "a8|a9", MOntologyID.ENUM));
 
-			LinkedHashMap<String, List<String>> indexes = MatchMaking
-					.formatIndexes(indexList);
+			LinkedHashMap<String, List<String>> keywords = MatchMakingv2.format(indexes);
 
-			List<IndexRow> combi = MatchMaking.getPredicate(indexes, indexList.size(),
-					indexList.size());
-
-			List<Map<String, String>> resList = new ArrayList<Map<String, String>>();
+			LOGGER.info("keywords: {} ", keywords );
+			
+			List<String> rows = new CombiLine(keywords).expand();
+			MatchMakingv2.prefix("AZERTY", rows);
 
 			/* resultMap for range query */
 			Map<String, Map<String, String>> resMap;
 
-			String prefix = makePrefix(application, namespace);
-			for (IndexRow r : combi) {
-				r.add(0, new Index(prefix, ""));
-			}
-
-			LOGGER.info("ext find rows: " + combi.size() + " initial: "
-					+ combi.get(0));
-
-			List<List<String>> ranges = MatchMaking.getRanges(indexList);
-
-			List<String> rows = IndexRow.getRows(combi);
-
-			LOGGER.info("ext find ranges: " + ranges.size());
+			LOGGER.info("ext find rows: " + rows);
 			
-			if (ranges.size() != 0) {
-				LOGGER.info("ext find DB ranges: " + ranges.get(0).get(0)
-						+ "->" + ranges.get(0).get(1));
-				List<String> range = ranges.remove(0);
-				resMap = pubsubManager.read(application, rows,
-						range.get(0), range.get(1));
-			} else {
-				resMap = pubsubManager.read(application, rows, "", "");
-			}
 			
-			resList = new ArrayList<Map<String, String>>();
-			for ( Map<String, String> m : resMap.values()){
-				resList.add(m);
-		    }
+			resMap = publishManager.read(rows, "", "");
+			
+			List<Map<String, String>> resList = new ArrayList<Map<String,String>>(resMap.values()); 
 			
 			LOGGER.info("ext find {} results : {}", resList.size(), resList);
 			
 			if (resList.size() > 0){
-				final Map<String, String> details = pubsubManager.read(
-						makePrefix(application, namespace), resList.get(0).get("id"));
+				final Map<String, String> details = publishManager.read(
+						"AZERTY"+ resList.get(0).get("id"));
 				
 				LOGGER.info("ext find first details : {}", details);
 				
-				assertEquals(details.get("text1"), ".........");
+				//assertEquals(details.get("text1"), ".........");
 			}	
 
 		} catch (final Exception ex) {
@@ -221,19 +198,16 @@ public class MatchMakingV2 extends TestValues {
 		}
 	}
     
-	public static void main(String[] args) {
-		
-	}
 	
 	@Test
 	public void testDeleteData() {
 		try {
-			String index = pubsubManager.read(makePrefix(application, namespace), dataId, "_index");
+			String index = publishManager.read("AZERTY"+ dataId, "predicates");
 
-			List<IndexBean> indexList = new ArrayList<IndexBean>();
+			LinkedHashMap<String, List<String>> keywords = new LinkedHashMap<String, List<String>>();
 			try {
-				indexList = gson.fromJson(index,
-						new TypeToken<List<IndexBean>>() {}.getType());
+				keywords = gson.fromJson(index,
+						new TypeToken<Map<String, List<String>>>() {}.getType());
 			} catch (final JsonSyntaxException e) {
 				LOGGER.debug("Error in Json format", e);
 				throw new InternalBackEndException(
@@ -242,127 +216,25 @@ public class MatchMakingV2 extends TestValues {
 				LOGGER.debug("Error in parsing Json", e);
 				throw new InternalBackEndException(e.getMessage());
 			}
-			Collections.sort(indexList);
-
-			LOGGER.info(" deleting  " + dataId + "." + indexList.size());
 
 			
-			LinkedHashMap<String, List<String>> indexes = MatchMaking
-					.formatIndexes(indexList);
+			LOGGER.info(" keywords :{} " , keywords);
+			LOGGER.info(" deleting  " + dataId + "." + keywords.size());
 
-			List<IndexRow> combi = MatchMaking.getPredicate(indexes, 0,
-					indexList.size());
-			for (IndexRow i : combi) {
-				pubsubManager.delete(makePrefix(application, namespace),
-						i.toString(), dataId, null);
+			List<String> rows = new CombiLine(keywords).expand();
+			MatchMakingv2.prefix("AZERTY", rows);
+
+			for (String i : rows) {
+				publishManager.delete("", i, dataId);
 			}
 
 			/* deletes data */
-			pubsubManager
-					.delete(makePrefix(application, namespace), dataId);
+			//pubsubManager.delete("AZERTY"+ dataId);
 
 		} catch (final Exception ex) {
 			fail(ex.getMessage());
 		}
 	}
 
-	
-}
-
-
-
-
-class Message{ // for sending full json messages
-	int code;
-	String application;
-	//List<DataBean> data;
-	
-	
-	/*
-	@SuppressWarnings("serial")
-	public List<List<String>> getRows() {
-		List<List<String>> res = new ArrayList<List<String>>();
-
-		for (final DataBean d : data) {
-			switch (d.getType()){
-			case DATE:
-				res.add(getDateRange(d.getKey(), Long.parseLong(d.getValue().get(0)), Long.parseLong(d.getValue().get(1))));
-				break;
-			case FLOAT:
-				res.add(getFloatRange(d.getKey(), Float.parseFloat(d.getValue().get(0)), Float.parseFloat(d.getValue().get(1))));
-				break;
-			case ENUM:
-				for (int k = 0; k < d.getValue().size(); k++) {
-					d.getValue().set(k, d.getKey() + d.getValue().get(k));
-				}
-				res.add(d.getValue());
-				break;
-			case KEYWORD:
-				res.add(new ArrayList<String>() {{ add(d.getKey() + d.getValue().get(0));}});
-				break;
-			}
-		}
-		return res;
-	}
-	
-	public List<List<String>> getRanges() {
-		List<List<String>> res = new ArrayList<List<String>>();
-
-		for (final DataBean d : data) {
-			switch (d.getType()) {
-			case DATE:
-			case FLOAT:
-				List<String> l = new ArrayList<String>();
-				l.add(d.getValue().get(0).toString());
-				l.add(d.getValue().get(1).toString());
-				res.add(l);
-				break;
-			}
-		}
-		return res;
-	}
-	
-	public List<Index> getIndexes() {
-		List<Index> res = new ArrayList<Index>();
-
-		for (final DataBean d : data) {
-			switch (d.getType()) {
-			case DATE:
-				long t = Long.parseLong(d.getValue().get(0));
-				res.add(new Index(d.getKey() + (t - t % interval), padDate(t)));
-				break;
-			case FLOAT:
-				float f = Float.parseFloat(d.getValue().get(0));
-				res.add(new Index(d.getKey() + (int) f, padFloat(f)));
-				break;
-			case KEYWORD:
-				res.add(new Index(d.getKey() + d.getValue().get(0), ""));
-				break;
-			}
-		}
-		return res;
-	}
-	
-	public List<List<Index>> getIndexesEnums() {
-		List<List<Index>> res = new ArrayList<List<Index>>();
-		List<Index> en;
-		for (final DataBean d : data) {
-			switch (d.getType()) {
-			case ENUM:
-				en = new ArrayList<Index>();
-				for (String s : d.getValue()) {
-					en.add(new Index(d.getKey() + s, ""));
-				}
-				res.add(en);
-				break;
-			}
-		}
-		return res;
-	}
-	*/
-	
-	public String toString(){
-		return  "\n" + new GsonBuilder().setPrettyPrinting().create().toJson(this);
-	}
-	
+    
 }

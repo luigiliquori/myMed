@@ -6,7 +6,7 @@
 	
 	<div data-role="content" >
 	
-		<a href="#" data-role="button" data-inline="true" data-icon="back" data-theme="e" data-rel="back">Retour</a>
+		<a href="#" data-role="button" data-inline="true" data-icon="back" data-theme="e" data-rel="back"><?= _("Retour") ?></a>
 	</div>
 
 </div>

@@ -19,7 +19,11 @@ import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.apache.cassandra.thrift.ColumnOrSuperColumn;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
 
@@ -429,4 +433,13 @@ public final class MConverter {
 
         return returnString.trim();
     }
+    
+    public static Map<byte[], byte[]> columnsToMap(List<ColumnOrSuperColumn> columns){
+    	Map map = new HashMap<byte[], byte[]>();
+    	for (ColumnOrSuperColumn c : columns){
+    		map.put(c.getColumn().getName(), c.getColumn().getValue());
+    	}
+    	return map;
+    }
+    
 }

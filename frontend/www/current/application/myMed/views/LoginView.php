@@ -33,7 +33,7 @@ require_once("header.php"); ?>
 	</div>
 	
 				
-	<div data-role="footer" data-position="fixed" data-theme="a">
+	<div data-role="footer" data-position="fixed" data-theme="b">
 		<div data-role="navbar">
 			<ul>
 				<li><a href="#login" data-transition="none" data-back="true" data-icon="home" class="ui-btn-active ui-state-persist">Connexion</a></li>

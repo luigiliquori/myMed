@@ -44,7 +44,9 @@ class UpdateProfileController extends AbstractController {
 		}
 		
 		// update the profile
-		$mUserBean = new MUserBean();
+		
+		
+		/*$mUserBean = new MUserBean();
 		$mUserBean->id = $_SESSION['user']->id;
 		$mUserBean->firstName = $_POST["prenom"];
 		$mUserBean->lastName = $_POST["nom"];
@@ -57,22 +59,25 @@ class UpdateProfileController extends AbstractController {
 		// keep the session opened 
 		$mUserBean->socialNetworkName = $_SESSION['user']->socialNetworkName;
 		$mUserBean->SocialNetworkID = $_SESSION['user']->SocialNetworkID;
-		$mUserBean->SocialNetworkID = $_SESSION['accessToken'];
+		$mUserBean->SocialNetworkID = $_SESSION['accessToken'];*/
 		
-		$request = new Request("ProfileRequestHandler", UPDATE);
-		$request->addArgument("user", json_encode($mUserBean));
-			
+		$_POST['name'] = $_POST["firstName"] . " " . $_POST["lastName"];
+		$_POST['login'] = $_POST["email"];
+		unset($_POST['oldPassword']);
+		unset($_POST['password']);
+		unset($_POST['confirm']);
+		
+		$request = new Requestv2("v2/ProfileRequestHandler", UPDATE , array("user"=>json_encode($_POST)));
 		$responsejSon = $request->send();
 		$responseObject2 = json_decode($responsejSon);
-			
-		$responseObject2 = json_decode($responsejSon);
+
 		if($responseObject2->status != 200) {
 			$this->error = $responseObject2->description;
+		} else{
+			$_SESSION['user'] = (object) array_merge( (array) $_SESSION['user'], $_POST);
 		}
 		
-		$_SESSION['user'] = json_decode($responseObject2->data->profile);
-		
-		$this->renderView("main");
+		$this->redirectTo("Main", null, "#profile");
 		
 	}
 
