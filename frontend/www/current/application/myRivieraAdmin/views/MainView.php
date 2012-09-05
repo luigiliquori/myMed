@@ -99,7 +99,7 @@
 			   		]<br/>
 			   </div>
 				<form action="#" method="post" name="TestForm3_Bis" id="TestForm3_Bis" enctype="multipart/form-data">
-					<input type="hidden" name="poisrc" value="carf" />
+					<input type="hidden" name="addPOI" value="1" />
 					<textarea name="data" rows="" cols=""></textarea>
 					 <center><a href="#" data-role="button" onclick="document.TestForm3_Bis.submit()" rel="external" data-theme="g" data-inline="true">Publier</a></center>
 				</form>
