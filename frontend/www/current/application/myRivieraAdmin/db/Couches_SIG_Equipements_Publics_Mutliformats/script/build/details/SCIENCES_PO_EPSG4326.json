@@ -1,7 +1,0 @@
-{
-"type": "FeatureCollection",
-"features": [
-{ "type": "Feature", "properties": { "Type": "SCIENCES_PO_EPSG4326", "Nom": "Ecole SCIENCE PO", "Description": "Téléphone de Sciences PO: 04 97 14 83 40", "Adresse": "Sciences Po Paris - 1er cycle Moyen-Orient Méditerranée Chemin du Collège - 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.501121, 43.777947 ] } }
-
-]
-}

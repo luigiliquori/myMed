@@ -9,7 +9,7 @@ define('STORE_PREFIX' , '_store');
  */
 class MainController extends AuthenticatedController {
 
-	public static $hiddenApplication = array("myMed", "myNCE", "myBEN", "myTestApp", "myMed_old", "myOldEurope");
+	public static $hiddenApplication = array("myMed", "myNCE", "myBEN", "myTestApp", "myMed_old", "myOldEurope", "myTemplate");
 	public static $bootstrapApplication = array("myRiviera", "myFSA", "myEurope", "myMemory", "myBen", "myEuroCIN");
 
 	public $applicationList = array();

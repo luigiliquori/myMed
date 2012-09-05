@@ -15,6 +15,8 @@
  */
 package com.mymed.controller.core.requesthandler;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
 import java.util.Map;
 
@@ -172,7 +174,7 @@ public class POIRequestHandler extends AbstractRequestHandler {
                 }
             	
             	// DELETE THE POI
-            	geoLocationManager.delete(application, type, Locator.getLocationId(convertDegreeToMicroDegree(latitude), convertDegreeToMicroDegree(longitude)), itemId);
+            	geoLocationManager.delete(application, type, Locator.getLocationId(convertDegreeToMicroDegree(latitude), convertDegreeToMicroDegree(longitude)), itemId.replace("%20", "+"));
             	
             	message.setDescription("POIs successfully deleted!");
             	
@@ -187,7 +189,7 @@ public class POIRequestHandler extends AbstractRequestHandler {
         	 LOGGER.debug("Error in doGet operation", e);
              message.setStatus(500);
              message.setDescription(e.getMessage());
-		}
+		} 
 
 		printJSonResponse(message, response);
     }
