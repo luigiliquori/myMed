@@ -37,8 +37,8 @@
 				<a href="#updateProfile">Date de naissance<p><?= $_SESSION['user']->birthday ?></p></a>
 			</li>
 			<li data-icon="refresh">
-				<img alt="Langue: " src="<?= APP_ROOT ?>/img/<?= $_SESSION['user']->lang ?>_flag.png" width="50" Style="margin-left: 5px; top:5px;"/>
-				<a href="#Lang">Langue<p><?= $_SESSION['user']->lang ?></p></a>
+				<img alt="Date de naissance: " src="<?= APP_ROOT ?>/img/birthday_icon.png" width="50" Style="margin-left: 5px; top:5px;"/>
+				<a href="#updateProfile">Langue<p><?= $_SESSION['user']->birthday ?></p></a>
 			</li>
 			
 			<li  data-role="list-divider" >Profils étendus</li>
@@ -82,7 +82,3 @@
 	</div>
 
 </div>
-
-<? if(!empty($_SESSION['user']->lang)):?>
-	<? include("LangView.php"); ?>
-<? endif ?>

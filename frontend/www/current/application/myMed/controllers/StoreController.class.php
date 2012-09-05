@@ -3,39 +3,39 @@
 define('REPUTATION_PRED' , 'LAUNCHPAD_REP');
 
 /**
- * 
+ *
  * Enter description here ...
  * @author lvanni
  *
  */
- class StoreController extends MainController {
+class StoreController extends MainController {
 
 	public /*void*/ function handleRequest() {
-		
+
 		if(isset($_REQUEST['applicationStore'])) {
-			
+				
 			// update the application status
 			if(isset($_REQUEST['status'])) {
 				// update status
 				$extentedProfile = ExtendedProfile::getExtendedProfile($this, $_SESSION['user']->id);
 				$appList = $extentedProfile->applicationList;
-				$i=0;
-				while ($i < sizeof($appList)) {
-					if($appList[$i] == $_REQUEST['applicationStore']){
-						if($_REQUEST['status'] == "off") {
-							unset($appList[$i]);
-							$this->setSuccess("L'application " . $_REQUEST['applicationStore'] . " est maintenant désactivée");
-						} else {
-							break;
+				$newAppList = array();
+				if($_REQUEST['status'] == "off") {
+					foreach ($appList as $app) {
+						if($app != $_REQUEST['applicationStore']) {
+							array_push($newAppList, $app);
 						}
 					}
-					$i++;
-				}
-				if($i==sizeof($appList) && $_REQUEST['status'] == "on") {
-					array_push($appList, $_REQUEST['applicationStore']);
+					$this->setSuccess("L'application " . $_REQUEST['applicationStore'] . " est maintenant désactivée");
+				} else if ($_REQUEST['status'] == "on") {
+					foreach ($appList as $app) {
+						array_push($newAppList, $app);
+					}
+					array_push($newAppList, $_REQUEST['applicationStore']);
 					$this->setSuccess("L'application " . $_REQUEST['applicationStore'] . " est maintenant activée");
 				}
-				$extentedProfile = new ExtendedProfile($_SESSION['user']->id, $appList);
+				
+				$extentedProfile = new ExtendedProfile($_SESSION['user']->id, $newAppList);
 				$extentedProfile->storeProfile($this);
 					
 				// set the status of the applications
@@ -56,11 +56,11 @@ define('REPUTATION_PRED' , 'LAUNCHPAD_REP');
 				$request->addArgument("end",  time());
 				$request->addArgument("predicate",  REPUTATION_PRED);
 				$request->addArgument("feedback",  $_REQUEST['reputation']);
-				
+
 				try {
 					$responsejSon = $request->send();
 					$responseObject = json_decode($responsejSon);
-					
+						
 					if($responseObject->status != 200) {
 						$this->currentErrorMess = "Vous n'avez pas le droit de voter plus d'une fois.";
 					} else {
@@ -70,11 +70,11 @@ define('REPUTATION_PRED' , 'LAUNCHPAD_REP');
 					$this->currentErrorMess = "Une erreur interne est survenue, veuillez réessayer plus tard...";
 				}
 			}
-			
+				
 		}
-		
+
 		parent::handleRequest();
-		
+
 	}
 
 }

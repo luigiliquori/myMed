@@ -9,12 +9,12 @@
 			<div data-role="collapsible" data-mini="true" data-theme="a" data-content-theme="c" data-collapsed="false">
 				<h3><?= $_REQUEST["applicationStore"] ?></h3>
 				<img alt="<?= $_REQUEST["applicationStore"] ?>" src="../../application/<?= $_REQUEST["applicationStore"] ?>/img/icon.png" Style="position: absolute; width: 50px;">
-				<div Style="position: absolute; left: 80px;">
+				<div Style="position: absolute; left: 100px;">
 					<p>Version: <i> <?php include (MYMED_ROOT . "/application/" . $_REQUEST["applicationStore"] . "/doc/version") ?></i><br />
 					Mise à jour: <i> <?php include (MYMED_ROOT . "/application/" . $_REQUEST["applicationStore"] . "/doc/date") ?></i></p>
 				</div>
 				
-				<div Style="position: absolute; right: 10px;">
+				<div Style="position: absolute; right: 20px;">
 					<select id="flip-<?= $_REQUEST["applicationStore"] ?>" name="flip-<?= $_REQUEST["applicationStore"] ?>"
 						id="flip-<?= $_REQUEST["applicationStore"] ?>" data-role="slider" data-mini="true"
 						onChange="SetApplicationStatus('<?= $_REQUEST["applicationStore"] ?>', $('#flip-<?= $_REQUEST["applicationStore"] ?>').val());">
