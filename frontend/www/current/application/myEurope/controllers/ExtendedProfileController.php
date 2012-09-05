@@ -121,8 +121,8 @@ class ExtendedProfileController extends AuthenticatedController
 		
 		if ($permission <= 0)
 			$this->renderView("WaitingForAccept");
-// 		else
-// 			$this->renderView("main");
+		else
+			$this->renderView("main");
 	
 	}
 	
