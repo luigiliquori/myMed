@@ -4,7 +4,7 @@
 		<? tabs_3(
 				_('Profile'),
 				_('Validate'),
-				"document.ExtendedProfileForm.submit();",
+				"$('#ExtendedProfileForm').submit();",
 				"check") ?>
 		<? include("notifications.php"); ?>
 	</div>
@@ -15,7 +15,7 @@
 			<input type="hidden" name="id" value="<?= $_SESSION['myEurope']->profile ?>" />
 			<div data-role="fieldcontain">
 				<label for="textinputu1"><?= _('Organization Name') ?>: </label>
-				<input id="textinputu1" name="name" placeholder="" value='<?= $_SESSION['myEuropeProfile']->name ?>' type="text" />
+				<input id="textinputu1" name="name" placeholder="" value="<?= $_SESSION['myEuropeProfile']->name ?>" type="text" />
 			</div>
 			<div data-role="fieldcontain">
 				<label for="role" class="select"><?= _("Your category") ?>:</label>
@@ -27,11 +27,11 @@
 			</div>
 			<div data-role="fieldcontain">
 				<label for="textinputu2">Domaine d'action: </label>
-				<input id="textinputu2" name="activity" placeholder="" value='<?= $_SESSION['myEuropeProfile']->activity ?>' type="text" />
+				<input id="textinputu2" name="activity" placeholder="" value="<?= $_SESSION['myEuropeProfile']->activity ?>" type="text" />
 			</div>
 			<div data-role="fieldcontain">
 				<label for="textinputu4"><?= _('Address') ?>: </label>
-				<input id="textinputu4" name="address" placeholder="" value='<?= $_SESSION['myEuropeProfile']->address ?>' type="text" />
+				<input id="textinputu4" name="address" placeholder="" value="<?= $_SESSION['myEuropeProfile']->address ?>" type="text" />
 			</div>
 			<div data-role="fieldcontain">
 				<label for="area" class="select"><?= _("Territoire d'action") ?>:</label>
@@ -55,11 +55,11 @@
 			</div>	
 			<div data-role="fieldcontain">
 				<label for="textinputu5"><?= _('Email') ?>: </label>
-				<input id="textinputu5" name="email" placeholder="" value='<?= $_SESSION['myEuropeProfile']->email ?>' type="email" />
+				<input id="textinputu5" name="email" placeholder="" value="<?= $_SESSION['myEuropeProfile']->email ?>" type="email" />
 			</div>
 			<div data-role="fieldcontain">
 				<label for="textinputu6"><?= _('Phone') ?>: </label>
-				<input id="textinputu6" name="phone" placeholder="" value='<?= $_SESSION['myEuropeProfile']->phone ?>' type="tel" />
+				<input id="textinputu6" name="phone" placeholder="" value="<?= $_SESSION['myEuropeProfile']->phone ?>" type="tel" />
 			</div>
 			<div data-role="fieldcontain">
 				<label for="desc"><?= _('Description') ?>: </label>

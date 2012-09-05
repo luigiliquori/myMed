@@ -53,10 +53,9 @@ class MainController extends AuthenticatedController {
 		);
 	
 	public function handleRequest() {
-
+	debug_r("rgvvr");
 		parent::handleRequest();
-		
-		if ($handle = opendir('img/pois')) {
+		/*if ($handle = opendir('img/pois')) {
 			$pois = "";
 			while (false !== ($file = readdir($handle))) {
 				$pois .= $file . ",";
@@ -75,7 +74,7 @@ class MainController extends AuthenticatedController {
 			} else {
 				$this->setSuccess("Votre message a bien été transmis aux administrateurs de l'application<br />Merci de votre contribution!");
 			}
-		}
+		}*/
 
 		// render View
 		$this->renderView("main");

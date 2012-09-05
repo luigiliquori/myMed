@@ -62,31 +62,7 @@ class ExtendedProfileRequired extends AuthenticatedController {
 		if (empty($res->details)){
 			$this->error = "";
 			debug("wow");
-
-			$find = new RequestJson($this, array("application"=>APPLICATION_NAME.":profiles", "predicates"=>array()));
-			
-			try{
-				$res = $find->send();
-			}
-			catch(Exception $e){}
-			if (isset($res)){
-				debug('there');
-				function filterArray($array, $value){
-					$result = array();
-					foreach($array as $item) {
-						if ($item->role == $value) {
-							$result[] = $item;
-						}
-					}
-				
-					return $result;
-				}
-				foreach($this->cats as $k=>$v){
-					$this->cats[$k] = filterArray($res->results, $k);
-				}
-			}
-			
-			$this->renderView("ExtendedProfileCreate");
+			$this->showProfileList();
 		}
 		else {
 			
@@ -94,15 +70,45 @@ class ExtendedProfileRequired extends AuthenticatedController {
 			$this->success = "";
 			
 			$profile = getProfile($this, $_SESSION['myEurope']->profile);
-			if (!empty($profile))
+			debug_r($profile);
+			if (isset($profile->id))
 				$_SESSION['myEuropeProfile'] =$profile;
 			else
-				$this->renderView("ExtendedProfileCreate");
+				$this->showProfileList();
 			
 			if ($_SESSION['myEurope']->permission <= 0)
 				$this->renderView("WaitingForAccept");
 			$this->renderView("Main");
 		}
+	}
+	
+	
+	public function showProfileList(){
+		$find = new RequestJson($this, array("application"=>APPLICATION_NAME.":profiles", "predicates"=>array()));
+			
+		try{
+			$res = $find->send();
+		}
+		catch(Exception $e){
+		}
+		if (isset($res->results)){
+			function filterArray($array, $value){
+				$result = array();
+				foreach($array as $item) {
+					if ($item->role == $value) {
+						$result[] = $item;
+					}
+				}
+			
+				return $result;
+			}
+			foreach($this->cats as $k=>$v){
+				$this->cats[$k] = filterArray($res->results, $k);
+			}
+			$this->renderView("ExtendedProfileCreate");
+		}
+		$this->renderView("Main");
+		
 	}
 
 }

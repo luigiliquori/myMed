@@ -17,7 +17,7 @@ class PublishController extends ExtendedProfileRequired {
 
 		foreach( $_POST as $i=>$v ){
 			if ($v == "on"){
-				if ( in_array($i, $this->themesall)){
+				if ( in_array($i, $this->thems)){
 					array_push($themes, $i);
 				} else {
 					array_push($places, $i);
@@ -32,7 +32,7 @@ class PublishController extends ExtendedProfileRequired {
 		array_push($index, new DataBeanv2("cats", ENUM, "|".$_POST['cat']));
 		
 		if ($_POST['call']!="")
-			array_push($this->index, new DataBeanv2("call", ENUM, $_POST['call']));
+			array_push($index, new DataBeanv2("call", ENUM, "|".$_POST['call']));
 		
 		$p = preg_split('/[ ,+:-]/', $_POST['keywords'], NULL, PREG_SPLIT_NO_EMPTY);
 		$p = array_map('strtolower', $p);
@@ -57,6 +57,11 @@ class PublishController extends ExtendedProfileRequired {
 				"user" => $_SESSION['user']->id,
 				"partner" => $_SESSION['myEurope']->profile,
 			);
+		
+		if (!empty($_POST['date'])){
+			$data['expirationDate'] = $_POST['date'];
+			$metadata['expirationDate'] = $_POST['date'];
+		}
 		
 		$id = hash("md5", $t.$_SESSION['user']->id);
 		
@@ -89,10 +94,11 @@ class PublishController extends ExtendedProfileRequired {
 			//redirect to search with the indexes
 			unset($_POST['text']);
 			unset($_POST['action']);
-			
+			debug_r($index);
 			$this->req = "";
 			debug("post suc");
 			debug(json_encode($_POST));
+			unset($_POST['cat']);
 			$get_line = "";
 			foreach($_POST as $key=>$value){
 				$this->req .= '&' . $key . '=' . $value;

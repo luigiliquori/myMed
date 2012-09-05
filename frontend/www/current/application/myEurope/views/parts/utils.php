@@ -14,7 +14,7 @@ function tabs($tabs, $activeTab) {
 	?> 	
 	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
 	<ul>
-		<li><a href="?action=logout" rel="external" data-icon="back"><?= _("Exit") ?></a></li>
+		<li><a href="/application/myMed" data-role="button" data-ajax="false" data-icon="back"><?= _("Exit") ?></a></li>
 		<? foreach ($tabs as $id => $v) { ?>
 		<li>
 			<a 

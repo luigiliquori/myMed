@@ -22,13 +22,13 @@ The following variables are available in the templates :
         Informations :
         <ul>
             <#list publication?keys as key>
-            	<#if key != 'keywords' && key != 'id' && key != 'user'>
+            	<#if key != 'keywords' && key != 'id' && key != 'user' && key != 'profile'>
 					<li><b>${key}</b>: ${publication[key]!'N/A'}</li>
 				</#if>
 			</#list>
         </ul>
         
-        Prenez contact avec celui-ci afin de confirmer son identité puis autoriser sa participation &agrave; ${application} 
+        Prenez contact avec celui-ci afin de confirmer son identit&eacute; puis autoriser sa participation &agrave; ${application} 
         en vous rendant sur l'interface Admin:
         <a href="${base_url}application/${application}/?action=Admin">
 	        	${base_url}application/${application}/?action=Admin

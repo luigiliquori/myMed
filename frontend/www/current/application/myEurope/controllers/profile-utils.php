@@ -20,9 +20,8 @@ function getProfile($handler,$id){
 	try{ $res = $find->send();
 	} catch(Exception $e){
 	}
-	if (isset($res)){
+	if (isset($res->details)){
 		$profile = $res->details;
-		$handler->success = "";
 		$users = array();
 		$partnerships = array();
 		foreach ($res->details as $k => $v){

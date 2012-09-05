@@ -33,7 +33,8 @@ class SearchController extends ExtendedProfileRequired {
 		
 		array_push($this->index, new DataBeanv2("places", ENUM, join("|",$this->places)));
 		
-		array_push($this->index, new DataBeanv2("roles", ENUM, join("|",$this->roles)));
+		if (!empty($this->roles))
+			array_push($this->index, new DataBeanv2("cats", ENUM, join("|",$this->roles)));
 		
 		if ($_GET['call']!="")
 			array_push($this->index, new DataBeanv2("call", ENUM, $_GET['call']));
@@ -64,11 +65,12 @@ class SearchController extends ExtendedProfileRequired {
 		
 		$this->suggestions = array();
 		function addvaluelashes($o){
-			return addslashes($o->value);
+			$o->value = addslashes($o->value);
+			return $o;
 		}
-		
+		debug_r($this->index);
 		$this->index = array_map("addvaluelashes", $this->index); //for ajax subscribe
-		
+		debug_r($this->index);
 		// Render the view			
 		$this->renderView("Results");
 		

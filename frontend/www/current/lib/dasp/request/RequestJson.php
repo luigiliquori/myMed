@@ -15,7 +15,6 @@
 * limitations under the License.
 */
 
-
 /**
  *
  */
@@ -85,7 +84,6 @@ class RequestJson {
 		if($curl === false) {
 			trigger_error('Unable to init CURL : ', E_USER_ERROR);
 		}
-
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		
 		$this->arguments['code'] = $this->method;

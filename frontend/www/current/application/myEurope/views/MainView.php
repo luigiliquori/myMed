@@ -53,14 +53,6 @@ function tab_bar_white($activeTab) {
 	<div data-role="content" style="text-align:center;">
 		<?= printMyProfile($_SESSION['myEuropeProfile']) ?>
 
-		<fieldset data-role="controlgroup" style="display:inline-block;width: 50%;">
-			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-a" value="fr" <?= $_SESSION["user"]->lang == "fr"?"checked='checked'":"" ?>/>
-			<label for="radio-view-a"><?= _('French') ?></label>
-			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-b" value="it" <?= $_SESSION["user"]->lang == "it"?"checked='checked'":"" ?>/>
-			<label for="radio-view-b"><?= _('Italian') ?></label>
-			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-e" value="en" <?= $_SESSION["user"]->lang == "en"?"checked='checked'":"" ?>/>
-			<label for="radio-view-e"><?= _('English') ?></label>
-		</fieldset>
 		<br />
 		<fieldset data-role="controlgroup" style="display:inline-block;width: 50%;">
 			<a type="button" href="?action=ExtendedProfile&edit=false"  data-theme="d" data-icon="grid" style="text-align: left;"><?= _('Edit my profile') ?></a>
@@ -168,8 +160,8 @@ function tab_bar_white($activeTab) {
 				
 					<div data-role="collapsible">
 						<h3><?= _("France") ?></h3>
-						<input type="checkbox" id="checkbox-all2" />
-						<label for="checkbox-all2"><?= _('All') ?></label>
+						<input type="checkbox" id="checkbox-all3" />
+						<label for="checkbox-all3"><?= _('All') ?></label>
 						
 						<input type="checkbox" name="Ain" id="checkbox-10b"/>
 						<label for="checkbox-10b">Ain</label>
@@ -313,8 +305,8 @@ function tab_bar_white($activeTab) {
 				
 			<input type="hidden" name="action" value="Publish" />
 			<input type="hidden" name="namespace" value="part" />
-			<?= debug_r($this->cats[$_SESSION['myEuropeProfile']->role]); ?>
-			<input type="hidden" name="cat" value="<?= $_SESSION['myEuropeProfile']->role ?>" />
+			<?= debug($this->cats[$_SESSION['myEuropeProfile']->role]) ?>
+			<input type="hidden" name="cat" value="<?= $this->cats[$_SESSION['myEuropeProfile']->role] ?>" />
 			
 			<div data-role="fieldcontain">
 			<fieldset data-role="controlgroup">

@@ -115,7 +115,7 @@ class ExtendedProfileController extends AuthenticatedController
 		$subscribe->send();
 		//subscribe to our organization profile
 		$subscribe = new RequestJson( $this,
-				array("application"=>APPLICATION_NAME.":profiles", "id"=>$profile, "user"=> $_SESSION['user']->id, "mailTemplate"=>APPLICATION_NAME.":userUpdate"),
+				array("application"=>APPLICATION_NAME.":profiles", "id"=>$profile, "user"=> $_SESSION['user']->id, "mailTemplate"=>APPLICATION_NAME.":profileUpdate"),
 				CREATE, "v2/SubscribeRequestHandler");
 		$subscribe->send();
 		
