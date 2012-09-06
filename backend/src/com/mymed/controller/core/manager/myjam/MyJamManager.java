@@ -104,11 +104,8 @@ public class MyJamManager extends AbstractManager{
 			/**
 			 * Column insertion in CF ActiveReport 
 			 **/
-			//((GeoLocStorageManager) storageManager).insertExpiringColumn("ActiveReport", userProfile.getId(), null, reportId.asByteBuffer().array(), 
-			//		new byte[0], //The value field is not used.
-			//		timestamp, ReportType.valueOf(report.getReportType()).permTime);
 			((GeoLocStorageManager) storageManager).insertExpiringColumn("ActiveReport", userProfile.getId(), null, reportId.asByteBuffer().array(), 
-					MConverter.longToByteBuffer(123).array(), //The value field is not used.
+					new byte[0], //The value field is not used.
 					timestamp, ReportType.valueOf(report.getReportType()).permTime);
 			/**
 			 * Columns insertion in CF Report 

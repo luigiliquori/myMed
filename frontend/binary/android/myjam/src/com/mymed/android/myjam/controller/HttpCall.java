@@ -1,7 +1,19 @@
+/*
+ * Copyright 2012 POLITO 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+*/
 package com.mymed.android.myjam.controller;
-
-
-
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -205,11 +217,17 @@ public class HttpCall extends CallContract implements Runnable {
 				if (object.has("description")){
 					//JSONObject errObj = object.getJSONObject("error");
 					message = object.getString("description");
-				}				
-				if (statusCode==HttpStatus.SC_INTERNAL_SERVER_ERROR)
+				} 
+				else {
+					message = "";
+				}
+				if (statusCode==HttpStatus.SC_INTERNAL_SERVER_ERROR) {
+					message = "Internal server error. " + message;
 					throw new InternalBackEndException(message);
-				else
-					throw new IOBackEndException(message,404);				
+				}
+				else {
+					throw new IOBackEndException(message,404);
+				}				
 			case HttpStatus.SC_OK:
 				if (handler!=null)
 					handler.callSuccess(id,responseContent);
@@ -224,7 +242,6 @@ public class HttpCall extends CallContract implements Runnable {
 			}else{
 				handler.callError(id,e.getStatus(),message);
 			}
-			Log.d(TAG, message);
 		} catch (Exception e) {
 			if (mStopped){
 				message = CALL_INTERRUPTED+id;

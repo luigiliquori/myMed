@@ -1,10 +1,23 @@
+/*
+ * Copyright 2012 POLITO 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+*/
 package com.mymed.android.myjam.service;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -12,9 +25,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
+import com.google.mygson.Gson;
+import com.google.mygson.JsonSyntaxException;
+import com.google.mygson.reflect.TypeToken;
 import com.mymed.android.myjam.controller.CallContract;
 import com.mymed.android.myjam.controller.CallContract.CallCode;
 import com.mymed.android.myjam.controller.CallManager;
@@ -34,7 +47,7 @@ import com.mymed.android.myjam.provider.MyJamContract.SearchResult;
 import com.mymed.android.myjam.provider.MyJamContract.Update;
 import com.mymed.android.myjam.provider.MyJamContract.UpdatesRequest;
 import com.mymed.android.myjam.provider.MyJamContract.User;
-import com.mymed.model.data.myjam.MFeedBackBean;
+import com.mymed.model.data.myjam.MFeedbackBean;
 import com.mymed.model.data.myjam.MReportBean;
 import com.mymed.model.data.myjam.MSearchBean;
 import com.mymed.model.data.user.MUserBean;
@@ -59,6 +72,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.RemoteException;
 import android.util.Log;
+import android.util.SparseArray;
 
 /**
  * Service that handles the requests to the front-end.
@@ -115,7 +129,7 @@ public class CallService extends Service {
     
     private volatile Looper mServiceLooper;
     private volatile ServiceHandler mServiceHandler;    
-    private volatile Map<Integer, HttpCall> mCallsMap;
+    private volatile SparseArray<HttpCall> mCallsMap;
     /** List of calls that are waiting for network connection. */
     private Queue<HttpCall> mWaitingCalls;
     /** Boolean flag that holds the connection state of the device. 
@@ -293,7 +307,7 @@ public class CallService extends Service {
         mServiceLooper = thread.getLooper();
         mServiceHandler = new ServiceHandler(mServiceLooper);
         /** Creates the maps to store MCallBean objects.*/
-        mCallsMap = new HashMap<Integer,HttpCall>();
+        mCallsMap = new SparseArray<HttpCall>();
     }
     
     /**
@@ -634,7 +648,7 @@ public class CallService extends Service {
 		for (MSearchBean currShortRep:listSearchRep){
 			currVal = new ContentValues();
 			currVal.put(SearchResult.REPORT_ID, currShortRep.getId());
-			currVal.put(SearchResult.DISTANCE, currShortRep.getDistance());
+			currVal.put(SearchResult.DISTANCE, currShortRep.getDistanceAsInt());
 			currVal.put(SearchResult.SEARCH_ID, searchId);
 			batch.add(ContentProviderOperation.newInsert(SearchResult.CONTENT_URI).withValues(currVal).build());
 			currVal = new ContentValues();
@@ -770,10 +784,10 @@ public class CallService extends Service {
     	final ArrayList<ContentProviderOperation> batch;
     	
     	String jsonData = extractData(message,"feedbacks");
-		Type feedListType = new TypeToken<List<MFeedBackBean>>(){}.getType();
-		List<MFeedBackBean> listFeedBacks = this.gson.fromJson(jsonData, feedListType);
+		Type feedListType = new TypeToken<List<MFeedbackBean>>(){}.getType();
+		List<MFeedbackBean> listFeedBacks = this.gson.fromJson(jsonData, feedListType);
     	batch = new ArrayList<ContentProviderOperation> (listFeedBacks.size());
-    	for (MFeedBackBean currFeedBack:listFeedBacks){
+    	for (MFeedbackBean currFeedBack:listFeedBacks){
     		ContentValues currVal = new ContentValues();
     		currVal.put(Feedback.USER_ID, currFeedBack.getUserId());
     		currVal.put(callCode==CallCode.GET_REPORT_FEEDBACKS?Feedback.REPORT_ID:Feedback.UPDATE_ID, reportOrUpdateId);
@@ -789,8 +803,8 @@ public class CallService extends Service {
     private void handleInsertFeedback(String message, Bundle attributes, int callCode)
     		throws RemoteException, OperationApplicationException, InternalBackEndException{
     	String jsonData = extractData(message,"feedback");
-		Type feedType = new TypeToken<MFeedBackBean>(){}.getType();
-		MFeedBackBean feedback = this.gson.fromJson(jsonData, feedType);
+		Type feedType = new TypeToken<MFeedbackBean>(){}.getType();
+		MFeedbackBean feedback = this.gson.fromJson(jsonData, feedType);
     	
 		String reportId = attributes.getString(CallContract.REPORT_ID);
 		String updateId = attributes.getString(CallContract.UPDATE_ID);

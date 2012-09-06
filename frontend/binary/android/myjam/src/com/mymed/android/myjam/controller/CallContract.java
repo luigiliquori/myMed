@@ -1,3 +1,18 @@
+/*
+ * Copyright 2012 POLITO 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+*/
 package com.mymed.android.myjam.controller;
 
 public abstract class CallContract {
@@ -34,9 +49,9 @@ public abstract class CallContract {
 
 	public static final String FRONTEND_URL = "http://mymed.fr/";
 	//protected static final String BACKEND_URL = "http://10.0.2.2:8080/mymed_backend/"; //Testing purposes.	
-	protected static final String BACKEND_URL = "http://mymed38.polito.it:8081/backend/"; //Italian backbone.
+	protected static final String BACKEND_URL = "https://mymed38.polito.it:8080/backend/"; //Italian backbone.
+	//protected static final String BACKEND_URL = "http://mymed38.polito.it:8081/backend/"; //Italian backbone.
 	//protected static final String BACKEND_URL = "https://mymed39.polito.it:8081/backend/"; //Production backbone.
-	//protected static final String BACKEND_URL = "https://mymed38.polito.it:8080/backend/"; //testbackbone.
 	protected static final String PROFILE_HANDLER_URL = BACKEND_URL+"ProfileRequestHandler";
 	protected static final String AUTHENTICATION_HANDLER_URL = BACKEND_URL+"AuthenticationRequestHandler";
 	protected static final String SESSION_HANDLER_URL = BACKEND_URL+"SessionRequestHandler";

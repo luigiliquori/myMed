@@ -1,21 +1,6 @@
-/*
- * Copyright 2012 POLITO 
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
-*/
-package com.mymed.model.data.myjam;
+//package com.mymed.data.id;
+package com.mymed.id;
 
-import java.io.UnsupportedEncodingException;
 import java.nio.BufferUnderflowException;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
@@ -24,22 +9,30 @@ import java.nio.charset.Charset;
 
 /**
  * Class used to identify a report.
+ * 
+ * Format of the identifier:
+ * 	-Textual representation:
+ * 	<char><userId>_<timestamp>
+ * 
+ *  -Raw bytes representation:
+ *  <char(2 Bytes)><timestamp(8 Bytes)><userId(1 Byte for each character)> 
  * @author iacopo
  *
  */
-public class MyJamId {
-	public final static char REPORT_ID = 'r';
-	public final static char UPDATE_ID = 'u';
-	public final static char FEEDBACK_ID = 'f';
+public class MyMedId {
+	//The identifier has been generalized.
+//	public final static char REPORT_ID = 'r';
+//	public final static char UPDATE_ID = 'u';
+//	public final static char FEEDBACK_ID = 'f';
 	private long timestamp;
 	private String userId;
 	private char type;
 	
-	private static String CHARSET_NAME = "UTF8";
-	private static Charset CHARSET = Charset.forName(CHARSET_NAME);
+	private static Charset CHARSET = Charset.forName("UTF8");
 	private static short LONG_BYTESIZE = 8;
 	private static short CHAR_BYTESIZE = 2;
-	private static char SEPARATOR_CHAR = ':';
+	//private static char SEPARATOR_CHAR = '_';
+	private static char SEPARATOR_CHAR = ':'; //CR 2012
 	
 	/**
 	 * Public constructor.
@@ -47,7 +40,7 @@ public class MyJamId {
 	 * @param userId
 	 * @throws IllegalArgumentException
 	 */
-	public MyJamId(char type,long timestamp,String userId) throws IllegalArgumentException{
+	public MyMedId(char type,long timestamp,String userId) throws IllegalArgumentException{
 		this.type = type;
 		this.timestamp = timestamp;  //Removed check
 		this.userId = userId;
@@ -63,10 +56,9 @@ public class MyJamId {
 	/**
 	 * Return a ByteBuffer representation of the ReportId
 	 * @return 
-	 * @throws UnsupportedEncodingException 
 	 */
-	public ByteBuffer ReportIdAsByteBuffer() throws UnsupportedEncodingException{
-		byte[] userIdBB = userId.getBytes(CHARSET_NAME);
+	public ByteBuffer ReportIdAsByteBuffer(){
+		byte[] userIdBB = userId.getBytes(CHARSET);
 		int size = userIdBB.length;
 		size += LONG_BYTESIZE;
 		size += CHAR_BYTESIZE;
@@ -84,14 +76,14 @@ public class MyJamId {
 	 * Parse the ByteBuffer argument and returns a ReportId object
 	 * @return ReportIdObject
 	 */
-	public static MyJamId parseByteBuffer(ByteBuffer arg0) throws WrongFormatException{
+	public static MyMedId parseByteBuffer(ByteBuffer arg0) throws WrongFormatException{
 		try{
 			ByteBuffer tmp = arg0.slice();
 			char type = tmp.getChar();
 			long timestamp = tmp.getLong();
 			final CharBuffer charBuf = CHARSET.newDecoder().decode(tmp);
 			String userId = charBuf.toString();
-			return new MyJamId(checkType(type),checkTimestamp(timestamp),
+			return new MyMedId(type,checkTimestamp(timestamp),
 					checkUserId(userId));
 		}catch(CharacterCodingException e){
 			throw new WrongFormatException("ReportId: Character decoding error.");	
@@ -106,13 +98,13 @@ public class MyJamId {
 	 * Parse the ByteBuffer argument and returns a ReportId object
 	 * @return ReportIdObject
 	 */
-	public static MyJamId parseString(String arg0) throws WrongFormatException{
+	public static MyMedId parseString(String arg0) throws WrongFormatException{
 		try{
 			char type = arg0.charAt(0);
 			int sepIndex = arg0.lastIndexOf(SEPARATOR_CHAR);
 			String userId = arg0.substring(1,sepIndex);
 			long timestamp = Long.parseLong(arg0.substring(sepIndex+1, arg0.length()));
-			return new MyJamId(checkType(type),checkTimestamp(timestamp),
+			return new MyMedId(type,checkTimestamp(timestamp),
 					checkUserId(userId));
 		}catch(NumberFormatException e){
 			throw new WrongFormatException("ReportId: Parsing error.");	
@@ -159,15 +151,15 @@ public class MyJamId {
 		return userId;
 	}
 	
-	private static char checkType(char type)  throws WrongFormatException {
-		switch (type){
-			case REPORT_ID:
-			case UPDATE_ID:
-			case FEEDBACK_ID:
-				return type;
-			default:
-				throw new WrongFormatException("Wrong type.");
-		}
-	}
+//	private static char checkType(char type)  throws WrongFormatException {
+//		switch (type){
+//			case REPORT_ID:
+//			case UPDATE_ID:
+//			case FEEDBACK_ID:
+//				return type;
+//			default:
+//				throw new WrongFormatException("Wrong type.");
+//		}
+//	}
 
 }

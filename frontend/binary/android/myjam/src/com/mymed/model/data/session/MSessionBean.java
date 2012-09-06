@@ -4,6 +4,11 @@ import com.mymed.model.data.AbstractMBean;
 
 public class MSessionBean extends AbstractMBean {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5523663529857214623L;
+
+	/**
 	 * Used for the calculation of the hash code
 	 */
 	private static final int PRIME = 31;

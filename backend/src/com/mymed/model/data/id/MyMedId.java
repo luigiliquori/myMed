@@ -34,7 +34,7 @@ public final class MyMedId implements Cloneable {
     private static final int LONG_BYTESIZE = 8;
     private static final int CHAR_BYTESIZE = 2;
     //private static final char SEPARATOR_CHAR = '_';
-    private static final char SEPARATOR_CHAR = '#'; //CR 2012
+    private static final char SEPARATOR_CHAR = ':'; //CR 2012
     private final long timestamp;
     private final String userId;
     private final char type;
